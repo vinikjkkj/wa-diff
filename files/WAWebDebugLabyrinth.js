@@ -132,21 +132,12 @@ __d(
     ((w.doc =
       "Fetches WA Labyrinth inbox snapshot threads/messages, logs the simplified response, and returns it."),
       (w.paramsToExecute = []));
-    function F(e, t) {
-      return babelHelpers.extends({}, e, {
-        device: babelHelpers.extends({}, e.device, {
-          device_registration_id: t.deviceRegistrationId,
-          device_id: t.deviceId,
-          family_device_id: t.familyDeviceId,
-        }),
-      });
+    function F() {
+      return O.apply(this, arguments);
     }
     function O() {
-      return B.apply(this, arguments);
-    }
-    function B() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebLabyrinthWasmCreateBackup").createBackupWasm();
           if (!e.success)
             return (
@@ -164,7 +155,7 @@ __d(
                 "[Debug][Labyrinth] createBackupWasm success",
               ])),
           );
-          var t = F(e.value, M());
+          var t = M();
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -174,7 +165,7 @@ __d(
           try {
             var n = yield o(
                 "WAWebMexCreateLabyrinthBackupJob",
-              ).mexCreateLabyrinthBackup(t),
+              ).mexCreateLabyrinthBackup(e.value, t),
               r = n.xwa2_labyrinth_create_backup;
             return (
               (r == null ? void 0 : r.__typename) ===
@@ -222,17 +213,17 @@ __d(
             );
           }
         })),
-        B.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    O.doc =
+    F.doc =
       "Generate Labyrinth backup data with Wasm and call xwa2_labyrinth_create_backup";
-    function W(e) {
-      return q.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function q() {
+    function W() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msg,
             n = e.threadId,
             a = P(),
@@ -278,12 +269,7 @@ __d(
                 "[Debug][Labyrinth] encryptMessageWasm success",
               ])),
           );
-          var I = {
-            device_id: i,
-            epoch_id: s,
-            family_device_id: i,
-            messages: [k.value],
-          };
+          var I = { deviceId: i, epochId: s, familyDeviceId: i };
           o("WALogger").LOG(
             C ||
               (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -293,7 +279,7 @@ __d(
           try {
             var T = yield o(
                 "WAWebMexUploadLabyrinthMessagesJob",
-              ).mexUploadLabyrinthMessages(I),
+              ).mexUploadLabyrinthMessages([k.value], I),
               D = T.xwa2_labyrinth_upload_messages;
             return (
               (D == null ? void 0 : D.__typename) ===
@@ -334,17 +320,17 @@ __d(
             );
           }
         })),
-        q.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    W.doc =
+    B.doc =
       "Encrypt one text message for a thread with Wasm and batch-upload it through xwa2_labyrinth_upload_messages. Example: Debug.labyrinthEncryptAndUploadMessage({threadId, msg})";
-    var U = {
-      labyrinthCreateBackupWasm: O,
-      labyrinthEncryptAndUploadMessage: W,
+    var q = {
+      labyrinthCreateBackupWasm: F,
+      labyrinthEncryptAndUploadMessage: B,
       labyrinthInboxSnapshot: w,
     };
-    l.default = U;
+    l.default = q;
   },
   98,
 );

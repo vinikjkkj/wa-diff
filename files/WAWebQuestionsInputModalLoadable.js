@@ -1,7 +1,6 @@
 __d(
   "WAWebQuestionsInputModalLoadable",
   [
-    "fbt",
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingModal.react",
@@ -10,10 +9,10 @@ __d(
     "react",
     "react-loadable",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
+      s = e || (e = o("react")),
+      u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
             "WAWebQuestionsInputModal.react",
@@ -24,17 +23,16 @@ __d(
         }),
         "QuestionsInputModal",
       ),
-      d = r("react-loadable")({
-        loader: c,
+      c = r("react-loadable")({
+        loader: u,
         loading: function (t) {
-          return u.jsx(r("WAWebLoadingModal.react"), {
+          return s.jsx(r("WAWebLoadingModal.react"), {
             theme: o("WAWebModal.react").ModalTheme.Questions,
-            title: s._(/*BTDS*/ "Question input modal"),
             error: !!t.error,
           });
         },
       });
-    l.QuestionsInputModalLoadable = d;
+    l.QuestionsInputModalLoadable = c;
   },
-  226,
+  98,
 );

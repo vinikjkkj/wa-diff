@@ -3,6 +3,7 @@ __d(
   [
     "WebBloksLogEvent",
     "WebBloksLogEventCritical",
+    "WebBloksLogEventImmediately",
     "WebBloksOpenFRXAction",
     "WebBloksQPLMarkerAnnotateV2",
     "WebBloksQPLMarkerEndV3",
@@ -21,6 +22,7 @@ __d(
       "bk.action.OpenFRXAction": r("WebBloksOpenFRXAction"),
       "bk.action.logging.LogEvent": r("WebBloksLogEvent"),
       "bk.action.logging.LogEventCritical": r("WebBloksLogEventCritical"),
+      "bk.action.logging.LogEventImmediately": r("WebBloksLogEventImmediately"),
       "bk.action.qpl.MarkerAnnotateV2": r("WebBloksQPLMarkerAnnotateV2"),
       "bk.action.qpl.MarkerEndV3": r("WebBloksQPLMarkerEndV3"),
       "bk.action.qpl.MarkerPointV2": r("WebBloksQPLMarkerPointV2"),

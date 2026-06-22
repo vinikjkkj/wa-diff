@@ -6,26 +6,28 @@ __d(
       var t = e.baseMessage,
         n = e.messageProtobuf,
         r = e.msgContext,
-        a = e.rcat,
-        i = n.extendedTextMessage;
+        a = e.msgMeta,
+        i = e.rcat,
+        l = n.extendedTextMessage;
       if (
-        i != null &&
-        o("WAWebParseExtendedTextMessageProtoUtils").isUrlExtendedTextMessage(i)
+        l != null &&
+        o("WAWebParseExtendedTextMessageProtoUtils").isUrlExtendedTextMessage(l)
       ) {
-        var l = o(
+        var s = o(
             "WAWebParseExtendedTextMessageProtoUtils",
           ).parseExtendedTextMessageProto({
             messageProtobuf: n,
             baseMessage: t,
             msgContext: r,
+            msgMeta: a,
           }),
-          s = babelHelpers.extends({}, t, l == null ? void 0 : l.msgData, {
+          u = babelHelpers.extends({}, t, s == null ? void 0 : s.msgData, {
             type: o("WAWebMsgType").MSG_TYPE.CHAT,
             kind: o("WAWebMsgType").MsgKind.Chat,
             subtype: "url",
-            rcat: a,
+            rcat: i,
           });
-        return { msgData: s, contextInfo: i == null ? void 0 : i.contextInfo };
+        return { msgData: u, contextInfo: l == null ? void 0 : l.contextInfo };
       }
     }
     l.default = e;

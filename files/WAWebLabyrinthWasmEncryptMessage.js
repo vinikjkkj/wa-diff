@@ -36,15 +36,14 @@ __d(
     }
     function c(e, t) {
       return {
-        encrypted_payload: o("WABase64").encodeB64(e.encryptedProtobuf),
-        offline_threading_id: o("WALongInt").longIntToDecimalString(
+        encryptedPayload: o("WABase64").encodeB64(e.encryptedProtobuf),
+        offlineThreadingId: o("WALongInt").longIntToDecimalString(
           e.offlineThreadingId,
         ),
-        operation_type: "UPSERT",
-        orf_thread_id: o("WABase64").encodeB64(e.orfThreadId),
-        thread_type: t,
+        orfThreadId: o("WABase64").encodeB64(e.orfThreadId),
+        threadType: t,
         timestamp: o("WALongInt").longIntToDecimalString(e.timestampMs),
-        value_secret_ref: e.valueSecretRef,
+        valueSecretRef: e.valueSecretRef,
       };
     }
     function d(e) {
@@ -82,9 +81,11 @@ __d(
                 },
               },
             );
-          if (!a.success) return a;
-          var i = c(a.value, (n = t.threadType) != null ? n : "ONE_TO_ONE");
-          return o("WAResultOrError").makeResult(i);
+          return a.success
+            ? o("WAResultOrError").makeResult(
+                c(a.value, (n = t.threadType) != null ? n : "ONE_TO_ONE"),
+              )
+            : a;
         })),
         m.apply(this, arguments)
       );

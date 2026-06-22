@@ -429,13 +429,13 @@ __d(
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/catalog/([0-9]{0,20})(/?.*)?$",
         "i",
-      ),
-      Be = function (t) {
-        return [we, Ae, Fe, Oe].some(function (e) {
-          return t.match(e);
-        });
-      },
-      We = /^https?:\/\/wa\.me\/favorites\/?(?:\\?.*)?$/i,
+      );
+    function Be(e) {
+      return [we, Ae, Fe, Oe].some(function (t) {
+        return e.match(t);
+      });
+    }
+    var We = /^https?:\/\/wa\.me\/favorites\/?(?:\\?.*)?$/i,
       qe = new RegExp(
         "^" +
           p.ORIGIN +

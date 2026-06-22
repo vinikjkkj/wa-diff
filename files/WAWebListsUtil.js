@@ -2,6 +2,7 @@ __d(
   "WAWebListsUtil",
   [
     "fbt",
+    "WAWebABProps",
     "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebConfirmPopup.react",
@@ -16,6 +17,8 @@ __d(
     "WAWebWamEnumLabelOperations",
     "WAWebWamEnumLabelTargets",
     "WAWebWamLabelEventReporter",
+    "WDSConfirmDialog.react",
+    "WDSDialogBridge",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -100,11 +103,33 @@ __d(
         for (var l of e) r.has(l) || i.push(l);
         return { removedItems: i, addedItems: o };
       },
-      f = function (t, n, r) {
-        var e = s._(/*BTDS*/ "Delete this list?"),
-          a = s._(
-            /*BTDS*/ "Deleting a list removes it from all contacts and chats. Are you sure you want to delete this list?",
+      f = function (t, n, a) {
+        var e = s._(/*BTDS*/ "Delete this list?");
+        if (o("WAWebABProps").getABPropConfigValue("wds_web_dialog")) {
+          o("WDSDialogBridge").openWDSDialog(
+            u.jsx(r("WDSConfirmDialog.react"), {
+              title: e,
+              description: s._(
+                /*BTDS*/ "Your chats with people and groups won't be deleted.",
+              ),
+              confirmLabel: s._(/*BTDS*/ "Delete"),
+              destructive: !0,
+              onConfirm: function () {
+                o("WAWebListsActions")
+                  .deleteListAction(t, o("WDSDialogBridge").closeWDSDialog, n)
+                  .then(function () {
+                    a == null || a();
+                  });
+              },
+              onDismiss: o("WDSDialogBridge").closeWDSDialog,
+              open: !0,
+            }),
           );
+          return;
+        }
+        var i = s._(
+          /*BTDS*/ "Deleting a list removes it from all contacts and chats. Are you sure you want to delete this list?",
+        );
         o("WAWebModalManager").ModalManager.open(
           u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
             testid: "delete-list-confirm-popup",
@@ -118,11 +143,11 @@ __d(
                   n,
                 )
                 .then(function () {
-                  r == null || r();
+                  a == null || a();
                 });
             },
             onCancel: o("WAWebModalManager").closeModalManager,
-            children: a,
+            children: i,
           }),
         );
       },

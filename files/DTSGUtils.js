@@ -6,6 +6,7 @@ __d(
     "isFacebookURI",
     "isInstagramURI",
     "isMessengerDotComURI",
+    "isMetaDotComURI",
     "isOculusDotComURI",
     "isWorkplaceDotComURI",
   ],
@@ -26,6 +27,7 @@ __d(
           (n("isFacebookURI")(t) ||
             n("isInstagramURI")(t) ||
             n("isMessengerDotComURI")(t) ||
+            n("isMetaDotComURI")(t) ||
             n("isWorkplaceDotComURI")(t) ||
             n("isOculusDotComURI")(t) ||
             t.isSubdomainOfDomain("freebasics.com") ||

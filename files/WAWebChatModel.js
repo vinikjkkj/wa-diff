@@ -44,6 +44,8 @@ __d(
     "WAWebChatModelDerivedMethods",
     "WAWebChatParticipantColor",
     "WAWebChatProductMsgsCollection",
+    "WAWebChatThemeGatingUtils",
+    "WAWebChatThemeValue",
     "WAWebChatUpdates",
     "WAWebCmd",
     "WAWebCollectionConstants",
@@ -156,6 +158,8 @@ __d(
             (e.chatThemeId = o("WAWebBaseModel").prop()),
             (e.colorSchemeId = o("WAWebBaseModel").prop()),
             (e.stockWallpaperImageId = o("WAWebBaseModel").prop()),
+            (e.wallpaperValue = o("WAWebBaseModel").prop()),
+            (e.chatThemeValue = o("WAWebBaseModel").prop()),
             (e.name = o("WAWebBaseModel").prop()),
             (e.notSpam = o("WAWebBaseModel").prop()),
             (e.pin = o("WAWebBaseModel").prop()),
@@ -275,7 +279,8 @@ __d(
           (i.initialize = function () {
             var n = this,
               a;
-            t.prototype.initialize.call(this);
+            (t.prototype.initialize.call(this),
+              this.deriveThemeValueObjectsFromFlats());
             var i = o("WAWebABProps").getABPropConfigValue(
               "web_optimized_event_handlers",
             );
@@ -1386,6 +1391,7 @@ __d(
                   )) ||
                   (o("WAWebFrontendChatGetters").getKind(this) ===
                     o("WAWebChatFlowTypes").ChatKindType.Chat &&
+                    this.contact != null &&
                     o("WAWebFrontendContactGetters").getIsMyContact(
                       this.contact,
                     ) &&
@@ -1835,6 +1841,69 @@ __d(
               (this.stockWallpaperImageId = t),
               o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
                 stockWallpaperImageId: t,
+              })
+            );
+          }),
+          (i.setWallpaperValue = function (t) {
+            return (
+              (this.wallpaperValue = t),
+              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+                wallpaperValue: t,
+              })
+            );
+          }),
+          (i.setChatThemeValue = function (t) {
+            return (
+              (this.chatThemeValue = t),
+              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+                chatThemeValue: t,
+              })
+            );
+          }),
+          (i.deriveThemeValueObjectsFromFlats = function () {
+            (this.wallpaperValue == null &&
+              (this.wallpaperValue = o(
+                "WAWebChatThemeValue",
+              ).wallpaperValueFromFlat({
+                wallpaper: this.wallpaper,
+                showDoodle: this.showDoodle,
+                stockWallpaperImageId: this.stockWallpaperImageId,
+              })),
+              this.chatThemeValue == null &&
+                (this.chatThemeValue = o(
+                  "WAWebChatThemeValue",
+                ).chatThemeValueFromFlat({
+                  chatThemeId:
+                    this.chatThemeId != null ? this.chatThemeId : null,
+                  colorSchemeId:
+                    this.colorSchemeId != null ? this.colorSchemeId : null,
+                })));
+          }),
+          (i.persistDerivedThemeValuesIfNeeded = function () {
+            var e =
+              this.wallpaper != null ||
+              this.showDoodle != null ||
+              this.chatThemeId != null ||
+              this.colorSchemeId != null ||
+              this.stockWallpaperImageId != null;
+            if (!o("WAWebChatThemeGatingUtils").isChatThemesEnabled() || !e)
+              return (v || (v = n("Promise"))).resolve();
+            var t = this.chatThemeValue,
+              r = this.wallpaperValue;
+            return (
+              (this.wallpaper = null),
+              (this.showDoodle = null),
+              (this.chatThemeId = null),
+              (this.colorSchemeId = null),
+              (this.stockWallpaperImageId = null),
+              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+                wallpaperValue: r,
+                chatThemeValue: t,
+                wallpaper: null,
+                showDoodle: null,
+                chatThemeId: null,
+                colorSchemeId: null,
+                stockWallpaperImageId: null,
               })
             );
           }),

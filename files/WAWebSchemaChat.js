@@ -58,6 +58,8 @@ __d(
               r("chatThemeId"),
               r("colorSchemeId"),
               r("stockWallpaperImageId"),
+              r("wallpaperValue"),
+              r("chatThemeValue"),
               r("capiThreadControl"),
               r("capiCallingPermissionType"),
               r("createdLocally"),

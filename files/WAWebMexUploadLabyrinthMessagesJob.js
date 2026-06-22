@@ -12,19 +12,36 @@ __d(
           ? e
           : (e = n("WAWebMexUploadLabyrinthMessagesJobMutation.graphql"));
     function u(e) {
-      return c.apply(this, arguments);
+      return {
+        encrypted_payload: e.encryptedPayload,
+        offline_threading_id: e.offlineThreadingId,
+        operation_type: "UPSERT",
+        orf_thread_id: e.orfThreadId,
+        thread_type: e.threadType,
+        timestamp: e.timestamp,
+        value_secret_ref: e.valueSecretRef,
+      };
     }
-    function c() {
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = { input: e },
-            n = yield o("WAWebMexClient").fetchQuery(s, t);
-          return n;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = {
+              device_id: t.deviceId,
+              epoch_id: t.epochId,
+              family_device_id: t.familyDeviceId,
+              messages: e.map(u),
+            },
+            r = { input: n },
+            a = yield o("WAWebMexClient").fetchQuery(s, r);
+          return a;
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.mexUploadLabyrinthMessages = u;
+    l.mexUploadLabyrinthMessages = c;
   },
   98,
 );

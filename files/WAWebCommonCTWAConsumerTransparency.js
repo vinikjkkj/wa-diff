@@ -8,12 +8,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (!e.contact.isBusiness) return !1;
-      var t = o(
+      var t;
+      if (!((t = e.contact) != null && t.isBusiness)) return !1;
+      var n = o(
         "WAWebConsumerTransparencyInfoIconModel",
       ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
       return !(
-        !t &&
+        !n &&
         r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e) == null
       );
     }
@@ -29,11 +30,16 @@ __d(
       );
     }
     function u(e, t, n) {
-      if (!(t == null || n == null) && e.contact.isBusiness) {
-        var r = o(
+      var r;
+      if (
+        !(t == null || n == null) &&
+        (r = e.contact) != null &&
+        r.isBusiness
+      ) {
+        var a = o(
           "WAWebConsumerTransparencyInfoIconModel",
         ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
-        r ||
+        a ||
           (o(
             "WAWebConsumerTransparencyInfoIconModel",
           ).ConsumerTransparencyInfoIconModel.add(e.id),

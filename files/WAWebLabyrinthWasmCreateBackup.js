@@ -24,99 +24,87 @@ __d(
           : o("WAResultOrError").makeResult(e);
     }
     function u(e) {
-      var t,
-        n = (t = e.virtualDevice) == null ? void 0 : t.encryptedSecretValues;
-      return n == null
-        ? "{}"
-        : JSON.stringify({
-            encrypted_device_private_key: o("WABase64").encodeB64(
-              n.encryptedDevicePrivateKey,
-            ),
-            encrypted_epoch_anon_id: o("WABase64").encodeB64(
-              n.encryptedEpochAnonId,
-            ),
-            encrypted_epoch_root_key: o("WABase64").encodeB64(
-              n.encryptedEpochRootKey,
-            ),
-            encrypted_epoch_storage_private_key: o("WABase64").encodeB64(
-              n.encryptedEpochStoragePrivateKey,
-            ),
-            encrypted_mailbox_root_key_blob: o("WABase64").encodeB64(
-              n.encryptedMailboxRootKeyBlob,
-            ),
-            encrypted_oblivious_validation_token_blob: o("WABase64").encodeB64(
-              n.encryptedObliviousValidationTokenBlob,
-            ),
-            encrypted_ocmf_client_state: o("WABase64").encodeB64(
-              n.encryptedOcmfClientState,
-            ),
-            encrypted_orf_client_state_v2:
-              n.encryptedOrfClientStateV2 != null
-                ? o("WABase64").encodeB64(n.encryptedOrfClientStateV2)
-                : null,
-          });
-    }
-    function c(e) {
       var t = e.device,
         n = e.virtualDevice,
         r = e.epoch0,
-        a = e.mailboxRootKey;
-      return t == null || n == null || r == null || a == null
+        a = e.mailboxRootKey,
+        i = n == null ? void 0 : n.encryptedSecretValues;
+      return t == null || n == null || r == null || a == null || i == null
         ? null
         : {
             device: {
-              public_key: o("WABase64").encodeB64(t.publicKey),
-              epoch_auth_public_key: o("WABase64").encodeB64(
-                t.epochAuthPublicKey,
-              ),
-              epoch_auth_public_key_sig: o("WABase64").encodeB64(
+              publicKey: o("WABase64").encodeB64(t.publicKey),
+              epochAuthPublicKey: o("WABase64").encodeB64(t.epochAuthPublicKey),
+              epochAuthPublicKeySig: o("WABase64").encodeB64(
                 t.epochAuthPublicKeySig,
               ),
-              epoch_storage_public_key: o("WABase64").encodeB64(
+              epochStoragePublicKey: o("WABase64").encodeB64(
                 t.epochStoragePublicKey,
               ),
-              epoch_storage_public_key_sig: o("WABase64").encodeB64(
+              epochStoragePublicKeySig: o("WABase64").encodeB64(
                 t.epochStoragePublicKeySig,
               ),
-              supported_encryption_versions: t.supportedEncryptionVersions,
-              encryption_version_signature: o("WABase64").encodeB64(
+              supportedEncryptionVersions: t.supportedEncryptionVersions,
+              encryptionVersionSignature: o("WABase64").encodeB64(
                 t.encryptionVersionSignature,
               ),
-              client_version: t.clientVersion,
-              device_registration_id: null,
-              ocmf_client_state: o("WABase64").encodeB64(t.ocmfClientState),
-              device_id: null,
-              family_device_id: null,
+              clientVersion: t.clientVersion,
+              ocmfClientState: o("WABase64").encodeB64(t.ocmfClientState),
             },
-            virtual_device: {
-              vd_id: o("WABase64").encodeB64(n.vdId),
-              vd_public_key: o("WABase64").encodeB64(n.vdPublicKey),
-              vd_epoch_storage_public_key: o("WABase64").encodeB64(
+            virtualDevice: {
+              vdId: o("WABase64").encodeB64(n.vdId),
+              vdPublicKey: o("WABase64").encodeB64(n.vdPublicKey),
+              vdEpochStoragePublicKey: o("WABase64").encodeB64(
                 n.vdEpochStoragePublicKey,
               ),
-              vd_epoch_storage_public_key_sig: o("WABase64").encodeB64(
+              vdEpochStoragePublicKeySig: o("WABase64").encodeB64(
                 n.vdEpochStoragePublicKeySig,
               ),
-              encrypted_secret_values: u(e),
-              device_epoch_hmac: o("WABase64").encodeB64(n.deviceEpochHmac),
-              ocmf_rotation_token: o("WABase64").encodeB64(n.ocmfRotationToken),
-              vd_type: "OFFLINE",
+              encryptedSecretValues: {
+                encryptedDevicePrivateKey: o("WABase64").encodeB64(
+                  i.encryptedDevicePrivateKey,
+                ),
+                encryptedEpochAnonId: o("WABase64").encodeB64(
+                  i.encryptedEpochAnonId,
+                ),
+                encryptedEpochRootKey: o("WABase64").encodeB64(
+                  i.encryptedEpochRootKey,
+                ),
+                encryptedEpochStoragePrivateKey: o("WABase64").encodeB64(
+                  i.encryptedEpochStoragePrivateKey,
+                ),
+                encryptedMailboxRootKeyBlob: o("WABase64").encodeB64(
+                  i.encryptedMailboxRootKeyBlob,
+                ),
+                encryptedObliviousValidationTokenBlob: o("WABase64").encodeB64(
+                  i.encryptedObliviousValidationTokenBlob,
+                ),
+                encryptedOcmfClientState: o("WABase64").encodeB64(
+                  i.encryptedOcmfClientState,
+                ),
+                encryptedOrfClientStateV2:
+                  i.encryptedOrfClientStateV2 != null
+                    ? o("WABase64").encodeB64(i.encryptedOrfClientStateV2)
+                    : null,
+              },
+              deviceEpochHmac: o("WABase64").encodeB64(n.deviceEpochHmac),
+              ocmfRotationToken: o("WABase64").encodeB64(n.ocmfRotationToken),
             },
-            epoch_0: {
-              epoch_anon_id: o("WABase64").encodeB64(r.epochAnonId),
-              epoch_data: o("WABase64").encodeB64(r.epochData),
-              wrapped_root_key_for_self: o("WABase64").encodeB64(
+            epoch0: {
+              epochAnonId: o("WABase64").encodeB64(r.epochAnonId),
+              epochData: o("WABase64").encodeB64(r.epochData),
+              wrappedRootKeyForSelf: o("WABase64").encodeB64(
                 r.wrappedRootKeyForSelf,
               ),
-              epoch_signature: o("WABase64").encodeB64(r.epochSignature),
-              epoch_root_key_fingerprint: o("WABase64").encodeB64(
+              epochSignature: o("WABase64").encodeB64(r.epochSignature),
+              epochRootKeyFingerprint: o("WABase64").encodeB64(
                 r.epochRootKeyFingerprint,
               ),
             },
-            mailbox_root_key: o("WABase64").encodeB64(a),
+            mailboxRootKey: o("WABase64").encodeB64(a),
           };
     }
-    function d(e) {
+    function c(e) {
       var t = e.device,
         n = e.virtualDevice,
         r = e.epoch0,
@@ -136,12 +124,12 @@ __d(
           orfClientState: o("WABase64").encodeB64(t.ocmfClientState),
         });
     }
-    function m() {
-      return p.apply(this, arguments);
+    function d() {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o(
             "EBLabyrinthWaWasmReactorSingleton",
           ).labyrinthWaCommand(
@@ -160,16 +148,16 @@ __d(
             },
           );
           if (!t.success) return t;
-          d(t.value);
-          var n = c(t.value);
+          c(t.value);
+          var n = u(t.value);
           return n == null
             ? o("WAResultOrError").makeError("missing-output")
             : o("WAResultOrError").makeResult(n);
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.createBackupWasm = m;
+    l.createBackupWasm = d;
   },
   98,
 );

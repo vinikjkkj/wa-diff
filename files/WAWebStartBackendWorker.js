@@ -26,6 +26,7 @@ __d(
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebSyncdOrphanWorkerCompatible",
+    "WAWebUA",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsMultiDevice",
@@ -486,12 +487,17 @@ __d(
             var b,
               S = (c || (c = n("Promise"))).resolve();
             if (l === !0) {
-              var R = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
-                r("WAWebBackendWorkerV2Resource"),
-                f,
-                m,
-              );
-              ((S = R.initReady), (b = R.worker));
+              var R =
+                  o("WAWebUA").UA.isFirefox &&
+                  parseInt(o("WAWebUA").UA.browserVersion.split(".")[0], 10) <=
+                    115,
+                L = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
+                  r("WAWebBackendWorkerV2Resource"),
+                  f,
+                  m,
+                  R,
+                );
+              ((S = L.initReady), (b = L.worker));
             } else
               b = o("WorkerBundleResource").createDedicatedWebWorker(
                 r("WAWebBackendWorkerResource"),
@@ -499,14 +505,14 @@ __d(
             (_.addPoint("worker_connect_start"),
               yield c.all([S, v(b)]),
               _.addPoint("worker_connect_end"));
-            var L;
+            var E;
             o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
-              ? (L = yield o(
+              ? (E = yield o(
                   "WAWebBackendWorkerClient",
                 ).getBackendWorkerBridge())
-              : (L = h());
-            var E = g(b);
-            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(L, E, [
+              : (E = h());
+            var k = g(b);
+            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(E, k, [
               "historySync",
               "deviceSync",
               "crypto",
@@ -517,13 +523,13 @@ __d(
               "userPrefs",
               "workerInit",
             ]),
-              o("WAWebBackendWorkerClient").setBackendWorkerBridge(L),
+              o("WAWebBackendWorkerClient").setBackendWorkerBridge(E),
               u
                 ? (_.addPoint("init_data_start"),
-                  yield o("WAWebBackendWorkerInitState").sendInitState(L),
+                  yield o("WAWebBackendWorkerInitState").sendInitState(E),
                   _.addPoint("init_data_end"))
                 : (_.addPoint("init_data_triggered"),
-                  o("WAWebBackendWorkerInitState").sendInitState(L)),
+                  o("WAWebBackendWorkerInitState").sendInitState(E)),
               _.addPoint("create_worker_end"),
               _.endSuccess(),
               o("WALogger").LOG(
@@ -549,10 +555,10 @@ __d(
                       },
                     )));
           } catch (e) {
-            var k,
-              I = (k = t == null ? void 0 : t.retryInit) != null ? k : 0;
-            I < y && globalThis.navigator.locks != null
-              ? (_.addPoint("retry_" + I), C({ qpl: _, retryInit: I + 1 }))
+            var I,
+              T = (I = t == null ? void 0 : t.retryInit) != null ? I : 0;
+            T < y && globalThis.navigator.locks != null
+              ? (_.addPoint("retry_" + T), C({ qpl: _, retryInit: T + 1 }))
               : (o("WALogger")
                   .ERROR(
                     s ||

@@ -1,9 +1,12 @@
 __d(
   "WAWebSyncButtonState",
   [
+    "WALogger",
     "WANullthrows",
     "WAWebBizInteractiveMessageQuickReplyAction",
     "WAWebFrontendMsgGetters",
+    "WAWebGetInteractiveCtaActions",
+    "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgButtonReplyMsgCollection",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
@@ -11,17 +14,19 @@ __d(
     "WAWebQuotedMsgModelUtils",
     "WAWebTemplateButtonReplyMsgCollection",
     "WAWebUserPrefsMeUser",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      (s(e), u(e), c(e));
+    var e, s;
+    function u(e) {
+      (c(e), d(e), m(e), p(e));
     }
-    function s(e) {
+    function c(e) {
       for (
         var t = function () {
             var t = e[a];
             if (!t || t.selectedCarouselCardIndex != null) return 0;
-            if (d(t)) {
+            if (h(t)) {
               var n = o("WAWebFrontendMsgGetters").getChat(t);
               n.msgUnsyncedButtonReplyMsgs == null &&
                 (n.msgUnsyncedButtonReplyMsgs = new (r(
@@ -42,24 +47,24 @@ __d(
               var u = r("WANullthrows")(s),
                 c = u.unsyncedButtonReplies;
               c.add(t);
-              var m = o("WAWebMsgCollection").MsgCollection.get(l.id);
-              if (m != null && m.buttons) {
-                var p = m.buttons.get("" + r("WANullthrows")(t.selectedIndex));
-                (p && (p.selected = !0), c.remove(t));
+              var d = o("WAWebMsgCollection").MsgCollection.get(l.id);
+              if (d != null && d.buttons) {
+                var m = d.buttons.get("" + r("WANullthrows")(t.selectedIndex));
+                (m && (m.selected = !0), c.remove(t));
               }
             } else if (t.isFromTemplate && t.buttons) {
-              var _ = o("WAWebFrontendMsgGetters").getChat(t),
-                f = _.msgUnsyncedButtonReplyMsgs;
-              if (f == null) return 0;
-              var g = f.get(t.id);
-              g &&
-                (g.unsyncedButtonReplies.forEach(function (e) {
+              var p = o("WAWebFrontendMsgGetters").getChat(t),
+                _ = p.msgUnsyncedButtonReplyMsgs;
+              if (_ == null) return 0;
+              var f = _.get(t.id);
+              f &&
+                (f.unsyncedButtonReplies.forEach(function (e) {
                   var n = r("WANullthrows")(t.buttons).get(
                     "" + r("WANullthrows")(e.selectedIndex),
                   );
                   n && (n.selected = !0);
                 }),
-                g.unsyncedButtonReplies.delete());
+                f.unsyncedButtonReplies.delete());
             }
           },
           n,
@@ -69,7 +74,7 @@ __d(
       )
         n = t();
     }
-    function u(e) {
+    function d(e) {
       for (
         var t = function () {
             var t = e[r];
@@ -77,7 +82,7 @@ __d(
             if (
               t.type === o("WAWebMsgType").MSG_TYPE.BUTTONS_RESPONSE &&
               t.selectedButtonId != null &&
-              m(t)
+              y(t)
             ) {
               var n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
               if (!n) return 0;
@@ -107,7 +112,7 @@ __d(
                   return (
                     e.type === o("WAWebMsgType").MSG_TYPE.BUTTONS_RESPONSE &&
                     e.selectedButtonId != null &&
-                    m(e) &&
+                    y(e) &&
                     ((n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e)) ==
                     null
                       ? void 0
@@ -132,12 +137,12 @@ __d(
       )
         n = t();
     }
-    function c(e) {
+    function m(e) {
       for (
         var t = function () {
             var t = e[a];
             if (!t) return 0;
-            if (d(t) && t.selectedCarouselCardIndex != null) {
+            if (h(t) && t.selectedCarouselCardIndex != null) {
               var n = r("WANullthrows")(t.selectedCarouselCardIndex),
                 i = r("WANullthrows")(t.selectedIndex),
                 l = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
@@ -168,14 +173,14 @@ __d(
                   0,
                   o("WAWebFrontendMsgGetters").getChat(t).msgs.length - 1e3,
                 ),
-                m = o("WAWebFrontendMsgGetters")
+                d = o("WAWebFrontendMsgGetters")
                   .getChat(t)
                   .msgs.getModelsArray()
                   .slice(c)
                   .filter(function (e) {
                     var n;
                     return (
-                      d(t) &&
+                      h(t) &&
                       e.selectedCarouselCardIndex != null &&
                       ((n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e)) ==
                       null
@@ -183,22 +188,22 @@ __d(
                         : n.id.toString()) === t.id.toString()
                     );
                   });
-              if (m.length === 0) return 0;
-              var p = r("WANullthrows")(t.carouselCardsParsed).slice();
-              for (var _ of m) {
-                var f = r("WANullthrows")(_.selectedCarouselCardIndex),
-                  g = r("WANullthrows")(_.selectedIndex);
-                p[f] != null &&
-                  (p[f] = babelHelpers.extends({}, p[f], {
+              if (d.length === 0) return 0;
+              var m = r("WANullthrows")(t.carouselCardsParsed).slice();
+              for (var p of d) {
+                var _ = r("WANullthrows")(p.selectedCarouselCardIndex),
+                  f = r("WANullthrows")(p.selectedIndex);
+                m[_] != null &&
+                  (m[_] = babelHelpers.extends({}, m[_], {
                     interactivePayload: o(
                       "WAWebBizInteractiveMessageQuickReplyAction",
                     ).rebuildInteractivePayloadWithDisabledButton(
-                      p[f].interactivePayload,
-                      g,
+                      m[_].interactivePayload,
+                      f,
                     ),
                   }));
               }
-              t.carouselCardsParsed = p;
+              t.carouselCardsParsed = m;
             }
           },
           n,
@@ -208,18 +213,128 @@ __d(
       )
         n = t();
     }
-    function d(e) {
+    function p(e) {
+      for (
+        var t = function () {
+            var t = e[a];
+            if (!t) return 0;
+            if (_(t)) {
+              var n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
+              if (!n) return 0;
+              var i = o("WAWebMsgCollection").MsgCollection.get(n.id);
+              i != null && f(i, t);
+            } else if (
+              t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+              t.interactivePayload != null &&
+              t.nativeFlowName ===
+                r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY &&
+              o("WAWebFrontendMsgGetters").getChat(t)
+            ) {
+              var l = o("WAWebFrontendMsgGetters").getChat(t),
+                s = Math.max(0, l.msgs.length - 1e3);
+              l.msgs
+                .getModelsArray()
+                .slice(s)
+                .filter(function (e) {
+                  var n;
+                  return (
+                    _(e) &&
+                    ((n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e)) ==
+                    null
+                      ? void 0
+                      : n.id.toString()) === t.id.toString()
+                  );
+                })
+                .forEach(function (e) {
+                  f(t, e);
+                });
+            }
+          },
+          n,
+          a = 0;
+        a < e.length;
+        a++
+      )
+        n = t();
+    }
+    function _(e) {
+      if (
+        e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE ||
+        e.interactivePayload == null ||
+        !y(e)
+      )
+        return !1;
+      var t = e.interactivePayload;
+      return (
+        t.name === r("WAWebInteractiveMessagesNativeFlowName").MENU_OPTIONS
+      );
+    }
+    function f(t, n) {
+      var a,
+        i = g(n);
+      if (i != null) {
+        var l =
+          (a = o(
+            "WAWebGetInteractiveCtaActions",
+          ).getNativeFlowCtasFromInteractiveMsg(t)) == null
+            ? void 0
+            : a.find(function (e) {
+                return e.name === "quick_reply" && e.data.selectionId === i;
+              });
+        l == null ||
+          l.data.disabled === !0 ||
+          o("WAWebBizInteractiveMessageQuickReplyAction")
+            .markInteractiveButtonClicked(t, l.index)
+            .catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "syncButtonState: failed to persist proactive CTA disable",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("menu-options-cta-disable-failed");
+            });
+      }
+    }
+    function g(e) {
+      if (e.interactivePayload == null) return null;
+      var t = e.interactivePayload;
+      try {
+        var n = JSON.parse(t.paramsJson);
+        return n == null || typeof n != "object"
+          ? null
+          : typeof n.id == "string"
+            ? n.id
+            : null;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncButtonState: failed to parse menu_options paramsJson",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("menu-options-params-parse-failed"),
+          null
+        );
+      }
+    }
+    function h(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.TEMPLATE_BUTTON_REPLY &&
         e.selectedIndex != null &&
-        m(e)
+        y(e)
       );
     }
-    var m = function (t) {
+    var y = function (t) {
       var e = o("WAWebMsgGetters").getSender(t);
       return e != null ? o("WAWebUserPrefsMeUser").isMeAccount(e) : !1;
     };
-    l.default = e;
+    l.default = u;
   },
   98,
 );

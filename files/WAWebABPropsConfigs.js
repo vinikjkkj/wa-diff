@@ -4,6 +4,12 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = {
+      a2ui_supported_elements: [
+        32276,
+        "string",
+        "info_card, list_card",
+        "info_card, list_card",
+      ],
       acp_removal: [25255, "bool", !1, !1],
       acp_removal_epoch_time: [25993, "int", 1782518400, 1782518400],
       acs_use_graphql_for_forward_counter: [29218, "bool", !1, !1],
@@ -96,6 +102,7 @@ __d(
       ai_group_call_add_in_call_lgc_enabled: [31717, "bool", !1, !1],
       ai_group_call_max_version_by_country: [24656, "int", 0, 0],
       ai_group_call_max_version_by_platform: [24655, "int", 0, 0],
+      ai_group_call_meta_ai_animation_version: [32245, "int", 0, 0],
       ai_group_call_start_call_ahgc_enabled: [31716, "bool", !1, !1],
       ai_group_call_start_call_lgc_enabled: [31713, "bool", !1, !1],
       ai_group_call_start_call_notice_id: [31736, "string", "", ""],
@@ -342,9 +349,11 @@ __d(
       biz_ai_tos_variant: [20833, "int", 0, 0],
       biz_ai_web_ai_hub_tap_cta_show_alert: [17093, "bool", !1, !1],
       biz_ai_web_onboarding_handoff: [29298, "bool", !1, !0],
+      biz_ai_web_onboarding_handoff_killswitch: [32263, "bool", !1, !1],
       biz_vpv_dimensions_logging_enabled: [30266, "bool", !1, !1],
       biz_vpv_impression_logging_enabled: [25465, "bool", !1, !1],
       blocklist_system_msg_on_full_refetch: [28070, "bool", !1, !1],
+      bloks_a2ui_steps_enabled: [32251, "bool", !1, !1],
       blue_education_enabled: [5295, "bool", !1, !1],
       blue_education_v2_enabled: [6127, "bool", !1, !1],
       blue_enabled: [5276, "bool", !1, !1],
@@ -2166,6 +2175,7 @@ __d(
       smoothie_performance_css_dom: [18995, "bool", !1, !1],
       smoothie_performance_msg_send: [17942, "bool", !0, !0],
       smoothie_performance_resize_followup: [18992, "bool", !1, !1],
+      snapl_newsletter_logging_encrypted_rid_enabled: [32239, "bool", !1, !0],
       snapl_newsletter_logging_media_id_placeholder_string: [
         14064,
         "string",
@@ -2609,6 +2619,7 @@ __d(
         0,
       ],
       wa_web_notifications_modal: [32228, "bool", !1, !1],
+      wa_web_notifications_modal_variants: [32277, "int", 0, 0],
       wa_web_notify_for: [25544, "bool", !1, !1],
       wa_web_pre_chat_device_id_test: [26553, "bool", !1, !0],
       wa_web_preload_conversation_chat_open: [25937, "bool", !1, !1],

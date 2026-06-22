@@ -21,6 +21,8 @@ __d(
             (t.chatThemeId = o("WAWebBaseModel").prop()),
             (t.colorSchemeId = o("WAWebBaseModel").prop()),
             (t.stockWallpaperImageId = o("WAWebBaseModel").prop()),
+            (t.wallpaperValue = o("WAWebBaseModel").prop()),
+            (t.chatThemeValue = o("WAWebBaseModel").prop()),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );

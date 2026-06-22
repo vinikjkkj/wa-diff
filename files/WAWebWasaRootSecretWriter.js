@@ -76,10 +76,10 @@ __d(
               .getMessageTable()
               .bulkCreateOrReplace(
                 t.map(function (t) {
-                  var n = t.stanzaId,
-                    r = t.secret;
+                  var n = t.secret,
+                    r = t.stanzaId;
                   return o("WAWebDBMessageSerialization").dbRowFromMessage(
-                    c(e, u(e, n), r),
+                    c(e, u(e, r), n),
                   );
                 }),
               ));

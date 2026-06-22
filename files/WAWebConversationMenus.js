@@ -27,7 +27,7 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebLabelOutlineIcon.react",
-    "WAWebLeaveCommunityModal.react",
+    "WAWebLeaveCommunityModalUtils",
     "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
     "WAWebMobilePlatforms",
@@ -89,9 +89,9 @@ __d(
         var t,
           n = (t = e.groupMetadata) == null ? void 0 : t.getParentGroupChat();
         n != null && o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e)
-          ? o("WAWebModalManager").ModalManager.open(
-              u.jsx(r("WAWebLeaveCommunityModal.react"), { chat: n }),
-            )
+          ? o("WAWebLeaveCommunityModalUtils").openLeaveCommunityModal({
+              chat: n,
+            })
           : o("WAWebCmd").Cmd.deleteOrExitChat(e);
       }
     }

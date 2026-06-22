@@ -1758,7 +1758,7 @@ __d(
       8335933: {
         moduleName: "TEST_IOS_MODULE",
         name: "DID_TAP_2",
-        sampleRate: 250,
+        sampleRate: 25,
       },
       8336334: {
         moduleName: "TEST_IOS_MODULE",
@@ -13642,6 +13642,11 @@ __d(
         name: "MESSAGE",
         sampleRate: 1,
       },
+      73083596: {
+        moduleName: "FB_NOTES",
+        name: "FB_NOTES_COMPOSER_UNEXPECTED_EVENTS",
+        sampleRate: 1,
+      },
       73218525: {
         moduleName: "FB_PROMO_ADS",
         name: "BOTTOM_SHEET_LOAD",
@@ -14097,7 +14102,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 48318,
+        sampleRate: 42960,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15243,6 +15248,11 @@ __d(
         name: "FBLITE_REMOTE_LOGOUT_WA_TRIGGERED",
         sampleRate: 1,
       },
+      99090433: {
+        moduleName: "EARLY_STARTUP",
+        name: "DEX_LOAD",
+        sampleRate: 250,
+      },
       100152121: {
         moduleName: "IG_NOTIFICATION_ADS",
         name: "SPONSORED_CLIPS_NAVIGATION",
@@ -15266,7 +15276,7 @@ __d(
       100338619: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE",
-        sampleRate: 15,
+        sampleRate: 11,
       },
       100346940: {
         moduleName: "ACCESS_LIBRARY",
@@ -15674,7 +15684,7 @@ __d(
       109250526: {
         moduleName: "SMART_CREATION",
         name: "JUMPCUT",
-        sampleRate: 10,
+        sampleRate: 0,
       },
       109255578: {
         moduleName: "SMART_CREATION",
@@ -44717,6 +44727,11 @@ __d(
         moduleName: "APP_BAR",
         name: "APP_BAR_NAV_LOAD_TIME",
         sampleRate: 1e4,
+      },
+      553063125: {
+        moduleName: "ANDROID_MESSENGER_QUICKSNAP_CREATION",
+        name: "MSGR_QUICKSNAP_CREATION_DIAL_LOAD",
+        sampleRate: 250,
       },
       553066561: {
         moduleName: "ANDROID_MESSENGER_QUICKSNAP_CREATION",
@@ -76888,6 +76903,16 @@ __d(
       1041966420: {
         moduleName: "WEARABLE_CONNECTIVITY",
         name: "QOS_EXPERIENCE_SESSION",
+        sampleRate: 250,
+      },
+      1041969098: {
+        moduleName: "WEARABLE_CONNECTIVITY",
+        name: "DEVICE_CELLULAR_DATA_SESSION",
+        sampleRate: 250,
+      },
+      1041971918: {
+        moduleName: "WEARABLE_CONNECTIVITY",
+        name: "DEVICE_CELLULAR_HEALTH_HISTORY",
         sampleRate: 250,
       },
       1042939905: {

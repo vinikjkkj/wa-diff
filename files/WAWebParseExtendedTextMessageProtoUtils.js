@@ -18,70 +18,72 @@ __d(
     function s(e) {
       var t = e.baseMessage,
         n = e.messageProtobuf,
-        r = n.extendedTextMessage;
-      if (r != null) {
-        var a = o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType,
-          i;
-        if ((r == null ? void 0 : r.font) != null)
-          switch (r.font) {
-            case a.SYSTEM:
-            case a.SYSTEM_TEXT:
-            case a.FB_SCRIPT:
-            case a.SYSTEM_BOLD:
-            case a.MORNINGBREEZE_REGULAR:
-            case a.CALISTOGA_REGULAR:
-            case a.EXO2_EXTRABOLD:
-            case a.COURIERPRIME_BOLD:
-              i = r.font;
+        r = e.msgMeta,
+        a = n.extendedTextMessage;
+      if (a != null) {
+        var i = o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType,
+          l;
+        if ((a == null ? void 0 : a.font) != null)
+          switch (a.font) {
+            case i.SYSTEM:
+            case i.SYSTEM_TEXT:
+            case i.FB_SCRIPT:
+            case i.SYSTEM_BOLD:
+            case i.MORNINGBREEZE_REGULAR:
+            case i.CALISTOGA_REGULAR:
+            case i.EXO2_EXTRABOLD:
+            case i.COURIERPRIME_BOLD:
+              l = a.font;
               break;
           }
-        var l = babelHelpers.extends({}, t, {
+        var s = babelHelpers.extends({}, t, {
           type: o("WAWebMsgType").MSG_TYPE.CHAT,
           kind: o("WAWebMsgType").MsgKind.Chat,
           body: o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-            (r == null ? void 0 : r.text) || "",
+            (a == null ? void 0 : a.text) || "",
           ),
-          matchedText: r == null ? void 0 : r.matchedText,
-          description: r == null ? void 0 : r.description,
-          title: r == null ? void 0 : r.title,
+          matchedText: a == null ? void 0 : a.matchedText,
+          description: a == null ? void 0 : a.description,
+          title: a == null ? void 0 : a.title,
           thumbnail:
             o("WAWebE2EProtoParserApi").decodeBytes(
-              r == null ? void 0 : r.jpegThumbnail,
+              a == null ? void 0 : a.jpegThumbnail,
             ) || "",
-          richPreviewType: r == null ? void 0 : r.previewType,
-          doNotPlayInline: r == null ? void 0 : r.doNotPlayInline,
-          textColor: r == null ? void 0 : r.textArgb,
-          backgroundColor: r == null ? void 0 : r.backgroundArgb,
+          richPreviewType: a == null ? void 0 : a.previewType,
+          doNotPlayInline: a == null ? void 0 : a.doNotPlayInline,
+          textColor: a == null ? void 0 : a.textArgb,
+          backgroundColor: a == null ? void 0 : a.backgroundArgb,
           mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(
-            r == null ? void 0 : r.mediaKey,
+            a == null ? void 0 : a.mediaKey,
           ),
           mediaKeyTimestamp:
-            (r == null ? void 0 : r.mediaKeyTimestamp) != null
-              ? o("WALongInt").numberOrThrowIfTooLarge(r.mediaKeyTimestamp)
+            (a == null ? void 0 : a.mediaKeyTimestamp) != null
+              ? o("WALongInt").numberOrThrowIfTooLarge(a.mediaKeyTimestamp)
               : t.mediaKeyTimestamp,
-          thumbnailDirectPath: r == null ? void 0 : r.thumbnailDirectPath,
+          thumbnailDirectPath: a == null ? void 0 : a.thumbnailDirectPath,
           thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(
-            r == null ? void 0 : r.thumbnailSha256,
+            a == null ? void 0 : a.thumbnailSha256,
           ),
           thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(
-            r == null ? void 0 : r.thumbnailEncSha256,
+            a == null ? void 0 : a.thumbnailEncSha256,
           ),
-          thumbnailHeight: r == null ? void 0 : r.thumbnailHeight,
-          thumbnailWidth: r == null ? void 0 : r.thumbnailWidth,
+          thumbnailHeight: a == null ? void 0 : a.thumbnailHeight,
+          thumbnailWidth: a == null ? void 0 : a.thumbnailWidth,
           inviteGrpType:
-            (r == null ? void 0 : r.inviteLinkGroupTypeV2) != null
+            (a == null ? void 0 : a.inviteLinkGroupTypeV2) != null
               ? o("WAWebE2EProtoParserApi").parseInviteGrpType(
-                  r == null ? void 0 : r.inviteLinkGroupTypeV2,
+                  a == null ? void 0 : a.inviteLinkGroupTypeV2,
                 )
               : t.inviteGrpType,
-          font: i != null ? i : t.font,
-          paymentLinkMetadata: r == null ? void 0 : r.paymentLinkMetadata,
+          font: l != null ? l : t.font,
+          paymentLinkMetadata: a == null ? void 0 : a.paymentLinkMetadata,
           faviconMMSMetadata: u(
-            r == null ? void 0 : r.faviconMMSMetadata,
+            a == null ? void 0 : a.faviconMMSMetadata,
             t.mediaKeyTimestamp,
           ),
+          statusMentioned: r == null ? void 0 : r.statusMentioned,
         });
-        return { msgData: l, contextInfo: r == null ? void 0 : r.contextInfo };
+        return { msgData: s, contextInfo: a == null ? void 0 : a.contextInfo };
       }
     }
     function u(e, t) {

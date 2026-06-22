@@ -7,6 +7,7 @@ __d(
     "WAWebSyncDeviceAdvDeviceListJob",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -40,10 +41,12 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "doPendingDeviceSync failed during RESUME_WITH_OPEN_TAB",
+                    "doPendingDeviceSync failed",
                   ])),
               )
-              .verbose();
+              .catching(r("getErrorSafe")(t))
+              .verbose()
+              .sendLogs("pending-device-sync-failed");
           }
         })),
         u.apply(this, arguments)

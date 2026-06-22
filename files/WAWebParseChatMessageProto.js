@@ -10,16 +10,17 @@ __d(
       var t = e.baseMessage,
         n = e.messageProtobuf,
         r = e.msgContext,
-        a = n.conversation,
-        i = n.extendedTextMessage;
-      if (!(a == null && i == null)) {
-        if (a != null)
+        a = e.msgMeta,
+        i = n.conversation,
+        l = n.extendedTextMessage;
+      if (!(i == null && l == null)) {
+        if (i != null)
           return {
             msgData: babelHelpers.extends({}, t, {
               type: o("WAWebMsgType").MSG_TYPE.CHAT,
               kind: o("WAWebMsgType").MsgKind.Chat,
               body: o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-                a,
+                i,
               ),
             }),
             contextInfo: void 0,
@@ -27,7 +28,7 @@ __d(
         if (
           !o(
             "WAWebParseExtendedTextMessageProtoUtils",
-          ).isUrlExtendedTextMessage(i)
+          ).isUrlExtendedTextMessage(l)
         )
           return o(
             "WAWebParseExtendedTextMessageProtoUtils",
@@ -35,6 +36,7 @@ __d(
             messageProtobuf: n,
             baseMessage: t,
             msgContext: r,
+            msgMeta: a,
           });
       }
     }

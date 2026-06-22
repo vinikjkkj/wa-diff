@@ -93,15 +93,17 @@ __d(
         var p = n("cr:8959").getCachedToken
           ? n("cr:8959").getCachedToken()
           : n("cr:8959").getToken();
-        (p &&
+        (p != null &&
+          p !== "" &&
           ((d.fb_dtsg = p),
           r("SprinkleConfig").param_name &&
             (d[r("SprinkleConfig").param_name] =
               r("DTSGUtils").getNumericValue(p))),
-          r("LSD").token &&
+          r("LSD").token != null &&
+            r("LSD").token !== "" &&
             ((d.lsd = r("LSD").token),
             r("SprinkleConfig").param_name &&
-              !p &&
+              (p == null || p === "") &&
               (d[r("SprinkleConfig").param_name] = r(
                 "DTSGUtils",
               ).getNumericValue(r("LSD").token))));
@@ -110,7 +112,8 @@ __d(
         var _ = n("cr:8960").getCachedToken
           ? n("cr:8960").getCachedToken()
           : n("cr:8960").getToken();
-        _ &&
+        _ != null &&
+          _ !== "" &&
           ((d.fb_dtsg_ag = _),
           r("SprinkleConfig").param_name &&
             (d[r("SprinkleConfig").param_name] =
