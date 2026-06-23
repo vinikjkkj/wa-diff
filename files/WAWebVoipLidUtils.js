@@ -124,7 +124,7 @@ __d(
                   { lid: d, pn: o("WAWebWidFactory").asUserWidOrThrow(s) },
                 ],
                 flushImmediately: i,
-                learningSource: "other",
+                learningSource: "voip-lid",
               }));
           }
         })),

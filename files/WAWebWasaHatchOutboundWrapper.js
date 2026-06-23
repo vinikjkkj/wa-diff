@@ -64,9 +64,10 @@ __d(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
             );
           if (a == null) throw new u();
-          var i = yield o(
-            "WAWebWasaRootSecretWriter",
-          ).getWasaCarrierSecretForId(o("WAWebBotUtils").HATCH_BOT_FBID_WID, a);
+          var i = yield o("WAWebWasaRootSecretWriter").getWasaRootSecretForId(
+            o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+            a,
+          );
           if (i == null) throw new u();
           var l = o("WAWebWidToJid").widToUserJid(
               o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
@@ -92,7 +93,7 @@ __d(
           return r("WAWebWasaGenerateSecretEncryptedMessageProto")({
             targetMsgKey: o(
               "WAWebWasaRootSecretWriter",
-            ).getWasaCarrierMsgKeyForId(
+            ).getWasaRootSecretMsgKeyForId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               a,
             ),

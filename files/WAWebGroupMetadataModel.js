@@ -255,7 +255,7 @@ __d(
           (i.canSetEphemeralSetting = function () {
             var e = this;
             return o("WAWebUserPrefsMeUser")
-              .getMePNandLIDWids()
+              .getMeDeviceWids()
               .some(function (t) {
                 return e.userCanSetEphemeralSetting(
                   o("WAWebWidFactory").asUserWidOrThrow(t),

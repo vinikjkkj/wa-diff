@@ -164,13 +164,13 @@ __d(
                   if (
                     b ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
-                      .PUBLIC_KEY_SINGATURE_VERIFICATION_EXCEPTION
+                      .PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION
                   ) {
                     (o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataAnnotate({
                       string: {
                         error_type: o("WAWebGalaxyFlowQPLLoggerUtils")
                           .WaeMetadataQPLErrorTypes
-                          .EXTENSIONS_PUBLIC_KEY_SINGATURE_VERIFICATION_EXCEPTION,
+                          .EXTENSIONS_PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION,
                       },
                     }),
                       o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataEnd(3));

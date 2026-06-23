@@ -4,15 +4,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = {
         washPlain: { backgroundColor: "x1c7u0tx", $$css: !0 },
-        doc: { backgroundColor: "x13xzcw1", $$css: !0 },
-        sheets: { backgroundColor: "xq974uc", $$css: !0 },
-        presentation: { backgroundColor: "x1hxtir", $$css: !0 },
-        forms: { backgroundColor: "x2v3r9o", $$css: !0 },
-        office: { backgroundColor: "x13xzcw1", $$css: !0 },
-        sharepoint: { backgroundColor: "x1czqrqu", $$css: !0 },
-        teams: { backgroundColor: "x2v3r9o", $$css: !0 },
-        jira: { backgroundColor: "x13xzcw1", $$css: !0 },
-        oneDrive: { backgroundColor: "x1gtjo23", $$css: !0 },
+        doc: { backgroundColor: "xym4luz", $$css: !0 },
+        sheets: { backgroundColor: "xqg95i3", $$css: !0 },
+        presentation: { backgroundColor: "x4d3jff", $$css: !0 },
+        forms: { backgroundColor: "x1s5fmi9", $$css: !0 },
+        office: { backgroundColor: "xym4luz", $$css: !0 },
+        sharepoint: { backgroundColor: "x1rgooag", $$css: !0 },
+        teams: { backgroundColor: "x1s5fmi9", $$css: !0 },
+        jira: { backgroundColor: "xym4luz", $$css: !0 },
+        oneDrive: { backgroundColor: "x19e70r4", $$css: !0 },
       },
       s = {
         "docs.google.com": {

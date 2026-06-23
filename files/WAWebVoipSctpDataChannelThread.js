@@ -208,6 +208,15 @@ __d(
                 ms: t,
               });
           }),
+          (a.setRelayParkedTxIdleMs = function (t) {
+            this.$4 &&
+              this.worker.postMessage({
+                type: "cmd",
+                cmd: "jsWorkerCmd",
+                jsWorkerCmd: "setRelayParkedTxIdleMs",
+                ms: t,
+              });
+          }),
           (a.updateIceRtt = function (t, n, r) {
             this.$4 &&
               this.worker.postMessage({

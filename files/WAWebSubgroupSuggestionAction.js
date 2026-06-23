@@ -132,49 +132,52 @@ __d(
         h.apply(this, arguments)
       );
     }
-    var y = (function () {
-      var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-        t == null ||
-          t.forEach(function (e) {
-            e.currentState = o("WAWebCellRequestState").State.Loading;
-          });
-        try {
-          var n = yield f(
-            e,
-            t,
-            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-              .REJECT,
-          );
-          m(
-            n,
-            t,
-            o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
-              .REJECT,
-          );
-          var a = _(t, o("WAWebCellRequestState").State.Rejected);
-          a > 0 &&
-            o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(
-                  /*BTDS*/ '_j{"*":"{number} groups rejected","_1":"Group rejected"}',
-                  [s._plural(a, "number")],
-                ),
-              }),
-            );
-        } catch (e) {
-          p(r("getErrorSafe")(e), t);
-        }
-      });
-      return function (n, r) {
-        return e.apply(this, arguments);
-      };
-    })();
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          t == null ||
+            t.forEach(function (e) {
+              e.currentState = o("WAWebCellRequestState").State.Loading;
+            });
+          try {
+            var n = yield f(
+              e,
+              t,
+              o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+                .REJECT,
+            );
+            m(
+              n,
+              t,
+              o("WAWebSubgroupSuggestionsActionJob").SubgroupSuggestionAction
+                .REJECT,
+            );
+            var a = _(t, o("WAWebCellRequestState").State.Rejected);
+            a > 0 &&
+              o("WAWebToastManager").ToastManager.open(
+                u.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(
+                    /*BTDS*/ '_j{"*":"{number} groups rejected","_1":"Group rejected"}',
+                    [s._plural(a, "number")],
+                  ),
+                }),
+              );
+          } catch (e) {
+            p(r("getErrorSafe")(e), t);
+          }
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e, t, n) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e.groupMetadata) {
             var a =
                 e.groupMetadata.joinedSubgroups.length +
@@ -228,12 +231,12 @@ __d(
             }
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
     ((l.cancelSubgroupSuggestions = g),
       (l.rejectSubgroupSuggestions = y),
-      (l.approveSubgroupSuggestions = C));
+      (l.approveSubgroupSuggestions = b));
   },
   226,
 );

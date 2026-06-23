@@ -105,37 +105,33 @@ __d(
                   (C = v) == null || (C = C.subGroupSuggestion) == null
                     ? void 0
                     : C.map(function (e) {
-                        var r;
+                        var n;
                         if (t === c.APPROVE) {
-                          var a;
-                          r =
-                            (a = e.subGroupSuggestionsApprovalErrors) == null
+                          var r;
+                          n =
+                            (r = e.subGroupSuggestionsApprovalErrors) == null
                               ? void 0
-                              : a.value.error;
+                              : r.value.error;
                         } else {
-                          var i;
-                          r =
-                            (i =
+                          var a;
+                          n =
+                            (a =
                               e.subGroupSuggestionsActionSubGroupSuggestionNotFoundMixin) ==
                             null
                               ? void 0
-                              : i.error;
+                              : a.error;
                         }
-                        var l = o("WAWebWidFactory").createWid(e.jid),
-                          s = n
-                            ? o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow()
-                            : o(
-                                "WAWebUserPrefsMeUser",
-                              ).getMeDevicePnOrThrow_DO_NOT_USE(),
-                          u =
+                        var i = o("WAWebWidFactory").createWid(e.jid),
+                          l = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+                          s =
                             e.creator != null
                               ? o("WAWebWidFactory").createWid(e.creator)
-                              : s;
+                              : l;
                         return {
                           id: o(
                             "WAWebCommunitySubgroupSuggestionsUtils",
-                          ).getSubgroupSuggestionId(l, u),
-                          error: r,
+                          ).getSubgroupSuggestionId(i, s),
+                          error: n,
                         };
                       })) != null
                   ? y

@@ -227,13 +227,13 @@ __d(
         T.apply(this, arguments)
       );
     }
-    ((l.getWasaCarrierMsgKeyForId = u),
-      (l.upsertWasaCarrierForId = d),
-      (l.upsertWasaCarriersForIds = p),
+    ((l.getWasaRootSecretMsgKeyForId = u),
+      (l.upsertWasaRootSecretForId = d),
+      (l.upsertWasaRootSecretsForIds = p),
       (l.applyWasaRootSecretForId = f),
-      (l.getWasaCarrierSecretForId = h),
-      (l.removeWasaCarrierForId = C),
-      (l.removeWasaCarriersForIds = v),
+      (l.getWasaRootSecretForId = h),
+      (l.removeWasaRootSecretForId = C),
+      (l.removeWasaRootSecretsForIds = v),
       (l.clearWasaRootSecret = R),
       (l.maybeRecoverWasaRootSecretFromStore = E));
   },

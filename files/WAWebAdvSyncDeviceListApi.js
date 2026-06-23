@@ -128,7 +128,7 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield m({
-            wids: o("WAWebUserPrefsMeUser").getMePNandLIDWids(),
+            wids: o("WAWebUserPrefsMeUser").getMeDeviceWids(),
             context: null,
             phash: null,
           });

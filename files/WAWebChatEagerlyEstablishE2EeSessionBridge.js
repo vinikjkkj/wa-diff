@@ -78,34 +78,34 @@ __d(
               ));
           } else {
             var g = o(
-                "WAWebMaibaWASSMigration",
-              ).maybeReplaceMaibaAiHubWidWithFbid(
-                o(
-                  "WAWebSimpleSignalPNToFBIDMigration",
-                ).maybeReplaceDeprecatedBotPnWithFbid(t.id),
-              ),
-              h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-              y = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-              C = t.id.isLid() ? h : y;
-            n = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([g, C]);
+              "WAWebMaibaWASSMigration",
+            ).maybeReplaceMaibaAiHubWidWithFbid(
+              o(
+                "WAWebSimpleSignalPNToFBIDMigration",
+              ).maybeReplaceDeprecatedBotPnWithFbid(t.id),
+            );
+            n = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([
+              g,
+              o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            ]);
           }
           try {
-            var b =
+            var h =
                 t.id.isStatus() &&
                 o(
                   "WAWebStatusSessionGatingUtils",
                 ).shouldUseStatusSessionForOutgoingMessage()
                   ? o("WAWebSessionScope").SessionScope.STATUS
                   : o("WAWebSessionScope").SessionScope.DEFAULT,
-              v = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
+              y = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
                 n,
                 !1,
-                b,
+                h,
               );
             o(
               "WAWebPostPrekeysDepletionMetric",
             ).maybePostPrekeysDepletionMetric({
-              count: v == null ? void 0 : v.depletedPrekeyCount,
+              count: y == null ? void 0 : y.depletedPrekeyCount,
               prekeysFetchReason: o("WAWebWamEnumPrekeysFetchContext")
                 .PREKEYS_FETCH_CONTEXT.USER_INTENT_PREFETCH,
               messageType: o("WAWebChatGetters").getIsGroup(t)

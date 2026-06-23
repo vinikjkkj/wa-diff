@@ -267,7 +267,7 @@ __d(
                     { lid: i, pn: r },
                   ],
                   flushImmediately: !0,
-                  learningSource: "other",
+                  learningSource: "contact-notification",
                 })),
               yield (_ || (_ = n("Promise"))).all([y(c, e), y(m, e)]));
           } else

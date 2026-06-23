@@ -374,7 +374,7 @@ __d(
           var le = {
             mappings: ie,
             flushImmediately: !0,
-            learningSource: "other",
+            learningSource: "history-sync-chunk",
           };
           (e.syncType ===
           o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
@@ -1035,7 +1035,7 @@ __d(
             yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
               mappings: pe,
               flushImmediately: !0,
-              learningSource: "other",
+              learningSource: "history-sync-chunk",
             }),
             yield o("WAWebUpdateLidMetadataApi").updateLidMetadata({
               updates: me,

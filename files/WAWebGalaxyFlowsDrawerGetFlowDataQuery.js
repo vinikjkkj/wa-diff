@@ -154,7 +154,7 @@ __d(
                                   ).WaeGalaxyFlowError)(
                                     o("WAWebGalaxyFlowsError")
                                       .WaeGalaxyFlowMetdataErrors
-                                      .PUBLIC_KEY_SINGATURE_VERIFICATION_EXCEPTION,
+                                      .PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION,
                                   );
                                   throw (e.stack, e);
                                 }

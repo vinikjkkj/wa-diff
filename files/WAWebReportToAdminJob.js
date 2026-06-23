@@ -148,7 +148,7 @@ __d(
                   (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                     mappings: l,
                     flushImmediately: !0,
-                    learningSource: "other",
+                    learningSource: "report-to-admin",
                   })),
                 a.reportsReport.forEach(function (e, t) {
                   i.set(e.messageId, {

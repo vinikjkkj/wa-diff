@@ -34,61 +34,45 @@ __d(
     var e,
       u,
       c,
-      d = c || (c = o("react")),
-      m = function (t) {
-        var e = t.handleBack,
-          n = t.handleSelectClick,
-          a = t.msg,
-          i = t.multiSelect,
-          l = t.onForward,
-          u = t.openAsSupportModal,
-          c = u === void 0 ? !1 : u,
-          m,
-          p = o("WAWebFrontendMsgGetters").getIsUnsentMedia(a),
-          _ = o("WAWebFrontendMsgGetters").getAsRevoked(a),
-          f = o("WAWebMsgGetters").getType(a),
-          g = o("WAWebGetDisplayType").getDisplayType(a.unsafe()),
-          h = o("WAWebDisplayType").isConversationDisplay(g);
-        if (f === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
-          m = s._(
-            /*BTDS*/ "Wait until this message is fully delivered before forwarding.",
-          );
-        else if (_) m = s._(/*BTDS*/ "Unable to forward unsent message.");
-        else if (p)
-          m = s._(
-            /*BTDS*/ '_j{"*":"Wait until the messages finish sending and displays a checkmark before forwarding.","_1":"Wait until the message finishes sending and displays a checkmark before forwarding."}',
-            [s._plural(1)],
-          );
-        else {
-          if (i && h) {
-            n && n(o("WAWebMultiSelectBar.react").MultiSelectMode.FORWARD);
-            return;
-          }
-          if (c) {
-            o("WAWebModalManager").ModalManager.openSupportModal(
-              d.jsx(
-                o("WAWebForwardMessageFlowLoadable").ForwardMessageFlowLoadable,
-                {
-                  msgs: [o("WAWebStateUtils").unproxy(a)],
-                  onBack: e,
-                  onClose: function () {
-                    o("WAWebModalManager").ModalManager.closeSupportModal();
-                  },
-                  onForward: l,
-                },
-              ),
-              { transition: "modal-flow" },
-            );
-            return;
-          }
-          o("WAWebModalManager").ModalManager.open(
+      d = c || (c = o("react"));
+    function m(e) {
+      var t = e.handleBack,
+        n = e.handleSelectClick,
+        a = e.msg,
+        i = e.multiSelect,
+        l = e.onForward,
+        u = e.openAsSupportModal,
+        c = u === void 0 ? !1 : u,
+        m,
+        p = o("WAWebFrontendMsgGetters").getIsUnsentMedia(a),
+        _ = o("WAWebFrontendMsgGetters").getAsRevoked(a),
+        f = o("WAWebMsgGetters").getType(a),
+        g = o("WAWebGetDisplayType").getDisplayType(a.unsafe()),
+        h = o("WAWebDisplayType").isConversationDisplay(g);
+      if (f === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
+        m = s._(
+          /*BTDS*/ "Wait until this message is fully delivered before forwarding.",
+        );
+      else if (_) m = s._(/*BTDS*/ "Unable to forward unsent message.");
+      else if (p)
+        m = s._(
+          /*BTDS*/ '_j{"*":"Wait until the messages finish sending and displays a checkmark before forwarding.","_1":"Wait until the message finishes sending and displays a checkmark before forwarding."}',
+          [s._plural(1)],
+        );
+      else {
+        if (i && h) {
+          n && n(o("WAWebMultiSelectBar.react").MultiSelectMode.FORWARD);
+          return;
+        }
+        if (c) {
+          o("WAWebModalManager").ModalManager.openSupportModal(
             d.jsx(
               o("WAWebForwardMessageFlowLoadable").ForwardMessageFlowLoadable,
               {
                 msgs: [o("WAWebStateUtils").unproxy(a)],
-                onBack: e,
+                onBack: t,
                 onClose: function () {
-                  o("WAWebModalManager").ModalManager.close();
+                  o("WAWebModalManager").ModalManager.closeSupportModal();
                 },
                 onForward: l,
               },
@@ -98,18 +82,31 @@ __d(
           return;
         }
         o("WAWebModalManager").ModalManager.open(
-          d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            tsNavigationData: {
-              surface: "unknown",
-              viewName: "message-handler",
+          d.jsx(
+            o("WAWebForwardMessageFlowLoadable").ForwardMessageFlowLoadable,
+            {
+              msgs: [o("WAWebStateUtils").unproxy(a)],
+              onBack: t,
+              onClose: function () {
+                o("WAWebModalManager").ModalManager.close();
+              },
+              onForward: l,
             },
-            title: s._(/*BTDS*/ "Can't forward"),
-            onOK: o("WAWebModalManager").closeModalManager,
-            okText: r("WAWebFbtCommon")("OK"),
-            children: m,
-          }),
+          ),
+          { transition: "modal-flow" },
         );
-      };
+        return;
+      }
+      o("WAWebModalManager").ModalManager.open(
+        d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          tsNavigationData: { surface: "unknown", viewName: "message-handler" },
+          title: s._(/*BTDS*/ "Can't forward"),
+          onOK: o("WAWebModalManager").closeModalManager,
+          okText: r("WAWebFbtCommon")("OK"),
+          children: m,
+        }),
+      );
+    }
     function p(e, t, n) {
       if (
         (o("WAWebModalManager").closeModalManager(),

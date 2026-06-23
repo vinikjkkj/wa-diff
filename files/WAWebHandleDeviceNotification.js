@@ -162,7 +162,7 @@ __d(
                 (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                   mappings: b,
                   flushImmediately: !1,
-                  learningSource: "other",
+                  learningSource: "device-notification",
                 })),
               C.forEach(function (e) {
                 var t = e.wid;
@@ -179,7 +179,7 @@ __d(
             (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
               mappings: b,
               flushImmediately: !0,
-              learningSource: "other",
+              learningSource: "device-notification",
             }));
           var v = 0,
             S = 0;

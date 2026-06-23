@@ -53,7 +53,7 @@ __d(
               ((n = {
                 lid: o("WAWebWidFactory").asUserLidOrThrow(c),
                 pn: o("WAWebWidFactory").asUserWidOrThrow(u),
-                learningSource: "other",
+                learningSource: "process-phone-number-mapping",
               }),
                 d({
                   lid: o("WAWebWidFactory").asUserLidOrThrow(c),
@@ -118,7 +118,7 @@ __d(
               (n = {
                 lid: p,
                 pn: o("WAWebWidFactory").asUserWidOrThrow(y),
-                learningSource: "other",
+                learningSource: "process-phone-number-mapping",
               }),
             y == null &&
               d({
@@ -148,7 +148,11 @@ __d(
           if (o("WAWebUserPrefsMeUser").isMeAccount(n)) {
             var s = o("WAWebWidFactory").asUserWidOrThrow(l);
             i != null
-              ? (t = { lid: i, pn: s, learningSource: "other" })
+              ? (t = {
+                  lid: i,
+                  pn: s,
+                  learningSource: "process-phone-number-mapping",
+                })
               : r != null
                 ? a != null
                   ? (t = {
@@ -166,7 +170,7 @@ __d(
               (t = {
                 lid: o("WAWebWidFactory").asUserLidOrThrow(u),
                 pn: o("WAWebWidFactory").asUserWidOrThrow(n),
-                learningSource: "other",
+                learningSource: "process-phone-number-mapping",
               }),
             { mapping: t, lidMetadataUpdates: [] }
           );
@@ -228,14 +232,14 @@ __d(
             ? (a = {
                 lid: o("WAWebWidFactory").asUserLidOrThrow(l),
                 pn: c,
-                learningSource: "other",
+                learningSource: "process-phone-number-mapping",
               })
             : s != null &&
               !n &&
               (a = {
                 lid: s,
                 pn: o("WAWebWidFactory").asUserWidOrThrow(l),
-                learningSource: "other",
+                learningSource: "process-phone-number-mapping",
               });
           var m = t.displayName;
           return (

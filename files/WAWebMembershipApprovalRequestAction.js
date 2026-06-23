@@ -43,9 +43,13 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(o("WACustomError").CustomError),
-      u = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+      })(o("WACustomError").CustomError);
+    function u(e) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebStateUtils").unproxy(e),
             n = (yield o(
               "WAWebApiMembershipApprovalRequestStore",
@@ -55,111 +59,79 @@ __d(
           r("WANullthrows")(t.groupMetadata).membershipApprovalRequests.add(n, {
             merge: !0,
           });
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })(),
-      c = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r) {
-            var a = o("WAWebStateUtils").unproxy(t);
-            try {
-              var i,
-                l = yield o(
-                  "WAWebGroupMembershipRequestsActionJob",
-                ).membershipApprovalRequestAction(
-                  a.id,
-                  [
-                    o(
-                      "WAWebGroupMutationParticipantUtils",
-                    ).getGroupMutationParticipant(
-                      n.contact,
-                      ((i = a.groupMetadata) == null
-                        ? void 0
-                        : i.isLidAddressingMode) === !0,
-                      "membershipApprovalRequest",
-                    ),
-                  ],
-                  r,
-                ),
-                u = l[0],
-                c = u.error,
-                d = u.phoneNumber,
-                m = u.username,
-                p = u.wid;
-              if (c != null) {
-                var _ = c.name,
-                  f = c.value;
-                throw new s(Number(f.error), _);
-              }
-              var g = o(
-                "WAWebUsernameGatingUtils",
-              ).lidGroupMigrationNonMemberIQEnabled();
-              if (g) {
-                var h = [
-                  {
-                    id: o("WAWebWidFactory").asUserWidOrThrow(p),
-                    lid: p.isLid() ? p : null,
-                    phoneNumber: d
-                      ? o("WAWebWidFactory").asUserWidOrThrow(d)
-                      : null,
-                  },
-                ];
-                yield o(
-                  "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-                ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(h, !0);
-              }
-              o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-                m != null &&
-                (yield o("WAWebSetUsernameJob").setUsernamesJob([
-                  {
-                    userId: o("WAWebWidFactory").asUserWidOrThrow(p),
-                    username: o("WAWebUsernameTypes").asUsername(m),
-                  },
-                ]));
-            } catch (t) {
-              throw t instanceof o("WAWebBackendErrors").ServerStatusCodeError
-                ? new e(t.status, t.message)
-                : t;
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    var d = (function () {
+      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+        function* (t, n, r) {
+          var a = o("WAWebStateUtils").unproxy(t);
+          try {
+            var i,
+              l = yield o(
+                "WAWebGroupMembershipRequestsActionJob",
+              ).membershipApprovalRequestAction(
+                a.id,
+                [
+                  o(
+                    "WAWebGroupMutationParticipantUtils",
+                  ).getGroupMutationParticipant(
+                    n.contact,
+                    ((i = a.groupMetadata) == null
+                      ? void 0
+                      : i.isLidAddressingMode) === !0,
+                    "membershipApprovalRequest",
+                  ),
+                ],
+                r,
+              ),
+              u = l[0],
+              c = u.error,
+              d = u.phoneNumber,
+              m = u.username,
+              p = u.wid;
+            if (c != null) {
+              var _ = c.name,
+                f = c.value;
+              throw new s(Number(f.error), _);
             }
-          },
-        );
-        return function (n, r, o) {
-          return t.apply(this, arguments);
-        };
-      })(),
-      d = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var r = self.performance.now(),
-              a = !0;
-            try {
-              yield c(
-                e,
-                t,
-                o("WAWebGroupMembershipRequestsActionJob")
-                  .MembershipApprovalRequestAction.Approve,
-              );
-            } catch (e) {
-              throw ((a = !1), e);
-            } finally {
-              var i = self.performance.now() - r;
-              o("WAWebGroupJoinRequestMetricUtils").logMembershipRequestApprove(
+            var g = o(
+              "WAWebUsernameGatingUtils",
+            ).lidGroupMigrationNonMemberIQEnabled();
+            if (g) {
+              var h = [
                 {
-                  groupId: e.id,
-                  isSuccessful: a,
-                  responseTime: i,
-                  groupsInCommon: n,
+                  id: o("WAWebWidFactory").asUserWidOrThrow(p),
+                  lid: p.isLid() ? p : null,
+                  phoneNumber: d
+                    ? o("WAWebWidFactory").asUserWidOrThrow(d)
+                    : null,
                 },
-              );
+              ];
+              yield o(
+                "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
+              ).createOrReplaceDisplayNamesAndLidPnMappingsInBatches(h, !0);
             }
-          },
-        );
-        return function (n, r, o) {
-          return e.apply(this, arguments);
-        };
-      })();
+            o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
+              m != null &&
+              (yield o("WAWebSetUsernameJob").setUsernamesJob([
+                {
+                  userId: o("WAWebWidFactory").asUserWidOrThrow(p),
+                  username: o("WAWebUsernameTypes").asUsername(m),
+                },
+              ]));
+          } catch (t) {
+            throw t instanceof o("WAWebBackendErrors").ServerStatusCodeError
+              ? new e(t.status, t.message)
+              : t;
+          }
+        },
+      );
+      return function (n, r, o) {
+        return t.apply(this, arguments);
+      };
+    })();
     function m(e, t, n) {
       return p.apply(this, arguments);
     }
@@ -169,7 +141,37 @@ __d(
           var r = self.performance.now(),
             a = !0;
           try {
-            yield c(
+            yield d(
+              e,
+              t,
+              o("WAWebGroupMembershipRequestsActionJob")
+                .MembershipApprovalRequestAction.Approve,
+            );
+          } catch (e) {
+            throw ((a = !1), e);
+          } finally {
+            var i = self.performance.now() - r;
+            o("WAWebGroupJoinRequestMetricUtils").logMembershipRequestApprove({
+              groupId: e.id,
+              isSuccessful: a,
+              responseTime: i,
+              groupsInCommon: n,
+            });
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e, t, n) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = self.performance.now(),
+            a = !0;
+          try {
+            yield d(
               e,
               t,
               o("WAWebGroupMembershipRequestsActionJob")
@@ -187,15 +189,15 @@ __d(
             });
           }
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = self.performance.now(),
             r = !0,
             a = o(
@@ -231,15 +233,15 @@ __d(
             });
           }
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.GroupError = e),
       (l.RequestError = s),
       (l.readMembershipApprovalRequestsFromDB = u),
-      (l.approveMembershipApprovalRequest = d),
-      (l.rejectMembershipApprovalRequest = m),
-      (l.cancelMembershipApprovalRequest = _));
+      (l.approveMembershipApprovalRequest = m),
+      (l.rejectMembershipApprovalRequest = _),
+      (l.cancelMembershipApprovalRequest = g));
   },
   98,
 );

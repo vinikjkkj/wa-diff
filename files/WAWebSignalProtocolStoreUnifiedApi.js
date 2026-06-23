@@ -159,16 +159,19 @@ __d(
                   r = yield this.loadIdentityKey(e);
                 if (!(r != null && r === n)) {
                   if (r != null) {
-                    if (
-                      e ===
-                      o("WAWebSignalCommonUtils")
+                    var a = o("WAWebSignalCommonUtils")
                         .createSignalAddress(
-                          o(
-                            "WAWebUserPrefsMeUser",
-                          ).getMePnUserOrThrow_DO_NOT_USE(),
+                          o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
                         )
-                        .toString()
-                    ) {
+                        .toString(),
+                      i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                      l =
+                        i != null
+                          ? o("WAWebSignalCommonUtils")
+                              .createSignalAddress(i)
+                              .toString()
+                          : null;
+                    if (e === a || e === l) {
                       o("WAWebBackendApi").frontendFireAndForget(
                         "handleSelfPrimaryIdentityChange",
                         {},

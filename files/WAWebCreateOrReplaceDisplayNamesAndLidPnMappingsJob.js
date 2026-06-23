@@ -67,7 +67,7 @@ __d(
                 ? o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                     mappings: i,
                     flushImmediately: r,
-                    learningSource: "other",
+                    learningSource: "create-or-replace-display-names",
                   })
                 : null,
             ].filter(Boolean),

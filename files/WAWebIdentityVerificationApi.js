@@ -213,25 +213,24 @@ __d(
                   ])),
               )
               .sendLogs("identity-verification-migrated-client-no-lid");
-          var m = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-            h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-            y = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            C = yield o("WAWebApiContactUsernameFields").getContactUsername(y),
-            v,
-            S;
+          var m = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            h = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            y = yield o("WAWebApiContactUsernameFields").getContactUsername(h),
+            C,
+            v;
           i
-            ? ((v = i), (S = o("WAWebApiContact").getPhoneNumber(v)))
+            ? ((C = i), (v = o("WAWebApiContact").getPhoneNumber(C)))
             : a.isLid()
-              ? ((v = a), (S = o("WAWebApiContact").getPhoneNumber(a)))
-              : ((v = o("WAWebApiContact").getCurrentLid(a)), (S = a));
-          var R = yield o("WAWebApiContactUsernameFields").getContactUsername(
+              ? ((C = a), (v = o("WAWebApiContact").getPhoneNumber(a)))
+              : ((C = o("WAWebApiContact").getCurrentLid(a)), (v = a));
+          var S = yield o("WAWebApiContactUsernameFields").getContactUsername(
               a,
             ),
-            E = o("WAWebUserPrefsMeUser").isMeAccount(a),
-            k = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([a, m], a);
+            R = o("WAWebUserPrefsMeUser").isMeAccount(a),
+            E = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([a, m], a);
           try {
             yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-              k,
+              E,
               !1,
               o("WAWebSessionScope").SessionScope.DEFAULT,
             );
@@ -243,36 +242,38 @@ __d(
                 ])),
             );
           }
-          var I = [],
-            T = [],
-            D = o(
+          var k = [],
+            I = [],
+            T = o(
               "WAWebBizCoexGatingUtils",
             ).hostedDeviceSecurityCodeVerificationEnabled()
               ? (yield o(
                   "WAWebUserPrefsMultiDevice",
                 ).getIsHostedMeAccount()) === !0
               : !1,
-            x = !1;
-          k.forEach(function (e) {
-            (e.user === m.user && !e.isHosted() && T.push(e),
-              (e.user !== m.user || E) &&
+            D = !1;
+          E.forEach(function (e) {
+            (o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+              !e.isHosted() &&
+              I.push(e),
+              (!o("WAWebUserPrefsMeUser").isMeAccount(e) || R) &&
                 (e.isHosted()
-                  ? (x = o(
+                  ? (D = o(
                       "WAWebBizCoexGatingUtils",
                     ).hostedDeviceSecurityCodeVerificationEnabled())
-                  : I.push(e)));
+                  : k.push(e)));
           });
           try {
-            var $ = yield o(
+            var x = yield o(
+                "WAWebIdentityApiUtils",
+              ).getAllIdentityKeysBytesOrThrow(k),
+              $ = yield o(
                 "WAWebIdentityApiUtils",
               ).getAllIdentityKeysBytesOrThrow(I),
-              P = yield o(
-                "WAWebIdentityApiUtils",
-              ).getAllIdentityKeysBytesOrThrow(T),
-              N = yield o("WAWebSignalProtocolStore")
+              P = yield o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
                 .getIdentityKeyPair();
-            if (!N)
+            if (!P)
               return (
                 o("WALogger").WARN(
                   u ||
@@ -282,98 +283,98 @@ __d(
                 ),
                 null
               );
-            (P.push(new Uint8Array(N.pubKey)),
-              E && $.push(new Uint8Array(N.pubKey)));
-            var M = o("WAWebIdentityApiUtils").identityKeysToBinary(P),
-              w = o("WAWebIdentityApiUtils").identityKeysToBinary($),
-              A;
-            C != null
-              ? (A = g(o("WAWebUsernameTypes").serializeUsername(C)))
+            ($.push(new Uint8Array(P.pubKey)),
+              R && x.push(new Uint8Array(P.pubKey)));
+            var N = o("WAWebIdentityApiUtils").identityKeysToBinary($),
+              M = o("WAWebIdentityApiUtils").identityKeysToBinary(x),
+              w;
+            y != null
+              ? (w = g(o("WAWebUsernameTypes").serializeUsername(y)))
               : r("WAWebEnvironment").isGuest
-                ? (A = g(h.toString()))
-                : (A = null);
-            var F =
-                R != null
-                  ? g(o("WAWebUsernameTypes").serializeUsername(R))
+                ? (w = g(m.toString()))
+                : (w = null);
+            var A =
+                S != null
+                  ? g(o("WAWebUsernameTypes").serializeUsername(S))
                   : null,
-              O = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-              B = O != null ? p(O) : null,
-              W = S != null ? p(S) : null,
-              q = f(h),
-              U = v != null ? f(v) : null,
-              V = null,
-              H =
+              F = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+              O = F != null ? p(F) : null,
+              B = v != null ? p(v) : null,
+              W = f(m),
+              q = C != null ? f(C) : null,
+              U = null,
+              V =
                 o("WAWebUsernameGatingUtils").canShowV3NumericCode() &&
-                B != null &&
-                W != null;
-            H && (V = b(r("WANullthrows")(B), M, r("WANullthrows")(W), w));
-            var G = null,
-              z =
+                O != null &&
+                B != null;
+            V && (U = b(r("WANullthrows")(O), N, r("WANullthrows")(B), M));
+            var H = null,
+              G =
                 (r("WAWebEnvironment").isGuest ||
                   (o("WAWebUsernameGatingUtils").canShowV4NumericCode() &&
                     o(
                       "WAWebUsernameGatingUtils",
                     ).usernameSecurityCodeGenerationEnabled())) &&
-                q != null &&
-                U != null;
-            if (z) {
-              var j = _(h),
-                K = _(r("WANullthrows")(v));
-              G = b(j, M, K, w);
+                W != null &&
+                q != null;
+            if (G) {
+              var z = _(m),
+                j = _(r("WANullthrows")(C));
+              H = b(z, N, j, M);
             }
-            var Q = o(
+            var K = o(
                 "WAWebUsernameGatingUtils",
               ).usernameSecurityCodeGenerationEnabled()
-                ? C == null
+                ? y == null
                 : l,
-              X =
+              Q =
                 !r("WAWebEnvironment").isGuest &&
                 o("WAWebABProps").getABPropConfigValue(
                   "hash_identity_keys_for_qr_code_device_verification",
                 ),
-              Y = L({
-                localPnIdentifier: Q ? B : null,
-                localLidIdentifier: q,
-                localUsernameIdentifier: A,
-                localKeysBinary: M,
-                remotePnIdentifier: W,
-                remoteLidIdentifier: U,
-                remoteKeysBinary: w,
-                remoteUsernameIdentifier: F,
-                isMeHosted: D,
-                isRemoteHosted: x,
-                includeHashedKeys: X,
-                includeUnhashedKeys: !X,
+              X = L({
+                localPnIdentifier: K ? O : null,
+                localLidIdentifier: W,
+                localUsernameIdentifier: w,
+                localKeysBinary: N,
+                remotePnIdentifier: B,
+                remoteLidIdentifier: q,
+                remoteKeysBinary: M,
+                remoteUsernameIdentifier: A,
+                isMeHosted: T,
+                isRemoteHosted: D,
+                includeHashedKeys: Q,
+                includeUnhashedKeys: !Q,
               }),
-              J = L({
-                localPnIdentifier: Q ? B : null,
-                localLidIdentifier: q,
-                localUsernameIdentifier: A,
-                localKeysBinary: M,
-                remotePnIdentifier: W,
-                remoteLidIdentifier: U,
-                remoteKeysBinary: w,
-                remoteUsernameIdentifier: F,
-                isMeHosted: D,
-                isRemoteHosted: x,
+              Y = L({
+                localPnIdentifier: K ? O : null,
+                localLidIdentifier: W,
+                localUsernameIdentifier: w,
+                localKeysBinary: N,
+                remotePnIdentifier: B,
+                remoteLidIdentifier: q,
+                remoteKeysBinary: M,
+                remoteUsernameIdentifier: A,
+                isMeHosted: T,
+                isRemoteHosted: D,
                 includeHashedKeys: !0,
                 includeUnhashedKeys: !0,
               }),
-              Z = yield (d || (d = n("Promise"))).all([
-                d.resolve(V),
-                d.resolve(G),
+              J = yield (d || (d = n("Promise"))).all([
+                d.resolve(U),
+                d.resolve(H),
+                d.resolve(X),
                 d.resolve(Y),
-                d.resolve(J),
               ]),
-              ee = Z[0],
-              te = Z[1],
-              ne = Z[2],
-              re = Z[3];
+              Z = J[0],
+              ee = J[1],
+              te = J[2],
+              ne = J[3];
             return {
-              qrCodeDisplay: ne,
-              qrCodeVerify: re,
-              numericCodeV3: ee,
-              numericCodeV4: te,
+              qrCodeDisplay: te,
+              qrCodeVerify: ne,
+              numericCodeV3: Z,
+              numericCodeV4: ee,
             };
           } catch (e) {
             return (

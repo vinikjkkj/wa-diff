@@ -6,6 +6,7 @@ __d(
     "WAWebAck",
     "WAWebBackendApi",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
+    "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebHandleSingleMsg",
     "WAWebLidMigrationDbUtils",
     "WAWebLidMigrationUtils",
@@ -225,9 +226,15 @@ __d(
           }
           var b =
               t != null
-                ? o(
-                    "WAWebExtractEphemeralFieldsFromScheduledMsg",
-                  ).extractEphemeralFieldsFromScheduledMsg(t, c)
+                ? babelHelpers.extends(
+                    {},
+                    o(
+                      "WAWebExtractEphemeralFieldsFromScheduledMsg",
+                    ).extractEphemeralFieldsFromScheduledMsg(t, c),
+                    o(
+                      "WAWebExtractMentionFieldsFromScheduledMsg",
+                    ).extractMentionFieldsFromScheduledMsg(t),
+                  )
                 : {},
             v = babelHelpers.extends(
               {

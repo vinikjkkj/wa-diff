@@ -27,38 +27,37 @@ __d(
         }
       return !0;
     }
-    var c = function (t) {
-        var e = t.dayValues,
-          n = t.mode,
-          a = t.note,
-          i = t.timezone,
-          l = {};
-        for (var s in e) {
-          var u = e[s],
-            c = u.closed,
-            d = u.hours;
-          if (!c && o("WAWebBusinessProfileTypes").isBusinessHoursDayName(s)) {
-            var m = { mode: n };
-            (n ===
-              o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES
-                .SPECIFIC_HOURS &&
-              (m.hours = d.map(function (e) {
-                var t = e[0],
-                  n = e[1];
-                return [
-                  o("WAWebSmbUtilsTimeUtils").timeStringToMinutes(t) || 0,
-                  o("WAWebSmbUtilsTimeUtils").timeStringToMinutes(n) || 0,
-                ];
-              })),
-              (l[s] = m));
-          }
+    function c(e) {
+      var t = e.dayValues,
+        n = e.mode,
+        a = e.note,
+        i = e.timezone,
+        l = {};
+      for (var s in t) {
+        var u = t[s],
+          c = u.closed,
+          d = u.hours;
+        if (!c && o("WAWebBusinessProfileTypes").isBusinessHoursDayName(s)) {
+          var m = { mode: n };
+          (n ===
+            o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES.SPECIFIC_HOURS &&
+            (m.hours = d.map(function (e) {
+              var t = e[0],
+                n = e[1];
+              return [
+                o("WAWebSmbUtilsTimeUtils").timeStringToMinutes(t) || 0,
+                o("WAWebSmbUtilsTimeUtils").timeStringToMinutes(n) || 0,
+              ];
+            })),
+            (l[s] = m));
         }
-        var p = r("isStringNullOrEmpty")(i)
-          ? Intl.DateTimeFormat().resolvedOptions().timeZone
-          : i;
-        return { businessHours: { config: l, note: a, timezone: p } };
-      },
-      d = 540,
+      }
+      var p = r("isStringNullOrEmpty")(i)
+        ? Intl.DateTimeFormat().resolvedOptions().timeZone
+        : i;
+      return { businessHours: { config: l, note: a, timezone: p } };
+    }
+    var d = 540,
       m = 1080;
     function p() {
       return [

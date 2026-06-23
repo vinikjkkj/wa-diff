@@ -103,7 +103,7 @@ __d(
                   yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                     mappings: r,
                     flushImmediately: !0,
-                    learningSource: "other",
+                    learningSource: "pn-for-lid-chat-sync",
                   }),
                   c
                 );

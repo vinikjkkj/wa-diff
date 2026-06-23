@@ -16,7 +16,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (o("WAWebChatGetters").getIsNewsletter(e)) return !1;
+      if (o("WAWebChatGetters").getIsNewsletter(e) || e.id.isAiHub()) return !1;
       var t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
@@ -41,6 +41,7 @@ __d(
         o("WAWebChatGetters").getIsGroup(e) ||
         o("WAWebChatGetters").getIsNewsletter(e) ||
         o("WAWebChatGetters").getIsBroadcast(e) ||
+        e.id.isAiHub() ||
         o("WAWebLinkedCatalogHelper").shouldHideComponentForSMBLinkedCatalog()
       )
         return !1;

@@ -228,7 +228,7 @@ __d(
               mappings: M,
               flushImmediately: !0,
               identityChangeHandlingEnabled: !1,
-              learningSource: "other",
+              learningSource: "recent-sync-chunk",
             }),
             o("WALogger").LOG(
               m ||
@@ -434,7 +434,7 @@ __d(
               mappings: A,
               flushImmediately: !0,
               identityChangeHandlingEnabled: !1,
-              learningSource: "other",
+              learningSource: "recent-sync-chunk",
             }),
             yield o("WAWebUpdateLidMetadataApi").updateLidMetadata({
               updates: w,

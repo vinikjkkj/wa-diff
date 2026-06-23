@@ -41,16 +41,16 @@ __d(
         i
           ? (l =
               t > 0
-                ? s._(/*BTDS*/ "View responses {unread_responses_count}", [
-                    s._param(
-                      "unread_responses_count",
+                ? u.jsxs(u.Fragment, {
+                    children: [
+                      s._(/*BTDS*/ "View responses"),
                       u.jsx(o("WAWebChatUnreadCount.react").UnreadCount, {
                         count: t,
                         theme: o("WAWebChatUnreadCount.react").UnreadCountTheme
                           .QuestionResponses,
                       }),
-                    ),
-                  ])
+                    ],
+                  })
                 : s._(/*BTDS*/ "View responses"))
           : (l = s._(/*BTDS*/ "Respond"));
         var c = i ? "view-question-responses-cta" : "respond-to-question-cta",

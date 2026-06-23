@@ -6,14 +6,13 @@ __d(
     "WAWebLinkedAccountsGQLQuery.graphql",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (t.type !== "success" && r("justknobx")._("2987"))
+          if (t.type !== "success")
             return (
               r("FBLogger")("wa_ctwa_web").warn(
                 "Skipping linked accounts query: ad account token fetch failed with type " +

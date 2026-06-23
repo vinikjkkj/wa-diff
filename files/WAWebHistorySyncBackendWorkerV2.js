@@ -60,7 +60,7 @@ __d(
               mappings: h,
               flushImmediately: !0,
               identityChangeHandlingEnabled: !1,
-              learningSource: "other",
+              learningSource: "history-sync-worker",
             }),
               o("WALogger").LOG(
                 e ||

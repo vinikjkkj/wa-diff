@@ -11,55 +11,85 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = {
-        delivery: (s = o("WAWebAck")).ACK.RECEIVED,
-        read: s.ACK.READ,
-        played: s.ACK.PLAYED,
-        inactive: s.ACK.INACTIVE,
-        "server-error": s.ACK.CONTENT_GONE,
-        sender: s.ACK.RECEIVED,
-        "read-self": s.ACK.READ,
-        "played-self": s.ACK.PLAYED,
-        peer_msg: s.ACK.PEER,
+      u,
+      c,
+      d = {
+        delivery: (c = o("WAWebAck")).ACK.RECEIVED,
+        read: c.ACK.READ,
+        played: c.ACK.PLAYED,
+        inactive: c.ACK.INACTIVE,
+        "server-error": c.ACK.CONTENT_GONE,
+        sender: c.ACK.RECEIVED,
+        "read-self": c.ACK.READ,
+        "played-self": c.ACK.PLAYED,
+        peer_msg: c.ACK.PEER,
       },
-      c = new (r("WADeprecatedWapParser"))(
+      m = new (r("WADeprecatedWapParser"))(
         "incomingMsgReceiptParser",
-        function (e) {
-          (e.assertTag("receipt"),
-            e.hasAttr("to") &&
-              e.assertAttr(
-                "to",
-                o("WAWebUserPrefsMeUser")
-                  .getMeDevicePnOrThrow_DO_NOT_USE()
-                  .toJid(),
-              ));
-          var t = e.hasAttr("type")
-              ? e.attrEnumOrNullIfUnknown("type", u)
-              : o("WAWebAck").ACK.RECEIVED,
-            n = {
-              stanzaId: e.attrString("id"),
-              from: o("WAWebJidToWid").jidWithTypeToWid(
-                e.attrJidWithType("from"),
+        function (t) {
+          if ((t.assertTag("receipt"), t.hasAttr("to"))) {
+            var n;
+            o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[handleMsgReceiptParser] to=",
+                    "",
+                  ])),
+                t.attrString("to"),
+              )
+              .sendLogs("handle-msg-receipt-parser-has-to-attribute");
+            var r = t.attrString("to"),
+              a = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().toJid(),
+              i =
+                (n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
+                  ? void 0
+                  : n.toJid();
+            r !== a &&
+              r !== i &&
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[handleMsgReceiptParser] no device LID/PN found",
+                  ])),
               ),
-              offline: e.maybeAttrString("offline"),
+              t.throw(
+                'to have "to"="' +
+                  a +
+                  '" or "' +
+                  (i != null ? i : "<no mePn>") +
+                  '", but instead has "' +
+                  r +
+                  '"',
+              ));
+          }
+          var l = t.hasAttr("type")
+              ? t.attrEnumOrNullIfUnknown("type", d)
+              : o("WAWebAck").ACK.RECEIVED,
+            u = {
+              stanzaId: t.attrString("id"),
+              from: o("WAWebJidToWid").jidWithTypeToWid(
+                t.attrJidWithType("from"),
+              ),
+              offline: t.maybeAttrString("offline"),
             },
-            r = babelHelpers.extends({}, n, {
-              ack: t != null ? t : o("WAWebAck").ACK.RECEIVED,
-              ackString: e.maybeAttrString("type"),
+            c = babelHelpers.extends({}, u, {
+              ack: l != null ? l : o("WAWebAck").ACK.RECEIVED,
+              ackString: t.maybeAttrString("type"),
             }),
-            a = e.maybeChild("error");
-          a != null &&
-            a.hasAttr("reason") &&
-            a.attrString("reason") === "lid" &&
-            a.attrString("type") === "feature-incapable" &&
-            (r.ack = o("WAWebAck").ACK.SENT);
-          var i = e.maybeChild("participants");
-          if (i == null) return p(r, e);
-          var l = i.hasAttr("message_id");
-          return l ? m(n, i) : d(r, i);
+            m = t.maybeChild("error");
+          m != null &&
+            m.hasAttr("reason") &&
+            m.attrString("reason") === "lid" &&
+            m.attrString("type") === "feature-incapable" &&
+            (c.ack = o("WAWebAck").ACK.SENT);
+          var g = t.maybeChild("participants");
+          if (g == null) return f(c, t);
+          var h = g.hasAttr("message_id");
+          return h ? _(u, g) : p(c, g);
         },
       );
-    function d(e, t) {
+    function p(e, t) {
       var n = t.mapChildrenWithTag("user", function (e) {
           try {
             var t = o("WAWebJidToWid").deviceJidToDeviceWid(
@@ -87,58 +117,58 @@ __d(
         receipts: r,
       });
     }
-    function m(t, n) {
-      var r = [];
+    function _(e, t) {
+      var n = [];
       return (
-        n.forEachChildWithTag("user", function (t) {
+        t.forEachChildWithTag("user", function (e) {
           try {
-            var n,
-              a = o("WAWebJidToWid").deviceJidToDeviceWid(
-                t.attrDeviceJid("jid"),
+            var t,
+              r = o("WAWebJidToWid").deviceJidToDeviceWid(
+                e.attrDeviceJid("jid"),
               ),
-              i = t.attrTime("t"),
-              l = t.maybeAttrString("type"),
-              s =
-                (n = t.maybeAttrEnum("type", u)) != null
-                  ? n
+              a = e.attrTime("t"),
+              i = e.maybeAttrString("type"),
+              l =
+                (t = e.maybeAttrEnum("type", d)) != null
+                  ? t
                   : o("WAWebAck").ACK.RECEIVED,
-              c = t.hasAttr("participant_pn")
+              s = e.hasAttr("participant_pn")
                 ? o("WAWebJidToWid").userJidToUserWid(
-                    t.attrUserJid("participant_pn"),
+                    e.attrUserJid("participant_pn"),
                   )
                 : null,
-              d = t.maybeAttrString("participant_username");
-            r.push({
-              participant: a,
-              participantPn: c,
-              participantUsername: d,
-              ack: s,
-              ackString: l,
-              ts: i,
+              c = e.maybeAttrString("participant_username");
+            n.push({
+              participant: r,
+              participantPn: s,
+              participantUsername: c,
+              ack: l,
+              ackString: i,
+              ts: a,
             });
-          } catch (t) {
+          } catch (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "parseAggregateByMessageReceipt: failed: ",
                     "",
                   ])),
-                t,
+                e,
               )
               .sendLogs("failed-to-parse-aggregeated-by-message-receipt", {
                 sampling: 0.001,
               });
           }
         }),
-        babelHelpers.extends({}, t, {
+        babelHelpers.extends({}, e, {
           type: "aggregated_by_message",
-          externalId: n.attrString("message_id"),
-          receipts: r,
+          externalId: t.attrString("message_id"),
+          receipts: n,
         })
       );
     }
-    function p(e, t) {
+    function f(e, t) {
       var n = t.hasAttr("participant")
           ? o("WAWebJidToWid").deviceJidToDeviceWid(
               t.attrDeviceJid("participant"),
@@ -193,7 +223,7 @@ __d(
         })
       );
     }
-    ((l.RECEIPT_TYPES_TO_ACK = u), (l.msgReceiptParser = c));
+    ((l.RECEIPT_TYPES_TO_ACK = d), (l.msgReceiptParser = m));
   },
   98,
 );

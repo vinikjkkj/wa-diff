@@ -98,8 +98,7 @@ __d(
       return r("WANullthrows")($(), "meDisplayName");
     }
     function T() {
-      var e = d();
-      return e == null ? [m()] : [m(), e];
+      return [p(), c()].filter(Boolean);
     }
     function D(e) {
       (h(),
@@ -224,7 +223,7 @@ __d(
       (l.getMeUserMatchingAddressingMode = E),
       (l.getMeDeviceForOutgoingPeerMessage = k),
       (l.getMeDisplayNameOrThrow = I),
-      (l.getMePNandLIDWids = T),
+      (l.getMeDeviceWids = T),
       (l.setMe = D),
       (l.setMeLid = x),
       (l.getMaybeMeDisplayName = $),

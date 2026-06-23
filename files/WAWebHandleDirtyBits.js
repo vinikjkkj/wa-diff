@@ -109,7 +109,7 @@ __d(
           o("WAWebAccountSyncJob").getDevices("notification")
         );
       var t = o("WAWebUserPrefsMeUser")
-        .getMePNandLIDWids()
+        .getMeDeviceWids()
         .map(function (e) {
           return e.toString();
         });

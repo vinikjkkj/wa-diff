@@ -671,7 +671,7 @@ __d(
                 mappings: d,
                 flushImmediately: !0,
                 identityChangeHandlingEnabled: !1,
-                learningSource: "other",
+                learningSource: "history-msg-handler",
               })),
               (i.mdBootstrapMessagesCount = A),
               (i.mdBootstrapChatsCount = e.conversations.length),

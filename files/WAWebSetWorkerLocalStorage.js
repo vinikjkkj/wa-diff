@@ -1,6 +1,7 @@
 __d(
   "WAWebSetWorkerLocalStorage",
   [
+    "WALogger",
     "WAWebApiLocalStorage",
     "WAWebEnvironment",
     "WAWebGuestCoreLocalStorage",
@@ -10,38 +11,49 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
-    }
+    var e;
     function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-            t = o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow(),
-            n = [
-              {
-                key: "deviceJid",
-                value: o("WAWebWidToJid").widToDeviceJid(
-                  o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-                ),
-              },
-              { key: "lidDeviceJid", value: e.toString() },
-              { key: o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME, value: t },
-            ];
-          (r("WAWebEnvironment").isGuest &&
-            n.push({
-              key: o("WAWebUserPrefsKeys").KEYS.GUEST_ACTIVE_INVITE_CODE,
-              value: o("WAWebGuestCoreLocalStorage").getActiveGuestInviteCode(),
-            }),
-            yield o("WAWebApiLocalStorage").updateLocalStorage(n));
-        })),
-        s.apply(this, arguments)
-      );
+      return u.apply(this, arguments);
     }
     function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            n = o("WAWebUserPrefsMeUser").getMeDisplayNameOrThrow(),
+            a = [
+              { key: "lidDeviceJid", value: t.toString() },
+              { key: o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME, value: n },
+            ],
+            i = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+          (i != null
+            ? a.push({
+                key: "deviceJid",
+                value: o("WAWebWidToJid").widToDeviceJid(i),
+              })
+            : o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[worker-local-storage] skipping deviceJid: no phone-number wid available",
+                    ])),
+                )
+                .sendLogs("worker-local-storage-skip-device-jid"),
+            r("WAWebEnvironment").isGuest &&
+              a.push({
+                key: o("WAWebUserPrefsKeys").KEYS.GUEST_ACTIVE_INVITE_CODE,
+                value: o(
+                  "WAWebGuestCoreLocalStorage",
+                ).getActiveGuestInviteCode(),
+              }),
+            yield o("WAWebApiLocalStorage").updateLocalStorage(a));
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c() {
       return o("WAWebApiLocalStorage").clearLocalStorage();
     }
-    ((l.setWorkerLocalStorage = e), (l.clearWorkerLocalStorage = u));
+    ((l.setWorkerLocalStorage = s), (l.clearWorkerLocalStorage = c));
   },
   98,
 );

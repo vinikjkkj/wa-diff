@@ -38,7 +38,7 @@ __d(
       });
     function u(e) {
       return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-        o("WAWebUserPrefsMeUser").getMePNandLIDWids(),
+        o("WAWebUserPrefsMeUser").getMeDeviceWids(),
         e,
         null,
       );

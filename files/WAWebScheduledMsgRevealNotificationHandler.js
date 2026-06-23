@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
+    "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebHandleMsgValidate",
     "WAWebHandleSingleMsg",
     "WAWebMessageQueue",
@@ -568,7 +569,10 @@ __d(
         }),
         d = o(
           "WAWebExtractEphemeralFieldsFromScheduledMsg",
-        ).extractEphemeralFieldsFromScheduledMsg(n, t);
+        ).extractEphemeralFieldsFromScheduledMsg(n, t),
+        m = o(
+          "WAWebExtractMentionFieldsFromScheduledMsg",
+        ).extractMentionFieldsFromScheduledMsg(n);
       return babelHelpers.extends(
         {
           id: c,
@@ -581,6 +585,7 @@ __d(
           body: l,
         },
         d,
+        m,
         {
           t: i,
           scheduledTimestampS: i,

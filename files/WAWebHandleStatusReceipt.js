@@ -59,7 +59,7 @@ __d(
               o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [{ lid: v, pn: S }],
                 flushImmediately: !0,
-                learningSource: "other",
+                learningSource: "status-receipt",
               });
             }
             var R = t.participantUsername;

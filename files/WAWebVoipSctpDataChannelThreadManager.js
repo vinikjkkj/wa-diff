@@ -153,19 +153,21 @@ __d(
           ),
             (b = r("WAWebVoipSctpDataChannelThread").create()));
           try {
-            var i, l, y;
+            var i, l, y, C;
             v = yield b;
-            var C = r("justknobx")._("1929");
+            var S = r("justknobx")._("1929");
             return (
-              (i = v) == null || i.setRemoveRelayPortOverride(C),
+              (i = v) == null || i.setRemoveRelayPortOverride(S),
               (l = v) == null || l.setSctpTimeoutMs(e()),
+              (y = v) == null ||
+                y.setRelayParkedTxIdleMs(r("justknobx")._("1307") || 0),
               o("WALogger").LOG(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [DCThread] WASM pthread created successfully",
                   ])),
               ),
-              (y = v) == null || y.ping(),
+              (C = v) == null || C.ping(),
               !0
             );
           } catch (e) {

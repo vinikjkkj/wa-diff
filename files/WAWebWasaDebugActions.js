@@ -50,11 +50,11 @@ __d(
           return (
             a.stanzaId !== "" &&
               a.stanzaId !== n &&
-              (yield o("WAWebWasaRootSecretWriter").removeWasaCarrierForId(
+              (yield o("WAWebWasaRootSecretWriter").removeWasaRootSecretForId(
                 o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                 a.stanzaId,
               )),
-            yield o("WAWebWasaRootSecretWriter").upsertWasaCarrierForId(
+            yield o("WAWebWasaRootSecretWriter").upsertWasaRootSecretForId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               n,
               r,
@@ -88,7 +88,9 @@ __d(
           return t.rootSecret === ""
             ? "No debug secret set \u2014 apply one first."
             : (e
-                ? (yield o("WAWebWasaRootSecretWriter").upsertWasaCarrierForId(
+                ? (yield o(
+                    "WAWebWasaRootSecretWriter",
+                  ).upsertWasaRootSecretForId(
                     o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                     t.stanzaId,
                     new Uint8Array(o("WABase64").decodeB64(t.rootSecret)),
@@ -97,7 +99,9 @@ __d(
                     o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
                     t.stanzaId,
                   ))
-                : (yield o("WAWebWasaRootSecretWriter").removeWasaCarrierForId(
+                : (yield o(
+                    "WAWebWasaRootSecretWriter",
+                  ).removeWasaRootSecretForId(
                     o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                     t.stanzaId,
                   ),
@@ -122,7 +126,7 @@ __d(
           var e = S();
           return (
             e.stanzaId !== "" &&
-              (yield o("WAWebWasaRootSecretWriter").removeWasaCarrierForId(
+              (yield o("WAWebWasaRootSecretWriter").removeWasaRootSecretForId(
                 o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                 e.stanzaId,
               )),
@@ -144,16 +148,14 @@ __d(
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = S();
           if (e.rootSecret === "") return "No debug secret configured.";
-          var t = yield o(
-              "WAWebWasaRootSecretWriter",
-            ).getWasaCarrierSecretForId(
+          var t = yield o("WAWebWasaRootSecretWriter").getWasaRootSecretForId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               e.stanzaId,
             ),
             n =
               t == null
-                ? "carrier MISSING"
-                : "carrier present (" + t.length + " bytes)";
+                ? "hidden message MISSING"
+                : "hidden message present (" + t.length + " bytes)";
           return (
             "Force-use " +
             (e.enabled ? "ON" : "OFF") +

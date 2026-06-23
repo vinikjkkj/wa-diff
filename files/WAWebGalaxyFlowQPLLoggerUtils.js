@@ -86,7 +86,7 @@ __d(
           "extensions-metadata-response-error",
         EXTENSIONS_INVALID_EXTENSIONS_ID: "extensions-invalid-extensions-id",
         EXTENSIONS_INVALID_PUBLIC_KEY: "extensions-invalid-public-key",
-        EXTENSIONS_PUBLIC_KEY_SINGATURE_VERIFICATION_EXCEPTION:
+        EXTENSIONS_PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION:
           "extensions-public-key-signature-verification-exception",
         EXTENSIONS_PUBLIC_KEY_MISSING_IDENTITY_KEY_ERROR:
           "extensions-public-key-missing-identity-key-error",

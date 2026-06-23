@@ -6,7 +6,6 @@ __d(
     "WAWap",
     "WAWebCommsWapMd",
     "WAWebCreateNackFromStanza",
-    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -20,9 +19,6 @@ __d(
         o("WAWap").wap("ack", {
           id: o("WAWap").CUSTOM_STRING(t),
           class: o("WAWap").CUSTOM_STRING(a != null ? a : "message"),
-          from: o("WAWebCommsWapMd").DEVICE_JID(
-            o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-          ),
           to: n ? o("WAWebCommsWapMd").JID(n) : o("WAWap").DROP_ATTR,
           participant: r
             ? o("WAWebCommsWapMd").DEVICE_JID(r)
@@ -50,9 +46,6 @@ __d(
             {
               id: o("WAWap").CUSTOM_STRING(t),
               class: o("WAWap").CUSTOM_STRING(s != null ? s : "message"),
-              from: o("WAWebCommsWapMd").DEVICE_JID(
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
-              ),
               to: n ? o("WAWebCommsWapMd").JID(n) : o("WAWap").DROP_ATTR,
               participant: a
                 ? o("WAWebCommsWapMd").DEVICE_JID(a)

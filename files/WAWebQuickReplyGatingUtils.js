@@ -16,7 +16,8 @@ __d(
         !o("WAWebChatGetters").getIsNewsletter(t) &&
         !o("WAWebChatGetters").getIsBroadcast(t) &&
         e() &&
-        !((n = t.contact.businessProfile) != null && n.isBizBot3p)
+        !((n = t.contact.businessProfile) != null && n.isBizBot3p) &&
+        !t.id.isAiHub()
       );
     }
     function u(e) {

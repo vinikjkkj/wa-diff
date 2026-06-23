@@ -49,19 +49,49 @@ __d(
       f,
       g,
       h,
-      y = new (r("WADeprecatedWapParser"))("incomingMsgParser", function (e) {
-        var t, n;
-        (e.assertTag("message"),
-          e.hasAttr("to") &&
-            e.assertAttr(
-              "to",
-              o("WAWebUserPrefsMeUser")
-                .getMeDevicePnOrThrow_DO_NOT_USE()
-                .toJid(),
+      y,
+      C,
+      b = new (r("WADeprecatedWapParser"))("incomingMsgParser", function (t) {
+        var n, r;
+        if ((t.assertTag("message"), t.hasAttr("to"))) {
+          var a;
+          o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[handleMsgParser] to=",
+                  "",
+                ])),
+              t.attrString("to"),
+            )
+            .sendLogs("handle-msg-parser-has-to-attribute");
+          var i = t.attrString("to"),
+            l = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().toJid(),
+            u =
+              (a = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) == null
+                ? void 0
+                : a.toJid();
+          i !== l &&
+            i !== u &&
+            (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[handleMsgParser] no device LID/PN found",
+                ])),
+            ),
+            t.throw(
+              'to have "to"="' +
+                l +
+                '" or "' +
+                (u != null ? u : "<no mePn>") +
+                '", but instead has "' +
+                i +
+                '"',
             ));
-        var r = e.maybeChild("plaintext");
-        r != null && r.throw("not to be present in e2ee messages");
-        var a = e.mapChildrenWithTag("enc", function (e) {
+        }
+        var c = t.maybeChild("plaintext");
+        c != null && c.throw("not to be present in e2ee messages");
+        var d = t.mapChildrenWithTag("enc", function (e) {
             var t;
             return {
               e2eType: e.attrEnumValues(
@@ -77,126 +107,126 @@ __d(
               isStateless: e.maybeAttrString("state") === "false",
             };
           }),
-          i = e.maybeChild("device-identity"),
-          l = i ? i.contentBytes() : null,
-          s = R(e),
-          u = v(e, a),
-          c = C({ botInfo: s, encs: a, msgMeta: u, node: e }),
-          d = L(e, c),
-          m = k(e),
-          p = E(e),
-          _ = D(e),
-          f = x(e, a),
-          g =
-            (t =
-              (n = e.maybeChild("rcat")) == null ? void 0 : n.contentBytes()) !=
+          m = t.maybeChild("device-identity"),
+          p = m ? m.contentBytes() : null,
+          _ = E(t),
+          f = R(t, d),
+          g = v({ botInfo: _, encs: d, msgMeta: f, node: t }),
+          h = k(t, g),
+          y = T(t),
+          C = I(t),
+          b = $(t),
+          S = P(t, d),
+          L =
+            (n =
+              (r = t.maybeChild("rcat")) == null ? void 0 : r.contentBytes()) !=
             null
-              ? t
+              ? n
               : null;
         return {
-          encs: a,
-          msgInfo: c,
-          msgMeta: u,
-          bizInfo: d,
-          hsmInfo: p,
-          paymentInfo: m,
-          deviceIdentity: l,
-          rcat: g,
-          msgBotInfo: s,
-          reportingTokenInfo: _,
-          ghsReportingTokenInfos: f,
+          encs: d,
+          msgInfo: g,
+          msgMeta: f,
+          bizInfo: h,
+          hsmInfo: C,
+          paymentInfo: y,
+          deviceIdentity: p,
+          rcat: L,
+          msgBotInfo: _,
+          reportingTokenInfo: b,
+          ghsReportingTokenInfos: S,
         };
       });
-    function C(t) {
-      var n,
-        r = t.botInfo,
-        a = t.encs,
-        i = t.msgMeta,
-        l = t.node,
-        _ = o("WAWebABProps").getABPropConfigValue(
+    function v(e) {
+      var t,
+        n = e.botInfo,
+        r = e.encs,
+        a = e.msgMeta,
+        i = e.node,
+        l = o("WAWebABProps").getABPropConfigValue(
           "web_read_self_watermark_receive_store_ts",
         )
-          ? l.maybeAttrInt("sts")
+          ? i.maybeAttrInt("sts")
           : null,
-        f = babelHelpers.extends(
+        s = babelHelpers.extends(
           {
-            externalId: l.attrString("id"),
-            ts: l.attrTime("t"),
+            externalId: i.attrString("id"),
+            ts: i.attrTime("t"),
             edit:
-              (n = l.maybeAttrInt("edit")) != null
-                ? n
+              (t = i.maybeAttrInt("edit")) != null
+                ? t
                 : o("WAWebAck").EDIT_ATTR.NONE,
-            isHsm: l.hasChild("hsm"),
-            count: l.maybeAttrInt("count"),
-            pushname: l.maybeAttrString("notify"),
-            username: l.maybeAttrString("username"),
-            displayName: l.maybeAttrString("display_name"),
-            senderPn: l.hasAttr("sender_pn")
-              ? o("WAWebJidToWid").userJidToUserWid(l.attrUserJid("sender_pn"))
+            isHsm: i.hasChild("hsm"),
+            count: i.maybeAttrInt("count"),
+            pushname: i.maybeAttrString("notify"),
+            username: i.maybeAttrString("username"),
+            displayName: i.maybeAttrString("display_name"),
+            senderPn: i.hasAttr("sender_pn")
+              ? o("WAWebJidToWid").userJidToUserWid(i.attrUserJid("sender_pn"))
               : null,
-            senderLid: l.hasAttr("sender_lid")
-              ? o("WAWebJidToWid").userJidToUserWid(l.attrUserJid("sender_lid"))
+            senderLid: i.hasAttr("sender_lid")
+              ? o("WAWebJidToWid").userJidToUserWid(i.attrUserJid("sender_lid"))
               : null,
-            recipientLid: l.hasAttr("recipient_lid")
+            recipientLid: i.hasAttr("recipient_lid")
               ? o("WAWebJidToWid").lidUserJidToUserLid(
-                  l.attrLidUserJid("recipient_lid"),
+                  i.attrLidUserJid("recipient_lid"),
                 )
               : null,
-            recipientPn: l.hasAttr("recipient_pn")
+            recipientPn: i.hasAttr("recipient_pn")
               ? o("WAWebJidToWid").userJidToUserWid(
-                  l.attrUserJid("recipient_pn"),
+                  i.attrUserJid("recipient_pn"),
                 )
               : null,
-            peerRecipientPn: l.hasAttr("peer_recipient_pn")
+            peerRecipientPn: i.hasAttr("peer_recipient_pn")
               ? o("WAWebJidToWid").userJidToUserWid(
-                  l.attrUserJid("peer_recipient_pn"),
+                  i.attrUserJid("peer_recipient_pn"),
                 )
               : null,
-            peerRecipientLid: l.hasAttr("peer_recipient_lid")
+            peerRecipientLid: i.hasAttr("peer_recipient_lid")
               ? o("WAWebJidToWid").lidUserJidToUserLid(
-                  l.attrLidUserJid("peer_recipient_lid"),
+                  i.attrLidUserJid("peer_recipient_lid"),
                 )
               : null,
-            peerRecipientUsername: l.hasAttr("peer_recipient_username")
-              ? l.attrString("peer_recipient_username")
+            peerRecipientUsername: i.hasAttr("peer_recipient_username")
+              ? i.attrString("peer_recipient_username")
               : null,
-            recipientLatestLid: l.hasAttr("recipient_latest_lid")
+            recipientLatestLid: i.hasAttr("recipient_latest_lid")
               ? o("WAWebJidToWid").lidUserJidToUserLid(
-                  l.attrLidUserJid("recipient_latest_lid"),
+                  i.attrLidUserJid("recipient_latest_lid"),
                 )
               : null,
-            recipientUsername: l.hasAttr("recipient_username")
-              ? l.attrString("recipient_username")
+            recipientUsername: i.hasAttr("recipient_username")
+              ? i.attrString("recipient_username")
               : null,
-            participant: l.hasAttr("participant")
+            participant: i.hasAttr("participant")
               ? o("WAWebJidToWid").deviceJidToDeviceWid(
-                  l.attrDeviceJid("participant"),
+                  i.attrDeviceJid("participant"),
                 )
               : null,
-            participantLid: l.hasAttr("participant_lid")
+            participantLid: i.hasAttr("participant_lid")
               ? o("WAWebJidToWid").lidUserJidToUserLid(
-                  l.attrLidUserJid("participant_lid"),
+                  i.attrLidUserJid("participant_lid"),
                 )
               : null,
-            participantPn: l.hasAttr("participant_pn")
+            participantPn: i.hasAttr("participant_pn")
               ? o("WAWebJidToWid").userJidToUserWid(
-                  l.attrUserJid("participant_pn"),
+                  i.attrUserJid("participant_pn"),
                 )
               : null,
-            participantUsername: l.maybeAttrString("participant_username"),
-            category: l.maybeAttrEnum(
+            participantUsername: i.maybeAttrString("participant_username"),
+            category: i.maybeAttrEnum(
               "category",
               o("WAWebHandleMsgCommon").MSG_CATEGORY,
             ),
-            offline: l.maybeAttrString("offline"),
-            senderCountryCode: P(l.maybeChild("meta")),
+            offline: i.maybeAttrString("offline"),
+            senderCountryCode: M(i.maybeChild("meta")),
           },
-          _ != null ? { serverStoreTimeMicros: _ } : null,
+          l != null ? { serverStoreTimeMicros: l } : null,
         ),
-        g = o("WAWebJidToWid").jidWithTypeToWid(l.attrJidWithType("from"));
+        g = o("WAWebJidToWid").jidWithTypeToWid(i.attrJidWithType("from"));
       if (
         (g.isNewsletter() &&
-          l.throw("unexpected `from` attribute with newsletter Jid"),
+          i.throw("unexpected `from` attribute with newsletter Jid"),
         g.isUser() || g.isGroup())
       ) {
         var h = g.isGroup()
@@ -204,57 +234,57 @@ __d(
           : o("WAWebWidToJid").widToChatJid(
               o("WAWebWidFactory").asUserWidOrThrow(g),
             );
-        $(i, f.offline, _, h);
+        N(a, s.offline, l, h);
       }
-      var y = l.hasAttr("participant")
+      var y = i.hasAttr("participant")
           ? o("WAWebJidToWid").deviceJidToDeviceWid(
-              l.attrDeviceJid("participant"),
+              i.attrDeviceJid("participant"),
             )
           : null,
-        C = l.hasAttr("recipient")
-          ? o("WAWebJidToWid").userJidToUserWid(l.attrUserJid("recipient"))
+        C = i.hasAttr("recipient")
+          ? o("WAWebJidToWid").userJidToUserWid(i.attrUserJid("recipient"))
           : null,
-        v = !!(
+        b = !!(
           y != null &&
           y.isHosted() &&
           (g.isStatus() || g.isGroup() || g.isBroadcast())
         );
-      if (v)
+      if (b)
         throw new (o("WAParsableWapNode").XmppParsingFailure)(
           "incomingMsgParser",
           "" +
             o("WAWebCreateNackFromStanza").NackReason
               .InvalidHostedCompanionStanza,
         );
-      var S = a.every(function (e) {
+      var v = r.every(function (e) {
           return e.e2eType !== o("WAWebBackendJobs.flow").CiphertextType.Skmsg;
         }),
-        R = a.some(function (e) {
+        R = r.some(function (e) {
           return e.retryCount > 0;
         }),
         L = g.isGroup() || g.isBroadcast() ? y : g;
       if (C != null && L != null && !o("WAWebUserPrefsMeUser").isMeAccount(L))
-        return l.throw("Invalid recipient from non peer device");
-      var E = b(l),
-        k = i == null ? void 0 : i.targetChatJid;
-      if (r && g.isPnBot() && k != null) {
+        return i.throw("Invalid recipient from non peer device");
+      var E = S(i),
+        k = a == null ? void 0 : a.targetChatJid;
+      if (n && g.isPnBot() && k != null) {
         var I;
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
-          f,
+          s,
           {
             chat: o("WAWebWidFactory").asUserWidOrThrow(
-              (I = i == null ? void 0 : i.targetChatJidLid) != null ? I : k,
+              (I = a == null ? void 0 : a.targetChatJidLid) != null ? I : k,
             ),
             author: g,
             botParticipant: g,
           },
         );
-      } else if (r && g.isFbidBot() && k != null) {
+      } else if (n && g.isFbidBot() && k != null) {
         var T = o("WAWebWidFactory").asUserWidOrThrow(k);
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
-          f,
+          s,
           {
             chat: o(
               "WAWebLid1X1MigrationGating",
@@ -269,44 +299,44 @@ __d(
         var D = g;
         if (C != null) {
           if (!o("WAWebUserPrefsMeUser").isMeAccount(g))
-            return l.throw("recipient on non peer chat message");
+            return i.throw("recipient on non peer chat message");
           D = C;
         }
         var x = null,
-          N = o(
+          $ = o(
             "WAWebSimpleSignalPNToFBIDMigration",
           ).getDeprecatedPnChatForFbidThread(D);
-        N != null &&
+        $ != null &&
           (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "parseMessageInfo: forwarding ",
                 " to ",
                 "",
               ])),
             D.toLogString(),
-            N.toLogString(),
+            $.toLogString(),
           ),
           C != null && (x = C),
-          (D = N));
-        var M = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(D);
+          (D = $));
+        var P = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(D);
         return (
-          M != null &&
+          P != null &&
             (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[BIZAI] parseMessageInfo: forwarding ",
                   " to ",
                   "",
                 ])),
               D.toLogString(),
-              M.toLogString(),
+              P.toLogString(),
             ),
             C != null && (x = C),
-            (D = M)),
+            (D = P)),
           babelHelpers.extends(
             { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
-            f,
+            s,
             {
               chat: o("WAWebWidFactory").asUserWidOrThrow(D),
               author: g,
@@ -316,9 +346,9 @@ __d(
         );
       } else if (g.isGroup()) {
         var w;
-        if (y == null) return l.throw("group message with no participant");
+        if (y == null) return i.throw("group message with no participant");
         var A =
-          (w = l.maybeAttrEnum(
+          (w = i.maybeAttrEnum(
             "addressing_mode",
             o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE,
           )) != null
@@ -327,12 +357,12 @@ __d(
         try {
           !o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
             y.isLid() &&
-            f.participantPn == null &&
-            f.displayName == null &&
+            s.participantPn == null &&
+            s.displayName == null &&
             !o("WAWebUserPrefsMeUser").isMeAccount(y) &&
             (o("WALogger").ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[lid group] missing participant_pn for Lid message. sw worker: ",
                   "",
                 ])),
@@ -342,8 +372,8 @@ __d(
             ),
             o("WAWebCurrentUser").isEmployee()
               ? (o("WALogger").ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[lid group] chat id: ",
                       " participant lid: ",
                       "",
@@ -353,8 +383,8 @@ __d(
                 ),
                 o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[lid group] missing group mapping in message parser for employee",
                       ])),
                   )
@@ -363,8 +393,8 @@ __d(
                   ))
               : o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[lid group] missing group mapping in message parser",
                       ])),
                   )
@@ -373,8 +403,8 @@ __d(
                   ));
         } catch (e) {
           o("WALogger").ERROR(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "[lid group] could not report missing lid in group message parser ",
                 "",
               ])),
@@ -383,26 +413,26 @@ __d(
         }
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP },
-          f,
-          { chat: g, author: y, isDirect: S, addressingMode: A },
+          s,
+          { chat: g, author: y, isDirect: v, addressingMode: A },
         );
       } else {
         if (g.isBroadcast() && !g.isStatus())
           return y == null
-            ? l.throw("broadcast message with no participant")
+            ? i.throw("broadcast message with no participant")
             : o("WAWebUserPrefsMeUser").isMeAccount(y)
               ? E == null && !R
-                ? l.throw("peer broadcast message with no participants node")
+                ? i.throw("peer broadcast message with no participants node")
                 : babelHelpers.extends(
                     {
                       type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                         .PEER_BROADCAST,
                     },
-                    f,
+                    s,
                     {
                       chat: g,
                       author: y,
-                      isDirect: S,
+                      isDirect: v,
                       bclParticipants: E != null ? E : [],
                       bclHashValidated: !1,
                     },
@@ -412,33 +442,33 @@ __d(
                     type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                       .OTHER_BROADCAST,
                   },
-                  f,
+                  s,
                   {
                     chat: g,
                     author: y,
-                    isDirect: S,
-                    ephSetting: l.maybeAttrString("eph_setting"),
+                    isDirect: v,
+                    ephSetting: i.maybeAttrString("eph_setting"),
                   },
                 );
         if (g.isBroadcast() && g.isStatus()) {
           var F, O;
-          if (y == null) return l.throw("status message with no participant");
+          if (y == null) return i.throw("status message with no participant");
           var B =
             (F =
-              (O = l.maybeChild("meta")) == null
+              (O = i.maybeChild("meta")) == null
                 ? void 0
                 : O.maybeAttrString("status_setting")) != null
               ? F
               : void 0;
-          if (o("WAWebUserPrefsMeUser").isMeAccount(y) && S) {
+          if (o("WAWebUserPrefsMeUser").isMeAccount(y) && v) {
             if (E == null)
               return babelHelpers.extends(
                 {
                   type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                     .DIRECT_PEER_STATUS,
                 },
-                f,
-                { chat: g, author: y, isDirect: S, statusSetting: B },
+                s,
+                { chat: g, author: y, isDirect: v, statusSetting: B },
               );
             var W = E.map(function (e) {
               return e.wid;
@@ -448,7 +478,7 @@ __d(
                 type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                   .DIRECT_PEER_STATUS,
               },
-              f,
+              s,
               {
                 chat: g,
                 author: y,
@@ -460,14 +490,14 @@ __d(
           }
           return babelHelpers.extends(
             { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS },
-            f,
-            { chat: g, author: y, isDirect: S, statusSetting: B },
+            s,
+            { chat: g, author: y, isDirect: v, statusSetting: B },
           );
         }
       }
-      return l.throw("Unrecognized message type");
+      return i.throw("Unrecognized message type");
     }
-    function b(e) {
+    function S(e) {
       var t = e.maybeChild("participants");
       if (!t) return null;
       var n = [],
@@ -497,8 +527,8 @@ __d(
         }),
         r > 0 &&
           o("WALogger").ERROR(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
                 "[broadcast] Received ",
                 " recipient_latest_lid without a peer_recipient_lid nor peer_recipient_pn, this should not happen",
               ])),
@@ -507,7 +537,7 @@ __d(
         n
       );
     }
-    function v(e, t) {
+    function R(e, t) {
       var n = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
         a = e.hasAttr("participant")
           ? o("WAWebJidToWid").deviceJidToDeviceWid(
@@ -630,7 +660,7 @@ __d(
             "parseMessageMeta",
             "scheduled_message stanza missing st/key/rkid",
           );
-        var b = S(y.contentBytes());
+        var b = L(y.contentBytes());
         if (b == null)
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
             "parseMessageMeta",
@@ -644,7 +674,7 @@ __d(
       }
       return f;
     }
-    function S(e) {
+    function L(e) {
       if (
         e.length ===
         o("WAWebScheduledMsgConstants").SCHEDULED_MSG_REVEAL_KEY_BYTES
@@ -665,7 +695,7 @@ __d(
         } catch (e) {}
       return null;
     }
-    function R(e) {
+    function E(e) {
       var t = e.maybeChild("bot");
       if (t) {
         var n = t.maybeAttrString("sender_timestamp_ms"),
@@ -690,7 +720,7 @@ __d(
         return s;
       }
     }
-    function L(e, t) {
+    function k(e, t) {
       var n,
         r,
         a,
@@ -771,7 +801,7 @@ __d(
         },
       );
     }
-    function E(e) {
+    function I(e) {
       var t = e.maybeChild("hsm");
       if (t != null) {
         var n = t.maybeAttrString("tag"),
@@ -780,7 +810,7 @@ __d(
       }
       return null;
     }
-    function k(e) {
+    function T(e) {
       var t = null,
         n = e.hasChild("pay") ? e.child("pay") : null,
         r = e.hasChild("transaction") ? e.child("transaction") : null,
@@ -800,7 +830,7 @@ __d(
       else if (r) {
         var l = o("WAWebPaymentNotificationParser").parseTransactionNode(r);
         l &&
-          (I(a, i, o("WAWebWidFactory").createWid(l.receiver.toString()))
+          (D(a, i, o("WAWebWidFactory").createWid(l.receiver.toString()))
             ? (t = {
                 receiverJid: l.receiver.toString(),
                 currency: l.currency,
@@ -828,7 +858,7 @@ __d(
               m = n.hasAttr("receiver")
                 ? n.attrString("receiver")
                 : e.attrString("recipient");
-            I(a, i, o("WAWebWidFactory").createWid(m))
+            D(a, i, o("WAWebWidFactory").createWid(m))
               ? (t = {
                   receiverJid: m,
                   currency: d,
@@ -855,7 +885,7 @@ __d(
       }
       return t;
     }
-    function I(e, t, n) {
+    function D(e, t, n) {
       return !(
         e &&
         t != null &&
@@ -864,7 +894,7 @@ __d(
         !o("WAWebUserPrefsMeUser").isMeAccount(n)
       );
     }
-    var T = new (r("WADeprecatedWapParser"))(
+    var x = new (r("WADeprecatedWapParser"))(
       "incomingMsgParserForAckOnly",
       function (e) {
         e.assertTag("message");
@@ -873,8 +903,8 @@ __d(
           t = e.attrEnum("type", o("WAWebHandleMsgCommon").STANZA_MSG_TYPES);
         } catch (e) {
           o("WALogger").WARN(
-            f ||
-              (f = babelHelpers.taggedTemplateLiteralLoose([
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
                 "incomingMsgParserForAckOnly: failed to parse stanza type: ",
                 "",
               ])),
@@ -887,11 +917,11 @@ __d(
         } catch (e) {}
         var r = null;
         try {
-          r = C({ botInfo: R(e), encs: [], node: e });
+          r = v({ botInfo: E(e), encs: [], node: e });
         } catch (e) {
           o("WALogger").WARN(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "incomingMsgParserForAckOnly: failed to parse msg info: ",
                 "",
               ])),
@@ -912,7 +942,7 @@ __d(
         };
       },
     );
-    function D(e) {
+    function $(e) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var t = e.maybeChild("reporting");
@@ -927,7 +957,7 @@ __d(
         n
       );
     }
-    function x(e, t) {
+    function P(e, t) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var n = t.some(function (e) {
@@ -978,7 +1008,7 @@ __d(
       }
       return l;
     }
-    function $(e, t, n, r) {
+    function N(e, t, n, r) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "web_read_self_watermark_processing",
@@ -989,7 +1019,7 @@ __d(
         a != null && n <= a.readSts && (e.isReadByPeer = !0);
       }
     }
-    function P(e) {
+    function M(e) {
       var t = e == null ? void 0 : e.maybeAttrString("sender_country_code");
       if (t != null)
         try {
@@ -998,8 +1028,8 @@ __d(
           o("WAWebCurrentUser").isEmployee() &&
             o("WALogger")
               .ERROR(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "Failed to parse sender country code: ",
                     "",
                   ])),
@@ -1010,7 +1040,7 @@ __d(
               });
         }
     }
-    ((l.incomingMsgParser = y), (l.incomingMsgParserForAckOnly = T));
+    ((l.incomingMsgParser = b), (l.incomingMsgParserForAckOnly = x));
   },
   98,
 );
