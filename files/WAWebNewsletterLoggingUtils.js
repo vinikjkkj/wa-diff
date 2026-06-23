@@ -128,9 +128,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoinRequest:
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunityMember:
         case o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow:
-        case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINullStateSuggestion:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar:
-        case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAITypeaheadSuggestion:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINewThreadCreation:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIThreadList:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIIntroPanel:

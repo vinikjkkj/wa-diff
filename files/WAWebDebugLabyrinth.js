@@ -71,7 +71,7 @@ __d(
       throw r("err")(D);
     }
     function N() {
-      var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
+      var e = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().getDeviceId();
       return e != null ? String(e) : null;
     }
     function M() {
@@ -170,19 +170,12 @@ __d(
             return (
               (r == null ? void 0 : r.__typename) ===
               "XWA2LabyrinthCreateBackupData"
-                ? (o(
-                    "WAWebLabyrinthDebugStateCache",
-                  ).updateLabyrinthDebugKeyMaterialCacheIds({
-                    backupId: r.backup_id,
-                    ebDeviceId: r.device_id,
-                    epochId: r.epoch_id,
-                  }),
-                  o("WALogger").LOG(
+                ? o("WALogger").LOG(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[Debug][Labyrinth] mexCreateLabyrinthBackup GQL request success",
                       ])),
-                  ))
+                  )
                 : (r == null ? void 0 : r.__typename) === "XWA2LabyrinthError"
                   ? o("WALogger").ERROR(
                       _ ||

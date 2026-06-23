@@ -1,6 +1,11 @@
 __d(
   "WAWebChatThemeSelectionHandlers",
-  ["WAWebSolidColorPalette", "WAWebStockWallpaper", "WAWebWallpaper"],
+  [
+    "WAWebChatThemeEnums",
+    "WAWebSolidColorPalette",
+    "WAWebStockWallpaper",
+    "WAWebWallpaper",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.chatThemeModule,
@@ -13,11 +18,13 @@ __d(
         u = l.values.doodleEnabled,
         c = function (r, i) {
           if (t != null) {
-            var e = r === t.Theme.Default,
+            var e = r === o("WAWebChatThemeEnums").Theme.Default,
               c = t.isMinimalScheme(r),
               d = i != null;
-            (l.applyColor(e ? t.Theme.Default : r),
-              l.applyTheme(e ? t.Theme.Default : t.getBaseTheme(r)),
+            (l.applyColor(e ? o("WAWebChatThemeEnums").Theme.Default : r),
+              l.applyTheme(
+                e ? o("WAWebChatThemeEnums").Theme.Default : t.getBaseTheme(r),
+              ),
               l.applyWallpaper(
                 s ? null : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
               ),
@@ -31,7 +38,7 @@ __d(
         },
         d = function (r) {
           if (t != null) {
-            var e = r === t.Theme.Default;
+            var e = r === o("WAWebChatThemeEnums").Theme.Default;
             (l.applyColor(e ? null : r), n());
           }
         },

@@ -67,12 +67,21 @@ __d(
           }
         : null;
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function y(e) {
+      if (e.type !== o("WAWebMsgType").MSG_TYPE.VIDEO) return e.fullPreview;
+      var t = e.preview;
+      return t == null
+        ? e.fullPreview
+        : t.startsWith("blob:") || t.startsWith("data:")
+          ? t
+          : "data:image/jpeg;base64," + t;
     }
-    function C() {
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a,
             i,
@@ -109,106 +118,110 @@ __d(
               o("WAWebBizBroadcastMediaProcessor").SUPPORTED_MEDIA_TYPES,
               1,
             );
-            var y = f.getPreviewableMedias(),
-              C = y[0];
-            return C == null
-              ? null
-              : {
-                  fileExt: C.fileExt,
-                  fileName: C.filename,
-                  fileSize: C.filesize,
-                  mediaType: C.type,
-                  mimetype: C.mimetype,
-                  pageCount: C.documentPageCount,
-                  previewSize: C.fullPreviewSize,
-                  previewUrl: C.fullPreview,
-                };
+            var C = f.getActive();
+            if (
+              C == null ||
+              (C.processPromise != null && (yield C.processPromise),
+              !C.previewable)
+            )
+              return null;
+            var b = y(C);
+            return {
+              fileExt: C.fileExt,
+              fileName: C.filename,
+              fileSize: C.filesize,
+              mediaType: C.type,
+              mimetype: C.mimetype,
+              pageCount: C.documentPageCount,
+              previewSize: C.fullPreviewSize,
+              previewUrl: b,
+            };
           }
           if (e == null) return null;
-          var v = o("WAWebDBMessageSerialization").messageFromDbRow(e);
-          if (v.type === o("WAWebMsgType").MSG_TYPE.PRODUCT) {
-            var S,
-              R,
+          var S = o("WAWebDBMessageSerialization").messageFromDbRow(e);
+          if (S.type === o("WAWebMsgType").MSG_TYPE.PRODUCT) {
+            var R,
               L,
-              E = e.businessOwnerJid;
-            if (E == null) return null;
-            var k = (S = yield b(e)) != null ? S : "",
-              I = (R = v.title) != null ? R : "",
-              T = String(
+              E,
+              k = e.businessOwnerJid;
+            if (k == null) return null;
+            var I = (R = yield v(e)) != null ? R : "",
+              T = (L = S.title) != null ? L : "",
+              D = String(
                 o("WAWebBizBroadcastsCreationStrings").getDefaultCatalogLabel(),
               );
             return g(
               {
-                catalogWid: E,
-                productId: (L = e.productId) != null ? L : void 0,
-                productImageUrl: k || null,
-                productName: I,
+                catalogWid: k,
+                productId: (E = e.productId) != null ? E : void 0,
+                productImageUrl: I || null,
+                productName: T,
               },
-              I || T,
-              k,
+              T || D,
+              I,
             );
           }
-          var D =
-            (n = v.matchedText) == null ? void 0 : n.match(/wa\.me\/c\/(\d+)/);
-          if (D != null) {
-            var x,
-              $,
-              P = D[1] + "@s.whatsapp.net",
-              N =
-                v.thumbnail != null
-                  ? "data:image/jpeg;base64," + v.thumbnail
+          var x =
+            (n = S.matchedText) == null ? void 0 : n.match(/wa\.me\/c\/(\d+)/);
+          if (x != null) {
+            var $,
+              P,
+              N = x[1] + "@s.whatsapp.net",
+              M =
+                S.thumbnail != null
+                  ? "data:image/jpeg;base64," + S.thumbnail
                   : "",
-              M = String(
+              w = String(
                 o("WAWebBizBroadcastsCreationStrings").getDefaultCatalogLabel(),
               );
             return g(
               {
-                catalogWid: P,
-                productImageUrl: N || null,
-                productName: (x = v.title) != null ? x : "",
+                catalogWid: N,
+                productImageUrl: M || null,
+                productName: ($ = S.title) != null ? $ : "",
               },
-              ($ = v.title) != null ? $ : M,
-              N,
+              (P = S.title) != null ? P : w,
+              M,
             );
           }
-          if (v.mimetype == null) return null;
-          var w = v.type,
-            A = v.mimetype,
-            F = (a = e.filename) != null ? a : "",
-            O = (i = e.size) != null ? i : 0,
-            B = o("WAWebFileUtils").getFileExtension(F),
-            W = (l = e.pageCount) != null ? l : 0,
-            q = {
+          if (S.mimetype == null) return null;
+          var A = S.type,
+            F = S.mimetype,
+            O = (a = e.filename) != null ? a : "",
+            B = (i = e.size) != null ? i : 0,
+            W = o("WAWebFileUtils").getFileExtension(O),
+            q = (l = e.pageCount) != null ? l : 0,
+            U = {
               height: (s = e.height) != null ? s : 0,
               width: (u = e.width) != null ? u : 0,
             },
-            U = yield b(e);
+            V = yield v(e);
           return {
-            fileExt: B,
-            fileName: F,
-            fileSize: O,
-            mediaType: w,
-            mimetype: A,
-            pageCount: W,
-            previewSize: q,
-            previewUrl: U,
+            fileExt: W,
+            fileName: O,
+            fileSize: B,
+            mediaType: A,
+            mimetype: F,
+            pageCount: q,
+            previewSize: U,
+            previewUrl: V,
           };
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if ((t == null ? void 0 : t.mediaFile) != null) {
             var n = t.mediaFile;
             return o("WAWebMediaMessageGetValidatedProperties").isVideoMimeType(
               n.type,
             )
-              ? S(n)
+              ? R(n)
               : URL.createObjectURL(n);
           }
           if (e != null) {
@@ -233,15 +246,15 @@ __d(
           }
           return null;
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebImageUtils").generateVideoThumbsAndDuration({
               debugHint: "downloadVideoThumbnail",
               file: e,
@@ -251,10 +264,10 @@ __d(
             r = n[0];
           return r.url;
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
+    function E(e, t) {
       var n = e.status;
       return n ===
         o("WAWebSchemaBusinessBroadcastCampaign")
@@ -276,7 +289,7 @@ __d(
               : o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue
                   .PROCESSING;
     }
-    function E(e) {
+    function k(e) {
       var t;
       if (e == null) return !1;
       var n = o("WAWebDBMessageSerialization").messageFromDbRow(e),
@@ -287,7 +300,7 @@ __d(
             : t.at(0);
       return r && a != null;
     }
-    function k(t, n) {
+    function I(t, n) {
       var a;
       if ((n == null ? void 0 : n.ctaButtonJson) != null) {
         try {
@@ -336,7 +349,7 @@ __d(
         }
         return null;
       }
-      if (!E(t) || t == null) return null;
+      if (!k(t) || t == null) return null;
       var m = o("WAWebDBMessageSerialization").messageFromDbRow(t),
         p =
           (a = m.interactivePayload) == null || (a = a.buttons) == null
@@ -392,7 +405,7 @@ __d(
         );
       }
     }
-    function I(e, t) {
+    function T(e, t) {
       if (e != null) {
         var n,
           r,
@@ -409,7 +422,7 @@ __d(
             )) == null
               ? void 0
               : r.has(s)) === !0,
-          c = E(e),
+          c = k(e),
           d = o("WAWebMediaMessageGetValidatedProperties").isVideoMimeType(s),
           m = i.type === o("WAWebMsgType").MSG_TYPE.STICKER,
           p = i.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT,
@@ -422,10 +435,10 @@ __d(
       }
       return t != null && t.messageBody != null ? t.messageBody : "";
     }
-    function T(e) {
+    function D(e) {
       return e == null ? "" : o("WAWebChatGroupUtils").getBroadcastChatTitle(e);
     }
-    function D(e, t) {
+    function x(e, t) {
       var n;
       if (e == null) return t;
       var r = o("WAWebDBMessageSerialization").messageFromDbRow(e);
@@ -436,12 +449,12 @@ __d(
         o("WAWebBroadcastConsts").MS_PER_SEC
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.pendingBroadcastMessageId;
           if (t != null) {
             var n,
@@ -462,15 +475,15 @@ __d(
           }
           return null;
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    function N(e, t) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o(
               "WAWebBizBroadcastCampaignMsgKeyUtils",
             ).reconstructCampaignMsgKey(e, t),
@@ -514,15 +527,15 @@ __d(
           }
           return null;
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M(e, t, n) {
-      return w.apply(this, arguments);
+    function w(e, t, n) {
+      return A.apply(this, arguments);
     }
-    function w() {
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i,
             l,
             s,
@@ -532,34 +545,34 @@ __d(
             p,
             _,
             g,
-            C,
+            y,
             b = e.broadcastJid,
             v = o("WAWebWidFactory").createWid(e.broadcastJid),
             S = o("WAWebChatCollection").ChatCollection.get(v),
             R = (i = t.get(e.campaignId)) != null ? i : null,
-            E = yield (f || (f = n("Promise"))).all([
+            L = yield (f || (f = n("Promise"))).all([
               e.msgId != null
-                ? P(e.msgId, e.broadcastJid)
+                ? N(e.msgId, e.broadcastJid)
                 : (f || (f = n("Promise"))).resolve(null),
-              x(e),
+              $(e),
             ]),
-            $ = E[0],
-            N = E[1],
+            k = L[0],
+            P = L[1],
             M =
-              $ != null
-                ? o("WAWebDBMessageSerialization").messageFromDbRow($)
+              k != null
+                ? o("WAWebDBMessageSerialization").messageFromDbRow(k)
                 : null,
             w = M == null ? void 0 : M.type;
-          if (e.deviceId !== a && e.msgId != null && $ == null) {
+          if (e.deviceId !== a && e.msgId != null && k == null) {
             var A = new Error(
               o("WAWebBroadcastConsts").CAMPAIGN_MSG_UNAVAILABLE_ERROR,
             );
             throw (A.stack, A);
           }
-          var F = L(e, $),
-            O = I($, N),
-            B = D($, e.createdTimestamp),
-            W = T(S),
+          var F = E(e, k),
+            O = T(k, P),
+            B = x(k, e.createdTimestamp),
+            W = D(S),
             q =
               (l =
                 (s = R == null ? void 0 : R.recipientCount) != null
@@ -571,8 +584,8 @@ __d(
                     : c.length) != null
                 ? l
                 : 0,
-            U = k($, N),
-            V = yield y($, N),
+            U = I(k, P),
+            V = yield C(k, P),
             H = U != null ? U : h(V),
             G = (d = R == null ? void 0 : R.deliveredCount) != null ? d : 0;
           if (
@@ -622,8 +635,8 @@ __d(
             ctaButtonData: H,
             deliveredCount: G,
             lastUpdatedTimestampMs:
-              (C = R == null ? void 0 : R.lastUpdatedTimestampMs) != null
-                ? C
+              (y = R == null ? void 0 : R.lastUpdatedTimestampMs) != null
+                ? y
                 : null,
             messageBody: O,
             msgType: w,
@@ -635,15 +648,15 @@ __d(
             status: F,
           };
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A() {
-      return F.apply(this, arguments);
-    }
     function F() {
+      return O.apply(this, arguments);
+    }
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -687,7 +700,7 @@ __d(
           );
           var s = yield f.allSettled(
               l.map(function (e) {
-                return M(e, a, i);
+                return w(e, a, i);
               }),
             ),
             u = [];
@@ -718,24 +731,24 @@ __d(
             }
           return u;
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function B(e, t) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = yield (f || (f = n("Promise"))).all([
               e.msgId != null
-                ? P(e.msgId, e.broadcastJid)
+                ? N(e.msgId, e.broadcastJid)
                 : (f || (f = n("Promise"))).resolve(null),
-              x(e),
+              $(e),
             ]),
             o = r[0],
             a = r[1],
-            i = yield y(o, a),
+            i = yield C(o, a),
             l = i == null ? void 0 : i.previewUrl;
           if (
             (t == null ? void 0 : t.aborted) === !0 &&
@@ -751,8 +764,8 @@ __d(
                 thumbnailUrl: null,
               }
             );
-          var s = I(o, a),
-            u = k(o, a);
+          var s = T(o, a),
+            u = I(o, a);
           return {
             attachment: i,
             ctaButtonData: u,
@@ -760,21 +773,21 @@ __d(
             thumbnailUrl: l,
           };
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignByKey(e);
             if (t == null) return null;
-            var n = yield x(t);
+            var n = yield $(t);
             if ((n == null ? void 0 : n.mediaFile) != null) {
               var a;
               return (a = yield o(
@@ -784,7 +797,7 @@ __d(
                 : null;
             }
             if (t.msgId == null) return null;
-            var i = yield P(t.msgId, t.broadcastJid);
+            var i = yield N(t.msgId, t.broadcastJid);
             if (i == null) return null;
             var l = o("WAWebMsgCollection").MsgCollection.get(i.id);
             if (l == null) {
@@ -832,22 +845,22 @@ __d(
             );
           }
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    ((l.getThumbnailUrl = b),
-      (l.deriveCampaignStatus = L),
-      (l.getDisplayMessageBody = I),
-      (l.lookupCampaignMessage = P),
+    ((l.getThumbnailUrl = v),
+      (l.deriveCampaignStatus = E),
+      (l.getDisplayMessageBody = T),
+      (l.lookupCampaignMessage = N),
       (l.filterCampaignsByDevice = o(
         "WAWebBizBroadcastCampaignAPI",
       ).filterCampaignsByDevice),
       (l.getAllRawCampaignsForCurrentDevice = o(
         "WAWebBizBroadcastCampaignAPI",
       ).getAllRawCampaignsForCurrentDevice),
-      (l.loadBroadcastCampaigns = A),
-      (l.fetchCampaignMediaContext = O),
-      (l.resolveAttachmentDataForCampaign = W));
+      (l.loadBroadcastCampaigns = F),
+      (l.fetchCampaignMediaContext = B),
+      (l.resolveAttachmentDataForCampaign = q));
   },
   98,
 );

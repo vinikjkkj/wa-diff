@@ -4,32 +4,38 @@ __d(
     "WATimeUtils",
     "WAWebHatchMetadataOperationEncoder",
     "WAWebProtobufsE2E.pb",
+    "cr:7454",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       var t = e.json,
-        n = t.hatchMetadataSync;
-      if (n == null || n.type !== "req")
+        a = t.hatchMetadataSync;
+      if (a == null || a.type !== "req")
         throw r("err")(
           "Missing req-typed hatchMetadataSync for hatch_metadata_sync message",
         );
-      return {
-        protocolMessage: {
-          type: o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-            .AI_METADATA_OPERATION,
-          aiMetadataOperation: {
-            hatchMetadataSync: {
-              data: o("WAWebHatchMetadataOperationEncoder").encodeHatchRequest(
-                n.request,
-              ),
-              requestId: n.requestId,
-              timestampMs: o("WATimeUtils").unixTimeMs(),
+      var i = o("WAWebHatchMetadataOperationEncoder").encodeHatchRequest(
+        a.request,
+      );
+      return (
+        n("cr:7454") == null ||
+          n("cr:7454").recordOutbound(a.request, a.requestId, i),
+        {
+          protocolMessage: {
+            type: o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+              .AI_METADATA_OPERATION,
+            aiMetadataOperation: {
+              hatchMetadataSync: {
+                data: i,
+                requestId: a.requestId,
+                timestampMs: o("WATimeUtils").unixTimeMs(),
+              },
             },
           },
-        },
-      };
+        }
+      );
     }
     l.default = e;
   },

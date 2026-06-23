@@ -26,6 +26,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsStatusAttributions.pb",
+    "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebURLUtils",
     "WAWebWid",
     "WAWebWidFactory",
@@ -253,7 +254,11 @@ __d(
           p = d.botName,
           _ = d.creatorName;
         a.forwardedAiBotMessageInfo = {
-          botJid: o("WAWebE2EProtoUtils").encodeJid(m),
+          botJid: o("WAWebE2EProtoUtils").encodeJid(
+            o(
+              "WAWebSimpleSignalPNToFBIDMigration",
+            ).maybeReplaceDeprecatedBotPnWithFbid(m),
+          ),
           botName: p,
           creatorName: _,
         };
@@ -404,15 +409,26 @@ __d(
           )),
         o("WAWebBotBaseGating").isBotEnabled())
       ) {
-        var m = o("WAWebGenerateBotMetadata").generateBotMetadata(e);
-        u.messageContextInfo = babelHelpers.extends({}, u.messageContextInfo, {
-          botMetadata: m,
-        });
+        var m,
+          p = o("WAWebGenerateBotMetadata").generateBotMetadata(e),
+          _ = (m = u.messageContextInfo) == null ? void 0 : m.botMetadata;
+        p != null && _ != null
+          ? (u.messageContextInfo = babelHelpers.extends(
+              {},
+              u.messageContextInfo,
+              { botMetadata: babelHelpers.extends({}, _, p) },
+            ))
+          : p != null &&
+            (u.messageContextInfo = babelHelpers.extends(
+              {},
+              u.messageContextInfo,
+              { botMetadata: p },
+            ));
       }
       if (!r("isArrayNullOrEmpty")(e.threadIds)) {
-        var p = o("WAWebGenerateThreadIds").generateThreadIds(e);
+        var f = o("WAWebGenerateThreadIds").generateThreadIds(e);
         u.messageContextInfo = babelHelpers.extends({}, u.messageContextInfo, {
-          threadId: p,
+          threadId: f,
         });
       }
       if (
@@ -428,13 +444,13 @@ __d(
             ).isRemoveMessageSecretFromQuotedEnabled()
           ))
       ) {
-        var _, f;
+        var g, h;
         u.messageContextInfo = babelHelpers.extends({}, u.messageContextInfo, {
           messageSecret:
-            (_ =
-              (f = u.messageContextInfo) == null ? void 0 : f.messageSecret) !=
+            (g =
+              (h = u.messageContextInfo) == null ? void 0 : h.messageSecret) !=
             null
-              ? _
+              ? g
               : e.messageSecret,
         });
       }

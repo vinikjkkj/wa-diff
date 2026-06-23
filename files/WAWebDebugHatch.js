@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebHandleHatchMetadataSync",
     "WAWebHatchApprovalDialog.react",
+    "WAWebHatchPayloadDebugStore",
     "WDSDialogBridge",
     "react",
   ],
@@ -42,6 +43,15 @@ __d(
         },
       ];
     function m() {
+      return r("WAWebHatchPayloadDebugStore").getRecords();
+    }
+    m.doc =
+      "List the Hatch AIMetadataOperation payloads captured this session (inbound events/responses, outbound reqs) with their raw envelope, decoded form, and timestamps";
+    function p() {
+      r("WAWebHatchPayloadDebugStore").clear();
+    }
+    p.doc = "Clear the captured Hatch AIMetadataOperation payload list";
+    function _() {
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WAWebHatchApprovalDialog.react"), {
           richDescription: "Create an email draft to xyz@meta.com",
@@ -62,9 +72,9 @@ __d(
         }),
       );
     }
-    ((m.doc = "Opens the Hatch approval options dialog"),
-      (m.paramsToExecute = []));
-    function p(e) {
+    ((_.doc = "Opens the Hatch approval options dialog"),
+      (_.paramsToExecute = []));
+    function f(e) {
       e === void 0 && (e = d.length);
       var t = Math.max(1, Math.min(e, d.length));
       return d.slice(0, t).map(function (e) {
@@ -72,6 +82,7 @@ __d(
           type: "event",
           requestId: null,
           event: {
+            seq: null,
             timestamp: null,
             index: c,
             opKey: c,
@@ -98,11 +109,16 @@ __d(
         );
       });
     }
-    ((p.doc =
+    ((f.doc =
       "Inject N (1-3, default 3) sample HITL approvals (P2384347284) as pending requests \u2014 pass a count to test the single- vs multi-approval review dialog"),
-      (p.paramsToExecute = [d.length]));
-    var _ = { injectHatchApprovals: p, openHatchApprovalDialog: m };
-    l.default = _;
+      (f.paramsToExecute = [d.length]));
+    var g = {
+      hatchClearPayloads: p,
+      hatchPayloads: m,
+      injectHatchApprovals: f,
+      openHatchApprovalDialog: _,
+    };
+    l.default = g;
   },
   98,
 );

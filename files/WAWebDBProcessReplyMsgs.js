@@ -2,6 +2,7 @@ __d(
   "WAWebDBProcessReplyMsgs",
   [
     "WADeepEquals",
+    "WAWebBatchedStatusIdUtils",
     "WAWebDBMessageSerialization",
     "WAWebDBMsgUtils",
     "WAWebGroupType",
@@ -10,6 +11,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebUserPrefsMeUser",
+    "WAWebWid",
     "asyncToGeneratorRuntime",
     "filterObject",
     "isStringNullOrEmpty",
@@ -116,13 +118,20 @@ __d(
       if (r("isStringNullOrEmpty")(e.quotedStanzaID))
         return "missing-stanza-id";
       var a = (t = e.quotedParticipant) != null ? t : void 0,
-        i = (n = e.quotedRemoteJid) != null ? n : e.id.remote;
+        i = (n = e.quotedRemoteJid) != null ? n : e.id.remote,
+        l = e.quotedStanzaID,
+        s =
+          l != null && r("WAWebWid").isStatus(i)
+            ? o("WAWebBatchedStatusIdUtils").normalizeStatusStanzaId(l)
+            : l;
       return new (r("WAWebMsgKey"))({
-        id: e.quotedStanzaID,
+        id: s,
         fromMe: o("WAWebUserPrefsMeUser").isMeAccount(a),
         remote: i,
         participant:
-          o("WAWebMsgGetters").getIsGroupMsg(e) || (a != null && a.isBot())
+          o("WAWebMsgGetters").getIsGroupMsg(e) ||
+          r("WAWebWid").isStatus(i) ||
+          (a != null && a.isBot())
             ? a
             : void 0,
       });

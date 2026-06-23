@@ -92,6 +92,19 @@ __d(
         GUEST_BACKEND_LOGOUT_DUE_TO_FAILURE_STANZA:
           "error_guest_backend_logout_due_to_failure_stanza",
         GUEST_LOGOUT_USER_INITIATED: "guest_logout_user_initiated",
+        EVENTS_LANDING_IMPRESSION: "guest_events_landing_impression",
+        EVENTS_DOWNLOAD_CTA_REDIRECT: "guest_events_download_cta_redirect",
+        EVENTS_RSVP_CTA_CLICKED: "guest_events_rsvp_cta_clicked",
+        EVENTS_RSVP_OPTION_SELECTED: "guest_events_rsvp_option_selected",
+        EVENTS_RSVP_SUBMIT_ATTEMPTED: "guest_events_rsvp_submit_attempted",
+        EVENTS_RSVP_SUBMIT_ENDED: "guest_events_rsvp_submit_ended",
+        EVENTS_UPSELL_VIEW: "guest_events_upsell_view",
+        EVENTS_RSVP_WA_WEB_CONFLICT: "guest_events_rsvp_wa_web_conflict",
+        EVENTS_LOCATION_DIRECTIONS_CLICKED:
+          "guest_events_location_directions_clicked",
+        EVENTS_ADD_TO_CALENDAR_CLICKED: "guest_events_add_to_calendar_clicked",
+        EVENTS_DESCRIPTION_READ_MORE_CLICKED:
+          "guest_events_description_read_more_clicked",
       }),
       m = e.Mirrored([
         "GuestActiveInviteCode",

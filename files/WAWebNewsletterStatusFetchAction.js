@@ -60,14 +60,16 @@ __d(
                 : n.membershipType,
             );
           try {
-            var i = yield o(
+            var i,
+              l,
+              u = yield o(
                 "WAWebNewsletterGetStatusesJob",
               ).getNewsletterStatuses(t, a, {}),
-              l = i.from,
-              u = i.msgs,
-              d = i.reactionCounts,
-              m = i.revokedServerIds,
-              p = i.viewCounts;
+              d = u.from,
+              m = u.msgs,
+              p = u.reactionCounts,
+              _ = u.revokedServerIds,
+              f = u.viewCounts;
             if (
               (o("WALogger").LOG(
                 e ||
@@ -76,28 +78,38 @@ __d(
                     " statuses for ",
                     "",
                   ])),
-                String(u.length),
+                String(m.length),
                 t,
               ),
-              yield g(l, m != null ? m : []),
-              u.length === 0)
+              yield g(d, _ != null ? _ : []),
+              m.length === 0)
             )
-              return S(l, t);
+              return S(d, t);
             yield y({
-              from: l,
-              msgs: u,
-              viewCounts: p,
-              reactionCounts: d,
+              from: d,
+              msgs: m,
+              viewCounts: f,
+              reactionCounts: p,
               isFullFetch: !0,
             });
-            var _ = o(
-              "WAWebNewsletterStatusProcessingUtils",
-            ).computeMaxServerId(u);
+            var h =
+                (i =
+                  r("WAWebNewsletterMetadataCollection") == null ||
+                  (l = r("WAWebNewsletterMetadataCollection").get(t)) == null ||
+                  (l = l.statusMetadata) == null
+                    ? void 0
+                    : l.lastStatusServerId) != null
+                  ? i
+                  : 0,
+              C = Math.max(
+                o("WAWebNewsletterStatusProcessingUtils").computeMaxServerId(m),
+                h,
+              );
             return (
-              _ > 0 &&
+              C > 0 &&
                 o(
                   "WAWebNewsletterStatusProcessingUtils",
-                ).syncFilledStatusCursor(t, _),
+                ).syncFilledStatusCursor(t, C),
               c.NewStatuses
             );
           } catch (e) {

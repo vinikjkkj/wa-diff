@@ -1,6 +1,6 @@
 __d(
   "WAWebParseProtocolStatusMentionMessageProto",
-  ["WAWebMsgType", "WAWebStatusGatingUtils"],
+  ["WAWebBatchedStatusIdUtils", "WAWebMsgType", "WAWebStatusGatingUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.baseMessage,
@@ -11,7 +11,8 @@ __d(
         if (o("WAWebStatusGatingUtils").isStatusMentionMessageEnabled()) {
           var i,
             l = a.message,
-            s = l == null || (i = l.protocolMessage) == null ? void 0 : i.key;
+            s = l == null || (i = l.protocolMessage) == null ? void 0 : i.key,
+            u = s == null ? void 0 : s.id;
           return {
             msgData: babelHelpers.extends({}, t, {
               type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
@@ -19,7 +20,10 @@ __d(
               kind: o("WAWebMsgType").MsgKind.Protocol,
             }),
             contextInfo: {
-              stanzaId: s == null ? void 0 : s.id,
+              stanzaId:
+                u != null
+                  ? o("WAWebBatchedStatusIdUtils").normalizeStatusStanzaId(u)
+                  : u,
               mentionedJid: [],
               groupMentions: [],
               statusAttributions: [],

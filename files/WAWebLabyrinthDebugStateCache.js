@@ -51,29 +51,15 @@ __d(
     function p(e) {
       ((c = e), d(e));
     }
-    function _(e) {
-      var t,
-        n,
-        r,
-        o = c != null ? c : m();
-      o != null &&
-        ((c = babelHelpers.extends({}, o, {
-          backupId: (t = e.backupId) != null ? t : o.backupId,
-          ebDeviceId: (n = e.ebDeviceId) != null ? n : o.ebDeviceId,
-          epochId: (r = e.epochId) != null ? r : o.epochId,
-        })),
-        d(c));
-    }
-    function f() {
+    function _() {
       return (c == null && (c = m()), c);
     }
-    function g() {
+    function f() {
       ((c = null), d(null));
     }
     ((l.setLabyrinthDebugKeyMaterialCache = p),
-      (l.updateLabyrinthDebugKeyMaterialCacheIds = _),
-      (l.getLabyrinthDebugKeyMaterialCache = f),
-      (l.clearLabyrinthDebugKeyMaterialCache = g));
+      (l.getLabyrinthDebugKeyMaterialCache = _),
+      (l.clearLabyrinthDebugKeyMaterialCache = f));
   },
   98,
 );

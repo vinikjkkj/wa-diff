@@ -49,10 +49,9 @@ __d(
           if (n != null && !m) {
             var u = (e = i.colorSchemeId) != null ? e : null,
               c = (o = i.chatThemeId) != null ? o : null,
-              d = i.wallpaper,
+              d = t.rawWallpaperValue,
               _ = r,
-              f = l,
-              g = t.minimalModeActive;
+              f = t.minimalModeActive;
             p(
               function () {
                 (t.applyColor(null),
@@ -61,16 +60,14 @@ __d(
                   a(null),
                   t.applyActiveWallpaperId(null),
                   t.applyMinimalMode(!1),
-                  l || t.applyDoodle(!0));
+                  t.isGlobal && !l && t.applyDoodle(!0));
               },
               function () {
                 (t.applyColor(u),
                   t.applyTheme(c),
-                  t.applyWallpaper(d),
+                  t.restoreWallpaperValue(d),
                   a(_),
-                  t.applyActiveWallpaperId(_),
-                  t.applyMinimalMode(g),
-                  t.applyDoodle(f));
+                  t.applyMinimalMode(f));
               },
               s._(/*BTDS*/ "Chat theme reset"),
             );
@@ -95,23 +92,18 @@ __d(
           var e;
           if (n != null && !d) {
             var o = (e = i.chatThemeId) != null ? e : null,
-              u = i.wallpaper,
-              c = r,
-              m = l;
+              u = t.rawWallpaperValue,
+              c = r;
             p(
               function () {
                 (t.applyTheme(null),
                   t.applyWallpaper(null),
                   a(null),
                   t.applyActiveWallpaperId(null),
-                  l || t.applyDoodle(!0));
+                  t.isGlobal && !l && t.applyDoodle(!0));
               },
               function () {
-                (t.applyTheme(o),
-                  t.applyWallpaper(u),
-                  a(c),
-                  t.applyActiveWallpaperId(c),
-                  t.applyDoodle(m));
+                (t.applyTheme(o), t.restoreWallpaperValue(u), a(c));
               },
               s._(/*BTDS*/ "Wallpaper reset"),
             );

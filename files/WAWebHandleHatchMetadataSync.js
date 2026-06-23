@@ -6,6 +6,7 @@ __d(
     "WAWebCurrentUser",
     "WAWebHandleHatchAgentStatus",
     "WAWebHandleHatchApproval",
+    "WAWebHandleHatchApprovalSnapshot",
     "WAWebHatchMetadataExchangeManager",
     "WAWebHatchPayloadDecoder",
     "getErrorSafe",
@@ -56,12 +57,13 @@ __d(
     }
     function d(e, t) {
       var n = o("WAWebHatchPayloadDecoder").decodeHatchPayload(e);
-      if (n.kind !== "approval") {
-        var r = e.timestamp;
-        if (r != null) {
-          var a = u.get(e.index);
-          if (a != null && r <= a) return;
-          u.set(e.index, r);
+      if (n.kind !== "approval" && n.kind !== "approval_snapshot") {
+        var r,
+          a = (r = e.seq) != null ? r : e.timestamp;
+        if (a != null) {
+          var i = u.get(e.index);
+          if (i != null && a <= i) return;
+          u.set(e.index, a);
         }
       }
       (m(t, e, n),
@@ -70,8 +72,12 @@ __d(
             ? o("WAWebHandleHatchAgentStatus").handleHatchAgentStatus(n.status)
             : n.kind === "identity"
               ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(n.identity)
-              : n.kind === "approval" &&
-                o("WAWebHandleHatchApproval").handleHatchApproval(n.approval)));
+              : n.kind === "approval"
+                ? o("WAWebHandleHatchApproval").handleHatchApproval(n.approval)
+                : n.kind === "approval_snapshot" &&
+                  o(
+                    "WAWebHandleHatchApprovalSnapshot",
+                  ).handleHatchApprovalSnapshot(n.approvalSnapshot)));
     }
     function m(e, t, n) {
       var r;

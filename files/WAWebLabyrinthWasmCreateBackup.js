@@ -6,7 +6,6 @@ __d(
     "WALongInt",
     "WAResultOrError",
     "WAWebLabyrinthCanonicalUserFbid",
-    "WAWebLabyrinthDebugStateCache",
     "WAWebLabyrinthWaWasm.pb",
     "asyncToGeneratorRuntime",
   ],
@@ -28,8 +27,14 @@ __d(
         n = e.virtualDevice,
         r = e.epoch0,
         a = e.mailboxRootKey,
-        i = n == null ? void 0 : n.encryptedSecretValues;
-      return t == null || n == null || r == null || a == null || i == null
+        i = n == null ? void 0 : n.encryptedSecretValues,
+        l = r == null ? void 0 : r.epochRootKey;
+      return t == null ||
+        n == null ||
+        r == null ||
+        a == null ||
+        i == null ||
+        l == null
         ? null
         : {
             device: {
@@ -93,6 +98,7 @@ __d(
             epoch0: {
               epochAnonId: o("WABase64").encodeB64(r.epochAnonId),
               epochData: o("WABase64").encodeB64(r.epochData),
+              epochRootKey: o("WABase64").encodeB64(l),
               wrappedRootKeyForSelf: o("WABase64").encodeB64(
                 r.wrappedRootKeyForSelf,
               ),
@@ -104,32 +110,12 @@ __d(
             mailboxRootKey: o("WABase64").encodeB64(a),
           };
     }
-    function c(e) {
-      var t = e.device,
-        n = e.virtualDevice,
-        r = e.epoch0,
-        a = e.mailboxRootKey,
-        i = n == null ? void 0 : n.encryptedSecretValues,
-        l = r == null ? void 0 : r.epochRootKey;
-      t == null ||
-        n == null ||
-        r == null ||
-        a == null ||
-        i == null ||
-        l == null ||
-        o("WAWebLabyrinthDebugStateCache").setLabyrinthDebugKeyMaterialCache({
-          epochAnonId: o("WABase64").encodeB64(r.epochAnonId),
-          epochRootKey: o("WABase64").encodeB64(l),
-          mailboxRootKey: o("WABase64").encodeB64(a),
-          orfClientState: o("WABase64").encodeB64(t.ocmfClientState),
-        });
+    function c() {
+      return d.apply(this, arguments);
     }
     function d() {
-      return m.apply(this, arguments);
-    }
-    function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o(
             "EBLabyrinthWaWasmReactorSingleton",
           ).labyrinthWaCommand(
@@ -148,16 +134,15 @@ __d(
             },
           );
           if (!t.success) return t;
-          c(t.value);
           var n = u(t.value);
           return n == null
             ? o("WAResultOrError").makeError("missing-output")
             : o("WAResultOrError").makeResult(n);
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.createBackupWasm = d;
+    l.createBackupWasm = c;
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "DOMDimensions",
-  ["Style", "getDocumentScrollElement"],
+  ["Style", "err", "getDocumentScrollElement"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -30,7 +30,7 @@ __d(
           i = ["top", "bottom"];
           break;
         default:
-          throw Error("Invalid plane: " + t);
+          throw r("err")("Invalid plane: " + t);
       }
       var l = function (n, o) {
         for (var t = 0, a = 0; a < i.length; a++)

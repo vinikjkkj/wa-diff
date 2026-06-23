@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchMetadataOperationDecoder",
-  ["WALongInt", "WAWebHatchDecodeError", "WAWebHatchJsonReaders"],
+  ["WALongInt", "WAWebHatchDecodeError", "WAWebHatchJsonReaders", "cr:7454"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -8,22 +8,26 @@ __d(
         o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_VERSION,
       );
     }
-    function s(t, n, r) {
-      var a;
+    function s(t, r, a) {
+      var i;
       try {
-        a = JSON.parse(new TextDecoder("utf-8").decode(t));
+        i = JSON.parse(new TextDecoder("utf-8").decode(t));
       } catch (e) {
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.PARSE_FAILURE,
         );
       }
-      if (!o("WAWebHatchJsonReaders").isObject(a))
+      if (!o("WAWebHatchJsonReaders").isObject(i))
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.PARSE_FAILURE,
         );
-      return (function (t) {
-        return t === 1 ? u(a, n, r) : e();
-      })(o("WAWebHatchJsonReaders").readNumber(a, "version"));
+      var l = (function (t) {
+        return t === 1 ? u(i, r, a) : e();
+      })(o("WAWebHatchJsonReaders").readNumber(i, "version"));
+      return (
+        l != null && (n("cr:7454") == null || n("cr:7454").recordInbound(l, t)),
+        l
+      );
     }
     function u(e, t, n) {
       var r = o("WAWebHatchJsonReaders").readField(e, "type");
@@ -43,15 +47,17 @@ __d(
         s = o("WAWebHatchJsonReaders").readString(l, "session_id"),
         u = o("WAWebHatchJsonReaders").readNumber(a, "ts_ms"),
         m = u != null ? u : o("WALongInt").maybeNumberOrThrowIfTooLarge(t),
-        p = "SET";
+        p = o("WAWebHatchJsonReaders").readNumber(a, "seq"),
+        _ = "SET";
       return {
         type: "event",
         requestId: n,
         event: {
+          seq: p,
           timestamp: m,
           index: i,
           opKey: i,
-          operation: p,
+          operation: _,
           payload: l,
           sessionId: s,
         },
@@ -65,17 +71,30 @@ __d(
       var n = o("WAWebHatchJsonReaders").readField(e, "payload");
       e: {
         var r = o("WAWebHatchJsonReaders").readString(n, "method");
-        if (r === "init/fetch")
+        if (r === "channel.bootstrap") {
+          var a = o("WAWebHatchJsonReaders").readField(n, "params"),
+            i = o("WAWebHatchJsonReaders").readField(a, "sections"),
+            l = [];
+          if (Array.isArray(i))
+            for (var s of i)
+              (s === "agent.status" ||
+                s === "identity.updated" ||
+                s === "hitl.snapshot") &&
+                l.push(s);
           return {
             type: "req",
             requestId: t,
-            request: { method: "init/fetch" },
+            request:
+              l.length > 0
+                ? { method: "channel.bootstrap", sections: l }
+                : { method: "channel.bootstrap" },
           };
+        }
         if (r === "hitl.approval.decide") {
-          var a = o("WAWebHatchJsonReaders").readField(n, "params"),
-            i = o("WAWebHatchJsonReaders").readString(a, "approval_id"),
-            l = o("WAWebHatchJsonReaders").readString(a, "decision");
-          if (i == null || i === "" || l == null || l === "")
+          var u = o("WAWebHatchJsonReaders").readField(n, "params"),
+            c = o("WAWebHatchJsonReaders").readString(u, "approval_id"),
+            d = o("WAWebHatchJsonReaders").readString(u, "decision");
+          if (c == null || c === "" || d == null || d === "")
             throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
               o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
             );
@@ -84,8 +103,8 @@ __d(
             requestId: t,
             request: {
               method: "hitl.approval.decide",
-              approvalId: i,
-              decision: l,
+              approvalId: c,
+              decision: d,
             },
           };
         }

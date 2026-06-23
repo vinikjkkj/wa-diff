@@ -53,13 +53,6 @@ __d(
       return e != null && e !== "not-linked" && !e.hasCreatedAd;
     }
     function f(e, t) {
-      var n = o(
-          "WAWebCTWAGatingUtils",
-        ).isInLongTermHoldoutFallbackWhenAdEntryPointsConfigurationMissing(),
-        r = g(e, t);
-      return n || r;
-    }
-    function g(e, t) {
       if (
         !o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchEnabled() ||
         u == null
@@ -69,7 +62,7 @@ __d(
       var n = u.entryPoints[e];
       return n == null ? !1 : !n.shouldShow;
     }
-    function h(e) {
+    function g(e) {
       if (
         !o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchM1Enabled() ||
         u == null ||
@@ -92,7 +85,7 @@ __d(
       (l.setAdEntryPointsConfiguration = m),
       (l.notifyAdEntryPointsConfigurationLoaded = p),
       (l.isEndpointGatedByServer = f),
-      (l.getEndpointContentTexts = h));
+      (l.getEndpointContentTexts = g));
   },
   98,
 );

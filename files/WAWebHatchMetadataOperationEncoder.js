@@ -8,20 +8,26 @@ __d(
       var n = (function (e) {
           if (
             ((typeof e == "object" && e !== null) || typeof e == "function") &&
-            e.method === "init/fetch"
+            e.method === "channel.bootstrap"
           )
-            return { method: "init/fetch", params: {} };
+            return {
+              method: "channel.bootstrap",
+              params:
+                t.sections != null && t.sections.length > 0
+                  ? { sections: t.sections }
+                  : {},
+            };
           if (
             ((typeof e == "object" && e !== null) || typeof e == "function") &&
             e.method === "hitl.approval.decide" &&
             "approvalId" in e &&
             "decision" in e
           ) {
-            var t = e.approvalId,
-              n = e.decision;
+            var n = e.approvalId,
+              r = e.decision;
             return {
               method: "hitl.approval.decide",
-              params: { approval_id: t, decision: n },
+              params: { approval_id: n, decision: r },
             };
           }
           throw Error(

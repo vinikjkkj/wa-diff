@@ -2,7 +2,6 @@ __d(
   "WAWebCommsConfig",
   [
     "WALogger",
-    "WANullthrows",
     "WAWapJid",
     "WAWebABProps",
     "WAWebBackendEventBus",
@@ -17,6 +16,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "cr:7907",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -38,7 +38,7 @@ __d(
             o("WAWebABProps").getABPropConfigValue(
               "web_comms_socket_reconnect_enabled",
             )
-              ? (a.signal = r("WANullthrows")(n))
+              ? (a.signal = r("nullthrows")(n))
               : (a.signal = new AbortController().signal),
             r("WAWebOpenChatSocket")(a).then(function (e) {
               return (t(), (a.passive = !1), e);

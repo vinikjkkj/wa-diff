@@ -126,81 +126,61 @@ __d(
             ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
                 .WEB_INTRO_PANEL
             : e ===
-                o("WAWebChatEntryPoint").ChatEntryPoint
-                  .MetaAINullStateSuggestion
+                o("WAWebChatEntryPoint").ChatEntryPoint.MetaAISearchAskButton
               ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                  .AISEARCH_NULL_STATE_SUGGESTION
+                  .AISEARCH_TYPE_AHEAD_PAPER_PLANE
               : e ===
-                  o("WAWebChatEntryPoint").ChatEntryPoint
-                    .MetaAITypeaheadSuggestion
+                  o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar
                 ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                    .AISEARCH_TYPE_AHEAD_SUGGESTION
-                : e ===
-                    o("WAWebChatEntryPoint").ChatEntryPoint
-                      .MetaAISearchAskButton
-                  ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                      .AISEARCH_TYPE_AHEAD_PAPER_PLANE
-                  : e ===
+                    .WEB_NAVIGATION_BAR
+                : e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIForward ||
+                    e ===
                       o("WAWebChatEntryPoint").ChatEntryPoint
-                        .MetaAINavigationBar
+                        .ForwardedAiBotMessage ||
+                    e === o("WAWebChatEntryPoint").ChatEntryPoint.Forward
+                  ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
+                      .META_AI_FORWARD
+                  : e === o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI
                     ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                        .WEB_NAVIGATION_BAR
+                        .ASK_META_AI_CONTEXT_MENU
                     : e ===
-                          o("WAWebChatEntryPoint").ChatEntryPoint
-                            .MetaAIForward ||
-                        e ===
-                          o("WAWebChatEntryPoint").ChatEntryPoint
-                            .ForwardedAiBotMessage ||
-                        e === o("WAWebChatEntryPoint").ChatEntryPoint.Forward
+                        o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1
                       ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                          .META_AI_FORWARD
-                      : e === o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI
+                          .ASK_META_AI_CONTEXT_MENU_1ON1
+                      : e ===
+                          o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup
                         ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                            .ASK_META_AI_CONTEXT_MENU
+                            .ASK_META_AI_CONTEXT_MENU_GROUP
                         : e ===
                             o("WAWebChatEntryPoint").ChatEntryPoint
-                              .AskMetaAI1on1
+                              .DirectMessage
                           ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
-                              .ASK_META_AI_CONTEXT_MENU_1ON1
+                              .FAVICON
                           : e ===
-                              o("WAWebChatEntryPoint").ChatEntryPoint
-                                .AskMetaAIGroup
+                              o("WAWebChatEntryPoint").ChatEntryPoint.Mention
                             ? o("WAWebProtobufsAICommon.pb")
-                                .BotMetricsEntryPoint
-                                .ASK_META_AI_CONTEXT_MENU_GROUP
+                                .BotMetricsEntryPoint.INVOKE_META_AI_1ON1
                             : e ===
                                 o("WAWebChatEntryPoint").ChatEntryPoint
-                                  .DirectMessage
+                                  .ContactInfo
                               ? o("WAWebProtobufsAICommon.pb")
-                                  .BotMetricsEntryPoint.FAVICON
+                                  .BotMetricsEntryPoint.PROFILE_MESSAGE_BUTTON
                               : e ===
                                   o("WAWebChatEntryPoint").ChatEntryPoint
-                                    .Mention
+                                    .PrivateReply
                                 ? o("WAWebProtobufsAICommon.pb")
-                                    .BotMetricsEntryPoint.INVOKE_META_AI_1ON1
+                                    .BotMetricsEntryPoint.INVOKE_META_AI_GROUP
                                 : e ===
                                     o("WAWebChatEntryPoint").ChatEntryPoint
-                                      .ContactInfo
+                                      .Deeplink
                                   ? o("WAWebProtobufsAICommon.pb")
-                                      .BotMetricsEntryPoint
-                                      .PROFILE_MESSAGE_BUTTON
+                                      .BotMetricsEntryPoint.DEEPLINK
                                   : e ===
                                       o("WAWebChatEntryPoint").ChatEntryPoint
-                                        .PrivateReply
+                                        .Notification
                                     ? o("WAWebProtobufsAICommon.pb")
-                                        .BotMetricsEntryPoint
-                                        .INVOKE_META_AI_GROUP
-                                    : e ===
-                                        o("WAWebChatEntryPoint").ChatEntryPoint
-                                          .Deeplink
-                                      ? o("WAWebProtobufsAICommon.pb")
-                                          .BotMetricsEntryPoint.DEEPLINK
-                                      : e ===
-                                          o("WAWebChatEntryPoint")
-                                            .ChatEntryPoint.Notification
-                                        ? o("WAWebProtobufsAICommon.pb")
-                                            .BotMetricsEntryPoint.NOTIFICATION
-                                        : void 0;
+                                        .BotMetricsEntryPoint.NOTIFICATION
+                                    : void 0;
     }
     function _(e) {
       return e === o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.FAVICON
@@ -262,17 +242,7 @@ __d(
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIIntroPanel)
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .AI_WEB_INTRO_PANEL;
-        if (
-          e ===
-          o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINullStateSuggestion
-        )
-          return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
-            .AI_NULL_STATE;
-        if (
-          e ===
-            o("WAWebChatEntryPoint").ChatEntryPoint.MetaAITypeaheadSuggestion ||
-          e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAISearchAskButton
-        )
+        if (e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAISearchAskButton)
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .AI_SEARCH_CHATS_LIST;
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar)

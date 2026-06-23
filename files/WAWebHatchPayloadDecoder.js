@@ -5,19 +5,22 @@ __d(
     "use strict";
     var e = "agent.status",
       s = "hitl.approval",
-      u = "identity.updated";
-    function c(t) {
+      u = "hitl.snapshot",
+      c = "identity.updated";
+    function d(t) {
       var n = t.opKey,
         r = t.payload;
       return n === e
-        ? { kind: "agent_status", status: d(r) }
+        ? { kind: "agent_status", status: m(r) }
         : n === s
-          ? { kind: "approval", approval: _(r) }
-          : n === u
-            ? { kind: "identity", identity: m(r) }
-            : { kind: "unknown" };
+          ? { kind: "approval", approval: f(r) }
+          : n === c
+            ? { kind: "identity", identity: p(r) }
+            : n === u
+              ? { kind: "approval_snapshot", approvalSnapshot: g(r) }
+              : { kind: "unknown" };
     }
-    function d(e) {
+    function m(e) {
       var t = o("WAWebHatchJsonReaders").readString(e, "activity_emoji");
       return babelHelpers.extends(
         {
@@ -35,16 +38,16 @@ __d(
         },
       );
     }
-    function m(e) {
+    function p(e) {
       var t,
         n = (t = o("WAWebHatchJsonReaders")).readField(e, "avatar");
       return {
         name: t.readString(e, "name"),
         avatarUrl: t.readString(n, "image_url"),
-        videoVariants: p(t.readField(n, "video_variants")),
+        videoVariants: _(t.readField(n, "video_variants")),
       };
     }
-    function p(e) {
+    function _(e) {
       if (!Array.isArray(e)) return null;
       var t = {},
         n = !1;
@@ -59,20 +62,37 @@ __d(
       }
       return n ? t : null;
     }
-    function _(e) {
-      var t,
-        n = (t = o("WAWebHatchJsonReaders")).readField(e, "approval");
+    function f(e) {
+      return y(o("WAWebHatchJsonReaders").readField(e, "approval"));
+    }
+    function g(e) {
+      var t;
       return {
-        approvalId: t.readString(n, "approval_id"),
-        decision: t.readString(n, "decision"),
-        reason: t.readString(n, "reason"),
-        shortExplanation: t.readString(n, "short_explanation"),
-        richExplanation: t.readString(n, "rich_explanation"),
-        displayName: t.readString(n, "display_name"),
-        actionLabel: t.readString(n, "action_label"),
+        asOfMs: (t = o("WAWebHatchJsonReaders")).readNumber(e, "as_of_ms"),
+        nextCursor: t.readString(e, "next_cursor"),
+        pending: h(t.readArray(e, "pending")),
+        recent: h(t.readArray(e, "recent")),
       };
     }
-    l.decodeHatchPayload = c;
+    function h(e) {
+      return e == null ? [] : e.map(y);
+    }
+    function y(e) {
+      var t;
+      return {
+        approvalId: (t = o("WAWebHatchJsonReaders")).readString(
+          e,
+          "approval_id",
+        ),
+        decision: t.readString(e, "decision"),
+        reason: t.readString(e, "reason"),
+        shortExplanation: t.readString(e, "short_explanation"),
+        richExplanation: t.readString(e, "rich_explanation"),
+        displayName: t.readString(e, "display_name"),
+        actionLabel: t.readString(e, "action_label"),
+      };
+    }
+    l.decodeHatchPayload = d;
   },
   98,
 );

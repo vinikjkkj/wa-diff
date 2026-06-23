@@ -12,14 +12,7 @@ __d(
               e: {
                 if (
                   t ===
-                    o("WAWebChatEntryPoint").ChatEntryPoint
-                      .MetaAINullStateSuggestion ||
-                  t ===
-                    o("WAWebChatEntryPoint").ChatEntryPoint
-                      .MetaAITypeaheadSuggestion ||
-                  t ===
-                    o("WAWebChatEntryPoint").ChatEntryPoint
-                      .MetaAISearchAskButton
+                  o("WAWebChatEntryPoint").ChatEntryPoint.MetaAISearchAskButton
                 ) {
                   e.add(t);
                   break e;

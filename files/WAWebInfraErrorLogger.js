@@ -17,6 +17,7 @@ __d(
             'Converting to a string will drop content data. Hash="undefined"',
         },
         { partialMessage: "Failed to preload resource" },
+        { partialMessage: "Invalid bootloader response 0" },
       ],
       c = [
         "ONUNHANDLEDREJECTION",

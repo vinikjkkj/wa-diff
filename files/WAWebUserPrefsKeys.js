@@ -51,7 +51,6 @@ __d(
         "InactiveGroupLidMigrationComplete",
         "GPCCompleted",
         "DetectedOutcomeOnboardingStatus",
-        "MetaAISearchNullStateIndex",
         "WebQuestionsPrivacyBannerDismissed",
         "WebQuestionsResponsePrivacyBannerDismissed",
         "UserHasAvatar",
@@ -256,10 +255,6 @@ __d(
               "WAWebCachedNewsletterDirectoryPages",
             WA_WEB_CACHED_NEWSLETTER_DIRECTORY_CATERGORY_PREVIEW:
               "WAWebCachedNewsletterDirectoryCategoryPreview",
-            WA_WEB_CACHED_META_AI_SEARCH_NULL_STATE_SUGGESTIONS:
-              "WAWebMetaAISearchNullStateSuggestions",
-            WA_WEB_CACHED_META_AI_SEARCH_TYPE_AHEAD_SUGGESTIONS:
-              "WAWebMetaAISearchTypeAheadSuggestions",
             WA_WEB_CACHED_DYNAMIC_AI_MODES: "WAWebCachedDynamicAIModes",
             WA_WEB_META_AI_GLASSES_BANNER_DISPLAY_INFO_TYPE:
               "WAWebMetaAIGlassesBannerDisplayInfoType",

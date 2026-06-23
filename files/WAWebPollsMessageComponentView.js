@@ -13,7 +13,6 @@ __d(
     "WAWebMessageBubbleHiddenText.react",
     "WAWebMessageMeta.react",
     "WAWebMessageTextBubble.react",
-    "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebNewsletterExtendedGatingUtils",
@@ -730,35 +729,28 @@ __d(
       );
     }
     function k(e, t, n, r, a, i, l, u) {
-      var c = o("WAWebMiscGatingUtils").messageListA11yRedesignEnabled()
-          ? ""
-          : s._(
-              /*BTDS*/ "Interaction with polls will be available in the next update.",
-            ),
-        d = u ? s._(/*BTDS*/ "Voter names hidden") : "",
-        m = E(i, l);
+      var c = u ? s._(/*BTDS*/ "Voter names hidden") : "",
+        d = E(i, l);
       return r
         ? s._(
-            /*BTDS*/ "Poll from you {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}. {no-kb-navigation}",
+            /*BTDS*/ "Poll from you {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}.",
             [
               s._param("time", o("WAWebClock").Clock.timestampStr(t)),
               s._param("poll-name", e),
-              s._param("hidden-voter-names", d),
-              s._param("end-time", m),
+              s._param("hidden-voter-names", c),
+              s._param("end-time", d),
               s._param("poll-results", a),
-              s._param("no-kb-navigation", c),
             ],
           )
         : s._(
-            /*BTDS*/ "Poll from {poll-author-name-not-you} {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}. {no-kb-navigation}",
+            /*BTDS*/ "Poll from {poll-author-name-not-you} {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}.",
             [
               s._param("poll-author-name-not-you", n),
               s._param("time", o("WAWebClock").Clock.timestampStr(t)),
               s._param("poll-name", e),
-              s._param("hidden-voter-names", d),
-              s._param("end-time", m),
+              s._param("hidden-voter-names", c),
+              s._param("end-time", d),
               s._param("poll-results", a),
-              s._param("no-kb-navigation", c),
             ],
           );
     }

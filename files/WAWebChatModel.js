@@ -1806,44 +1806,6 @@ __d(
             }
             return !1;
           }),
-          (i.setChatWallpaper = function (t) {
-            return (
-              (this.wallpaper = t),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-                wallpaper: t,
-              })
-            );
-          }),
-          (i.setShowDoodle = function (t) {
-            return (
-              (this.showDoodle = t),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-                showDoodle: t,
-              })
-            );
-          }),
-          (i.setChatThemeId = function (t) {
-            this.chatThemeId = t;
-            var e = t != null ? t : null;
-            return o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-              chatThemeId: e,
-            });
-          }),
-          (i.setColorSchemeId = function (t) {
-            this.colorSchemeId = t;
-            var e = t != null ? t : null;
-            return o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-              colorSchemeId: e,
-            });
-          }),
-          (i.setStockWallpaperImageId = function (t) {
-            return (
-              (this.stockWallpaperImageId = t),
-              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
-                stockWallpaperImageId: t,
-              })
-            );
-          }),
           (i.setWallpaperValue = function (t) {
             return (
               (this.wallpaperValue = t),

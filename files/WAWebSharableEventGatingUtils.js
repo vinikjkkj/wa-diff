@@ -68,7 +68,14 @@ __d(
         ) === !0
       );
     }
-    function C(e, t) {
+    function C() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "enable_events_v2_on_companion",
+        ) === !0
+      );
+    }
+    function b(e, t) {
       var n = o("WATimeUtils").unixTime();
       if (t != null && n > t) return !0;
       if (e == null) return !1;
@@ -88,7 +95,8 @@ __d(
       (l.SharableScheduledCallCreationEntryPoint = g),
       (l.isSharableScheduledCallCreationEnabled = h),
       (l.isSharableEventNotificationsEnabled = y),
-      (l.isAddToCalendarHiddenByEventTime = C));
+      (l.isEventsV2OnCompanionEnabled = C),
+      (l.isAddToCalendarHiddenByEventTime = b));
   },
   98,
 );

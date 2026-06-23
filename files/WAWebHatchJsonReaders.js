@@ -19,10 +19,15 @@ __d(
       var n = s(e, t);
       return o("WATypeUtils").isNumber(n) ? n : null;
     }
+    function d(e, t) {
+      var n = s(e, t);
+      return Array.isArray(n) ? n : null;
+    }
     ((l.isObject = e),
       (l.readField = s),
       (l.readString = u),
-      (l.readNumber = c));
+      (l.readNumber = c),
+      (l.readArray = d));
   },
   98,
 );

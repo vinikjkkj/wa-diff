@@ -34,7 +34,6 @@ __d(
                   d.load().then(function (t) {
                     e ||
                       s({
-                        Theme: t.Theme,
                         getAllColorSchemes: t.getAllColorSchemes,
                         getAllThemes: t.getAllThemes,
                         getBaseTheme: t.getBaseTheme,

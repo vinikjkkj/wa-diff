@@ -32,38 +32,39 @@ __d(
     function f(e) {
       return e.isLocked ? p() : !0;
     }
-    function g() {
-      m = !0;
-      var e = r("WDSIconWdsIcChatlockOutline.react");
-      (o("WAWebToastManager").ToastManager.close(d),
-        o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, {
-            id: c,
-            msg: s._(/*BTDS*/ "{=m0}", [
-              s._implicitParam(
-                "=m0",
-                u.jsx(o("WAWebFlexBox.react").FlexRow, {
-                  gap: 8,
-                  align: "center",
-                  children: s._(
-                    /*BTDS*/ "{=m1} Chats are now locked and hidden",
-                    [
-                      s._implicitParam(
-                        "=m1",
-                        u.jsx(e, {
-                          width: 20,
-                          height: 20,
-                          children: s._(/*BTDS*/ ""),
-                        }),
-                      ),
-                    ],
-                  ),
-                }),
-              ),
-            ]),
-          }),
-        ),
-        o("WAWebCmd").Cmd.trigger("chatlock:lock"));
+    function g(e) {
+      if (((m = !0), (e == null ? void 0 : e.showToast) !== !1)) {
+        var t = r("WDSIconWdsIcChatlockOutline.react");
+        (o("WAWebToastManager").ToastManager.close(d),
+          o("WAWebToastManager").ToastManager.open(
+            u.jsx(o("WAWebToast.react").Toast, {
+              id: c,
+              msg: s._(/*BTDS*/ "{=m0}", [
+                s._implicitParam(
+                  "=m0",
+                  u.jsx(o("WAWebFlexBox.react").FlexRow, {
+                    gap: 8,
+                    align: "center",
+                    children: s._(
+                      /*BTDS*/ "{=m1} Chats are now locked and hidden",
+                      [
+                        s._implicitParam(
+                          "=m1",
+                          u.jsx(t, {
+                            width: 20,
+                            height: 20,
+                            children: s._(/*BTDS*/ ""),
+                          }),
+                        ),
+                      ],
+                    ),
+                  }),
+                ),
+              ]),
+            }),
+          ));
+      }
+      o("WAWebCmd").Cmd.trigger("chatlock:lock");
     }
     function h(e) {
       return y.apply(this, arguments);

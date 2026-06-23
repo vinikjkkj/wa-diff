@@ -6,7 +6,6 @@ __d(
     "WAJids",
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebApiHistorySyncNotification",
     "WAWebBackendJobs.flow",
@@ -24,6 +23,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -74,7 +74,7 @@ __d(
                             );
                           })))
                         : (a = o("WAWebWidFactory").createWid(
-                            r("WANullthrows")(
+                            r("nullthrows")(
                               e.participant,
                               "HistorySync:handleStatusMessages: missing participant",
                             ),
@@ -82,7 +82,7 @@ __d(
                       var l = {
                         type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                           .OTHER_STATUS,
-                        externalId: r("WANullthrows")(
+                        externalId: r("nullthrows")(
                           e.key.id,
                           "HistorySync:handleStatusMessages: missing key.id",
                         ),
@@ -95,7 +95,7 @@ __d(
                         chat: o("WAWebWidFactory").createWid(
                           o("WAJids").STATUS_JID,
                         ),
-                        author: r("WANullthrows")(
+                        author: r("nullthrows")(
                           a,
                           "HistorySync:handleStatusMessages: missing author",
                         ),
@@ -118,7 +118,7 @@ __d(
                         d = yield o("WAWebMsgProcessingApiUtils").parseMessage({
                           info: l,
                           ciphertextType: u,
-                          msgProtobuf: r("WANullthrows")(
+                          msgProtobuf: r("nullthrows")(
                             e.message,
                             "HistorySync:handleStatusMessages: missing message",
                           ),

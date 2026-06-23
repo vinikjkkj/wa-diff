@@ -439,27 +439,26 @@ __d(
       if (t.id.fromMe && o("WAWebMsgGetters").getBizBotType(t) != null)
         return null;
       var n = o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
-        r = t.unsafe();
+        r = t.unsafe(),
+        a = o(
+          "WAWebSendNativeFlowMenuOptionsResponse",
+        ).shouldUseNativeFlowMenuOptionsResponse(n.id, t.nativeFlowName);
       return {
         label: e.data.label,
-        Icon: o("WAWebReplyChatIcon.react").ReplyChatIcon,
+        Icon: a ? void 0 : o("WAWebReplyChatIcon.react").ReplyChatIcon,
         disabled: e.data.disabled,
         onClick: function () {
           if (t.isCarouselCard) T(e, r);
-          else if (
-            o(
-              "WAWebSendNativeFlowMenuOptionsResponse",
-            ).shouldUseNativeFlowMenuOptionsResponse(n.id, t.nativeFlowName)
-          ) {
-            var a, i;
+          else if (a) {
+            var i, l;
             o(
               "WAWebSendNativeFlowMenuOptionsResponse",
             ).sendNativeFlowMenuOptionsResponse(n, r, {
-              label: (a = e.data) == null ? void 0 : a.label,
-              selectionId: (i = e.data) == null ? void 0 : i.selectionId,
+              label: (i = e.data) == null ? void 0 : i.label,
+              selectionId: (l = e.data) == null ? void 0 : l.selectionId,
             });
           } else {
-            var l, s;
+            var s, c;
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -468,11 +467,11 @@ __d(
             ),
               o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
                 n,
-                (l = e.data) == null ? void 0 : l.label,
+                (s = e.data) == null ? void 0 : s.label,
                 {
                   quotedMsg: r,
                   selectedIndex: e.index,
-                  selectedId: (s = e.data) == null ? void 0 : s.selectionId,
+                  selectedId: (c = e.data) == null ? void 0 : c.selectionId,
                 },
               ));
           }
@@ -493,11 +492,11 @@ __d(
               messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
                 .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
-          var c = o("WAWebMsgCollection").MsgCollection.get(t.id);
-          c != null &&
+          var d = o("WAWebMsgCollection").MsgCollection.get(t.id);
+          d != null &&
             o(
               "WAWebBizInteractiveMessageQuickReplyAction",
-            ).markInteractiveButtonClicked(c, e.index);
+            ).markInteractiveButtonClicked(d, e.index);
         },
       };
     }

@@ -1,9 +1,7 @@
 __d(
   "WAWebUserPrefsBot",
   [
-    "WAWebBotGating",
     "WAWebProtobufsDeviceCapabilities.pb",
-    "WAWebTimedCache",
     "WAWebUserPrefsDeviceCapabilities",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
@@ -35,60 +33,7 @@ __d(
         e,
       );
     }
-    var d = new (o("WAWebTimedCache").TimedMapCache)({
-        mapLoad: function () {
-          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-            o("WAWebUserPrefsKeys").KEYS
-              .WA_WEB_CACHED_META_AI_SEARCH_NULL_STATE_SUGGESTIONS,
-          );
-        },
-        mapStore: function (t) {
-          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-            o("WAWebUserPrefsKeys").KEYS
-              .WA_WEB_CACHED_META_AI_SEARCH_NULL_STATE_SUGGESTIONS,
-            t,
-          );
-        },
-        getCacheTtlMs:
-          o("WAWebBotGating")
-            .getMetaAISearchNullStateSuggestionsUpdateIntervalMs,
-      }),
-      m = new (o("WAWebTimedCache").TimedLRUMapCache)({
-        mapLoad: function () {
-          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-            o("WAWebUserPrefsKeys").KEYS
-              .WA_WEB_CACHED_META_AI_SEARCH_TYPE_AHEAD_SUGGESTIONS,
-          );
-        },
-        mapStore: function (t) {
-          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-            o("WAWebUserPrefsKeys").KEYS
-              .WA_WEB_CACHED_META_AI_SEARCH_TYPE_AHEAD_SUGGESTIONS,
-            t,
-          );
-        },
-        getCacheTtlMs:
-          o("WAWebBotGating")
-            .getMetaAISearchTypeAheadSuggestionsUpdateIntervalMs,
-        capacity:
-          o(
-            "WAWebBotGating",
-          ).getMetaAISearchTypeAheadSuggestionsLRUCacheCapacity(),
-      });
-    function p(e) {
-      r("WAWebUserPrefsStore").set(
-        o("WAWebUserPrefsKeys").UserPrefs.MetaAISearchNullStateIndex,
-        e,
-      );
-    }
-    function _() {
-      var e = r("WAWebUserPrefsStore").get(
-          o("WAWebUserPrefsKeys").UserPrefs.MetaAISearchNullStateIndex,
-        ),
-        t = typeof e == "number" ? e : 0;
-      return t;
-    }
-    function f() {
+    function d() {
       var e,
         t = o(
           "WAWebUserPrefsDeviceCapabilities",
@@ -98,26 +43,26 @@ __d(
         : o("WAWebProtobufsDeviceCapabilities.pb")
             .DeviceCapabilities$AiThread$SupportLevel.NONE;
     }
-    var g = { IN_PROGRESS: "IN_PROGRESS", COMPLETE: "COMPLETE" };
-    function h() {
+    var m = { IN_PROGRESS: "IN_PROGRESS", COMPLETE: "COMPLETE" };
+    function p() {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_MIGRATION_STATE,
       );
     }
-    function y(e) {
+    function _(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_MIGRATION_STATE,
         e,
       );
     }
-    function C() {
-      var e = h();
-      return (e == null ? void 0 : e.migrationProgress) === g.COMPLETE;
+    function f() {
+      var e = p();
+      return (e == null ? void 0 : e.migrationProgress) === m.COMPLETE;
     }
-    function b() {
-      return y({ migrationProgress: g.COMPLETE });
+    function g() {
+      return _({ migrationProgress: m.COMPLETE });
     }
-    function v() {
+    function h() {
       var e;
       return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
@@ -125,7 +70,7 @@ __d(
         ? e
         : 0;
     }
-    function S(e) {
+    function y(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
         e,
@@ -135,18 +80,14 @@ __d(
       (l.setBotListLastRequestedTimestamp = s),
       (l.setUgcBotListLastRequestedTimestamp = u),
       (l.setUgcBotListLastBhash = c),
-      (l.MetaAINullStateSuggestionsCache = d),
-      (l.MetaAITypeAheadSuggestionsCache = m),
-      (l.setMetaAISearchNullStateIndex = p),
-      (l.getMetaAISearchNullStateIndex = _),
-      (l.getPrimaryAiThreadSupportLevelFromLocalStorage = f),
-      (l.MetaAIThreadMigrationProgress = g),
-      (l.getMetaAIThreadMigrationState = h),
-      (l.setMetaAIThreadMigrationState = y),
-      (l.isMetaAIThreadMigrationComplete = C),
-      (l.markMetaAIThreadMigrationStateAsComplete = b),
-      (l.getMetaAiBotSessionLastCleanupTs = v),
-      (l.setMetaAiBotSessionLastCleanupTs = S));
+      (l.getPrimaryAiThreadSupportLevelFromLocalStorage = d),
+      (l.MetaAIThreadMigrationProgress = m),
+      (l.getMetaAIThreadMigrationState = p),
+      (l.setMetaAIThreadMigrationState = _),
+      (l.isMetaAIThreadMigrationComplete = f),
+      (l.markMetaAIThreadMigrationStateAsComplete = g),
+      (l.getMetaAiBotSessionLastCleanupTs = h),
+      (l.setMetaAiBotSessionLastCleanupTs = y));
   },
   98,
 );

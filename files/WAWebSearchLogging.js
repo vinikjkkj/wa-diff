@@ -4,12 +4,9 @@ __d(
     "WAWebChatGetters",
     "WAWebChatModel",
     "WAWebContactModel",
-    "WAWebMetaAISuggestionModel",
     "WAWebSearchActionEventWamEvent",
-    "WAWebSearchUserJourneyLogger",
     "WAWebWamEnumSearchActionEntryPointType",
     "WAWebWamEnumSearchActionType",
-    "WAWebWamEnumSearchUjItemType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -36,46 +33,7 @@ __d(
         );
       u.commit();
     }
-    function s(t) {
-      var n = t.aiSuggestionCount;
-      e({
-        action: o("WAWebWamEnumSearchActionType").SEARCH_ACTION_TYPE
-          .NULL_STATE_SHOW,
-        searchAiSuggestionCount: n,
-      });
-    }
-    function u(t, n) {
-      (e({
-        action: o("WAWebWamEnumSearchActionType").SEARCH_ACTION_TYPE
-          .NULL_STATE_ITEM_CLICK,
-        searchAiSuggestionCount: n,
-        selectedItemRank: t,
-      }),
-        o(
-          "WAWebSearchUserJourneyLogger",
-        ).SearchUserJourneyLogger.nullStateItemClick(
-          o("WAWebWamEnumSearchUjItemType").SEARCH_UJ_ITEM_TYPE.AI_SUGGESTION,
-          t,
-          n,
-        ));
-    }
-    function c(t) {
-      var n = t.aiSuggestionsCount,
-        r = t.chatsCount,
-        a = t.contactsCount,
-        i = t.groupsCount,
-        l = t.messagesCount;
-      e({
-        action: o("WAWebWamEnumSearchActionType").SEARCH_ACTION_TYPE
-          .TYPEAHEAD_SHOW,
-        searchAiSuggestionCount: n,
-        searchChatsCount: r,
-        searchContactsCount: a,
-        searchGroupsCount: i,
-        searchMessagesCount: l,
-      });
-    }
-    function d(t, n) {
+    function s(t, n) {
       var a = o("WAWebWamEnumSearchActionType").SEARCH_ACTION_TYPE
         .TYPEAHEAD_ITEM_CLICK;
       e: {
@@ -104,20 +62,10 @@ __d(
             break e;
           }
         }
-        {
-          var d = i;
-          if (t instanceof r("WAWebMetaAISuggestionModel")) {
-            e({ action: a, searchAiSuggestionCount: 1 });
-            break e;
-          }
-        }
         break e;
       }
     }
-    ((l.logSearchActionNullStateShow = s),
-      (l.logSearchActionNullStateItemClick = u),
-      (l.logSearchActionTypesAheadShow = c),
-      (l.logSearchActionTypeAheadItemClick = d));
+    l.logSearchActionTypeAheadItemClick = s;
   },
   98,
 );

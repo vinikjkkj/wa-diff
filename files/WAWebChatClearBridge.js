@@ -2,7 +2,6 @@ __d(
   "WAWebChatClearBridge",
   [
     "Promise",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
@@ -17,6 +16,7 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -52,7 +52,7 @@ __d(
                     o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
                     c.binarySyncAction,
                   ),
-                  a = r("WANullthrows")(
+                  a = r("nullthrows")(
                     (e = n.clearChatAction) == null ? void 0 : e.messageRange,
                   );
                 d = yield o(

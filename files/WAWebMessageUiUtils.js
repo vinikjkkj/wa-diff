@@ -18,7 +18,6 @@ __d(
     "WAWebMessageMeta.react",
     "WAWebMessagePluginGetAriaLabelForMsgTextComponent",
     "WAWebMimeTypes",
-    "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebQuotedMsgModelUtils",
@@ -86,18 +85,11 @@ __d(
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       var t = e.optionsWithCounts,
-        n = e.pollName,
-        r = o("WAWebMiscGatingUtils").messageListA11yRedesignEnabled()
-          ? ""
-          : s._(/*BTDS*/ "Keyboard interaction with polls is not available.");
-      return s._(
-        /*BTDS*/ "{poll-name} top vote counts: {poll-results}. {no-kb-navigation}",
-        [
-          s._param("poll-name", n),
-          s._param("poll-results", t),
-          s._param("no-kb-navigation", r),
-        ],
-      );
+        n = e.pollName;
+      return s._(/*BTDS*/ "{poll-name} top vote counts: {poll-results}.", [
+        s._param("poll-name", n),
+        s._param("poll-results", t),
+      ]);
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {

@@ -160,7 +160,7 @@ __d(
       (l.canonicalizeWallpaperValue = c),
       (l.isDefaultPair = d),
       (l.normalizeHex = m),
-      (l.isThemeOverride = p),
+      (l.isChatThemeOverride = p),
       (l.isWallpaperOverride = _),
       (l.wallpaperBackgroundFromValue = f),
       (l.doodleFromWallpaperValue = g),

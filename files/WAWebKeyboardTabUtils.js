@@ -1,6 +1,6 @@
 __d(
   "WAWebKeyboardTabUtils",
-  ["$InternalEnum", "WAWebBoolFunc", "WAWebMiscGatingUtils", "tabbable"],
+  ["$InternalEnum", "WAWebBoolFunc", "tabbable"],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored([
         "CUSTOM",
@@ -63,15 +63,12 @@ __d(
         f = t.ownerDocument.activeElement;
       if (f) {
         var g = c.findIndex(function (e) {
-          return e.contains(f);
-        });
-        if (o("WAWebMiscGatingUtils").messageListA11yRedesignEnabled()) {
-          var h = c.findIndex(function (e) {
+            return e.contains(f);
+          }),
+          h = c.findIndex(function (e) {
             return e === f;
           });
-          h > 0 && (g = h);
-        }
-        _ = g === -1 ? 0 : m(g + p, c.length);
+        (h > 0 && (g = h), (_ = g === -1 ? 0 : m(g + p, c.length)));
       }
       for (var y = 0; y < c.length; y++) {
         var C = m(_ + y * p, c.length),

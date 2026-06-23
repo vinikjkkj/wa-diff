@@ -86,8 +86,6 @@ __d(
       "MessageReply",
       "Status",
       "VoipWindow",
-      "MetaAINullStateSuggestion",
-      "MetaAITypeaheadSuggestion",
       "MetaAINewThreadCreation",
       "MetaAINavigationBar",
       "MetaAIThreadList",

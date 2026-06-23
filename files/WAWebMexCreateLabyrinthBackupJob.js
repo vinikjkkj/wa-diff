@@ -1,6 +1,7 @@
 __d(
   "WAWebMexCreateLabyrinthBackupJob",
   [
+    "WAWebLabyrinthDebugStateCache",
     "WAWebMexClient",
     "WAWebMexCreateLabyrinthBackupJobMutation.graphql",
     "asyncToGeneratorRuntime",
@@ -72,10 +73,23 @@ __d(
           var n = u(e, t),
             r = { input: n },
             a = yield o("WAWebMexClient").fetchQuery(s, r);
-          return a;
+          return (m(e, a), a);
         })),
         d.apply(this, arguments)
       );
+    }
+    function m(e, t) {
+      var n = t.xwa2_labyrinth_create_backup;
+      (n == null ? void 0 : n.__typename) === "XWA2LabyrinthCreateBackupData" &&
+        o("WAWebLabyrinthDebugStateCache").setLabyrinthDebugKeyMaterialCache({
+          backupId: n.backup_id,
+          ebDeviceId: n.device_id,
+          epochAnonId: e.epoch0.epochAnonId,
+          epochId: n.epoch_id,
+          epochRootKey: e.epoch0.epochRootKey,
+          mailboxRootKey: e.mailboxRootKey,
+          orfClientState: e.device.ocmfClientState,
+        });
     }
     l.mexCreateLabyrinthBackup = c;
   },

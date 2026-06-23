@@ -2,6 +2,7 @@ __d(
   "WAWebQuotedMsgModelUtils",
   [
     "WALogger",
+    "WAWebBatchedStatusIdUtils",
     "WAWebDBProcessReplyMsgs",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
@@ -68,7 +69,10 @@ __d(
       var s = o("WAWebUserPrefsMeUser").isMeAccount(n),
         u = s ? "out" : "in",
         c = {
-          id: a,
+          id:
+            a != null && r("WAWebWid").isStatus(i)
+              ? o("WAWebBatchedStatusIdUtils").normalizeStatusStanzaId(a)
+              : a,
           from: s ? l : i,
           to: s ? i : l,
           self: u,

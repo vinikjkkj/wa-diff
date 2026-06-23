@@ -331,6 +331,7 @@ __d(
             mapsUri: y.google_maps_uri,
             websiteUri: y.website_uri,
             weekdayHours: y.weekday_hours,
+            googleOpenNow: y.google_open_now,
             latitude: y.latitude,
             longitude: y.longitude,
           }),

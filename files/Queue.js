@@ -5,77 +5,65 @@ __d(
     var e = {},
       l = (function () {
         function t(e) {
-          ((this._timeout = null),
-            (this._interval = (e == null ? void 0 : e.interval) || 0),
-            (this._processor = e == null ? void 0 : e.processor),
-            (this._queue = []),
-            (this._stopped = !0));
+          ((this.$3 = null),
+            (this.$5 = (e == null ? void 0 : e.interval) || 0),
+            (this.$4 = e == null ? void 0 : e.processor),
+            (this.$1 = []),
+            (this.$2 = !0));
         }
         var n = t.prototype;
         return (
-          (n._dispatch = function (t) {
+          (n.$6 = function (t) {
             var e = this;
             if (
-              (t === void 0 && (t = !1),
-              !(this._stopped || this._queue.length === 0))
+              (t === void 0 && (t = !1), !(this.$2 || this.$1.length === 0))
             ) {
-              var n = this._processor;
+              var n = this.$4;
               if (n == null) {
-                this._stopped = !0;
+                this.$2 = !0;
                 var r = new Error("No processor available");
                 throw (r.stack, r);
               }
-              var o = this._interval;
+              var o = this.$5;
               if (o != null)
-                (n.call(this, this._queue.shift()),
-                  (this._timeout = setTimeout(function () {
-                    return e._dispatch();
+                (n.call(this, this.$1.shift()),
+                  (this.$3 = window.setTimeout(function () {
+                    return e.$6();
                   }, o)));
-              else
-                for (; this._queue.length; ) n.call(this, this._queue.shift());
+              else for (; this.$1.length; ) n.call(this, this.$1.shift());
             }
           }),
           (n.enqueue = function (t) {
-            return (
-              this._processor && !this._stopped
-                ? this._processor(t)
-                : this._queue.push(t),
-              this
-            );
+            return (this.$4 && !this.$2 ? this.$4(t) : this.$1.push(t), this);
           }),
           (n.start = function (t) {
-            return (
-              t && (this._processor = t),
-              (this._stopped = !1),
-              this._dispatch(),
-              this
-            );
+            return (t && (this.$4 = t), (this.$2 = !1), this.$6(), this);
           }),
           (n.isStarted = function () {
-            return !this._stopped;
+            return !this.$2;
           }),
           (n.dispatch = function () {
-            this._dispatch(!0);
+            this.$6(!0);
           }),
           (n.stop = function (t) {
             return (
-              (this._stopped = !0),
-              t && this._timeout != null && clearTimeout(this._timeout),
+              (this.$2 = !0),
+              t && this.$3 != null && window.clearTimeout(this.$3),
               this
             );
           }),
           (n.merge = function (t, n) {
             if (n) {
               var e;
-              (e = this._queue).unshift.apply(e, t._queue);
+              (e = this.$1).unshift.apply(e, t.$1);
             } else {
               var r;
-              (r = this._queue).push.apply(r, t._queue);
+              (r = this.$1).push.apply(r, t.$1);
             }
-            return ((t._queue = []), this._dispatch(), this);
+            return ((t.$1 = []), this.$6(), this);
           }),
           (n.getLength = function () {
-            return this._queue.length;
+            return this.$1.length;
           }),
           (t.get = function (r, o) {
             var n;

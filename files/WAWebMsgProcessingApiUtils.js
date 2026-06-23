@@ -57,15 +57,13 @@ __d(
       h,
       y,
       C,
-      b,
-      v,
-      S;
-    function R(e, t, n) {
-      return L.apply(this, arguments);
+      b;
+    function v(e, t, n) {
+      return S.apply(this, arguments);
     }
-    function L() {
+    function S() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             !(
               n == null ||
@@ -102,10 +100,10 @@ __d(
                 .sendLogs("bot-group-ephemeral-fallback-error");
             }
         })),
-        L.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function E(e) {
+    function R(e) {
       var t,
         n,
         r,
@@ -152,7 +150,7 @@ __d(
           )
           .sendLogs("wid error"));
     }
-    function k(e) {
+    function L(e) {
       var t,
         n,
         a,
@@ -166,9 +164,9 @@ __d(
         p = e.msgProtobuf,
         _ = e.paymentInfo,
         f,
-        g = Z(d);
+        g = Y(d);
       if (!o("WAWebUserPrefsMeUser").isMeAccount(g)) {
-        E(p);
+        R(p);
         return;
       }
       if (
@@ -178,12 +176,12 @@ __d(
       ) {
         var h = o("WAWebE2EProtoParser").parseMsgProto({
           messageProtobuf: p,
-          message: G(d),
+          message: V(d),
           msgContext: "relay",
           paymentInfo: _,
           bizInfo: c,
         });
-        (z(h, m), (f = { history: r("WANullthrows")(h.historySyncMetaData) }));
+        (H(h, m), (f = { history: r("WANullthrows")(h.historySyncMetaData) }));
       } else if (
         ((n = p.protocolMessage) == null
           ? void 0
@@ -251,12 +249,12 @@ __d(
       }
       return f;
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function T() {
+    function k() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
@@ -290,7 +288,7 @@ __d(
               ? void 0
               : u.cloudApiThreadControlNotification) != null
           )
-            return k({
+            return L({
               info: d,
               msgProtobuf: m,
               paymentInfo: e.paymentInfo,
@@ -309,14 +307,14 @@ __d(
           switch (d.type) {
             case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT:
               return o("WAWebUserPrefsMeUser").isMeAccount(d.author)
-                ? $(e)
-                : w(e);
+                ? D(e)
+                : N(e);
             case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP:
               return d.isDirect &&
                 o("WAWebUserPrefsMeUser").isMeAccount(d.author) &&
-                !ee(e)
-                ? $(e)
-                : w(e);
+                !J(e)
+                ? D(e)
+                : N(e);
             case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST: {
               if (
                 e.ciphertextType ===
@@ -326,21 +324,45 @@ __d(
                   throw r("err")(
                     "parseMessage: participants for peer broadcast message is not validated",
                   );
-                return w(e);
+                return N(e);
               }
               return e.isMessageRetry === !0 &&
                 e.msgProtobuf.deviceSentMessage == null
-                ? w(e)
-                : N(e);
+                ? N(e)
+                : $(e);
             }
             case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST:
-              return w(e);
+              return N(e);
             case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.DIRECT_PEER_STATUS:
-              return d.isDirect === !0 ? D(e) : N(e);
+              return d.isDirect === !0 ? I(e) : $(e);
             case o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS:
-              return w(e);
+              return N(e);
             default:
               throw r("err")("Unrecognized MESSAGE_TYPE");
+          }
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(e) {
+      return T.apply(this, arguments);
+    }
+    function T() {
+      return (
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            return yield D(e);
+          } catch (n) {
+            if (n instanceof o("WAWebHandleMsgError").DeviceSentMessageError) {
+              var t = Object.keys(e.msgProtobuf).filter(function (e) {
+                return (
+                  e !== "$$unknownFieldCount" && e !== "messageContextInfo"
+                );
+              });
+              if (t.length === 1 && t[0] === "senderKeyDistributionMessage")
+                return N(e);
+            }
+            throw n;
           }
         })),
         T.apply(this, arguments)
@@ -351,21 +373,29 @@ __d(
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            return yield $(e);
-          } catch (n) {
-            if (n instanceof o("WAWebHandleMsgError").DeviceSentMessageError) {
-              var t = Object.keys(e.msgProtobuf).filter(function (e) {
-                return (
-                  e !== "$$unknownFieldCount" && e !== "messageContextInfo"
-                );
-              });
-              if (t.length === 1 && t[0] === "senderKeyDistributionMessage")
-                return w(e);
-            }
-            throw n;
-          }
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.msgProtobuf,
+            r = babelHelpers.objectWithoutPropertiesLoose(t, e),
+            a = n.deviceSentMessage;
+          if (a == null)
+            throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
+              X(r.info.author),
+              o("WAWebWamEnumDsmError").DSM_ERROR.MISSING_DSM,
+            );
+          if (a.destinationJid == null)
+            throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
+              X(r.info.author),
+              o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_DSM,
+            );
+          var i = a.destinationJid,
+            l = yield w(
+              o("WAWebDeviceSentMessageProtoUtils").unwrapDeviceSentMessage(n),
+              r,
+            );
+          return babelHelpers.extends(
+            { deviceSent: { destination: o("WAWebWidFactory").createWid(i) } },
+            l,
+          );
         })),
         x.apply(this, arguments)
       );
@@ -375,29 +405,27 @@ __d(
     }
     function P() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.msgProtobuf,
-            r = babelHelpers.objectWithoutPropertiesLoose(t, e),
-            a = n.deviceSentMessage;
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgProtobuf,
+            n = babelHelpers.objectWithoutPropertiesLoose(e, s),
+            r = n.info,
+            a = t.deviceSentMessage;
           if (a == null)
             throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
-              J(r.info.author),
+              X(r.author),
               o("WAWebWamEnumDsmError").DSM_ERROR.MISSING_DSM,
             );
-          if (a.destinationJid == null)
+          if (a.phash == null)
             throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
-              J(r.info.author),
+              X(r.author),
               o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_DSM,
             );
-          var i = a.destinationJid,
-            l = yield F(
-              o("WAWebDeviceSentMessageProtoUtils").unwrapDeviceSentMessage(n),
-              r,
+          var i = a.phash,
+            l = yield w(
+              o("WAWebDeviceSentMessageProtoUtils").unwrapDeviceSentMessage(t),
+              n,
             );
-          return babelHelpers.extends(
-            { deviceSent: { destination: o("WAWebWidFactory").createWid(i) } },
-            l,
-          );
+          return babelHelpers.extends({ deviceSent: { phash: i, info: r } }, l);
         })),
         P.apply(this, arguments)
       );
@@ -409,54 +437,24 @@ __d(
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.msgProtobuf,
-            n = babelHelpers.objectWithoutPropertiesLoose(e, s),
-            r = n.info,
-            a = t.deviceSentMessage;
-          if (a == null)
+            n = babelHelpers.objectWithoutPropertiesLoose(e, u);
+          if (t.deviceSentMessage != null)
             throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
-              J(r.author),
-              o("WAWebWamEnumDsmError").DSM_ERROR.MISSING_DSM,
+              X(n.info.author),
+              o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_SENDER,
             );
-          if (a.phash == null)
-            throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
-              J(r.author),
-              o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_DSM,
-            );
-          var i = a.phash,
-            l = yield F(
-              o("WAWebDeviceSentMessageProtoUtils").unwrapDeviceSentMessage(t),
-              n,
-            );
-          return babelHelpers.extends({ deviceSent: { phash: i, info: r } }, l);
+          var r = yield w(t, n);
+          return babelHelpers.extends({ deviceSent: null }, r);
         })),
         M.apply(this, arguments)
       );
     }
-    function w(e) {
+    function w(e, t) {
       return A.apply(this, arguments);
     }
     function A() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msgProtobuf,
-            n = babelHelpers.objectWithoutPropertiesLoose(e, u);
-          if (t.deviceSentMessage != null)
-            throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
-              J(n.info.author),
-              o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_SENDER,
-            );
-          var r = yield F(t, n);
-          return babelHelpers.extends({ deviceSent: null }, r);
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e, t) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a,
             i,
@@ -467,14 +465,14 @@ __d(
             m = t.bizInfo,
             p = t.hidePlaceholder,
             _ = t.hsmInfo,
-            C = t.info,
-            b = t.isMessageRetry,
-            v = t.isOffline,
-            S = t.msgBotInfo,
-            L = t.paymentInfo,
-            E = t.processDecryptedProtoParams,
-            k = t.protobufBytes,
-            I = t.reportingTokenInfo;
+            h = t.info,
+            y = t.isMessageRetry,
+            C = t.isOffline,
+            b = t.msgBotInfo,
+            S = t.paymentInfo,
+            R = t.processDecryptedProtoParams,
+            L = t.protobufBytes,
+            E = t.reportingTokenInfo;
           if (e == null)
             return {
               senderKey: null,
@@ -482,46 +480,46 @@ __d(
               storeMsg: null,
               renderableMsgs: [],
             };
-          var T = babelHelpers.extends(
+          var k = babelHelpers.extends(
               {},
               o("WAWebE2EProtoParser").parseMsgProto({
                 messageProtobuf: e,
-                message: G(C),
+                message: V(h),
                 msgContext: "relay",
-                paymentInfo: L,
+                paymentInfo: S,
                 bizInfo: m,
-                editAttr: C.edit,
-                rcat: E == null ? void 0 : E.rcat,
+                editAttr: h.edit,
+                rcat: R == null ? void 0 : R.rcat,
                 bizSource:
-                  E == null || (n = E.msgMeta) == null ? void 0 : n.bizSource,
-                msgMeta: E == null ? void 0 : E.msgMeta,
-                msgBotInfo: S,
+                  R == null || (n = R.msgMeta) == null ? void 0 : n.bizSource,
+                msgMeta: R == null ? void 0 : R.msgMeta,
+                msgBotInfo: b,
               }),
             ),
-            D = E == null || (a = E.msgMeta) == null ? void 0 : a.isReadByPeer;
-          D === !0 && ((T.read = !0), (T.ack = o("WAWebAck").ACK.READ));
-          var x = T,
-            $ = x.disappearingModeTrigger,
-            P = (i = T.id.remote) != null ? i : T.from;
+            I = R == null || (a = R.msgMeta) == null ? void 0 : a.isReadByPeer;
+          I === !0 && ((k.read = !0), (k.ack = o("WAWebAck").ACK.READ));
+          var T = k,
+            D = T.disappearingModeTrigger,
+            x = (i = k.id.remote) != null ? i : k.from;
           if (
-            P != null &&
-            r("WAWebWid").isGroup(P) &&
-            $ != null &&
+            x != null &&
+            r("WAWebWid").isGroup(x) &&
+            D != null &&
             o("WAWebABProps").getABPropConfigValue(
               "dm_initiator_trigger_groups",
             )
           ) {
-            var N = yield o(
+            var $ = yield o(
               "WAWebDisappearingModeGroupsProtoUtils",
-            ).updateDisappearingModeForGroups($, P);
-            N != null && (T = babelHelpers.extends({}, T, N));
+            ).updateDisappearingModeForGroups(D, x);
+            $ != null && (k = babelHelpers.extends({}, k, $));
           }
           if (
-            (z(
-              T,
-              S,
-              E == null || (l = E.msgMeta) == null ? void 0 : l.targetSenderJid,
-              E == null || (s = E.msgMeta) == null ? void 0 : s.targetId,
+            (H(
+              k,
+              b,
+              R == null || (l = R.msgMeta) == null ? void 0 : l.targetSenderJid,
+              R == null || (s = R.msgMeta) == null ? void 0 : s.targetId,
             ),
             (o(
               "WAWebBotGroupGatingUtils",
@@ -529,20 +527,20 @@ __d(
               o(
                 "WAWebBotGroupGatingUtils",
               ).isTEEGroupBotParticipantAddEnabled()) &&
-              (E == null || (u = E.msgMeta) == null ? void 0 : u.targetId) !=
+              (R == null || (u = R.msgMeta) == null ? void 0 : u.targetId) !=
                 null &&
-              P != null &&
-              r("WAWebWid").isGroup(P))
+              x != null &&
+              r("WAWebWid").isGroup(x))
           )
             try {
-              var M, w;
-              yield j(
-                T,
-                P,
-                E == null || (M = E.msgMeta) == null
+              var P, N;
+              yield G(
+                k,
+                x,
+                R == null || (P = R.msgMeta) == null
                   ? void 0
-                  : M.targetSenderJid,
-                E == null || (w = E.msgMeta) == null ? void 0 : w.targetId,
+                  : P.targetSenderJid,
+                R == null || (N = R.msgMeta) == null ? void 0 : N.targetId,
               );
             } catch (e) {
               o("WALogger")
@@ -556,146 +554,125 @@ __d(
                 )
                 .sendLogs("failed-to-process-bot-group-gossip");
             }
-          if ((yield R(T, P, S), _ != null)) {
-            var A = _.category,
-              F = _.tag;
-            ((T.hsmTag = F), (T.hsmCategory = A));
+          if ((yield v(k, x, b), _ != null)) {
+            var M = _.category,
+              w = _.tag;
+            ((k.hsmTag = w), (k.hsmCategory = M));
           }
           if (
-            (E == null || (d = E.msgMeta) == null ? void 0 : d.bizSource) !=
+            (R == null || (d = R.msgMeta) == null ? void 0 : d.bizSource) !=
             null
           ) {
-            var O;
-            T.bizSource =
-              E == null || (O = E.msgMeta) == null ? void 0 : O.bizSource;
+            var A;
+            k.bizSource =
+              R == null || (A = R.msgMeta) == null ? void 0 : A.bizSource;
           }
-          var q =
+          var B =
               e.senderKeyDistributionMessage != null
-                ? B(C, e.senderKeyDistributionMessage)
+                ? F(h, e.senderKeyDistributionMessage)
                 : null,
-            U =
+            W =
               e.rootSecretDistributeMessage != null
-                ? W(e.rootSecretDistributeMessage, e, T.id.id)
+                ? O(e.rootSecretDistributeMessage, e, k.id.id)
                 : null,
-            V =
-              T.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              q == null &&
-              U == null,
-            H = T.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && q != null,
-            K = T.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && U != null,
-            X = null;
-          if (V && E != null) {
-            var Y = E.decrypted,
-              J = E.reparsing,
-              Z = babelHelpers.objectWithoutPropertiesLoose(E, c);
-            ((T.futureproofParams = Z), (T.futureproofBuffer = Y));
+            q =
+              k.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+              B == null &&
+              W == null,
+            U = k.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && B != null,
+            z = k.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && W != null,
+            K = null;
+          if (q && R != null) {
+            var Q = R.decrypted,
+              X = R.reparsing,
+              Y = babelHelpers.objectWithoutPropertiesLoose(R, c);
+            ((k.futureproofParams = Y), (k.futureproofBuffer = Q));
           }
           if (
-            (C.type ===
+            (h.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS &&
-              ((T.campaignId = C.campaignId),
-              (T.campaignDuration = C.campaignDuration)),
-            C.type ===
+              ((k.campaignId = h.campaignId),
+              (k.campaignDuration = h.campaignDuration)),
+            h.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST &&
-              ((T.broadcastId = C.chat),
-              (T.bclParticipants = C.bclParticipants),
-              (X = T)),
-            C.type ===
+              ((k.broadcastId = h.chat),
+              (k.bclParticipants = h.bclParticipants),
+              (K = k)),
+            h.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST)
           ) {
-            var ee;
-            T.broadcastId = C.chat;
-            var te = o("WAWebWidFactory").asUserWidOrThrow(
-                (ee = C.preMatChat) != null ? ee : C.author,
+            var J;
+            k.broadcastId = h.chat;
+            var Z = o("WAWebWidFactory").asUserWidOrThrow(
+                (J = h.preMatChat) != null ? J : h.author,
               ),
-              ne = C.ephSetting,
-              re = T.ephemeralSharedSecret;
-            if (ne != null && re != null) {
-              te.isLid() ||
-                (o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bcl] decoding eph_setting=",
-                      " from ",
-                      "",
-                    ])),
-                  ne,
-                  te.server,
-                ),
-                o("WALogger")
-                  .LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bcl] decoding with non-LID sender",
-                      ])),
-                  )
-                  .sendLogs("bcl-eph-setting-decode-non-lid-sender"));
-              var oe = yield o(
+              ee = h.ephSetting,
+              te = k.ephemeralSharedSecret;
+            if (ee != null && te != null) {
+              var ne = yield o(
                   "WAWebEphemeralDecodeBroadcastSetting",
                 ).decodeBroadcastEphemeralSetting({
-                  broadcastJid: C.chat,
-                  recipient: te.isLid()
-                    ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                    : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                  sender: te,
-                  ephSetting: ne,
-                  sharedSecret: re,
+                  broadcastJid: h.chat,
+                  recipient: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                  sender: Z,
+                  ephSetting: ee,
+                  sharedSecret: te,
                 }),
-                ae = oe.ephemeralDuration,
-                ie = oe.ephemeralSettingTimestamp;
-              ((T.ephemeralDuration = ae),
-                (T.ephemeralSettingTimestamp = ie),
+                re = ne.ephemeralDuration,
+                oe = ne.ephemeralSettingTimestamp;
+              ((k.ephemeralDuration = re),
+                (k.ephemeralSettingTimestamp = oe),
                 o("WALogger")
                   .LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "[broadcast:retry] decoded eph_setting sender=",
                         " dur=",
                         " ts=",
                         "",
                       ])),
-                    te.toString(),
-                    ae,
-                    ie,
+                    Z.toString(),
+                    re,
+                    oe,
                   )
                   .tags("messaging"));
             }
           }
-          var le = [],
-            se = T.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-            ue = H || K || (se && p === !0 && T.futureproofType == null);
+          var ae = [],
+            ie = k.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+            le = U || z || (ie && p === !0 && k.futureproofType == null);
           return (
-            ue ||
-              (C.type ===
+            le ||
+              (h.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST
-                ? (le = yield Q(T, C.bclParticipants))
-                : ((T.subtype === "payment_transaction_request_cancelled" ||
-                    T.subtype === "payment_action_request_declined") &&
-                    T.paymentRequestMessageKey == null) ||
-                  ((T.reportingTokenInfo = I),
-                  (T.plainProtobufBytes = k),
-                  (T.preMatChat = C.preMatChat),
-                  (T.isRetry = b),
-                  (T.isOffline = v),
-                  (C.author !== T.from || C.author !== T.author) &&
-                    (T.senderWithDevice = C.author),
-                  o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(T.ctwaContext)
-                    ? (le = yield o(
+                ? (ae = yield j(k, h.bclParticipants))
+                : ((k.subtype === "payment_transaction_request_cancelled" ||
+                    k.subtype === "payment_action_request_declined") &&
+                    k.paymentRequestMessageKey == null) ||
+                  ((k.reportingTokenInfo = E),
+                  (k.plainProtobufBytes = L),
+                  (k.preMatChat = h.preMatChat),
+                  (k.isRetry = y),
+                  (k.isOffline = C),
+                  (h.author !== k.from || h.author !== k.author) &&
+                    (k.senderWithDevice = h.author),
+                  o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(k.ctwaContext)
+                    ? (ae = yield o(
                         "WAWebMsgAGMProcessing",
-                      ).generateAutomatedGreetingMsgs(T, C))
-                    : (le = [T]))),
+                      ).generateAutomatedGreetingMsgs(k, h))
+                    : (ae = [k]))),
             {
-              senderKey: q,
-              rootSecretDistribute: U,
-              storeMsg: X,
-              renderableMsgs: le,
+              senderKey: B,
+              rootSecretDistribute: W,
+              storeMsg: K,
+              renderableMsgs: ae,
             }
           );
         })),
-        O.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function B(e, t) {
+    function F(e, t) {
       if (!e.chat.isGroup() && !e.chat.isBroadcast())
         throw r("err")("should not have senderkey");
       var n = t.axolotlSenderKeyDistributionMessage,
@@ -724,7 +701,7 @@ __d(
         );
       return { groupId: a, key: n };
     }
-    function W(e, t, n) {
+    function O(e, t, n) {
       var a,
         i = e.chatJid;
       if (i == null || i === "")
@@ -740,7 +717,7 @@ __d(
         rootSecret: new Uint8Array(l),
       };
     }
-    function q(e) {
+    function B(e) {
       return !(
         (e.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
           e.type !==
@@ -748,12 +725,12 @@ __d(
         e.edit === o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
       );
     }
-    function U(e) {
+    function W(e) {
       var t = e.msgInfo,
         n = e.msgMeta,
         r = e.placeholderAddReason,
         a = e.placeholderType;
-      if (!q(t)) return null;
+      if (!B(t)) return null;
       var i =
           a === o("WAWebHandleMsgTypes.flow").PlaceholderType.E2E
             ? void 0
@@ -781,7 +758,7 @@ __d(
                           );
                         })(),
         l = n.isReadByPeer === !0,
-        s = babelHelpers.extends({}, G(t), {
+        s = babelHelpers.extends({}, V(t), {
           type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
           kind: o("WAWebMsgType").MsgKind.Ciphertext,
           subtype: i,
@@ -809,15 +786,15 @@ __d(
             kind: o("WAWebMsgType").MsgKind.PlaceholderMessage,
           });
     }
-    function V(e, t) {
-      var n = babelHelpers.extends({}, G(e), {
+    function q(e, t) {
+      var n = babelHelpers.extends({}, V(e), {
         type: o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER,
         kind: o("WAWebMsgType").MsgKind.DebugPlaceholder,
         body: t.toString(),
       });
       return n;
     }
-    function H(e, t) {
+    function U(e, t) {
       if (t.botParticipant != null) return t.botParticipant;
       if (
         (!e.fromMe && r("WAWebWid").isGroup(e.remote)) ||
@@ -830,11 +807,11 @@ __d(
       )
         return t.author;
     }
-    function G(e) {
+    function V(e) {
       var t,
         n,
         a,
-        i = Y(e),
+        i = Q(e),
         l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         s = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
         u;
@@ -856,7 +833,7 @@ __d(
             ack: o("WAWebMsgKeyUtils").isNoteToSelf(i)
               ? o("WAWebAck").ACK.READ
               : o("WAWebAck").ACK.SENT,
-            author: H(i, e),
+            author: U(i, e),
             notifyName: e.pushname || "",
             invis: !1,
             count: e.count,
@@ -886,7 +863,7 @@ __d(
         d
       );
     }
-    function z(e, t, n, r) {
+    function H(e, t, n, r) {
       if (t != null) {
         var o = e;
         Object.assign(o, {
@@ -899,12 +876,12 @@ __d(
         });
       }
     }
-    function j(e, t, n, r) {
-      return K.apply(this, arguments);
+    function G(e, t, n, r) {
+      return z.apply(this, arguments);
     }
-    function K() {
+    function z() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             var i;
             if (!(n == null || a == null)) {
@@ -949,16 +926,16 @@ __d(
             }
           },
         )),
-        K.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function Q(e, t) {
-      return X.apply(this, arguments);
+    function j(e, t) {
+      return K.apply(this, arguments);
     }
-    function X() {
+    function K() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = yield (S || (S = n("Promise"))).all(
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = yield (b || (b = n("Promise"))).all(
             t.map(
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -977,8 +954,8 @@ __d(
                     } catch (e) {
                       return (
                         o("WALogger").WARN(
-                          C ||
-                            (C = babelHelpers.taggedTemplateLiteralLoose([
+                          h ||
+                            (h = babelHelpers.taggedTemplateLiteralLoose([
                               "drop: cannot create MsgKey: ",
                               "",
                             ])),
@@ -1010,8 +987,8 @@ __d(
                     }
                     l.isLid() ||
                       (o("WALogger").LOG(
-                        b ||
-                          (b = babelHelpers.taggedTemplateLiteralLoose([
+                        y ||
+                          (y = babelHelpers.taggedTemplateLiteralLoose([
                             "[generateBclMsgs] eph_setting=",
                             " recipient=",
                             "",
@@ -1021,8 +998,8 @@ __d(
                       ),
                       o("WALogger")
                         .LOG(
-                          v ||
-                            (v = babelHelpers.taggedTemplateLiteralLoose([
+                          C ||
+                            (C = babelHelpers.taggedTemplateLiteralLoose([
                               "[generateBclMsgs] non-LID recipient found",
                             ])),
                         )
@@ -1056,10 +1033,10 @@ __d(
           );
           return a.filter(Boolean);
         })),
-        X.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function Y(e) {
+    function Q(e) {
       return e.type ===
         o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_BROADCAST
         ? new (r("WAWebMsgKey"))({
@@ -1093,17 +1070,17 @@ __d(
                 : e.externalId,
             });
     }
-    function J(e) {
+    function X(e) {
       return e.device == null || e.device === o("WAJids").DEFAULT_DEVICE_ID
         ? o("WAWebWamEnumDeviceType").DEVICE_TYPE.PRIMARY
         : o("WAWebWamEnumDeviceType").DEVICE_TYPE.COMPANION;
     }
-    function Z(e) {
+    function Y(e) {
       return e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
         ? e.author
         : e.chat;
     }
-    function ee(e) {
+    function J(e) {
       var t;
       return (
         ((t = e.meta) == null ? void 0 : t.appdata) ===
@@ -1111,7 +1088,7 @@ __d(
         e.msgProtobuf.senderKeyDistributionMessage != null
       );
     }
-    function te(e, t, n) {
+    function Z(e, t, n) {
       if (e === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg) {
         var r = t.msgMeta.capi === !0,
           a = t.msgInfo.chat.isGroup();
@@ -1125,17 +1102,17 @@ __d(
       }
       return !1;
     }
-    ((l.parseProtocolMessage = k),
-      (l.parseMessage = I),
-      (l.isRevokeInfo = q),
-      (l.generatePlaceholder = U),
-      (l.genDebugPlaceholderMsg = V),
-      (l.generateBaseMsg = G),
-      (l.generateBclMsgs = Q),
-      (l.messageInfoToKey = Y),
-      (l.getDeviceType = J),
-      (l.getFrom = Z),
-      (l.shouldOmitSessionPersistence = te));
+    ((l.parseProtocolMessage = L),
+      (l.parseMessage = E),
+      (l.isRevokeInfo = B),
+      (l.generatePlaceholder = W),
+      (l.genDebugPlaceholderMsg = q),
+      (l.generateBaseMsg = V),
+      (l.generateBclMsgs = j),
+      (l.messageInfoToKey = Q),
+      (l.getDeviceType = X),
+      (l.getFrom = Y),
+      (l.shouldOmitSessionPersistence = Z));
   },
   98,
 );

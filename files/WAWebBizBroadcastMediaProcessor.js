@@ -1,6 +1,7 @@
 __d(
   "WAWebBizBroadcastMediaProcessor",
   [
+    "WAExponentialBackoff",
     "WALogger",
     "WAWebAttachMediaCollection",
     "WAWebBroadcastMsgDataUtils",
@@ -18,12 +19,20 @@ __d(
       d,
       m,
       p,
-      _ = new Set([
+      _,
+      f = new Set([
         o("WAWebMsgType").MSG_TYPE.DOCUMENT,
         o("WAWebMsgType").MSG_TYPE.IMAGE,
         o("WAWebMsgType").MSG_TYPE.VIDEO,
+      ]),
+      g = { minTimeout: 1e3, retries: 2 },
+      h = new Set([
+        "InvalidImageFileType",
+        "InvalidMediaFileType",
+        "MediaFileEmpty",
+        "MediaFileTooLarge",
       ]);
-    function f(e, t, n) {
+    function y(e, t, n) {
       return e != null
         ? t != null
           ? "product"
@@ -36,7 +45,7 @@ __d(
               ? "document"
               : null;
     }
-    function g(e) {
+    function C(e) {
       var t = e.exception,
         n = "none";
       return (
@@ -52,12 +61,17 @@ __d(
           n
       );
     }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function b(e) {
+      return e.getModelsArray().some(function (e) {
+        return e.exception != null && h.has(e.exception.name);
+      });
     }
-    function y() {
+    function v(e, t, n) {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -66,53 +80,84 @@ __d(
               ])),
             t,
           );
-          var a = new (r("WAWebAttachMediaCollection"))({
-              chatParticipantCount: t,
-            }),
-            i = [{ file: e }];
-          yield a.processAttachments(
-            i,
-            o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
-              .BUSINESS_FLOWS,
-            _,
-            1,
-          );
-          var l = a.getActive();
-          if (l == null) {
-            var s = a.getModelsArray().map(g).join("; ");
-            throw r("err")("Failed to process media for sending: " + s);
-          }
-          (l.processPromise != null && (yield l.processPromise),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:media] media processed type=",
-                  "",
-                ])),
-              l.type,
-            ));
-          var u = {
-              caption: n != null && n.trim() !== "" ? n.trim() : void 0,
-              type: l.type,
-            },
-            m = yield o("WAWebMediaPrep").getMediaPropsNew(l.mediaPrep, u);
-          return (
-            (m.isCaptionByUser =
-              u.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT && !!u.caption),
-            { freshMedia: l, mediaProps: m }
+          var i = new AbortController();
+          return o("WAExponentialBackoff").exponentialBackoff(
+            babelHelpers.extends({}, g, { signal: i.signal }),
+            (function () {
+              var i = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (n, i) {
+                  var l = new (r("WAWebAttachMediaCollection"))({
+                      chatParticipantCount: t,
+                    }),
+                    s = [{ file: e }];
+                  yield l.processAttachments(
+                    s,
+                    o("WAWebWamEnumMediaPickerOriginType")
+                      .MEDIA_PICKER_ORIGIN_TYPE.BUSINESS_FLOWS,
+                    f,
+                    1,
+                  );
+                  var u = l.getActive();
+                  if (u == null) {
+                    var c = l.getModelsArray().map(C).join("; "),
+                      p = r("err")("Failed to process media for sending: " + c);
+                    if (b(l)) throw p;
+                    return (
+                      o("WALogger").WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[broadcast:media] no previewable media, retrying after attempt ",
+                            ": ",
+                            "",
+                          ])),
+                        i + 1,
+                        c,
+                      ),
+                      n(p)
+                    );
+                  }
+                  (u.processPromise != null && (yield u.processPromise),
+                    o("WALogger").LOG(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "[broadcast:media] media processed type=",
+                          "",
+                        ])),
+                      u.type,
+                    ));
+                  var _ = {
+                      caption: a != null && a.trim() !== "" ? a.trim() : void 0,
+                      type: u.type,
+                    },
+                    g = yield o("WAWebMediaPrep").getMediaPropsNew(
+                      u.mediaPrep,
+                      _,
+                    );
+                  return (
+                    (g.isCaptionByUser =
+                      _.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
+                      !!_.caption),
+                    { freshMedia: u, mediaProps: g }
+                  );
+                },
+              );
+              return function (e, t) {
+                return i.apply(this, arguments);
+              };
+            })(),
           );
         })),
-        y.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
+    function R(e, t, n, r) {
+      return L.apply(this, arguments);
     }
-    function b() {
+    function L() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield h(e, t, r),
+            var a = yield v(e, t, r),
               i = a.freshMedia,
               l = a.mediaProps,
               s = yield o(
@@ -120,8 +165,8 @@ __d(
               ).addBroadcastFieldsToMediaMsg(n, l);
             return (
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:media] msg data prepared",
                   ])),
               ),
@@ -129,10 +174,10 @@ __d(
             );
           },
         )),
-        b.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function v(t) {
+    function E(t) {
       return (function () {
         var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
           var a;
@@ -198,14 +243,14 @@ __d(
         };
       })();
     }
-    function S(e, t, n, r, o) {
-      return R.apply(this, arguments);
+    function k(e, t, n, r, o) {
+      return I.apply(this, arguments);
     }
-    function R() {
+    function I() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
-            var i = yield h(e, t, r),
+            var i = yield v(e, t, r),
               l = i.freshMedia,
               s = i.mediaProps,
               u = yield o(
@@ -213,8 +258,8 @@ __d(
               ).addBroadcastInteractiveFieldsToMediaMsg(n, s, a);
             return (
               o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:media] interactive msg data prepared +CTA",
                   ])),
               ),
@@ -222,14 +267,14 @@ __d(
             );
           },
         )),
-        R.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    ((l.SUPPORTED_MEDIA_TYPES = _),
-      (l.getAttachmentType = f),
-      (l.processMediaForBroadcast = C),
-      (l.createBroadcastMediaUploadCallback = v),
-      (l.processMediaWithCTAForBroadcast = S));
+    ((l.SUPPORTED_MEDIA_TYPES = f),
+      (l.getAttachmentType = y),
+      (l.processMediaForBroadcast = R),
+      (l.createBroadcastMediaUploadCallback = E),
+      (l.processMediaWithCTAForBroadcast = k));
   },
   98,
 );

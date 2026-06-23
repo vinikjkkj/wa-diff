@@ -428,34 +428,25 @@ __d(
                                                                                       .mexHandleSharableEventReminderNotification,
                                                                                   )
                                                                                 : e.OperationName ===
-                                                                                    "NotificationEventInviteAdd"
+                                                                                    "NotificationEventInviteRemove"
                                                                                   ? h(
                                                                                       e,
                                                                                       o(
                                                                                         "WAWebSharableEventNotificationHandler",
                                                                                       )
-                                                                                        .mexHandleSharableEventInviteAddNotification,
+                                                                                        .mexHandleSharableEventInviteRemoveNotification,
                                                                                     )
-                                                                                  : e.OperationName ===
-                                                                                      "NotificationEventInviteRemove"
-                                                                                    ? h(
-                                                                                        e,
-                                                                                        o(
-                                                                                          "WAWebSharableEventNotificationHandler",
-                                                                                        )
-                                                                                          .mexHandleSharableEventInviteRemoveNotification,
-                                                                                      )
-                                                                                    : (
-                                                                                        u ||
-                                                                                        (u =
-                                                                                          n(
-                                                                                            "Promise",
-                                                                                          ))
-                                                                                      ).reject(
-                                                                                        new g(
-                                                                                          e.OperationName,
-                                                                                        ),
-                                                                                      );
+                                                                                  : (
+                                                                                      u ||
+                                                                                      (u =
+                                                                                        n(
+                                                                                          "Promise",
+                                                                                        ))
+                                                                                    ).reject(
+                                                                                      new g(
+                                                                                        e.OperationName,
+                                                                                      ),
+                                                                                    );
     }
     var g = (function (e) {
       function t(n) {

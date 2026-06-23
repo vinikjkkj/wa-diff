@@ -9,7 +9,6 @@ __d(
         "Rsvp",
         "Delete",
         "Reminder",
-        "InviteAdd",
         "InviteRemove",
         "Suspended",
       ]),
@@ -37,7 +36,7 @@ __d(
     }
     var d = e.Mirrored(["Going", "Maybe", "NotGoing", "NoResponse"]),
       m = e.Mirrored(["Active", "Canceled", "Suspended"]),
-      p = new Set([l.Invite, l.InviteAdd, l.InviteRemove]);
+      p = new Set([l.Invite, l.InviteRemove]);
     function _(e) {
       return p.has(e);
     }
@@ -56,18 +55,16 @@ __d(
               ? "NotificationEventDelete"
               : e === l.Reminder
                 ? "NotificationEventReminder"
-                : e === l.InviteAdd
-                  ? "NotificationEventInviteAdd"
-                  : e === l.InviteRemove
-                    ? "NotificationEventInviteRemove"
-                    : e === l.Suspended
-                      ? "NotificationEventUpdate"
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              e,
-                          );
-                        })();
+                : e === l.InviteRemove
+                  ? "NotificationEventInviteRemove"
+                  : e === l.Suspended
+                    ? "NotificationEventUpdate"
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })();
     }
     function y(e) {
       return e === l.Invite
@@ -80,18 +77,16 @@ __d(
               ? "delete"
               : e === l.Reminder
                 ? "reminder"
-                : e === l.InviteAdd
-                  ? "inviteAdd"
-                  : e === l.InviteRemove
-                    ? "inviteRemove"
-                    : e === l.Suspended
-                      ? "suspended"
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              e,
-                          );
-                        })();
+                : e === l.InviteRemove
+                  ? "inviteRemove"
+                  : e === l.Suspended
+                    ? "suspended"
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })();
     }
     ((i.SharableEventNotificationType = l),
       (i.SharableEventReminderType = s),

@@ -16,8 +16,6 @@ __d(
       WAWebGraphQLProductCatalogGetPublicKeyJobQuery: "24765734146405491",
       WAWebGraphQLVerifyPostcodeJobQuery: "7573183149457062",
       WAWebGalaxyFlowsDrawerGetFlowDataQuery: "24989855014035777",
-      WAWebFetchMetaAISearchNullStateSuggestionsQuery: "9962874563796224",
-      WAWebFetchMetaAISearchTypeAheadSuggestionsQuery: "10099941310063078",
       WAWebNativeMLModelQuery: "9175958945830972",
       WAWebSignupMetadataQuery: "26378108788468347",
     };

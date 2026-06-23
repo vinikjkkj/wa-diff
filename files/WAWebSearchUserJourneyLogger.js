@@ -6,7 +6,6 @@ __d(
     "WAWebABProps",
     "WAWebChatModel",
     "WAWebContactModel",
-    "WAWebMetaAISuggestionModel",
     "WAWebMsgModel",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSearchUserJourneyWamEvent",
@@ -79,7 +78,6 @@ __d(
             if (!this.$4) {
               this.$4 = !0;
               var e =
-                t.aiSuggestionCount +
                 t.chatsCount +
                 t.contactsCount +
                 t.messagesCount +
@@ -110,12 +108,9 @@ __d(
                   : t instanceof o("WAWebChatModel").Chat
                     ? (l = o("WAWebWamEnumSearchUjItemType").SEARCH_UJ_ITEM_TYPE
                         .CHAT)
-                    : t instanceof r("WAWebContactModel")
-                      ? (l = o("WAWebWamEnumSearchUjItemType")
-                          .SEARCH_UJ_ITEM_TYPE.CONTACT)
-                      : t instanceof r("WAWebMetaAISuggestionModel") &&
-                        (l = o("WAWebWamEnumSearchUjItemType")
-                          .SEARCH_UJ_ITEM_TYPE.AI_SUGGESTION)),
+                    : t instanceof r("WAWebContactModel") &&
+                      (l = o("WAWebWamEnumSearchUjItemType").SEARCH_UJ_ITEM_TYPE
+                        .CONTACT)),
               l == null)
             ) {
               o("WALogger").WARN(

@@ -15,6 +15,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "isEmptyObject",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -35,7 +36,7 @@ __d(
       if (t === "" || t === "null") return null;
       try {
         var n = JSON.parse(t);
-        return n == null || typeof n != "object" || Object.keys(n).length === 0
+        return n == null || typeof n != "object" || r("isEmptyObject")(n)
           ? null
           : JSON.stringify(n);
       } catch (e) {

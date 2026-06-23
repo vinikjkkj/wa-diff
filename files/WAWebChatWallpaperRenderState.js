@@ -1,6 +1,7 @@
 __d(
   "WAWebChatWallpaperRenderState",
   [
+    "WAWebChatThemeValue",
     "WAWebMinimalChatWallpaperOverrides",
     "WAWebStockWallpaper",
     "WAWebWallpaper",
@@ -11,46 +12,50 @@ __d(
       var t = e.effectiveMinimalMode,
         n = e.isDarkTheme,
         r = e.isMinimalScheme,
-        a = e.rawShowDoodle,
-        i = e.stockWallpaperImageId,
-        l = e.storedWallpaper,
-        s = e.suppressSolidWallpaper,
-        u = e.wallpaperPreview,
-        c =
-          i != null
-            ? o("WAWebStockWallpaper").getStockWallpaperUrlByImageId(i)
+        a = e.wallpaperPreview,
+        i = e.wallpaperValue,
+        l = n ? "dark" : "light",
+        c = (i == null ? void 0 : i.type) === "stock" ? i.stockImageId : null,
+        d =
+          c != null
+            ? o("WAWebStockWallpaper").getStockWallpaperUrlByImageId(c)
             : null,
-        d = u != null ? u : l,
-        m = n ? "dark" : "light",
-        p = n ? "light" : "dark",
-        _ =
-          d != null &&
-          d !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER &&
-          !o("WAWebWallpaper").colorExistsInTheme(d, m)
-            ? o("WAWebWallpaper").toggleWallpaperColor(d, p)
-            : d != null
-              ? d
-              : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-        f = _ !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER && !s ? _ : null,
-        g =
-          c != null &&
-          (_ === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER || s) &&
-          !a,
-        h = !g && a,
-        y = o("WAWebMinimalChatWallpaperOverrides").getMinimalModeOverrides({
+        m = s(i, a, l),
+        p = m !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER ? m : null,
+        _ = u(i),
+        f = d != null && m === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+        g = !f && _,
+        h = o("WAWebMinimalChatWallpaperOverrides").getMinimalModeOverrides({
           effectiveMinimalMode: t,
           isMinimalScheme: r,
           isDarkTheme: n,
-          showStockWallpaper: g,
+          showStockWallpaper: f,
         });
       return {
-        displayWallpaper: _,
-        solidWallpaperHex: f,
-        stockWallpaperUrl: c,
-        showStockWallpaper: g,
-        showDoodle: h,
-        cssVariableOverrides: y,
+        displayWallpaper: m,
+        solidWallpaperHex: p,
+        stockWallpaperUrl: d,
+        showStockWallpaper: f,
+        showDoodle: g,
+        cssVariableOverrides: h,
       };
+    }
+    function s(e, t, n) {
+      return t != null && t !== ""
+        ? t
+        : e != null && e.type === "solid"
+          ? o("WAWebChatThemeValue").wallpaperValueToHex(e, n)
+          : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER;
+    }
+    function u(e) {
+      var t;
+      return e == null
+        ? !0
+        : e.type === "stock"
+          ? !1
+          : (t = e.isDoodleEnabled) != null
+            ? t
+            : !0;
     }
     l.deriveChatWallpaperRenderState = e;
   },

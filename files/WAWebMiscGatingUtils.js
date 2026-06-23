@@ -55,58 +55,53 @@ __d(
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_message_list_a11y_redesign",
-      );
-    }
-    function g() {
-      return o("WAWebABProps").getABPropConfigValue(
         "web_abprop_media_links_docs_search",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue("graphql_locale_remapping");
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_message_plugin_frontend_registration_enabled",
       );
     }
-    function C() {
+    function y() {
       return !o("WAWebMobilePlatforms").isSMB();
     }
-    function b() {
+    function C() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled("ddm_settings");
     }
-    function v() {
+    function b() {
       var e;
       return (e = o("WAWebABProps").getABPropConfigValue("drop_last_name")) !=
         null
         ? e
         : !1;
     }
-    function S() {
+    function v() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("smb_rambutan_enabled")
       );
     }
-    function R() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue("group_suspend_v2_enabled");
     }
-    function L() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue("blue_enabled");
     }
-    function E() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue("blue_education_enabled");
     }
-    function k() {
+    function E() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue(
             "blue_profile_locked_ui_enabled",
           )
         : !1;
     }
-    function I() {
+    function k() {
       o("WAWebABProps").getABPropConfigValue("wa_web_pre_chat_device_id_test");
     }
     ((l.webMediaAutoDownloadEnabled = e),
@@ -117,19 +112,18 @@ __d(
       (l.isFavoriteStickerSyncAfterPairingEnabled = m),
       (l.isHighQualityVideoThumbnailsEnabled = p),
       (l.multiSkinToneEmojiPickerEnabled = _),
-      (l.messageListA11yRedesignEnabled = f),
-      (l.mediaLinksDocsFilteringEnabled = g),
-      (l.getGraphqlLocaleRemapping = h),
-      (l.messagePluginFrontendRegistrationEnabled = y),
-      (l.isPrivacyNarrativeV1Enabled = C),
-      (l.isDefaultDisappearingMessagesEnabled = b),
-      (l.isDropLastNameEnabled = v),
-      (l.isRambutanEnabled = S),
-      (l.isGroupSuspendV2Enabled = R),
-      (l.isBlueEnabled = L),
-      (l.isBlueEducationEnabled = E),
-      (l.isBlueLockingEnabled = k),
-      (l.checkDeviceIdTestAbProp = I));
+      (l.mediaLinksDocsFilteringEnabled = f),
+      (l.getGraphqlLocaleRemapping = g),
+      (l.messagePluginFrontendRegistrationEnabled = h),
+      (l.isPrivacyNarrativeV1Enabled = y),
+      (l.isDefaultDisappearingMessagesEnabled = C),
+      (l.isDropLastNameEnabled = b),
+      (l.isRambutanEnabled = v),
+      (l.isGroupSuspendV2Enabled = S),
+      (l.isBlueEnabled = R),
+      (l.isBlueEducationEnabled = L),
+      (l.isBlueLockingEnabled = E),
+      (l.checkDeviceIdTestAbProp = k));
   },
   98,
 );
