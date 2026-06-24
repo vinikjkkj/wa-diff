@@ -101,7 +101,11 @@ __d(
       return (
         t === void 0 && (t = 100),
         n === void 0 && (n = 100),
-        o("WAWebBizProductCatalogBridge").addProduct(e, t, n)
+        o("WAWebBizProductCatalogBridge").addProduct({
+          height: n,
+          product: e,
+          width: t,
+        })
       );
     }
     function _(e, t, n) {

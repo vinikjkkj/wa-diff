@@ -470,6 +470,9 @@ __d(
           case l.INDIVIDUAL_CHANGE_NUMBER:
             t.subtype = "change_number";
             break;
+          case l.CHANGE_LID:
+            t.subtype = "change_lid";
+            break;
           case l.SENDER_INVITE:
             t.subtype = "sender_invite";
             break;

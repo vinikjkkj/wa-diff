@@ -1254,6 +1254,12 @@ __d(
       group_join_request_m2_banner_on_conversation: [2449, "bool", !1, !1],
       group_max_subject: [14801, "int", 100, 100],
       group_member_updates_hide_in_thread_enabled: [24584, "bool", !1, !1],
+      group_member_updates_past_participant_migration_enabled: [
+        31614,
+        "bool",
+        !1,
+        !1,
+      ],
       group_member_updates_username_description_enabled: [
         28087,
         "bool",
@@ -2144,6 +2150,7 @@ __d(
       smb_qp_web_debug_recunit: [31009, "bool", !1, !1],
       smb_rambutan_enabled: [3124, "bool", !1, !0],
       smb_temp_cover_photo_privacy_messaging: [1913, "bool", !1, !0],
+      smb_tos_qp_chatlist_banner: [32396, "bool", !1, !1],
       smb_waldo_service_offerings_selection_enabled: [3285, "bool", !1, !0],
       smb_web_category_search_via_graph_enabled: [28519, "bool", !1, !1],
       smb_web_customer_management_enabled: [26165, "bool", !1, !1],
@@ -2683,6 +2690,7 @@ __d(
       wa_web_voip_adaptive_grid_page_size: [28909, "bool", !1, !1],
       wa_web_voip_stack_log_level: [30261, "int", 3, 3],
       wa_web_wae_qpl_enabled: [21742, "bool", !0, !0],
+      wa_web_wam_falco_flush_interval_ms: [32393, "int", 3e3, 3e3],
       wa_web_wam_falco_logging_enabled: [26200, "bool", !1, !1],
       wa_web_wam_falco_mode: [25306, "int", 0, 0],
       wa_web_wam_falco_shadow_event_ids: [25309, "string", "", ""],

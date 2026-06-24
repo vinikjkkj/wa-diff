@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WABase64",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebCryptoRandomMediaKey",
     "WAWebFavoriteStickerCollection",
@@ -19,6 +18,7 @@ __d(
     "WAWebStickerModel",
     "WAWebWamEnumUploadOriginType",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
@@ -92,7 +92,7 @@ __d(
           (h.length < 3 && h.push(e.mediaUploadResult),
             e.mediaUploadResult !==
               o("WAWebProtobufsMmsRetry.pb").MediaRetryNotification$ResultType
-                .NOT_FOUND && _.set(d, r("WANullthrows")(e.mediaUploadResult)));
+                .NOT_FOUND && _.set(d, r("nullthrows")(e.mediaUploadResult)));
           return;
         }
         if (a == null || u == null) {
@@ -116,7 +116,7 @@ __d(
           v || S)
         ) {
           var R,
-            L = v != null ? v.sticker : r("WANullthrows")(S).sticker;
+            L = v != null ? v.sticker : r("nullthrows")(S).sticker;
           if (
             n === L.directPath &&
             o("WABase64").encodeB64(a) === L.encFilehash &&
@@ -264,7 +264,7 @@ __d(
             f = new Set(),
             g = 0,
             h = _.map(function (e) {
-              var t = r("WANullthrows")(e == null ? void 0 : e.sticker),
+              var t = r("nullthrows")(e == null ? void 0 : e.sticker),
                 n = t.mediaObject;
               if (n == null)
                 return {
@@ -356,8 +356,8 @@ __d(
               R = y[b],
               L = R.kind,
               E = R.mediaEntry,
-              k = r("WANullthrows")(_[b]),
-              I = r("WANullthrows")(k == null ? void 0 : k.sticker);
+              k = r("nullthrows")(_[b]),
+              I = r("nullthrows")(k == null ? void 0 : k.sticker);
             if (
               L !== o("WAWebMediaMmsV4Upload").UploadMediaResultKind.SUCCESS ||
               E == null

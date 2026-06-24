@@ -2,38 +2,38 @@ __d(
   "WAWebProcessBaseMsgInfo",
   [],
   function (t, n, r, o, a, i) {
-    var e = function (t) {
-        return {
-          id: t.id,
-          from: t.from,
-          to: t.to,
-          type: t.type,
-          t: t.t,
-          ack: t.ack,
-          count: null,
-          author: t.author,
-          notifyName: t.notifyName,
-          invis: t.invis,
-          subtype: t.subtype,
-          viewMode: t.viewMode,
-        };
-      },
-      l = function (t) {
-        return {
-          id: t.id,
-          from: t.from,
-          to: t.to,
-          type: t.type,
-          t: t.t,
-          ack: t.ack,
-          count: null,
-          author: t.author,
-          notifyName: t.notifyName,
-          invis: t.invis,
-          subtype: t.subtype,
-          viewMode: t.viewMode,
-        };
+    function e(e) {
+      return {
+        id: e.id,
+        from: e.from,
+        to: e.to,
+        type: e.type,
+        t: e.t,
+        ack: e.ack,
+        count: null,
+        author: e.author,
+        notifyName: e.notifyName,
+        invis: e.invis,
+        subtype: e.subtype,
+        viewMode: e.viewMode,
       };
+    }
+    function l(e) {
+      return {
+        id: e.id,
+        from: e.from,
+        to: e.to,
+        type: e.type,
+        t: e.t,
+        ack: e.ack,
+        count: null,
+        author: e.author,
+        notifyName: e.notifyName,
+        invis: e.invis,
+        subtype: e.subtype,
+        viewMode: e.viewMode,
+      };
+    }
     ((i.msgToBaseMsgInfo = e), (i.msgDataToBaseMsgInfo = l));
   },
   66,

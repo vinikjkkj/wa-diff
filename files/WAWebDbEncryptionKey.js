@@ -39,7 +39,7 @@ __d(
                 .then(function (r) {
                   if (!r || r.length === 0) return t.$13(e);
                   var o = r[r.length - 1]._expiration;
-                  if (o != null && o <= new Date().getTime()) return t.$13(e);
+                  if (o != null && o <= Date.now()) return t.$13(e);
                   t.$8 = e;
                   var a = r.map(
                     (function () {
@@ -84,7 +84,7 @@ __d(
               return C().then(function (n) {
                 return t
                   .$10()
-                  .keys.add({ key: n, _expiration: new Date().getTime() + f })
+                  .keys.add({ key: n, _expiration: Date.now() + f })
                   .then(function () {
                     return t.$11(e);
                   });

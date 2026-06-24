@@ -103,7 +103,17 @@ __d(
             subjectValue: d,
           });
           break;
-        case "modify":
+        case "modify": {
+          var b = o("WAWebContactCollection").ContactCollection.get(c),
+            v =
+              b != null &&
+              o("WAWebFrontendContactGetters").getIsUsernameContact(b);
+          if (v) {
+            a = s._(/*BTDS*/ "{name} updated their contact info", [
+              s._param("name", u),
+            ]);
+            break;
+          }
           ((m = o("WAWebWidFormat").widToFormattedUser(c)),
             (p = o("WAWebWidFormat").widToFormattedUser(h)),
             (a =
@@ -117,6 +127,7 @@ __d(
                     [s._param("name", u)],
                   )));
           break;
+        }
         case "create":
           a = o("WAWebFormatCreateNotification").formatCreateNotification({
             author: c,
@@ -255,13 +266,13 @@ __d(
         case "auto_add":
         case "default_sub_group_admin_add":
         case "invite_auto_add": {
-          var b = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt({
+          var S = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt({
             author: c,
             subject: h,
             subtype: l,
             templateParams: t.templateParams,
           });
-          b != null && (a = b);
+          S != null && (a = S);
           break;
         }
         case "community_participant_add_rich":
@@ -332,10 +343,10 @@ __d(
           );
           break;
         case "empty_subgroup_create": {
-          var v = t.templateParams[2];
+          var R = t.templateParams[2];
           a = o(
             "WAWebMessageCommunityEmptySubgroupWelcomeTitle.react",
-          ).communityEmptySubgroupWelcomeTitle(v);
+          ).communityEmptySubgroupWelcomeTitle(R);
           break;
         }
         case "created_subgroup_suggestion": {
@@ -347,22 +358,22 @@ __d(
           break;
         }
         case "general_chat_add": {
-          var S = t.templateParams[1];
+          var L = t.templateParams[1];
           a = o(
             "WAWebMessageCommunityGeneralChatWelcomeTitle.react",
-          ).communityGeneralChatWelcomeTitle(S);
+          ).communityGeneralChatWelcomeTitle(L);
           break;
         }
         case "general_group_auto_add_disabled": {
-          var R, L;
+          var E, k;
           a = o(
             "WAWebMessageCommunityGeneralChatAutoAddDisabledNotification.react",
           ).communityGeneralChatAutoAddDisabledNotification(
-            (R =
-              (L = o("WAWebFrontendMsgGetters").getChat(t)) == null
+            (E =
+              (k = o("WAWebFrontendMsgGetters").getChat(t)) == null
                 ? void 0
-                : L.formattedTitle) != null
-              ? R
+                : k.formattedTitle) != null
+              ? E
               : "",
             t.templateParams,
           );

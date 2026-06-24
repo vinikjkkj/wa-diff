@@ -56,35 +56,41 @@ __d(
       g = d.useRef,
       h = d.useState,
       y = 25;
-    function C(e, t, n, a, i, l) {
-      var s = {
-        name: e,
-        selectableOptionsCount:
-          n || a === o("WAWebPollCreationUtils").PollType.QUIZ ? 1 : 0,
-        correctOptionIndex:
-          a === o("WAWebPollCreationUtils").PollType.QUIZ
-            ? t.findIndex(function (e) {
-                return e.key === i;
-              })
-            : void 0,
-      };
-      return l
-        ? babelHelpers.extends({}, s, {
+    function C(e) {
+      var t = e.correctOptionKey,
+        n = e.filteredOptions,
+        a = e.isPhotoPoll,
+        i = e.isSingleOption,
+        l = e.pollType,
+        s = e.question,
+        u = {
+          name: s,
+          selectableOptionsCount:
+            i || l === o("WAWebPollCreationUtils").PollType.QUIZ ? 1 : 0,
+          correctOptionIndex:
+            l === o("WAWebPollCreationUtils").PollType.QUIZ
+              ? n.findIndex(function (e) {
+                  return e.key === t;
+                })
+              : void 0,
+        };
+      return a
+        ? babelHelpers.extends({}, u, {
             contentType: "IMAGE",
-            options: t.map(function (e) {
+            options: n.map(function (e) {
               var t = e.image,
                 n = e.name;
               return { name: n, image: r("WANullthrows")(t) };
             }),
-            pollType: a,
+            pollType: l,
           })
-        : babelHelpers.extends({}, s, {
+        : babelHelpers.extends({}, u, {
             contentType: "TEXT",
-            options: t.map(function (e) {
+            options: n.map(function (e) {
               var t = e.name;
               return { name: t };
             }),
-            pollType: a,
+            pollType: l,
           });
     }
     var b = {
@@ -305,7 +311,14 @@ __d(
                   e,
                 );
               }),
-              r = C(E, n, T, S, $, le);
+              r = C({
+                correctOptionKey: $,
+                filteredOptions: n,
+                isPhotoPoll: le,
+                isSingleOption: T,
+                pollType: S,
+                question: E,
+              });
             (o("WAWebPollsSendPollCreationMsgAction").sendPollCreation({
               poll: r,
               chat: i,

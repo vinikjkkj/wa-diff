@@ -6,26 +6,15 @@ __d(
     "WAWebDBMessageDelete",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
-    "WAWebNewsletterMetadataCollection",
-    "WAWebNewsletterSyntheticStatusUtils",
     "WAWebStatusCollection",
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
-      var t,
-        n =
-          r("WAWebNewsletterMetadataCollection") == null
-            ? void 0
-            : r("WAWebNewsletterMetadataCollection").get(e);
-      return (n == null ? void 0 : n.isSubscribedOrOwned) === !0
-        ? !0
-        : !o("WAWebNewsletterSyntheticStatusUtils").isNewsletterStatusExpired(
-            n == null || (t = n.statusMetadata) == null
-              ? void 0
-              : t.lastStatusSentTime,
-          );
+      return (
+        o("WAWebContactGetters").getIsNewsletter(e.contact) && !e.isExpired()
+      );
     }
     function u() {
       var t = o("WAWebStatusCollection").StatusCollection.filter(function (e) {
@@ -40,8 +29,7 @@ __d(
               (t = t.participants) == null
                 ? void 0
                 : t.iAmMember()) !== !0) &&
-            (!o("WAWebContactGetters").getIsNewsletter(e.contact) ||
-              !s(e.contact.id)) &&
+            !s(e) &&
             !o("WAWebContactGetters").getIsPSA(e.contact)
           );
         }),

@@ -7,7 +7,6 @@ __d(
     "WABackoffDelay",
     "WALogger",
     "WAMediaCalculateFilehash",
-    "WANullthrows",
     "WAPromiseBackoffs",
     "WAPromiseCallSync",
     "WATimeUtils",
@@ -59,6 +58,7 @@ __d(
     "WAWebWamEnumWebcRmrReasonCode",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -352,7 +352,7 @@ __d(
                 ? r("WAWebMediaUploadMmsThumbnail")({
                     thumbnail: C,
                     mediaKeyInfo: h,
-                    mediaType: r("WANullthrows")(
+                    mediaType: r("nullthrows")(
                       o("WAWebMediaPrepHelpers").getMediaTypeForThumbnails(v),
                     ),
                     uploadOrigin:
@@ -671,9 +671,9 @@ __d(
                         directPath: f.directPath,
                         mediaKey: f.getMediaKey(),
                         mediaKeyTimestamp: f.getMediaKeyTimestamp(),
-                        filehash: r("WANullthrows")(t).filehash,
+                        filehash: r("nullthrows")(t).filehash,
                         encFilehash: f.getEncfilehash(),
-                        size: r("WANullthrows")(t).size,
+                        size: r("nullthrows")(t).size,
                         streamingSidecar: f.sidecar,
                         firstFrameSidecar: f.firstFrameSidecar,
                         body: m,

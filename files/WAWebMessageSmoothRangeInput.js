@@ -105,23 +105,23 @@ __d(
           ee = J.thumbStyle,
           te = J.trackStyle;
         ((M = r("WAWebPttComposerRangeInput.react")),
-          (O = a),
-          (B = h),
-          (W = y),
-          (q = 0),
-          (U = s),
-          (V = _),
-          (H = l),
-          (G = R),
-          (z = E),
-          (j = i),
+          (B = a),
+          (W = h),
+          (q = y),
+          (U = 0),
+          (V = s),
+          (H = _),
+          (G = l),
+          (z = R),
+          (j = E),
+          (K = i),
           n[38] === Symbol.for("react.memo_cache_sentinel")
-            ? ((w = (e || (e = r("stylex"))).props(
+            ? ((A = (e || (e = r("stylex"))).props(
                 o("WAWebMessageSmoothRangeInput.stylex").styles.container,
               )),
-              (n[38] = w))
-            : (w = n[38]),
-          (A = u.jsx(
+              (n[38] = A))
+            : (A = n[38]),
+          (F = u.jsx(
             "div",
             babelHelpers.extends(
               {},
@@ -131,7 +131,7 @@ __d(
               ),
             ),
           )),
-          (F = u.jsx(
+          (O = u.jsx(
             "span",
             babelHelpers.extends(
               {},
@@ -146,15 +146,15 @@ __d(
             ),
           )),
           n[39] === Symbol.for("react.memo_cache_sentinel")
-            ? ((Y = {
+            ? ((w = {
                 className: "x78zum5 xh8yej3 xdj266r xmpx0yj xat24cr x1eiic4d",
               }),
-              (Q = { className: "x1n2onr6 x1tcabb7 xh8yej3" }),
-              (n[39] = Q),
-              (n[40] = Y))
-            : ((Q = n[39]), (Y = n[40])),
-          (X = N),
-          (K = e.props(
+              (X = { className: "x1n2onr6 x1tcabb7 xh8yej3" }),
+              (n[39] = w),
+              (n[40] = X))
+            : ((w = n[39]), (X = n[40])),
+          (Y = N),
+          (Q = e.props(
             o("WAWebMessageSmoothRangeInput.stylex").styles.thumb,
             ee,
             i === !0 &&
@@ -210,79 +210,79 @@ __d(
           (X = n[36]),
           (Y = n[37]));
       var ne;
-      n[41] !== K
-        ? ((ne = u.jsx("div", babelHelpers.extends({}, K))),
-          (n[41] = K),
+      n[41] !== Q
+        ? ((ne = u.jsx("div", babelHelpers.extends({}, Q))),
+          (n[41] = Q),
           (n[42] = ne))
         : (ne = n[42]);
       var re;
-      n[43] !== ne || n[44] !== Q || n[45] !== X
+      n[43] !== ne || n[44] !== X || n[45] !== Y
         ? ((re = u.jsx(
             "div",
-            babelHelpers.extends({}, Q, { style: X, children: ne }),
+            babelHelpers.extends({}, X, { style: Y, children: ne }),
           )),
           (n[43] = ne),
-          (n[44] = Q),
-          (n[45] = X),
+          (n[44] = X),
+          (n[45] = Y),
           (n[46] = re))
         : (re = n[46]);
       var oe;
-      n[47] !== re || n[48] !== Y
-        ? ((oe = u.jsx("div", babelHelpers.extends({}, Y, { children: re }))),
-          (n[47] = re),
-          (n[48] = Y),
+      n[47] !== w || n[48] !== re
+        ? ((oe = u.jsx("div", babelHelpers.extends({}, w, { children: re }))),
+          (n[47] = w),
+          (n[48] = re),
           (n[49] = oe))
         : (oe = n[49]);
       var ae;
-      n[50] !== w || n[51] !== A || n[52] !== F || n[53] !== oe
+      n[50] !== A || n[51] !== F || n[52] !== O || n[53] !== oe
         ? ((ae = u.jsxs(
             "div",
-            babelHelpers.extends({}, w, { children: [A, F, oe] }),
+            babelHelpers.extends({}, A, { children: [F, O, oe] }),
           )),
-          (n[50] = w),
-          (n[51] = A),
-          (n[52] = F),
+          (n[50] = A),
+          (n[51] = F),
+          (n[52] = O),
           (n[53] = oe),
           (n[54] = ae))
         : (ae = n[54]);
       var ie;
       return (
         n[55] !== M ||
-        n[56] !== O ||
-        n[57] !== B ||
-        n[58] !== W ||
-        n[59] !== q ||
-        n[60] !== U ||
-        n[61] !== V ||
-        n[62] !== H ||
-        n[63] !== G ||
-        n[64] !== z ||
-        n[65] !== j ||
+        n[56] !== B ||
+        n[57] !== W ||
+        n[58] !== q ||
+        n[59] !== U ||
+        n[60] !== V ||
+        n[61] !== H ||
+        n[62] !== G ||
+        n[63] !== z ||
+        n[64] !== j ||
+        n[65] !== K ||
         n[66] !== ae
           ? ((ie = u.jsx(M, {
-              ariaLabel: O,
-              value: B,
-              valueText: W,
-              min: q,
-              max: U,
-              smallSkip: V,
-              largeSkip: H,
-              onChange: G,
-              onCommit: z,
-              disabled: j,
+              ariaLabel: B,
+              value: W,
+              valueText: q,
+              min: U,
+              max: V,
+              smallSkip: H,
+              largeSkip: G,
+              onChange: z,
+              onCommit: j,
+              disabled: K,
               children: ae,
             })),
             (n[55] = M),
-            (n[56] = O),
-            (n[57] = B),
-            (n[58] = W),
-            (n[59] = q),
-            (n[60] = U),
-            (n[61] = V),
-            (n[62] = H),
-            (n[63] = G),
-            (n[64] = z),
-            (n[65] = j),
+            (n[56] = B),
+            (n[57] = W),
+            (n[58] = q),
+            (n[59] = U),
+            (n[60] = V),
+            (n[61] = H),
+            (n[62] = G),
+            (n[63] = z),
+            (n[64] = j),
+            (n[65] = K),
             (n[66] = ae),
             (n[67] = ie))
           : (ie = n[67]),

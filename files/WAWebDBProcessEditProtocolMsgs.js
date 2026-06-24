@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WAAckLevel",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWeb-dexie",
     "WAWebAddonQueryUtils",
@@ -36,6 +35,7 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "cr:375",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -68,8 +68,8 @@ __d(
             s = [];
           a.sort(function (e, t) {
             return (
-              r("WANullthrows")(t.latestEditSenderTimestampMs) -
-              r("WANullthrows")(e.latestEditSenderTimestampMs)
+              r("nullthrows")(t.latestEditSenderTimestampMs) -
+              r("nullthrows")(e.latestEditSenderTimestampMs)
             );
           });
           for (var u of a) {
@@ -173,8 +173,8 @@ __d(
               );
             if (u.isForwarded === !0)
               return (i.length < 3 && i.push(u.id.toString()), !1);
-            var d = r("WANullthrows")(u.t),
-              m = r("WANullthrows")(e.t);
+            var d = r("nullthrows")(u.t),
+              m = r("nullthrows")(e.t);
             if (
               !o("WAWebMessageEditUtils").isParentWithinEditProcessingWindow({
                 parentTsInSeconds: d,
@@ -417,7 +417,7 @@ __d(
         var t = Array.from(
           new Set(
             e.map(function (e) {
-              return String(r("WANullthrows")(e.rowId));
+              return String(r("nullthrows")(e.rowId));
             }),
           ),
         );
@@ -453,7 +453,7 @@ __d(
     function P(e, t) {
       var n,
         a,
-        i = r("WANullthrows")(
+        i = r("nullthrows")(
           o("WAWebMessageEditUtils").getMsgEditType(e.type),
           "Unsupported message type for edits",
         ),
@@ -468,7 +468,7 @@ __d(
               : e.latestEditSenderTimestampMs) != null
             ? n
             : 0,
-        u = r("WANullthrows")(t.latestEditSenderTimestampMs),
+        u = r("nullthrows")(t.latestEditSenderTimestampMs),
         c = u >= s;
       if (i === o("WAWebMessageEditUtils").MsgEditType.EventEdit) {
         var d = !!e.isEventCanceled,
@@ -543,7 +543,7 @@ __d(
         thumbnailDirectPath: e.thumbnailDirectPath,
         thumbnailSha256: e.thumbnailSha256,
         thumbnailEncSha256: e.thumbnailEncSha256,
-        body: r("WANullthrows")(e.body),
+        body: r("nullthrows")(e.body),
         type: "image",
         kind: "image",
       };
@@ -562,7 +562,7 @@ __d(
         width: e.width,
         mediaKey: e.mediaKey,
         mediaKeyTimestamp: e.mediaKeyTimestamp,
-        body: r("WANullthrows")(e.body),
+        body: r("nullthrows")(e.body),
         interactiveAnnotations: e.interactiveAnnotations,
         isViewOnce: e.isViewOnce,
         thumbnailDirectPath: e.thumbnailDirectPath,

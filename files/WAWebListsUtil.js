@@ -94,85 +94,80 @@ __d(
                   return (n != null && e.push(n), e);
                 }, []);
     }
-    var _ = function (t, n) {
-        var e = new Set(t),
-          r = new Set(n),
-          o = [];
-        for (var a of r) e.has(a) || o.push(a);
-        var i = [];
-        for (var l of e) r.has(l) || i.push(l);
-        return { removedItems: i, addedItems: o };
-      },
-      f = function (t, n, a) {
-        var e = s._(/*BTDS*/ "Delete this list?");
-        if (o("WAWebABProps").getABPropConfigValue("wds_web_dialog")) {
-          o("WDSDialogBridge").openWDSDialog(
-            u.jsx(r("WDSConfirmDialog.react"), {
-              title: e,
-              description: s._(
-                /*BTDS*/ "Your chats with people and groups won't be deleted.",
-              ),
-              confirmLabel: s._(/*BTDS*/ "Delete"),
-              destructive: !0,
-              onConfirm: function () {
-                o("WAWebListsActions")
-                  .deleteListAction(t, o("WDSDialogBridge").closeWDSDialog, n)
-                  .then(function () {
-                    a == null || a();
-                  });
-              },
-              onDismiss: o("WDSDialogBridge").closeWDSDialog,
-              open: !0,
-            }),
-          );
-          return;
-        }
-        var i = s._(
-          /*BTDS*/ "Deleting a list removes it from all contacts and chats. Are you sure you want to delete this list?",
-        );
-        o("WAWebModalManager").ModalManager.open(
-          u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            testid: "delete-list-confirm-popup",
-            title: e,
-            okButtonType: "solid-warning",
-            onOK: function () {
-              o("WAWebListsActions")
-                .deleteListAction(
-                  t,
-                  o("WAWebModalManager").closeModalManager,
-                  n,
-                )
-                .then(function () {
-                  a == null || a();
-                });
-            },
-            onCancel: o("WAWebModalManager").closeModalManager,
-            children: i,
-          }),
-        );
-      },
-      g = function (t, n) {
-        o("WAWebModalManager").ModalManager.open(
-          u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            testid: "disable-list-confirm-popup",
-            title: s._(/*BTDS*/ "Disable list?"),
-            okButtonType: "solid-warning",
-            okText: s._(/*BTDS*/ "Disable"),
-            onOK: function () {
-              o("WAWebListsActions")
-                .deactivatePresetList(t)
-                .then(function () {
-                  (o("WAWebModalManager").closeModalManager(),
-                    n == null || n());
-                });
-            },
-            onCancel: o("WAWebModalManager").closeModalManager,
-            children: s._(
-              /*BTDS*/ "You can re-enable it from your lists settings at any time.",
+    function _(e, t) {
+      var n = new Set(e),
+        r = new Set(t),
+        o = [];
+      for (var a of r) n.has(a) || o.push(a);
+      var i = [];
+      for (var l of n) r.has(l) || i.push(l);
+      return { removedItems: i, addedItems: o };
+    }
+    function f(e, t, n) {
+      var a = s._(/*BTDS*/ "Delete this list?");
+      if (o("WAWebABProps").getABPropConfigValue("wds_web_dialog")) {
+        o("WDSDialogBridge").openWDSDialog(
+          u.jsx(r("WDSConfirmDialog.react"), {
+            title: a,
+            description: s._(
+              /*BTDS*/ "Your chats with people and groups won't be deleted.",
             ),
+            confirmLabel: s._(/*BTDS*/ "Delete"),
+            destructive: !0,
+            onConfirm: function () {
+              o("WAWebListsActions")
+                .deleteListAction(e, o("WDSDialogBridge").closeWDSDialog, t)
+                .then(function () {
+                  n == null || n();
+                });
+            },
+            onDismiss: o("WDSDialogBridge").closeWDSDialog,
+            open: !0,
           }),
         );
-      };
+        return;
+      }
+      var i = s._(
+        /*BTDS*/ "Deleting a list removes it from all contacts and chats. Are you sure you want to delete this list?",
+      );
+      o("WAWebModalManager").ModalManager.open(
+        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          testid: "delete-list-confirm-popup",
+          title: a,
+          okButtonType: "solid-warning",
+          onOK: function () {
+            o("WAWebListsActions")
+              .deleteListAction(e, o("WAWebModalManager").closeModalManager, t)
+              .then(function () {
+                n == null || n();
+              });
+          },
+          onCancel: o("WAWebModalManager").closeModalManager,
+          children: i,
+        }),
+      );
+    }
+    function g(e, t) {
+      o("WAWebModalManager").ModalManager.open(
+        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          testid: "disable-list-confirm-popup",
+          title: s._(/*BTDS*/ "Disable list?"),
+          okButtonType: "solid-warning",
+          okText: s._(/*BTDS*/ "Disable"),
+          onOK: function () {
+            o("WAWebListsActions")
+              .deactivatePresetList(e)
+              .then(function () {
+                (o("WAWebModalManager").closeModalManager(), t == null || t());
+              });
+          },
+          onCancel: o("WAWebModalManager").closeModalManager,
+          children: s._(
+            /*BTDS*/ "You can re-enable it from your lists settings at any time.",
+          ),
+        }),
+      );
+    }
     function h(e) {
       o("WAWebModalManager").ModalManager.openAlert(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {

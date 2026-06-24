@@ -1,6 +1,6 @@
 __d(
   "WAWebUpdateMeLidUtils",
-  ["WANullthrows", "WAWebUserPrefsMeUser"],
+  ["WAWebUserPrefsMeUser", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1);
@@ -10,8 +10,8 @@ __d(
           return;
         }
         (t != null && e == null) ||
-          r("WANullthrows")(t).equals(e) ||
-          o("WAWebUserPrefsMeUser").setMeLid(r("WANullthrows")(e));
+          r("nullthrows")(t).equals(e) ||
+          o("WAWebUserPrefsMeUser").setMeLid(r("nullthrows")(e));
       }
     }
     l.updateMeLid = e;

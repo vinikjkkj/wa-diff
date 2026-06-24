@@ -23,9 +23,10 @@ __d(
     }
     function s(e) {
       return e === o("WAWebGroupType").GroupType.DEFAULT ||
-        e === o("WAWebGroupType").GroupType.LINKED_SUBGROUP
+        e === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
+        e === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
         ? !0
-        : e === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP;
+        : e === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
     }
     function u(e, t, n) {
       return e || t

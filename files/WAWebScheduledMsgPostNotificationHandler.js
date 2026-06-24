@@ -6,17 +6,19 @@ __d(
     "WAWebAck",
     "WAWebBackendApi",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
+    "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
+    "WAWebExtractQuoteFieldsFromScheduledMsg",
     "WAWebHandleSingleMsg",
     "WAWebLidMigrationDbUtils",
     "WAWebLidMigrationUtils",
     "WAWebMessageQueue",
-    "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebOfflineHandler",
     "WAWebScheduledMessagesGatingUtils",
     "WAWebScheduledMsgDecryptInnerProto",
     "WAWebScheduledMsgExtractText",
+    "WAWebScheduledMsgOutgoingMsgKey",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMeUser",
@@ -184,29 +186,13 @@ __d(
             s = l.isGroup(),
             u = s ? l : yield k(l),
             c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            d;
-          try {
-            var m = r("WAWebMsgKey").fromString(a);
-            d = u.equals(m.remote)
-              ? m
-              : new (r("WAWebMsgKey"))({
-                  fromMe: m.fromMe,
-                  remote: u,
-                  id: m.id,
-                  participant: m.participant,
-                });
-          } catch (e) {
-            d = new (r("WAWebMsgKey"))({
-              fromMe: !0,
-              remote: u,
-              id: a,
-              participant: s ? c : void 0,
-            });
-          }
-          var C =
-            e.scheduledTimestampS > 0
-              ? e.scheduledTimestampS
-              : o("WATimeUtils").unixTime();
+            d = o(
+              "WAWebScheduledMsgOutgoingMsgKey",
+            ).buildScheduledMsgOutgoingMsgKey(a, u, c),
+            m =
+              e.scheduledTimestampS > 0
+                ? e.scheduledTimestampS
+                : o("WATimeUtils").unixTime();
           yield o("WAWebSchemaMessage").getMessageTable().remove(d.toString());
           try {
             yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -224,7 +210,7 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("mex-scheduled-msg-post-drop-model-failed");
           }
-          var b =
+          var C =
               t != null
                 ? babelHelpers.extends(
                     {},
@@ -234,9 +220,15 @@ __d(
                     o(
                       "WAWebExtractMentionFieldsFromScheduledMsg",
                     ).extractMentionFieldsFromScheduledMsg(t),
+                    o(
+                      "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
+                    ).extractLinkPreviewFieldsFromScheduledMsg(t),
+                    o(
+                      "WAWebExtractQuoteFieldsFromScheduledMsg",
+                    ).extractQuoteFieldsFromScheduledMsg(t, d),
                   )
                 : {},
-            v = babelHelpers.extends(
+            b = babelHelpers.extends(
               {
                 id: d,
                 from: c,
@@ -247,21 +239,21 @@ __d(
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
                 body: i,
               },
-              b,
+              C,
               {
-                t: C,
+                t: m,
                 ack: o("WAWebAck").ACK.RECEIVED,
                 isNewMsg: !0,
                 recvFresh: !0,
                 invis: !1,
                 isScheduledMsg: !1,
-                scheduledTimestampS: o("WATimeUtils").castToUnixTime(C),
+                scheduledTimestampS: o("WATimeUtils").castToUnixTime(m),
               },
             );
           try {
             yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
               chatId: u,
-              newMsg: v,
+              newMsg: b,
               handleSingleMsgOrigin: "scheduledMsgReveal",
             });
           } catch (e) {

@@ -33,14 +33,18 @@ __d(
           });
         },
       });
-    function m(e, t, n, r) {
+    function m(e) {
+      var t = e.chat,
+        n = e.msg,
+        r = e.orderInfo,
+        a = e.sellerWid;
       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
         u.jsx(d, {
-          chat: n,
-          interactiveMessage: t,
+          chat: t,
+          interactiveMessage: n,
           onBack: o("WAWebDrawerManager").closeDrawerRight,
-          orderInfo: e,
-          sellerWid: r,
+          orderInfo: r,
+          sellerWid: a,
         }),
         { transition: "slide-left" },
       );

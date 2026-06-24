@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebApiHistorySyncNotification",
     "WAWebChatCollection",
@@ -33,6 +32,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -58,11 +58,11 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.pastParticipants.map(function (e) {
             return {
-              groupId: r("WANullthrows")(e.groupJid),
+              groupId: r("nullthrows")(e.groupJid),
               pastParticipants: e.pastParticipants.map(function (e) {
                 return {
                   id: o("WAWebWidFactory").createWid(
-                    r("WANullthrows")(e.userJid),
+                    r("nullthrows")(e.userJid),
                   ),
                   leaveReason:
                     e.leaveReason ===
@@ -71,7 +71,7 @@ __d(
                       ? o("WAWebLeaveReasonType").LeaveReason.Left
                       : o("WAWebLeaveReasonType").LeaveReason.Removed,
                   leaveTs: o("WALongInt").numberOrThrowIfTooLarge(
-                    r("WANullthrows")(e.leaveTs),
+                    r("nullthrows")(e.leaveTs),
                   ),
                 };
               }),

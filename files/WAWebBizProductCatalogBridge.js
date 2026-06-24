@@ -191,16 +191,19 @@ __d(
         o("WAWebBackendErrors").attachErrorLogger(e, "Create catalog failed")
       );
     }
-    function k(e, t, n) {
+    function k(e) {
+      var t = e.height,
+        n = e.product,
+        a = e.width;
       o("WAWebQplFlowWrapper").QPL.markerPoint(g, "datasource_start");
-      var a = o("WAWebBizCatalogAddProductJob").addProductMD(e, t, n);
+      var i = o("WAWebBizCatalogAddProductJob").addProductMD(n, a, t);
       return (
-        a
+        i
           .then(function () {
             o("WAWebQplFlowWrapper").QPL.markerPoint(g, "datasource_end");
           })
           .catch(r("WAWebNoop")),
-        a.then($).catch(function (e) {
+        i.then($).catch(function (e) {
           throw (
             (e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
               e.statusCode === 406) ||

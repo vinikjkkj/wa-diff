@@ -36,19 +36,20 @@ __d(
                 var t,
                   n,
                   a,
-                  i = e[0],
-                  l = e[1];
-                if (l != null) {
-                  var s = "Primary app version: " + l;
-                  i.unshift(s);
+                  i,
+                  l = e[0],
+                  s = e[1];
+                if (s != null) {
+                  var u = "Primary app version: " + s;
+                  l.unshift(u);
                 }
-                i.unshift(
+                l.unshift(
                   "Lid migrated: " +
                     o("WAWebLid1X1MigrationGating")
                       .Lid1X1MigrationUtils.isLidMigrated()
                       .toString(),
                 );
-                var u =
+                var c =
                     "Web log for device : " +
                     ((t =
                       (n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn()) ==
@@ -58,27 +59,29 @@ __d(
                       ? t
                       : "") +
                     ", lid : " +
-                    ((a = o("WAWebUserPrefsMeUser")
-                      .getMeDeviceLidOrThrow()
-                      .toString()) != null
+                    ((a =
+                      (i = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) ==
+                      null
+                        ? void 0
+                        : i.toString()) != null
                       ? a
                       : "") +
                     ", time: " +
                     new Date().toString(),
-                  c = yield o(
+                  d = yield o(
                     "WAWebUserPrefsGeneral",
                   ).getWhatsAppWebExternalBetaJoinedIdb(),
-                  d = "";
+                  m = "";
                 (r("gkx")("26259")
-                  ? (d =
+                  ? (m =
                       "Environment : INTERN " +
-                      (c ? ", AB Props : DEBUG (joined beta)" : ""))
-                  : (d =
+                      (d ? ", AB Props : DEBUG (joined beta)" : ""))
+                  : (m =
                       "Environment : DEV " +
-                      (c ? ", AB Props : RELEASE (joined beta)" : "")),
-                  i.unshift(u, d));
-                var m = i.join("\n");
-                return m;
+                      (d ? ", AB Props : RELEASE (joined beta)" : "")),
+                  l.unshift(c, m));
+                var p = l.join("\n");
+                return p;
               },
             );
             return function (t) {

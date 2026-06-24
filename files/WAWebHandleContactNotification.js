@@ -16,6 +16,7 @@ __d(
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
     "WAWebLid1X1MigrationGating",
+    "WAWebLidAwareContactsDB",
     "WAWebMessageProcessUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -23,13 +24,16 @@ __d(
     "WAWebProcessPhoneNumberChange",
     "WAWebProfilePicConstants",
     "WAWebSchemaChat",
+    "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateTextStatusForContact",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameTypes",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "isStringNullOrEmpty",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -208,12 +212,64 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e) {
+    function S(e, t) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+              .getContactTable()
+              .bulkGet([e.toString()]),
+            a = n[0];
+          if (a != null) {
+            var i = a.displayNameLID,
+              l = a.isUsernameContact,
+              s = a.pushname,
+              u = a.username,
+              c = a.usernameKey;
+            if (
+              !(
+                !o("WAWebUsernameTypes").isPresentUsername(u) &&
+                c == null &&
+                l == null &&
+                r("isStringNullOrEmpty")(s) &&
+                r("isStringNullOrEmpty")(i)
+              )
+            ) {
+              var d = { id: t.toString() };
+              (o("WAWebUsernameTypes").isPresentUsername(u) && (d.username = u),
+                c != null && (d.usernameKey = c),
+                l != null && (d.isUsernameContact = l),
+                r("isStringNullOrEmpty")(s) || (d.pushname = s),
+                r("isStringNullOrEmpty")(i) || (d.displayNameLID = i),
+                yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+                  [d],
+                  "propagateContactDataToNewLid",
+                ),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "propagateIdentityFieldsToLidContact",
+                  {
+                    lid: t,
+                    username: u,
+                    usernameKey: c,
+                    isUsernameContact: l,
+                    pushname: s,
+                    displayNameLID: i,
+                  },
+                ));
+            }
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.oldJid) {
             var t = e.oldJid,
               r = e.jid,
@@ -268,7 +324,8 @@ __d(
                   ],
                   flushImmediately: !0,
                   learningSource: "contact-notification",
-                })),
+                }),
+                a.equals(i) || (yield S(a, i))),
               yield (_ || (_ = n("Promise"))).all([y(c, e), y(m, e)]));
           } else
             o("WALogger").LOG(
@@ -278,15 +335,15 @@ __d(
                 ])),
             );
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebBackendApi").frontendFireAndForget("resetPresence", {
             id: e.toString(),
           }),
@@ -325,15 +382,15 @@ __d(
           );
           yield (_ || (_ = n("Promise"))).all([a, t]);
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = f.parse(e);
           if (t.error)
             throw (
@@ -352,7 +409,7 @@ __d(
           switch (n.type) {
             case "update":
               return r
-                ? (yield L(r), i(n))
+                ? (yield k(r), i(n))
                 : (o("WALogger").WARN(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -363,12 +420,12 @@ __d(
             case "update_by_hash": {
               var a = yield o("WAWebApiContact").getContactRecordByHash(n.hash);
               return (
-                a == null || (yield L(o("WAWebWidFactory").createWid(a.id))),
+                a == null || (yield k(o("WAWebWidFactory").createWid(a.id))),
                 i(n)
               );
             }
             case "modify":
-              return (yield S(n), i(n));
+              return (yield L(n), i(n));
             case "sync":
               return (
                 o("WALogger")
@@ -408,10 +465,10 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e) {
+    function x(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -419,13 +476,13 @@ __d(
         .createNonPersistedJob(
           "handleContactNotification",
           function (e) {
-            return k(e.node);
+            return T(e.node);
           },
           { priority: t },
         )
         .waitUntilCompleted({ node: e });
     }
-    l.default = T;
+    l.default = x;
   },
   98,
 );

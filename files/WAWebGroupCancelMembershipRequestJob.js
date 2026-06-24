@@ -10,10 +10,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+    var e, s;
+    function u(e, t) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o(
             "WASmaxGroupsCancelGroupMembershipRequestsRPC",
           ).sendCancelGroupMembershipRequestsRPC({
@@ -52,7 +55,7 @@ __d(
               "value" in e
             ) {
               var a = e.value;
-              return c(a.errorMembershipRequestsCancellationClientErrors.value);
+              return d(a.errorMembershipRequestsCancellationClientErrors.value);
             }
             if (
               ((typeof e == "object" && e !== null) ||
@@ -61,19 +64,18 @@ __d(
               "value" in e
             ) {
               var i = e.value;
-              return c(i.errorServerErrors.value);
+              return d(i.errorServerErrors.value);
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                 e,
             );
           })(n);
-        });
-        return function (n, r) {
-          return e.apply(this, arguments);
-        };
-      })();
-    function c(t) {
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(t) {
       var r = t.code,
         a = t.text;
       return (

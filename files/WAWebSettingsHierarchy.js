@@ -395,7 +395,7 @@ __d(
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps
-              .PrivacyVisiblityEditLastSeen,
+              .PrivacyVisibilityEditLastSeen,
             id: "wcs_last_seen",
             isAvailable: !0,
             title: o("WAWebSettingsFBT").privacyLastSeenOnlineEnabledTitle,
@@ -405,7 +405,7 @@ __d(
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps
-              .PrivacyVisiblityEditProfilePicture,
+              .PrivacyVisibilityEditProfilePicture,
             id: "wcs_profile_photo",
             isAvailable: !0,
             title: o("WAWebSettingsFBT").privacyProfilePhotoTitle,
@@ -415,7 +415,7 @@ __d(
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps
-              .PrivacyVisiblityEditAbout,
+              .PrivacyVisibilityEditAbout,
             id: "wcs_about_status",
             isAvailable: !0,
             title: o("WAWebSettingsFBT").privacyAboutTitle,
@@ -446,7 +446,7 @@ __d(
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps
-              .PrivacyVisiblityEditGroupAdd,
+              .PrivacyVisibilityEditGroupAdd,
             id: "privacy_groups",
             isAvailable: !0,
             title: o("WAWebSettingsFBT").privacyGroupsTitle,

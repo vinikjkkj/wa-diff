@@ -180,7 +180,6 @@ __d(
               title: s._(/*BTDS*/ "Poll results"),
               type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
               onBack: l,
-              rtlFixIfOnDarwin: !0,
               focusBackOrCancel: !0,
             }),
             d.jsx(r("WAWebDrawerBody.react"), {

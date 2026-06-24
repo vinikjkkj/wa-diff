@@ -4,7 +4,6 @@ __d(
     "WABase64",
     "WADeprecatedWapParser",
     "WALogger",
-    "WANullthrows",
     "WAWap",
     "WAWebCommsWapMd",
     "WAWebCryptoMediaRetry",
@@ -14,6 +13,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -149,9 +149,9 @@ __d(
           var v = yield o(
               "WAWebCryptoMediaRetry",
             ).decryptMediaRetryNotification({
-              ciphertext: r("WANullthrows")(y),
+              ciphertext: r("nullthrows")(y),
               cryptoKey: o("WABase64").decodeB64(b),
-              iv: r("WANullthrows")(C),
+              iv: r("nullthrows")(C),
               stanzaId: _,
             }),
             S = v.directPath,

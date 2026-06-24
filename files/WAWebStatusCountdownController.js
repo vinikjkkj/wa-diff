@@ -28,7 +28,7 @@ __d(
                 return;
               }
               ((n.$2 = self.setTimeout(n.$6, n.$3)),
-                (n.$4 = new Date().getTime()),
+                (n.$4 = Date.now()),
                 n.$5.execute(
                   o("WAWebStatusEventHandlersMap").MediaEvents.OnPlay,
                   n.$3,
@@ -43,7 +43,7 @@ __d(
             (this.stop = function () {
               if (n.$2) {
                 (self.clearTimeout(n.$2), (n.$2 = null));
-                var e = new Date().getTime();
+                var e = Date.now();
                 ((n.$3 -= e - n.$4),
                   n.$5.execute(
                     o("WAWebStatusEventHandlersMap").MediaEvents.OnPause,

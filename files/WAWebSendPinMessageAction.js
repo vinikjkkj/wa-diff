@@ -94,7 +94,16 @@ __d(
                 read: !0,
                 ack: l != null ? l : o("WAWebAck").ACK.CLOCK,
               },
-              S = p(t, _, v, a, g, c, d, m),
+              S = p({
+                author: m,
+                from: d,
+                globalClockUnixTimeSeconds: g,
+                msg: t,
+                msgKey: _,
+                pinInChatObj: v,
+                pinType: a,
+                to: c,
+              }),
               R = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(
                 S,
               );
@@ -155,23 +164,31 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n, r, a, i, l, s) {
+    function p(e) {
+      var t = e.author,
+        n = e.from,
+        r = e.globalClockUnixTimeSeconds,
+        a = e.msg,
+        i = e.msgKey,
+        l = e.pinInChatObj,
+        s = e.pinType,
+        u = e.to;
       return {
-        id: t,
+        id: i,
         type: o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         kind: o("WAWebMsgType").MsgKind.PinInChat,
-        to: i,
-        from: l,
-        author: s,
-        pinParentKey: o("WAWebReferentialMsgKey").getReferentialMsgKey(e),
-        pinSenderTimestampMs: n.senderTimestampMs,
-        pinMessageType: r,
-        pinExpiryDuration: n.pinExpiryDuration,
-        t: a,
+        to: u,
+        from: n,
+        author: t,
+        pinParentKey: o("WAWebReferentialMsgKey").getReferentialMsgKey(a),
+        pinSenderTimestampMs: l.senderTimestampMs,
+        pinMessageType: s,
+        pinExpiryDuration: l.pinExpiryDuration,
+        t: r,
         isNewMsg: !0,
         local: !0,
-        ack: n.ack,
+        ack: l.ack,
       };
     }
     ((l.sendPinInChatMsg = u), (l.resendPinInChatMsg = d), (l.getMsgJson = p));

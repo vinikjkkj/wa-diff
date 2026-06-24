@@ -239,7 +239,7 @@ __d(
       (l.getWamE2eSenderType = p),
       (l.getWamAgentEngagementType = _),
       (l.getWamBotType = f),
-      (l.getWamInvisibleMessageCatgoryType = g),
+      (l.getWamInvisibleMessageCategoryType = g),
       (l.msgIsLid = h));
   },
   98,

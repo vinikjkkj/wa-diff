@@ -407,10 +407,10 @@ __d(
         if (r) return r;
       }
     }
-    var Ne = function (t) {
-        return Pe(t, $e) != null;
-      },
-      Me = new RegExp(
+    function Ne(e) {
+      return Pe(e, $e) != null;
+    }
+    var Me = new RegExp(
         "^" + p.ORIGIN + p.OPTIONAL_NON_CAPTURING_PATH_PART + "/push/",
         "i",
       ),

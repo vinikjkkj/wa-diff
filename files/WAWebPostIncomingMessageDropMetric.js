@@ -68,7 +68,7 @@ __d(
         } catch (e) {}
         try {
           var a = e.attrString("category"),
-            i = o("WAWebWamMsgUtils").getWamInvisibleMessageCatgoryType(a);
+            i = o("WAWebWamMsgUtils").getWamInvisibleMessageCategoryType(a);
           i != null && (t.invisibleMessageCategoryType = i);
         } catch (e) {}
         var l = e.maybeChild("enc");
@@ -277,7 +277,7 @@ __d(
         ? (s.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN)
         : i.edit === o("WAWebAck").EDIT_ATTR.SENDER_REVOKE &&
           (s.revokeType = o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER);
-      var m = o("WAWebWamMsgUtils").getWamInvisibleMessageCatgoryType(
+      var m = o("WAWebWamMsgUtils").getWamInvisibleMessageCategoryType(
         i.category,
       );
       if ((m != null && (s.invisibleMessageCategory = m), i.offline != null)) {

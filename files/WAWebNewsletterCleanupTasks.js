@@ -30,7 +30,11 @@ __d(
               .all(),
             a = r
               .filter(function (t) {
-                return t.membershipType === e && t.id !== n;
+                return (
+                  t.membershipType === e &&
+                  t.id !== n &&
+                  !o("WAWebNewsletterStorageUtils").maybeHasValidStatus(t)
+                );
               })
               .map(function (e) {
                 return e.id;

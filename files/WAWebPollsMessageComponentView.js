@@ -442,7 +442,16 @@ __d(
       t[30] !== y ||
       t[31] !== C ||
       t[32] !== M
-        ? ((Y = k(H, M, d.displayName(), w, z, l, y, C)),
+        ? ((Y = k({
+            authorDisplayName: d.displayName(),
+            commaSeparatedOptionsAndResults: z,
+            isPollEnded: l,
+            isSentByMe: w,
+            pollEndTime: y,
+            pollHideVoterNames: C,
+            pollName: H,
+            t: M,
+          })),
           (t[25] = l),
           (t[26] = w),
           (t[27] = d),
@@ -728,29 +737,37 @@ __d(
         [s._plural(i), s._param("days", i)],
       );
     }
-    function k(e, t, n, r, a, i, l, u) {
-      var c = u ? s._(/*BTDS*/ "Voter names hidden") : "",
-        d = E(i, l);
-      return r
+    function k(e) {
+      var t = e.authorDisplayName,
+        n = e.commaSeparatedOptionsAndResults,
+        r = e.isPollEnded,
+        a = e.isSentByMe,
+        i = e.pollEndTime,
+        l = e.pollHideVoterNames,
+        u = e.pollName,
+        c = e.t,
+        d = l ? s._(/*BTDS*/ "Voter names hidden") : "",
+        m = E(r, i);
+      return a
         ? s._(
             /*BTDS*/ "Poll from you {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}.",
             [
-              s._param("time", o("WAWebClock").Clock.timestampStr(t)),
-              s._param("poll-name", e),
-              s._param("hidden-voter-names", c),
-              s._param("end-time", d),
-              s._param("poll-results", a),
+              s._param("time", o("WAWebClock").Clock.timestampStr(c)),
+              s._param("poll-name", u),
+              s._param("hidden-voter-names", d),
+              s._param("end-time", m),
+              s._param("poll-results", n),
             ],
           )
         : s._(
             /*BTDS*/ "Poll from {poll-author-name-not-you} {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}.",
             [
-              s._param("poll-author-name-not-you", n),
-              s._param("time", o("WAWebClock").Clock.timestampStr(t)),
-              s._param("poll-name", e),
-              s._param("hidden-voter-names", c),
-              s._param("end-time", d),
-              s._param("poll-results", a),
+              s._param("poll-author-name-not-you", t),
+              s._param("time", o("WAWebClock").Clock.timestampStr(c)),
+              s._param("poll-name", u),
+              s._param("hidden-voter-names", d),
+              s._param("end-time", m),
+              s._param("poll-results", n),
             ],
           );
     }

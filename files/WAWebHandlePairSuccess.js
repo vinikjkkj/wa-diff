@@ -7,7 +7,6 @@ __d(
     "WABinary",
     "WACryptoHmac",
     "WALogger",
-    "WANullthrows",
     "WASmaxMdSetRegRPC",
     "WATimeUtils",
     "WAWebAdvSignatureApi",
@@ -60,6 +59,7 @@ __d(
     "getErrorSafe",
     "gkx",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -159,7 +159,7 @@ __d(
                   .Binary.build(
                     o("WAWebAdvSignatureConstants")
                       .ADV_HOSTED_PREFIX_DEVICE_IDENTITY_ACCOUNT_SIGNATURE,
-                    r("WANullthrows")(L),
+                    r("nullthrows")(L),
                   )
                   .readByteArrayView()));
               var I = yield o("WAWebAdvSignatureApi").getADVSecretKey(),

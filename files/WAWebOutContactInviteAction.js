@@ -135,7 +135,12 @@ __d(
       var a = o("WAWebOutContactInviteUtils").getMultiGroupInviteMessageText(),
         i = encodeURIComponent(a),
         l = o("WAWebOutContactInviteJourney").getOutContactInviteSessionId();
-      (o("WAWebOutContactLoggingUtils").logMultiGroupInviteContacts(t, r, n, l),
+      (o("WAWebOutContactLoggingUtils").logMultiGroupInviteContacts({
+        entryPoint: n,
+        groupJid: t,
+        sessionId: l,
+        validNumbers: r,
+      }),
         o("WAWebOutContactInviteJourney").clearOutContactInviteJourney());
       var s = r
           .map(function (e) {

@@ -37,18 +37,18 @@ __d(
     function d(e) {
       return c.test(e);
     }
-    var m = function (n, a) {
-      var t,
+    function m(t, n) {
+      var a,
         i,
         l,
         c,
-        m = (t = s(n)) != null ? t : "",
-        p = (i = s(a)) != null ? i : "";
+        m = (a = s(t)) != null ? a : "",
+        p = (i = s(n)) != null ? i : "";
       if (!m && p) return 1;
       if (m && !p) return -1;
       if (m && p) {
-        var _ = u(n),
-          f = u(a);
+        var _ = u(t),
+          f = u(n);
         if (_ && f) {
           var g =
             o("WAWebABProps").getABPropConfigValue(
@@ -64,24 +64,24 @@ __d(
         }
       }
       var b =
-          n instanceof r("WAWebOutContactModel")
+          t instanceof r("WAWebOutContactModel")
             ? ""
-            : (l = o("WAWebContactGetters").getNotifyName(n)) != null
+            : (l = o("WAWebContactGetters").getNotifyName(t)) != null
               ? l
               : "",
         v =
-          a instanceof r("WAWebOutContactModel")
+          n instanceof r("WAWebOutContactModel")
             ? ""
-            : (c = o("WAWebContactGetters").getNotifyName(a)) != null
+            : (c = o("WAWebContactGetters").getNotifyName(n)) != null
               ? c
               : "";
       if (!b && v) return 1;
       if (b && !v) return -1;
       if (b && v) return e.compare(b, v);
-      var S = n.id.toString(),
-        R = a.id.toString();
+      var S = t.id.toString(),
+        R = n.id.toString();
       return S && R ? S.localeCompare(R) : -1;
-    };
+    }
     function p() {
       return e;
     }

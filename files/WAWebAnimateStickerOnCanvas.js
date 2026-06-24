@@ -13,7 +13,7 @@ __d(
           new (o("WAAbortError").AbortError)(),
         );
       if (a.length === 0) return (e || (e = n("Promise"))).resolve();
-      var u = new Date().getTime(),
+      var u = Date.now(),
         c,
         d = 0,
         m = u,
@@ -28,7 +28,7 @@ __d(
             s.removeEventListener("abort", n);
           }));
         var r = function (n) {
-          var t = new Date().getTime();
+          var t = Date.now();
           if (t < m) {
             c = window.requestAnimationFrame(r);
             return;

@@ -73,26 +73,30 @@ __d(
         ),
       ).commit();
     }
-    function c(e, t, n, r) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-              "WAWebOutContactInviteUtils",
-            ).storeMultiGroupInviteSms(e, t, n);
-            t.forEach(function (e, t) {
-              var o = a[t];
-              m({
-                entryPoint: n,
-                inviteCodeError: o != null ? o.toString() : void 0,
-                sessionId: r,
-              });
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.entryPoint,
+            n = e.groupJid,
+            r = e.sessionId,
+            a = e.validNumbers,
+            i = yield o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(
+              n,
+              a,
+              t,
+            );
+          a.forEach(function (e, n) {
+            var o = i[n];
+            m({
+              entryPoint: t,
+              inviteCodeError: o != null ? o.toString() : void 0,
+              sessionId: r,
             });
-          },
-        )),
+          });
+        })),
         d.apply(this, arguments)
       );
     }

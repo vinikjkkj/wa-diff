@@ -63,6 +63,8 @@ __d(
         updateContactAdvAccountType: s.updateContactAdvAccountType,
         getFilteredContacts: s.getFilteredContacts,
         updateUsernameKey: s.updateUsernameKey,
+        propagateIdentityFieldsToLidContact:
+          s.propagateIdentityFieldsToLidContact,
         updateContactsStatusMute: function (t) {
           var e = t.groupStatusMuteUpdates,
             n = t.newsletterStatusMuteUpdates,

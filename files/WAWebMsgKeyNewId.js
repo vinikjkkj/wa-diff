@@ -21,19 +21,22 @@ __d(
         r.readByteArrayView()
       );
     }
-    var s = (function () {
-      var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        var t = new Uint8Array(
-          yield self.crypto.subtle.digest("SHA-256", e()),
-          0,
-          9,
-        );
-        return "3EB0" + o("WAHex").toHex(t);
-      });
-      return function () {
-        return t.apply(this, arguments);
-      };
-    })();
+    function s() {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = new Uint8Array(
+            yield self.crypto.subtle.digest("SHA-256", e()),
+            0,
+            9,
+          );
+          return "3EB0" + o("WAHex").toHex(t);
+        })),
+        u.apply(this, arguments)
+      );
+    }
     ((l.genMsgKeyUint = e), (l.getMsgKeyNewSHA256Id = s));
   },
   98,

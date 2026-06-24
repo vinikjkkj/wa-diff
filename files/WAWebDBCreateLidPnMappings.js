@@ -139,15 +139,13 @@ __d(
                 "[createLidPnMappings] fake LID ",
                 " cached PN ",
                 " != new PN ",
-                " src ",
                 "",
               ])),
             t,
             r,
             n,
-            a,
           )
-          .sendLogs("lid-pn-mapping-conflict-fake-lid");
+          .sendLogs("lid-pn-mapping-conflict-fake-lid-" + a);
         return;
       }
       o("WALogger")
@@ -157,15 +155,13 @@ __d(
               "[createLidPnMappings] LID ",
               " cached PN ",
               " != new PN ",
-              " src ",
               "",
             ])),
           t,
           r,
           n,
-          a,
         )
-        .sendLogs("lid-pn-mapping-conflict");
+        .sendLogs("lid-pn-mapping-conflict-" + a);
     }
     function L(e) {
       return E.apply(this, arguments);

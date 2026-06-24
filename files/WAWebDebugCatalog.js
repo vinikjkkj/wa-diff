@@ -396,7 +396,7 @@ __d(
           o("WALogger").LOG(
             E ||
               (E = babelHelpers.taggedTemplateLiteralLoose([
-                "debug:bizManagementUpdateProductVisiblity",
+                "debug:bizManagementUpdateProductVisibility",
               ])),
           );
         });
@@ -509,7 +509,7 @@ __d(
       bizManagementAppealProduct: X,
       bizManagementUpdateCollectionList: Y,
       bizManagementUpdateCollection: J,
-      bizManagementUpdateProductVisiblity: Z,
+      bizManagementUpdateProductVisibility: Z,
       bizManagementFetchCart: z,
       bizManagementUpdateCommerceSettings: ee,
       bizManagementAppealCollection: te,

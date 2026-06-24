@@ -86,7 +86,6 @@ __d(
             title: a,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
             onCancel: o("WAWebDrawerManager").closeDrawerRight,
-            rtlFixIfOnDarwin: !0,
             focusBackOrCancel: !0,
           })),
           (t[7] = a),

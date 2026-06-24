@@ -263,6 +263,12 @@ __d(
         !1,
       ],
       group_member_updates_hide_in_thread_enabled: [24584, "bool", !1, !1],
+      group_member_updates_past_participant_migration_enabled: [
+        31614,
+        "bool",
+        !1,
+        !1,
+      ],
       group_member_updates_usernames_db_enabled: [24586, "bool", !1, !1],
       group_member_updates_usernames_enabled: [24617, "bool", !1, !1],
       group_member_updates_usernames_ui_enabled: [24585, "bool", !1, !1],

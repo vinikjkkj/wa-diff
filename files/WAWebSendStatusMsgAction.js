@@ -83,7 +83,7 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "sendStatusTextMsgAction: start to send text messege",
+                "sendStatusTextMsgAction: start to send text message",
               ])),
           );
           var d = yield o("WAWebStatusMsgDataUtils").createTextStatusMsgData(t);
@@ -116,7 +116,7 @@ __d(
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendStatusTextMsgAction: store text messege",
+                  "sendStatusTextMsgAction: store text message",
                 ])),
             ),
             (c = p.sendPerfReporter) == null || c.postSavedStage(),
@@ -136,7 +136,7 @@ __d(
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
-                "sendStatusMediaMsgAction: start to send status messege",
+                "sendStatusMediaMsgAction: start to send status message",
               ])),
           );
           var g = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
@@ -186,7 +186,7 @@ __d(
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendStatusMediaMsgAction: store media messege",
+                  "sendStatusMediaMsgAction: store media message",
                 ])),
             ),
             (u = C.sendPerfReporter) == null || u.postSavedStage(),
@@ -224,7 +224,7 @@ __d(
             o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendStatusMediaMsgAction: media prep done for status messege",
+                  "sendStatusMediaMsgAction: media prep done for status message",
                 ])),
             ),
             L(y, h, C, 0, n)
@@ -244,7 +244,7 @@ __d(
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "_sendStatusMessage: send status messege ",
+                    "_sendStatusMessage: send status message ",
                     "",
                   ])),
                 e.id,

@@ -4,7 +4,6 @@ __d(
     "WABinary",
     "WAGzip",
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WAWebBackendApi",
     "WAWebBizBroadcastInsightsContactListHandler",
@@ -21,6 +20,7 @@ __d(
     "WAWebSyncdSnapshotRecoveryGatingUtils",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -169,7 +169,7 @@ __d(
                 ? void 0
                 : n.isCompressed,
             l = new (o("WABinary").Binary)(
-              r("WANullthrows")(
+              r("nullthrows")(
                 e == null || (a = e.syncdSnapshotFatalRecoveryResponse) == null
                   ? void 0
                   : a.collectionSnapshot,

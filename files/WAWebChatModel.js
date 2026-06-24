@@ -8,7 +8,6 @@ __d(
     "WAFilteredCatch",
     "WAInOrderPromiseQueue",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAck",
@@ -116,6 +115,7 @@ __d(
     "countWhere",
     "getErrorSafe",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -1946,10 +1946,10 @@ __d(
           }),
           (i.sortMsgs = function (t, n) {
             var e = t.map(function (e) {
-              var t = r("WANullthrows")(e.getMsgChunk(n != null ? n : void 0));
+              var t = r("nullthrows")(e.getMsgChunk(n != null ? n : void 0));
               return {
                 msg: e,
-                chunkT: r("WANullthrows")(t.at(0)).t,
+                chunkT: r("nullthrows")(t.at(0)).t,
                 index: t.indexOf(e),
               };
             });

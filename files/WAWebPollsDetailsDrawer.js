@@ -183,7 +183,6 @@ __d(
                   : s._(/*BTDS*/ "Poll details"),
               type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
               onCancel: _,
-              rtlFixIfOnDarwin: !0,
               focusBackOrCancel: !0,
             }),
             d.jsxs(r("WAWebDrawerBody.react"), {

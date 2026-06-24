@@ -220,6 +220,24 @@ __d(
           )
           .tags("contact"));
     }
+    function E(e) {
+      var t = e.displayNameLID,
+        n = e.isUsernameContact,
+        r = e.lid,
+        o = e.pushname,
+        a = e.username,
+        i = e.usernameKey,
+        l = d(r),
+        s = {};
+      (a != null && (s.username = a),
+        i != null && (s.usernameKey = i),
+        n != null && (s.isUsernameContact = n),
+        o != null && (s.pushname = o),
+        m(l, s),
+        t != null &&
+          l.lidContact != null &&
+          l.lidContact.set({ displayNameLID: t }));
+    }
     ((l.updatePushname = p),
       (l.updateContactExternalUserState = _),
       (l.bulkUpdateContactPushnames = f),
@@ -231,7 +249,8 @@ __d(
       (l.bulkUpdateUsernames = v),
       (l.updateContactAdvAccountType = S),
       (l.getFilteredContacts = R),
-      (l.updateUsernameKey = L));
+      (l.updateUsernameKey = L),
+      (l.propagateIdentityFieldsToLidContact = E));
   },
   98,
 );

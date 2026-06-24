@@ -1,8 +1,25 @@
 __d(
   "WAWebNewsletterStorageUtils",
-  ["WAWebCommonNewsletterEnums", "WAWebNewsletterDBConstants"],
+  [
+    "WATimeUtils",
+    "WAWebCommonNewsletterEnums",
+    "WAWebNewsletterDBConstants",
+    "WAWebNewsletterGatingUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t,
+        n =
+          e == null || (t = e.statusMetadata) == null
+            ? void 0
+            : t.lastStatusSentTime;
+      return (
+        n != null &&
+        o("WATimeUtils").unixTime() - n <= o("WATimeUtils").DAY_SECONDS &&
+        o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
+      );
+    }
+    function s(e) {
       switch (e) {
         case o("WAWebCommonNewsletterEnums").NewsletterMembershipType
           .Subscriber:
@@ -16,7 +33,7 @@ __d(
           return o("WAWebNewsletterDBConstants").NewsletterDBMembership.Owner;
       }
     }
-    function s(e) {
+    function u(e) {
       switch (e) {
         case o("WAWebCommonNewsletterEnums").NewsletterPrivacy.Public:
           return 0;
@@ -24,7 +41,7 @@ __d(
           return 1;
       }
     }
-    function u(e) {
+    function c(e) {
       switch (e) {
         case o("WAWebCommonNewsletterEnums").WamoSubStatus.ACTIVE:
           return 0;
@@ -32,53 +49,54 @@ __d(
           return 1;
       }
     }
-    function c(t) {
-      var n = { id: t.id.toString() };
+    function d(e) {
+      var t = { id: e.id.toString() };
       if (
-        (t.creationTime != null && (n.creationTime = t.creationTime),
-        t.name != null && (n.name = t.name),
-        t.nameUpdateTime != null && (n.nameUpdateTime = t.nameUpdateTime),
-        t.description != null && (n.description = t.description),
-        t.descriptionUpdateTime != null &&
-          (n.descriptionUpdateTime = t.descriptionUpdateTime),
-        t.handle != null && (n.handle = t.handle),
-        t.inviteCode != null && (n.inviteCode = t.inviteCode),
-        t.size != null && (n.size = t.size),
-        t.verified != null && (n.verified = t.verified),
-        t.membershipType != null && (n.membershipType = e(t.membershipType)),
-        t.privacy != null && (n.privacy = s(t.privacy)),
-        t.website != null)
+        (e.creationTime != null && (t.creationTime = e.creationTime),
+        e.name != null && (t.name = e.name),
+        e.nameUpdateTime != null && (t.nameUpdateTime = e.nameUpdateTime),
+        e.description != null && (t.description = e.description),
+        e.descriptionUpdateTime != null &&
+          (t.descriptionUpdateTime = e.descriptionUpdateTime),
+        e.handle != null && (t.handle = e.handle),
+        e.inviteCode != null && (t.inviteCode = e.inviteCode),
+        e.size != null && (t.size = e.size),
+        e.verified != null && (t.verified = e.verified),
+        e.membershipType != null && (t.membershipType = s(e.membershipType)),
+        e.privacy != null && (t.privacy = u(e.privacy)),
+        e.website != null)
       ) {
-        var r;
-        n.website = (r = t.website) == null ? void 0 : r.href;
+        var n;
+        t.website = (n = e.website) == null ? void 0 : n.href;
       }
       return (
-        t.reactionCodesSetting != null &&
-          (n.reactionCodesSetting = t.reactionCodesSetting),
-        t.adminCount != null && (n.adminCount = t.adminCount),
-        Object.hasOwn(t, "adminProfile") && (n.adminProfile = t.adminProfile),
-        t.adminProfilesSettingEnabled != null &&
-          (n.adminProfilesSettingEnabled = t.adminProfilesSettingEnabled),
-        t.capabilities != null &&
-          (n.capabilities = new Set(
-            Array.from(t.capabilities, function (e) {
+        e.reactionCodesSetting != null &&
+          (t.reactionCodesSetting = e.reactionCodesSetting),
+        e.adminCount != null && (t.adminCount = e.adminCount),
+        Object.hasOwn(e, "adminProfile") && (t.adminProfile = e.adminProfile),
+        e.adminProfilesSettingEnabled != null &&
+          (t.adminProfilesSettingEnabled = e.adminProfilesSettingEnabled),
+        e.capabilities != null &&
+          (t.capabilities = new Set(
+            Array.from(e.capabilities, function (e) {
               return e;
             }),
           )),
-        t.suspended != null && (n.suspended = t.suspended),
-        t.geosuspended != null && (n.geosuspended = t.geosuspended),
-        t.terminated != null && (n.terminated = t.terminated),
-        t.wamoSubPlanId != null && (n.wamoSubPlanId = t.wamoSubPlanId),
-        t.wamoSubStatus != null && (n.wamoSubStatus = u(t.wamoSubStatus)),
-        t.followerActivityMuteExpiration != null &&
-          (n.followerActivityMuteExpiration = t.followerActivityMuteExpiration),
-        t.statusMetadata != null && (n.statusMetadata = t.statusMetadata),
-        n
+        e.suspended != null && (t.suspended = e.suspended),
+        e.geosuspended != null && (t.geosuspended = e.geosuspended),
+        e.terminated != null && (t.terminated = e.terminated),
+        e.wamoSubPlanId != null && (t.wamoSubPlanId = e.wamoSubPlanId),
+        e.wamoSubStatus != null && (t.wamoSubStatus = c(e.wamoSubStatus)),
+        e.followerActivityMuteExpiration != null &&
+          (t.followerActivityMuteExpiration = e.followerActivityMuteExpiration),
+        e.statusMetadata != null && (t.statusMetadata = e.statusMetadata),
+        t
       );
     }
-    ((l.mapNewsletterMembershipTypeForStorage = e),
-      (l.mapNewsletterWamoSubStatusForStorage = u),
-      (l.createNewsletterMetadataObjectForStorage = c));
+    ((l.maybeHasValidStatus = e),
+      (l.mapNewsletterMembershipTypeForStorage = s),
+      (l.mapNewsletterWamoSubStatusForStorage = c),
+      (l.createNewsletterMetadataObjectForStorage = d));
   },
   98,
 );

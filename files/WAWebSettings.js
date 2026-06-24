@@ -26,7 +26,7 @@ __d(
       "MediaAutoDownload",
       "MediaQuality",
       "Security",
-      "PrivacyVisiblityEdit",
+      "PrivacyVisibilityEdit",
       "PrivacySettings",
       "DefaultEphemerality",
       "UserEphemerality",
