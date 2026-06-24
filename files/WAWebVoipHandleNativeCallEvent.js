@@ -1212,7 +1212,13 @@ __d(
               return;
             }
             var a = n.callId,
-              i = n.isCaller;
+              i = n.isCaller,
+              l = n.participants.find(function (e) {
+                return e.isSelf !== !0;
+              }),
+              s =
+                (l == null ? void 0 : l.devicePlatform) ===
+                o("WAWebVoipWaCallEnums").ClientPlatform.Web;
             if (
               !i &&
               n.peerJid != null &&
@@ -1237,12 +1243,14 @@ __d(
                 (A = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: initP2PConnectionIfEnabled: callId=",
                   ", isCaller=",
+                  ", isPeerWebBrowser=",
                   "",
                 ])),
               a,
               String(i),
+              String(s),
             );
-            var l = function (n, i, l, s, u) {
+            var u = function (n, i, l, s, u) {
                 e.sendWebP2PTransport(a, n, i, l, s, u).catch(function (e) {
                   o("WALogger")
                     .ERROR(
@@ -1254,8 +1262,8 @@ __d(
                     .catching(r("getErrorSafe")(e));
                 });
               },
-              s = 10,
-              u = new Set();
+              c = 10,
+              d = new Set();
             if (H.cachedRelayListData == null) {
               o("WALogger").ERROR(
                 O ||
@@ -1265,24 +1273,29 @@ __d(
               );
               return;
             }
-            var c = H.cachedRelayListData;
-            for (var d of c.relays) {
-              if (u.size >= s) break;
-              for (var m of d.addresses) {
-                if (u.size >= s) break;
-                (m.ipv4 != null &&
-                  m.port != null &&
-                  u.add("stun:" + m.ipv4 + ":" + m.port),
-                  u.size < s &&
-                    m.ipv6 != null &&
-                    m.port_v6 != null &&
-                    u.add("stun:[" + m.ipv6 + "]:" + m.port_v6));
+            var m = H.cachedRelayListData;
+            for (var p of m.relays) {
+              if (d.size >= c) break;
+              for (var _ of p.addresses) {
+                if (d.size >= c) break;
+                (_.ipv4 != null &&
+                  _.port != null &&
+                  d.add("stun:" + _.ipv4 + ":" + _.port),
+                  d.size < c &&
+                    _.ipv6 != null &&
+                    _.port_v6 != null &&
+                    d.add("stun:[" + _.ipv6 + "]:" + _.port_v6));
               }
             }
-            var p = Array.from(u, function (e) {
+            var f = Array.from(d, function (e) {
               return { urls: e };
             });
-            yield o("WAWebVoipP2PConnectionManager").initP2PConnection(i, p, l);
+            yield o("WAWebVoipP2PConnectionManager").initP2PConnection(
+              i,
+              s,
+              f,
+              u,
+            );
           }
         })),
         he.apply(this, arguments)

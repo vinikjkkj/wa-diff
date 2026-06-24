@@ -7,7 +7,6 @@ __d(
     "WAWebFileUtils",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaOpaqueData",
-    "WAWebMsgGetters",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWamEnumWebcRmrReasonCode",
@@ -24,7 +23,12 @@ __d(
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = null;
-            if (e.mediaData != null) {
+            if (
+              o("WAWebBizBroadcastMediaProcessor").SUPPORTED_MEDIA_TYPES.has(
+                e.type,
+              ) &&
+              e.mediaData != null
+            ) {
               var n,
                 a,
                 i,
@@ -146,7 +150,9 @@ __d(
       return (t =
         (n = e.caption) != null
           ? n
-          : o("WAWebMsgGetters").getIsMedia(e)
+          : o("WAWebBizBroadcastMediaProcessor").SUPPORTED_MEDIA_TYPES.has(
+                e.type,
+              )
             ? null
             : e.body) != null
         ? t

@@ -323,6 +323,8 @@ __d(
       bb_chat_list_banner_7: [32214, "bool", !1, !0],
       bb_chat_list_banner_8: [32215, "bool", !1, !0],
       bb_chat_list_banner_9: [32216, "bool", !1, !0],
+      bb_chat_list_banner_v1: [32373, "bool", !1, !0],
+      bb_chat_list_banner_v2: [32374, "bool", !1, !0],
       bb_chat_list_mab_1: [31965, "bool", !1, !0],
       bb_chat_list_mab_10: [31966, "bool", !1, !0],
       bb_chat_list_mab_2: [31961, "bool", !1, !0],
@@ -810,6 +812,7 @@ __d(
       create_group_and_add_member_overflow: [15772, "bool", !1, !0],
       cross_device_message_editing: [28340, "bool", !1, !0],
       ctwa_1pd_longest_call_enabled: [32108, "bool", !1, !1],
+      ctwa_3pd_aggregated_call_logging_allowed: [32379, "bool", !1, !1],
       ctwa_3pd_aggregated_conversion_enabled: [27640, "bool", !1, !1],
       ctwa_3pd_data_sharing_additional_logging: [29333, "bool", !1, !0],
       ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out: [
@@ -911,6 +914,8 @@ __d(
         121e4,
         121e4,
       ],
+      desktop_call_controls_chat_button_enabled: [14660, "bool", !1, !0],
+      desktop_call_controls_redesign_enabled: [13378, "bool", !1, !1],
       desktop_upsell_intro_panel_illustration_variant: [19518, "int", 0, 0],
       dev_prop_boolean: [1065, "bool", !1, !1],
       dev_prop_float: [1067, "float", 0, 0],
@@ -1577,6 +1582,12 @@ __d(
         "string",
         "1191526044909364",
         "1191526044909364",
+      ],
+      native_flow_response_message_params_json_max_size: [
+        32367,
+        "int",
+        262144,
+        262144,
       ],
       native_lib_sandboxing_enable_libwebp: [26414, "bool", !1, !1],
       new_chat_msg_capping_first_warning_threshold_percentage: [

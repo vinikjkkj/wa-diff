@@ -10,7 +10,6 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebUserPrefsMeUser",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -114,12 +113,7 @@ __d(
           );
           return {
             id: i,
-            to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user,
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
-                .server,
-              0,
-            ),
+            to: o("WAWebUserPrefsMeUser").getMyPrimaryForOutgoingPeerMessage(),
             type: "protocol",
             subtype: "peer_data_operation_request_response_message",
             kind: o("WAWebMsgType").MsgKind.PeerMessage,

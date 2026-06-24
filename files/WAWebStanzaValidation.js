@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWap",
+    "WAWebBeyondPhoneNumberGatingUtils",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -11,10 +12,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f, g, h;
-    function y(t) {
+    var e, s, u, c, d, m, p, _, f, g, h, y;
+    function C(t) {
       try {
-        (C(t), v(t), E(t), I(t), T(t), D(t), $(t), P(t));
+        (b(t), S(t), k(t), T(t), D(t), x(t), P(t), N(t));
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -27,7 +28,7 @@ __d(
           .sendLogs("stanza-validation-error");
       }
     }
-    function C(e) {
+    function b(e) {
       if (e.tag === "receipt") {
         var t = e.attrs.type,
           n = t != null ? o("WAWap").decodeAsString(t) : "unknown";
@@ -49,8 +50,8 @@ __d(
         if (r != null && a != null) {
           var i = o("WAWap").decodeAsString(r),
             l = o("WAWap").decodeAsString(a),
-            d = S(i),
-            m = S(l);
+            d = R(i),
+            m = R(l);
           l.includes("@lid") && i.includes("@s.whatsapp.net")
             ? o("WALogger")
                 .ERROR(
@@ -85,7 +86,7 @@ __d(
         }
       }
     }
-    function b(e) {
+    function v(e) {
       if (!Array.isArray(e.content)) return [];
       var t = e.content.find(function (e) {
           return (e == null ? void 0 : e.tag) === "participants";
@@ -103,13 +104,13 @@ __d(
         r
       );
     }
-    function v(e) {
+    function S(e) {
       if (e.tag === "message") {
         var t = e.attrs.to;
         if (
           !(t == null || !o("WAWap").decodeAsString(t).endsWith("@broadcast"))
         ) {
-          var n = b(e);
+          var n = v(e);
           if (n.length !== 0) {
             var r = [],
               a = !1,
@@ -129,7 +130,7 @@ __d(
               }),
               r.length > 0)
             ) {
-              var l = r.map(S).join(",");
+              var l = r.map(R).join(",");
               o("WALogger")
                 .ERROR(
                   d ||
@@ -157,14 +158,14 @@ __d(
         }
       }
     }
-    function S(e) {
+    function R(e) {
       try {
         return o("WAWebWidFactory").createWid(e).toLogString();
       } catch (t) {
         return e;
       }
     }
-    function R(e) {
+    function L(e) {
       return e.tag !== "message" || !Array.isArray(e.content)
         ? !1
         : e.content.some(function (e) {
@@ -175,7 +176,7 @@ __d(
             );
           });
     }
-    function L(e) {
+    function E(e) {
       var t = o("WAWebWidValidator").validateAndGetParts(e);
       if (t == null || t.userPart == null) return !1;
       var n = o("WAWebWidFactory").createWid(e);
@@ -185,39 +186,56 @@ __d(
         !n.isHostedLid()
       );
     }
-    function E(e) {
+    function k(e) {
       if (!(e.tag === "receipt" || e.tag === "ack")) {
         var t = e.attrs.to;
         if (t != null) {
           var n = o("WAWap").decodeAsString(t);
-          if (
-            L(n) &&
-            !(
-              e.attrs.category === "peer" &&
-              o("WAWebUserPrefsMeUser").isMeAccount(
-                o("WAWebWidFactory").createWid(n),
-              )
-            ) &&
-            !R(e)
-          ) {
-            var r = S(n);
-            o("WALogger")
-              .ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[stanza-validation] pnless-stanza: <",
-                    "> to=",
-                    " is PN",
-                  ])),
-                e.tag,
-                r,
-              )
-              .sendLogs("stanza-validation-pnless-to-pn-leak-" + e.tag);
+          if (E(n)) {
+            if (e.attrs.category === "peer") {
+              if (
+                o(
+                  "WAWebBeyondPhoneNumberGatingUtils",
+                ).peerMessageLidMigrationOutgoingEnabled()
+              ) {
+                var r = R(n);
+                o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[stanza-validation] pnless-stanza: peer <",
+                        "> to=",
+                        " is PN",
+                      ])),
+                    e.tag,
+                    r,
+                  )
+                  .sendLogs(
+                    "stanza-validation-pnless-to-pn-leak-peer-" + e.tag,
+                  );
+              }
+              return;
+            }
+            if (!L(e)) {
+              var a = R(n);
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[stanza-validation] pnless-stanza: <",
+                      "> to=",
+                      " is PN",
+                    ])),
+                  e.tag,
+                  a,
+                )
+                .sendLogs("stanza-validation-pnless-to-pn-leak-" + e.tag);
+            }
           }
         }
       }
     }
-    function k(e) {
+    function I(e) {
       if (e.tag !== "message") return null;
       var t = e.attrs.to;
       if (t == null) return null;
@@ -227,16 +245,16 @@ __d(
       var a = o("WAWebWidFactory").createWid(n);
       return a.isUser() ? n : null;
     }
-    function I(e) {
-      if (k(e) != null) {
-        var t = b(e),
-          n = t.filter(L);
+    function T(e) {
+      if (I(e) != null) {
+        var t = v(e),
+          n = t.filter(E);
         if (n.length !== 0) {
-          var r = n.map(S).join(",");
+          var r = n.map(R).join(",");
           o("WALogger")
             .ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[stanza-validation] pnless-stanza: <",
                   "> participant(s) using PN: ",
                   "",
@@ -248,9 +266,9 @@ __d(
         }
       }
     }
-    function T(e) {
+    function D(e) {
       if (e.tag === "message") {
-        var t = b(e);
+        var t = v(e);
         if (t.length !== 0) {
           var n = 0,
             r = 0,
@@ -263,11 +281,11 @@ __d(
             }),
             n > 0 && r > 0)
           ) {
-            var i = a.map(S).join(",");
+            var i = a.map(R).join(",");
             o("WALogger")
               .ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[stanza-validation] mixed-participants: <message> has both LID (",
                     ") and PN (",
                     ") participants: ",
@@ -282,23 +300,23 @@ __d(
         }
       }
     }
-    function D(e) {
-      var t = k(e);
+    function x(e) {
+      var t = I(e);
       if (t != null) {
         var n;
         if (t.endsWith("@lid")) n = "@s.whatsapp.net";
         else if (t.endsWith("@s.whatsapp.net")) n = "@lid";
         else return;
-        var r = b(e).filter(function (e) {
+        var r = v(e).filter(function (e) {
           return e.endsWith(n);
         });
         if (r.length !== 0) {
-          var a = S(t),
-            i = r.map(S).join(",");
+          var a = R(t),
+            i = r.map(R).join(",");
           o("WALogger")
             .ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[stanza-validation] 1to1-mixed-domain: <message> to=",
                   " but participant(s) on different domain: ",
                   "",
@@ -310,7 +328,7 @@ __d(
         }
       }
     }
-    function x(e, t) {
+    function $(e, t) {
       var n = e == null ? void 0 : e.content;
       return Array.isArray(n)
         ? n.find(function (e) {
@@ -318,7 +336,7 @@ __d(
           })
         : null;
     }
-    function $(e) {
+    function P(e) {
       if (e.tag === "iq") {
         var t = e.attrs.xmlns,
           n = e.attrs.type;
@@ -330,11 +348,11 @@ __d(
             o("WAWap").decodeAsString(n) !== "get"
           )
         ) {
-          var r = x(e, "privacy");
+          var r = $(e, "privacy");
           if (r != null) {
             var a = r.attrs.addressing_mode;
             if (!(a != null && o("WAWap").decodeAsString(a) === "lid")) {
-              var i = x(r, "list"),
+              var i = $(r, "list"),
                 l = i == null ? void 0 : i.attrs.value;
               if (
                 !(
@@ -346,8 +364,8 @@ __d(
                   u = s != null ? o("WAWap").decodeAsString(s) : "unknown";
                 o("WALogger")
                   .ERROR(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         '[stanza-validation] privacy-list-pn-query: <iq> privacy list "',
                         '" fetched using legacy PN addressing',
                       ])),
@@ -362,7 +380,7 @@ __d(
         }
       }
     }
-    function P(e) {
+    function N(e) {
       if (e.tag === "iq") {
         var t = e.attrs.xmlns,
           n = e.attrs.type;
@@ -374,8 +392,8 @@ __d(
             o("WAWap").decodeAsString(n) !== "get"
           )
         ) {
-          var r = x(e, "usync"),
-            a = x(x(r, "query"), "contact");
+          var r = $(e, "usync"),
+            a = $($(r, "query"), "contact");
           if (a != null) {
             var i = a.attrs.addressing_mode;
             if (!(i != null && o("WAWap").decodeAsString(i) === "lid")) {
@@ -383,8 +401,8 @@ __d(
                 s = l != null ? o("WAWap").decodeAsString(l) : "unknown";
               o("WALogger")
                 .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[stanza-validation] usync-contact-pn-query: <iq> usync contact protocol using PN addressing (context=",
                       ")",
                     ])),
@@ -398,7 +416,7 @@ __d(
         }
       }
     }
-    l.validateSentStanza = y;
+    l.validateSentStanza = C;
   },
   98,
 );

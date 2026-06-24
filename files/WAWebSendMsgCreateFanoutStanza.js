@@ -121,7 +121,10 @@ __d(
                 ) &&
                   (T = yield o(
                     "WAWebWasaHatchOutboundWrapper",
-                  ).wrapHatchOutboundMessage({ innerMessage: T })));
+                  ).wrapHatchOutboundMessage({
+                    currentStanzaId: t.id.id,
+                    innerMessage: T,
+                  })));
               var D =
                   o("WAWebMessagingGatingUtils").isSimpleSignalEnabled() &&
                   m &&
@@ -236,7 +239,10 @@ __d(
                           try {
                             g = yield o(
                               "WAWebWasaHatchOutboundWrapper",
-                            ).wrapHatchOutboundMessage({ innerMessage: g });
+                            ).wrapHatchOutboundMessage({
+                              currentStanzaId: t.id.id,
+                              innerMessage: g,
+                            });
                           } catch (e) {
                             throw e instanceof
                               o("WAWebWasaHatchOutboundWrapper")

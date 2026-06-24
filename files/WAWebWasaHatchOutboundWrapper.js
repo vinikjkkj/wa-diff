@@ -59,46 +59,47 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.innerMessage,
-            a = o("WAWebWasaUserPrefs").getWasaActiveTargetId(
+          var n = t.currentStanzaId,
+            a = t.innerMessage,
+            i = o("WAWebWasaUserPrefs").getWasaActiveTargetId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
             );
-          if (a == null) throw new u();
-          var i = yield o("WAWebWasaRootSecretWriter").getWasaRootSecretForId(
-            o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-            a,
-          );
           if (i == null) throw new u();
-          var l = o("WAWebWidToJid").widToUserJid(
+          var l = yield o("WAWebWasaRootSecretWriter").getWasaRootSecretForId(
+            o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+            i,
+          );
+          if (l == null) throw new u();
+          var s = o("WAWebWidToJid").widToUserJid(
               o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             ),
-            s = o("WAWebWidToJid").widToUserJid(
+            c = o("WAWebWidToJid").widToUserJid(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
             ),
-            c = yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
-              i,
+            d = yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
+              l,
             ),
-            d = yield o("WAWebBotMessageSecret").genBotDecryptionKey({
-              decryptSecret: c,
-              messageSecretOriginalUserJid: l,
-              senderJid: s,
-              stanzaId: a,
+            m = yield o("WAWebBotMessageSecret").genBotDecryptionKey({
+              decryptSecret: d,
+              messageSecretOriginalUserJid: s,
+              senderJid: c,
+              stanzaId: n,
             }),
-            m = self.crypto.getRandomValues(new Uint8Array(e)),
-            p = o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, n)
+            p = self.crypto.getRandomValues(new Uint8Array(e)),
+            _ = o("encodeProtobuf")
+              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, a)
               .readByteArrayView(),
-            _ = a + "\0" + l,
-            f = yield o("WACryptoAesGcm").gcmEncrypt(d, m, p, _);
+            f = n + "\0" + s,
+            g = yield o("WACryptoAesGcm").gcmEncrypt(m, p, _, f);
           return r("WAWebWasaGenerateSecretEncryptedMessageProto")({
             targetMsgKey: o(
               "WAWebWasaRootSecretWriter",
             ).getWasaRootSecretMsgKeyForId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-              a,
+              i,
             ),
-            encPayload: f,
-            encIv: m,
+            encPayload: g,
+            encIv: p,
           });
         })),
         m.apply(this, arguments)

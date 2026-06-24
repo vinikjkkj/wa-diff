@@ -395,7 +395,26 @@ __d(
     function N(e) {
       return e === P ? $.Guest : $.Unknown;
     }
-    var M = e({ Gallery: 0, Speaker: 1, Pinning: 2 });
+    var M = e({ Gallery: 0, Speaker: 1, Pinning: 2 }),
+      w = e({
+        Unknown: 0,
+        Android: 1,
+        IPhone: 2,
+        WP: 3,
+        IOSTablet: 4,
+        Kaios: 5,
+        Windows: 6,
+        Portal: 7,
+        MacElectron: 8,
+        WindowsElectron: 9,
+        Wearm: 10,
+        Macos: 11,
+        CAPI: 12,
+        IPad: 13,
+        SMBA: 14,
+        SMBI: 15,
+        Web: 16,
+      });
     ((l.CallState = s),
       (l.CallResult = u),
       (l.CallLogResult = c),
@@ -421,7 +440,8 @@ __d(
       (l.ServerReminderType = x),
       (l.AccountKind = $),
       (l.wireStringToAccountKind = N),
-      (l.UiViewMode = M));
+      (l.UiViewMode = M),
+      (l.ClientPlatform = w));
   },
   98,
 );

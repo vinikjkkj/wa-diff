@@ -5,7 +5,6 @@ __d(
     "WAStanzaUtils",
     "WAWebNewsletterValidationUtils",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -20,12 +19,7 @@ __d(
           var t = {
               statusTo: e.newsletterJid,
               clientPostNewsletterStatusAndServerOrPostNewsletterStatusIDMixinGroupArgs:
-                {
-                  postNewsletterStatusClientID: {
-                    statusId: o("WAStanzaUtils").toStanzaId(e.messageId),
-                    newsletterClientIdContentArgs: u(e),
-                  },
-                },
+                u(e),
             },
             n = yield o(
               "WASmaxStatusPublishPostNewsletterStatusRPC",
@@ -48,6 +42,29 @@ __d(
       );
     }
     function u(e) {
+      return e.type === "reaction"
+        ? {
+            postNewsletterStatusClientAndServerID: {
+              statusId: o("WAStanzaUtils").toStanzaId(e.reactionId),
+              statusServerId: e.parentStatusServerId,
+              statusNewsletterReactionStatusNewsletterReactionOrStatusNewsletterReactionRevokeMixinGroupArgs:
+                e.reactionCode === ""
+                  ? { isStatusNewsletterReactionRevoke: !0 }
+                  : {
+                      statusNewsletterReaction: {
+                        reactionCode: e.reactionCode,
+                      },
+                    },
+            },
+          }
+        : {
+            postNewsletterStatusClientID: {
+              statusId: o("WAStanzaUtils").toStanzaId(e.messageId),
+              newsletterClientIdContentArgs: c(e),
+            },
+          };
+    }
+    function c(e) {
       switch (e.type) {
         case "text":
           return {
@@ -67,8 +84,6 @@ __d(
               },
             },
           };
-        default:
-          throw (e.type, r("err")("Wrong code path for " + e.type));
       }
     }
     l.querySendNewsletterStatus = e;

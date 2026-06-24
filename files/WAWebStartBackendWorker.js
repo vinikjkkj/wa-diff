@@ -445,13 +445,14 @@ __d(
         e
       );
     }
-    var y = 15;
-    function C(e) {
-      return b.apply(this, arguments);
+    var y = 3,
+      C = 10;
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
             i,
             l = null;
@@ -484,35 +485,35 @@ __d(
                   });
           try {
             _.addPoint("create_worker_start");
-            var b,
-              S = (c || (c = n("Promise"))).resolve();
+            var v,
+              R = (c || (c = n("Promise"))).resolve();
             if (l === !0) {
-              var R =
+              var L =
                   o("WAWebUA").UA.isFirefox &&
                   parseInt(o("WAWebUA").UA.browserVersion.split(".")[0], 10) <=
                     115,
-                L = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
+                E = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
                   r("WAWebBackendWorkerV2Resource"),
                   f,
                   m,
-                  R,
+                  L,
                 );
-              ((S = L.initReady), (b = L.worker));
+              ((R = E.initReady), (v = E.worker));
             } else
-              b = o("WorkerBundleResource").createDedicatedWebWorker(
+              v = o("WorkerBundleResource").createDedicatedWebWorker(
                 r("WAWebBackendWorkerResource"),
               );
             (_.addPoint("worker_connect_start"),
-              yield c.all([S, v(b)]),
+              yield c.all([R, S(v)]),
               _.addPoint("worker_connect_end"));
-            var E;
+            var k;
             o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
-              ? (E = yield o(
+              ? (k = yield o(
                   "WAWebBackendWorkerClient",
                 ).getBackendWorkerBridge())
-              : (E = h());
-            var k = g(b);
-            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(E, k, [
+              : (k = h());
+            var I = g(v);
+            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(k, I, [
               "historySync",
               "deviceSync",
               "crypto",
@@ -523,13 +524,13 @@ __d(
               "userPrefs",
               "workerInit",
             ]),
-              o("WAWebBackendWorkerClient").setBackendWorkerBridge(E),
+              o("WAWebBackendWorkerClient").setBackendWorkerBridge(k),
               u
                 ? (_.addPoint("init_data_start"),
-                  yield o("WAWebBackendWorkerInitState").sendInitState(E),
+                  yield o("WAWebBackendWorkerInitState").sendInitState(k),
                   _.addPoint("init_data_end"))
                 : (_.addPoint("init_data_triggered"),
-                  o("WAWebBackendWorkerInitState").sendInitState(E)),
+                  o("WAWebBackendWorkerInitState").sendInitState(k)),
               _.addPoint("create_worker_end"),
               _.endSuccess(),
               o("WALogger").LOG(
@@ -544,39 +545,39 @@ __d(
                       m + "-kill-switch-lock",
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
-                          d < y && C({ retryStart: d + 1 });
+                          d < C && b({ retryStart: d + 1 });
                         },
                       ),
                     )
                   : globalThis.navigator.locks.request(
                       o("WAWebBackendWorkerLocks").WORKER_LIVENESS_LOCK,
                       function () {
-                        d < y && C({ retryStart: d + 1 });
+                        d < C && b({ retryStart: d + 1 });
                       },
                     )));
           } catch (e) {
-            var I,
-              T = (I = t == null ? void 0 : t.retryInit) != null ? I : 0;
-            T < y && globalThis.navigator.locks != null
-              ? (_.addPoint("retry_" + T), C({ qpl: _, retryInit: T + 1 }))
-              : (o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "WAWebBackendWorkerClient init fails",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("main-thread-backend-worker-init-fails"),
-                _.endFail(
+            var T;
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "WAWebBackendWorkerClient init fails",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("main-thread-backend-worker-init-fails");
+            var D = (T = t == null ? void 0 : t.retryInit) != null ? T : 0;
+            D < y && globalThis.navigator.locks != null
+              ? (_.addPoint("retry_" + D), b({ qpl: _, retryInit: D + 1 }))
+              : _.endFail(
                   o("getSafeQplErrorMessage").getSafeQPLErrorMessage(e),
-                ));
+                );
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
+    function S(e) {
       return new (c || (c = n("Promise")))(function (t, n) {
         var r = function (a) {
           var o = a.data,
@@ -589,7 +590,7 @@ __d(
         e.addEventListener("message", r);
       });
     }
-    l.startBackendWorker = C;
+    l.startBackendWorker = b;
   },
   98,
 );

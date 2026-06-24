@@ -280,7 +280,9 @@ __d(
             i = a.fanout,
             l = a.msgId;
           if (i) {
-            var s = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
+            var s = o(
+                "WAWebUserPrefsMeUser",
+              ).getMeDeviceForOutgoingPeerMessage(),
               u = { wids: [s] },
               c = yield o("WAWebDBDeviceListFanout").getFanOutList(u),
               d = yield (b || (b = n("Promise"))).all(
@@ -305,13 +307,9 @@ __d(
           return [
             {
               id: m,
-              to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
-                  .user,
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
-                  .server,
-                0,
-              ),
+              to: o(
+                "WAWebUserPrefsMeUser",
+              ).getMyPrimaryForOutgoingPeerMessage(),
               type: "protocol",
               subtype: "peer_data_operation_request_message",
               kind: o("WAWebMsgType").MsgKind.PeerMessage,

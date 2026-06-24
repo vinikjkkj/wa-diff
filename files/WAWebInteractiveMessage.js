@@ -30,6 +30,7 @@ __d(
         u = o("useWAWebMsgValues").useMsgValues(a.id, [
           o("WAWebMsgGetters").getNativeFlowName,
           o("WAWebMsgGetters").getGalaxyFlowDisabled,
+          o("WAWebMsgGetters").getInteractivePayload,
         ]),
         c = u[0],
         d = u[1],

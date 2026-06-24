@@ -679,6 +679,7 @@ __d(
         videoHeight: e.video_height,
         videoOrientation: e.video_orientation,
         deviceOrientation: e.device_orientation,
+        devicePlatform: e.device_platform,
         isAudioVideoSwitchEnabled: e.is_audio_video_switch_enabled,
         isAudioVideoSwitchSupported: e.is_audio_video_switch_supported,
         callGridRank: e.call_grid_rank,

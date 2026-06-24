@@ -24,9 +24,21 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
-            t.newsletterJid,
-          );
+          if (
+            (o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
+              t.newsletterJid,
+            ),
+            t.type === "reaction")
+          )
+            return o(
+              "WAWebNewsletterSendStatusQueryJob",
+            ).querySendNewsletterStatus({
+              type: "reaction",
+              newsletterJid: t.newsletterJid,
+              reactionId: t.reactionId,
+              parentStatusServerId: t.parentStatusServerId,
+              reactionCode: t.reactionCode,
+            });
           var n = t.msg,
             r = e(n),
             a = o("encodeProtobuf")

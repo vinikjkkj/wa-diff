@@ -2,7 +2,6 @@ __d(
   "WAWebContactImportFileProcessor",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebContactImportCSVParsingUtils",
     "WAWebContactImportContactVerifier",
     "WAWebContactImportFileTypeValidator",
@@ -190,6 +189,9 @@ __d(
               columnSelectionSource: s,
               detection: u,
               headerRow: n,
+              rawRows: e.map(function (e) {
+                return { rowData: e.data, rowIndex: e.originalRowIndex };
+              }),
               sampleRows: a,
             });
           var c = o(
@@ -368,9 +370,7 @@ __d(
                 a,
                 t.name,
               ));
-            var i = o("WAWebABProps").getABPropConfigValue(
-                "smbw_business_broadcast_smart_column_detection_enabled",
-              ),
+            var i = r.smartColumnDetectionEnabled === !0,
               l = i
                 ? b
                 : function (e) {

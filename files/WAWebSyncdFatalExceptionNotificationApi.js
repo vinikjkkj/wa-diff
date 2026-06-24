@@ -8,7 +8,6 @@ __d(
     "WAWebOutgoingPeerMsgKey",
     "WAWebSendAppStateSyncMsgJob",
     "WAWebUserPrefsMeUser",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,13 +26,9 @@ __d(
             ),
             a = {
               id: n,
-              to: o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                o("WAWebUserPrefsMeUser").getMeDeviceForOutgoingPeerMessage()
-                  .user,
-                o("WAWebUserPrefsMeUser").getMeDeviceForOutgoingPeerMessage()
-                  .server,
-                0,
-              ),
+              to: o(
+                "WAWebUserPrefsMeUser",
+              ).getMyPrimaryForOutgoingPeerMessage(),
               type: "protocol",
               subtype: "app_state_fatal_exception_notification",
               kind: o("WAWebMsgType").MsgKind.PeerMessage,

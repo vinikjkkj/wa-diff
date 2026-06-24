@@ -46,34 +46,40 @@ __d(
       );
     }
     function _() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_biz_profile_custom_url",
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue("wa_web_biz_profile_preload")
       );
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_temp_cover_photo_privacy_messaging",
+        "smb_biz_profile_custom_url",
       );
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_abprop_business_profile_refresh_linked_accounts_killswitch",
+        "smb_temp_cover_photo_privacy_messaging",
       );
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_abprop_business_profile_refresh_linked_account_enabled",
+        "web_abprop_business_profile_refresh_linked_accounts_killswitch",
       );
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_web_category_search_via_graph_enabled",
+        "web_abprop_business_profile_refresh_linked_account_enabled",
       );
     }
     function C() {
-      return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_web_category_search_via_graph_enabled",
+      );
     }
     function b() {
+      return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
+    }
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_profile_google_integration_enabled",
       );
@@ -85,13 +91,14 @@ __d(
       (l.businessServiceOfferingsEnabled = d),
       (l.businessPriceTierEnabled = m),
       (l.bizProfileGraphQLMigrationEnabled = p),
-      (l.isCustomURLViaBizProfileEnabled = _),
-      (l.coverPhotoPrivacyMessagingEnabled = f),
-      (l.bizLinkedAccountsEnabled = g),
-      (l.canViewBizLinkedAccounts = h),
-      (l.isCategorySearchViaGraphEnabled = y),
-      (l.getCatkitVersion = C),
-      (l.isGoogleProfileIntegrationEnabled = b));
+      (l.isBizProfilePreloadEnabled = _),
+      (l.isCustomURLViaBizProfileEnabled = f),
+      (l.coverPhotoPrivacyMessagingEnabled = g),
+      (l.bizLinkedAccountsEnabled = h),
+      (l.canViewBizLinkedAccounts = y),
+      (l.isCategorySearchViaGraphEnabled = C),
+      (l.getCatkitVersion = b),
+      (l.isGoogleProfileIntegrationEnabled = v));
   },
   98,
 );

@@ -179,6 +179,9 @@ __d(
                 .PTT_WIDGET_RECIPIENT_SELECTED ||
             e ===
               o("WAWebWamEnumPttMessageUserJourneyAction")
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.PREVIEW_PLAYBACK ||
+            e ===
+              o("WAWebWamEnumPttMessageUserJourneyAction")
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK
           ? !0
           : (function () {
@@ -228,6 +231,9 @@ __d(
               o("WAWebWamEnumPttMessageUserJourneyAction")
                 .PTT_MESSAGE_USER_JOURNEY_ACTION
                 .PTT_WIDGET_RECIPIENT_SELECTED ||
+            e ===
+              o("WAWebWamEnumPttMessageUserJourneyAction")
+                .PTT_MESSAGE_USER_JOURNEY_ACTION.PREVIEW_PLAYBACK ||
             e ===
               o("WAWebWamEnumPttMessageUserJourneyAction")
                 .PTT_MESSAGE_USER_JOURNEY_ACTION.LOCK

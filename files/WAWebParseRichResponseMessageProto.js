@@ -13,12 +13,11 @@ __d(
     "use strict";
     function e(e) {
       var t,
-        n,
-        r = e.baseMessage,
-        a = e.messageProtobuf,
-        i = a.richResponseMessage;
-      if (i != null) {
-        if (!s(r, i))
+        n = e.baseMessage,
+        r = e.messageProtobuf,
+        a = r.richResponseMessage;
+      if (a != null) {
+        if (!s(n, a))
           throw new (o(
             "WAWebRichResponseValidationError",
           ).RichResponseValidationError)(
@@ -27,16 +26,16 @@ __d(
             o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
               .INVALID_MESSAGE,
           );
-        var l = ((t = i.contextInfo) == null ? void 0 : t.isForwarded) === !0;
+        var i = u(a.contextInfo);
         if (
           !(
-            l &&
+            i &&
             !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
           )
         ) {
-          var c = i.messageType,
-            d = i.submessages;
-          if (c == null)
+          var l = a.messageType,
+            d = a.submessages;
+          if (l == null)
             throw new (o(
               "WAWebRichResponseValidationError",
             ).RichResponseValidationError)(
@@ -47,25 +46,25 @@ __d(
             );
           var m = o(
               "WAWebRichResponseParseUtils",
-            ).generateFutureproofRichResponse(c, d),
+            ).generateFutureproofRichResponse(l, d),
             p = o("WAWebRichResponseParseUtils").parseRichResponse(m),
-            _ = u(i, a.messageContextInfo, r.t)
+            _ = c(a, r.messageContextInfo, n.t)
               ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
-                  i.unifiedResponse,
+                  a.unifiedResponse,
                 )
               : null;
           if (
             !(
-              l &&
+              i &&
               o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(_)
             )
           ) {
             var f =
-              ((n = i.unifiedResponse) == null ? void 0 : n.data) != null
-                ? new Uint8Array(i.unifiedResponse.data)
+              ((t = a.unifiedResponse) == null ? void 0 : t.data) != null
+                ? new Uint8Array(a.unifiedResponse.data)
                 : null;
             return {
-              msgData: babelHelpers.extends({}, r, {
+              msgData: babelHelpers.extends({}, n, {
                 type: o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE,
                 kind: o("WAWebMsgType").MsgKind.RichResponse,
                 richResponse: p,
@@ -75,7 +74,7 @@ __d(
               contextInfo: o(
                 "WAWebBotBaseGating",
               ).isRichResponseForwardReceivingEnabled()
-                ? i.contextInfo
+                ? a.contextInfo
                 : void 0,
             };
           }
@@ -91,9 +90,18 @@ __d(
       )
         return !0;
       var o = t.contextInfo;
-      return (o == null ? void 0 : o.isForwarded) === !0;
+      return u(o);
     }
-    function u(e, t, n) {
+    function u(e) {
+      var t;
+      return (
+        (e == null ? void 0 : e.isForwarded) === !0 &&
+        (e == null || (t = e.forwardedAiBotMessageInfo) == null
+          ? void 0
+          : t.botJid) != null
+      );
+    }
+    function c(e, t, n) {
       var r;
       return e.unifiedResponse == null
         ? !1
