@@ -228,19 +228,21 @@ __d(
     function S(e) {
       return e === "invite"
         ? o("WAWebGroupType").ADD_REASON.INVITE
-        : e === "linked_group_join"
-          ? o("WAWebGroupType").ADD_REASON.LINKED_GROUP_JOIN
-          : e === "auto_add"
-            ? o("WAWebGroupType").ADD_REASON.AUTO_ADD
-            : e === "default_sub_group_admin_add"
-              ? o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_ADMIN_ADD
-              : e === "default_sub_group_promote"
-                ? o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_PROMOTE
-                : e === "invite_auto_add"
-                  ? o("WAWebGroupType").ADD_REASON.INVITE_AUTO_ADD
-                  : e === "general_chat_auto_add"
-                    ? o("WAWebGroupType").ADD_REASON.GENERAL_CHAT_AUTO_ADD
-                    : null;
+        : e === "accept"
+          ? o("WAWebGroupType").ADD_REASON.ACCEPT
+          : e === "linked_group_join"
+            ? o("WAWebGroupType").ADD_REASON.LINKED_GROUP_JOIN
+            : e === "auto_add"
+              ? o("WAWebGroupType").ADD_REASON.AUTO_ADD
+              : e === "default_sub_group_admin_add"
+                ? o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_ADMIN_ADD
+                : e === "default_sub_group_promote"
+                  ? o("WAWebGroupType").ADD_REASON.DEFAULT_SUBGROUP_PROMOTE
+                  : e === "invite_auto_add"
+                    ? o("WAWebGroupType").ADD_REASON.INVITE_AUTO_ADD
+                    : e === "general_chat_auto_add"
+                      ? o("WAWebGroupType").ADD_REASON.GENERAL_CHAT_AUTO_ADD
+                      : null;
     }
     function R(e) {
       return e === "default_sub_group_demote"
@@ -812,7 +814,7 @@ __d(
                   .GROUP_NOTIFICATION_TAG.REPORTS:
                   return {
                     actionType:
-                      o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECIEVED,
+                      o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED,
                     shouldSkipGenMsg: !0,
                     value: f,
                   };

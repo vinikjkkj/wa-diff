@@ -14,16 +14,25 @@ __d(
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
       if (!n.success) return n;
-      var r = o("WASmaxInGroupsPhoneNumberMixin").parsePhoneNumberMixin(e),
-        a = o("WASmaxInGroupsUsernameAttMixin").parseUsernameAttMixin(e),
-        i = o(
+      var r = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrIntRange,
+        e,
+        "join_time",
+        0,
+        void 0,
+      );
+      if (!r.success) return r;
+      var a = o("WASmaxInGroupsPhoneNumberMixin").parsePhoneNumberMixin(e),
+        i = o("WASmaxInGroupsUsernameAttMixin").parseUsernameAttMixin(e),
+        l = o(
           "WASmaxInGroupsAddParticipantsParticipantMixins",
         ).parseAddParticipantsParticipantMixins(e);
       return o("WAResultOrError").makeResult({
         jid: n.value,
-        phoneNumberMixin: r.success ? r.value : null,
-        usernameAttMixin: a.success ? a.value : null,
-        addParticipantsParticipantMixins: i.success ? i.value : null,
+        joinTime: r.value,
+        phoneNumberMixin: a.success ? a.value : null,
+        usernameAttMixin: i.success ? i.value : null,
+        addParticipantsParticipantMixins: l.success ? l.value : null,
       });
     }
     l.parseAddParticipantsParticipantAddedResponseMixin = e;

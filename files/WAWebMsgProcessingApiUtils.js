@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebAck",
     "WAWebBackendJobs.flow",
@@ -43,6 +42,7 @@ __d(
     "err",
     "getErrorSafe",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["msgProtobuf"],
@@ -182,7 +182,7 @@ __d(
           paymentInfo: _,
           bizInfo: c,
         });
-        (H(h, m), (f = { history: r("WANullthrows")(h.historySyncMetaData) }));
+        (H(h, m), (f = { history: r("nullthrows")(h.historySyncMetaData) }));
       } else if (
         ((n = p.protocolMessage) == null
           ? void 0
@@ -944,7 +944,7 @@ __d(
                     var n = t.ephSetting,
                       a = t.preMatWid,
                       i = t.wid,
-                      l = a != null ? a : r("WANullthrows")(i),
+                      l = a != null ? a : r("nullthrows")(i),
                       s;
                     try {
                       s = new (r("WAWebMsgKey"))({
@@ -1052,7 +1052,7 @@ __d(
                 fromMe: o("WAWebUserPrefsMeUser").isMeAccount(e.author),
                 id: e.externalId,
                 participant: o("WAWebWidFactory").asUserWidOrThrow(
-                  r("WANullthrows")(e.botParticipant),
+                  r("nullthrows")(e.botParticipant),
                 ),
               })
             : new (r("WAWebMsgKey"))({

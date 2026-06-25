@@ -220,7 +220,7 @@ __d(
                 ) {
                   var I = o(
                     "WAWebBotUtils",
-                  ).participantListIncludOpenOrTeeGroupBotWid(S.participants);
+                  ).participantListIncludeOpenOrTeeGroupBotWid(S.participants);
                   (I.includeOpenMetabot || I.includeTeeMetabot) &&
                     o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
                       id: y.chatId,
@@ -309,7 +309,7 @@ __d(
                       var M =
                         o(
                           "WAWebBotUtils",
-                        ).participantListIncludOpenOrTeeGroupBotWid(N);
+                        ).participantListIncludeOpenOrTeeGroupBotWid(N);
                       if (
                         o(
                           "WAWebBotGroupGatingUtils",
@@ -518,7 +518,7 @@ __d(
                             var j =
                               o(
                                 "WAWebBotUtils",
-                              ).participantListIncludOpenOrTeeGroupBotWid(z);
+                              ).participantListIncludeOpenOrTeeGroupBotWid(z);
                             (j.includeOpenMetabot || j.includeTeeMetabot) &&
                               o(
                                 "WAWebGroupQueryJob",

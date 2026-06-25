@@ -91,7 +91,7 @@ __d(
                     );
                   if (r == null)
                     throw new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-                      o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                      o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                         .MISSING_IDENTITY_KEY,
                     );
                   var a = o("WAWebCryptoCurve25519").toCurveKeyPubKey(
@@ -107,11 +107,11 @@ __d(
                   throw e instanceof
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowError &&
                     e.name ===
-                      o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                      o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                         .MISSING_IDENTITY_KEY
                     ? e
                     : new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                           .PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION,
                       );
                 }

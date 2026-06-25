@@ -80,9 +80,13 @@ __d(
       );
     }
     function p(e, t) {
-      _(t.groupHistorySentState) &&
+      (_(t.groupHistorySentState) &&
         !_(e.groupHistorySentState) &&
-        e.set({ groupHistorySentState: t.groupHistorySentState });
+        e.set({ groupHistorySentState: t.groupHistorySentState }),
+        e.joinTime == null &&
+          t.joinTime != null &&
+          t.joinTime > 0 &&
+          e.set({ joinTime: t.joinTime }));
     }
     function _(e) {
       return (

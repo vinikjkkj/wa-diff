@@ -18,7 +18,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    ((i.WaeGalaxyFlowMetdataErrors = e), (i.WaeGalaxyFlowError = l));
+    ((i.WaeGalaxyFlowMetadataErrors = e), (i.WaeGalaxyFlowError = l));
   },
   66,
 );

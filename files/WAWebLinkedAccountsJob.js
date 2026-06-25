@@ -96,9 +96,13 @@ __d(
             code: i,
           });
         return (l.start(), l.promise());
-      },
-      d = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+      };
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield c(e);
           if (!t) return null;
           if (t.accounts.length === 0) return "not-linked";
@@ -123,17 +127,16 @@ __d(
                   type: r.type,
                 }
               : "not-linked";
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })();
-    function m() {
-      return p.apply(this, arguments);
+        })),
+        m.apply(this, arguments)
+      );
     }
     function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t,
             n = yield c();
@@ -159,10 +162,10 @@ __d(
               (t = r == null ? void 0 : r.hasCreatedAd) != null ? t : !1,
           };
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.queryActiveLinkedAccountInfo = d), (l.queryLinkedPagesInfo = m));
+    ((l.queryActiveLinkedAccountInfo = d), (l.queryLinkedPagesInfo = p));
   },
   98,
 );

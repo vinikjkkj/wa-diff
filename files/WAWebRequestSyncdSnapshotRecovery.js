@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAPromiseTimeout",
     "WAResolvable",
     "WASyncdConst",
@@ -19,6 +18,7 @@ __d(
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -90,7 +90,7 @@ __d(
                         timestamp: o("WATimeUtils").unixTime(),
                       },
                     ));
-                  var n = yield r("WANullthrows")(this.recoveryPromise.get(e))
+                  var n = yield r("nullthrows")(this.recoveryPromise.get(e))
                     .promise;
                   if (
                     n == null ||
@@ -188,11 +188,11 @@ __d(
                           }
                           var p = yield o(
                               "WAWebSyncdCrypto",
-                            ).generateEncryptionKeys(r("WANullthrows")(u)),
+                            ).generateEncryptionKeys(r("nullthrows")(u)),
                             _ = p.indexKey,
                             f = yield o("WAWebSyncdCrypto").generateIndexMac(
-                              r("WANullthrows")(_),
-                              r("WANullthrows")(l),
+                              r("nullthrows")(_),
+                              r("nullthrows")(l),
                             ),
                             g = o("encodeProtobuf")
                               .encodeProtobuf(
@@ -227,7 +227,7 @@ __d(
                   ),
                 );
                 return {
-                  collectionLthash: r("WANullthrows")(t),
+                  collectionLthash: r("nullthrows")(t),
                   version: Number(l.version),
                   decryptedMutations: s,
                 };

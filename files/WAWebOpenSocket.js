@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAAbortError",
     "WALogger",
-    "WANullthrows",
     "WAPromiseRetryLoop",
     "WAWebCookieDomain",
     "WAWebLocalStorage",
@@ -12,6 +11,7 @@ __d(
     "WAWebWatchedSocket",
     "getErrorSafe",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -31,7 +31,7 @@ __d(
       if (!r("gkx")("26258")) {
         var e,
           t =
-            (e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+            (e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
               "wdev-pinning-cookie-value",
             )) != null
               ? e

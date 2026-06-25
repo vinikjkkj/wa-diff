@@ -1,6 +1,6 @@
 __d(
   "WAWebAddonPluginProcessor",
-  ["WANullthrows", "WAWebAddonCrossWindowUtils", "cr:37443"],
+  ["WAWebAddonCrossWindowUtils", "cr:37443", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e = n("cr:37443")) != null ? e : [];
@@ -23,7 +23,7 @@ __d(
         typeof e == "string"
           ? (t = e)
           : (t = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(e)),
-        r("WANullthrows")(c.get(t))
+        r("nullthrows")(c.get(t))
       );
     }
     function p(e) {

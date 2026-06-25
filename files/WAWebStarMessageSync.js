@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WATimeUtils",
     "WAWebAssociationProcessor",
@@ -25,6 +24,7 @@ __d(
     "WAWebSyncdUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -148,7 +148,7 @@ __d(
                                     },
                                   };
                                 }
-                                var L = r("WANullthrows")(
+                                var L = r("nullthrows")(
                                     o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
                                       _,
                                       c,

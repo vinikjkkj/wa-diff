@@ -102,7 +102,7 @@ __d(
           r = e.duration,
           a = e.id,
           l = e.msg,
-          u = e.visibile;
+          u = e.visible;
         if (i === !1 || u === !1 || (r != null && r !== 4e3)) return !1;
         var c =
             t === o("WAWebToastManager").ToastPosition.LEFT || t === void 0

@@ -392,13 +392,17 @@ __d(
                   r("WAWebNoop"),
                 );
                 n();
-              } else
-                (r("WAWebCallNotificationBus").trigger("cancel_call", e),
-                  t === o("WAWebVoipWaCallEnums").CallState.ReceivedCall &&
-                    !this.wasEverConnected &&
-                    !this.outgoing &&
-                    !this.userEndedCall &&
-                    r("WAWebCallNotificationBus").trigger("missed_call", e));
+              } else {
+                r("WAWebCallNotificationBus").trigger("cancel_call", e);
+                var a = this.getState();
+                t === o("WAWebVoipWaCallEnums").CallState.ReceivedCall &&
+                  !this.wasEverConnected &&
+                  !this.outgoing &&
+                  !this.userEndedCall &&
+                  !o("WAWebVoipCallStateUtils").isCallConnecting(a) &&
+                  !o("WAWebVoipCallStateUtils").isCallConnected(a) &&
+                  r("WAWebCallNotificationBus").trigger("missed_call", e);
+              }
             }
           }),
           n

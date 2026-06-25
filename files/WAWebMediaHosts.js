@@ -8,7 +8,9 @@ __d(
     "WAWebBackendErrors",
     "WAWebMediaHost",
     "WAWebMediaHostsErrors",
+    "WAWebMediaHostsRawStateManager",
     "WAWebMediaHostsRouteSelection",
+    "WAWebMediaHostsStaleness",
     "WAWebNormalizeStack",
     "WAWebQueryMediaConnsBridge",
     "WAWebUserPrefsMultiDevice",
@@ -43,6 +45,9 @@ __d(
                       ).sendQueryMediaConn(a);
                       ((e._data = e._createMediaConnData(i)),
                         o("WAWebUserPrefsMultiDevice").setMms4Conn(i),
+                        o(
+                          "WAWebMediaHostsRawStateManager",
+                        ).mediaHostsRawStateManager.set(i),
                         (e._err = null));
                     } catch (t) {
                       var l = r("getErrorSafe")(t);
@@ -130,7 +135,10 @@ __d(
             var e = o("WAWebUserPrefsMultiDevice").getMms4Conn();
             if (e != null)
               try {
-                this._data = this._createMediaConnData(e);
+                ((this._data = this._createMediaConnData(e)),
+                  o(
+                    "WAWebMediaHostsRawStateManager",
+                  ).mediaHostsRawStateManager.set(e));
               } catch (e) {
                 o("WALogger")
                   .ERROR(
@@ -249,9 +257,7 @@ __d(
             };
           }),
           (a._isExpiredOrMissing = function () {
-            if (!this._data) return !0;
-            var e = this._data;
-            return new Date() >= e.authExpirationTime;
+            return o("WAWebMediaHostsStaleness").isExpiredOrMissing(this._data);
           }),
           (a._getPreferredHostsInfo = function (t) {
             if (!this._data)
@@ -281,14 +287,7 @@ __d(
             return { auth: i, selectedHost: d, fallbackHost: c };
           }),
           (a._needsRefresh = function () {
-            if (!this._data) return !0;
-            var e = this._data;
-            if (new Date() >= e.hostsRefreshTime) return !0;
-            var t = e.authTTL,
-              n = e.queryStartTime,
-              r = Math.floor(t * 0.8),
-              o = new Date(n.getTime() + r);
-            return new Date() >= o;
+            return o("WAWebMediaHostsStaleness").needsRefresh(this._data);
           }),
           (a._refreshIfStale = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(

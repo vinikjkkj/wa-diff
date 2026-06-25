@@ -7,6 +7,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCreateChat",
     "WAWebGroupDatabaseJob",
+    "WAWebGroupHistoryParticipantJob",
     "WAWebGroupJoinCWamEvent",
     "WAWebGroupParticipantsJob",
     "WAWebHandleMsgTypes.flow",
@@ -71,7 +72,10 @@ __d(
                   "updateGroupSubject",
                   { id: _, subject: b },
                 )
-              : (yield o("WAWebCreateChat").createChat(
+              : (yield o(
+                  "WAWebGroupHistoryParticipantJob",
+                ).clearGroupHistoryParticipantStateForGroup(y),
+                yield o("WAWebCreateChat").createChat(
                   { chatId: _ },
                   "groupCreation",
                   babelHelpers.extends(

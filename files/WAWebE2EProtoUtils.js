@@ -4,7 +4,6 @@ __d(
     "WABase64",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WATypeUtils",
     "WAWebAddonCrossWindowUtils",
     "WAWebAddonProcessMsgsUtils",
@@ -36,6 +35,7 @@ __d(
     "WAWebWidFactory",
     "err",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -169,12 +169,12 @@ __d(
       ) {
         var t = o("WAWebAddonProcessMsgsUtils").getParentMsgKey(e),
           n = o("WAWebWidFactory").asUserWidOrThrow(
-            r("WANullthrows")(t.participant, "undefined participant"),
+            r("nullthrows")(t.participant, "undefined participant"),
           ),
           a = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
         return {
           threadMsgId: t.id,
-          threadMsgSenderLid: r("WANullthrows")(a, "undefined lid"),
+          threadMsgSenderLid: r("nullthrows")(a, "undefined lid"),
         };
       }
     }
@@ -454,11 +454,11 @@ __d(
         a = e.type;
       switch (a) {
         case r("WAWebInteractiveResponseMessageType").NATIVE_FLOW: {
-          var i = r("WANullthrows")(n.nativeFlowResponseMessage),
-            l = r("WANullthrows")(
+          var i = r("nullthrows")(n.nativeFlowResponseMessage),
+            l = r("nullthrows")(
               r("WAWebInteractiveMessagesNativeFlowName").cast(i.name),
             ),
-            s = r("WANullthrows")(i.version);
+            s = r("nullthrows")(i.version);
           if (
             s > 1 ||
             ((t == null ? void 0 : t.nativeFlowName) != null &&
@@ -469,7 +469,7 @@ __d(
             name: l,
             version: s,
             type: a,
-            paramsJson: r("WANullthrows")(i.paramsJson),
+            paramsJson: r("nullthrows")(i.paramsJson),
           };
         }
       }

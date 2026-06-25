@@ -315,6 +315,8 @@ __d(
                     ];
                   }
                 else g = "invite";
+              else if (t.reason === o("WAWebGroupType").ADD_REASON.ACCEPT)
+                g = "v4_add_invite_join";
               else if (
                 t.reason === o("WAWebGroupType").ADD_REASON.LINKED_GROUP_JOIN
               )

@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAFilterObjectNullishProps",
     "WALogger",
-    "WANullthrows",
     "WAWebApiBusinessProfile",
     "WAWebApiChat",
     "WAWebApiChatCommon",
@@ -42,6 +41,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C;
@@ -70,7 +70,7 @@ __d(
             var R = e.chatId,
               k = R;
             if (R.isLid()) {
-              r("WANullthrows")(
+              r("nullthrows")(
                 n == null ? void 0 : n.lidOriginType,
                 "Origin type is missing when creating LID chat",
               );
@@ -169,7 +169,7 @@ __d(
               n != null ? babelHelpers.extends({}, n, { id: N }) : { id: N };
             if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(N)) {
               var U, V, H;
-              ((q.accountLid = r("WANullthrows")(
+              ((q.accountLid = r("nullthrows")(
                 e.accountLid,
                 "account lid not provided for one on one chat creation",
               )),

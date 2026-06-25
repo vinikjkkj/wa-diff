@@ -3,6 +3,8 @@ __d(
   [
     "WASmaxMixinGroupExhaustiveError",
     "WASmaxOutStatusPublishStatusNewsletterMediaPublishMixin",
+    "WASmaxOutStatusPublishStatusNewsletterQuestionPublishMixin",
+    "WASmaxOutStatusPublishStatusNewsletterQuestionResharePublishMixin",
     "WASmaxOutStatusPublishStatusNewsletterRevokeMixin",
     "WASmaxOutStatusPublishStatusNewsletterTextMixin",
   ],
@@ -12,6 +14,20 @@ __d(
         return o(
           "WASmaxOutStatusPublishStatusNewsletterRevokeMixin",
         ).mergeStatusNewsletterRevokeMixin(e);
+      if (t.statusNewsletterQuestionPublish)
+        return o(
+          "WASmaxOutStatusPublishStatusNewsletterQuestionPublishMixin",
+        ).mergeStatusNewsletterQuestionPublishMixin(
+          e,
+          t.statusNewsletterQuestionPublish,
+        );
+      if (t.statusNewsletterQuestionResharePublish)
+        return o(
+          "WASmaxOutStatusPublishStatusNewsletterQuestionResharePublishMixin",
+        ).mergeStatusNewsletterQuestionResharePublishMixin(
+          e,
+          t.statusNewsletterQuestionResharePublish,
+        );
       if (t.statusNewsletterText)
         return o(
           "WASmaxOutStatusPublishStatusNewsletterTextMixin",

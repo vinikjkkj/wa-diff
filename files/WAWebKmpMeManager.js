@@ -19,8 +19,7 @@ __d(
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
               return r("WANullthrows")(
-                o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
-                  .device,
+                o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().device,
               );
             } catch (t) {
               throw (

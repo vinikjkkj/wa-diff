@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
@@ -31,6 +30,7 @@ __d(
     "decodeProtobuf",
     "encodeProtobuf",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -384,13 +384,11 @@ __d(
                   ).value,
                   s = e.timestamp,
                   u = t.timestamp,
-                  c = r("WANullthrows")(i.deleteChatAction),
-                  p = r("WANullthrows")(
-                    l == null ? void 0 : l.deleteChatAction,
-                  ),
+                  c = r("nullthrows")(i.deleteChatAction),
+                  p = r("nullthrows")(l == null ? void 0 : l.deleteChatAction),
                   _ = o("WAWebMessageRangeUtils").compareMessageRanges(
-                    r("WANullthrows")(p.messageRange),
-                    r("WANullthrows")(c.messageRange),
+                    r("nullthrows")(p.messageRange),
+                    r("nullthrows")(c.messageRange),
                   );
                 switch (_) {
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
@@ -409,8 +407,8 @@ __d(
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesNotEnclosing: {
                     var f = o("WAWebMessageRangeUtils").mergeMessageRanges(
-                        r("WANullthrows")(p.messageRange),
-                        r("WANullthrows")(c.messageRange),
+                        r("nullthrows")(p.messageRange),
+                        r("nullthrows")(c.messageRange),
                       ),
                       g = { messageRange: f },
                       h = o("encodeProtobuf")

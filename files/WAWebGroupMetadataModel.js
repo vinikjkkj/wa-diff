@@ -438,10 +438,7 @@ __d(
               var e = this,
                 t = yield o(
                   "WAWebInviteV4QueryGroupAction",
-                ).getPendingParticipants(
-                  this.id,
-                  this.isLidAddressingMode === !0,
-                );
+                ).getPendingParticipants(this.id);
               t.forEach(function (t) {
                 e.pendingParticipants.add({
                   id: o("WAWebWidFactory").createUserWidOrThrow(t),

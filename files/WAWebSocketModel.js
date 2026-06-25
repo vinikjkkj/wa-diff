@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAComms",
     "WALogger",
-    "WANullthrows",
     "WAPromiseTimeout",
     "WAWebABPropsCache",
     "WAWebAddMeContactAction",
@@ -54,6 +53,7 @@ __d(
     "err",
     "getErrorSafe",
     "gkx",
+    "nullthrows",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -643,10 +643,7 @@ __d(
               var e = !1;
               this.unset("hasSynced");
               try {
-                yield r("WANullthrows")(yield this.clearAppStatesDeferred)(
-                  U,
-                  V,
-                );
+                yield r("nullthrows")(yield this.clearAppStatesDeferred)(U, V);
               } catch (n) {
                 e = !0;
                 var t = r("getErrorSafe")(n);

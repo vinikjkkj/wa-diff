@@ -122,7 +122,7 @@ __d(
                     .tags("newsletter")
                     .sendLogs("newsletter-bootstrap-my-reactions-failed");
                 })),
-              o("WAWebStatusGatingUtils").isStatusLikesSendEnabled() &&
+              o("WAWebStatusGatingUtils").isChannelStatusLikesSendEnabled() &&
                 o(
                   "WAWebNewsletterGetStatusMyReactionsJob",
                 ).fetchNewsletterStatusMyReactions(),

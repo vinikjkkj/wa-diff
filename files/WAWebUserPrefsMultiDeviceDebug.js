@@ -103,7 +103,7 @@ __d(
       var t;
       if (e == null) {
         r("WAWebUserPrefsStore").set(
-          r("WAWebUserPrefsDebugKeys").DEBUG_ONLY_DEFAULT_BOT_OVERIDE,
+          r("WAWebUserPrefsDebugKeys").DEBUG_ONLY_DEFAULT_BOT_OVERRIDE,
           null,
         );
         return;
@@ -113,14 +113,14 @@ __d(
         (t = o("WAWebWidFactory").createWid(n)) != null &&
           t.isBot() &&
           r("WAWebUserPrefsStore").set(
-            r("WAWebUserPrefsDebugKeys").DEBUG_ONLY_DEFAULT_BOT_OVERIDE,
+            r("WAWebUserPrefsDebugKeys").DEBUG_ONLY_DEFAULT_BOT_OVERRIDE,
             n,
           ));
     }
     function I() {
       return e(
         r("WAWebUserPrefsStore").get(
-          r("WAWebUserPrefsDebugKeys").DEBUG_ONLY_DEFAULT_BOT_OVERIDE,
+          r("WAWebUserPrefsDebugKeys").DEBUG_ONLY_DEFAULT_BOT_OVERRIDE,
         ),
       );
     }

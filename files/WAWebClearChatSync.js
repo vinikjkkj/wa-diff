@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WASyncdConst",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
@@ -38,6 +37,7 @@ __d(
     "decodeProtobuf",
     "encodeProtobuf",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -437,11 +437,11 @@ __d(
                   ).value,
                   s = e.timestamp,
                   u = t.timestamp,
-                  c = r("WANullthrows")(i.clearChatAction),
-                  p = r("WANullthrows")(l == null ? void 0 : l.clearChatAction),
+                  c = r("nullthrows")(i.clearChatAction),
+                  p = r("nullthrows")(l == null ? void 0 : l.clearChatAction),
                   _ = o("WAWebMessageRangeUtils").compareMessageRanges(
-                    r("WANullthrows")(p.messageRange),
-                    r("WANullthrows")(c.messageRange),
+                    r("nullthrows")(p.messageRange),
+                    r("nullthrows")(c.messageRange),
                   );
                 e: {
                   if (
@@ -477,8 +477,8 @@ __d(
                       .RangesNotEnclosing
                   ) {
                     var f = o("WAWebMessageRangeUtils").mergeMessageRanges(
-                        r("WANullthrows")(p.messageRange),
-                        r("WANullthrows")(c.messageRange),
+                        r("nullthrows")(p.messageRange),
+                        r("nullthrows")(c.messageRange),
                       ),
                       g = { messageRange: f },
                       h = o("encodeProtobuf")

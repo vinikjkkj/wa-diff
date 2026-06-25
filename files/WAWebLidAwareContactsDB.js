@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebApiContact",
     "WAWebContactsDbLidMigrationUtils",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
@@ -11,6 +10,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -244,7 +244,7 @@ __d(
             var l = r("compactMap")(t, function (e) {
               return o(
                 "WAWebContactsDbLidMigrationUtils",
-              ).getAlternateRowUpdates(r("WANullthrows")(e.id), e);
+              ).getAlternateRowUpdates(r("nullthrows")(e.id), e);
             });
             return (
               o("WALogger").LOG(
@@ -302,7 +302,7 @@ __d(
             var i = r("compactMap")(e, function (e) {
               return o(
                 "WAWebContactsDbLidMigrationUtils",
-              ).getAlternateRowUpdates(r("WANullthrows")(e.id), e);
+              ).getAlternateRowUpdates(r("nullthrows")(e.id), e);
             });
             return (
               o("WALogger").LOG(

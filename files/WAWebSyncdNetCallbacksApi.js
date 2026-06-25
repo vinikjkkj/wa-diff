@@ -22,6 +22,8 @@ __d(
       s = function (t) {
         var e = o("WAWebStartMediaUploadQpl").startMediaUploadQpl({
           entryPoint: "SyncdNetCallbacks",
+          mediaType: "md-app-state",
+          byteLength: t.byteLength,
         });
         return r("WAWebUploadManager")
           .encryptAndUpload({
@@ -51,81 +53,77 @@ __d(
               handle: a,
             };
           });
-      },
-      u = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a) {
-            var i = t.directPath,
-              l = t.fileEncSha256,
-              s = t.fileSha256,
-              u = t.mediaKey,
-              c = {
-                directPath: i,
-                encFilehash: o("WABase64").encodeB64(l),
-                filehash: o("WABase64").encodeB64(s),
-                mediaKey: o("WABase64").encodeB64(u),
-                type: "md-app-state",
-                userDownloadAttemptCount: 0,
-                downloadOrigin: o("WAWebWamEnumDownloadOriginType")
-                  .DOWNLOAD_ORIGIN_TYPE.MESSAGE_HISTORY_SYNC,
-              },
-              d = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-                entryPoint: "SyncdNetCallbacks",
-              });
-            try {
-              var m = yield o(
-                "WAWebDownloadManager",
-              ).downloadManager.downloadAndMaybeDecrypt(
-                babelHelpers.extends(
-                  { signal: new AbortController().signal, downloadQpl: d },
-                  c,
-                ),
-              );
-              return (d.endSuccess(), m);
-            } catch (i) {
-              d.endFailWithError(
-                "download_failed",
-                r("getErrorSafe")(i).message,
-              );
-              var p = o("WABase64").encodeB64(t.fileEncSha256).length;
-              throw (
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd] download err ",
-                      " size=",
-                      " hashLen=",
-                      " ",
-                      "",
-                    ])),
-                  n,
-                  t.fileSizeBytes,
-                  p,
-                  a,
-                ),
-                i instanceof o("WAWebMmsClientErrors").MediaNotFoundError
-                  ? (o(
-                      "WAWebSyncdUploadFatalErrorMetric",
-                    ).uploadFatalErrorMetric(
-                      n === "patch"
-                        ? o("WAWebWamEnumMdSyncdFatalErrorCode")
-                            .MD_SYNCD_FATAL_ERROR_CODE.EXTERNAL_PATCH_EXPIRED
-                        : o("WAWebWamEnumMdSyncdFatalErrorCode")
-                            .MD_SYNCD_FATAL_ERROR_CODE.SNAPSHOT_EXPIRED,
-                      a,
-                    ),
-                    new (o("WAWebSyncdError").SyncdFatalError)(
-                      "external patch expired",
-                    ))
-                  : i
-              );
-            }
-          },
-        );
-        return function (n, r, o) {
-          return t.apply(this, arguments);
-        };
-      })();
+      };
+    function u(e, t, n) {
+      return c.apply(this, arguments);
+    }
+    function c() {
+      return (
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i = t.directPath,
+            l = t.fileEncSha256,
+            s = t.fileSha256,
+            u = t.mediaKey,
+            c = {
+              directPath: i,
+              encFilehash: o("WABase64").encodeB64(l),
+              filehash: o("WABase64").encodeB64(s),
+              mediaKey: o("WABase64").encodeB64(u),
+              type: "md-app-state",
+              userDownloadAttemptCount: 0,
+              downloadOrigin: o("WAWebWamEnumDownloadOriginType")
+                .DOWNLOAD_ORIGIN_TYPE.MESSAGE_HISTORY_SYNC,
+            },
+            d = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+              entryPoint: "SyncdNetCallbacks",
+            });
+          try {
+            var m = yield o(
+              "WAWebDownloadManager",
+            ).downloadManager.downloadAndMaybeDecrypt(
+              babelHelpers.extends(
+                { signal: new AbortController().signal, downloadQpl: d },
+                c,
+              ),
+            );
+            return (d.endSuccess(), m);
+          } catch (i) {
+            d.endFailWithError("download_failed", r("getErrorSafe")(i).message);
+            var p = o("WABase64").encodeB64(t.fileEncSha256).length;
+            throw (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[syncd] download err ",
+                    " size=",
+                    " hashLen=",
+                    " ",
+                    "",
+                  ])),
+                n,
+                t.fileSizeBytes,
+                p,
+                a,
+              ),
+              i instanceof o("WAWebMmsClientErrors").MediaNotFoundError
+                ? (o("WAWebSyncdUploadFatalErrorMetric").uploadFatalErrorMetric(
+                    n === "patch"
+                      ? o("WAWebWamEnumMdSyncdFatalErrorCode")
+                          .MD_SYNCD_FATAL_ERROR_CODE.EXTERNAL_PATCH_EXPIRED
+                      : o("WAWebWamEnumMdSyncdFatalErrorCode")
+                          .MD_SYNCD_FATAL_ERROR_CODE.SNAPSHOT_EXPIRED,
+                    a,
+                  ),
+                  new (o("WAWebSyncdError").SyncdFatalError)(
+                    "external patch expired",
+                  ))
+                : i
+            );
+          }
+        })),
+        c.apply(this, arguments)
+      );
+    }
     ((l.uploadSyncExternalPatch = s), (l.downloadSyncBlob = u));
   },
   98,

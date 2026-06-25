@@ -47,15 +47,11 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t) {
-      var n = o("WAWebUserPrefsMeUser")
-          .getMePnUserOrThrow_DO_NOT_USE()
-          .toString(),
-        r = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
-        a = t ? r : n;
+    function d(e) {
+      var t = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString();
       return o("WAWebSchemaGroupInviteV4")
         .getGroupInviteV4Table()
-        .equals(["from", "groupId"], [a, e.toString()])
+        .equals(["from", "groupId"], [t, e.toString()])
         .then(function (e) {
           return e.filter(function (e) {
             return !e.expired && o("WATimeUtils").unixTime() <= e.expiration;
@@ -70,7 +66,7 @@ __d(
     ((l.persistGroupInviteV4Msg = e),
       (l.persistGroupInviteV4Msgs = s),
       (l.revokeGroupInvites = u),
-      (l.getPendingParticipants = d));
+      (l.getPendingParticipantsDB = d));
   },
   98,
 );

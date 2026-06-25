@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WASyncdConst",
     "WATimeUtils",
     "WAWebAndroidUnsupportedActionsSync",
@@ -29,6 +28,7 @@ __d(
     "compactMap",
     "decodeProtobuf",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -310,7 +310,7 @@ __d(
                           return e.pin != null && e.pin > 0;
                         })
                         .map(function (e) {
-                          return [e.id, r("WANullthrows")(e.pin)];
+                          return [e.id, r("nullthrows")(e.pin)];
                         });
                     }),
                   a = o("WAWebSyncdDb")

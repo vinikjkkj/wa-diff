@@ -32,11 +32,13 @@ __d(
     "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebLogger",
     "WAWebMaybeInsertDebugPlaceholderWorker",
+    "WAWebMediaHostsWorker",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessageProcessorCacheWorker",
     "WAWebMobilePlatforms",
     "WAWebModelStorageInitialize",
     "WAWebMsgProcessReporterWorker",
+    "WAWebNetworkStatusWorker",
     "WAWebNoop",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPersistedJobManagerWorkerBridge",
@@ -177,6 +179,11 @@ __d(
                 }
                 return t;
               })(),
+              encryptAndUpload: function () {
+                throw r("err")(
+                  "V3-5e TODO: worker-side encryptAndUpload handler not yet implemented",
+                );
+              },
             },
           },
           {
@@ -238,6 +245,28 @@ __d(
               },
             },
           },
+          {
+            namespace: "mediaHostsSync",
+            handlers: {
+              snapshot: function (t) {
+                var e = t.data;
+                o("WAWebMediaHostsWorker")
+                  .getMediaHostsWorker()
+                  .acceptSnapshot(e);
+              },
+            },
+          },
+          {
+            namespace: "networkStatusSync",
+            handlers: {
+              updateNetworkStatus: function (t) {
+                var e = t.online;
+                o("WAWebNetworkStatusWorker").networkStatusWorker.acceptUpdate(
+                  e,
+                );
+              },
+            },
+          },
         ]);
         (o("WAWebBackendWorkerBridge").attachBridgeToPortal(i, m(), [
           "abPropsExposure",
@@ -249,6 +278,7 @@ __d(
           "mainthread_crashlog",
           "mainthread_fblogger",
           "mainthread_jobmanager",
+          "mainthread_mediaHostsSync",
           "mainthread_messagecache",
           "mainthread_msgreporter",
           "mainthread_identitychange",
@@ -257,6 +287,7 @@ __d(
           o("WAWebBackendApi").setApi(i),
           (t = o("WAWebCrashlogWorker").createSendLogsWorker(i)),
           (a = o("WAWebFBLoggerWorker").createLogToFBLoggerWorker(i)),
+          o("WAWebMediaHostsWorker").createAndSetMediaHostsWorker(i),
           o("WAWebHandleSingleMsgWorkerCompatible").setInstance(
             o("WAWebHandleSingleMsgWorker").createHandleSingleMsgWorker(i),
           ),

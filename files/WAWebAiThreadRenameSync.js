@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WATimeUtils",
     "WAWebAiThreadCreationUtils",
@@ -22,6 +21,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "isStringNotNullAndNotWhitespaceOnly",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -180,16 +180,16 @@ __d(
               function* (e, t, a) {
                 var i,
                   l,
-                  s = r("WANullthrows")(
+                  s = r("nullthrows")(
                     (i = a.aiThreadRenameAction) == null ? void 0 : i.newTitle,
                   ),
                   c = o("WATimeUtils").castToUnixTime(
-                    r("WANullthrows")(t.lastMessageTimestamp),
+                    r("nullthrows")(t.lastMessageTimestamp),
                   ),
                   d = o("WATimeUtils").castToUnixTime(
-                    r("WANullthrows")(t.creationTimestamp),
+                    r("nullthrows")(t.creationTimestamp),
                   ),
-                  m = r("WANullthrows")(
+                  m = r("nullthrows")(
                     (l = t.aiThreadInfo) == null ? void 0 : l.aiThreadType,
                   ),
                   p = {

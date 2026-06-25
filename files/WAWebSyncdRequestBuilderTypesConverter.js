@@ -1,10 +1,10 @@
 __d(
   "WAWebSyncdRequestBuilderTypesConverter",
   [
-    "WANullthrows",
     "WAWebProtobufSyncAction.pb",
     "decodeProtobuf",
     "encodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,7 +17,7 @@ __d(
           a = o("encodeProtobuf")
             .encodeProtobuf(
               o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-              r("WANullthrows")(n),
+              r("nullthrows")(n),
             )
             .readBuffer();
         return {

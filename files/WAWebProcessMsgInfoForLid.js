@@ -173,7 +173,7 @@ __d(
                 (o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "maybeProcesMsgInfoForLid: converting status message from ",
+                      "maybeProcessMsgInfoForLid: converting status message from ",
                       " to ",
                       "",
                     ])),
@@ -205,7 +205,7 @@ __d(
               ) {
                 if (i.type !== "peer-broadcast")
                   throw r("err")(
-                    "maybeProcesMsgInfoForLid: mappings type is not the expected peer-broadcast",
+                    "maybeProcessMsgInfoForLid: mappings type is not the expected peer-broadcast",
                   );
                 i.type;
                 var _ = i.mappings.map(
@@ -235,7 +235,7 @@ __d(
               } else {
                 if (i.type !== "not-peer-broadcast")
                   throw r("err")(
-                    "maybeProcesMsgInfoForLid: mappings type is not the expected not-peer-broadcast",
+                    "maybeProcessMsgInfoForLid: mappings type is not the expected not-peer-broadcast",
                   );
                 i.type;
                 var f =
@@ -262,7 +262,7 @@ __d(
         g.apply(this, arguments)
       );
     }
-    l.maybeProcesMsgInfoForLid = f;
+    l.maybeProcessMsgInfoForLid = f;
   },
   98,
 );

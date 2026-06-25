@@ -4,13 +4,13 @@ __d(
     "invariant",
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebDBMsgUtils",
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaActiveMessageRanges",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -92,14 +92,14 @@ __d(
         ? {
             action: o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
               .Archive,
-            actionValue: r("WANullthrows")(t.archiveChatAction),
+            actionValue: r("nullthrows")(t.archiveChatAction),
           }
         : e ===
             o("WAWebSchemaActiveMessageRanges").ActiveRangeAction.MarkChatAsRead
           ? {
               action: o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
                 .MarkChatAsRead,
-              actionValue: r("WANullthrows")(t.markChatAsReadAction),
+              actionValue: r("nullthrows")(t.markChatAsReadAction),
             }
           : e ===
               o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
@@ -107,7 +107,7 @@ __d(
             ? {
                 action: o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
                   .ClearChatKeepStarredKeepMedia,
-                actionValue: r("WANullthrows")(t.clearChatAction),
+                actionValue: r("nullthrows")(t.clearChatAction),
               }
             : e ===
                 o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
@@ -115,7 +115,7 @@ __d(
               ? {
                   action: o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
                     .ClearChatKeepStarredDeleteMedia,
-                  actionValue: r("WANullthrows")(t.clearChatAction),
+                  actionValue: r("nullthrows")(t.clearChatAction),
                 }
               : e ===
                   o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
@@ -123,7 +123,7 @@ __d(
                 ? {
                     action: o("WAWebSchemaActiveMessageRanges")
                       .ActiveRangeAction.ClearChatDeleteStarredKeepMedia,
-                    actionValue: r("WANullthrows")(t.clearChatAction),
+                    actionValue: r("nullthrows")(t.clearChatAction),
                   }
                 : e ===
                     o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
@@ -131,7 +131,7 @@ __d(
                   ? {
                       action: o("WAWebSchemaActiveMessageRanges")
                         .ActiveRangeAction.ClearChatDeleteStarredDeleteMedia,
-                      actionValue: r("WANullthrows")(t.clearChatAction),
+                      actionValue: r("nullthrows")(t.clearChatAction),
                     }
                   : e ===
                       o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
@@ -139,7 +139,7 @@ __d(
                     ? {
                         action: o("WAWebSchemaActiveMessageRanges")
                           .ActiveRangeAction.DeleteChatDeleteMedia,
-                        actionValue: r("WANullthrows")(t.deleteChatAction),
+                        actionValue: r("nullthrows")(t.deleteChatAction),
                       }
                     : e ===
                         o("WAWebSchemaActiveMessageRanges").ActiveRangeAction
@@ -147,7 +147,7 @@ __d(
                       ? {
                           action: o("WAWebSchemaActiveMessageRanges")
                             .ActiveRangeAction.DeleteChatKeepMedia,
-                          actionValue: r("WANullthrows")(t.deleteChatAction),
+                          actionValue: r("nullthrows")(t.deleteChatAction),
                         }
                       : e ===
                           o("WAWebSchemaActiveMessageRanges").ActiveRangeAction

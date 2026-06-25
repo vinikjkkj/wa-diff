@@ -64,7 +64,7 @@ __d(
                       .LidMigrationSplitThreadMismatch ||
                   e ===
                     o("WAWebLogoutReasonConstants").LogoutReason
-                      .LidMigrationNoLidAvailiable ||
+                      .LidMigrationNoLidAvailable ||
                   e ===
                     o("WAWebLogoutReasonConstants").LogoutReason
                       .LidMigrationPrimaryMappingsObsolete ||

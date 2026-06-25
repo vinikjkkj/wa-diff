@@ -4,7 +4,6 @@ __d(
     "invariant",
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWeb-dexie",
     "WAWebAppTracker",
     "WAWebDexieCastTypes",
@@ -13,6 +12,7 @@ __d(
     "WAWebIdbHelpers",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -1385,8 +1385,8 @@ __d(
               this.db,
               n,
               e,
-              r("WANullthrows")(this.tableColumns.get(t)),
-              r("WANullthrows")(this.tableEncryptedColumns.get(t)),
+              r("nullthrows")(this.tableColumns.get(t)),
+              r("nullthrows")(this.tableEncryptedColumns.get(t)),
               {
                 shouldUseDbMsgEncKeyForEncryptedCol: i,
                 packColumns: this.packColumns,

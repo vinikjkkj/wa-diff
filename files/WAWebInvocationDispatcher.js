@@ -3,11 +3,11 @@ __d(
   [
     "invariant",
     "Promise",
-    "WANullthrows",
     "WAWebBrokerProtocolInvocation",
     "WAWebBrokerProtocolResponse",
     "WAWebInvocationId",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -23,7 +23,7 @@ __d(
                 var a = n.invocationId,
                   i = n.result;
                 if (e.$2.has(a)) {
-                  var l = r("WANullthrows")(e.$2.get(a)),
+                  var l = r("nullthrows")(e.$2.get(a)),
                     s = l.resolve;
                   (s(i), e.$2.delete(a));
                 }
@@ -36,7 +36,7 @@ __d(
             var e = this;
             ((this.$1 = t),
               t.waitForConnection().then(function () {
-                var n = r("WANullthrows")(
+                var n = r("nullthrows")(
                   t.getPort(),
                   "Port obtained from ConnectionManager after connection",
                 );
@@ -50,7 +50,7 @@ __d(
                 (this.$1 || s(0, 56298),
                   yield this.$1.waitForConnection(),
                   this.$1 || s(0, 56298));
-                var l = r("WANullthrows")(
+                var l = r("nullthrows")(
                     this.$1.getPort(),
                     "Port obtained from ConnectionManager after connection",
                   ),

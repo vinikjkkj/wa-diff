@@ -541,6 +541,8 @@ __d(
       AD_CENTER_IG_PAGE_LOAD_ELIGIBILITY: "ad_center_ig_page_load_eligibility",
       STALE_IG_ACTOR_HEAL_PBIA_TO_REAL: "stale_ig_actor_heal_pbia_to_real",
       STALE_IG_ACTOR_HEAL_REAL_TO_REAL: "stale_ig_actor_heal_real_to_real",
+      STALE_IG_ACTOR_OUT_OF_SYNC_DETECTED:
+        "stale_ig_actor_out_of_sync_detected",
       BOOSTED_ITEM_PICKER_NO_IG_TAB_NON_ADMIN_IMPRESSION:
         "boosted_item_picker_no_ig_tab_non_admin_impression",
       BOOSTED_ITEM_PICKER_NO_IG_TAB_ADMIN_IMPRESSION:

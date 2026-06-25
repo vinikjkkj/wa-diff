@@ -8,9 +8,13 @@ __d(
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+    var e;
+    function s(e, t) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r = o("WAWebPriorLogs").WAWebLogCategory.cast(t);
           if (r != null) return o("WAWebPriorLogs").writePriorLog(r, n);
           o("WALogger").WARN(
@@ -21,17 +25,16 @@ __d(
               ])),
             t,
           );
-        });
-        return function (n, r) {
-          return t.apply(this, arguments);
-        };
-      })();
-    function u(e) {
-      return c.apply(this, arguments);
+        })),
+        u.apply(this, arguments)
+      );
     }
-    function c() {
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [].concat(
               Array.from(e ? [e] : o("WASyncdConst").CollectionName.members()),
               [""],
@@ -41,10 +44,10 @@ __d(
             });
           return o("WAWebPriorLogs").printPriorLogs(n);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    ((l.writeSyncdLogImpl = s), (l.printSyncdLogs = u));
+    ((l.writeSyncdLogImpl = s), (l.printSyncdLogs = c));
   },
   98,
 );

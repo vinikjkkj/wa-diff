@@ -15,6 +15,7 @@ __d(
     "WAWebDeleteChatSync",
     "WAWebEditLabelAssociationBridge",
     "WAWebFtsClient",
+    "WAWebGroupHistoryParticipantJob",
     "WAWebLabelJidSync",
     "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
@@ -265,6 +266,7 @@ __d(
                 [
                   "message",
                   "chat",
+                  "group-history-participant",
                   "label-association",
                   "message-association",
                   "group-metadata",
@@ -292,6 +294,11 @@ __d(
                     o("WAWebSchemaGroupMetadata")
                       .getGroupMetadataTable()
                       .remove(e.toString()),
+                    e.isGroup()
+                      ? o(
+                          "WAWebGroupHistoryParticipantJob",
+                        ).clearGroupHistoryParticipantStateForGroup(e)
+                      : (s || (s = n("Promise"))).resolve(),
                     c(e),
                     m({ chatId: e, tcToken: i, tcTokenTimestamp: l }),
                     b(

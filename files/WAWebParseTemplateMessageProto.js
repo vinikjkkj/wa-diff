@@ -1,7 +1,6 @@
 __d(
   "WAWebParseTemplateMessageProto",
   [
-    "WANullthrows",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebE2EProtoUtils",
     "WAWebMmSignalSharingContextInfo",
@@ -12,6 +11,7 @@ __d(
     "WAWebParseInteractiveMessageProto",
     "WAWebParseLocationMessageProto",
     "WAWebParseVideoMessageProto",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -30,7 +30,7 @@ __d(
         var d =
             (t = u.hydratedTemplate) != null
               ? t
-              : r("WANullthrows")(u.hydratedFourRowTemplate),
+              : r("nullthrows")(u.hydratedFourRowTemplate),
           m = d.documentMessage,
           p = d.hydratedButtons,
           _ = d.hydratedContentText,

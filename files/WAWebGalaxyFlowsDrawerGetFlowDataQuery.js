@@ -28,7 +28,7 @@ __d(
         ((u = t.flowMetadata) == null ? void 0 : u.data_api_version) != null;
       if (o("WAWebGalaxyFlowQPLLoggerUtils").isGalaxyFlowSanctioned()) {
         var _ = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors.SANCTIONED,
+          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors.SANCTIONED,
         );
         return (_.stack, (s || (s = n("Promise"))).reject(_));
       }
@@ -99,7 +99,7 @@ __d(
                       var n = new (o(
                         "WAWebGalaxyFlowsError",
                       ).WaeGalaxyFlowError)(
-                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                           .METADATA_EMPTY_RESPONSE,
                       );
                       throw (n.stack, n);
@@ -123,7 +123,7 @@ __d(
                         var r = new (o(
                           "WAWebGalaxyFlowsError",
                         ).WaeGalaxyFlowError)(
-                          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                             .METADATA_INVALID_PUBLIC_KEY,
                         );
                         throw (r.stack, r);
@@ -153,7 +153,7 @@ __d(
                                     "WAWebGalaxyFlowsError",
                                   ).WaeGalaxyFlowError)(
                                     o("WAWebGalaxyFlowsError")
-                                      .WaeGalaxyFlowMetdataErrors
+                                      .WaeGalaxyFlowMetadataErrors
                                       .PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION,
                                   );
                                   throw (e.stack, e);
@@ -180,7 +180,7 @@ __d(
                       var s = new (o(
                         "WAWebGalaxyFlowsError",
                       ).WaeGalaxyFlowError)(
-                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                           .METADATA_INVALID_EXTENSIONS_ID,
                       );
                       throw (s.stack, s);
@@ -209,7 +209,7 @@ __d(
                   .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
               );
               var n = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-                o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                   .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
               );
               throw (n.stack, n);

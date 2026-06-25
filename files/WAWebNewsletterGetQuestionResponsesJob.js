@@ -26,61 +26,70 @@ __d(
               "WAWebNewsletterGetQuestionResponsesQuery",
             ).getQuestionResponsesQuery(e);
             return n.questionResponsesQuestionResponse.map(function (e) {
-              return s(e, t, n.from, n.questionResponsesServerId);
+              return s({
+                fetchedResponse: e,
+                newsletterJid: n.from,
+                questionId: t,
+                questionServerId: n.questionResponsesServerId,
+              });
             });
           }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    function s(e, t, n, a) {
-      var i,
-        l,
-        s = o("decodeProtobuf").decodeProtobuf(
+    function s(e) {
+      var t,
+        n,
+        a = e.fetchedResponse,
+        i = e.newsletterJid,
+        l = e.questionId,
+        s = e.questionServerId,
+        u = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsE2E.pb").MessageSpec,
-          e.messageNewsletterQuestionResponseMixin.plaintextPayloadMixin
+          a.messageNewsletterQuestionResponseMixin.plaintextPayloadMixin
             .elementValue,
         ),
-        u = o("WAWebJidToWid").jidWithTypeToWid({
+        c = o("WAWebJidToWid").jidWithTypeToWid({
           jidType: "newsletter",
-          newsletterJid: n,
+          newsletterJid: i,
         }),
-        c = new (r("WAWebMsgKey"))({ remote: u, fromMe: !1, id: e.messageId }),
-        d =
-          s == null || (i = s.questionResponseMessage) == null
+        d = new (r("WAWebMsgKey"))({ remote: c, fromMe: !1, id: a.messageId }),
+        m =
+          u == null || (t = u.questionResponseMessage) == null
             ? void 0
-            : i.text;
-      if (d == null)
-        throw r("err")("Question response message with undefined body");
-      if (!d) throw r("err")("Question response message with empty body");
-      var m = e.messageNewsletterQuestionResponseMixin.metaResponseServerId;
+            : t.text;
       if (m == null)
+        throw r("err")("Question response message with undefined body");
+      if (!m) throw r("err")("Question response message with empty body");
+      var p = a.messageNewsletterQuestionResponseMixin.metaResponseServerId;
+      if (p == null)
         throw r("err")("Question response received without response server id");
       return {
-        id: c,
-        parentMsgKey: t,
+        id: d,
+        parentMsgKey: l,
         type: o("WAWebMsgType").MSG_TYPE.NEWSLETTER_QUESTION_RESPONSE,
         kind: o("WAWebMsgType").MsgKind.NewsletterQuestionResponse,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-        t: e.messageT,
-        from: u,
+        t: a.messageT,
+        from: c,
         to: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         isNewMsg: !1,
         ack: o("WAWebAck").ACK.SENT,
-        body: d,
+        body: m,
         questionResponseInfo: {
-          responseServerId: m,
-          senderNotifyName: e.senderNotifyName,
-          senderPictureDirectPath: e.senderPictureDirectPath,
+          responseServerId: p,
+          senderNotifyName: a.senderNotifyName,
+          senderPictureDirectPath: a.senderPictureDirectPath,
           replied:
-            (l = e.questionResponseFlagsMixin) == null
+            (n = a.questionResponseFlagsMixin) == null
               ? void 0
-              : l.hasFlagsRepliedFlagMixin,
+              : n.hasFlagsRepliedFlagMixin,
         },
-        parentServerId: a,
+        parentServerId: s,
         author:
-          e.senderLid != null
-            ? o("WAWebWidFactory").createUserWidOrThrow(e.senderLid)
+          a.senderLid != null
+            ? o("WAWebWidFactory").createUserWidOrThrow(a.senderLid)
             : void 0,
       };
     }

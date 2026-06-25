@@ -21,7 +21,7 @@ __d(
         MissingScreenLockSalt: "missing_screen_lock_salt",
         AccountLocked: "account_locked",
         LidMigrationSplitThreadMismatch: "lid_migration_split_thread_mismatch",
-        LidMigrationNoLidAvailiable: "lid_migration_no_lid_available",
+        LidMigrationNoLidAvailable: "lid_migration_no_lid_available",
         LidMigrationPrimaryMappingsObsolete:
           "lid_migration_primary_mappings_obsolete",
         LidMigrationPeerMappingsNotReceived:

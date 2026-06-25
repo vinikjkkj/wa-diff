@@ -43,6 +43,7 @@ __d(
     "WAWebPttDailyUtils",
     "WAWebPttWamEvent",
     "WAWebRecordingSessionStateEnum",
+    "WAWebStartMediaUploadQpl",
     "WAWebTimeSpentLoggingExternal",
     "WAWebUploadStreamerRefactorGatingUtils",
     "WAWebWamEnumPttResultType",
@@ -166,13 +167,23 @@ __d(
                     "Can't start recording from state " + this.recordingState,
                   );
               }
-              var a = r("WAWebCreateMediaUploadMetrics")(
-                  o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
-                  r("WAWebMediaGetUploadOriginForChat")(this._chat),
-                  0,
-                  !1,
-                  !1,
-                ),
+              this._uploadQpl = o(
+                "WAWebStartMediaUploadQpl",
+              ).startMediaUploadQpl({
+                entryPoint: "PttStreamingUpload",
+                mediaType: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
+                isStreamingUpload: !0,
+              });
+              var a = r("WAWebCreateMediaUploadMetrics")({
+                  type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
+                  uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
+                    this._chat,
+                  ),
+                  userUploadAttemptCount: 0,
+                  forwardedFromWeb: !1,
+                  isViewOnce: !1,
+                  uploadQpl: this._uploadQpl,
+                }),
                 i = a.handleEncryptionStart,
                 l = a.handleEncryptionSuccess,
                 s = a.handleSendMessageStart,
@@ -183,138 +194,160 @@ __d(
                 y = a.handleUploadHostFound,
                 C = a.handleUploadProgress,
                 b = a.handleUploadSuccess;
-              if (
-                ((this._handleSendMessageStart = s),
-                o(
-                  "WAWebUploadStreamerRefactorGatingUtils",
-                ).isUploadStreamerRefactorEnabled())
-              ) {
-                var v = r("WAWebCryptoRandomMediaKey")();
-                this._earlyUploadPromise = new (M || (M = n("Promise")))(
-                  function (e) {
-                    t._resolveEarlyUploadPromise = e;
-                  },
-                );
-                var S = new AbortController();
-                this._uploaderAbortController = S;
-                var R = yield o("WAMediaCalculateFilehash").getRandomFilehash(),
-                  L = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)({
-                    encFilehash: R,
-                    token: R,
-                    type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
-                    signal: S.signal,
-                    byteOffset: 0,
-                    onUploadHostFound: y,
-                    onUploadAttemptSuccess: g,
-                    onUploadAttemptError: f,
-                    onProgress: function (t, n) {
-                      C(t.loaded + n);
+              this._handleSendMessageStart = s;
+              try {
+                if (
+                  o(
+                    "WAWebUploadStreamerRefactorGatingUtils",
+                  ).isUploadStreamerRefactorEnabled()
+                ) {
+                  var v = r("WAWebCryptoRandomMediaKey")();
+                  this._earlyUploadPromise = new (M || (M = n("Promise")))(
+                    function (e) {
+                      t._resolveEarlyUploadPromise = e;
                     },
-                    onStreamUploadStart: u,
-                    mediaId: o(
-                      "WAWebWamMediaMetricUtils",
-                    ).generateMediaEventId(),
-                  });
-                (L.startUploadFromClient(),
-                  (this._encryptor = yield o(
-                    "WAWebPttComposerStreamingEncryptor",
-                  ).createStreamingEncryptor({
-                    mediaKey: v.key,
-                    onChunkEncrypted: (function () {
-                      var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (n) {
-                          try {
-                            yield L.uploadChunkFromClient(n);
-                          } catch (n) {
-                            var a = r("getErrorSafe")(n);
-                            if (
-                              (t._resolveEarlyUploadPromise == null ||
-                                t._resolveEarlyUploadPromise(null),
-                              (t._hasStreamingUploadFailed = !0),
-                              a.name === o("WAAbortError").ABORT_ERROR)
-                            )
-                              return;
-                            (o("WALogger")
-                              .ERROR(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "onChunkEncrypted: ptt-streaming-upload-error",
-                                  ])),
+                  );
+                  var S = new AbortController();
+                  this._uploaderAbortController = S;
+                  var R = yield o(
+                      "WAMediaCalculateFilehash",
+                    ).getRandomFilehash(),
+                    L = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)({
+                      encFilehash: R,
+                      token: R,
+                      type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
+                      signal: S.signal,
+                      byteOffset: 0,
+                      onUploadHostFound: y,
+                      onUploadAttemptSuccess: g,
+                      onUploadAttemptError: f,
+                      onProgress: function (t, n) {
+                        C(t.loaded + n);
+                      },
+                      onStreamUploadStart: u,
+                      mediaId: o(
+                        "WAWebWamMediaMetricUtils",
+                      ).generateMediaEventId(),
+                    });
+                  (L.startUploadFromClient(),
+                    (this._encryptor = yield o(
+                      "WAWebPttComposerStreamingEncryptor",
+                    ).createStreamingEncryptor({
+                      mediaKey: v.key,
+                      onChunkEncrypted: (function () {
+                        var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* (n) {
+                            try {
+                              yield L.uploadChunkFromClient(n);
+                            } catch (n) {
+                              var a = r("getErrorSafe")(n);
+                              if (
+                                (t._resolveEarlyUploadPromise == null ||
+                                  t._resolveEarlyUploadPromise(null),
+                                (t._hasStreamingUploadFailed = !0),
+                                a.name === o("WAAbortError").ABORT_ERROR)
                               )
-                              .catching(a),
-                              o("WALogger")
+                                return;
+                              (o("WALogger")
                                 .ERROR(
-                                  c ||
-                                    (c =
+                                  e ||
+                                    (e =
                                       babelHelpers.taggedTemplateLiteralLoose([
-                                        "PTT Streaming Upload cancelled due to a problem uploading",
+                                        "onChunkEncrypted: ptt-streaming-upload-error",
                                       ])),
                                 )
-                                .sendLogs("ptt-streaming-upload-failed"),
-                              h(a));
-                          }
-                        },
-                      );
-                      function i(e) {
-                        return a.apply(this, arguments);
-                      }
-                      return i;
-                    })(),
-                    onEncryptionCompleted: (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e, n) {
-                          l();
-                          try {
-                            yield L.uploadChunkFromClient(new Uint8Array(e));
-                            var a = yield L.finalizeUploadFromClient(n);
-                            (t._resolveEarlyUploadPromise == null ||
-                              t._resolveEarlyUploadPromise({
-                                directPath: a.directPath,
-                                mediaKey: v.key,
-                                mediaKeyTimestamp: v.timestamp,
-                                encFilehash: n,
-                                url: a.url,
-                              }),
-                              b());
-                          } catch (e) {
-                            var i = r("getErrorSafe")(e);
-                            if (
+                                .catching(a),
+                                o("WALogger")
+                                  .ERROR(
+                                    c ||
+                                      (c =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "PTT Streaming Upload cancelled due to a problem uploading",
+                                          ],
+                                        )),
+                                  )
+                                  .sendLogs("ptt-streaming-upload-failed"),
+                                h(a));
+                            }
+                          },
+                        );
+                        function i(e) {
+                          return a.apply(this, arguments);
+                        }
+                        return i;
+                      })(),
+                      onEncryptionCompleted: (function () {
+                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* (e, n) {
+                            l();
+                            try {
+                              yield L.uploadChunkFromClient(new Uint8Array(e));
+                              var a = yield L.finalizeUploadFromClient(n);
                               (t._resolveEarlyUploadPromise == null ||
-                                t._resolveEarlyUploadPromise(null),
-                              (t._hasStreamingUploadFailed = !0),
-                              i.name === o("WAAbortError").ABORT_ERROR)
-                            )
-                              return;
-                            (o("WALogger")
-                              .ERROR(
-                                d ||
-                                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                                    "onEncryptionCompleted: ptt-streaming-upload-error",
-                                  ])),
+                                t._resolveEarlyUploadPromise({
+                                  directPath: a.directPath,
+                                  mediaKey: v.key,
+                                  mediaKeyTimestamp: v.timestamp,
+                                  encFilehash: n,
+                                  url: a.url,
+                                }),
+                                b());
+                            } catch (e) {
+                              var i = r("getErrorSafe")(e);
+                              if (
+                                (t._resolveEarlyUploadPromise == null ||
+                                  t._resolveEarlyUploadPromise(null),
+                                (t._hasStreamingUploadFailed = !0),
+                                i.name === o("WAAbortError").ABORT_ERROR)
                               )
-                              .catching(i),
-                              o("WALogger")
+                                return;
+                              (o("WALogger")
                                 .ERROR(
-                                  m ||
-                                    (m =
+                                  d ||
+                                    (d =
                                       babelHelpers.taggedTemplateLiteralLoose([
-                                        "PTT Streaming Upload cancelled due to a problem when finalizing upload",
+                                        "onEncryptionCompleted: ptt-streaming-upload-error",
                                       ])),
                                 )
-                                .sendLogs("ptt-streaming-upload-failed"),
-                              h(i));
-                          }
-                        },
-                      );
-                      function a(t, n) {
-                        return e.apply(this, arguments);
-                      }
-                      return a;
-                    })(),
-                  })));
+                                .catching(i),
+                                o("WALogger")
+                                  .ERROR(
+                                    m ||
+                                      (m =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "PTT Streaming Upload cancelled due to a problem when finalizing upload",
+                                          ],
+                                        )),
+                                  )
+                                  .sendLogs("ptt-streaming-upload-failed"),
+                                h(i));
+                            }
+                          },
+                        );
+                        function a(t, n) {
+                          return e.apply(this, arguments);
+                        }
+                        return a;
+                      })(),
+                    })));
+                }
+              } catch (e) {
+                var E;
+                throw (
+                  (E = this._uploadQpl) == null ||
+                    E.endFailWithError(
+                      "upload_setup_failed",
+                      r("getErrorSafe")(e).message,
+                    ),
+                  (this._uploadQpl = null),
+                  e
+                );
               }
               try {
-                var E = !0;
+                var k,
+                  I = !0;
                 this._recorder = new (r("WAPttComposerRecorder"))({
                   createStream: G,
                   waveformSampleRate: this.getWaveformSampleRate(),
@@ -332,7 +365,7 @@ __d(
                     )
                       try {
                         var e;
-                        (E && (i(), (E = !1)),
+                        (I && (i(), (I = !1)),
                           (e = t._encryptor) == null || e.encryptChunk(n, r));
                       } catch (e) {
                         (o("WALogger").ERROR(
@@ -347,8 +380,8 @@ __d(
                       }
                   },
                 });
-                var k = yield this._recorder.start();
-                if (k)
+                var T = yield this._recorder.start();
+                if (T)
                   return (
                     (this.recordingState = o(
                       "WAWebRecordingSessionStateEnum",
@@ -367,15 +400,28 @@ __d(
                     ),
                     !0
                   );
+                ((k = this._uploadQpl) == null ||
+                  k.endFailWithError(
+                    "recording_failed",
+                    "recorder_did_not_start",
+                  ),
+                  (this._uploadQpl = null));
               } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "PTT Recording Error",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e));
+                var D;
+                ((D = this._uploadQpl) == null ||
+                  D.endFailWithError(
+                    "recording_failed",
+                    r("getErrorSafe")(e).message,
+                  ),
+                  (this._uploadQpl = null),
+                  o("WALogger")
+                    .ERROR(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "PTT Recording Error",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e)));
               }
               return (
                 this._endSession(),
@@ -427,6 +473,24 @@ __d(
           (i._endSession = function () {
             var e;
             (e = this._recorder) == null || e.stop();
+          }),
+          (i._endUploadQpl = function (t) {
+            if (this._uploadQpl != null) {
+              var e = this._uploadQpl;
+              ((this._uploadQpl = null),
+                t === F.SENT
+                  ? this._hasStreamingUploadFailed
+                    ? e.endFailWithError(
+                        "upload_failed",
+                        "streaming_upload_failed",
+                      )
+                    : e.endSuccess()
+                  : t === F.PTT_TOO_SHORT
+                    ? e.endFailWithError("upload_canceled", "ptt_too_short")
+                    : t === F.CANCEL_BUTTON
+                      ? e.endFailWithError("upload_canceled", "aborted")
+                      : e.endFailWithError("upload_canceled", "other"));
+            }
           }),
           (i.pause = function () {
             if (
@@ -516,6 +580,7 @@ __d(
                 o("WAWebAppTracker").AppTrackerType.RecordPTT,
               ),
               this._endSession(),
+              this._endUploadQpl(t),
               this._recorder != null)
             ) {
               (t === F.SENT
@@ -847,7 +912,10 @@ __d(
                 ));
           }),
           (i.delete = function () {
-            (t.prototype.delete.call(this),
+            var e;
+            ((e = this._uploadQpl) == null || e.endCancel(),
+              (this._uploadQpl = null),
+              t.prototype.delete.call(this),
               o(
                 "WAWebPttComposerRecordingSessionGetters",
               ).clearRecordingSessionGetterCacheFor(this));

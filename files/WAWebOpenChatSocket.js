@@ -7,7 +7,6 @@ __d(
     "WAFrameSocket",
     "WALogger",
     "WANoiseHandshake",
-    "WANullthrows",
     "WAResultOrError",
     "WAWapDict",
     "WAWebCommonSocketPlatformDetails",
@@ -31,6 +30,7 @@ __d(
     "encodeProtobuf",
     "err",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -432,8 +432,8 @@ __d(
               o("WAWebCoreActionsODS").logPageLoadErrorForcedLogout(),
               o("WAWebCoreActionsODS").logSessionForcedLogout(),
               yield o("WAWebSocketLogoutJob").socketLogout(),
-              r("WANullthrows")(c));
-            var d = r("WANullthrows")(c).staticKeyPair;
+              r("nullthrows")(c, "Unexpected null: noiseData"));
+            var d = r("nullthrows")(c).staticKeyPair;
             return (x || (x = n("Promise")))
               .all([j(d, e, i), e.encrypt(x.resolve(u))])
               .then(function (t) {

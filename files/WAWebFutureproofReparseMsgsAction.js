@@ -37,7 +37,7 @@ __d(
                   a.accountLid == null &&
                   (yield o(
                     "WAWebProcessMsgInfoForLid",
-                  ).maybeProcesMsgInfoForLid({ msgInfo: a, msgMeta: i })),
+                  ).maybeProcessMsgInfoForLid({ msgInfo: a, msgMeta: i })),
                   yield o("WAWebHandleMsgProcess").processDecryptedMessageProto(
                     babelHelpers.extends({}, r, {
                       decrypted: n,

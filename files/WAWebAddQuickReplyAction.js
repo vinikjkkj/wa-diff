@@ -22,7 +22,13 @@ __d(
           var n = String(o("WATimeUtils").unixTime());
           (yield o(
             "WAWebSendQuickReplyAddOrEditMutation",
-          ).sendQuickReplyAddOrEditMutation(n, e, t, 0, []),
+          ).sendQuickReplyAddOrEditMutation({
+            count: 0,
+            id: n,
+            keywords: [],
+            message: t,
+            shortcut: e,
+          }),
             o("WAWebQuickReplyCollection").QuickReplyCollection.add({
               id: n,
               message: t,

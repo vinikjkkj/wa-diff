@@ -2,7 +2,6 @@ __d(
   "WAWebWaffleAccountLinkStateSync",
   [
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
@@ -15,6 +14,7 @@ __d(
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceActionType",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -100,14 +100,14 @@ __d(
                   var d,
                     m,
                     p = o("WAWebAccountLinkingUtils").mapToAccountLinkState(
-                      r("WANullthrows")(
+                      r("nullthrows")(
                         (d = a.value.waffleAccountLinkStateAction) == null
                           ? void 0
                           : d.linkState,
                       ),
                     ),
                     _ = Number(
-                      r("WANullthrows")(
+                      r("nullthrows")(
                         (m = a) == null ? void 0 : m.value.timestamp,
                       ),
                     );

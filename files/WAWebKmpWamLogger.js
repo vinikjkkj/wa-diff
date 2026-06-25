@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WABase64",
     "WALogger",
-    "WANullthrows",
     "WAWebGetSharedSessionId",
     "WAWebKmpKotlinUtils",
     "WAWebMdBootstrapAppStateDataDownloadedWamEvent",
@@ -23,6 +22,7 @@ __d(
     "WAWebWamEnumMutationDirectionType",
     "WAWebWamEnumSyncdCollectionType",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -40,7 +40,7 @@ __d(
                   var n = yield o(
                       "WAWebSyncdWamReportingUtils",
                     ).getShortMdSessionId(),
-                    a = r("WANullthrows")(g(e.collectionName)),
+                    a = r("nullthrows")(g(e.collectionName)),
                     i = yield y(o("WAWebKmpKotlinUtils").asMap(e.keyMap));
                   new (o(
                     "WAWebMdSyncdMutationsSummaryWamEvent",
@@ -82,7 +82,7 @@ __d(
                   var n = yield o(
                       "WAWebSyncdWamReportingUtils",
                     ).getShortMdSessionId(),
-                    a = r("WANullthrows")(g(e.collectionName)),
+                    a = r("nullthrows")(g(e.collectionName)),
                     i = yield o(
                       "WAWebSyncdWamReportingUtils",
                     ).encodeKeyDataForWam(

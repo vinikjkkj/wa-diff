@@ -1,92 +1,106 @@
 __d(
   "WAWebRetryRequestParser",
-  ["WADeprecatedWapParser", "WAWebJidToWid", "WAWebUserPrefsMeUser"],
+  [
+    "WADeprecatedWapParser",
+    "WALogger",
+    "WAWebJidToWid",
+    "WAWebUserPrefsMeUser",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e = new (r("WADeprecatedWapParser"))("retryRequestParser", function (
-        e,
-      ) {
-        var t;
-        e.assertTag("receipt");
-        var n = e.attrString("type");
-        if (n !== "retry" && n !== "enc_rekey_retry")
-          throw e.createParseError(
-            'to have type "retry" or "enc_rekey_retry", got "' + n + '"',
+    var e,
+      s = new (r("WADeprecatedWapParser"))("retryRequestParser", function (t) {
+        var n;
+        t.assertTag("receipt");
+        var r = t.attrString("type");
+        if (r !== "retry" && r !== "enc_rekey_retry")
+          throw t.createParseError(
+            'to have type "retry" or "enc_rekey_retry", got "' + r + '"',
           );
-        e.hasAttr("to") &&
-          e.assertAttr(
+        t.hasAttr("to") &&
+          (o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  '[retryRequestParser] received "to" attribute from server',
+                ])),
+            )
+            .sendLogs("retry-request-parser-has-to-attribute", {
+              sampling: 0.01,
+            }),
+          t.assertAttr(
             "to",
             o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().toJid(),
-          );
-        var r = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
-          a = e.hasAttr("participant")
+          ));
+        var a = o("WAWebJidToWid").jidWithTypeToWid(t.attrJidWithType("from")),
+          i = t.hasAttr("participant")
             ? o("WAWebJidToWid").deviceJidToDeviceWid(
-                e.attrDeviceJid("participant"),
+                t.attrDeviceJid("participant"),
               )
             : null,
-          i = !1;
-        a != null &&
-          a.isBot() &&
-          e.hasAttr("is_lid") &&
-          (i = e.attrString("is_lid") === "true");
-        var l = e.hasAttr("recipient")
+          l = !1;
+        i != null &&
+          i.isBot() &&
+          t.hasAttr("is_lid") &&
+          (l = t.attrString("is_lid") === "true");
+        var s = t.hasAttr("recipient")
             ? o("WAWebJidToWid").deviceJidToUserWid(
-                e.attrDeviceJid("recipient"),
+                t.attrDeviceJid("recipient"),
               )
             : null,
-          s = e.child("retry"),
-          u = e.maybeChild("keys"),
-          c = null;
-        if (u != null) {
-          var d,
-            m = u.child("skey"),
-            p = {
-              identity: u.child("identity").contentBytes(32),
+          u = t.child("retry"),
+          c = t.maybeChild("keys"),
+          d = null;
+        if (c != null) {
+          var m,
+            p = c.child("skey"),
+            _ = {
+              identity: c.child("identity").contentBytes(32),
               deviceIdentity:
-                (d = u.maybeChild("device-identity")) == null
+                (m = c.maybeChild("device-identity")) == null
                   ? void 0
-                  : d.contentBytes(),
+                  : m.contentBytes(),
               skey: {
-                id: m.child("id").contentUint(3),
-                pubkey: m.child("value").contentBytes(32),
-                signature: m.child("signature").contentBytes(64),
+                id: p.child("id").contentUint(3),
+                pubkey: p.child("value").contentBytes(32),
+                signature: p.child("signature").contentBytes(64),
               },
             };
-          if (r.isFbidBot() || (r.isGroup() && a != null && a.isFbidBot())) {
-            var _ = null,
-              f = u.maybeChild("key");
-            (f != null &&
-              (_ = {
-                id: f.child("id").contentUint(3),
-                pubkey: f.child("value").contentBytes(32),
-              }),
-              (c = babelHelpers.extends({ type: "bot_retry" }, p, { key: _ })));
-          } else {
-            var g = u.child("key");
-            c = babelHelpers.extends({ type: "regular_retry" }, p, {
-              key: {
+          if (a.isFbidBot() || (a.isGroup() && i != null && i.isFbidBot())) {
+            var f = null,
+              g = c.maybeChild("key");
+            (g != null &&
+              (f = {
                 id: g.child("id").contentUint(3),
                 pubkey: g.child("value").contentBytes(32),
+              }),
+              (d = babelHelpers.extends({ type: "bot_retry" }, _, { key: f })));
+          } else {
+            var h = c.child("key");
+            d = babelHelpers.extends({ type: "regular_retry" }, _, {
+              key: {
+                id: h.child("id").contentUint(3),
+                pubkey: h.child("value").contentBytes(32),
               },
             });
           }
         }
         return {
-          stanzaId: e.attrString("id"),
-          originalMsgId: s.attrString("id"),
-          ts: e.attrTime("t"),
-          retryCount: (t = s.maybeAttrInt("count")) != null ? t : 0,
-          regId: e.child("registration").contentUint(4),
-          offline: e.hasAttr("offline"),
-          from: r,
-          participant: a,
-          isLid: i,
-          recipient: l,
-          keyBundle: c,
-          type: n,
+          stanzaId: t.attrString("id"),
+          originalMsgId: u.attrString("id"),
+          ts: t.attrTime("t"),
+          retryCount: (n = u.maybeAttrInt("count")) != null ? n : 0,
+          regId: t.child("registration").contentUint(4),
+          offline: t.hasAttr("offline"),
+          from: a,
+          participant: i,
+          isLid: l,
+          recipient: s,
+          keyBundle: d,
+          type: r,
         };
       }),
-      s = e;
-    l.default = s;
+      u = s;
+    l.default = u;
   },
   98,
 );

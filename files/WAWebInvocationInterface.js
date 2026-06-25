@@ -1,13 +1,13 @@
 __d(
   "WAWebInvocationInterface",
-  ["WANullthrows"],
+  ["nullthrows"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
       e = t;
     }
     function u() {
-      return r("WANullthrows")(e, "InvocationInterface was not inited");
+      return r("nullthrows")(e, "InvocationInterface was not inited");
     }
     function c(e, t) {
       return u().sendLogs(e, t);

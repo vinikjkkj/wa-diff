@@ -240,7 +240,7 @@ __d(
                             o("WATimeUtils").unixTimeMs()),
                           yield o(
                             "WAWebProcessMsgInfoForLid",
-                          ).maybeProcesMsgInfoForLid({
+                          ).maybeProcessMsgInfoForLid({
                             msgInfo: P,
                             msgMeta: N,
                           }),

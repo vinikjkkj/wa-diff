@@ -166,7 +166,7 @@ __d(
               ) {
                 var O = o(
                   "WAWebBotUtils",
-                ).participantListIncludOpenOrTeeGroupBotWid(a.participants);
+                ).participantListIncludeOpenOrTeeGroupBotWid(a.participants);
                 (o(
                   "WAWebBotGroupGatingUtils",
                 ).isOpenGroupBotParticipantAddEnabled() &&
@@ -230,6 +230,14 @@ __d(
                 };
               if (
                 (F.push(q(l, B)),
+                F.push(
+                  o(
+                    "WAWebGroupHistoryParticipantJob",
+                  ).clearGroupHistoryParticipantStateOnRemove(
+                    l,
+                    a.participants,
+                  ),
+                ),
                 B.defaultSubgroup === !0 && B.parentGroup != null)
               ) {
                 var U = o("WAWebWidFactory").createWid(B.parentGroup),
@@ -807,7 +815,7 @@ __d(
                 ),
               );
               break;
-            case o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECIEVED:
+            case o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED:
               F.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,

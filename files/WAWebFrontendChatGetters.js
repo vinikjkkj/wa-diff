@@ -18,6 +18,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGetters",
     "WAWebGettersCaches",
+    "WAWebGroupHistoryPostJoinLocalJoinTimes",
     "WAWebGroupHistorySupportedMessageTypesUtil",
     "WAWebGroupType",
     "WAWebHistorySyncUtils",
@@ -326,6 +327,15 @@ __d(
       ),
       oe = d(
         function (e) {
+          var t = e[0];
+          return o(
+            "WAWebGroupHistoryPostJoinLocalJoinTimes",
+          ).computeLocalJoinTimeFallbacks(t.getModelsArray());
+        },
+        [R, E],
+      ),
+      ae = d(
+        function (e) {
           var t = e[0],
             n = e[1],
             r = e[2],
@@ -343,7 +353,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      ae = d(
+      ie = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -390,8 +400,9 @@ __d(
       (l.getShouldAppearInList = te),
       (l.getPreviewMessage = ne),
       (l.getHasNoShareableHistory = re),
-      (l.getShowChangeNumberNotification = oe),
-      (l.getDerivedLastAddOnPreview = ae));
+      (l.getLatestJoinTimeByParticipant = oe),
+      (l.getShowChangeNumberNotification = ae),
+      (l.getDerivedLastAddOnPreview = ie));
   },
   98,
 );

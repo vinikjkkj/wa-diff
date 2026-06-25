@@ -2,12 +2,12 @@ __d(
   "WAWebPrimaryFeatureSync",
   [
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WAWebPrimaryFeatures",
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -84,7 +84,7 @@ __d(
                   a != null)
                 ) {
                   var c,
-                    d = r("WANullthrows")(
+                    d = r("nullthrows")(
                       (c = a.value.primaryFeature) == null ? void 0 : c.flags,
                     );
                   yield o("WAWebPrimaryFeatures").setPrimaryFeatures(d);

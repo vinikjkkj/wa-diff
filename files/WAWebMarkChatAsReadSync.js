@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
@@ -21,6 +20,7 @@ __d(
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
@@ -341,13 +341,13 @@ __d(
                   ).value,
                   s = e.timestamp,
                   u = t.timestamp,
-                  c = r("WANullthrows")(i.markChatAsReadAction),
-                  p = r("WANullthrows")(
+                  c = r("nullthrows")(i.markChatAsReadAction),
+                  p = r("nullthrows")(
                     l == null ? void 0 : l.markChatAsReadAction,
                   ),
                   _ = o("WAWebMessageRangeUtils").compareMessageRanges(
-                    r("WANullthrows")(p.messageRange),
-                    r("WANullthrows")(c.messageRange),
+                    r("nullthrows")(p.messageRange),
+                    r("nullthrows")(c.messageRange),
                   );
                 switch (_) {
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
@@ -376,8 +376,8 @@ __d(
                             ? g
                             : !1,
                       y = o("WAWebMessageRangeUtils").mergeMessageRanges(
-                        r("WANullthrows")(p.messageRange),
-                        r("WANullthrows")(c.messageRange),
+                        r("nullthrows")(p.messageRange),
+                        r("nullthrows")(c.messageRange),
                       ),
                       C = { read: h, messageRange: y },
                       b = o("encodeProtobuf")

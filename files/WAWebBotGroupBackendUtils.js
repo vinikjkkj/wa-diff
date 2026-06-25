@@ -158,7 +158,7 @@ __d(
         return e;
       var t = e.map(function (e) {
         var t = e,
-          n = o("WAWebBotUtils").participantListIncludOpenOrTeeGroupBotWid(
+          n = o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(
             e.participants,
           );
         return (

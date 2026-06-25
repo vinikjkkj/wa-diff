@@ -81,7 +81,12 @@ __d(
             ),
             p = yield o(
               "WAWebScheduledMsgSenderJob",
-            ).maybeWrapScheduledMessageForSend(t, m, c, i),
+            ).maybeWrapScheduledMessageForSend({
+              msgProtobuf: m,
+              msgRecord: t,
+              remoteWid: c,
+              scheduledMsgMetadata: i,
+            }),
             _ = p.msgProtobuf,
             f = p.scheduledMsgMetadata;
           if (c.isUser()) {

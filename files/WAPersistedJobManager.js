@@ -81,7 +81,8 @@ __d(
       },
       W = "$unstarted",
       q = "$finished",
-      U = (function () {
+      U = 5,
+      V = (function () {
         function t(t) {
           var r = this,
             a = t.accessors,
@@ -93,7 +94,7 @@ __d(
                 c = [];
               return (
                 t.forEach(function (e) {
-                  e.stepHardStartCountAfterTimeout >= 5 ? l.push(e) : c.push(e);
+                  e.stepHardStartCountAfterTimeout >= U ? l.push(e) : c.push(e);
                 }),
                 (M || (M = n("Promise")))
                   .all(
@@ -107,7 +108,7 @@ __d(
                                 ": stuck on the step ",
                                 ", aborting the job",
                               ])),
-                            H(t),
+                            G(t),
                             t.step,
                           )
                           .sendLogs("job-stuck-" + t.type),
@@ -124,7 +125,7 @@ __d(
                               "",
                               ": restarting",
                             ])),
-                          V(e),
+                          H(e),
                         ),
                         u.set(e.jobId, r.$1(e, i)));
                     });
@@ -192,7 +193,7 @@ __d(
                   r.map(function (e) {
                     return e();
                   }),
-                  z,
+                  j,
                 )),
                 e.set(r, a)),
               a(t)
@@ -205,7 +206,7 @@ __d(
               l = n.findIndex(function (e) {
                 return e.stepName === i;
               }),
-              s = n[l].info(t.current, t.original, j(t, r)),
+              s = n[l].info(t.current, t.original, K(t, r)),
               u = s.code,
               m = s.requirements,
               p = this.$4(t, m);
@@ -220,9 +221,9 @@ __d(
                           "",
                           ": running step",
                         ])),
-                      G(t),
+                      z(t),
                     ),
-                    u(t.current, t.original, j(t, r))
+                    u(t.current, t.original, K(t, r))
                   );
                 })
                 .then(function (a) {
@@ -234,7 +235,7 @@ __d(
                             "",
                             ": InterruptJob",
                           ])),
-                        G(t),
+                        z(t),
                       ),
                       a.result
                     );
@@ -334,7 +335,7 @@ __d(
                             "",
                             ": skew detected, adjusting accordingly",
                           ])),
-                        V(e),
+                        H(e),
                       ),
                       (N = o("WATimeUtils").castToUnixTime(N - O)),
                       o("WATimeUtils").isInFuture(N) &&
@@ -350,7 +351,7 @@ __d(
                             "",
                             ": removing completed, expired job from db",
                           ])),
-                        V(e),
+                        H(e),
                       ),
                       yield i.deletePersistedJob(e.jobId)),
                     l.delete(e.jobId),
@@ -397,7 +398,7 @@ __d(
                                 " to ",
                                 "",
                               ])),
-                            G(e),
+                            z(e),
                             r,
                             l,
                           ),
@@ -414,7 +415,7 @@ __d(
                                 ": delaying until ",
                                 "",
                               ])),
-                            G(e),
+                            z(e),
                             r,
                           ),
                           (i = o("WATimeUtils").delayUntil(r)));
@@ -439,7 +440,7 @@ __d(
                                   "",
                                   ": requires page",
                                 ])),
-                              G(e),
+                              z(e),
                             ),
                             e.stepHardStartCountAfterTimeout > 0 &&
                               (--e.stepHardStartCountAfterTimeout,
@@ -453,7 +454,7 @@ __d(
                                 "",
                                 ": RetryOnBackoff",
                               ])),
-                            G(e),
+                            z(e),
                           );
                           var r = o("WAPromiseBackoffs").getDelay(
                             ++e.backedOffCount,
@@ -476,7 +477,7 @@ __d(
                                   ": Unhandled exception. Tried ",
                                   " times",
                                 ])),
-                              G(e),
+                              z(e),
                               e.stepUnexpectedErrorCount,
                             ),
                             o("WALogger").WARN(
@@ -486,7 +487,7 @@ __d(
                                   ": Unhandled exception: ",
                                   "",
                                 ])),
-                              G(e),
+                              z(e),
                               t,
                             ),
                             e.stepUnexpectedErrorCount++,
@@ -496,8 +497,8 @@ __d(
                       });
                     });
                   },
-                  H = U(),
-                  z = H.then(
+                  V = U(),
+                  G = V.then(
                     (function () {
                       var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (t) {
@@ -507,7 +508,7 @@ __d(
                                 "",
                                 ": finished job",
                               ])),
-                            G(e),
+                            z(e),
                           );
                           var n = null;
                           try {
@@ -573,12 +574,12 @@ __d(
                               e.step,
                             );
                           else {
-                            var a = r.info(e.current, e.original, j(e, t));
+                            var a = r.info(e.current, e.original, K(e, t));
                             a.stopRetryIf != null &&
                               (yield a.stopRetryIf.onStopRetry(
                                 e.current,
                                 e.original,
-                                j(e, t),
+                                K(e, t),
                               ));
                           }
                           (yield i.deletePersistedJob(e.jobId),
@@ -606,8 +607,8 @@ __d(
                     )
                     .sendLogs("onJobStarted-threw");
                 }
-                return z.then(function () {
-                  return H;
+                return G.then(function () {
+                  return V;
                 });
               },
             );
@@ -676,16 +677,16 @@ __d(
           t
         );
       })();
-    function V(e) {
+    function H(e) {
       return "Job[" + e.jobId + "] (" + e.type + ")";
     }
-    function H(e) {
+    function G(e) {
       return "[Job " + e.type + "] ";
     }
-    function G(e) {
+    function z(e) {
       return "Job[" + e.jobId + "] (" + e.type + "." + e.step + ")";
     }
-    function z(e, t, n) {
+    function j(e, t, n) {
       e === "unsatisfiable"
         ? o("WALogger").LOG(
             P ||
@@ -694,7 +695,7 @@ __d(
                 " halting because of ",
                 "",
               ])),
-            G(n),
+            z(n),
             t,
           )
         : e === "unsatisfied" &&
@@ -705,17 +706,17 @@ __d(
                 " waiting on ",
                 "",
               ])),
-            G(n),
+            z(n),
             t,
           );
     }
-    function j(e, t) {
+    function K(e, t) {
       return (
         t === void 0 && (t = !1),
-        { jobStartTime: e.startTime, afterCrash: t, interruptJob: K }
+        { jobStartTime: e.startTime, afterCrash: t, interruptJob: Q }
       );
     }
-    function K(e) {
+    function Q(e) {
       return new B(e);
     }
     ((l.RetryOnBackoff = F),
@@ -723,7 +724,8 @@ __d(
       (l.InterruptJob = B),
       (l.UNSTARTED_JOB = W),
       (l.FINISHED_JOB = q),
-      (l.PersistedJobManager = U));
+      (l.MAX_STEP_HARD_START_COUNT_AFTER_TIMEOUT = U),
+      (l.PersistedJobManager = V));
   },
   98,
 );

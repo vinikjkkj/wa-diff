@@ -634,7 +634,7 @@ __d(
               }
               return {
                 logoutReason: o("WAWebLogoutReasonConstants").LogoutReason
-                  .LidMigrationNoLidAvailiable,
+                  .LidMigrationNoLidAvailable,
               };
             }
             return r

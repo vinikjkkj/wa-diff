@@ -17,12 +17,21 @@ __d(
         o("WASmaxInGroupsEnums").ENUM_ADMIN_SUPERADMIN,
       );
       if (!n.success) return n;
-      var r = o(
+      var r = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrIntRange,
+        e,
+        "join_time",
+        0,
+        void 0,
+      );
+      if (!r.success) return r;
+      var a = o(
         "WASmaxInGroupsParticipantNotAddressableMixin",
       ).parseParticipantNotAddressableMixin(e);
       return o("WAResultOrError").makeResult({
         type: n.value,
-        participantNotAddressableMixin: r.success ? r.value : null,
+        joinTime: r.value,
+        participantNotAddressableMixin: a.success ? a.value : null,
       });
     }
     l.parseCreateParticipantAddedMixin = e;

@@ -5,6 +5,7 @@ __d(
     "WAWebApiParticipantStore",
     "WAWebDBCommunity",
     "WAWebDBGroupsGroupMetadata",
+    "WAWebGroupHistoryParticipantJob",
     "WAWebGroupUnjoinedSubgroupJob",
     "WAWebGroupsParticipantsApi",
     "WAWebSchemaChat",
@@ -239,10 +240,20 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          (o("WAWebUserPrefsGeneral").removeUserSentMessageToChat(e),
+            o("WAWebApiParticipantStore").setAdminshipCache(e.toString(), !1));
+          var r = [
+            o(
+              "WAWebGroupHistoryParticipantJob",
+            ).clearGroupHistoryParticipantStateForGroup(e),
+          ];
           return (
-            o("WAWebUserPrefsGeneral").removeUserSentMessageToChat(e),
-            o("WAWebApiParticipantStore").setAdminshipCache(e.toString(), !1),
-            n ? R(t != null ? o("WAWebWidFactory").createWid(t) : null) : []
+            n &&
+              r.push.apply(
+                r,
+                yield R(t != null ? o("WAWebWidFactory").createWid(t) : null),
+              ),
+            r
           );
         })),
         k.apply(this, arguments)

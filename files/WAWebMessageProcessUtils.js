@@ -2,7 +2,6 @@ __d(
   "WAWebMessageProcessUtils",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebApiChat",
     "WAWebApiContact",
     "WAWebCurrentUser",
@@ -11,6 +10,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g;
@@ -90,7 +90,7 @@ __d(
               "select chat (unmigrated): general Lid chat -> PN",
             ])),
         );
-        var a = r("WANullthrows")(
+        var a = r("nullthrows")(
           o("WAWebApiContact").getPhoneNumber(t),
           "cannot select chat for incoming general Lid chat: no PN for Lid",
         );
@@ -134,7 +134,7 @@ __d(
               )
             );
           if (t.length === 1) {
-            var n = r("WANullthrows")(t[0].id, "chat id should never be null");
+            var n = r("nullthrows")(t[0].id, "chat id should never be null");
             return (
               o("WALogger").LOG(
                 f ||

@@ -1,6 +1,6 @@
 __d(
   "FDSTextContext",
-  ["cr:20414", "react", "react-compiler-runtime"],
+  ["FDSTextContext_Old.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -12,13 +12,13 @@ __d(
     }
     function m(e) {
       var t = o("react-compiler-runtime").c(8),
-        r = e.children,
+        n = e.children,
         a = e.color,
         i = e.type;
       if (i == null) {
         var l;
-        t[0] !== r
-          ? ((l = typeof r == "function" ? r(null) : r), (t[0] = r), (t[1] = l))
+        t[0] !== n
+          ? ((l = typeof n == "function" ? n(null) : n), (t[0] = n), (t[1] = l))
           : (l = t[1]);
         var u;
         return (
@@ -33,9 +33,13 @@ __d(
         var d = a != null ? a : "primary",
           m;
         return (
-          t[4] !== r || t[5] !== d || t[6] !== i
-            ? ((m = s.jsx(n("cr:20414"), { children: r, color: d, type: i })),
-              (t[4] = r),
+          t[4] !== n || t[5] !== d || t[6] !== i
+            ? ((m = s.jsx(r("FDSTextContext_Old.react"), {
+                children: n,
+                color: d,
+                type: i,
+              })),
+              (t[4] = n),
               (t[5] = d),
               (t[6] = i),
               (t[7] = m))
@@ -46,14 +50,17 @@ __d(
     }
     function p(e) {
       var t = o("react-compiler-runtime").c(2),
-        r;
+        n;
       return (
         t[0] !== e
-          ? ((r = s.jsx(n("cr:20414"), babelHelpers.extends({}, e))),
+          ? ((n = s.jsx(
+              r("FDSTextContext_Old.react"),
+              babelHelpers.extends({}, e),
+            )),
             (t[0] = e),
-            (t[1] = r))
-          : (r = t[1]),
-        r
+            (t[1] = n))
+          : (n = t[1]),
+        n
       );
     }
     ((l.FDSTextContext = c),

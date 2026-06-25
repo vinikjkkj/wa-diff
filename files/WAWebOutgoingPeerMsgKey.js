@@ -3,9 +3,13 @@ __d(
   ["WAWebMsgKey", "WAWebUserPrefsMeUser"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t;
       return new (r("WAWebMsgKey"))({
         fromMe: !0,
-        remote: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        remote:
+          (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) != null
+            ? t
+            : o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         id: e,
       });
     }

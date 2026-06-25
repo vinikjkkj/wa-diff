@@ -98,8 +98,8 @@ __d(
     function c(e, t) {
       return o("WAWebGroupInviteV4Job").revokeGroupInviteV4(e, t);
     }
-    function d(e, t) {
-      return o("WAWebApiGroupInviteV4Store").getPendingParticipants(e, t);
+    function d(e) {
+      return o("WAWebApiGroupInviteV4Store").getPendingParticipantsDB(e);
     }
     ((l.queryGroupInviteV4Info = e),
       (l.joinGroupViaInviteV4 = u),

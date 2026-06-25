@@ -253,7 +253,7 @@ __d(
               "WAWebCachedNewsletterSubscribers",
             WA_WEB_CACHED_NEWSLETTER_DIRECTORY_PAGES:
               "WAWebCachedNewsletterDirectoryPages",
-            WA_WEB_CACHED_NEWSLETTER_DIRECTORY_CATERGORY_PREVIEW:
+            WA_WEB_CACHED_NEWSLETTER_DIRECTORY_CATEGORY_PREVIEW:
               "WAWebCachedNewsletterDirectoryCategoryPreview",
             WA_WEB_CACHED_DYNAMIC_AI_MODES: "WAWebCachedDynamicAIModes",
             WA_WEB_META_AI_GLASSES_BANNER_DISPLAY_INFO_TYPE:

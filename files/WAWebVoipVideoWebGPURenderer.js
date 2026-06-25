@@ -147,7 +147,7 @@ __d(
         );
       })(),
       f =
-        "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\nstruct Uniforms {\n  transformMatrix: mat2x2<f32>,\n}\n\n@group(0) @binding(3) var<uniform> uniforms: Uniforms;\n\n@vertex\nfn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VertexOutput {\n  var pos = array<vec2<f32>, 4>(\n    vec2<f32>(0.0, 0.0),\n    vec2<f32>(0.0, 1.0),\n    vec2<f32>(1.0, 0.0),\n    vec2<f32>(1.0, 1.0)\n  );\n\n  var output: VertexOutput;\n  let transformedPos = uniforms.transformMatrix * ((pos[vertexIndex] * 2.0 - 1.0) * vec2<f32>(1.0, -1.0));\n  output.position = vec4<f32>(transformedPos, 0.0, 1.0);\n  output.texCoord = pos[vertexIndex];\n  return output;\n}\n",
+        "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\nstruct Uniforms {\n  transformMatrix: mat2x2<f32>,\n  fitScale: vec2<f32>,\n}\n\n@group(0) @binding(3) var<uniform> uniforms: Uniforms;\n\n@vertex\nfn vs_main(@builtin(vertex_index) vertexIndex: u32) -> VertexOutput {\n  var pos = array<vec2<f32>, 4>(\n    vec2<f32>(0.0, 0.0),\n    vec2<f32>(0.0, 1.0),\n    vec2<f32>(1.0, 0.0),\n    vec2<f32>(1.0, 1.0)\n  );\n\n  var output: VertexOutput;\n  let base = (pos[vertexIndex] * 2.0 - 1.0) * vec2<f32>(1.0, -1.0);\n  // Cover/contain fit is applied by scaling the quad in screen (NDC) axes:\n  // a scale > 1 overflows the clip volume and is clipped (cover crop); a\n  // scale < 1 letterboxes (contain). This keeps the viewport in-bounds, which\n  // Safari requires (out-of-bounds viewports are rejected \u2014 T267655580).\n  let transformedPos = (uniforms.transformMatrix * base) * uniforms.fitScale;\n  output.position = vec4<f32>(transformedPos, 0.0, 1.0);\n  output.texCoord = pos[vertexIndex];\n  return output;\n}\n",
       g =
         "\nstruct VertexOutput {\n  @builtin(position) position: vec4<f32>,\n  @location(0) texCoord: vec2<f32>,\n}\n\n@group(0) @binding(0) var yTexture: texture_2d<f32>;\n@group(0) @binding(1) var uvTexture: texture_2d<f32>;\n@group(0) @binding(2) var mySampler: sampler;\n\n@fragment\nfn fs_main(input: VertexOutput) -> @location(0) vec4<f32> {\n  let y = textureSample(yTexture, mySampler, input.texCoord).r;\n  let uv = textureSample(uvTexture, mySampler, input.texCoord).rg;\n\n  // NV12 to RGB conversion using BT.601 (limited range)\n  // Y is in range [0, 1], U and V are in range [0, 1] with 0.5 as neutral\n  let yNorm = 1.164 * (y - 0.0625);\n  let u = uv.r - 0.5;\n  let v = uv.g - 0.5;\n\n  let r = yNorm + 1.596 * v;\n  let g = yNorm - 0.391 * u - 0.813 * v;\n  let b = yNorm + 2.018 * u;\n\n  return clamp(vec4<f32>(r, g, b, 1.0), vec4<f32>(0.0), vec4<f32>(1.0));\n}\n",
       h =
@@ -182,7 +182,7 @@ __d(
             (this.canvas = e),
             (this.initialized = !1),
             (this.contextReconfigured = !1),
-            (this.cachedMatrixData = new Float32Array(4)),
+            (this.cachedMatrixData = new Float32Array(8)),
             (this.lastTransformMatrix = null));
         }
         var a = t.prototype;
@@ -217,7 +217,7 @@ __d(
                     addressModeV: "clamp-to-edge",
                   })),
                   (this.uniformBuffer = o.createBuffer({
-                    size: 16,
+                    size: 32,
                     usage: c.UNIFORM | c.COPY_DST,
                   })));
                 var l = o.createShaderModule({ code: f }),
@@ -316,32 +316,32 @@ __d(
                 g = this.uniformBuffer,
                 h = this.canvas.width / this.canvas.height,
                 b = l.valueOf() % 2 === 1 ? a / i : i / a,
-                v = 0,
-                S = 0,
-                R = this.canvas.width,
-                L = this.canvas.height;
+                v = 1,
+                S = 1;
               p
                 ? h > b
-                  ? ((L = this.canvas.width / b),
-                    (S = (this.canvas.height - L) / 2))
-                  : ((R = this.canvas.height * b),
-                    (v = (this.canvas.width - R) / 2))
+                  ? (S = h / b)
+                  : (v = b / h)
                 : h > b
-                  ? ((R = this.canvas.height * b),
-                    (v = (this.canvas.width - R) / 2))
-                  : ((L = this.canvas.width / b),
-                    (S = (this.canvas.height - L) / 2));
-              var E = C[c ? 1 : 0][l.valueOf() - 1] || y;
-              this.lastTransformMatrix !== E &&
-                ((this.lastTransformMatrix = E),
-                this.cachedMatrixData.set(E),
+                  ? (v = b / h)
+                  : (S = h / b);
+              var R = C[c ? 1 : 0][l.valueOf() - 1] || y;
+              (this.lastTransformMatrix !== R ||
+                this.lastFitScaleX !== v ||
+                this.lastFitScaleY !== S) &&
+                ((this.lastTransformMatrix = R),
+                (this.lastFitScaleX = v),
+                (this.lastFitScaleY = S),
+                this.cachedMatrixData.set(R, 0),
+                (this.cachedMatrixData[4] = v),
+                (this.cachedMatrixData[5] = S),
                 t.queue.writeBuffer(g, 0, this.cachedMatrixData));
-              var k = null,
-                I = null;
+              var L = null,
+                E = null;
               if (d === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12) {
-                var T = a * i,
-                  D = n.subarray(0, T),
-                  x = n.subarray(T);
+                var k = a * i,
+                  I = n.subarray(0, k),
+                  T = n.subarray(k);
                 if (
                   this.yTexture == null ||
                   this.uvTexture == null ||
@@ -350,13 +350,13 @@ __d(
                 ) {
                   (this.yTexture != null && this.yTexture.destroy(),
                     this.uvTexture != null && this.uvTexture.destroy());
-                  var $ = t.createTexture({
+                  var D = t.createTexture({
                     size: { width: a, height: i, depthOrArrayLayers: 1 },
                     format: "r8unorm",
                     usage: m.TEXTURE_BINDING | m.COPY_DST,
                   });
-                  this.yTexture = $;
-                  var P = t.createTexture({
+                  this.yTexture = D;
+                  var x = t.createTexture({
                     size: {
                       width: a / 2,
                       height: i / 2,
@@ -365,38 +365,38 @@ __d(
                     format: "rg8unorm",
                     usage: m.TEXTURE_BINDING | m.COPY_DST,
                   });
-                  ((this.uvTexture = P),
+                  ((this.uvTexture = x),
                     (this.lastWidth = a),
                     (this.lastHeight = i));
-                  var N = this.nv12BindGroupLayout;
-                  if (N == null) return;
+                  var $ = this.nv12BindGroupLayout;
+                  if ($ == null) return;
                   this.cachedNV12BindGroup = t.createBindGroup({
-                    layout: N,
+                    layout: $,
                     entries: [
-                      { binding: 0, resource: $.createView() },
-                      { binding: 1, resource: P.createView() },
+                      { binding: 0, resource: D.createView() },
+                      { binding: 1, resource: x.createView() },
                       { binding: 2, resource: f },
                       { binding: 3, resource: { buffer: g } },
                     ],
                   });
                 }
-                var M = this.yTexture,
-                  w = this.uvTexture;
-                if (M == null || w == null) return;
+                var P = this.yTexture,
+                  N = this.uvTexture;
+                if (P == null || N == null) return;
                 (t.queue.writeTexture(
-                  { texture: M },
-                  D,
+                  { texture: P },
+                  I,
                   { offset: 0, bytesPerRow: a, rowsPerImage: i },
                   { width: a, height: i, depthOrArrayLayers: 1 },
                 ),
                   t.queue.writeTexture(
-                    { texture: w },
-                    x,
+                    { texture: N },
+                    T,
                     { offset: 0, bytesPerRow: a, rowsPerImage: i / 2 },
                     { width: a / 2, height: i / 2, depthOrArrayLayers: 1 },
                   ),
-                  (k = this.nv12Pipeline),
-                  (I = this.cachedNV12BindGroup));
+                  (L = this.nv12Pipeline),
+                  (E = this.cachedNV12BindGroup));
               } else if (
                 d === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
                 d === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
@@ -407,53 +407,53 @@ __d(
                   this.lastHeight !== i
                 ) {
                   this.rgbTexture != null && this.rgbTexture.destroy();
-                  var A = t.createTexture({
+                  var M = t.createTexture({
                     size: { width: a, height: i, depthOrArrayLayers: 1 },
                     format: "rgba8unorm",
                     usage: m.TEXTURE_BINDING | m.COPY_DST,
                   });
-                  ((this.rgbTexture = A),
+                  ((this.rgbTexture = M),
                     (this.rgbaConversionBuffer = new Uint8Array(a * i * 4)),
                     (this.lastWidth = a),
                     (this.lastHeight = i));
-                  var F = this.rgbBindGroupLayout;
-                  if (F == null) return;
+                  var w = this.rgbBindGroupLayout;
+                  if (w == null) return;
                   this.cachedRGBBindGroup = t.createBindGroup({
-                    layout: F,
+                    layout: w,
                     entries: [
-                      { binding: 0, resource: A.createView() },
+                      { binding: 0, resource: M.createView() },
                       { binding: 2, resource: f },
                       { binding: 3, resource: { buffer: g } },
                     ],
                   });
                 }
-                var O = n;
+                var A = n;
                 if (d === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24) {
-                  var B = a * i * 4;
+                  var F = a * i * 4;
                   (this.rgbaConversionBuffer == null ||
-                    this.rgbaConversionBuffer.length < B) &&
-                    (this.rgbaConversionBuffer = new Uint8Array(B));
+                    this.rgbaConversionBuffer.length < F) &&
+                    (this.rgbaConversionBuffer = new Uint8Array(F));
                   for (
-                    var W = this.rgbaConversionBuffer, q = a * i, U = 0;
-                    U < q;
-                    U++
+                    var O = this.rgbaConversionBuffer, B = a * i, W = 0;
+                    W < B;
+                    W++
                   )
-                    ((W[U * 4] = n[U * 3]),
-                      (W[U * 4 + 1] = n[U * 3 + 1]),
-                      (W[U * 4 + 2] = n[U * 3 + 2]),
-                      (W[U * 4 + 3] = 255));
-                  O = W;
+                    ((O[W * 4] = n[W * 3]),
+                      (O[W * 4 + 1] = n[W * 3 + 1]),
+                      (O[W * 4 + 2] = n[W * 3 + 2]),
+                      (O[W * 4 + 3] = 255));
+                  A = O;
                 }
-                var V = this.rgbTexture;
-                if (V == null) return;
+                var q = this.rgbTexture;
+                if (q == null) return;
                 (t.queue.writeTexture(
-                  { texture: V },
-                  O,
+                  { texture: q },
+                  A,
                   { offset: 0, bytesPerRow: a * 4, rowsPerImage: i },
                   { width: a, height: i, depthOrArrayLayers: 1 },
                 ),
-                  (k = this.rgbPipeline),
-                  (I = this.cachedRGBBindGroup));
+                  (L = this.rgbPipeline),
+                  (E = this.cachedRGBBindGroup));
               } else {
                 o("WALogger").ERROR(
                   e ||
@@ -465,11 +465,11 @@ __d(
                 );
                 return;
               }
-              if (!(k == null || I == null)) {
-                var H = t.createCommandEncoder(),
-                  G;
+              if (!(L == null || E == null)) {
+                var U = t.createCommandEncoder(),
+                  V;
                 try {
-                  G = _.getCurrentTexture();
+                  V = _.getCurrentTexture();
                 } catch (e) {
                   this.contextReconfigured ||
                     (o("WALogger")
@@ -483,7 +483,7 @@ __d(
                     (this.contextReconfigured = !0));
                   try {
                     (_.configure({ device: t, format: this.swapChainFormat }),
-                      (G = _.getCurrentTexture()));
+                      (V = _.getCurrentTexture()));
                   } catch (e) {
                     o("WALogger")
                       .ERROR(
@@ -496,23 +496,30 @@ __d(
                     return;
                   }
                 }
-                var z = {
+                var H = {
                     colorAttachments: [
                       {
-                        view: G.createView(),
+                        view: V.createView(),
                         clearValue: { r: 0, g: 0, b: 0, a: 1 },
                         loadOp: "clear",
                         storeOp: "store",
                       },
                     ],
                   },
-                  j = H.beginRenderPass(z);
-                (j.setPipeline(k),
-                  j.setViewport(v, S, R, L, 0, 1),
-                  j.setBindGroup(0, I),
-                  j.draw(4, 1, 0, 0),
-                  j.end(),
-                  t.queue.submit([H.finish()]));
+                  G = U.beginRenderPass(H);
+                (G.setPipeline(L),
+                  G.setViewport(
+                    0,
+                    0,
+                    this.canvas.width,
+                    this.canvas.height,
+                    0,
+                    1,
+                  ),
+                  G.setBindGroup(0, E),
+                  G.draw(4, 1, 0, 0),
+                  G.end(),
+                  t.queue.submit([U.finish()]));
               }
             }
           }),

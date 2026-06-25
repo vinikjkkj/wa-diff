@@ -1,6 +1,6 @@
 __d(
   "WAWebBrokerConnectionManager",
-  ["invariant", "WANullthrows", "WAPromiseTimeout", "WAResolvable", "err"],
+  ["invariant", "WAPromiseTimeout", "WAResolvable", "err", "nullthrows"],
   function (t, n, r, o, a, i, l, s) {
     var e = 5e3,
       u = (function () {
@@ -22,7 +22,7 @@ __d(
           }),
           (n.waitForConnection = function () {
             var e;
-            return r("WANullthrows")(
+            return r("nullthrows")(
               (e = this.$2) == null ? void 0 : e.promise,
               "ConnectionManager Initialization Promise",
             );

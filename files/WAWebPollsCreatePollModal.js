@@ -758,7 +758,6 @@ __d(
           }),
           j &&
             c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              cancelButtonType: "warning-secondary",
               title:
                 S === o("WAWebPollCreationUtils").PollType.QUIZ
                   ? s._(/*BTDS*/ "Leave quiz?")

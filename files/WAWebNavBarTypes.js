@@ -21,7 +21,6 @@ __d(
       Profile: "profile",
       MediaHub: "mediaHub",
       MetaAI: "metaAI",
-      Updates: "updates",
       MeTab: "meTab",
       CustomerManager: "customerManager",
     });

@@ -47,7 +47,7 @@ __d(
             postNewsletterStatusClientAndServerID: {
               statusId: o("WAStanzaUtils").toStanzaId(e.reactionId),
               statusServerId: e.parentStatusServerId,
-              statusNewsletterReactionStatusNewsletterReactionOrStatusNewsletterReactionRevokeMixinGroupArgs:
+              statusNewsletterReactionOrReactionRevokeOrQuestionResponseMixinGroupArgs:
                 e.reactionCode === ""
                   ? { isStatusNewsletterReactionRevoke: !0 }
                   : {

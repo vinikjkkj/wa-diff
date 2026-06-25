@@ -10,7 +10,7 @@ __d(
       return r("WAWebEnvironment").isWindows
         ? !1
         : o("WAWebUA").UA.hasCredentiallessIframeSupport &&
-            !o("WAWebUA").UA.isOculusBroswer;
+            !o("WAWebUA").UA.isOculusBrowser;
     }
     function u() {
       var e = self.location !== self.parent.location;

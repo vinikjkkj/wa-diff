@@ -16,6 +16,7 @@ __d(
     "WAWebClientFeatureFlags",
     "WAWebConfigureWindowEvents",
     "WAWebDebugSetup",
+    "WAWebDeleteGuestSessionOnWebLoad",
     "WAWebDesktopUpsellUtils",
     "WAWebEmojiKeywordToUnicode",
     "WAWebEnvironment",
@@ -98,6 +99,9 @@ __d(
             o(
               "WAWebSyncdUploadFatalErrorMetric",
             ).initialiseFatalErrorMetricUploading(),
+            yield o(
+              "WAWebDeleteGuestSessionOnWebLoad",
+            ).maybeDeleteGuestSessionOnWebLoad(),
             yield o("WAWebHandlePreviousLogout").handlePreviousLogoutFailures(),
             o("WAWebPageLoadLoggingImpl").setPageLoadLoggingImpl(),
             o("WAWebABPropsCache").initializeABPropsCache(),

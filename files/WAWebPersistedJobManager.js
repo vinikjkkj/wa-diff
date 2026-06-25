@@ -5,6 +5,7 @@ __d(
     "WAPersistedJobManager",
     "WARandomHex",
     "WATimeUtils",
+    "WAWebBackendApi",
     "WAWebJobsStorage",
     "WAWebNoop",
     "WAWebNullFunc",
@@ -25,8 +26,10 @@ __d(
           yield o("WAWebJobsStorage").initialize();
           var e = o("WAWebSchemaJobs").getTable();
           ((s = new (o("WAPersistedJobManager").PersistedJobManager)({
-            accessors: d(),
-            unfinishedJobEntries: e.all(),
+            accessors: p(),
+            unfinishedJobEntries: e.all().then(function (e) {
+              return (d(e), e);
+            }),
             isRestartAfterCrash: !1,
             listeners: {
               onJobStarted: r("WAWebNoop"),
@@ -39,7 +42,22 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d() {
+    function d(e) {
+      e.forEach(function (e) {
+        e.step === o("WAPersistedJobManager").FINISHED_JOB ||
+          e.stepHardStartCountAfterTimeout >=
+            o("WAPersistedJobManager")
+              .MAX_STEP_HARD_START_COUNT_AFTER_TIMEOUT ||
+          m(e.type);
+      });
+    }
+    function m(e) {
+      o("WAWebBackendApi").frontendFireAndForget(
+        "logPersistedJobJobsStoreTriggered",
+        { type: e },
+      );
+    }
+    function p() {
       return {
         deletePersistedJob: function (t) {
           var e = o("WAWebSchemaJobs").getTable();
@@ -57,15 +75,15 @@ __d(
           var e = o("WAWebSchemaJobs").getTable();
           return e.all();
         },
-        maybeCreateJob: m,
+        maybeCreateJob: _,
       };
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r,
             a,
             i,
@@ -113,16 +131,16 @@ __d(
                 })
           );
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _() {
+    function g() {
       if (s == null) throw r("err")("jobs manager has not been initialized");
       return s;
     }
     ((l.startWebPersistedJobManager = u),
-      (l.maybeCreateJob = m),
-      (l.getJobManager = _));
+      (l.maybeCreateJob = _),
+      (l.getJobManager = g));
   },
   98,
 );

@@ -92,7 +92,7 @@ __d(
             }
             if (t !== !0 && !b(i)) return;
             var u = o("WAWebUserPrefsMeUser")
-                .getMeDevicePnOrThrow_DO_NOT_USE()
+                .getMeDeviceLidOrThrow()
                 .getDeviceId(),
               y = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken(
                 { userId: Number(s), deviceId: u, nonce: l },

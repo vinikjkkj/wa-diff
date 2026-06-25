@@ -3,7 +3,7 @@ __d(
   [
     "WASmaxJsx",
     "WASmaxMixins",
-    "WASmaxOutStatusPublishStatusNewsletterReactionStatusNewsletterReactionOrStatusNewsletterReactionRevokeMixinGroup",
+    "WASmaxOutStatusPublishStatusNewsletterReactionOrReactionRevokeOrQuestionResponseMixinGroup",
     "WAWap",
   ],
   function (t, n, r, o, a, i, l) {
@@ -11,10 +11,10 @@ __d(
       var t = e.statusId,
         n = e.statusServerId,
         r =
-          e.statusNewsletterReactionStatusNewsletterReactionOrStatusNewsletterReactionRevokeMixinGroupArgs,
+          e.statusNewsletterReactionOrReactionRevokeOrQuestionResponseMixinGroupArgs,
         a = o(
-          "WASmaxOutStatusPublishStatusNewsletterReactionStatusNewsletterReactionOrStatusNewsletterReactionRevokeMixinGroup",
-        ).mergeStatusNewsletterReactionStatusNewsletterReactionOrStatusNewsletterReactionRevokeMixinGroup(
+          "WASmaxOutStatusPublishStatusNewsletterReactionOrReactionRevokeOrQuestionResponseMixinGroup",
+        ).mergeStatusNewsletterReactionOrReactionRevokeOrQuestionResponseMixinGroup(
           o("WASmaxJsx").smax("status", {
             id: o("WAWap").STANZA_ID(t),
             server_id: o("WAWap").INT(n),

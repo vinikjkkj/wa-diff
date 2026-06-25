@@ -80,7 +80,6 @@ __d(
         !1,
       ],
       bug_reporting_rid_in_flytrap: [24421, "bool", !1, !1],
-      bug_reporting_using_graphql: [24161, "bool", !1, !1],
       call_info_optimizations_1on1: [31095, "bool", !1, !1],
       call_info_optimizations_ahgc_call_link: [31096, "bool", !1, !1],
       call_info_optimizations_lgc: [31094, "bool", !1, !1],

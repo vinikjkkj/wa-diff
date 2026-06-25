@@ -216,7 +216,7 @@ __d(
               o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS &&
               t.shouldSkipGenMsg === !0) ||
             (t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECIEVED &&
+              o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED &&
               t.shouldSkipGenMsg === !0) ||
             ((t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
               t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE ||

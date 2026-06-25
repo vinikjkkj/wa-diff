@@ -79,7 +79,7 @@ __d(
         browserVersion: o,
         parser: t,
         isChrome: m,
-        isOculusBroswer: h,
+        isOculusBrowser: h,
         hasCredentiallessIframeSupport: C,
       };
     }

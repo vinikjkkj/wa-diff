@@ -54,50 +54,54 @@ __d(
             });
           }),
           (n.logSwipeNext = function (n, r) {
-            this.$1(
-              o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
-                .CLICK,
-              e.NEXT,
-              n,
-              r,
-            );
+            this.$1({
+              cardSeqId: r,
+              insightCardId: n,
+              userActionTarget: e.NEXT,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
           }),
           (n.logSwipePrev = function (n, r) {
-            this.$1(
-              o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
-                .CLICK,
-              e.PREV,
-              n,
-              r,
-            );
+            this.$1({
+              cardSeqId: r,
+              insightCardId: n,
+              userActionTarget: e.PREV,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
           }),
           (n.logDismissCard = function (n, r) {
-            this.$1(
-              o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
-                .CLICK,
-              e.DISMISS,
-              n,
-              r,
-            );
+            this.$1({
+              cardSeqId: r,
+              insightCardId: n,
+              userActionTarget: e.DISMISS,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
           }),
           (n.logPrimaryClick = function (n, r) {
-            this.$1(
-              o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
-                .CLICK,
-              e.CARD,
-              n,
-              r,
-            );
+            this.$1({
+              cardSeqId: r,
+              insightCardId: n,
+              userActionTarget: e.CARD,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
           }),
-          (n.$1 = function (t, n, r, a) {
+          (n.$1 = function (t) {
+            var e = t.cardSeqId,
+              n = t.insightCardId,
+              r = t.userActionTarget,
+              a = t.userActionType;
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-              extraAttributes: { insight_card_id: r, card_seq_id: a },
+              extraAttributes: { insight_card_id: n, card_seq_id: e },
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
                 .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_REC_CARD,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .BUSINESS_HOME_PAGE,
-              userActionTarget: n,
-              userActionType: t,
+              userActionTarget: r,
+              userActionType: a,
             });
           }),
           t

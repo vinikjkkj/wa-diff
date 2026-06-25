@@ -246,7 +246,7 @@ __d(
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isOpenGroupBotParticipantAddEnabled() &&
-                  o("WAWebBotUtils").participantListIncludOpenOrTeeGroupBotWid(
+                  o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(
                     a,
                   ).includeOpenMetabot)
               ) {
@@ -259,7 +259,7 @@ __d(
                 o(
                   "WAWebBotGroupGatingUtils",
                 ).isTEEGroupBotParticipantAddEnabled() &&
-                o("WAWebBotUtils").participantListIncludOpenOrTeeGroupBotWid(a)
+                o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(a)
                   .includeTeeMetabot
               ) {
                 var l = yield o(
@@ -276,7 +276,7 @@ __d(
                 ).isTEEGroupBotParticipantAddEnabled()
               ) {
                 var c =
-                  o("WAWebBotUtils").participantListIncludOpenOrTeeGroupBotWid(
+                  o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(
                     a,
                   );
                 (c.includeOpenMetabot || c.includeTeeMetabot) &&
@@ -318,7 +318,7 @@ __d(
           ) {
             var d = o(
               "WAWebBotUtils",
-            ).participantListIncludOpenOrTeeGroupBotWid(t.participants);
+            ).participantListIncludeOpenOrTeeGroupBotWid(t.participants);
             (d.includeOpenMetabot || d.includeTeeMetabot) &&
               o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
                 id: e.chatId,

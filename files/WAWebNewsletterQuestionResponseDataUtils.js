@@ -59,7 +59,7 @@ __d(
         },
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         from: e.parentMsgKey.remote,
-        to: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        to: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
       };
     }
     function m(e) {

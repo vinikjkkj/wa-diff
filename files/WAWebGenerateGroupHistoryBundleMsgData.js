@@ -152,6 +152,8 @@ __d(
             }
             var N = o("WAWebStartMediaUploadQpl").startMediaUploadQpl({
                 entryPoint: "GroupHistoryBundle",
+                mediaType: o("WAWebMmsMediaTypes").MEDIA_TYPES.GROUP_HISTORY,
+                byteLength: E.byteLength,
               }),
               M = yield r("WAWebUploadManager").encryptAndUpload({
                 blob: E,

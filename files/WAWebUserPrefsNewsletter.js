@@ -91,13 +91,13 @@ __d(
         mapLoad: function () {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
             o("WAWebUserPrefsKeys").KEYS
-              .WA_WEB_CACHED_NEWSLETTER_DIRECTORY_CATERGORY_PREVIEW,
+              .WA_WEB_CACHED_NEWSLETTER_DIRECTORY_CATEGORY_PREVIEW,
           );
         },
         mapStore: function (t) {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
             o("WAWebUserPrefsKeys").KEYS
-              .WA_WEB_CACHED_NEWSLETTER_DIRECTORY_CATERGORY_PREVIEW,
+              .WA_WEB_CACHED_NEWSLETTER_DIRECTORY_CATEGORY_PREVIEW,
             t,
           );
         },

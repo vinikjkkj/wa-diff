@@ -33,7 +33,7 @@ __d(
               ),
               o("WAWebSendMsgResultAction").SendMsgResult.ERROR_CANCELLED
             );
-          var i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             l = o("WAWebFrontendMsgGetters").getChat(t).id,
             u = o("WATimeUtils").unixTime(),
             c = new (r("WAWebMsgKey"))({

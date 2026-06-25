@@ -6,6 +6,7 @@ __d(
     "WAWebGroupHistoryPostJoinTypes.flow",
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
+    "WAWebModelStorageUtils",
     "WAWebSchemaGroupHistoryParticipant",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -94,12 +95,88 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e) {
+    function c(e, t) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            o(
+              "WAWebGroupHistoryGating",
+            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
+          ) {
+            var r;
+            try {
+              r = o("WAWebWidToJid").widToGroupJid(e);
+            } catch (e) {
+              return;
+            }
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                ["group-history-participant"],
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var n = e[0],
+                        a = yield n.get(r),
+                        i = a == null ? void 0 : a.participantMetadataMap;
+                      if (!(i == null || i.size === 0)) {
+                        var l = !1;
+                        for (var s of t) {
+                          var u,
+                            c = o("WAWebLidMigrationUtils").toUserLid(
+                              (u = s.lid) != null ? u : s.id,
+                            );
+                          c != null &&
+                            i.delete(
+                              o("WAWebWidToJid").userLidtoLidUserJid(c),
+                            ) &&
+                            (l = !0);
+                        }
+                        l &&
+                          (i.size === 0
+                            ? yield n.remove(r)
+                            : yield n.merge(r, { participantMetadataMap: i }));
+                      }
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              );
+          }
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          try {
+            t = o("WAWebWidToJid").widToGroupJid(e);
+          } catch (e) {
+            return;
+          }
+          yield o("WAWebSchemaGroupHistoryParticipant")
+            .getGroupHistoryParticipantTable()
+            .remove(t);
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, n;
           try {
             n = o("WAWebWidToJid").widToGroupJid(e);
@@ -113,15 +190,15 @@ __d(
             ? t
             : null;
         })),
-        d.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function p() {
+    function h() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             t.actionType !== o("WAWebGroupType").GROUP_ACTIONS.ADD ||
             !o(
@@ -129,7 +206,7 @@ __d(
             ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
           )
             return t;
-          var n = yield c(e);
+          var n = yield _(e);
           if (n == null || n.size === 0) return t;
           var r = !1,
             a = t.participants.map(function (e) {
@@ -163,12 +240,14 @@ __d(
             });
           return r ? babelHelpers.extends({}, t, { participants: a }) : t;
         })),
-        p.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.updateGroupHistoryParticipantMetadataOnJoin = s),
-      (l.getGroupHistoryParticipantMetadataForGroup = c),
-      (l.enrichGroupActionWithStoredHistoryState = m));
+      (l.clearGroupHistoryParticipantStateOnRemove = c),
+      (l.clearGroupHistoryParticipantStateForGroup = m),
+      (l.getGroupHistoryParticipantMetadataForGroup = _),
+      (l.enrichGroupActionWithStoredHistoryState = g));
   },
   98,
 );

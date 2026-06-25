@@ -133,42 +133,44 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (
-              e.type !== o("WAWebSendMsgTypes").SendMessageRecordType.Message ||
-              e.data.isScheduledMsg !== !0 ||
-              r != null
-            )
-              return { msgProtobuf: t, scheduledMsgMetadata: r };
-            var a = e.data.scheduledTimestampS;
-            if (a == null) return { msgProtobuf: t, scheduledMsgMetadata: r };
-            var i = o("WAWebWidToJid").widToChatJid(n),
-              l = o("WATimeUtils").castToUnixTime(a),
-              s = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(t),
-              u = yield c(e.data.id.toString(), i, t, l);
-            return (
-              (e.data.messageSecret = u.innerMessageSecret),
-              u.reportingTokenContent != null &&
-                (e.data.reportingTokenContent = u.reportingTokenContent),
-              {
-                msgProtobuf: u.wrappedProtobuf,
-                scheduledMsgMetadata: {
-                  kind: "schedule",
-                  scheduledTimestampS: u.scheduledTimestampS,
-                  revealKeyId: u.revealKeyId,
-                  revealKey: u.revealKey,
-                  originalStanzaType: s,
-                },
-              }
-            );
-          },
-        )),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgProtobuf,
+            n = e.msgRecord,
+            r = e.remoteWid,
+            a = e.scheduledMsgMetadata;
+          if (
+            n.type !== o("WAWebSendMsgTypes").SendMessageRecordType.Message ||
+            n.data.isScheduledMsg !== !0 ||
+            a != null
+          )
+            return { msgProtobuf: t, scheduledMsgMetadata: a };
+          var i = n.data.scheduledTimestampS;
+          if (i == null) return { msgProtobuf: t, scheduledMsgMetadata: a };
+          var l = o("WAWebWidToJid").widToChatJid(r),
+            s = o("WATimeUtils").castToUnixTime(i),
+            u = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(t),
+            d = yield c(n.data.id.toString(), l, t, s);
+          return (
+            (n.data.messageSecret = d.innerMessageSecret),
+            d.reportingTokenContent != null &&
+              (n.data.reportingTokenContent = d.reportingTokenContent),
+            {
+              msgProtobuf: d.wrappedProtobuf,
+              scheduledMsgMetadata: {
+                kind: "schedule",
+                scheduledTimestampS: d.scheduledTimestampS,
+                revealKeyId: d.revealKeyId,
+                revealKey: d.revealKey,
+                originalStanzaType: u,
+              },
+            }
+          );
+        })),
         p.apply(this, arguments)
       );
     }

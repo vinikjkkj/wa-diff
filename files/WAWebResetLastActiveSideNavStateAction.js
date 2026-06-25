@@ -31,19 +31,6 @@ __d(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? {
                 descriptorType: "mid_drawer_empty_state",
-                navBarItem: o("WAWebNavBarTypes").NavBarItems.Updates,
-              }
-            : s.jsx(o("WAWebMidDrawerEmptyState.react").MidDrawerEmptyState, {
-                type: o("WAWebNavBarTypes").NavBarItems.Updates,
-              }),
-          { transition: "none" },
-        );
-      },
-      d = function () {
-        o("WAWebDrawerManager").DrawerManager.openDrawerMid(
-          o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
-            ? {
-                descriptorType: "mid_drawer_empty_state",
                 navBarItem: o("WAWebNavBarTypes").NavBarItems.Newsletters,
               }
             : s.jsx(o("WAWebMidDrawerEmptyState.react").MidDrawerEmptyState, {
@@ -52,7 +39,7 @@ __d(
           { transition: "none" },
         );
       };
-    function m(e) {
+    function d(e) {
       var t = o("WAWebSideNavButtonsActivityModel").getLastActiveButton();
       if (t != null)
         switch (t) {
@@ -64,7 +51,7 @@ __d(
               (o("WAWebSideNavButtonsActivityModel").setLastActiveNewsletter(
                 null,
               ),
-              d());
+              c());
             break;
           case o("WAWebNavBarTypes").NavBarItems.Communities:
             if (e.groupType != null)
@@ -82,13 +69,6 @@ __d(
                   o("WAWebSideNavButtonsActivityModel").setLastActiveChat(null);
                   break;
               }
-            break;
-          case o("WAWebNavBarTypes").NavBarItems.Updates:
-            o("WAWebChatGetters").getIsNewsletter(e) &&
-              (o("WAWebSideNavButtonsActivityModel").setLastActiveNewsletter(
-                null,
-              ),
-              c());
             break;
           case o("WAWebNavBarTypes").NavBarItems.Archived:
           case o("WAWebNavBarTypes").NavBarItems.Beta:
@@ -110,7 +90,7 @@ __d(
             break;
         }
     }
-    l.resetLastActiveSideNavStateForChat = m;
+    l.resetLastActiveSideNavStateForChat = d;
   },
   98,
 );

@@ -125,7 +125,12 @@ __d(
           var n = e.setWorkerSafeHandlers;
           return n(t);
         }),
-        r("gkx")("20033") && o("WAWebStartBackendWorker").startBackendWorker(),
+        r("gkx")("20033") &&
+          (e != null ? e : (g || (g = n("Promise"))).resolve()).then(
+            function () {
+              return o("WAWebStartBackendWorker").startBackendWorker();
+            },
+          ),
         o("WAWebFtsClient").ftsClient.initialize(),
         o("WAWebStartBackend").setupStartBackendListeners(),
         o("WAWebDbRolloutUtil")

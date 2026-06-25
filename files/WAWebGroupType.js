@@ -50,7 +50,7 @@ __d(
         ALLOW_NON_ADMIN_SUB_GROUP_CREATION:
           "allow_non_admin_sub_group_creation",
         ALLOW_ADMIN_REPORTS: "allow_admin_reports",
-        ADMIN_REPORT_RECIEVED: "admin_report_received",
+        ADMIN_REPORT_RECEIVED: "admin_report_received",
         CREATED_SUBGROUP_SUGGESTION: "created_subgroup_suggestion",
         REVOKED_SUB_GROUP_SUGGESTIONS: "revoked_sub_group_suggestions",
         SUBGROUP_SUGGESTIONS_CHANGE_NUMBER:
@@ -70,6 +70,7 @@ __d(
       }),
       p = Object.freeze({
         INVITE: "invite",
+        ACCEPT: "accept",
         LINKED_GROUP_JOIN: "linked_group_join",
         AUTO_ADD: "auto_add",
         DEFAULT_SUBGROUP_ADMIN_ADD: "default_subgroup_admin_add",

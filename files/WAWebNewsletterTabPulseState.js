@@ -33,10 +33,9 @@ __d(
           }),
           (r.triggerPulse = function () {
             var e = o("WAWebSideNavButtonsActivityModel").getLastActiveButton();
-            e === o("WAWebNavBarTypes").NavBarItems.Newsletters ||
-              e === o("WAWebNavBarTypes").NavBarItems.Updates ||
-              o("WAWebNotificationHelpers").appIsActive() ||
-              (this.$NewsletterTabPulseStateImpl$p_2 = !0);
+            e !== o("WAWebNavBarTypes").NavBarItems.Newsletters &&
+              (o("WAWebNotificationHelpers").appIsActive() ||
+                (this.$NewsletterTabPulseStateImpl$p_2 = !0));
           }),
           (r.$NewsletterTabPulseStateImpl$p_4 = function () {
             var t = this;

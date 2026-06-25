@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WASyncdConst",
     "WATimeUtils",
     "WAWebAddonProcessDeleteForMe",
@@ -26,6 +25,7 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["deleteMedia", "messageTimestamp", "timestamp"],
@@ -193,7 +193,7 @@ __d(
                                         o("WASyncdConst").SyncModelType.Msg,
                                     },
                                   };
-                                var L = r("WANullthrows")(
+                                var L = r("nullthrows")(
                                     o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
                                       S,
                                       s,
@@ -381,12 +381,12 @@ __d(
                 o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
                 a.binarySyncData,
               ).value,
-              u = r("WANullthrows")(
+              u = r("nullthrows")(
                 (e = l.deleteMessageForMeAction) == null
                   ? void 0
                   : e.deleteMedia,
               ),
-              c = r("WANullthrows")(
+              c = r("nullthrows")(
                 s == null || (i = s.deleteMessageForMeAction) == null
                   ? void 0
                   : i.deleteMedia,

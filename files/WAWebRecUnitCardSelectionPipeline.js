@@ -11,72 +11,77 @@ __d(
       { ignoreCooldown: !0, ignoreDedup: !1 },
       { ignoreCooldown: !0, ignoreDedup: !0 },
     ];
-    function s(e, t, n, r, a) {
-      var i = "selection.pass" + a,
-        l = new Set(
-          n.map(function (e) {
+    function s(e) {
+      var t = e.alreadySelected,
+        n = e.candidates,
+        r = e.maxTotal,
+        a = e.passIndex,
+        i = e.strategy,
+        l = "selection.pass" + a,
+        s = new Set(
+          t.map(function (e) {
             return e.model.promotion.id;
           }),
         ),
-        s = new Set();
-      for (var u of n)
-        u.recUnitInfo.ignoreProductDedup ||
-          s.add(u.recUnitInfo.productTeamName);
-      var c = [];
-      for (var d of e) {
-        var m = d.model.promotion.id,
-          p = d.recUnitInfo;
-        if (l.has(m)) {
+        u = new Set();
+      for (var c of t)
+        c.recUnitInfo.ignoreProductDedup ||
+          u.add(c.recUnitInfo.productTeamName);
+      var d = [];
+      for (var m of n) {
+        var p = m.model.promotion.id,
+          _ = m.recUnitInfo;
+        if (s.has(p)) {
           o("WAWebQuickPromotionDebugLogger").qpLog(
-            i + ".skip.already_selected",
-            { promotionId: m, productTeamName: p.productTeamName },
+            l + ".skip.already_selected",
+            { promotionId: p, productTeamName: _.productTeamName },
           );
           continue;
         }
         if (
-          !t.ignoreCooldown &&
-          !p.ignoreProductLevelCooldown &&
+          !i.ignoreCooldown &&
+          !_.ignoreProductLevelCooldown &&
           o("WAWebRecUnitProductCooldownManager").isProductOnCooldown(
-            p.productTeamName,
-            p.productLevelCooldownSeconds,
+            _.productTeamName,
+            _.productLevelCooldownSeconds,
           )
         ) {
-          o("WAWebQuickPromotionDebugLogger").qpLog(i + ".skip.cooldown", {
-            promotionId: m,
-            productTeamName: p.productTeamName,
-            productLevelCooldownSeconds: p.productLevelCooldownSeconds,
+          o("WAWebQuickPromotionDebugLogger").qpLog(l + ".skip.cooldown", {
+            promotionId: p,
+            productTeamName: _.productTeamName,
+            productLevelCooldownSeconds: _.productLevelCooldownSeconds,
           });
           continue;
         }
         if (
-          !t.ignoreDedup &&
-          !p.ignoreProductDedup &&
-          s.has(p.productTeamName)
+          !i.ignoreDedup &&
+          !_.ignoreProductDedup &&
+          u.has(_.productTeamName)
         ) {
-          o("WAWebQuickPromotionDebugLogger").qpLog(i + ".skip.dedup", {
-            promotionId: m,
-            productTeamName: p.productTeamName,
+          o("WAWebQuickPromotionDebugLogger").qpLog(l + ".skip.dedup", {
+            promotionId: p,
+            productTeamName: _.productTeamName,
           });
           continue;
         }
         if (
-          (p.ignoreProductDedup || s.add(p.productTeamName),
-          c.push(d),
-          o("WAWebQuickPromotionDebugLogger").qpLog(i + ".admitted", {
-            promotionId: m,
-            productTeamName: p.productTeamName,
-            position: n.length + c.length,
+          (_.ignoreProductDedup || u.add(_.productTeamName),
+          d.push(m),
+          o("WAWebQuickPromotionDebugLogger").qpLog(l + ".admitted", {
+            promotionId: p,
+            productTeamName: _.productTeamName,
+            position: t.length + d.length,
           }),
-          n.length + c.length >= r)
+          t.length + d.length >= r)
         ) {
-          o("WAWebQuickPromotionDebugLogger").qpLog(i + ".cap_reached", {
-            addedThisPass: c.length,
-            totalNow: n.length + c.length,
+          o("WAWebQuickPromotionDebugLogger").qpLog(l + ".cap_reached", {
+            addedThisPass: d.length,
+            totalNow: t.length + d.length,
           });
           break;
         }
       }
-      return c;
+      return d;
     }
     function u(t, n) {
       if (n <= 0) return [];
@@ -126,7 +131,13 @@ __d(
       });
       for (var u = [], c = 0; c < e.length; c++) {
         var d = e[c],
-          m = s(r, d, u, n, c + 1);
+          m = s({
+            alreadySelected: u,
+            candidates: r,
+            maxTotal: n,
+            passIndex: c + 1,
+            strategy: d,
+          });
         if (((u = u.concat(m)), u.length >= n)) break;
       }
       return (

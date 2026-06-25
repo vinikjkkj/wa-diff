@@ -109,7 +109,7 @@ __d(
       (l.isWidOpenGroupMetaBotFbidWid = k),
       (l.isWidTeeGroupMetaBotFbidWid = I),
       (l.isHiddenBotWid = T),
-      (l.participantListIncludOpenOrTeeGroupBotWid = D));
+      (l.participantListIncludeOpenOrTeeGroupBotWid = D));
   },
   98,
 );

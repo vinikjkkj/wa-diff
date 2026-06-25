@@ -9,9 +9,13 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    var e;
+    function s() {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o("WAWebApiDeviceList").getMyDeviceList(),
             n = t.currentIndex,
             a = t.devices,
@@ -35,22 +39,21 @@ __d(
             }),
             rawId: i,
           };
-        });
-        return function () {
-          return t.apply(this, arguments);
-        };
-      })(),
-      u = function (t) {
-        return o("WAWebKeyManagementSendKeyShareApi").sendAppStateSyncKeyShare({
-          type: "key_rotation",
-          keys: t,
-        });
-      };
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    var c = function (t) {
+      return o("WAWebKeyManagementSendKeyShareApi").sendAppStateSyncKeyShare({
+        type: "key_rotation",
+        keys: t,
+      });
+    };
     ((l.getDeviceFingerprint = s),
       (l.sendSyncdKeyRequest = o(
         "WAWebKeyManagementSendKeyRequestApi",
       ).sendAppStateSyncKeyRequest),
-      (l.sendSyncdKeyRotation = u));
+      (l.sendSyncdKeyRotation = c));
   },
   98,
 );

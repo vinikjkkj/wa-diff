@@ -1,7 +1,6 @@
 __d(
   "WAWebApiOrphanRevoke",
   [
-    "WANullthrows",
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -10,6 +9,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Map(),
@@ -112,7 +112,7 @@ __d(
             e.forEach(function (e) {
               var i = e.id.toString();
               if (t.has(i)) {
-                var l = r("WANullthrows")(t.get(i));
+                var l = r("nullthrows")(t.get(i));
                 (a.push(
                   babelHelpers.extends(
                     {},

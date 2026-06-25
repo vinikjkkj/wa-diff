@@ -85,9 +85,6 @@ __d(
                   break;
               }
             break;
-          case o("WAWebNavBarTypes").NavBarItems.Updates:
-            o("WAWebChatGetters").getIsNewsletter(e) && g(t);
-            break;
           case o("WAWebNavBarTypes").NavBarItems.Archived:
           case o("WAWebNavBarTypes").NavBarItems.Beta:
           case o("WAWebNavBarTypes").NavBarItems.BizTools:

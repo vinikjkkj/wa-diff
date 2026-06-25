@@ -75,7 +75,12 @@ __d(
             p = e.mediaType,
             _ = e.signal,
             f = e.uploadEntry,
-            g = e.uploadOrigin;
+            g = e.uploadOrigin,
+            h = o("WAWebStartMediaUploadQpl").startMediaUploadQpl({
+              entryPoint: "MediaUpload",
+              mediaType: p,
+              byteLength: a.size,
+            });
           if (
             f instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
             f != null &&
@@ -83,53 +88,70 @@ __d(
             l
           )
             return (
-              r("WAWebCreateMediaUploadMetrics")(
-                p,
-                g,
-                0,
-                u,
-                c,
-              ).handleCheckExistingSuccess(),
+              h.addAnnotations({
+                string: { media_entry_dedupe_result: "fast-forward" },
+              }),
+              r("WAWebCreateMediaUploadMetrics")({
+                type: p,
+                uploadOrigin: g,
+                userUploadAttemptCount: 0,
+                forwardedFromWeb: u,
+                isViewOnce: c,
+                uploadQpl: h,
+              }).handleCheckExistingSuccess(),
+              h.endSuccess(),
               f
             );
-          var h = yield s;
-          if (h != null)
-            return m.entries.addEntry({
-              deprecatedMms3Url: h.url,
-              mediaKey: h.mediaKey,
-              mediaKeyTimestamp: h.mediaKeyTimestamp,
-              encFilehash: h.encFilehash,
-              type: p,
-              sidecar: h.sidecar,
-              directPath: h.directPath,
-              firstFrameSidecar: h.firstFrameSidecar,
-              debugHint: "upload",
-            });
-          var y = function () {
+          var y;
+          try {
+            y = yield s;
+          } catch (e) {
+            throw (
+              h.endFailWithError(
+                "early_upload_failed",
+                e instanceof Error ? e.message : String(e),
+              ),
+              e
+            );
+          }
+          if (y != null)
+            return (
+              h.addPoint("early_upload_success"),
+              h.endSuccess(),
+              m.entries.addEntry({
+                deprecatedMms3Url: y.url,
+                mediaKey: y.mediaKey,
+                mediaKeyTimestamp: y.mediaKeyTimestamp,
+                encFilehash: y.encFilehash,
+                type: p,
+                sidecar: y.sidecar,
+                directPath: y.directPath,
+                firstFrameSidecar: y.firstFrameSidecar,
+                debugHint: "upload",
+              })
+            );
+          var C = function () {
               m.consolidate({
                 uploadStage: o("WAWebMediaTypes").UploadStage.FINALIZING,
               });
             },
-            C = o("WAThrottle").throttle(function (e, t) {
+            b = o("WAThrottle").throttle(function (e, t) {
               var n = e.loaded + t;
               Number.isFinite(n) && m.consolidate({ loadedSize: n });
             }, o("WAWebMmsConst").FILE_PROGRESS_THROTTLE_WAIT_MS),
-            b = d ? d.key : f == null ? void 0 : f.getMediaKey(),
-            v = d ? d.timestamp : f == null ? void 0 : f.getMediaKeyTimestamp(),
-            S = o("WAWebStartMediaUploadQpl").startMediaUploadQpl({
-              entryPoint: "MediaUpload",
-            }),
+            v = d ? d.key : f == null ? void 0 : f.getMediaKey(),
+            S = d ? d.timestamp : f == null ? void 0 : f.getMediaKeyTimestamp(),
             R = yield r("WAWebUploadManager").encryptAndUpload({
               blob: a,
-              mediaKey: b,
-              mediaKeyTimestamp: v,
+              mediaKey: v,
+              mediaKeyTimestamp: S,
               type: p,
               signal: _,
               userUploadAttemptCount: m.userUploadAttemptCount,
               forwardedFromWeb: u,
               uploadOrigin: g,
-              onProgress: C,
-              onFinalize: y,
+              onProgress: b,
+              onFinalize: C,
               isViewOnce: c,
               isHdPhoto:
                 p === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE &&
@@ -137,7 +159,7 @@ __d(
                   (t = m.contentInfo.fullHeight) != null ? t : 0,
                   (n = m.contentInfo.fullWidth) != null ? n : 0,
                 ),
-              uploadQpl: S,
+              uploadQpl: h,
             }),
             L = R.directPath,
             E = R.encFilehash,

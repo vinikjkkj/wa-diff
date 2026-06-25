@@ -4,93 +4,126 @@ __d(
     "WALogger",
     "WAShiftTimer",
     "WAWebFalcoLoggerCache",
+    "WAWebODS",
     "WAWebWamFalcoABProps",
+    "WAWebWamFalcoModes",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 150,
-      c = 2e3,
-      d = 50,
-      m = 200,
-      p = [];
-    function _(t) {
-      var n = function () {
-        var t = a.fields,
-          n = a.name;
-        try {
-          o("WAWebFalcoLoggerCache")
-            .getFalcoLogger(n)
-            .logImmediately(function () {
-              return t;
-            });
-        } catch (t) {
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[falco] send failed for ",
-                  "",
-                ])),
-              n,
-            )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("wam_falco_send_error", { sampling: 0.1 });
-        }
+      u,
+      c = 150,
+      d = 2e3,
+      m = 50,
+      p = 200,
+      _ = [],
+      f = function () {
+        return {};
       };
-      for (var a of t) n();
+    function g(e) {
+      f = e;
     }
-    function f(e) {
-      g(e, 0);
+    function h(t) {
+      var n =
+          o("WAWebWamFalcoABProps").getWamFalcoMode() ===
+          o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING,
+        a = function () {
+          var t = i.fields,
+            a = i.name,
+            l = {};
+          try {
+            l = f();
+          } catch (t) {
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[falco] canonical read failed at flush for ",
+                    "",
+                  ])),
+                a,
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("wam_falco_canonical_read_error", { sampling: 0.1 });
+          }
+          n &&
+            (r("WAWebODS").incr("web.falco.shadow.flush"),
+            r("WAWebODS").incr("web.falco.shadow." + a + ".flush"));
+          try {
+            var u = babelHelpers.extends({}, l, t);
+            o("WAWebFalcoLoggerCache")
+              .getFalcoLogger(a)
+              .logImmediately(function () {
+                return u;
+              });
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[falco] send failed for ",
+                    "",
+                  ])),
+                a,
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("wam_falco_send_error", { sampling: 0.1 });
+          }
+        };
+      for (var i of t) a();
     }
-    function g(e, t) {
-      var n = Math.min(t + m, e.length);
-      (_(e.slice(t, n)),
+    function y(e) {
+      C(e, 0);
+    }
+    function C(e, t) {
+      var n = Math.min(t + p, e.length);
+      (h(e.slice(t, n)),
         n < e.length &&
           self.setTimeout(function () {
-            return g(e, n);
+            return C(e, n);
           }, 0));
     }
-    function h() {
-      if (p.length !== 0) {
-        var e = p;
-        ((p = []), _(e));
+    function b() {
+      if (_.length !== 0) {
+        var e = _;
+        ((_ = []), h(e));
       }
     }
-    var y = new (o("WAShiftTimer").ShiftTimer)(h),
-      C = !1;
-    function b() {
-      C ||
-        ((C = !0),
-        self.addEventListener("beforeunload", h),
-        self.addEventListener("pagehide", h));
+    var v = new (o("WAShiftTimer").ShiftTimer)(b),
+      S = !1;
+    function R() {
+      S ||
+        ((S = !0),
+        self.addEventListener("beforeunload", b),
+        self.addEventListener("pagehide", b));
     }
-    function v(e) {
-      (b(),
-        p.length >= c &&
+    function L(e) {
+      (R(),
+        _.length >= d &&
           (o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[falco] queue overflow, dropping ",
                   " oldest events",
                 ])),
-              d,
+              m,
             )
             .sendLogs("wam_falco_queue_overflow", { sampling: 0.01 }),
-          p.splice(0, d)),
-        p.push(e),
-        p.length >= u
-          ? y.onOrBefore(0)
-          : y.onOrBefore(
+          _.splice(0, m)),
+        _.push(e),
+        _.length >= c
+          ? v.onOrBefore(0)
+          : v.onOrBefore(
               o("WAWebWamFalcoABProps").getWamFalcoFlushIntervalMs(),
             ));
     }
-    ((l.sendFalcoEventsNow = _),
-      (l.sendFalcoEventsChunked = f),
-      (l.drainFalcoQueue = h),
-      (l.enqueueFalcoEvent = v));
+    ((l.setCanonicalFieldsProvider = g),
+      (l.sendFalcoEventsNow = h),
+      (l.sendFalcoEventsChunked = y),
+      (l.drainFalcoQueue = b),
+      (l.enqueueFalcoEvent = L));
   },
   98,
 );

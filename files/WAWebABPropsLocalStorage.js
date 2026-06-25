@@ -1,6 +1,6 @@
 __d(
   "WAWebABPropsLocalStorage",
-  ["WANullthrows", "WAWebLocalStorage", "WAWebUserPrefsKeys"],
+  ["WAWebLocalStorage", "WAWebUserPrefsKeys", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     var e = 600,
       s = 604800,
@@ -20,13 +20,13 @@ __d(
               : m.refresh,
           lastSyncTime: i,
         };
-      r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+      r("nullthrows")(r("WAWebLocalStorage")).setItem(
         o("WAWebUserPrefsKeys").KEYS.ABPROPS,
         JSON.stringify(p),
       );
     }
     function d() {
-      var e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+      var e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
         o("WAWebUserPrefsKeys").KEYS.ABPROPS,
       );
       return e == null ? null : JSON.parse(e);
@@ -48,49 +48,49 @@ __d(
       return parseInt((e = t == null ? void 0 : t.refresh) != null ? e : u, 10);
     }
     function g() {
-      var e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+      var e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
         o("WAWebUserPrefsKeys").KEYS.ABPROPS_REFRESH_ID,
       );
       return (e == null && h(0), e == null ? 0 : parseInt(e, 10));
     }
     function h(e) {
-      r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+      r("nullthrows")(r("WAWebLocalStorage")).setItem(
         o("WAWebUserPrefsKeys").KEYS.ABPROPS_REFRESH_ID,
         String(e),
       );
     }
     function y() {
-      var e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+      var e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
         o("WAWebUserPrefsKeys").UserPrefs.AbpropsWebRefreshId,
       );
       return (e == null && C(0), e == null ? 0 : parseInt(e, 10));
     }
     function C(e) {
-      r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+      r("nullthrows")(r("WAWebLocalStorage")).setItem(
         o("WAWebUserPrefsKeys").UserPrefs.AbpropsWebRefreshId,
         String(e),
       );
     }
     function b() {
-      var e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+      var e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
         o("WAWebUserPrefsKeys").KEYS.GROUP_ABPROPS_REFRESH_ID,
       );
       return e == null ? 0 : parseInt(e, 10);
     }
     function v(e) {
-      r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+      r("nullthrows")(r("WAWebLocalStorage")).setItem(
         o("WAWebUserPrefsKeys").KEYS.GROUP_ABPROPS_REFRESH_ID,
         String(e),
       );
     }
     function S() {
-      var e = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+      var e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
         o("WAWebUserPrefsKeys").KEYS.GROUP_ABPROPS_EMERGENCY_PUSH_TIMESTAMP,
       );
       return e == null ? null : parseInt(e, 10);
     }
     function R(e) {
-      r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+      r("nullthrows")(r("WAWebLocalStorage")).setItem(
         o("WAWebUserPrefsKeys").KEYS.GROUP_ABPROPS_EMERGENCY_PUSH_TIMESTAMP,
         String(e),
       );

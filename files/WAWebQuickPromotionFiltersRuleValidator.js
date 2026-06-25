@@ -16,7 +16,12 @@ __d(
       var n = e.data.qpConfigFilterRules;
       if (n == null) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
       try {
-        return c(n, e, t, 0);
+        return c({
+          deepLevel: 0,
+          eligibilityContext: t,
+          filterClause: n,
+          promotion: e,
+        });
       } catch (t) {
         return (
           o("WAWebQuickPromotionDebugLogger").qpLog(
@@ -27,8 +32,12 @@ __d(
         );
       }
     }
-    function c(t, n, a, i) {
-      if (i >= s)
+    function c(t) {
+      var n = t.deepLevel,
+        a = t.eligibilityContext,
+        i = t.filterClause,
+        l = t.promotion;
+      if (n >= s)
         throw (
           o("WALogger")
             .ERROR(
@@ -40,59 +49,64 @@ __d(
             .sendLogs("quick-promotion-filters-too-deep"),
           r("err")("filterClauseValidator: maximum level reached")
         );
-      var l = t.clauses,
-        u = t.clauseType,
-        m = t.filters;
-      if (m.length > 0)
-        for (var p = 0; p < m.length; p++) {
-          var _ = m[p],
-            f = _.filterName,
-            g = o("WAWebQuickPromotionFilters").getFilterValidator(f),
-            h = void 0;
-          if (g != null)
-            ((h = g.filter(n, _.parameters, a)),
-              h === o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
+      var u = i.clauses,
+        m = i.clauseType,
+        p = i.filters;
+      if (p.length > 0)
+        for (var _ = 0; _ < p.length; _++) {
+          var f = p[_],
+            g = f.filterName,
+            h = o("WAWebQuickPromotionFilters").getFilterValidator(g),
+            y = void 0;
+          if (h != null)
+            ((y = h.filter(l, f.parameters, a)),
+              y === o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
                 ? o("WAWebQuickPromotionDebugLogger").qpLog(
                     "eligibility.filter.pass",
                     {
-                      promotionId: n.id,
-                      filterName: f,
-                      parameters: _.parameters,
+                      promotionId: l.id,
+                      filterName: g,
+                      parameters: f.parameters,
                     },
                   )
                 : o("WAWebQuickPromotionDebugLogger").qpLog(
                     "eligibility.filter.fail",
                     {
-                      promotionId: n.id,
-                      filterName: f,
-                      parameters: _.parameters,
-                      reason: h.reason,
+                      promotionId: l.id,
+                      filterName: g,
+                      parameters: f.parameters,
+                      reason: y.reason,
                     },
                   ));
           else {
-            var y = o("WAWebQuickPromotionFilterUnknown").unknownFilter(
-              _.clientNotSupportedConfig,
+            var C = o("WAWebQuickPromotionFilterUnknown").unknownFilter(
+              f.clientNotSupportedConfig,
             );
             (o("WAWebQuickPromotionDebugLogger").qpLog(
               "eligibility.filter.unknown",
-              { promotionId: n.id, filterName: f, defaultAllow: y },
+              { promotionId: l.id, filterName: g, defaultAllow: C },
             ),
-              (h = y
+              (y = C
                 ? o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
                 : o("WAWebCommonQPSurfacesTypes")
                     .RESULT_FALSE_FILTERS_UNKNOWN));
           }
-          var C = d(u, h);
-          if (C != null) return C;
+          var b = d(m, y);
+          if (b != null) return b;
         }
-      if (l.length > 0)
-        for (var b = 0; b < l.length; b++) {
-          var v = l[b],
-            S = c(v, n, a, i + 1),
-            R = d(u, S);
-          if (R != null) return R;
+      if (u.length > 0)
+        for (var v = 0; v < u.length; v++) {
+          var S = u[v],
+            R = c({
+              deepLevel: n + 1,
+              eligibilityContext: a,
+              filterClause: S,
+              promotion: l,
+            }),
+            L = d(m, R);
+          if (L != null) return L;
         }
-      switch (u) {
+      switch (m) {
         case o("WAWebProtobufsQuickPromotionSurfaces.pb").QP$ClauseType.OR:
           return o("WAWebCommonQPSurfacesTypes")
             .RESULT_FALSE_FILTERS_CHECK_FAILED;

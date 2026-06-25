@@ -2,7 +2,6 @@ __d(
   "WAWebE2EProtoParser",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebABPropsSaga",
     "WAWebAfterReadUtils",
@@ -36,6 +35,7 @@ __d(
     "WAWebWid",
     "isArrayNullOrEmpty",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -489,7 +489,7 @@ __d(
           .sendLogs("parse-futureproof-msg-max-depth");
         return;
       }
-      var c = r("WANullthrows")(i.message),
+      var c = r("nullthrows")(i.message),
         d = [],
         m =
           u == null

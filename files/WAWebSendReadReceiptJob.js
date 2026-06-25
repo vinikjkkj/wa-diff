@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAck",
@@ -30,6 +29,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -195,7 +195,7 @@ __d(
             c = a.fromMe && !r("justknobx")._("5152"),
             m = (n == null || n.sendReceipt === !0) && !c;
           if (m) {
-            var _ = i ? l : r("WANullthrows")(a.participant);
+            var _ = i ? l : r("nullthrows")(a.participant);
             if (
               (yield o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
                 to: l,

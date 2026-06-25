@@ -8,6 +8,7 @@ __d(
     "WAWebBrowserInfo",
     "WAWebBuildConstants",
     "WAWebNetworkGetResponseIfOnline",
+    "WAWebNetworkStatusStateManager",
     "asyncToGeneratorRuntime",
     "gkx",
   ],
@@ -133,7 +134,7 @@ __d(
           }),
           (i.$NetworkStatus$p_1 = function () {
             var e = this.online;
-            o("WALogger")
+            (o("WALogger")
               .LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -142,7 +143,10 @@ __d(
                   ])),
                 e ? "online" : "offline",
               )
-              .tags("comms");
+              .tags("comms"),
+              o("WAWebNetworkStatusStateManager").networkStatusStateManager.set(
+                e,
+              ));
           }),
           (i.simulateNetworkStatus = function (t) {
             (h || r("gkx")("26256")) &&

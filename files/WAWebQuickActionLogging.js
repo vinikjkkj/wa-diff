@@ -54,22 +54,26 @@ __d(
           n.commit());
       }
     }
-    function g(e, t, n, r) {
-      var a = _(e, t);
-      if (!p.has(a)) {
-        p.add(a);
-        var i = new (o(
+    function g(e) {
+      var t = e.actionId,
+        n = e.numActionsVisible,
+        r = e.slotPosition,
+        a = e.surface,
+        i = _(a, t);
+      if (!p.has(i)) {
+        p.add(i);
+        var l = new (o(
           "WAWebWebcQuickActionWamEvent",
         ).WebcQuickActionWamEvent)();
-        ((i.webcQuickActionEventType = o(
+        ((l.webcQuickActionEventType = o(
           "WAWebWamEnumWebcQuickActionEventType",
         ).WEBC_QUICK_ACTION_EVENT_TYPE.IMPRESSION),
-          (i.webcQuickActionSurface = u[e]),
-          (i.webcQuickActionId = c[t]),
-          (i.webcQuickActionSlotPosition = n),
-          (i.webcQuickActionNumVisible = r),
-          (i.webcQuickActionIsCustomized = d),
-          i.commit());
+          (l.webcQuickActionSurface = u[a]),
+          (l.webcQuickActionId = c[t]),
+          (l.webcQuickActionSlotPosition = r),
+          (l.webcQuickActionNumVisible = n),
+          (l.webcQuickActionIsCustomized = d),
+          l.commit());
       }
     }
     function h(e, t, n, r) {

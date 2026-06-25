@@ -1,6 +1,11 @@
 __d(
   "WASmaxInGroupsParticipantMixin",
-  ["WAResultOrError", "WASmaxInGroupsParticipantMixins", "WASmaxParseUtils"],
+  [
+    "WAResultOrError",
+    "WASmaxInGroupsEnums",
+    "WASmaxInGroupsParticipantMixins",
+    "WASmaxParseUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
@@ -19,14 +24,31 @@ __d(
         void 0,
       );
       if (!r.success) return r;
-      var a = o("WASmaxInGroupsParticipantMixins").parseParticipantMixins(e);
-      return a.success
+      var a = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrIntRange,
+        e,
+        "join_time",
+        0,
+        void 0,
+      );
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrStringEnum,
+        e,
+        "group_history_sent",
+        o("WASmaxInGroupsEnums").ENUM_FALSE_TRUE,
+      );
+      if (!i.success) return i;
+      var l = o("WASmaxInGroupsParticipantMixins").parseParticipantMixins(e);
+      return l.success
         ? o("WAResultOrError").makeResult({
             participantLabel: n.value,
             participantLabelMtime: r.value,
-            participantMixins: a.value,
+            joinTime: a.value,
+            groupHistorySent: i.value,
+            participantMixins: l.value,
           })
-        : a;
+        : l;
     }
     l.parseParticipantMixin = e;
   },
