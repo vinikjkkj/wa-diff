@@ -57,7 +57,8 @@ __d(
         r,
         a,
         i,
-        l =
+        l,
+        s =
           (t = (n = e.protocolMessage) == null ? void 0 : n.type) != null
             ? t
             : (r = e.editedMessage) == null ||
@@ -66,14 +67,17 @@ __d(
               ? void 0
               : r.type;
       return (
-        l ===
+        s ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT ||
         ((a = e.secretEncryptedMessage) == null ? void 0 : a.secretEncType) ===
           o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
             .EVENT_EDIT ||
         ((i = e.secretEncryptedMessage) == null ? void 0 : i.secretEncType) ===
           o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
-            .MESSAGE_EDIT
+            .MESSAGE_EDIT ||
+        ((l = e.secretEncryptedMessage) == null ? void 0 : l.secretEncType) ===
+          o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
+            .POLL_EDIT
       );
     }
     function f(e) {
@@ -125,7 +129,8 @@ __d(
       } else {
         if (
           r.has(o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED) ||
-          r.has(o("WAWebMsgType").MSG_TYPE.MESSAGE_EDIT_ENCRYPTED)
+          r.has(o("WAWebMsgType").MSG_TYPE.MESSAGE_EDIT_ENCRYPTED) ||
+          r.has(o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED)
         )
           return o("WAWap").CUSTOM_STRING(
             String(o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT),

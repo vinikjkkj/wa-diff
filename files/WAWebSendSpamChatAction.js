@@ -92,7 +92,7 @@ __d(
     }
     function v() {
       return {
-        couldntSendReportMsg: s._(/*BTDS*/ "Couldn't send report"),
+        couldNotSendReportMsg: s._(/*BTDS*/ "Couldn't send report"),
         sendingReportMsg: s._(/*BTDS*/ "Sending report"),
         reportSentMsg: s._(/*BTDS*/ "Report sent"),
         reportSentMsgV2: s._(/*BTDS*/ "Thank you for reporting."),
@@ -109,7 +109,7 @@ __d(
         c = u === void 0 ? o("WAWebActionToast.react").genId() : u,
         d = t.msgType,
         p = v(),
-        f = p.couldntSendReportMsg,
+        f = p.couldNotSendReportMsg,
         g = p.reportSentMsgV2,
         h = p.sendingReportMsg,
         y = p.tryAgainMsg,

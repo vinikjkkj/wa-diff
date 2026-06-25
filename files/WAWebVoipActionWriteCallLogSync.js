@@ -8,6 +8,7 @@ __d(
     "WAResolvable",
     "WATimeUtils",
     "WAWebCallLogUtils",
+    "WAWebCallsOnlyGating",
     "WAWebChatCollection",
     "WAWebCmd",
     "WAWebMsgKey",
@@ -92,7 +93,10 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete())
+          if (
+            o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete() ||
+            o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled()
+          )
             (o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([

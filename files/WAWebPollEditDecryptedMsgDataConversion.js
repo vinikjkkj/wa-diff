@@ -19,12 +19,14 @@ __d(
       var a,
         i,
         l,
-        s = r("WANullthrows")(
+        s,
+        u,
+        c = r("WANullthrows")(
           e.protocolMessage,
           "[Poll][Edit] Missing protocol message",
         );
       if (
-        s.type !==
+        c.type !==
         o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
       )
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(
@@ -33,14 +35,14 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .EDIT_TYPE_AND_PROTOCOL_MISMATCH,
         );
-      var u = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
-        c = r("WANullthrows")(
+      var d = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
+        m = r("WANullthrows")(
           o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
-            s.key,
-            u,
+            c.key,
+            d,
           ),
         );
-      if (!c.equals(t.targetMessageKey))
+      if (!m.equals(t.targetMessageKey))
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(
           o("WAWebPollsValidationError").PollEditValidationErrorCode
             .TARGET_MESSAGE_KEY_MISMATCH,
@@ -58,54 +60,67 @@ __d(
             .OUTSIDE_EDIT_WINDOW,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var d = s.editedMessage;
-      if (d == null)
+      var p = c.editedMessage;
+      if (p == null)
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(
           o("WAWebPollsValidationError").PollEditValidationErrorCode
             .MISSING_EDITED_MESSAGE,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var m = o("WALongInt").maybeNumberOrThrowIfTooLarge(s.timestampMs);
-      if (m == null)
+      var _ = o("WALongInt").maybeNumberOrThrowIfTooLarge(c.timestampMs);
+      if (_ == null)
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(
           o("WAWebPollsValidationError").PollEditValidationErrorCode
             .MISSING_SENDER_TIMESTAMP,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var p =
+      var f =
         (a =
           (i =
-            (l = d.pollCreationMessageV5) != null
+            (l =
+              (s = p.pollCreationMessageV6) != null
+                ? s
+                : p.pollCreationMessageV5) != null
               ? l
-              : d.pollCreationMessageV3) != null
+              : p.pollCreationMessageV3) != null
             ? i
-            : d.pollCreationMessageV2) != null
+            : p.pollCreationMessageV2) != null
           ? a
-          : d.pollCreationMessage;
-      if (p == null)
+          : p.pollCreationMessage;
+      if (f == null)
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(
           o("WAWebPollsValidationError").PollEditValidationErrorCode
             .MISSING_POLL_CREATION_MESSAGE,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      if (p.name == null)
+      if (f.name == null)
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(
           o("WAWebPollsValidationError").PollEditValidationErrorCode
             .INVALID_NAME,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      if (
-        p.correctAnswer != null ||
-        p.endTime != null ||
-        p.hideParticipantName != null ||
-        p.allowAddOption != null
-      )
+      var g = f.name;
+      if (f.correctAnswer != null)
         throw new (o("WAWebPollsValidationError").PollEditValidationError)(
           o("WAWebPollsValidationError").PollEditValidationErrorCode
             .INVALID_EDITS,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var _ = p.name;
+      var h = (u = n.pollEndTime) != null ? u : null,
+        y =
+          f.endTime != null
+            ? o("WALongInt").maybeNumberOrThrowIfTooLarge(f.endTime)
+            : null,
+        C = n.pollHideVoterNames === !0,
+        b = f.hideParticipantName === !0,
+        v = n.pollAllowAddOption === !0,
+        S = f.allowAddOption === !0;
+      if (h !== y || C !== b || v !== S)
+        throw new (o("WAWebPollsValidationError").PollEditValidationError)(
+          o("WAWebPollsValidationError").PollEditValidationErrorCode
+            .INVALID_EDITS,
+          o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
+        );
       return babelHelpers.extends(
         {},
         o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
@@ -114,16 +129,16 @@ __d(
         ),
         {
           id: t.id,
-          t: Math.floor(r("WANullthrows")(m) / 1e3),
+          t: Math.floor(r("WANullthrows")(_) / 1e3),
           type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
           subtype: "poll_edit_decrypted",
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
           kind: o("WAWebMsgType").MsgKind.ProtocolPollEdit,
-          latestEditSenderTimestampMs: m,
+          latestEditSenderTimestampMs: _,
           latestEditMsgKey: t.id,
-          protocolMessageKey: c,
+          protocolMessageKey: m,
           editMsgType: o("WAWebMsgType").MSG_TYPE.POLL_CREATION,
-          pollName: _,
+          pollName: g,
           reportingTokenInfo: t.reportingTokenInfo,
         },
       );

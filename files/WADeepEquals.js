@@ -3,34 +3,43 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    function e(t, n) {
-      if (t === n) return !0;
-      if (!t || !n || (typeof t != "object" && typeof n != "object")) return !1;
-      var r = Array.isArray(t),
-        o = Array.isArray(n);
-      if (r !== o) return !1;
-      var a = !0;
-      if (r) {
-        var i = t.length;
-        if (i !== n.length) return !1;
-        for (var l = 0; a && l < i; l++) a = e(t[l], n[l]);
-        return a;
+    function e(e, t) {
+      return l(e, t, null);
+    }
+    function l(e, t, n) {
+      if (e === t) return !0;
+      if (!e || !t || (typeof e != "object" && typeof t != "object")) return !1;
+      var r = n != null ? n : new Map(),
+        o = r.get(e);
+      if (o != null) {
+        if (o.has(t)) return !0;
+        o.add(t);
+      } else r.set(e, new Set([t]));
+      var a = Array.isArray(e),
+        i = Array.isArray(t);
+      if (a !== i) return !1;
+      var s = !0;
+      if (a) {
+        var u = e.length;
+        if (u !== t.length) return !1;
+        for (var c = 0; s && c < u; c++) s = l(e[c], t[c], r);
+        return s;
       }
-      for (var s = Object.keys(t), u = 0; a && u < s.length; u++) {
-        var c = s[u];
-        a = n.propertyIsEnumerable(c) && e(t[c], n[c]);
+      for (var d = Object.keys(e), m = 0; s && m < d.length; m++) {
+        var p = d[m];
+        s = t.propertyIsEnumerable(p) && l(e[p], t[p], r);
       }
-      if (!a || Object.keys(n).length !== s.length) return !1;
-      if (s.length === 0) {
-        var d = Object.prototype.toString.call(t),
-          m = Object.prototype.toString.call(n);
-        return ArrayBuffer.isView(t) &&
-          ArrayBuffer.isView(n) &&
+      if (!s || Object.keys(t).length !== d.length) return !1;
+      if (d.length === 0) {
+        var _ = Object.prototype.toString.call(e),
+          f = Object.prototype.toString.call(t);
+        return ArrayBuffer.isView(e) &&
+          ArrayBuffer.isView(t) &&
+          !(e instanceof DataView) &&
           !(t instanceof DataView) &&
-          !(n instanceof DataView) &&
-          t.constructor === n.constructor
+          e.constructor === t.constructor
           ? !0
-          : d === "[object Object]" && m === "[object Object]";
+          : _ === "[object Object]" && f === "[object Object]";
       }
       return !0;
     }

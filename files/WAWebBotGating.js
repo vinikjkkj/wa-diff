@@ -13,6 +13,7 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebRichResponse.flow",
+    "WAWebUnifiedResponseUtils",
     "WAWebUserPrefsBot",
   ],
   function (t, n, r, o, a, i, l) {
@@ -91,10 +92,10 @@ __d(
       );
     }
     function C(e) {
-      return (
-        e.richResponse.parseState !==
-        o("WAWebRichResponse.flow").RichResponseParseState.Unparsed
-      );
+      return o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e.unsafe())
+        ? !0
+        : e.richResponse.parseState !==
+            o("WAWebRichResponse.flow").RichResponseParseState.Unparsed;
     }
     function b(e) {
       return !(

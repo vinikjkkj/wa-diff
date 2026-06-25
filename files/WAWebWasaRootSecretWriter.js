@@ -3,16 +3,9 @@ __d(
   [
     "WALogger",
     "WASyncdConst",
-    "WATimeUtils",
-    "WAWebAck",
-    "WAWebDBMessageSerialization",
-    "WAWebMsgKey",
-    "WAWebMsgType",
     "WAWebProtobufSyncAction.pb",
-    "WAWebSchemaMessage",
     "WAWebSyncdDb",
-    "WAWebUserPrefsMeUser",
-    "WAWebViewMode.flow",
+    "WAWebWasaRootSecretDb",
     "WAWebWasaUserPrefs",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
@@ -20,155 +13,48 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return e.isLid()
-        ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-        : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+    function s(e, t, n) {
+      return u.apply(this, arguments);
     }
-    function u(e, t) {
-      return new (r("WAWebMsgKey"))({
-        from: s(e),
-        to: e,
-        id: t,
-        selfDir: "out",
-      });
-    }
-    function c(e, t, n) {
-      return {
-        id: t,
-        from: s(e),
-        to: e,
-        type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-        kind: o("WAWebMsgType").MsgKind.Protocol,
-        viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-        count: null,
-        t: o("WATimeUtils").unixTime(),
-        ack: o("WAWebAck").ACK.CLOCK,
-        local: !0,
-        messageSecret: n,
-      };
-    }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    function u() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .createOrReplace(
-              o("WAWebDBMessageSerialization").dbRowFromMessage(
-                c(e, u(e, t), n),
-              ),
-            );
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.length !== 0 &&
-            (yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkCreateOrReplace(
-                t.map(function (t) {
-                  var n = t.secret,
-                    r = t.stanzaId;
-                  return o("WAWebDBMessageSerialization").dbRowFromMessage(
-                    c(e, u(e, r), n),
-                  );
-                }),
-              ));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          (yield d(e, t, n),
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          (yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretForId(e, t, n),
             yield o("WAWebWasaUserPrefs").setWasaActiveTargetId(e.user, t));
         })),
-        g.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function y() {
+    function d() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = u(e, t),
-            r = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .get(n.toString());
-          return r == null
-            ? null
-            : o("WAWebDBMessageSerialization").messageFromDbRow(r)
-                .messageSecret;
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = u(e, t);
-          yield o("WAWebSchemaMessage").getMessageTable().remove(n.toString());
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.length !== 0 &&
-            (yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkRemove(
-                t.map(function (t) {
-                  return u(e, t).toString();
-                }),
-              ));
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWasaUserPrefs").getWasaActiveTargetId(e.user);
-          (t != null && (yield C(e, t)),
+          (t != null &&
+            (yield o("WAWebWasaRootSecretDb").removeWasaRootSecretForId(e, t)),
             yield o("WAWebWasaUserPrefs").clearWasaActiveTargetId(e.user));
         })),
-        L.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function k() {
+    function p() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
-            var a = yield I(t, n);
-            return a == null ? !1 : (yield d(t, a.stanzaId, a.secret), !0);
+            var a = yield _(t, n);
+            return a == null
+              ? !1
+              : (yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretForId(
+                  t,
+                  a.stanzaId,
+                  a.secret,
+                ),
+                !0);
           } catch (t) {
             return (
               o("WALogger")
@@ -186,15 +72,15 @@ __d(
             );
           }
         })),
-        k.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function T() {
+    function f() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a =
@@ -224,18 +110,12 @@ __d(
             ? null
             : { stanzaId: u, secret: new Uint8Array(c) };
         })),
-        T.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.getWasaRootSecretMsgKeyForId = u),
-      (l.upsertWasaRootSecretForId = d),
-      (l.upsertWasaRootSecretsForIds = p),
-      (l.applyWasaRootSecretForId = f),
-      (l.getWasaRootSecretForId = h),
-      (l.removeWasaRootSecretForId = C),
-      (l.removeWasaRootSecretsForIds = v),
-      (l.clearWasaRootSecret = R),
-      (l.maybeRecoverWasaRootSecretFromStore = E));
+    ((l.applyWasaRootSecretForId = s),
+      (l.clearWasaRootSecret = c),
+      (l.maybeRecoverWasaRootSecretFromStore = m));
   },
   98,
 );

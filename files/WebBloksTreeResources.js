@@ -3,7 +3,7 @@ __d(
   ["WebBloksFunctionTableManager", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
-        function e(e, t, n, r, o, a, i, l, s) {
+        function e(e, t, n, r, o, a, i, l, s, u) {
           ((this.$1 = !0),
             (this.variableDefinitions = e != null ? e : []),
             (this.payloads = t != null ? t : new Map()),
@@ -13,7 +13,8 @@ __d(
             (this.ftDeclare = a),
             (this.ftInclude = i),
             (this.values = s != null ? s : []),
-            (this.templates = l != null ? l : new Map()));
+            (this.templates = l != null ? l : new Map()),
+            (this.depth = u));
         }
         var t = e.prototype;
         return (
@@ -34,6 +35,7 @@ __d(
               this.ftInclude,
               this.templates,
               this.values,
+              this.depth,
             );
           }),
           (e.empty = function () {

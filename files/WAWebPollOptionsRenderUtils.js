@@ -2,6 +2,7 @@ __d(
   "WAWebPollOptionsRenderUtils",
   [
     "fbt",
+    "WAWebClock",
     "WAWebPollCreationUtils",
     "WAWebPollsSendVoteMsgAction",
     "WAXplatTrim",
@@ -102,29 +103,31 @@ __d(
       var n = t.correctOptionKey,
         a = t.isPhotoPoll,
         i = t.options,
-        l = t.pollType,
-        u = t.question,
-        c = i.filter(function (e) {
+        l = t.pollEndTime,
+        u = t.pollEndTimeEnabled,
+        c = t.pollType,
+        d = t.question,
+        m = i.filter(function (e) {
           return o("WAXplatTrim").trim(e.name) !== "";
         }),
-        d = o("WAXplatTrim").trim(u);
-      if (d.length === 0)
-        return c.length < e
+        p = o("WAXplatTrim").trim(d);
+      if (p.length === 0)
+        return m.length < e
           ? s._(
               /*BTDS*/ '_j{"*":"Add a question and at least {number} options.","_1":"Add a question and at least 1 option."}',
               [s._plural(e, "number")],
             )
           : s._(/*BTDS*/ "Add a question.");
       if (a) {
-        var m = r("countWhere")(i, function (e) {
+        var _ = r("countWhere")(i, function (e) {
           return o("WAXplatTrim").trim(e.name) === "" && !e.image;
         });
         if (
           r("countWhere")(i, function (e) {
             return !e.image || o("WAXplatTrim").trim(e.name) === "";
-          }) > m
+          }) > _
         )
-          return l === o("WAWebPollCreationUtils").PollType.QUIZ
+          return c === o("WAWebPollCreationUtils").PollType.QUIZ
             ? s._(
                 /*BTDS*/ "For quizzes with photos, add a photo and text to each option.",
               )
@@ -132,19 +135,25 @@ __d(
                 /*BTDS*/ "For polls with photos, add a photo and text to each option.",
               );
       }
-      return c.length < e
+      return m.length < e
         ? s._(
             /*BTDS*/ '_j{"*":"Add at least {number} options.","_1":"Add at least 1 option."}',
             [s._plural(e, "number")],
           )
-        : l === o("WAWebPollCreationUtils").PollType.QUIZ && n == null
+        : c === o("WAWebPollCreationUtils").PollType.QUIZ && n == null
           ? s._(/*BTDS*/ "Select the right answer.")
-          : l === o("WAWebPollCreationUtils").PollType.QUIZ &&
+          : c === o("WAWebPollCreationUtils").PollType.QUIZ &&
               i.some(function (e) {
                 return e.key === n && o("WAXplatTrim").trim(e.name) === "";
               })
             ? s._(/*BTDS*/ "Select the right answer.")
-            : null;
+            : u === !0 && l == null
+              ? s._(/*BTDS*/ "Add an end time.")
+              : u === !0 &&
+                  l != null &&
+                  l <= o("WAWebClock").Clock.getServerTimeMs()
+                ? s._(/*BTDS*/ "Choose a future end time.")
+                : null;
     }
     ((l.formatOptions = d),
       (l.isEmptyAfterTrimming = m),

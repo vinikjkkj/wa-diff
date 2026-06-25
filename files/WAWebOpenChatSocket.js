@@ -487,7 +487,7 @@ __d(
                 .LOG(
                   E ||
                     (E = babelHelpers.taggedTemplateLiteralLoose([
-                      "[socket] getCertficateChain failed ",
+                      "[socket] getCertificateChain failed ",
                       "x, fallback",
                     ])),
                   e,
@@ -510,7 +510,7 @@ __d(
                 null
               );
             var n = t.certificateChainBuffer
-              ? o("WAWebUserPrefsInfoStore").waNoiseInfo.getCertficateChain(
+              ? o("WAWebUserPrefsInfoStore").waNoiseInfo.getCertificateChain(
                   t.certificateChainBuffer,
                 )
               : null;
@@ -523,7 +523,7 @@ __d(
                 .ERROR(
                   I ||
                     (I = babelHelpers.taggedTemplateLiteralLoose([
-                      "[socket][unified] getCertficateChain error",
+                      "[socket][unified] getCertificateChain error",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))

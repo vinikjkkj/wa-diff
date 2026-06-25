@@ -18,7 +18,7 @@ __d(
           return this.processedResourceIds.has(t);
         }),
         (t.collectVariable = function (t, n, r, o) {
-          var e = r.commitToStore(t);
+          var e = r.commitToStore(t, this.config.observer);
           this.config.onCollectVariable(t, n, r.initialValue, e);
         }),
         (t.containsVariable = function (t) {

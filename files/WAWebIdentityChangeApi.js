@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAJids",
-    "WANullthrows",
     "WAWebAdvUpdateParticipantApi",
     "WAWebApiContact",
     "WAWebApiDeviceList",
@@ -22,6 +21,7 @@ __d(
     "WAWebSignal",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -144,7 +144,7 @@ __d(
                   });
                 yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg(
                   {
-                    chatId: r("WANullthrows")(h.from),
+                    chatId: r("nullthrows")(h.from),
                     newMsg: h,
                     handleSingleMsgOrigin: "bizStateChangeNotification",
                   },

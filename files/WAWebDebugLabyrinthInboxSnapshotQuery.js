@@ -28,14 +28,17 @@ __d(
             var s,
               u,
               c = l == null ? void 0 : l.node;
-            c != null && i.push({ messageId: c.id });
+            c != null &&
+              i.push({
+                encryptedPayload: c.encrypted_payload,
+                encryptionVersion: c.encryption_version,
+                messageId: c.id,
+              });
           }
-          var d = { threadId: r.id, messages: i };
-          n.push(d);
+          n.push({ threadId: r.id, messages: i });
         }
       }
-      var m = n;
-      return m;
+      return n;
     }
     function c(e) {
       return d.apply(this, arguments);

@@ -19,8 +19,21 @@ __d(
           storageKey: null,
         },
         o = [{ kind: "Variable", name: "first", variableName: "messageFirst" }],
-        a = [r],
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "encrypted_payload",
+          storageKey: null,
+        },
         i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "encryption_version",
+          storageKey: null,
+        },
+        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -82,7 +95,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "node",
                                   plural: !1,
-                                  selections: a,
+                                  selections: [a, i, r],
                                   storageKey: null,
                                 },
                               ],
@@ -118,7 +131,7 @@ __d(
               name: "get_wa_mailbox",
               plural: !1,
               selections: [
-                i,
+                l,
                 {
                   alias: null,
                   args: n,
@@ -127,7 +140,7 @@ __d(
                   name: "threads",
                   plural: !1,
                   selections: [
-                    i,
+                    l,
                     {
                       alias: null,
                       args: null,
@@ -136,7 +149,7 @@ __d(
                       name: "nodes",
                       plural: !0,
                       selections: [
-                        i,
+                        l,
                         r,
                         {
                           alias: null,
@@ -146,7 +159,7 @@ __d(
                           name: "messages",
                           plural: !1,
                           selections: [
-                            i,
+                            l,
                             {
                               alias: null,
                               args: null,
@@ -155,7 +168,7 @@ __d(
                               name: "edges",
                               plural: !0,
                               selections: [
-                                i,
+                                l,
                                 {
                                   alias: null,
                                   args: null,
@@ -163,7 +176,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "node",
                                   plural: !1,
-                                  selections: [i, r],
+                                  selections: [l, a, i, r],
                                   storageKey: null,
                                 },
                               ],
@@ -180,7 +193,7 @@ __d(
                 },
                 {
                   kind: "InlineFragment",
-                  selections: a,
+                  selections: [r],
                   type: "WALabyrinthAccount",
                   abstractKey: null,
                 },
@@ -190,7 +203,7 @@ __d(
           ],
         },
         params: {
-          id: "27881422391450662",
+          id: "27702565322674924",
           metadata: {},
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
           operationKind: "query",

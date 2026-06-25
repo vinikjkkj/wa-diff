@@ -81,7 +81,8 @@ __d(
         h = e.templates,
         y = h === void 0 ? {} : h,
         C = e.ft_declare,
-        b = e.ft_include;
+        b = e.ft_include,
+        v = e.depth;
       return new (o("WebBloksTreeResources").WebBloksTreeResources)(
         c,
         new Map(
@@ -108,6 +109,7 @@ __d(
             expression: o("WebBloksScriptParser").parse(e.expression),
           });
         }),
+        v,
       );
     }
     ((l.parseBloksModelFromJSON = s), (l.parseBloksTreeResources = u));

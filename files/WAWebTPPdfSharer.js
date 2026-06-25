@@ -129,6 +129,12 @@ __d(
           (a.listenForReturnPdf = function (t) {
             return this.$1.listen("PDF_SHARER_RETURN_PDF", t);
           }),
+          (a.listenForInactive = function (t) {
+            return this.$1.listen("PDF_SHARER_INACTIVE", t);
+          }),
+          (a.checkInactive = function () {
+            this.$1.publishWhenReady("PDF_SHARER_CHECK_INACTIVE", {});
+          }),
           (a.destroy = function () {
             this.$1.destroy();
           }),

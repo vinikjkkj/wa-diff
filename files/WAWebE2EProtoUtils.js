@@ -121,6 +121,7 @@ __d(
                 d.pollCreationMessageV2 ||
                 d.pollCreationMessageV3 ||
                 d.pollCreationMessageV5 ||
+                d.pollCreationMessageV6 ||
                 d.pollUpdateMessage ||
                 ((s = d.secretEncryptedMessage) == null
                   ? void 0

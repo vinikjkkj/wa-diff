@@ -39,44 +39,44 @@ __d(
           e
         );
       })(),
-      c = 60,
-      d = function (t, n) {
-        return {
-          table: n,
-          "# reads": t.readCount,
-          "# writes": t.writeCount,
-          "mean query time (ms)":
-            t.queryTimes && t.queryTimes.length > 0
-              ? Number(
-                  (
-                    r("sumBy")(
-                      t.queryTimes,
-                      o("WAWebIdentityFunction").identityFunction,
-                    ) / t.queryTimes.length
-                  ).toFixed(2),
-                )
-              : 0,
-          "max query time (ms)":
-            t.queryTimes && t.queryTimes.length > 0
-              ? Number(Math.max.apply(Math, t.queryTimes).toFixed(2))
-              : 0,
-          "mean records":
-            t.recordCounts && t.recordCounts.length > 0
-              ? Number(
-                  (
-                    r("sumBy")(
-                      t.recordCounts,
-                      o("WAWebIdentityFunction").identityFunction,
-                    ) / t.recordCounts.length
-                  ).toFixed(2),
-                )
-              : 0,
-          "max records":
-            t.recordCounts && t.recordCounts.length > 0
-              ? Math.max.apply(Math, t.recordCounts)
-              : 0,
-        };
+      c = 60;
+    function d(e, t) {
+      return {
+        table: t,
+        "# reads": e.readCount,
+        "# writes": e.writeCount,
+        "mean query time (ms)":
+          e.queryTimes && e.queryTimes.length > 0
+            ? Number(
+                (
+                  r("sumBy")(
+                    e.queryTimes,
+                    o("WAWebIdentityFunction").identityFunction,
+                  ) / e.queryTimes.length
+                ).toFixed(2),
+              )
+            : 0,
+        "max query time (ms)":
+          e.queryTimes && e.queryTimes.length > 0
+            ? Number(Math.max.apply(Math, e.queryTimes).toFixed(2))
+            : 0,
+        "mean records":
+          e.recordCounts && e.recordCounts.length > 0
+            ? Number(
+                (
+                  r("sumBy")(
+                    e.recordCounts,
+                    o("WAWebIdentityFunction").identityFunction,
+                  ) / e.recordCounts.length
+                ).toFixed(2),
+              )
+            : 0,
+        "max records":
+          e.recordCounts && e.recordCounts.length > 0
+            ? Math.max.apply(Math, e.recordCounts)
+            : 0,
       };
+    }
     function m(e) {
       if (!r("gkx")("26258")) {
         var t =

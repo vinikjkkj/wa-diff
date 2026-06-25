@@ -49,7 +49,7 @@ __d(
                 );
               var m = o(
                 "WAWebMsgProcessingApiUtils",
-              ).shouldOmitSessionPersistence(d, l, t);
+              ).shouldOmitSessionPersistence(d, l, t, u);
               return o("WAWebSignal").Cipher.decryptSignalProto(u, d, c, m, s);
             })()
           : d === o("WAWebBackendJobs.flow").CiphertextType.Msmsg

@@ -8,7 +8,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
     "WAWebWasaGenerateSecretEncryptedMessageProto",
-    "WAWebWasaRootSecretWriter",
+    "WAWebWasaRootSecretDb",
     "WAWebWasaUserPrefs",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -65,7 +65,7 @@ __d(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
             );
           if (i == null) throw new u();
-          var l = yield o("WAWebWasaRootSecretWriter").getWasaRootSecretForId(
+          var l = yield o("WAWebWasaRootSecretDb").getWasaRootSecretForId(
             o("WAWebBotUtils").HATCH_BOT_FBID_WID,
             i,
           );
@@ -93,7 +93,7 @@ __d(
             g = yield o("WACryptoAesGcm").gcmEncrypt(m, p, _, f);
           return r("WAWebWasaGenerateSecretEncryptedMessageProto")({
             targetMsgKey: o(
-              "WAWebWasaRootSecretWriter",
+              "WAWebWasaRootSecretDb",
             ).getWasaRootSecretMsgKeyForId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               i,

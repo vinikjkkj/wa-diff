@@ -41,7 +41,7 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "sendStatusRevokeMsgAction: send revoke status messege ",
+                "sendStatusRevokeMsgAction: send revoke status message ",
                 "",
               ])),
             n.id,

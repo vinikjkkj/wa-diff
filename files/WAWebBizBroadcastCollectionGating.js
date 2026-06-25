@@ -1,11 +1,9 @@
 __d(
   "WAWebBizBroadcastCollectionGating",
-  ["WAWebABProps"],
+  ["justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_biz_broadcast_collection_based_campaigns_enabled",
-      );
+      return r("justknobx")._("119");
     }
     l.shouldReadBizBroadcastCampaignsFromCollection = e;
   },

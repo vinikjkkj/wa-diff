@@ -40,7 +40,7 @@ __d(
           (r.resetCachedPasscodeDerivedKey = function () {
             this.cachedPasscodeDerivedKey = null;
           }),
-          (r.getCertficateChain = function (n) {
+          (r.getCertificateChain = function (n) {
             var t = o("WAArrayBufferUtils").arrayBufferToString(n);
             try {
               var r = JSON.parse(t),

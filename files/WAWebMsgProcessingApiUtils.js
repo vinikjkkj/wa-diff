@@ -42,6 +42,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["msgProtobuf"],
@@ -1088,12 +1089,13 @@ __d(
         e.msgProtobuf.senderKeyDistributionMessage != null
       );
     }
-    function Z(e, t, n) {
+    function Z(e, t, n, a) {
+      if (a.isBot() && r("justknobx")._("4101")) return !0;
       if (e === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg) {
-        var r = t.msgMeta.capi === !0,
-          a = t.msgInfo.chat.isGroup();
-        if (a && r) return !0;
-        if (r && o("WAWebMessagingGatingUtils").isSimpleSignalEnabled()) {
+        var i = t.msgMeta.capi === !0,
+          l = t.msgInfo.chat.isGroup();
+        if (l && i) return !0;
+        if (i && o("WAWebMessagingGatingUtils").isSimpleSignalEnabled()) {
           if (n.isStateless === !0) return !0;
           o(
             "WAWebSimpleSignalDowngradeStore",

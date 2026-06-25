@@ -17,9 +17,10 @@ __d(
         n = e.elementRef,
         r = e.node;
       return o("WebBloksSSRUtils").canUseDOM
-        ? p({ children: t, node: r, elementRef: n })
+        ? s.jsx(p, { elementRef: n, node: r, children: t })
         : t;
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       var t = e.children,
         n = e.elementRef,

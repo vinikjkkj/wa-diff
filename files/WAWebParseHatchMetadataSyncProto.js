@@ -19,18 +19,19 @@ __d(
     function c(e) {
       var t,
         n,
-        r = e.baseMessage,
-        a = e.messageProtobuf,
-        i = a.protocolMessage;
+        r,
+        a = e.baseMessage,
+        i = e.messageProtobuf,
+        l = i.protocolMessage;
       if (
-        i == null ||
-        i.type !==
+        l == null ||
+        l.type !==
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
             .AI_METADATA_OPERATION
       )
         return null;
-      var l = (t = r.id) == null ? void 0 : t.remote;
-      if (l == null || !o("WAWebBotUtils").isHatchBot(l))
+      var s = (t = a.id) == null ? void 0 : t.remote;
+      if (s == null || !o("WAWebBotUtils").isHatchBot(s))
         throw new (o(
           "WAWebHatchMetadataSyncValidationError",
         ).HatchMetadataSyncValidationError)(
@@ -38,24 +39,27 @@ __d(
             .HatchMetadataSyncValidationCode.UNEXPECTED_SENDER,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var s = d(i.aiMetadataOperation);
+      var u = d(
+        l.aiMetadataOperation,
+        (n = a.id) == null ? void 0 : n.toString(),
+      );
       return (
-        m(s, (n = r.id) == null ? void 0 : n.id),
+        m(u, (r = a.id) == null ? void 0 : r.id),
         {
-          msgData: babelHelpers.extends({}, r, {
+          msgData: babelHelpers.extends({}, a, {
             type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
             kind: o("WAWebMsgType").MsgKind.Protocol,
             subtype: "hatch_metadata_sync",
-            hatchMetadataSync: s,
+            hatchMetadataSync: u,
           }),
           contextInfo: null,
         }
       );
     }
-    function d(t) {
-      var n = t == null ? void 0 : t.hatchMetadataSync,
-        a = n == null ? void 0 : n.data;
-      if (a == null || a.byteLength === 0)
+    function d(t, n) {
+      var a = t == null ? void 0 : t.hatchMetadataSync,
+        i = a == null ? void 0 : a.data;
+      if (i == null || i.byteLength === 0)
         throw new (o(
           "WAWebHatchMetadataSyncValidationError",
         ).HatchMetadataSyncValidationError)(
@@ -63,14 +67,15 @@ __d(
             .HatchMetadataSyncValidationCode.EMPTY_PAYLOAD,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var i;
+      var l;
       try {
-        i = o(
+        l = o(
           "WAWebHatchMetadataOperationDecoder",
         ).decodeHatchMetadataOperation(
-          a,
-          n == null ? void 0 : n.timestampMs,
-          n == null ? void 0 : n.requestId,
+          i,
+          a == null ? void 0 : a.timestampMs,
+          a == null ? void 0 : a.requestId,
+          n,
         );
       } catch (t) {
         throw t instanceof o("WAWebHatchDecodeError").HatchDecodeError
@@ -85,7 +90,7 @@ __d(
               )
               .sendLogs("hatch-metadata-decode-error"),
             r("WAWebHatchMetadataExchangeManager").failRequest(
-              n == null ? void 0 : n.requestId,
+              a == null ? void 0 : a.requestId,
               "decode_failed",
             ),
             new (o(
@@ -114,7 +119,7 @@ __d(
                 .INVALID_MESSAGE,
             ));
       }
-      if (i == null)
+      if (l == null)
         throw new (o(
           "WAWebHatchMetadataSyncValidationError",
         ).HatchMetadataSyncValidationError)(
@@ -123,7 +128,7 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .UNSUPPORTED_MESSAGE_TYPE,
         );
-      return i;
+      return l;
     }
     function m(e, t) {
       try {

@@ -22,15 +22,15 @@ __d(
         }
         var n = t.prototype;
         return (
-          (n.fetchAndSubscribe = function (t, n, r, o) {
-            var e = this.store.get(t);
-            return (
-              e == null && ((e = n), this.store.set(t, n)),
-              this.$1(t, e, r, o)
-            );
+          (n.peek = function (t) {
+            return this.store.get(t);
           }),
-          (n.publishAndSubscribe = function (t, n, r, o) {
-            return (this.publish(t, n), this.$1(t, n, r, o));
+          (n.publishInitial = function (t, n) {
+            this.peek(t) == null && this.publish(t, n);
+          }),
+          (n.subscribe = function (t, n, r) {
+            var e = this.subscriberForObserver(r);
+            e && e.add(t, n);
           }),
           (n.publish = function (t, n) {
             if (n == null) {
@@ -49,10 +49,6 @@ __d(
             var r = new e(n);
             return (this.subscribers.push(r), r);
           }),
-          (n.$1 = function (t, n, r, o) {
-            var e = this.subscriberForObserver(o);
-            return (e && e.add(t, r), { initialValue: n });
-          }),
           t
         );
       })(),
@@ -62,21 +58,39 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.setup = function (t, n, r, a) {
+          (t.setup = function (t, n, r) {
             var e,
-              i,
-              l = n.data.key;
-            if (l == null)
+              a,
+              i = n.data.key;
+            if (i == null)
               throw new (o("WebBloksErrors").WebBloksError)(
                 "Key not found in global state data manifest entry",
               );
-            var s = o("WebBloksDataModule").getDataEntryInitialValue(n, a),
-              u =
-                (e = (i = n.data) == null ? void 0 : i.mode) != null ? e : "d",
-              c = n.id;
-            return u === "p"
-              ? this.store.publishAndSubscribe(l, s, c, r)
-              : this.store.fetchAndSubscribe(l, s, c, r);
+            var l = o("WebBloksDataModule").getDataEntryInitialValue(n, r),
+              s =
+                (e = (a = n.data) == null ? void 0 : a.mode) != null ? e : "d",
+              u = this.store,
+              c,
+              d;
+            if (s === "p") ((c = l), (d = "publish"));
+            else {
+              var m = u.peek(i);
+              m == null
+                ? ((c = l), (d = "initial"))
+                : ((c = m), (d = "subscribe"));
+            }
+            return {
+              initialValue: c,
+              commitToStore: function (t, n) {
+                return (
+                  d === "publish"
+                    ? u.publish(i, l)
+                    : d === "initial" && u.publishInitial(i, l),
+                  u.subscribe(i, t, n),
+                  null
+                );
+              },
+            };
           }),
           (t.publish = function (t, n) {
             this.store.publish(t, n);

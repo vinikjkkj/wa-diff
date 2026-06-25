@@ -409,23 +409,26 @@ __d(
                 o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
                   .INVALID_PIN_IN_CHAT_STANZA,
               );
-          } else if (
-            n.edit === o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT &&
-            !(
-              o("WAWebHandleMsgMetaUtils").isEventEditMsgMeta(a) ||
-              o("WAWebHandleMsgMetaUtils").isPollEditMsgMeta(a) ||
-              (o("WAWebHandleMsgMetaUtils").isMediaMsgMeta(a) &&
-                o("WAWebBotUtils").isMetaAiBot(n.author))
-            )
-          ) {
-            var y =
-              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              s.futureproofSubtype === b;
-            if (s.subtype !== b && !y)
-              throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
-                o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
-                  .INVALID_EDIT_STANZA,
-              );
+          } else if (n.edit === o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT) {
+            if (
+              !(
+                o("WAWebHandleMsgMetaUtils").isEventEditMsgMeta(a) ||
+                o("WAWebHandleMsgMetaUtils").isPollEditMsgMeta(a) ||
+                (o("WAWebHandleMsgMetaUtils").isMediaMsgMeta(a) &&
+                  o("WAWebBotUtils").isMetaAiBot(n.author))
+              )
+            ) {
+              var y =
+                s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+                s.futureproofSubtype === b;
+              if (s.subtype !== b && !y)
+                throw new (o(
+                  "WAWebHandleMsgError",
+                ).MessageProtobufMismatchError)(
+                  o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
+                    .INVALID_EDIT_STANZA,
+                );
+            }
           } else {
             if (n.edit === o("WAWebAck").EDIT_ATTR.NEWSLETTER_MSG_EDIT)
               throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(

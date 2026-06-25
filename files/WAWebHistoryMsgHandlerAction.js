@@ -21,6 +21,7 @@ __d(
     "WAWebBizCoexUtils",
     "WAWebBotTypes",
     "WAWebCTWAGatingUtils",
+    "WAWebCallsOnlyGating",
     "WAWebChatConstants",
     "WAWebCheckUpdateOrphanReactions",
     "WAWebCryptoCurve25519",
@@ -906,6 +907,8 @@ __d(
       );
     }
     function U(t) {
+      if (o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
+        return (w || (w = n("Promise"))).resolve();
       var a = { add: "last", isHistory: !0 },
         i = Object.keys(t).map(function (e) {
           return o("WAWebBackendApi").frontendSendAndReceive(

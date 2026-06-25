@@ -27,14 +27,15 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = !e.is_offline;
-          yield c({
-            jid: e.call_creator,
-            phoneNumber: e.caller_pn,
-            username: e.caller_username,
-            countryCode: e.caller_country_code,
-            pushName: e.caller_push_name,
-            flushImmediately: t,
-          });
+          e.peer_jid.isUser() &&
+            (yield c({
+              jid: e.peer_jid,
+              phoneNumber: e.caller_pn,
+              username: e.caller_username,
+              countryCode: e.caller_country_code,
+              pushName: e.caller_push_name,
+              flushImmediately: t,
+            }));
           var r = e.group_info_updates;
           r != null &&
             (yield o("WAPromiseEach").promiseEach(

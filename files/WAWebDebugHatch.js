@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebHandleHatchMetadataSync",
+    "WAWebHatchApprovalDebug",
     "WAWebHatchApprovalDialog.react",
     "WAWebHatchPayloadDebugStore",
     "WDSDialogBridge",
@@ -112,13 +113,25 @@ __d(
     ((f.doc =
       "Inject N (1-3, default 3) sample HITL approvals (P2384347284) as pending requests \u2014 pass a count to test the single- vs multi-approval review dialog"),
       (f.paramsToExecute = [d.length]));
-    var g = {
+    function g(e) {
+      return o("WAWebHatchApprovalDebug").debugInjectHatchApprovalRequest(e);
+    }
+    g.doc =
+      "Inject a synthetic Hatch HITL approval request through the real decode -> store -> UI pipeline (open a Hatch chat to see the composer swap to the approval bar). Returns the approvalId.";
+    function h(e) {
+      o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e);
+    }
+    h.doc =
+      "Resolve a pending Hatch HITL approval (synthetic decision echo) by id, clearing the approval bar";
+    var y = {
       hatchClearPayloads: p,
+      hatchInjectApproval: g,
       hatchPayloads: m,
+      hatchResolveApproval: h,
       injectHatchApprovals: f,
       openHatchApprovalDialog: _,
     };
-    l.default = g;
+    l.default = y;
   },
   98,
 );

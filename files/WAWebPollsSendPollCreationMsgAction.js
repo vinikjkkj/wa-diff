@@ -79,6 +79,8 @@ __d(
             pollContentType: e.contentType,
             pollType: e.pollType,
             correctOptionIndex: e.correctOptionIndex,
+            pollEndTime: e.endTime,
+            pollHideVoterNames: e.hideVoterNames,
           };
         })),
         m.apply(this, arguments)
@@ -156,28 +158,30 @@ __d(
             s = yield d(i),
             u = s.correctOptionIndex,
             c = s.pollContentType,
-            m = s.pollName,
-            p = s.pollOptions,
-            _ = s.pollSelectableOptionsCount,
-            f = s.pollType,
-            g = r("WAWebWid").isNewsletter(n.id),
-            h = n.id,
-            y = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            m = s.pollEndTime,
+            p = s.pollHideVoterNames,
+            _ = s.pollName,
+            f = s.pollOptions,
+            g = s.pollSelectableOptionsCount,
+            h = s.pollType,
+            y = r("WAWebWid").isNewsletter(n.id),
+            C = n.id,
+            b = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
               n,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
             ),
-            C =
+            v =
               (t = l == null ? void 0 : l.msgContextInfo(n.id)) != null
                 ? t
                 : {};
           return babelHelpers.extends(
             {
               id: new (r("WAWebMsgKey"))({
-                from: y,
-                to: h,
+                from: b,
+                to: C,
                 id: r("WAWebMsgKey").newId_DEPRECATED(),
                 participant: o("WAWebChatGetters").getIsGroup(n)
-                  ? o("WAWebWidFactory").asUserWidOrThrow(y)
+                  ? o("WAWebWidFactory").asUserWidOrThrow(b)
                   : void 0,
                 selfDir: "out",
               }),
@@ -188,23 +192,28 @@ __d(
                 ? !0
                 : void 0,
               t: o("WATimeUtils").unixTime(),
-              from: y,
-              to: h,
+              from: b,
+              to: C,
               isNewMsg: !0,
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
-              pollName: m,
-              pollOptions: p,
-              messageSecret: g
+              pollName: _,
+              pollOptions: f,
+              messageSecret: y
                 ? void 0
                 : self.crypto.getRandomValues(new Uint8Array(32)),
-              pollSelectableOptionsCount: _,
+              pollSelectableOptionsCount: g,
               isWamoSub: a,
               pollContentType: c,
             },
-            C,
+            v,
             o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(n),
-            { pollType: f, correctOptionIndex: u },
+            {
+              pollType: h,
+              correctOptionIndex: u,
+              pollEndTime: m,
+              pollHideVoterNames: p,
+            },
           );
         })),
         g.apply(this, arguments)

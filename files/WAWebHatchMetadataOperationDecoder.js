@@ -8,25 +8,26 @@ __d(
         o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_VERSION,
       );
     }
-    function s(t, r, a) {
-      var i;
+    function s(t, r, a, i) {
+      var l;
       try {
-        i = JSON.parse(new TextDecoder("utf-8").decode(t));
+        l = JSON.parse(new TextDecoder("utf-8").decode(t));
       } catch (e) {
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.PARSE_FAILURE,
         );
       }
-      if (!o("WAWebHatchJsonReaders").isObject(i))
+      if (!o("WAWebHatchJsonReaders").isObject(l))
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.PARSE_FAILURE,
         );
-      var l = (function (t) {
-        return t === 1 ? u(i, r, a) : e();
-      })(o("WAWebHatchJsonReaders").readNumber(i, "version"));
+      var s = (function (t) {
+        return t === 1 ? u(l, r, a) : e();
+      })(o("WAWebHatchJsonReaders").readNumber(l, "version"));
       return (
-        l != null && (n("cr:7454") == null || n("cr:7454").recordInbound(l, t)),
-        l
+        s != null &&
+          (n("cr:7454") == null || n("cr:7454").recordInbound(s, t, i)),
+        s
       );
     }
     function u(e, t, n) {

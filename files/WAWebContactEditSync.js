@@ -20,35 +20,46 @@ __d(
         l = e.shortName,
         s = e.syncToAddressbook,
         u = e.username,
-        c = r("WAWebContactSync").getContactSyncMutation({
+        c = o("WAWebUsernameTypes").asMaybeUsername(u),
+        d = r("WAWebContactSync").getContactSyncMutation({
           contactId: t,
           fullName: a,
           firstName: l,
           syncToAddressbook: s,
           lid: i,
-          username: o("WAWebUsernameTypes").asMaybeUsername(u),
+          username: c,
         }),
-        d = {
-          id: t.toString({ legacy: !0 }),
-          name: a,
-          shortName: l,
-          type: "in",
-          syncToAddressbook: s,
-          isAddressBookContact: 1,
-          isContactSyncCompleted: 0,
-          isUsernameContact: !1,
-        };
+        m = babelHelpers.extends(
+          {
+            id: t.toString({ legacy: !0 }),
+            name: a,
+            shortName: l,
+            type: "in",
+            syncToAddressbook: s,
+            isAddressBookContact: 1,
+            isContactSyncCompleted: 0,
+            isUsernameContact: !1,
+          },
+          c != null ? { username: c } : {},
+        );
       return o("WAWebSyncdCoreApi")
-        .lockForSync(["contact"], [c], function () {
+        .lockForSync(["contact"], [d], function () {
           return o("WAWebApiContact").createOrMergeAddressBookContacts([
-            babelHelpers.extends({}, d),
+            babelHelpers.extends({}, m),
           ]);
         })
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             o("WAWebBackendApi").frontendFireAndForget(
               "bulkAddContactToCollection",
-              { contacts: [babelHelpers.extends({}, d, { id: t.toString() })] },
+              {
+                contacts: [
+                  babelHelpers.extends({}, m, {
+                    id: t.toString(),
+                    username: o("WAWebUsernameTypes").serializeMaybeUsername(c),
+                  }),
+                ],
+              },
             );
           }),
         );

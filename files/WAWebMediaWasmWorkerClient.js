@@ -7,6 +7,7 @@ __d(
     "WACustomError",
     "WAPromiseTimeout",
     "WAResultOrError",
+    "WAWebCallsOnlyGating",
     "WAWebMediaWasmWorkerResource",
     "WorkerBundleResource",
     "WorkerMessagePort",
@@ -41,9 +42,12 @@ __d(
           "WAWebMediaWasmWorkerClient",
         ]);
       },
-      D = $(),
-      x = 3e4;
-    function $() {
+      D = o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ? null : P();
+    function x() {
+      return (D == null && (D = P()), D);
+    }
+    var $ = 3e4;
+    function P() {
       var t = o("WorkerBundleResource").createDedicatedWebWorker(
           r("WAWebMediaWasmWorkerResource"),
         ),
@@ -80,12 +84,12 @@ __d(
           }
         }),
         n.addMessageListener("qpl", function (e) {
-          P(e);
+          N(e);
         }),
         n
       );
     }
-    function P(e) {
+    function N(e) {
       var t = e.action,
         n = e.event;
       switch (t.type) {
@@ -112,11 +116,11 @@ __d(
           );
       }
     }
-    function N(e) {
+    function M(e) {
       e == null || e.addPoint("get_connected_worker_port_start");
-      var t = D;
+      var t = x();
       return o("WAPromiseTimeout")
-        .promiseTimeout(t.fullyConnected, x)
+        .promiseTimeout(t.fullyConnected, $)
         .then(function (t) {
           return (
             e == null || e.addPoint("get_connected_worker_port_end"),
@@ -150,17 +154,17 @@ __d(
           );
         });
     }
-    var M = 0;
-    function w() {
-      return ++M;
+    var w = 0;
+    function A() {
+      return ++w;
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = w();
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = A();
           T().INFO(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -171,7 +175,7 @@ __d(
             t,
             Math.floor(e.byteLength / (1024 * 1024)),
           );
-          var n = yield N();
+          var n = yield M();
           if (!n.success)
             return {
               transferredBuffer: e,
@@ -216,16 +220,16 @@ __d(
                 result: o("WAResultOrError").makeError(l.error.errorType),
               });
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e, t, n) {
-      return B.apply(this, arguments);
+    function B(e, t, n) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = w();
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = A();
           T().INFO(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -236,7 +240,7 @@ __d(
             r,
             Math.floor(t.byteLength / (1024 * 1024)),
           );
-          var a = yield N();
+          var a = yield M();
           if (!a.success)
             return {
               transferredKeyBuffer: e,
@@ -291,15 +295,15 @@ __d(
                 result: o("WAResultOrError").makeError(u.error.errorType),
               });
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.eventFlow,
             n = e.input,
             r = e.mimeType,
@@ -310,7 +314,7 @@ __d(
                 "transcodeToMp4InWorker processing video",
               ])),
           );
-          var i = w();
+          var i = A();
           T().INFO(
             b ||
               (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -319,7 +323,7 @@ __d(
               ])),
             i,
           );
-          var l = yield N(t);
+          var l = yield M(t);
           if (!l.success) return o("WAResultOrError").makeError(l.error);
           var s = l.value,
             u = s.onMessageOnce("transcodeToMp4Response", function (e) {
@@ -362,15 +366,15 @@ __d(
                 o("WAResultOrError").makeError(p.error.errorType))
           );
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e) {
-      return V.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function V() {
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.eventFlow,
             n = e.input;
           T().INFO(
@@ -379,7 +383,7 @@ __d(
                 "mp4RepairMuxInWorker processing video",
               ])),
           );
-          var r = w();
+          var r = A();
           T().INFO(
             R ||
               (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -388,7 +392,7 @@ __d(
               ])),
             r,
           );
-          var a = yield N(t);
+          var a = yield M(t);
           if (!a.success) return o("WAResultOrError").makeError(a.error);
           var i = a.value,
             l = i.onMessageOnce("mediaOperationResponse", function (e) {
@@ -432,20 +436,20 @@ __d(
               t == null || t.addPoint("sent_request_to_media_worker_fail"),
               o("WAResultOrError").makeError(d.error.errorType));
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function G() {
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.eventFlow,
             n = e.input,
             r = e.mediaType,
             a = e.rawMimeType,
-            i = w();
+            i = A();
           T().INFO(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
@@ -454,7 +458,7 @@ __d(
               ])),
             i,
           );
-          var l = yield N(t);
+          var l = yield M(t);
           if (!l.success)
             return {
               transferredBuffer: n,
@@ -495,10 +499,10 @@ __d(
                 result: o("WAResultOrError").makeError({ errorName: d.error }),
               });
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(e) {
+    function j(e) {
       (T().INFO(
         d ||
           (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -508,7 +512,7 @@ __d(
         e,
       ),
         o("WAPromiseTimeout")
-          .promiseTimeout(D.fullyConnected, x)
+          .promiseTimeout(x().fullyConnected, $)
           .then(function (t) {
             t.postMessage({ type: "prewarm", operation: e });
           })
@@ -523,13 +527,13 @@ __d(
             );
           }));
     }
-    ((l.getWorkerPortWithTimeout = N),
-      (l.calculateFilehashInWorker = A),
-      (l.hmacSha256InWorker = O),
-      (l.transcodeToMp4InWorker = W),
-      (l.mp4RepairMuxInWorker = U),
-      (l.kaleidoscopeClassifyInWorker = H),
-      (l.prewarmMediaWasmWorker = z));
+    ((l.getWorkerPortWithTimeout = M),
+      (l.calculateFilehashInWorker = F),
+      (l.hmacSha256InWorker = B),
+      (l.transcodeToMp4InWorker = q),
+      (l.mp4RepairMuxInWorker = V),
+      (l.kaleidoscopeClassifyInWorker = G),
+      (l.prewarmMediaWasmWorker = j));
   },
   98,
 );

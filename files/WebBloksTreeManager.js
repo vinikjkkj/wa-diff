@@ -150,6 +150,7 @@ __d(
                     p = new (o(
                       "TreeManagerResourceProcessingDelegate",
                     ).TreeManagerResourceProcessingDelegate)({
+                      observer: e,
                       onCollectVariable: function (n, r, o, a) {
                         var t =
                           m != null
@@ -172,28 +173,28 @@ __d(
                             : new Map(e.treeResourcesState.variables);
                         return t.has(n);
                       },
-                    }),
-                    _ = function () {
-                      var t = f.id;
-                      if (p.containsVariable(t)) return 1;
-                      var n = f.type,
-                        a = o("WebBloksDataModule").getDataModuleFromContext(
+                    });
+                  for (var _ of c.variableDefinitions) {
+                    var f = _.id;
+                    if (!p.containsVariable(f)) {
+                      var g = _.type,
+                        h = o("WebBloksDataModule").getDataModuleFromContext(
                           e.bloksContext,
-                          n,
+                          g,
                         );
-                      if (!a)
+                      if (!h)
                         throw new (o("WebBloksErrors").WebBloksError)(
-                          "Missing variable module with type: " + n,
+                          "Missing variable module with type: " + g,
                         );
-                      var i = babelHelpers.extends({}, f);
+                      var y = babelHelpers.extends({}, _);
                       e.initialTreeResources.shouldCommitPublishStateUpdates() ===
                         !1 &&
-                        i.data.key != null &&
-                        i.data.mode === "p" &&
-                        (i = babelHelpers.extends({}, i, {
-                          data: babelHelpers.extends({}, i.data, { mode: "d" }),
+                        y.data.key != null &&
+                        y.data.mode === "p" &&
+                        (y = babelHelpers.extends({}, y, {
+                          data: babelHelpers.extends({}, y.data, { mode: "d" }),
                         }));
-                      var l = function (n) {
+                      var C = function (n) {
                           var t,
                             a = r("WebBloksInterpreterEnvironment"),
                             i = new a(e.bloksContext);
@@ -205,55 +206,47 @@ __d(
                           var l = i.createBloksModelScopedContext(u.keyPath);
                           return o("WebBloksScriptExecutor").execute(l, n, []);
                         },
-                        s = a.setup(e.bloksContext, i, e, l),
-                        c = s.cancelToken,
-                        d = s.initialValue,
-                        m = {
-                          initialValue: d,
-                          commitToStore: function (t) {
-                            return c;
-                          },
-                        };
-                      p.collectVariable(t, i, m, null);
-                    };
-                  for (var f of c.variableDefinitions) _();
+                        b = h.setup(e.bloksContext, y, C);
+                      p.collectVariable(f, y, b, null);
+                    }
+                  }
                   (e.initialTreeResources.setShouldCommitPublishStateUpdates(
                     !1,
                   ),
                     (e.treeResourcesState =
                       e.treeResourcesState.withUpdatedEntries(m, d)));
-                  var g = d;
-                  if (g != null && g.size) {
-                    var h = new Map(e.committedVariables);
-                    (g.forEach(function (e, t) {
-                      h.set(t, e);
+                  var v = d;
+                  if (v != null && v.size) {
+                    var S = new Map(e.committedVariables);
+                    (v.forEach(function (e, t) {
+                      S.set(t, e);
                     }),
-                      (e.committedVariables = h));
+                      (e.committedVariables = S));
                   }
-                  var y = new (r("WebBloksInterpreterEnvironment"))(
+                  var R = new (r("WebBloksInterpreterEnvironment"))(
                     e.bloksContext,
                   );
-                  ((y.expandedVariablesOverride =
+                  ((R.expandedVariablesOverride =
                     (t = e.bindResult) == null ? void 0 : t.expandedVariables),
-                    (y.scope =
+                    (R.scope =
                       (i = u.keyPath) != null
                         ? i
                         : o("WebBloksUtils").EMPTY_KEY_PATH),
-                    (y.resources = e.treeResourcesState));
-                  var C = e.processAsyncComponents(c.componentQueries, y);
-                  for (var b of C) {
-                    var v = b.treeModification,
-                      S = b.variableUpdate;
+                    (R.resources = e.treeResourcesState));
+                  var L = e.processAsyncComponents(c.componentQueries, R);
+                  for (var E of L) {
+                    var k = E.treeModification,
+                      I = E.variableUpdate;
                     if (
-                      (v != null &&
-                        (v.parseResult != null && n.push(v.parseResult),
-                        a.push([v.target, v.updateOperation])),
-                      S != null)
+                      (k != null &&
+                        (k.parseResult != null && n.push(k.parseResult),
+                        a.push([k.target, k.updateOperation])),
+                      I != null)
                     ) {
-                      var R = new Map();
-                      (R.set(S.variableIdentifier, S.value),
+                      var T = new Map();
+                      (T.set(I.variableIdentifier, I.value),
                         (e.treeResourcesState =
-                          e.treeResourcesState.withVariableUpdates(R)));
+                          e.treeResourcesState.withVariableUpdates(T)));
                     }
                   }
                 },

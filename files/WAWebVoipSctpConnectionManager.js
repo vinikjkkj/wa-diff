@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebABProps",
+    "WAWebCoreActionsODS",
     "WAWebReleaseToEventLoop",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpBufferDrain",
@@ -407,6 +408,7 @@ __d(
           ])),
         e,
       ),
+        o("WAWebCoreActionsODS").logCallDataChannelRelayError(),
         ge(
           t,
           "data_channel_error",

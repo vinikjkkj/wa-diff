@@ -1571,6 +1571,12 @@ __d(
         !0,
       ],
       mm_tap_target_bloks_client_hydration_enabled: [28473, "bool", !1, !1],
+      mm_template_message_telemetry_first_mm_flag_enabled: [
+        32419,
+        "bool",
+        !0,
+        !0,
+      ],
       mm_user_controls_entry_points_update_m1_icon: [20388, "bool", !1, !0],
       mm_user_controls_entry_points_update_m1_menu: [20381, "bool", !1, !0],
       mm_user_controls_exception_number_prefixes: [13999, "string", "", ""],
@@ -2647,6 +2653,7 @@ __d(
       wa_web_notify_for: [25544, "bool", !1, !1],
       wa_web_pre_chat_device_id_test: [26553, "bool", !1, !0],
       wa_web_preload_conversation_chat_open: [25937, "bool", !1, !1],
+      wa_web_ptt_loader_button_uix_improvement: [32418, "bool", !1, !1],
       wa_web_push_name_in_global_search_non_contacts_enabled: [
         28506,
         "bool",

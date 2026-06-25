@@ -263,38 +263,38 @@ __d(
       }
       return a;
     }
-    var E = function (t, n) {
-      var e = t.msgs.reduce(
-          function (e, t) {
+    function E(e, t) {
+      var n = e.msgs.reduce(
+          function (e, n) {
             var r,
-              a = o("WAWebOrderStatusButton").getOrderStatusButton(t),
-              i = t.safe();
+              a = o("WAWebOrderStatusButton").getOrderStatusButton(n),
+              i = n.safe();
             return a == null ||
               i.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-              a.reference_id !== n.reference_id
+              a.reference_id !== t.reference_id
               ? e
               : { first: (r = e.first) != null ? r : i, last: i };
           },
           { first: null, last: null },
         ),
-        r = e.first,
-        a = e.last,
+        r = n.first,
+        a = n.last,
         i = r && o("WAWebOrderStatusButton").getOrderStatusButton(r),
         l = a && o("WAWebOrderStatusButton").getOrderStatusButton(a),
-        s = (i != null ? i : n).order.items;
+        s = (i != null ? i : t).order.items;
       return {
-        drawerButton: babelHelpers.extends({}, l != null ? l : n, {
-          order: babelHelpers.extends({}, (l != null ? l : n).order, {
+        drawerButton: babelHelpers.extends({}, l != null ? l : t, {
+          order: babelHelpers.extends({}, (l != null ? l : t).order, {
             items: s,
           }),
         }),
-        messageBubbleButton: babelHelpers.extends({}, n, {
-          order: babelHelpers.extends({}, n.order, { items: s }),
+        messageBubbleButton: babelHelpers.extends({}, t, {
+          order: babelHelpers.extends({}, t.order, { items: s }),
         }),
         firstMessage: r,
         lastMessage: a,
       };
-    };
+    }
     ((l.OrderStatus = u),
       (l.paramsJsonToOrderStatusInfo = c),
       (l.getOrderStatusInfo = d),

@@ -1,16 +1,21 @@
 __d(
   "WAWebFalcoEventQueue",
-  ["WALogger", "WAShiftTimer", "WAWebFalcoLoggerCache", "getErrorSafe"],
+  [
+    "WALogger",
+    "WAShiftTimer",
+    "WAWebFalcoLoggerCache",
+    "WAWebWamFalcoABProps",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 5e3,
-      c = 150,
-      d = 2e3,
-      m = 50,
-      p = 200,
-      _ = [];
-    function f(t) {
+      u = 150,
+      c = 2e3,
+      d = 50,
+      m = 200,
+      p = [];
+    function _(t) {
       var n = function () {
         var t = a.fields,
           n = a.name;
@@ -36,34 +41,34 @@ __d(
       };
       for (var a of t) n();
     }
-    function g(e) {
-      h(e, 0);
+    function f(e) {
+      g(e, 0);
     }
-    function h(e, t) {
-      var n = Math.min(t + p, e.length);
-      (f(e.slice(t, n)),
+    function g(e, t) {
+      var n = Math.min(t + m, e.length);
+      (_(e.slice(t, n)),
         n < e.length &&
           self.setTimeout(function () {
-            return h(e, n);
+            return g(e, n);
           }, 0));
     }
-    function y() {
-      if (_.length !== 0) {
-        var e = _;
-        ((_ = []), f(e));
+    function h() {
+      if (p.length !== 0) {
+        var e = p;
+        ((p = []), _(e));
       }
     }
-    var C = new (o("WAShiftTimer").ShiftTimer)(y),
-      b = !1;
-    function v() {
-      b ||
-        ((b = !0),
-        self.addEventListener("beforeunload", y),
-        self.addEventListener("pagehide", y));
+    var y = new (o("WAShiftTimer").ShiftTimer)(h),
+      C = !1;
+    function b() {
+      C ||
+        ((C = !0),
+        self.addEventListener("beforeunload", h),
+        self.addEventListener("pagehide", h));
     }
-    function S(e) {
-      (v(),
-        _.length >= d &&
+    function v(e) {
+      (b(),
+        p.length >= c &&
           (o("WALogger")
             .WARN(
               s ||
@@ -71,17 +76,21 @@ __d(
                   "[falco] queue overflow, dropping ",
                   " oldest events",
                 ])),
-              m,
+              d,
             )
             .sendLogs("wam_falco_queue_overflow", { sampling: 0.01 }),
-          _.splice(0, m)),
-        _.push(e),
-        _.length >= c ? C.onOrBefore(0) : C.onOrBefore(u));
+          p.splice(0, d)),
+        p.push(e),
+        p.length >= u
+          ? y.onOrBefore(0)
+          : y.onOrBefore(
+              o("WAWebWamFalcoABProps").getWamFalcoFlushIntervalMs(),
+            ));
     }
-    ((l.sendFalcoEventsNow = f),
-      (l.sendFalcoEventsChunked = g),
-      (l.drainFalcoQueue = y),
-      (l.enqueueFalcoEvent = S));
+    ((l.sendFalcoEventsNow = _),
+      (l.sendFalcoEventsChunked = f),
+      (l.drainFalcoQueue = h),
+      (l.enqueueFalcoEvent = v));
   },
   98,
 );

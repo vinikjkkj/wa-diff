@@ -7,23 +7,29 @@ __d(
         function t() {}
         var n = t.prototype;
         return (
-          (n.setup = function (t, n, r, o) {
-            var e = this,
-              a = { height: window.innerHeight, width: window.innerWidth };
-            r != null && this.$2(n, r);
-            var i = function () {
-              e.$1 != null && window.removeEventListener("resize", e.$1);
+          (n.setup = function (t, n, r) {
+            var e = { height: window.innerHeight, width: window.innerWidth },
+              o = n,
+              a = this;
+            return {
+              initialValue: e,
+              commitToStore: function (t, n) {
+                return (
+                  n != null && a.$2(o, t, n),
+                  function () {
+                    a.$1 != null && window.removeEventListener("resize", a.$1);
+                  }
+                );
+              },
             };
-            return { cancelToken: i, initialValue: a };
           }),
-          (n.$2 = function (n, r) {
-            var t = n.id;
+          (n.$2 = function (n, r, a) {
             this.$1 != null && window.removeEventListener("resize", this.$1);
-            var a = o("WebBloksUtils").throttle(function () {
+            var t = o("WebBloksUtils").throttle(function () {
               var e = { height: window.innerHeight, width: window.innerWidth };
-              r == null || r.enqueueVariableUpdateOperation(t, e);
+              a == null || a.enqueueVariableUpdateOperation(r, e);
             }, e);
-            ((this.$1 = a), window.addEventListener("resize", this.$1));
+            ((this.$1 = t), window.addEventListener("resize", this.$1));
           }),
           t
         );

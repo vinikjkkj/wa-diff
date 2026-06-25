@@ -4,6 +4,7 @@ __d(
     "FBLogger",
     "WALogger",
     "WAWebABProps",
+    "WAWebCallsOnlyGating",
     "WAWebCrashAnnotations",
     "WAWebEmojiAssetLoader",
     "WAWebEmojiSetup",
@@ -65,18 +66,19 @@ __d(
         r("WAWebEmojiSetup")(
           o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
         ),
-        r("WAWebPrefetchLoadables")(),
-        o("WAWebABProps").getABPropConfigValue(
-          "web_use_kaleidoscope_media_check_enabled",
-        ) &&
-          o("WAWebKaleidoscopeWasmFeatureSupport")
-            .checkKaleidoscopeWasmFeatureSupport()
-            .then(function (e) {
-              e &&
-                o("WAWebMediaWorkerProxy").prewarmMediaWasmWorker(
-                  "kaleidoscopeClassify",
-                );
-            }),
+        o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
+          (r("WAWebPrefetchLoadables")(),
+          o("WAWebABProps").getABPropConfigValue(
+            "web_use_kaleidoscope_media_check_enabled",
+          ) &&
+            o("WAWebKaleidoscopeWasmFeatureSupport")
+              .checkKaleidoscopeWasmFeatureSupport()
+              .then(function (e) {
+                e &&
+                  o("WAWebMediaWorkerProxy").prewarmMediaWasmWorker(
+                    "kaleidoscopeClassify",
+                  );
+              })),
         r("gkx")("20033") || o("WAWebStartBackendWorker").startBackendWorker(),
         u());
       try {

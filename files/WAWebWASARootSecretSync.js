@@ -10,7 +10,7 @@ __d(
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
-    "WAWebWasaRootSecretWriter",
+    "WAWebWasaRootSecretDb",
     "WAWebWasaUserPrefs",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -50,10 +50,7 @@ __d(
             (r == null || d > a) && ((r = u), (a = d));
           }
           return (
-            yield o("WAWebWasaRootSecretWriter").upsertWasaRootSecretsForIds(
-              e,
-              n,
-            ),
+            yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretsForIds(e, n),
             r != null &&
               (yield o("WAWebWasaUserPrefs").setWasaActiveTargetId(e.user, r)),
             new Set(
@@ -89,10 +86,7 @@ __d(
             u != null && u !== "" && !n.has(u) && l.push(u);
           }
           if (l.length !== 0) {
-            yield o("WAWebWasaRootSecretWriter").removeWasaRootSecretsForIds(
-              e,
-              l,
-            );
+            yield o("WAWebWasaRootSecretDb").removeWasaRootSecretsForIds(e, l);
             var c = o("WAWebWasaUserPrefs").getWasaActiveTargetId(e.user);
             c != null &&
               l.includes(c) &&

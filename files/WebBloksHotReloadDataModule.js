@@ -6,9 +6,13 @@ __d(
       function e() {}
       var t = e.prototype;
       return (
-        (t.setup = function (t, n, r, o) {
-          var e = function () {};
-          return { dispose: e, initialValue: void 0 };
+        (t.setup = function (t, n, r) {
+          return {
+            initialValue: void 0,
+            commitToStore: function () {
+              return null;
+            },
+          };
         }),
         e
       );

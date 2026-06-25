@@ -14,6 +14,7 @@ __d(
     "WAWebBridgeInitialization",
     "WAWebBrokerGlobalAppState",
     "WAWebBuildConstants",
+    "WAWebCallsOnlyGating",
     "WAWebCoreActionsODS",
     "WAWebCryptoEncKeyHelper",
     "WAWebCurrentUser",
@@ -148,7 +149,8 @@ __d(
             ]);
           })
           .then(function () {
-            return o("WAWebStatusStorage").initialize();
+            if (!o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
+              return o("WAWebStatusStorage").initialize();
           })
           .then(function () {
             return v();
@@ -299,9 +301,10 @@ __d(
                 o(
                   "WAWebWamOfflineResumeReporter",
                 ).OfflineResumeReporter.setIsInitialSync(),
-                o(
-                  "WAWebWaitForInitialChatsSynced",
-                ).initWaitForInitialChatsSynced(),
+                o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
+                  o(
+                    "WAWebWaitForInitialChatsSynced",
+                  ).initWaitForInitialChatsSynced(),
                 (g || (g = n("Promise")))
                   .all([
                     o("WAWebRegistration").refreshNoiseCredentials(),

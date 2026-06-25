@@ -110,10 +110,12 @@ __d(
       }
     }
     function c(e) {
-      var t;
+      var t, n;
       return e.pollCreationMessage != null ||
         e.pollCreationMessageV2 != null ||
-        e.pollCreationMessageV3 != null
+        e.pollCreationMessageV3 != null ||
+        e.pollCreationMessageV5 != null ||
+        e.pollCreationMessageV6 != null
         ? o("WAWebHandleMsgCommon").POLL_TYPES.creation
         : ((t = e.pollUpdateMessage) == null ? void 0 : t.vote) != null
           ? o("WAWebHandleMsgCommon").POLL_TYPES.vote
@@ -121,7 +123,13 @@ __d(
                 e.pollResultSnapshotMessageV3 != null) &&
               r("WAWebPollResultSnapshotPollTypeEnvelopeEnabled")()
             ? o("WAWebHandleMsgCommon").POLL_TYPES.result_snapshot
-            : null;
+            : ((n = e.secretEncryptedMessage) == null
+                  ? void 0
+                  : n.secretEncType) ===
+                o("WAWebProtobufsE2E.pb")
+                  .Message$SecretEncryptedMessage$SecretEncType.POLL_EDIT
+              ? o("WAWebHandleMsgCommon").POLL_TYPES.edit
+              : null;
     }
     function d(e) {
       var t;

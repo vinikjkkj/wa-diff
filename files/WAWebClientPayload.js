@@ -17,7 +17,6 @@ __d(
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
-    "WAWebVoipGatingUtils",
     "WAWebWamPlatform",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
@@ -154,9 +153,7 @@ __d(
               supportBizHostedMsg: !0,
               supportFbidBotChatHistory: !0,
               supportMessageAssociation: !0,
-              supportCallLogHistory: o(
-                "WAWebVoipGatingUtils",
-              ).isGroupCallingEnabled(),
+              supportCallLogHistory: !0,
               supportGroupHistory: r("gkx")("15338"),
               thumbnailSyncDaysLimit: r("justknobx")._("4736"),
               supportManusHistory: r("justknobx")._("2304"),

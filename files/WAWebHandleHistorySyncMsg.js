@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAWebAddonProcessMsgs",
     "WAWebBackendErrors",
+    "WAWebCallsOnlyGating",
     "WAWebCheckUpdateOrphanReactions",
     "WAWebDBProcessRecentAndFullHistorySyncMessage",
     "WAWebNoop",
@@ -31,83 +32,88 @@ __d(
             p = t.syncType,
             _ = t.threadMsgs,
             f = t.unifiedAddons;
-          return (
-            o("WALogger").LOG(
+          if (
+            (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[history sync] handling recent/full/on-demand sync msgs",
                 ])),
             ),
-            yield (u || (u = n("Promise"))).resolve(),
-            o("WAWebDBProcessRecentAndFullHistorySyncMessage")
-              .storeRecentAndFullHistSyncMessages(m, i, p, l, a, d, _)
-              .then(function () {
-                var e = i.map(function (e) {
-                    return e;
-                  }),
-                  t = m.map(function (e) {
-                    return e.id.toString();
-                  });
-                o(
-                  "WAWebCheckUpdateOrphanReactions",
-                ).checkUpdateForOrphanReactions(t);
-                var n = _.flatMap(function (e) {
-                  var t;
-                  return ((t = e.threadIds) != null ? t : []).map(function (e) {
-                    return e.toString();
-                  });
-                });
-                return o(
-                  "WAWebSyncdOrphanWorkerCompatible",
-                ).checkOrphanMutations(t, e, n);
-              })
-              .then(function () {
-                return (u || (u = n("Promise"))).all(f).then(function (e) {
-                  var t;
-                  return o("WAWebAddonProcessMsgs").processHistoryMsgs(
-                    (t = []).concat.apply(t, e),
-                  );
-                });
-              })
-              .then(
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  for (var e of c) {
-                    if (!e || !e.id || !e.id.remote) return;
-                    var t = e.id.remote;
-                    if (t.isNewsletter()) return;
-                    yield o(
-                      "WAWebWorkerSafeBackendApi",
-                    ).workerSafeSendAndReceive("processLastMsgs", {
-                      chatId: t,
-                      msgObjs: [e],
-                      meta: { add: "last", isHistory: !0 },
-                      processMessagesOrigin: "historyMsgHandlerAction",
-                      chatMsgsCollection: null,
+            !o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
+          )
+            return (
+              yield (u || (u = n("Promise"))).resolve(),
+              o("WAWebDBProcessRecentAndFullHistorySyncMessage")
+                .storeRecentAndFullHistSyncMessages(m, i, p, l, a, d, _)
+                .then(function () {
+                  var e = i.map(function (e) {
+                      return e;
+                    }),
+                    t = m.map(function (e) {
+                      return e.id.toString();
                     });
-                  }
-                }),
-              )
-              .catch(
-                o("WAFilteredCatch").filteredCatch(
-                  o("WAWebBackendErrors").LogoutDrop,
-                  r("WAWebNoop"),
-                ),
-              )
-              .catch(function (e) {
-                var t = r("getErrorSafe")(e);
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync] error occurred",
-                      ])),
-                  )
-                  .catching(t)
-                  .sendLogs(
-                    "handleProgressiveHistorySyncMsgs: error storing/processing multiple messages",
-                  );
-              })
-          );
+                  o(
+                    "WAWebCheckUpdateOrphanReactions",
+                  ).checkUpdateForOrphanReactions(t);
+                  var n = _.flatMap(function (e) {
+                    var t;
+                    return ((t = e.threadIds) != null ? t : []).map(
+                      function (e) {
+                        return e.toString();
+                      },
+                    );
+                  });
+                  return o(
+                    "WAWebSyncdOrphanWorkerCompatible",
+                  ).checkOrphanMutations(t, e, n);
+                })
+                .then(function () {
+                  return (u || (u = n("Promise"))).all(f).then(function (e) {
+                    var t;
+                    return o("WAWebAddonProcessMsgs").processHistoryMsgs(
+                      (t = []).concat.apply(t, e),
+                    );
+                  });
+                })
+                .then(
+                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                    for (var e of c) {
+                      if (!e || !e.id || !e.id.remote) return;
+                      var t = e.id.remote;
+                      if (t.isNewsletter()) return;
+                      yield o(
+                        "WAWebWorkerSafeBackendApi",
+                      ).workerSafeSendAndReceive("processLastMsgs", {
+                        chatId: t,
+                        msgObjs: [e],
+                        meta: { add: "last", isHistory: !0 },
+                        processMessagesOrigin: "historyMsgHandlerAction",
+                        chatMsgsCollection: null,
+                      });
+                    }
+                  }),
+                )
+                .catch(
+                  o("WAFilteredCatch").filteredCatch(
+                    o("WAWebBackendErrors").LogoutDrop,
+                    r("WAWebNoop"),
+                  ),
+                )
+                .catch(function (e) {
+                  var t = r("getErrorSafe")(e);
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync] error occurred",
+                        ])),
+                    )
+                    .catching(t)
+                    .sendLogs(
+                      "handleProgressiveHistorySyncMsgs: error storing/processing multiple messages",
+                    );
+                })
+            );
         })),
         d.apply(this, arguments)
       );

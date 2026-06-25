@@ -6,7 +6,6 @@ __d(
     "WAWebEnvironment",
     "WAWebMimeTypes",
     "WAWebUA",
-    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -108,12 +107,9 @@ __d(
       return r("justknobx")._("2723");
     }
     function L() {
-      return r("gkx")("25214");
-    }
-    function E() {
       return e() && r("justknobx")._("3269");
     }
-    function k() {
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_webtp_pdf_sharer_consent_copy_v2",
       );
@@ -129,9 +125,8 @@ __d(
       (l.isWebTPPdfAnnotationsEnabled = v),
       (l.isAsyncPdfSendEnabled = S),
       (l.isPdfPreviewBeforeSendEnabled = R),
-      (l.isWebTPAnnotationsEnabled = L),
-      (l.isWebTPSharerSavePreferenceEnabled = E),
-      (l.isWebTPPdfSharerConsentCopyV2Enabled = k));
+      (l.isWebTPSharerSavePreferenceEnabled = L),
+      (l.isWebTPPdfSharerConsentCopyV2Enabled = E));
   },
   98,
 );

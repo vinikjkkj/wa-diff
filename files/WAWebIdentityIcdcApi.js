@@ -3,7 +3,6 @@ __d(
   [
     "WACryptoSha256",
     "WAJids",
-    "WANullthrows",
     "WASignalOther",
     "WATimeUtils",
     "WAWebABProps",
@@ -16,6 +15,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 8,
@@ -85,7 +85,7 @@ __d(
                 .getSignalProtocolStore()
                 .getIdentityKeyPair();
               if (!C) return null;
-              (h.push(new Uint8Array(C.pubKey)), y.push(r("WANullthrows")(m)));
+              (h.push(new Uint8Array(C.pubKey)), y.push(r("nullthrows")(m)));
             }
             var b = f();
             ((n.keyHash = yield p(

@@ -56,6 +56,7 @@ __d(
     "WAWebGenerateVcardMessageProto",
     "WAWebGenerateVideoMessageProto",
     "WAWebPollsGeneratePollCreationMessageProto",
+    "WAWebPollsGeneratePollEditMessageProto",
     "WAWebPollsGeneratePollVoteMessageProto",
     "WAWebPttGenerateAudioOrPttMessageProto",
     "WAWebQuestionsGenerateQuestionResponseMessageProto",
@@ -288,7 +289,7 @@ __d(
         {
           type: "poll_edit_encrypted",
           subtype: void 0,
-          generateProtobuf: null,
+          generateProtobuf: r("WAWebPollsGeneratePollEditMessageProto"),
         },
         {
           type: "poll_result_snapshot",

@@ -3,50 +3,55 @@ __d(
   ["WAWebPollCreationUtils", "WAWebPollsProtoUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.contextInfo,
-        n = e.json,
-        r = e.msgContext,
-        a =
-          n.pollContentType ===
-          o("WAWebPollCreationUtils").PollContentType.IMAGE,
+      var t,
+        n = e.contextInfo,
+        r = e.json,
+        a = e.msgContext,
         i =
-          r === "quoted"
-            ? { name: n.pollName, options: [] }
+          r.pollContentType ===
+          o("WAWebPollCreationUtils").PollContentType.IMAGE,
+        l =
+          a === "quoted"
+            ? { name: r.pollName, options: [] }
             : {
-                name: n.pollName,
-                options: n.pollOptions.map(function (e) {
+                name: r.pollName,
+                options: r.pollOptions.map(function (e) {
                   var t = e.hash,
                     n = e.name;
-                  return a
+                  return i
                     ? { optionName: n, optionHash: t }
                     : { optionName: n };
                 }),
-                selectableOptionsCount: n.pollSelectableOptionsCount,
+                selectableOptionsCount: r.pollSelectableOptionsCount,
                 pollContentType: o(
                   "WAWebPollCreationUtils",
-                ).getPollContentTypeAsE2EValue(n.pollContentType),
+                ).getPollContentTypeAsE2EValue(r.pollContentType),
                 pollType: o("WAWebPollCreationUtils").getPollTypeAsE2EValue(
-                  n.pollType,
+                  r.pollType,
                 ),
                 correctAnswer:
-                  n.correctOptionIndex != null
+                  r.correctOptionIndex != null
                     ? {
-                        optionName: n.pollOptions[n.correctOptionIndex].name,
-                        optionHash: n.pollOptions[n.correctOptionIndex].hash,
+                        optionName: r.pollOptions[r.correctOptionIndex].name,
+                        optionHash: r.pollOptions[r.correctOptionIndex].hash,
                       }
                     : void 0,
+                endTime: (t = r.pollEndTime) != null ? t : void 0,
+                hideParticipantName: r.pollHideVoterNames === !0 ? !0 : void 0,
               };
       return (
-        t != null && (i.contextInfo = t),
-        o("WAWebPollsProtoUtils").validatePollCreationMessage(i),
-        a && o("WAWebPollsProtoUtils").validatePhotoPollCreationMessage(i),
-        n.isSentCagPollCreation
-          ? { pollCreationMessageV2: i }
-          : n.pollSelectableOptionsCount === 1 ||
-              n.pollContentType ===
-                o("WAWebPollCreationUtils").PollContentType.IMAGE
-            ? { pollCreationMessageV3: i }
-            : { pollCreationMessage: i }
+        n != null && (l.contextInfo = n),
+        o("WAWebPollsProtoUtils").validatePollCreationMessage(l),
+        i && o("WAWebPollsProtoUtils").validatePhotoPollCreationMessage(l),
+        r.isSentCagPollCreation
+          ? { pollCreationMessageV2: l }
+          : r.pollEndTime != null || r.pollHideVoterNames === !0
+            ? { pollCreationMessageV6: l }
+            : r.pollSelectableOptionsCount === 1 ||
+                r.pollContentType ===
+                  o("WAWebPollCreationUtils").PollContentType.IMAGE
+              ? { pollCreationMessageV3: l }
+              : { pollCreationMessage: l }
       );
     }
     l.default = e;

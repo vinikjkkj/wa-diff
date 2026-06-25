@@ -5,7 +5,7 @@ __d(
     "WAHex",
     "WAWebBotUtils",
     "WAWebUserPrefsIndexedDBStorage",
-    "WAWebWasaRootSecretWriter",
+    "WAWebWasaRootSecretDb",
     "WAWebWasaUserPrefs",
     "asyncToGeneratorRuntime",
   ],
@@ -50,11 +50,11 @@ __d(
           return (
             a.stanzaId !== "" &&
               a.stanzaId !== n &&
-              (yield o("WAWebWasaRootSecretWriter").removeWasaRootSecretForId(
+              (yield o("WAWebWasaRootSecretDb").removeWasaRootSecretForId(
                 o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                 a.stanzaId,
               )),
-            yield o("WAWebWasaRootSecretWriter").upsertWasaRootSecretForId(
+            yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretForId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               n,
               r,
@@ -88,9 +88,7 @@ __d(
           return t.rootSecret === ""
             ? "No debug secret set \u2014 apply one first."
             : (e
-                ? (yield o(
-                    "WAWebWasaRootSecretWriter",
-                  ).upsertWasaRootSecretForId(
+                ? (yield o("WAWebWasaRootSecretDb").upsertWasaRootSecretForId(
                     o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                     t.stanzaId,
                     new Uint8Array(o("WABase64").decodeB64(t.rootSecret)),
@@ -99,9 +97,7 @@ __d(
                     o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
                     t.stanzaId,
                   ))
-                : (yield o(
-                    "WAWebWasaRootSecretWriter",
-                  ).removeWasaRootSecretForId(
+                : (yield o("WAWebWasaRootSecretDb").removeWasaRootSecretForId(
                     o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                     t.stanzaId,
                   ),
@@ -126,7 +122,7 @@ __d(
           var e = S();
           return (
             e.stanzaId !== "" &&
-              (yield o("WAWebWasaRootSecretWriter").removeWasaRootSecretForId(
+              (yield o("WAWebWasaRootSecretDb").removeWasaRootSecretForId(
                 o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                 e.stanzaId,
               )),
@@ -148,7 +144,7 @@ __d(
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = S();
           if (e.rootSecret === "") return "No debug secret configured.";
-          var t = yield o("WAWebWasaRootSecretWriter").getWasaRootSecretForId(
+          var t = yield o("WAWebWasaRootSecretDb").getWasaRootSecretForId(
               o("WAWebBotUtils").HATCH_BOT_FBID_WID,
               e.stanzaId,
             ),

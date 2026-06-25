@@ -37,12 +37,16 @@ __d(
         o("WAWebPrimaryFeatures").primaryFeatureEnabled("username_supported")
       );
     }
+    function p() {
+      return m() && !d() && !c();
+    }
     ((l.onlyShowLidContacts = e),
       (l.usernameContactUIEnabled = s),
       (l.isNewsletterUsernamePnPrivacyEnabled = u),
       (l.usernameAccountLinkingEnabled = c),
       (l.usernameReservationOnlyMode = d),
-      (l.usernameCreationOrReservationEnabled = m));
+      (l.usernameCreationOrReservationEnabled = m),
+      (l.isUsernameCreationMode = p));
   },
   98,
 );

@@ -4,18 +4,20 @@ __d(
     "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WATimeUtils",
     "WAWebBotUtils",
+    "WAWebChatCollection",
+    "WAWebChatModel",
+    "WAWebDBProcessMessage",
     "WAWebHatchFrontendGating",
     "WAWebHatchMetadataExchangeManager",
-    "WAWebMsgKey",
+    "WAWebMsgDataUtils",
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSendMsgRecordAction",
-    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "cr:7454",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -53,37 +55,51 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-            a = new (o("WAWebMsgModel").Msg)({
-              id: new (r("WAWebMsgKey"))({
-                fromMe: !0,
-                remote: n,
-                id: yield r("WAWebMsgKey").newId(),
-                participant: void 0,
-              }),
-              from: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-              to: n,
-              t: o("WATimeUtils").unixTime(),
-              type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-              subtype: "hatch_metadata_sync",
-              hatchMetadataSync: { type: "req", requestId: e, request: t },
-            });
-          (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "hatch-metadata: sending req method=",
-                " id=",
-                "",
-              ])),
-            t.method,
-            e,
-          ),
+          var r,
+            a =
+              (r = o("WAWebChatCollection").ChatCollection.get(
+                o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+              )) != null
+                ? r
+                : new (o("WAWebChatModel").Chat)({
+                    id: o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+                  }),
+            i = babelHelpers.extends(
+              {},
+              yield o("WAWebMsgDataUtils").genOutgoingMsgData(
+                a,
+                o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+              ),
+              {
+                type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+                kind: o("WAWebMsgType").MsgKind.Protocol,
+                subtype: "hatch_metadata_sync",
+                hatchMetadataSync: { type: "req", requestId: e, request: t },
+                messageSecret: self.crypto.getRandomValues(new Uint8Array(32)),
+              },
+            ),
+            l = new (o("WAWebMsgModel").Msg)(i);
+          (n("cr:7454") == null ||
+            n("cr:7454").noteOutboundMsgId(e, l.id.toString()),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-metadata: sending req method=",
+                  " id=",
+                  "",
+                ])),
+              t.method,
+              e,
+            ),
             o("WAWebOrchestratorNonPersistedJob")
               .createNonPersistedJob(
                 "sendMessage",
-                function () {
-                  return o("WAWebSendMsgRecordAction").sendMsgRecord(a);
-                },
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  return (
+                    yield o("WAWebDBProcessMessage").storeMessages([i], a.id),
+                    o("WAWebSendMsgRecordAction").sendMsgRecord(l)
+                  );
+                }),
                 {
                   priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
                 },

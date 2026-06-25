@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAResolvable",
     "WAWebBackendWorkerClient",
+    "WAWebCallsOnlyGating",
     "WAWebGlobals",
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
@@ -89,6 +90,7 @@ __d(
                 o("WAWebGlobals").getEnableImprovedBulkMerge(),
               lidDeviceJid: m != null ? String(m) : null,
               displayName: u != null ? String(u) : null,
+              callsOnly: o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled(),
             },
             abProps: d != null ? d : r,
             dbInit: babelHelpers.extends({}, a, {

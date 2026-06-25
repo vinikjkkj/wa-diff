@@ -5,7 +5,6 @@ __d(
     "WABinary",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WAValidateFingerprints",
     "WAWebABProps",
     "WAWebApiContact",
@@ -25,6 +24,7 @@ __d(
     "WAWebUsernameTypes",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -155,8 +155,14 @@ __d(
             ((h.hashedPublicKey = b), (y.hashedPublicKey = v));
           }
           (a && ((h.publicKey = p), (y.publicKey = s)),
-            r("WANullthrows")(f != null ? f : _),
-            r("WANullthrows")(c != null ? c : u),
+            r("nullthrows")(
+              f != null ? f : _,
+              "Unexpected null: remotePnIdentifier ?? remoteLidIdentifier",
+            ),
+            r("nullthrows")(
+              c != null ? c : u,
+              "Unexpected null: localPnIdentifier ?? localLidIdentifier",
+            ),
             f != null && (h.pnIdentifier = f),
             u != null && _ != null && (h.lidIdentifier = _),
             c != null && (y.pnIdentifier = c),
@@ -307,7 +313,7 @@ __d(
                 o("WAWebUsernameGatingUtils").canShowV3NumericCode() &&
                 O != null &&
                 B != null;
-            V && (U = b(r("WANullthrows")(O), N, r("WANullthrows")(B), M));
+            V && (U = b(r("nullthrows")(O), N, r("nullthrows")(B), M));
             var H = null,
               G =
                 (r("WAWebEnvironment").isGuest ||
@@ -319,7 +325,7 @@ __d(
                 q != null;
             if (G) {
               var z = _(m),
-                j = _(r("WANullthrows")(C));
+                j = _(r("nullthrows")(C));
               H = b(z, N, j, M);
             }
             var K = o(

@@ -8,6 +8,7 @@ __d(
     "WAGzip",
     "WALogger",
     "WAPromiseTimeout",
+    "WASyncdConst",
     "WAWebABPropsWamGlobals",
     "WAWebAdvDeviceInfoCheckJob",
     "WAWebAfterReadSendingRollbackListener",
@@ -19,6 +20,7 @@ __d(
     "WAWebBootstrapBizBroadcastCampaigns",
     "WAWebBootstrapPremiumMessages",
     "WAWebBuildConstants",
+    "WAWebCallsOnlyGating",
     "WAWebCartDbLidMigration",
     "WAWebChatThreadLogging",
     "WAWebClientPayload",
@@ -95,6 +97,7 @@ __d(
     "WAWebSubscriptions",
     "WAWebSyncBootstrap",
     "WAWebSyncContactsJob",
+    "WAWebSyncd",
     "WAWebSyncdCoreApi",
     "WAWebSyncdOrphan",
     "WAWebSyncdOrphanWorkerCompatible",
@@ -315,7 +318,8 @@ __d(
             "WAWebUserPrefsHistorySync",
           ).getInitialHistorySyncComplete();
           if (
-            (c ||
+            (!c &&
+              !o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() &&
               (o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -489,7 +493,7 @@ __d(
               "handleDeferredMessages",
               {},
             ),
-            yield w(),
+            o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() || (yield w()),
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializePME",
               {},
@@ -583,13 +587,27 @@ __d(
     function O() {
       return (
         (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history sync][continueProgressiveHistorySyncProcessingV2] start backend",
-                ])),
-            ),
+          if (
+            (o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
+            o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled())
+          ) {
+            (o("WAWebTasksDefinitions").registerTasks(),
+              yield o("WAWebSyncContactsJob").runSyncDirtyContactsJob(),
+              o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled() &&
+                o("WAWebInitFavoritesFromStorage").restoreFavorites(),
+              o("WAWebSyncd").markCollectionsForSync([
+                o("WASyncdConst").CollectionName.Regular,
+                o("WASyncdConst").CollectionName.RegularLow,
+                o("WASyncdConst").CollectionName.RegularHigh,
+              ]));
+            return;
+          }
+          (o("WALogger").LOG(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "[history sync][continueProgressiveHistorySyncProcessingV2] start backend",
+              ])),
+          ),
             r("WAWebSyncBootstrap").continueProgressiveHistorySyncProcessingV2(
               o("WAWebHistorySyncNotificationUtils").HistorySyncScheduleSource
                 .BackendStart,

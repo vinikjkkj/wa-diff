@@ -3,10 +3,11 @@ __d(
   ["WAWebHatchPayloadDebugStore"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
+    function e(e, t, n) {
       r("WAWebHatchPayloadDebugStore").record({
         direction: "inbound",
         action: e,
+        msgId: n,
         rawBytes: t,
       });
     }
@@ -17,8 +18,11 @@ __d(
         rawBytes: n,
       });
     }
-    var u = { recordInbound: e, recordOutbound: s };
-    l.default = u;
+    function u(e, t) {
+      r("WAWebHatchPayloadDebugStore").noteOutboundMsgId(e, t);
+    }
+    var c = { recordInbound: e, recordOutbound: s, noteOutboundMsgId: u };
+    l.default = c;
   },
   98,
 );

@@ -15,6 +15,7 @@ __d(
     "WAWebBackendWorkerABPropsCache",
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerLocks",
+    "WAWebCallsOnlyGating",
     "WAWebCheckOrphanMutationsWorker",
     "WAWebCrashlogWorker",
     "WAWebCryptoDecryptMediaWorker",
@@ -339,6 +340,9 @@ __d(
                       ),
                       o("WAWebGlobals").setEnableImprovedBulkMerge(
                         u.enableImprovedBulkMerge,
+                      ),
+                      o("WAWebCallsOnlyGating").initCallsOnlyModeFromWorkerInit(
+                        u.callsOnly,
                       ),
                       o("WAWebBackendWorkerABPropsCache").updateWorkerABProps(
                         t.configs,

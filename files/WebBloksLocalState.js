@@ -6,9 +6,14 @@ __d(
       function e() {}
       var t = e.prototype;
       return (
-        (t.setup = function (t, n, r, a) {
-          var e = o("WebBloksDataModule").getDataEntryInitialValue(n, a);
-          return { initialValue: e };
+        (t.setup = function (t, n, r) {
+          var e = o("WebBloksDataModule").getDataEntryInitialValue(n, r);
+          return {
+            initialValue: e,
+            commitToStore: function () {
+              return null;
+            },
+          };
         }),
         e
       );
