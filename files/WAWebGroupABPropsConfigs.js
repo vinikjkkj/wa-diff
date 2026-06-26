@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = {
+      ai_group_tee_history_share_group_level_enabled: [32501, "bool", !1, !0],
       group_history_messages_time_limit_secs_group_level: [
         26270,
         "int",

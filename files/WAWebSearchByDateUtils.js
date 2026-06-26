@@ -10,17 +10,20 @@ __d(
     function e(e) {
       return Math.floor(e / 1e3);
     }
-    function s(e, t, n) {
-      var o = null;
+    function s(e) {
+      var t = e.beforeSearch,
+        n = e.incomingCandidate,
+        o = e.outgoingCandidate,
+        a = null;
       return (
-        e != null && t != null
-          ? n
-            ? (o = e.t >= t.t ? e.id : t.id)
-            : (o = e.t <= t.t ? e.id : t.id)
-          : e
-            ? (o = e.id)
-            : t && (o = t.id),
-        o != null ? r("WAWebMsgKey").fromString(o) : null
+        n != null && o != null
+          ? t
+            ? (a = n.t >= o.t ? n.id : o.id)
+            : (a = n.t <= o.t ? n.id : o.id)
+          : n
+            ? (a = n.id)
+            : o && (a = o.id),
+        a != null ? r("WAWebMsgKey").fromString(a) : null
       );
     }
     function u(e, t, n, r) {
@@ -32,15 +35,25 @@ __d(
           function* (e, t, n, r) {
             var a = yield o(
                 "WAWebDBSearchByDate",
-              ).getClosestMessageBetweenDates(e, t, n, !0, r),
-              i = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates(
-                e,
-                t,
-                n,
-                !1,
-                r,
-              );
-            return s(a, i, r);
+              ).getClosestMessageBetweenDates({
+                chatId: e,
+                endTimestampSeconds: n,
+                incoming: !0,
+                searchingBefore: r,
+                startTimestampSeconds: t,
+              }),
+              i = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
+                chatId: e,
+                endTimestampSeconds: n,
+                incoming: !1,
+                searchingBefore: r,
+                startTimestampSeconds: t,
+              });
+            return s({
+              beforeSearch: r,
+              incomingCandidate: a,
+              outgoingCandidate: i,
+            });
           },
         )),
         c.apply(this, arguments)

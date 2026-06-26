@@ -2,15 +2,16 @@ __d(
   "isWorkDotMetaDotComURI",
   [],
   function (t, n, r, o, a, i) {
-    var e = new RegExp("(^|\\.)work\\.meta\\.com$", "i"),
-      l = ["https"];
-    function s(t) {
-      return (t.isEmpty() && t.toString() !== "#") ||
-        (!t.getDomain() && !t.getProtocol())
+    var e = "(^|\\.)work\\.meta\\.com$",
+      l = new RegExp(e, "i"),
+      s = ["https"];
+    function u(e) {
+      return (e.isEmpty() && e.toString() !== "#") ||
+        (!e.getDomain() && !e.getProtocol())
         ? !1
-        : l.indexOf(t.getProtocol()) !== -1 && e.test(t.getDomain());
+        : s.indexOf(e.getProtocol()) !== -1 && l.test(e.getDomain());
     }
-    i.default = s;
+    i.default = u;
   },
   66,
 );

@@ -2,11 +2,12 @@ __d(
   "isWorkplaceDotComURI",
   [],
   function (t, n, r, o, a, i) {
-    var e = new RegExp("(^|\\.)workplace\\.com$", "i");
-    function l(t) {
-      return t.getProtocol() === "https" && e.test(t.getDomain());
+    var e = "(^|\\.)workplace\\.com$",
+      l = new RegExp(e, "i");
+    function s(e) {
+      return e.getProtocol() === "https" && l.test(e.getDomain());
     }
-    i.default = l;
+    i.default = s;
   },
   66,
 );

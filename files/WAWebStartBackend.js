@@ -90,9 +90,11 @@ __d(
     "WAWebRegisterPassiveTasks",
     "WAWebSWBus",
     "WAWebSWBusActions",
+    "WAWebSignalSessionCleanupJob",
     "WAWebSignalStoreApi",
     "WAWebSocketModel",
     "WAWebStartBackendLoginListeners",
+    "WAWebStartBackendWorker",
     "WAWebStoreSpecialAbProps",
     "WAWebSubscriptions",
     "WAWebSyncBootstrap",
@@ -122,6 +124,7 @@ __d(
     "cr:17219",
     "cr:37961",
     "getErrorSafe",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -232,7 +235,9 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          E || k();
+          (r("gkx")("20033") &&
+            o("WAWebStartBackendWorker").startBackendWorker(),
+            E || k());
           var e = yield o(
             "WAWebSignalStoreApi",
           ).waSignalStore.getRegistrationInfo();
@@ -658,6 +663,7 @@ __d(
                   {},
                 ),
             o("WAWebTasksDefinitions").registerTasks(),
+            o("WAWebSignalSessionCleanupJob").cleanupCorruptedSignalSessions(),
             o(
               "WAWebPushNotificationsGatingUtils",
             ).canSupportOfflineNotifications() &&

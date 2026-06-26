@@ -739,11 +739,11 @@ __d(
                     G,
                   ))
               : i.id.isStatus()
-                ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
-                    H,
-                    G,
-                    s.statusPostFunnelContext,
-                  ))
+                ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction({
+                    beforeSend: G,
+                    funnelContext: s.statusPostFunnelContext,
+                    mediaMsgData: H,
+                  }))
                 : (U = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                     i,
                     H,
@@ -782,11 +782,11 @@ __d(
                 );
             else
               i.id.isStatus()
-                ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
-                    yield z,
-                    W,
-                    s.statusPostFunnelContext,
-                  ))
+                ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction({
+                    beforeSend: W,
+                    funnelContext: s.statusPostFunnelContext,
+                    mediaMsgData: yield z,
+                  }))
                 : A.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
                   ? (U = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                       i,

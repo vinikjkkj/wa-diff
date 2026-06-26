@@ -37,7 +37,6 @@ __d(
     "WAWebSocketLogoutJob",
     "WAWebSocketModel",
     "WAWebStartBackend",
-    "WAWebStartBackendWorker",
     "WAWebStatusStorage",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsIsLoggedIn",
@@ -125,12 +124,6 @@ __d(
           var n = e.setWorkerSafeHandlers;
           return n(t);
         }),
-        r("gkx")("20033") &&
-          (e != null ? e : (g || (g = n("Promise"))).resolve()).then(
-            function () {
-              return o("WAWebStartBackendWorker").startBackendWorker();
-            },
-          ),
         o("WAWebFtsClient").ftsClient.initialize(),
         o("WAWebStartBackend").setupStartBackendListeners(),
         o("WAWebDbRolloutUtil")

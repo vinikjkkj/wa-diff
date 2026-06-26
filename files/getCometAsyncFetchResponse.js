@@ -12,26 +12,11 @@ __d(
     "PHPQuerySerializer",
     "Promise",
     "XHRRequest",
+    "canSendCredentialsForAsyncRequest",
     "cometAsyncRequestHeaders",
     "getAsyncParams",
     "getErrorSafe",
     "handleCometErrorCodeSideEffects",
-    "isAIDemosDotMetaDotComURI",
-    "isArDotMetaDotComURI",
-    "isBugBountyDotMetaDotComURI",
-    "isDevelopersDotMetaDotComURI",
-    "isDeviceManagerDotMetaDotComURI",
-    "isFacebookURI",
-    "isHorizonDotMetaDotComURI",
-    "isInstagramURI",
-    "isInternalFBURI",
-    "isMessengerDotComURI",
-    "isMetaAIURI",
-    "isWearablesDotDeveloperDotMetaDotComURI",
-    "isWorkDotMetaDotComURI",
-    "isWorkplaceDotComURI",
-    "isWorkroomsDotComURI",
-    "isWwwMetaDotComURI",
     "setTimeout",
   ],
   function (t, n, r, o, a, i, l) {
@@ -177,24 +162,7 @@ __d(
     }
     function d(e) {
       var t = o("ConstUriUtils").getUri(e);
-      return t == null
-        ? !1
-        : r("isMetaAIURI")(t) ||
-            r("isFacebookURI")(t) ||
-            r("isInstagramURI")(t) ||
-            r("isInternalFBURI")(t) ||
-            r("isMessengerDotComURI")(t) ||
-            r("isWearablesDotDeveloperDotMetaDotComURI")(t) ||
-            r("isWorkplaceDotComURI")(t) ||
-            r("isWorkroomsDotComURI")(t) ||
-            r("isWorkDotMetaDotComURI")(t) ||
-            r("isHorizonDotMetaDotComURI")(t) ||
-            r("isDevelopersDotMetaDotComURI")(t) ||
-            r("isArDotMetaDotComURI")(t) ||
-            r("isWwwMetaDotComURI")(t) ||
-            r("isAIDemosDotMetaDotComURI")(t) ||
-            r("isBugBountyDotMetaDotComURI")(t) ||
-            r("isDeviceManagerDotMetaDotComURI")(t);
+      return t == null ? !1 : r("canSendCredentialsForAsyncRequest")(t);
     }
     function m(e) {
       var t = o("ConstUriUtils").getUri(e);

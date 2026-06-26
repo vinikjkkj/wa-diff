@@ -97,6 +97,7 @@ __d(
             : e === "PENDING"
               ? s._(/*BTDS*/ "Update in review")
               : s._(/*BTDS*/ "Update review completed");
+        case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE:
         case o("WAWebCommonNewsletterEnums").EnforcementType
           .PROFILE_PICTURE_DELETION:
           return e === "PENDING"
@@ -184,6 +185,7 @@ __d(
           }
           break;
         }
+        case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE:
         case o("WAWebCommonNewsletterEnums").EnforcementType
           .PROFILE_PICTURE_DELETION: {
           switch (e) {
@@ -496,6 +498,7 @@ __d(
           }
           break;
         }
+        case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE:
         case o("WAWebCommonNewsletterEnums").EnforcementType
           .PROFILE_PICTURE_DELETION: {
           switch (t) {

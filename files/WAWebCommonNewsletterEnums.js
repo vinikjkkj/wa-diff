@@ -23,6 +23,7 @@ __d(
         "PROFILE_PICTURE_DELETION",
         "SUSPEND_INFORM",
         "GEOSUSPEND_INFORM",
+        "ADMIN_PROFILE",
       ]),
       m = e.Mirrored([
         "SUSPENDED_DETAILED_SCREEN",

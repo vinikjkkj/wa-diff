@@ -31,12 +31,27 @@ __d(
             suspensions: [],
             violatingMessages: [],
             geoSuspensions: [],
+            adminProfiles: [],
           };
-          if (i.profile_picture_deletions != null) {
+          if (i.admin_profiles != null) {
             var u = [];
-            (i.profile_picture_deletions.forEach(function (e) {
+            (i.admin_profiles.forEach(function (e) {
               m(e) ||
                 u.push(
+                  _(
+                    e,
+                    o("WAWebCommonNewsletterEnums").EnforcementType
+                      .ADMIN_PROFILE,
+                  ),
+                );
+            }),
+              (l.adminProfiles = u));
+          }
+          if (i.profile_picture_deletions != null) {
+            var c = [];
+            (i.profile_picture_deletions.forEach(function (e) {
+              m(e) ||
+                c.push(
                   _(
                     e,
                     o("WAWebCommonNewsletterEnums").EnforcementType
@@ -44,10 +59,10 @@ __d(
                   ),
                 );
             }),
-              (l.profilePictureDeletions = u));
+              (l.profilePictureDeletions = c));
           }
           if (i.suspensions != null) {
-            var c = [];
+            var p = [];
             (i.suspensions.forEach(function (e) {
               var t;
               if (!m(e)) {
@@ -62,18 +77,18 @@ __d(
                     ? o("WAWebCommonNewsletterEnums").EnforcementType
                         .SUSPEND_INFORM
                     : o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND),
-                  c.push(n));
+                  p.push(n));
               }
             }),
-              (l.suspensions = c));
+              (l.suspensions = p));
           }
           if (i.violating_messages != null) {
-            var p = [];
+            var f = [];
             (i.violating_messages.forEach(function (e) {
               if (!m(e.base_enforcement_data)) {
                 var t = d(e.content_data);
                 t != null &&
-                  p.push(
+                  f.push(
                     babelHelpers.extends(
                       {},
                       _(
@@ -86,15 +101,15 @@ __d(
                   );
               }
             }),
-              (l.violatingMessages = p));
+              (l.violatingMessages = f));
           }
-          var f = i.geosuspensions;
-          if (f != null) {
-            var g = [];
+          var g = i.geosuspensions;
+          if (g != null) {
+            var h = [];
             yield o("WAWebLocaleModules")
               .getCountryData()
               .then(function (e) {
-                f.forEach(function (t) {
+                g.forEach(function (t) {
                   var n, a, i;
                   if (!m(t.base_enforcement_data)) {
                     var l =
@@ -126,14 +141,14 @@ __d(
                             .GEOSUSPEND),
                       s != null &&
                         ((i = s) == null ? void 0 : i.length) > 0 &&
-                        g.push(
+                        h.push(
                           babelHelpers.extends({}, u, { countryCodes: s }),
                         ));
                   }
                 });
               })
               .finally(function () {
-                l.geoSuspensions = g;
+                l.geoSuspensions = h;
               });
           }
           return l;

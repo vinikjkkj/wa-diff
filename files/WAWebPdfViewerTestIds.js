@@ -13,6 +13,7 @@ __d(
         EDIT_INLINE_IFRAME: "pdf-edit-inline-iframe",
         EDIT_MODAL_IFRAME: "pdf-edit-modal-iframe",
         EDIT_REDO: "webtp-pdf-redo",
+        EDIT_SELECT: "webtp-pdf-select",
         EDIT_STRIKETHROUGH: "webtp-pdf-strikethrough",
         EDIT_THICKNESS: "webtp-pdf-thickness",
         EDIT_UNDERLINE: "webtp-pdf-underline",

@@ -197,7 +197,7 @@ __d(
       },
       663703: { moduleName: "FEED", name: "QUERY_PERF", sampleRate: 1 },
       663892: { moduleName: "FEED", name: "CACHE_TTL", sampleRate: 1e4 },
-      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 32249 },
+      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 28921 },
       665863: { moduleName: "FEED", name: "DEFER", sampleRate: 250 },
       665990: { moduleName: "FEED", name: "RESTORE", sampleRate: 2 },
       666016: {
@@ -8218,6 +8218,11 @@ __d(
         name: "IMAGE_LOAD_PERF",
         sampleRate: null,
       },
+      42670078: {
+        moduleName: "ANDROID_IMAGE_LOAD_PERF",
+        name: "AVIF_PREDECODE",
+        sampleRate: 250,
+      },
       42729476: { moduleName: "DAIQUERY", name: "PAGE_LOAD", sampleRate: 1 },
       42729477: {
         moduleName: "DAIQUERY",
@@ -10585,6 +10590,11 @@ __d(
         moduleName: "STELLA_APP",
         name: "MENTION_TYPEAHEAD_SEARCH",
         sampleRate: 1,
+      },
+      55120057: {
+        moduleName: "STELLA_APP",
+        name: "DEVICE_HOME_WIDGET_TTRC",
+        sampleRate: 250,
       },
       55122354: {
         moduleName: "STELLA_APP",
@@ -14037,7 +14047,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 257,
+        sampleRate: 308,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14102,7 +14112,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 42960,
+        sampleRate: 55653,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15253,6 +15263,11 @@ __d(
         name: "DEX_LOAD",
         sampleRate: 250,
       },
+      99092253: {
+        moduleName: "EARLY_STARTUP",
+        name: "ATTACH_BASE_CONTEXT",
+        sampleRate: 250,
+      },
       100152121: {
         moduleName: "IG_NOTIFICATION_ADS",
         name: "SPONSORED_CLIPS_NAVIGATION",
@@ -15634,6 +15649,11 @@ __d(
       108934096: {
         moduleName: "META_CRM_CLIENT_ENGAGEMENT",
         name: "ACU_GENERATION",
+        sampleRate: 1,
+      },
+      108934312: {
+        moduleName: "META_CRM_CLIENT_ENGAGEMENT",
+        name: "CI_DATA_VALIDATION",
         sampleRate: 1,
       },
       108935486: {
@@ -21534,6 +21554,11 @@ __d(
         name: "RECORDING_LEDGER",
         sampleRate: 1,
       },
+      220338252: {
+        moduleName: "RL_ROBOTICS",
+        name: "MOTOR_FAULT_INFO",
+        sampleRate: 1,
+      },
       220338376: {
         moduleName: "RL_ROBOTICS",
         name: "TEST_EVENT_2",
@@ -22110,6 +22135,11 @@ __d(
         moduleName: "LABYRINTH_MOBILE",
         name: "PIN_UPSELL_TYPE_FETCH",
         sampleRate: 1,
+      },
+      231351325: {
+        moduleName: "LABYRINTH_MOBILE",
+        name: "DRIVE_DEPRECATION_DEEPLINK",
+        sampleRate: 250,
       },
       231352480: {
         moduleName: "LABYRINTH_MOBILE",
@@ -40993,9 +41023,24 @@ __d(
         name: "WWW_LIST_FILES_GOOGLE_DRIVE",
         sampleRate: 1,
       },
+      507974517: {
+        moduleName: "HZOS_FILES",
+        name: "APP_FUNCTION_OPEN_FILE",
+        sampleRate: 1,
+      },
       507979624: {
         moduleName: "HZOS_FILES",
         name: "CREATE_SHARED_LINK_3P",
+        sampleRate: 1,
+      },
+      507981565: {
+        moduleName: "HZOS_FILES",
+        name: "APP_FUNCTION_LAUNCH_FILES",
+        sampleRate: 1,
+      },
+      507982559: {
+        moduleName: "HZOS_FILES",
+        name: "APP_FUNCTION_QUERY_FILES",
         sampleRate: 1,
       },
       507982641: {
@@ -41632,6 +41677,7 @@ __d(
       },
       519774294: { moduleName: "AI_DEMOS", name: "NAVIGATION", sampleRate: 1 },
       519775195: { moduleName: "AI_DEMOS", name: "INTERACTION", sampleRate: 1 },
+      520165074: { moduleName: "WIKI_NEST", name: "PAGE_LOAD", sampleRate: 1 },
       520225911: {
         moduleName: "FILEWORKS_MAIN_WWW",
         name: "SET_KEYWORD",
@@ -49005,6 +49051,16 @@ __d(
         name: "FETCH",
         sampleRate: 1,
       },
+      637140993: {
+        moduleName: "IG_NATIVE_PDP",
+        name: "IG_NATIVE_PDP_TTI",
+        sampleRate: 1,
+      },
+      637140994: {
+        moduleName: "IG_NATIVE_PDP",
+        name: "IG_NATIVE_PDP_TTRC",
+        sampleRate: 1,
+      },
       637285862: {
         moduleName: "MBE_COMMERCE_ONBOARDING",
         name: "MBE_COMBINED_ASSETS_LIST_LOAD",
@@ -49374,6 +49430,11 @@ __d(
       641402164: {
         moduleName: "NEST_INTERACTION_TRACING",
         name: "INSTRUMENTATION_CORRECTNESS",
+        sampleRate: 1,
+      },
+      641404562: {
+        moduleName: "NEST_INTERACTION_TRACING",
+        name: "USER_FLOW",
         sampleRate: 1,
       },
       646461002: {
@@ -54827,6 +54888,11 @@ __d(
         name: "LIBRARY_LOAD",
         sampleRate: 1,
       },
+      734870487: {
+        moduleName: "HATCH_APP",
+        name: "XE_CONSENT_TTI",
+        sampleRate: 250,
+      },
       734870636: { moduleName: "HATCH_APP", name: "FEED_LOAD", sampleRate: 1 },
       734870941: {
         moduleName: "HATCH_APP",
@@ -58070,6 +58136,11 @@ __d(
         name: "E2EE_DOWNGRADE_SENDER",
         sampleRate: 1,
       },
+      749540521: {
+        moduleName: "BLP",
+        name: "BEST_LANGUAGE_SERVICE_API_LATENCY",
+        sampleRate: 1e4,
+      },
       749540556: {
         moduleName: "BLP",
         name: "BEST_LANGUAGE_API_LATENCY",
@@ -59745,6 +59816,11 @@ __d(
         name: "COMMENT_SHEET_CTA_DWELL",
         sampleRate: 10,
       },
+      780605298: {
+        moduleName: "REELS_SHOPPABLE_VIDEO",
+        name: "CHIP_CTR",
+        sampleRate: 250,
+      },
       780606340: {
         moduleName: "REELS_SHOPPABLE_VIDEO",
         name: "BBOX_GRID_LOADED",
@@ -61038,6 +61114,11 @@ __d(
       800011900: {
         moduleName: "COMMUNITY_PRESENCE_ADMIN_ONBOARDING",
         name: "ONBOARDING_CARD_OPEN_ACTION",
+        sampleRate: null,
+      },
+      800145040: {
+        moduleName: "MESSENGER_INBOX_TRAY",
+        name: "INBOX_TRAY_TTRC",
         sampleRate: null,
       },
       800391169: {
@@ -72876,6 +72957,11 @@ __d(
         name: "INTAKE_APPLICABILITY_ROUTING",
         sampleRate: 1,
       },
+      958020634: {
+        moduleName: "RISKSHERPA",
+        name: "FAI_PIPELINE_EXECUTION",
+        sampleRate: 1,
+      },
       958729769: {
         moduleName: "SCORECARD",
         name: "UPDATE_FILTERS",
@@ -76380,6 +76466,11 @@ __d(
         name: "ASYNC_CREATION",
         sampleRate: 1,
       },
+      1032851861: {
+        moduleName: "FB_AI_WIDGETS",
+        name: "SANDBOX_URL_RESOLVE",
+        sampleRate: 1,
+      },
       1032854538: {
         moduleName: "FB_AI_WIDGETS",
         name: "FB_AI_WIDGETS_FEED_RENDER",
@@ -78779,6 +78870,11 @@ __d(
         moduleName: "CATALOG_PRECOMPUTATION_END_TO_END",
         name: "E2E_TEST",
         sampleRate: null,
+      },
+      1063124993: {
+        moduleName: "CREATOR_MESSAGING",
+        name: "CREATE_AUTOMATION_FLOW",
+        sampleRate: 250,
       },
       1063389696: {
         moduleName: "FRL_BLOKS_LOGIN",

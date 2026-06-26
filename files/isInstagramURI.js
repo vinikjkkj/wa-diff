@@ -2,16 +2,16 @@ __d(
   "isInstagramURI",
   [],
   function (t, n, r, o, a, i) {
-    var e = null;
-    function l(t) {
+    var e = "(^|\\.)instagram\\.com$",
+      l = null;
+    function s(t) {
       return (t.isEmpty() && t.toString() !== "#") ||
         (!t.getDomain() && !t.getProtocol()) ||
         t.getProtocol() !== "https"
         ? !1
-        : (e || (e = new RegExp("(^|\\.)instagram\\.com$", "i")),
-          e.test(t.getDomain()));
+        : (l || (l = new RegExp(e, "i")), l.test(t.getDomain()));
     }
-    i.default = l;
+    i.default = s;
   },
   66,
 );

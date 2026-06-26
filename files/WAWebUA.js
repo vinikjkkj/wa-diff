@@ -48,17 +48,16 @@ __d(
         y = !1;
       e: {
         if (i === "MAC OS") {
-          m ? (y = c(l, "10.10") && c(o, "41.0.0")) : c(l, "10.7") && (y = !0);
+          y = !0;
           break e;
         }
         if (i === "WINDOWS") {
-          c(l, "8.1") && (f || (m && c(o, "41.0.0"))) && (y = !0);
+          c(l, "8.1") && (f || m) && (y = !0);
           break e;
         }
         break e;
       }
-      var C = m && c(o, "110.0.0"),
-        b = u || (m && d(o, "76"));
+      var C = m && c(o, "110.0.0");
       return {
         isWebkit: s,
         isGecko: f,
@@ -66,11 +65,10 @@ __d(
         isSafari: u,
         isFirefox: p,
         isBlink: g,
-        isBuggyVideoLoad: (m && c(o, "76")) || (g && !m),
+        isBuggyVideoLoad: g,
         hasEmoji: y,
         troublesWithLotsOfVideos: r("gkx")("26258") === !0 && m,
-        supportsEmojiEllipsification: !b,
-        isBrokenGetUserMedia: m && d(o, "50"),
+        supportsEmojiEllipsification: !u,
         isLocalStorageBroken: u && c(o, "14.1") && d(o, "14.1.2"),
         isBrokenVoipWasm: u && c(o, "26.2") && d(o, "26.3"),
         os: i.toLowerCase(),

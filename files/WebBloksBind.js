@@ -5,8 +5,8 @@ __d(
     "WebBloksErrors",
     "WebBloksInterpreterEnvironment",
     "WebBloksModel",
-    "WebBloksModelParser",
     "WebBloksNormaliseYogaDimension",
+    "WebBloksPayloadParser",
     "WebBloksScopedIds",
     "WebBloksScriptExecutor",
     "WebBloksScriptTokens",
@@ -22,6 +22,9 @@ __d(
           if (
             ((this.previousVariableDependencies = o("WebBloksUtils").EMPTY_MAP),
             (this.expandedVariables = new Map()),
+            (this.$1 = new Set()),
+            (this.$2 = new Map()),
+            (this.$3 = new Map()),
             (this.bloksContext = e),
             (this.resources = t),
             (this.clientIdToScopedIdMapper = n),
@@ -148,6 +151,21 @@ __d(
                 (r = this.variablesChanged) == null || r.add(t);
               }
             }
+          }),
+          (t.isResourceProcessed = function (t) {
+            return this.$1.has(t);
+          }),
+          (t.collectTreeResource = function (t, n) {
+            this.$1.has(n) || (this.$1.add(n), this.$2.set(n, t));
+          }),
+          (t.getCollectedTreeResources = function () {
+            return this.$2;
+          }),
+          (t.getCachedTemplatePayload = function (t) {
+            return this.$3.get(t);
+          }),
+          (t.cacheTemplatePayload = function (t, n) {
+            this.$3.set(t, n);
           }),
           (e.applyOperation = function (n, r, o, a) {
             return e.applyAttribute(n, r, o, a);
@@ -368,31 +386,23 @@ __d(
           );
         u = d[c];
       } else {
-        var m = e.resources.templates.get(s.templateId);
-        if (m != null) u = m;
-        else {
-          var p,
-            _ = e.resources.payloads.get(String(s.templateId));
-          if (_ == null)
+        var m = s.templateId,
+          p = e.resources.payloads.get(m);
+        if (p != null) {
+          var _ = e.getCachedTemplatePayload(m);
+          (_ == null &&
+            ((_ = o("WebBloksPayloadParser").parseTree(p.payload, l, null)),
+            e.cacheTemplatePayload(m, _)),
+            (u = _.unboundModel));
+          var f = m;
+          e.isResourceProcessed(f) || e.collectTreeResource(_.resources, f);
+        } else {
+          var g = e.resources.templates.get(m);
+          if (g == null)
             throw new (o("WebBloksErrors").WebBloksError)(
-              "No such template in tree resources: " + s.templateId,
+              "No such template in tree resources: " + m,
             );
-          var f =
-            (p = _.payload) == null ||
-            (p = p.layout) == null ||
-            (p = p.bloks_payload) == null
-              ? void 0
-              : p.tree;
-          if (f == null)
-            throw new (o("WebBloksErrors").WebBloksError)(
-              "Embedded payload has no tree: " + s.templateId,
-            );
-          var g = e.bloksContext.objectSet.environment.traversalKeys;
-          u = o("WebBloksModelParser").parseBloksModelFromJSON(
-            o("WebBloksUtils").cast(f),
-            g,
-            null,
-          );
+          u = g;
         }
       }
       var h = e.clientIdToScopedIdMapper.getScopedClientId(u, s.scopeKey),

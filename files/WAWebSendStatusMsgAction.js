@@ -126,76 +126,85 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e, t, n) {
+    function S(e) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a, i, l, s, u, _, f;
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            a,
+            i,
+            l,
+            s,
+            u,
+            _ = e.beforeSend,
+            f = e.funnelContext,
+            g = e.mediaMsgData;
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
                 "sendStatusMediaMsgAction: start to send status message",
               ])),
           );
-          var g = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
+          var h = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
               ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
               : void 0,
-            h = babelHelpers.extends({}, e, {
+            y = babelHelpers.extends({}, g, {
               id: new (r("WAWebMsgKey"))({
-                fromMe: e.id.fromMe,
-                remote: e.id.remote,
-                id: e.id.id,
-                participant: e.id.participant
+                fromMe: g.id.fromMe,
+                remote: g.id.remote,
+                id: g.id.id,
+                participant: g.id.participant
                   ? o("WAWebLidStatusMigrationUtils").matWidConvert(
-                      e.id.participant,
+                      g.id.participant,
                     )
                   : void 0,
               }),
-              from: o("WAWebLidStatusMigrationUtils").matWidConvert(e.from),
+              from: o("WAWebLidStatusMigrationUtils").matWidConvert(g.from),
               author: o("WAWebLidStatusMigrationUtils").matWidConvert(
                 o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               ),
-              canBeReshared: g,
+              canBeReshared: h,
             }),
-            y = new (o("WAWebMsgModel").Msg)(h);
-          y.wamMessageSendPerfReporter = new (o(
+            C = new (o("WAWebMsgModel").Msg)(y);
+          C.wamMessageSendPerfReporter = new (o(
             "WAWebMessageSendPerfReporter",
           ).MessageSendPerfReporter)({
-            chatWid: y.to,
-            mediaType: o("WAWebWamMsgUtils").getWamMediaType(y),
-            messageType: o("WAWebWamMsgUtils").getWamMessageType(y),
+            chatWid: C.to,
+            mediaType: o("WAWebWamMsgUtils").getWamMediaType(C),
+            messageType: o("WAWebWamMsgUtils").getWamMessageType(C),
           });
-          var C = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
-            y,
+          var b = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
+            C,
             o("WAWebMessageSendReporterFrontendDeps")
               .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           );
-          ((C.sendReporter =
-            (a = C.sendReporter) != null ? a : C.createSendReporter()),
-            (i = C.sendPerfReporter) == null || i.startRenderedStage(),
-            o("WAWebStatusCollection").StatusCollection.handleUpdate(h, !1),
+          ((b.sendReporter =
+            (t = b.sendReporter) != null ? t : b.createSendReporter()),
+            (n = b.sendPerfReporter) == null || n.startRenderedStage(),
+            o("WAWebStatusCollection").StatusCollection.handleUpdate(y, !1),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
-              y.author,
-              [y],
+              C.author,
+              [C],
             ),
-            (l = C.sendPerfReporter) == null || l.postRenderedStage(),
-            (s = C.sendPerfReporter) == null || s.startSavedStage(),
-            yield o("WAWebDBProcessMessage").storeMessages([h], y.to),
+            (a = b.sendPerfReporter) == null || a.postRenderedStage(),
+            (i = b.sendPerfReporter) == null || i.startSavedStage(),
+            yield o("WAWebDBProcessMessage").storeMessages([y], C.to),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
                   "sendStatusMediaMsgAction: store media message",
                 ])),
             ),
-            (u = C.sendPerfReporter) == null || u.postSavedStage(),
-            (_ = C.sendPerfReporter) == null || _.startReadyToSendStage(),
-            yield y.waitForPrep());
+            (l = b.sendPerfReporter) == null || l.postSavedStage(),
+            (s = b.sendPerfReporter) == null || s.startReadyToSendStage(),
+            yield C.waitForPrep());
           try {
-            yield t(y);
+            yield _(C);
           } catch (e) {
-            var b;
+            var v;
             return (
               o("WALogger")
                 .ERROR(
@@ -207,8 +216,8 @@ __d(
                   e,
                 )
                 .sendLogs("status-send-media-error"),
-              (b = C.sendReporter) == null ||
-                b.postFailure({
+              (v = b.sendReporter) == null ||
+                v.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UPLOAD,
                   isTerminal: !0,
@@ -220,14 +229,14 @@ __d(
             );
           }
           return (
-            (f = C.sendPerfReporter) == null || f.postReadyToSendStage(),
+            (u = b.sendPerfReporter) == null || u.postReadyToSendStage(),
             o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
                   "sendStatusMediaMsgAction: media prep done for status message",
                 ])),
             ),
-            L(y, h, C, 0, n)
+            L(C, y, b, 0, f)
           );
         })),
         R.apply(this, arguments)
@@ -296,12 +305,12 @@ __d(
             } catch (t) {
               e.updateAck(o("WAWebAck").ACK.FAILED);
               var p = r("getErrorSafe")(t);
-              (l.logPostStatusFailure(
-                s,
-                p == null ? void 0 : p.message,
-                a,
-                i == null ? void 0 : i.entryPoint,
-              ),
+              (l.logPostStatusFailure({
+                contentType: s,
+                entryPoint: i == null ? void 0 : i.entryPoint,
+                failureReason: p == null ? void 0 : p.message,
+                retryCount: a,
+              }),
                 o("WALogger").LOG(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([

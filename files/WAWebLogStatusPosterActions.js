@@ -155,14 +155,18 @@ __d(
             statusId: n,
           });
         }),
-        (n.logPostStatusFailure = function (t, n, r, a) {
+        (n.logPostStatusFailure = function (t) {
+          var e = t.contentType,
+            n = t.entryPoint,
+            r = t.failureReason,
+            a = t.retryCount;
           this.logEvent({
             statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
               .POST_STATUS_FAILURE,
-            statusContentType: t,
-            statusCreationEntryPoint: a,
-            statusPostFailureReason: n,
-            retryCount: r,
+            statusContentType: e,
+            statusCreationEntryPoint: n,
+            statusPostFailureReason: r,
+            retryCount: a,
           });
         }),
         (n.logDeleteStatusRequest = function () {

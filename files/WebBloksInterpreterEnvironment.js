@@ -1,8 +1,9 @@
 __d(
   "WebBloksInterpreterEnvironment",
   [
-    "FallbackTreeResourcesDelegate",
+    "BindTreeResources",
     "Promise",
+    "TreeManagerResourcesDelegate",
     "WebBloksConstants",
     "WebBloksErrors",
     "WebBloksExternalVariables",
@@ -64,22 +65,20 @@ __d(
             (this.$1 = i));
         }
         ((t.forBind = function (n, r, a, i) {
-          var e = new (o(
-              "FallbackTreeResourcesDelegate",
-            ).FallbackTreeResourcesDelegate)(n.treeManager, a, i),
+          var e = new (o("BindTreeResources").BindTreeResources)(a, i),
             l = new t(n, r, "BIND", e);
           return ((l.resources = a), (l.expandedVariablesOverride = i), l);
         }),
           (t.forAction = function (n, r) {
             var e = new (o(
-              "FallbackTreeResourcesDelegate",
-            ).FallbackTreeResourcesDelegate)(n.treeManager);
+              "TreeManagerResourcesDelegate",
+            ).TreeManagerResourcesDelegate)(n.treeManager);
             return new t(n, r, null, e);
           }),
           (t.fromBloksContext = function (n) {
             var e = new (o(
-              "FallbackTreeResourcesDelegate",
-            ).FallbackTreeResourcesDelegate)(n.treeManager);
+              "TreeManagerResourcesDelegate",
+            ).TreeManagerResourcesDelegate)(n.treeManager);
             return new t(n, null, null, e);
           }));
         var r = t.prototype;

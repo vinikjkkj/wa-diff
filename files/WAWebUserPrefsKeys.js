@@ -392,6 +392,7 @@ __d(
         HAVE_PROCESSED_COEX_ADV: "WAHaveProcessedCoexAdv",
         NCT_SALT: "WAWebNctSalt",
         OPUS_MIGRATION_COMPLETE: "WAOpusMigrationComplete",
+        SIGNAL_SESSION_CLEANUP_COMPLETE: "WASignalSessionCleanupComplete",
       }),
       _ = Object.freeze({
         USER_PRIVACY_SETTINGS: "user-privacy-settings",

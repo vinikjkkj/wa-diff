@@ -1,6 +1,6 @@
 __d(
   "WAWebBizNativeAdsGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms"],
+  ["WAWebABProps", "WAWebMobilePlatforms", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -27,12 +27,20 @@ __d(
       );
     }
     function c() {
-      return o("WAWebMobilePlatforms").isSMB();
+      return (
+        r("justknobx")._("3473") ||
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_native_ads_detailed_targeting",
+        )
+      );
     }
     function d() {
       return o("WAWebMobilePlatforms").isSMB();
     }
     function m() {
+      return o("WAWebMobilePlatforms").isSMB();
+    }
+    function p() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -40,7 +48,7 @@ __d(
         )
       );
     }
-    function p() {
+    function _() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -48,7 +56,7 @@ __d(
         )
       );
     }
-    function _() {
+    function f() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -56,12 +64,12 @@ __d(
         )
       );
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_ctwa_web_enable_continuous_duration",
       );
     }
-    function g() {
+    function h() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -72,13 +80,14 @@ __d(
     ((l.nativeAdsDogfoodEnabled = e),
       (l.nativeAdsCreationHawkToolEnabled = s),
       (l.nativeAdsCreationTargetingModalHawkToolEnabled = u),
-      (l.adCreationEntryPointCatalogEnabled = c),
-      (l.adCreationEntryPointCatalogProductEnabled = d),
-      (l.nativeAdsMvpQE1Enabled = m),
-      (l.nativeAdsMvpQE1EnabledNoExposure = p),
-      (l.nativeAdsMvpQE2Enabled = _),
-      (l.continuousDurationEnabled = f),
-      (l.ctwaSabrEnabled = g));
+      (l.nativeAdsDetailedTargetingEnabled = c),
+      (l.adCreationEntryPointCatalogEnabled = d),
+      (l.adCreationEntryPointCatalogProductEnabled = m),
+      (l.nativeAdsMvpQE1Enabled = p),
+      (l.nativeAdsMvpQE1EnabledNoExposure = _),
+      (l.nativeAdsMvpQE2Enabled = f),
+      (l.continuousDurationEnabled = g),
+      (l.ctwaSabrEnabled = h));
   },
   98,
 );

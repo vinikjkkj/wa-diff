@@ -13,7 +13,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1782380372949" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1782460909851" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -763,10 +763,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1299809: function () {
+            1301396: function () {
               return Date.now();
             },
-            1299832: function (t, n) {
+            1301419: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -844,24 +844,25 @@ __d(
               { jid: t },
             );
           }
-          function tt(e, t, n, r, o, a, i, l, s) {
-            var u = d(),
-              c = new Uint8Array(n);
-            c.set(u.subarray(t, t + n));
-            var m = Xt(e);
+          function tt(e, t, n, r, o, a, i, l, s, u) {
+            var c = d(),
+              m = new Uint8Array(n);
+            m.set(c.subarray(t, t + n));
+            var p = Xt(e);
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks &&
               self.WhatsAppVoipWasmWorkerCompatibleCallbacks
                 .onVideoFrameWasmToJs &&
               self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onVideoFrameWasmToJs(
                 {
-                  userJid: m,
-                  frameBuffer: c.buffer,
+                  userJid: p,
+                  frameBuffer: m.buffer,
                   width: r,
                   height: o,
                   orientation: a,
                   format: i,
                   timestamp: l,
                   isKeyFrame: s,
+                  isScreenShare: u,
                 },
               );
           }
@@ -7744,8 +7745,8 @@ __d(
             cl = (y.___get_exception_message = xe("__get_exception_message")),
             dl = xe("__cxa_can_catch"),
             ml = xe("__cxa_is_pointer_type"),
-            pl = (y.___start_em_js = 1294428),
-            _l = (y.___stop_em_js = 1299809);
+            pl = (y.___start_em_js = 1295964),
+            _l = (y.___stop_em_js = 1301396);
           function fl(e, t, n, r) {
             var o = ol();
             try {

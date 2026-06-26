@@ -127,12 +127,14 @@ __d(
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !0,
                 }),
-              d.logPostStatusFailure(
-                o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.TEXT,
-                (g = r("getErrorSafe")(e)) == null ? void 0 : g.message,
-                0,
-                n == null ? void 0 : n.entryPoint,
-              ),
+              d.logPostStatusFailure({
+                contentType: o("WAWebWamEnumStatusContentType")
+                  .STATUS_CONTENT_TYPE.TEXT,
+                entryPoint: n == null ? void 0 : n.entryPoint,
+                failureReason:
+                  (g = r("getErrorSafe")(e)) == null ? void 0 : g.message,
+                retryCount: 0,
+              }),
               e
             );
           } finally {
@@ -232,12 +234,13 @@ __d(
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !0,
                 }),
-              g.logPostStatusFailure(
-                _,
-                (v = r("getErrorSafe")(e)) == null ? void 0 : v.message,
-                0,
-                n == null ? void 0 : n.entryPoint,
-              ),
+              g.logPostStatusFailure({
+                contentType: _,
+                entryPoint: n == null ? void 0 : n.entryPoint,
+                failureReason:
+                  (v = r("getErrorSafe")(e)) == null ? void 0 : v.message,
+                retryCount: 0,
+              }),
               e
             );
           } finally {
@@ -263,7 +266,12 @@ __d(
               return;
             }
             var s = t.success ? void 0 : t.ack.error;
-            r.logPostStatusFailure(a, s, 0, i == null ? void 0 : i.entryPoint);
+            r.logPostStatusFailure({
+              contentType: a,
+              entryPoint: i == null ? void 0 : i.entryPoint,
+              failureReason: s,
+              retryCount: 0,
+            });
           },
         )),
         g.apply(this, arguments)

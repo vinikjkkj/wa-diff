@@ -147,7 +147,7 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var a = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
             i = o("WAWebUserPrefsMeUser").isMeAccount(n);
           return {
             id: new (r("WAWebMsgKey"))({

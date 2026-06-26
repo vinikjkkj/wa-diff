@@ -206,17 +206,21 @@ __d(
       return s._(/*BTDS*/ "Search");
     }
     L.displayName = L.name + " [from " + i.id + "]";
-    function E(e, t, n, r) {
-      var a = function () {
-        o("WAWebSearchTheWebEventLogger").logSTWEvent({
-          stwInteraction: o("WAWebWamEnumStwInteraction").STW_INTERACTION
-            .LEARN_MORE_CLICKED,
-          stwEntryPoint: t,
-          stwFormat: n,
-          messageType: r,
-        });
-      };
-      return e
+    function E(e) {
+      var t = e.entryPoint,
+        n = e.isNewsletter,
+        r = e.messageType,
+        a = e.stwFormat,
+        i = function () {
+          o("WAWebSearchTheWebEventLogger").logSTWEvent({
+            stwInteraction: o("WAWebWamEnumStwInteraction").STW_INTERACTION
+              .LEARN_MORE_CLICKED,
+            stwEntryPoint: t,
+            stwFormat: a,
+            messageType: r,
+          });
+        };
+      return n
         ? s._(
             /*BTDS*/ "Searching for more info will upload only this update to Google. {=m2}",
             [
@@ -224,7 +228,7 @@ __d(
                 "=m2",
                 c.jsx(o("WAWebExternalLink.react").ExternalLink, {
                   href: o("WAWebFaqUrl").getSearchTheWebFaqUrl(),
-                  onClick: a,
+                  onClick: i,
                   children: s._(/*BTDS*/ "Learn more"),
                 }),
               ),
@@ -237,7 +241,7 @@ __d(
                 "=m2",
                 c.jsx(o("WAWebExternalLink.react").ExternalLink, {
                   href: o("WAWebFaqUrl").getSearchTheWebFaqUrl(),
-                  onClick: a,
+                  onClick: i,
                   children: s._(/*BTDS*/ "Learn more"),
                 }),
               ),

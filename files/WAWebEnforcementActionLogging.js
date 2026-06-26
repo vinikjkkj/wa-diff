@@ -48,15 +48,20 @@ __d(
                             .CH_PPD
                         : t ===
                             o("WAWebCommonNewsletterEnums").EnforcementType
-                              .VIOLATING_MSG
+                              .ADMIN_PROFILE
                           ? o("WAWebWamEnumEnforcementType").ENFORCEMENT_TYPE
-                              .CH_HCH
-                          : (function () {
-                              throw Error(
-                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  t,
-                              );
-                            })();
+                              .CH_HAP
+                          : t ===
+                              o("WAWebCommonNewsletterEnums").EnforcementType
+                                .VIOLATING_MSG
+                            ? o("WAWebWamEnumEnforcementType").ENFORCEMENT_TYPE
+                                .CH_HCH
+                            : (function () {
+                                throw Error(
+                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                    t,
+                                );
+                              })();
           }),
           (n.$8 = function (n) {
             var t = [

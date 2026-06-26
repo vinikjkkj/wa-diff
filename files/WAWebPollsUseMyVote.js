@@ -31,8 +31,7 @@ __d(
       var m = d,
         p;
       i[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()),
-          (i[2] = p))
+        ? ((p = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()), (i[2] = p))
         : (p = i[2]);
       var _ = p,
         f;
