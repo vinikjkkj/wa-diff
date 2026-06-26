@@ -7,6 +7,8 @@ __d(
     "WAWebBizBroadcastSmbaPlatformQuickPromotionFilter",
     "WAWebBizBroadcastSmbiPlatformQuickPromotionFilter",
     "WAWebBizBroadcastWebSendEnabledNoExposureQuickPromotionFilter",
+    "WAWebCompanionModeQuickPromotionFilter",
+    "WAWebMaibaOnboardedQuickPromotionFilter",
     "WAWebProfilePhotoRemovedQuickPromotionFilter",
     "WAWebQuickPromotionFilterOtherPromotionEvent",
     "WAWebQuickPromotionFilterSecondsSinceLastImpression",
@@ -49,6 +51,14 @@ __d(
           .bizBroadcastWebSendEnabledNoExposureFilter.name,
         o("WAWebBizBroadcastWebSendEnabledNoExposureQuickPromotionFilter")
           .bizBroadcastWebSendEnabledNoExposureFilter,
+      ],
+      [
+        o("WAWebCompanionModeQuickPromotionFilter").companionModeFilter.name,
+        o("WAWebCompanionModeQuickPromotionFilter").companionModeFilter,
+      ],
+      [
+        o("WAWebMaibaOnboardedQuickPromotionFilter").maibaOnboardedFilter.name,
+        o("WAWebMaibaOnboardedQuickPromotionFilter").maibaOnboardedFilter,
       ],
       [
         o("WAWebQuickPromotionFilterOtherPromotionEvent")

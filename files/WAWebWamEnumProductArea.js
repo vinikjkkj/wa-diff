@@ -64,6 +64,7 @@ __d(
       CRITICAL_LOW_STORAGE: 60,
       WAFFLE: 61,
       IN_APP_BROWSER: 62,
+      AI_HATCH: 63,
     });
     i.PRODUCT_AREA = e;
   },

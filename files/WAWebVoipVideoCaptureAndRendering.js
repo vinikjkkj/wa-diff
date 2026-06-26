@@ -3,10 +3,13 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipOperationQueue",
     "WAWebVoipPerfMeasurement",
+    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipVideoCameraCapture",
     "WAWebVoipVideoDesktopCapture",
+    "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVirtualVideoCaptureDriver",
     "asyncToGeneratorRuntime",
@@ -94,33 +97,45 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function f(e, t) {
+      return !t ||
+        (e === o("WAWebVoipVideoRendererInterface").selfPreviewJid &&
+          !o(
+            "WAWebVoipDualStreamScreenShareState",
+          ).isSelfDualStreamScreenShareActive())
+        ? e
+        : o("WAWebVoipScreenShareStreamKey").getScreenShareStreamKey(e);
     }
-    function g() {
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.format,
             n = e.frameBuffer,
             r = e.height,
             a = e.isKeyFrame,
-            i = e.orientation,
-            l = e.timestamp,
-            s = e.userJid,
-            u = e.width;
+            i = e.isScreenShare,
+            l = i === void 0 ? !1 : i,
+            s = e.orientation,
+            u = e.timestamp,
+            c = e.userJid,
+            d = e.width,
+            m = f(c, l);
           o(
             "WAWebVoipVideoRendererRegistry",
-          ).videoRendererRegistry.onVideoFrameWasmToJs(s, n, u, r, i, t, l, a);
+          ).videoRendererRegistry.onVideoFrameWasmToJs(m, n, d, r, s, t, u, a);
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           s.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var t = e.height,
@@ -137,15 +152,15 @@ __d(
             "startDesktopCapture",
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           s.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               yield o(
@@ -155,14 +170,14 @@ __d(
             "stopDesktopCapture",
           );
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
     ((l.startVideoCaptureJS = d),
       (l.stopVideoCaptureJS = p),
-      (l.onVideoFrameWasmToJs = f),
-      (l.startDesktopCaptureJS = h),
-      (l.stopDesktopCaptureJS = C));
+      (l.onVideoFrameWasmToJs = g),
+      (l.startDesktopCaptureJS = y),
+      (l.stopDesktopCaptureJS = b));
   },
   98,
 );

@@ -2,11 +2,9 @@ __d(
   "WAWebInitBotGatingHelpers",
   [
     "WALogger",
-    "WAWebAIHatchIdentityStore",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBotBaseGating",
-    "WAWebCanonicalHatchIdentityGetQuery",
     "WAWebCanonicalHatchLinkedStatusGetQuery",
     "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
@@ -22,13 +20,9 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WAWebAIHatchIdentityStore").registerIdentityFetcher(
-            o("WAWebCanonicalHatchIdentityGetQuery").fetchHatchIdentityGet,
-          ),
-            r("WAWebHatchLinkedStatusManager").registerFetcher(
-              o("WAWebCanonicalHatchLinkedStatusGetQuery")
-                .fetchHatchLinkedStatus,
-            ));
+          r("WAWebHatchLinkedStatusManager").registerFetcher(
+            o("WAWebCanonicalHatchLinkedStatusGetQuery").fetchHatchLinkedStatus,
+          );
           try {
             var t = yield o("WAWebBackendApi").frontendSendAndReceive(
               "getLanguage",

@@ -25,6 +25,7 @@ __d(
     "WAWebVoipPerfOptimizations",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipRelayOverrides",
+    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStorageInit",
     "WAWebVoipVideoCaptureFpsTracker",
@@ -1352,8 +1353,11 @@ __d(
         })(),
         requestKeyFrame: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield te("requestKeyFrame", { userJid: e });
-            return Number(t);
+            var t = o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(
+                e,
+              ),
+              n = yield te("requestKeyFrame", { userJid: t });
+            return Number(n);
           });
           function t(t) {
             return e.apply(this, arguments);

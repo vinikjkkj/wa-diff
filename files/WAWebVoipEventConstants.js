@@ -36,6 +36,7 @@ __d(
         MUTED_BY_OTHERS: "mutedByOthers",
         PARTICIPANTS_INVITED: "participantsInvited",
         PARTICIPANT_REMOVED: "participantRemoved",
+        PENDING_OUTGOING_CALL: "pendingOutgoingCall",
       },
       s = { ONLINE: "online", OFFLINE: "offline" },
       u = { DISPLAY_INFO: "displayInfo" };

@@ -1012,7 +1012,11 @@ __d(
       handleScreenShareStateChange: function (t) {
         var e = r("WAWebCallCollection").activeCall;
         if (e) {
-          e.setScreenShareState(t.sharer_jid, t.state);
+          e.setScreenShareState(
+            t.sharer_jid,
+            t.state,
+            t.sharer_version != null ? Number(t.sharer_version) : void 0,
+          );
           var n = o("WAWebUserPrefsMeUser").isMeAccount(t.sharer_jid);
           n &&
             (t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||

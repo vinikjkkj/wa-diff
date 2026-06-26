@@ -218,6 +218,14 @@ __d(
               e
             );
           }),
+          (r.createScopedContextWithDepth = function (t) {
+            if (t == null) return this.createScopedContext();
+            var e = this.$5();
+            return (
+              (e.scope = o("WebBloksScopedIds").truncateKeyPath(this.scope, t)),
+              e
+            );
+          }),
           (r.getBaseSourceMapNode = function () {
             var e, t;
             return (e = this.$2) == null

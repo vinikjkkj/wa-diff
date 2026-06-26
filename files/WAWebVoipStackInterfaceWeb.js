@@ -21,6 +21,7 @@ __d(
     "WAWebVoipPerfOptimizations",
     "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectionUtils",
+    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStackInterfaceWebCallbacks",
     "WAWebVoipStackInterfaceWebHelpers",
@@ -1203,8 +1204,9 @@ __d(
         requestKeyFrame: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = yield A,
-              n = t.requestKeyFrame(e);
-            return n;
+              n = o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(e),
+              r = t.requestKeyFrame(n);
+            return r;
           });
           function t(t) {
             return e.apply(this, arguments);

@@ -116,6 +116,7 @@ __d(
           $$css: !0,
         },
         mediaContentSticker: { paddingTop: "x1ow4hk9", $$css: !0 },
+        mediaContentSendingPdf: { paddingBottom: "xu74z1l", $$css: !0 },
         mediaCaption: {
           display: "x104kibb",
           flex: "x1okw0bk",

@@ -11,7 +11,6 @@ __d(
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerClient",
     "WAWebBackendWorkerInitState",
-    "WAWebBackendWorkerLocks",
     "WAWebBackendWorkerResource",
     "WAWebBackendWorkerV2Resource",
     "WAWebCrashlog",
@@ -634,36 +633,43 @@ __d(
                     "WAWebBackendWorker is initialised",
                   ])),
               ),
-              globalThis.navigator.locks != null &&
-                (i === !0
-                  ? globalThis.navigator.locks.request(
-                      f + "-kill-switch-lock",
-                      n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          m < L && E({ retryStart: m + 1 });
-                        },
-                      ),
-                    )
-                  : globalThis.navigator.locks.request(
-                      o("WAWebBackendWorkerLocks").WORKER_LIVENESS_LOCK,
-                      function () {
-                        m < L && E({ retryStart: m + 1 });
-                      },
-                    )));
+              i === !0 &&
+                globalThis.navigator.locks != null &&
+                globalThis.navigator.locks.request(
+                  f + "-kill-switch-lock",
+                  function () {
+                    m < L && E({ retryStart: m + 1 });
+                  },
+                ));
           } catch (t) {
             var P;
-            o("WALogger")
-              .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "WAWebBackendWorkerClient init fails",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("main-thread-backend-worker-init-fails");
-            var N = (P = e == null ? void 0 : e.retryInit) != null ? P : 0;
-            N < R && globalThis.navigator.locks != null
-              ? (_.addPoint("retry_" + N), E({ qpl: _, retryInit: N + 1 }))
+            globalThis.navigator.locks != null &&
+              (yield globalThis.navigator.locks.request(
+                f + "-kill-switch-lock",
+                { steal: !0 },
+                function () {
+                  return (p || (p = n("Promise"))).resolve();
+                },
+              ));
+            var N = r("getErrorSafe")(t);
+            if (
+              (o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "WAWebBackendWorkerClient init fails",
+                    ])),
+                )
+                .catching(N)
+                .sendLogs("main-thread-backend-worker-init-fails"),
+              N.message.includes("worker-killswitch-stolen"))
+            ) {
+              _.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t));
+              return;
+            }
+            var M = (P = e == null ? void 0 : e.retryInit) != null ? P : 0;
+            M < R && globalThis.navigator.locks != null
+              ? (_.addPoint("retry_" + M), E({ qpl: _, retryInit: M + 1 }))
               : _.endFail(
                   o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t),
                 );

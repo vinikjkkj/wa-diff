@@ -83,6 +83,7 @@ __d(
                 o("WAWebWamEnumStatusPairedMediaQuality")
                   .STATUS_PAIRED_MEDIA_QUALITY,
               ],
+              statusPartCode: [60, e.TYPES.STRING],
               statusPostOrigin: [
                 4,
                 o("WAWebWamEnumStatusPostOrigin").STATUS_POST_ORIGIN,

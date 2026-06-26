@@ -14,7 +14,6 @@ __d(
     "WAWebBackendEventBusWorkerCompatible",
     "WAWebBackendWorkerABPropsCache",
     "WAWebBackendWorkerBridge",
-    "WAWebBackendWorkerLocks",
     "WAWebCallsOnlyGating",
     "WAWebCheckOrphanMutationsWorker",
     "WAWebCrashlogWorker",
@@ -456,13 +455,6 @@ __d(
               }
             },
           ),
-          globalThis.navigator.locks != null &&
-            globalThis.navigator.locks.request(
-              o("WAWebBackendWorkerLocks").WORKER_LIVENESS_LOCK,
-              function () {
-                return new (d || (d = n("Promise")))(r("WAWebNoop"));
-              },
-            ),
           globalThis.postMessage({
             type: "worker_setup",
             message: "worker_started",

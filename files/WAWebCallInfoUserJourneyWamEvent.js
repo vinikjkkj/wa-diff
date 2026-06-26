@@ -22,6 +22,7 @@ __d(
               ],
               callSizeType: [3, o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE],
               callType: [4, o("WAWebWamEnumCallType").CALL_TYPE],
+              genaiBots: [11, e.TYPES.STRING],
               numParticipantsShown: [9, e.TYPES.INTEGER],
               participantActionSource: [
                 10,

@@ -233,6 +233,7 @@ __d(
       CHANGE_BODY_TEXT: "change_body_text",
       CHANGE_BUDGET: "change_budget",
       CHANGE_CONVERSION_DOMAIN: "change_conversion_domain",
+      CHANGE_CREATIVE: "change_creative",
       CHANGE_CTA: "change_cta",
       CHANGE_CTA_VALUE: "change_cta_value",
       CHANGE_DURATION: "change_duration",

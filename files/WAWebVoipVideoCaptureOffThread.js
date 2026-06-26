@@ -844,9 +844,10 @@ __d(
       return (
         (me = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l) {
-            var s = "voip: wasm: [AV:startVideoCaptureInWorker]";
+            var s = "voip: wasm: [AV:startVideoCaptureInWorker]",
+              u = i === "onDesktopCaptureDataFromJs";
             try {
-              var u = (function () {
+              var c = (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     try {
@@ -862,9 +863,9 @@ __d(
                             ((l = e.format) != null ? l : "null"),
                         );
                       }
-                      var u = le(e);
-                      (p < 3 &&
-                        (p++,
+                      var c = le(e);
+                      (_ < 3 &&
+                        (_++,
                         j(
                           O ||
                             (O = babelHelpers.taggedTemplateLiteralLoose([
@@ -876,25 +877,26 @@ __d(
                               "",
                             ])),
                           s,
-                          p,
-                          u,
+                          _,
+                          c,
                           t.width,
                           t.height,
                         )),
-                        yield e.copyTo(m),
-                        a.GROWABLE_HEAP_U8().set(m, d),
-                        a[i](d, c, t.width, t.height, t.maxFps, n, u),
+                        yield e.copyTo(p),
+                        a.GROWABLE_HEAP_U8().set(p, m),
+                        a[i](m, d, t.width, t.height, t.maxFps, n, c),
                         self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onVideoFrameWasmToJs(
                           {
                             userJid: o("WAWebVoipVideoRendererInterface")
                               .selfPreviewJid,
-                            frameBuffer: m.buffer,
+                            frameBuffer: p.buffer,
                             width: t.width,
                             height: t.height,
                             format: n,
-                            orientation: u,
+                            orientation: c,
                             timestamp: 0,
                             isKeyFrame: !1,
+                            isScreenShare: u,
                           },
                         ));
                     } catch (e) {
@@ -932,12 +934,12 @@ __d(
                     s,
                     l,
                   )));
-              var c = Math.floor(t.width * t.height * 1.5),
-                d = a._malloc(c),
-                m = new Uint8Array(c),
-                p = 0;
+              var d = Math.floor(t.width * t.height * 1.5),
+                m = a._malloc(d),
+                p = new Uint8Array(d),
+                _ = 0;
               try {
-                var _ =
+                var f =
                   e.readable ||
                   (yield new MediaStreamTrackProcessor({ track: e.track })
                     .readable);
@@ -949,7 +951,7 @@ __d(
                     ])),
                   s,
                 );
-                var f = _.getReader();
+                var g = f.getReader();
                 for (
                   j(
                     q ||
@@ -961,21 +963,21 @@ __d(
                   );
                   !J;
                 ) {
-                  var g = yield f.read(),
-                    h = g.done,
-                    y = g.value;
+                  var h = yield g.read(),
+                    y = h.done,
+                    C = h.value;
                   try {
-                    if (h || !y) {
+                    if (y || !C) {
                       J = !0;
                       break;
                     }
-                    yield u(y);
+                    yield c(C);
                   } finally {
-                    y && y.close();
+                    C && C.close();
                   }
                 }
               } finally {
-                a._free(d);
+                a._free(m);
               }
             } catch (e) {
               K(

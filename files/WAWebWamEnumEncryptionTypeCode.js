@@ -12,6 +12,8 @@ __d(
       TEE: 7,
       BOT: 8,
       BOT_GROUP: 9,
+      COEX_V2: 10,
+      SELF_COEX_V2: 11,
     });
     i.ENCRYPTION_TYPE_CODE = e;
   },

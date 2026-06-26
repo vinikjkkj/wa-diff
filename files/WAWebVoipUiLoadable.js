@@ -8,6 +8,7 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipCallLinkLoadingPreview.react",
     "WAWebVoipInitEventEmitter",
+    "WAWebVoipOutgoingLoadingPreview.react",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -46,9 +47,15 @@ __d(
       loader: u,
       loading: function (t) {
         var e = r("WAWebCallCollection").pendingCallLink;
-        return e != null
-          ? s.jsx(r("WAWebVoipCallLinkLoadingPreview.react"), {
-              isVideo: e.isVideo,
+        if (e != null)
+          return s.jsx(r("WAWebVoipCallLinkLoadingPreview.react"), {
+            isVideo: e.isVideo,
+          });
+        var n = r("WAWebCallCollection").pendingOutgoingCall;
+        return n != null
+          ? s.jsx(r("WAWebVoipOutgoingLoadingPreview.react"), {
+              isJoin: n.isJoin,
+              isVideo: n.isVideo,
             })
           : s.jsx(s.Fragment, {});
       },

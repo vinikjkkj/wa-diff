@@ -54,7 +54,7 @@ __d(
     "WAWebModalManager",
     "WAWebNavBarTypes",
     "WAWebNewChatFlowLoadable",
-    "WAWebNewCommunityInfoDrawer.react",
+    "WAWebNewCommunityInfoDrawerLoadable",
     "WAWebNewsletterExecApiCmd",
     "WAWebNoop",
     "WAWebOIDCCallbackEventBus",
@@ -457,7 +457,7 @@ __d(
             return !1;
           (o("WAWebCmd").Cmd.closeStatusViewer(),
             o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-              x.jsx(r("WAWebNewCommunityInfoDrawer.react"), {}),
+              x.jsx(r("WAWebNewCommunityInfoDrawerLoadable"), {}),
               { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
             ));
           var ae = t.data.entrypointType;

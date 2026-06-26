@@ -1,22 +1,15 @@
 __d(
   "WAWebHatchAgentStatusManager",
-  ["WALogger"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
-    var e,
-      s,
-      u,
-      c,
-      d = (function () {
-        function t() {
-          ((this.$1 = null), (this.$2 = []), (this.$3 = null));
+    var e = (function () {
+        function e() {
+          ((this.$1 = null), (this.$2 = []));
         }
-        var n = t.prototype;
+        var t = e.prototype;
         return (
-          (n.registerFetcher = function (t) {
-            this.$3 = t;
-          }),
-          (n.subscribeToStatusText = function (t) {
+          (t.subscribeToStatusText = function (t) {
             var e = this;
             return (
               this.$2.push(t),
@@ -27,80 +20,32 @@ __d(
               }
             );
           }),
-          (n.getAgentStatus = function () {
+          (t.getAgentStatus = function () {
             return this.$1;
           }),
-          (n.setAgentStatus = function (t) {
-            ((this.$1 = t), this.$4(this.$5(t)));
+          (t.setAgentStatus = function (t) {
+            ((this.$1 = t), this.$3(this.$4(t)));
           }),
-          (n.clearAgentStatus = function () {
-            ((this.$1 = null), this.$4(null));
+          (t.clearAgentStatus = function () {
+            ((this.$1 = null), this.$3(null));
           }),
-          (n.fetchAndUpdateStatus = function (n) {
-            var t = this;
-            if (this.$3 == null) {
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[HatchAgentStatusManager] no fetcher registered, skipping",
-                  ])),
-              );
-              return;
-            }
-            this.$3()
-              .then(function (e) {
-                e != null && e.activityText !== ""
-                  ? (t.setAgentStatus(e),
-                    o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[HatchAgentStatusManager] fetched: ",
-                          " for ",
-                          "",
-                        ])),
-                      e.activityCode,
-                      n,
-                    ))
-                  : (t.clearAgentStatus(),
-                    o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[HatchAgentStatusManager] no active status for ",
-                          "",
-                        ])),
-                      n,
-                    ));
-              })
-              .catch(function (e) {
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[HatchAgentStatusManager] fetch failed for ",
-                      ": ",
-                      "",
-                    ])),
-                  n,
-                  String(e),
-                );
-              });
+          (t.__resetForTesting = function () {
+            ((this.$1 = null), (this.$2 = []));
           }),
-          (n.__resetForTesting = function () {
-            ((this.$1 = null), (this.$2 = []), (this.$3 = null));
-          }),
-          (n.$5 = function (t) {
+          (t.$4 = function (t) {
             var e = t.activityEmoji,
               n = t.activityText;
             return e != null && e !== "" ? e + " " + n : n;
           }),
-          (n.$4 = function (t) {
+          (t.$3 = function (t) {
             for (var e of [].concat(this.$2)) e(t);
           }),
-          t
+          e
         );
       })(),
-      m = new d(),
-      p = m;
-    l.default = p;
+      l = new e(),
+      s = l;
+    i.default = s;
   },
-  98,
+  66,
 );

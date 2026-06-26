@@ -566,15 +566,17 @@ __d(
         },
         parseEncodeParamsChangedData: function (t) {
           var e,
-            n = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
-          if (n == null) throw r("err")("Invalid encode params changed data");
+            n,
+            a = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if (a == null) throw r("err")("Invalid encode params changed data");
           return {
-            streamId: (e = n.stream_id) != null ? e : 0,
-            targetFps: n.target_fps,
-            targetBitrateBps: n.target_bitrate_bps,
-            targetWidth: n.target_width,
-            targetHeight: n.target_height,
-            requestKeyframe: n.request_keyframe,
+            streamId: (e = a.stream_id) != null ? e : 0,
+            targetFps: a.target_fps,
+            targetBitrateBps: a.target_bitrate_bps,
+            targetWidth: a.target_width,
+            targetHeight: a.target_height,
+            requestKeyframe: a.request_keyframe,
+            isScreenShare: (n = a.is_screen_share) != null ? n : !1,
           };
         },
         parseP2PTransportUpdateData: function (t) {

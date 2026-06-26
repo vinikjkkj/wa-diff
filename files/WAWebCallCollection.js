@@ -22,6 +22,7 @@ __d(
             (e.isInConnectedCall = !1),
             (e.lastActiveCall = null),
             (e.pendingCallLink = null),
+            (e.pendingOutgoingCall = null),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -58,6 +59,16 @@ __d(
           (a.setPendingCallLink = function (t) {
             ((this.pendingCallLink = t),
               this.trigger("change:pendingCallLink", t));
+          }),
+          (a.setPendingOutgoingCall = function (t) {
+            ((this.pendingOutgoingCall = t),
+              this.trigger(
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallCollectionEvents
+                    .PENDING_OUTGOING_CALL,
+                ),
+                t,
+              ));
           }),
           (a.processIncomingCall = function (n, r, a) {
             if (this.get(n) != null)

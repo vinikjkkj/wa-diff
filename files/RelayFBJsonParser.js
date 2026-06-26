@@ -15,13 +15,17 @@ __d(
             r("justknobx")._("5588") &&
             o("GHLDetectionUtils").isStringShimmed() &&
             o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
-          var e;
+          var e = r("gkx")("15342") && r("justknobx")._("566"),
+            a;
           return (
-            n("cr:7329") && o("GHLDetectionUtils").isJSONParseShimmed()
-              ? (e = n("cr:7329").parse(t))
-              : (e = JSON.parse(t)),
-            e != null && o("GHLTypenameRestore").restoreAllTypenames(e, t),
-            e
+            n("cr:7329") &&
+            (e
+              ? o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed()
+              : o("GHLDetectionUtils").isJSONParseShimmed())
+              ? (a = n("cr:7329").parse(t))
+              : (a = JSON.parse(t)),
+            a != null && o("GHLTypenameRestore").restoreAllTypenames(a, t),
+            a
           );
         },
       },

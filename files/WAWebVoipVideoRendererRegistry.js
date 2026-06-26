@@ -10,6 +10,7 @@ __d(
     "WAWebVoipAudioPlaybackState",
     "WAWebVoipMediaEnums",
     "WAWebVoipPerfMeasurement",
+    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoOffThreadRendererStub",
     "WAWebVoipVideoRasterRenderer",
@@ -51,8 +52,14 @@ __d(
       N,
       M = 30,
       w = 5e3,
-      A = 500,
-      F = (function () {
+      A = 500;
+    function F(e) {
+      return (
+        o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(e) ===
+        o("WAWebVoipVideoRendererInterface").selfPreviewJid
+      );
+    }
+    var O = (function () {
         function t() {
           ((this.$13 = new Map()),
             (this.$8 = new Map()),
@@ -256,7 +263,7 @@ __d(
           }),
           (a.onVideoFrameWasmToJs = function (t, n, r, a, i, l, s, u) {
             var e, c;
-            t === o("WAWebVoipVideoRendererInterface").selfPreviewJid
+            F(t)
               ? o("WAWebVoipPerfMeasurement").endMeasurement(
                   o("WAWebVoipPerfMeasurement").PerfMeasurement
                     .FIRST_CAMERA_FRAME,
@@ -297,15 +304,14 @@ __d(
                 ? c
                 : o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.UNKNOWN;
             if (
-              (t !== o("WAWebVoipVideoRendererInterface").selfPreviewJid &&
+              (!F(t) &&
                 !this.$22 &&
                 !this.$11.isEnabled() &&
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_platform_av_sync",
                 ) === !0 &&
                 this.$23(),
-              this.$11.isEnabled() &&
-                t !== o("WAWebVoipVideoRendererInterface").selfPreviewJid)
+              this.$11.isEnabled() && !F(t))
             ) {
               this.$11.enqueueVideoFrame({
                 userJid: t,
@@ -412,10 +418,7 @@ __d(
           (a.$12 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                if (
-                  (t === void 0 && (t = "unspecified"),
-                  e !== o("WAWebVoipVideoRendererInterface").selfPreviewJid)
-                ) {
+                if ((t === void 0 && (t = "unspecified"), !F(e))) {
                   var n = Date.now();
                   if (!this.$27.has(e)) {
                     var r = this.$28.get(e);
@@ -877,8 +880,8 @@ __d(
           t
         );
       })(),
-      O = new F();
-    ((l.WAWebVoipVideoRendererRegistry = F), (l.videoRendererRegistry = O));
+      B = new O();
+    ((l.WAWebVoipVideoRendererRegistry = O), (l.videoRendererRegistry = B));
   },
   98,
 );

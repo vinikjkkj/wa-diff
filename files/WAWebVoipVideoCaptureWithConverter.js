@@ -7,9 +7,11 @@ __d(
     "WAWebBackendApi",
     "WAWebNoop",
     "WAWebUA",
+    "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipEncodeTargetFpsState",
     "WAWebVoipMediaEnums",
     "WAWebVoipPopoutWindowState",
+    "WAWebVoipScreenShareStreamKey",
     "WAWebVoipVideoCaptureSourceRect",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererRegistry",
@@ -847,11 +849,23 @@ __d(
                                     .sendLogs(
                                       "voip: wasm: video buffer not initialized",
                                     );
+                                var z =
+                                  p === "onDesktopCaptureDataFromJs" &&
+                                  o(
+                                    "WAWebVoipDualStreamScreenShareState",
+                                  ).isSelfDualStreamScreenShareActive()
+                                    ? o(
+                                        "WAWebVoipScreenShareStreamKey",
+                                      ).getScreenShareStreamKey(
+                                        o("WAWebVoipVideoRendererInterface")
+                                          .selfPreviewJid,
+                                      )
+                                    : o("WAWebVoipVideoRendererInterface")
+                                        .selfPreviewJid;
                                 (o(
                                   "WAWebVoipVideoRendererRegistry",
                                 ).videoRendererRegistry.onVideoFrameWasmToJs(
-                                  o("WAWebVoipVideoRendererInterface")
-                                    .selfPreviewJid,
+                                  z,
                                   q.buffer,
                                   n,
                                   a,

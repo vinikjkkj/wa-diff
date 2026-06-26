@@ -88,6 +88,7 @@ __d(
                 o("WAWebWamEnumStatusPairedMediaQuality")
                   .STATUS_PAIRED_MEDIA_QUALITY,
               ],
+              statusPartCode: [38, e.TYPES.STRING],
               statusPostFailureReason: [8, e.TYPES.STRING],
               statusPostingSessionId: [20, e.TYPES.INTEGER],
               statusPrivacyType: [

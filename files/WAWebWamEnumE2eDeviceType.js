@@ -9,6 +9,8 @@ __d(
       OTHER_COMPANION: 4,
       MY_HOSTED_COMPANION: 5,
       OTHER_HOSTED_COMPANION: 6,
+      MY_COEX_V2: 7,
+      OTHER_COEX_V2: 8,
     });
     i.E2E_DEVICE_TYPE = e;
   },

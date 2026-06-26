@@ -10,6 +10,7 @@ __d(
     "WAWebAttachVcardsFlowLoadable",
     "WAWebBizCtwaPreviewFlowLoadable",
     "WAWebBloksEntryPointLoadable",
+    "WAWebCallCollection",
     "WAWebCaptureMediaDrawerLoadable",
     "WAWebCartFlowLoadable",
     "WAWebCometComposedTextV2URParserLoadable",
@@ -48,6 +49,7 @@ __d(
     "WAWebStarredDrawerLoadable",
     "WAWebStatusQuotedFlowLoadable",
     "WAWebVoipBackendLoadable",
+    "WAWebVoipBundlePreloader",
     "WAWebVoipCallButtonsLoadable",
     "WAWebVoipGatingUtils",
     "WAWebVoipStackInterface",
@@ -69,6 +71,10 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
+            (o("WAWebVoipBundlePreloader").initVoipBundlePreloader(),
+              o("WAWebVoipBundlePreloader").preloadForCall(
+                r("WAWebCallCollection").activeCall,
+              ));
             var t = [
               o("WAWebMediaViewerFlowLoadable").requireBundle(),
               o("WAWebInfoFlowLoadable").requireBundle(),

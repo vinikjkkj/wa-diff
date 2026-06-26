@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWeb-moment",
+    "WAWebClock",
     "WAWebDateInput.react",
     "WAWebFlex.react",
     "WAWebTimeInput.react",
@@ -41,7 +42,11 @@ __d(
         t = 60 * 1e3;
       return Math.ceil(e / t) * t;
     }
-    function g(e) {
+    function g() {
+      var e = 6e4;
+      return Math.ceil(o("WAWebClock").Clock.getServerTimeMs() / e) * e;
+    }
+    function h(e) {
       var t = o("react-compiler-runtime").c(32),
         n = e.enabled,
         a = e.onEndTimeChange,
@@ -51,68 +56,68 @@ __d(
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((c = r("WAWeb-moment")().format("YYYY-MM-DD")), (t[0] = c))
         : (c = t[0]);
-      var g = c,
-        h;
+      var h = c,
+        y;
       t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = function () {
-            return [g, null];
+        ? ((y = function () {
+            return [h, null];
           }),
-          (t[1] = h))
-        : (h = t[1]);
-      var y = h,
-        C;
+          (t[1] = y))
+        : (y = t[1]);
+      var C = y,
+        b;
       t[2] !== l
-        ? ((C = l != null ? m(l) : ""), (t[2] = l), (t[3] = C))
-        : (C = t[3]);
-      var b = C,
-        v;
+        ? ((b = l != null ? m(l) : ""), (t[2] = l), (t[3] = b))
+        : (b = t[3]);
+      var v = b,
+        S;
       t[4] !== l
-        ? ((v = l != null ? p(l) : ""), (t[4] = l), (t[5] = v))
-        : (v = t[5]);
-      var S = v,
-        R;
-      t[6] !== b
-        ? ((R = b === g ? r("WAWeb-moment")().format("HH:mm") : void 0),
-          (t[6] = b),
-          (t[7] = R))
-        : (R = t[7]);
-      var L = R,
-        E;
+        ? ((S = l != null ? p(l) : ""), (t[4] = l), (t[5] = S))
+        : (S = t[5]);
+      var R = S,
+        L;
+      t[6] !== v
+        ? ((L = v === h ? r("WAWeb-moment")().format("HH:mm") : void 0),
+          (t[6] = v),
+          (t[7] = L))
+        : (L = t[7]);
+      var E = L,
+        k;
       t[8] !== a || t[9] !== i || t[10] !== l
-        ? ((E = function (t) {
+        ? ((k = function (t) {
             (i(t), t && l == null && a(f()));
           }),
           (t[8] = a),
           (t[9] = i),
           (t[10] = l),
-          (t[11] = E))
-        : (E = t[11]);
-      var k = E,
-        I;
-      t[12] !== a || t[13] !== S
-        ? ((I = function (t) {
-            var e = _(t, S);
-            a(e);
+          (t[11] = k))
+        : (k = t[11]);
+      var I = k,
+        T;
+      t[12] !== a || t[13] !== R
+        ? ((T = function (t) {
+            var e = _(t, R);
+            a(e == null ? e : Math.max(e, g()));
           }),
           (t[12] = a),
-          (t[13] = S),
-          (t[14] = I))
-        : (I = t[14]);
-      var T = I,
-        D;
-      t[15] !== b || t[16] !== a
-        ? ((D = function (t) {
-            var e = _(b, t);
-            a(e);
+          (t[13] = R),
+          (t[14] = T))
+        : (T = t[14]);
+      var D = T,
+        x;
+      t[15] !== v || t[16] !== a
+        ? ((x = function (t) {
+            var e = _(v, t);
+            a(e == null ? e : Math.max(e, g()));
           }),
-          (t[15] = b),
+          (t[15] = v),
           (t[16] = a),
-          (t[17] = D))
-        : (D = t[17]);
-      var x = D,
-        $;
+          (t[17] = x))
+        : (x = t[17]);
+      var $ = x,
+        P;
       t[18] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = u.jsx(o("WAWebFlex.react").FlexItem, {
+        ? ((P = u.jsx(o("WAWebFlex.react").FlexItem, {
             grow: 1,
             children: u.jsx("label", {
               htmlFor: "polls-end-time-switch",
@@ -120,38 +125,38 @@ __d(
               children: s._(/*BTDS*/ "Set end time"),
             }),
           })),
-          (t[18] = $))
-        : ($ = t[18]);
-      var P;
-      t[19] !== n || t[20] !== k
-        ? ((P = u.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[18] = P))
+        : (P = t[18]);
+      var N;
+      t[19] !== n || t[20] !== I
+        ? ((N = u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: d.toggleRow,
             testid: "polls_end_time_toggle_row",
             children: [
-              $,
+              P,
               u.jsx(o("WAWebFlex.react").FlexItem, {
                 children: u.jsx(r("WDSSwitch.react"), {
                   id: "polls-end-time-switch",
                   value: n,
-                  onChange: k,
+                  onChange: I,
                   testid: "polls-end-time-switch",
                 }),
               }),
             ],
           })),
           (t[19] = n),
-          (t[20] = k),
-          (t[21] = P))
-        : (P = t[21]);
-      var N;
-      t[22] !== b ||
+          (t[20] = I),
+          (t[21] = N))
+        : (N = t[21]);
+      var M;
+      t[22] !== v ||
       t[23] !== n ||
-      t[24] !== T ||
-      t[25] !== x ||
-      t[26] !== L ||
-      t[27] !== S
-        ? ((N =
+      t[24] !== D ||
+      t[25] !== $ ||
+      t[26] !== E ||
+      t[27] !== R
+        ? ((M =
             n &&
             u.jsxs(o("WAWebFlex.react").FlexRow, {
               columnGap: 16,
@@ -164,9 +169,9 @@ __d(
                   children: u.jsx(o("WAWebDateInput.react").DateInput, {
                     theme: "event",
                     name: "poll-end-date",
-                    value: b,
-                    onChange: T,
-                    getDateBoundaries: y,
+                    value: v,
+                    onChange: D,
+                    getDateBoundaries: C,
                   }),
                 }),
                 u.jsx(o("WAWebFlex.react").FlexItem, {
@@ -175,36 +180,36 @@ __d(
                   children: u.jsx(o("WAWebTimeInput.react").TimeInput, {
                     theme: "event",
                     name: "poll-end-time",
-                    value: S,
-                    onChange: x,
-                    min: L,
+                    value: R,
+                    onChange: $,
+                    min: E,
                   }),
                 }),
               ],
             })),
-          (t[22] = b),
+          (t[22] = v),
           (t[23] = n),
-          (t[24] = T),
-          (t[25] = x),
-          (t[26] = L),
-          (t[27] = S),
-          (t[28] = N))
-        : (N = t[28]);
-      var M;
+          (t[24] = D),
+          (t[25] = $),
+          (t[26] = E),
+          (t[27] = R),
+          (t[28] = M))
+        : (M = t[28]);
+      var w;
       return (
-        t[29] !== P || t[30] !== N
-          ? ((M = u.jsxs("div", {
+        t[29] !== N || t[30] !== M
+          ? ((w = u.jsxs("div", {
               "data-testid": "polls_end_time_section",
-              children: [P, N],
+              children: [N, M],
             })),
-            (t[29] = P),
-            (t[30] = N),
-            (t[31] = M))
-          : (M = t[31]),
-        M
+            (t[29] = N),
+            (t[30] = M),
+            (t[31] = w))
+          : (w = t[31]),
+        w
       );
     }
-    l.default = g;
+    l.default = h;
   },
   226,
 );

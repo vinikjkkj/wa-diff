@@ -46,11 +46,16 @@ __d(
         n
       );
     }
+    function m(e, t) {
+      return t == null ? e : t === 0 ? p : t >= e.length ? e : e.slice(0, t);
+    }
+    var p = [];
     ((l.ClientIdToScopedIdMapper = e),
       (l.getScopedVariableIdAtDepth = s),
       (l.buildKeypathBase = u),
       (l.buildScopedVariableIdentifier = c),
-      (l.extendKeyPath = d));
+      (l.extendKeyPath = d),
+      (l.truncateKeyPath = m));
   },
   98,
 );

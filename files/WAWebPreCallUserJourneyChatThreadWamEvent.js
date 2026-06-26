@@ -17,6 +17,7 @@ __d(
               callRandomId: [13, e.TYPES.STRING],
               callSize: [9, e.TYPES.INTEGER],
               callSizeType: [7, o("WAWebWamEnumCallSizeType").CALL_SIZE_TYPE],
+              genaiBots: [14, e.TYPES.STRING],
               groupSize: [2, e.TYPES.INTEGER],
               isCommunityGroup: [11, e.TYPES.BOOLEAN],
               isVideoCall: [12, e.TYPES.BOOLEAN],

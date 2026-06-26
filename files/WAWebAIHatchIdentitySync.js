@@ -4,7 +4,6 @@ __d(
     "WAWebAIHatchIdentityStore",
     "WAWebBotUtils",
     "WAWebContactCollection",
-    "WAWebNoop",
     "WAWebProfilePicThumbCollection",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,15 +40,10 @@ __d(
     }
     function c(e) {
       var t = e.contact,
-        n = e.force,
-        a = e.wid;
-      (u(),
-        o("WAWebAIHatchIdentityStore")
-          .getHatchIdentity(n)
-          .then(function (e) {
-            s(t, a, e.name, e.avatarUrl);
-          })
-          .catch(r("WAWebNoop")));
+        n = e.wid;
+      u();
+      var r = o("WAWebAIHatchIdentityStore").getCachedHatchIdentity();
+      r != null && s(t, n, r.name, r.avatarUrl);
     }
     ((l.initIdentityChangeListener = u), (l.syncHatchContactIdentity = c));
   },

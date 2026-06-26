@@ -128,7 +128,8 @@ __d(
           (w = null),
           N == null || N(),
           (N = null),
-          r("WAWebCallCollection").setPendingCallLink(null));
+          r("WAWebCallCollection").setPendingCallLink(null),
+          r("WAWebCallCollection").setPendingOutgoingCall(null));
         var i = r("WAWebCallCollection").lastActiveCall,
           l = (i == null ? void 0 : i.shouldShowPostCallSurvey) === !0;
         if (l) {
@@ -302,6 +303,7 @@ __d(
               ),
                 r("WAWebPipController").openVoipUiPiP(S),
                 e.trackUiActivity(e.VoipUiActivity.VOIP_WINDOW_LAUNCHED),
+                r("WAWebCallCollection").setPendingOutgoingCall(null),
                 o(
                   "WAWebVoipUiDocPipPortalContainer.react",
                 ).WAWebVoipUiDocPipEventEmitter.trigger("setDocPipProps", {

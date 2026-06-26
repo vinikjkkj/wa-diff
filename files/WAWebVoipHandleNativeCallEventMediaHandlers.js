@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBackendApi",
     "WAWebUserPrefsMeUser",
+    "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipEncodeTargetFpsState",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoCaptureAndRendering",
@@ -153,9 +154,20 @@ __d(
           );
           if (t.type === "web") {
             var n = t.parsers.parseScreenShareStateChangedData(e);
-            (n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped &&
-              o("WAWebUserPrefsMeUser").isMeAccount(n.sharer_jid) &&
-              o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
+            (o("WAWebUserPrefsMeUser").isMeAccount(n.sharer_jid) &&
+              o(
+                "WAWebVoipDualStreamScreenShareState",
+              ).setSelfDualStreamScreenShareActive(
+                n.state ===
+                  o("WAWebVoipWaCallEnums").ScreenShareState.Started &&
+                  Number(n.sharer_version) >=
+                    Number(
+                      o("WAWebVoipWaCallEnums").ScreenShareVersion.Version3,
+                    ),
+              ),
+              n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped &&
+                o("WAWebUserPrefsMeUser").isMeAccount(n.sharer_jid) &&
+                o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
               o("WAWebBackendApi").frontendFireAndForget(
                 "handleScreenShareStateChange",
                 n,

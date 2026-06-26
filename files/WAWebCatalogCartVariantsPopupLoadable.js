@@ -33,14 +33,12 @@ __d(
       var t = e.collectionId,
         n = e.handleProductChange,
         r = e.onAddToCart,
-        a = e.onProductChange,
-        i = e.product;
+        a = e.product;
       o("WAWebModalManager").ModalManager.open(
         s.jsx(c, {
-          product: i,
+          product: a,
           collectionId: t,
           handleProductChange: n,
-          onProductChange: a,
           onAddToCart: r,
         }),
       );

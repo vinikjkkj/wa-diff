@@ -8,6 +8,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBizCatalogManagementUpdateCommerceSettings",
     "WAWebBizGetPriceTiersQuery",
+    "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -117,24 +118,33 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (t == null)
+          var t,
+            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          if (n == null)
             throw r("err")("updateCartEnabledGraphQL: meUser is null");
-          var n = yield o(
+          var a = yield o(
             "WAWebBizCatalogManagementUpdateCommerceSettings",
-          ).updateCommerceSettings({ biz_jid: t.toJid(), cart_enabled: e });
-          if (n.type === "success") return n.result;
-          if (n.type === "graphql-error")
+          ).updateCommerceSettings({
+            biz_jid:
+              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                n,
+              )) != null
+                ? t
+                : n.toJid(),
+            cart_enabled: e,
+          });
+          if (a.type === "success") return a.result;
+          if (a.type === "graphql-error")
             o(
               "WAWebMaybeThrowCatalogErrors",
-            ).maybeThrowLocalErrorForCatalogQuery(n.error);
+            ).maybeThrowLocalErrorForCatalogQuery(a.error);
           else {
-            if (n.type === "recovery-required") return c(e);
-            n.type;
+            if (a.type === "recovery-required") return c(e);
+            a.type;
           }
           throw r("err")(
             "updateCartEnabledGraphQL: error handling flow not implemented for " +
-              JSON.stringify(n),
+              JSON.stringify(a),
           );
         })),
         p.apply(this, arguments)

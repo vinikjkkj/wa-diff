@@ -18,61 +18,65 @@ __d(
       p = s.createUserWidOrThrow("1807055946647697@bot"),
       _ = s.createUserWidOrThrow("1807055946647698@bot"),
       f = s.createUserWidOrThrow("165332417282214@lid"),
-      g = s.createUserWidOrThrow("867051314767696555@bot"),
-      h = s.createUserWidOrThrow("103242709127222@lid"),
-      y = [m, p];
-    function C(e) {
+      g = s.createUserWidOrThrow("2942131436135992@bot"),
+      h = s.createUserWidOrThrow("867051314767696555@bot"),
+      y = s.createUserWidOrThrow("103242709127222@lid"),
+      C = [m, p];
+    function b(e) {
       return e.equals(u) || e.equals(c);
     }
-    function b(e) {
-      return C(e) || v(e) || S(e) || L(e) || e.equals(d) || e.equals(g);
-    }
     function v(e) {
-      return e.equals(m);
+      return e.equals(g) || e.equals(h);
     }
     function S(e) {
-      return e.equals(p);
+      return b(e) || R(e) || L(e) || k(e) || e.equals(d) || v(e);
     }
     function R(e) {
-      return e.equals(_);
+      return e.equals(m);
     }
     function L(e) {
-      return y.some(function (t) {
+      return e.equals(p);
+    }
+    function E(e) {
+      return e.equals(_);
+    }
+    function k(e) {
+      return C.some(function (t) {
         return e.equals(t);
       });
     }
-    function E(e) {
+    function I(e) {
       var t = e.botResponseTargetId;
       return t == null
         ? null
         : new (r("WAWebMsgKey"))({ fromMe: !0, remote: e.id.remote, id: t });
     }
-    function k(e) {
+    function T(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(c)
         : !1;
     }
-    function I(e) {
+    function D(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(d)
         : !1;
     }
-    function T(e) {
+    function x(e) {
       return o("WAWebDebugHiddenBotChats").isShowHiddenBotChatsEnabled()
         ? !1
         : e instanceof r("WAWebWid")
-          ? e.equals(d) || e.equals(g) || e.equals(h)
+          ? e.equals(d) || v(e) || e.equals(y)
           : !1;
     }
-    function D(t) {
+    function $(t) {
       var n = !1;
       for (var r of t) {
-        var a = k(r.id),
-          i = I(r.id);
+        var a = T(r.id),
+          i = D(r.id);
         if (a)
           return (
             n &&
@@ -98,18 +102,20 @@ __d(
       (l.MAIBA_AI_HUB_FBID_WID = _),
       (l.MAIBA_AI_HUB_LID_WID = f),
       (l.META_BOT_SIDECHAT_FBID_WID = g),
-      (l.META_BOT_LID_WID = h),
-      (l.isMetaAiBot = C),
-      (l.isAnyMetaAiBot = b),
-      (l.isManusBot = v),
-      (l.isHatchBot = S),
-      (l.isMaibaAiHubFbid = R),
-      (l.isBotChannelFBID = L),
-      (l.getBotResponseTargetMsgKey = E),
-      (l.isWidOpenGroupMetaBotFbidWid = k),
-      (l.isWidTeeGroupMetaBotFbidWid = I),
-      (l.isHiddenBotWid = T),
-      (l.participantListIncludeOpenOrTeeGroupBotWid = D));
+      (l.META_BOT_SIDECHAT_LEGACY_FBID_WID = h),
+      (l.META_BOT_LID_WID = y),
+      (l.isMetaAiBot = b),
+      (l.isSideChatBotWid = v),
+      (l.isAnyMetaAiBot = S),
+      (l.isManusBot = R),
+      (l.isHatchBot = L),
+      (l.isMaibaAiHubFbid = E),
+      (l.isBotChannelFBID = k),
+      (l.getBotResponseTargetMsgKey = I),
+      (l.isWidOpenGroupMetaBotFbidWid = T),
+      (l.isWidTeeGroupMetaBotFbidWid = D),
+      (l.isHiddenBotWid = x),
+      (l.participantListIncludeOpenOrTeeGroupBotWid = $));
   },
   98,
 );

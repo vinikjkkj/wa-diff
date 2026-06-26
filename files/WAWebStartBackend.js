@@ -122,7 +122,6 @@ __d(
     "cr:17219",
     "cr:37961",
     "getErrorSafe",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -345,11 +344,6 @@ __d(
               "restoreTimeSpentSession",
               {},
             ),
-            o("WAWebMobilePlatforms").isSMB() &&
-              r("justknobx")._("3103") &&
-              o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-                "prefetchBBEligibilityAndReloadQPs",
-              ),
             o("WAWebMobilePlatforms").isSMB() &&
               o("WAWebBootstrapBizBroadcastCampaigns")
                 .bootstrapBizBroadcastCampaigns()

@@ -20,6 +20,7 @@ __d(
                 2,
                 o("WAWebWamEnumCallsTabSource").CALLS_TAB_SOURCE,
               ],
+              genaiBots: [11, e.TYPES.STRING],
               itemPosition: [10, e.TYPES.INTEGER],
               preCallActionType: [
                 3,

@@ -14,7 +14,8 @@ __d(
       c,
       d,
       m,
-      p = (function (t) {
+      p,
+      _ = (function (t) {
         function n() {
           for (var n, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
             a[i] = arguments[i];
@@ -114,6 +115,15 @@ __d(
                   return n.__openVoipCallLinkPiP();
                 }));
             }),
+            (n.openVoipUiPiPForOutgoing = function () {
+              (o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[PiP] openVoipUiPiPForOutgoing: opening msg-less PiP for outgoing call",
+                  ])),
+              ),
+                n.openVoipUiPiPForCallLink());
+            }),
             (n.isOpened = function (e) {
               var t, r;
               return (t = (r = n.manager) == null ? void 0 : r.isOpened(e)) !=
@@ -131,8 +141,8 @@ __d(
           (r.register = function (t) {
             if (
               (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] PiPManager registered",
                   ])),
               ),
@@ -142,8 +152,8 @@ __d(
               var e = this.__pendingAction;
               ((this.__pendingAction = null),
                 o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] flushing pending PiP action after manager registration",
                     ])),
                 ),
@@ -187,9 +197,9 @@ __d(
           n
         );
       })(r("WAWebEventEmitter")),
-      _ = new p(),
-      f = _;
-    l.default = f;
+      f = new _(),
+      g = f;
+    l.default = g;
   },
   98,
 );

@@ -53,18 +53,6 @@ __d(
     function R() {
       r("WAWebODS").incr("web.broadcast.campaign.transform.msg_unavailable");
     }
-    function L() {
-      r("WAWebODS").incr("web.broadcast.eligibility.prefetch");
-    }
-    function E() {
-      r("WAWebODS").incr("web.broadcast.eligibility.prefetch.success");
-    }
-    function k() {
-      r("WAWebODS").incr("web.broadcast.eligibility.prefetch.error");
-    }
-    function I() {
-      r("WAWebODS").incr("web.broadcast.eligibility.prefetch.error.500");
-    }
     ((l.bumpBroadcastSend = e),
       (l.bumpBroadcastSendSuccess = s),
       (l.bumpBroadcastSendError = u),
@@ -81,11 +69,7 @@ __d(
       (l.logAudienceImport = b),
       (l.logAudienceImportSuccess = v),
       (l.logAudienceImportError = S),
-      (l.logCampaignTransformMsgUnavailable = R),
-      (l.logEligibilityPrefetch = L),
-      (l.logEligibilityPrefetchSuccess = E),
-      (l.logEligibilityPrefetchError = k),
-      (l.logEligibilityPrefetchError500 = I));
+      (l.logCampaignTransformMsgUnavailable = R));
   },
   98,
 );

@@ -35,7 +35,7 @@ __d(
           function* (t, a, i, l) {
             var u = o("WAWebFrontendMsgGetters").getChat(t),
               c = u.id,
-              d = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+              d = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               m = o("WAWebChatGetters").getIsGroup(u)
                 ? o("WAWebWidFactory").asUserWidOrThrow(d)
                 : void 0,

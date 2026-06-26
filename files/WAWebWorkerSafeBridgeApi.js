@@ -249,21 +249,6 @@ __d(
           var e = t.trigger;
           return o("WAWebJobLoadQuickPromotions").loadQuickPromotions(e);
         },
-        prefetchBBEligibilityAndReloadQPs: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield r("JSResourceForInteraction")(
-                "WAWebBizBroadcastEligibilityPrefetch",
-              )
-                .__setRef("WAWebWorkerSafeBridgeApi")
-                .load(),
-              t = e.prefetchEligibilityAndReloadQPs;
-            return t();
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
         fetchQuickPromotionsNow: function () {
           o("WAWebFetchQuickPromotions")
             .fetchQuickPromotions()

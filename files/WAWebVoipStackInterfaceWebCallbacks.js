@@ -532,20 +532,22 @@ __d(
             n = t.frameBuffer,
             r = t.height,
             a = t.isKeyFrame,
-            i = t.orientation,
-            l = t.timestamp,
-            s = t.userJid,
-            u = t.width;
+            i = t.isScreenShare,
+            l = t.orientation,
+            s = t.timestamp,
+            u = t.userJid,
+            c = t.width;
           o("WAWebVoipVideoCaptureAndRendering")
             .onVideoFrameWasmToJs({
-              userJid: s,
+              userJid: u,
               frameBuffer: n,
-              width: u,
+              width: c,
               height: r,
-              orientation: i,
+              orientation: l,
               format: e,
-              timestamp: l,
+              timestamp: s,
               isKeyFrame: a,
+              isScreenShare: i,
             })
             .catch(function (e) {
               o("WALogger").WARN(

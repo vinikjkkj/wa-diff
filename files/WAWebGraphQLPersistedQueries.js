@@ -6,7 +6,6 @@ __d(
       WAWebBizGraphQLRefreshCartJobQuery: "26249779981350522",
       queryProductListCatalogQuery: "5127568407281377",
       WAWebAiAgentAutoReplyControlMutation: "27506359585667043",
-      WAWebCanonicalHatchIdentityGetQuery: "26226835783605669",
       WAWebCanonicalUserValidQuery: "25995999653397511",
       WAWebBizGetCustomUrlUserGraphqlQuery: "7942225995860428",
       WAWebBizGetCategoriesQuery: "26266473919627648",
