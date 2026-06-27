@@ -287,6 +287,7 @@ __d(
               {
                 isWaitingRoomEnabled: n.isWaitingRoomEnabled,
                 isWaitingRoomAdmin: n.isWaitingRoomAdmin,
+                waitingRoomFilter: n.waitingRoomFilter,
                 isInWaitingRoom: n.isInWaitingRoom,
                 waitingRoomUsers: n.waitingRoomUsers,
                 waitingRoomUsersCount: n.waitingRoomUsersCount,

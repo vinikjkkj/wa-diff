@@ -247,6 +247,7 @@ __d(
                                   subtype: m.subtype,
                                   sender: p,
                                   revokeTimestamp: m.t,
+                                  viewMode: m.viewMode,
                                 });
                               }
                             break;

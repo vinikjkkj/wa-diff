@@ -38,6 +38,7 @@ __d(
         "WindowsStatusNotificationToneSetting",
         "WindowsIsSystemTrayEnabled",
         "WindowsIsAdaptiveLayoutEnabled",
+        "WindowsUnifiedSessionId",
         "WebUiRefreshNuxAcknowledged",
         "WebUiRefreshNuxViewsCount",
         "WindowsDontShowRateTheAppPromptAgain",

@@ -15,6 +15,7 @@ __d(
       SPARK_WEB: "13:0",
       ABRA: "15:0",
       GUEST: "19:0",
+      DEV_HUB: "22:0",
     });
     function s(t) {
       if (t === "TEST") return e.TEST;
@@ -28,6 +29,7 @@ __d(
       if (t === "SPARK_WEB") return e.SPARK_WEB;
       if (t === "ABRA") return e.ABRA;
       if (t === "GUEST") return e.GUEST;
+      if (t === "DEV_HUB") return e.DEV_HUB;
       throw r("err")("failed to convert string to DGWAuth Type");
     }
     function u(t) {
@@ -42,6 +44,7 @@ __d(
       if (t === e.SPARK_WEB) return "SPARK_WEB";
       if (t === e.ABRA) return "ABRA";
       if (t === e.GUEST) return "GUEST";
+      if (t === e.DEV_HUB) return "DEV_HUB";
       throw r("err")("failed to convert DGWAuth to string");
     }
     ((l.DGWAuth = e), (l.fromStringToDGWAuth = s), (l.fromDGWAuthToString = u));

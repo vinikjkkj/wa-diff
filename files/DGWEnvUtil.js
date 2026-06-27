@@ -1,6 +1,6 @@
 __d(
   "DGWEnvUtil",
-  ["DGWConstants", "URI", "WebStorage", "cr:975"],
+  ["DGWConstants", "URI", "WebStorage", "cr:975", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -103,6 +103,12 @@ __d(
         return { endpoint: "gateway.spark.meta.com", authType: "SPARK_WEB" };
       if (/^.*developer.*oculus.com.*$/.test(e))
         return { endpoint: "gateway.oculus.com", authType: "OCULUS" };
+      if (
+        e.includes("developer.meta.com") &&
+        !e.includes("developers.meta.com") &&
+        r("gkx")("5669")
+      )
+        return { endpoint: "gateway.developer.meta.com", authType: "DEV_HUB" };
       if (e.includes("developers.meta.com"))
         return { endpoint: "gateway.developers.meta.com", authType: "OCULUS" };
       if (e.includes("meta.ai")) {

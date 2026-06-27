@@ -2,7 +2,6 @@ __d(
   "WAWebBotTos",
   [
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebBotGating",
     "WAWebBotTosIds",
     "WAWebBotTypes",
@@ -117,14 +116,10 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WAWebABProps").getABPropConfigValue(
-            "biz_ai_consumer_tos_notice_iq_web",
-          )
-            ? yield o("WAWebSetUserNoticeStageJob").setUserNoticeStage(
-                Number(o("WAWebBotTosIds").getBizBotTosId()),
-                o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
-              )
-            : yield L(Number(o("WAWebBotTosIds").getBizBotTosId()));
+          yield o("WAWebSetUserNoticeStageJob").setUserNoticeStage(
+            Number(o("WAWebBotTosIds").getBizBotTosId()),
+            o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
+          );
         })),
         R.apply(this, arguments)
       );

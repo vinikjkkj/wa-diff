@@ -7,20 +7,24 @@ __d(
         function t() {}
         var n = t.prototype;
         return (
-          (n.setup = function (t, n, r) {
+          (n.setup = function (t, n, r, o) {
             var e = { height: window.innerHeight, width: window.innerWidth },
-              o = n,
-              a = this;
+              a = n,
+              i = this;
             return {
-              initialValue: e,
-              commitToStore: function (t, n) {
-                return (
-                  n != null && a.$2(o, t, n),
-                  function () {
-                    a.$1 != null && window.removeEventListener("resize", a.$1);
-                  }
-                );
+              initialData: {
+                initialValue: e,
+                commitToStore: function (t, n) {
+                  return (
+                    n != null && i.$2(a, t, n),
+                    function () {
+                      i.$1 != null &&
+                        window.removeEventListener("resize", i.$1);
+                    }
+                  );
+                },
               },
+              snapshot: o,
             };
           }),
           (n.$2 = function (n, r, a) {

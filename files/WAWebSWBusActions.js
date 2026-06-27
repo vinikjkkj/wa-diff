@@ -14,7 +14,6 @@ __d(
         REMOVE_PP: "REMOVE_PP",
         LOGOUT: "LOGOUT",
         CLEAN_ASSETS: "CLEAN_ASSETS",
-        ACTIVE_TAB: "ACTIVE_TAB",
         STOP_COMMS: "STOP_COMMS",
         HEARTBEAT: "HEARTBEAT",
         WAM_UPLOAD: "WAM_UPLOAD",

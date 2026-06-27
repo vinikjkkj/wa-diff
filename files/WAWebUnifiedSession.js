@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebUnifiedSessionSocketManager",
     "asyncToGeneratorRuntime",
+    "cr:9137",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -38,11 +39,16 @@ __d(
           (r.clearSessionId = function () {
             this.$1 = null;
           }),
-          (r.generateSessionId = function (n) {
+          (r.generateSessionId = function (r) {
             try {
               var t = (p() + c) % u,
-                r = this.$1;
-              ((this.$1 = String(t)), (this.$3 = !1), (this.$2 = 0), this.$6());
+                a = this.$1;
+              ((this.$1 = String(t)),
+                (this.$3 = !1),
+                (this.$2 = 0),
+                n("cr:9137") == null ||
+                  n("cr:9137").syncUnifiedSessionIdToNative(this.$1),
+                this.$6());
             } catch (t) {
               o("WALogger")
                 .ERROR(

@@ -156,16 +156,17 @@ __d(
                   : null,
               z = yield o(
                 "WAWebConditionalRevealPreProcessor",
-              ).maybePreProcessConditionalRevealForReceive(
-                P,
-                c.externalId,
-                H,
-                G,
-                (V = _ == null ? void 0 : _.scheduledMsgMeta) != null
-                  ? V
-                  : null,
-                k,
-              );
+              ).maybePreProcessConditionalRevealForReceive({
+                conditionalRevealMessage: P,
+                msgId: c.externalId,
+                rawChatJid: H,
+                reportingTokenInfo: k,
+                senderJid: G,
+                stanzaScheduledMsgMeta:
+                  (V = _ == null ? void 0 : _.scheduledMsgMeta) != null
+                    ? V
+                    : null,
+              });
             if (
               (z.proto != null &&
                 z.protoBytes != null &&

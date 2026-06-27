@@ -7,63 +7,52 @@ __d(
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterSyntheticStatusUtils",
-    "WAWebStatusCollection",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t) {
+    function s(e, t, n) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a,
-            i,
-            l = yield o("WAWebNewsletterMetadataJob").getNewsletterMetadata(
-              t,
-              o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Guest,
-              { verification: !0 },
-            );
-          if (l != null) {
-            var s = o("WAWebNewsletterModelUtils").mapNewsletterToMetadata(l),
-              u = s.statusMetadata;
-            if (u != null) {
-              var c = (a = u.lastStatusServerId) != null ? a : null,
-                d = (i = u.lastStatusSentTime) != null ? i : null;
-              r("WAWebNewsletterMetadataCollection") == null ||
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i, l;
+          a === void 0 && (a = !0);
+          var s = yield o("WAWebNewsletterMetadataJob").getNewsletterMetadata(
+            t,
+            o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Guest,
+            { verification: !0 },
+          );
+          if (s != null) {
+            var u = o("WAWebNewsletterModelUtils").mapNewsletterToMetadata(s),
+              c = u.statusMetadata;
+            if (c != null) {
+              var d = (i = c.lastStatusServerId) != null ? i : null,
+                m = (l = c.lastStatusSentTime) != null ? l : null;
+              (r("WAWebNewsletterMetadataCollection") == null ||
                 r("WAWebNewsletterMetadataCollection").add(
                   {
                     id: n,
                     statusMetadata: {
-                      lastStatusServerId: c,
-                      lastStatusSentTime: d,
+                      lastStatusServerId: d,
+                      lastStatusSentTime: m,
                     },
                   },
                   { merge: !0 },
-                );
-              var m = o(
-                "WAWebNewsletterSyntheticStatusUtils",
-              ).maybeCreateOrCleanupSynthetic(n, c, d, t);
-              if (!m && c != null) {
-                var p = o("WAWebStatusCollection").StatusCollection.get(n);
-                (p == null ||
-                  p.isSyntheticFromMetadata === !0 ||
-                  p.isExpired()) &&
-                  (r("WAWebNewsletterMetadataCollection") == null ||
-                    r("WAWebNewsletterMetadataCollection").add(
-                      { id: n, lastFilledStatusServerId: c },
-                      { merge: !0 },
-                    ));
-              }
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletter][status][guest] refreshed metadata for ",
-                    "",
-                  ])),
-                t,
-              );
+                ),
+                a &&
+                  o(
+                    "WAWebNewsletterSyntheticStatusUtils",
+                  ).maybeCreateOrCleanupSynthetic(n, d, m),
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter][status][guest] refreshed metadata for ",
+                      "",
+                    ])),
+                  t,
+                ));
             }
           }
         })),

@@ -12,31 +12,35 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, a) {
-      if (a)
+    function e(e) {
+      var t = e.contact,
+        n = e.isContact,
+        a = e.isGroupStatus,
+        i = e.isNewsletterStatus;
+      if (i)
         return {
           statusCategory: o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
             .CHANNEL_STATUS,
           statusPosterContactType: o("WAWebWamEnumStatusPosterContactType")
             .STATUS_POSTER_CONTACT_TYPE.CHANNEL,
         };
-      var i = o("WAWebWamEnumStatusPosterContactType")
+      var l = o("WAWebWamEnumStatusPosterContactType")
         .STATUS_POSTER_CONTACT_TYPE.UNKNOWN;
-      if (t)
-        i = o("WAWebWamEnumStatusPosterContactType").STATUS_POSTER_CONTACT_TYPE
+      if (n)
+        l = o("WAWebWamEnumStatusPosterContactType").STATUS_POSTER_CONTACT_TYPE
           .CONTACT;
-      else if (n) {
-        var l = r("WAWebGroupMetadataCollection").get(e.id);
-        l != null &&
-          l.isTrusted() &&
-          (i = o("WAWebWamEnumStatusPosterContactType")
+      else if (a) {
+        var s = r("WAWebGroupMetadataCollection").get(t.id);
+        s != null &&
+          s.isTrusted() &&
+          (l = o("WAWebWamEnumStatusPosterContactType")
             .STATUS_POSTER_CONTACT_TYPE.TRUSTED_GROUP_MEMBER);
       }
       return {
-        statusCategory: n
+        statusCategory: a
           ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.GROUP_STATUS
           : o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.REGULAR_STATUS,
-        statusPosterContactType: i,
+        statusPosterContactType: l,
       };
     }
     function s(t) {
@@ -59,7 +63,12 @@ __d(
               muteAction: i,
               muteOrigin: l,
             },
-            e(r, d, a, c),
+            e({
+              contact: r,
+              isContact: d,
+              isGroupStatus: a,
+              isNewsletterStatus: c,
+            }),
             {
               statusSessionId: s,
               statusViewerSessionId: u,

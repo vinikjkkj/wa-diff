@@ -408,49 +408,53 @@ __d(
         );
       }
     }
-    function W(e, t, n, r, o, a) {
+    function W(e) {
       return q.apply(this, arguments);
     }
     function q() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            try {
-              var s = o("WAJids").validateChatJid(n);
-              if (s != null) {
-                var u = yield F(e, t, s, a, i, l),
-                  c = u.isRevealPending === !0;
-                return {
-                  proto: u.decryptedProto,
-                  protoBytes: u.decryptedProtoBytes,
-                  isRevealPending: c,
-                  scheduledMsgViewMode: c ? u.viewMode : null,
-                };
-              }
-              o("WALogger").ERROR(
-                k ||
-                  (k = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg] ConditionalReveal pre-processing skipped: invalid chat JID",
-                  ])),
-              );
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  I ||
-                    (I = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg] ConditionalReveal pre-processing failed, continuing with original proto",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e));
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.conditionalRevealMessage,
+            n = e.msgId,
+            a = e.rawChatJid,
+            i = e.reportingTokenInfo,
+            l = e.senderJid,
+            s = e.stanzaScheduledMsgMeta;
+          try {
+            var u = o("WAJids").validateChatJid(a);
+            if (u != null) {
+              var c = yield F(t, n, u, l, s, i),
+                d = c.isRevealPending === !0;
+              return {
+                proto: c.decryptedProto,
+                protoBytes: c.decryptedProtoBytes,
+                isRevealPending: d,
+                scheduledMsgViewMode: d ? c.viewMode : null,
+              };
             }
-            return {
-              proto: null,
-              protoBytes: null,
-              isRevealPending: !1,
-              scheduledMsgViewMode: null,
-            };
-          },
-        )),
+            o("WALogger").ERROR(
+              k ||
+                (k = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg] ConditionalReveal pre-processing skipped: invalid chat JID",
+                ])),
+            );
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                I ||
+                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                    "[scheduled_msg] ConditionalReveal pre-processing failed, continuing with original proto",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e));
+          }
+          return {
+            proto: null,
+            protoBytes: null,
+            isRevealPending: !1,
+            scheduledMsgViewMode: null,
+          };
+        })),
         q.apply(this, arguments)
       );
     }

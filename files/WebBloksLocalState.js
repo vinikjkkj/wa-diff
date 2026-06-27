@@ -6,13 +6,16 @@ __d(
       function e() {}
       var t = e.prototype;
       return (
-        (t.setup = function (t, n, r) {
+        (t.setup = function (t, n, r, a) {
           var e = o("WebBloksDataModule").getDataEntryInitialValue(n, r);
           return {
-            initialValue: e,
-            commitToStore: function () {
-              return null;
+            initialData: {
+              initialValue: e,
+              commitToStore: function () {
+                return null;
+              },
             },
+            snapshot: a,
           };
         }),
         e

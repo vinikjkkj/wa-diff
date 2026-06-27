@@ -27,8 +27,7 @@ __d(
       g,
       h,
       y,
-      C,
-      b = {
+      C = {
         ERROR: "error",
         OPENING: "opening",
         BLOCKED: "blocked",
@@ -36,9 +35,9 @@ __d(
         CLOSED: "closed",
         FAILED: "failed",
       },
-      v = !1,
-      S = null;
-    function R() {
+      b = !1,
+      v = null;
+    function S() {
       var t = this;
       ((this._dbName = o("WAWebIndexedDBPurge").WEB_IDB_DB_NAMES.wawc),
         (this._db = new (r("WAWeb-dexie"))(this._dbName, {
@@ -56,7 +55,7 @@ __d(
             n &&
               n.newVersion != null &&
               n.newVersion !== n.oldVersion &&
-              ((v = !0), S && S()));
+              ((b = !0), v && v()));
         }),
         o("WAWebWAWCCommon").applyVersions(this._db),
         (this.openAttempt = 0),
@@ -70,178 +69,152 @@ __d(
             e,
           );
         }),
-        (this._dbState = b.OPENING));
+        (this._dbState = C.OPENING));
     }
-    ((R.prototype.loadUserIdb = function () {
+    ((S.prototype.openDB = function () {
       var e = this;
-      return this.idb()
-        .then(function (t) {
-          return t.transaction("rw", t.user, function () {
-            return t.user.toArray().then(function (t) {
-              return t.forEach(function (t) {
-                e.permanentStorage.dataStore[t.key] = t.value;
-              });
-            });
-          });
-        })
-        .catch(function (e) {
-          o("WALogger").WARN(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[storage] loadUserIdb:Error ",
-                "",
-              ])),
-            e,
-          );
-        });
-    }),
-      (R.prototype.openDB = function () {
-        var e = this;
-        this._db.isOpen() &&
-          (this._db.close(),
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[storage]  close db due to duplicate openDB",
-              ])),
-          ));
-        var t = o("WAPromiseTimeout")
-          .promiseTimeout(
-            (C || (C = n("Promise"))).resolve(this._db.open()),
-            1e4,
-          )
-          .then(function () {
-            o("WAWebRuntimeEnvironmentUtils").isWorker()
-              ? o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[storage] successfully opened db in worker thread",
-                    ])),
-                )
-              : o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[storage] successfully opened db in main thread",
-                    ])),
-                );
-            var t = new (o("WAWebWebcDbOpenWamEvent").WebcDbOpenWamEvent)({
-              webcDbName: e._dbName,
-              webcDbOpenWasSuccess: !0,
-              webcDbOpenNumAttempts: e.openAttempt,
-            });
-            return (t.commit(), (e._dbState = b.OPEN), b.OPEN);
-          })
-          .catch(
-            o("WAFilteredCatch").filteredCatch(
-              o("WACustomError").TimeoutError,
-              function () {
-                o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[storage] openDB blocked in ",
-                      " thread",
-                    ])),
-                  o("WAWebRuntimeEnvironmentUtils").isWorker()
-                    ? "worker"
-                    : "main",
-                );
-                var t = new (o("WAWebWebcDbOpenWamEvent").WebcDbOpenWamEvent)({
-                  webcDbName: e._dbName,
-                  webcDbOpenWasSuccess: !1,
-                  webcDbOpenNumAttempts: e.openAttempt,
-                });
-                return (t.commit(), (e._dbState = b.BLOCKED), b.BLOCKED);
-              },
-            ),
-          )
-          .catch(function (t) {
-            if (
-              (o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[storage] openDB:Error ",
-                    "",
+      this._db.isOpen() &&
+        (this._db.close(),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[storage]  close db due to duplicate openDB",
+            ])),
+        ));
+      var t = o("WAPromiseTimeout")
+        .promiseTimeout((y || (y = n("Promise"))).resolve(this._db.open()), 1e4)
+        .then(function () {
+          o("WAWebRuntimeEnvironmentUtils").isWorker()
+            ? o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[storage] successfully opened db in worker thread",
                   ])),
-                t,
-              ),
-              e.openAttempt > 1 || o("WAWebUA").UA.isSafari)
-            ) {
-              ((e.opening = void 0), (e._dbState = b.ERROR));
-              var n = new (o("WAWebWebcDbOpenWamEvent").WebcDbOpenWamEvent)({
+              )
+            : o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[storage] successfully opened db in main thread",
+                  ])),
+              );
+          var t = new (o("WAWebWebcDbOpenWamEvent").WebcDbOpenWamEvent)({
+            webcDbName: e._dbName,
+            webcDbOpenWasSuccess: !0,
+            webcDbOpenNumAttempts: e.openAttempt,
+          });
+          return (t.commit(), (e._dbState = C.OPEN), C.OPEN);
+        })
+        .catch(
+          o("WAFilteredCatch").filteredCatch(
+            o("WACustomError").TimeoutError,
+            function () {
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[storage] openDB blocked in ",
+                    " thread",
+                  ])),
+                o("WAWebRuntimeEnvironmentUtils").isWorker()
+                  ? "worker"
+                  : "main",
+              );
+              var t = new (o("WAWebWebcDbOpenWamEvent").WebcDbOpenWamEvent)({
                 webcDbName: e._dbName,
                 webcDbOpenWasSuccess: !1,
                 webcDbOpenNumAttempts: e.openAttempt,
               });
-              throw (n.commit(), b.ERROR);
-            }
-            return (
-              (e.openAttempt += 1),
-              e._db
-                .delete()
-                .catch(function (t) {
-                  throw (
-                    o("WALogger").WARN(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "[storage] deleteDB:Error ",
-                          "",
-                        ])),
-                      t,
-                    ),
-                    (e.opening = void 0),
-                    (e._dbState = b.ERROR),
-                    b.ERROR
-                  );
-                })
-                .then(function () {
-                  return e.openDB();
-                })
-            );
-          })
-          .then(function (t) {
-            if (((e.opening = void 0), t === b.BLOCKED)) throw b.BLOCKED;
-            return e._db;
-          });
-        return (this.opening || (this.opening = t), t);
-      }),
-      (R.prototype.idb = function () {
+              return (t.commit(), (e._dbState = C.BLOCKED), C.BLOCKED);
+            },
+          ),
+        )
+        .catch(function (t) {
+          if (
+            (o("WALogger").WARN(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[storage] openDB:Error ",
+                  "",
+                ])),
+              t,
+            ),
+            e.openAttempt > 1 || o("WAWebUA").UA.isSafari)
+          ) {
+            ((e.opening = void 0), (e._dbState = C.ERROR));
+            var n = new (o("WAWebWebcDbOpenWamEvent").WebcDbOpenWamEvent)({
+              webcDbName: e._dbName,
+              webcDbOpenWasSuccess: !1,
+              webcDbOpenNumAttempts: e.openAttempt,
+            });
+            throw (n.commit(), C.ERROR);
+          }
+          return (
+            (e.openAttempt += 1),
+            e._db
+              .delete()
+              .catch(function (t) {
+                throw (
+                  o("WALogger").WARN(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[storage] deleteDB:Error ",
+                        "",
+                      ])),
+                    t,
+                  ),
+                  (e.opening = void 0),
+                  (e._dbState = C.ERROR),
+                  C.ERROR
+                );
+              })
+              .then(function () {
+                return e.openDB();
+              })
+          );
+        })
+        .then(function (t) {
+          if (((e.opening = void 0), t === C.BLOCKED)) throw C.BLOCKED;
+          return e._db;
+        });
+      return (this.opening || (this.opening = t), t);
+    }),
+      (S.prototype.idb = function () {
         return this._db.isOpen()
-          ? (C || (C = n("Promise"))).resolve(this._db)
+          ? (y || (y = n("Promise"))).resolve(this._db)
           : this._db.hasFailed()
             ? (o("WALogger").WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[storage] dexie database failed to open, hasClosed ",
                     "",
                   ])),
                 this._db.hasBeenClosed(),
               ),
-              (C || (C = n("Promise"))).reject(r("err")(b.FAILED)))
-            : this._dbState === b.BLOCKED
+              (y || (y = n("Promise"))).reject(r("err")(C.FAILED)))
+            : this._dbState === C.BLOCKED
               ? (o("WALogger").WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[storage] dexie database is blocked",
                     ])),
                 ),
-                (C || (C = n("Promise"))).reject(r("err")(b.BLOCKED)))
+                (y || (y = n("Promise"))).reject(r("err")(C.BLOCKED)))
               : this.opening
                 ? this.opening
                 : (o("WALogger").WARN(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         "[storage] dexie database is closed",
                       ])),
                   ),
-                  (C || (C = n("Promise"))).reject(r("err")(b.CLOSED)));
+                  (y || (y = n("Promise"))).reject(r("err")(C.CLOSED)));
       }),
-      (R.prototype.onVersionChange = function (e) {
-        ((S = e), v && S());
+      (S.prototype.onVersionChange = function (e) {
+        ((v = e), b && v());
       }),
-      (R.prototype.State = b));
-    var L = new R(),
-      E = L;
-    l.default = E;
+      (S.prototype.State = C));
+    var R = new S(),
+      L = R;
+    l.default = L;
   },
   98,
 );

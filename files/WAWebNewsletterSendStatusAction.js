@@ -107,14 +107,15 @@ __d(
               }),
               p = h(u, m);
             return (
-              yield f(
-                p,
-                m,
-                u,
-                d,
-                o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.TEXT,
-                n,
-              ),
+              yield f({
+                contentType: o("WAWebWamEnumStatusContentType")
+                  .STATUS_CONTENT_TYPE.TEXT,
+                funnelContext: n,
+                logger: d,
+                msg: u,
+                response: m,
+                result: p,
+              }),
               p
             );
           } catch (e) {
@@ -223,7 +224,17 @@ __d(
                 mediaHandle: p,
               }),
               C = h(d, y);
-            return (yield f(C, y, d, g, _, n), C);
+            return (
+              yield f({
+                contentType: _,
+                funnelContext: n,
+                logger: g,
+                msg: d,
+                response: y,
+                result: C,
+              }),
+              C
+            );
           } catch (e) {
             var b, v;
             throw (
@@ -250,30 +261,34 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n, r, o, a) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            if (
-              e.messageSendResult ===
-              o("WAWebSendMsgResultAction").SendMsgResult.OK
-            ) {
-              var l = yield o("WAWebStatusLoggingUtils").statusIdForLogging(n);
-              r.logPostStatusSuccess(a, l, i == null ? void 0 : i.entryPoint);
-              return;
-            }
-            var s = t.success ? void 0 : t.ack.error;
-            r.logPostStatusFailure({
-              contentType: a,
-              entryPoint: i == null ? void 0 : i.entryPoint,
-              failureReason: s,
-              retryCount: 0,
-            });
-          },
-        )),
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.contentType,
+            n = e.funnelContext,
+            r = e.logger,
+            a = e.msg,
+            i = e.response,
+            l = e.result;
+          if (
+            l.messageSendResult ===
+            o("WAWebSendMsgResultAction").SendMsgResult.OK
+          ) {
+            var s = yield o("WAWebStatusLoggingUtils").statusIdForLogging(a);
+            r.logPostStatusSuccess(t, s, n == null ? void 0 : n.entryPoint);
+            return;
+          }
+          var u = i.success ? void 0 : i.ack.error;
+          r.logPostStatusFailure({
+            contentType: t,
+            entryPoint: n == null ? void 0 : n.entryPoint,
+            failureReason: u,
+            retryCount: 0,
+          });
+        })),
         g.apply(this, arguments)
       );
     }

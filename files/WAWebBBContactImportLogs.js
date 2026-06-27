@@ -61,28 +61,30 @@ __d(
     }
     function _(e, t, n) {
       e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        entryPoint: n,
+        extraAttributes: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,
+      });
+    }
+    function f(e, t, n) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        entryPoint: n,
+        extraAttributes: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,
+      });
+    }
+    function g(e, t, n) {
+      e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
         extraAttributes: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
-      });
-    }
-    function f(e, t) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_CONTACT,
-      });
-    }
-    function g(e, t) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_ERROR_CONTACT,
       });
     }
     function h(e, t) {
@@ -91,7 +93,7 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_ALL_ERROR_CONTACTS,
+          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_CONTACT,
       });
     }
     function y(e, t) {
@@ -100,10 +102,28 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.EDIT_ERROR_CONTACT,
+          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_ERROR_CONTACT,
       });
     }
     function C(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.DELETE_ALL_ERROR_CONTACTS,
+      });
+    }
+    function b(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.EDIT_ERROR_CONTACT,
+      });
+    }
+    function v(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.ENTER,
         entryPoint: t,
@@ -112,7 +132,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.IMPORTED_CONTACT_LIST_NAME,
       });
     }
-    function b(e, t, n) {
+    function S(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -121,7 +141,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.SAVE,
       });
     }
-    function v(e, t) {
+    function R(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -129,14 +149,14 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function S(e, t) {
+    function L(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.EDIT_CONTACT,
       });
     }
-    function R(e, t) {
+    function E(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.ENTER,
         entryPoint: t,
@@ -144,7 +164,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CONTACT_NAME,
       });
     }
-    function L(e, t) {
+    function k(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.ENTER,
         entryPoint: t,
@@ -152,7 +172,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.PHONE_NUMBER,
       });
     }
-    function E(e, t) {
+    function I(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -160,7 +180,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CONTINUE,
       });
     }
-    function k(e, t) {
+    function T(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -168,7 +188,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function I(e, t, n) {
+    function D(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -176,7 +196,7 @@ __d(
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.CONTACT_IMPORT_SUCCESS,
       });
     }
-    function T(e, t) {
+    function x(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -184,7 +204,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function D(e, t) {
+    function $(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -192,7 +212,7 @@ __d(
           o("WAWebBBLoggerTypes").SURFACE_TYPE.CONFIRM_DELETE_ALL_ERROR_CONTACT,
       });
     }
-    function x(e, t) {
+    function P(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -201,7 +221,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CONTINUE,
       });
     }
-    function $(e, t) {
+    function N(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -210,7 +230,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function P(e, t, n) {
+    function M(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -218,7 +238,7 @@ __d(
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.REVIEW_FILE_ERRORS_PROMPT,
       });
     }
-    function N(e, t, n) {
+    function w(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -228,7 +248,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_TEMPLATE,
       });
     }
-    function M(e, t, n) {
+    function A(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -237,7 +257,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function w(e, t, n) {
+    function F(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -246,7 +266,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CONTINUE,
       });
     }
-    function A(e, t, n) {
+    function O(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -254,7 +274,7 @@ __d(
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.SAVING_IMPORTED_CONTACT,
       });
     }
-    function F(e, t, n) {
+    function B(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -263,7 +283,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function O(e, t, n, r) {
+    function W(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: r,
@@ -273,7 +293,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,
       });
     }
-    function B(e, t, n) {
+    function q(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: n,
@@ -290,32 +310,34 @@ __d(
       (l.contactImportCancelClicked = d),
       (l.fileUploadClicked = m),
       (l.fileOpenClicked = p),
-      (l.importedContactWizardViewed = _),
-      (l.contactDeleteClicked = f),
-      (l.errorContactDeleteClicked = g),
-      (l.allErrorContactsDeleteClicked = h),
-      (l.errorContactEditClicked = y),
-      (l.importedContactListNameEntered = C),
-      (l.importedContactsSaveClicked = b),
-      (l.importedContactWizardCancelClicked = v),
-      (l.editContactViewed = S),
-      (l.contactNameEntered = R),
-      (l.phoneNumberEntered = L),
-      (l.editContactConfirmClicked = E),
-      (l.editContactCancelClicked = k),
-      (l.contactImportSuccessViewed = I),
-      (l.contactImportSuccessCancelClicked = T),
-      (l.confirmDeleteAllErrorContactViewed = D),
-      (l.deleteAllErrorContactsConfirmClicked = x),
-      (l.deleteAllErrorContactsCancelClicked = $),
-      (l.reviewFileErrorsPromptViewed = P),
-      (l.reviewFileErrorsPromptTemplateSaveClicked = N),
-      (l.reviewFileErrorsPromptCancelClicked = M),
-      (l.reviewFileErrorsPromptContinueClicked = w),
-      (l.saveImportedContactViewed = A),
-      (l.saveImportedContactClosed = F),
-      (l.importAudienceSuccess = O),
-      (l.importAudienceError = B));
+      (l.importAudienceProcessingStarted = _),
+      (l.importAudienceProcessingResult = f),
+      (l.importedContactWizardViewed = g),
+      (l.contactDeleteClicked = h),
+      (l.errorContactDeleteClicked = y),
+      (l.allErrorContactsDeleteClicked = C),
+      (l.errorContactEditClicked = b),
+      (l.importedContactListNameEntered = v),
+      (l.importedContactsSaveClicked = S),
+      (l.importedContactWizardCancelClicked = R),
+      (l.editContactViewed = L),
+      (l.contactNameEntered = E),
+      (l.phoneNumberEntered = k),
+      (l.editContactConfirmClicked = I),
+      (l.editContactCancelClicked = T),
+      (l.contactImportSuccessViewed = D),
+      (l.contactImportSuccessCancelClicked = x),
+      (l.confirmDeleteAllErrorContactViewed = $),
+      (l.deleteAllErrorContactsConfirmClicked = P),
+      (l.deleteAllErrorContactsCancelClicked = N),
+      (l.reviewFileErrorsPromptViewed = M),
+      (l.reviewFileErrorsPromptTemplateSaveClicked = w),
+      (l.reviewFileErrorsPromptCancelClicked = A),
+      (l.reviewFileErrorsPromptContinueClicked = F),
+      (l.saveImportedContactViewed = O),
+      (l.saveImportedContactClosed = B),
+      (l.importAudienceSuccess = W),
+      (l.importAudienceError = q));
   },
   98,
 );

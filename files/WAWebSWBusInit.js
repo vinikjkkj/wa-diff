@@ -10,7 +10,6 @@ __d(
     "WAWebNoop",
     "WAWebSWBus",
     "WAWebSWBusActions",
-    "WAWebSafariTakeover",
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "asyncToGeneratorRuntime",
@@ -152,8 +151,6 @@ __d(
                   .upload({ reason: "Requested by Service Worker" })
                   .then(r("WAWebNoop"))
               );
-            case r("WAWebSWBusActions").ACTIVE_TAB:
-              return { isActive: o("WAWebSafariTakeover").getIsTabActive() };
             case r("WAWebSWBusActions").HEARTBEAT:
               return i;
             default:

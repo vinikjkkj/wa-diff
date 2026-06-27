@@ -2,6 +2,7 @@ __d(
   "WebBloksBind",
   [
     "WebBloksConstants",
+    "WebBloksDataModule",
     "WebBloksErrors",
     "WebBloksInterpreterEnvironment",
     "WebBloksModel",
@@ -158,6 +159,17 @@ __d(
           (t.collectTreeResource = function (t, n) {
             this.$1.has(n) || (this.$1.add(n), this.$2.set(n, t));
           }),
+          (t.mergeFunctionTable = function (t) {
+            var e = t.ftDeclare,
+              n = t.ftInclude,
+              r = t.functionTable;
+            (r == null && e == null && n == null) ||
+              (this.resources = this.resources.withFunctionTableUpdates(
+                r,
+                e,
+                n,
+              ));
+          }),
           (t.getCollectedTreeResources = function () {
             return this.$2;
           }),
@@ -166,6 +178,59 @@ __d(
           }),
           (t.cacheTemplatePayload = function (t, n) {
             this.$3.set(t, n);
+          }),
+          (t.containsVariable = function (t) {
+            return (
+              this.expandedVariables.has(t) || this.resources.variables.has(t)
+            );
+          }),
+          (t.processVariableManifestsInBind = function (t, n) {
+            var e = this;
+            if (t.length !== 0) {
+              var a =
+                  n.length > 0
+                    ? o("WebBloksScopedIds").buildKeypathBase(n)
+                    : null,
+                i = new Map();
+              for (var l of t) {
+                var s,
+                  u = l.id,
+                  c =
+                    l.scoped === !0 && a != null
+                      ? o("WebBloksScopedIds").buildScopedVariableIdentifier(
+                          u,
+                          a,
+                        )
+                      : u;
+                if (!this.containsVariable(c)) {
+                  var d = l.type,
+                    m = o("WebBloksDataModule").getDataModuleFromContext(
+                      this.bloksContext,
+                      d,
+                    );
+                  if (!m)
+                    throw new (o("WebBloksErrors").WebBloksError)(
+                      "Missing variable module with type: " + d,
+                    );
+                  var p = function (a) {
+                      var t = r("WebBloksInterpreterEnvironment").forBind(
+                        e.bloksContext,
+                        null,
+                        e.resources,
+                        e.expandedVariables,
+                      );
+                      return (
+                        (t.scope = n),
+                        o("WebBloksScriptExecutor").execute(t, a, [])
+                      );
+                    },
+                    _ = (s = i.get(d)) != null ? s : new Map(),
+                    f = m.setup(this.bloksContext, l, p, _);
+                  (f.snapshot != null && i.set(d, f.snapshot),
+                    this.addExpandedVariable(c, f.initialData.initialValue));
+                }
+              }
+            }
           }),
           (e.applyOperation = function (n, r, o, a) {
             return e.applyAttribute(n, r, o, a);
@@ -395,24 +460,30 @@ __d(
             e.cacheTemplatePayload(m, _)),
             (u = _.unboundModel));
           var f = m;
-          e.isResourceProcessed(f) || e.collectTreeResource(_.resources, f);
+          if (!e.isResourceProcessed(f)) {
+            var g;
+            (e.collectTreeResource(_.resources, f),
+              e.mergeFunctionTable(_.resources));
+            var h = (g = _.resources.variableDefinitions) != null ? g : [];
+            h.length > 0 && e.processVariableManifestsInBind(h, r);
+          }
         } else {
-          var g = e.resources.templates.get(m);
-          if (g == null)
+          var y = e.resources.templates.get(m);
+          if (y == null)
             throw new (o("WebBloksErrors").WebBloksError)(
               "No such template in tree resources: " + m,
             );
-          u = g;
+          u = y;
         }
       }
-      var h = e.clientIdToScopedIdMapper.getScopedClientId(u, s.scopeKey),
-        y = o("WebBloksScopedIds").extendKeyPath(s.keyPathBase, h),
-        C = o("WebBloksScopedIds").buildKeypathBase(y);
-      s.expandedVariables.size > 0 && v(e, s.expandedVariables, C, a);
-      var b = e.cache.getUnboundChildTemplates(n);
-      if (b) {
-        var S = b.get(h);
-        if (S) return S;
+      var C = e.clientIdToScopedIdMapper.getScopedClientId(u, s.scopeKey),
+        b = o("WebBloksScopedIds").extendKeyPath(s.keyPathBase, C),
+        S = o("WebBloksScopedIds").buildKeypathBase(b);
+      s.expandedVariables.size > 0 && v(e, s.expandedVariables, S, a);
+      var R = e.cache.getUnboundChildTemplates(n);
+      if (R) {
+        var L = R.get(C);
+        if (L) return L;
       }
       return o("WebBloksUpdateTraversal").runUpdateTraversal(
         u,
@@ -420,7 +491,7 @@ __d(
           apply: function (n) {
             return e.clientIdToScopedIdMapper.copyModelWithKeyPath(
               n,
-              y,
+              b,
               s.scopeKey,
             );
           },

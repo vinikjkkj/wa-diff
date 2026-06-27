@@ -332,6 +332,11 @@ __d(
         "web_calling_full_screen_toggle_enabled",
       );
     }
+    function H() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "call_screen_share_dual_stream_app_update_dialog_enabled",
+      );
+    }
     ((l.isWebKitBrowser = g),
       (l.shouldUsePortalModeForSafari = y),
       (l.getCrossOriginIsolatedState = C),
@@ -358,7 +363,8 @@ __d(
       (l.isCallInfoOptimizationsEnabledForAHGC = W),
       (l.isCallInfoOptimizationsEnabledForCallLink = q),
       (l.isCallInfoOptimizationsEnabledForCallType = U),
-      (l.isFullScreenToggleEnabled = V));
+      (l.isFullScreenToggleEnabled = V),
+      (l.isScreenShareDualStreamAppUpdateDialogEnabled = H));
   },
   98,
 );

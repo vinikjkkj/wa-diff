@@ -720,6 +720,8 @@ __d(
         "unused_budget_reallocation_upsell_add_budget_success",
       UNUSED_BUDGET_REALLOCATION_UPSELL_ADD_BUDGET_FAILURE:
         "unused_budget_reallocation_upsell_add_budget_failure",
+      UNUSED_BUDGET_REALLOCATION_UPSELL_VIEW_RESULTS_CLICK:
+        "unused_budget_reallocation_upsell_view_results_click",
       UPDATED_ASL_NOTICE_IMPRESSION: "updated_asl_notice_impression",
       UPDATED_ASL_RESET_CLICK: "updated_asl_reset_click",
       UPDATED_ASL_INCREASE_CLICK: "updated_asl_increase_click",

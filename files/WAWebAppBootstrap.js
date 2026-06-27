@@ -32,7 +32,6 @@ __d(
     "WAWebMetricsAttributionObservers",
     "WAWebPageLoadLoggingImpl",
     "WAWebRunInTransaction",
-    "WAWebSafari14Fix",
     "WAWebStorageErrorHandlingUtils",
     "WAWebSyncdUploadFatalErrorMetric",
     "WAWebTransitions",
@@ -133,8 +132,7 @@ __d(
             n("WAWebTransitions").registerEffects(),
             o("WAWebInvocationInterface").set(r("WAWebBrokerBackendInterface")),
             o("WAWebDebugSetup").setupDebugGlobal(),
-            o("WAWebConfigureWindowEvents").configureWindowEvents(),
-            yield o("WAWebSafari14Fix").loadUserIdbForBrokenSafariVersion());
+            o("WAWebConfigureWindowEvents").configureWindowEvents());
           try {
             o("WAWebEmojiKeywordToUnicode").updateEmojiTrie();
           } catch (e) {

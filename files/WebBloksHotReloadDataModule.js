@@ -6,12 +6,15 @@ __d(
       function e() {}
       var t = e.prototype;
       return (
-        (t.setup = function (t, n, r) {
+        (t.setup = function (t, n, r, o) {
           return {
-            initialValue: void 0,
-            commitToStore: function () {
-              return null;
+            initialData: {
+              initialValue: void 0,
+              commitToStore: function () {
+                return null;
+              },
             },
+            snapshot: o,
           };
         }),
         e

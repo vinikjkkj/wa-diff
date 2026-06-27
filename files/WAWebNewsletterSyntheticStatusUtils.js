@@ -24,30 +24,21 @@ __d(
         ? t
         : null;
     }
-    function u(t, n, r, a) {
+    function u(t, n, r) {
       if (e(r)) {
-        var i = o("WAWebStatusCollection").StatusCollection.get(t);
+        var a = o("WAWebStatusCollection").StatusCollection.get(t);
         return (
-          i != null && o("WAWebStatusCollection").StatusCollection.remove(i),
+          a != null && o("WAWebStatusCollection").StatusCollection.remove(a),
           !1
         );
       }
-      var l = o("WAWebStatusCollection").StatusCollection.get(t);
-      if (l != null && l.isSyntheticFromMetadata !== !0) {
-        var u = s(a),
-          c = n != null && (u == null || n > u);
-        return (
-          c &&
-            l.unreadCount === 0 &&
-            !l.isExpired() &&
-            l.set({ unreadCount: 1 }),
-          !1
-        );
-      }
-      if (!o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled())
-        return !1;
-      var d = s(a);
-      return d != null && n != null && d >= n
+      var i = o("WAWebStatusCollection").StatusCollection.get(t),
+        l = i != null && i.isSyntheticFromMetadata !== !0;
+      if (l || n == null) return !1;
+      var u = o("WAJids").toNewsletterJid(t.toJid()),
+        c = s(u);
+      return (c != null && n <= c) ||
+        !o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
         ? !1
         : (o("WAWebStatusCollection").StatusCollection.add(
             {
@@ -68,12 +59,7 @@ __d(
             var t = e.statusMetadata;
             if (t != null) {
               var n = e.id;
-              u(
-                n,
-                t.lastStatusServerId,
-                t.lastStatusSentTime,
-                o("WAJids").toNewsletterJid(n.toJid()),
-              );
+              u(n, t.lastStatusServerId, t.lastStatusSentTime);
             }
           }));
     }

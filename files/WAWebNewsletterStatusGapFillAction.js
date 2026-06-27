@@ -12,6 +12,7 @@ __d(
     "WAWebNewsletterStatusProcessingUtils",
     "WAWebNewsletterSyntheticStatusUtils",
     "WAWebRunInBatches",
+    "WAWebStatusCollection",
     "WAWebSyncNewsletterStatusMetadataAction",
     "WAWebUserPrefsGeneral",
     "WAWebWidFactory",
@@ -117,16 +118,21 @@ __d(
                 ).syncNewsletterStatusMetadata(
                   e,
                   o("WAWebWidFactory").createWid(e),
+                  !1,
                 );
               } catch (t) {
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletter][status][gapfill] meta refresh failed ",
-                      "",
-                    ])),
-                  e,
-                );
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[newsletter][status][gapfill] meta refresh failed ",
+                        "",
+                      ])),
+                    e,
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .tags("newsletter", "status")
+                  .sendLogs("newsletter-status-gapfill-meta-refresh-failed");
               }
             var l =
               t != null
@@ -150,6 +156,11 @@ __d(
                     o(
                       "WAWebNewsletterStatusProcessingUtils",
                     ).syncFilledStatusCursor(e, l));
+                  var d = o("WAWebStatusCollection").StatusCollection.get(
+                    o("WAWebWidFactory").createWid(e),
+                  );
+                  (d == null ? void 0 : d.isSyntheticFromMetadata) === !0 &&
+                    o("WAWebStatusCollection").StatusCollection.remove(d);
                 } catch (t) {
                   o("WALogger")
                     .ERROR(

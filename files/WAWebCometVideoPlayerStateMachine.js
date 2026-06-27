@@ -55,7 +55,12 @@ __d(
           "VideoPlayerImplementationStateMachine",
         ).createVideoPlayerImplementationStateMachineWithStateTransitionHandlers(
           {
-            collectUncontrolledState: u(c, d, a, p),
+            collectUncontrolledState: u({
+              fullscreenControllerRef: a,
+              videoElement: c,
+              videoLiveTraceRef: d,
+              videoPlayerPassiveViewabilityInfo: p,
+            }),
             stateTransitionHandlers: g,
             debugLogId: n,
             initialState: h,
@@ -90,18 +95,22 @@ __d(
         },
       };
     }
-    function u(e, t, n, r) {
+    function u(e) {
+      var t = e.fullscreenControllerRef,
+        n = e.videoElement,
+        r = e.videoLiveTraceRef,
+        a = e.videoPlayerPassiveViewabilityInfo;
       return function () {
         return o(
           "VideoPlayerImplementationStateMachineStateUncontrolledState",
         ).createVideoPlayerImplementationStateMachineStateUncontrolledState({
           engineExtrasAPI: null,
-          fullscreenControllerRef: n,
+          fullscreenControllerRef: t,
           videoElementAPI: o(
             "VideoPlayerImplementationEngineVideoElementAPI",
-          ).createVideoPlayerImplementationEngineVideoElementAPI(e),
-          videoLiveTraceRef: t,
-          videoPlayerPassiveViewabilityInfo: r,
+          ).createVideoPlayerImplementationEngineVideoElementAPI(n),
+          videoLiveTraceRef: r,
+          videoPlayerPassiveViewabilityInfo: a,
         });
       };
     }

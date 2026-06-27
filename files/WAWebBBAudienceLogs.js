@@ -56,14 +56,19 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,
       });
     }
-    function m(e, t, n, r, a) {
+    function m(e, t, n, r, a, i) {
+      var l =
+        r != null
+          ? babelHelpers.extends({}, i, {
+              contact_count: t,
+              errorType: r,
+              save_result: n,
+            })
+          : babelHelpers.extends({}, i, { contact_count: t, save_result: n });
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: a,
-        extraAttributes: babelHelpers.extends(
-          { contact_count: t, save_result: n },
-          r != null ? { errorType: r } : void 0,
-        ),
+        extraAttributes: l,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_AUDIENCE_BUTTON,

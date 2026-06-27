@@ -103,7 +103,6 @@ __d(
               (u = c == null ? void 0 : c.lastStatusSentTime) != null
                 ? u
                 : null,
-              e.idJid,
             );
           }
           return l;

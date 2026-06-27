@@ -69,7 +69,6 @@ __d(
         hasEmoji: y,
         troublesWithLotsOfVideos: r("gkx")("26258") === !0 && m,
         supportsEmojiEllipsification: !u,
-        isLocalStorageBroken: u && c(o, "14.1") && d(o, "14.1.2"),
         isBrokenVoipWasm: u && c(o, "26.2") && d(o, "26.3"),
         os: i.toLowerCase(),
         osVersion: l,

@@ -16,7 +16,6 @@ __d(
     "WAWebAsISOCountryCode",
     "WAWebBackendApi",
     "WAWebBackendErrors",
-    "WAWebBizAiAgentGating",
     "WAWebBizCoexGatingUtils",
     "WAWebBizCoexUtils",
     "WAWebBotTypes",
@@ -1087,26 +1086,20 @@ __d(
         : null;
     }
     function z(e) {
-      return o(
-        "WAWebBizAiAgentGating",
-      ).isAiAgentThreadStatusHistorySyncEnabled()
-        ? e === !0
+      return e === !0
+        ? o("WAWebProtobufsE2E.pb")
+            .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+            .CONTROL_TAKEN
+        : e === !1 || e === void 0
           ? o("WAWebProtobufsE2E.pb")
               .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-              .CONTROL_TAKEN
-          : e === !1 || e === void 0
-            ? o("WAWebProtobufsE2E.pb")
-                .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                .UNKNOWN
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })()
-        : o("WAWebProtobufsE2E.pb")
-            .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-            .UNKNOWN;
+              .UNKNOWN
+          : (function () {
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  e,
+              );
+            })();
     }
     function j(e) {
       if (e != null) {

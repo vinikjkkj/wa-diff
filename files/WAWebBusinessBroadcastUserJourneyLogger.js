@@ -200,13 +200,14 @@ __d(
               l,
             );
           }),
-          (t.importAudienceSaveResult = function (t, n, r, a) {
+          (t.importAudienceSaveResult = function (t, n, r, a, i) {
             o("WAWebBBAudienceLogs").importAudienceSaveResult(
               this.$1,
               t,
               n,
               r,
               a,
+              i,
             );
           }),
           (t.attachmentsImageVideoDropdownClicked = function (t) {
@@ -428,6 +429,20 @@ __d(
           }),
           (t.fileOpenClicked = function (t) {
             o("WAWebBBContactImportLogs").fileOpenClicked(this.$1, t);
+          }),
+          (t.importAudienceProcessingStarted = function (t, n) {
+            o("WAWebBBContactImportLogs").importAudienceProcessingStarted(
+              this.$1,
+              t,
+              n,
+            );
+          }),
+          (t.importAudienceProcessingResult = function (t, n) {
+            o("WAWebBBContactImportLogs").importAudienceProcessingResult(
+              this.$1,
+              t,
+              n,
+            );
           }),
           (t.importedContactWizardViewed = function (t, n) {
             o("WAWebBBContactImportLogs").importedContactWizardViewed(

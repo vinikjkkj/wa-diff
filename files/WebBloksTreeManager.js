@@ -206,8 +206,8 @@ __d(
                           var l = i.createBloksModelScopedContext(u.keyPath);
                           return o("WebBloksScriptExecutor").execute(l, n, []);
                         },
-                        b = h.setup(e.bloksContext, y, C);
-                      p.collectVariable(f, y, b, null);
+                        b = h.setup(e.bloksContext, y, C, null);
+                      p.collectVariable(f, y, b.initialData, null);
                     }
                   }
                   (e.initialTreeResources.setShouldCommitPublishStateUpdates(

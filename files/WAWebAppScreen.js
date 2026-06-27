@@ -10,7 +10,6 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored([
       "ANOTHER_SESSION",
-      "UNSUPPORTED_TAKEOVER",
       "CALL_TAKEOVER_PREVENTION",
       "QR",
       "SYNCING",
@@ -29,25 +28,23 @@ __d(
     function s(t) {
       var n,
         a = t.anotherSession,
-        i = t.isUnsupportedTakeover,
-        l = t.mainLoaded,
-        s = t.mode,
-        u = t.screenLocked;
+        i = t.mainLoaded,
+        l = t.mode,
+        s = t.screenLocked;
       if ((n = t.temporaryBan) != null && n.banned) return e.TEMP_BAN;
       if (t.serviceUnavailable === !0) return e.SERVICE_UNAVAILABLE;
       if (t.startLogout) return e.LOGOUT;
-      if (i) return e.UNSUPPORTED_TAKEOVER;
       if (r("WAWebAppMutex").hasShownCallTakeoverModal())
         return e.CALL_TAKEOVER_PREVENTION;
       if (a) return e.ANOTHER_SESSION;
-      if (u) return l ? e.SCREEN_LOCK : e.STARTUP;
-      switch (s) {
+      if (s) return i ? e.SCREEN_LOCK : e.STARTUP;
+      switch (l) {
         case o("WAWebStreamModel").StreamMode.QR:
           return e.QR;
         case o("WAWebStreamModel").StreamMode.SYNCING:
           return e.SYNCING;
         case o("WAWebStreamModel").StreamMode.OFFLINE:
-          return l && o("WAWebBuildConstants").WINDOWS_OFFLINE
+          return i && o("WAWebBuildConstants").WINDOWS_OFFLINE
             ? e.MAIN
             : e.OFFLINE;
         case o("WAWebStreamModel").StreamMode.PROXYBLOCK:
@@ -61,13 +58,13 @@ __d(
         case o("WAWebStreamModel").StreamMode.MAIN:
           return o("WAWebBuildConstants").WINDOWS_OFFLINE
             ? e.MAIN
-            : l
+            : i
               ? t.stayInSync
                 ? e.SYNCING
                 : e.MAIN
               : e.STARTUP;
       }
-      throw r("err")("[app] render Error invalid StreamMode: " + s);
+      throw r("err")("[app] render Error invalid StreamMode: " + l);
     }
     ((l.AppScreen = e), (l.getScreen = s));
   },

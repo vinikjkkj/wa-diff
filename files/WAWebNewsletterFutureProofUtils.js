@@ -48,9 +48,7 @@ __d(
             "WAWebNewsletterGatingUtils",
           ).isNewsletterPTTReceivingEnabled();
         case o("WAWebMsgType").MSG_TYPE.PTV:
-          return o(
-            "WAWebNewsletterGatingUtils",
-          ).isNewsletterPTVReceivingEnabled();
+          return !0;
         case o("WAWebMsgType").MSG_TYPE.POLL_CREATION:
         case o("WAWebMsgType").MSG_TYPE.POLL_UPDATE:
           return o(

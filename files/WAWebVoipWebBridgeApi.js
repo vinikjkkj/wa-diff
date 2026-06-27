@@ -17,6 +17,7 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebInCallWaitingRoomNotificationHelper",
     "WAWebIncomingOfferNoticeVoipHandlerAction",
+    "WAWebModalManager",
     "WAWebMsgGetters",
     "WAWebNotificationBackend",
     "WAWebNotificationsCallNotification",
@@ -52,6 +53,7 @@ __d(
     "WAWebVoipNackHandlers",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipRelayAllCallsAction",
+    "WAWebVoipScreenShareUpdateAppModal.react",
     "WAWebVoipStartCall",
     "WAWebVoipUiManager",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
@@ -563,6 +565,7 @@ __d(
           (S != null &&
             ((S.isWaitingRoomEnabled = n.isWaitingRoomEnabled),
             (S.isWaitingRoomAdmin = n.isWaitingRoomAdmin),
+            (S.waitingRoomFilter = n.waitingRoomFilter),
             (S.isInWaitingRoom = n.isInWaitingRoom),
             (S.waitingRoomUsers = n.waitingRoomUsers),
             (S.waitingRoomUsersCount = n.waitingRoomUsersCount),
@@ -1018,7 +1021,7 @@ __d(
             t.sharer_version != null ? Number(t.sharer_version) : void 0,
           );
           var n = o("WAWebUserPrefsMeUser").isMeAccount(t.sharer_jid);
-          n &&
+          (n &&
             (t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||
               t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Failed) &&
             (o("WAWebVoipUiPopoutWindowPortalContainer.react").setMediaStream(
@@ -1035,7 +1038,20 @@ __d(
                   ),
                   duration: 5e3,
                 }),
-              )));
+              ))),
+            !n &&
+              t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped &&
+              t.reason ===
+                o("WAWebVoipWaCallEnums").ScreenShareEndReason.NotSupported &&
+              Number(t.sharer_version) >=
+                Number(o("WAWebVoipWaCallEnums").ScreenShareVersion.Version3) &&
+              o(
+                "WAWebVoipGatingUtils",
+              ).isScreenShareDualStreamAppUpdateDialogEnabled() &&
+              e.tryMarkScreenShareUpdateAppModalShown() &&
+              o("WAWebModalManager").ModalManager.open(
+                U.jsx(r("WAWebVoipScreenShareUpdateAppModal.react"), {}),
+              ));
         }
       },
       handleCallEndingForSurvey: function (t) {
@@ -1239,8 +1255,9 @@ __d(
         var e = t.isInWaitingRoom,
           n = t.isWaitingRoomAdmin,
           a = t.isWaitingRoomEnabled,
-          i = t.waitingRoomUsers,
-          l = t.waitingRoomUsersCount;
+          i = t.waitingRoomFilter,
+          l = t.waitingRoomUsers,
+          s = t.waitingRoomUsersCount;
         o("WALogger").LOG(
           F ||
             (F = babelHelpers.taggedTemplateLiteralLoose([
@@ -1253,22 +1270,23 @@ __d(
           a,
           n,
           e,
-          l,
+          s,
         );
-        var s = r("WAWebCallCollection").activeCall;
-        s != null &&
-          ((s.isWaitingRoomEnabled = a),
-          (s.isWaitingRoomAdmin = n),
-          (s.isInWaitingRoom = e),
-          (s.waitingRoomUsers = i),
-          (s.waitingRoomUsersCount = l),
-          s.trigger(
+        var u = r("WAWebCallCollection").activeCall;
+        u != null &&
+          ((u.isWaitingRoomEnabled = a),
+          (u.isWaitingRoomAdmin = n),
+          (u.waitingRoomFilter = i),
+          (u.isInWaitingRoom = e),
+          (u.waitingRoomUsers = l),
+          (u.waitingRoomUsersCount = s),
+          u.trigger(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipCallModelEvents
                 .WAITING_ROOM_STATE,
             ),
           ),
-          s.trigger(
+          u.trigger(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipCallModelEvents
                 .IS_IN_WAITING_ROOM,
@@ -1278,9 +1296,9 @@ __d(
             o(
               "WAWebInCallWaitingRoomNotificationHelper",
             ).maybeShowOrCloseInCallWaitingRoomNotification({
-              callId: s.id,
-              waitingRoomUsers: i,
-              waitingRoomUsersCount: l,
+              callId: u.id,
+              waitingRoomUsers: l,
+              waitingRoomUsersCount: s,
             }));
       },
       handleCallOfferNacked: function (t) {
