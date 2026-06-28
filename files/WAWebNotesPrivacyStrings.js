@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Only you can see this information.");
+      return s._(/*BTDS*/ "Customer Notes are not visible to customers.");
     }
     l.default = e;
   },
