@@ -29,9 +29,9 @@ __d(
             }),
             (this.$5 = function (e) {
               var t = e.state;
-              a.$7(t);
+              a.$6(t);
             }),
-            (this.$6 = function () {
+            (this.$11 = function () {
               document.visibilityState === "hidden" &&
                 a.pendingCloses.length > 0 &&
                 a.pendingCloses.map(function () {
@@ -53,10 +53,6 @@ __d(
                 i.scrollRestoration &&
                 (window.history.scrollRestoration = "manual"));
           }
-          this.disableHistoryStack ||
-            this.enableCometRouter ||
-            (window.addEventListener("popstate", this.$5),
-            window.addEventListener("visibilitychange", this.$6));
         }
         var n = t.prototype;
         return (
@@ -68,13 +64,13 @@ __d(
                 null || n.setCurrentController(e);
             }
           }),
-          (n.$7 = function (n) {
+          (n.$6 = function (n) {
             if (n.isWebBloks) {
-              this.navigationDirection = this.$8(
+              this.navigationDirection = this.$7(
                 babelHelpers.extends({}, n.screenPointer),
               );
               var t = this.getCurrentModalOrScreen();
-              (this.$9(t) || this.$10(t),
+              (this.$8(t) || this.$9(t),
                 t == null || t.onExit(this.navigationDirection),
                 t == null || t.dismiss());
               var r = this.screensCache.get(n.screenId);
@@ -86,7 +82,7 @@ __d(
                   n.screenPointer,
                 )),
                 this.notifyChanged(),
-                this.$9(this.getCurrentScreen()) || this.$11(),
+                this.$8(this.getCurrentScreen()) || this.$10(),
                 this.pendingCloses.length > 0)
               ) {
                 var a = this.pendingCloses.pop();
@@ -109,7 +105,7 @@ __d(
               }));
           }),
           (n.$13 = function (t, n, r) {
-            (r === void 0 && (r = !1), this.$2 && this.$10(this.$4));
+            (r === void 0 && (r = !1), this.$2 && this.$9(this.$4));
             var e = this.getCurrentModalOrScreen();
             if (
               (e == null || e.onExit("forward"),
@@ -138,7 +134,7 @@ __d(
               var u = this.$17();
               u != null ? this.$18(t, u) : this.$19(t);
             } else this.$19(t);
-            (this.$16(t, r), this.notifyChanged(), this.$9(t) || this.$20());
+            (this.$16(t, r), this.notifyChanged(), this.$8(t) || this.$20());
           }),
           (n.close = function (t, n, r) {
             var e = this;
@@ -241,7 +237,7 @@ __d(
           }),
           (n.destroy = function () {
             (window.removeEventListener("popstate", this.$5),
-              window.removeEventListener("visibilitychange", this.$6),
+              window.removeEventListener("visibilitychange", this.$11),
               this.$25(),
               this.enableCometRouter ||
                 (this.screensCache.forEach(function (e) {
@@ -299,11 +295,17 @@ __d(
                 (document.title = t);
             }
           }),
+          (n.attachNavigationListeners = function () {
+            this.disableHistoryStack ||
+              this.enableCometRouter ||
+              (window.addEventListener("popstate", this.$5),
+              window.addEventListener("visibilitychange", this.$11));
+          }),
           (n.attachAndTriggerPopStateHandler = function () {
             this.disableHistoryStack ||
               (window.addEventListener("popstate", this.$5),
-              window.addEventListener("visibilitychange", this.$6),
-              this.$7(window.history.state));
+              window.addEventListener("visibilitychange", this.$11),
+              this.$6(window.history.state));
           }),
           (n.push = function (t, n) {
             this.open(t, !0, n);
@@ -414,7 +416,7 @@ __d(
               (e.onExit("back"), e.dismiss());
             }
           }),
-          (n.$8 = function (t) {
+          (n.$7 = function (t) {
             var e = this.currentScreenPointer,
               n = babelHelpers.extends({}, e, t);
             return e.isModal && !n.isModal
@@ -434,7 +436,7 @@ __d(
                       : "back";
           }),
           (n.$15 = function (t) {
-            var e = this.$8(t);
+            var e = this.$7(t);
             (e === "back" && !this.disableHistoryStack) ||
               (this.currentScreenPointer = babelHelpers.extends(
                 {},
@@ -467,14 +469,14 @@ __d(
               modalIndex: -1,
             });
           }),
-          (n.$9 = function (t) {
+          (n.$8 = function (t) {
             var e;
             return !this.$2 || t == null
               ? !0
               : ((e = t.options) == null ? void 0 : e.isModal) === !0 ||
                   t.getIsOverlay() === !0;
           }),
-          (n.$10 = function (t) {
+          (n.$9 = function (t) {
             var e, n;
             !o("WebBloksSSRUtils").canUseDOM ||
               !this.$2 ||
@@ -491,7 +493,7 @@ __d(
             this.$3 != null &&
               (window.cancelAnimationFrame(this.$3), (this.$3 = null));
           }),
-          (n.$11 = function () {
+          (n.$10 = function () {
             var e = this;
             !this.$2 ||
               !o("WebBloksSSRUtils").canUseDOM ||
@@ -516,7 +518,7 @@ __d(
             if (
               !(
                 !o("WebBloksSSRUtils").canUseDOM ||
-                this.$9(this.getCurrentScreen())
+                this.$8(this.getCurrentScreen())
               )
             ) {
               var t = this.getCurrentScreen();
@@ -527,7 +529,7 @@ __d(
           }),
           (n.$30 = function () {
             !o("WebBloksSSRUtils").canUseDOM ||
-              this.$9(this.getCurrentScreen()) ||
+              this.$8(this.getCurrentScreen()) ||
               this.$31(0);
           }),
           (n.$31 = function (t) {

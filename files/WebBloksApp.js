@@ -65,6 +65,7 @@ __d(
       c(
         function () {
           return (
+            L.navigationManager.attachNavigationListeners(),
             L.navigationManager.screenChangeListener.on(D),
             function () {
               (L.navigationManager.screenChangeListener.off(D),

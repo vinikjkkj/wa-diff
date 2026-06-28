@@ -250,7 +250,7 @@ __d(
           var f = r("WAWebGetBusinessNameFromMsg")(e);
           return r("WAWebDisplayedNameIsBizName")(t.remote, f)
             ? s._(
-                /*BTDS*/ "This chat is with{businessName}'s verified account.",
+                /*BTDS*/ "This chat is with {businessName}'s verified account.",
                 [s._param("businessName", f)],
               )
             : s._(

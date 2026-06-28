@@ -1663,6 +1663,8 @@ __d(
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:
         "proactive_results_delivery_skipped_not_opted_in",
       SGC_OPTIMIZATION_SCHEDULED: "sgc_optimization_scheduled",
+      SGC_TOGGLE_IMPRESSION: "sgc_toggle_impression",
+      SGC_TOGGLE_INTERACTION: "sgc_toggle_interaction",
       PROACTIVE_MESSAGE_SENT: "proactive_message_sent",
       PROACTIVE_PIPELINE_ELIGIBLE: "proactive_pipeline_eligible",
       PROACTIVE_PIPELINE_FETCH: "proactive_pipeline_fetch",

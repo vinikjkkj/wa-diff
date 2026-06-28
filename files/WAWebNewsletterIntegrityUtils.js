@@ -64,7 +64,7 @@ __d(
       );
     }
     function h(e) {
-      return s._(/*BTDS*/ "Date requested : {review_request_date}", [
+      return s._(/*BTDS*/ "Date requested: {review_request_date}", [
         s._param(
           "review_request_date",
           o("WAWebDSADateUtils").getDSADateDisplayString(e.toString()),

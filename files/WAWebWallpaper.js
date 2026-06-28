@@ -189,11 +189,11 @@ __d(
           opacity: "0.17",
           invertTransparentWallpaperColors: !0,
           getColorName: function () {
-            return s._(/*BTDS*/ "Mandarian orange");
+            return s._(/*BTDS*/ "Mandarin orange");
           },
           getAriaLabel: function () {
             return s._(
-              /*BTDS*/ "Color: Mandarian orange, Color hex: #922040, hue: Orange",
+              /*BTDS*/ "Color: Mandarin orange, Color hex: #922040, hue: Orange",
             );
           },
         },
