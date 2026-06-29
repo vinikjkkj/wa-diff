@@ -201,6 +201,12 @@ __d(
       ai_rich_response_reasoning_enabled: [15589, "bool", !1, !1],
       ai_rich_response_remove_grouped_citations_count: [31010, "bool", !1, !1],
       ai_rich_response_side_by_side_survey_enabled: [17408, "bool", !1, !1],
+      ai_rich_response_tee_forwarding_verification_enforcement_v1: [
+        32551,
+        "string",
+        "none",
+        "none",
+      ],
       ai_rich_response_unknown_sender_preview_enabled: [27355, "bool", !1, !1],
       ai_rich_response_unknown_sender_verification_masking_enabled: [
         27635,
@@ -440,6 +446,7 @@ __d(
       calling_screen_share_milestone_version: [30350, "int", 2, 2],
       calling_ux_logging_bitmap: [8175, "int", 0, 0],
       calling_voicemail_attached_icce_enabled: [30383, "int", 0, 0],
+      calling_voicemail_enabled: [17685, "bool", !1, !1],
       calling_voicemail_quoted_replies_enabled: [30165, "bool", !1, !1],
       calls_tab_username_global_search_enabled: [17698, "bool", !1, !1],
       camera_error_banners_version: [10584, "int", 0, 1],
@@ -1998,6 +2005,7 @@ __d(
         1440,
         1440,
       ],
+      scheduled_messages_photo_video_sender_enabled: [32553, "bool", !1, !1],
       scheduled_messages_receiver_enabled: [24610, "bool", !1, !1],
       scheduled_messages_sender_enabled: [23845, "bool", !1, !1],
       scheduled_messages_window_duration_max_seconds: [
@@ -2106,7 +2114,7 @@ __d(
         9197,
         "bool",
         !1,
-        !1,
+        !0,
       ],
       smb_hide_unsupported_currency_price: [1203, "bool", !1, !0],
       smb_label_sync_critical_event_logging: [24311, "bool", !1, !0],
@@ -2168,6 +2176,7 @@ __d(
       smb_waldo_service_offerings_selection_enabled: [3285, "bool", !1, !0],
       smb_web_category_search_via_graph_enabled: [28519, "bool", !1, !1],
       smb_web_customer_management_enabled: [26165, "bool", !1, !1],
+      smb_web_customer_manager_bulk_edit_enabled: [32550, "bool", !1, !0],
       smb_web_customer_manager_date_range_filter_enabled: [
         32096,
         "bool",
@@ -2414,6 +2423,7 @@ __d(
       ],
       voice_ai_conversation_starter_latency_tracking: [19624, "bool", !1, !1],
       voice_chat_companion_experience_version: [17052, "int", 0, 0],
+      voicemail_nudge_duration_ms: [18339, "int", 4e3, 4e3],
       voip_call_coordinator_version: [9502, "int", 0, 0],
       voip_enable_webrtc_stats_polling: [26744, "bool", !0, !0],
       voip_stack_incoming_message_ownership_transfer: [16481, "bool", !1, !1],

@@ -1,6 +1,7 @@
 __d(
   "RelayFBJsonParser",
   [
+    "ExecutionEnvironment",
     "GHLDetectionUtils",
     "GHLDetectionUtilsPreludeSafe",
     "GHLTypenameRestore",
@@ -9,28 +10,32 @@ __d(
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = {
-        parse: function (t) {
+    var e,
+      s = {
+        parse: function (a) {
           r("gkx")("23983") &&
             r("justknobx")._("5588") &&
             o("GHLDetectionUtils").isStringShimmed() &&
             o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
-          var e = r("gkx")("15342") && r("justknobx")._("566"),
-            a;
+          var t =
+              (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+              r("gkx")("15342") &&
+              r("justknobx")._("566"),
+            i;
           return (
             n("cr:7329") &&
-            (e
+            (t
               ? o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed()
               : o("GHLDetectionUtils").isJSONParseShimmed())
-              ? (a = n("cr:7329").parse(t))
-              : (a = JSON.parse(t)),
-            a != null && o("GHLTypenameRestore").restoreAllTypenames(a, t),
-            a
+              ? (i = n("cr:7329").parse(a))
+              : (i = JSON.parse(a)),
+            i != null && o("GHLTypenameRestore").restoreAllTypenames(i, a),
+            i
           );
         },
       },
-      s = e;
-    l.default = s;
+      u = s;
+    l.default = u;
   },
   98,
 );

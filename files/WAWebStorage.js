@@ -9,7 +9,6 @@ __d(
     "WAWebGetSpecialAbProps",
     "WAWebIdbLazyView",
     "WAWebIndexedDB",
-    "WAWebLogForCrash",
     "WAWebMiscErrors",
     "WAWebProfiler",
     "WAWebRuntimeEnvironmentUtils",
@@ -20,7 +19,6 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "err",
-    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,12 +29,11 @@ __d(
       d,
       m,
       p,
-      _ = r("gkx")("22011"),
-      f = 1,
-      g = 2,
-      h = 4,
-      y = { packColumns: !1 },
-      C = (function (e) {
+      _ = 1,
+      f = 2,
+      g = 4,
+      h = { packColumns: !1 },
+      y = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -49,7 +46,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      b = (function (e) {
+      C = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -62,7 +59,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      v = (function (e) {
+      b = (function (e) {
         function t(t) {
           var n;
           return (
@@ -82,7 +79,7 @@ __d(
           t
         );
       })(babelHelpers.wrapNativeSuper(Error)),
-      S = (function (e) {
+      v = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -95,7 +92,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      R = (function (e) {
+      S = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -108,17 +105,17 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      L = (function () {
+      R = (function () {
         function t(e, t) {
           ((this.tables = new Map()),
             (this.views = new Map()),
-            (this.state = f),
+            (this.state = _),
             (this.versions = new (o(
               "WAWebStorageVersionManager",
             ).StorageVersionManager)()),
             (this.errorHandlers = new Map()),
             (this.$1 = e),
-            (this.config = t != null ? t : y),
+            (this.config = t != null ? t : h),
             this.$2());
         }
         var a = t.prototype;
@@ -133,7 +130,7 @@ __d(
           }),
           (a.add = function (n) {
             if (this.tables.has(n))
-              throw new b(
+              throw new C(
                 'Table "' + n + '" already added. Reuse the definition.',
               );
             var t = o("WAWebSchemaVersions").DatabaseNames.cast(
@@ -203,8 +200,8 @@ __d(
           (a.$5 = function (t) {
             var e = this;
             return function () {
-              if (e.state & (g | f))
-                throw new R(
+              if (e.state & (f | _))
+                throw new S(
                   "Storage must be initialized before accessing a table!",
                 );
               return t();
@@ -214,12 +211,12 @@ __d(
             var e = this,
               n = this.tables.get(t);
             if (!n || !n.tableExists())
-              throw new S(
+              throw new v(
                 "Unknown table " + t + " requested, ensure table is defined!",
               );
             var o = this.$3();
             if (!o)
-              throw new v(
+              throw new b(
                 'Unable to find associated database with table "' + t + '"',
               );
             return new (r("WAWebIdbLazyView"))(
@@ -233,9 +230,9 @@ __d(
           (a.lock = function (t, r) {
             var e = this,
               o;
-            if (this.state & (g | f))
+            if (this.state & (f | _))
               return (p || (p = n("Promise"))).reject(
-                new R("Initialize storage before attempting to lock tables!"),
+                new S("Initialize storage before attempting to lock tables!"),
               );
             for (var a = 0; a < t.length; ++a) {
               var i;
@@ -247,13 +244,13 @@ __d(
                 )
               )
                 return (p || (p = n("Promise"))).reject(
-                  new S('Requested lock of unknown table "' + t[a] + '"'),
+                  new v('Requested lock of unknown table "' + t[a] + '"'),
                 );
             }
             var l = t.map(function (t) {
                 var n = e.tables.get(t);
                 if (n) return n;
-                throw new S('Requested lock of unknown table "' + t + '"');
+                throw new v('Requested lock of unknown table "' + t + '"');
               }),
               s = l.map(function (t) {
                 return e.$4(t);
@@ -335,12 +332,12 @@ __d(
           }),
           (a.initialize = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.state & h)
-                throw new C("Storage instance has already been initialized");
+              if (this.state & g)
+                throw new y("Storage instance has already been initialized");
               if ((this.versions.validate(), this.$1))
                 yield this.$1.available();
               else
-                throw new v(
+                throw new b(
                   '"' +
                     this.$1.constructor.name +
                     '" failed availability check!',
@@ -375,25 +372,19 @@ __d(
                     r,
                   );
                   var a = r == null || r < 0;
-                  (o("WAWebLogForCrash").onLogForCrashReady(function () {
-                    o("WAWebLogForCrash").logForCrash(
-                      "wa_web_storage_skip_versions_for_new_db",
-                      _,
-                    );
-                  }),
-                    ((_ && a) || r === this.versions.getMax()) &&
-                      (o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[storage] applying latest v",
-                            " db=",
-                            "",
-                          ])),
-                        this.versions.getMax(),
-                        t.getDbName(),
-                      ),
-                      yield this.$7(t, this.versions.getMax(), e),
-                      (n = !1)));
+                  (a || r === this.versions.getMax()) &&
+                    (o("WALogger").LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[storage] applying latest v",
+                          " db=",
+                          "",
+                        ])),
+                      this.versions.getMax(),
+                      t.getDbName(),
+                    ),
+                    yield this.$7(t, this.versions.getMax(), e),
+                    (n = !1));
                 }
                 if (n) {
                   o("WALogger").LOG(
@@ -409,7 +400,7 @@ __d(
                   for (var i = 0; i <= this.versions.getMax(); i++)
                     yield this.$7(t, i, e);
                 }
-                (yield t.open(), (this.state = h));
+                (yield t.open(), (this.state = g));
               }
             });
             function t() {
@@ -419,7 +410,7 @@ __d(
           })()),
           (a.purge = function () {
             return (
-              (this.state = g),
+              (this.state = f),
               (this.views = new Map()),
               this.$3()
                 .reset()
@@ -441,10 +432,10 @@ __d(
           t
         );
       })();
-    ((l.AlreadyInitializedError = C),
-      (l.NoSuchDatabaseError = v),
-      (l.NoSuchTableError = S),
-      (l.Storage = L));
+    ((l.AlreadyInitializedError = y),
+      (l.NoSuchDatabaseError = b),
+      (l.NoSuchTableError = v),
+      (l.Storage = R));
   },
   98,
 );

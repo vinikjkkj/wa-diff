@@ -13,7 +13,6 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebHandlePushnameUpdate",
     "WAWebUserPrefsMeUser",
-    "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -110,12 +109,7 @@ __d(
             o("WAWebBackendApi").frontendFireAndForget("setGroupMetadata", r),
             o("WAWebBackendApi").frontendFireAndForget("markProfilePicStale", {
               profilePicThumbWid: y,
-            }),
-            !d &&
-              o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-                "maybeSendKeyDistributionMsgToNewGroup",
-                { groupId: y },
-              ));
+            }));
         })),
         m.apply(this, arguments)
       );

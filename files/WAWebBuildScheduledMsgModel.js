@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebAck",
-    "WAWebExtractEphemeralFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
@@ -61,9 +60,6 @@ __d(
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
           body: a,
         },
-        o(
-          "WAWebExtractEphemeralFieldsFromScheduledMsg",
-        ).extractEphemeralFieldsFromScheduledMsg(n, l),
         o(
           "WAWebExtractMentionFieldsFromScheduledMsg",
         ).extractMentionFieldsFromScheduledMsg(n),

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebBackendJobsCommon",
     "WAWebE2EProtoUtils",
     "WAWebMessagingGatingUtils",
     "WAWebProtobufsE2E.pb",
@@ -79,11 +80,7 @@ __d(
                   encPayload: y,
                   revealKeyId: d,
                 },
-                messageContextInfo: {
-                  messageSecret: self.crypto.getRandomValues(
-                    new Uint8Array(32),
-                  ),
-                },
+                messageContextInfo: { messageSecret: new Uint8Array(p) },
               },
               v = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
                 chatId: n,
@@ -154,19 +151,21 @@ __d(
           var l = o("WAWebWidToJid").widToChatJid(r),
             s = o("WATimeUtils").castToUnixTime(i),
             u = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(t),
-            d = yield c(n.data.id.toString(), l, t, s);
+            d = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(t),
+            m = yield c(n.data.id.toString(), l, t, s);
           return (
-            (n.data.messageSecret = d.innerMessageSecret),
-            d.reportingTokenContent != null &&
-              (n.data.reportingTokenContent = d.reportingTokenContent),
+            (n.data.messageSecret = m.innerMessageSecret),
+            m.reportingTokenContent != null &&
+              (n.data.reportingTokenContent = m.reportingTokenContent),
             {
-              msgProtobuf: d.wrappedProtobuf,
+              msgProtobuf: m.wrappedProtobuf,
               scheduledMsgMetadata: {
                 kind: "schedule",
-                scheduledTimestampS: d.scheduledTimestampS,
-                revealKeyId: d.revealKeyId,
-                revealKey: d.revealKey,
+                scheduledTimestampS: m.scheduledTimestampS,
+                revealKeyId: m.revealKeyId,
+                revealKey: m.revealKey,
                 originalStanzaType: u,
+                originalMediaType: d,
               },
             }
           );

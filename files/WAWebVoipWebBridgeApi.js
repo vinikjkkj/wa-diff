@@ -4,6 +4,7 @@ __d(
     "fbt",
     "Promise",
     "WALogger",
+    "WATimeUtils",
     "WAWebAvUpgradeBannerState",
     "WAWebCallAcceptedElsewhereNotificationDeferral",
     "WAWebCallCollection",
@@ -21,6 +22,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebNotificationBackend",
     "WAWebNotificationsCallNotification",
+    "WAWebNotificationsMissedCallTracker",
     "WAWebParticipantListUtils",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -1093,6 +1095,11 @@ __d(
               e,
             ),
             G(i, e)),
+          e === o("WAWebVoipWaCallEnums").CallLogResult.Missed &&
+            document.hidden &&
+            o("WAWebNotificationsMissedCallTracker").markCallMissedWhileHidden(
+              o("WATimeUtils").unixTime(),
+            ),
           o("WAWebVoipCallSurveyState").shouldShowSurveyBasedOnInterval(a) &&
             (o("WALogger").LOG(
               $ ||

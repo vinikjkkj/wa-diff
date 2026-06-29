@@ -129,36 +129,55 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r, o, a, i, l, s, u) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s, u, c) {
-            (i === void 0 && (i = o("WAWebStickerPackConstants").PADDING),
-              l === void 0 &&
-                (l = o("WAWebStickerPackConstants").THUMBNAIL_LENGTH),
-              s === void 0 &&
-                (s = o("WAWebStickerPackConstants").THUMBNAIL_WIDTH),
-              u === void 0 && (u = o("WAWebStickerPackConstants").IMAGE_LENGTH),
-              c === void 0 && (c = o("WAWebStickerPackConstants").IMAGE_WIDTH));
-            for (var d = n, m = r, p = 0; p < t; p++) {
-              var _ = e[p],
-                f = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-                  _.mediaData.filehash,
-                );
-              if (f != null) {
-                var g = window.URL.createObjectURL(f),
-                  h = yield o("WAWebMediaLoad").loadImage(g);
-                (a.drawImage(h, d, m, u, c),
-                  (d += l / 2 - i),
-                  p % 2 !== 0 &&
-                    ((d = t === 3 ? l / 2 - u / 2 : i), (m = s / 2 + i)));
-              }
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          for (
+            var t = e.context,
+              n = e.gap,
+              r = n === void 0 ? o("WAWebStickerPackConstants").PADDING : n,
+              a = e.imageL,
+              i =
+                a === void 0 ? o("WAWebStickerPackConstants").IMAGE_LENGTH : a,
+              l = e.imageW,
+              s = l === void 0 ? o("WAWebStickerPackConstants").IMAGE_WIDTH : l,
+              u = e.recentStickers,
+              c = e.stickerCount,
+              d = e.thumbL,
+              m =
+                d === void 0
+                  ? o("WAWebStickerPackConstants").THUMBNAIL_LENGTH
+                  : d,
+              p = e.thumbW,
+              _ =
+                p === void 0
+                  ? o("WAWebStickerPackConstants").THUMBNAIL_WIDTH
+                  : p,
+              f = e.x,
+              g = e.y,
+              h = f,
+              y = g,
+              C = 0;
+            C < c;
+            C++
+          ) {
+            var b = u[C],
+              v = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+                b.mediaData.filehash,
+              );
+            if (v != null) {
+              var S = window.URL.createObjectURL(v),
+                R = yield o("WAWebMediaLoad").loadImage(S);
+              (t.drawImage(R, h, y, i, s),
+                (h += m / 2 - r),
+                C % 2 !== 0 &&
+                  ((h = c === 3 ? m / 2 - i / 2 : r), (y = _ / 2 + r)));
             }
-          },
-        )),
+          }
+        })),
         p.apply(this, arguments)
       );
     }
@@ -205,18 +224,18 @@ __d(
                 break;
             }
             return (
-              yield m(
-                s,
-                u,
-                c,
-                d,
-                l,
-                o("WAWebStickerPackConstants").PADDING,
-                t,
-                n,
-                r,
-                a,
-              ),
+              yield m({
+                context: l,
+                gap: o("WAWebStickerPackConstants").PADDING,
+                imageL: r,
+                imageW: a,
+                recentStickers: s,
+                stickerCount: u,
+                thumbL: t,
+                thumbW: n,
+                x: c,
+                y: d,
+              }),
               i
             );
           },

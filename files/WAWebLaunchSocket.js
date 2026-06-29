@@ -124,7 +124,8 @@ __d(
           var n = e.setWorkerSafeHandlers;
           return n(t);
         }),
-        o("WAWebFtsClient").ftsClient.initialize(),
+        o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
+          o("WAWebFtsClient").ftsClient.initialize(),
         o("WAWebStartBackend").setupStartBackendListeners(),
         o("WAWebDbRolloutUtil")
           .loadSchemaVersions()

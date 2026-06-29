@@ -95,14 +95,13 @@ __d(
         "WAWebSocketModel",
       ),
       U = r("gkx")("17999"),
-      V = r("gkx")("9038"),
-      H = [
+      V = [
         (W = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
         W.LogoutReason.WebFailEncSalt,
         W.LogoutReason.WebFailOfflineResume,
         W.LogoutReason.WebFailStorageInitialization,
       ],
-      G = (function (t) {
+      H = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -132,14 +131,10 @@ __d(
               a;
             ((this.clearAppStatesDeferred = q.load()),
               o("WAWebLogForCrash").onLogForCrashReady(function () {
-                (o("WAWebLogForCrash").logForCrash(
+                o("WAWebLogForCrash").logForCrash(
                   "wa_web_clean_up_state_in_async_gk",
                   U,
-                ),
-                  o("WAWebLogForCrash").logForCrash(
-                    "wa_web_skip_in_memory_app_state_cleanup",
-                    V,
-                  ));
+                );
               }),
               o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
@@ -289,7 +284,7 @@ __d(
                 }
                 var l = !1;
                 if (
-                  (e != null && H.includes(e) && (l = !0),
+                  (e != null && V.includes(e) && (l = !0),
                   this.$SocketImpl$p_4(),
                   (l = yield this.clearCredentials()),
                   this.$SocketImpl$p_6())
@@ -643,7 +638,7 @@ __d(
               var e = !1;
               this.unset("hasSynced");
               try {
-                yield r("nullthrows")(yield this.clearAppStatesDeferred)(U, V);
+                yield r("nullthrows")(yield this.clearAppStatesDeferred)(U);
               } catch (n) {
                 e = !0;
                 var t = r("getErrorSafe")(n);
@@ -667,7 +662,7 @@ __d(
                       .sendLogs("clear_session_app_state");
               }
               try {
-                yield K();
+                yield j();
               } catch (t) {
                 e = !0;
                 var n = r("getErrorSafe")(t);
@@ -747,14 +742,14 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      z = o("WAWebBaseModel").defineModel(G),
-      j = new z();
-    function K() {
-      return Q.apply(this, arguments);
+      G = o("WAWebBaseModel").defineModel(H),
+      z = new G();
+    function j() {
+      return K.apply(this, arguments);
     }
-    function Q() {
+    function K() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield (B || (B = n("Promise"))).allSettled([
             r("WAWebDeleteAllCacheStorage")(),
             o("WAWebMediaStore").LruMediaStore.clear(),
@@ -766,10 +761,10 @@ __d(
                 : r("err")(String(e.reason));
           });
         })),
-        Q.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    l.Socket = j;
+    l.Socket = z;
   },
   98,
 );

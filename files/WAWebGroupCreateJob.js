@@ -205,37 +205,44 @@ __d(
                   ts: o("WATimeUtils").castToUnixTime($),
                   participants: r("compactMap")(w, function (e) {
                     var t,
-                      n =
+                      n,
+                      r =
                         e.createParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup;
-                    if (n.name === "CreateParticipantAddedResponse") {
-                      var r = n.value.jid,
-                        a = n.value.createParticipantMixins,
-                        i =
-                          (t = n.value.usernameAttMixin) == null
+                    if (r.name === "CreateParticipantAddedResponse") {
+                      var a = r.value.jid,
+                        i = r.value.createParticipantMixins,
+                        l =
+                          (t = r.value.usernameAttMixin) == null
                             ? void 0
                             : t.username;
                       if (
                         !(
-                          r == null ||
                           a == null ||
-                          (a.name === "ParticipantRequestCodeCanBeSent" &&
-                            a.value.participantNotAddressableMixin != null)
+                          i == null ||
+                          (i.name === "ParticipantRequestCodeCanBeSent" &&
+                            i.value.participantNotAddressableMixin != null)
                         )
                       ) {
-                        var l = a.value,
-                          s = l.addRequestCode,
-                          u = l.addRequestExpiration,
-                          c = l.error,
-                          d = l.type;
+                        var s = i.value,
+                          u = s.addRequestCode,
+                          c = s.addRequestExpiration,
+                          d = s.error,
+                          m = s.type,
+                          p =
+                            i.name === "CreateParticipantAdded" &&
+                            (n = i.value.joinTime) != null
+                              ? n
+                              : null;
                         return {
-                          wid: o("WAWebJidToWid").userJidToUserWid(r),
-                          username: i,
-                          error: c != null ? Number(c) : null,
+                          wid: o("WAWebJidToWid").userJidToUserWid(a),
+                          username: l,
+                          error: d != null ? Number(d) : null,
                           type: o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES[
-                            d != null ? d : "participant"
+                            m != null ? m : "participant"
                           ],
-                          invite_code: s,
-                          invite_code_exp: u != null ? String(u) : void 0,
+                          invite_code: u,
+                          invite_code_exp: c != null ? String(c) : void 0,
+                          joinTime: p,
                         };
                       }
                     }

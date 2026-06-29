@@ -112,50 +112,53 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(e, t, n, r, o, a, i, l) {
+    function y(e, t, n, r, o, a, i, l, s) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s) {
-            var u, c, d, m;
-            (u = l.sendPerfReporter) == null || u.startClientEncryptStage();
-            var p = o("WAWebSendMsgCommonApi").encodeAndPad(a),
-              _ = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(a),
+          function* (e, t, n, r, a, i, l, s, u) {
+            var c, d, m, p;
+            (c = l.sendPerfReporter) == null || c.startClientEncryptStage();
+            var _ = o("WAWebSendMsgCommonApi").encodeAndPad(a),
               f =
-                o("WAWebBotBaseGating").isBotEnabled() &&
-                ((c = e.invokedBotWid) == null ? void 0 : c.isBot()) === !0,
+                (u == null ? void 0 : u.kind) === "schedule"
+                  ? u.originalMediaType
+                  : o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(a),
               g =
                 o("WAWebBotBaseGating").isBotEnabled() &&
+                ((d = e.invokedBotWid) == null ? void 0 : d.isBot()) === !0,
+              h =
+                o("WAWebBotBaseGating").isBotEnabled() &&
                 o("WAWebMsgGetters").getIsBotFeedbackMessage(e),
-              h = o("WAWebMsgGetters").getIsRevokeForMsgFromOrDeliveredToBot(e),
-              y = yield o("WAWebEncryptMsgProtobuf").encryptMsgSenderKey(
+              y = o("WAWebMsgGetters").getIsRevokeForMsgFromOrDeliveredToBot(e),
+              C = yield o("WAWebEncryptMsgProtobuf").encryptMsgSenderKey(
                 e,
                 t,
-                p,
+                _,
                 i,
               ),
-              C = y.ciphertext,
-              b = y.senderKeyBytes,
-              v;
+              b = C.ciphertext,
+              v = C.senderKeyBytes,
+              S;
             (n.length > 0 &&
-              (v = yield o(
+              (S = yield o(
                 "WAWebGetGroupKeyDistributionMsg",
-              ).getKeyDistributionMsg(e, t, n, b, !1)),
-              (d = l.sendPerfReporter) == null || d.postClientEncryptStage());
-            var S = null,
-              R = !1;
-            v && v.length > 0 && !g
-              ? (S = o("WAWap").wap(
+              ).getKeyDistributionMsg(e, t, n, v, !1)),
+              (m = l.sendPerfReporter) == null || m.postClientEncryptStage());
+            var R = null,
+              E = !1;
+            S && S.length > 0 && !h
+              ? (R = o("WAWap").wap(
                   "participants",
                   null,
-                  v.map(function (e) {
+                  S.map(function (e) {
                     var t = e.ciphertext,
                       n = e.participant,
                       r = e.type;
                     r === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
-                      (R = !0);
+                      (E = !0);
                     var i =
                         s == null
                           ? void 0
@@ -195,7 +198,7 @@ __d(
                   }),
                 ))
               : s != null &&
-                (S = o("WAWap").wap(
+                (R = o("WAWap").wap(
                   "participants",
                   null,
                   r.map(function (e) {
@@ -216,7 +219,7 @@ __d(
                       : null;
                   }),
                 ));
-            var E = g
+            var k = h
                 ? null
                 : o("WAWap").wap(
                     "enc",
@@ -231,7 +234,7 @@ __d(
                       ),
                       mediatype: o(
                         "WAWebBackendJobsCommon",
-                      ).encodeMaybeMediaType(_),
+                      ).encodeMaybeMediaType(f),
                       "decrypt-fail": o(
                         "WAWebBackendJobsCommon",
                       ).encodeMaybeDecryptFail(
@@ -240,28 +243,28 @@ __d(
                         ).decryptFailAttributeFromProtobuf(a),
                       ),
                     },
-                    C,
+                    b,
                   ),
-              k = null,
-              I =
-                f ||
+              I = null,
+              T =
                 g ||
                 h ||
+                y ||
                 (o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
                   i.isOpenBotGroup === !0)
-                  ? yield L(e, a, (m = i.isOpenBotGroup) != null ? m : !1)
+                  ? yield L(e, a, (p = i.isOpenBotGroup) != null ? p : !1)
                   : [null, !1],
-              T = I[0],
-              D = I[1];
-            if (R || D) {
-              var x = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
-              k = o("WAWap").wap("device-identity", null, x);
+              D = T[0],
+              x = T[1];
+            if (E || x) {
+              var $ = yield o("WAWebAdvSignatureApi").getADVEncodedIdentity();
+              I = o("WAWap").wap("device-identity", null, $);
             }
             return {
-              keyDistributionMsg: S,
-              skeyEncryptedGroupMsg: E,
-              identityNode: k,
-              botMsgNode: T,
+              keyDistributionMsg: R,
+              skeyEncryptedGroupMsg: k,
+              identityNode: I,
+              botMsgNode: D,
             };
           },
         )),
@@ -347,7 +350,7 @@ __d(
               N &&
                 (yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(x, F)),
               yield g({ groupData: i, metricReporter: l, skDistribList: M }));
-            var W = yield y($, x, M, w, t, i, l, h),
+            var W = yield y($, x, M, w, t, i, l, h, C),
               q = W.botMsgNode,
               U = W.identityNode,
               V = W.keyDistributionMsg,

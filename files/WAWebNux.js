@@ -51,6 +51,7 @@ __d(
       CONTACT_INFO_FIELDS_INTRO: "contact_info_fields_intro",
       NEWSLETTER_STATUS_INTRO: "newsletter_status_intro",
       NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",
+      NOTIFICATIONS_OPT_IN: "notifications_opt_in",
     };
     function l(e) {
       return "community_admin_promote_" + e;

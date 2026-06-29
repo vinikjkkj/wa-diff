@@ -112,10 +112,7 @@ __d(
                         chat: o("WAWebWidFactory").createWid(
                           o("WAJids").STATUS_JID,
                         ),
-                        author: r("nullthrows")(
-                          a,
-                          "HistorySync:handleStatusMessages: missing author",
-                        ),
+                        author: a,
                         pushname: null,
                         isDirect: !1,
                       };

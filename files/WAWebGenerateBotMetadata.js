@@ -233,13 +233,11 @@ __d(
                         .RICH_RESPONSE_SIDE_BY_SIDE_SURVEY,
                     ]
                   : [],
-                o("WAWebBotGating").isRichResponseReasoningEnabled()
-                  ? [
-                      o("WAWebProtobufsAICommon.pb")
-                        .BotCapabilityMetadata$BotCapabilityType
-                        .RICH_RESPONSE_UR_REASONING,
-                    ]
-                  : [],
+                [
+                  o("WAWebProtobufsAICommon.pb")
+                    .BotCapabilityMetadata$BotCapabilityType
+                    .RICH_RESPONSE_UR_REASONING,
+                ],
               )
             : [],
           o(

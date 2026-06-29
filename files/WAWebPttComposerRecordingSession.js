@@ -27,6 +27,7 @@ __d(
     "WAWebMediaCapture",
     "WAWebMediaCaptureStreamType",
     "WAWebMediaGetUploadOriginForChat",
+    "WAWebMediaHosts",
     "WAWebMediaLoad",
     "WAWebMediaOpaqueData",
     "WAWebMiscErrors",
@@ -212,23 +213,26 @@ __d(
                   var R = yield o(
                       "WAMediaCalculateFilehash",
                     ).getRandomFilehash(),
-                    L = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)({
-                      encFilehash: R,
-                      token: R,
-                      type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
-                      signal: S.signal,
-                      byteOffset: 0,
-                      onUploadHostFound: y,
-                      onUploadAttemptSuccess: g,
-                      onUploadAttemptError: f,
-                      onProgress: function (t, n) {
-                        C(t.loaded + n);
+                    L = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)(
+                      {
+                        encFilehash: R,
+                        token: R,
+                        type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PTT,
+                        signal: S.signal,
+                        byteOffset: 0,
+                        onUploadHostFound: y,
+                        onUploadAttemptSuccess: g,
+                        onUploadAttemptError: f,
+                        onProgress: function (t, n) {
+                          C(t.loaded + n);
+                        },
+                        onStreamUploadStart: u,
+                        mediaId: o(
+                          "WAWebWamMediaMetricUtils",
+                        ).generateMediaEventId(),
                       },
-                      onStreamUploadStart: u,
-                      mediaId: o(
-                        "WAWebWamMediaMetricUtils",
-                      ).generateMediaEventId(),
-                    });
+                      o("WAWebMediaHosts").mediaHosts,
+                    );
                   (L.startUploadFromClient(),
                     (this._encryptor = yield o(
                       "WAWebPttComposerStreamingEncryptor",

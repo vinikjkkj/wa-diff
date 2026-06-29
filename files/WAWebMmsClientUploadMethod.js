@@ -35,11 +35,11 @@ __d(
       }
       function i() {
         return (
-          (i = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n = t.encFilehash,
-              a = t.onUploadAttemptSuccess,
-              i = t.type,
-              c = { encFilehash: n, type: i };
+          (i = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
+            var a = n.encFilehash,
+              i = n.onUploadAttemptSuccess,
+              c = n.type,
+              d = { encFilehash: a, type: c };
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -49,38 +49,41 @@ __d(
             try {
               if (
                 o("WAWebMmsClientUploadStreamer").shouldUseStreamingUpload(
-                  t.ciphertextHmac.byteLength,
-                  t.type,
+                  n.ciphertextHmac.byteLength,
+                  n.type,
                 )
               ) {
-                var d = t.ciphertextHmac,
-                  m = babelHelpers.objectWithoutPropertiesLoose(t, e),
-                  p = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)(m);
-                return yield p.uploadCompleteFile({ ciphertextHmac: d });
+                var m = n.ciphertextHmac,
+                  p = babelHelpers.objectWithoutPropertiesLoose(n, e),
+                  _ = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)(
+                    p,
+                    t.mediaHosts,
+                  );
+                return yield _.uploadCompleteFile({ ciphertextHmac: m });
               }
-              var _ = yield l(t),
-                f = _.response,
-                g = _.retryStartTime;
+              var f = yield l(n),
+                g = f.response,
+                h = f.retryStartTime;
               return (
-                a(Date.now() - g),
+                i(Date.now() - h),
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
                       "mmsClient.upload: success",
                     ])),
                 ),
-                r("WANullthrows")(f)
+                r("WANullthrows")(g)
               );
             } catch (e) {
-              var h = r("getErrorSafe")(e);
+              var y = r("getErrorSafe")(e);
               throw (
                 o("WAWebMmsClientMmsLogError").mmsLogError(
                   "mmsClient.upload",
-                  h,
-                  c,
+                  y,
+                  d,
                   !1,
                 ),
-                h
+                y
               );
             }
           })),

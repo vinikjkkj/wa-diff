@@ -344,27 +344,29 @@ __d(
         return [];
       var r = n.value.jid,
         a = n.value.addParticipantsParticipantMixins,
-        i = (t = n.value.usernameAttMixin) == null ? void 0 : t.username;
+        i = (t = n.value.usernameAttMixin) == null ? void 0 : t.username,
+        l = n.value.joinTime;
       if (
         r == null ||
         ((a == null ? void 0 : a.name) === "ParticipantRequestCodeCanBeSent" &&
           a.value.participantNotAddressableMixin != null)
       )
         return [];
-      var l = a == null ? void 0 : a.value.addRequestCode,
-        s = a == null ? void 0 : a.value.addRequestExpiration,
-        u = a == null ? void 0 : a.value.error;
+      var s = a == null ? void 0 : a.value.addRequestCode,
+        u = a == null ? void 0 : a.value.addRequestExpiration,
+        c = a == null ? void 0 : a.value.error;
       return [
         {
           userWid: o("WAWebJidToWid").userJidToUserWid(r),
           username: i != null ? i : null,
-          code: u != null ? u : "200",
+          code: c != null ? c : "200",
           subCode: {
             membershipApprovalRequestError:
               a == null ? void 0 : a.value.membershipApprovalRequestError,
           },
-          invite_code: l,
-          invite_code_exp: s != null ? String(s) : void 0,
+          invite_code: s,
+          invite_code_exp: u != null ? String(u) : void 0,
+          joinTime: l,
         },
       ];
     }

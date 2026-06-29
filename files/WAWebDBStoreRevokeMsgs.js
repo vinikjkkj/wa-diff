@@ -325,6 +325,7 @@ __d(
                               return;
                             }
                             if (
+                              e.skipRevokeWindow !== !0 &&
                               !o("WAWebRevoke").isWithinRevokeWindow({
                                 revokedMsgKey: r("WAWebMsgKey").fromString(
                                   c.id,

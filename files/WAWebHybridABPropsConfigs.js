@@ -489,6 +489,7 @@ __d(
       voice_chat_companion_experience_version: [17052, "int", 0, 0],
       voip_call_coordinator_version: [9502, "int", 0, 0],
       voip_stack_incoming_message_ownership_transfer: [16481, "bool", !1, !1],
+      wa_calling_bpn_self_pn_removal: [32546, "bool", !1, !1],
       wa_capping_local_data_logic_update: [21348, "bool", !1, !0],
       wa_individual_new_chat_msg_capping_enabled: [20865, "bool", !1, !0],
       wa_individual_new_chat_msg_capping_fetch_ttl_seconds: [

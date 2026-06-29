@@ -17,7 +17,6 @@ __d(
     "WAWebFtsClient",
     "WAWebGetNewChatMessageCappingInfoJob",
     "WAWebGetOrQueryUsyncInfoContactAction",
-    "WAWebGroupCreationKeyDistribution",
     "WAWebHandleHistorySyncNotification",
     "WAWebJobLoadQuickPromotions",
     "WAWebKeyManagementHandleKeyRequestApi",
@@ -213,12 +212,6 @@ __d(
           return o("WAWebGetOrQueryUsyncInfoContactAction").getOrQueryUsyncInfo(
             t,
           );
-        },
-        maybeSendKeyDistributionMsgToNewGroup: function (t) {
-          var e = t.groupId;
-          return o(
-            "WAWebGroupCreationKeyDistribution",
-          ).maybeSendKeyDistributionMsgToNewGroup(e);
         },
         processOrphanPaymentNotifications: function (t) {
           var e = t.msgs;

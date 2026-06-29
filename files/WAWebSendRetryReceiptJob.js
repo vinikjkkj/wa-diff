@@ -120,7 +120,8 @@ __d(
             var I = o("WAWap").DROP_ATTR,
               T = o("WAWap").DROP_ATTR,
               D = o("WAWap").DROP_ATTR,
-              x;
+              x,
+              $ = !1;
             if (C.isUser()) {
               if (
                 ((x = o("WAWebCommsWapMd").DEVICE_JID(C)),
@@ -128,7 +129,7 @@ __d(
                   o("WAWebWidFactory").asUserWidOrThrow(C),
                 ))
               )
-                if (l) I = "peer";
+                if (l) ((I = "peer"), ($ = !0));
                 else if (g) T = o("WAWebCommsWapMd").USER_JID(g);
                 else
                   return (c || (c = n("Promise"))).reject(
@@ -141,10 +142,12 @@ __d(
                 (D = m
                   ? o("WAWebCommsWapMd").DEVICE_JID(m)
                   : o("WAWap").DROP_ATTR));
-            var $ = o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(
-                _ != null ? _ : 0,
-              ),
-              P = o("WAWap").wap(
+            var P = $
+                ? null
+                : o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(
+                    _ != null ? _ : 0,
+                  ),
+              N = o("WAWap").wap(
                 "receipt",
                 {
                   id: o("WAWap").CUSTOM_STRING(a),
@@ -167,10 +170,10 @@ __d(
                   o("WAWap").BIG_ENDIAN_CONTENT(R),
                 ),
                 E,
-                $,
+                P,
               );
             return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
-              P,
+              N,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,
                 class: "receipt",

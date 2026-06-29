@@ -7,18 +7,13 @@ __d(
     "WAWebE2EProtoGenerator",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebMaibaWASSMigration",
-    "WAWebMessageSendPerfReporter",
-    "WAWebMessageSendReporter",
     "WAWebOutgoingMessage",
     "WAWebPnlessStanzaMigration",
     "WAWebScheduledMsgSenderJob",
-    "WAWebSendGroupKeyDistributionMsgJob",
     "WAWebSendGroupMsgJob",
     "WAWebSendTcTokenChatAction",
     "WAWebSendUserMsgJob",
     "WAWebSimpleSignalPNToFBIDMigration",
-    "WAWebWamEnumMediaType",
-    "WAWebWamEnumMessageType",
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "err",
@@ -120,54 +115,7 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            (yield o(
-              "WAWebEventsWaitForOfflineDeliveryEnd",
-            ).waitForOfflineDeliveryEnd(),
-            e.id)
-          ) {
-            if (!e.remote)
-              return (s || (s = n("Promise"))).reject(
-                r("err")("[messaging] sending message without an remote id"),
-              );
-          } else
-            return (s || (s = n("Promise"))).reject(
-              r("err")("[messaging] sending message without an id"),
-            );
-          if (e.remote.isGroup()) {
-            var t = o(
-                "WAWebMessageSendReporter",
-              ).createMessageSendMetricReporter({ messageIsInvisible: !0 }),
-              a = new (o(
-                "WAWebMessageSendPerfReporter",
-              ).MessageSendPerfReporter)({
-                chatWid: e.remote,
-                mediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
-                messageType: o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP,
-              });
-            return (
-              a.setMessageIsInvisible(!0),
-              o("WAWebSendGroupKeyDistributionMsgJob")
-                .encryptAndSendGroupKeyDistributionMsg(e, t)
-                .then(function () {
-                  (a.postWrittenWireStage(), t.post());
-                })
-            );
-          }
-          return (s || (s = n("Promise"))).reject(
-            r("err")("[messaging] unsupported remote jid type"),
-          );
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    ((l.encryptAndSendMsg = u), (l.encryptAndSendKeyDistributionMsg = d));
+    l.encryptAndSendMsg = u;
   },
   98,
 );

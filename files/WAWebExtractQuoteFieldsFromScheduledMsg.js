@@ -1,6 +1,6 @@
 __d(
   "WAWebExtractQuoteFieldsFromScheduledMsg",
-  ["WAWebDecodeJid", "WAWebQuotedMessageProtoUtils"],
+  ["WAWebDecodeJid", "WAWebLidMigrationUtils", "WAWebQuotedMessageProtoUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n,
@@ -8,7 +8,7 @@ __d(
       if (r == null) return {};
       var a = {},
         i = r.quotedMessage;
-      (i != null &&
+      i != null &&
         i.reactionMessage == null &&
         (a.quotedMsg = o("WAWebQuotedMessageProtoUtils").parseQuotedMessage({
           quotedMsg: i,
@@ -16,16 +16,25 @@ __d(
           isCarouselCardReply: !1,
           contextInfo: r,
           targetMessageKey: t,
-        })),
-        r.stanzaId != null && (a.quotedStanzaID = r.stanzaId));
-      var l = s(r.participant);
-      l != null && (a.quotedParticipant = l);
-      var u = s(r.remoteJid);
-      (u != null && (a.quotedRemoteJid = u),
+        }));
+      var l = t.remote.isGroup();
+      r.stanzaId != null && (a.quotedStanzaID = r.stanzaId);
+      var u = s(r.participant);
+      if (u != null)
+        if (l && t.participant != null) {
+          var c = o("WAWebLidMigrationUtils").toCommonAddressingMode(
+              u,
+              t.participant,
+            ),
+            d = c[0];
+          a.quotedParticipant = d != null ? d : u;
+        } else a.quotedParticipant = u;
+      var m = s(r.remoteJid);
+      (m != null && l && (a.quotedRemoteJid = m),
         r.groupSubject != null && (a.quotedGroupSubject = r.groupSubject));
-      var c = s(r.parentGroupJid);
+      var p = s(r.parentGroupJid);
       return (
-        c != null && (a.quotedParentGroupJid = c),
+        p != null && (a.quotedParentGroupJid = p),
         r.quotedType != null && (a.quotedType = r.quotedType),
         a
       );

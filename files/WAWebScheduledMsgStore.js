@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WATimeUtils",
     "WAWebBuildScheduledMsgModel",
+    "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebScheduledMsgConstants",
     "WAWebScheduledMsgDecryptInnerProto",
     "WAWebScheduledMsgExtractText",
@@ -19,7 +20,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (yield y(e.chatId))
+          return (yield b(e.chatId))
             ? !1
             : (yield o("WAWebScheduledMsgRevealKeyStore").storeRevealKey({
                 chatId: e.chatId,
@@ -61,6 +62,28 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.revealKey.byteLength === 0)
+            return { body: null, mentionedJidList: null };
+          var t = yield o(
+            "WAWebScheduledMsgDecryptInnerProto",
+          ).decryptAndDecodeRevealPayload(e.encPayload, e.encIv, e.revealKey);
+          if (t == null) return { body: null, mentionedJidList: null };
+          var n = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(t),
+            r = o(
+              "WAWebExtractMentionFieldsFromScheduledMsg",
+            ).extractMentionFieldsFromScheduledMsg(t),
+            a = r.mentionedJidList;
+          return { body: n, mentionedJidList: a != null ? a : null };
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebScheduledMsgRevealKeyStore",
           ).getRevealKeysForChat(e);
@@ -75,16 +98,16 @@ __d(
               return e.scheduledTimestampS - t.scheduledTimestampS;
             });
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = yield m(t),
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = yield _(t),
             a = yield (e || (e = n("Promise"))).all(
               r.map(
                 (function () {
@@ -122,22 +145,6 @@ __d(
           for (var l of a) l != null && i.push(l);
           return i;
         })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebScheduledMsgRevealKeyStore",
-          ).getRevealKeysForChat(e);
-          return r("countWhere")(t, function (e) {
-            return e.status === "PENDING" && e.scheduledTimestampS > 0;
-          });
-        })),
         h.apply(this, arguments)
       );
     }
@@ -147,20 +154,37 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield g(e);
-          return (
-            t >= o("WAWebScheduledMsgConstants").SCHEDULED_MSG_MAX_PER_CHAT
-          );
+          var t = yield o(
+            "WAWebScheduledMsgRevealKeyStore",
+          ).getRevealKeysForChat(e);
+          return r("countWhere")(t, function (e) {
+            return e.status === "PENDING" && e.scheduledTimestampS > 0;
+          });
         })),
         C.apply(this, arguments)
       );
     }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield y(e);
+          return (
+            t >= o("WAWebScheduledMsgConstants").SCHEDULED_MSG_MAX_PER_CHAT
+          );
+        })),
+        v.apply(this, arguments)
+      );
+    }
     ((l.storeScheduledMessage = s),
       (l.decryptScheduledMsgBody = c),
-      (l.getScheduledMessagesForChat = m),
-      (l.getScheduledMsgDataForChat = _),
-      (l.getScheduledMessageCount = g),
-      (l.isChatAtScheduleLimit = y));
+      (l.decryptScheduledMsgPreview = m),
+      (l.getScheduledMessagesForChat = _),
+      (l.getScheduledMsgDataForChat = g),
+      (l.getScheduledMessageCount = y),
+      (l.isChatAtScheduleLimit = b));
   },
   98,
 );

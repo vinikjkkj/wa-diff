@@ -83,8 +83,13 @@ __d(
             p = o("WAJids").extractJidFromJidWithType(
               o("WAWebWidToJid").widToJidWithType(c),
             ),
-            _ = o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(s),
-            f = o("WAWap").wap(
+            _ =
+              d === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER ||
+              d === o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PEER_MSG,
+            f = _
+              ? null
+              : o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(s),
+            g = o("WAWap").wap(
               "receipt",
               {
                 id: o("WAWap").CUSTOM_STRING(t),
@@ -100,14 +105,14 @@ __d(
                 type: d,
                 class: m,
               },
-              _,
+              f,
             );
           (o("WAWebOnlineDanglingReceipts").addOnlineDanglingReceipts(
             c,
             l || c,
             t,
           ),
-            o("WADeprecatedSendIq").deprecatedCastStanza(f));
+            o("WADeprecatedSendIq").deprecatedCastStanza(g));
         })),
         d.apply(this, arguments)
       );

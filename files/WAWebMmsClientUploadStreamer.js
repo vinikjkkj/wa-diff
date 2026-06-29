@@ -7,7 +7,6 @@ __d(
     "WARaceSignal",
     "WARetryPromise",
     "WAWebHttpErrors",
-    "WAWebMediaHosts",
     "WAWebMediaHostsRouteSelection",
     "WAWebMmsClientIsErrorRetryable",
     "WAWebMmsClientMmsBackoffOptions",
@@ -33,25 +32,26 @@ __d(
       );
     }
     var p = (function () {
-      function t(e) {
-        var t, r;
+      function t(e, t) {
+        var r, o;
         ((this.$2 = Date.now()),
           (this.$3 = 0),
           (this.$4 = 0),
           (this.$9 = (d || (d = n("Promise"))).resolve()),
+          (this.$13 = t),
           (this.$6 = e.encFilehash),
           (this.$5 = e.type),
           (this.$7 = e.signal),
-          (this.$3 = (t = e.byteOffset) != null ? t : 0),
+          (this.$3 = (r = e.byteOffset) != null ? r : 0),
           (this.$1 = e.encFilehash.slice(0, 10)),
           (this.$11 = e.token),
-          (this.$12 = (r = e.generateThumbnailOnServer) != null ? r : !1),
-          (this.$13 = e.onUploadHostFound),
-          (this.$14 = e.onUploadAttemptSuccess),
-          (this.$15 = e.onUploadAttemptError),
-          (this.$16 = e.onProgress),
-          (this.$17 = e.onFinalize),
-          (this.$18 = e.onStreamUploadStart),
+          (this.$12 = (o = e.generateThumbnailOnServer) != null ? o : !1),
+          (this.$14 = e.onUploadHostFound),
+          (this.$15 = e.onUploadAttemptSuccess),
+          (this.$16 = e.onUploadAttemptError),
+          (this.$17 = e.onProgress),
+          (this.$18 = e.onFinalize),
+          (this.$19 = e.onStreamUploadStart),
           (this.$10 = e.mediaId));
       }
       var a = t.prototype;
@@ -65,7 +65,7 @@ __d(
             this.$8 = i.byteLength;
             var l = g(this.$5),
               u = l === 0 ? i.byteLength : l;
-            ((t = this.$18) == null || t.call(this),
+            ((t = this.$19) == null || t.call(this),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -80,15 +80,15 @@ __d(
               d < c;
               d++
             ) {
-              this.$19(d, c);
+              this.$20(d, c);
               var m = this.$3 + d * u,
                 p = m + u,
                 _ = i.subarray(m, p);
-              (yield this.$20(_, m), (this.$4 += _.byteLength));
+              (yield this.$21(_, m), (this.$4 += _.byteLength));
             }
-            var f = yield this.$21(this.$6);
+            var f = yield this.$22(this.$6);
             return (
-              (n = this.$14) == null || n.call(this, Date.now() - this.$2),
+              (n = this.$15) == null || n.call(this, Date.now() - this.$2),
               f
             );
           });
@@ -101,7 +101,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e;
             (yield r("WAWebNetworkStatus").waitIfOffline(),
-              (e = this.$18) == null || e.call(this));
+              (e = this.$19) == null || e.call(this));
           });
           function t() {
             return e.apply(this, arguments);
@@ -113,7 +113,7 @@ __d(
             var t = this;
             ((this.$9 = this.$9.then(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (yield t.$20(e, t.$3),
+                (yield t.$21(e, t.$3),
                   (t.$4 += e.byteLength),
                   (t.$3 += e.byteLength));
               }),
@@ -130,10 +130,10 @@ __d(
             var t = this,
               n,
               r = yield this.$9.then(function () {
-                return t.$21(e);
+                return t.$22(e);
               });
             return (
-              (n = this.$14) == null || n.call(this, Date.now() - this.$2),
+              (n = this.$15) == null || n.call(this, Date.now() - this.$2),
               r
             );
           });
@@ -142,16 +142,16 @@ __d(
           }
           return t;
         })()),
-        (a.$22 = function () {
+        (a.$23 = function () {
           this.$2 = Date.now();
         }),
-        (a.$23 = function () {
+        (a.$24 = function () {
           return Date.now() - this.$2;
         }),
-        (a.$24 = function () {
+        (a.$25 = function () {
           if (this.$8 != null) return this.$8 - this.$4;
         }),
-        (a.$19 = function (t, n) {
+        (a.$20 = function (t, n) {
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -165,7 +165,7 @@ __d(
             n,
           );
         }),
-        (a.$20 = function (t, a) {
+        (a.$21 = function (t, a) {
           var e = this;
           return o("WAExponentialBackoff").exponentialBackoff(
             babelHelpers.extends({}, r("WAWebMmsClientMmsBackoffOptions"), {
@@ -175,20 +175,20 @@ __d(
               var i = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (n, i) {
                   try {
-                    yield e.$25(t, a, i);
+                    yield e.$26(t, a, i);
                   } catch (t) {
                     var l = r("getErrorSafe")(t);
                     if (_(l, i))
                       return (
-                        e.$15 == null ||
-                          e.$15(
+                        e.$16 == null ||
+                          e.$16(
                             l,
-                            e.$23(),
+                            e.$24(),
                             i,
                             o("WAWebWamEnumOverallLastUploadRetryPhaseType")
                               .OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
                           ),
-                        e.$22(),
+                        e.$23(),
                         n(l)
                       );
                     throw l;
@@ -201,7 +201,7 @@ __d(
             })(),
           );
         }),
-        (a.$21 = function (t) {
+        (a.$22 = function (t) {
           var e = this;
           return o("WAExponentialBackoff").exponentialBackoff(
             babelHelpers.extends({}, r("WAWebMmsClientMmsBackoffOptions"), {
@@ -211,20 +211,20 @@ __d(
               var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (n, a) {
                   try {
-                    return (e.$17 == null || e.$17(), yield e.$26(t, a));
+                    return (e.$18 == null || e.$18(), yield e.$27(t, a));
                   } catch (t) {
                     var i = r("getErrorSafe")(t);
                     if (f(i, a))
                       return (
-                        e.$15 == null ||
-                          e.$15(
+                        e.$16 == null ||
+                          e.$16(
                             i,
-                            e.$23(),
+                            e.$24(),
                             a,
                             o("WAWebWamEnumOverallLastUploadRetryPhaseType")
                               .OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.FINALIZE,
                           ),
-                        e.$22(),
+                        e.$23(),
                         n(i)
                       );
                     throw i;
@@ -237,14 +237,14 @@ __d(
             })(),
           );
         }),
-        (a.$25 = (function () {
+        (a.$26 = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (t, a, i) {
               var l = this,
                 s = null,
                 u = !1;
               yield r("WAWebNetworkStatus").waitIfOffline();
-              var c = yield this.$27(i),
+              var c = yield this.$28(i),
                 m = c.auth,
                 p = babelHelpers.objectWithoutPropertiesLoose(c, e),
                 _ = (s = r("WAWebMmsClientSelectHost")({
@@ -255,7 +255,7 @@ __d(
                   attemptCount: i,
                 })),
                 f = function (t) {
-                  ((u = !0), l.$16 == null || l.$16(t, a));
+                  ((u = !0), l.$17 == null || l.$17(t, a));
                 };
               return r("WARetryPromise")(
                 (function () {
@@ -278,10 +278,10 @@ __d(
                                         return _;
                                       },
                                       getMediaHosts: function () {
-                                        return l.$27(i, !0);
+                                        return l.$28(i, !0);
                                       },
                                       getRemainingBytes: function () {
-                                        return l.$24();
+                                        return l.$25();
                                       },
                                     })
                                     .then(function (e) {
@@ -328,11 +328,11 @@ __d(
           }
           return a;
         })()),
-        (a.$26 = (function () {
+        (a.$27 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               yield r("WAWebNetworkStatus").waitIfOffline();
-              var n = yield this.$27(t),
+              var n = yield this.$28(t),
                 a = n.auth,
                 i = n.selectedHost;
               return (
@@ -362,12 +362,12 @@ __d(
           }
           return t;
         })()),
-        (a.$27 = (function () {
+        (a.$28 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               var n;
               t === void 0 && (t = !1);
-              var r = yield o("WAWebMediaHosts").mediaHosts.getHostsInfo({
+              var r = yield this.$13.getHostsInfo({
                 operation: o("WAWebMediaHostsRouteSelection").OPERATIONS.UPLOAD,
                 encFilehash: this.$6,
                 type: this.$5,
@@ -375,7 +375,7 @@ __d(
                 forceRefresh: t,
               });
               return (
-                (n = this.$13) == null ||
+                (n = this.$14) == null ||
                   n.call(this, {
                     failCount: e,
                     hostName: r.selectedHost.hostname,

@@ -296,6 +296,10 @@ __d(
           params: { enabled: e },
           type: "PAYMENT_ACCOUNT",
         },
+        maiba_dora_notifications_mobile: {
+          params: { enabled: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         mft_usability_t214327445_confirmation: {
           params: { show_confirmation: { defaultValue: !1, launched: !1 } },
           type: "PAYMENT_ACCOUNT",

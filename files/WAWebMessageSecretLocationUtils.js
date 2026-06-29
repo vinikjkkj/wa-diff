@@ -3,7 +3,6 @@ __d(
   [
     "$InternalEnum",
     "WALogger",
-    "WAWebMessagingGatingUtils",
     "WAWebProtobufValidationErrorWamEvent",
     "WAWebWamEnumProtobufValidationFlow",
   ],
@@ -60,66 +59,62 @@ __d(
       return null;
     }
     function b(e, t, n, r) {
-      if (
-        o("WAWebMessagingGatingUtils").isTopLevelMessageSecretCheckEnabled()
-      ) {
-        var a = C(e);
-        if (a != null) {
-          var i =
-              t === c.Sender
-                ? "sender"
-                : t === c.Receiver
-                  ? "receiver"
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          t,
-                      );
-                    })(),
-            l = "message-secret-location-violation-" + i,
-            m = n == null ? "unknown" : n.slice(0, f);
-          (t === c.Receiver
-            ? o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "messageSecret location violation on ",
-                      ": path:",
-                      " stanzaIdPrefix:",
-                      "",
-                    ])),
-                  i,
-                  a.violationPath,
-                  m,
-                )
-                .tags("messaging", "wa-ice", "message-secret-location")
-                .sendLogs(l, { sampling: g })
-            : o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "messageSecret location violation on ",
-                      ": path:",
-                      " stanzaIdPrefix:",
-                      "",
-                    ])),
-                  i,
-                  a.violationPath,
-                  m,
-                )
-                .tags("messaging", "wa-ice", "message-secret-location"),
-            t === c.Sender &&
-              new (o(
-                "WAWebProtobufValidationErrorWamEvent",
-              ).ProtobufValidationErrorWamEvent)({
-                protobufValidationDropped: !1,
-                protobufLegacyValidationDropped: !1,
-                protobufValidationFlow: o("WAWebWamEnumProtobufValidationFlow")
-                  .PROTOBUF_VALIDATION_FLOW.STANZA_MESSAGE_SEND,
-                protobufValidationPath: a.violationPath,
-                protobufValidationRuleId: r != null ? r : d,
-              }).commit());
-        }
+      var a = C(e);
+      if (a != null) {
+        var i =
+            t === c.Sender
+              ? "sender"
+              : t === c.Receiver
+                ? "receiver"
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        t,
+                    );
+                  })(),
+          l = "message-secret-location-violation-" + i,
+          m = n == null ? "unknown" : n.slice(0, f);
+        (t === c.Receiver
+          ? o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "messageSecret location violation on ",
+                    ": path:",
+                    " stanzaIdPrefix:",
+                    "",
+                  ])),
+                i,
+                a.violationPath,
+                m,
+              )
+              .tags("messaging", "wa-ice", "message-secret-location")
+              .sendLogs(l, { sampling: g })
+          : o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "messageSecret location violation on ",
+                    ": path:",
+                    " stanzaIdPrefix:",
+                    "",
+                  ])),
+                i,
+                a.violationPath,
+                m,
+              )
+              .tags("messaging", "wa-ice", "message-secret-location"),
+          t === c.Sender &&
+            new (o(
+              "WAWebProtobufValidationErrorWamEvent",
+            ).ProtobufValidationErrorWamEvent)({
+              protobufValidationDropped: !1,
+              protobufLegacyValidationDropped: !1,
+              protobufValidationFlow: o("WAWebWamEnumProtobufValidationFlow")
+                .PROTOBUF_VALIDATION_FLOW.STANZA_MESSAGE_SEND,
+              protobufValidationPath: a.violationPath,
+              protobufValidationRuleId: r != null ? r : d,
+            }).commit());
       }
     }
     ((l.MessageSecretCheckContext = c),

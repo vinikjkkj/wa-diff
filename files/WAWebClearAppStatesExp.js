@@ -7,28 +7,26 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 50;
-    function u(e, t) {
-      return c.apply(this, arguments);
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function c() {
+    function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, o) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           return (
             t === void 0 && (t = !1),
-            o === void 0 && (o = !1),
             t
-              ? yield r("WAWebClearAppStatesAsync")(s, o)
+              ? yield r("WAWebClearAppStatesAsync")()
               : new (e || (e = n("Promise")))(function (e) {
-                  (r("WAWebClearAppStates")(o), e());
+                  (r("WAWebClearAppStates")(), e());
                 })
           );
         })),
-        c.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.default = u;
+    l.default = s;
   },
   98,
 );

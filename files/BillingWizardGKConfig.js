@@ -96,9 +96,6 @@ __d(
           type: "PAYMENT_ACCOUNT_ID",
         },
         BRAZIL_MV4B_LOCALIZED: { type: "PAYMENT_ACCOUNT_ID" },
-        BRAZIL_VAT_REFORM_CPF_ADDRESS_VALIDATION: {
-          type: "PAYMENT_ACCOUNT_ID",
-        },
         CVCO_SDC_USE_SERVER_AUTH_STATUS: {
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",

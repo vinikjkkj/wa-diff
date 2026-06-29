@@ -5,7 +5,6 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBackendErrors",
     "WAWebBaseCachePolicy",
@@ -161,18 +160,12 @@ __d(
               };
             }));
           var l = (a = n("cr:17219")) == null ? void 0 : a.getWindowsBridge();
-          if (l) {
-            var s = o("WAWebABProps").getABPropConfigValue(
-              "web_anr_batch_profile_picture_bridge_operations",
-            )
-              ? "add remove change:eurl"
-              : "add remove change:timestamp";
-            i.listenTo(i, s, function (e, t, n) {
-              var r;
-              (r = l.pictures) == null || r.notifyUpdate(e);
-            });
-          }
           return (
+            l &&
+              i.listenTo(i, "add remove change:timestamp", function (e, t, n) {
+                var r;
+                (r = l.pictures) == null || r.notifyUpdate(e);
+              }),
             i.listenTo(i, "add change", function (e) {
               i._mirrorMeRow(e);
             }),
