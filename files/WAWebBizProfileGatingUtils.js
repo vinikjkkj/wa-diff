@@ -53,33 +53,28 @@ __d(
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_biz_profile_custom_url",
+        "smb_temp_cover_photo_privacy_messaging",
       );
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_temp_cover_photo_privacy_messaging",
+        "web_abprop_business_profile_refresh_linked_accounts_killswitch",
       );
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_abprop_business_profile_refresh_linked_accounts_killswitch",
+        "web_abprop_business_profile_refresh_linked_account_enabled",
       );
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_abprop_business_profile_refresh_linked_account_enabled",
-      );
-    }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
         "smb_web_category_search_via_graph_enabled",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_profile_google_integration_enabled",
       );
@@ -92,13 +87,12 @@ __d(
       (l.businessPriceTierEnabled = m),
       (l.bizProfileGraphQLMigrationEnabled = p),
       (l.isBizProfilePreloadEnabled = _),
-      (l.isCustomURLViaBizProfileEnabled = f),
-      (l.coverPhotoPrivacyMessagingEnabled = g),
-      (l.bizLinkedAccountsEnabled = h),
-      (l.canViewBizLinkedAccounts = y),
-      (l.isCategorySearchViaGraphEnabled = C),
-      (l.getCatkitVersion = b),
-      (l.isGoogleProfileIntegrationEnabled = v));
+      (l.coverPhotoPrivacyMessagingEnabled = f),
+      (l.bizLinkedAccountsEnabled = g),
+      (l.canViewBizLinkedAccounts = h),
+      (l.isCategorySearchViaGraphEnabled = y),
+      (l.getCatkitVersion = C),
+      (l.isGoogleProfileIntegrationEnabled = b));
   },
   98,
 );

@@ -25,7 +25,8 @@ __d(
         t.contact.isEnterprise ||
         !o("WAWebPixFeature").isPixEnabled() ||
         !o("WAWebAddEditPixFeature").isAddEditPixEnabled() ||
-        !e()
+        !e() ||
+        t.id.isAiHub()
       )
         return !1;
       var n = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(

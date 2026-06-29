@@ -247,7 +247,6 @@ __d(
                 isSignupDeeplink: Y,
               });
             J != null &&
-              o("WAWebFMXGatingUtils").fmxLoggingEnabled() &&
               new (o("WAWebPsFmxActionWamEvent").PsFmxActionWamEvent)({
                 fmxEntryPoint: o("WAWebWamEnumFmxEntryPoint").FMX_ENTRY_POINT
                   .FMX_CARD,

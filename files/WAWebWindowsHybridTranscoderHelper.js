@@ -28,20 +28,12 @@ __d(
         )
       );
     }
-    function y() {
-      return (
-        h() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "enable_hybrid_video_transcoding_for_valid_mp4",
-        )
-      );
+    function y(e, t, n, r, o) {
+      return C.apply(this, arguments);
     }
-    function C(e, t, n, r, o) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, r, a, i, l) {
             var h;
             o("WALogger").LOG(
@@ -198,12 +190,10 @@ __d(
             }
           },
         )),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((l.isWindowsHybridTranscoderEnabled = h),
-      (l.isWindowsHybridTranscoderEnabledForMp4 = y),
-      (l.transcodeVideo = C));
+    ((l.isWindowsHybridTranscoderEnabled = h), (l.transcodeVideo = y));
   },
   98,
 );

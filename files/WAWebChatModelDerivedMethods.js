@@ -63,7 +63,8 @@ __d(
       if (
         o("WAWebChatGetters").getIsBroadcast(e) ||
         o("WAWebChatGetters").getIsMetaAiBot(e) ||
-        o("WAWebChatGetters").getIsBotChannel(e)
+        o("WAWebChatGetters").getIsBotChannel(e) ||
+        e.id.isAiHub()
       )
         return !1;
       var t = e.groupMetadata;

@@ -1,7 +1,6 @@
 __d(
   "WAWebInMemoryLottieStickerCache",
   [
-    "WAWebABProps",
     "WAWebLruCacheMap",
     "WAWebMediaMmsV4Download",
     "WAWebStickerErrorWamEvent",
@@ -17,9 +16,6 @@ __d(
     function c(e, t, n) {
       return (
         n === o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM &&
-        o("WAWebABProps").getABPropConfigValue(
-          "aura_stickers_overlay_animation_enabled",
-        ) &&
         t === o("WAWebStickerMimeUtils").WhatsAppLottieStickerMimeType &&
         s.has(e) &&
         u.has(e)

@@ -246,15 +246,7 @@ __d(
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            e == null ||
-            !o("WAWebABProps").getABPropConfigValue(
-              "defense_mode_quarantine",
-            ) ||
-            !s() ||
-            !(yield p(t))
-          )
-            return m.NoQuarantine;
+          if (e == null || !s() || !(yield p(t))) return m.NoQuarantine;
           var n = E(e),
             r = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(e);
           if ((r == null ? void 0 : r.message) == null) return n;

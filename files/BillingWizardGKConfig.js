@@ -28,6 +28,7 @@ __d(
           type: "PAYMENT_ACCOUNT_ID",
         },
         BILLING_BM_CC_OMNIPE_GLOBAL: { type: "PAYMENT_ACCOUNT_ID" },
+        BILLING_BNI_MIGRATE_BIZ_INFO_TO_L5_DEV: { type: "PAYMENT_ACCOUNT_ID" },
         BILLING_BV_CORE_ADS_EXPERIMENT_MOBILE_GK: {
           type: "PAYMENT_ACCOUNT_ID",
         },

@@ -73,14 +73,9 @@ __d(
       );
     }
     function v() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_unified_response_qpl_logging",
-      );
-    }
-    function S() {
       return r("gkx")("6940");
     }
-    function R() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_rich_response_replying_enabled",
       );
@@ -99,9 +94,8 @@ __d(
       (l.isUrMediaGridEnabled = y),
       (l.isRichResponseInAppSurveyEnabled = C),
       (l.isRichResponseSideBySideSurveyEnabled = b),
-      (l.isUnifiedResponseQPLLoggingEnabled = v),
-      (l.isFoABloksNodeRendererEnabled = S),
-      (l.isReplyToRichResponseEnabled = R));
+      (l.isFoABloksNodeRendererEnabled = v),
+      (l.isReplyToRichResponseEnabled = S));
   },
   98,
 );

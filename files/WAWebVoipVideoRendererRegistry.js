@@ -304,13 +304,7 @@ __d(
                 ? c
                 : o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.UNKNOWN;
             if (
-              (!F(t) &&
-                !this.$22 &&
-                !this.$11.isEnabled() &&
-                o("WAWebABProps").getABPropConfigValue(
-                  "enable_web_voip_platform_av_sync",
-                ) === !0 &&
-                this.$23(),
+              (!F(t) && !this.$22 && !this.$11.isEnabled() && this.$23(),
               this.$11.isEnabled() && !F(t))
             ) {
               this.$11.enqueueVideoFrame({

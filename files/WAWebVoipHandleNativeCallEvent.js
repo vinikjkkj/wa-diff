@@ -953,18 +953,15 @@ __d(
                 "enable_web_voip_proxy_and_sctp_workers",
               ),
               f = o("WAWebABProps").getABPropConfigValue(
-                "enable_web_voip_platform_av_sync",
-              ),
-              g = o("WAWebABProps").getABPropConfigValue(
                 "enable_web_voip_dynamic_fps_throttle",
               ),
-              h = o("WAWebABProps").getABPropConfigValue(
+              g = o("WAWebABProps").getABPropConfigValue(
                 "web_calling_perf_optimizations_bitmask",
               ),
-              y = o("WAWebABProps").getABPropConfigValue(
+              h = o("WAWebABProps").getABPropConfigValue(
                 "web_voip_audio_capture_impl",
               ),
-              C = o("WAWebABProps").getABPropConfigValue(
+              y = o("WAWebABProps").getABPropConfigValue(
                 "web_voip_audio_playback_impl",
               );
             (o("WALogger").LOG(
@@ -977,9 +974,9 @@ __d(
                   "",
                 ])),
               _,
+              !0,
               f,
               g,
-              h,
             ),
               o("WALogger").LOG(
                 I ||
@@ -989,8 +986,8 @@ __d(
                     " dynPool=",
                     "",
                   ])),
+                h,
                 y,
-                C,
                 p,
               ),
               o("WAWebVoipCrashRecovery").markCallActive(c),
@@ -1016,8 +1013,8 @@ __d(
               o("WAWebVoipWindowMetrics").startWindowMetrics(),
               o("WAWebVoipBatteryDiagnostics").startBatteryDiagnostics(),
               (H.callIsActive = !0));
-            var b = l.linkToken != null && l.linkToken !== "";
-            (b &&
+            var C = l.linkToken != null && l.linkToken !== "";
+            (C &&
               l.videoEnabled &&
               n.type === "web" &&
               n.broadcastVideoState().catch(function (e) {
@@ -1045,9 +1042,9 @@ __d(
             callState: i,
             callInfo: a.call_info,
           });
-          var v = o("WAWebVoipCallStateUtils").isCallTerminal(i);
+          var b = o("WAWebVoipCallStateUtils").isCallTerminal(i);
           if (
-            (v &&
+            (b &&
               a.call_info.callDuration === 0 &&
               o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
                 .sendStoredFieldstats()
@@ -1068,10 +1065,10 @@ __d(
             i === o("WAWebVoipWaCallEnums").CallState.None)
           ) {
             o("WAWebVoipErrorLogUpload").captureWamCallResult(e);
-            var S = q != null ? q : "unknown";
+            var v = q != null ? q : "unknown";
             ((q = null),
               o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
-              o("WAWebVoipCrashRecovery").clearExitMarkers(S),
+              o("WAWebVoipCrashRecovery").clearExitMarkers(v),
               o("WAWebVoipCrashRecovery").unregisterGracefulExitHandler(),
               o("WAWebVoipPersistentFS").stopPeriodicVoipSync(),
               o("WAWebVoipBrowserMetrics").stopBrowserMetrics(),

@@ -7,7 +7,6 @@ __d(
     "WASmaxGroupsPromoteDemoteAdminRPC",
     "WASmaxGroupsPromoteDemoteRPC",
     "WASmaxGroupsRemoveParticipantsRPC",
-    "WAWebABProps",
     "WAWebBackendErrors",
     "WAWebCoreActionsODS",
     "WAWebGroupsPrivacyTokenUtils",
@@ -172,17 +171,12 @@ __d(
         S.apply(this, arguments)
       );
     }
-    function R() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "privacy_token_sending_on_group_participant_add",
-      );
+    function R(e, t, n) {
+      return L.apply(this, arguments);
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
-    }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           r === void 0 && (r = []);
           var a = t.map(function (e) {
               return e.lid ? e.lid : e.phoneNumber;
@@ -195,8 +189,7 @@ __d(
                 }),
               ),
             l;
-          R() &&
-            i.length > 0 &&
+          i.length > 0 &&
             (l = o("WAWebGroupsPrivacyTokenUtils").getPermissionTokenMap(i, a));
           var s = {
               participantArgs: [].concat(
@@ -268,10 +261,10 @@ __d(
               return {
                 status: 207,
                 participants: m.flatMap(function (e) {
-                  return k(e);
+                  return E(e);
                 }),
                 invitedOutContacts: m.flatMap(function (e) {
-                  return I(e);
+                  return k(e);
                 }),
               };
             }
@@ -340,10 +333,10 @@ __d(
             }
           }
         })),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function k(e) {
+    function E(e) {
       var t,
         n =
           e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup;
@@ -375,7 +368,7 @@ __d(
         },
       ];
     }
-    function I(e) {
+    function k(e) {
       var t,
         n =
           e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup;
@@ -407,13 +400,13 @@ __d(
             },
           ];
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function I(e, t, n) {
+      return T.apply(this, arguments);
     }
-    function D() {
+    function T() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = A(t, r, "demote"),
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = w(t, r, "demote"),
             i = yield o("WASmaxGroupsPromoteDemoteRPC").sendPromoteDemoteRPC({
               demoteArgs: {
                 participantArgs: a.map(function (e) {
@@ -504,16 +497,16 @@ __d(
               return;
           }
         })),
-        D.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
+    function D(e, t, n) {
+      return x.apply(this, arguments);
     }
-    function $() {
+    function x() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = A(t, r, "promote"),
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = w(t, r, "promote"),
             i = yield o("WASmaxGroupsPromoteDemoteRPC").sendPromoteDemoteRPC({
               promoteArgs: {
                 participantArgs: a.map(function (e) {
@@ -604,16 +597,16 @@ __d(
               return;
           }
         })),
-        $.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    function $(e, t, n) {
+      return P.apply(this, arguments);
     }
-    function N() {
+    function P() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = A(t, r, "admin-promote"),
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = w(t, r, "admin-promote"),
             i = yield o(
               "WASmaxGroupsPromoteDemoteAdminRPC",
             ).sendPromoteDemoteAdminRPC({
@@ -704,16 +697,16 @@ __d(
             }
           }
         })),
-        N.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function M(e, t, n) {
-      return w.apply(this, arguments);
+    function N(e, t, n) {
+      return M.apply(this, arguments);
     }
-    function w() {
+    function M() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = A(t, r, "admin-demote"),
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = w(t, r, "admin-demote"),
             i = yield o(
               "WASmaxGroupsPromoteDemoteAdminRPC",
             ).sendPromoteDemoteAdminRPC({
@@ -804,10 +797,10 @@ __d(
             }
           }
         })),
-        w.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function A(t, n, r) {
+    function w(t, n, r) {
       var a = o("WAWebLidMigrationUtils").toAddressingModeFactory(n);
       return t.map(function (t, i) {
         var l = a(t);
@@ -831,11 +824,11 @@ __d(
       });
     }
     ((l.removeGroupParticipants = v),
-      (l.addGroupParticipants = L),
-      (l.demoteGroupParticipants = T),
-      (l.promoteGroupParticipants = x),
-      (l.promoteCommunityParticipants = P),
-      (l.demoteCommunityParticipants = M));
+      (l.addGroupParticipants = R),
+      (l.demoteGroupParticipants = I),
+      (l.promoteGroupParticipants = D),
+      (l.promoteCommunityParticipants = $),
+      (l.demoteCommunityParticipants = N));
   },
   98,
 );

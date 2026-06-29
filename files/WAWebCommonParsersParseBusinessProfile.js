@@ -241,11 +241,9 @@ __d(
       var Me = e.maybeChild("cover_photo"),
         we = Me
           ? { id: Me.attrString("id"), url: new URL(Me.contentString()) }
-          : void 0;
-      if (o("WAWebBizProfileGatingUtils").isCustomURLViaBizProfileEnabled()) {
-        var Ae = e.maybeChild("custom_url");
-        Ae && (Ee = Ae.contentString());
-      }
+          : void 0,
+        Ae = e.maybeChild("custom_url");
+      Ae && (Ee = Ae.contentString());
       var Fe = o("WAWebBotTypes").BizBotAutomatedType.cast(
           (t = e.maybeChild("automated_type")) == null
             ? void 0

@@ -8,6 +8,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return (
+        !e.id.isAiHub() &&
         o("WAWebQuestionsAdminGatingUtils").isQuestionsFeatureEnabledForAdmins(
           e,
         ) &&

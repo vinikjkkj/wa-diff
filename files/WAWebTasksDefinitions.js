@@ -1319,34 +1319,27 @@ __d(
                                                                                       "asyncToGeneratorRuntime",
                                                                                     ).asyncToGenerator(
                                                                                       function* () {
-                                                                                        if (
+                                                                                        try {
+                                                                                          yield o(
+                                                                                            "WAWebQuarantineDataCleanupJob",
+                                                                                          ).cleanExpiredQuarantineDataJob();
+                                                                                        } catch (e) {
                                                                                           o(
-                                                                                            "WAWebABProps",
-                                                                                          ).getABPropConfigValue(
-                                                                                            "defense_mode_quarantine",
+                                                                                            "WALogger",
                                                                                           )
-                                                                                        )
-                                                                                          try {
-                                                                                            yield o(
-                                                                                              "WAWebQuarantineDataCleanupJob",
-                                                                                            ).cleanExpiredQuarantineDataJob();
-                                                                                          } catch (e) {
-                                                                                            o(
-                                                                                              "WALogger",
+                                                                                            .ERROR(
+                                                                                              $ ||
+                                                                                                ($ =
+                                                                                                  babelHelpers.taggedTemplateLiteralLoose(
+                                                                                                    [
+                                                                                                      "Failed to cleanup expired quarantine data: ",
+                                                                                                      "",
+                                                                                                    ],
+                                                                                                  )),
+                                                                                              e,
                                                                                             )
-                                                                                              .ERROR(
-                                                                                                $ ||
-                                                                                                  ($ =
-                                                                                                    babelHelpers.taggedTemplateLiteralLoose(
-                                                                                                      [
-                                                                                                        "Failed to cleanup expired quarantine data: ",
-                                                                                                        "",
-                                                                                                      ],
-                                                                                                    )),
-                                                                                                e,
-                                                                                              )
-                                                                                              .verbose();
-                                                                                          }
+                                                                                            .verbose();
+                                                                                        }
                                                                                         return o(
                                                                                           "WATimeUtils",
                                                                                         )

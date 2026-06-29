@@ -4,27 +4,18 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = r("qpl")._(891428050, "1412"),
       s = (function () {
-        function t() {
-          this.$1 = o(
-            "WAWebBotUnifiedResponseGating",
-          ).isUnifiedResponseQPLLoggingEnabled();
-        }
+        function t() {}
         var n = t.prototype;
         return (
           (n.markerStart = function (n) {
-            !this.$1 ||
-              e == null ||
+            e != null &&
               o("WAWebQplFlowWrapper").QPL.markerStart(e, { annotations: n });
           }),
           (n.markerEnd = function (n) {
-            !this.$1 ||
-              e == null ||
-              o("WAWebQplFlowWrapper").QPL.markerEnd(e, n);
+            e != null && o("WAWebQplFlowWrapper").QPL.markerEnd(e, n);
           }),
           (n.markerPoint = function (n) {
-            !this.$1 ||
-              e == null ||
-              o("WAWebQplFlowWrapper").QPL.markerPoint(e, n);
+            e != null && o("WAWebQplFlowWrapper").QPL.markerPoint(e, n);
           }),
           t
         );
