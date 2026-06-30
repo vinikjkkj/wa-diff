@@ -359,6 +359,7 @@ __d(
             t.size,
           );
           try {
+            var i;
             (g(t),
               o("WALogger").LOG(
                 s ||
@@ -370,8 +371,8 @@ __d(
                 a,
                 t.name,
               ));
-            var i = r.smartColumnDetectionEnabled === !0,
-              l = i
+            var l = r.smartColumnDetectionEnabled === !0,
+              f = l
                 ? b
                 : function (e) {
                     return y(
@@ -380,18 +381,19 @@ __d(
                         .isPhoneFieldName,
                     );
                   },
-              f = yield k(t, l);
-            (o("WALogger").LOG(
+              C = yield k(t, f);
+            o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[contact-import] parsed: ",
                   " rows (",
                   ")",
                 ])),
-              f.length,
+              C.length,
               a,
-            ),
-              h(f, r.recipientLimit),
+            );
+            var v = (i = r.fileRowLimit) != null ? i : r.recipientLimit;
+            (h(C, v),
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -399,11 +401,11 @@ __d(
                     "/",
                     "",
                   ])),
-                f.length,
-                r.recipientLimit,
+                C.length,
+                v,
               ));
-            var C = i ? yield D(f, n) : f,
-              v = yield M(C);
+            var S = l ? yield D(C, n) : C,
+              R = yield M(S);
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -411,12 +413,12 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              v.validContacts.length,
-              v.errors.length,
+              R.validContacts.length,
+              R.errors.length,
             );
-            var S = yield O(v.validContacts, r.verifyOptions),
-              R = S.nonWhatsAppUserErrors,
-              L = S.verifiedContacts;
+            var L = yield O(R.validContacts, r.verifyOptions),
+              E = L.nonWhatsAppUserErrors,
+              I = L.verifiedContacts;
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -424,11 +426,11 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              L.length,
-              R.length,
+              I.length,
+              E.length,
             );
-            var E = A([].concat(v.errors, R)),
-              I = E.map(function (e) {
+            var T = A([].concat(R.errors, E)),
+              x = T.map(function (e) {
                 return babelHelpers.extends({}, e, {
                   contactIndex: null,
                   type: "error",
@@ -443,14 +445,14 @@ __d(
                   "+ ",
                   "-",
                 ])),
-              L.length,
               I.length,
+              x.length,
             ),
-              n.onComplete(L, I));
+              n.onComplete(I, x));
           } catch (e) {
-            var T = e instanceof Error ? e.name : typeof e,
-              x = e instanceof Error ? e.message : String(e),
-              $ =
+            var $ = e instanceof Error ? e.name : typeof e,
+              P = e instanceof Error ? e.message : String(e),
+              N =
                 e instanceof
                 o("WAWebContactImportTypedError").WAWebContactImportTypedError
                   ? String(e.type)
@@ -468,9 +470,9 @@ __d(
                   ])),
                 a,
                 t.name,
-                T,
-                x,
                 $,
+                P,
+                N,
               )
               .verbose()
               .sendLogs("contact-import-file-processing-failed", {

@@ -1,21 +1,36 @@
 __d(
   "WAWebDecideHatchApproval",
   [
+    "WALogger",
     "WAWebHatchApprovalManager",
     "WAWebHatchApprovalOption",
     "WAWebSendHatchMetadataRequest",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      (o("WAWebSendHatchMetadataRequest").sendHatchMetadataRequest({
-        method: "hitl.approval.decide",
-        approvalId: e,
-        decision: s(t),
-      }),
-        r("WAWebHatchApprovalManager").resolveApproval(e));
+    var e;
+    function s(t, n) {
+      var a = u(n);
+      (o("WALogger")
+        .LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-approval: deciding approvalId=",
+              " decision=",
+              "",
+            ])),
+          t,
+          a,
+        )
+        .sendLogs("hatch-approval-decide"),
+        o("WAWebSendHatchMetadataRequest").sendHatchMetadataRequest({
+          method: "hitl.approval.decide",
+          approvalId: t,
+          decision: a,
+        }),
+        r("WAWebHatchApprovalManager").resolveApproval(t));
     }
-    function s(e) {
+    function u(e) {
       return e === r("WAWebHatchApprovalOption").AllowOnce
         ? "allow_once"
         : e === r("WAWebHatchApprovalOption").AllowAlways
@@ -29,7 +44,7 @@ __d(
                 );
               })();
     }
-    l.decideHatchApproval = e;
+    l.decideHatchApproval = s;
   },
   98,
 );

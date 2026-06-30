@@ -167,10 +167,10 @@ __d(
                 (t[7] = b));
             } else b = t[7];
             var S = b,
-              R = o("WAWebCurrencyUtils").formatAmount(
-                i.currency,
-                i.totalAmount,
-              ),
+              R = o("WAWebCurrencyUtils").formatAmount({
+                amount: i.totalAmount,
+                currency: i.currency,
+              }),
               L = i.quantity,
               E = i.referenceId,
               k = o("WAWebOrderDetailProductLabel").getOrderDetailProductLabel(

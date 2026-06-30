@@ -7,6 +7,7 @@ __d(
     "WAWebWamEnumPrivacySettingsValueType",
     "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusPairedMediaQuality",
+    "WAWebWamEnumStatusPostFailureStage",
     "WAWebWamEnumStatusPostOrigin",
     "WAWebWamEnumStatusPostResult",
     "WAWebWamEnumStatusType",
@@ -28,6 +29,7 @@ __d(
               ],
               dualUploadPairedMediaId: [44, e.TYPES.STRING],
               editable: [15, e.TYPES.BOOLEAN],
+              errorMetadata: [61, e.TYPES.STRING],
               externalInteractables: [16, e.TYPES.INTEGER],
               externalPackageName: [17, e.TYPES.STRING],
               extraStickersData: [22, e.TYPES.STRING],
@@ -84,6 +86,11 @@ __d(
                   .STATUS_PAIRED_MEDIA_QUALITY,
               ],
               statusPartCode: [60, e.TYPES.STRING],
+              statusPostFailureStage: [
+                62,
+                o("WAWebWamEnumStatusPostFailureStage")
+                  .STATUS_POST_FAILURE_STAGE,
+              ],
               statusPostOrigin: [
                 4,
                 o("WAWebWamEnumStatusPostOrigin").STATUS_POST_ORIGIN,

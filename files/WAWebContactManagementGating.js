@@ -11,13 +11,15 @@ __d(
       );
     }
     function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_group_bulk_add_contact",
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue("web_group_bulk_add_contact")
       );
     }
-    function c(e) {
-      var t = o("WAWebABProps").getABPropConfigValue("web_add_contact");
-      return t.split(",").includes(e);
+    function c(t) {
+      if (!e()) return !1;
+      var n = o("WAWebABProps").getABPropConfigValue("web_add_contact");
+      return n.split(",").includes(t);
     }
     function d() {
       return c("chat_header");

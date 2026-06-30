@@ -134,7 +134,10 @@ __d(
         );
       }
       return t.items.length === 0
-        ? o("WAWebCurrencyUtils").formatAmount(t.currency, t.totalAmount)
+        ? o("WAWebCurrencyUtils").formatAmount({
+            amount: t.totalAmount,
+            currency: t.currency,
+          })
         : o("WAWebOrderDetailProductLabel").getOrderDetailProductLabel(
             t.items,
           ) +
@@ -146,10 +149,10 @@ __d(
                   s._param("order_items_quantity", t.quantity),
                   s._param(
                     "order_total_price",
-                    o("WAWebCurrencyUtils").formatAmount(
-                      t.currency,
-                      t.totalAmount,
-                    ),
+                    o("WAWebCurrencyUtils").formatAmount({
+                      amount: t.totalAmount,
+                      currency: t.currency,
+                    }),
                   ),
                 ],
               )

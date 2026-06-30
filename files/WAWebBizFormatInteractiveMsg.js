@@ -135,7 +135,7 @@ __d(
       var n = t.currency,
         r = t.items,
         a = t.totalAmount,
-        i = o("WAWebCurrencyUtils").formatAmount(n, a);
+        i = o("WAWebCurrencyUtils").formatAmount({ amount: a, currency: n });
       return r.length !== 0 ? r[0].name + " \xB7 " + i : i;
     }
     function p(e) {

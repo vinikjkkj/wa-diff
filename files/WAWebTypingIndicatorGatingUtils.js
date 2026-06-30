@@ -5,7 +5,11 @@ __d(
     function e(e) {
       return !e.isBot();
     }
-    i.isTypingIndicatorMessageBubbleEnabled = e;
+    function l(t, n) {
+      return e(t) && n == null;
+    }
+    ((i.isTypingIndicatorMessageBubbleEnabled = e),
+      (i.shouldShowMessageListTypingIndicator = l));
   },
   66,
 );

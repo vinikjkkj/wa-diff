@@ -1,27 +1,42 @@
 __d(
   "WAWebHandleHatchApprovalSnapshot",
-  ["WAWebHatchApprovalManager"],
+  ["WALogger", "WAWebHatchApprovalManager"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t = new Set();
-      for (var n of e.recent) {
-        var o = n.approvalId;
-        o != null && o !== "" && t.add(o);
+    var e;
+    function s(t) {
+      var n = new Set();
+      for (var a of t.recent) {
+        var i = a.approvalId;
+        i != null && i !== "" && n.add(i);
       }
-      var a = [];
-      for (var i of e.pending) {
-        var l = i.approvalId,
-          s = i.decision;
-        l != null &&
-          l !== "" &&
-          (s == null || s === "") &&
-          !t.has(l) &&
-          a.push(babelHelpers.extends({}, i, { approvalId: l }));
+      var l = [];
+      for (var s of t.pending) {
+        var u = s.approvalId,
+          c = s.decision;
+        u != null &&
+          u !== "" &&
+          (c == null || c === "") &&
+          !n.has(u) &&
+          l.push(babelHelpers.extends({}, s, { approvalId: u }));
       }
-      r("WAWebHatchApprovalManager").reconcilePending(a, e.asOfMs);
+      (o("WALogger")
+        .LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-approval: received snapshot pending=",
+              " resolved=",
+              " asOfMs=",
+              "",
+            ])),
+          l.length,
+          n.size,
+          t.asOfMs,
+        )
+        .sendLogs("hatch-approval-snapshot-received"),
+        r("WAWebHatchApprovalManager").reconcilePending(l, t.asOfMs));
     }
-    l.handleHatchApprovalSnapshot = e;
+    l.handleHatchApprovalSnapshot = s;
   },
   98,
 );

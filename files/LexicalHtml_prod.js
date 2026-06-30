@@ -176,14 +176,14 @@ __d(
       y = Symbol["for"]("@lexical/html/DOMExportContext"),
       S = "@lexical/html/DOMImport",
       E = Symbol["for"]("@lexical/html/DOMImportContext"),
-      N = function N() {
+      C = function C() {
         return !0;
       };
-    function C(e, t, n) {
+    function N(e, t, n) {
       return m(y, e, t, n);
     }
-    var D = C("root", Boolean),
-      I = C("isExport", Boolean);
+    var D = N("root", Boolean),
+      I = N("isExport", Boolean);
     function O(e) {
       var t = require("LexicalExtension").getPeerDependencyFromEditor(e, $);
       return t ? t.output.defaults : void 0;
@@ -209,7 +209,7 @@ __d(
     }
     function k(e, _ref) {
       var t = _ref.nodes;
-      if ("*" === t) return N;
+      if ("*" === t) return C;
       var n = {};
       var o = [];
       for (var _s2 of t)
@@ -297,7 +297,7 @@ __d(
         i && i(n, o, r, s);
       };
     }
-    function j(e, t, n, o, r) {
+    function z(e, t, n, o, r) {
       var s = n[t];
       var _loop = function _loop() {
         if ("function" == typeof _n4[0]) {
@@ -329,7 +329,7 @@ __d(
       }
       n[t] = s;
     }
-    function z(e, t, n, o) {
+    function j(e, t, n, o) {
       if (!o) return;
       var r = e[t];
       if ("function" == typeof n) r.push([n, o]);
@@ -386,12 +386,8 @@ __d(
           i = function i(e) {
             var n = s.get(e);
             if (void 0 === n) {
-              n = 0;
-              for (
-                var _o5 = e;
-                require("Lexical").$isLexicalNode(_o5.prototype);
-                _o5 = Object.getPrototypeOf(_o5)
-              )
+              n = -1;
+              for (var _o5 of require("Lexical").iterStaticNodeConfigChain(e))
                 n++;
               s.set(e, n);
             }
@@ -406,7 +402,7 @@ __d(
       })(n)) {
         var _t7 = k(r, _e1);
         for (var _n7 in s) {
-          z(s, _n7, _t7, _e1[_n7]);
+          j(s, _n7, _t7, _e1[_n7]);
         }
       }
       return s;
@@ -423,15 +419,15 @@ __d(
           e.dom,
         );
       return (
-        j(o, "$createDOM", r, F, b),
-        j(o, "$exportDOM", r, F, b),
-        j(o, "$extractWithChild", r, W, A),
-        j(o, "$getDOMSlot", r, H, B),
-        j(o, "$shouldExclude", r, _, w),
-        j(o, "$shouldInclude", r, _, w),
-        j(o, "$getSlotTargetElement", r, P, L),
-        j(o, "$updateDOM", r, P, L),
-        j(o, "$decorateDOM", r, U, q),
+        z(o, "$createDOM", r, F, b),
+        z(o, "$exportDOM", r, F, b),
+        z(o, "$extractWithChild", r, W, A),
+        z(o, "$getDOMSlot", r, H, B),
+        z(o, "$shouldExclude", r, _, w),
+        z(o, "$shouldInclude", r, _, w),
+        z(o, "$getSlotTargetElement", r, P, L),
+        z(o, "$updateDOM", r, P, L),
+        z(o, "$decorateDOM", r, U, q),
         r
       );
     }
@@ -902,7 +898,7 @@ __d(
       var n = e.style.whiteSpace;
       return "string" == typeof n && n.startsWith("pre");
     }
-    function Ne(e) {
+    function Ce(e) {
       if (require("Lexical").isDOMTextNode(e)) return !0;
       if (!require("Lexical").isHTMLElement(e)) return !1;
       var n = e.style.display;
@@ -911,8 +907,8 @@ __d(
         : !require("Lexical").isBlockDomNode(e) &&
             require("Lexical").isInlineDomNode(e);
     }
-    var Ce = ge("whitespaceConfig", function () {
-        return { isInline: Ne, preservesWhitespace: Ee };
+    var Ne = ge("whitespaceConfig", function () {
+        return { isInline: Ce, preservesWhitespace: Ee };
       }),
       De = ge("importOverlays", function () {
         return [];
@@ -1107,7 +1103,7 @@ __d(
       ),
       name: "@lexical/html/inline-format",
     });
-    function je(e, n, o) {
+    function ze(e, n, o) {
       var r = e;
       for (;;) {
         var _e18 = null;
@@ -1123,7 +1119,7 @@ __d(
         if ("BR" === r.nodeName) return null;
       }
     }
-    function ze(e, n) {
+    function je(e, n) {
       return 0 !== n && require("Lexical").$isTextNode(e) ? e.setFormat(n) : e;
     }
     function Ve(e, n) {
@@ -1142,7 +1138,7 @@ __d(
         $import: function $import(e, n) {
           var o = e.get(ye),
             r = e.get(Se),
-            s = e.get(Ce);
+            s = e.get(Ne);
           if (
             (function (e, t) {
               var n = e.parentNode;
@@ -1156,7 +1152,7 @@ __d(
             var _e20 = require("Lexical").$generateNodesFromRawText(
               n.textContent || "",
             );
-            for (var _t15 of _e20) (ze(_t15, o), Ve(_t15, r));
+            for (var _t15 of _e20) (je(_t15, o), Ve(_t15, r));
             return _e20;
           }
           var i = (function (e, t) {
@@ -1167,7 +1163,7 @@ __d(
             if (" " === n[0]) {
               var _o8 = e,
                 _r9 = !0;
-              for (; null !== _o8 && null !== (_o8 = je(_o8, !1, t)); ) {
+              for (; null !== _o8 && null !== (_o8 = ze(_o8, !1, t)); ) {
                 var _e21 = _o8.textContent || "";
                 if (_e21.length > 0) {
                   (/[ \t\n]$/.test(_e21) && (n = n.slice(1)), (_r9 = !1));
@@ -1179,7 +1175,7 @@ __d(
             if (n.length > 0 && " " === n[n.length - 1]) {
               var _o9 = e,
                 _r0 = !0;
-              for (; null !== _o9 && null !== (_o9 = je(_o9, !0, t)); )
+              for (; null !== _o9 && null !== (_o9 = ze(_o9, !0, t)); )
                 if (
                   (_o9.textContent || "").replace(/^( |\t|\r?\n)+/, "").length >
                   0
@@ -1193,7 +1189,7 @@ __d(
           })(n, s);
           if ("" === i) return [];
           var c = require("Lexical").$createTextNode(i);
-          return (ze(c, o), Ve(c, r), [c]);
+          return (je(c, o), Ve(c, r), [c]);
         },
         match: Fe.text(),
         name: "@lexical/html/#text",
@@ -1868,7 +1864,7 @@ __d(
       (exports.ImportSourceDataTransfer = $e),
       (exports.ImportTextFormat = ye),
       (exports.ImportTextStyle = Se),
-      (exports.ImportWhitespaceConfig = Ce),
+      (exports.ImportWhitespaceConfig = Ne),
       (exports.InlineSchema = we),
       (exports.NestedBlockSchema = Le),
       (exports.RenderContextExport = I),
@@ -1879,8 +1875,8 @@ __d(
       }),
       (exports.contextValue = d),
       (exports.createImportState = ge),
-      (exports.createRenderState = C),
-      (exports.defaultIsInline = Ne),
+      (exports.createRenderState = N),
+      (exports.defaultIsInline = Ce),
       (exports.defaultPreservesWhitespace = Ee),
       (exports.defineImportRule = me),
       (exports.defineOverlayRules = function (e) {

@@ -6,6 +6,7 @@ __d(
     "WAWebABProps",
     "WAWebBackendApi",
     "WAWebCoreActionsODS",
+    "WAWebVoipAudioCaptureBase",
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
     "WAWebVoipCallStateUtils",
@@ -1085,6 +1086,7 @@ __d(
               o(
                 "WAWebVoipVideoCameraCapture",
               ).WAWebVoipVideoCameraCapture.scheduleCallEndCameraRelease(),
+              o("WAWebVoipAudioCaptureBase").scheduleCallEndMicRelease(),
               o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
                 .cleanupFieldstatsAfterNormalEnd()
                 .catch(function (e) {

@@ -22,7 +22,9 @@ __d(
     var u = new Map([["MXN", s]]);
     function c(e, t) {
       var n = u.get(e);
-      return n != null ? n(t) : o("WAWebCurrencyUtils").formatAmount(e, t);
+      return n != null
+        ? n(t)
+        : o("WAWebCurrencyUtils").formatAmount({ amount: t, currency: e });
     }
     function d(e, t) {
       return c(e, t / 1e3);

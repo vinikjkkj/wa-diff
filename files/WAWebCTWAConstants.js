@@ -7,21 +7,23 @@ __d(
       s = "11525",
       u = "11522",
       c = "12015",
-      d = "12502",
-      m = "12503",
-      p = new Map([
+      d = "13329",
+      m = "12502",
+      p = "12503",
+      _ = new Map([
         [e, "WHATSAPP_FOR_SMB_WEB_WHATSAPP_SMB_WEB_CHATLIST_BANNER_QP"],
         [l, "WHATSAPP_FOR_WEB_WA_BANNER_WEB_QP"],
         [s, "WHATSAPP_FOR_WEB_GROUPSBANNER_QP"],
         [u, "WHATSAPP_FOR_WEB_PROFILEBANNER_QP"],
         [c, "WHATSAPP_FOR_SMB_WEB_BUSINESS_HOME_CARD_QP"],
-        [m, "WHATSAPP_FOR_SMB_WEB_UPDATES_TAB_FOOTER_NOTICE_QP"],
-        [d, "WHATSAPP_FOR_WEB_UPDATES_TAB_FOOTER_NOTICE_QP"],
+        [d, "WHATSAPP_FOR_SMB_WEB_BUSINESS_BROADCAST_HOME_CARD_QP"],
+        [p, "WHATSAPP_FOR_SMB_WEB_UPDATES_TAB_FOOTER_NOTICE_QP"],
+        [m, "WHATSAPP_FOR_WEB_UPDATES_TAB_FOOTER_NOTICE_QP"],
       ]),
-      _ = 20 * 1e3,
       f = 20 * 1e3,
       g = 20 * 1e3,
-      h = Object.freeze({
+      h = 20 * 1e3,
+      y = Object.freeze({
         FOLLOW_UP: 7,
         LEAD: 8,
         NEW_CUSTOMER: 1,
@@ -30,32 +32,33 @@ __d(
         PAID: 4,
         PENDING_PAYMENT: 3,
       }),
-      y = new Set(
-        Object.keys(h).map(function (e) {
-          return h[e];
+      C = new Set(
+        Object.keys(y).map(function (e) {
+          return y[e];
         }),
       ),
-      C = 7,
-      b = 8,
-      v = 6,
-      S = 2;
+      b = 7,
+      v = 8,
+      S = 6,
+      R = 2;
     ((i.QP_SURFACE_ID_CHAT_LIST_TOP = e),
       (i.QP_SURFACE_ID_WA_BANNER_WEB = l),
       (i.QP_SURFACE_ID_EXITED_GROUP = s),
       (i.QP_SURFACE_ID_PROFILE = u),
       (i.QP_SURFACE_BUSINESS_HOME_TOP_CARD = c),
-      (i.QP_SURFACE_UPDATES_TAB_PRIVACY_FOOTER = d),
-      (i.QP_SURFACE_BUSINESS_UPDATES_TAB_PRIVACY_FOOTER = m),
-      (i.KNOWN_QP_SURFACES = p),
-      (i.QP_FETCH_TIMEOUT_MS = _),
-      (i.QP_ACTION_MUTATION_TIMEOUT_MS = f),
-      (i.AD_ENTRY_POINTS_FETCH_TIMEOUT_MS = g),
-      (i.ALLOWED_PREDEFINED_LABEL_IDS = h),
-      (i.ALLOWED_PREDEFINED_LABEL_IDS_SET = y),
-      (i.FOLLOW_UP_PREDEFINED_ID = C),
-      (i.LEAD_PREDEFINED_ID = b),
-      (i.IMPORTANT_PREDEFINED_ID = v),
-      (i.NEW_ORDER_PREDEFINED_ID = S));
+      (i.QP_SURFACE_ID_BB_HOME = d),
+      (i.QP_SURFACE_UPDATES_TAB_PRIVACY_FOOTER = m),
+      (i.QP_SURFACE_BUSINESS_UPDATES_TAB_PRIVACY_FOOTER = p),
+      (i.KNOWN_QP_SURFACES = _),
+      (i.QP_FETCH_TIMEOUT_MS = f),
+      (i.QP_ACTION_MUTATION_TIMEOUT_MS = g),
+      (i.AD_ENTRY_POINTS_FETCH_TIMEOUT_MS = h),
+      (i.ALLOWED_PREDEFINED_LABEL_IDS = y),
+      (i.ALLOWED_PREDEFINED_LABEL_IDS_SET = C),
+      (i.FOLLOW_UP_PREDEFINED_ID = b),
+      (i.LEAD_PREDEFINED_ID = v),
+      (i.IMPORTANT_PREDEFINED_ID = S),
+      (i.NEW_ORDER_PREDEFINED_ID = R));
   },
   66,
 );

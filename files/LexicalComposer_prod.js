@@ -61,11 +61,13 @@ __d(
                 if (o.isEmpty()) {
                   var _r = require("Lexical").$createParagraphNode();
                   o.append(_r);
-                  var _n = require("Lexical").CAN_USE_DOM
-                    ? document.activeElement
-                    : null;
+                  var _n = e.getRootElement(),
+                    _a =
+                      require("Lexical").CAN_USE_DOM && null !== _n
+                        ? require("Lexical").getActiveElement(_n)
+                        : null;
                   (null !== require("Lexical").$getSelection() ||
-                    (null !== _n && _n === e.getRootElement())) &&
+                    (null !== _a && _a === _n)) &&
                     _r.select();
                 }
               }, a);

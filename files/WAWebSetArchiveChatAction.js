@@ -7,9 +7,7 @@ __d(
     "WALogger",
     "WAWebActionToast.react",
     "WAWebChatArchiveBridge",
-    "WAWebChatGetters",
     "WAWebMiscErrors",
-    "WAWebNewsletterGatingUtils",
     "WAWebNoop",
     "WAWebStateUtils",
     "WAWebToastManager",
@@ -23,14 +21,10 @@ __d(
     function m(e, t, n) {
       return _(o("WAWebStateUtils").unproxy(e), t, n);
     }
-    function p(e, t) {
-      return t
-        ? e
-          ? s._(/*BTDS*/ "Couldn't archive channel.")
-          : s._(/*BTDS*/ "Couldn't archive chat.")
-        : e
-          ? s._(/*BTDS*/ "Couldn't unarchive channel.")
-          : s._(/*BTDS*/ "Couldn't unarchive chat.");
+    function p(e) {
+      return e
+        ? s._(/*BTDS*/ "Couldn't archive chat.")
+        : s._(/*BTDS*/ "Couldn't unarchive chat.");
     }
     function _(t, a, i, l) {
       if (
@@ -46,33 +40,22 @@ __d(
         f = new AbortController(),
         g = f.signal,
         h = o("WAWebChatArchiveBridge").sendConversationArchive(t.id, a, m),
-        y =
-          o("WAWebChatGetters").getIsNewsletter(t) &&
-          o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled(),
-        C = a
+        y = a
           ? new (o("WAWebActionToast.react").ActionType)(
-              y
-                ? s._(/*BTDS*/ "Archiving channel")
-                : s._(/*BTDS*/ "Archiving chat"),
+              s._(/*BTDS*/ "Archiving chat"),
             )
           : new (o("WAWebActionToast.react").ActionType)(
-              y
-                ? s._(/*BTDS*/ "Unarchiving channel")
-                : s._(/*BTDS*/ "Unarchiving chat"),
+              s._(/*BTDS*/ "Unarchiving chat"),
             ),
-        b = h
+        C = h
           .then(function (e) {
             if (g.aborted) throw new (o("WAAbortError").AbortError)();
             var n;
             if (e.status === 200)
               return (
-                a
-                  ? (n = y
-                      ? s._(/*BTDS*/ "Channel archived")
-                      : s._(/*BTDS*/ "Chat archived"))
-                  : (n = y
-                      ? s._(/*BTDS*/ "Channel unarchived")
-                      : s._(/*BTDS*/ "Chat unarchived")),
+                (n = a
+                  ? s._(/*BTDS*/ "Chat archived")
+                  : s._(/*BTDS*/ "Chat unarchived")),
                 new (o("WAWebActionToast.react").ActionType)(n, {
                   actionText: s._(/*BTDS*/ "Undo"),
                   actionHandler: function () {
@@ -81,7 +64,7 @@ __d(
                 })
               );
             if (e.status >= 400)
-              return new (o("WAWebActionToast.react").ActionType)(p(y, a));
+              return new (o("WAWebActionToast.react").ActionType)(p(a));
           })
           .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))
           .catch(function (n) {
@@ -92,7 +75,7 @@ __d(
                     "models:chat:setArchive dropped",
                   ])),
               ),
-              new (o("WAWebActionToast.react").ActionType)(p(y, a), {
+              new (o("WAWebActionToast.react").ActionType)(p(a), {
                 actionText: s._(/*BTDS*/ "Try again."),
                 actionHandler: function () {
                   return _(t, a, i, l);
@@ -104,19 +87,19 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebActionToast.react").ActionToast, {
             id: l,
-            initialAction: C,
-            pendingAction: b,
+            initialAction: y,
+            pendingAction: C,
           }),
         );
-      var v = h
+      var b = h
           .then(function (e) {
             e.status === 200 && ((t.archive = a), a && (t.pin = void 0));
           })
           .finally(function () {
             delete c.setArchive;
           }),
-        S = { promise: v, abortController: f, archive: a };
-      return ((c.setArchive = S), v);
+        v = { promise: b, abortController: f, archive: a };
+      return ((c.setArchive = v), b);
     }
     l.setArchive = m;
   },

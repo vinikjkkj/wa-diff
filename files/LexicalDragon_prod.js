@@ -80,7 +80,7 @@ __d(
         var n = e[i];
         if (void 0 === n) return null;
         var o = require("Lexical").getEditorPropertyFromDOMNode(
-          e.document.activeElement,
+          require("Lexical").getActiveElementDeep(e.document),
         );
         return require("Lexical").isLexicalEditor(o) && n.editors.has(o)
           ? o

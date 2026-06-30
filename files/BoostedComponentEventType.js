@@ -571,6 +571,11 @@ __d(
       WHATSAPP_CONNECT_NON_ADMIN_FAIL: "whatsapp_connect_non_admin_fail",
       WHATSAPP_CONNECT_ADMIN_SUCCESS: "whatsapp_connect_admin_success",
       WHATSAPP_CONNECT_ADMIN_FAIL: "whatsapp_connect_admin_fail",
+      WHATSAPP_MULTI_NUMBER_PENCIL_CLICK: "whatsapp_multi_number_pencil_click",
+      WHATSAPP_MULTI_NUMBER_ROW_SELECT: "whatsapp_multi_number_row_select",
+      WHATSAPP_MULTI_NUMBER_CONNECT_ANOTHER_CLICK:
+        "whatsapp_multi_number_connect_another_click",
+      WHATSAPP_MULTI_NUMBER_SAVE_CLICK: "whatsapp_multi_number_save_click",
       CTXMD_UPSELL_ACTION_BUTTON_CLICK: "ctxmd_upsell_action_button_click",
       CTXMD_UPSELL_IMPRESSION: "ctxmd_upsell_impression",
       CTXMD_UPSELL_IMPRESSION_CAP_REACHED:
@@ -951,6 +956,8 @@ __d(
         "scheduled_boost_activation_diagnostic",
       SCHEDULED_BOOST_POST_ID_OSI_OVERRIDE:
         "scheduled_boost_post_id_osi_override",
+      SCHEDULED_BOOST_DRAFT_RECONCILIATION:
+        "scheduled_boost_draft_reconciliation",
       SCHEDULED_BOOST_ACTIVATION_THROW: "scheduled_boost_activation_throw",
       SCHEDULED_BOOST_PRE_PROCESS_DIAGNOSTIC:
         "scheduled_boost_pre_process_diagnostic",

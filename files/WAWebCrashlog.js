@@ -786,6 +786,10 @@ __d(
       return (
         r("WAWebEnvironment").isWindows &&
           (t["additional_metadata[category]"] = "hybrid"),
+        r("WAWebEnvironment").isGuest &&
+          (t["additional_metadata[category]"] = o(
+            "WAWebCrashlogConstants",
+          ).CLB_SUBPLATFORM),
         r("WAWebURLUtils").build(o("WAWebCrashlogConstants").CLB_URL, t)
       );
     }

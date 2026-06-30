@@ -390,20 +390,23 @@ __d(
         disabled: !1,
       }),
       name: "@lexical/extension/AutoFocus",
-      register: function register(e, t, n) {
-        var i = n.getOutput();
+      register: function register(t, n, i) {
+        var o = i.getOutput();
         return R(function () {
-          return i.disabled.value
+          return o.disabled.value
             ? void 0
-            : e.registerRootListener(function (t) {
-                e.focus(
+            : t.registerRootListener(function (n) {
+                t.focus(
                   function () {
-                    var e = document.activeElement;
-                    null === t ||
-                      (null !== e && t.contains(e)) ||
-                      t.focus({ preventScroll: !0 });
+                    var t =
+                      null !== n
+                        ? require("Lexical").getActiveElement(n)
+                        : null;
+                    null === n ||
+                      (null !== t && n.contains(t)) ||
+                      n.focus({ preventScroll: !0 });
                   },
-                  { defaultSelection: i.defaultSelection.peek() },
+                  { defaultSelection: o.defaultSelection.peek() },
                 );
               });
         });
@@ -454,19 +457,16 @@ __d(
       return (
         !!t.isEditable() &&
         i.target === n &&
-        t.getEditorState().read(
-          function () {
-            var n = require("Lexical").$getRoot().getLastChild();
-            if (null === n) return !1;
-            var s = t.getElementByKey(n.getKey());
-            return (
-              null !== s &&
-              !(i.clientY <= s.getBoundingClientRect().bottom) &&
-              o(n)
-            );
-          },
-          { editor: t },
-        )
+        t.read("latest", function () {
+          var n = require("Lexical").$getRoot().getLastChild();
+          if (null === n) return !1;
+          var s = t.getElementByKey(n.getKey());
+          return (
+            null !== s &&
+            !(i.clientY <= s.getBoundingClientRect().bottom) &&
+            o(n)
+          );
+        })
       );
     }
     var A = _require_Lexical.defineExtension({
@@ -666,7 +666,7 @@ __d(
     try {
       H = "0.45.0+prod.cjs";
     } catch (e) {}
-    var G = H != null ? H : "0.45.0+source",
+    var G = H != null ? H : '"<unknown>+source"',
       V = new Set(["__proto__", "constructor", "prototype"]);
     function Z(e, t) {
       if (
@@ -1431,33 +1431,33 @@ __d(
           return { composingTextNode: m(null), compositionKey: m(null) };
         },
         name: "@lexical/extension/IME",
-        register: function register(n, i, o) {
-          var _o$getOutput = o.getOutput(),
-            s = _o$getOutput.compositionKey,
-            r = _o$getOutput.composingTextNode,
-            a = n.registerCommand(
+        register: function register(t, n, i) {
+          var _i$getOutput = i.getOutput(),
+            o = _i$getOutput.compositionKey,
+            s = _i$getOutput.composingTextNode,
+            r = t.registerCommand(
               require("Lexical").COMPOSITION_START_COMMAND,
               function () {
                 var t = require("Lexical").$getSelection();
                 return (
                   require("Lexical").$isRangeSelection(t) &&
-                    (s.value = t.anchor.key),
+                    (o.value = t.anchor.key),
                   !1
                 );
               },
               require("Lexical").COMMAND_PRIORITY_BEFORE_EDITOR,
             ),
-            c = R(function () {
-              var t = s.value;
-              r.value =
-                null !== t
-                  ? n.getEditorState().read(function () {
-                      var n = require("Lexical").$getNodeByKey(t);
-                      return require("Lexical").$isTextNode(n) ? n : null;
+            a = R(function () {
+              var n = o.value;
+              s.value =
+                null !== n
+                  ? t.read("latest", function () {
+                      var t = require("Lexical").$getNodeByKey(n);
+                      return require("Lexical").$isTextNode(t) ? t : null;
                     })
                   : null;
             }),
-            d = n.registerUpdateListener(function (_ref16) {
+            c = t.registerUpdateListener(function (_ref16) {
               var t = _ref16.tags,
                 n = _ref16.editorState;
               t.has(require("Lexical").COMPOSITION_START_TAG) &&
@@ -1465,13 +1465,13 @@ __d(
                   var t = require("Lexical").$getSelection();
                   if (!require("Lexical").$isRangeSelection(t)) return;
                   var n = t.anchor.getNode();
-                  require("Lexical").$isTextNode(n) && (r.value = n);
+                  require("Lexical").$isTextNode(n) && (s.value = n);
                 });
             }),
-            l = n.registerRootListener(function (e) {
-              if (null === e) return void (s.value = null);
+            d = t.registerRootListener(function (e) {
+              if (null === e) return void (o.value = null);
               var t = function t() {
-                s.value = null;
+                o.value = null;
               };
               return (
                 e.addEventListener("compositionend", t),
@@ -1480,7 +1480,7 @@ __d(
                 }
               );
             });
-          return require("LexicalUtils").mergeRegister(a, c, d, l);
+          return require("Lexical").mergeRegister(r, a, c, d);
         },
       });
     var Ie = require("Lexical").defineExtension({
@@ -1780,7 +1780,7 @@ __d(
         register: function register(n, i, o) {
           var s = o.getOutput(),
             r = o.getDependency(Pe).output;
-          return require("LexicalUtils").mergeRegister(
+          return require("Lexical").mergeRegister(
             R(function () {
               r.disabled.value = s.disabled.value;
             }),

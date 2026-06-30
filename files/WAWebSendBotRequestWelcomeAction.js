@@ -69,11 +69,10 @@ __d(
                 subtype: "bot_request_welcome",
                 messageSecret: i,
                 botMessageSecret: new Uint8Array(l),
+                botDeepLinkToken: t,
               },
             ),
-            u = new (o("WAWebMsgModel").Msg)(
-              babelHelpers.extends({}, s, { botDeepLinkToken: t }),
-            );
+            u = new (o("WAWebMsgModel").Msg)(s);
           ((e.hasRequestedWelcomeMsg = !0),
             yield o("WAWebOrchestratorNonPersistedJob")
               .createNonPersistedJob(

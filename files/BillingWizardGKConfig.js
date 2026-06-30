@@ -200,6 +200,7 @@ __d(
         REAL_TIME_TAX_ID_VALIDATION_IN_MV4B_ROLLOUT: {
           type: "PAYMENT_ACCOUNT_ID",
         },
+        SAVE_AND_PAY_NOW_INDIA_DOG_FOODING: { type: "PAYMENT_ACCOUNT_ID" },
         TEST_BILLING_GK_EXPOSURE_LOGGING: {
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",

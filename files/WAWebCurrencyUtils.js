@@ -69,22 +69,26 @@ __d(
           e.normalizeLocaleToBcp47Compliant(e.getLocale()),
         ].filter(Boolean);
       };
-    function d(e, t, n, r) {
-      r === void 0 && (r = c());
-      var o = "symbol";
+    function d(e) {
+      var t = e.amount,
+        n = e.currency,
+        r = e.localeOverride,
+        o = r === void 0 ? c() : r,
+        a = e.options,
+        i = "symbol";
       return (
-        u.includes(Array.isArray(r) ? r[0] : r) && (o = "code"),
+        u.includes(Array.isArray(o) ? o[0] : o) && (i = "code"),
         new Intl.NumberFormat(
-          r,
+          o,
           babelHelpers.extends(
-            { style: "currency", currency: e, currencyDisplay: o },
-            n,
+            { style: "currency", currency: n, currencyDisplay: i },
+            a,
           ),
         ).format(t)
       );
     }
     function m(e, t, n, r) {
-      return d(e, t / 1e3, n, r);
+      return d({ amount: t / 1e3, currency: e, localeOverride: r, options: n });
     }
     function p(e) {
       return new Intl.NumberFormat(e).format(1.1).substring(1, 2);

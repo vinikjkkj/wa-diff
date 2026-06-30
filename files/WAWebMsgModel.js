@@ -476,6 +476,7 @@ __d(
             (e.botGroupParticipant = o("WAWebBaseModel").prop()),
             (e.bizBotType = o("WAWebBaseModel").prop(null)),
             (e.botPersonaId = o("WAWebBaseModel").prop()),
+            (e.botDeepLinkToken = o("WAWebBaseModel").prop(null)),
             (e.aiMediaCollectionInfo = o("WAWebBaseModel").prop(null)),
             (e.expectedImageCount = o("WAWebBaseModel").prop(null)),
             (e.expectedVideoCount = o("WAWebBaseModel").prop(null)),

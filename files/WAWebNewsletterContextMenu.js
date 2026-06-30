@@ -2,7 +2,6 @@ __d(
   "WAWebNewsletterContextMenu",
   [
     "fbt",
-    "WAWebChatContextMenuItemArchive.react",
     "WAWebChatContextMenuItemMarkUnread.react",
     "WAWebChatContextMenuItemPin.react",
     "WAWebChatEntryPoint",
@@ -53,23 +52,13 @@ __d(
             ? a
             : !1,
         v = [u.jsx(m, { chat: c }, "Info"), u.jsx(d, { chat: c }, "Pin")];
-      (o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled() &&
-        v.splice(
-          1,
-          0,
-          u.jsx(
-            r("WAWebChatContextMenuItemArchive.react"),
-            { chat: c },
-            "Archive",
-          ),
-        ),
-        (b ||
-          C > 1 ||
-          o(
-            "WAWebNewsletterExtendedGatingUtils",
-          ).isNewsletterAdminNotificationsEnabled(c.newsletterMetadata)) &&
-          (v.push(u.jsx(p, { chat: c }, "Mute")),
-          v.push(u.jsx(_, { chat: c }, "MarkAsRead"))),
+      ((b ||
+        C > 1 ||
+        o(
+          "WAWebNewsletterExtendedGatingUtils",
+        ).isNewsletterAdminNotificationsEnabled(c.newsletterMetadata)) &&
+        (v.push(u.jsx(p, { chat: c }, "Mute")),
+        v.push(u.jsx(_, { chat: c }, "MarkAsRead"))),
         v.push(u.jsx(f, { chat: c }, "CopyLink")),
         v.push(u.jsx(g, { chat: c }, "EmbedChannel")));
       var S = u.jsx(

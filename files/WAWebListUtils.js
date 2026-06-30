@@ -12,8 +12,6 @@ __d(
     "WAWebLabelPillColors",
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
-    "WAWebNewsletterCollection",
-    "WAWebNewsletterGatingUtils",
     "WAWebSchemaLabel",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -181,34 +179,24 @@ __d(
           : 0;
     }
     function x() {
-      var e = o("WAWebLabelCollection").LabelCollection.toArray(),
-        t = new Map(),
-        n = 0,
+      var e,
+        t = o("WAWebLabelCollection").LabelCollection.toArray(),
+        n = new Map(),
+        r = 0,
         a = 0,
         i = 0,
         l = 0,
-        s = o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled()
-          ? r("WAWebNewsletterCollection").countWhere(function (e) {
-              var t;
-              return !!(
-                (t = e.newsletterMetadata) != null &&
-                t.isSubscribedOrOwned &&
-                !e.archive &&
-                !e.isLocked &&
-                e.unreadCount > 0
-              );
-            })
-          : 0;
+        s = 0;
       return (
-        e.forEach(function (e) {
-          t.set(e.id, 0);
+        t.forEach(function (e) {
+          n.set(e.id, 0);
         }),
         o("WAWebChatCollection").ChatCollection.forEach(function (e) {
           if (e.unreadCount !== 0 && !e.archive && !e.isLocked) {
-            if ((n++, o("WAWebChatGetters").getIsGroup(e))) {
-              var r;
+            if ((r++, o("WAWebChatGetters").getIsGroup(e))) {
+              var t;
               a++;
-              var s = (r = e.groupMetadata) == null ? void 0 : r.groupType;
+              var s = (t = e.groupMetadata) == null ? void 0 : t.groupType;
               (s === o("WAWebGroupType").GroupType.COMMUNITY ||
                 s === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
                 s === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
@@ -219,20 +207,23 @@ __d(
               e.labels != null &&
                 e.labels.length > 0 &&
                 e.labels.forEach(function (e) {
-                  if (t.has(e)) {
-                    var n,
-                      r = (n = t.get(e)) != null ? n : 0;
-                    t.set(e, r + 1);
-                  } else t.set(e, 1);
+                  if (n.has(e)) {
+                    var t,
+                      r = (t = n.get(e)) != null ? t : 0;
+                    n.set(e, r + 1);
+                  } else n.set(e, 1);
                 }));
           }
         }),
-        t.set(String(o("WAWebChatSearchFilters").SearchFilters.UNREAD), n),
-        t.set(String(o("WAWebChatSearchFilters").SearchFilters.GROUP), a),
-        t.set(String(o("WAWebChatSearchFilters").SearchFilters.FAVORITES), i),
-        t.set(String(o("WAWebChatSearchFilters").SearchFilters.COMMUNITY), l),
-        t.set(String(o("WAWebChatSearchFilters").SearchFilters.CHANNELS), s),
-        t
+        n.set(
+          String((e = o("WAWebChatSearchFilters")).SearchFilters.UNREAD),
+          r,
+        ),
+        n.set(String(e.SearchFilters.GROUP), a),
+        n.set(String(e.SearchFilters.FAVORITES), i),
+        n.set(String(e.SearchFilters.COMMUNITY), l),
+        n.set(String(e.SearchFilters.CHANNELS), s),
+        n
       );
     }
     function $(e) {

@@ -17,27 +17,27 @@ __d(
     exports,
   ) {
     "use strict";
-    function o(t, n) {
+    function a(t, n) {
       n.update(function () {
         if (null !== t) {
           var _r = require("LexicalUtils").objectKlassEquals(t, KeyboardEvent)
               ? null
               : t.clipboardData,
-            _o = require("Lexical").$getSelection();
-          if (null !== _o && !_o.isCollapsed() && null != _r) {
+            _a = require("Lexical").$getSelection();
+          if (null !== _a && !_a.isCollapsed() && null != _r) {
             t.preventDefault();
             var _i = require("LexicalClipboard").$getHtmlContent(n);
             (null !== _i && _r.setData("text/html", _i),
-              _r.setData("text/plain", _o.getTextContent()));
+              _r.setData("text/plain", _a.getTextContent()));
           }
         }
       });
     }
     function l(t) {
       var _require_Lexical;
-      return require("LexicalUtils").mergeRegister(
+      return (_require_Lexical = require("Lexical")).mergeRegister(
         t.registerCommand(
-          (_require_Lexical = require("Lexical")).DELETE_CHARACTER_COMMAND,
+          _require_Lexical.DELETE_CHARACTER_COMMAND,
           function (e) {
             var t = require("Lexical").$getSelection();
             return (
@@ -165,7 +165,8 @@ __d(
             var n = require("Lexical").$getSelection();
             return (
               !!require("Lexical").$isRangeSelection(n) &&
-              (!require("Lexical").IS_IOS || "ko-KR" !== navigator.language) &&
+              (!require("Lexical").IS_IOS ||
+                !require("Lexical").CAN_USE_BEFORE_INPUT) &&
               (e.preventDefault(),
               t.dispatchCommand(
                 require("Lexical").DELETE_CHARACTER_COMMAND,
@@ -232,7 +233,7 @@ __d(
           _require_Lexical.COPY_COMMAND,
           function (e) {
             var n = require("Lexical").$getSelection();
-            return !!require("Lexical").$isRangeSelection(n) && (o(e, t), !0);
+            return !!require("Lexical").$isRangeSelection(n) && (a(e, t), !0);
           },
           _require_Lexical.COMMAND_PRIORITY_EDITOR,
         ),
@@ -243,7 +244,7 @@ __d(
             return (
               !!require("Lexical").$isRangeSelection(n) &&
               ((function (e, t) {
-                (o(e, t),
+                (a(e, t),
                   t.update(
                     function () {
                       var e = require("Lexical").$getSelection();
