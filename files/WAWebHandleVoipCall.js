@@ -256,7 +256,16 @@ __d(
             }
             switch (e.type) {
               case o("WAWebVoipSignalingEnums").TYPE.OFFER:
-                if ((T(t, a, c, u, e.type), d)) {
+                if (
+                  (T({
+                    callCreator: u,
+                    callId: c,
+                    from: t,
+                    stanzaId: a,
+                    type: e.type,
+                  }),
+                  d)
+                ) {
                   var b = yield o(
                     "WAWebVoipBackendLoadable",
                   ).requireVoipJsBackend();
@@ -309,13 +318,13 @@ __d(
                         e,
                         R,
                       ))
-                    : T(
-                        t,
-                        a,
-                        c,
-                        u,
-                        o("WAWebVoipSignalingEnums").TYPE.ENC_REKEY,
-                      );
+                    : T({
+                        callCreator: u,
+                        callId: c,
+                        from: t,
+                        stanzaId: a,
+                        type: o("WAWebVoipSignalingEnums").TYPE.ENC_REKEY,
+                      });
                 } catch (e) {
                   o("WALogger").ERROR(
                     f ||
@@ -330,7 +339,13 @@ __d(
               case o("WAWebVoipSignalingEnums").TYPE.ACCEPT:
               case o("WAWebVoipSignalingEnums").TYPE.REJECT:
                 return (
-                  T(t, a, c, u, e.type),
+                  T({
+                    callCreator: u,
+                    callId: c,
+                    from: t,
+                    stanzaId: a,
+                    type: e.type,
+                  }),
                   yield o(
                     "WAWebVoipHandleIncomingSignalingMessage",
                   ).handleVoipIncomingSignalingMessage(e, i, d),
@@ -418,31 +433,36 @@ __d(
         I.apply(this, arguments)
       );
     }
-    function T(e, t, n, r, a) {
-      var i;
-      switch (a) {
+    function T(e) {
+      var t = e.callCreator,
+        n = e.callId,
+        r = e.from,
+        a = e.stanzaId,
+        i = e.type,
+        l;
+      switch (i) {
         case o("WAWebVoipSignalingEnums").TYPE.OFFER:
-          i = o("WAWap").wap("offer", {
+          l = o("WAWap").wap("offer", {
             "call-id": o("WAWap").CUSTOM_STRING(n),
-            "call-creator": o("WAWebCommsWapMd").JID(r),
+            "call-creator": o("WAWebCommsWapMd").JID(t),
           });
           break;
         case o("WAWebVoipSignalingEnums").TYPE.ENC_REKEY:
-          i = o("WAWap").wap("enc_rekey", {
+          l = o("WAWap").wap("enc_rekey", {
             "call-id": o("WAWap").CUSTOM_STRING(n),
-            "call-creator": o("WAWebCommsWapMd").JID(r),
+            "call-creator": o("WAWebCommsWapMd").JID(t),
           });
           break;
         case o("WAWebVoipSignalingEnums").TYPE.ACCEPT:
-          i = o("WAWap").wap("accept", {
+          l = o("WAWap").wap("accept", {
             "call-id": o("WAWap").CUSTOM_STRING(n),
-            "call-creator": o("WAWebCommsWapMd").JID(r),
+            "call-creator": o("WAWebCommsWapMd").JID(t),
           });
           break;
         case o("WAWebVoipSignalingEnums").TYPE.REJECT:
-          i = o("WAWap").wap("reject", {
+          l = o("WAWap").wap("reject", {
             "call-id": o("WAWap").CUSTOM_STRING(n),
-            "call-creator": o("WAWebCommsWapMd").JID(r),
+            "call-creator": o("WAWebCommsWapMd").JID(t),
           });
           break;
       }
@@ -450,9 +470,9 @@ __d(
         o("WAWap").wap(
           "receipt",
           {
-            to: o("WAWebCommsWapMd").JID(e),
-            id: o("WAWap").CUSTOM_STRING(t),
-            from: e.isLid()
+            to: o("WAWebCommsWapMd").JID(r),
+            id: o("WAWap").CUSTOM_STRING(a),
+            from: r.isLid()
               ? o("WAWebCommsWapMd").JID(
                   o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
                 )
@@ -460,7 +480,7 @@ __d(
                   o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
                 ),
           },
-          i,
+          l,
         ),
       );
     }

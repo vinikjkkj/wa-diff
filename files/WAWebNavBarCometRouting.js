@@ -3,15 +3,13 @@ __d(
   [
     "WAWebNavBarTypes",
     "WAXWhatsAppWebCometRoutedChannelsControllerRouteBuilder",
-    "WAXWhatsAppWebCometRoutedMainControllerRouteBuilder",
+    "WAXWhatsAppWebRootControllerRouteBuilder",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Map([
       [
         o("WAWebNavBarTypes").NavBarItems.Chats,
-        r("WAXWhatsAppWebCometRoutedMainControllerRouteBuilder")
-          .buildUri({})
-          .toString(),
+        r("WAXWhatsAppWebRootControllerRouteBuilder").buildUri({}).toString(),
       ],
       [
         o("WAWebNavBarTypes").NavBarItems.Newsletters,

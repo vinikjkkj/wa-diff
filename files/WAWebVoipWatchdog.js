@@ -71,14 +71,14 @@ __d(
                 var i = C(r),
                   l = i[0],
                   u = i[1];
-                this.$10(
-                  l,
-                  u,
-                  t - a.openedAtMs,
-                  babelHelpers.extends({}, a.lastEvidence, {
+                this.$10({
+                  durationMs: t - a.openedAtMs,
+                  evidence: babelHelpers.extends({}, a.lastEvidence, {
                     closedReason: "watchdog_stopped",
                   }),
-                );
+                  key: u,
+                  kind: l,
+                });
               }
             }
             (this.$6 != null &&
@@ -121,14 +121,14 @@ __d(
                 l = a[1];
               l === t &&
                 (o.isOpen &&
-                  this.$10(
-                    i,
-                    l,
-                    e - o.openedAtMs,
-                    babelHelpers.extends({}, o.lastEvidence, {
+                  this.$10({
+                    durationMs: e - o.openedAtMs,
+                    evidence: babelHelpers.extends({}, o.lastEvidence, {
                       closedReason: "participant_pruned",
                     }),
-                  ),
+                    key: l,
+                    kind: i,
+                  }),
                 this.$7.delete(r));
             }
             (this.$3.delete(t), this.$4.delete(t));
@@ -228,12 +228,12 @@ __d(
                 l.isOpen &&
                   ((l.closeTicks += 1),
                   l.closeTicks >= t.clearTicks &&
-                    (this.$10(
-                      t.kind,
-                      n,
-                      o.nowMs - l.openedAtMs,
-                      l.lastEvidence,
-                    ),
+                    (this.$10({
+                      durationMs: o.nowMs - l.openedAtMs,
+                      evidence: l.lastEvidence,
+                      key: n,
+                      kind: t.kind,
+                    }),
                     (l.isOpen = !1),
                     (l.closeTicks = 0),
                     (l.openedAtMs = 0),
@@ -263,7 +263,11 @@ __d(
             JSON.stringify(r),
           );
         }),
-        (n.$10 = function (t, n, r, a) {
+        (n.$10 = function (t) {
+          var e = t.durationMs,
+            n = t.evidence,
+            r = t.key,
+            a = t.kind;
           o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -273,10 +277,10 @@ __d(
                 "ms evidence=",
                 "",
               ])),
-            t,
-            n != null ? n : "call-wide",
-            r.toFixed(0),
-            JSON.stringify(a),
+            a,
+            r != null ? r : "call-wide",
+            e.toFixed(0),
+            JSON.stringify(n),
           );
         }),
         (n.__isOpenForTest = function (t, n) {

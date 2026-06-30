@@ -27,9 +27,7 @@ __d(
     function c() {
       return r("gkx")("14893") ? "test" : "control";
     }
-    ((l.getLandingPromoExperiment = e),
-      (l.isLandingPromoEnabled = s),
-      (l.getLandingPromoExpBucket = u));
+    ((l.isLandingPromoEnabled = s), (l.getLandingPromoExpBucket = u));
   },
   98,
 );

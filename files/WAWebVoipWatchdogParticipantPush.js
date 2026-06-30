@@ -8,94 +8,99 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 9e4;
-    function s(t, n, r, a, i) {
-      var l,
-        s = [],
-        u = new Set();
-      if (t.isGroup === !0) {
-        var c,
-          d = (c = t.groupCallParticipantsConnected) != null ? c : [];
-        for (var m of d) {
-          var p;
-          if (!o("WAWebUserPrefsMeUser").isMeAccount(m)) {
-            var _ = m.toString();
-            (u.add(_),
-              n.has(_) || n.set(_, a),
-              s.push({
-                key: _,
+    function s(t) {
+      var n,
+        r = t.activeCall,
+        a = t.joinTs,
+        i = t.leaveTs,
+        l = t.nowMs,
+        s = t.prunedKeys,
+        u = [],
+        c = new Set();
+      if (r.isGroup === !0) {
+        var d,
+          m = (d = r.groupCallParticipantsConnected) != null ? d : [];
+        for (var p of m) {
+          var _;
+          if (!o("WAWebUserPrefsMeUser").isMeAccount(p)) {
+            var f = p.toString();
+            (c.add(f),
+              a.has(f) || a.set(f, l),
+              u.push({
+                key: f,
                 isSelf: !1,
-                isVideoEnabled: !t.isParticipantVideoMuted(m),
-                isMicEnabled: !t.isParticipantMicMuted(m),
+                isVideoEnabled: !r.isParticipantVideoMuted(p),
+                isMicEnabled: !r.isParticipantMicMuted(p),
                 hasLeft: !1,
-                lastJoinTimestampMs: (p = n.get(_)) != null ? p : a,
+                lastJoinTimestampMs: (_ = a.get(f)) != null ? _ : l,
                 lastLeaveTimestampMs: null,
               }));
           }
         }
-      } else if (t.peerJid != null) {
-        var f,
-          g = t.peerJid,
-          h = g.toString();
-        (u.add(h),
-          n.has(h) || n.set(h, a),
-          s.push({
-            key: h,
+      } else if (r.peerJid != null) {
+        var g,
+          h = r.peerJid,
+          y = h.toString();
+        (c.add(y),
+          a.has(y) || a.set(y, l),
+          u.push({
+            key: y,
             isSelf: !1,
             isVideoEnabled: o("WAWebVoipVideoStateUtils").isVideoEnabled(
-              t.peerVideoState,
+              r.peerVideoState,
             ),
-            isMicEnabled: t.peerMicMuted !== !0,
+            isMicEnabled: r.peerMicMuted !== !0,
             hasLeft: !1,
-            lastJoinTimestampMs: (f = n.get(h)) != null ? f : a,
+            lastJoinTimestampMs: (g = a.get(y)) != null ? g : l,
             lastLeaveTimestampMs: null,
           }));
       }
-      for (var y of n) {
-        var C,
-          b = y[0],
-          v = y[1];
+      for (var C of a) {
+        var b,
+          v = C[0],
+          S = C[1];
         if (
-          b === o("WAWebVoipVideoRendererInterface").selfPreviewJid ||
-          u.has(b)
+          v === o("WAWebVoipVideoRendererInterface").selfPreviewJid ||
+          c.has(v)
         ) {
-          r.delete(b);
+          i.delete(v);
           continue;
         }
-        var S = r.get(b);
-        if (S == null) r.set(b, a);
-        else if (a - S >= e) {
-          (n.delete(b), r.delete(b), i == null || i.push(b));
+        var R = i.get(v);
+        if (R == null) i.set(v, l);
+        else if (l - R >= e) {
+          (a.delete(v), i.delete(v), s == null || s.push(v));
           continue;
         }
-        s.push({
-          key: b,
+        u.push({
+          key: v,
           isSelf: !1,
           isVideoEnabled: !1,
           isMicEnabled: !1,
           hasLeft: !0,
-          lastJoinTimestampMs: v,
-          lastLeaveTimestampMs: (C = r.get(b)) != null ? C : a,
+          lastJoinTimestampMs: S,
+          lastLeaveTimestampMs: (b = i.get(v)) != null ? b : l,
         });
       }
       return (
-        n.has(o("WAWebVoipVideoRendererInterface").selfPreviewJid) ||
-          n.set(o("WAWebVoipVideoRendererInterface").selfPreviewJid, a),
-        s.push({
+        a.has(o("WAWebVoipVideoRendererInterface").selfPreviewJid) ||
+          a.set(o("WAWebVoipVideoRendererInterface").selfPreviewJid, l),
+        u.push({
           key: o("WAWebVoipVideoRendererInterface").selfPreviewJid,
           isSelf: !0,
           isVideoEnabled: o("WAWebVoipVideoStateUtils").isVideoEnabled(
-            t.selfVideoState,
+            r.selfVideoState,
           ),
-          isMicEnabled: t.selfMicMuted !== !0,
+          isMicEnabled: r.selfMicMuted !== !0,
           hasLeft: !1,
           lastJoinTimestampMs:
-            (l = n.get(o("WAWebVoipVideoRendererInterface").selfPreviewJid)) !=
+            (n = a.get(o("WAWebVoipVideoRendererInterface").selfPreviewJid)) !=
             null
-              ? l
-              : a,
+              ? n
+              : l,
           lastLeaveTimestampMs: null,
         }),
-        s
+        u
       );
     }
     l.buildParticipantSnapshots = s;

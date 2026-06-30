@@ -20,11 +20,16 @@ __d(
       g = null,
       h = null,
       y = -1;
-    function C(e, t, n, r, a) {
-      var i = a === y || (r != null && o("WATimeUtils").unixTime() < r),
-        l = !!(e != null && e.trim()) || !!t,
-        s = n !== m;
-      return s && i && l;
+    function C(e) {
+      var t = e.textStatusEmoji,
+        n = e.textStatusEphemeralDuration,
+        r = e.textStatusExpiryTs,
+        a = e.textStatusLastUpdateTime,
+        i = e.textStatusString,
+        l = n === y || (r != null && o("WATimeUtils").unixTime() < r),
+        s = !!(i != null && i.trim()) || !!t,
+        u = a !== m;
+      return u && l && s;
     }
     function b(e) {
       return e != null && e !== y;
@@ -35,7 +40,13 @@ __d(
         r === e ||
         r === d ||
         r === s ||
-        !C(t, n, r, a, i)
+        !C({
+          textStatusEmoji: n,
+          textStatusEphemeralDuration: i,
+          textStatusExpiryTs: a,
+          textStatusLastUpdateTime: r,
+          textStatusString: t,
+        })
       );
     }
     function S(e) {

@@ -513,14 +513,17 @@ __d(
                     var n = yield o(
                       "WAWebSignalStoreApi",
                     ).waSignalStore.getSession(e);
-                    this.$1.SessionStore.set(e, n ? { session: n } : void 0);
+                    this.$1.SessionStore.set(
+                      e,
+                      n != null ? { session: n } : void 0,
+                    );
                   }
                   var r =
                     (t = this.$1.SessionStore.get(e)) == null
                       ? void 0
                       : t.session;
                   if (r != null) {
-                    if (r.byteLength === 0) {
+                    if (r instanceof ArrayBuffer && r.byteLength === 0) {
                       o("WALogger")
                         .LOG(
                           u ||
@@ -617,14 +620,19 @@ __d(
                   ).waSignalStore.bulkGetSession(n);
                   a.forEach(function (e, r) {
                     var o = n[r];
-                    t.$1.SessionStore.set(o, e ? { session: e } : void 0);
+                    t.$1.SessionStore.set(
+                      o,
+                      e != null ? { session: e } : void 0,
+                    );
                   });
                 }
                 return e.map(function (e) {
                   var n = t.$1.SessionStore.get(e);
                   return n == null || n.deleted === !0
                     ? !1
-                    : n.session == null || n.session.byteLength === 0
+                    : n.session == null ||
+                        (n.session instanceof ArrayBuffer &&
+                          n.session.byteLength === 0)
                       ? (o("WALogger")
                           .LOG(
                             c ||

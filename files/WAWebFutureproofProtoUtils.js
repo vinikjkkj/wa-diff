@@ -52,7 +52,21 @@ __d(
                 : u || null))
       );
     }
-    l.maybeGetFutureproofMessage = e;
+    function s(e) {
+      var t = e.associatedChildMessage,
+        n = e.botForwardedMessage,
+        r = e.spoilerMessage;
+      return (
+        (t != null &&
+          !o(
+            "WAWebMessageAssociationGatingUtils",
+          ).isFutureproofAssociatedChildEnabled()) ||
+        (r != null && !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()) ||
+        (n != null &&
+          !o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled())
+      );
+    }
+    ((l.maybeGetFutureproofMessage = e), (l.hasGatedOffFutureproofWrapper = s));
   },
   98,
 );

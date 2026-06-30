@@ -35,10 +35,14 @@ __d(
         URL: [/URL(?:;([^:]+))*:(.+)/, 1],
         EMAIL: [/EMAIL(?:;([^:]+))*:(.+)/, 1],
       },
-      m = function (t, n, r, o) {
-        ((this.type = t),
-          (this.index = n),
-          (this.properties = r || {}),
+      m = function (t) {
+        var e = t.index,
+          n = t.properties,
+          r = t.type,
+          o = t.value;
+        ((this.type = r),
+          (this.index = e),
+          (this.properties = n || {}),
           (this.value = o));
       };
     function p(e, t, n) {
@@ -229,7 +233,9 @@ __d(
               if (R) {
                 var F = R[1];
                 a[F]
-                  ? a[F].fields.push(new m(I, null, D, x))
+                  ? a[F].fields.push(
+                      new m({ index: null, properties: D, type: I, value: x }),
+                    )
                   : (a[F] = {
                       type: I,
                       index: b,
@@ -238,7 +244,8 @@ __d(
                       value: x,
                       fields: [],
                     });
-              } else p(r, T, new m(I, b, D, x));
+              } else
+                p(r, T, new m({ index: b, properties: D, type: I, value: x }));
           }
         }
         return (
@@ -253,7 +260,7 @@ __d(
             (n.forEach(function (e) {
               l[e.type] = e.value;
             }),
-              p(r, i, new m(s, o, l, u)));
+              p(r, i, new m({ index: o, properties: l, type: s, value: u })));
           }),
           g(r)
         );

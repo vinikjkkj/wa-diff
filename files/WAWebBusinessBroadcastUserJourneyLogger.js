@@ -418,10 +418,11 @@ __d(
           (t.templateSaveClicked = function (t) {
             o("WAWebBBContactImportLogs").templateSaveClicked(this.$1, t);
           }),
-          (t.contactImportCancelClicked = function (t) {
+          (t.contactImportCancelClicked = function (t, n) {
             o("WAWebBBContactImportLogs").contactImportCancelClicked(
               this.$1,
               t,
+              n,
             );
           }),
           (t.fileUploadClicked = function (t) {
@@ -479,10 +480,11 @@ __d(
               n,
             );
           }),
-          (t.importedContactWizardCancelClicked = function (t) {
+          (t.importedContactWizardCancelClicked = function (t, n) {
             o("WAWebBBContactImportLogs").importedContactWizardCancelClicked(
               this.$1,
               t,
+              n,
             );
           }),
           (t.editContactViewed = function (t) {
@@ -571,12 +573,13 @@ __d(
               n,
             );
           }),
-          (t.importAudienceSuccess = function (t, n, r) {
+          (t.importAudienceSuccess = function (t, n, r, a) {
             o("WAWebBBContactImportLogs").importAudienceSuccess(
               this.$1,
               t,
               n,
               r,
+              a,
             );
           }),
           (t.importAudienceError = function (t, n) {

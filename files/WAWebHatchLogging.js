@@ -16,7 +16,7 @@ __d(
             .REQUEST_WELCOME_MSG_SENT,
           unifiedSessionId: e == null ? void 0 : e.unifiedSessionId,
           aiSessionId: e == null ? void 0 : e.aiSessionId,
-          botEntryPoint: e == null ? void 0 : e.botEntryPoint,
+          rawBotEntryPoint: e == null ? void 0 : e.rawBotEntryPoint,
         });
         t.commit();
       }
@@ -30,7 +30,7 @@ __d(
             .TAP_UNLINK_BUTTON,
           unifiedSessionId: e == null ? void 0 : e.unifiedSessionId,
           aiSessionId: e == null ? void 0 : e.aiSessionId,
-          botEntryPoint: e == null ? void 0 : e.botEntryPoint,
+          rawBotEntryPoint: e == null ? void 0 : e.rawBotEntryPoint,
         });
         t.commit();
       }

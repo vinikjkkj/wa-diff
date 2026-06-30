@@ -61,6 +61,7 @@ __d(
       MEDIA_BROWSER_STATUS_MENU: 57,
       ARCHIVE_STATUS_VIEWER: 58,
       ME_TAB: 59,
+      CONTACTS_TAB: 60,
     });
     i.STATUS_CREATION_ENTRY_POINT = e;
   },

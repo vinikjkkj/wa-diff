@@ -4,29 +4,25 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = 100,
       s = 1,
-      u = o("WAWebTeeEnums").TeeClientMode.MOCK,
-      c = [],
-      d = new Map(),
-      m = [];
-    function p(e) {
+      u = [],
+      c = new Map(),
+      d = [];
+    function m(e) {
       return (
-        m.push(e),
+        d.push(e),
         function () {
-          var t = m.indexOf(e);
-          t !== -1 && m.splice(t, 1);
+          var t = d.indexOf(e);
+          t !== -1 && d.splice(t, 1);
         }
       );
     }
-    function _() {
-      return c;
-    }
-    function f() {
+    function p() {
       return u;
     }
-    function g(e) {
-      ((u = e), S());
+    function _() {
+      return o("WAWebTeeEnums").TeeClientMode.MOCK;
     }
-    function h(t, n) {
+    function f(t, n) {
       var o = {
         id: s++,
         timestamp: Date.now(),
@@ -37,20 +33,20 @@ __d(
         resolveResponse: null,
         rejectResponse: null,
       };
-      for (c.unshift(o), d.set(o.id, o); c.length > e; ) {
-        var a = c.pop();
+      for (u.unshift(o), c.set(o.id, o); u.length > e; ) {
+        var a = u.pop();
         a != null &&
-          (d.delete(a.id),
+          (c.delete(a.id),
           a.rejectResponse != null &&
             (a.rejectResponse(r("err")("TEE debug entry evicted from store")),
             (a.rejectResponse = null),
             (a.resolveResponse = null)));
       }
-      return (S(), o);
+      return (b(), o);
     }
-    function y(e, t, n) {
+    function g(e, t, n) {
       var r,
-        a = d.get(e);
+        a = c.get(e);
       if (a != null) {
         var i = typeof t == "string" ? t : (r = t[0]) != null ? r : "",
           l = typeof t == "string" ? [t] : [].concat(t),
@@ -77,12 +73,12 @@ __d(
             : (a.status = "streaming"),
           a.resolveResponse != null &&
             (a.resolveResponse(s), (a.resolveResponse = null)),
-          S());
+          b());
       }
     }
-    function C(e, t) {
+    function h(e, t) {
       var n,
-        r = d.get(e);
+        r = c.get(e);
       if (r != null) {
         var a = Number((n = t.common_metadata) == null ? void 0 : n.status);
         (r.responses.push(t),
@@ -91,39 +87,38 @@ __d(
             : (r.status = "streaming"),
           r.resolveResponse != null &&
             (r.resolveResponse(t), (r.resolveResponse = null)),
-          S());
+          b());
       }
     }
-    function b(e, t) {
-      var n = d.get(e);
+    function y(e, t) {
+      var n = c.get(e);
       n != null &&
         ((n.status = "completed"),
         n.rejectResponse != null &&
           (n.rejectResponse(r("err")(t)),
           (n.rejectResponse = null),
           (n.resolveResponse = null)),
-        S());
+        b());
     }
-    function v() {
-      for (var e of c)
+    function C() {
+      for (var e of u)
         e.rejectResponse != null &&
           (e.rejectResponse(r("err")("TEE debug entries cleared")),
           (e.rejectResponse = null),
           (e.resolveResponse = null));
-      ((c.length = 0), d.clear(), S());
+      ((u.length = 0), c.clear(), b());
     }
-    function S() {
-      for (var e of m) e();
+    function b() {
+      for (var e of d) e();
     }
-    ((l.subscribe = p),
-      (l.getEntries = _),
-      (l.getMode = f),
-      (l.updateMode = g),
-      (l.addRequest = h),
-      (l.submitResponse = y),
-      (l.submitRawResponse = C),
-      (l.rejectEntry = b),
-      (l.clearEntries = v));
+    ((l.subscribe = m),
+      (l.getEntries = p),
+      (l.getMode = _),
+      (l.addRequest = f),
+      (l.submitResponse = g),
+      (l.submitRawResponse = h),
+      (l.rejectEntry = y),
+      (l.clearEntries = C));
   },
   98,
 );

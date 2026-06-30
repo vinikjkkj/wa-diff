@@ -327,9 +327,7 @@ __d(
             u(!1);
           }));
     }
-    ((l.WA_PARTIAL_UPLOAD_FAILURE_TOAST_MSG = d),
-      (l.sendStage1WAUploadMsg = _),
-      (l.uploadAdCreativeMediaToWA = y),
+    ((l.uploadAdCreativeMediaToWA = y),
       (l.handleMediaPick = C),
       (l.handleFileDrop = b));
   },

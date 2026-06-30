@@ -11,49 +11,17 @@ __d(
         $$css: !0,
       },
     };
-    function s(e, t) {
-      if ((t === void 0 && (t = !1), t)) {
-        var n;
-        return {
-          content: [
-            (n = o("WDSActionTileDefaultConfig.stylex")).sharedSizeStyles
-              .content,
-            n.WDSActionTileBorderless.content,
-          ],
-          item: [n.sharedSizeStyles.item, n.WDSActionTileBorderless.item],
-          container: [
-            n.sharedSizeStyles.container,
-            n.WDSActionTileBorderless.container,
-          ],
-        };
-      }
-      if (e === "iOS") {
-        var n;
-        return {
-          content: [
-            (n = o("WDSActionTileDefaultConfig.stylex")).sharedSizeStyles
-              .content,
-            n.WDSActionTileiOS.content,
-          ],
-          item: [n.sharedSizeStyles.item, n.WDSActionTileiOS.item],
-          container: [
-            n.sharedSizeStyles.container,
-            n.WDSActionTileiOS.container,
-          ],
-        };
-      }
+    function s(e) {
+      var t;
       return {
         content: [
-          o("WDSActionTileDefaultConfig.stylex").sharedSizeStyles.content,
-          o("WDSActionTileDefaultConfig.stylex").WDSActionTileDefault.content,
+          (t = o("WDSActionTileDefaultConfig.stylex")).sharedSizeStyles.content,
+          t.WDSActionTileBorderless.content,
         ],
-        item: [
-          o("WDSActionTileDefaultConfig.stylex").sharedSizeStyles.item,
-          o("WDSActionTileDefaultConfig.stylex").WDSActionTileDefault.item,
-        ],
+        item: [t.sharedSizeStyles.item, t.WDSActionTileBorderless.item],
         container: [
-          o("WDSActionTileDefaultConfig.stylex").sharedSizeStyles.container,
-          o("WDSActionTileDefaultConfig.stylex").WDSActionTileDefault.container,
+          t.sharedSizeStyles.container,
+          t.WDSActionTileBorderless.container,
         ],
       };
     }

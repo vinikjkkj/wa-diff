@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumInvisibleMessageCategoryType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageType",
+    "WAWebWamEnumPqFallbackReason",
     "WAWebWamEnumRetryRejectReason",
     "WAWebWamEnumSessionScopeType",
   ],
@@ -36,6 +37,10 @@ __d(
               messageKeyHash: [11, e.TYPES.STRING],
               messageType: [1, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
               msgRetryCount: [2, e.TYPES.INTEGER],
+              pqFallbackReason: [
+                13,
+                o("WAWebWamEnumPqFallbackReason").PQ_FALLBACK_REASON,
+              ],
               retryRejectReason: [
                 3,
                 o("WAWebWamEnumRetryRejectReason").RETRY_REJECT_REASON,

@@ -87,7 +87,13 @@ __d(
         $ = k[4],
         P;
       n[6] !== T || n[7] !== $ || n[8] !== x || n[9] !== D || n[10] !== I
-        ? ((P = o("WAWebTextStatusUtils").hasTextStatusSet(I, T, D, x, $)),
+        ? ((P = o("WAWebTextStatusUtils").hasTextStatusSet({
+            textStatusEmoji: T,
+            textStatusEphemeralDuration: $,
+            textStatusExpiryTs: x,
+            textStatusLastUpdateTime: D,
+            textStatusString: I,
+          })),
           (n[6] = T),
           (n[7] = $),
           (n[8] = x),

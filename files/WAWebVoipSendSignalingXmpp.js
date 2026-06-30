@@ -226,16 +226,17 @@ __d(
             var h,
               y,
               C = Date.now(),
-              b = yield T(
-                c,
-                i,
-                (h =
-                  (y = a.maybeChild("enc")) == null
-                    ? void 0
-                    : y.maybeAttrInt("count")) != null
-                  ? h
-                  : 0,
-              );
+              b = yield T({
+                callKeyProtobuf: c,
+                count:
+                  (h =
+                    (y = a.maybeChild("enc")) == null
+                      ? void 0
+                      : y.maybeAttrInt("count")) != null
+                    ? h
+                    : 0,
+                deviceWid: i,
+              });
             (o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -324,17 +325,18 @@ __d(
                       try {
                         var l,
                           s,
-                          m = yield T(
-                            a,
-                            i,
-                            (l =
-                              (s = t.maybeChild("enc")) == null
-                                ? void 0
-                                : s.maybeAttrInt("count")) != null
-                              ? l
-                              : 0,
-                            !1,
-                          ),
+                          m = yield T({
+                            callKeyProtobuf: a,
+                            count:
+                              (l =
+                                (s = t.maybeChild("enc")) == null
+                                  ? void 0
+                                  : s.maybeAttrInt("count")) != null
+                                ? l
+                                : 0,
+                            deviceWid: i,
+                            shouldFlush: !1,
+                          }),
                           p = m.encNode,
                           _ = m.shouldHaveIdentity;
                         return (
@@ -396,54 +398,56 @@ __d(
             : t.contentBytes();
       return { call: { callKey: n != null ? n : null } };
     }
-    function T(e, t, n, r) {
+    function T(e) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            r === void 0 && (r = !0);
-            var a = Date.now(),
-              i = yield o("WAWebSignal").Cipher.encryptSignalProto(
-                t,
-                o("WAWebSendMsgCommonApi").encodeAndPad(e),
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.callKeyProtobuf,
+            n = e.count,
+            r = e.deviceWid,
+            a = e.shouldFlush,
+            i = a === void 0 ? !0 : a,
+            l = Date.now(),
+            s = yield o("WAWebSignal").Cipher.encryptSignalProto(
+              r,
+              o("WAWebSendMsgCommonApi").encodeAndPad(t),
+            ),
+            u = s.ciphertext,
+            c = s.type,
+            d = Date.now();
+          (i &&
+            (yield o("WAWebSignalProtocolStore")
+              .getSignalProtocolStore()
+              .flushBufferToDiskIfNotMemOnlyMode()),
+            o("WALogger").LOG(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [SignalingPerf] encryptSignalProto: ",
+                  "ms, flush: ",
+                  "",
+                ])),
+              d - l,
+              i ? Date.now() - d + "ms" : "skipped",
+            ));
+          var m = o("WAWap").wap(
+            "enc",
+            {
+              v: o("WAWap").CUSTOM_STRING(
+                o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
               ),
-              l = i.ciphertext,
-              s = i.type,
-              u = Date.now();
-            (r &&
-              (yield o("WAWebSignalProtocolStore")
-                .getSignalProtocolStore()
-                .flushBufferToDiskIfNotMemOnlyMode()),
-              o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SignalingPerf] encryptSignalProto: ",
-                    "ms, flush: ",
-                    "",
-                  ])),
-                u - a,
-                r ? Date.now() - u + "ms" : "skipped",
-              ));
-            var c = o("WAWap").wap(
-              "enc",
-              {
-                v: o("WAWap").CUSTOM_STRING(
-                  o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION.toString(),
-                ),
-                type: o("WAWap").CUSTOM_STRING(s),
-                count: o("WAWap").INT(n),
-              },
-              l,
-            );
-            return {
-              encNode: c,
-              shouldHaveIdentity:
-                s === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg && P(),
-            };
-          },
-        )),
+              type: o("WAWap").CUSTOM_STRING(c),
+              count: o("WAWap").INT(n),
+            },
+            u,
+          );
+          return {
+            encNode: m,
+            shouldHaveIdentity:
+              c === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg && P(),
+          };
+        })),
         D.apply(this, arguments)
       );
     }

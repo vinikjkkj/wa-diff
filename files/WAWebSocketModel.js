@@ -23,7 +23,6 @@ __d(
     "WAWebInvocationInterface",
     "WAWebJobsStorage",
     "WAWebLocalStorage",
-    "WAWebLogForCrash",
     "WAWebLogStorageSizeForCrash",
     "WAWebLogoutReasonConstants",
     "WAWebLruMediaStorageUtils",
@@ -94,14 +93,13 @@ __d(
       q = r("requireDeferred")("WAWebClearAppStatesExp").__setRef(
         "WAWebSocketModel",
       ),
-      U = r("gkx")("17999"),
-      V = [
+      U = [
         (W = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
         W.LogoutReason.WebFailEncSalt,
         W.LogoutReason.WebFailOfflineResume,
         W.LogoutReason.WebFailStorageInitialization,
       ],
-      H = (function (t) {
+      V = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -130,12 +128,6 @@ __d(
             var t = this,
               a;
             ((this.clearAppStatesDeferred = q.load()),
-              o("WAWebLogForCrash").onLogForCrashReady(function () {
-                o("WAWebLogForCrash").logForCrash(
-                  "wa_web_clean_up_state_in_async_gk",
-                  U,
-                );
-              }),
               o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
                 return t.$SocketImpl$p_1();
@@ -284,7 +276,7 @@ __d(
                 }
                 var l = !1;
                 if (
-                  (e != null && V.includes(e) && (l = !0),
+                  (e != null && U.includes(e) && (l = !0),
                   this.$SocketImpl$p_4(),
                   (l = yield this.clearCredentials()),
                   this.$SocketImpl$p_6())
@@ -638,7 +630,7 @@ __d(
               var e = !1;
               this.unset("hasSynced");
               try {
-                yield r("nullthrows")(yield this.clearAppStatesDeferred)(U);
+                yield r("nullthrows")(yield this.clearAppStatesDeferred)();
               } catch (n) {
                 e = !0;
                 var t = r("getErrorSafe")(n);
@@ -662,7 +654,7 @@ __d(
                       .sendLogs("clear_session_app_state");
               }
               try {
-                yield j();
+                yield z();
               } catch (t) {
                 e = !0;
                 var n = r("getErrorSafe")(t);
@@ -742,14 +734,14 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      G = o("WAWebBaseModel").defineModel(H),
-      z = new G();
-    function j() {
-      return K.apply(this, arguments);
+      H = o("WAWebBaseModel").defineModel(V),
+      G = new H();
+    function z() {
+      return j.apply(this, arguments);
     }
-    function K() {
+    function j() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield (B || (B = n("Promise"))).allSettled([
             r("WAWebDeleteAllCacheStorage")(),
             o("WAWebMediaStore").LruMediaStore.clear(),
@@ -761,10 +753,10 @@ __d(
                 : r("err")(String(e.reason));
           });
         })),
-        K.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    l.Socket = z;
+    l.Socket = G;
   },
   98,
 );

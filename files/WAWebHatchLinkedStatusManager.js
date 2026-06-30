@@ -8,7 +8,7 @@ __d(
       u,
       c = (function () {
         function t() {
-          ((this.$1 = null), (this.$2 = []), (this.$3 = null), (this.$4 = !1));
+          ((this.$1 = null), (this.$2 = []), (this.$3 = null));
         }
         var n = t.prototype;
         return (
@@ -35,11 +35,6 @@ __d(
               ? !0
               : e.hasChannel && e.status === "ACTIVE" && e.isPaired;
           }),
-          (n.fetchOnceIfNeeded = function () {
-            this.$4 ||
-              this.$3 == null ||
-              ((this.$4 = !0), this.fetchAndUpdateStatus());
-          }),
           (n.fetchAndUpdateStatus = function () {
             var t = this;
             if (this.$3 == null) {
@@ -60,7 +55,7 @@ __d(
                         "[HatchLinkedStatusManager] fetched linked status",
                       ])),
                   ),
-                  t.$5(e));
+                  t.$4(e));
               })
               .catch(function (e) {
                 o("WALogger")
@@ -75,12 +70,9 @@ __d(
               });
           }),
           (n.__resetForTesting = function () {
-            ((this.$1 = null),
-              (this.$2 = []),
-              (this.$3 = null),
-              (this.$4 = !1));
+            ((this.$1 = null), (this.$2 = []), (this.$3 = null));
           }),
-          (n.$5 = function (t) {
+          (n.$4 = function (t) {
             for (var e of [].concat(this.$2)) e(t);
           }),
           t

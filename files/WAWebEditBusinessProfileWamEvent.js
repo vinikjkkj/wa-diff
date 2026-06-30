@@ -29,6 +29,8 @@ __d(
               ],
               hasAddress: [5, e.TYPES.BOOLEAN],
               hasCategory: [4, e.TYPES.BOOLEAN],
+              hasConnectedFbMedia: [12, e.TYPES.BOOLEAN],
+              hasConnectedIgMedia: [13, e.TYPES.BOOLEAN],
               hasDescription: [3, e.TYPES.BOOLEAN],
               hasEmail: [7, e.TYPES.BOOLEAN],
               hasHours: [6, e.TYPES.BOOLEAN],

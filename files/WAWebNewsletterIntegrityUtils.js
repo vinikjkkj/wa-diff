@@ -98,6 +98,13 @@ __d(
               ? s._(/*BTDS*/ "Update in review")
               : s._(/*BTDS*/ "Update review completed");
         case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE:
+          return e === "PENDING"
+            ? o(
+                "WAWebCommonNewsletterIntegrityStrings",
+              ).getAdminProfileInReviewTitleString()
+            : o(
+                "WAWebCommonNewsletterIntegrityStrings",
+              ).getAdminProfileReviewCompletedString();
         case o("WAWebCommonNewsletterEnums").EnforcementType
           .PROFILE_PICTURE_DELETION:
           return e === "PENDING"
@@ -782,12 +789,30 @@ __d(
     }
     I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
+      return s._(
+        /*BTDS*/ "This channel admin profile does not follow our {=m2} on {violation_category_text}",
+        [
+          s._param("violation_category_text", R(e)),
+          s._implicitParam(
+            "=m2",
+            c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+              onClick: o("WAWebNewsletterDSAModals.react")
+                .logChannelGuidelinesClick,
+              children: s._(/*BTDS*/ "Channels Guidelines"),
+            }),
+          ),
+        ],
+      );
+    }
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D(e) {
       return e.reportStatus === "PENDING" || e.appeal.state === "PENDING"
         ? s._(/*BTDS*/ "Report in review")
         : s._(/*BTDS*/ "Report reviewed");
     }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D(e) {
+    D.displayName = D.name + " [from " + i.id + "]";
+    function x(e) {
       var t = e.reportContentData;
       return t.reportContentType === "status"
         ? e.newsletterName != null
@@ -819,7 +844,7 @@ __d(
                 ])
               : s._(/*BTDS*/ "You reported a channel");
     }
-    function x(e) {
+    function $(e) {
       if (e.newsletterName == null)
         return o(
           "WAWebCommonNewsletterIntegrityStrings",
@@ -895,7 +920,7 @@ __d(
           ).getNewsletterReportContentUnavailableDescription();
       }
     }
-    function $(e) {
+    function P(e) {
       if (e.newsletterName == null)
         return o(
           "WAWebCommonNewsletterIntegrityStrings",
@@ -975,8 +1000,8 @@ __d(
           return null;
       }
     }
-    var P = "8639295579439940";
-    function N(e) {
+    var N = "8639295579439940";
+    function M(e) {
       var t = e.msg,
         n = e.reportId,
         a = t != null,
@@ -1030,7 +1055,7 @@ __d(
               ? {
                   learnMoreUrl: o(
                     "WAWebContactFormsUrl",
-                  ).getReportContentAUSFormUrl(n, P),
+                  ).getReportContentAUSFormUrl(n, N),
                   bannerText: s._(
                     /*BTDS*/ "You can send an additional report under the Australian Online Safety Act.",
                   ),
@@ -1052,11 +1077,12 @@ __d(
       (l.getServerDrivenPolicyGuideline = E),
       (l.getSuspendInformPolicyGuideline_ToBeDeprecated = k),
       (l.getProfilePictureDeletionPolicyGuideline = I),
-      (l.getReportStatusString = T),
-      (l.getReportDetailsTitleString = D),
-      (l.getReportDetailsSubtitleString = x),
-      (l.getReportDetailsWithAppealInfoSubtitleString = $),
-      (l.getNewsletterReportComplianceConfig = N));
+      (l.getAdminProfilePolicyGuideline = T),
+      (l.getReportStatusString = D),
+      (l.getReportDetailsTitleString = x),
+      (l.getReportDetailsSubtitleString = $),
+      (l.getReportDetailsWithAppealInfoSubtitleString = P),
+      (l.getNewsletterReportComplianceConfig = M));
   },
   226,
 );

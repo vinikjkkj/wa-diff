@@ -34,7 +34,6 @@ __d(
     ((l.billingEnabled = e),
       (l.subscriptionFetchEnabled = s),
       (l.isMetaVerifiedEnabled = u),
-      (l.isPremiumBillingEnabled = c),
       (l.isMetaVerifiedContextCardEnabled = d),
       (l.isMetaVerifiedLockedProfileEditingV1Enabled = m));
   },

@@ -204,7 +204,51 @@ __d(
         n
       );
     }
-    function m(t, n, r, a) {
+    function m(e, t) {
+      var n = [],
+        r;
+      return (
+        e == null ||
+          e.map(function (e) {
+            var a = {
+              id: e.enforcementId,
+              chatId: o("WAWebWidFactory").createWid(t),
+              appealReasonOptions: e.appealReasonOptions,
+              enforcementViolationCategory: e.enforcementViolationCategory,
+              enforcementType: e.enforcementType,
+              enforcementId: e.enforcementId,
+              enforcementExtraData: e.enforcementExtraData,
+              enforcementPolicyInformation: e.enforcementPolicyInformation,
+              enforcementSource: e.enforcementSource,
+              appealCreationTime: e.appealCreationTime,
+              appealState: e.appealState,
+              appealReason: null,
+              countryCode: null,
+              lastUpdated: Date.now(),
+              msgData: null,
+              violatingContentData: null,
+            };
+            ((r = {
+              id: e.enforcementId,
+              chatId: o("WAWebWidFactory").createWid(t),
+              enforcementCreationTime: e.enforcementCreationTime,
+              enforcementViolationCategory: e.enforcementViolationCategory,
+              enforcementType: e.enforcementType,
+              enforcementId: e.enforcementId,
+              enforcementExtraData: e.enforcementExtraData,
+              enforcementPolicyInformation: e.enforcementPolicyInformation,
+              targetMsgMapForEvidence: null,
+              lastUpdated: Date.now(),
+              enforcementSource: e.enforcementSource,
+              countryCodes: [],
+              appeal: a,
+            }),
+              n.push(r));
+          }),
+        n
+      );
+    }
+    function p(t, n, r, a) {
       var i = [],
         l;
       return (
@@ -279,15 +323,17 @@ __d(
         i
       );
     }
-    function p(e, t, n, r) {
+    function _(e, t, n, r) {
       var o = [];
       if (
         ((e == null ? void 0 : e.suspensions) != null &&
           o.push.apply(o, u(e == null ? void 0 : e.suspensions, t, n, r)),
         (e == null ? void 0 : e.geoSuspensions) != null &&
-          o.push.apply(o, m(e == null ? void 0 : e.geoSuspensions, t, n, r)),
+          o.push.apply(o, p(e == null ? void 0 : e.geoSuspensions, t, n, r)),
         (e == null ? void 0 : e.profilePictureDeletions) != null &&
           o.push.apply(o, d(e == null ? void 0 : e.profilePictureDeletions, r)),
+        (e == null ? void 0 : e.adminProfiles) != null &&
+          o.push.apply(o, m(e == null ? void 0 : e.adminProfiles, r)),
         (e == null ? void 0 : e.violatingMessages) != null)
       ) {
         var a = c(e == null ? void 0 : e.violatingMessages, t, n, r);
@@ -295,7 +341,7 @@ __d(
       }
       return o;
     }
-    l.convertNewsletterBaseEnforcementTypeToNewsletterAlert = p;
+    l.convertNewsletterBaseEnforcementTypeToNewsletterAlert = _;
   },
   98,
 );

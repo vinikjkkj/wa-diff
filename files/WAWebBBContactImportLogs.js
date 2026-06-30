@@ -35,13 +35,20 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SAVE_TEMPLATE,
       });
     }
-    function d(e, t) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.CONTACT_IMPORT_PROMPT,
-        userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
-      });
+    function d(e, t, n) {
+      e(
+        babelHelpers.extends(
+          {
+            action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            entryPoint: t,
+          },
+          n == null ? {} : { extraAttributes: n },
+          {
+            surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.CONTACT_IMPORT_PROMPT,
+            userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
+          },
+        ),
+      );
     }
     function m(e, t) {
       e({
@@ -141,13 +148,21 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.SAVE,
       });
     }
-    function R(e, t) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
-        userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
-      });
+    function R(e, t, n) {
+      e(
+        babelHelpers.extends(
+          {
+            action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            entryPoint: t,
+          },
+          n == null ? {} : { extraAttributes: n },
+          {
+            surface:
+              o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
+            userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
+          },
+        ),
+      );
     }
     function L(e, t) {
       e({
@@ -283,11 +298,14 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.CANCEL,
       });
     }
-    function W(e, t, n, r) {
+    function W(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: r,
-        extraAttributes: { contact_count: t, num_error_contacts: n },
+        extraAttributes: babelHelpers.extends({}, a == null ? {} : a, {
+          contact_count: t,
+          num_error_contacts: n,
+        }),
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.IMPORTED_CONTACT_WIZARD,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,

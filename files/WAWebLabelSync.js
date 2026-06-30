@@ -157,9 +157,16 @@ __d(
                               R != null)
                             ) {
                               var T = o("WAWebSchemaLabel").ListType.cast(R);
-                              T != null
-                                ? (I.type = T)
-                                : (_++, f.length < 3 && f.push(R));
+                              if (T != null) I.type = T;
+                              else
+                                return (
+                                  _++,
+                                  f.length < 3 && f.push(R),
+                                  {
+                                    actionState:
+                                      o("WASyncdConst").SyncActionState.Skipped,
+                                  }
+                                );
                             }
                             (b != null && (I.isActive = b),
                               v != null && (I.isImmutable = v));

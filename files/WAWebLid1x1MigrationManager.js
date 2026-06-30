@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebLid1X1MigrationGating",
-    "WAWebLid1X1ThreadAccountMigrations",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,16 +30,7 @@ __d(
           }),
           (r.executeMigrationIfNeeded = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (
-                (o("WAWebLid1X1ThreadAccountMigrations").shouldMigrateNow() &&
-                  !o(
-                    "WAWebLid1X1MigrationGating",
-                  ).Lid1X1MigrationUtils.isLidMigrated() &&
-                  (yield o(
-                    "WAWebLid1X1ThreadAccountMigrations",
-                  ).migrate1x1Chats()),
-                this.$1.length === 0)
-              ) {
+              if (this.$1.length === 0) {
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([

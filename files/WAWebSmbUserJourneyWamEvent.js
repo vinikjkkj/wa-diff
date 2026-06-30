@@ -2,6 +2,7 @@ __d(
   "WAWebSmbUserJourneyWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumBbTierType",
     "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumOppositePlatformEnum",
@@ -20,6 +21,7 @@ __d(
                 1,
                 o("WAWebWamEnumChatFilterActionTypes").CHAT_FILTER_ACTION_TYPES,
               ],
+              bbTier: [22, o("WAWebWamEnumBbTierType").BB_TIER_TYPE],
               contactIsSaved: [2, e.TYPES.BOOLEAN],
               entryPoint: [3, o("WAWebWamEnumEntryPoint").ENTRY_POINT],
               entryPointDetails: [18, e.TYPES.STRING],

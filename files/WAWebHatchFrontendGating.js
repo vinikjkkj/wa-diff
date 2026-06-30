@@ -9,7 +9,13 @@ __d(
         o("WAWebABProps").getABPropConfigValue("ai_hatch_integration_enabled")
       );
     }
-    l.isHatchIntegrationEnabled = e;
+    function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "hatch_pairing_from_companion_enabled",
+      );
+    }
+    ((l.isHatchIntegrationEnabled = e),
+      (l.isHatchPairingFromCompanionEnabled = s));
   },
   98,
 );

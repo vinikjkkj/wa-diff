@@ -23,8 +23,6 @@ __d(
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebHistorySyncLidChatGating",
     "WAWebLid1X1MigrationGating",
-    "WAWebLid1X1ThreadAccountMigrations",
-    "WAWebLid1x1MigrationPrimaryCache",
     "WAWebLidMigrationUtils",
     "WAWebMexUpdateGroupPropertyJob",
     "WAWebMsgKeyNewId",
@@ -37,7 +35,6 @@ __d(
     "WAWebSchemaParticipant",
     "WAWebSendTextMsgChatAction",
     "WAWebSetPrivacyTokensJob",
-    "WAWebTestUtilRollbackLidThreadMigration",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
     "WAWebWidDevTools",
@@ -618,34 +615,20 @@ __d(
     }
     ye.doc = "Check if this client is Lid migrated";
     function be() {
-      return ve.apply(this, arguments);
-    }
-    function ve() {
-      return (
-        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o(
-            "WAWebLid1X1ThreadAccountMigrations",
-          ).getLidThreadMigrationStatus();
-        })),
-        ve.apply(this, arguments)
-      );
-    }
-    Se.doc = "get lid thread migration status";
-    function Se() {
       return o(
         "WAWebLid1X1MigrationGating",
       ).Lid1X1MigrationUtils.lidMigrationSource();
     }
-    Se.doc = "Get Lid migration source";
-    function Re() {
+    be.doc = "Get Lid migration source";
+    function ve() {
       o("WAWebLidMigrationUtils").logLidMetadata();
     }
-    Re.doc = "Log metadata about lid migration";
-    function Le() {
+    ve.doc = "Log metadata about lid migration";
+    function Se() {
       return o("WAWebBlocklistMigration").isBlocklistMigrated();
     }
-    Le.doc = "Check if blocklist is migrated to lid";
-    function Ee(e) {
+    Se.doc = "Check if blocklist is migrated to lid";
+    function Re(e) {
       e === void 0 && (e = "158913843221@lid");
       var t = o("WAWebContactSystemMsg").genNotificationMsg(
         o("WAWebWidFactory").createWid(e),
@@ -663,14 +646,14 @@ __d(
         preserveOrder: !1,
       });
     }
-    Ee.doc =
+    Re.doc =
       "Generates a CTWA system message, used for E2E testing purposes as this system message is only generated on phone devices, but we need to test the functionality of the system message";
-    function ke(e, t) {
-      return Ie.apply(this, arguments);
+    function Le(e, t) {
+      return Ee.apply(this, arguments);
     }
-    function Ie() {
+    function Ee() {
       return (
-        (Ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
               e.indexOf("@lid") > 0
                 ? o("WAWebWidFactory").createWid(e)
@@ -720,11 +703,11 @@ __d(
               );
             });
         })),
-        Ie.apply(this, arguments)
+        Ee.apply(this, arguments)
       );
     }
-    ke.doc = "Send a text message";
-    function Te(e) {
+    Le.doc = "Send a text message";
+    function ke(e) {
       var t = o("WAWebWidFactory").createWid(e),
         n = o("WATimeUtils").unixTime();
       return o("WAWebSetPrivacyTokensJob").issuePrivacyToken(
@@ -733,53 +716,45 @@ __d(
         n,
       );
     }
-    Te.doc =
+    ke.doc =
       "Sends a iq to the server, that will issue a tcToken for the given chatId";
-    function De(e) {
+    function Ie(e) {
       o("WAWebQueryExistsJob").queryWidExists(
         o("WAWebWidFactory").createWid(e),
         o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.DEBUG_TOOL,
       );
     }
-    De.doc = "Performs a usync query on the given number or lid";
-    function xe() {
-      return o("WAWebLid1x1MigrationPrimaryCache").lidPnMigrationPrimaryCache;
-    }
-    function $e() {
-      return o(
-        "WAWebTestUtilRollbackLidThreadMigration",
-      ).rollbackLidThreadMigration();
-    }
-    function Pe() {
+    Ie.doc = "Performs a usync query on the given number or lid";
+    function Te() {
       return o(
         "WAWebDBFavoriteDatabaseMigrationToLid",
       ).migrateFavoritesDatabaseToLid();
     }
-    ((Pe.doc = "Migrate favorites database to lid"), (Pe.paramsToExecute = []));
-    function Ne() {
+    ((Te.doc = "Migrate favorites database to lid"), (Te.paramsToExecute = []));
+    function De() {
       return o(
         "WAWebDBLabelAssociationDatabaseMigrationToLid",
       ).migrateLabelAssociationsDatabaseToLid();
     }
-    ((Ne.doc = "Migrate label associations database to lid"),
-      (Ne.paramsToExecute = []));
-    function Me() {
+    ((De.doc = "Migrate label associations database to lid"),
+      (De.paramsToExecute = []));
+    function xe() {
       return o("WAWebCartDbLidMigration").migrateCartDbLid();
     }
-    ((Me.doc = "Migrate Cart database to lid"), (Me.paramsToExecute = []));
-    function we() {
+    ((xe.doc = "Migrate Cart database to lid"), (xe.paramsToExecute = []));
+    function $e() {
       return o(
         "WAWebDBPnhThreadMigrationToGeneralLid",
       ).migratePhoneNumberHidingThreadsToGeneralLid();
     }
-    ((we.doc = "Migrate Phone Number Hiding threads to General LID"),
-      (we.paramsToExecute = []));
-    function Ae(e, t) {
-      return Fe.apply(this, arguments);
+    (($e.doc = "Migrate Phone Number Hiding threads to General LID"),
+      ($e.paramsToExecute = []));
+    function Pe(e, t) {
+      return Ne.apply(this, arguments);
     }
-    function Fe() {
+    function Ne() {
       return (
-        (Fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = Math.round(Date.now() / 1e3),
             i = yield o("WAWebMsgKeyNewId").getMsgKeyNewSHA256Id(),
@@ -835,17 +810,17 @@ __d(
             );
           }
         })),
-        Fe.apply(this, arguments)
+        Ne.apply(this, arguments)
       );
     }
-    Ae.doc =
+    Pe.doc =
       "Simulate receiving a LID change notification for debugging purposes";
-    function Oe(e) {
-      return Be.apply(this, arguments);
+    function Me(e) {
+      return we.apply(this, arguments);
     }
-    function Be() {
+    function we() {
       return (
-        (Be = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (we = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
@@ -896,25 +871,25 @@ __d(
             );
           }
         })),
-        Be.apply(this, arguments)
+        we.apply(this, arguments)
       );
     }
-    ((Oe.doc = "Convert a given chat to have lidOriginType CTWA"),
-      (Oe.paramsToExecute = ["chatId"]));
-    function We(e) {
+    ((Me.doc = "Convert a given chat to have lidOriginType CTWA"),
+      (Me.paramsToExecute = ["chatId"]));
+    function Ae(e) {
       if (!e.isRegularUser()) return !1;
       var t = F == null ? void 0 : F.get(e);
       return (
         t != null && o("WAWebFrontendContactGetters").getIsUsernameContact(t)
       );
     }
-    We.doc = "get is username contact for a LID";
-    function qe(e) {
-      return Ue.apply(this, arguments);
+    Ae.doc = "get is username contact for a LID";
+    function Fe(e) {
+      return Oe.apply(this, arguments);
     }
-    function Ue() {
+    function Oe() {
       return (
-        (Ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat())
             throw r("err")(
               "Cannot create PN chat with forced lid chats. Log out and pair again with ?web_force_lid_chats_in_history=false",
@@ -1012,12 +987,12 @@ __d(
             t
           );
         })),
-        Ue.apply(this, arguments)
+        Oe.apply(this, arguments)
       );
     }
-    qe.doc =
+    Fe.doc =
       "Create a PN (phone number) chat even when LID migrated. Returns null if chat already exists. Uses fake LID if contact LID is already used.";
-    var Ve = {
+    var Be = {
       toggleAddressingModeForGroups: O,
       printGroup: W,
       toggleAddressingModeForActiveGroupChat: U,
@@ -1039,29 +1014,26 @@ __d(
       createGeneralLidChatWithText: _e,
       setIsLidMigrated: ge,
       getIsLidMigrated: ye,
-      getLidMigrationStatus: be,
-      generateCtwaSystemMessage: Ee,
-      sendTextMsg: ke,
-      sendTcToken: Te,
-      queryWidExists: De,
+      generateCtwaSystemMessage: Re,
+      sendTextMsg: Le,
+      sendTcToken: ke,
+      queryWidExists: Ie,
       getMaybeMeLidUser: o("WAWebUserPrefsMeUser").getMaybeMeLidUser,
-      getLidThreadMigrationMappings: xe,
-      rollbackLidThreadMigration: $e,
-      migrateFavoritesDatabaseToLid: Pe,
-      migrateLabelAssociationsDatabaseToLid: Ne,
-      migrateCartDatabaseToLid: Me,
-      migratePhoneNumberHidingThreadsToGeneralLid: we,
-      setChatLidOriginTypeToCTWA: Oe,
+      migrateFavoritesDatabaseToLid: Te,
+      migrateLabelAssociationsDatabaseToLid: De,
+      migrateCartDatabaseToLid: xe,
+      migratePhoneNumberHidingThreadsToGeneralLid: $e,
+      setChatLidOriginTypeToCTWA: Me,
       isFakeLid: K,
-      lidMigrationSource: Se,
+      lidMigrationSource: be,
       logLidMetadata: o("WAWebLidMigrationUtils").logLidMetadata,
-      logLidMetadataInfo: Re,
-      isBlocklistMigrated: Le,
-      simulateLidChangeNotification: Ae,
-      isUsernameContact: We,
-      createPnChat: qe,
+      logLidMetadataInfo: ve,
+      isBlocklistMigrated: Se,
+      simulateLidChangeNotification: Pe,
+      isUsernameContact: Ae,
+      createPnChat: Fe,
     };
-    l.default = Ve;
+    l.default = Be;
   },
   98,
 );

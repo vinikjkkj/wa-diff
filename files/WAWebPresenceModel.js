@@ -29,18 +29,19 @@ __d(
     "WAWebTextStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
-    "WAWebWidFactory",
     "WAWebWidFormat",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c,
       d,
-      m = 3e3,
-      p = 5e3,
-      _ = 2e3,
-      f = (function (e) {
+      m,
+      p = 3e3,
+      _ = 5e3,
+      f = 2e3,
+      g = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -57,17 +58,17 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })((d = o("WAWebBaseModel")).BaseModel);
-    ((f.Proxy = "chatstate"), (f.idClass = r("WAWebWid")));
-    var g = d.defineModel(f),
-      h = (function (e) {
+      })((m = o("WAWebBaseModel")).BaseModel);
+    ((g.Proxy = "chatstate"), (g.idClass = r("WAWebWid")));
+    var h = m.defineModel(g),
+      y = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WAWebBaseCollection").BaseCollection);
-    h.model = g;
-    var y = (function (t) {
+    y.model = h;
+    var C = (function (t) {
       function n() {
         for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
           a[i] = arguments[i];
@@ -93,7 +94,7 @@ __d(
           (e.recordingUserIds = o("WAWebBaseModel").session(function () {
             return [];
           })),
-          (e.chatstates = o("WAWebBaseModel").collection(h)),
+          (e.chatstates = o("WAWebBaseModel").collection(y)),
           (e.isGroup = o("WAWebBaseModel").derived(function () {
             return r("WAWebWid").isGroup(this.id);
           })),
@@ -113,7 +114,7 @@ __d(
           var n = this.isGroup
             ? { id: "", type: "unavailable" }
             : { id: this.id };
-          (this.addChild("chatstate", new g(n)),
+          (this.addChild("chatstate", new h(n)),
             this.isGroup
               ? (this.listenTo(
                   this.chatstates,
@@ -242,7 +243,7 @@ __d(
               null
                 ? r
                 : !1;
-          return v(
+          return S(
             this.chatstate.type,
             this.typingUserIds,
             this.recordingUserIds,
@@ -353,12 +354,15 @@ __d(
             ) {
               var r = 0;
               n.forEach(function (e) {
+                var t = e.id;
                 if (
-                  !o("WAWebUserPrefsMeUser").isMeAccount(e.id) &&
-                  !e.id.isBot()
+                  !o("WAWebUserPrefsMeUser").isMeAccount(t) &&
+                  !t.isBot() &&
+                  t.isLid()
                 ) {
-                  var t = o("WAWebWidFactory").asUserLidOrThrow(e.id),
-                    n = o("WAWebPresenceCollection").PresenceCollection.get(t);
+                  var n = o("WAWebPresenceCollection").PresenceCollection.get(
+                    t,
+                  );
                   (n == null ? void 0 : n.isOnline) === !0 && (r += 1);
                 }
               });
@@ -369,82 +373,22 @@ __d(
           }
         }),
         (a.$PresenceImpl$p_2 = function () {
-          var e = this,
-            t = this.chatActive;
-          if (t) {
-            this.isGroup && this.$PresenceImpl$p_1();
-            var n =
-                o(
-                  "WAWebChatAssignmentCollection",
-                ).ChatAssignmentCollection.getAgentCollectionForChatId(this.id)
-                  .length > 0,
-              r = this.$PresenceImpl$p_3(),
-              a = r && o("WAWebContactGetters").getIsMe(r),
-              i = [],
-              l = this.$PresenceImpl$p_4();
-            (l != null && o("WAWebChatGetters").getIsGroup(l)
-              ? (i = this.getGroupStages(l))
-              : a === !0
-                ? (o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
-                    l != null &&
-                    o("WAWebFrontendChatGetters").getIsE2ee(l) &&
-                    i.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE),
-                  i.push(o("WAWebPresenceEnum").WithholdDisplayStage.Self),
-                  C(this, i))
-                : this.hasData
-                  ? (o("WAWebChatAssignmentUtils").canAssignChat(l) &&
-                      n &&
-                      i.push(
-                        o("WAWebPresenceEnum").WithholdDisplayStage
-                          .ChatAssignment,
-                      ),
-                    (r == null ? void 0 : r.isBusiness) === !0 &&
-                      i.push(
-                        o("WAWebPresenceEnum").WithholdDisplayStage.Business,
-                      ),
-                    o(
-                      "WAWebTextStatusGatingUtils",
-                    ).receiveTextStatusForNewSurfacesEnabled() &&
-                      i.push(
-                        o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
-                      ),
-                    i.length > 0 ||
-                      (o(
-                        "WAWebTextStatusGatingUtils",
-                      ).receiveTextStatusForNewSurfacesEnabled() &&
-                        i.push(
-                          o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
-                        )),
-                    i.push(o("WAWebPresenceEnum").WithholdDisplayStage.None))
-                  : (o("WAWebChatAssignmentUtils").canAssignChat(l) &&
-                      n &&
-                      i.push(
-                        o("WAWebPresenceEnum").WithholdDisplayStage
-                          .ChatAssignment,
-                      ),
-                    (r == null ? void 0 : r.isBusiness) === !0 &&
-                      i.push(
-                        o("WAWebPresenceEnum").WithholdDisplayStage.Business,
-                      ),
-                    o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
-                    l != null &&
-                    o("WAWebFrontendChatGetters").getIsE2ee(l)
-                      ? i.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE)
-                      : i.push(
-                          o("WAWebPresenceEnum").WithholdDisplayStage.Info,
-                        ),
-                    o(
-                      "WAWebTextStatusGatingUtils",
-                    ).receiveTextStatusForNewSurfacesEnabled() &&
-                      i.push(
-                        o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
-                      ),
-                    i.push(o("WAWebPresenceEnum").WithholdDisplayStage.None)),
-              C(this, i),
-              (this.forceDisplayTimer = self.setTimeout(function () {
-                e.set({ forceDisplay: !0, forceDisplayTimer: void 0 });
-              }, _)));
-          } else
+          var e = this.chatActive;
+          if (e)
+            try {
+              this.$PresenceImpl$p_4();
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "presence: failed to update on chat active change",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("presence-chat-active-update-failed");
+            }
+          else
             (this.withholdDisplayTimer &&
               (self.clearTimeout(this.withholdDisplayTimer),
               (this.withholdDisplayTimer = void 0)),
@@ -452,13 +396,86 @@ __d(
                 (self.clearTimeout(this.forceDisplayTimer),
                 (this.forceDisplayTimer = void 0)));
         }),
+        (a.$PresenceImpl$p_4 = function () {
+          var e = this;
+          this.isGroup && this.$PresenceImpl$p_1();
+          var t =
+              o(
+                "WAWebChatAssignmentCollection",
+              ).ChatAssignmentCollection.getAgentCollectionForChatId(this.id)
+                .length > 0,
+            n = this.$PresenceImpl$p_3(),
+            r = n && o("WAWebContactGetters").getIsMe(n),
+            a = [],
+            i = this.$PresenceImpl$p_5();
+          (i != null && o("WAWebChatGetters").getIsGroup(i)
+            ? (a = this.getGroupStages(i))
+            : r === !0
+              ? (o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
+                  i != null &&
+                  o("WAWebFrontendChatGetters").getIsE2ee(i) &&
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE),
+                a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Self),
+                b(this, a))
+              : this.hasData
+                ? (o("WAWebChatAssignmentUtils").canAssignChat(i) &&
+                    t &&
+                    a.push(
+                      o("WAWebPresenceEnum").WithholdDisplayStage
+                        .ChatAssignment,
+                    ),
+                  (n == null ? void 0 : n.isBusiness) === !0 &&
+                    a.push(
+                      o("WAWebPresenceEnum").WithholdDisplayStage.Business,
+                    ),
+                  o(
+                    "WAWebTextStatusGatingUtils",
+                  ).receiveTextStatusForNewSurfacesEnabled() &&
+                    a.push(
+                      o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
+                    ),
+                  a.length > 0 ||
+                    (o(
+                      "WAWebTextStatusGatingUtils",
+                    ).receiveTextStatusForNewSurfacesEnabled() &&
+                      a.push(
+                        o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
+                      )),
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.None))
+                : (o("WAWebChatAssignmentUtils").canAssignChat(i) &&
+                    t &&
+                    a.push(
+                      o("WAWebPresenceEnum").WithholdDisplayStage
+                        .ChatAssignment,
+                    ),
+                  (n == null ? void 0 : n.isBusiness) === !0 &&
+                    a.push(
+                      o("WAWebPresenceEnum").WithholdDisplayStage.Business,
+                    ),
+                  o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
+                  i != null &&
+                  o("WAWebFrontendChatGetters").getIsE2ee(i)
+                    ? a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE)
+                    : a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Info),
+                  o(
+                    "WAWebTextStatusGatingUtils",
+                  ).receiveTextStatusForNewSurfacesEnabled() &&
+                    a.push(
+                      o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
+                    ),
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.None)),
+            b(this, a),
+            (this.forceDisplayTimer = self.setTimeout(function () {
+              e.set({ forceDisplay: !0, forceDisplayTimer: void 0 });
+            }, f)));
+        }),
         (a.subscribe = function () {
           return this.getCollection().find(this.id);
         }),
         (a.getCollection = function () {
           return o("WAWebPresenceCollection").PresenceCollection;
         }),
-        (a.$PresenceImpl$p_4 = function () {
+        (a.$PresenceImpl$p_5 = function () {
           if (this.isGroup)
             return o("WAWebChatCollection").ChatCollection.get(this.id);
           if (
@@ -473,8 +490,8 @@ __d(
             : (e.isRegularUserPn() &&
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "pn presence model: ",
                         "",
                       ])),
@@ -485,9 +502,9 @@ __d(
         }),
         n
       );
-    })(d.BaseModel);
-    ((y.Proxy = "presence"), (y.idClass = r("WAWebWid")));
-    function C(e, t) {
+    })(m.BaseModel);
+    ((C.Proxy = "presence"), (C.idClass = r("WAWebWid")));
+    function b(e, t) {
       if (t.length !== 0) {
         var n = t[0],
           r = babelHelpers.arrayLikeToArray(t).slice(1);
@@ -498,20 +515,20 @@ __d(
               ? null
               : self.setTimeout(
                   function () {
-                    C(e, r);
+                    b(e, r);
                   },
                   n === o("WAWebPresenceEnum").WithholdDisplayStage.Business
-                    ? p
-                    : m,
+                    ? _
+                    : p,
                 ),
         });
       }
     }
-    var b = d.defineModel(y);
-    function v(e, t, n, r, o, a) {
-      if (!a && e === "typing" && t.length > 0) return S(t, o);
+    var v = m.defineModel(C);
+    function S(e, t, n, r, o, a) {
+      if (!a && e === "typing" && t.length > 0) return R(t, o);
       if (!a && e === "recording_audio" && n.length > 0) {
-        var i = R(n[n.length - 1], o),
+        var i = L(n[n.length - 1], o),
           l = i.accessibleName,
           u = i.name;
         return {
@@ -531,8 +548,8 @@ __d(
       }
       return null;
     }
-    function S(e, t) {
-      var n = R(e[e.length - 1], t),
+    function R(e, t) {
+      var n = L(e[e.length - 1], t),
         r = n.accessibleName,
         a = n.name,
         i = e.length;
@@ -579,7 +596,7 @@ __d(
             ]),
           };
     }
-    function R(e, t) {
+    function L(e, t) {
       var n = o("WAWebContactCollection").ContactCollection.get(e);
       if (n == null) {
         var r = o("WAWebWidFormat").widToFormattedUser(e);
@@ -595,10 +612,10 @@ __d(
       var i = o("WAWebFrontendContactGetters").getFormattedShortName(n);
       return { name: i, accessibleName: i };
     }
-    ((l.processStagesRecursively = C),
-      (l.Presence = b),
-      (l.Chatstate = g),
-      (l.ChatstateCollection = h));
+    ((l.processStagesRecursively = b),
+      (l.Presence = v),
+      (l.Chatstate = h),
+      (l.ChatstateCollection = y));
   },
   226,
 );

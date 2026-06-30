@@ -12,29 +12,62 @@ __d(
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 5;
-    function s() {
+    var e = [
+        "$$unknownFieldCount",
+        "associatedChildMessage",
+        "bcallMessage",
+        "botForwardedMessage",
+        "botInvokeMessage",
+        "call",
+        "chat",
+        "deviceSentMessage",
+        "documentWithCaptionMessage",
+        "editedMessage",
+        "ephemeralMessage",
+        "fastRatchetKeySenderKeyDistributionMessage",
+        "groupMentionedMessage",
+        "groupRootKeyShare",
+        "messageContextInfo",
+        "messageHistoryBundle",
+        "newsletterAdminProfileMessage",
+        "placeholderMessage",
+        "pollCreationMessageV4",
+        "pollCreationOptionImageMessage",
+        "questionMessage",
+        "questionReplyMessage",
+        "rootSecretDistributeMessage",
+        "secretEncryptedMessage",
+        "senderKeyDistributionMessage",
+        "spoilerMessage",
+        "stickerSyncRmrMessage",
+        "viewOnceMessage",
+        "viewOnceMessageV2",
+        "viewOnceMessageV2Extension",
+      ],
+      s = 5,
+      u = 3;
+    function c() {
       if (o("WAWebABProps").getABPropConfigValue("defense_mode_available") < 1)
         return !1;
       var e = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
       return e.defenseMode === "on_standard";
     }
-    var u = { type: "NoQuarantine" },
-      c = { type: "QuarantineWithoutText" };
-    function d(e) {
+    var d = { type: "NoQuarantine" },
+      m = { type: "QuarantineWithoutText" };
+    function p(e) {
       return { type: "QuarantineWithText", text: e };
     }
-    var m = {
-      NoQuarantine: u,
-      QuarantineWithoutText: c,
-      QuarantineWithText: d,
+    var _ = {
+      NoQuarantine: d,
+      QuarantineWithoutText: m,
+      QuarantineWithText: p,
     };
-    function p(e) {
-      return _.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("WAWebWid").isUser(e) &&
             !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
@@ -50,18 +83,18 @@ __d(
             !(yield o("WAWebApiContact").isAddressBookContact(e.toJid()))
           );
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function f(e) {
+    function h(e) {
       return e.type === "QuarantineWithText" ? e.text : null;
     }
-    function g(e) {
+    function y(e) {
       return r("isStringNullOrEmpty")(e)
-        ? m.QuarantineWithoutText
-        : m.QuarantineWithText(e);
+        ? _.QuarantineWithoutText
+        : _.QuarantineWithText(e);
     }
-    function h(e) {
+    function C(e) {
       return e == null
         ? !1
         : e.jpegThumbnail != null ||
@@ -69,154 +102,160 @@ __d(
             e.mediaKey != null ||
             e.thumbnailSha256 != null;
     }
-    function y(t, n) {
+    function b(e, t) {
       return (
-        n === void 0 && (n = 0),
-        t == null ? !0 : n > e ? !1 : C(t.hydratedHsm, n + 1)
+        t === void 0 && (t = 0),
+        e == null ? !0 : t > s ? !1 : v(e.hydratedHsm, t + 1)
       );
     }
-    function C(t, n) {
-      if ((n === void 0 && (n = 0), t == null)) return !0;
-      if (n > e) return !1;
-      var r = n + 1;
+    function v(e, t) {
+      if ((t === void 0 && (t = 0), e == null)) return !0;
+      if (t > s) return !1;
+      var n = t + 1;
       return !(
-        !S(t.interactiveMessageTemplate, r) ||
-        !b(t.fourRowTemplate, r) ||
-        !v(t.hydratedFourRowTemplate, r) ||
-        !v(t.hydratedTemplate, r)
+        !L(e.interactiveMessageTemplate, n) ||
+        !S(e.fourRowTemplate, n) ||
+        !R(e.hydratedFourRowTemplate, n) ||
+        !R(e.hydratedTemplate, n)
       );
     }
-    function b(t, n) {
-      if ((n === void 0 && (n = 0), t == null)) return !0;
+    function S(e, t) {
+      if ((t === void 0 && (t = 0), e == null)) return !0;
       if (
-        n > e ||
-        t.documentMessage != null ||
-        t.imageMessage != null ||
-        t.videoMessage != null ||
-        t.locationMessage != null
+        t > s ||
+        e.documentMessage != null ||
+        e.imageMessage != null ||
+        e.videoMessage != null ||
+        e.locationMessage != null
       )
         return !1;
-      var r = n + 1;
+      var n = t + 1;
       if (
-        !y(t.highlyStructuredMessage, r) ||
-        !y(t.content, r) ||
-        !y(t.footer, r)
+        !b(e.highlyStructuredMessage, n) ||
+        !b(e.content, n) ||
+        !b(e.footer, n)
       )
         return !1;
-      var o = t.buttons;
-      if (o != null) {
-        for (var a of o) if (!R(a, r)) return !1;
+      var r = e.buttons;
+      if (r != null) {
+        for (var o of r) if (!E(o, n)) return !1;
       }
       return !0;
     }
-    function v(t, n) {
+    function R(e, t) {
       return (
-        n === void 0 && (n = 0),
-        t == null
+        t === void 0 && (t = 0),
+        e == null
           ? !0
           : !(
-              n > e ||
-              t.documentMessage != null ||
-              t.imageMessage != null ||
-              t.videoMessage != null ||
-              t.locationMessage != null
+              t > s ||
+              e.documentMessage != null ||
+              e.imageMessage != null ||
+              e.videoMessage != null ||
+              e.locationMessage != null
             )
       );
     }
-    function S(t, n) {
-      var r;
-      if ((n === void 0 && (n = 0), t == null)) return !0;
-      if (n > e) return !1;
-      var o = t.header;
+    function L(e, t) {
+      var n;
+      if ((t === void 0 && (t = 0), e == null)) return !0;
+      if (t > s) return !1;
+      var r = e.header;
       if (
-        (o != null &&
-          (o.documentMessage != null ||
-            o.imageMessage != null ||
-            o.jpegThumbnail != null ||
-            o.videoMessage != null ||
-            o.locationMessage != null ||
-            o.productMessage != null)) ||
-        t.shopStorefrontMessage != null ||
-        t.collectionMessage != null
+        (r != null &&
+          (r.documentMessage != null ||
+            r.imageMessage != null ||
+            r.jpegThumbnail != null ||
+            r.videoMessage != null ||
+            r.locationMessage != null ||
+            r.productMessage != null)) ||
+        e.shopStorefrontMessage != null ||
+        e.collectionMessage != null
       )
         return !1;
-      var a = (r = t.carouselMessage) == null ? void 0 : r.cards;
-      if (a != null) {
-        for (var i of a) if (!S(i, n + 1)) return !1;
+      var o = (n = e.carouselMessage) == null ? void 0 : n.cards;
+      if (o != null) {
+        for (var a of o) if (!L(a, t + 1)) return !1;
       }
       return !0;
     }
-    function R(t, n) {
-      var r, o, a, i, l;
-      if ((n === void 0 && (n = 0), t == null)) return !0;
-      if (n > e) return !1;
-      var s = n + 1;
+    function E(e, t) {
+      var n, r, o, a, i;
+      if ((t === void 0 && (t = 0), e == null)) return !0;
+      if (t > s) return !1;
+      var l = t + 1;
       return !(
-        !y((r = t.quickReplyButton) == null ? void 0 : r.displayText, s) ||
-        !y((o = t.urlButton) == null ? void 0 : o.displayText, s) ||
-        !y((a = t.urlButton) == null ? void 0 : a.url, s) ||
-        !y((i = t.callButton) == null ? void 0 : i.displayText, s) ||
-        !y((l = t.callButton) == null ? void 0 : l.phoneNumber, s)
+        !b((n = e.quickReplyButton) == null ? void 0 : n.displayText, l) ||
+        !b((r = e.urlButton) == null ? void 0 : r.displayText, l) ||
+        !b((o = e.urlButton) == null ? void 0 : o.url, l) ||
+        !b((a = e.callButton) == null ? void 0 : a.displayText, l) ||
+        !b((i = e.callButton) == null ? void 0 : i.phoneNumber, l)
       );
     }
-    function L(e) {
-      return (
-        e.conversation == null &&
-        e.extendedTextMessage == null &&
-        e.imageMessage == null &&
-        e.videoMessage == null &&
-        e.audioMessage == null &&
-        e.documentMessage == null &&
-        e.stickerMessage == null &&
-        e.ptvMessage == null &&
-        e.viewOnceMessage == null &&
-        e.viewOnceMessageV2 == null &&
-        e.viewOnceMessageV2Extension == null &&
-        e.protocolMessage == null &&
-        e.reactionMessage == null &&
-        e.encReactionMessage == null &&
-        e.pollUpdateMessage == null &&
-        e.keepInChatMessage == null &&
-        e.pinInChatMessage == null &&
-        e.albumMessage == null &&
-        e.highlyStructuredMessage == null &&
-        e.templateMessage == null &&
-        e.interactiveMessage == null &&
-        e.callLogMesssage == null &&
-        e.contactMessage == null &&
-        e.contactsArrayMessage == null &&
-        e.locationMessage == null &&
-        e.liveLocationMessage == null
-      );
+    function k(t) {
+      var n = t.$$unknownFieldCount,
+        r = t.associatedChildMessage,
+        o = t.bcallMessage,
+        a = t.botForwardedMessage,
+        i = t.botInvokeMessage,
+        l = t.call,
+        s = t.chat,
+        u = t.deviceSentMessage,
+        c = t.documentWithCaptionMessage,
+        d = t.editedMessage,
+        m = t.ephemeralMessage,
+        p = t.fastRatchetKeySenderKeyDistributionMessage,
+        _ = t.groupMentionedMessage,
+        f = t.groupRootKeyShare,
+        g = t.messageContextInfo,
+        h = t.messageHistoryBundle,
+        y = t.newsletterAdminProfileMessage,
+        C = t.placeholderMessage,
+        b = t.pollCreationMessageV4,
+        v = t.pollCreationOptionImageMessage,
+        S = t.questionMessage,
+        R = t.questionReplyMessage,
+        L = t.rootSecretDistributeMessage,
+        E = t.secretEncryptedMessage,
+        k = t.senderKeyDistributionMessage,
+        I = t.spoilerMessage,
+        T = t.stickerSyncRmrMessage,
+        D = t.viewOnceMessage,
+        x = t.viewOnceMessageV2,
+        $ = t.viewOnceMessageV2Extension,
+        P = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return Object.values(P).every(function (e) {
+        return e == null;
+      });
     }
-    function E(e) {
-      if (L(e)) return m.NoQuarantine;
+    function I(e) {
+      if (k(e)) return _.NoQuarantine;
       var t = e.extendedTextMessage;
       return t != null
-        ? h(t)
-          ? g(t.text)
-          : m.NoQuarantine
+        ? C(t)
+          ? y(t.text)
+          : _.NoQuarantine
         : e.imageMessage != null
-          ? g(e.imageMessage.caption)
+          ? y(e.imageMessage.caption)
           : e.videoMessage != null
-            ? g(e.videoMessage.caption)
+            ? y(e.videoMessage.caption)
             : e.documentMessage != null
-              ? g(e.documentMessage.caption)
-              : k(e)
-                ? m.NoQuarantine
+              ? y(e.documentMessage.caption)
+              : T(e)
+                ? _.NoQuarantine
                 : e.highlyStructuredMessage != null ||
                     e.templateMessage != null ||
                     e.interactiveMessage != null
-                  ? y(e.highlyStructuredMessage) &&
-                    C(e.templateMessage) &&
-                    S(e.interactiveMessage)
-                    ? m.NoQuarantine
-                    : m.QuarantineWithoutText
+                  ? b(e.highlyStructuredMessage) &&
+                    v(e.templateMessage) &&
+                    L(e.interactiveMessage)
+                    ? _.NoQuarantine
+                    : _.QuarantineWithoutText
                   : e.callLogMesssage != null
-                    ? m.NoQuarantine
-                    : m.QuarantineWithoutText;
+                    ? _.NoQuarantine
+                    : _.QuarantineWithoutText;
     }
-    function k(e) {
+    function T(e) {
       return (
         e.conversation != null ||
         e.protocolMessage != null ||
@@ -228,7 +267,7 @@ __d(
         e.albumMessage != null
       );
     }
-    function I(e) {
+    function D(e) {
       switch (e.type) {
         case "NoQuarantine":
           return 0;
@@ -240,26 +279,43 @@ __d(
           return 0;
       }
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function x(e, t) {
+      return D(t) > D(e) ? t : e;
     }
-    function D() {
+    function $(e, t) {
+      return P.apply(this, arguments);
+    }
+    function P() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e == null || !s() || !(yield p(t))) return m.NoQuarantine;
-          var n = E(e),
-            r = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(e);
-          if ((r == null ? void 0 : r.message) == null) return n;
-          var a = r.message,
-            i = E(a);
-          return I(i) > I(n) ? i : n;
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (e == null || !c() || !(yield f(t))) return _.NoQuarantine;
+          for (var r = I(e), a = e, i = 0; i < u; i++) {
+            var l = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
+              a,
+            );
+            if ((l == null ? void 0 : l.message) == null) break;
+            ((a = l.message), (r = x(r, I(a))));
+          }
+          return (
+            (((n = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
+              a,
+            )) == null
+              ? void 0
+              : n.message) != null ||
+              o("WAWebFutureproofProtoUtils").hasGatedOffFutureproofWrapper(
+                a,
+              )) &&
+              (r = x(r, _.QuarantineWithoutText)),
+            r
+          );
         })),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    ((l.QuarantineAction = m),
-      (l.maybeGetQuarantineText = f),
-      (l.getQuarantineAction = T));
+    ((l.QuarantineAction = _),
+      (l.maybeGetQuarantineText = h),
+      (l.getQuarantineAction = $));
   },
   98,
 );

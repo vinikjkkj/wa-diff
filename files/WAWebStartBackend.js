@@ -2,7 +2,6 @@ __d(
   "WAWebStartBackend",
   [
     "Promise",
-    "WAAsyncSleep",
     "WABase64",
     "WAComms",
     "WAGzip",
@@ -37,7 +36,6 @@ __d(
     "WAWebDbEncryptionKey",
     "WAWebEnvironment",
     "WAWebEventsWaitForMain",
-    "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebFeatureDetectionSwSupport",
     "WAWebFtsClient",
     "WAWebGetMessageCache",
@@ -56,9 +54,7 @@ __d(
     "WAWebInitializeBots",
     "WAWebL10NCountryCodes",
     "WAWebL10NHelpers",
-    "WAWebLid1X1ThreadAccountMigrations",
     "WAWebLid1x1MigrationManager",
-    "WAWebLid1x1MigrationTimeout",
     "WAWebLocalStorage",
     "WAWebLogoutReason",
     "WAWebLogoutReasonConstants",
@@ -66,7 +62,6 @@ __d(
     "WAWebMessageInsertDebugPlaceholder",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessageProcessorCache",
-    "WAWebMessageQueue",
     "WAWebMetaAiBotSessionCleanupJob",
     "WAWebMmSignalSharingExpirationWindowUtils",
     "WAWebMobilePlatforms",
@@ -310,8 +305,7 @@ __d(
               "WAWebBackendEventBus",
             ).BackendEventBus.triggerStorageInitializationError(e);
           }
-          (o("WAWebLid1X1ThreadAccountMigrations").checkIfMigrationEnabled(),
-            o("WAWebInitWaitForEvents").initOfflineResumeWaitForEvents(),
+          (o("WAWebInitWaitForEvents").initOfflineResumeWaitForEvents(),
             o(
               "WAWebWamOfflineResumeReporter",
             ).OfflineResumeReporter.setLastPushCompleteTimestamp(),
@@ -671,20 +665,6 @@ __d(
                 "WAWebBackgroundSyncReporter",
               ).setPushNotificationInteractionStatus(),
               o("WAWebWamProcessWorkerData").processWorkerWamData(!0)),
-            o("WAWebMessageQueue")
-              .waitForOnlineMessageQueue()
-              .then(
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  (yield o(
-                    "WAWebEventsWaitForOfflineDeliveryEnd",
-                  ).waitForOfflineDeliveryEnd(),
-                    yield o("WAWebMessageQueue").waitForOnlineMessageQueue(),
-                    yield o("WAAsyncSleep").asyncSleep(1e4),
-                    o("WAWebLid1x1MigrationTimeout").scheduleLogoutIfNeeded(
-                      "offline",
-                    ));
-                }),
-              ),
             yield o("WAWebSyncContactsJob").runSyncDirtyContactsJob(),
             o("WAWebBackendApi").frontendFireAndForget(
               "restoreRecentStickers",

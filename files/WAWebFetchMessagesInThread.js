@@ -31,69 +31,71 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
       d = 20;
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            n === void 0 && (n = d);
-            var i =
-              a == null
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.count,
+            r = n === void 0 ? d : n,
+            a = t.direction,
+            i = t.lastLoadedMsg,
+            l = t.threadId,
+            m =
+              i == null
                 ? void 0
                 : yield o("WAWebSchemaMessage")
                     .getMessageTable()
-                    .equals(["id"], a.toString());
-            if (a && i != null && i.length === 0)
-              throw (
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Offset message ",
-                      " does not exist in message table",
-                    ])),
-                  a && a.toString(),
-                ),
-                new c()
-              );
-            var l = i == null ? void 0 : i[0],
-              m,
-              p,
-              _ = !1;
-            r === "before"
-              ? ((m = s(t)),
-                (p =
-                  l == null
-                    ? u(t)
-                    : o("WAWebDBMessageUtils").craftInternalThreadId(
-                        o("WAWebDBMessageUtils").getInChatMsgId(
-                          l.internalId || "",
-                        ),
-                        t,
-                      )),
-                (_ = !0))
-              : ((m =
-                  l == null
-                    ? s(t)
-                    : o("WAWebDBMessageUtils").craftInternalThreadId(
-                        o("WAWebDBMessageUtils").getInChatMsgId(
-                          l.internalId || "",
-                        ),
-                        t,
-                      )),
-                (p = u(t)));
-            var f = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(["internalThreadIDs"], m, p, {
-                lowerInclusive: !1,
-                upperInclusive: !1,
-                limit: n,
-                reverse: _,
-              });
-            return f;
-          },
-        )),
+                    .equals(["id"], i.toString());
+          if (i && m != null && m.length === 0)
+            throw (
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Offset message ",
+                    " does not exist in message table",
+                  ])),
+                i && i.toString(),
+              ),
+              new c()
+            );
+          var p = m == null ? void 0 : m[0],
+            _,
+            f,
+            g = !1;
+          a === "before"
+            ? ((_ = s(l)),
+              (f =
+                p == null
+                  ? u(l)
+                  : o("WAWebDBMessageUtils").craftInternalThreadId(
+                      o("WAWebDBMessageUtils").getInChatMsgId(
+                        p.internalId || "",
+                      ),
+                      l,
+                    )),
+              (g = !0))
+            : ((_ =
+                p == null
+                  ? s(l)
+                  : o("WAWebDBMessageUtils").craftInternalThreadId(
+                      o("WAWebDBMessageUtils").getInChatMsgId(
+                        p.internalId || "",
+                      ),
+                      l,
+                    )),
+              (f = u(l)));
+          var h = yield o("WAWebSchemaMessage")
+            .getMessageTable()
+            .between(["internalThreadIDs"], _, f, {
+              lowerInclusive: !1,
+              upperInclusive: !1,
+              limit: r,
+              reverse: g,
+            });
+          return h;
+        })),
         p.apply(this, arguments)
       );
     }

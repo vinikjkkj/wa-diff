@@ -12,8 +12,6 @@ __d(
     "WAWebDBCreateLidPnMappings",
     "WAWebGetBlocklistJob",
     "WAWebLid1X1MigrationGating",
-    "WAWebLid1X1ThreadAccountMigrations",
-    "WAWebLid1x1MigrationTimeoutUtils",
     "WAWebLidAwareContactsDB",
     "WAWebLogoutReasonConstants",
     "WAWebSetUsernameJob",
@@ -28,13 +26,13 @@ __d(
     "partitionArray",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g;
-    function h(e) {
-      return y.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f;
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -51,7 +49,7 @@ __d(
           var n = yield o("WAWebGetBlocklistJob").getBlocklist();
           if (n.errorCode != null) return n;
           if (n.type === "mismatch") {
-            n.dirty && (yield T("LidBlocklistForceMigratedDirty"));
+            n.dirty && (yield I("LidBlocklistForceMigratedDirty"));
             var a = o("WAWebBlocklistMigration").isBlocklistMigrated(),
               i = n.list;
             (o("WALogger").LOG(
@@ -72,7 +70,7 @@ __d(
               i.addressingMode === "pn")
             ) {
               a &&
-                (yield T("LidBlocklistUnexpectedPnBlocklist"),
+                (yield I("LidBlocklistUnexpectedPnBlocklist"),
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -104,8 +102,8 @@ __d(
                         ])),
                     ),
                     o("WAWebBlocklistMigration").setBlocklistMigrated())
-                  : yield D(),
-                yield v(i.items));
+                  : yield T(),
+                yield b(i.items));
           } else
             o("WALogger").LOG(
               d ||
@@ -115,15 +113,15 @@ __d(
             );
           return n;
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
+    function y() {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WASmaxPsaChatBlockGetRPC").sendChatBlockGetRPC(),
             t;
           e: {
@@ -177,31 +175,31 @@ __d(
           }
           return t;
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [],
             n = [];
           for (var r of e)
             (r.pn != null && t.push(r),
               (r.username != null || r.displayName != null) && n.push(r));
-          (yield R(t), yield E(n));
+          (yield S(t), yield L(n));
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAArrayUtils").groupBy(e, function (e) {
               return e.pn.toString();
             }),
@@ -219,7 +217,7 @@ __d(
                   return r("WAWebWid").compare(e.lid, t.lid);
                 })
                 .reverse();
-            (n.push.apply(n, I(d)), u.length > 1 && i++, a.push.apply(a, I(u)));
+            (n.push.apply(n, k(d)), u.length > 1 && i++, a.push.apply(a, k(u)));
           }
           (i > 0 &&
             o("WALogger")
@@ -246,15 +244,15 @@ __d(
             }),
             yield o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb());
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = [],
               n = [],
@@ -285,27 +283,27 @@ __d(
           (yield o("WAWebSetUsernameJob").setUsernamesJob(t),
             yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(n));
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e) {
+    function k(e) {
       return e.map(function (e) {
         return { lid: e.lid, pn: e.pn };
       });
     }
-    function T(e) {
+    function I(e) {
       var t = new (o("WAWebCriticalEventWamEvent").CriticalEventWamEvent)({
         name: e,
         debug: "{fetch}",
       });
       return t.commitAndWaitForFlush();
     }
-    function D() {
-      return x.apply(this, arguments);
+    function T() {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             o(
               "WAWebLid1X1MigrationGating",
@@ -315,40 +313,18 @@ __d(
               o("WAWebLogoutReasonConstants").LogoutReason
                 .LidMigrationStateDiscrepancy,
             );
-          var e = o(
-            "WAWebLid1X1ThreadAccountMigrations",
-          ).getLidThreadMigrationStatus().state;
-          if (
-            o(
-              "WAWebLid1x1MigrationTimeoutUtils",
-            ).PEER_MAPPING_RECEIVED_STATUSES.includes(e)
-          )
-            return (
-              o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[blocklist] received a lid blocklist after peer migration stanza, will migrate blocklist after refresh",
-                  ])),
-              ),
-              yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                "WAReceivedBlocklistMigrationBefore1x1Migration",
-                !0,
-              )
-            );
           (o("WALogger")
             .ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[blocklist] received a lid-based blocklist on an unmigrated device. ChatDB migration status: ",
-                  ", will send critical event and log out",
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[blocklist] received a lid-based blocklist on an unmigrated device, will send critical event and log out",
                 ])),
-              e,
             )
             .sendLogs("LidBlocklistUnmigratedChatDb"),
-            yield T("LidBlocklistUnmigratedChatDb"),
+            yield I("LidBlocklistUnmigratedChatDb"),
             o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[blocklist] critical event committed",
                 ])),
             ),
@@ -358,12 +334,12 @@ __d(
                 .LidBlocklistChatDbUnmigrated,
             ));
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    ((l.fetchAndUpdateBlocklist = h),
-      (l.getBlockingStatusForPSAUser = C),
-      (l.learnIdentifiers = v));
+    ((l.fetchAndUpdateBlocklist = g),
+      (l.getBlockingStatusForPSAUser = y),
+      (l.learnIdentifiers = b));
   },
   98,
 );

@@ -1409,15 +1409,17 @@ __d(
       }
     }
     function He(e, t) {
-      (o("WALogger").LOG(
-        M ||
-          (M = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: [SctpConnectionManager] DataChannel closed for ",
-            "",
-          ])),
-        t,
-      ),
-        We(t));
+      var n = o("WAWebVoipSctpConnectionState").sctpConnections.get(t);
+      n &&
+        (o("WALogger").LOG(
+          M ||
+            (M = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [SctpConnectionManager] DataChannel closed by relay for ",
+              ", reconnecting",
+            ])),
+          t,
+        ),
+        he(n, "remote_close", "remote_close_reconnecting", "[SCTP]"));
     }
     function Ge() {
       return o("WAWebVoipSctpDataChannelThreadManager").initDataChannelWorker(

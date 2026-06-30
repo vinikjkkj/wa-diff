@@ -31,7 +31,9 @@ __d(
                 .forEach(function (e) {
                   var n = e.address,
                     r = e.session;
-                  (r == null || r.byteLength === 0) && t.push(n);
+                  (r == null ||
+                    (r instanceof ArrayBuffer && r.byteLength === 0)) &&
+                    t.push(n);
                 }),
                 t.length > 0 &&
                   (yield o(

@@ -4,7 +4,6 @@ __d(
     "P2XFunnelIdGenerator",
     "WAWebBuyerEventAttributes",
     "WAWebStructuredMessageBuyerInteractionWamEvent",
-    "WAWebStructuredMessageBuyerReceiveWamEvent",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumStructuredMessageClass",
     "asyncToGeneratorRuntime",
@@ -47,29 +46,7 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e) {
-      var t = e.attributes,
-        n = e.isLoggingEnabled,
-        r = e.messageClass,
-        a = e.messageMediaType;
-      if (n) {
-        var i = o("WAWebBuyerEventAttributes").buyerEventAttributesToObject(t),
-          l = new (o(
-            "WAWebStructuredMessageBuyerReceiveWamEvent",
-          ).StructuredMessageBuyerReceiveWamEvent)({
-            messageClass:
-              r != null
-                ? r
-                : o("WAWebWamEnumStructuredMessageClass")
-                    .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-            messageMediaType:
-              a != null ? a : o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
-            messageClassAttributes: JSON.stringify(i),
-          });
-        l.commit();
-      }
-    }
-    ((l.submitBuyerInteractionEvent = s), (l.submitBuyerReceiveEvent = c));
+    l.submitBuyerInteractionEvent = s;
   },
   98,
 );

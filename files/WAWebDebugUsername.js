@@ -38,27 +38,29 @@ __d(
     }
     u.doc =
       'Check if a username is available. Usage: usernameCheckDebug("my_username")';
-    function d(e, t, n, r) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o("WAWebMexSetUsernameJob").mexSetUsernameQueryJob({
-              input: e,
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.reserved,
+            n = e.sessionId,
+            r = e.source,
+            a = e.username,
+            i = yield o("WAWebMexSetUsernameJob").mexSetUsernameQueryJob({
+              input: a,
               reserved: t,
-              source: n,
-              session_id: r,
+              source: r,
+              session_id: n,
             });
-            return a;
-          },
-        )),
+          return i;
+        })),
         m.apply(this, arguments)
       );
     }
     d.doc =
-      'Set/delete a username. Usage: usernameSetDebug("my_username", false, "USER_INPUT") or usernameSetDebug(null) to delete';
+      'Set/delete a username. Usage: usernameSetDebug({username: "my_username", reserved: false, source: "USER_INPUT"}) or usernameSetDebug({username: null}) to delete';
     function p(e, t) {
       return _.apply(this, arguments);
     }

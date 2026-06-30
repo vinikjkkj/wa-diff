@@ -2,18 +2,11 @@ __d(
   "WAWebDeviceCapabilitiesSync",
   [
     "Promise",
-    "WAAsyncSleep",
     "WALogger",
     "WASyncdConst",
     "WATimeUtils",
     "WAWebBackendApi",
-    "WAWebBackendEventBus",
     "WAWebBizBroadcastDeviceCapabilityCommon",
-    "WAWebEventsWaitForOfflineDeliveryEnd",
-    "WAWebLid11MigrationLifecycleWamEvent",
-    "WAWebLid1X1MigrationGating",
-    "WAWebLid1x1MigrationTimeout",
-    "WAWebMessageQueue",
     "WAWebMobilePlatforms",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsDeviceCapabilities.pb",
@@ -24,7 +17,6 @@ __d(
     "WAWebSyncdDb",
     "WAWebUserPrefsDeviceCapabilities",
     "WAWebUserPrefsMeUser",
-    "WAWebWamEnumMigrationStageEnum",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
@@ -40,8 +32,7 @@ __d(
         n = e.indexOf("@");
       return t === -1 || n === -1 || t >= n ? null : e.substring(t + 1, n);
     }
-    var p = !1,
-      _ = (function (t) {
+    var p = (function (t) {
         function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -104,87 +95,35 @@ __d(
             }
             return t;
           })()),
-          (a.checkLidTimeout = function () {
-            var e = this;
-            p ||
-              (o(
-                "WAWebBackendEventBus",
-              ).BackendEventBus.onAppStateSyncCompleted(function (t) {
-                t.some(function (t) {
-                  return t.name === e.collectionName;
-                }) &&
-                  o(
-                    "WAWebEventsWaitForOfflineDeliveryEnd",
-                  ).isOfflineDeliveryEnd() &&
-                  o("WAWebMessageQueue")
-                    .waitForOnlineMessageQueue()
-                    .then(
-                      n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          (yield o(
-                            "WAWebEventsWaitForOfflineDeliveryEnd",
-                          ).waitForOfflineDeliveryEnd(),
-                            yield o(
-                              "WAWebMessageQueue",
-                            ).waitForOnlineMessageQueue(),
-                            yield o("WAAsyncSleep").asyncSleep(1e4),
-                            o(
-                              "WAWebLid1x1MigrationTimeout",
-                            ).scheduleLogoutIfNeeded("syncd"));
-                        },
-                      ),
-                    );
-              }),
-              (p = !0));
-          }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                this.checkLidTimeout();
                 var n = 0,
                   r = t.map(function (e) {
                     if (e.operation === "set") {
-                      var t, r;
-                      ((t = e.value) == null ||
-                      (t = t.deviceCapabilities) == null ||
-                      (t = t.lidMigration) == null
-                        ? void 0
-                        : t.chatDbMigrationTimestamp) != null &&
-                        !o(
-                          "WAWebLid1X1MigrationGating",
-                        ).Lid1X1MigrationUtils.isLidMigrated() &&
-                        new (o(
-                          "WAWebLid11MigrationLifecycleWamEvent",
-                        ).Lid11MigrationLifecycleWamEvent)({
-                          migrationStage: o("WAWebWamEnumMigrationStageEnum")
-                            .MIGRATION_STAGE_ENUM
-                            .COMPANION_RECEIVED_DEVICE_CAPABILITY,
-                          isLocally1x1MigratedFromDb: o(
-                            "WAWebLid1X1MigrationGating",
-                          ).Lid1X1MigrationUtils.isLidMigrated(),
-                        }).commit();
-                      var a =
-                        (r = e.value) == null ? void 0 : r.deviceCapabilities;
-                      if (a != null) {
-                        var i = e.indexParts[d],
-                          l = i != null ? m(i) : null;
-                        if (l === c) {
-                          var s,
-                            u = o(
+                      var t,
+                        r =
+                          (t = e.value) == null ? void 0 : t.deviceCapabilities;
+                      if (r != null) {
+                        var a = e.indexParts[d],
+                          i = a != null ? m(a) : null;
+                        if (i === c) {
+                          var l,
+                            s = o(
                               "WAWebUserPrefsDeviceCapabilities",
-                            ).mapProtobufToAllDeviceCapabilities(a);
+                            ).mapProtobufToAllDeviceCapabilities(r);
                           (o(
                             "WAWebUserPrefsDeviceCapabilities",
-                          ).mergeDeviceCapabilitiesToStorage(u, "primary"),
+                          ).mergeDeviceCapabilitiesToStorage(s, "primary"),
                             n++);
-                          var p =
-                            (s = u.aiThread) == null ? void 0 : s.supportLevel;
+                          var u =
+                            (l = s.aiThread) == null ? void 0 : l.supportLevel;
                           if (
-                            ((p ===
+                            ((u ===
                               o("WAWebProtobufsDeviceCapabilities.pb")
                                 .DeviceCapabilities$AiThread$SupportLevel
                                 .INFRA ||
-                              p ===
+                              u ===
                                 o("WAWebProtobufsDeviceCapabilities.pb")
                                   .DeviceCapabilities$AiThread$SupportLevel
                                   .FULL) &&
@@ -194,18 +133,18 @@ __d(
                               ),
                             o("WAWebMobilePlatforms").isSMB())
                           ) {
-                            var _ = a.businessBroadcast,
-                              f =
-                                !!(_ != null && _.companionSupportEnabled) &&
-                                !!(_ != null && _.campaignSyncEnabled),
-                              g = o(
+                            var p = r.businessBroadcast,
+                              _ =
+                                !!(p != null && p.companionSupportEnabled) &&
+                                !!(p != null && p.campaignSyncEnabled),
+                              f = o(
                                 "WAWebBizBroadcastDeviceCapabilityCommon",
                               ).getPrimarySupportsBusinessBroadcast();
-                            (f !== g &&
+                            (_ !== f &&
                               (o(
                                 "WAWebBizBroadcastDeviceCapabilityCommon",
-                              ).saveBizBroadcastCapabilityToStorage(f),
-                              f &&
+                              ).saveBizBroadcastCapabilityToStorage(_),
+                              _ &&
                                 o(
                                   "WAWebWorkerSafeBackendApi",
                                 ).workerSafeFireAndForget(
@@ -215,7 +154,7 @@ __d(
                               o(
                                 "WAWebBizBroadcastDeviceCapabilityCommon",
                               ).saveBizBroadcastRecipientLimitToStorage(
-                                _ == null ? void 0 : _.recipientLimit,
+                                p == null ? void 0 : p.recipientLimit,
                               ));
                           }
                         }
@@ -283,8 +222,8 @@ __d(
           r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      f = new _();
-    l.default = f;
+      _ = new p();
+    l.default = _;
   },
   98,
 );

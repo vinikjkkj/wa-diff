@@ -77,7 +77,7 @@ __d(
               return (
                 l.error instanceof o("WAParsableWapNode").XmppParsingFailure
                   ? o("WALogger")
-                      .LOG(
+                      .WARN(
                         u ||
                           (u = babelHelpers.taggedTemplateLiteralLoose([
                             "failedParsingMessage: ",
@@ -86,18 +86,18 @@ __d(
                         l.error,
                       )
                       .tags("messaging")
-                      .sendLogs("failedParsing: ack not parsed XMPP", {
+                      .sendLogs("msg-stanza-parsing-failed-xmpp-no-ack", {
                         sampling: 0.01,
                       })
                   : o("WALogger")
-                      .LOG(
+                      .WARN(
                         c ||
                           (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "failedParsingMessage:",
+                            "failedParsingMessage",
                           ])),
                       )
                       .tags("messaging")
-                      .sendLogs("failedParsing: ack not parsed", {
+                      .sendLogs("msg-stanza-parsing-failed-no-ack", {
                         sampling: 0.01,
                       }),
                 o(
@@ -147,31 +147,27 @@ __d(
               }),
               a.error instanceof o("WAParsableWapNode").XmppParsingFailure
                 ? o("WALogger")
-                    .LOG(
+                    .WARN(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
                           "failedParsingMessage: ",
-                          " ",
                           "",
                         ])),
-                      R,
                       a.error,
                     )
                     .tags("messaging")
-                    .sendLogs("failedParsing: ack parsed XMPP", {
+                    .sendLogs("msg-stanza-parsing-failed-xmpp", {
                       sampling: 0.01,
                     })
                 : o("WALogger")
-                    .LOG(
+                    .WARN(
                       m ||
                         (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "failedParsingMessage: ",
-                          "",
+                          "failedParsingMessage",
                         ])),
-                      R,
                     )
                     .tags("messaging")
-                    .sendLogs("failedParsing: ack parsed", { sampling: 0.01 }),
+                    .sendLogs("msg-stanza-parsing-failed", { sampling: 0.01 }),
               (C || (C = n("Promise"))).resolve(
                 o("WAWebCreateNackFromStanza").createNackFromStanza(t, I),
               )
