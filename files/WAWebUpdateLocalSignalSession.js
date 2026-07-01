@@ -58,31 +58,29 @@ __d(
                 o("WAWebWidFactory").createDeviceWidFromWidOrThrow(f),
                 t.toString(),
               ));
-          var h = yield o("WAWebSignal").Session.getRemoteRegId(f);
-          if (
-            o("WAWebUserPrefsMeUser").isMeAccount(
-              o("WAWebWidFactory").asUserWidOrThrow(f),
-            ) &&
-            h !== p
-          )
+          var h = o("WAWebWidFactory").asUserWidOrThrow(f),
+            y = yield o("WAWebSignal").Session.getRemoteRegId(f);
+          if (o("WAWebUserPrefsMeUser").isMeAccount(h) && y !== p)
             throw r("err")(
               "updateLocalSignalSession: detect registration Id change remote: " +
                 p +
                 ", local: " +
-                String(h) +
+                String(y) +
                 " for peer device",
             );
-          var y = yield o("WAWebProcessRetryKeyBundle").processKeyBundle(
-            l,
-            f,
-            p,
-            h,
-            c,
-            a,
-          );
-          y ||
-            (h != null &&
-              h !== p &&
+          var C = t.isUser() && !o("WAWebUserPrefsMeUser").isMeAccount(h),
+            b = yield o("WAWebProcessRetryKeyBundle").processKeyBundle(
+              l,
+              f,
+              p,
+              y,
+              c,
+              a,
+              C,
+            );
+          b ||
+            (y != null &&
+              y !== p &&
               (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -90,15 +88,15 @@ __d(
                     ", received: ",
                     "",
                   ])),
-                h,
+                y,
                 p,
               ),
               yield o("WAWebSignal").Session.deleteRemoteSession(f)));
-          var C = 2;
-          if (_ === C) return o("WAWebSignal").Session.saveSessionBaseKey(f, d);
-          if (_ > C) {
-            var b = yield o("WAWebSignal").Session.hasSameBaseKey(f, d);
-            if (b)
+          var v = 2;
+          if (_ === v) return o("WAWebSignal").Session.saveSessionBaseKey(f, d);
+          if (_ > v) {
+            var S = yield o("WAWebSignal").Session.hasSameBaseKey(f, d);
+            if (S)
               return (
                 o("WALogger").LOG(
                   u ||

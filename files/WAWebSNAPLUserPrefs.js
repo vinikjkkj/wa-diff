@@ -1,6 +1,8 @@
 __d(
   "WAWebSNAPLUserPrefs",
   [
+    "WAWebABProps",
+    "WAWebEncryptedRid",
     "WAWebSNAPLPersistentId",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
@@ -27,7 +29,40 @@ __d(
           throw r("err")("Invalid video origin");
       }
     }
-    function s(e, t) {
+    function s(e, t, n) {
+      return o("WAWebABProps").getABPropConfigValue(
+        "snapl_newsletter_logging_encrypted_rid_enabled",
+      ) === !0
+        ? u(t, n)
+        : d(e, t);
+    }
+    function u(e, t) {
+      if (e === o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS && t)
+        return c();
+      var n = o("WAWebEncryptedRid").getEncryptedRid();
+      return n != null
+        ? o("WAWebSNAPLPersistentId").castToSNAPLPersistentId(n)
+        : null;
+    }
+    function c() {
+      var e = r("WAWebUserPrefsStore").getUser(
+        o("WAWebUserPrefsKeys").UserPrefs.SNAPLPersistentId,
+      );
+      if (e != null && typeof e == "object") {
+        var t = e.persistentId;
+        if (typeof t == "string")
+          return o("WAWebSNAPLPersistentId").castToSNAPLPersistentId(t);
+      }
+      var n = o("WAWebSNAPLPersistentId").computeSNAPLPersistentId();
+      return (
+        r("WAWebUserPrefsStore").setUser(
+          o("WAWebUserPrefsKeys").UserPrefs.SNAPLPersistentId,
+          { persistentId: n },
+        ),
+        n
+      );
+    }
+    function d(e, t) {
       var n = null;
       switch (t) {
         case o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL:
@@ -41,14 +76,14 @@ __d(
       }
       if (n == null) throw r("err")("Invalid video origin");
       var a = r("WAWebUserPrefsStore").getUser(n);
-      if (a == null || typeof a != "object") return u(e, t);
+      if (a == null || typeof a != "object") return m(e, t);
       var i = a.mediaId,
         l = a.persistentId;
       return typeof l != "string" || typeof i != "string"
-        ? u(e, t)
+        ? m(e, t)
         : o("WAWebSNAPLPersistentId").castToSNAPLPersistentId(l);
     }
-    function u(t, n) {
+    function m(t, n) {
       var r = o("WAWebSNAPLPersistentId").computeSNAPLPersistentId();
       return (e(r, t, n), r);
     }

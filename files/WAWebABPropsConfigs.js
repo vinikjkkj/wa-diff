@@ -2718,6 +2718,7 @@ __d(
       wa_web_voip_adaptive_grid_page_size: [28909, "bool", !1, !1],
       wa_web_voip_stack_log_level: [30261, "int", 3, 3],
       wa_web_wae_qpl_enabled: [21742, "bool", !0, !0],
+      wa_web_wam_falco_critical_event_ids: [32632, "string", "", ""],
       wa_web_wam_falco_flush_interval_ms: [32393, "int", 3e3, 3e3],
       wa_web_wam_falco_logging_enabled: [26200, "bool", !1, !1],
       wa_web_wam_falco_mode: [25306, "int", 0, 0],

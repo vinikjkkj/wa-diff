@@ -11,6 +11,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebDeviceListPk",
     "WAWebEventsWaitForOfflineDeliveryEnd",
+    "WAWebPQGatingUtils",
     "WAWebProcessKeyBundle",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
@@ -136,7 +137,11 @@ __d(
             ));
           var l = yield o(
             "WASmaxPreKeysFetchMissingPreKeysRPC",
-          ).sendFetchMissingPreKeysRPC({ userArgs: i });
+          ).sendFetchMissingPreKeysRPC({
+            userArgs: i,
+            hasKeyFetchPqsupportTrue:
+              o("WAWebPQGatingUtils").isPq1on1MessageEnabled(),
+          });
           e: {
             var s = l;
             if (
@@ -308,7 +313,8 @@ __d(
                   l.forEach(function (e) {
                     var n,
                       r,
-                      a = e.preKeyMixin;
+                      a = e.preKeyMixin,
+                      i = e.pQKeyMixin;
                     t.push({
                       identity: e.elementValue,
                       deviceIdentity:
@@ -333,6 +339,16 @@ __d(
                         ),
                         pubkey: a.keyValueKeyDataMixin.elementValue,
                       },
+                      kyberKey: i
+                        ? {
+                            id: o("WAParsableXmlNode").convertBytesToUint(
+                              i.pqkeyIdKeyIDMixin.elementValue,
+                              3,
+                            ),
+                            publicKey: i.pqkeyValuePQKeyDataMixin.elementValue,
+                            signature: i.pqkeySignatureElementValue,
+                          }
+                        : null,
                       regId: o("WAParsableXmlNode").convertBytesToUint(
                         e.registrationElementValue,
                         4,

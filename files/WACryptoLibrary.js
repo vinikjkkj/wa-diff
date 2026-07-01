@@ -117,60 +117,69 @@ __d(
       );
     }
     function y(e, t, r, a, i) {
-      var l = e.handleNewSession,
-        s = e.loadOneTimePreKey,
-        c = e.loadSession,
-        d = e.loadSignedPreKey;
+      var l = e.deleteKyberPreKey,
+        s = e.handleNewSession,
+        c = e.loadKyberPreKey,
+        d = e.loadOneTimePreKey,
+        p = e.loadSession,
+        _ = e.loadSignedPreKey;
       return (
         m("decryptContent"),
         u.lock(
           [o("WAJids").extractUserJid(r)],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = !1,
-              n = yield c(r, "decryptContent"),
+              n = yield p(r, "decryptContent"),
               u;
             if (a.type === "pkmsg") {
-              var p = o("WASignalCipher").deserializePkMsg(a.ciphertext);
-              if (!p.success)
+              var f = o("WASignalCipher").deserializePkMsg(a.ciphertext);
+              if (!f.success)
                 return (
                   m("decryptContent: errCryptoDeserialization"),
                   o("WAResultOrError").makeError("errCryptoDeserialization")
                 );
-              var _ = p.value,
-                f = yield C(
-                  { loadSignedPreKey: d, loadOneTimePreKey: s },
+              var g = f.value,
+                h = yield C(
+                  {
+                    loadSignedPreKey: _,
+                    loadOneTimePreKey: d,
+                    loadKyberPreKey: c != null ? c : null,
+                  },
                   t,
-                  _,
+                  g,
                   n,
                 );
-              if (!f.success) return f;
-              u = f.value;
+              if (!h.success) return h;
+              u = h.value;
             } else {
               a.type;
-              var g = o("WASignalCipher").deserializeMsg(a.ciphertext);
-              if (!g.success)
+              var y = o("WASignalCipher").deserializeMsg(a.ciphertext);
+              if (!y.success)
                 return (
                   m("decryptContent: errCryptoDeserialization"),
                   o("WAResultOrError").makeError("errCryptoDeserialization")
                 );
-              var h = g.value,
-                y = yield o("WASignalCipher").decryptMsg(n, h);
-              if (!y.success) return y;
-              u = y.value;
+              var b = y.value,
+                v = yield o("WASignalCipher").decryptMsg(n, b);
+              if (!v.success) return v;
+              u = v.value;
             }
-            var b = u,
-              v = b.newSessionInfo;
+            var S = u,
+              R = S.newSessionInfo;
             if (
-              (v &&
-                (v.newIdentity != null || v.usedPreKey != null) &&
-                (yield l(r, v.baseSession, v.newIdentity, v.usedPreKey)),
+              (R &&
+                (R.newIdentity != null || R.usedPreKey != null) &&
+                (yield s(r, R.baseSession, R.newIdentity, R.usedPreKey)),
+              (R == null ? void 0 : R.usedKyberPreKey) != null &&
+                l != null &&
+                (yield l(R.usedKyberPreKey)),
               !e)
             ) {
-              var S = v == null ? void 0 : v.baseSession.remote.pubKey;
-              (yield i(new Uint8Array(u.plaintext), S), (e = !0));
+              var L = R == null ? void 0 : R.baseSession.remote.pubKey;
+              (yield i(new Uint8Array(u.plaintext), L), (e = !0));
             }
             return (
-              yield l(r, u.updatedSession, u.updatedSession.remote.pubKey),
+              yield s(r, u.updatedSession, u.updatedSession.remote.pubKey),
               o("WAResultOrError").makeResult()
             );
           }),
@@ -184,50 +193,65 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = e.loadOneTimePreKey,
-              i = e.loadSignedPreKey;
+            var a = e.loadKyberPreKey,
+              i = e.loadOneTimePreKey,
+              l = e.loadSignedPreKey;
             m("decryptPkMsg");
-            var l = o("WASignalCipher").findMatchingSession(
+            var s = o("WASignalCipher").findMatchingSession(
               r,
               n.sessionBaseKey,
             );
-            if (!l.success) return l;
-            var s = l.value;
-            if (s) {
-              var u = yield o("WASignalCipher").decryptMsgFromSession(s, n);
-              if (!u.success) return u;
-              var c = u.value,
-                d = c[0],
-                p = c[1];
+            if (!s.success) return s;
+            var u = s.value;
+            if (u) {
+              var c = yield o("WASignalCipher").decryptMsgFromSession(u, n);
+              if (!c.success) return c;
+              var d = c.value,
+                p = d[0],
+                _ = d[1];
               return o("WAResultOrError").makeResult({
                 newSessionInfo: null,
-                updatedSession: d,
-                plaintext: p,
+                updatedSession: p,
+                plaintext: _,
               });
             } else {
-              var _ = n.localOneTimeKeyId,
-                f = yield i(n.localSignedPreKeyId),
-                g = _ == null ? null : yield a(_),
-                h = yield o("WASignalCipher").decryptPkMsgWithNewSession(
-                  t,
-                  r,
-                  n,
-                  { localSignedPreKey: f, localOneTimeKey: g },
-                );
-              if (!h.success) return h;
-              var y = h.value,
-                C = y.baseSession,
-                b = y.newIdentity,
-                v = y.plaintext,
-                S = y.updatedSession;
+              var f = n.localOneTimeKeyId,
+                g = yield l(n.localSignedPreKeyId),
+                h = f == null ? null : yield i(f),
+                y = null;
+              n.kyberPreKeyId != null &&
+                n.kyberCiphertext != null &&
+                a != null &&
+                (y = yield a(n.kyberPreKeyId));
+              var C = yield o("WASignalCipher").decryptPkMsgWithNewSession(
+                t,
+                r,
+                n,
+                {
+                  localSignedPreKey: g,
+                  localOneTimeKey: h,
+                  localKyberPreKey:
+                    y != null ? { secretKey: y.secretKey } : null,
+                },
+              );
+              if (!C.success) return C;
+              var b = C.value,
+                v = b.baseSession,
+                S = b.newIdentity,
+                R = b.plaintext,
+                L = b.updatedSession;
               return o("WAResultOrError").makeResult({
                 newSessionInfo: {
-                  newIdentity: b,
-                  baseSession: C,
-                  usedPreKey: _,
+                  newIdentity: S,
+                  baseSession: v,
+                  usedPreKey: f,
+                  usedKyberPreKey:
+                    y != null && y.shouldDeleteAfterUse !== !1
+                      ? n.kyberPreKeyId
+                      : null,
                 },
-                updatedSession: S,
-                plaintext: v,
+                updatedSession: L,
+                plaintext: R,
               });
             }
           },

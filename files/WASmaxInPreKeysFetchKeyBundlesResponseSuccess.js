@@ -16,7 +16,8 @@ __d(
       var n = o("WASmaxParseJid").attrJidEnum(
         e,
         "jid",
-        o("WASmaxInPreKeysEnums").DEVICEJID_DEVICEJID,
+        o("WASmaxInPreKeysEnums")
+          .DEVICEJID_DEVICEJID_INTEROPDEVICEJID_INTEROPDEVICEJID,
       );
       if (!n.success) return n;
       var r = o(

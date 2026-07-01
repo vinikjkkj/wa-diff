@@ -164,6 +164,7 @@ __d(
                     var f = _[0].tag;
                     switch (f) {
                       case "count":
+                      case "pq_count":
                         return yield r("WAWebHandlePreKeyLow")(e, t);
                       case "digest":
                         return yield r("WAWebHandleDigestKey")(e);

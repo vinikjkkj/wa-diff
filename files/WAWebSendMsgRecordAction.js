@@ -379,6 +379,7 @@ __d(
                       {
                         messageSendResult: o("WAWebSendMsgResultAction")
                           .SendMsgResult.ERROR_UNKNOWN,
+                        ackErrorCode: e.ackErrorCode,
                       }
                     );
                   },

@@ -21,7 +21,12 @@ __d(
         typeof e.fields != "object" ||
         e.fields == null
         ? null
-        : { name: e.name, fields: e.fields, timestamp: e.timestamp };
+        : {
+            name: e.name,
+            fields: e.fields,
+            timestamp: e.timestamp,
+            critical: e.critical === !0,
+          };
     }
     var m = 7 * o("WATimeUtils").DAY_SECONDS * 1e3,
       p = 50,

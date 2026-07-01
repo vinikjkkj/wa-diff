@@ -29,11 +29,12 @@ __d(
           o("WAWebWamFalcoABProps").getWamFalcoMode() ===
           o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING,
         a = function () {
-          var t = i.fields,
-            a = i.name,
-            l = {};
+          var t = i.critical,
+            a = i.fields,
+            l = i.name,
+            u = {};
           try {
-            l = f();
+            u = f();
           } catch (t) {
             o("WALogger")
               .WARN(
@@ -42,21 +43,24 @@ __d(
                     "[falco] canonical read failed at flush for ",
                     "",
                   ])),
-                a,
+                l,
               )
               .catching(r("getErrorSafe")(t))
               .sendLogs("wam_falco_canonical_read_error", { sampling: 0.1 });
           }
           n &&
             (r("WAWebODS").incr("web.falco.shadow.flush"),
-            r("WAWebODS").incr("web.falco.shadow." + a + ".flush"));
+            r("WAWebODS").incr("web.falco.shadow." + l + ".flush"));
           try {
-            var u = babelHelpers.extends({}, l, t);
-            o("WAWebFalcoLoggerCache")
-              .getFalcoLogger(a)
-              .logImmediately(function () {
-                return u;
-              });
+            var c = babelHelpers.extends({}, u, a),
+              d = o("WAWebFalcoLoggerCache").getFalcoLogger(l);
+            t === !0
+              ? d.logCritical(function () {
+                  return c;
+                })
+              : d.logImmediately(function () {
+                  return c;
+                });
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -65,7 +69,7 @@ __d(
                     "[falco] send failed for ",
                     "",
                   ])),
-                a,
+                l,
               )
               .catching(r("getErrorSafe")(e))
               .sendLogs("wam_falco_send_error", { sampling: 0.1 });

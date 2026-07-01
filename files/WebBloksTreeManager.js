@@ -8,6 +8,7 @@ __d(
     "WebBloksErrors",
     "WebBloksInterpreterEnvironment",
     "WebBloksParseResult",
+    "WebBloksScopedIds",
     "WebBloksScriptExecutor",
     "WebBloksTreeResources",
     "WebBloksUpdateTraversal",
@@ -152,16 +153,17 @@ __d(
                     ).TreeManagerResourceProcessingDelegate)({
                       observer: e,
                       onCollectVariable: function (n, r, o, a) {
-                        var t =
-                          m != null
-                            ? m
-                            : e.treeResourcesState.variableDefinitions;
-                        (t.has(n) ||
+                        var t = r.id,
+                          i =
+                            m != null
+                              ? m
+                              : e.treeResourcesState.variableDefinitions;
+                        (i.has(t) ||
                           (m ||
                             (m = new Map(
                               e.treeResourcesState.variableDefinitions,
                             )),
-                          m.set(n, r)),
+                          m.set(t, r)),
                           d || (d = new Map(e.treeResourcesState.variables)),
                           d.set(n, o),
                           a != null && e.subscriptions.add(a));
@@ -173,28 +175,38 @@ __d(
                             : new Map(e.treeResourcesState.variables);
                         return t.has(n);
                       },
-                    });
-                  for (var _ of c.variableDefinitions) {
-                    var f = _.id;
-                    if (!p.containsVariable(f)) {
-                      var g = _.type,
-                        h = o("WebBloksDataModule").getDataModuleFromContext(
+                    }),
+                    _ =
+                      u.keyPath != null
+                        ? o("WebBloksScopedIds").buildKeypathBase(u.keyPath)
+                        : null;
+                  for (var f of c.variableDefinitions) {
+                    var g = f.id,
+                      h =
+                        f.scoped === !0 && _ != null
+                          ? o(
+                              "WebBloksScopedIds",
+                            ).buildScopedVariableIdentifier(g, _)
+                          : g;
+                    if (!p.containsVariable(h)) {
+                      var y = f.type,
+                        C = o("WebBloksDataModule").getDataModuleFromContext(
                           e.bloksContext,
-                          g,
+                          y,
                         );
-                      if (!h)
+                      if (!C)
                         throw new (o("WebBloksErrors").WebBloksError)(
-                          "Missing variable module with type: " + g,
+                          "Missing variable module with type: " + y,
                         );
-                      var y = babelHelpers.extends({}, _);
+                      var b = babelHelpers.extends({}, f);
                       e.initialTreeResources.shouldCommitPublishStateUpdates() ===
                         !1 &&
-                        y.data.key != null &&
-                        y.data.mode === "p" &&
-                        (y = babelHelpers.extends({}, y, {
-                          data: babelHelpers.extends({}, y.data, { mode: "d" }),
+                        b.data.key != null &&
+                        b.data.mode === "p" &&
+                        (b = babelHelpers.extends({}, b, {
+                          data: babelHelpers.extends({}, b.data, { mode: "d" }),
                         }));
-                      var C = function (n) {
+                      var v = function (n) {
                           var t,
                             a = r("WebBloksInterpreterEnvironment"),
                             i = new a(e.bloksContext);
@@ -206,8 +218,8 @@ __d(
                           var l = i.createBloksModelScopedContext(u.keyPath);
                           return o("WebBloksScriptExecutor").execute(l, n, []);
                         },
-                        b = h.setup(e.bloksContext, y, C, null);
-                      p.collectVariable(f, y, b.initialData, null);
+                        S = C.setup(e.bloksContext, b, v, null);
+                      p.collectVariable(h, b, S.initialData, null);
                     }
                   }
                   (e.initialTreeResources.setShouldCommitPublishStateUpdates(
@@ -215,38 +227,38 @@ __d(
                   ),
                     (e.treeResourcesState =
                       e.treeResourcesState.withUpdatedEntries(m, d)));
-                  var v = d;
-                  if (v != null && v.size) {
-                    var S = new Map(e.committedVariables);
-                    (v.forEach(function (e, t) {
-                      S.set(t, e);
+                  var R = d;
+                  if (R != null && R.size) {
+                    var L = new Map(e.committedVariables);
+                    (R.forEach(function (e, t) {
+                      L.set(t, e);
                     }),
-                      (e.committedVariables = S));
+                      (e.committedVariables = L));
                   }
-                  var R = new (r("WebBloksInterpreterEnvironment"))(
+                  var E = new (r("WebBloksInterpreterEnvironment"))(
                     e.bloksContext,
                   );
-                  ((R.expandedVariablesOverride =
+                  ((E.expandedVariablesOverride =
                     (t = e.bindResult) == null ? void 0 : t.expandedVariables),
-                    (R.scope =
+                    (E.scope =
                       (i = u.keyPath) != null
                         ? i
                         : o("WebBloksUtils").EMPTY_KEY_PATH),
-                    (R.resources = e.treeResourcesState));
-                  var L = e.processAsyncComponents(c.componentQueries, R);
-                  for (var E of L) {
-                    var k = E.treeModification,
-                      I = E.variableUpdate;
+                    (E.resources = e.treeResourcesState));
+                  var k = e.processAsyncComponents(c.componentQueries, E);
+                  for (var I of k) {
+                    var T = I.treeModification,
+                      D = I.variableUpdate;
                     if (
-                      (k != null &&
-                        (k.parseResult != null && n.push(k.parseResult),
-                        a.push([k.target, k.updateOperation])),
-                      I != null)
+                      (T != null &&
+                        (T.parseResult != null && n.push(T.parseResult),
+                        a.push([T.target, T.updateOperation])),
+                      D != null)
                     ) {
-                      var T = new Map();
-                      (T.set(I.variableIdentifier, I.value),
+                      var x = new Map();
+                      (x.set(D.variableIdentifier, D.value),
                         (e.treeResourcesState =
-                          e.treeResourcesState.withVariableUpdates(T)));
+                          e.treeResourcesState.withVariableUpdates(x)));
                     }
                   }
                 },

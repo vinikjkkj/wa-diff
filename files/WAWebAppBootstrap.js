@@ -30,6 +30,7 @@ __d(
     "WAWebLoggerOnError",
     "WAWebMainThreadLogger",
     "WAWebMetricsAttributionObservers",
+    "WAWebPQGatingUtils",
     "WAWebPageLoadLoggingImpl",
     "WAWebRunInTransaction",
     "WAWebStorageErrorHandlingUtils",
@@ -176,6 +177,10 @@ __d(
                 "web_signal_future_messages_max",
               ),
               S508658AutoAcknowledgeStaleSessions: !0,
+              isPqKeysUploadEnabled:
+                o("WAWebPQGatingUtils").isPqKeysUploadEnabled(),
+              isPq1on1MessageEnabled:
+                o("WAWebPQGatingUtils").isPq1on1MessageEnabled(),
             }),
             o("WAWebCacheStoreGatingUtil").initStorageOptimizationFlags(),
             o("WAWebAppSwInitializer").initializeSw({

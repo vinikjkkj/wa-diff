@@ -10,25 +10,32 @@ __d(
         });
     }
     function s(e, t, n, r) {
-      var a,
-        i,
-        l,
-        s = {
+      var a = e.kyberKey,
+        i = {
           identity: new Uint8Array(e.identityKey),
-          oneTimeKey: e.preKey && {
-            id: (a = e.preKey) == null ? void 0 : a.keyId,
-            publicKey:
-              ((i = e.preKey) == null ? void 0 : i.publicKey) &&
-              new Uint8Array((l = e.preKey) == null ? void 0 : l.publicKey),
-          },
+          oneTimeKey:
+            e.preKey != null
+              ? {
+                  id: e.preKey.keyId,
+                  publicKey: new Uint8Array(e.preKey.publicKey),
+                }
+              : null,
           regId: e.registrationId,
           signedKey: {
             id: e.signedPreKey.keyId,
             publicKey: new Uint8Array(e.signedPreKey.publicKey),
             signature: new Uint8Array(e.signedPreKey.signature),
           },
+          kyberKey:
+            a != null
+              ? {
+                  id: a.keyId,
+                  publicKey: new Uint8Array(a.publicKey),
+                  signature: new Uint8Array(a.signature),
+                }
+              : null,
         };
-      return o("WAWebCryptoLibrary").createSignalSession(t, s, n, r);
+      return o("WAWebCryptoLibrary").createSignalSession(t, i, n, r);
     }
     function u(e, t, n) {
       return o("WAWebCryptoLibrary").processSenderKeyDistributionMsg(e, t, n);

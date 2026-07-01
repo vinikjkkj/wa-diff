@@ -1,24 +1,31 @@
 __d(
   "WAWebStatusMentionFormatMsgText",
-  ["fbt", "WAWebContactCollection"],
+  [
+    "fbt",
+    "WAWebContactCollection",
+    "WAWebStatusGatingUtils",
+    "WAWebStatusMentionFutureproofMsgText",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      var t = e.msg,
-        n = t.safe(),
-        r = n.id.fromMe,
-        a = n.subtype === "status_group_mention_message";
-      if (a)
-        return r
+      var t = e.msg;
+      if (!o("WAWebStatusGatingUtils").isStatusMentionMessageEnabled())
+        return r("WAWebStatusMentionFutureproofMsgText")({ msg: t });
+      var n = t.safe(),
+        a = n.id.fromMe,
+        i = n.subtype === "status_group_mention_message";
+      if (i)
+        return a
           ? s._(/*BTDS*/ "\u0040 You mentioned this group.")
           : s._(/*BTDS*/ "\u0040 This group was mentioned.");
-      if (r) {
-        var i = o("WAWebContactCollection").ContactCollection.get(n.id.remote),
-          l =
-            (i == null ? void 0 : i.name) ||
-            (i == null ? void 0 : i.pushname) ||
+      if (a) {
+        var l = o("WAWebContactCollection").ContactCollection.get(n.id.remote),
+          u =
+            (l == null ? void 0 : l.name) ||
+            (l == null ? void 0 : l.pushname) ||
             "";
         return s._(/*BTDS*/ "\u0040 You mentioned {name}", [
-          s._param("name", l),
+          s._param("name", u),
         ]);
       }
       return s._(/*BTDS*/ "\u0040 You were mentioned.");

@@ -74,6 +74,7 @@ __d(
               n,
               o("WASignalSessions").FORMAT_VERSION,
               0,
+              o("WASignalSessions").PQXDH_FORMAT_VERSION,
             );
             if (!t.success) return t;
             try {

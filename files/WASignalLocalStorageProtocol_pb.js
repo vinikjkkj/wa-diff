@@ -39,6 +39,8 @@ __d(
         preKeyId: [1, e.TYPES.UINT32],
         signedPreKeyId: [3, e.TYPES.INT32],
         baseKey: [2, e.TYPES.BYTES],
+        kyberPreKeyId: [4, e.TYPES.UINT32],
+        kyberCiphertext: [5, e.TYPES.BYTES],
       }),
       (c.name = "SessionStructure$PendingKeyExchange"),
       (c.internalSpec = {

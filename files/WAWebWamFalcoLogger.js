@@ -45,6 +45,10 @@ __d(
         o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(e);
         return;
       }
+      if (e.critical === !0) {
+        o("WAWebFalcoEventQueue").sendFalcoEventsNow([e]);
+        return;
+      }
       o("WAWebFalcoEventQueue").enqueueFalcoEvent(e);
     }
     function _(e) {
@@ -63,30 +67,40 @@ __d(
         e.set({ traceIdInt: n });
       }
     }
-    function g(e, t, n) {
-      var r = Date.now();
+    function g(e, t, n, r) {
+      var a = Date.now();
       e: {
         if (
           e === o("WAWebWamFalcoModes").FALCO_MODE_DOUBLE_LOGGING_WAM_SAMPLING
         ) {
-          p({ name: "_test$" + t, fields: n, timestamp: r });
+          p({ name: "_test$" + t, fields: n, timestamp: a, critical: r });
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING) {
-          p({ name: t + "_shadow", fields: n, timestamp: r });
+          p({ name: t + "_shadow", fields: n, timestamp: a, critical: r });
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_SAMPLED) {
-          p({ name: t + "_shadow_sampled", fields: n, timestamp: r });
+          p({
+            name: t + "_shadow_sampled",
+            fields: n,
+            timestamp: a,
+            critical: r,
+          });
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL) {
-          (p({ name: t + "_shadow_sampled", fields: n, timestamp: r }),
-            p({ name: t + "_shadow", fields: n, timestamp: r }));
+          (p({
+            name: t + "_shadow_sampled",
+            fields: n,
+            timestamp: a,
+            critical: r,
+          }),
+            p({ name: t + "_shadow", fields: n, timestamp: a, critical: r }));
           break e;
         }
         if (e === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY) {
-          p({ name: t, fields: n, timestamp: r });
+          p({ name: t, fields: n, timestamp: a, critical: r });
           break e;
         }
         return;
@@ -109,13 +123,17 @@ __d(
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[falco] bridge: missing event name or fields, dropping",
+                  "[falco] bridge: missing event name or fields for id: ",
+                  " class: ",
+                  ", dropping",
                 ])),
+              t.id,
+              t.$className,
             )
             .sendLogs("wam_falco_bridge_missing_fields", { sampling: 0.1 });
           return;
         }
-        g(a, i, l);
+        g(a, i, l, o("WAWebWamFalcoABProps").isCriticalEvent(t.id));
       } catch (e) {
         o("WALogger")
           .WARN(

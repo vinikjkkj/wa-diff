@@ -58,7 +58,7 @@ __d(
     function p(e) {
       return e == null ? null : Number((e / s).toFixed(4));
     }
-    ((l.initStorageSizeCrashLogging = c), (l.logStorageSizeForCrash = d));
+    l.initStorageSizeCrashLogging = c;
   },
   98,
 );

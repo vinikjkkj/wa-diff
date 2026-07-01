@@ -1,64 +1,71 @@
 __d(
   "GHLDetectionUtilsPreludeSafe",
-  ["FBLogger"],
+  ["ExecutionEnvironment", "FBLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e;
+    function s(e) {
       return typeof e.replace == "function"
         ? e.replace(/\n/g, " ").replace(/\s+/g, " ")
         : null;
     }
-    var s = null,
-      u = null,
+    var u = null,
       c = null,
       d = null,
       m = null,
-      p = null;
-    function _() {
-      if (!(s != null && u != null)) {
-        var e = document.body || document.documentElement;
-        if (e != null) {
-          var t = document.createElement("iframe");
-          ((t.style.display = "none"),
+      p = null,
+      _ = null;
+    function f() {
+      if (!(u != null && c != null)) {
+        if (!(e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+          r("FBLogger")("ad_blocker_defense_ghost_owl").info(
+            "Environment does not support DOM",
+          );
+          return;
+        }
+        var t = document.body || document.documentElement;
+        if (t != null) {
+          var n = document.createElement("iframe");
+          ((n.style.display = "none"),
             window.Env != null &&
               "p9fk3wmn" in window.Env &&
-              ((t.src = "about:blank"), (t.srcdoc = "")));
-          var n = window.Env != null && "w6jt4rnq" in window.Env;
+              ((n.src = "about:blank"), (n.srcdoc = "")));
+          var o = window.Env != null && "w6jt4rnq" in window.Env;
           try {
-            (n ? e.insertAdjacentElement("beforeend", t) : e.appendChild(t),
-              (s = t.contentWindow.String),
-              (u = t.contentWindow.Function.prototype.call),
-              (c = t.contentWindow.JSON.parse),
-              (d = t.contentWindow.Function.prototype.toString));
-            var o = t.contentWindow.Object.getOwnPropertyDescriptor,
-              a = t.contentWindow.XMLHttpRequest.prototype,
-              i = o(a, "response"),
-              l = o(a, "responseText");
-            (i != null && i.get && (m = i.get),
-              l != null && l.get && (p = l.get));
+            (o ? t.insertAdjacentElement("beforeend", n) : t.appendChild(n),
+              (u = n.contentWindow.String),
+              (c = n.contentWindow.Function.prototype.call),
+              (d = n.contentWindow.JSON.parse),
+              (m = n.contentWindow.Function.prototype.toString));
+            var a = n.contentWindow.Object.getOwnPropertyDescriptor,
+              i = n.contentWindow.XMLHttpRequest.prototype,
+              l = a(i, "response"),
+              s = a(i, "responseText");
+            (l != null && l.get && (p = l.get),
+              s != null && s.get && (_ = s.get));
           } catch (e) {
             r("FBLogger")("ad_blocker_defense_ghost_owl").warn(
               "Failed to create iframe for builtin restoration",
             );
           } finally {
             try {
-              n ? t.remove() : e.removeChild(t);
+              o ? n.remove() : t.removeChild(n);
             } catch (e) {}
           }
         }
       }
     }
-    function f() {
-      (_(), s != null && (window.String = s));
-    }
     function g() {
-      (_(), u != null && (Function.prototype.call = u));
+      (f(), u != null && (window.String = u));
     }
     function h() {
-      if ((_(), m != null))
+      (f(), c != null && (Function.prototype.call = c));
+    }
+    function y() {
+      if ((f(), p != null))
         try {
           Object.defineProperty(t.XMLHttpRequest.prototype, "response", {
-            get: m,
+            get: p,
             configurable: !0,
             enumerable: !0,
           });
@@ -67,10 +74,10 @@ __d(
             "Failed to restore native XHR response getter",
           );
         }
-      if (p != null)
+      if (_ != null)
         try {
           Object.defineProperty(t.XMLHttpRequest.prototype, "responseText", {
-            get: p,
+            get: _,
             configurable: !0,
             enumerable: !0,
           });
@@ -80,58 +87,58 @@ __d(
           );
         }
     }
-    function y() {
-      _();
-      var n = m,
-        r = d;
-      if (n != null && r != null)
+    function C() {
+      f();
+      var e = p,
+        n = m;
+      if (e != null && n != null)
         try {
-          var o = Object.getOwnPropertyDescriptor(
+          var r = Object.getOwnPropertyDescriptor(
             t.XMLHttpRequest.prototype,
             "response",
           );
-          if ((o == null ? void 0 : o.get) != null)
-            return r.call(o.get) !== r.call(n);
+          if ((r == null ? void 0 : r.get) != null)
+            return n.call(r.get) !== n.call(e);
         } catch (e) {}
       try {
-        var a = Object.getOwnPropertyDescriptor(
+        var o = Object.getOwnPropertyDescriptor(
             t.XMLHttpRequest.prototype,
             "response",
           ),
-          i = a == null ? void 0 : a.get;
-        if (i != null && typeof i == "function")
+          a = o == null ? void 0 : o.get;
+        if (a != null && typeof a == "function")
           return !(
-            i.toString === i.toString.toString &&
-            e(i.toString()) === "function get response() { [native code] }" &&
-            e(i.toString.toString()) === "function toString() { [native code] }"
+            a.toString === a.toString.toString &&
+            s(a.toString()) === "function get response() { [native code] }" &&
+            s(a.toString.toString()) === "function toString() { [native code] }"
           );
       } catch (e) {}
       return !1;
     }
-    function C() {
-      _();
-      var t = c,
-        n = d;
-      if (t != null && n != null)
+    function b() {
+      f();
+      var e = d,
+        t = m;
+      if (e != null && t != null)
         try {
-          return n.call(JSON.parse) !== n.call(t);
+          return t.call(JSON.parse) !== t.call(e);
         } catch (e) {}
       return (
         typeof JSON.parse == "function" &&
         !(
           JSON.parse.toString === JSON.parse.toString.toString &&
-          e(JSON.parse.toString()) === "function parse() { [native code] }" &&
-          e(JSON.parse.toString.toString()) ===
+          s(JSON.parse.toString()) === "function parse() { [native code] }" &&
+          s(JSON.parse.toString.toString()) ===
             "function toString() { [native code] }"
         )
       );
     }
-    ((l.normalize = e),
-      (l.restoreNativeString = f),
-      (l.restoreNativeCall = g),
-      (l.restoreNativeXHRGetters = h),
-      (l.isXHRResponseGetterShimmed = y),
-      (l.isJSONParseShimmed = C));
+    ((l.normalize = s),
+      (l.restoreNativeString = g),
+      (l.restoreNativeCall = h),
+      (l.restoreNativeXHRGetters = y),
+      (l.isXHRResponseGetterShimmed = C),
+      (l.isJSONParseShimmed = b));
   },
   98,
 );

@@ -20,6 +20,7 @@ __d(
     "WAWebRequestPhoneNumberMsgDisplayClass",
     "WAWebRevokedMsgDisplayClass",
     "WAWebRichResponseMsgDisplayClass",
+    "WAWebStatusMentionMsgDisplayClass",
     "WAWebStickerMsgDisplayClass",
     "WAWebTemplateButtonReplyMsgDisplayClass",
     "WAWebVcardMsgDisplayClass",
@@ -268,12 +269,12 @@ __d(
       {
         type: "protocol",
         subtype: "status_group_mention_message",
-        msgDisplayClass: null,
+        msgDisplayClass: r("WAWebStatusMentionMsgDisplayClass"),
       },
       {
         type: "protocol",
         subtype: "status_mention_message",
-        msgDisplayClass: null,
+        msgDisplayClass: r("WAWebStatusMentionMsgDisplayClass"),
       },
       {
         type: "ptt",

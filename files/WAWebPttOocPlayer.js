@@ -65,7 +65,7 @@ __d(
         senderName: { color: "xmzmlnv", fontSize: "x1jchvi3", $$css: !0 },
       },
       v = {
-        outOfChatBg: { fill: "xph03yc", $$css: !0 },
+        outOfChatBg: { fill: "xhzorvt", $$css: !0 },
         outOfChatIcon: { color: "xll8lwp", $$css: !0 },
         forwardedBg: { fill: "xzp0ayt", $$css: !0 },
         forwardedIcon: { color: "x17t9dm2", $$css: !0 },

@@ -1,0 +1,20 @@
+__d(
+  "WASmaxOutPreKeysSetOpDeleteMixin",
+  ["WASmaxJsx", "WASmaxMixins"],
+  function (t, n, r, o, a, i, l) {
+    function e() {
+      var e = o("WASmaxJsx").smax(
+        "iq",
+        null,
+        o("WASmaxJsx").smax("op", { mode: "delete" }),
+      );
+      return e;
+    }
+    function s(t) {
+      var n = e();
+      return o("WASmaxMixins").mergeStanzas(t, n);
+    }
+    l.mergeSetOpDeleteMixin = s;
+  },
+  98,
+);

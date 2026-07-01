@@ -23,19 +23,11 @@ __d(
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
-          "smb_web_customer_manager_dob_filter_enabled",
-        )
-      );
-    }
-    function c() {
-      return (
-        e() &&
-        o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_manager_export_enabled",
         )
       );
     }
-    function d(e) {
+    function c(e) {
       var t = e.id;
       return (
         t != null &&
@@ -51,9 +43,8 @@ __d(
     }
     ((l.customerManagerEnabled = e),
       (l.customerManagerDateRangeFilterEnabled = s),
-      (l.customerManagerDobFilterEnabled = u),
-      (l.customerManagerExportEnabled = c),
-      (l.isEligibleForCustomerFields = d));
+      (l.customerManagerExportEnabled = u),
+      (l.isEligibleForCustomerFields = c));
   },
   98,
 );

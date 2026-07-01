@@ -484,7 +484,9 @@ __d(
                 }
                 var h;
                 try {
-                  h = o("WAWebWidFactory").createWid(s);
+                  h = o("WAWebWidFactory").asUserWidOrThrow(
+                    o("WAWebWidFactory").createWid(s),
+                  );
                 } catch (e) {
                   (o("WALogger")
                     .ERROR(

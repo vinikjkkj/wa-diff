@@ -94,6 +94,7 @@ __d(
     "WAWebDebugPolls",
     "WAWebDebugPrivacyExperience",
     "WAWebDebugQuickPromotions",
+    "WAWebDebugRaTls",
     "WAWebDebugReactions",
     "WAWebDebugRichTextInput",
     "WAWebDebugRoutingToken",
@@ -107,6 +108,7 @@ __d(
     "WAWebDebugStickerPack",
     "WAWebDebugSyncd",
     "WAWebDebugTabs",
+    "WAWebDebugTee",
     "WAWebDebugTextStatus",
     "WAWebDebugThreads",
     "WAWebDebugToast.react",
@@ -176,6 +178,7 @@ __d(
     "WAWebUpdateDraftMessageChatAction",
     "WAWebUpdateDraftMessageChatJob",
     "WAWebUpdaterUpdatePoll",
+    "WAWebUploadPQPrekeysJob",
     "WAWebUserPrefsDebugMsgs",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsIndexedDBStorage",
@@ -911,10 +914,29 @@ __d(
     Oe.doc =
       "Fires a real PLACEHOLDER_MESSAGE_RESEND RDU for the given serialized msg key(s).";
     function We() {
+      return qe.apply(this, arguments);
+    }
+    function qe() {
+      return (
+        (qe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            return (
+              yield o("WAWebUploadPQPrekeysJob").generateAndUploadPQPreKeys(),
+              "PQ key upload complete - check WALogger for details"
+            );
+          } catch (e) {
+            return "PQ key upload failed: " + String(e);
+          }
+        })),
+        qe.apply(this, arguments)
+      );
+    }
+    We.doc = "Trigger PQ (post-quantum) prekey generation and upload";
+    function Ue() {
       r("WAWebDebugDownFunnelSignals").dfsInitialize();
     }
-    var qe = babelHelpers.extends(
-      { initialize: We, asyncSleep: o("WAAsyncSleep").asyncSleep, _: null },
+    var Ve = babelHelpers.extends(
+      { initialize: Ue, asyncSleep: o("WAAsyncSleep").asyncSleep, _: null },
       r("WAWebDebugL10N"),
       r("WAWebDebugNewsletter"),
       r("WAWebDebugABProps"),
@@ -991,6 +1013,7 @@ __d(
       r("WAWebDebugCapping"),
       r("WAWebDebugConsumerQuickPromotions"),
       r("WAWebDebugQuickPromotions"),
+      r("WAWebDebugRaTls"),
       r("WAWebDebugThreads"),
       r("WAWebDebugNotifications"),
       r("WAWebDebugMC"),
@@ -1014,6 +1037,7 @@ __d(
         ),
         sendPassiveModeIq: $,
         fts: { ftsClient: o("WAWebFtsClient").ftsClient },
+        tee: r("WAWebDebugTee"),
         requestUrlPreview: te,
         rotateKey: P,
         runAdvDeviceInfoCheck: N,
@@ -1123,9 +1147,10 @@ __d(
         injectInteractiveMessageWithBloksWidget: o(
           "WAWebInteractiveBloksWidgetDebug",
         ).injectInteractiveMessageWithBloksWidget,
+        triggerPQKeyUpload: We,
       },
     );
-    l.default = qe;
+    l.default = Ve;
   },
   98,
 );

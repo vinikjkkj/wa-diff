@@ -23,13 +23,21 @@ __d(
     function p() {
       return o("WAWebSignalStorageUtils").getStorage().versions.version(6);
     }
+    function _() {
+      return o("WAWebSignalStorageUtils").getStorage().versions.version(7);
+    }
+    function f() {
+      return o("WAWebSignalStorageUtils").getStorage().versions.version(8);
+    }
     ((l.identityCreateTable = e),
       (l.metaCreateTable = s),
       (l.preKeyCreateTable = u),
       (l.sessionCreateTable = c),
       (l.signedPreKeyCreateTable = d),
       (l.baseKeyCreateTable = m),
-      (l.senderKeyCreateTable = p));
+      (l.senderKeyCreateTable = p),
+      (l.kyberPreKeyCreateTable = _),
+      (l.kyberLastResortKeyCreateTable = f));
   },
   98,
 );

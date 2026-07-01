@@ -5,6 +5,7 @@ __d(
     "WAParsableXmlNode",
     "WASmaxPreKeysFetchKeyBundlesRPC",
     "WAWebBackendErrors",
+    "WAWebPQGatingUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -27,6 +28,8 @@ __d(
                 hasUserReasonIdentity: t,
               };
             }),
+            hasKeyPqsupportTrue:
+              o("WAWebPQGatingUtils").isPq1on1MessageEnabled(),
           });
           if (n.name === "FetchKeyBundlesResponseServerError") {
             var a = n.value.errorServerErrors.value;
@@ -60,12 +63,13 @@ __d(
                   f = m.value,
                   g = f.deviceIdentityMixin,
                   h = f.elementValue,
-                  y = f.preKeyMixin,
-                  C = f.registrationElementValue,
-                  b = f.skeyIdKeyIDMixin,
-                  v = f.skeySignatureElementValue,
-                  S = f.skeyValueKeyDataMixin,
-                  R = {
+                  y = f.pQKeyMixin,
+                  C = f.preKeyMixin,
+                  b = f.registrationElementValue,
+                  v = f.skeyIdKeyIDMixin,
+                  S = f.skeySignatureElementValue,
+                  R = f.skeyValueKeyDataMixin,
+                  L = {
                     deviceIdentity:
                       (p = g == null ? void 0 : g.deviceIdentityElementValue) !=
                       null
@@ -74,31 +78,41 @@ __d(
                     identity: h,
                     skey: {
                       id: o("WAParsableXmlNode").convertBytesToUint(
-                        b.elementValue,
+                        v.elementValue,
                         3,
                       ),
-                      pubkey: S.elementValue,
-                      signature: v,
+                      pubkey: R.elementValue,
+                      signature: S,
                     },
-                    key: y
+                    key: C
                       ? {
                           id: o("WAParsableXmlNode").convertBytesToUint(
-                            y.keyIdKeyIDMixin.elementValue,
+                            C.keyIdKeyIDMixin.elementValue,
                             3,
                           ),
                           pubkey:
-                            (_ = y.keyValueKeyDataMixin) == null
+                            (_ = C.keyValueKeyDataMixin) == null
                               ? void 0
                               : _.elementValue,
                         }
                       : null,
-                    regId: o("WAParsableXmlNode").convertBytesToUint(C, 4),
+                    kyberKey: y
+                      ? {
+                          id: o("WAParsableXmlNode").convertBytesToUint(
+                            y.pqkeyIdKeyIDMixin.elementValue,
+                            3,
+                          ),
+                          publicKey: y.pqkeyValuePQKeyDataMixin.elementValue,
+                          signature: y.pqkeySignatureElementValue,
+                        }
+                      : null,
+                    regId: o("WAParsableXmlNode").convertBytesToUint(b, 4),
                     wid: o("WAWebWidFactory").createWid(c.jid),
                   };
-                R.wid.device != null &&
-                R.wid.device !== o("WAJids").DEFAULT_DEVICE_ID
-                  ? s.push(R)
-                  : l.push(R);
+                L.wid.device != null &&
+                L.wid.device !== o("WAJids").DEFAULT_DEVICE_ID
+                  ? s.push(L)
+                  : l.push(L);
                 break e;
               }
               if (
@@ -107,11 +121,11 @@ __d(
                 m.name === "FetchKeyBundlesUserErrorFallback" &&
                 "value" in m
               ) {
-                var L = m.value,
-                  E = L.errorCode,
-                  k = L.errorText;
+                var E = m.value,
+                  k = E.errorCode,
+                  I = E.errorText;
                 u.push(
-                  r("err")("fetchPrekeys: list item error: " + E + " " + k),
+                  r("err")("fetchPrekeys: list item error: " + k + " " + I),
                 );
                 break e;
               }
@@ -121,11 +135,11 @@ __d(
                 m.name === "FetchKeyBundlesUserError" &&
                 "value" in m
               ) {
-                var I = m.value,
-                  T = I.errorCode,
-                  D = I.errorText;
+                var T = m.value,
+                  D = T.errorCode,
+                  x = T.errorText;
                 u.push(
-                  r("err")("fetchPrekeys: list item error: " + T + " " + D),
+                  r("err")("fetchPrekeys: list item error: " + D + " " + x),
                 );
                 break e;
               }

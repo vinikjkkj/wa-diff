@@ -106,7 +106,7 @@ __d(
       if (
         e.includes("developer.meta.com") &&
         !e.includes("developers.meta.com") &&
-        r("gkx")("5669")
+        r("gkx")("14759")
       )
         return { endpoint: "gateway.developer.meta.com", authType: "DEV_HUB" };
       if (e.includes("developers.meta.com"))

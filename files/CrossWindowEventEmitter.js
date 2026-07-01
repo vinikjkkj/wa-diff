@@ -8,7 +8,6 @@ __d(
         var o;
         return (
           (o = e.call(this) || this),
-          (o.$CrossWindowEventEmitter$p_2 = t),
           (o.$CrossWindowEventEmitter$p_1 = new (r("CacheStorage"))(
             "localstorage",
             t + ":",

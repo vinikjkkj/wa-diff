@@ -15,6 +15,8 @@ __d(
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
+    "WAWebScheduledMsgConstants",
+    "WAWebScheduledMsgLimitDialog.react",
     "WAWebSendMsgRecordAction",
     "WAWebSendTextMsgChatAction",
     "WAWebStateUtils",
@@ -66,34 +68,35 @@ __d(
                 d.id.toLogString(),
                 String(i),
               );
+              var f = null;
               try {
-                var f;
+                var g;
                 yield o(
                   "WAWebLidMigrationFrontendUtils",
                 ).validateMissingAccountLid(d, _, "addAndSendTextMsg");
-                var g = new (o("WAWebMsgModel").Msg)(_),
-                  h = !!(
-                    (f = d.groupMetadata) != null && f.isLidAddressingMode
+                var h = new (o("WAWebMsgModel").Msg)(_),
+                  y = !!(
+                    (g = d.groupMetadata) != null && g.isLidAddressingMode
                   ),
-                  y = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
+                  C = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
                     d.id,
-                    o("WAWebWamMsgUtils").msgIsLid(_, d.id, h),
+                    o("WAWebWamMsgUtils").msgIsLid(_, d.id, y),
                   );
-                ((g.wamMessageSendReporter = new (o(
+                ((h.wamMessageSendReporter = new (o(
                   "WAWebMessageSendReporter",
                 ).MessageSendReporter)(
-                  g,
-                  babelHelpers.extends({}, y, {
+                  h,
+                  babelHelpers.extends({}, C, {
                     frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
                       .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
                   }),
                 )),
-                  (g.wamMessageSendPerfReporter = new (o(
+                  (h.wamMessageSendPerfReporter = new (o(
                     "WAWebMessageSendPerfReporter",
                   ).MessageSendPerfReporter)({
-                    chatWid: g.to,
-                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(g),
-                    messageType: o("WAWebWamMsgUtils").getWamMessageType(g),
+                    chatWid: h.to,
+                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(h),
+                    messageType: o("WAWebWamMsgUtils").getWamMessageType(h),
                   })),
                   yield o("WAWebOrchestratorNonPersistedJob")
                     .createNonPersistedJob(
@@ -101,18 +104,18 @@ __d(
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
                           var e, t;
-                          ((e = g.wamMessageSendPerfReporter) == null ||
+                          ((e = h.wamMessageSendPerfReporter) == null ||
                             e.startSavedStage(),
                             yield o("WAWebDBProcessMessage").storeMessages(
                               [_],
                               d.id,
                             ),
-                            (t = g.wamMessageSendPerfReporter) == null ||
+                            (t = h.wamMessageSendPerfReporter) == null ||
                               t.postSavedStage());
                           var n = yield o(
                             "WAWebSendMsgRecordAction",
-                          ).sendMsgRecord(g);
-                          return n;
+                          ).sendMsgRecord(h);
+                          return ((f = n.ackErrorCode), n);
                         },
                       ),
                       {
@@ -135,7 +138,15 @@ __d(
                   e
                 );
               }
-              if (c)
+              if (
+                (f ===
+                  o("WAWebScheduledMsgConstants")
+                    .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE &&
+                  o(
+                    "WAWebScheduledMsgLimitDialog.react",
+                  ).showScheduledMsgLimitReachedDialog(),
+                c)
+              )
                 try {
                   yield p(d);
                 } catch (e) {

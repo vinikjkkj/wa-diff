@@ -137,8 +137,15 @@ __d(
               ).readBuffer(),
             },
           };
+          t.key && f && (g.preKey = { keyId: t.key.id, publicKey: f });
+          var h = t.kyberKey;
           return (
-            t.key && f && (g.preKey = { keyId: t.key.id, publicKey: f }),
+            h != null &&
+              (g.kyberKey = {
+                keyId: h.id,
+                publicKey: new Uint8Array(h.publicKey).buffer,
+                signature: new Uint8Array(h.signature).buffer,
+              }),
             o("WAWebCryptoLibrarySessionApi").createSignalSession(
               g,
               l,
@@ -198,6 +205,9 @@ __d(
                 e,
                 o("WAWebSessionScope").SessionScope.STATUS,
               )
+              .toString(),
+            a = o("WAWebSignalCommonUtils")
+              .createSignalAddress(e, o("WAWebSessionScope").SessionScope.PQ)
               .toString();
           o("WALogger").LOG(
             m ||
@@ -205,7 +215,7 @@ __d(
                 "[session] deleteRemoteInfo",
               ])),
           );
-          var a = [
+          var i = [
             o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .removeIdentity(t),
@@ -215,8 +225,11 @@ __d(
             o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .removeSession(r),
+            o("WAWebSignalProtocolStore")
+              .getSignalProtocolStore()
+              .removeSession(a),
           ];
-          yield (C || (C = n("Promise"))).all(a);
+          yield (C || (C = n("Promise"))).all(i);
         })),
         k.apply(this, arguments)
       );
@@ -238,6 +251,9 @@ __d(
                 e,
                 o("WAWebSessionScope").SessionScope.STATUS,
               )
+              .toString(),
+            a = o("WAWebSignalCommonUtils")
+              .createSignalAddress(e, o("WAWebSessionScope").SessionScope.PQ)
               .toString();
           (o("WALogger").LOG(
             p ||
@@ -252,6 +268,9 @@ __d(
               o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
                 .removeSession(r),
+              o("WAWebSignalProtocolStore")
+                .getSignalProtocolStore()
+                .removeSession(a),
             ]));
         })),
         T.apply(this, arguments)

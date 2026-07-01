@@ -15,6 +15,7 @@ __d(
     "WAWebProcessKeyBundle",
     "WAWebProcessKeyBundleInWorker",
     "WAWebRunInBatches",
+    "WAWebSessionScope",
     "WAWebSignal",
     "asyncToGeneratorRuntime",
   ],
@@ -161,7 +162,7 @@ __d(
                     $.length,
                   );
                   var N = 0;
-                  if (R()) {
+                  if (R() && a !== o("WAWebSessionScope").SessionScope.PQ) {
                     var M,
                       w,
                       A = yield o(

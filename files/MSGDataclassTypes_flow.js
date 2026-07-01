@@ -174,6 +174,7 @@ __d(
         VmGenerated: "VM_GENERATED",
         WearablesAcsActivity: "WEARABLES_ACS_ACTIVITY",
         WearablesAcsJournal: "WEARABLES_ACS_JOURNAL",
+        WearablesAcsRecommendation: "WEARABLES_ACS_RECOMMENDATION",
         WearablesAudioNotes: "WEARABLES_AUDIO_NOTES",
       }),
       ee = e({ Final: "FINAL", Live: "LIVE", Scheduled: "SCHEDULED" }),

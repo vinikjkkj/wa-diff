@@ -62,7 +62,12 @@ __d(
                 ),
                 m = new Map();
               for (var p of n) {
-                var _ = d(p, u, c, m);
+                var _ = d({
+                  batchMsgsByKey: c,
+                  derivedThreadIds: m,
+                  msg: p,
+                  quotedMsgsByKey: u,
+                });
                 _ != null && m.set(p.id.toString(), _);
               }
               if (m.size !== 0) {
@@ -122,24 +127,28 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, a) {
-      var i,
-        l = o("WAWebDBProcessReplyMsgs").createQuotedMsgKey(e);
-      if (l === s) return null;
-      var u = l.toString(),
-        c = (i = n.get(u)) != null ? i : t.get(u);
-      if (c == null) return null;
-      var d = c.id.toString(),
-        m = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(c);
-      if (m == null) {
-        var p = a.get(d);
-        p != null && (m = p);
+    function d(e) {
+      var t,
+        n = e.batchMsgsByKey,
+        a = e.derivedThreadIds,
+        i = e.msg,
+        l = e.quotedMsgsByKey,
+        u = o("WAWebDBProcessReplyMsgs").createQuotedMsgKey(i);
+      if (u === s) return null;
+      var c = u.toString(),
+        d = (t = n.get(c)) != null ? t : l.get(c);
+      if (d == null) return null;
+      var m = d.id.toString(),
+        p = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(d);
+      if (p == null) {
+        var _ = a.get(m);
+        _ != null && (p = _);
       }
-      return m != null
-        ? m
-        : r("isStringNullOrEmpty")(c.quotedStanzaID)
+      return p != null
+        ? p
+        : r("isStringNullOrEmpty")(d.quotedStanzaID)
           ? r("WAWebThreadId").fromMessage(
-              c.id,
+              d.id,
               o("WAWebThreadUtils").ThreadType.ViewAllReplies,
             )
           : null;

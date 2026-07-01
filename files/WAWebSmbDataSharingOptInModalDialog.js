@@ -29,6 +29,7 @@ __d(
     "WAWebToastManager",
     "WAWebTosUrl",
     "WAWebUserPrefsGeneral",
+    "WAWebWamEnumSmbDataSharingConsentScreenEntryPoint",
     "WAWebWamEnumSmbDataSharingConsentScreenType",
     "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
     "WAWebWdsSmbPictoArrowsTransferIcon.react",
@@ -151,7 +152,7 @@ __d(
       if (!r("WAWebCommonCTWADataSharing").shouldShowOrderDataSharingDialog(e))
         return t();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(N, { entrypoint: n, callback: t, chats: [e] }),
+        p.jsx(M, { entrypoint: n, callback: t, chats: [e] }),
       );
     }
     function I(e, t, n, a) {
@@ -163,13 +164,28 @@ __d(
       });
       if (!i) return n();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(N, { entrypoint: a, callback: n, chats: e }),
+        p.jsx(M, { entrypoint: a, callback: n, chats: e }),
       );
     }
     function T(e, t, n) {
       return t();
     }
     function D(e) {
+      if (
+        !r(
+          "WAWebCommonCTWADataSharing",
+        ).shouldShowListsManagementDataSharingDialog()
+      )
+        return e();
+      o("WAWebModalManager").ModalManager.open(
+        p.jsx(M, {
+          entrypoint: o("WAWebWamEnumSmbDataSharingConsentScreenEntryPoint")
+            .SMB_DATA_SHARING_CONSENT_SCREEN_ENTRY_POINT.LISTS_MANAGEMENT,
+          callback: e,
+        }),
+      );
+    }
+    function x(e) {
       var t = o("react-compiler-runtime").c(42),
         n = e.perCustomerDataSharingControlsEnabled,
         a = o("WAWebThemeContext").useIsDarkTheme();
@@ -427,7 +443,7 @@ __d(
         A
       );
     }
-    var x = function () {
+    var $ = function () {
         return p.jsx(o("WAWebFlex.react").FlexColumn, {
           align: "center",
           justify: "center",
@@ -439,7 +455,7 @@ __d(
           }),
         });
       },
-      $ = function (t, n) {
+      P = function (t, n) {
         var e = new (o(
           "WAWebSmbDataSharingConsentScreenWamEvent",
         ).SmbDataSharingConsentScreenWamEvent)();
@@ -465,7 +481,7 @@ __d(
             );
           }));
       };
-    function P(e, t, n) {
+    function N(e, t, n) {
       (L(
         o("WAWebWamEnumSmbDataSharingConsentScreenType")
           .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
@@ -479,7 +495,7 @@ __d(
         o("WAWebModalManager").ModalManager.close(),
         e());
     }
-    function N(e) {
+    function M(e) {
       var t = o("react-compiler-runtime").c(27),
         a = e.callback,
         i = e.chats,
@@ -526,7 +542,7 @@ __d(
                 "WAWebUserPrefsGeneral",
               ).setCTWADataSharingOptOutDisclosureShownCount(n + 1);
             }
-            $(l, e);
+            P(l, e);
           }),
           (k = [l]),
           (t[1] = l),
@@ -550,8 +566,8 @@ __d(
                       i != null &&
                       i.length > 0
                     ) {
-                      var s = r("compactMap")(i, A),
-                        u = s.filter(w),
+                      var s = r("compactMap")(i, F),
+                        u = s.filter(A),
                         m = u.map(function (e) {
                           return r(
                             "WAWebCtwaPerCustomerDataSharingSync",
@@ -566,7 +582,7 @@ __d(
                           );
                         }),
                         p = yield (d || (d = n("Promise"))).allSettled(m),
-                        _ = p.some(M);
+                        _ = p.some(w);
                       _ &&
                         (o("WALogger")
                           .ERROR(
@@ -601,15 +617,15 @@ __d(
           (t[7] = I))
         : (I = t[7]);
       var T = I,
-        N;
+        D;
       t[8] !== T
-        ? ((N = function () {
+        ? ((D = function () {
             return T(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true);
           }),
           (t[8] = T),
-          (t[9] = N))
-        : (N = t[9]);
-      var F = N,
+          (t[9] = D))
+        : (D = t[9]);
+      var M = D,
         O;
       t[10] !== T
         ? ((O = function () {
@@ -622,7 +638,7 @@ __d(
         W;
       t[12] !== a || t[13] !== l
         ? ((W = function () {
-            P(a, l, v.current);
+            N(a, l, v.current);
           }),
           (t[12] = a),
           (t[13] = l),
@@ -652,19 +668,19 @@ __d(
         X;
       t[19] !== m
         ? ((X = m
-            ? p.jsx(x, {})
-            : p.jsx(D, { perCustomerDataSharingControlsEnabled: C })),
+            ? p.jsx($, {})
+            : p.jsx(x, { perCustomerDataSharingControlsEnabled: C })),
           (t[19] = m),
           (t[20] = X))
         : (X = t[20]);
       var Y;
       return (
-        t[21] !== B || t[22] !== q || t[23] !== F || t[24] !== m || t[25] !== X
+        t[21] !== B || t[22] !== q || t[23] !== M || t[24] !== m || t[25] !== X
           ? ((Y = p.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               testid: "ctwa-business-data-sharing-modal-dialog",
               buttonsDirection: "horizontal",
               type: o("WAWebModal.react").ModalTheme.DataSharing,
-              onOK: F,
+              onOK: M,
               okDisabled: m,
               cancelDisabled: m,
               okText: C ? V : G,
@@ -675,7 +691,7 @@ __d(
             })),
             (t[21] = B),
             (t[22] = q),
-            (t[23] = F),
+            (t[23] = M),
             (t[24] = m),
             (t[25] = X),
             (t[26] = Y))
@@ -683,24 +699,25 @@ __d(
         Y
       );
     }
-    function M(e) {
+    function w(e) {
       return e.status === "rejected";
     }
-    function w(e) {
+    function A(e) {
       return !o(
         "WAWebDataSharing3pdLidCollection",
       ).DataSharing3pdLidCollection.isDataSharingEnabled(e.toString());
     }
-    function A(e) {
+    function F(e) {
       return e.accountLid;
     }
-    var F = {
+    var O = {
       maybeShowOrderDataSharingDialog: k,
       maybeShowLabelDataSharingDialog: I,
       maybeShowChatEntryDataSharingDialog: T,
-      SmbDataSharingOptInModalDialog: N,
+      maybeShowListsManagementDataSharingDialog: D,
+      SmbDataSharingOptInModalDialog: M,
     };
-    l.default = F;
+    l.default = O;
   },
   226,
 );

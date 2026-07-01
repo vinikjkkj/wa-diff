@@ -4,7 +4,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ":99",
       s = "_status",
-      u = (function () {
+      u = "_pq",
+      c = (function () {
         function t(e, t) {
           (t === void 0 && (t = o("WAWebSessionScope").SessionScope.DEFAULT),
             (this.wid = e),
@@ -32,18 +33,20 @@ __d(
                 : [i.user, t, "@hosted.lid"].join("");
             }
             var l = o("WAWebWidFactory").asUserWidOrThrow(this.wid),
-              u = !l.isLid() && l.isUser(),
-              c = u ? o("WAWebApiContact").getCurrentLid(l) : l;
-            if (c == null) return [this.wid.user, t, "@c.us"].join("");
-            var d = [c.user, t, "@lid"].join("");
+              c = !l.isLid() && l.isUser(),
+              d = c ? o("WAWebApiContact").getCurrentLid(l) : l;
+            if (d == null) return [this.wid.user, t, "@c.us"].join("");
+            var m = [d.user, t, "@lid"].join("");
             return this.$1 === o("WAWebSessionScope").SessionScope.STATUS
-              ? d + s
-              : d;
+              ? m + s
+              : this.$1 === o("WAWebSessionScope").SessionScope.PQ
+                ? m + u
+                : m;
           }),
           t
         );
       })();
-    l.SignalAddress = u;
+    l.SignalAddress = c;
   },
   98,
 );

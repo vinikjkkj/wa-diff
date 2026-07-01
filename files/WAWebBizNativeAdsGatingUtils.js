@@ -77,6 +77,17 @@ __d(
         )
       );
     }
+    function y() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_web_native_ads_budget_recommendation_enabled",
+        )
+      );
+    }
+    function C() {
+      return r("justknobx")._("4412");
+    }
     ((l.nativeAdsDogfoodEnabled = e),
       (l.nativeAdsCreationHawkToolEnabled = s),
       (l.nativeAdsCreationTargetingModalHawkToolEnabled = u),
@@ -87,7 +98,9 @@ __d(
       (l.nativeAdsMvpQE1EnabledNoExposure = _),
       (l.nativeAdsMvpQE2Enabled = f),
       (l.continuousDurationEnabled = g),
-      (l.ctwaSabrEnabled = h));
+      (l.ctwaSabrEnabled = h),
+      (l.ctwaBudgetRecommendationEnabled = y),
+      (l.minMaxBudgetFixesEnabled = C));
   },
   98,
 );

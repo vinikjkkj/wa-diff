@@ -33,18 +33,23 @@ __d(
     }
     function u(e) {
       var t = e.userArgs,
-        n = o("WASmaxOutPreKeysClientRequestMixin").mergeClientRequestMixin(
+        n = e.hasKeyFetchPqsupportTrue,
+        r = e.keyFetchContextJid,
+        a = o("WASmaxOutPreKeysClientRequestMixin").mergeClientRequestMixin(
           o("WASmaxJsx").smax(
             "iq",
             { type: "get" },
             o("WASmaxJsx").smax(
               "key_fetch",
-              null,
+              {
+                pqsupport: o("WASmaxAttrs").OPTIONAL_LITERAL("true", n),
+                context_jid: o("WASmaxAttrs").OPTIONAL(o("WAWap").JID, r),
+              },
               o("WASmaxChildren").REPEATED_CHILD(s, t, 1, 1e5),
             ),
           ),
         );
-      return n;
+      return a;
     }
     ((l.makeFetchMissingPreKeysRequestKeyFetchUserDevice = e),
       (l.makeFetchMissingPreKeysRequestKeyFetchUser = s),

@@ -126,8 +126,7 @@ __d(
         d.commit();
       }
     }
-    ((l.generateHash = p),
-      (l.generateLabelJidHash = f),
+    ((l.generateLabelJidHash = f),
       (l.generateLabelEditHash = h),
       (l.generateLabelReorderHash = C),
       (l.logLabelSyncEvent = v),

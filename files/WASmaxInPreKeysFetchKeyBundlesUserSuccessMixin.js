@@ -2,9 +2,11 @@ __d(
   "WASmaxInPreKeysFetchKeyBundlesUserSuccessMixin",
   [
     "WAResultOrError",
+    "WASmaxInPreKeysBotIdentityKeyAuthMixin",
     "WASmaxInPreKeysDeviceIdentityMixin",
     "WASmaxInPreKeysIdentityKeyMixin",
     "WASmaxInPreKeysKeyTypeMixin",
+    "WASmaxInPreKeysPQKeyMixin",
     "WASmaxInPreKeysPreKeyMixin",
     "WASmaxInPreKeysRegistrationIDMixin",
     "WASmaxInPreKeysSignedPreKeyMixin",
@@ -36,21 +38,29 @@ __d(
       var i = o("WASmaxInPreKeysKeyTypeMixin").parseKeyTypeMixin(e),
         l = o("WASmaxInPreKeysIdentityKeyMixin").parseIdentityKeyMixin(e);
       if (!l.success) return l;
-      var s = o("WASmaxInPreKeysPreKeyMixin").parsePreKeyMixin(e),
-        u = o("WASmaxInPreKeysSignedPreKeyMixin").parseSignedPreKeyMixin(e);
-      if (!u.success) return u;
-      var c = o("WASmaxInPreKeysDeviceIdentityMixin").parseDeviceIdentityMixin(
-        e,
-      );
+      var s = o(
+          "WASmaxInPreKeysBotIdentityKeyAuthMixin",
+        ).parseBotIdentityKeyAuthMixin(e),
+        u = o("WASmaxInPreKeysPreKeyMixin").parsePreKeyMixin(e),
+        c = o("WASmaxInPreKeysSignedPreKeyMixin").parseSignedPreKeyMixin(e);
+      if (!c.success) return c;
+      var d = o("WASmaxInPreKeysPQKeyMixin").parsePQKeyMixin(e),
+        m = o("WASmaxInPreKeysDeviceIdentityMixin").parseDeviceIdentityMixin(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           { t: n.value, isCloudApi: r.value },
           a.value,
           { keyTypeMixin: i.success ? i.value : null },
           l.value,
-          { preKeyMixin: s.success ? s.value : null },
-          u.value,
-          { deviceIdentityMixin: c.success ? c.value : null },
+          {
+            botIdentityKeyAuthMixin: s.success ? s.value : null,
+            preKeyMixin: u.success ? u.value : null,
+          },
+          c.value,
+          {
+            pQKeyMixin: d.success ? d.value : null,
+            deviceIdentityMixin: m.success ? m.value : null,
+          },
         ),
       );
     }

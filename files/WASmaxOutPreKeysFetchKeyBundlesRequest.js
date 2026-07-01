@@ -19,18 +19,23 @@ __d(
     }
     function s(t) {
       var n = t.userArgs,
-        r = o("WASmaxOutPreKeysClientRequestMixin").mergeClientRequestMixin(
+        r = t.hasKeyPqsupportTrue,
+        a = t.keyContextJid,
+        i = o("WASmaxOutPreKeysClientRequestMixin").mergeClientRequestMixin(
           o("WASmaxJsx").smax(
             "iq",
             { type: "get" },
             o("WASmaxJsx").smax(
               "key",
-              null,
+              {
+                pqsupport: o("WASmaxAttrs").OPTIONAL_LITERAL("true", r),
+                context_jid: o("WASmaxAttrs").OPTIONAL(o("WAWap").JID, a),
+              },
               o("WASmaxChildren").REPEATED_CHILD(e, n, 1, 1e5),
             ),
           ),
         );
-      return r;
+      return i;
     }
     ((l.makeFetchKeyBundlesRequestKeyUser = e),
       (l.makeFetchKeyBundlesRequest = s));

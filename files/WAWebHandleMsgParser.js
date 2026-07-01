@@ -68,6 +68,7 @@ __d(
               retryCount: (t = e.maybeAttrInt("count")) != null ? t : 0,
               hideFail: e.maybeAttrString("decrypt-fail") === "hide",
               isStateless: e.maybeAttrString("state") === "false",
+              sessionType: e.maybeAttrString("session_type"),
             };
           }),
           i = e.maybeChild("device-identity"),

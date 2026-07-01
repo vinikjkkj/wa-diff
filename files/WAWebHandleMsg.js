@@ -24,6 +24,7 @@ __d(
     "WAWebMsgProcessingDecryptApi",
     "WAWebMsgType",
     "WAWebOfflineHandler",
+    "WAWebPQGatingUtils",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebPostUnknownStanzaMetric",
     "WAWebProcessMsgInfoForLid",
@@ -431,16 +432,25 @@ __d(
                         }
                         var b = o("WAWebMsgProcessingApiUtils").getFrom(P),
                           v = b.isStatus() || N.isGroupStatus === !0,
-                          R =
-                            v &&
-                            o(
-                              "WAWebStatusSessionGatingUtils",
-                            ).shouldUseStatusSessionForIncomingMessage(
-                              N.metaSessionScope,
-                            )
-                              ? o("WAWebSessionScope").SessionScope.STATUS
-                              : void 0;
-                        if (R != null) {
+                          R;
+                        if (
+                          (v
+                            ? (R = o(
+                                "WAWebStatusSessionGatingUtils",
+                              ).shouldUseStatusSessionForIncomingMessage(
+                                N.metaSessionScope,
+                              )
+                                ? o("WAWebSessionScope").SessionScope.STATUS
+                                : void 0)
+                            : o(
+                                "WAWebPQGatingUtils",
+                              ).isPq1on1MessageEnabled() &&
+                              D.some(function (e) {
+                                return e.sessionType === "pq";
+                              }) &&
+                              (R = o("WAWebSessionScope").SessionScope.PQ),
+                          R != null)
+                        ) {
                           var L;
                           o("WALogger")
                             .LOG(

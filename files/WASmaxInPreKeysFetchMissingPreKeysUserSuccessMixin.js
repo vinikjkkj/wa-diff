@@ -6,6 +6,7 @@ __d(
     "WASmaxInPreKeysEnums",
     "WASmaxInPreKeysIdentityKeyMixin",
     "WASmaxInPreKeysKeyTypeMixin",
+    "WASmaxInPreKeysPQKeyMixin",
     "WASmaxInPreKeysPreKeyMixin",
     "WASmaxInPreKeysRegistrationIDMixin",
     "WASmaxInPreKeysSignedPreKeyMixin",
@@ -43,9 +44,8 @@ __d(
       var u = o("WASmaxInPreKeysPreKeyMixin").parsePreKeyMixin(e),
         c = o("WASmaxInPreKeysSignedPreKeyMixin").parseSignedPreKeyMixin(e);
       if (!c.success) return c;
-      var d = o("WASmaxInPreKeysDeviceIdentityMixin").parseDeviceIdentityMixin(
-        e,
-      );
+      var d = o("WASmaxInPreKeysPQKeyMixin").parsePQKeyMixin(e),
+        m = o("WASmaxInPreKeysDeviceIdentityMixin").parseDeviceIdentityMixin(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           { id: n.value, t: r.value, isCloudApi: a.value },
@@ -54,7 +54,10 @@ __d(
           s.value,
           { preKeyMixin: u.success ? u.value : null },
           c.value,
-          { deviceIdentityMixin: d.success ? d.value : null },
+          {
+            pQKeyMixin: d.success ? d.value : null,
+            deviceIdentityMixin: m.success ? m.value : null,
+          },
         ),
       );
     }

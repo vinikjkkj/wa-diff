@@ -24,6 +24,8 @@ __d(
         baseKey: [2, e.TYPES.BYTES],
         identityKey: [3, e.TYPES.BYTES],
         message: [4, e.TYPES.BYTES],
+        kyberPreKeyId: [7, e.TYPES.UINT32],
+        kyberCiphertext: [8, e.TYPES.BYTES],
       }),
       (c.name = "KeyExchangeMessage"),
       (c.internalSpec = {

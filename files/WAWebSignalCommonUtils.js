@@ -53,12 +53,15 @@ __d(
         throw (r("gkx")("26258") || (o += " " + e), r("err")(o));
       }
       var a = "_deprecated",
-        i = "_status";
+        i = "_status",
+        l = "_pq";
       return n[0].includes(a)
         ? n[0].substr(0, n[0].length - a.length)
         : n[0].includes(i)
           ? n[0].substr(0, n[0].length - i.length)
-          : n[0];
+          : n[0].includes(l)
+            ? n[0].substr(0, n[0].length - l.length)
+            : n[0];
     }
     function f(e, t) {
       var n = 0,

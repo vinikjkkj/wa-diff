@@ -1,6 +1,6 @@
 __d(
   "validateWAWebBizBudget",
-  ["fbt", "WAWebBizAdCreationCurrencyUtils"],
+  ["fbt", "WAWebBizAdCreationCurrencyUtils", "WAWebBizNativeAdsGatingUtils"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
@@ -17,19 +17,20 @@ __d(
       var t = e.budgetValue,
         n = e.currency,
         r = e.minDailyBudget,
-        o = e.maxDailyBudget,
-        a = e.budgetType,
-        i = a === void 0 ? "DAILY_BUDGET" : a,
-        l = e.durationInDays,
-        s = e.minTotalBudget,
-        u = e.runContinuously,
-        d = u === void 0 ? !1 : u,
-        _ = c(r, n),
-        f = c(o, n);
-      return d || i === "DAILY_BUDGET"
-        ? m(t, r, o, _, f)
-        : i === "LIFETIME_BUDGET"
-          ? p(t, r, o, s, l, n, f)
+        a = e.maxDailyBudget,
+        i = e.budgetType,
+        l = i === void 0 ? "DAILY_BUDGET" : i,
+        s = e.durationInDays,
+        u = e.minTotalBudget,
+        d = e.runContinuously,
+        _ = d === void 0 ? !1 : d,
+        f = c(r, n),
+        g = c(a, n);
+      return !o("WAWebBizNativeAdsGatingUtils").minMaxBudgetFixesEnabled() &&
+        (_ || l === "DAILY_BUDGET")
+        ? m(t, r, a, f, g)
+        : l === "LIFETIME_BUDGET"
+          ? p(t, r, a, u, s, n, g)
           : [];
     }
     function m(e, t, n, r, o) {

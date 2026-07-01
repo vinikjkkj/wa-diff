@@ -7,6 +7,8 @@ __d(
     "WAWebDexieCastTypes",
     "WAWebSchemaBasekey",
     "WAWebSchemaIdentity",
+    "WAWebSchemaKyberLastResortKey",
+    "WAWebSchemaKyberPrekey",
     "WAWebSchemaMeta",
     "WAWebSchemaPrekey",
     "WAWebSchemaSenderkey",
@@ -34,6 +36,8 @@ __d(
               o("WAWebSchemaSenderkey").addTable(),
               o("WAWebSchemaSession").addTable(),
               o("WAWebSchemaSignedPrekey").addTable(),
+              o("WAWebSchemaKyberPrekey").addTable(),
+              o("WAWebSchemaKyberLastResortKey").addTable(),
               (s = o("WAWebSignalStorageUtils")
                 .getStorage()
                 .initialize()
@@ -77,6 +81,10 @@ __d(
     }
     ((l.getBaseKeyTable = o("WAWebSchemaBasekey").getTable),
       (l.getIdentityTable = o("WAWebSchemaIdentity").getTable),
+      (l.getKyberLastResortKeyTable = o(
+        "WAWebSchemaKyberLastResortKey",
+      ).getTable),
+      (l.getKyberPreKeyTable = o("WAWebSchemaKyberPrekey").getTable),
       (l.getMetaTable = o("WAWebSchemaMeta").getTable),
       (l.getPreKeyTable = o("WAWebSchemaPrekey").getTable),
       (l.getSenderKeyTable = o("WAWebSchemaSenderkey").getTable),

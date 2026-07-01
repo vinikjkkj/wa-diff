@@ -6,6 +6,8 @@ __d(
     var e = {
       signalFutureMessagesMax: 2e3,
       S508658AutoAcknowledgeStaleSessions: !1,
+      isPqKeysUploadEnabled: !1,
+      isPq1on1MessageEnabled: !1,
     };
     function l() {
       return e;

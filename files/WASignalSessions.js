@@ -3,12 +3,13 @@ __d(
   ["WABinary", "WACryptoLibraryConfig", "WASignalKeys", "WASignalOther", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 3;
-    function s(e) {
+    var e = 3,
+      s = 4;
+    function u(e) {
       return !o("WACryptoLibraryConfig").getCryptoLibraryConfig()
         .S508658AutoAcknowledgeStaleSessions || e.initialExchangeInfo == null
         ? e
-        : y(
+        : C(
             e.local,
             e.remote,
             e.rootKey,
@@ -18,12 +19,13 @@ __d(
             e.prevSendChainHighestIndex,
             e.prevSessions,
             e.aliceBaseKey,
+            e.sessionVersion,
           );
     }
-    function u(e, t) {
-      return c(e, 0, t, []);
+    function c(e, t) {
+      return d(e, 0, t, []);
     }
-    function c(e, t, n, r) {
+    function d(e, t, n, r) {
       return {
         ratchetPubKey: e,
         nextMsgIndex: t,
@@ -31,17 +33,27 @@ __d(
         unusedMsgKeys: r,
       };
     }
-    function d(e, t) {
-      return m(e, 0, t);
-    }
-    function m(e, t, n) {
-      return { ratchetKey: e, nextMsgIndex: t, chainKey: n };
+    function m(e, t) {
+      return p(e, 0, t);
     }
     function p(e, t, n) {
-      return { remoteOneTimeId: e, remoteSignedId: t, localOneTimePubKey: n };
+      return { ratchetKey: e, nextMsgIndex: t, chainKey: n };
     }
-    function _(e, t) {
-      return y(
+    function _(e, t, n, r, o) {
+      return (
+        r === void 0 && (r = null),
+        o === void 0 && (o = null),
+        {
+          remoteOneTimeId: e,
+          remoteSignedId: t,
+          localOneTimePubKey: n,
+          kyberPreKeyId: r,
+          kemCiphertext: o,
+        }
+      );
+    }
+    function f(e, t) {
+      return C(
         e.local,
         e.remote,
         e.rootKey,
@@ -51,10 +63,11 @@ __d(
         e.prevSendChainHighestIndex,
         t,
         e.aliceBaseKey,
+        e.sessionVersion,
       );
     }
-    function f(e, t, n) {
-      return y(
+    function g(e, t, n) {
+      return C(
         e.local,
         e.remote,
         e.rootKey,
@@ -64,12 +77,13 @@ __d(
         e.prevSendChainHighestIndex,
         e.prevSessions,
         e.aliceBaseKey,
+        e.sessionVersion,
       );
     }
-    function g(e, t, n, r) {
+    function h(e, t, n, r) {
       return (
         n === void 0 && (n = e.sendChain),
-        y(
+        C(
           e.local,
           e.remote,
           r,
@@ -79,43 +93,48 @@ __d(
           Math.max(e.sendChain.nextMsgIndex - 1, 0),
           e.prevSessions,
           e.aliceBaseKey,
+          e.sessionVersion,
         )
       );
     }
-    function h(e, t, n, r, o, a, i) {
-      return y(e, t, n, r, o, a, 0, [], i);
+    function y(t, n, r, o, a, i, l, s) {
+      return (s === void 0 && (s = e), C(t, n, r, o, a, i, 0, [], l, s));
     }
-    function y(e, t, n, r, o, a, i, l, s) {
-      return {
-        local: e,
-        remote: t,
-        rootKey: n,
-        sendChain: o,
-        recvChains: r,
-        initialExchangeInfo: a,
-        prevSendChainHighestIndex: i,
-        prevSessions: l,
-        aliceBaseKey: s,
-      };
+    function C(t, n, r, o, a, i, l, s, u, c) {
+      return (
+        c === void 0 && (c = e),
+        {
+          sessionVersion: c,
+          local: t,
+          remote: n,
+          rootKey: r,
+          sendChain: a,
+          recvChains: o,
+          initialExchangeInfo: i,
+          prevSendChainHighestIndex: l,
+          prevSessions: s,
+          aliceBaseKey: u,
+        }
+      );
     }
-    function C(e, t) {
+    function b(e, t) {
       var n = new (o("WABinary").Binary)(t),
         r = o("WASignalOther").readBytes(n, 32),
         a = o("WASignalOther").readBytes(n, 32),
         i = o("WASignalOther").readBytes(n, 16);
-      return b(e, r, a, i);
+      return v(e, r, a, i);
     }
-    function b(e, t, n, r) {
+    function v(e, t, n, r) {
       return { index: e, cipherKey: t, macKey: n, iv: r };
     }
-    function v(e) {
+    function S(e) {
       return {
         senderRatchetKey: e.ratchetPubKey,
         chainKey: { index: e.nextMsgIndex, key: e.chainKey },
         messageKeys: e.unusedMsgKeys,
       };
     }
-    function S(e) {
+    function R(e) {
       var t = e.ratchetKey;
       return {
         senderRatchetKey: t.serializedPubKey,
@@ -123,70 +142,77 @@ __d(
         chainKey: { index: e.nextMsgIndex, key: e.chainKey },
       };
     }
-    function R(t) {
-      var n = t.initialExchangeInfo,
-        r = t.local,
-        o = t.remote,
-        a = void 0;
-      if (n) {
-        var i = n.remoteOneTimeId;
-        a = {
-          preKeyId: i != null ? i : void 0,
-          signedPreKeyId: n.remoteSignedId,
-          baseKey: n.localOneTimePubKey,
+    function L(e) {
+      var t = e.initialExchangeInfo,
+        n = e.local,
+        r = e.remote,
+        o = void 0;
+      if (t) {
+        var a = t.remoteOneTimeId;
+        o = {
+          preKeyId: a != null ? a : void 0,
+          signedPreKeyId: t.remoteSignedId,
+          baseKey: t.localOneTimePubKey,
+          kyberPreKeyId: t.kyberPreKeyId != null ? t.kyberPreKeyId : void 0,
+          kyberCiphertext: t.kemCiphertext != null ? t.kemCiphertext : void 0,
         };
       }
       return {
         currentSession: {
-          sessionVersion: e,
-          localIdentityPublic: r.pubKey,
-          remoteIdentityPublic: o.pubKey,
-          rootKey: t.rootKey,
-          previousCounter: t.prevSendChainHighestIndex,
-          senderChain: S(t.sendChain),
-          receiverChains: t.recvChains.map(v),
-          pendingPreKey: a,
-          remoteRegistrationId: o.regId,
-          localRegistrationId: r.regId,
-          aliceBaseKey: t.aliceBaseKey,
+          sessionVersion: e.sessionVersion,
+          localIdentityPublic: n.pubKey,
+          remoteIdentityPublic: r.pubKey,
+          rootKey: e.rootKey,
+          previousCounter: e.prevSendChainHighestIndex,
+          senderChain: R(e.sendChain),
+          receiverChains: e.recvChains.map(S),
+          pendingPreKey: o,
+          remoteRegistrationId: r.regId,
+          localRegistrationId: n.regId,
+          aliceBaseKey: e.aliceBaseKey,
         },
-        previousSessions: t.prevSessions,
+        previousSessions: e.prevSessions,
       };
     }
-    function L(t) {
-      var n = t.initialExchangeInfo,
-        r = t.local,
-        a = t.remote,
-        i = t.sendChain,
-        l = void 0;
-      if (n) {
-        var s = n.remoteOneTimeId;
-        l = {
-          preKeyId: s != null ? s : void 0,
-          signedPreKeyId: n.remoteSignedId,
-          baseKey: o("WASignalOther").toBuffer(n.localOneTimePubKey),
+    function E(e) {
+      var t = e.initialExchangeInfo,
+        n = e.local,
+        r = e.remote,
+        a = e.sendChain,
+        i = void 0;
+      if (t) {
+        var l = t.remoteOneTimeId;
+        i = {
+          preKeyId: l != null ? l : void 0,
+          signedPreKeyId: t.remoteSignedId,
+          baseKey: o("WASignalOther").toBuffer(t.localOneTimePubKey),
+          kyberPreKeyId: t.kyberPreKeyId != null ? t.kyberPreKeyId : void 0,
+          kyberCiphertext:
+            t.kemCiphertext != null
+              ? o("WASignalOther").toBuffer(t.kemCiphertext)
+              : void 0,
         };
       }
       return {
-        sessionVersion: e,
-        localIdentityPublic: o("WASignalOther").toBuffer(r.pubKey),
-        remoteIdentityPublic: o("WASignalOther").toBuffer(a.pubKey),
-        rootKey: o("WASignalOther").toBuffer(t.rootKey),
-        previousCounter: t.prevSendChainHighestIndex,
+        sessionVersion: e.sessionVersion,
+        localIdentityPublic: o("WASignalOther").toBuffer(n.pubKey),
+        remoteIdentityPublic: o("WASignalOther").toBuffer(r.pubKey),
+        rootKey: o("WASignalOther").toBuffer(e.rootKey),
+        previousCounter: e.prevSendChainHighestIndex,
         senderChain: {
           senderRatchetKey: o("WASignalOther").toBuffer(
-            i.ratchetKey.serializedPubKey,
+            a.ratchetKey.serializedPubKey,
           ),
           senderRatchetKeyPrivate: o("WASignalOther").toBuffer(
-            i.ratchetKey.privateKey,
+            a.ratchetKey.privateKey,
           ),
           chainKey: {
-            index: i.nextMsgIndex,
-            key: o("WASignalOther").toBuffer(i.chainKey),
+            index: a.nextMsgIndex,
+            key: o("WASignalOther").toBuffer(a.chainKey),
           },
           messageKeys: [],
         },
-        receiverChains: t.recvChains.map(function (e) {
+        receiverChains: e.recvChains.map(function (e) {
           return {
             senderRatchetKey: o("WASignalOther").toBuffer(e.ratchetPubKey),
             chainKey: {
@@ -203,121 +229,132 @@ __d(
             }),
           };
         }),
-        pendingPreKey: l,
-        remoteRegistrationId: a.regId,
-        localRegistrationId: r.regId,
+        pendingPreKey: i,
+        remoteRegistrationId: r.regId,
+        localRegistrationId: n.regId,
         aliceBaseKey:
-          t.aliceBaseKey == null
+          e.aliceBaseKey == null
             ? void 0
-            : o("WASignalOther").toBuffer(t.aliceBaseKey),
+            : o("WASignalOther").toBuffer(e.aliceBaseKey),
       };
     }
-    function E(e) {
-      var t = $(e.currentSession, "currentSession");
-      return I(t, e.previousSessions);
-    }
     function k(e) {
-      return I(e, []);
+      var t = N(e.currentSession, "currentSession");
+      return T(t, e.previousSessions);
     }
-    function I(t, n) {
-      var a = $(t.sessionVersion, "sessionVersion");
-      if (a !== e) throw r("err")("Signal: bad session version " + a);
-      var i = $(t.senderChain, "senderChain"),
-        l = $(i.chainKey, "senderChain.chainKey"),
-        s = m(
+    function I(e) {
+      return T(e, []);
+    }
+    function T(t, n) {
+      var a = N(t.sessionVersion, "sessionVersion"),
+        i = D();
+      if (a < e || a > i) throw r("err")("Signal: bad session version " + a);
+      var l = N(t.senderChain, "senderChain"),
+        s = N(l.chainKey, "senderChain.chainKey"),
+        u = p(
           o("WASignalKeys").makeSerializedKeyPairFrom(
-            x(i.senderRatchetKeyPrivate, 32, "senderRatchetKeyPrivate"),
-            D(i.senderRatchetKey, "senderRatchetKey"),
+            P(l.senderRatchetKeyPrivate, 32, "senderRatchetKeyPrivate"),
+            $(l.senderRatchetKey, "senderRatchetKey"),
           ),
-          $(l.index, "senderChain.chainKey.index"),
-          x(l.key, 32, "senderChain.chainKey.key"),
+          N(s.index, "senderChain.chainKey.index"),
+          P(s.key, 32, "senderChain.chainKey.key"),
         ),
-        u = $(t.receiverChains, "receiverChains").map(function (e) {
-          var t = $(e.chainKey, "receiverChains[].chainKey");
-          return c(
-            D(e.senderRatchetKey, "receiverChains[].senderRatchetKey"),
-            $(t.index, "receiverChains[].chainKey.index"),
-            x(t.key, 32, "receiverChains[].chainKey.key"),
-            T(e.messageKeys),
+        c = N(t.receiverChains, "receiverChains").map(function (e) {
+          var t = N(e.chainKey, "receiverChains[].chainKey");
+          return d(
+            $(e.senderRatchetKey, "receiverChains[].senderRatchetKey"),
+            N(t.index, "receiverChains[].chainKey.index"),
+            P(t.key, 32, "receiverChains[].chainKey.key"),
+            x(e.messageKeys),
           );
         }),
-        d = {
+        m = {
           regId: o("WASignalOther").castRegistrationId(
-            $(t.localRegistrationId, "localRegistrationId"),
+            N(t.localRegistrationId, "localRegistrationId"),
           ),
-          pubKey: D(t.localIdentityPublic, "localIdentityPublic"),
+          pubKey: $(t.localIdentityPublic, "localIdentityPublic"),
         },
-        _ = {
+        f = {
           regId: o("WASignalOther").castRegistrationId(
-            $(t.remoteRegistrationId, "remoteRegistrationId"),
+            N(t.remoteRegistrationId, "remoteRegistrationId"),
           ),
-          pubKey: D(t.remoteIdentityPublic, "remoteIdentityPublic"),
+          pubKey: $(t.remoteIdentityPublic, "remoteIdentityPublic"),
         },
-        f = t.pendingPreKey,
-        g = null;
-      if (f) {
-        var h = f.preKeyId;
-        g = p(
-          h != null ? o("WASignalKeys").castToPreKeyId(h) : null,
+        g = t.pendingPreKey,
+        h = null;
+      if (g) {
+        var y = g.preKeyId;
+        h = _(
+          y != null ? o("WASignalKeys").castToPreKeyId(y) : null,
           o("WASignalKeys").castToSignedPreKeyId(
-            $(f.signedPreKeyId, "pendingPreKey.signedPreKeyId"),
+            N(g.signedPreKeyId, "pendingPreKey.signedPreKeyId"),
           ),
-          D(f.baseKey, "pendingPreKey.baseKey"),
+          $(g.baseKey, "pendingPreKey.baseKey"),
+          g.kyberPreKeyId != null ? g.kyberPreKeyId : null,
+          g.kyberCiphertext != null ? new Uint8Array(g.kyberCiphertext) : null,
         );
       }
-      var C = t.aliceBaseKey == null ? null : D(t.aliceBaseKey, "aliceBaseKey");
-      return y(
-        d,
-        _,
-        x(t.rootKey, 32, "rootKey"),
+      var b = t.aliceBaseKey == null ? null : $(t.aliceBaseKey, "aliceBaseKey");
+      return C(
+        m,
+        f,
+        P(t.rootKey, 32, "rootKey"),
+        c,
         u,
-        s,
-        g,
+        h,
         t.previousCounter || 0,
         n,
-        C,
+        b,
+        a,
       );
     }
-    function T(e) {
+    function D() {
+      return o("WACryptoLibraryConfig").getCryptoLibraryConfig()
+        .isPq1on1MessageEnabled === !0
+        ? s
+        : e;
+    }
+    function x(e) {
       return e.map(function (e) {
         return {
-          index: $(e.index, "messageKeys[].index"),
-          cipherKey: x(e.cipherKey, 32, "messageKeys[].cipherKey"),
-          macKey: x(e.macKey, 32, "messageKeys[].macKey"),
-          iv: x(e.iv, 16, "messageKeys[].iv"),
+          index: N(e.index, "messageKeys[].index"),
+          cipherKey: P(e.cipherKey, 32, "messageKeys[].cipherKey"),
+          macKey: P(e.macKey, 32, "messageKeys[].macKey"),
+          iv: P(e.iv, 16, "messageKeys[].iv"),
         };
       });
     }
-    function D(e, t) {
-      return o("WASignalKeys").castToSerializedPubKey(new Uint8Array($(e, t)));
-    }
-    function x(e, t, n) {
-      return o("WASignalOther").toBytes($(e, n), t);
-    }
     function $(e, t) {
+      return o("WASignalKeys").castToSerializedPubKey(new Uint8Array(N(e, t)));
+    }
+    function P(e, t, n) {
+      return o("WASignalOther").toBytes(N(e, n), t);
+    }
+    function N(e, t) {
       if (e == null) throw r("err")("Signal: protobuf is missing " + t);
       return e;
     }
     ((l.FORMAT_VERSION = e),
-      (l.maybeClearPendingPreKey = s),
-      (l.makeFreshRecvChain = u),
-      (l.makeRecvChain = c),
-      (l.makeFreshSendChain = d),
-      (l.makeSendChain = m),
-      (l.makeInitialExchangeInfo = p),
-      (l.setPrevSessions = _),
-      (l.updateChains = f),
-      (l.ratchetSession = g),
-      (l.makeFreshSession = h),
-      (l.makeSession = y),
-      (l.splitMsgKey = C),
-      (l.serializeSession = R),
-      (l.detachSession = L),
-      (l.parseSessionFromRecord = E),
-      (l.parseSession = k),
-      (l._parseSession = I),
-      (l.bytesOrThrow = x),
-      (l.definedOrThrow = $));
+      (l.PQXDH_FORMAT_VERSION = s),
+      (l.maybeClearPendingPreKey = u),
+      (l.makeFreshRecvChain = c),
+      (l.makeRecvChain = d),
+      (l.makeFreshSendChain = m),
+      (l.makeSendChain = p),
+      (l.makeInitialExchangeInfo = _),
+      (l.setPrevSessions = f),
+      (l.updateChains = g),
+      (l.ratchetSession = h),
+      (l.makeFreshSession = y),
+      (l.makeSession = C),
+      (l.splitMsgKey = b),
+      (l.serializeSession = L),
+      (l.detachSession = E),
+      (l.parseSessionFromRecord = k),
+      (l.parseSession = I),
+      (l._parseSession = T),
+      (l.bytesOrThrow = P),
+      (l.definedOrThrow = N));
   },
   98,
 );

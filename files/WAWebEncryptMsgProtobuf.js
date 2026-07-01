@@ -93,12 +93,17 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r) {
-      return p.apply(this, arguments);
+    function m(e) {
+      if (e.byteLength === 0) return !1;
+      var t = new Uint8Array(e, 0, 1)[0];
+      return t >>> 4 === 4;
     }
-    function p() {
+    function p(e, t, n, r) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             var l,
               c,
@@ -167,10 +172,12 @@ __d(
             }
           },
         )),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.encryptMsgProtobuf = c), (l.encryptMsgSenderKey = m));
+    ((l.encryptMsgProtobuf = c),
+      (l.isPqxdhCiphertext = m),
+      (l.encryptMsgSenderKey = p));
   },
   98,
 );

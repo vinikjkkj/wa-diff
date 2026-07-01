@@ -24,11 +24,15 @@ __d(
       return t.close !== "$" && e.slice(n, r).includes("$");
     }
     function p(e, t, n, r) {
-      return (!t.multiline && e.slice(n, r).includes("\n")) || m(e, t, n, r)
-        ? !1
-        : c(e[r + t.close.length]);
+      return !_(e, t, n, r) || m(e, t, n, r) ? !1 : c(e[r + t.close.length]);
     }
-    function _(e, t, n) {
+    function _(e, t, n, r) {
+      var o = e.slice(n, r);
+      return !o.includes("\n") || t.multiline
+        ? !0
+        : t.open === "$" && !o.includes(l) && /^\s*\\displaystyle\b/.test(o);
+    }
+    function f(e, t, n) {
       for (
         var r = t.multiline ? e.indexOf(l, n) : -1, o = e.indexOf(t.close, n);
         o !== -1;
@@ -40,12 +44,12 @@ __d(
       }
       return -1;
     }
-    function f(e, t, n) {
+    function g(e, t, n) {
       n === void 0 && (n = !1);
       var r = d(e, t);
       if (r == null) return null;
       var o = r.open.length,
-        a = _(e, r, o);
+        a = f(e, r, o);
       if (a === -1) return null;
       var i = a + r.close.length;
       return (
@@ -53,13 +57,13 @@ __d(
         { raw: e.slice(0, i), text: e.slice(o, a) }
       );
     }
-    var g =
+    var h =
       /^(`+|[^`])(?:[\s\S]*?(?:(?=[\\<!\[`*~]|\b_|https?:\/\/|ftp:\/\/|www\.|.?\$|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&\'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&\'*+\/=?_`{\|}~-]+@))|(?= {2,}\n|[a-zA-Z0-9.!#$%&\'*+\/=?_`{\|}~-]+@))/;
-    function h(e) {
+    function y(e) {
       var t = "",
-        n = f(e, u);
+        n = g(e, u);
       if (
-        (n == null && c(e[0]) && ((t = e[0]), (n = f(e.slice(1), u))),
+        (n == null && c(e[0]) && ((t = e[0]), (n = g(e.slice(1), u))),
         n != null)
       ) {
         var r = { raw: n.raw, text: n.text, type: "katex-inline" };
@@ -73,8 +77,8 @@ __d(
           : r;
       }
     }
-    function y(e) {
-      var t = f(e, s, !0);
+    function C(e) {
+      var t = g(e, s, !0);
       if (t)
         return {
           raw: t.raw,
@@ -82,7 +86,7 @@ __d(
           type: "katex-block",
         };
     }
-    ((i.textWithKatexRule = g), (i.katexInline = h), (i.katexBlock = y));
+    ((i.textWithKatexRule = h), (i.katexInline = y), (i.katexBlock = C));
   },
   66,
 );

@@ -111,7 +111,22 @@ __d(
           ? !1
           : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
       },
-      y = function (t, n, a) {
+      y = function () {
+        if (
+          !o("WAWebCTWAGatingUtils").isDataSharingDisclosureOnListsHomeEnabled()
+        )
+          return !1;
+        var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
+          t =
+            e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true ||
+            e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false;
+        return (
+          !t &&
+          o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp() ==
+            null
+        );
+      },
+      C = function (t, n, a) {
         var e;
         if (
           a < 1 ||
@@ -144,7 +159,7 @@ __d(
             o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return u || c || d;
       },
-      C = function (t) {
+      b = function (t) {
         if (t.length === 0) return !1;
         var e = [];
         if (!o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats())
@@ -181,7 +196,7 @@ __d(
             o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return l || s || u;
       },
-      b = (function () {
+      v = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
             return null;
@@ -215,7 +230,7 @@ __d(
           return e.apply(this, arguments);
         };
       })(),
-      v = {
+      S = {
         SMB_DATA_SHARING_ALLOWED_SOURCE: o(
           "WAWebGetCTWAEligibilityFromConversion",
         ).SMB_DATA_SHARING_ALLOWED_SOURCE,
@@ -227,11 +242,12 @@ __d(
         shouldShowOrderDataSharingDialog: f,
         shouldShowDisclosureBasedOnCurrentDataSharingSetting: g,
         shouldShowLabelDataSharingDialog: h,
-        shouldDisplayDataSharingOrderOptOutOrUpsell: y,
-        shouldDisplayDataSharingLabelOptOutOrUpsell: C,
-        fetchDataSharingSettingAndUpdateModel: b,
+        shouldShowListsManagementDataSharingDialog: y,
+        shouldDisplayDataSharingOrderOptOutOrUpsell: C,
+        shouldDisplayDataSharingLabelOptOutOrUpsell: b,
+        fetchDataSharingSettingAndUpdateModel: v,
       };
-    l.default = v;
+    l.default = S;
   },
   98,
 );
