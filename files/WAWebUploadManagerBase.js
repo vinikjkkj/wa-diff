@@ -16,7 +16,6 @@ __d(
     "WAWebMmsDownloadUploadCrashLogger",
     "WAWebMmsMediaTypes",
     "WAWebNullFunc",
-    "WAWebPonyfillsUrlSearchParams",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -489,10 +488,10 @@ __d(
     function S(e) {
       var t = e.split("?"),
         n = t[0],
-        a = t[1],
-        i = new (r("WAWebPonyfillsUrlSearchParams"))(a),
-        l = o("WATimeUtils").unixTime();
-      return (i.set("_nc_hot", String(l)), n + "?" + i.toString());
+        r = t[1],
+        a = new URLSearchParams(r),
+        i = o("WATimeUtils").unixTime();
+      return (a.set("_nc_hot", String(i)), n + "?" + a.toString());
     }
     l.UploadManagerBase = v;
   },

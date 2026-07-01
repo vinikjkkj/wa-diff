@@ -1,11 +1,6 @@
 __d(
   "WAWebMmsClientFormatHashUrl",
-  [
-    "WABase64UrlSafe",
-    "WANullthrows",
-    "WAWebMmsMediaTypes",
-    "WAWebPonyfillsUrlSearchParams",
-  ],
+  ["WABase64UrlSafe", "WANullthrows", "WAWebMmsMediaTypes"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -72,7 +67,7 @@ __d(
         Object.keys(a).forEach(function (e) {
           a[e] != null && (c[e] = a[e]);
         });
-      var d = new (r("WAWebPonyfillsUrlSearchParams"))(c).toString();
+      var d = new URLSearchParams(c).toString();
       return (d && (d = "?" + d), "https://" + s.host + s.pathname + d);
     }
     l.default = c;

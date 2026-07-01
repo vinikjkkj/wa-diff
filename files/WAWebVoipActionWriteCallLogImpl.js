@@ -22,7 +22,7 @@ __d(
     "WAWebVoipCallLogAnrGating",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallsTabPanelManager",
-    "WAWebVoipSessionTracker",
+    "WAWebVoipPhaseTracker",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -61,7 +61,7 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l, m) {
             (l === void 0 && (l = !1), m === void 0 && (m = !1));
-            var p = o("WAWebVoipSessionTracker").beginVoipSession();
+            var p = o("WAWebVoipPhaseTracker").beginPostCallWork();
             try {
               var _,
                 f = yield o("WAWebChatGetExistingBridge").getExisting(t);
@@ -92,7 +92,7 @@ __d(
                             "[voip] call log in-mem, async IDB persist scheduled",
                           ])),
                       ),
-                      L(t, _, y),
+                      L({ callLogMessage: _, chatId: t, msg: y }),
                       y
                     );
                 }
@@ -169,7 +169,7 @@ __d(
                 yield C.promise
               );
             } finally {
-              o("WAWebVoipSessionTracker").endVoipSession(p);
+              o("WAWebVoipPhaseTracker").endPostCallWork(p);
             }
             function v(e) {
               return S.apply(this, arguments);
@@ -262,28 +262,31 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e, t, n) {
+    function L(e) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          var i = Date.now();
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.callLogMessage,
+            a = e.chatId,
+            i = e.msg,
+            l = Date.now();
           o("WAWebMessageQueue").onMessageQueue({
-            chatWid: e,
+            chatWid: a,
             isOffline: !1,
             msgCategory: null,
             action: (function () {
-              var l = n("asyncToGeneratorRuntime").asyncToGenerator(
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
-                  var n = Date.now() - i;
+                  var e = Date.now() - l;
                   (o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
                         "[voip] call log IDB persist dequeued after ",
                         "ms",
                       ])),
-                    n,
+                    e,
                   ),
                     o("WAWebVoipActivityTracker").trackUiActivity(
                       o("WAWebVoipActivityTracker").VoipUiActivity
@@ -296,10 +299,10 @@ __d(
                         "WAWebReleaseToEventLoop",
                       ).releaseToEventLoop()));
                   try {
-                    var l = yield o(
+                    var n = yield o(
                         "WAWebFindChatAction",
-                      ).findOrCreateLatestChat(e, "voipCallLog"),
-                      s = l.chat;
+                      ).findOrCreateLatestChat(a, "voipCallLog"),
+                      s = n.chat;
                     (yield o(
                       "WAWebHandleSingleMsgWorkerCompatible",
                     ).handleSingleMsg({
@@ -307,7 +310,7 @@ __d(
                       newMsg: t,
                       handleSingleMsgOrigin: "voipNotification",
                     }),
-                      s.msgs.add(a),
+                      s.msgs.add(i),
                       o("WALogger").LOG(
                         p ||
                           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -341,7 +344,7 @@ __d(
                 },
               );
               function s() {
-                return l.apply(this, arguments);
+                return e.apply(this, arguments);
               }
               return s;
             })(),

@@ -192,7 +192,21 @@ __d(
           }
           break;
         }
-        case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE:
+        case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE: {
+          switch (e) {
+            case "PENDING":
+              return o(
+                "WAWebCommonNewsletterIntegrityStrings",
+              ).getAdminProfileInReviewTitleString();
+            case "REJECT":
+            case "SUCCESS":
+            case "CONTENT_UNAVAILABLE":
+              return o(
+                "WAWebCommonNewsletterIntegrityStrings",
+              ).getAdminProfileReviewCompletedString();
+          }
+          break;
+        }
         case o("WAWebCommonNewsletterEnums").EnforcementType
           .PROFILE_PICTURE_DELETION: {
           switch (e) {
@@ -505,7 +519,46 @@ __d(
           }
           break;
         }
-        case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE:
+        case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE: {
+          switch (t) {
+            case "PENDING":
+              return s._(
+                /*BTDS*/ "Our Support team is reviewing the channel admin profile. You will hear back within a few days.",
+              );
+            case "REJECT":
+              return s._(
+                /*BTDS*/ "This channel admin profile does not follow our {=m2} on {violation_category_text}",
+                [
+                  s._param("violation_category_text", R(i)),
+                  s._implicitParam(
+                    "=m2",
+                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                      onClick: o("WAWebNewsletterDSAModals.react")
+                        .logChannelGuidelinesClick,
+                      children: s._(/*BTDS*/ "Channels Guidelines"),
+                    }),
+                  ),
+                ],
+              );
+            case "SUCCESS":
+              return s._(
+                /*BTDS*/ "The channel admin profile has been restored. Our Support team has determined it follows our {=m2}.",
+                [
+                  s._implicitParam(
+                    "=m2",
+                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                      onClick: o("WAWebNewsletterDSAModals.react")
+                        .logChannelGuidelinesClick,
+                      children: s._(/*BTDS*/ "Channels Guidelines"),
+                    }),
+                  ),
+                ],
+              );
+          }
+          break;
+        }
         case o("WAWebCommonNewsletterEnums").EnforcementType
           .PROFILE_PICTURE_DELETION: {
           switch (t) {

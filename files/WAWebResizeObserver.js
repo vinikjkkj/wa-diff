@@ -1,6 +1,6 @@
 __d(
   "WAWebResizeObserver",
-  ["err", "resize-observer-polyfill-deprecated"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
@@ -10,7 +10,7 @@ __d(
     function c() {
       return (
         u == null &&
-          (u = new (r("resize-observer-polyfill-deprecated"))(function (e) {
+          (u = new ResizeObserver(function (e) {
             for (var t of e) {
               var n = s().get(t.target),
                 r = t.contentRect,

@@ -36,14 +36,38 @@ __d(
           if (i.admin_profiles != null) {
             var u = [];
             (i.admin_profiles.forEach(function (e) {
-              m(e) ||
-                u.push(
-                  _(
+              var t;
+              if (!m(e)) {
+                var n = _(
                     e,
                     o("WAWebCommonNewsletterEnums").EnforcementType
                       .ADMIN_PROFILE,
                   ),
-                );
+                  r =
+                    (t = e.enforcement_extra_data) == null
+                      ? void 0
+                      : t.enforcement_target_data;
+                if (
+                  (r == null ? void 0 : r.id) != null ||
+                  (r == null ? void 0 : r.name) != null
+                ) {
+                  var a, i;
+                  n.enforcementExtraData = babelHelpers.extends(
+                    {},
+                    n.enforcementExtraData,
+                    {
+                      adminProfileData: {
+                        id: r.id,
+                        name: r.name,
+                        pictureId: (a = r.picture) == null ? void 0 : a.id,
+                        pictureDirectPath:
+                          (i = r.picture) == null ? void 0 : i.direct_path,
+                      },
+                    },
+                  );
+                }
+                u.push(n);
+              }
             }),
               (l.adminProfiles = u));
           }
@@ -199,7 +223,7 @@ __d(
               reporterName: t.reporter_name,
             },
           }),
-        n != null)
+        n != null && (n.server_id != null || n.server_msg_id != null))
       ) {
         var u =
             n.server_id != null

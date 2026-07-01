@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WACustomError",
     "WAWebPonyfillsCryptoRandomUUID",
+    "WAWebTPNormalizePdfDataBuffer",
     "WAWebTPPerformanceListener",
     "WAWebTPWhatsAppNetBridge",
     "asyncToGeneratorRuntime",
@@ -102,7 +103,13 @@ __d(
                   "GET_UPDATED_PDF_BUFFER_RESPONSE",
                   function (t) {
                     t.requestId === a &&
-                      (r != null && window.clearTimeout(r), i(), e(t.buffer));
+                      (r != null && window.clearTimeout(r),
+                      i(),
+                      e(
+                        o(
+                          "WAWebTPNormalizePdfDataBuffer",
+                        ).normalizePdfDataBuffer(t.buffer),
+                      ));
                   },
                 );
               ((r = window.setTimeout(function () {

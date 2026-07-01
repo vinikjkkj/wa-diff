@@ -354,32 +354,34 @@ __d(
         r = t.map(function (e) {
           var t,
             r,
-            a = e.node,
-            i = e.role,
-            l,
+            a = e.join_time,
+            i = e.node,
+            l = e.role,
             s,
-            u;
-          if (a.id == null)
+            u,
+            c;
+          if (i.id == null)
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
               500,
               "missing id in group info participant response",
             );
           return (
-            (l = o("WAWebWidFactory").createWid(a.id)),
-            a.lid != null && (s = o("WAWebWidFactory").createWid(a.lid)),
-            a.pn != null && (u = o("WAWebWidFactory").createWid(a.pn)),
+            (s = o("WAWebWidFactory").createWid(i.id)),
+            i.lid != null && (u = o("WAWebWidFactory").createWid(i.lid)),
+            i.pn != null && (c = o("WAWebWidFactory").createWid(i.pn)),
             {
-              id: l,
-              lid: s,
-              phoneNumber: u != null ? u : null,
-              displayName: (t = a.display_name) != null ? t : null,
-              isAdmin: i === "ADMIN_MEMBER" || i === "SUPERADMIN_MEMBER",
-              isSuperAdmin: i === "SUPERADMIN_MEMBER",
+              id: s,
+              lid: u,
+              phoneNumber: c != null ? c : null,
+              displayName: (t = i.display_name) != null ? t : null,
+              isAdmin: l === "ADMIN_MEMBER" || l === "SUPERADMIN_MEMBER",
+              isSuperAdmin: l === "SUPERADMIN_MEMBER",
               username: n
-                ? (r = a.username_info) == null
+                ? (r = i.username_info) == null
                   ? void 0
                   : r.username
                 : null,
+              joinTime: a != null ? a : null,
             }
           );
         });

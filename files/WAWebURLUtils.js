@@ -9,7 +9,6 @@ __d(
     "WATypeUtils",
     "WAWebDataUrlToBlob",
     "WAWebFileUtils",
-    "WAWebPonyfillsUrlSearchParams",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebURLValidSchemes",
   ],
@@ -22,11 +21,11 @@ __d(
       d = {
         URL_REGEX: s,
         build: function (t, n) {
-          var e = new (r("WAWebPonyfillsUrlSearchParams"))(),
-            o = n || {};
+          var e = new URLSearchParams(),
+            r = n || {};
           return (
-            Object.keys(o).forEach(function (t) {
-              e.set(t, String(o[t]));
+            Object.keys(r).forEach(function (t) {
+              e.set(t, String(r[t]));
             }),
             t + "?" + e.toString()
           );
@@ -134,30 +133,30 @@ __d(
             : u + "?u=" + encodeURIComponent(t);
         },
         consumeLoginNextParam: function (t) {
-          var e = new (r("WAWebPonyfillsUrlSearchParams"))(t),
+          var e = new URLSearchParams(t),
             n = e.get("next"),
-            o;
-          if (n == null) o = "/";
+            r;
+          if (n == null) r = "/";
           else {
             if (!n.startsWith("/") || n.startsWith("//") || n.includes("\\"))
               return "/";
-            o = n;
+            r = n;
           }
           e.delete("next");
-          var a = e.toString();
-          if (a === "") return o;
-          var i = o.includes("?") ? "&" : "?";
-          return o + i + a;
+          var o = e.toString();
+          if (o === "") return r;
+          var a = r.includes("?") ? "&" : "?";
+          return r + a + o;
         },
         buildLoginUrlWithNext: function (t, n) {
           if (t === "/login" || t.startsWith("/login/")) return t + n;
-          var e = new (r("WAWebPonyfillsUrlSearchParams"))(n);
+          var e = new URLSearchParams(n);
           e.delete("next");
-          var o = e.toString(),
-            a = t === "" || t === "/";
-          if (a) return o === "" ? "/login/" : "/login/?" + o;
-          var i = "/login/?next=" + encodeURIComponent(t);
-          return o === "" ? i : i + "&" + o;
+          var r = e.toString(),
+            o = t === "" || t === "/";
+          if (o) return r === "" ? "/login/" : "/login/?" + r;
+          var a = "/login/?next=" + encodeURIComponent(t);
+          return r === "" ? a : a + "&" + r;
         },
       },
       m = d;

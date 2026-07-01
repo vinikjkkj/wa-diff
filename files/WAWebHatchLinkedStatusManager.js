@@ -58,7 +58,7 @@ __d(
                   t.$4(e));
               })
               .catch(function (e) {
-                o("WALogger")
+                (o("WALogger")
                   .ERROR(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -66,7 +66,8 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(e))
-                  .sendLogs("hatch-linked-status-fetch-fail");
+                  .sendLogs("hatch-linked-status-fetch-fail"),
+                  t.$4(t.$1));
               });
           }),
           (n.__resetForTesting = function () {

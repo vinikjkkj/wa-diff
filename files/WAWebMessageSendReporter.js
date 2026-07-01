@@ -98,7 +98,10 @@ __d(
               "WAWebWamEnumMessageDistributionEnumType",
             ).MESSAGE_DISTRIBUTION_ENUM_TYPE.REGULAR_MESSAGE,
             editType: o("WAWebMsgGetters").getWamEditType(t),
-            botType: o("WAWebWamMsgUtils").getWamBotType(b, t.bizBotType),
+            botType: o("WAWebWamMsgUtils").getWamBotType({
+              chatId: b,
+              bizBotType: t.bizBotType,
+            }),
             isAComment:
               o("WAWebMsgGetters").getType(t) ===
               o("WAWebMsgType").MSG_TYPE.COMMENT,

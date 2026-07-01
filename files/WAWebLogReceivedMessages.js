@@ -172,10 +172,10 @@ __d(
                             o("WAWebMsgGetters").getNumTimesForwarded(e) > 1,
                           isAReply: o("WAWebMsgGetters").getIsReply(e),
                           editType: o("WAWebMsgGetters").getWamEditType(e),
-                          botType: o("WAWebWamMsgUtils").getWamBotType(
-                            a,
-                            e.bizBotType,
-                          ),
+                          botType: o("WAWebWamMsgUtils").getWamBotType({
+                            chatId: a,
+                            bizBotType: e.bizBotType,
+                          }),
                           isAComment:
                             o("WAWebMsgGetters").getType(e) ===
                             o("WAWebMsgType").MSG_TYPE.COMMENT,

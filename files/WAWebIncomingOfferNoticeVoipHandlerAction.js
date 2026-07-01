@@ -13,7 +13,12 @@ __d(
       s,
       u,
       c = 45;
-    function d(t, n, a, i, l) {
+    function d(t) {
+      var n = t.callCreator,
+        a = t.callId,
+        i = t.isGroup,
+        l = t.isVideo,
+        d = t.offerTime;
       if (
         (o("WALogger").LOG(
           e ||
@@ -21,9 +26,9 @@ __d(
               "voip:handleIncomingCallOfferNotice: callId ",
               "",
             ])),
-          n,
+          a,
         ),
-        o("WATimeUtils").unixTime() - a > c)
+        o("WATimeUtils").unixTime() - d > c)
       ) {
         o("WALogger").LOG(
           s ||
@@ -35,17 +40,17 @@ __d(
       }
       (r("WAWebCallCollection").add(
         {
-          id: n,
-          isVideo: i,
-          isGroup: l,
-          offerTime: a,
-          peerJid: t,
+          id: a,
+          isVideo: l,
+          isGroup: i,
+          offerTime: d,
+          peerJid: n,
           isSilenced: !1,
         },
         { merge: !0 },
       ),
         (
-          l
+          i
             ? o("WAWebVoipGatingUtils").isGroupCallingEnabled()
             : o("WAWebVoipGatingUtils").isCallingEnabled()
         )
@@ -58,21 +63,21 @@ __d(
                     " group=",
                     "",
                   ])),
-                n,
-                i,
+                a,
                 l,
+                i,
               )
               .sendLogs("web-calling-enabled-offer-notice-received")
           : r("WAWebCallNotificationBus").trigger("alert_call", {
-              wid: o("WAWebWidFactory").asUserWidOrThrow(t),
-              msgId: n,
-              isVideo: i,
-              isGroup: l,
+              wid: o("WAWebWidFactory").asUserWidOrThrow(n),
+              msgId: a,
+              isVideo: l,
+              isGroup: i,
               isSilenced: !1,
             }),
         self.setTimeout(function () {
-          r("WAWebCallNotificationBus").trigger("cancel_call", { wid: t });
-          var e = r("WAWebCallCollection").get(n);
+          r("WAWebCallNotificationBus").trigger("cancel_call", { wid: n });
+          var e = r("WAWebCallCollection").get(a);
           e && r("WAWebCallCollection").remove(e);
         }, c * 1e3));
     }

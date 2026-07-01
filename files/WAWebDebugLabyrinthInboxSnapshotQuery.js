@@ -15,27 +15,26 @@ __d(
       var t = e == null ? void 0 : e.get_wa_mailbox;
       if (t == null) return null;
       var n = [];
-      for (var r of (o = (a = t.threads) == null ? void 0 : a.nodes) != null
+      for (var r of (o =
+        (a = t.snapshot_threads_with_messages) == null
+          ? void 0
+          : a.items_with_messages) != null
         ? o
         : []) {
-        var o, a;
-        if (r != null) {
-          var i = [];
-          for (var l of (s = (u = r.messages) == null ? void 0 : u.edges) !=
-          null
-            ? s
-            : []) {
-            var s,
-              u,
-              c = l == null ? void 0 : l.node;
-            c != null &&
-              i.push({
-                encryptedPayload: c.encrypted_payload,
-                encryptionVersion: c.encryption_version,
-                messageId: c.id,
-              });
+        var o,
+          a,
+          i = r.item;
+        if (!(i == null || i.id == null)) {
+          var l = [];
+          for (var s of (u = r.messages) != null ? u : []) {
+            var u;
+            l.push({
+              encryptedPayload: s.encrypted_payload,
+              encryptionVersion: s.encryption_version,
+              messageId: s.id,
+            });
           }
-          n.push({ threadId: r.id, messages: i });
+          n.push({ threadId: i.id, messages: l });
         }
       }
       return n;
@@ -48,7 +47,14 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebRelayClient").fetchQuery(
             s,
-            { messageFirst: e.messageFirst, threadFirst: e.threadFirst },
+            {
+              params: {
+                lower_timestamp: e.lowerTimestamp,
+                num_msgs: e.numMsgs,
+                num_threads: e.numThreads,
+                upper_timestamp: e.upperTimestamp,
+              },
+            },
             { environmentType: "whatsapp_web" },
           );
           return u(t);

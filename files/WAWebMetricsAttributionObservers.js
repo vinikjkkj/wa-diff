@@ -4,6 +4,7 @@ __d(
     "WAWebAppTracker",
     "WAWebCallCollection",
     "WAWebNetworkStatus",
+    "WAWebVoipPhaseTracker",
     "cr:13156",
     "cr:13920",
   ],
@@ -57,7 +58,7 @@ __d(
       }
     }
     function p() {
-      (c(), d(), m());
+      (c(), o("WAWebVoipPhaseTracker").startVoipPhaseObserver(), d(), m());
     }
     l.initializeMetricsAttributionObservers = p;
   },

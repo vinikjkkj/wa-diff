@@ -34,9 +34,10 @@ __d(
       p,
       _,
       f,
-      g = 200,
-      h = 100;
-    function y() {
+      g,
+      h = 200,
+      y = 100;
+    function C() {
       return (
         o("WAWebWamOfflineResumeReporter").OfflineResumeReporter.qpl.addPoint(
           "RestoreGroupsAndContacts_start",
@@ -96,9 +97,9 @@ __d(
                           ).OfflineResumeReporter.qpl.addPoint(
                             "WarmupAllLidMappings_end",
                           ),
-                          C(e),
+                          b(e),
                           t
-                            ? yield R(e)
+                            ? yield L(e)
                             : o("WAWebContactCollection").ContactCollection.add(
                                 o("WAWebApiHydrateWidsUtil").hydrateWids(e),
                                 { silent: !0, merge: !0 },
@@ -138,7 +139,7 @@ __d(
               if (t) {
                 yield i;
                 var m = yield l;
-                (yield v(m),
+                (yield S(m),
                   m.forEach(function (e) {
                     var t = o("WAWebWidFactory").createWidFromWidLike(e.id);
                     (e.isParentGroup === !0 &&
@@ -190,7 +191,7 @@ __d(
                       "WAWebWamOfflineResumeReporter",
                     ).OfflineResumeReporter.qpl.addPoint("RestoreGroups_end"));
                 });
-                return (f || (f = n("Promise"))).all([i, p]);
+                return (g || (g = n("Promise"))).all([i, p]);
               }
             }),
           )
@@ -238,37 +239,51 @@ __d(
           })
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [];
-          for (var n of e)
-            n.contactHash == null &&
-              ((n.contactHash = o("WAWebApiContact").getContactHash(n.id)),
-              t.push(n));
-          t.length > 0 &&
-            (o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[init-from-storage] contacts: ",
-                  " missing hash, updating",
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o("WAWebApiContact").armContactHashRepairWait();
+          try {
+            var t = [];
+            for (var n of e)
+              n.contactHash == null &&
+                ((n.contactHash = o("WAWebApiContact").getContactHash(n.id)),
+                t.push(n));
+            t.length > 0 &&
+              (o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[init-from-storage] contacts: ",
+                    " missing hash, updating",
+                  ])),
+                t.length,
+              ),
+              yield o("WAWebApiContact").updateContactsHashes(t));
+          } catch (e) {
+            o("WALogger").WARN(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[init-from-storage] contacts: hash repair failed: ",
+                  "",
                 ])),
-              t.length,
-            ),
-            o("WAWebApiContact").updateContactsHashes(t));
+              String(e),
+            );
+          } finally {
+            o("WAWebApiContact").markContactHashRepairComplete();
+          }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "wmi_task_scheduler_second_step",
@@ -282,8 +297,8 @@ __d(
                 ));
             return;
           }
-          for (var n = 0; n < e.length; n += h) {
-            var a = e.slice(n, n + h);
+          for (var n = 0; n < e.length; n += y) {
+            var a = e.slice(n, n + y);
             (r("WAWebGroupMetadataCollection").add(
               a.map(o("WAWebApiHydrateWidsUtil").hydrateWids),
               { merge: !0 },
@@ -291,15 +306,15 @@ __d(
               yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "wmi_task_scheduler_second_step",
@@ -316,8 +331,8 @@ __d(
                 ));
             return;
           }
-          for (var n = 0; n < e.length; n += g) {
-            var a = e.slice(n, n + g);
+          for (var n = 0; n < e.length; n += h) {
+            var a = e.slice(n, n + h);
             (o("WAWebApiHydrateWidsUtil").hydrateWids(a),
               o("WAWebContactCollection").ContactCollection.add(a, {
                 silent: !0,
@@ -326,10 +341,10 @@ __d(
               yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           }
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    l.restoreGroupsAndContacts = y;
+    l.restoreGroupsAndContacts = C;
   },
   98,
 );

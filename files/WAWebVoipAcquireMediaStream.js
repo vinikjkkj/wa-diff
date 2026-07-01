@@ -1293,99 +1293,99 @@ __d(
         audio: !1,
       };
     }
-    function rt(e, t, n) {
+    function rt(e) {
       return ot.apply(this, arguments);
     }
     function ot() {
       return (
-        (ot = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            try {
-              var r,
-                a,
-                i =
-                  t === !0 &&
-                  !o("WAWebUA").UA.isFirefox &&
-                  !o("WAWebUA").UA.isSafari,
-                l = i
-                  ? navigator.mediaDevices
-                  : (r =
-                        e == null || (a = e.navigator) == null
-                          ? void 0
-                          : a.mediaDevices) != null
-                    ? r
-                    : navigator.mediaDevices;
-              if (!(l != null && l.enumerateDevices))
-                return (
-                  o("WALogger").ERROR(
-                    V ||
-                      (V = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:getAvailableVideoDevices] mediaDevices API not supported",
-                      ])),
-                  ),
-                  []
-                );
-              var s = n === !0 || (o("WAWebUA").UA.isSafari && t === !0),
-                u = o("WAWebUA").UA.isFirefox && e != null;
-              if (!(i || s)) {
-                if (!J()) {
-                  var c = u
-                      ? { granted: !1 }
-                      : yield o(
-                          "WAWebMediaPermissionsUtils",
-                        ).checkMediaPermissionState(
-                          "camera",
-                          e == null ? void 0 : e.navigator,
-                        ),
-                    d = c.granted;
-                  if (!d)
-                    try {
-                      yield te(l);
-                    } catch (e) {
-                      if (t !== !0) throw e;
-                    }
-                }
-              }
-              var m = yield o(
-                  "WAWebAudioDeviceManager",
-                ).coalescedEnumerateDevices(l),
-                p = m
-                  .filter(function (e) {
-                    return e.kind === "videoinput";
-                  })
-                  .map(function (e) {
-                    return {
-                      deviceId: e.deviceId,
-                      label: e.label || "Camera " + e.deviceId.slice(0, 8),
-                    };
-                  });
+        (ot = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e === void 0 ? {} : e,
+            n = t.isInActiveCall,
+            r = t.skipPermissionRequest,
+            a = t.targetWindow;
+          try {
+            var i,
+              l,
+              s =
+                n === !0 &&
+                !o("WAWebUA").UA.isFirefox &&
+                !o("WAWebUA").UA.isSafari,
+              u = s
+                ? navigator.mediaDevices
+                : (i =
+                      a == null || (l = a.navigator) == null
+                        ? void 0
+                        : l.mediaDevices) != null
+                  ? i
+                  : navigator.mediaDevices;
+            if (!(u != null && u.enumerateDevices))
               return (
-                o("WALogger").LOG(
-                  H ||
-                    (H = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:getAvailableVideoDevices] loaded ",
-                      "\n      video devices",
+                o("WALogger").ERROR(
+                  V ||
+                    (V = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:getAvailableVideoDevices] mediaDevices API not supported",
                     ])),
-                  p.length,
                 ),
-                p
-              );
-            } catch (e) {
-              return (
-                (!(e instanceof Error) || !e.name.includes("NotAllowed")) &&
-                  o("WALogger").ERROR(
-                    G ||
-                      (G = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:getAvailableVideoDevices] error loading devices: ",
-                        "",
-                      ])),
-                    e,
-                  ),
                 []
               );
+            var c = r === !0 || (o("WAWebUA").UA.isSafari && n === !0),
+              d = o("WAWebUA").UA.isFirefox && a != null;
+            if (!(s || c)) {
+              if (!J()) {
+                var m = d
+                    ? { granted: !1 }
+                    : yield o(
+                        "WAWebMediaPermissionsUtils",
+                      ).checkMediaPermissionState(
+                        "camera",
+                        a == null ? void 0 : a.navigator,
+                      ),
+                  p = m.granted;
+                if (!p)
+                  try {
+                    yield te(u);
+                  } catch (e) {
+                    if (n !== !0) throw e;
+                  }
+              }
             }
-          },
-        )),
+            var _ = yield o(
+                "WAWebAudioDeviceManager",
+              ).coalescedEnumerateDevices(u),
+              f = _.filter(function (e) {
+                return e.kind === "videoinput";
+              }).map(function (e) {
+                return {
+                  deviceId: e.deviceId,
+                  label: e.label || "Camera " + e.deviceId.slice(0, 8),
+                };
+              });
+            return (
+              o("WALogger").LOG(
+                H ||
+                  (H = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:getAvailableVideoDevices] loaded ",
+                    "\n      video devices",
+                  ])),
+                f.length,
+              ),
+              f
+            );
+          } catch (e) {
+            return (
+              (!(e instanceof Error) || !e.name.includes("NotAllowed")) &&
+                o("WALogger").ERROR(
+                  G ||
+                    (G = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:getAvailableVideoDevices] error loading devices: ",
+                      "",
+                    ])),
+                  e,
+                ),
+              []
+            );
+          }
+        })),
         ot.apply(this, arguments)
       );
     }
@@ -1424,7 +1424,11 @@ __d(
       return (
         (st = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield rt(t, n, r);
+            var a = yield rt({
+              isInActiveCall: n,
+              skipPermissionRequest: r,
+              targetWindow: t,
+            });
             return a.some(function (t) {
               return t.deviceId === e;
             })

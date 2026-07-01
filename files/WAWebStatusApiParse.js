@@ -1,6 +1,6 @@
 __d(
   "WAWebStatusApiParse",
-  ["$InternalEnum", "WAWebApiParseUtils", "WAWebPonyfillsUrlSearchParams"],
+  ["$InternalEnum", "WAWebApiParseUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "status",
@@ -13,20 +13,18 @@ __d(
     function m(t) {
       try {
         var n = new URL(t),
-          a = n.pathname;
+          r = n.pathname;
         if (!o("WAWebApiParseUtils").isWhatsappHost(n)) return null;
-        var i = a.split("/"),
-          l = i[0],
-          m = i[1],
-          p = babelHelpers.arrayLikeToArray(i).slice(2);
-        if (!d(p) || m !== e) return null;
-        var _ =
-            n.searchParams ||
-            new (r("WAWebPonyfillsUrlSearchParams"))(n.search),
-          f = _.get(s);
-        if (f != null) return { postType: c.Text, url: n.href };
-        var g = _.get(u);
-        if (g != null) return { postType: c.Media, url: n.href };
+        var a = r.split("/"),
+          i = a[0],
+          l = a[1],
+          m = babelHelpers.arrayLikeToArray(a).slice(2);
+        if (!d(m) || l !== e) return null;
+        var p = n.searchParams || new URLSearchParams(n.search),
+          _ = p.get(s);
+        if (_ != null) return { postType: c.Text, url: n.href };
+        var f = p.get(u);
+        if (f != null) return { postType: c.Media, url: n.href };
       } catch (e) {}
       return null;
     }

@@ -17,11 +17,14 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebScheduledMsgConstants",
     "WAWebScheduledMsgLimitDialog.react",
+    "WAWebScheduledMsgRevealKeyStore",
+    "WAWebScheduledMsgStore",
     "WAWebSendMsgRecordAction",
     "WAWebSendTextMsgChatAction",
     "WAWebStateUtils",
     "WAWebViewMode.flow",
     "WAWebWamMsgUtils",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -52,6 +55,16 @@ __d(
                 l,
               );
             if (m != null) {
+              if (
+                yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(
+                  o("WAWebWidToJid").widToChatJid(d.id),
+                )
+              ) {
+                o(
+                  "WAWebScheduledMsgLimitDialog.react",
+                ).showScheduledMsgLimitReachedDialog();
+                return;
+              }
               var _ = babelHelpers.extends({}, m, {
                 isScheduledMsg: !0,
                 scheduledTimestampS: i,
@@ -142,9 +155,12 @@ __d(
                 (f ===
                   o("WAWebScheduledMsgConstants")
                     .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE &&
+                  (yield o(
+                    "WAWebScheduledMsgRevealKeyStore",
+                  ).updateRevealKeyStatus(_.id.toString(), "FAILED"),
                   o(
                     "WAWebScheduledMsgLimitDialog.react",
-                  ).showScheduledMsgLimitReachedDialog(),
+                  ).showScheduledMsgLimitReachedDialog()),
                 c)
               )
                 try {

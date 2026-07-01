@@ -20,102 +20,105 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u, c, d, m, p;
-    function _(e, t, n, r, o) {
+    function _(e) {
       return f.apply(this, arguments);
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a, i) {
-            var l = yield o(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.callCreatorUserWid,
+            r = t.callInfo,
+            a = t.chatId,
+            i = t.id,
+            l = t.viewMode,
+            c = yield o(
               "WAWebVoipCallLogWriteMutex",
             ).WACallLogWriteMutex.acquire();
-            try {
-              var c;
-              if (
-                o("WAWebVoipCallStateUtils").isCallTerminal(t.callState) &&
-                o("WAWebVoipActionWriteCallLogImpl").isCallIdAlreadyProcessed(
-                  t.callId,
-                )
-              ) {
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: skip call link create, terminal+processed ",
-                      "",
-                    ])),
-                  t.callId,
-                );
-                return;
-              }
-              var d = o(
-                "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.getByCallId(t.callId);
-              if (
-                (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: call link ongoing call lookup, token: ",
-                      ", found: ",
-                      "",
-                    ])),
-                  t.linkToken,
-                  d != null,
-                ),
-                d != null)
+          try {
+            var d;
+            if (
+              o("WAWebVoipCallStateUtils").isCallTerminal(r.callState) &&
+              o("WAWebVoipActionWriteCallLogImpl").isCallIdAlreadyProcessed(
+                r.callId,
               )
-                return d;
-              if (t.creatorDeviceJid == null) {
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: skipping call log, creator device jid is null",
-                    ])),
-                );
-                return;
-              }
-              var m = t.creatorDeviceJid,
-                p = {
-                  id: n,
-                  type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
-                  kind: o("WAWebMsgType").MsgKind.CallLog,
-                  viewMode: i,
-                  callOutcome: o(
-                    "WAWebCallLogUtils",
-                  ).getCallOutcomeFromCallState(t.callState),
-                  isVideoCall: t.videoEnabled,
-                  isCallLink: !0,
-                  callLinkToken: (c = t.linkToken) != null ? c : "",
-                  callCreator: m,
-                  from: r,
-                  to: a,
-                  t: o("WATimeUtils").unixTime(),
-                  callDuration: 0,
-                  callParticipants: t.participants.map(function (e) {
-                    return { participant: e.jid, outcome: e.state };
-                  }),
-                  finalCallOutcome: o(
-                    "WAWebCallLogUtils",
-                  ).getCallOutcomeFromCallResultNative(
-                    t.callResult,
-                    t.callDuration,
-                  ),
-                },
-                _ = yield o(
-                  "WAWebVoipActionWriteCallLogImpl",
-                ).writeVoipCallLogMessageImpl(a, p, !1, !0);
-              return (
-                _ != null &&
-                  o(
-                    "WAWebVoipOngoingCallCollection",
-                  ).WAWebVoipOngoingCallCollection.add(_, { merge: !0 }),
-                _
+            ) {
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: skip call link create, terminal+processed ",
+                    "",
+                  ])),
+                r.callId,
               );
-            } finally {
-              l.release();
+              return;
             }
-          },
-        )),
+            var m = o(
+              "WAWebVoipOngoingCallCollection",
+            ).WAWebVoipOngoingCallCollection.getByCallId(r.callId);
+            if (
+              (o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: call link ongoing call lookup, token: ",
+                    ", found: ",
+                    "",
+                  ])),
+                r.linkToken,
+                m != null,
+              ),
+              m != null)
+            )
+              return m;
+            if (r.creatorDeviceJid == null) {
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: skipping call log, creator device jid is null",
+                  ])),
+              );
+              return;
+            }
+            var p = r.creatorDeviceJid,
+              _ = {
+                id: i,
+                type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
+                kind: o("WAWebMsgType").MsgKind.CallLog,
+                viewMode: l,
+                callOutcome: o("WAWebCallLogUtils").getCallOutcomeFromCallState(
+                  r.callState,
+                ),
+                isVideoCall: r.videoEnabled,
+                isCallLink: !0,
+                callLinkToken: (d = r.linkToken) != null ? d : "",
+                callCreator: p,
+                from: n,
+                to: a,
+                t: o("WATimeUtils").unixTime(),
+                callDuration: 0,
+                callParticipants: r.participants.map(function (e) {
+                  return { participant: e.jid, outcome: e.state };
+                }),
+                finalCallOutcome: o(
+                  "WAWebCallLogUtils",
+                ).getCallOutcomeFromCallResultNative(
+                  r.callResult,
+                  r.callDuration,
+                ),
+              },
+              f = yield o(
+                "WAWebVoipActionWriteCallLogImpl",
+              ).writeVoipCallLogMessageImpl(a, _, !1, !0);
+            return (
+              f != null &&
+                o(
+                  "WAWebVoipOngoingCallCollection",
+                ).WAWebVoipOngoingCallCollection.add(f, { merge: !0 }),
+              f
+            );
+          } finally {
+            c.release();
+          }
+        })),
         f.apply(this, arguments)
       );
     }
@@ -172,7 +175,13 @@ __d(
                     e.linkToken,
                   ),
                   C)
-                : _(e, y, l, s, h);
+                : _({
+                    callCreatorUserWid: l,
+                    callInfo: e,
+                    chatId: s,
+                    id: y,
+                    viewMode: h,
+                  });
             if (e.creatorDeviceJid == null) {
               o("WALogger").LOG(
                 m ||

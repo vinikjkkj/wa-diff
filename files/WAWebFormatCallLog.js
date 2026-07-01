@@ -19,7 +19,16 @@ __d(
         f =
           n === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
           m !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
-      return (n && (t = c(r, _, i, f)), t != null ? t : "");
+      return (
+        n &&
+          (t = c({
+            isAdHocGroupCall: r,
+            isMissedCall: _,
+            isOngoing: f,
+            isVideoCall: i,
+          })),
+        t != null ? t : ""
+      );
     }
     function u(e) {
       switch (e) {
@@ -32,16 +41,20 @@ __d(
           return s._(/*BTDS*/ "Missed group call");
       }
     }
-    function c(e, t, n, r) {
-      return t && !r
-        ? e
+    function c(e) {
+      var t = e.isAdHocGroupCall,
+        n = e.isMissedCall,
+        r = e.isOngoing,
+        o = e.isVideoCall;
+      return n && !r
+        ? t
           ? s._(/*BTDS*/ "Missed group call")
-          : n
+          : o
             ? s._(/*BTDS*/ "Missed video call")
             : s._(/*BTDS*/ "Missed voice call")
-        : e
+        : t
           ? s._(/*BTDS*/ "Group call")
-          : n
+          : o
             ? s._(/*BTDS*/ "Video call")
             : s._(/*BTDS*/ "Voice call");
     }

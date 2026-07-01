@@ -9,12 +9,15 @@ __d(
     "WAWebChatlistUtils",
     "WAWebCommandPaletteController",
     "WAWebContact.MenuItem",
+    "WAWebContactSearchGatingUtils",
     "WAWebContactSearchModel",
     "WAWebContactsIcon.react",
+    "WAWebDefaultUserIcon.react",
     "WAWebFlex.react",
     "WAWebFrontendChatGetters",
     "WAWebKeyboardShortcut.react",
     "WAWebLexicalWAWebMenu.react",
+    "WAWebNonContactPushNameSearchModel",
     "WAWebNoop",
     "WAWebPanelRecentIcon.react",
     "WAWebSearchCollection",
@@ -132,7 +135,7 @@ __d(
       return ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0);
     }
     function y(e) {
-      var t = o("react-compiler-runtime").c(28),
+      var t = o("react-compiler-runtime").c(38),
         n = e.section,
         a = o("WAWebCommandPaletteController").useCommandPalette();
       switch (n.type) {
@@ -286,6 +289,59 @@ __d(
             v
           );
         }
+        case "non-contact-pushname": {
+          var S;
+          t[28] === Symbol.for("react.memo_cache_sentinel")
+            ? ((S = u.jsx(f, {
+                title: o(
+                  "WAWebNonContactPushNameSearchModel",
+                ).getNonContactPushNameHeader(),
+                icon: u.jsx(o("WAWebDefaultUserIcon.react").DefaultUserIcon, {
+                  width: 24,
+                  height: 24,
+                }),
+              })),
+              (t[28] = S))
+            : (S = t[28]);
+          var R;
+          if (t[29] !== a || t[30] !== n.results || t[31] !== n.type) {
+            var L;
+            (t[33] !== a || t[34] !== n.type
+              ? ((L = function (t) {
+                  return u.jsx(
+                    r("WAWebContact.MenuItem"),
+                    {
+                      contact: t.data,
+                      onSelect: function () {
+                        (o("WAWebChatlistUtils")
+                          .openOrCreateLatestChat(t.data.id)
+                          .catch(r("WAWebNoop")),
+                          a.closeModal());
+                      },
+                    },
+                    n.type + "-" + t.id,
+                  );
+                }),
+                (t[33] = a),
+                (t[34] = n.type),
+                (t[35] = L))
+              : (L = t[35]),
+              (R = n.results.map(L)),
+              (t[29] = a),
+              (t[30] = n.results),
+              (t[31] = n.type),
+              (t[32] = R));
+          } else R = t[32];
+          var E;
+          return (
+            t[36] !== R
+              ? ((E = u.jsxs(u.Fragment, { children: [S, R] })),
+                (t[36] = R),
+                (t[37] = E))
+              : (E = t[37]),
+            E
+          );
+        }
         default:
           return;
       }
@@ -294,65 +350,142 @@ __d(
       return e.data;
     }
     function b() {
-      var e = o("react-compiler-runtime").c(5),
+      var e = o("react-compiler-runtime").c(7),
         t = o("WAWebCommandPaletteController").useCommandPalette(),
         n;
-      if (t.pluginList != null) {
-        var r = t.pluginList.find(S);
-        r != null && (n = v);
-      }
-      var a;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = u.jsx(g, {})), (e[0] = a))
-        : (a = e[0]);
-      var i;
-      e[1] !== n
-        ? ((i = n != null && u.jsx(n, {})), (e[1] = n), (e[2] = i))
+      if (e[0] !== t.pluginList) {
+        var r;
+        ((n = (r = t.pluginList) == null ? void 0 : r.some(v)),
+          (e[0] = t.pluginList),
+          (e[1] = n));
+      } else n = e[1];
+      var a = n === !0,
+        i;
+      e[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = u.jsx(g, {})), (e[2] = i))
         : (i = e[2]);
       var l;
+      e[3] !== a
+        ? ((l = a && u.jsx(S, {})), (e[3] = a), (e[4] = l))
+        : (l = e[4]);
+      var s;
       return (
-        e[3] !== i
-          ? ((l = u.jsxs(u.Fragment, { children: [a, i] })),
-            (e[3] = i),
-            (e[4] = l))
-          : (l = e[4]),
-        l
+        e[5] !== l
+          ? ((s = u.jsxs(u.Fragment, { children: [i, l] })),
+            (e[5] = l),
+            (e[6] = s))
+          : (s = e[6]),
+        s
       );
     }
-    function v() {
-      return u.jsxs(u.Fragment, {
-        children: [
-          u.jsx(o("WAWebStaticMenuItem.react").MenuSeparator, {}),
-          u.jsxs(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            gap: 16,
-            padding: [8, 24, 16, 24],
-            children: [
-              u.jsx(o("WAWebSparklesIcon.react").SparklesIcon, {
-                iconXstyle: _.tealColor,
-                height: 32,
-                width: 32,
-              }),
-              u.jsxs(r("WDSText.react"), {
-                type: "Body1",
-                colorName: "contentDeemphasized",
-                children: [
-                  "Type ",
-                  u.jsx(o("WAWebKeyboardShortcut.react").KeyboardKey, {
-                    value: "/?",
-                  }),
-                  " to see available plugins",
-                ],
-              }),
-            ],
-          }),
-        ],
-      });
-    }
-    function S(e) {
+    function v(e) {
       return e.plugin.id === "HelpCommandPalettePlugin";
     }
-    function R() {
+    function S() {
+      var e = o("react-compiler-runtime").c(4),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = u.jsx(o("WAWebStaticMenuItem.react").MenuSeparator, {})),
+          (e[0] = t))
+        : (t = e[0]);
+      var n, a;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = [8, 24, 16, 24]),
+          (a = u.jsx(o("WAWebSparklesIcon.react").SparklesIcon, {
+            iconXstyle: _.tealColor,
+            height: 32,
+            width: 32,
+          })),
+          (e[1] = n),
+          (e[2] = a))
+        : ((n = e[1]), (a = e[2]));
+      var i;
+      return (
+        e[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((i = u.jsxs(u.Fragment, {
+              children: [
+                t,
+                u.jsxs(o("WAWebFlex.react").FlexRow, {
+                  align: "center",
+                  gap: 16,
+                  padding: n,
+                  children: [
+                    a,
+                    u.jsxs(r("WDSText.react"), {
+                      type: "Body1",
+                      colorName: "contentDeemphasized",
+                      children: [
+                        "Type ",
+                        u.jsx(o("WAWebKeyboardShortcut.react").KeyboardKey, {
+                          value: "/?",
+                        }),
+                        " to see available plugins",
+                      ],
+                    }),
+                  ],
+                }),
+              ],
+            })),
+            (e[3] = i))
+          : (i = e[3]),
+        i
+      );
+    }
+    function R(e) {
+      var t,
+        n,
+        r,
+        a,
+        i = e.find(function (e) {
+          return e.type === "non-contact-pushname";
+        });
+      if (i == null || i.results.length === 0) return e;
+      var l =
+          (t =
+            (n = e.find(function (e) {
+              return e.type === "chat";
+            })) == null
+              ? void 0
+              : n.results) != null
+            ? t
+            : [],
+        s =
+          (r =
+            (a = e.find(function (e) {
+              return e.type === "contact";
+            })) == null
+              ? void 0
+              : a.results) != null
+            ? r
+            : [],
+        u = new Set(
+          o("WAWebNonContactPushNameSearchModel")
+            .dedupeNonContactPushnames(
+              i.results.map(function (e) {
+                return e.data;
+              }),
+              l.map(function (e) {
+                return e.data;
+              }),
+              s.map(function (e) {
+                return e.data;
+              }),
+            )
+            .map(function (e) {
+              return e.id.toString();
+            }),
+        );
+      return e.map(function (e) {
+        return e === i
+          ? babelHelpers.extends({}, e, {
+              results: e.results.filter(function (e) {
+                return u.has(e.data.id.toString());
+              }),
+            })
+          : e;
+      });
+    }
+    function L() {
       var t = o("react-compiler-runtime").c(10),
         a = o("WAWebCommandPaletteController").useCommandPalette(),
         i;
@@ -364,15 +497,27 @@ __d(
         c = l[1],
         m;
       t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = new (o("WAWebSearchCollection").SearchCollection)([
-            new (o("WAWebSettingSearchModel").SettingSearch)({
-              maxPageLength: 3,
-            }),
-            new (o("WAWebChatSearchModel").ChatSearch)({ maxPageLength: 4 }),
-            new (o("WAWebContactSearchModel").ContactSearch)({
-              maxPageLength: 4,
-            }),
-          ])),
+        ? ((m = new (o("WAWebSearchCollection").SearchCollection)(
+            [
+              new (o("WAWebSettingSearchModel").SettingSearch)({
+                maxPageLength: 3,
+              }),
+              new (o("WAWebChatSearchModel").ChatSearch)({ maxPageLength: 4 }),
+              new (o("WAWebContactSearchModel").ContactSearch)({
+                maxPageLength: 4,
+              }),
+            ].concat(
+              o(
+                "WAWebContactSearchGatingUtils",
+              ).isNonContactPushNameSearchEnabled()
+                ? [
+                    o(
+                      "WAWebNonContactPushNameSearchModel",
+                    ).getNonContactPushNameSearch(),
+                  ]
+                : [],
+            ),
+          )),
           (t[1] = m))
         : (m = t[1]);
       var _ = m,
@@ -405,7 +550,7 @@ __d(
         );
       }
       var y;
-      t[6] !== s ? ((y = s.map(L)), (t[6] = s), (t[7] = y)) : (y = t[7]);
+      t[6] !== s ? ((y = R(s).map(E)), (t[6] = s), (t[7] = y)) : (y = t[7]);
       var C;
       return (
         t[8] !== y
@@ -419,16 +564,16 @@ __d(
         C
       );
     }
-    function L(e) {
+    function E(e) {
       return e.results.length > 0 && u.jsx(y, { section: e }, e.type);
     }
-    var E = {
+    var k = {
       id: "DefaultCommand",
       placeholder: "Search anything",
       shortName: null,
-      Component: R,
+      Component: L,
     };
-    l.DefaultCommandPalettePlugin = E;
+    l.DefaultCommandPalettePlugin = k;
   },
   98,
 );

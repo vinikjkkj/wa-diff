@@ -11,7 +11,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipCallLogPlaceholderTracker",
-    "WAWebVoipSessionTracker",
+    "WAWebVoipPhaseTracker",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,7 +22,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebVoipSessionTracker").beginVoipSession();
+          var t = o("WAWebVoipPhaseTracker").beginPostCallWork();
           try {
             o("WAWebABProps").getABPropConfigValue(
               "enable_web_voip_anr_optimizations",
@@ -138,7 +138,7 @@ __d(
                   "WAWebVoipActionWriteCallLogImpl",
                 ).writeVoipCallLogMessageImpl(S, C, u === !0, u !== !0)));
           } finally {
-            o("WAWebVoipSessionTracker").endVoipSession(t);
+            o("WAWebVoipPhaseTracker").endPostCallWork(t);
           }
         })),
         s.apply(this, arguments)

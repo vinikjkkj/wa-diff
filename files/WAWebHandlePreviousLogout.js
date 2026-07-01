@@ -6,7 +6,6 @@ __d(
     "WAWebLocalStorage",
     "WAWebLocalStorageUtils",
     "WAWebLogoutReason",
-    "WAWebPonyfillsUrlSearchParams",
     "WAWebReloadAfterLogout",
     "WAWebURLUtils",
     "WAWebWAWCInit",
@@ -16,27 +15,26 @@ __d(
     var e, s;
     function u() {
       var e,
-        t = n("WAWebPonyfillsUrlSearchParams"),
-        a = new t((e = window.location.search) != null ? e : ""),
-        i = a.get("logout_reason");
-      i != null && o("WAWebLogoutReason").setPrevLogoutReasonCode(i);
-      var l = a.get("logout_message_header"),
-        s = a.get("logout_message_subtext");
-      (l != null || s != null) &&
+        t = new URLSearchParams((e = window.location.search) != null ? e : ""),
+        n = t.get("logout_reason");
+      n != null && o("WAWebLogoutReason").setPrevLogoutReasonCode(n);
+      var a = t.get("logout_message_header"),
+        i = t.get("logout_message_subtext");
+      (a != null || i != null) &&
         o("WAWebLogoutReason").setPrevCustomLogoutMessage({
-          logoutMessageHeader: l,
-          logoutMessageSubtext: s,
+          logoutMessageHeader: a,
+          logoutMessageSubtext: i,
         });
-      var u = a.get("post_logout") === "1";
-      if (!(!u && i == null) && r("WAWebURLUtils").canMuckHistory()) {
-        for (var c of o("WAWebReloadAfterLogout").POST_LOGOUT_URL_MARKERS)
-          a.delete(c);
-        var d = a.toString(),
-          m =
-            d !== ""
-              ? window.location.pathname + "?" + d
+      var l = t.get("post_logout") === "1";
+      if (!(!l && n == null) && r("WAWebURLUtils").canMuckHistory()) {
+        for (var s of o("WAWebReloadAfterLogout").POST_LOGOUT_URL_MARKERS)
+          t.delete(s);
+        var u = t.toString(),
+          c =
+            u !== ""
+              ? window.location.pathname + "?" + u
               : window.location.pathname;
-        window.history.replaceState({}, document.title, m);
+        window.history.replaceState({}, document.title, c);
       }
     }
     function c() {
@@ -46,8 +44,8 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = o("WAWebLocalStorageUtils").isLogoutDirtyBitSet(),
-            a = o("WAWebLocalStorageUtils").isUserLoggedOut();
-          if (t || a)
+            n = o("WAWebLocalStorageUtils").isUserLoggedOut();
+          if (t || n)
             try {
               (yield o("WAWebIndexedDBPurge").deleteAllIdb(),
                 yield o("WAWebWAWCInit").initWAWC());
@@ -64,11 +62,12 @@ __d(
                 .tags("app-wrapper");
             }
           if (t) {
-            var i,
-              l = n("WAWebPonyfillsUrlSearchParams"),
-              c = new l((i = window.location.search) != null ? i : "");
+            var a,
+              i = new URLSearchParams(
+                (a = window.location.search) != null ? a : "",
+              );
             (r("WAWebLocalStorage") == null || r("WAWebLocalStorage").clear(),
-              c.set("post_logout", "1"),
+              i.set("post_logout", "1"),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -76,7 +75,7 @@ __d(
                   ])),
               ),
               (window.location.href =
-                window.location.pathname + "?" + c.toString()));
+                window.location.pathname + "?" + i.toString()));
           }
           u();
         })),

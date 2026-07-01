@@ -191,20 +191,17 @@ __d(
           var t,
             n,
             a = Math.min(
-              (t = e == null ? void 0 : e.messageFirst) != null ? t : I,
+              (t = e == null ? void 0 : e.numMsgs) != null ? t : I,
               D,
             ),
             i = Math.min(
-              (n = e == null ? void 0 : e.threadFirst) != null ? n : T,
+              (n = e == null ? void 0 : e.numThreads) != null ? n : T,
               x,
             );
           try {
             var l = yield o(
                 "WAWebDebugLabyrinthInboxSnapshotQuery",
-              ).fetchLabyrinthInboxSnapshot({
-                messageFirst: a,
-                threadFirst: i,
-              }),
+              ).fetchLabyrinthInboxSnapshot({ numMsgs: a, numThreads: i }),
               s = l == null ? null : yield w(l, P());
             return (
               o("WALogger").LOG(

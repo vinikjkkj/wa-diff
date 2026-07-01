@@ -7,7 +7,6 @@ __d(
     "WAWebMediaHostsUtil",
     "WAWebMiscErrors",
     "WAWebPonyfillsFetch",
-    "WAWebPonyfillsUrlSearchParams",
     "WAWebStickerCommonQueryToStaticServerWamEvent",
     "WAWebStickerModel",
     "WAWebStickerUtils",
@@ -65,7 +64,7 @@ __d(
             (b.markQueryLatencyMs(),
             b.set({
               httpResponseCode: v.status,
-              params: new (r("WAWebPonyfillsUrlSearchParams"))(f).toString(),
+              params: new URLSearchParams(f).toString(),
               queryType: o("WAWebWamEnumQueryType").QUERY_TYPE.STICKER_SEARCH,
             }),
             b.commit(),

@@ -45,10 +45,10 @@ __d(
               }),
               retryCount: t.retryCount,
               editType: o("WAWebBackendJobsCommon").getMetricEditType(i.edit),
-              botType: o("WAWebWamMsgUtils").getWamBotType(
-                u,
-                a == null ? void 0 : a.bizBotType,
-              ),
+              botType: o("WAWebWamMsgUtils").getWamBotType({
+                chatId: u,
+                bizBotType: a == null ? void 0 : a.bizBotType,
+              }),
               sessionScope: o(
                 "WAWebSessionScopeWamUtils",
               ).sessionScopeToWamType(

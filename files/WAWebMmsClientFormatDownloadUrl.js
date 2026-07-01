@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebMmsClientFormatHashUrl",
-    "WAWebPonyfillsUrlSearchParams",
     "WAWebSharedConstants",
     "err",
     "isStringNullOrEmpty",
@@ -98,8 +97,7 @@ __d(
             .sendLogs("malicious directPath"),
           r("err")("malicious directPath")
         );
-      var d =
-        c.searchParams || new (r("WAWebPonyfillsUrlSearchParams"))(c.search);
+      var d = c.searchParams || new URLSearchParams(c.search);
       (a != null &&
         a !== "" &&
         d.set("hash", o("WABase64UrlSafe").urlSafeBase64(a)),

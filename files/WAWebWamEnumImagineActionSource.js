@@ -28,6 +28,7 @@ __d(
       FORWARD: 22,
       DEEP_LINK: 23,
       AI_TAB: 24,
+      AI_SEASONAL_UPSELL: 25,
     });
     i.IMAGINE_ACTION_SOURCE = e;
   },

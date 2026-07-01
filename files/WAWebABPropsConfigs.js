@@ -201,6 +201,7 @@ __d(
       ai_rich_response_reasoning_enabled: [15589, "bool", !1, !1],
       ai_rich_response_remove_grouped_citations_count: [31010, "bool", !1, !1],
       ai_rich_response_side_by_side_survey_enabled: [17408, "bool", !1, !1],
+      ai_rich_response_tee_forward_sending_enabled: [32683, "bool", !1, !1],
       ai_rich_response_tee_forwarding_verification_enforcement_v1: [
         32551,
         "string",
@@ -864,12 +865,18 @@ __d(
         !1,
       ],
       ctwa_native_ads_detailed_targeting: [32487, "bool", !1, !1],
+      ctwa_native_ads_inline_notice_modules: [
+        32701,
+        "string",
+        "AdsLWICTWAZeroOutcomeAdValidationModule,AdsLWICTWASimilarAdvertiserBudgetRecommendationValidationModule",
+        "AdsLWICTWAZeroOutcomeAdValidationModule,AdsLWICTWASimilarAdvertiserBudgetRecommendationValidationModule",
+      ],
       ctwa_native_web_draft_ad_enabled: [28989, "bool", !1, !1],
       ctwa_per_customer_data_sharing_controls_do_not_show_msg_until_chosen: [
         19763,
         "bool",
         !1,
-        !0,
+        !1,
       ],
       ctwa_show_ads_data_sharing_after_message: [13579, "bool", !1, !0],
       ctwa_smb_data_sharing_consent: [2934, "bool", !1, !0],
@@ -2980,6 +2987,7 @@ __d(
       web_enable_camera_capture_refresh: [28316, "bool", !1, !1],
       web_enable_improved_bulk_merge: [19854, "bool", !1, !0],
       web_enable_profile_pic_thumb_db_caching: [2018, "bool", !1, !1],
+      web_evict_thumbnail_hq_on_inactive: [32702, "bool", !1, !0],
       web_evolve_about_send_enabled: [5347, "bool", !1, !1],
       web_fix_duplicated_lids_history_sync: [19994, "bool", !1, !1],
       web_force_lid_chats_in_history: [24343, "bool", !0, !0],
@@ -3107,7 +3115,6 @@ __d(
       web_send_orphan_in_receipts_enabled: [31114, "bool", !1, !0],
       web_shop_storefront_message: [1053, "bool", !1, !1],
       web_show_to_hide_enabled: [27958, "bool", !1, !1],
-      web_signal_auto_acknowledge_stale_sessions: [17987, "bool", !1, !1],
       web_signal_future_messages_max: [12509, "int", 2e4, 2e4],
       web_signal_prevent_old_session_lookup_and_promote: [
         17988,

@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipActivityTracker",
-  ["$InternalEnum", "WALogger", "WAWebVoipSessionTracker"],
+  ["$InternalEnum", "WALogger", "WAWebVoipPhaseTracker"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -136,7 +136,7 @@ __d(
         (k = Date.now()),
         (I = null),
         (E = !0),
-        o("WAWebVoipSessionTracker").openVoipSession(y),
+        o("WAWebVoipPhaseTracker").notePreCallStart(y),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -230,7 +230,7 @@ __d(
         (L = null),
         (I = null),
         (E = !1),
-        e && o("WAWebVoipSessionTracker").closeVoipSession(y),
+        e && o("WAWebVoipPhaseTracker").notePreCallEnd(y),
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([

@@ -4,36 +4,31 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = {
-          defaultValue: null,
-          kind: "LocalArgument",
-          name: "messageFirst",
-        },
-        t = { defaultValue: null, kind: "LocalArgument", name: "threadFirst" },
-        n = [{ kind: "Variable", name: "first", variableName: "threadFirst" }],
-        r = {
+      var e = [{ defaultValue: null, kind: "LocalArgument", name: "params" }],
+        t = [{ kind: "Variable", name: "params", variableName: "params" }],
+        n = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        o = [{ kind: "Variable", name: "first", variableName: "messageFirst" }],
-        a = {
+        r = [n],
+        o = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "encrypted_payload",
           storageKey: null,
         },
-        i = {
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "encryption_version",
           storageKey: null,
         },
-        l = {
+        i = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -42,7 +37,7 @@ __d(
         };
       return {
         fragment: {
-          argumentDefinitions: [e, t],
+          argumentDefinitions: e,
           kind: "Fragment",
           metadata: null,
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
@@ -57,51 +52,38 @@ __d(
               selections: [
                 {
                   alias: null,
-                  args: n,
-                  concreteType: null,
+                  args: t,
+                  concreteType: "WAMailboxSnapshotResponse",
                   kind: "LinkedField",
-                  name: "threads",
+                  name: "snapshot_threads_with_messages",
                   plural: !1,
                   selections: [
                     {
                       alias: null,
                       args: null,
-                      concreteType: null,
+                      concreteType: "WAMailboxSnapshotItemWithMessages",
                       kind: "LinkedField",
-                      name: "nodes",
+                      name: "items_with_messages",
                       plural: !0,
                       selections: [
-                        r,
                         {
                           alias: null,
-                          args: o,
+                          args: null,
+                          concreteType: null,
+                          kind: "LinkedField",
+                          name: "item",
+                          plural: !1,
+                          selections: r,
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
                           concreteType: null,
                           kind: "LinkedField",
                           name: "messages",
-                          plural: !1,
-                          selections: [
-                            {
-                              alias: null,
-                              args: null,
-                              concreteType: null,
-                              kind: "LinkedField",
-                              name: "edges",
-                              plural: !0,
-                              selections: [
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType: null,
-                                  kind: "LinkedField",
-                                  name: "node",
-                                  plural: !1,
-                                  selections: [a, i, r],
-                                  storageKey: null,
-                                },
-                              ],
-                              storageKey: null,
-                            },
-                          ],
+                          plural: !0,
+                          selections: [o, a, n],
                           storageKey: null,
                         },
                       ],
@@ -119,7 +101,7 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [t, e],
+          argumentDefinitions: e,
           kind: "Operation",
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
           selections: [
@@ -131,58 +113,48 @@ __d(
               name: "get_wa_mailbox",
               plural: !1,
               selections: [
-                l,
+                i,
                 {
                   alias: null,
-                  args: n,
-                  concreteType: null,
+                  args: t,
+                  concreteType: "WAMailboxSnapshotResponse",
                   kind: "LinkedField",
-                  name: "threads",
+                  name: "snapshot_threads_with_messages",
                   plural: !1,
                   selections: [
-                    l,
                     {
                       alias: null,
                       args: null,
-                      concreteType: null,
+                      concreteType: "WAMailboxSnapshotItemWithMessages",
                       kind: "LinkedField",
-                      name: "nodes",
+                      name: "items_with_messages",
                       plural: !0,
                       selections: [
-                        l,
-                        r,
                         {
                           alias: null,
-                          args: o,
+                          args: null,
+                          concreteType: null,
+                          kind: "LinkedField",
+                          name: "item",
+                          plural: !1,
+                          selections: [
+                            i,
+                            {
+                              kind: "TypeDiscriminator",
+                              abstractKey: "__isWAMessagingViewerThread",
+                            },
+                            n,
+                          ],
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
                           concreteType: null,
                           kind: "LinkedField",
                           name: "messages",
-                          plural: !1,
-                          selections: [
-                            l,
-                            {
-                              alias: null,
-                              args: null,
-                              concreteType: null,
-                              kind: "LinkedField",
-                              name: "edges",
-                              plural: !0,
-                              selections: [
-                                l,
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType: null,
-                                  kind: "LinkedField",
-                                  name: "node",
-                                  plural: !1,
-                                  selections: [l, a, i, r],
-                                  storageKey: null,
-                                },
-                              ],
-                              storageKey: null,
-                            },
-                          ],
+                          plural: !0,
+                          selections: [i, o, a, n],
                           storageKey: null,
                         },
                       ],
@@ -193,7 +165,7 @@ __d(
                 },
                 {
                   kind: "InlineFragment",
-                  selections: [r],
+                  selections: r,
                   type: "WALabyrinthAccount",
                   abstractKey: null,
                 },
@@ -203,7 +175,7 @@ __d(
           ],
         },
         params: {
-          id: "27702565322674924",
+          id: "27416732057922291",
           metadata: {},
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
           operationKind: "query",

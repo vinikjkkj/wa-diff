@@ -24,10 +24,10 @@ __d(
           isLid: t.isLid(),
           retryCount: n,
           editType: l,
-          botType: o("WAWebWamMsgUtils").getWamBotType(
-            t,
-            a == null ? void 0 : a.bizBotType,
-          ),
+          botType: o("WAWebWamMsgUtils").getWamBotType({
+            chatId: t,
+            bizBotType: a == null ? void 0 : a.bizBotType,
+          }),
           sessionScope: o("WAWebSessionScopeWamUtils").sessionScopeToWamType(s),
         }),
         c = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(t);

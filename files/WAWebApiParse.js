@@ -14,7 +14,6 @@ __d(
     "WAWebNewsletterStatusApiParse",
     "WAWebPaymentLinkUrlMetaData",
     "WAWebPhoneNumberSearch",
-    "WAWebPonyfillsUrlSearchParams",
     "WAWebRegistrationCampaignConstants",
     "WAWebStatusApiParse",
     "WAWebUsernameGatingUtils",
@@ -179,7 +178,7 @@ __d(
       var n = {},
         a = !1;
       if (
-        (new (r("WAWebPonyfillsUrlSearchParams"))(e).forEach(function (e, t) {
+        (new URLSearchParams(e).forEach(function (e, t) {
           var r = S(t.toLowerCase());
           if (r != null)
             switch (r) {
@@ -266,7 +265,7 @@ __d(
     function A(e) {
       var t = e.match(P);
       if (!t) return null;
-      var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]),
+      var n = new URLSearchParams(t[1]),
         a = n.get("lid");
       if (r("isStringNullOrEmpty")(a))
         return { resultType: o("WAWebApi").APICmd.INVALID };
@@ -288,7 +287,7 @@ __d(
     function O(e) {
       var t = e.match(M);
       if (!t) return null;
-      var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]),
+      var n = new URLSearchParams(t[1]),
         a = n.get("session");
       return babelHelpers.extends(
         { resultType: o("WAWebApi").APICmd.APP_OPEN },
@@ -298,7 +297,7 @@ __d(
     function B(e) {
       var t = e.match(w);
       if (!t) return null;
-      var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]),
+      var n = new URLSearchParams(t[1]),
         a = n.get("code"),
         i = n.get("state");
       return r("isStringNullOrEmpty")(a) || r("isStringNullOrEmpty")(i)
@@ -531,9 +530,7 @@ __d(
     function Ke(e) {
       var t = e.match(je);
       if (t) {
-        var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]).get(
-          "entrypoint",
-        );
+        var n = new URLSearchParams(t[1]).get("entrypoint");
         return { url: "/", entrypointType: n };
       }
     }
@@ -543,12 +540,12 @@ __d(
       return (r != null && (n.partnertoken = r), n);
     }
     function Xe(e) {
-      var t = new (r("WAWebPonyfillsUrlSearchParams"))(e),
+      var t = new URLSearchParams(e),
         n = t.get(C),
-        o = t.get(b);
-      if (o == null && n == null) return null;
-      var a = {};
-      return (n != null && (a.source = n), o != null && (a.campaign = o), a);
+        r = t.get(b);
+      if (r == null && n == null) return null;
+      var o = {};
+      return (n != null && (o.source = n), r != null && (o.campaign = r), o);
     }
     function Ye(e) {
       var t = e.match(Fe) || e.match(Oe);
@@ -588,13 +585,13 @@ __d(
       if (t) return { url: "/" };
     }
     function tt(e) {
-      var t = new (r("WAWebPonyfillsUrlSearchParams"))(e),
+      var t = new URLSearchParams(e),
         n = t.get("wa_campaign_id");
       if (!(n == null || n === "")) {
-        var o = t.get("wa_campaign_type");
-        return o == null || o === ""
+        var r = t.get("wa_campaign_type");
+        return r == null || r === ""
           ? null
-          : { campaignId: n, campaignType: o };
+          : { campaignId: n, campaignType: r };
       }
     }
     function nt(e) {
@@ -778,11 +775,11 @@ __d(
     function Dt(e) {
       var t = e.indexOf("?");
       if (t === -1) return null;
-      var n = new (r("WAWebPonyfillsUrlSearchParams"))(e.slice(t));
+      var n = new URLSearchParams(e.slice(t));
       if (n.get("cmd") !== "call_link") return null;
-      var a = n.get("call_type"),
-        i = n.get("call_token");
-      if ((a !== "video" && a !== "voice") || i == null || i === "")
+      var r = n.get("call_type"),
+        a = n.get("call_token");
+      if ((r !== "video" && r !== "voice") || a == null || a === "")
         return null;
       o("WALogger").LOG(
         c ||
@@ -792,10 +789,10 @@ __d(
           ])),
         e,
       );
-      var l = Tt(n);
+      var i = Tt(n);
       return {
         resultType: "CALL_LINK",
-        data: babelHelpers.extends({ token: i, callType: a }, l),
+        data: babelHelpers.extends({ token: a, callType: r }, i),
       };
     }
     function xt(e) {
@@ -822,54 +819,54 @@ __d(
       var t = e.match(Te);
       if (t && t[0]) {
         var n = new URL(e),
-          a = new (r("WAWebPonyfillsUrlSearchParams"))(n.search),
-          i = a.get("g"),
-          l = a.get("pn"),
-          s = a.get("prov_num"),
-          u = null;
+          r = new URLSearchParams(n.search),
+          a = r.get("g"),
+          i = r.get("pn"),
+          l = r.get("prov_num"),
+          s = null;
         return (
-          i === "0"
-            ? (u = o(
+          a === "0"
+            ? (s = o(
                 "WAWebRegistrationCampaignConstants",
               ).WHATSAPP_DOT_COM_REG_EXP_CONTROL)
-            : i === "1"
-              ? (u = o(
+            : a === "1"
+              ? (s = o(
                   "WAWebRegistrationCampaignConstants",
                 ).WHATSAPP_DOT_COM_REG_EXP_FLOW_1)
-              : i === "2" &&
-                (u = o(
+              : a === "2" &&
+                (s = o(
                   "WAWebRegistrationCampaignConstants",
                 ).WHATSAPP_DOT_COM_REG_EXP_FLOW_2),
-          l != null && l.length > 0 && /^\d{10}$/.test(l)
+          i != null && i.length > 0 && /^\d{10}$/.test(i)
             ? babelHelpers.extends(
                 {
                   referrer: "wacom",
                   url: "/",
-                  phoneNumberWithoutCountryCode: l,
+                  phoneNumberWithoutCountryCode: i,
                 },
-                s != null && { providerNumber: s },
-                { group: u },
+                l != null && { providerNumber: l },
+                { group: s },
               )
             : babelHelpers.extends(
                 { referrer: "wacom", url: "/" },
-                s != null && { providerNumber: s },
-                { group: u },
+                l != null && { providerNumber: l },
+                { group: s },
               )
         );
       }
     }
     function Nt() {
-      var e = new (r("WAWebPonyfillsUrlSearchParams"))(window.location.search),
+      var e = new URLSearchParams(window.location.search),
         t = e.get("work_contact_sync_data");
       return t != null && t !== "" ? { compressedData: t } : null;
     }
     function Mt(e) {
       var t = e.match(q);
       if (!t) return null;
-      var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[2]);
+      var n = new URLSearchParams(t[2]);
       if (!n.has("session_id")) return null;
-      var a = n.get("session_id");
-      if (a == null || a.trim() === "")
+      var r = n.get("session_id");
+      if (r == null || r.trim() === "")
         return (
           o("WALogger")
             .LOG(
@@ -881,10 +878,10 @@ __d(
             .sendLogs("send-file-invalid-session-id"),
           null
         );
-      var i = n.get("utm_campaign");
+      var a = n.get("utm_campaign");
       return {
-        sessionId: a != null ? a : void 0,
-        utmCampaign: i != null ? i : void 0,
+        sessionId: r != null ? r : void 0,
+        utmCampaign: a != null ? a : void 0,
       };
     }
     function wt(e, t) {
@@ -1053,7 +1050,7 @@ __d(
       if (e.match($)) return { resultType: o("WAWebApi").APICmd.NEW_CHAT };
       var Y = e.match(W);
       if (Y) {
-        var J = new (r("WAWebPonyfillsUrlSearchParams"))(Y[1]),
+        var J = new URLSearchParams(Y[1]),
           Z = J.get("phone"),
           ee = J.get("lid"),
           te = J.get("video") === "true",

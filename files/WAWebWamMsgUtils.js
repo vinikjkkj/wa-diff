@@ -3,6 +3,7 @@ __d(
   [
     "WAWebApiParse",
     "WAWebBotTypes",
+    "WAWebBotUtils",
     "WAWebHandleMsgCommon",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -195,19 +196,23 @@ __d(
             .INVOKED
         : null;
     }
-    function f(e, t, n) {
-      if (e != null && e.isBot())
-        return o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
-      if (t) {
-        if (t === o("WAWebBotTypes").BizBotType.BIZ_1P)
+    function f(e) {
+      var t = e.automatedType,
+        n = e.bizBotType,
+        r = e.chatId;
+      if (o("WAWebBotUtils").isHatchBot(r))
+        return o("WAWebWamEnumBotType").BOT_TYPE.HATCH;
+      if (r.isBot()) return o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
+      if (n) {
+        if (n === o("WAWebBotTypes").BizBotType.BIZ_1P)
           return o("WAWebWamEnumBotType").BOT_TYPE.BOT_1P_BIZ;
-        if (t === o("WAWebBotTypes").BizBotType.BIZ_3P)
+        if (n === o("WAWebBotTypes").BizBotType.BIZ_3P)
           return o("WAWebWamEnumBotType").BOT_TYPE.BOT_3P_BIZ;
       }
-      if (n) {
-        if (n === o("WAWebBotTypes").BizBotAutomatedType.PARTIAL_1P)
+      if (t) {
+        if (t === o("WAWebBotTypes").BizBotAutomatedType.PARTIAL_1P)
           return o("WAWebWamEnumBotType").BOT_TYPE.BOT_1P_BIZ;
-        if (n === o("WAWebBotTypes").BizBotAutomatedType.FULL_3P)
+        if (t === o("WAWebBotTypes").BizBotAutomatedType.FULL_3P)
           return o("WAWebWamEnumBotType").BOT_TYPE.BOT_3P_BIZ;
       }
       return o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;

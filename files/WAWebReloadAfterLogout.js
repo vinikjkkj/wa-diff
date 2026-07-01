@@ -1,11 +1,6 @@
 __d(
   "WAWebReloadAfterLogout",
-  [
-    "WALogger",
-    "WAWebLogoutReason",
-    "WAWebLogoutReasonConstants",
-    "WAWebPonyfillsUrlSearchParams",
-  ],
+  ["WALogger", "WAWebLogoutReason", "WAWebLogoutReasonConstants"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = [
@@ -14,24 +9,24 @@ __d(
         "logout_message_header",
         "logout_message_subtext",
       ];
-    function u(t, n, a) {
-      var i;
+    function u(t, n, r) {
+      var a;
       t === void 0 && (t = !1);
-      var l = new (r("WAWebPonyfillsUrlSearchParams"))(
-        (i = window.location.search) != null ? i : "",
+      var i = new URLSearchParams(
+        (a = window.location.search) != null ? a : "",
       );
-      for (var u of s) l.delete(u);
-      if ((l.set("post_logout", "1"), n)) {
-        var c = o("WAWebLogoutReason").getErrorCodeFromLogoutReason(n);
+      for (var l of s) i.delete(l);
+      if ((i.set("post_logout", "1"), n)) {
+        var u = o("WAWebLogoutReason").getErrorCodeFromLogoutReason(n);
         if (
-          (c && l.set("logout_reason", c),
+          (u && i.set("logout_reason", u),
           n === o("WAWebLogoutReasonConstants").LogoutReason.AccountLocked &&
-            a != null)
+            r != null)
         ) {
-          var d = a.logoutMessageHeader,
-            m = a.logoutMessageSubtext;
-          (d != null && l.set("logout_message_header", d),
-            m != null && l.set("logout_message_subtext", m));
+          var c = r.logoutMessageHeader,
+            d = r.logoutMessageSubtext;
+          (c != null && i.set("logout_message_header", c),
+            d != null && i.set("logout_message_subtext", d));
         }
       }
       (o("WALogger").LOG(
@@ -42,7 +37,7 @@ __d(
           ])),
         t,
       ),
-        (window.location.href = window.location.pathname + "?" + l.toString()));
+        (window.location.href = window.location.pathname + "?" + i.toString()));
     }
     ((l.POST_LOGOUT_URL_MARKERS = s), (l.reloadAfterLogout = u));
   },

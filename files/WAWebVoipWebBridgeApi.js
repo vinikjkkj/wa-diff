@@ -211,7 +211,13 @@ __d(
                   : o("WAWebVoipActivityTracker").VoipActivity
                       .RECEIVED_INCOMING_AUDIO_CALL,
               ),
-          r("WAWebIncomingOfferNoticeVoipHandlerAction")(u, a, s, l, i));
+          r("WAWebIncomingOfferNoticeVoipHandlerAction")({
+            callCreator: u,
+            callId: a,
+            isGroup: i,
+            isVideo: l,
+            offerTime: s,
+          }));
       },
       initializeVoipWasm: function () {
         if (r("WAWebEnvironment").isWindows)

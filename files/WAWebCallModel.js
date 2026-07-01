@@ -473,6 +473,8 @@ __d(
                   !this.userEndedCall &&
                   !o("WAWebVoipCallStateUtils").isCallConnecting(a) &&
                   !o("WAWebVoipCallStateUtils").isCallConnected(a) &&
+                  this.callLogResult !==
+                    o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere &&
                   r("WAWebCallNotificationBus").trigger("missed_call", e);
               }
             }

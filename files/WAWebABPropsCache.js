@@ -11,7 +11,6 @@ __d(
     "WAWebBackendWorkerInitState",
     "WAWebGroupABPropsCache",
     "WAWebRuntimeEnvironmentUtils",
-    "cr:4941",
     "err",
     "gkx",
   ],
@@ -20,11 +19,10 @@ __d(
       s,
       u = null;
     function c() {
-      if (!n("cr:4941")) return null;
       var e = window.location.search;
       if (u == null || u.search !== e) {
         var t = new Map();
-        (new (n("cr:4941"))(e).forEach(function (e, n) {
+        (new URLSearchParams(e).forEach(function (e, n) {
           t.has(n) || t.set(n, e);
         }),
           (u = { search: e, params: t }));

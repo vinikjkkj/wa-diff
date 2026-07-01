@@ -13,6 +13,7 @@ __d(
                 3,
                 o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE,
               ],
+              hitlIsMulti: [6, e.TYPES.BOOLEAN],
               rawBotEntryPoint: [5, e.TYPES.STRING],
               unifiedSessionId: [4, e.TYPES.STRING],
             },

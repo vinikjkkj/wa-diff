@@ -5,7 +5,6 @@ __d(
     "WAWebL10NCountryCodes",
     "WAWebMiscErrors",
     "WAWebPonyfillsFetch",
-    "WAWebPonyfillsUrlSearchParams",
     "WAWebRecentStickerCollectionMd",
     "WAWebStickerCommonQueryToStaticServerWamEvent",
     "WAWebStickerUtils",
@@ -34,7 +33,7 @@ __d(
             (s.markQueryLatencyMs(),
             s.set({
               httpResponseCode: u.status,
-              params: new (r("WAWebPonyfillsUrlSearchParams"))(i).toString(),
+              params: new URLSearchParams(i).toString(),
               queryType: o("WAWebWamEnumQueryType").QUERY_TYPE
                 .STICKER_PACK_DATA,
             }),
