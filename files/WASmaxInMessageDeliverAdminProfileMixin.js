@@ -3,33 +3,46 @@ __d(
   ["WAResultOrError", "WASmaxParseUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("WASmaxParseUtils").assertTag(e, "admin_profile");
+      var t = o("WASmaxParseUtils").assertTag(e, "name");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "name");
+      var n = o("WASmaxParseUtils").contentString(e);
+      return n.success
+        ? o("WAResultOrError").makeResult({ elementValue: n.value })
+        : n;
+    }
+    function s(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "picture");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrString(e, "id");
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "picture");
+      var r = o("WASmaxParseUtils").attrString(e, "direct_path");
+      return r.success
+        ? o("WAResultOrError").makeResult({ id: n.value, directPath: r.value })
+        : r;
+    }
+    function u(t) {
+      var n = o("WASmaxParseUtils").assertTag(t, "admin_profile");
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").optionalChildWithTag(t, "name", e);
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optional(
+      var a = o("WASmaxParseUtils").optionalChildWithTag(t, "picture", s);
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrString,
-        e,
+        t,
         "id",
       );
-      if (!a.success) return a;
-      var i = o("WASmaxParseUtils").contentString(n.value);
-      if (!i.success) return i;
-      var l = o("WASmaxParseUtils").attrString(r.value, "id");
-      if (!l.success) return l;
-      var s = o("WASmaxParseUtils").attrString(r.value, "direct_path");
-      return s.success
+      return i.success
         ? o("WAResultOrError").makeResult({
-            id: a.value,
-            nameElementValue: i.value,
-            pictureId: l.value,
-            pictureDirectPath: s.value,
+            id: i.value,
+            name: r.value,
+            picture: a.value,
           })
-        : s;
+        : i;
     }
-    l.parseAdminProfileMixin = e;
+    ((l.parseAdminProfileName = e),
+      (l.parseAdminProfilePicture = s),
+      (l.parseAdminProfileMixin = u));
   },
   98,
 );

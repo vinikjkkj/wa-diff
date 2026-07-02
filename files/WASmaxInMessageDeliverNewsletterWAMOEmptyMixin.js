@@ -4,7 +4,7 @@ __d(
     "WAResultOrError",
     "WASmaxInMessageDeliverAdminEditMixin",
     "WASmaxInMessageDeliverAdminRevokeMixin",
-    "WASmaxInMessageDeliverContentTypeTextOrMediaOrPollCreationOrQuizCreationMixinGroup",
+    "WASmaxInMessageDeliverNewsletterWamoEmptyContent",
     "WASmaxInMessageDeliverWAMOSubMixin",
     "WASmaxParseUtils",
   ],
@@ -21,15 +21,14 @@ __d(
         ),
         i = o("WASmaxInMessageDeliverAdminEditMixin").parseAdminEditMixin(e),
         l = o(
-          "WASmaxInMessageDeliverContentTypeTextOrMediaOrPollCreationOrQuizCreationMixinGroup",
-        ).parseContentTypeTextOrMediaOrPollCreationOrQuizCreationMixinGroup(e);
+          "WASmaxInMessageDeliverNewsletterWamoEmptyContent",
+        ).parseNewsletterWamoEmptyContent(e);
       return l.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, r.value, {
               adminRevokeMixin: a.success ? a.value : null,
               adminEditMixin: i.success ? i.value : null,
-              contentTypeTextOrMediaOrPollCreationOrQuizCreationMixinGroup:
-                l.value,
+              newsletterWamoEmptyContent: l.value,
             }),
           )
         : l;

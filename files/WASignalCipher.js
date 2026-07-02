@@ -47,8 +47,18 @@ __d(
               .subtle.encrypt({ name: "AES-CBC", iv: i.iv }, s, t),
             m = new (o("WABinary").Binary)();
           (m.writeByteArray(e.local.pubKey), m.writeByteArray(e.remote.pubKey));
-          var p = m.size();
-          (m.writeUint8(I(e.sessionVersion, e.sessionVersion)),
+          var p = m.size(),
+            _ =
+              o("WACryptoLibraryConfig").getCryptoLibraryConfig()
+                .isPq1on1MessageEnabled === !0;
+          (_ === !0
+            ? m.writeUint8(I(e.sessionVersion, e.sessionVersion))
+            : m.writeUint8(
+                I(
+                  o("WASignalSessions").FORMAT_VERSION,
+                  o("WASignalSessions").FORMAT_VERSION,
+                ),
+              ),
             o("encodeProtobuf").encodeProtobuf(
               o("WASignalWhisperTextProtocol.pb").SignalMessageSpec,
               {
@@ -59,48 +69,55 @@ __d(
               },
               m,
             ));
-          var _ = m.readByteArrayView(),
-            f = yield D(u, _),
-            g = _.subarray(p),
-            h = o("WABinary")
-              .Binary.build(g, new Uint8Array(f, 0, c))
+          var f = m.readByteArrayView(),
+            g = yield D(u, f),
+            h = f.subarray(p),
+            y = o("WABinary")
+              .Binary.build(h, new Uint8Array(g, 0, c))
               .readByteArrayView(),
-            y,
             C,
-            b = e.initialExchangeInfo;
-          if (b != null) {
-            var v,
-              S = new (o("WABinary").Binary)();
-            S.writeUint8(I(e.sessionVersion, e.sessionVersion));
-            var R =
-              o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-                .isPq1on1MessageEnabled === !0;
-            (o("encodeProtobuf").encodeProtobuf(
-              o("WASignalWhisperTextProtocol.pb").PreKeySignalMessageSpec,
-              {
-                registrationId: e.local.regId,
-                preKeyId: (v = b.remoteOneTimeId) != null ? v : void 0,
-                signedPreKeyId: b.remoteSignedId,
-                baseKey: b.localOneTimePubKey,
-                identityKey: e.local.pubKey,
-                message: h,
-                kyberPreKeyId:
-                  R && b.kyberPreKeyId != null ? b.kyberPreKeyId : void 0,
-                kyberCiphertext:
-                  R && b.kemCiphertext != null ? b.kemCiphertext : void 0,
-              },
-              S,
-            ),
-              (y = "pkmsg"),
-              (C = S.readByteArrayView()));
-          } else ((y = "msg"), (C = h));
-          var L = o("WASignalSessions").makeSendChain(
+            b,
+            v = e.initialExchangeInfo;
+          if (v != null) {
+            var S,
+              R = new (o("WABinary").Binary)(),
+              L =
+                o("WACryptoLibraryConfig").getCryptoLibraryConfig()
+                  .isPq1on1MessageEnabled === !0;
+            (L === !0
+              ? R.writeUint8(I(e.sessionVersion, e.sessionVersion))
+              : R.writeUint8(
+                  I(
+                    o("WASignalSessions").FORMAT_VERSION,
+                    o("WASignalSessions").FORMAT_VERSION,
+                  ),
+                ),
+              o("encodeProtobuf").encodeProtobuf(
+                o("WASignalWhisperTextProtocol.pb").PreKeySignalMessageSpec,
+                {
+                  registrationId: e.local.regId,
+                  preKeyId: (S = v.remoteOneTimeId) != null ? S : void 0,
+                  signedPreKeyId: v.remoteSignedId,
+                  baseKey: v.localOneTimePubKey,
+                  identityKey: e.local.pubKey,
+                  message: y,
+                  kyberPreKeyId:
+                    L && v.kyberPreKeyId != null ? v.kyberPreKeyId : void 0,
+                  kyberCiphertext:
+                    L && v.kemCiphertext != null ? v.kemCiphertext : void 0,
+                },
+                R,
+              ),
+              (C = "pkmsg"),
+              (b = R.readByteArrayView()));
+          } else ((C = "msg"), (b = y));
+          var E = o("WASignalSessions").makeSendChain(
               n.ratchetKey,
               i.index + 1,
               a,
             ),
-            E = o("WASignalSessions").updateChains(e, e.recvChains, L);
-          return [E, { type: y, ciphertext: C }];
+            k = o("WASignalSessions").updateChains(e, e.recvChains, E);
+          return [k, { type: C, ciphertext: b }];
         })),
         p.apply(this, arguments)
       );

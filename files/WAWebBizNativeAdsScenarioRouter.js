@@ -22,7 +22,12 @@ __d(
                 : "RETURNING_WITH_ADS"
             : "FIRST_TIME_WAA_ELIGIBLE";
     }
-    i.resolveNativeAdsScenario = e;
+    function l(e) {
+      return (
+        e === "FIRST_TIME_WAA_ELIGIBLE" || e === "FIRST_TIME_NOT_WAA_ELIGIBLE"
+      );
+    }
+    ((i.resolveNativeAdsScenario = e), (i.isFirstTimeScenario = l));
   },
   66,
 );

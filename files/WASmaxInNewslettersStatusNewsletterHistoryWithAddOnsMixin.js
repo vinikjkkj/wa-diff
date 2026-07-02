@@ -4,6 +4,7 @@ __d(
     "WAResultOrError",
     "WASmaxInNewslettersStatusNewsletterHistoryMixin",
     "WASmaxInNewslettersStatusNewsletterReactionsMixin",
+    "WASmaxInNewslettersStatusNewsletterResponsesCountMixin",
     "WASmaxInNewslettersStatusNewsletterViewsCountsMixin",
     "WASmaxParseUtils",
   ],
@@ -20,11 +21,15 @@ __d(
         ).parseStatusNewsletterReactionsMixin(e),
         a = o(
           "WASmaxInNewslettersStatusNewsletterViewsCountsMixin",
-        ).parseStatusNewsletterViewsCountsMixin(e);
+        ).parseStatusNewsletterViewsCountsMixin(e),
+        i = o(
+          "WASmaxInNewslettersStatusNewsletterResponsesCountMixin",
+        ).parseStatusNewsletterResponsesCountMixin(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({}, n.value, {
           statusNewsletterReactionsMixin: r.success ? r.value : null,
           statusNewsletterViewsCountsMixin: a.success ? a.value : null,
+          statusNewsletterResponsesCountMixin: i.success ? i.value : null,
         }),
       );
     }

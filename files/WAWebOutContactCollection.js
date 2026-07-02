@@ -115,7 +115,7 @@ __d(
       return !!e.phoneNumber.includes(a);
     }
     var d = new s();
-    ((l.OutContactCollectionImpl = s), (l.OutContactCollection = d));
+    l.OutContactCollection = d;
   },
   98,
 );

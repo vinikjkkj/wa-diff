@@ -63,20 +63,23 @@ __d(
       },
       d = { 1: "1", 2: "2" },
       m = { 1: "1", 3: "3" },
-      p = { ACCEPT: "ACCEPT", REJECT: "REJECT", UNKNOWN: "UNKNOWN" },
-      _ = {
+      p = {
+        a2ui_reply_action: "a2ui_reply_action",
         account_authentication_request: "account_authentication_request",
         address_message: "address_message",
+        api_signup: "api_signup",
         call_permission_request: "call_permission_request",
         form_message: "form_message",
         galaxy_message: "galaxy_message",
         menu_options: "menu_options",
       },
-      f = {
+      _ = { ACCEPT: "ACCEPT", REJECT: "REJECT", UNKNOWN: "UNKNOWN" },
+      f = { add_on: "add_on", status_notify: "status_notify" },
+      g = {
         address_message: "address_message",
         galaxy_message: "galaxy_message",
       },
-      g = {
+      h = {
         ads_manager: "ads_manager",
         graph_api: "graph_api",
         maiba: "maiba",
@@ -85,7 +88,7 @@ __d(
           "marketing_messages_with_optimizations",
         unified_inbox: "unified_inbox",
       },
-      h = {
+      y = {
         ads_manager: "ads_manager",
         maiba: "maiba",
         maiba_ai_hub: "maiba_ai_hub",
@@ -94,13 +97,14 @@ __d(
         third_party: "third_party",
         unified_inbox: "unified_inbox",
       },
-      y = {
+      C = {
         allowlist: "allowlist",
         contacts: "contacts",
+        customlist: "customlist",
         denylist: "denylist",
       },
-      C = { allow: "allow", bypass: "bypass", deny: "deny", error: "error" },
-      b = {
+      b = { allow: "allow", bypass: "bypass", deny: "deny", error: "error" },
+      v = {
         ASPRESENTED: "ASPRESENTED",
         BIMONTHLY: "BIMONTHLY",
         DAILY: "DAILY",
@@ -113,7 +117,7 @@ __d(
         WEEKLY: "WEEKLY",
         YEARLY: "YEARLY",
       },
-      v = {
+      S = {
         audio: "audio",
         avatar_sticker: "avatar_sticker",
         buttons_response: "buttons_response",
@@ -140,24 +144,29 @@ __d(
         video: "video",
         xma: "xma",
       },
-      S = {
+      R = {
         br: "br",
         incentive: "incentive",
         p2m: "p2m",
         p2p: "p2p",
         payout: "payout",
+        remittance: "remittance",
         upi: "upi",
         upi_lite: "upi_lite",
       },
-      R = { buyer: "buyer", seller: "seller" },
-      L = {
+      L = { buyer: "buyer", seller: "seller" },
+      E = {
         card: "card",
         "net-banking": "net-banking",
         upi: "upi",
         wallet: "wallet",
       },
-      E = { closed: "closed", open: "open" },
       k = {
+        channels_invitation: "channels_invitation",
+        event_invitation: "event_invitation",
+      },
+      I = { closed: "closed", open: "open" },
+      T = {
         country: "country",
         es: "es",
         react: "react",
@@ -165,14 +174,14 @@ __d(
         tos3: "tos3",
         true: "true",
       },
-      I = { creation: "creation", edit: "edit", response: "response" },
-      T = {
+      D = { creation: "creation", edit: "edit", response: "response" },
+      x = {
         default: "default",
         group_history: "group_history",
         history: "history",
         member_tag: "member_tag",
       },
-      D = {
+      $ = {
         delivery: "delivery",
         impressions: "impressions",
         link_clicks: "link_clicks",
@@ -180,62 +189,75 @@ __d(
         offsite_conversions: "offsite_conversions",
         replies: "replies",
       },
-      x = {
+      P = {
         DEREGISTER: "DEREGISTER",
         INIT_TOP_UP: "INIT_TOP_UP",
         PAY: "PAY",
         TOP_UP: "TOP_UP",
       },
-      $ = { ds: "ds", fc: "fc", ge: "ge" },
-      P = { EXACT: "EXACT", MAX: "MAX" },
-      N = { FAILED: "FAILED", PENDING: "PENDING", SUCCESS: "SUCCESS" },
-      M = { FAILURE: "FAILURE", INIT: "INIT", SUCCESS: "SUCCESS" },
-      w = { false: "false", true: "true" },
-      A = { FBPAY: "FBPAY", UPI: "UPI" },
-      F = { first: "first", full: "full", inner: "inner", last: "last" },
-      O = {
+      N = { df: "df", ds: "ds", fc: "fc", ge: "ge" },
+      M = {
+        document: "document",
+        image: "image",
+        mixed: "mixed",
+        video: "video",
+      },
+      w = {
+        drop_invalid_reporting_token: "drop_invalid_reporting_token",
+        drop_missing_reporting_token: "drop_missing_reporting_token",
+      },
+      A = { EXACT: "EXACT", MAX: "MAX" },
+      F = { FAILED: "FAILED", PENDING: "PENDING", SUCCESS: "SUCCESS" },
+      O = { FAILURE: "FAILURE", INIT: "INIT", SUCCESS: "SUCCESS" },
+      B = { false: "false", true: "true" },
+      W = { FBPAY: "FBPAY", UPI: "UPI" },
+      q = { first: "first", full: "full", inner: "inner", last: "last" },
+      U = {
         FULL: "FULL",
         MISSING_FIELD_NOT_PARTIAL: "MISSING_FIELD_NOT_PARTIAL",
         PARTIAL: "PARTIAL",
       },
-      B = { group: "group", sender: "sender" },
-      W = { guest: "guest", wa: "wa" },
-      q = {
+      V = { group: "group", sender: "sender" },
+      H = { guest: "guest", wa: "wa" },
+      G = {
         hd_image_dual_upload: "hd_image_dual_upload",
         hd_video_dual_upload: "hd_video_dual_upload",
         hevc_video_dual_upload: "hevc_video_dual_upload",
         media_poll: "media_poll",
         motion_photo: "motion_photo",
+        poll_add_option: "poll_add_option",
         sticker_annotation: "sticker_annotation",
       },
-      U = { high: "high", high_force: "high_force", low: "low" },
-      V = { high: "high", low: "low", unknown: "unknown" },
-      H = { hosted: "hosted", view_once: "view_once" },
-      G = { hpp_payment_link: "hpp_payment_link", upi: "upi" },
-      z = { lid: "lid", pn: "pn" },
-      j = { matched: "matched", unmatched: "unmatched" },
-      K = {
+      z = { high: "high", high_force: "high_force", low: "low" },
+      j = { high: "high", low: "low", unknown: "unknown" },
+      K = { hosted: "hosted", view_once: "view_once" },
+      Q = { hpp_payment_link: "hpp_payment_link", upi: "upi" },
+      X = { lid: "lid", pn: "pn" },
+      Y = { matched: "matched", unmatched: "unmatched" },
+      J = {
         message_limit_reached: "message_limit_reached",
         under_limit: "under_limit",
       },
-      Q = { msg: "msg", pkmsg: "pkmsg" },
-      X = {
+      Z = { msg: "msg", pkmsg: "pkmsg" },
+      ee = {
         new_member: "new_member",
         rereg_recovery_request: "rereg_recovery_request",
         rereg_recovery_response: "rereg_recovery_response",
         user_delete: "user_delete",
         user_update: "user_update",
       },
-      Y = { on_demand: "on_demand", scheduled: "scheduled" },
-      J = { p2m: "p2m", p2p: "p2p" },
-      Z = { request: "request", send: "send" },
-      ee = { smb_mm: "smb_mm", smb_promo: "smb_promo" },
-      te = {
+      te = { none: "none", service_provider: "service_provider" },
+      ne = { on_demand: "on_demand", scheduled: "scheduled" },
+      re = { p2m: "p2m", p2p: "p2p" },
+      oe = { p2p: "p2p", remittance: "remittance" },
+      ae = { request: "request", send: "send" },
+      ie = { smb_mm: "smb_mm", smb_promo: "smb_promo" },
+      le = {
         tier3: "tier3",
         tier6_matched: "tier6_matched",
         tier6_unmatched: "tier6_unmatched",
       },
-      ne = {
+      se = {
         "": "",
         call_permission_request: "call_permission_request",
         catalog_message: "catalog_message",
@@ -247,10 +269,11 @@ __d(
         payment_key_info: "payment_key_info",
         payment_method: "payment_method",
         payment_status: "payment_status",
+        split_payment: "split_payment",
         video_call: "video_call",
         voice_call: "voice_call",
       },
-      re = {
+      ue = {
         validators: [
           (e = o("WAJids")).validateDeviceJid,
           e.validateBroadcastJid,
@@ -264,11 +287,11 @@ __d(
         typeName:
           "DeviceJid|BroadcastJid|DeviceJid|GroupJid|InteropDeviceJid|InteropDeviceJid|DeviceJid|StatusJid",
       },
-      oe = {
+      ce = {
         validators: [e.validateDeviceJid, e.validateDeviceJid],
         typeName: "DeviceJid|DeviceJid",
       },
-      ae = {
+      de = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -279,7 +302,7 @@ __d(
         typeName:
           "DeviceJid|DeviceJid|InteropDeviceJid|InteropDeviceJid|DeviceJid",
       },
-      ie = {
+      me = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -292,7 +315,7 @@ __d(
         typeName:
           "DeviceJid|DeviceJid|UserJid|UserJid|DeviceJid|LidUserJid|UserJid",
       },
-      le = {
+      pe = {
         validators: [
           e.validateDeviceJid,
           e.validateDeviceJid,
@@ -303,11 +326,15 @@ __d(
         ],
         typeName: "DeviceJid|DeviceJid|UserJid|UserJid|LidUserJid|UserJid",
       },
-      se = {
+      _e = {
         validators: [e.validateGroupJid, e.validateUserJid],
         typeName: "GroupJid|UserJid",
       },
-      ue = {
+      fe = {
+        validators: [e.validateUserJid, e.validateDeviceJid],
+        typeName: "UserJid|DeviceJid",
+      },
+      ge = {
         validators: [e.validateUserJid, e.validateUserJid],
         typeName: "UserJid|UserJid",
       };
@@ -318,67 +345,74 @@ __d(
         c),
       (l.ENUM_1_2 = d),
       (l.ENUM_1_3 = m),
-      (l.ENUM_ACCEPT_REJECT_UNKNOWN = p),
-      (l.ENUM_ACCOUNTAUTHENTICATIONREQUEST_ADDRESSMESSAGE_CALLPERMISSIONREQUEST_FORMMESSAGE_GALAXYMESSAGE_MENUOPTIONS =
-        _),
-      (l.ENUM_ADDRESSMESSAGE_GALAXYMESSAGE = f),
+      (l.ENUM_A2UIREPLYACTION_ACCOUNTAUTHENTICATIONREQUEST_ADDRESSMESSAGE_APISIGNUP_CALLPERMISSIONREQUEST_FORMMESSAGE_GALAXYMESSAGE_MENUOPTIONS =
+        p),
+      (l.ENUM_ACCEPT_REJECT_UNKNOWN = _),
+      (l.ENUM_ADDON_STATUSNOTIFY = f),
+      (l.ENUM_ADDRESSMESSAGE_GALAXYMESSAGE = g),
       (l.ENUM_ADSMANAGER_GRAPHAPI_MAIBA_MAIBAAIHUB_MARKETINGMESSAGESWITHOPTIMIZATIONS_UNIFIEDINBOX =
-        g),
-      (l.ENUM_ADSMANAGER_MAIBA_MAIBAAIHUB_MARKETINGMESSAGESWITHOPTIMIZATIONS_THIRDPARTY_UNIFIEDINBOX =
         h),
-      (l.ENUM_ALLOWLIST_CONTACTS_DENYLIST = y),
-      (l.ENUM_ALLOW_BYPASS_DENY_ERROR = C),
+      (l.ENUM_ADSMANAGER_MAIBA_MAIBAAIHUB_MARKETINGMESSAGESWITHOPTIMIZATIONS_THIRDPARTY_UNIFIEDINBOX =
+        y),
+      (l.ENUM_ALLOWLIST_CONTACTS_CUSTOMLIST_DENYLIST = C),
+      (l.ENUM_ALLOW_BYPASS_DENY_ERROR = b),
       (l.ENUM_ASPRESENTED_BIMONTHLY_DAILY_FORTNIGHTLY_HALFYEARLY_MONTHLY_ONETIME_QUARTERLY_UNKNOWN_WEEKLY_YEARLY =
-        b),
-      (l.ENUM_AUDIO_AVATARSTICKER_BUTTONSRESPONSE_CATALOGLINK_CONTACT_CONTACTARRAY_DOCUMENT_FEEDRESHARE_GIF_HISTORY_IMAGE_LISTRESPONSE_LOCATION_NATIVEFLOWRESPONSE_ORDER_PRODUCT_PRODUCTLINK_PTT_PTV_STICKER_STORYREPLY_URL_VCARD_VIDEO_XMA =
         v),
-      (l.ENUM_BR_INCENTIVE_P2M_P2P_PAYOUT_UPI_UPILITE = S),
-      (l.ENUM_BUYER_SELLER = R),
-      (l.ENUM_CARD_NETBANKING_UPI_WALLET = L),
-      (l.ENUM_CLOSED_OPEN = E),
-      (l.ENUM_COUNTRY_ES_REACT_SYSMSGVERSION_TOS3_TRUE = k),
-      (l.ENUM_CREATION_EDIT_RESPONSE = I),
-      (l.ENUM_DEFAULTP_GROUPHISTORY_HISTORY_MEMBERTAG = T),
+      (l.ENUM_AUDIO_AVATARSTICKER_BUTTONSRESPONSE_CATALOGLINK_CONTACT_CONTACTARRAY_DOCUMENT_FEEDRESHARE_GIF_HISTORY_IMAGE_LISTRESPONSE_LOCATION_NATIVEFLOWRESPONSE_ORDER_PRODUCT_PRODUCTLINK_PTT_PTV_STICKER_STORYREPLY_URL_VCARD_VIDEO_XMA =
+        S),
+      (l.ENUM_BR_INCENTIVE_P2M_P2P_PAYOUT_REMITTANCE_UPI_UPILITE = R),
+      (l.ENUM_BUYER_SELLER = L),
+      (l.ENUM_CARD_NETBANKING_UPI_WALLET = E),
+      (l.ENUM_CHANNELSINVITATION_EVENTINVITATION = k),
+      (l.ENUM_CLOSED_OPEN = I),
+      (l.ENUM_COUNTRY_ES_REACT_SYSMSGVERSION_TOS3_TRUE = T),
+      (l.ENUM_CREATION_EDIT_RESPONSE = D),
+      (l.ENUM_DEFAULTP_GROUPHISTORY_HISTORY_MEMBERTAG = x),
       (l.ENUM_DELIVERY_IMPRESSIONS_LINKCLICKS_NOOPTIMIZATION_OFFSITECONVERSIONS_REPLIES =
-        D),
-      (l.ENUM_DEREGISTER_INITTOPUP_PAY_TOPUP = x),
-      (l.ENUM_DS_FC_GE = $),
-      (l.ENUM_EXACT_MAX = P),
-      (l.ENUM_FAILED_PENDING_SUCCESS = N),
-      (l.ENUM_FAILURE_INIT_SUCCESS = M),
-      (l.ENUM_FALSE_TRUE = w),
-      (l.ENUM_FBPAY_UPI = A),
-      (l.ENUM_FIRST_FULL_INNER_LAST = F),
-      (l.ENUM_FULL_MISSINGFIELDNOTPARTIAL_PARTIAL = O),
-      (l.ENUM_GROUP_SENDER = B),
-      (l.ENUM_GUEST_WA = W),
-      (l.ENUM_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_STICKERANNOTATION =
-        q),
-      (l.ENUM_HIGH_HIGHFORCE_LOW = U),
-      (l.ENUM_HIGH_LOW_UNKNOWN = V),
-      (l.ENUM_HOSTED_VIEWONCE = H),
-      (l.ENUM_HPPPAYMENTLINK_UPI = G),
-      (l.ENUM_LID_PN = z),
-      (l.ENUM_MATCHED_UNMATCHED = j),
-      (l.ENUM_MESSAGELIMITREACHED_UNDERLIMIT = K),
-      (l.ENUM_MSG_PKMSG = Q),
+        $),
+      (l.ENUM_DEREGISTER_INITTOPUP_PAY_TOPUP = P),
+      (l.ENUM_DF_DS_FC_GE = N),
+      (l.ENUM_DOCUMENT_IMAGE_MIXED_VIDEO = M),
+      (l.ENUM_DROPINVALIDREPORTINGTOKEN_DROPMISSINGREPORTINGTOKEN = w),
+      (l.ENUM_EXACT_MAX = A),
+      (l.ENUM_FAILED_PENDING_SUCCESS = F),
+      (l.ENUM_FAILURE_INIT_SUCCESS = O),
+      (l.ENUM_FALSE_TRUE = B),
+      (l.ENUM_FBPAY_UPI = W),
+      (l.ENUM_FIRST_FULL_INNER_LAST = q),
+      (l.ENUM_FULL_MISSINGFIELDNOTPARTIAL_PARTIAL = U),
+      (l.ENUM_GROUP_SENDER = V),
+      (l.ENUM_GUEST_WA = H),
+      (l.ENUM_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_POLLADDOPTION_STICKERANNOTATION =
+        G),
+      (l.ENUM_HIGH_HIGHFORCE_LOW = z),
+      (l.ENUM_HIGH_LOW_UNKNOWN = j),
+      (l.ENUM_HOSTED_VIEWONCE = K),
+      (l.ENUM_HPPPAYMENTLINK_UPI = Q),
+      (l.ENUM_LID_PN = X),
+      (l.ENUM_MATCHED_UNMATCHED = Y),
+      (l.ENUM_MESSAGELIMITREACHED_UNDERLIMIT = J),
+      (l.ENUM_MSG_PKMSG = Z),
       (l.ENUM_NEWMEMBER_REREGRECOVERYREQUEST_REREGRECOVERYRESPONSE_USERDELETE_USERUPDATE =
-        X),
-      (l.ENUM_ONDEMAND_SCHEDULED = Y),
-      (l.ENUM_P2M_P2P = J),
-      (l.ENUM_REQUEST_SEND = Z),
-      (l.ENUM_SMBMM_SMBPROMO = ee),
-      (l.ENUM_TIER3_TIER6MATCHED_TIER6UNMATCHED = te),
-      (l.ENUM__CALLPERMISSIONREQUEST_CATALOGMESSAGE_MENUOPTIONS_ORDERDETAILS_ORDERSTATUS_OTP_PAYMENTINFO_PAYMENTKEYINFO_PAYMENTMETHOD_PAYMENTSTATUS_VIDEOCALL_VOICECALL =
-        ne),
+        ee),
+      (l.ENUM_NONE_SERVICEPROVIDER = te),
+      (l.ENUM_ONDEMAND_SCHEDULED = ne),
+      (l.ENUM_P2M_P2P = re),
+      (l.ENUM_P2P_REMITTANCE = oe),
+      (l.ENUM_REQUEST_SEND = ae),
+      (l.ENUM_SMBMM_SMBPROMO = ie),
+      (l.ENUM_TIER3_TIER6MATCHED_TIER6UNMATCHED = le),
+      (l.ENUM__CALLPERMISSIONREQUEST_CATALOGMESSAGE_MENUOPTIONS_ORDERDETAILS_ORDERSTATUS_OTP_PAYMENTINFO_PAYMENTKEYINFO_PAYMENTMETHOD_PAYMENTSTATUS_SPLITPAYMENT_VIDEOCALL_VOICECALL =
+        se),
       (l.DEVICEJID_BROADCASTJID_DEVICEJID_GROUPJID_INTEROPDEVICEJID_INTEROPDEVICEJID_DEVICEJID_STATUSJID =
-        re),
-      (l.DEVICEJID_DEVICEJID = oe),
-      (l.DEVICEJID_DEVICEJID_INTEROPDEVICEJID_INTEROPDEVICEJID_DEVICEJID = ae),
-      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_DEVICEJID_LIDUSERJID_USERJID = ie),
-      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_LIDUSERJID_USERJID = le),
-      (l.GROUPJID_USERJID = se),
-      (l.USERJID_USERJID = ue));
+        ue),
+      (l.DEVICEJID_DEVICEJID = ce),
+      (l.DEVICEJID_DEVICEJID_INTEROPDEVICEJID_INTEROPDEVICEJID_DEVICEJID = de),
+      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_DEVICEJID_LIDUSERJID_USERJID = me),
+      (l.DEVICEJID_DEVICEJID_USERJID_USERJID_LIDUSERJID_USERJID = pe),
+      (l.GROUPJID_USERJID = _e),
+      (l.USERJID_DEVICEJID = fe),
+      (l.USERJID_USERJID = ge));
   },
   98,
 );

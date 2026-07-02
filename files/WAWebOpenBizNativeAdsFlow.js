@@ -7,24 +7,21 @@ __d(
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
     "WAWebNavBarTypes",
-    "WAWebPonyfillsCryptoRandomUUID",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e, t) {
-      var n = r("WAWebPonyfillsCryptoRandomUUID")();
       (o("WAWebBizNativeAdsQplHelpers").startAdsManagementQpl(!1),
         o("WAWebCmd").Cmd.setActiveNavBarItem(
           o("WAWebNavBarTypes").NavBarItems.AdCreation,
         ));
-      var a = s.jsx(r("WAWebBizNativeAdsTwoPhaseContainer.react"), {
-        adCreationFlowID: n,
+      var n = s.jsx(r("WAWebBizNativeAdsTwoPhaseContainer.react"), {
         entryPoint: e,
-        manageAdsFlowID: t,
+        flowID: t,
       });
-      o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(a, {
+      o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(n, {
         focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
         transition: "slide-left",
       });

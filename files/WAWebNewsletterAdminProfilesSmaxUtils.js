@@ -4,13 +4,14 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      return e == null
+      var t, n;
+      return e == null || e.name == null
         ? null
         : {
             id: e.id,
-            name: e.nameElementValue,
-            pictureDirectPath: e.pictureDirectPath,
-            pictureId: e.pictureId,
+            name: e.name.elementValue,
+            pictureDirectPath: (t = e.picture) == null ? void 0 : t.directPath,
+            pictureId: (n = e.picture) == null ? void 0 : n.id,
           };
     }
     i.mapAdminProfileInfoFromAdminProfileMixin = e;

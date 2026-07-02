@@ -198,6 +198,15 @@ __d(
         : c(t, o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS);
     }
     function S(e) {
+      var t = e.newsletterMetadata;
+      return t == null
+        ? !1
+        : c(
+            t,
+            o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS_M2,
+          );
+    }
+    function R(e) {
       return e == null || !e.iAmAdminOrOwner() || !e.adminProfilesSettingEnabled
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -210,7 +219,7 @@ __d(
                 .ADMIN_PROFILE,
             );
     }
-    function R(t) {
+    function L(t) {
       if (!o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled())
         return !1;
       var n = e.get(t);
@@ -234,8 +243,9 @@ __d(
       (l.isNewsletterPhotoPollCapabilityEnabled = C),
       (l.isNewsletterStatusCapabilityEnabled = b),
       (l.isNewsletterQuestionsCapabilityEnabled = v),
-      (l.isNewsletterAdminProfilesSenderEnabled = S),
-      (l.isNewsletterQplLoggingEnabledForMarkerId = R));
+      (l.isNewsletterQuestionsM2CapabilityEnabled = S),
+      (l.isNewsletterAdminProfilesSenderEnabled = R),
+      (l.isNewsletterQplLoggingEnabledForMarkerId = L));
   },
   98,
 );

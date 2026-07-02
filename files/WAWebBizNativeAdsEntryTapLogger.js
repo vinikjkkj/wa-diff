@@ -63,7 +63,7 @@ __d(
       }).commit();
     }
     function u(e) {
-      var t = e.manageAdsFlowID,
+      var t = e.flowID,
         n = e.scenario;
       new (o(
         "WAWebCtwaAdCreationAndManagementJourneyWamEvent",

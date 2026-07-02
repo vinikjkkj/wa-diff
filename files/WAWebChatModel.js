@@ -1221,7 +1221,8 @@ __d(
               (this.$ChatImpl$p_5(),
                 this.getCollection().sort(),
                 this.deregisterExpiredViewOnceBulkMessages(this.msgs),
-                this.$ChatImpl$p_43());
+                this.$ChatImpl$p_43(),
+                this.$ChatImpl$p_44());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
                 .removeExpiredMessagesFromHistory(a)
@@ -1276,6 +1277,15 @@ __d(
                   (e.msgLoadState.noEarlierMsgs = !1));
               }
             }
+          }),
+          (i.$ChatImpl$p_44 = function () {
+            if (
+              o("WAWebABProps").getABPropConfigValue(
+                "web_evict_thumbnail_hq_on_inactive",
+              )
+            )
+              for (var e of this.msgs.getModelsArray())
+                e.thumbnailHQ && e.set({ thumbnailHQ: void 0 }, { silent: !0 });
           }),
           (i.$ChatImpl$p_26 = function () {
             var e = this.getCollection();
@@ -1786,12 +1796,12 @@ __d(
             }
           }),
           (i.isUnreadMsg = function (t) {
-            return this.$ChatImpl$p_44(t, this.unreadCount);
+            return this.$ChatImpl$p_45(t, this.unreadCount);
           }),
           (i.isActiveUnreadMsg = function (t) {
-            return this.$ChatImpl$p_44(t, this.activeUnreadCount);
+            return this.$ChatImpl$p_45(t, this.activeUnreadCount);
           }),
-          (i.$ChatImpl$p_44 = function (t, n) {
+          (i.$ChatImpl$p_45 = function (t, n) {
             if (n <= 0) return !1;
             for (
               var e = this.msgs.getModelsArray(), r = 0, a = e.length - 1;

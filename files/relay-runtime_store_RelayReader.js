@@ -210,25 +210,32 @@ __d(
             this.$14[t]
           );
         }),
-        (r.$27 = function (t) {
+        (r.$27 = function (t, n) {
           if (t.action !== "NONE") {
             var e = this.$16;
             this.$6 == null && (this.$6 = []);
-            var n;
+            var r;
             if (t.field.linkedField != null) {
-              var r;
-              n =
-                (r = t.field.linkedField.alias) != null
-                  ? r
+              var o;
+              r =
+                (o = t.field.linkedField.alias) != null
+                  ? o
                   : t.field.linkedField.name;
             } else {
-              var o;
-              n = (o = t.field.alias) != null ? o : t.field.name;
+              var a;
+              r = (a = t.field.alias) != null ? a : t.field.name;
+            }
+            var i = null;
+            if (n === null && this.$6.length > 0) {
+              var l = this.$6[this.$6.length - 1];
+              l.kind === "relay_field_payload.error" && (i = l.error);
             }
             switch (t.action) {
               case "THROW":
                 this.$6.push({
-                  fieldPath: n,
+                  fieldError: i,
+                  fieldPath: r,
+                  fieldValue: n,
                   handled: !1,
                   kind: "missing_required_field.throw",
                   owner: e,
@@ -237,7 +244,9 @@ __d(
                 return;
               case "LOG":
                 this.$6.push({
-                  fieldPath: n,
+                  fieldError: i,
+                  fieldPath: r,
+                  fieldValue: n,
                   kind: "missing_required_field.log",
                   owner: e,
                   uiContext: void 0,
@@ -249,7 +258,7 @@ __d(
           }
         }),
         (r.$28 = function (t, n) {
-          return n == null ? (this.$27(t), !1) : !0;
+          return n == null ? (this.$27(t, n), !1) : !0;
         }),
         (r.$22 = function (t, n, r) {
           var e = t;
@@ -291,15 +300,29 @@ __d(
                       " in " +
                       t.owner,
                   };
-                case "missing_required_field.throw":
-                  return {
-                    message:
-                      "Relay: Missing @required value at path '" +
-                      t.fieldPath +
-                      "' in '" +
-                      t.owner +
-                      "'.",
-                  };
+                case "missing_required_field.throw": {
+                  var a;
+                  return (
+                    t.fieldValue === null
+                      ? (a =
+                          t.fieldError != null
+                            ? "the server returned null with an error: " +
+                              t.fieldError.message
+                            : "the server returned null")
+                      : (a =
+                          "the field was missing in the store (data may not have been fetched, or was removed by a graph relationship change: https://relay.dev/docs/next/debugging/why-null/#graph-relationship-change)"),
+                    {
+                      message:
+                        "Relay: Missing @required value at path '" +
+                        t.fieldPath +
+                        "' in '" +
+                        t.owner +
+                        "': " +
+                        a +
+                        ".",
+                    }
+                  );
+                }
                 case "missing_required_field.log":
                   return null;
                 default:

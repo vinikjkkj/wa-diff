@@ -23,7 +23,21 @@ __d(
               "channels_question_admin_enabled",
             );
     }
-    l.isQuestionsFeatureEnabledForAdmins = s;
+    function u(t) {
+      var n,
+        r = (n = t.newsletterMetadata) == null ? void 0 : n.membershipType;
+      return r == null || !e.includes(r)
+        ? !1
+        : o(
+              "WAWebNewsletterExtendedGatingUtils",
+            ).isNewsletterQuestionsM2CapabilityEnabled(t)
+          ? !0
+          : o("WAWebABProps").getABPropConfigValue(
+              "channels_question_admin_m2_enabled",
+            );
+    }
+    ((l.isQuestionsFeatureEnabledForAdmins = s),
+      (l.isQuestionsM2FeatureEnabledForAdmins = u));
   },
   98,
 );

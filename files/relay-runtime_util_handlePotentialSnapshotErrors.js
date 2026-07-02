@@ -20,7 +20,12 @@ __d(
               );
             case "relay_field_payload.error":
               throw new Error(
-                "Relay: Unexpected response payload - check server logs for details.",
+                "Relay: Received a field error in the server response for field '" +
+                  o.fieldPath +
+                  "' in '" +
+                  o.owner +
+                  "'. Message: " +
+                  o.error.message,
               );
             case "missing_expected_data.throw":
               throw new Error(
@@ -28,16 +33,30 @@ __d(
                   o.fieldPath +
                   "' in '" +
                   o.owner +
-                  "'.",
+                  "'. See https://relay.dev/docs/next/debugging/why-null/ for likely causes.",
               );
-            case "missing_required_field.throw":
-              throw new Error(
-                "Relay: Missing @required value at path '" +
-                  o.fieldPath +
-                  "' in '" +
-                  o.owner +
-                  "'.",
+            case "missing_required_field.throw": {
+              var a = void 0;
+              throw (
+                o.fieldValue === null
+                  ? (a =
+                      o.fieldError != null
+                        ? "the server returned null with an error: " +
+                          o.fieldError.message
+                        : "the server returned null")
+                  : (a =
+                      "the field was missing in the store (data may not have been fetched, or was removed by a graph relationship change: https://relay.dev/docs/next/debugging/why-null/#graph-relationship-change)"),
+                new Error(
+                  "Relay: Missing @required value at path '" +
+                    o.fieldPath +
+                    "' in '" +
+                    o.owner +
+                    "': " +
+                    a +
+                    ".",
+                )
               );
+            }
             case "missing_required_field.log":
             case "missing_expected_data.log":
               break;

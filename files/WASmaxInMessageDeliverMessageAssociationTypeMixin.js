@@ -11,7 +11,7 @@ __d(
         n.value,
         "message_association_type",
         o("WASmaxInMessageDeliverEnums")
-          .ENUM_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_STICKERANNOTATION,
+          .ENUM_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_POLLADDOPTION_STICKERANNOTATION,
       );
       return r.success
         ? o("WAResultOrError").makeResult({

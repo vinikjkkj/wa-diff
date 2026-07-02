@@ -138,6 +138,7 @@ __d(
                 chat: u,
                 isPaymentRequest: o("WAWebOrderStatus").isPaymentRequest(u, i),
                 msg: a,
+                paymentSettings: i.paymentSettings,
                 displayType: e.displayType,
               })));
           } else {

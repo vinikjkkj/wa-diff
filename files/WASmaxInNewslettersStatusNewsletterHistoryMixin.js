@@ -2,8 +2,11 @@ __d(
   "WASmaxInNewslettersStatusNewsletterHistoryMixin",
   [
     "WAResultOrError",
+    "WASmaxInNewslettersStatusAdminProfileMetaMixin",
     "WASmaxInNewslettersStatusLastEditTimestampMixin",
     "WASmaxInNewslettersStatusNewsletterContentMixin",
+    "WASmaxInNewslettersStatusNewsletterInteractionTypeQuestionMixin",
+    "WASmaxInNewslettersStatusNewsletterInteractionTypeQuestionReshareMixin",
     "WASmaxInNewslettersStatusOriginalTimestampMixin",
     "WASmaxInNewslettersStatusPaidPartnershipContentMixin",
     "WASmaxParseUtils",
@@ -50,8 +53,17 @@ __d(
           "WASmaxInNewslettersStatusLastEditTimestampMixin",
         ).parseStatusLastEditTimestampMixin(e),
         c = o(
+          "WASmaxInNewslettersStatusAdminProfileMetaMixin",
+        ).parseStatusAdminProfileMetaMixin(e),
+        d = o(
           "WASmaxInNewslettersStatusPaidPartnershipContentMixin",
-        ).parseStatusPaidPartnershipContentMixin(e);
+        ).parseStatusPaidPartnershipContentMixin(e),
+        m = o(
+          "WASmaxInNewslettersStatusNewsletterInteractionTypeQuestionMixin",
+        ).parseStatusNewsletterInteractionTypeQuestionMixin(e),
+        p = o(
+          "WASmaxInNewslettersStatusNewsletterInteractionTypeQuestionReshareMixin",
+        ).parseStatusNewsletterInteractionTypeQuestionReshareMixin(e);
       return o("WAResultOrError").makeResult({
         id: n.value,
         serverId: r.value,
@@ -60,7 +72,14 @@ __d(
         statusNewsletterContentMixin: l.success ? l.value : null,
         statusOriginalTimestampMixin: s.success ? s.value : null,
         statusLastEditTimestampMixin: u.success ? u.value : null,
-        hasStatusPaidPartnershipContentMixin: c.success,
+        statusAdminProfileMetaMixin: c.success ? c.value : null,
+        hasStatusPaidPartnershipContentMixin: d.success,
+        statusNewsletterInteractionTypeQuestionMixin: m.success
+          ? m.value
+          : null,
+        statusNewsletterInteractionTypeQuestionReshareMixin: p.success
+          ? p.value
+          : null,
       });
     }
     l.parseStatusNewsletterHistoryMixin = e;

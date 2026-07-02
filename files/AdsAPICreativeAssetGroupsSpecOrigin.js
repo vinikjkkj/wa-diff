@@ -43,6 +43,8 @@ __d(
       FORMAT_LIQUIDITY_DA_INTRO_CARD: "format_liquidity_da_intro_card",
       FORMAT_LIQUIDITY_DA_SINGLE_MEDIA_TO_OTHER_FORMATS:
         "format_liquidity_da_single_media_to_other_formats",
+      FORMAT_LIQUIDITY_LEADGEN_TO_CAROUSEL:
+        "format_liquidity_leadgen_to_carousel",
       FORMAT_LIQUIDITY_MAAD_POSITIVE_TEST_V1:
         "format_liquidity_positive_test_v1",
       FORMAT_LIQUIDITY_MAAD_POSITIVE_TEST_V2:

@@ -683,12 +683,15 @@ __d(
           (i.send = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = e.isViewOnce,
+                var t = e.isQuestion,
                   n = t === void 0 ? !1 : t,
-                  a = e.isWamoSub,
-                  i = e.threadId;
+                  a = e.isViewOnce,
+                  i = a === void 0 ? !1 : a,
+                  l = e.isWamoSub,
+                  s = e.questionReplyQuotedMessage,
+                  u = e.threadId;
                 try {
-                  var l, s;
+                  var c, d;
                   (o("WALogger").LOG(
                     b ||
                       (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -696,11 +699,11 @@ __d(
                         ", isWamoSub=",
                         "",
                       ])),
-                    n,
-                    a,
+                    i,
+                    l,
                   ),
-                    (l = this._handleSendMessageStart) == null ||
-                      l.call(this, n),
+                    (c = this._handleSendMessageStart) == null ||
+                      c.call(this, i),
                     this._recorder ||
                       o("WALogger").ERROR(
                         v ||
@@ -708,22 +711,22 @@ __d(
                             "WAWebPttComposerRecordingSession: Recorder is null in send method",
                           ])),
                       ));
-                  var u = r("WANullthrows")(this._recorder),
-                    c = this._chat;
+                  var m = r("WANullthrows")(this._recorder),
+                    p = this._chat;
                   o("WALogger").LOG(
                     S ||
                       (S = babelHelpers.taggedTemplateLiteralLoose([
                         "WAWebPttComposerRecordingSession: Getting data for sending",
                       ])),
                   );
-                  var d = r("WAPromiseRaceAbort")(
+                  var _ = r("WAPromiseRaceAbort")(
                       this._getDataForSending(),
-                      c.getDeleteSignal(),
+                      p.getDeleteSignal(),
                     ),
-                    m =
-                      ((s = c.getComposeContents()) == null
+                    f =
+                      ((d = p.getComposeContents()) == null
                         ? void 0
-                        : s.ctwaContext) || void 0;
+                        : d.ctwaContext) || void 0;
                   o("WALogger").LOG(
                     R ||
                       (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -731,15 +734,15 @@ __d(
                         ", waveform samples=",
                         "",
                       ])),
-                    Math.floor(u.getDuration()),
+                    Math.floor(m.getDuration()),
                     this.getScaledWaveformSamples().length,
                   );
-                  var p;
+                  var g;
                   try {
-                    ((p = o("WAWebMedia").prepRawMedia(d, {
+                    ((g = o("WAWebMedia").prepRawMedia(_, {
                       isPtt: !0,
                       precomputedFields: {
-                        duration: Math.floor(u.getDuration()),
+                        duration: Math.floor(m.getDuration()),
                         waveform: new Uint8Array(
                           this.getScaledWaveformSamples(),
                         ),
@@ -770,28 +773,30 @@ __d(
                       ])),
                     this._earlyUploadPromise ? "exists" : "null",
                   );
-                  var _ = null;
-                  if (o("WAWebBotUtils").isMetaAiBot(c.id)) {
-                    var f;
-                    _ =
-                      (f = o(
+                  var h = null;
+                  if (o("WAWebBotUtils").isMetaAiBot(p.id)) {
+                    var y;
+                    h =
+                      (y = o(
                         "WAWebBotProfileCollection",
-                      ).BotProfileCollection.get(c.id)) == null
+                      ).BotProfileCollection.get(p.id)) == null
                         ? void 0
-                        : f.personaId;
+                        : y.personaId;
                   }
                   try {
-                    (p.sendToChat({
-                      chat: c,
+                    (g.sendToChat({
+                      chat: p,
                       earlyUpload: this._earlyUploadPromise,
                       options: {
-                        quotedMsg: c.composeQuotedMsg || void 0,
-                        addEvenWhilePreparing: !n,
-                        ctwaContext: m,
-                        isViewOnce: n,
-                        isWamoSub: a,
-                        botPersonaId: _,
-                        threadId: i,
+                        quotedMsg: p.composeQuotedMsg || void 0,
+                        addEvenWhilePreparing: !i,
+                        ctwaContext: f,
+                        isViewOnce: i,
+                        isWamoSub: l,
+                        isQuestion: n,
+                        questionReplyQuotedMessage: s != null ? s : void 0,
+                        botPersonaId: h,
+                        threadId: u,
                       },
                     }),
                       o("WALogger").LOG(
@@ -811,7 +816,7 @@ __d(
                       e
                     );
                   }
-                  ((c.composeQuotedMsg = null),
+                  ((p.composeQuotedMsg = null),
                     o("WALogger").LOG(
                       D ||
                         (D = babelHelpers.taggedTemplateLiteralLoose([
@@ -820,7 +825,7 @@ __d(
                     ),
                     this.stop(F.SENT));
                   try {
-                    (yield d.catch(
+                    (yield _.catch(
                       o("WAAbortError").catchAbort(r("WAWebNoop")),
                     ),
                       o("WALogger").LOG(

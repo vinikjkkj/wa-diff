@@ -3,17 +3,17 @@ __d(
   [
     "WASmaxJsx",
     "WASmaxMixins",
-    "WASmaxOutNewslettersContactsOrRepliedFilterMixinMixinGroup",
+    "WASmaxOutNewslettersContactsOrRepliedOrStarredFilterMixinMixinGroup",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.contactsOrRepliedFilterMixinMixinGroupArgs,
+      var t = e.contactsOrRepliedOrStarredFilterMixinMixinGroupArgs,
         n = o("WASmaxJsx").smax(
           "question_responses",
           null,
           o(
-            "WASmaxOutNewslettersContactsOrRepliedFilterMixinMixinGroup",
-          ).mergeContactsOrRepliedFilterMixinMixinGroup(
+            "WASmaxOutNewslettersContactsOrRepliedOrStarredFilterMixinMixinGroup",
+          ).mergeContactsOrRepliedOrStarredFilterMixinMixinGroup(
             o("WASmaxJsx").smax("filters", null),
             t,
           ),

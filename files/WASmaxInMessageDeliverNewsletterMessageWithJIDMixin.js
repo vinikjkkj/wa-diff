@@ -4,6 +4,7 @@ __d(
     "WAResultOrError",
     "WASmaxInMessageDeliverNewsletterMessageFanoutMixin",
     "WASmaxInMessageDeliverOfflineMixin",
+    "WASmaxInMessageDeliverStsMixin",
     "WASmaxParseJid",
     "WASmaxParseUtils",
   ],
@@ -17,10 +18,12 @@ __d(
         "WASmaxInMessageDeliverNewsletterMessageFanoutMixin",
       ).parseNewsletterMessageFanoutMixin(e);
       if (!r.success) return r;
-      var a = o("WASmaxInMessageDeliverOfflineMixin").parseOfflineMixin(e);
+      var a = o("WASmaxInMessageDeliverOfflineMixin").parseOfflineMixin(e),
+        i = o("WASmaxInMessageDeliverStsMixin").parseStsMixin(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({ from: n.value }, r.value, {
           offlineMixin: a.success ? a.value : null,
+          stsMixin: i.success ? i.value : null,
         }),
       );
     }

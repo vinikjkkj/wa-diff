@@ -1,7 +1,7 @@
 __d(
   "buildCometRouterDispatcher",
-  [],
-  function (t, n, r, o, a, i) {
+  ["cometRouterPopPushViewSource"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       var n = babelHelpers.extends({}, e);
@@ -13,7 +13,7 @@ __d(
         n
       );
     }
-    var l = (function () {
+    var s = (function () {
       function t(e) {
         this.$1 = e;
       }
@@ -40,8 +40,14 @@ __d(
         (n.goBack = function (t) {
           return this.$1.goBack(t);
         }),
-        (n.popPushView = function () {
-          return this.$1.popPushView();
+        (n.popPushView = function (t) {
+          return (
+            (t == null ? void 0 : t.source) != null &&
+              o(
+                "cometRouterPopPushViewSource",
+              ).updateCometRouterPopPushViewSource(t.source),
+            this.$1.popPushView()
+          );
         }),
         (n.prefetchRouteDefinition = function (t) {
           return this.$1.prefetchRouteDefinition(t);
@@ -130,7 +136,7 @@ __d(
         t
       );
     })();
-    i.Dispatcher = l;
+    l.Dispatcher = s;
   },
-  66,
+  98,
 );

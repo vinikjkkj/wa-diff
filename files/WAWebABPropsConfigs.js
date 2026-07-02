@@ -299,6 +299,8 @@ __d(
       aura_app_themes_benefit_active: [23273, "bool", !1, !1],
       aura_app_themes_enabled: [23274, "bool", !1, !1],
       aura_enabled: [23270, "bool", !1, !1],
+      aura_focus_lists_benefit_active: [32724, "bool", !1, !1],
+      aura_focus_lists_enabled: [32723, "bool", !1, !1],
       aura_kill_switch: [28345, "bool", !1, !1],
       aura_media_offload_benefit_active: [29308, "bool", !1, !1],
       aura_media_offload_enabled: [29391, "bool", !1, !1],

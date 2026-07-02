@@ -15,13 +15,13 @@ __d(
       switch (e) {
         case o("WAWebQuestions.flow").ResponsesFilterType.CONTACTS:
           return {
-            contactsOrRepliedFilterMixinMixinGroupArgs: {
+            contactsOrRepliedOrStarredFilterMixinMixinGroupArgs: {
               isContactsFilterMixin: !0,
             },
           };
         case o("WAWebQuestions.flow").ResponsesFilterType.REPLIED:
           return {
-            contactsOrRepliedFilterMixinMixinGroupArgs: {
+            contactsOrRepliedOrStarredFilterMixinMixinGroupArgs: {
               isRepliedFilterMixin: !0,
             },
           };

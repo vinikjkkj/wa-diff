@@ -348,26 +348,26 @@ __d(
                   contact: this,
                   wid: this.id,
                 }));
+            } else if (o("WAWebBotUtils").isMetaAiBot(this.id))
+              this.set({ name: "Meta AI" });
+            else if (
+              this.id.server === "bot" &&
+              this.id.user === o("WAWebBotUtils").META_BOT_TEE_FBID_WID.user
+            ) {
+              this.set({ name: "Meta AI" });
+              var a = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
+              o("WAWebProfilePicThumbCollection")
+                .ProfilePicThumbCollection.gadd(this.id)
+                .set({
+                  eurl: a,
+                  previewEurl: a,
+                  tag: "man",
+                  stale: !1,
+                  timestamp: Date.now(),
+                });
             } else {
               if (this.name) return;
-              if (o("WAWebBotUtils").isMetaAiBot(this.id))
-                this.set({ name: "Meta AI" });
-              else if (
-                this.id.server === "bot" &&
-                this.id.user === o("WAWebBotUtils").META_BOT_TEE_FBID_WID.user
-              ) {
-                this.set({ name: "Meta AI" });
-                var a = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
-                o("WAWebProfilePicThumbCollection")
-                  .ProfilePicThumbCollection.gadd(this.id)
-                  .set({
-                    eurl: a,
-                    previewEurl: a,
-                    tag: "man",
-                    stale: !1,
-                    timestamp: Date.now(),
-                  });
-              } else this.set({ name: s._(/*BTDS*/ "AI").toString() });
+              this.set({ name: s._(/*BTDS*/ "AI").toString() });
             }
             this.set({ type: "out" });
           }

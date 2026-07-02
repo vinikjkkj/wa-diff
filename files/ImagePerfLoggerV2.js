@@ -18,52 +18,74 @@ __d(
       u,
       c = null,
       d,
-      m = !1;
-    function p() {
+      m = !1,
+      p = 5e3,
+      _;
+    function f(e) {
+      var t,
+        n = _;
+      return e == null || e === "" || n == null
+        ? 0
+        : (t = n.get(e)) != null
+          ? t
+          : 0;
+    }
+    function g(e) {
+      var t,
+        n = _;
+      if (!(e == null || e === "" || n == null)) {
+        var r = ((t = n.get(e)) != null ? t : 0) + 1;
+        if ((n.delete(e), n.set(e, r), n.size > p)) {
+          var o = n.keys().next().value;
+          o != null && n.delete(o);
+        }
+      }
+    }
+    function h() {
       m ||
         (typeof WeakMap == "function" &&
-          ((d = new WeakMap()), (u = new WeakSet())),
+          ((d = new WeakMap()), (u = new WeakSet()), (_ = new Map())),
         o("WebAPIs").IntersectionObserver &&
-          (c = new (o("WebAPIs").IntersectionObserver)(y)),
-        o("ImageMutationTracker").init(_, I),
+          (c = new (o("WebAPIs").IntersectionObserver)(S)),
+        o("ImageMutationTracker").init(y, $),
         (m = !0));
     }
-    function _(e, t, n) {
+    function y(e, t, n) {
       var r, o, a;
       if (
         !(!d || !c) &&
-        D(e) &&
+        N(e) &&
         !(((r = u) != null && r.has(e)) || ((o = d) != null && o.has(e)))
       ) {
-        if (((a = u) == null || a.add(e), f(e))) {
-          C(e, t, n);
+        if (((a = u) == null || a.add(e), C(e))) {
+          R(e, t, n);
           return;
         }
-        if (g(e)) {
+        if (b(e)) {
           var i;
           (i = u) == null || i.delete(e);
           return;
         }
-        if (!f(e)) {
-          T(e, t, n);
+        if (!C(e)) {
+          P(e, t, n);
           return;
         }
       }
     }
-    function f(e) {
+    function C(e) {
       return e.complete;
     }
-    function g(e) {
+    function b(e) {
       return e.getAttribute("loading") === "lazy";
     }
-    function h() {
+    function v() {
       var t,
         n = (e || (e = r("performanceNow")))(),
         a =
           (t = o("VisibilityState").getHiddenSpans(n - 1, n)) != null ? t : [];
       return a.length > 0;
     }
-    function y(e) {
+    function S(e) {
       e.forEach(function (e) {
         var t,
           n = (t = d) == null ? void 0 : t.get(e.target);
@@ -73,7 +95,7 @@ __d(
             i = n.mutationType,
             l = n.startPaintingTime,
             s = n.traceID;
-          (L({
+          (T({
             element: e.target,
             traceID: s,
             mutationTime: a,
@@ -83,11 +105,13 @@ __d(
             imageOnLoadTime: o,
           }),
             r("OneTraceCore").endTrace(s, e.time, "SUCCESS"),
-            k(e.target));
+            e.target instanceof HTMLImageElement &&
+              g(r("getSanitizedUrl")(e.target.src)),
+            x(e.target));
         }
       });
     }
-    function C(t, n, a, i, l) {
+    function R(t, n, a, i, l) {
       if (!(!d || !c)) {
         var u = l != null ? l : r("uuidv4")(),
           m = (e || (e = r("performanceNow")))(),
@@ -99,30 +123,32 @@ __d(
             startPaintingTime: m,
             imageOnLoadTime: i,
           };
-        if (h())
-          (L(babelHelpers.extends({}, p, { endPainingTime: m })),
-            r("OneTraceCore").endTrace(u, m, "SUCCESS"));
+        if (v())
+          (T(babelHelpers.extends({}, p, { endPainingTime: m })),
+            r("OneTraceCore").endTrace(u, m, "SUCCESS"),
+            g(r("getSanitizedUrl")(t.src)));
         else {
           var _,
             f,
-            g = setTimeout(function () {
+            h = setTimeout(function () {
               var n = (e || (e = r("performanceNow")))();
-              (L(babelHelpers.extends({}, p, { endPainingTime: n })),
+              (T(babelHelpers.extends({}, p, { endPainingTime: n })),
                 r("OneTraceCore").endTrace(u, n, "TIMEOUT"),
-                k(t));
+                x(t));
             }, s),
             y = function (o, a) {
               if (a) {
                 var n = (e || (e = r("performanceNow")))();
-                (L(babelHelpers.extends({}, p, { endPainingTime: n })),
+                (T(babelHelpers.extends({}, p, { endPainingTime: n })),
                   r("OneTraceCore").endTrace(u, n, "SUCCESS"),
-                  k(t));
+                  g(r("getSanitizedUrl")(t.src)),
+                  x(t));
               }
             };
           (o("VisibilityState").subscribe(y),
             (_ = d) == null ||
               _.set(t, {
-                timer: g,
+                timer: h,
                 traceID: u,
                 visibilityChangeCallaback: y,
                 mutationType: n,
@@ -134,26 +160,26 @@ __d(
         }
       }
     }
-    function b(e) {
+    function L(e) {
       var t = e.match(/\.(\w+)(\?|$)/);
       return t && t.length > 1 ? t[1] : "";
     }
-    function v(e) {
+    function E(e) {
       return e.getAttribute("data-imgperflogname");
     }
-    function S(e) {
+    function k(e) {
       if (typeof window == "undefined") return null;
       var t = window.getComputedStyle(e);
       return t.objectFit;
     }
-    function R(e) {
+    function I(e) {
       var t =
         performance &&
         performance.getEntriesByName &&
         performance.getEntriesByName(e);
       return t && t[0];
     }
-    function L(e) {
+    function T(e) {
       var t = e.element,
         n = e.endPainingTime,
         a = e.imageOnLoadTime,
@@ -166,10 +192,11 @@ __d(
           d = t.src,
           m = { mutationType: l },
           p = {},
-          _ = d != null ? R(d) : null,
-          f = d != null ? b(d) : null,
-          g = v(t),
-          h = r("OneTraceCore").startTrace(
+          _ = d != null ? I(d) : null,
+          g = d != null ? L(d) : null,
+          h = E(t),
+          y = d != null ? r("getSanitizedUrl")(d) : null,
+          C = r("OneTraceCore").startTrace(
             u,
             (c = r("OneTraceCore").getCurrentTracePolicy()) != null ? c : "",
             "IMAGE",
@@ -177,9 +204,10 @@ __d(
           );
         if (
           ((p.hidden = Number(o("VisibilityState").wasHidden(i, n))),
-          a != null && (h.markerPoints.imageOnLoad = { timeSinceStart: a }),
-          (h.markerPoints.startPainting = { timeSinceStart: s }),
-          (h.markerPoints.mutationTime = { timeSinceStart: i }),
+          (p.previousSuccessfulLoadCount = f(y)),
+          a != null && (C.markerPoints.imageOnLoad = { timeSinceStart: a }),
+          (C.markerPoints.startPainting = { timeSinceStart: s }),
+          (C.markerPoints.mutationTime = { timeSinceStart: i }),
           ["naturalHeight", "naturalWidth", "width", "height"].forEach(
             function (e) {
               p[e] = t[e];
@@ -204,7 +232,7 @@ __d(
           ].forEach(function (e) {
             _ != null &&
               typeof _[e] == "number" &&
-              (h.markerPoints[e] = { timeSinceStart: _[e] });
+              (C.markerPoints[e] = { timeSinceStart: _[e] });
           }),
             ["decodedBodySize", "encodedBodySize", "transferSize"].forEach(
               function (e) {
@@ -214,25 +242,24 @@ __d(
             _ != null &&
               typeof _.nextHopProtocol == "string" &&
               (m.nextHopProtocol = _.nextHopProtocol),
-            f != null && f !== "" && (m.fileExt = f),
-            g != null && (m.logName = g));
-          var y = S(t);
-          y != null && (m.objectFit = y);
-          var C = d != null ? r("getSanitizedUrl")(d) : null;
-          C != null && C !== "" && (m.url = C);
+            g != null && g !== "" && (m.fileExt = g),
+            h != null && (m.logName = h));
+          var b = k(t);
+          (b != null && (m.objectFit = b),
+            y != null && y !== "" && (m.url = y));
         }
-        r("addAnnotations")(h.annotations, { string: m, int: p });
+        r("addAnnotations")(C.annotations, { string: m, int: p });
       }
     }
-    function E(t, n, o, a, i) {
+    function D(t, n, o, a, i) {
       var l = function () {
-          (C(t, n, o, a, i),
+          (R(t, n, o, a, i),
             t.removeEventListener("load", l),
             t.removeEventListener("error", s));
         },
         s = function () {
           var u = (e || (e = r("performanceNow")))();
-          (L({
+          (T({
             element: t,
             mutationTime: o,
             mutationType: n,
@@ -242,13 +269,13 @@ __d(
             imageOnLoadTime: a,
           }),
             r("OneTraceCore").endTrace(i, u, "FAIL"),
-            k(t),
+            x(t),
             t.removeEventListener("load", l),
             t.removeEventListener("error", s));
         };
       return { errorHandler: s, loadHandler: l };
     }
-    function k(e) {
+    function x(e) {
       var t,
         n,
         a = (t = d) == null ? void 0 : t.get(e);
@@ -261,7 +288,7 @@ __d(
           o("VisibilityState").unsubscribe(s));
       }
     }
-    function I(t) {
+    function $(t) {
       var n,
         o = (n = d) == null ? void 0 : n.get(t);
       if (o != null) {
@@ -271,7 +298,7 @@ __d(
           s = o.mutationType,
           u = o.startPaintingTime,
           c = o.traceID;
-        (L({
+        (T({
           element: t,
           traceID: c,
           mutationType: s,
@@ -281,25 +308,25 @@ __d(
           imageOnLoadTime: i,
         }),
           r("OneTraceCore").endTrace(c, a, "CANCEL"),
-          k(t));
+          x(t));
       }
     }
-    function T(t, n, o) {
+    function P(t, n, o) {
       var a = (e || (e = r("performanceNow")))(),
         i = r("uuidv4")(),
-        l = E(t, n, o, a, i),
+        l = D(t, n, o, a, i),
         s = l.errorHandler,
         u = l.loadHandler;
       (t.addEventListener("load", u), t.addEventListener("error", s));
     }
-    function D(e) {
-      return x(e) === "IMG";
+    function N(e) {
+      return M(e) === "IMG";
     }
-    function x(e) {
+    function M(e) {
       var t;
       return (t = e.tagName) != null ? t : "";
     }
-    ((l.init = p), (l.logImagePerfV2 = _));
+    ((l.init = h), (l.logImagePerfV2 = y));
   },
   98,
 );

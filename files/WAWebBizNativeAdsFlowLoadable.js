@@ -93,8 +93,8 @@ __d(
                   a,
                   babelHelpers.extends(
                     {
+                      flowID: t,
                       identityBundle: null,
-                      initialAdCreationFlowID: t,
                       initialStep: m,
                       isWAAEligible: l,
                       scenario: d,
@@ -137,8 +137,8 @@ __d(
                 a,
                 babelHelpers.extends(
                   {
+                    flowID: t,
                     identityBundle: _,
-                    initialAdCreationFlowID: t,
                     initialStep: m,
                     isWAAEligible: l,
                     scenario: d,
@@ -161,7 +161,7 @@ __d(
           o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplSuccess());
     }
     function y(t) {
-      var a = t.initialAdCreationFlowID,
+      var a = t.flowID,
         i = t.initialLoadingStep,
         l = t.onLoadComplete,
         s = t.phase1Result,
@@ -260,8 +260,8 @@ __d(
                 C,
                 babelHelpers.extends(
                   {
+                    flowID: a,
                     identityBundle: S,
-                    initialAdCreationFlowID: a,
                     initialStep: E,
                     isWAAEligible: b,
                     scenario: L,

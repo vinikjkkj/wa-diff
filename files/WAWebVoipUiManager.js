@@ -21,6 +21,7 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipCallStateUtils",
     "WAWebVoipEventConstants",
+    "WAWebVoipGatingUtils",
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "WAWebVoipWindowConstants",
@@ -218,16 +219,24 @@ __d(
                 "[voip] call link in active state, keeping existing PiP",
               ])),
           ),
-            w == null || w(),
-            (w = q(t, function () {
-              ((w = null),
-                r("WAWebCallCollection").activeCall === t &&
-                  o(
-                    "WAWebVoipUiDocPipPortalContainer.react",
-                  ).WAWebVoipUiDocPipEventEmitter.trigger("setDocPipProps", {
-                    callLogMsg: t.msg,
-                  }));
-            })),
+            o("WAWebVoipGatingUtils").isGuestViewer()
+              ? o(
+                  "WAWebVoipUiDocPipPortalContainer.react",
+                ).WAWebVoipUiDocPipEventEmitter.trigger("setDocPipProps", {
+                  callLogMsg: null,
+                  isArmed: !0,
+                })
+              : (w == null || w(),
+                (w = q(t, function () {
+                  ((w = null),
+                    r("WAWebCallCollection").activeCall === t &&
+                      o(
+                        "WAWebVoipUiDocPipPortalContainer.react",
+                      ).WAWebVoipUiDocPipEventEmitter.trigger(
+                        "setDocPipProps",
+                        { callLogMsg: t.msg },
+                      ));
+                }))),
             O());
           return;
         }
