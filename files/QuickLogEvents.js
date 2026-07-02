@@ -1453,6 +1453,11 @@ __d(
         name: "OPTIMIZATION_SCORE_CELL_HOVER_CARD_LOAD",
         sampleRate: 100,
       },
+      7739187: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_STATUS_CHANGE",
+        sampleRate: 1,
+      },
       7739197: {
         moduleName: "ADS_MANAGER",
         name: "CREATE_PRODUCT_SET",
@@ -1483,10 +1488,25 @@ __d(
         name: "GUIDANCE_HUB_WIDGET_LOAD",
         sampleRate: 100,
       },
+      7743188: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_DUPLICATION_INTRO",
+        sampleRate: 1,
+      },
       7743195: {
         moduleName: "ADS_MANAGER",
         name: "CONNECTED_SOURCES",
         sampleRate: 100,
+      },
+      7743269: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_ODAX_CREATION_INTRO",
+        sampleRate: 1,
+      },
+      7743564: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_ACCOUNT_SWITCHER_INTRO",
+        sampleRate: 1,
       },
       7743573: {
         moduleName: "ADS_MANAGER",
@@ -1498,10 +1518,30 @@ __d(
         name: "CAMPAIGN_STRENGTH_SIDE_TRAY_LOAD",
         sampleRate: 100,
       },
+      7743781: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_TABLE_INTRO",
+        sampleRate: 1,
+      },
+      7744739: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_CHARTS_INTRO",
+        sampleRate: 1,
+      },
       7745074: {
         moduleName: "ADS_MANAGER",
         name: "SHOPS_POST_CLICK_PREVIEW_LOAD",
         sampleRate: 100,
+      },
+      7745632: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_HELP_AND_SUPPORT_INTRO",
+        sampleRate: 1,
+      },
+      7745915: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_UPTIME_AD_OBJECT_OVERFLOW_MENU_INTRO",
+        sampleRate: 1,
       },
       7746593: {
         moduleName: "ADS_MANAGER",
@@ -2779,6 +2819,11 @@ __d(
         name: "PAGE_LOAD",
         sampleRate: 100,
       },
+      19794845: {
+        moduleName: "IN_APP_BROWSER",
+        name: "AGENTIC_BROWSER_CLICK",
+        sampleRate: 1,
+      },
       19796226: {
         moduleName: "IN_APP_BROWSER",
         name: "IAB_PILL_HEADER",
@@ -3896,6 +3941,11 @@ __d(
         moduleName: "MESSENGER_WEB",
         name: "PRESENCE_MSYS_EXP",
         sampleRate: 1e3,
+      },
+      25307140: {
+        moduleName: "MESSENGER_WEB",
+        name: "SET_THREAD_MAGIC_WORDS",
+        sampleRate: 250,
       },
       25307273: {
         moduleName: "MESSENGER_WEB",
@@ -10601,6 +10651,11 @@ __d(
         name: "THRIFT_ASCSBQRT_CREATE_EXP",
         sampleRate: 1,
       },
+      55118247: {
+        moduleName: "STELLA_APP",
+        name: "POST_TO_FEED",
+        sampleRate: 1,
+      },
       55118978: {
         moduleName: "STELLA_APP",
         name: "DYNAMIC_PHOTO_IMPORT",
@@ -13478,6 +13533,11 @@ __d(
         name: "WEEL_GENERATE",
         sampleRate: 250,
       },
+      68754007: {
+        moduleName: "GENSTUDIO",
+        name: "CONVERSATION_TURN",
+        sampleRate: 250,
+      },
       68754858: {
         moduleName: "GENSTUDIO",
         name: "PREVIEW_WORLD",
@@ -14147,7 +14207,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 43142,
+        sampleRate: 36832,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14162,7 +14222,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 159064,
+        sampleRate: 252391,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14217,22 +14277,22 @@ __d(
       86441985: {
         moduleName: "AVATAR_EDITOR_PROMPT_TO_AVATAR",
         name: "PROMPT_TO_IMAGE",
-        sampleRate: 1,
+        sampleRate: 0,
       },
       86441986: {
         moduleName: "AVATAR_EDITOR_PROMPT_TO_AVATAR",
         name: "IMAGE_TO_AVATAR",
-        sampleRate: 1,
+        sampleRate: 0,
       },
       86445731: {
         moduleName: "AVATAR_EDITOR_PROMPT_TO_AVATAR",
         name: "PROMPT_TO_IMAGE_FETCH_RESPONSE",
-        sampleRate: 1,
+        sampleRate: 0,
       },
       86454422: {
         moduleName: "AVATAR_EDITOR_PROMPT_TO_AVATAR",
         name: "IMAGE_TO_AVATAR_FETCH_RESPONSE",
-        sampleRate: 1,
+        sampleRate: 0,
       },
       86648404: {
         moduleName: "MSYS_SDK_CHILD_QUERIES_FROM_PARENT",
@@ -17432,6 +17492,11 @@ __d(
         name: "WAM_CATEGORY_TO_CREATION",
         sampleRate: 1,
       },
+      140647151: {
+        moduleName: "WAM_TEMPLATE_PLATFORM",
+        name: "WAM_TEMPLATE_PREVIEW_RENDER",
+        sampleRate: 250,
+      },
       140652018: {
         moduleName: "WAM_TEMPLATE_PLATFORM",
         name: "WAM_TEMPLATE_LIST_TO_LIBRARY",
@@ -20281,6 +20346,11 @@ __d(
         name: "NOTIFICATIONS_TTRC",
         sampleRate: 1,
       },
+      191370262: {
+        moduleName: "EMBER",
+        name: "MARKETPLACE_MESSAGE_SEND",
+        sampleRate: 250,
+      },
       191371177: {
         moduleName: "EMBER",
         name: "SILENT_PUSH_PREFETCH",
@@ -22592,7 +22662,7 @@ __d(
       236466096: {
         moduleName: "SLIDE_HEALTH",
         name: "SLIDE_BADGE_DISCREPANCY",
-        sampleRate: 1,
+        sampleRate: 10,
       },
       236468324: {
         moduleName: "SLIDE_HEALTH",
@@ -28887,6 +28957,11 @@ __d(
         name: "DEVICE_NOTIFICATION_BUILD",
         sampleRate: 1,
       },
+      318046209: {
+        moduleName: "BASEL_FONTS",
+        name: "CACHED_FONT_FILE_MISSING",
+        sampleRate: 250,
+      },
       318245094: {
         moduleName: "WA_MESSAGE_FOUNDATION",
         name: "CHAT_COMPOSER_LATENCY",
@@ -29751,6 +29826,11 @@ __d(
         moduleName: "DECISION_PAGE_PUBLIC_SITE",
         name: "DECISION_HOME_PAGE_LOADING_TIME",
         sampleRate: null,
+      },
+      327887328: {
+        moduleName: "OCULUS_SHELL_ENV",
+        name: "EVENT_ENVIRONMENT_LOAD",
+        sampleRate: 1,
       },
       328402895: {
         moduleName: "DEVELOPERS_META_COM",
@@ -31740,10 +31820,25 @@ __d(
         name: "TOKEN_EXCHANGE_WITH_MMA_FLOW",
         sampleRate: 1,
       },
+      360516135: {
+        moduleName: "META_PHOTOS",
+        name: "MOMENTS_DISMISS_TO_INTERACTIVE",
+        sampleRate: 250,
+      },
+      360517678: {
+        moduleName: "META_PHOTOS",
+        name: "MOMENT_TEMPLATE_RENDER",
+        sampleRate: 250,
+      },
       360518167: {
         moduleName: "META_PHOTOS",
         name: "MOMENT_MEDIA_RENDER",
         sampleRate: 1,
+      },
+      360519089: {
+        moduleName: "META_PHOTOS",
+        name: "MOMENT_TEMPLATE_EXPORT",
+        sampleRate: 250,
       },
       360527216: {
         moduleName: "META_PHOTOS",
@@ -31765,9 +31860,19 @@ __d(
         name: "PULL_TO_REFRESH",
         sampleRate: 1,
       },
+      361247008: {
+        moduleName: "CREATOR_STUDIO_MOBILE",
+        name: "ALL_COMMENTS_PAGE_LOAD",
+        sampleRate: 1,
+      },
       361248410: {
         moduleName: "CREATOR_STUDIO_MOBILE",
         name: "INITIAL_LOAD",
+        sampleRate: 1,
+      },
+      361249374: {
+        moduleName: "CREATOR_STUDIO_MOBILE",
+        name: "SUGGESTED_COMMENTS_PAGE_LOAD",
         sampleRate: 1,
       },
       361562113: {
@@ -34271,6 +34376,11 @@ __d(
         name: "LOGOUT_NO_LOGIN_SCREEN",
         sampleRate: 250,
       },
+      406658746: {
+        moduleName: "CAA_GROWTH_IDENTIFICATION_SOFT_ERRORS",
+        name: "LOGOUT_TO_LOGIN_INVISIBLE_FINISH",
+        sampleRate: 250,
+      },
       406978561: {
         moduleName: "HCS_MODULE",
         name: "HCS_TESTEVENT",
@@ -36696,6 +36806,11 @@ __d(
       441581570: {
         moduleName: "HORIZON_CROSS_SCREENS_PWA",
         name: "PWA_AUTO_LOGIN_ACCEPT",
+        sampleRate: null,
+      },
+      441984686: {
+        moduleName: "FOS_SMS",
+        name: "SMS_ROUTING_SERVER",
         sampleRate: null,
       },
       442893827: {
@@ -40910,8 +41025,18 @@ __d(
         name: "REG_TRANSITION_TO_NEXT",
         sampleRate: 1,
       },
+      505022322: {
+        moduleName: "WEAVE",
+        name: "THREAD_LIST_LOAD",
+        sampleRate: 1,
+      },
       505025663: { moduleName: "WEAVE", name: "INITIAL_LOAD", sampleRate: 1 },
       505027078: { moduleName: "WEAVE", name: "NAVIGATION", sampleRate: 1 },
+      505028662: {
+        moduleName: "WEAVE",
+        name: "MESSAGE_LIST_LOAD",
+        sampleRate: 1,
+      },
       505353229: {
         moduleName: "RP_POLLS",
         name: "INCALL_POLLS_SETUP",
@@ -44942,7 +45067,7 @@ __d(
       554567261: {
         moduleName: "MSGR_MDCORE",
         name: "MISSING_THREAD_SUBTYPE",
-        sampleRate: 1e5,
+        sampleRate: 1e6,
       },
       554567449: {
         moduleName: "MSGR_MDCORE",
@@ -46371,6 +46496,11 @@ __d(
         moduleName: "FB_MOBILE_FEED_CAROUSEL_ADS",
         name: "CAROUSEL_SUB_ATTACHMENTS_BUILD_TIME_PAGINATION",
         sampleRate: 10,
+      },
+      573713640: {
+        moduleName: "FB_MOBILE_FEED_CAROUSEL_ADS",
+        name: "DA_CAROUSEL_IOS_CLICK_REFRESH_LATENCY",
+        sampleRate: 1,
       },
       573717874: {
         moduleName: "FB_MOBILE_FEED_CAROUSEL_ADS",
@@ -67840,6 +67970,11 @@ __d(
         name: "IG_API_PERMISSIONS_SETUP",
         sampleRate: 100,
       },
+      890774989: {
+        moduleName: "DEVELOPERS_FACEBOOK_COM",
+        name: "CREATE_APP_PAGE_LOAD",
+        sampleRate: 250,
+      },
       890775108: {
         moduleName: "DEVELOPERS_FACEBOOK_COM",
         name: "DEV_REGISTRATION",
@@ -68811,17 +68946,17 @@ __d(
       911935644: {
         moduleName: "MDCORE_IOS_DEBUGGING",
         name: "PUSH_TO_THREADVIEW",
-        sampleRate: 1,
+        sampleRate: 1e5,
       },
       911943515: {
         moduleName: "MDCORE_IOS_DEBUGGING",
         name: "DELTA_PROCESSING",
-        sampleRate: 1,
+        sampleRate: 1e7,
       },
       911948455: {
         moduleName: "MDCORE_IOS_DEBUGGING",
         name: "DELTA_PAYLOAD_PROCESSING",
-        sampleRate: 1,
+        sampleRate: 1e7,
       },
       912529331: {
         moduleName: "GROUP_NICKNAME",
@@ -75263,6 +75398,21 @@ __d(
         name: "PLAYABLE_UPLOAD_FLOW",
         sampleRate: 1,
       },
+      1008149556: {
+        moduleName: "ADO_INFRA",
+        name: "TBR_REVIEW_FBLEARNER",
+        sampleRate: 1,
+      },
+      1008153085: {
+        moduleName: "ADO_INFRA",
+        name: "TBR_REVIEW_REQUEST",
+        sampleRate: 1,
+      },
+      1008153622: {
+        moduleName: "ADO_INFRA",
+        name: "TBR_REVIEW_REQUEST_FBLEARNER",
+        sampleRate: 1,
+      },
       1009319937: {
         moduleName: "ME_OMNIBOT_AGENT",
         name: "ME_AGENT_RUN",
@@ -76750,6 +76900,11 @@ __d(
         moduleName: "HORIZON_MOBILE",
         name: "ECLIPSE_MEDIA_DOWNLOAD",
         sampleRate: 1,
+      },
+      1034760352: {
+        moduleName: "HORIZON_MOBILE",
+        name: "ECLIPSE_ASK_META_AI_CHAT_TURN",
+        sampleRate: 250,
       },
       1034761081: {
         moduleName: "HORIZON_MOBILE",

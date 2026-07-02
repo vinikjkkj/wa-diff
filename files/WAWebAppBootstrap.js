@@ -28,6 +28,7 @@ __d(
     "WAWebInvocationInterface",
     "WAWebKeyboardShortcuts",
     "WAWebLoggerOnError",
+    "WAWebLoginBounceGuard",
     "WAWebMainThreadLogger",
     "WAWebMetricsAttributionObservers",
     "WAWebPQGatingUtils",
@@ -103,6 +104,7 @@ __d(
               "WAWebDeleteGuestSessionOnWebLoad",
             ).maybeDeleteGuestSessionOnWebLoad(),
             yield o("WAWebHandlePreviousLogout").handlePreviousLogoutFailures(),
+            o("WAWebLoginBounceGuard").resetLoginBounceCount(),
             o("WAWebPageLoadLoggingImpl").setPageLoadLoggingImpl(),
             o("WAWebABPropsCache").initializeABPropsCache(),
             o("WAWebClientFeatureFlags").overwriteDebugFeatures());

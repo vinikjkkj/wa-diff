@@ -27,13 +27,13 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsStatusAttributions.pb",
     "WAWebSimpleSignalPNToFBIDMigration",
+    "WAWebStructuredClone",
     "WAWebURLUtils",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "isArrayNullOrEmpty",
     "isEmptyObject",
-    "lodash",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["messageContextInfo"],
@@ -699,7 +699,7 @@ __d(
             c = u === void 0 ? !1 : u,
             d = e.mentionedJidList,
             m = e.message,
-            p = r("lodash").cloneDeep(m),
+            p = r("WAWebStructuredClone")(m),
             _ = !1;
           (c === !0 &&
             o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
@@ -786,7 +786,7 @@ __d(
         var s = o("WAWebWidFactory").createWid(l);
         if (!s.isBot()) {
           var u, c, d;
-          i = r("lodash").cloneDeep(e);
+          i = r("WAWebStructuredClone")(e);
           var m =
             (u =
               (c = i) == null ||
@@ -818,7 +818,7 @@ __d(
         var i = o("WAWebWidFactory").createWid(a);
         if (!i.isBot() && !i.isLid()) {
           var l;
-          n = r("lodash").cloneDeep(e);
+          n = r("WAWebStructuredClone")(e);
           var s =
             (l = n) == null || (l = l.protocolMessage) == null ? void 0 : l.key;
           if (s != null) {
@@ -834,7 +834,7 @@ __d(
         n = (e == null ? void 0 : e.protocolMessage) != null;
       if (n) {
         var o, a;
-        ((t = r("lodash").cloneDeep(e)),
+        ((t = r("WAWebStructuredClone")(e)),
           (o = t.protocolMessage) == null ||
             (o = o.key) == null ||
             delete o.remoteJid,
@@ -845,7 +845,7 @@ __d(
       return t;
     }
     function U(e) {
-      var t = r("lodash").cloneDeep(e);
+      var t = r("WAWebStructuredClone")(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
           capiCreatedGroup: !0,

@@ -16,6 +16,7 @@ __d(
           (t.questionServerId = o("WAWebBaseModel").prop()),
           (t.senderNotifyName = o("WAWebBaseModel").prop()),
           (t.replied = o("WAWebBaseModel").prop(!1)),
+          (t.starred = o("WAWebBaseModel").prop(!1)),
           (t.senderPictureDirectPath = o("WAWebBaseModel").prop()),
           (t.isSentByMe = o("WAWebBaseModel").prop(!1)),
           (t.senderId = o("WAWebBaseModel").prop()),

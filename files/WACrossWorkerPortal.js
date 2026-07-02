@@ -1,7 +1,6 @@
 __d(
   "WACrossWorkerPortal",
   [
-    "FBLogger",
     "Promise",
     "WABridgeBatcher",
     "WALogger",
@@ -29,9 +28,7 @@ __d(
       b,
       v,
       S,
-      R,
-      L,
-      E = (function () {
+      R = (function () {
         function t(e, t, n, r, a) {
           var i = this,
             l;
@@ -142,44 +139,29 @@ __d(
               e.$9(t, n, r, o, a, i, l, s);
             };
           }),
-          (a.$9 = function (t, n, o, a, i, l, s, u) {
+          (a.$9 = function (t, n, r, o, a, i, l, s) {
             var e,
-              c,
-              m = this.$5(),
-              p = babelHelpers.extends(
+              u = this.$5(),
+              c = babelHelpers.extends(
                 { fromClientId: (e = this.clientId) != null ? e : void 0 },
-                u,
+                s,
               ),
-              _ = {
-                requestId: m,
-                expectsResponse: !!a,
+              d = {
+                requestId: u,
+                expectsResponse: !!o,
                 namespace: t,
                 name: n,
-                arg: o,
-                transferList: l,
-                silentLog: i,
-                opts: p,
+                arg: r,
+                transferList: i,
+                silentLog: a,
+                opts: c,
               };
-            if (((c = this.config) == null ? void 0 : c.onSendAcross) != null)
-              try {
-                this.config.onSendAcross(t, n, _.expectsResponse, o);
-              } catch (e) {
-                var f = r("getErrorSafe")(e);
-                r("FBLogger")("wmi")
-                  .catching(f)
-                  .MUSTFIX(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to execute onSendAcross",
-                      ])),
-                  );
-              }
-            (this.openRequests.set(m, {
-              request: _,
-              resolver: a,
-              eventCallbacks: s,
+            (this.openRequests.set(u, {
+              request: d,
+              resolver: o,
+              eventCallbacks: l,
             }),
-              this.sendStream.addEvent({ type: "request", content: _ }));
+              this.sendStream.addEvent({ type: "request", content: d }));
           }),
           (a.$10 = function (t, n) {
             t === this.port &&
@@ -194,9 +176,9 @@ __d(
                 u = new Set();
               for (var c of n)
                 if (c.type === "request") {
-                  var d = c.content,
-                    _ = d.transferList,
-                    f = babelHelpers.objectWithoutPropertiesLoose(d, e);
+                  var p = c.content,
+                    _ = p.transferList,
+                    f = babelHelpers.objectWithoutPropertiesLoose(p, e);
                   if (_ != null) for (var g of _) u.add(g);
                   l.push({ type: "request", content: f });
                 } else {
@@ -244,8 +226,8 @@ __d(
                   S = R(L);
                 } catch (e) {
                   o("WALogger").ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "Bridge onSendBatch threw: ",
                         "",
                       ])),
@@ -258,8 +240,8 @@ __d(
                   S == null || S();
                 } catch (e) {
                   o("WALogger").ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "Bridge onSendBatchDone threw: ",
                         "",
                       ])),
@@ -280,8 +262,8 @@ __d(
             var e = r("getErrorSafe")(n);
             if (e.name === "DataCloneError") {
               o("WALogger").ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "Bridge send dropped; payload already transferred or not cloneable: ",
                     "",
                   ])),
@@ -291,8 +273,8 @@ __d(
             }
             (this.port === t && (this.port = null),
               o("WALogger").ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "Bridge send failed; port inaccessible (dropped dead port): ",
                     "",
                   ])),
@@ -305,8 +287,8 @@ __d(
                 a.onPortError(e);
             } catch (e) {
               o("WALogger").ERROR(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "Bridge onPortError threw: ",
                     "",
                   ])),
@@ -333,8 +315,8 @@ __d(
               if (
                 (p ||
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "Bridge ",
                         " request for ",
                         "",
@@ -347,8 +329,8 @@ __d(
               ) {
                 p ||
                   o("WALogger").LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         "Bridge ",
                         " not intended for client ",
                         "",
@@ -376,9 +358,9 @@ __d(
               try {
                 t.postMessage([f]);
               } catch (e) {
-                var g;
+                var v;
                 if (
-                  ((g = this.config) == null ? void 0 : g.onPortError) == null
+                  ((v = this.config) == null ? void 0 : v.onPortError) == null
                 )
                   throw e;
                 this.$11(t, e);
@@ -413,90 +395,69 @@ __d(
                 o("WAPromiseManagement").preventGarbageCollection(R);
               } else _.fireAndForget(c, u, l, p, void 0, d);
             } else {
-              var E;
               a.type;
-              var k = a.content,
-                I = k.requestId,
-                T = k.result,
-                D = k.silentLog,
-                x = k.type,
-                $ = this.$6(I);
-              if ($ !== this.clientId || this.processedRequests.has(I)) return;
-              var P = this.openRequests.get(I);
-              if (!P) {
+              var L = a.content,
+                E = L.requestId,
+                k = L.result,
+                I = L.silentLog,
+                T = L.type,
+                D = this.$6(E);
+              if (D !== this.clientId || this.processedRequests.has(E)) return;
+              var x = this.openRequests.get(E);
+              if (!x) {
                 o("WALogger").WARN(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "Bridge unrecognized result ",
                       "",
                     ])),
-                  I,
+                  E,
                 );
                 return;
               }
-              if (
-                ((E = this.config) == null ? void 0 : E.onReceiveAcross) != null
-              )
-                try {
-                  this.config.onReceiveAcross(
-                    P.request.namespace,
-                    P.request.name,
-                    x,
-                  );
-                } catch (e) {
-                  var N = r("getErrorSafe")(e);
-                  r("FBLogger")("wmi")
-                    .catching(N)
-                    .MUSTFIX(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
-                          "Failed to execute onReceiveAcross",
-                        ])),
-                    );
-                }
-              switch (x) {
+              switch (T) {
                 case "success":
                 case "error": {
-                  (this.openRequests.delete(I), this.processedRequests.add(I));
-                  var M = P.resolver;
-                  M
-                    ? M(
-                        x === "success"
-                          ? T
-                          : (L || (L = n("Promise"))).reject(
-                              r("err")(T != null ? T : ""),
+                  (this.openRequests.delete(E), this.processedRequests.add(E));
+                  var $ = x.resolver;
+                  $
+                    ? $(
+                        T === "success"
+                          ? k
+                          : (S || (S = n("Promise"))).reject(
+                              r("err")(k != null ? k : ""),
                             ),
                       )
                     : o("WALogger").ERROR(
-                        v ||
-                          (v = babelHelpers.taggedTemplateLiteralLoose([
+                        C ||
+                          (C = babelHelpers.taggedTemplateLiteralLoose([
                             "Bridge unexpected result to cast: ",
                             "",
                           ])),
-                        T,
+                        k,
                       );
                   break;
                 }
                 case "handled":
                   try {
-                    var w;
-                    (w = P.eventCallbacks) == null ||
-                      w.onAck == null ||
-                      w.onAck(T);
+                    var P;
+                    (P = x.eventCallbacks) == null ||
+                      P.onAck == null ||
+                      P.onAck(k);
                   } catch (e) {
-                    var A = r("getErrorSafe")(e);
+                    var N = r("getErrorSafe")(e);
                     o("WALogger").ERROR(
-                      S ||
-                        (S = babelHelpers.taggedTemplateLiteralLoose([
+                      b ||
+                        (b = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to execute onAck: ",
                           "",
                         ])),
-                      A.message,
+                      N.message,
                     );
                   }
-                  P.resolver ||
-                    (this.openRequests.delete(I),
-                    this.processedRequests.add(I));
+                  x.resolver ||
+                    (this.openRequests.delete(E),
+                    this.processedRequests.add(E));
                   break;
               }
             }
@@ -504,10 +465,10 @@ __d(
           t
         );
       })();
-    function k(e, t, n, r, o) {
-      return new E(e, n, t, r, o);
+    function L(e, t, n, r, o) {
+      return new R(e, n, t, r, o);
     }
-    function I(e) {
+    function E(e) {
       var t;
       ((t = e.port) == null || t.close(),
         (e.port = null),
@@ -523,8 +484,8 @@ __d(
           l = t.namespace,
           s = t.silentLog;
         (o("WALogger").LOG(
-          R ||
-            (R = babelHelpers.taggedTemplateLiteralLoose([
+          v ||
+            (v = babelHelpers.taggedTemplateLiteralLoose([
               "absorbPortal: transferring request #",
               "",
             ])),
@@ -533,9 +494,9 @@ __d(
           n ? n(r.sendAndReceive(l, i, a, s)) : r.fireAndForget(l, i, a, s));
       });
     }
-    ((l.CrossWorkerPortal = E),
-      (l.attachPortal = k),
-      (l.killPortalAndSendPendingToBridge = I));
+    ((l.CrossWorkerPortal = R),
+      (l.attachPortal = L),
+      (l.killPortalAndSendPendingToBridge = E));
   },
   98,
 );

@@ -23,16 +23,16 @@ __d(
     }
     var c = 180 * 1e3;
     function d(t) {
-      var n = t.variant,
-        r = t.hasNewUnreadWhileHidden,
-        o = t.hasOptInNuxBeenShown;
-      return n === e.ReturnToUnread && r && !o;
+      var n = t.hasNewUnreadWhileHidden,
+        r = t.hasOptInNuxBeenShown,
+        o = t.variant;
+      return o === e.ReturnToUnread && n && !r;
     }
     function m(t) {
-      var n = t.variant,
-        r = t.getHasRecentMissedCallWhileHidden,
-        o = t.hasOptInNuxBeenShown;
-      return n === e.AfterMissedCall && !o && r();
+      var n = t.getHasRecentMissedCallWhileHidden,
+        r = t.hasOptInNuxBeenShown,
+        o = t.variant;
+      return o === e.AfterMissedCall && !r && n();
     }
     ((l.NotificationsModalVariant = e),
       (l.getNotificationsModalVariant = s),

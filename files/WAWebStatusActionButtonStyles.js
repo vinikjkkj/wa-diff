@@ -19,7 +19,7 @@ __d(
         left: "xu96u03",
         insetInlineStart: null,
         insetInlineEnd: null,
-        zIndex: "xa1v5g2",
+        zIndex: "x12xzxwr",
         width: "x19sv2k2",
         maxWidth: "x1kozois",
         marginInlineEnd: "x11t971q",

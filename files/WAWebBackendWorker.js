@@ -8,6 +8,7 @@ __d(
     "WAJids",
     "WALogger",
     "WAResolvable",
+    "WAResultOrError",
     "WATransferableResult",
     "WAWebBackendApi",
     "WAWebBackendEventBusWorker",
@@ -19,6 +20,7 @@ __d(
     "WAWebCrashlogWorker",
     "WAWebCryptoDecryptMediaWorker",
     "WAWebDbEncryptionKey",
+    "WAWebDeserializeBridgedError",
     "WAWebDeviceSyncBackendWorker",
     "WAWebFBLoggerWorker",
     "WAWebGetMessageCache",
@@ -48,6 +50,7 @@ __d(
     "WAWebSyncdOrphanWorkerCompatible",
     "WAWebUpdateMmSignalSharingExpirationWindowWorker",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
+    "WAWebUploadManagerWorkerBridgeHandler",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebWorkerQplProxy",
@@ -153,39 +156,6 @@ __d(
             },
           },
           {
-            namespace: "media",
-            handlers: {
-              decryptMedia: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.ciphertextHmac,
-                      n = e.encKey,
-                      a = e.expectedPlaintextHash,
-                      i = e.iv,
-                      l = e.macKey,
-                      s = yield r("WAWebCryptoDecryptMediaWorker")({
-                        ciphertextHmac: t,
-                        encKey: n,
-                        expectedPlaintextHash: a,
-                        iv: i,
-                        macKey: l,
-                      });
-                    return o("WATransferableResult").withTransferables(s, [s]);
-                  },
-                );
-                function t(t) {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
-              encryptAndUpload: function () {
-                throw r("err")(
-                  "V3-5e TODO: worker-side encryptAndUpload handler not yet implemented",
-                );
-              },
-            },
-          },
-          {
             namespace: "prekeyProcessing",
             handlers: {
               createOutgoingSessionBatch: function (t) {
@@ -282,11 +252,82 @@ __d(
           "mainthread_msgreporter",
           "mainthread_identitychange",
           "userPrefsFromWorker",
+          "mainthread_appTracker",
+          "mainthread_crashLogger",
+          "mainthread_uploadmanager",
         ]),
           o("WAWebBackendApi").setApi(i),
           (t = o("WAWebCrashlogWorker").createSendLogsWorker(i)),
-          (a = o("WAWebFBLoggerWorker").createLogToFBLoggerWorker(i)),
-          o("WAWebMediaHostsWorker").createAndSetMediaHostsWorker(i),
+          (a = o("WAWebFBLoggerWorker").createLogToFBLoggerWorker(i)));
+        var l = o("WAWebMediaHostsWorker").createAndSetMediaHostsWorker(i),
+          _ = o(
+            "WAWebUploadManagerWorkerBridgeHandler",
+          ).createEncryptAndUploadHandler(
+            i,
+            l,
+            o("WAWebNetworkStatusWorker").networkStatusWorker,
+          ),
+          f = _.abortUpload,
+          g = _.encryptAndUpload;
+        (i.setHandlers("media", {
+          decryptMedia: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e.ciphertextHmac,
+                  n = e.encKey,
+                  a = e.expectedPlaintextHash,
+                  i = e.iv,
+                  l = e.macKey,
+                  s = yield r("WAWebCryptoDecryptMediaWorker")({
+                    ciphertextHmac: t,
+                    encKey: n,
+                    expectedPlaintextHash: a,
+                    iv: i,
+                    macKey: l,
+                  });
+                return o("WATransferableResult").withTransferables(s, [s]);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
+          encryptAndUpload: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                try {
+                  var t = yield g(e);
+                  return o("WAResultOrError").makeResult(
+                    babelHelpers.extends({}, t),
+                  );
+                } catch (e) {
+                  return o("WAResultOrError").makeError(
+                    o("WAWebDeserializeBridgedError").serializeBridgedError(
+                      e instanceof Error ? e : r("err")(String(e)),
+                    ),
+                  );
+                }
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
+          abortUpload: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e.uploadId;
+                f(t);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
+        }),
           o("WAWebHandleSingleMsgWorkerCompatible").setInstance(
             o("WAWebHandleSingleMsgWorker").createHandleSingleMsgWorker(i),
           ),
@@ -327,12 +368,12 @@ __d(
               "WAWebIdentityChangeApiWorker",
             ).createIdentityChangeApiWorkerBridge(i),
           ));
-        var l = new (r("WAWebBackendEventBusWorker"))(i);
+        var h = new (r("WAWebBackendEventBusWorker"))(i);
         (i.setNamespaceHandler(
           "backendEventBusSync",
-          l.getBackendEventBusSyncHandler(),
+          h.getBackendEventBusSyncHandler(),
         ),
-          o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(l),
+          o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(h),
           i.setHandlers("workerInit", {
             setup: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -341,24 +382,24 @@ __d(
                     n = e.dbFinalKey,
                     a = e.dbInit,
                     i = e.eventBusSyncState,
-                    u = e.globals;
+                    l = e.globals;
                   try {
-                    var c, d;
-                    l.setState(i);
-                    var m = o("WAJids").interpretAndValidateJid(u.deviceJid);
-                    if (m.jidType !== "phoneDevice")
+                    var u, c;
+                    h.setState(i);
+                    var d = o("WAJids").interpretAndValidateJid(l.deviceJid);
+                    if (d.jidType !== "phoneDevice")
                       throw r("err")(
                         "globals: deviceJid is not a phoneDevice jid",
                       );
-                    var _ = m.deviceJid,
-                      f = o("WAJids").extractUserJid(_);
+                    var m = d.deviceJid,
+                      _ = o("WAJids").extractUserJid(m);
                     (o("WAWebGlobals").setGlobals({
                       jidUtils: o("WAJids").createJidUtils({
                         platform: "whatsapp",
                       }),
-                      myJids: { deviceJid: _, userJid: f },
-                      lidDeviceJid: (c = u.lidDeviceJid) != null ? c : "",
-                      displayName: (d = u.displayName) != null ? d : "",
+                      myJids: { deviceJid: m, userJid: _ },
+                      lidDeviceJid: (u = l.lidDeviceJid) != null ? u : "",
+                      displayName: (c = l.displayName) != null ? c : "",
                       runInTransaction: o("WAWebRunInTransaction")
                         .runInTransaction,
                       newClockSkewCalculation: function () {
@@ -366,13 +407,13 @@ __d(
                       },
                     }),
                       o("WAWebGlobals").setAllowHistorySyncPutAllowDuplicate(
-                        u.allowHistorySyncPutAllowDuplicate,
+                        l.allowHistorySyncPutAllowDuplicate,
                       ),
                       o("WAWebGlobals").setEnableImprovedBulkMerge(
-                        u.enableImprovedBulkMerge,
+                        l.enableImprovedBulkMerge,
                       ),
                       o("WAWebCallsOnlyGating").initCallsOnlyModeFromWorkerInit(
-                        u.callsOnly,
+                        l.callsOnly,
                       ),
                       o("WAWebBackendWorkerABPropsCache").updateWorkerABProps(
                         t.configs,
@@ -387,12 +428,12 @@ __d(
                       yield o(
                         "WAWebUserPrefsIndexedDBStorage",
                       ).userPrefsIdb.init());
-                    var g = yield o(
+                    var f = yield o(
                       "WAWebUserPrefsGeneral",
                     ).getLastMobilePlatform();
-                    (g != null &&
+                    (f != null &&
                       (yield o("WAWebMobilePlatforms").setMobilePlatform(
-                        g,
+                        f,
                         !1,
                       )),
                       yield o("WAWebDbEncryptionKey").DbEncKeyStore.init(

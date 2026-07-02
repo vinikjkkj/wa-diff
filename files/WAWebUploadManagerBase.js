@@ -20,8 +20,27 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C;
-    function b(e) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g,
+      h,
+      y,
+      C,
+      b = 0;
+    function v() {
+      return "" + b++;
+    }
+    function S(e) {
+      return e;
+    }
+    function R(e) {
       var t = e.mediaKey,
         n = e.mediaKeyTimestamp;
       if (t != null && n != null) return { mediaKey: t, mediaKeyTimestamp: n };
@@ -30,7 +49,7 @@ __d(
         i = o.timestamp;
       return { mediaKey: a, mediaKeyTimestamp: i };
     }
-    var v = (function () {
+    var L = (function () {
       function t(t) {
         var a = this;
         ((this.$1 = r("WAMemoizeConcurrent")(
@@ -285,10 +304,10 @@ __d(
                 e.uploadQpl.addPoint("upload_start"));
               var p = t.handleArrayBufferCreated,
                 _ = t.handleCheckExistingError,
-                v = t.handleCheckExistingSuccess,
-                R = t.handleEncryptionStart,
-                L = t.handleEncryptionSuccess,
-                E = t.handleStreamUploadStart,
+                b = t.handleCheckExistingSuccess,
+                v = t.handleEncryptionStart,
+                S = t.handleEncryptionSuccess,
+                L = t.handleStreamUploadStart,
                 k = t.handleUploadAttemptError,
                 I = t.handleUploadAttemptSuccess,
                 T = t.handleUploadError,
@@ -307,7 +326,7 @@ __d(
                   .UPLOAD_ENCRYPTION_STARTED,
               );
               try {
-                var M = b(e),
+                var M = R(e),
                   w =
                     d === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
                     i instanceof Blob
@@ -321,7 +340,7 @@ __d(
                   A = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
                       (p(F.size),
-                        R(),
+                        v(),
                         a.deps.appTracker.start(
                           o("WAWebAppTracker").AppTrackerType.MediaProcessing,
                         ));
@@ -364,7 +383,7 @@ __d(
                     .then(function (e) {
                       return (
                         p(e.byteLength),
-                        R(),
+                        v(),
                         a.deps.appTracker.start(
                           o("WAWebAppTracker").AppTrackerType.MediaProcessing,
                         ),
@@ -388,7 +407,7 @@ __d(
                       i = t.firstFrameSidecar,
                       u = t.hash,
                       m = t.sidecar;
-                    (L(),
+                    (S(),
                       a.deps.crashLogger.mark(
                         P,
                         o("WAWebMmsDownloadUploadCrashLogger").ProgressType
@@ -402,7 +421,7 @@ __d(
                       encFilehash: u,
                       type: d,
                       signal: c,
-                      onCheckExistingSuccess: v,
+                      onCheckExistingSuccess: b,
                       onCheckExistingError: _,
                       onUploadHostFound: D,
                       onUploadAttemptSuccess: I,
@@ -410,12 +429,12 @@ __d(
                       onUploadSuccess: $,
                       onProgress: N,
                       onFinalize: s,
-                      onStreamUploadStart: E,
+                      onStreamUploadStart: L,
                       mediaId: P,
                       token: (n = e.token) != null ? n : u,
                     }).then(function (e) {
                       return {
-                        directPath: l ? S(e.directPath) : e.directPath,
+                        directPath: l ? E(e.directPath) : e.directPath,
                         encFilehash: u,
                         mediaKey: M.mediaKey,
                         mediaKeyTimestamp: M.mediaKeyTimestamp,
@@ -485,7 +504,7 @@ __d(
         t
       );
     })();
-    function S(e) {
+    function E(e) {
       var t = e.split("?"),
         n = t[0],
         r = t[1],
@@ -493,7 +512,7 @@ __d(
         i = o("WATimeUtils").unixTime();
       return (a.set("_nc_hot", String(i)), n + "?" + a.toString());
     }
-    l.UploadManagerBase = v;
+    ((l.getNextUploadId = v), (l.toUploadId = S), (l.UploadManagerBase = L));
   },
   98,
 );

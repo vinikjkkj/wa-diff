@@ -202,9 +202,10 @@ __d(
         r = e.elementRef,
         a = e.style;
       return o("WebBloksSSRUtils").canUseDOM
-        ? C({ contextNode: n, children: t, style: a, elementRef: r })
+        ? s.jsx(C, { contextNode: n, style: a, elementRef: r, children: t })
         : t;
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       var t = o("react-compiler-runtime").c(14),
         n = e.children,

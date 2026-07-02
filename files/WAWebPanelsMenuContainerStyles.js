@@ -27,7 +27,7 @@ __d(
           cursor: "x1ypdohk",
           $$css: !0,
         },
-        menuTabMakerReactions: { backgroundColor: "x1kapp2c", $$css: !0 },
+        menuTabMakerReactions: { backgroundColor: "x16w0wmm", $$css: !0 },
         shadow: { boxShadow: "x1218ygk", $$css: !0 },
       },
       s = e;

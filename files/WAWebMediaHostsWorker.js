@@ -111,7 +111,8 @@ __d(
       return r("nullthrows")(c, "MediaHostsWorker is not initialised");
     }
     function m(e) {
-      c = new u(e);
+      var t = new u(e);
+      return ((c = t), t);
     }
     ((l.MediaHostsWorker = u),
       (l.getMediaHostsWorker = d),

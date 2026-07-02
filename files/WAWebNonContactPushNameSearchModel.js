@@ -16,7 +16,7 @@ __d(
     var e = 750,
       u = 3,
       c = 3,
-      d = [];
+      d = Object.freeze([]);
     function m() {
       return s._(/*BTDS*/ "In a group with you");
     }
@@ -166,18 +166,20 @@ __d(
         !e ||
         !o("WAWebContactSearchGatingUtils").isNonContactPushNameSearchEnabled()
       )
-        return [];
+        return d;
       try {
-        return h()
+        var t = h()
           .queryFn(e)
           .results.map(function (e) {
             return e.data;
           });
+        return t.length === 0 ? d : t;
       } catch (e) {
-        return [];
+        return d;
       }
     }
     ((l.NON_CONTACT_PUSHNAME_SEARCH_DEBOUNCE_MS = e),
+      (l.EMPTY_NON_CONTACT_PUSHNAMES = d),
       (l.getNonContactPushNameHeader = m),
       (l.dedupeNonContactPushnames = _),
       (l.WAWebNonContactPushNameSearchModel = f),

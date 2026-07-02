@@ -52,6 +52,16 @@ __d(
           (a.getEventNameForFalco = function () {
             return this.$falcoEventName;
           }),
+          (a.hasFalcoField = function (t) {
+            var e;
+            return ((e = this.$falcoFieldMap) == null ? void 0 : e[t]) != null;
+          }),
+          (a.setFalcoField = function (t, n) {
+            if (this.hasFalcoField(t)) {
+              var e;
+              this.set(((e = {}), (e[t] = n), e));
+            }
+          }),
           (a.resolveEnumValue = function (t, n) {
             var e;
             if (typeof n != "number") return n;
@@ -202,7 +212,72 @@ __d(
             );
           return r;
         }
-        return (babelHelpers.inheritsLoose(n, t), n);
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
+        return (
+          (r.getEventNameForFalco = function () {
+            var e, t;
+            return (e =
+              (t = o("WAWebWamCodegenUtils").getFalcoMetadataForWamEventId(
+                this.id,
+              )) == null
+                ? void 0
+                : t.falcoEventName) != null
+              ? e
+              : null;
+          }),
+          (r.hasFalcoField = function (t) {
+            var e;
+            return (
+              ((e = o("WAWebWamCodegenUtils").getFalcoMetadataForWamEventId(
+                this.id,
+              )) == null
+                ? void 0
+                : e.falcoFieldMap[t]) != null
+            );
+          }),
+          (r.setFalcoField = function (t, n) {
+            var e = o("WAWebWamCodegenUtils").getFalcoMetadataForWamEventId(
+              this.id,
+            );
+            if (e != null)
+              for (var r of e.fieldIdToName) {
+                var a = r[0],
+                  i = r[1];
+                if (i === t) {
+                  (o("WAWebWamCodegenUtils").metrics.define(
+                    this.$className,
+                    String(a),
+                    a,
+                    "number",
+                  ),
+                    (this.all[String(a)] = n));
+                  return;
+                }
+              }
+          }),
+          (r.getFieldsMapForFalco = function () {
+            var e = o("WAWebWamCodegenUtils").getFalcoMetadataForWamEventId(
+              this.id,
+            );
+            if (e == null) return null;
+            var t = {},
+              n = this.all;
+            if (n == null) return t;
+            for (var r of Object.keys(n)) {
+              var a = n[r];
+              if (a != null) {
+                var i = e.fieldIdToName.get(Number(r));
+                if (i != null) {
+                  var l = e.falcoFieldMap[i];
+                  l != null && (t[l] = a);
+                }
+              }
+            }
+            return t;
+          }),
+          n
+        );
       })(g);
     ((l.WamEvent = g), (l.RawWamEvent = h));
   },

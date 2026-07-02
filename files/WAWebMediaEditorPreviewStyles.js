@@ -15,7 +15,7 @@ __d(
       },
       footer: {
         position: "x1n2onr6",
-        zIndex: "x1ks9yow",
+        zIndex: "x1oy9qf3",
         display: "x78zum5",
         alignItems: "x6s0dn4",
         justifyContent: "xl56j7k",

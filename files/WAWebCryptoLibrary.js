@@ -248,22 +248,29 @@ __d(
                 );
               })
               .catch(function (e) {
-                throw e instanceof
-                  o("WAWebSignalCommonErrors").SignalDecryptionError ||
+                if (
+                  e instanceof
+                    o("WAWebSignalCommonErrors").SignalDecryptionError ||
                   e instanceof
                     o("WAWebSignalCommonErrors").SignalMessageCounterError
-                  ? e
-                  : (o("WALogger")
-                      .ERROR(
-                        b ||
-                          (b = babelHelpers.taggedTemplateLiteralLoose([
-                            "CryptoLibrarySignal::decryptSignalProto failed to decrypt",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e)),
-                    new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
-                      "Unexpected decryption error",
-                    ));
+                )
+                  throw e;
+                var t = r("getErrorSafe")(e);
+                throw (
+                  o("WALogger")
+                    .ERROR(
+                      b ||
+                        (b = babelHelpers.taggedTemplateLiteralLoose([
+                          "CryptoLibrarySignal::decryptSignalProto failed to decrypt: ",
+                          "",
+                        ])),
+                      t,
+                    )
+                    .catching(t),
+                  new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
+                    "Unexpected decryption error: " + t.message,
+                  )
+                );
               });
           },
         )),

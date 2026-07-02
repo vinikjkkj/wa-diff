@@ -138,7 +138,14 @@ __d(
             r;
           if (n == null) r = "/";
           else {
-            if (!n.startsWith("/") || n.startsWith("//") || n.includes("\\"))
+            if (
+              !n.startsWith("/") ||
+              n.startsWith("//") ||
+              n.includes("\\") ||
+              n === "/login" ||
+              n.startsWith("/login/") ||
+              n.startsWith("/login?")
+            )
               return "/";
             r = n;
           }

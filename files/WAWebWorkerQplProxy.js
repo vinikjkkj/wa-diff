@@ -84,6 +84,13 @@ __d(
               timestamp: self.performance.now(),
             }));
         },
+        start: function (t) {},
+        isActive: function () {
+          return !0;
+        },
+        getQPLAttrs: function () {
+          return { instanceKey: o, markerId: a };
+        },
       };
     }
     ((l.initWorkerQplProxy = s), (l.createWorkerQplProxy = u));

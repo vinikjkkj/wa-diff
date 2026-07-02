@@ -300,23 +300,24 @@ __d(
       }
     }
     function T(t, n) {
-      var a = t.msgBotInfo,
-        i = t.msgInfo,
-        l = t.msgMeta,
-        h = n.enc,
-        y = n.error,
-        b = n.errorType,
-        v = o("WAWebMsgProcessingApiUtils").getFrom(i);
+      var a,
+        i = t.msgBotInfo,
+        l = t.msgInfo,
+        h = t.msgMeta,
+        y = n.enc,
+        b = n.error,
+        v = n.errorType,
+        S = o("WAWebMsgProcessingApiUtils").getFrom(l);
       switch (
         (o("WAWebPostE2eMessageRecvMetric").postFailureE2eMessageRecvMetric({
-          enc: h,
-          from: v,
-          msgMeta: l,
-          msgInfo: i,
-          msgBotInfo: a,
+          enc: y,
+          from: S,
+          msgMeta: h,
+          msgInfo: l,
+          msgBotInfo: i,
           error:
-            y instanceof o("WAWebHandleMsgError").MessageValidationError
-              ? y
+            b instanceof o("WAWebHandleMsgError").MessageValidationError
+              ? b
               : null,
         }),
         o("WALogger")
@@ -328,12 +329,12 @@ __d(
                 " error:",
                 "",
               ])),
-            i.externalId,
-            h.e2eType,
-            y.stack,
+            l.externalId,
+            y.e2eType,
+            (a = b.stack) != null ? a : String(b),
           )
           .tags("messaging"),
-        b)
+        v)
       ) {
         case C.SignalDuplicateMessage:
           break;
@@ -348,16 +349,16 @@ __d(
                     " error:",
                     "",
                   ])),
-                h.e2eType,
-                y,
+                y.e2eType,
+                b,
               )
               .tags("messaging")
               .sendLogs("handleMsg: decryption error");
           break;
         }
         case C.InvalidProtobuf: {
-          y instanceof o("WAWebHandleMsgError").MessageValidationError &&
-            (o("WAWebIsOfficialClient").isUnofficialStanzaId(i.externalId)
+          b instanceof o("WAWebHandleMsgError").MessageValidationError &&
+            (o("WAWebIsOfficialClient").isUnofficialStanzaId(l.externalId)
               ? o("WALogger")
                   .WARN(
                     u ||
@@ -366,15 +367,15 @@ __d(
                         " error:",
                         "",
                       ])),
-                    h.e2eType,
-                    y,
+                    y.e2eType,
+                    b,
                   )
                   .tags("messaging")
-                  .sendLogs("handleMsg from UC: " + y.name, {
-                    sampling: y.sendLogs === !0 ? 0.01 : y.sendLogs,
+                  .sendLogs("handleMsg from UC: " + b.name, {
+                    sampling: b.sendLogs === !0 ? 0.01 : b.sendLogs,
                   })
               : r("gkx")("26259") &&
-                  y instanceof
+                  b instanceof
                     o("WAWebHandleMsgError").MessageProtobufInvalidMessageTypes
                 ? o("WALogger")
                     .WARN(
@@ -384,11 +385,11 @@ __d(
                           " error:",
                           "",
                         ])),
-                      h.e2eType,
-                      y,
+                      y.e2eType,
+                      b,
                     )
                     .tags("messaging")
-                    .sendLogs("(intern) handleMsg: " + y.name)
+                    .sendLogs("(intern) handleMsg: " + b.name)
                 : o("WALogger")
                     .WARN(
                       d ||
@@ -397,13 +398,13 @@ __d(
                           " error:",
                           "",
                         ])),
-                      h.e2eType,
-                      y,
+                      y.e2eType,
+                      b,
                     )
                     .tags("messaging")
                     .sendLogs(
-                      "handleMsg: " + y.name,
-                      y.sendLogs === !0 ? void 0 : { sampling: y.sendLogs },
+                      "handleMsg: " + b.name,
+                      b.sendLogs === !0 ? void 0 : { sampling: b.sendLogs },
                     ));
           break;
         }
@@ -418,10 +419,10 @@ __d(
                   " error:",
                   "",
                 ])),
-              h.e2eType,
-              i.type,
-              i.isDirect,
-              y,
+              y.e2eType,
+              l.type,
+              l.isDirect,
+              b,
             )
             .tags("messaging")
             .sendLogs("handleMsg: parse device sent message error");
@@ -436,8 +437,8 @@ __d(
                   " error:",
                   "",
                 ])),
-              h.e2eType,
-              y,
+              y.e2eType,
+              b,
             )
             .tags("messaging")
             .sendLogs("handleMsg: hsm mismatch error");
@@ -452,8 +453,8 @@ __d(
                   " error:",
                   "",
                 ])),
-              h.e2eType,
-              y,
+              y.e2eType,
+              b,
             )
             .tags("messaging")
             .sendLogs(
@@ -469,7 +470,7 @@ __d(
                   "decryptE2EPayload: e2eType:",
                   " orphan bot msg deferred",
                 ])),
-              h.e2eType,
+              y.e2eType,
             )
             .tags("messaging")
             .sendLogs("handleMsg: orphan bot message deferred");
@@ -484,8 +485,8 @@ __d(
                   " error:",
                   "",
                 ])),
-              h.e2eType,
-              y,
+              y.e2eType,
+              b,
             )
             .tags("messaging")
             .sendLogs("handleMsg: parse decrypted message error");

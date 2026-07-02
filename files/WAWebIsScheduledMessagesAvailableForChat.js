@@ -10,6 +10,7 @@ __d(
     function e(e) {
       return (
         !o("WAWebChatGetters").getIsBot(e) &&
+        !o("WAWebChatGetters").getIsNewsletter(e) &&
         !o("WAWebFrontendChatGetters").getIsCapiHostedGroup(e) &&
         !o("WAWebBizCoexUtils").isMeOrCurrentContactHosted(e.contact) &&
         o(

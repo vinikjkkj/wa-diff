@@ -72,7 +72,7 @@ __d(
           to: l.to,
           parentMsgKey: l.id,
           parentServerId: d,
-          questionResponseInfo: {},
+          questionResponseInfo: { starred: !1 },
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         },
       };

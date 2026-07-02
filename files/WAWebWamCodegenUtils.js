@@ -34,41 +34,52 @@ __d(
       }),
       c = new (o("WAWebWamCodegenGlobalMetrics").Metrics)(),
       d = {},
-      m = r("justknobx")._("1600");
-    function p(t) {
+      m = new Map(),
+      p = r("justknobx")._("1600");
+    function _(e) {
+      return m.get(e);
+    }
+    function f(t) {
       var n = t.id,
         a = t.name,
         i = t.privateStatsIdInt,
         l = t.props,
-        p = t.validators,
-        _ = t.wamChannel,
-        f = t.weight,
-        g = {
+        _ = t.validators,
+        f = t.wamChannel,
+        g = t.weight,
+        h = {
           id: n,
-          weight: f,
-          wamChannel: _,
+          weight: g,
+          wamChannel: f,
           privateStatsIdInt: i,
-          validators: p,
+          validators: _,
         },
-        h = {},
-        y = [],
-        C = {};
-      for (var b in l) {
-        var v = l[b],
-          S = c.define(a, b, v[0], v[1]);
-        ((h[b] = S.validator),
-          m && (C[b] = e(b)),
-          v[1] === u.TIMER && y.push(b));
+        y = {},
+        C = [],
+        b = {},
+        v = new Map();
+      for (var S in l) {
+        var R = l[S],
+          L = c.define(a, S, R[0], R[1]);
+        (v.set(R[0], L.name),
+          (y[S] = L.validator),
+          p && (b[S] = e(S)),
+          R[1] === u.TIMER && C.push(S));
       }
-      m && ((g.$falcoEventName = s(a)), (g.$falcoFieldMap = C));
-      var R = o("WAWebWamTypeHash").defineTypeHash(
+      if (p) {
+        var E = s(a);
+        ((h.$falcoEventName = E),
+          (h.$falcoFieldMap = b),
+          m.set(n, { falcoEventName: E, falcoFieldMap: b, fieldIdToName: v }));
+      }
+      var k = o("WAWebWamTypeHash").defineTypeHash(
         a,
-        h,
+        y,
         o("WAWebWamCodegenWamEvent").WamEvent,
       );
       return (
-        y.forEach(function (e) {
-          ((g["mark" + r("WAUpperFirst")(e)] = function () {
+        C.forEach(function (e) {
+          ((h["mark" + r("WAUpperFirst")(e)] = function () {
             var t,
               n,
               r = this.eventTime,
@@ -77,18 +88,18 @@ __d(
               Date.now() -
               ((t = (n = o[e]) == null ? void 0 : n.ts) != null ? t : r);
           }),
-            (g["start" + r("WAUpperFirst")(e)] = function () {
+            (h["start" + r("WAUpperFirst")(e)] = function () {
               var t = Date.now();
               this.startMarkers[e] = { ts: t };
             }));
         }),
-        m && (g.$rawProps = l),
-        Object.assign(R.prototype, g),
-        (d[a] = R),
-        R
+        p && (h.$rawProps = l),
+        Object.assign(k.prototype, h),
+        (d[a] = k),
+        k
       );
     }
-    function _(e, t) {
+    function g(e, t) {
       t === void 0 && (t = {});
       for (var n in e) {
         var o,
@@ -99,7 +110,7 @@ __d(
         (r("gkx")("26259") && (s = l[1]), r("gkx")("26258") && (s = l[2]));
         var u = (o = i[3]) != null ? o : "regular",
           c = i.length === 5 ? i[4] : -1;
-        return p({
+        return f({
           name: n,
           id: i[0],
           props: i[1],
@@ -111,7 +122,7 @@ __d(
       }
       throw r("err")("defineEvent: empty definition");
     }
-    var f = (function (e) {
+    var h = (function (e) {
       function t() {
         for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
@@ -124,7 +135,7 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(o("WAWebWamTypeHash").TypeHash);
-    function g(e) {
+    function y(e) {
       var t = {},
         n = function () {
           var n = e[r],
@@ -144,14 +155,15 @@ __d(
           };
         };
       for (var r in e) n();
-      var a = o("WAWebWamTypeHash").defineTypeHash("Global", t, f);
+      var a = o("WAWebWamTypeHash").defineTypeHash("Global", t, h);
       return new a();
     }
     ((l.TYPES = u),
       (l.metrics = c),
       (l.events = d),
-      (l.defineEvents = _),
-      (l.defineGlobal = g));
+      (l.getFalcoMetadataForWamEventId = _),
+      (l.defineEvents = g),
+      (l.defineGlobal = y));
   },
   98,
 );

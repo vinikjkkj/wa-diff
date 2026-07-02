@@ -77,7 +77,7 @@ __d(
         captionExpanded: {
           position: "x10l6tqk",
           bottom: "x1ey2m1c",
-          zIndex: "x42zw1d",
+          zIndex: "x16uhe5s",
           maxHeight: "xmz0i5r",
           overflowX: "xw2csxc",
           overflowY: "x1odjw0f",
@@ -165,7 +165,7 @@ __d(
         mediaViewer: {
           overflowX: "x6ikm8r",
           overflowY: "x10wlt62",
-          zIndex: "x1oyvh86",
+          zIndex: "x1pb5qga",
           display: "x78zum5",
           flexDirection: "xdt5ytf",
           paddingBottom: "xn4wywj",

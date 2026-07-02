@@ -11,9 +11,13 @@ __d(
     "WAWebDropdownItem.react",
     "WAWebDropdownItemSeparator.react",
     "WAWebModalManager",
+    "WAWebNoop",
+    "WAWebQuestionsAdminGatingUtils",
     "WAWebReportNewsletterQuestionResponsePopupLoadable",
     "WDSIconIcBlock.react",
+    "WDSIconIcGrade.react",
     "WDSIconIcThumbDown.react",
+    "WDSIconWdsIcGradeSlash.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -23,178 +27,229 @@ __d(
       u = e || (e = o("react")),
       c = e.useCallback;
     function d(e) {
-      var t = o("react-compiler-runtime").c(32),
-        n = e.question,
-        a = e.response,
-        i;
-      t[0] !== n || t[1] !== a
-        ? ((i = function () {
+      var t = o("react-compiler-runtime").c(39),
+        n = e.chat,
+        a = e.question,
+        i = e.response,
+        l;
+      t[0] !== a || t[1] !== i
+        ? ((l = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(
                 o("WAWebReportNewsletterQuestionResponsePopupLoadable")
                   .WAWebReportNewsletterQuestionResponsePopupLoadable,
-                { response: a, question: n },
+                { response: i, question: a },
               ),
             );
           }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i))
-        : (i = t[2]);
-      var l = i,
-        c;
-      t[3] !== n || t[4] !== a
-        ? ((c = function () {
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = l))
+        : (l = t[2]);
+      var c = l,
+        d;
+      t[3] !== a || t[4] !== i
+        ? ((d = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(
                 o("WAWebBlockNewsletterQuestionResponsePopupLoadable")
                   .WAWebBlockNewsletterQuestionResponsePopupLoadable,
-                { response: a, question: n },
+                { response: i, question: a },
               ),
             );
           }),
-          (t[3] = n),
-          (t[4] = a),
-          (t[5] = c))
-        : (c = t[5]);
-      var d = c,
-        m;
-      t[6] !== n || t[7] !== a
-        ? ((m = function () {
+          (t[3] = a),
+          (t[4] = i),
+          (t[5] = d))
+        : (d = t[5]);
+      var m = d,
+        p;
+      t[6] !== a || t[7] !== i
+        ? ((p = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(
                 o("WAWebDeleteNewsletterQuestionResponsePopupLoadable")
                   .WAWebDeleteNewsletterQuestionResponsePopupLoadable,
-                { response: a, question: n },
+                { response: i, question: a },
               ),
             );
           }),
-          (t[6] = n),
-          (t[7] = a),
-          (t[8] = m))
-        : (m = t[8]);
-      var p = m,
-        _;
-      if (t[9] !== d || t[10] !== p || t[11] !== l || t[12] !== a) {
-        _ = [];
-        var f, g;
-        t[14] === Symbol.for("react.memo_cache_sentinel")
-          ? ((f = u.jsx(r("WDSIconIcThumbDown.react"), {})),
-            (g = s._(/*BTDS*/ "Report")),
-            (t[14] = f),
-            (t[15] = g))
-          : ((f = t[14]), (g = t[15]));
-        var h;
-        (t[16] !== l
-          ? ((h = u.jsx(
+          (t[6] = a),
+          (t[7] = i),
+          (t[8] = p))
+        : (p = t[8]);
+      var _ = p,
+        f;
+      if (
+        t[9] !== n ||
+        t[10] !== m ||
+        t[11] !== _ ||
+        t[12] !== c ||
+        t[13] !== i
+      ) {
+        if (
+          ((f = []),
+          o(
+            "WAWebQuestionsAdminGatingUtils",
+          ).isQuestionsM2FeatureEnabledForAdmins(n))
+        ) {
+          var g;
+          t[15] !== i.starred
+            ? ((g = i.starred
+                ? {
+                    icon: u.jsx(r("WDSIconWdsIcGradeSlash.react"), {}),
+                    testid: "newsletter-question-response-unstar",
+                    cta: s._(/*BTDS*/ "Unstar"),
+                  }
+                : {
+                    icon: u.jsx(r("WDSIconIcGrade.react"), {}),
+                    testid: "newsletter-question-response-star",
+                    cta: s._(/*BTDS*/ "Star"),
+                  }),
+              (t[15] = i.starred),
+              (t[16] = g))
+            : (g = t[16]);
+          var h = g,
+            y = h.cta,
+            C = h.icon,
+            b = h.testid,
+            v;
+          (t[17] !== y || t[18] !== C || t[19] !== b
+            ? ((v = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { action: r("WAWebNoop"), testid: b, icon: C, children: y },
+                b,
+              )),
+              (t[17] = y),
+              (t[18] = C),
+              (t[19] = b),
+              (t[20] = v))
+            : (v = t[20]),
+            f.push(v));
+        }
+        var S, R;
+        t[21] === Symbol.for("react.memo_cache_sentinel")
+          ? ((S = u.jsx(r("WDSIconIcThumbDown.react"), {})),
+            (R = s._(/*BTDS*/ "Report")),
+            (t[21] = S),
+            (t[22] = R))
+          : ((S = t[21]), (R = t[22]));
+        var L;
+        (t[23] !== c
+          ? ((L = u.jsx(
               o("WAWebDropdownItem.react").DropdownItem,
               {
-                action: l,
+                action: c,
                 testid: "newsletter-question-response-report",
-                icon: f,
-                children: g,
+                icon: S,
+                children: R,
               },
               "newsletter-question-response-report",
             )),
-            (t[16] = l),
-            (t[17] = h))
-          : (h = t[17]),
-          _.push(h));
-        var y, C;
-        t[18] === Symbol.for("react.memo_cache_sentinel")
-          ? ((y = u.jsx(r("WDSIconIcBlock.react"), {})),
-            (C = s._(/*BTDS*/ "Block responses")),
-            (t[18] = y),
-            (t[19] = C))
-          : ((y = t[18]), (C = t[19]));
-        var b;
-        (t[20] !== d
-          ? ((b = u.jsx(
+            (t[23] = c),
+            (t[24] = L))
+          : (L = t[24]),
+          f.push(L));
+        var E, k;
+        t[25] === Symbol.for("react.memo_cache_sentinel")
+          ? ((E = u.jsx(r("WDSIconIcBlock.react"), {})),
+            (k = s._(/*BTDS*/ "Block responses")),
+            (t[25] = E),
+            (t[26] = k))
+          : ((E = t[25]), (k = t[26]));
+        var I;
+        (t[27] !== m
+          ? ((I = u.jsx(
               o("WAWebDropdownItem.react").DropdownItem,
               {
-                action: d,
+                action: m,
                 testid: "newsletter-question-response-block",
-                icon: y,
-                children: C,
+                icon: E,
+                children: k,
               },
               "newsletter-question-response-block",
             )),
-            (t[20] = d),
-            (t[21] = b))
-          : (b = t[21]),
-          _.push(b));
-        var v, S;
-        t[22] === Symbol.for("react.memo_cache_sentinel")
-          ? ((v = u.jsx(
+            (t[27] = m),
+            (t[28] = I))
+          : (I = t[28]),
+          f.push(I));
+        var T, D;
+        t[29] === Symbol.for("react.memo_cache_sentinel")
+          ? ((T = u.jsx(
               o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,
               {},
             )),
-            (S = s._(/*BTDS*/ "Delete")),
-            (t[22] = v),
-            (t[23] = S))
-          : ((v = t[22]), (S = t[23]));
-        var R;
+            (D = s._(/*BTDS*/ "Delete")),
+            (t[29] = T),
+            (t[30] = D))
+          : ((T = t[29]), (D = t[30]));
+        var x;
         if (
-          (t[24] !== p
-            ? ((R = u.jsx(
+          (t[31] !== _
+            ? ((x = u.jsx(
                 o("WAWebDropdownItem.react").DropdownItem,
                 {
-                  action: p,
+                  action: _,
                   testid: "newsletter-question-response-delete",
                   theme: o("WAWebDropdownItem.react").DropdownItemThemeType
                     .Negative,
-                  icon: v,
-                  children: S,
+                  icon: T,
+                  children: D,
                 },
                 "newsletter-question-response-delete",
               )),
-              (t[24] = p),
-              (t[25] = R))
-            : (R = t[25]),
-          _.push(R),
+              (t[31] = _),
+              (t[32] = x))
+            : (x = t[32]),
+          f.push(x),
           o("WAWebDebugGatingUtils").msgDebugMenuItemsEnabled())
         ) {
-          var L;
-          (t[26] === Symbol.for("react.memo_cache_sentinel")
-            ? ((L = u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
-              (t[26] = L))
-            : (L = t[26]),
-            _.push(L));
-          var E;
-          t[27] !== a.id
-            ? ((E = function () {
-                o("WAWebCopyToClipboard").copyTextToClipboard(a.id.toString());
+          var $;
+          (t[33] === Symbol.for("react.memo_cache_sentinel")
+            ? (($ = u.jsx(r("WAWebDropdownItemSeparator.react"), {})),
+              (t[33] = $))
+            : ($ = t[33]),
+            f.push($));
+          var P;
+          t[34] !== i.id
+            ? ((P = function () {
+                o("WAWebCopyToClipboard").copyTextToClipboard(i.id.toString());
               }),
-              (t[27] = a.id),
-              (t[28] = E))
-            : (E = t[28]);
-          var k;
-          t[29] === Symbol.for("react.memo_cache_sentinel")
-            ? ((k = u.jsx(o("WAWebDevOnlyBadge.react").DevOnlyBadge, {
+              (t[34] = i.id),
+              (t[35] = P))
+            : (P = t[35]);
+          var N;
+          t[36] === Symbol.for("react.memo_cache_sentinel")
+            ? ((N = u.jsx(o("WAWebDevOnlyBadge.react").DevOnlyBadge, {
                 label: "Copy Msg ID",
               })),
-              (t[29] = k))
-            : (k = t[29]);
-          var I;
-          (t[30] !== E
-            ? ((I = u.jsx(
+              (t[36] = N))
+            : (N = t[36]);
+          var M;
+          (t[37] !== P
+            ? ((M = u.jsx(
                 o("WAWebDropdownItem.react").DropdownItem,
                 {
                   addSpacing: !0,
                   testid: "mi-msg-copy-id",
-                  action: E,
-                  children: k,
+                  action: P,
+                  children: N,
                 },
                 "copy-id",
               )),
-              (t[30] = E),
-              (t[31] = I))
-            : (I = t[31]),
-            _.push(I));
+              (t[37] = P),
+              (t[38] = M))
+            : (M = t[38]),
+            f.push(M));
         }
-        ((t[9] = d), (t[10] = p), (t[11] = l), (t[12] = a), (t[13] = _));
-      } else _ = t[13];
-      return _;
+        ((t[9] = n),
+          (t[10] = m),
+          (t[11] = _),
+          (t[12] = c),
+          (t[13] = i),
+          (t[14] = f));
+      } else f = t[14];
+      return f;
     }
     l.default = d;
   },

@@ -9,7 +9,6 @@ __d(
     "WAWebBackendApi",
     "WAWebCommsWapMd",
     "WAWebJidToWid",
-    "WAWebUserPrefsMeUser",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
   ],
@@ -71,9 +70,6 @@ __d(
             o("WAWap").wap("ack", {
               id: o("WAWap").CUSTOM_STRING(l),
               to: o("WAWebCommsWapMd").JID(i),
-              from: o("WAWebCommsWapMd").JID(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              ),
               class: "receipt",
               type: o("WAWap").MAYBE_CUSTOM_STRING(c),
             })

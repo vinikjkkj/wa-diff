@@ -56,6 +56,8 @@ __d(
           senderNotifyName: e.senderNotifyName,
           senderPictureDirectPath:
             (r = e.senderPictureDirectPath) != null ? r : "",
+          replied: e.replied,
+          starred: e.starred,
         },
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         from: e.parentMsgKey.remote,
@@ -157,6 +159,7 @@ __d(
                     : i.fullDirectPath) != null
                   ? a
                   : "",
+              starred: !1,
             },
           };
         })),

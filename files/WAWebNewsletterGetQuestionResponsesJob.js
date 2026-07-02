@@ -41,55 +41,64 @@ __d(
     function s(e) {
       var t,
         n,
-        a = e.fetchedResponse,
-        i = e.newsletterJid,
-        l = e.questionId,
-        s = e.questionServerId,
-        u = o("decodeProtobuf").decodeProtobuf(
+        a,
+        i,
+        l = e.fetchedResponse,
+        s = e.newsletterJid,
+        u = e.questionId,
+        c = e.questionServerId,
+        d = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsE2E.pb").MessageSpec,
-          a.messageNewsletterQuestionResponseMixin.plaintextPayloadMixin
+          l.messageNewsletterQuestionResponseMixin.plaintextPayloadMixin
             .elementValue,
         ),
-        c = o("WAWebJidToWid").jidWithTypeToWid({
+        m = o("WAWebJidToWid").jidWithTypeToWid({
           jidType: "newsletter",
-          newsletterJid: i,
+          newsletterJid: s,
         }),
-        d = new (r("WAWebMsgKey"))({ remote: c, fromMe: !1, id: a.messageId }),
-        m =
-          u == null || (t = u.questionResponseMessage) == null
+        p = new (r("WAWebMsgKey"))({ remote: m, fromMe: !1, id: l.messageId }),
+        _ =
+          d == null || (t = d.questionResponseMessage) == null
             ? void 0
             : t.text;
-      if (m == null)
+      if (_ == null)
         throw r("err")("Question response message with undefined body");
-      if (!m) throw r("err")("Question response message with empty body");
-      var p = a.messageNewsletterQuestionResponseMixin.metaResponseServerId;
-      if (p == null)
+      if (!_) throw r("err")("Question response message with empty body");
+      var f = l.messageNewsletterQuestionResponseMixin.metaResponseServerId;
+      if (f == null)
         throw r("err")("Question response received without response server id");
       return {
-        id: d,
-        parentMsgKey: l,
+        id: p,
+        parentMsgKey: u,
         type: o("WAWebMsgType").MSG_TYPE.NEWSLETTER_QUESTION_RESPONSE,
         kind: o("WAWebMsgType").MsgKind.NewsletterQuestionResponse,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-        t: a.messageT,
-        from: c,
+        t: l.messageT,
+        from: m,
         to: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         isNewMsg: !1,
         ack: o("WAWebAck").ACK.SENT,
-        body: m,
+        body: _,
         questionResponseInfo: {
-          responseServerId: p,
-          senderNotifyName: a.senderNotifyName,
-          senderPictureDirectPath: a.senderPictureDirectPath,
+          responseServerId: f,
+          senderNotifyName: l.senderNotifyName,
+          senderPictureDirectPath: l.senderPictureDirectPath,
           replied:
-            (n = a.questionResponseFlagsMixin) == null
+            (n = l.questionResponseFlagsMixin) == null
               ? void 0
               : n.hasFlagsRepliedFlagMixin,
+          starred:
+            (a =
+              (i = l.questionResponseFlagsMixin) == null
+                ? void 0
+                : i.hasFlagsStarredFlagMixin) != null
+              ? a
+              : !1,
         },
-        parentServerId: s,
+        parentServerId: c,
         author:
-          a.senderLid != null
-            ? o("WAWebWidFactory").createUserWidOrThrow(a.senderLid)
+          l.senderLid != null
+            ? o("WAWebWidFactory").createUserWidOrThrow(l.senderLid)
             : void 0,
       };
     }

@@ -7,8 +7,8 @@ __d(
     "WASemaphore",
     "WAWebABProps",
     "WAWebReleaseToEventLoop",
+    "WAWebStructuredClone",
     "asyncToGeneratorRuntime",
-    "lodash",
     "structuredClone",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,7 +48,7 @@ __d(
                   ? n.push(o)
                   : t.push({
                       address: o,
-                      session: r("lodash").cloneDeep(a.session),
+                      session: r("WAWebStructuredClone")(a.session),
                     }));
             }),
             { update: t, remove: n }
@@ -72,7 +72,7 @@ __d(
                         session:
                           r("structuredClone") != null && a
                             ? r("structuredClone")(o.session)
-                            : r("lodash").cloneDeep(o.session),
+                            : r("WAWebStructuredClone")(o.session),
                       }));
               },
               l = o("WAWebABProps").getABPropConfigValue(
@@ -116,7 +116,7 @@ __d(
                   t.push({
                     senderKeyName: n,
                     senderId: a[1],
-                    senderKey: r("lodash").cloneDeep(o),
+                    senderKey: r("WAWebStructuredClone")(o),
                   });
               }
             }),
