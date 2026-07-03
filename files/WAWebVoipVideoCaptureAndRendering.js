@@ -2,7 +2,9 @@ __d(
   "WAWebVoipVideoCaptureAndRendering",
   [
     "WALogger",
+    "WAPromiseDelays",
     "WAWebABProps",
+    "WAWebBackendApi",
     "WAWebVoipDualStreamScreenShareState",
     "WAWebVoipOperationQueue",
     "WAWebVoipPerfMeasurement",
@@ -17,76 +19,120 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
+      s,
+      u = "startVideoCapture",
+      c = 2e3,
+      d = "classify_timeout";
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (!t.startsWith(u)) return !1;
+          try {
+            var n = yield o("WAPromiseDelays").withTimeout(
+              o("WAWebBackendApi").frontendSendAndReceive(
+                "getVoipCameraPermissionState",
+                void 0,
+              ),
+              c,
+              function () {
+                return d;
+              },
+            );
+            return n === "prompt";
+          } catch (t) {
+            return (
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [VideoCapture:Queue] camera permission classify failed: ",
+                      "",
+                    ])),
+                  t,
+                )
+                .sendLogs("voip-camera-perm-classify-failed"),
+              !1
+            );
+          }
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    var _ = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
         "VideoCapture",
+        void 0,
+        m,
       ),
-      u = null;
-    function c() {
+      f = null;
+    function g() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_web_voip_virtual_video_capture_driver",
         ) === !0
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function m() {
+    function y() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebVoipPerfMeasurement").startMeasurement(
             o("WAWebVoipPerfMeasurement").PerfMeasurement.FIRST_CAMERA_FRAME,
           ),
-            s.enqueue(
+            _.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                if (c()) {
+                if (g()) {
                   (o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [VirtualVideoCapture] creating driver",
                       ])),
                   ),
-                    u != null && u.stop(),
-                    (u = new (o(
+                    f != null && f.stop(),
+                    (f = new (o(
                       "WAWebVoipVirtualVideoCaptureDriver",
                     ).WAWebVoipVirtualVideoCaptureDriver)()));
-                  var n = u.start();
+                  var t = f.start();
                   yield o(
                     "WAWebVoipVideoCameraCapture",
                   ).WAWebVoipVideoCameraCapture.startWithStream(
-                    n,
+                    t,
                     1280,
                     720,
                     30,
                   );
                   return;
                 }
-                var r = t.camera_id,
-                  a = t.height,
-                  i = t.isAVUpgrade,
-                  l = i === void 0 ? !1 : i,
-                  s = t.max_fps,
-                  d = t.width;
+                var n = e.camera_id,
+                  r = e.height,
+                  a = e.isAVUpgrade,
+                  i = a === void 0 ? !1 : a,
+                  l = e.max_fps,
+                  u = e.width;
                 yield o(
                   "WAWebVoipVideoCameraCapture",
-                ).WAWebVoipVideoCameraCapture.startCameraCapture(r, d, a, s, l);
+                ).WAWebVoipVideoCameraCapture.startCameraCapture(n, u, r, l, i);
               }),
               "startVideoCapture",
             ));
         })),
-        m.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function p() {
-      return _.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function _() {
+    function b() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          s.enqueue(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          _.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = u;
-              (e != null && (e.stop(), (u = null)),
+              var e = f;
+              (e != null && (e.stop(), (f = null)),
                 yield o(
                   "WAWebVoipVideoCameraCapture",
                 ).WAWebVoipVideoCameraCapture.stopCapture());
@@ -94,10 +140,10 @@ __d(
             "stopVideoCapture",
           );
         })),
-        _.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function v(e, t) {
       return !t ||
         (e === o("WAWebVoipVideoRendererInterface").selfPreviewJid &&
           !o(
@@ -106,12 +152,12 @@ __d(
         ? e
         : o("WAWebVoipScreenShareStreamKey").getScreenShareStreamKey(e);
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function h() {
+    function R() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.format,
             n = e.frameBuffer,
             r = e.height,
@@ -122,21 +168,21 @@ __d(
             u = e.timestamp,
             c = e.userJid,
             d = e.width,
-            m = f(c, l);
+            m = v(c, l);
           o(
             "WAWebVoipVideoRendererRegistry",
           ).videoRendererRegistry.onVideoFrameWasmToJs(m, n, d, r, s, t, u, a);
         })),
-        h.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function C() {
+    function E() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          s.enqueue(
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          _.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var t = e.height,
                 n = e.maxFps,
@@ -152,16 +198,16 @@ __d(
             "startDesktopCapture",
           );
         })),
-        C.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function b() {
-      return v.apply(this, arguments);
+    function k() {
+      return I.apply(this, arguments);
     }
-    function v() {
+    function I() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          s.enqueue(
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          _.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               yield o(
                 "WAWebVoipVideoDesktopCapture",
@@ -170,14 +216,14 @@ __d(
             "stopDesktopCapture",
           );
         })),
-        v.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    ((l.startVideoCaptureJS = d),
-      (l.stopVideoCaptureJS = p),
-      (l.onVideoFrameWasmToJs = g),
-      (l.startDesktopCaptureJS = y),
-      (l.stopDesktopCaptureJS = b));
+    ((l.startVideoCaptureJS = h),
+      (l.stopVideoCaptureJS = C),
+      (l.onVideoFrameWasmToJs = S),
+      (l.startDesktopCaptureJS = L),
+      (l.stopDesktopCaptureJS = k));
   },
   98,
 );

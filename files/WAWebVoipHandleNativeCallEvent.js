@@ -997,22 +997,23 @@ __d(
               o("WAWebVoipCrashRecovery").markCallActive(c),
               o("WAWebVoipCrashRecovery").registerGracefulExitHandler(c),
               o("WAWebVoipFocusTracker").startVoipFocusTracking(),
-              o("WAWebBackendApi")
-                .frontendSendAndReceive("initializeVoipWasm")
-                .then(function (e) {
-                  q === c &&
-                    o("WAWebVoipPersistentFS").startPeriodicVoipSync(e);
-                })
-                .catch(function (e) {
-                  o("WALogger")
-                    .ERROR(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [IDBFS] Failed to start periodic sync",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                }),
+              n.type === "web" &&
+                o("WAWebBackendApi")
+                  .frontendSendAndReceive("initializeVoipWasm")
+                  .then(function (e) {
+                    q === c &&
+                      o("WAWebVoipPersistentFS").startPeriodicVoipSync(e);
+                  })
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        T ||
+                          (T = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [IDBFS] Failed to start periodic sync",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e));
+                  }),
               o("WAWebVoipBrowserMetrics").startBrowserMetrics(),
               o("WAWebVoipWindowMetrics").startWindowMetrics(),
               o("WAWebVoipBatteryDiagnostics").startBatteryDiagnostics(),
@@ -1090,23 +1091,24 @@ __d(
                 "WAWebVoipVideoCameraCapture",
               ).WAWebVoipVideoCameraCapture.scheduleCallEndCameraRelease(),
               o("WAWebVoipAudioCaptureBase").scheduleCallEndMicRelease(),
-              o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
-                .cleanupFieldstatsAfterNormalEnd()
-                .catch(function (e) {
-                  o("WALogger")
-                    .WARN(
-                      P ||
-                        (P = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: cleanupFieldstatsAfterNormalEnd failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                })
-                .finally(function () {
-                  o(
-                    "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
-                  ).syncVoipPersistentFSWithIdleCallback();
-                }),
+              n.type === "web" &&
+                o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
+                  .cleanupFieldstatsAfterNormalEnd()
+                  .catch(function (e) {
+                    o("WALogger")
+                      .WARN(
+                        P ||
+                          (P = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: cleanupFieldstatsAfterNormalEnd failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e));
+                  })
+                  .finally(function () {
+                    o(
+                      "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
+                    ).syncVoipPersistentFSWithIdleCallback();
+                  }),
               o(
                 "WAWebVoipHandleNativeCallEventMediaHandlers",
               ).resetWebCodecsEncoderState(),

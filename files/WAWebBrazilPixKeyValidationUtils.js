@@ -1,6 +1,6 @@
 __d(
   "WAWebBrazilPixKeyValidationUtils",
-  ["WAWebValidationUtils", "justknobx"],
+  ["WAWebValidationUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -44,18 +44,14 @@ __d(
       return i === 0 || (e[13] === 0 && i === 1);
     }
     function f(e) {
-      var t,
-        n = (t = r("justknobx")._("3897")) != null ? t : !1,
-        o = n ? e.replace(c, "").toUpperCase() : e.replace(/\D/g, "");
-      if (o.length !== 14) return !1;
-      if (n) {
-        for (var a = 0; a < 12; a++) if (!u.test(o[a])) return !1;
-        if (!/^\d$/.test(o[12]) || !/^\d$/.test(o[13])) return !1;
-      }
-      var i = o.split("").map(function (e) {
-        return n ? p(e) : parseInt(e, 10);
+      var t = e.replace(c, "").toUpperCase();
+      if (t.length !== 14) return !1;
+      for (var n = 0; n < 12; n++) if (!u.test(t[n])) return !1;
+      if (!/^\d$/.test(t[12]) || !/^\d$/.test(t[13])) return !1;
+      var r = t.split("").map(function (e) {
+        return p(e);
       });
-      return _(i);
+      return _(r);
     }
     function g(t, n) {
       if (n == null || n.trim().length === 0) return !1;

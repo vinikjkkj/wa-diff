@@ -7,6 +7,7 @@ __d(
       IQ_RESPONSE: 2,
       SYSTEM_MESSAGE: 3,
       CONTACT_CARD: 4,
+      DROPDOWN_MENU: 5,
     });
     i.BUNDLE_SEND_SOURCE = e;
   },

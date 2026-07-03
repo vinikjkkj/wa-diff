@@ -814,6 +814,16 @@ __d(
         var s = n.attrEnum("type", o("WAWebHandleMsgCommon").PAY_NODE_TYPES);
         switch (s) {
           case o("WAWebHandleMsgCommon").PAY_NODE_TYPES.send: {
+            if (
+              o("WAWebABProps").getABPropConfigValue(
+                "wa_web_xb_bubble_enabled",
+              ) !== !0 &&
+              n.hasAttr("transaction-type") &&
+              n.attrString("transaction-type") === "remittance"
+            ) {
+              t = { futureproofed: !0 };
+              break;
+            }
             var u = o("WAWebHandlePaymentAmountUtils").getAmount1000AndCurrency(
                 n,
               ),

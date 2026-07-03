@@ -470,7 +470,11 @@ __d(
                     "[LID] received peer migration stanza but client-to-LID migration is no longer supported",
                   ])),
               )
-              .sendLogs("lid-migration-peer-stanza-received");
+              .sendLogs(
+                o("WAWebUserPrefsMeUser").isMeAccount(K)
+                  ? "lid-migration-peer-stanza-received"
+                  : "lid-migration-non-peer-stanza-received",
+              );
           else {
             var ue = !1;
             if (

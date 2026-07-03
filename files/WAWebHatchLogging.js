@@ -8,34 +8,37 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
-        var t = new (o(
-          "WAWebHatchUserJourneyWamEvent",
-        ).HatchUserJourneyWamEvent)({
-          hatchActionType: o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
-            .REQUEST_WELCOME_MSG_SENT,
-          unifiedSessionId: e == null ? void 0 : e.unifiedSessionId,
-          aiSessionId: e == null ? void 0 : e.aiSessionId,
-          rawBotEntryPoint: e == null ? void 0 : e.rawBotEntryPoint,
-        });
-        t.commit();
-      }
+      c(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+          .REQUEST_WELCOME_MSG_SENT,
+        e,
+      );
     }
     function s(e) {
+      c(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
+        e,
+      );
+    }
+    function u(e) {
+      c(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+    }
+    function c(e, t) {
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
-        var t = new (o(
+        var n = new (o(
           "WAWebHatchUserJourneyWamEvent",
         ).HatchUserJourneyWamEvent)({
-          hatchActionType: o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
-            .TAP_UNLINK_BUTTON,
-          unifiedSessionId: e == null ? void 0 : e.unifiedSessionId,
-          aiSessionId: e == null ? void 0 : e.aiSessionId,
-          rawBotEntryPoint: e == null ? void 0 : e.rawBotEntryPoint,
+          hatchActionType: e,
+          unifiedSessionId: t == null ? void 0 : t.unifiedSessionId,
+          aiSessionId: t == null ? void 0 : t.aiSessionId,
+          rawBotEntryPoint: t == null ? void 0 : t.rawBotEntryPoint,
         });
-        t.commit();
+        n.commit();
       }
     }
-    ((l.logHatchRequestWelcomeMsgSent = e), (l.logHatchTapUnlinkButton = s));
+    ((l.logHatchRequestWelcomeMsgSent = e),
+      (l.logHatchTapUnlinkButton = s),
+      (l.logHatchUnlinkSuccess = u));
   },
   98,
 );

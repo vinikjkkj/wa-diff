@@ -2,6 +2,7 @@ __d(
   "WAWebParseSendPaymentMessageProto",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebDecodeJid",
     "WAWebE2EProtoParser",
     "WAWebE2EProtoUtils",
@@ -12,22 +13,42 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t) {
+    var e,
+      s,
+      u = 1;
+    function c(t) {
       var n,
-        r = t.baseMessage,
-        a = t.messageProtobuf,
-        i = t.msgContext,
-        l = t.paymentInfo,
-        s = a.sendPaymentMessage;
-      if (s != null) {
-        var u =
-          (n = s.noteMessage) == null || (n = n.extendedTextMessage) == null
+        r,
+        a = t.baseMessage,
+        i = t.messageProtobuf,
+        l = t.msgContext,
+        s = t.paymentInfo,
+        c = i.sendPaymentMessage;
+      if (c != null) {
+        var m =
+          (n = c.noteMessage) == null || (n = n.extendedTextMessage) == null
             ? void 0
             : n.contextInfo;
         if (
-          (l == null ? void 0 : l.futureproofed) === !0 ||
-          o("WAWebE2EProtoUtils").hasUnsupportedCurrency(l)
+          o("WAWebABProps").getABPropConfigValue("wa_web_xb_bubble_enabled") !==
+            !0 &&
+          ((r = c.noteMessage) == null ||
+          (r = r.extendedTextMessage) == null ||
+          (r = r.paymentExtendedMetadata) == null
+            ? void 0
+            : r.type) === u
+        )
+          return {
+            msgData: babelHelpers.extends({}, a, {
+              type: "unknown",
+              kind: o("WAWebMsgType").MsgKind.Unknown,
+              subtype: "phone_only_feature",
+            }),
+            contextInfo: m,
+          };
+        if (
+          (s == null ? void 0 : s.futureproofed) === !0 ||
+          o("WAWebE2EProtoUtils").hasUnsupportedCurrency(s)
         )
           return (
             o("WALogger").LOG(
@@ -37,66 +58,66 @@ __d(
                 ])),
             ),
             {
-              msgData: babelHelpers.extends({}, r, {
+              msgData: babelHelpers.extends({}, a, {
                 type: "unknown",
                 kind: o("WAWebMsgType").MsgKind.Unknown,
                 subtype: "phone_only_feature",
               }),
-              contextInfo: u,
+              contextInfo: m,
             }
           );
-        var d = s.noteMessage,
-          m = s.requestMessageKey,
-          p =
-            (d == null ? void 0 : d.extendedTextMessage) != null ||
-            (d == null ? void 0 : d.conversation) != null ||
-            (d == null ? void 0 : d.stickerMessage) != null,
-          _ = p ? "send" : "futureproof",
+        var p = c.noteMessage,
+          _ = c.requestMessageKey,
           f =
-            d && p
+            (p == null ? void 0 : p.extendedTextMessage) != null ||
+            (p == null ? void 0 : p.conversation) != null ||
+            (p == null ? void 0 : p.stickerMessage) != null,
+          g = f ? "send" : "futureproof",
+          h =
+            p && f
               ? o("WAWebE2EProtoParser").parseMsgProto({
-                  messageProtobuf: d,
+                  messageProtobuf: p,
                   message: {},
-                  msgContext: i,
+                  msgContext: l,
                 })
               : void 0,
-          g =
-            l != null
-              ? o("WAWebParseMsgPaymentInfo").parseMsgPaymentInfo(l)
+          y =
+            s != null
+              ? o("WAWebParseMsgPaymentInfo").parseMsgPaymentInfo(s)
               : null,
-          h = m ? c(m, r.id, _) : null;
-        return p
+          C = _ ? d(_, a.id, g) : null;
+        return f
           ? {
               msgData: babelHelpers.extends(
                 {},
-                r,
+                a,
                 {
                   type: o("WAWebMsgType").MSG_TYPE.PAYMENT,
                   kind: o("WAWebMsgType").MsgKind.Payment,
                   subtype: "send",
                 },
-                g,
-                { paymentRequestMessageKey: h, paymentNoteMsg: f },
+                y,
+                { paymentRequestMessageKey: C, paymentNoteMsg: h },
               ),
-              contextInfo: u,
+              contextInfo: m,
             }
           : {
               msgData: babelHelpers.extends(
                 {},
-                r,
+                a,
                 {
                   type: o("WAWebMsgType").MSG_TYPE.PAYMENT,
                   kind: o("WAWebMsgType").MsgKind.Payment,
                   subtype: "futureproof",
                 },
-                g,
-                { paymentRequestMessageKey: h },
+                y,
+                { paymentRequestMessageKey: C },
               ),
-              contextInfo: u,
+              contextInfo: m,
             };
       }
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       if (!e)
         throw r("err")(
           "getPaymentRequestMessageKey: no message key is defined",
@@ -133,7 +154,7 @@ __d(
       });
       return c;
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

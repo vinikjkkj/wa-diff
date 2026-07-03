@@ -113,6 +113,7 @@ __d(
                     .catching(r("getErrorSafe")(e));
                 }),
             n.timeSeriesPath != null &&
+              t.type === "web" &&
               o("WAWebBackendApi")
                 .frontendSendAndReceive("initializeVoipWasm")
                 .then(function (e) {

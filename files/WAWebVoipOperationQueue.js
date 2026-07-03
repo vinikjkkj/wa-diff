@@ -14,9 +14,10 @@ __d(
     var e,
       s,
       u,
-      c = 100,
-      d = 3e4,
-      m = (function (e) {
+      c,
+      d = 100,
+      m = 3e4,
+      p = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -29,23 +30,24 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      p = (function () {
-        function t(e, t) {
-          (t === void 0 && (t = d),
+      _ = (function () {
+        function t(e, t, n) {
+          (t === void 0 && (t = m),
             (this.$1 = []),
             (this.$2 = !1),
             (this.$3 = 0),
             (this.$4 = e),
-            (this.$5 = t));
+            (this.$5 = t),
+            (this.$6 = n));
         }
         var a = t.prototype;
         return (
           (a.enqueue = function (t, n) {
             var e = ++this.$3;
             (this.$1.push({ operation: t, name: n + " (#" + e + ")" }),
-              this.isProcessing() || this.$6());
+              this.isProcessing() || this.$7());
           }),
-          (a.$6 = (function () {
+          (a.$7 = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var t = this;
               if (!this.isProcessing()) {
@@ -58,48 +60,72 @@ __d(
                     l = function* () {
                       var l = t.$1.shift();
                       if (l == null) return 1;
-                      var d = l.name,
-                        p = l.operation,
-                        _ = null,
-                        f = new (u || (u = n("Promise")))(function (e, n) {
-                          _ = self.setTimeout(function () {
-                            return n(new m(d, t.$5));
+                      var m = l.name,
+                        _ = l.operation,
+                        f = null,
+                        g = new (c || (c = n("Promise")))(function (e, n) {
+                          f = self.setTimeout(function () {
+                            return n(new p(m, t.$5));
                           }, t.$5);
                         });
                       try {
-                        yield (u || (u = n("Promise"))).race([p(), f]);
+                        yield (c || (c = n("Promise"))).race([_(), g]);
                       } catch (n) {
-                        n instanceof m
-                          ? o("WALogger")
-                              .ERROR(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "voip: [",
-                                    ":Queue] op timeout ",
-                                    "ms, abandoning: ",
-                                    "",
-                                  ])),
-                                t.$4,
-                                t.$5,
-                                d,
-                              )
-                              .sendLogs("voip-operation-queue-timeout")
-                          : o("WALogger")
-                              .ERROR(
-                                s ||
-                                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                                    "voip: [",
-                                    ":Queue] Operation failed: ",
-                                    ", error: ",
-                                    "",
-                                  ])),
-                                t.$4,
-                                d,
-                                n,
-                              )
-                              .sendLogs("voip-operation-queue-failure");
+                        if (n instanceof p) {
+                          var h = !1;
+                          try {
+                            h = (yield t.$6 == null ? void 0 : t.$6(m)) === !0;
+                          } catch (e) {
+                            h = !1;
+                          }
+                          h
+                            ? o("WALogger")
+                                .LOG(
+                                  e ||
+                                    (e =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "voip: [",
+                                        ":Queue] op timeout ",
+                                        "ms (benign, abandoning): ",
+                                        "",
+                                      ])),
+                                  t.$4,
+                                  t.$5,
+                                  m,
+                                )
+                                .sendLogs("voip-operation-queue-timeout-benign")
+                            : o("WALogger")
+                                .ERROR(
+                                  s ||
+                                    (s =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "voip: [",
+                                        ":Queue] op timeout ",
+                                        "ms, abandoning: ",
+                                        "",
+                                      ])),
+                                  t.$4,
+                                  t.$5,
+                                  m,
+                                )
+                                .sendLogs("voip-operation-queue-timeout");
+                        } else
+                          o("WALogger")
+                            .ERROR(
+                              u ||
+                                (u = babelHelpers.taggedTemplateLiteralLoose([
+                                  "voip: [",
+                                  ":Queue] Operation failed: ",
+                                  ", error: ",
+                                  "",
+                                ])),
+                              t.$4,
+                              m,
+                              n,
+                            )
+                            .sendLogs("voip-operation-queue-failure");
                       } finally {
-                        _ != null && self.clearTimeout(_);
+                        f != null && self.clearTimeout(f);
                       }
                       a
                         ? yield r("WACommonTaskScheduler").yield()
@@ -109,7 +135,7 @@ __d(
                             o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                               .OPERATION_QUEUE_YIELD,
                           ) &&
-                          self.performance.now() - i > c &&
+                          self.performance.now() - i > d &&
                           (yield o(
                             "WAWebReleaseToEventLoop",
                           ).releaseToEventLoop(),
@@ -135,7 +161,7 @@ __d(
           t
         );
       })();
-    l.WAWebVoipOperationQueue = p;
+    l.WAWebVoipOperationQueue = _;
   },
   98,
 );

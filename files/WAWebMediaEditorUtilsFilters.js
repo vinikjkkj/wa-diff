@@ -1,54 +1,48 @@
 __d(
   "WAWebMediaEditorUtilsFilters",
-  ["fbt", "$InternalEnum", "konva"],
+  ["fbt", "WAWebMediaEditorUtilsFilterType", "konva"],
   function (t, n, r, o, a, i, l, s) {
-    var e = 48,
-      u = n("$InternalEnum").Mirrored([
-        "NONE",
-        "POP",
-        "BW",
-        "COOL",
-        "CHROME",
-        "FILM",
-      ]);
-    function c() {
-      return Array.from(u.members());
+    var e = 48;
+    function u() {
+      return Array.from(
+        o("WAWebMediaEditorUtilsFilterType").FilterType.members(),
+      );
     }
-    function d(e) {
+    function c(e) {
       switch (e) {
-        case u.NONE:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.NONE:
           return s._(/*BTDS*/ "None");
-        case u.POP:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.POP:
           return s._(/*BTDS*/ "Pop");
-        case u.BW:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.BW:
           return s._(/*BTDS*/ "B&W");
-        case u.COOL:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.COOL:
           return s._(/*BTDS*/ "Cool");
-        case u.CHROME:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.CHROME:
           return s._(/*BTDS*/ "Chrome");
-        case u.FILM:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.FILM:
           return s._(/*BTDS*/ "Film");
       }
     }
-    function m(e) {
+    function d(e) {
       switch (e) {
-        case u.NONE:
-        case u.POP:
-        case u.CHROME:
-        case u.FILM:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.NONE:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.POP:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.CHROME:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.FILM:
           return [
             r("konva").Filters.Brighten,
             r("konva").Filters.Contrast,
             r("konva").Filters.Enhance,
           ];
-        case u.BW:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.BW:
           return [
             r("konva").Filters.Brighten,
             r("konva").Filters.Contrast,
             r("konva").Filters.Enhance,
             r("konva").Filters.Grayscale,
           ];
-        case u.COOL:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.COOL:
           return [
             r("konva").Filters.Brighten,
             r("konva").Filters.Contrast,
@@ -58,15 +52,15 @@ __d(
           ];
       }
     }
-    function p(e) {
+    function m(e) {
       switch (e) {
-        case u.NONE:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.NONE:
           return { brightness: 0, contrast: 0, enhance: 0 };
-        case u.POP:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.POP:
           return { brightness: 0.1, contrast: 4, enhance: 0.5 };
-        case u.BW:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.BW:
           return { brightness: 0.1, contrast: 0.1, enhance: 0.1 };
-        case u.COOL:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.COOL:
           return {
             brightness: -0.1,
             contrast: -5,
@@ -78,7 +72,7 @@ __d(
             blue: 255,
             alpha: 0.2,
           };
-        case u.CHROME:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.CHROME:
           return {
             brightness: 0.1,
             contrast: 15,
@@ -86,7 +80,7 @@ __d(
             overlay: "#11053b",
             composition: "screen",
           };
-        case u.FILM:
+        case o("WAWebMediaEditorUtilsFilterType").FilterType.FILM:
           return {
             brightness: 0.1,
             contrast: 4,
@@ -97,11 +91,10 @@ __d(
       }
     }
     ((l.IMAGE_DIMENSION = e),
-      (l.FilterType = u),
-      (l.getAllFilters = c),
-      (l.getFilterValue = d),
-      (l.getKonvaFilters = m),
-      (l.getFilterPresets = p));
+      (l.getAllFilters = u),
+      (l.getFilterValue = c),
+      (l.getKonvaFilters = d),
+      (l.getFilterPresets = m));
   },
   226,
 );

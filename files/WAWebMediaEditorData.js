@@ -10,7 +10,7 @@ __d(
     "WAWebMediaEditorLayersImage",
     "WAWebMediaEditorLayersShape",
     "WAWebMediaEditorLayersText",
-    "WAWebMediaEditorUtilsFilters",
+    "WAWebMediaEditorUtilsFilterType",
     "WAWebMediaEditorUtilsGetDominantColor",
     "cr:10202",
     "err",
@@ -52,7 +52,7 @@ __d(
             }),
             background: null,
             selectedLayer: null,
-            activeFilter: o("WAWebMediaEditorUtilsFilters").FilterType.NONE,
+            activeFilter: o("WAWebMediaEditorUtilsFilterType").FilterType.NONE,
             backgroundColor: l,
             tintColor: s,
             rotation: e,
@@ -432,7 +432,7 @@ __d(
               this.getRotation() !== e ||
               !this.getSize().equals(this.$1.cropFrame.getSize()) ||
               this.getActiveFilter() !==
-                o("WAWebMediaEditorUtilsFilters").FilterType.NONE
+                o("WAWebMediaEditorUtilsFilterType").FilterType.NONE
             );
           }),
           (n.getLayers = function () {

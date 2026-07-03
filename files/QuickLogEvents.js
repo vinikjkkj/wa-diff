@@ -13522,6 +13522,11 @@ __d(
         name: "SEND_MESSAGE",
         sampleRate: 1,
       },
+      68753026: {
+        moduleName: "GENSTUDIO",
+        name: "FINALIZE_PUBLISH",
+        sampleRate: 250,
+      },
       68753039: { moduleName: "GENSTUDIO", name: "NAVIGATION", sampleRate: 1 },
       68753462: {
         moduleName: "GENSTUDIO",
@@ -13542,6 +13547,11 @@ __d(
         moduleName: "GENSTUDIO",
         name: "PREVIEW_WORLD",
         sampleRate: 1,
+      },
+      68756774: {
+        moduleName: "GENSTUDIO",
+        name: "REQUEST_PUBLISH",
+        sampleRate: 250,
       },
       68757278: {
         moduleName: "GENSTUDIO",
@@ -14142,7 +14152,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 261,
+        sampleRate: 230,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14222,7 +14232,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 252391,
+        sampleRate: 338962,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15709,6 +15719,11 @@ __d(
       108928316: {
         moduleName: "META_CRM_CLIENT_ENGAGEMENT",
         name: "VC_RECALL_RECORDING_DELETION_AUDIT",
+        sampleRate: 1,
+      },
+      108929210: {
+        moduleName: "META_CRM_CLIENT_ENGAGEMENT",
+        name: "VC_RECORDING_POST_PROCESSING_WORKFLOW",
         sampleRate: 1,
       },
       108929366: {
@@ -21940,6 +21955,11 @@ __d(
         sampleRate: 1,
       },
       224673445: { moduleName: "NEST_ME", name: "INITIAL_LOAD", sampleRate: 1 },
+      226299500: {
+        moduleName: "OCULUS_IGVR",
+        name: "IGD_MC_PARAMS_LOAD",
+        sampleRate: 1,
+      },
       226691996: {
         moduleName: "IG_MEDIA_ENHANCE",
         name: "MODULE_INSTALL",
@@ -22647,7 +22667,7 @@ __d(
       236464097: {
         moduleName: "SLIDE_HEALTH",
         name: "MESSAGING_READY",
-        sampleRate: 1,
+        sampleRate: 2,
       },
       236464442: {
         moduleName: "SLIDE_HEALTH",
@@ -24502,6 +24522,11 @@ __d(
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_ADVANTAGE_CREATIVE_LOAD_PREVIEW",
         sampleRate: 1,
+      },
+      270209736: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_CREATIVE_SOURCED_TESTIMONIALS_HUB_LINK",
+        sampleRate: 250,
       },
       270209741: {
         moduleName: "ADS_MANAGER_INTERACTION",
@@ -31840,6 +31865,11 @@ __d(
         name: "MOMENT_TEMPLATE_EXPORT",
         sampleRate: 250,
       },
+      360526850: {
+        moduleName: "META_PHOTOS",
+        name: "MOMENTS_FETCH",
+        sampleRate: 250,
+      },
       360527216: {
         moduleName: "META_PHOTOS",
         name: "MOMENTS_FEED_SCROLL",
@@ -31849,6 +31879,21 @@ __d(
         moduleName: "META_PHOTOS",
         name: "MOMENT_VIDEO_PLAYBACK",
         sampleRate: 1,
+      },
+      360528706: {
+        moduleName: "META_PHOTOS",
+        name: "MOMENT_TEMPLATE_COMPOSE",
+        sampleRate: 250,
+      },
+      360528949: {
+        moduleName: "META_PHOTOS",
+        name: "MOMENTS_SHARE",
+        sampleRate: 250,
+      },
+      360529903: {
+        moduleName: "META_PHOTOS",
+        name: "MOMENT_MEDIA_TRANSCODE",
+        sampleRate: 250,
       },
       361037825: {
         moduleName: "MSG_COMMUNITY_CONTAINER_WEB",
@@ -31874,6 +31919,11 @@ __d(
         moduleName: "CREATOR_STUDIO_MOBILE",
         name: "SUGGESTED_COMMENTS_PAGE_LOAD",
         sampleRate: 1,
+      },
+      361250662: {
+        moduleName: "CREATOR_STUDIO_MOBILE",
+        name: "ALL_COMMENTS_LOAD_MORE_COMMENTS",
+        sampleRate: 250,
       },
       361562113: {
         moduleName: "FB_REELS_IFU",
@@ -41025,6 +41075,11 @@ __d(
         name: "REG_TRANSITION_TO_NEXT",
         sampleRate: 1,
       },
+      505022098: {
+        moduleName: "WEAVE",
+        name: "COPILOT_SEND_TO_RESPONSE",
+        sampleRate: 1,
+      },
       505022322: {
         moduleName: "WEAVE",
         name: "THREAD_LIST_LOAD",
@@ -41032,11 +41087,17 @@ __d(
       },
       505025663: { moduleName: "WEAVE", name: "INITIAL_LOAD", sampleRate: 1 },
       505027078: { moduleName: "WEAVE", name: "NAVIGATION", sampleRate: 1 },
+      505027484: {
+        moduleName: "WEAVE",
+        name: "MESSAGE_DELTA_RENDER",
+        sampleRate: 1,
+      },
       505028662: {
         moduleName: "WEAVE",
         name: "MESSAGE_LIST_LOAD",
         sampleRate: 1,
       },
+      505033119: { moduleName: "WEAVE", name: "SEND_TO_SENT", sampleRate: 1 },
       505353229: {
         moduleName: "RP_POLLS",
         name: "INCALL_POLLS_SETUP",
@@ -49155,6 +49216,16 @@ __d(
         name: "SEARCH_DB_SYNC_PERF_V2",
         sampleRate: 1,
       },
+      628436857: {
+        moduleName: "VIDEO_TEMPLATE_SYSTEM",
+        name: "IOS_VISTA_TEMPLATE_SWITCHER_FETCH_TTI",
+        sampleRate: 250,
+      },
+      628437166: {
+        moduleName: "VIDEO_TEMPLATE_SYSTEM",
+        name: "IOS_VISTA_TEMPLATE_SWITCHER_PREVIEW_TTI",
+        sampleRate: 250,
+      },
       629479132: {
         moduleName: "AGENTIC_APP_HEALTH",
         name: "RUN_STATS",
@@ -49677,6 +49748,11 @@ __d(
         name: "USER_FLOW",
         sampleRate: 1,
       },
+      643574740: {
+        moduleName: "ADS_IMAGE_GEN_E2E",
+        name: "MEDIA_PICKER_SESSION_API",
+        sampleRate: 1,
+      },
       646461002: {
         moduleName: "IAB_JS",
         name: "SCRIPT_RUNTIME_ERROR",
@@ -49838,6 +49914,11 @@ __d(
         moduleName: "COMET_COMPOSER",
         name: "COMET_COMPOSER_VIDEO_PREVIEW_READY",
         sampleRate: 1,
+      },
+      652754648: {
+        moduleName: "COMET_COMPOSER",
+        name: "PREVIEW_CONTENT_READY",
+        sampleRate: 250,
       },
       655954507: {
         moduleName: "FB_AUDIO_FEED",
@@ -52932,6 +53013,11 @@ __d(
         moduleName: "M4A_MEDIA_PICKER",
         name: "COMPOSER_MEDIA_PICKER_OPEN_TTRC",
         sampleRate: 1e4,
+      },
+      714218236: {
+        moduleName: "MERLIN",
+        name: "MERLIN_SOFT_ERRORS",
+        sampleRate: null,
       },
       714223273: {
         moduleName: "MERLIN",
@@ -59143,6 +59229,11 @@ __d(
         moduleName: "FEED_PERSONALIZATION",
         name: "CSIGHT_INFRA",
         sampleRate: 1e4,
+      },
+      770186836: {
+        moduleName: "FEED_PERSONALIZATION",
+        name: "VEND_TIME_RANKING_STATE",
+        sampleRate: 2e3,
       },
       770572289: {
         moduleName: "SYNC_INFRA",
@@ -68005,6 +68096,11 @@ __d(
         name: "ALL_APPS_PAGE",
         sampleRate: 1,
       },
+      890777014: {
+        moduleName: "DEVELOPERS_FACEBOOK_COM",
+        name: "APP_SETTINGS_SAVE",
+        sampleRate: 250,
+      },
       890777238: {
         moduleName: "DEVELOPERS_FACEBOOK_COM",
         name: "DOCS_BREADCRUMBS",
@@ -68100,6 +68196,11 @@ __d(
         name: "USE_CASES_PAGE",
         sampleRate: 100,
       },
+      890781044: {
+        moduleName: "DEVELOPERS_FACEBOOK_COM",
+        name: "USE_CASES_CREATE_APP_PAGE_LOAD",
+        sampleRate: 250,
+      },
       890781276: {
         moduleName: "DEVELOPERS_FACEBOOK_COM",
         name: "UPSELL_WA_TP_BANNER_LOAD",
@@ -68179,6 +68280,11 @@ __d(
         moduleName: "WHATSAPP_WEB",
         name: "NAVIGATION",
         sampleRate: 1e4,
+      },
+      891424385: {
+        moduleName: "WHATSAPP_WEB",
+        name: "VOIP_SCTP_PREWARM",
+        sampleRate: 250,
       },
       891424539: {
         moduleName: "WHATSAPP_WEB",
@@ -68295,6 +68401,11 @@ __d(
         moduleName: "WHATSAPP_WEB",
         name: "PAGE_LOAD",
         sampleRate: 1e3,
+      },
+      891431646: {
+        moduleName: "WHATSAPP_WEB",
+        name: "VOIP_RELAY_CONNECT",
+        sampleRate: 250,
       },
       891431698: {
         moduleName: "WHATSAPP_WEB",
@@ -68947,6 +69058,11 @@ __d(
         moduleName: "MDCORE_IOS_DEBUGGING",
         name: "PUSH_TO_THREADVIEW",
         sampleRate: 1e5,
+      },
+      911938336: {
+        moduleName: "MDCORE_IOS_DEBUGGING",
+        name: "CACHE_FETCH",
+        sampleRate: 1e4,
       },
       911943515: {
         moduleName: "MDCORE_IOS_DEBUGGING",
@@ -69784,6 +69900,11 @@ __d(
         moduleName: "MOBILE_NETWORK_STACK",
         name: "PRIVACY_DISCLOSURE_ERROR_DETAIL",
         sampleRate: 30,
+      },
+      926497534: {
+        moduleName: "MOBILE_NETWORK_STACK",
+        name: "WHATSAPP_MEDIA_EVENTS",
+        sampleRate: 10,
       },
       926616185: {
         moduleName: "MSYS_SDK_CHILD_QUERIES_FROM_PARENT_CHILD",
@@ -76010,6 +76131,11 @@ __d(
         moduleName: "PARTNERSHIP_ADS",
         name: "PARTNERSHIP_ADS_HUB_PARTNERS_TABLE_LOAD",
         sampleRate: 1,
+      },
+      1028991742: {
+        moduleName: "PARTNERSHIP_ADS",
+        name: "SOURCED_TESTIMONIALS_HUB_LINK_CLICK",
+        sampleRate: 250,
       },
       1028992039: {
         moduleName: "PARTNERSHIP_ADS",

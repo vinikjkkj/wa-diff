@@ -57,6 +57,15 @@ __d(
     }
     function h(t, n, a, i) {
       if (!_(t, a)) {
+        var l = o("WAWebAppTracker").AppTracker.getAppContextWithLookback(t, n);
+        if (
+          l.includes(
+            String(o("WAWebAppTracker").AppTrackerType.ClosingBrowserTab),
+          )
+        ) {
+          r("WAWebODS").incr("web.perf.anr.skipped.unloading");
+          return;
+        }
         (r("WAWebODS").incr("web.perf.anr.count"),
           i === "heartbeat"
             ? r("WAWebODS").incr("web.perf.anr.source.heartbeat")
@@ -65,8 +74,7 @@ __d(
           o("WAWebLowEndDeviceApi").isLowEndDevice() &&
             r("WAWebODS").incr("web.perf.anr.low_end_device"),
           o("WAWebCrashContextUtils").recordHangEvent(n, t));
-        var l = o("WAWebAppTracker").AppTracker.getAppContextWithLookback(t, n),
-          u = g(l),
+        var u = g(l),
           c = u.callLog,
           d = u.isVoipAnr;
         o("WAWebPdfViewerAnrTracker").isPdfViewerAnrTrackingActive() &&

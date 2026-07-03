@@ -144,7 +144,13 @@ __d(
                 (t.unreadCount = i),
                 t.setCapiThreadControl(n.serverConfirmed, m),
                 o("WAWebModalManager").ModalManager.open(
-                  d.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {}),
+                  d.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
+                    isTurnOn:
+                      l ===
+                      o("WAWebProtobufsE2E.pb")
+                        .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                        .CONTROL_TAKEN,
+                  }),
                 ),
                 !1);
           },

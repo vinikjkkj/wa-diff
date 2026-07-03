@@ -1122,6 +1122,12 @@ __d(
                 "WAWebCommonMsgSubtypeTypes",
               ).MsgSubtype.MemberShareGroupHistoryMode));
             break;
+          case l.CTWA_CONSUMER_DISCLOSURE:
+            ((t.subtype =
+              "ctwa_consumer_data_sharing_disclosure_system_message"),
+              (t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
+              (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate));
+            break;
           default:
             t.templateParams = void 0;
             break;
