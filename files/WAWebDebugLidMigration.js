@@ -648,12 +648,40 @@ __d(
     }
     Re.doc =
       "Generates a CTWA system message, used for E2E testing purposes as this system message is only generated on phone devices, but we need to test the functionality of the system message";
-    function Le(e, t) {
+    function Le(e) {
       return Ee.apply(this, arguments);
     }
     function Ee() {
       return (
-        (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (Ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebDebugUtils").getSelectedChat(),
+            n = t.id;
+          if (!n.isUser()) throw r("err")("Please open a 1-1 chat");
+          var a = o("WAWebContactSystemMsg").genNotificationMsg(n, {
+            type: "notification_template",
+            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+            subtype: "change_lid",
+            templateParams: [e],
+          });
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+            chatId: r("nullthrows")(a.from),
+            newMsg: a,
+            handleSingleMsgOrigin: "lid_change_notification",
+            preserveOrder: !1,
+          });
+        })),
+        Ee.apply(this, arguments)
+      );
+    }
+    ((Le.doc =
+      "Generates a change_lid system message in the active 1-1 chat, using the given new LID and the current chat LID as the old LID"),
+      (Le.paramsToExecute = ["newLid"]));
+    function ke(e, t) {
+      return Ie.apply(this, arguments);
+    }
+    function Ie() {
+      return (
+        (Ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n =
               e.indexOf("@lid") > 0
                 ? o("WAWebWidFactory").createWid(e)
@@ -703,11 +731,11 @@ __d(
               );
             });
         })),
-        Ee.apply(this, arguments)
+        Ie.apply(this, arguments)
       );
     }
-    Le.doc = "Send a text message";
-    function ke(e) {
+    ke.doc = "Send a text message";
+    function Te(e) {
       var t = o("WAWebWidFactory").createWid(e),
         n = o("WATimeUtils").unixTime();
       return o("WAWebSetPrivacyTokensJob").issuePrivacyToken(
@@ -716,45 +744,45 @@ __d(
         n,
       );
     }
-    ke.doc =
+    Te.doc =
       "Sends a iq to the server, that will issue a tcToken for the given chatId";
-    function Ie(e) {
+    function De(e) {
       o("WAWebQueryExistsJob").queryWidExists(
         o("WAWebWidFactory").createWid(e),
         o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.DEBUG_TOOL,
       );
     }
-    Ie.doc = "Performs a usync query on the given number or lid";
-    function Te() {
+    De.doc = "Performs a usync query on the given number or lid";
+    function xe() {
       return o(
         "WAWebDBFavoriteDatabaseMigrationToLid",
       ).migrateFavoritesDatabaseToLid();
     }
-    ((Te.doc = "Migrate favorites database to lid"), (Te.paramsToExecute = []));
-    function De() {
+    ((xe.doc = "Migrate favorites database to lid"), (xe.paramsToExecute = []));
+    function $e() {
       return o(
         "WAWebDBLabelAssociationDatabaseMigrationToLid",
       ).migrateLabelAssociationsDatabaseToLid();
     }
-    ((De.doc = "Migrate label associations database to lid"),
-      (De.paramsToExecute = []));
-    function xe() {
+    (($e.doc = "Migrate label associations database to lid"),
+      ($e.paramsToExecute = []));
+    function Pe() {
       return o("WAWebCartDbLidMigration").migrateCartDbLid();
     }
-    ((xe.doc = "Migrate Cart database to lid"), (xe.paramsToExecute = []));
-    function $e() {
+    ((Pe.doc = "Migrate Cart database to lid"), (Pe.paramsToExecute = []));
+    function Ne() {
       return o(
         "WAWebDBPnhThreadMigrationToGeneralLid",
       ).migratePhoneNumberHidingThreadsToGeneralLid();
     }
-    (($e.doc = "Migrate Phone Number Hiding threads to General LID"),
-      ($e.paramsToExecute = []));
-    function Pe(e, t) {
-      return Ne.apply(this, arguments);
+    ((Ne.doc = "Migrate Phone Number Hiding threads to General LID"),
+      (Ne.paramsToExecute = []));
+    function Me(e, t) {
+      return we.apply(this, arguments);
     }
-    function Ne() {
+    function we() {
       return (
-        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (we = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = Math.round(Date.now() / 1e3),
             i = yield o("WAWebMsgKeyNewId").getMsgKeyNewSHA256Id(),
@@ -810,17 +838,17 @@ __d(
             );
           }
         })),
-        Ne.apply(this, arguments)
+        we.apply(this, arguments)
       );
     }
-    Pe.doc =
+    Me.doc =
       "Simulate receiving a LID change notification for debugging purposes";
-    function Me(e) {
-      return we.apply(this, arguments);
+    function Ae(e) {
+      return Fe.apply(this, arguments);
     }
-    function we() {
+    function Fe() {
       return (
-        (we = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
@@ -871,25 +899,25 @@ __d(
             );
           }
         })),
-        we.apply(this, arguments)
+        Fe.apply(this, arguments)
       );
     }
-    ((Me.doc = "Convert a given chat to have lidOriginType CTWA"),
-      (Me.paramsToExecute = ["chatId"]));
-    function Ae(e) {
+    ((Ae.doc = "Convert a given chat to have lidOriginType CTWA"),
+      (Ae.paramsToExecute = ["chatId"]));
+    function Oe(e) {
       if (!e.isRegularUser()) return !1;
       var t = F == null ? void 0 : F.get(e);
       return (
         t != null && o("WAWebFrontendContactGetters").getIsUsernameContact(t)
       );
     }
-    Ae.doc = "get is username contact for a LID";
-    function Fe(e) {
-      return Oe.apply(this, arguments);
+    Oe.doc = "get is username contact for a LID";
+    function Be(e) {
+      return We.apply(this, arguments);
     }
-    function Oe() {
+    function We() {
       return (
-        (Oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (We = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat())
             throw r("err")(
               "Cannot create PN chat with forced lid chats. Log out and pair again with ?web_force_lid_chats_in_history=false",
@@ -987,12 +1015,12 @@ __d(
             t
           );
         })),
-        Oe.apply(this, arguments)
+        We.apply(this, arguments)
       );
     }
-    Fe.doc =
+    Be.doc =
       "Create a PN (phone number) chat even when LID migrated. Returns null if chat already exists. Uses fake LID if contact LID is already used.";
-    var Be = {
+    var qe = {
       toggleAddressingModeForGroups: O,
       printGroup: W,
       toggleAddressingModeForActiveGroupChat: U,
@@ -1015,25 +1043,26 @@ __d(
       setIsLidMigrated: ge,
       getIsLidMigrated: ye,
       generateCtwaSystemMessage: Re,
-      sendTextMsg: Le,
-      sendTcToken: ke,
-      queryWidExists: Ie,
+      generateChangeLidSystemMessage: Le,
+      sendTextMsg: ke,
+      sendTcToken: Te,
+      queryWidExists: De,
       getMaybeMeLidUser: o("WAWebUserPrefsMeUser").getMaybeMeLidUser,
-      migrateFavoritesDatabaseToLid: Te,
-      migrateLabelAssociationsDatabaseToLid: De,
-      migrateCartDatabaseToLid: xe,
-      migratePhoneNumberHidingThreadsToGeneralLid: $e,
-      setChatLidOriginTypeToCTWA: Me,
+      migrateFavoritesDatabaseToLid: xe,
+      migrateLabelAssociationsDatabaseToLid: $e,
+      migrateCartDatabaseToLid: Pe,
+      migratePhoneNumberHidingThreadsToGeneralLid: Ne,
+      setChatLidOriginTypeToCTWA: Ae,
       isFakeLid: K,
       lidMigrationSource: be,
       logLidMetadata: o("WAWebLidMigrationUtils").logLidMetadata,
       logLidMetadataInfo: ve,
       isBlocklistMigrated: Se,
-      simulateLidChangeNotification: Pe,
-      isUsernameContact: Ae,
-      createPnChat: Fe,
+      simulateLidChangeNotification: Me,
+      isUsernameContact: Oe,
+      createPnChat: Be,
     };
-    l.default = Be;
+    l.default = qe;
   },
   98,
 );

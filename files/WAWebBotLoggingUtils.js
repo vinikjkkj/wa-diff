@@ -229,7 +229,12 @@ __d(
                                   o("WAWebProtobufsAICommon.pb")
                                     .BotMetricsEntryPoint.WEB_NAVIGATION_BAR
                                 ? "web_navigation_bar"
-                                : null;
+                                : e ===
+                                    o("WAWebProtobufsAICommon.pb")
+                                      .BotMetricsEntryPoint
+                                      .PROFILE_MESSAGE_BUTTON
+                                  ? "profile_message_button"
+                                  : null;
     }
     function f(e) {
       e: {

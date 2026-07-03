@@ -2,10 +2,11 @@ __d(
   "WAWebPathfinderLogger",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebCrashlog",
+    "WAWebLocalStorage",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUnifiedSession",
+    "WAWebUserPrefsLoginKeys",
     "WamPathfinderWebFalcoEvent",
     "isEmptyObject",
     "justknobx",
@@ -186,12 +187,15 @@ __d(
       return (E == null && (E = r("qex")._("2703") === !0), E);
     }
     function I() {
-      if (r("justknobx")._("918")) return 0;
-      var e = o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging");
-      return e > 0 ? e : k() ? 2 : 0;
+      return !!(
+        r("WAWebLocalStorage") != null &&
+        r("WAWebLocalStorage").getItem(
+          o("WAWebUserPrefsLoginKeys").WAWebUserPrefsLoginKeys.LAST_WID_MD,
+        )
+      );
     }
     function T() {
-      return I() > 0;
+      return r("justknobx")._("918") ? !1 : I() || k();
     }
     var D = 50,
       x = new Array(D),
@@ -201,92 +205,84 @@ __d(
       P || ((P = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(w));
     }
     function M(e) {
-      var t = I();
-      if (!(t < 1)) {
-        var n = [];
+      var t, n, a, i, l, s;
+      if (T()) {
+        var u = [];
         if (
-          (e.screenName != null && n.push("screen=" + e.screenName),
-          e.targetTrackingId != null && n.push("target=" + e.targetTrackingId),
-          e.destinationName != null && n.push("dest=" + e.destinationName),
-          e.context != null && n.push("ctx=" + e.context),
+          (e.screenName != null && u.push("screen=" + e.screenName),
+          e.targetTrackingId != null && u.push("target=" + e.targetTrackingId),
+          e.destinationName != null && u.push("dest=" + e.destinationName),
+          e.context != null && u.push("ctx=" + e.context),
           e.debounceCount != null &&
             e.debounceCount > 1 &&
-            n.push("debounce=" + String(e.debounceCount)),
+            u.push("debounce=" + String(e.debounceCount)),
           e.gestureDirection != null)
         ) {
-          var a;
-          n.push(
+          var c;
+          u.push(
             "direction=" +
-              ((a = p[e.gestureDirection]) != null
-                ? a
+              ((c = p[e.gestureDirection]) != null
+                ? c
                 : String(e.gestureDirection)),
           );
         }
-        var i =
-          n.length > 0
-            ? "[pathfinder] " + e.eventType + " " + n.join(" ")
+        var _ =
+          u.length > 0
+            ? "[pathfinder] " + e.eventType + " " + u.join(" ")
             : "[pathfinder] " + e.eventType;
-        if (
-          (o("WALogger").LOG(
-            d || (d = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-            i,
-          ),
-          t >= 2)
-        ) {
-          var l = m[e.eventType];
-          if (l != null) {
-            var s = S(e, l.eventName),
-              u =
-                "" +
-                e.eventType +
-                (e.targetTrackingId != null ? ":" + e.targetTrackingId : "");
-            r("WamPathfinderWebFalcoEvent").log(function () {
-              var t, n, r, o, a;
-              return {
-                event_category: l.category,
-                event_name: s,
-                client_timestamp_ms: String(e.timestampMs),
-                unified_session_id: L(),
-                debounce_count:
-                  e.debounceCount != null ? String(e.debounceCount) : void 0,
-                gesture_direction:
-                  (t = e.gestureDirection) != null ? t : void 0,
-                screen_name: (n = e.screenName) != null ? n : void 0,
-                destination_screen_name:
-                  (r = e.destinationName) != null ? r : void 0,
-                target_testid: (o = e.targetTrackingId) != null ? o : void 0,
-                target_element_type: (a = e.targetType) != null ? a : void 0,
-                event_metadata: v(
-                  e.eventMetadata,
-                  { triggering_testid: e.triggeringTestId },
-                  u,
-                ),
-                custom_metadata: b(
-                  e.customMetadata,
-                  { custom_event_type: e.customEventTypeDisplayName },
-                  u,
-                ),
-              };
-            });
-          }
+        o("WALogger").LOG(
+          d || (d = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+          _,
+        );
+        var f = m[e.eventType];
+        if (f != null) {
+          var g = S(e, f.eventName),
+            h =
+              "" +
+              e.eventType +
+              (e.targetTrackingId != null ? ":" + e.targetTrackingId : "");
+          r("WamPathfinderWebFalcoEvent").log(function () {
+            var t, n, r, o, a;
+            return {
+              event_category: f.category,
+              event_name: g,
+              client_timestamp_ms: String(e.timestampMs),
+              unified_session_id: L(),
+              debounce_count:
+                e.debounceCount != null ? String(e.debounceCount) : void 0,
+              gesture_direction: (t = e.gestureDirection) != null ? t : void 0,
+              screen_name: (n = e.screenName) != null ? n : void 0,
+              destination_screen_name:
+                (r = e.destinationName) != null ? r : void 0,
+              target_testid: (o = e.targetTrackingId) != null ? o : void 0,
+              target_element_type: (a = e.targetType) != null ? a : void 0,
+              event_metadata: v(
+                e.eventMetadata,
+                { triggering_testid: e.triggeringTestId },
+                h,
+              ),
+              custom_metadata: b(
+                e.customMetadata,
+                { custom_event_type: e.customEventTypeDisplayName },
+                h,
+              ),
+            };
+          });
         }
-        if (t >= 3) {
-          var c, _, f, g, h, y;
-          N();
-          var C = {
-            eventType: e.eventType,
-            timestampMs: e.timestampMs,
-            trackingId: (c = e.targetTrackingId) != null ? c : void 0,
-            screenName: (_ = e.screenName) != null ? _ : void 0,
-            targetType: (f = e.targetType) != null ? f : void 0,
-            destinationName: (g = e.destinationName) != null ? g : void 0,
-            context: (h = e.context) != null ? h : void 0,
-            debounceCount: (y = e.debounceCount) != null ? y : void 0,
-          };
-          (n.length > 0 && (C.extra = n.join(" ")),
-            (x[$] = C),
-            ($ = ($ + 1) % D));
-        }
+        N();
+        var y = {
+          eventType: e.eventType,
+          timestampMs: e.timestampMs,
+          trackingId: (t = e.targetTrackingId) != null ? t : void 0,
+          screenName: (n = e.screenName) != null ? n : void 0,
+          targetType: (a = e.targetType) != null ? a : void 0,
+          destinationName: (i = e.destinationName) != null ? i : void 0,
+          context: (l = e.context) != null ? l : void 0,
+          debounceCount: (s = e.debounceCount) != null ? s : void 0,
+        };
+        (u.length > 0 && (y.extra = u.join(" ")),
+          (x[$] = y),
+          ($ = ($ + 1) % D));
       }
     }
     function w() {

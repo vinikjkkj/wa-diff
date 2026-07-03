@@ -536,6 +536,13 @@ __d(
       IG_CONNECT_ADMIN_BUTTON_GENERATED: "ig_connect_admin_button_generated",
       IG_CONNECT_ADMIN_BUTTON_IMPRESSION: "ig_connect_admin_button_impression",
       IG_CONNECT_ADMIN_BUTTON_CLICK: "ig_connect_admin_button_click",
+      IG_CONNECT_UPSELL_CARD_IMPRESSION: "ig_connect_upsell_card_impression",
+      IG_CONNECT_UPSELL_CARD_DISMISS_CLICK:
+        "ig_connect_upsell_card_dismiss_click",
+      IG_CONNECT_UPSELL_CARD_CONNECT_CLICK:
+        "ig_connect_upsell_card_connect_click",
+      IG_CONNECT_UPSELL_CARD_CONNECT_SUCCESS:
+        "ig_connect_upsell_card_connect_success",
       IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
       PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
         "product_picker_ig_page_load_eligibility",

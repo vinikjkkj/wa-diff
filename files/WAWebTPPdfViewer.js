@@ -63,9 +63,9 @@ __d(
                       .publishWhenReady("RENDER_PDF_PREVIEW", {
                         file: t,
                         fileName: r,
-                        isAnnotationsEnabled:
-                          o == null ? void 0 : o.isAnnotationsEnabled,
-                        isWindowsHybrid: o == null ? void 0 : o.isWindowsHybrid,
+                        isAnnotationsEnabled: o.isAnnotationsEnabled,
+                        isWindowsHybrid: o.isWindowsHybrid,
+                        styleConfig: o.styleConfig,
                       })
                       .catch(n));
                 });

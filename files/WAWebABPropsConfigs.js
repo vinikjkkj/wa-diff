@@ -1886,6 +1886,7 @@ __d(
       payments_upr_mexico_wallet_enabled: [32043, "bool", !1, !0],
       payments_upr_multiple_key_copy_enabled: [32124, "bool", !1, !0],
       payments_upr_mx_enabled: [32169, "bool", !1, !0],
+      payments_upr_send_key_from_web: [32826, "string", "", ""],
       payments_upr_taiwan_enabled: [31869, "bool", !1, !0],
       payments_upr_turkey_enabled: [31848, "bool", !1, !0],
       payments_upr_uae_enabled: [31860, "bool", !1, !0],

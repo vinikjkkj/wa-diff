@@ -13,7 +13,6 @@ __d(
     "WAWebEnvironment",
     "WAWebHandleVoipOfferNotice",
     "WAWebJidToWid",
-    "WAWebUserPrefsMeUser",
     "WAWebVoipBackendLoadable",
     "WAWebVoipGatingUtils",
     "WAWebVoipHandleIncomingSignalingMessage",
@@ -469,17 +468,7 @@ __d(
       o("WADeprecatedSendIq").deprecatedCastStanza(
         o("WAWap").wap(
           "receipt",
-          {
-            to: o("WAWebCommsWapMd").JID(r),
-            id: o("WAWap").CUSTOM_STRING(a),
-            from: r.isLid()
-              ? o("WAWebCommsWapMd").JID(
-                  o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-                )
-              : o("WAWebCommsWapMd").JID(
-                  o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-                ),
-          },
+          { to: o("WAWebCommsWapMd").JID(r), id: o("WAWap").CUSTOM_STRING(a) },
           l,
         ),
       );

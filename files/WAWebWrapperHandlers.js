@@ -6,15 +6,14 @@ __d(
     "WAWebBizPrivacyUtils",
     "WAWebChatGroupUtils",
     "WAWebCmd",
-    "WAWebComposeBoxActions",
     "WAWebConfirmPopup.react",
     "WAWebEphemeralFbtKic",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
-    "WAWebFindChatAction",
     "WAWebFrontendMsgGetters",
     "WAWebMarketingMessagesUserControlsPopupLoadable",
     "WAWebModalManager",
+    "WAWebOpenChatWithContactAction",
     "WAWebStateUtils",
     "WAWebWamEnumMmUserControlsEntryPoint",
     "WAWebWebSearchPopup.react",
@@ -35,16 +34,11 @@ __d(
               "handle_open_contact_chat",
             );
           r != null &&
-            o("WAWebFindChatAction")
-              .findOrCreateLatestChat(r, "msgHandlerOpenContact")
-              .then(function (e) {
-                var t = e.chat;
-                o("WAWebCmd")
-                  .Cmd.openChatFromUnread({ chat: t, chatEntryPoint: n })
-                  .then(function (e) {
-                    e && o("WAWebComposeBoxActions").ComposeBoxActions.focus(t);
-                  });
-              });
+            o("WAWebOpenChatWithContactAction").openChatWithContact(
+              r,
+              "msgHandlerOpenContact",
+              n,
+            );
         },
         a = function () {
           o("WAWebModalManager").ModalManager.open(

@@ -1,8 +1,11 @@
 __d(
   "WAWebHatchLogging",
   [
+    "WAWebBotJourneyLogger",
+    "WAWebBotLoggingUtils",
     "WAWebHatchFrontendGating",
     "WAWebHatchUserJourneyWamEvent",
+    "WAWebUnifiedSession",
     "WAWebWamEnumHatchActionType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,16 +27,46 @@ __d(
       c(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function c(e, t) {
+      var n, r, a;
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
-        var n = new (o(
+        var i = new (o(
           "WAWebHatchUserJourneyWamEvent",
         ).HatchUserJourneyWamEvent)({
           hatchActionType: e,
-          unifiedSessionId: t == null ? void 0 : t.unifiedSessionId,
+          unifiedSessionId:
+            (n =
+              (r = t == null ? void 0 : t.unifiedSessionId) != null
+                ? r
+                : o(
+                    "WAWebUnifiedSession",
+                  ).UnifiedSessionManager.getSessionId()) != null
+              ? n
+              : void 0,
           aiSessionId: t == null ? void 0 : t.aiSessionId,
-          rawBotEntryPoint: t == null ? void 0 : t.rawBotEntryPoint,
+          rawBotEntryPoint:
+            (a = t == null ? void 0 : t.rawBotEntryPoint) != null
+              ? a
+              : d(t == null ? void 0 : t.botEntryPoint),
         });
-        n.commit();
+        i.commit();
+      }
+    }
+    function d(e) {
+      var t,
+        n =
+          e != null
+            ? e
+            : o("WAWebBotJourneyLogger").BotJourneyLogger.getEntryPoint();
+      if (n != null) {
+        var r = o(
+          "WAWebBotLoggingUtils",
+        ).getBotMetricsEntryPointFromBotEntryPoint(n);
+        if (r != null)
+          return (t = o(
+            "WAWebBotLoggingUtils",
+          ).getBotOriginFromBotMetricsEntryPoint(r)) != null
+            ? t
+            : void 0;
       }
     }
     ((l.logHatchRequestWelcomeMsgSent = e),

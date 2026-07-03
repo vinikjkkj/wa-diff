@@ -840,6 +840,7 @@ __d(
         FbFeedShare: "FB_FEED_SHARE",
         FbFeedVideoShare: "FB_FEED_VIDEO_SHARE",
         FbGamingCustomUpdate: "FB_GAMING_CUSTOM_UPDATE",
+        FbGroupPost: "FB_GROUP_POST",
         FbPostMention: "FB_POST_MENTION",
         FbProducerStoryReply: "FB_PRODUCER_STORY_REPLY",
         FbShort: "FB_SHORT",
