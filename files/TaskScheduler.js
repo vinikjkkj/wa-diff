@@ -105,11 +105,16 @@ __d(
                   t.then(
                     function (e) {
                       var t = l.$1.get(d);
+                      if (t == null) {
+                        g.state === o("TaskSchedulerTypes").RunState.RUNNING &&
+                          l.config.failOnTimeout !== !0 &&
+                          ((g.state =
+                            o("TaskSchedulerTypes").RunState.COMPLETED),
+                          m.resolve(e));
+                        return;
+                      }
                       if (
-                        !(
-                          t == null ||
-                          t.state !== o("TaskSchedulerTypes").RunState.RUNNING
-                        )
+                        t.state === o("TaskSchedulerTypes").RunState.RUNNING
                       ) {
                         m.resolve(e);
                         var n = o("WATimeUtils").performanceAbsoluteNow();
@@ -126,11 +131,15 @@ __d(
                     },
                     function (e) {
                       var t = l.$1.get(d);
+                      if (t == null) {
+                        g.state === o("TaskSchedulerTypes").RunState.RUNNING &&
+                          l.config.failOnTimeout !== !0 &&
+                          ((g.state = o("TaskSchedulerTypes").RunState.FAILED),
+                          m.reject(e));
+                        return;
+                      }
                       if (
-                        !(
-                          t == null ||
-                          t.state !== o("TaskSchedulerTypes").RunState.RUNNING
-                        )
+                        t.state === o("TaskSchedulerTypes").RunState.RUNNING
                       ) {
                         m.reject(e);
                         var n = o("WATimeUtils").performanceAbsoluteNow();

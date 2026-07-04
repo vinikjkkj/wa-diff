@@ -17,35 +17,40 @@ __d(
         n = {
           defaultValue: null,
           kind: "LocalArgument",
-          name: "fetch_status_metadata",
+          name: "fetch_pinned_messages",
         },
         r = {
           defaultValue: null,
           kind: "LocalArgument",
-          name: "fetch_viewer_metadata",
+          name: "fetch_status_metadata",
         },
         o = {
           defaultValue: null,
           kind: "LocalArgument",
+          name: "fetch_viewer_metadata",
+        },
+        a = {
+          defaultValue: null,
+          kind: "LocalArgument",
           name: "fetch_wamo_sub",
         },
-        a = { defaultValue: null, kind: "LocalArgument", name: "input" },
-        i = {
+        i = { defaultValue: null, kind: "LocalArgument", name: "input" },
+        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        l = {
+        s = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "type",
           storageKey: null,
         },
-        s = [
-          i,
+        u = [
+          l,
           {
             alias: null,
             args: null,
@@ -61,9 +66,9 @@ __d(
             storageKey: null,
           },
         ],
-        u = [
-          i,
+        c = [
           l,
+          s,
           {
             alias: null,
             args: null,
@@ -72,14 +77,14 @@ __d(
             storageKey: null,
           },
         ],
-        c = {
+        d = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "value",
           storageKey: null,
         },
-        d = [
+        m = [
           {
             alias: null,
             args: [{ kind: "Variable", name: "input", variableName: "input" }],
@@ -88,7 +93,7 @@ __d(
             name: "xwa2_newsletter",
             plural: !1,
             selections: [
-              i,
+              l,
               {
                 alias: null,
                 args: null,
@@ -96,7 +101,7 @@ __d(
                 kind: "LinkedField",
                 name: "state",
                 plural: !1,
-                selections: [l],
+                selections: [s],
                 storageKey: null,
               },
               {
@@ -128,7 +133,7 @@ __d(
                     kind: "LinkedField",
                     name: "name",
                     plural: !1,
-                    selections: s,
+                    selections: u,
                     storageKey: null,
                   },
                   {
@@ -145,7 +150,7 @@ __d(
                         kind: "LinkedField",
                         name: "picture",
                         plural: !1,
-                        selections: u,
+                        selections: c,
                         storageKey: 'picture(type:"IMAGE")',
                       },
                     ],
@@ -157,7 +162,7 @@ __d(
                     kind: "LinkedField",
                     name: "picture",
                     plural: !1,
-                    selections: u,
+                    selections: c,
                     storageKey: 'picture(type:"PREVIEW")',
                   },
                   {
@@ -167,7 +172,7 @@ __d(
                     kind: "LinkedField",
                     name: "description",
                     plural: !1,
-                    selections: s,
+                    selections: u,
                     storageKey: null,
                   },
                   {
@@ -213,7 +218,7 @@ __d(
                         kind: "LinkedField",
                         name: "reaction_codes",
                         plural: !1,
-                        selections: [c],
+                        selections: [d],
                         storageKey: null,
                       },
                     ],
@@ -244,6 +249,38 @@ __d(
                       },
                     ],
                   },
+                  {
+                    condition: "fetch_pinned_messages",
+                    kind: "Condition",
+                    passingValue: !0,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        concreteType: "XWA2NewsletterPinnedMessage",
+                        kind: "LinkedField",
+                        name: "pinned_messages",
+                        plural: !0,
+                        selections: [
+                          {
+                            alias: null,
+                            args: null,
+                            kind: "ScalarField",
+                            name: "message_id",
+                            storageKey: null,
+                          },
+                          {
+                            alias: null,
+                            args: null,
+                            kind: "ScalarField",
+                            name: "expiry_ts",
+                            storageKey: null,
+                          },
+                        ],
+                        storageKey: null,
+                      },
+                    ],
+                  },
                 ],
                 storageKey: null,
               },
@@ -267,7 +304,7 @@ __d(
                         kind: "LinkedField",
                         name: "settings",
                         plural: !0,
-                        selections: [l, c],
+                        selections: [s, d],
                         storageKey: null,
                       },
                       {
@@ -334,23 +371,23 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t, n, r, o, a],
+          argumentDefinitions: [e, t, n, r, o, a, i],
           kind: "Fragment",
           metadata: null,
           name: "WAWebMexFetchNewsletterJobQuery",
-          selections: d,
+          selections: m,
           type: "Query",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [a, r, t, e, o, n],
+          argumentDefinitions: [i, o, t, e, a, r, n],
           kind: "Operation",
           name: "WAWebMexFetchNewsletterJobQuery",
-          selections: d,
+          selections: m,
         },
         params: {
-          id: "35452404184358876",
+          id: "27456920720571478",
           metadata: {},
           name: "WAWebMexFetchNewsletterJobQuery",
           operationKind: "query",

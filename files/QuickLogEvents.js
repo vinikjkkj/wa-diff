@@ -207,7 +207,7 @@ __d(
       },
       663703: { moduleName: "FEED", name: "QUERY_PERF", sampleRate: 1 },
       663892: { moduleName: "FEED", name: "CACHE_TTL", sampleRate: 1e4 },
-      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 25782 },
+      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 22925 },
       665863: { moduleName: "FEED", name: "DEFER", sampleRate: 250 },
       665990: { moduleName: "FEED", name: "RESTORE", sampleRate: 2 },
       666016: {
@@ -13522,6 +13522,11 @@ __d(
         name: "SEND_MESSAGE",
         sampleRate: 1,
       },
+      68750029: {
+        moduleName: "GENSTUDIO",
+        name: "PUBLISH_PROMOTION",
+        sampleRate: 250,
+      },
       68753026: {
         moduleName: "GENSTUDIO",
         name: "FINALIZE_PUBLISH",
@@ -13871,6 +13876,11 @@ __d(
         moduleName: "IG_ANDROID_MAIN_FEED",
         name: "IG_SCROLL_BREAK_UNEXPECTED_IMPRESSION",
         sampleRate: 1,
+      },
+      77922305: {
+        moduleName: "NEST_LOBBY_BADGER",
+        name: "BADGE_OPERATION",
+        sampleRate: 250,
       },
       80611697: {
         moduleName: "ACCESS_REQUEST_FRAMEWORK",
@@ -14323,6 +14333,11 @@ __d(
         moduleName: "IG_UNLOCKABLES_STICKERS",
         name: "IG_UNLOCKABLES_MUTATIONS",
         sampleRate: 1,
+      },
+      88211457: {
+        moduleName: "CONVERSATIONS_HOME_PERF",
+        name: "CONVERSATIONS_HOME_TTI",
+        sampleRate: 250,
       },
       88410149: {
         moduleName: "WP_WWW_VIDEO_INSIGHTS",
@@ -15403,7 +15418,7 @@ __d(
         name: "SAVE_AGGREGATED",
         sampleRate: 8897,
       },
-      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 29 },
+      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 33 },
       100349780: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE_AGGREGATED",
@@ -31915,6 +31930,11 @@ __d(
         name: "INITIAL_LOAD",
         sampleRate: 1,
       },
+      361248441: {
+        moduleName: "CREATOR_STUDIO_MOBILE",
+        name: "SUGGESTED_COMMENTS_LOAD_MORE_COMMENTS",
+        sampleRate: 1,
+      },
       361249374: {
         moduleName: "CREATOR_STUDIO_MOBILE",
         name: "SUGGESTED_COMMENTS_PAGE_LOAD",
@@ -31923,7 +31943,7 @@ __d(
       361250662: {
         moduleName: "CREATOR_STUDIO_MOBILE",
         name: "ALL_COMMENTS_LOAD_MORE_COMMENTS",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       361562113: {
         moduleName: "FB_REELS_IFU",
@@ -66520,6 +66540,11 @@ __d(
         name: "VIDEOX_ADHOC_EVENT",
         sampleRate: 20,
       },
+      868887503: {
+        moduleName: "IGD_GENAI",
+        name: "IAB_META_AI_THREAD_OPEN",
+        sampleRate: 1,
+      },
       869340193: {
         moduleName: "GRAPHQL_AIRLOCK_ADMIN_GROUP_EXEMPTIONS_REQUESTS",
         name: "GRAPHQL_AIRLOCK_ADMIN_GROUP_EXEMPTIONS_REQUESTS_EVENT",
@@ -76960,6 +76985,11 @@ __d(
       1034749564: {
         moduleName: "HORIZON_MOBILE",
         name: "ECLIPSE_WEELS_TTRC",
+        sampleRate: 250,
+      },
+      1034750971: {
+        moduleName: "HORIZON_MOBILE",
+        name: "ECLIPSE_INSIGHTS_AI_CHAT_TURN",
         sampleRate: 250,
       },
       1034751661: {

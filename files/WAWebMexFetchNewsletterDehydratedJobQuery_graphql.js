@@ -7,10 +7,15 @@ __d(
       var e = {
           defaultValue: null,
           kind: "LocalArgument",
+          name: "fetch_pinned_messages",
+        },
+        t = {
+          defaultValue: null,
+          kind: "LocalArgument",
           name: "fetch_wamo_sub",
         },
-        t = { defaultValue: null, kind: "LocalArgument", name: "input" },
-        n = [
+        n = { defaultValue: null, kind: "LocalArgument", name: "input" },
+        r = [
           {
             alias: null,
             args: [{ kind: "Variable", name: "input", variableName: "input" }],
@@ -102,6 +107,38 @@ __d(
                       },
                     ],
                   },
+                  {
+                    condition: "fetch_pinned_messages",
+                    kind: "Condition",
+                    passingValue: !0,
+                    selections: [
+                      {
+                        alias: null,
+                        args: null,
+                        concreteType: "XWA2NewsletterPinnedMessage",
+                        kind: "LinkedField",
+                        name: "pinned_messages",
+                        plural: !0,
+                        selections: [
+                          {
+                            alias: null,
+                            args: null,
+                            kind: "ScalarField",
+                            name: "message_id",
+                            storageKey: null,
+                          },
+                          {
+                            alias: null,
+                            args: null,
+                            kind: "ScalarField",
+                            name: "expiry_ts",
+                            storageKey: null,
+                          },
+                        ],
+                        storageKey: null,
+                      },
+                    ],
+                  },
                 ],
                 storageKey: null,
               },
@@ -136,23 +173,23 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t],
+          argumentDefinitions: [e, t, n],
           kind: "Fragment",
           metadata: null,
           name: "WAWebMexFetchNewsletterDehydratedJobQuery",
-          selections: n,
+          selections: r,
           type: "Query",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [t, e],
+          argumentDefinitions: [n, t, e],
           kind: "Operation",
           name: "WAWebMexFetchNewsletterDehydratedJobQuery",
-          selections: n,
+          selections: r,
         },
         params: {
-          id: "30328461880085868",
+          id: "26944199458535748",
           metadata: {},
           name: "WAWebMexFetchNewsletterDehydratedJobQuery",
           operationKind: "query",

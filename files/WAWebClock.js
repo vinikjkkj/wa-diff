@@ -218,6 +218,9 @@ __d(
           (a.timestampStr = function (t) {
             return this.$ClockImpl$p_2(t + this.skew);
           }),
+          (a.monthDayStr = function (t) {
+            return this.$ClockImpl$p_6(t + this.skew);
+          }),
           (a.timestampStrFormat = function () {
             return this.getIs24Hour()
               ? "HH" + this.$ClockImpl$p_5() + "mm"

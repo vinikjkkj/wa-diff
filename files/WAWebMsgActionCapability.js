@@ -42,6 +42,7 @@ __d(
     "WAWebMusicGatingUtils",
     "WAWebMusicParsingUtils",
     "WAWebMusicPlaybackUtils",
+    "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterFutureProofUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebPollCreationUtils",
@@ -357,11 +358,21 @@ __d(
         o("WAWebChatGetters").getIsBroadcast(i) ||
         a.isViewOnce === !0 ||
         a.subtype === "view_once_unavailable_fanout" ||
-        o("WAWebChatGetters").getIsNewsletter(i) ||
-        i.id.isBot() ||
-        a.isCarouselCard
+        i.id.isBot()
       )
         return !1;
+      if (o("WAWebChatGetters").getIsNewsletter(i))
+        return o("WAWebNewsletterExtendedGatingUtils").canPinNewsletterMessages(
+          i.newsletterMetadata,
+        )
+          ? !o("WAWebMsgGetters").getIsNotification(a) &&
+              !o("WAWebMsgGetters").getIsFutureproof(a) &&
+              a.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+              a.type !== o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER &&
+              a.interactiveButtonsReleased() &&
+              !o("WAWebFrontendMsgGetters").getAsAlbum(a)
+          : !1;
+      if (a.isCarouselCard) return !1;
       if (o("WAWebMsgGetters").getIsGroupMsg(a)) {
         var l = r("WANullthrows")(i.groupMetadata);
         if (

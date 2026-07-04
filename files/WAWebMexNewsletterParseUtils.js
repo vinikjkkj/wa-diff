@@ -2,9 +2,11 @@ __d(
   "WAWebMexNewsletterParseUtils",
   [
     "WAJids",
+    "WATimeUtils",
     "WAWebCommonNewsletterEnums",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterModelUtils",
+    "WAWebNewsletterPinGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -15,7 +17,6 @@ __d(
           a,
           i,
           l,
-          v,
           S,
           R,
           L,
@@ -34,61 +35,75 @@ __d(
           F,
           O,
           B,
-          W = (t = e.thread_metadata) == null ? void 0 : t.creation_time,
-          q = (n = e.thread_metadata) == null ? void 0 : n.invite,
-          U = (r = e.thread_metadata) == null ? void 0 : r.name,
-          V = (a = e.thread_metadata) == null ? void 0 : a.subscribers_count,
-          H = (i = e.viewer_metadata) == null ? void 0 : i.settings,
-          G = (l = e.thread_metadata) == null ? void 0 : l.verification,
-          z = (v = e.state) == null ? void 0 : v.type,
-          j = (S = e.thread_metadata) == null ? void 0 : S.description,
-          K = (R = e.viewer_metadata) == null ? void 0 : R.role,
-          Q = (L = e.thread_metadata) == null ? void 0 : L.picture,
-          X = (E = e.thread_metadata) == null ? void 0 : E.preview,
-          Y =
-            (k = e.thread_metadata) == null ||
-            (k = k.settings) == null ||
-            (k = k.reaction_codes) == null
+          W,
+          q,
+          U = (t = e.thread_metadata) == null ? void 0 : t.creation_time,
+          V = (n = e.thread_metadata) == null ? void 0 : n.invite,
+          H = (r = e.thread_metadata) == null ? void 0 : r.name,
+          G = (a = e.thread_metadata) == null ? void 0 : a.subscribers_count,
+          z = (i = e.viewer_metadata) == null ? void 0 : i.settings,
+          j = (l = e.thread_metadata) == null ? void 0 : l.verification,
+          K = (S = e.state) == null ? void 0 : S.type,
+          Q = (R = e.thread_metadata) == null ? void 0 : R.description,
+          X = (L = e.viewer_metadata) == null ? void 0 : L.role,
+          Y = (E = e.thread_metadata) == null ? void 0 : E.picture,
+          J = (k = e.thread_metadata) == null ? void 0 : k.preview,
+          Z =
+            (I = e.thread_metadata) == null ||
+            (I = I.settings) == null ||
+            (I = I.reaction_codes) == null
               ? void 0
-              : k.value,
-          J =
-            (I = e.thread_metadata) == null || (I = I.wamo_sub) == null
-              ? void 0
-              : I.plan_id,
-          Z = (T = e.viewer_metadata) == null ? void 0 : T.wamo_sub_status,
+              : I.value,
           ee =
-            (D = e.status_metadata) == null ? void 0 : D.last_status_server_id,
-          te =
-            (x = e.status_metadata) == null ? void 0 : x.last_status_sent_time,
-          ne = {
-            idJid: o("WAJids").toNewsletterJid(e.id),
-            newsletterCreationTimeMetadataMixin: ($ = s(W)) != null ? $ : null,
-            newsletterInviteLinkMetadataMixin: (P = u(q)) != null ? P : null,
-            newsletterNameMetadataMixin: (N = c(U)) != null ? N : null,
-            newsletterSubscribersMetadataMixin: (M = d(V)) != null ? M : null,
-            newsletterUserSettingsMetadataMixin: m(H),
-            newsletterVerificationMetadataMixin: (w = p(G)) != null ? w : null,
-            newsletterStateMetadataMixin: (A = _(z)) != null ? A : null,
-            newsletterDescriptionMetadataMixin: (F = f(j)) != null ? F : null,
-            newsletterMembershipMetadataMixin: (O = g(K)) != null ? O : null,
-            newsletterPictureMetadataMixin: (B = y([Q, X])) != null ? B : null,
-            hasNewsletterLinkedAccountsMetadataMixin: !1,
-            newsletterPrivacyMetadataMixin: null,
-            newsletterReactionCodesSettingMetadataMixin:
-              Y != null ? h(Y) : void 0,
-          };
+            (T = e.thread_metadata) == null || (T = T.wamo_sub) == null
+              ? void 0
+              : T.plan_id,
+          te = (D = e.viewer_metadata) == null ? void 0 : D.wamo_sub_status,
+          ne =
+            (x = e.status_metadata) == null ? void 0 : x.last_status_server_id,
+          re =
+            ($ = e.status_metadata) == null ? void 0 : $.last_status_sent_time,
+          oe = (P = e.thread_metadata) == null ? void 0 : P.pinned_messages,
+          ae = babelHelpers.extends(
+            {
+              idJid: o("WAJids").toNewsletterJid(e.id),
+              newsletterCreationTimeMetadataMixin:
+                (N = s(U)) != null ? N : null,
+              newsletterInviteLinkMetadataMixin: (M = u(V)) != null ? M : null,
+              newsletterNameMetadataMixin: (w = c(H)) != null ? w : null,
+              newsletterSubscribersMetadataMixin: (A = d(G)) != null ? A : null,
+              newsletterUserSettingsMetadataMixin: m(z),
+              newsletterVerificationMetadataMixin:
+                (F = p(j)) != null ? F : null,
+              newsletterStateMetadataMixin: (O = _(K)) != null ? O : null,
+              newsletterDescriptionMetadataMixin: (B = f(Q)) != null ? B : null,
+              newsletterMembershipMetadataMixin: (W = g(X)) != null ? W : null,
+              newsletterPictureMetadataMixin:
+                (q = C([Y, J])) != null ? q : null,
+              hasNewsletterLinkedAccountsMetadataMixin: !1,
+              newsletterPrivacyMetadataMixin: null,
+              newsletterReactionCodesSettingMetadataMixin:
+                Z != null ? h(Z) : void 0,
+            },
+            oe != null &&
+              o(
+                "WAWebNewsletterPinGatingUtils",
+              ).isChannelMessagePinReadEnabled() && {
+                newsletterPinnedMessagesMetadataMixin: y(oe),
+              },
+          );
         return (
           o("WAWebNewsletterGatingUtils").isWamoSubExperienceEnabled() &&
-            ((ne.newsletterWamoSubPlanIdMetadataMixin = C(J)),
-            (ne.newsletterWamoSubStatusMetadataMixin = b(Z))),
-          ee != null &&
+            ((ae.newsletterWamoSubPlanIdMetadataMixin = b(ee)),
+            (ae.newsletterWamoSubStatusMetadataMixin = v(te))),
+          ne != null &&
             o(
               "WAWebNewsletterGatingUtils",
             ).isNewsletterStatusReceiverEnabled() &&
-            (ne.newsletterStatusMetadata = o(
+            (ae.newsletterStatusMetadata = o(
               "WAWebNewsletterModelUtils",
-            ).toStatusMetadata(ee, te)),
-          ne
+            ).toStatusMetadata(ne, re)),
+          ae
         );
       }
       return null;
@@ -188,6 +203,19 @@ __d(
     }
     function y(e) {
       var t = [];
+      for (var n of e) {
+        var r = Number(n.message_id),
+          a = Number(n.expiry_ts);
+        Number.isSafeInteger(r) &&
+          r > 0 &&
+          Number.isFinite(a) &&
+          a > 0 &&
+          t.push({ serverId: r, expiryTs: o("WATimeUtils").castToUnixTime(a) });
+      }
+      return t;
+    }
+    function C(e) {
+      var t = [];
       for (var n of e)
         if (n != null && n != null && n.type != null) {
           var r = n.type.toLowerCase() === "image" ? "image" : "preview";
@@ -211,10 +239,10 @@ __d(
         }
       return { picture: [].concat(t) };
     }
-    function C(e) {
+    function b(e) {
       if (e != null) return e;
     }
-    function b(e) {
+    function v(e) {
       if (e != null)
         switch (e.toLowerCase()) {
           case "active":
@@ -225,7 +253,9 @@ __d(
             return;
         }
     }
-    ((l.parseMexNewsletterResponse = e), (l.toReactionCodesSettingMixin = h));
+    ((l.parseMexNewsletterResponse = e),
+      (l.toReactionCodesSettingMixin = h),
+      (l.toPinnedMessagesMixin = y));
   },
   98,
 );

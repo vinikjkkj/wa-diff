@@ -138,20 +138,21 @@ __d(
         d,
         m,
         p,
-        _ =
+        _,
+        f =
           (t = e.newsletterVerificationMetadataMixin) == null
             ? void 0
             : t.verificationState,
-        f = (n = e.newsletterStateMetadataMixin) == null ? void 0 : n.stateType,
-        h =
+        h = (n = e.newsletterStateMetadataMixin) == null ? void 0 : n.stateType,
+        y =
           (r = e.newsletterMembershipMetadataMixin) == null
             ? void 0
             : r.membershipType,
-        y =
+        C =
           (a = e.newsletterPrivacyMetadataMixin) == null
             ? void 0
             : a.privacyType,
-        C = babelHelpers.extends(
+        b = babelHelpers.extends(
           {
             creationTime:
               (i = e.newsletterCreationTimeMetadataMixin) == null
@@ -183,11 +184,11 @@ __d(
               (m = e.newsletterSubscribersMetadataMixin) == null
                 ? void 0
                 : m.subscribersCount,
-            verified: _ != null ? g(_) : void 0,
+            verified: f != null ? g(f) : void 0,
             membershipType:
-              h != null
+              y != null
                 ? o("WAWebCommonNewsletterEnums").NewsletterMembershipType.cast(
-                    h,
+                    y,
                   )
                 : void 0,
             reactionCodesSetting: Object.prototype.hasOwnProperty.call(
@@ -203,21 +204,21 @@ __d(
                     .All
               : void 0,
             privacy:
-              y != null
-                ? o("WAWebCommonNewsletterEnums").NewsletterPrivacy.cast(y)
+              C != null
+                ? o("WAWebCommonNewsletterEnums").NewsletterPrivacy.cast(C)
                 : void 0,
             website: void 0,
             followerActivityMuteExpiration: k(e, "MUTE_FOLLOWER_ACTIVITY"),
             suspended:
-              f != null
-                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(f) ===
+              h != null
+                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(h) ===
                     o("WAWebCommonNewsletterEnums").NewsletterState.Suspended ||
-                  o("WAWebCommonNewsletterEnums").NewsletterState.cast(f) ===
+                  o("WAWebCommonNewsletterEnums").NewsletterState.cast(h) ===
                     o("WAWebCommonNewsletterEnums").NewsletterState.GeoSuspended
                 : void 0,
             geosuspended:
-              f != null
-                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(f) ===
+              h != null
+                ? o("WAWebCommonNewsletterEnums").NewsletterState.cast(h) ===
                   o("WAWebCommonNewsletterEnums").NewsletterState.GeoSuspended
                 : void 0,
           },
@@ -233,11 +234,19 @@ __d(
               ).isNewsletterStatusReceiverEnabled()
                 ? e.newsletterStatusMetadata
                 : void 0,
+            pinnedMessages: Object.prototype.hasOwnProperty.call(
+              e,
+              "newsletterPinnedMessagesMetadataMixin",
+            )
+              ? (_ = e.newsletterPinnedMessagesMetadataMixin) != null
+                ? _
+                : []
+              : void 0,
           },
         );
       return babelHelpers.extends(
         { id: o("WAWebWidFactory").createWid(e.idJid) },
-        o("WAFilterObjectNullishProps").filterObjectNullishProps(C),
+        o("WAFilterObjectNullishProps").filterObjectNullishProps(b),
       );
     }
     function k(e, t) {

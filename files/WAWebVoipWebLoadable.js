@@ -179,9 +179,12 @@ __d(
                 "thread_pool_setup",
               ),
               o("WAWebVoipQplHelpers").voipInitQplAnnotateThreadPool(l, s, t),
-              o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-                r("WAWebVoipSctpPrewarm")();
-              }),
+              o("WAWebVoipGatingUtils").shouldSkipEagerSctpPrewarm() ||
+                o("WAWebPonyfillsIdleCallback").requestIdleCallback(
+                  function () {
+                    r("WAWebVoipSctpPrewarm")();
+                  },
+                ),
               n
             );
           } finally {

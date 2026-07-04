@@ -25,6 +25,12 @@ __d(
               isRepliedFilterMixin: !0,
             },
           };
+        case o("WAWebQuestions.flow").ResponsesFilterType.STARRED:
+          return {
+            contactsOrRepliedOrStarredFilterMixinMixinGroupArgs: {
+              isStarredFilterMixin: !0,
+            },
+          };
         default:
           return null;
       }

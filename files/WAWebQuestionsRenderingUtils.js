@@ -85,6 +85,8 @@ __d(
           return s._(/*BTDS*/ "Contacts");
         case o("WAWebQuestions.flow").ResponsesFilterType.REPLIED:
           return s._(/*BTDS*/ "Replied");
+        case o("WAWebQuestions.flow").ResponsesFilterType.STARRED:
+          return s._(/*BTDS*/ "Starred");
       }
     }
     function m(e) {

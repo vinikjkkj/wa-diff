@@ -7,26 +7,47 @@ __d(
       return e.has(t.tagName) || t.isContentEditable;
     }
     var u = 2e3,
-      c = null,
-      d = null,
-      m = null;
-    function p(e) {
+      c = ["data-testid", "id"];
+    function d(e) {
+      for (var t of c) {
+        var n = e.getAttribute(t);
+        if (n != null && n !== "") return t + "=" + n;
+      }
+      for (var r = 0, o = e.parentElement; o != null && r < 5; ) {
+        r++;
+        for (var a of c) {
+          var i = o.getAttribute(a);
+          if (i != null && i !== "") return a + "=" + i + "@" + String(r);
+        }
+        o = o.parentElement;
+      }
+      return "tag=" + e.tagName;
+    }
+    var m = null,
+      p = null,
+      _ = null;
+    function f() {
+      ((m = null),
+        (p = null),
+        _ != null && (window.clearTimeout(_), (_ = null)));
+    }
+    function g(e) {
       var t;
       return e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement
         ? e.value === ""
         : ((t = e.textContent) != null ? t : "") === "";
     }
-    function _(e) {
+    function h(e) {
       var t = e.target;
       !(t instanceof HTMLElement) ||
         !s(t) ||
-        (m != null && window.clearTimeout(m),
-        (d = t),
-        (m = window.setTimeout(function () {
-          m = null;
-          var e = d;
-          if (((d = null), e != null)) {
-            var t = p(e);
+        (_ != null && window.clearTimeout(_),
+        (p = t),
+        (_ = window.setTimeout(function () {
+          _ = null;
+          var e = p;
+          if (((p = null), e != null)) {
+            var t = g(e);
             o("WAWebPathfinderLogger").emitPathfinderEvent({
               eventType: "CONTENT_CHANGED",
               context: JSON.stringify({ is_empty: String(t) }),
@@ -36,31 +57,36 @@ __d(
           }
         }, u)));
     }
-    function f(e) {
+    function y(e) {
       var t = e.target;
-      !(t instanceof HTMLElement) ||
-        !s(t) ||
-        (c !== t &&
-          ((c = t),
+      if (!(!(t instanceof HTMLElement) || !s(t))) {
+        var n = d(t);
+        m !== n &&
+          ((m = n),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "BEGIN_EDITING",
             screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
             timestampMs: Date.now(),
-          })));
+          }));
+      }
     }
-    function g(e) {
+    function C(e) {
       var t = e.target;
-      !(t instanceof HTMLElement) ||
-        !s(t) ||
-        (c === t &&
-          ((c = null),
+      if (!(!(t instanceof HTMLElement) || !s(t))) {
+        var n = d(t);
+        m === n &&
+          ((m = null),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "END_EDITING",
             screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
             timestampMs: Date.now(),
-          })));
+          }));
+      }
     }
-    ((l.handleInput = _), (l.handleFocusIn = f), (l.handleFocusOut = g));
+    ((l.resetKeyboardStateForTesting = f),
+      (l.handleInput = h),
+      (l.handleFocusIn = y),
+      (l.handleFocusOut = C));
   },
   98,
 );

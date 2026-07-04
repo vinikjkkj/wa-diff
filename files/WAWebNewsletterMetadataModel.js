@@ -48,6 +48,9 @@ __d(
           (t.wamoSubStatus = o("WAWebModelUtils").prop()),
           (t.statusMetadata = o("WAWebModelUtils").prop()),
           (t.lastFilledStatusServerId = o("WAWebModelUtils").prop()),
+          (t.pinnedMessages = o("WAWebModelUtils").prop(function () {
+            return [];
+          })),
           (t.suspended = o("WAWebModelUtils").prop(!1)),
           (t.statusMute = o("WAWebModelUtils").prop(!1)),
           (t.geosuspended = o("WAWebModelUtils").prop(!1)),

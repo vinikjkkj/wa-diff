@@ -4,7 +4,7 @@ __d(
     "fbt",
     "$InternalEnum",
     "WALogger",
-    "WAWebBizVerifyPostcodeAction",
+    "WAWebBizVerifyPostcodeBridge",
     "WAWebConfirmPopup.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
@@ -63,7 +63,7 @@ __d(
             if (typeof S == "string") {
               b({ state: _.IN_PROGRESS });
               try {
-                var t = yield o("WAWebBizVerifyPostcodeAction").verifyPostcode(
+                var t = yield o("WAWebBizVerifyPostcodeBridge").verifyPostcode(
                   l,
                   S,
                 );

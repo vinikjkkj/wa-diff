@@ -90,7 +90,7 @@ __d(
       O,
       B,
       W,
-      q = r("requireDeferred")("WAWebClearAppStatesExp").__setRef(
+      q = r("requireDeferred")("WAWebClearAppStates").__setRef(
         "WAWebSocketModel",
       ),
       U = [
