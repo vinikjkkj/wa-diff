@@ -75,7 +75,14 @@ __d(
         ) === !0
       );
     }
-    function b(e, t) {
+    function b() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "enable_events_v2_invite_message_with_datetime",
+        ) === !0
+      );
+    }
+    function v(e, t) {
       var n = o("WATimeUtils").unixTime();
       if (t != null && n > t) return !0;
       if (e == null) return !1;
@@ -96,7 +103,8 @@ __d(
       (l.isSharableScheduledCallCreationEnabled = h),
       (l.isSharableEventNotificationsEnabled = y),
       (l.isEventsV2OnCompanionEnabled = C),
-      (l.isAddToCalendarHiddenByEventTime = b));
+      (l.isSharableEventInviteDatetimeEnabled = b),
+      (l.isAddToCalendarHiddenByEventTime = v));
   },
   98,
 );
