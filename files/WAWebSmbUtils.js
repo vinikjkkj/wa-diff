@@ -5,28 +5,10 @@ __d(
     "WAWeb-moment",
     "WAWebBusinessProfileTypes",
     "WAWebSmbUtilsTimeUtils",
-    "err",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      switch (e) {
-        case 0:
-          return s._(/*BTDS*/ "Sunday").toString();
-        case 1:
-          return s._(/*BTDS*/ "Monday").toString();
-        case 2:
-          return s._(/*BTDS*/ "Tuesday").toString();
-        case 3:
-          return s._(/*BTDS*/ "Wednesday").toString();
-        case 4:
-          return s._(/*BTDS*/ "Thursday").toString();
-        case 5:
-          return s._(/*BTDS*/ "Friday").toString();
-        case 6:
-          return s._(/*BTDS*/ "Saturday").toString();
-        default:
-          throw r("err")("Invalid day number: " + e);
-      }
+      return r("WAWeb-moment")().day(e).format("dddd");
     }
     function u(e, t) {
       switch (e == null ? void 0 : e.mode) {

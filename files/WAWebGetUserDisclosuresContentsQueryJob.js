@@ -248,22 +248,22 @@ __d(
           throw r("err")("Missing field " + e + " in notice content.");
       });
     }
-    var x = function (n) {
-      if (!n) return null;
-      var t = n.action;
-      if (t) {
-        if (p.has(t)) return n;
+    function x(t) {
+      if (!t) return null;
+      var n = t.action;
+      if (n) {
+        if (p.has(n)) return t;
         o("WALogger").WARN(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "Notice: Unknown action type ",
               "",
             ])),
-          t,
+          n,
         );
       }
       return null;
-    };
+    }
     function $(e) {
       return e ? ((e.primaryButton = x(e.primaryButton)), e) : null;
     }

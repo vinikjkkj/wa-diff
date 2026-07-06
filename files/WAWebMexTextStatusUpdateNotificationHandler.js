@@ -3,8 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
-    "WAWebBackendErrors",
-    "WAWebContactTextStatusBridge",
     "WAWebMexFetchTextStatusListJob",
     "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
@@ -79,33 +77,16 @@ __d(
               });
             return;
           }
-          var a = o("WAWebWidFactory").createWid(r.id),
-            i = r.textStatusLastUpdateTime,
-            l = yield o("WAWebContactTextStatusBridge").getTextStatus(a, i);
-          return l.error != null
-            ? l.error instanceof
-                o("WAWebBackendErrors").ServerStatusCodeError &&
-              l.error.statusCode === 401
-              ? o("WAWebUpdateTextStatusForContact").updateTextStatusForContact(
-                  {
-                    contactId: a,
-                    textString: null,
-                    emoji: null,
-                    ephemeralDuration: null,
-                    newUpdateTime: o("WAWebTextStatusUtils")
-                      .TEXT_STATUS_NOT_AUTHORIZED,
-                    source: "mex-notification-side-sub",
-                  },
-                )
-              : void 0
-            : o("WAWebUpdateTextStatusForContact").updateTextStatusForContact({
-                contactId: l.id,
-                textString: l.text,
-                emoji: l.emoji,
-                ephemeralDuration: l.ephemeralDurationSeconds,
-                newUpdateTime: l.lastUpdateTime,
-                source: "mex-notification-side-sub",
-              });
+          return o(
+            "WAWebUpdateTextStatusForContact",
+          ).updateTextStatusForContact({
+            contactId: o("WAWebWidFactory").createWid(r.id),
+            textString: null,
+            emoji: null,
+            ephemeralDuration: null,
+            newUpdateTime: o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED,
+            source: "mex-notification-side-sub",
+          });
         })),
         m.apply(this, arguments)
       );

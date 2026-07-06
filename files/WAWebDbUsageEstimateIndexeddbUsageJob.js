@@ -43,11 +43,8 @@ __d(
         )
         .waitUntilCompleted();
     }
-    var u = {
-      getEstimatedIndexedDbUsageJob: e,
-      shouldMonitorDbStorageUsageJob: s,
-    };
-    l.default = u;
+    ((l.getEstimatedIndexedDbUsageJob = e),
+      (l.shouldMonitorDbStorageUsageJob = s));
   },
   98,
 );

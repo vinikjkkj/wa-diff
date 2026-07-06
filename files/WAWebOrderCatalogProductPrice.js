@@ -9,7 +9,6 @@ __d(
     "WAWebOrderDetailAmountInput",
     "WAWebOrderDetailSharedStyles",
     "WAWebStopEvent",
-    "WAWebUISpacing",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -36,10 +35,7 @@ __d(
         case d.Editing: {
           var _;
           n[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((_ = (e || (e = r("stylex"))).props(
-                o("WAWebUISpacing").uiPadding.end3,
-              )),
-              (n[0] = _))
+            ? ((_ = { className: "x1im30kd" }), (n[0] = _))
             : (_ = n[0]);
           var f;
           n[1] !== a

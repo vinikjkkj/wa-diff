@@ -8,7 +8,7 @@ __d(
     "WAWebPollOptionImage.react",
     "WAWebTag.react",
     "WAWebTextSizeUtils",
-    "WAWebUISpacing",
+    "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -17,7 +17,8 @@ __d(
     var e,
       u,
       c = u || (u = o("react")),
-      d = {
+      d = { marginInlineEnd6: { marginInlineEnd: "xbelrpt", $$css: !0 } },
+      m = {
         option: {
           fontWeight: "xo1l8bm",
           fontSize: "x1jchvi3",
@@ -27,23 +28,23 @@ __d(
         },
         voteCount: { minWidth: "x1pshirs", $$css: !0 },
       };
-    function m(t) {
+    function p(t) {
       var n = t.associatedMsg,
         a = t.isCorrectOption,
         i = t.isCurrentLeader,
         l = t.isPollFromMe,
         s = t.links,
         u = t.name,
-        m = t.percentage,
-        f = t.trusted,
-        g = t.voteCount,
-        h = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
-        y = h.pollDetailsOptionTextSize,
-        C = o("WAWebFormatConfiguration").Conversation({
+        p = t.percentage,
+        g = t.trusted,
+        h = t.voteCount,
+        y = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
+        C = y.pollDetailsOptionTextSize,
+        b = o("WAWebFormatConfiguration").Conversation({
           links: s != null ? s : [],
           phoneNumbers: [],
           selectable: !0,
-          trusted: f === !0,
+          trusted: g === !0,
           fromMe: l,
         });
       return c.jsxs(o("WAWebFlex.react").FlexRow, {
@@ -66,31 +67,34 @@ __d(
           c.jsx(o("WAWebEmojiText.react").EmojiText, {
             text: u,
             selectable: !0,
-            formatters: C,
+            formatters: b,
             className: (e || (e = r("stylex")))(
-              d.option,
-              o("WAWebUISpacing").uiMargin.end6,
-              y,
+              m.option,
+              d.marginInlineEnd6,
+              C,
             ),
           }),
           c.jsx(
             "span",
             babelHelpers.extends(
               {},
-              e.props(d.voteCount, o("WAWebUISpacing").uiMargin.startAuto),
+              e.props(
+                m.voteCount,
+                o("WDSMargins.stylex").wdsMargins.marginStartAuto,
+              ),
               {
                 children:
                   a == null
-                    ? c.jsx(p, { count: g, isCurrentLeader: i })
-                    : c.jsx(_, { count: g, isCorrectOption: a }),
+                    ? c.jsx(_, { count: h, isCurrentLeader: i })
+                    : c.jsx(f, { count: h, isCorrectOption: a }),
               },
             ),
           ),
         ],
       });
     }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(e) {
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.count,
         r = e.isCurrentLeader,
@@ -132,7 +136,7 @@ __d(
         m
       );
     }
-    function _(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.count,
         r = e.isCorrectOption,
@@ -169,7 +173,7 @@ __d(
         u
       );
     }
-    l.default = m;
+    l.default = p;
   },
   226,
 );

@@ -80,15 +80,36 @@ __d(
       );
     }
     function p(e, t) {
-      (_(t.groupHistorySentState) &&
-        !_(e.groupHistorySentState) &&
+      (f(t.groupHistorySentState) &&
+        !f(e.groupHistorySentState) &&
         e.set({ groupHistorySentState: t.groupHistorySentState }),
         e.joinTime == null &&
           t.joinTime != null &&
           t.joinTime > 0 &&
           e.set({ joinTime: t.joinTime }));
     }
-    function _(e) {
+    function _(e, t) {
+      var n,
+        a =
+          (n = r("WAWebGroupMetadataCollection").get(e)) == null
+            ? void 0
+            : n.participants;
+      return a == null
+        ? t
+        : t.map(function (e) {
+            if (
+              e.groupHistorySentState !==
+              o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                .HISTORY_NOT_SENT
+            )
+              return e;
+            var t = a.get(e.id);
+            return t != null && f(t.groupHistorySentState)
+              ? babelHelpers.extends({}, e, { groupHistorySentState: void 0 })
+              : e;
+          });
+    }
+    function f(e) {
       return (
         e ===
           o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
@@ -98,7 +119,8 @@ __d(
             .NOTICE_SENT
       );
     }
-    l.initializeGroupHistoryStateForChat = c;
+    ((l.initializeGroupHistoryStateForChat = c),
+      (l.guardGroupHistorySentStateDowngrade = _));
   },
   98,
 );

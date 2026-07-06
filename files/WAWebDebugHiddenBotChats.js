@@ -26,18 +26,9 @@ __d(
     }
     ((d.doc =
       "Show/hide hidden bot chats (TEE, sidechat) in chat list, notifications, and search"),
-      (d.paramsToExecute = []));
-    function m(e) {
-      return (
-        u.add(e),
-        function () {
-          u.delete(e);
-        }
-      );
-    }
-    ((l.isShowHiddenBotChatsEnabled = c),
-      (l.setShowHiddenBotChats = d),
-      (l.subscribeToShowHiddenBotChats = m));
+      (d.paramsToExecute = []),
+      (l.isShowHiddenBotChatsEnabled = c),
+      (l.setShowHiddenBotChats = d));
   },
   98,
 );

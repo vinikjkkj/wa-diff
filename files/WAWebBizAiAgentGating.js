@@ -23,34 +23,31 @@ __d(
       );
     }
     function d() {
-      return o("WAWebABProps").getABPropConfigValue("biz_ai_coaching_enabled");
-    }
-    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_priority_list_enabled",
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_responding_list_enabled",
       );
     }
-    var _ = 1,
-      f = 2,
-      g = 3;
-    function h() {
+    var p = 1,
+      _ = 2,
+      f = 3;
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function y() {
+    function h() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_receiving",
         ) === !0
       );
     }
-    function C() {
+    function y() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
@@ -61,15 +58,14 @@ __d(
       (l.isAiHubTapCtaShowAlertEnabled = s),
       (l.isAiAgentAutoSaveEnabled = u),
       (l.isAiMuteUnmuteV2Enabled = c),
-      (l.isAiCoachingEnabled = d),
-      (l.isAiHandoffListEnabled = m),
-      (l.isAiRespondingChipEnabled = p),
-      (l.MULTI_WEBSITE_BRAZIL = _),
-      (l.MULTI_WEBSITE_LATAM = f),
-      (l.MULTI_WEBSITE_DYNAMIC = g),
-      (l.getMultiWebsiteMode = h),
-      (l.isMaibaWASSReceivingEnabled = y),
-      (l.isMaibaWASSSendingEnabled = C));
+      (l.isAiHandoffListEnabled = d),
+      (l.isAiRespondingChipEnabled = m),
+      (l.MULTI_WEBSITE_BRAZIL = p),
+      (l.MULTI_WEBSITE_LATAM = _),
+      (l.MULTI_WEBSITE_DYNAMIC = f),
+      (l.getMultiWebsiteMode = g),
+      (l.isMaibaWASSReceivingEnabled = h),
+      (l.isMaibaWASSSendingEnabled = y));
   },
   98,
 );

@@ -33,12 +33,12 @@ __d(
         mediaViewerAnimate: {
           animationName: "xqcmdr3",
           animationDuration: "xfbpl4g",
-          animationTimingFunction: "x1alahoq",
+          animationTimingFunction: "xu90me3",
           $$css: !0,
         },
         cursorZoomOut: { cursor: "xzuqxi3", $$css: !0 },
         mediaWithCaption: { flexDirection: "xdt5ytf", $$css: !0 },
-        mediaNavBtn: { zIndex: "x1pb5qga", transition: "xauphjq", $$css: !0 },
+        mediaNavBtn: { zIndex: "x1pb5qga", transition: "xt1zwq9", $$css: !0 },
         mediaNavBtnNext: {
           position: "x1n2onr6",
           marginRight: "x145ocyf",

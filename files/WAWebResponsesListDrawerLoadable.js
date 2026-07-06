@@ -29,10 +29,10 @@ __d(
           return e.ResponsesListDrawer;
         }),
         "ResponsesListDrawer",
-      ),
-      d = function () {
-        return s._(/*BTDS*/ "Responses list");
-      };
+      );
+    function d() {
+      return s._(/*BTDS*/ "Responses list");
+    }
     function m() {
       var e = o("react-compiler-runtime").c(2),
         t;

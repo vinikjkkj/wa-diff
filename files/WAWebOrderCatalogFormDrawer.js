@@ -16,7 +16,8 @@ __d(
     "WAWebOrderGatingUtils",
     "WAWebOrderTotalPrice",
     "WAWebOrdersExpansionUtils",
-    "WAWebUISpacing",
+    "WDSMargins.stylex",
+    "WDSPaddings.stylex",
     "react",
     "stylex",
     "sumBy",
@@ -30,6 +31,14 @@ __d(
       m = d.useMemo,
       p = d.useState,
       _ = {
+        marginTop10: { marginTop: "x1anpbxc", $$css: !0 },
+        paddingBlock10: {
+          paddingTop: "x889kno",
+          paddingBottom: "x1a8lsjc",
+          $$css: !0,
+        },
+      },
+      f = {
         catalogBar: {
           borderTopColor: "xx42vgk",
           borderTopStyle: "x13fuv20",
@@ -55,7 +64,7 @@ __d(
           $$css: !0,
         },
       };
-    function f(t) {
+    function g(t) {
       "use no forget";
       var n = t.currency,
         a = t.onAddCustomItem,
@@ -63,16 +72,16 @@ __d(
         l = t.onBack,
         u = t.onProductSelectionChange,
         d = t.orderItems,
-        f = t.priceMap,
-        g = t.productsSelection,
-        h = p(!1),
-        y = h[0],
-        C = h[1],
-        b = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
-        v = m(function () {
+        g = t.priceMap,
+        h = t.productsSelection,
+        y = p(!1),
+        C = y[0],
+        b = y[1],
+        v = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
+        S = m(function () {
           return new (r("WAWebFlatListController"))();
         }, []),
-        S = function (t, a, i) {
+        R = function (t, a, i) {
           if (
             (i === void 0 && (i = !1),
             o("WAWebOrdersExpansionUtils").shouldPreventCatalogProductSelection(
@@ -85,18 +94,18 @@ __d(
             );
             return;
           }
-          (u(t, a), !i && !y && C(!0), b());
+          (u(t, a), !i && !C && b(!0), v());
         },
-        R = r("sumBy")(g.getSelected(), function (e) {
+        L = r("sumBy")(h.getSelected(), function (e) {
           var t, n;
           return (
-            ((t = (n = e.priceAmount1000) != null ? n : f[e.id.toString()]) !=
+            ((t = (n = e.priceAmount1000) != null ? n : g[e.id.toString()]) !=
             null
               ? t
-              : 0) * Number(g.getVal(e))
+              : 0) * Number(h.getVal(e))
           );
         }),
-        L = r("sumBy")(
+        E = r("sumBy")(
           d.filter(function (e) {
             return e.isCustomItem;
           }),
@@ -104,7 +113,7 @@ __d(
             return e.price * e.quantity;
           },
         ),
-        E = R + L;
+        k = L + E;
       return c.jsxs(r("WAWebDrawer.react"), {
         tsNavigationData: {
           surface: "unknown",
@@ -114,7 +123,7 @@ __d(
           c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
             title: s._(/*BTDS*/ "Add items"),
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-            onBack: y
+            onBack: C
               ? function () {
                   o("WAWebModalManager").ModalManager.open(
                     c.jsx(r("WAWebOrderConfirmDiscardModal"), { onOK: l }),
@@ -127,7 +136,7 @@ __d(
             children: [
               c.jsxs(r("WAWebDrawerSection.react"), {
                 theme: "expand-height",
-                xstyle: _.drawerSection,
+                xstyle: f.drawerSection,
                 children: [
                   o("WAWebOrderGatingUtils").orderDetailsCustomItemEnabled() &&
                     c.jsxs(c.Fragment, {
@@ -141,8 +150,8 @@ __d(
                           babelHelpers.extends(
                             {},
                             (e || (e = r("stylex"))).props(
-                              _.catalogBar,
-                              o("WAWebUISpacing").uiMargin.vert0,
+                              f.catalogBar,
+                              o("WDSMargins.stylex").wdsMargins.marginVer0,
                             ),
                           ),
                         ),
@@ -153,31 +162,31 @@ __d(
                     babelHelpers.extends(
                       {},
                       (e || (e = r("stylex"))).props(
-                        _.catalogTitleText,
-                        o("WAWebUISpacing").uiPadding.start16,
-                        o("WAWebUISpacing").uiPadding.vert10,
+                        f.catalogTitleText,
+                        o("WDSPaddings.stylex").wdsPaddings.paddingStart16,
+                        _.paddingBlock10,
                       ),
                       { children: s._(/*BTDS*/ "Catalog items") },
                     ),
                   ),
                   c.jsx(r("WAWebOrderCatalogFormProductsList"), {
                     className: "x18xmwgd x1iyjqo2 xs83m0k xw2csxc x1odjw0f",
-                    productsSelection: g,
+                    productsSelection: h,
                     orderItems: d,
-                    flatListController: v,
-                    onProductSelectChange: S,
+                    flatListController: S,
+                    onProductSelectChange: R,
                   }),
                 ],
               }),
               c.jsx(r("WAWebDrawerSection.react"), {
                 children: c.jsx(o("WAWebOrderTotalPrice").OrderTotalPrice, {
                   xstyle: [
-                    o("WAWebUISpacing").uiPadding.all16,
-                    o("WAWebUISpacing").uiMargin.top10,
+                    o("WDSPaddings.stylex").wdsPaddings.padding16,
+                    _.marginTop10,
                   ],
                   visible: !0,
-                  disabled: !y,
-                  totalPrice: o("WAWebCurrencyUtils").formatAmount1000(n, E),
+                  disabled: !C,
+                  totalPrice: o("WAWebCurrencyUtils").formatAmount1000(n, k),
                   testid: "save-products-button",
                   onConfirm: i,
                   title: s._(/*BTDS*/ "Subtotal"),
@@ -193,7 +202,7 @@ __d(
         ],
       });
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   226,
 );

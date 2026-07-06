@@ -34,8 +34,9 @@ __d(
     "WAWebRound.react",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUISpacing",
     "WAWebWdsIcSendFilledIcon.react",
+    "WDSMargins.stylex",
+    "WDSPaddings.stylex",
     "WDSSwitch.react",
     "WDSText.react",
     "asyncToGeneratorRuntime",
@@ -57,8 +58,9 @@ __d(
       f = d.useMemo,
       g = d.useRef,
       h = d.useState,
-      y = 25;
-    function C(e) {
+      y = { marginBottom10: { marginBottom: "xyorhqc", $$css: !0 } },
+      C = 25;
+    function b(e) {
       var t = e.correctOptionKey,
         n = e.filteredOptions,
         a = e.hideVoterNames,
@@ -99,7 +101,7 @@ __d(
             pollType: u,
           });
     }
-    var b = {
+    var v = {
       bodyContainer: {
         boxSizing: "x9f619",
         width: "x1esq4s8",
@@ -109,15 +111,6 @@ __d(
         flexDirection: "xdt5ytf",
         overflowX: "x6ikm8r",
         overflowY: "x10wlt62",
-        $$css: !0,
-      },
-      sectionTitle: { fontSize: "xlm9qay", fontWeight: "xk50ysn", $$css: !0 },
-      createPollButtonContainer: {
-        width: "xh8yej3",
-        display: "x78zum5",
-        justifyContent: "x13a6bvl",
-        height: "xwvwv9b",
-        backgroundColor: "x1jn9dgz",
         $$css: !0,
       },
       optionsContainer: { overflowY: "x1odjw0f", $$css: !0 },
@@ -154,16 +147,16 @@ __d(
         $$css: !0,
       },
     };
-    function v(t) {
+    function S(t) {
       var a,
         i = t.chat,
         l = t.getComposeBoxEditorRef,
         u = t.initialCheckedKey,
         d = t.initialOptions,
-        y = t.initialQuestion,
-        v = t.onSend,
-        S = t.pollType,
-        R = r("useLazyRef")(function () {
+        C = t.initialQuestion,
+        S = t.onSend,
+        R = t.pollType,
+        L = r("useLazyRef")(function () {
           var e, t;
           return (e =
             (t = l()) == null || (t = t.getTextContent()) == null
@@ -175,47 +168,47 @@ __d(
             ? e
             : "";
         }).current,
-        L = h(R),
-        E = L[0],
-        k = L[1],
-        I = h(!1),
-        T = I[0],
-        D = I[1],
-        x = h(u),
-        $ = x[0],
-        P = x[1],
-        N = h(!1),
-        M = N[0],
-        w = N[1],
-        A = h(null),
-        F = A[0],
-        O = A[1],
-        B = h(!1),
-        W = B[0],
-        q = B[1],
-        U = g(),
-        V = h(void 0),
-        H = V[0],
-        G = V[1],
-        z = h(!1),
-        j = z[0],
-        K = z[1],
-        Q = h(!1),
-        X = Q[0],
-        Y = Q[1],
-        J = h(null),
-        Z = J[0],
-        ee = J[1],
-        te =
+        E = h(L),
+        k = E[0],
+        I = E[1],
+        T = h(!1),
+        D = T[0],
+        x = T[1],
+        $ = h(u),
+        P = $[0],
+        N = $[1],
+        M = h(!1),
+        w = M[0],
+        A = M[1],
+        F = h(null),
+        O = F[0],
+        B = F[1],
+        W = h(!1),
+        q = W[0],
+        U = W[1],
+        V = g(),
+        H = h(void 0),
+        G = H[0],
+        z = H[1],
+        j = h(!1),
+        K = j[0],
+        Q = j[1],
+        X = h(!1),
+        Y = X[0],
+        J = X[1],
+        Z = h(null),
+        ee = Z[0],
+        te = Z[1],
+        ne =
           (a = o("useWAWebChatValues").useOptionalChatValues(i.id, [
             o("WAWebChatGetters").getIsNewsletter,
             o("WAWebFrontendChatGetters").getNewsletterMetadata,
           ])) != null
             ? a
             : [!1, null],
-        ne = te[0],
-        re = te[1],
-        oe = f(
+        re = ne[0],
+        oe = ne[1],
+        ae = f(
           function () {
             var e = o(
               "WAWebChatEphemerality",
@@ -224,85 +217,85 @@ __d(
           },
           [i],
         ),
-        ae = o("WAWebPollsGatingUtils").getMaxPollOptionCount(),
-        ie = h(function () {
+        ie = o("WAWebPollsGatingUtils").getMaxPollOptionCount(),
+        le = h(function () {
           return o("WAWebPollOptionsRenderUtils").formatOptions(
             d != null ? d : [],
-            { maxOptionsCount: ae },
+            { maxOptionsCount: ie },
           );
         }),
-        le = ie[0],
-        se = ie[1],
-        ue = g(new Map()),
-        ce = g(null),
-        de = g(),
-        me = r("useWAWebUIM")(),
-        pe = m(
+        se = le[0],
+        ue = le[1],
+        ce = g(new Map()),
+        de = g(null),
+        me = g(),
+        pe = r("useWAWebUIM")(),
+        _e = m(
           function (e, t) {
-            se(
+            ue(
               o("WAWebPollOptionsRenderUtils").formatOptions(e, {
-                maxOptionsCount: ae,
+                maxOptionsCount: ie,
                 focusedKey: t,
               }),
             );
           },
-          [ae],
+          [ie],
         );
       p(function () {
         o("WAWebPollsActionsMetricUtils").commitPollOpenCreationModal(i);
       }, []);
-      var _e = g(),
-        fe = g(le.length);
+      var fe = g(),
+        ge = g(se.length);
       _(
         function () {
-          var e = ce.current,
-            t = fe.current,
-            n = le.findIndex(function (e) {
-              return e.key === _e.current;
+          var e = de.current,
+            t = ge.current,
+            n = se.findIndex(function (e) {
+              return e.key === fe.current;
             });
           (e != null &&
-            t < le.length &&
-            n === le.length - 2 &&
-            le[le.length - 1].name === "" &&
+            t < se.length &&
+            n === se.length - 2 &&
+            se[se.length - 1].name === "" &&
             e.scroll({ top: e.scrollHeight, behavior: "smooth" }),
-            (fe.current = le.length));
+            (ge.current = se.length));
         },
-        [le],
+        [se],
       );
-      var ge = function (t) {
+      var he = function (t) {
           var e = t.text;
-          k(e);
+          I(e);
         },
-        he = le.some(function (e) {
+        ye = se.some(function (e) {
           return e.image != null;
         }),
-        ye = f(
+        Ce = f(
           function () {
-            return o("WAWebPollOptionsRenderUtils").validateOptions(le);
+            return o("WAWebPollOptionsRenderUtils").validateOptions(se);
           },
-          [le],
+          [se],
         );
       (p(
         function () {
           i.isComposingPoll =
-            E.length > 0 ||
-            le.some(function (e) {
+            k.length > 0 ||
+            se.some(function (e) {
               return e.name.length > 0;
             });
         },
-        [i, E, le],
+        [i, k, se],
       ),
         r("useWAWebOnUnmount")(function () {
           i.isComposingPoll = !1;
         }));
-      var Ce = le[ae - 2],
-        be = le[ae - 1],
-        ve =
-          le.length === ae &&
-          !o("WAWebPollOptionsRenderUtils").isEmptyAfterTrimming(Ce) &&
-          o("WAWebPollOptionsRenderUtils").isEmptyAfterTrimming(be),
-        Se = g(),
-        Re = function (t) {
+      var be = se[ie - 2],
+        ve = se[ie - 1],
+        Se =
+          se.length === ie &&
+          !o("WAWebPollOptionsRenderUtils").isEmptyAfterTrimming(be) &&
+          o("WAWebPollOptionsRenderUtils").isEmptyAfterTrimming(ve),
+        Re = g(),
+        Le = function (t) {
           (t === void 0 && (t = !1),
             o("WAWebModalManager").ModalManager.close(),
             t &&
@@ -313,37 +306,37 @@ __d(
                 o("WAWebAttachmentMenuLogger").AttachmentMenuTarget.POLL,
               ));
         },
-        Le =
-          E !== "" ||
-          le.some(function (e) {
+        Ee =
+          k !== "" ||
+          se.some(function (e) {
             return e.name !== "" || e.image;
           }),
-        Ee = function () {
-          Le ? K(!0) : Re(!0);
-        },
         ke = function () {
-          Le ? j || K(!0) : Re(!0);
+          Ee ? Q(!0) : Le(!0);
         },
-        Ie = (function () {
+        Ie = function () {
+          Ee ? K || Q(!0) : Le(!0);
+        },
+        Te = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t;
-            (Y(!0),
-              Re(!1),
+            (J(!0),
+              Le(!1),
               yield o("WAWebBizBotTosUtils").maybeShowBizBot1pTos(i));
-            var n = le.filter(function (e) {
+            var n = se.filter(function (e) {
                 return !o("WAWebPollOptionsRenderUtils").isEmptyAfterTrimming(
                   e,
                 );
               }),
-              r = C({
-                correctOptionKey: $,
+              r = b({
+                correctOptionKey: P,
                 filteredOptions: n,
-                isPhotoPoll: he,
-                isSingleOption: T,
-                pollEndTime: M ? F : null,
-                pollType: S,
-                question: E,
-                hideVoterNames: W,
+                isPhotoPoll: ye,
+                isSingleOption: D,
+                pollEndTime: w ? O : null,
+                pollType: R,
+                question: k,
+                hideVoterNames: q,
               });
             (o("WAWebPollsSendPollCreationMsgAction").sendPollCreation({
               poll: r,
@@ -368,33 +361,33 @@ __d(
             return e.apply(this, arguments);
           };
         })(),
-        Te = function () {
+        De = function () {
           if (
-            ne &&
+            re &&
             o("WAWebNewsletterWamoSubUtils").newsletterSupportsSubscriptions(
-              re,
+              oe,
             ) &&
-            de.current &&
+            me.current &&
             o(
               "WAWebNewsletterGatingUtils",
             ).isWamoSubCreatorExperienceSupported()
           ) {
             var e = function (t) {
-              Ie(t);
+              Te(t);
             };
-            ee({ popupAnchorEl: de.current, handleSelect: e });
-          } else Ie();
-          v == null || v();
+            te({ popupAnchorEl: me.current, handleSelect: e });
+          } else Te();
+          S == null || S();
         },
-        De = function () {
+        xe = function () {
           var e = o("WAWebPollOptionsRenderUtils").validatePoll({
-            question: E,
-            options: le,
-            isPhotoPoll: he,
-            pollType: S,
-            correctOptionKey: $,
-            pollEndTimeEnabled: M,
-            pollEndTime: F,
+            question: k,
+            options: se,
+            isPhotoPoll: ye,
+            pollType: R,
+            correctOptionKey: P,
+            pollEndTimeEnabled: w,
+            pollEndTime: O,
           });
           if (e != null) {
             o("WAWebToastManager").ToastManager.open(
@@ -402,29 +395,29 @@ __d(
             );
             return;
           }
-          Te();
+          De();
         },
-        xe = f(
+        $e = f(
           function () {
-            return { chat: i, getComposeBoxEditorRef: l, options: le };
+            return { chat: i, getComposeBoxEditorRef: l, options: se };
           },
-          [i, l, le],
-        ),
-        $e = m(
-          function (e, t) {
-            var n = [].concat(le);
-            ((n[e] = babelHelpers.extends({}, le[e], { image: void 0 })),
-              pe(n, t));
-          },
-          [le, pe],
+          [i, l, se],
         ),
         Pe = m(
+          function (e, t) {
+            var n = [].concat(se);
+            ((n[e] = babelHelpers.extends({}, se[e], { image: void 0 })),
+              _e(n, t));
+          },
+          [se, _e],
+        ),
+        Ne = m(
           function (e) {
-            var t = le[e],
+            var t = se[e],
               n = babelHelpers.extends(
-                { question: E, allowMultipleMedia: !1, activeOptionIndex: e },
-                xe,
-                { pollType: S, correctOptionKey: $ },
+                { question: k, allowMultipleMedia: !1, activeOptionIndex: e },
+                $e,
+                { pollType: R, correctOptionKey: P },
               );
             if (t.image) {
               var a = t.image,
@@ -436,7 +429,7 @@ __d(
                   e.updateCaption(t.name);
                 }),
                 l.setActive(a),
-                me == null || me.requestDismiss());
+                pe == null || pe.requestDismiss());
               var s = c.jsx(
                 o("WAWebPollAttachMediaViewLoadable.react")
                   .PollAttachMediaViewLoadable,
@@ -447,32 +440,32 @@ __d(
               });
             } else {
               var u;
-              (G(e), (u = U.current) == null || u.open());
+              (z(e), (u = V.current) == null || u.open());
             }
           },
-          [i, $, xe, le, S, E, me],
+          [i, P, $e, se, R, k, pe],
         );
       return c.jsxs(o("WAWebKeyboardHotKeys.react").HotKeys, {
         handlers: {
           esc: function (t) {
-            (t.stopPropagation(), Ee());
+            (t.stopPropagation(), ke());
           },
         },
         children: [
           c.jsx(o("WAWebModal.react").Modal, {
             type: o("WAWebModal.react").ModalTheme.Tower,
             testid: "poll-creation-modal",
-            onOverlayClick: ke,
+            onOverlayClick: Ie,
             children: c.jsxs(r("WAWebDrawer.react"), {
-              xstyle: b.drawer,
+              xstyle: v.drawer,
               children: [
                 c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
                   title:
-                    S === o("WAWebPollCreationUtils").PollType.QUIZ
+                    R === o("WAWebPollCreationUtils").PollType.QUIZ
                       ? s._(/*BTDS*/ "Create quiz")
                       : s._(/*BTDS*/ "Create poll"),
                   type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.POPUP,
-                  onCancel: Ee,
+                  onCancel: ke,
                 }),
                 c.jsx(r("WAWebDrawerBody.react"), {
                   children: c.jsxs(
@@ -480,8 +473,8 @@ __d(
                     babelHelpers.extends(
                       {},
                       (e || (e = r("stylex"))).props(
-                        b.bodyContainer,
-                        o("WAWebUISpacing").uiPadding.top32,
+                        v.bodyContainer,
+                        o("WDSPaddings.stylex").wdsPaddings.paddingTop32,
                       ),
                       {
                         children: [
@@ -490,14 +483,14 @@ __d(
                             children: s._(/*BTDS*/ "Question"),
                           }),
                           c.jsx(o("WAWebRichTextField.react").RichTextField, {
-                            ref: Se,
+                            ref: Re,
                             testid: "poll-question-input",
                             focusOnMount: !0,
                             hideFloatingLabel: !0,
                             showRemaining: !0,
                             emojiBtnPosition: "side",
                             textFormatEnabled: !0,
-                            value: y != null ? y : R,
+                            value: C != null ? C : L,
                             maxLength: o(
                               "WAWebPollsGatingUtils",
                             ).getMaxPollNameLength(),
@@ -505,34 +498,27 @@ __d(
                             maxCodeUnits: o(
                               "WAWebPollsGatingUtils",
                             ).getMaxPollNameLengthForIncomingMessages(),
-                            onChange: ge,
+                            onChange: he,
                             placeholder: s._(/*BTDS*/ "Ask question"),
                           }),
-                          c.jsx(
-                            "span",
-                            babelHelpers.extends(
-                              {},
-                              e.props(
-                                b.sectionTitle,
-                                o("WAWebUISpacing").uiMargin.top25,
-                              ),
-                              { children: s._(/*BTDS*/ "Options") },
-                            ),
-                          ),
+                          c.jsx("span", {
+                            className: "xlm9qay xk50ysn x1e1m7ul",
+                            children: s._(/*BTDS*/ "Options"),
+                          }),
                           c.jsxs(
                             "div",
                             babelHelpers.extends(
-                              { ref: ce },
+                              { ref: de },
                               e.props(
-                                b.optionsContainer,
-                                o("WAWebUISpacing").uiMargin.top2,
-                                o("WAWebUISpacing").uiMargin.bottom10,
+                                v.optionsContainer,
+                                o("WDSMargins.stylex").wdsMargins.marginTop2,
+                                y.marginBottom10,
                               ),
                               {
                                 children: [
                                   c.jsx(r("WAWebPollsOrderableList"), {
-                                    items: le,
-                                    onReordered: pe,
+                                    items: se,
+                                    onReordered: _e,
                                     renderItem: function (t) {
                                       var e = t.index,
                                         n = t.item,
@@ -540,74 +526,66 @@ __d(
                                       return c.jsx(r("WAWebPollsOptionInput"), {
                                         chat: i,
                                         onPhotoThumbnailClick: function () {
-                                          Pe(e);
+                                          Ne(e);
                                         },
                                         onPhotoIconClick: function () {
                                           var e;
-                                          return (e = U.current) == null
+                                          return (e = V.current) == null
                                             ? void 0
                                             : e.open();
                                         },
                                         initialText: n.name,
-                                        error: ye.get(n.key),
+                                        error: Ce.get(n.key),
                                         testid: "poll-option-input-" + e,
                                         onTextInputRef: function (t) {
                                           t
-                                            ? ue.current.set(n.key, t)
-                                            : ue.current.delete(n.key);
+                                            ? ce.current.set(n.key, t)
+                                            : ce.current.delete(n.key);
                                         },
-                                        pollType: S,
-                                        isPhotoPoll: he,
+                                        pollType: R,
+                                        isPhotoPoll: ye,
                                         onChange: function (r) {
-                                          var t = [].concat(le);
+                                          var t = [].concat(se);
                                           ((t[e] = babelHelpers.extends({}, n, {
                                             name: r,
                                           })),
-                                            pe(t, n.key));
+                                            _e(t, n.key));
                                         },
                                         onDeletePhoto: function () {
-                                          $e(e, n.key);
+                                          Pe(e, n.key);
                                         },
                                         onDragThumbMouseDown: function (t) {
                                           t.button === 0 && o(n.key, t);
                                         },
                                         onInputFocus: function () {
-                                          _e.current = n.key;
+                                          fe.current = n.key;
                                         },
                                         onInputBlur: function () {
-                                          _e.current = null;
+                                          fe.current = null;
                                         },
                                         image: n.image,
                                         handleCheckBoxClick: function () {
-                                          return n.key === $
-                                            ? P(null)
-                                            : P(n.key);
+                                          return n.key === P
+                                            ? N(null)
+                                            : N(n.key);
                                         },
-                                        checked: n.key === $,
+                                        checked: n.key === P,
                                       });
                                     },
                                   }),
-                                  S ===
+                                  R ===
                                     o("WAWebPollCreationUtils").PollType.QUIZ &&
-                                    !Le &&
-                                    c.jsx(
-                                      "div",
-                                      babelHelpers.extends(
-                                        {},
-                                        (e || (e = r("stylex"))).props(
-                                          o("WAWebUISpacing").uiPadding.top10,
+                                    !Ee &&
+                                    c.jsx("div", {
+                                      className: "x889kno",
+                                      children: c.jsx(r("WDSText.react"), {
+                                        type: "Body2",
+                                        colorName: "contentDeemphasized",
+                                        children: s._(
+                                          /*BTDS*/ "Select one right answer",
                                         ),
-                                        {
-                                          children: c.jsx(r("WDSText.react"), {
-                                            type: "Body2",
-                                            colorName: "contentDeemphasized",
-                                            children: s._(
-                                              /*BTDS*/ "Select one right answer",
-                                            ),
-                                          }),
-                                        },
-                                      ),
-                                    ),
+                                      }),
+                                    }),
                                 ],
                               },
                             ),
@@ -615,13 +593,13 @@ __d(
                           c.jsx("h3", {
                             "data-testid": "poll-creation-one-more-option-hint",
                             className: { 0: "x1nxh6w3", 1: "x1nxh6w3 xlshs6z" }[
-                              !ve << 0
+                              !Se << 0
                             ],
                             children: s._(
                               /*BTDS*/ "You can add one more option.",
                             ),
                           }),
-                          S === o("WAWebPollCreationUtils").PollType.POLL &&
+                          R === o("WAWebPollCreationUtils").PollType.POLL &&
                             o(
                               "WAWebPollsGatingUtils",
                             ).isSingleOptionPollsSendingEnabled(i.id) &&
@@ -630,8 +608,9 @@ __d(
                               babelHelpers.extends(
                                 {},
                                 (e || (e = r("stylex"))).props(
-                                  b.singleOptionContainer,
-                                  o("WAWebUISpacing").uiPadding.bottom20,
+                                  v.singleOptionContainer,
+                                  o("WDSPaddings.stylex").wdsPaddings
+                                    .paddingBottom20,
                                 ),
                                 {
                                   children: [
@@ -642,8 +621,9 @@ __d(
                                           htmlFor: "polls-single-option-switch",
                                         },
                                         (e || (e = r("stylex"))).props(
-                                          b.singleOptionLabel,
-                                          o("WAWebUISpacing").uiPadding.vert4,
+                                          v.singleOptionLabel,
+                                          o("WDSPaddings.stylex").wdsPaddings
+                                            .paddingVer4,
                                         ),
                                         {
                                           children: s._(
@@ -654,9 +634,9 @@ __d(
                                     ),
                                     c.jsx(r("WDSSwitch.react"), {
                                       id: "polls-single-option-switch",
-                                      value: !T,
+                                      value: !D,
                                       onChange: function () {
-                                        D(!T);
+                                        x(!D);
                                       },
                                       testid: "polls-single-option-switch",
                                     }),
@@ -664,8 +644,8 @@ __d(
                                 },
                               ),
                             ),
-                          S === o("WAWebPollCreationUtils").PollType.POLL &&
-                            !ne &&
+                          R === o("WAWebPollCreationUtils").PollType.POLL &&
+                            !re &&
                             o(
                               "WAWebPollsGatingUtils",
                             ).isPollHideVotersSendingEnabled(i.id) &&
@@ -674,8 +654,9 @@ __d(
                               babelHelpers.extends(
                                 {},
                                 (e || (e = r("stylex"))).props(
-                                  b.singleOptionContainer,
-                                  o("WAWebUISpacing").uiPadding.bottom20,
+                                  v.singleOptionContainer,
+                                  o("WDSPaddings.stylex").wdsPaddings
+                                    .paddingBottom20,
                                 ),
                                 {
                                   children: [
@@ -687,8 +668,9 @@ __d(
                                             "polls-hide-voter-names-switch",
                                         },
                                         (e || (e = r("stylex"))).props(
-                                          b.singleOptionLabel,
-                                          o("WAWebUISpacing").uiPadding.vert4,
+                                          v.singleOptionLabel,
+                                          o("WDSPaddings.stylex").wdsPaddings
+                                            .paddingVer4,
                                         ),
                                         {
                                           children: s._(
@@ -699,9 +681,9 @@ __d(
                                     ),
                                     c.jsx(r("WDSSwitch.react"), {
                                       id: "polls-hide-voter-names-switch",
-                                      value: W,
+                                      value: q,
                                       onChange: function () {
-                                        q(!W);
+                                        U(!q);
                                       },
                                       testid: "polls-hide-voter-names-switch",
                                     }),
@@ -709,98 +691,89 @@ __d(
                                 },
                               ),
                             ),
-                          S === o("WAWebPollCreationUtils").PollType.POLL &&
-                            !ne &&
+                          R === o("WAWebPollCreationUtils").PollType.POLL &&
+                            !re &&
                             o(
                               "WAWebPollsGatingUtils",
                             ).isPollEndTimeSendingEnabled(i.id) &&
                             c.jsx(r("WAWebPollsEndTimeSection"), {
-                              enabled: M,
-                              maxDurationMs: oe,
-                              onToggle: w,
-                              pollEndTime: F,
-                              onEndTimeChange: O,
+                              enabled: w,
+                              maxDurationMs: ae,
+                              onToggle: A,
+                              pollEndTime: O,
+                              onEndTimeChange: B,
                             }),
                         ],
                       },
                     ),
                   ),
                 }),
-                c.jsx(
-                  "div",
-                  babelHelpers.extends(
-                    {},
-                    e.props(
-                      b.createPollButtonContainer,
-                      o("WAWebUISpacing").uiMargin.top30,
-                    ),
-                    {
-                      children: c.jsxs(o("WAWebRound.react").Round, {
-                        ref: de,
-                        xstyle: [b.sendButton, b.sendButtonRefreshed],
-                        theme: o("WAWebRound.react").RoundTheme.DrawerFooter,
-                        large: !0,
-                        onClick: De,
-                        disabled: ye.size !== 0 || X || (M && F == null),
-                        label: s._(/*BTDS*/ "Send"),
-                        testid: "poll-send-button",
-                        children: [
-                          c.jsx(
-                            o("WAWebWdsIcSendFilledIcon.react")
-                              .WdsIcSendFilledIcon,
-                            { width: 28, directional: !0 },
-                          ),
-                          " ",
-                        ],
-                      }),
-                    },
-                  ),
-                ),
-                Z != null &&
+                c.jsx("div", {
+                  className:
+                    "xh8yej3 x78zum5 x13a6bvl xwvwv9b x1jn9dgz x11fxgd9",
+                  children: c.jsxs(o("WAWebRound.react").Round, {
+                    ref: me,
+                    xstyle: [v.sendButton, v.sendButtonRefreshed],
+                    theme: o("WAWebRound.react").RoundTheme.DrawerFooter,
+                    large: !0,
+                    onClick: xe,
+                    disabled: Ce.size !== 0 || Y || (w && O == null),
+                    label: s._(/*BTDS*/ "Send"),
+                    testid: "poll-send-button",
+                    children: [
+                      c.jsx(
+                        o("WAWebWdsIcSendFilledIcon.react").WdsIcSendFilledIcon,
+                        { width: 28, directional: !0 },
+                      ),
+                      " ",
+                    ],
+                  }),
+                }),
+                ee != null &&
                   c.jsx(r("WAWebNewsletterWamoSubMessageTypePopup.react"), {
-                    handleSelect: Z.handleSelect,
-                    popupAnchorEl: Z.popupAnchorEl,
+                    handleSelect: ee.handleSelect,
+                    popupAnchorEl: ee.popupAnchorEl,
                     onDismiss: function () {
-                      return ee(null);
+                      return te(null);
                     },
                   }),
               ],
             }),
           }),
-          j &&
+          K &&
             c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               title:
-                S === o("WAWebPollCreationUtils").PollType.QUIZ
+                R === o("WAWebPollCreationUtils").PollType.QUIZ
                   ? s._(/*BTDS*/ "Leave quiz?")
                   : s._(/*BTDS*/ "Leave poll?"),
               okText: s._(/*BTDS*/ "Keep editing"),
               onOK: function () {
                 var e;
-                (K(!1), (e = Se.current) == null || e.restoreFocus());
+                (Q(!1), (e = Re.current) == null || e.restoreFocus());
               },
               cancelText: s._(/*BTDS*/ "Leave"),
               onCancel: function () {
-                Re(!0);
+                Le(!0);
               },
-              onOverlayClick: ke,
+              onOverlayClick: Ie,
               children: s._(/*BTDS*/ "Your edits won't be saved."),
             }),
           c.jsx(r("WAWebPollAttachMediaPicker.react"), {
-            mediaPickerRef: U,
+            mediaPickerRef: V,
             chat: i,
-            options: le,
+            options: se,
             getComposeBoxEditorRef: l,
-            question: E,
-            allowMultipleMedia: !he,
-            activeOptionIndex: H != null ? H : void 0,
-            pollType: S,
-            correctOptionKey: $,
+            question: k,
+            allowMultipleMedia: !ye,
+            activeOptionIndex: G != null ? G : void 0,
+            pollType: R,
+            correctOptionKey: P,
           }),
         ],
       });
     }
-    ((v.displayName = v.name + " [from " + i.id + "]"),
-      (l.CreatePollModal = v));
+    ((S.displayName = S.name + " [from " + i.id + "]"),
+      (l.CreatePollModal = S));
   },
   226,
 );

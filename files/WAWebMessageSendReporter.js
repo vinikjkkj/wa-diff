@@ -62,12 +62,12 @@ __d(
             (this.$4 = o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE),
             (this.$8 = !1),
             (this.$1 = t.to),
-            y(t.type) &&
+            h(t.type) &&
               (n == null ? void 0 : n.isResend) !== !0 &&
               (this.$7 = o("WAStartSendToSentQplFlow").startSendToSentQplFlow({
-                chatType: g(t.to),
+                chatType: f(t.to),
                 event: r("qpl")._(891433801, "3599"),
-                messageType: h(t.type, t.isGif),
+                messageType: g(t.type, t.isGif),
               })));
           var l = !!t.caption;
           t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
@@ -76,12 +76,12 @@ __d(
             _ = n == null ? void 0 : n.frontendDeps;
           ((this.$5 = m.createPostODSCountersFn(t)),
             (this.$6 = m.createPostODSErrorCountersFn(t)));
-          var f = r("MetaConfig")._("434"),
+          var y = r("MetaConfig")._("434"),
             C = 0;
-          (f === 2
+          (y === 2
             ? (m.logMCMigrationTest(), (C = 75e-7))
-            : f === 1 && (m.logMCMigrationControl(), (C = 15e-7)),
-            m.logMCMigrationRegression(f, C));
+            : y === 1 && (m.logMCMigrationControl(), (C = 15e-7)),
+            m.logMCMigrationRegression(y, C));
           var b = this.$1;
           this.$2 = new (o("WAWebMessageSendWamEvent").MessageSendWamEvent)({
             messageType: o("WAWebWamMsgUtils").getWamMessageType(t),
@@ -396,25 +396,6 @@ __d(
         );
       })();
     function f(e) {
-      var t = e.messageIsInvisible,
-        n = new (o("WAWebMessageSendWamEvent").MessageSendWamEvent)({
-          messageIsInvisible: t,
-        });
-      return {
-        setGroupData: function (t) {
-          (t.wamTypeOfGroup != null && (n.typeOfGroup = t.wamTypeOfGroup),
-            t.participantCount != null &&
-              (n.participantCount = t.participantCount),
-            t.deviceCount != null && (n.deviceCount = t.deviceCount),
-            t.deviceSizeBucket != null &&
-              (n.deviceSizeBucket = t.deviceSizeBucket));
-        },
-        post: function () {
-          (n.markMessageSendT(), n.commit());
-        },
-      };
-    }
-    function g(e) {
       return r("WAWebWid").isStatus(e)
         ? o("WAStartSendToSentQplFlow").SendToSentChatType.Status
         : r("WAWebWid").isNewsletter(e)
@@ -425,7 +406,7 @@ __d(
               ? o("WAStartSendToSentQplFlow").SendToSentChatType.Broadcast
               : o("WAStartSendToSentQplFlow").SendToSentChatType.Individual;
     }
-    function h(e, t) {
+    function g(e, t) {
       return e === o("WAWebMsgType").MSG_TYPE.IMAGE
         ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Image
         : e === o("WAWebMsgType").MSG_TYPE.VIDEO
@@ -445,7 +426,7 @@ __d(
                     : o("WAStartSendToSentQplFlow").SendToSentMessageType
                         .Unknown;
     }
-    function y(e) {
+    function h(e) {
       return (
         e === o("WAWebMsgType").MSG_TYPE.IMAGE ||
         e === o("WAWebMsgType").MSG_TYPE.VIDEO ||
@@ -455,7 +436,7 @@ __d(
         e === o("WAWebMsgType").MSG_TYPE.STICKER
       );
     }
-    ((l.MessageSendReporter = _), (l.createMessageSendMetricReporter = f));
+    l.MessageSendReporter = _;
   },
   98,
 );

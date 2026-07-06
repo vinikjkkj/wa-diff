@@ -6,7 +6,7 @@ __d(
     "WAWebMediaEditorToolbarButton.react",
     "WAWebOutlineSmoothIcon.react",
     "WAWebOutlineStraightIcon.react",
-    "WAWebUISpacing",
+    "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
   ],
@@ -24,8 +24,8 @@ __d(
         d;
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((l = [
-            o("WAWebUISpacing").uiMargin.vert0,
-            o("WAWebUISpacing").uiMargin.horiz8,
+            o("WDSMargins.stylex").wdsMargins.marginVer0,
+            o("WDSMargins.stylex").wdsMargins.marginHor8,
           ]),
           (c = u.jsx(o("WAWebOutlineSmoothIcon.react").OutlineSmoothIcon, {
             displayInline: !0,
@@ -59,8 +59,8 @@ __d(
       var _, f, g;
       t[8] === Symbol.for("react.memo_cache_sentinel")
         ? ((_ = [
-            o("WAWebUISpacing").uiMargin.vert0,
-            o("WAWebUISpacing").uiMargin.horiz8,
+            o("WDSMargins.stylex").wdsMargins.marginVer0,
+            o("WDSMargins.stylex").wdsMargins.marginHor8,
           ]),
           (f = u.jsx(o("WAWebOutlineStraightIcon.react").OutlineStraightIcon, {
             displayInline: !0,
@@ -95,8 +95,8 @@ __d(
       var b;
       t[16] === Symbol.for("react.memo_cache_sentinel")
         ? ((b = [
-            o("WAWebUISpacing").uiMargin.vert0,
-            o("WAWebUISpacing").uiMargin.horiz8,
+            o("WDSMargins.stylex").wdsMargins.marginVer0,
+            o("WDSMargins.stylex").wdsMargins.marginHor8,
           ]),
           (t[16] = b))
         : (b = t[16]);

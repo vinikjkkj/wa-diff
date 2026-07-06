@@ -13,7 +13,6 @@ __d(
     "WAWebNewsletterCommonGatingUtils",
     "WAWebText.react",
     "WAWebText_DONOTUSE.react",
-    "WAWebUISpacing",
     "react",
     "react-compiler-runtime",
     "useWAWebGdprDelete",
@@ -23,76 +22,80 @@ __d(
     var e,
       u = e || (e = o("react")),
       c = {
+        marginTop18: { marginTop: "xhrpt6u", $$css: !0 },
+        marginTop30: { marginTop: "x11fxgd9", $$css: !0 },
+      },
+      d = {
         availability: {
           marginInlineStart: "xymharo",
           marginInlineEnd: "x2pibh5",
           $$css: !0,
         },
       };
-    function d(e) {
+    function m(e) {
       var t = o("react-compiler-runtime").c(38),
         n = e.gdprStatus,
         a = e.onDeleteSuccess,
         i = e.report,
         l = n.creation,
-        d = n.documentMessage,
-        p = n.expiration,
-        _ = o("WALongInt").maybeNumberOrThrowIfTooLarge(d.fileLength),
-        f = o("useWAWebGdprDownload").useGdprDownload(),
-        g = f[0],
-        h = f[1],
-        y = o("useWAWebGdprDelete").useGdprDelete(i),
-        C = y[0],
-        b = y[1],
-        v;
-      t[0] !== p
-        ? ((v = s._(
+        m = n.documentMessage,
+        _ = n.expiration,
+        f = o("WALongInt").maybeNumberOrThrowIfTooLarge(m.fileLength),
+        g = o("useWAWebGdprDownload").useGdprDownload(),
+        h = g[0],
+        y = g[1],
+        C = o("useWAWebGdprDelete").useGdprDelete(i),
+        b = C[0],
+        v = C[1],
+        S;
+      t[0] !== _
+        ? ((S = s._(
             /*BTDS*/ "Your report is available to download until {availability_date}",
             [
               s._param(
                 "availability_date",
-                r("WAWeb-moment").unix(p).format("MMMM D, YYYY"),
+                r("WAWeb-moment").unix(_).format("MMMM D, YYYY"),
               ),
             ],
           )),
-          (t[0] = p),
-          (t[1] = v))
-        : (v = t[1]);
-      var S = v,
-        R;
+          (t[0] = _),
+          (t[1] = S))
+        : (S = t[1]);
+      var R = S,
+        L;
       t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = {
+        ? ((L = {
             className: "x178xt8z x13fuv20 xx42vgk xso031l x1q0q8m5 x120ee7l",
           }),
-          (t[2] = R))
-        : (R = t[2]);
-      var L = o("WAWebDrawerButton.react").DrawerButtonSimple,
-        E = "dark",
-        k;
+          (t[2] = L))
+        : (L = t[2]);
+      var E = o("WAWebDrawerButton.react").DrawerButtonSimple,
+        k = "dark",
+        I;
       t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = u.jsx(o("WAWebIcDownloadIcon.react").IcDownloadIcon, {})),
-          (t[3] = k))
-        : (k = t[3]);
-      var I;
-      t[4] !== d || t[5] !== h || t[6] !== i
-        ? ((I = function () {
-            return h(d, i);
-          }),
-          (t[4] = d),
-          (t[5] = h),
-          (t[6] = i),
-          (t[7] = I))
-        : (I = t[7]);
+        ? ((I = u.jsx(o("WAWebIcDownloadIcon.react").IcDownloadIcon, {})),
+          (t[3] = I))
+        : (I = t[3]);
       var T;
+      t[4] !== m || t[5] !== y || t[6] !== i
+        ? ((T = function () {
+            return y(m, i);
+          }),
+          (t[4] = m),
+          (t[5] = y),
+          (t[6] = i),
+          (t[7] = T))
+        : (T = t[7]);
+      var D;
       t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+        ? ((D = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
             children: s._(/*BTDS*/ "Download report"),
           })),
-          (t[8] = T))
-        : (T = t[8]);
-      var D = o("WAWebText.react").WAWebTextMuted,
-        x =
-          _ != null
+          (t[8] = D))
+        : (D = t[8]);
+      var x = o("WAWebText.react").WAWebTextMuted,
+        $ =
+          f != null
             ? s._(/*BTDS*/ "{availability_date} \u00b7 {file_size}", [
                 s._param(
                   "availability_date",
@@ -100,7 +103,7 @@ __d(
                 ),
                 s._param(
                   "file_size",
-                  o("WAWebL10nFilesize").getL10nFilesize(_),
+                  o("WAWebL10nFilesize").getL10nFilesize(f),
                 ),
               ])
             : s._(/*BTDS*/ "{availability_date}", [
@@ -109,62 +112,62 @@ __d(
                   r("WAWeb-moment").unix(l).format("MMMM D, YYYY"),
                 ),
               ]),
-        $;
-      t[9] !== D || t[10] !== x
-        ? (($ = u.jsx(D, { children: x })),
-          (t[9] = D),
-          (t[10] = x),
-          (t[11] = $))
-        : ($ = t[11]);
-      var P;
-      t[12] !== L ||
-      t[13] !== g ||
-      t[14] !== k ||
-      t[15] !== I ||
-      t[16] !== T ||
-      t[17] !== $
-        ? ((P = u.jsxs(L, {
-            color: E,
-            disabled: g,
-            icon: k,
-            onClick: I,
-            children: [T, $],
-          })),
-          (t[12] = L),
-          (t[13] = g),
-          (t[14] = k),
-          (t[15] = I),
-          (t[16] = T),
-          (t[17] = $),
-          (t[18] = P))
-        : (P = t[18]);
+        P;
+      t[9] !== x || t[10] !== $
+        ? ((P = u.jsx(x, { children: $ })),
+          (t[9] = x),
+          (t[10] = $),
+          (t[11] = P))
+        : (P = t[11]);
       var N;
-      t[19] !== P || t[20] !== R
-        ? ((N = u.jsx("div", babelHelpers.extends({}, R, { children: P }))),
-          (t[19] = P),
-          (t[20] = R),
-          (t[21] = N))
-        : (N = t[21]);
+      t[12] !== E ||
+      t[13] !== h ||
+      t[14] !== I ||
+      t[15] !== T ||
+      t[16] !== D ||
+      t[17] !== P
+        ? ((N = u.jsxs(E, {
+            color: k,
+            disabled: h,
+            icon: I,
+            onClick: T,
+            children: [D, P],
+          })),
+          (t[12] = E),
+          (t[13] = h),
+          (t[14] = I),
+          (t[15] = T),
+          (t[16] = D),
+          (t[17] = P),
+          (t[18] = N))
+        : (N = t[18]);
       var M;
-      t[22] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = { className: "xso031l x1q0q8m5 x120ee7l" }), (t[22] = M))
-        : (M = t[22]);
+      t[19] !== N || t[20] !== L
+        ? ((M = u.jsx("div", babelHelpers.extends({}, L, { children: N }))),
+          (t[19] = N),
+          (t[20] = L),
+          (t[21] = M))
+        : (M = t[21]);
       var w;
-      t[23] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = u.jsx(o("WAWebDeleteIcon.react").DeleteIcon, {})), (t[23] = w))
-        : (w = t[23]);
+      t[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((w = { className: "xso031l x1q0q8m5 x120ee7l" }), (t[22] = w))
+        : (w = t[22]);
       var A;
-      t[24] !== b || t[25] !== C || t[26] !== a
-        ? ((A = function () {
+      t[23] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = u.jsx(o("WAWebDeleteIcon.react").DeleteIcon, {})), (t[23] = A))
+        : (A = t[23]);
+      var F;
+      t[24] !== v || t[25] !== b || t[26] !== a
+        ? ((F = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(
                 r("WAWebGdprRequestAccountInfoSettingsDrawerConfirmPopup"),
                 {
-                  okDisabled: C,
-                  okSpinner: C,
-                  onCancel: m,
+                  okDisabled: b,
+                  okSpinner: b,
+                  onCancel: p,
                   onOK: function () {
-                    return b().then(function (e) {
+                    return v().then(function (e) {
                       e.success &&
                         (o("WAWebModalManager").ModalManager.close(), a());
                     });
@@ -173,68 +176,68 @@ __d(
               ),
             );
           }),
-          (t[24] = b),
-          (t[25] = C),
+          (t[24] = v),
+          (t[25] = b),
           (t[26] = a),
-          (t[27] = A))
-        : (A = t[27]);
-      var F;
+          (t[27] = F))
+        : (F = t[27]);
+      var O;
       t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+        ? ((O = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
             children: s._(/*BTDS*/ "Delete and request new report"),
           })),
-          (t[28] = F))
-        : (F = t[28]);
-      var O;
-      t[29] !== C || t[30] !== A
-        ? ((O = u.jsx(
+          (t[28] = O))
+        : (O = t[28]);
+      var B;
+      t[29] !== b || t[30] !== F
+        ? ((B = u.jsx(
             "div",
-            babelHelpers.extends({}, M, {
+            babelHelpers.extends({}, w, {
               children: u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
                 color: "dark",
-                disabled: C,
-                icon: w,
-                onClick: A,
-                children: F,
+                disabled: b,
+                icon: A,
+                onClick: F,
+                children: O,
               }),
             }),
           )),
-          (t[29] = C),
-          (t[30] = A),
-          (t[31] = O))
-        : (O = t[31]);
-      var B;
-      t[32] !== S
-        ? ((B = o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
+          (t[29] = b),
+          (t[30] = F),
+          (t[31] = B))
+        : (B = t[31]);
+      var W;
+      t[32] !== R
+        ? ((W = o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
             ? u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
                 color: "secondary",
                 size: "16",
-                xstyle: [c.availability, o("WAWebUISpacing").uiMargin.top18],
-                children: S,
+                xstyle: [d.availability, c.marginTop18],
+                children: R,
               })
             : u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                xstyle: [c.availability, o("WAWebUISpacing").uiMargin.top30],
-                children: S,
+                xstyle: [d.availability, c.marginTop30],
+                children: R,
               })),
-          (t[32] = S),
-          (t[33] = B))
-        : (B = t[33]);
-      var W;
+          (t[32] = R),
+          (t[33] = W))
+        : (W = t[33]);
+      var q;
       return (
-        t[34] !== N || t[35] !== O || t[36] !== B
-          ? ((W = u.jsxs(u.Fragment, { children: [N, O, B] })),
-            (t[34] = N),
-            (t[35] = O),
-            (t[36] = B),
-            (t[37] = W))
-          : (W = t[37]),
-        W
+        t[34] !== M || t[35] !== B || t[36] !== W
+          ? ((q = u.jsxs(u.Fragment, { children: [M, B, W] })),
+            (t[34] = M),
+            (t[35] = B),
+            (t[36] = W),
+            (t[37] = q))
+          : (q = t[37]),
+        q
       );
     }
-    function m() {
+    function p() {
       return o("WAWebModalManager").ModalManager.close();
     }
-    l.default = d;
+    l.default = m;
   },
   226,
 );

@@ -15,7 +15,7 @@ __d(
       u = function (t) {
         return { isSuccess: !0, dataSourceId: t };
       },
-      c = { isSuccess: !1 };
+      c = { isSuccess: !1, error: null };
     function d(e, t) {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
@@ -36,19 +36,24 @@ __d(
                       { environmentType: "facebook", accessToken: n.token },
                     )
                     .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_maiba_trigger_file_knowledge_extraction;
-                      if ((t == null ? void 0 : t.success) === !0) {
-                        var n;
+                      var t,
+                        n =
+                          e == null
+                            ? void 0
+                            : e.xfb_maiba_trigger_file_knowledge_extraction;
+                      if ((n == null ? void 0 : n.success) === !0) {
+                        var r;
                         return u(
-                          (n = t.uploaded_file_data_source_id) != null
-                            ? n
+                          (r = n.uploaded_file_data_source_id) != null
+                            ? r
                             : null,
                         );
                       }
-                      return c;
+                      return {
+                        isSuccess: !1,
+                        error:
+                          (t = n == null ? void 0 : n.error) != null ? t : null,
+                      };
                     })
                     .catch(function (e) {
                       return c;

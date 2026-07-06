@@ -4,7 +4,7 @@ __d(
     "WAAbortError",
     "WABinary",
     "WASocketTransport",
-    "WAWebEventsWaitForOffline",
+    "WAWebEventsWaitForEvent",
     "WAWebNoop",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,7 +16,10 @@ __d(
           (n.dataToSend = new (o("WABinary").Binary)()),
           (n.wsUrl = t.url),
           (n.$WatchedSocket$p_2 = new AbortController()),
-          (n.$WatchedSocket$p_1 = r("WAWebEventsWaitForOffline")(
+          (n.$WatchedSocket$p_1 = r("WAWebEventsWaitForEvent")(
+            window,
+            "offline",
+            void 0,
             n.$WatchedSocket$p_2.signal,
           )
             .then(function () {

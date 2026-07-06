@@ -55,16 +55,26 @@ __d(
               groupHistoryReceiverGroupId: t,
             });
           }),
-          (n.downloadFailed = function (t) {
+          (n.downloadFailed = function (t, n) {
             this.$1({
               groupHistoryReceiverActionType: o(
                 "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
               ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
                 .GROUP_HISTORY_DOWNLOAD_FAILED,
               groupHistoryReceiverGroupId: t,
+              receiverFailureReason: n,
             });
           }),
-          (n.parseHistoryProtoFailed = function (t, n, r) {
+          (n.downloadExpired = function (t) {
+            this.$1({
+              groupHistoryReceiverActionType: o(
+                "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
+              ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
+                .GROUP_HISTORY_DOWNLOAD_EXPIRED,
+              groupHistoryReceiverGroupId: t,
+            });
+          }),
+          (n.parseHistoryProtoFailed = function (t, n, r, a) {
             this.$1({
               groupHistoryReceiverActionType: o(
                 "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
@@ -73,9 +83,10 @@ __d(
               groupHistoryReceiverGroupId: t,
               groupHistoryMessagesCount: n,
               groupHistoryOutWindowPinsCount: r,
+              receiverFailureReason: a,
             });
           }),
-          (n.parseHistoryProtoSucceeded = function (t, n, r) {
+          (n.parseHistoryProtoSucceeded = function (t, n, r, a, i) {
             this.$1({
               groupHistoryReceiverActionType: o(
                 "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
@@ -84,6 +95,8 @@ __d(
               groupHistoryReceiverGroupId: t,
               groupHistoryMessagesCount: n,
               groupHistoryOutWindowPinsCount: r,
+              groupHistoryPinsCount: a,
+              groupHistoryUncountedMessagesCount: i,
             });
           }),
           (n.dbInserted = function (t) {
@@ -117,6 +130,24 @@ __d(
                 "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
               ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
                 .GROUP_HISTORY_VIEW_BUTTON_CLICKED,
+              groupHistoryReceiverGroupId: t,
+            });
+          }),
+          (n.footerInlineShown = function (t) {
+            this.$1({
+              groupHistoryReceiverActionType: o(
+                "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
+              ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
+                .GROUP_HISTORY_FOOTER_INLINE_SHOWN,
+              groupHistoryReceiverGroupId: t,
+            });
+          }),
+          (n.footerFloatingShown = function (t) {
+            this.$1({
+              groupHistoryReceiverActionType: o(
+                "WAWebWamEnumGroupHistoryReceiverUserJourneyActionType",
+              ).GROUP_HISTORY_RECEIVER_USER_JOURNEY_ACTION_TYPE
+                .GROUP_HISTORY_FOOTER_FLOATING_SHOWN,
               groupHistoryReceiverGroupId: t,
             });
           }),

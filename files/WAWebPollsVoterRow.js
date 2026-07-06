@@ -16,7 +16,6 @@ __d(
     "WAWebPollVoteGetters",
     "WAWebPollsPollVoteModel",
     "WAWebTextSizeUtils",
-    "WAWebUISpacing",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -27,29 +26,30 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react"));
-    function c(e) {
+      u = s || (s = o("react")),
+      c = { marginInlineStart9: { marginInlineStart: "x1y3qizg", $$css: !0 } };
+    function d(e) {
       var t = o("react-compiler-runtime").c(9),
         n = e.vote,
         r = n.time * 1e3,
         a;
       t[0] !== r
-        ? ((a = u.jsx(f, { timestamp: r })), (t[0] = r), (t[1] = a))
+        ? ((a = u.jsx(g, { timestamp: r })), (t[0] = r), (t[1] = a))
         : (a = t[1]);
       var i = a,
         l;
       t[2] !== i || t[3] !== n
-        ? ((l = u.jsx(d, { vote: n, fallbackNode: i })),
+        ? ((l = u.jsx(m, { vote: n, fallbackNode: i })),
           (t[2] = i),
           (t[3] = n),
           (t[4] = l))
         : (l = t[4]);
       var s = l,
         c = n.contact != null ? i : null,
-        m;
+        d;
       return (
         t[5] !== s || t[6] !== c || t[7] !== n.id
-          ? ((m = u.jsx(g, {
+          ? ((d = u.jsx(h, {
               primary: s,
               primaryDetail: null,
               id: n.id,
@@ -58,12 +58,12 @@ __d(
             (t[5] = s),
             (t[6] = c),
             (t[7] = n.id),
-            (t[8] = m))
-          : (m = t[8]),
-        m
+            (t[8] = d))
+          : (d = t[8]),
+        d
       );
     }
-    function d(e) {
+    function m(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.fallbackNode,
         r = e.vote,
@@ -72,7 +72,7 @@ __d(
       var i;
       return (
         t[0] !== a || t[1] !== n
-          ? ((i = u.jsx(m, { contact: a, fallbackNode: n })),
+          ? ((i = u.jsx(p, { contact: a, fallbackNode: n })),
             (t[0] = a),
             (t[1] = n),
             (t[2] = i))
@@ -80,7 +80,7 @@ __d(
         i
       );
     }
-    function m(e) {
+    function p(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.contact,
         r = e.fallbackNode,
@@ -102,7 +102,7 @@ __d(
         t[1] !== r || t[2] !== l || t[3] !== c || t[4] !== s
           ? ((d =
               s || c
-                ? u.jsx(_, { formattedUserName: l, accessibleUserName: null })
+                ? u.jsx(f, { formattedUserName: l, accessibleUserName: null })
                 : r),
             (t[1] = r),
             (t[2] = l),
@@ -113,7 +113,7 @@ __d(
         d
       );
     }
-    function p(e) {
+    function _(e) {
       var t = o("react-compiler-runtime").c(31),
         n = e.vote,
         a;
@@ -143,7 +143,7 @@ __d(
           (t[1] = d));
       } else d = t[1];
       var p = o("useWAWebContactValues").useContactValues(l.id, d),
-        h = p[0],
+        _ = p[0],
         y = p[1],
         C = p[2],
         b = p[3],
@@ -180,7 +180,7 @@ __d(
           : (P = t[7]);
         var N;
         (t[8] !== $ || t[9] !== P
-          ? ((N = u.jsx(_, { accessibleUserName: $, formattedUserName: P })),
+          ? ((N = u.jsx(f, { accessibleUserName: $, formattedUserName: P })),
             (t[8] = $),
             (t[9] = P),
             (t[10] = N))
@@ -211,7 +211,7 @@ __d(
           : (A = t[16]);
         var F;
         (t[17] !== w || t[18] !== A
-          ? ((F = u.jsx(_, { accessibleUserName: w, formattedUserName: A })),
+          ? ((F = u.jsx(f, { accessibleUserName: w, formattedUserName: A })),
             (t[17] = w),
             (t[18] = A),
             (t[19] = F))
@@ -230,7 +230,7 @@ __d(
       } else {
         var B;
         (t[22] !== y
-          ? ((B = u.jsx(_, {
+          ? ((B = u.jsx(f, {
               accessibleUserName: void 0,
               formattedUserName: y,
             })),
@@ -242,18 +242,18 @@ __d(
       }
       var W;
       t[24] !== s
-        ? ((W = u.jsx(f, { timestamp: s })), (t[24] = s), (t[25] = W))
+        ? ((W = u.jsx(g, { timestamp: s })), (t[24] = s), (t[25] = W))
         : (W = t[25]);
       var q;
       return (
-        t[26] !== h || t[27] !== D || t[28] !== x || t[29] !== W
-          ? ((q = u.jsx(g, {
-              id: h,
+        t[26] !== _ || t[27] !== D || t[28] !== x || t[29] !== W
+          ? ((q = u.jsx(h, {
+              id: _,
               primary: D,
               primaryDetail: x,
               secondary: W,
             })),
-            (t[26] = h),
+            (t[26] = _),
             (t[27] = D),
             (t[28] = x),
             (t[29] = W),
@@ -262,7 +262,7 @@ __d(
         q
       );
     }
-    function _(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(4),
         n = e.accessibleUserName,
         r = e.formattedUserName,
@@ -290,7 +290,7 @@ __d(
         s
       );
     }
-    function f(t) {
+    function g(t) {
       var n = o("react-compiler-runtime").c(8),
         a = t.timestamp,
         i,
@@ -322,7 +322,7 @@ __d(
         m
       );
     }
-    function g(e) {
+    function h(e) {
       var t = o("react-compiler-runtime").c(8),
         n = e.id,
         a = e.primary,
@@ -331,27 +331,27 @@ __d(
         s;
       t[0] !== n
         ? ((s = u.jsx(o("WAWebDetailImage.react").DetailImage, {
-            xstyle: o("WAWebUISpacing").uiMargin.start9,
+            xstyle: c.marginInlineStart9,
             id: n,
             size: o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
           })),
           (t[0] = n),
           (t[1] = s))
         : (s = t[1]);
-      var c;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = { cursor: "auto" }), (t[2] = c))
-        : (c = t[2]);
       var d;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = { cursor: "auto" }), (t[2] = d))
+        : (d = t[2]);
+      var m;
       return (
         t[3] !== a || t[4] !== i || t[5] !== l || t[6] !== s
-          ? ((d = u.jsx(r("WAWebChatCell.react"), {
+          ? ((m = u.jsx(r("WAWebChatCell.react"), {
               contextEnabled: o("WAWebBoolFunc").returnFalse,
               image: s,
               primary: a,
               secondary: l,
               primaryDetail: i,
-              style: c,
+              style: d,
               theme: "chat-info",
               idle: !0,
             })),
@@ -359,12 +359,12 @@ __d(
             (t[4] = i),
             (t[5] = l),
             (t[6] = s),
-            (t[7] = d))
-          : (d = t[7]),
-        d
+            (t[7] = m))
+          : (m = t[7]),
+        m
       );
     }
-    function h(e) {
+    function y(e) {
       var t = o("react-compiler-runtime").c(2),
         n = e.vote,
         r;
@@ -372,15 +372,15 @@ __d(
         t[0] !== n
           ? ((r =
               n instanceof o("WAWebPollsPollVoteModel").PollVote
-                ? u.jsx(p, { vote: n })
-                : u.jsx(c, { vote: n })),
+                ? u.jsx(_, { vote: n })
+                : u.jsx(d, { vote: n })),
             (t[0] = n),
             (t[1] = r))
           : (r = t[1]),
         r
       );
     }
-    l.default = h;
+    l.default = y;
   },
   98,
 );

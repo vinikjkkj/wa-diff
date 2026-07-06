@@ -8,9 +8,10 @@ __d(
     "WAWebFlex.react",
     "WAWebPixLogoIcon.react",
     "WAWebText.react",
-    "WAWebUISpacing",
     "WAWebUserPrefsTypes",
     "WAWebWdsSmbPaymentsPixFilledIcon.react",
+    "WDSMargins.stylex",
+    "WDSPaddings.stylex",
     "WDSText.react",
     "react",
     "react-compiler-runtime",
@@ -19,13 +20,14 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react")),
-      c = {
+      c = { paddingTop6: { paddingTop: "x1yrsyyn", $$css: !0 } },
+      d = {
         header: {
           boxSizing: "x9f619",
-          borderStartStartRadius: "xaejkm2",
-          borderStartEndRadius: "x1uuy6ko",
-          borderEndEndRadius: "x1gfim23",
-          borderEndStartRadius: "xqfj769",
+          borderStartStartRadius: "x1i282gy",
+          borderStartEndRadius: "xx9ypkp",
+          borderEndEndRadius: "xd15eu0",
+          borderEndStartRadius: "x11ecxm0",
           $$css: !0,
         },
         bubbleIn: { backgroundColor: "x1bu39yj", $$css: !0 },
@@ -56,86 +58,85 @@ __d(
           $$css: !0,
         },
       };
-    function d() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "br_pix_key_bubble_content_update",
       );
     }
-    function m(e) {
+    function p(e) {
       var t = o("react-compiler-runtime").c(23),
         n = e.isSentByMe,
         a = e.orderInfo,
         i = a.paymentSettings,
         l,
-        m,
         p,
-        _;
+        _,
+        f;
       if (t[0] !== n || t[1] !== i) {
-        var f,
-          g,
+        var g,
           h,
           y,
-          C =
-            i == null || (f = i.at(0)) == null
+          C,
+          b =
+            i == null || (g = i.at(0)) == null
               ? void 0
-              : f[
+              : g[
                   o("WAWebBizOrderDetailsParams").PaymentSettingType
                     .PIX_STATIC_CODE
                 ];
         ((l = o("WAWebBrazilPixKeyFormattingUtils").getFormattedPixKey(
-          (g = C == null ? void 0 : C.key) != null ? g : "",
-          (h = o("WAWebUserPrefsTypes").PixKeyType.cast(
-            C == null ? void 0 : C.key_type,
+          (h = b == null ? void 0 : b.key) != null ? h : "",
+          (y = o("WAWebUserPrefsTypes").PixKeyType.cast(
+            b == null ? void 0 : b.key_type,
           )) != null
-            ? h
+            ? y
             : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
         )),
-          (p = o("WAWebBrazilPixKeyFormattingUtils").getPixKeyTypeLabel(
-            C == null ? void 0 : C.key_type,
+          (_ = o("WAWebBrazilPixKeyFormattingUtils").getPixKeyTypeLabel(
+            b == null ? void 0 : b.key_type,
           )),
-          (m = (y = C == null ? void 0 : C.merchant_name) != null ? y : ""),
-          (_ = n
+          (p = (C = b == null ? void 0 : b.merchant_name) != null ? C : ""),
+          (f = n
             ? s._(/*BTDS*/ "Requested by You")
             : s._(/*BTDS*/ "Requested by {merchant_name}", [
-                s._param("merchant_name", m),
+                s._param("merchant_name", p),
               ])),
           (t[0] = n),
           (t[1] = i),
           (t[2] = l),
-          (t[3] = m),
-          (t[4] = p),
-          (t[5] = _));
-      } else ((l = t[2]), (m = t[3]), (p = t[4]), (_ = t[5]));
-      var b = _,
-        v = n ? c.bubbleOut : c.bubbleIn,
-        S;
-      if (t[6] !== v) {
-        var R;
-        ((S = [
-          c.header,
-          (R = o("WAWebUISpacing")).uiPadding.top6,
-          R.uiPadding.bottom8,
-          R.uiPadding.horiz8,
-          R.uiMargin.bottom12,
-          v,
-        ]),
-          (t[6] = v),
-          (t[7] = S));
-      } else S = t[7];
+          (t[3] = p),
+          (t[4] = _),
+          (t[5] = f));
+      } else ((l = t[2]), (p = t[3]), (_ = t[4]), (f = t[5]));
+      var v = f,
+        S = n ? d.bubbleOut : d.bubbleIn,
+        R;
+      t[6] !== S
+        ? ((R = [
+            d.header,
+            c.paddingTop6,
+            o("WDSPaddings.stylex").wdsPaddings.paddingBottom8,
+            o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
+            o("WDSMargins.stylex").wdsMargins.marginBottom12,
+            S,
+          ]),
+          (t[6] = S),
+          (t[7] = R))
+        : (R = t[7]);
       var L, E;
       t[8] === Symbol.for("react.memo_cache_sentinel")
         ? ((L = "xh8yej3"),
-          (E = d()
+          (E = m()
             ? u.jsx(
                 o("WAWebWdsSmbPaymentsPixFilledIcon.react")
                   .WdsSmbPaymentsPixFilledIcon,
-                { height: 24, width: 24, xstyle: c.pixIcon },
+                { height: 24, width: 24, xstyle: d.pixIcon },
               )
             : u.jsx(o("WAWebPixLogoIcon.react").PixLogoIcon, {
                 height: 48,
                 innerStyles: {
-                  background: c.iconBackground,
-                  primary: c.iconPrimary,
+                  background: d.iconBackground,
+                  primary: d.iconPrimary,
                 },
               })),
           (t[8] = L),
@@ -144,31 +145,31 @@ __d(
       var k;
       t[10] === Symbol.for("react.memo_cache_sentinel")
         ? ((k = [
-            c.paymentInfoContent,
-            o("WAWebUISpacing").uiPadding.horiz8,
-            d() && o("WAWebUISpacing").uiPadding.top4,
+            d.paymentInfoContent,
+            o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
+            m() && o("WDSPaddings.stylex").wdsPaddings.paddingTop4,
           ]),
           (t[10] = k))
         : (k = t[10]);
       var I;
-      t[11] !== m || t[12] !== b
-        ? ((I = d()
+      t[11] !== p || t[12] !== v
+        ? ((I = m()
             ? u.jsx(r("WDSText.react"), {
                 type: "Body2Emphasized",
                 colorName: "contentDefault",
-                children: b,
+                children: v,
               })
             : u.jsx(o("WAWebText.react").WAWebTextTitle, {
                 textWrap: "ellipsis",
-                children: m,
+                children: p,
               })),
-          (t[11] = m),
-          (t[12] = b),
+          (t[11] = p),
+          (t[12] = v),
           (t[13] = I))
         : (I = t[13]);
       var T;
-      t[14] !== l || t[15] !== p
-        ? ((T = d()
+      t[14] !== l || t[15] !== _
+        ? ((T = m()
             ? u.jsx(r("WDSText.react"), {
                 type: "Body3",
                 colorName: "contentDeemphasized",
@@ -177,16 +178,16 @@ __d(
             : u.jsxs(o("WAWebText.react").WAWebTextMuted, {
                 color: "secondary",
                 textWrap: "ellipsis",
-                children: [p, ": ", l],
+                children: [_, ": ", l],
               })),
           (t[14] = l),
-          (t[15] = p),
+          (t[15] = _),
           (t[16] = T))
         : (T = t[16]);
       var D;
       t[17] !== I || t[18] !== T
         ? ((D = u.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: c.paymentInfo,
+            xstyle: d.paymentInfo,
             justify: "all",
             children: u.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
@@ -206,19 +207,19 @@ __d(
         : (D = t[19]);
       var x;
       return (
-        t[20] !== S || t[21] !== D
+        t[20] !== R || t[21] !== D
           ? ((x = u.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: S,
+              xstyle: R,
               children: D,
             })),
-            (t[20] = S),
+            (t[20] = R),
             (t[21] = D),
             (t[22] = x))
           : (x = t[22]),
         x
       );
     }
-    l.default = m;
+    l.default = p;
   },
   226,
 );

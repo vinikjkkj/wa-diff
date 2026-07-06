@@ -28,7 +28,6 @@ __d(
     "WAWebShowMessageActionFallbackErrorAction",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUISpacing",
     "WAWebUserPrefsTypes",
     "WAWebWamEnumBizPlatform",
     "WAWebWamEnumInteractionType",
@@ -42,116 +41,117 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = {
+      c = { marginBottom6: { marginBottom: "xzueoph", $$css: !0 } },
+      d = {
         headerTitle: { fontSize: "x6prxxf", fontWeight: "xk50ysn", $$css: !0 },
       };
-    function d(e) {
+    function m(e) {
       var t = o("react-compiler-runtime").c(38),
         n = e.displayAuthor,
         a = e.displayType,
         i = e.msg,
         l,
-        d;
+        m;
       if (
         i.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       ) {
-        var p;
+        var _;
         t[0] !== i
-          ? ((p = o("WAWebOrderDetails").getOrderInfo(i)),
+          ? ((_ = o("WAWebOrderDetails").getOrderInfo(i)),
             (t[0] = i),
-            (t[1] = p))
-          : (p = t[1]);
-        var g = p;
-        if (g) {
-          var h;
-          t[2] !== i
-            ? ((h = o("WAWebMsgGetters").getIsSentByMe(i)),
-              (t[2] = i),
-              (t[3] = h))
-            : (h = t[3]);
+            (t[1] = _))
+          : (_ = t[1]);
+        var h = _;
+        if (h) {
           var y;
-          (t[4] !== g || t[5] !== h
-            ? ((y = u.jsx(r("WAWebNativeFlowPaymentInfoOrderDetailsHeader"), {
-                isSentByMe: h,
-                orderInfo: g,
-              })),
-              (t[4] = g),
-              (t[5] = h),
-              (t[6] = y))
-            : (y = t[6]),
-            (l = y));
+          t[2] !== i
+            ? ((y = o("WAWebMsgGetters").getIsSentByMe(i)),
+              (t[2] = i),
+              (t[3] = y))
+            : (y = t[3]);
           var C;
-          t[7] !== i || t[8] !== g
-            ? ((C = f(g, i)), (t[7] = i), (t[8] = g), (t[9] = C))
-            : (C = t[9]);
+          (t[4] !== h || t[5] !== y
+            ? ((C = u.jsx(r("WAWebNativeFlowPaymentInfoOrderDetailsHeader"), {
+                isSentByMe: y,
+                orderInfo: h,
+              })),
+              (t[4] = h),
+              (t[5] = y),
+              (t[6] = C))
+            : (C = t[6]),
+            (l = C));
           var b;
-          (t[10] !== C ? ((b = [C]), (t[10] = C), (t[11] = b)) : (b = t[11]),
-            (d = b));
+          t[7] !== i || t[8] !== h
+            ? ((b = g(h, i)), (t[7] = i), (t[8] = h), (t[9] = b))
+            : (b = t[9]);
+          var v;
+          (t[10] !== b ? ((v = [b]), (t[10] = b), (t[11] = v)) : (v = t[11]),
+            (m = v));
         }
       } else if (
         i.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
       )
         if (t[12] !== a || t[13] !== i) {
-          var v = o("WAWebOrderDetails").getOrderInfo(i),
-            S = v == null ? void 0 : v.referenceId,
-            R =
-              S != null &&
+          var S = o("WAWebOrderDetails").getOrderInfo(i),
+            R = S == null ? void 0 : S.referenceId,
+            L =
+              R != null &&
               o("WAWebOrderStatus").findOrderStatus(
                 o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
-                S,
+                R,
               ) === o("WAWebOrderStatus").OrderStatus.Pending,
-            L;
+            E;
           t[16] === Symbol.for("react.memo_cache_sentinel")
-            ? ((L = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
-              (t[16] = L))
-            : (L = t[16]);
-          var E = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
+            ? ((E = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
+              (t[16] = E))
+            : (E = t[16]);
+          var k = u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
               msg: i,
               displayType: a,
             }),
-            k;
-          (t[17] !== E
-            ? ((k = u.jsx("div", babelHelpers.extends({}, L, { children: E }))),
-              (t[17] = E),
-              (t[18] = k))
-            : (k = t[18]),
-            (l = k));
-          var I;
-          t[19] !== R
-            ? ((I = R
+            I;
+          (t[17] !== k
+            ? ((I = u.jsx("div", babelHelpers.extends({}, E, { children: k }))),
+              (t[17] = k),
+              (t[18] = I))
+            : (I = t[18]),
+            (l = I));
+          var T;
+          t[19] !== L
+            ? ((T = L
                 ? s._(/*BTDS*/ "Review and pay")
                 : s._(/*BTDS*/ "View details")),
-              (t[19] = R),
-              (t[20] = I))
-            : (I = t[20]);
-          var T;
-          (t[21] !== I
-            ? ((T = { label: I, onClick: _ }), (t[21] = I), (t[22] = T))
-            : (T = t[22]),
-            (d = [T]));
-          var D = v == null ? void 0 : v.type;
+              (t[19] = L),
+              (t[20] = T))
+            : (T = t[20]);
+          var D;
+          (t[21] !== T
+            ? ((D = { label: T, onClick: f }), (t[21] = T), (t[22] = D))
+            : (D = t[22]),
+            (m = [D]));
+          var x = S == null ? void 0 : S.type;
           if (!o("WAWebMsgGetters").getIsSentByMe(i)) {
-            var x = o("WAWebGetQuickPayAction").getQuickPayAction(i, D, !R);
-            x && d.push(x);
+            var $ = o("WAWebGetQuickPayAction").getQuickPayAction(i, x, !L);
+            $ && m.push($);
           }
-          ((t[12] = a), (t[13] = i), (t[14] = l), (t[15] = d));
-        } else ((l = t[14]), (d = t[15]));
+          ((t[12] = a), (t[13] = i), (t[14] = l), (t[15] = m));
+        } else ((l = t[14]), (m = t[15]));
       else if (
         i.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var $;
-        t[23] === Symbol.for("react.memo_cache_sentinel")
-          ? (($ = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
-            (t[23] = $))
-          : ($ = t[23]);
         var P;
+        t[23] === Symbol.for("react.memo_cache_sentinel")
+          ? ((P = { className: "x1198e8h x1lxpwgx xzueoph xw01apr" }),
+            (t[23] = P))
+          : (P = t[23]);
+        var N;
         (t[24] !== a || t[25] !== i
-          ? ((P = u.jsx(
+          ? ((N = u.jsx(
               "div",
-              babelHelpers.extends({}, $, {
+              babelHelpers.extends({}, P, {
                 children: u.jsx(r("WAWebInteractiveNativeFlowOrderHeader"), {
                   msg: i,
                   displayType: a,
@@ -160,13 +160,13 @@ __d(
             )),
             (t[24] = a),
             (t[25] = i),
-            (t[26] = P))
-          : (P = t[26]),
-          (l = P));
+            (t[26] = N))
+          : (N = t[26]),
+          (l = N));
       } else {
-        var N;
+        var M;
         (t[27] !== i
-          ? ((N = r("isStringNullOrEmpty")(i.title)
+          ? ((M = r("isStringNullOrEmpty")(i.title)
               ? null
               : u.jsx(o("WAWebEmojiText.react").EmojiText, {
                   text: i.title,
@@ -176,65 +176,65 @@ __d(
                     o("WAWebFrontendMsgGetters").getRtl(i) !==
                     r("WAWebL10N").isRTL(),
                   inferLinesDirection: !0,
-                  xstyle: [o("WAWebUISpacing").uiMargin.bottom6, c.headerTitle],
+                  xstyle: [c.marginBottom6, d.headerTitle],
                 })),
             (t[27] = i),
-            (t[28] = N))
-          : (N = t[28]),
-          (l = N));
-        var M;
+            (t[28] = M))
+          : (M = t[28]),
+          (l = M));
+        var w;
         if (t[29] !== i.nativeFlowButtons) {
-          var w;
-          ((M = (w = i.nativeFlowButtons) == null ? void 0 : w.map(m)),
+          var A;
+          ((w = (A = i.nativeFlowButtons) == null ? void 0 : A.map(p)),
             (t[29] = i.nativeFlowButtons),
-            (t[30] = M));
-        } else M = t[30];
-        d = M;
+            (t[30] = w));
+        } else w = t[30];
+        m = w;
       }
-      var A =
+      var F =
           i.nativeFlowName !==
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS,
-        F;
+        O;
       return (
-        t[31] !== d ||
+        t[31] !== m ||
         t[32] !== n ||
         t[33] !== a ||
         t[34] !== l ||
         t[35] !== i ||
-        t[36] !== A
-          ? ((F = u.jsx(r("WAWebInteractiveBubble.react"), {
+        t[36] !== F
+          ? ((O = u.jsx(r("WAWebInteractiveBubble.react"), {
               msg: i,
               displayAuthor: n,
-              displayFooter: A,
+              displayFooter: F,
               header: l,
               displayType: a,
-              actions: d,
+              actions: m,
             })),
-            (t[31] = d),
+            (t[31] = m),
             (t[32] = n),
             (t[33] = a),
             (t[34] = l),
             (t[35] = i),
-            (t[36] = A),
-            (t[37] = F))
-          : (F = t[37]),
-        F
+            (t[36] = F),
+            (t[37] = O))
+          : (O = t[37]),
+        O
       );
     }
-    function m(e) {
+    function p(e) {
       var t, n;
       return {
         label:
           (t = (n = e.buttonText) == null ? void 0 : n.displayText) != null
             ? t
             : "",
-        onClick: p,
+        onClick: _,
       };
     }
-    function p() {
+    function _() {
       return r("WAWebShowMessageActionFallbackErrorAction")();
     }
-    function _() {
+    function f() {
       return r("WAWebShowMessageActionFallbackErrorAction")({
         title: s._(/*BTDS*/ "Orders can't be viewed on {=m1}", [
           s._implicitParam(
@@ -249,7 +249,7 @@ __d(
         ),
       });
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = e.paymentSettings;
       return {
         label: s._(/*BTDS*/ "Copy Pix key"),
@@ -295,12 +295,12 @@ __d(
               msg: s._(/*BTDS*/ "Pix key copied"),
             }),
           ),
-            g(t));
+            h(t));
         },
         Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
       };
     }
-    function g(e) {
+    function h(e) {
       var t;
       if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
         var n = r("WAWebPonyfillsCryptoRandomUUID")(),
@@ -373,7 +373,7 @@ __d(
           }));
       }
     }
-    l.default = d;
+    l.default = m;
   },
   226,
 );

@@ -8,8 +8,8 @@ __d(
     "WAWebSupportAiSessionWamEvent",
     "WAWebSupportBotFeedbackKind",
     "WAWebText.react",
-    "WAWebUISpacing",
     "WAWebWamEnumSupportAiEventType",
+    "WDSMargins.stylex",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -29,7 +29,6 @@ __d(
           lineHeight: "x1fc57z9",
           $$css: !0,
         },
-        checkbox: { display: "x1rg5ohu", verticalAlign: "xxymvpz", $$css: !0 },
       };
     function f(t) {
       var a = o("react-compiler-runtime").c(20),
@@ -122,31 +121,25 @@ __d(
                 {},
                 (e || (e = r("stylex"))).props(
                   _.option,
-                  o("WAWebUISpacing").uiMargin.top12,
-                  o("WAWebUISpacing").uiMargin.end0,
+                  o("WDSMargins.stylex").wdsMargins.marginTop12,
+                  o("WDSMargins.stylex").wdsMargins.marginEnd0,
                 ),
                 {
                   children: [
-                    c.jsx(
-                      "div",
-                      babelHelpers.extends(
-                        {},
-                        e.props(_.checkbox, o("WAWebUISpacing").uiMargin.end10),
+                    c.jsx("div", {
+                      className: "x1rg5ohu xxymvpz x1sa5p1d",
+                      children: c.jsx(
+                        o("WAWebCheckBox.react").CheckBox,
                         {
-                          children: c.jsx(
-                            o("WAWebCheckBox.react").CheckBox,
-                            {
-                              checked: f.includes(t.value),
-                              onChange: function () {
-                                return E(t.value);
-                              },
-                              testid: "feedback-option-" + n,
-                            },
-                            t.value,
-                          ),
+                          checked: f.includes(t.value),
+                          onChange: function () {
+                            return E(t.value);
+                          },
+                          testid: "feedback-option-" + n,
                         },
+                        t.value,
                       ),
-                    ),
+                    }),
                     c.jsx("label", { children: t.label }),
                   ],
                 },

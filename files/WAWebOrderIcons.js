@@ -3,8 +3,8 @@ __d(
   [
     "WAWebCircledPlusCustomIcon",
     "WAWebProductCatalogProductThumb.react",
-    "WAWebUISpacing",
     "WDSIconIcShoppingCart.react",
+    "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
   ],
@@ -43,7 +43,7 @@ __d(
                   height: 20,
                   xstyle: [
                     u.customItemSVG,
-                    o("WAWebUISpacing").uiMargin.allAuto,
+                    o("WDSMargins.stylex").wdsMargins.marginAuto,
                   ],
                 }),
               }),
@@ -72,7 +72,7 @@ __d(
                 children: s.jsx(r("WAWebCircledPlusCustomIcon"), {
                   wrapperStyles: [
                     u.addItemSVG,
-                    o("WAWebUISpacing").uiMargin.allAuto,
+                    o("WDSMargins.stylex").wdsMargins.marginAuto,
                   ],
                   height: 18,
                 }),

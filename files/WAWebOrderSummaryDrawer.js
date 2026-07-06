@@ -30,10 +30,11 @@ __d(
     "WAWebSmb3pdConversionSignalAction",
     "WAWebSmbMarkAsXOrderAction",
     "WAWebText_DONOTUSE.react",
-    "WAWebUISpacing",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WDSMargins.stylex",
+    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -131,8 +132,8 @@ __d(
       n[4] === Symbol.for("react.memo_cache_sentinel")
         ? ((v = [
             _.orderFieldsContainer,
-            o("WAWebUISpacing").uiPadding.horiz16,
-            o("WAWebUISpacing").uiPadding.bottom20,
+            o("WDSPaddings.stylex").wdsPaddings.paddingHor16,
+            o("WDSPaddings.stylex").wdsPaddings.paddingBottom20,
           ]),
           (n[4] = v))
         : (v = n[4]);
@@ -254,7 +255,7 @@ __d(
                       testid: "order-details-additional-charges-button",
                       className: (e || (e = r("stylex")))(
                         r("WAWebOrderDetailSharedStyles").clickableText,
-                        o("WAWebUISpacing").uiMargin.bottom0,
+                        o("WDSMargins.stylex").wdsMargins.marginBottom0,
                       ),
                       children: c.jsx("span", {
                         children: s._(/*BTDS*/ "Add discount, shipping or tax"),
@@ -466,8 +467,8 @@ __d(
         t[42] === Symbol.for("react.memo_cache_sentinel")
           ? ((re = [
               _.orderItemsContainer,
-              o("WAWebUISpacing").uiPadding.top20,
-              o("WAWebUISpacing").uiMargin.bottom0,
+              o("WDSPaddings.stylex").wdsPaddings.paddingTop20,
+              o("WDSMargins.stylex").wdsMargins.marginBottom0,
             ]),
             (t[42] = re))
           : (re = t[42]);
@@ -574,7 +575,7 @@ __d(
             : (G = t[73]),
           (O = r("WAWebDrawerSection.react")),
           (F = o("WAWebOrderTotalPrice").OrderTotalPrice),
-          (K = o("WAWebUISpacing").uiPadding.all16),
+          (K = o("WDSPaddings.stylex").wdsPaddings.padding16),
           (Q = te),
           (X = !ee),
           (Y = "send-order-button"),

@@ -15,11 +15,13 @@ __d(
     "WAWebGroupHistoryPostJoinEligibilityFull",
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebGroupHistorySendMessagesModal.react",
+    "WAWebGroupHistorySenderUserJourneyLogger",
     "WAWebGroupMetadataCollection",
     "WAWebModalManager",
     "WAWebSendHistoryBundleAction",
     "WAWebToast.react",
     "WAWebToastManager",
+    "WAWebWamEnumTsSurface",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "WDSTextualLink.react",
@@ -40,51 +42,53 @@ __d(
         titleHeader: { rowGap: "x8a3fw1", alignItems: "x1qjc9v5", $$css: !0 },
       },
       g = 100;
-    function h(e, t, n) {
+    function h(e, t, n, r) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (t.length !== 0) {
-            var a = o("WAWebWidFactory").asGroupWidOrThrow(e),
-              i = r("WAWebGroupMetadataCollection").get(a);
-            if (i == null) {
-              o("WALogger")
-                .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] post-join: missing groupMetadata ",
-                      "",
-                    ])),
-                  a.toString(),
-                )
-                .sendLogs("group-history-post-join-missing-group");
-              return;
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            if (t.length !== 0) {
+              var i = o("WAWebWidFactory").asGroupWidOrThrow(e),
+                l = r("WAWebGroupMetadataCollection").get(i);
+              if (l == null) {
+                o("WALogger")
+                  .WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[group-history] post-join: missing groupMetadata ",
+                        "",
+                      ])),
+                    i.toString(),
+                  )
+                  .sendLogs("group-history-post-join-missing-group");
+                return;
+              }
+              if (t.length === 1) {
+                yield C(e, i, l, t[0], n, a);
+                return;
+              }
+              yield v(e, i, l, t, n, a);
             }
-            if (t.length === 1) {
-              yield C(e, a, i, t[0], n);
-              return;
-            }
-            yield v(e, a, i, t, n);
-          }
-        })),
+          },
+        )),
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o) {
+    function C(e, t, n, r, o, a) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l) {
-            var u,
-              c = (u = i.joinTime) != null ? u : l;
-            if (c != null) {
-              var d;
+          function* (e, t, a, i, l, u) {
+            var c,
+              d = (c = i.joinTime) != null ? c : l;
+            if (d != null) {
+              var m;
               try {
-                d = yield o(
+                m = yield o(
                   "WAWebGroupHistoryPostJoinEligibilityFull",
                 ).isEligibleForPostJoinHistoryFull({
                   groupMetadata: a,
@@ -96,14 +100,26 @@ __d(
                 (k(e), I());
                 return;
               }
-              if (!d.eligible) {
-                I();
+              if (!m.eligible) {
+                (u != null &&
+                  o(
+                    "WAWebGroupHistorySenderUserJourneyLogger",
+                  ).GroupHistorySenderUserJourneyLogger.sendIneligibleAtCtaClick(
+                    {
+                      ineligibleReason: o(
+                        "WAWebGroupHistorySenderUserJourneyLogger",
+                      ).mapEligibilityResultToIneligibleReason(m.reason),
+                      uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                        .GROUP_CHAT,
+                    },
+                  ),
+                  I());
                 return;
               }
-              var m = o("WAWebFrontendContactGetters").getFormattedShortName(
+              var g = o("WAWebFrontendContactGetters").getFormattedShortName(
                   i.contact,
                 ),
-                g = (function () {
+                h = (function () {
                   var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n, r) {
                       var s;
@@ -121,31 +137,51 @@ __d(
                         return;
                       }
                       if ((r(), !s.eligible)) {
-                        I();
+                        (u != null &&
+                          o(
+                            "WAWebGroupHistorySenderUserJourneyLogger",
+                          ).GroupHistorySenderUserJourneyLogger.sendIneligibleAtSendClick(
+                            {
+                              ineligibleReason: o(
+                                "WAWebGroupHistorySenderUserJourneyLogger",
+                              ).mapEligibilityResultToIneligibleReason(
+                                s.reason,
+                              ),
+                              uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                                .GROUP_CHAT,
+                            },
+                          ),
+                          I());
                         return;
                       }
-                      N(e, i.contact.id, c, m, n);
+                      N(e, i.contact.id, d, g, n, u);
                     },
                   );
                   return function (t, n) {
                     return r.apply(this, arguments);
                   };
                 })(),
-                h = d.messageCount,
-                y = function () {
-                  L({
-                    groupOnlyWid: t,
-                    onDone: function (t) {
-                      g(t, function () {
-                        (o(
-                          "WAWebModalManager",
-                        ).ModalManager.closeSupportModal(),
-                          o("WAWebModalManager").ModalManager.close());
-                      });
-                    },
-                    totalMessages: h,
-                  });
-                };
+                y = m.messageCount;
+              u != null &&
+                o(
+                  "WAWebGroupHistorySenderUserJourneyLogger",
+                ).GroupHistorySenderUserJourneyLogger.selectableMessagesLoaded({
+                  groupHistoryMessagesCount: y,
+                  uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+                });
+              var C = function () {
+                L({
+                  bundleSendSource: u,
+                  groupOnlyWid: t,
+                  onDone: function (t) {
+                    h(t, function () {
+                      (o("WAWebModalManager").ModalManager.closeSupportModal(),
+                        o("WAWebModalManager").ModalManager.close());
+                    });
+                  },
+                  totalMessages: y,
+                });
+              };
               o("WAWebModalManager").ModalManager.openSupportModal(
                 p.jsx(r("WAWebGroupHistoryPostJoinConfirmPopup.react"), {
                   title: p.jsxs(o("WAWebFlex.react").FlexColumn, {
@@ -166,20 +202,20 @@ __d(
                         ),
                       }),
                       s._(/*BTDS*/ "Send message history to {contactName}?", [
-                        s._param("contactName", m),
+                        s._param("contactName", g),
                       ]),
                     ],
                   }),
                   okText: s._(/*BTDS*/ "Send"),
                   onCancel: o("WAWebModalManager").closeModalManager,
                   onConfirm: function () {
-                    return g(null, o("WAWebModalManager").closeModalManager);
+                    return h(null, o("WAWebModalManager").closeModalManager);
                   },
                   children: s._(
-                    /*BTDS*/ "Choose how many {recentMessagesLink} from this group you want to send {contactName}.",
+                    /*BTDS*/ "{contactName} will get {recentMessagesLink} from this group.",
                     [
-                      s._param("recentMessagesLink", R(y)),
-                      s._param("contactName", m),
+                      s._param("contactName", g),
+                      s._param("recentMessagesLink", R(C)),
                     ],
                   ),
                 }),
@@ -190,16 +226,16 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n, r, o) {
+    function v(e, t, n, r, o, a) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l) {
-            var u;
+          function* (e, t, a, i, l, u) {
+            var c;
             try {
-              u = yield o(
+              c = yield o(
                 "WAWebGroupHistoryPostJoinEligibilityFull",
               ).isEligibleForPostJoinHistoryFullMulti({
                 groupMetadata: a,
@@ -211,15 +247,28 @@ __d(
               (k(e), I());
               return;
             }
-            if (u.eligible.length === 0) {
-              T(u.ineligible);
+            if (c.eligible.length === 0) {
+              if (u != null) {
+                var d;
+                o(
+                  "WAWebGroupHistorySenderUserJourneyLogger",
+                ).GroupHistorySenderUserJourneyLogger.sendIneligibleAtCtaClick({
+                  ineligibleReason: o(
+                    "WAWebGroupHistorySenderUserJourneyLogger",
+                  ).mapEligibilityResultToIneligibleReason(
+                    (d = c.ineligible[0]) == null ? void 0 : d.reason,
+                  ),
+                  uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+                });
+              }
+              T(c.ineligible);
               return;
             }
-            var c = o("WAWebFrontendContactGetters").getFormattedShortName(
+            var m = o("WAWebFrontendContactGetters").getFormattedShortName(
                 i[0].contact,
               ),
-              d = i.length - 1,
-              m = (function () {
+              _ = i.length - 1,
+              g = (function () {
                 var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (n, r) {
                     var s;
@@ -237,29 +286,53 @@ __d(
                       return;
                     }
                     if ((r(), s.eligible.length === 0)) {
+                      if (u != null) {
+                        var c;
+                        o(
+                          "WAWebGroupHistorySenderUserJourneyLogger",
+                        ).GroupHistorySenderUserJourneyLogger.sendIneligibleAtSendClick(
+                          {
+                            ineligibleReason: o(
+                              "WAWebGroupHistorySenderUserJourneyLogger",
+                            ).mapEligibilityResultToIneligibleReason(
+                              (c = s.ineligible[0]) == null ? void 0 : c.reason,
+                            ),
+                            uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                              .GROUP_CHAT,
+                          },
+                        );
+                      }
                       T(s.ineligible);
                       return;
                     }
-                    (M(e, s.eligible, l, n), D(s.ineligible));
+                    (M(e, s.eligible, l, n, u), D(s.ineligible));
                   },
                 );
                 return function (t, n) {
                   return r.apply(this, arguments);
                 };
               })(),
-              _ = u.messageCount,
-              g = function () {
-                L({
-                  groupOnlyWid: t,
-                  onDone: function (t) {
-                    m(t, function () {
-                      (o("WAWebModalManager").ModalManager.closeSupportModal(),
-                        o("WAWebModalManager").ModalManager.close());
-                    });
-                  },
-                  totalMessages: _,
-                });
-              };
+              h = c.messageCount;
+            u != null &&
+              o(
+                "WAWebGroupHistorySenderUserJourneyLogger",
+              ).GroupHistorySenderUserJourneyLogger.selectableMessagesLoaded({
+                groupHistoryMessagesCount: h,
+                uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+              });
+            var y = function () {
+              L({
+                bundleSendSource: u,
+                groupOnlyWid: t,
+                onDone: function (t) {
+                  g(t, function () {
+                    (o("WAWebModalManager").ModalManager.closeSupportModal(),
+                      o("WAWebModalManager").ModalManager.close());
+                  });
+                },
+                totalMessages: h,
+              });
+            };
             o("WAWebModalManager").ModalManager.openSupportModal(
               p.jsx(r("WAWebGroupHistoryPostJoinConfirmPopup.react"), {
                 title: p.jsxs(o("WAWebFlex.react").FlexColumn, {
@@ -274,8 +347,8 @@ __d(
                     s._(
                       /*BTDS*/ '_j{"*":"Send message history to {firstPersonName} and {number of other recipients} others?","_1":"Send message history to {firstPersonName} and 1 other?"}',
                       [
-                        s._plural(d, "number of other recipients"),
-                        s._param("firstPersonName", c),
+                        s._plural(_, "number of other recipients"),
+                        s._param("firstPersonName", m),
                       ],
                     ),
                   ],
@@ -283,11 +356,11 @@ __d(
                 okText: s._(/*BTDS*/ "Send"),
                 onCancel: o("WAWebModalManager").closeModalManager,
                 onConfirm: function () {
-                  return m(null, o("WAWebModalManager").closeModalManager);
+                  return g(null, o("WAWebModalManager").closeModalManager);
                 },
                 children: s._(
-                  /*BTDS*/ "Choose how many {recentMessagesLink} from this group you want to send.",
-                  [s._param("recentMessagesLink", R(g))],
+                  /*BTDS*/ "They'll get {recentMessagesLink} from this group.",
+                  [s._param("recentMessagesLink", R(y))],
                 ),
               }),
             );
@@ -306,19 +379,36 @@ __d(
     }
     R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      var t = e.groupOnlyWid,
-        n = e.onDone,
-        a = e.totalMessages,
-        i = Math.min(g, a);
+      var t = e.bundleSendSource,
+        n = e.groupOnlyWid,
+        a = e.onDone,
+        i = e.totalMessages;
+      t != null &&
+        o(
+          "WAWebGroupHistorySenderUserJourneyLogger",
+        ).GroupHistorySenderUserJourneyLogger.countChangeEntryPointClicked({
+          groupHistoryMessagesCount: i,
+          uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+        });
+      var l = Math.min(g, i);
       o("WAWebModalManager").ModalManager.openSupportModal(
         p.jsx(r("WAWebGroupHistorySendMessagesModal.react"), {
-          currentMessageCount: a,
-          selectedMessageCount: i,
+          currentMessageCount: i,
+          selectedMessageCount: l,
           showPinDisclaimer: o(
             "WAWebGroupHistoryGating",
-          ).isOutOfWindowPinSenderEnabled(t),
+          ).isOutOfWindowPinSenderEnabled(n),
           primaryButtonLabel: s._(/*BTDS*/ "Send"),
-          onDone: n,
+          onDone: a,
+          onCountChanged: function (n) {
+            t != null &&
+              o(
+                "WAWebGroupHistorySenderUserJourneyLogger",
+              ).GroupHistorySenderUserJourneyLogger.countChanged({
+                groupHistoryMessagesCount: n,
+                uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+              });
+          },
           onCancel: function () {
             return o("WAWebModalManager").ModalManager.closeSupportModal();
           },
@@ -406,14 +496,30 @@ __d(
           );
     }
     P.displayName = P.name + " [from " + i.id + "]";
-    function N(e, t, n, r, a) {
-      var i = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([t]),
-        l = i.historyReceivers,
-        c = i.nonHistoryReceivers;
-      if (l.length !== 0) {
-        var d = o("WAWebWidToJid").widToGroupJid(e);
+    function N(e, t, n, r, a, i) {
+      var l = o("WAWebGroupHistoryRestrictionHelper").filterParticipants([t]),
+        c = l.historyReceivers,
+        d = l.nonHistoryReceivers;
+      if (c.length !== 0) {
+        i != null &&
+          (o(
+            "WAWebGroupHistorySenderUserJourneyLogger",
+          ).GroupHistorySenderUserJourneyLogger.bundleMessageSent({
+            bundleSendSource: i,
+            groupHistoryMessagesCount: a,
+            recipientCount: c.length,
+            uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+          }),
+          o(
+            "WAWebGroupHistorySenderUserJourneyLogger",
+          ).GroupHistorySenderUserJourneyLogger.noticeMessageSent({
+            bundleSendSource: i,
+            recipientCount: c.length,
+            uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+          }));
+        var m = o("WAWebWidToJid").widToGroupJid(e);
         o("WAWebSendHistoryBundleAction")
-          .sendHistoryBundleAction(d, l, c, a, n)
+          .sendHistoryBundleAction(m, c, d, a, n)
           .then(function () {
             o("WAWebToastManager").ToastManager.open(
               p.jsx(o("WAWebToast.react").Toast, {
@@ -437,32 +543,48 @@ __d(
           });
       }
     }
-    function M(e, t, n, r) {
-      var a = n != null ? n : t[0].joinTime;
-      if (a != null) {
-        var i = o("WAWebGroupHistoryRestrictionHelper").filterParticipants(
+    function M(e, t, n, r, a) {
+      var i = n != null ? n : t[0].joinTime;
+      if (i != null) {
+        var l = o("WAWebGroupHistoryRestrictionHelper").filterParticipants(
             t.map(function (e) {
               return e.contact.id;
             }),
           ),
-          l = i.historyReceivers,
-          u = i.nonHistoryReceivers;
-        if (l.length !== 0) {
-          var d = o("WAWebFrontendContactGetters").getFormattedShortName(
+          u = l.historyReceivers,
+          d = l.nonHistoryReceivers;
+        if (u.length !== 0) {
+          a != null &&
+            (o(
+              "WAWebGroupHistorySenderUserJourneyLogger",
+            ).GroupHistorySenderUserJourneyLogger.bundleMessageSent({
+              bundleSendSource: a,
+              groupHistoryMessagesCount: r,
+              recipientCount: u.length,
+              uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+            }),
+            o(
+              "WAWebGroupHistorySenderUserJourneyLogger",
+            ).GroupHistorySenderUserJourneyLogger.noticeMessageSent({
+              bundleSendSource: a,
+              recipientCount: u.length,
+              uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.GROUP_CHAT,
+            }));
+          var m = o("WAWebFrontendContactGetters").getFormattedShortName(
               t[0].contact,
             ),
-            m = t.length - 1,
-            _ = o("WAWebWidToJid").widToGroupJid(e);
+            _ = t.length - 1,
+            f = o("WAWebWidToJid").widToGroupJid(e);
           o("WAWebSendHistoryBundleAction")
-            .sendHistoryBundleAction(_, l, u, r, a)
+            .sendHistoryBundleAction(f, u, d, r, i)
             .then(function () {
               o("WAWebToastManager").ToastManager.open(
                 p.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
                     /*BTDS*/ '_j{"*":"Message history sent to {firstPersonName} and {number of other recipients} others","_1":"Message history sent to {firstPersonName} and 1 other"}',
                     [
-                      s._plural(m, "number of other recipients"),
-                      s._param("firstPersonName", d),
+                      s._plural(_, "number of other recipients"),
+                      s._param("firstPersonName", m),
                     ],
                   ),
                 }),

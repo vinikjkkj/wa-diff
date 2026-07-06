@@ -9,19 +9,18 @@ __d(
     "WAWebFlex.react",
     "WAWebModalManager",
     "WAWebText.react",
-    "WAWebUISpacing",
     "WAWebUnlinkSubgroupsAction",
+    "WDSMargins.stylex",
+    "WDSPaddings.stylex",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
-    "stylex",
     "useWAWebToggle",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = o("react")),
-      d = {
+      u = e || (e = o("react")),
+      c = {
         checkboxContainer: {
           fontSize: "x1f6kntn",
           lineHeight: "x16h55sf",
@@ -30,141 +29,132 @@ __d(
           borderTopColor: "xx42vgk",
           $$css: !0,
         },
-        checkbox: {
-          display: "x1rg5ohu",
-          flex: "x1okw0bk",
-          verticalAlign: "x1uuroth",
-          transitionProperty: "x19991ni",
-          transitionDuration: "x1d8287x",
-          transitionTimingFunction: "xwji4o3",
-          $$css: !0,
-        },
       };
-    function m(t) {
-      var n = o("react-compiler-runtime").c(21),
-        a = t.handleRemove,
-        i = t.removeDisclaimer,
-        l = t.removeParticipantOption,
-        u = l === void 0 ? !1 : l,
-        m = r("useWAWebToggle")(!1),
-        p = m[0],
-        _ = m[1],
-        f,
-        g;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = s._(/*BTDS*/ "Remove group from community?")), (n[0] = g))
-        : (g = n[0]);
-      var h = g;
-      if (u) {
+    function d(e) {
+      var t = o("react-compiler-runtime").c(21),
+        n = e.handleRemove,
+        a = e.removeDisclaimer,
+        i = e.removeParticipantOption,
+        l = i === void 0 ? !1 : i,
+        d = r("useWAWebToggle")(!1),
+        m = d[0],
+        p = d[1],
+        _,
+        f;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = s._(/*BTDS*/ "Remove group from community?")), (t[0] = f))
+        : (f = t[0]);
+      var g = f;
+      if (l) {
+        var h;
+        t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((h = {
+              className:
+                "x1rg5ohu x1okw0bk x1uuroth x19991ni x1d8287x xwji4o3 x1sa5p1d",
+            }),
+            (t[1] = h))
+          : (h = t[1]);
         var y;
-        n[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((y = (e || (e = r("stylex"))).props(
-              d.checkbox,
-              o("WAWebUISpacing").uiMargin.end10,
-            )),
-            (n[1] = y))
-          : (y = n[1]);
-        var C;
-        n[2] !== p || n[3] !== _
-          ? ((C = c.jsx(
+        t[2] !== m || t[3] !== p
+          ? ((y = u.jsx(
               "div",
               babelHelpers.extends(
                 { "data-testid": "checkbox-remove-orphan-members" },
-                y,
+                h,
                 {
-                  children: c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                    onChange: _,
-                    checked: p,
+                  children: u.jsx(o("WAWebCheckBox.react").CheckBox, {
+                    onChange: p,
+                    checked: m,
                     id: "checkbox-remove-orphan-members",
                   }),
                 },
               ),
             )),
-            (n[2] = p),
-            (n[3] = _),
-            (n[4] = C))
-          : (C = n[4]);
-        var b = C,
-          v;
-        n[5] === Symbol.for("react.memo_cache_sentinel")
-          ? ((v = s._(/*BTDS*/ "Remove group members")), (n[5] = v))
-          : (v = n[5]);
-        var S = v,
-          R;
-        n[6] !== i
-          ? ((R = c.jsx(o("WAWebText.react").WAWebTextMuted, {
-              xstyle: o("WAWebUISpacing").uiPadding.bottom20,
-              children: i,
+            (t[2] = m),
+            (t[3] = p),
+            (t[4] = y))
+          : (y = t[4]);
+        var C = y,
+          b;
+        t[5] === Symbol.for("react.memo_cache_sentinel")
+          ? ((b = s._(/*BTDS*/ "Remove group members")), (t[5] = b))
+          : (b = t[5]);
+        var v = b,
+          S;
+        t[6] !== a
+          ? ((S = u.jsx(o("WAWebText.react").WAWebTextMuted, {
+              xstyle: o("WDSPaddings.stylex").wdsPaddings.paddingBottom20,
+              children: a,
             })),
-            (n[6] = i),
-            (n[7] = R))
-          : (R = n[7]);
-        var L;
-        n[8] === Symbol.for("react.memo_cache_sentinel")
-          ? ((L = [
-              d.checkboxContainer,
-              o("WAWebUISpacing").uiPadding.top20,
-              o("WAWebUISpacing").uiMargin.end0,
+            (t[6] = a),
+            (t[7] = S))
+          : (S = t[7]);
+        var R;
+        t[8] === Symbol.for("react.memo_cache_sentinel")
+          ? ((R = [
+              c.checkboxContainer,
+              o("WDSPaddings.stylex").wdsPaddings.paddingTop20,
+              o("WDSMargins.stylex").wdsMargins.marginEnd0,
             ]),
-            (n[8] = L))
-          : (L = n[8]);
+            (t[8] = R))
+          : (R = t[8]);
+        var L;
+        t[9] !== C
+          ? ((L = u.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: R,
+              children: [C, v],
+            })),
+            (t[9] = C),
+            (t[10] = L))
+          : (L = t[10]);
         var E;
-        n[9] !== b
-          ? ((E = c.jsxs(o("WAWebFlex.react").FlexRow, {
-              xstyle: L,
-              children: [b, S],
-            })),
-            (n[9] = b),
-            (n[10] = E))
-          : (E = n[10]);
-        var k;
-        (n[11] !== R || n[12] !== E
-          ? ((k = c.jsxs(c.Fragment, { children: [R, E] })),
-            (n[11] = R),
-            (n[12] = E),
-            (n[13] = k))
-          : (k = n[13]),
-          (f = k));
+        (t[11] !== S || t[12] !== L
+          ? ((E = u.jsxs(u.Fragment, { children: [S, L] })),
+            (t[11] = S),
+            (t[12] = L),
+            (t[13] = E))
+          : (E = t[13]),
+          (_ = E));
       }
-      var I;
-      n[14] !== p || n[15] !== a
-        ? ((I = function () {
-            return a(p);
+      var k;
+      t[14] !== m || t[15] !== n
+        ? ((k = function () {
+            return n(m);
           }),
-          (n[14] = p),
-          (n[15] = a),
-          (n[16] = I))
-        : (I = n[16]);
-      var T;
-      n[17] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = s._(/*BTDS*/ "Remove")), (n[17] = T))
-        : (T = n[17]);
-      var D = u ? f : i,
-        x;
+          (t[14] = m),
+          (t[15] = n),
+          (t[16] = k))
+        : (k = t[16]);
+      var I;
+      t[17] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = s._(/*BTDS*/ "Remove")), (t[17] = I))
+        : (I = t[17]);
+      var T = l ? _ : a,
+        D;
       return (
-        n[18] !== I || n[19] !== D
-          ? ((x = c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              onOK: I,
+        t[18] !== k || t[19] !== T
+          ? ((D = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              onOK: k,
               okButtonType: "solid-warning",
-              okText: T,
+              okText: I,
               onCancel: o("WAWebModalManager").closeModalManager,
-              title: h,
-              children: D,
+              title: g,
+              children: T,
             })),
-            (n[18] = I),
-            (n[19] = D),
-            (n[20] = x))
-          : (x = n[20]),
-        x
+            (t[18] = k),
+            (t[19] = T),
+            (t[20] = D))
+          : (D = t[20]),
+        D
       );
     }
-    function p(e) {
+    function m(e) {
       var t,
         a = e.iAmCommunityAdmin,
         i = a === void 0 ? !0 : a,
         l = e.parentId,
-        u = e.removedSubgroupTitle,
-        d = e.removedSubgroupWid,
+        c = e.removedSubgroupTitle,
+        m = e.removedSubgroupWid,
         p = e.setLoading,
         _ =
           (t = o("WAWebChatCollection").ChatCollection.get(l)) == null
@@ -176,7 +166,7 @@ __d(
             (e === void 0 && (e = !1),
               o("WAWebModalManager").ModalManager.close(),
               p(!0),
-              yield r("WAWebUnlinkSubgroupsAction")(l, [d], e),
+              yield r("WAWebUnlinkSubgroupsAction")(l, [m], e),
               p(!1));
           });
           return function (n) {
@@ -189,12 +179,12 @@ __d(
           [
             s._param(
               "group_title",
-              c.jsx(o("WAWebEmojiText.react").EmojiText, { text: u }),
+              u.jsx(o("WAWebEmojiText.react").EmojiText, { text: c }),
             ),
           ],
         )),
           o("WAWebModalManager").ModalManager.open(
-            c.jsx(m, {
+            u.jsx(d, {
               removeDisclaimer: f,
               handleRemove: g,
               removeParticipantOption: !0,
@@ -209,11 +199,11 @@ __d(
               [
                 s._param(
                   "group_title",
-                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: u }),
+                  u.jsx(o("WAWebEmojiText.react").EmojiText, { text: c }),
                 ),
                 s._param(
                   "community_title",
-                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: _ }),
+                  u.jsx(o("WAWebEmojiText.react").EmojiText, { text: _ }),
                 ),
               ],
             )
@@ -222,15 +212,15 @@ __d(
               [
                 s._param(
                   "group_title",
-                  c.jsx(o("WAWebEmojiText.react").EmojiText, { text: u }),
+                  u.jsx(o("WAWebEmojiText.react").EmojiText, { text: c }),
                 ),
               ],
             )),
         o("WAWebModalManager").ModalManager.open(
-          c.jsx(m, { removeDisclaimer: f, handleRemove: g }),
+          u.jsx(d, { removeDisclaimer: f, handleRemove: g }),
         ));
     }
-    l.handleRemoveSubgroup = p;
+    l.handleRemoveSubgroup = m;
   },
   226,
 );

@@ -35,6 +35,7 @@ __d(
     "WAWebParseWebMessageInfoApi",
     "WAWebProcessBaseMsgInfo",
     "WAWebProtobufMsgKeyUtils",
+    "WAWebProtobufsE2E.pb",
     "WAWebProtobufsGroupHistory.pb",
     "WAWebReportingTokenUtils",
     "WAWebSchemaMessage",
@@ -55,7 +56,7 @@ __d(
           var i = 0,
             l = 0;
           try {
-            var _, f;
+            var _, f, g;
             yield o(
               "WAWebUpdateMessageHistoryBundleState",
             ).updateGroupHistoryBundleState(
@@ -63,38 +64,65 @@ __d(
               o("WAWebGroupHistoryMsgData.flow")
                 .MessageHistoryBundleProcessState.PROCESSING,
             );
-            var g = yield o("WAWebDecompressAndDecodeBundle").decompressBundle(
+            var h = yield o("WAWebDecompressAndDecodeBundle").decompressBundle(
                 t,
               ),
-              h = o("decodeProtobuf").decodeProtobuf(
+              y = o("decodeProtobuf").decodeProtobuf(
                 o("WAWebProtobufsGroupHistory.pb").GroupHistorySpec,
-                g,
+                h,
               );
-            ((i = h.messages.length),
+            ((i = y.messages.length),
               (l =
                 (_ =
-                  (f = h.outOfWindowPinnedMessages) == null
+                  (f = y.outOfWindowPinnedMessages) == null
                     ? void 0
                     : f.length) != null
                   ? _
-                  : 0),
-              o("WAWebBackendApi").frontendFireAndForget(
-                "logGroupHistoryParseHistoryProtoSucceeded",
-                { groupId: a.toJid(), messagesCount: i, oowPinsCount: l },
-              ));
-            var y = e.unsafe(),
-              C = null;
+                  : 0));
+            var C = y.messages.filter(function (e) {
+                var t;
+                return (
+                  ((t = e.message) == null || (t = t.pinInChatMessage) == null
+                    ? void 0
+                    : t.type) ===
+                  o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
+                    .PIN_FOR_ALL
+                );
+              }).length,
+              b = (
+                (g = y.uncountedAssociatedMessageLists) != null ? g : []
+              ).reduce(function (e, t) {
+                var n, r;
+                return (
+                  e +
+                  ((n = (r = t.messages) == null ? void 0 : r.length) != null
+                    ? n
+                    : 0)
+                );
+              }, 0);
+            o("WAWebBackendApi").frontendFireAndForget(
+              "logGroupHistoryParseHistoryProtoSucceeded",
+              {
+                groupId: a.toJid(),
+                messagesCount: i,
+                oowPinsCount: l,
+                pinsCount: C,
+                uncountedCount: b,
+              },
+            );
+            var v = e.unsafe(),
+              S = null;
             try {
-              var b;
-              C = yield o(
+              var L;
+              S = yield o(
                 "WAWebGroupHistoryReportingTokenValidator",
               ).prepareValidationContext({
-                bundleMessageSecret: y.messageSecret,
+                bundleMessageSecret: v.messageSecret,
                 bundleMsgId: e.id,
-                bundleMsgTimestamp: (b = y.t) != null ? b : 0,
-                bundleSenderWid: y.author,
+                bundleMsgTimestamp: (L = v.t) != null ? L : 0,
+                bundleSenderWid: v.author,
                 groupWid: a,
-                inflatedBytes: g,
+                inflatedBytes: h,
               });
             } catch (e) {
               o("WALogger").WARN(
@@ -106,21 +134,21 @@ __d(
                 r("WAWebSerializeError")(e),
               );
             }
-            var v = o("WAWebProcessBaseMsgInfo").msgToBaseMsgInfo(y),
-              S = yield (R || (R = n("Promise"))).all([
+            var E = o("WAWebProcessBaseMsgInfo").msgToBaseMsgInfo(v),
+              I = yield (R || (R = n("Promise"))).all([
                 k({
-                  baseMessage: v,
+                  baseMessage: E,
                   bundleMessageKey: e.id,
-                  bundleProtoMessages: h.messages,
+                  bundleProtoMessages: y.messages,
                   chatId: a,
-                  validationCtx: C,
+                  validationCtx: S,
                 }),
                 l > 0 &&
                 o("WAWebGroupHistoryGating").isOutOfWindowPinsReceiverEnabled()
                   ? k({
-                      baseMessage: v,
+                      baseMessage: E,
                       bundleMessageKey: e.id,
-                      bundleProtoMessages: h.outOfWindowPinnedMessages,
+                      bundleProtoMessages: y.outOfWindowPinnedMessages,
                       chatId: a,
                       skipMessageTooOldCheck: !0,
                       validationCtx: null,
@@ -131,18 +159,18 @@ __d(
                       reportingInfoRows: [],
                     },
               ]),
-              L = S[0],
-              E = L.addonPromises,
-              I = L.parsedMessages,
-              T = L.reportingInfoRows,
-              D = S[1],
-              x = D.addonPromises,
-              $ = D.parsedMessages,
-              N = D.reportingInfoRows,
-              w = [].concat(I, $),
-              F = [].concat(E, x),
-              B = [].concat(T, N);
-            if (w.length === 0) {
+              T = I[0],
+              D = T.addonPromises,
+              x = T.parsedMessages,
+              $ = T.reportingInfoRows,
+              N = I[1],
+              w = N.addonPromises,
+              F = N.parsedMessages,
+              B = N.reportingInfoRows,
+              W = [].concat(x, F),
+              q = [].concat(D, w),
+              U = [].concat($, B);
+            if (W.length === 0) {
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -158,22 +186,22 @@ __d(
                   " msgs (",
                   " OOW pins), injecting",
                 ])),
-              w.length,
-              $.length,
+              W.length,
+              F.length,
             );
-            var W = yield P(w),
-              q = yield M(W, a),
-              U = yield A(F, v),
-              V =
-                q.length < h.messages.length + l
+            var V = yield P(W),
+              H = yield M(V, a),
+              G = yield A(q, E),
+              z =
+                H.length < y.messages.length + l
                   ? o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.INJECTED_PARTIAL
                   : o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.INJECTED;
-            if ((yield O(q, a, e.id, V), B.length > 0))
+            if ((yield O(H, a, e.id, z), U.length > 0))
               try {
-                var H = new Set(
-                    q.flatMap(function (e) {
+                var j = new Set(
+                    H.flatMap(function (e) {
                       var t = [e.id.toString()];
                       return (
                         e.protocolMessageKey != null &&
@@ -182,13 +210,13 @@ __d(
                       );
                     }),
                   ),
-                  G = B.filter(function (e) {
-                    return H.has(e.msgKey);
+                  K = U.filter(function (e) {
+                    return j.has(e.msgKey);
                   });
-                G.length > 0 &&
+                K.length > 0 &&
                   (yield o(
                     "WAWebDBReportingTokenUtils",
-                  ).handleAddReportingInfos(G));
+                  ).handleAddReportingInfos(K));
               } catch (e) {
                 o("WALogger").WARN(
                   d ||
@@ -199,32 +227,32 @@ __d(
                   r("WAWebSerializeError")(e),
                 );
               }
-            (q.length > 0 &&
+            (H.length > 0 &&
               (yield o("WAWebBackendApi").frontendSendAndReceive(
                 "hydrateReactionsForMessages",
                 {
-                  messageIds: q.map(function (e) {
+                  messageIds: H.map(function (e) {
                     return e.id.toString();
                   }),
                 },
               ),
               yield (R || (R = n("Promise"))).all(
-                q.map(function (e) {
+                H.map(function (e) {
                   return o(
                     "WAWebHandleOrphansForNewMsg",
                   ).handleOrphansForNewMsg(e);
                 }),
               )),
-              U.length > 0 &&
+              G.length > 0 &&
                 (yield o("WAWebAddonProcessMsgs").processMsgsAndGetOrphans(
-                  U,
+                  G,
                   null,
                   o("WAWebAddonConstants").AddonProcessMode
                     .ProcessGroupHistoryBundle,
                 )),
               yield o(
                 "WAWebUpdateMessageHistoryBundleState",
-              ).updateGroupHistoryBundleState(e.id, V));
+              ).updateGroupHistoryBundleState(e.id, z));
           } catch (t) {
             if (
               (o("WAWebBackendApi").frontendFireAndForget(

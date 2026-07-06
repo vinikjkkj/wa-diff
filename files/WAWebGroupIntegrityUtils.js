@@ -6,15 +6,24 @@ __d(
     "WAWebFlex.react",
     "WAWebStateUtils",
     "WAWebText.react",
-    "WAWebUISpacing",
     "react",
     "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react"));
-    function u(e) {
+      s = e || (e = o("react")),
+      u = {
+        marginInline15: {
+          marginInlineStart: "xx6jrq6",
+          marginInlineEnd: "xjx09e3",
+          marginLeft: null,
+          marginRight: null,
+          $$css: !0,
+        },
+        marginTop15: { marginTop: "xcxhlts", $$css: !0 },
+      };
+    function c(e) {
       var t,
         n = r("WAWebFbtCommon")("Exit Group");
       return (
@@ -26,18 +35,14 @@ __d(
         n
       );
     }
-    function c(e) {
+    function d(e) {
       var t = o("react-compiler-runtime").c(7),
         n = e.content,
         r = e.icon,
         a = e.testId,
         i;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [
-            o("WAWebUISpacing").uiMargin.horiz15,
-            o("WAWebUISpacing").uiMargin.top15,
-          ]),
-          (t[0] = i))
+        ? ((i = [u.marginInline15, u.marginTop15]), (t[0] = i))
         : (i = t[0]);
       var l;
       t[1] !== n
@@ -48,10 +53,10 @@ __d(
           (t[1] = n),
           (t[2] = l))
         : (l = t[2]);
-      var u;
+      var c;
       return (
         t[3] !== r || t[4] !== l || t[5] !== a
-          ? ((u = s.jsxs(o("WAWebFlex.react").FlexRow, {
+          ? ((c = s.jsxs(o("WAWebFlex.react").FlexRow, {
               justify: "center",
               align: "center",
               xstyle: i,
@@ -61,12 +66,12 @@ __d(
             (t[3] = r),
             (t[4] = l),
             (t[5] = a),
-            (t[6] = u))
-          : (u = t[6]),
-        u
+            (t[6] = c))
+          : (c = t[6]),
+        c
       );
     }
-    ((l.getLeaveGroupString = u), (l.SuspendedModalBodyParagraph = c));
+    ((l.getLeaveGroupString = c), (l.SuspendedModalBodyParagraph = d));
   },
   98,
 );

@@ -8,27 +8,25 @@ __d(
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = null,
-      s = function () {
-        var t = o("WAWebCTWAGatingUtils").smbDataSharingOptInCoolOffSeconds();
-        if (e == null) {
-          var n = r("WAWebUserPrefsStore").get(
-            o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_COOL_OFF,
-          );
-          e = o("WATimeUtils").castToUnixTime(typeof n == "number" ? n : 0);
-        }
-        return o("WATimeUtils").isInFuture(
-          o("WATimeUtils").futureUnixTime(t, e),
+    var e = null;
+    function s() {
+      var t = o("WAWebCTWAGatingUtils").smbDataSharingOptInCoolOffSeconds();
+      if (e == null) {
+        var n = r("WAWebUserPrefsStore").get(
+          o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_COOL_OFF,
         );
-      },
-      u = function () {
-        ((e = o("WATimeUtils").unixTime()),
-          r("WAWebUserPrefsStore").set(
-            o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_COOL_OFF,
-            e,
-          ));
-      },
-      c = function () {
+        e = o("WATimeUtils").castToUnixTime(typeof n == "number" ? n : 0);
+      }
+      return o("WATimeUtils").isInFuture(o("WATimeUtils").futureUnixTime(t, e));
+    }
+    function u() {
+      ((e = o("WATimeUtils").unixTime()),
+        r("WAWebUserPrefsStore").set(
+          o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_COOL_OFF,
+          e,
+        ));
+    }
+    var c = function () {
         r("gkx")("26258") ||
           ((e = null),
           r("WAWebUserPrefsStore").set(

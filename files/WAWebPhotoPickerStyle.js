@@ -87,7 +87,7 @@ __d(
         },
         communitySquircle: { color: "x17k9de1", $$css: !0 },
         newsletterAvatar: { color: "x17k9de1", $$css: !0 },
-        dimmed: { opacity: "xavfwda", $$css: !0 },
+        dimmed: { opacity: "x1xccycs", $$css: !0 },
         hidden: { display: "x1s85apg", $$css: !0 },
         bottomEndFloater: {
           position: "x10l6tqk",

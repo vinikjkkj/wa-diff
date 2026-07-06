@@ -214,7 +214,11 @@ __d(
               : null;
           return s.jsx(
             r("WAWebMessageHistoryBundleInfoNotification.react"),
-            { authorName: n, firstBundleMsgElement: u },
+            {
+              authorName: n,
+              firstBundleMsgElement: u,
+              groupId: a.remote.toJid(),
+            },
             "history-bundle-info-" + a.toString(),
           );
         },

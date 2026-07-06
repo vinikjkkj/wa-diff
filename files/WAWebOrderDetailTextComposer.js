@@ -4,9 +4,10 @@ __d(
     "WAWebConstantsDeprecated",
     "WAWebRichTextField.react",
     "WAWebRound.react",
-    "WAWebUISpacing",
     "WAWebVelocityTransitionGroup",
     "WAWebWdsIcSendFilledIcon.react",
+    "WDSMargins.stylex",
+    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -46,7 +47,10 @@ __d(
         _ = t.value,
         f;
       n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = [c.textFieldContainer, o("WAWebUISpacing").uiMargin.bottom40]),
+        ? ((f = [
+            c.textFieldContainer,
+            o("WDSMargins.stylex").wdsMargins.marginBottom40,
+          ]),
           (n[0] = f))
         : (f = n[0]);
       var g;
@@ -99,8 +103,8 @@ __d(
       n[12] === Symbol.for("react.memo_cache_sentinel")
         ? ((C = (e || (e = r("stylex"))).props([
             c.btnSend,
-            o("WAWebUISpacing").uiMargin.all0,
-            o("WAWebUISpacing").uiPadding.all0,
+            o("WDSMargins.stylex").wdsMargins.margin0,
+            o("WDSPaddings.stylex").wdsPaddings.padding0,
           ])),
           (n[12] = C))
         : (C = n[12]);

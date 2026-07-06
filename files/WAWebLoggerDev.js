@@ -37,64 +37,53 @@ __d(
       }
       return t;
     }
-    function R(t) {
-      if (r("WAWebLocalStorage") != null) {
-        if (t == null) {
-          r("WAWebLocalStorage").removeItem(e);
-          return;
-        }
-        t instanceof RegExp
-          ? r("WAWebLocalStorage").setItem(e, "/" + t.source + "/")
-          : r("WAWebLocalStorage").setItem(e, t);
-      }
-    }
-    function L() {
+    function R() {
       if (r("WAWebLocalStorage") == null) return c;
       var e = r("WAWebLocalStorage").getItem(s);
       if (e == null) return c;
       var t = parseInt(e, 10);
       return isNaN(t) ? c : t;
     }
-    function E(e) {
+    function L(e) {
       r("WAWebLocalStorage") != null &&
         r("WAWebLocalStorage").setItem(s, String(e));
     }
-    function k() {
+    function E() {
       ((y.length = 0), (C = 0), (b = !1));
     }
-    function I(e) {
-      var t = L();
+    function k(e) {
+      var t = R();
       if (!(t <= 0)) for (y.push(e); y.length > t; ) y.shift();
     }
-    function T() {
+    function I() {
       if (y.length !== 0) {
         for (var e of y)
           e.consoleFunction.apply(e, ["%c" + e.logLine, f].concat(e.data));
         y.length = 0;
       }
     }
-    function D() {
-      var e = L(),
+    function T() {
+      var e = R(),
         t = e + 5;
       "" + t;
     }
-    function x(e, t, n, o) {
+    function D(e, t, n, o) {
       var a = S();
       if (a == null) return "filtered";
-      var i = $(a, t),
-        l = L();
+      var i = x(a, t),
+        l = R();
       return i
-        ? (!b && l > 0 && T(), (C = l), (b = !0), "matched")
+        ? (!b && l > 0 && I(), (C = l), (b = !0), "matched")
         : b && C > 0
-          ? (C--, C === 0 && ((b = !1), r("setTimeout")(D, 0)), "context_after")
-          : (l > 0 && I({ level: e, logLine: t, data: n, consoleFunction: o }),
+          ? (C--, C === 0 && ((b = !1), r("setTimeout")(T, 0)), "context_after")
+          : (l > 0 && k({ level: e, logLine: t, data: n, consoleFunction: o }),
             "filtered");
     }
-    function $(e, t) {
+    function x(e, t) {
       var n = v(e, "i");
       return n.test(t);
     }
-    function P(e, t) {
+    function $(e, t) {
       var n = v(e, "gi"),
         r = Array.from(t.matchAll(n));
       if (r.length === 0) return null;
@@ -111,10 +100,10 @@ __d(
       }
       return ((o += t.slice(i)), { format: o, styles: a });
     }
-    function N() {
+    function P() {
       return f;
     }
-    function M() {
+    function N() {
       if (d.size !== 0) {
         var e = [];
         for (var t of d.entries()) {
@@ -125,32 +114,31 @@ __d(
         (e.length > 0 && "" + e.join("\n"), d.clear());
       }
     }
-    function w() {
+    function M() {
       m == null &&
         (m = r("setTimeout")(function () {
-          ((m = null), M());
+          ((m = null), N());
         }, u));
     }
-    function A(e, t) {
+    function w(e, t) {
       var n,
         r = t.match(/^\[([^\]]+)\]/),
         o = r != null ? r[0] : "[no tag]",
         a = "[" + e + "] " + o,
         i = (n = d.get(a)) != null ? n : 0;
-      (d.set(a, i + 1), w());
+      (d.set(a, i + 1), M());
     }
     ((l.LOG_FILTER_STORAGE_KEY = e),
       (l.LOG_CONTEXT_LINES_STORAGE_KEY = s),
       (l.getLogFilterPattern = S),
-      (l.setLogFilterPattern = R),
-      (l.getContextLinesCount = L),
-      (l.setContextLinesCount = E),
-      (l.clearContextBuffer = k),
-      (l.processLogWithContext = x),
-      (l.matchesFilter = $),
-      (l.formatLogWithHighlight = P),
-      (l.getContextStyle = N),
-      (l.recordFilteredLog = A));
+      (l.getContextLinesCount = R),
+      (l.setContextLinesCount = L),
+      (l.clearContextBuffer = E),
+      (l.processLogWithContext = D),
+      (l.matchesFilter = x),
+      (l.formatLogWithHighlight = $),
+      (l.getContextStyle = P),
+      (l.recordFilteredLog = w));
   },
   98,
 );

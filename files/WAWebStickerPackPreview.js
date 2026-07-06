@@ -18,8 +18,8 @@ __d(
     "WAWebStateUtils",
     "WAWebStickerPackConstants",
     "WAWebStickerPackUtils",
-    "WAWebUISpacing",
     "WAWebWamEnumWebcRmrReasonCode",
+    "WDSMargins.stylex",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "react",
@@ -31,12 +31,28 @@ __d(
       c = u || (u = o("react")),
       d = u.useEffect,
       m = {
+        paddingInlineEnd14: { paddingInlineEnd: "x1pic42t", $$css: !0 },
+        marginInline10: {
+          marginInlineStart: "x1hm9lzh",
+          marginInlineEnd: "x1sa5p1d",
+          marginLeft: null,
+          marginRight: null,
+          $$css: !0,
+        },
+        paddingInlineEnd10: { paddingInlineEnd: "x2vl965", $$css: !0 },
+        paddingBlock6: {
+          paddingTop: "x1yrsyyn",
+          paddingBottom: "x10b6aqq",
+          $$css: !0,
+        },
+      },
+      p = {
         deepContainer: { cursor: "xmper1u", $$css: !0 },
         text: { position: "x1n2onr6", top: "x1qiirwl", $$css: !0 },
         textRTL: { textAlign: "xp4054r", $$css: !0 },
         fixedTextHeight: { height: "xdiz9cm", $$css: !0 },
       };
-    function p(e) {
+    function _(e) {
       var t = o("useWAWebMsgValues").useMsgValues(e.msg.id, [
           o("WAWebMsgGetters").getIsSentByMe,
         ]),
@@ -55,7 +71,7 @@ __d(
       d(function () {
         var t = e.msg;
         r("isStringNullOrEmpty")(t.thumbnailDirectPath)
-          ? _(t)
+          ? f(t)
           : r("WAWebMediaDownloadMmsThumbnail")({
               msg: o("WAWebStateUtils").unproxy(t),
               chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
@@ -64,10 +80,10 @@ __d(
       }, []);
       var l = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
       return c.jsx(r("WAWebMessageDeeperContainer.react"), {
-        xstyle: m.deepContainer,
+        xstyle: p.deepContainer,
         outgoingMsg: n,
         children: c.jsxs(o("WAWebFlex.react").FlexRow, {
-          xstyle: o("WAWebUISpacing").uiPadding.end14,
+          xstyle: m.paddingInlineEnd14,
           align: "start",
           children: [
             c.jsx(o("WAWebFlex.react").FlexItem, {
@@ -89,13 +105,13 @@ __d(
               grow: 1,
               justify: "center",
               xstyle: [
-                m.text,
-                o("WAWebUISpacing").uiMargin.vert0,
-                r("WAWebL10N").isRTL() && m.textRTL,
-                o("WAWebUISpacing").uiMargin.horiz10,
-                m.fixedTextHeight,
-                o("WAWebUISpacing").uiPadding.end10,
-                o("WAWebUISpacing").uiPadding.vert6,
+                p.text,
+                o("WDSMargins.stylex").wdsMargins.marginVer0,
+                r("WAWebL10N").isRTL() && p.textRTL,
+                m.marginInline10,
+                p.fixedTextHeight,
+                m.paddingInlineEnd10,
+                m.paddingBlock6,
               ],
               children: [
                 c.jsx(o("WAWebFlex.react").FlexItem, {
@@ -125,13 +141,13 @@ __d(
         }),
       });
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _(e) {
-      return f.apply(this, arguments);
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             yield t.downloadMedia({
               downloadEvenIfExpensive: !0,
@@ -170,10 +186,10 @@ __d(
             );
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.default = p;
+    l.default = _;
   },
   226,
 );

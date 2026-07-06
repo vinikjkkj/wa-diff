@@ -14,7 +14,7 @@ __d(
       var t = o("react-compiler-runtime").c(5),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = { className: "xk1v102" }), (t[0] = n))
+        ? ((n = { className: "xi9e97b" }), (t[0] = n))
         : (n = t[0]);
       var a;
       t[1] !== e.theme

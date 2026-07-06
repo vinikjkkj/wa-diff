@@ -18,8 +18,8 @@ __d(
     "WAWebSearchFilterChip.react",
     "WAWebSearchRefreshedThinIcon.react",
     "WAWebSpinner.react",
-    "WAWebUISpacing",
     "WDSIconIcClose.react",
+    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
   ],
@@ -451,7 +451,7 @@ __d(
               onClearFilter: Se,
               ref: F,
               text: d,
-              xstyle: o("WAWebUISpacing").uiPadding.horiz4,
+              xstyle: o("WDSPaddings.stylex").wdsPaddings.paddingHor4,
             })),
           (t[40] = d),
           (t[41] = Se),
@@ -472,7 +472,8 @@ __d(
       t[47] === Symbol.for("react.memo_cache_sentinel")
         ? ((De = [_.inputWrapperRefreshed]), (t[47] = De))
         : (De = t[47]);
-      var xe = !(M.length > 0) && o("WAWebUISpacing").uiPadding.end0,
+      var xe =
+          !(M.length > 0) && o("WDSPaddings.stylex").wdsPaddings.paddingEnd0,
         $e = W && _.inputWrapperFocusRefreshed,
         Pe;
       t[48] !== se.inputWrapperRefreshed || t[49] !== xe || t[50] !== $e

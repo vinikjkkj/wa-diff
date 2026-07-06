@@ -6,7 +6,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMediaUtils",
     "WAWebMsgGetters",
-    "WAWebUISpacing",
+    "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -24,18 +24,6 @@ __d(
           overflowY: "x10wlt62",
           color: "x14ug900",
           textOverflow: "xlyipyv",
-          $$css: !0,
-        },
-        body: {
-          boxSizing: "x9f619",
-          flexGrow: "x1iyjqo2",
-          maxHeight: "xlrnmfh",
-          overflowX: "x6ikm8r",
-          overflowY: "x10wlt62",
-          lineHeight: "x17fgdl5",
-          display: "x78zum5",
-          flexDirection: "xdt5ytf",
-          justifyContent: "xl56j7k",
           $$css: !0,
         },
       };
@@ -91,20 +79,22 @@ __d(
         R;
       n[5] !== p
         ? ((R = {
-            0: "x78zum5 x1q0g3np x6s0dn4 xy75621 x6ikm8r x10wlt62 x1nxh6w3 x1n6pog2 x14ug900 x1ypdohk x1bu39yj xaejkm2 x1uuy6ko x1gfim23 xqfj769",
-            1: "x78zum5 x1q0g3np x6s0dn4 xy75621 x6ikm8r x10wlt62 x1nxh6w3 x1n6pog2 x14ug900 x1ypdohk xaejkm2 x1uuy6ko x1gfim23 xqfj769 x1bu39yj",
+            0: "x78zum5 x1q0g3np x6s0dn4 xy75621 x6ikm8r x10wlt62 x1nxh6w3 x1o168i8 x14ug900 x1ypdohk x1bu39yj x1i282gy xx9ypkp xd15eu0 x11ecxm0",
+            1: "x78zum5 x1q0g3np x6s0dn4 xy75621 x6ikm8r x10wlt62 x1nxh6w3 x1o168i8 x14ug900 x1ypdohk x1i282gy xx9ypkp xd15eu0 x11ecxm0 x1bu39yj",
           }[!!p << 0]),
           (n[5] = p),
           (n[6] = R))
         : (R = n[6]);
       var L, E;
       n[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = (e || (e = r("stylex"))).props(
-            d.body,
-            o("WAWebUISpacing").uiPadding.vert6,
-            o("WAWebUISpacing").uiPadding.horiz10,
+        ? ((L = {
+            className:
+              "x9f619 x1iyjqo2 xlrnmfh x6ikm8r x10wlt62 x17fgdl5 x78zum5 xdt5ytf xl56j7k x1yrsyyn x10b6aqq xe2zdcy x2vl965",
+          }),
+          (E = (e || (e = r("stylex"))).props(
+            d.title,
+            o("WDSMargins.stylex").wdsMargins.marginBottom2,
           )),
-          (E = e.props(d.title, o("WAWebUISpacing").uiMargin.bottom2)),
           (n[7] = L),
           (n[8] = E))
         : ((L = n[7]), (E = n[8]));

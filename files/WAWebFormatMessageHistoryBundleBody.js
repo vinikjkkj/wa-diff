@@ -47,7 +47,7 @@ __d(
           .DEDUPED
       )
         return s._(
-          /*BTDS*/ "{sender contact name} sent you message history, but you already received history before",
+          /*BTDS*/ "{sender contact name} also sent you message history, which you already got from someone else",
           [s._param("sender contact name", m)],
         );
       if (

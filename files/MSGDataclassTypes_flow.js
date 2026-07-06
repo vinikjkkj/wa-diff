@@ -176,6 +176,7 @@ __d(
         WearablesAcsJournal: "WEARABLES_ACS_JOURNAL",
         WearablesAcsRecommendation: "WEARABLES_ACS_RECOMMENDATION",
         WearablesAudioNotes: "WEARABLES_AUDIO_NOTES",
+        WebReferenceImage: "WEB_REFERENCE_IMAGE",
       }),
       ee = e({ Final: "FINAL", Live: "LIVE", Scheduled: "SCHEDULED" }),
       te = e({ Euro: "EURO", WorldCup: "WORLD_CUP" }),

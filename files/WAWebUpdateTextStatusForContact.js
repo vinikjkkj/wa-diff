@@ -131,7 +131,8 @@ __d(
         l =
           a ===
             o("WAWebTextStatusUtils").CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL ||
-          a === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_AUTHORIZED;
+          a === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_AUTHORIZED ||
+          a === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED;
       if (a == null || (i != null && !l && a < i)) return null;
       var s = o("WAWebTextStatusUtils").resolveTextStatusUpdateTime(a, i),
         u;

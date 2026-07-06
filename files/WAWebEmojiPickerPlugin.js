@@ -8,7 +8,6 @@ __d(
     "WAWebEmojiVariantCollection",
     "WAWebLexicalTypeAheadRow.react",
     "WAWebRecentEmojiCollection",
-    "WAWebUISpacing",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -19,13 +18,29 @@ __d(
       s,
       u = s || (s = o("react")),
       c = s.useMemo,
-      d = ":",
-      m = 2,
-      p = 50,
-      _ = 32,
-      f = 10,
-      g = _ + f * 2,
-      h = {
+      d = {
+        marginInline5: {
+          marginInlineStart: "xpcyujq",
+          marginInlineEnd: "xf6vk7d",
+          marginLeft: null,
+          marginRight: null,
+          $$css: !0,
+        },
+        padding5: {
+          paddingTop: "x123j3cw",
+          paddingInlineEnd: "x1gabggj",
+          paddingBottom: "xs9asl8",
+          paddingInlineStart: "xaso8d8",
+          $$css: !0,
+        },
+      },
+      m = ":",
+      p = 2,
+      _ = 50,
+      f = 32,
+      g = 10,
+      h = f + g * 2,
+      y = {
         focused: {
           borderStartStartRadius: "xyi3aci",
           borderStartEndRadius: "xwf5gio",
@@ -36,84 +51,81 @@ __d(
           $$css: !0,
         },
       };
-    function y(e) {
+    function C(e) {
       return o("WAWebEmoji").EmojiUtil.getSkinToneBase(e)
         ? o("WAWebEmojiVariantCollection").EmojiVariantCollection.getVariant(e)
         : null;
     }
-    function C() {
+    function b() {
       var t = o("react-compiler-runtime").c(17),
         n = o("LexicalComposerContext").useLexicalComposerContext(),
         a = n[0],
         i;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = { minQueryLength: m, maxQueryLength: p, boundary: !0 }),
+        ? ((i = { minQueryLength: p, maxQueryLength: _, boundary: !0 }),
           (t[0] = i))
         : (i = t[0]);
-      var l = o("useWAWebLexicalTypeAhead").useTypeAhead(a, d, i),
+      var l = o("useWAWebLexicalTypeAhead").useTypeAhead(a, m, i),
         s = l.leadOffset,
         c = l.omitQuery,
-        f = l.query,
-        C = l.replaceQuery,
-        b;
+        g = l.query,
+        b = l.replaceQuery,
+        v;
       e: {
-        if (f == null) {
-          var v;
+        if (g == null) {
+          var S;
           (t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((v = []), (t[1] = v))
-            : (v = t[1]),
-            (b = v));
+            ? ((S = []), (t[1] = S))
+            : (S = t[1]),
+            (v = S));
           break e;
         }
-        var S;
-        (t[2] !== f
-          ? ((S = o("WAWebEmojiKeywordToUnicode").emojiKeywordToUnicodeSearch(
-              f,
+        var R;
+        (t[2] !== g
+          ? ((R = o("WAWebEmojiKeywordToUnicode").emojiKeywordToUnicodeSearch(
+              g,
             )),
-            (t[2] = f),
-            (t[3] = S))
-          : (S = t[3]),
-          (b = S));
+            (t[2] = g),
+            (t[3] = R))
+          : (R = t[3]),
+          (v = R));
       }
-      var R = b,
-        L;
-      t[4] !== C
-        ? ((L = function (t) {
+      var L = v,
+        E;
+      t[4] !== b
+        ? ((E = function (t) {
             (o("WAWebRecentEmojiCollection").RecentEmojiCollection.increment(t),
-              C(t));
+              b(t));
           }),
-          (t[4] = C),
-          (t[5] = L))
-        : (L = t[5]);
-      var E = L,
-        k;
+          (t[4] = b),
+          (t[5] = E))
+        : (E = t[5]);
+      var k = E,
+        I;
       t[6] !== c
-        ? ((k = function () {
+        ? ((I = function () {
             c();
           }),
           (t[6] = c),
-          (t[7] = k))
-        : (k = t[7]);
-      var I = k,
-        T;
-      if (t[8] !== R || t[9] !== E) {
-        var D;
-        (t[11] !== E
-          ? ((D = function (n, a) {
+          (t[7] = I))
+        : (I = t[7]);
+      var T = I,
+        D;
+      if (t[8] !== L || t[9] !== k) {
+        var x;
+        (t[11] !== k
+          ? ((x = function (n, o) {
               return {
-                renderFn: function (i) {
-                  var t = y(n),
-                    l = [
-                      o("WAWebUISpacing").uiMargin.horiz5,
-                      o("WAWebUISpacing").uiPadding.all5,
-                    ];
+                renderFn: function (a) {
+                  var t = C(n),
+                    i = [d.marginInline5, d.padding5];
                   return (
-                    i && l.push(h.focused),
+                    a && i.push(y.focused),
                     u.jsx(
                       "div",
                       babelHelpers.extends(
                         {},
-                        (e || (e = r("stylex"))).props(l),
+                        (e || (e = r("stylex"))).props(i),
                         {
                           children: u.jsx(
                             r("WAWebEmoji.react"),
@@ -124,7 +136,7 @@ __d(
                               "data-unicode": n,
                               "data-variant": t,
                               tabIndex: -1,
-                              "data-emoji-index": a,
+                              "data-emoji-index": o,
                             },
                             n,
                           ),
@@ -134,41 +146,41 @@ __d(
                   );
                 },
                 onSelect: function () {
-                  var e = y(n);
-                  return E(e != null ? e : n);
+                  var e = C(n);
+                  return k(e != null ? e : n);
                 },
                 skipKeyboardNav: !1,
                 ariaLabel: n,
               };
             }),
-            (t[11] = E),
-            (t[12] = D))
-          : (D = t[12]),
-          (T = R.map(D)),
-          (t[8] = R),
-          (t[9] = E),
-          (t[10] = T));
-      } else T = t[10];
-      var x = T,
-        $;
+            (t[11] = k),
+            (t[12] = x))
+          : (x = t[12]),
+          (D = L.map(x)),
+          (t[8] = L),
+          (t[9] = k),
+          (t[10] = D));
+      } else D = t[10];
+      var $ = D,
+        P;
       return (
-        t[13] !== I || t[14] !== x || t[15] !== s
-          ? (($ = u.jsx(r("WAWebLexicalTypeAheadRow.react"), {
-              items: x,
-              itemWidth: g,
-              itemHeight: _,
+        t[13] !== T || t[14] !== $ || t[15] !== s
+          ? ((P = u.jsx(r("WAWebLexicalTypeAheadRow.react"), {
+              items: $,
+              itemWidth: h,
+              itemHeight: f,
               leadOffset: s,
-              onCancel: I,
+              onCancel: T,
             })),
-            (t[13] = I),
-            (t[14] = x),
+            (t[13] = T),
+            (t[14] = $),
             (t[15] = s),
-            (t[16] = $))
-          : ($ = t[16]),
-        $
+            (t[16] = P))
+          : (P = t[16]),
+        P
       );
     }
-    l.default = C;
+    l.default = b;
   },
   98,
 );

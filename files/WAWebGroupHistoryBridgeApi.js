@@ -17,13 +17,17 @@ __d(
       logGroupHistoryParseHistoryProtoSucceeded: function (t) {
         var e = t.groupId,
           n = t.messagesCount,
-          r = t.oowPinsCount;
+          r = t.oowPinsCount,
+          a = t.pinsCount,
+          i = t.uncountedCount;
         o(
           "WAWebGroupHistoryReceiverUserJourneyLogger",
         ).GroupHistoryReceiverUserJourneyLogger.parseHistoryProtoSucceeded(
           e,
           n,
           r,
+          a,
+          i,
         );
       },
       logGroupHistoryParseHistoryProtoFailed: function (t) {

@@ -54,15 +54,9 @@ __d(
       var n = u();
       ((n[e.toString()] = c(t)), r("WAWebUserPrefsStore").setUser(s, n));
     }
-    function p(e) {
-      var t = u(),
-        n = e.toString();
-      t[n] != null && (delete t[n], r("WAWebUserPrefsStore").setUser(s, t));
-    }
     ((l.getBlockedParticipantsInGroup = e),
       (l.hasAcknowledgedWarning = d),
-      (l.markWarningAcknowledged = m),
-      (l.clearAcknowledgedWarning = p));
+      (l.markWarningAcknowledged = m));
   },
   98,
 );

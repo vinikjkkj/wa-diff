@@ -16,8 +16,8 @@ __d(
     "WAWebSpinner.react",
     "WAWebToast.react",
     "WAWebToastManager",
-    "WAWebUISpacing",
     "WAWebUtilsLogQplEvents",
+    "WDSPaddings.stylex",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
@@ -31,23 +31,29 @@ __d(
       m = d.useEffect,
       p = d.useMemo,
       _ = d.useState,
-      f = "500px",
-      g = {
-        editMain: { height: "x15om8nw", width: "xvue9z", $$css: !0 },
-        loadingSpinner: { height: "x5yr21d", $$css: !0 },
-        rowLabel: {
-          cursor: "x1ypdohk",
-          flexBasis: "x1t1x2f9",
-          flexGrow: "x1iyjqo2",
-          flexShrink: "xs83m0k",
+      f = {
+        padding6: {
+          paddingTop: "x1yrsyyn",
+          paddingInlineEnd: "x1icxu4v",
+          paddingBottom: "x10b6aqq",
+          paddingInlineStart: "x25sj25",
           $$css: !0,
         },
-        rowLabelDisabled: { color: "x54l9or", $$css: !0 },
+        paddingBlock18: {
+          paddingTop: "x109j2v6",
+          paddingBottom: "x1hhzuzn",
+          $$css: !0,
+        },
+      },
+      g = "500px",
+      h = {
+        editMain: { height: "x15om8nw", width: "xvue9z", $$css: !0 },
+        loadingSpinner: { height: "x5yr21d", $$css: !0 },
         rowMain: { fontSize: "x1jchvi3", $$css: !0 },
       },
-      h = 48,
-      y = { surface: "smb-business-profile-edit-categories" };
-    function C(e) {
+      y = 48,
+      C = { surface: "smb-business-profile-edit-categories" };
+    function b(e) {
       var t = e.afterSave,
         a = e.initialCategories,
         i = e.onCancel,
@@ -55,20 +61,20 @@ __d(
         u = e.searchCategories,
         d = _(a),
         p = d[0],
-        f = d[1],
-        h = _(!1),
-        C = h[0],
-        b = h[1],
-        v = _(!1),
-        R = v[0],
-        L = v[1],
-        E = _([]),
-        k = E[0],
-        I = E[1],
-        T = _(""),
-        D = T[0],
-        x = T[1],
-        $ = function () {
+        g = d[1],
+        y = _(!1),
+        b = y[0],
+        v = y[1],
+        S = _(!1),
+        L = S[0],
+        E = S[1],
+        k = _([]),
+        I = k[0],
+        T = k[1],
+        D = _(""),
+        x = D[0],
+        $ = D[1],
+        P = function () {
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebToast.react").Toast, {
               msg: s._(
@@ -77,53 +83,53 @@ __d(
             }),
           );
         },
-        P = function (t) {
+        N = function (t) {
           for (var e = 0; e < p.length; e++) if (p[e].id === t) return !0;
           return !1;
         },
-        N = function (t) {
+        M = function (t) {
           return (
             t.not_a_biz !== !0 &&
-            !P(t.id) &&
+            !N(t.id) &&
             p.length >= o("WAWebBusinessProfileModel").MAX_BUSINESS_CATEGORIES
           );
         },
-        M = function (t) {
+        w = function (t) {
           var e = p.find(function (e) {
-              return e.id === D;
+              return e.id === x;
             }),
             n = p;
           (p.length > 0 &&
             (t.not_a_biz === !0 && !e
-              ? ((n = []), $())
+              ? ((n = []), P())
               : t.not_a_biz !== !0 &&
                 e &&
                 ((n = p.filter(function (t) {
                   return t.id !== e.id;
                 })),
-                $())),
-            P(t.id)
-              ? f(
+                P())),
+            N(t.id)
+              ? g(
                   n.filter(function (e) {
                     return e.id !== t.id;
                   }),
                 )
-              : f([].concat(n, [t])));
+              : g([].concat(n, [t])));
         },
-        w = function (t) {
+        A = function (t) {
           var e = p.filter(function (e) {
             return e.id === t;
           })[0];
-          e && M(e);
-        },
-        A = function (t) {
-          var e = k.filter(function (e) {
-            return e.id === t;
-          })[0];
-          e && M(e);
+          e && w(e);
         },
         F = function (t) {
-          (L(!0),
+          var e = I.filter(function (e) {
+            return e.id === t;
+          })[0];
+          e && w(e);
+        },
+        O = function (t) {
+          (E(!0),
             u(
               t ||
                 o("WAWebBusinessCategoriesResultModel")
@@ -135,9 +141,9 @@ __d(
                   (n = n.filter(function (e) {
                     return !e.not_a_biz;
                   })),
-                  L(!1),
-                  I(n),
-                  x(e.notABizId),
+                  E(!1),
+                  T(n),
+                  $(e.notABizId),
                   o("WAWebUtilsLogQplEvents").qplAnnotateProfileCatsView(
                     n.length,
                   ),
@@ -149,19 +155,19 @@ __d(
                     msg: s._(/*BTDS*/ "Something went wrong."),
                   }),
                 ),
-                  L(!1),
-                  I([]),
-                  x(""),
+                  E(!1),
+                  T([]),
+                  $(""),
                   o("WAWebUtilsLogQplEvents").qplEndProfileCatsView(3));
               }));
         };
       m(function () {
-        F("");
+        O("");
       }, []);
-      var O = function (t) {
-        !R &&
-          !C &&
-          (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"), F(t));
+      var B = function (t) {
+        !L &&
+          !b &&
+          (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"), O(t));
       };
       return c.jsxs(r("WAWebSavePopup.react"), {
         title: s._(/*BTDS*/ "Choose up to three categories"),
@@ -174,45 +180,45 @@ __d(
             yield l({ categories: p }));
         }),
         afterSave: function () {
-          (b(!0), t());
+          (v(!0), t());
         },
         onCancel: function () {
-          (b(!0), i());
+          (v(!0), i());
         },
-        tsNavigationData: y,
+        tsNavigationData: C,
         children: [
           c.jsx("div", {
             className: "xhjsbib xvue9z",
             children: c.jsx(o("WAWebChatListSearch.react").ListSearch, {
-              onSearch: O,
+              onSearch: B,
               placeholder: s._(/*BTDS*/ "Search categories"),
             }),
           }),
           c.jsxs(o("WAWebFlex.react").FlexColumn, {
-            xstyle: [g.editMain, o("WAWebUISpacing").uiPadding.all6],
+            xstyle: [h.editMain, f.padding6],
             children: [
               c.jsx("div", {
                 className: "x1iyjqo2 x1odjw0f xvue9z",
-                children: c.jsx(S, {
-                  isLoading: R,
-                  results: k,
-                  isSelected: P,
-                  isDisabled: N,
-                  toggleResultById: A,
+                children: c.jsx(R, {
+                  isLoading: L,
+                  results: I,
+                  isSelected: N,
+                  isDisabled: M,
+                  toggleResultById: F,
                 }),
               }),
               p &&
                 c.jsx(r("WAWebChipSelectorFooter.react"), {
                   categories: p,
-                  onRemoveItem: w,
+                  onRemoveItem: A,
                 }),
             ],
           }),
         ],
       });
     }
-    C.displayName = C.name + " [from " + i.id + "]";
-    function b(t) {
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(t) {
       var n = o("react-compiler-runtime").c(20),
         a = t.category,
         i = t.toggleResultById,
@@ -230,8 +236,8 @@ __d(
         u;
       n[4] === Symbol.for("react.memo_cache_sentinel")
         ? ((u = (e || (e = r("stylex"))).props(
-            o("WAWebUISpacing").uiPadding.vert18,
-            o("WAWebUISpacing").uiPadding.horiz24,
+            f.paddingBlock18,
+            o("WDSPaddings.stylex").wdsPaddings.paddingHor24,
           )),
           (n[4] = u))
         : (u = n[4]);
@@ -258,20 +264,24 @@ __d(
       var p = "category-list-item-" + a.id,
         _;
       n[10] !== a.disabled
-        ? ((_ = (e || (e = r("stylex"))).props(
-            g.rowLabel,
-            o("WAWebUISpacing").uiPadding.vert13,
-            a.disabled && g.rowLabelDisabled,
-          )),
+        ? ((_ = {
+            0: {
+              className: "x1ypdohk x1t1x2f9 x1iyjqo2 xs83m0k x1d0ri9u x1ug4tga",
+            },
+            1: {
+              className:
+                "x1ypdohk x1t1x2f9 x1iyjqo2 xs83m0k x1d0ri9u x1ug4tga x54l9or",
+            },
+          }[!!a.disabled << 0]),
           (n[10] = a.disabled),
           (n[11] = _))
         : (_ = n[11]);
-      var f;
+      var g;
       n[12] !== a.id ||
       n[13] !== a.localized_display_name ||
       n[14] !== p ||
       n[15] !== _
-        ? ((f = c.jsx(
+        ? ((g = c.jsx(
             "label",
             babelHelpers.extends({ "data-testid": p }, _, {
               htmlFor: a.id,
@@ -282,24 +292,24 @@ __d(
           (n[13] = a.localized_display_name),
           (n[14] = p),
           (n[15] = _),
-          (n[16] = f))
-        : (f = n[16]);
-      var h;
+          (n[16] = g))
+        : (g = n[16]);
+      var y;
       return (
-        n[17] !== m || n[18] !== f
-          ? ((h = c.jsxs(o("WAWebFlex.react").FlexRow, {
+        n[17] !== m || n[18] !== g
+          ? ((y = c.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
-              xstyle: g.rowMain,
-              children: [m, f],
+              xstyle: h.rowMain,
+              children: [m, g],
             })),
             (n[17] = m),
-            (n[18] = f),
-            (n[19] = h))
-          : (h = n[19]),
-        h
+            (n[18] = g),
+            (n[19] = y))
+          : (y = n[19]),
+        y
       );
     }
-    function v(t) {
+    function S(t) {
       var n = o("react-compiler-runtime").c(4),
         a = t.label,
         i,
@@ -311,8 +321,8 @@ __d(
             babelHelpers.extends(
               {},
               (e || (e = r("stylex"))).props(
-                o("WAWebUISpacing").uiPadding.vert18,
-                o("WAWebUISpacing").uiPadding.horiz24,
+                f.paddingBlock18,
+                o("WDSPaddings.stylex").wdsPaddings.paddingHor24,
               ),
             ),
           )),
@@ -332,7 +342,7 @@ __d(
         s
       );
     }
-    function S(e) {
+    function R(e) {
       var t = o("react-compiler-runtime").c(16),
         n = e.isDisabled,
         a = e.isLoading,
@@ -351,7 +361,10 @@ __d(
             ? ((p = c.jsx(o("WAWebFlex.react").FlexRow, {
                 align: "center",
                 justify: "center",
-                xstyle: [g.loadingSpinner, o("WAWebUISpacing").uiPadding.all0],
+                xstyle: [
+                  h.loadingSpinner,
+                  o("WDSPaddings.stylex").wdsPaddings.padding0,
+                ],
                 children: c.jsx(o("WAWebSpinner.react").Spinner, {
                   color: "highlight",
                   size: 44,
@@ -367,7 +380,7 @@ __d(
         var _;
         return (
           t[2] === Symbol.for("react.memo_cache_sentinel")
-            ? ((_ = c.jsx(v, { label: s._(/*BTDS*/ "No categories found") })),
+            ? ((_ = c.jsx(S, { label: s._(/*BTDS*/ "No categories found") })),
               (t[2] = _))
             : (_ = t[2]),
           _
@@ -375,9 +388,9 @@ __d(
       }
       var f;
       if (t[3] !== n || t[4] !== i || t[5] !== l) {
-        var y;
+        var g;
         (t[7] !== n || t[8] !== i
-          ? ((y = function (t) {
+          ? ((g = function (t) {
               return babelHelpers.extends({}, t, {
                 disabled: n(t),
                 id: t.id,
@@ -387,23 +400,23 @@ __d(
             }),
             (t[7] = n),
             (t[8] = i),
-            (t[9] = y))
-          : (y = t[9]),
-          (f = l.map(y)),
+            (t[9] = g))
+          : (g = t[9]),
+          (f = l.map(g)),
           (t[3] = n),
           (t[4] = i),
           (t[5] = l),
           (t[6] = f));
       } else f = t[6];
       var C = f,
-        S;
+        b;
       t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = [m]), (t[10] = S))
-        : (S = t[10]);
+        ? ((b = [m]), (t[10] = b))
+        : (b = t[10]);
       var R;
       t[11] !== u
         ? ((R = function (t) {
-            return c.jsx(b, { category: t, toggleResultById: u });
+            return c.jsx(v, { category: t, toggleResultById: u });
           }),
           (t[11] = u),
           (t[12] = R))
@@ -412,13 +425,13 @@ __d(
       return (
         t[13] !== C || t[14] !== R
           ? ((L = c.jsx(r("WAWebFlatListContainer.react"), {
-              flatListControllers: S,
+              flatListControllers: b,
               children: c.jsx(o("WAWebFlatList.react").FlatList, {
                 data: C,
                 flatListController: m,
                 direction: "vertical",
                 renderItem: R,
-                defaultItemHeight: h,
+                defaultItemHeight: y,
               }),
             })),
             (t[13] = C),
@@ -428,7 +441,7 @@ __d(
         L
       );
     }
-    l.default = C;
+    l.default = b;
   },
   226,
 );

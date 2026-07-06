@@ -28,9 +28,9 @@ __d(
       s = new e();
     function u(e) {
       var t = o("WAWebNuxSyncKey").getNuxSyncKey(e);
-      if (t != null && C(t)) return !1;
+      if (t != null && y(t)) return !1;
       var n = c(e);
-      return n ? n.views < v(e) : !0;
+      return n ? n.views < b(e) : !0;
     }
     function c(e) {
       var t = r("WAWebUserPrefsStore").getUser(e);
@@ -87,11 +87,6 @@ __d(
       );
     }
     function f(e) {
-      var t = _(),
-        n = t[e];
-      return (n == null ? void 0 : n.acknowledged) === !0 ? n.timestamp : null;
-    }
-    function g(e) {
       var t = new Set(p()),
         n = _();
       (e.forEach(function (e) {
@@ -109,18 +104,18 @@ __d(
         r("WAWebUserPrefsStore").set(o("WAWebUserPrefsKeys").KEYS.NUX_DATA, n),
         e.forEach(function (e) {
           var t = e.nuxKey,
-            n = b(t);
+            n = C(t);
           n != null && s.handleNuxChange(n);
         }));
     }
-    function h() {
+    function g() {
       (r("WAWebUserPrefsStore").set(o("WAWebUserPrefsKeys").KEYS.NUX_LIST, []),
         r("WAWebUserPrefsStore").set(
           o("WAWebUserPrefsKeys").KEYS.NUX_DATA,
           {},
         ));
     }
-    function y(e) {
+    function h(e) {
       m(e);
       var t = p().filter(function (t) {
           return t !== e;
@@ -130,10 +125,10 @@ __d(
         r("WAWebUserPrefsStore").set(o("WAWebUserPrefsKeys").KEYS.NUX_LIST, t),
         r("WAWebUserPrefsStore").set(o("WAWebUserPrefsKeys").KEYS.NUX_DATA, n));
     }
-    function C(e) {
+    function y(e) {
       return p().includes(e);
     }
-    function b(e) {
+    function C(e) {
       return e === "message_label_deprecation_migrated"
         ? o("WAWebNux").NUX.MESSAGE_LABEL_DEPRECATION_MIGRATED_PERMANENT
         : e === "meta_ai_cta_banner"
@@ -144,7 +139,7 @@ __d(
               ? o("WAWebNux").NUX.NEWSLETTER_QUESTIONS_PRIVACY_BANNER
               : null;
     }
-    function v(e) {
+    function b(e) {
       switch (e) {
         case "message_label_deprecation_migrated_permanent":
         case "desktop_upsell":
@@ -167,12 +162,11 @@ __d(
       (l.setNUX = d),
       (l.removeNUX = m),
       (l.getNuxSyncList = p),
-      (l.getNuxAcknowledgedTimestamp = f),
-      (l.updateNuxSyncList = g),
-      (l.removeAllNuxSync = h),
-      (l.resetNux = y),
-      (l.nuxExistsInNuxSync = C),
-      (l.getNuxMaxViews = v));
+      (l.updateNuxSyncList = f),
+      (l.removeAllNuxSync = g),
+      (l.resetNux = h),
+      (l.nuxExistsInNuxSync = y),
+      (l.getNuxMaxViews = b));
   },
   98,
 );

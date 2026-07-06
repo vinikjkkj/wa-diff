@@ -11,7 +11,6 @@ __d(
     "WAWebBackendJobsCommon",
     "WAWebChangeProfilePicThumb",
     "WAWebContactSyncBridge",
-    "WAWebContactTextStatusBridge",
     "WAWebDBCreateLidPnMappings",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
@@ -26,6 +25,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebTextStatusGatingUtils",
+    "WAWebTextStatusUtils",
     "WAWebUpdateTextStatusForContact",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
@@ -356,25 +356,17 @@ __d(
               o("WAWebWidFactory").asUserWidOrThrow(e),
             );
             r != null &&
-              (t = o("WAWebContactTextStatusBridge")
-                .getTextStatus(e, r.textStatusLastUpdateTime)
-                .then(function (e) {
-                  var t = e.emoji,
-                    n = e.ephemeralDurationSeconds,
-                    r = e.id,
-                    a = e.lastUpdateTime,
-                    i = e.text;
-                  return o(
-                    "WAWebUpdateTextStatusForContact",
-                  ).updateTextStatusForContact({
-                    contactId: r,
-                    textString: i,
-                    emoji: t,
-                    ephemeralDuration: n,
-                    newUpdateTime: a != null ? Number(a) : void 0,
-                    source: "contact-notification",
-                  });
-                }));
+              (t = o(
+                "WAWebUpdateTextStatusForContact",
+              ).updateTextStatusForContact({
+                contactId: e,
+                textString: null,
+                emoji: null,
+                ephemeralDuration: null,
+                newUpdateTime: o("WAWebTextStatusUtils")
+                  .TEXT_STATUS_NOT_FETCHED,
+                source: "contact-notification",
+              }));
           }
           var a = o("WAWebChangeProfilePicThumb").changeProfilePicThumb(
             e,

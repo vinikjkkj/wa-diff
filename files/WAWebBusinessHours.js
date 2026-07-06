@@ -8,31 +8,17 @@ __d(
     "WAWebModal.react",
     "WAWebSavePopup.react",
     "WAWebTabs.react",
-    "WAWebUISpacing",
     "WAWebUtilsLogQplEvents",
     "asyncToGeneratorRuntime",
     "react",
     "react-compiler-runtime",
-    "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = o("react")),
-      d = u.useState,
-      m = {
-        editMain: {
-          borderBottomColor: "x120ee7l",
-          borderBottomStyle: "x1q0q8m5",
-          borderBottomWidth: "xso031l",
-          height: "x1jxig9j",
-          overflowY: "x1odjw0f",
-          width: "xvue9z",
-          $$css: !0,
-        },
-      },
-      p = { surface: "smb-business-profile-edit-business-hours-detail" };
-    function _(e) {
+      u = e || (e = o("react")),
+      c = e.useState,
+      d = { surface: "smb-business-profile-edit-business-hours-detail" };
+    function m(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.onSelect,
         a = e.selectedMode,
@@ -53,9 +39,9 @@ __d(
           }),
           (t[1] = l))
         : (l = t[1]);
-      var u;
+      var c;
       t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = [
+        ? ((c = [
             i,
             l,
             {
@@ -64,15 +50,15 @@ __d(
               title: s._(/*BTDS*/ "By appointment"),
             },
           ]),
-          (t[2] = u))
-        : (u = t[2]);
+          (t[2] = c))
+        : (c = t[2]);
       var d;
       return (
         t[3] !== n || t[4] !== a
-          ? ((d = c.jsx(r("WAWebTabs.react"), {
+          ? ((d = u.jsx(r("WAWebTabs.react"), {
               onSelect: n,
               selectedId: a,
-              tabConfigs: u,
+              tabConfigs: c,
             })),
             (t[3] = n),
             (t[4] = a),
@@ -81,218 +67,217 @@ __d(
         d
       );
     }
-    function f(t) {
-      var n = o("react-compiler-runtime").c(21),
-        a = t.days,
-        i = t.daysOrder,
-        l = t.onDayValuesChange,
-        s = t.onModeChange,
-        u = t.selectedMode,
-        d;
-      n[0] !== a || n[1] !== l
-        ? ((d = function (t, n) {
+    function p(e) {
+      var t = o("react-compiler-runtime").c(21),
+        n = e.days,
+        a = e.daysOrder,
+        i = e.onDayValuesChange,
+        l = e.onModeChange,
+        s = e.selectedMode,
+        c;
+      t[0] !== n || t[1] !== i
+        ? ((c = function (t, r) {
             var e,
-              r = a[t],
-              o = babelHelpers.extends(
+              o = n[t],
+              a = babelHelpers.extends(
                 {},
-                a,
-                ((e = {}), (e[t] = babelHelpers.extends({}, r, n)), e),
+                n,
+                ((e = {}), (e[t] = babelHelpers.extends({}, o, r)), e),
               );
-            l(o);
+            i(a);
           }),
-          (n[0] = a),
-          (n[1] = l),
-          (n[2] = d))
-        : (d = n[2]);
-      var p = d,
-        f;
-      n[3] !== s || n[4] !== u
-        ? ((f = c.jsx(_, { selectedMode: u, onSelect: s })),
-          (n[3] = s),
-          (n[4] = u),
-          (n[5] = f))
-        : (f = n[5]);
-      var g;
-      n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = (e || (e = r("stylex"))).props(
-            m.editMain,
-            o("WAWebUISpacing").uiPadding.all6,
-          )),
-          (n[6] = g))
-        : (g = n[6]);
-      var h;
-      if (n[7] !== a || n[8] !== i || n[9] !== u || n[10] !== p) {
-        var y;
-        (n[12] !== a || n[13] !== u || n[14] !== p
-          ? ((y = function (t) {
-              var e = a[t];
-              return c.jsx(
+          (t[0] = n),
+          (t[1] = i),
+          (t[2] = c))
+        : (c = t[2]);
+      var d = c,
+        p;
+      t[3] !== l || t[4] !== s
+        ? ((p = u.jsx(m, { selectedMode: s, onSelect: l })),
+          (t[3] = l),
+          (t[4] = s),
+          (t[5] = p))
+        : (p = t[5]);
+      var _;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = {
+            className:
+              "x120ee7l x1q0q8m5 xso031l x1jxig9j x1odjw0f xvue9z x1yrsyyn x1icxu4v x10b6aqq x25sj25",
+          }),
+          (t[6] = _))
+        : (_ = t[6]);
+      var f;
+      if (t[7] !== n || t[8] !== a || t[9] !== s || t[10] !== d) {
+        var g;
+        (t[12] !== n || t[13] !== s || t[14] !== d
+          ? ((g = function (t) {
+              var e = n[t];
+              return u.jsx(
                 r("WAWebBusinessHoursDayEdit.react"),
                 {
                   day: e,
-                  mode: u,
+                  mode: s,
                   updateDayValue: function (n) {
-                    return p(t, n);
+                    return d(t, n);
                   },
                 },
                 t,
               );
             }),
-            (n[12] = a),
-            (n[13] = u),
-            (n[14] = p),
-            (n[15] = y))
-          : (y = n[15]),
-          (h = i.map(y)),
-          (n[7] = a),
-          (n[8] = i),
-          (n[9] = u),
-          (n[10] = p),
-          (n[11] = h));
-      } else h = n[11];
-      var C;
-      n[16] !== h
-        ? ((C = c.jsx("div", babelHelpers.extends({}, g, { children: h }))),
-          (n[16] = h),
-          (n[17] = C))
-        : (C = n[17]);
-      var b;
+            (t[12] = n),
+            (t[13] = s),
+            (t[14] = d),
+            (t[15] = g))
+          : (g = t[15]),
+          (f = a.map(g)),
+          (t[7] = n),
+          (t[8] = a),
+          (t[9] = s),
+          (t[10] = d),
+          (t[11] = f));
+      } else f = t[11];
+      var h;
+      t[16] !== f
+        ? ((h = u.jsx("div", babelHelpers.extends({}, _, { children: f }))),
+          (t[16] = f),
+          (t[17] = h))
+        : (h = t[17]);
+      var y;
       return (
-        n[18] !== f || n[19] !== C
-          ? ((b = c.jsxs("div", { children: [f, C] })),
-            (n[18] = f),
-            (n[19] = C),
-            (n[20] = b))
-          : (b = n[20]),
-        b
+        t[18] !== p || t[19] !== h
+          ? ((y = u.jsxs("div", { children: [p, h] })),
+            (t[18] = p),
+            (t[19] = h),
+            (t[20] = y))
+          : (y = t[20]),
+        y
       );
     }
-    function g(e) {
+    function _(e) {
       var t = o("react-compiler-runtime").c(25),
-        a = e.businessHours,
-        i = a.days,
-        l = a.note,
-        u = a.timezone,
-        m = d(
-          e.businessHours.mode ||
+        a = e.afterSave,
+        i = e.businessHours,
+        l = e.onCancel,
+        m = e.saveBusinessProfile,
+        _ = i.days,
+        g = i.note,
+        h = i.timezone,
+        y = c(
+          i.mode ||
             o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES.SPECIFIC_HOURS,
         ),
-        _ = m[0],
-        g = m[1],
-        y;
-      t[0] !== i
-        ? ((y = function () {
+        C = y[0],
+        b = y[1],
+        v;
+      t[0] !== _
+        ? ((v = function () {
             var e = {};
-            for (var t of i) {
+            for (var t of _) {
               var n = t.closed,
                 r = t.dayKey,
                 a = t.dayName,
-                l = t.hours;
+                i = t.hours;
               e[r] = {
                 closed: n,
                 dayKey: r,
                 dayName: a,
-                hours: l || [
+                hours: i || [
                   o("WAWebBusinessHoursUtils").getDefaultHoursPair(),
                 ],
               };
             }
             return e;
           }),
-          (t[0] = i),
-          (t[1] = y))
-        : (y = t[1]);
-      var C = d(y),
-        b = C[0],
-        v = C[1],
-        S;
-      t[2] !== i ? ((S = i.map(h)), (t[2] = i), (t[3] = S)) : (S = t[3]);
-      var R = S,
-        L,
+          (t[0] = _),
+          (t[1] = v))
+        : (v = t[1]);
+      var S = c(v),
+        R = S[0],
+        L = S[1],
         E;
+      t[2] !== _ ? ((E = _.map(f)), (t[2] = _), (t[3] = E)) : (E = t[3]);
+      var k = E,
+        I,
+        T;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = s._(/*BTDS*/ "Edit business hours")),
-          (E = { type: o("WAWebModal.react").ModalTheme.BusinessHours }),
-          (t[4] = L),
-          (t[5] = E))
-        : ((L = t[4]), (E = t[5]));
-      var k;
-      t[6] !== b || t[7] !== _
-        ? ((k = o("WAWebBusinessHoursUtils").isValidBusinessHours(_, b)),
-          (t[6] = b),
-          (t[7] = _),
-          (t[8] = k))
-        : (k = t[8]);
-      var I;
-      t[9] !== l || t[10] !== e || t[11] !== b || t[12] !== _ || t[13] !== u
-        ? ((I = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        ? ((I = s._(/*BTDS*/ "Edit business hours")),
+          (T = { type: o("WAWebModal.react").ModalTheme.BusinessHours }),
+          (t[4] = I),
+          (t[5] = T))
+        : ((I = t[4]), (T = t[5]));
+      var D;
+      t[6] !== R || t[7] !== C
+        ? ((D = o("WAWebBusinessHoursUtils").isValidBusinessHours(C, R)),
+          (t[6] = R),
+          (t[7] = C),
+          (t[8] = D))
+        : (D = t[8]);
+      var x;
+      t[9] !== g || t[10] !== m || t[11] !== R || t[12] !== C || t[13] !== h
+        ? ((x = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               (o("WAWebUtilsLogQplEvents").qplStartProfileSave("bizHours"),
-                yield e.saveBusinessProfile(
+                yield m(
                   o("WAWebBusinessHoursUtils").convertToRawBusinessProfile({
-                    dayValues: b,
-                    mode: _,
-                    note: l,
-                    timezone: u,
+                    dayValues: R,
+                    mode: C,
+                    note: g,
+                    timezone: h,
                   }),
                 ));
             });
             return function () {
-              return t.apply(this, arguments);
+              return e.apply(this, arguments);
             };
           })()),
-          (t[9] = l),
-          (t[10] = e),
-          (t[11] = b),
-          (t[12] = _),
-          (t[13] = u),
-          (t[14] = I))
-        : (I = t[14]);
-      var T;
-      t[15] !== R || t[16] !== b || t[17] !== _
-        ? ((T = c.jsx(f, {
-            selectedMode: _,
-            onModeChange: g,
-            days: b,
-            onDayValuesChange: v,
-            daysOrder: R,
+          (t[9] = g),
+          (t[10] = m),
+          (t[11] = R),
+          (t[12] = C),
+          (t[13] = h),
+          (t[14] = x))
+        : (x = t[14]);
+      var $;
+      t[15] !== k || t[16] !== R || t[17] !== C
+        ? (($ = u.jsx(p, {
+            selectedMode: C,
+            onModeChange: b,
+            days: R,
+            onDayValuesChange: L,
+            daysOrder: k,
           })),
-          (t[15] = R),
-          (t[16] = b),
-          (t[17] = _),
-          (t[18] = T))
-        : (T = t[18]);
-      var D;
+          (t[15] = k),
+          (t[16] = R),
+          (t[17] = C),
+          (t[18] = $))
+        : ($ = t[18]);
+      var P;
       return (
-        t[19] !== e.afterSave ||
-        t[20] !== e.onCancel ||
-        t[21] !== k ||
-        t[22] !== I ||
-        t[23] !== T
-          ? ((D = c.jsx(r("WAWebSavePopup.react"), {
-              title: L,
-              modalConfig: E,
-              isValid: k,
-              doSave: I,
-              afterSave: e.afterSave,
-              onCancel: e.onCancel,
-              tsNavigationData: p,
-              children: T,
+        t[19] !== a || t[20] !== l || t[21] !== D || t[22] !== x || t[23] !== $
+          ? ((P = u.jsx(r("WAWebSavePopup.react"), {
+              title: I,
+              modalConfig: T,
+              isValid: D,
+              doSave: x,
+              afterSave: a,
+              onCancel: l,
+              tsNavigationData: d,
+              children: $,
             })),
-            (t[19] = e.afterSave),
-            (t[20] = e.onCancel),
-            (t[21] = k),
-            (t[22] = I),
-            (t[23] = T),
-            (t[24] = D))
-          : (D = t[24]),
-        D
+            (t[19] = a),
+            (t[20] = l),
+            (t[21] = D),
+            (t[22] = x),
+            (t[23] = $),
+            (t[24] = P))
+          : (P = t[24]),
+        P
       );
     }
-    function h(e) {
+    function f(e) {
       return e.dayKey;
     }
-    l.default = g;
+    l.default = _;
   },
   226,
 );

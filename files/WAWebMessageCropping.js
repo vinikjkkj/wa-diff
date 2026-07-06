@@ -14,11 +14,10 @@ __d(
       d = 240,
       m = 463,
       p = 463,
-      _ = getComputedStyle(document.documentElement),
-      f = _.getPropertyValue("--width-msg-bubble-with-media").trim(),
-      g = parseInt(f, 10),
-      h = { bubbleWidth: g, bubbleHeight: 146 };
-    function y(e, t, n, r) {
+      _ = 336,
+      f = _,
+      g = { bubbleWidth: f, bubbleHeight: 146 };
+    function h(e, t, n, r) {
       r === void 0 && (r = !1);
       var a = n / 2,
         i = n / 2;
@@ -50,29 +49,29 @@ __d(
         height: i,
       };
     }
-    var C = {
+    var y = {
         width: s,
         portraitWidth: s,
         minAspectRatio: 1,
         maxAspectRatio: 2.4,
       },
-      b = {
+      C = {
         width: m,
         portraitWidth: m,
         minAspectRatio: 1,
         maxAspectRatio: 2.4,
       },
-      v = babelHelpers.extends({}, C, {
+      b = babelHelpers.extends({}, y, {
         portraitWidth: 240,
         minAspectRatio: 0.71,
         maxAspectRatio: 4,
       }),
-      S = babelHelpers.extends({}, v, { width: 480, portraitWidth: 480 }),
-      R = new Set([
+      v = babelHelpers.extends({}, b, { width: 480, portraitWidth: 480 }),
+      S = new Set([
         o("WAWebMsgType").MSG_TYPE.IMAGE,
         o("WAWebMsgType").MSG_TYPE.VIDEO,
       ]),
-      L = new Set([
+      R = new Set([
         (e = o("WAWebDisplayType")).DISPLAY_TYPE.CONVERSATION,
         e.DISPLAY_TYPE.MSG_INFO,
         e.DISPLAY_TYPE.STARRED_MSGS,
@@ -80,12 +79,12 @@ __d(
         e.DISPLAY_TYPE.NEWSLETTER,
         e.DISPLAY_TYPE.CHANNEL_ALERTS_MSGS,
       ]);
-    function E(e, t, n, r, a, i, l, s, u, c, d) {
-      if (n) return h;
+    function L(e, t, n, r, a, i, l, s, u, c, d) {
+      if (n) return g;
       var p = r < 1,
         _ = u && p ? 1 : r,
-        f = k(e, l, s, c),
-        g,
+        f = E(e, l, s, c),
+        y,
         C;
       if (s === o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER_PREVIEW)
         return {
@@ -101,40 +100,40 @@ __d(
             s === o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER
               ? o("WAWebMessageListAlbums").ALBUM_ANNOUNCEMENT_MAX_HEIGHT
               : o("WAWebMessageListAlbums").ALBUM_MAX_HEIGHT,
-          v = y(a, i, b * 2, d != null ? d : !1),
+          v = h(a, i, b * 2, d != null ? d : !1),
           S = v.height,
           R = v.width;
-        ((g = R), (C = S));
+        ((y = R), (C = S));
       } else {
         var L = _ < 1 ? f.portraitWidth : f.width;
-        ((g = l === o("WAWebTypesMedia").DisplayTheme.PhotoPoll ? m : L),
-          (C = I(f, _, e, t, l)));
+        ((y = l === o("WAWebTypesMedia").DisplayTheme.PhotoPoll ? m : L),
+          (C = k(f, _, e, t, l)));
       }
-      return { bubbleWidth: g, bubbleHeight: C };
+      return { bubbleWidth: y, bubbleHeight: C };
     }
-    function k(e, t, n, r) {
+    function E(e, t, n, r) {
       var a;
       return (
-        x({ displayType: n, msgType: e, theme: t })
+        D({ displayType: n, msgType: e, theme: t })
           ? n === o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT ||
             n === o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER ||
             n === o("WAWebDisplayType").DISPLAY_TYPE.CHANNEL_ALERTS_MSGS
-            ? (a = S)
-            : (a = v)
+            ? (a = v)
+            : (a = b)
           : t === o("WAWebTypesMedia").DisplayTheme.PhotoPoll
-            ? (a = b)
-            : (a = C),
+            ? (a = C)
+            : (a = y),
         babelHelpers.extends({}, a, {
           width: r != null && r <= a.width ? r : a.width,
         })
       );
     }
-    function I(e, t, n, r, o) {
+    function k(e, t, n, r, o) {
       var a = 1.91,
         i;
-      return (r && t <= a && (i = T(a, e, n)), (i = T(t, e, n, o)), i);
+      return (r && t <= a && (i = I(a, e, n)), (i = I(t, e, n, o)), i);
     }
-    function T(e, t, n, r) {
+    function I(e, t, n, r) {
       if (e == null)
         return r === o("WAWebTypesMedia").DisplayTheme.PhotoPoll
           ? p
@@ -153,7 +152,7 @@ __d(
         a
       );
     }
-    function D(e, t, n, r) {
+    function T(e, t, n, r) {
       return e == null ||
         e === 0 ||
         t == null ||
@@ -167,13 +166,13 @@ __d(
           ? { height: "100%" }
           : { width: "100%" };
     }
-    function x(e) {
+    function D(e) {
       var t = e.displayType,
         n = e.msgType,
         r = e.theme;
       return (
-        (R.has(n) &&
-          L.has(t) &&
+        (S.has(n) &&
+          R.has(t) &&
           r !== o("WAWebTypesMedia").DisplayTheme.Album &&
           r !== o("WAWebTypesMedia").DisplayTheme.AlbumV2) ||
         (n === o("WAWebMsgType").MSG_TYPE.PRODUCT &&
@@ -184,10 +183,10 @@ __d(
       (l.IMAGINE_UR_WIDTH = u),
       (l.DEFAULT_HEIGHT_PICTURE = c),
       (l.DEFAULT_HEIGHT_VIDEO = d),
-      (l.CAROUSEL_MEDIA_DIMS = h),
-      (l.getBubbleDimension = E),
-      (l.getImgStyle = D),
-      (l.canUseCustomCropping = x));
+      (l.CAROUSEL_MEDIA_DIMS = g),
+      (l.getBubbleDimension = L),
+      (l.getImgStyle = T),
+      (l.canUseCustomCropping = D));
   },
   98,
 );

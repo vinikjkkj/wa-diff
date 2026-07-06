@@ -8,7 +8,7 @@ __d(
     "WAWebPollsOptionMetadataRow",
     "WAWebPollsVoterRow",
     "WAWebPollsVoterSectionHeader",
-    "WAWebUISpacing",
+    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -18,92 +18,101 @@ __d(
       u,
       c = u || (u = o("react")),
       d = {
+        paddingInline6: {
+          paddingInlineStart: "x25sj25",
+          paddingInlineEnd: "x1icxu4v",
+          paddingLeft: null,
+          paddingRight: null,
+          $$css: !0,
+        },
+      },
+      m = {
         viewAllContainer: {
           display: "x78zum5",
           marginInlineStart: "xdln39a",
           $$css: !0,
         },
       },
-      m = 5,
-      p = 68;
-    function _(t) {
+      p = 5,
+      _ = 68;
+    function f(t) {
       var n = o("react-compiler-runtime").c(27),
         a = t.associatedMsg,
         i = t.flatListController,
         l = t.hideVoterNames,
         u = t.isCorrectOption,
-        _ = t.isPollFromMe,
-        f = t.links,
-        y = t.onViewAllVotes,
-        C = t.option,
-        b = t.result,
-        v = t.testid,
-        S = t.trusted,
-        R = t.withSectioning,
-        L = l === void 0 ? !1 : l,
-        E = b.count,
-        k = b.isCurrentLeader,
-        I = b.percentageOfAll,
-        T = b.votes,
-        D = S === void 0 ? !1 : S,
+        f = t.isPollFromMe,
+        g = t.links,
+        C = t.onViewAllVotes,
+        b = t.option,
+        v = t.result,
+        S = t.testid,
+        R = t.trusted,
+        L = t.withSectioning,
+        E = l === void 0 ? !1 : l,
+        k = v.count,
+        I = v.isCurrentLeader,
+        T = v.percentageOfAll,
+        D = v.votes,
         x = R === void 0 ? !1 : R,
-        $ = E - m,
-        P = T.length;
-      y && (P = $ === 1 ? T.length : m);
-      var N;
-      n[0] !== P || n[1] !== t.result || n[2] !== x
-        ? ((N = g(t.result, x, P)),
-          (n[0] = P),
+        $ = L === void 0 ? !1 : L,
+        P = k - p,
+        N = D.length;
+      C && (N = P === 1 ? D.length : p);
+      var M;
+      n[0] !== N || n[1] !== t.result || n[2] !== $
+        ? ((M = h(t.result, $, N)),
+          (n[0] = N),
           (n[1] = t.result),
-          (n[2] = x),
-          (n[3] = N))
-        : (N = n[3]);
-      var M = N,
-        w = I * 100,
-        A;
+          (n[2] = $),
+          (n[3] = M))
+        : (M = n[3]);
+      var w = M,
+        A = T * 100,
+        F;
       n[4] !== a ||
       n[5] !== u ||
-      n[6] !== k ||
-      n[7] !== _ ||
-      n[8] !== f ||
-      n[9] !== C.name ||
-      n[10] !== w ||
-      n[11] !== D ||
-      n[12] !== E
-        ? ((A = c.jsx(r("WAWebPollsOptionMetadataRow"), {
+      n[6] !== I ||
+      n[7] !== f ||
+      n[8] !== g ||
+      n[9] !== b.name ||
+      n[10] !== A ||
+      n[11] !== x ||
+      n[12] !== k
+        ? ((F = c.jsx(r("WAWebPollsOptionMetadataRow"), {
             associatedMsg: a,
-            name: C.name,
-            isCurrentLeader: k,
-            percentage: w,
-            voteCount: E,
-            isPollFromMe: _,
-            links: f,
-            trusted: D,
+            name: b.name,
+            isCurrentLeader: I,
+            percentage: A,
+            voteCount: k,
+            isPollFromMe: f,
+            links: g,
+            trusted: x,
             isCorrectOption: u,
           })),
           (n[4] = a),
           (n[5] = u),
-          (n[6] = k),
-          (n[7] = _),
-          (n[8] = f),
-          (n[9] = C.name),
-          (n[10] = w),
-          (n[11] = D),
-          (n[12] = E),
-          (n[13] = A))
-        : (A = n[13]);
-      var F;
+          (n[6] = I),
+          (n[7] = f),
+          (n[8] = g),
+          (n[9] = b.name),
+          (n[10] = A),
+          (n[11] = x),
+          (n[12] = k),
+          (n[13] = F))
+        : (F = n[13]);
+      var O;
       n[14] !== i ||
-      n[15] !== L ||
-      n[16] !== P ||
-      n[17] !== y ||
+      n[15] !== E ||
+      n[16] !== N ||
+      n[17] !== C ||
       n[18] !== t.mode ||
-      n[19] !== $ ||
-      n[20] !== E ||
-      n[21] !== M
-        ? ((F =
-            !L &&
-            M.length > 0 &&
+      n[19] !== P ||
+      n[20] !== k ||
+      n[21] !== w
+        ? ((O =
+            !E &&
+            w.length > 0 &&
             c.jsxs(
               "div",
               babelHelpers.extends({}, (e || (e = r("stylex"))).props(null), {
@@ -111,30 +120,30 @@ __d(
                   c.jsx(o("WAWebFlatList.react").FlatList, {
                     flatListController: i,
                     direction: "vertical",
-                    data: M,
-                    renderItem: h,
-                    defaultItemHeight: p,
+                    data: w,
+                    renderItem: y,
+                    defaultItemHeight: _,
                     reorderAnimationsEnabled: !1,
                   }),
-                  E > m &&
-                    y != null &&
-                    P < E &&
+                  k > p &&
+                    C != null &&
+                    N < k &&
                     c.jsx(
                       "div",
                       babelHelpers.extends(
                         {},
                         (e || (e = r("stylex"))).props(
-                          d.viewAllContainer,
-                          o("WAWebUISpacing").uiPadding.top8,
-                          o("WAWebUISpacing").uiPadding.bottom8,
-                          o("WAWebUISpacing").uiPadding.horiz6,
+                          m.viewAllContainer,
+                          o("WDSPaddings.stylex").wdsPaddings.paddingTop8,
+                          o("WDSPaddings.stylex").wdsPaddings.paddingBottom8,
+                          d.paddingInline6,
                         ),
                         {
                           children: c.jsx(
                             o("WAWebButton.react").WAWebButtonSimplified,
                             {
                               onClick: function (t) {
-                                y();
+                                C();
                               },
                               shadowOnHover: !1,
                               children:
@@ -143,7 +152,7 @@ __d(
                                       /*BTDS*/ '_j{"*":"See all ({leftover_votes_details_view} more)","_1":"See all (1 more)"}',
                                       [
                                         s._plural(
-                                          $,
+                                          P,
                                           "leftover_votes_details_view",
                                         ),
                                       ],
@@ -158,39 +167,39 @@ __d(
               }),
             )),
           (n[14] = i),
-          (n[15] = L),
-          (n[16] = P),
-          (n[17] = y),
+          (n[15] = E),
+          (n[16] = N),
+          (n[17] = C),
           (n[18] = t.mode),
-          (n[19] = $),
-          (n[20] = E),
-          (n[21] = M),
-          (n[22] = F))
-        : (F = n[22]);
-      var O;
+          (n[19] = P),
+          (n[20] = k),
+          (n[21] = w),
+          (n[22] = O))
+        : (O = n[22]);
+      var B;
       return (
-        n[23] !== A || n[24] !== F || n[25] !== v
-          ? ((O = c.jsxs(r("WAWebDrawerSection.react"), {
+        n[23] !== F || n[24] !== O || n[25] !== S
+          ? ((B = c.jsxs(r("WAWebDrawerSection.react"), {
               theme: "no-padding",
-              testid: v,
-              children: [A, F],
+              testid: S,
+              children: [F, O],
             })),
-            (n[23] = A),
-            (n[24] = F),
-            (n[25] = v),
-            (n[26] = O))
-          : (O = n[26]),
-        O
+            (n[23] = F),
+            (n[24] = O),
+            (n[25] = S),
+            (n[26] = B))
+          : (B = n[26]),
+        B
       );
     }
-    function f(e) {
+    function g(e) {
       return { itemKey: e.id.toString(), vote: e, kind: "vote" };
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       if (t && e.mode === "newsletter") {
         var r = e.contactVoters,
           a = e.otherVoters,
-          i = r.map(f),
+          i = r.map(g),
           l = 0;
         return (
           i.length > 0 &&
@@ -198,13 +207,13 @@ __d(
             (i.unshift(o("WAWebPollsVoterSectionHeader").ContactSection),
             i.push(o("WAWebPollsVoterSectionHeader").OthersSection),
             (l = 2)),
-          i.push.apply(i, a.map(f)),
+          i.push.apply(i, a.map(g)),
           i.slice(0, n + l)
         );
       }
-      return e.votes.slice(0, n).map(f);
+      return e.votes.slice(0, n).map(g);
     }
-    function h(e) {
+    function y(e) {
       switch (e.kind) {
         case "vote":
           return c.jsx(r("WAWebPollsVoterRow"), { vote: e.vote });
@@ -215,7 +224,7 @@ __d(
           );
       }
     }
-    l.default = _;
+    l.default = f;
   },
   226,
 );

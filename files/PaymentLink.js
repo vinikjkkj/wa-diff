@@ -2,7 +2,6 @@ __d(
   "PaymentLink",
   [
     "LoggingPaymentLinkWithoutPreviewFeature",
-    "PaymentLinkPSPImagePathMapper",
     "PaymentLinkPreviewWithAmountFeature",
     "PaymentLinkPreviewWithTrustSignalsFeature",
     "PaymentLinkTraceIdLoggingFeature",
@@ -20,17 +19,7 @@ __d(
         "PaymentLinkPreviewWithAmountFeature",
       ).getPaymentLinkOrderHeaderComponentDisplayParamsForAmountFeature(e);
     }
-    function u(e, t) {
-      if (e == null) return null;
-      var n = e + (t ? "-dark" : "-light");
-      return Object.prototype.hasOwnProperty.call(
-        o("PaymentLinkPSPImagePathMapper").PaymentLinkPSPImagePathMapper,
-        n,
-      )
-        ? o("PaymentLinkPSPImagePathMapper").PaymentLinkPSPImagePathMapper[n]
-        : null;
-    }
-    function c(e) {
+    function u(e) {
       var t = JSON.parse(
         o("WAWebABProps").getABPropConfigValue(
           "smb_payment_links_url_regex_list",
@@ -39,10 +28,10 @@ __d(
       for (var n in t) if (e.match(n)) return t[n];
       return null;
     }
-    function d() {
+    function c() {
       return o("WAWebMobilePlatforms").isSMB();
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = null;
       n = o("PaymentLinkWithCTAFeature").getMetadata(e, n);
       var r = o("WAWebLinkify").findLinks(
@@ -68,10 +57,9 @@ __d(
     }
     ((l.CTA_TEXT = e),
       (l.getPaymentLinkOrderHeaderComponentDisplayParams = s),
-      (l.getPSPIconPath = u),
-      (l.getPSP = c),
-      (l.shouldDetectInComposer = d),
-      (l.getPaymentLinkMessageMetadata = m));
+      (l.getPSP = u),
+      (l.shouldDetectInComposer = c),
+      (l.getPaymentLinkMessageMetadata = d));
   },
   98,
 );

@@ -55,7 +55,7 @@ __d(
           minHeight: "xjwf9q1",
           position: "x10l6tqk",
           zIndex: "xc9l9hb",
-          transition: "x1alf9jy",
+          transition: "x19seqdo",
           $$css: !0,
         },
         center: {

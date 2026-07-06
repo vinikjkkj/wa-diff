@@ -19,7 +19,7 @@ __d(
         a = e.theme,
         i;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = { className: "xk1v102" }), (t[0] = i))
+        ? ((i = { className: "xi9e97b" }), (t[0] = i))
         : (i = t[0]);
       var l;
       t[1] !== n

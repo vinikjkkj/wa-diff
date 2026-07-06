@@ -3,7 +3,7 @@ __d(
   [
     "WAWebFlex.react",
     "WAWebMediaEditorToolbarFilterOption.react",
-    "WAWebUISpacing",
+    "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -22,8 +22,8 @@ __d(
         d;
       n[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((d = (e || (e = r("stylex")))(
-            o("WAWebUISpacing").uiMargin.vert0,
-            o("WAWebUISpacing").uiMargin.horiz8,
+            o("WDSMargins.stylex").wdsMargins.marginVer0,
+            o("WDSMargins.stylex").wdsMargins.marginHor8,
           )),
           (n[0] = d))
         : (d = n[0]);

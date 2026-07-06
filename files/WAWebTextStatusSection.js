@@ -18,10 +18,10 @@ __d(
     "WAWebTextStatusEditModalLoadable",
     "WAWebTextStatusGatingUtils",
     "WAWebTextStatusUtils",
-    "WAWebUISpacing",
     "WAWebUserPrefsMeUser",
     "WDSButton.react",
     "WDSIconIcMood.react",
+    "WDSMargins.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -33,8 +33,9 @@ __d(
       u,
       c = u || (u = o("react")),
       d = u.useState,
-      m = { moodIcon: { color: "x1v5yvga", $$css: !0 } };
-    function p(t) {
+      m = { marginInlineStart30: { marginInlineStart: "xymharo", $$css: !0 } },
+      p = { moodIcon: { color: "x1v5yvga", $$css: !0 } };
+    function _(t) {
       var n = o("react-compiler-runtime").c(55),
         a = t.promptKey,
         i;
@@ -44,197 +45,172 @@ __d(
           (n[0] = i));
       } else i = n[0];
       var u = i,
-        p;
+        _;
       (n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = { contact: u }), (n[1] = p))
-        : (p = n[1]),
-        r("useWAWebTextStatus")(p));
-      var f;
+        ? ((_ = { contact: u }), (n[1] = _))
+        : (_ = n[1]),
+        r("useWAWebTextStatus")(_));
+      var g;
       n[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = o("WAWebTextStatusGatingUtils").sendTextStatusEnabled()),
-          (n[2] = f))
-        : (f = n[2]);
-      var g = f,
-        h = d(_),
-        y = h[0],
-        C = a != null ? a : y,
-        b;
-      n[3] !== C
-        ? ((b = o("WAWebAboutPrompts").getAboutPromptText(C)),
-          (n[3] = C),
-          (n[4] = b))
-        : (b = n[4]);
-      var v = b,
-        S,
+        ? ((g = o("WAWebTextStatusGatingUtils").sendTextStatusEnabled()),
+          (n[2] = g))
+        : (g = n[2]);
+      var h = g,
+        y = d(f),
+        C = y[0],
+        b = a != null ? a : C,
+        v;
+      n[3] !== b
+        ? ((v = o("WAWebAboutPrompts").getAboutPromptText(b)),
+          (n[3] = b),
+          (n[4] = v))
+        : (v = n[4]);
+      var S = v,
         R,
-        L;
+        L,
+        E;
       if (n[5] === Symbol.for("react.memo_cache_sentinel")) {
-        var E;
-        ((L = [
-          (E = o("WAWebFrontendContactGetters")).getTextStatusString,
-          E.getTextStatusEmoji,
-          E.getTextStatusLastUpdateTime,
-          E.getTextStatusExpiryTs,
-          E.getTextStatusEphemeralDuration,
+        var k;
+        ((E = [
+          (k = o("WAWebFrontendContactGetters")).getTextStatusString,
+          k.getTextStatusEmoji,
+          k.getTextStatusLastUpdateTime,
+          k.getTextStatusExpiryTs,
+          k.getTextStatusEphemeralDuration,
         ]),
-          (n[5] = L));
-      } else L = n[5];
-      var k = o("useWAWebContactValues").useContactValues(u.id, L),
-        I = k[0],
-        T = k[1],
-        D = k[2],
-        x = k[3],
-        $ = k[4],
-        P;
-      n[6] !== T || n[7] !== $ || n[8] !== x || n[9] !== D || n[10] !== I
-        ? ((P = o("WAWebTextStatusUtils").hasTextStatusSet({
-            textStatusEmoji: T,
-            textStatusEphemeralDuration: $,
-            textStatusExpiryTs: x,
-            textStatusLastUpdateTime: D,
-            textStatusString: I,
+          (n[5] = E));
+      } else E = n[5];
+      var I = o("useWAWebContactValues").useContactValues(u.id, E),
+        T = I[0],
+        D = I[1],
+        x = I[2],
+        $ = I[3],
+        P = I[4],
+        N;
+      n[6] !== D || n[7] !== P || n[8] !== $ || n[9] !== x || n[10] !== T
+        ? ((N = o("WAWebTextStatusUtils").hasTextStatusSet({
+            textStatusEmoji: D,
+            textStatusEphemeralDuration: P,
+            textStatusExpiryTs: $,
+            textStatusLastUpdateTime: x,
+            textStatusString: T,
           })),
-          (n[6] = T),
-          (n[7] = $),
-          (n[8] = x),
-          (n[9] = D),
-          (n[10] = I),
-          (n[11] = P))
-        : (P = n[11]);
-      var N = P;
+          (n[6] = D),
+          (n[7] = P),
+          (n[8] = $),
+          (n[9] = x),
+          (n[10] = T),
+          (n[11] = N))
+        : (N = n[11]);
+      var M = N;
       if (
         !o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() ||
         !u ||
-        (!o("WAWebTextStatusGatingUtils").sendTextStatusEnabled() && !N)
+        (!o("WAWebTextStatusGatingUtils").sendTextStatusEnabled() && !M)
       )
         return null;
-      if (o("WAWebTextStatusUtils").isTextStatusNotFetched(D)) {
-        var M;
+      if (o("WAWebTextStatusUtils").isTextStatusNotFetched(x)) {
+        var w;
         (n[12] === Symbol.for("react.memo_cache_sentinel")
-          ? ((M = c.jsx(
-              "div",
-              babelHelpers.extends(
-                {},
-                (e || (e = r("stylex"))).props(
-                  o("WAWebUISpacing").uiPadding.end5,
-                ),
-                { children: s._(/*BTDS*/ "Loading...") },
-              ),
-            )),
-            (n[12] = M))
-          : (M = n[12]),
-          (R = M));
-      } else if (N) {
-        if (T != null) {
-          var B;
-          n[19] !== T
-            ? ((B = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(T)),
-              (n[19] = T),
-              (n[20] = B))
-            : (B = n[20]);
-          var W = B;
-          if (W != null) {
-            var q;
-            n[21] === Symbol.for("react.memo_cache_sentinel")
-              ? ((q = (e || (e = r("stylex"))).props(
-                  o("WAWebUISpacing").uiPadding.end7,
-                )),
-                (n[21] = q))
-              : (q = n[21]);
+          ? ((w = c.jsx("div", {
+              className: "x1gabggj",
+              children: s._(/*BTDS*/ "Loading..."),
+            })),
+            (n[12] = w))
+          : (w = n[12]),
+          (L = w));
+      } else if (M) {
+        if (D != null) {
+          var W;
+          n[19] !== D
+            ? ((W = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(D)),
+              (n[19] = D),
+              (n[20] = W))
+            : (W = n[20]);
+          var q = W;
+          if (q != null) {
             var U;
-            (n[22] !== W
-              ? ((U = c.jsx(
+            n[21] === Symbol.for("react.memo_cache_sentinel")
+              ? ((U = { className: "x1bjonze" }), (n[21] = U))
+              : (U = n[21]);
+            var V;
+            (n[22] !== q
+              ? ((V = c.jsx(
                   "div",
-                  babelHelpers.extends({}, q, {
+                  babelHelpers.extends({}, U, {
                     children: c.jsx(
                       r("WAWebEmoji.react"),
-                      { emoji: W, size: "small" },
+                      { emoji: q, size: "small" },
                       "low-res",
                     ),
                   }),
                 )),
-                (n[22] = W),
-                (n[23] = U))
-              : (U = n[23]),
-              (S = U));
+                (n[22] = q),
+                (n[23] = V))
+              : (V = n[23]),
+              (R = V));
           }
         }
-        if (I) {
-          var V;
-          n[24] === Symbol.for("react.memo_cache_sentinel")
-            ? ((V = (e || (e = r("stylex"))).props(
-                o("WAWebUISpacing").uiPadding.end5,
-              )),
-              (n[24] = V))
-            : (V = n[24]);
+        if (T) {
           var H;
-          (n[25] !== I
-            ? ((H = c.jsx("div", babelHelpers.extends({}, V, { children: I }))),
-              (n[25] = I),
-              (n[26] = H))
-            : (H = n[26]),
-            (R = H));
+          n[24] === Symbol.for("react.memo_cache_sentinel")
+            ? ((H = { className: "x1gabggj" }), (n[24] = H))
+            : (H = n[24]);
+          var G;
+          (n[25] !== T
+            ? ((G = c.jsx("div", babelHelpers.extends({}, H, { children: T }))),
+              (n[25] = T),
+              (n[26] = G))
+            : (G = n[26]),
+            (L = G));
         }
       } else {
-        var w;
-        (n[13] === Symbol.for("react.memo_cache_sentinel")
-          ? ((w = c.jsx(
-              "div",
-              babelHelpers.extends(
-                {},
-                (e || (e = r("stylex"))).props(
-                  o("WAWebUISpacing").uiPadding.end10,
-                ),
-                {
-                  children: c.jsx(r("WDSIconIcMood.react"), {
-                    xstyle: m.moodIcon,
-                  }),
-                },
-              ),
-            )),
-            (n[13] = w))
-          : (w = n[13]),
-          (S = w));
         var A;
-        n[14] === Symbol.for("react.memo_cache_sentinel")
-          ? ((A = (e || (e = r("stylex"))).props(
-              o("WAWebUISpacing").uiPadding.end5,
-            )),
-            (n[14] = A))
-          : (A = n[14]);
+        (n[13] === Symbol.for("react.memo_cache_sentinel")
+          ? ((A = c.jsx("div", {
+              className: "x2vl965",
+              children: c.jsx(r("WDSIconIcMood.react"), { xstyle: p.moodIcon }),
+            })),
+            (n[13] = A))
+          : (A = n[13]),
+          (R = A));
         var F;
-        n[15] !== v
-          ? ((F = g ? v : s._(/*BTDS*/ "What are you up to?")),
-            (n[15] = v),
-            (n[16] = F))
-          : (F = n[16]);
+        n[14] === Symbol.for("react.memo_cache_sentinel")
+          ? ((F = { className: "x1gabggj" }), (n[14] = F))
+          : (F = n[14]);
         var O;
-        (n[17] !== F
-          ? ((O = c.jsx("div", babelHelpers.extends({}, A, { children: F }))),
-            (n[17] = F),
-            (n[18] = O))
-          : (O = n[18]),
-          (R = O));
+        n[15] !== S
+          ? ((O = h ? S : s._(/*BTDS*/ "What are you up to?")),
+            (n[15] = S),
+            (n[16] = O))
+          : (O = n[16]);
+        var B;
+        (n[17] !== O
+          ? ((B = c.jsx("div", babelHelpers.extends({}, F, { children: O }))),
+            (n[17] = O),
+            (n[18] = B))
+          : (B = n[18]),
+          (L = B));
       }
-      var G;
-      n[27] !== S || n[28] !== R
-        ? ((G = c.jsxs(o("WAWebFlex.react").FlexRow, {
+      var z;
+      n[27] !== R || n[28] !== L
+        ? ((z = c.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
-            children: [S, R],
+            children: [R, L],
           })),
-          (n[27] = S),
-          (n[28] = R),
-          (n[29] = G))
-        : (G = n[29]);
-      var z = G,
-        j;
+          (n[27] = R),
+          (n[28] = L),
+          (n[29] = z))
+        : (z = n[29]);
+      var j = z,
+        K;
       n[30] === Symbol.for("react.memo_cache_sentinel")
-        ? ((j = s._(/*BTDS*/ "About")), (n[30] = j))
-        : (j = n[30]);
-      var K = j,
-        Q;
-      n[31] !== C || n[32] !== N
-        ? ((Q = function () {
+        ? ((K = s._(/*BTDS*/ "About")), (n[30] = K))
+        : (K = n[30]);
+      var Q = K,
+        X;
+      n[31] !== b || n[32] !== M
+        ? ((X = function () {
             o("WAWebModalManager").ModalManager.open(
               c.jsx(
                 o("WAWebTextStatusEditModalLoadable")
@@ -242,33 +218,33 @@ __d(
                 {
                   entrypoint: o("WAWebAboutWamLogger").ABOUT_ENTRYPOINT_TYPE
                     .SETTINGS,
-                  promptKey: N ? null : C,
+                  promptKey: M ? null : b,
                 },
               ),
             );
           }),
-          (n[31] = C),
-          (n[32] = N),
-          (n[33] = Q))
-        : (Q = n[33]);
-      var X = Q,
-        Y;
+          (n[31] = b),
+          (n[32] = M),
+          (n[33] = X))
+        : (X = n[33]);
+      var Y = X,
+        J;
       n[34] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Y = s._(/*BTDS*/ "Edit button for text status creation")),
-          (n[34] = Y))
-        : (Y = n[34]);
-      var J = Y,
-        Z;
-      n[35] !== X || n[36] !== D
-        ? ((Z =
+        ? ((J = s._(/*BTDS*/ "Edit button for text status creation")),
+          (n[34] = J))
+        : (J = n[34]);
+      var Z = J,
+        ee;
+      n[35] !== Y || n[36] !== x
+        ? ((ee =
             o("WAWebTextStatusGatingUtils").sendTextStatusEnabled() &&
-            !o("WAWebTextStatusUtils").isTextStatusNotFetched(D)
+            !o("WAWebTextStatusUtils").isTextStatusNotFetched(x)
               ? c.jsx(
                   "div",
                   babelHelpers.extends(
                     {},
                     (e || (e = r("stylex"))).props(
-                      o("WAWebUISpacing").uiMargin.startAuto,
+                      o("WDSMargins.stylex").wdsMargins.marginStartAuto,
                     ),
                     {
                       children: c.jsx(r("WDSButton.react"), {
@@ -276,107 +252,107 @@ __d(
                         Icon: o("WAWebPencilRefreshedIcon.react")
                           .PencilRefreshedIcon,
                         variant: "borderless",
-                        onPress: X,
-                        "aria-label": J,
+                        onPress: Y,
+                        "aria-label": Z,
                       }),
                     },
                   ),
                 )
               : null),
-          (n[35] = X),
-          (n[36] = D),
-          (n[37] = Z))
-        : (Z = n[37]);
-      var ee = Z,
-        te;
-      n[38] !== z
-        ? ((te = c.jsx(o("WAWebFlex.react").FlexRow, {
+          (n[35] = Y),
+          (n[36] = x),
+          (n[37] = ee))
+        : (ee = n[37]);
+      var te = ee,
+        ne;
+      n[38] !== j
+        ? ((ne = c.jsx(o("WAWebFlex.react").FlexRow, {
             align: "center",
-            children: z,
+            children: j,
           })),
-          (n[38] = z),
-          (n[39] = te))
-        : (te = n[39]);
-      var ne;
-      n[40] !== ee || n[41] !== te
-        ? ((ne = c.jsx(r("WAWebDrawerSection.react"), {
-            title: K,
+          (n[38] = j),
+          (n[39] = ne))
+        : (ne = n[39]);
+      var re;
+      n[40] !== te || n[41] !== ne
+        ? ((re = c.jsx(r("WAWebDrawerSection.react"), {
+            title: Q,
             animation: !1,
             theme: "padding",
             children: c.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
-              children: [te, ee],
+              children: [ne, te],
             }),
           })),
-          (n[40] = ee),
-          (n[41] = te),
-          (n[42] = ne))
-        : (ne = n[42]);
-      var re;
-      n[43] === Symbol.for("react.memo_cache_sentinel")
-        ? ((re = (e || (e = r("stylex"))).props(
-            o("WAWebUISpacing").uiMargin.start30,
-            o("WAWebUISpacing").uiMargin.top4,
-            o("WAWebUISpacing").uiMargin.bottom28,
-            o("WAWebUISpacing").uiMargin.end20,
-          )),
-          (n[43] = re))
-        : (re = n[43]);
+          (n[40] = te),
+          (n[41] = ne),
+          (n[42] = re))
+        : (re = n[42]);
       var oe;
-      n[44] !== $ || n[45] !== x
-        ? ((oe =
-            $ !== o("WAWebTextStatusUtils").TEXT_STATUS_DURATION_INFINITE &&
-            x != null &&
+      n[43] === Symbol.for("react.memo_cache_sentinel")
+        ? ((oe = (e || (e = r("stylex"))).props(
+            m.marginInlineStart30,
+            o("WDSMargins.stylex").wdsMargins.marginTop4,
+            o("WDSMargins.stylex").wdsMargins.marginBottom28,
+            o("WDSMargins.stylex").wdsMargins.marginEnd20,
+          )),
+          (n[43] = oe))
+        : (oe = n[43]);
+      var ae;
+      n[44] !== P || n[45] !== $
+        ? ((ae =
+            P !== o("WAWebTextStatusUtils").TEXT_STATUS_DURATION_INFINITE &&
+            $ != null &&
             c.jsx(o("WAWebText.react").WAWebTextMuted, {
               as: "span",
               children: o("WAWebClock").Clock.textStatusExpiryStr(
-                o("WATimeUtils").castToUnixTime(x),
+                o("WATimeUtils").castToUnixTime($),
               ),
             })),
-          (n[44] = $),
-          (n[45] = x),
-          (n[46] = oe))
-        : (oe = n[46]);
-      var ae;
-      n[47] !== $
-        ? ((ae =
-            $ === o("WAWebTextStatusUtils").TEXT_STATUS_DURATION_INFINITE &&
+          (n[44] = P),
+          (n[45] = $),
+          (n[46] = ae))
+        : (ae = n[46]);
+      var ie;
+      n[47] !== P
+        ? ((ie =
+            P === o("WAWebTextStatusUtils").TEXT_STATUS_DURATION_INFINITE &&
             c.jsx(o("WAWebText.react").WAWebTextMuted, {
               as: "span",
               children: s._(/*BTDS*/ "Until I change it"),
             })),
-          (n[47] = $),
-          (n[48] = ae))
-        : (ae = n[48]);
-      var ie;
-      n[49] !== oe || n[50] !== ae
-        ? ((ie = c.jsxs(
+          (n[47] = P),
+          (n[48] = ie))
+        : (ie = n[48]);
+      var le;
+      n[49] !== ae || n[50] !== ie
+        ? ((le = c.jsxs(
             "div",
             babelHelpers.extends(
               { "data-testid": "text-status-ephemeral" },
-              re,
-              { children: [oe, ae] },
+              oe,
+              { children: [ae, ie] },
             ),
           )),
-          (n[49] = oe),
-          (n[50] = ae),
-          (n[51] = ie))
-        : (ie = n[51]);
-      var le;
+          (n[49] = ae),
+          (n[50] = ie),
+          (n[51] = le))
+        : (le = n[51]);
+      var se;
       return (
-        n[52] !== ne || n[53] !== ie
-          ? ((le = c.jsxs("div", { children: [ne, ie] })),
-            (n[52] = ne),
-            (n[53] = ie),
-            (n[54] = le))
-          : (le = n[54]),
-        le
+        n[52] !== re || n[53] !== le
+          ? ((se = c.jsxs("div", { children: [re, le] })),
+            (n[52] = re),
+            (n[53] = le),
+            (n[54] = se))
+          : (se = n[54]),
+        se
       );
     }
-    function _() {
+    function f() {
       return o("WAWebAboutPrompts").getRandomAboutPromptKey();
     }
-    l.default = p;
+    l.default = _;
   },
   226,
 );

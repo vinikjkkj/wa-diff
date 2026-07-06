@@ -9,7 +9,7 @@ __d(
           display: "x78zum5",
           flex: "x1okw0bk",
           alignItems: "x6s0dn4",
-          height: "x1fx07b1",
+          height: "xgzjj13",
           color: "xhslqc4",
           backgroundColor: "xhjsbib",
           $$css: !0,

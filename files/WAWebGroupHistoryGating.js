@@ -119,6 +119,11 @@ __d(
     }
     function b() {
       return o("WAWebABProps").getABPropConfigValue(
+        "group_history_after_join_prerequisites",
+      );
+    }
+    function v() {
+      return o("WAWebABProps").getABPropConfigValue(
         "group_history_receiver_dedup",
       );
     }
@@ -134,7 +139,8 @@ __d(
       (l.getGroupHistoryMessagesTimeLimitSecs = h),
       (l.isGroupHistoryPostJoinInternalTesterEnabled = y),
       (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = C),
-      (l.isGroupHistoryReceiverDedupEnabled = b));
+      (l.isGroupHistoryAfterJoinPrerequisitesEnabled = b),
+      (l.isGroupHistoryReceiverDedupEnabled = v));
   },
   98,
 );

@@ -23,10 +23,10 @@ __d(
     "WAWebProductMessageListCollection",
     "WAWebProtobufsE2E.pb",
     "WAWebQplFlowWrapper",
-    "WAWebUISpacing",
     "WAWebWamEnumBizPlatform",
     "WAWebWamEnumCatalogEntryPoint",
     "WDSIconIcFormatListBulleted.react",
+    "WDSMargins.stylex",
     "qpl",
     "react",
     "react-compiler-runtime",
@@ -141,13 +141,6 @@ __d(
         whiteSpace: "xeaf4i8",
         $$css: !0,
       },
-      footer: {
-        display: "x1lliihq",
-        fontSize: "x1nxh6w3",
-        lineHeight: "xuy8w9f",
-        color: "xhslqc4",
-        $$css: !0,
-      },
       quotedElement: {
         marginTop: "x1198e8h",
         marginInlineEnd: "x1lxpwgx",
@@ -201,7 +194,8 @@ __d(
                   {},
                   (e || (e = r("stylex"))).props(
                     h.quotedElement,
-                    i.isForwarded && o("WAWebUISpacing").uiMargin.top0,
+                    i.isForwarded &&
+                      o("WDSMargins.stylex").wdsMargins.marginTop0,
                   ),
                   {
                     children: c.jsx(r("WAWebBizProductListMessagePreview"), {
@@ -222,7 +216,7 @@ __d(
                 babelHelpers.extends({}, d, {
                   className: (e || (e = r("stylex")))(
                     h.title,
-                    o("WAWebUISpacing").uiMargin.bottom8,
+                    o("WDSMargins.stylex").wdsMargins.marginBottom8,
                   ),
                   text: s.title,
                   formatters: m,
@@ -248,10 +242,7 @@ __d(
         v = c.jsx(
           o("WAWebEmojiText.react").EmojiText,
           babelHelpers.extends({}, d, {
-            className: (e || (e = r("stylex")))(
-              h.footer,
-              o("WAWebUISpacing").uiMargin.top6,
-            ),
+            className: "x1lliihq x1nxh6w3 xuy8w9f xhslqc4 x1k70j0n",
             text: i.footer,
             formatters: S,
           }),
@@ -280,7 +271,7 @@ __d(
             children: l,
           })),
         c.jsx("div", {
-          className: "x1n2onr6 x1vjfegm x9f619 x1o095ql x193iq5w",
+          className: "x1n2onr6 x1vjfegm x9f619 x3orp4s x193iq5w",
           children: c.jsxs(r("WAWebMessageTextBubble.react"), {
             msg: i,
             displayAuthor: a,

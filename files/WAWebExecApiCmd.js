@@ -60,6 +60,7 @@ __d(
     "WAWebNoop",
     "WAWebOIDCCallbackEventBus",
     "WAWebOpenChatFlow.react",
+    "WAWebOpenChatWithContactAction",
     "WAWebOpenNewsletterTab",
     "WAWebPrimaryFeaturesModel",
     "WAWebProfilePicThumbCollection",
@@ -555,20 +556,11 @@ __d(
         case "MESSAGE_YOURSELF": {
           try {
             var pe = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
-            o("WAWebFindChatAction")
-              .findOrCreateLatestChat(pe, "newChatFlow")
-              .then(function (e) {
-                var t = e.chat;
-                o("WAWebCmd")
-                  .Cmd.openChatFromUnread({
-                    chat: t,
-                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                      .Deeplink,
-                  })
-                  .then(function (e) {
-                    e && o("WAWebComposeBoxActions").ComposeBoxActions.focus(t);
-                  });
-              });
+            o("WAWebOpenChatWithContactAction").openChatWithContact(
+              pe,
+              "newChatFlow",
+              o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink,
+            );
           } catch (e) {
             o("WALogger").ERROR(
               u ||

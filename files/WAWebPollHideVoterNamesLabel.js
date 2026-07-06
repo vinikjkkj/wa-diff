@@ -3,77 +3,62 @@ __d(
   [
     "fbt",
     "WAWebFlex.react",
-    "WAWebUISpacing",
     "WDSIconIcVisibilityOffFilled.react",
+    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
-    "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u,
-      c = u || (u = o("react")),
-      d = {
+      u = e || (e = o("react")),
+      c = {
         iconContainer: {
           display: "x78zum5",
           justifyContent: "xl56j7k",
           width: "xn6xy2s",
           $$css: !0,
         },
-        label: {
-          fontSize: "x1pg5gke",
-          lineHeight: "x1d3mw78",
-          color: "x1bvqhpb",
-          $$css: !0,
-        },
       };
-    function m(t) {
-      var n = o("react-compiler-runtime").c(5),
-        a = t.isSingleOptionPoll,
-        i = a ? void 0 : d.iconContainer,
-        l;
-      n[0] !== i
-        ? ((l = c.jsx(r("WDSIconIcVisibilityOffFilled.react"), {
+    function d(e) {
+      var t = o("react-compiler-runtime").c(5),
+        n = e.isSingleOptionPoll,
+        a = n ? void 0 : c.iconContainer,
+        i;
+      t[0] !== a
+        ? ((i = u.jsx(r("WDSIconIcVisibilityOffFilled.react"), {
             width: 12,
             height: 12,
-            xstyle: i,
+            xstyle: a,
             colorName: "contentDeemphasized",
           })),
-          (n[0] = i),
-          (n[1] = l))
-        : (l = n[1]);
-      var u;
-      n[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = c.jsx(
-            "span",
-            babelHelpers.extends(
-              {},
-              (e || (e = r("stylex"))).props(
-                d.label,
-                o("WAWebUISpacing").uiPadding.start5,
-              ),
-              { children: s._(/*BTDS*/ "Voter names hidden") },
-            ),
-          )),
-          (n[2] = u))
-        : (u = n[2]);
-      var m;
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = u.jsx("span", {
+            className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8",
+            children: s._(/*BTDS*/ "Voter names hidden"),
+          })),
+          (t[2] = l))
+        : (l = t[2]);
+      var d;
       return (
-        n[3] !== l
-          ? ((m = c.jsxs(o("WAWebFlex.react").FlexRow, {
+        t[3] !== i
+          ? ((d = u.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
-              xstyle: o("WAWebUISpacing").uiPadding.all4,
+              xstyle: o("WDSPaddings.stylex").wdsPaddings.padding4,
               testid: "poll-hide-voter-names-label",
-              children: [l, u],
+              children: [i, l],
             })),
-            (n[3] = l),
-            (n[4] = m))
-          : (m = n[4]),
-        m
+            (t[3] = i),
+            (t[4] = d))
+          : (d = t[4]),
+        d
       );
     }
-    l.default = m;
+    l.default = d;
   },
   226,
 );

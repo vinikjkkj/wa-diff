@@ -1,6 +1,10 @@
 __d(
   "WAWebCreateOrUpdateGroupMetadataAction",
-  ["WAWebGroupMetadataCollection", "WAWebGroupQueryBridge"],
+  [
+    "WAWebGroupHistoryParticipantStateHydration",
+    "WAWebGroupMetadataCollection",
+    "WAWebGroupQueryBridge",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t, n, a, i, l, s, u, c, d, m, p, _;
@@ -28,7 +32,9 @@ __d(
               memberAddMode: e.memberAddMode,
               memberLinkMode: e.memberLinkMode,
               memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
-              participants: e.participants,
+              participants: o(
+                "WAWebGroupHistoryParticipantStateHydration",
+              ).guardGroupHistorySentStateDowngrade(e.id, e.participants),
               pastParticipants: e.pastParticipants,
               support: (n = e.support) != null ? n : !1,
               suspended: (a = e.suspended) != null ? a : !1,

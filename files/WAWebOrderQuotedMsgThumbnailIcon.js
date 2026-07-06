@@ -10,7 +10,7 @@ __d(
       if (!n.thumbnail) return null;
       var r;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = { className: "xk1v102" }), (t[0] = r))
+        ? ((r = { className: "xi9e97b" }), (t[0] = r))
         : (r = t[0]);
       var a;
       return (

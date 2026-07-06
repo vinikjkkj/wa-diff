@@ -210,7 +210,7 @@ __d(
                 v.forEach(function (e) {
                   e.id.fromMe &&
                     o("WAWebMsgGetters").getIsStatus(e) &&
-                    r("WAWebStatusDBMessageInfo").updatePeerStatusReceiptInfo(
+                    o("WAWebStatusDBMessageInfo").updatePeerStatusReceiptInfo(
                       e.id,
                       y,
                       t.statusSetting,

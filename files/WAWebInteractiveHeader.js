@@ -19,7 +19,6 @@ __d(
     "WAWebOrderStatus",
     "WAWebPaymentReminderHeader.react",
     "WAWebPaymentRequestHeader.react",
-    "WAWebUISpacing",
     "WAWebVideoPreview.react",
     "react",
     "stylex",
@@ -156,20 +155,12 @@ __d(
                   (y.title != null || y.subtitle != null) &&
                   (C = b
                     ? u.jsx(r("WAWebInteractiveTitleHeader"), { msg: s })
-                    : u.jsx(
-                        "div",
-                        babelHelpers.extends(
-                          {},
-                          (e || (e = r("stylex"))).props(
-                            o("WAWebUISpacing").uiMargin.top6,
-                          ),
-                          {
-                            children: u.jsx(r("WAWebInteractiveTitleHeader"), {
-                              msg: s,
-                            }),
-                          },
-                        ),
-                      ));
+                    : u.jsx("div", {
+                        className: "x1k70j0n",
+                        children: u.jsx(r("WAWebInteractiveTitleHeader"), {
+                          msg: s,
+                        }),
+                      }));
       var R = y == null ? void 0 : y.mediaType;
       if (
         (b != null &&
@@ -213,18 +204,7 @@ __d(
           "div",
           babelHelpers.extends({}, (e || (e = r("stylex"))).props(I), {
             children: [
-              C && b
-                ? u.jsx(
-                    "div",
-                    babelHelpers.extends(
-                      {},
-                      (e || (e = r("stylex"))).props(
-                        o("WAWebUISpacing").uiMargin.bottom6,
-                      ),
-                      { children: b },
-                    ),
-                  )
-                : b,
+              C && b ? u.jsx("div", { className: "xzueoph", children: b }) : b,
               C,
             ],
           }),

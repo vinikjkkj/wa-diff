@@ -7,7 +7,7 @@ __d(
         display: "x1rg5ohu",
         alignSelf: "xpvyfi4",
         marginBottom: "xfitlp5",
-        marginInlineStart: "x10zl8k0",
+        marginInlineStart: "x1j0eyxp",
         marginInlineEnd: "xcknrev",
         $$css: !0,
       },

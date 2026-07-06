@@ -17,7 +17,7 @@ __d(
     "WAWebPollEndTimeLabel",
     "WAWebPollHideVoterNamesLabel",
     "WAWebTextSizeUtils",
-    "WAWebUISpacing",
+    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -29,12 +29,6 @@ __d(
       c = u || (u = o("react")),
       d = {
         container: { display: "x78zum5", alignItems: "x6s0dn4", $$css: !0 },
-        hint: {
-          fontSize: "x1pg5gke",
-          lineHeight: "x1d3mw78",
-          color: "x1bvqhpb",
-          $$css: !0,
-        },
         pollName: { fontWeight: "x1s688f", fontSize: "x1jchvi3", $$css: !0 },
         selectIcon: { fill: "x2u7xp1", $$css: !0 },
       };
@@ -60,7 +54,7 @@ __d(
         v;
       n[3] === Symbol.for("react.memo_cache_sentinel")
         ? ((v = (e || (e = r("stylex"))).props(
-            o("WAWebUISpacing").uiPadding.all4,
+            o("WDSPaddings.stylex").wdsPaddings.padding4,
           )),
           (n[3] = v))
         : (v = n[3]);
@@ -212,7 +206,7 @@ __d(
       n[3] === Symbol.for("react.memo_cache_sentinel")
         ? ((_ = (e || (e = r("stylex"))).props(
             d.container,
-            o("WAWebUISpacing").uiPadding.all4,
+            o("WDSPaddings.stylex").wdsPaddings.padding4,
           )),
           (n[3] = _))
         : (_ = n[3]);
@@ -233,10 +227,7 @@ __d(
         : (f = n[5]);
       var g;
       n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = (e || (e = r("stylex"))).props(
-            d.hint,
-            o("WAWebUISpacing").uiPadding.start5,
-          )),
+        ? ((g = { className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8" }),
           (n[6] = g))
         : (g = n[6]);
       var h;

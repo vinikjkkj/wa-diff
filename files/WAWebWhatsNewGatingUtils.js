@@ -1,9 +1,10 @@
 __d(
   "WAWebWhatsNewGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms"],
+  ["WAWebABProps", "WAWebMobilePlatforms", "WAWebWhatsNewContent"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebMobilePlatforms").isSMB()
+      return o("WAWebMobilePlatforms").isSMB() ||
+        !o("WAWebWhatsNewContent").hasWhatsNewContent()
         ? !1
         : o("WAWebABProps").getABPropConfigValue("web_whats_new_auto_modal") ===
             !0;

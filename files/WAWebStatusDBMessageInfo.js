@@ -156,8 +156,7 @@ __d(
         h.apply(this, arguments)
       );
     }
-    var y = { updatePeerStatusReceiptInfo: g };
-    l.default = y;
+    l.updatePeerStatusReceiptInfo = g;
   },
   98,
 );

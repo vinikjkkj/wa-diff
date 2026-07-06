@@ -6,9 +6,9 @@ __d(
     "WAWebDropdownItem.react",
     "WAWebL10N",
     "WAWebText_DONOTUSE.react",
-    "WAWebUISpacing",
     "WAWebUimUie.react",
     "WAWebUimUieMenu.react",
+    "WDSPaddings.stylex",
     "react",
     "stylex",
   ],
@@ -19,7 +19,8 @@ __d(
       c = s,
       d = c.useRef,
       m = c.useState,
-      p = {
+      p = { paddingTop13: { paddingTop: "x1d0ri9u", $$css: !0 } },
+      _ = {
         chipButtonRTL: {
           paddingInlineEnd: "xud5lew",
           paddingInlineStart: "x7myx5e",
@@ -41,20 +42,20 @@ __d(
           $$css: !0,
         },
       };
-    function _(t) {
+    function f(t) {
       var n = t["aria-label"],
         a = t.defaultIndex,
         i = a === void 0 ? 0 : a,
         l = t.onChange,
         s = t.options,
         c = d(null),
-        _ = m(!1),
-        f = _[0],
-        g = _[1],
-        h = m(i),
-        y = h[0],
-        C = h[1],
-        b = s.map(function (t, n) {
+        f = m(!1),
+        g = f[0],
+        h = f[1],
+        y = m(i),
+        C = y[0],
+        b = y[1],
+        v = s.map(function (t, n) {
           var a = t.id,
             i = t.label;
           return u.jsx(
@@ -62,22 +63,22 @@ __d(
             {
               testid: "mi-" + a,
               action: function () {
-                (l(t), C(n));
+                (l(t), b(n));
               },
               children: u.jsx(
                 "div",
                 babelHelpers.extends(
                   {},
                   (e || (e = r("stylex"))).props([
-                    p.option,
-                    o("WAWebUISpacing").uiPadding.start24,
-                    o("WAWebUISpacing").uiPadding.top13,
+                    _.option,
+                    o("WDSPaddings.stylex").wdsPaddings.paddingStart24,
+                    p.paddingTop13,
                   ]),
                   {
                     role: "button",
                     "aria-label": i,
                     children:
-                      n === y
+                      n === C
                         ? u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
                             weight: "bold",
                             children: i,
@@ -94,17 +95,17 @@ __d(
         ref: c,
         children: [
           u.jsx(r("WAWebChipButton.react"), {
-            xstyle: r("WAWebL10N").isRTL() && p.chipButtonRTL,
+            xstyle: r("WAWebL10N").isRTL() && _.chipButtonRTL,
             "aria-label": n,
             PostfixIcon: o("WAWebChevronCustomIcons").ChevronDownCustomIcon,
-            label: s[y].value,
+            label: s[C].value,
             onClick: function () {
-              return g(function (e) {
+              return h(function (e) {
                 return !e;
               });
             },
           }),
-          f &&
+          g &&
             c.current &&
             u.jsx(o("WAWebUimUie.react").UIE, {
               displayName: "ValuePicker",
@@ -112,16 +113,16 @@ __d(
               popable: !0,
               dismissOnWindowResize: !0,
               requestDismiss: function () {
-                return g(!1);
+                return h(!1);
               },
               children: u.jsx(r("WAWebUimUieMenu.react"), {
-                contextMenu: { anchor: c.current, menu: b },
+                contextMenu: { anchor: c.current, menu: v },
               }),
             }),
         ],
       });
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
   },
   98,
 );

@@ -8,7 +8,8 @@ __d(
     "WAWebOrderPaymentStatus",
     "WAWebTextLineClamp.react",
     "WAWebText_DONOTUSE.react",
-    "WAWebUISpacing",
+    "WDSMargins.stylex",
+    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -17,13 +18,14 @@ __d(
     var e,
       u,
       c = u || (u = o("react")),
-      d = {
+      d = { paddingTop6: { paddingTop: "x1yrsyyn", $$css: !0 } },
+      m = {
         header: {
           boxSizing: "x9f619",
-          borderStartStartRadius: "xaejkm2",
-          borderStartEndRadius: "x1uuy6ko",
-          borderEndEndRadius: "x1gfim23",
-          borderEndStartRadius: "xqfj769",
+          borderStartStartRadius: "x1i282gy",
+          borderStartEndRadius: "xx9ypkp",
+          borderEndEndRadius: "xd15eu0",
+          borderEndStartRadius: "x11ecxm0",
           $$css: !0,
         },
         bubbleIn: { backgroundColor: "x1bu39yj", $$css: !0 },
@@ -62,117 +64,117 @@ __d(
           $$css: !0,
         },
       };
-    function m(t) {
+    function p(t) {
       var n = o("react-compiler-runtime").c(31),
         a = t.amount,
         i = t.documentPreview,
         l = t.isSentByMe,
         u = t.numberOfItems,
-        m = t.orderId,
-        _ = t.orderPaymentStatus,
-        f = t.payIcons,
-        g = t.quantity,
-        h = t.text,
-        y = t.thumbnail,
-        C = t.xstyle,
-        b = l ? d.bubbleOut : d.bubbleIn,
-        v;
-      n[0] !== b || n[1] !== C
-        ? ((v = [
-            d.header,
-            o("WAWebUISpacing").uiPadding.top6,
-            o("WAWebUISpacing").uiPadding.bottom8,
-            o("WAWebUISpacing").uiPadding.horiz8,
+        p = t.orderId,
+        f = t.orderPaymentStatus,
+        g = t.payIcons,
+        h = t.quantity,
+        y = t.text,
+        C = t.thumbnail,
+        b = t.xstyle,
+        v = l ? m.bubbleOut : m.bubbleIn,
+        S;
+      n[0] !== v || n[1] !== b
+        ? ((S = [
+            m.header,
+            d.paddingTop6,
+            o("WDSPaddings.stylex").wdsPaddings.paddingBottom8,
+            o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
+            v,
             b,
-            C,
           ]),
-          (n[0] = b),
-          (n[1] = C),
-          (n[2] = v))
-        : (v = n[2]);
-      var S;
-      n[3] !== m
-        ? ((S = o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
-            ? s._(/*BTDS*/ "Charge #{order}", [s._param("order", m)])
-            : s._(/*BTDS*/ "Order #{order}", [s._param("order", m)])),
-          (n[3] = m),
-          (n[4] = S))
-        : (S = n[4]);
+          (n[0] = v),
+          (n[1] = b),
+          (n[2] = S))
+        : (S = n[2]);
       var R;
-      n[5] !== S
-        ? ((R = c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+      n[3] !== p
+        ? ((R = o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
+            ? s._(/*BTDS*/ "Charge #{order}", [s._param("order", p)])
+            : s._(/*BTDS*/ "Order #{order}", [s._param("order", p)])),
+          (n[3] = p),
+          (n[4] = R))
+        : (R = n[4]);
+      var L;
+      n[5] !== R
+        ? ((L = c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
             color: "secondary",
             weight: "medium",
-            xstyle: d.orderId,
+            xstyle: m.orderId,
             size: "10",
-            children: S,
+            children: R,
           })),
-          (n[5] = S),
-          (n[6] = R))
-        : (R = n[6]);
-      var L;
-      n[7] !== _
-        ? ((L =
-            _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
+          (n[5] = R),
+          (n[6] = L))
+        : (L = n[6]);
+      var E;
+      n[7] !== f
+        ? ((E =
+            f === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
             c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
               testid: "order-header-payment-status-paid",
               color: "secondary",
               weight: "medium",
               size: "10",
-              xstyle: d.orderId,
+              xstyle: m.orderId,
               children: [
                 c.jsx(
                   o("WAWebActionCheckCircleIcon.react").ActionCheckCircleIcon,
-                  { width: 12, displayInline: !0, xstyle: d.icon },
+                  { width: 12, displayInline: !0, xstyle: m.icon },
                 ),
                 s._(/*BTDS*/ "Paid"),
               ],
             })),
-          (n[7] = _),
-          (n[8] = L))
-        : (L = n[8]);
-      var E;
-      n[9] !== R || n[10] !== L
-        ? ((E = c.jsxs(o("WAWebFlex.react").FlexRow, {
-            xstyle: d.total,
-            justify: "all",
-            children: [R, L],
-          })),
-          (n[9] = R),
-          (n[10] = L),
-          (n[11] = E))
-        : (E = n[11]);
+          (n[7] = f),
+          (n[8] = E))
+        : (E = n[8]);
       var k;
+      n[9] !== L || n[10] !== E
+        ? ((k = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: m.total,
+            justify: "all",
+            children: [L, E],
+          })),
+          (n[9] = L),
+          (n[10] = E),
+          (n[11] = k))
+        : (k = n[11]);
+      var I;
       n[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = c.jsx(
+        ? ((I = c.jsx(
             "div",
             babelHelpers.extends(
               {},
               (e || (e = r("stylex"))).props(
-                d.hr,
-                o("WAWebUISpacing").uiMargin.top4,
-                o("WAWebUISpacing").uiMargin.bottom8,
+                m.hr,
+                o("WDSMargins.stylex").wdsMargins.marginTop4,
+                o("WDSMargins.stylex").wdsMargins.marginBottom8,
               ),
             ),
           )),
-          (n[12] = k))
-        : (k = n[12]);
-      var I;
-      n[13] !== i || n[14] !== u || n[15] !== g || n[16] !== h || n[17] !== y
-        ? ((I =
+          (n[12] = I))
+        : (I = n[12]);
+      var T;
+      n[13] !== i || n[14] !== u || n[15] !== h || n[16] !== y || n[17] !== C
+        ? ((T =
             i != null
               ? i
               : c.jsxs(o("WAWebFlex.react").FlexRow, {
                   align: "center",
                   className: "xh8yej3",
                   children: [
-                    y != null && y !== ""
+                    C != null && C !== ""
                       ? c.jsx("div", {
                           className: (e || (e = r("stylex")))(
-                            d.media,
-                            o("WAWebUISpacing").uiMargin.end8,
+                            m.media,
+                            o("WDSMargins.stylex").wdsMargins.marginEnd8,
                           ),
-                          style: { backgroundImage: "url(" + y + ")" },
+                          style: { backgroundImage: "url(" + C + ")" },
                         })
                       : null,
                     c.jsxs("div", {
@@ -180,11 +182,11 @@ __d(
                       children: [
                         c.jsx(r("WAWebTextLineClamp.react"), {
                           maxLines: 1,
-                          children: h,
+                          children: y,
                         }),
                         c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
                           color: "secondary",
-                          children: p(u, g),
+                          children: _(u, h),
                         }),
                       ],
                     }),
@@ -192,16 +194,16 @@ __d(
                 })),
           (n[13] = i),
           (n[14] = u),
-          (n[15] = g),
-          (n[16] = h),
-          (n[17] = y),
-          (n[18] = I))
-        : (I = n[18]);
-      var T;
-      n[19] !== f
-        ? ((T =
-            f != null &&
-            (f == null ? void 0 : f.length) > 0 &&
+          (n[15] = h),
+          (n[16] = y),
+          (n[17] = C),
+          (n[18] = T))
+        : (T = n[18]);
+      var D;
+      n[19] !== g
+        ? ((D =
+            g != null &&
+            (g == null ? void 0 : g.length) > 0 &&
             c.jsxs(c.Fragment, {
               children: [
                 c.jsx(
@@ -209,13 +211,13 @@ __d(
                   babelHelpers.extends(
                     {},
                     (e || (e = r("stylex"))).props(
-                      d.hr,
-                      o("WAWebUISpacing").uiMargin.vert8,
+                      m.hr,
+                      o("WDSMargins.stylex").wdsMargins.marginVer8,
                     ),
                   ),
                 ),
                 c.jsxs(o("WAWebFlex.react").FlexRow, {
-                  xstyle: d.total,
+                  xstyle: m.total,
                   justify: "all",
                   align: "center",
                   testid: "order-header-pay-with-row",
@@ -225,46 +227,46 @@ __d(
                       children: s._(/*BTDS*/ "Pay with"),
                     }),
                     c.jsx(o("WAWebFlex.react").FlexRow, {
-                      xstyle: d.icon,
+                      xstyle: m.icon,
                       justify: "end",
-                      children: f,
+                      children: g,
                     }),
                   ],
                 }),
               ],
             })),
-          (n[19] = f),
-          (n[20] = T))
-        : (T = n[20]);
-      var D;
+          (n[19] = g),
+          (n[20] = D))
+        : (D = n[20]);
+      var x;
       n[21] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = c.jsx(
+        ? ((x = c.jsx(
             "div",
             babelHelpers.extends(
               {},
               (e || (e = r("stylex"))).props(
-                d.hr,
-                o("WAWebUISpacing").uiMargin.vert8,
+                m.hr,
+                o("WDSMargins.stylex").wdsMargins.marginVer8,
               ),
             ),
           )),
-          (n[21] = D))
-        : (D = n[21]);
-      var x;
+          (n[21] = x))
+        : (x = n[21]);
+      var $;
       n[22] === Symbol.for("react.memo_cache_sentinel")
-        ? ((x = c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+        ? (($ = c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
             size: "15",
             children: s._(/*BTDS*/ "Total"),
           })),
-          (n[22] = x))
-        : (x = n[22]);
-      var $;
+          (n[22] = $))
+        : ($ = n[22]);
+      var P;
       n[23] !== a
-        ? (($ = c.jsxs(o("WAWebFlex.react").FlexRow, {
-            xstyle: d.total,
+        ? ((P = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: m.total,
             justify: "all",
             children: [
-              x,
+              $,
               c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
                 size: "15",
                 weight: "medium",
@@ -273,26 +275,26 @@ __d(
             ],
           })),
           (n[23] = a),
-          (n[24] = $))
-        : ($ = n[24]);
-      var P;
+          (n[24] = P))
+        : (P = n[24]);
+      var N;
       return (
-        n[25] !== $ || n[26] !== v || n[27] !== E || n[28] !== I || n[29] !== T
-          ? ((P = c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              xstyle: v,
-              children: [E, k, I, T, D, $],
+        n[25] !== P || n[26] !== S || n[27] !== k || n[28] !== T || n[29] !== D
+          ? ((N = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+              xstyle: S,
+              children: [k, I, T, D, x, P],
             })),
-            (n[25] = $),
-            (n[26] = v),
-            (n[27] = E),
-            (n[28] = I),
-            (n[29] = T),
-            (n[30] = P))
-          : (P = n[30]),
-        P
+            (n[25] = P),
+            (n[26] = S),
+            (n[27] = k),
+            (n[28] = T),
+            (n[29] = D),
+            (n[30] = N))
+          : (N = n[30]),
+        N
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       return e != null && e > 1
         ? s._(/*BTDS*/ '_j{"*":"{number-of-items} items","_1":"1 item"}', [
             s._plural(e, "number-of-items"),
@@ -301,7 +303,7 @@ __d(
             s._param("item-quantity", t),
           ]);
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

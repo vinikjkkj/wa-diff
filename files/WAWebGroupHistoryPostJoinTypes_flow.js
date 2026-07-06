@@ -18,7 +18,16 @@ __d(
             ? e.NOTICE_SENT
             : null;
     }
-    ((i.GroupHistorySentState = e), (i.parseGroupHistorySentState = l));
+    function s(t) {
+      return t === !0 || t === "true"
+        ? e.HISTORY_SENT
+        : t === !1 || t === "false"
+          ? e.HISTORY_NOT_SENT
+          : void 0;
+    }
+    ((i.GroupHistorySentState = e),
+      (i.parseGroupHistorySentState = l),
+      (i.groupHistorySentToState = s));
   },
   66,
 );

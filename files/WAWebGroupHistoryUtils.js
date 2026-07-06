@@ -38,24 +38,27 @@ __d(
       );
     }
     function c(e) {
-      return o("WATimeUtils").unixTimeMs() <= m(e.t);
-    }
-    function d(e) {
       return o("WATimeUtils").unixTimeMs() <= p(e.t);
     }
+    function d(e) {
+      return !c(e);
+    }
     function m(e) {
+      return o("WATimeUtils").unixTimeMs() <= _(e.t);
+    }
+    function p(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "group_history_bundle_time_limit_receiver_enforcement_secs",
       );
       return (e + t) * 1e3;
     }
-    function p(e) {
+    function _(e) {
       var t = o("WAWebABProps").getABPropConfigValue(
         "group_history_new_user_threshold_receiver_enforcement_secs",
       );
-      return m(e) + t * 1e3;
+      return p(e) + t * 1e3;
     }
-    function _(e) {
+    function f(e) {
       return (
         o("WAWebGroupHistoryGating").isGroupHistoryReceiverEnabled() &&
         o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(e) != null &&
@@ -63,8 +66,9 @@ __d(
       );
     }
     ((l.isValidHistoryBundleToProcess = u),
-      (l.isJoinMessageWithinReceiverWindow = d),
-      (l.shouldReportGroupHistoryBundleSender = _));
+      (l.isGroupHistoryBundleExpired = d),
+      (l.isJoinMessageWithinReceiverWindow = m),
+      (l.shouldReportGroupHistoryBundleSender = f));
   },
   98,
 );

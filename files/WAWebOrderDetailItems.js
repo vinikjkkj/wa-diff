@@ -14,19 +14,16 @@ __d(
     "WAWebOrderIcons",
     "WAWebOrderItemGetters",
     "WAWebText_DONOTUSE.react",
-    "WAWebUISpacing",
     "react",
     "react-compiler-runtime",
-    "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = o("react")),
-      d = u,
-      m = d.useCallback,
-      p = d.useState,
-      _ = {
+      u = e || (e = o("react")),
+      c = e,
+      d = c.useCallback,
+      m = c.useState,
+      p = {
         orderItemsContainer: {
           marginTop: "x7wgvq7",
           marginInlineEnd: "x14z9mp",
@@ -35,9 +32,9 @@ __d(
           $$css: !0,
         },
       };
-    function f(e, t) {
+    function _(e, t) {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           tsNavigationData: {
             surface: "unknown",
             viewName: "order-detail-items",
@@ -54,231 +51,221 @@ __d(
         }),
       );
     }
-    function g(t) {
-      var n = o("react-compiler-runtime").c(27),
-        a = t.currency,
-        i = t.details,
-        l = t.items,
-        u = t.onAddItem,
-        d = t.onDeleteItem,
-        m = t.onItemQuantityChange,
-        g = t.onPriceChange,
-        y = t.priceMap,
-        C = p(null),
-        b = C[0],
-        v = C[1],
-        S;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = {}), (n[0] = S))
-        : (S = n[0]);
-      var R = p(S),
-        L = R[0],
-        E = R[1],
-        k;
-      n[1] !== y
-        ? ((k = function (t) {
+    function f(e) {
+      var t = o("react-compiler-runtime").c(27),
+        n = e.currency,
+        a = e.details,
+        i = e.items,
+        l = e.onAddItem,
+        c = e.onDeleteItem,
+        d = e.onItemQuantityChange,
+        f = e.onPriceChange,
+        h = e.priceMap,
+        y = m(null),
+        C = y[0],
+        b = y[1],
+        v;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = {}), (t[0] = v))
+        : (v = t[0]);
+      var S = m(v),
+        R = S[0],
+        L = S[1],
+        E;
+      t[1] !== h
+        ? ((E = function (t) {
             return t.price != null
               ? o("WAWebOrderCatalogProductPrice").PriceStage.Readonly
-              : (y == null ? void 0 : y[t.id]) != null
+              : (h == null ? void 0 : h[t.id]) != null
                 ? o("WAWebOrderCatalogProductPrice").PriceStage.EditableFilled
                 : o("WAWebOrderCatalogProductPrice").PriceStage.EditableBlank;
           }),
-          (n[1] = y),
-          (n[2] = k))
-        : (k = n[2]);
-      var I = k,
-        T;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = function (t, n) {
-            E(function (e) {
+          (t[1] = h),
+          (t[2] = E))
+        : (E = t[2]);
+      var k = E,
+        I;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = function (t, n) {
+            L(function (e) {
               var r;
               return babelHelpers.extends({}, e, ((r = {}), (r[n.id] = t), r));
             });
           }),
-          (n[3] = T))
-        : (T = n[3]);
-      var D = T,
-        x = !!i,
-        $;
-      n[4] !== a ||
-      n[5] !== I ||
-      n[6] !== b ||
-      n[7] !== d ||
-      n[8] !== g ||
-      n[9] !== y ||
-      n[10] !== L
-        ? (($ = function (n, i) {
-            var t, l;
-            return c.jsxs("div", {
+          (t[3] = I))
+        : (I = t[3]);
+      var T = I,
+        D = !!a,
+        x;
+      t[4] !== n ||
+      t[5] !== k ||
+      t[6] !== C ||
+      t[7] !== c ||
+      t[8] !== f ||
+      t[9] !== h ||
+      t[10] !== R
+        ? ((x = function (t, a) {
+            var e, i;
+            return u.jsxs("div", {
               className: "x6s0dn4 x78zum5",
               children: [
-                c.jsx(o("WAWebOrderCatalogProductPrice").CatalogProductPrice, {
-                  price: (t = y == null ? void 0 : y[n.id]) != null ? t : null,
-                  priceStage: (l = L[n.id]) != null ? l : I(n),
-                  currency: a,
-                  orderItem: n,
-                  onPriceChange: function (t) {
-                    return g == null ? void 0 : g(t, n.id);
+                u.jsx(o("WAWebOrderCatalogProductPrice").CatalogProductPrice, {
+                  price: (e = h == null ? void 0 : h[t.id]) != null ? e : null,
+                  priceStage: (i = R[t.id]) != null ? i : k(t),
+                  currency: n,
+                  orderItem: t,
+                  onPriceChange: function (n) {
+                    return f == null ? void 0 : f(n, t.id);
                   },
-                  onPriceStageChange: function (t) {
-                    D(t, n);
+                  onPriceStageChange: function (n) {
+                    T(n, t);
                   },
                   onEnter: function () {
-                    v(null);
+                    b(null);
                   },
                 }),
-                i === b &&
-                  c.jsx(
-                    "div",
-                    babelHelpers.extends(
-                      {},
-                      (e || (e = r("stylex"))).props(
-                        o("WAWebUISpacing").uiMargin.start5,
-                      ),
-                      {
-                        children: c.jsx(r("WAWebCartDeleteIcon.react"), {
-                          onClick: function (t) {
-                            (t.stopPropagation(),
-                              f(function () {
-                                return d == null ? void 0 : d(i);
-                              }, n.name));
-                          },
-                        }),
+                a === C &&
+                  u.jsx("div", {
+                    className: "xpcyujq",
+                    children: u.jsx(r("WAWebCartDeleteIcon.react"), {
+                      onClick: function (n) {
+                        (n.stopPropagation(),
+                          _(function () {
+                            return c == null ? void 0 : c(a);
+                          }, t.name));
                       },
-                    ),
-                  ),
+                    }),
+                  }),
               ],
             });
           }),
-          (n[4] = a),
-          (n[5] = I),
-          (n[6] = b),
-          (n[7] = d),
-          (n[8] = g),
-          (n[9] = y),
-          (n[10] = L),
-          (n[11] = $))
-        : ($ = n[11]);
-      var P = $,
-        N;
-      n[12] !== u || n[13] !== x
-        ? ((N =
-            !x &&
+          (t[4] = n),
+          (t[5] = k),
+          (t[6] = C),
+          (t[7] = c),
+          (t[8] = f),
+          (t[9] = h),
+          (t[10] = R),
+          (t[11] = x))
+        : (x = t[11]);
+      var $ = x,
+        P;
+      t[12] !== l || t[13] !== D
+        ? ((P =
+            !D &&
             (o("WAWebOrderGatingUtils").orderDetailsFromCatalogEnabled() ||
               o("WAWebOrderGatingUtils").orderDetailsCustomItemEnabled()) &&
-            c.jsx(r("WAWebOrderAddItem"), {
+            u.jsx(r("WAWebOrderAddItem"), {
               title: s._(/*BTDS*/ "Add items"),
               onClick: function () {
-                return u == null ? void 0 : u();
+                return l == null ? void 0 : l();
               },
             })),
-          (n[12] = u),
-          (n[13] = x),
-          (n[14] = N))
-        : (N = n[14]);
-      var M;
-      if (n[15] !== P || n[16] !== l || n[17] !== m || n[18] !== x) {
-        var w;
-        (n[20] !== P || n[21] !== m || n[22] !== x
-          ? ((w = function (n, a) {
-              var t,
-                i,
-                l =
-                  (t = (i = n.properties) == null ? void 0 : i.map(h)) != null
-                    ? t
+          (t[12] = l),
+          (t[13] = D),
+          (t[14] = P))
+        : (P = t[14]);
+      var N;
+      if (t[15] !== $ || t[16] !== i || t[17] !== d || t[18] !== D) {
+        var M;
+        (t[20] !== $ || t[21] !== d || t[22] !== D
+          ? ((M = function (t, n) {
+              var e,
+                a,
+                i =
+                  (e = (a = t.properties) == null ? void 0 : a.map(g)) != null
+                    ? e
                     : [],
-                u = s._(/*BTDS*/ "Quantity {item-quantity}", [
-                  s._param("item-quantity", n.quantity),
+                l = s._(/*BTDS*/ "Quantity {item-quantity}", [
+                  s._param("item-quantity", t.quantity),
                 ]),
-                d = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                c = u.jsxs(o("WAWebFlex.react").FlexColumn, {
                   children: [
-                    x
-                      ? u
-                      : c.jsx(r("WAWebCommonQuantityControls.react"), {
-                          quantity: n.quantity,
+                    D
+                      ? l
+                      : u.jsx(r("WAWebCommonQuantityControls.react"), {
+                          quantity: t.quantity,
                           onAddOneClick: function () {
-                            return m == null ? void 0 : m(a, n.quantity + 1);
+                            return d == null ? void 0 : d(n, t.quantity + 1);
                           },
                           onRemoveOneClick: function () {
-                            return m == null ? void 0 : m(a, n.quantity - 1);
+                            return d == null ? void 0 : d(n, t.quantity - 1);
                           },
                         }),
-                    l.length > 0 &&
-                      c.jsx(o("WAWebFlex.react").FlexColumn, { children: l }),
+                    i.length > 0 &&
+                      u.jsx(o("WAWebFlex.react").FlexColumn, { children: i }),
                   ],
                 });
-              return c.jsx(
+              return u.jsx(
                 r("WAWebCellFrame.react"),
                 babelHelpers.extends(
                   {
                     testid: "order-item-cell",
-                    className: (e || (e = r("stylex")))(
-                      a > 0 && o("WAWebUISpacing").uiPadding.top10,
-                    ),
+                    className: { 0: "", 1: "x889kno" }[(n > 0) << 0],
                     disabled: !0,
-                    image: c.jsx(o("WAWebOrderIcons").OrderItemIcon, {
-                      mediaData: n.thumbnailUrl
-                        ? o("WAWebOrderItemGetters").getMediaData(n)
+                    image: u.jsx(o("WAWebOrderIcons").OrderItemIcon, {
+                      mediaData: t.thumbnailUrl
+                        ? o("WAWebOrderItemGetters").getMediaData(t)
                         : null,
-                      useCustomIcon: n.isCustomItem,
+                      useCustomIcon: t.isCustomItem,
                     }),
-                    primary: c.jsx("span", {
+                    primary: u.jsx("span", {
                       className: "x14ug900 x6ikm8r x10wlt62 xlyipyv xuxw1ft",
-                      title: n.name,
-                      children: n.name,
+                      title: t.name,
+                      children: t.name,
                     }),
-                    secondary: d,
+                    secondary: c,
                     theme: "add-order-item",
-                    detail: P(n, a),
+                    detail: $(t, n),
                   },
-                  x
+                  D
                     ? void 0
                     : {
                         onMouseEnter: function () {
-                          return v(a);
+                          return b(n);
                         },
                         onMouseLeave: function () {
-                          return v(null);
+                          return b(null);
                         },
                       },
                 ),
-                a,
+                n,
               );
             }),
-            (n[20] = P),
-            (n[21] = m),
-            (n[22] = x),
-            (n[23] = w))
-          : (w = n[23]),
-          (M = l.map(w)),
-          (n[15] = P),
-          (n[16] = l),
-          (n[17] = m),
-          (n[18] = x),
-          (n[19] = M));
-      } else M = n[19];
-      var A;
+            (t[20] = $),
+            (t[21] = d),
+            (t[22] = D),
+            (t[23] = M))
+          : (M = t[23]),
+          (N = i.map(M)),
+          (t[15] = $),
+          (t[16] = i),
+          (t[17] = d),
+          (t[18] = D),
+          (t[19] = N));
+      } else N = t[19];
+      var w;
       return (
-        n[24] !== N || n[25] !== M
-          ? ((A = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+        t[24] !== P || t[25] !== N
+          ? ((w = u.jsxs(o("WAWebFlex.react").FlexColumn, {
               align: "stretch",
-              xstyle: _.orderItemsContainer,
-              children: [N, M],
+              xstyle: p.orderItemsContainer,
+              children: [P, N],
             })),
-            (n[24] = N),
-            (n[25] = M),
-            (n[26] = A))
-          : (A = n[26]),
-        A
+            (t[24] = P),
+            (t[25] = N),
+            (t[26] = w))
+          : (w = t[26]),
+        w
       );
     }
-    function h(e) {
+    function g(e) {
       var t = e[0],
         n = e[1];
-      return c.jsx(
+      return u.jsx(
         o("WAWebFlex.react").FlexRow,
         {
-          children: c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
+          children: u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
             children: s._(/*BTDS*/ "{propertyName}: {propertyValue}", [
               s._param("propertyName", t),
               s._param("propertyValue", n),
@@ -288,7 +275,7 @@ __d(
         t + "-" + n,
       );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = g));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = f));
   },
   226,
 );
