@@ -24,7 +24,7 @@ __d(
           if (
             o(
               "WAWebGroupHistoryGating",
-            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(t)
+            ).isGroupHistoryAfterJoinPrerequisitesEnabled()
           ) {
             var a = n.filter(function (e) {
               return e.joinTime != null;
@@ -104,7 +104,7 @@ __d(
           if (
             o(
               "WAWebGroupHistoryGating",
-            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
+            ).isGroupHistoryAfterJoinPrerequisitesEnabled()
           ) {
             var r;
             try {
@@ -203,7 +203,7 @@ __d(
             t.actionType !== o("WAWebGroupType").GROUP_ACTIONS.ADD ||
             !o(
               "WAWebGroupHistoryGating",
-            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
+            ).isGroupHistoryAfterJoinPrerequisitesEnabled()
           )
             return t;
           var n = yield _(e);

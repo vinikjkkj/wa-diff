@@ -30,6 +30,7 @@ __d(
         viewAllContainer: {
           display: "x78zum5",
           marginInlineStart: "xdln39a",
+          minHeight: "x1wiwyrm",
           $$css: !0,
         },
       },

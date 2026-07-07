@@ -1,6 +1,6 @@
 __d(
   "WAWebPixCodeUtils",
-  ["WACrc16", "WANullthrows"],
+  ["WACrc16", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "0014br.gov.bcb.pix01",
@@ -34,7 +34,7 @@ __d(
       return e.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
     function E(e) {
-      return g.concat(R(e) ? y : S(h.concat(S(r("WANullthrows")(e)))), C);
+      return g.concat(R(e) ? y : S(h.concat(S(r("nullthrows")(e)))), C);
     }
     l.getPixStaticCode = v;
   },

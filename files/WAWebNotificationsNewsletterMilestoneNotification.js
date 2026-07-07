@@ -227,8 +227,7 @@ __d(
           }),
           (i.getBannerOptions = function () {
             var e,
-              t,
-              n = o("WAWebGetNotificationStrings").getNotificationBody({
+              t = o("WAWebGetNotificationStrings").getNotificationBody({
                 action: this.getAction(),
                 body: this.getBody(),
                 msgDir: this.msg
@@ -239,12 +238,12 @@ __d(
               wid: this.chat.id,
               msgId: (e = this.msg) == null ? void 0 : e.id.toString(),
               onClick: r("WAWebNoop"),
-              tag: (t = this.msg) == null ? void 0 : t.id.toString(),
+              tag: this.buildKey(),
               doNotOpenChat: !1,
               title: o("WAWebNotificationHelpers").getNotificationTitle(
                 this.chat,
               ),
-              body: n,
+              body: t,
             };
           }),
           (i.matchesChat = function (t) {

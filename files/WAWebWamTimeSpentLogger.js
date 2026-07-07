@@ -2,10 +2,11 @@ __d(
   "WAWebWamTimeSpentLogger",
   [
     "WAWebCmd",
+    "WAWebPathfinderLogger",
     "WAWebTimeSpentLoggingBitArray",
     "WAWebTimeSpentLoggingNavigation",
     "WAWebTimeSpentLoggingSession",
-    "WAWebUseUnifiedSession",
+    "WAWebUseIdleSessionRotation",
     "WAWebUserActivityWamEvent",
     "WAWebUserPrefsKeys",
     "WAWebWamTimeSpentArray",
@@ -119,7 +120,9 @@ __d(
             }
           );
         }, []),
-        o("WAWebUseUnifiedSession").useUnifiedSession(),
+        o("WAWebUseIdleSessionRotation").useIdleSessionRotation(
+          o("WAWebPathfinderLogger").resetPathfinderSessionState,
+        ),
         (e = o("useWAWebListener")).useListener(window, "beforeunload", _),
         e.useListener(
           window,

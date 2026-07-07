@@ -33,43 +33,40 @@ __d(
       ]);
     }
     function g() {
-      return s._(/*BTDS*/ "Search name or number");
+      return s._(/*BTDS*/ "Audience name");
     }
     function h() {
       return s._(/*BTDS*/ "Audience name");
     }
     function y() {
-      return s._(/*BTDS*/ "Audience name");
-    }
-    function C() {
       return s._(/*BTDS*/ "Recipients");
     }
-    function b(e) {
+    function C(e) {
       return s._(
         /*BTDS*/ '_j{"*":{"*":"{number_of_recipients} recipients weren\'t imported"},"_1":{"_1":"1 recipient wasn\'t imported"}}',
         [s._plural(e, "number_of_recipients"), s._plural(e)],
       );
     }
-    function v() {
+    function b() {
       return s._(
         /*BTDS*/ "Update recipient errors before saving your audience.",
       );
     }
-    function S() {
+    function v() {
       return s._(/*BTDS*/ "Delete all errors");
     }
-    function R(e) {
+    function S(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{number_of_recipients} recipients removed","_1":"1 recipient removed"}',
         [s._plural(e, "number_of_recipients")],
       );
     }
-    function L(e) {
+    function R(e) {
       return s._(/*BTDS*/ "{contact_name} deleted", [
         s._param("contact_name", e),
       ]);
     }
-    function E(e) {
+    function L(e) {
       return s._(/*BTDS*/ "{contact_name} updated", [
         s._param("contact_name", e),
       ]);
@@ -82,16 +79,15 @@ __d(
       (l.getChooseRecipientsHeader = p),
       (l.getSelectedCountText = _),
       (l.getRecipientCountOfLimitText = f),
-      (l.getSearchPlaceholder = g),
-      (l.getAudienceNameHeader = h),
-      (l.getAudienceNameInputLabel = y),
-      (l.getRecipientsHeader = C),
-      (l.getRecipientsNotImportedLabel = b),
-      (l.getUpdateRecipientErrorsLabel = v),
-      (l.getDeleteAllErrorsLabel = S),
-      (l.getDeleteAllErrorsSuccessToastLabel = R),
-      (l.getDeleteErrorSuccessToastLabel = L),
-      (l.getEditErrorSuccessToastLabel = E));
+      (l.getAudienceNameHeader = g),
+      (l.getAudienceNameInputLabel = h),
+      (l.getRecipientsHeader = y),
+      (l.getRecipientsNotImportedLabel = C),
+      (l.getUpdateRecipientErrorsLabel = b),
+      (l.getDeleteAllErrorsLabel = v),
+      (l.getDeleteAllErrorsSuccessToastLabel = S),
+      (l.getDeleteErrorSuccessToastLabel = R),
+      (l.getEditErrorSuccessToastLabel = L));
   },
   226,
 );

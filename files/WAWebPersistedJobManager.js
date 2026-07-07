@@ -5,11 +5,13 @@ __d(
     "WAPersistedJobManager",
     "WARandomHex",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebJobsStorage",
     "WAWebNoop",
     "WAWebNullFunc",
     "WAWebPersistedJob",
+    "WAWebPersistedJobTaskScheduler",
     "WAWebSchemaJobs",
     "asyncToGeneratorRuntime",
     "err",
@@ -26,9 +28,9 @@ __d(
           yield o("WAWebJobsStorage").initialize();
           var e = o("WAWebSchemaJobs").getTable();
           ((s = new (o("WAPersistedJobManager").PersistedJobManager)({
-            accessors: p(),
+            accessors: _(),
             unfinishedJobEntries: e.all().then(function (e) {
-              return (d(e), e);
+              return (m(e), e);
             }),
             isRestartAfterCrash: !1,
             listeners: {
@@ -36,28 +38,33 @@ __d(
               onJobFinished: o("WAWebNullFunc").returnNull,
             },
             deprecatedJobs: {},
+            executionScheduler: r("WAWebPersistedJobTaskScheduler"),
+            useExecutionScheduler: d,
           })),
             r("WAWebPersistedJob")(s));
         })),
         c.apply(this, arguments)
       );
     }
-    function d(e) {
+    function d() {
+      return o("WAWebABProps").getABPropConfigValue("wmi_jm_to_ts_m1");
+    }
+    function m(e) {
       e.forEach(function (e) {
         e.step === o("WAPersistedJobManager").FINISHED_JOB ||
           e.stepHardStartCountAfterTimeout >=
             o("WAPersistedJobManager")
               .MAX_STEP_HARD_START_COUNT_AFTER_TIMEOUT ||
-          m(e.type);
+          p(e.type);
       });
     }
-    function m(e) {
+    function p(e) {
       o("WAWebBackendApi").frontendFireAndForget(
         "logPersistedJobJobsStoreTriggered",
         { type: e },
       );
     }
-    function p() {
+    function _() {
       return {
         deletePersistedJob: function (t) {
           var e = o("WAWebSchemaJobs").getTable();
@@ -75,15 +82,15 @@ __d(
           var e = o("WAWebSchemaJobs").getTable();
           return e.all();
         },
-        maybeCreateJob: _,
+        maybeCreateJob: f,
       };
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r,
             a,
             i,
@@ -131,16 +138,16 @@ __d(
                 })
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g() {
+    function h() {
       if (s == null) throw r("err")("jobs manager has not been initialized");
       return s;
     }
     ((l.startWebPersistedJobManager = u),
-      (l.maybeCreateJob = _),
-      (l.getJobManager = g));
+      (l.maybeCreateJob = f),
+      (l.getJobManager = h));
   },
   98,
 );

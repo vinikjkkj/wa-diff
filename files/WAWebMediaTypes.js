@@ -202,17 +202,8 @@ __d(
         "ERROR_FORBIDDEN",
         "ERROR_THROTTLED",
         "UPLOADED",
-      ]);
-    function g(e) {
-      switch (e) {
-        case f.NEED_UPLOAD:
-        case f.ERROR_THROTTLED:
-          return !0;
-        default:
-          return !1;
-      }
-    }
-    var h = n("$InternalEnum").Mirrored([
+      ]),
+      g = n("$InternalEnum").Mirrored([
         "INIT",
         "EXISTS",
         "PREPARING",
@@ -234,7 +225,7 @@ __d(
         "REMOTE_UPLOADING",
         "REMOTE_NEED_UPLOAD",
       ]),
-      y = {
+      h = {
         IMAGE: "image",
         VIDEO: "video",
         PTV: "ptv",
@@ -249,7 +240,7 @@ __d(
         MESSAGE_HISTORY_BUNDLE:
           o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE,
       },
-      C = Object.freeze({
+      y = Object.freeze({
         VIDEO: "VIDEO",
         PTV: "PTV",
         IMAGE: "IMAGE",
@@ -268,10 +259,9 @@ __d(
       (l.MSG_SPECIFIC_FIELDS = p),
       (l.DownloadStage = _),
       (l.UploadStage = f),
-      (l.isRetryableUploadStage = g),
-      (l.MediaDataStage = h),
-      (l.OUTWARD_TYPES = y),
-      (l.TYPE = C));
+      (l.MediaDataStage = g),
+      (l.OUTWARD_TYPES = h),
+      (l.TYPE = y));
   },
   98,
 );

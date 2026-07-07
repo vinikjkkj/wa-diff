@@ -525,7 +525,10 @@ __d(
         noDeleteMessageTimeLimit: [49, e.TYPES.ENUM, h],
       }),
       (I.name = "ReportingTokenInfo"),
-      (I.internalSpec = { reportingTag: [1, e.TYPES.BYTES] }),
+      (I.internalSpec = {
+        reportingTag: [1, e.TYPES.BYTES],
+        reportingTagTimestamp: [2, e.TYPES.UINT64],
+      }),
       (T.name = "MediaData"),
       (T.internalSpec = { localPath: [1, e.TYPES.STRING] }),
       (D.name = "PhotoChange"),

@@ -25,6 +25,7 @@ __d(
         GOOGLE_PHOTOS: 10,
         SOUNDCLOUD: 11,
         SHAZAM: 12,
+        PICSART: 13,
       }),
       m = s({
         UNKNOWN: 0,

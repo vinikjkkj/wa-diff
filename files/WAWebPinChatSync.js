@@ -11,6 +11,8 @@ __d(
     "WAWebArchiveChatSync",
     "WAWebChatGetExistingBridge",
     "WAWebChatPinBridge",
+    "WAWebLid1X1MigrationGating",
+    "WAWebLidMigrationUtils",
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
@@ -48,8 +50,33 @@ __d(
               );
             })();
     }
-    var p = n("$InternalEnum").Mirrored(["Chat", "Newsletter"]),
-      _ = (function (t) {
+    var p = n("$InternalEnum").Mirrored(["Chat", "Newsletter"]);
+    function _(e) {
+      var t = o(
+          "WAWebLid1X1MigrationGating",
+        ).Lid1X1MigrationUtils.isLidMigrated(),
+        n = new Map(),
+        r = [];
+      for (var a of e) {
+        var i,
+          l = a.chatId,
+          s = a.timestamp,
+          u =
+            t && l.isRegularUserPn()
+              ? ((i = o("WAWebLidMigrationUtils").toLid(l)) != null
+                  ? i
+                  : l
+                ).toString()
+              : l.toString(),
+          c = n.get(u);
+        if (c == null) {
+          var d = { chatId: l, timestamp: s };
+          (n.set(u, d), r.push(d));
+        } else s > c.timestamp && (c.timestamp = s);
+      }
+      return r;
+    }
+    var f = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -282,7 +309,7 @@ __d(
           })()),
           (i.getLocalChatPins = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return this.$PinChatSyncImpl$p_1(p.Chat);
+              return _(yield this.$PinChatSyncImpl$p_1(p.Chat));
             });
             function t() {
               return e.apply(this, arguments);
@@ -291,7 +318,7 @@ __d(
           })()),
           (i.getLocalNewsletterPins = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return this.$PinChatSyncImpl$p_1(p.Newsletter);
+              return _(yield this.$PinChatSyncImpl$p_1(p.Newsletter));
             });
             function t() {
               return e.apply(this, arguments);
@@ -314,6 +341,22 @@ __d(
                         });
                     }),
                   a = o("WAWebSyncdDb")
+                    .getPendingMutationsRows(
+                      ["action"],
+                      o("WASyncdConst").Actions.Pin,
+                    )
+                    .then(function (e) {
+                      return new Set(
+                        r("compactMap")(e, function (e) {
+                          return e.operation ===
+                            o("WAWebProtobufsServerSync.pb")
+                              .SyncdMutation$SyncdOperation.REMOVE
+                            ? e.index
+                            : null;
+                        }),
+                      );
+                    }),
+                  i = o("WAWebSyncdDb")
                     .getSyncActionsRows(
                       ["action"],
                       [o("WASyncdConst").Actions.Pin],
@@ -337,23 +380,30 @@ __d(
                         return (a == null ? void 0 : a.pinAction) == null ||
                           (a == null ? void 0 : a.pinAction.pinned) !== !0
                           ? null
-                          : [
-                              r,
-                              o("WALongInt").numberOrThrowIfTooLarge(
-                                (t = a.timestamp) != null ? t : 0,
-                              ),
-                            ];
+                          : {
+                              index: e.index,
+                              pin: [
+                                r,
+                                o("WALongInt").numberOrThrowIfTooLarge(
+                                  (t = a.timestamp) != null ? t : 0,
+                                ),
+                              ],
+                            };
                       });
                     }),
-                  i = yield (d || (d = n("Promise"))).all([t, a]),
-                  l = i[0],
-                  s = i[1],
-                  u = m(e);
+                  l = yield (d || (d = n("Promise"))).all([t, i, a]),
+                  s = l[0],
+                  u = l[1],
+                  c = l[2],
+                  p = r("compactMap")(u, function (e) {
+                    return c.has(e.index) ? null : e.pin;
+                  }),
+                  _ = m(e);
                 return []
-                  .concat(l, s)
+                  .concat(s, p)
                   .filter(function (e) {
                     var t = e[0];
-                    return u(t);
+                    return _(t);
                   })
                   .map(function (e) {
                     var t = e[0],
@@ -372,7 +422,9 @@ __d(
           })()),
           (i.unpinAllChats = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return this.$PinChatSyncImpl$p_2(yield this.getLocalChatPins());
+              return this.$PinChatSyncImpl$p_2(
+                yield this.$PinChatSyncImpl$p_1(p.Chat),
+              );
             });
             function t() {
               return e.apply(this, arguments);
@@ -382,7 +434,7 @@ __d(
           (i.unpinAllNewsletters = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               return this.$PinChatSyncImpl$p_2(
-                yield this.getLocalNewsletterPins(),
+                yield this.$PinChatSyncImpl$p_1(p.Newsletter),
               );
             });
             function t() {
@@ -482,8 +534,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").ChatSyncdActionBase),
-      f = new _();
-    l.PinChatSync = f;
+      g = new f();
+    l.PinChatSync = g;
   },
   98,
 );

@@ -68,22 +68,22 @@ __d(
           }),
           t
         );
-      })(),
-      c = function () {
-        try {
-          var e = r("WANullthrows")(r("WAWebSessionStorage"));
-          return (
-            e.setItem(
-              o("WAWebUserPrefsKeys").KEYS.STORAGE_TEST,
-              o("WAWebUserPrefsKeys").KEYS.STORAGE_TEST,
-            ),
-            o("WATypeUtils").isFunction(e.clear)
-          );
-        } catch (e) {
-          return !1;
-        }
-      },
-      d = c() ? new s() : new u(),
+      })();
+    function c() {
+      try {
+        var e = r("WANullthrows")(r("WAWebSessionStorage"));
+        return (
+          e.setItem(
+            o("WAWebUserPrefsKeys").KEYS.STORAGE_TEST,
+            o("WAWebUserPrefsKeys").KEYS.STORAGE_TEST,
+          ),
+          o("WATypeUtils").isFunction(e.clear)
+        );
+      } catch (e) {
+        return !1;
+      }
+    }
+    var d = c() ? new s() : new u(),
       m = d;
     l.default = m;
   },

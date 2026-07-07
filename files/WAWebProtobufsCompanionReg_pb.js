@@ -74,6 +74,7 @@ __d(
         supportHatchHistory: [22, e.TYPES.BOOL],
         supportedBotChannelFbids: [23, e.FLAGS.REPEATED | e.TYPES.STRING],
         supportInlineContacts: [24, e.TYPES.BOOL],
+        supportNewsletter: [25, e.TYPES.BOOL],
       }),
       (d.name = "DeviceProps$AppVersion"),
       (d.internalSpec = {

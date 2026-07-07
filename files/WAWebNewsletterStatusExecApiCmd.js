@@ -11,7 +11,6 @@ __d(
     "WAWebLoadNewsletterPreviewChatAction",
     "WAWebModalManager",
     "WAWebNavBarTypes",
-    "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterStatusFetchAction",
     "WAWebNewsletterStatusGapFillAction",
@@ -30,22 +29,16 @@ __d(
       m,
       p,
       _ = p || (p = o("react"));
-    function f() {
-      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "channel_status_deeplink_enabled",
-      );
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
-            !f() ||
-            !o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
+            !o("WAWebNewsletterGatingUtils").isNewsletterStatusDeeplinkEnabled()
           ) {
-            v();
+            b();
             return;
           }
           if (!o("WAWebPDFNGatingUtils").hasAckedNewsletterNuxOrTos()) {
@@ -55,23 +48,23 @@ __d(
                 verifyTosAccepted: o("WAWebPDFNGatingUtils")
                   .hasAckedNewsletterNuxOrTos,
                 runIfTosAccepted: function () {
-                  y(e);
+                  h(e);
                 },
               }),
             );
             return;
           }
-          return y(e);
+          return h(e);
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.inviteCode,
             a = t.statusId;
           try {
@@ -85,7 +78,7 @@ __d(
               "WAWebLoadNewsletterPreviewChatAction",
             ).loadNewsletterPreviewChat(n);
             if (i == null) {
-              S();
+              v();
               return;
             }
             var l = o("WAJids").toNewsletterJid(i.id.toJid());
@@ -107,12 +100,12 @@ __d(
               s ===
               o("WAWebNewsletterStatusFetchAction").FetchResult.FetchFailed
             ) {
-              R();
+              S();
               return;
             }
             var p = o("WAWebStatusCollection").StatusCollection.get(i.id);
             if (p == null || p.totalCount === 0) {
-              R();
+              S();
               return;
             }
             var f = void 0;
@@ -121,7 +114,7 @@ __d(
               if (
                 (!Number.isNaN(g) &&
                   g > 0 &&
-                  ((f = b(p, g)),
+                  ((f = C(p, g)),
                   f == null &&
                     (o("WALogger").LOG(
                       c ||
@@ -132,10 +125,10 @@ __d(
                     yield o(
                       "WAWebNewsletterStatusGapFillAction",
                     ).fillNewsletterStatusGap(l, g),
-                    (f = b(p, g)))),
+                    (f = C(p, g)))),
                 f == null)
               ) {
-                R();
+                S();
                 return;
               }
             }
@@ -177,18 +170,18 @@ __d(
               .catching(r("getErrorSafe")(e))
               .tags("newsletter-status-deeplink")
               .sendLogs("newsletter-status-deeplink-error"),
-              S());
+              v());
           }
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function C(e, t) {
       return e.msgs.getModelsArray().find(function (e) {
         return e.serverId === t;
       });
     }
-    function v() {
+    function b() {
       o("WAWebModalManager").ModalManager.open(
         _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: o("WAWebModalManager").closeModalManager,
@@ -198,7 +191,7 @@ __d(
         }),
       );
     }
-    function S() {
+    function v() {
       o("WAWebModalManager").ModalManager.open(
         _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: o("WAWebModalManager").closeModalManager,
@@ -206,7 +199,7 @@ __d(
         }),
       );
     }
-    function R() {
+    function S() {
       o("WAWebModalManager").ModalManager.open(
         _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: o("WAWebModalManager").closeModalManager,
@@ -214,7 +207,7 @@ __d(
         }),
       );
     }
-    l.execNewsletterStatusDeeplinkCmd = g;
+    l.execNewsletterStatusDeeplinkCmd = f;
   },
   226,
 );

@@ -12,6 +12,7 @@ __d(
     "WAWebEphemeralityTypes",
     "WAWebEphemeralityUtils",
     "WAWebGroupApiConst",
+    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes.flow",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
@@ -80,41 +81,46 @@ __d(
       return null;
     }
     function y(e, t, n) {
+      var r = o(
+        "WAWebGroupHistoryGating",
+      ).isGroupHistoryAfterJoinPrerequisitesEnabled();
       return t.mapChildrenWithTag("participant", function (t) {
-        var r,
-          a =
-            (r = t.maybeAttrEnum(
+        var a,
+          i =
+            (a = t.maybeAttrEnum(
               "type",
               o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES,
             )) != null
-              ? r
+              ? a
               : "participant",
-          i = t.maybeAttrLidUserJid("lid"),
-          l = t.maybeAttrPhoneUserJid("phone_number"),
-          s = {
+          l = t.maybeAttrLidUserJid("lid"),
+          s = t.maybeAttrPhoneUserJid("phone_number"),
+          u = {
             displayName: t.maybeAttrString("display_name"),
             id: o("WAWebJidToWid").userJidToUserWid(t.attrUserJid("jid")),
             isSuperAdmin:
-              a === o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES.superadmin,
+              i === o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES.superadmin,
             isAdmin:
-              a === o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES.admin ||
-              a === o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES.superadmin,
-            lid: i != null ? o("WAWebJidToWid").userJidToUserWid(i) : null,
+              i === o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES.admin ||
+              i === o("WAWebGroupApiConst").GROUP_PARTICIPANT_TYPES.superadmin,
+            lid: l != null ? o("WAWebJidToWid").userJidToUserWid(l) : null,
             phoneNumber:
-              l != null ? o("WAWebJidToWid").userJidToUserWid(l) : null,
+              s != null ? o("WAWebJidToWid").userJidToUserWid(s) : null,
             username: t.maybeAttrString("username"),
-            joinTime: t.maybeAttrTime("join_time"),
-            groupHistorySentState: o(
-              "WAWebGroupHistoryPostJoinTypes.flow",
-            ).parseGroupHistorySentState(
-              t.maybeAttrString("group_history_sent_state"),
-            ),
+            joinTime: r ? t.maybeAttrTime("join_time") : void 0,
+            groupHistorySentState: r
+              ? o(
+                  "WAWebGroupHistoryPostJoinTypes.flow",
+                ).parseGroupHistorySentState(
+                  t.maybeAttrString("group_history_sent_state"),
+                )
+              : void 0,
           },
-          u =
+          c =
             n ===
             o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
               .REMOVE;
-        return (u || C(e, s, n), s);
+        return (c || C(e, u, n), u);
       });
     }
     function C(t, n, r) {

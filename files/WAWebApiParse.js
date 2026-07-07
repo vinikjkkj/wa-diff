@@ -41,23 +41,23 @@ __d(
       ),
       f = /^https?:\/\/chat\.whatsapp\.com\/invite\/(\w+)(?:\?.*)?$/i,
       g = /^https?:\/\/chat\.whatsapp\.com\/(\w+)(?:\?.*)?$/i,
-      h = /^whatsapp:\/\/chat\/?\?code=(\w+)(?:&.*)?$/i,
-      y = function (t) {
-        var e = Xe(t),
-          n = t.match(_);
-        if (n)
-          return babelHelpers.extends(
-            { code: n[2], url: n[1] || "/" },
-            e != null && { utm: e },
-          );
-        if (((n = t.match(f)), n))
-          return babelHelpers.extends({ code: n[1] }, e != null && { utm: e });
-        if (((n = t.match(g)), n))
-          return babelHelpers.extends({ code: n[1] }, e != null && { utm: e });
-        if (((n = t.match(h)), n))
-          return babelHelpers.extends({ code: n[1] }, e != null && { utm: e });
-      },
-      C = "utm_source",
+      h = /^whatsapp:\/\/chat\/?\?code=(\w+)(?:&.*)?$/i;
+    function y(e) {
+      var t = Xe(e),
+        n = e.match(_);
+      if (n)
+        return babelHelpers.extends(
+          { code: n[2], url: n[1] || "/" },
+          t != null && { utm: t },
+        );
+      if (((n = e.match(f)), n))
+        return babelHelpers.extends({ code: n[1] }, t != null && { utm: t });
+      if (((n = e.match(g)), n))
+        return babelHelpers.extends({ code: n[1] }, t != null && { utm: t });
+      if (((n = e.match(h)), n))
+        return babelHelpers.extends({ code: n[1] }, t != null && { utm: t });
+    }
+    var C = "utm_source",
       b = "utm_campaign",
       v = [
         "utm_source",

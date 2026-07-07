@@ -23,7 +23,6 @@ __d(
     "WAWebChatCollection",
     "WAWebConnModel",
     "WAWebContactCollection",
-    "WAWebContactExternalUserState",
     "WAWebContactGetters",
     "WAWebContactSearchGatingUtils",
     "WAWebContactShortName",
@@ -175,12 +174,6 @@ __d(
                   t * d,
                   this.meTextStatusExpiryTimer,
                 )));
-        }),
-        (a.isGuest = function () {
-          return (
-            this.externalUserState ===
-            o("WAWebContactExternalUserState").ExternalUserState.GuestUser
-          );
         }),
         (a.initialize = function () {
           var n = this;
@@ -518,9 +511,6 @@ __d(
         }),
         (a.setIsMarketingMessageThread = function (t) {
           this.isMarketingMessageThread = t;
-        }),
-        (a.getIsMarketingMessageThread = function () {
-          return this.isMarketingMessageThread;
         }),
         (a.$Contact$p_13 = function () {
           var e = o("WAWebUsernameTypes").serializeMaybeUsername(

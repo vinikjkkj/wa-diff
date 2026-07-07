@@ -1,6 +1,11 @@
 __d(
   "WAWebChatThemeValue",
-  ["WAWebChatThemeEnums", "WAWebSolidColorPalette", "WAWebWallpaper"],
+  [
+    "WAWebChatThemeEnums",
+    "WAWebChatThemeGatingUtils",
+    "WAWebSolidColorPalette",
+    "WAWebWallpaper",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -33,10 +38,10 @@ __d(
         chatThemeId:
           n == null
             ? null
-            : (t = o("WAWebChatThemeEnums").Theme.cast(R(n))) != null
+            : (t = o("WAWebChatThemeEnums").Theme.cast(T(n))) != null
               ? t
               : null,
-        colorSchemeId: r == null ? null : S(r),
+        colorSchemeId: r == null ? null : I(r),
       };
     }
     function u(e, t) {
@@ -101,10 +106,27 @@ __d(
         : { type: "default", isDoodleEnabled: t };
     }
     function y(e) {
-      var t;
-      return (t = C(e)) != null ? t : b(e);
+      var t = b(e);
+      return t != null
+        ? t
+        : o("WAWebChatThemeGatingUtils").isChatThemesEnabled()
+          ? E(e)
+          : v(e);
     }
-    function C(e) {
+    function C(t) {
+      return t == null ||
+        typeof t != "object" ||
+        t.type !== "solid" ||
+        typeof t.colorLight != "string"
+        ? null
+        : e({
+            wallpaper: t.colorLight,
+            showDoodle:
+              typeof t.isDoodleEnabled == "boolean" ? t.isDoodleEnabled : null,
+            stockWallpaperImageId: null,
+          });
+    }
+    function b(e) {
       var t = o("WAWebSolidColorPalette").findPaletteIndex(m(e));
       return t === -1
         ? null
@@ -115,14 +137,14 @@ __d(
             colorDark: m(o("WAWebSolidColorPalette").getSolidColors("dark")[t]),
           };
     }
-    function b(e) {
+    function v(e) {
       var t = m(e);
-      return v(t, o("WAWebWallpaper").getWallpaperColors("light"))
+      return k(t, o("WAWebWallpaper").getWallpaperColors("light"))
         ? {
             colorLight: t,
             colorDark: m(o("WAWebWallpaper").toggleWallpaperColor(t, "light")),
           }
-        : v(t, o("WAWebWallpaper").getWallpaperColors("dark"))
+        : k(t, o("WAWebWallpaper").getWallpaperColors("dark"))
           ? {
               colorLight: m(
                 o("WAWebWallpaper").toggleWallpaperColor(t, "dark"),
@@ -131,12 +153,51 @@ __d(
             }
           : null;
     }
-    function v(e, t) {
+    var S = o("WAWebWallpaper").getWallpaperColors("light"),
+      R = o("WAWebSolidColorPalette").getSolidColors("light"),
+      L = new Map([
+        [S[0], R[0]],
+        [S[1], R[2]],
+        [S[2], R[6]],
+        [S[3], R[17]],
+        [S[4], R[4]],
+        [S[5], R[5]],
+        [S[6], R[16]],
+        [S[7], R[33]],
+        [S[8], R[8]],
+        [S[9], R[9]],
+        [S[10], R[11]],
+        [S[11], R[13]],
+        [S[12], R[20]],
+        [S[13], R[23]],
+        [S[14], R[23]],
+        [S[15], R[25]],
+        [S[16], R[24]],
+        [S[17], R[26]],
+        [S[18], R[32]],
+        [S[19], R[30]],
+        [S[20], R[29]],
+        [S[21], R[32]],
+        [S[22], R[35]],
+        [S[23], R[25]],
+        [S[24], R[36]],
+        [S[25], R[11]],
+        [S[26], R[9]],
+      ]);
+    function E(e) {
+      var t = m(e),
+        n = k(t, o("WAWebWallpaper").getWallpaperColors("dark"))
+          ? m(o("WAWebWallpaper").toggleWallpaperColor(t, "dark"))
+          : t,
+        r = L.get(n);
+      return r == null ? v(e) : b(r);
+    }
+    function k(e, t) {
       return t.some(function (t) {
         return m(t) === e;
       });
     }
-    function S(e) {
+    function I(e) {
       var t, n, r;
       return (t =
         (n =
@@ -148,7 +209,7 @@ __d(
         ? t
         : null;
     }
-    function R(e) {
+    function T(e) {
       var t, n;
       return (t = (n = e.match(/^[^@]*/)) == null ? void 0 : n[0]) != null
         ? t
@@ -164,7 +225,8 @@ __d(
       (l.isWallpaperOverride = _),
       (l.wallpaperBackgroundFromValue = f),
       (l.doodleFromWallpaperValue = g),
-      (l.wallpaperValueWithDoodle = h));
+      (l.wallpaperValueWithDoodle = h),
+      (l.migrateStoredSolidWallpaper = C));
   },
   98,
 );

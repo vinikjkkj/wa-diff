@@ -57,9 +57,6 @@ __d(
       );
     }
     function b() {
-      return s._(/*BTDS*/ "No internet");
-    }
-    function v() {
       return s._(
         /*BTDS*/ "You must connect to the internet to access chat with WhatsApp Support. Check your device's internet connection and try again.",
       );
@@ -76,8 +73,7 @@ __d(
       (l.SupportAINuxDisclaimer = h),
       (l.SupportAINuxSmbDisclaimer = y),
       (l.SupportChatDeviceInfoDisclaimer = C),
-      (l.SupportChatNoInternetModalTitle = b),
-      (l.SupportChatNoInternetModalMessage = v));
+      (l.SupportChatNoInternetModalMessage = b));
   },
   226,
 );

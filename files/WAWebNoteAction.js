@@ -41,14 +41,17 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatJid,
+            n = e.content,
+            r = e.type;
           yield f(
-            { actionType: "add", noteType: e, chatJid: t, content: n },
+            { actionType: "add", noteType: r, chatJid: t, content: n },
             !0,
           );
         })),

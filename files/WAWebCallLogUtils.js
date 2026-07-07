@@ -9,6 +9,7 @@ __d(
     "WAWebCallLogMsgData.flow",
     "WAWebCallTimer.react",
     "WAWebContactCollection",
+    "WAWebContactExternalUserState",
     "WAWebContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
@@ -478,7 +479,7 @@ __d(
           if (i && e.equals(u)) return !1;
           if (l) {
             var t = o("WAWebContactCollection").ContactCollection.get(e);
-            if ((t == null ? void 0 : t.isGuest()) === !0) return !1;
+            if (t != null && W(t)) return !1;
           }
           return !0;
         })
@@ -497,6 +498,12 @@ __d(
             s = o("WAWebBotUtils").isMetaAiBot(t);
           return l && !s ? -1 : !l && s ? 1 : P(e, t, null);
         });
+    }
+    function W(e) {
+      return (
+        e.externalUserState ===
+        o("WAWebContactExternalUserState").ExternalUserState.GuestUser
+      );
     }
     ((l.get1x1CallLidOrPnDestination = o(
       "WAWebVoipBackendCallLogTargetResolver",

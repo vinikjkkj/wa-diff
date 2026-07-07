@@ -20,16 +20,16 @@ __d(
         "Reaction",
         "PollVote",
         "NotSupportedAddon",
-      ]),
-      u = function (t) {
-        return t.hasHideFailEnc
-          ? o("WAWebHandleMsgMetaUtils").isPollVoteMsgMeta(t.msgMeta)
-            ? s.PollVote
-            : o("WAWebHandleMsgMetaUtils").isReactionMsgMeta(t.msgMeta)
-              ? s.Reaction
-              : s.NotSupportedAddon
-          : s.Message;
-      };
+      ]);
+    function u(e) {
+      return e.hasHideFailEnc
+        ? o("WAWebHandleMsgMetaUtils").isPollVoteMsgMeta(e.msgMeta)
+          ? s.PollVote
+          : o("WAWebHandleMsgMetaUtils").isReactionMsgMeta(e.msgMeta)
+            ? s.Reaction
+            : s.NotSupportedAddon
+        : s.Message;
+    }
     function c(e) {
       var t = new Map();
       return (

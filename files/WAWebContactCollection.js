@@ -191,11 +191,6 @@ __d(
               d
             );
           }),
-          (i.getGroupContacts = function () {
-            return this.filter(function (e) {
-              return o("WAWebContactGetters").getIsGroup(e);
-            });
-          }),
           (i.getMeContact = function () {
             var e = o(
               "WAWebUsernameWorkerCompatibleGatingUtils",

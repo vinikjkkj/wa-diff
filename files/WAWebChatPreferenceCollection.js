@@ -26,28 +26,34 @@ __d(
     function s(e) {
       var t,
         n,
-        r = e;
+        r,
+        a = e;
       return babelHelpers.extends({}, e, {
         wallpaperValue:
-          (t = r.wallpaperValue) != null
+          (t =
+            (n = o("WAWebChatThemeValue").migrateStoredSolidWallpaper(
+              a.wallpaperValue,
+            )) != null
+              ? n
+              : a.wallpaperValue) != null
             ? t
             : o("WAWebChatThemeValue").wallpaperValueFromFlat({
-                wallpaper: typeof r.wallpaper == "string" ? r.wallpaper : null,
+                wallpaper: typeof a.wallpaper == "string" ? a.wallpaper : null,
                 showDoodle:
-                  typeof r.showDoodle == "boolean" ? r.showDoodle : null,
+                  typeof a.showDoodle == "boolean" ? a.showDoodle : null,
                 stockWallpaperImageId:
-                  typeof r.stockWallpaperImageId == "string"
-                    ? r.stockWallpaperImageId
+                  typeof a.stockWallpaperImageId == "string"
+                    ? a.stockWallpaperImageId
                     : null,
               }),
         chatThemeValue:
-          (n = r.chatThemeValue) != null
-            ? n
+          (r = a.chatThemeValue) != null
+            ? r
             : o("WAWebChatThemeValue").chatThemeValueFromFlat({
                 chatThemeId:
-                  typeof r.chatThemeId == "string" ? r.chatThemeId : null,
+                  typeof a.chatThemeId == "string" ? a.chatThemeId : null,
                 colorSchemeId:
-                  typeof r.colorSchemeId == "string" ? r.colorSchemeId : null,
+                  typeof a.colorSchemeId == "string" ? a.colorSchemeId : null,
               }),
       });
     }

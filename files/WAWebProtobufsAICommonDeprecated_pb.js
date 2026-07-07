@@ -143,7 +143,7 @@ __d(
         "AIRichResponseContentItemsMetadata$AIRichResponseContentItemMetadata"),
       (T.internalSpec = {
         reelItem: [1, e.TYPES.MESSAGE, D],
-        __oneofs__: { aIRichResponseContentItem: ["reelItem"] },
+        __oneofs__: { aiRichResponseContentItem: ["reelItem"] },
       }),
       (D.name = "AIRichResponseContentItemsMetadata$AIRichResponseReelItem"),
       (D.internalSpec = {

@@ -242,7 +242,15 @@ __d(
         );
       })();
     function f(e, t, n, r, o, a, i, l, s) {
-      var u = g(n, r, e.width, e.height, o, i, s),
+      var u = g({
+          canvasHeight: e.height,
+          canvasWidth: e.width,
+          coverFit: s,
+          orientation: o,
+          preserveAspectRatio: i,
+          sourceHeight: r,
+          sourceWidth: n,
+        }),
         c = u.renderHeight,
         d = u.renderWidth;
       (t.save(),
@@ -254,26 +262,33 @@ __d(
         t.drawImage(l, 0, 0, d, c),
         t.restore());
     }
-    function g(e, t, n, r, a, i, l) {
-      var s =
+    function g(e) {
+      var t = e.canvasHeight,
+        n = e.canvasWidth,
+        r = e.coverFit,
+        a = e.orientation,
+        i = e.preserveAspectRatio,
+        l = e.sourceHeight,
+        s = e.sourceWidth,
+        u =
           a === o("WAWebVoipMediaEnums").Orientation.Rotate90 ||
           a === o("WAWebVoipMediaEnums").Orientation.Rotate270,
-        u = s ? r : n,
-        c = s ? n : r;
-      if (!i) return { renderWidth: u, renderHeight: c };
-      var d = e / t,
-        m = u / c,
-        p,
-        _;
+        c = u ? t : n,
+        d = u ? n : t;
+      if (!i) return { renderWidth: c, renderHeight: d };
+      var m = s / l,
+        p = c / d,
+        _,
+        f;
       return (
-        l
-          ? d > m
-            ? ((_ = c), (p = c * d))
-            : ((p = u), (_ = u / d))
-          : d > m
-            ? ((p = u), (_ = u / d))
-            : ((_ = c), (p = c * d)),
-        { renderWidth: p, renderHeight: _ }
+        r
+          ? m > p
+            ? ((f = d), (_ = d * m))
+            : ((_ = c), (f = c / m))
+          : m > p
+            ? ((_ = c), (f = c / m))
+            : ((f = d), (_ = d * m)),
+        { renderWidth: _, renderHeight: f }
       );
     }
     function h(e, t, n) {

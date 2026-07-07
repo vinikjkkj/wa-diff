@@ -655,12 +655,12 @@ __d(
                   i,
                   n,
                 );
-                var l = new (r("WAWebVoipVideoOffThreadRendererStub"))(
-                  t,
-                  a,
-                  i,
-                  n,
-                );
+                var l = new (r("WAWebVoipVideoOffThreadRendererStub"))({
+                  canvas: t,
+                  portalMode: n,
+                  rendererType: a,
+                  threadingMode: i,
+                });
                 this.$13.set(t, l);
                 return;
               }

@@ -410,7 +410,9 @@ __d(
                                                                                                                   e ===
                                                                                                                     "paymentReminderMessage" ||
                                                                                                                   e ===
-                                                                                                                    "splitPaymentMessage"
+                                                                                                                    "splitPaymentMessage" ||
+                                                                                                                  e ===
+                                                                                                                    "splitPaymentUpdateMessage"
                                                                                                                 ? c.UnknownMessageKey
                                                                                                                 : e ===
                                                                                                                     "rootSecretDistributeMessage"

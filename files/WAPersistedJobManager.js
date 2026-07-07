@@ -85,20 +85,21 @@ __d(
       V = (function () {
         function t(t) {
           var r = this,
-            a = t.accessors,
-            i = t.isRestartAfterCrash,
-            l = t.unfinishedJobEntries,
-            u = new Map(),
-            c = l.then(function (t) {
-              var l = [],
-                c = [];
+            a,
+            i = t.accessors,
+            l = t.isRestartAfterCrash,
+            u = t.unfinishedJobEntries,
+            c = new Map(),
+            d = u.then(function (t) {
+              var a = [],
+                u = [];
               return (
                 t.forEach(function (e) {
-                  e.stepHardStartCountAfterTimeout >= U ? l.push(e) : c.push(e);
+                  e.stepHardStartCountAfterTimeout >= U ? a.push(e) : u.push(e);
                 }),
                 (M || (M = n("Promise")))
                   .all(
-                    l.map(function (t) {
+                    a.map(function (t) {
                       return (
                         o("WALogger")
                           .ERROR(
@@ -112,13 +113,13 @@ __d(
                             t.step,
                           )
                           .sendLogs("job-stuck-" + t.type),
-                        a.deletePersistedJob(t.jobId)
+                        i.deletePersistedJob(t.jobId)
                       );
                     }),
                   )
                   .then(function () {
-                    c.forEach(function (e) {
-                      u.has(e.jobId) ||
+                    u.forEach(function (e) {
+                      c.has(e.jobId) ||
                         (o("WALogger").LOG(
                           s ||
                             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -127,7 +128,7 @@ __d(
                             ])),
                           H(e),
                         ),
-                        u.set(e.jobId, r.$1(e, i)));
+                        c.set(e.jobId, r.$1(e, l)));
                     });
                   })
               );
@@ -135,11 +136,18 @@ __d(
           ((this.implementationLoaders = new Map()),
             (this.implementations = new Map()),
             (this.stepBlockers = new WeakMap()),
-            (this.accessors = a),
-            (this.activeJobs = u),
-            (this.initialJobsPromise = c),
+            (this.accessors = i),
+            (this.activeJobs = c),
+            (this.initialJobsPromise = d),
             (this.listeners = t.listeners),
-            (this.deprecatedJobs = t.deprecatedJobs));
+            (this.deprecatedJobs = t.deprecatedJobs),
+            (this.executionScheduler = t.executionScheduler),
+            (this.useExecutionScheduler =
+              (a = t.useExecutionScheduler) != null
+                ? a
+                : function () {
+                    return !1;
+                  }));
         }
         var r = t.prototype;
         return (
@@ -208,30 +216,22 @@ __d(
               }),
               s = n[l].info(t.current, t.original, K(t, r)),
               u = s.code,
-              m = s.requirements,
-              p = this.$4(t, m);
+              d = s.requirements,
+              m = this.$4(t, d);
             return (
-              a && (p = p.then(a)),
-              p
+              a && (m = m.then(a)),
+              m
                 .then(function () {
-                  return (
-                    o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          ": running step",
-                        ])),
-                      z(t),
-                    ),
-                    u(t.current, t.original, K(t, r))
-                  );
+                  return e.$6(t, function () {
+                    return u(t.current, t.original, K(t, r));
+                  });
                 })
                 .then(function (a) {
                   if (a instanceof B)
                     return (
                       o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             ": InterruptJob",
                           ])),
@@ -256,6 +256,27 @@ __d(
                   );
                 })
             );
+          }),
+          (r.$6 = function (t, r) {
+            var e = function () {
+                return (M || (M = n("Promise"))).resolve().then(function () {
+                  return (
+                    o("WALogger").LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "",
+                          ": running step",
+                        ])),
+                      z(t),
+                    ),
+                    r()
+                  );
+                });
+              },
+              a = this.executionScheduler;
+            return a == null || !this.useExecutionScheduler()
+              ? e()
+              : a.run(e, { name: t.type + "." + t.step }).promise;
           }),
           (r.$1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(

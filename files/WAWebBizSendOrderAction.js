@@ -2,7 +2,6 @@ __d(
   "WAWebBizSendOrderAction",
   [
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebAck",
     "WAWebBizFrontendGatingUtils",
@@ -26,6 +25,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -349,7 +349,7 @@ __d(
               external_payment_configurations: [
                 {
                   type: "payment_instruction",
-                  payment_instruction: r("WANullthrows")(y),
+                  payment_instruction: r("nullthrows")(y),
                 },
               ],
             });

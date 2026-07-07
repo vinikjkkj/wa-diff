@@ -21,24 +21,28 @@ __d(
       p = 4,
       _ = 5e3,
       f = (function () {
-        function t(e, n, r, o) {
-          var a = t.rendererIdCounter++;
-          this.$1 = a;
-          var i = o
-            ? new OffscreenCanvas(e.width, e.height)
-            : e.transferControlToOffscreen();
-          ((this.$2 = e),
-            (this.$3 = i),
-            (this.$4 = this.$5(r)),
+        function t(e) {
+          var n = e.canvas,
+            r = e.portalMode,
+            o = e.rendererType,
+            a = e.threadingMode,
+            i = t.rendererIdCounter++;
+          this.$1 = i;
+          var l = r
+            ? new OffscreenCanvas(n.width, n.height)
+            : n.transferControlToOffscreen();
+          ((this.$2 = n),
+            (this.$3 = l),
+            (this.$4 = this.$5(a)),
             this.$4.postMessage(
               {
                 type: "registerCanvas",
-                rendererId: a,
-                offscreenCanvas: i,
-                rendererType: n,
-                portalMode: o,
+                rendererId: i,
+                offscreenCanvas: l,
+                rendererType: o,
+                portalMode: r,
               },
-              [i],
+              [l],
             ));
         }
         ((t.checkAvailability = function () {

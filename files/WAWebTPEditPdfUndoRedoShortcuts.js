@@ -4,39 +4,43 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useEffect;
-    function u(e, t, n, r) {
-      var a = o("react-compiler-runtime").c(6),
-        i,
-        l;
-      (a[0] !== r || a[1] !== n || a[2] !== t || a[3] !== e
-        ? ((i = function () {
-            var o = function (a) {
-              if (!(!a.ctrlKey && !a.metaKey)) {
-                var o = a.key.toLowerCase();
-                o === "z"
-                  ? (a.preventDefault(),
-                    a.stopPropagation(),
-                    a.shiftKey ? r && t() : n && e())
-                  : o === "y" &&
-                    (a.preventDefault(), a.stopPropagation(), r && t());
+    function u(e) {
+      var t = o("react-compiler-runtime").c(6),
+        n = e.canRedo,
+        r = e.canUndo,
+        a = e.onRedo,
+        i = e.onUndo,
+        l,
+        u;
+      (t[0] !== n || t[1] !== r || t[2] !== a || t[3] !== i
+        ? ((l = function () {
+            var e = function (t) {
+              if (!(!t.ctrlKey && !t.metaKey)) {
+                var e = t.key.toLowerCase();
+                e === "z"
+                  ? (t.preventDefault(),
+                    t.stopPropagation(),
+                    t.shiftKey ? n && a() : r && i())
+                  : e === "y" &&
+                    (t.preventDefault(), t.stopPropagation(), n && a());
               }
             };
             return (
-              document.addEventListener("keydown", o, { capture: !0 }),
+              document.addEventListener("keydown", e, { capture: !0 }),
               function () {
-                document.removeEventListener("keydown", o, { capture: !0 });
+                document.removeEventListener("keydown", e, { capture: !0 });
               }
             );
           }),
-          (l = [e, t, n, r]),
-          (a[0] = r),
-          (a[1] = n),
-          (a[2] = t),
-          (a[3] = e),
-          (a[4] = i),
-          (a[5] = l))
-        : ((i = a[4]), (l = a[5])),
-        s(i, l));
+          (u = [i, a, r, n]),
+          (t[0] = n),
+          (t[1] = r),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = l),
+          (t[5] = u))
+        : ((l = t[4]), (u = t[5])),
+        s(l, u));
     }
     l.useWAWebTPEditPdfUndoRedoShortcuts = u;
   },

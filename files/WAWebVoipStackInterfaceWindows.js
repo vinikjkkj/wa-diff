@@ -276,7 +276,13 @@ __d(
             "WAWebWindowsHybridBridgeFactory",
           ).getWindowsBridge()) == null || (e = e.voip) == null
             ? void 0
-            : e.handleIncomingSignalingAck(t, n, r, a, i);
+            : e.handleIncomingSignalingAck({
+                ackInfoError: n,
+                ackInfoType: r,
+                peerJid: a,
+                tcToken: i,
+                xmlNode: t,
+              });
         },
         handleIncomingSignalingReceipt: function (t, n, r) {
           var e;

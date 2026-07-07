@@ -7,11 +7,11 @@ __d(
       u = new (r("WAWebEventEmitter"))(),
       c = function (n, r) {
         ((e = n), r != null && (s = r), u.trigger("update", e));
-      },
-      d = function () {
-        return e;
-      },
-      m = function () {
+      };
+    function d() {
+      return e;
+    }
+    var m = function () {
         return s;
       },
       p = function (t) {

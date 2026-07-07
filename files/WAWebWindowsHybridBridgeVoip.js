@@ -302,8 +302,13 @@ __d(
                 },
               ));
           }),
-          (a.handleIncomingSignalingAck = function (t, n, a, i, l) {
-            var e = this;
+          (a.handleIncomingSignalingAck = function (t) {
+            var e = this,
+              n = t.ackInfoError,
+              a = t.ackInfoType,
+              i = t.peerJid,
+              l = t.tcToken,
+              s = t.xmlNode;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.handle_incoming_signaling_ack",
             ),
@@ -315,7 +320,7 @@ __d(
                 },
                 function () {
                   return e.$2.handleIncomingSignalingAck(
-                    o("WAWebSerializeVoipWapNode").serializeVoipWapNode(t),
+                    o("WAWebSerializeVoipWapNode").serializeVoipWapNode(s),
                     n,
                     a,
                     i,

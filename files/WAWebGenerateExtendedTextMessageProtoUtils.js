@@ -53,7 +53,7 @@ __d(
           backgroundArgb: r.backgroundColor,
           font: r.font,
           paymentLinkMetadata: r.paymentLinkMetadata,
-          faviconMMSMetadata: a
+          faviconMmsMetadata: a
             ? {
                 mediaKey: o("WAWebE2EProtoUtils").encodeBytes(
                   r.faviconMMSMetadata.mediaKey,

@@ -3,7 +3,6 @@ __d(
   [
     "WAWebConnModel",
     "WAWebEnvironment",
-    "WAWebRobotoVariableFontLoadable",
     "WAWebStylesEnv",
     "WAWebTPPdfViewerGatingUtils",
     "WAWebUserPrefsGeneral",
@@ -27,19 +26,14 @@ __d(
             : "light";
     }
     function s() {
-      var t;
       return {
         theme: e(),
-        hasFontFix: (t = o("WAWebStylesEnv")).hasFontFix,
-        hasSafariFix: t.hasSafariFix,
-        isRobotoFontEnabled: o(
-          "WAWebRobotoVariableFontLoadable",
-        ).isRobotoFontEnabled(),
+        hasSafariFix: o("WAWebStylesEnv").hasSafariFix,
         isColorRefreshEnabled: !0,
         isSmb: o("WAWebConnModel").Conn.isSMB,
         isWindowsHybrid: r("WAWebEnvironment").isWindows,
-        isOSMac: t.isOSMac,
-        isOSWindows: t.isOSWin,
+        isOSMac: o("WAWebStylesEnv").isOSMac,
+        isOSWindows: o("WAWebStylesEnv").isOSWin,
         isKeyboardUser: !1,
         showSavePreferenceCheckbox: o(
           "WAWebTPPdfViewerGatingUtils",

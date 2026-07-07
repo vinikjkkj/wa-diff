@@ -15,12 +15,12 @@ __d(
           a = t.userJid;
         return o(
           "WAWebBizCreateBizStateChangeNotificationMsgsAction",
-        ).createBizStateChangeNotificationMsgs(
-          o("WAWebWidFactory").createUserWidOrThrow(a),
-          n,
-          e,
-          r,
-        );
+        ).createBizStateChangeNotificationMsgs({
+          currentState: e,
+          previousState: n,
+          shouldRunMATonWid: r,
+          wid: o("WAWebWidFactory").createUserWidOrThrow(a),
+        });
       },
       applyBusinessRemoval: function (t) {
         var e = t.wid,
@@ -34,7 +34,11 @@ __d(
             r.set({ isBusiness: !1, verifiedLevel: null, verifiedName: null }),
           o(
             "WAWebBizCreateBizStateChangeNotificationMsgsAction",
-          ).createBizStateChangeNotificationMsgs(n, a, { isBusiness: !1 })
+          ).createBizStateChangeNotificationMsgs({
+            currentState: { isBusiness: !1 },
+            previousState: a,
+            wid: n,
+          })
         );
       },
     };

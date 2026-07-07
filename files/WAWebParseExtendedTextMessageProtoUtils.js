@@ -78,7 +78,7 @@ __d(
           font: l != null ? l : t.font,
           paymentLinkMetadata: a == null ? void 0 : a.paymentLinkMetadata,
           faviconMMSMetadata: u(
-            a == null ? void 0 : a.faviconMMSMetadata,
+            a == null ? void 0 : a.faviconMmsMetadata,
             t.mediaKeyTimestamp,
           ),
           statusMentioned: r == null ? void 0 : r.statusMentioned,

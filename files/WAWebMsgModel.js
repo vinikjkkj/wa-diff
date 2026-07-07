@@ -29,7 +29,6 @@ __d(
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
-    "WAWebInvisiblePlaceholderViewModeProcessor",
     "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaTypes",
@@ -733,27 +732,6 @@ __d(
                 n == null || n.trigger("remove_msgs", [this], {})),
               n == null || n.triggerChangeLast(null, n, {}));
           }),
-          (i.hideParentMessageInChat = function (t) {
-            var e = t.duringDetach,
-              n = this.parentMsgKey;
-            if (n) {
-              var r,
-                a = this.getCollection().get(n);
-              a &&
-                (r = o("WAWebInvisiblePlaceholderViewModeProcessor")
-                  .InvisiblePlaceholderViewModeProcessor
-                  .compatibleMessageTypes) != null &&
-                r.includes(a.type) &&
-                o("WAWebMessageAssociationUIUtils").shouldHideParentMessage({
-                  parentMsg: a,
-                  duringDetach: e,
-                }) &&
-                a.set(
-                  "viewMode",
-                  o("WAWebViewMode.flow").ViewModeType.INVISIBLE_PLACEHOLDER,
-                );
-            }
-          }),
           (i.$MsgImpl$p_20 = function () {
             var e = o("WAWebFrontendMsgGetters").getEventType(this),
               t = this.parentMsgKey,
@@ -1258,7 +1236,9 @@ __d(
                   e.delete();
                 }),
               e.remove(this.id),
-              this.hideParentMessageInChat({ duringDetach: !1 }),
+              o("WAWebMsgModelUtils").hideParentMessageInChat(this, {
+                duringDetach: !1,
+              }),
               this.$MsgImpl$p_1 &&
                 this.$MsgImpl$p_1.remove(
                   this.id,
@@ -1573,7 +1553,9 @@ __d(
             return this;
           }),
           (i.detachAssociatedMsg = function () {
-            (this.hideParentMessageInChat({ duringDetach: !0 }),
+            (o("WAWebMsgModelUtils").hideParentMessageInChat(this, {
+              duringDetach: !0,
+            }),
               this.set({
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
                 associationType: null,

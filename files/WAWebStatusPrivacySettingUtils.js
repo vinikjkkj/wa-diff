@@ -22,7 +22,7 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           try {
-            (yield r(
+            (yield o(
               "WAWebStatusPrivacySettingAction",
             ).setStatusPrivacyContact(),
               t({

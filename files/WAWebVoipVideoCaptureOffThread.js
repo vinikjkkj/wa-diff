@@ -837,185 +837,185 @@ __d(
           });
         });
     }
-    function de(e, t, n, r, o) {
+    function de(e) {
       return me.apply(this, arguments);
     }
     function me() {
       return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l) {
-            var s = "voip: wasm: [AV:startVideoCaptureInWorker]",
-              u = i === "onDesktopCaptureDataFromJs";
-            try {
-              var c = (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    try {
-                      var n = o(
-                        "WAWebVoipMediaEnums",
-                      ).formatEnumFromVideoFrameFormat(e.format);
-                      if (
-                        n !== o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
-                      ) {
-                        var l;
-                        throw r("err")(
-                          "Unsupported video frame format " +
-                            ((l = e.format) != null ? l : "null"),
-                        );
-                      }
-                      var c = le(e);
-                      (_ < 3 &&
-                        (_++,
-                        j(
-                          O ||
-                            (O = babelHelpers.taggedTemplateLiteralLoose([
-                              "",
-                              " [orient] frame#",
-                              " orientation=",
-                              " frameSize=",
-                              "x",
-                              "",
-                            ])),
-                          s,
-                          _,
-                          c,
-                          t.width,
-                          t.height,
-                        )),
-                        yield e.copyTo(p),
-                        a.GROWABLE_HEAP_U8().set(p, m),
-                        a[i](m, d, t.width, t.height, t.maxFps, n, c),
-                        self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onVideoFrameWasmToJs(
-                          {
-                            userJid: o("WAWebVoipVideoRendererInterface")
-                              .selfPreviewJid,
-                            frameBuffer: p.buffer,
-                            width: t.width,
-                            height: t.height,
-                            format: n,
-                            orientation: c,
-                            timestamp: 0,
-                            isKeyFrame: !1,
-                            isScreenShare: u,
-                          },
-                        ));
-                    } catch (e) {
-                      K(
-                        B ||
-                          (B = babelHelpers.taggedTemplateLiteralLoose([
-                            "",
-                            " video processing error: ",
-                            "",
-                          ])),
-                        s,
-                        e,
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.captureObject,
+            a = e.initialOrientationValue,
+            i = e.onVideoDataFnType,
+            l = e.params,
+            s = e.voipWasm,
+            u = "voip: wasm: [AV:startVideoCaptureInWorker]",
+            c = i === "onDesktopCaptureDataFromJs";
+          try {
+            var d = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  try {
+                    var t = o(
+                      "WAWebVoipMediaEnums",
+                    ).formatEnumFromVideoFrameFormat(e.format);
+                    if (
+                      t !== o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
+                    ) {
+                      var n;
+                      throw r("err")(
+                        "Unsupported video frame format " +
+                          ((n = e.format) != null ? n : "null"),
                       );
                     }
-                  },
-                );
-                return function (n) {
-                  return e.apply(this, arguments);
-                };
-              })();
-              (j(
-                A || (A = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                s,
-              ),
-                (J = !1),
-                l != null &&
-                  ((Z = l),
-                  j(
-                    F ||
-                      (F = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        " initial orientation: ",
-                        "",
-                      ])),
-                    s,
-                    l,
-                  )));
-              var d = Math.floor(t.width * t.height * 1.5),
-                m = a._malloc(d),
-                p = new Uint8Array(d),
-                _ = 0;
-              try {
-                var f =
-                  e.readable ||
-                  (yield new MediaStreamTrackProcessor({ track: e.track })
-                    .readable);
-                j(
-                  W ||
-                    (W = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " got MediaStreamTrackProcessor readable",
-                    ])),
-                  s,
-                );
-                var g = f.getReader();
-                for (
-                  j(
-                    q ||
-                      (q = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        " starting capture loop",
-                      ])),
-                    s,
-                  );
-                  !J;
-                ) {
-                  var h = yield g.read(),
-                    y = h.done,
-                    C = h.value;
-                  try {
-                    if (y || !C) {
-                      J = !0;
-                      break;
-                    }
-                    yield c(C);
-                  } finally {
-                    C && C.close();
+                    var a = le(e);
+                    (f < 3 &&
+                      (f++,
+                      j(
+                        O ||
+                          (O = babelHelpers.taggedTemplateLiteralLoose([
+                            "",
+                            " [orient] frame#",
+                            " orientation=",
+                            " frameSize=",
+                            "x",
+                            "",
+                          ])),
+                        u,
+                        f,
+                        a,
+                        l.width,
+                        l.height,
+                      )),
+                      yield e.copyTo(_),
+                      s.GROWABLE_HEAP_U8().set(_, p),
+                      s[i](p, m, l.width, l.height, l.maxFps, t, a),
+                      self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onVideoFrameWasmToJs(
+                        {
+                          userJid: o("WAWebVoipVideoRendererInterface")
+                            .selfPreviewJid,
+                          frameBuffer: _.buffer,
+                          width: l.width,
+                          height: l.height,
+                          format: t,
+                          orientation: a,
+                          timestamp: 0,
+                          isKeyFrame: !1,
+                          isScreenShare: c,
+                        },
+                      ));
+                  } catch (e) {
+                    K(
+                      B ||
+                        (B = babelHelpers.taggedTemplateLiteralLoose([
+                          "",
+                          " video processing error: ",
+                          "",
+                        ])),
+                      u,
+                      e,
+                    );
                   }
+                },
+              );
+              return function (n) {
+                return e.apply(this, arguments);
+              };
+            })();
+            (j(A || (A = babelHelpers.taggedTemplateLiteralLoose(["", ""])), u),
+              (J = !1),
+              a != null &&
+                ((Z = a),
+                j(
+                  F ||
+                    (F = babelHelpers.taggedTemplateLiteralLoose([
+                      "",
+                      " initial orientation: ",
+                      "",
+                    ])),
+                  u,
+                  a,
+                )));
+            var m = Math.floor(l.width * l.height * 1.5),
+              p = s._malloc(m),
+              _ = new Uint8Array(m),
+              f = 0;
+            try {
+              var g =
+                t.readable ||
+                (yield new MediaStreamTrackProcessor({ track: t.track })
+                  .readable);
+              j(
+                W ||
+                  (W = babelHelpers.taggedTemplateLiteralLoose([
+                    "",
+                    " got MediaStreamTrackProcessor readable",
+                  ])),
+                u,
+              );
+              var h = g.getReader();
+              for (
+                j(
+                  q ||
+                    (q = babelHelpers.taggedTemplateLiteralLoose([
+                      "",
+                      " starting capture loop",
+                    ])),
+                  u,
+                );
+                !J;
+              ) {
+                var y = yield h.read(),
+                  C = y.done,
+                  b = y.value;
+                try {
+                  if (C || !b) {
+                    J = !0;
+                    break;
+                  }
+                  yield d(b);
+                } finally {
+                  b && b.close();
                 }
-              } finally {
-                a._free(m);
               }
+            } finally {
+              s._free(p);
+            }
+          } catch (e) {
+            K(
+              U ||
+                (U = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  " video capture error: ",
+                  "",
+                ])),
+              u,
+              e,
+            );
+          } finally {
+            try {
+              s.exitJsWorkerThread();
             } catch (e) {
               K(
-                U ||
-                  (U = babelHelpers.taggedTemplateLiteralLoose([
+                V ||
+                  (V = babelHelpers.taggedTemplateLiteralLoose([
                     "",
-                    " video capture error: ",
+                    " exitJsWorkerThread error: ",
                     "",
                   ])),
-                s,
+                u,
                 e,
               );
-            } finally {
-              try {
-                a.exitJsWorkerThread();
-              } catch (e) {
-                K(
-                  V ||
-                    (V = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " exitJsWorkerThread error: ",
-                      "",
-                    ])),
-                  s,
-                  e,
-                );
-              }
-              j(
-                H ||
-                  (H = babelHelpers.taggedTemplateLiteralLoose([
-                    "",
-                    " exit capture worker thread",
-                  ])),
-                s,
-              );
             }
-          },
-        )),
+            j(
+              H ||
+                (H = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  " exit capture worker thread",
+                ])),
+              u,
+            );
+          }
+        })),
         me.apply(this, arguments)
       );
     }

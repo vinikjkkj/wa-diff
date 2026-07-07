@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "WAJids",
     "WAWebCmd",
+    "WAWebContactGetters",
     "WAWebDeleteStatusAction",
     "WAWebNewsletterSyntheticStatusUtils",
     "WAWebSettingsModel",
@@ -57,7 +58,10 @@ __d(
         for (var n of e) {
           var r = n.participant,
             a = r && o("WAWebStatusCollection").StatusCollection.get(r);
-          a && a.handleReadStatus(n);
+          if (a) {
+            if (o("WAWebContactGetters").getIsMe(a.contact)) continue;
+            a.handleReadStatus(n);
+          }
         }
       },
       triggerUpdateCrosspostAutoShareSettingsFromBridge: function (t) {

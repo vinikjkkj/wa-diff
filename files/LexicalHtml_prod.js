@@ -176,14 +176,14 @@ __d(
       y = Symbol["for"]("@lexical/html/DOMExportContext"),
       S = "@lexical/html/DOMImport",
       E = Symbol["for"]("@lexical/html/DOMImportContext"),
-      C = function C() {
+      D = function D() {
         return !0;
       };
-    function N(e, t, n) {
+    function C(e, t, n) {
       return m(y, e, t, n);
     }
-    var D = N("root", Boolean),
-      I = N("isExport", Boolean);
+    var N = C("root", Boolean),
+      I = C("isExport", Boolean);
     function O(e) {
       var t = require("LexicalExtension").getPeerDependencyFromEditor(e, $);
       return t ? t.output.defaults : void 0;
@@ -209,7 +209,7 @@ __d(
     }
     function k(e, _ref) {
       var t = _ref.nodes;
-      if ("*" === t) return C;
+      if ("*" === t) return D;
       var n = {};
       var o = [];
       for (var _s2 of t)
@@ -568,7 +568,7 @@ __d(
             [
               _require_Lexical.RootNode,
               function () {
-                var e = document.createElement("div");
+                var e = require("Lexical").$getDocument().createElement("div");
                 return ((e.role = "textbox"), { element: e });
               },
             ],
@@ -898,7 +898,7 @@ __d(
       var n = e.style.whiteSpace;
       return "string" == typeof n && n.startsWith("pre");
     }
-    function Ce(e) {
+    function De(e) {
       if (require("Lexical").isDOMTextNode(e)) return !0;
       if (!require("Lexical").isHTMLElement(e)) return !1;
       var n = e.style.display;
@@ -907,10 +907,10 @@ __d(
         : !require("Lexical").isBlockDomNode(e) &&
             require("Lexical").isInlineDomNode(e);
     }
-    var Ne = ge("whitespaceConfig", function () {
-        return { isInline: Ce, preservesWhitespace: Ee };
+    var Ce = ge("whitespaceConfig", function () {
+        return { isInline: De, preservesWhitespace: Ee };
       }),
-      De = ge("importOverlays", function () {
+      Ne = ge("importOverlays", function () {
         return [];
       });
     var _Ie = (function () {
@@ -1138,7 +1138,7 @@ __d(
         $import: function $import(e, n) {
           var o = e.get(ye),
             r = e.get(Se),
-            s = e.get(Ne);
+            s = e.get(Ce);
           if (
             (function (e, t) {
               var n = e.parentNode;
@@ -1501,7 +1501,7 @@ __d(
                         {
                           dispatch: e,
                           editor: n,
-                          overlays: r.get(De).map(function (e) {
+                          overlays: r.get(Ne).map(function (e) {
                             return e.dispatch;
                           }),
                           session: r,
@@ -1605,7 +1605,7 @@ __d(
         p = a.append,
         h = a.$getChildNodes;
       if (!f) return !1;
-      var m = document.createDocumentFragment(),
+      var m = require("Lexical").$getDocument().createDocumentFragment(),
         g = h
           ? h()
           : require("Lexical").$isElementNode(u)
@@ -1767,7 +1767,7 @@ __d(
         }
         var o = require("Lexical").$getEditor();
         return R(
-          [d(I, !0), d(D, !0)],
+          [d(I, !0), d(N, !0)],
           o,
         )(function () {
           var t = v(o),
@@ -1784,7 +1784,8 @@ __d(
             ("undefined" == typeof window && void 0 === global.window)) &&
             r(338),
           require("Lexical").$assumeActiveEditor(e),
-          gt(document.createElement("div"), n, e).innerHTML
+          gt(require("Lexical").$getDocument().createElement("div"), n, e)
+            .innerHTML
         );
       }),
       (exports.$generateNodesFromDOM = function (e, n) {
@@ -1859,24 +1860,24 @@ __d(
       (exports.DOMRenderExtension = ee),
       (exports.HorizontalRuleImportExtension = pt),
       (exports.HorizontalRuleImportRules = dt),
-      (exports.ImportOverlays = De),
+      (exports.ImportOverlays = Ne),
       (exports.ImportSource = xe),
       (exports.ImportSourceDataTransfer = $e),
       (exports.ImportTextFormat = ye),
       (exports.ImportTextStyle = Se),
-      (exports.ImportWhitespaceConfig = Ne),
+      (exports.ImportWhitespaceConfig = Ce),
       (exports.InlineSchema = we),
       (exports.NestedBlockSchema = Le),
       (exports.RenderContextExport = I),
-      (exports.RenderContextRoot = D),
+      (exports.RenderContextRoot = N),
       (exports.RootSchema = Ae),
       (exports.contextUpdater = function (e, t) {
         return { cfg: e, updater: t };
       }),
       (exports.contextValue = d),
       (exports.createImportState = ge),
-      (exports.createRenderState = N),
-      (exports.defaultIsInline = Ce),
+      (exports.createRenderState = C),
+      (exports.defaultIsInline = De),
       (exports.defaultPreservesWhitespace = Ee),
       (exports.defineImportRule = me),
       (exports.defineOverlayRules = function (e) {

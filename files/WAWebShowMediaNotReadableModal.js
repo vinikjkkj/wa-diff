@@ -5,15 +5,15 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      e && (e.stopPropagation(), e.preventDefault());
-    }
-    function c(e) {
-      (u(e),
+      (c(e),
         o("WAWebModalManager").ModalManager.open(
           s.jsx(r("WAWebMediaNotReadableModal.react"), {}),
         ));
     }
-    l.default = c;
+    function c(e) {
+      e && (e.stopPropagation(), e.preventDefault());
+    }
+    l.default = u;
   },
   98,
 );

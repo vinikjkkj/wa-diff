@@ -14,7 +14,10 @@ __d(
       g = {},
       h = {},
       y = {},
-      C = {};
+      C = {},
+      b = {},
+      v = {},
+      S = {};
     ((u.name = "SyncdVersion"),
       (u.internalSpec = { version: [1, (e = o("WAProtoConst")).TYPES.UINT64] }),
       (c.name = "ExitCode"),
@@ -71,6 +74,22 @@ __d(
         deviceIndex: [8, e.TYPES.UINT32],
         clientDebugData: [9, e.TYPES.BYTES],
       }),
+      (b.name = "CoexStateSync"),
+      (b.internalSpec = {
+        collectionMutations: [1, e.FLAGS.REPEATED | e.TYPES.MESSAGE, v],
+      }),
+      (v.name = "CoexStateSync$CollectionMutations"),
+      (v.internalSpec = {
+        collection: [1, e.TYPES.STRING],
+        mutations: [2, e.FLAGS.REPEATED | e.TYPES.MESSAGE, S],
+      }),
+      (S.name = "CoexStateSync$Mutation"),
+      (S.internalSpec = {
+        index: [1, e.TYPES.MESSAGE, d],
+        value: [2, e.TYPES.MESSAGE, m],
+        dirtyVersion: [3, e.TYPES.UINT64],
+        operation: [4, e.TYPES.ENUM, s],
+      }),
       (l.SyncdMutation$SyncdOperation = s),
       (l.SyncdVersionSpec = u),
       (l.ExitCodeSpec = c),
@@ -82,7 +101,10 @@ __d(
       (l.SyncdSnapshotSpec = g),
       (l.SyncdMutationsSpec = h),
       (l.SyncdMutationSpec = y),
-      (l.SyncdPatchSpec = C));
+      (l.SyncdPatchSpec = C),
+      (l.CoexStateSyncSpec = b),
+      (l.CoexStateSync$CollectionMutationsSpec = v),
+      (l.CoexStateSync$MutationSpec = S));
   },
   98,
 );

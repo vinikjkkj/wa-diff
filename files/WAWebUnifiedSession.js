@@ -17,6 +17,7 @@ __d(
       d = n("$InternalEnum")({
         InitialRender: "initial-render",
         Foreground: "foreground",
+        IdleTimeout: "idle-timeout",
       }),
       m = (function () {
         function t(e) {

@@ -49,13 +49,13 @@ __d(
         _.apply(this, arguments)
       );
     }
-    var f = function (t) {
-      var e = t.id,
-        n = e.remote;
-      return e.fromMe && o("WAWebUserPrefsMeUser").isMePrimary(n)
+    function f(e) {
+      var t = e.id,
+        n = t.remote;
+      return t.fromMe && o("WAWebUserPrefsMeUser").isMePrimary(n)
         ? o("WAWebAck").ACK.READ
         : o("WAWebAck").ACK.SENT;
-    };
+    }
     function g(e, t) {
       if (e.decryptedMsgData.type === o("WAWebMsgType").MSG_TYPE.POLL_UPDATE) {
         var n = o("WAWebMsgGetters").getPollEndTime(e.parent),

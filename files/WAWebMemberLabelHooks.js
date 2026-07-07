@@ -16,14 +16,14 @@ __d(
     function u(e, t) {
       return new (r("WAWebMemberLabelKey"))({ chatId: e, member: t });
     }
-    var c = function (t) {
-      if (t) {
-        var e;
-        return (e = r("WAWebMemberLabelCollection").get(t)) == null
+    function c(e) {
+      if (e) {
+        var t;
+        return (t = r("WAWebMemberLabelCollection").get(e)) == null
           ? void 0
-          : e.label;
+          : t.label;
       }
-    };
+    }
     function d(e) {
       var t = o("react-compiler-runtime").c(5),
         n;

@@ -17,9 +17,16 @@ __d(
         r = e.isVibrant;
       return r && n && !t;
     }
+    function c(e) {
+      var t = e.isCallLink,
+        n = e.isSentByMe,
+        r = e.isVibrant;
+      return t && n && !r;
+    }
     ((l.isChatThemesEnabled = e),
       (l.isChatThemeLoggingEnabled = s),
-      (l.shouldApplyVibrantOverride = u));
+      (l.shouldApplyVibrantOverride = u),
+      (l.shouldApplyCallLinkContrastOverride = c));
   },
   98,
 );

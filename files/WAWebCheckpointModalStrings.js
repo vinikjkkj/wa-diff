@@ -14,13 +14,9 @@ __d(
     function c() {
       return s._(/*BTDS*/ "Continue");
     }
-    function d() {
-      return s._(/*BTDS*/ "Log out of WhatsApp Web");
-    }
     ((l.getCheckpointPasskeyTitle = e),
       (l.getCheckpointPasskeyDescription = u),
-      (l.getCheckpointContinueButtonText = c),
-      (l.getCheckpointLogoutText = d));
+      (l.getCheckpointContinueButtonText = c));
   },
   226,
 );

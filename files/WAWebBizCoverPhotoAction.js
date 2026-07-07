@@ -18,14 +18,18 @@ __d(
       c,
       d,
       m = d || (d = o("react"));
-    function p(t, n, a, i) {
-      i === void 0 && (i = o("WAWebActionToast.react").genId());
-      var l = new (o("WAWebActionToast.react").ActionType)(
+    function p(t) {
+      var n = t.id,
+        a = t.metaHmac,
+        i = t.toastId,
+        l = i === void 0 ? o("WAWebActionToast.react").genId() : i,
+        c = t.ts,
+        d = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Setting cover photo"),
         ),
-        c = s._(/*BTDS*/ "Cover photo set failed"),
-        d = o("WAWebBusinessProfileJob")
-          .sendCoverPhoto(t, n, a)
+        _ = s._(/*BTDS*/ "Cover photo set failed"),
+        f = o("WAWebBusinessProfileJob")
+          .sendCoverPhoto(n, c, a)
           .catch(function (t) {
             throw (
               o("WALogger").WARN(
@@ -34,7 +38,7 @@ __d(
                     "action:setCoverPhoto dropped",
                   ])),
               ),
-              new (o("WAWebActionToast.react").ActionType)(c)
+              new (o("WAWebActionToast.react").ActionType)(_)
             );
           })
           .catch(
@@ -50,10 +54,10 @@ __d(
                   ),
                   e.status >= 400)
                 )
-                  return new (o("WAWebActionToast.react").ActionType)(c, {
+                  return new (o("WAWebActionToast.react").ActionType)(_, {
                     actionText: s._(/*BTDS*/ "Try again"),
                     actionHandler: function () {
-                      return p(t, n, a, i);
+                      return p({ id: n, metaHmac: a, toastId: l, ts: c });
                     },
                   });
               },
@@ -73,12 +77,12 @@ __d(
       return (
         o("WAWebToastManager").ToastManager.open(
           m.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            initialAction: l,
-            pendingAction: d,
+            id: l,
+            initialAction: d,
+            pendingAction: f,
           }),
         ),
-        d.then(r("WAWebNoop"))
+        f.then(r("WAWebNoop"))
       );
     }
     function _(e, t) {

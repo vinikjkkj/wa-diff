@@ -699,13 +699,20 @@ __d(
     }
     function Dt() {
       return (
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channel_status_deeplink_enabled",
+        ) && Tt()
+      );
+    }
+    function xt() {
+      return (
         Tt() &&
         o("WAWebABProps").getABPropConfigValue(
           "channel_status_resharing_enabled",
         )
       );
     }
-    function xt() {
+    function $t() {
       return (
         Tt() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -713,7 +720,7 @@ __d(
         )
       );
     }
-    function $t(e) {
+    function Pt(e) {
       var t, n;
       return e == null ||
         !o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -735,34 +742,34 @@ __d(
               "channels_capabilities_enabled",
             );
     }
-    var Pt = n("$InternalEnum")({
+    var Nt = n("$InternalEnum")({
       Disabled: 0,
       ProfileRing: 1,
       ThreadRing: 2,
       AllEntrypoints: 3,
     });
-    function Nt(e) {
+    function Mt(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "channels_status_consumption_entrypoints",
         ) >= e
       );
     }
-    function Mt(e) {
+    function wt(e) {
       var t = Tt(),
-        n = Nt(e);
+        n = Mt(e);
       return t && n;
     }
-    function wt() {
-      return Mt(Pt.ProfileRing);
-    }
     function At() {
-      return Mt(Pt.ThreadRing);
+      return wt(Nt.ProfileRing);
     }
     function Ft() {
-      return Mt(Pt.AllEntrypoints);
+      return wt(Nt.ThreadRing);
     }
     function Ot() {
+      return wt(Nt.AllEntrypoints);
+    }
+    function Bt() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -894,13 +901,14 @@ __d(
       (l.isNewsletterAdminProfilesForwardingEnabled = kt),
       (l.isNewsletterAdminProfilesListEnabled = It),
       (l.isNewsletterStatusReceiverEnabled = Tt),
-      (l.isNewsletterStatusReshareEnabled = Dt),
-      (l.isNewsletterStatusForwardEnabled = xt),
-      (l.isNewsletterStatusCreationEnabled = $t),
-      (l.isNewsletterStatusProfileRingEnabled = wt),
-      (l.isNewsletterStatusThreadRingEnabled = At),
-      (l.isNewsletterStatusAllEntrypointsEnabled = Ft),
-      (l.isNewsletterTabPulseEnabled = Ot));
+      (l.isNewsletterStatusDeeplinkEnabled = Dt),
+      (l.isNewsletterStatusReshareEnabled = xt),
+      (l.isNewsletterStatusForwardEnabled = $t),
+      (l.isNewsletterStatusCreationEnabled = Pt),
+      (l.isNewsletterStatusProfileRingEnabled = At),
+      (l.isNewsletterStatusThreadRingEnabled = Ft),
+      (l.isNewsletterStatusAllEntrypointsEnabled = Ot),
+      (l.isNewsletterTabPulseEnabled = Bt));
   },
   98,
 );

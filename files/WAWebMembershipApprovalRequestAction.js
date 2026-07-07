@@ -2,7 +2,6 @@ __d(
   "WAWebMembershipApprovalRequestAction",
   [
     "WACustomError",
-    "WANullthrows",
     "WAWebApiMembershipApprovalRequestStore",
     "WAWebBackendErrors",
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
@@ -18,6 +17,7 @@ __d(
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -56,7 +56,7 @@ __d(
             ).getMembershipApprovalRequests(t.id)).map(function (e) {
               return new (r("WAWebGroupMembershipApprovalRequestModel"))(e);
             });
-          r("WANullthrows")(t.groupMetadata).membershipApprovalRequests.add(n, {
+          r("nullthrows")(t.groupMetadata).membershipApprovalRequests.add(n, {
             merge: !0,
           });
         })),

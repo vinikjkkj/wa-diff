@@ -20,7 +20,9 @@ __d(
     "WAWebGetPlainTextFromBotMsg",
     "WAWebGroupMetadataCollection",
     "WAWebInteractiveMessageHeaderMediaType",
+    "WAWebInvisiblePlaceholderViewModeProcessor",
     "WAWebKeepInChatMsgUtils",
+    "WAWebMessageAssociationUIUtils",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -28,6 +30,7 @@ __d(
     "WAWebMsgType",
     "WAWebMuteCollection",
     "WAWebProtobufsE2E.pb",
+    "WAWebViewMode.flow",
     "WAWebWid",
     "WAWebWidJsonReviver",
     "promiseDone",
@@ -474,6 +477,27 @@ __d(
         ) && o("WAWebMuteCollection").MuteCollection.getGlobalPreviews()
       );
     }
+    function U(e, t) {
+      var n = t.duringDetach,
+        r = e.parentMsgKey;
+      if (r) {
+        var a,
+          i = o("WAWebMsgCollection").MsgCollection.get(r);
+        i &&
+          (a = o("WAWebInvisiblePlaceholderViewModeProcessor")
+            .InvisiblePlaceholderViewModeProcessor.compatibleMessageTypes) !=
+            null &&
+          a.includes(i.type) &&
+          o("WAWebMessageAssociationUIUtils").shouldHideParentMessage({
+            parentMsg: i,
+            duringDetach: n,
+          }) &&
+          i.set(
+            "viewMode",
+            o("WAWebViewMode.flow").ViewModeType.INVISIBLE_PLACEHOLDER,
+          );
+      }
+    }
     ((l.typeIsMms = g),
       (l.typeIsUrl = h),
       (l.notRefiningTypeIsUrl = y),
@@ -493,7 +517,8 @@ __d(
       (l.isLastMsg = O),
       (l.getMsgForwardingScoreWhenForwarded = B),
       (l.getMsgTimeUntilExpiration = W),
-      (l.shouldShowMsgNotificationPreview = q));
+      (l.shouldShowMsgNotificationPreview = q),
+      (l.hideParentMessageInChat = U));
   },
   98,
 );

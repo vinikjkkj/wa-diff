@@ -59,13 +59,13 @@ __d(
           (i.$OrderCollectionImpl$p_1 = (function () {
             var r = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (r, a, i) {
-                var l = yield o("WAWebBizOrderAction").queryOrder(
-                  o("WAWebWidFactory").createWid(a),
-                  r,
-                  this.width,
-                  this.height,
-                  i,
-                );
+                var l = yield o("WAWebBizOrderAction").queryOrder({
+                  bizWid: o("WAWebWidFactory").createWid(a),
+                  height: this.height,
+                  orderId: r,
+                  token: i,
+                  width: this.width,
+                });
                 t.prototype.add.call(
                   this,
                   babelHelpers.extends(

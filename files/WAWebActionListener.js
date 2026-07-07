@@ -47,6 +47,7 @@ __d(
     "WAWebMsgActionCapability",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebMuteCollection",
     "WAWebMuteExpirations",
@@ -956,7 +957,9 @@ __d(
     }
     function L(e) {
       ((e.pendingDeleteForMe = !0),
-        e.hideParentMessageInChat({ duringDetach: !1 }));
+        o("WAWebMsgModelUtils").hideParentMessageInChat(e, {
+          duringDetach: !1,
+        }));
       var t = o("WAWebMsgGetters").getBotPluginSearchProvider(e),
         n = !!(t == null && o("WAWebMsgGetters").getBotPluginMaybeParent(e)),
         r = o("WAWebMsgGetters").getBotResponseTargetId(e);

@@ -2,7 +2,6 @@ __d(
   "WAWebSendContactsAction",
   [
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebAck",
     "WAWebAttachMediaCollection",
@@ -21,6 +20,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVcardUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -73,7 +73,7 @@ __d(
               );
               return;
             }
-            var _ = r("WANullthrows")(u.getValidMedias()[0]);
+            var _ = r("nullthrows")(u.getValidMedias()[0]);
             try {
               yield _.sendToChat({
                 chat: n,

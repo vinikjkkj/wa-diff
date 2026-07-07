@@ -21,33 +21,39 @@ __d(
         }
         o = o.parentElement;
       }
-      return "tag=" + e.tagName;
+      return m(e);
     }
-    var m = null,
-      p = null,
-      _ = null;
-    function f() {
-      ((m = null),
-        (p = null),
-        _ != null && (window.clearTimeout(_), (_ = null)));
+    function m(e) {
+      var t = e.getAttribute("name");
+      return t != null && t !== ""
+        ? "tag=" + e.tagName + ";name=" + t
+        : "tag=" + e.tagName;
     }
-    function g(e) {
+    var p = null,
+      _ = null,
+      f = null;
+    function g() {
+      ((p = null),
+        (_ = null),
+        f != null && (window.clearTimeout(f), (f = null)));
+    }
+    function h(e) {
       var t;
       return e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement
         ? e.value === ""
         : ((t = e.textContent) != null ? t : "") === "";
     }
-    function h(e) {
+    function y(e) {
       var t = e.target;
       !(t instanceof HTMLElement) ||
         !s(t) ||
-        (_ != null && window.clearTimeout(_),
-        (p = t),
-        (_ = window.setTimeout(function () {
-          _ = null;
-          var e = p;
-          if (((p = null), e != null)) {
-            var t = g(e);
+        (f != null && window.clearTimeout(f),
+        (_ = t),
+        (f = window.setTimeout(function () {
+          f = null;
+          var e = _;
+          if (((_ = null), e != null)) {
+            var t = h(e);
             o("WAWebPathfinderLogger").emitPathfinderEvent({
               eventType: "CONTENT_CHANGED",
               context: JSON.stringify({ is_empty: String(t) }),
@@ -57,36 +63,38 @@ __d(
           }
         }, u)));
     }
-    function y(e) {
-      var t = e.target;
-      if (!(!(t instanceof HTMLElement) || !s(t))) {
-        var n = d(t);
-        m !== n &&
-          ((m = n),
-          o("WAWebPathfinderLogger").emitPathfinderEvent({
-            eventType: "BEGIN_EDITING",
-            screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
-            timestampMs: Date.now(),
-          }));
-      }
-    }
     function C(e) {
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
-        m === n &&
-          ((m = null),
+        p !== n &&
+          ((p = n),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
-            eventType: "END_EDITING",
+            eventType: "BEGIN_EDITING",
             screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
+            targetTrackingId: n,
             timestampMs: Date.now(),
           }));
       }
     }
-    ((l.resetKeyboardStateForTesting = f),
-      (l.handleInput = h),
-      (l.handleFocusIn = y),
-      (l.handleFocusOut = C));
+    function b(e) {
+      var t = e.target;
+      if (!(!(t instanceof HTMLElement) || !s(t))) {
+        var n = d(t);
+        p === n &&
+          ((p = null),
+          o("WAWebPathfinderLogger").emitPathfinderEvent({
+            eventType: "END_EDITING",
+            screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
+            targetTrackingId: n,
+            timestampMs: Date.now(),
+          }));
+      }
+    }
+    ((l.resetKeyboardStateForTesting = g),
+      (l.handleInput = y),
+      (l.handleFocusIn = C),
+      (l.handleFocusOut = b));
   },
   98,
 );

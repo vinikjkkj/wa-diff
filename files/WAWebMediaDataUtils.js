@@ -428,7 +428,13 @@ __d(
                 ).VIDEO_TRANSCODER_ALGORITHM_TYPE.HYBRID_BRIDGE;
                 var N = yield n("cr:10296") == null
                   ? void 0
-                  : n("cr:10296").transcodeVideo(b, _, f, g, h);
+                  : n("cr:10296").transcodeVideo({
+                      file: b,
+                      onProgress: _,
+                      resetMediaPreview: g,
+                      setMediaPreview: f,
+                      setMimeType: h,
+                    });
                 if (N != null) {
                   var M = N[0],
                     w = N[1];

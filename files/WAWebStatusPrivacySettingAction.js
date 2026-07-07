@@ -63,13 +63,10 @@ __d(
         _.apply(this, arguments)
       );
     }
-    var f = {
-      getStatusPrivacySetting: e,
-      setStatusPrivacyAllowList: u,
-      setStatusPrivacyDenyList: d,
-      setStatusPrivacyContact: p,
-    };
-    l.default = f;
+    ((l.getStatusPrivacySetting = e),
+      (l.setStatusPrivacyAllowList = u),
+      (l.setStatusPrivacyDenyList = d),
+      (l.setStatusPrivacyContact = p));
   },
   98,
 );

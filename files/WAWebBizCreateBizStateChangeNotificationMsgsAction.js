@@ -13,20 +13,24 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(t, r, a, i) {
-      i === void 0 && (i = !0);
-      var l = p(r),
-        c = p(a),
-        _ = o("WAWebLidMigrationUtils").toLid(t),
-        f;
+    function c(t) {
+      var r = t.currentState,
+        a = t.previousState,
+        i = t.shouldRunMATonWid,
+        l = i === void 0 ? !0 : i,
+        c = t.wid,
+        _ = p(a),
+        f = p(r),
+        g = o("WAWebLidMigrationUtils").toLid(c),
+        h;
       if (
-        i &&
+        l &&
         o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
-        _ != null
+        g != null
       ) {
         if (
-          ((f = o("WAWebChatCollection").ChatCollection.getChatByAccountLid(_)),
-          f == null)
+          ((h = o("WAWebChatCollection").ChatCollection.getChatByAccountLid(g)),
+          h == null)
         )
           return (
             o("WALogger").LOG(
@@ -38,7 +42,7 @@ __d(
             (u || (u = n("Promise"))).resolve()
           );
       } else if (
-        ((f = o("WAWebChatCollection").ChatCollection.get(t)), f == null)
+        ((h = o("WAWebChatCollection").ChatCollection.get(c)), h == null)
       )
         return (
           o("WALogger").LOG(
@@ -49,13 +53,13 @@ __d(
           ),
           (u || (u = n("Promise"))).resolve()
         );
-      var g = f.id,
-        h = [m(g, l, c), d(g, l, c)].filter(Boolean);
+      var y = h.id,
+        C = [m(y, _, f), d(y, _, f)].filter(Boolean);
       return (
-        h.map(function (e) {
+        C.map(function (e) {
           if (e != null)
             return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-              chatId: g,
+              chatId: y,
               newMsg: e,
               handleSingleMsgOrigin: "bizStateChangeNotification",
             });

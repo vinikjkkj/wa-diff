@@ -2,7 +2,6 @@ __d(
   "WAWebFormatPinInChatNotification",
   [
     "fbt",
-    "WANullthrows",
     "WAWebChatCommunityUtils",
     "WAWebChatContactUtils",
     "WAWebCommonMsgTemplateParamsUtils",
@@ -12,12 +11,13 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t,
         n,
-        a = r("WANullthrows")(
+        a = r("nullthrows")(
           (t =
             (n = o(
               "WAWebCommonMsgTemplateParamsUtils",

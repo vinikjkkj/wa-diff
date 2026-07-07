@@ -53,10 +53,7 @@ __d(
         o("WAWebWorkerQplTypes").createSerializableQplHandle(r, n)
       );
     }
-    function _(e, t) {
-      c.delete(d(e, t));
-    }
-    function f(e) {
+    function _(e) {
       var t = d(e.markerId, e.instanceKey),
         n = c.get(t);
       if (n == null) {
@@ -154,9 +151,7 @@ __d(
         );
       }
     }
-    ((l.serializeQplForBridge = m),
-      (l.unregisterQplFlow = _),
-      (l.handleQplBridgeMessage = f));
+    ((l.serializeQplForBridge = m), (l.handleQplBridgeMessage = _));
   },
   98,
 );

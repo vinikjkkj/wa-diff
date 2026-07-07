@@ -108,6 +108,30 @@ __d(
               t,
             );
           }),
+          (n.dropdownMenuItemDisplayed = function (t) {
+            var e = t.recipientCount,
+              n = t.uiSurface;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_DROPDOWN_MENU_ITEM_DISPLAYED,
+              recipientCount: e,
+              uiSurface: n,
+            });
+          }),
+          (n.dropdownMenuItemClicked = function (t) {
+            var e = t.recipientCount,
+              n = t.uiSurface;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_DROPDOWN_MENU_ITEM_CLICKED,
+              recipientCount: e,
+              uiSurface: n,
+            });
+          }),
           (n.bundleMessageSent = function (t) {
             var e = t.bundleSendSource,
               n = t.groupHistoryMessagesCount,

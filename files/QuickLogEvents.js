@@ -8972,6 +8972,11 @@ __d(
         name: "WAKEWORD_ENROLLMENT",
         sampleRate: 1,
       },
+      50805958: {
+        moduleName: "ASSISTANT",
+        name: "SYNC_CONTACT_TIMING",
+        sampleRate: 1,
+      },
       50805992: {
         moduleName: "ASSISTANT",
         name: "AIR_SESSION_MODE",
@@ -14162,7 +14167,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 230,
+        sampleRate: 271,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14227,7 +14232,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 36832,
+        sampleRate: 31401,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14262,7 +14267,7 @@ __d(
       85538115: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_SHOPS",
-        sampleRate: 153670,
+        sampleRate: 171454,
       },
       85538404: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15411,7 +15416,7 @@ __d(
       100338619: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE",
-        sampleRate: 11,
+        sampleRate: 10,
       },
       100346940: {
         moduleName: "ACCESS_LIBRARY",
@@ -20392,6 +20397,7 @@ __d(
         sampleRate: 1,
       },
       191372201: { moduleName: "EMBER", name: "HOME_TTRC", sampleRate: 1 },
+      191373757: { moduleName: "EMBER", name: "POST_SAVE", sampleRate: 250 },
       191374824: { moduleName: "EMBER", name: "APP_HOT_START", sampleRate: 1 },
       191375445: {
         moduleName: "EMBER",
@@ -21707,6 +21713,11 @@ __d(
       220274270: {
         moduleName: "SA_APP_INSTALL",
         name: "SHOPS_APP_INSTALL_CTA_ASYNC_CONTROLLER_PERFORMANCE",
+        sampleRate: 1,
+      },
+      220335382: {
+        moduleName: "RL_ROBOTICS",
+        name: "MOTOR_DIAGNOSTIC",
         sampleRate: 1,
       },
       220335999: {
@@ -24133,6 +24144,11 @@ __d(
         name: "AM_EDIT_CAMPAGINS_TOGGLE_ON_BUDGET",
         sampleRate: 1,
       },
+      270207531: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_MAIBA_ACTIONABILITY",
+        sampleRate: 250,
+      },
       270207578: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "POST_PROCESSING_CAMPAIGN_GROUP",
@@ -24236,6 +24252,11 @@ __d(
       270208141: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_BIZAI_BULK_ENROLLMENT_FLOW",
+        sampleRate: 1,
+      },
+      270208144: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_SELF_REPORT_LOAD_MODAL",
         sampleRate: 1,
       },
       270208148: {
@@ -38335,6 +38356,11 @@ __d(
         name: "LAZY_LOAD_PDP_MODULE",
         sampleRate: 1,
       },
+      461840623: {
+        moduleName: "MESSENGER_THEME",
+        name: "CUSTOM_THEME_CREATION_ERROR",
+        sampleRate: null,
+      },
       462292213: {
         moduleName: "WP_LIVE_STUDIO",
         name: "LIVE_POLL_CREATE",
@@ -39656,6 +39682,11 @@ __d(
         moduleName: "ABTEST_RESULTS_INTERPRETER",
         name: "INITIAL_LOAD",
         sampleRate: 1,
+      },
+      480120965: {
+        moduleName: "HORIZON_MEDIA_PLAYER",
+        name: "TTFF",
+        sampleRate: 1e4,
       },
       480444417: {
         moduleName: "WHATSAPP_BULK_ADD_CONTACTS",
@@ -52357,6 +52388,11 @@ __d(
         sampleRate: 1,
       },
       700782578: { moduleName: "SALES_AI", name: "TOOL_CALL", sampleRate: 1 },
+      700786497: {
+        moduleName: "SALES_AI",
+        name: "SALES_ASSISTANT_MESSAGE",
+        sampleRate: 1,
+      },
       701177629: {
         moduleName: "WHATSAPP_SMB_PREMIUM",
         name: "WHATSAPP_MESSAGE_INFO_VIEW",
@@ -59253,7 +59289,7 @@ __d(
       770186836: {
         moduleName: "FEED_PERSONALIZATION",
         name: "VEND_TIME_RANKING_STATE",
-        sampleRate: 2e3,
+        sampleRate: 1e4,
       },
       770572289: {
         moduleName: "SYNC_INFRA",
@@ -65043,6 +65079,41 @@ __d(
         name: "ANIMATED_REACTION_LOTTIE_LOAD",
         sampleRate: 250,
       },
+      852492289: {
+        moduleName: "STYLESKETCH",
+        name: "APP_COLD_START",
+        sampleRate: 250,
+      },
+      852495714: {
+        moduleName: "STYLESKETCH",
+        name: "OUTFIT_GENERATION",
+        sampleRate: 250,
+      },
+      852497561: {
+        moduleName: "STYLESKETCH",
+        name: "DAILY_PLAN_GENERATE",
+        sampleRate: 250,
+      },
+      852500118: {
+        moduleName: "STYLESKETCH",
+        name: "TRIP_PLAN_GENERATE",
+        sampleRate: 250,
+      },
+      852501231: {
+        moduleName: "STYLESKETCH",
+        name: "ONBOARDING_WIZARD",
+        sampleRate: 250,
+      },
+      852505388: {
+        moduleName: "STYLESKETCH",
+        name: "WARDROBE_ADD",
+        sampleRate: 250,
+      },
+      852508560: {
+        moduleName: "STYLESKETCH",
+        name: "AVATAR_GENERATION",
+        sampleRate: 250,
+      },
       852624525: {
         moduleName: "LOOM_PDP_UI",
         name: "INITIAL_LOAD",
@@ -67775,6 +67846,11 @@ __d(
         moduleName: "CATALOG_MANAGER",
         name: "QUERY_PRICE_FROM_PRODUCT_AND_CATALOG",
         sampleRate: 1,
+      },
+      888487175: {
+        moduleName: "CATALOG_MANAGER",
+        name: "RETURNABLE_COMBINATIONS_QUERY",
+        sampleRate: 250,
       },
       888541649: {
         moduleName: "AI_STYLE_BLOKS",
@@ -73318,6 +73394,11 @@ __d(
         name: "AM_APPLY_QUICK_VIEW_CHANGE_COLUMNS",
         sampleRate: 1,
       },
+      956831428: {
+        moduleName: "ADS_MANAGER_REPORTING_INTERACTION",
+        name: "AM_SCORECARD_INSITU_LOAD",
+        sampleRate: 250,
+      },
       956835099: {
         moduleName: "ADS_MANAGER_REPORTING_INTERACTION",
         name: "AM_FILTER_RESULT_COUNT_UPDATE",
@@ -73639,6 +73720,11 @@ __d(
         moduleName: "AOI",
         name: "SWITCH_FROM_BETA_TO_CURRENT_VERSION",
         sampleRate: 1,
+      },
+      963969025: {
+        moduleName: "MSGR_NOTES_MANAGED_MOBILE_ERRORS",
+        name: "MUSIC_NOTE_DONE_RESOLVED_NULL_SONG",
+        sampleRate: 250,
       },
       964100097: {
         moduleName: "WWW_NOMS",
@@ -77350,6 +77436,11 @@ __d(
       1038942209: {
         moduleName: "CMO_AGENT",
         name: "MEMORY_READ",
+        sampleRate: 250,
+      },
+      1039338787: {
+        moduleName: "FB_VIDEO_TEMPLATES",
+        name: "INSTANT_VIDEO_TTRC",
         sampleRate: 250,
       },
       1039478718: {

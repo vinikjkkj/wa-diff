@@ -44,12 +44,12 @@ __d(
           conversionData: n,
           conversionSource: a,
         });
-      },
-      p = function (t) {
-        var e = r("WAWebConversionTupleCollection").get(t.id);
-        if (e) return e.ctwaSignals;
-      },
-      _ = function () {
+      };
+    function p(e) {
+      var t = r("WAWebConversionTupleCollection").get(e.id);
+      if (t) return t.ctwaSignals;
+    }
+    var _ = function () {
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
           t = o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp(),
           n = t != null,

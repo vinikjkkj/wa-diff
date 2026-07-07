@@ -6,6 +6,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
+    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes.flow",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
@@ -369,43 +370,46 @@ __d(
           "missing participants in group info participant response",
         );
       var n = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
-        r = [],
-        a = !1,
+        r = o(
+          "WAWebGroupHistoryGating",
+        ).isGroupHistoryAfterJoinPrerequisitesEnabled(),
+        a = [],
         i = !1,
-        l = [];
+        l = !1,
+        u = [];
       return (
         t.forEach(function (e) {
           var t,
             s,
-            u = e.group_history_sent,
-            c = e.join_time,
-            d = e.node,
-            m = e.participant,
-            p = e.role,
-            _ = !1,
+            c = e.group_history_sent,
+            d = e.join_time,
+            m = e.node,
+            p = e.participant,
+            _ = e.role,
             f = !1,
-            g = m != null ? m : d;
-          if (g == null)
+            g = !1,
+            h = p != null ? p : m;
+          if (h == null)
             throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
               500,
               "missing participant or node in group info participant response",
             );
-          var h, y, C;
-          if (g.id != null)
-            ((h = o("WAWebWidFactory").createWid(g.id)),
-              g.lid != null && (y = o("WAWebWidFactory").createWid(g.lid)),
-              g.pn != null && (C = o("WAWebWidFactory").createWid(g.pn)));
-          else if (g.jid != null)
-            ((h = o("WAWebWidFactory").createWid(g.jid)),
-              h.isBot() &&
-                (o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(h)
-                  ? ((_ = !0),
-                    (a = o(
+          var y, C, b;
+          if (h.id != null)
+            ((y = o("WAWebWidFactory").createWid(h.id)),
+              h.lid != null && (C = o("WAWebWidFactory").createWid(h.lid)),
+              h.pn != null && (b = o("WAWebWidFactory").createWid(h.pn)));
+          else if (h.jid != null)
+            ((y = o("WAWebWidFactory").createWid(h.jid)),
+              y.isBot() &&
+                (o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(y)
+                  ? ((f = !0),
+                    (i = o(
                       "WAWebBotGroupGatingUtils",
                     ).isOpenGroupBotParticipantAddEnabled()))
-                  : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(h) &&
-                    ((f = !0),
-                    (i = o(
+                  : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(y) &&
+                    ((g = !0),
+                    (l = o(
                       "WAWebBotGroupGatingUtils",
                     ).isTEEGroupBotParticipantAddEnabled()))));
           else
@@ -413,34 +417,36 @@ __d(
               500,
               "missing id or jid in group info participant response",
             );
-          var b = {
-            id: h,
-            lid: y,
-            phoneNumber: C != null ? C : null,
-            displayName: (t = g.display_name) != null ? t : null,
-            isAdmin: p === "ADMIN_MEMBER" || p === "SUPERADMIN_MEMBER",
-            isSuperAdmin: p === "SUPERADMIN_MEMBER",
+          var v = {
+            id: y,
+            lid: C,
+            phoneNumber: b != null ? b : null,
+            displayName: (t = h.display_name) != null ? t : null,
+            isAdmin: _ === "ADMIN_MEMBER" || _ === "SUPERADMIN_MEMBER",
+            isSuperAdmin: _ === "SUPERADMIN_MEMBER",
             username: n
-              ? (s = g.username_info) == null
+              ? (s = h.username_info) == null
                 ? void 0
                 : s.username
               : null,
-            joinTime: c != null ? c : null,
-            groupHistorySentState: o(
-              "WAWebGroupHistoryPostJoinTypes.flow",
-            ).groupHistorySentToState(u),
+            joinTime: r && d != null ? d : null,
+            groupHistorySentState: r
+              ? o(
+                  "WAWebGroupHistoryPostJoinTypes.flow",
+                ).groupHistorySentToState(c)
+              : void 0,
           };
-          !(_ || f) ||
-          (_ &&
+          !(f || g) ||
+          (f &&
             o(
               "WAWebBotGroupGatingUtils",
             ).isOpenGroupBotParticipantAddEnabled()) ||
-          (f &&
+          (g &&
             o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled())
-            ? r.push(b)
-            : l.length < 3 && l.push(h.toString());
+            ? a.push(v)
+            : u.length < 3 && u.push(y.toString());
         }),
-        l.length > 0 &&
+        u.length > 0 &&
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -448,10 +454,10 @@ __d(
                 " bot participants => ",
                 "",
               ])),
-            l.length,
-            l,
+            u.length,
+            u,
           ),
-        { participantsInfo: r, isOpenBotGroup: a, isTeeBotGroup: i }
+        { participantsInfo: a, isOpenBotGroup: i, isTeeBotGroup: l }
       );
     }
     l.mexGetGroupInfoIncludBots = h;

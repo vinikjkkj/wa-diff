@@ -21,7 +21,9 @@ __d(
       u,
       c,
       d,
-      m = {
+      m,
+      p,
+      _ = {
         TAP: { category: 1, eventName: 1 },
         DOUBLE_TAP: { category: 1, eventName: 3 },
         SCROLL: { category: 1, eventName: 2 },
@@ -40,11 +42,11 @@ __d(
         ALERT_CLOSED: { category: 5, eventName: 25 },
         CUSTOM_EVENT: { category: 6, eventName: 19 },
       },
-      p = { 1: "UP", 2: "DOWN", 3: "LEFT", 4: "RIGHT" },
-      _ = 50,
-      f = 25,
-      g = 100;
-    function h(t, n, r, a, i) {
+      f = { 1: "UP", 2: "DOWN", 3: "LEFT", 4: "RIGHT" },
+      g = 50,
+      h = 25,
+      y = 100;
+    function C(t, n, r, a, i) {
       (t.length > 0 &&
         o("WALogger").WARN(
           e ||
@@ -66,7 +68,7 @@ __d(
                 "",
               ])),
             i,
-            f,
+            h,
             n.join(", "),
           ),
         r.length > 0 &&
@@ -79,7 +81,7 @@ __d(
                 "",
               ])),
             i,
-            g,
+            y,
             r.join(", "),
           ),
         a.length > 0 &&
@@ -94,11 +96,11 @@ __d(
               ])),
             i,
             a.length,
-            _,
+            g,
             a.join(", "),
           ));
     }
-    function y(e, t) {
+    function b(e, t) {
       if (e != null) {
         for (
           var n = {},
@@ -113,11 +115,11 @@ __d(
           d++
         ) {
           var m = a[d];
-          if (u >= _) {
+          if (u >= g) {
             c = d;
             break;
           }
-          if (m.length > f) {
+          if (m.length > h) {
             i.push(m);
             continue;
           }
@@ -130,26 +132,26 @@ __d(
             continue;
           }
           var p = e[m];
-          (p.length > g ? (s.push(m), (n[m] = p.slice(0, g))) : (n[m] = p),
+          (p.length > y ? (s.push(m), (n[m] = p.slice(0, y))) : (n[m] = p),
             u++);
         }
-        var y = c >= 0 ? a.slice(c) : [],
-          C = t != null ? " [" + t + "]" : "";
-        return (h(l, i, s, y, C), r("isEmptyObject")(n) ? void 0 : n);
+        var _ = c >= 0 ? a.slice(c) : [],
+          f = t != null ? " [" + t + "]" : "";
+        return (C(l, i, s, _, f), r("isEmptyObject")(n) ? void 0 : n);
       }
     }
-    function C(e, t, n) {
+    function v(e, t, n) {
       var o,
-        a = (o = y(e, n)) != null ? o : {};
+        a = (o = b(e, n)) != null ? o : {};
       return (
         t.custom_event_type != null &&
           (a.custom_event_type = t.custom_event_type),
         r("isEmptyObject")(a) ? void 0 : a
       );
     }
-    function b(e, t, n) {
+    function S(e, t, n) {
       var o,
-        a = (o = y(e, n)) != null ? o : {};
+        a = (o = b(e, n)) != null ? o : {};
       return (
         t.triggering_testid != null &&
           t.triggering_testid !== "" &&
@@ -157,25 +159,25 @@ __d(
         r("isEmptyObject")(a) ? void 0 : a
       );
     }
-    function v(e, t) {
+    function R(e, t) {
       return e.eventType === "CUSTOM_EVENT" &&
         e.originalEventName != null &&
-        m[e.originalEventName] != null
-        ? m[e.originalEventName].eventName
+        _[e.originalEventName] != null
+        ? _[e.originalEventName].eventName
         : t;
-    }
-    var S = null;
-    function R() {
-      var e = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId();
-      return e != null && e !== ""
-        ? e
-        : (S == null && (S = r("WAWebPonyfillsCryptoRandomUUID")()), S);
     }
     var L = null;
     function E() {
-      return (L == null && (L = r("qex")._("2703") === !0), L);
+      var e = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId();
+      return e != null && e !== ""
+        ? e
+        : (L == null && (L = r("WAWebPonyfillsCryptoRandomUUID")()), L);
     }
-    function k() {
+    var k = null;
+    function I() {
+      return (k == null && (k = r("qex")._("2703") === !0), k);
+    }
+    function T() {
       return !!(
         r("WAWebLocalStorage") != null &&
         r("WAWebLocalStorage").getItem(
@@ -183,19 +185,123 @@ __d(
         )
       );
     }
-    function I() {
-      return r("justknobx")._("918") ? !1 : k() || E();
+    function D() {
+      return r("justknobx")._("918") ? !1 : T() || I();
     }
-    var T = 50,
-      D = new Array(T),
-      x = 0,
-      $ = !1;
-    function P() {
-      $ || (($ = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(M));
+    var x = new Set(["BEGIN_EDITING", "END_EDITING"]),
+      $ = 500,
+      P = new Map(),
+      N = new Set(),
+      M = new Set(),
+      w = "";
+    function A(e, t) {
+      return e + "\0" + t;
     }
-    function N(e) {
+    function F(e, t) {
+      var n = P.get(e);
+      return n != null && t - n < $;
+    }
+    function O() {
+      (X++,
+        X === 1 &&
+          o("WALogger").WARN(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[pathfinder] Editing-event dedup active (window=",
+                "ms), suppressing rapid duplicate BEGIN/END events",
+              ])),
+            String($),
+          ));
+    }
+    function B(e) {
+      var t,
+        n = (t = e.targetTrackingId) != null ? t : w;
+      if (e.eventType !== "BEGIN_EDITING") return W(n, e);
+      var r = A(e.eventType, n);
+      return F(r, e.timestampMs)
+        ? (N.add(n), O(), !1)
+        : (P.set(r, e.timestampMs), M.add(n), N.delete(n), !0);
+    }
+    function W(e, t) {
+      if (N.has(e)) return (N.delete(e), M.delete(e), O(), !1);
+      var n = A(t.eventType, e);
+      return M.has(e)
+        ? (M.delete(e), P.set(n, t.timestampMs), !0)
+        : F(n, t.timestampMs)
+          ? (O(), !1)
+          : (P.set(n, t.timestampMs), !0);
+    }
+    var q = 100,
+      U = 5e4,
+      V = 1e5,
+      H = 1e4,
+      G = 5e4,
+      z = 864e5,
+      j = 0,
+      K = 0,
+      Q = 0,
+      X = 0,
+      Y = -1,
+      J = H,
+      Z = G;
+    function ee(e, t, n) {
+      return Math.max(t, Math.min(n, e));
+    }
+    function te(e, t) {
+      return !Number.isFinite(e) || e <= 0 ? t : e;
+    }
+    function ne() {
+      var e = r("justknobx")._("2845");
+      return ee(te(e, H), q, U);
+    }
+    function re() {
+      var e = r("justknobx")._("2846");
+      return ee(te(e, G), q, V);
+    }
+    function oe() {
+      var e = Math.floor(Date.now() / z);
+      e !== Y &&
+        ((K = 0), (j = 0), (Q = 0), (X = 0), (Y = e), (J = ne()), (Z = re()));
+    }
+    function ae() {
+      ((j = 0), P.clear(), N.clear(), M.clear());
+    }
+    function ie() {
+      (ae(), (K = 0), (Q = 0), (X = 0), (Y = -1), (J = ne()), (Z = re()));
+    }
+    var le = 50,
+      se = new Array(le),
+      ue = 0,
+      ce = !1;
+    function de() {
+      ce ||
+        ((ce = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(_e));
+    }
+    function me(e) {
+      return D()
+        ? (oe(),
+          j >= J || K >= Z
+            ? (Q++,
+              Q === 1 &&
+                o("WALogger").WARN(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[pathfinder] Event cap reached (session=",
+                      " daily=",
+                      "), dropping subsequent events",
+                    ])),
+                  String(j),
+                  String(K),
+                ),
+              !1)
+            : x.has(e.eventType) && !B(e)
+              ? !1
+              : (j++, K++, !0))
+        : !1;
+    }
+    function pe(e) {
       var t, n, a, i, l, s;
-      if (I()) {
+      if (me(e)) {
         var u = [];
         if (
           (e.screenName != null && u.push("screen=" + e.screenName),
@@ -210,71 +316,71 @@ __d(
           var c;
           u.push(
             "direction=" +
-              ((c = p[e.gestureDirection]) != null
+              ((c = f[e.gestureDirection]) != null
                 ? c
                 : String(e.gestureDirection)),
           );
         }
-        var _ =
+        var d =
           u.length > 0
             ? "[pathfinder] " + e.eventType + " " + u.join(" ")
             : "[pathfinder] " + e.eventType;
         o("WALogger").LOG(
-          d || (d = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-          _,
+          p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+          d,
         );
-        var f = m[e.eventType];
-        if (f != null) {
+        var m = _[e.eventType];
+        if (m != null) {
           var g,
             h,
             y,
-            S,
-            L,
-            E = v(e, f.eventName),
+            C,
+            b,
+            L = R(e, m.eventName),
             k =
               "" +
               e.eventType +
               (e.targetTrackingId != null ? ":" + e.targetTrackingId : ""),
-            $ = {
-              event_category: f.category,
-              event_name: E,
+            I = {
+              event_category: m.category,
+              event_name: L,
               client_timestamp_ms: String(e.timestampMs),
-              unified_session_id: R(),
+              unified_session_id: E(),
               debounce_count:
                 e.debounceCount != null ? String(e.debounceCount) : void 0,
               gesture_direction: (g = e.gestureDirection) != null ? g : void 0,
               screen_name: (h = e.screenName) != null ? h : void 0,
               destination_screen_name:
                 (y = e.destinationName) != null ? y : void 0,
-              target_testid: (S = e.targetTrackingId) != null ? S : void 0,
-              target_element_type: (L = e.targetType) != null ? L : void 0,
-              event_metadata: b(
+              target_testid: (C = e.targetTrackingId) != null ? C : void 0,
+              target_element_type: (b = e.targetType) != null ? b : void 0,
+              event_metadata: S(
                 e.eventMetadata,
                 { triggering_testid: e.triggeringTestId },
                 k,
               ),
-              custom_metadata: C(
+              custom_metadata: v(
                 e.customMetadata,
                 { custom_event_type: e.customEventTypeDisplayName },
                 k,
               ),
             };
           r("WamPathfinderWebFalcoEvent").log(function () {
-            return $;
+            return I;
           });
-          var N = o(
+          var T = o(
             "WAWebPathfinderUnsamplingConfig",
           ).getUnsamplingRuleIdForScreen(e.screenName);
-          N != null &&
+          T != null &&
             r("WamPathfinderWebUnsampledFalcoEvent").log(function () {
-              return babelHelpers.extends({}, $, {
+              return babelHelpers.extends({}, I, {
                 sampling_reason: "TRIGGER_SCREEN",
-                session_flag_rule_id: N,
+                session_flag_rule_id: T,
               });
             });
         }
-        P();
-        var M = {
+        de();
+        var D = {
           eventType: e.eventType,
           timestampMs: e.timestampMs,
           trackingId: (t = e.targetTrackingId) != null ? t : void 0,
@@ -284,23 +390,25 @@ __d(
           context: (l = e.context) != null ? l : void 0,
           debounceCount: (s = e.debounceCount) != null ? s : void 0,
         };
-        (u.length > 0 && (M.extra = u.join(" ")),
-          (D[x] = M),
-          (x = (x + 1) % T));
+        (u.length > 0 && (D.extra = u.join(" ")),
+          (se[ue] = D),
+          (ue = (ue + 1) % le));
       }
     }
-    function M() {
-      for (var e = [], t = 0; t < T; t++) {
-        var n = (x + t) % T,
-          r = D[n];
+    function _e() {
+      for (var e = [], t = 0; t < le; t++) {
+        var n = (ue + t) % le,
+          r = se[n];
         r != null && e.push(r);
       }
       return e;
     }
-    ((l.FALCO_MAP = m),
-      (l.isPathfinderLoggingEnabled = I),
-      (l.emitPathfinderEvent = N),
-      (l.getPathfinderLogSnapshot = M));
+    ((l.FALCO_MAP = _),
+      (l.isPathfinderLoggingEnabled = D),
+      (l.resetPathfinderSessionState = ae),
+      (l.resetEventGuardsForTesting = ie),
+      (l.emitPathfinderEvent = pe),
+      (l.getPathfinderLogSnapshot = _e));
   },
   98,
 );

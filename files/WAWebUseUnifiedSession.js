@@ -5,32 +5,54 @@ __d(
     "react",
     "react-compiler-runtime",
     "useWAWebListener",
+    "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (e || (e = o("react"))).useEffect;
-    function u() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = []), (e[0] = t))
-        : (t = e[0]),
-        s(d, t));
-      var n = c;
-      o("useWAWebListener").useListener(window, "focus", n);
+      s = e || (e = o("react")),
+      u = s.useCallback,
+      c = s.useEffect;
+    function d(e) {
+      var t = o("react-compiler-runtime").c(7),
+        n = r("useWAWebStableCallback")(e),
+        a;
+      t[0] !== n
+        ? ((a = function (t) {
+            (o("WAWebUnifiedSession").UnifiedSessionManager.generateSessionId(
+              t,
+            ),
+              n());
+          }),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l,
+        s;
+      (t[2] !== i
+        ? ((l = function () {
+            o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId() ==
+              null &&
+              i(o("WAWebUnifiedSession").UnifiedSessionGenReason.InitialRender);
+          }),
+          (s = [i]),
+          (t[2] = i),
+          (t[3] = l),
+          (t[4] = s))
+        : ((l = t[3]), (s = t[4])),
+        c(l, s));
+      var u;
+      t[5] !== i
+        ? ((u = function () {
+            i(o("WAWebUnifiedSession").UnifiedSessionGenReason.Foreground);
+          }),
+          (t[5] = i),
+          (t[6] = u))
+        : (u = t[6]);
+      var d = u;
+      return (o("useWAWebListener").useListener(window, "focus", d), i);
     }
-    function c() {
-      o("WAWebUnifiedSession").UnifiedSessionManager.generateSessionId(
-        o("WAWebUnifiedSession").UnifiedSessionGenReason.Foreground,
-      );
-    }
-    function d() {
-      o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId() == null &&
-        o("WAWebUnifiedSession").UnifiedSessionManager.generateSessionId(
-          o("WAWebUnifiedSession").UnifiedSessionGenReason.InitialRender,
-        );
-    }
-    l.useUnifiedSession = u;
+    l.useUnifiedSession = d;
   },
   98,
 );

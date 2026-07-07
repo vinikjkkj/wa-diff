@@ -28,168 +28,165 @@ __d(
         )
       );
     }
-    function y(e, t, n, r, o) {
+    function y(e) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i, l) {
-            var h;
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r,
+            a = t.file,
+            i = t.onProgress,
+            l = t.resetMediaPreview,
+            h = t.setMediaPreview,
+            y = t.setMimeType;
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[transcodeVideo] start size=",
+                " type=",
+                "",
+              ])),
+            a.size,
+            a.type,
+          );
+          var C =
+            n("cr:17219") == null ||
+            (r = n("cr:17219").getWindowsBridge()) == null
+              ? void 0
+              : r.mediaTranscodeBridge;
+          if (C == null) return null;
+          var b,
+            v,
+            S,
+            R = !1;
+          try {
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[transcodeVideo] start size=",
-                  " type=",
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[transcodeVideo] Requesting source buffer for file size ",
                   "",
                 ])),
-              t.size,
-              t.type,
+              a.size,
             );
-            var y =
-              n("cr:17219") == null ||
-              (h = n("cr:17219").getWindowsBridge()) == null
-                ? void 0
-                : h.mediaTranscodeBridge;
-            if (y == null) return null;
-            var C,
-              b,
-              v,
-              S = !1;
-            try {
+            var L = yield C.requestSharedBufferForTranscoding(g++, a.size),
+              E = L[0],
+              k = L[1];
+            ((b = E),
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[transcodeVideo] Requesting source buffer for file size ",
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[transcodeVideo] Received source buffer with id ",
                     "",
                   ])),
-                t.size,
-              );
-              var R = yield y.requestSharedBufferForTranscoding(g++, t.size),
-                L = R[0],
-                E = R[1];
-              ((C = L),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[transcodeVideo] Received source buffer with id ",
-                      "",
-                    ])),
-                  L,
-                ),
-                r &&
-                  !(
-                    y instanceof
-                    o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
-                      .WindowsHybridBridgeMediaTranscoder_v2577
-                  ) &&
-                  y.setProgressCallback(C, r));
-              var k = yield t.arrayBuffer(),
-                I = new Uint8Array(E),
-                T = new Uint8Array(k);
-              if (
-                (I.set(T),
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[transcodeVideo] File content copied to source buffer",
-                    ])),
-                ),
-                l != null && l("video/mp4"),
-                a != null &&
-                  !(
-                    y instanceof
-                    o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
-                      .WindowsHybridBridgeMediaTranscoder_v2577
-                  ))
-              )
-                try {
-                  var D = yield y.getVideoPreviewFrameFromSharedBuffer(C, g++),
-                    x = D[0],
-                    $ = D[1],
-                    P = D[2],
-                    N = D[3];
-                  ((v = x), a($, P, N), (S = !0));
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[transcodeVideo] Error getting video preview frame",
-                        ])),
-                    )
-                    .catching(e);
-                }
-              var M =
-                o("WAWebABProps").getABPropConfigValue(
-                  "default_video_limit_mb",
-                ) *
-                1024 *
-                1024;
+                E,
+              ),
+              i &&
+                !(
+                  C instanceof
+                  o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
+                    .WindowsHybridBridgeMediaTranscoder_v2577
+                ) &&
+                C.setProgressCallback(b, i));
+            var I = yield a.arrayBuffer(),
+              T = new Uint8Array(k),
+              D = new Uint8Array(I);
+            if (
+              (T.set(D),
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[transcodeVideo] Starting transcoding from sourceBufferId=",
-                    "",
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[transcodeVideo] File content copied to source buffer",
                   ])),
-                C,
-              );
-              var w = yield y.performVideoTranscodingFromSharedBuffer(
-                  C,
-                  g++,
-                  M,
-                ),
-                A = w[0],
-                F = w[1];
-              ((b = A),
-                o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[transcodeVideo] done bufferId=",
-                      " size=",
-                      "",
-                    ])),
-                  A,
-                  F.byteLength,
-                ));
-              var O = new Blob([F], { type: "video/mp4" });
-              return (
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[transcodeVideo] Video transcoding completed successfully",
-                    ])),
-                ),
-                [O, S]
-              );
-            } catch (e) {
-              throw (
+              ),
+              y != null && y("video/mp4"),
+              h != null &&
+                !(
+                  C instanceof
+                  o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
+                    .WindowsHybridBridgeMediaTranscoder_v2577
+                ))
+            )
+              try {
+                var x = yield C.getVideoPreviewFrameFromSharedBuffer(b, g++),
+                  $ = x[0],
+                  P = x[1],
+                  N = x[2],
+                  M = x[3];
+                ((S = $), h(P, N, M), (R = !0));
+              } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[transcodeVideo] Error during video transcoding",
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[transcodeVideo] Error getting video preview frame",
                       ])),
                   )
-                  .catching(e),
-                i != null && S && i(),
-                e
-              );
-            } finally {
-              (C != null && y.releaseSharedBuffer(C),
-                b != null && y.releaseSharedBuffer(b),
-                v != null && y.releaseSharedBuffer(v),
-                r &&
-                  C != null &&
-                  !(
-                    y instanceof
-                    o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
-                      .WindowsHybridBridgeMediaTranscoder_v2577
-                  ) &&
-                  y.clearProgressCallback(C));
-            }
-          },
-        )),
+                  .catching(e);
+              }
+            var w =
+              o("WAWebABProps").getABPropConfigValue("default_video_limit_mb") *
+              1024 *
+              1024;
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[transcodeVideo] Starting transcoding from sourceBufferId=",
+                  "",
+                ])),
+              b,
+            );
+            var A = yield C.performVideoTranscodingFromSharedBuffer(b, g++, w),
+              F = A[0],
+              O = A[1];
+            ((v = F),
+              o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[transcodeVideo] done bufferId=",
+                    " size=",
+                    "",
+                  ])),
+                F,
+                O.byteLength,
+              ));
+            var B = new Blob([O], { type: "video/mp4" });
+            return (
+              o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[transcodeVideo] Video transcoding completed successfully",
+                  ])),
+              ),
+              [B, R]
+            );
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[transcodeVideo] Error during video transcoding",
+                    ])),
+                )
+                .catching(e),
+              l != null && R && l(),
+              e
+            );
+          } finally {
+            (b != null && C.releaseSharedBuffer(b),
+              v != null && C.releaseSharedBuffer(v),
+              S != null && C.releaseSharedBuffer(S),
+              i &&
+                b != null &&
+                !(
+                  C instanceof
+                  o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
+                    .WindowsHybridBridgeMediaTranscoder_v2577
+                ) &&
+                C.clearProgressCallback(b));
+          }
+        })),
         C.apply(this, arguments)
       );
     }
