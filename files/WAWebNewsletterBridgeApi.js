@@ -738,6 +738,26 @@ __d(
         }
         return t;
       })(),
+      updateNewsletterQuestionResponseStarredState: (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.questionServerId,
+            r = e.responseServerId,
+            a = e.starred,
+            i = yield (t = o(
+              "WAWebNewsletterQuestionResponseCollection",
+            ).QuestionResponseCollection.filter(function (e) {
+              return e.responseServerId === r && e.questionServerId === n;
+            })) == null
+              ? void 0
+              : t[0];
+          i != null && i.set("starred", a);
+        });
+        function t(t) {
+          return e.apply(this, arguments);
+        }
+        return t;
+      })(),
       updateMyNewsletterMembershipRole: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.newRole,

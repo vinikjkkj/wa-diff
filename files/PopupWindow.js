@@ -91,8 +91,8 @@ __d(
     }
     ((l._opts = e),
       (l.init = s),
-      (l._resizeCheck = u),
-      (l._getDocumentSize = c),
+      (l.resizeCheck = u),
+      (l.getDocumentSize = c),
       (l.open = d));
   },
   98,

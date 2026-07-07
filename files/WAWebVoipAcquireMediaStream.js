@@ -31,6 +31,7 @@ __d(
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -1318,24 +1319,26 @@ __d(
         (it = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e === void 0 ? {} : e,
             n = t.isInActiveCall,
-            r = t.skipPermissionRequest,
-            a = t.targetWindow;
+            a = t.skipPermissionRequest,
+            i = t.targetWindow;
           try {
-            var i,
-              l,
-              s =
+            var l,
+              s,
+              u = r("justknobx")._("2102") && o("WAWebUA").UA.isSafari,
+              c =
                 n === !0 &&
                 !o("WAWebUA").UA.isFirefox &&
                 !o("WAWebUA").UA.isSafari,
-              u = s
+              d = c || (n === !0 && u),
+              m = d
                 ? navigator.mediaDevices
-                : (i =
-                      a == null || (l = a.navigator) == null
+                : (l =
+                      i == null || (s = i.navigator) == null
                         ? void 0
-                        : l.mediaDevices) != null
-                  ? i
+                        : s.mediaDevices) != null
+                  ? l
                   : navigator.mediaDevices;
-            if (!(u != null && u.enumerateDevices))
+            if (!(m != null && m.enumerateDevices))
               return (
                 o("WALogger").ERROR(
                   V ||
@@ -1345,38 +1348,40 @@ __d(
                 ),
                 []
               );
-            var c = r === !0 || (o("WAWebUA").UA.isSafari && n === !0),
-              d = o("WAWebUA").UA.isFirefox && a != null;
-            if (!(s || c)) {
+            var p = a === !0 || (o("WAWebUA").UA.isSafari && n === !0),
+              _ = o("WAWebUA").UA.isFirefox && i != null;
+            if (!(d || p)) {
               if (!J()) {
-                var m = d
+                var f = _
                     ? { granted: !1 }
                     : yield o(
                         "WAWebMediaPermissionsUtils",
                       ).checkMediaPermissionState(
                         "camera",
-                        a == null ? void 0 : a.navigator,
+                        i == null ? void 0 : i.navigator,
                       ),
-                  p = m.granted;
-                if (!p)
+                  g = f.granted;
+                if (!g)
                   try {
-                    yield te(u);
+                    yield te(m);
                   } catch (e) {
                     if (n !== !0) throw e;
                   }
               }
             }
-            var _ = yield o(
+            var h = yield o(
                 "WAWebAudioDeviceManager",
-              ).coalescedEnumerateDevices(u),
-              f = _.filter(function (e) {
-                return e.kind === "videoinput";
-              }).map(function (e) {
-                return {
-                  deviceId: e.deviceId,
-                  label: e.label || "Camera " + e.deviceId.slice(0, 8),
-                };
-              });
+              ).coalescedEnumerateDevices(m),
+              y = h
+                .filter(function (e) {
+                  return e.kind === "videoinput";
+                })
+                .map(function (e) {
+                  return {
+                    deviceId: e.deviceId,
+                    label: e.label || "Camera " + e.deviceId.slice(0, 8),
+                  };
+                });
             return (
               o("WALogger").LOG(
                 H ||
@@ -1384,9 +1389,9 @@ __d(
                     "voip: [AV:getAvailableVideoDevices] loaded ",
                     "\n      video devices",
                   ])),
-                f.length,
+                y.length,
               ),
-              f
+              y
             );
           } catch (e) {
             return (

@@ -33,15 +33,15 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = yield o("WAWebTPThumbnailUtils").renderWebTPThumbnailIfEnabled(
-              e,
-              "",
-              {
+            a = yield o("WAWebTPThumbnailUtils").renderWebTPThumbnailIfEnabled({
+              file: e,
+              fileName: "",
+              options: {
                 width: o("WAWebMediaConstants").DOC_THUMB_MAX_EDGE,
                 height: o("WAWebMediaConstants").DOC_THUMB_MAX_EDGE,
               },
-              t,
-            ),
+              signal: t,
+            }),
             i = a.numPages,
             l = a.thumbnail,
             u = new Uint8Array(l.buffer, l.byteOffset, l.byteLength),

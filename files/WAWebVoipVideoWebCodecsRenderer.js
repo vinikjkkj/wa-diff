@@ -376,8 +376,16 @@ __d(
             }
             return t;
           })()),
-          (i.renderFrame = function (n, a, i, l, s, u, c, d) {
-            if (u === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.H264) {
+          (i.renderFrame = function (n) {
+            var e = n.format,
+              a = n.frameBuffer,
+              i = n.height,
+              l = n.isKeyFrame,
+              s = n.mirror,
+              u = n.orientation,
+              c = n.timestamp,
+              d = n.width;
+            if (e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.H264) {
               if (!this.$WAWebVoipVideoWebCodecsRenderer$p_3)
                 throw this.$WAWebVoipVideoWebCodecsRenderer$p_5 === 0
                   ? new C(r("err")(S + "Decoder not available, awaiting reset"))
@@ -404,17 +412,21 @@ __d(
                             S + "Decoder recovered, requesting key frame",
                           ),
                         ));
-              var e = (c * 1e3) / 90;
+              var m = (c * 1e3) / 90;
               try {
-                (this.$WAWebVoipVideoWebCodecsRenderer$p_20(n, e, d),
-                  this.$WAWebVoipVideoWebCodecsRenderer$p_21(e, {
-                    orientation: l,
+                (this.$WAWebVoipVideoWebCodecsRenderer$p_20({
+                  frameBuffer: a,
+                  isKeyFrame: l,
+                  timestampMicros: m,
+                }),
+                  this.$WAWebVoipVideoWebCodecsRenderer$p_21(m, {
+                    orientation: u,
                     mirror: s,
                   }),
                   this.$WAWebVoipVideoWebCodecsRenderer$p_15++,
                   this.$WAWebVoipVideoWebCodecsRenderer$p_6++);
-                var m = Date.now();
-                (m - this.$WAWebVoipVideoWebCodecsRenderer$p_16 >= k &&
+                var p = Date.now();
+                (p - this.$WAWebVoipVideoWebCodecsRenderer$p_16 >= k &&
                   (o("WAWebVoipVideoRendererLogging").LOG(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -433,7 +445,7 @@ __d(
                     this.$WAWebVoipVideoWebCodecsRenderer$p_9,
                     this.$WAWebVoipVideoWebCodecsRenderer$p_6,
                   ),
-                  (this.$WAWebVoipVideoWebCodecsRenderer$p_16 = m)),
+                  (this.$WAWebVoipVideoWebCodecsRenderer$p_16 = p)),
                   this.$WAWebVoipVideoWebCodecsRenderer$p_22());
               } catch (e) {
                 throw e instanceof Error && e.name === "DataError"
@@ -442,7 +454,16 @@ __d(
               }
               return;
             }
-            t.prototype.renderFrame.call(this, n, a, i, l, s, u, c, d);
+            t.prototype.renderFrame.call(this, {
+              format: e,
+              frameBuffer: a,
+              height: i,
+              isKeyFrame: l,
+              mirror: s,
+              orientation: u,
+              timestamp: c,
+              width: d,
+            });
           }),
           (i.$WAWebVoipVideoWebCodecsRenderer$p_21 = function (t, n) {
             var e = this.$WAWebVoipVideoWebCodecsRenderer$p_11.get(t);
@@ -465,17 +486,20 @@ __d(
               a
             );
           }),
-          (i.$WAWebVoipVideoWebCodecsRenderer$p_20 = function (t, n, r) {
+          (i.$WAWebVoipVideoWebCodecsRenderer$p_20 = function (t) {
             var e,
-              o = {
+              n = t.frameBuffer,
+              r = t.isKeyFrame,
+              o = t.timestampMicros,
+              a = {
                 type: r ? "key" : "delta",
-                timestamp: n,
-                data: t,
-                transfer: [t],
+                timestamp: o,
+                data: n,
+                transfer: [n],
               },
-              a = new EncodedVideoChunk(o);
+              i = new EncodedVideoChunk(a);
             (e = this.$WAWebVoipVideoWebCodecsRenderer$p_3) == null ||
-              e.decode(a);
+              e.decode(i);
           }),
           (i.$WAWebVoipVideoWebCodecsRenderer$p_22 = function () {
             if (this.$WAWebVoipVideoWebCodecsRenderer$p_6 >= E)

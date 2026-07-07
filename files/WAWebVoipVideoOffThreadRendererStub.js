@@ -236,18 +236,26 @@ __d(
               enabled: t,
             });
           }),
-          (n.renderFrame = function (t, n, r, o, a, i, l, s) {
+          (n.renderFrame = function (t) {
+            var e = t.format,
+              n = t.frameBuffer,
+              r = t.height,
+              o = t.isKeyFrame,
+              a = t.mirror,
+              i = t.orientation,
+              l = t.timestamp,
+              s = t.width;
             this.$4.postMessage({
               type: "onVideoFrame",
               rendererId: this.$1,
-              frameBuffer: t,
-              width: n,
+              frameBuffer: n,
+              width: s,
               height: r,
-              orientation: o,
+              orientation: i,
               mirror: a,
-              format: i,
+              format: e,
               timestamp: l,
-              isKeyFrame: s,
+              isKeyFrame: o,
             });
           }),
           (n.setRenderCallback = function (t) {

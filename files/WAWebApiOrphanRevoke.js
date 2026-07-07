@@ -7,6 +7,7 @@ __d(
     "WAWebProcessBaseMsgInfo",
     "WAWebSchemaOrphanRevoke",
     "WAWebViewMode.flow",
+    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "nullthrows",
@@ -91,7 +92,9 @@ __d(
         ),
         type: o("WAWebMsgType").MSG_TYPE.REVOKED,
         kind: o("WAWebMsgType").MsgKind.RevokedMessage,
-        viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+        viewMode: r("WAWebWid").isNewsletter(e.id.remote)
+          ? o("WAWebViewMode.flow").ViewModeType.NEWSLETTER_TOMBSTONE
+          : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         subtype: t.subtype === "admin_revoke" ? "admin" : "sender",
         protocolMessageKey: e.id,
         from: e.from,

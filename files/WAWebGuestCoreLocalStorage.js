@@ -153,87 +153,96 @@ __d(
     function P(e) {
       s(o("WAWebUserPrefsKeys").KEYS.LID, e);
     }
-    function N() {
-      return c(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
-        "",
-      );
+    function N(e) {
+      s(o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestVerifiedPn, e);
     }
-    function M(e) {
-      s(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
-        e,
+    function M() {
+      return c(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestVerifiedPn,
+        "",
       );
     }
     function w() {
       return c(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationPhone,
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
         "",
       );
     }
     function A(e) {
       s(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationPhone,
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
         e,
       );
     }
     function F() {
       return c(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationName,
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationPhone,
         "",
       );
     }
     function O(e) {
       s(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationName,
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationPhone,
         e,
       );
     }
     function B() {
+      return c(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationName,
+        "",
+      );
+    }
+    function W(e) {
+      s(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationName,
+        e,
+      );
+    }
+    function q() {
       return c(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
           .GuestPNVerificationCountryIso,
         "",
       );
     }
-    function W(e) {
+    function U(e) {
       s(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
           .GuestPNVerificationCountryIso,
         e,
       );
     }
-    function q() {
-      return d(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationOtpRequestedAt,
-        0,
-      );
-    }
-    function U(e) {
-      s(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationOtpRequestedAt,
-        String(e),
-      );
-    }
     function V() {
       return d(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationRateLimitEligibleAt,
+          .GuestPNVerificationOtpRequestedAt,
         0,
       );
     }
     function H(e) {
       s(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationOtpRequestedAt,
+        String(e),
+      );
+    }
+    function G() {
+      return d(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationRateLimitEligibleAt,
+        0,
+      );
+    }
+    function z(e) {
+      s(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
           .GuestPNVerificationRateLimitEligibleAt,
         String(e),
       );
     }
-    function G(e, t) {
+    function j(e, t) {
       (s(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
         "otp",
@@ -249,13 +258,13 @@ __d(
           String(t),
         ));
     }
-    function z() {
+    function K() {
       u(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
           .GuestPNVerificationRateLimitEligibleAt,
       );
     }
-    function j() {
+    function Q() {
       var e;
       (u(
         (e = o("WAWebGuestCoreConsts")).GuestLocalStorageKeys
@@ -265,24 +274,24 @@ __d(
         u(e.GuestLocalStorageKeys.GuestPNVerificationName),
         u(e.GuestLocalStorageKeys.GuestPNVerificationCountryIso),
         u(e.GuestLocalStorageKeys.GuestPNVerificationOtpRequestedAt),
-        z());
+        K());
     }
-    var K = "US";
-    function Q(e, t) {
+    var X = "US";
+    function Y(e, t) {
       var n = t.steps,
         r = n[0];
       if (e === "") return r;
       for (var o of n) if (o === e) return o;
       return r;
     }
-    function X(e, t) {
-      t === void 0 && (t = K);
-      var n = w(),
-        r = F(),
-        a = B() || t,
-        i = N(),
-        l = q(),
-        s = V(),
+    function J(e, t) {
+      t === void 0 && (t = X);
+      var n = F(),
+        r = B(),
+        a = q() || t,
+        i = w(),
+        l = V(),
+        s = G(),
         u = i === "otp" && n !== "",
         c = u && Date.now() - l < o("WAWebGuestCoreConsts").GUEST_OTP_EXPIRY_MS,
         d = u && s > Date.now();
@@ -292,27 +301,27 @@ __d(
           initialPhoneNumber: n,
           initialName: r,
           initialCountryIso: a,
-          initialStep: Q("otp", e),
+          initialStep: Y("otp", e),
           remainingCooldownSeconds: m,
           shouldResume: !0,
         };
       }
       return i !== "" || n !== "" || l !== 0
-        ? (j(),
+        ? (Q(),
           {
             initialPhoneNumber: "",
             initialName: "",
             initialCountryIso: t,
-            initialStep: Q("", e),
+            initialStep: Y("", e),
             remainingCooldownSeconds: 0,
             shouldResume: !1,
           })
-        : (z(),
+        : (K(),
           {
             initialPhoneNumber: "",
             initialName: r,
             initialCountryIso: a,
-            initialStep: Q(i, e),
+            initialStep: Y(i, e),
             remainingCooldownSeconds: 0,
             shouldResume: !1,
           });
@@ -337,23 +346,25 @@ __d(
       (l.setMaybeMeDisplayName = x),
       (l.getMeDeviceLidOrThrow = $),
       (l.setMeDeviceLid = P),
-      (l.getGuestPNVerificationStep = N),
-      (l.setGuestPNVerificationStep = M),
-      (l.getGuestPNVerificationPhone = w),
-      (l.setGuestPNVerificationPhone = A),
-      (l.getGuestPNVerificationName = F),
-      (l.setGuestPNVerificationName = O),
-      (l.getGuestPNVerificationCountryIso = B),
-      (l.setGuestPNVerificationCountryIso = W),
-      (l.getGuestPNVerificationOtpRequestedAt = q),
-      (l.setGuestPNVerificationOtpRequestedAt = U),
-      (l.getGuestPNVerificationRateLimitEligibleAt = V),
-      (l.setGuestPNVerificationRateLimitEligibleAt = H),
-      (l.persistGuestPNVerificationOtpSession = G),
-      (l.clearGuestPNVerificationRateLimitState = z),
-      (l.clearGuestPNVerificationState = j),
-      (l.DEFAULT_RESTORE_COUNTRY_ISO = K),
-      (l.getGuestPNVerificationRestoreState = X));
+      (l.setGuestVerifiedPn = N),
+      (l.getGuestVerifiedPn = M),
+      (l.getGuestPNVerificationStep = w),
+      (l.setGuestPNVerificationStep = A),
+      (l.getGuestPNVerificationPhone = F),
+      (l.setGuestPNVerificationPhone = O),
+      (l.getGuestPNVerificationName = B),
+      (l.setGuestPNVerificationName = W),
+      (l.getGuestPNVerificationCountryIso = q),
+      (l.setGuestPNVerificationCountryIso = U),
+      (l.getGuestPNVerificationOtpRequestedAt = V),
+      (l.setGuestPNVerificationOtpRequestedAt = H),
+      (l.getGuestPNVerificationRateLimitEligibleAt = G),
+      (l.setGuestPNVerificationRateLimitEligibleAt = z),
+      (l.persistGuestPNVerificationOtpSession = j),
+      (l.clearGuestPNVerificationRateLimitState = K),
+      (l.clearGuestPNVerificationState = Q),
+      (l.DEFAULT_RESTORE_COUNTRY_ISO = X),
+      (l.getGuestPNVerificationRestoreState = J));
   },
   98,
 );

@@ -34,7 +34,7 @@ __d(
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Lid1x1ThreadMigrationManager: no dependant migration tasks",
+                      "Lid1x1ThreadMigrationManager: no dependent migration tasks",
                     ])),
                 );
                 return;

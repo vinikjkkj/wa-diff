@@ -26,18 +26,22 @@ __d(
             ? "RGBA"
             : null;
     }
-    function u(e, t, n, r) {
-      var o,
-        a,
-        i = (o = globalThis.screen) == null ? void 0 : o.orientation,
-        l = i != null ? ((i.angle % 360) + 360) % 360 : 0,
-        s = (a = i == null ? void 0 : i.type) != null ? a : "";
-      if (l === 0 && s.startsWith("landscape")) return 0;
-      var u = e > t,
-        c = n > r,
-        d = l === 90 || l === 270,
-        m = d ? !c : c;
-      return u !== m ? 1 : 0;
+    function u(e) {
+      var t,
+        n,
+        r = e.trackHeight,
+        o = e.trackWidth,
+        a = e.videoElHeight,
+        i = e.videoElWidth,
+        l = (t = globalThis.screen) == null ? void 0 : t.orientation,
+        s = l != null ? ((l.angle % 360) + 360) % 360 : 0,
+        u = (n = l == null ? void 0 : l.type) != null ? n : "";
+      if (s === 0 && u.startsWith("landscape")) return 0;
+      var c = o > r,
+        d = i > a,
+        m = s === 90 || s === 270,
+        p = m ? !d : d;
+      return c !== p ? 1 : 0;
     }
     function c(t, n) {
       var r, o;

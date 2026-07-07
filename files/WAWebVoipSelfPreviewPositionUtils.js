@@ -6,16 +6,20 @@ __d(
     function e(e) {
       return e ? 8 : 16;
     }
-    function l(e, t, n, r) {
-      var o = n / 2,
-        a = r / 2,
-        i = e < o,
-        l = t < a;
-      return l && i
+    function l(e) {
+      var t = e.containerHeight,
+        n = e.containerWidth,
+        r = e.x,
+        o = e.y,
+        a = n / 2,
+        i = t / 2,
+        l = r < a,
+        s = o < i;
+      return s && l
         ? "top-left"
-        : l && !i
+        : s && !l
           ? "top-right"
-          : !l && i
+          : !s && l
             ? "bottom-left"
             : "bottom-right";
     }

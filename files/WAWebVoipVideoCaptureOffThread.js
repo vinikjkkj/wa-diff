@@ -432,12 +432,12 @@ __d(
               d.addEventListener(
                 "loadedmetadata",
                 function () {
-                  ((l.$3 = o("WAWebVoipMediaEnums").detectSensorOffset(
-                    l.$4,
-                    l.$5,
-                    d.videoWidth,
-                    d.videoHeight,
-                  )),
+                  ((l.$3 = o("WAWebVoipMediaEnums").detectSensorOffset({
+                    trackHeight: l.$5,
+                    trackWidth: l.$4,
+                    videoElHeight: d.videoHeight,
+                    videoElWidth: d.videoWidth,
+                  })),
                     o("WALogger").LOG(
                       S ||
                         (S = babelHelpers.taggedTemplateLiteralLoose([

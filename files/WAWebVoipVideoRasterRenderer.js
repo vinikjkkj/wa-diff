@@ -57,39 +57,47 @@ __d(
                 (this.$1.height = t));
             }
           }),
-          (a.renderFrame = function (n, a, i, l, c, d, m, p) {
+          (a.renderFrame = function (n) {
+            var t = n.format,
+              a = n.frameBuffer,
+              i = n.height,
+              l = n.isKeyFrame,
+              c = n.mirror,
+              d = n.orientation,
+              m = n.timestamp,
+              p = n.width;
             this.applyPendingResize();
-            var t = o("WAWebVoipMediaEnums").videoFrameFormatFromFormatEnum(d);
-            if (!t) {
+            var _ = o("WAWebVoipMediaEnums").videoFrameFormatFromFormatEnum(t);
+            if (!_) {
               o("WAWebVoipVideoRendererLogging").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "renderFrame: unsupported format: ",
                     "",
                   ])),
-                d,
+                t,
               );
               return;
             }
-            var _ = new Uint8Array(n),
-              f = !0,
-              g = {
+            var f = new Uint8Array(a),
+              g = !0,
+              h = {
                 matrix: "smpte170m",
                 primaries: "smpte170m",
                 transfer: "smpte170m",
                 fullRange: !1,
               };
             try {
-              var h = new window.VideoFrame(_, {
-                format: t,
-                codedWidth: a,
+              var y = new window.VideoFrame(f, {
+                format: _,
+                codedWidth: p,
                 codedHeight: i,
                 timestamp: Date.now() * 1e3,
-                colorSpace: g,
+                colorSpace: h,
               });
-              if (h)
+              if (y)
                 try {
-                  this.renderVideoFrameToCanvas(h, a, i, l, c, f);
+                  this.renderVideoFrameToCanvas(y, p, i, d, c, g);
                 } catch (e) {
                   o("WAWebVoipVideoRendererLogging").ERROR(
                     s ||
@@ -100,7 +108,7 @@ __d(
                     e,
                   );
                 } finally {
-                  h.close();
+                  y.close();
                 }
               else throw r("err")("VideoFrame API not supported");
             } catch (e) {
@@ -161,29 +169,37 @@ __d(
               ((this.$7 = null), (this.$1.width = n), (this.$1.height = t));
             }
           }),
-          (t.renderFrame = function (t, n, r, a, i, l, s, u) {
+          (t.renderFrame = function (t) {
+            var e = t.format,
+              n = t.frameBuffer,
+              r = t.height,
+              a = t.isKeyFrame,
+              i = t.mirror,
+              l = t.orientation,
+              s = t.timestamp,
+              u = t.width;
             this.$8();
-            var e = new Uint8Array(t),
-              m =
-                l === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
-                  ? h(e, n, r)
-                  : l === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
-                    ? e
+            var m = new Uint8Array(n),
+              p =
+                e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
+                  ? h(m, u, r)
+                  : e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
+                    ? m
                     : null;
-            if (!m) {
+            if (!p) {
               o("WAWebVoipVideoRendererLogging").ERROR(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "renderFrame: unsupported format: ",
                     "",
                   ])),
-                l,
+                e,
               );
               return;
             }
-            var p = !0;
+            var _ = !0;
             try {
-              this.renderRgbaWithImageData(m, n, r, a, i, p);
+              this.renderRgbaWithImageData(p, u, r, l, i, _);
             } catch (e) {
               o("WAWebVoipVideoRendererLogging").ERROR(
                 d ||

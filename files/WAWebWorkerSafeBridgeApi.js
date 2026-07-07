@@ -10,7 +10,6 @@ __d(
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebEphemeralityResolver",
-    "WAWebFetchAdEntryPointsConfiguration",
     "WAWebFetchBizAiLargeScreensGate",
     "WAWebFetchNativeAdsMvpEligibility",
     "WAWebFetchQuickPromotions",
@@ -250,12 +249,6 @@ __d(
                 o("WAWebTasksTaskType").TaskType.FETCH_QUICK_PROMOTIONS,
               );
             });
-        },
-        fetchAdEntryPointsConfiguration: function (t) {
-          var e = t.trigger;
-          return o(
-            "WAWebFetchAdEntryPointsConfiguration",
-          ).fetchAdEntryPointsConfiguration(e);
         },
         fetchBizAiLargeScreensGate: function (t) {
           var e = t.trigger;

@@ -1583,14 +1583,34 @@ __d(
         [b, v, sa, tt],
       ),
       ma = _("callDuration"),
-      pa = _("bytesSent"),
-      _a = _("bytesReceived"),
-      fa = _("callParticipants"),
-      ga = _("isCallLink"),
-      ha = _("callLinkToken"),
-      ya = _("terminatedByDeviceSwitch"),
-      Ca = _("selfOtherDeviceConnected"),
-      ba = p(
+      pa = p(
+        function (e) {
+          var t = e[0],
+            n = e[1],
+            r = e[2];
+          return (
+            t === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
+            o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+              o("WAWebViewMode.flow").ViewModeSurface.CHAT_LIST,
+              n,
+            ) &&
+            !o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(
+              n,
+            ) &&
+            r != null &&
+            r > 0
+          );
+        },
+        [b, D, ma],
+      ),
+      _a = _("bytesSent"),
+      fa = _("bytesReceived"),
+      ga = _("callParticipants"),
+      ha = _("isCallLink"),
+      ya = _("callLinkToken"),
+      Ca = _("terminatedByDeviceSwitch"),
+      ba = _("selfOtherDeviceConnected"),
+      va = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1604,45 +1624,45 @@ __d(
                 }) > 1))
           );
         },
-        [Qe, fa, ha],
+        [Qe, ga, ya],
       ),
-      va = p(
+      Sa = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [Qe, ba],
+        [Qe, va],
       ),
-      Sa = _("finalCallOutcome"),
-      Ra = _("groupHistoryBundleMessageKey"),
-      La = _("groupHistoryBundleMetadata"),
-      Ea = _("groupHistoryIndividualMessageInfo"),
-      ka = p(
+      Ra = _("finalCallOutcome"),
+      La = _("groupHistoryBundleMessageKey"),
+      Ea = _("groupHistoryBundleMetadata"),
+      ka = _("groupHistoryIndividualMessageInfo"),
+      Ia = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [Ea, Ra],
-      ),
-      Ia = p(
-        function (e) {
-          var t = e[0];
-          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
-        },
-        [Ea],
+        [ka, La],
       ),
       Ta = p(
         function (e) {
           var t = e[0];
+          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
+        },
+        [ka],
+      ),
+      Da = p(
+        function (e) {
+          var t = e[0];
           return t == null ? void 0 : t.bundleSender;
         },
-        [Ea],
+        [ka],
       ),
-      Da = _("botGroupParticipant");
-    function xa(e) {
+      xa = _("botGroupParticipant");
+    function $a(e) {
       var t =
         b(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(k(e));
@@ -1967,24 +1987,25 @@ __d(
       (l.getIsCallSilenced = ca),
       (l.getIsMissedCall = da),
       (l.getCallDuration = ma),
-      (l.getBytesSent = pa),
-      (l.getBytesReceived = _a),
-      (l.getCallParticipants = fa),
-      (l.getIsCallLink = ga),
-      (l.getCallLinkToken = ha),
-      (l.getTerminatedByDeviceSwitch = ya),
-      (l.getSelfOtherDeviceConnected = Ca),
-      (l.getIsAdHocGroupCall = ba),
-      (l.getIsGroupCall = va),
-      (l.getFinalCallOutcome = Sa),
-      (l.getGroupHistoryBundleMessageKeyDeprecated = Ra),
-      (l.getGroupHistoryBundleMetadata = La),
-      (l.getGroupHistoryIndividualMessageInfo = Ea),
-      (l.getGroupHistoryBundleMessageKey = ka),
-      (l.getIsEditedAfterReceivedAsHistory = Ia),
-      (l.getGroupHistoryBundleSender = Ta),
-      (l.getBotGroupParticipant = Da),
-      (l.isRealMessage = xa));
+      (l.getIsVisibleCallLog = pa),
+      (l.getBytesSent = _a),
+      (l.getBytesReceived = fa),
+      (l.getCallParticipants = ga),
+      (l.getIsCallLink = ha),
+      (l.getCallLinkToken = ya),
+      (l.getTerminatedByDeviceSwitch = Ca),
+      (l.getSelfOtherDeviceConnected = ba),
+      (l.getIsAdHocGroupCall = va),
+      (l.getIsGroupCall = Sa),
+      (l.getFinalCallOutcome = Ra),
+      (l.getGroupHistoryBundleMessageKeyDeprecated = La),
+      (l.getGroupHistoryBundleMetadata = Ea),
+      (l.getGroupHistoryIndividualMessageInfo = ka),
+      (l.getGroupHistoryBundleMessageKey = Ia),
+      (l.getIsEditedAfterReceivedAsHistory = Ta),
+      (l.getGroupHistoryBundleSender = Da),
+      (l.getBotGroupParticipant = xa),
+      (l.isRealMessage = $a));
   },
   98,
 );

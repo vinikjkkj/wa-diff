@@ -6,12 +6,17 @@ __d(
     var e = 1.3333333333333333,
       l = 4,
       s = 8;
-    function u(t, n, r, o, a) {
-      var i = (t - (o - 1) * a) / o,
-        l = (n - (r - 1) * a) / r,
-        s = Math.min(i, l * e),
-        u = Math.min(l, i / e);
-      return { cellWidth: s, cellHeight: u };
+    function u(t) {
+      var n = t.columns,
+        r = t.containerHeight,
+        o = t.containerWidth,
+        a = t.rows,
+        i = t.spacing,
+        l = (o - (n - 1) * i) / n,
+        s = (r - (a - 1) * i) / a,
+        u = Math.min(l, s * e),
+        c = Math.min(s, l / e);
+      return { cellWidth: u, cellHeight: c };
     }
     function c(e, t, n, r) {
       if (n <= 0 || e <= 0 || t <= 0)
@@ -25,7 +30,13 @@ __d(
         l++
       ) {
         var s = Math.ceil(n / l),
-          c = u(e, t, l, s, r),
+          c = u({
+            columns: s,
+            containerHeight: t,
+            containerWidth: e,
+            rows: l,
+            spacing: r,
+          }),
           d = c.cellHeight,
           m = c.cellWidth,
           p = o - m * d * n;

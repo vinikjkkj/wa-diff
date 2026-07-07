@@ -228,7 +228,12 @@ __d(
                     ),
                       (n.consecutiveLateCount = 0),
                       (n.lastRecalibTimeMs = Date.now()),
-                      this.$20(t, n, r, l.timestamp),
+                      this.$20({
+                        audioTimestamp: r,
+                        jid: t,
+                        state: n,
+                        videoRtpTimestamp: l.timestamp,
+                      }),
                       this.$8.recordForceRecalibration(),
                       n.recalibrationCount++,
                       this.$16(e, i, a));
@@ -254,21 +259,25 @@ __d(
               l = i / S;
             return (l - a) * 1e3;
           }),
-          (n.$20 = function (t, n, r, o) {
-            var e = n.calibration == null,
-              a = n.pendingRecalibration;
-            ((n.calibration = {
-              firstAudioTimestamp: r,
+          (n.$20 = function (t) {
+            var e = t.audioTimestamp,
+              n = t.jid,
+              r = t.state,
+              o = t.videoRtpTimestamp,
+              a = r.calibration == null,
+              i = r.pendingRecalibration;
+            ((r.calibration = {
+              firstAudioTimestamp: e,
               firstVideoRtpTimestamp: o,
             }),
-              (n.calibrationCandidate = null),
-              (n.awaitingKeyFrame = !1),
-              (n.consecutiveLateCount = 0),
-              a
-                ? ((n.pendingRecalibration = !1),
-                  (n.lastRecalibTimeMs = Date.now()),
+              (r.calibrationCandidate = null),
+              (r.awaitingKeyFrame = !1),
+              (r.consecutiveLateCount = 0),
+              i
+                ? ((r.pendingRecalibration = !1),
+                  (r.lastRecalibTimeMs = Date.now()),
                   this.$8.recordRecalibration())
-                : e && this.$8.recordCalibration());
+                : a && this.$8.recordCalibration());
           }),
           (n.$19 = function (t, n, r, a, i) {
             var e = Date.now();
@@ -286,7 +295,12 @@ __d(
                 ),
                 (n.lastRecalibTimeMs = e),
                 (n.pendingRecalibration = !1),
-                this.$20(t, n, r, a),
+                this.$20({
+                  audioTimestamp: r,
+                  jid: t,
+                  state: n,
+                  videoRtpTimestamp: a,
+                }),
                 this.$8.recordRecalibration(),
                 n.recalibrationCount++,
                 !0);
@@ -315,7 +329,13 @@ __d(
           (n.$26 = function (t, n, r, o) {
             return n.awaitingKeyFrame
               ? r.isKeyFrame
-                ? (this.$20(t, n, o, r.timestamp), !0)
+                ? (this.$20({
+                    audioTimestamp: o,
+                    jid: t,
+                    state: n,
+                    videoRtpTimestamp: r.timestamp,
+                  }),
+                  !0)
                 : !1
               : null;
           }),
@@ -365,7 +385,13 @@ __d(
                   stableFramePairs: d,
                 }),
                 !1)
-              : (this.$20(t, n, i, r.timestamp), !0);
+              : (this.$20({
+                  audioTimestamp: i,
+                  jid: t,
+                  state: n,
+                  videoRtpTimestamp: r.timestamp,
+                }),
+                !0);
           }),
           (n.$17 = function (t, n) {
             var e = this.$25(t);
@@ -404,7 +430,12 @@ __d(
               e && (n.pendingRecalibration = !0),
               r.isKeyFrame)
             ) {
-              this.$20(t, n, l, r.timestamp);
+              this.$20({
+                audioTimestamp: l,
+                jid: t,
+                state: n,
+                videoRtpTimestamp: r.timestamp,
+              });
               return;
             }
             n.awaitingKeyFrame = !0;

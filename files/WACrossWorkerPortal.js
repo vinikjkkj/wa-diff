@@ -26,9 +26,7 @@ __d(
       y,
       C,
       b,
-      v,
-      S,
-      R = (function () {
+      v = (function () {
         function t(e, t, n, r, a) {
           var i = this,
             l;
@@ -169,26 +167,25 @@ __d(
           }),
           (a.$3 = function (n) {
             var t = this,
-              a,
-              i = this.port;
-            if (i) {
-              var l = [],
-                u = new Set();
-              for (var c of n)
-                if (c.type === "request") {
-                  var p = c.content,
-                    _ = p.transferList,
-                    f = babelHelpers.objectWithoutPropertiesLoose(p, e);
-                  if (_ != null) for (var g of _) u.add(g);
-                  l.push({ type: "request", content: f });
+              r = this.port;
+            if (r) {
+              var o = [],
+                a = new Set();
+              for (var i of n)
+                if (i.type === "request") {
+                  var l = i.content,
+                    u = l.transferList,
+                    c = babelHelpers.objectWithoutPropertiesLoose(l, e);
+                  if (u != null) for (var d of u) a.add(d);
+                  o.push({ type: "request", content: c });
                 } else {
-                  var h = c.content,
-                    y = h.transferList,
-                    C = babelHelpers.objectWithoutPropertiesLoose(h, s);
-                  if (y != null) for (var b of y) u.add(b);
-                  l.push({ type: "result", content: C });
+                  var m = i.content,
+                    p = m.transferList,
+                    _ = babelHelpers.objectWithoutPropertiesLoose(m, s);
+                  if (p != null) for (var f of p) a.add(f);
+                  o.push({ type: "result", content: _ });
                 }
-              var v = n
+              var g = n
                 .map(function (e) {
                   var t,
                     n,
@@ -214,47 +211,18 @@ __d(
                   : r.onSend) != null &&
                   o.eventCallbacks.onSend({
                     queueSize: n.length,
-                    queueMsgs: v,
+                    queueMsgs: g,
                   });
               });
-              var S,
-                R = (a = this.config) == null ? void 0 : a.onSendBatch;
-              if (R != null)
-                try {
-                  var L = [];
-                  for (var E of n) E.type === "request" && L.push(E.content);
-                  S = R(L);
-                } catch (e) {
-                  o("WALogger").ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "Bridge onSendBatch threw: ",
-                        "",
-                      ])),
-                    r("getErrorSafe")(e).message,
-                  );
-                }
               try {
-                i.postMessage(l, u.size > 0 ? Array.from(u) : void 0);
-                try {
-                  S == null || S();
-                } catch (e) {
-                  o("WALogger").ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "Bridge onSendBatchDone threw: ",
-                        "",
-                      ])),
-                    r("getErrorSafe")(e).message,
-                  );
-                }
+                r.postMessage(o, a.size > 0 ? Array.from(a) : void 0);
               } catch (e) {
-                var k;
+                var h;
                 if (
-                  ((k = this.config) == null ? void 0 : k.onPortError) == null
+                  ((h = this.config) == null ? void 0 : h.onPortError) == null
                 )
                   throw e;
-                this.$11(i, e);
+                this.$11(r, e);
               }
             }
           }),
@@ -262,8 +230,8 @@ __d(
             var e = r("getErrorSafe")(n);
             if (e.name === "DataCloneError") {
               o("WALogger").ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "Bridge send dropped; payload already transferred or not cloneable: ",
                     "",
                   ])),
@@ -273,8 +241,8 @@ __d(
             }
             (this.port === t && (this.port = null),
               o("WALogger").ERROR(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "Bridge send failed; port inaccessible (dropped dead port): ",
                     "",
                   ])),
@@ -287,8 +255,8 @@ __d(
                 a.onPortError(e);
             } catch (e) {
               o("WALogger").ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "Bridge onPortError threw: ",
                     "",
                   ])),
@@ -315,8 +283,8 @@ __d(
               if (
                 (p ||
                   o("WALogger").LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "Bridge ",
                         " request for ",
                         "",
@@ -329,8 +297,8 @@ __d(
               ) {
                 p ||
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "Bridge ",
                         " not intended for client ",
                         "",
@@ -340,33 +308,33 @@ __d(
                   );
                 return;
               }
-              var _ = this.$1,
-                f = {
+              var C = this.$1,
+                v = {
                   type: "result",
                   content: {
                     requestId: m,
                     type: "handled",
                     result: {
-                      payload: _.getAckPayoad(),
+                      payload: C.getAckPayoad(),
                       timestamp: Date.now(),
                     },
                     silentLog: p,
                     opts: d,
                   },
                 };
-              this.$7(f, "outgoing");
+              this.$7(v, "outgoing");
               try {
-                t.postMessage([f]);
+                t.postMessage([v]);
               } catch (e) {
-                var v;
+                var S;
                 if (
-                  ((v = this.config) == null ? void 0 : v.onPortError) == null
+                  ((S = this.config) == null ? void 0 : S.onPortError) == null
                 )
                   throw e;
                 this.$11(t, e);
               }
               if (s) {
-                var R = _.sendAndReceive(c, u, l, p, void 0, d).then(
+                var R = C.sendAndReceive(c, u, l, p, void 0, d).then(
                   function (n) {
                     var r = n,
                       a = null;
@@ -393,7 +361,7 @@ __d(
                   },
                 );
                 o("WAPromiseManagement").preventGarbageCollection(R);
-              } else _.fireAndForget(c, u, l, p, void 0, d);
+              } else C.fireAndForget(c, u, l, p, void 0, d);
             } else {
               a.type;
               var L = a.content,
@@ -406,8 +374,8 @@ __d(
               var x = this.openRequests.get(E);
               if (!x) {
                 o("WALogger").WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "Bridge unrecognized result ",
                       "",
                     ])),
@@ -424,13 +392,13 @@ __d(
                     ? $(
                         T === "success"
                           ? k
-                          : (S || (S = n("Promise"))).reject(
+                          : (b || (b = n("Promise"))).reject(
                               r("err")(k != null ? k : ""),
                             ),
                       )
                     : o("WALogger").ERROR(
-                        C ||
-                          (C = babelHelpers.taggedTemplateLiteralLoose([
+                        h ||
+                          (h = babelHelpers.taggedTemplateLiteralLoose([
                             "Bridge unexpected result to cast: ",
                             "",
                           ])),
@@ -447,8 +415,8 @@ __d(
                   } catch (e) {
                     var N = r("getErrorSafe")(e);
                     o("WALogger").ERROR(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to execute onAck: ",
                           "",
                         ])),
@@ -465,10 +433,10 @@ __d(
           t
         );
       })();
-    function L(e, t, n, r, o) {
-      return new R(e, n, t, r, o);
+    function S(e, t, n, r, o) {
+      return new v(e, n, t, r, o);
     }
-    function E(e) {
+    function R(e) {
       var t;
       ((t = e.port) == null || t.close(),
         (e.port = null),
@@ -484,8 +452,8 @@ __d(
           l = t.namespace,
           s = t.silentLog;
         (o("WALogger").LOG(
-          v ||
-            (v = babelHelpers.taggedTemplateLiteralLoose([
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
               "absorbPortal: transferring request #",
               "",
             ])),
@@ -494,9 +462,9 @@ __d(
           n ? n(r.sendAndReceive(l, i, a, s)) : r.fireAndForget(l, i, a, s));
       });
     }
-    ((l.CrossWorkerPortal = R),
-      (l.attachPortal = L),
-      (l.killPortalAndSendPendingToBridge = E));
+    ((l.CrossWorkerPortal = v),
+      (l.attachPortal = S),
+      (l.killPortalAndSendPendingToBridge = R));
   },
   98,
 );

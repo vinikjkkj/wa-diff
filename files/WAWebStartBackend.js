@@ -704,10 +704,6 @@ __d(
               { trigger: "app-launch" },
             ),
             o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-              "fetchAdEntryPointsConfiguration",
-              { trigger: "app-launch" },
-            ),
-            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
               "fetchBizAiLargeScreensGate",
               { trigger: "app-launch" },
             ),

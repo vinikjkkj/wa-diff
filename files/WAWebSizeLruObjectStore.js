@@ -25,25 +25,29 @@ __d(
           var l;
           if (
             ((l = t.call(this) || this),
-            (l._queueMap = new (o("WAPromiseQueue").PromiseQueueMap)()),
-            (l._purge = function () {
-              if (l._pendingPurgePromise) return l._pendingPurgePromise;
+            (l.$SizeLruObjectStore$p_10 = new (o(
+              "WAPromiseQueue",
+            ).PromiseQueueMap)()),
+            (l.$SizeLruObjectStore$p_11 = function () {
+              if (l.$SizeLruObjectStore$p_9) return l.$SizeLruObjectStore$p_9;
               var t = l.open().then(function () {
                 return o("WAPromiseLoop").promiseLoop(
                   (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (t) {
                         var a = function () {
-                            ((l._pendingPurgePromise = null), t());
+                            ((l.$SizeLruObjectStore$p_9 = null), t());
                           },
                           i = l.getCurrentSize();
-                        if (i == null || i <= l._maxSize) {
+                        if (i == null || i <= l.$SizeLruObjectStore$p_5) {
                           a();
                           return;
                         }
-                        var s = yield l.queryOneByIndex(l._dateIndex),
+                        var s = yield l.queryOneByIndex(
+                            l.$SizeLruObjectStore$p_3,
+                          ),
                           u = l.getCurrentSize(),
-                          c = l._maxSize;
+                          c = l.$SizeLruObjectStore$p_5;
                         if (u == null || u <= c) {
                           a();
                           return;
@@ -78,7 +82,7 @@ __d(
                               ),
                             )
                           );
-                        var d = s[l._primaryIndex];
+                        var d = s[l.$SizeLruObjectStore$p_2];
                         return l.del(d);
                       },
                     );
@@ -88,39 +92,39 @@ __d(
                   })(),
                 );
               });
-              return (l._pendingPurgePromise = t);
+              return (l.$SizeLruObjectStore$p_9 = t);
             }),
-            (l._schedulePurge = function () {
-              l._purgeTimer.debounce(2e3);
+            (l.$SizeLruObjectStore$p_12 = function () {
+              l.$SizeLruObjectStore$p_8.debounce(2e3);
             }),
             (l.doPut = function (e, t) {
-              return l._queueMap.enqueue(
+              return l.$SizeLruObjectStore$p_10.enqueue(
                 e,
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  if (t[l._primaryIndex] !== e)
+                  if (t[l.$SizeLruObjectStore$p_2] !== e)
                     throw r("err")("The key you provide does not match.");
-                  var n = yield l._store.get(e),
-                    o = n == null ? 0 : l.$SizeLruObjectStore$p_1(n),
-                    a = l.$SizeLruObjectStore$p_1(t),
+                  var n = yield l.$SizeLruObjectStore$p_1.get(e),
+                    o = n == null ? 0 : l.$SizeLruObjectStore$p_13(n),
+                    a = l.$SizeLruObjectStore$p_13(t),
                     i = a - o,
-                    s = yield l._store.put(e, t);
+                    s = yield l.$SizeLruObjectStore$p_1.put(e, t);
                   return (
-                    (l._currentSize =
+                    (l.$SizeLruObjectStore$p_6 =
                       r("WANullthrows")(l.getCurrentSize()) + i),
-                    l._schedulePurge(),
+                    l.$SizeLruObjectStore$p_12(),
                     s
                   );
                 }),
               );
             }),
             (l.doDel = function (e) {
-              return l._queueMap.enqueue(
+              return l.$SizeLruObjectStore$p_10.enqueue(
                 e,
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  var t = yield l._store.get(e);
+                  var t = yield l.$SizeLruObjectStore$p_1.get(e);
                   if (t != null) {
                     try {
-                      yield l._dispose(e, t);
+                      yield l.$SizeLruObjectStore$p_7(e, t);
                     } catch (e) {
                       var n = r("getErrorSafe")(e);
                       throw (
@@ -137,36 +141,38 @@ __d(
                         n
                       );
                     }
-                    (yield l._store.del(e),
-                      (l._currentSize =
+                    (yield l.$SizeLruObjectStore$p_1.del(e),
+                      (l.$SizeLruObjectStore$p_6 =
                         r("WANullthrows")(l.getCurrentSize()) -
-                        l.$SizeLruObjectStore$p_1(t)));
+                        l.$SizeLruObjectStore$p_13(t)));
                   }
                 }),
               );
             }),
-            (l._store = a),
-            (l._primaryIndex = i.primaryIndex),
-            (l._dateIndex = i.dateIndex),
-            (l._sizeIndex = i.sizeIndex),
+            (l.$SizeLruObjectStore$p_1 = a),
+            (l.$SizeLruObjectStore$p_2 = i.primaryIndex),
+            (l.$SizeLruObjectStore$p_3 = i.dateIndex),
+            (l.$SizeLruObjectStore$p_4 = i.sizeIndex),
             i.maxSize < 0)
           )
             throw r("err")("Cannot set max size to a negative number");
           return (
-            (l._maxSize = Math.floor(i.maxSize)),
-            (l._dispose = i.dispose),
-            (l._purgeTimer = new (o("WAShiftTimer").ShiftTimer)(function () {
-              l._purge().catch(function (e) {
-                o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Error while purging: ",
-                      "",
-                    ])),
-                  e.message,
-                );
-              });
-            })),
+            (l.$SizeLruObjectStore$p_5 = Math.floor(i.maxSize)),
+            (l.$SizeLruObjectStore$p_7 = i.dispose),
+            (l.$SizeLruObjectStore$p_8 = new (o("WAShiftTimer").ShiftTimer)(
+              function () {
+                l.$SizeLruObjectStore$p_11().catch(function (e) {
+                  o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Error while purging: ",
+                        "",
+                      ])),
+                    e.message,
+                  );
+                });
+              },
+            )),
             l
           );
         }
@@ -174,19 +180,19 @@ __d(
         var i = a.prototype;
         return (
           (i.getCurrentSize = function () {
-            return this._currentSize;
+            return this.$SizeLruObjectStore$p_6;
           }),
           (i.getMaxSize = function () {
-            return this._maxSize;
+            return this.$SizeLruObjectStore$p_5;
           }),
           (i.setMaxSize = function (t) {
             return t < 0
               ? (m || (m = n("Promise"))).reject(
                   r("err")("Cannot set size to a negative number"),
                 )
-              : ((this._maxSize = Math.floor(t)),
-                this._purgeTimer.cancel(),
-                this._purge().catch(function (e) {
+              : ((this.$SizeLruObjectStore$p_5 = Math.floor(t)),
+                this.$SizeLruObjectStore$p_8.cancel(),
+                this.$SizeLruObjectStore$p_11().catch(function (e) {
                   o("WALogger").WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -198,11 +204,11 @@ __d(
                 }));
           }),
           (i.putObject = function (t) {
-            var e = t[this._primaryIndex];
+            var e = t[this.$SizeLruObjectStore$p_2];
             return this.put(e, t);
           }),
-          (i.$SizeLruObjectStore$p_1 = function (t) {
-            var e = t[this._sizeIndex];
+          (i.$SizeLruObjectStore$p_13 = function (t) {
+            var e = t[this.$SizeLruObjectStore$p_4];
             return typeof e != "number" || e < 0
               ? (o("WALogger").WARN(
                   d ||
@@ -211,19 +217,21 @@ __d(
                       ": ",
                       "",
                     ])),
-                  this._sizeIndex,
+                  this.$SizeLruObjectStore$p_4,
                   e,
                 ),
                 0)
               : e;
           }),
           (i.doGet = function (t) {
-            return this._store.get(t);
+            return this.$SizeLruObjectStore$p_1.get(t);
           }),
           (i.queryOneByIndex = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = yield this._store.queryByIndex(e, { limit: 1 });
+                var t = yield this.$SizeLruObjectStore$p_1.queryByIndex(e, {
+                  limit: 1,
+                });
                 return t.length === 0 ? null : t[0];
               },
             );
@@ -233,16 +241,16 @@ __d(
             return t;
           })()),
           (i.doQueryByIndex = function (t, n) {
-            return this._store.queryByIndex(t, n);
+            return this.$SizeLruObjectStore$p_1.queryByIndex(t, n);
           }),
           (i.doGetAll = function () {
-            return this._store.getAll();
+            return this.$SizeLruObjectStore$p_1.getAll();
           }),
           (i.doClear = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (this._purgeTimer.cancel(),
-                yield this._store.clear(),
-                (this._currentSize = 0));
+              (this.$SizeLruObjectStore$p_8.cancel(),
+                yield this.$SizeLruObjectStore$p_1.clear(),
+                (this.$SizeLruObjectStore$p_6 = 0));
             });
             function t() {
               return e.apply(this, arguments);
@@ -250,15 +258,18 @@ __d(
             return t;
           })()),
           (i.doCount = function () {
-            return this._store.count();
+            return this.$SizeLruObjectStore$p_1.count();
           }),
           (i.doOpen = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = this;
-              if ((yield this._store.open(), this._currentSize == null)) {
-                var t = yield this._store.doGetAll();
-                this._currentSize = r("sumBy")(t, function (t) {
-                  return e.$SizeLruObjectStore$p_1(t);
+              if (
+                (yield this.$SizeLruObjectStore$p_1.open(),
+                this.$SizeLruObjectStore$p_6 == null)
+              ) {
+                var t = yield this.$SizeLruObjectStore$p_1.doGetAll();
+                this.$SizeLruObjectStore$p_6 = r("sumBy")(t, function (t) {
+                  return e.$SizeLruObjectStore$p_13(t);
                 });
               }
             });
@@ -268,7 +279,10 @@ __d(
             return t;
           })()),
           (i.doClose = function () {
-            return ((this._currentSize = null), this._store.close());
+            return (
+              (this.$SizeLruObjectStore$p_6 = null),
+              this.$SizeLruObjectStore$p_1.close()
+            );
           }),
           a
         );

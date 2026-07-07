@@ -39,6 +39,22 @@ __d(
       });
     }
     function m(e, t) {
+      var n = {},
+        r = {};
+      return (
+        Object.keys(e).forEach(function (o) {
+          var a = [],
+            i = [];
+          (e[o].forEach(function (e) {
+            e.noticeName != null && t.has(e.noticeName) ? i.push(e) : a.push(e);
+          }),
+            a.length > 0 && (n[o] = a),
+            i.length > 0 && (r[o] = i));
+        }),
+        { forBanner: n, forInline: r }
+      );
+    }
+    function p(e, t) {
       var n = d(e);
       return n ? !0 : t != null ? d(t) : !1;
     }
@@ -47,7 +63,8 @@ __d(
       (i.TIP_SEVERITIES = s),
       (i.getDisplayPriority = u),
       (i.pickHighestPriorityNotice = c),
-      (i.hasBlockingErrors = m));
+      (i.partitionNoticesByInlineSet = m),
+      (i.hasBlockingErrors = p));
   },
   66,
 );

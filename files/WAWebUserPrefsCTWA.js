@@ -1,9 +1,7 @@
 __d(
   "WAWebUserPrefsCTWA",
   [
-    "WATimeUtils",
     "WAWebCTWAGatingUtils",
-    "WAWebCommonAdEntryPointsTypes",
     "WAWebCommonAdsTypes",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUserPrefsKeys",
@@ -46,53 +44,6 @@ __d(
       );
     }
     function d(e) {
-      var t = r("WAWebUserPrefsStore").getUser(
-        o("WAWebUserPrefsKeys").KEYS.AD_ENTRY_POINTS_CONFIGURATION,
-      );
-      if (t == null || typeof t != "object") return null;
-      var n = t.configuration,
-        a = t.locale,
-        i = t.ts;
-      if (typeof i != "number" || typeof a != "string") return null;
-      var l = !o("WATimeUtils").isInFuture(
-        o("WATimeUtils").futureUnixTime(
-          o("WAWebCTWAGatingUtils").adEntryPointsConfigurationFetchThreshold() /
-            1e3,
-          o("WATimeUtils").castToUnixTime(i),
-        ),
-      );
-      if (a !== e || n == null || typeof n != "object") return null;
-      var s = Object.keys(n).reduce(function (e, t) {
-        var r = n[t];
-        if (r == null || typeof r != "object") return e;
-        var a = r.content,
-          i = r.shouldShow,
-          l = r.subContent;
-        if (typeof i != "boolean") return e;
-        var s = { shouldShow: i };
-        if (a != null) {
-          if (typeof a != "string") return e;
-          s.content = o("WAWebCommonAdEntryPointsTypes").asAdEntryPointContent(
-            a,
-          );
-        }
-        if (l != null) {
-          if (typeof l != "string") return e;
-          s.subContent = o(
-            "WAWebCommonAdEntryPointsTypes",
-          ).asAdEntryPointContent(l);
-        }
-        return ((e[t] = s), e);
-      }, {});
-      return { configuration: s, isExpired: l };
-    }
-    function m(e, t) {
-      r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").KEYS.AD_ENTRY_POINTS_CONFIGURATION,
-        { configuration: t, locale: e, ts: o("WATimeUtils").unixTime() },
-      );
-    }
-    function p(e) {
       switch (e) {
         case "WEAK":
           return o("WAWebCommonAdsTypes").WAAIdentityTokenStrengthEnum.WEAK;
@@ -101,7 +52,7 @@ __d(
           return o("WAWebCommonAdsTypes").WAAIdentityTokenStrengthEnum.STRONG;
       }
     }
-    function _() {
+    function m() {
       if (!o("WAWebCTWAGatingUtils").adAccountTokenStoringEnabled())
         return null;
       var e = r("WAWebUserPrefsStore").getUser(
@@ -117,9 +68,9 @@ __d(
         ? null
         : ((t == null || typeof t != "string") && (t = ""),
           (n == null || typeof n != "string") && (n = null),
-          o("WAWebCommonAdsTypes").asAdAccountToken(e, t, "WAA", p(n)));
+          o("WAWebCommonAdsTypes").asAdAccountToken(e, t, "WAA", d(n)));
     }
-    function f(e) {
+    function p(e) {
       o("WAWebCTWAGatingUtils").adAccountTokenStoringEnabled() &&
         (r("WAWebUserPrefsStore").setUser(
           o("WAWebUserPrefsKeys").KEYS.AD_ACCOUNT_TOKEN,
@@ -134,7 +85,7 @@ __d(
           e.type === "WAA" ? e.tokenStrength : null,
         ));
     }
-    function g() {
+    function _() {
       (r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.AD_ACCOUNT_TOKEN,
         null,
@@ -148,7 +99,7 @@ __d(
           null,
         ));
     }
-    function h() {
+    function f() {
       (r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.FB_ACCOUNT_TOKEN,
         null,
@@ -158,7 +109,7 @@ __d(
           null,
         ));
     }
-    function y() {
+    function g() {
       var e = r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").KEYS.FB_ACCOUNT_TOKEN,
         ),
@@ -172,7 +123,7 @@ __d(
         ? null
         : o("WAWebCommonAdsTypes").asAdAccountToken(e, t, "FB");
     }
-    function C(e) {
+    function h(e) {
       (r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.FB_ACCOUNT_TOKEN,
         e.token,
@@ -182,13 +133,13 @@ __d(
           e.bp_id,
         ));
     }
-    function b(e) {
+    function y(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.NATIVE_ADS_MVP_ELIGIBILITY,
         e,
       );
     }
-    function v() {
+    function C() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.NATIVE_ADS_MVP_ELIGIBILITY,
       );
@@ -213,16 +164,14 @@ __d(
       (l.getAdCreationFlowId = s),
       (l.getAndIncrementAdCreationSequenceNumber = u),
       (l.resetAdCreationSequenceNumber = c),
-      (l.getAdEntryPointsConfiguration = d),
-      (l.setAdEntryPointsConfiguration = m),
-      (l.getAdAccountToken = _),
-      (l.setAdAccountToken = f),
-      (l.clearAdAccountToken = g),
-      (l.clearFBIdentity = h),
-      (l.getFBIdentity = y),
-      (l.setFbIdentity = C),
-      (l.setNativeAdsMvpEligibility = b),
-      (l.getNativeAdsMvpEligibility = v));
+      (l.getAdAccountToken = m),
+      (l.setAdAccountToken = p),
+      (l.clearAdAccountToken = _),
+      (l.clearFBIdentity = f),
+      (l.getFBIdentity = g),
+      (l.setFbIdentity = h),
+      (l.setNativeAdsMvpEligibility = y),
+      (l.getNativeAdsMvpEligibility = C));
   },
   98,
 );

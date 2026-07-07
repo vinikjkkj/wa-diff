@@ -168,10 +168,13 @@ __d(
             }
             this.$6(t, n);
           }),
-          (a.assignJidToCanvas = function (t, n, r) {
-            var e = this.$7.get(n);
-            e != null &&
-              e !== t &&
+          (a.assignJidToCanvas = function (t) {
+            var e = t.canvas,
+              n = t.mirror,
+              r = t.userJid,
+              a = this.$7.get(e);
+            a != null &&
+              a !== r &&
               (o("WALogger").WARN(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -179,17 +182,17 @@ __d(
                     " from ",
                     "",
                   ])),
-                t,
-                e,
+                r,
+                a,
               ),
-              this.unassignJidFromCanvas(e, n));
-            var a = this.$8.get(t),
-              i = a == null || a.size === 0;
-            (i && this.$9.delete(t) && this.$10(t),
-              a ? a.set(n, r) : this.$8.set(t, new Map([[n, r]])),
-              this.$7.set(n, t),
-              this.$11.removeParticipant(t),
-              this.$12(t, "assign_canvas"));
+              this.unassignJidFromCanvas(a, e));
+            var i = this.$8.get(r),
+              l = i == null || i.size === 0;
+            (l && this.$9.delete(r) && this.$10(r),
+              i ? i.set(e, n) : this.$8.set(r, new Map([[e, n]])),
+              this.$7.set(e, r),
+              this.$11.removeParticipant(r),
+              this.$12(r, "assign_canvas"));
           }),
           (a.unassignJidFromCanvas = function (t, n) {
             var e = this.$8.get(t);
@@ -507,18 +510,19 @@ __d(
               if (_)
                 try {
                   var f;
-                  (_.renderFrame(
-                    r,
-                    a,
-                    i,
-                    (f = o("WAWebVoipMediaEnums").Orientation.cast(l)) != null
-                      ? f
-                      : o("WAWebVoipMediaEnums").Orientation.Normal,
-                    p,
-                    s,
-                    u,
-                    c,
-                  ),
+                  (_.renderFrame({
+                    format: s,
+                    frameBuffer: r,
+                    height: i,
+                    isKeyFrame: c,
+                    mirror: p,
+                    orientation:
+                      (f = o("WAWebVoipMediaEnums").Orientation.cast(l)) != null
+                        ? f
+                        : o("WAWebVoipMediaEnums").Orientation.Normal,
+                    timestamp: u,
+                    width: a,
+                  }),
                     (e = !0));
                 } catch (e) {
                   if (

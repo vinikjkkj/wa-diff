@@ -75,6 +75,8 @@ __d(
             name: t.name,
             avatarUrl: typeof t.avatarUrl == "string" ? g(t.avatarUrl) : null,
             videoVariants: b(t.videoVariants),
+            secureImage: v(t.secureImage),
+            secureVideoVariants: S(t.secureVideoVariants),
             fetchedAt: t.fetchedAt,
           };
       } catch (e) {}
@@ -101,30 +103,73 @@ __d(
       return C(n);
     }
     function v(e) {
+      if (e == null || typeof e != "object") return null;
+      var t = e,
+        n = R(t.mediaType),
+        r = L(t.directPath),
+        o = L(t.mediaKey),
+        a = L(t.encFilehash),
+        i = L(t.filehash);
+      return n == null || r == null || o == null || a == null || i == null
+        ? null
+        : {
+            directPath: r,
+            mediaKey: o,
+            encFilehash: a,
+            filehash: i,
+            mediaType: n,
+            mimeType: L(t.mimeType),
+            sidecarB64: L(t.sidecarB64),
+            fileLength: typeof t.fileLength == "number" ? t.fileLength : null,
+            staticUrl: L(t.staticUrl),
+          };
+    }
+    function S(e) {
+      if (e == null || typeof e != "object") return null;
+      var t = e,
+        n = {},
+        r = !1;
+      for (var o of Object.keys(t)) {
+        var a = v(t[o]);
+        a != null && ((n[o] = a), (r = !0));
+      }
+      return r ? n : null;
+    }
+    function R(e) {
+      return e === "image" || e === "video" ? e : null;
+    }
+    function L(e) {
+      return typeof e == "string" && e !== "" ? e : null;
+    }
+    function E(e) {
       var t,
         n,
-        r = {
+        r,
+        a,
+        i = {
           name: (t = e.name) != null ? t : "",
           avatarUrl: g(e.avatarUrl),
           videoVariants: C((n = e.videoVariants) != null ? n : null),
+          secureImage: (r = e.secureImage) != null ? r : null,
+          secureVideoVariants: (a = e.secureVideoVariants) != null ? a : null,
           fetchedAt: o("WATimeUtils").unixTime(),
         };
-      ((m = r),
-        h(r),
+      ((m = i),
+        h(i),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
               "AIHatchIdentityStore: identity applied from push",
             ])),
         ),
-        f(r));
+        f(i));
     }
-    function S() {
+    function k() {
       return (m == null && (m = y()), m);
     }
-    function R() {
+    function I() {
       var e,
-        t = S();
+        t = k();
       return {
         name:
           (t == null ? void 0 : t.name) ||
@@ -135,7 +180,7 @@ __d(
             : o("WAWebHatchGating").getHatchBotProfileThumb() || "",
       };
     }
-    function L() {
+    function T() {
       ((m = null), (p = new Set()));
       try {
         r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(c);
@@ -143,10 +188,10 @@ __d(
     }
     ((l.subscribeToIdentityChanges = _),
       (l.validateWhatsAppNetUrl = g),
-      (l.applyHatchIdentity = v),
-      (l.getCachedHatchIdentity = S),
-      (l.getHatchInitialIdentity = R),
-      (l.__resetCacheForTesting = L));
+      (l.applyHatchIdentity = E),
+      (l.getCachedHatchIdentity = k),
+      (l.getHatchInitialIdentity = I),
+      (l.__resetCacheForTesting = T));
   },
   98,
 );

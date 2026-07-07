@@ -45,16 +45,16 @@ __d(
         return (
           (n.reset = function () {
             var e = new Uint8Array([0, 0, 0, 255]);
-            (this.renderFrame(
-              e.buffer,
-              1,
-              1,
-              o("WAWebVoipMediaEnums").Orientation.Normal,
-              !1,
-              o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA,
-              0,
-              !1,
-            ),
+            (this.renderFrame({
+              format: o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA,
+              frameBuffer: e.buffer,
+              height: 1,
+              isKeyFrame: !1,
+              mirror: !1,
+              orientation: o("WAWebVoipMediaEnums").Orientation.Normal,
+              timestamp: 0,
+              width: 1,
+            }),
               this.renderer.clearNV12Textures());
           }),
           (n.cleanup = function () {
@@ -77,34 +77,42 @@ __d(
                 (this.canvas.height = n));
             }
           }),
-          (n.renderFrame = function (n, r, o, a, i, l, s, u) {
+          (n.renderFrame = function (n) {
+            var t = n.format,
+              r = n.frameBuffer,
+              o = n.height,
+              a = n.isKeyFrame,
+              i = n.mirror,
+              l = n.orientation,
+              s = n.timestamp,
+              u = n.width;
             if (
               (this.$3(),
-              this.renderer.render(new Uint8Array(n), r, o, a, i, l, this.$2),
+              this.renderer.render(new Uint8Array(r), u, o, l, i, t, this.$2),
               this.mode === e.Direct || !this.offscreenCanvas)
             ) {
               this.$1();
               return;
             }
-            var t = this.offscreenCanvas.transferToImageBitmap();
+            var c = this.offscreenCanvas.transferToImageBitmap();
             e: {
-              var c = this.mode;
-              if (c === e.Direct) break e;
-              if (c === e.OffscreenTransfer) {
-                var d;
-                (d = this.transferContext) == null ||
-                  d.transferFromImageBitmap(t);
+              var d = this.mode;
+              if (d === e.Direct) break e;
+              if (d === e.OffscreenTransfer) {
+                var m;
+                (m = this.transferContext) == null ||
+                  m.transferFromImageBitmap(c);
                 break e;
               }
-              if (c === e.OffscreenDraw) {
-                var m;
-                ((m = this.drawContext) == null || m.drawImage(t, 0, 0),
-                  t.close());
+              if (d === e.OffscreenDraw) {
+                var p;
+                ((p = this.drawContext) == null || p.drawImage(c, 0, 0),
+                  c.close());
                 break e;
               }
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  c,
+                  d,
               );
             }
             this.$1();
@@ -118,19 +126,22 @@ __d(
           t
         );
       })();
-    function u(e, t, n) {
-      var o = e.createShader(t);
-      if (!o) throw r("err")("Failed to create shader");
-      (e.shaderSource(o, n), e.compileShader(o));
-      var a = e.getShaderParameter(o, e.COMPILE_STATUS);
-      if (!a) {
-        var i = e.getShaderInfoLog(o);
+    function u(e) {
+      var t = e.gl,
+        n = e.source,
+        o = e.type,
+        a = t.createShader(o);
+      if (!a) throw r("err")("Failed to create shader");
+      (t.shaderSource(a, n), t.compileShader(a));
+      var i = t.getShaderParameter(a, t.COMPILE_STATUS);
+      if (!i) {
+        var l = t.getShaderInfoLog(a);
         throw (
-          e.deleteShader(o),
-          r("err")("Failed to compile shader: " + (i != null ? i : ""))
+          t.deleteShader(a),
+          r("err")("Failed to compile shader: " + (l != null ? l : ""))
         );
       }
-      return o;
+      return a;
     }
     function c(e, t) {
       var n = e.createProgram();
@@ -197,13 +208,21 @@ __d(
           var t = e.getContext("webgl", p);
           if (!t) throw r("err")("WebGL not supported");
           ((this.gl = t),
-            (this.vertexShader_ = u(this.gl, this.gl.VERTEX_SHADER, _)),
-            (this.rgbShader_ = u(t, this.gl.FRAGMENT_SHADER, f)));
+            (this.vertexShader_ = u({
+              gl: t,
+              source: _,
+              type: t.VERTEX_SHADER,
+            })),
+            (this.rgbShader_ = u({
+              gl: t,
+              source: f,
+              type: t.FRAGMENT_SHADER,
+            })));
           var n = c(t, [this.vertexShader_, this.rgbShader_]);
           (d(t, n), (this.textureRGB_ = m(this.gl, n, 3, "textureRGB")));
           var a = this.gl.getUniformLocation(n, "u_matrix");
           if (!a) throw r("err")("Failed to get matrix location");
-          this.nv12Shader_ = u(t, this.gl.FRAGMENT_SHADER, g);
+          this.nv12Shader_ = u({ gl: t, source: g, type: t.FRAGMENT_SHADER });
           var i = c(t, [this.vertexShader_, this.nv12Shader_]);
           (d(t, i),
             (this.textureY_ = m(this.gl, i, 4, "videoFrameY")),

@@ -60,9 +60,13 @@ __d(
             : { labelKey: "ignore", shouldShow: !0, styleType: "borderless" },
       };
     }
-    function g(e, t, n, r) {
-      var a = o("WAWebVoipCallStateUtils").isCallConnecting(r);
-      return e || a ? t : n;
+    function g(e) {
+      var t = e.callState,
+        n = e.isCallOutgoing,
+        r = e.onEnd,
+        a = e.onReject,
+        i = o("WAWebVoipCallStateUtils").isCallConnecting(t);
+      return n || i ? r : a;
     }
     function h(e, t, n, a) {
       if (

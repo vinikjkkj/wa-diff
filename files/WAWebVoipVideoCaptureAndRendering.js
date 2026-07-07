@@ -115,7 +115,13 @@ __d(
                   u = e.width;
                 yield o(
                   "WAWebVoipVideoCameraCapture",
-                ).WAWebVoipVideoCameraCapture.startCameraCapture(n, u, r, l, i);
+                ).WAWebVoipVideoCameraCapture.startCameraCapture({
+                  camera_id_requested: n,
+                  height: r,
+                  isAVUpgrade: i,
+                  max_fps: l,
+                  width: u,
+                });
               }),
               "startVideoCapture",
             ));

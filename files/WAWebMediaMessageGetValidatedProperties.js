@@ -49,9 +49,9 @@ __d(
       var t = r("WAWebURLUtils").hostname(e);
       return t.endsWith(".whatsapp.net") || t === "whatsapp.net";
     }
-    var g = function (t) {
-      return t.id == null;
-    };
+    function g(e) {
+      return e.id == null;
+    }
     function h(t, n, a, i) {
       var l = t.fileEncSha256,
         d = t.fileLength,

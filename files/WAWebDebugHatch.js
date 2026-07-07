@@ -16,43 +16,85 @@ __d(
       c = "hitl.approval",
       d = [
         {
-          approvalId: "connector-40f9a240-c871-4204-b136-fb6d802026cf",
-          reason: 'Allow Hatch to perform "Move emails to trash" in Gmail?',
-          shortExplanation: "Move the latest email to trash",
-          richExplanation:
-            "You asked to trash the latest email\u2014the RADAR Bot code-review notification. This will move it to your Gmail trash folder so you can recover it later if needed.",
           displayName: "Gmail",
           actionLabel: "Move emails to trash",
+          summary: "move the latest email to your Gmail trash folder",
         },
         {
-          approvalId: "connector-334ccacd-4013-4fe2-ab2b-65ff49a37bf2",
-          reason: 'Allow Hatch to perform "Create documents" in Google Docs?',
-          shortExplanation: 'Create a Google Doc called "birds"',
-          richExplanation:
-            'You asked to create a new Google Doc titled "birds". This will create a blank document in your Google Docs and give it that title.',
           displayName: "Google Docs",
           actionLabel: "Create documents",
+          summary: "create a new Google Doc",
         },
         {
-          approvalId: "connector-9cabc5f6-ceec-4672-b249-452154d8959c",
-          reason: 'Allow Hatch to perform "Update files" in Google Drive?',
-          shortExplanation: 'Delete the "birds" Google Doc',
-          richExplanation:
-            'You asked to delete the "birds" Google Doc that was just created. This will move it to Trash in your Google Drive.',
+          displayName: "Google Calendar",
+          actionLabel: "Create events",
+          summary: "add a 30-minute event to your calendar",
+        },
+        {
           displayName: "Google Drive",
           actionLabel: "Update files",
+          summary: "move a file to your Drive trash",
         },
-      ];
-    function m() {
+        {
+          displayName: "Google Sheets",
+          actionLabel: "Update spreadsheets",
+          summary: "append a row to a tracking spreadsheet",
+        },
+        {
+          displayName: "walla.co.il",
+          actionLabel: "Open website",
+          summary: "fetch the walla.co.il homepage so Hatch can summarize it",
+          scheme: "https",
+          host: "walla.co.il",
+          path: "walla.co.il:443",
+        },
+      ],
+      m = 20;
+    function p(e) {
+      var t = d[e % d.length],
+        n = e + 1;
+      return {
+        approvalId: "debug-approval-" + n,
+        reason:
+          "#" +
+          n +
+          ': Allow Hatch to perform "' +
+          t.actionLabel +
+          '" in ' +
+          t.displayName +
+          "?",
+        shortExplanation: "Task #" + n + ": " + t.summary,
+        richExplanation:
+          "You asked Hatch to " +
+          t.summary +
+          ". This is sample approval #" +
+          n +
+          ", injected to exercise the approval UI.",
+        displayName: t.displayName,
+        actionLabel: t.actionLabel,
+        payloadPreview:
+          '{\n  "task": ' +
+          n +
+          ',\n  "action": "' +
+          t.actionLabel +
+          '",\n  "service": "' +
+          t.displayName +
+          '"\n}',
+        scheme: t.scheme,
+        host: t.host,
+        path: t.path,
+      };
+    }
+    function _() {
       return r("WAWebHatchPayloadDebugStore").getRecords();
     }
-    m.doc =
+    _.doc =
       "List the Hatch AIMetadataOperation payloads captured this session (inbound events/responses, outbound reqs) with their raw envelope, decoded form, and timestamps";
-    function p() {
+    function f() {
       r("WAWebHatchPayloadDebugStore").clear();
     }
-    p.doc = "Clear the captured Hatch AIMetadataOperation payload list";
-    function _() {
+    f.doc = "Clear the captured Hatch AIMetadataOperation payload list";
+    function g() {
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WAWebHatchApprovalDialog.react"), {
           richDescription: "Create an email draft to xyz@meta.com",
@@ -73,65 +115,70 @@ __d(
         }),
       );
     }
-    ((_.doc = "Opens the Hatch approval options dialog"),
-      (_.paramsToExecute = []));
-    function f(e) {
-      e === void 0 && (e = d.length);
-      var t = Math.max(1, Math.min(e, d.length));
-      return d.slice(0, t).map(function (e) {
-        var t = {
-          type: "event",
-          requestId: null,
-          event: {
-            seq: null,
-            timestamp: null,
-            index: c,
-            opKey: c,
-            operation: "SET",
-            payload: {
-              approval: {
-                approval_id: e.approvalId,
-                reason: e.reason,
-                short_explanation: e.shortExplanation,
-                rich_explanation: e.richExplanation,
-                display_name: e.displayName,
-                action_label: e.actionLabel,
+    ((g.doc = "Opens the Hatch approval options dialog"),
+      (g.paramsToExecute = []));
+    function h(e) {
+      e === void 0 && (e = 3);
+      var t = Math.max(1, Math.min(e, m));
+      return Array.from({ length: t }, function (e, t) {
+        var n = p(t),
+          r = {
+            type: "event",
+            requestId: null,
+            event: {
+              seq: null,
+              timestamp: null,
+              index: c,
+              opKey: c,
+              operation: "SET",
+              payload: {
+                approval: {
+                  approval_id: n.approvalId,
+                  reason: n.reason,
+                  short_explanation: n.shortExplanation,
+                  rich_explanation: n.richExplanation,
+                  display_name: n.displayName,
+                  action_label: n.actionLabel,
+                  payload_preview: n.payloadPreview,
+                  scheme: n.scheme,
+                  host: n.host,
+                  path: n.path,
+                },
               },
+              sessionId: null,
             },
-            sessionId: null,
-          },
-        };
+          };
         return (
           o("WAWebHandleHatchMetadataSync").handleHatchMetadataSync(
-            t,
-            "debug-" + e.approvalId,
+            r,
+            "debug-" + n.approvalId,
           ),
-          e.approvalId
+          n.approvalId
         );
       });
     }
-    ((f.doc =
-      "Inject N (1-3, default 3) sample HITL approvals (P2384347284) as pending requests \u2014 pass a count to test the single- vs multi-approval review dialog"),
-      (f.paramsToExecute = [d.length]));
-    function g(e) {
+    ((h.doc =
+      "Inject N (1-20, default 3) synthetic HITL approvals as pending requests \u2014 pass a count to test the single-approval path, the multi-approval review dialog, and its scrolling with a long list"),
+      (h.paramsToExecute = [3]));
+    function y(e) {
       return o("WAWebHatchApprovalDebug").debugInjectHatchApprovalRequest(e);
     }
-    g.doc =
+    y.doc =
       "Inject a synthetic Hatch HITL approval request through the real decode -> store -> UI pipeline (open a Hatch chat to see the composer swap to the approval bar). Returns the approvalId.";
-    function h(e) {
+    function C(e) {
       o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e);
     }
-    h.doc =
+    C.doc =
       "Resolve a pending Hatch HITL approval (synthetic decision echo) by id, clearing the approval bar";
-    var y = {
-      hatchClearPayloads: p,
-      hatchInjectApproval: g,
-      hatchPayloads: m,
-      hatchResolveApproval: h,
-      injectHatchApprovals: f,
-      openHatchApprovalDialog: _,
+    var b = {
+      hatchClearPayloads: f,
+      hatchInjectApproval: y,
+      hatchPayloads: _,
+      hatchResolveApproval: C,
+      injectHatchApprovals: h,
+      openHatchApprovalDialog: g,
     };
-    l.default = y;
+    l.default = b;
   },
   98,
 );

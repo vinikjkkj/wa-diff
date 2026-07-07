@@ -138,16 +138,20 @@ __d(
     var B = new TextDecoder(),
       W = 8192,
       q = new Uint8Array(W);
-    function U(e, t, n, r) {
-      if (t + n <= r) q.set(e.subarray(t, t + n));
+    function U(e) {
+      var t = e.dataSize,
+        n = e.dataU8,
+        r = e.length,
+        o = e.readPos;
+      if (o + r <= t) q.set(n.subarray(o, o + r));
       else {
-        var o = r - t;
-        (q.set(e.subarray(t, r)), q.set(e.subarray(0, n - o), o));
+        var a = t - o;
+        (q.set(n.subarray(o, t)), q.set(n.subarray(0, r - a), a));
       }
-      return q.subarray(0, n);
+      return q.subarray(0, r);
     }
     function V(e, t) {
-      var n = U(e, t, I, b),
+      var n = U({ dataSize: b, dataU8: e, length: I, readPos: t }),
         r = n[E] | (n[E + 1] << 8);
       if (r < I + 1 || r > b || r > W || (r & 3) !== 0)
         return (
@@ -163,7 +167,13 @@ __d(
           ),
           -1
         );
-      for (var a = U(e, t, r, b), i = a[k], l = I; l < r && a[l] !== 0; ) l++;
+      for (
+        var a = U({ dataSize: b, dataU8: e, length: r, readPos: t }),
+          i = a[k],
+          l = I;
+        l < r && a[l] !== 0;
+      )
+        l++;
       var s = B.decode(a.subarray(I, l));
       return (
         i === T

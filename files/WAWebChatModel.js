@@ -108,7 +108,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewOnceState",
     "WAWebViewRepliesCollection",
-    "WAWebWamEnumChatAssignmentChatType",
     "WAWebWamEnumWebcChatType",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -1675,29 +1674,6 @@ __d(
             return o(
               "WAWebChatModelDerivedMethods",
             ).getMdChatAssignmentChatTypeFn(this);
-          }),
-          (i.getChatAssignmentChatType = function () {
-            var e = o("WAWebFrontendChatGetters").getKind(this);
-            if (e != null)
-              switch (e) {
-                case o("WAWebChatFlowTypes").ChatKindType.Chat:
-                  return o("WAWebWamEnumChatAssignmentChatType")
-                    .CHAT_ASSIGNMENT_CHAT_TYPE.INDIVIDUAL;
-                case o("WAWebChatFlowTypes").ChatKindType.Group:
-                  return o("WAWebWamEnumChatAssignmentChatType")
-                    .CHAT_ASSIGNMENT_CHAT_TYPE.GROUP;
-                case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
-                case o("WAWebChatFlowTypes").ChatKindType.Community:
-                  return o("WAWebWamEnumChatAssignmentChatType")
-                    .CHAT_ASSIGNMENT_CHAT_TYPE.COMMUNITY;
-                case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
-                  return o("WAWebWamEnumChatAssignmentChatType")
-                    .CHAT_ASSIGNMENT_CHAT_TYPE.CHANNEL;
-              }
-            else {
-              var t = new TypeError("Invalid Chat.kind " + String(e));
-              throw (t.stack, t);
-            }
           }),
           (i.deregisterExpiredViewOnceBulkMessages = function (t) {
             var e = this;

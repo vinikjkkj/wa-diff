@@ -1,7 +1,6 @@
 __d(
   "WAWebCTWABridgeApi",
   [
-    "WAWebAdEntryPointsConfigurationAction",
     "WAWebCTWADetectedOutcomeOnboardingStatusUpdateAction",
     "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
     "WAWebNativeAdsMvpEligibilityAction",
@@ -34,9 +33,6 @@ __d(
           "WAWebSmbDataSharingServerUpdateAction",
         ).smbDataSharingSettingUpdateAction(e);
       },
-      loadedAdEntryPointsConfiguration: o(
-        "WAWebAdEntryPointsConfigurationAction",
-      ).loadedAdEntryPointsConfiguration,
       loadedNativeAdsMvpEligibility: o("WAWebNativeAdsMvpEligibilityAction")
         .loadedNativeAdsMvpEligibility,
       ctwaDetectedOutcomeOnboardingStatusUpdate: function (t) {

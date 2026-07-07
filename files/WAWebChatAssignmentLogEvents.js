@@ -6,11 +6,14 @@ __d(
     "WAWebChatAssignmentGatingUtils",
     "WAWebChatAssignmentLogEvents.flow",
     "WAWebChatCollection",
+    "WAWebChatFlowTypes",
+    "WAWebFrontendChatGetters",
     "WAWebMdChatAssignmentSecondaryActionWamEvent",
     "WAWebMdChatAssignmentWamEvent",
     "WAWebMiscBrowserUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumChatAssignmentActionType",
+    "WAWebWamEnumChatAssignmentChatType",
     "WAWebWamEnumChatAssignmentEntryPointType",
     "WAWebWamEnumMdChatAssignmentAssignmentType",
     "WAWebWamEnumMdChatAssignmentSecondaryActionType",
@@ -141,7 +144,7 @@ __d(
             chatAssignmentBrowserId: m
               ? r("WAWebMiscBrowserUtils").persistentExpiringId()
               : "",
-            chatAssignmentChatType: t.getChatAssignmentChatType(),
+            chatAssignmentChatType: g(t),
             chatAssignmentMdId:
               (s = c == null ? void 0 : c.deviceId) != null ? s : -1,
           },
@@ -185,6 +188,29 @@ __d(
             chatAssignmentEntryPoint: _(r),
             chatsCnt: a,
           }).commit());
+      }
+    }
+    function g(e) {
+      var t = o("WAWebFrontendChatGetters").getKind(e);
+      if (t != null)
+        switch (t) {
+          case o("WAWebChatFlowTypes").ChatKindType.Chat:
+            return o("WAWebWamEnumChatAssignmentChatType")
+              .CHAT_ASSIGNMENT_CHAT_TYPE.INDIVIDUAL;
+          case o("WAWebChatFlowTypes").ChatKindType.Group:
+            return o("WAWebWamEnumChatAssignmentChatType")
+              .CHAT_ASSIGNMENT_CHAT_TYPE.GROUP;
+          case o("WAWebChatFlowTypes").ChatKindType.Broadcast:
+          case o("WAWebChatFlowTypes").ChatKindType.Community:
+            return o("WAWebWamEnumChatAssignmentChatType")
+              .CHAT_ASSIGNMENT_CHAT_TYPE.COMMUNITY;
+          case o("WAWebChatFlowTypes").ChatKindType.Newsletter:
+            return o("WAWebWamEnumChatAssignmentChatType")
+              .CHAT_ASSIGNMENT_CHAT_TYPE.CHANNEL;
+        }
+      else {
+        var n = new TypeError("Invalid Chat.kind " + String(t));
+        throw (n.stack, n);
       }
     }
     ((l.logNuxShown = u),

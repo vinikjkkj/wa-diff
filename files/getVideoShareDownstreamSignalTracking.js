@@ -8,7 +8,6 @@ __d(
     "react",
     "react-compiler-runtime",
     "useCometVideoPlayerStateAndController",
-    "useProvidedControllerSubscription",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -57,32 +56,27 @@ __d(
         i = d(r("FBUnifiedVideoPlayerControllerContext")),
         l = i.controller,
         s = a != null ? a : l,
-        u = r("useProvidedControllerSubscription")(s, g),
-        c;
+        u;
       return (
-        t[0] !== u
-          ? ((c = function () {
-              var e = {};
+        t[0] !== s
+          ? ((u = function () {
+              var e,
+                t = {},
+                n =
+                  s == null || (e = s.getCurrentState()) == null
+                    ? void 0
+                    : e.targetAudioTrack;
               return (
-                (u == null ? void 0 : u.lang) != null &&
-                  (e.consumption_language_code = u.lang),
-                e
+                (n == null ? void 0 : n.lang) != null &&
+                  (t.consumption_language_code = n.lang),
+                t
               );
             }),
-            (t[0] = u),
-            (t[1] = c))
-          : (c = t[1]),
-        c
+            (t[0] = s),
+            (t[1] = u))
+          : (u = t[1]),
+        u
       );
-    }
-    function g(e) {
-      var t, n;
-      return (t =
-        e == null || (n = e.getCurrentState()) == null
-          ? void 0
-          : n.targetAudioTrack) != null
-        ? t
-        : null;
     }
     ((l.getVideoShareDownstreamSignalTrackingWithNumberStartTime = p),
       (l.getVideoShareDownstreamSignalTracking = _),

@@ -19,12 +19,28 @@ __d(
       var l = i.response_server_id,
         c = i.response_state,
         d = i.server_id;
-      if (c === "UNHIDE") return (u || (u = n("Promise"))).resolve();
       try {
-        o("WAWebBackendApi").frontendFireAndForget(
-          "hideNewsletterQuestionResponse",
-          { questionServerId: Number(d), responseServerId: l },
-        );
+        e: {
+          if (c === "HIDE") {
+            o("WAWebBackendApi").frontendFireAndForget(
+              "hideNewsletterQuestionResponse",
+              { questionServerId: Number(d), responseServerId: l },
+            );
+            break e;
+          }
+          if (c === "STAR" || c === "UNSTAR") {
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateNewsletterQuestionResponseStarredState",
+              {
+                questionServerId: Number(d),
+                responseServerId: l,
+                starred: c === "STAR",
+              },
+            );
+            break e;
+          }
+          break e;
+        }
       } catch (e) {
         o("WALogger")
           .ERROR(

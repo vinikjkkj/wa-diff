@@ -23,12 +23,17 @@ __d(
       );
     }
     function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_hatch_encrypted_media_enabled",
+      );
+    }
+    function m() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_document_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function m() {
+    function p() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -41,7 +46,7 @@ __d(
         }
       return "";
     }
-    function p() {
+    function _() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -58,9 +63,10 @@ __d(
       (l.isHatchSecretEncryptedMessageEnabled = s),
       (l.isHatchVideoUploadEnabled = u),
       (l.isHatchVideoAvatarEnabled = c),
-      (l.getHatchDocumentUploadSizeLimitBytes = d),
-      (l.getHatchBotName = m),
-      (l.getHatchBotProfileThumb = p));
+      (l.isHatchEncryptedMediaEnabled = d),
+      (l.getHatchDocumentUploadSizeLimitBytes = m),
+      (l.getHatchBotName = p),
+      (l.getHatchBotProfileThumb = _));
   },
   98,
 );

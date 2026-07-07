@@ -1021,57 +1021,59 @@ __d(
           );
         }),
         (t.$3 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, r, a) {
-              for (
-                var i = 3,
-                  l = [0, 100, 200],
-                  s = 0,
-                  u = null,
-                  c = function* (c) {
-                    if (
-                      ((s = c),
-                      c > 0 &&
-                        (yield new (Oe || (Oe = n("Promise")))(function (e) {
-                          return window.setTimeout(e, l[c]);
-                        })),
-                      (u = yield o("WAWebBackendApi").frontendSendAndReceive(
-                        "voipAcquireMediaStream",
-                        {
-                          type: "microphone",
-                          selectedDeviceId: e,
-                          params: babelHelpers.extends({}, r, {
-                            sampleRate: a.sampleRate,
-                          }),
-                          targetWindow: t,
-                          suppressErrorPopup: !0,
-                        },
-                      )),
-                      u != null)
-                    )
-                      return 1;
-                  },
-                  d = 0;
-                d < i && !(yield* c(d));
-                d++
-              );
-              return (
-                s > 0 &&
-                  o("WALogger").LOG(
-                    se ||
-                      (se = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:switchDevice] completed after ",
-                        " retries with delays: ",
-                        "ms",
-                      ])),
-                    s,
-                    l.slice(1, s + 1),
-                  ),
-                u
-              );
-            },
-          );
-          function t(t, n, r, o) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            for (
+              var t = e.audioContext,
+                r = e.deviceId,
+                a = e.params,
+                i = e.targetWindow,
+                l = 3,
+                s = [0, 100, 200],
+                u = 0,
+                c = null,
+                d = function* (l) {
+                  if (
+                    ((u = l),
+                    l > 0 &&
+                      (yield new (Oe || (Oe = n("Promise")))(function (e) {
+                        return window.setTimeout(e, s[l]);
+                      })),
+                    (c = yield o("WAWebBackendApi").frontendSendAndReceive(
+                      "voipAcquireMediaStream",
+                      {
+                        type: "microphone",
+                        selectedDeviceId: r,
+                        params: babelHelpers.extends({}, a, {
+                          sampleRate: t.sampleRate,
+                        }),
+                        targetWindow: i,
+                        suppressErrorPopup: !0,
+                      },
+                    )),
+                    c != null)
+                  )
+                    return 1;
+                },
+                m = 0;
+              m < l && !(yield* d(m));
+              m++
+            );
+            return (
+              u > 0 &&
+                o("WALogger").LOG(
+                  se ||
+                    (se = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:switchDevice] completed after ",
+                      " retries with delays: ",
+                      "ms",
+                    ])),
+                  u,
+                  s.slice(1, u + 1),
+                ),
+              c
+            );
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;
@@ -1394,7 +1396,15 @@ __d(
                   return (this.$8(i, null, null, "replacement"), !1);
                 if (!n && !(yield this.$14()))
                   return (this.$8(i, null, null, "replacement"), !1);
-                if (((l = yield this.$3(e, t, a, i)), !l))
+                if (
+                  ((l = yield this.$3({
+                    audioContext: i,
+                    deviceId: e,
+                    params: a,
+                    targetWindow: t,
+                  })),
+                  !l)
+                )
                   return (
                     n
                       ? o("WALogger")

@@ -253,7 +253,10 @@ __d(
           )
             return !1;
           var _ = u.some(function (e) {
-              return o("WAWebMsgGetters").isRealMessage(e);
+              return (
+                o("WAWebMsgGetters").isRealMessage(e) ||
+                o("WAWebMsgGetters").getIsVisibleCallLog(e)
+              );
             }),
             f = o("WAWebABProps").getABPropConfigValue(
               "chatlist_show_draft_for_empty_chat",

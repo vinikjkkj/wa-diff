@@ -88,11 +88,13 @@ __d(
           ? o(
               "WAWebCoreActionsODS",
             ).logCallDataChannelRelayErrorNoFirstResponseTimeout()
-          : e === "rx_stall_timeout"
-            ? o(
-                "WAWebCoreActionsODS",
-              ).logCallDataChannelRelayErrorRxStallTimeout()
-            : o("WAWebCoreActionsODS").logCallDataChannelRelayErrorOnError());
+          : e === "remote_close"
+            ? o("WAWebCoreActionsODS").logCallDataChannelRelayErrorRemoteClose()
+            : e === "rx_stall_timeout"
+              ? o(
+                  "WAWebCoreActionsODS",
+                ).logCallDataChannelRelayErrorRxStallTimeout()
+              : o("WAWebCoreActionsODS").logCallDataChannelRelayErrorOnError());
     }
     function ue() {
       var e = [];
@@ -207,14 +209,8 @@ __d(
     }
     function _e(e, t, n) {
       var a = r("justknobx")._("1929");
-      o("WAWebVoipSctpSendData").sendData(
-        e,
-        t,
-        a
-          ? n
-          : o("WAWebVoipSctpConnectionManagerConstants").SctpConnectionConfig
-              .TRUE_WEB_CLIENT_RELAY_PORT,
-        {
+      o("WAWebVoipSctpSendData").sendData({
+        callbacks: {
           failConnection: Be,
           getIceRestartRxInactivityMs: function () {
             return oe;
@@ -224,7 +220,13 @@ __d(
           },
           restartIceProcess: qe,
         },
-      );
+        data_: e,
+        ip: t,
+        port: a
+          ? n
+          : o("WAWebVoipSctpConnectionManagerConstants").SctpConnectionConfig
+              .TRUE_WEB_CLIENT_RELAY_PORT,
+      });
     }
     function fe(e, t) {
       var n = o("WAWebVoipSctpConnectionState").sctpConnections.get(e);
@@ -451,7 +453,12 @@ __d(
             t,
           ),
             o("WAWebVoipSctpDiagnostics")
-              .logPeerConnectionStatsForError(e, n.peerConnection, t, n.stats)
+              .logPeerConnectionStatsForError({
+                connectionId: e,
+                errorReason: t,
+                peerConnection: n.peerConnection,
+                workerStats: n.stats,
+              })
               .finally(function () {
                 ye(e, t);
               }));
@@ -1419,6 +1426,7 @@ __d(
             ])),
           t,
         ),
+        se("remote_close"),
         he(n, "remote_close", "remote_close_reconnecting", "[SCTP]"));
     }
     function Ge() {

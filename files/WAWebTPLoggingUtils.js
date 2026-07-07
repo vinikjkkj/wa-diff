@@ -105,15 +105,19 @@ __d(
         }).commit();
       }
     }
-    function C(e, t, n, r) {
-      p(t, c) &&
+    function C(e) {
+      var t = e.appPerfData,
+        n = e.filehash,
+        r = e.sdkVersion,
+        a = e.size;
+      p(n, c) &&
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
             .APP_PERF_DATA,
-          webtpSessionId: t,
-          webtpFileSize: n,
+          webtpSessionId: n,
+          webtpFileSize: a,
           webtpTelemetryData: JSON.stringify(
-            babelHelpers.extends({}, e, { sampleRate: c }),
+            babelHelpers.extends({}, t, { sampleRate: c }),
           ),
           webtpSdkVersion: r,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
@@ -666,6 +670,25 @@ __d(
         webtpTelemetryData: JSON.stringify({ action: "preview_cancel" }),
       }).commit();
     }
+    function z(e, t) {
+      new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
+        webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
+          .EDIT_MENU_CLICK,
+        webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+          .PDF_VIEWER,
+        webtpSessionId: e,
+        webtpTelemetryData: t,
+      }).commit();
+    }
+    function j(e, t) {
+      z(
+        t,
+        JSON.stringify({
+          action: "edit_in_acrobat_click",
+          hasUnsavedAnnotations: e,
+        }),
+      );
+    }
     ((l.logDocumentOpenEvent = _),
       (l.logDocumentCloseEvent = g),
       (l.logDownloadDocumentClickEvent = y),
@@ -692,7 +715,8 @@ __d(
       (l.logPdfSharerContinueAutoProceedEvent = U),
       (l.logPdfReceiverPreviewOpenEvent = V),
       (l.logPdfReceiverPreviewSendEvent = H),
-      (l.logPdfReceiverPreviewCancelEvent = G));
+      (l.logPdfReceiverPreviewCancelEvent = G),
+      (l.logEditInAcrobatClickEvent = j));
   },
   98,
 );

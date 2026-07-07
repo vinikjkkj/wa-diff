@@ -11,7 +11,15 @@ __d(
         o("WAWebUserPrefsMeUser").isMeAccount(g) ? (i = g) : l.push(g);
       var h = i != null ? t - 1 : t,
         y = Math.max(1, Math.ceil((l.length + (i != null ? 1 : 0)) / t));
-      if (a == null || a.pages.length === 0) return s(l, h, t, i, n, r);
+      if (a == null || a.pages.length === 0)
+        return s({
+          gridRanks: n,
+          otherParticipants: l,
+          page1Capacity: h,
+          pageSize: t,
+          participantStates: r,
+          selfParticipant: i,
+        });
       var C = u(l, a, h, n, r),
         b = c(
           y,
@@ -45,13 +53,19 @@ __d(
         { pages: v, dominantSpeakers: f(v, n, r) }
       );
     }
-    function s(e, t, n, r, o, a) {
-      var i = h(e, o, a),
-        l = [],
-        s = i.slice(0, t);
-      (r != null && s.push(r), l.push(s));
-      for (var u = t; u < i.length; ) (l.push(i.slice(u, u + n)), (u += n));
-      return { pages: l, dominantSpeakers: f(l, o, a) };
+    function s(e) {
+      var t = e.gridRanks,
+        n = e.otherParticipants,
+        r = e.page1Capacity,
+        o = e.pageSize,
+        a = e.participantStates,
+        i = e.selfParticipant,
+        l = h(n, t, a),
+        s = [],
+        u = l.slice(0, r);
+      (i != null && u.push(i), s.push(u));
+      for (var c = r; c < l.length; ) (s.push(l.slice(c, c + o)), (c += o));
+      return { pages: s, dominantSpeakers: f(s, t, a) };
     }
     function u(e, t, n, r, o) {
       var a = new Map(),

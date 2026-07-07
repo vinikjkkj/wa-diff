@@ -11,34 +11,38 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u, c, d;
-    function m(t, n, r, a) {
-      var i = o("WAWebVoipRelayConnectionUtils").getConnectionIdentifier(n, r),
-        l = o("WAWebVoipSctpConnectionState").sctpConnections.get(i);
-      (l == null &&
+    function m(t) {
+      var n = t.callbacks,
+        r = t.data_,
+        a = t.ip,
+        i = t.port,
+        l = o("WAWebVoipRelayConnectionUtils").getConnectionIdentifier(a, i),
+        d = o("WAWebVoipSctpConnectionState").sctpConnections.get(l);
+      (d == null &&
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SCTP] conn not found, creating early ",
               "",
             ])),
-          i,
+          l,
         ),
-        (l = p(i, a))),
-        l.stats.firstSendRequestTime === 0 &&
-          (l.stats.firstSendRequestTime = Date.now()));
-      var d =
-          t instanceof SharedArrayBuffer ? new Uint8Array(t).slice().buffer : t,
-        m = d.byteLength,
-        _ = o("WAWebVoipRelayConnectionUtils").inspectPacketType(d);
+        (d = p(l, n))),
+        d.stats.firstSendRequestTime === 0 &&
+          (d.stats.firstSendRequestTime = Date.now()));
+      var m =
+          r instanceof SharedArrayBuffer ? new Uint8Array(r).slice().buffer : r,
+        _ = m.byteLength,
+        f = o("WAWebVoipRelayConnectionUtils").inspectPacketType(m);
       if (
-        _ === o("WAWebVoipRelayConnectionUtils").PacketType.STUN_ALLOC &&
-        l.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
-        l.sentMedia === !0 &&
-        !l.channelTransferred
+        f === o("WAWebVoipRelayConnectionUtils").PacketType.STUN_ALLOC &&
+        d.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
+        d.sentMedia === !0 &&
+        !d.channelTransferred
       ) {
-        var f = a.getIceRestartRxInactivityMs(),
-          g = Date.now() - l.lastRxPacketTime;
-        if (g > f) {
+        var g = n.getIceRestartRxInactivityMs(),
+          h = Date.now() - d.lastRxPacketTime;
+        if (h > g) {
           (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -47,74 +51,74 @@ __d(
                 "ms, ICE restart ",
                 "",
               ])),
+            h,
             g,
-            f,
-            i,
+            l,
           ),
             o("WAWebVoipRelayConnectionUtils").clearPacketBuffer(
-              l.packetBuffer,
+              d.packetBuffer,
             ),
             o("WAWebVoipRelayConnectionUtils").bufferPacket(
-              l.packetBuffer,
-              d,
-              l.stats,
+              d.packetBuffer,
+              m,
+              d.stats,
               o("WAWebVoipSctpConnectionManagerConstants").MAX_BUFFER_BYTES,
             ),
-            a.restartIceProcess(l));
+            n.restartIceProcess(d));
           return;
         }
       }
-      if (l.channelTransferred) {
-        var h = o(
+      if (d.channelTransferred) {
+        var y = o(
           "WAWebVoipSctpDataChannelThreadManager",
         ).getDataChannelThread();
-        if (h == null || !h.isActive())
+        if (y == null || !y.isActive())
           (o("WALogger").WARN(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [DCThread] transferred but inactive ",
                 ", legacy path",
               ])),
-            i,
+            l,
           ),
-            (l.channelTransferred = !1));
+            (d.channelTransferred = !1));
         else if (
-          l.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
+          d.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
         ) {
-          var y = h.sendPacket(i, d);
-          (y ||
-            (l.stats.droppedPackets++,
+          var C = y.sendPacket(l, m);
+          (C ||
+            (d.stats.droppedPackets++,
             o("WALogger").WARN(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [DCThread] send failed ",
                   ", pthread shutting down",
                 ])),
-              i,
+              l,
             )),
-            _ === o("WAWebVoipRelayConnectionUtils").PacketType.NonSTUN &&
-              (l.hasNonStunPacketSent || (l.hasNonStunPacketSent = !0),
-              l.sentMedia !== !0 && (l.sentMedia = !0)));
+            f === o("WAWebVoipRelayConnectionUtils").PacketType.NonSTUN &&
+              (d.hasNonStunPacketSent || (d.hasNonStunPacketSent = !0),
+              d.sentMedia !== !0 && (d.sentMedia = !0)));
           return;
         }
-        o("WAWebVoipSctpPacketBuffering").bufferPacketForConnection(l, d);
+        o("WAWebVoipSctpPacketBuffering").bufferPacketForConnection(d, m);
         return;
       }
       if (
-        l.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
-        l.channel != null
+        d.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
+        d.channel != null
       ) {
         try {
-          (l.channel.send(d),
-            l.stats.sentPackets++,
-            (l.stats.sentBytes += m),
-            _ === o("WAWebVoipRelayConnectionUtils").PacketType.NonSTUN &&
-              (l.hasNonStunPacketSent || (l.hasNonStunPacketSent = !0),
-              l.sentMedia !== !0 && (l.sentMedia = !0)));
+          (d.channel.send(m),
+            d.stats.sentPackets++,
+            (d.stats.sentBytes += _),
+            f === o("WAWebVoipRelayConnectionUtils").PacketType.NonSTUN &&
+              (d.hasNonStunPacketSent || (d.hasNonStunPacketSent = !0),
+              d.sentMedia !== !0 && (d.sentMedia = !0)));
         } catch (e) {}
         return;
       }
-      o("WAWebVoipSctpPacketBuffering").bufferPacketForConnection(l, d);
+      o("WAWebVoipSctpPacketBuffering").bufferPacketForConnection(d, m);
     }
     function p(e, t) {
       var n = {

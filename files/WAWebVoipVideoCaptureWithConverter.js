@@ -172,19 +172,22 @@ __d(
             }
             return t;
           })()),
-          (a.$9 = function (t, n, r) {
-            var e = this.$4;
-            if (e != null && e.width === n && e.height === r) return e;
+          (a.$9 = function (t) {
+            var e = t.height,
+              n = t.videoElement,
+              r = t.width,
+              o = this.$4;
+            if (o != null && o.width === r && o.height === e) return o;
             this.$10();
-            var o = t.ownerDocument.createElement("canvas");
-            ((o.width = n), (o.height = r));
-            var a = o.getContext("2d");
-            return a == null
+            var a = n.ownerDocument.createElement("canvas");
+            ((a.width = r), (a.height = e));
+            var i = a.getContext("2d");
+            return i == null
               ? null
-              : ((a.imageSmoothingEnabled = !0),
-                (this.$4 = o),
-                (this.$5 = a),
-                o);
+              : ((i.imageSmoothingEnabled = !0),
+                (this.$4 = a),
+                (this.$5 = i),
+                a);
           }),
           (a.$10 = function () {
             var e = this.$4;
@@ -533,12 +536,12 @@ __d(
                   M.addEventListener(
                     "loadedmetadata",
                     function () {
-                      ((s.$2 = o("WAWebVoipMediaEnums").detectSensorOffset(
-                        T,
-                        D,
-                        M.videoWidth,
-                        M.videoHeight,
-                      )),
+                      ((s.$2 = o("WAWebVoipMediaEnums").detectSensorOffset({
+                        trackHeight: D,
+                        trackWidth: T,
+                        videoElHeight: M.videoHeight,
+                        videoElWidth: M.videoWidth,
+                      })),
                         o("WALogger").LOG(
                           b ||
                             (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -710,7 +713,11 @@ __d(
                                   return;
                                 }
                                 if (C != null) {
-                                  var P = s.$9(w, T, D),
+                                  var P = s.$9({
+                                      height: D,
+                                      videoElement: w,
+                                      width: T,
+                                    }),
                                     N = s.$5;
                                   if (P != null && N != null)
                                     (N.drawImage(

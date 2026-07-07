@@ -88,7 +88,11 @@ __d(
         }),
         g.addMessageListener("onCanvasResize", function (e) {
           try {
-            C.onCanvasResize(e.rendererId, e.width, e.height);
+            C.onCanvasResize({
+              height: e.height,
+              rendererId: e.rendererId,
+              width: e.width,
+            });
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
               c ||
@@ -225,9 +229,12 @@ __d(
                   .WAWebVoipVideoWebCodecsRenderer &&
               e.renderer.requireKeyframe();
           }),
-          (t.onCanvasResize = function (t, n, r) {
-            var e = this.$1.get(t);
-            e && e.renderer.onCanvasResize(n, r);
+          (t.onCanvasResize = function (t) {
+            var e = t.height,
+              n = t.rendererId,
+              r = t.width,
+              o = this.$1.get(n);
+            o && o.renderer.onCanvasResize(r, e);
           }),
           (t.setCoverFit = function (t, n) {
             var e = this.$1.get(t);
@@ -235,7 +242,17 @@ __d(
           }),
           (t.renderFrame = function (t, n, r, o, a, i, l, s, u) {
             var e = this.$1.get(t);
-            e && e.renderer.renderFrame(n, r, o, a, i, l, s, u);
+            e &&
+              e.renderer.renderFrame({
+                format: l,
+                frameBuffer: n,
+                height: o,
+                isKeyFrame: u,
+                mirror: i,
+                orientation: a,
+                timestamp: s,
+                width: r,
+              });
           }),
           (t.$2 = function (t) {
             var e = this.$1.get(t);

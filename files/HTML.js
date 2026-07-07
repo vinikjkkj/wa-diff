@@ -26,7 +26,10 @@ __d(
       u = (function () {
         function t(e) {
           if (
-            (e && typeof e.__html == "string" && (e = e.__html),
+            (e &&
+              typeof e.__html == "string" &&
+              (n("FBLogger")("html").warn("HTML: Superfluous HTML() call."),
+              (e = e.__html)),
             !(this instanceof t))
           )
             return e instanceof t ? e : new t(e);

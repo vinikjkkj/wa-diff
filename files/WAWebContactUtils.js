@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebContactCollection",
     "WAWebContactComparator",
+    "WAWebContactManagementGating",
     "WAWebFrontendContactGetters",
     "WAWebLidMigrationUtils",
     "WAWebPrimaryFeaturesModel",
@@ -71,21 +72,21 @@ __d(
           };
         }
         var f = e.shortName,
-          g = e.name.replace(f, "").trim();
-        if (r("isStringNullOrEmpty")(f) && !r("isStringNullOrEmpty")(g)) {
-          var h = g.split(" "),
-            y = h[0],
-            C = babelHelpers.arrayLikeToArray(h).slice(1);
-          ((f = y), (g = C.join(" ")));
+          h = e.name.replace(f, "").trim();
+        if (r("isStringNullOrEmpty")(f) && !r("isStringNullOrEmpty")(h)) {
+          var y = h.split(" "),
+            C = y[0],
+            b = babelHelpers.arrayLikeToArray(y).slice(1);
+          ((f = C), (h = b.join(" ")));
         }
-        var b = o("WAWebFrontendContactGetters").getIsUsernameContact(e);
+        var v = o("WAWebFrontendContactGetters").getIsUsernameContact(e);
         return {
           lid: n,
-          phoneNumber: b ? null : a,
+          phoneNumber: v ? null : a,
           firstName: f,
-          lastName: g,
+          lastName: h,
           isExistingContact: l,
-          syncToAddressbook: e.getSyncToAddressbook(),
+          syncToAddressbook: g(e),
           username: i,
         };
       }
@@ -174,6 +175,14 @@ __d(
       for (; r < e.length; ) (n.push(e[r]), r++);
       for (; a < t.length; ) (n.push(t[a]), a++);
       return n;
+    }
+    function g(e) {
+      var t;
+      return o("WAWebContactManagementGating").contactManagementEnabled()
+        ? (t = e.syncToAddressbook) != null
+          ? t
+          : !0
+        : !1;
     }
     ((l.getMaybeBizPlatformForLogging = u),
       (l.splitContactName = c),

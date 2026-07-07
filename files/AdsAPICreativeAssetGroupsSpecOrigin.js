@@ -13,6 +13,8 @@ __d(
       CREATIVE_ELIGIBILITY: "creative_eligibility",
       CREATIVE_FLEX: "creative_flex",
       CREATIVE_FLEX_EPA_POSITIVE_TEST: "creative_flex_epa_positive_test",
+      CREATIVE_FLEX_ORGANIC_CONTENT_POSITIVE_TEST:
+        "creative_flex_organic_content_positive_test",
       CREATIVE_FLEX_POSITIVE_TEST: "creative_flex_positive_test",
       CREATIVE_FLEX_TO_WEBSITE_IMAGES: "creative_flex_to_website_images",
       CREATIVE_PRODUCTS_PARITY: "creative_products_parity",

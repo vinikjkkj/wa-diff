@@ -25,7 +25,6 @@ __d(
     "WAWebContactCollection",
     "WAWebContactExternalUserState",
     "WAWebContactGetters",
-    "WAWebContactManagementGating",
     "WAWebContactSearchGatingUtils",
     "WAWebContactShortName",
     "WAWebExactSearchMatchResult",
@@ -348,11 +347,9 @@ __d(
                   contact: this,
                   wid: this.id,
                 }));
-            } else if (o("WAWebBotUtils").isMetaAiBot(this.id))
-              this.set({ name: "Meta AI" });
-            else if (
-              this.id.server === "bot" &&
-              this.id.user === o("WAWebBotUtils").META_BOT_TEE_FBID_WID.user
+            } else if (
+              o("WAWebBotUtils").isMetaAiBot(this.id) ||
+              o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(this.id)
             ) {
               this.set({ name: "Meta AI" });
               var a = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
@@ -777,14 +774,6 @@ __d(
             this.set("shortName", void 0),
             this.set("type", "out")),
             this.set("isUsernameContact", !1));
-        }),
-        (a.getSyncToAddressbook = function () {
-          var e;
-          return o("WAWebContactManagementGating").contactManagementEnabled()
-            ? (e = this.syncToAddressbook) != null
-              ? e
-              : !0
-            : !1;
         }),
         (a.canToggleFavorite = function () {
           return o("WAWebListsGatingUtils").isListsEnabled() || this.isFavorite

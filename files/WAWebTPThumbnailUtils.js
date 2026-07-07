@@ -82,101 +82,99 @@ __d(
         );
       })(),
       _ = new p();
-    function f(e, t, n, r) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l) {
-            if (
-              !o(
-                "WAWebTPPdfViewerGatingUtils",
-              ).isWebTPThumbnailRendererEnabled()
-            )
-              return (e || (e = n("Promise"))).reject(
-                r("err")("WebTP PDF thumbnail renderer is not enabled"),
-              );
-            var s = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
-            (s.initialize("thumbnail"), s.renderThumbnailStart());
-            var u = _.getIframe(),
-              c = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(
-                u,
-              ),
-              d = null,
-              m = new (e || (e = n("Promise")))(function (e, t) {
-                d = t;
-              }),
-              p = function () {
-                d != null &&
-                  d(
-                    new (o("WAAbortError").AbortError)(
-                      "Render thumbnail aborted",
-                    ),
-                  );
-              };
-            (l != null && (l.aborted ? p() : l.addEventListener("abort", p)),
-              c.listen("QPL", function (e) {
-                e.forEach(function (e) {
-                  var t = e.data,
-                    n = e.pointName,
-                    r = e.timestamp;
-                  s.addIframePoint(n, r, t);
-                });
-              }),
-              c.listen("APP_READY", function () {
-                s.appReady();
-              }),
-              c.listen("APP_ERROR", function () {
-                s.appError();
-              }));
-            try {
-              var f = yield (e || (e = n("Promise"))).race([
-                  c.getThumbnail({
-                    file: t,
-                    fileName: a,
-                    width: i.width,
-                    height: i.height,
-                  }),
-                  m,
-                ]),
-                g = yield o(
-                  "WAWebCryptoCalculateFilehash",
-                ).calculateFilehashFromBlob(t);
-              return (
-                o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
-                  f.perfData,
-                  g,
-                  t.size,
-                  f.sdkVersion,
-                ),
-                s.renderThumbnailEnd(),
-                {
-                  thumbnail: f.thumbnail,
-                  numPages: f.numPages,
-                  perfData: f.perfData,
-                }
-              );
-            } catch (e) {
-              var h = yield o(
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = t.file,
+            i = t.fileName,
+            l = t.options,
+            s = t.signal;
+          if (
+            !o("WAWebTPPdfViewerGatingUtils").isWebTPThumbnailRendererEnabled()
+          )
+            return (e || (e = n("Promise"))).reject(
+              r("err")("WebTP PDF thumbnail renderer is not enabled"),
+            );
+          var u = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
+          (u.initialize("thumbnail"), u.renderThumbnailStart());
+          var c = _.getIframe(),
+            d = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(c),
+            m = null,
+            p = new (e || (e = n("Promise")))(function (e, t) {
+              m = t;
+            }),
+            f = function () {
+              m != null &&
+                m(
+                  new (o("WAAbortError").AbortError)(
+                    "Render thumbnail aborted",
+                  ),
+                );
+            };
+          (s != null && (s.aborted ? f() : s.addEventListener("abort", f)),
+            d.listen("QPL", function (e) {
+              e.forEach(function (e) {
+                var t = e.data,
+                  n = e.pointName,
+                  r = e.timestamp;
+                u.addIframePoint(n, r, t);
+              });
+            }),
+            d.listen("APP_READY", function () {
+              u.appReady();
+            }),
+            d.listen("APP_ERROR", function () {
+              u.appError();
+            }));
+          try {
+            var g = yield (e || (e = n("Promise"))).race([
+                d.getThumbnail({
+                  file: a,
+                  fileName: i,
+                  width: l.width,
+                  height: l.height,
+                }),
+                p,
+              ]),
+              h = yield o(
                 "WAWebCryptoCalculateFilehash",
-              ).calculateFilehashFromBlob(t);
-              throw (
-                o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(
-                  e,
-                  h,
-                  t.size,
-                ),
-                s.renderThumbnailError(),
-                e
-              );
-            } finally {
-              (l == null || l.removeEventListener("abort", p),
-                c.destroy(),
-                _.release());
-            }
-          },
-        )),
+              ).calculateFilehashFromBlob(a);
+            return (
+              o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
+                g.perfData,
+                h,
+                a.size,
+                g.sdkVersion,
+              ),
+              u.renderThumbnailEnd(),
+              {
+                thumbnail: g.thumbnail,
+                numPages: g.numPages,
+                perfData: g.perfData,
+              }
+            );
+          } catch (e) {
+            var y = yield o(
+              "WAWebCryptoCalculateFilehash",
+            ).calculateFilehashFromBlob(a);
+            throw (
+              o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(
+                e,
+                y,
+                a.size,
+              ),
+              u.renderThumbnailError(),
+              e
+            );
+          } finally {
+            (s == null || s.removeEventListener("abort", f),
+              d.destroy(),
+              _.release());
+          }
+        })),
         g.apply(this, arguments)
       );
     }

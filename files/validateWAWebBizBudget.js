@@ -52,26 +52,29 @@ __d(
     }
     function f(e) {
       return {
+        description: s._(
+          /*BTDS*/ "The minimum budget is {min_budget} per day.",
+          [s._param("min_budget", e)],
+        ),
         severity: "ERROR",
-        title: s._(/*BTDS*/ "The minimum budget is {min_budget} per day.", [
-          s._param("min_budget", e),
-        ]),
       };
     }
     function g(e) {
       return {
+        description: s._(
+          /*BTDS*/ "Your budget needs to be less than {max_budget}.",
+          [s._param("max_budget", e)],
+        ),
         severity: "ERROR",
-        title: s._(/*BTDS*/ "Your budget needs to be less than {max_budget}.", [
-          s._param("max_budget", e),
-        ]),
       };
     }
     function h(e, t) {
       return {
+        description: s._(
+          /*BTDS*/ "The minimum budget for this ad is {min_budget}.",
+          [s._param("min_budget", c(e, t))],
+        ),
         severity: "ERROR",
-        title: s._(/*BTDS*/ "The minimum budget for this ad is {min_budget}.", [
-          s._param("min_budget", c(e, t)),
-        ]),
       };
     }
     function y(e, t) {
@@ -79,9 +82,9 @@ __d(
     }
     function C() {
       return {
+        description: s._(/*BTDS*/ "Your budget is in the recommended range."),
         noticeName: "WAWebBizBudgetInRange",
         severity: "ACTIVE_FEEDBACK",
-        title: s._(/*BTDS*/ "Your budget is in the recommended range."),
       };
     }
     l.default = e;

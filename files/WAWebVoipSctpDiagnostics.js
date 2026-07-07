@@ -25,18 +25,21 @@ __d(
         l = (r = e.candidateType) != null ? r : "N/A";
       return o + ":" + a + "/" + i + "/" + l;
     }
-    function h(e, t, n, r) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = yield new (m || (m = n("Promise")))(function (n) {
-              var i = !1,
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.connectionId,
+            a = t.errorReason,
+            i = t.peerConnection,
+            l = t.workerStats,
+            h = yield new (m || (m = n("Promise")))(function (t) {
+              var n = !1,
                 l = window.setTimeout(function () {
-                  i ||
-                    ((i = !0),
+                  n ||
+                    ((n = !0),
                     o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,18 +49,18 @@ __d(
                           "",
                         ])),
                       p,
-                      t,
+                      r,
                       a,
                     ),
-                    n(null));
+                    t(null));
                 }, p);
-              r.getStats()
+              i.getStats()
                 .then(function (e) {
-                  i || ((i = !0), window.clearTimeout(l), n(e));
+                  n || ((n = !0), window.clearTimeout(l), t(e));
                 })
                 .catch(function (e) {
-                  i ||
-                    ((i = !0),
+                  n ||
+                    ((n = !0),
                     window.clearTimeout(l),
                     o("WALogger").WARN(
                       s ||
@@ -67,148 +70,145 @@ __d(
                           ": ",
                           "",
                         ])),
-                      t,
+                      r,
                       a,
                       e,
                     ),
-                    n(null));
+                    t(null));
                 });
             });
-            if (l != null) {
-              var h = null,
-                y = null,
-                C = "N/A",
-                b = "N/A",
-                v = [];
-              if (
-                (l.forEach(function (e) {
-                  if (e.type === "transport") {
-                    var t = e;
-                    (t.selectedCandidatePairId != null &&
-                      (y = t.selectedCandidatePairId),
-                      (C =
-                        "dtls=" +
-                        _(t.dtlsState) +
-                        " " +
-                        ("tx=" + _(t.bytesSent) + " ") +
-                        ("rx=" + _(t.bytesReceived) + " ") +
-                        ("pair=" + _(t.selectedCandidatePairId))));
-                  } else if (e.type === "candidate-pair" && e.nominated === !0)
-                    h = e;
-                  else if (e.type === "sctp-transport") {
-                    var n = e;
-                    b =
-                      "srtt=" +
-                      f(n.smoothedRoundTripTime) +
+          if (h != null) {
+            var y = null,
+              C = null,
+              b = "N/A",
+              v = "N/A",
+              S = [];
+            if (
+              (h.forEach(function (e) {
+                if (e.type === "transport") {
+                  var t = e;
+                  (t.selectedCandidatePairId != null &&
+                    (C = t.selectedCandidatePairId),
+                    (b =
+                      "dtls=" +
+                      _(t.dtlsState) +
                       " " +
-                      ("cwnd=" + _(n.congestionWindow) + " ") +
-                      ("rwnd=" + _(n.receiverWindow) + " ") +
-                      ("mtu=" + _(n.mtu) + " ") +
-                      ("unack=" + _(n.unackData));
-                  } else if (e.type === "data-channel") {
-                    var r,
-                      o = e;
-                    v.push(
-                      "id=" +
-                        _((r = o.dataChannelIdentifier) != null ? r : e.id) +
-                        " " +
-                        ("label=" + _(o.label) + " ") +
-                        ("state=" + _(o.state) + " ") +
-                        ("msgTx=" + _(o.messagesSent) + " ") +
-                        ("msgRx=" + _(o.messagesReceived) + " ") +
-                        ("bytesTx=" + _(o.bytesSent) + " ") +
-                        ("bytesRx=" + _(o.bytesReceived)),
-                    );
-                  }
-                }),
-                h == null && y != null)
-              ) {
-                var S = l.get(y);
-                S != null && S.type === "candidate-pair" && (h = S);
-              }
-              var R = "N/A",
-                L = h;
-              if (L != null) {
-                var E =
-                    L.localCandidateId != null
-                      ? l.get(L.localCandidateId)
-                      : null,
-                  k =
-                    L.remoteCandidateId != null
-                      ? l.get(L.remoteCandidateId)
-                      : null,
-                  I =
-                    E != null &&
-                    (E.type === "local-candidate" ||
-                      E.type === "remote-candidate")
-                      ? E
-                      : null,
-                  T =
-                    k != null &&
-                    (k.type === "local-candidate" ||
-                      k.type === "remote-candidate")
-                      ? k
-                      : null;
-                R =
-                  "state=" +
-                  _(L.state) +
-                  " " +
-                  ("nominated=" + _(L.nominated) + " ") +
-                  ("rtt=" + f(L.currentRoundTripTime) + " ") +
-                  ("tx=" + _(L.bytesSent) + " ") +
-                  ("rx=" + _(L.bytesReceived) + " ") +
-                  ("local=" + g(I) + " ") +
-                  ("remote=" + g(T));
-              }
-              (o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] getStats snapshot ",
+                      ("tx=" + _(t.bytesSent) + " ") +
+                      ("rx=" + _(t.bytesReceived) + " ") +
+                      ("pair=" + _(t.selectedCandidatePairId))));
+                } else if (e.type === "candidate-pair" && e.nominated === !0)
+                  y = e;
+                else if (e.type === "sctp-transport") {
+                  var n = e;
+                  v =
+                    "srtt=" +
+                    f(n.smoothedRoundTripTime) +
+                    " " +
+                    ("cwnd=" + _(n.congestionWindow) + " ") +
+                    ("rwnd=" + _(n.receiverWindow) + " ") +
+                    ("mtu=" + _(n.mtu) + " ") +
+                    ("unack=" + _(n.unackData));
+                } else if (e.type === "data-channel") {
+                  var r,
+                    o = e;
+                  S.push(
+                    "id=" +
+                      _((r = o.dataChannelIdentifier) != null ? r : e.id) +
+                      " " +
+                      ("label=" + _(o.label) + " ") +
+                      ("state=" + _(o.state) + " ") +
+                      ("msgTx=" + _(o.messagesSent) + " ") +
+                      ("msgRx=" + _(o.messagesReceived) + " ") +
+                      ("bytesTx=" + _(o.bytesSent) + " ") +
+                      ("bytesRx=" + _(o.bytesReceived)),
+                  );
+                }
+              }),
+              y == null && C != null)
+            ) {
+              var R = h.get(C);
+              R != null && R.type === "candidate-pair" && (y = R);
+            }
+            var L = "N/A",
+              E = y;
+            if (E != null) {
+              var k =
+                  E.localCandidateId != null ? h.get(E.localCandidateId) : null,
+                I =
+                  E.remoteCandidateId != null
+                    ? h.get(E.remoteCandidateId)
+                    : null,
+                T =
+                  k != null &&
+                  (k.type === "local-candidate" ||
+                    k.type === "remote-candidate")
+                    ? k
+                    : null,
+                D =
+                  I != null &&
+                  (I.type === "local-candidate" ||
+                    I.type === "remote-candidate")
+                    ? I
+                    : null;
+              L =
+                "state=" +
+                _(E.state) +
+                " " +
+                ("nominated=" + _(E.nominated) + " ") +
+                ("rtt=" + f(E.currentRoundTripTime) + " ") +
+                ("tx=" + _(E.bytesSent) + " ") +
+                ("rx=" + _(E.bytesReceived) + " ") +
+                ("local=" + g(T) + " ") +
+                ("remote=" + g(D));
+            }
+            (o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [SCTP] getStats snapshot ",
+                  " reason=",
+                  " pc=",
+                  " ice=",
+                  " workerTxPkt=",
+                  " workerRxPkt=",
+                  " transport=",
+                  " sctp=",
+                  "",
+                ])),
+              r,
+              a,
+              i.connectionState,
+              i.iceConnectionState,
+              l.sentPackets,
+              l.receivedPackets,
+              b,
+              v,
+            ),
+              o("WALogger").WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [SCTP] getStats datachannel ",
                     " reason=",
-                    " pc=",
-                    " ice=",
-                    " workerTxPkt=",
-                    " workerRxPkt=",
-                    " transport=",
-                    " sctp=",
+                    " ",
                     "",
                   ])),
-                t,
+                r,
                 a,
-                r.connectionState,
-                r.iceConnectionState,
-                i.sentPackets,
-                i.receivedPackets,
-                C,
-                b,
+                S.length > 0 ? S.join(" ; ") : "N/A",
               ),
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SCTP] getStats datachannel ",
-                      " reason=",
-                      " ",
-                      "",
-                    ])),
-                  t,
-                  a,
-                  v.length > 0 ? v.join(" ; ") : "N/A",
-                ),
-                o("WALogger").WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SCTP] getStats pair ",
-                      " reason=",
-                      " ",
-                      "",
-                    ])),
-                  t,
-                  a,
-                  R,
-                ));
-            }
-          },
-        )),
+              o("WALogger").WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [SCTP] getStats pair ",
+                    " reason=",
+                    " ",
+                    "",
+                  ])),
+                r,
+                a,
+                L,
+              ));
+          }
+        })),
         y.apply(this, arguments)
       );
     }

@@ -170,7 +170,7 @@ __d(
           (o("WAWebUtilsLogQplEvents").qplStartProfileCatsView("Search"), O(t));
       };
       return c.jsxs(r("WAWebSavePopup.react"), {
-        title: s._(/*BTDS*/ "Choose up to three categories"),
+        title: s._(/*BTDS*/ "Choose up to 3 categories"),
         modalConfig: {
           type: o("WAWebModal.react").ModalTheme.BusinessCategories,
         },

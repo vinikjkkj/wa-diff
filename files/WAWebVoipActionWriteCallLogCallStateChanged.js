@@ -122,12 +122,28 @@ __d(
         f.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function g(e, t) {
+      return o("WAWebVoipCallStateUtils").isCallTerminal(e.callState)
+        ? t != null &&
+          t !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+          t !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
+          ? t
+          : o("WAWebCallLogUtils").getCallOutcomeFromCallResultNative(
+              e.callResult,
+              e.callDuration,
+            )
+        : t == null || t === o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
+          ? o("WAWebCallLogUtils").getCallOutcomeFromCallState(e.callState)
+          : t != null
+            ? t
+            : o("WAWebCallLogUtils").getCallOutcomeFromCallState(e.callState);
     }
-    function h() {
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
           try {
             var t,
@@ -155,17 +171,17 @@ __d(
               s = i.chatId,
               u = i.fromMe,
               f = i.msgKeyId,
-              g = i.participant,
-              h = i.viewMode,
-              y = new (r("WAWebMsgKey"))({
+              h = i.participant,
+              y = i.viewMode,
+              C = new (r("WAWebMsgKey"))({
                 remote: s,
-                participant: g,
+                participant: h,
                 fromMe: u,
                 id: f,
               }),
-              C = o("WAWebMsgCollection").MsgCollection.get(y);
+              b = o("WAWebMsgCollection").MsgCollection.get(C);
             if (a)
-              return C != null
+              return b != null
                 ? (o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -174,13 +190,13 @@ __d(
                       ])),
                     e.linkToken,
                   ),
-                  C)
+                  b)
                 : _({
                     callCreatorUserWid: l,
                     callInfo: e,
                     chatId: s,
-                    id: y,
-                    viewMode: h,
+                    id: C,
+                    viewMode: y,
                   });
             if (e.creatorDeviceJid == null) {
               o("WALogger").LOG(
@@ -191,34 +207,23 @@ __d(
               );
               return;
             }
-            var b = e.creatorDeviceJid,
-              v = {
-                id: y,
+            var v = e.creatorDeviceJid,
+              S = {
+                id: C,
                 type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                 kind: o("WAWebMsgType").MsgKind.CallLog,
-                viewMode: h,
-                callOutcome: (function (t, n) {
-                  return t == null ||
-                    t === o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
-                    ? o("WAWebCallLogUtils").getCallOutcomeFromCallState(
-                        e.callState,
-                      )
-                    : (n = C == null ? void 0 : C.callOutcome) != null
-                      ? n
-                      : o("WAWebCallLogUtils").getCallOutcomeFromCallState(
-                          e.callState,
-                        );
-                })(C == null ? void 0 : C.callOutcome),
+                viewMode: y,
+                callOutcome: g(e, b == null ? void 0 : b.callOutcome),
                 isVideoCall: e.videoEnabled,
-                callCreator: b,
+                callCreator: v,
                 from: l,
                 to: s,
                 t:
-                  (t = C == null ? void 0 : C.t) != null
+                  (t = b == null ? void 0 : b.t) != null
                     ? t
                     : o("WATimeUtils").unixTime(),
                 callDuration:
-                  (n = C == null ? void 0 : C.callDuration) != null ? n : 0,
+                  (n = b == null ? void 0 : b.callDuration) != null ? n : 0,
                 callParticipants: e.participants.map(function (e) {
                   return { participant: e.jid, outcome: e.state };
                 }),
@@ -229,22 +234,22 @@ __d(
                   e.callDuration,
                 ),
               },
-              S =
+              R =
                 o(
                   "WAWebVoipCallLogAnrGating",
                 ).isWebVoipCallLogAnrOptimizationEnabled() &&
-                C != null &&
+                b != null &&
                 !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState),
-              R = yield o(
+              L = yield o(
                 "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(s, v, !1, !0, S);
+              ).writeVoipCallLogMessageImpl(s, S, !1, !0, R);
             return (
-              R != null &&
+              L != null &&
                 o("WAWebVoipCallStateUtils").isCallTerminal(e.callState) &&
                 o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(
                   e.callId,
                 ),
-              R
+              L
             );
           } catch (e) {
             o("WALogger")
@@ -260,10 +265,11 @@ __d(
               .sendLogs("voip: writeCallLog: callStateChanged");
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.generateCallLogFromCallStateChangedEvent = g;
+    ((l.resolveCallOutcome = g),
+      (l.generateCallLogFromCallStateChangedEvent = h));
   },
   98,
 );

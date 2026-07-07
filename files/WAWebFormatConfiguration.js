@@ -146,7 +146,8 @@ __d(
         M = N === void 0 ? !1 : N,
         w = a.boldXstyle,
         A = a.codeXstyle,
-        F =
+        F = a.linkXstyle,
+        O =
           f && m != null && m.length > 0
             ? [
                 [
@@ -155,13 +156,13 @@ __d(
                 ],
               ]
             : null,
-        O;
+        B;
       return (
         (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
           o("WAWebBotBaseGating").isBotEnabled()) &&
           b &&
           b.length > 0 &&
-          (O = [
+          (B = [
             [
               o("WAWebBotCommandFormatMutator").BotCommand,
               { commands: b, selectable: p },
@@ -212,7 +213,7 @@ __d(
             ? [
                 [
                   r("WAWebLinkFormatMutator"),
-                  { links: c, selectable: p, onLinkClick: x },
+                  { links: c, selectable: p, onLinkClick: x, linkXstyle: F },
                 ],
               ]
             : null,
@@ -237,7 +238,7 @@ __d(
               ]
             : null,
           !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(p) : null,
-          F,
+          O,
           e({ messageHasSpoiler: M, selectable: p }),
           [
             [r("WAWebBoldFormatMutator"), { selectable: p, boldXstyle: w }],
@@ -253,7 +254,7 @@ __d(
                 ],
               ]
             : null,
-          O,
+          B,
           P != null
             ? [
                 [

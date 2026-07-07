@@ -88,6 +88,18 @@ __d(
     function C() {
       return r("justknobx")._("4412");
     }
+    function b() {
+      return r("justknobx")._("1666");
+    }
+    function v() {
+      return o("WAWebABProps")
+        .getABPropConfigValue("ctwa_native_ads_inline_notice_modules")
+        .split(",")
+        .map(function (e) {
+          return e.trim();
+        })
+        .filter(Boolean);
+    }
     ((l.nativeAdsDogfoodEnabled = e),
       (l.nativeAdsCreationHawkToolEnabled = s),
       (l.nativeAdsCreationTargetingModalHawkToolEnabled = u),
@@ -100,7 +112,9 @@ __d(
       (l.continuousDurationEnabled = g),
       (l.ctwaSabrEnabled = h),
       (l.ctwaBudgetRecommendationEnabled = y),
-      (l.minMaxBudgetFixesEnabled = C));
+      (l.minMaxBudgetFixesEnabled = C),
+      (l.inlineNoticePartitionEnabled = b),
+      (l.ctwaInlineNoticeModules = v));
   },
   98,
 );
