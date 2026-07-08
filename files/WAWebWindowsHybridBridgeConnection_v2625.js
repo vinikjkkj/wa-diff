@@ -98,7 +98,7 @@ __d(
                     !a.$2 &&
                     (((e = o("WAComms").getComms()) == null
                       ? void 0
-                      : e.socket) == null ||
+                      : e.isSocketConnected()) !== !0 ||
                       o("WAWebSocketModel").Socket.stream ===
                         o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED)
                   ) {
@@ -217,7 +217,7 @@ __d(
                     t =
                       ((e = o("WAComms").getComms()) == null
                         ? void 0
-                        : e.socket) != null;
+                        : e.isSocketConnected()) === !0;
                   (t ||
                     ((a.$2 = !0),
                     o("WAComms").closeSocketAndResume(),

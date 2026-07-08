@@ -54,27 +54,47 @@ __d(
       O,
       B,
       W,
-      q = null,
-      U = null,
-      V = 1,
-      H = 0,
-      G = (function () {
+      q,
+      U,
+      V = null,
+      H = function (t, n, r) {
+        return new j(t, n, r);
+      };
+    function G(e) {
+      H = e;
+    }
+    var z = 0,
+      j = (function () {
         function t(t, n, r) {
           var a = this,
             i,
             l,
-            c;
-          ((this.nextSocketId = 1),
+            E;
+          ((this.$1 = null),
+            (this.$2 = 1),
+            (this.nextSocketId = 1),
             (this.pendingIqs = new Map()),
             (this.ackHandlers = []),
             (this.pendingSmaxStanzas = new Map()),
-            (this.$2 = new (o("WAResolvable").Resolvable)()),
+            (this.$4 = new (o("WAResolvable").Resolvable)()),
             (this.socketAbortController = null),
             (this.activePing = null),
-            (this.$3 = new Set()),
-            (this.socketId = H),
+            (this.$5 = new Set()),
+            (this.socketId = z),
             (this.socket = null),
             (this.softCloseSocket = null),
+            (this.setOnBeforeCastStanzaForE2E = function (e) {
+              a.config.handlers.onBeforeCastStanzaForE2E = e;
+            }),
+            (this.getAndIncrementNextOrderedId = function () {
+              return a.$2++;
+            }),
+            (this.waitForNetworkHealth = function () {
+              return (
+                a.$1 || (a.$1 = new (o("WAResolvable").Resolvable)()),
+                a.$1.promise
+              );
+            }),
             (this.handleStanza = function (t, n, r) {
               var i = o("WASmaxParseUtils").attrString(t, "id");
               if (i.success && t.tag !== "receipt") {
@@ -88,7 +108,7 @@ __d(
                     "NO_ACK"
                   );
               }
-              var c = ge(t);
+              var c = ye(t);
               if (c != null) {
                 var d = a.pendingIqs.get(c);
                 d
@@ -113,17 +133,12 @@ __d(
               else
                 return t.tag === "failure" &&
                   a.config.shouldBlockReceivingUntilSuccess
-                  ? a.$1(t, n, r)
-                  : a.$2.promise.then(function () {
-                      return a.$1(t, n, r);
+                  ? a.$3(t, n, r)
+                  : a.$4.promise.then(function () {
+                      return a.$3(t, n, r);
                     });
               return "NO_ACK";
             }),
-            (this.healthCheckTimer = new (o("WAShiftTimer").ShiftTimer)(
-              function () {
-                a.socketId && a.sendPing();
-              },
-            )),
             (this.deadSocketTimer = new (o("WAShiftTimer").ShiftTimer)(
               function (e) {
                 e === a.socketId &&
@@ -138,7 +153,280 @@ __d(
                   a.softCloseSocket && a.softCloseSocket());
               },
             )),
-            (this.$1 = t),
+            (this.healthCheckTimer = new (o("WAShiftTimer").ShiftTimer)(
+              function () {
+                a.socketId && a.sendPing();
+              },
+            )),
+            (this.stopComms = function () {
+              var e;
+              (a.socketLoop.endWithValue(),
+                (e = a.socket) == null || e.close());
+            }),
+            (this.closeSocketAndPreventRetry = function () {
+              (a.socketLoop.endWithValue(),
+                a.socket &&
+                  (o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[comms] closeSocketAndPreventRetry called",
+                      ])),
+                  ),
+                  a.socket.close()));
+            }),
+            (this.closeSocketAndPause = function () {
+              (a.socketLoop.pauseOnNextIteration(),
+                a.socket &&
+                  (o("WALogger").LOG(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[comms] closeSocketAndPause called",
+                      ])),
+                  ),
+                  a.socket.close()));
+            }),
+            (this.closeSocketAndResume = function () {
+              (a.socketLoop.unpause(),
+                a.socket &&
+                  (o("WALogger").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[comms] closeSocketAndResume called",
+                      ])),
+                  ),
+                  a.socket.close()));
+            }),
+            (this.openSocketLoop = function () {
+              a.socketLoop.start();
+            }),
+            (this.maybeResetSocketLoop = function () {
+              (o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[comms] maybeResetSocketLoop",
+                  ])),
+              ),
+                a.isSocketConnected() || a.socketLoop.reset());
+            }),
+            (this.forceResetSocketLoop = function () {
+              a.socketLoop.reset();
+            }),
+            (this.forceAbortSocketConnection = function () {
+              var e;
+              ((e = a.socketAbortController) == null || e.abort(),
+                a.softCloseSocket == null || a.softCloseSocket());
+            }),
+            (this.closeSocket = function () {
+              a.socket &&
+                (o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[comms] Socket ",
+                      " closed",
+                    ])),
+                  a.socketId,
+                ),
+                o("WALogger").LOG(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[comms] closeSocket called",
+                    ])),
+                ),
+                a.socket.close());
+            }),
+            (this.closeSocketInDebugMode = function () {
+              var e = a.socket;
+              e &&
+                (o("WALogger").LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "closeSocket called",
+                    ])),
+                ),
+                e.setOnClose(function () {
+                  var e = a.socketId;
+                  (o("WALogger").LOG(
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                        "[comms] Socket ",
+                        " closed",
+                      ])),
+                    e,
+                  ),
+                    a.activePing &&
+                      e === a.activePing.socketId &&
+                      (a.activePing.handler.resolve(), (a.activePing = null)),
+                    a
+                      .filterPending(function (t) {
+                        return t.attachedToSocketId === e;
+                      })
+                      .forEach(function (e) {
+                        return void a.removeHandler(e);
+                      }),
+                    e === a.socketId && ((a.socketId = z), (a.socket = null)));
+                }),
+                e.close());
+            }),
+            (this.onStreamErrorReceived = function () {
+              a.socketLoop.cancelReset();
+            }),
+            (this.cancelDeadSocketTimer = function () {
+              a.deadSocketTimer.cancel();
+            }),
+            (this.socketLoopIteration = function () {
+              var e,
+                t = a.nextSocketId++;
+              o("WALogger").LOG(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "[comms] Socket ",
+                    " opening",
+                  ])),
+                t,
+              );
+              var n = function () {
+                a.onConnectionChange("in_handshake");
+              };
+              return (
+                a.config.handlers.onSocketLoopIteration == null ||
+                  a.config.handlers.onSocketLoopIteration(
+                    a.socketAbortController,
+                  ),
+                typeof AbortController == "function" &&
+                  (a.socketAbortController = new AbortController()),
+                a.config
+                  .openChatSocket(
+                    n,
+                    (e = a.socketAbortController) == null ? void 0 : e.signal,
+                  )
+                  .then(function (e) {
+                    if (e.success) {
+                      var n = e.value;
+                      a.config.handlers.onSocketOpen == null ||
+                        a.config.handlers.onSocketOpen();
+                      var r = new (o("WAResolvable").Resolvable)();
+                      return (
+                        o("WALogger").LOG(
+                          C ||
+                            (C = babelHelpers.taggedTemplateLiteralLoose([
+                              "[comms] Socket ",
+                              " opened",
+                            ])),
+                          t,
+                        ),
+                        (a.socketId = t),
+                        (a.socket = n),
+                        (a.softCloseSocket = function () {
+                          ((a.softCloseSocket = null),
+                            a.socket &&
+                              a.config.shouldCloseStaleSocket &&
+                              (a.socket.close(), (a.socket = null)),
+                            r.resolve());
+                        }),
+                        a.socketLoop.resetTimeoutAfter(1e4),
+                        a.deadSocketTimer.cancel(),
+                        a.maybeScheduleHealthCheck(),
+                        n.setOnFrame(function (e) {
+                          return a.parseAndHandleStanza(t, e);
+                        }),
+                        n.setOnClose(function () {
+                          (o("WALogger").LOG(
+                            b ||
+                              (b = babelHelpers.taggedTemplateLiteralLoose([
+                                "[comms] Socket ",
+                                " closed",
+                              ])),
+                            t,
+                          ),
+                            a.activePing &&
+                              t === a.activePing.socketId &&
+                              (a.activePing.handler.resolve(),
+                              (a.activePing = null)),
+                            a
+                              .filterPending(function (e) {
+                                return e.attachedToSocketId === t;
+                              })
+                              .forEach(function (e) {
+                                return void a.removeHandler(e);
+                              }),
+                            t === a.socketId &&
+                              ((a.socketId = z),
+                              (a.socket = null),
+                              a.onConnectionChange("disconnected"),
+                              a.config.handlers.onDisconnect == null ||
+                                a.config.handlers.onDisconnect(),
+                              r.resolve()));
+                        }),
+                        a.onConnectionChange("connected"),
+                        a.config.handlers.onConnect == null ||
+                          a.config.handlers.onConnect(),
+                        a
+                          .filterPending(function (e) {
+                            return !e.attachedToSocketId;
+                          })
+                          .sort(function (e, t) {
+                            return e.orderedId - t.orderedId;
+                          })
+                          .forEach(function (e) {
+                            switch (e.type) {
+                              case "smax":
+                              case "iq":
+                                a.maybeSendPendingStanza(e);
+                                break;
+                              case "ack":
+                                a.callStanza(e.stanza);
+                                break;
+                              default:
+                                e.type;
+                                break;
+                            }
+                          }),
+                        r.promise
+                      );
+                    } else {
+                      var i = e.error;
+                      switch (i) {
+                        case "max-hunters":
+                          o("WALogger").WARN(
+                            v ||
+                              (v = babelHelpers.taggedTemplateLiteralLoose([
+                                "[comms] socketLoopIteration socket closed while in noise handshake using treasureHunt strategy",
+                              ])),
+                          );
+                          break;
+                        case "disconnected":
+                          o("WALogger").WARN(
+                            S ||
+                              (S = babelHelpers.taggedTemplateLiteralLoose([
+                                "[comms] socketLoopIteration socket disconnected while in noise handshake",
+                              ])),
+                          );
+                          break;
+                        default:
+                          return;
+                      }
+                    }
+                  })
+                  .catch(function (e) {
+                    e instanceof o("WAErrors").Disconnected
+                      ? o("WALogger").LOG(
+                          R ||
+                            (R = babelHelpers.taggedTemplateLiteralLoose([
+                              "[comms] socketLoopIteration socket closed while in noise handshake",
+                            ])),
+                        )
+                      : o("WALogger").ERROR(
+                          L ||
+                            (L = babelHelpers.taggedTemplateLiteralLoose([
+                              "[comms] socketLoopIteration failed ",
+                              "",
+                            ])),
+                          e,
+                        );
+                  })
+              );
+            }),
+            (this.$3 = t),
             (this.onConnectionChange = o(
               "WANotifyConnectionChangeFactory",
             ).notifyConnectionChangeFactory(
@@ -151,10 +439,10 @@ __d(
             (this.config = n),
             (this.socketLoop = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
               name: "MainSocketLoop",
-              code: re,
+              code: ae,
               timer:
-                (c = n.socketReconnectBackoffAlgo) != null
-                  ? c
+                (E = n.socketReconnectBackoffAlgo) != null
+                  ? E
                   : {
                       jitter: 0.1,
                       max: n.maxSocketLoopWaitTime,
@@ -167,6 +455,20 @@ __d(
         }
         var a = t.prototype;
         return (
+          (a.setSocket = function (t) {
+            this.socket = t;
+          }),
+          (a.addAckHandler = function (t) {
+            this.ackHandlers.push(t);
+          }),
+          (a.removeAckHandler = function (t) {
+            var e = this.ackHandlers.indexOf(t);
+            e !== -1 &&
+              o("WAArrayUtils").removeIndexWithoutPreservingOrder(
+                this.ackHandlers,
+                e,
+              );
+          }),
           (a.filterPending = function (t) {
             var e = [];
             function n(n) {
@@ -197,8 +499,8 @@ __d(
               return;
             } else
               o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
                     "Comms has no open socket, will resend stanza when socket opens",
                   ])),
               );
@@ -251,8 +553,8 @@ __d(
               if (l != null)
                 return (
                   o("WALogger").DEV_XMPP(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose(
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose(
                         [
                           "Dropping stanza since onBeforeCastStanza matched:\n",
                           ". We return mock response directly.",
@@ -265,34 +567,34 @@ __d(
                     t,
                   ),
                   o("WALogger").DEV_XMPP(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose(
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose(
                         ["--- Receive (via SMAX+E2E) ---\n", ""],
                         ["--- Receive (via SMAX+E2E) ---\\n", ""],
                       )),
                     l,
                   ),
                   o("WALogger").ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
                         "Dropping stanza since onBeforeCastStanza matched. We return mock response directly.",
                       ])),
                   ),
                   Array.isArray(l)
-                    ? (W || (W = n("Promise"))).all(
+                    ? (U || (U = n("Promise"))).all(
                         l.map(function (t) {
-                          return (W || (W = n("Promise"))).resolve(
-                            e.handleStanza(t, e.socketId, H),
+                          return (U || (U = n("Promise"))).resolve(
+                            e.handleStanza(t, e.socketId, z),
                           );
                         }),
                       )
-                    : (this.handleStanza(l, this.socketId, H),
-                      (W || (W = n("Promise"))).resolve())
+                    : (this.handleStanza(l, this.socketId, z),
+                      (U || (U = n("Promise"))).resolve())
                 );
             } catch (e) {
               o("WALogger").DEV_XMPP(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose(
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose(
                     [
                       "Error in onBeforeCastStanza, we consumed and continue with normal stanza sending to the server:\n",
                       "",
@@ -309,8 +611,8 @@ __d(
             try {
               return (
                 o("WALogger").DEV_XMPP(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose(
+                  x ||
+                    (x = babelHelpers.taggedTemplateLiteralLoose(
                       ["--- Sending ---\n", ""],
                       ["--- Sending ---\\n", ""],
                     )),
@@ -325,8 +627,8 @@ __d(
                   .catch(function (e) {
                     if (
                       (o("WALogger").ERROR(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                        $ ||
+                          ($ = babelHelpers.taggedTemplateLiteralLoose([
                             "castStanza async error ",
                             "",
                           ])),
@@ -334,20 +636,20 @@ __d(
                       ),
                       e instanceof o("WAErrors").BufferTooLargeError)
                     )
-                      return (W || (W = n("Promise"))).reject(e);
+                      return (U || (U = n("Promise"))).reject(e);
                   })
               );
             } catch (e) {
               o("WALogger").ERROR(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                P ||
+                  (P = babelHelpers.taggedTemplateLiteralLoose([
                     "castStanza error ",
                     "",
                   ])),
                 e,
               );
             }
-            return (W || (W = n("Promise"))).resolve();
+            return (U || (U = n("Promise"))).resolve();
           }),
           (a.socketOrThrow = function (t) {
             var e = this.socket;
@@ -357,26 +659,27 @@ __d(
           (a.startHandlingRequests = function () {
             return (
               o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                N ||
+                  (N = babelHelpers.taggedTemplateLiteralLoose([
                     "Comms.startHandlingRequests",
                   ])),
               ),
-              this.$2.resolve(),
-              this.$2.promise.then(function () {})
+              this.$4.resolve(),
+              this.$4.promise.then(function () {})
             );
           }),
           (a.parseAndHandleStanza = function (t, n) {
             var e = this;
             t === this.socketId &&
-              (this.deadSocketTimer.cancel(), U && (U.resolve(), (U = null)));
+              (this.deadSocketTimer.cancel(),
+              this.$1 && (this.$1.resolve(), (this.$1 = null)));
             var r = o("WAWap")
               .decodeStanza(n, this.gzipInflate)
               .catch(function (e) {
                 throw (
                   o("WALogger").ERROR(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                    M ||
+                      (M = babelHelpers.taggedTemplateLiteralLoose([
                         "Failure parsing stanza!",
                       ])),
                   ),
@@ -385,8 +688,8 @@ __d(
               })
               .then(function (r) {
                 (o("WALogger").DEV_XMPP(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose(
+                  w ||
+                    (w = babelHelpers.taggedTemplateLiteralLoose(
                       ["--- Receiving ---\n", ""],
                       ["--- Receiving ---\\n", ""],
                     )),
@@ -395,7 +698,7 @@ __d(
                   e.config.handlers.onHandleStanza == null ||
                     e.config.handlers.onHandleStanza(r, t, n.byteLength));
                 var a = e.activePing;
-                return a && a.socketId === t && a.stanzaId === ge(r)
+                return a && a.socketId === t && a.stanzaId === ye(r)
                   ? ((e.activePing = null),
                     a.handler.resolve(r),
                     e.maybeScheduleHealthCheck(),
@@ -406,8 +709,8 @@ __d(
                 if (t === e.socketId) {
                   if (n === "CLOSE_SOCKET") {
                     o("WALogger").LOG(
-                      v ||
-                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                      A ||
+                        (A = babelHelpers.taggedTemplateLiteralLoose([
                           "[comms] job response is CLOSE_SOCKET",
                         ])),
                     );
@@ -417,9 +720,9 @@ __d(
                   return "NO_ACK";
                 }
               });
-            (this.$3.add(r),
+            (this.$5.add(r),
               r.finally(function () {
-                return void e.$3.delete(r);
+                return void e.$5.delete(r);
               }));
           }),
           (a.handleAck = function (t) {
@@ -439,8 +742,8 @@ __d(
                 this.maybeScheduleHealthCheck());
             } else
               o("WALogger").WARN(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                F ||
+                  (F = babelHelpers.taggedTemplateLiteralLoose([
                     "handleAck: unrecognized ",
                     "",
                   ])),
@@ -471,18 +774,18 @@ __d(
             }
             r === "disconnect"
               ? t.resolve(
-                  (W || (W = n("Promise"))).reject(
+                  (U || (U = n("Promise"))).reject(
                     new (o("WAErrors").Disconnected)(),
                   ),
                 )
               : r === "abort"
                 ? t.resolve(
-                    (W || (W = n("Promise"))).reject(
+                    (U || (U = n("Promise"))).reject(
                       new (o("WAErrors").Aborted)(),
                     ),
                   )
                 : t.resolve(
-                    (W || (W = n("Promise"))).reject(
+                    (U || (U = n("Promise"))).reject(
                       new (o("WAErrors").MaxRetries)(),
                     ),
                   );
@@ -502,62 +805,154 @@ __d(
               this.healthCheckTimer.onOrBefore(t);
             }
           }),
+          (a.isSocketConnected = function () {
+            return this.socket != null;
+          }),
+          (a.sendIq = function (t, a, i, l, s) {
+            var e = this;
+            return (
+              i === void 0 && (i = 0),
+              s === void 0 && (s = "iq"),
+              new (U || (U = n("Promise")))(function (u) {
+                var c = t.attrs.id;
+                if (!c || typeof c != "string")
+                  throw r("err")(
+                    "[comms] sendIq given iq without id: " + String(t),
+                  );
+                var d = e.socketId;
+                if (a && !d) {
+                  u(
+                    (U || (U = n("Promise"))).reject(
+                      new (o("WAErrors").Offline)(),
+                    ),
+                  );
+                  return;
+                }
+                var m = function (o) {
+                    o === void 0 && (o = "disconnect");
+                    var t =
+                      s === "iq"
+                        ? e.pendingIqs.get(c)
+                        : e.pendingSmaxStanzas.get(c);
+                    if (!t) {
+                      u(
+                        (U || (U = n("Promise"))).reject(
+                          r("err")(
+                            "[comms] _sendIq unexisting stanza to be cancelled: " +
+                              c,
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+                    e.removeHandler(t, o);
+                  },
+                  p = null;
+                if (i > 0) {
+                  var _ = setTimeout(m, i * 1e3);
+                  p = function () {
+                    clearTimeout(_);
+                  };
+                }
+                if (l != null)
+                  if (l.aborted) {
+                    u(
+                      (U || (U = n("Promise"))).reject(
+                        new (o("WAErrors").Disconnected)(),
+                      ),
+                    );
+                    return;
+                  } else {
+                    var f = function () {
+                      m("abort");
+                    };
+                    (l.addEventListener("abort", f),
+                      (p = function () {
+                        l.removeEventListener("abort", f);
+                      }));
+                  }
+                var g = {
+                  resolve: u,
+                  stanza: t,
+                  attachedToSocketId: a ? d : z,
+                  orderedId: e.$2++,
+                  attempt: 0,
+                  cleanup: p,
+                };
+                if (s === "iq") {
+                  var h = babelHelpers.extends({ type: s }, g);
+                  (e.pendingIqs.set(c, h),
+                    e.config.handlers.onSendIq == null ||
+                      e.config.handlers.onSendIq(t),
+                    e.maybeSendPendingStanza(h));
+                } else {
+                  var y = babelHelpers.extends({ type: s }, g);
+                  (e.pendingSmaxStanzas.set(c, y), e.maybeSendPendingStanza(y));
+                }
+              })
+            );
+          }),
           (a.sendPing = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = fe("sendPing");
-              if (!e.socketId)
+              if (!this.socketId)
                 return (
                   o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                    O ||
+                      (O = babelHelpers.taggedTemplateLiteralLoose([
                         "[comms] sendPing when socket dead",
                       ])),
                   ),
                   !1
                 );
-              if (e.activePing && e.activePing.socketId === e.socketId)
+              if (this.activePing && this.activePing.socketId === this.socketId)
                 return (
                   o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
+                    B ||
+                      (B = babelHelpers.taggedTemplateLiteralLoose([
                         "[comms] sendPing ping still pending",
                       ])),
                   ),
                   !1
                 );
-              e.activePing && e.activePing.handler.resolve();
-              var t = o("WASmaxOutPingsClientRequest").makeClientRequest(),
-                n = t.attrs.id;
-              if (typeof n != "string")
+              this.activePing && this.activePing.handler.resolve();
+              var e = o("WASmaxOutPingsClientRequest").makeClientRequest(),
+                t = e.attrs.id;
+              if (typeof t != "string")
                 return (
                   o("WALogger").ERROR(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
+                    W ||
+                      (W = babelHelpers.taggedTemplateLiteralLoose([
                         "[comms] No stanzaId in ping request stanza",
                       ])),
                   ),
                   !1
                 );
-              var r = new (o("WAResolvable").Resolvable)();
-              e.activePing = { socketId: e.socketId, stanzaId: n, handler: r };
-              var a = Date.now();
-              e.callStanza(t);
-              var i = yield r.promise,
-                l = Date.now();
-              if (i) {
-                var s = o(
+              var n = new (o("WAResolvable").Resolvable)();
+              this.activePing = {
+                socketId: this.socketId,
+                stanzaId: t,
+                handler: n,
+              };
+              var r = Date.now();
+              this.callStanza(e);
+              var a = yield n.promise,
+                i = Date.now();
+              if (a) {
+                var l = o(
                   "WASmaxInPingsClientResponseServerResponse",
-                ).parseClientResponseServerResponse(i, t);
-                if (s.success) {
-                  var u = l - a,
-                    c = Math.round(u / 2),
-                    d = o("WATimeUtils").castToUnixTime(s.value.t),
-                    m = o("WABaseGlobals").newClockSkewCalculation()
-                      ? Math.round((a + c) / 1e3 - d)
-                      : Math.round(Date.now() / 1e3 - d);
+                ).parseClientResponseServerResponse(a, e);
+                if (l.success) {
+                  var s,
+                    u,
+                    c = i - r,
+                    d = Math.round(c / 2),
+                    m = o("WATimeUtils").castToUnixTime(l.value.t),
+                    p = o("WABaseGlobals").newClockSkewCalculation()
+                      ? Math.round((r + d) / 1e3 - m)
+                      : Math.round(Date.now() / 1e3 - m);
                   return (
-                    e.config.handlers.onClockSkewUpdate == null ||
-                      e.config.handlers.onClockSkewUpdate(m),
+                    (s = (u = this.config.handlers).onClockSkewUpdate) ==
+                      null || s.call(u, p),
                     !0
                   );
                 }
@@ -572,375 +967,113 @@ __d(
           t
         );
       })();
-    function z() {
-      return q;
-    }
-    function j(e, t, n, r) {
-      (r === void 0 && (r = !0),
-        !q && ((q = new G(e, t, n)), r && setTimeout(J, 0)));
-    }
     function K() {
-      var e = fe("stopComms");
-      (e.socketLoop.endWithValue(), e.socket && oe(), (q = null));
+      return V;
     }
-    function Q() {
-      var e = fe("closeSocketAndPreventRetry");
-      (e.socketLoop.endWithValue(),
-        e.socket &&
-          (o("WALogger").LOG(
-            k ||
-              (k = babelHelpers.taggedTemplateLiteralLoose([
-                "[comms] closeSocketAndPreventRetry called",
-              ])),
-          ),
-          oe()));
+    function Q(e, t, n, r) {
+      if ((r === void 0 && (r = !0), V != null)) return V;
+      var o = H(e, t, n);
+      return ((V = o), r && setTimeout(ee, 0), o);
     }
     function X() {
-      var e = fe("closeSocketAndPause");
-      (e.socketLoop.pauseOnNextIteration(),
-        e.socket &&
-          (o("WALogger").LOG(
-            I ||
-              (I = babelHelpers.taggedTemplateLiteralLoose([
-                "[comms] closeSocketAndPause called",
-              ])),
-          ),
-          oe()));
+      var e = he("stopComms");
+      (e.stopComms(), (V = null));
     }
     function Y() {
-      var e = fe("closeSocketAndResume");
-      (e.socketLoop.unpause(),
-        e.socket &&
-          (o("WALogger").LOG(
-            T ||
-              (T = babelHelpers.taggedTemplateLiteralLoose([
-                "[comms] closeSocketAndResume called",
-              ])),
-          ),
-          oe()));
+      var e = he("closeSocketAndPreventRetry");
+      e.closeSocketAndPreventRetry();
     }
     function J() {
-      fe("openSocketLoop").socketLoop.start();
+      var e = he("closeSocketAndPause");
+      e.closeSocketAndPause();
     }
     function Z() {
-      (o("WALogger").LOG(
-        D ||
-          (D = babelHelpers.taggedTemplateLiteralLoose([
-            "[comms] maybeResetSocketLoop",
-          ])),
-      ),
-        ne() || fe("maybeResetSocketLoop").socketLoop.reset());
+      var e = he("closeSocketAndResume");
+      e.closeSocketAndResume();
     }
     function ee() {
-      fe("forceResetSocketLoop").socketLoop.reset();
+      var e = he("openSocketLoop");
+      e.openSocketLoop();
     }
     function te() {
-      var e,
-        t = fe("socketAbortController");
-      ((e = t.socketAbortController) == null || e.abort(),
-        t.softCloseSocket == null || t.softCloseSocket());
+      var e = he("maybeResetSocketLoop");
+      e.maybeResetSocketLoop();
     }
     function ne() {
-      var e;
-      return !!((e = q) != null && e.socket);
+      var e = he("forceResetSocketLoop");
+      e.forceResetSocketLoop();
     }
     function re() {
-      var e,
-        t = fe("socketLoopIteration"),
-        n = t.nextSocketId++;
-      o("WALogger").LOG(
-        x ||
-          (x = babelHelpers.taggedTemplateLiteralLoose([
-            "[comms] Socket ",
-            " opening",
-          ])),
-        n,
-      );
-      var r = function () {
-        t.onConnectionChange("in_handshake");
-      };
-      return (
-        t.config.handlers.onSocketLoopIteration == null ||
-          t.config.handlers.onSocketLoopIteration(t.socketAbortController),
-        typeof AbortController == "function" &&
-          (t.socketAbortController = new AbortController()),
-        t.config
-          .openChatSocket(
-            r,
-            (e = t.socketAbortController) == null ? void 0 : e.signal,
-          )
-          .then(function (e) {
-            if (e.success) {
-              var r = e.value;
-              t.config.handlers.onSocketOpen == null ||
-                t.config.handlers.onSocketOpen();
-              var a = new (o("WAResolvable").Resolvable)();
-              return (
-                o("WALogger").LOG(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[comms] Socket ",
-                      " opened",
-                    ])),
-                  n,
-                ),
-                (t.socketId = n),
-                (t.socket = r),
-                (t.softCloseSocket = function () {
-                  ((t.softCloseSocket = null),
-                    t.socket &&
-                      t.config.shouldCloseStaleSocket &&
-                      (oe(), (t.socket = null)),
-                    a.resolve());
-                }),
-                t.socketLoop.resetTimeoutAfter(1e4),
-                t.deadSocketTimer.cancel(),
-                t.maybeScheduleHealthCheck(),
-                r.setOnFrame(function (e) {
-                  return t.parseAndHandleStanza(n, e);
-                }),
-                r.setOnClose(function () {
-                  (o("WALogger").LOG(
-                    P ||
-                      (P = babelHelpers.taggedTemplateLiteralLoose([
-                        "[comms] Socket ",
-                        " closed",
-                      ])),
-                    n,
-                  ),
-                    t.activePing &&
-                      n === t.activePing.socketId &&
-                      (t.activePing.handler.resolve(), (t.activePing = null)),
-                    t
-                      .filterPending(function (e) {
-                        return e.attachedToSocketId === n;
-                      })
-                      .forEach(function (e) {
-                        return void t.removeHandler(e);
-                      }),
-                    n === t.socketId &&
-                      ((t.socketId = H),
-                      (t.socket = null),
-                      t.onConnectionChange("disconnected"),
-                      t.config.handlers.onDisconnect == null ||
-                        t.config.handlers.onDisconnect(),
-                      a.resolve()));
-                }),
-                t.onConnectionChange("connected"),
-                t.config.handlers.onConnect == null ||
-                  t.config.handlers.onConnect(),
-                t
-                  .filterPending(function (e) {
-                    return !e.attachedToSocketId;
-                  })
-                  .sort(function (e, t) {
-                    return e.orderedId - t.orderedId;
-                  })
-                  .forEach(function (e) {
-                    switch (e.type) {
-                      case "smax":
-                      case "iq":
-                        t.maybeSendPendingStanza(e);
-                        break;
-                      case "ack":
-                        t.callStanza(e.stanza);
-                        break;
-                      default:
-                        e.type;
-                        break;
-                    }
-                  }),
-                a.promise
-              );
-            } else {
-              var i = e.error;
-              switch (i) {
-                case "max-hunters":
-                  o("WALogger").WARN(
-                    N ||
-                      (N = babelHelpers.taggedTemplateLiteralLoose([
-                        "[comms] socketLoopIteration socket closed while in noise handshake using treasureHunt strategy",
-                      ])),
-                  );
-                  break;
-                case "disconnected":
-                  o("WALogger").WARN(
-                    M ||
-                      (M = babelHelpers.taggedTemplateLiteralLoose([
-                        "[comms] socketLoopIteration socket disconnected while in noise handshake",
-                      ])),
-                  );
-                  break;
-                default:
-                  return;
-              }
-            }
-          })
-          .catch(function (e) {
-            e instanceof o("WAErrors").Disconnected
-              ? o("WALogger").LOG(
-                  w ||
-                    (w = babelHelpers.taggedTemplateLiteralLoose([
-                      "[comms] socketLoopIteration socket closed while in noise handshake",
-                    ])),
-                )
-              : o("WALogger").ERROR(
-                  A ||
-                    (A = babelHelpers.taggedTemplateLiteralLoose([
-                      "[comms] socketLoopIteration failed ",
-                      "",
-                    ])),
-                  e,
-                );
-          })
-      );
+      var e = he("socketAbortController");
+      e.forceAbortSocketConnection();
     }
     function oe() {
-      var e = fe("closeSocket");
-      e.socket &&
-        (o("WALogger").LOG(
-          F ||
-            (F = babelHelpers.taggedTemplateLiteralLoose([
-              "[comms] Socket ",
-              " closed",
-            ])),
-          e.socketId,
-        ),
-        o("WALogger").LOG(
-          O ||
-            (O = babelHelpers.taggedTemplateLiteralLoose([
-              "[comms] closeSocket called",
-            ])),
-        ),
-        e.socket.close());
+      var e;
+      return !!((e = V) != null && e.isSocketConnected());
     }
     function ae() {
-      fe("onStreamErrorReceived").socketLoop.cancelReset();
+      var e = he("socketLoopIteration");
+      return e.socketLoopIteration();
     }
     function ie() {
-      return (
-        fe("waitForConnection").sendPing(),
-        U || (U = new (o("WAResolvable").Resolvable)()),
-        U.promise
-      );
+      var e = he("closeSocket");
+      e.closeSocket();
     }
-    function le(e, t) {
-      var n = fe("castStanza");
-      n.socket
+    function le() {
+      var e = he("onStreamErrorReceived");
+      e.onStreamErrorReceived();
+    }
+    function se() {
+      var e = he("waitForConnection");
+      return (e.sendPing(), e.waitForNetworkHealth());
+    }
+    function ue(e, t) {
+      var n = he("castStanza");
+      n.isSocketConnected()
         ? n.castStanza(e, t)
         : o("WALogger").LOG(
-            B ||
-              (B = babelHelpers.taggedTemplateLiteralLoose([
+            q ||
+              (q = babelHelpers.taggedTemplateLiteralLoose([
                 "Comms has no open socket",
               ])),
           );
     }
-    function se(e) {
-      var t = fe("castStanza");
+    function ce(e) {
+      var t = he("castStanza");
       return t.socketId === e;
     }
-    function ue(e, t, a, i, l) {
-      return (
-        a === void 0 && (a = 0),
-        l === void 0 && (l = "iq"),
-        new (W || (W = n("Promise")))(function (s) {
-          var u = fe("sendIq"),
-            c = e.attrs.id;
-          if (!c || typeof c != "string")
-            throw r("err")("[comms] sendIq given iq without id: " + String(e));
-          var d = u.socketId;
-          if (t && !d) {
-            s((W || (W = n("Promise"))).reject(new (o("WAErrors").Offline)()));
-            return;
-          }
-          var m = function (t) {
-              t === void 0 && (t = "disconnect");
-              var e =
-                l === "iq" ? u.pendingIqs.get(c) : u.pendingSmaxStanzas.get(c);
-              if (!e) {
-                s(
-                  (W || (W = n("Promise"))).reject(
-                    r("err")(
-                      "[comms] _sendIq unexisting stanza to be cancelled: " + c,
-                    ),
-                  ),
-                );
-                return;
-              }
-              u.removeHandler(e, t);
-            },
-            p = null;
-          if (a > 0) {
-            var _ = setTimeout(m, a * 1e3);
-            p = function () {
-              clearTimeout(_);
-            };
-          }
-          if (i != null)
-            if (i.aborted) {
-              s(
-                (W || (W = n("Promise"))).reject(
-                  new (o("WAErrors").Disconnected)(),
-                ),
-              );
-              return;
-            } else {
-              var f = function () {
-                m("abort");
-              };
-              (i.addEventListener("abort", f),
-                (p = function () {
-                  i.removeEventListener("abort", f);
-                }));
-            }
-          var g = {
-            resolve: s,
-            stanza: e,
-            attachedToSocketId: t ? d : H,
-            orderedId: V++,
-            attempt: 0,
-            cleanup: p,
-          };
-          if (l === "iq") {
-            var h = babelHelpers.extends({ type: l }, g);
-            (u.pendingIqs.set(c, h),
-              u.config.handlers.onSendIq == null ||
-                u.config.handlers.onSendIq(e),
-              u.maybeSendPendingStanza(h));
-          } else {
-            var y = babelHelpers.extends({ type: l }, g);
-            (u.pendingSmaxStanzas.set(c, y), u.maybeSendPendingStanza(y));
-          }
-        })
-      );
+    function de(e, t, n, r, o) {
+      (n === void 0 && (n = 0), o === void 0 && (o = "iq"));
+      var a = he("sendIq");
+      return a.sendIq(e, t, n, r, o);
     }
-    function ce(e, t) {
+    function me(e, t) {
       var n,
         r,
         o,
         a = (n = t == null ? void 0 : t.withoutRetry) != null ? n : !1,
         i = (r = t == null ? void 0 : t.timeoutSeconds) != null ? r : 0,
         l = (o = t == null ? void 0 : t.signal) != null ? o : null;
-      return ue(e, a, i, l, "smax");
-    }
-    function de() {
-      var e = fe("sendPing");
-      return e.sendPing();
-    }
-    function me() {
-      return fe("startHandlingRequests").startHandlingRequests();
+      return de(e, a, i, l, "smax");
     }
     function pe() {
-      q && q.deadSocketTimer.cancel();
+      var e = he("sendPing");
+      return e.sendPing();
     }
     function _e() {
-      return q != null;
+      return he("startHandlingRequests").startHandlingRequests();
     }
-    function fe(e) {
-      if (q) return q;
+    function fe() {
+      V && V.cancelDeadSocketTimer();
+    }
+    function ge() {
+      return V != null;
+    }
+    function he(e) {
+      if (V) return V;
       throw r("err")("[comms] " + e + " called before startComms");
     }
-    function ge(e) {
+    function ye(e) {
       if (e.tag === "iq") {
         var t = e.attrs.type;
         if (t === "result" || t === "error")
@@ -948,39 +1081,42 @@ __d(
       }
       return null;
     }
-    function he() {
-      return V++;
+    function Ce() {
+      var e = he("getAndIncrementNextOrderedId");
+      return e.getAndIncrementNextOrderedId();
     }
-    function ye() {
-      ((q = null), (U = new (o("WAResolvable").Resolvable)()), (V = 1));
+    function be() {
+      V = null;
     }
-    ((l.DEFAULT_SOCKET_ID = H),
-      (l.getComms = z),
-      (l.startComms = j),
-      (l.stopComms = K),
-      (l.closeSocketAndPreventRetry = Q),
-      (l.closeSocketAndPause = X),
-      (l.closeSocketAndResume = Y),
-      (l.openSocketLoop = J),
-      (l.maybeResetSocketLoop = Z),
-      (l.forceResetSocketLoop = ee),
-      (l.forceAbortSocketConnection = te),
-      (l.isSocketConnected = ne),
-      (l.socketLoopIteration = re),
-      (l.closeSocket = oe),
-      (l.onStreamErrorReceived = ae),
-      (l.waitForConnection = ie),
-      (l.castSmaxStanza = le),
-      (l.isActiveSocket = se),
-      (l._sendIq = ue),
-      (l.sendSmaxStanza = ce),
-      (l.sendPing = de),
-      (l.startHandlingRequests = me),
-      (l.cancelDeadSocketTimer = pe),
-      (l.isCommsInitialized = _e),
-      (l.singletonOrThrowIfUninitialized = fe),
-      (l.getAndIncrementNextOrderedId = he),
-      (l.resetStateForTests = ye));
+    ((l.setCommsFactory = G),
+      (l.DEFAULT_SOCKET_ID = z),
+      (l.Comms = j),
+      (l.getComms = K),
+      (l.startComms = Q),
+      (l.stopComms = X),
+      (l.closeSocketAndPreventRetry = Y),
+      (l.closeSocketAndPause = J),
+      (l.closeSocketAndResume = Z),
+      (l.openSocketLoop = ee),
+      (l.maybeResetSocketLoop = te),
+      (l.forceResetSocketLoop = ne),
+      (l.forceAbortSocketConnection = re),
+      (l.isSocketConnected = oe),
+      (l.socketLoopIteration = ae),
+      (l.closeSocket = ie),
+      (l.onStreamErrorReceived = le),
+      (l.waitForConnection = se),
+      (l.castSmaxStanza = ue),
+      (l.isActiveSocket = ce),
+      (l._sendIq = de),
+      (l.sendSmaxStanza = me),
+      (l.sendPing = pe),
+      (l.startHandlingRequests = _e),
+      (l.cancelDeadSocketTimer = fe),
+      (l.isCommsInitialized = ge),
+      (l.singletonOrThrowIfUninitialized = he),
+      (l.getAndIncrementNextOrderedId = Ce),
+      (l.resetStateForTests = be));
   },
   98,
 );

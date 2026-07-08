@@ -174,10 +174,13 @@ __d(
         s._param("memberNames", e),
       ]);
     }
-    function f(e, t, n) {
+    function f(e) {
+      var t = e._status,
+        n = e.memberNames,
+        r = e.plural;
       return s._(/*BTDS*/ '_j{"*":"Couldn\'t add {memberNames}."}', [
-        s._plural(t),
-        s._param("memberNames", e),
+        s._plural(r),
+        s._param("memberNames", n),
       ]);
     }
     function g() {

@@ -48,18 +48,31 @@ __d(
       c,
       d = c || (c = o("react"));
     function m(e, t, n, r) {
-      return (n === void 0 && (n = []), p(e, t, void 0, n, r));
+      return (
+        n === void 0 && (n = []),
+        p({
+          createGroupArgs: e,
+          groupCreateEntryPoint: r,
+          outContacts: n,
+          participants: t,
+        })
+      );
     }
-    function p(t, a, i, l, c) {
-      (i === void 0 && (i = o("WAWebActionToast.react").genId()),
-        l === void 0 && (l = []));
-      var m = t.full,
-        f = t.parentGroupId,
-        g = t.thumb,
-        h = t.title,
-        y;
+    function p(t) {
+      var a = t.createGroupArgs,
+        i = t.groupCreateEntryPoint,
+        l = t.outContacts,
+        c = l === void 0 ? [] : l,
+        m = t.participants,
+        f = t.toastId,
+        g = f === void 0 ? o("WAWebActionToast.react").genId() : f,
+        h = a.full,
+        y = a.parentGroupId,
+        C = a.thumb,
+        b = a.title,
+        v;
       try {
-        y = a.map(function (e) {
+        v = m.map(function (e) {
           return o(
             "WAWebGroupMutationParticipantUtils",
           ).getGroupMutationParticipant(e, !0, "createGroup");
@@ -70,21 +83,21 @@ __d(
           (u || (u = n("Promise"))).resolve(void 0)
         );
       }
-      var C = l.map(function (e) {
+      var S = c.map(function (e) {
           return o("WAWebJidToWid").userJidToUserWid(e.id);
         }),
-        b = o("WAWebGroupCreateJob")
-          .createGroup(t, y, C)
+        R = o("WAWebGroupCreateJob")
+          .createGroup(a, v, S)
           .then(function (e) {
-            var n = o("WAWebWidFactory").asGroupWidOrThrow(e.wid);
+            var t = o("WAWebWidFactory").asGroupWidOrThrow(e.wid);
             (o("WAWebCoreActionsODS").logGroupCreate(),
-              c != null &&
+              i != null &&
                 new (o("WAWebGroupCreateWamEvent").GroupCreateWamEvent)({
-                  ephemeralityDuration: t.ephemeralDuration,
-                  groupCreateEntryPoint: c,
-                  hasGroupName: h.trim().length > 0,
+                  ephemeralityDuration: a.ephemeralDuration,
+                  groupCreateEntryPoint: i,
+                  hasGroupName: b.trim().length > 0,
                 }).commit());
-            var r = e.participants.map(function (e) {
+            var n = e.participants.map(function (e) {
               return {
                 userWid: e.wid,
                 username: e.username,
@@ -94,20 +107,19 @@ __d(
               };
             });
             return {
-              gid: n,
-              participants: r,
+              gid: t,
+              participants: n,
               invitedOutContacts: e.invitedOutContacts,
             };
           }),
-        v = new (o("WAWebActionToast.react").ActionType)(
+        L = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Creating group"),
         ),
-        S = b
-          .then(function (e) {
-            return new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Created group"),
-            );
-          })
+        E = R.then(function (e) {
+          return new (o("WAWebActionToast.react").ActionType)(
+            s._(/*BTDS*/ "Created group"),
+          );
+        })
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
@@ -153,7 +165,7 @@ __d(
               },
             ),
           )
-          .catch(function (n) {
+          .catch(function (t) {
             if (
               (o("WAWebCoreActionsODS").logGroupCreateError(),
               o("WALogger").WARN(
@@ -162,23 +174,23 @@ __d(
                     "models:chatCollection:createGroup dropped",
                   ])),
               ),
-              n.status === 429 &&
+              t.status === 429 &&
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_group_create_or_add_rate_limiting_error_ux",
                 ))
             )
-              switch (n.name) {
+              switch (t.name) {
                 case "GroupAddParticipantTimeRateLimitServerError":
                   return new (o("WAWebActionToast.react").ActionType)(
                     o(
                       "WAWebModifyParticipantsRateLimitText",
-                    ).WAWebModifyParticipantsTimeRateLimitText(n),
+                    ).WAWebModifyParticipantsTimeRateLimitText(t),
                   );
                 case "GroupAddParticipantCountRateLimitServerError":
                   return new (o("WAWebActionToast.react").ActionType)(
                     o(
                       "WAWebModifyParticipantsRateLimitText",
-                    ).WAWebModifyParticipantsCountRateLimitText(n),
+                    ).WAWebModifyParticipantsCountRateLimitText(t),
                   );
               }
             return new (o("WAWebActionToast.react").ActionType)(
@@ -186,7 +198,13 @@ __d(
               {
                 actionText: s._(/*BTDS*/ "Try again."),
                 actionHandler: function () {
-                  return p(t, a, i, l, c);
+                  return p({
+                    createGroupArgs: a,
+                    groupCreateEntryPoint: i,
+                    outContacts: c,
+                    participants: m,
+                    toastId: g,
+                  });
                 },
               },
             );
@@ -194,141 +212,137 @@ __d(
       return (
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            initialAction: v,
-            pendingAction: S,
+            id: g,
+            initialAction: L,
+            pendingAction: E,
           }),
         ),
-        b
-          .then(
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t,
-                    n = (t = e.invitedOutContacts) != null ? t : [],
-                    a = e.participants.some(function (e) {
-                      return e.code === "403";
-                    }),
-                    i = new Set(
-                      n
-                        .filter(function (e) {
-                          return e.code !== "200";
-                        })
-                        .map(function (e) {
-                          return e.phoneNumberWid.toString();
-                        }),
-                    ),
-                    s = l.filter(function (e) {
-                      return i.has(
-                        o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
-                      );
-                    }),
-                    u = r("countWhere")(n, function (e) {
-                      return e.code !== "200";
-                    }),
-                    c = function () {
-                      if (s.length > 0) {
-                        o("WAWebModalManager").ModalManager.open(
-                          d.jsx(
-                            r("WAWebOutContactSmsInviteConfirmModal.react"),
-                            {
-                              names: s.map(function (e) {
-                                return e.getName();
-                              }),
-                              onConfirm: function () {
-                                (o(
-                                  "WAWebOutContactInviteAction",
-                                ).sendMultiGroupInvite(
-                                  s.map(function (e) {
-                                    return e.phoneNumber;
-                                  }),
-                                  o("WAWebWidToJid").widToGroupJid(e.gid),
-                                  o("WAWebWamEnumCompanionInviteOriginType")
-                                    .COMPANION_INVITE_ORIGIN_TYPE
-                                    .GROUPS_CREATE_PARTICIPANT_SELECTOR,
-                                ),
-                                  o("WAWebModalManager").closeModalManager());
-                              },
-                              onCancel:
-                                o("WAWebModalManager").closeModalManager,
-                            },
-                          ),
-                        );
-                        return;
-                      }
-                      _(u);
-                    };
-                  if (
-                    (a
-                      ? o(
-                          "WAWebSendForNeededAddRequest",
-                        ).sendForNeededAddRequest(e, h, void 0, c)
-                      : c(),
-                    f == null &&
-                      e.gid &&
-                      o("WAWebFindChatAction")
-                        .findOrCreateLatestChat(e.gid, "createGroupAction")
-                        .then(function (t) {
-                          var n = t.chat;
-                          (o("WAWebCmd")
-                            .Cmd.openChatBottom({
-                              chat: n,
-                              chatEntryPoint: o("WAWebChatEntryPoint")
-                                .ChatEntryPoint.NewGroupCreation,
-                            })
-                            .then(function (e) {
-                              e &&
-                                o(
-                                  "WAWebComposeBoxActions",
-                                ).ComposeBoxActions.focus(n);
-                            }),
-                            (h === "" ||
-                              o(
-                                "WAWebGroupGatingUtils",
-                              ).isAnyoneCanLinkToGroupsM2Enabled()) &&
-                              o("WAWebGroupQueryBridge")
-                                .sendQueryGroup(e.gid)
-                                .finally(r("WAWebNoop")));
-                        }),
-                    g != null && m != null)
-                  ) {
-                    var p = o(
-                      "WAWebProfilePicThumbCollection",
-                    ).ProfilePicThumbCollection.gadd(e.gid);
-                    yield o("WAWebProfilePicThumbAction")
-                      .setProfilePic(p, g, m)
-                      .then(function () {
-                        return e.gid;
-                      });
-                  }
-                  if (
-                    o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
-                  ) {
-                    var y = e.participants.reduce(function (e, t) {
-                      return (
-                        t.username != null &&
-                          e.push({
-                            username: o("WAWebUsernameTypes").asUsername(
-                              t.username,
-                            ),
-                            userId: o("WAWebWidFactory").asUserWidOrThrow(
-                              t.userWid,
-                            ),
+        R.then(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t,
+                  n = (t = e.invitedOutContacts) != null ? t : [],
+                  a = e.participants.some(function (e) {
+                    return e.code === "403";
+                  }),
+                  i = new Set(
+                    n
+                      .filter(function (e) {
+                        return e.code !== "200";
+                      })
+                      .map(function (e) {
+                        return e.phoneNumberWid.toString();
+                      }),
+                  ),
+                  l = c.filter(function (e) {
+                    return i.has(
+                      o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
+                    );
+                  }),
+                  s = r("countWhere")(n, function (e) {
+                    return e.code !== "200";
+                  }),
+                  u = function () {
+                    if (l.length > 0) {
+                      o("WAWebModalManager").ModalManager.open(
+                        d.jsx(r("WAWebOutContactSmsInviteConfirmModal.react"), {
+                          names: l.map(function (e) {
+                            return e.getName();
                           }),
-                        e
+                          onConfirm: function () {
+                            (o(
+                              "WAWebOutContactInviteAction",
+                            ).sendMultiGroupInvite(
+                              l.map(function (e) {
+                                return e.phoneNumber;
+                              }),
+                              o("WAWebWidToJid").widToGroupJid(e.gid),
+                              o("WAWebWamEnumCompanionInviteOriginType")
+                                .COMPANION_INVITE_ORIGIN_TYPE
+                                .GROUPS_CREATE_PARTICIPANT_SELECTOR,
+                            ),
+                              o("WAWebModalManager").closeModalManager());
+                          },
+                          onCancel: o("WAWebModalManager").closeModalManager,
+                        }),
                       );
-                    }, []);
-                    y.length > 0 &&
-                      (yield o("WAWebSetUsernameJob").setUsernamesJob(y));
-                  }
-                  return e.gid;
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          )
+                      return;
+                    }
+                    _(s);
+                  };
+                if (
+                  (a
+                    ? o("WAWebSendForNeededAddRequest").sendForNeededAddRequest(
+                        e,
+                        b,
+                        void 0,
+                        u,
+                      )
+                    : u(),
+                  y == null &&
+                    e.gid &&
+                    o("WAWebFindChatAction")
+                      .findOrCreateLatestChat(e.gid, "createGroupAction")
+                      .then(function (t) {
+                        var n = t.chat;
+                        (o("WAWebCmd")
+                          .Cmd.openChatBottom({
+                            chat: n,
+                            chatEntryPoint: o("WAWebChatEntryPoint")
+                              .ChatEntryPoint.NewGroupCreation,
+                          })
+                          .then(function (e) {
+                            e &&
+                              o(
+                                "WAWebComposeBoxActions",
+                              ).ComposeBoxActions.focus(n);
+                          }),
+                          (b === "" ||
+                            o(
+                              "WAWebGroupGatingUtils",
+                            ).isAnyoneCanLinkToGroupsM2Enabled()) &&
+                            o("WAWebGroupQueryBridge")
+                              .sendQueryGroup(e.gid)
+                              .finally(r("WAWebNoop")));
+                      }),
+                  C != null && h != null)
+                ) {
+                  var m = o(
+                    "WAWebProfilePicThumbCollection",
+                  ).ProfilePicThumbCollection.gadd(e.gid);
+                  yield o("WAWebProfilePicThumbAction")
+                    .setProfilePic(m, C, h)
+                    .then(function () {
+                      return e.gid;
+                    });
+                }
+                if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
+                  var p = e.participants.reduce(function (e, t) {
+                    return (
+                      t.username != null &&
+                        e.push({
+                          username: o("WAWebUsernameTypes").asUsername(
+                            t.username,
+                          ),
+                          userId: o("WAWebWidFactory").asUserWidOrThrow(
+                            t.userWid,
+                          ),
+                        }),
+                      e
+                    );
+                  }, []);
+                  p.length > 0 &&
+                    (yield o("WAWebSetUsernameJob").setUsernamesJob(p));
+                }
+                return e.gid;
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        )
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,

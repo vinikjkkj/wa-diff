@@ -1,13 +1,6 @@
 __d(
   "WADeprecatedSendIq",
-  [
-    "Promise",
-    "WAAckParser",
-    "WAArrayUtils",
-    "WAComms",
-    "WALogger",
-    "WAParseIqResponse",
-  ],
+  ["Promise", "WAAckParser", "WAComms", "WALogger", "WAParseIqResponse"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
@@ -61,7 +54,7 @@ __d(
             attachedToSocketId: o("WAComms").DEFAULT_SOCKET_ID,
             orderedId: o("WAComms").getAndIncrementNextOrderedId(),
           };
-        if ((i.ackHandlers.push(u), !i.socket)) {
+        if ((i.addAckHandler(u), !i.isSocketConnected())) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -71,12 +64,7 @@ __d(
           return;
         }
         i.callStanza(t).catch(function (e) {
-          var t = i.ackHandlers.indexOf(u);
-          t !== -1 &&
-            (o("WAArrayUtils").removeIndexWithoutPreservingOrder(
-              i.ackHandlers,
-              t,
-            ),
+          (i.removeAckHandler(u),
             u.resolve((s || (s = n("Promise"))).reject(e)));
         });
       });

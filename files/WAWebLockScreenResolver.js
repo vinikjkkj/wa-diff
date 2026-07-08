@@ -142,7 +142,7 @@ __d(
             return;
           }
           (yield o("WAWebCryptoEncKeyHelper").initEncSalt(),
-            t.socketLoop.start());
+            t.openSocketLoop());
         })),
         y.apply(this, arguments)
       );

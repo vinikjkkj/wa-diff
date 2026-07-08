@@ -281,6 +281,7 @@ __d(
                   yield o("WAWebSchemaChat")
                     .getChatTable()
                     .merge(e.toString(), {
+                      createdLocally: !1,
                       endOfHistoryTransferType:
                         o("WAWebChatConstants")
                           .ConversationEndOfHistoryTransferModelPropType
@@ -300,7 +301,8 @@ __d(
                       )));
                 var i = o("WAWebChatCollection").ChatCollection.get(e);
                 (i &&
-                  ((i.endOfHistoryTransferType =
+                  ((i.createdLocally = !1),
+                  (i.endOfHistoryTransferType =
                     o(
                       "WAWebChatConstants",
                     ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),

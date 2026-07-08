@@ -4,9 +4,11 @@ __d(
     "WAFilteredCatch",
     "WAWebBackendErrors",
     "WAWebChatClearBridge",
+    "WAWebDBUpdateChatTable",
     "WAWebMaybeClearChatAiThreads",
     "WAWebNoop",
     "WAWebStatusCollection",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -29,13 +31,28 @@ __d(
         n.sendClear
       );
     }
-    function u(t, n) {
-      return n
-        .then(function (n) {
-          n.result &&
-            (e(t, n.result),
-            o("WAWebMaybeClearChatAiThreads").maybeClearAiThreadsForChat(t));
-        })
+    function u(t, a) {
+      return a
+        .then(
+          (function () {
+            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (n) {
+                (t.set({ createdLocally: !1 }),
+                  n.result &&
+                    (e(t, n.result),
+                    o(
+                      "WAWebMaybeClearChatAiThreads",
+                    ).maybeClearAiThreadsForChat(t)),
+                  yield o("WAWebDBUpdateChatTable").updateChatTable(t.id, {
+                    createdLocally: !1,
+                  }));
+              },
+            );
+            return function (e) {
+              return r.apply(this, arguments);
+            };
+          })(),
+        )
         .catch(
           o("WAFilteredCatch").filteredCatch(
             o("WAWebBackendErrors").ServerStatusCodeError,

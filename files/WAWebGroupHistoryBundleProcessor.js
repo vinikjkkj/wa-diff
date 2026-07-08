@@ -42,6 +42,7 @@ __d(
     "WAWebSerializeError",
     "WAWebUpdateMessageHistoryBundleState",
     "asyncToGeneratorRuntime",
+    "countWhere",
     "decodeProtobuf",
     "err",
   ],
@@ -79,7 +80,7 @@ __d(
                     : f.length) != null
                   ? _
                   : 0));
-            var C = y.messages.filter(function (e) {
+            var C = r("countWhere")(y.messages, function (e) {
                 var t;
                 return (
                   ((t = e.message) == null || (t = t.pinInChatMessage) == null
@@ -88,7 +89,7 @@ __d(
                   o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
                     .PIN_FOR_ALL
                 );
-              }).length,
+              }),
               b = (
                 (g = y.uncountedAssociatedMessageLists) != null ? g : []
               ).reduce(function (e, t) {

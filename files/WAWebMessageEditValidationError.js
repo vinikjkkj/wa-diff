@@ -11,6 +11,7 @@ __d(
         INVALID_IV_LENGTH: "invalid_iv_length",
         MISSING_MESSAGE_SENDER: "missing_message_sender",
         MISSING_PARENT_MESSAGE_SENDER: "missing_parent_message_sender",
+        PARENT_SENDER_MISMATCH: "parent_sender_mismatch",
         INVALID_PROTOCOL_MESSAGE_TYPE: "invalid_protocol_message_type",
         MISSING_MESSAGE_SECRET: "missing_message_secret",
         MISSING_ORIGINAL_SENDER: "missing_original_sender",

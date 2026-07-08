@@ -1,5 +1,5 @@
 __d(
-  "WAWebWindowsHybridBridgeConnection.v2622",
+  "WAWebWindowsHybridBridgeConnection.v2627",
   [
     "WAComms",
     "WALogger",
@@ -293,7 +293,7 @@ __d(
           t
         );
       })();
-    l.WindowsHybridBridgeConnection_v2622 = S;
+    l.WindowsHybridBridgeConnection_v2627 = S;
   },
   98,
 );

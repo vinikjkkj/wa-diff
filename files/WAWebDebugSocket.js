@@ -2,22 +2,20 @@ __d(
   "WAWebDebugSocket",
   [
     "WAComms",
-    "WALogger",
     "WAWebJSHaltDetector",
     "WAWebLogoutReasonConstants",
     "WAWebSocketModel",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
+    function e() {
       o("WAWebSocketModel").Socket.socket.close(!1, "debug-close");
     }
-    u.doc = "Close the web socket";
-    function c() {
+    e.doc = "Close the web socket";
+    function s() {
       o("WAWebSocketModel").Socket.takeover();
     }
-    c.doc = "Use this web client session over other active ones";
-    function d(e) {
+    s.doc = "Use this web client session over other active ones";
+    function u(e) {
       if (e) {
         o("WAWebSocketModel").Socket.logout(e);
         return;
@@ -26,63 +24,31 @@ __d(
         o("WAWebLogoutReasonConstants").LogoutReason.UserInitiated,
       );
     }
-    d.doc = "Log out of the web client";
-    function m() {
-      var t = o("WAComms").singletonOrThrowIfUninitialized("closeSocket"),
-        n = t.socket;
-      n &&
-        (o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "closeSocket called",
-            ])),
-        ),
-        n.setOnClose(function () {
-          var e = t.socketId;
-          (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[comms] Socket ",
-                " closed",
-              ])),
-            e,
-          ),
-            t.activePing &&
-              e === t.activePing.socketId &&
-              (t.activePing.handler.resolve(), (t.activePing = null)),
-            t
-              .filterPending(function (t) {
-                return t.attachedToSocketId === e;
-              })
-              .forEach(function (e) {
-                return void t.removeHandler(e);
-              }),
-            e === t.socketId &&
-              ((t.socketId = o("WAComms").DEFAULT_SOCKET_ID),
-              (t.socket = null)));
-        }),
-        n.close());
+    u.doc = "Log out of the web client";
+    function c() {
+      var e = o("WAComms").singletonOrThrowIfUninitialized("closeSocket");
+      e.closeSocketInDebugMode();
     }
-    m.doc = "Take client offline";
-    function p() {
+    c.doc = "Take client offline";
+    function d() {
       o("WAComms").socketLoopIteration();
     }
-    p.doc = "Take client back online";
-    function _() {
+    d.doc = "Take client back online";
+    function m() {
       o("WAComms").closeSocketAndPreventRetry();
     }
-    _.doc = "Closes the socket and prevents it from reopening";
-    var f = {
+    m.doc = "Closes the socket and prevents it from reopening";
+    var p = {
       Socket: o("WAWebSocketModel").Socket,
-      disconnectSocket: u,
-      logout: d,
-      takeover: c,
-      closeSocket: m,
-      reopenSocket: p,
+      disconnectSocket: e,
+      logout: u,
+      takeover: s,
+      closeSocket: c,
+      reopenSocket: d,
       jsHaltDetector: o("WAWebJSHaltDetector").jsHaltDetector,
-      closeSocketAndPreventRetry: _,
+      closeSocketAndPreventRetry: m,
     };
-    l.default = f;
+    l.default = p;
   },
   98,
 );

@@ -212,24 +212,23 @@ __d(
                     return i.handleRpc(e);
                   }),
                   (this.backend = i),
-                  (this.comms.config.handlers.onBeforeCastStanzaForE2E =
-                    function (e) {
-                      try {
-                        var n = o("WAWap").encodeStanza(e);
-                        return (l.match(n), []);
-                      } catch (e) {
-                        var a = r("getErrorSafe")(e);
-                        (o("WALogger").WARN(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "[smax] ",
-                              "",
-                            ])),
-                          a,
-                        ),
-                          t.send("log", { message: a.message }));
-                      }
-                    }),
+                  this.comms.setOnBeforeCastStanzaForE2E(function (e) {
+                    try {
+                      var n = o("WAWap").encodeStanza(e);
+                      return (l.match(n), []);
+                    } catch (e) {
+                      var a = r("getErrorSafe")(e);
+                      (o("WALogger").WARN(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[smax] ",
+                            "",
+                          ])),
+                        a,
+                      ),
+                        t.send("log", { message: a.message }));
+                    }
+                  }),
                   (this.loggerId = o("WASmaxMockRunner")
                     .getSmaxLogEmitter(this.wasmModule)
                     .subscribe(function (e) {
@@ -252,7 +251,7 @@ __d(
                 .unsubscribe(e),
               (this.loggerId = null)),
               this.comms != null &&
-                (this.comms.config.handlers.onBeforeCastStanzaForE2E = void 0));
+                this.comms.setOnBeforeCastStanzaForE2E(void 0));
           }),
           t
         );

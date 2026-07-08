@@ -70,7 +70,16 @@ __d(
           },
           "lists",
           {
-            chats: ["theme", "wallpaper", "chat_theme", "media_auto_download"],
+            chats: [
+              "theme",
+              "wallpaper",
+              "chat_theme",
+              "media_upload_quality",
+              "media_auto_download",
+              "spellcheck",
+              "emoji",
+              "enter",
+            ],
           },
           {
             device_settings: [
@@ -515,7 +524,44 @@ __d(
           D,
           I,
           T,
+          $,
           x,
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.Chats,
+            id: "spellcheck",
+            isAvailable: !0,
+            title: o("WAWebSettingsFBT").spellCheckTitle,
+            searchCriteria: [
+              String(o("WAWebSettingsFBT").spellCheckTitle()),
+              String(o("WAWebSettingsFBT").spellCheckSubtitle()),
+            ]
+              .join(" ")
+              .toLowerCase(),
+          },
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.Chats,
+            id: "emoji",
+            isAvailable: !0,
+            title: o("WAWebSettingsFBT").emojiReplacementTitle,
+            searchCriteria: [
+              String(o("WAWebSettingsFBT").emojiReplacementTitle()),
+              String(o("WAWebSettingsFBT").emojiReplacementSubtitle()),
+            ]
+              .join(" ")
+              .toLowerCase(),
+          },
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.Chats,
+            id: "enter",
+            isAvailable: !0,
+            title: o("WAWebSettingsFBT").enterIsSendTitle,
+            searchCriteria: [
+              String(o("WAWebSettingsFBT").enterIsSendTitle()),
+              String(o("WAWebSettingsFBT").enterIsSendSubtitle()),
+            ]
+              .join(" ")
+              .toLowerCase(),
+          },
           L,
           {
             step: o("WAWebSettingsConst").SettingsSteps.KeyboardShortcuts,

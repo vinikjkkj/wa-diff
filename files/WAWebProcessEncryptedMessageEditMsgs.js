@@ -8,6 +8,7 @@ __d(
     "WAWebAddonInfraError",
     "WAWebDBProcessEditProtocolMsgs",
     "WAWebHandleMsgValidate",
+    "WAWebLidMigrationUtils",
     "WAWebMessageEditDecryptedMsgDataConversion",
     "WAWebMessageEditValidationError",
     "WAWebMsgGetters",
@@ -15,6 +16,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWamEnumE2eFailureReason",
+    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
@@ -107,17 +109,18 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            r,
             a,
-            i = e.encIv,
-            l = e.encPayload,
-            s = o("WAWebAddonEncryptionError").getValidatedMessageSecret(
+            i,
+            l = e.encIv,
+            s = e.encPayload,
+            u = o("WAWebAddonEncryptionError").getValidatedMessageSecret(
               o("WAWebMsgType").MsgKind.MessageEditEncrypted,
               t,
             ),
-            u = o("WAWebMsgGetters").getOriginalSender(t),
-            c = o("WAWebMsgGetters").getSender(e);
-          if (c == null)
+            c = o("WAWebMsgGetters").getOriginalSender(t),
+            d = o("WAWebMsgGetters").getSender(e),
+            m = o("WAWebMsgGetters").getSender(t);
+          if (d == null)
             throw new (o(
               "WAWebMessageEditValidationError",
             ).MessageEditValidationError)(
@@ -126,7 +129,7 @@ __d(
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
-          if (u == null)
+          if (c == null || m == null)
             throw new (o(
               "WAWebMessageEditValidationError",
             ).MessageEditValidationError)(
@@ -135,12 +138,15 @@ __d(
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
-          if (i == null)
+          var p = o("WAWebLidMigrationUtils")
+            .toCommonAddressingMode(d, m)
+            .filter(Boolean);
+          if (p.length === 2 && !r("WAWebWid").equals.apply(r("WAWebWid"), p))
             throw new (o(
               "WAWebMessageEditValidationError",
             ).MessageEditValidationError)(
               o("WAWebMessageEditValidationError")
-                .MessageEditValidationErrorCode.MISSING_ENC_IV,
+                .MessageEditValidationErrorCode.PARENT_SENDER_MISMATCH,
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
@@ -149,56 +155,65 @@ __d(
               "WAWebMessageEditValidationError",
             ).MessageEditValidationError)(
               o("WAWebMessageEditValidationError")
+                .MessageEditValidationErrorCode.MISSING_ENC_IV,
+              o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
+                .INVALID_MESSAGE,
+            );
+          if (s == null)
+            throw new (o(
+              "WAWebMessageEditValidationError",
+            ).MessageEditValidationError)(
+              o("WAWebMessageEditValidationError")
                 .MessageEditValidationErrorCode.MISSING_ENC_PAYLOAD,
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
-          var d = {
+          var _ = {
               type: o("WAWebMsgType").MsgKind.MessageEditEncrypted,
-              encryptedAddOn: l,
+              encryptedAddOn: s,
             },
-            m = o("WAWebWidFactory").asUserWidOrThrow(c),
-            p = yield o("WAWebAddonEncryption").decryptAddOn(d, {
-              messageSecret: s,
-              iv: i,
+            f = o("WAWebWidFactory").asUserWidOrThrow(d),
+            g = yield o("WAWebAddonEncryption").decryptAddOn(_, {
+              messageSecret: u,
+              iv: l,
               stanzaId: t.id.id,
-              originalMessageSender: u,
-              addOnSender: m,
+              originalMessageSender: c,
+              addOnSender: f,
             }),
-            _ = o("decodeProtobuf").decodeProtobuf(
+            h = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsE2E.pb").MessageSpec,
-              p,
+              g,
             ),
-            f = o(
+            y = o(
               "WAWebMessageEditDecryptedMsgDataConversion",
             ).protobufToMessageEditDecryptedMsgData(
               (n = o(
                 "WAWebVerifyProtobufMsgObjectKeys",
-              ).getUnwrappedProtobufMessage(_)) != null
+              ).getUnwrappedProtobufMessage(h)) != null
                 ? n
-                : _,
+                : h,
               e,
-              s,
+              u,
             ),
-            g =
-              (r =
-                (a = _.messageContextInfo) == null
+            C =
+              (a =
+                (i = h.messageContextInfo) == null
                   ? void 0
-                  : a.messageSecret) != null
-                ? r
+                  : i.messageSecret) != null
+                ? a
                 : e.messageSecret,
-            h = babelHelpers.extends({}, f, {
-              plainProtobufBytes: new Uint8Array(p),
+            b = babelHelpers.extends({}, y, {
+              plainProtobufBytes: new Uint8Array(g),
             });
           return (
-            g != null && (h.messageSecret = new Uint8Array(g)),
+            C != null && (b.messageSecret = new Uint8Array(C)),
             yield o(
               "WAWebHandleMsgValidate",
             ).validateAndProcessReportingTokenInfo({
-              renderableMsgs: [h],
+              renderableMsgs: [b],
               forceDualEncryptedValidation: !0,
             }),
-            o("WAWebDBProcessEditProtocolMsgs").generateMessageEdit(t, f)
+            o("WAWebDBProcessEditProtocolMsgs").generateMessageEdit(t, y)
           );
         })),
         p.apply(this, arguments)

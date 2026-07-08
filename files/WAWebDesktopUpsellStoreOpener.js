@@ -4,13 +4,11 @@ __d(
     "WALogger",
     "WAWebDesktopUpsellUtils",
     "WAWebExternalLink.react",
-    "WAWebLinkDeviceScreenGatedUtils",
     "WAWebWamEnumWebcNativeUpsellCtaEventType",
     "WAWebWamEnumWebcNativeUpsellCtaReleaseChannel",
     "WAWebWamEnumWebcNativeUpsellCtaSourceType",
     "WAWebWebcNativeUpsellCtaWamEvent",
     "err",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -99,18 +97,10 @@ __d(
     }
     function m(e, t) {
       try {
-        o("WAWebExternalLink.react").openExternalLink(
-          r("gkx")("26258") ||
-            o(
-              "WAWebLinkDeviceScreenGatedUtils",
-            ).isAppleTouchscreenOverlayEnabled()
-            ? p(e, t)
-            : o("WAWebExternalLink.react").MAC_INTERNAL_MSC_STORE_URI,
-          {
-            target: o("WAWebExternalLink.react").ExternalLinkTarget
-              .DEEPLINK_IN_CURRENT_TAB,
-          },
-        );
+        o("WAWebExternalLink.react").openExternalLink(p(e, t), {
+          target: o("WAWebExternalLink.react").ExternalLinkTarget
+            .DEEPLINK_IN_CURRENT_TAB,
+        });
       } catch (e) {
         o("WALogger").ERROR(
           s ||

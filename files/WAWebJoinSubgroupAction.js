@@ -19,8 +19,11 @@ __d(
         !1,
       );
     }
-    function s(e, t, n) {
-      return u(e, t, o("WAWebGroupType").GroupType.LINKED_SUBGROUP, n);
+    function s(e) {
+      var t = e.parentGroupId,
+        n = e.request,
+        r = e.subgroupId;
+      return u(t, r, o("WAWebGroupType").GroupType.LINKED_SUBGROUP, n);
     }
     function u(e, t, n, r) {
       return c.apply(this, arguments);

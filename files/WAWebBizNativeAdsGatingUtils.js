@@ -1,6 +1,11 @@
 __d(
   "WAWebBizNativeAdsGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms", "justknobx"],
+  [
+    "WAWebABProps",
+    "WAWebCompactMapString",
+    "WAWebMobilePlatforms",
+    "justknobx",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -92,13 +97,12 @@ __d(
       return r("justknobx")._("1666");
     }
     function v() {
-      return o("WAWebABProps")
+      var e = o("WAWebABProps")
         .getABPropConfigValue("ctwa_native_ads_inline_notice_modules")
-        .split(",")
-        .map(function (e) {
-          return e.trim();
-        })
-        .filter(Boolean);
+        .split(",");
+      return r("WAWebCompactMapString")(e, function (e) {
+        return e.trim();
+      });
     }
     ((l.nativeAdsDogfoodEnabled = e),
       (l.nativeAdsCreationHawkToolEnabled = s),

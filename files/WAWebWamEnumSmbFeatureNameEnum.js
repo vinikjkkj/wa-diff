@@ -27,6 +27,7 @@ __d(
       LIST_APPLICATION: 21,
       SEND_QUICK_REPLY: 22,
       STATUS_CROSSPOST: 23,
+      CONNECTED_MEDIA: 24,
     });
     i.SMB_FEATURE_NAME_ENUM = e;
   },

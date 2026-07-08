@@ -36,9 +36,7 @@ __d(
                     .CONVERSATION_LIST_BULK_EDIT
                 : i;
           t.forEach(function (e) {
-            if (
-              (e.set({ createdLocally: !1 }), o("WAWebChatGetters").getIsPSA(e))
-            ) {
+            if (o("WAWebChatGetters").getIsPSA(e)) {
               var t = e.msgs.last();
               o("WAWebWamChatPSALogger").logChatPSARemove(t, 5, 14);
             }
