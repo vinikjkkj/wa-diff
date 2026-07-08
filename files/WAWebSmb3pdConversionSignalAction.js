@@ -9,6 +9,8 @@ __d(
     "WAWebCTWAGatingUtils",
     "WAWebChatModel",
     "WAWebCommonCTWADataSharing",
+    "WAWebConversionTupleCollection",
+    "WAWebConversionTupleModel",
     "WAWebCtwa3pdConversionWamEvent",
     "WAWebCtwaConversationDepthUtils",
     "WAWebDataSharing3pdLidCollection",
@@ -50,64 +52,74 @@ __d(
           d = n.type,
           m = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t),
           p = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(t);
-        if (
-          m != null &&
-          o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
-            o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
-        ) {
-          var _ = u == null ? s(i != null ? i : null, d) : u,
-            f = JSON.stringify(l),
-            g = o("WAWebCtwaConversationDepthUtils").getCtwaConversationDepth(
-              t,
-            ),
-            h = {
-              ctwa3pdSchemaVersion: 2,
-              ctwa3pdSurfaceType: c,
-              ctwa3pdConversionType: d,
-              ctwa3pdConversionSubtype: _,
-              ctwa3pdConversionMetadata: f,
-              ctwaConversationDepth: g,
-              ctwaSignals: p != null ? p : void 0,
-            };
+        if (m != null) {
+          var _ = r("WAWebConversionTupleCollection").get(t.id);
           if (
-            (m.data != null && (h.ctwaTrackingPayload = m.data),
-            o("WAWebCTWAGatingUtils").isDownload3PDSignalsEnabled())
+            !(
+              _ != null &&
+              o("WATimeUtils").unixTime() - _.timestamp >
+                o("WAWebConversionTupleModel").ConversionTupleExpiry &&
+              o(
+                "WAWebCTWAGatingUtils",
+              ).isCtwaConversionCreationFromDelayEnabled()
+            ) &&
+            o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
+              o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
           ) {
-            var y;
-            o("WAWebDownloads3PDSignalsDatabaseApi")
-              .addOrEdit3PDSignal({
-                clickId: (y = h.ctwaTrackingPayload) != null ? y : "",
+            var f = u == null ? s(i != null ? i : null, d) : u,
+              g = JSON.stringify(l),
+              h = o("WAWebCtwaConversationDepthUtils").getCtwaConversationDepth(
+                t,
+              ),
+              y = {
+                ctwa3pdSchemaVersion: 2,
+                ctwa3pdSurfaceType: c,
                 ctwa3pdConversionType: d,
-                ctwa3pdConversionSubtype: _,
-                ctwa3pdConversionMetadata: f,
-                timestamp: o("WATimeUtils").unixTimeMs(),
-              })
-              .catch(function (t) {
-                return (
-                  o("WALogger").ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "addOrEdit3PDSignal: failed to add 3PD signal to the database",
-                      ])),
-                  ),
-                  null
-                );
-              });
+                ctwa3pdConversionSubtype: f,
+                ctwa3pdConversionMetadata: g,
+                ctwaConversationDepth: h,
+                ctwaSignals: p != null ? p : void 0,
+              };
+            if (
+              (m.data != null && (y.ctwaTrackingPayload = m.data),
+              o("WAWebCTWAGatingUtils").isDownload3PDSignalsEnabled())
+            ) {
+              var C;
+              o("WAWebDownloads3PDSignalsDatabaseApi")
+                .addOrEdit3PDSignal({
+                  clickId: (C = y.ctwaTrackingPayload) != null ? C : "",
+                  ctwa3pdConversionType: d,
+                  ctwa3pdConversionSubtype: f,
+                  ctwa3pdConversionMetadata: g,
+                  timestamp: o("WATimeUtils").unixTimeMs(),
+                })
+                .catch(function (t) {
+                  return (
+                    o("WALogger").ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "addOrEdit3PDSignal: failed to add 3PD signal to the database",
+                        ])),
+                    ),
+                    null
+                  );
+                });
+            }
+            var b = o(
+              "WAWebCTWAGatingUtils",
+            ).isPerCustomerDataSharingControlsEnabled()
+              ? t.accountLid == null ||
+                !o(
+                  "WAWebDataSharing3pdLidCollection",
+                ).DataSharing3pdLidCollection.isDataSharingEnabled(
+                  t.accountLid.toString(),
+                )
+              : !a;
+            b ||
+              new (o(
+                "WAWebCtwa3pdConversionWamEvent",
+              ).Ctwa3pdConversionWamEvent)(y).commit();
           }
-          var C = o(
-            "WAWebCTWAGatingUtils",
-          ).isPerCustomerDataSharingControlsEnabled()
-            ? t.accountLid == null ||
-              !o(
-                "WAWebDataSharing3pdLidCollection",
-              ).DataSharing3pdLidCollection.isDataSharingEnabled(
-                t.accountLid.toString(),
-              )
-            : !a;
-          C ||
-            new (o("WAWebCtwa3pdConversionWamEvent").Ctwa3pdConversionWamEvent)(
-              h,
-            ).commit();
         }
       },
       c = function (t, n, r, a) {

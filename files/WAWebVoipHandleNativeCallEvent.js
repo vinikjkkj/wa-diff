@@ -1080,6 +1080,7 @@ __d(
               o("WAWebVoipWindowMetrics").stopWindowMetrics(),
               o("WAWebVoipGatingUtils").isWebTransportEnabled() ||
                 o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
+              o("WAWebVoipGatingUtils").markCurrentCallAsFna(!1),
               o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
               (H = V()),
               o("WAWebBackendApi").frontendFireAndForget(

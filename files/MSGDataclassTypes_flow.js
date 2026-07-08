@@ -418,6 +418,7 @@ __d(
       Ue = e({
         Compacting: "COMPACTING",
         MakingSomething: "MAKING_SOMETHING",
+        NeedsApproval: "NEEDS_APPROVAL",
         Online: "ONLINE",
         OutOfCredits: "OUT_OF_CREDITS",
         Responding: "RESPONDING",

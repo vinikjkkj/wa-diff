@@ -195,6 +195,10 @@ __d(
         "ctwa_native_ad_heuristics_budget_recommendation",
       CTWA_NATIVE_AD_SABR_V2_WITH_ESTIMATION_WIDGET:
         "ctwa_native_ad_sabr_v2_with_estimation_widget",
+      HIGH_FRICTION_DURATION_WARNING_DIALOG_IMPRESSION:
+        "high_friction_duration_warning_dialog_impression",
+      HIGH_FRICTION_DURATION_WARNING_DIALOG_CTA_CLICK:
+        "high_friction_duration_warning_dialog_cta_click",
       AD_CREATION_LWI_MEDIA_UPLOAD_START: "ad_creation_lwi_media_upload_start",
       AD_CREATION_LWI_MEDIA_UPLOAD_SUCCESS:
         "ad_creation_lwi_media_upload_success",

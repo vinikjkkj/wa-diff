@@ -11,6 +11,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebSignalStoreApi",
     "WAWebVoipContactUtils",
+    "WAWebVoipGatingUtils",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipValidateAndDecryptEnc",
@@ -99,19 +100,22 @@ __d(
                 C = yield o("WAWebVoipContactUtils").isCallerNotContact(
                   t.peer_jid,
                 );
-              yield _ == null
-                ? void 0
-                : _.handleIncomingSignalingOffer(
-                    a,
-                    t.peer_platform,
-                    t.peer_app_version,
-                    t.e,
-                    t.t,
-                    (y = t.is_offline) != null ? y : !1,
-                    C,
-                    t.peer_jid.toString(),
-                    m,
-                  );
+              (o("WAWebVoipGatingUtils").markCurrentCallAsFna(
+                o("WAWebVoipGatingUtils").hasFnaRelay(a),
+              ),
+                yield _ == null
+                  ? void 0
+                  : _.handleIncomingSignalingOffer(
+                      a,
+                      t.peer_platform,
+                      t.peer_app_version,
+                      t.e,
+                      t.t,
+                      (y = t.is_offline) != null ? y : !1,
+                      C,
+                      t.peer_jid.toString(),
+                      m,
+                    ));
               break;
             }
             case o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY:

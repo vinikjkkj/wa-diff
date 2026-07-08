@@ -11,13 +11,21 @@ __d(
         "wa_web_chat_themes_logging",
       );
     }
-    function u(e) {
+    function u() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_chat_themes_solid_wallpaper_sync_encode",
+        )
+      );
+    }
+    function c(e) {
       var t = e.isNotification,
         n = e.isSentByMe,
         r = e.isVibrant;
       return r && n && !t;
     }
-    function c(e) {
+    function d(e) {
       var t = e.isCallLink,
         n = e.isSentByMe,
         r = e.isVibrant;
@@ -25,8 +33,9 @@ __d(
     }
     ((l.isChatThemesEnabled = e),
       (l.isChatThemeLoggingEnabled = s),
-      (l.shouldApplyVibrantOverride = u),
-      (l.shouldApplyCallLinkContrastOverride = c));
+      (l.isSolidWallpaperSyncEncodeEnabled = u),
+      (l.shouldApplyVibrantOverride = c),
+      (l.shouldApplyCallLinkContrastOverride = d));
   },
   98,
 );

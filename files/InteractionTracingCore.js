@@ -613,7 +613,10 @@ __d(
                   setTimeout(function () {
                     o(
                       "interaction-tracing-metrics",
-                    ).InteractionTracingMetricsCore.delete(I);
+                    ).InteractionTracingMetricsCore.delete(
+                      I,
+                      t.clearAllMapsOnCleanup,
+                    );
                   }, t.cleanUpTraceTimeout));
               }
             };

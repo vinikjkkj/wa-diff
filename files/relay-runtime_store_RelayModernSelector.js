@@ -12,19 +12,18 @@ __d(
     var e,
       s,
       u = n("relay-runtime/store/RelayConcreteVariables").getFragmentVariables,
-      c = (s = n("relay-runtime/store/RelayStoreUtils"))
-        .CLIENT_EDGE_TRAVERSAL_PATH,
-      d = s.FRAGMENT_OWNER_KEY,
-      m = s.FRAGMENT_POINTER_IS_WITHIN_UNMATCHED_TYPE_REFINEMENT,
-      p = s.FRAGMENTS_KEY,
-      _ = s.ID_KEY;
+      c = (s = n("relay-runtime/store/RelayStoreUtils")).FRAGMENT_OWNER_KEY,
+      d = s.FRAGMENT_POINTER_IS_WITHIN_UNMATCHED_TYPE_REFINEMENT,
+      m = s.FRAGMENTS_KEY,
+      p = s.ID_KEY,
+      _ = s.PARENT_CLIENT_EDGE;
     function f(e, t) {
       (typeof t == "object" && t !== null && !Array.isArray(t)) ||
         l(0, 4618, e.name, JSON.stringify(t));
-      var n = t[_],
-        r = t[p],
-        o = t[d],
-        a = t[c];
+      var n = t[p],
+        r = t[m],
+        o = t[c],
+        a = t[_];
       if (
         typeof n == "string" &&
         typeof r == "object" &&
@@ -33,13 +32,13 @@ __d(
         r[e.name] !== null &&
         typeof o == "object" &&
         o !== null &&
-        (a == null || Array.isArray(a))
+        (a == null || typeof a == "object")
       ) {
         var i = o,
           s = a,
           f = r[e.name],
           g = u(e, i.variables, f),
-          h = f[m] === !0;
+          h = f[d] === !0;
         return $(e, n, g, i, h, s);
       }
       return null;
@@ -107,7 +106,7 @@ __d(
     function S(e, t) {
       (typeof t == "object" && t !== null && !Array.isArray(t)) ||
         l(0, 4618, e.name, JSON.stringify(t));
-      var r = t[_];
+      var r = t[p];
       return typeof r == "string"
         ? r
         : (n("warning")(
@@ -166,7 +165,7 @@ __d(
         T(t.owner, r.owner) &&
         t.isWithinUnmatchedTypeRefinement ===
           r.isWithinUnmatchedTypeRefinement &&
-        D(t.clientEdgeTraversalPath, r.clientEdgeTraversalPath)
+        D(t.parentClientEdge, r.parentClientEdge)
       );
     }
     function T(t, r) {
@@ -176,21 +175,12 @@ __d(
             (e || (e = n("areEqual")))(t.cacheConfig, r.cacheConfig);
     }
     function D(e, t) {
-      if (e === t) return !0;
-      if (e == null || t == null || e.length !== t.length) return !1;
-      for (var n = e.length; n--; ) {
-        var r = e[n],
-          o = t[n];
-        if (
-          r !== o &&
-          (r == null ||
-            o == null ||
-            r.clientEdgeDestinationID !== o.clientEdgeDestinationID ||
-            r.readerClientEdge !== o.readerClientEdge)
-        )
-          return !1;
-      }
-      return !0;
+      return e === t
+        ? !0
+        : e == null || t == null
+          ? !1
+          : e.clientEdgeDestinationID === t.clientEdgeDestinationID &&
+            e.readerClientEdge === t.readerClientEdge;
     }
     function x(e, t) {
       return e === t
@@ -214,7 +204,7 @@ __d(
       return (
         o === void 0 && (o = !1),
         {
-          clientEdgeTraversalPath: a != null ? a : null,
+          parentClientEdge: a != null ? a : null,
           dataID: t,
           isWithinUnmatchedTypeRefinement: o,
           kind: "SingularReaderSelector",

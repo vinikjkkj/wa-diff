@@ -11,6 +11,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBeyondPhoneNumberGatingUtils",
     "WAWebBotGenTypingIndicatorMsg",
+    "WAWebCTWAGatingUtils",
     "WAWebChangePresenceHandlerAction",
     "WAWebChatEphemerality",
     "WAWebChatGetters",
@@ -338,41 +339,50 @@ __d(
                       ) {
                         var a = t.ctwaContext,
                           i = a.conversionData,
-                          l = a.conversionSource;
+                          l = a.conversionDelaySeconds,
+                          s = a.conversionSource,
+                          u =
+                            l != null &&
+                            l > 0 &&
+                            o(
+                              "WAWebCTWAGatingUtils",
+                            ).isCtwaConversionCreationFromDelayEnabled()
+                              ? l
+                              : 0;
                         r("WAWebConversionTupleCollection").add(
                           {
-                            conversionSource: l,
+                            conversionSource: s,
                             conversionData: i,
                             id: e.id,
-                            timestamp: o("WATimeUtils").unixTime(),
+                            timestamp: o("WATimeUtils").unixTime() - u,
                             fromMe: t.id.fromMe,
                           },
                           { merge: !0 },
                         );
                       }
-                      var s = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                        u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+                      var c = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                        d = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
                       if (
                         t.type === "gp2" &&
                         (t.subtype === "add" || t.subtype === "create")
                       ) {
-                        var c = e.getGroupMetadataCollection(),
-                          d =
-                            s != null &&
+                        var m = e.getGroupMetadataCollection(),
+                          p =
+                            c != null &&
                             !o(
                               "WAWebBeyondPhoneNumberGatingUtils",
                             ).removePnDependenciesEnabled()
-                              ? s
-                              : u;
-                        c.trigger("group_participant_change_" + d.toString(), {
+                              ? c
+                              : d;
+                        m.trigger("group_participant_change_" + p.toString(), {
                           gid: e.id,
                         });
                       }
                       if (o("WAWebMsgGetters").getIsSentByMe(t)) {
                         if (e.unreadCount > 0 || e.markedUnread) {
-                          var R,
-                            L,
-                            E = e.id.toString() === t.id.remote.toString();
+                          var E,
+                            k,
+                            I = e.id.toString() === t.id.remote.toString();
                           o("WALogger").LOG(
                             y ||
                               (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -391,15 +401,15 @@ __d(
                             e.id.isLid(),
                             t.id.remote.toLogString(),
                             t.id.remote.isLid(),
-                            E,
+                            I,
                             e.unreadCount,
                             e.activeUnreadCount,
                             e.markedUnread,
-                            (R =
-                              (L = e.accountLid) == null
+                            (E =
+                              (k = e.accountLid) == null
                                 ? void 0
-                                : L.toLogString()) != null
-                              ? R
+                                : k.toLogString()) != null
+                              ? E
                               : "none",
                           );
                         }
@@ -459,16 +469,16 @@ __d(
                             )
                               return;
                             o("WAWebCmd").Cmd.alertNewMsg(t);
-                            var m = e.getGroupMetadataCollection(),
-                              p =
-                                s != null &&
+                            var _ = e.getGroupMetadataCollection(),
+                              C =
+                                c != null &&
                                 !o(
                                   "WAWebBeyondPhoneNumberGatingUtils",
                                 ).removePnDependenciesEnabled()
-                                  ? s
-                                  : u;
-                            m.trigger(
-                              "group_participant_change_" + p.toString(),
+                                  ? c
+                                  : d;
+                            _.trigger(
+                              "group_participant_change_" + C.toString(),
                               { gid: e.id },
                             );
                             break;
@@ -476,10 +486,10 @@ __d(
                           default:
                             break;
                         }
-                        var _ = t.mediaData;
+                        var v = t.mediaData;
                         if (
-                          (_ &&
-                            (_.type === "image" || _.type === "video") &&
+                          (v &&
+                            (v.type === "image" || v.type === "video") &&
                             o("WAWebCmd").Cmd.newMediaMsg(t),
                           n.unreadCount != null &&
                             n.unreadCount > 0 &&
@@ -506,22 +516,22 @@ __d(
                               }),
                           o("WAWebMsgGetters").getIsImportantMessage(t))
                         ) {
-                          var C,
-                            v = new (r("WAWebUnreadMentionModel"))({
+                          var S,
+                            R = new (r("WAWebUnreadMentionModel"))({
                               id: t.id.toString(),
                               timestamp: t.t,
                             });
                           if (
-                            ((C = e.groupMetadata) == null ||
-                              C.unreadMentionMetadata.addUnreadMentions(
-                                v,
+                            ((S = e.groupMetadata) == null ||
+                              S.unreadMentionMetadata.addUnreadMentions(
+                                R,
                                 o("WAWebGroupUnreadMessageType")
                                   .UnreadMessageType.NEW_MESSAGE,
                               ),
                             e.archiveAtMentionViewedInDrawer)
                           ) {
-                            var S = new Map();
-                            (S.set(e.id.toString(), !1),
+                            var L = new Map();
+                            (L.set(e.id.toString(), !1),
                               o("WALogger").LOG(
                                 h ||
                                   (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -529,7 +539,7 @@ __d(
                                   ])),
                               ),
                               yield o("WAWebApiChat").updateChatArchiveDrawer(
-                                S,
+                                L,
                               ),
                               (e.archiveAtMentionViewedInDrawer = !1));
                           }

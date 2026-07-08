@@ -80,64 +80,72 @@ __d(
       );
     }
     function v() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_download_3pd_signals",
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_conversion_creation_from_delay_enabled",
+        )
       );
     }
     function S() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_3pd_opt_out_counter_optimization_enabled",
+        "ctwa_download_3pd_signals",
       );
     }
     function R() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_3pd_data_sharing_title_change",
+        "ctwa_3pd_opt_out_counter_optimization_enabled",
       );
     }
     function L() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_3pd_data_sharing_additional_logging",
+        "ctwa_3pd_data_sharing_title_change",
       );
     }
     function E() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out",
+        "ctwa_3pd_data_sharing_additional_logging",
       );
     }
     function k() {
       return o("WAWebABProps").getABPropConfigValue(
-        "utm_tracking_expiration_hours",
+        "ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out",
       );
     }
     function I() {
-      return o("WAWebABProps").getABPropConfigValue("utm_tracking_enabled");
+      return o("WAWebABProps").getABPropConfigValue(
+        "utm_tracking_expiration_hours",
+      );
     }
     function T() {
-      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 0;
+      return o("WAWebABProps").getABPropConfigValue("utm_tracking_enabled");
     }
     function D() {
-      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 1;
+      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 0;
     }
     function x() {
-      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 2;
+      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 1;
     }
     function $() {
-      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3;
+      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 2;
     }
     function P() {
-      return o("WAWebABProps").getABPropConfigValue("cci_compliance_ctwa");
+      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3;
     }
     function N() {
+      return o("WAWebABProps").getABPropConfigValue("cci_compliance_ctwa");
+    }
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_tos_filtering_enabled",
       );
     }
-    function M() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "cci_compliance_ctwa_learn_more_hyperlink",
       );
     }
-    function w() {
+    function A() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -145,12 +153,12 @@ __d(
         ) === !1
       );
     }
-    function A() {
+    function F() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_push_wait_timeout_web",
       );
     }
-    function F() {
+    function O() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_retries_max_web",
       );
@@ -169,23 +177,24 @@ __d(
       (l.suppressMessageWithExternalAdReplyConsumerEnabled = y),
       (l.isPerCustomerDataSharingControlsEnabled = C),
       (l.shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade = b),
-      (l.isDownload3PDSignalsEnabled = v),
-      (l.isCTWA3pdOptOutCounterOptimizationEnabled = S),
-      (l.isCTWA3pdDataSharingTitleChangeEnabled = R),
-      (l.isCTWA3pdDataSharingAdditionalLoggingEnabled = L),
-      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = E),
-      (l.utmTrackingExpirationInHours = k),
-      (l.isUtmTrackingEnabled = I),
-      (l.isUpdatedConsumerDisclosureUiRowEnabled = T),
-      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = D),
-      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = x),
-      (l.isUpdatedConsumerDisclosureUiEuUkEnabled = $),
-      (l.showCTWACCICompliantUI = P),
-      (l.isCTWATosFilteringEnabled = N),
-      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = M),
-      (l.adAccountTokenStoringEnabled = w),
-      (l.adAccountTokenNoncePushWaitTimeoutSeconds = A),
-      (l.adAccountTokenNonceMaxRetries = F));
+      (l.isCtwaConversionCreationFromDelayEnabled = v),
+      (l.isDownload3PDSignalsEnabled = S),
+      (l.isCTWA3pdOptOutCounterOptimizationEnabled = R),
+      (l.isCTWA3pdDataSharingTitleChangeEnabled = L),
+      (l.isCTWA3pdDataSharingAdditionalLoggingEnabled = E),
+      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = k),
+      (l.utmTrackingExpirationInHours = I),
+      (l.isUtmTrackingEnabled = T),
+      (l.isUpdatedConsumerDisclosureUiRowEnabled = D),
+      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = x),
+      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = $),
+      (l.isUpdatedConsumerDisclosureUiEuUkEnabled = P),
+      (l.showCTWACCICompliantUI = N),
+      (l.isCTWATosFilteringEnabled = M),
+      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = w),
+      (l.adAccountTokenStoringEnabled = A),
+      (l.adAccountTokenNoncePushWaitTimeoutSeconds = F),
+      (l.adAccountTokenNonceMaxRetries = O));
   },
   98,
 );

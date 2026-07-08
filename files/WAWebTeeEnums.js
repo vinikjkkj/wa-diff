@@ -53,9 +53,8 @@ __d(
         CONVERSATION_TYPE_OTHER: 3,
       }),
       m = e({ AGE_UNKNOWN: 0, AGE_OVER_18: 1, AGE_UNDER_18: 2 }),
-      p = e({ VIOLATION_STATUS_UNKNOWN: 0, NO_VIOLATION: 1, VIOLATION: 2 }),
-      _ = e({ MOCK: "mock", REAL: "real", INTERCEPT: "intercept" }),
-      f = e({
+      p = e({ MOCK: "mock", REAL: "real", INTERCEPT: "intercept" }),
+      _ = e({
         SUMMARY: "summary",
         WRITE_WITH_AI: "write_with_ai",
         SIDE_CHAT: "side_chat",
@@ -67,9 +66,8 @@ __d(
       (i.ChatRole = c),
       (i.ConversationType = d),
       (i.AgeStatus = m),
-      (i.ViolationStatus = p),
-      (i.TeeClientMode = _),
-      (i.TeeRequestType = f));
+      (i.TeeClientMode = p),
+      (i.TeeRequestType = _));
   },
   66,
 );

@@ -414,8 +414,8 @@ __d(
           var e = u.get(t);
           e && ((e.interactionClass = n), (e.type = r), (e.qplEvent = o));
         },
-        delete: function (t) {
-          u.delete(t);
+        delete: function (t, n) {
+          (u.delete(t), n === !0 && (c.delete(t), s.delete(t)));
         },
         getInteractionStat: function () {
           return m;

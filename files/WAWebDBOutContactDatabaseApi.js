@@ -32,26 +32,14 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSchemaOutContact").getOutContactTable().remove(e);
+          yield o("WAWebSchemaOutContact").getOutContactTable().bulkRemove(e);
         })),
         m.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebSchemaOutContact").getOutContactTable().bulkRemove(e);
-        })),
-        _.apply(this, arguments)
-      );
-    }
     ((l.getAllOutContacts = e),
       (l.putOutContactBatch = u),
-      (l.removeOutContact = d),
-      (l.removeOutContactBatch = p));
+      (l.removeOutContactBatch = d));
   },
   98,
 );

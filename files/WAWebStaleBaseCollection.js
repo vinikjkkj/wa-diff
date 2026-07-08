@@ -16,7 +16,7 @@ __d(
           t.listenTo(
             o("WAWebSocketModel").Socket,
             "change:stream",
-            t._handleStreamChange,
+            t.$StaleBaseCollection$p_1,
           ),
           t
         );
@@ -24,7 +24,7 @@ __d(
       babelHelpers.inheritsLoose(t, e);
       var n = t.prototype;
       return (
-        (n._handleResume = function () {
+        (n.$StaleBaseCollection$p_2 = function () {
           e: {
             if (
               o("WAWebSocketModel").Socket.stream ===
@@ -50,8 +50,8 @@ __d(
             );
           }
         }),
-        (n._handleStreamChange = function () {
-          (this._handleResume(),
+        (n.$StaleBaseCollection$p_1 = function () {
+          (this.$StaleBaseCollection$p_2(),
             this._cachePolicy.constructor.policy ===
               o("WAWebBaseCachePolicy").CACHE_POLICY.LOAD &&
               this._updateFromCache());

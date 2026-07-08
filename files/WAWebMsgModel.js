@@ -1465,9 +1465,6 @@ __d(
           (i.updateLastPlaybackProgress = function (t) {
             ((this.lastPlaybackProgress = t), this.$MsgImpl$p_24(this.id, t));
           }),
-          (i.avParams = function () {
-            return o("WAWebMedia").mediaMetadata(this);
-          }),
           (i.resend = function () {
             var e = this;
             if (o("WAWebMsgGetters").getIsFailed(this)) {

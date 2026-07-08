@@ -69,8 +69,7 @@ __d(
       V = 50,
       H = Reflect.get(globalThis, "Atomics");
     function G() {
-      var t = o("WAWebVoipGatingUtils").isWebTransportEnabled();
-      function n(t) {
+      function t(t) {
         var n = o("WAWebWidFactory").createWid(t);
         if (n == null)
           return (
@@ -113,7 +112,7 @@ __d(
           !1
         );
       }
-      var r = {
+      var n = {
         onSignalingXmpp: function (t) {
           var e = Date.now(),
             n = t.callId,
@@ -206,31 +205,31 @@ __d(
               s,
             );
         },
-        sendDataToRelay: function (n) {
-          var e = n.data,
-            r = n.ip,
-            a = n.len,
-            i = n.port;
+        sendDataToRelay: function (t) {
+          var e = t.data,
+            n = t.ip,
+            r = t.len,
+            a = t.port;
           if (
-            o("WAWebVoipP2PConnectionManager").isP2PVirtualAddress(r, i) &&
+            o("WAWebVoipP2PConnectionManager").isP2PVirtualAddress(n, a) &&
             o("WAWebVoipP2PConnectionManager").isP2PEnabled()
           )
             return (
               o("WAWebVoipP2PConnectionManager").sendP2PData(
                 new Uint8Array(e).buffer,
               ),
-              a
+              r
             );
-          var l = o("WAByteArray").uint8ArrayToBuffer(e);
+          var i = o("WAByteArray").uint8ArrayToBuffer(e);
           return (
-            t
-              ? o("WAWebVoipWebTransportConnectionManager").sendData(l, r, i)
+            o("WAWebVoipGatingUtils").isWebTransportEnabled()
+              ? o("WAWebVoipWebTransportConnectionManager").sendData(i, n, a)
               : o("WAWebVoipSctpConnectionManager").sendWAWebVoipDataToRelay(
-                  l,
-                  r,
                   i,
+                  n,
+                  a,
                 ),
-            a
+            r
           );
         },
         loggingCallback: function (t) {
@@ -621,10 +620,10 @@ __d(
             .update(r)
             .finish();
         },
-        isParticipantKnownContact: function (t) {
-          var e = t.jid;
+        isParticipantKnownContact: function (n) {
+          var e = n.jid;
           try {
-            return n(e);
+            return t(e);
           } catch (t) {
             return (
               o("WALogger")
@@ -643,10 +642,10 @@ __d(
             );
           }
         },
-        contactLookupSyncRequest: function (t) {
+        contactLookupSyncRequest: function (n) {
           var e = !1;
           try {
-            e = n(t.jid);
+            e = t(n.jid);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -656,12 +655,12 @@ __d(
                     ": ",
                     "",
                   ])),
-                t.jid,
+                n.jid,
                 e,
               )
               .sendLogs("voip-is-participant-known-contact-sync-error");
           }
-          var r = new Int32Array(t.buffer);
+          var r = new Int32Array(n.buffer);
           (H.store(r, 1, e ? 1 : 0), H.store(r, 0, 1), H.notify(r, 0, 1));
         },
         browserAudioProcessingStatusSyncRequest: function (t) {
@@ -701,7 +700,7 @@ __d(
           o("WAWebVoipVideoCaptureFpsTracker").resetVideoCaptureFpsCounters();
         },
       };
-      return r;
+      return n;
     }
     l.createWorkerCompatibleCallbacks = G;
   },

@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebEnvironment",
-    "WAWebWindowsHybridBridgeMediaTranscoder.v2577",
     "asyncToGeneratorRuntime",
     "cr:17219",
   ],
@@ -81,13 +80,7 @@ __d(
                   ])),
                 E,
               ),
-              i &&
-                !(
-                  C instanceof
-                  o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
-                    .WindowsHybridBridgeMediaTranscoder_v2577
-                ) &&
-                C.setProgressCallback(b, i));
+              i && C.setProgressCallback(b, i));
             var I = yield a.arrayBuffer(),
               T = new Uint8Array(k),
               D = new Uint8Array(I);
@@ -100,12 +93,7 @@ __d(
                   ])),
               ),
               y != null && y("video/mp4"),
-              h != null &&
-                !(
-                  C instanceof
-                  o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
-                    .WindowsHybridBridgeMediaTranscoder_v2577
-                ))
+              h != null)
             )
               try {
                 var x = yield C.getVideoPreviewFrameFromSharedBuffer(b, g++),
@@ -177,14 +165,7 @@ __d(
             (b != null && C.releaseSharedBuffer(b),
               v != null && C.releaseSharedBuffer(v),
               S != null && C.releaseSharedBuffer(S),
-              i &&
-                b != null &&
-                !(
-                  C instanceof
-                  o("WAWebWindowsHybridBridgeMediaTranscoder.v2577")
-                    .WindowsHybridBridgeMediaTranscoder_v2577
-                ) &&
-                C.clearProgressCallback(b));
+              i && b != null && C.clearProgressCallback(b));
           }
         })),
         C.apply(this, arguments)

@@ -12,46 +12,48 @@ __d(
       var n = {},
         a = t.alwaysShowAdAttribution,
         i = t.conversionData,
-        l = t.conversionSource,
-        s = t.ctwaPayload,
-        u = t.ctwaSignals;
+        l = t.conversionDelaySeconds,
+        s = t.conversionSource,
+        u = t.ctwaPayload,
+        c = t.ctwaSignals;
       (a != null && (n.alwaysShowAdAttribution = a),
-        l != null && (n.conversionSource = l),
-        u != null && s != null
-          ? (n.conversionData = s)
+        s != null && (n.conversionSource = s),
+        l != null && (n.conversionDelaySeconds = l),
+        c != null && u != null
+          ? (n.conversionData = u)
           : i != null && (n.conversionData = i),
-        u != null && (n.ctwaSignals = u));
-      var c = t.externalAdReply;
-      if (c != null) {
-        ((n.sourceUrl = c.sourceUrl),
-          (n.description = c.body),
-          (n.title = c.title),
-          c.thumbnail != null &&
+        c != null && (n.ctwaSignals = c));
+      var d = t.externalAdReply;
+      if (d != null) {
+        ((n.sourceUrl = d.sourceUrl),
+          (n.description = d.body),
+          (n.title = d.title),
+          d.thumbnail != null &&
             (n.thumbnail = o("WAWebE2EProtoParserApi").decodeBytes(
-              c.thumbnail,
+              d.thumbnail,
             )),
-          (n.thumbnailUrl = c.thumbnailUrl),
-          (n.mediaType = c.mediaType),
-          (n.mediaUrl = c.mediaUrl));
-        var d = o("WAWebLinkify").findLink(c.sourceUrl || "", !1, e.from);
-        (d != null &&
-          d.suspiciousCharacters != null &&
-          d.suspiciousCharacters.size != null &&
-          (n.isSuspiciousLink = d.suspiciousCharacters.size > 0),
-          c.adContextPreviewDismissed != null &&
+          (n.thumbnailUrl = d.thumbnailUrl),
+          (n.mediaType = d.mediaType),
+          (n.mediaUrl = d.mediaUrl));
+        var m = o("WAWebLinkify").findLink(d.sourceUrl || "", !1, e.from);
+        (m != null &&
+          m.suspiciousCharacters != null &&
+          m.suspiciousCharacters.size != null &&
+          (n.isSuspiciousLink = m.suspiciousCharacters.size > 0),
+          d.adContextPreviewDismissed != null &&
             o("WAWebCTWAGatingUtils").isHideAdContextIfSoftDismissed() &&
-            (n.adContextPreviewDismissed = c.adContextPreviewDismissed),
-          c.sourceApp != null && (n.sourceApp = c.sourceApp));
-        var m = o("WAWebCtwaAGMUtils").isWamoAGMIntegrationEnabled(c.sourceApp);
-        m &&
-          (c.greetingMessageBody != null &&
-            (n.greetingMessageBody = c.greetingMessageBody),
-          c.automatedGreetingMessageShown != null &&
-            (n.automatedGreetingMessageShown = c.automatedGreetingMessageShown),
-          c.ctaPayload != null && (n.ctaPayload = c.ctaPayload),
-          c.sourceId != null && (n.sourceId = c.sourceId),
-          c.originalImageUrl != null &&
-            (n.originalImageUrl = c.originalImageUrl));
+            (n.adContextPreviewDismissed = d.adContextPreviewDismissed),
+          d.sourceApp != null && (n.sourceApp = d.sourceApp));
+        var p = o("WAWebCtwaAGMUtils").isWamoAGMIntegrationEnabled(d.sourceApp);
+        p &&
+          (d.greetingMessageBody != null &&
+            (n.greetingMessageBody = d.greetingMessageBody),
+          d.automatedGreetingMessageShown != null &&
+            (n.automatedGreetingMessageShown = d.automatedGreetingMessageShown),
+          d.ctaPayload != null && (n.ctaPayload = d.ctaPayload),
+          d.sourceId != null && (n.sourceId = d.sourceId),
+          d.originalImageUrl != null &&
+            (n.originalImageUrl = d.originalImageUrl));
       }
       r("isEmptyObject")(n) || (e.ctwaContext = n);
     }

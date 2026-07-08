@@ -7,6 +7,7 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebFrontendMsgGetters",
     "WAWebHandleMsgError",
+    "WAWebMedia",
     "WAWebMessagePluginParseProtobuf",
     "WAWebMessageSecretLocationUtils",
     "WAWebMsgType",
@@ -102,7 +103,7 @@ __d(
         if (o("WAWebFrontendMsgGetters").getAsMms(t))
           if (t.isUnsentPhoneMsg()) e = { type: t.type };
           else {
-            var n = t.avParams();
+            var n = o("WAWebMedia").mediaMetadata(t);
             (t.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
               n.url == null &&
               (n.url = p),

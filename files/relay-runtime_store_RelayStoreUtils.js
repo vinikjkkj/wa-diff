@@ -135,7 +135,7 @@ __d(
     }
     var x = {
       ACTOR_IDENTIFIER_KEY: "__actorIdentifier",
-      CLIENT_EDGE_TRAVERSAL_PATH: "__clientEdgeTraversalPath",
+      PARENT_CLIENT_EDGE: "__parentClientEdge",
       FRAGMENTS_KEY: "__fragments",
       FRAGMENT_OWNER_KEY: "__fragmentOwner",
       FRAGMENT_POINTER_IS_WITHIN_UNMATCHED_TYPE_REFINEMENT:

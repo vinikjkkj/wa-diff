@@ -221,13 +221,11 @@ __d(
                       "WAWebVoipVideoCaptureOffThread",
                     ).WAWebVoipVideoCaptureOffThread)()));
                 }
+                var L = new (o("WAResolvable").Resolvable)();
                 ((this.captureInitState = $.Initializing),
-                  (this.captureInitResolvable = new (o(
-                    "WAResolvable",
-                  ).Resolvable)()),
-                  this.captureInitResolvable.promise.catch(r("WAWebNoop")));
-                var L = this.captureInitResolvable,
-                  E = null;
+                  (this.captureInitResolvable = L),
+                  L.promise.catch(r("WAWebNoop")));
+                var E = null;
                 try {
                   var k;
                   if (((E = yield a()), E == null)) throw new A();
@@ -289,7 +287,6 @@ __d(
                       b,
                     ));
                 } catch (e) {
-                  var N;
                   (e instanceof A
                     ? o("WALogger").LOG(
                         g ||
@@ -313,9 +310,12 @@ __d(
                         .sendLogs(
                           "voip: wasm: error in startVideoCaptureJSImpl",
                         ),
-                    (this.captureInitState = $.Error),
-                    (N = this.captureInitResolvable) == null || N.reject(e),
-                    yield this.__cleanup());
+                    (this.captureInitState = $.Error));
+                  try {
+                    yield this.__cleanup();
+                  } finally {
+                    L.reject(e);
+                  }
                 } finally {
                   E != null &&
                     (o("WALogger").LOG(

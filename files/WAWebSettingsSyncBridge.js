@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebSettingsChangeWamEvent",
     "WAWebSettingsSync",
+    "WAWebWallpaperSyncOffset",
     "WAWebWamEnumSettingType",
     "asyncToGeneratorRuntime",
   ],
@@ -79,12 +80,19 @@ __d(
               t,
             ));
           var i = u[t];
-          (i != null &&
+          if (i != null) {
+            var l =
+              t === "wallpaperId" && typeof n == "number"
+                ? o("WAWebWallpaperSyncOffset").stripWallpaperSyncOffset(
+                    Number(n),
+                  )
+                : n;
             new (o("WAWebSettingsChangeWamEvent").SettingsChangeWamEvent)({
-              currentSettingValue: String(n),
+              currentSettingValue: String(l),
               settingType: i,
-            }).commit(),
-            yield r("WAWebSettingsSync").sendMutation(t, n, a));
+            }).commit();
+          }
+          yield r("WAWebSettingsSync").sendMutation(t, n, a);
         })),
         d.apply(this, arguments)
       );

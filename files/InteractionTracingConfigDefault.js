@@ -54,6 +54,7 @@ __d(
         enableUserTimings: r("gkx")("20484"),
         enableUserTimingsVerbose: r("gkx")("20485"),
         heroBootloadStatsAfterQPL: r("gkx")("9056"),
+        clearAllMapsOnCleanup: r("gkx")("9206"),
       };
     l.DEFAULT_TRACING_CONFIG = d;
   },

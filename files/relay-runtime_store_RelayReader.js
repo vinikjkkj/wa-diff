@@ -20,13 +20,13 @@ __d(
         "relay-runtime/store/live-resolvers/LiveResolverSuspenseSentinel",
       ).isSuspenseSentinel,
       d = (u = n("relay-runtime/store/RelayStoreUtils"))
-        .CLIENT_EDGE_TRAVERSAL_PATH,
-      m = u.FIELD_GRANULAR_NOTIFICATIONS_KEY,
-      p = u.FRAGMENT_OWNER_KEY,
-      _ = u.FRAGMENT_PROP_NAME_KEY,
-      f = u.FRAGMENTS_KEY,
-      g = u.ID_KEY,
-      h = u.MODULE_COMPONENT_KEY,
+        .FIELD_GRANULAR_NOTIFICATIONS_KEY,
+      m = u.FRAGMENT_OWNER_KEY,
+      p = u.FRAGMENT_PROP_NAME_KEY,
+      _ = u.FRAGMENTS_KEY,
+      f = u.ID_KEY,
+      g = u.MODULE_COMPONENT_KEY,
+      h = u.PARENT_CLIENT_EDGE,
       y = u.ROOT_ID,
       C = u.getArgumentValues,
       b = u.getFieldNotificationKey,
@@ -44,11 +44,8 @@ __d(
     }
     var T = (function () {
       function t(e, t, n, r, o) {
-        var a, i, l, s;
-        ((this.$1 =
-          (a = t.clientEdgeTraversalPath) != null && a.length
-            ? [].concat(t.clientEdgeTraversalPath)
-            : []),
+        var a, i, l;
+        ((this.$1 = t.parentClientEdge),
           (this.$3 = []),
           (this.$4 = []),
           (this.$2 = !1),
@@ -57,15 +54,15 @@ __d(
           (this.$7 = null),
           (this.$8 = t.owner),
           (this.$9 =
-            (i =
-              (l = this.$8.node.operation.use_exec_time_resolvers) != null
-                ? l
-                : ((s =
+            (a =
+              (i = this.$8.node.operation.use_exec_time_resolvers) != null
+                ? i
+                : ((l =
                     this.$8.node.operation
                       .exec_time_resolvers_enabled_provider) == null
                     ? void 0
-                    : s.get()) === !0) != null
-              ? i
+                    : l.get()) === !0) != null
+              ? a
               : !1),
           (this.$10 = e),
           (this.$11 = new Set()),
@@ -154,36 +151,31 @@ __d(
           if (!this.$5) {
             this.$6 == null && (this.$6 = []);
             var r = this.$16;
-            if (
-              (this.$6.push(
-                (e =
-                  (n = this.$13.node.metadata) == null
-                    ? void 0
-                    : n.throwOnFieldError) != null && e
-                  ? {
-                      fieldPath: t,
-                      handled: !1,
-                      kind: "missing_expected_data.throw",
-                      owner: r,
-                      uiContext: void 0,
-                    }
-                  : {
-                      fieldPath: t,
-                      kind: "missing_expected_data.log",
-                      owner: r,
-                      uiContext: void 0,
-                    },
-              ),
+            (this.$6.push(
+              (e =
+                (n = this.$13.node.metadata) == null
+                  ? void 0
+                  : n.throwOnFieldError) != null && e
+                ? {
+                    fieldPath: t,
+                    handled: !1,
+                    kind: "missing_expected_data.throw",
+                    owner: r,
+                    uiContext: void 0,
+                  }
+                : {
+                    fieldPath: t,
+                    kind: "missing_expected_data.log",
+                    owner: r,
+                    uiContext: void 0,
+                  },
+            ),
               (this.$2 = !0),
-              this.$1.length)
-            ) {
-              var o = this.$1[this.$1.length - 1];
-              o !== null &&
+              this.$1 !== null &&
                 this.$3.push({
-                  clientEdgeDestinationID: o.clientEdgeDestinationID,
-                  request: o.readerClientEdge.operation,
-                });
-            }
+                  clientEdgeDestinationID: this.$1.clientEdgeDestinationID,
+                  request: this.$1.readerClientEdge.operation,
+                }));
           }
         }),
         (r.$21 = function (t, r, o) {
@@ -193,7 +185,7 @@ __d(
             (e != null &&
             (s || (s = n("relay-runtime/store/RelayModernRecord"))).getValue(
               e,
-              m,
+              d,
             )
               ? (this.$7 = r)
               : (this.$11.add(r), (this.$7 = null)),
@@ -400,20 +392,21 @@ __d(
               case "Defer":
               case "ClientExtension": {
                 var h = this.$2,
-                  y = this.$3.length;
-                this.$1.push(null);
-                var C = this.$25(o.selections, n, r);
+                  y = this.$3.length,
+                  C = this.$1;
+                this.$1 = null;
+                var b = this.$25(o.selections, n, r);
                 if (
                   ((this.$2 = h || this.$3.length > y || this.$4.length > 0),
-                  this.$1.pop(),
-                  !C)
+                  (this.$1 = C),
+                  !b)
                 )
                   return !1;
                 break;
               }
               case "Stream": {
-                var b = this.$25(o.selections, n, r);
-                if (!b) return !1;
+                var v = this.$25(o.selections, n, r);
+                if (!v) return !1;
                 break;
               }
               case "ActorChange":
@@ -426,8 +419,8 @@ __d(
                   (o.backingField.kind === "RelayResolver" ||
                     o.backingField.kind === "RelayLiveResolver")
                 ) {
-                  var v = o.linkedField;
-                  v.plural ? this.$32(v, n, r) : this.$33(v, n, r);
+                  var S = o.linkedField;
+                  S.plural ? this.$32(S, n, r) : this.$33(S, n, r);
                 } else this.$41(o, n, r);
                 break;
               default:
@@ -507,9 +500,7 @@ __d(
                       i),
                     __id: n,
                   };
-                e.$1.length > 0 &&
-                  e.$1[e.$1.length - 1] !== null &&
-                  (l[d] = [].concat(e.$1));
+                e.$1 !== null && (l[h] = e.$1);
                 var s = { getDataForResolverFragment: a };
                 return E(s, function () {
                   var n = x(t, e.$14, l, e.$17),
@@ -520,18 +511,18 @@ __d(
               } else {
                 var u = x(t, e.$14, null, e.$17),
                   c = u[0],
-                  m = u[1];
-                return { error: m, resolverResult: c, snapshot: void 0 };
+                  d = u[1];
+                return { error: d, resolverResult: c, snapshot: void 0 };
               }
             },
             l = this.$15.readFromCacheOrEvaluate(n, t, this.$14, i, a),
             s = l[0],
             u = l[1],
             c = l[2],
-            m = l[3],
-            p = l[4],
-            _ = l[5];
-          return (this.$44(t.path, m, c, u, p, _), s);
+            d = l[3],
+            m = l[4],
+            p = l[5];
+          return (this.$44(t.path, d, c, u, m, p), s);
         }),
         (r.$44 = function (t, n, r, o, a, i) {
           var e = this;
@@ -624,47 +615,49 @@ __d(
                   }))
                 : (p = m.map(function (e) {
                     return $(e, i.path, a.$8.identifier);
-                  })),
-              this.$1.push(null));
-            var _ = this.$45(t.linkedField, p, r, o);
-            return (this.$1.pop(), (o[u] = _), _);
+                  })));
+            var _ = this.$1;
+            this.$1 = null;
+            var f = this.$45(t.linkedField, p, r, o);
+            return ((this.$1 = _), (o[u] = f), f);
           } else {
-            var f,
-              g = $(m, i.path, this.$8.identifier),
-              h,
-              y = (f = t.concreteType) != null ? f : m.__typename,
-              C;
+            var g,
+              h = $(m, i.path, this.$8.identifier),
+              y,
+              C = (g = t.concreteType) != null ? g : m.__typename,
+              b;
             if (t.kind === "ClientEdgeToClientObject")
               if (t.backingField.normalizationInfo == null) {
-                typeof y == "string" || l(0, 86536, i.path, this.$8.identifier);
-                var b = t.modelResolvers;
-                if (b != null) {
-                  var v = b[y];
-                  if (v !== void 0) {
-                    h = this.$15.ensureClientRecord(g, y);
-                    var S = this.$42(v, h);
-                    if (S == null) return ((o[u] = null), null);
-                    C = null;
+                typeof C == "string" || l(0, 86536, i.path, this.$8.identifier);
+                var v = t.modelResolvers;
+                if (v != null) {
+                  var S = v[C];
+                  if (S !== void 0) {
+                    y = this.$15.ensureClientRecord(h, C);
+                    var R = this.$42(S, y);
+                    if (R == null) return ((o[u] = null), null);
+                    b = null;
                   } else {
-                    h = g;
-                    var R = t.serverObjectOperations,
-                      L = R != null ? R[y] : null;
-                    L != null
-                      ? (C = {
-                          clientEdgeDestinationID: g,
-                          readerClientEdge: { operation: L },
+                    y = h;
+                    var L = t.serverObjectOperations,
+                      E = L != null ? L[C] : null;
+                    E != null
+                      ? (b = {
+                          clientEdgeDestinationID: h,
+                          readerClientEdge: { operation: E },
                         })
-                      : (C = null);
+                      : (b = null);
                   }
-                } else ((h = this.$15.ensureClientRecord(g, y)), (C = null));
-              } else ((h = g), (C = null));
+                } else ((y = this.$15.ensureClientRecord(h, C)), (b = null));
+              } else ((y = h), (b = null));
             else
-              ((h = g),
-                (C = { clientEdgeDestinationID: g, readerClientEdge: t }));
-            this.$1.push(C);
-            var E = o[u];
-            E == null ||
-              typeof E == "object" ||
+              ((y = h),
+                (b = { clientEdgeDestinationID: h, readerClientEdge: t }));
+            var k = this.$1;
+            this.$1 = b;
+            var I = o[u];
+            I == null ||
+              typeof I == "object" ||
               l(
                 0,
                 86534,
@@ -673,12 +666,12 @@ __d(
                 (
                   s || (s = n("relay-runtime/store/RelayModernRecord"))
                 ).getDataID(r),
-                E,
+                I,
               );
-            var k = this.$6;
+            var T = this.$6;
             this.$6 = null;
-            var I = this.$21(t.linkedField, h, E);
-            return (this.$43(k, u), this.$1.pop(), (o[u] = I), I);
+            var D = this.$21(t.linkedField, y, I);
+            return (this.$43(T, u), (this.$1 = k), (o[u] = D), D);
           }
         }),
         (r.$31 = function (t, r, o) {
@@ -849,8 +842,8 @@ __d(
             r,
             o,
           ),
-            (o[_] = t.fragmentPropName),
-            (o[h] = i));
+            (o[p] = t.fragmentPropName),
+            (o[g] = i));
         }),
         (r.$37 = function (t, n, r) {
           var e = this.$6;
@@ -899,20 +892,18 @@ __d(
           );
         }),
         (r.$36 = function (t, r, o) {
-          var e = o[f];
-          (e == null && (e = o[f] = {}),
+          var e = o[_];
+          (e == null && (e = o[_] = {}),
             (typeof e == "object" && e != null) || l(0, 1310, e),
-            o[g] == null &&
-              (o[g] = (
+            o[f] == null &&
+              (o[f] = (
                 s || (s = n("relay-runtime/store/RelayModernRecord"))
               ).getDataID(r)));
           var a = C(t.args, this.$14, this.$5);
           if (
             ((e[t.name] = a),
-            (o[p] = this.$8),
-            this.$1.length > 0 &&
-              this.$1[this.$1.length - 1] !== null &&
-              (o[d] = [].concat(this.$1)),
+            (o[m] = this.$8),
+            this.$1 !== null && (o[h] = this.$1),
             n("relay-runtime/util/RelayFeatureFlags")
               .ENABLE_READER_FRAGMENTS_LOGGING)
           ) {
@@ -926,11 +917,11 @@ __d(
           }
         }),
         (r.$39 = function (t, r, o) {
-          var e = o[f];
-          (e == null && (e = o[f] = {}),
+          var e = o[_];
+          (e == null && (e = o[_] = {}),
             (typeof e == "object" && e != null) || l(0, 1310, e),
-            o[g] == null &&
-              (o[g] = (
+            o[f] == null &&
+              (o[f] = (
                 s || (s = n("relay-runtime/store/RelayModernRecord"))
               ).getDataID(r)));
           var a = {},

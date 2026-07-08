@@ -20,6 +20,7 @@ __d(
     "WAWebSessionScope",
     "WAWebSignal",
     "WAWebSignalProtocolStore",
+    "WAWebVoipGatingUtils",
     "WAWebVoipStackInterface",
     "WAWebVoipWapNodeUtils",
     "WAWebWidFactory",
@@ -136,15 +137,19 @@ __d(
             ]),
             w = M[0].tcToken,
             A = M[1];
-          yield A == null
-            ? void 0
-            : A.handleIncomingSignalingAck(
-                N,
-                (a = N.maybeAttrString("error")) != null ? a : "0",
-                (i = N.maybeAttrString("type")) != null ? i : "",
-                s,
-                w,
-              );
+          (m.tag === "offer" &&
+            o("WAWebVoipGatingUtils").markCurrentCallAsFna(
+              o("WAWebVoipGatingUtils").hasFnaRelay(N),
+            ),
+            yield A == null
+              ? void 0
+              : A.handleIncomingSignalingAck(
+                  N,
+                  (a = N.maybeAttrString("error")) != null ? a : "0",
+                  (i = N.maybeAttrString("type")) != null ? i : "",
+                  s,
+                  w,
+                ));
           var F = Date.now() - l;
           F > 100 &&
             o("WALogger").LOG(

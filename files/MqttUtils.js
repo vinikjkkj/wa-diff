@@ -25,14 +25,20 @@ __d(
       var r = arguments.length > 1 ? e.then(t, n) : e;
       r.then(null, function (e) {
         o("MqttEnv").Env.setTimeout(function () {
-          throw e instanceof Error ? e : new Error("promiseDone");
+          if (e instanceof Error) throw e;
+          var t = new Error("promiseDone");
+          throw (t.stack, t);
         }, 0);
       });
     }
     function m(e, t, n, r) {
       var a = !1;
       (o("MqttEnv").Env.setTimeout(function () {
-        a || ((a = !0), n(new Error("promise timeout")));
+        if (!a) {
+          a = !0;
+          var e = new Error("promise timeout");
+          (e.stack, n(e));
+        }
       }, r),
         d(
           e,
