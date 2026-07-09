@@ -38,15 +38,19 @@ __d(
         ? n.debounceCount + 1
         : 0;
     }
-    function D(e, t, n, r) {
-      var a = T(e, t);
-      ((h = { eventType: e, trackingId: t, debounceCount: a }),
-        (e === "TAP" || e === "DOUBLE_TAP") && (y = t),
+    function D(e) {
+      var t = e.eventType,
+        n = e.targetType,
+        r = e.timestampMs,
+        a = e.trackingId,
+        i = T(t, a);
+      ((h = { eventType: t, trackingId: a, debounceCount: i }),
+        (t === "TAP" || t === "DOUBLE_TAP") && (y = a),
         o("WAWebPathfinderLogger").emitPathfinderEvent({
-          eventType: e,
-          debounceCount: a > 0 ? a : void 0,
+          eventType: t,
+          debounceCount: i > 0 ? i : void 0,
           screenName: C,
-          targetTrackingId: t,
+          targetTrackingId: a,
           targetType: n,
           timestampMs: r,
         }));
@@ -127,13 +131,24 @@ __d(
           a != null &&
             (window.clearTimeout(a.timer),
             a.target !== t && n - a.timestampMs >= s
-              ? D("TAP", a.trackingId, a.targetType, a.timestampMs)
+              ? D({
+                  eventType: "TAP",
+                  targetType: a.targetType,
+                  timestampMs: a.timestampMs,
+                  trackingId: a.trackingId,
+                })
               : a.target !== t && R++);
           var i = window.setTimeout(function () {
             var e = g;
             e != null &&
               e.timer === i &&
-              (D("TAP", e.trackingId, e.targetType, e.timestampMs), (g = null));
+              (D({
+                eventType: "TAP",
+                targetType: e.targetType,
+                timestampMs: e.timestampMs,
+                trackingId: e.trackingId,
+              }),
+              (g = null));
           }, u);
           g = {
             timer: i,
@@ -152,11 +167,22 @@ __d(
         if (n != null) {
           (window.clearTimeout(n.timer),
             (g = null),
-            D("DOUBLE_TAP", n.trackingId, n.targetType, n.timestampMs));
+            D({
+              eventType: "DOUBLE_TAP",
+              targetType: n.targetType,
+              timestampMs: n.timestampMs,
+              trackingId: n.trackingId,
+            }));
           return;
         }
         var r = F(t);
-        r != null && D("DOUBLE_TAP", r, A(t), Date.now());
+        r != null &&
+          D({
+            eventType: "DOUBLE_TAP",
+            targetType: A(t),
+            timestampMs: Date.now(),
+            trackingId: r,
+          });
       }
     }
     function W(e) {

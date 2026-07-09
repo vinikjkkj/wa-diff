@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsLoginKeys",
     "WamPathfinderWebFalcoEvent",
     "WamPathfinderWebUnsampledFalcoEvent",
+    "err",
     "isEmptyObject",
     "justknobx",
     "qex",
@@ -100,49 +101,49 @@ __d(
             a.join(", "),
           ));
     }
-    function b(e, t) {
+    function b(e, t, n) {
       if (e != null) {
         for (
-          var n = {},
-            a = Object.keys(e).sort(),
-            i = [],
+          var a = {},
+            i = Object.keys(e).sort(),
             l = [],
             s = [],
-            u = 0,
-            c = -1,
-            d = 0;
-          d < a.length;
-          d++
+            u = [],
+            c = 0,
+            d = -1,
+            m = 0;
+          m < i.length;
+          m++
         ) {
-          var m = a[d];
-          if (u >= g) {
-            c = d;
+          var p = i[m];
+          if (c >= g) {
+            d = m;
             break;
           }
-          if (m.length > h) {
-            i.push(m);
+          if (p.length > h) {
+            l.push(p);
             continue;
           }
           if (
             o("WAWebPathfinderReservedMetadataKeys").RESERVED_METADATA_KEYS.has(
-              m,
+              p,
             )
           ) {
-            l.push(m);
+            s.push(p);
             continue;
           }
-          var p = e[m];
-          (p.length > y ? (s.push(m), (n[m] = p.slice(0, y))) : (n[m] = p),
-            u++);
+          var _ = e[p];
+          (_.length > y ? (u.push(p), (a[p] = _.slice(0, y))) : (a[p] = _),
+            c++);
         }
-        var _ = c >= 0 ? a.slice(c) : [],
-          f = t != null ? " [" + t + "]" : "";
-        return (C(l, i, s, _, f), r("isEmptyObject")(n) ? void 0 : n);
+        var f = d >= 0 ? i.slice(d) : [],
+          b = t != null ? " [" + t + "]" : "";
+        return (C(s, l, u, f, b), r("isEmptyObject")(a) ? void 0 : a);
       }
     }
     function v(e, t, n) {
       var o,
-        a = (o = b(e, n)) != null ? o : {};
+        a = (o = b(e, n, !0)) != null ? o : {};
       return (
         t.custom_event_type != null &&
           (a.custom_event_type = t.custom_event_type),
@@ -244,19 +245,22 @@ __d(
       Y = -1,
       J = H,
       Z = G;
-    function ee(e, t, n) {
-      return Math.max(t, Math.min(n, e));
+    function ee(e) {
+      var t = e.max,
+        n = e.min,
+        r = e.value;
+      return Math.max(n, Math.min(t, r));
     }
     function te(e, t) {
       return !Number.isFinite(e) || e <= 0 ? t : e;
     }
     function ne() {
       var e = r("justknobx")._("2845");
-      return ee(te(e, H), q, U);
+      return ee({ max: U, min: q, value: te(e, H) });
     }
     function re() {
       var e = r("justknobx")._("2846");
-      return ee(te(e, G), q, V);
+      return ee({ max: V, min: q, value: te(e, G) });
     }
     function oe() {
       var e = Math.floor(Date.now() / z);

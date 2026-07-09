@@ -1,6 +1,7 @@
 __d(
   "WAWebMaybeUpdateMessageThreadDetails",
   [
+    "WALogger",
     "WAWebBotUtils",
     "WAWebBuildAiThreadUpdateHelper",
     "WAWebThreadMsgUtils",
@@ -8,12 +9,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    var e;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebBuildAiThreadUpdateHelper",
           ).buildAiThreadUpdateHelpers(e);
@@ -28,21 +30,35 @@ __d(
             )
               return e;
             var a = o("WAWebBotUtils").getBotResponseTargetMsgKey(e),
-              i = a != null ? r.get(a.toString()) : null,
-              l = i != null ? i : n,
+              i = a != null ? r.get(a.toString()) : null;
+            i == null && c(a);
+            var l = i != null ? i : n,
               s = l.aiThreadInfo,
               u = l.threadId,
-              c = (t = e.threadIds) != null ? t : [];
+              d = (t = e.threadIds) != null ? t : [];
             return babelHelpers.extends({}, e, {
-              threadIds: [].concat(c, [u]),
+              threadIds: [].concat(d, [u]),
               aiThreadInfo: s,
             });
           });
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.maybeUpdateMessageThreadDetails = e;
+    function c(t) {
+      var n = t == null ? "no-target-id" : "target-unresolved";
+      o("WALogger")
+        .WARN(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[maybeUpdateMessageThreadDetails] Meta AI msg routed to default thread (",
+              ")",
+            ])),
+          n,
+        )
+        .sendLogs("ai-thread-fallback-to-default");
+    }
+    l.maybeUpdateMessageThreadDetails = s;
   },
   98,
 );

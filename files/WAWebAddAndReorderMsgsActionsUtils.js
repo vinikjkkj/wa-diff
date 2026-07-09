@@ -3,16 +3,25 @@ __d(
   ["WALogger", "WAWebMsgModelUtils"],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r, a, i, l, s, c) {
-      var d = u(e, t, n, r, i);
+    function s(e) {
+      var t = e.anchorMsgKey,
+        n = e.chatMsgsCollection,
+        r = e.firstUnreadKey,
+        a = e.insertAfter,
+        i = e.msgHistory,
+        l = e.newMsgs,
+        s = e.reorderMsgs,
+        c = e.resetMostRecentMsgs,
+        d = e.threadOrChat,
+        m = u(i, l, s, d, n);
       o("WAWebMsgModelUtils").addRecordsToChat({
-        anchorMsgKey: c,
-        chatMsgsCollection: d.collection,
-        firstUnreadKey: l,
+        anchorMsgKey: t,
+        chatMsgsCollection: m.collection,
+        firstUnreadKey: r,
         insertAfter: a,
-        newRecords: d.msgs,
-        resetMostRecentMsgs: s,
-        threadOrChat: r,
+        newRecords: m.msgs,
+        resetMostRecentMsgs: c,
+        threadOrChat: d,
       });
     }
     function u(t, n, r, a, i) {

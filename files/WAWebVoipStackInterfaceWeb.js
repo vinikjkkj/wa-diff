@@ -73,7 +73,8 @@ __d(
       M,
       w,
       A,
-      F = r("WAOnceWithReset")(function () {
+      F,
+      O = r("WAOnceWithReset")(function () {
         o("WALogger")
           .ERROR(
             e ||
@@ -83,10 +84,10 @@ __d(
           )
           .sendLogs("voip-stack-interface-web-created-on-windows");
       });
-    function O() {
+    function B() {
       if (r("WAWebEnvironment").isWindows)
         throw (
-          F(),
+          O(),
           r("err")(
             "createWAWebVoipStackInterface: Attempted to create Web stack in Windows environment",
           )
@@ -117,11 +118,11 @@ __d(
       }
       var i = o("WAWebVoipWasmHeapBuffer").createHeapBufferState(),
         l = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"),
-        O = null;
-      function W() {
+        B = null;
+      function q() {
         o("WAWebVoipWebTransportConnectionManager").registerPacketHandler(
           function (e, t, n) {
-            var r = O;
+            var r = B;
             if (r == null) {
               o("WALogger").WARN(
                 s ||
@@ -150,8 +151,8 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
               var r = yield l;
-              ((O = r),
-                o("WAWebVoipGatingUtils").isWebTransportEnabled() && W(),
+              ((B = r),
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() && q(),
                 o("WAWebVoipStorageInit").initVoipStorageAndMLCache(r));
               var a = !1,
                 s = !1;
@@ -370,7 +371,7 @@ __d(
               t.forEach(function (e) {
                 c.push_back(e);
               });
-              var d = B(u, s);
+              var d = W(u, s);
               try {
                 u.startVoipCall(e.toString({ legacy: !0 }), c, n, r, a, i, d);
               } catch (e) {
@@ -800,7 +801,7 @@ __d(
               r("justknobx")._("360") &&
                 o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(p);
               var _ = o("WABase64").encodeB64(o("WAWap").encodeStanza(p)),
-                f = B(m, d),
+                f = W(m, d),
                 g = a != null ? String(a) : "0",
                 h = i != null ? String(i) : "0";
               try {
@@ -826,7 +827,7 @@ __d(
             function* (e, t, n, r, a, i, s, u) {
               var c = yield l,
                 d = o("WABase64").encodeB64(o("WAWap").encodeStanza(e.node())),
-                m = B(c, u),
+                m = W(c, u),
                 p = r != null ? String(r) : "0",
                 _ = a != null ? String(a) : "0";
               try {
@@ -855,7 +856,7 @@ __d(
               r("justknobx")._("360") &&
                 o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(u);
               var c = o("WABase64").encodeB64(o("WAWap").encodeStanza(u)),
-                d = B(s, i);
+                d = W(s, i);
               try {
                 s.handleIncomingSignalingAck(c, t, n, a, d);
               } catch (e) {
@@ -879,7 +880,7 @@ __d(
             function* (e, t, n) {
               var r = yield l,
                 a = o("WABase64").encodeB64(o("WAWap").encodeStanza(e.node())),
-                i = B(r, n);
+                i = W(r, n);
               try {
                 r.handleIncomingSignalingReceipt(a, t, i);
               } catch (e) {
@@ -926,7 +927,7 @@ __d(
         handleOnTransportMessage: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              var r = O != null ? O : yield l,
+              var r = B != null ? B : yield l,
                 a = new Uint8Array(e),
                 s = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
                   r,
@@ -946,7 +947,7 @@ __d(
         markRelayConnected: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var n = O != null ? O : yield l;
+              var n = B != null ? B : yield l;
               n.markRelayConnected(e, t);
             },
           );
@@ -1353,6 +1354,30 @@ __d(
           }
           return t;
         })(),
+        isWebP2PEnabled: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            try {
+              var t = yield l;
+              return t.isWebP2PEnabled(e) === !0;
+            } catch (e) {
+              return (
+                o("WALogger").ERROR(
+                  F ||
+                    (F = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: isWebP2PEnabled: error=",
+                      "",
+                    ])),
+                  e,
+                ),
+                !1
+              );
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         sendWebP2PTransport: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, o, a) {
@@ -1409,7 +1434,7 @@ __d(
         })(),
       };
     }
-    function B(e, t) {
+    function W(e, t) {
       var n = new e.Uint8List();
       if (t) {
         var r = new Uint8Array(t);
@@ -1419,7 +1444,7 @@ __d(
       }
       return n;
     }
-    l.createWAWebVoipStackInterface = O;
+    l.createWAWebVoipStackInterface = B;
   },
   98,
 );

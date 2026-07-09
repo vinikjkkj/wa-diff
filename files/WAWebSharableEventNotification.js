@@ -1,6 +1,7 @@
 __d(
   "WAWebSharableEventNotification",
   [
+    "fbt",
     "WAWebBaseNotification",
     "WAWebChatCollection",
     "WAWebContactCollection",
@@ -14,7 +15,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
       function t(t) {
         var n,
@@ -83,9 +84,7 @@ __d(
             o("WAWebSharableEventNotificationConstants")
               .SharableEventNotificationType.Suspended
           )
-            return o(
-              "WAWebSharableEventNotificationStrings",
-            ).suspendedNotificationTitle();
+            return s._(/*BTDS*/ "Event suspended").toString();
           if (
             !o("WAWebSharableEventNotificationConstants").isSenderAttributed(
               this.type,
@@ -139,5 +138,5 @@ __d(
     })(o("WAWebBaseNotification").WABaseNotification);
     l.WAWebSharableEventNotification = e;
   },
-  98,
+  226,
 );

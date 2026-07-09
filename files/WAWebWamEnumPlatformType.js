@@ -64,6 +64,7 @@ __d(
       IGDVR: 67,
       WASG: 68,
       BLUEVR: 69,
+      WAIL: 70,
       TEST: 9,
       UNKNOWN: 10,
     });

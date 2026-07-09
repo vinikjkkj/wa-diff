@@ -17,6 +17,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebBackgroundSyncReporter",
     "WAWebBootstrapBizBroadcastCampaigns",
+    "WAWebBootstrapNewsletter",
     "WAWebBootstrapPremiumMessages",
     "WAWebBuildConstants",
     "WAWebCallsOnlyGating",
@@ -68,7 +69,6 @@ __d(
     "WAWebModelStorage",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterGatingUtils",
-    "WAWebNewsletterMetadataInitFromStorage",
     "WAWebOffdStorage",
     "WAWebOfflineHandler",
     "WAWebOfflineResumeMainThread",
@@ -624,8 +624,8 @@ __d(
                 );
               }),
             o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
-              ? o("WAWebNewsletterMetadataInitFromStorage")
-                  .restoreNewsletterMetadata()
+              ? o("WAWebBootstrapNewsletter")
+                  .restoreNewsletterMetadataWithLoadingStage()
                   .finally(function () {
                     (o("WAWebBackendApi").frontendFireAndForget(
                       "clearStatusForRemovedContact",

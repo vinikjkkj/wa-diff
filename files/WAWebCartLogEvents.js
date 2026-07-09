@@ -125,9 +125,12 @@ __d(
         ),
       );
     }
-    function y(e, t, n) {
+    function y(e) {
+      var t = e.catalogOwnerJid,
+        n = e.context,
+        r = e.onCartClick;
       return function () {
-        (e(), h(t, n));
+        (r(), h(t, n));
       };
     }
     function C(e, t) {

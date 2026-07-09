@@ -522,7 +522,16 @@ __d(
               .INITIAL_BOOTSTRAP
           )
             yield o("WAWebHistoryMsgHandlerAction")
-              .handleInitialSyncMsgs(ae, e, me, U, q, ce, _e, ie)
+              .handleInitialSyncMsgs({
+                chunkDownloadFinishTimestamp: ce,
+                chunkInfo: e,
+                historyLidPnMappings: ie,
+                historySyncDataAppliedMetric: q,
+                historySyncDownloadMetric: U,
+                newLidMetadata: me,
+                newUsernameUpdates: _e,
+                proto: ae,
+              })
               .catch(function (e) {
                 throw (
                   o("WALogger")

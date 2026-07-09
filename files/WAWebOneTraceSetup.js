@@ -83,13 +83,6 @@ __d(
                     : "",
               },
               bool: { is_compiler_enabled: r("gkx")("7685") },
-              int: {
-                wa_web_backend_worker_v2: r("gkx")("17524")
-                  ? r("gkx")("20033")
-                    ? 1
-                    : 0
-                  : -1,
-              },
             }),
               o("OneTraceQPLLogger").logQPL(s(e), e));
           }));

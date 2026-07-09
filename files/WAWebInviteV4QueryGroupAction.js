@@ -87,12 +87,16 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e, t, n, r) {
+    function u(e) {
+      var t = e.from,
+        n = e.inviteCode,
+        r = e.inviteCodeExp,
+        a = e.inviteGrp;
       return o("WAWebGroupInviteV4Job").joinGroupViaInviteV4({
-        from: r,
-        inviteCode: e,
-        inviteCodeExp: t,
-        inviteGrp: n,
+        from: t,
+        inviteCode: n,
+        inviteCodeExp: r,
+        inviteGrp: a,
       });
     }
     function c(e, t) {

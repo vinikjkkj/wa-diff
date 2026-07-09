@@ -190,10 +190,7 @@ __d(
         I.apply(this, arguments)
       );
     }
-    function T() {
-      return _;
-    }
-    ((l.loadVoipWasmVariant = k), (l.getVoipWasmVariant = T));
+    l.loadVoipWasmVariant = k;
   },
   98,
 );

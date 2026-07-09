@@ -43,7 +43,11 @@ __d(
         member_share_group_history_mode: "memberShareGroupHistoryMode",
       };
     function _(e, t, n) {
-      return g(o("WAWebStateUtils").unproxy(e), t, n);
+      return g({
+        chat: o("WAWebStateUtils").unproxy(e),
+        settingType: t,
+        value: n,
+      });
     }
     function f(e, t) {
       var n,
@@ -206,77 +210,88 @@ __d(
           n);
       return a[e][t];
     }
-    function g(t, r, a, i) {
-      var l, d;
-      if ((i === void 0 && (i = o("WAWebActionToast.react").genId()), !r))
+    function g(t) {
+      var r,
+        a,
+        i = t.chat,
+        l = t.settingType,
+        d = t.toastId,
+        _ = d === void 0 ? o("WAWebActionToast.react").genId() : d,
+        h = t.value;
+      if (!l)
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       if (
-        r === o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL &&
-        !((l = t.groupMetadata) != null && l.canSetEphemeralSetting())
+        l === o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL &&
+        !((r = i.groupMetadata) != null && r.canSetEphemeralSetting())
       )
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var _ = !1;
+      var y = !1;
       if (
-        (r === o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL &&
-          (_ = !0),
-        r === o("WAWebGroupConstants").GROUP_SETTING_TYPE.LIMIT_SHARING &&
+        (l === o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL &&
+          (y = !0),
+        l === o("WAWebGroupConstants").GROUP_SETTING_TYPE.LIMIT_SHARING &&
           !o("WAWebLimitSharingGatingUtils").isOpusAdminOnly() &&
-          (_ = !0),
-        !_ && !((d = t.groupMetadata) != null && d.canSetGroupProperty()))
+          (y = !0),
+        !y && !((a = i.groupMetadata) != null && a.canSetGroupProperty()))
       )
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var h = s._(/*BTDS*/ "Try again."),
-        y = function (n) {
+      var C = s._(/*BTDS*/ "Try again."),
+        b = function (t) {
           return (
-            n === void 0 && (n = !0),
+            t === void 0 && (t = !0),
             new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Group setting could not be changed"),
-              n
+              t
                 ? {
-                    actionText: h,
+                    actionText: C,
                     actionHandler: function () {
-                      return g(t, r, a, i);
+                      return g({
+                        chat: i,
+                        settingType: l,
+                        toastId: _,
+                        value: h,
+                      });
                     },
                   }
                 : void 0,
             )
           );
         },
-        C =
-          r === o("WAWebGroupConstants").GROUP_SETTING_TYPE.ANNOUNCEMENT ||
-          r === o("WAWebGroupConstants").GROUP_SETTING_TYPE.RESTRICT ||
-          r ===
+        v =
+          l === o("WAWebGroupConstants").GROUP_SETTING_TYPE.ANNOUNCEMENT ||
+          l === o("WAWebGroupConstants").GROUP_SETTING_TYPE.RESTRICT ||
+          l ===
             o("WAWebGroupConstants").GROUP_SETTING_TYPE.NO_FREQUENTLY_FORWARDED
             ? 1
             : 0,
-        b = a === C ? "off" : "on",
-        v = f(r, b),
-        S = v[0],
-        R = v[1],
-        L = new (o("WAWebActionToast.react").ActionType)(S),
-        E = function () {
-          if (r !== o("WAWebGroupConstants").GROUP_SETTING_TYPE.LIMIT_SHARING) {
+        S = h === v ? "off" : "on",
+        R = f(l, S),
+        L = R[0],
+        E = R[1],
+        k = new (o("WAWebActionToast.react").ActionType)(L),
+        I = function () {
+          if (l !== o("WAWebGroupConstants").GROUP_SETTING_TYPE.LIMIT_SHARING) {
             var e;
-            (e = t.groupMetadata) == null || e.set(p[r], a);
+            (e = i.groupMetadata) == null || e.set(p[l], h);
           }
           if (
-            (r ===
+            (l ===
               o("WAWebGroupConstants").GROUP_SETTING_TYPE
                 .REPORT_TO_ADMIN_MODE &&
-              !a &&
-              o("WAWebSendForAdminReviewUtils").clearLastReportTimestamp(t),
-            r ===
+              !h &&
+              o("WAWebSendForAdminReviewUtils").clearLastReportTimestamp(i),
+            l ===
               o("WAWebGroupConstants").GROUP_SETTING_TYPE
                 .ALLOW_NON_ADMIN_SUB_GROUP_CREATION)
           ) {
-            var n =
-              a === 0
+            var t =
+              h === 0
                 ? o("WAWebWamEnumChatFilterActionTypes")
                     .CHAT_FILTER_ACTION_TYPES
                     .SELECT_COMMUNITY_ADMINS_CAN_ADD_GROUPS
@@ -285,39 +300,39 @@ __d(
             new (o(
               "WAWebCommunityGroupJourneyEventImpl",
             ).CommunityGroupJourneyEvent)({
-              action: n,
+              action: t,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .COMMUNITY_SETTINGS,
-              chat: t,
+              chat: i,
             }).commit();
           }
-          return new (o("WAWebActionToast.react").ActionType)(R);
+          return new (o("WAWebActionToast.react").ActionType)(E);
         },
-        k = function (n, a, i) {
+        T = function (n, r, a) {
           return (
-            i === void 0 && (i = !0),
+            a === void 0 && (a = !0),
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "Error while setting property ",
                   "",
                 ])),
-              r,
+              l,
             ),
-            y(i)
+            b(a)
           );
         },
-        I = function (n) {
-          var e = o("WAPromiseEach").promiseEach(n, function (e) {
+        D = function (t) {
+          var e = o("WAPromiseEach").promiseEach(t, function (e) {
             return o(
               "WAWebMexUpdateGroupPropertyJob",
-            ).mexUpdateGroupPropertyJob(t.id.toString(), e);
+            ).mexUpdateGroupPropertyJob(i.id.toString(), e);
           });
           return {
             action: e,
             pendingAction: e
               .then(function (e) {
-                return E();
+                return I();
               })
               .catch(function (e) {
                 var t = !0,
@@ -329,13 +344,13 @@ __d(
                       e.status === 405 ||
                       e.status === 429) &&
                       (t = !1)),
-                  k(n, e.message, t)
+                  T(n, e.message, t)
                 );
               }),
           };
         },
-        T = function () {
-          var e = o("WAWebGroupModifyInfoJob").setGroupProperty(t.id, r, a);
+        x = function () {
+          var e = o("WAWebGroupModifyInfoJob").setGroupProperty(i.id, l, h);
           return {
             action: e,
             pendingAction: e
@@ -343,18 +358,18 @@ __d(
                 function (e) {
                   switch (e == null ? void 0 : e.name) {
                     case "SetPropertyResponseSuccess":
-                      return E();
+                      return I();
                     case "SetPropertyResponseClientError": {
                       var t = e.value.errorSetPropertyClientErrors.value,
                         n = t.code,
                         r = t.text;
-                      return k(n, r);
+                      return T(n, r);
                     }
                     case "SetPropertyResponseServerError": {
                       var o = e.value.errorServerErrors.value,
                         a = o.code,
                         i = o.text;
-                      return k(a, i);
+                      return T(a, i);
                     }
                   }
                 },
@@ -362,7 +377,7 @@ __d(
                   var t = e.value.errorServerErrors.value,
                     n = t.code,
                     r = t.text;
-                  return k(n, r);
+                  return T(n, r);
                 },
               )
               .catch(
@@ -388,66 +403,66 @@ __d(
                         "Error while setting property",
                       ])),
                   ),
-                  y()
+                  b()
                 );
               }),
           };
         },
-        D;
-      switch (r) {
+        $;
+      switch (l) {
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE
           .ALLOW_NON_ADMIN_SUB_GROUP_CREATION:
-          D = I([{ allow_non_admin_sub_group_creation: a === 1 }]);
+          $ = D([{ allow_non_admin_sub_group_creation: h === 1 }]);
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE.LIMIT_SHARING:
-          D = I([
+          $ = D([
             {
               limit_sharing: {
-                limit_sharing_enabled: a === 1,
+                limit_sharing_enabled: h === 1,
                 limit_sharing_trigger: "CHAT_SETTING",
               },
             },
           ]);
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE.MEMBER_ADD_MODE: {
-          var x,
-            $ = [{ member_add_mode: a === 1 ? "ALL_MEMBER_ADD" : "ADMIN_ADD" }];
-          (a === 0 &&
-            ((x = t.groupMetadata) == null ? void 0 : x.memberLinkMode) !==
+          var P,
+            N = [{ member_add_mode: h === 1 ? "ALL_MEMBER_ADD" : "ADMIN_ADD" }];
+          (h === 0 &&
+            ((P = i.groupMetadata) == null ? void 0 : P.memberLinkMode) !==
               o("WAWebGroupMemberLinkMode").MemberLinkMode.ADMIN_LINK &&
             o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsEnabled() &&
-            $.push({ member_link_mode: "ADMIN_LINK" }),
-            (D = I($)));
+            N.push({ member_link_mode: "ADMIN_LINK" }),
+            ($ = D(N)));
           break;
         }
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE.MEMBER_LINK_MODE:
-          D = I([
-            { member_link_mode: a === 1 ? "ALL_MEMBER_LINK" : "ADMIN_LINK" },
+          $ = D([
+            { member_link_mode: h === 1 ? "ALL_MEMBER_LINK" : "ADMIN_LINK" },
           ]);
           break;
         case o("WAWebGroupConstants").GROUP_SETTING_TYPE
           .MEMBER_SHARE_GROUP_HISTORY_MODE:
-          D = I([
+          $ = D([
             {
               member_share_group_history_mode:
-                a === 1 ? "ALL_MEMBER_SHARE" : "ADMIN_SHARE",
+                h === 1 ? "ALL_MEMBER_SHARE" : "ADMIN_SHARE",
             },
           ]);
           break;
       }
-      D || (D = T());
-      var P = D,
-        N = P.action,
-        M = P.pendingAction;
+      $ || ($ = x());
+      var M = $,
+        w = M.action,
+        A = M.pendingAction;
       return (
         o("WAWebToastManager").ToastManager.open(
           m.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: i,
-            initialAction: L,
-            pendingAction: M,
+            id: _,
+            initialAction: k,
+            pendingAction: A,
           }),
         ),
-        N
+        w
       );
     }
     ((l.setGroupProperty = _), (l.getActionString = f));

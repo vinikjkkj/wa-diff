@@ -26,6 +26,7 @@ __d(
                 3,
                 o("WAWebWamEnumPreCallActionType").PRE_CALL_ACTION_TYPE,
               ],
+              selectedItemCount: [12, e.TYPES.INTEGER],
               subSurface: [4, o("WAWebWamEnumSubSurface").SUB_SURFACE],
               surfaceSessionId: [5, e.TYPES.STRING],
               userJourneyEventMs: [9, e.TYPES.INTEGER],

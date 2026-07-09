@@ -11,15 +11,11 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgModelFromData",
     "WAWebMsgType",
-    "WAWebNewsletterAdminInsightsModel",
     "WAWebNewsletterBridgeMsgAddOnsUtils",
     "WAWebNewsletterCollection",
-    "WAWebNewsletterEnforcementAlertCollection",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterPullMessagesFromServerAction",
-    "WAWebNewsletterQuestionResponseCollection",
-    "WAWebNewsletterReportCollection",
     "WAWebNewsletterSubscriberModel",
     "WAWebNewsletterValidationUtils",
     "WAWebNotificationBackend",
@@ -36,23 +32,37 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "filterObject",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
+    var e = ["id"],
+      s = ["id"],
+      u = ["id"],
+      c = ["id"],
       d = ["id"],
       m = ["id"],
-      p = ["id"],
-      _ = ["id"],
-      f = ["id"],
-      g = ["id"];
-    function h(e, t) {
+      p,
+      _,
+      f,
+      g,
+      h = r("requireDeferred")("WAWebNewsletterRouteBridgeApi").__setRef(
+        "WAWebNewsletterBridgeApi",
+      );
+    function y(e, t) {
       var n = r("WAWebNewsletterCollection").get(e);
       n == null || n.mute.setMute(t, !1, !0);
     }
-    var y = {
+    function C(e) {
+      o("WALogger")
+        .ERROR(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[newsletter] failed to load route bridge api",
+            ])),
+        )
+        .sendLogs("newsletter-route-bridge-load-failed");
+    }
+    var b = {
       updateNewsletterMessageUI: function (t) {
         var e = t.chatID,
           n = t.isOrphan,
@@ -121,44 +131,44 @@ __d(
         }
         return t;
       })(),
-      updateNewsletterMetadata: function (t) {
-        var e = t.metadata,
-          n = t.newsletter,
-          a = t.pic,
-          i = e.id,
-          l = babelHelpers.objectWithoutPropertiesLoose(e, d),
-          s = n.id,
-          u = babelHelpers.objectWithoutPropertiesLoose(n, m),
-          c = a.id,
-          _ = babelHelpers.objectWithoutPropertiesLoose(a, p);
+      updateNewsletterMetadata: function (n) {
+        var t = n.metadata,
+          a = n.newsletter,
+          i = n.pic,
+          l = t.id,
+          c = babelHelpers.objectWithoutPropertiesLoose(t, e),
+          d = a.id,
+          m = babelHelpers.objectWithoutPropertiesLoose(a, s),
+          p = i.id,
+          _ = babelHelpers.objectWithoutPropertiesLoose(i, u);
         (r("WAWebNewsletterCollection")
-          .gadd(i)
+          .gadd(l)
           .set(
-            r("filterObject")(u, function (e) {
+            r("filterObject")(m, function (e) {
               return e != null;
             }),
             { merge: !0 },
           ),
           r("WAWebNewsletterMetadataCollection")
-            .gadd(i)
+            .gadd(l)
             .set(
-              r("filterObject")(l, function (e) {
+              r("filterObject")(c, function (e) {
                 return e != null;
               }),
               { merge: !0 },
             ),
           o("WAWebProfilePicThumbCollection")
-            .ProfilePicThumbCollection.gadd(i)
+            .ProfilePicThumbCollection.gadd(l)
             .set(_, { merge: !0 }),
-          l.name != null &&
+          c.name != null &&
             o("WAWebContactCollection")
-              .ContactCollection.gadd(i)
-              .set({ name: l.name }, { merge: !0 }));
+              .ContactCollection.gadd(l)
+              .set({ name: c.name }, { merge: !0 }));
       },
       toggleNewsletterAdminActivityMuteState: function (t) {
         var e = t.id,
           n = t.muteExpirationValue;
-        h(e, n);
+        y(e, n);
       },
       toggleNewsletterFollowerActivityMuteState: function (t) {
         var e,
@@ -192,22 +202,22 @@ __d(
         n != null &&
           o("WAWebUpdateUnreadChatAction").updateUnreadCountMD(n, 0, !1);
       },
-      subscribeToNewsletter: function (n) {
-        var t = n.newsletter,
-          a = t.newsletterMetadata;
-        if (a == null) {
+      subscribeToNewsletter: function (t) {
+        var e = t.newsletter,
+          n = e.newsletterMetadata;
+        if (n == null) {
           o("WALogger").ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[subscribeToNewsletter] newsletterMetadata=null",
               ])),
           );
           return;
         }
-        ((a.membershipType = o(
+        ((n.membershipType = o(
           "WAWebCommonNewsletterEnums",
         ).NewsletterMembershipType.Subscriber),
-          r("WAWebNewsletterCollection").add(t, { merge: !0 }));
+          r("WAWebNewsletterCollection").add(e, { merge: !0 }));
       },
       loadNewsletterPreviewChat: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -216,7 +226,7 @@ __d(
             a = e.newsletter,
             i = e.pic,
             l = n.id,
-            s = babelHelpers.objectWithoutPropertiesLoose(n, _);
+            s = babelHelpers.objectWithoutPropertiesLoose(n, c);
           if (
             (r("WAWebNewsletterMetadataCollection")
               .gadd(l)
@@ -224,30 +234,30 @@ __d(
             i != null)
           ) {
             var u = i.id,
-              c = babelHelpers.objectWithoutPropertiesLoose(i, f);
+              m = babelHelpers.objectWithoutPropertiesLoose(i, d);
             o("WAWebProfilePicThumbCollection")
               .ProfilePicThumbCollection.gadd(l)
-              .set(c, { merge: !0 });
+              .set(m, { merge: !0 });
           }
           (o("WAWebContactCollection").ContactCollection.add(
             { id: l, name: n.name },
             { merge: !0 },
           ),
             r("WAWebNewsletterCollection").add(a, { merge: !0 }));
-          var d = r("WAWebNewsletterCollection").get(l);
+          var p = r("WAWebNewsletterCollection").get(l);
           return (
-            d != null &&
+            p != null &&
               t != null &&
               (yield o(
                 "WAWebMsgCollection",
               ).MsgCollection.processMultipleMessages(
-                d.id,
+                p.id,
                 t,
                 { isHistory: !0, add: "search" },
                 "loadPreviewNewsletter",
-                d.msgs,
+                p.msgs,
               )),
-            d
+            p
           );
         });
         function t(t) {
@@ -277,7 +287,7 @@ __d(
       updateNewsletterPicture: function (t) {
         var e = t.pic,
           n = e.id,
-          r = babelHelpers.objectWithoutPropertiesLoose(e, g);
+          r = babelHelpers.objectWithoutPropertiesLoose(e, m);
         o("WAWebProfilePicThumbCollection")
           .ProfilePicThumbCollection.gadd(n)
           .set(r, { merge: !0 });
@@ -656,108 +666,54 @@ __d(
         }
         return t;
       })(),
-      updateNewsletterReports: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.reports;
-          (o(
-            "WAWebNewsletterReportCollection",
-          ).NewsletterReportCollection.reset(),
-            o("WAWebNewsletterReportCollection").NewsletterReportCollection.add(
+      updateNewsletterReports: function (t) {
+        h.load()
+          .then(function (e) {
+            return e.NewsletterRouteBridgeApi.updateNewsletterReports(t);
+          })
+          .catch(C);
+      },
+      updateNewsletterReport: function (t) {
+        h.load()
+          .then(function (e) {
+            return e.NewsletterRouteBridgeApi.updateNewsletterReport(t);
+          })
+          .catch(C);
+      },
+      updateNewsletterEnforcementAlerts: function (t) {
+        h.load()
+          .then(function (e) {
+            return e.NewsletterRouteBridgeApi.updateNewsletterEnforcementAlerts(
               t,
-            ));
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      updateNewsletterReport: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.report;
-          o("WAWebNewsletterReportCollection").NewsletterReportCollection.add(
-            t,
-            { merge: !0 },
-          );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      updateNewsletterEnforcementAlerts: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.enforcementAlerts;
-          (o(
-            "WAWebNewsletterEnforcementAlertCollection",
-          ).NewsletterEnforcementAlertCollection.reset(),
-            o(
-              "WAWebNewsletterEnforcementAlertCollection",
-            ).NewsletterEnforcementAlertCollection.add(t));
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      updateNewsletterQuestionResponses: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.append,
-            n = e.responses;
-          (t ||
-            o(
-              "WAWebNewsletterQuestionResponseCollection",
-            ).QuestionResponseCollection.reset(),
-            o(
-              "WAWebNewsletterQuestionResponseCollection",
-            ).QuestionResponseCollection.add(n));
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      hideNewsletterQuestionResponse: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.questionServerId,
-            r = e.responseServerId,
-            a = yield (t = o(
-              "WAWebNewsletterQuestionResponseCollection",
-            ).QuestionResponseCollection.filter(function (e) {
-              return e.responseServerId === r && e.questionServerId === n;
-            })) == null
-              ? void 0
-              : t[0];
-          a != null &&
-            o(
-              "WAWebNewsletterQuestionResponseCollection",
-            ).QuestionResponseCollection.remove(a);
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      updateNewsletterQuestionResponseStarredState: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.questionServerId,
-            r = e.responseServerId,
-            a = e.starred,
-            i = yield (t = o(
-              "WAWebNewsletterQuestionResponseCollection",
-            ).QuestionResponseCollection.filter(function (e) {
-              return e.responseServerId === r && e.questionServerId === n;
-            })) == null
-              ? void 0
-              : t[0];
-          i != null && i.set("starred", a);
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+            );
+          })
+          .catch(C);
+      },
+      updateNewsletterQuestionResponses: function (t) {
+        h.load()
+          .then(function (e) {
+            return e.NewsletterRouteBridgeApi.updateNewsletterQuestionResponses(
+              t,
+            );
+          })
+          .catch(C);
+      },
+      hideNewsletterQuestionResponse: function (t) {
+        h.load()
+          .then(function (e) {
+            return e.NewsletterRouteBridgeApi.hideNewsletterQuestionResponse(t);
+          })
+          .catch(C);
+      },
+      updateNewsletterQuestionResponseStarredState: function (t) {
+        h.load()
+          .then(function (e) {
+            return e.NewsletterRouteBridgeApi.updateNewsletterQuestionResponseStarredState(
+              t,
+            );
+          })
+          .catch(C);
+      },
       updateMyNewsletterMembershipRole: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.newRole,
@@ -765,8 +721,8 @@ __d(
             a = n.newsletterMetadata;
           if (a == null) {
             o("WALogger").ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[updateNewsletterMembershipRole] newsletterMetadata=null",
                 ])),
             );
@@ -789,8 +745,8 @@ __d(
             i = a.newsletterMetadata;
           if (i == null) {
             o("WALogger").ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[updateNewsletterMembershipRole] newsletterMetadata=null",
                 ])),
             );
@@ -803,12 +759,12 @@ __d(
               (s = a.newsletterMetadata) == null ||
                 (s = s.subscribers) == null ||
                 s.sort());
-            var c = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            var u = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
               a.id.toJid(),
             );
             yield o(
               "WAWebUserPrefsNewsletter",
-            ).flushCachedNewsletterSubscribers(c);
+            ).flushCachedNewsletterSubscribers(u);
           }
         });
         function t(t) {
@@ -848,24 +804,9 @@ __d(
         return t;
       })(),
       updateNewsletterInsights: function (t) {
-        var e = t.insights,
-          n = t.newsletter,
-          r = n.newsletterMetadata;
-        if (r == null) {
-          o("WALogger").ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[updateNewsletterInsights] newsletterMetadata=null",
-              ])),
-          );
-          return;
-        }
-        var a = r.adminInsights;
-        a == null
-          ? (r.adminInsights = new (o(
-              "WAWebNewsletterAdminInsightsModel",
-            ).NewsletterAdminInsights)(e))
-          : a.set(babelHelpers.extends({}, e));
+        return h.load().then(function (e) {
+          return e.NewsletterRouteBridgeApi.updateNewsletterInsights(t);
+        });
       },
       handleNewsletterWamoSubStatusChangeNotification: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -895,7 +836,7 @@ __d(
         return t;
       })(),
     };
-    l.NewsletterBridgeApi = y;
+    l.NewsletterBridgeApi = b;
   },
   98,
 );

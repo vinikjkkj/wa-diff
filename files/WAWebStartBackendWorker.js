@@ -12,13 +12,11 @@ __d(
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerClient",
     "WAWebBackendWorkerInitState",
-    "WAWebBackendWorkerResource",
     "WAWebBackendWorkerV2Resource",
     "WAWebCrashlog",
     "WAWebGetMessageCache",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebIdentityChangeApiWorkerCompatible",
-    "WAWebLogForCrash",
     "WAWebLogger",
     "WAWebMainThreadQplHandler",
     "WAWebMainThreadUploadManagerHandler",
@@ -40,7 +38,6 @@ __d(
     "WAXMultiSiteWebWorkerV4HasteResponseControllerRouteBuilder",
     "WAXMultiSiteWebWorkerV4InitScriptControllerRouteBuilder",
     "WebWorkerV4Resource",
-    "WorkerBundleResource",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -65,9 +62,10 @@ __d(
       throw new TypeError('"' + e + '" is read-only');
     }
     var y = "WAWebBackendWorker-" + o("WAWebUserPrefsTabMutex").THIS_TAB,
-      C = r("qpl")._(891427260, "2714"),
-      b = new Map(),
-      v = {
+      C = "worker-killswitch-stolen",
+      b = r("qpl")._(891427260, "2714"),
+      v = new Map(),
+      S = {
         initScriptRouteBuilder: r(
           "WAXMultiSiteWebWorkerV4InitScriptControllerRouteBuilder",
         ),
@@ -75,7 +73,7 @@ __d(
           "WAXMultiSiteWebWorkerV4HasteResponseControllerRouteBuilder",
         ),
       };
-    function S(e) {
+    function R(e) {
       var t = null,
         n = {
           onmessage: t,
@@ -93,7 +91,7 @@ __d(
         n
       );
     }
-    function R() {
+    function L() {
       var t,
         a = o("WAWebBackendWorkerBridge").createBridge([
           {
@@ -364,12 +362,12 @@ __d(
                   r = o(
                     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
                   ).msgProcessReporter.startMarker(n);
-                r && b.set(e, r);
+                r && v.set(e, r);
               },
               endMarker: function (t) {
                 var e = t.markerId,
-                  n = b.get(e);
-                n && (n(), b.delete(e));
+                  n = v.get(e);
+                n && (n(), v.delete(e));
               },
               activate: function (t) {
                 var e = t.count;
@@ -571,77 +569,59 @@ __d(
         a
       );
     }
-    var L = null,
-      E = null,
-      k = 3,
-      I = 10;
-    function T(e) {
-      return D.apply(this, arguments);
+    var E = null,
+      k = null,
+      I = 3,
+      T = 10;
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
-            i = null;
-          (r("gkx")("17524") && (i = r("gkx")("20033")),
-            i != null &&
-              o("WAWebLogForCrash").onLogForCrashReady(function () {
-                o("WAWebLogForCrash").logForCrash(
-                  "wa_web_backend_worker_v2",
-                  i,
-                );
-              }));
-          var l = o("WAWebUserPrefsMultiDevice").isRegistered(),
-            s = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
-            u =
+            i = o("WAWebUserPrefsMultiDevice").isRegistered(),
+            l = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
+            s =
               (a = e == null ? void 0 : e.qpl) != null
                 ? a
-                : o("QPLFlow").startQPLFlow(C, {
+                : o("QPLFlow").startQPLFlow(b, {
                     annotations: {
                       bool: {
                         wa_web_media_wasm_worker_split: r("gkx")("24042"),
                         supportModule: r("supportsModuleWorker")(!1),
-                        isLoggedIn: l,
+                        isLoggedIn: i,
                       },
-                      int: {
-                        retryStart: s,
-                        isWorkerV2: i == null ? -1 : i ? 1 : 0,
-                      },
+                      int: { retryStart: l },
                     },
                     timeoutInMs: 6e4,
                   });
           try {
-            u.addPoint("create_worker_start");
-            var c,
-              f = (g || (g = n("Promise"))).resolve();
-            if (i === !0) {
-              var h =
-                  o("WAWebUA").UA.isFirefox &&
-                  parseInt(o("WAWebUA").UA.browserVersion.split(".")[0], 10) <=
-                    115,
-                b = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
-                  r("WAWebBackendWorkerV2Resource"),
-                  v,
-                  y,
-                  h,
-                );
-              ((f = b.initReady), (c = b.worker));
-            } else
-              c = o("WorkerBundleResource").createDedicatedWebWorker(
-                r("WAWebBackendWorkerResource"),
-              );
-            (u.addPoint("worker_connect_start"),
-              yield g.all([f, x(c)]),
-              u.addPoint("worker_connect_end"));
-            var D;
+            s.addPoint("create_worker_start");
+            var u =
+                o("WAWebUA").UA.isFirefox &&
+                parseInt(o("WAWebUA").UA.browserVersion.split(".")[0], 10) <=
+                  115,
+              c = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
+                r("WAWebBackendWorkerV2Resource"),
+                S,
+                y,
+                u,
+              ),
+              f = c.initReady,
+              h = c.worker;
+            (s.addPoint("worker_connect_start"),
+              yield (g || (g = n("Promise"))).all([f, $(h)]),
+              s.addPoint("worker_connect_end"));
+            var v;
             o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
-              ? (D = yield o(
+              ? (v = yield o(
                   "WAWebBackendWorkerClient",
                 ).getBackendWorkerBridge())
-              : (D = R());
-            var $ = S(c);
-            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(D, $, [
+              : (v = L());
+            var x = R(h);
+            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(v, x, [
               "historySync",
               "deviceSync",
               "crypto",
@@ -657,13 +637,13 @@ __d(
               o("WAWebBackendWorkerClient")
                 .getBackendWorkerBridge()
                 .then(function (e) {
-                  (L == null || L(),
+                  (E == null || E(),
                     e.fireAndForget("mediaHostsSync", "snapshot", {
                       data: o(
                         "WAWebMediaHostsRawStateManager",
                       ).mediaHostsRawStateManager.get(),
                     }),
-                    (L = o(
+                    (E = o(
                       "WAWebMediaHostsRawStateManager",
                     ).mediaHostsRawStateManager.onSet(function (t) {
                       e.fireAndForget("mediaHostsSync", "snapshot", {
@@ -686,7 +666,7 @@ __d(
               o("WAWebBackendWorkerClient")
                 .getBackendWorkerBridge()
                 .then(function (e) {
-                  (E == null || E(),
+                  (k == null || k(),
                     e.fireAndForget(
                       "networkStatusSync",
                       "updateNetworkStatus",
@@ -696,7 +676,7 @@ __d(
                         ).networkStatusStateManager.get(),
                       },
                     ),
-                    (E = o(
+                    (k = o(
                       "WAWebNetworkStatusStateManager",
                     ).networkStatusStateManager.onSet(function (t) {
                       e.fireAndForget(
@@ -718,27 +698,26 @@ __d(
                     )
                     .sendLogs("network-status-sync-failed");
                 }),
-              o("WAWebBackendWorkerClient").setBackendWorkerBridge(D),
-              l
-                ? (u.addPoint("init_data_start"),
-                  yield o("WAWebBackendWorkerInitState").sendInitState(D),
-                  u.addPoint("init_data_end"))
-                : (u.addPoint("init_data_triggered"),
-                  o("WAWebBackendWorkerInitState").sendInitState(D)),
-              u.addPoint("create_worker_end"),
-              u.endSuccess(),
+              o("WAWebBackendWorkerClient").setBackendWorkerBridge(v),
+              i
+                ? (s.addPoint("init_data_start"),
+                  yield o("WAWebBackendWorkerInitState").sendInitState(v),
+                  s.addPoint("init_data_end"))
+                : (s.addPoint("init_data_triggered"),
+                  o("WAWebBackendWorkerInitState").sendInitState(v)),
+              s.addPoint("create_worker_end"),
+              s.endSuccess(),
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
                     "WAWebBackendWorker is initialised",
                   ])),
               ),
-              i === !0 &&
-                globalThis.navigator.locks != null &&
+              globalThis.navigator.locks != null &&
                 globalThis.navigator.locks.request(
                   y + "-kill-switch-lock",
                   function () {
-                    s < I && T({ retryStart: s + 1 });
+                    l < T && D({ retryStart: l + 1 });
                   },
                 ));
           } catch (t) {
@@ -762,23 +741,23 @@ __d(
                 )
                 .catching(N)
                 .sendLogs("main-thread-backend-worker-init-fails"),
-              N.message.includes("worker-killswitch-stolen"))
+              N.message.includes(C))
             ) {
-              u.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t));
+              s.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t));
               return;
             }
             var M = (P = e == null ? void 0 : e.retryInit) != null ? P : 0;
-            M < k && globalThis.navigator.locks != null
-              ? (u.addPoint("retry_" + M), T({ qpl: u, retryInit: M + 1 }))
-              : u.endFail(
+            M < I && globalThis.navigator.locks != null
+              ? (s.addPoint("retry_" + M), D({ qpl: s, retryInit: M + 1 }))
+              : s.endFail(
                   o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t),
                 );
           }
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
+    function $(e) {
       return new (g || (g = n("Promise")))(function (t, n) {
         var r = function (a) {
           var o = a.data,
@@ -791,7 +770,7 @@ __d(
         e.addEventListener("message", r);
       });
     }
-    l.startBackendWorker = T;
+    l.startBackendWorker = D;
   },
   98,
 );

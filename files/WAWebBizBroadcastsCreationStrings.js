@@ -116,66 +116,63 @@ __d(
       return s._(/*BTDS*/ "Details");
     }
     function V() {
-      return s._(/*BTDS*/ "Payment method");
-    }
-    function H() {
       return s._(/*BTDS*/ "Summary");
     }
-    function G() {
+    function H() {
       return s._(/*BTDS*/ "Total recipients");
     }
-    function z() {
+    function G() {
       return s._(/*BTDS*/ "Estimated cost");
     }
-    function j() {
+    function z() {
       return s._(/*BTDS*/ "Estimated tax");
     }
-    function K() {
+    function j() {
       return s._(/*BTDS*/ "Estimated total");
     }
-    function Q() {
+    function K() {
       return s._(/*BTDS*/ "Credits used");
     }
-    function X() {
+    function Q() {
       return s._(/*BTDS*/ "Available credits");
     }
-    function Y() {
+    function X() {
       return s._(/*BTDS*/ "Existing audiences");
     }
-    function J(e) {
+    function Y(e) {
       return s._(/*BTDS*/ "{count} recipients", [s._param("count", e)]);
     }
-    function Z() {
+    function J() {
       return s._(/*BTDS*/ "Save");
     }
-    function ee() {
+    function Z() {
       return s._(/*BTDS*/ "Remove");
     }
-    function te() {
+    function ee() {
       return s._(/*BTDS*/ "Audience info");
     }
-    function ne() {
+    function te() {
       return s._(/*BTDS*/ "Delete audience");
     }
-    function re() {
+    function ne() {
       return s._(/*BTDS*/ "Broadcast details");
     }
-    function oe() {
+    function re() {
       return s._(/*BTDS*/ "Star");
     }
-    function ae() {
+    function oe() {
       return s._(/*BTDS*/ "Unstar");
     }
-    function ie() {
+    function ae() {
       return s._(/*BTDS*/ "Continue without saving?");
     }
-    function le() {
+    function ie() {
       return s._(/*BTDS*/ "Your progress will be lost.");
     }
-    function se() {
+    function le() {
       return s._(/*BTDS*/ "Continue");
     }
-    function ue(e) {
+    function se(e) {
       var t = e.broadcastJidIsNull,
         n = e.checkoutFailed,
         r = e.contactsCount,
@@ -249,27 +246,26 @@ __d(
       (l.getPreviewMessagePlaceholder = W),
       (l.getDocumentPreviewPagesCount = q),
       (l.getDetailsSectionTitle = U),
-      (l.getPaymentMethodLabel = V),
-      (l.getBillingSummarySectionTitle = H),
-      (l.getTotalRecipientsLabel = G),
-      (l.getEstimatedCostLabel = z),
-      (l.getEstimatedTaxLabel = j),
-      (l.getEstimatedTotalLabel = K),
-      (l.getCreditsUsedLabel = Q),
-      (l.getAvailableCreditsLabel = X),
-      (l.getExistingAudiencesDialogTitle = Y),
-      (l.getExistingAudienceRecipientsLabel = J),
-      (l.getExistingAudiencesSaveButtonLabel = Z),
-      (l.getDocumentPreviewRemoveDocumentLabel = ee),
-      (l.getBroadcastAudienceInfoLabel = te),
-      (l.getDeleteBroadcastAudienceLabel = ne),
-      (l.getBroadcastDetailsLabel = re),
-      (l.getBroadcastStarLabel = oe),
-      (l.getBroadcastUnstarLabel = ae),
-      (l.getExitConfirmationTitle = ie),
-      (l.getExitConfirmationBody = le),
-      (l.getExitConfirmationContinueButton = se),
-      (l.getSendNowButtonDisabledReason = ue));
+      (l.getBillingSummarySectionTitle = V),
+      (l.getTotalRecipientsLabel = H),
+      (l.getEstimatedCostLabel = G),
+      (l.getEstimatedTaxLabel = z),
+      (l.getEstimatedTotalLabel = j),
+      (l.getCreditsUsedLabel = K),
+      (l.getAvailableCreditsLabel = Q),
+      (l.getExistingAudiencesDialogTitle = X),
+      (l.getExistingAudienceRecipientsLabel = Y),
+      (l.getExistingAudiencesSaveButtonLabel = J),
+      (l.getDocumentPreviewRemoveDocumentLabel = Z),
+      (l.getBroadcastAudienceInfoLabel = ee),
+      (l.getDeleteBroadcastAudienceLabel = te),
+      (l.getBroadcastDetailsLabel = ne),
+      (l.getBroadcastStarLabel = re),
+      (l.getBroadcastUnstarLabel = oe),
+      (l.getExitConfirmationTitle = ae),
+      (l.getExitConfirmationBody = ie),
+      (l.getExitConfirmationContinueButton = le),
+      (l.getSendNowButtonDisabledReason = se));
   },
   226,
 );

@@ -2,11 +2,15 @@ __d(
   "WAWebMsgInfoAction",
   ["WAWebAck", "WAWebStateUtils", "WAWebWid"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, a) {
-      var i = o("WAWebStateUtils").unproxy(e),
-        l = i.id,
-        c = r("WAWebWid").isUser(l.remote);
-      c ? s(i, t, n, a) : u(i, t, n, a);
+    function e(e) {
+      var t = e.ack,
+        n = e.msgInfoParam,
+        a = e.participant,
+        i = e.ts,
+        l = o("WAWebStateUtils").unproxy(n),
+        c = l.id,
+        d = r("WAWebWid").isUser(c.remote);
+      d ? s(l, t, a, i) : u(l, t, a, i);
     }
     function s(e, t, n, r) {
       t === o("WAWebAck").ACK.PLAYED

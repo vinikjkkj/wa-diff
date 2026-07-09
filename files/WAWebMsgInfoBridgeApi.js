@@ -17,7 +17,13 @@ __d(
                 : o("WAWebMsgCollection").MsgCollection.getByEditMsgKey(i);
           if (u != null) {
             var c = o("WAWebMsgInfoCollection").MsgInfoCollection.get(u.id);
-            c != null && o("WAWebMsgInfoAction").updateMsgInfo(c, a, l, s);
+            c != null &&
+              o("WAWebMsgInfoAction").updateMsgInfo({
+                ack: a,
+                msgInfoParam: c,
+                participant: l,
+                ts: s,
+              });
           }
         }
       },

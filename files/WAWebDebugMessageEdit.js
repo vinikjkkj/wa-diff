@@ -66,7 +66,11 @@ __d(
               yield o("WAWebSendTextMsgChatAction").createTextMsgData(n, t),
             ),
             i = new (o("WAWebMsgModel").Msg)(a),
-            l = o("WAWebSendMessageEditAction").createEditMsgData(i, e, {});
+            l = o("WAWebSendMessageEditAction").createEditMsgData({
+              msg: i,
+              options: {},
+              text: e,
+            });
           (d("Sending orphan message edit. Will pause for 10s after this."),
             yield o("WAWebSendMessageEditAction").addAndSendMessageEdit(i, l),
             yield o("WAPromiseDelays").delayMs(1e4),
@@ -111,7 +115,11 @@ __d(
             var p = s === u ? e : t,
               _ = babelHelpers.extends(
                 {},
-                o("WAWebSendMessageEditAction").createEditMsgData(i, p, {}),
+                o("WAWebSendMessageEditAction").createEditMsgData({
+                  msg: i,
+                  options: {},
+                  text: p,
+                }),
                 { latestEditSenderTimestampMs: u },
               );
             yield o("WAWebSendMessageEditAction").addAndSendMessageEdit(i, _);
@@ -149,11 +157,11 @@ __d(
             s = t(o("WAWebMsgCollection").MsgCollection.get(a.id)),
             u = babelHelpers.extends(
               {},
-              o("WAWebSendMessageEditAction").createEditMsgData(
-                l,
-                "This edit is sent as a reply message. However, it should be shown as a regular text messge, or the client has *failed* to exclude unallowed properties.",
-                {},
-              ),
+              o("WAWebSendMessageEditAction").createEditMsgData({
+                msg: l,
+                options: {},
+                text: "This edit is sent as a reply message. However, it should be shown as a regular text messge, or the client has *failed* to exclude unallowed properties.",
+              }),
               s.msgContextInfo(n.id),
             );
           (yield o("WAWebSendMessageEditAction").addAndSendMessageEdit(l, u),
@@ -182,7 +190,11 @@ __d(
           var n = new (o("WAWebMsgModel").Msg)(t),
             a = babelHelpers.extends(
               {},
-              o("WAWebSendMessageEditAction").createEditMsgData(n, "", {}),
+              o("WAWebSendMessageEditAction").createEditMsgData({
+                msg: n,
+                options: {},
+                text: "",
+              }),
               { editMsgType: o("WAWebMsgType").MSG_TYPE.AUDIO },
             ),
             i = new (o("WAWebMsgModel").Msg)(a);

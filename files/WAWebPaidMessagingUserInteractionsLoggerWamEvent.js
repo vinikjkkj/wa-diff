@@ -17,6 +17,8 @@ __d(
           PaidMessagingUserInteractionsLogger: [
             4740,
             {
+              messageBubbleHeightPx: [17, e.TYPES.INTEGER],
+              messageBubbleWidthPx: [18, e.TYPES.INTEGER],
               pmxActionTarget: [
                 1,
                 o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")

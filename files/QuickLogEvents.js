@@ -2531,6 +2531,11 @@ __d(
         name: "MUSIC_BROWSER_NULL_STATE",
         sampleRate: 1,
       },
+      17639276: {
+        moduleName: "IG_CAMERA",
+        name: "C2PA_READING",
+        sampleRate: 1,
+      },
       17640651: {
         moduleName: "IG_CAMERA",
         name: "MUSIC_BROWSER_KEYWORD_SEARCH_QUERY",
@@ -14182,7 +14187,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 271,
+        sampleRate: 300,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14247,7 +14252,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 31401,
+        sampleRate: 35153,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -15431,14 +15436,14 @@ __d(
       100338619: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE",
-        sampleRate: 10,
+        sampleRate: 9,
       },
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
         sampleRate: 8897,
       },
-      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 33 },
+      100348897: { moduleName: "ACCESS_LIBRARY", name: "SAVE", sampleRate: 40 },
       100349780: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE_AGGREGATED",
@@ -16329,6 +16334,11 @@ __d(
         moduleName: "FB_BOOTCAMP_EXERCISE",
         name: "FB_BOOTCAMP_QPL_SPAN_TEST_START",
         sampleRate: null,
+      },
+      121896961: {
+        moduleName: "PERMALINK_ADS_SUBFEED_PERF",
+        name: "PERMALINK_ADS_SUBFEED_FIRST_AD_RENDER",
+        sampleRate: 250,
       },
       121966760: {
         moduleName: "EP_TAE",
@@ -27468,6 +27478,11 @@ __d(
         name: "SUBMIT_DIFF",
         sampleRate: 1,
       },
+      278400928: {
+        moduleName: "DEVMATE_E2E",
+        name: "SERVER_RESUME_SESSION",
+        sampleRate: 1,
+      },
       278401341: {
         moduleName: "DEVMATE_E2E",
         name: "ORCHESTRATOR_LOOPER",
@@ -31839,6 +31854,11 @@ __d(
       359403223: {
         moduleName: "WHATSAPP_SMB_COEX",
         name: "SMBA_COEX_OFFBOARDING",
+        sampleRate: 250,
+      },
+      359404047: {
+        moduleName: "WHATSAPP_SMB_COEX",
+        name: "SMBI_COEX_REREG_REONBOARDING",
         sampleRate: 250,
       },
       359404177: {
@@ -47088,6 +47108,11 @@ __d(
         name: "XMA_LOADING_DURATION",
         sampleRate: 1,
       },
+      588450450: {
+        moduleName: "META_CRM_PIPELINE_MANAGEMENT",
+        name: "PITCH_NARRATIVE_EDIT_SOLUTION",
+        sampleRate: 1,
+      },
       588454263: {
         moduleName: "META_CRM_PIPELINE_MANAGEMENT",
         name: "INITIATIVE_FORM",
@@ -49857,6 +49882,11 @@ __d(
       647171396: {
         moduleName: "AIM_SCHEDULING_SERVICE",
         name: "BOXCAR_ONBOARDING_DURATION",
+        sampleRate: 1,
+      },
+      647174631: {
+        moduleName: "AIM_SCHEDULING_SERVICE",
+        name: "TIME_TO_SCHEDULE",
         sampleRate: 1,
       },
       647182257: {
@@ -69195,6 +69225,11 @@ __d(
         name: "DELTA_PROCESSING",
         sampleRate: 1e7,
       },
+      911946680: {
+        moduleName: "MDCORE_IOS_DEBUGGING",
+        name: "MSGR_POST_LOGIN_FLOW",
+        sampleRate: 1e3,
+      },
       911948455: {
         moduleName: "MDCORE_IOS_DEBUGGING",
         name: "DELTA_PAYLOAD_PROCESSING",
@@ -75916,6 +75951,11 @@ __d(
         moduleName: "AD_EXTENSIONS",
         name: "PAGINATION",
         sampleRate: 1,
+      },
+      1019877265: {
+        moduleName: "AD_EXTENSIONS",
+        name: "TOUCH_EVENT_FUNNEL",
+        sampleRate: 250,
       },
       1020529567: {
         moduleName: "VROS_TELEMETRY",

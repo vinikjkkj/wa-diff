@@ -1168,6 +1168,7 @@ __d(
               isCallFull: [1149, e.TYPES.BOOLEAN],
               isDeviceSwitch: [2643, e.TYPES.BOOLEAN],
               isEventsLink: [1928, e.TYPES.BOOLEAN],
+              isExtensionCreator: [3066, e.TYPES.BOOLEAN],
               isFromCallLink: [1316, e.TYPES.BOOLEAN],
               isGcRekeyMaster: [2075, e.TYPES.BOOLEAN],
               isInSymNat: [1921, e.TYPES.BOOLEAN],

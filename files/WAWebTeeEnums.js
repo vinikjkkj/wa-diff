@@ -52,9 +52,8 @@ __d(
         CONVERSATION_TYPE_GROUP: 2,
         CONVERSATION_TYPE_OTHER: 3,
       }),
-      m = e({ AGE_UNKNOWN: 0, AGE_OVER_18: 1, AGE_UNDER_18: 2 }),
-      p = e({ MOCK: "mock", REAL: "real", INTERCEPT: "intercept" }),
-      _ = e({
+      m = e({ MOCK: "mock", REAL: "real", INTERCEPT: "intercept" }),
+      p = e({
         SUMMARY: "summary",
         WRITE_WITH_AI: "write_with_ai",
         SIDE_CHAT: "side_chat",
@@ -65,9 +64,8 @@ __d(
       (i.TEEClientSurface = u),
       (i.ChatRole = c),
       (i.ConversationType = d),
-      (i.AgeStatus = m),
-      (i.TeeClientMode = p),
-      (i.TeeRequestType = _));
+      (i.TeeClientMode = m),
+      (i.TeeRequestType = p));
   },
   66,
 );

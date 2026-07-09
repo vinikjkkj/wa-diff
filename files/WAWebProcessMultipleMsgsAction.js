@@ -191,17 +191,17 @@ __d(
                   M,
                   z.threadId,
                 )),
-              r("WAWebAddAndReorderMsgsActionsUtils")(
-                a,
-                A,
-                b,
-                j,
-                O,
-                z != null ? z : M.msgs,
-                q,
-                U,
-                i.anchorMsgKey,
-              ),
+              r("WAWebAddAndReorderMsgsActionsUtils")({
+                anchorMsgKey: i.anchorMsgKey,
+                chatMsgsCollection: z != null ? z : M.msgs,
+                firstUnreadKey: q,
+                insertAfter: O,
+                msgHistory: a,
+                newMsgs: A,
+                reorderMsgs: b,
+                resetMostRecentMsgs: U,
+                threadOrChat: j,
+              }),
               F - k >= 500 &&
                 o("WALogger").LOG(
                   u ||

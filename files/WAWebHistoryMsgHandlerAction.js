@@ -97,718 +97,718 @@ __d(
       N,
       M,
       w;
-    function A(e, t, n, r, o, a, i, l) {
+    function A(e) {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, s, u, c) {
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history sync] starts hanlding initial sync msgs",
-                ])),
-            );
-            var d = [],
-              m = {},
-              p = {},
-              _ = new Map(),
-              P = {},
-              N = [],
-              M = new Set(),
-              A = 0,
-              F = [],
-              O = o(
-                "WAWebHistorySyncNotificationCommonUtils",
-              ).getLidMappingAsStringSet(c);
-            o("WAWebCurrentUser").isEmployee() &&
-              o("WALogger")
-                .LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "first lid mappings for initial sync. count: ",
-                      ". ",
-                      "...",
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chunkDownloadFinishTimestamp,
+            a = e.chunkInfo,
+            i = e.historyLidPnMappings,
+            l = e.historySyncDataAppliedMetric,
+            s = e.historySyncDownloadMetric,
+            u = e.newLidMetadata,
+            c = e.newUsernameUpdates,
+            d = e.proto;
+          o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "[history sync] starts hanlding initial sync msgs",
+              ])),
+          );
+          var m = [],
+            p = {},
+            _ = {},
+            P = new Map(),
+            N = {},
+            M = [],
+            A = new Set(),
+            F = 0,
+            O = [],
+            B = o(
+              "WAWebHistorySyncNotificationCommonUtils",
+            ).getLidMappingAsStringSet(i);
+          o("WAWebCurrentUser").isEmployee() &&
+            o("WALogger")
+              .LOG(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "first lid mappings for initial sync. count: ",
+                    ". ",
+                    "...",
+                  ])),
+                B == null ? void 0 : B.size,
+                o("WAWebHistorySyncNotificationCommonUtils").getLidsForLogging(
+                  B,
+                ),
+              )
+              .verbose();
+          var W = new Map(),
+            q = [],
+            K = 0,
+            Q = 0,
+            X = 0,
+            Y =
+              o(
+                "WAWebBizCoexGatingUtils",
+              ).smbHostedLazySystemMsgInsertInHistorySyncEnabled() &&
+              (yield o("WAWebUserPrefsMultiDevice").getIsHostedMeAccount()) ===
+                !0,
+            J = function* (t) {
+              var e,
+                n,
+                l,
+                s,
+                c,
+                d,
+                f = t.id;
+              o("WAWebCurrentUser").isEmployee() &&
+                o("WALogger").LOG(
+                  k ||
+                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync] processing conversation ",
+                      " with ",
+                      " messages",
                     ])),
-                  O == null ? void 0 : O.size,
-                  o(
-                    "WAWebHistorySyncNotificationCommonUtils",
-                  ).getLidsForLogging(O),
-                )
-                .verbose();
-            var B = new Map(),
-              W = [],
-              q = 0,
-              K = 0,
-              Q = 0,
-              X =
-                o(
-                  "WAWebBizCoexGatingUtils",
-                ).smbHostedLazySystemMsgInsertInHistorySyncEnabled() &&
-                (yield o(
-                  "WAWebUserPrefsMultiDevice",
-                ).getIsHostedMeAccount()) === !0,
-              Y = function* (n) {
-                var e,
-                  i,
-                  l,
-                  s,
-                  u,
                   f,
-                  g = n.id;
-                o("WAWebCurrentUser").isEmployee() &&
-                  o("WALogger").LOG(
-                    k ||
-                      (k = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync] processing conversation ",
-                        " with ",
-                        " messages",
-                      ])),
-                    g,
-                    n.messages.length,
+                  t.messages.length,
+                );
+              var g = o("WAWebWidFactory").createWid(f);
+              if (g.isNewsletter()) return 0;
+              var h = V(g, t);
+              if (h.result === "skip-chat") return 0;
+              if (h.result === "extracted") {
+                var y = h.accountLid;
+                if (P.has(y))
+                  return (
+                    o("WALogger")
+                      .ERROR(
+                        I ||
+                          (I = babelHelpers.taggedTemplateLiteralLoose([
+                            "[history sync] handleInitialSyncMsgs: Found duplicated accountLid during initial sync",
+                          ])),
+                      )
+                      .sendLogs("duplicated-account-lid-in-history-sync"),
+                    0
                   );
-                var h = o("WAWebWidFactory").createWid(g);
-                if (h.isNewsletter()) return 0;
-                var y = V(h, n);
-                if (y.result === "skip-chat") return 0;
-                if (y.result === "extracted") {
-                  var C = y.accountLid;
-                  if (_.has(C))
-                    return (
-                      o("WALogger")
-                        .ERROR(
-                          I ||
-                            (I = babelHelpers.taggedTemplateLiteralLoose([
-                              "[history sync] handleInitialSyncMsgs: Found duplicated accountLid during initial sync",
-                            ])),
-                        )
-                        .sendLogs("duplicated-account-lid-in-history-sync"),
-                      0
-                    );
-                  _.set(C, h);
-                } else y.result;
-                var b = h,
-                  v,
-                  S =
-                    o(
-                      "WAWebHistorySyncLidChatGating",
-                    ).isForcedHistoryLidChat() &&
-                    h.isRegularUserPn() &&
-                    y.accountLid != null;
-                if (
-                  (S &&
-                    y.accountLid != null &&
-                    (q++,
-                    W.length < 3 &&
-                      W.push(
-                        h.toLogString() + " -> " + y.accountLid.toLogString(),
-                      ),
-                    (b = y.accountLid),
-                    (v = h.toString())),
-                  h.isUser())
-                ) {
-                  if (h.isLid()) {
-                    var R = n.pnJid;
-                    R != null &&
-                      d.push({
-                        lid: h,
-                        pn: o("WAWebWidFactory").createUserWidOrThrow(R),
-                      });
-                    var L = n.displayName,
-                      E = n.shareOwnPn;
-                    if (L != null || E != null) {
-                      var w = {};
-                      (L != null && (w.displayNameLID = L),
-                        E != null && (w.shareOwnPn = E),
-                        a.push({ lid: h, data: w }));
-                    }
-                  } else if (n.lidJid != null) {
-                    var U = o("WAWebWidFactory").createUserLidOrThrow(n.lidJid);
-                    d.push({ lid: U, pn: h });
+                P.set(y, g);
+              } else h.result;
+              var C = g,
+                b,
+                v =
+                  o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat() &&
+                  g.isRegularUserPn() &&
+                  h.accountLid != null;
+              if (
+                (v &&
+                  h.accountLid != null &&
+                  (K++,
+                  q.length < 3 &&
+                    q.push(
+                      g.toLogString() + " -> " + h.accountLid.toLogString(),
+                    ),
+                  (C = h.accountLid),
+                  (b = g.toString())),
+                g.isUser())
+              ) {
+                if (g.isLid()) {
+                  var S = t.pnJid;
+                  S != null &&
+                    m.push({
+                      lid: g,
+                      pn: o("WAWebWidFactory").createUserWidOrThrow(S),
+                    });
+                  var R = t.displayName,
+                    L = t.shareOwnPn;
+                  if (R != null || L != null) {
+                    var E = {};
+                    (R != null && (E.displayNameLID = R),
+                      L != null && (E.shareOwnPn = L),
+                      u.push({ lid: g, data: E }));
                   }
+                } else if (t.lidJid != null) {
+                  var w = o("WAWebWidFactory").createUserLidOrThrow(t.lidJid);
+                  m.push({ lid: w, pn: g });
                 }
-                var H = [];
-                A += n.messages.length;
-                var G = [],
-                  Y = new Set(),
-                  J = [];
-                (n.messages.length === 0 && (m[g] = -1),
-                  r("isStringNullOrEmpty")(n.pHash) || (P[g] = n.pHash));
-                var Z,
-                  ee = !1,
-                  te = [],
-                  ne = 0,
-                  re = 0;
-                (n.messages.forEach(function (e, a) {
-                  var i, l, s, u;
-                  if (a === n.messages.length - 1) {
-                    var d = o("WALongInt").maybeNumberOrThrowIfTooLarge(
-                      e.msgOrderId,
-                    );
-                    d != null && (m[g] = d);
-                  }
-                  var p =
-                    (e == null ||
-                    (i = e.message) == null ||
-                    (i = i.message) == null ||
-                    (i = i.protocolMessage) == null
-                      ? void 0
-                      : i.type) ===
-                    o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-                      .REQUEST_WELCOME_MESSAGE;
-                  if (p) {
-                    ne++;
-                    return;
-                  }
-                  var _ =
-                    (e == null ||
-                    (l = e.message) == null ||
-                    (l = l.message) == null ||
-                    (l = l.protocolMessage) == null
-                      ? void 0
-                      : l.type) ===
-                    o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-                      .BOT_MEMU_ONBOARDING_MESSAGE;
-                  if (_) {
-                    re++;
-                    return;
-                  }
-                  if (
-                    o("WAWebMobilePlatforms").isSMB() &&
-                    o(
-                      "WAWebBizCoexGatingUtils",
-                    ).smbHostedLazySystemMsgInsertInHistorySyncEnabled() &&
-                    a === 0 &&
-                    b.isUser() &&
-                    n.systemMessageToInsert != null
-                  )
-                    switch (n.systemMessageToInsert) {
-                      case o("WAWebProtobufsHistorySync.pb")
-                        .PrivacySystemMessage.E2EE_MSG: {
-                        if (X) break;
-                        var f = o(
-                          "WAWebAdvHostedAccountTypeSystemMsg",
-                        ).genAdvAccountTypeChangeNotificationMsg(
-                          b,
-                          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-                          o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE,
-                        );
-                        (G.push(f),
-                          o(
-                            "WAWebBizCoexUtils",
-                          ).sendWamCoexPrivacySysMsgHistorySyncInsert(f));
-                        break;
-                      }
-                      case o("WAWebProtobufsHistorySync.pb")
-                        .PrivacySystemMessage.NE2EE_SELF: {
-                        if (!X) break;
-                        var y = o(
-                          "WAWebAdvHostedAccountTypeSystemMsg",
-                        ).genAdvAccountTypeSelfTransitionToCoexNotificationMsg(
-                          b,
-                          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-                        );
-                        (G.push(y),
-                          o(
-                            "WAWebBizCoexUtils",
-                          ).sendWamCoexPrivacySysMsgHistorySyncInsert(y));
-                        break;
-                      }
-                      case o("WAWebProtobufsHistorySync.pb")
-                        .PrivacySystemMessage.NE2EE_OTHER: {
-                        var C = o(
-                          "WAWebAdvHostedAccountTypeSystemMsg",
-                        ).genAdvAccountTypeChangeNotificationMsg(
-                          b,
-                          o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-                          o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED,
-                        );
-                        (G.push(C),
-                          o(
-                            "WAWebBizCoexUtils",
-                          ).sendWamCoexPrivacySysMsgHistorySyncInsert(C));
-                      }
+              }
+              var U = [];
+              F += t.messages.length;
+              var H = [],
+                G = new Set(),
+                J = [];
+              (t.messages.length === 0 && (p[f] = -1),
+                r("isStringNullOrEmpty")(t.pHash) || (N[f] = t.pHash));
+              var Z,
+                ee = !1,
+                te = [],
+                ne = 0,
+                re = 0;
+              (t.messages.forEach(function (e, n) {
+                var l, s, u, c;
+                if (n === t.messages.length - 1) {
+                  var d = o("WALongInt").maybeNumberOrThrowIfTooLarge(
+                    e.msgOrderId,
+                  );
+                  d != null && (p[f] = d);
+                }
+                var m =
+                  (e == null ||
+                  (l = e.message) == null ||
+                  (l = l.message) == null ||
+                  (l = l.protocolMessage) == null
+                    ? void 0
+                    : l.type) ===
+                  o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+                    .REQUEST_WELCOME_MESSAGE;
+                if (m) {
+                  ne++;
+                  return;
+                }
+                var _ =
+                  (e == null ||
+                  (s = e.message) == null ||
+                  (s = s.message) == null ||
+                  (s = s.protocolMessage) == null
+                    ? void 0
+                    : s.type) ===
+                  o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+                    .BOT_MEMU_ONBOARDING_MESSAGE;
+                if (_) {
+                  re++;
+                  return;
+                }
+                if (
+                  o("WAWebMobilePlatforms").isSMB() &&
+                  o(
+                    "WAWebBizCoexGatingUtils",
+                  ).smbHostedLazySystemMsgInsertInHistorySyncEnabled() &&
+                  n === 0 &&
+                  C.isUser() &&
+                  t.systemMessageToInsert != null
+                )
+                  switch (t.systemMessageToInsert) {
+                    case o("WAWebProtobufsHistorySync.pb").PrivacySystemMessage
+                      .E2EE_MSG: {
+                      if (Y) break;
+                      var h = o(
+                        "WAWebAdvHostedAccountTypeSystemMsg",
+                      ).genAdvAccountTypeChangeNotificationMsg(
+                        C,
+                        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                        o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE,
+                      );
+                      (H.push(h),
+                        o(
+                          "WAWebBizCoexUtils",
+                        ).sendWamCoexPrivacySysMsgHistorySyncInsert(h));
+                      break;
                     }
-                  var v = o(
-                      "WAWebHistorySyncNotificationCommonUtils",
-                    ).parseWebMsgInfoAndReturnNullOnFailure({
-                      protobufChatId: h,
-                      message: e.message,
-                      chunkInfo: t,
-                      allLidMapping: O,
-                      totalMissingMapping: B,
-                      historyLidPnMappings: c,
-                      dbChatId: b,
-                    }),
-                    S =
-                      ((s = e.message) == null ||
-                      (s = s.message) == null ||
-                      (s = s.commentMessage) == null
-                        ? void 0
-                        : s.targetMessageKey) == null,
-                    R = (v == null ? void 0 : v.associationType) != null;
-                  if (S) {
-                    var L;
-                    (v != null &&
-                      Y.has(v.id.toString()) &&
-                      o(
-                        "WAWebMessageAssociationGatingUtils",
-                      ).isMessageAssociationInfraEnabled() &&
-                      Y.delete(v == null ? void 0 : v.id.toString()),
-                      (v != null &&
-                        v.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-                        v.ctwaContext != null) ||
-                        G.push(v));
-                    var E =
-                        (L = e.message) == null ||
-                        (L = L.message) == null ||
-                        (L = L.extendedTextMessage) == null ||
-                        (L = L.contextInfo) == null
-                          ? void 0
-                          : L.externalAdReply,
-                      k = v != null ? v : {},
-                      I = k.from,
-                      T = k.id,
-                      D = k.to;
-                    if (
-                      E != null &&
-                      (T == null ? void 0 : T.fromMe) != null &&
-                      I != null &&
-                      D != null &&
-                      o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(E)
-                    ) {
-                      var x,
-                        $ = new (r("WAWebMsgKey"))({
-                          fromMe: !T.fromMe,
-                          remote: b,
-                          id: r("WAWebMsgKey").newId_DEPRECATED(),
-                        }),
-                        P = o(
-                          "WAWebMsgAGMProcessing",
-                        ).genHistoryAutomatedGreetingMsg({
-                          msgKey: $,
-                          ctwaContext: E,
-                          to: I,
-                          from: D,
-                          msgTimestamp:
-                            (x = e.message) == null
-                              ? void 0
-                              : x.messageTimestamp,
-                        });
-                      G.push(P);
+                    case o("WAWebProtobufsHistorySync.pb").PrivacySystemMessage
+                      .NE2EE_SELF: {
+                      if (!Y) break;
+                      var y = o(
+                        "WAWebAdvHostedAccountTypeSystemMsg",
+                      ).genAdvAccountTypeSelfTransitionToCoexNotificationMsg(
+                        C,
+                        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                      );
+                      (H.push(y),
+                        o(
+                          "WAWebBizCoexUtils",
+                        ).sendWamCoexPrivacySysMsgHistorySyncInsert(y));
+                      break;
+                    }
+                    case o("WAWebProtobufsHistorySync.pb").PrivacySystemMessage
+                      .NE2EE_OTHER: {
+                      var b = o(
+                        "WAWebAdvHostedAccountTypeSystemMsg",
+                      ).genAdvAccountTypeChangeNotificationMsg(
+                        C,
+                        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+                        o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED,
+                      );
+                      (H.push(b),
+                        o(
+                          "WAWebBizCoexUtils",
+                        ).sendWamCoexPrivacySysMsgHistorySyncInsert(b));
                     }
                   }
-                  if (
-                    v != null &&
-                    R &&
+                var v = o(
+                    "WAWebHistorySyncNotificationCommonUtils",
+                  ).parseWebMsgInfoAndReturnNullOnFailure({
+                    protobufChatId: g,
+                    message: e.message,
+                    chunkInfo: a,
+                    allLidMapping: B,
+                    totalMissingMapping: W,
+                    historyLidPnMappings: i,
+                    dbChatId: C,
+                  }),
+                  S =
+                    ((u = e.message) == null ||
+                    (u = u.message) == null ||
+                    (u = u.commentMessage) == null
+                      ? void 0
+                      : u.targetMessageKey) == null,
+                  R = (v == null ? void 0 : v.associationType) != null;
+                if (S) {
+                  var L;
+                  (v != null &&
+                    G.has(v.id.toString()) &&
                     o(
                       "WAWebMessageAssociationGatingUtils",
-                    ).isMessageAssociationInfraEnabled()
+                    ).isMessageAssociationInfraEnabled() &&
+                    G.delete(v == null ? void 0 : v.id.toString()),
+                    (v != null &&
+                      v.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+                      v.ctwaContext != null) ||
+                      H.push(v));
+                  var E =
+                      (L = e.message) == null ||
+                      (L = L.message) == null ||
+                      (L = L.extendedTextMessage) == null ||
+                      (L = L.contextInfo) == null
+                        ? void 0
+                        : L.externalAdReply,
+                    k = v != null ? v : {},
+                    I = k.from,
+                    T = k.id,
+                    D = k.to;
+                  if (
+                    E != null &&
+                    (T == null ? void 0 : T.fromMe) != null &&
+                    I != null &&
+                    D != null &&
+                    o("WAWebCTWAGatingUtils").shouldGenerateAGMMsgs(E)
                   ) {
-                    var N = v.parentMsgKey.toString();
-                    (Y.add(N), J.push(v));
+                    var x,
+                      $ = new (r("WAWebMsgKey"))({
+                        fromMe: !T.fromMe,
+                        remote: C,
+                        id: r("WAWebMsgKey").newId_DEPRECATED(),
+                      }),
+                      P = o(
+                        "WAWebMsgAGMProcessing",
+                      ).genHistoryAutomatedGreetingMsg({
+                        msgKey: $,
+                        ctwaContext: E,
+                        to: I,
+                        from: D,
+                        msgTimestamp:
+                          (x = e.message) == null ? void 0 : x.messageTimestamp,
+                      });
+                    H.push(P);
                   }
-                  ((H = H.concat(
-                    o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
-                      webMsgInfo: e.message,
-                      parsedWebMsgInfo: v,
-                      isFromCag: (u = n.isDefaultSubgroup) != null ? u : !1,
-                    }),
-                  )),
-                    (v == null ? void 0 : v.subtype) ===
-                      "biz_bot_1p_disclosure" &&
-                      (Z = o("WAWebBotTypes").BizBotType.BIZ_1P),
-                    (v == null ? void 0 : v.subtype) ===
-                      "biz_bot_3p_disclosure" &&
-                      (Z = o("WAWebBotTypes").BizBotType.BIZ_3P),
-                    (v == null ? void 0 : v.subtype) ===
-                      "ctwa_consumer_data_sharing_disclosure_system_message" &&
-                      (ee = !0),
-                    (te = o(
-                      "WAWebMmSignalSharingExpirationWindowUtils",
-                    ).getUpdatedMmSignalSharingExpirationWindowFromHistorySync(
-                      e.message,
-                      te,
-                    )));
-                }),
-                  ne > 0 &&
-                    o("WALogger").LOG(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] Dropped ",
-                          " request welcome messages",
-                        ])),
-                      ne,
-                    ),
-                  re > 0 &&
-                    o("WALogger").LOG(
-                      D ||
-                        (D = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] Dropped ",
-                          " memu onboarding messages",
-                        ])),
-                      re,
-                    ));
-                var oe;
+                }
                 if (
-                  Y.size > 0 &&
+                  v != null &&
+                  R &&
                   o(
                     "WAWebMessageAssociationGatingUtils",
                   ).isMessageAssociationInfraEnabled()
                 ) {
-                  var ae = o(
-                    "WAWebProcessMessageAssociationMessages",
-                  ).classifyAssociatedMsgsFromHistorySyncUsingMissingParentsCache(
-                    J,
-                    Y,
-                  );
-                  ae != null &&
-                    ae.validAssociatedMsgs &&
-                    (oe = o("WAWebApiFilterAndReplaceMessages").validateMsgFn(
-                      ae == null ? void 0 : ae.validAssociatedMsgs,
-                    ));
+                  var N = v.parentMsgKey.toString();
+                  (G.add(N), J.push(v));
                 }
-                ((G = o(
-                  "WAWebApiFilterAndReplaceMessages",
-                ).filterAndReplaceMessagesInitialHistorySync(G, oe)),
-                  (G = G.reverse()));
-                var ie = n.contactPrimaryIdentityKey;
-                if (ie && r("WAWebWid").isUser(b)) {
-                  var le = o("WAWebSignalCommonUtils").bufferToStr(
-                    o("WAWebCryptoCurve25519").toSignalCurvePubKey(ie),
-                  );
-                  F.push({
-                    userId: o("WAWebWidFactory").asUserWidOrThrow(b),
-                    identityKey: le,
-                  });
-                }
-                var se, ue, ce;
-                if (
-                  ((e = n.disappearingMode) == null ? void 0 : e.initiator) !=
-                  null
-                )
-                  switch (n.disappearingMode.initiator) {
-                    case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
-                      .CHANGED_IN_CHAT:
-                      ((se = o("WAWebEphemeralityTypes")
-                        .DisappearingModeInitiator.ChangedInChat),
-                        (ue = o("WAWebEphemeralityTypes")
-                          .DisappearingModeTrigger.ChatSettings));
-                      break;
-                    case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
-                      .INITIATED_BY_ME:
-                      ((se = o("WAWebEphemeralityTypes")
-                        .DisappearingModeInitiator.InitiatedByMe),
-                        (ue = o("WAWebEphemeralityTypes")
-                          .DisappearingModeTrigger.AccountSettings),
-                        (ce = !0));
-                      break;
-                    case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
-                      .INITIATED_BY_OTHER:
-                    case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
-                      .BIZ_UPGRADE_FB_HOSTING:
-                      ((se = o("WAWebEphemeralityTypes")
-                        .DisappearingModeInitiator.InitiatedByOther),
-                        (ue = o("WAWebEphemeralityTypes")
-                          .DisappearingModeTrigger.AccountSettings),
-                        (ce = !1));
-                      break;
-                  }
-                if (
-                  ((i = n.disappearingMode) == null ? void 0 : i.trigger) !=
-                  null
-                ) {
-                  var de = o(
-                    "WAWebEphemeralityUtils",
-                  ).getDisappearingModeTriggerFromProtobuf(
-                    n.disappearingMode.trigger,
-                  );
-                  de != null && (ue = de);
-                }
-                ((l = n.disappearingMode) == null ? void 0 : l.initiatedByMe) !=
-                  null && (ce = n.disappearingMode.initiatedByMe);
-                var me = n.tcToken != null && n.tcTokenTimestamp != null;
-                if (o("WAWebCurrentUser").isEmployee()) {
-                  var pe;
-                  o("WALogger").LOG(
-                    x ||
-                      (x = babelHelpers.taggedTemplateLiteralLoose([
-                        "handleInitialSyncMsgs: incoming chat info: protobufChatId=",
-                        ", dbChatId=",
-                        ", ",
-                        ", ",
-                        "",
-                      ])),
-                    h,
-                    b,
-                    (pe = y.accountLid) != null ? pe : "n/a",
-                    b.isRegularUser()
-                      ? o("WAWebApiContact").getAlternateUserWid(
-                          o("WAWebWidFactory").asUserWidOrThrow(b),
-                        )
-                      : "n/a",
-                  );
-                }
-                var _e = y.accountLid,
-                  fe = {
-                    t: o("WALongInt").maybeNumberOrThrowIfTooLarge(
-                      (s = n.conversationTimestamp) != null
-                        ? s
-                        : n.lastMsgTimestamp,
-                    ),
-                    accountLid: _e,
-                    id: b,
-                    unreadCount: n.unreadCount,
-                    ephemeralDuration: n.ephemeralExpiration,
-                    ephemeralSettingTimestamp: n.ephemeralSettingTimestamp,
-                    disappearingModeInitiator: se,
-                    disappearingModeTrigger: ue,
-                    disappearingModeInitiatedByMe: ce,
-                    endOfHistoryTransferType:
-                      (u = n.endOfHistoryTransferType) != null
-                        ? u
-                        : o("WAWebChatConstants")
-                            .ConversationEndOfHistoryTransferModelPropType
-                            .INCOMPLETE,
-                    name: n.name,
-                    notSpam: n.notSpam,
-                    isSenderNewAccount: n.isSenderNewAccount,
-                    isSenderSuspicious: n.isSenderSuspicious,
-                    pendingInitialLoading: !1,
-                    unreadMentionCount: n.unreadMentionCount,
-                    tcToken: me ? n.tcToken : null,
-                    tcTokenTimestamp: me ? n.tcTokenTimestamp : null,
-                    tcTokenSenderTimestamp: n.tcTokenSenderTimestamp,
-                    bizBotSystemMsgType: Z,
-                    hasCtwaConsumerDataSharingDisclosureSystemMsg: ee || void 0,
-                    isLocked: n.locked,
-                    limitSharing: o(
-                      "WAWebLimitSharingProtoUtils",
-                    ).getLimitSharingFromProtocolHistorySyncConversation(n),
-                    capiThreadControl: z(n.maibaAiThreadEnabled),
-                    historyChatId: v,
-                  };
-                if (
-                  (b.isLid() && (fe.lidOriginType = j(n.lidOriginType)),
-                  n.archived != null && (fe.archive = n.archived),
-                  n.authAgentParentCompanyName != null &&
-                    o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled())
-                ) {
-                  var ge;
-                  ((fe.parentCompanyName = n.authAgentParentCompanyName),
-                    (fe.obaPhoneNumber =
-                      (ge = n.authAgentObaPhoneNumber) != null ? ge : ""));
-                }
-                (f = te) != null &&
-                  f.length &&
-                  (fe.mmSignalSharingExpirationWindow = o(
+                ((U = U.concat(
+                  o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
+                    webMsgInfo: e.message,
+                    parsedWebMsgInfo: v,
+                    isFromCag: (c = t.isDefaultSubgroup) != null ? c : !1,
+                  }),
+                )),
+                  (v == null ? void 0 : v.subtype) ===
+                    "biz_bot_1p_disclosure" &&
+                    (Z = o("WAWebBotTypes").BizBotType.BIZ_1P),
+                  (v == null ? void 0 : v.subtype) ===
+                    "biz_bot_3p_disclosure" &&
+                    (Z = o("WAWebBotTypes").BizBotType.BIZ_3P),
+                  (v == null ? void 0 : v.subtype) ===
+                    "ctwa_consumer_data_sharing_disclosure_system_message" &&
+                    (ee = !0),
+                  (te = o(
                     "WAWebMmSignalSharingExpirationWindowUtils",
-                  ).getSortedMmSignalSharingExpirationWindowFromHistorySync(
+                  ).getUpdatedMmSignalSharingExpirationWindowFromHistorySync(
+                    e.message,
                     te,
-                  ));
-                try {
-                  o(
-                    "WAWebHistorySyncNotificationUtils",
-                  ).saveGroupMetadataForLeftGroup(n, fe.id);
-                } catch (e) {
-                  o("WALogger")
-                    .WARN(
-                      $ ||
-                        ($ = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] history_sync_notification_handler: saveGroupMetadataForLeftGroup failed",
-                        ])),
-                    )
-                    .tags("history-sync");
-                }
-                var he = b.toString(),
-                  ye = M.has(g);
-                ye ? K++ : M.add(g);
-                var Ce = Object.prototype.hasOwnProperty.call(p, he);
-                (Ce ? Q++ : ye || N.push(fe),
-                  (p[he] = { chatInfo: fe, msgs: G, unifiedAddons: H }));
-              },
-              J;
-            for (var Z of e.conversations) J = yield* Y(Z);
-            (q > 0 &&
-              o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync] overriding ",
-                    " chat ids => ",
-                    "",
-                  ])),
-                q,
-                W,
-              ),
-              K > 0 &&
-                o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync] found ",
-                      " duplicated protobuf conversation ids during initial sync",
-                    ])),
-                  K,
-                ),
-              Q > 0 &&
-                o("WALogger").LOG(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync] found ",
-                      " duplicated db conversation ids during initial sync",
-                    ])),
-                  Q,
-                ));
-            for (var ee of e.accounts) {
-              var te = H(ee);
-              te && u.push(te);
-            }
-            (d.length > 0 &&
-              (o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync] saving ",
-                    " LIDxPN mappings obtained from conversations",
-                  ])),
-                d.length,
-              ),
-              yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: d,
-                flushImmediately: !0,
-                identityChangeHandlingEnabled: !1,
-                learningSource: "history-msg-handler",
-              })),
-              (i.mdBootstrapMessagesCount = A),
-              (i.mdBootstrapChatsCount = e.conversations.length),
-              o(
-                "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDownloadedMetric({
-                chunkDownloadFinishTimestamp: s,
-                historySyncDownloadMetric: i,
-                isSuccess: !0,
-                startTs: t.historySyncStepStartedTs,
+                  )));
               }),
-              r("WAWebSyncBootstrap").markInitialHistorySyncCountDebugStats(
-                A,
-                N.length,
-              ));
-            var ne = 0,
-              re = [];
-            (F.forEach(function (e) {
-              var t = e.identityKey,
-                n = e.userId;
-              !n.isLid() &&
-                o("WAWebApiContact").getCurrentLid(n) == null &&
-                n.isRegularUser() &&
-                ne++;
-              try {
-                var r = o("WAWebSignalCommonUtils")
-                  .createSignalAddress(n)
-                  .toString();
-                o("WAWebUserPrefsMeUser").isMeAccount(n)
-                  ? o("WAWebHistorySyncNotificationUtils")
-                      .checkSelfHistorySyncIdentity(r, t)
-                      .catch(function () {
-                        o("WALogger")
-                          .ERROR(
-                            v ||
-                              (v = babelHelpers.taggedTemplateLiteralLoose(
-                                [
-                                  "[history sync] handleInitialSyncMsgs: can't save the identity key.",
-                                ],
-                                [
-                                  "[history sync] handleInitialSyncMsgs: can\\'t save the identity key.",
-                                ],
-                              )),
-                          )
-                          .sendLogs(
-                            "failed-self-identity-check-from-history-sync",
-                          );
-                      })
-                  : re.push({ identifier: r, identityKey: t });
-              } catch (e) {
-                o("WALogger").ERROR(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose(
-                      [
-                        "[history sync] handleInitialSyncMsgs: can't save the identity key.",
-                      ],
-                      [
-                        "[history sync] handleInitialSyncMsgs: can\\'t save the identity key.",
-                      ],
-                    )),
-                );
-              }
-            }),
-              yield o("WAWebSignalProtocolStore")
-                .getPersistSignalProtocolStore()
-                .bulkCreateIdentity(re),
-              ne > 0 &&
-                o("WALogger")
-                  .ERROR(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync] handleInitialSyncMsgs: there are Identities with missing LIDs: ",
-                        "",
+                ne > 0 &&
+                  o("WALogger").LOG(
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync] Dropped ",
+                        " request welcome messages",
                       ])),
                     ne,
-                  )
-                  .sendLogs(
-                    "handleInitialSyncMsgs: there are Identities with missing LIDs",
-                    { sampling: 0.01 },
                   ),
-              yield r("WAWebHandleAddChats")(N),
-              yield U(p),
-              yield o(
-                "WAWebApiHistorySyncNotification",
-              ).updateCurrentlyProcessed(t.msgKey, t.syncType, t.chunkOrder),
-              o(
-                "WAWebHistorySyncNotificationUtils",
-              ).commitHistoryDataAppliedMetric({
-                historySyncDataAppliedMetric: l,
-                startTs: t.historySyncStepStartedTs,
-                isSuccess: !0,
-                forceFlushWamBuffer: !0,
-              }),
-              o("WALogger").LOG(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync] storing initial sync messages complete, ",
-                    "",
-                  ])),
-                o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
-                  t,
-                  A,
-                  N.length,
-                ),
-              ),
-              o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync] set history initial sync boundary with length ",
-                    "",
-                  ])),
-                Object.keys(m).length,
-              ),
-              yield (w || (w = n("Promise"))).all([
+                re > 0 &&
+                  o("WALogger").LOG(
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync] Dropped ",
+                        " memu onboarding messages",
+                      ])),
+                    re,
+                  ));
+              var oe;
+              if (
+                G.size > 0 &&
+                o(
+                  "WAWebMessageAssociationGatingUtils",
+                ).isMessageAssociationInfraEnabled()
+              ) {
+                var ae = o(
+                  "WAWebProcessMessageAssociationMessages",
+                ).classifyAssociatedMsgsFromHistorySyncUsingMissingParentsCache(
+                  J,
+                  G,
+                );
+                ae != null &&
+                  ae.validAssociatedMsgs &&
+                  (oe = o("WAWebApiFilterAndReplaceMessages").validateMsgFn(
+                    ae == null ? void 0 : ae.validAssociatedMsgs,
+                  ));
+              }
+              ((H = o(
+                "WAWebApiFilterAndReplaceMessages",
+              ).filterAndReplaceMessagesInitialHistorySync(H, oe)),
+                (H = H.reverse()));
+              var ie = t.contactPrimaryIdentityKey;
+              if (ie && r("WAWebWid").isUser(C)) {
+                var le = o("WAWebSignalCommonUtils").bufferToStr(
+                  o("WAWebCryptoCurve25519").toSignalCurvePubKey(ie),
+                );
+                O.push({
+                  userId: o("WAWebWidFactory").asUserWidOrThrow(C),
+                  identityKey: le,
+                });
+              }
+              var se, ue, ce;
+              if (
+                ((e = t.disappearingMode) == null ? void 0 : e.initiator) !=
+                null
+              )
+                switch (t.disappearingMode.initiator) {
+                  case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
+                    .CHANGED_IN_CHAT:
+                    ((se = o("WAWebEphemeralityTypes").DisappearingModeInitiator
+                      .ChangedInChat),
+                      (ue = o("WAWebEphemeralityTypes").DisappearingModeTrigger
+                        .ChatSettings));
+                    break;
+                  case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
+                    .INITIATED_BY_ME:
+                    ((se = o("WAWebEphemeralityTypes").DisappearingModeInitiator
+                      .InitiatedByMe),
+                      (ue = o("WAWebEphemeralityTypes").DisappearingModeTrigger
+                        .AccountSettings),
+                      (ce = !0));
+                    break;
+                  case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
+                    .INITIATED_BY_OTHER:
+                  case o("WAWebProtobufsE2E.pb").DisappearingMode$Initiator
+                    .BIZ_UPGRADE_FB_HOSTING:
+                    ((se = o("WAWebEphemeralityTypes").DisappearingModeInitiator
+                      .InitiatedByOther),
+                      (ue = o("WAWebEphemeralityTypes").DisappearingModeTrigger
+                        .AccountSettings),
+                      (ce = !1));
+                    break;
+                }
+              if (
+                ((n = t.disappearingMode) == null ? void 0 : n.trigger) != null
+              ) {
+                var de = o(
+                  "WAWebEphemeralityUtils",
+                ).getDisappearingModeTriggerFromProtobuf(
+                  t.disappearingMode.trigger,
+                );
+                de != null && (ue = de);
+              }
+              ((l = t.disappearingMode) == null ? void 0 : l.initiatedByMe) !=
+                null && (ce = t.disappearingMode.initiatedByMe);
+              var me = t.tcToken != null && t.tcTokenTimestamp != null;
+              if (o("WAWebCurrentUser").isEmployee()) {
+                var pe;
+                o("WALogger").LOG(
+                  x ||
+                    (x = babelHelpers.taggedTemplateLiteralLoose([
+                      "handleInitialSyncMsgs: incoming chat info: protobufChatId=",
+                      ", dbChatId=",
+                      ", ",
+                      ", ",
+                      "",
+                    ])),
+                  g,
+                  C,
+                  (pe = h.accountLid) != null ? pe : "n/a",
+                  C.isRegularUser()
+                    ? o("WAWebApiContact").getAlternateUserWid(
+                        o("WAWebWidFactory").asUserWidOrThrow(C),
+                      )
+                    : "n/a",
+                );
+              }
+              var _e = h.accountLid,
+                fe = {
+                  t: o("WALongInt").maybeNumberOrThrowIfTooLarge(
+                    (s = t.conversationTimestamp) != null
+                      ? s
+                      : t.lastMsgTimestamp,
+                  ),
+                  accountLid: _e,
+                  id: C,
+                  unreadCount: t.unreadCount,
+                  ephemeralDuration: t.ephemeralExpiration,
+                  ephemeralSettingTimestamp: t.ephemeralSettingTimestamp,
+                  disappearingModeInitiator: se,
+                  disappearingModeTrigger: ue,
+                  disappearingModeInitiatedByMe: ce,
+                  endOfHistoryTransferType:
+                    (c = t.endOfHistoryTransferType) != null
+                      ? c
+                      : o("WAWebChatConstants")
+                          .ConversationEndOfHistoryTransferModelPropType
+                          .INCOMPLETE,
+                  name: t.name,
+                  notSpam: t.notSpam,
+                  isSenderNewAccount: t.isSenderNewAccount,
+                  isSenderSuspicious: t.isSenderSuspicious,
+                  pendingInitialLoading: !1,
+                  unreadMentionCount: t.unreadMentionCount,
+                  tcToken: me ? t.tcToken : null,
+                  tcTokenTimestamp: me ? t.tcTokenTimestamp : null,
+                  tcTokenSenderTimestamp: t.tcTokenSenderTimestamp,
+                  bizBotSystemMsgType: Z,
+                  hasCtwaConsumerDataSharingDisclosureSystemMsg: ee || void 0,
+                  isLocked: t.locked,
+                  limitSharing: o(
+                    "WAWebLimitSharingProtoUtils",
+                  ).getLimitSharingFromProtocolHistorySyncConversation(t),
+                  capiThreadControl: z(t.maibaAiThreadEnabled),
+                  historyChatId: b,
+                };
+              if (
+                (C.isLid() && (fe.lidOriginType = j(t.lidOriginType)),
+                t.archived != null && (fe.archive = t.archived),
+                t.authAgentParentCompanyName != null &&
+                  o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled())
+              ) {
+                var ge;
+                ((fe.parentCompanyName = t.authAgentParentCompanyName),
+                  (fe.obaPhoneNumber =
+                    (ge = t.authAgentObaPhoneNumber) != null ? ge : ""));
+              }
+              (d = te) != null &&
+                d.length &&
+                (fe.mmSignalSharingExpirationWindow = o(
+                  "WAWebMmSignalSharingExpirationWindowUtils",
+                ).getSortedMmSignalSharingExpirationWindowFromHistorySync(te));
+              try {
                 o(
                   "WAWebHistorySyncNotificationUtils",
-                ).handleChatThreadLoggingMetadata(e),
-                o("WAWebUserPrefsHistorySync").setHistoryInitialSyncBoundary(m),
-                e.companionMetaNonce != null
-                  ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                      "WAWebCompanionMetaNonce",
-                      e.companionMetaNonce,
-                    )
-                  : null,
-                G(e.nctSalt),
-              ]),
-              o("WAWebUserPrefsModelStorage").setInitialGroupPhash(P),
-              o("WAWebHistorySyncNotificationCommonUtils").reportMissingMapping(
-                B,
+                ).saveGroupMetadataForLeftGroup(t, fe.id);
+              } catch (e) {
+                o("WALogger")
+                  .WARN(
+                    $ ||
+                      ($ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync] history_sync_notification_handler: saveGroupMetadataForLeftGroup failed",
+                      ])),
+                  )
+                  .tags("history-sync");
+              }
+              var he = C.toString(),
+                ye = A.has(f);
+              ye ? Q++ : A.add(f);
+              var Ce = Object.prototype.hasOwnProperty.call(_, he);
+              (Ce ? X++ : ye || M.push(fe),
+                (_[he] = { chatInfo: fe, msgs: H, unifiedAddons: U }));
+            },
+            Z;
+          for (var ee of d.conversations) Z = yield* J(ee);
+          (K > 0 &&
+            o("WALogger").LOG(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] overriding ",
+                  " chat ids => ",
+                  "",
+                ])),
+              K,
+              q,
+            ),
+            Q > 0 &&
+              o("WALogger").LOG(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync] found ",
+                    " duplicated protobuf conversation ids during initial sync",
+                  ])),
+                Q,
+              ),
+            X > 0 &&
+              o("WALogger").LOG(
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                    "[history sync] found ",
+                    " duplicated db conversation ids during initial sync",
+                  ])),
+                X,
               ));
-          },
-        )),
+          for (var te of d.accounts) {
+            var ne = H(te);
+            ne && c.push(ne);
+          }
+          (m.length > 0 &&
+            (o("WALogger").LOG(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] saving ",
+                  " LIDxPN mappings obtained from conversations",
+                ])),
+              m.length,
+            ),
+            yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+              mappings: m,
+              flushImmediately: !0,
+              identityChangeHandlingEnabled: !1,
+              learningSource: "history-msg-handler",
+            })),
+            (s.mdBootstrapMessagesCount = F),
+            (s.mdBootstrapChatsCount = d.conversations.length),
+            o(
+              "WAWebHistorySyncNotificationUtils",
+            ).commitHistoryDownloadedMetric({
+              chunkDownloadFinishTimestamp: t,
+              historySyncDownloadMetric: s,
+              isSuccess: !0,
+              startTs: a.historySyncStepStartedTs,
+            }),
+            r("WAWebSyncBootstrap").markInitialHistorySyncCountDebugStats(
+              F,
+              M.length,
+            ));
+          var re = 0,
+            oe = [];
+          (O.forEach(function (e) {
+            var t = e.identityKey,
+              n = e.userId;
+            !n.isLid() &&
+              o("WAWebApiContact").getCurrentLid(n) == null &&
+              n.isRegularUser() &&
+              re++;
+            try {
+              var r = o("WAWebSignalCommonUtils")
+                .createSignalAddress(n)
+                .toString();
+              o("WAWebUserPrefsMeUser").isMeAccount(n)
+                ? o("WAWebHistorySyncNotificationUtils")
+                    .checkSelfHistorySyncIdentity(r, t)
+                    .catch(function () {
+                      o("WALogger")
+                        .ERROR(
+                          v ||
+                            (v = babelHelpers.taggedTemplateLiteralLoose(
+                              [
+                                "[history sync] handleInitialSyncMsgs: can't save the identity key.",
+                              ],
+                              [
+                                "[history sync] handleInitialSyncMsgs: can\\'t save the identity key.",
+                              ],
+                            )),
+                        )
+                        .sendLogs(
+                          "failed-self-identity-check-from-history-sync",
+                        );
+                    })
+                : oe.push({ identifier: r, identityKey: t });
+            } catch (e) {
+              o("WALogger").ERROR(
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose(
+                    [
+                      "[history sync] handleInitialSyncMsgs: can't save the identity key.",
+                    ],
+                    [
+                      "[history sync] handleInitialSyncMsgs: can\\'t save the identity key.",
+                    ],
+                  )),
+              );
+            }
+          }),
+            yield o("WAWebSignalProtocolStore")
+              .getPersistSignalProtocolStore()
+              .bulkCreateIdentity(oe),
+            re > 0 &&
+              o("WALogger")
+                .ERROR(
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync] handleInitialSyncMsgs: there are Identities with missing LIDs: ",
+                      "",
+                    ])),
+                  re,
+                )
+                .sendLogs(
+                  "handleInitialSyncMsgs: there are Identities with missing LIDs",
+                  { sampling: 0.01 },
+                ),
+            yield r("WAWebHandleAddChats")(M),
+            yield U(_),
+            yield o("WAWebApiHistorySyncNotification").updateCurrentlyProcessed(
+              a.msgKey,
+              a.syncType,
+              a.chunkOrder,
+            ),
+            o(
+              "WAWebHistorySyncNotificationUtils",
+            ).commitHistoryDataAppliedMetric({
+              historySyncDataAppliedMetric: l,
+              startTs: a.historySyncStepStartedTs,
+              isSuccess: !0,
+              forceFlushWamBuffer: !0,
+            }),
+            o("WALogger").LOG(
+              L ||
+                (L = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] storing initial sync messages complete, ",
+                  "",
+                ])),
+              o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
+                a,
+                F,
+                M.length,
+              ),
+            ),
+            o("WALogger").LOG(
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] set history initial sync boundary with length ",
+                  "",
+                ])),
+              Object.keys(p).length,
+            ),
+            yield (w || (w = n("Promise"))).all([
+              o(
+                "WAWebHistorySyncNotificationUtils",
+              ).handleChatThreadLoggingMetadata(d),
+              o("WAWebUserPrefsHistorySync").setHistoryInitialSyncBoundary(p),
+              d.companionMetaNonce != null
+                ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                    "WAWebCompanionMetaNonce",
+                    d.companionMetaNonce,
+                  )
+                : null,
+              G(d.nctSalt),
+            ]),
+            o("WAWebUserPrefsModelStorage").setInitialGroupPhash(N),
+            o("WAWebHistorySyncNotificationCommonUtils").reportMissingMapping(
+              W,
+            ));
+        })),
         F.apply(this, arguments)
       );
     }

@@ -112,7 +112,7 @@ __d(
         return (c || (c = n("Promise"))).reject(
           r("err")("Cannot edit message"),
         );
-      var u = h(o("WAWebStateUtils").unproxy(e), t, a),
+      var u = h({ msg: o("WAWebStateUtils").unproxy(e), options: a, text: t }),
         d = o("WAWebFrontendMsgGetters").getChat(e),
         m =
           (i = d == null || (l = d.id) == null ? void 0 : l.toString()) != null
@@ -129,90 +129,93 @@ __d(
           o("WAWebOpenCoexEditDeleteAlertModal").openCoexEditAlertModal(_));
       });
     }
-    function h(e, t, n) {
-      var a,
+    function h(e) {
+      var t,
+        n,
+        a,
         i,
         l,
         s,
-        u,
-        c,
-        d = o("WAWebFrontendMsgGetters").getChat(e),
-        m = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
-          d,
+        u = e.msg,
+        c = e.options,
+        d = e.text,
+        m = o("WAWebFrontendMsgGetters").getChat(u),
+        p = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+          m,
           o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
         ),
-        p = o("WAWebChatGetters").getIsGroup(d)
-          ? o("WAWebWidFactory").asUserWidOrThrow(m)
+        _ = o("WAWebChatGetters").getIsGroup(m)
+          ? o("WAWebWidFactory").asUserWidOrThrow(p)
           : void 0,
-        _ = new (r("WAWebMsgKey"))({
+        f = new (r("WAWebMsgKey"))({
           id: r("WAWebMsgKey").newId_DEPRECATED(),
-          remote: e.id.remote,
+          remote: u.id.remote,
           fromMe: !0,
-          participant: p,
+          participant: _,
         }),
-        f = n.groupMentions,
-        g = n.linkPreview,
-        h = n.mentionedJidList,
-        y = {
-          id: _,
-          from: m,
-          to: e.id.remote,
+        g = c.groupMentions,
+        h = c.linkPreview,
+        y = c.mentionedJidList,
+        C = {
+          id: f,
+          from: p,
+          to: u.id.remote,
           type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
           kind: o("WAWebMsgType").MsgKind.Protocol,
           subtype: "message_edit",
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          protocolMessageKey: e.id,
+          protocolMessageKey: u.id,
           local: !0,
           t: o("WATimeUtils").unixTime(),
-          mentionedJidList: h,
-          groupMentions: f,
-          latestEditMsgKey: _,
+          mentionedJidList: y,
+          groupMentions: g,
+          latestEditMsgKey: f,
           latestEditSenderTimestampMs: o("WATimeUtils").unixTimeMs(),
-          editMsgType: e.type,
+          editMsgType: u.type,
           errorCode: o("WAWebErrorType").SendFailureErrorCode.NoError,
           messageSecret: o(
             "WAWebMessagingGatingUtils",
           ).isReportingTokenSendingEnabled()
-            ? e.messageSecret
+            ? u.messageSecret
             : null,
         };
       switch (
-        r("WANullthrows")(o("WAWebMessageEditUtils").getMsgEditType(e.type))
+        r("WANullthrows")(o("WAWebMessageEditUtils").getMsgEditType(u.type))
       ) {
         case o("WAWebMessageEditUtils").MsgEditType.TextEdit:
-          y = babelHelpers.extends({}, y, {
-            body: t.trim(),
-            title: (a = g == null ? void 0 : g.title) != null ? a : void 0,
+          C = babelHelpers.extends({}, C, {
+            body: d.trim(),
+            title: (t = h == null ? void 0 : h.title) != null ? t : void 0,
             matchedText:
-              (i = g == null ? void 0 : g.matchedText) != null ? i : void 0,
-            description: g == null ? void 0 : g.description,
+              (n = h == null ? void 0 : h.matchedText) != null ? n : void 0,
+            description: h == null ? void 0 : h.description,
             thumbnail:
-              (l = g == null ? void 0 : g.thumbnail) != null ? l : void 0,
-            richPreviewType: g == null ? void 0 : g.richPreviewType,
-            doNotPlayInline: g == null ? void 0 : g.doNotPlayInline,
-            inviteGrpType: g == null ? void 0 : g.inviteGrpType,
-            thumbnailDirectPath: g == null ? void 0 : g.thumbnailDirectPath,
-            thumbnailSha256: g == null ? void 0 : g.thumbnailSha256,
-            thumbnailEncSha256: g == null ? void 0 : g.thumbnailEncSha256,
-            thumbnailHeight: g == null ? void 0 : g.thumbnailHeight,
-            thumbnailWidth: g == null ? void 0 : g.thumbnailWidth,
+              (a = h == null ? void 0 : h.thumbnail) != null ? a : void 0,
+            richPreviewType: h == null ? void 0 : h.richPreviewType,
+            doNotPlayInline: h == null ? void 0 : h.doNotPlayInline,
+            inviteGrpType: h == null ? void 0 : h.inviteGrpType,
+            thumbnailDirectPath: h == null ? void 0 : h.thumbnailDirectPath,
+            thumbnailSha256: h == null ? void 0 : h.thumbnailSha256,
+            thumbnailEncSha256: h == null ? void 0 : h.thumbnailEncSha256,
+            thumbnailHeight: h == null ? void 0 : h.thumbnailHeight,
+            thumbnailWidth: h == null ? void 0 : h.thumbnailWidth,
             mediaKey:
-              (s = g == null ? void 0 : g.mediaKey) != null ? s : void 0,
+              (i = h == null ? void 0 : h.mediaKey) != null ? i : void 0,
             mediaKeyTimestamp:
-              (u = g == null ? void 0 : g.mediaKeyTimestamp) != null
-                ? u
+              (l = h == null ? void 0 : h.mediaKeyTimestamp) != null
+                ? l
                 : void 0,
             paymentLinkMetadata:
-              (c = o("PaymentLink").getPaymentLinkMessageMetadata(
-                g,
-                o("WAWebCodeFormatMutator").removeCodeBlocks(t),
+              (s = o("PaymentLink").getPaymentLinkMessageMetadata(
+                h,
+                o("WAWebCodeFormatMutator").removeCodeBlocks(d),
               )) != null
-                ? c
+                ? s
                 : void 0,
           });
           break;
         case o("WAWebMessageEditUtils").MsgEditType.CaptionEdit:
-          y = babelHelpers.extends({}, y, { caption: t.trim() });
+          C = babelHelpers.extends({}, C, { caption: d.trim() });
           break;
         case o("WAWebMessageEditUtils").MsgEditType.EventEdit:
         case o("WAWebMessageEditUtils").MsgEditType.PollEdit:
@@ -220,7 +223,7 @@ __d(
         case o("WAWebMessageEditUtils").MsgEditType.LoadingMediaEdit:
           break;
       }
-      return y;
+      return C;
     }
     function y(e, t, n, r, o) {
       return C.apply(this, arguments);

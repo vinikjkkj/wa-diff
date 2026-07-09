@@ -192,7 +192,13 @@ __d(
             }),
             u = new (r("WAWebMsgKey"))({ from: n, to: a, id: t }),
             c = this.get(e) || this.get(u);
-          if (c) return o("WAWebMsgInfoAction").updateMsgInfo(c, i, l, s);
+          if (c)
+            return o("WAWebMsgInfoAction").updateMsgInfo({
+              ack: i,
+              msgInfoParam: c,
+              participant: l,
+              ts: s,
+            });
         }),
         t
       );

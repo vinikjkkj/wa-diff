@@ -14,6 +14,7 @@ __d(
           ListUpdateUserJourney: [
             5958,
             {
+              currentMigrationBucket: [9, e.TYPES.INTEGER],
               customListCount: [7, e.TYPES.INTEGER],
               listAction: [1, o("WAWebWamEnumListAction").LIST_ACTION],
               listId: [2, e.TYPES.INTEGER],
@@ -25,6 +26,7 @@ __d(
               ],
               predefinedId: [5, e.TYPES.INTEGER],
               presetListCount: [8, e.TYPES.INTEGER],
+              previousMigrationBucket: [10, e.TYPES.INTEGER],
               updateEntryPoint: [
                 6,
                 o("WAWebWamEnumUpdateEntryPoint").UPDATE_ENTRY_POINT,

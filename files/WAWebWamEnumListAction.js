@@ -12,6 +12,8 @@ __d(
       UNMUTE: 7,
       HIDE: 8,
       UNHIDE: 9,
+      REORDER: 10,
+      BUCKET_MIGRATION_DONE: 11,
     });
     i.LIST_ACTION = e;
   },

@@ -19,6 +19,7 @@ __d(
     "WAWebWamEnumMediaUploadResultType",
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumMessageSendResultType",
+    "WAWebWamEnumMessageSendRetrySource",
     "WAWebWamEnumMessageSendSource",
     "WAWebWamEnumMessageType",
     "WAWebWamEnumOppositeVisibleIdentificationType",
@@ -145,6 +146,11 @@ __d(
                 o("WAWebWamEnumMessageSendResultType").MESSAGE_SEND_RESULT_TYPE,
               ],
               messageSendResultIsTerminal: [17, e.TYPES.BOOLEAN],
+              messageSendRetrySource: [
+                95,
+                o("WAWebWamEnumMessageSendRetrySource")
+                  .MESSAGE_SEND_RETRY_SOURCE,
+              ],
               messageSendSource: [
                 66,
                 o("WAWebWamEnumMessageSendSource").MESSAGE_SEND_SOURCE,

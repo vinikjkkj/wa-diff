@@ -6,7 +6,6 @@ __d(
     "WAWebFbtAppName",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebRichResponseStrings",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -83,9 +82,9 @@ __d(
       if (e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE)
         return c();
       if (o("WAWebCommonMsgUtils").isRichResponseMsg(e.type))
-        return o(
-          "WAWebRichResponseStrings",
-        ).getWholeRichResponseUnsupportedText();
+        return s._(
+          /*BTDS*/ "This response type isn't supported on this device yet. View the response on your phone.",
+        );
       if (
         e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
         e.futureproofType === o("WAWebMsgType").MSG_TYPE.CALL_LOG

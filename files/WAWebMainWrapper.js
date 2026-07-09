@@ -19,7 +19,6 @@ __d(
     "WAWebProfilePicThumbCollection",
     "WAWebSWBus",
     "WAWebSWBusActions",
-    "WAWebStartBackendWorker",
     "WAWebUserPrefsGeneral",
     "WAWebWamLoginReporter",
     "cr:13598",
@@ -79,7 +78,6 @@ __d(
                     "kaleidoscopeClassify",
                   );
               })),
-        r("gkx")("20033") || o("WAWebStartBackendWorker").startBackendWorker(),
         u());
       try {
         n("cr:37102") == null || n("cr:37102").run();

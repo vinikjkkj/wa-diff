@@ -395,6 +395,7 @@ __d(
       bot_3p_status: [5985, "int", 0, 0],
       bot_profile_sync_migration_enabled: [17485, "bool", !1, !1],
       br_consumer_payments_home_web_enabled: [32968, "bool", !1, !1],
+      br_consumer_pix_actions_web_enabled: [33028, "bool", !1, !1],
       br_enable_payment_logos_on_bubble: [8160, "bool", !1, !1],
       br_payments_home_duration_rule_for_pux_banner: [
         22249,

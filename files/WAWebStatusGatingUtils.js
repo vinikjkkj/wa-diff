@@ -143,6 +143,16 @@ __d(
         "web_status_ranking_enabled",
       );
     }
+    function T() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_status_chain_new_at_end",
+      );
+    }
+    function D() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_status_chain_unseen_min_pog",
+      );
+    }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isChannelStatusLikesSendEnabled = d),
@@ -161,7 +171,9 @@ __d(
       (l.isStatusStanzaReceiveEnabled = L),
       (l.isStatusRingOutsideChatlistEnabled = E),
       (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = k),
-      (l.isStatusRankingEnabled = I));
+      (l.isStatusRankingEnabled = I),
+      (l.isStatusAddUnseenAtEndEnabled = T),
+      (l.statusChainUnseenMinPog = D));
   },
   98,
 );

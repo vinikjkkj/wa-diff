@@ -10,7 +10,7 @@ __d(
           "eventName" in e
         ) {
           var t = e.eventName;
-          return d(t);
+          return c(t);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -18,13 +18,13 @@ __d(
           "eventName" in e
         ) {
           var n = e.eventName;
-          return m(n);
+          return d(n);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.kind === "suspended"
         )
-          return c();
+          return u();
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.kind === "rsvp" &&
@@ -33,7 +33,7 @@ __d(
         ) {
           var r = e.rsvp,
             o = e.eventName;
-          return p(r, o);
+          return m(r, o);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -43,7 +43,7 @@ __d(
         ) {
           var a = e.reminderType,
             i = e.minutesUntilStart;
-          return _(a, i);
+          return p(a, i);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -52,28 +52,25 @@ __d(
       })(e);
     }
     function u() {
-      return s._(/*BTDS*/ "Event suspended").toString();
-    }
-    function c() {
       return s
         ._(/*BTDS*/ "Your event has been suspended for violating our policies")
         .toString();
     }
-    function d(e) {
+    function c(e) {
       return s
         ._(/*BTDS*/ "updated \ud83d\uddd3 {eventName}", [
           s._param("eventName", e),
         ])
         .toString();
     }
-    function m(e) {
+    function d(e) {
       return s
         ._(/*BTDS*/ "cancelled \ud83d\uddd3 {eventName}", [
           s._param("eventName", e),
         ])
         .toString();
     }
-    function p(e, t) {
+    function m(e, t) {
       return e ===
         o("WAWebSharableEventNotificationConstants")
           .SharableEventNotificationRsvpStatus.Going
@@ -109,7 +106,7 @@ __d(
                   );
                 })();
     }
-    function _(e, t) {
+    function p(e, t) {
       return e ===
         o("WAWebSharableEventNotificationConstants").SharableEventReminderType
           .EventStarted
@@ -117,7 +114,7 @@ __d(
         : e ===
             o("WAWebSharableEventNotificationConstants")
               .SharableEventReminderType.EventStartingSoon
-          ? f(
+          ? _(
               o(
                 "WAWebSharableEventNotificationConstants",
               ).nearestReminderBucket(t),
@@ -129,23 +126,23 @@ __d(
               );
             })();
     }
-    function f(e) {
+    function _(e) {
       return e ===
         o("WAWebSharableEventNotificationConstants")
           .SharableEventReminderLeadTimeBucket.OneMinute
-        ? g(1)
+        ? f(1)
         : e ===
             o("WAWebSharableEventNotificationConstants")
               .SharableEventReminderLeadTimeBucket.FiveMinutes
-          ? g(5)
+          ? f(5)
           : e ===
               o("WAWebSharableEventNotificationConstants")
                 .SharableEventReminderLeadTimeBucket.FifteenMinutes
-            ? g(15)
+            ? f(15)
             : e ===
                 o("WAWebSharableEventNotificationConstants")
                   .SharableEventReminderLeadTimeBucket.ThirtyMinutes
-              ? g(30)
+              ? f(30)
               : e ===
                   o("WAWebSharableEventNotificationConstants")
                     .SharableEventReminderLeadTimeBucket.OneHour
@@ -161,7 +158,7 @@ __d(
                       );
                     })();
     }
-    function g(e) {
+    function f(e) {
       return s
         ._(/*BTDS*/ "\ud83d\uddd3 starts in {minutes} min", [
           s._param("minutes", e),
@@ -169,12 +166,11 @@ __d(
         .toString();
     }
     ((l.formatSharableEventBody = e),
-      (l.suspendedNotificationTitle = u),
-      (l.suspendedNotificationBody = c),
-      (l.updateNotificationBody = d),
-      (l.deleteNotificationBody = m),
-      (l.rsvpHostNotificationBody = p),
-      (l.reminderNotificationBody = _));
+      (l.suspendedNotificationBody = u),
+      (l.updateNotificationBody = c),
+      (l.deleteNotificationBody = d),
+      (l.rsvpHostNotificationBody = m),
+      (l.reminderNotificationBody = p));
   },
   226,
 );
