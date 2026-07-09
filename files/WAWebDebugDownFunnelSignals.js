@@ -83,6 +83,7 @@ __d(
             o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset,
           )
           .then(function (t) {
+            var n;
             return (
               o("WALogger").LOG(
                 e ||
@@ -90,7 +91,7 @@ __d(
                     "debug:resetDataSharingToNotset",
                   ])),
               ),
-              t
+              (n = t == null ? void 0 : t.value) != null ? n : null
             );
           })
           .catch(function (e) {

@@ -281,7 +281,10 @@ __d(
         n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
       if (n != null) {
         var a = o("WAWebContactCollection").ContactCollection.get(n);
-        !t || !a || (r("WAWebSendContactsAction")([a], t), e.useOnce());
+        !t ||
+          !a ||
+          (r("WAWebSendContactsAction")({ chat: t, contacts: [a] }),
+          e.useOnce());
       }
     }
     function k(e, t) {

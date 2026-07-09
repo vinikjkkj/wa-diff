@@ -6,7 +6,6 @@ __d(
     "VideoPlaybackQuality",
     "VideoPlayerOzWWWGlobalConfig",
     "getErrorSafe",
-    "gkx",
     "performance",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,10 +45,9 @@ __d(
       return 0;
     }
     function g(t) {
-      var a = r("gkx")("13686") || r("gkx")("17440"),
-        i = null,
-        l = 0,
-        c = function () {
+      var a = null,
+        i = 0,
+        l = function () {
           var e = o("VideoPlaybackQuality").getFramesSnapshot(t),
             n = e.droppedFrames,
             r = e.totalFrames;
@@ -95,14 +93,10 @@ __d(
           return t.error;
         },
         getFrameCounts: function () {
-          if (
-            !a ||
-            u <= 0 ||
-            typeof (e || (e = r("performance"))).now != "function"
-          )
-            return c();
+          if (u <= 0 || typeof (e || (e = r("performance"))).now != "function")
+            return l();
           var t = (e || (e = r("performance"))).now();
-          return ((i != null && t - l < u) || ((i = c()), (l = t)), i);
+          return ((a != null && t - i < u) || ((a = l()), (i = t)), a);
         },
         getLastBufferEndPosition: function () {
           return p(t);

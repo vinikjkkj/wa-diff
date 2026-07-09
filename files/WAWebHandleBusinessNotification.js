@@ -314,6 +314,7 @@ __d(
                   "WAWebHandlePrivacySettingsNotification",
                 ).handleSmbDataSharingSettingNotification(
                   r.privacy.smbDataSharingSetting,
+                  r.privacy.smbDataSharingVersion,
                 ),
                 c(r.stanzaId, r.from, !1)
               );

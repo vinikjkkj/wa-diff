@@ -341,7 +341,8 @@ __d(
                           i = a.conversionData,
                           l = a.conversionDelaySeconds,
                           s = a.conversionSource,
-                          u =
+                          u = a.ctwaSignals,
+                          c =
                             l != null &&
                             l > 0 &&
                             o(
@@ -353,36 +354,37 @@ __d(
                           {
                             conversionSource: s,
                             conversionData: i,
+                            ctwaSignals: u,
                             id: e.id,
-                            timestamp: o("WATimeUtils").unixTime() - u,
+                            timestamp: o("WATimeUtils").unixTime() - c,
                             fromMe: t.id.fromMe,
                           },
                           { merge: !0 },
                         );
                       }
-                      var c = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                        d = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+                      var d = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                        m = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
                       if (
                         t.type === "gp2" &&
                         (t.subtype === "add" || t.subtype === "create")
                       ) {
-                        var m = e.getGroupMetadataCollection(),
-                          p =
-                            c != null &&
+                        var p = e.getGroupMetadataCollection(),
+                          _ =
+                            d != null &&
                             !o(
                               "WAWebBeyondPhoneNumberGatingUtils",
                             ).removePnDependenciesEnabled()
-                              ? c
-                              : d;
-                        m.trigger("group_participant_change_" + p.toString(), {
+                              ? d
+                              : m;
+                        p.trigger("group_participant_change_" + _.toString(), {
                           gid: e.id,
                         });
                       }
                       if (o("WAWebMsgGetters").getIsSentByMe(t)) {
                         if (e.unreadCount > 0 || e.markedUnread) {
-                          var E,
-                            k,
-                            I = e.id.toString() === t.id.remote.toString();
+                          var k,
+                            I,
+                            T = e.id.toString() === t.id.remote.toString();
                           o("WALogger").LOG(
                             y ||
                               (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -401,15 +403,15 @@ __d(
                             e.id.isLid(),
                             t.id.remote.toLogString(),
                             t.id.remote.isLid(),
-                            I,
+                            T,
                             e.unreadCount,
                             e.activeUnreadCount,
                             e.markedUnread,
-                            (E =
-                              (k = e.accountLid) == null
+                            (k =
+                              (I = e.accountLid) == null
                                 ? void 0
-                                : k.toLogString()) != null
-                              ? E
+                                : I.toLogString()) != null
+                              ? k
                               : "none",
                           );
                         }
@@ -469,16 +471,16 @@ __d(
                             )
                               return;
                             o("WAWebCmd").Cmd.alertNewMsg(t);
-                            var _ = e.getGroupMetadataCollection(),
-                              C =
-                                c != null &&
+                            var C = e.getGroupMetadataCollection(),
+                              v =
+                                d != null &&
                                 !o(
                                   "WAWebBeyondPhoneNumberGatingUtils",
                                 ).removePnDependenciesEnabled()
-                                  ? c
-                                  : d;
-                            _.trigger(
-                              "group_participant_change_" + C.toString(),
+                                  ? d
+                                  : m;
+                            C.trigger(
+                              "group_participant_change_" + v.toString(),
                               { gid: e.id },
                             );
                             break;
@@ -486,10 +488,10 @@ __d(
                           default:
                             break;
                         }
-                        var v = t.mediaData;
+                        var S = t.mediaData;
                         if (
-                          (v &&
-                            (v.type === "image" || v.type === "video") &&
+                          (S &&
+                            (S.type === "image" || S.type === "video") &&
                             o("WAWebCmd").Cmd.newMediaMsg(t),
                           n.unreadCount != null &&
                             n.unreadCount > 0 &&
@@ -516,22 +518,22 @@ __d(
                               }),
                           o("WAWebMsgGetters").getIsImportantMessage(t))
                         ) {
-                          var S,
-                            R = new (r("WAWebUnreadMentionModel"))({
+                          var R,
+                            L = new (r("WAWebUnreadMentionModel"))({
                               id: t.id.toString(),
                               timestamp: t.t,
                             });
                           if (
-                            ((S = e.groupMetadata) == null ||
-                              S.unreadMentionMetadata.addUnreadMentions(
-                                R,
+                            ((R = e.groupMetadata) == null ||
+                              R.unreadMentionMetadata.addUnreadMentions(
+                                L,
                                 o("WAWebGroupUnreadMessageType")
                                   .UnreadMessageType.NEW_MESSAGE,
                               ),
                             e.archiveAtMentionViewedInDrawer)
                           ) {
-                            var L = new Map();
-                            (L.set(e.id.toString(), !1),
+                            var E = new Map();
+                            (E.set(e.id.toString(), !1),
                               o("WALogger").LOG(
                                 h ||
                                   (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -539,7 +541,7 @@ __d(
                                   ])),
                               ),
                               yield o("WAWebApiChat").updateChatArchiveDrawer(
-                                L,
+                                E,
                               ),
                               (e.archiveAtMentionViewedInDrawer = !1));
                           }

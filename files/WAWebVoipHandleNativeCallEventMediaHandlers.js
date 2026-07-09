@@ -1,6 +1,8 @@
 __d(
   "WAWebVoipHandleNativeCallEventMediaHandlers",
   [
+    "WALogger",
+    "WAThrottle",
     "WAWebBackendApi",
     "WAWebUserPrefsMeUser",
     "WAWebVoipDualStreamScreenShareState",
@@ -10,16 +12,19 @@ __d(
     "WAWebVoipWaCallEnums",
     "WAWebVoipWebCodecsEncoderState",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    var e,
+      s = 50;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function s() {
+    function c() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -31,15 +36,15 @@ __d(
             );
           }
         })),
-        s.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function c() {
+    function m() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -51,41 +56,64 @@ __d(
             );
           }
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function d() {
-      return m.apply(this, arguments);
+    var p = o("WAThrottle").throttle(
+        function () {
+          g().catch(function (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: handleMuteStateChanged: dispatch failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("voip-mute-state-dispatch-failed");
+          });
+        },
+        s,
+        { leading: !0, trailing: !0 },
+      ),
+      _ = 0;
+    function f() {
+      p();
     }
-    function m() {
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (e.type === "web") {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = ++_,
+            t = r("nullthrows")(
+              yield o("WAWebVoipStackInterface").getVoipStackInterface(),
+            );
+          if (t.type === "web") {
             o("WAWebBackendApi").frontendFireAndForget("trackVoipActivity", {
               activity: "get_call_info",
               details: "mute_state",
             });
-            var t = yield e.getCallInfo();
-            if (t === "") return;
-            var n = e.parsers.parseCallInfo(t);
-            o("WAWebBackendApi").frontendFireAndForget(
-              "handleMuteStateChange",
-              { callInfo: n },
-            );
+            var n = yield t.getCallInfo();
+            if (n !== "" && e === _) {
+              var a = t.parsers.parseCallInfo(n);
+              o("WAWebBackendApi").frontendFireAndForget(
+                "handleMuteStateChange",
+                { callInfo: a },
+              );
+            }
           }
         })),
-        m.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function _() {
+    function C() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -98,15 +126,15 @@ __d(
               );
           }
         })),
-        _.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function g() {
+    function v() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -120,15 +148,15 @@ __d(
                 );
           }
         })),
-        g.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function y() {
+    function R() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -140,15 +168,15 @@ __d(
             );
           }
         })),
-        y.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function b() {
+    function E() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -174,15 +202,15 @@ __d(
               ));
           }
         })),
-        b.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function S() {
+    function I() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -194,15 +222,15 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function L() {
+    function D() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -213,15 +241,15 @@ __d(
             );
           }
         })),
-        L.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function k() {
+    function $() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -230,19 +258,19 @@ __d(
             o("WAWebVoipWebCodecsEncoderState").updateWebCodecsEncodeParams(n);
           }
         })),
-        k.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    ((l.handleVideoStateChanged = e),
-      (l.handlePeerVideoPermissionChanged = u),
-      (l.handleMuteStateChanged = d),
-      (l.handleAudioDriverRestart = p),
-      (l.handleSpeakerStatusChanged = f),
-      (l.handleReactionStateChanged = h),
-      (l.handleScreenShareStateChanged = C),
-      (l.handleRaiseHandStateChanged = v),
-      (l.handleEncodeTargetFpsChanged = R),
-      (l.handleEncodeParamsChanged = E),
+    ((l.handleVideoStateChanged = u),
+      (l.handlePeerVideoPermissionChanged = d),
+      (l.handleMuteStateChanged = f),
+      (l.handleAudioDriverRestart = y),
+      (l.handleSpeakerStatusChanged = b),
+      (l.handleReactionStateChanged = S),
+      (l.handleScreenShareStateChanged = L),
+      (l.handleRaiseHandStateChanged = k),
+      (l.handleEncodeTargetFpsChanged = T),
+      (l.handleEncodeParamsChanged = x),
       (l.resetWebCodecsEncoderState = o(
         "WAWebVoipWebCodecsEncoderState",
       ).resetWebCodecsEncoderState));

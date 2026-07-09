@@ -410,20 +410,18 @@ __d(
         o("WAWebBotBaseGating").isBotEnabled())
       ) {
         var m,
-          p = o("WAWebGenerateBotMetadata").generateBotMetadata(e),
-          _ = (m = u.messageContextInfo) == null ? void 0 : m.botMetadata;
-        p != null && _ != null
-          ? (u.messageContextInfo = babelHelpers.extends(
-              {},
-              u.messageContextInfo,
-              { botMetadata: babelHelpers.extends({}, _, p) },
-            ))
-          : p != null &&
-            (u.messageContextInfo = babelHelpers.extends(
-              {},
-              u.messageContextInfo,
-              { botMetadata: p },
-            ));
+          p = (m = u.messageContextInfo) == null ? void 0 : m.botMetadata,
+          _ = o("WAWebGenerateBotMetadata").mergeBotMetadata(
+            p,
+            o("WAWebGenerateBotMetadata").generateBotMetadata(e),
+          );
+        _ != null &&
+          _ !== p &&
+          (u.messageContextInfo = babelHelpers.extends(
+            {},
+            u.messageContextInfo,
+            { botMetadata: _ },
+          ));
       }
       if (!r("isArrayNullOrEmpty")(e.threadIds)) {
         var f = o("WAWebGenerateThreadIds").generateThreadIds(e);

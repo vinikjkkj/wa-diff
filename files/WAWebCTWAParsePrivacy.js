@@ -6,25 +6,19 @@ __d(
     function s(t) {
       try {
         var n,
-          r,
-          a,
-          i = o(
+          r = o(
             "WASmaxBizSettingsSyncPrivacySettingRPC",
           ).receiveSyncPrivacySettingRPC(t.node()),
-          l = i.parsedRequest,
-          s =
-            (n = l.privacySmbDataSharingSettingMixin) == null
-              ? void 0
-              : n.value;
-        if (s == null) return null;
-        var u =
-          (r =
-            (a = l.privacySmbDataSharingSettingMixin) == null
-              ? void 0
-              : a.version) != null
-            ? r
-            : void 0;
-        return { smbDataSharingSetting: s, smbDataSharingVersion: u };
+          a = r.parsedRequest,
+          i = a.privacySmbDataSharingSettingMixin,
+          l = i == null ? void 0 : i.value;
+        return l == null
+          ? null
+          : {
+              smbDataSharingSetting: l,
+              smbDataSharingVersion:
+                (n = i == null ? void 0 : i.version) != null ? n : null,
+            };
       } catch (t) {
         return (
           o("WALogger").ERROR(

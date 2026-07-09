@@ -1,46 +1,73 @@
 __d(
   "WAWebHandleCloudApiThreadControlNotification",
-  ["WALogger", "WALongInt", "WAWebBackendApi"],
+  [
+    "WALogger",
+    "WALongInt",
+    "WAWebBackendApi",
+    "WAWebBizAiAgentGating",
+    "WAWebBizAiThreadControlExtraJson",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u(t) {
-      var n = t.consumerLid,
-        r = t.consumerPhoneNumber,
-        a = t.senderNotificationTimestampMs,
-        i = t.shouldSuppressNotification,
-        l = t.status;
-      if (r == null && n == null) {
+    var e, s, u;
+    function c(t) {
+      if (o("WAWebBizAiAgentGating").isAiBulkThreadControlEnabled()) {
+        var n,
+          r = o("WAWebBizAiThreadControlExtraJson").parseBulkThreadControl(
+            (n = t.notificationContent) == null ? void 0 : n.extraJson,
+          );
+        if (r != null) {
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[Biz AI] Received bulk thread control notification, count: ",
+                "",
+              ])),
+            r.length,
+          ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "bulkUpdateChatCapiThreadControl",
+              { updates: r },
+            ));
+          return;
+        }
+      }
+      var a = t.consumerLid,
+        i = t.consumerPhoneNumber,
+        l = t.senderNotificationTimestampMs,
+        c = t.shouldSuppressNotification,
+        d = t.status;
+      if (i == null && a == null) {
         o("WALogger").WARN(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "[Maiba] thread ctrl missing phone & lid, status=",
               "",
             ])),
-          l,
+          d,
         );
         return;
       }
       (o("WALogger").LOG(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
             "[Biz AI] Received thread control notification, status: ",
             "",
           ])),
-        l,
+        d,
       ),
         o("WAWebBackendApi").frontendFireAndForget(
           "updateChatCapiThreadControl",
           {
-            consumerPhoneNumber: r,
-            consumerLid: n,
-            status: l,
-            timestampMs: o("WALongInt").maybeNumber(a),
-            shouldSuppressNotification: i,
+            consumerPhoneNumber: i,
+            consumerLid: a,
+            status: d,
+            timestampMs: o("WALongInt").maybeNumber(l),
+            shouldSuppressNotification: c,
           },
         ));
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

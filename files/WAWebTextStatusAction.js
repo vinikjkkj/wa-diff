@@ -26,17 +26,20 @@ __d(
       var t = m.get(e);
       return t == null ? !1 : Date.now() - t < d ? !0 : (m.delete(e), !1);
     }
-    function _(e, t, n) {
-      var r = e == null ? void 0 : e.promises.getTextStatus;
-      if (r != null) return { fetchPromise: r, isOwnFetch: !1 };
-      var a = o("WAWebContactTextStatusBridge").getTextStatus(t, n);
+    function _(e) {
+      var t = e.contactModel,
+        n = e.id,
+        r = e.lastUpdateTime,
+        a = t == null ? void 0 : t.promises.getTextStatus;
+      if (a != null) return { fetchPromise: a, isOwnFetch: !1 };
+      var i = o("WAWebContactTextStatusBridge").getTextStatus(n, r);
       return (
-        e != null &&
-          ((e.promises.getTextStatus = a),
-          a.finally(function () {
-            e.promises.getTextStatus === a && delete e.promises.getTextStatus;
+        t != null &&
+          ((t.promises.getTextStatus = i),
+          i.finally(function () {
+            t.promises.getTextStatus === i && delete t.promises.getTextStatus;
           })),
-        { fetchPromise: a, isOwnFetch: !0 }
+        { fetchPromise: i, isOwnFetch: !0 }
       );
     }
     function f(e, t) {
@@ -49,7 +52,7 @@ __d(
             var n = e.toString();
             if (!p(n)) {
               var r = o("WAWebContactCollection").ContactCollection.get(e),
-                a = _(r, e, t),
+                a = _({ contactModel: r, id: e, lastUpdateTime: t }),
                 i = a.fetchPromise,
                 l = a.isOwnFetch,
                 s = yield i;

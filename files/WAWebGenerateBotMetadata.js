@@ -49,11 +49,11 @@ __d(
     }
     function c(t) {
       var n = t.botPersonaId != null ? t.botPersonaId : void 0,
-        r = m(t),
+        r = p(t),
         o = t.aiThreadInfo != null ? e(t) : void 0,
-        a = f(t.botModeSelection, t.botModeOverride),
+        a = g(t.botModeSelection, t.botModeOverride),
         i = s(t),
-        l = _(t.type),
+        l = f(t.type),
         c = u(t);
       if (
         !(
@@ -69,16 +69,25 @@ __d(
         return {
           personaId: n,
           invokerJid: r,
-          capabilityMetadata: t.id ? p(t.id.remote) : void 0,
+          capabilityMetadata: t.id ? _(t.id.remote) : void 0,
           botThreadInfo: o,
-          botGroupMetadata: d(t.botGroupParticipant),
+          botGroupMetadata: m(t.botGroupParticipant),
           botModeSelectionMetadata: a,
           botMetricsMetadata: i,
           botDocumentMessageMetadata: l,
           aiMediaCollectionMetadata: c,
         };
     }
-    function d(e) {
+    function d(e, t) {
+      return e == null
+        ? t != null
+          ? t
+          : void 0
+        : t == null
+          ? e
+          : babelHelpers.extends({}, e, t);
+    }
+    function m(e) {
       if (
         !(
           !(
@@ -93,7 +102,7 @@ __d(
           participantsMetadata: [{ botFbid: e == null ? void 0 : e.user }],
         };
     }
-    function m(e) {
+    function p(e) {
       if (e.subtype === "bot_feedback") {
         var t;
         return (t = e.botTargetSenderJid) == null ? void 0 : t.toJid();
@@ -106,7 +115,7 @@ __d(
           : n.toJid();
       }
     }
-    function p(e) {
+    function _(e) {
       var t,
         n = [
           (t = o("WAWebProtobufsAICommon.pb"))
@@ -252,7 +261,7 @@ __d(
         );
       return n.length === 0 ? void 0 : { capabilities: n };
     }
-    function _(e) {
+    function f(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -262,7 +271,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function f(e, t) {
+    function g(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -279,8 +288,9 @@ __d(
       (l.generateBotMetricsMetadata = s),
       (l.generateAiMediaCollectionMetadata = u),
       (l.generateBotMetadata = c),
-      (l.generateBotCapabilityMetadata = p),
-      (l.generateBotModeSelectionMetadata = f));
+      (l.mergeBotMetadata = d),
+      (l.generateBotCapabilityMetadata = _),
+      (l.generateBotModeSelectionMetadata = g));
   },
   98,
 );

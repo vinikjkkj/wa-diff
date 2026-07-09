@@ -115,13 +115,21 @@ __d(
             videos:
               (f = L.media) == null || (f = f.videos) == null
                 ? void 0
-                : f.map(function (e) {
-                    return {
-                      id: r("nullthrows")(e.id),
-                      original_video_url: r("nullthrows")(e.original_video_url),
-                      thumbnail_url: r("nullthrows")(e.thumbnail_url),
-                    };
-                  }),
+                : f
+                    .filter(function (e) {
+                      return (
+                        e.original_video_url != null || e.thumbnail_url != null
+                      );
+                    })
+                    .map(function (e) {
+                      var t, n, r;
+                      return {
+                        id: (t = e.id) != null ? t : "",
+                        original_video_url:
+                          (n = e.original_video_url) != null ? n : "",
+                        thumbnail_url: (r = e.thumbnail_url) != null ? r : "",
+                      };
+                    }),
             variant_info:
               L.variant_info != null
                 ? {

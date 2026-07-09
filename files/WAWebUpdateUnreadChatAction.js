@@ -127,7 +127,11 @@ __d(
       );
     }
     function R(e, t, n) {
-      return x(o("WAWebStateUtils").unproxy(e), t, n);
+      return x({
+        chat: o("WAWebStateUtils").unproxy(e),
+        seenCount: t,
+        shouldUpdatePendingSeenCount: n,
+      });
     }
     function L(e) {
       return P(o("WAWebStateUtils").unproxy(e));
@@ -372,32 +376,36 @@ __d(
         D.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
+    function x(e) {
       return $.apply(this, arguments);
     }
     function $() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          (r === void 0 && (r = !1), k("markSeen: start - " + String(t)));
-          var a = null;
-          t != null
-            ? t > 0 && t <= e.unreadCount
-              ? (a = e.unreadCount - t)
-              : t === -1 && e.unreadCount <= 0 && (a = 0)
-            : (a = 0);
-          var i =
-            a == null
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            r = e.seenCount,
+            a = e.shouldUpdatePendingSeenCount,
+            i = a === void 0 ? !1 : a;
+          k("markSeen: start - " + String(r));
+          var l = null;
+          r != null
+            ? r > 0 && r <= t.unreadCount
+              ? (l = t.unreadCount - r)
+              : r === -1 && t.unreadCount <= 0 && (l = 0)
+            : (l = 0);
+          var s =
+            l == null
               ? (_ || (_ = n("Promise"))).resolve()
-              : o("WAWebChatSeenBridge").markConversationSeen(e.id, a);
-          if ((yield i, t != null && r)) {
-            var l = e.pendingSeenCount - t;
-            ((e.pendingSeenCount = Math.max(0, l)),
-              k("pendingSeenCount set to " + e.pendingSeenCount));
+              : o("WAWebChatSeenBridge").markConversationSeen(t.id, l);
+          if ((yield s, r != null && i)) {
+            var u = t.pendingSeenCount - r;
+            ((t.pendingSeenCount = Math.max(0, u)),
+              k("pendingSeenCount set to " + t.pendingSeenCount));
           }
-          (a != null && ((e.unreadCount = a), k("unreadCount set to " + a)),
-            (e.unreadMsgAnchor = void 0),
-            (e.markedUnread = !1),
-            (e.unreadDividerOffset = 0),
+          (l != null && ((t.unreadCount = l), k("unreadCount set to " + l)),
+            (t.unreadMsgAnchor = void 0),
+            (t.markedUnread = !1),
+            (t.unreadDividerOffset = 0),
             k("markSeen: end"));
         })),
         $.apply(this, arguments)

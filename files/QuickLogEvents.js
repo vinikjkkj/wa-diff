@@ -207,7 +207,7 @@ __d(
       },
       663703: { moduleName: "FEED", name: "QUERY_PERF", sampleRate: 1 },
       663892: { moduleName: "FEED", name: "CACHE_TTL", sampleRate: 1e4 },
-      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 22925 },
+      665258: { moduleName: "FEED", name: "RELAXED_MINGAP", sampleRate: 20672 },
       665863: { moduleName: "FEED", name: "DEFER", sampleRate: 250 },
       665990: { moduleName: "FEED", name: "RESTORE", sampleRate: 2 },
       666016: {
@@ -12882,6 +12882,21 @@ __d(
         name: "PURCHASE_N_FUND_WALLET",
         sampleRate: 1,
       },
+      66586137: {
+        moduleName: "PLATYPUS",
+        name: "P2B_CLASSIFICATION_MISS",
+        sampleRate: 100,
+      },
+      66588944: {
+        moduleName: "PLATYPUS",
+        name: "P2B_CLASSIFICATION_HIT",
+        sampleRate: 100,
+      },
+      66593608: {
+        moduleName: "PLATYPUS",
+        name: "FALLBACK_TO_MTV_HIT",
+        sampleRate: 100,
+      },
       66656460: {
         moduleName: "LINEAGE_INSIGHTS_GRAPH_RENDERING",
         name: "PAGE_ENTRY",
@@ -14247,7 +14262,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 338962,
+        sampleRate: 303558,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -21340,7 +21355,7 @@ __d(
       206646015: {
         moduleName: "AIM_SHARD_MAPPER",
         name: "CYCLE_DURATION",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       206967112: {
         moduleName: "MESSENGER_CLIENT_INFRA",
@@ -27578,7 +27593,7 @@ __d(
       279783699: {
         moduleName: "IG_CUSTOM_FONTS",
         name: "CUSTOMIZE_CHAT_OPEN",
-        sampleRate: 1,
+        sampleRate: 100,
       },
       279785746: {
         moduleName: "IG_CUSTOM_FONTS",
@@ -43547,12 +43562,12 @@ __d(
       525797085: {
         moduleName: "AIM_UNIFIED_UPGRADER_TROGDOR_TRIGGER",
         name: "TROGDOR_TRIGGER_CYCLE",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       525809728: {
         moduleName: "AIM_UNIFIED_UPGRADER_TROGDOR_TRIGGER",
         name: "TIME_TO_DISCOVER",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       526517510: {
         moduleName: "WP_SCIM",
@@ -48899,7 +48914,7 @@ __d(
       620368855: {
         moduleName: "IG_AI_CONTEXT_LAYER",
         name: "AI_DISCOVERY_MENU",
-        sampleRate: 1e3,
+        sampleRate: 100,
       },
       620561739: {
         moduleName: "DATA_ASSET_SIGNALS",
@@ -63149,6 +63164,11 @@ __d(
         name: "MIGRATION_MANAGER_SELECTS_USERS_FOR_MIGRATION",
         sampleRate: 1,
       },
+      820453835: {
+        moduleName: "MMA_ADMIN_CONSOLE",
+        name: "BUSINESS_PERSON_DEBUGGER_TAB_NAVIGATION",
+        sampleRate: 250,
+      },
       820453944: {
         moduleName: "MMA_ADMIN_CONSOLE",
         name: "BUSNIESS_CONSOLE_THIRD_PARTY_APPS_PAGE_LOAD",
@@ -63363,6 +63383,11 @@ __d(
         moduleName: "MMA_ADMIN_CONSOLE",
         name: "MMA_LOGIN_OIDC_HANDLE_RESPONSE",
         sampleRate: 1,
+      },
+      820457843: {
+        moduleName: "MMA_ADMIN_CONSOLE",
+        name: "BUSINESS_PERSON_DEBUGGER_SEARCH",
+        sampleRate: 250,
       },
       820457844: {
         moduleName: "MMA_ADMIN_CONSOLE",
@@ -65082,37 +65107,37 @@ __d(
       852492289: {
         moduleName: "STYLESKETCH",
         name: "APP_COLD_START",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       852495714: {
         moduleName: "STYLESKETCH",
         name: "OUTFIT_GENERATION",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       852497561: {
         moduleName: "STYLESKETCH",
         name: "DAILY_PLAN_GENERATE",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       852500118: {
         moduleName: "STYLESKETCH",
         name: "TRIP_PLAN_GENERATE",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       852501231: {
         moduleName: "STYLESKETCH",
         name: "ONBOARDING_WIZARD",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       852505388: {
         moduleName: "STYLESKETCH",
         name: "WARDROBE_ADD",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       852508560: {
         moduleName: "STYLESKETCH",
         name: "AVATAR_GENERATION",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       852624525: {
         moduleName: "LOOM_PDP_UI",
@@ -77478,9 +77503,29 @@ __d(
         name: "FB_FEED_VIDEO_USER_FLOW",
         sampleRate: 1,
       },
+      1041107624: {
+        moduleName: "HORIZON_CREATOR_ANALYTICS",
+        name: "AGENT_CHAT_TURN",
+        sampleRate: 1,
+      },
+      1041110895: {
+        moduleName: "HORIZON_CREATOR_ANALYTICS",
+        name: "AGENT_INSIGHTS_FEEDBACK",
+        sampleRate: 1,
+      },
+      1041111604: {
+        moduleName: "HORIZON_CREATOR_ANALYTICS",
+        name: "AGENT_METRICS_SERVING",
+        sampleRate: 1,
+      },
       1041117828: {
         moduleName: "HORIZON_CREATOR_ANALYTICS",
         name: "PAGE_LOAD",
+        sampleRate: 1,
+      },
+      1041120842: {
+        moduleName: "HORIZON_CREATOR_ANALYTICS",
+        name: "DASHBOARD_METRICS_SERVING",
         sampleRate: 1,
       },
       1041565167: {
@@ -78025,6 +78070,11 @@ __d(
         moduleName: "MESSENGER_ARMADILLO_WEB",
         name: "MAW_LLA_PERFORMANCE",
         sampleRate: 100,
+      },
+      1056839724: {
+        moduleName: "MESSENGER_ARMADILLO_WEB",
+        name: "RF_XMA_FETCH",
+        sampleRate: 10,
       },
       1056840252: {
         moduleName: "MESSENGER_ARMADILLO_WEB",

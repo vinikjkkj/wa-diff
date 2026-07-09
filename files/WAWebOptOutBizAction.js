@@ -25,8 +25,12 @@ __d(
     function u(e, t, n, r) {
       return d(o("WAWebStateUtils").unproxy(e), !0, t, n, r);
     }
-    function c(e, t, n, r) {
-      return d(o("WAWebStateUtils").unproxy(e), !1, t, n, r);
+    function c(e) {
+      var t = e.contact,
+        n = e.itemCategory,
+        r = e.itemEntryPoint,
+        a = e.toastId;
+      return d(o("WAWebStateUtils").unproxy(t), !1, n, r, a);
     }
     function d(t, r, a, i, l) {
       var u = t.isContactOptedOut,
@@ -155,7 +159,17 @@ __d(
             };
           })(),
         );
-      return (o("WAWebOptOutBizToast").optOutBizToast(t, R, r, a, i, l), R);
+      return (
+        o("WAWebOptOutBizToast").optOutBizToast({
+          action: R,
+          block: r,
+          contact: t,
+          itemCategory: a,
+          itemEntryPoint: i,
+          toastId: l,
+        }),
+        R
+      );
     }
     function m(e, t) {
       return p.apply(this, arguments);

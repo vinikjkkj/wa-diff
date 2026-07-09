@@ -10,19 +10,24 @@ __d(
     }
     function s() {
       return o("WAWebABProps").getABPropConfigValue(
-        "biz_ai_web_ai_hub_tap_cta_show_alert",
+        "biz_ai_web_bulk_thread_control_enabled",
       );
     }
     function u() {
-      return o("WAWebABProps").getABPropConfigValue("biz_ai_auto_save_enabled");
+      return o("WAWebABProps").getABPropConfigValue(
+        "biz_ai_web_ai_hub_tap_cta_show_alert",
+      );
     }
     function c() {
+      return o("WAWebABProps").getABPropConfigValue("biz_ai_auto_save_enabled");
+    }
+    function d() {
       return (
         o("WAWebABProps").getABPropConfigValue("biz_ai_in_thread_unmute_v2") &&
         o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
       );
     }
-    function d() {
+    function m() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_fab_confirm_modal_enabled",
@@ -30,32 +35,32 @@ __d(
         o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
       );
     }
-    function m() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_priority_list_enabled",
       );
     }
-    function p() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_responding_list_enabled",
       );
     }
-    var _ = 1,
-      f = 2,
-      g = 3;
-    function h() {
+    var f = 1,
+      g = 2,
+      h = 3;
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function y() {
+    function C() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_receiving",
         ) === !0
       );
     }
-    function C() {
+    function b() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
@@ -63,18 +68,19 @@ __d(
       );
     }
     ((l.isAiAgentAutoReplyEnabled = e),
-      (l.isAiHubTapCtaShowAlertEnabled = s),
-      (l.isAiAgentAutoSaveEnabled = u),
-      (l.isAiMuteUnmuteV2Enabled = c),
-      (l.isAiReplyFabConfirmModalEnabled = d),
-      (l.isAiHandoffListEnabled = m),
-      (l.isAiRespondingChipEnabled = p),
-      (l.MULTI_WEBSITE_BRAZIL = _),
-      (l.MULTI_WEBSITE_LATAM = f),
-      (l.MULTI_WEBSITE_DYNAMIC = g),
-      (l.getMultiWebsiteMode = h),
-      (l.isMaibaWASSReceivingEnabled = y),
-      (l.isMaibaWASSSendingEnabled = C));
+      (l.isAiBulkThreadControlEnabled = s),
+      (l.isAiHubTapCtaShowAlertEnabled = u),
+      (l.isAiAgentAutoSaveEnabled = c),
+      (l.isAiMuteUnmuteV2Enabled = d),
+      (l.isAiReplyFabConfirmModalEnabled = m),
+      (l.isAiHandoffListEnabled = p),
+      (l.isAiRespondingChipEnabled = _),
+      (l.MULTI_WEBSITE_BRAZIL = f),
+      (l.MULTI_WEBSITE_LATAM = g),
+      (l.MULTI_WEBSITE_DYNAMIC = h),
+      (l.getMultiWebsiteMode = y),
+      (l.isMaibaWASSReceivingEnabled = C),
+      (l.isMaibaWASSSendingEnabled = b));
   },
   98,
 );

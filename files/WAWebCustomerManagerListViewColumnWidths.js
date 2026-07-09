@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = {
+      select: { type: "pixel", px: 48 },
       customer: {
         options: { minWidth: 200, maxWidth: 320 },
         type: "proportional",

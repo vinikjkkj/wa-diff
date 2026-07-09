@@ -308,12 +308,20 @@ __d(
           params: { allow_copy_card: s },
           type: "USER_ACCOUNT",
         },
+        native_fpx_improvement: {
+          params: { enabled: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         notify_admin: { params: { enable_notify_admin: e } },
         one_click_auto_reload_in_add_funds_shipping: {
           params: { dummy_param: e },
         },
         pill_amount_selection_v1_logging: { params: { dummy_param_v2: e } },
         pill_ml_prediction: { params: { enable_ml_results_v6: e } },
+        premutation_native_lpm: {
+          params: { enabled: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         rn_payment_settings_enable_pills: {
           params: { enable_pills_v3: e },
           type: "PAYMENT_ACCOUNT",

@@ -412,70 +412,71 @@ __d(
         g = (o = r.taalOpcodes) !== null && o !== void 0 ? o : [],
         h = r.framesToPop;
       if (h != null)
-        for (h = Math.min(h, f.length); h-- > 0; ) g.unshift(l.PREVIOUS_FRAME);
-      var y = (a = r.messageFormat) !== null && a !== void 0 ? a : r.message,
-        C = ((i = r.messageParams) !== null && i !== void 0 ? i : []).map(
+        for (var y = Math.min(h, f.length), C = 0; C < y; C++)
+          g.unshift(l.PREVIOUS_FRAME);
+      var b = (a = r.messageFormat) !== null && a !== void 0 ? a : r.message,
+        v = ((i = r.messageParams) !== null && i !== void 0 ? i : []).map(
           function (e) {
             return String(e);
           },
         ),
-        b = te(r.componentStack),
-        v = b == null ? null : b.map(J),
-        S = r.metadata ? r.metadata.format() : new M().format();
-      S.length === 0 && (S = void 0);
-      var R = f
+        S = te(r.componentStack),
+        R = S == null ? null : S.map(J),
+        L = r.metadata ? r.metadata.format() : new M().format();
+      L.length === 0 && (L = void 0);
+      var E = f
           .map(function (e) {
             return e.text;
           })
           .join("\n"),
-        L = (s = r.errorName) !== null && s !== void 0 ? s : r.name,
-        E = P(r),
-        k = r.loggingSource,
-        I = r.project,
-        T = (u = r.lineNumber) !== null && u !== void 0 ? u : r.line,
-        D = (c = r.columnNumber) !== null && c !== void 0 ? c : r.column,
-        x = (d = r.fileName) !== null && d !== void 0 ? d : r.sourceURL,
-        $ = f.length > 0;
-      ($ && T == null && (T = f[0].line),
-        $ && D == null && (D = f[0].column),
-        $ && x == null && (x = f[0].script));
-      var N = {
+        k = (s = r.errorName) !== null && s !== void 0 ? s : r.name,
+        I = P(r),
+        T = r.loggingSource,
+        D = r.project,
+        x = (u = r.lineNumber) !== null && u !== void 0 ? u : r.line,
+        $ = (c = r.columnNumber) !== null && c !== void 0 ? c : r.column,
+        N = (d = r.fileName) !== null && d !== void 0 ? d : r.sourceURL,
+        w = f.length > 0;
+      (w && x == null && (x = f[0].line),
+        w && $ == null && ($ = f[0].column),
+        w && N == null && (N = f[0].script));
+      var A = {
         blameModule: r.blameModule,
         cause: r.cause,
-        column: D == null ? null : String(D),
+        column: $ == null ? null : String($),
         clientTime: Math.floor(Date.now() / 1e3),
-        componentStackFrames: v,
+        componentStackFrames: R,
         deferredSource: r.deferredSource != null ? re(r.deferredSource) : null,
         extra: (m = r.extra) !== null && m !== void 0 ? m : {},
         fbtrace_id: r.fbtrace_id,
         guardList: (p = r.guardList) !== null && p !== void 0 ? p : [],
-        hash: K(L, R, E, I, k),
+        hash: K(k, E, I, D, T),
         isNormalizedError: !0,
-        line: T == null ? null : String(T),
-        loggingSource: k,
+        line: x == null ? null : String(x),
+        loggingSource: T,
         message: W.toReadableMessage(r),
-        messageFormat: y,
-        messageParams: C,
-        metadata: S,
-        name: L,
+        messageFormat: b,
+        messageParams: v,
+        metadata: L,
+        name: k,
         page_time: Math.floor((e || (e = n("performanceNow")))()),
-        project: I,
-        reactComponentStack: b,
-        script: x,
+        project: D,
+        reactComponentStack: S,
+        script: N,
         serverHash: r.serverHash,
-        stack: R,
+        stack: E,
         stackFrames: f,
-        type: E,
+        type: I,
         xFBDebug: z.getAll(),
         tags: (_ = r.tags) !== null && _ !== void 0 ? _ : [],
         operation: r.operation,
       };
-      (r.forcedKey != null && (N.forcedKey = r.forcedKey),
-        g.length > 0 && (N.taalOpcodes = g));
-      var w = t.location;
-      w && (N.windowLocationURL = w.href);
-      for (var A in N) N[A] == null && delete N[A];
-      return N;
+      (r.forcedKey != null && (A.forcedKey = r.forcedKey),
+        g.length > 0 && (A.taalOpcodes = g));
+      var F = t.location;
+      F && (A.windowLocationURL = F.href);
+      for (var O in A) A[O] == null && delete A[O];
+      return A;
     }
     function oe(e) {
       return e != null && typeof e == "object" && e.isNormalizedError === !0

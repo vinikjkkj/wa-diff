@@ -15,6 +15,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebLeadStageChip.react",
     "WAWebListsGatingUtils",
+    "WDSBaseCheckbox.react",
     "WDSFocusStateStyles",
     "WDSIconIcArrowDropDown.react",
     "WDSText.react",
@@ -329,7 +330,7 @@ __d(
         return "\u2014";
       }
     }
-    var S = ["customer", "actions"],
+    var S = ["select", "customer", "actions"],
       R = [
         "customer",
         "phone",
@@ -344,50 +345,95 @@ __d(
       ],
       L = R;
     function E(e) {
-      return e === "customer"
-        ? s._(/*BTDS*/ "Customer")
-        : e === "phone"
-          ? s._(/*BTDS*/ "Phone number")
-          : e === "email"
-            ? s._(/*BTDS*/ "Email")
-            : e === "leadStage"
-              ? s._(/*BTDS*/ "Lead stage")
-              : e === "list"
-                ? o("WAWebListsGatingUtils").isListsEnabled()
-                  ? s._(/*BTDS*/ "List")
-                  : s._(/*BTDS*/ "Label")
-                : e === "acquisitionSource"
-                  ? s._(/*BTDS*/ "Source")
-                  : e === "lastMessage"
-                    ? s._(/*BTDS*/ "Last message")
-                    : e === "lastOrder"
-                      ? s._(/*BTDS*/ "Last order")
-                      : e === "notes"
-                        ? s._(/*BTDS*/ "Notes")
-                        : e === "actions"
-                          ? s._(/*BTDS*/ "Actions")
-                          : (function () {
-                              throw Error(
-                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                  e,
-                              );
-                            })();
+      return e === "select"
+        ? "Select"
+        : e === "customer"
+          ? s._(/*BTDS*/ "Customer")
+          : e === "phone"
+            ? s._(/*BTDS*/ "Phone number")
+            : e === "email"
+              ? s._(/*BTDS*/ "Email")
+              : e === "leadStage"
+                ? s._(/*BTDS*/ "Lead stage")
+                : e === "list"
+                  ? o("WAWebListsGatingUtils").isListsEnabled()
+                    ? s._(/*BTDS*/ "List")
+                    : s._(/*BTDS*/ "Label")
+                  : e === "acquisitionSource"
+                    ? s._(/*BTDS*/ "Source")
+                    : e === "lastMessage"
+                      ? s._(/*BTDS*/ "Last message")
+                      : e === "lastOrder"
+                        ? s._(/*BTDS*/ "Last order")
+                        : e === "notes"
+                          ? s._(/*BTDS*/ "Notes")
+                          : e === "actions"
+                            ? s._(/*BTDS*/ "Actions")
+                            : (function () {
+                                throw Error(
+                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                    e,
+                                );
+                              })();
     }
-    function k(e, t, n, a, i) {
-      var l = function (t, r) {
+    function k(e) {
+      return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
+    }
+    function I(e) {
+      return {
+        cell: function (n) {
+          var t = o("WAWebContactCollection").ContactCollection.get(
+              n.item.chatJid,
+            ),
+            a =
+              t != null
+                ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(t)
+                    .displayName
+                : null;
+          return c.jsx(r("WDSBaseCheckbox.react"), {
+            "aria-label":
+              a != null
+                ? s._(/*BTDS*/ "Select {name}", [s._param("name", a)])
+                : s._(/*BTDS*/ "Select customer"),
+            onChange: function (r) {
+              (r != null && r.stopPropagation(), e.toggle(n.item.chatJid));
+            },
+            testid: "customer_manager_select_row",
+            value: e.isSelected(n.item.chatJid),
+          });
+        },
+        key: "select",
+        renderHeader: function () {
+          return c.jsx(r("WDSBaseCheckbox.react"), {
+            "aria-label": s._(/*BTDS*/ "Select all customers"),
+            onChange: function () {
+              return e.toggleAll();
+            },
+            testid: "customer_manager_select_all",
+            value: k(e),
+          });
+        },
+        stickyStart: !0,
+        width: o("WAWebCustomerManagerListViewColumnWidths")
+          .customerManagerColumnWidths.select,
+      };
+    }
+    function T(e, t, n, a, i, l) {
+      var u = function (t, r) {
           return a != null ? y(t, r, n, a, i) : void 0;
         },
-        u = s._(/*BTDS*/ "Customer");
-      return [
+        d = s._(/*BTDS*/ "Customer"),
+        m = l != null ? I(l) : null;
+      return [].concat(m != null ? [m] : [], [
         {
           cell: function (t) {
             return c.jsx(r("WAWebCustomerManagerCustomerCell.react"), {
               item: t.item,
             });
           },
-          header: u,
+          header: d,
           key: "customer",
-          renderHeader: l(u, "customer"),
+          renderHeader: u(d, "customer"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.customer,
@@ -398,7 +444,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Phone number"),
           key: "phone",
-          renderHeader: l(s._(/*BTDS*/ "Phone number"), "phone"),
+          renderHeader: u(s._(/*BTDS*/ "Phone number"), "phone"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.phone,
@@ -436,7 +482,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Lead stage"),
           key: "leadStage",
-          renderHeader: l(s._(/*BTDS*/ "Lead stage"), "leadStage"),
+          renderHeader: u(s._(/*BTDS*/ "Lead stage"), "leadStage"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.leadStage,
@@ -451,7 +497,7 @@ __d(
             ? s._(/*BTDS*/ "List")
             : s._(/*BTDS*/ "Label"),
           key: "list",
-          renderHeader: l(
+          renderHeader: u(
             o("WAWebListsGatingUtils").isListsEnabled()
               ? s._(/*BTDS*/ "List")
               : s._(/*BTDS*/ "Label"),
@@ -488,7 +534,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Source"),
           key: "acquisitionSource",
-          renderHeader: l(s._(/*BTDS*/ "Source"), "acquisitionSource"),
+          renderHeader: u(s._(/*BTDS*/ "Source"), "acquisitionSource"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.acquisitionSource,
@@ -505,7 +551,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Email"),
           key: "email",
-          renderHeader: l(s._(/*BTDS*/ "Email"), "email"),
+          renderHeader: u(s._(/*BTDS*/ "Email"), "email"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.email,
@@ -522,7 +568,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Last message"),
           key: "lastMessage",
-          renderHeader: l(s._(/*BTDS*/ "Last message"), "lastMessage"),
+          renderHeader: u(s._(/*BTDS*/ "Last message"), "lastMessage"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.lastMessage,
@@ -538,7 +584,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Last order"),
           key: "lastOrder",
-          renderHeader: l(s._(/*BTDS*/ "Last order"), "lastOrder"),
+          renderHeader: u(s._(/*BTDS*/ "Last order"), "lastOrder"),
           sortable: !0,
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.lastOrder,
@@ -568,13 +614,13 @@ __d(
           width: o("WAWebCustomerManagerListViewColumnWidths")
             .customerManagerColumnWidths.actions,
         },
-      ];
+      ]);
     }
     ((l.ALWAYS_VISIBLE_COLUMNS = S),
       (l.ALL_COLUMN_KEYS = R),
       (l.DEFAULT_VISIBLE_COLUMNS = L),
       (l.getColumnLabel = E),
-      (l.getCustomerManagerListColumns = k));
+      (l.getCustomerManagerListColumns = T));
   },
   226,
 );

@@ -48,21 +48,29 @@ __d(
       );
     }
     function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_business_broadcast_multi_audience_send_web",
+      return (
+        u() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_business_broadcast_pro_enabled",
+        )
       );
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_biz_broadcasts_catalog_attachment",
+        "smb_business_broadcast_multi_audience_send_web",
       );
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_broadcast_disappearing_messages_fix",
+        "wa_web_biz_broadcasts_catalog_attachment",
       );
     }
     function _() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_broadcast_disappearing_messages_fix",
+      );
+    }
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_broadcasts_contextual_entrypoints",
       );
@@ -71,10 +79,11 @@ __d(
       (l.isBizBroadcastSendWebEnabled = s),
       (l.isBizBroadcastSendWebEnabledNoExposure = u),
       (l.isBizBroadcastDuplicateEnabled = c),
-      (l.isBizBroadcastMultiAudienceSendEnabled = d),
-      (l.isBizBroadcastCatalogAttachmentEnabled = m),
-      (l.isBizBroadcastDisappearingMessagesFixEnabled = p),
-      (l.isBizBroadcastContextualEntrypointsEnabled = _));
+      (l.isBizBroadcastProEnabled = d),
+      (l.isBizBroadcastMultiAudienceSendEnabled = m),
+      (l.isBizBroadcastCatalogAttachmentEnabled = p),
+      (l.isBizBroadcastDisappearingMessagesFixEnabled = _),
+      (l.isBizBroadcastContextualEntrypointsEnabled = f));
   },
   98,
 );

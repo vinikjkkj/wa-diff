@@ -29,22 +29,27 @@ __d(
       u,
       c = u || (u = o("react")),
       d = "text/vcard";
-    function m(e, t, n, r, a) {
-      var i = e.map(function (e, t) {
+    function m(e) {
+      var t = e.chat,
+        n = e.contacts,
+        r = e.ctwaContext,
+        a = e.options,
+        i = e.quotedMsg,
+        l = n.map(function (e, t) {
           return o("WAWebFrontendVcardUtils").vcardFromContactModel(
             e,
             a == null ? void 0 : a[t],
           );
         }),
-        l = i.length === 1 ? i[0] : o("WAWebVcardUtils").mergeVcards(i),
-        s = l.displayName.toString() + ".vcf",
-        u = o("WAWebFileUtils").createFile([l.vcard], s, { type: d }),
-        c = u.size / 1024;
-      if (c > o("WAWebServerPropConstants").VCARD_AS_DOCUMENT_SIZE_KB) {
-        p(u, e.length, t, n, r);
+        s = l.length === 1 ? l[0] : o("WAWebVcardUtils").mergeVcards(l),
+        u = s.displayName.toString() + ".vcf",
+        c = o("WAWebFileUtils").createFile([s.vcard], u, { type: d }),
+        m = c.size / 1024;
+      if (m > o("WAWebServerPropConstants").VCARD_AS_DOCUMENT_SIZE_KB) {
+        p(c, n.length, t, i, r);
         return;
       }
-      f(i, t, c, n, r);
+      f(l, t, m, i, r);
     }
     function p(e, t, n, r, o) {
       return _.apply(this, arguments);

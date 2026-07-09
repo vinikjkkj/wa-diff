@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastDeviceCapabilityCommon",
+    "WAWebBizBroadcastProNuxTos",
     "WAWebBizBroadcastSystemMessageManager",
     "WAWebBizBroadcastTos",
     "WAWebChatCollection",
@@ -35,17 +36,28 @@ __d(
     ((u.doc = "Accept BB TOS locally (skips server RPC, bypasses TOS modal)"),
       (u.paramsToExecute = []));
     function c() {
+      (o(
+        "WAWebBizBroadcastProNuxTos",
+      ).suppressBizBroadcastProNuxServerSyncForTest(),
+        o("WAWebBizBroadcastProNuxTos").setBizBroadcastProNuxOnboardingStatus(
+          o("WAWebBizBroadcastProNuxTos").BBProOnboardingStatus
+            .ELIGIBLE_TO_ONBOARD,
+        ));
+    }
+    ((c.doc = "Force BB Pro onboarding status to eligible_to_onboard (E2E)"),
+      (c.paramsToExecute = []));
+    function d() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (e == null) throw r("err")("No active chat");
       return o("WAWebWidToJid").widToBroadcastJid(e.id);
     }
-    function d() {
-      return m.apply(this, arguments);
-    }
     function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = c(),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = d(),
             t = r("WAWebPonyfillsCryptoRandomUUID")(),
             n = o("WAWebUserPrefsMeUser")
               .getMeDevicePnOrThrow_DO_NOT_USE()
@@ -69,19 +81,19 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(e));
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((d.doc =
+    ((m.doc =
       "Create a test PROCESSING campaign for the active broadcast chat (E2E)"),
-      (d.paramsToExecute = []));
-    function p() {
-      return _.apply(this, arguments);
-    }
+      (m.paramsToExecute = []));
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = c(),
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = d(),
             r = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignsByBroadcastJid(t);
@@ -107,19 +119,20 @@ __d(
               "WAWebBizBroadcastSystemMessageManager",
             ).updateBizBroadcastSystemMessage(t));
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((p.doc =
+    ((_.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
-      (p.paramsToExecute = []));
-    var f = {
+      (_.paramsToExecute = []));
+    var g = {
       acceptBizBroadcastTos: u,
-      completeTestCampaignsForActiveChat: p,
-      createTestProcessingCampaignForActiveChat: d,
+      completeTestCampaignsForActiveChat: _,
+      createTestProcessingCampaignForActiveChat: m,
       setBizBroadcastDeviceCapability: s,
+      setBizBroadcastProNuxEligible: c,
     };
-    l.default = f;
+    l.default = g;
   },
   98,
 );

@@ -201,18 +201,20 @@ __d(
           if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
             return null;
           try {
-            var e = yield o(
-              "WAWebCTWABizDataSharingJob",
-            ).getCtwaBizDataSharingSettingJob();
+            var e,
+              t = yield o(
+                "WAWebCTWABizDataSharingJob",
+              ).getCtwaBizDataSharingSettingJob();
             return (
-              e &&
+              (t == null ? void 0 : t.value) != null &&
                 (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
-                  e,
+                  t.value,
+                  t.version,
                 ),
-                e ===
+                t.value ===
                   o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
                   r("WAWebDataSharingUpsellModel").enableUpsell()),
-              e
+              (e = t == null ? void 0 : t.value) != null ? e : null
             );
           } catch (e) {
             return (

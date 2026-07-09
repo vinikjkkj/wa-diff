@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "invariant",
-    "$InternalEnum",
     "Promise",
     "WAAbortError",
     "WALogger",
@@ -40,6 +39,7 @@ __d(
     "WAWebPttAudioChannels",
     "WAWebPttAudioManager",
     "WAWebPttComposerRecordingSessionGetters",
+    "WAWebPttComposerRecordingStopReason",
     "WAWebPttComposerStreamingEncryptor",
     "WAWebPttDailyUtils",
     "WAWebPttWamEvent",
@@ -85,16 +85,10 @@ __d(
       M,
       w,
       A = w || (w = o("react")),
-      F = n("$InternalEnum").Mirrored([
-        "CANCEL_BUTTON",
-        "PTT_TOO_SHORT",
-        "SENT",
-        "OTHER",
-      ]),
-      O = 1,
-      B = 8.5,
-      W = 64,
-      q = (function (t) {
+      F = 1,
+      O = 8.5,
+      B = 64,
+      W = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -353,10 +347,10 @@ __d(
                 var k,
                   I = !0;
                 this._recorder = new (r("WAPttComposerRecorder"))({
-                  createStream: G,
+                  createStream: H,
                   waveformSampleRate: this.getWaveformSampleRate(),
                   onDuration: function (n) {
-                    ((t.duration = n), (t.exceedsMinDuration = n >= O));
+                    ((t.duration = n), (t.exceedsMinDuration = n >= F));
                   },
                   onPage: function (n, r) {
                     if (
@@ -461,7 +455,7 @@ __d(
           (i.getScaledWaveformSamples = function () {
             return r("WAPttComposerScaleWaveform")(
               this.getCorrectedWaveformSamples(),
-              W,
+              B,
             ).map(function (e) {
               return Math.floor(e * 100);
             });
@@ -482,16 +476,22 @@ __d(
             if (this._uploadQpl != null) {
               var e = this._uploadQpl;
               ((this._uploadQpl = null),
-                t === F.SENT
+                t ===
+                o("WAWebPttComposerRecordingStopReason")
+                  .RecordingSessionStopReason.SENT
                   ? this._hasStreamingUploadFailed
                     ? e.endFailWithError(
                         "upload_failed",
                         "streaming_upload_failed",
                       )
                     : e.endSuccess()
-                  : t === F.PTT_TOO_SHORT
+                  : t ===
+                      o("WAWebPttComposerRecordingStopReason")
+                        .RecordingSessionStopReason.PTT_TOO_SHORT
                     ? e.endFailWithError("upload_canceled", "ptt_too_short")
-                    : t === F.CANCEL_BUTTON
+                    : t ===
+                        o("WAWebPttComposerRecordingStopReason")
+                          .RecordingSessionStopReason.CANCEL_BUTTON
                       ? e.endFailWithError("upload_canceled", "aborted")
                       : e.endFailWithError("upload_canceled", "other"));
             }
@@ -503,7 +503,10 @@ __d(
                 .RECORDING
             ) {
               if (!this.exceedsMinDuration) {
-                this.stop(F.PTT_TOO_SHORT);
+                this.stop(
+                  o("WAWebPttComposerRecordingStopReason")
+                    .RecordingSessionStopReason.PTT_TOO_SHORT,
+                );
                 return;
               }
               ((this.recordingState = o(
@@ -587,24 +590,28 @@ __d(
               this._endUploadQpl(t),
               this._recorder != null)
             ) {
-              (t === F.SENT
+              (t ===
+              o("WAWebPttComposerRecordingStopReason")
+                .RecordingSessionStopReason.SENT
                 ? o("WAWebPttDailyUtils").incrementPttDailyCount(
                     o("WAWebPttDailyUtils").PttDailyCountKind.SEND,
                     r("WANullthrows")(
                       o("WAWebFrontendChatGetters").getKind(this._chat),
                     ),
                   )
-                : this.duration > O &&
+                : this.duration > F &&
                   o("WAWebPttDailyUtils").incrementPttDailyCount(
                     o("WAWebPttDailyUtils").PttDailyCountKind.CANCEL,
                     r("WANullthrows")(
                       o("WAWebFrontendChatGetters").getKind(this._chat),
                     ),
                   ),
-                t !== F.SENT &&
+                t !==
+                  o("WAWebPttComposerRecordingStopReason")
+                    .RecordingSessionStopReason.SENT &&
                   this._uploaderAbortController &&
                   this._uploaderAbortController.abort());
-              var e = H(t);
+              var e = V(t);
               e != null && this._sendPttWamEvent(e);
             }
           }),
@@ -673,12 +680,12 @@ __d(
           })()),
           (i.getAudioForPlayback = function () {
             var e = this;
-            return new j(function () {
+            return new z(function () {
               return e._getDataForPlayback();
             });
           }),
           (i.getWaveformSampleRate = function () {
-            return B;
+            return O;
           }),
           (i.send = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -823,7 +830,10 @@ __d(
                           "WAWebPttComposerRecordingSession: Stopping recording session with SENT reason",
                         ])),
                     ),
-                    this.stop(F.SENT));
+                    this.stop(
+                      o("WAWebPttComposerRecordingStopReason")
+                        .RecordingSessionStopReason.SENT,
+                    ));
                   try {
                     (yield _.catch(
                       o("WAAbortError").catchAbort(r("WAWebNoop")),
@@ -932,29 +942,35 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel);
-    q.Proxy = "recordingSession";
-    var U = o("WAWebBaseModel").defineModel(q);
-    function V(e) {
-      return new U({ id: o("WARandomHex").randomHex(8), _chat: e.chat });
+    W.Proxy = "recordingSession";
+    var q = o("WAWebBaseModel").defineModel(W);
+    function U(e) {
+      return new q({ id: o("WARandomHex").randomHex(8), _chat: e.chat });
     }
-    function H(e) {
+    function V(e) {
       switch (e) {
-        case F.SENT:
+        case o("WAWebPttComposerRecordingStopReason").RecordingSessionStopReason
+          .SENT:
           return o("WAWebWamEnumPttResultType").PTT_RESULT_TYPE.SENT;
-        case F.PTT_TOO_SHORT:
+        case o("WAWebPttComposerRecordingStopReason").RecordingSessionStopReason
+          .PTT_TOO_SHORT:
           return o("WAWebWamEnumPttResultType").PTT_RESULT_TYPE.TOO_SHORT;
-        case F.CANCEL_BUTTON:
+        case o("WAWebPttComposerRecordingStopReason").RecordingSessionStopReason
+          .CANCEL_BUTTON:
           return o("WAWebWamEnumPttResultType").PTT_RESULT_TYPE.CANCELLED;
-        case F.OTHER:
+        case o("WAWebPttComposerRecordingStopReason").RecordingSessionStopReason
+          .AI_THREAD_SWITCH:
+        case o("WAWebPttComposerRecordingStopReason").RecordingSessionStopReason
+          .OTHER:
           return null;
       }
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function H(e) {
+      return G.apply(this, arguments);
     }
-    function z() {
+    function G() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (r("WAWebCallCollection").activeCall)
             return (
               o("WAWebModalManager").ModalManager.open(
@@ -1018,10 +1034,10 @@ __d(
             throw e;
           }
         })),
-        z.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    var j = (function () {
+    var z = (function () {
       function e(e) {
         var t = this;
         this._opaqueDataPromise = e();
@@ -1055,10 +1071,12 @@ __d(
         e
       );
     })();
-    ((l.RecordingSessionStopReason = F),
-      (l.RecordingSession = U),
-      (l.createRecordingSession = V),
-      (l.AudioResource = j));
+    ((l.RecordingSessionStopReason = o(
+      "WAWebPttComposerRecordingStopReason",
+    ).RecordingSessionStopReason),
+      (l.RecordingSession = q),
+      (l.createRecordingSession = U),
+      (l.AudioResource = z));
   },
   226,
 );

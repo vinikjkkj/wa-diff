@@ -46,8 +46,9 @@ __d(
               n.name === "GetPrivacySettingResponseSuccess" &&
               "value" in n
             ) {
-              var s = n.value;
-              return s.privacySmbDataSharingSettingMixin.value;
+              var s = n.value,
+                u = s.privacySmbDataSharingSettingMixin;
+              return { value: u.value, version: u.version };
             }
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -58,21 +59,22 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e) {
+    function m(e, t) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = { smbDataSharingSettingMixinArgs: { anyValue: e } },
-            n = yield o(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t != null ? { anyValue: e, anyVersion: t } : { anyValue: e },
+            r = { smbDataSharingSettingMixinArgs: n },
+            a = yield o(
               "WASmaxBizSettingsSetPrivacySettingRPC",
-            ).sendSetPrivacySettingRPC(t);
-          switch (n.name) {
+            ).sendSetPrivacySettingRPC(r);
+          switch (a.name) {
             case "SetPrivacySettingResponseError": {
-              var r = n.value.errorPrivacySettingErrors.value,
-                a = r.code,
-                i = r.text;
+              var i = a.value.errorPrivacySettingErrors.value,
+                l = i.code,
+                c = i.text;
               return (
                 o("WALogger").ERROR(
                   s ||
@@ -84,23 +86,17 @@ __d(
               );
             }
             default: {
-              var l, c;
-              return (
-                n.name,
-                n.value.privacySmbDataSharingSettingMixin == null &&
-                  o("WALogger").ERROR(
+              a.name;
+              var d = a.value.privacySmbDataSharingSettingMixin;
+              return d == null
+                ? (o("WALogger").ERROR(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "[ctwa] SetPrivacySettingResponseError: null value",
                       ])),
                   ),
-                (l =
-                  (c = n.value.privacySmbDataSharingSettingMixin) == null
-                    ? void 0
-                    : c.value) != null
-                  ? l
-                  : null
-              );
+                  null)
+                : { value: d.value, version: d.version };
             }
           }
         })),

@@ -28,10 +28,11 @@ __d(
         return o("WAWebQuickPromotionAction").loadedQuickPromotions(e);
       },
       smbDataSharingSettingUpdate: function (t) {
-        var e = t.smbDataSharingSettingValue;
+        var e = t.smbDataSharingSettingValue,
+          n = t.smbDataSharingSettingVersion;
         return o(
           "WAWebSmbDataSharingServerUpdateAction",
-        ).smbDataSharingSettingUpdateAction(e);
+        ).smbDataSharingSettingUpdateAction(e, n);
       },
       loadedNativeAdsMvpEligibility: o("WAWebNativeAdsMvpEligibilityAction")
         .loadedNativeAdsMvpEligibility,

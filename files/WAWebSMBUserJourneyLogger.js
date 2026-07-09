@@ -48,6 +48,7 @@ __d(
                 (e.userActionTarget = t.userActionTarget),
               t.extraAttributes != null &&
                 (e.extraAttributes = JSON.stringify(t.extraAttributes)),
+              t.bbTier != null && (e.bbTier = t.bbTier),
               e.commit(),
               (this.$2 += 1));
           }),

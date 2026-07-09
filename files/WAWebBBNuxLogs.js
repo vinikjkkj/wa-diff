@@ -3,9 +3,10 @@ __d(
   ["WAWebBBLoggerTypes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
+    function e(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        bbTier: r,
         entryPoint: t,
         extraAttributes: n,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
@@ -13,18 +14,20 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_MODAL,
       });
     }
-    function s(e, t) {
+    function s(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        bbTier: n,
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT,
       });
     }
-    function u(e, t, n) {
+    function u(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        bbTier: r,
         entryPoint: t,
         extraAttributes: babelHelpers.extends({ save_result: "success" }, n),
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
@@ -32,9 +35,10 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT_SUCCESS,
       });
     }
-    function c(e, t, n, r, a) {
+    function c(e, t, n, r, a, i) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        bbTier: i,
         entryPoint: t,
         extraAttributes: babelHelpers.extends(
           { broadcast_jid: a, error_type: n, save_result: "failure" },
@@ -45,18 +49,20 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT_FAILED,
       });
     }
-    function d(e, t) {
+    function d(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        bbTier: n,
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_DISMISS,
       });
     }
-    function m(e, t, n) {
+    function m(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        bbTier: r,
         entryPoint: t,
         extraAttributes: { link_name: n },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,

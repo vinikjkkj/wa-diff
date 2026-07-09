@@ -1,6 +1,7 @@
 __d(
   "WAWebBidiParagraphNode",
   [
+    "Lexical",
     "WAWebListBulletNode",
     "WAWebListNumberNode",
     "WAWebQuoteLineNode",
@@ -29,6 +30,7 @@ __d(
               t.prototype.updateDOM.call(this, n, r),
               this.updateDOMTextIndent(r),
               this.updateDOMMargin(r),
+              this.updateDOMQuoteBarHeight(r),
               !1
             );
           }),
@@ -88,6 +90,14 @@ __d(
             (this.getQuoteLineNode() && ((e = 4), (n = 4)),
               (t.style.marginTop = e + "px"),
               (t.style.marginBottom = n + "px"));
+          }),
+          (a.updateDOMQuoteBarHeight = function (t) {
+            if (!this.getQuoteLineNode()) {
+              t.style.removeProperty("--wa-quote-bar-height");
+              return;
+            }
+            var e = this.getChildren().some(o("Lexical").$isLineBreakNode);
+            t.style.setProperty("--wa-quote-bar-height", e ? "1lh" : "100%");
           }),
           (a.exportJSON = function () {
             return babelHelpers.extends({}, t.prototype.exportJSON.call(this), {

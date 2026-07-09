@@ -100,18 +100,16 @@ __d(
       );
     }
     function R(e) {
-      return e === "prod-nonlab"
-        ? null
-        : e === "prod-lab"
-          ? "prod-lab"
-          : e === "prod-labvideo"
-            ? "prod-labvideo"
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })();
+      switch (e) {
+        case "prod-nonlab":
+          return null;
+        case "prod-lab":
+          return "prod-lab";
+        case "prod-labvideo":
+          return "prod-labvideo";
+        default:
+          return null;
+      }
     }
     function L(e, t) {
       return E.apply(this, arguments);

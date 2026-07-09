@@ -68,9 +68,17 @@ __d(
             );
           }),
           (a.setCommittedBoundTree = function (t) {
-            ((this.bindResult = t),
-              (this.committedVariables = t.variables),
-              this.$7());
+            var e = this;
+            ((this.bindResult = t), (this.committedVariables = t.variables));
+            var n = t.bindDataModuleDelegate;
+            if (n != null) {
+              var r = new Map(this.committedVariables);
+              (n.commitAll(this, function (t, n, o, a) {
+                (r.set(t, o), a != null && e.subscriptions.add(a));
+              }),
+                (this.committedVariables = r));
+            }
+            this.$7();
           }),
           (a.waitForCommittedTree = function () {
             var t;

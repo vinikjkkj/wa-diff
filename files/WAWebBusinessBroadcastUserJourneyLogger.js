@@ -10,6 +10,7 @@ __d(
     "WAWebBBInfoDrawerLogs",
     "WAWebBBNuxLogs",
     "WAWebBBPaymentLogs",
+    "WAWebBizBroadcastProNuxTos",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumSmbFeatureNameEnum",
   ],
@@ -18,7 +19,15 @@ __d(
     var e = (function () {
         function e() {
           this.$1 = function (e) {
+            var t,
+              n =
+                (t = e.bbTier) != null
+                  ? t
+                  : o(
+                      "WAWebBizBroadcastProNuxTos",
+                    ).getBizBroadcastProductTier();
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              bbTier: n,
               entryPoint: e.entryPoint,
               entryPointDetails: e.entryPointDetails,
               extraAttributes: e.extraAttributes,
@@ -861,8 +870,8 @@ __d(
           (t.genAINuxLinkClicked = function (t) {
             o("WAWebBBGenAILogs").genAINuxLinkClicked(this.$1, t);
           }),
-          (t.tosNuxViewed = function (t, n) {
-            var e, r;
+          (t.tosNuxViewed = function (t, n, r) {
+            var e, a;
             o("WAWebBBNuxLogs").tosNuxViewed(
               this.$1,
               t,
@@ -873,16 +882,17 @@ __d(
                       (e = n.persistedState) != null ? e : "null",
                     sync_result: n.syncResult,
                     tos_manager_state:
-                      (r = n.tosManagerState) != null ? r : "null",
+                      (a = n.tosManagerState) != null ? a : "null",
                   }
                 : void 0,
+              r,
             );
           }),
-          (t.tosNuxAcceptClicked = function (t) {
-            o("WAWebBBNuxLogs").tosNuxAcceptClicked(this.$1, t);
+          (t.tosNuxAcceptClicked = function (t, n) {
+            o("WAWebBBNuxLogs").tosNuxAcceptClicked(this.$1, t, n);
           }),
-          (t.tosNuxAcceptSuccess = function (t, n) {
-            var e, r;
+          (t.tosNuxAcceptSuccess = function (t, n, r) {
+            var e, a;
             o("WAWebBBNuxLogs").tosNuxAcceptSuccess(
               this.$1,
               t,
@@ -893,13 +903,14 @@ __d(
                       (e = n.persistedState) != null ? e : "null",
                     sync_result: n.syncResult,
                     tos_manager_state:
-                      (r = n.tosManagerState) != null ? r : "null",
+                      (a = n.tosManagerState) != null ? a : "null",
                   }
                 : void 0,
+              r,
             );
           }),
-          (t.tosNuxAcceptFailed = function (t, n, r, a) {
-            var e, i;
+          (t.tosNuxAcceptFailed = function (t, n, r, a, i) {
+            var e, l;
             o("WAWebBBNuxLogs").tosNuxAcceptFailed(
               this.$1,
               t,
@@ -911,17 +922,18 @@ __d(
                       (e = r.persistedState) != null ? e : "null",
                     sync_result: r.syncResult,
                     tos_manager_state:
-                      (i = r.tosManagerState) != null ? i : "null",
+                      (l = r.tosManagerState) != null ? l : "null",
                   }
                 : void 0,
               a,
+              i,
             );
           }),
-          (t.tosNuxDismissClicked = function (t) {
-            o("WAWebBBNuxLogs").tosNuxDismissClicked(this.$1, t);
+          (t.tosNuxDismissClicked = function (t, n) {
+            o("WAWebBBNuxLogs").tosNuxDismissClicked(this.$1, t, n);
           }),
-          (t.tosNuxLinkClicked = function (t, n) {
-            o("WAWebBBNuxLogs").tosNuxLinkClicked(this.$1, t, n);
+          (t.tosNuxLinkClicked = function (t, n, r) {
+            o("WAWebBBNuxLogs").tosNuxLinkClicked(this.$1, t, n, r);
           }),
           (t.paymentMethodChangeClicked = function (t) {
             o("WAWebBBPaymentLogs").paymentMethodChangeClicked(this.$1, t);

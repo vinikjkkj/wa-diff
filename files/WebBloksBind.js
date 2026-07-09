@@ -1,6 +1,7 @@
 __d(
   "WebBloksBind",
   [
+    "BindResourceProcessingDelegate",
     "WebBloksConstants",
     "WebBloksDataModule",
     "WebBloksErrors",
@@ -20,12 +21,20 @@ __d(
       s = "$DESCENDANT_EXPANDED_VARIABLES",
       u = (function () {
         function e(e, t, n, r) {
+          var a = this;
           if (
             ((this.previousVariableDependencies = o("WebBloksUtils").EMPTY_MAP),
             (this.expandedVariables = new Map()),
             (this.$1 = new Set()),
             (this.$2 = new Map()),
             (this.$3 = new Map()),
+            (this.bindDataModuleDelegate = new (o(
+              "BindResourceProcessingDelegate",
+            ).BindResourceProcessingDelegate)({
+              containsVariable: function (t) {
+                return a.containsVariable(t);
+              },
+            })),
             (this.bloksContext = e),
             (this.resources = t),
             (this.clientIdToScopedIdMapper = n),
@@ -39,10 +48,10 @@ __d(
               r.dependencies)
             ) {
               this.previousVariableDependencies = r.dependencies;
-              for (var a of r.dependencies) {
-                var i = a[0],
-                  l = a[1];
-                l !== t.variables.get(i) && this.variablesChanged.add(i);
+              for (var i of r.dependencies) {
+                var l = i[0],
+                  s = i[1];
+                s !== t.variables.get(l) && this.variablesChanged.add(l);
               }
             } else
               this.previousVariableDependencies = o("WebBloksUtils").EMPTY_MAP;
@@ -227,7 +236,13 @@ __d(
                     _ = (s = i.get(d)) != null ? s : new Map(),
                     f = m.setup(this.bloksContext, l, p, _);
                   (f.snapshot != null && i.set(d, f.snapshot),
-                    this.addExpandedVariable(c, f.initialData.initialValue));
+                    this.addExpandedVariable(c, f.initialData.initialValue),
+                    this.bindDataModuleDelegate.collectVariable(
+                      c,
+                      l,
+                      f.initialData,
+                      f.snapshot,
+                    ));
                 }
               }
             }
@@ -332,6 +347,7 @@ __d(
           expandedVariables: n.expandedVariables,
           dependencies: l,
           bindCache: n.nextCache,
+          bindDataModuleDelegate: n.bindDataModuleDelegate,
         }
       );
     }

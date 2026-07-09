@@ -74,68 +74,70 @@ __d(
             return (n(), p().defaultErrorAction);
         }
       };
-    function f(e, t, n, r) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = p(t.length),
-              l = i.defaultErrorAction,
-              u = i.duplicateSubgroupSuggestionAction,
-              f = i.exitedAction,
-              g = i.initialAction,
-              h = o(
-                "WAWebSubgroupSuggestionCreateJob",
-              ).createExistingGroupSubgroupSuggestion(e, t),
-              y = h
-                .then(function (e) {
-                  var i = r("countWhere")(e, function (e) {
-                    return e.error == null;
-                  });
-                  if (i === 0) {
-                    var c = e.some(function (e) {
-                      return e.error === d || e.error === m;
-                    });
-                    return (n(), c ? u : l);
-                  }
-                  return (
-                    a(),
-                    i !== t.length
-                      ? new (o("WAWebActionToast.react").ActionType)(
-                          s._(
-                            /*BTDS*/ '_j{"*":{"*":{"*":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions were sent successfully.","_1":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions was sent successfully."}}}',
-                            [
-                              s._param("succeeded-suggestions", i, [0]),
-                              s._param("total-suggestions", t.length, [0]),
-                              s._plural(i),
-                            ],
-                          ),
-                        )
-                      : f
-                  );
-                })
-                .catch(
-                  o("WAFilteredCatch").filteredCatch(
-                    o("WAWebBackendErrors").ServerStatusCodeError,
-                    function (e) {
-                      return _(e, n);
-                    },
-                  ),
-                )
-                .catch(function () {
-                  return (n(), l);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.onBack,
+            n = e.onEnd,
+            a = e.parentGroupId,
+            i = e.subgroupSuggestions,
+            l = p(i.length),
+            u = l.defaultErrorAction,
+            f = l.duplicateSubgroupSuggestionAction,
+            g = l.exitedAction,
+            h = l.initialAction,
+            y = o(
+              "WAWebSubgroupSuggestionCreateJob",
+            ).createExistingGroupSubgroupSuggestion(a, i),
+            C = y
+              .then(function (e) {
+                var a = r("countWhere")(e, function (e) {
+                  return e.error == null;
                 });
-            (o("WAWebToastManager").ToastManager.open(
-              c.jsx(o("WAWebActionToast.react").ActionToast, {
-                initialAction: g,
-                pendingAction: y,
-              }),
-            ),
-              yield h);
-          },
-        )),
+                if (a === 0) {
+                  var l = e.some(function (e) {
+                    return e.error === d || e.error === m;
+                  });
+                  return (t(), l ? f : u);
+                }
+                return (
+                  n(),
+                  a !== i.length
+                    ? new (o("WAWebActionToast.react").ActionType)(
+                        s._(
+                          /*BTDS*/ '_j{"*":{"*":{"*":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions were sent successfully.","_1":"Only {succeeded-suggestions} of {total-suggestions} pending group suggestions was sent successfully."}}}',
+                          [
+                            s._param("succeeded-suggestions", a, [0]),
+                            s._param("total-suggestions", i.length, [0]),
+                            s._plural(a),
+                          ],
+                        ),
+                      )
+                    : g
+                );
+              })
+              .catch(
+                o("WAFilteredCatch").filteredCatch(
+                  o("WAWebBackendErrors").ServerStatusCodeError,
+                  function (e) {
+                    return _(e, t);
+                  },
+                ),
+              )
+              .catch(function () {
+                return (t(), u);
+              });
+          (o("WAWebToastManager").ToastManager.open(
+            c.jsx(o("WAWebActionToast.react").ActionToast, {
+              initialAction: h,
+              pendingAction: C,
+            }),
+          ),
+            yield y);
+        })),
         g.apply(this, arguments)
       );
     }

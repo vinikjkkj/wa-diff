@@ -18,14 +18,19 @@ __d(
               "WAWebCommonCTWADataSharing",
             ).fetchDataSharingSettingAndUpdateModel();
       };
-    function c(t) {
+    function c(t, n) {
       return o("WAWebCTWABizDataSharingJob")
-        .setCtwaBizDataSharingSettingJob(t)
+        .setCtwaBizDataSharingSettingJob(t, n)
         .then(function (e) {
+          var t, r;
+          if (e == null) return null;
+          var a = (t = (r = e.version) != null ? r : n) != null ? t : null;
           return (
-            e &&
-              o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(e),
-            e
+            o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
+              e.value,
+              a,
+            ),
+            { value: e.value, version: a }
           );
         })
         .catch(function (t) {

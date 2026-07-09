@@ -2158,21 +2158,22 @@ __d(
           }),
           (i.canInvokeBot = function () {
             var e, t;
-            return !(
+            return (
               !o("WAWebBotBaseGating").isBotEnabled() ||
-              o("WAWebChatGetters").getIsNewsletter(this) ||
-              o("WAWebContactGetters").getIsMe(this.contact) ||
-              o("WAWebFrontendChatGetters").getIsCapiHostedGroup(this) ||
-              this.id.isBot() ||
-              o("WAWebChatEphemerality").isEphemeralSettingOn(this) ||
-              ((e = this.contact.businessProfile) == null
-                ? void 0
-                : e.isBizBot3p) === !0 ||
-              ((t = this.contact.businessProfile) == null
-                ? void 0
-                : t.isBizBot1p) === !0 ||
-              o("WAWebTosGating").shouldBlockBotInvokeAsTosNotAvailable() ||
-              (!o("WAWebMobilePlatforms").isSMB() && this.contact.isBusiness)
+                o("WAWebChatGetters").getIsNewsletter(this) ||
+                o("WAWebContactGetters").getIsMe(this.contact) ||
+                o("WAWebFrontendChatGetters").getIsCapiHostedGroup(this) ||
+                this.id.isBot() ||
+                o("WAWebChatEphemerality").isEphemeralSettingOn(this) ||
+                ((e = this.contact.businessProfile) == null
+                  ? void 0
+                  : e.isBizBot3p) === !0 ||
+                ((t = this.contact.businessProfile) == null
+                  ? void 0
+                  : t.isBizBot1p) === !0 ||
+                o("WAWebTosGating").shouldBlockBotInvokeAsTosNotAvailable() ||
+                (!o("WAWebMobilePlatforms").isSMB() && this.contact.isBusiness),
+              !1
             );
           }),
           (i.getAbortController = function () {

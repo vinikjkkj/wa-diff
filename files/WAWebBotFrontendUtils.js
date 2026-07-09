@@ -18,6 +18,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMaybeGetAiThreadInfo",
     "WAWebMultiSelectChatListTypes",
+    "WAWebPttComposerRecordingStopReason",
     "WAWebResolveThreadForEntryPoint",
     "WAWebRichResponseMsgUtils",
     "WAWebSendTextMsgChatAction",
@@ -211,6 +212,9 @@ __d(
       );
     }
     function I(e) {
+      o(
+        "WAWebPttComposerRecordingStopReason",
+      ).cancelChatRecordingForThreadSwitch(e);
       var t = o("WAWebAiThreadCreationUtils").createAiThreadId(e.id),
         n = new (r("WAWebAiThreadModel"))({
           id: t,

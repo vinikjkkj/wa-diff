@@ -51,32 +51,43 @@ __d(
       h = function () {
         return s._(/*BTDS*/ "Try again.");
       };
-    function y(t, a, i, l, s, u) {
-      u === void 0 && (u = o("WAWebActionToast.react").genId());
-      var y = o("WAWebFrontendContactGetters").getFormattedName(t),
-        C = i
-          ? new (o("WAWebActionToast.react").ActionType)(d(y))
-          : new (o("WAWebActionToast.react").ActionType)(m(y)),
-        b = (function () {
+    function y(t) {
+      var a = t.action,
+        i = t.block,
+        l = t.contact,
+        s = t.itemCategory,
+        u = t.itemEntryPoint,
+        y = t.toastId,
+        C = y === void 0 ? o("WAWebActionToast.react").genId() : y,
+        b = o("WAWebFrontendContactGetters").getFormattedName(l),
+        v = i
+          ? new (o("WAWebActionToast.react").ActionType)(d(b))
+          : new (o("WAWebActionToast.react").ActionType)(m(b)),
+        S = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             i
-              ? yield o("WAWebOptOutBizAction").optInContact(t, l, s, u)
-              : yield o("WAWebOptOutBizAction").optOutContact(t, l, s, u);
+              ? yield o("WAWebOptOutBizAction").optInContact({
+                  contact: l,
+                  itemCategory: s,
+                  itemEntryPoint: u,
+                  toastId: C,
+                })
+              : yield o("WAWebOptOutBizAction").optOutContact(l, s, u, C);
           });
           return function () {
             return e.apply(this, arguments);
           };
         })(),
-        v = a
+        R = a
           .then(function () {
-            var e = i ? p(y) : _(y);
+            var e = i ? p(b) : _(b);
             return new (o("WAWebActionToast.react").ActionType)(e, {
               actionText: r("WAWebFbtCommon")("Undo"),
-              actionHandler: b,
+              actionHandler: S,
             });
           })
           .catch(function (t) {
-            var n = i ? f(y) : g(y);
+            var n = i ? f(b) : g(b);
             throw t instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
               t.statusCode >= 400
               ? new (o("WAWebActionToast.react").ActionType)(n)
@@ -88,14 +99,14 @@ __d(
                 ),
                 new (o("WAWebActionToast.react").ActionType)(n, {
                   actionText: h(),
-                  actionHandler: b,
+                  actionHandler: S,
                 }));
           });
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebActionToast.react").ActionToast, {
-          id: u,
-          initialAction: C,
-          pendingAction: v,
+          id: C,
+          initialAction: v,
+          pendingAction: R,
         }),
       );
     }

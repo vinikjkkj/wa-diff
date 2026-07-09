@@ -8,30 +8,30 @@ __d(
       s = r("requireDeferred")(
         "WAWebVoipWebWasmLoader_ProdLabvideo_internal",
       ).__setRef("WAWebVoipWebWasmLabVariantLoader");
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function u(t) {
+      switch (t) {
+        case "prod-lab":
+          return e;
+        case "prod-labvideo":
+          return s;
+        default:
+          throw new Error("Unsupported VoIP WASM lab variant: " + String(t));
+      }
     }
-    function c() {
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r =
-              t === "prod-lab"
-                ? e
-                : t === "prod-labvideo"
-                  ? s
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          t,
-                      );
-                    })(),
-            o = yield r.load();
-          return n == null ? o() : o(n);
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = u(e),
+            r = yield n.load();
+          return t == null ? r() : r(t);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.tryLoadLabVariant = u;
+    l.tryLoadLabVariant = c;
   },
   98,
 );

@@ -126,26 +126,35 @@ __d(
         p = function () {
           return y(e, t, r, a, i);
         };
-      return (C(e, c, t, m, p, i), c);
+      return (
+        C({ action: c, block: t, contact: e, redo: p, toastId: i, undo: m }),
+        c
+      );
     }
-    function C(t, n, r, a, i, l) {
-      l === void 0 && (l = o("WAWebActionToast.react").genId());
-      var u = o("WAWebFrontendContactGetters").getFormattedName(t),
-        c = r
+    function C(t) {
+      var n = t.action,
+        r = t.block,
+        a = t.contact,
+        i = t.redo,
+        l = t.toastId,
+        u = l === void 0 ? o("WAWebActionToast.react").genId() : l,
+        c = t.undo,
+        d = o("WAWebFrontendContactGetters").getFormattedName(a),
+        m = r
           ? new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Blocking {member}", [s._param("member", u)]),
+              s._(/*BTDS*/ "Blocking {member}", [s._param("member", d)]),
             )
           : new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Unblocking {member}", [s._param("member", u)]),
+              s._(/*BTDS*/ "Unblocking {member}", [s._param("member", d)]),
             ),
-        d = n
+        _ = n
           .then(function () {
             var e = r
-              ? s._(/*BTDS*/ "{member} blocked", [s._param("member", u)])
-              : s._(/*BTDS*/ "{member} unblocked", [s._param("member", u)]);
+              ? s._(/*BTDS*/ "{member} blocked", [s._param("member", d)])
+              : s._(/*BTDS*/ "{member} unblocked", [s._param("member", d)]);
             return new (o("WAWebActionToast.react").ActionType)(e, {
               actionText: s._(/*BTDS*/ "Undo"),
-              actionHandler: a,
+              actionHandler: c,
             });
           })
           .catch(function (t) {
@@ -154,12 +163,12 @@ __d(
                 throw r
                   ? new (o("WAWebActionToast.react").ActionType)(
                       s._(/*BTDS*/ "Couldn't block {member}", [
-                        s._param("member", u),
+                        s._param("member", d),
                       ]),
                     )
                   : new (o("WAWebActionToast.react").ActionType)(
                       s._(/*BTDS*/ "Couldn't unblock {member}", [
-                        s._param("member", u),
+                        s._param("member", d),
                       ]),
                     );
             } else {
@@ -171,10 +180,10 @@ __d(
               );
               var n = r
                 ? s._(/*BTDS*/ "Couldn't block {member}", [
-                    s._param("member", u),
+                    s._param("member", d),
                   ])
                 : s._(/*BTDS*/ "Couldn't unblock {member}", [
-                    s._param("member", u),
+                    s._param("member", d),
                   ]);
               throw new (o("WAWebActionToast.react").ActionType)(n, {
                 actionText: s._(/*BTDS*/ "Try again."),
@@ -184,9 +193,9 @@ __d(
           });
       o("WAWebToastManager").ToastManager.open(
         p.jsx(o("WAWebActionToast.react").ActionToast, {
-          id: l,
-          initialAction: c,
-          pendingAction: d,
+          id: u,
+          initialAction: m,
+          pendingAction: _,
         }),
       );
     }

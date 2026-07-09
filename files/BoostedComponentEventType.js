@@ -199,6 +199,10 @@ __d(
         "high_friction_duration_warning_dialog_impression",
       HIGH_FRICTION_DURATION_WARNING_DIALOG_CTA_CLICK:
         "high_friction_duration_warning_dialog_cta_click",
+      HIGH_FRICTION_DURATION_WARNING_BANNER_IMPRESSION:
+        "high_friction_duration_warning_banner_impression",
+      HIGH_FRICTION_DURATION_WARNING_TOOLTIP_IMPRESSION:
+        "high_friction_duration_warning_tooltip_impression",
       AD_CREATION_LWI_MEDIA_UPLOAD_START: "ad_creation_lwi_media_upload_start",
       AD_CREATION_LWI_MEDIA_UPLOAD_SUCCESS:
         "ad_creation_lwi_media_upload_success",
