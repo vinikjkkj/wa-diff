@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Screen privacy");
+      return s._(/*BTDS*/ "Privacy screen");
     }
     function u() {
       return s._(
@@ -15,52 +15,56 @@ __d(
       return s._(/*BTDS*/ "Customize");
     }
     function d() {
-      return s._(/*BTDS*/ "Privacy screen settings");
+      return s._(/*BTDS*/ "Turn on");
     }
     function m() {
-      return s._(/*BTDS*/ "Blur level for general items");
+      return s._(/*BTDS*/ "Privacy screen settings");
     }
     function p() {
-      return s._(/*BTDS*/ "Blur level for media");
+      return s._(/*BTDS*/ "Blur level for general items");
     }
     function _() {
-      return s._(/*BTDS*/ "Off");
+      return s._(/*BTDS*/ "Blur level for media");
     }
     function f() {
-      return s._(/*BTDS*/ "Light");
+      return s._(/*BTDS*/ "Off");
     }
     function g() {
-      return s._(/*BTDS*/ "Medium");
+      return s._(/*BTDS*/ "Light");
     }
     function h() {
-      return s._(/*BTDS*/ "Strong");
+      return s._(/*BTDS*/ "Medium");
     }
     function y() {
-      return s._(/*BTDS*/ "Privacy mode on");
+      return s._(/*BTDS*/ "Strong");
     }
     function C() {
-      return s._(/*BTDS*/ "Privacy mode off");
+      return s._(/*BTDS*/ "Privacy screen on");
     }
     function b() {
-      return s._(/*BTDS*/ "Undo");
+      return s._(/*BTDS*/ "Privacy screen off");
     }
     function v() {
-      return s._(/*BTDS*/ "Privacy mode is on. Click to turn off.");
+      return s._(/*BTDS*/ "Undo");
+    }
+    function S() {
+      return s._(/*BTDS*/ "Privacy screen is on. Click to turn off.");
     }
     ((l.privacyScreenModeTitle = e),
       (l.privacyScreenModeDescription = u),
       (l.privacyModeCustomize = c),
-      (l.privacyModeCustomizeTitle = d),
-      (l.privacyModeGeneralLabel = m),
-      (l.privacyModeMediaLabel = p),
-      (l.privacyModePresetOff = _),
-      (l.privacyModePresetLight = f),
-      (l.privacyModePresetMedium = g),
-      (l.privacyModePresetStrong = h),
-      (l.privacyModeToastEnabled = y),
-      (l.privacyModeToastDisabled = C),
-      (l.privacyModeToastUndo = b),
-      (l.privacyModeIndicatorTooltip = v));
+      (l.privacyScreenUpsellCta = d),
+      (l.privacyModeCustomizeTitle = m),
+      (l.privacyModeGeneralLabel = p),
+      (l.privacyModeMediaLabel = _),
+      (l.privacyModePresetOff = f),
+      (l.privacyModePresetLight = g),
+      (l.privacyModePresetMedium = h),
+      (l.privacyModePresetStrong = y),
+      (l.privacyModeToastEnabled = C),
+      (l.privacyModeToastDisabled = b),
+      (l.privacyModeToastUndo = v),
+      (l.privacyModeIndicatorTooltip = S));
   },
   226,
 );

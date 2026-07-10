@@ -5,7 +5,6 @@ __d(
     "WAWebActions",
     "WAWebCallCollection",
     "WAWebEnvironment",
-    "WAWebPrivacyModeGating",
     "WAWebUA",
   ],
   function (t, n, r, o, a, i, l) {
@@ -424,9 +423,7 @@ __d(
             },
           ];
         case o("WAWebActions").Action.TOGGLE_PRIVACY_MODE:
-          return o("WAWebPrivacyModeGating").isPrivacyScreenEnabled()
-            ? [{ key: "b" }]
-            : [];
+          return [{ key: "b" }];
         case o("WAWebActions").Action.TOGGLE_CALL_CAMERA:
           return [{ key: "v" }];
         case o("WAWebActions").Action.TOGGLE_CALL_MUTE:

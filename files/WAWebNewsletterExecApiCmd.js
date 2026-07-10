@@ -59,6 +59,7 @@ __d(
                         {
                           focusType: o("WAWebKeyboardTabUtils").FocusType
                             .TABBABLE,
+                          disableRotateFocus: !0,
                         },
                       );
                     },

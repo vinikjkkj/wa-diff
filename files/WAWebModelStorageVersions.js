@@ -600,6 +600,9 @@ __d(
     function Vn() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(197);
     }
+    function Hn() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(198);
+    }
     ((l.pendingMutationsCreateTable = e),
       (l.collectionVersionCreateTable = s),
       (l.syncActionsCreateTable = u),
@@ -797,7 +800,8 @@ __d(
       (l.groupHistoryParticipantCreateTable = Wn),
       (l.businessBroadcastCampaignsAddAdIdIndex = qn),
       (l.scheduledMsgOrphanRevealKeyCreateTable = Un),
-      (l.inAppSignupInfoCreateTable = Vn));
+      (l.inAppSignupInfoCreateTable = Vn),
+      (l.chatAddIsAiHandoff = Hn));
   },
   98,
 );

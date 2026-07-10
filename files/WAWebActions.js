@@ -135,7 +135,7 @@ __d(
         case e.OPEN_NTH_CHAT:
           return s._(/*BTDS*/ "Open chat");
         case e.TOGGLE_PRIVACY_MODE:
-          return s._(/*BTDS*/ "Toggle privacy mode");
+          return s._(/*BTDS*/ "Toggle privacy screen");
         case e.TOGGLE_CALL_CAMERA:
           return s._(/*BTDS*/ "Toggle camera");
         case e.TOGGLE_CALL_MUTE:

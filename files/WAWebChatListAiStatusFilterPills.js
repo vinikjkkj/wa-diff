@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
-    "WAWebBizAiChatlistFilterPillsVariant",
     "WAWebChatListAiStatusFilterPills.stylex",
     "WAWebChatSearchFilters",
     "WAWebListIcon.react",
@@ -36,19 +35,13 @@ __d(
         count: 0,
       };
     function m() {
-      if (!o("WAWebMobilePlatforms").isSMB()) return [];
-      if (
-        !o(
-          "WAWebBizAiChatlistFilterPillsVariant",
-        ).isBizAiChatlistFilterPillsTestPills()
-      )
-        return [];
-      var e = o("WAWebBizAiAgentGating").isAiHandoffListEnabled(),
-        t = o("WAWebBizAiAgentGating").isAiRespondingChipEnabled();
-      if (!e && !t) return [];
-      if (!o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent()) return [];
-      var n = [];
-      return (e && n.push(c), t && n.push(d), n);
+      return o("WAWebMobilePlatforms").isSMB()
+        ? o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()
+          ? o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent()
+            ? [c, d]
+            : []
+          : []
+        : [];
     }
     function p(e) {
       return (

@@ -10,6 +10,7 @@ __d(
     "WAWebWamEnumAudioEngineType",
     "WAWebWamEnumAudioOutputRoute",
     "WAWebWamEnumBusyReason",
+    "WAWebWamEnumCa2dExtensionAddFailureReason",
     "WAWebWamEnumCa2dExtensionConnectionState",
     "WAWebWamEnumCallFromUi",
     "WAWebWamEnumCallNetworkMedium",
@@ -381,6 +382,11 @@ __d(
               bwaVidDisablingTxCandidateDuration: [1115, e.TYPES.TIMER],
               bweSlrOutputBps: [2461, e.TYPES.INTEGER],
               c50Linked: [3001, e.TYPES.BOOLEAN],
+              ca2dExtensionAddFailureReason: [
+                3067,
+                o("WAWebWamEnumCa2dExtensionAddFailureReason")
+                  .CA2D_EXTENSION_ADD_FAILURE_REASON,
+              ],
               ca2dExtensionAddT: [3034, e.TYPES.TIMER],
               ca2dExtensionConnectionState: [
                 3035,

@@ -16,6 +16,7 @@ __d(
     "WAWebContactImportFileProcessor",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
+    "WAWebDeleteChatSync",
     "WAWebFrontendContactGetters",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -195,15 +196,20 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WATimeUtils").unixTime();
+          var t = o("WATimeUtils").unixTime(),
+            n = o("WAWebWidFactory").createWid(e);
           try {
-            var n = r("WAWebBroadcastListSync").getDeleteBroadcastListMutation(
-              e,
-              t,
-            );
+            var a = r("WAWebBroadcastListSync").getDeleteBroadcastListMutation(
+                e,
+                t,
+              ),
+              i = yield r("WAWebDeleteChatSync").getDeleteChatMutation(
+                o("WATimeUtils").unixTimeMs(),
+                n,
+              );
             yield o(
               "WAWebBroadcastListStorageUtils",
-            ).removeBroadcastListStorage(e, [n]);
+            ).removeBroadcastListStorage(e, [a, i]);
           } catch (e) {
             throw (
               o("WALogger").ERROR(

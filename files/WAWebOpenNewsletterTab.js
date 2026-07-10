@@ -24,6 +24,7 @@ __d(
             focusType: o("WAWebKeyboardTabUtils").FocusType.CUSTOM,
             transition: "pop-drawer-fast",
             focusOnUnMount: !0,
+            disableRotateFocus: !0,
           },
         ));
     }

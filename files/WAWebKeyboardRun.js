@@ -207,6 +207,7 @@ __d(
                 : _.jsx(o("WAWebMeTabFlowLoadable").MeTabFlowLoadable, {
                     onEnd: o("WAWebDrawerManager").closeDrawerLeft,
                   }),
+              { disableRotateFocus: !0 },
             )
           : o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
               o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()

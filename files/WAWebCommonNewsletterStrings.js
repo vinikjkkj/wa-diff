@@ -72,88 +72,18 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f() {
-      return s._(/*BTDS*/ "Find channels to follow");
+      return s._(/*BTDS*/ "Create channel");
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g() {
-      return s._(/*BTDS*/ "Discover more");
+      return s._(/*BTDS*/ "Check your internet connection and try again.");
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      return s._(/*BTDS*/ "Explore channels");
-    }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y() {
-      return s._(/*BTDS*/ "Across all categories");
-    }
-    y.displayName = y.name + " [from " + i.id + "]";
-    function C() {
-      return s._(/*BTDS*/ "Explore more channels");
-    }
-    C.displayName = C.name + " [from " + i.id + "]";
-    function b() {
-      return s._(/*BTDS*/ "Create channel");
-    }
-    b.displayName = b.name + " [from " + i.id + "]";
-    function v() {
-      return s._(/*BTDS*/ "View all");
-    }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S() {
-      return s._(/*BTDS*/ "You're not visible to followers");
-    }
-    S.displayName = S.name + " [from " + i.id + "]";
-    function R() {
-      return s._(/*BTDS*/ "Search followers");
-    }
-    R.displayName = R.name + " [from " + i.id + "]";
-    function L() {
-      return s._(/*BTDS*/ "Search pending invites");
-    }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E() {
-      return s._(/*BTDS*/ "You can only view your first 5000 followers.");
-    }
-    E.displayName = E.name + " [from " + i.id + "]";
-    function k() {
-      return s._(/*BTDS*/ "You can only search for your first 5000 followers.");
-    }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I() {
-      return s._(/*BTDS*/ "Channel link");
-    }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T() {
-      return s._(
-        /*BTDS*/ "You can only view individual followers who are contacts.",
-      );
-    }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D() {
-      return s._(
-        /*BTDS*/ "You can only view individual followers who are contacts or admins.",
-      );
-    }
-    D.displayName = D.name + " [from " + i.id + "]";
-    function x() {
-      return s._(
-        /*BTDS*/ "You can only view individual reactions from contacts.",
-      );
-    }
-    x.displayName = x.name + " [from " + i.id + "]";
-    function $() {
-      return s._(/*BTDS*/ "No contacts have reacted yet");
-    }
-    $.displayName = $.name + " [from " + i.id + "]";
-    function P() {
-      return s._(/*BTDS*/ "Check your internet connection and try again.");
-    }
-    P.displayName = P.name + " [from " + i.id + "]";
-    function N() {
       return s._(/*BTDS*/ "Delete channel");
     }
-    N.displayName = N.name + " [from " + i.id + "]";
-    function M(e) {
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e) {
       var t = e.isLoading,
         n = e.resultCount,
         r = e.searchText;
@@ -176,8 +106,8 @@ __d(
                 [s._plural(n, "number")],
               );
     }
-    M.displayName = M.name + " [from " + i.id + "]";
-    function w(e, t) {
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(e, t) {
       return e === "create"
         ? s._(/*BTDS*/ "Create channel")
         : e === "directory"
@@ -186,92 +116,44 @@ __d(
             ? s._(/*BTDS*/ "View update")
             : s._(/*BTDS*/ "View channel");
     }
-    w.displayName = w.name + " [from " + i.id + "]";
-    function A() {
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b() {
       return s._(/*BTDS*/ "Unfollow channel");
     }
-    A.displayName = A.name + " [from " + i.id + "]";
-    function F() {
-      return s._(/*BTDS*/ "Send link via WhatsApp");
-    }
-    F.displayName = F.name + " [from " + i.id + "]";
-    function O() {
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v() {
       return s._(/*BTDS*/ "Copy link");
     }
-    O.displayName = O.name + " [from " + i.id + "]";
-    function B() {
-      return s._(/*BTDS*/ "Share");
-    }
-    B.displayName = B.name + " [from " + i.id + "]";
-    function W() {
-      return s._(/*BTDS*/ "Forward");
-    }
-    W.displayName = W.name + " [from " + i.id + "]";
-    function q() {
-      return s._(
-        /*BTDS*/ "People with this link can view and follow your channel.",
-      );
-    }
-    q.displayName = q.name + " [from " + i.id + "]";
-    function U(e) {
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S(e) {
       return s._(/*BTDS*/ 'Start growing "{channel_name}"', [
         s._param("channel_name", e),
       ]);
     }
-    U.displayName = U.name + " [from " + i.id + "]";
-    function V() {
-      return s._(
-        /*BTDS*/ "Get started by adding an icon, description, and your first update. Invite people by sharing your link.",
-      );
-    }
-    V.displayName = V.name + " [from " + i.id + "]";
-    function H() {
-      return s._(/*BTDS*/ "Add description");
-    }
-    H.displayName = H.name + " [from " + i.id + "]";
-    function G() {
-      return s._(/*BTDS*/ "Share channel link");
-    }
-    G.displayName = G.name + " [from " + i.id + "]";
-    function z(e) {
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R(e) {
       return s._(/*BTDS*/ 'You created this channel, "{channel_name}"', [
         s._param("channel_name", e),
       ]);
     }
-    z.displayName = z.name + " [from " + i.id + "]";
-    function j(e) {
+    R.displayName = R.name + " [from " + i.id + "]";
+    function L(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} invited","_1":"1 invited"}', [
         s._plural(e, "number"),
       ]);
     }
-    j.displayName = j.name + " [from " + i.id + "]";
-    function K() {
-      return s._(/*BTDS*/ "Channel admin invite");
-    }
-    K.displayName = K.name + " [from " + i.id + "]";
-    function Q() {
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E() {
       return s._(/*BTDS*/ "Revoke invite");
     }
-    Q.displayName = Q.name + " [from " + i.id + "]";
-    function X() {
-      return s._(/*BTDS*/ "Invite revoked");
-    }
-    X.displayName = X.name + " [from " + i.id + "]";
-    function Y() {
-      return s._(/*BTDS*/ "You're no longer an admin");
-    }
-    Y.displayName = Y.name + " [from " + i.id + "]";
-    function J() {
-      return s._(/*BTDS*/ "You're now an admin");
-    }
-    J.displayName = J.name + " [from " + i.id + "]";
-    function Z(e) {
+    E.displayName = E.name + " [from " + i.id + "]";
+    function k(e) {
       return s._(/*BTDS*/ "{contact-name} is no longer an admin.", [
         s._param("contact-name", e),
       ]);
     }
-    Z.displayName = Z.name + " [from " + i.id + "]";
-    function ee(e) {
+    k.displayName = k.name + " [from " + i.id + "]";
+    function I(e) {
       switch (e) {
         case o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin:
           return s._(/*BTDS*/ "Admin");
@@ -281,7 +163,7 @@ __d(
           return null;
       }
     }
-    function te(e) {
+    function T(e) {
       switch (e) {
         case o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin:
           return "newsletter-admin-marker";
@@ -291,15 +173,7 @@ __d(
           return "";
       }
     }
-    function ne() {
-      return s._(/*BTDS*/ "Followed channels");
-    }
-    ne.displayName = ne.name + " [from " + i.id + "]";
-    function re() {
-      return s._(/*BTDS*/ "Other channels");
-    }
-    re.displayName = re.name + " [from " + i.id + "]";
-    function oe() {
+    function D() {
       return o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
         ? s._(
             /*BTDS*/ "Admins can send updates, change the channel profile and see your phone number or username. {=m2}.",
@@ -326,35 +200,35 @@ __d(
             ],
           );
     }
-    oe.displayName = oe.name + " [from " + i.id + "]";
-    function ae() {
+    D.displayName = D.name + " [from " + i.id + "]";
+    function x() {
       return s._(
         /*BTDS*/ "Only contacts who have you in their address book will receive your invite.",
       );
     }
-    ae.displayName = ae.name + " [from " + i.id + "]";
-    function ie() {
+    x.displayName = x.name + " [from " + i.id + "]";
+    function $() {
       return s._(/*BTDS*/ "Transfer ownership");
     }
-    ie.displayName = ie.name + " [from " + i.id + "]";
-    function le() {
+    $.displayName = $.name + " [from " + i.id + "]";
+    function P() {
       return s._(/*BTDS*/ "Explore more");
     }
-    le.displayName = le.name + " [from " + i.id + "]";
-    function se(e) {
+    P.displayName = P.name + " [from " + i.id + "]";
+    function N(e) {
       return s._(/*BTDS*/ '_j{"*":"Last {number} days","_1":"Last 1 day"}', [
         s._plural(e, "number", e),
       ]);
     }
-    se.displayName = se.name + " [from " + i.id + "]";
-    function ue(e) {
+    N.displayName = N.name + " [from " + i.id + "]";
+    function M(e) {
       return s._(
         /*BTDS*/ '_j{"*":"over last {number} days","_1":"over last 1 day"}',
         [s._plural(e, "number", e)],
       );
     }
-    ue.displayName = ue.name + " [from " + i.id + "]";
-    function ce() {
+    M.displayName = M.name + " [from " + i.id + "]";
+    function w() {
       return {
         name: s._(/*BTDS*/ "Follows"),
         description: s._(
@@ -363,7 +237,7 @@ __d(
         key: "follows",
       };
     }
-    function de() {
+    function A() {
       return {
         name: s._(/*BTDS*/ "Net follows"),
         description: s._(
@@ -372,7 +246,7 @@ __d(
         key: "net-follows",
       };
     }
-    function me() {
+    function F() {
       return {
         name: s._(/*BTDS*/ "Unfollows"),
         description: s._(
@@ -381,7 +255,7 @@ __d(
         key: "unfollows",
       };
     }
-    function pe() {
+    function O() {
       return {
         name: s._(/*BTDS*/ "Accounts reached"),
         description: s._(
@@ -390,7 +264,7 @@ __d(
         key: "accounts-reached",
       };
     }
-    function _e() {
+    function B() {
       return {
         name: s._(/*BTDS*/ "Followers"),
         description: s._(
@@ -399,7 +273,7 @@ __d(
         key: "followers",
       };
     }
-    function fe() {
+    function W() {
       return {
         name: s._(/*BTDS*/ "Non-followers"),
         description: s._(
@@ -408,7 +282,7 @@ __d(
         key: "non-followers",
       };
     }
-    function ge() {
+    function q() {
       return {
         name: s._(/*BTDS*/ "Top regions"),
         description: s._(
@@ -417,7 +291,7 @@ __d(
         key: "reach-top-regions",
       };
     }
-    function he() {
+    function U() {
       return {
         name: s._(/*BTDS*/ "Top regions"),
         description: s._(
@@ -426,7 +300,7 @@ __d(
         key: "follower-top-regions",
       };
     }
-    function ye() {
+    function V() {
       return {
         name: s._(/*BTDS*/ "Total followers"),
         description: s._(
@@ -435,7 +309,7 @@ __d(
         key: "total-followers",
       };
     }
-    function Ce() {
+    function H() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "channels_producer_insights_min_followers",
       );
@@ -444,99 +318,49 @@ __d(
         [s._plural(e, "number", e)],
       );
     }
-    Ce.displayName = Ce.name + " [from " + i.id + "]";
-    function be() {
+    H.displayName = H.name + " [from " + i.id + "]";
+    function G() {
       return s._(
         /*BTDS*/ "To protect consumer privacy, accounts reached below 100 are not displayed.",
       );
     }
-    be.displayName = be.name + " [from " + i.id + "]";
-    function ve() {
-      return s._(
-        /*BTDS*/ "To protect consumer privacy, follows below 100 are not displayed.",
-      );
-    }
-    ve.displayName = ve.name + " [from " + i.id + "]";
-    function Se() {
-      return s._(
-        /*BTDS*/ "To protect consumer privacy, regions below 100 accounts reached are not displayed.",
-      );
-    }
-    Se.displayName = Se.name + " [from " + i.id + "]";
-    function Re() {
-      return s._(
-        /*BTDS*/ "To protect consumer privacy, regions below 100 followers are not displayed.",
-      );
-    }
-    ((Re.displayName = Re.name + " [from " + i.id + "]"),
+    ((G.displayName = G.name + " [from " + i.id + "]"),
       (l.roundToThousands = c),
       (l.getNewsletterFollowersText = d),
       (l.getNewsletterDirectoryFilterLabel = m),
       (l.getNewsletterCategorySearchPlaceholder = p),
       (l.getFindNewslettersText = _),
-      (l.getFindChannelsToFollowText = f),
-      (l.getDiscoverMoreText = g),
-      (l.getExploreNewslettersText = h),
-      (l.getAcrossAllCategoriesText = y),
-      (l.getExploreMoreNewslettersText = C),
-      (l.getCreateChannelText = b),
-      (l.getViewAllChannelFollowersText = v),
-      (l.getMeContactLabelChannelText = S),
-      (l.getSearchForChannelFollowersText = R),
-      (l.getSearchForPendingInvitesText = L),
-      (l.getFirstFiveThousandChannelFollowersText = E),
-      (l.getFirstFiveThousandChannelFollowersSearchingText = k),
-      (l.getInviteViaLinkText = I),
-      (l.getFollowersOnlyInYourContactsText = T),
-      (l.getFollowersOnlyInYourContactsAndAdminsText = D),
-      (l.getIndividualReactionsFromContactsText = x),
-      (l.getNoContactsHaveReactedYetText = $),
-      (l.getNoInternetConnectionText = P),
-      (l.getDeleteChannelText = N),
-      (l.getNewsletterResultsAnnouncementString = M),
-      (l.getNewsletterLinkActionLabel = w),
-      (l.getUnfollowNewsletterText = A),
-      (l.getSendLinkViaWhatsAppText = F),
-      (l.getCopyLinkText = O),
-      (l.getShareText = B),
-      (l.getForwardNewsletterLinkText = W),
-      (l.getChannelLinkInformationText = q),
-      (l.startGrowingChannelNameText = U),
-      (l.getStartedWithChannelText = V),
-      (l.getAddDescriptionButtonText = H),
-      (l.getShareChannelLinkButtonText = G),
-      (l.getYouCreatedChannelWithNameText = z),
-      (l.getAdminInvitesTitleText = j),
-      (l.getChannelAdminInviteText = K),
-      (l.getRevokeButtonFullText = Q),
-      (l.getInviteRevokedText = X),
-      (l.getYouAreNoLongerAnAdminText = Y),
-      (l.getYouAreNowAnAdminText = J),
-      (l.getSomeoneIsNoLongerAnAdminText = Z),
-      (l.getNewsletterMembershipRoleTag = ee),
-      (l.getNewsletterRoleMarker = te),
-      (l.getFollowedChannelsSearchHeader = ne),
-      (l.getOtherChannelsSearchHeader = re),
-      (l.adminPrivacyNux = oe),
-      (l.followerInviteDisclaimer = ae),
-      (l.getNewsletterTransferOwnershipText = ie),
-      (l.getNewsletterSimilarNewslettersTitle = le),
-      (l.getDaysCoveredText = se),
-      (l.getOverLastDaysText = ue),
-      (l.getFollowsMetricInfo = ce),
-      (l.getNetFollowsMetricInfo = de),
-      (l.getUnfollowsMetricInfo = me),
-      (l.getAccountsReachMetricInfo = pe),
-      (l.getReachFollowersMetricInfo = _e),
-      (l.getReachNonFollowersMetricInfo = fe),
-      (l.getReachTopRegionsMetricInfo = ge),
-      (l.getFollowerTopRegionsMetricInfo = he),
-      (l.getTotalFollowersMetricInfo = ye),
-      (l.getMetricsAvailabilityDisclaimer = Ce),
-      (l.getReachMetricsThreshold = be),
-      (l.getFollowsMetricsThreshold = ve),
-      (l.getReachRegionMetricsThreshold = Se),
-      (l.getFollowersRegionMetricsThreshold = Re));
+      (l.getCreateChannelText = f),
+      (l.getNoInternetConnectionText = g),
+      (l.getDeleteChannelText = h),
+      (l.getNewsletterResultsAnnouncementString = y),
+      (l.getNewsletterLinkActionLabel = C),
+      (l.getUnfollowNewsletterText = b),
+      (l.getCopyLinkText = v),
+      (l.startGrowingChannelNameText = S),
+      (l.getYouCreatedChannelWithNameText = R),
+      (l.getAdminInvitesTitleText = L),
+      (l.getRevokeButtonFullText = E),
+      (l.getSomeoneIsNoLongerAnAdminText = k),
+      (l.getNewsletterMembershipRoleTag = I),
+      (l.getNewsletterRoleMarker = T),
+      (l.adminPrivacyNux = D),
+      (l.followerInviteDisclaimer = x),
+      (l.getNewsletterTransferOwnershipText = $),
+      (l.getNewsletterSimilarNewslettersTitle = P),
+      (l.getDaysCoveredText = N),
+      (l.getOverLastDaysText = M),
+      (l.getFollowsMetricInfo = w),
+      (l.getNetFollowsMetricInfo = A),
+      (l.getUnfollowsMetricInfo = F),
+      (l.getAccountsReachMetricInfo = O),
+      (l.getReachFollowersMetricInfo = B),
+      (l.getReachNonFollowersMetricInfo = W),
+      (l.getReachTopRegionsMetricInfo = q),
+      (l.getFollowerTopRegionsMetricInfo = U),
+      (l.getTotalFollowersMetricInfo = V),
+      (l.getMetricsAvailabilityDisclaimer = H),
+      (l.getReachMetricsThreshold = G));
   },
   226,
 );

@@ -166,6 +166,7 @@ __d(
             (e.changeNumberNewJid = o("WAWebBaseModel").prop()),
             (e.lastReceivedKey = o("WAWebBaseModel").prop()),
             (e.capiThreadControl = o("WAWebBaseModel").prop()),
+            (e.isAiHandoff = o("WAWebBaseModel").prop()),
             (e.capiCallingPermissionType = o("WAWebBaseModel").prop()),
             (e.ephemeralDuration = o("WAWebBaseModel").prop()),
             (e.ephemeralSettingTimestamp = o("WAWebBaseModel").prop()),
@@ -1857,28 +1858,36 @@ __d(
           }),
           (i.setCapiThreadControl = function (t, n) {
             var e = (n == null ? void 0 : n.skipSideEffects) === !0;
-            return (
-              o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Maiba] setCapiThreadControl: ",
-                    " -> ",
-                    " for chat=",
-                    "",
-                    "",
-                  ])),
-                this.capiThreadControl,
-                t,
-                this.id.toLogString(),
-                e ? " (silent)" : "",
-              ),
+            (o("WALogger").LOG(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Maiba] setCapiThreadControl: ",
+                  " -> ",
+                  " for chat=",
+                  "",
+                  "",
+                ])),
+              this.capiThreadControl,
+              t,
+              this.id.toLogString(),
+              e ? " (silent)" : "",
+            ),
               (this.capiThreadControl = t),
-              (this.forceDismissAiAgentBlockBar = !1),
+              (this.forceDismissAiAgentBlockBar = !1));
+            var r =
               !e &&
-                t ===
-                  o("WAWebProtobufsE2E.pb")
-                    .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                    .CONTROL_PASSED &&
+              t ===
+                o("WAWebProtobufsE2E.pb")
+                  .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                  .CONTROL_PASSED;
+            return (
+              t ===
+              o("WAWebProtobufsE2E.pb")
+                .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                .CONTROL_PASSED
+                ? (this.isAiHandoff = r || this.isAiHandoff === !0)
+                : (this.isAiHandoff = !1),
+              r &&
                 ((this.unreadCount = 1),
                 o("WAWebNotificationBackend")
                   .showAiHandoffNotification(this)
@@ -1897,6 +1906,7 @@ __d(
               o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
                 capiThreadControl: t,
                 unreadCount: this.unreadCount,
+                isAiHandoff: this.isAiHandoff,
               })
             );
           }),

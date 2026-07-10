@@ -551,6 +551,11 @@ __d(
         "ig_connect_upsell_card_connect_click",
       IG_CONNECT_UPSELL_CARD_CONNECT_SUCCESS:
         "ig_connect_upsell_card_connect_success",
+      IG_CONNECT_UPSELL_ROW_IMPRESSION: "ig_connect_upsell_row_impression",
+      IG_CONNECT_UPSELL_ROW_CONNECT_CLICK:
+        "ig_connect_upsell_row_connect_click",
+      IG_CONNECT_UPSELL_ROW_CONNECT_SUCCESS:
+        "ig_connect_upsell_row_connect_success",
       IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
       PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
         "product_picker_ig_page_load_eligibility",

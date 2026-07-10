@@ -51,6 +51,7 @@ __d(
                         },
                       ),
                       {
+                        disableRotateFocus: !0,
                         newDrawerContext: {
                           type: "quick_action",
                           quickActionId: "create_channel",
@@ -90,6 +91,7 @@ __d(
                         },
                       ),
                       {
+                        disableRotateFocus: !0,
                         newDrawerContext: {
                           type: "quick_action",
                           quickActionId: "find_channels",

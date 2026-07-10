@@ -32,9 +32,6 @@ __d(
       (l.DRAWER_WIDTH = o(
         "WAWebVoipWindowConstants.stylex.const",
       ).drawerDimensions.width),
-      (l.DRAWER_GAP = o(
-        "WAWebVoipWindowConstants.stylex.const",
-      ).drawerDimensions.gap),
       (l.MIN_WINDOW_WIDTH_WITH_SIDEBAR = c),
       (l.sidebarVisibilityEmitter = m),
       (l.setIsSidebarVisible = p),

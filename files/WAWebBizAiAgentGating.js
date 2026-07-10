@@ -37,30 +37,25 @@ __d(
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "biz_ai_priority_list_enabled",
-      );
-    }
-    function _() {
-      return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_responding_list_enabled",
       );
     }
-    var f = 1,
-      g = 2,
-      h = 3;
-    function y() {
+    var _ = 1,
+      f = 2,
+      g = 3;
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function C() {
+    function y() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_receiving",
         ) === !0
       );
     }
-    function b() {
+    function C() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
@@ -73,14 +68,13 @@ __d(
       (l.isAiAgentAutoSaveEnabled = c),
       (l.isAiMuteUnmuteV2Enabled = d),
       (l.isAiReplyFabConfirmModalEnabled = m),
-      (l.isAiHandoffListEnabled = p),
-      (l.isAiRespondingChipEnabled = _),
-      (l.MULTI_WEBSITE_BRAZIL = f),
-      (l.MULTI_WEBSITE_LATAM = g),
-      (l.MULTI_WEBSITE_DYNAMIC = h),
-      (l.getMultiWebsiteMode = y),
-      (l.isMaibaWASSReceivingEnabled = C),
-      (l.isMaibaWASSSendingEnabled = b));
+      (l.isAiRespondingChipEnabled = p),
+      (l.MULTI_WEBSITE_BRAZIL = _),
+      (l.MULTI_WEBSITE_LATAM = f),
+      (l.MULTI_WEBSITE_DYNAMIC = g),
+      (l.getMultiWebsiteMode = h),
+      (l.isMaibaWASSReceivingEnabled = y),
+      (l.isMaibaWASSSendingEnabled = C));
   },
   98,
 );

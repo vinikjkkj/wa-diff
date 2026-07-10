@@ -106,6 +106,7 @@ __d(
               l("accountLid"),
             ])
             .version(n.chatAddHistoryChatIdIndex(), [l("historyChatId")])
+            .version(n.chatAddIsAiHandoff(), [r("isAiHandoff")])
             .view(function (e) {
               return e;
             })

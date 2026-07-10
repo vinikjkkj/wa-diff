@@ -1,6 +1,6 @@
 __d(
   "WAWebChatAssignmentGatingUtils",
-  ["WAWebABProps", "WAWebBizAiLargeScreensGateModel", "WAWebMobilePlatforms"],
+  ["WAWebABProps", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -39,17 +39,13 @@ __d(
     function m() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings") &&
-        o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
+        o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
       );
     }
     function p() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "biz_ai_web_onboarding_handoff",
-        ) &&
-        o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
+        o("WAWebABProps").getABPropConfigValue("biz_ai_web_onboarding_handoff")
       );
     }
     function _() {

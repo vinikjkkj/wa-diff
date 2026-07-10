@@ -104,6 +104,7 @@ __d(
           "notification_granularity_awareness_banner",
         EPHEMERAL_AFTER_READ: "ephemeral_after_read",
         BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
+        PRIVACY_SCREEN_UPSELL_BANNER: "privacy_screen_upsell_banner",
       }),
       f = {
         COOL_OFF_NUX: {

@@ -2,14 +2,11 @@ __d(
   "WAWebAIAgentAIReplyUtils",
   [
     "Promise",
-    "WAAbortError",
     "WALogger",
     "WAWebAiAgentAutoReplyControlMutation",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizAiMuteUnmuteErrorDrawer.react",
-    "WAWebDBUpdateChatTable",
     "WAWebModalManager",
-    "WAWebNotificationBackend",
     "WAWebProtobufsE2E.pb",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -19,11 +16,10 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = c || (c = o("react")),
-      m = { skipSideEffects: !0 },
-      p = new WeakMap();
-    function _(e) {
+      c = u || (u = o("react")),
+      d = { skipSideEffects: !0 },
+      m = new WeakMap();
+    function p(e) {
       return e ===
         o("WAWebProtobufsE2E.pb")
           .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
@@ -35,8 +31,8 @@ __d(
             .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
             .CONTROL_TAKEN;
     }
-    function f(e) {
-      var t = p.get(e);
+    function _(e) {
+      var t = m.get(e);
       return (
         t == null &&
           ((t = {
@@ -45,15 +41,15 @@ __d(
             watermarkMs: 0,
             inFlight: !1,
           }),
-          p.set(e, t)),
+          m.set(e, t)),
         t
       );
     }
-    function g(e) {
-      var t = f(e);
+    function f(e) {
+      var t = _(e);
       return (
         t.inFlight
-          ? (t.desired = _(t.desired))
+          ? (t.desired = p(t.desired))
           : ((t.serverConfirmed = e.capiThreadControl),
             (t.desired = o("WAWebBizAiAgentStatusUtils").isChatAiEnabled(e)
               ? o("WAWebProtobufsE2E.pb")
@@ -62,104 +58,73 @@ __d(
               : o("WAWebProtobufsE2E.pb")
                   .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
                   .CONTROL_TAKEN)),
-        e.setCapiThreadControl(t.desired, m),
+        e.setCapiThreadControl(t.desired, d),
         t.inFlight
-          ? (u || (u = n("Promise"))).resolve(!0)
+          ? (s || (s = n("Promise"))).resolve(!0)
           : ((t.inFlight = !0),
-            h(e, t, t.serverConfirmed, e.unreadCount).finally(function () {
+            g(e, t, e.unreadCount).finally(function () {
               t.inFlight = !1;
             }))
       );
     }
-    function h(e, t, n, r) {
-      return y.apply(this, arguments);
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            if (n.desired === n.serverConfirmed)
-              return (
-                a !==
-                  o("WAWebProtobufsE2E.pb")
-                    .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                    .CONTROL_PASSED &&
-                  n.serverConfirmed ===
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          if (n.desired === n.serverConfirmed) return !0;
+          var i = n.desired,
+            l = !1,
+            s = null;
+          try {
+            var u = yield o(
+              "WAWebAiAgentAutoReplyControlMutation",
+            ).changeAiReplyStatus(
+              t.id,
+              i ===
+                o("WAWebProtobufsE2E.pb")
+                  .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                  .CONTROL_TAKEN
+                ? "ENABLED"
+                : "MUTED",
+            );
+            ((l = u.isSuccess === !0),
+              u.isSuccess === !0 && (s = u.updateTimestampMs));
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Maiba] mutateAiReplyStatus failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("maiba-mutate-ai-reply-fail");
+          }
+          return l
+            ? ((n.serverConfirmed = i),
+              s != null && (n.watermarkMs = Math.max(n.watermarkMs, s)),
+              g(t, n, a))
+            : ((n.desired = n.serverConfirmed),
+              (t.unreadCount = a),
+              t.setCapiThreadControl(n.serverConfirmed, d),
+              o("WAWebModalManager").ModalManager.open(
+                c.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
+                  isTurnOn:
+                    i ===
                     o("WAWebProtobufsE2E.pb")
                       .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                      .CONTROL_PASSED &&
-                  ((t.unreadCount = 1),
-                  o("WAWebDBUpdateChatTable").updateChatTable(t.id, {
-                    unreadCount: 1,
-                  }),
-                  o("WAWebNotificationBackend")
-                    .showAiHandoffNotification(t)
-                    .catch(
-                      o("WAAbortError").catchAbort(function (t) {
-                        o("WALogger").LOG(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[Maiba] Aborted notification ",
-                              "",
-                            ])),
-                          t,
-                        );
-                      }),
-                    )),
-                !0
-              );
-            var l = n.desired,
-              u = !1,
-              c = null;
-            try {
-              var p = yield o(
-                "WAWebAiAgentAutoReplyControlMutation",
-              ).changeAiReplyStatus(
-                t.id,
-                l ===
-                  o("WAWebProtobufsE2E.pb")
-                    .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                    .CONTROL_TAKEN
-                  ? "ENABLED"
-                  : "MUTED",
-              );
-              ((u = p.isSuccess === !0),
-                p.isSuccess === !0 && (c = p.updateTimestampMs));
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Maiba] mutateAiReplyStatus failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("maiba-mutate-ai-reply-fail");
-            }
-            return u
-              ? ((n.serverConfirmed = l),
-                c != null && (n.watermarkMs = Math.max(n.watermarkMs, c)),
-                h(t, n, a, i))
-              : ((n.desired = n.serverConfirmed),
-                (t.unreadCount = i),
-                t.setCapiThreadControl(n.serverConfirmed, m),
-                o("WAWebModalManager").ModalManager.open(
-                  d.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
-                    isTurnOn:
-                      l ===
-                      o("WAWebProtobufsE2E.pb")
-                        .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                        .CONTROL_TAKEN,
-                  }),
-                ),
-                !1);
-          },
-        )),
-        y.apply(this, arguments)
+                      .CONTROL_TAKEN,
+                }),
+              ),
+              !1);
+        })),
+        h.apply(this, arguments)
       );
     }
-    function C(e, t, n, r) {
-      var o = f(e);
+    function y(e, t, n, r) {
+      var o = _(e);
       if (n != null) {
         if (n <= o.watermarkMs) return;
         o.watermarkMs = n;
@@ -169,10 +134,10 @@ __d(
         (o.desired = t),
         e.capiThreadControl !== t &&
           ((r == null ? void 0 : r.suppressNotification) === !0
-            ? e.setCapiThreadControl(t, m)
+            ? e.setCapiThreadControl(t, d)
             : e.setCapiThreadControl(t)));
     }
-    ((l.mutateAiReplyStatus = g), (l.applyServerEchoThreadControl = C));
+    ((l.mutateAiReplyStatus = f), (l.applyServerEchoThreadControl = y));
   },
   98,
 );

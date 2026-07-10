@@ -9,6 +9,7 @@ __d(
       CONNECTING: 3,
       CONNECTED: 4,
       REMOVED: 5,
+      FAILED: 6,
     });
     i.CA2D_EXTENSION_CONNECTION_STATE = e;
   },

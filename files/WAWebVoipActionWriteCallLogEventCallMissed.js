@@ -8,7 +8,9 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
@@ -60,37 +62,46 @@ __d(
                 C = h.msgKeyId,
                 b = h.participant,
                 v = h.viewMode;
-              ((g = y),
-                (f = {
-                  id: new (r("WAWebMsgKey"))({
-                    remote: g,
-                    participant: b,
-                    fromMe: m,
-                    id: C,
-                  }),
-                  type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
-                  kind: "callLog",
-                  callOutcome: p,
-                  isVideoCall: u,
-                  callParticipants:
-                    a != null && a.length > 0
-                      ? a.map(function (e) {
-                          return { participant: e.jid, outcome: e.result };
-                        })
-                      : [
-                          {
-                            participant: c,
-                            outcome: o("WAWebVoipWaCallEnums")
-                              .CallParticipantState.Terminated,
-                          },
-                        ],
-                  to: g,
-                  from: c,
-                  t: o("WATimeUtils").castToUnixTime(
-                    d != null ? (Date.now() - d) / 1e3 : Date.now() / 1e3,
-                  ),
-                  viewMode: v,
-                }));
+              g = y;
+              var S = o("WATimeUtils").castToUnixTime(
+                  d != null ? (Date.now() - d) / 1e3 : Date.now() / 1e3,
+                ),
+                R =
+                  !o(
+                    "WAWebVoipCallLogPlaceholderTracker",
+                  ).isOfflineCallLogOrderingEnabled() &&
+                  !o("WATimeUtils").sameDay(S, o("WATimeUtils").unixTime())
+                    ? o("WAWebViewMode.flow").ViewModeType
+                        .CALL_LOG_OFFLINE_RESUME
+                    : v;
+              f = {
+                id: new (r("WAWebMsgKey"))({
+                  remote: g,
+                  participant: b,
+                  fromMe: m,
+                  id: C,
+                }),
+                type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
+                kind: "callLog",
+                callOutcome: p,
+                isVideoCall: u,
+                callParticipants:
+                  a != null && a.length > 0
+                    ? a.map(function (e) {
+                        return { participant: e.jid, outcome: e.result };
+                      })
+                    : [
+                        {
+                          participant: c,
+                          outcome: o("WAWebVoipWaCallEnums")
+                            .CallParticipantState.Terminated,
+                        },
+                      ],
+                to: g,
+                from: c,
+                t: S,
+                viewMode: R,
+              };
             } else {
               o("WALogger")
                 .ERROR(
@@ -103,10 +114,10 @@ __d(
                 .sendLogs("generate-call-log-event=call-missed-no-peer");
               return;
             }
-            var S = yield o(
+            var L = yield o(
               "WAWebVoipActionWriteCallLogImpl",
             ).writeVoipCallLogMessageImpl(g, f, !1);
-            S != null &&
+            L != null &&
               o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n);
           } catch (e) {
             o("WALogger")

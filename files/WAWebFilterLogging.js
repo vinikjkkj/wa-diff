@@ -54,7 +54,7 @@ __d(
           return o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE;
         case o("WAWebChatSearchFilters").SearchFilters.AI_RESPONDING:
         case o("WAWebChatSearchFilters").SearchFilters.AI_HANDOFF:
-          return o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE;
+          return o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.BUSINESS_AI;
       }
     }
     var s = function (t) {

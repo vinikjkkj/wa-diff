@@ -18,12 +18,12 @@ __d(
     "WAWebModernizr",
     "WAWebNoop",
     "WAWebPREGatingUtils",
+    "WAWebReadExifOrientation",
     "WAWebStickerConstants",
     "WAWebUA",
     "WAWebWebpMetadata",
     "asyncToGeneratorRuntime",
     "err",
-    "exif-component",
     "getErrorSafe",
     "justknobx",
   ],
@@ -307,11 +307,7 @@ __d(
                   var n,
                     i = e.buffer,
                     l = e.image,
-                    s = {};
-                  try {
-                    s = r("exif-component")(i);
-                  } catch (e) {}
-                  var u = 0;
+                    s = 0;
                   if (
                     !(
                       (n = o("WAWebModernizr").getModernizr()) != null &&
@@ -319,95 +315,97 @@ __d(
                     )
                   )
                     e: {
-                      var c = s.orientation || "UNKNOWN";
-                      if (c === "right-top") {
-                        u = 1;
+                      var u = o("WAWebReadExifOrientation").readExifOrientation(
+                        i,
+                      );
+                      if (u === 6) {
+                        s = 1;
                         break e;
                       }
-                      if (c === "left-bottom") {
-                        u = -1;
+                      if (u === 8) {
+                        s = -1;
                         break e;
                       }
-                      if (c === "bottom-right") {
-                        u = 2;
+                      if (u === 3) {
+                        s = 2;
                         break e;
                       }
                       break e;
                     }
-                  var d = document.createElement("canvas"),
-                    m = l.naturalWidth || l.width,
-                    f = l.naturalHeight || l.height,
-                    g = Math.max(m, f),
-                    y = d.getContext("2d"),
-                    b = {};
-                  if (u)
-                    switch (u) {
+                  var c = document.createElement("canvas"),
+                    d = l.naturalWidth || l.width,
+                    m = l.naturalHeight || l.height,
+                    f = Math.max(d, m),
+                    g = c.getContext("2d"),
+                    y = {};
+                  if (s)
+                    switch (s) {
                       case 1:
                       case -1: {
-                        var v = Math.max(m, f),
-                          S = v / 2;
-                        ((d.width = d.height = v),
-                          C || o("WAWebCanvasUtils").fillBackgroundWithGray(d),
-                          o("WAWebCanvasUtils").rotate(y, {
-                            x: S,
-                            y: S,
-                            degrees: u * 90,
+                        var b = Math.max(d, m),
+                          v = b / 2;
+                        ((c.width = c.height = b),
+                          C || o("WAWebCanvasUtils").fillBackgroundWithGray(c),
+                          o("WAWebCanvasUtils").rotate(g, {
+                            x: v,
+                            y: v,
+                            degrees: s * 90,
                           }),
-                          u === 1
-                            ? y.drawImage(l, 0, v - f)
-                            : y.drawImage(l, v - m, 0),
-                          o("WAWebCanvasUtils").rotate(y, {
-                            x: S,
-                            y: S,
-                            degrees: u * -90,
+                          s === 1
+                            ? g.drawImage(l, 0, b - m)
+                            : g.drawImage(l, b - d, 0),
+                          o("WAWebCanvasUtils").rotate(g, {
+                            x: v,
+                            y: v,
+                            degrees: s * -90,
                           }),
-                          o("WAWebCanvasUtils").resize(d, f, m),
-                          _ && o("WAWebCanvasUtils").square(d),
-                          g < h && o("WAWebCanvasUtils").scale(d, h));
-                        var R = o("WAWebCanvasUtils").contain(d, t);
+                          o("WAWebCanvasUtils").resize(c, m, d),
+                          _ && o("WAWebCanvasUtils").square(c),
+                          f < h && o("WAWebCanvasUtils").scale(c, h));
+                        var S = o("WAWebCanvasUtils").contain(c, t);
                         return (
-                          N(b, R, a, C),
+                          N(y, S, a, C),
                           o("WAPromiseProps")
-                            .promiseProps(b)
+                            .promiseProps(y)
                             .then(function (e) {
                               return {
-                                width: R.width,
-                                height: R.height,
+                                width: S.width,
+                                height: S.height,
                                 images: e,
                               };
                             })
                         );
                       }
                       case 2: {
-                        var L = o("WAWebImageGeometry").boundHeightWidth(
-                            f,
+                        var R = o("WAWebImageGeometry").boundHeightWidth(
                             m,
+                            d,
                             t,
                           ),
-                          E = (d.width = L.width),
-                          k = (d.height = L.height);
+                          L = (c.width = R.width),
+                          E = (c.height = R.height);
                         return (
-                          C || o("WAWebCanvasUtils").fillBackgroundWithGray(d),
-                          o("WAWebCanvasUtils").rotate(y, {
-                            x: E / 2,
-                            y: k / 2,
-                            degrees: u * 90,
+                          C || o("WAWebCanvasUtils").fillBackgroundWithGray(c),
+                          o("WAWebCanvasUtils").rotate(g, {
+                            x: L / 2,
+                            y: E / 2,
+                            degrees: s * 90,
                           }),
-                          y.drawImage(l, 0, 0, E, k),
-                          o("WAWebCanvasUtils").rotate(y, {
-                            x: E / 2,
-                            y: k / 2,
-                            degrees: u * -90,
+                          g.drawImage(l, 0, 0, L, E),
+                          o("WAWebCanvasUtils").rotate(g, {
+                            x: L / 2,
+                            y: E / 2,
+                            degrees: s * -90,
                           }),
-                          _ && o("WAWebCanvasUtils").square(d),
-                          g < h && o("WAWebCanvasUtils").scale(d, h),
-                          N(b, d, a, C),
+                          _ && o("WAWebCanvasUtils").square(c),
+                          f < h && o("WAWebCanvasUtils").scale(c, h),
+                          N(y, c, a, C),
                           o("WAPromiseProps")
-                            .promiseProps(b)
+                            .promiseProps(y)
                             .then(function (e) {
                               return {
-                                width: d.width,
-                                height: d.height,
+                                width: c.width,
+                                height: c.height,
                                 images: e,
                               };
                             })
@@ -415,44 +413,44 @@ __d(
                       }
                     }
                   else {
-                    var I = o("WAWebImageGeometry").boundHeightWidth(f, m, t),
+                    var k = o("WAWebImageGeometry").boundHeightWidth(m, d, t),
+                      I,
                       T,
-                      D,
-                      x = a & o("WAWebMediaCacheModel").ImageOutputTypes.BLOB;
-                    if (i && x && m === I.width && f === I.height)
+                      D = a & o("WAWebMediaCacheModel").ImageOutputTypes.BLOB;
+                    if (i && D && d === k.width && m === k.height)
                       try {
-                        var $ = o("WAWebMediaJpeg").cleanJPEG(i);
-                        ((b.blob = $), (x = !1), (T = m), (D = f));
+                        var x = o("WAWebMediaJpeg").cleanJPEG(i);
+                        ((y.blob = x), (D = !1), (I = d), (T = m));
                       } catch (e) {
-                        var P = r("getErrorSafe")(e);
+                        var $ = r("getErrorSafe")(e);
                         o("WALogger").LOG(
                           p ||
                             (p = babelHelpers.taggedTemplateLiteralLoose([
                               "Could not parse JPEG: ",
                               "",
                             ])),
-                          P.message,
+                          $.message,
                         );
                       }
                     return (
-                      (x ||
+                      (D ||
                         a & ~o("WAWebMediaCacheModel").ImageOutputTypes.BLOB) &&
-                        ((d.width = I.width),
-                        (d.height = I.height),
-                        C || o("WAWebCanvasUtils").fillBackgroundWithGray(d),
-                        y.drawImage(l, 0, 0, d.width, d.height),
+                        ((c.width = k.width),
+                        (c.height = k.height),
+                        C || o("WAWebCanvasUtils").fillBackgroundWithGray(c),
+                        g.drawImage(l, 0, 0, c.width, c.height),
                         _ &&
-                          (o("WAWebCanvasUtils").square(d), (b.blob = void 0)),
-                        g < h &&
-                          (o("WAWebCanvasUtils").scale(d, h),
-                          (b.blob = void 0)),
-                        (T = d.width),
-                        (D = d.height),
-                        N(b, d, a, C)),
+                          (o("WAWebCanvasUtils").square(c), (y.blob = void 0)),
+                        f < h &&
+                          (o("WAWebCanvasUtils").scale(c, h),
+                          (y.blob = void 0)),
+                        (I = c.width),
+                        (T = c.height),
+                        N(y, c, a, C)),
                       o("WAPromiseProps")
-                        .promiseProps(b)
+                        .promiseProps(y)
                         .then(function (e) {
-                          return { width: T, height: D, images: e };
+                          return { width: I, height: T, images: e };
                         })
                     );
                   }

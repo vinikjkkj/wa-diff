@@ -1,10 +1,10 @@
 __d(
   "WAWebPrivacyModeGating",
-  ["gkx"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return !r("gkx")("26258");
+      return o("WAWebABProps").getABPropConfigValue("privacy_screen_enabled");
     }
     l.isPrivacyScreenEnabled = e;
   },

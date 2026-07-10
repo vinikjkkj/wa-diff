@@ -79,32 +79,38 @@ __d(
         o("WAWebContactGetters").getIsMe(e.contact) ||
         o("WAWebContactGetters").getIsAiHub(e.contact)
       )
-        return !1;
+        return null;
       var t = e.capiThreadControl;
       return t ===
         o("WAWebProtobufsE2E.pb")
           .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
           .CONTROL_TAKEN
-        ? o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()
+        ? "responding"
         : t ===
               o("WAWebProtobufsE2E.pb")
                 .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
                 .CONTROL_PASSED &&
-            o("WAWebBizAiAgentGating").isAiHandoffListEnabled()
-          ? !_(o("WAWebFrontendChatGetters").getPreviewMessage(e))
-          : !1;
+            e.isAiHandoff === !0 &&
+            !f(o("WAWebFrontendChatGetters").getPreviewMessage(e))
+          ? "handoff"
+          : null;
     }
     function _(e) {
+      return (
+        p(e) != null && o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()
+      );
+    }
+    function f(e) {
       return e == null || e.bizBotType === o("WAWebBotTypes").BizBotType.BIZ_1P
         ? !1
         : e.id.fromMe === !0;
     }
-    function f(e) {
+    function g(e) {
       return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? g(e)
+        ? h(e)
         : !1;
     }
-    function g(e) {
+    function h(e) {
       var t = e.labels;
       return t == null ||
         t.length === 0 ||
@@ -118,7 +124,7 @@ __d(
             return t != null && !!t.name;
           });
     }
-    function h(e, t) {
+    function y(e, t) {
       return (
         t === void 0 && (t = !1),
         t &&
@@ -126,7 +132,7 @@ __d(
           e.groupMetadata,
         )
           ? !1
-          : p(e) || f(e)
+          : _(e) || g(e)
       );
     }
     ((l.hasOnboardedAiAgent = e),
@@ -135,11 +141,12 @@ __d(
       (l.useIsChatAiEnabled = c),
       (l.shouldShowAiAgentBlockBar = d),
       (l.shouldMuteNotification = m),
-      (l.shouldShowAiChipsForChat = p),
-      (l.hasBusinessRepliedAfterHandoff = _),
-      (l.shouldShowLabelPillsForChat = f),
-      (l.hasDisplayableLabels = g),
-      (l.shouldShowTertiaryRowForChat = h));
+      (l.resolveAiChatStatus = p),
+      (l.shouldShowAiChipsForChat = _),
+      (l.hasBusinessRepliedAfterHandoff = f),
+      (l.shouldShowLabelPillsForChat = g),
+      (l.hasDisplayableLabels = h),
+      (l.shouldShowTertiaryRowForChat = y));
   },
   98,
 );

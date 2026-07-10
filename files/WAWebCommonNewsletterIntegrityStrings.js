@@ -95,84 +95,68 @@ __d(
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S() {
-      return s._(/*BTDS*/ "Your channel profile picture has been removed");
+      return s._(/*BTDS*/ "A channel admin profile has been removed");
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R() {
-      return s._(/*BTDS*/ "Your channel profile picture has been removed");
+      return s._(/*BTDS*/ "Channel admin profile in review");
     }
     R.displayName = R.name + " [from " + i.id + "]";
     function L() {
-      return s._(/*BTDS*/ "A channel admin profile has been removed");
+      return s._(/*BTDS*/ "Channel admin profile review completed");
     }
     L.displayName = L.name + " [from " + i.id + "]";
     function E() {
-      return s._(/*BTDS*/ "Channel admin profile in review");
+      return s._(/*BTDS*/ "Channel review completed");
     }
     E.displayName = E.name + " [from " + i.id + "]";
     function k() {
-      return s._(/*BTDS*/ "Channel admin profile review completed");
+      return s._(/*BTDS*/ "Channel in review");
     }
     k.displayName = k.name + " [from " + i.id + "]";
     function I() {
-      return s._(/*BTDS*/ "Channel review completed");
-    }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T() {
-      return s._(/*BTDS*/ "Channel in review");
-    }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D() {
       return s._(
         /*BTDS*/ "Our Support team is reviewing your channel. You will hear back within a few days.",
       );
     }
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T() {
+      return s._(/*BTDS*/ "Request review");
+    }
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D() {
+      return s._(/*BTDS*/ "Request a review");
+    }
     D.displayName = D.name + " [from " + i.id + "]";
     function x() {
-      return s._(/*BTDS*/ "See review details");
+      return s._(/*BTDS*/ "Dispute settlement body");
     }
     x.displayName = x.name + " [from " + i.id + "]";
     function $() {
-      return s._(/*BTDS*/ "Review details");
+      return s._(/*BTDS*/ "Email the reporter");
     }
     $.displayName = $.name + " [from " + i.id + "]";
     function P() {
-      return s._(/*BTDS*/ "Request review");
+      return s._(/*BTDS*/ "See options");
     }
     P.displayName = P.name + " [from " + i.id + "]";
     function N() {
-      return s._(/*BTDS*/ "Request a review");
+      return s._(/*BTDS*/ "Channel reports");
     }
     N.displayName = N.name + " [from " + i.id + "]";
     function M() {
-      return s._(/*BTDS*/ "Dispute settlement body");
-    }
-    M.displayName = M.name + " [from " + i.id + "]";
-    function w() {
-      return s._(/*BTDS*/ "Email the reporter");
-    }
-    w.displayName = w.name + " [from " + i.id + "]";
-    function A() {
-      return s._(/*BTDS*/ "See options");
-    }
-    A.displayName = A.name + " [from " + i.id + "]";
-    function F() {
-      return s._(/*BTDS*/ "Channel reports");
-    }
-    F.displayName = F.name + " [from " + i.id + "]";
-    function O() {
       return s._(
         /*BTDS*/ "Your report is closed as this channel is no longer available.",
       );
     }
-    O.displayName = O.name + " [from " + i.id + "]";
-    function B() {
+    M.displayName = M.name + " [from " + i.id + "]";
+    function w() {
       return s._(
         /*BTDS*/ "Report review typically takes 24 hours. We'll let you know when your report is complete.",
       );
     }
-    B.displayName = B.name + " [from " + i.id + "]";
-    function W() {
+    w.displayName = w.name + " [from " + i.id + "]";
+    function A() {
       return s._(
         /*BTDS*/ "We have reviewed your report and determined some updates on this channel do not follow our {=m2}. WhatsApp requires all updates and channels to follow our Channels Guidelines.",
         [
@@ -186,10 +170,61 @@ __d(
         ],
       );
     }
+    A.displayName = A.name + " [from " + i.id + "]";
+    function F() {
+      return s._(
+        /*BTDS*/ "We have reviewed your report and determined this update does not follow our {=m2}. WhatsApp requires all updates and channels to follow our Channels Guidelines.",
+        [
+          s._implicitParam(
+            "=m2",
+            u.jsx(o("WAWebExternalLink.react").ExternalLink, {
+              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+              children: s._(/*BTDS*/ "Channels Guidelines"),
+            }),
+          ),
+        ],
+      );
+    }
+    F.displayName = F.name + " [from " + i.id + "]";
+    function O() {
+      return s._(
+        /*BTDS*/ "We have reviewed your report and determined this response doesn't follow our {=m2}.",
+        [
+          s._implicitParam(
+            "=m2",
+            u.jsx(o("WAWebExternalLink.react").ExternalLink, {
+              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+              children: s._(/*BTDS*/ "Channels Guidelines"),
+            }),
+          ),
+        ],
+      );
+    }
+    O.displayName = O.name + " [from " + i.id + "]";
+    function B() {
+      return s._(
+        /*BTDS*/ "We have reviewed your report and determined this response follows our {=m2}.",
+        [
+          s._implicitParam(
+            "=m2",
+            u.jsx(o("WAWebExternalLink.react").ExternalLink, {
+              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+              children: s._(/*BTDS*/ "Channels Guidelines"),
+            }),
+          ),
+        ],
+      );
+    }
+    B.displayName = B.name + " [from " + i.id + "]";
+    function W() {
+      return s._(
+        /*BTDS*/ "Your report is closed as this response is no longer available. It may have expired after 30 days, or been deleted by a channel admin.",
+      );
+    }
     W.displayName = W.name + " [from " + i.id + "]";
     function q() {
       return s._(
-        /*BTDS*/ "We have reviewed your report and determined this update does not follow our {=m2}. WhatsApp requires all updates and channels to follow our Channels Guidelines.",
+        /*BTDS*/ "We have reviewed your report and determined this channel follows our {=m2}.",
         [
           s._implicitParam(
             "=m2",
@@ -204,7 +239,7 @@ __d(
     q.displayName = q.name + " [from " + i.id + "]";
     function U() {
       return s._(
-        /*BTDS*/ "We have reviewed your report and determined this response doesn't follow our {=m2}.",
+        /*BTDS*/ "We have reviewed your report and determined this update follows our {=m2}.",
         [
           s._implicitParam(
             "=m2",
@@ -219,7 +254,13 @@ __d(
     U.displayName = U.name + " [from " + i.id + "]";
     function V() {
       return s._(
-        /*BTDS*/ "We have reviewed your report and determined this response follows our {=m2}.",
+        /*BTDS*/ "Your report is closed as this update is no longer available on this channel. It may have expired after 30 days, or been deleted by a channel admin.",
+      );
+    }
+    V.displayName = V.name + " [from " + i.id + "]";
+    function H() {
+      return s._(
+        /*BTDS*/ "We have reviewed your report and determined this channel status does not follow our {=m2}. WhatsApp requires all updates and channels to follow our Channels Guidelines.",
         [
           s._implicitParam(
             "=m2",
@@ -231,16 +272,10 @@ __d(
         ],
       );
     }
-    V.displayName = V.name + " [from " + i.id + "]";
-    function H() {
-      return s._(
-        /*BTDS*/ "Your report is closed as this response is no longer available. It may have expired after 30 days, or been deleted by a channel admin.",
-      );
-    }
     H.displayName = H.name + " [from " + i.id + "]";
     function G() {
       return s._(
-        /*BTDS*/ "We have reviewed your report and determined this channel follows our {=m2}.",
+        /*BTDS*/ "We have reviewed your report and determined this channel status follows our {=m2}.",
         [
           s._implicitParam(
             "=m2",
@@ -255,61 +290,10 @@ __d(
     G.displayName = G.name + " [from " + i.id + "]";
     function z() {
       return s._(
-        /*BTDS*/ "We have reviewed your report and determined this update follows our {=m2}.",
-        [
-          s._implicitParam(
-            "=m2",
-            u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-              children: s._(/*BTDS*/ "Channels Guidelines"),
-            }),
-          ),
-        ],
-      );
-    }
-    z.displayName = z.name + " [from " + i.id + "]";
-    function j() {
-      return s._(
-        /*BTDS*/ "Your report is closed as this update is no longer available on this channel. It may have expired after 30 days, or been deleted by a channel admin.",
-      );
-    }
-    j.displayName = j.name + " [from " + i.id + "]";
-    function K() {
-      return s._(
-        /*BTDS*/ "We have reviewed your report and determined this channel status does not follow our {=m2}. WhatsApp requires all updates and channels to follow our Channels Guidelines.",
-        [
-          s._implicitParam(
-            "=m2",
-            u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-              children: s._(/*BTDS*/ "Channels Guidelines"),
-            }),
-          ),
-        ],
-      );
-    }
-    K.displayName = K.name + " [from " + i.id + "]";
-    function Q() {
-      return s._(
-        /*BTDS*/ "We have reviewed your report and determined this channel status follows our {=m2}.",
-        [
-          s._implicitParam(
-            "=m2",
-            u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-              children: s._(/*BTDS*/ "Channels Guidelines"),
-            }),
-          ),
-        ],
-      );
-    }
-    Q.displayName = Q.name + " [from " + i.id + "]";
-    function X() {
-      return s._(
         /*BTDS*/ "Your report is closed as this channel status is no longer available on this channel. It may have expired after 24 hours, or been deleted by a channel admin.",
       );
     }
-    ((X.displayName = X.name + " [from " + i.id + "]"),
+    ((z.displayName = z.name + " [from " + i.id + "]"),
       (l.getGeosuspendedInYourCountryString = c),
       (l.getGeosuspensionStringForChannelAlertsDrawer = m),
       (l.getWhyThisHappenedSectionTitleString = p),
@@ -321,35 +305,31 @@ __d(
       (l.getStatusReviewCompletedString = C),
       (l.getProfilePictureDeletionInReviewTitleString = b),
       (l.getProfilePictureDeletionReviewCompletedString = v),
-      (l.getDeleteProfilePictureTextForTitle = S),
-      (l.getDeleteProfilePictureTextForList = R),
-      (l.getAdminProfileRemovedTextForList = L),
-      (l.getAdminProfileInReviewTitleString = E),
-      (l.getAdminProfileReviewCompletedString = k),
-      (l.getChannelReviewCompletedString = I),
-      (l.getChannelInReviewTitleString = T),
-      (l.getChannelInReviewString = D),
-      (l.getSeeReviewDetailsText = x),
-      (l.getNewsletterAppealOutcomeDrawerTitle = $),
-      (l.getRequestAppealButtonText = P),
-      (l.getRequestAppealRemediationOptionsRowText = N),
-      (l.getNewsletterDSBDrawerTitle = M),
-      (l.getNewsletterContactIPReporterDrawerTitle = w),
-      (l.getNewsletterRemediationOptionsDrawerTitle = A),
-      (l.getNewsletterDSAReportsDrawerTitle = F),
-      (l.getNewsletterReportClosedNullNewsletterNameDescription = O),
-      (l.getNewsletterReportPendingDescription = B),
-      (l.getNewsletterReportSuccessDescription = W),
-      (l.getNewsletterReportMessageLevelSuccessDescription = q),
-      (l.getNewsletterResponseReportSuccessDescription = U),
-      (l.getNewsletterResponseReportFailDescription = V),
-      (l.getNewsletterResponseReportContentUnavailableDescription = H),
-      (l.getNewsletterReportFailDescription = G),
-      (l.getNewsletterReportMessageLevelFailDescription = z),
-      (l.getNewsletterReportContentUnavailableDescription = j),
-      (l.getNewsletterStatusReportSuccessDescription = K),
-      (l.getNewsletterStatusReportFailDescription = Q),
-      (l.getNewsletterStatusReportContentUnavailableDescription = X));
+      (l.getAdminProfileRemovedTextForList = S),
+      (l.getAdminProfileInReviewTitleString = R),
+      (l.getAdminProfileReviewCompletedString = L),
+      (l.getChannelReviewCompletedString = E),
+      (l.getChannelInReviewTitleString = k),
+      (l.getChannelInReviewString = I),
+      (l.getRequestAppealButtonText = T),
+      (l.getRequestAppealRemediationOptionsRowText = D),
+      (l.getNewsletterDSBDrawerTitle = x),
+      (l.getNewsletterContactIPReporterDrawerTitle = $),
+      (l.getNewsletterRemediationOptionsDrawerTitle = P),
+      (l.getNewsletterDSAReportsDrawerTitle = N),
+      (l.getNewsletterReportClosedNullNewsletterNameDescription = M),
+      (l.getNewsletterReportPendingDescription = w),
+      (l.getNewsletterReportSuccessDescription = A),
+      (l.getNewsletterReportMessageLevelSuccessDescription = F),
+      (l.getNewsletterResponseReportSuccessDescription = O),
+      (l.getNewsletterResponseReportFailDescription = B),
+      (l.getNewsletterResponseReportContentUnavailableDescription = W),
+      (l.getNewsletterReportFailDescription = q),
+      (l.getNewsletterReportMessageLevelFailDescription = U),
+      (l.getNewsletterReportContentUnavailableDescription = V),
+      (l.getNewsletterStatusReportSuccessDescription = H),
+      (l.getNewsletterStatusReportFailDescription = G),
+      (l.getNewsletterStatusReportContentUnavailableDescription = z));
   },
   226,
 );
