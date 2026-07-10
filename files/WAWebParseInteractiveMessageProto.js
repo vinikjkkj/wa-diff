@@ -22,10 +22,12 @@ __d(
     "filterNulls",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = o("WAWebABProps").getABPropConfigValue(
+    function e() {
+      return o("WAWebABProps").getABPropConfigValue(
         "enable_product_carousel_message",
-      ),
-      s = "im_a2ui";
+      );
+    }
+    var s = "im_a2ui";
     function u(e) {
       var t,
         n,
@@ -185,7 +187,7 @@ __d(
                 .InteractiveMessageHeaderMediaType.VIDEO,
             };
           }
-          if (e && t.productMessage) {
+          if (e() && t.productMessage) {
             var d,
               m =
                 (d = r("WAWebParseProductMessageProto")({
@@ -277,7 +279,7 @@ __d(
           parentMsgId: n.id.clone(),
           bloksWidget: null,
         });
-      if (e && f.type === o("WAWebMsgType").MSG_TYPE.PRODUCT)
+      if (e() && f.type === o("WAWebMsgType").MSG_TYPE.PRODUCT)
         return babelHelpers.extends({}, f, p, {
           id: h,
           interactiveHeader: g,

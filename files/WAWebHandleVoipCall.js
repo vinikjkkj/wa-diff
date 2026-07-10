@@ -158,7 +158,7 @@ __d(
               ])),
           );
           try {
-            (yield t.initWAWebVoip(),
+            (yield t.initWAWebVoip("incoming"),
               !t.VoipInitEventEmitter.getIsVoipInited() &&
                 t.VoipInitEventEmitter.getDidVoipInitError() &&
                 (yield t.retryWAWebVoipInitAfterFailure()));

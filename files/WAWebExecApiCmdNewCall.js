@@ -5,6 +5,7 @@ __d(
     "WAWebCmd",
     "WAWebDialerPadFlowLoadable",
     "WAWebDrawerManager",
+    "WAWebExecApiCmdHelpers",
     "WAWebKeyboardTabUtils",
     "WAWebNavBarTypes",
     "WAWebQueryExistsJob",
@@ -24,7 +25,8 @@ __d(
     function d(t) {
       var n = t == null ? void 0 : t.lid,
         a = t == null ? void 0 : t.phone,
-        i = (t == null ? void 0 : t.video) === !0;
+        i = (t == null ? void 0 : t.video) === !0,
+        l = t == null ? void 0 : t.fromDefaultProtocol;
       if (r("isStringNullOrEmpty")(n))
         if (r("isStringNullOrEmpty")(a))
           (o("WAWebCmd").Cmd.setActiveNavBarItem(
@@ -39,26 +41,37 @@ __d(
               { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
             ));
         else {
-          var u = a.trim().replace(/\D/g, "");
-          if (u.length === 0) return;
-          var d = "+" + u;
+          var d = a.trim().replace(/\D/g, "");
+          if (d.length === 0) {
+            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(l, !1);
+            return;
+          }
+          var m = "+" + d;
           (o("WAWebCmd").Cmd.setActiveNavBarItem(
             o("WAWebNavBarTypes").NavBarItems.Calls,
           ),
             o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({}),
             o("WAWebQueryExistsJob")
-              .queryPhoneExists(d)
+              .queryPhoneExists(m)
               .then(function (e) {
                 if (e != null)
-                  return o("WAWebVoipStartCall").startWAWebVoipCall(
-                    e.wid,
-                    i,
-                    o("WAWebWamEnumCallFromUi").CALL_FROM_UI
-                      .CALL_PHONE_NUMBER_DEEPLINK,
-                  );
+                  return o("WAWebVoipStartCall")
+                    .startWAWebVoipCall(
+                      e.wid,
+                      i,
+                      o("WAWebWamEnumCallFromUi").CALL_FROM_UI
+                        .CALL_PHONE_NUMBER_DEEPLINK,
+                    )
+                    .then(function () {
+                      o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
+                        l,
+                        !0,
+                      );
+                    });
+                o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(l, !1);
               })
               .catch(function (e) {
-                o("WALogger")
+                (o("WALogger")
                   .ERROR(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -66,14 +79,19 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(e))
-                  .sendLogs("default-protocol-call-phone-failed");
+                  .sendLogs("default-protocol-call-phone-failed"),
+                  o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
+                    l,
+                    !1,
+                  ));
               }));
         }
       else {
-        var l;
+        var u;
         try {
-          l = o("WAWebWidFactory").createUserLidOrThrow(n);
+          u = o("WAWebWidFactory").createUserLidOrThrow(n);
         } catch (e) {
+          o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(l, !1);
           return;
         }
         (o("WAWebCmd").Cmd.setActiveNavBarItem(
@@ -81,18 +99,26 @@ __d(
         ),
           o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({}),
           o("WAWebQueryExistsJob")
-            .queryWidExists(l)
+            .queryWidExists(u)
             .then(function (e) {
               if (e != null)
-                return o("WAWebVoipStartCall").startWAWebVoipCall(
-                  e.wid,
-                  i,
-                  o("WAWebWamEnumCallFromUi").CALL_FROM_UI
-                    .CALL_PHONE_NUMBER_DEEPLINK,
-                );
+                return o("WAWebVoipStartCall")
+                  .startWAWebVoipCall(
+                    e.wid,
+                    i,
+                    o("WAWebWamEnumCallFromUi").CALL_FROM_UI
+                      .CALL_PHONE_NUMBER_DEEPLINK,
+                  )
+                  .then(function () {
+                    o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
+                      l,
+                      !0,
+                    );
+                  });
+              o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(l, !1);
             })
             .catch(function (t) {
-              o("WALogger")
+              (o("WALogger")
                 .ERROR(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -100,7 +126,11 @@ __d(
                     ])),
                 )
                 .catching(r("getErrorSafe")(t))
-                .sendLogs("default-protocol-call-lid-failed");
+                .sendLogs("default-protocol-call-lid-failed"),
+                o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
+                  l,
+                  !1,
+                ));
             }));
       }
     }

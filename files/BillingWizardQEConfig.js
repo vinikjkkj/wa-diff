@@ -105,6 +105,10 @@ __d(
           params: { india_cc_pending_default: e },
           type: "PAYMENT_ACCOUNT",
         },
+        billing_india_init_screen_v2: {
+          params: { billing_india_init_screen_signals_v1: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_india_translation_imprv_q2_26: {
           params: { use_new_content: e },
           type: "PAYMENT_ACCOUNT",

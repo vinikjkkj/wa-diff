@@ -12,6 +12,7 @@ __d(
     "WAWebSettingGatingUtils",
     "WAWebSettingsConst",
     "WAWebSettingsFBT",
+    "WAWebVoipGatingUtils",
     "WAWebWamEnumSettingsItemType",
     "cr:1131",
     "cr:17208",
@@ -96,8 +97,8 @@ __d(
               "show_previews",
               "show_reaction_notifications",
               "sounds",
-              "incoming_call_ringtone",
-              "mute_incoming_calls",
+              "show-calls-notification",
+              "option-play-call-ringtone",
             ],
           },
           "data_sharing",
@@ -364,7 +365,9 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.Notifications,
             id: "show-calls-notification",
-            isAvailable: !0,
+            isAvailable: function () {
+              return o("WAWebVoipGatingUtils").isCallingEnabled();
+            },
             title: o("WAWebSettingsFBT").showCallsTitle,
             searchCriteria: String(
               o("WAWebSettingsFBT").showCallsTitle(),
@@ -373,7 +376,9 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.Notifications,
             id: "option-play-call-ringtone",
-            isAvailable: !0,
+            isAvailable: function () {
+              return o("WAWebVoipGatingUtils").isCallingEnabled();
+            },
             title: o("WAWebSettingsFBT").playCallRingtoneTitle,
             searchCriteria: String(
               o("WAWebSettingsFBT").playCallRingtoneTitle(),

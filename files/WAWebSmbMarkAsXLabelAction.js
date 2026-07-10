@@ -73,7 +73,8 @@ __d(
         !(
           l == null ||
           !o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats()
-        )
+        ) &&
+        !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
       ) {
         var s = (i = e.accountLid) == null ? void 0 : i.toString(),
           u = o(

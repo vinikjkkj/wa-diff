@@ -20,7 +20,9 @@ __d(
     "WAWebUtilsLogQplEvents",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumDeepLinkOpenFrom",
+    "WAWebWamEnumDefaultProtocolResultType",
     "WAWebWidFactory",
+    "WAWebWindowsDefaultProtocolActivationWamEvent",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -29,6 +31,18 @@ __d(
       s,
       u = s || (s = o("react"));
     function c(e, t) {
+      e === !0 &&
+        new (o(
+          "WAWebWindowsDefaultProtocolActivationWamEvent",
+        ).WindowsDefaultProtocolActivationWamEvent)({
+          defaultProtocolResult: t
+            ? o("WAWebWamEnumDefaultProtocolResultType")
+                .DEFAULT_PROTOCOL_RESULT_TYPE.NAVIGATION_SUCCESS
+            : o("WAWebWamEnumDefaultProtocolResultType")
+                .DEFAULT_PROTOCOL_RESULT_TYPE.NAVIGATION_FAILURE,
+        }).commit();
+    }
+    function d(e, t) {
       var n = function (r) {
         var n = r.chat;
         self.setTimeout(function () {
@@ -65,7 +79,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       var r = o("WAWebProductCatalogContext").buildProductCatalogContext(
           new (o("WAWebProductCatalogSession").ProductCatalogSession)(),
           o("WAWebContactUtils").getMaybeBizPlatformForLogging(e),
@@ -104,7 +118,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function m(e) {
+    function p(e) {
       var t = e.customUrl,
         n = e.invalidUsernameKey,
         a = e.phone,
@@ -127,7 +141,7 @@ __d(
             ? { username: r("WANullthrows")(l), usernameKey: s }
             : { username: r("WANullthrows")(l), invalidUsernameKey: n };
     }
-    function p(e) {
+    function _(e) {
       var t = e.campaign,
         n = e.deepLinkSessionId,
         r = e.deepLinkType,
@@ -144,7 +158,7 @@ __d(
         campaign: t != null ? t : void 0,
       }).commit();
     }
-    function _(e) {
+    function f(e) {
       var t = e.chatId,
         n = e.deepLinkType,
         a = e.isExternal,
@@ -157,7 +171,7 @@ __d(
           partnerToken: i,
         }).finally(r("WAWebNoop"));
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = e.headers.get("content-disposition");
       if (n != null) {
         var r = /filename[^;=\n]*=(([\'\"]).*?\2|[^;\n]*)/,
@@ -166,7 +180,7 @@ __d(
       }
       return t;
     }
-    function g(t) {
+    function h(t) {
       return (e || (e = n("Promise"))).all(
         t.map(
           (function () {
@@ -175,7 +189,7 @@ __d(
                 var n = yield window.fetch(e),
                   r = yield n.blob(),
                   a = n.headers.get("Content-Type") || r.type,
-                  i = f(n, t.toString() + "." + a);
+                  i = g(n, t.toString() + "." + a);
                 return o("WAWebFileUtils").createFile([r], i, { type: a });
               },
             );
@@ -186,12 +200,13 @@ __d(
         ),
       );
     }
-    ((l.openChatAndCatalog = c),
-      (l.openChatAndProduct = d),
-      (l.getOpenChatFlowProps = m),
-      (l.submitDeepLinkOpenWamEvent = p),
-      (l.externalCtxAuthoriseWAChatIfEnabled = _),
-      (l.downloadAttachments = g));
+    ((l.logDefaultProtocolNavigation = c),
+      (l.openChatAndCatalog = d),
+      (l.openChatAndProduct = m),
+      (l.getOpenChatFlowProps = p),
+      (l.submitDeepLinkOpenWamEvent = _),
+      (l.externalCtxAuthoriseWAChatIfEnabled = f),
+      (l.downloadAttachments = h));
   },
   98,
 );

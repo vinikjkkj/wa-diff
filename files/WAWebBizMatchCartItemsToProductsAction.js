@@ -3,9 +3,9 @@ __d(
   [
     "fbt",
     "WATypeUtils",
+    "WAWebBizCartBridge",
     "WAWebBizClearCartAction",
     "WAWebBizProductCatalogBridge",
-    "WAWebBizSyncCartAction",
     "WAWebCatalogCollection",
     "WAWebConfirmPopup.react",
     "WAWebModalManager",
@@ -186,7 +186,7 @@ __d(
           (i.length && e.cartItemCollection.remove(i),
           e.trigger("change:cartItemCollection"),
           f()),
-        r("WAWebBizSyncCartAction")(e),
+        o("WAWebBizCartBridge").updateCart(e),
         a
       );
     }

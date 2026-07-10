@@ -400,49 +400,47 @@ __d(
       );
     }
     var D = {
-        OUT_OF_SYNC: {
-          getTitle: function () {
-            return s._(/*BTDS*/ "Changes cannot be saved");
-          },
-          getDescription: function () {
-            return s._(/*BTDS*/ "Please refresh and try again.");
-          },
-          getOkText: function () {
-            return s._(/*BTDS*/ "Reload");
-          },
+      OUT_OF_SYNC: {
+        getTitle: function () {
+          return s._(/*BTDS*/ "Changes cannot be saved");
         },
-        SERVER_ERROR: {
-          getTitle: function () {
-            return s._(/*BTDS*/ "Error");
-          },
-          getDescription: function () {
-            return s._(/*BTDS*/ "Something went wrong. Please try again.");
-          },
-          getOkText: function () {
-            return s._(/*BTDS*/ "OK");
-          },
+        getDescription: function () {
+          return s._(/*BTDS*/ "Please refresh and try again.");
         },
-        HTTP_NETWORK_ERROR: {
-          getTitle: function () {
-            return s._(/*BTDS*/ "No internet connection");
-          },
-          getDescription: function () {
-            return s._(
-              /*BTDS*/ "Check your internet connection and try again.",
-            );
-          },
-          getOkText: function () {
-            return s._(/*BTDS*/ "OK");
-          },
+        getOkText: function () {
+          return s._(/*BTDS*/ "Reload");
         },
       },
-      x = function (t) {
-        return t instanceof o("WAWebHttpErrors").HttpNetworkError
-          ? D.HTTP_NETWORK_ERROR
-          : t instanceof o("WAWebBackendErrors").CollectionReorderError
-            ? D.OUT_OF_SYNC
-            : D.SERVER_ERROR;
-      };
+      SERVER_ERROR: {
+        getTitle: function () {
+          return s._(/*BTDS*/ "Error");
+        },
+        getDescription: function () {
+          return s._(/*BTDS*/ "Something went wrong. Please try again.");
+        },
+        getOkText: function () {
+          return s._(/*BTDS*/ "OK");
+        },
+      },
+      HTTP_NETWORK_ERROR: {
+        getTitle: function () {
+          return s._(/*BTDS*/ "No internet connection");
+        },
+        getDescription: function () {
+          return s._(/*BTDS*/ "Check your internet connection and try again.");
+        },
+        getOkText: function () {
+          return s._(/*BTDS*/ "OK");
+        },
+      },
+    };
+    function x(e) {
+      return e instanceof o("WAWebHttpErrors").HttpNetworkError
+        ? D.HTTP_NETWORK_ERROR
+        : e instanceof o("WAWebBackendErrors").CollectionReorderError
+          ? D.OUT_OF_SYNC
+          : D.SERVER_ERROR;
+    }
     function $(e, t) {
       return P.apply(this, arguments);
     }

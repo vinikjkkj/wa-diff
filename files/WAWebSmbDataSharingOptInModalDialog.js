@@ -134,15 +134,20 @@ __d(
       },
       E = function (t, n, r) {
         var e =
-          t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true
-            ? o("WAWebWamEnumSmbDataSharingConsentScreenType")
-                .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
-                .SMB_DATA_SHARING_CONSENT_SCREEN_AGREE
-            : o("WAWebWamEnumSmbDataSharingConsentScreenType")
-                .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
-                .SMB_DATA_SHARING_CONSENT_SCREEN_DISAGREE;
+            t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true
+              ? o("WAWebWamEnumSmbDataSharingConsentScreenType")
+                  .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
+                  .SMB_DATA_SHARING_CONSENT_SCREEN_AGREE
+              : o("WAWebWamEnumSmbDataSharingConsentScreenType")
+                  .SMB_DATA_SHARING_CONSENT_SCREEN_TYPE
+                  .SMB_DATA_SHARING_CONSENT_SCREEN_DISAGREE,
+          a =
+            t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true &&
+            o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
+              ? o("WAWebCTWADataSharingModel").EPD_DISCLOSURE_VERSION
+              : void 0;
         return o("WAWebSMBDataSharingSettingAction")
-          .setSMBDataSharingSettingAction(t)
+          .setSMBDataSharingSettingAction(t, a)
           .then(function () {
             return L(e, n, r);
           })
@@ -186,10 +191,11 @@ __d(
       );
     }
     function x(e) {
-      var t = o("react-compiler-runtime").c(42),
-        n = e.perCustomerDataSharingControlsEnabled,
-        a = o("WAWebThemeContext").useIsDarkTheme();
-      a
+      var t = o("react-compiler-runtime").c(44),
+        n = e.isEpd,
+        a = e.useNewLayout,
+        i = o("WAWebThemeContext").useIsDarkTheme();
+      i
         ? p.jsx(
             o("WAWebBusinessDataSharingIllustrationDarkIcon.react")
               .BusinessDataSharingIllustrationDarkIcon,
@@ -200,33 +206,33 @@ __d(
               .BusinessDataSharingIllustrationLightIcon,
             {},
           );
-      var i, l;
+      var l, u;
       (t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = p.jsx(
+        ? ((u = p.jsx(
             o("WAWebWdsSmbPictoArrowsTransferIcon.react")
               .WdsSmbPictoArrowsTransferIcon,
             {},
           )),
-          (t[0] = l))
-        : (l = t[0]),
-        (i = l));
-      var u;
+          (t[0] = u))
+        : (u = t[0]),
+        (l = u));
+      var c;
       t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = p.jsx(o("WAWebFlex.react").FlexRow, {
+        ? ((c = p.jsx(o("WAWebFlex.react").FlexRow, {
             xstyle: [y.paddingTop24, y.paddingBottom24, y.illustration],
             justify: "center",
-            children: i,
+            children: l,
           })),
-          (t[1] = u))
-        : (u = t[1]);
-      var c = n && y.centered_text,
-        d;
-      t[2] !== c
-        ? ((d = [y.marginBottom12, y.title, c]), (t[2] = c), (t[3] = d))
-        : (d = t[3]);
-      var m;
+          (t[1] = c))
+        : (c = t[1]);
+      var d = a && y.centered_text,
+        m;
+      t[2] !== d
+        ? ((m = [y.marginBottom12, y.title, d]), (t[2] = d), (t[3] = m))
+        : (m = t[3]);
+      var _;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = o(
+        ? ((_ = o(
             "WAWebCTWAGatingUtils",
           ).isCTWA3pdDataSharingTitleChangeEnabled()
             ? s._(
@@ -235,144 +241,149 @@ __d(
             : s._(
                 /*BTDS*/ "Share customer-related activities to help improve your ads",
               )),
-          (t[4] = m))
-        : (m = t[4]);
-      var _;
-      t[5] !== d
-        ? ((_ = p.jsx(o("WAWebFlex.react").FlexRow, {
+          (t[4] = _))
+        : (_ = t[4]);
+      var f;
+      t[5] !== m
+        ? ((f = p.jsx(o("WAWebFlex.react").FlexRow, {
             children: p.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
               size: "20",
               color: "dark",
               weight: "medium",
-              xstyle: d,
-              children: m,
+              xstyle: m,
+              children: _,
             }),
           })),
-          (t[5] = d),
-          (t[6] = _))
-        : (_ = t[6]);
-      var f = n ? "secondary" : "dark",
-        g = n && y.centered_text,
-        h;
-      t[7] !== g
-        ? ((h = [y.paragraph, g]), (t[7] = g), (t[8] = h))
-        : (h = t[8]);
-      var C;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = s._(
-            /*BTDS*/ "To help your ads reach the right audience on Facebook and Instagram and improve Meta ads, you can share information to Meta about customer-related activities, such as when an order is created, updated or paid for.",
-          )),
-          (t[9] = C))
-        : (C = t[9]);
+          (t[5] = m),
+          (t[6] = f))
+        : (f = t[6]);
+      var g = a ? "secondary" : "dark",
+        h = a && y.centered_text,
+        C;
+      t[7] !== h
+        ? ((C = [y.paragraph, h]), (t[7] = h), (t[8] = C))
+        : (C = t[8]);
       var b;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = p.jsx(o("WAWebExternalLink.react").ExternalLink, {
-            href: o("WAWebTosUrl").getBizDataSharingHcaUrl(),
-            children: s._(/*BTDS*/ "Learn more"),
-          })),
+      t[9] !== n
+        ? ((b = n
+            ? s._(
+                /*BTDS*/ "To help your ads reach the right audience on Facebook and Instagram and improve Meta ads, you can share information to Meta about customer-related activities, such as message interaction data, or when an order is created, updated, or paid for.",
+              )
+            : s._(
+                /*BTDS*/ "To help your ads reach the right audience on Facebook and Instagram and improve Meta ads, you can share information to Meta about customer-related activities, such as when an order is created, updated, or paid for.",
+              )),
+          (t[9] = n),
           (t[10] = b))
         : (b = t[10]);
       var v;
-      t[11] !== f || t[12] !== h
-        ? ((v = p.jsx(o("WAWebFlex.react").FlexColumn, {
+      t[11] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = p.jsx(o("WAWebExternalLink.react").ExternalLink, {
+            href: o("WAWebTosUrl").getBizDataSharingHcaUrl(),
+            children: s._(/*BTDS*/ "Learn more"),
+          })),
+          (t[11] = v))
+        : (v = t[11]);
+      var S;
+      t[12] !== b || t[13] !== g || t[14] !== C
+        ? ((S = p.jsx(o("WAWebFlex.react").FlexColumn, {
             xstyle: y.marginBottom12,
             children: p.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
               size: "16",
-              color: f,
+              color: g,
               weight: "normal",
-              xstyle: h,
-              children: [C, " ", b],
+              xstyle: C,
+              children: [b, " ", v],
             }),
           })),
-          (t[11] = f),
-          (t[12] = h),
-          (t[13] = v))
-        : (v = t[13]);
-      var S = n ? y.iconColorNew : y.iconColor,
-        R;
-      t[14] !== S
-        ? ((R = p.jsx(r("WDSIconIcVisibilityOff.react"), {
+          (t[12] = b),
+          (t[13] = g),
+          (t[14] = C),
+          (t[15] = S))
+        : (S = t[15]);
+      var R = a ? y.iconColorNew : y.iconColor,
+        L;
+      t[16] !== R
+        ? ((L = p.jsx(r("WDSIconIcVisibilityOff.react"), {
             height: 22,
             width: 22,
-            xstyle: S,
+            xstyle: R,
           })),
-          (t[14] = S),
-          (t[15] = R))
-        : (R = t[15]);
-      var L;
-      t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = [y.marginStart24, y.paragraph, y.iconDescription]), (t[16] = L))
-        : (L = t[16]);
+          (t[16] = R),
+          (t[17] = L))
+        : (L = t[17]);
       var E;
-      t[17] !== n
-        ? ((E = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-            size: "16",
-            color: "dark",
-            xstyle: L,
-            children: s._(
-              /*BTDS*/ "Message and call content is not shared {period}",
-              [s._param("period", n && ".")],
-            ),
-          })),
-          (t[17] = n),
-          (t[18] = E))
+      t[18] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = [y.marginStart24, y.paragraph, y.iconDescription]), (t[18] = E))
         : (E = t[18]);
       var k;
-      t[19] !== R || t[20] !== E
-        ? ((k = p.jsxs(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            xstyle: y.marginBottom12,
-            children: [R, E],
-          })),
-          (t[19] = R),
-          (t[20] = E),
-          (t[21] = k))
-        : (k = t[21]);
-      var I = n ? y.iconColorNew : y.iconColor,
-        T;
-      t[22] !== I
-        ? ((T = p.jsx(r("WDSIconIcSettings.react"), { xstyle: I })),
-          (t[22] = I),
-          (t[23] = T))
-        : (T = t[23]);
-      var D;
-      t[24] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = [y.marginStart24, y.paragraph, y.iconDescription]), (t[24] = D))
-        : (D = t[24]);
-      var x;
-      t[25] !== n
-        ? ((x = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
+      t[19] !== a
+        ? ((k = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
             size: "16",
             color: "dark",
-            xstyle: D,
+            xstyle: E,
+            children: a
+              ? s._(/*BTDS*/ "Message and call content is not shared.")
+              : s._(/*BTDS*/ "Message and call content is not shared"),
+          })),
+          (t[19] = a),
+          (t[20] = k))
+        : (k = t[20]);
+      var I;
+      t[21] !== L || t[22] !== k
+        ? ((I = p.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: y.marginBottom12,
+            children: [L, k],
+          })),
+          (t[21] = L),
+          (t[22] = k),
+          (t[23] = I))
+        : (I = t[23]);
+      var T = a ? y.iconColorNew : y.iconColor,
+        D;
+      t[24] !== T
+        ? ((D = p.jsx(r("WDSIconIcSettings.react"), { xstyle: T })),
+          (t[24] = T),
+          (t[25] = D))
+        : (D = t[25]);
+      var x;
+      t[26] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = [y.marginStart24, y.paragraph, y.iconDescription]), (t[26] = x))
+        : (x = t[26]);
+      var $;
+      t[27] !== a
+        ? (($ = p.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
+            size: "16",
+            color: "dark",
+            xstyle: x,
             children: s._(
               /*BTDS*/ "You can always change this in the {settingsType}",
               [
                 s._param(
                   "settingsType",
-                  n ? "Data Sharing Settings." : "Ads Data Sharing Settings",
+                  a ? "Data Sharing Settings." : "Ads Data Sharing Settings",
                 ),
               ],
             ),
           })),
-          (t[25] = n),
-          (t[26] = x))
-        : (x = t[26]);
-      var $;
-      t[27] !== T || t[28] !== x
-        ? (($ = p.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[27] = a),
+          (t[28] = $))
+        : ($ = t[28]);
+      var P;
+      t[29] !== D || t[30] !== $
+        ? ((P = p.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: y.marginBottom12,
-            children: [T, x],
+            children: [D, $],
           })),
-          (t[27] = T),
-          (t[28] = x),
-          (t[29] = $))
-        : ($ = t[29]);
-      var P;
-      t[30] !== n
-        ? ((P =
-            n &&
+          (t[29] = D),
+          (t[30] = $),
+          (t[31] = P))
+        : (P = t[31]);
+      var N;
+      t[32] !== a
+        ? ((N =
+            a &&
             p.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
               xstyle: y.marginBottom12,
@@ -390,13 +401,13 @@ __d(
                 }),
               ],
             })),
-          (t[30] = n),
-          (t[31] = P))
-        : (P = t[31]);
-      var N = n && y.centered_text,
-        M;
-      t[32] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = s._(
+          (t[32] = a),
+          (t[33] = N))
+        : (N = t[33]);
+      var M = a && y.centered_text,
+        w;
+      t[34] === Symbol.for("react.memo_cache_sentinel")
+        ? ((w = s._(
             /*BTDS*/ "Per Meta's {=m1}, you must comply with all applicable laws. This includes informing your customers and having permission to share data with Meta.",
             [
               s._implicitParam(
@@ -408,39 +419,39 @@ __d(
               ),
             ],
           )),
-          (t[32] = M))
-        : (M = t[32]);
-      var w;
-      t[33] !== N
-        ? ((w = p.jsx(o("WAWebFlex.react").FlexRow, {
-            children: p.jsx(o("WAWebText.react").WAWebTextMuted, {
-              xstyle: N,
-              children: M,
-            }),
-          })),
-          (t[33] = N),
           (t[34] = w))
         : (w = t[34]);
       var A;
+      t[35] !== M
+        ? ((A = p.jsx(o("WAWebFlex.react").FlexRow, {
+            children: p.jsx(o("WAWebText.react").WAWebTextMuted, {
+              xstyle: M,
+              children: w,
+            }),
+          })),
+          (t[35] = M),
+          (t[36] = A))
+        : (A = t[36]);
+      var F;
       return (
-        t[35] !== v ||
-        t[36] !== k ||
-        t[37] !== $ ||
-        t[38] !== P ||
-        t[39] !== w ||
-        t[40] !== _
-          ? ((A = p.jsxs(o("WAWebFlex.react").FlexColumn, {
-              children: [u, _, v, k, $, P, w],
+        t[37] !== S ||
+        t[38] !== I ||
+        t[39] !== P ||
+        t[40] !== N ||
+        t[41] !== A ||
+        t[42] !== f
+          ? ((F = p.jsxs(o("WAWebFlex.react").FlexColumn, {
+              children: [c, f, S, I, P, N, A],
             })),
-            (t[35] = v),
-            (t[36] = k),
-            (t[37] = $),
-            (t[38] = P),
-            (t[39] = w),
-            (t[40] = _),
-            (t[41] = A))
-          : (A = t[41]),
-        A
+            (t[37] = S),
+            (t[38] = I),
+            (t[39] = P),
+            (t[40] = N),
+            (t[41] = A),
+            (t[42] = f),
+            (t[43] = F))
+          : (F = t[43]),
+        F
       );
     }
     var $ = function () {
@@ -496,7 +507,7 @@ __d(
         e());
     }
     function M(e) {
-      var t = o("react-compiler-runtime").c(27),
+      var t = o("react-compiler-runtime").c(28),
         a = e.callback,
         i = e.chats,
         l = e.entrypoint,
@@ -507,21 +518,30 @@ __d(
       t[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((y = o(
             "WAWebCTWAGatingUtils",
-          ).isPerCustomerDataSharingControlsEnabled()),
+          ).isCtwa3pdAggregatedConversionEnabled()),
           (t[0] = y))
         : (y = t[0]);
       var C = y,
-        v = g(null),
-        L,
-        k;
-      (t[1] !== l
-        ? ((L = function () {
+        v;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v =
+            o(
+              "WAWebCTWAGatingUtils",
+            ).isPerCustomerDataSharingControlsEnabled() || C),
+          (t[1] = v))
+        : (v = t[1]);
+      var L = v,
+        k = g(null),
+        I,
+        T;
+      (t[2] !== l
+        ? ((I = function () {
             var e = o(
               "WAWebCTWAGatingUtils",
             ).isCTWA3pdDataSharingAdditionalLoggingEnabled()
               ? b()
               : null;
-            v.current = e;
+            k.current = e;
             var t = o(
               "WAWebUserPrefsGeneral",
             ).getCTWADataSharingDisclosureShownCount();
@@ -542,22 +562,22 @@ __d(
                 "WAWebUserPrefsGeneral",
               ).setCTWADataSharingOptOutDisclosureShownCount(n + 1);
             }
-            P(l, e);
+            (P(l, e), r("WAWebCommonCTWADataSharing").markV2DisclosureSeen());
           }),
-          (k = [l]),
-          (t[1] = l),
-          (t[2] = L),
-          (t[3] = k))
-        : ((L = t[2]), (k = t[3])),
-        f(L, k));
-      var I;
-      t[4] !== a || t[5] !== i || t[6] !== l
-        ? ((I = function (t) {
+          (T = [l]),
+          (t[2] = l),
+          (t[3] = I),
+          (t[4] = T))
+        : ((I = t[3]), (T = t[4])),
+        f(I, T));
+      var D;
+      t[5] !== a || t[6] !== i || t[7] !== l
+        ? ((D = function (t) {
             var e =
               o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
               o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false;
             (_(!0),
-              E(t, l, v.current)
+              E(t, l, k.current)
                 .then(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                     if (
@@ -611,92 +631,90 @@ __d(
                 )
                 .catch(S));
           }),
-          (t[4] = a),
-          (t[5] = i),
-          (t[6] = l),
-          (t[7] = I))
-        : (I = t[7]);
-      var T = I,
-        D;
-      t[8] !== T
-        ? ((D = function () {
-            return T(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true);
-          }),
-          (t[8] = T),
-          (t[9] = D))
-        : (D = t[9]);
+          (t[5] = a),
+          (t[6] = i),
+          (t[7] = l),
+          (t[8] = D))
+        : (D = t[8]);
       var M = D,
         O;
-      t[10] !== T
+      t[9] !== M
         ? ((O = function () {
-            return T(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.false);
+            return M(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.true);
           }),
-          (t[10] = T),
-          (t[11] = O))
-        : (O = t[11]);
+          (t[9] = M),
+          (t[10] = O))
+        : (O = t[10]);
       var B = O,
         W;
-      t[12] !== a || t[13] !== l
+      t[11] !== M
         ? ((W = function () {
-            N(a, l, v.current);
+            return M(o("WASmaxInBizSettingsEnums").ENUM_FALSE_TRUE.false);
           }),
-          (t[12] = a),
-          (t[13] = l),
-          (t[14] = W))
-        : (W = t[14]);
+          (t[11] = M),
+          (t[12] = W))
+        : (W = t[12]);
       var q = W,
         U;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((U = s._(/*BTDS*/ "Enable")), (t[15] = U))
+      t[13] !== a || t[14] !== l
+        ? ((U = function () {
+            N(a, l, k.current);
+          }),
+          (t[13] = a),
+          (t[14] = l),
+          (t[15] = U))
         : (U = t[15]);
       var V = U,
         H;
       t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((H = s._(/*BTDS*/ "Allow")), (t[16] = H))
+        ? ((H = s._(/*BTDS*/ "Enable")), (t[16] = H))
         : (H = t[16]);
       var G = H,
         z;
       t[17] === Symbol.for("react.memo_cache_sentinel")
-        ? ((z = s._(/*BTDS*/ "Don't enable")), (t[17] = z))
+        ? ((z = s._(/*BTDS*/ "Allow")), (t[17] = z))
         : (z = t[17]);
       var j = z,
         K;
       t[18] === Symbol.for("react.memo_cache_sentinel")
-        ? ((K = s._(/*BTDS*/ "Don't allow")), (t[18] = K))
+        ? ((K = s._(/*BTDS*/ "Don't enable")), (t[18] = K))
         : (K = t[18]);
       var Q = K,
         X;
-      t[19] !== m
-        ? ((X = m
-            ? p.jsx($, {})
-            : p.jsx(x, { perCustomerDataSharingControlsEnabled: C })),
-          (t[19] = m),
-          (t[20] = X))
-        : (X = t[20]);
-      var Y;
+      t[19] === Symbol.for("react.memo_cache_sentinel")
+        ? ((X = s._(/*BTDS*/ "Don't allow")), (t[19] = X))
+        : (X = t[19]);
+      var Y = X,
+        J;
+      t[20] !== m
+        ? ((J = m ? p.jsx($, {}) : p.jsx(x, { useNewLayout: L, isEpd: C })),
+          (t[20] = m),
+          (t[21] = J))
+        : (J = t[21]);
+      var Z;
       return (
-        t[21] !== B || t[22] !== q || t[23] !== M || t[24] !== m || t[25] !== X
-          ? ((Y = p.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        t[22] !== q || t[23] !== V || t[24] !== B || t[25] !== m || t[26] !== J
+          ? ((Z = p.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               testid: "ctwa-business-data-sharing-modal-dialog",
               buttonsDirection: "horizontal",
               type: o("WAWebModal.react").ModalTheme.DataSharing,
-              onOK: M,
+              onOK: B,
               okDisabled: m,
               cancelDisabled: m,
-              okText: C ? V : G,
-              onCancel: B,
-              onOverlayClick: q,
-              cancelText: C ? j : Q,
-              children: X,
+              okText: L ? G : j,
+              onCancel: q,
+              onOverlayClick: V,
+              cancelText: L ? Q : Y,
+              children: J,
             })),
-            (t[21] = B),
             (t[22] = q),
-            (t[23] = M),
-            (t[24] = m),
-            (t[25] = X),
-            (t[26] = Y))
-          : (Y = t[26]),
-        Y
+            (t[23] = V),
+            (t[24] = B),
+            (t[25] = m),
+            (t[26] = J),
+            (t[27] = Z))
+          : (Z = t[27]),
+        Z
       );
     }
     function w(e) {

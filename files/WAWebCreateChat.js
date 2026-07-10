@@ -227,6 +227,7 @@ __d(
                 ).getCTWAEligibilityFromConversion({
                   conversionData: y.ctwaContext.conversionData,
                   conversionSource: y.ctwaContext.conversionSource,
+                  ctwaSignals: y.ctwaContext.ctwaSignals,
                 }),
               Q = y == null ? void 0 : y.ctwaContext,
               X =

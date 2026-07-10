@@ -20,36 +20,60 @@ __d(
     var e,
       s,
       u = 2,
-      c = { CHAT: "CHAT", MESSAGE: "MESSAGE" },
-      d = function (t) {
+      c = function () {
+        return !o(
+          "WAWebCTWAGatingUtils",
+        ).isCtwa3pdAggregatedConversionEnabled() ||
+          o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion() >=
+            o("WAWebCTWADataSharingModel").EPD_DISCLOSURE_VERSION
+          ? !1
+          : !o("WAWebUserPrefsGeneral").getCTWADataSharingV2DisclosureSeen();
+      },
+      d = function (t, n) {
+        return t !== o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
+          ? !1
+          : o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
+            ? n >= o("WAWebCTWADataSharingModel").EPD_DISCLOSURE_VERSION
+            : !0;
+      },
+      m = function () {
+        o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled() &&
+          o("WAWebUserPrefsGeneral").setCTWADataSharingV2DisclosureSeen();
+      },
+      p = { CHAT: "CHAT", MESSAGE: "MESSAGE" },
+      _ = function (t) {
         var e = r("WAWebConversionTupleCollection").get(t.id);
         if (!e) return null;
         var n = e.conversionData,
-          a = e.conversionSource;
+          a = e.conversionSource,
+          i = e.ctwaSignals;
         return o(
           "WAWebGetCTWAEligibilityFromConversion",
         ).getCTWAEligibilityFromConversion({
           conversionData: n,
           conversionSource: a,
+          ctwaSignals: i,
         });
       },
-      m = function (t) {
+      f = function (t) {
         var e = r("WAWebConversionTupleCollection").get(t.id);
         if (!e || e.fromMe !== !1) return null;
         var n = e.conversionData,
-          a = e.conversionSource;
+          a = e.conversionSource,
+          i = e.ctwaSignals;
         return o(
           "WAWebGetCTWAEligibilityFromConversion",
         ).getCTWAEligibilityFromConversion({
           conversionData: n,
           conversionSource: a,
+          ctwaSignals: i,
         });
       };
-    function p(e) {
+    function g(e) {
       var t = r("WAWebConversionTupleCollection").get(e.id);
       if (t) return t.ctwaSignals;
     }
-    var _ = function () {
+    var h = function () {
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
           t = o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp(),
           n = t != null,
@@ -64,13 +88,13 @@ __d(
           o("WAWebMobilePlatforms").isSMB()
         );
       },
-      f = function (t) {
-        return d(t) == null ||
+      y = function (t) {
+        return _(t) == null ||
           !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
           ? !1
-          : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
+          : C(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
       },
-      g = function (t) {
+      C = function (t) {
         return o(
           "WAWebDataSharingOptInCoolOffModel",
         ).DataSharingOptInCoolOffModel.isCoolOffActive()
@@ -92,13 +116,13 @@ __d(
                   ).getCTWADataSharingDisclosureShownCount() < u
               : !1;
       },
-      h = function (n, r) {
+      b = function (n, r) {
         var t;
-        if (r === c.CHAT)
+        if (r === p.CHAT)
           t = o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats;
         else
           return (
-            r === c.MESSAGE ||
+            r === p.MESSAGE ||
               o("WALogger").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -107,11 +131,11 @@ __d(
               ),
             !1
           );
-        return d(n) == null || !t()
+        return _(n) == null || !t()
           ? !1
-          : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
+          : C(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
       },
-      y = function () {
+      v = function () {
         if (
           !o("WAWebCTWAGatingUtils").isDataSharingDisclosureOnListsHomeEnabled()
         )
@@ -119,47 +143,49 @@ __d(
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
           t =
             e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true ||
-            e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false;
-        return (
-          !t &&
-          o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp() ==
-            null
-        );
+            e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false,
+          n =
+            o(
+              "WAWebUserPrefsGeneral",
+            ).getCTWADataSharingDisclosureShownCount() === 0 &&
+            o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp() ==
+              null;
+        return !t && n && o("WAWebUserPrefsGeneral").getCTWAMessageReceived();
       },
-      C = function (t, n, a) {
+      S = function (t, n, r) {
         var e;
         if (
-          a < 1 ||
+          r < 1 ||
           !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled() ||
-          m(t) == null
+          f(t) == null
         )
           return !1;
-        var i = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
-          l = (e = t.accountLid) == null ? void 0 : e.toString(),
-          s =
-            l != null
+        var a = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
+          i = (e = t.accountLid) == null ? void 0 : e.toString(),
+          l =
+            i != null
               ? o(
                   "WAWebDataSharing3pdLidCollection",
-                ).DataSharing3pdLidCollection.isDataSharingEnabled(l)
+                ).DataSharing3pdLidCollection.isDataSharingEnabled(i)
               : !0,
-          u =
-            i === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
+          s =
+            a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
             !o(
               "WAWebCTWAGatingUtils",
             ).isPerCustomerDataSharingControlsEnabled(),
+          u =
+            a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
+            n === "order-create" &&
+            o("WAWebDataSharingUpsellModel").isUpsellEnabled(),
           c =
-            i === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
+            a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
+            !l &&
             n === "order-create" &&
-            r("WAWebDataSharingUpsellModel").isUpsellEnabled(),
-          d =
-            i === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
-            !s &&
-            n === "order-create" &&
-            r("WAWebDataSharingUpsellModel").isUpsellEnabled() &&
+            o("WAWebDataSharingUpsellModel").isUpsellEnabled() &&
             o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
-        return u || c || d;
+        return s || u || c;
       },
-      b = function (t) {
+      R = function (t) {
         if (t.length === 0) return !1;
         var e = [];
         if (!o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats())
@@ -168,11 +194,11 @@ __d(
           t instanceof o("WAWebChatModel").Chat && e.push(t);
         });
         var n = e.filter(function (e) {
-          return m(e) != null;
+          return f(e) != null;
         });
         if (n.length === 0) return !1;
-        var a = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
-          i = n.every(function (e) {
+        var r = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
+          a = n.every(function (e) {
             var t,
               n = (t = e.accountLid) == null ? void 0 : t.toString();
             return n != null
@@ -181,22 +207,22 @@ __d(
                 ).DataSharing3pdLidCollection.isDataSharingEnabled(n)
               : !0;
           }),
-          l =
-            a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
+          i =
+            r === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
             !o(
               "WAWebCTWAGatingUtils",
             ).isPerCustomerDataSharingControlsEnabled(),
+          l =
+            r === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
+            o("WAWebDataSharingUpsellModel").isUpsellEnabled(),
           s =
-            a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
-            r("WAWebDataSharingUpsellModel").isUpsellEnabled(),
-          u =
-            a === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
-            !i &&
-            r("WAWebDataSharingUpsellModel").isUpsellEnabled() &&
+            r === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
+            !a &&
+            o("WAWebDataSharingUpsellModel").isUpsellEnabled() &&
             o("WAWebCTWAGatingUtils").isPerCustomerDataSharingControlsEnabled();
-        return l || s || u;
+        return i || l || s;
       },
-      v = (function () {
+      L = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
             return null;
@@ -213,7 +239,7 @@ __d(
                 ),
                 t.value ===
                   o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
-                  r("WAWebDataSharingUpsellModel").enableUpsell()),
+                  o("WAWebDataSharingUpsellModel").enableUpsell()),
               (e = t == null ? void 0 : t.value) != null ? e : null
             );
           } catch (e) {
@@ -232,24 +258,27 @@ __d(
           return e.apply(this, arguments);
         };
       })(),
-      S = {
+      E = {
         SMB_DATA_SHARING_ALLOWED_SOURCE: o(
           "WAWebGetCTWAEligibilityFromConversion",
         ).SMB_DATA_SHARING_ALLOWED_SOURCE,
-        SmbDataSharingLabelTargetValues: c,
-        getCTWAEligibilityFromChat: d,
-        getReceivedCTWAEligibilityFromChat: m,
-        getCTWASignalsValueFromChat: p,
-        shouldDisplayDataSharingSetting: _,
-        shouldShowOrderDataSharingDialog: f,
-        shouldShowDisclosureBasedOnCurrentDataSharingSetting: g,
-        shouldShowLabelDataSharingDialog: h,
-        shouldShowListsManagementDataSharingDialog: y,
-        shouldDisplayDataSharingOrderOptOutOrUpsell: C,
-        shouldDisplayDataSharingLabelOptOutOrUpsell: b,
-        fetchDataSharingSettingAndUpdateModel: v,
+        SmbDataSharingLabelTargetValues: p,
+        getCTWAEligibilityFromChat: _,
+        getReceivedCTWAEligibilityFromChat: f,
+        getCTWASignalsValueFromChat: g,
+        shouldDisplayDataSharingSetting: h,
+        shouldShowOrderDataSharingDialog: y,
+        shouldShowDisclosureBasedOnCurrentDataSharingSetting: C,
+        shouldShowLabelDataSharingDialog: b,
+        shouldShowListsManagementDataSharingDialog: v,
+        shouldDisplayDataSharingOrderOptOutOrUpsell: S,
+        shouldDisplayDataSharingLabelOptOutOrUpsell: R,
+        fetchDataSharingSettingAndUpdateModel: L,
+        shouldShowV2Disclosure: c,
+        markV2DisclosureSeen: m,
+        isGlobalDataSharingAccepted: d,
       };
-    l.default = S;
+    l.default = E;
   },
   98,
 );

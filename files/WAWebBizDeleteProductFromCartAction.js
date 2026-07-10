@@ -1,14 +1,14 @@
 __d(
   "WAWebBizDeleteProductFromCartAction",
-  ["WAWebBizSyncCartAction", "WAWebCartCollection"],
+  ["WAWebBizCartBridge", "WAWebCartCollection"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n = o("WAWebCartCollection").CartCollection.findCart(e),
-        a = n.cartItemCollection;
+        r = n.cartItemCollection;
       return (
-        a.remove(t),
+        r.remove(t),
         n.trigger("change:cartItemCollection"),
-        r("WAWebBizSyncCartAction")(n),
+        o("WAWebBizCartBridge").updateCart(n),
         n.itemCount
       );
     }

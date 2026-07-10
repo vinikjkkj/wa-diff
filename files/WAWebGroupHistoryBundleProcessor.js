@@ -45,6 +45,7 @@ __d(
     "countWhere",
     "decodeProtobuf",
     "err",
+    "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R;
@@ -90,17 +91,16 @@ __d(
                     .PIN_FOR_ALL
                 );
               }),
-              b = (
-                (g = y.uncountedAssociatedMessageLists) != null ? g : []
-              ).reduce(function (e, t) {
-                var n, r;
-                return (
-                  e +
-                  ((n = (r = t.messages) == null ? void 0 : r.length) != null
-                    ? n
-                    : 0)
-                );
-              }, 0);
+              b = r("sumBy")(
+                (g = y.uncountedAssociatedMessageLists) != null ? g : [],
+                function (e) {
+                  var t, n;
+                  return (t = (n = e.messages) == null ? void 0 : n.length) !=
+                    null
+                    ? t
+                    : 0;
+                },
+              );
             o("WAWebBackendApi").frontendFireAndForget(
               "logGroupHistoryParseHistoryProtoSucceeded",
               {

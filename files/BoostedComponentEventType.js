@@ -1685,6 +1685,9 @@ __d(
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:
         "proactive_results_delivery_skipped_not_opted_in",
       SGC_OPTIMIZATION_SCHEDULED: "sgc_optimization_scheduled",
+      SGC_OPTIMIZATION_RUN: "sgc_optimization_run",
+      SGC_OPTIMIZATION_SUCCESS: "sgc_optimization_success",
+      SGC_OPTIMIZATION_FAILED: "sgc_optimization_failed",
       SGC_TOGGLE_IMPRESSION: "sgc_toggle_impression",
       SGC_TOGGLE_INTERACTION: "sgc_toggle_interaction",
       PROACTIVE_MESSAGE_SENT: "proactive_message_sent",

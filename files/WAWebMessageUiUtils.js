@@ -481,25 +481,26 @@ __d(
       var t = window.innerWidth,
         n = 300,
         r = 90,
-        a = e.top >= r,
-        i = e.left + e.width / 2 >= n / 2,
-        l = t - (e.left + e.width / 2) >= n / 2,
-        s = function (n, r) {
-          return i && l
+        a = 4,
+        i = e.top >= r + a,
+        l = e.left + e.width / 2 >= n / 2,
+        s = t - (e.left + e.width / 2) >= n / 2,
+        u = function (n, r) {
+          return l && s
             ? {
                 anchorX: e.left + e.width / 2,
                 anchorY: n,
                 dirX: o("WAWebDropdown.react").DirX.CENTER,
                 dirY: r,
               }
-            : i && !l
+            : l && !s
               ? {
                   anchorX: e.right,
                   anchorY: n,
                   dirX: o("WAWebDropdown.react").DirX.LEFT,
                   dirY: r,
                 }
-              : !i && l
+              : !l && s
                 ? {
                     anchorX: e.left,
                     anchorY: n,
@@ -513,9 +514,9 @@ __d(
                     dirY: r,
                   };
         };
-      return a
-        ? s(e.top, o("WAWebDropdown.react").DirY.TOP)
-        : s(e.bottom, o("WAWebDropdown.react").DirY.BOTTOM);
+      return i
+        ? u(e.top - a, o("WAWebDropdown.react").DirY.TOP)
+        : u(e.bottom + a, o("WAWebDropdown.react").DirY.BOTTOM);
     }
     ((l.ETA_SUPPORTED_STATES = u),
       (l.getMediaCheckBoxAriaLabel = d),

@@ -884,10 +884,7 @@ __d(
         (Le = e.fingerprint),
         ze());
     }
-    function st() {
-      return [].concat(Ee);
-    }
-    function ut(e) {
+    function st(e) {
       if (Te && ue != null) {
         var t = ue,
           n = Be(e);
@@ -918,7 +915,7 @@ __d(
               ke.length,
             );
     }
-    function ct(e) {
+    function ut(e) {
       if (_e) return !0;
       if (
         de === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
@@ -947,27 +944,27 @@ __d(
         }
       return !1;
     }
-    function dt(e) {
+    function ct(e) {
       Ne = e;
     }
-    function mt(e) {
+    function dt(e) {
       Me = e;
     }
-    function pt(e) {
+    function mt(e) {
       we = e;
     }
-    function _t() {
+    function pt() {
       return de;
     }
-    function ft() {
+    function _t() {
       return ie;
     }
-    function gt(e) {
-      return ht.apply(this, arguments);
+    function ft(e) {
+      return gt.apply(this, arguments);
     }
-    function ht() {
+    function gt() {
       return (
-        (ht = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (gt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = le;
           try {
             var n = yield o("WAWebVoipStackInterface").getVoipStackInterface(),
@@ -986,22 +983,22 @@ __d(
               t === le && (ie = !1));
           }
         })),
-        ht.apply(this, arguments)
+        gt.apply(this, arguments)
       );
     }
-    function yt(e, t, n) {
+    function ht(e, t, n) {
       ((re = e), (oe = t), (ae = n));
     }
-    function Ct(e, t) {
+    function yt(e, t) {
       return t === ae && (e === re || e === oe);
     }
-    function bt() {
+    function Ct() {
       return ge;
     }
-    function vt(e) {
+    function bt(e) {
       return e === ge || (he && e === ye);
     }
-    function St() {
+    function vt() {
       _e &&
         (o("WALogger").LOG(
           x ||
@@ -1011,7 +1008,7 @@ __d(
         ),
         Ye());
     }
-    function Rt(e) {
+    function St(e) {
       var t = _e || he;
       t &&
         (o("WALogger").LOG(
@@ -1051,21 +1048,20 @@ __d(
       (l.getLocalIceCredentials = at),
       (l.getLocalDtlsFingerprint = it),
       (l.handleRemoteCredentials = lt),
-      (l.getLocalCandidates = st),
-      (l.handleRemoteCandidate = ut),
-      (l.sendP2PData = ct),
-      (l.registerOnDataChannelMessage = dt),
-      (l.registerOnDataChannelStateChange = mt),
-      (l.registerOnIceCandidate = pt),
-      (l.getP2PConnectionState = _t),
-      (l.isP2PEnabled = ft),
-      (l.refreshP2PEnablement = gt),
-      (l.initP2PVirtualAddresses = yt),
-      (l.isP2PVirtualAddress = Ct),
-      (l.getP2PConnectionId = bt),
-      (l.isP2PConnectionId = vt),
-      (l.handleWorkerP2PChannelOpened = St),
-      (l.handleWorkerP2PChannelClosed = Rt));
+      (l.handleRemoteCandidate = st),
+      (l.sendP2PData = ut),
+      (l.registerOnDataChannelMessage = ct),
+      (l.registerOnDataChannelStateChange = dt),
+      (l.registerOnIceCandidate = mt),
+      (l.getP2PConnectionState = pt),
+      (l.isP2PEnabled = _t),
+      (l.refreshP2PEnablement = ft),
+      (l.initP2PVirtualAddresses = ht),
+      (l.isP2PVirtualAddress = yt),
+      (l.getP2PConnectionId = Ct),
+      (l.isP2PConnectionId = bt),
+      (l.handleWorkerP2PChannelOpened = vt),
+      (l.handleWorkerP2PChannelClosed = St));
   },
   98,
 );

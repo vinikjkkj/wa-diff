@@ -52,7 +52,10 @@ __d(
           d = n.type,
           m = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t),
           p = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(t);
-        if (m != null) {
+        if (
+          m != null &&
+          !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
+        ) {
           var _ = r("WAWebConversionTupleCollection").get(t.id);
           if (
             !(

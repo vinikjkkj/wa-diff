@@ -153,8 +153,22 @@ __d(
         l = y(e, t);
       if ((n != null && l < n) || (r != null && l > r)) return !1;
       var s = t.replace(/\D+$/g, ""),
-        u = p(a);
-      return !(Number.isNaN(l) || s !== t || (t.split(u)[1] || "").length > i);
+        u = p(a),
+        d = _(a),
+        m = f(a, e),
+        g = t
+          .replace(m, "")
+          .trim()
+          .replace(/^[-+]/, "")
+          .split(d)
+          .join("")
+          .replace(u, "");
+      return !(
+        Number.isNaN(l) ||
+        s !== t ||
+        /\D/.test(g) ||
+        (t.split(u)[1] || "").length > i
+      );
     }
     function S(e) {
       var t = o("WAWebCurrencyData").REGION_TO_CURRENCY[e.toUpperCase()];

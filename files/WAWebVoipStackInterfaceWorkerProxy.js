@@ -23,6 +23,7 @@ __d(
     "WAWebVoipMessagePortRpc",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPerfOptimizations",
+    "WAWebVoipQplHelpers",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipRelayOverrides",
     "WAWebVoipScreenShareStreamKey",
@@ -236,25 +237,38 @@ __d(
         var e = i;
         if (e != null) return e;
         var s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield t,
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [WorkerProxy] WASM loaded, creating JsWorkerThread",
-                ])),
+          var e = yield t;
+          (o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [WorkerProxy] WASM loaded, creating JsWorkerThread",
+              ])),
+          ),
+            e.initVoipLogging(),
+            o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+              o("WAWebVoipQplHelpers").VoipInitQplPoint.WORKER_CREATE_START,
             ));
-          var e = yield r("WAWebVoipJsWorkerThread").create();
+          var n = yield r("WAWebVoipJsWorkerThread")
+            .create()
+            .finally(function () {
+              o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                o("WAWebVoipQplHelpers").VoipInitQplPoint.WORKER_CREATE_END,
+              );
+            });
           o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [WorkerProxy] JsWorkerThread created",
               ])),
           );
-          var n = new MessageChannel(),
-            i = new (o("WAWebVoipMessagePortRpc").MessagePortRpc)(n.port1);
-          i.start();
-          var s = a++,
-            u = J(e, s, i);
+          var i = new MessageChannel(),
+            s = new (o("WAWebVoipMessagePortRpc").MessagePortRpc)(i.port1);
+          (s.start(),
+            o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+              o("WAWebVoipQplHelpers").VoipInitQplPoint.RPC_SETUP_START,
+            ));
+          var u = a++,
+            c = J(n, u, s);
           (o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -262,28 +276,32 @@ __d(
                 " ",
                 "",
               ])),
-            s,
+            u,
             Q(),
           ),
-            e.worker.postMessage(
+            n.worker.postMessage(
               {
                 type: "cmd",
                 cmd: "jsWorkerCmd",
                 jsWorkerCmd: "startVoipRpc",
-                rpcPort: n.port2,
-                token: s,
+                rpcPort: i.port2,
+                token: u,
               },
-              [n.port2],
+              [i.port2],
             ));
           try {
-            yield u;
-          } catch (t) {
+            yield c.finally(function () {
+              o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                o("WAWebVoipQplHelpers").VoipInitQplPoint.RPC_SETUP_END,
+              );
+            });
+          } catch (e) {
             throw (
-              i.close("RPC ready failure"),
+              s.close("RPC ready failure"),
               o(
                 "WAWebCoreActionsODS",
               ).logCallVoipRpcReadyCleanupShutdownAttempted(),
-              e.shutdown().catch(function (e) {
+              n.shutdown().catch(function (e) {
                 (o(
                   "WAWebCoreActionsODS",
                 ).logCallVoipRpcReadyCleanupShutdownFailed(),
@@ -296,7 +314,7 @@ __d(
                     String(e),
                   ));
               }),
-              t
+              e
             );
           }
           return (
@@ -309,7 +327,7 @@ __d(
             l &&
               ((l = !1),
               o("WAWebCoreActionsODS").logCallVoipRpcReadyRetrySuccess()),
-            { jsWorker: e, rpc: i }
+            { jsWorker: n, rpc: s }
           );
         })();
         return (
@@ -456,6 +474,9 @@ __d(
                 o("WAWebVoipStorageInit").initVoipStorageAndMLCache(l));
               var s = !1,
                 u = !1;
+              o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                o("WAWebVoipQplHelpers").VoipInitQplPoint.WEBCODECS_PROBE_START,
+              );
               try {
                 yield o(
                   "WAWebVoipVideoRendererRegistry",
@@ -491,16 +512,19 @@ __d(
                   e,
                 );
               }
-              (o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [WorkerProxy] dec=",
-                    " enc=",
-                    "",
-                  ])),
-                s,
-                u,
+              (o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                o("WAWebVoipQplHelpers").VoipInitQplPoint.WEBCODECS_PROBE_END,
               ),
+                o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [WorkerProxy] dec=",
+                      " enc=",
+                      "",
+                    ])),
+                  s,
+                  u,
+                ),
                 o("WALogger").LOG(
                   S ||
                     (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -542,7 +566,11 @@ __d(
                     type: "bool",
                   }),
                   (p.disable_standalone_agc = { value: !0, type: "bool" }),
-                  (p.disable_eq = { value: !0, type: "bool" })));
+                  (p.disable_eq = { value: !0, type: "bool" })),
+                o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                  o("WAWebVoipQplHelpers").VoipInitQplPoint
+                    .VOIP_STACK_INIT_START,
+                ));
               try {
                 yield oe("voipInit", {
                   selfJid: e,
@@ -552,6 +580,10 @@ __d(
                 });
               } catch (e) {
                 throw (ie(e), e);
+              } finally {
+                o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                  o("WAWebVoipQplHelpers").VoipInitQplPoint.VOIP_STACK_INIT_END,
+                );
               }
               o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
                 l,

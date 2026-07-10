@@ -8,28 +8,29 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
+            (e === void 0 && (e = "call"),
             !o(
               "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getIsVoipInited()
+            ).VoipInitEventEmitter.getIsVoipInited())
           ) {
-            var e = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
-              t = e.WAWebVoipInit;
+            var t = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
+              n = t.WAWebVoipInit;
             if (
-              (yield t.initWAWebVoip(),
+              (yield n.initWAWebVoip(e),
               !o(
                 "WAWebVoipInitEventEmitter",
               ).VoipInitEventEmitter.getIsVoipInited() &&
                 (o(
                   "WAWebVoipInitEventEmitter",
                 ).VoipInitEventEmitter.getDidVoipInitError() &&
-                  (yield t.retryWAWebVoipInitAfterFailure()),
+                  (yield n.retryWAWebVoipInitAfterFailure()),
                 !o(
                   "WAWebVoipInitEventEmitter",
                 ).VoipInitEventEmitter.getIsVoipInited()))

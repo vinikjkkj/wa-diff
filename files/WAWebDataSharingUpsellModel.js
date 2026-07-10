@@ -20,8 +20,7 @@ __d(
           !0,
         ));
     }
-    var c = { isUpsellEnabled: s, enableUpsell: u };
-    l.default = c;
+    ((l.isUpsellEnabled = s), (l.enableUpsell = u));
   },
   98,
 );

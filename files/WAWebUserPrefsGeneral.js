@@ -873,61 +873,74 @@ __d(
       );
     }
     function _t() {
+      return (
+        r("WAWebUserPrefsStore").get(
+          o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_V2_DISCLOSURE_SEEN,
+        ) === !0
+      );
+    }
+    function ft() {
+      r("WAWebUserPrefsStore").set(
+        o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_V2_DISCLOSURE_SEEN,
+        !0,
+      );
+    }
+    function gt() {
       return !!r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.CTWA_MESSAGE_RECEIVED,
       );
     }
-    function ft(e) {
+    function ht(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.CTWA_MESSAGE_RECEIVED,
         e,
       );
     }
-    function gt(e) {
+    function yt(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").UserPrefs.GPCCompleted,
         e,
       );
     }
-    function ht() {
+    function Ct() {
       return (
         r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").UserPrefs.GPCCompleted,
         ) === !0
       );
     }
-    function yt(e) {
+    function bt(e) {
       r("WAWebUserPrefsStore").set(
         r("WAWebUserPrefsDebugKeys").DEBUG_FACEBOOK_GRAPHQL_ENDPOINT_OVERRIDE,
         e,
       );
     }
-    function Ct() {
+    function vt() {
       var e = r("WAWebUserPrefsStore").get(
         r("WAWebUserPrefsDebugKeys").DEBUG_FACEBOOK_GRAPHQL_ENDPOINT_OVERRIDE,
       );
       return typeof e == "number" ? String(e) : typeof e == "string" ? e : null;
     }
-    function bt() {
+    function St() {
       return (
         r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").UserPrefs.DetectedOutcomeOnboardingStatus,
         ) === !0
       );
     }
-    function vt(e) {
+    function Rt(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").UserPrefs.DetectedOutcomeOnboardingStatus,
         e,
       );
     }
-    function St() {
+    function Lt() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.CTWA_PREFERRED_AD_ACCOUNT_TYPE,
       );
       return typeof e == "string" ? e : null;
     }
-    function Rt(e) {
+    function Et(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").KEYS.CTWA_PREFERRED_AD_ACCOUNT_TYPE,
         e,
@@ -1036,16 +1049,18 @@ __d(
       (l.setCTWADataSharingDisclosureShownCount = dt),
       (l.getCTWADataSharingOptOutDisclosureShownCount = mt),
       (l.setCTWADataSharingOptOutDisclosureShownCount = pt),
-      (l.getCTWAMessageReceived = _t),
-      (l.setCTWAMessageReceived = ft),
-      (l.setGPCcompleted = gt),
-      (l.getGPCCompleted = ht),
-      (l.setDebugFacebookGraphQLEndpointOverride = yt),
-      (l.getDebugFacebookGraphQLEndpointOverride = Ct),
-      (l.getDetectedOutcomeOnboardingStatus = bt),
-      (l.setDetectedOutcomeOnboardingStatus = vt),
-      (l.getLastUsedAdAccountType = St),
-      (l.setLastUsedAdAccountType = Rt));
+      (l.getCTWADataSharingV2DisclosureSeen = _t),
+      (l.setCTWADataSharingV2DisclosureSeen = ft),
+      (l.getCTWAMessageReceived = gt),
+      (l.setCTWAMessageReceived = ht),
+      (l.setGPCcompleted = yt),
+      (l.getGPCCompleted = Ct),
+      (l.setDebugFacebookGraphQLEndpointOverride = bt),
+      (l.getDebugFacebookGraphQLEndpointOverride = vt),
+      (l.getDetectedOutcomeOnboardingStatus = St),
+      (l.setDetectedOutcomeOnboardingStatus = Rt),
+      (l.getLastUsedAdAccountType = Lt),
+      (l.setLastUsedAdAccountType = Et));
   },
   98,
 );

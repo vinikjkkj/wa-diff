@@ -1,8 +1,8 @@
 __d(
   "WAWebBizSubmitOrderAction",
   [
+    "WAWebBizCartBridge",
     "WAWebBizOrderAction",
-    "WAWebBizSyncCartAction",
     "WAWebCatalogCollection",
     "WAWebMediaOpaqueData",
     "WAWebSendOrderChatAction",
@@ -49,7 +49,7 @@ __d(
               t.message,
               a == null ? void 0 : a.getCatalogType(),
             ),
-            r("WAWebBizSyncCartAction")(t),
+            o("WAWebBizCartBridge").updateCart(t),
             i.id
           );
         })),

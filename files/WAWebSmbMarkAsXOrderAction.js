@@ -60,7 +60,8 @@ __d(
           !(
             c == null ||
             !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
-          )
+          ) &&
+          !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
         ) {
           var d = (l = t.accountLid) == null ? void 0 : l.toString();
           o("WAWebChatThreadLogging")
@@ -91,7 +92,8 @@ __d(
       if (
         !(
           a == null || !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
-        )
+        ) &&
+        !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
       ) {
         var i = (n = e.accountLid) == null ? void 0 : n.toString();
         o("WAWebChatThreadLogging")

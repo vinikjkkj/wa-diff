@@ -152,6 +152,7 @@ __d(
             function* (e, t, n) {
               var r = yield l;
               ((B = r),
+                r.initVoipLogging(),
                 o("WAWebVoipGatingUtils").isWebTransportEnabled() && q(),
                 o("WAWebVoipStorageInit").initVoipStorageAndMLCache(r));
               var a = !1,

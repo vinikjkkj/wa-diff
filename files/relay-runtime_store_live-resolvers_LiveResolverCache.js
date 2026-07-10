@@ -228,59 +228,70 @@ __d(
         }),
         (r.$9 = function (r, o, a, i) {
           var t = a.normalizationInfo,
-            s = null;
-          if (o != null && t != null && !R(o)) {
-            var u,
-              c = n(
+            s = null,
+            u = t == null ? void 0 : t.kind;
+          if (
+            (t != null &&
+              t.kind === "AbstractInline" &&
+              o != null &&
+              typeof o == "object" &&
+              (u =
+                t.inlineKinds[B(t, o)] === "ServerWeak"
+                  ? "ServerWeak"
+                  : "WeakModel"),
+            o != null && t != null && u !== "ServerWeak" && !R(o))
+          ) {
+            var c,
+              d = n(
                 "relay-runtime/store/live-resolvers/getOutputTypeRecordIDs",
               )(r),
-              d = new Set(),
-              p = this.$3();
+              p = new Set(),
+              _ = this.$3();
             if (t.plural) {
-              (Array.isArray(o) || l(0, 65023), (u = []));
+              (Array.isArray(o) || l(0, 65023), (c = []));
               for (
-                var _ = n("relay-runtime/store/RelayRecordSource").create(),
-                  f = 0;
-                f < o.length;
-                f++
+                var f = n("relay-runtime/store/RelayRecordSource").create(),
+                  g = 0;
+                g < o.length;
+                g++
               ) {
-                var g = o[f];
-                if (g != null) {
-                  typeof g == "object" || l(0, 65024);
-                  var y = B(t, g),
-                    C = m(
-                      y,
+                var y = o[g];
+                if (y != null) {
+                  typeof y == "object" || l(0, 65024);
+                  var C = B(t, y),
+                    v = m(
+                      C,
                       (
                         e || (e = n("relay-runtime/store/RelayModernRecord"))
                       ).getDataID(r),
-                      f,
+                      g,
                     ),
-                    v = this.$14(C, g, i, t, [a.path, String(f)], y);
-                  for (var S of v.getRecordIDs()) (_.set(S, F(v, S)), d.add(S));
-                  u.push(C);
+                    S = this.$14(v, y, i, t, [a.path, String(g)], C);
+                  for (var L of S.getRecordIDs()) (f.set(L, F(S, L)), p.add(L));
+                  c.push(v);
                 }
               }
-              s = x(p, _, c);
+              s = x(_, f, d);
             } else {
               typeof o == "object" || l(0, 65024);
-              var L = B(t, o),
-                E = m(
-                  L,
+              var E = B(t, o),
+                k = m(
+                  E,
                   (
                     e || (e = n("relay-runtime/store/RelayModernRecord"))
                   ).getDataID(r),
                 ),
-                k = this.$14(E, o, i, t, [a.path], L);
-              for (var I of k.getRecordIDs()) d.add(I);
-              ((u = E), (s = x(p, k, c)));
+                I = this.$14(k, o, i, t, [a.path], E);
+              for (var T of I.getRecordIDs()) p.add(T);
+              ((c = k), (s = x(_, I, d)));
             }
             ((e || (e = n("relay-runtime/store/RelayModernRecord"))).setValue(
               r,
               h,
-              d,
+              p,
             ),
-              n("relay-runtime/util/shallowFreeze")(u),
-              e.setValue(r, b, u));
+              n("relay-runtime/util/shallowFreeze")(c),
+              e.setValue(r, b, c));
           } else
             (n("relay-runtime/util/shallowFreeze")(o),
               (e || (e = n("relay-runtime/store/RelayModernRecord"))).setValue(
@@ -378,6 +389,17 @@ __d(
               ).create(r, u);
               return (e.setValue(g, I, o), t.set(r, g), t);
             }
+            case "AbstractInline": {
+              var h = (
+                  e || (e = n("relay-runtime/store/RelayModernRecord"))
+                ).create(r, u),
+                y = I in o ? o[I] : o;
+              return (e.setValue(h, I, y), t.set(r, h), t);
+            }
+            case "ServerWeak":
+              throw new Error(
+                "LiveResolverCache: `ServerWeak` normalization info must not be normalized; it is read in place off the transplanted record.",
+              );
             default:
               (i.kind, l(0, 79414, i.kind));
           }

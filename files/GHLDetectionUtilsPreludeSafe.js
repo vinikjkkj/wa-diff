@@ -26,30 +26,36 @@ __d(
         var t = document.body || document.documentElement;
         if (t != null) {
           var n = document.createElement("iframe");
-          ((n.style.display = "none"),
-            window.Env != null &&
-              "p9fk3wmn" in window.Env &&
-              ((n.src = "about:blank"), (n.srcdoc = "")));
-          var o = window.Env != null && "w6jt4rnq" in window.Env;
+          n.style.display = "none";
+          var o = window.Env;
+          o != null &&
+            "p9fk3wmn" in o &&
+            ((n.src = "about:blank"), (n.srcdoc = ""));
+          var a = o != null && "k7q3nv9d" in o,
+            i = o != null && "w6jt4rnq" in o;
           try {
-            (o ? t.insertAdjacentElement("beforeend", n) : t.appendChild(n),
+            (a
+              ? t.insertBefore(n, null)
+              : i
+                ? t.insertAdjacentElement("beforeend", n)
+                : t.appendChild(n),
               (u = n.contentWindow.String),
               (c = n.contentWindow.Function.prototype.call),
               (d = n.contentWindow.JSON.parse),
               (m = n.contentWindow.Function.prototype.toString));
-            var a = n.contentWindow.Object.getOwnPropertyDescriptor,
-              i = n.contentWindow.XMLHttpRequest.prototype,
-              l = a(i, "response"),
-              s = a(i, "responseText");
-            (l != null && l.get && (p = l.get),
-              s != null && s.get && (_ = s.get));
+            var l = n.contentWindow.Object.getOwnPropertyDescriptor,
+              s = n.contentWindow.XMLHttpRequest.prototype,
+              f = l(s, "response"),
+              g = l(s, "responseText");
+            (f != null && f.get && (p = f.get),
+              g != null && g.get && (_ = g.get));
           } catch (e) {
             r("FBLogger")("ad_blocker_defense_ghost_owl").warn(
               "Failed to create iframe for builtin restoration",
             );
           } finally {
             try {
-              o ? n.remove() : t.removeChild(n);
+              n.remove();
             } catch (e) {}
           }
         }

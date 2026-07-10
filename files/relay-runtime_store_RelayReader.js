@@ -252,28 +252,43 @@ __d(
         (r.$28 = function (t, n) {
           return n == null ? (this.$27(t, n), !1) : !0;
         }),
-        (r.$22 = function (t, n, r) {
+        (r.$22 = function (t, r, o) {
           var e = t;
-          switch (n) {
+          switch (r) {
             case "RESULT":
               e = this.$29(t);
               break;
             case "NULL":
-              this.$6 != null && this.$6.length > 0 && (e = null);
+              n("relay-runtime/util/RelayFeatureFlags")
+                .ENABLE_CATCH_IGNORE_HANDLED_FIELD_ERRORS
+                ? this.$6 != null &&
+                  this.$6.some(function (e) {
+                    return !e.handled;
+                  }) &&
+                  (e = null)
+                : this.$6 != null && this.$6.length > 0 && (e = null);
               break;
             default:
           }
-          var o = this.$6;
-          if (((this.$6 = r), o != null)) {
+          var a = this.$6;
+          if (((this.$6 = o), a != null)) {
             this.$6 == null && (this.$6 = []);
-            for (var a = 0; a < o.length; a++) this.$6.push(D(o[a]));
+            for (var i = 0; i < a.length; i++) this.$6.push(D(a[i]));
           }
           return e;
         }),
-        (r.$29 = function (n) {
-          if (this.$6 == null || this.$6.length === 0)
-            return { ok: !0, value: n };
-          var t = this.$6
+        (r.$29 = function (r) {
+          var t,
+            o = n("relay-runtime/util/RelayFeatureFlags")
+              .ENABLE_CATCH_IGNORE_HANDLED_FIELD_ERRORS
+              ? (t = this.$6) == null
+                ? void 0
+                : t.filter(function (e) {
+                    return !e.handled;
+                  })
+              : this.$6;
+          if (o == null || o.length === 0) return { ok: !0, value: r };
+          var a = o
             .map(function (t) {
               switch (t.kind) {
                 case "relay_field_payload.error":
@@ -322,7 +337,7 @@ __d(
               }
             })
             .filter(Boolean);
-          return { errors: t, ok: !1 };
+          return { errors: a, ok: !1 };
         }),
         (r.$25 = function (t, n, r) {
           for (var e = 0; e < t.length; e++) {
@@ -596,8 +611,9 @@ __d(
             (t.kind === "ClientEdgeToClientObject" || l(0, 86537, t.kind),
               t.backingField.normalizationInfo == null
                 ? (p = m.map(function (e) {
-                    var n,
-                      r = (n = t.concreteType) != null ? n : e.__typename;
+                    var n;
+                    if (e == null) return null;
+                    var r = (n = t.concreteType) != null ? n : e.__typename;
                     typeof r == "string" ||
                       l(0, 86536, i.path, a.$8.identifier);
                     var o = $(e, i.path, a.$8.identifier),
@@ -622,42 +638,57 @@ __d(
             return ((this.$1 = _), (o[u] = f), f);
           } else {
             var g,
-              h = $(m, i.path, this.$8.identifier),
-              y,
-              C = (g = t.concreteType) != null ? g : m.__typename,
-              b;
+              h,
+              y = (g = i.normalizationInfo) == null ? void 0 : g.kind,
+              C =
+                y === "ServerWeak" || y === "AbstractInline"
+                  ? P(m, i.path, this.$8.identifier)
+                  : $(m, i.path, this.$8.identifier),
+              b,
+              v = (h = t.concreteType) != null ? h : m.__typename,
+              S;
             if (t.kind === "ClientEdgeToClientObject")
               if (t.backingField.normalizationInfo == null) {
-                typeof C == "string" || l(0, 86536, i.path, this.$8.identifier);
-                var v = t.modelResolvers;
-                if (v != null) {
-                  var S = v[C];
-                  if (S !== void 0) {
-                    y = this.$15.ensureClientRecord(h, C);
-                    var R = this.$42(S, y);
-                    if (R == null) return ((o[u] = null), null);
-                    b = null;
+                typeof v == "string" || l(0, 86536, i.path, this.$8.identifier);
+                var R = t.modelResolvers;
+                if (R != null) {
+                  var L = R[v];
+                  if (L !== void 0) {
+                    b = this.$15.ensureClientRecord(C, v);
+                    var E = this.$42(L, b);
+                    if (E == null) return ((o[u] = null), null);
+                    S = null;
                   } else {
-                    y = h;
-                    var L = t.serverObjectOperations,
-                      E = L != null ? L[C] : null;
-                    E != null
-                      ? (b = {
-                          clientEdgeDestinationID: h,
-                          readerClientEdge: { operation: E },
+                    b = C;
+                    var k = t.serverObjectOperations,
+                      I = k != null ? k[v] : null;
+                    I != null
+                      ? (S = {
+                          clientEdgeDestinationID: C,
+                          readerClientEdge: { operation: I },
                         })
-                      : (b = null);
+                      : (S = null);
                   }
-                } else ((y = this.$15.ensureClientRecord(h, C)), (b = null));
-              } else ((y = h), (b = null));
+                } else ((b = this.$15.ensureClientRecord(C, v)), (S = null));
+              } else {
+                b = C;
+                var T = t.backingField.normalizationInfo,
+                  D =
+                    (T == null ? void 0 : T.kind) === "AbstractInline"
+                      ? T.inlineKinds[v]
+                      : T == null
+                        ? void 0
+                        : T.kind;
+                S = null;
+              }
             else
-              ((y = h),
-                (b = { clientEdgeDestinationID: h, readerClientEdge: t }));
-            var k = this.$1;
-            this.$1 = b;
-            var I = o[u];
-            I == null ||
-              typeof I == "object" ||
+              ((b = C),
+                (S = { clientEdgeDestinationID: C, readerClientEdge: t }));
+            var x = this.$1;
+            this.$1 = S;
+            var N = o[u];
+            N == null ||
+              typeof N == "object" ||
               l(
                 0,
                 86534,
@@ -666,12 +697,12 @@ __d(
                 (
                   s || (s = n("relay-runtime/store/RelayModernRecord"))
                 ).getDataID(r),
-                I,
+                N,
               );
-            var T = this.$6;
+            var M = this.$6;
             this.$6 = null;
-            var D = this.$21(t.linkedField, y, I);
-            return (this.$43(T, u), (this.$1 = k), (o[u] = D), D);
+            var w = this.$21(t.linkedField, b, N);
+            return (this.$43(M, u), (this.$1 = x), (o[u] = w), w);
           }
         }),
         (r.$31 = function (t, r, o) {
@@ -989,6 +1020,11 @@ __d(
       if (typeof e == "object" && e != null && typeof e.id == "string")
         return e.id;
       l(0, 86539, t, n);
+    }
+    function P(e, t, n) {
+      return typeof e == "object" && e != null && typeof e.__id == "string"
+        ? e.__id
+        : $(e, t, n);
     }
     a.exports = { read: I };
   },

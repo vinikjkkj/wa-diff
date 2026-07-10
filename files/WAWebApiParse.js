@@ -75,6 +75,7 @@ __d(
         "jid",
         "lid",
         "signup_id",
+        "dp",
       ];
     function S(e) {
       return v.find(function (t) {
@@ -229,6 +230,9 @@ __d(
               case "signup_id":
                 R.test(e) && (n.signupId = e);
                 break;
+              case "dp":
+                e === "1" && (n.fromDefaultProtocol = !0);
+                break;
               default:
                 n[r] = e;
             }
@@ -270,14 +274,13 @@ __d(
       if (r("isStringNullOrEmpty")(a))
         return { resultType: o("WAWebApi").APICmd.INVALID };
       var i = a.includes("@") ? a : a + "@lid",
-        l = n.get("session");
-      return {
-        resultType: o("WAWebApi").APICmd.CHAT_OPEN,
-        data: babelHelpers.extends(
-          { lid: i },
-          !r("isStringNullOrEmpty")(l) && { session: l },
-        ),
-      };
+        l = n.get("session"),
+        s = { lid: i };
+      return (
+        r("isStringNullOrEmpty")(l) || (s.session = l),
+        n.get("dp") === "1" && (s.fromDefaultProtocol = !0),
+        { resultType: o("WAWebApi").APICmd.CHAT_OPEN, data: s }
+      );
     }
     function F(e) {
       return N.test(e)
@@ -1054,23 +1057,25 @@ __d(
           Z = J.get("phone"),
           ee = J.get("lid"),
           te = J.get("video") === "true",
-          ne = {};
-        (r("isStringNullOrEmpty")(Z) || (ne.phone = Z),
-          r("isStringNullOrEmpty")(ee) || (ne.lid = ee),
-          te && (ne.video = te));
-        var re =
+          ne = J.get("dp") === "1",
+          re = {};
+        (r("isStringNullOrEmpty")(Z) || (re.phone = Z),
+          r("isStringNullOrEmpty")(ee) || (re.lid = ee),
+          te && (re.video = te),
+          ne && (re.fromDefaultProtocol = !0));
+        var oe =
           !r("isStringNullOrEmpty")(Z) || !r("isStringNullOrEmpty")(ee) || te;
         return babelHelpers.extends(
           { resultType: o("WAWebApi").APICmd.NEW_CALL },
-          re && { data: ne },
+          oe && { data: re },
         );
       }
-      var oe = r("gkx")("26258") ? null : Nt();
-      if (oe)
-        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: oe };
-      var ae = Mt(e);
-      return ae
-        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: ae }
+      var ae = r("gkx")("26258") ? null : Nt();
+      if (ae)
+        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: ae };
+      var ie = Mt(e);
+      return ie
+        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: ie }
         : { resultType: o("WAWebApi").APICmd.INVALID };
     }
     ((l.parseConversionData = E),

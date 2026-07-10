@@ -231,6 +231,8 @@ __d(
               "ctwa_data_sharing_disclosure_shown_count",
             CTWA_DATA_SHARING_OPT_OUT_DISCLOSURE_SHOWN_COUNT:
               "ctwa_data_sharing_opt_out_disclosure_shown_count",
+            CTWA_DATA_SHARING_V2_DISCLOSURE_SEEN:
+              "ctwa_data_sharing_v2_disclosure_seen",
             CTWA_PREFERRED_AD_ACCOUNT_TYPE: "ctwa_preferred_ad_account_type",
             GUEST_MSG_NOTIFICATION_TEXT: "guest_msg_notification_text",
             GUEST_MSG_NOTIFICATION_TEXT_WITH_PUSHNAME:

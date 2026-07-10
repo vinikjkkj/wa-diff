@@ -12,12 +12,13 @@ __d(
       if (
         o("WAWebConnModel").Conn.isSMB &&
         e.ctwaContext != null &&
-        !(
-          e.ctwaContext.conversionSource !==
-            o("WAWebGetCTWAEligibilityFromConversion")
-              .SMB_DATA_SHARING_ALLOWED_SOURCE ||
-          e.ctwaContext.conversionData == null
-        )
+        o(
+          "WAWebGetCTWAEligibilityFromConversion",
+        ).getCTWAEligibilityFromConversion({
+          conversionData: e.ctwaContext.conversionData,
+          conversionSource: e.ctwaContext.conversionSource,
+          ctwaSignals: e.ctwaContext.ctwaSignals,
+        }) != null
       ) {
         var r =
           (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null

@@ -2,6 +2,7 @@ __d(
   "WAWebCustomLabels3pdSignalUtils",
   [
     "WALogger",
+    "WAWebCTWAGatingUtils",
     "WAWebChatModel",
     "WAWebCommonCTWADataSharing",
     "WAWebCustomLabel3pdEventQuery",
@@ -64,7 +65,10 @@ __d(
       }
     }
     function _(t, n, a) {
-      if (o("WAWebListsLabelGatingUtils").isCTWACustomLabelsSignalsEnabled()) {
+      if (
+        o("WAWebListsLabelGatingUtils").isCTWACustomLabelsSignalsEnabled() &&
+        !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
+      ) {
         var i = n.filter(function (e) {
           return (
             e instanceof o("WAWebChatModel").Chat &&
