@@ -108,18 +108,7 @@ __d(
     function k(e, t) {
       return d + e.id + m + t;
     }
-    function I(e, t) {
-      var n = "whatsapp_smb_web_ad_edit_manage_ads_ad_row_menu";
-      return (
-        "https://www.facebook.com/ad_center/edit/?boost_id=" +
-        e +
-        "&entry_point=" +
-        n +
-        "&flow_id=" +
-        t
-      );
-    }
-    function T(e) {
+    function I(e) {
       var t = "whatsapp_smb_web_recreate_ad_manage_ads_ad_row_menu";
       return (
         "https://www.facebook.com/page_promotions/edit/?source=" +
@@ -128,7 +117,7 @@ __d(
         e
       );
     }
-    function D(t) {
+    function T(t) {
       switch (t) {
         case "business_home_qp_card":
           return "whatsapp_smb_web_business_tools_top_card";
@@ -151,9 +140,8 @@ __d(
     ((l.ServerConfigurableAdCreationEndpointsAll = u),
       (l.getWhatsappAdCreationUrl = L),
       (l.getWhatsappManageAdsUrl = k),
-      (l.getWhatsappEditAdUrl = I),
-      (l.getWhatsappRecreateAdUrl = T),
-      (l.getAdCreationTypeFromCampaignType = D));
+      (l.getWhatsappRecreateAdUrl = I),
+      (l.getAdCreationTypeFromCampaignType = T));
   },
   98,
 );

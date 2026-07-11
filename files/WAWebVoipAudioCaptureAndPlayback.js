@@ -11,6 +11,7 @@ __d(
     "WAWebVoipAudioCaptureBase",
     "WAWebVoipAudioPlaybackBase",
     "WAWebVoipAudioPlaybackState",
+    "WAWebVoipAvDriverInitQpl",
     "WAWebVoipOperationQueue",
     "WAWebVoipPopoutWindowState",
     "WAWebVoipVirtualAudioCaptureDriver",
@@ -181,11 +182,36 @@ __d(
                     yield L.initCaptureDriver(e));
                   return;
                 }
-                (R == null &&
+                R == null &&
                   (R = new (o(
                     "WAWebVoipAudioCaptureBase",
-                  ).WAWebVoipAudioCaptureBase)()),
-                  yield R.initCaptureDriver(e));
+                  ).WAWebVoipAudioCaptureBase)());
+                var t = R,
+                  n = o("WAWebVoipAvDriverInitQpl").startVoipAvDriverInitQpl();
+                o("WAWebVoipAvDriverInitQpl").voipAvDriverInitQplAddPoint(
+                  n,
+                  o("WAWebVoipAvDriverInitQpl").VoipAvDriverInitQplPoint
+                    .CAPTURE_DRIVER_INIT_START,
+                );
+                try {
+                  (yield t.initCaptureDriver(e),
+                    o("WAWebVoipAvDriverInitQpl").voipAvDriverInitQplAddPoint(
+                      n,
+                      o("WAWebVoipAvDriverInitQpl").VoipAvDriverInitQplPoint
+                        .CAPTURE_DRIVER_INIT_END,
+                    ),
+                    o("WAWebVoipAvDriverInitQpl").endVoipAvDriverInitQplSuccess(
+                      n,
+                    ));
+                } catch (e) {
+                  throw (
+                    o("WAWebVoipAvDriverInitQpl").endVoipAvDriverInitQplFail(
+                      n,
+                      "capture_init_failed",
+                    ),
+                    e
+                  );
+                }
               }),
               "initCaptureDriver",
             ));
@@ -287,17 +313,45 @@ __d(
           var t = $();
           F.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              t === I &&
-                (E == null &&
+              if (t === I) {
+                E == null &&
                   (E = new (o(
                     "WAWebVoipAudioPlaybackBase",
-                  ).WAWebVoipAudioPlaybackBase)()),
-                (ee = null),
-                yield E.initPlaybackDriver(e),
+                  ).WAWebVoipAudioPlaybackBase)());
+                var n = E;
+                ee = null;
+                var r = o(
+                  "WAWebVoipAvDriverInitQpl",
+                ).startVoipAvDriverInitQpl();
+                o("WAWebVoipAvDriverInitQpl").voipAvDriverInitQplAddPoint(
+                  r,
+                  o("WAWebVoipAvDriverInitQpl").VoipAvDriverInitQplPoint
+                    .PLAYBACK_DRIVER_INIT_START,
+                );
+                try {
+                  (yield n.initPlaybackDriver(e),
+                    o("WAWebVoipAvDriverInitQpl").voipAvDriverInitQplAddPoint(
+                      r,
+                      o("WAWebVoipAvDriverInitQpl").VoipAvDriverInitQplPoint
+                        .PLAYBACK_DRIVER_INIT_END,
+                    ),
+                    o("WAWebVoipAvDriverInitQpl").endVoipAvDriverInitQplSuccess(
+                      r,
+                    ));
+                } catch (e) {
+                  throw (
+                    o("WAWebVoipAvDriverInitQpl").endVoipAvDriverInitQplFail(
+                      r,
+                      "playback_init_failed",
+                    ),
+                    e
+                  );
+                }
                 t === I &&
                   o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
                     e.sample_rate,
-                  ));
+                  );
+              }
             }),
             "initPlaybackDriver",
           );

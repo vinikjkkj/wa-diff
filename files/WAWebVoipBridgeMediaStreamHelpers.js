@@ -5,61 +5,86 @@ __d(
     "WAWebVoipAcquireMediaStream",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    var e = null;
+    function s(e) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.targetWindow;
-          if (t == null) {
-            var n = o(
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.targetWindow;
+          if (
+            (e != null &&
+              o(
+                "WAWebVoipUiPopoutWindowPortalContainer.react",
+              ).getPopoutWindow() == null &&
+              (e = null),
+            n == null)
+          ) {
+            var a = o(
                 "WAWebVoipUiPopoutWindowPortalContainer.react",
               ).getPopoutWindow(),
-              r = n != null && !document.hasFocus(),
-              a;
+              i = a != null && !document.hasFocus(),
+              l;
             try {
-              a = n != null && n.location.origin === window.location.origin;
+              l = a != null && a.location.origin === window.location.origin;
             } catch (e) {
-              a = !1;
+              l = !1;
             }
-            var i = r;
-            (o("WAWebUA").UA.isSafari &&
-              (i =
-                r &&
+            var s = i;
+            o("WAWebUA").UA.isSafari &&
+              (s =
+                i &&
                 o(
                   "WAWebVoipUiPopoutWindowPortalContainer.react",
                 ).getIsPopoutUiReady() &&
-                a),
+                l);
+            var u = r("justknobx")._("2102") && o("WAWebUA").UA.isSafari,
+              c = u && t.type === "camera" && a != null && e === "main";
+            (t.type === "camera" && a != null,
               o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari
-                ? i
-                  ? (t = n)
-                  : o("WAWebUA").UA.isSafari
-                : e.type !== "microphone" && r && (t = n));
+                ? c || (s ? (n = a) : o("WAWebUA").UA.isSafari)
+                : t.type !== "microphone" && i && (n = a));
           }
-          var l = yield o("WAWebVoipAcquireMediaStream").acquireVoipMediaStream(
-            babelHelpers.extends({}, e, { targetWindow: t }),
+          var d = yield o("WAWebVoipAcquireMediaStream").acquireVoipMediaStream(
+            babelHelpers.extends({}, t, { targetWindow: n }),
           );
-          if (l != null) {
-            var s = e.type;
-            if (s === "camera" || s === "desktop") {
-              var u = t != null;
+          if (d != null) {
+            var m = t.type;
+            if (m === "camera" || m === "desktop") {
+              var p = o(
+                  "WAWebVoipUiPopoutWindowPortalContainer.react",
+                ).getPopoutWindow(),
+                _ = n != null && n === p;
               o("WAWebVoipUiPopoutWindowPortalContainer.react").setMediaStream(
-                s,
-                l,
-                u,
+                m,
+                d,
+                _,
               );
             }
+            if (m === "camera") {
+              var f = o(
+                "WAWebVoipUiPopoutWindowPortalContainer.react",
+              ).getPopoutWindow();
+              e = n != null && n === f ? "popout" : "main";
+            }
+            m === "desktop" &&
+              o("WAWebUA").UA.isSafari &&
+              o(
+                "WAWebVoipUiPopoutWindowPortalContainer.react",
+              ).getPopoutWindow() != null &&
+              (e = null);
           }
-          return l;
+          return d;
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.voipAcquireMediaStreamImpl = e;
+    l.voipAcquireMediaStreamImpl = s;
   },
   98,
 );

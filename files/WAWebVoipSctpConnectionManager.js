@@ -6,6 +6,7 @@ __d(
     "WAWebABProps",
     "WAWebCoreActionsODS",
     "WAWebReleaseToEventLoop",
+    "WAWebVoipRelayConnectQpl",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpBufferDrain",
     "WAWebVoipSctpConnectionManagerConstants",
@@ -529,6 +530,7 @@ __d(
               o(
                 "WAWebVoipSctpConnectionState",
               ).samePathReconnectAttempts.clear(),
+              o("WAWebVoipRelayConnectQpl").resetVoipRelayConnectQpl(),
               (ie = !1));
           }
         })),
@@ -640,6 +642,7 @@ __d(
             o("WAWebVoipSctpConnectionState").currentRelayState.set(_, f);
           }
           if (u.length > 0) {
+            o("WAWebVoipRelayConnectQpl").maybeStartVoipRelayConnectQpl();
             var g = e.enable_web_relay_connection_stagger === !0;
             g
               ? yield Ee(u)
@@ -815,6 +818,7 @@ __d(
               );
             }
             if (n === "connected") {
+              o("WAWebVoipRelayConnectQpl").endVoipRelayConnectQplSuccess();
               var s = i.relayIp,
                 u = i.relayPort;
               s !== "" &&

@@ -50,13 +50,17 @@ __d(
       );
     }
     function c(e) {
-      return e == null
-        ? !1
-        : o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
-            o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true &&
-            o(
-              "WAWebDataSharing3pdLidCollection",
-            ).DataSharing3pdLidCollection.isDataSharingEnabled(e);
+      if (e == null) return !1;
+      var t = r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
+        o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
+        o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
+      );
+      return (
+        t &&
+        o(
+          "WAWebDataSharing3pdLidCollection",
+        ).DataSharing3pdLidCollection.isDataSharingEnabled(e)
+      );
     }
     function d(e) {
       if (
@@ -111,8 +115,11 @@ __d(
         var i = o(
             "WAWebDataSharing3pdLidCollection",
           ).DataSharing3pdLidCollection.isDataSharingEnabled(e),
-          l = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
-        l === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
+          l = r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
+            o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
+            o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
+          );
+        l
           ? i
             ? o("WAWebModalManager").ModalManager.open(
                 s.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {

@@ -13,6 +13,7 @@ __d(
     "WAWebHandleRetryRequest",
     "WAWebSyncdCoreApi",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
+    "WAWebVoipQplHelpers",
     "WAWebVoipStackInterface",
     "WAWebVoipTimeSeriesUpload",
     "WAWebVoipWaCallEnums",
@@ -62,6 +63,11 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (o("WAWebVoipQplHelpers").startVoipEndCallQpl(),
+            o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(
+              o("WAWebVoipQplHelpers").VoipEndCallQplPoint
+                .CALL_ENDING_HANDLER_START,
+            ));
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -131,7 +137,11 @@ __d(
                     e,
                   );
                 }),
-            n.fromMe && n.isCallLink !== !0 && (yield C(n)));
+            n.fromMe && n.isCallLink !== !0 && (yield C(n)),
+            o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(
+              o("WAWebVoipQplHelpers").VoipEndCallQplPoint
+                .CALL_ENDING_HANDLER_END,
+            ));
         })),
         y.apply(this, arguments)
       );

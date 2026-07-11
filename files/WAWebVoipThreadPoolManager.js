@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebPonyfillsIdleCallback",
+    "WAWebVoipQplHelpers",
     "WAWebVoipWaCallEnums",
     "getErrorSafe",
   ],
@@ -68,41 +69,52 @@ __d(
               ((n.getNewWorker = function () {
                 var i = t.getAvailableWorkerCount();
                 if (i === 0) {
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ThreadPoolManager] pool empty, sync alloc 1 worker",
-                      ])),
-                  );
+                  var l = o("WAWebVoipQplHelpers").startVoipWorkerSetupQpl();
+                  (o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
+                    l,
+                    o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
+                      .EMERGENCY_ALLOC,
+                  ),
+                    o("WALogger").LOG(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[ThreadPoolManager] pool empty, sync alloc 1 worker",
+                        ])),
+                    ));
                   try {
                     n.allocateUnusedWorker();
-                    var l = n.unusedWorkers[n.unusedWorkers.length - 1];
-                    n.loadWasmModuleToWorker(l);
+                    var c = n.unusedWorkers[n.unusedWorkers.length - 1];
+                    (n.loadWasmModuleToWorker(c),
+                      o("WAWebVoipQplHelpers").endVoipWorkerSetupQplSuccess(l));
                   } catch (e) {
-                    o("WALogger")
+                    (o("WALogger")
                       .ERROR(
                         u ||
                           (u = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: ThreadPoolManager: Emergency worker allocation failed",
                           ])),
                       )
-                      .catching(r("getErrorSafe")(e));
+                      .catching(r("getErrorSafe")(e)),
+                      o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
+                        l,
+                        "emergency_alloc_failed",
+                      ));
                   }
                 }
-                var c = a.call(n),
-                  d = e.getAvailableWorkerCount();
+                var d = a.call(n),
+                  m = e.getAvailableWorkerCount();
                 return (
-                  d <= 1
+                  m <= 1
                     ? window.setTimeout(function () {
                         return e.ensurePoolCapacity();
                       }, 0)
-                    : d <= x &&
+                    : m <= x &&
                       o("WAWebPonyfillsIdleCallback").requestIdleCallback(
                         function () {
                           return t.ensurePoolCapacity();
                         },
                       ),
-                  c
+                  d
                 );
               }),
                 (D = !0),
@@ -268,11 +280,16 @@ __d(
               e,
               i,
             );
-            for (var l = 0; l < i; l++) {
-              var s = t.pop();
-              s != null && s.close();
+            var l = o("WAWebVoipQplHelpers").startVoipWorkerSetupQpl();
+            o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
+              l,
+              o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint.POOL_SHRINK,
+            );
+            for (var s = 0; s < i; s++) {
+              var u = t.pop();
+              u != null && u.close();
             }
-            o("WALogger").LOG(
+            (o("WALogger").LOG(
               C ||
                 (C = babelHelpers.taggedTemplateLiteralLoose([
                   "[ThreadPoolManager] shrink done total=",
@@ -283,7 +300,8 @@ __d(
               this.getTotalWorkerCount(),
               this.getAvailableWorkerCount(),
               this.getRunningWorkerCount(),
-            );
+            ),
+              o("WAWebVoipQplHelpers").endVoipWorkerSetupQplSuccess(l));
           }),
           (a.$8 = function (t) {
             var e = this;
@@ -310,9 +328,15 @@ __d(
                 return;
               }
               this.$3 = !0;
-              var a = r.unusedWorkers.length,
-                i = r.runningWorkers.length,
-                l = Date.now();
+              var a = o("WAWebVoipQplHelpers").startVoipWorkerSetupQpl();
+              o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
+                a,
+                o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
+                  .POOL_GROWTH_START,
+              );
+              var i = r.unusedWorkers.length,
+                l = r.runningWorkers.length,
+                s = Date.now();
               o("WALogger").LOG(
                 S ||
                   (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -323,15 +347,15 @@ __d(
                     "",
                   ])),
                 t,
-                a,
                 i,
-                a + i,
+                l,
+                i + l,
               );
-              var s = [];
+              var u = [];
               try {
-                for (var u = 0; u < t; u++)
+                for (var c = 0; c < t; c++)
                   (r.allocateUnusedWorker(),
-                    s.push(r.unusedWorkers[r.unusedWorkers.length - 1]));
+                    u.push(r.unusedWorkers[r.unusedWorkers.length - 1]));
               } catch (e) {
                 if (
                   (o("WALogger").LOG(
@@ -342,19 +366,23 @@ __d(
                         ": ",
                         "",
                       ])),
-                    s.length,
+                    u.length,
                     t,
                     String(e),
                   ),
-                  s.length === 0)
+                  u.length === 0)
                 ) {
-                  this.$3 = !1;
+                  ((this.$3 = !1),
+                    o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
+                      a,
+                      "alloc_failed",
+                    ));
                   return;
                 }
               }
-              var c = Date.now() - l,
-                d = r.unusedWorkers.length,
-                m = r.runningWorkers.length;
+              var d = Date.now() - s,
+                m = r.unusedWorkers.length,
+                p = r.runningWorkers.length;
               o("WALogger").LOG(
                 L ||
                   (L = babelHelpers.taggedTemplateLiteralLoose([
@@ -364,29 +392,29 @@ __d(
                     " run=",
                     "",
                   ])),
-                c.toFixed(2),
-                s.length,
-                d,
+                d.toFixed(2),
+                u.length,
                 m,
+                p,
               );
-              var p = Date.now(),
-                _ = [],
-                f = s.map(function (e, t) {
+              var _ = Date.now(),
+                f = [],
+                g = u.map(function (e, t) {
                   var n = Date.now();
                   return r.loadWasmModuleToWorker(e).then(function () {
                     var e = Date.now() - n;
-                    _.length < 3 &&
-                      _.push("Worker " + t + ": " + e.toFixed(2) + "ms");
+                    f.length < 3 &&
+                      f.push("Worker " + t + ": " + e.toFixed(2) + "ms");
                   });
                 });
               (T || (T = n("Promise")))
-                .all(f)
+                .all(g)
                 .then(function () {
-                  var e = Date.now() - p,
-                    t = Date.now() - l,
+                  var e = Date.now() - _,
+                    t = Date.now() - s,
                     n = r.unusedWorkers.length,
-                    a = r.runningWorkers.length;
-                  (_.length > 0 &&
+                    i = r.runningWorkers.length;
+                  (f.length > 0 &&
                     o("WALogger").LOG(
                       E ||
                         (E = babelHelpers.taggedTemplateLiteralLoose([
@@ -394,8 +422,8 @@ __d(
                           "w: ",
                           "",
                         ])),
-                      s.length,
-                      _.join(", "),
+                      u.length,
+                      f.join(", "),
                     ),
                     o("WALogger").LOG(
                       k ||
@@ -407,20 +435,30 @@ __d(
                           "ms",
                         ])),
                       n,
-                      a,
+                      i,
                       e.toFixed(2),
                       t.toFixed(2),
-                    ));
+                    ),
+                    o("WAWebVoipQplHelpers").voipWorkerSetupQplAddPoint(
+                      a,
+                      o("WAWebVoipQplHelpers").VoipWorkerSetupQplPoint
+                        .POOL_GROWTH_END,
+                    ),
+                    o("WAWebVoipQplHelpers").endVoipWorkerSetupQplSuccess(a));
                 })
                 .catch(function (e) {
-                  o("WALogger").LOG(
+                  (o("WALogger").LOG(
                     I ||
                       (I = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: ThreadPoolManager: Pool growth error: ",
                         "",
                       ])),
                     String(e),
-                  );
+                  ),
+                    o("WAWebVoipQplHelpers").endVoipWorkerSetupQplFail(
+                      a,
+                      "wasm_load_failed",
+                    ));
                 })
                 .finally(function () {
                   e.$3 = !1;

@@ -135,10 +135,12 @@ __d(
                 : o.id) === t
             ) {
               var l = i.currentDeviceId,
-                s = i.captureParams;
+                s = i.captureParams,
+                u = i.getLastCapturedStream();
               l == null ||
                 l === "" ||
                 s == null ||
+                u == null ||
                 (yield i.startCameraCapture({
                   camera_id_requested: l,
                   height: s.height,

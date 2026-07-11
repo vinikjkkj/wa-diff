@@ -8,6 +8,7 @@ __d(
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebContactMutator",
+    "WAWebFrontendContactGetters",
     "WAWebJidToWid",
     "WAWebLidMigrationUtils",
     "WAWebProfilePicThumbCollection",
@@ -178,58 +179,65 @@ __d(
             var f,
               g,
               h,
-              y,
-              C = o(
+              y = o(
                 "WAWebProfilePicThumbCollection",
               ).ProfilePicThumbCollection.get(_.id),
-              b = (f = C == null ? void 0 : C.img) != null ? f : null;
+              C = (f = y == null ? void 0 : y.img) != null ? f : null;
             if (_.id.isGroup()) {
-              var v, S, R;
+              var b, v, S;
               p.push({
                 lid: _.id.toString(),
                 name:
-                  (v =
-                    (S = _.formattedTitle) != null
-                      ? S
-                      : (R = _.groupMetadata) == null
+                  (b =
+                    (v = _.formattedTitle) != null
+                      ? v
+                      : (S = _.groupMetadata) == null
                         ? void 0
-                        : R.subject) != null
-                    ? v
+                        : S.subject) != null
+                    ? b
                     : "",
                 contactType: "group",
-                imgUrl: b,
+                imgUrl: C,
               });
               continue;
             }
-            var L = o("WAWebContactCollection").ContactCollection.get(_.id);
-            if (L != null) {
-              var E = null;
+            var R = o("WAWebContactCollection").ContactCollection.get(_.id);
+            if (R != null) {
+              var L = null;
               if (t) {
-                var k = o("WAWebLidMigrationUtils").toLid(L.id);
-                if (k == null) continue;
-                E = k.toString();
-              } else E = L.id.toString();
-              var I = o("WAWebUserPrefsMeUser").isMeAccount(_.id),
-                T = "personal";
-              (I
-                ? (T = "me")
-                : L.isEnterprise
-                  ? (T = "enterprise")
-                  : L.isSmb
-                    ? (T = "smb")
-                    : L.isBusiness && (T = "business"),
+                var E = o("WAWebLidMigrationUtils").toLid(R.id);
+                if (E == null) continue;
+                L = E.toString();
+              } else L = R.id.toString();
+              var k =
+                  (g = o("WAWebLidMigrationUtils").toPn(_.id)) != null
+                    ? g
+                    : R.phoneNumber,
+                I =
+                  (h =
+                    k != null
+                      ? o("WAWebContactCollection").ContactCollection.get(k)
+                      : null) != null
+                    ? h
+                    : R,
+                T = o("WAWebUserPrefsMeUser").isMeAccount(_.id),
+                D = "personal";
+              (T
+                ? (D = "me")
+                : I.isEnterprise
+                  ? (D = "enterprise")
+                  : I.isSmb
+                    ? (D = "smb")
+                    : I.isBusiness && (D = "business"),
                 p.push({
-                  lid: E,
+                  lid: L,
                   name:
-                    (g =
-                      (h = (y = _.formattedTitle) != null ? y : L.pushname) !=
-                      null
-                        ? h
-                        : L.name) != null
-                      ? g
-                      : "",
-                  contactType: T,
-                  imgUrl: b,
+                    o("WAWebFrontendContactGetters").getFormattedUser(I) ||
+                    R.pushname ||
+                    R.name ||
+                    "",
+                  contactType: D,
+                  imgUrl: C,
                 }));
             }
           }

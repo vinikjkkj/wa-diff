@@ -15,6 +15,7 @@ __d(
     "WAWebMediaWorkerProxy",
     "WAWebNoop",
     "WAWebNotificationBackend",
+    "WAWebPathfinderCrashLog",
     "WAWebPrefetchLoadables",
     "WAWebProfilePicThumbCollection",
     "WAWebSWBus",
@@ -86,7 +87,9 @@ __d(
           .catching(r("getErrorSafe")(e))
           .warn("failed to run JSSPWAWebConfigInit");
       }
-      (c(), o("WAWebCrashAnnotations").initCrashAnnotations());
+      (c(),
+        o("WAWebCrashAnnotations").initCrashAnnotations(),
+        o("WAWebPathfinderCrashLog").initPathfinderCrashLog());
       var a = n("WAWebMain.react");
       return {
         MainComponent: a.MainComponent,

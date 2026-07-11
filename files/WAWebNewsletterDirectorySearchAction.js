@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebABProps",
     "WAWebGetNewsletterDirectoryChats",
     "WAWebL10N",
     "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
@@ -117,9 +118,9 @@ __d(
                 newsletterId: o(
                   "WAWebNewsletterValidationUtils",
                 ).toNewsletterJidOrThrow(e.id.toString()),
-                limit: o(
-                  "WAWebNewsletterGatingUtils",
-                ).getSimilarNewslettersMaxFetchLimit(),
+                limit: o("WAWebABProps").getABPropConfigValue(
+                  "similar_channels_max_limit",
+                ),
               }),
               r = yield o(
                 "WAWebGetNewsletterDirectoryChats",

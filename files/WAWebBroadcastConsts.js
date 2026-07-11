@@ -13,7 +13,7 @@ __d(
       p = "https://www.facebook.com/privacy/policy",
       _ = "Campaign message unavailable on this device",
       f =
-        "whatsapp-smb://marketingmessages?destination=pro_nux&entry_point=bb_tools_page";
+        "whatsapp-smb://marketingmessages?destination=bb_pro_nux&entry_point=bb_web_pro_nux";
     ((i.MIN_BROADCAST_RECIPIENTS = e),
       (i.MS_PER_SEC = l),
       (i.MAX_BROADCAST_ID_LENGTH = s),

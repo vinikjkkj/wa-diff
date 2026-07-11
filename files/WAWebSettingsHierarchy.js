@@ -9,6 +9,7 @@ __d(
     "WAWebCommonCTWADataSharing",
     "WAWebCurrentUser",
     "WAWebListsGatingUtils",
+    "WAWebPaymentsGatingUtils",
     "WAWebSettingGatingUtils",
     "WAWebSettingsConst",
     "WAWebSettingsFBT",
@@ -101,6 +102,7 @@ __d(
               "option-play-call-ringtone",
             ],
           },
+          "payments",
           "data_sharing",
           { desktop_settings: ["start_on_login"] },
           "language",
@@ -331,6 +333,18 @@ __d(
             testid: "li-notifications",
             wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
               .NOTIFICATIONS,
+          },
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.PaymentsHome,
+            id: "payments",
+            isAvailable: o("WAWebPaymentsGatingUtils")
+              .consumerPaymentsHomeEnabled,
+            searchCriteria: String(o("WAWebSettingsFBT").paymentsTitle()),
+            title: o("WAWebSettingsFBT").paymentsTitle,
+            secondaryTitle: o("WAWebSettingsFBT").paymentsSecondaryTitle,
+            testid: "li-payments",
+            wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
+              .PAYMENTS,
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps.Notifications,

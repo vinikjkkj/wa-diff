@@ -954,17 +954,14 @@ __d(
       we = e;
     }
     function pt() {
-      return de;
-    }
-    function _t() {
       return ie;
     }
-    function ft(e) {
-      return gt.apply(this, arguments);
+    function _t(e) {
+      return ft.apply(this, arguments);
     }
-    function gt() {
+    function ft() {
       return (
-        (gt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ft = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = le;
           try {
             var n = yield o("WAWebVoipStackInterface").getVoipStackInterface(),
@@ -983,22 +980,22 @@ __d(
               t === le && (ie = !1));
           }
         })),
-        gt.apply(this, arguments)
+        ft.apply(this, arguments)
       );
     }
-    function ht(e, t, n) {
+    function gt(e, t, n) {
       ((re = e), (oe = t), (ae = n));
     }
-    function yt(e, t) {
+    function ht(e, t) {
       return t === ae && (e === re || e === oe);
     }
-    function Ct() {
+    function yt() {
       return ge;
     }
-    function bt(e) {
+    function Ct(e) {
       return e === ge || (he && e === ye);
     }
-    function vt() {
+    function bt() {
       _e &&
         (o("WALogger").LOG(
           x ||
@@ -1008,7 +1005,7 @@ __d(
         ),
         Ye());
     }
-    function St(e) {
+    function vt(e) {
       var t = _e || he;
       t &&
         (o("WALogger").LOG(
@@ -1053,15 +1050,14 @@ __d(
       (l.registerOnDataChannelMessage = ct),
       (l.registerOnDataChannelStateChange = dt),
       (l.registerOnIceCandidate = mt),
-      (l.getP2PConnectionState = pt),
-      (l.isP2PEnabled = _t),
-      (l.refreshP2PEnablement = ft),
-      (l.initP2PVirtualAddresses = ht),
-      (l.isP2PVirtualAddress = yt),
-      (l.getP2PConnectionId = Ct),
-      (l.isP2PConnectionId = bt),
-      (l.handleWorkerP2PChannelOpened = vt),
-      (l.handleWorkerP2PChannelClosed = St));
+      (l.isP2PEnabled = pt),
+      (l.refreshP2PEnablement = _t),
+      (l.initP2PVirtualAddresses = gt),
+      (l.isP2PVirtualAddress = ht),
+      (l.getP2PConnectionId = yt),
+      (l.isP2PConnectionId = Ct),
+      (l.handleWorkerP2PChannelOpened = bt),
+      (l.handleWorkerP2PChannelClosed = vt));
   },
   98,
 );

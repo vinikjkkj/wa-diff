@@ -1,7 +1,7 @@
 __d(
   "WAWebCometVideoPlayerUtils",
   [
-    "WAWebNewsletterGatingUtils",
+    "WAWebABProps",
     "WAWebWamEnumMessageType",
     "WAWebWamMsgUtils",
     "videoPlayerUniqueID",
@@ -64,9 +64,9 @@ __d(
           s = (t = e.serverId) != null ? t : "",
           u = l + "_" + s;
         return {
-          mediaId: o(
-            "WAWebNewsletterGatingUtils",
-          ).getNewsletterLoggingMediaID(),
+          mediaId: o("WAWebABProps").getABPropConfigValue(
+            "snapl_newsletter_logging_media_id_placeholder_string",
+          ),
           mediaIdString: u,
         };
       }

@@ -173,7 +173,13 @@ __d(
       );
     }
     function T(e, t, n) {
-      return t();
+      if (
+        !r("WAWebCommonCTWADataSharing").shouldShowChatEntryDataSharingDialog(e)
+      )
+        return t();
+      o("WAWebModalManager").ModalManager.open(
+        p.jsx(M, { entrypoint: n, callback: t, chats: [e] }),
+      );
     }
     function D(e) {
       if (

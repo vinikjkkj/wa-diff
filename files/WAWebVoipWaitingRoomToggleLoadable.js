@@ -30,10 +30,7 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c() {
-      e();
-    }
-    ((l.toggleWaitingRoomLoadable = s), (l.preloadWaitingRoomToggle = c));
+    l.toggleWaitingRoomLoadable = s;
   },
   98,
 );

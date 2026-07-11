@@ -7,7 +7,6 @@ __d(
     "cr:7730",
     "getFbsResult",
     "getTranslatedInput",
-    "justknobx",
     "promiseDone",
     "requireDeferred",
     "translationOverrideListener",
@@ -16,12 +15,10 @@ __d(
     "use strict";
     var e,
       s = r("requireDeferred")("FbtLogging").__setRef("FbtEnv"),
-      u = "JHASH",
-      c = new RegExp("__" + u + "__(.+?)__" + u + "__"),
-      d = !1;
-    function m() {
-      d ||
-        ((d = !0),
+      u = !1;
+    function c() {
+      u ||
+        ((u = !0),
         (e || (e = n("FbtHooks"))).register({
           errorListener: function (t) {
             return new (r("FbtErrorListenerWWW"))(t);
@@ -33,28 +30,16 @@ __d(
           getViewerContext: function () {
             return r("IntlViewerContext");
           },
-          logImpression: function (t, n) {
+          logImpression: function (t) {
             return r("promiseDone")(
               s.load().then(function (e) {
-                if (
-                  (e.logImpression == null || e.logImpression(t),
-                  !r("justknobx")._("2269"))
-                ) {
-                  var o,
-                    a = n == null ? void 0 : n.inputTable,
-                    i = (o = n == null ? void 0 : n.tokens) != null ? o : [];
-                  if (typeof a == "string") {
-                    var l = a.match(c);
-                    l != null &&
-                      (e.logImpressionV2 == null || e.logImpressionV2(l[1], i));
-                  }
-                }
+                e.logImpression == null || e.logImpression(t);
               }),
             );
           },
         }));
     }
-    l.setupOnce = m;
+    l.setupOnce = c;
   },
   98,
 );

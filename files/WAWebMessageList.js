@@ -42,31 +42,26 @@ __d(
       var n = e.requiresDirectConnection,
         r = e.isForwarded
           ? e.businessOwnerJid
-          : e.from.toString({ legacy: !0 });
-      if (!(e.list.productListInfo == null || r == null)) {
-        var a = !!o(
+          : e.from.toString({ legacy: !0 }),
+        a = e.list.productListInfo;
+      if (!(a == null || r == null)) {
+        var i = !!o(
           "WAWebProductMessageListCollection",
         ).ProductMessageListCollection.get(e.id);
         o("WAWebQplFlowWrapper").QPL.markerStart(d, {
-          annotations: { bool: { IsCached: a } },
+          annotations: { bool: { IsCached: i } },
         });
-        var i = o(
+        var l = o(
           "WAWebProductMessageListCollection",
-        ).ProductMessageListCollection.getOrAdd(
-          e.id,
-          e.list.productListInfo,
-          n,
-          r,
-          e.list.title,
-        );
-        i != null
+        ).ProductMessageListCollection.getOrAdd(e.id, a, n, r, e.list.title);
+        l != null
           ? o("WAWebDrawerManager").DrawerManager.openDrawerRight(
               c.jsx(
                 o("WAWebProductDetailsFlowLoadable").ProductDetailsFlowLoadable,
                 {
                   chat: o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
                   catalogOwnerJid: r,
-                  productListId: i.id,
+                  productListId: l.id,
                 },
               ),
               {
@@ -160,8 +155,9 @@ __d(
       var d = {
           selectable: !0,
           dirMismatch:
-            o("WAWebFrontendMsgGetters").getRtl(i) !== r("WAWebL10N").isRTL(),
-          direction: o("WAWebFrontendMsgGetters").getDir(i),
+            o("WAWebFrontendMsgGetters").getRtl(i.unsafe()) !==
+            r("WAWebL10N").isRTL(),
+          direction: o("WAWebFrontendMsgGetters").getDir(i.unsafe()),
           inferLinesDirection: !0,
         },
         m = o("WAWebFormatConfiguration").Conversation({

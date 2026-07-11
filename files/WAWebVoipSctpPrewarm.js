@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebAppTracker",
     "WAWebVoipPerfOptimizations",
+    "WAWebVoipSctpPrewarmQpl",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -51,49 +52,55 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = self.performance.now(),
-            a = null,
+            a = o("WAWebVoipSctpPrewarmQpl").startVoipSctpPrewarmQpl(),
             i = null,
-            l = null;
+            l = null,
+            d = null;
           try {
             (o("WAWebAppTracker").AppTracker.mark(
               o("WAWebAppTracker").AppTrackerType.VoipSctpPrewarm,
             ),
-              (a = new RTCPeerConnection()),
               (i = new RTCPeerConnection()),
+              (l = new RTCPeerConnection()),
               yield (u || (u = n("Promise"))).race([
-                g(a, i),
+                g(i, l),
                 new u(function (e, t) {
-                  l = window.setTimeout(function () {
+                  d = window.setTimeout(function () {
                     t(r("err")("SctpPrewarm timeout"));
                   }, c);
                 }),
               ]));
-            var d = (self.performance.now() - t).toFixed(1);
-            o("WALogger").LOG(
+            var m = (self.performance.now() - t).toFixed(1);
+            (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SctpPrewarm] completed in ",
                   "ms",
                 ])),
-              d,
-            );
+              m,
+            ),
+              o("WAWebVoipSctpPrewarmQpl").endVoipSctpPrewarmQplSuccess(a));
           } catch (e) {
-            var m = (self.performance.now() - t).toFixed(1);
-            o("WALogger").WARN(
+            var p = (self.performance.now() - t).toFixed(1);
+            (o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SctpPrewarm] failed after ",
                   "ms: ",
                   "",
                 ])),
-              m,
+              p,
               String(e),
-            );
+            ),
+              o("WAWebVoipSctpPrewarmQpl").endVoipSctpPrewarmQplFail(
+                a,
+                "prewarm_failed",
+              ));
           } finally {
-            var p, _;
-            (l != null && window.clearTimeout(l),
-              (p = a) == null || p.close(),
-              (_ = i) == null || _.close());
+            var _, f;
+            (d != null && window.clearTimeout(d),
+              (_ = i) == null || _.close(),
+              (f = l) == null || f.close());
           }
         })),
         f.apply(this, arguments)

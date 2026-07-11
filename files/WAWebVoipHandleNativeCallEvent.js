@@ -22,6 +22,7 @@ __d(
     "WAWebVoipHandleNativeCallEventMediaHandlers",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPersistentFS",
+    "WAWebVoipQplHelpers",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
@@ -1073,7 +1074,10 @@ __d(
               (G.callIsActive = !1)),
             i === o("WAWebVoipWaCallEnums").CallState.None)
           ) {
-            o("WAWebVoipErrorLogUpload").captureWamCallResult(e);
+            (o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(
+              o("WAWebVoipQplHelpers").VoipEndCallQplPoint.CLEANUP_START,
+            ),
+              o("WAWebVoipErrorLogUpload").captureWamCallResult(e));
             var v = U != null ? U : "unknown";
             ((U = null),
               o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
@@ -1120,7 +1124,11 @@ __d(
               o(
                 "WAWebVoipHandleNativeCallEventCallLinkHandlers",
               ).resetCallLinkHandlerState(),
-              o("WAWebVoipErrorLogUpload").maybeUploadErrorLogs());
+              o("WAWebVoipErrorLogUpload").maybeUploadErrorLogs(),
+              o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(
+                o("WAWebVoipQplHelpers").VoipEndCallQplPoint.CLEANUP_END,
+              ),
+              o("WAWebVoipQplHelpers").endVoipEndCallQplSuccess());
           }
         })),
         me.apply(this, arguments)

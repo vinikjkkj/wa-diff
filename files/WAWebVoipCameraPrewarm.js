@@ -232,14 +232,11 @@ __d(
       }
     }
     function D() {
-      return m != null;
+      return x.apply(this, arguments);
     }
     function x() {
-      return $.apply(this, arguments);
-    }
-    function $() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if ((p && (_ = !0), m == null)) {
             ((b = null), (f = null));
             return;
@@ -256,14 +253,13 @@ __d(
           } catch (e) {}
           yield o("WAWebVoipConverterPrewarm").cleanupPrewarmedConverter();
         })),
-        $.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
     ((l.prewarmCamera = L),
       (l.consumePrewarmedStream = k),
       (l.scheduleResolutionSwitch = T),
-      (l.hasPrewarmedStream = D),
-      (l.cleanupPrewarmedCamera = x));
+      (l.cleanupPrewarmedCamera = D));
   },
   98,
 );

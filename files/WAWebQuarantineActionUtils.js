@@ -224,9 +224,12 @@ __d(
         x = t.viewOnceMessageV2,
         $ = t.viewOnceMessageV2Extension,
         P = babelHelpers.objectWithoutPropertiesLoose(t, e);
-      return Object.values(P).every(function (e) {
-        return e == null;
-      });
+      return (
+        (n != null ? n : 0) === 0 &&
+        Object.values(P).every(function (e) {
+          return e == null;
+        })
+      );
     }
     function I(e) {
       if (k(e)) return _.NoQuarantine;
