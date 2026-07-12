@@ -221,6 +221,13 @@ __d(
               o("WAWebVoipWaCallEnums").CallState.ConnectedLonely;
             return this.isCallLink && this.$Call$p_16() && e;
           }),
+          (a.isConnectingToCallLinkLobby = function () {
+            return (
+              this.isCallLink &&
+              this.$Call$p_16() &&
+              !o("WAWebVoipCallStateUtils").isCallConnected(this.$Call$p_1)
+            );
+          }),
           (a.setPeerReconnectingState = function (t, n, a) {
             var e = t.toString();
             (n

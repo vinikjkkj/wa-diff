@@ -740,7 +740,8 @@ __d(
                     type: "jsWorkerCmd",
                     jsWorkerCmd: "stopVideoCapture",
                   }),
-                    yield n.joinJsWorkerThread());
+                    yield n.joinJsWorkerThread(),
+                    (this.thread = null));
                 }
               } finally {
                 this.track != null && (this.track.stop(), (this.track = null));

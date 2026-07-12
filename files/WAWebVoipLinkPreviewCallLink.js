@@ -13,6 +13,7 @@ __d(
     "WAWebVoipInitEventEmitter",
     "WAWebVoipNackHandlers",
     "WAWebVoipStackInterface",
+    "WAWebVoipStartCall",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -122,12 +123,13 @@ __d(
           ((h.videoMuted = k != null ? k : !1),
             (h.audioMuted = l != null ? l : !1));
           var I = C === "video";
-          v({
+          (v({
             audioDeviceId: i,
             colorIndex: S,
             speakerDeviceId: R,
             videoDeviceId: E,
-          });
+          }),
+            o("WAWebVoipStartCall").preloadCallLinkBundles());
           var T = o(
             "WAWebVoipInitEventEmitter",
           ).VoipInitEventEmitter.getIsVoipInited();
