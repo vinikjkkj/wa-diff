@@ -84,7 +84,13 @@ __d(
             r = t.messageOverwriteOption,
             a = t.msg,
             i = t.preserveOrder;
-          return o("WAWebUpdateMessageUIAction").updateUI(e, a, r, i, n);
+          return o("WAWebUpdateMessageUIAction").updateUI({
+            chatId: e,
+            isOffline: n,
+            messageOverwriteOption: r,
+            msg: a,
+            preserveOrder: i,
+          });
         },
         updateMsgModelAcks: function (t) {
           var e = t.updates;

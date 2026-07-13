@@ -20,6 +20,7 @@ __d(
     "WAWebGettersCaches",
     "WAWebInteractiveMessageHeaderMediaType",
     "WAWebMimeTypes",
+    "WAWebMsgAIProvenance",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebMusicParsingUtils",
@@ -1528,8 +1529,16 @@ __d(
       na = _("statusMentioned"),
       ra = _("isWamoSub"),
       oa = _("hasPaidPartnershipLabel"),
-      aa = _("isVideoCall"),
+      aa = _("aiProvenance"),
       ia = p(
+        function (e) {
+          var t = e[0];
+          return o("WAWebMsgAIProvenance").hasAIProvenanceSignal(t);
+        },
+        [aa],
+      ),
+      la = _("isVideoCall"),
+      sa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1539,9 +1548,9 @@ __d(
             (n === "miss_video" || n === "miss_group_video" || r === !0)
           );
         },
-        [b, v, aa],
+        [b, v, la],
       ),
-      la = p(
+      ua = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1549,9 +1558,9 @@ __d(
         },
         [b, R],
       ),
-      sa = _("callOutcome"),
-      ua = _("callSilenceReason"),
-      ca = p(
+      ca = _("callOutcome"),
+      da = _("callSilenceReason"),
+      ma = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1561,9 +1570,9 @@ __d(
             (n === "silence" || r != null)
           );
         },
-        [b, v, ua],
+        [b, v, da],
       ),
-      da = p(
+      pa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1580,10 +1589,10 @@ __d(
               !y.includes(r))
           );
         },
-        [b, v, sa, tt],
+        [b, v, ca, tt],
       ),
-      ma = _("callDuration"),
-      pa = p(
+      _a = _("callDuration"),
+      fa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1601,16 +1610,16 @@ __d(
             r > 0
           );
         },
-        [b, D, ma],
+        [b, D, _a],
       ),
-      _a = _("bytesSent"),
-      fa = _("bytesReceived"),
-      ga = _("callParticipants"),
-      ha = _("isCallLink"),
-      ya = _("callLinkToken"),
-      Ca = _("terminatedByDeviceSwitch"),
-      ba = _("selfOtherDeviceConnected"),
-      va = p(
+      ga = _("bytesSent"),
+      ha = _("bytesReceived"),
+      ya = _("callParticipants"),
+      Ca = _("isCallLink"),
+      ba = _("callLinkToken"),
+      va = _("terminatedByDeviceSwitch"),
+      Sa = _("selfOtherDeviceConnected"),
+      Ra = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1624,45 +1633,45 @@ __d(
                 }) > 1))
           );
         },
-        [Qe, ga, ya],
+        [Qe, ya, ba],
       ),
-      Sa = p(
+      La = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [Qe, va],
+        [Qe, Ra],
       ),
-      Ra = _("finalCallOutcome"),
-      La = _("groupHistoryBundleMessageKey"),
-      Ea = _("groupHistoryBundleMetadata"),
-      ka = _("groupHistoryIndividualMessageInfo"),
-      Ia = p(
+      Ea = _("finalCallOutcome"),
+      ka = _("groupHistoryBundleMessageKey"),
+      Ia = _("groupHistoryBundleMetadata"),
+      Ta = _("groupHistoryIndividualMessageInfo"),
+      Da = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [ka, La],
+        [Ta, ka],
       ),
-      Ta = p(
+      xa = p(
         function (e) {
           var t = e[0];
           return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
         },
-        [ka],
+        [Ta],
       ),
-      Da = p(
+      $a = p(
         function (e) {
           var t = e[0];
           return t == null ? void 0 : t.bundleSender;
         },
-        [ka],
+        [Ta],
       ),
-      xa = _("botGroupParticipant");
-    function $a(e) {
+      Pa = _("botGroupParticipant");
+    function Na(e) {
       var t =
         b(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(k(e));
@@ -1980,32 +1989,34 @@ __d(
       (l.getStatusMentioned = na),
       (l.getIsWamoSub = ra),
       (l.getHasPaidPartnershipLabel = oa),
-      (l.getIsVideoCall = ia),
-      (l.getCallId = la),
-      (l.getCallOutcome = sa),
-      (l.getCallSilenceReason = ua),
-      (l.getIsCallSilenced = ca),
-      (l.getIsMissedCall = da),
-      (l.getCallDuration = ma),
-      (l.getIsVisibleCallLog = pa),
-      (l.getBytesSent = _a),
-      (l.getBytesReceived = fa),
-      (l.getCallParticipants = ga),
-      (l.getIsCallLink = ha),
-      (l.getCallLinkToken = ya),
-      (l.getTerminatedByDeviceSwitch = Ca),
-      (l.getSelfOtherDeviceConnected = ba),
-      (l.getIsAdHocGroupCall = va),
-      (l.getIsGroupCall = Sa),
-      (l.getFinalCallOutcome = Ra),
-      (l.getGroupHistoryBundleMessageKeyDeprecated = La),
-      (l.getGroupHistoryBundleMetadata = Ea),
-      (l.getGroupHistoryIndividualMessageInfo = ka),
-      (l.getGroupHistoryBundleMessageKey = Ia),
-      (l.getIsEditedAfterReceivedAsHistory = Ta),
-      (l.getGroupHistoryBundleSender = Da),
-      (l.getBotGroupParticipant = xa),
-      (l.isRealMessage = $a));
+      (l.getAiProvenance = aa),
+      (l.getIsAiContent = ia),
+      (l.getIsVideoCall = sa),
+      (l.getCallId = ua),
+      (l.getCallOutcome = ca),
+      (l.getCallSilenceReason = da),
+      (l.getIsCallSilenced = ma),
+      (l.getIsMissedCall = pa),
+      (l.getCallDuration = _a),
+      (l.getIsVisibleCallLog = fa),
+      (l.getBytesSent = ga),
+      (l.getBytesReceived = ha),
+      (l.getCallParticipants = ya),
+      (l.getIsCallLink = Ca),
+      (l.getCallLinkToken = ba),
+      (l.getTerminatedByDeviceSwitch = va),
+      (l.getSelfOtherDeviceConnected = Sa),
+      (l.getIsAdHocGroupCall = Ra),
+      (l.getIsGroupCall = La),
+      (l.getFinalCallOutcome = Ea),
+      (l.getGroupHistoryBundleMessageKeyDeprecated = ka),
+      (l.getGroupHistoryBundleMetadata = Ia),
+      (l.getGroupHistoryIndividualMessageInfo = Ta),
+      (l.getGroupHistoryBundleMessageKey = Da),
+      (l.getIsEditedAfterReceivedAsHistory = xa),
+      (l.getGroupHistoryBundleSender = $a),
+      (l.getBotGroupParticipant = Pa),
+      (l.isRealMessage = Na));
   },
   98,
 );

@@ -72,6 +72,8 @@ __d(
       CALLS_TAB_SEARCH: 67,
       UPCOMING_EVENT_BANNER: 68,
       CALL_LOG_MULTI_SELECT_TOOLBAR: 69,
+      CALL_LOG_SWIPE: 70,
+      CALL_LOG_CLEAR_ALL: 71,
     });
     i.SUB_SURFACE = e;
   },

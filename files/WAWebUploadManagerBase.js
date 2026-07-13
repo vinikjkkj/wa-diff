@@ -38,9 +38,6 @@ __d(
       return "" + b++;
     }
     function S(e) {
-      return e;
-    }
-    function R(e) {
       var t = e.mediaKey,
         n = e.mediaKeyTimestamp;
       if (t != null && n != null) return { mediaKey: t, mediaKeyTimestamp: n };
@@ -49,7 +46,7 @@ __d(
         i = o.timestamp;
       return { mediaKey: a, mediaKeyTimestamp: i };
     }
-    var L = (function () {
+    var R = (function () {
       function t(t) {
         var a = this;
         ((this.$1 = r("WAMemoizeConcurrent")(
@@ -306,8 +303,8 @@ __d(
                 _ = t.handleCheckExistingError,
                 b = t.handleCheckExistingSuccess,
                 v = t.handleEncryptionStart,
-                S = t.handleEncryptionSuccess,
-                L = t.handleStreamUploadStart,
+                R = t.handleEncryptionSuccess,
+                E = t.handleStreamUploadStart,
                 k = t.handleUploadAttemptError,
                 I = t.handleUploadAttemptSuccess,
                 T = t.handleUploadError,
@@ -326,7 +323,7 @@ __d(
                   .UPLOAD_ENCRYPTION_STARTED,
               );
               try {
-                var M = R(e),
+                var M = S(e),
                   w =
                     d === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
                     i instanceof Blob
@@ -407,7 +404,7 @@ __d(
                       i = t.firstFrameSidecar,
                       u = t.hash,
                       m = t.sidecar;
-                    (S(),
+                    (R(),
                       a.deps.crashLogger.mark(
                         P,
                         o("WAWebMmsDownloadUploadCrashLogger").ProgressType
@@ -429,12 +426,12 @@ __d(
                       onUploadSuccess: $,
                       onProgress: N,
                       onFinalize: s,
-                      onStreamUploadStart: L,
+                      onStreamUploadStart: E,
                       mediaId: P,
                       token: (n = e.token) != null ? n : u,
                     }).then(function (e) {
                       return {
-                        directPath: l ? E(e.directPath) : e.directPath,
+                        directPath: l ? L(e.directPath) : e.directPath,
                         encFilehash: u,
                         mediaKey: M.mediaKey,
                         mediaKeyTimestamp: M.mediaKeyTimestamp,
@@ -504,7 +501,7 @@ __d(
         t
       );
     })();
-    function E(e) {
+    function L(e) {
       var t = e.split("?"),
         n = t[0],
         r = t[1],
@@ -512,7 +509,7 @@ __d(
         i = o("WATimeUtils").unixTime();
       return (a.set("_nc_hot", String(i)), n + "?" + a.toString());
     }
-    ((l.getNextUploadId = v), (l.toUploadId = S), (l.UploadManagerBase = L));
+    ((l.getNextUploadId = v), (l.UploadManagerBase = R));
   },
   98,
 );

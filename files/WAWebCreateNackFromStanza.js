@@ -17,6 +17,7 @@ __d(
       m,
       p,
       _ = n("$InternalEnum")({
+        UnsupportedMessage: 415,
         StaleGroupAddressingMode: 421,
         NewChatMessagesCapped: 475,
         ParsingError: 487,
@@ -166,6 +167,15 @@ __d(
         case "receipt":
           return o("WAWap").wap("ack", {
             class: "receipt",
+            id: n.id,
+            to: n.from,
+            type: n.type || o("WAWap").DROP_ATTR,
+            participant: n.participant || o("WAWap").DROP_ATTR,
+            error: o("WAWap").INT(t),
+          });
+        case "status":
+          return o("WAWap").wap("ack", {
+            class: "status",
             id: n.id,
             to: n.from,
             type: n.type || o("WAWap").DROP_ATTR,

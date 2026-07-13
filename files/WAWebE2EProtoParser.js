@@ -22,6 +22,7 @@ __d(
     "WAWebMessageAssociationGatingUtils",
     "WAWebMessageAssociationValidation",
     "WAWebMessagePluginParseProtobuf",
+    "WAWebMsgAIProvenance",
     "WAWebMsgType",
     "WAWebParseForwardedAiBotMessageInfo",
     "WAWebParseForwardedNewsletterMessageInfo",
@@ -380,13 +381,15 @@ __d(
           ((e.disappearingModeTrigger = _.disappearingModeTrigger),
           (e.disappearingModeInitiatedByMe = _.initiatedByMe));
       }
-      if (
-        (t.actionLink != null && (e.actionLink = t.actionLink),
+      (t.actionLink != null && (e.actionLink = t.actionLink),
         t.afterReadDuration != null &&
           o("WAWebAfterReadUtils").isAfterReadEnabled() &&
           (e.afterReadDuration = t.afterReadDuration),
         t.smbClientCampaignId != null &&
-          (e.smbClientCampaignId = t.smbClientCampaignId),
+          (e.smbClientCampaignId = t.smbClientCampaignId));
+      var f = o("WAWebMsgAIProvenance").aiProvenanceFromProto(t.aiProvenance);
+      if (
+        (f != null && (e.aiProvenance = f),
         t.forwardedNewsletterMessageInfo != null)
       )
         try {
@@ -405,12 +408,12 @@ __d(
             )
             .sendLogs("Failed to parse Forwarded Newsletter Message Info.");
         }
-      var f = t.forwardedAiBotMessageInfo;
-      if (f != null && o("WAWebBotBaseGating").isAiForwardAttributionEnabled())
+      var g = t.forwardedAiBotMessageInfo;
+      if (g != null && o("WAWebBotBaseGating").isAiForwardAttributionEnabled())
         try {
           e.forwardedAiBotMessageInfo = o(
             "WAWebParseForwardedAiBotMessageInfo",
-          ).parseForwardedAiBotMessageInfo(f);
+          ).parseForwardedAiBotMessageInfo(g);
         } catch (e) {
           o("WALogger")
             .ERROR(
@@ -433,11 +436,11 @@ __d(
         t.statusAudienceMetadata != null &&
           o("WAWebStatusGatingUtils").isStatusCloseFriendsViewerSideEnabled() &&
           (e.statusAudienceMetadata = t.statusAudienceMetadata));
-      var g = t.featureEligibilities;
-      ((g == null ? void 0 : g.cannotBeRanked) != null &&
-        (e.cannotBeRanked = g.cannotBeRanked),
-        (g == null ? void 0 : g.canBeReshared) != null &&
-          (e.canBeReshared = g.canBeReshared));
+      var h = t.featureEligibilities;
+      ((h == null ? void 0 : h.cannotBeRanked) != null &&
+        (e.cannotBeRanked = h.cannotBeRanked),
+        (h == null ? void 0 : h.canBeReshared) != null &&
+          (e.canBeReshared = h.canBeReshared));
     }
     function k(e, t, n, a) {
       if ((a === void 0 && (a = 0), r("justknobx")._("2451") && a >= b)) {

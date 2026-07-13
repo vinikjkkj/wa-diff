@@ -186,7 +186,10 @@ __d(
                     var a = null;
                     if (i)
                       (o("WAWebCmd").Cmd.isMainStreamReadyMd &&
-                        o("WAWebUpdateMessageUIAction").updateUI(t, e),
+                        o("WAWebUpdateMessageUIAction").updateUI({
+                          chatId: t,
+                          msg: e,
+                        }),
                         yield o("WAWebGetMessageCache")
                           .getMessageCache()
                           .addMessages([{ msg: e }], !1));

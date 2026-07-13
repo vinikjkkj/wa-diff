@@ -22,7 +22,9 @@ __d(
     "WAWebMessagePluginGenerateProtobuf",
     "WAWebMessagePluginGenerateReportingTokenContent",
     "WAWebMessagingGatingUtils",
+    "WAWebMsgAIProvenance",
     "WAWebMsgType",
+    "WAWebNewsletterGatingUtils",
     "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsStatusAttributions.pb",
@@ -327,6 +329,13 @@ __d(
           (a.statusAttributionType = o(
             "WAWebProtobufsE2E.pb",
           ).ContextInfo$StatusAttributionType.RESHARED_FROM_POST);
+      }
+      if (
+        e.aiProvenance != null &&
+        o("WAWebNewsletterGatingUtils").isChannelSGISenderEnabled()
+      ) {
+        var R = o("WAWebMsgAIProvenance").aiProvenanceToProto(e.aiProvenance);
+        R != null && (a.aiProvenance = R);
       }
       return C(e, t, r("isEmptyObject")(a) ? void 0 : a);
     }

@@ -31,6 +31,7 @@ __d(
                 6,
                 o("WAWebWamEnumUpdateEntryPoint").UPDATE_ENTRY_POINT,
               ],
+              visibleListIds: [11, e.TYPES.STRING],
             },
             [1, 1, 1],
             "regular",

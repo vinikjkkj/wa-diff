@@ -291,6 +291,7 @@ __d(
             (e.statusMentioned = o("WAWebBaseModel").prop()),
             (e.isWamoSub = o("WAWebBaseModel").prop()),
             (e.hasPaidPartnershipLabel = o("WAWebBaseModel").prop()),
+            (e.aiProvenance = o("WAWebBaseModel").prop()),
             (e.clearMedia = o("WAWebBaseModel").prop()),
             (e.isVcardOverMmsDocument = o("WAWebBaseModel").prop(!1)),
             (e.isCaptionByUser = o("WAWebBaseModel").prop()),
@@ -1436,14 +1437,6 @@ __d(
               (this.errorCode = t),
               o("WAWebDBUpdateMessageTable").updateMessageTable(this.id, {
                 errorCode: t,
-              })
-            );
-          }),
-          (i.updateReadQuestionResponsesCount = function () {
-            return (
-              (this.readQuestionResponsesCount = this.questionResponsesCount),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(this.id, {
-                readQuestionResponsesCount: this.questionResponsesCount,
               })
             );
           }),

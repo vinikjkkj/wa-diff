@@ -2732,44 +2732,44 @@ __d(
             Jt = (o._SmaxAutomaticMockRunnerStart = function (e, t, n, r) {
               return (Jt = o._SmaxAutomaticMockRunnerStart = v.S)(e, t, n, r);
             }),
-            Zt = (o._SmaxAutomaticRunnerBuilderCreate = function () {
-              return (Zt = o._SmaxAutomaticRunnerBuilderCreate = v.T)();
+            Zt = (o._SmaxFlipperPluginBackendCreate = function (e, t, n) {
+              return (Zt = o._SmaxFlipperPluginBackendCreate = v.T)(e, t, n);
             }),
-            en = (o._SmaxFlipperPluginBackendCreate = function (e, t, n) {
-              return (en = o._SmaxFlipperPluginBackendCreate = v.U)(e, t, n);
+            en = (o._SmaxFlipperPluginBackendFree = function (e) {
+              return (en = o._SmaxFlipperPluginBackendFree = v.U)(e);
             }),
-            tn = (o._SmaxFlipperPluginBackendFree = function (e) {
-              return (tn = o._SmaxFlipperPluginBackendFree = v.V)(e);
+            tn = (o._SmaxFlipperPluginBackendFreeResponse = function (e) {
+              return (tn = o._SmaxFlipperPluginBackendFreeResponse = v.V)(e);
             }),
-            nn = (o._SmaxFlipperPluginBackendFreeResponse = function (e) {
-              return (nn = o._SmaxFlipperPluginBackendFreeResponse = v.W)(e);
-            }),
-            rn = (o._SmaxFlipperPluginBackendHandleRpc = function (e, t, n, r) {
-              return (rn = o._SmaxFlipperPluginBackendHandleRpc = v.X)(
+            nn = (o._SmaxFlipperPluginBackendHandleRpc = function (e, t, n, r) {
+              return (nn = o._SmaxFlipperPluginBackendHandleRpc = v.W)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            on = (o._SmaxManualMockRunnerNext = function (e, t, n) {
-              return (on = o._SmaxManualMockRunnerNext = v.Y)(e, t, n);
+            rn = (o._SmaxManualMockRunnerNext = function (e, t, n) {
+              return (rn = o._SmaxManualMockRunnerNext = v.X)(e, t, n);
             }),
-            an = (o._SmaxManualMockRunnerStart = function (e, t, n) {
-              return (an = o._SmaxManualMockRunnerStart = v.Z)(e, t, n);
+            on = (o._SmaxManualMockRunnerStart = function (e, t, n) {
+              return (on = o._SmaxManualMockRunnerStart = v.Y)(e, t, n);
             }),
-            ln = (o._SmaxManualMockRunnerStartAndInject = function (
+            an = (o._SmaxManualMockRunnerStartAndInject = function (
               e,
               t,
               n,
               r,
             ) {
-              return (ln = o._SmaxManualMockRunnerStartAndInject = v._)(
+              return (an = o._SmaxManualMockRunnerStartAndInject = v.Z)(
                 e,
                 t,
                 n,
                 r,
               );
+            }),
+            ln = (o._SmaxManualRunnerBuilderCreate = function () {
+              return (ln = o._SmaxManualRunnerBuilderCreate = v._)();
             }),
             sn = (o._SmaxMockRunnerAddMockFile = function (e, t, n) {
               return (sn = o._SmaxMockRunnerAddMockFile = v.$)(e, t, n);
@@ -3012,60 +3012,60 @@ __d(
             zn = (o._SmaxRunnerPreKeyBundleFree = function (e) {
               return (zn = o._SmaxRunnerPreKeyBundleFree = v.La)(e);
             }),
-            jn = (o._SmaxBinaryStanzaConnectionCreate = function (e, t, n, r) {
-              return (jn = o._SmaxBinaryStanzaConnectionCreate = v.Ma)(
+            jn = (o._SmaxAutomaticRunnerBuilderCreate = function () {
+              return (jn = o._SmaxAutomaticRunnerBuilderCreate = v.Ma)();
+            }),
+            Kn = (o._SmaxBinaryStanzaConnectionCreate = function (e, t, n, r) {
+              return (Kn = o._SmaxBinaryStanzaConnectionCreate = v.Na)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            Kn = (o._SmaxBinaryStanzaFree = function (e, t) {
-              return (Kn = o._SmaxBinaryStanzaFree = v.Na)(e, t);
+            Qn = (o._SmaxBinaryStanzaFree = function (e, t) {
+              return (Qn = o._SmaxBinaryStanzaFree = v.Oa)(e, t);
             }),
-            Qn = (o._SmaxBinaryStanzaReaderFree = function (e) {
-              return (Qn = o._SmaxBinaryStanzaReaderFree = v.Oa)(e);
+            Xn = (o._SmaxBinaryStanzaReaderFree = function (e) {
+              return (Xn = o._SmaxBinaryStanzaReaderFree = v.Pa)(e);
             }),
-            Xn = (o._SmaxBinaryStanzaReaderNextStanzaBytes = function (
+            Yn = (o._SmaxBinaryStanzaReaderNextStanzaBytes = function (
               e,
               t,
               n,
               r,
             ) {
-              return (Xn = o._SmaxBinaryStanzaReaderNextStanzaBytes = v.Pa)(
+              return (Yn = o._SmaxBinaryStanzaReaderNextStanzaBytes = v.Qa)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            Yn = (o._SmaxBinaryStanzaWriterFree = function (e) {
-              return (Yn = o._SmaxBinaryStanzaWriterFree = v.Qa)(e);
+            Jn = (o._SmaxBinaryStanzaWriterFree = function (e) {
+              return (Jn = o._SmaxBinaryStanzaWriterFree = v.Ra)(e);
             }),
-            Jn = (o._SmaxBinaryStanzaWriterWriteStanzaBytes = function (
+            Zn = (o._SmaxBinaryStanzaWriterWriteStanzaBytes = function (
               e,
               t,
               n,
               r,
             ) {
-              return (Jn = o._SmaxBinaryStanzaWriterWriteStanzaBytes = v.Ra)(
+              return (Zn = o._SmaxBinaryStanzaWriterWriteStanzaBytes = v.Sa)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            Zn = (o._SmaxEventReaderCreate = function (e, t, n) {
-              return (Zn = o._SmaxEventReaderCreate = v.Sa)(e, t, n);
+            er = (o._SmaxEventReaderCreate = function (e, t, n) {
+              return (er = o._SmaxEventReaderCreate = v.Ta)(e, t, n);
             }),
-            er = (o._SmaxEventReaderFree = function (e) {
-              return (er = o._SmaxEventReaderFree = v.Ta)(e);
+            tr = (o._SmaxEventReaderFree = function (e) {
+              return (tr = o._SmaxEventReaderFree = v.Ua)(e);
             }),
-            tr = (o._SmaxEventReaderNextEvent = function (e, t, n) {
-              return (tr = o._SmaxEventReaderNextEvent = v.Ua)(e, t, n);
-            }),
-            nr = (o._SmaxManualRunnerBuilderCreate = function () {
-              return (nr = o._SmaxManualRunnerBuilderCreate = v.Va)();
+            nr = (o._SmaxEventReaderNextEvent = function (e, t, n) {
+              return (nr = o._SmaxEventReaderNextEvent = v.Va)(e, t, n);
             }),
             rr = (o._free = function (e) {
               return (rr = o._free = v.Wa)(e);

@@ -250,6 +250,7 @@ __d(
             a("supportCitations"),
             a("isWamoSub"),
             a("hasPaidPartnershipLabel"),
+            a("aiProvenance"),
             a("callSilenceReason"),
             a("callOutcome"),
             a("isVideoCall"),

@@ -22,7 +22,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
-    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterTabPulseState",
     "WAWebNotificationController",
     "WAWebNotificationEngagementWamEvent",
@@ -318,7 +317,9 @@ __d(
           (a.$WAMsgNotification$p_1 = function () {
             var e = o("WAWebFrontendMsgGetters").getChat(this.msg);
             o("WAWebChatGetters").getIsNewsletter(e) &&
-              o("WAWebNewsletterGatingUtils").isNewsletterTabPulseEnabled() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "channels_pulse_on_unread_badge_enabled",
+              ) &&
               r("WAWebNewsletterTabPulseState").triggerPulse();
           }),
           (a.getNotificationDeliveryWamEventData = (function () {

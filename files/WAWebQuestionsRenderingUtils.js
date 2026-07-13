@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebChatUnreadCount.react",
+    "WAWebDBUpdateMessageTable",
     "WAWebDrawerManager",
     "WAWebFrontendMsgGetters",
     "WAWebKeyboardTabUtils",
@@ -100,7 +101,7 @@ __d(
       }
     }
     function p(e, t) {
-      e.updateReadQuestionResponsesCount();
+      _(e);
       var n = !o(
         "WAWebQuestionsSenderGatingUtils",
       ).isQuestionReplySenderEnabled(t);
@@ -110,6 +111,14 @@ __d(
           { question: e, isReplyDisabled: n },
         ),
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
+      );
+    }
+    function _(e) {
+      return (
+        (e.readQuestionResponsesCount = e.questionResponsesCount),
+        o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+          readQuestionResponsesCount: e.questionResponsesCount,
+        })
       );
     }
     ((l.getQuestionAction = c),

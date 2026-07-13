@@ -268,7 +268,12 @@ __d(
       );
     }
     function M() {
-      return N() && r("WAWebEnvironment").getEnvironment() !== "prod";
+      return (
+        N() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_calling_sidenav_calls_tab_nux_enabled",
+        )
+      );
     }
     function w() {
       return r("WAWebEnvironment").isWindows

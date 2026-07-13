@@ -36,15 +36,12 @@ __d(
     }
     var d = e.Mirrored(["Going", "Maybe", "NotGoing", "NoResponse"]),
       m = e.Mirrored(["Active", "Canceled", "Suspended"]),
-      p = new Set([l.Invite, l.InviteRemove]);
-    function _(e) {
-      return p.has(e);
+      p = new Set([l.Invite, l.InviteRemove]),
+      _ = new Set([l.Update, l.Rsvp, l.Delete]);
+    function f(e) {
+      return _.has(e);
     }
-    var f = new Set([l.Update, l.Rsvp, l.Delete]);
     function g(e) {
-      return f.has(e);
-    }
-    function h(e) {
       return e === l.Invite
         ? "NotificationEventInvite"
         : e === l.Update
@@ -66,7 +63,7 @@ __d(
                         );
                       })();
     }
-    function y(e) {
+    function h(e) {
       return e === l.Invite
         ? "invite"
         : e === l.Update
@@ -95,11 +92,10 @@ __d(
       (i.SharableEventNotificationRsvpStatus = d),
       (i.SharableEventStatus = m),
       (i.PERSISTENCE_ONLY_NOTIFICATION_TYPES = p),
-      (i.isPersistenceOnlyType = _),
-      (i.SENDER_ATTRIBUTED_NOTIFICATION_TYPES = f),
-      (i.isSenderAttributed = g),
-      (i.getOperationName = h),
-      (i.getIdentifierTag = y));
+      (i.SENDER_ATTRIBUTED_NOTIFICATION_TYPES = _),
+      (i.isSenderAttributed = f),
+      (i.getOperationName = g),
+      (i.getIdentifierTag = h));
   },
   66,
 );

@@ -58,13 +58,16 @@ __d(
         n = Number(e);
       return p(n) ? "" : t;
     }
-    function h(e, t, n, r) {
-      var o =
-        e != null && e.isQuantitySet ? Number(r) !== e.quantity : r != null;
+    function h(e) {
+      var t = e.item,
+        n = e.name,
+        r = e.price,
+        o = e.quantity,
+        a = t != null && t.isQuantitySet ? Number(o) !== t.quantity : o != null;
       return (
-        (e == null ? void 0 : e.name) !== t ||
-        (e == null ? void 0 : e.price) !== n ||
-        o
+        (t == null ? void 0 : t.name) !== n ||
+        (t == null ? void 0 : t.price) !== r ||
+        a
       );
     }
     function y(e) {
@@ -163,7 +166,7 @@ __d(
       var J = Y,
         Z;
       n[19] !== i || n[20] !== v || n[21] !== T || n[22] !== M
-        ? ((Z = h(i, v, T, M)),
+        ? ((Z = h({ item: i, name: v, price: T, quantity: M })),
           (n[19] = i),
           (n[20] = v),
           (n[21] = T),
