@@ -113,22 +113,8 @@ __d(
             ) {
               var n;
               (this.$Call$p_2.clear(),
-                this.trigger(
-                  (n = o("WAWebVoipEventConstants")).getChangeEvent(
-                    n.VoipCallModelEvents.PEER_RECONNECTING,
-                  ),
-                ),
-                r("WAWebCallCollection").trigger(
-                  n.getChangeEvent(n.VoipCallModelEvents.PEER_RECONNECTING),
-                ),
                 this.$Call$p_10.clear(),
-                this.trigger(
-                  n.getChangeEvent(n.VoipCallModelEvents.REACTION_STATES),
-                ),
                 this.$Call$p_11.clear(),
-                this.trigger(
-                  n.getChangeEvent(n.VoipCallModelEvents.RAISED_HAND_STATES),
-                ),
                 (this.$Call$p_3 = o(
                   "WAWebVoipWaCallEnums",
                 ).ScreenShareState.Stopped),
@@ -137,12 +123,26 @@ __d(
                 this.$Call$p_6.clear(),
                 (this.$Call$p_7 = !1),
                 (this.$Call$p_8 = !1),
-                this.trigger(
-                  n.getChangeEvent(n.VoipCallModelEvents.SCREEN_SHARE_STATES),
-                ),
                 this.$Call$p_12.clear(),
                 this.$Call$p_13.clear(),
                 (this.$Call$p_14 = null),
+                this.trigger(
+                  (n = o("WAWebVoipEventConstants")).getChangeEvent(
+                    n.VoipCallModelEvents.PEER_RECONNECTING,
+                  ),
+                ),
+                r("WAWebCallCollection").trigger(
+                  n.getChangeEvent(n.VoipCallModelEvents.PEER_RECONNECTING),
+                ),
+                this.trigger(
+                  n.getChangeEvent(n.VoipCallModelEvents.REACTION_STATES),
+                ),
+                this.trigger(
+                  n.getChangeEvent(n.VoipCallModelEvents.RAISED_HAND_STATES),
+                ),
+                this.trigger(
+                  n.getChangeEvent(n.VoipCallModelEvents.SCREEN_SHARE_STATES),
+                ),
                 this.trigger(
                   n.getChangeEvent(n.VoipCallModelEvents.NETWORK_HEALTH),
                 ),

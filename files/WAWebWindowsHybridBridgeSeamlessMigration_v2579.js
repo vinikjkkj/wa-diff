@@ -1,0 +1,65 @@
+__d(
+  "WAWebWindowsHybridBridgeSeamlessMigration.v2579",
+  [
+    "WALogger",
+    "WAWebBackendEventBus",
+    "WAWebUserPrefsMeUser",
+    "WAWebWindowsUserPrefsMigrationEventEmitter",
+    "justknobx",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = (function () {
+        function t(e) {
+          var t = this,
+            n,
+            o;
+          ((this.$2 = function (e) {
+            t.$3() &&
+              r("WAWebWindowsUserPrefsMigrationEventEmitter").trigger(
+                "storeUserPrefs",
+                e,
+              );
+          }),
+            (this.$1 = e),
+            (n = this.$1) == null || n.subscribe(null),
+            (o = this.$1) == null ||
+              o.addEventListener("SendUserPreferencesEvent", this.$2),
+            this.initialize());
+        }
+        var n = t.prototype;
+        return (
+          (n.initialize = function () {
+            var t = this,
+              n = r("justknobx")._("2741"),
+              a = r("justknobx")._("2742");
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[SeamlessMigration] RequestIsSeamlessMigrationEnabledStateRequested ",
+                  " and max retries ",
+                  "",
+                ])),
+              n,
+              a,
+            ),
+              this.$1.executeLogout(n, a),
+              o(
+                "WAWebBackendEventBus",
+              ).BackendEventBus.onInitialChatHistorySynced(function () {
+                if (t.$3()) {
+                  var e = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
+                  e != null && t.$1.requestUserPrefsMigration(e.toJid());
+                }
+              }));
+          }),
+          (n.$3 = function () {
+            return r("justknobx")._("303");
+          }),
+          t
+        );
+      })();
+    l.WindowsHybridBridgeSeamlessMigration_v2579 = s;
+  },
+  98,
+);

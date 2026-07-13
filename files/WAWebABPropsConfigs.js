@@ -3217,6 +3217,7 @@ __d(
       ],
       web_voip_low_resource_device: [28203, "bool", !1, !1],
       web_voip_outgoing_call_setup_latency_mode: [33122, "int", 0, 0],
+      web_voip_runtime_stack_selection_enabled: [33151, "bool", !1, !1],
       web_voip_sctp_worker_safari_exp: [27695, "int", 1, 1],
       web_voip_video_capture_impl: [21350, "int", 0, 0],
       web_voip_video_low_cap_height: [28042, "int", 270, 270],
