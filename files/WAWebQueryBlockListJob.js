@@ -2,8 +2,8 @@ __d(
   "WAWebQueryBlockListJob",
   [
     "WAArrayUtils",
-    "WAAsyncSleep",
     "WALogger",
+    "WAPromiseDelays",
     "WASmaxPsaChatBlockGetRPC",
     "WAWebApiBlocklist",
     "WAWebBackendApi",
@@ -328,7 +328,7 @@ __d(
                   "[blocklist] critical event committed",
                 ])),
             ),
-            yield o("WAAsyncSleep").asyncSleep(5e3),
+            yield o("WAPromiseDelays").delayMs(5e3),
             yield o("WAWebSocketLogoutJob").socketLogout(
               o("WAWebLogoutReasonConstants").LogoutReason
                 .LidBlocklistChatDbUnmigrated,

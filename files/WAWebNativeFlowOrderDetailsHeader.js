@@ -2,12 +2,12 @@ __d(
   "WAWebNativeFlowOrderDetailsHeader",
   [
     "fbt",
-    "WAWebActionCheckCircleIcon.react",
     "WAWebFlex.react",
     "WAWebOrderGatingUtils",
     "WAWebOrderPaymentStatus",
     "WAWebTextLineClamp.react",
     "WAWebText_DONOTUSE.react",
+    "WDSIconIcCheckCircleFilled.react",
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "react",
@@ -123,10 +123,12 @@ __d(
               size: "10",
               xstyle: m.orderId,
               children: [
-                c.jsx(
-                  o("WAWebActionCheckCircleIcon.react").ActionCheckCircleIcon,
-                  { width: 12, displayInline: !0, xstyle: m.icon },
-                ),
+                c.jsx(r("WDSIconIcCheckCircleFilled.react"), {
+                  width: 12,
+                  displayInline: !0,
+                  colorName: "accent",
+                  xstyle: m.icon,
+                }),
                 s._(/*BTDS*/ "Paid"),
               ],
             })),

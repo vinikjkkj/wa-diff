@@ -1,6 +1,6 @@
 __d(
   "WAWebUIListener",
-  ["WAWebCompatibility", "WAWebEventEmitter", "WAWebTypedEventEmitter"],
+  ["WAWebEventEmitter", "WAWebTypedEventEmitter"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return (
@@ -10,16 +10,14 @@ __d(
       );
     }
     var s = (function () {
-      function t(t, n, r, a, i) {
+      function t(e, t, n, r, o) {
         ((this.$2 = !1),
           (this.$3 = !1),
-          (this.source = t),
-          (this.cb = r),
-          (this.opts = a),
-          (this.$1 = i),
-          e(t)
-            ? (this.event = n)
-            : (this.event = o("WAWebCompatibility").compatPrefix(n, t)));
+          (this.source = e),
+          (this.cb = n),
+          (this.opts = r),
+          (this.$1 = o),
+          (this.event = t));
       }
       var n = t.prototype;
       return (

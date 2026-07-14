@@ -2,8 +2,6 @@ __d(
   "WAWebMentionsPluginUtil",
   [
     "WALogger",
-    "WAWebBotGroupGatingUtils",
-    "WAWebBotProfileCollection",
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
@@ -19,39 +17,23 @@ __d(
       s,
       u = !1,
       c = !1;
-    function d(e, t, n) {
-      var r,
-        a =
-          (r =
+    function d(e, t) {
+      var n,
+        r =
+          (n =
             t == null
               ? void 0
               : t.participants.map(function (e) {
                   var t = e.contact;
                   return t;
                 })) != null
-            ? r
-            : [];
-      if (
-        n &&
-        (!o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() ||
-          (t == null ? void 0 : t.isOpenBotGroup) !== !0) &&
-        (!o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled() ||
-          (t == null ? void 0 : t.isTeeBotGroup) !== !0)
-      ) {
-        var i,
-          l =
-            (i = o(
-              "WAWebBotProfileCollection",
-            ).BotProfileCollection.getDefaultBot()) == null
-              ? void 0
-              : i.contact;
-        l != null && a.unshift(l);
-      }
-      var s = (e || "").toLowerCase(),
-        u = a.filter(function (e) {
-          return p(s, e);
+            ? n
+            : [],
+        o = (e || "").toLowerCase(),
+        a = r.filter(function (e) {
+          return p(o, e);
         });
-      return u;
+      return a;
     }
     function m(t, n) {
       if (n.parentGroup == null)

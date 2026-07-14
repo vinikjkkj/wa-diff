@@ -224,7 +224,12 @@ __d(
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             try {
-              var a = yield pe(e, t, n, r);
+              var a = yield pe({
+                allowPermissionPrompt: r,
+                isInActiveCall: n,
+                skipPermissionRequest: t,
+                targetWindow: e,
+              });
               if (a.length === 0)
                 return (
                   o("WALogger").ERROR(
@@ -327,114 +332,114 @@ __d(
         return n && !r ? -1 : !n && r ? 1 : 0;
       });
     }
-    function pe(e, t, n, r) {
+    function pe(e) {
       return _e.apply(this, arguments);
     }
     function _e() {
       return (
-        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            try {
-              var a,
-                i,
-                l =
-                  (a =
-                    e == null || (i = e.navigator) == null
-                      ? void 0
-                      : i.mediaDevices) != null
-                    ? a
-                    : navigator.mediaDevices;
-              if (!(l != null && l.enumerateDevices))
-                return (
-                  o("WALogger").ERROR(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:getAvailableAudioDevices] mediaDevices API not supported",
-                      ])),
-                  ),
-                  []
-                );
-              var s =
-                  r === !0 &&
-                  t !== !0 &&
-                  !(o("WAWebUA").UA.isSafari && n === !0),
-                u = o("WAWebUA").UA.isFirefox && e != null;
-              if (s) {
-                var c = u
-                    ? { denied: !1, granted: !1 }
-                    : yield o(
-                        "WAWebMediaPermissionsUtils",
-                      ).checkMediaPermissionState(
-                        "microphone",
-                        e == null ? void 0 : e.navigator,
-                      ),
-                  d = c.denied,
-                  m = c.granted,
-                  p = m || d;
-                if (!p)
-                  try {
-                    var _ = yield l.getUserMedia({ audio: !0 });
-                    _.getTracks().forEach(function (e) {
-                      return e.stop();
-                    });
-                  } catch (e) {
-                    if (n !== !0)
-                      throw (
-                        o("WALogger").WARN(
-                          S ||
-                            (S = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:getAvailableAudioDevices] microphone permission denied",
-                            ])),
-                        ),
-                        e
-                      );
-                  }
-              }
-              var f = yield Z(l),
-                g = me(
-                  f
-                    .filter(function (e) {
-                      return e.kind === "audioinput";
-                    })
-                    .map(function (e) {
-                      return {
-                        deviceId: e.deviceId,
-                        label:
-                          e.label || "Microphone " + e.deviceId.slice(0, 8),
-                      };
-                    }),
-                );
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e === void 0 ? {} : e,
+            n = t.allowPermissionPrompt,
+            r = t.isInActiveCall,
+            a = t.skipPermissionRequest,
+            i = t.targetWindow;
+          try {
+            var l,
+              s,
+              u =
+                (l =
+                  i == null || (s = i.navigator) == null
+                    ? void 0
+                    : s.mediaDevices) != null
+                  ? l
+                  : navigator.mediaDevices;
+            if (!(u != null && u.enumerateDevices))
               return (
-                o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:getAvailableAudioDevices] loaded ",
-                      " devices: ",
-                      "",
+                o("WALogger").ERROR(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:getAvailableAudioDevices] mediaDevices API not supported",
                     ])),
-                  g.length,
-                  g.map(function (e) {
-                    return e.label + " (" + e.deviceId.slice(0, 8) + ")";
-                  }),
                 ),
-                g
-              );
-            } catch (e) {
-              return (
-                (!(e instanceof Error) || !e.name.includes("NotAllowed")) &&
-                  o("WALogger").ERROR(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:getAvailableAudioDevices] error loading devices: ",
-                        "",
-                      ])),
-                    e,
-                  ),
                 []
               );
+            var c =
+                n === !0 && a !== !0 && !(o("WAWebUA").UA.isSafari && r === !0),
+              d = o("WAWebUA").UA.isFirefox && i != null;
+            if (c) {
+              var m = d
+                  ? { denied: !1, granted: !1 }
+                  : yield o(
+                      "WAWebMediaPermissionsUtils",
+                    ).checkMediaPermissionState(
+                      "microphone",
+                      i == null ? void 0 : i.navigator,
+                    ),
+                p = m.denied,
+                _ = m.granted,
+                f = _ || p;
+              if (!f)
+                try {
+                  var g = yield u.getUserMedia({ audio: !0 });
+                  g.getTracks().forEach(function (e) {
+                    return e.stop();
+                  });
+                } catch (e) {
+                  if (r !== !0)
+                    throw (
+                      o("WALogger").WARN(
+                        S ||
+                          (S = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:getAvailableAudioDevices] microphone permission denied",
+                          ])),
+                      ),
+                      e
+                    );
+                }
             }
-          },
-        )),
+            var h = yield Z(u),
+              y = me(
+                h
+                  .filter(function (e) {
+                    return e.kind === "audioinput";
+                  })
+                  .map(function (e) {
+                    return {
+                      deviceId: e.deviceId,
+                      label: e.label || "Microphone " + e.deviceId.slice(0, 8),
+                    };
+                  }),
+              );
+            return (
+              o("WALogger").LOG(
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:getAvailableAudioDevices] loaded ",
+                    " devices: ",
+                    "",
+                  ])),
+                y.length,
+                y.map(function (e) {
+                  return e.label + " (" + e.deviceId.slice(0, 8) + ")";
+                }),
+              ),
+              y
+            );
+          } catch (e) {
+            return (
+              (!(e instanceof Error) || !e.name.includes("NotAllowed")) &&
+                o("WALogger").ERROR(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:getAvailableAudioDevices] error loading devices: ",
+                      "",
+                    ])),
+                  e,
+                ),
+              []
+            );
+          }
+        })),
         _e.apply(this, arguments)
       );
     }

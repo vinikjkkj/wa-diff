@@ -259,10 +259,8 @@ __d(
           return (U || (U = n("Promise"))).resolve(t);
         }
         if (!o("WAWebVoipGatingUtils").isVoipDownloadEnabled())
-          throw (U || (U = n("Promise"))).reject(
-            r("err")(
-              "VoipWebBridgeApi: VoipWebWasm should not be loaded - voip download is not enabled",
-            ),
+          throw r("err")(
+            "VoipWebBridgeApi: VoipWebWasm should not be loaded - voip download is not enabled",
           );
         return o("WAWebVoipWebLoadable").requireVoip();
       },

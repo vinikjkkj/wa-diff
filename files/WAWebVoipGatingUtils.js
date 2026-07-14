@@ -366,6 +366,12 @@ __d(
       );
     }
     function J() {
+      return (
+        r("justknobx")._("2102") &&
+        (o("WAWebUA").UA.isSafari || o("WAWebUA").UA.isFirefox)
+      );
+    }
+    function Z() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_screen_share_dual_stream_app_update_dialog_enabled",
       );
@@ -403,7 +409,8 @@ __d(
       (l.isCallInfoOptimizationsEnabledForCallLink = Q),
       (l.isCallInfoOptimizationsEnabledForCallType = X),
       (l.isFullScreenToggleEnabled = Y),
-      (l.isScreenShareDualStreamAppUpdateDialogEnabled = J));
+      (l.isPopoutReuseCaptureEnabled = J),
+      (l.isScreenShareDualStreamAppUpdateDialogEnabled = Z));
   },
   98,
 );

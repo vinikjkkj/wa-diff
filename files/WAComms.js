@@ -80,6 +80,8 @@ __d(
             (this.socketAbortController = null),
             (this.activePing = null),
             (this.$5 = new Set()),
+            (this.$6 = 0),
+            (this.$7 = 0),
             (this.socketId = z),
             (this.socket = null),
             (this.softCloseSocket = null),
@@ -108,7 +110,7 @@ __d(
                     "NO_ACK"
                   );
               }
-              var c = ye(t);
+              var c = Ce(t);
               if (c != null) {
                 var d = a.pendingIqs.get(c);
                 d
@@ -316,6 +318,8 @@ __d(
                         ),
                         (a.socketId = t),
                         (a.socket = n),
+                        (a.$7 = self.performance.now()),
+                        (a.$6 = 0),
                         (a.softCloseSocket = function () {
                           ((a.softCloseSocket = null),
                             a.socket &&
@@ -439,7 +443,7 @@ __d(
             (this.config = n),
             (this.socketLoop = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
               name: "MainSocketLoop",
-              code: ae,
+              code: ie,
               timer:
                 (E = n.socketReconnectBackoffAlgo) != null
                   ? E
@@ -672,6 +676,7 @@ __d(
             var e = this;
             t === this.socketId &&
               (this.deadSocketTimer.cancel(),
+              (this.$6 = self.performance.now()),
               this.$1 && (this.$1.resolve(), (this.$1 = null)));
             var r = o("WAWap")
               .decodeStanza(n, this.gzipInflate)
@@ -698,7 +703,7 @@ __d(
                   e.config.handlers.onHandleStanza == null ||
                     e.config.handlers.onHandleStanza(r, t, n.byteLength));
                 var a = e.activePing;
-                return a && a.socketId === t && a.stanzaId === ye(r)
+                return a && a.socketId === t && a.stanzaId === Ce(r)
                   ? ((e.activePing = null),
                     a.handler.resolve(r),
                     e.maybeScheduleHealthCheck(),
@@ -807,6 +812,11 @@ __d(
           }),
           (a.isSocketConnected = function () {
             return this.socket != null;
+          }),
+          (a.getMsSinceLastInboundRx = function () {
+            if (!this.isSocketConnected() || this.$7 === 0) return -1;
+            var e = this.$6 > 0 ? this.$6 : this.$7;
+            return self.performance.now() - e;
           }),
           (a.sendIq = function (t, a, i, l, s) {
             var e = this;
@@ -976,35 +986,35 @@ __d(
       return ((V = o), r && setTimeout(ee, 0), o);
     }
     function X() {
-      var e = he("stopComms");
+      var e = ye("stopComms");
       (e.stopComms(), (V = null));
     }
     function Y() {
-      var e = he("closeSocketAndPreventRetry");
+      var e = ye("closeSocketAndPreventRetry");
       e.closeSocketAndPreventRetry();
     }
     function J() {
-      var e = he("closeSocketAndPause");
+      var e = ye("closeSocketAndPause");
       e.closeSocketAndPause();
     }
     function Z() {
-      var e = he("closeSocketAndResume");
+      var e = ye("closeSocketAndResume");
       e.closeSocketAndResume();
     }
     function ee() {
-      var e = he("openSocketLoop");
+      var e = ye("openSocketLoop");
       e.openSocketLoop();
     }
     function te() {
-      var e = he("maybeResetSocketLoop");
+      var e = ye("maybeResetSocketLoop");
       e.maybeResetSocketLoop();
     }
     function ne() {
-      var e = he("forceResetSocketLoop");
+      var e = ye("forceResetSocketLoop");
       e.forceResetSocketLoop();
     }
     function re() {
-      var e = he("socketAbortController");
+      var e = ye("socketAbortController");
       e.forceAbortSocketConnection();
     }
     function oe() {
@@ -1012,23 +1022,30 @@ __d(
       return !!((e = V) != null && e.isSocketConnected());
     }
     function ae() {
-      var e = he("socketLoopIteration");
-      return e.socketLoopIteration();
+      var e, t;
+      return (e = (t = V) == null ? void 0 : t.getMsSinceLastInboundRx()) !=
+        null
+        ? e
+        : -1;
     }
     function ie() {
-      var e = he("closeSocket");
-      e.closeSocket();
+      var e = ye("socketLoopIteration");
+      return e.socketLoopIteration();
     }
     function le() {
-      var e = he("onStreamErrorReceived");
-      e.onStreamErrorReceived();
+      var e = ye("closeSocket");
+      e.closeSocket();
     }
     function se() {
-      var e = he("waitForConnection");
+      var e = ye("onStreamErrorReceived");
+      e.onStreamErrorReceived();
+    }
+    function ue() {
+      var e = ye("waitForConnection");
       return (e.sendPing(), e.waitForNetworkHealth());
     }
-    function ue(e, t) {
-      var n = he("castStanza");
+    function ce(e, t) {
+      var n = ye("castStanza");
       n.isSocketConnected()
         ? n.castStanza(e, t)
         : o("WALogger").LOG(
@@ -1038,42 +1055,42 @@ __d(
               ])),
           );
     }
-    function ce(e) {
-      var t = he("castStanza");
+    function de(e) {
+      var t = ye("castStanza");
       return t.socketId === e;
     }
-    function de(e, t, n, r, o) {
+    function me(e, t, n, r, o) {
       (n === void 0 && (n = 0), o === void 0 && (o = "iq"));
-      var a = he("sendIq");
+      var a = ye("sendIq");
       return a.sendIq(e, t, n, r, o);
     }
-    function me(e, t) {
+    function pe(e, t) {
       var n,
         r,
         o,
         a = (n = t == null ? void 0 : t.withoutRetry) != null ? n : !1,
         i = (r = t == null ? void 0 : t.timeoutSeconds) != null ? r : 0,
         l = (o = t == null ? void 0 : t.signal) != null ? o : null;
-      return de(e, a, i, l, "smax");
-    }
-    function pe() {
-      var e = he("sendPing");
-      return e.sendPing();
+      return me(e, a, i, l, "smax");
     }
     function _e() {
-      return he("startHandlingRequests").startHandlingRequests();
+      var e = ye("sendPing");
+      return e.sendPing();
     }
     function fe() {
-      V && V.cancelDeadSocketTimer();
+      return ye("startHandlingRequests").startHandlingRequests();
     }
     function ge() {
+      V && V.cancelDeadSocketTimer();
+    }
+    function he() {
       return V != null;
     }
-    function he(e) {
+    function ye(e) {
       if (V) return V;
       throw r("err")("[comms] " + e + " called before startComms");
     }
-    function ye(e) {
+    function Ce(e) {
       if (e.tag === "iq") {
         var t = e.attrs.type;
         if (t === "result" || t === "error")
@@ -1081,11 +1098,11 @@ __d(
       }
       return null;
     }
-    function Ce() {
-      var e = he("getAndIncrementNextOrderedId");
+    function be() {
+      var e = ye("getAndIncrementNextOrderedId");
       return e.getAndIncrementNextOrderedId();
     }
-    function be() {
+    function ve() {
       V = null;
     }
     ((l.setCommsFactory = G),
@@ -1102,21 +1119,22 @@ __d(
       (l.forceResetSocketLoop = ne),
       (l.forceAbortSocketConnection = re),
       (l.isSocketConnected = oe),
-      (l.socketLoopIteration = ae),
-      (l.closeSocket = ie),
-      (l.onStreamErrorReceived = le),
-      (l.waitForConnection = se),
-      (l.castSmaxStanza = ue),
-      (l.isActiveSocket = ce),
-      (l._sendIq = de),
-      (l.sendSmaxStanza = me),
-      (l.sendPing = pe),
-      (l.startHandlingRequests = _e),
-      (l.cancelDeadSocketTimer = fe),
-      (l.isCommsInitialized = ge),
-      (l.singletonOrThrowIfUninitialized = he),
-      (l.getAndIncrementNextOrderedId = Ce),
-      (l.resetStateForTests = be));
+      (l.getMsSinceLastInboundRx = ae),
+      (l.socketLoopIteration = ie),
+      (l.closeSocket = le),
+      (l.onStreamErrorReceived = se),
+      (l.waitForConnection = ue),
+      (l.castSmaxStanza = ce),
+      (l.isActiveSocket = de),
+      (l._sendIq = me),
+      (l.sendSmaxStanza = pe),
+      (l.sendPing = _e),
+      (l.startHandlingRequests = fe),
+      (l.cancelDeadSocketTimer = ge),
+      (l.isCommsInitialized = he),
+      (l.singletonOrThrowIfUninitialized = ye),
+      (l.getAndIncrementNextOrderedId = be),
+      (l.resetStateForTests = ve));
   },
   98,
 );

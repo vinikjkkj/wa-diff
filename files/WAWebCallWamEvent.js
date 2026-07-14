@@ -1582,6 +1582,7 @@ __d(
               oneSideRelayTransactionIdFirstAllocResp: [1490, e.TYPES.INTEGER],
               oneToOneTerminateCount: [2103, e.TYPES.INTEGER],
               opusVersion: [287, e.TYPES.INTEGER],
+              outgoingCallSetupActiveMs: [3068, e.TYPES.TIMER],
               p2pCandPairStat: [2305, e.TYPES.STRING],
               p2pConnectionQualityStat: [1612, e.TYPES.STRING],
               p2pLocalCandAf: [

@@ -9,6 +9,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebPrimaryFeaturesModel",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebUsernameWorkerCompatibleGatingUtils",
     "WAWebVcardParsingUtils",
@@ -61,7 +62,10 @@ __d(
                 "WAWebUsernameWorkerCompatibleGatingUtils",
               ).usernameContactUIEnabled() &&
               !r("isStringNullOrEmpty")(i) &&
-              !e.isSmb;
+              !e.isSmb &&
+              o(
+                "WAWebUsernameGatingUtils",
+              ).usernamePreventPnPopulateNewContactCreationEnabled();
           return {
             lid: n,
             phoneNumber: _ ? null : a,

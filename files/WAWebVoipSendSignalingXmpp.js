@@ -143,13 +143,14 @@ __d(
             ),
             yield A == null
               ? void 0
-              : A.handleIncomingSignalingAck(
-                  N,
-                  (a = N.maybeAttrString("error")) != null ? a : "0",
-                  (i = N.maybeAttrString("type")) != null ? i : "",
-                  s,
-                  w,
-                ));
+              : A.handleIncomingSignalingAck({
+                  ackInfoError:
+                    (a = N.maybeAttrString("error")) != null ? a : "0",
+                  ackInfoType: (i = N.maybeAttrString("type")) != null ? i : "",
+                  peerJid: s,
+                  tcToken: w,
+                  xmlNode: N,
+                }));
           var F = Date.now() - l;
           F > 100 &&
             o("WALogger").LOG(

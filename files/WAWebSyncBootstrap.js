@@ -4,7 +4,6 @@ __d(
     "$InternalEnum",
     "Promise",
     "QPLFlow",
-    "WAAsyncSleep",
     "WAJobOrchestratorTypes",
     "WALogger",
     "WAPromiseDelays",
@@ -488,7 +487,7 @@ __d(
                           .sendLogs("bootstrap-syncd-timeout-logout", {
                             sampling: 0.1,
                           }),
-                        yield o("WAAsyncSleep").asyncSleep(5e3));
+                        yield o("WAPromiseDelays").delayMs(5e3));
                     } catch (e) {}
                     (o(
                       "WAWebMetricsAttributionActions",
@@ -530,7 +529,7 @@ __d(
                           .sendLogs("bootstrap-history-sync-timeout-logout", {
                             sampling: 0.1,
                           }),
-                        yield o("WAAsyncSleep").asyncSleep(5e3));
+                        yield o("WAPromiseDelays").delayMs(5e3));
                     } catch (e) {}
                     (o(
                       "WAWebForceFlushWamBuffers",
@@ -1011,7 +1010,7 @@ __d(
                     .sendLogs("history-sync-unexpected-chunk-order", {
                       sampling: 0.01,
                     })),
-                  yield o("WAAsyncSleep").asyncSleep(5e3));
+                  yield o("WAPromiseDelays").delayMs(5e3));
                 return;
               }
               if (

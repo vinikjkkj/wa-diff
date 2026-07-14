@@ -22,7 +22,6 @@ __d(
     "WAWebBuildConstants",
     "WAWebCallsOnlyGating",
     "WAWebCartDbLidMigration",
-    "WAWebChatThreadLogging",
     "WAWebClientPayload",
     "WAWebCommonCTWADataSharing",
     "WAWebCommsConfig",
@@ -49,6 +48,7 @@ __d(
     "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebInboxFiltersGatingUtils",
     "WAWebInitBotGatingHelpers",
+    "WAWebInitChatThreadLogging",
     "WAWebInitFavoritesFromStorage",
     "WAWebInitFromStorage",
     "WAWebInitWaitForEvents",
@@ -361,7 +361,7 @@ __d(
               o(
                 "WAWebAuthAgentFeatureControlLifecycle",
               ).startAuthAgentFeatureControlLifecycle(),
-            yield o("WAWebChatThreadLogging").initChatThreadLogging(),
+            yield o("WAWebInitChatThreadLogging").initChatThreadLogging(),
             yield o("WAWebPersistedJobManager").startWebPersistedJobManager(),
             o("WAWebPersistedJobManagerWorkerCompatible").setInstance(
               o("WAWebPersistedJobManager").getJobManager(),

@@ -28,15 +28,20 @@ __d(
       );
     }
     function s(t) {
-      var n = o("WAWebContactGetters").getIsMe(t.contact),
-        r = o("WAWebContactGetters").getIsAiHub(t.contact);
+      var n,
+        r = o("WAWebContactGetters").getIsMe(t.contact),
+        a = o("WAWebContactGetters").getIsAiHub(t.contact),
+        i =
+          ((n = t.contact.businessProfile) == null ? void 0 : n.isBizBot1p) ===
+          !0;
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
-        !n &&
+        !r &&
         t.id.isUserNotPSA() &&
         e() &&
-        !r
+        !a &&
+        (!i || u(t))
       );
     }
     function u(e) {

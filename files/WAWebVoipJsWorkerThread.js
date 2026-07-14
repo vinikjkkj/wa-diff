@@ -13,14 +13,16 @@ __d(
           )));
       }
       e.create = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t =
-            yield o("WAWebBackendApi").frontendSendAndReceive(
-              "initializeVoipWasm",
-            );
-          return new e(t);
+        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n =
+            t != null
+              ? t
+              : yield o("WAWebBackendApi").frontendSendAndReceive(
+                  "initializeVoipWasm",
+                );
+          return new e(n);
         });
-        function r() {
+        function r(e) {
           return t.apply(this, arguments);
         }
         return r;

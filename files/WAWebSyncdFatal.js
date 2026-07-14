@@ -2,8 +2,8 @@ __d(
   "WAWebSyncdFatal",
   [
     "Promise",
-    "WAAsyncSleep",
     "WALogger",
+    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebCoreActionsODS",
     "WAWebLogoutReasonConstants",
@@ -57,7 +57,7 @@ __d(
                 "syncd: fatal flow: before sleep",
               ])),
           ),
-            yield o("WAAsyncSleep").asyncSleep(f),
+            yield o("WAPromiseDelays").delayMs(f),
             yield y(t, "handleFatalError before notify primary"));
           var a = o("WATimeUtils").castMilliSecondsToUnixTime(
             o("WATimeUtils").unixTimeMs(),

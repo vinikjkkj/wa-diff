@@ -23,8 +23,6 @@ __d(
     "WAWebMsgType",
     "WAWebMultiSelectBar.react",
     "WAWebQuotedMessageUserJourneyLogger",
-    "WAWebRichTextInputConst",
-    "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebStateUtils",
     "asyncToGeneratorRuntime",
     "react",
@@ -116,41 +114,15 @@ __d(
           d.jsx(r("WAWebCommentsModal.react"), { parentMsgs: [t] }),
         );
       else {
-        var a,
-          i,
-          l = o("WAWebStateUtils").unproxy(t),
-          s = t.senderObj;
-        if (
-          ((e.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(l)),
-          o("WAWebMsgGetters").getIsMetaBotResponse(l) &&
-            e.canInvokeBot() &&
-            ((a = (i = e.getComposeContents()) == null ? void 0 : i.text) !=
-            null
-              ? a
-              : "") === "")
-        ) {
-          var u,
-            c =
-              (u = o(
-                "WAWebSimpleSignalPNToFBIDMigration",
-              ).getDeprecatedPnChatForFbidInvoke(s.id)) != null
-                ? u
-                : s.id,
-            m =
-              "" +
-              o("WAWebRichTextInputConst").ZWS +
-              c.toString() +
-              o("WAWebRichTextInputConst").ZWS +
-              " ";
-          o("WAWebComposeBoxActions").ComposeBoxActions.paste(e, m);
-        }
-        (e === o("WAWebChatCollection").ChatCollection.getActive()
-          ? o("WAWebComposeBoxActions").ComposeBoxActions.focus(e)
-          : o("WAWebCmd").Cmd.openChatBottom({
-              chat: e,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                .MessageReply,
-            }),
+        var a = o("WAWebStateUtils").unproxy(t);
+        ((e.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(a)),
+          e === o("WAWebChatCollection").ChatCollection.getActive()
+            ? o("WAWebComposeBoxActions").ComposeBoxActions.focus(e)
+            : o("WAWebCmd").Cmd.openChatBottom({
+                chat: e,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .MessageReply,
+              }),
           o(
             "WAWebQuotedMessageUserJourneyLogger",
           ).QuotedMessageUserJourneyLogger.quotedMessageAdded(e.id, n, t));

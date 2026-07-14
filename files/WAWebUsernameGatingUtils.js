@@ -95,6 +95,11 @@ __d(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
+    function T() {
+      return !!o("WAWebABProps").getABPropConfigValue(
+        "username_prevent_pn_populate_new_contact_creation",
+      );
+    }
     ((l.usernameDisplayedEnabled = e),
       (l.usernameSearchEnabled = s),
       (l.usernameContactlessChatEnabled = u),
@@ -114,7 +119,8 @@ __d(
       (l.usernameKeyUpsellMaxCharacters = L),
       (l.usernameKeyUpsellMaxNumbers = E),
       (l.usernameEngagementNetworkImpactLoggingEnabled = k),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = I));
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = I),
+      (l.usernamePreventPnPopulateNewContactCreationEnabled = T));
   },
   98,
 );

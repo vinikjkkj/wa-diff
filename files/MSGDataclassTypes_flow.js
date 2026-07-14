@@ -469,6 +469,7 @@ __d(
         XmaMusicArtist: "XMA_MUSIC_ARTIST",
         XmaOpenNative: "XMA_OPEN_NATIVE",
         XmaP2POpgTransfer: "XMA_P2P_OPG_TRANSFER",
+        XmaPhoneNumber: "XMA_PHONE_NUMBER",
         XmaSharedAlbumViewer: "XMA_SHARED_ALBUM_VIEWER",
         XmaWebUrl: "XMA_WEB_URL",
       }),

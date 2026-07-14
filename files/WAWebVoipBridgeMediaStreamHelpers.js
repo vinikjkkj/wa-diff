@@ -3,9 +3,9 @@ __d(
   [
     "WAWebUA",
     "WAWebVoipAcquireMediaStream",
+    "WAWebVoipGatingUtils",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -25,61 +25,61 @@ __d(
               (e = null),
             n == null)
           ) {
-            var a = o(
+            var r = o(
                 "WAWebVoipUiPopoutWindowPortalContainer.react",
               ).getPopoutWindow(),
-              i = a != null && !document.hasFocus(),
-              l;
+              a = r != null && !document.hasFocus(),
+              i;
             try {
-              l = a != null && a.location.origin === window.location.origin;
+              i = r != null && r.location.origin === window.location.origin;
             } catch (e) {
-              l = !1;
+              i = !1;
             }
-            var s = i;
+            var l = a;
             o("WAWebUA").UA.isSafari &&
-              (s =
-                i &&
+              (l =
+                a &&
                 o(
                   "WAWebVoipUiPopoutWindowPortalContainer.react",
                 ).getIsPopoutUiReady() &&
-                l);
-            var u = r("justknobx")._("2102") && o("WAWebUA").UA.isSafari,
-              c = u && t.type === "camera" && a != null && e === "main";
-            (t.type === "camera" && a != null,
+                i);
+            var s = o("WAWebVoipGatingUtils").isPopoutReuseCaptureEnabled(),
+              u = s && t.type === "camera" && r != null && e === "main";
+            (t.type === "camera" && r != null,
               o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari
-                ? c || (s ? (n = a) : o("WAWebUA").UA.isSafari)
-                : t.type !== "microphone" && i && (n = a));
+                ? u || (l ? (n = r) : o("WAWebUA").UA.isSafari)
+                : t.type !== "microphone" && a && (n = r));
           }
-          var d = yield o("WAWebVoipAcquireMediaStream").acquireVoipMediaStream(
+          var c = yield o("WAWebVoipAcquireMediaStream").acquireVoipMediaStream(
             babelHelpers.extends({}, t, { targetWindow: n }),
           );
-          if (d != null) {
-            var m = t.type;
-            if (m === "camera" || m === "desktop") {
-              var p = o(
+          if (c != null) {
+            var d = t.type;
+            if (d === "camera" || d === "desktop") {
+              var m = o(
                   "WAWebVoipUiPopoutWindowPortalContainer.react",
                 ).getPopoutWindow(),
-                _ = n != null && n === p;
+                p = n != null && n === m;
               o("WAWebVoipUiPopoutWindowPortalContainer.react").setMediaStream(
-                m,
                 d,
-                _,
+                c,
+                p,
               );
             }
-            if (m === "camera") {
-              var f = o(
+            if (d === "camera") {
+              var _ = o(
                 "WAWebVoipUiPopoutWindowPortalContainer.react",
               ).getPopoutWindow();
-              e = n != null && n === f ? "popout" : "main";
+              e = n != null && n === _ ? "popout" : "main";
             }
-            m === "desktop" &&
+            d === "desktop" &&
               o("WAWebUA").UA.isSafari &&
               o(
                 "WAWebVoipUiPopoutWindowPortalContainer.react",
               ).getPopoutWindow() != null &&
               (e = null);
           }
-          return d;
+          return c;
         })),
         u.apply(this, arguments)
       );

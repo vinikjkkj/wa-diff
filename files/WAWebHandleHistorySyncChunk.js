@@ -7,6 +7,7 @@ __d(
     "WAGzip",
     "WALogger",
     "WALongInt",
+    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAddonProcessMsgsUtils",
@@ -705,7 +706,7 @@ __d(
                         je,
                       ),
                       ot.delayMs > 0 &&
-                        (Xe++, yield o("WAAsyncSleep").asyncSleep(ot.delayMs)),
+                        (Xe++, yield o("WAPromiseDelays").delayMs(ot.delayMs)),
                       (je = 0),
                       (Ke = self.performance.now()));
                   }

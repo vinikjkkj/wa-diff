@@ -1,8 +1,8 @@
 __d(
   "WAWebAccountLinkingAPI",
   [
-    "WAAsyncSleep",
     "WALogger",
+    "WAPromiseDelays",
     "WASmaxWaffleEncryptedPayloadRequestRPC",
     "WASmaxWaffleForceDeleteStateRPC",
     "WASmaxWaffleForceSuspendStateRPC",
@@ -294,13 +294,13 @@ __d(
             if (e === "refresh_token") {
               var n = t.nextBackoffMs();
               if (n == null) return !1;
-              return (yield o("WAAsyncSleep").asyncSleep(n), le());
+              return (yield o("WAPromiseDelays").delayMs(n), le());
               break e;
             }
             if (e === "refetch_certs") {
               var r = t.nextBackoffMs();
               if (r == null) return !1;
-              yield o("WAAsyncSleep").asyncSleep(r);
+              yield o("WAPromiseDelays").delayMs(r);
               var a = yield V();
               return a != null;
             }

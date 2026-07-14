@@ -2,9 +2,9 @@ __d(
   "WAWebHandleAddChats",
   [
     "Promise",
-    "WAAsyncSleep",
     "WALogger",
     "WALongInt",
+    "WAPromiseDelays",
     "WAWebBackendApi",
     "WAWebBlocklistMigration",
     "WAWebChatConstants",
@@ -204,7 +204,7 @@ __d(
                 sendLogsType:
                   o("WALogger").SendLogsType.USER_FORCEFULLY_LOGGED_OUT_SAD,
               }),
-            yield o("WAAsyncSleep").asyncSleep(5e3),
+            yield o("WAPromiseDelays").delayMs(5e3),
             o("WAWebCoreActionsODS").logSessionForcedLogout(),
             o("WAWebSocketLogoutJob").socketLogout(
               o("WAWebLogoutReasonConstants").LogoutReason.WebFailAddChat,

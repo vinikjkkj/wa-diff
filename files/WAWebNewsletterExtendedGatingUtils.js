@@ -219,7 +219,7 @@ __d(
           );
     }
     function L(e) {
-      return e == null || !e.iAmAdminOrOwner() || !e.adminProfilesSettingEnabled
+      return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
               "channels_admin_profiles_sender_enabled",
@@ -231,7 +231,34 @@ __d(
                 .ADMIN_PROFILE,
             );
     }
-    function E(t) {
+    function E(e) {
+      return L(e) && e.adminProfilesSettingEnabled;
+    }
+    function k(e) {
+      return (
+        E(e) &&
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channels_admin_profiles_list_enabled",
+        )
+      );
+    }
+    function I(e) {
+      return (
+        E(e) &&
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channels_admin_profiles_update_enabled",
+        )
+      );
+    }
+    function T(e) {
+      return (
+        L(e) &&
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+          "channels_admin_profiles_settings_enabled",
+        )
+      );
+    }
+    function D(t) {
       if (!o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled())
         return !1;
       var n = e.get(t);
@@ -257,8 +284,11 @@ __d(
       (l.isNewsletterStatusCapabilityEnabled = v),
       (l.isNewsletterQuestionsCapabilityEnabled = S),
       (l.isNewsletterQuestionsM2CapabilityEnabled = R),
-      (l.isNewsletterAdminProfilesSenderEnabled = L),
-      (l.isNewsletterQplLoggingEnabledForMarkerId = E));
+      (l.isNewsletterAdminProfilesSenderEnabled = E),
+      (l.isNewsletterAdminProfilesListEnabled = k),
+      (l.isNewsletterAdminProfilesUpdateEnabled = I),
+      (l.isNewsletterAdminProfilesSettingEnabled = T),
+      (l.isNewsletterQplLoggingEnabledForMarkerId = D));
   },
   98,
 );

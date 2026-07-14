@@ -22,7 +22,13 @@ __d(
         t.actorID
       );
     }
-    function u() {
+    function u(e) {
+      var t = e.options;
+      return t == null || t.actorID == null
+        ? null
+        : (typeof t.actorID == "string" || l(0, 163031), t.actorID);
+    }
+    function c() {
       var t = e(2),
         r = n("react-relay/relay-hooks/useRelayEnvironment")(),
         o;
@@ -31,7 +37,21 @@ __d(
         o
       );
     }
-    a.exports = { getActorID: s, useActorID: u };
+    function d() {
+      var t = e(2),
+        r = n("react-relay/relay-hooks/useRelayEnvironment")(),
+        o;
+      return (
+        t[0] !== r ? ((o = u(r)), (t[0] = r), (t[1] = o)) : (o = t[1]),
+        o
+      );
+    }
+    a.exports = {
+      getActorID: s,
+      getActorIDNullable: u,
+      useActorID: c,
+      useActorIDNullable: d,
+    };
   },
   null,
 );

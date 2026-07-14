@@ -63,11 +63,9 @@ __d(
       return Math.min(120, 30 + 5 * n) * 1e3;
     }
     function m(e) {
-      var t;
-      return !!(
-        (t = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata) != null &&
-        t.isParentGroup
-      );
+      var t,
+        n = o("WAWebFrontendMsgGetters").getMaybeChat(e);
+      return n != null && !!((t = n.groupMetadata) != null && t.isParentGroup);
     }
     function p(e) {
       return r("gkx")("26258") || !o("WAWebMsgGetters").getIsGroupMsg(e) || g(e)
@@ -102,8 +100,9 @@ __d(
       );
     }
     function h(e) {
-      var t = o("WAWebFrontendMsgGetters").getChat(e);
+      var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
       if (
+        t == null ||
         !o("WAWebSettingsGetters").getShowArchiveV2(r("WAWebSettingsModel")) ||
         !t.archive
       )

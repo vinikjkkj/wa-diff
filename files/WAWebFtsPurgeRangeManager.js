@@ -1,6 +1,6 @@
 __d(
   "WAWebFtsPurgeRangeManager",
-  ["WAAsyncSleep", "WALogger", "WAWebFtsStorage", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAPromiseDelays", "WAWebFtsStorage", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -67,7 +67,7 @@ __d(
                     ])),
                   i - a,
                 ),
-                  yield o("WAAsyncSleep").asyncSleep(200),
+                  yield o("WAPromiseDelays").delayMs(200),
                   (t = yield this.$5()));
               }
               return !0;

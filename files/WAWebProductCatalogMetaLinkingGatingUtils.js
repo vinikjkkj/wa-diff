@@ -11,59 +11,48 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      if (!_()) return !1;
+      if (!m()) return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
       );
-      return f(e);
+      return p(e);
     }
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return _() ? d(e) : !1;
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c() {
+    function s() {
       if (
         o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled() ||
-        _()
+        m()
       )
         return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
       );
-      return f(e);
+      return p(e);
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function m() {
+    function c() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebBusinessProfileCollection",
           ).BusinessProfileCollection.fetchBizProfile(e);
-          return f(t);
+          return p(t);
         })),
-        m.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function p(e) {
-      return f(e);
+    function d(e) {
+      return p(e);
     }
-    function _() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "meta_catalog_linking_m2_enabled",
       );
     }
-    function f(e) {
+    function p(e) {
       var t;
-      return g()
+      return _()
         ? !0
         : o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled()
           ? !1
@@ -72,17 +61,16 @@ __d(
               : t.commerceExperience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes.META_CATALOG;
     }
-    function g() {
+    function _() {
       var e = window.location.search,
         t = new URLSearchParams(e);
       return t.get("force_disable_catalog") === "1";
     }
     ((l.shouldShowMetaLinkedDisabledCatalogTooltipForSelf = e),
-      (l.shouldShowMetaLinkedDisabledCatalogTooltip = s),
-      (l.shouldDisableCatalogDueToMetaLinkingForSelf = c),
-      (l.shouldDisableCatalogDueToMetaLinking = d),
-      (l.shouldDisableCatalogDueToMetaLinkingForProfile = p),
-      (l.linkedCatalogDisabledTooltipEnabled = _));
+      (l.shouldDisableCatalogDueToMetaLinkingForSelf = s),
+      (l.shouldDisableCatalogDueToMetaLinking = u),
+      (l.shouldDisableCatalogDueToMetaLinkingForProfile = d),
+      (l.linkedCatalogDisabledTooltipEnabled = m));
   },
   98,
 );

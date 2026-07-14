@@ -14,7 +14,6 @@ __d(
     "WAWebModalManager",
     "WAWebNonEmptyString",
     "WAWebProductCatalogLogEvents",
-    "WAWebProductCollection",
     "WAWebProductCollectionLogEvents",
     "WAWebProductCollectionsJob",
     "WAWebQplFlowWrapper",
@@ -33,14 +32,13 @@ __d(
       m = d || (d = o("react")),
       p = r("qpl")._(774774122, "3441"),
       _ = r("qpl")._(774778628, "3442"),
-      f = r("qpl")._(774777483, "3443"),
-      g = r("qpl")._(774776895, "3444");
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+      f = r("qpl")._(774777483, "3443");
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             return (
               yield o("WAWebBizProductCatalogAction").deleteProducts([
@@ -81,10 +79,10 @@ __d(
             throw e;
           }
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e, t, a, i) {
+    function y(e, t, a, i) {
       return (
         o("WAWebProductCatalogLogEvents").logDeleteProductClick(t, 1, a),
         new (c || (c = n("Promise")))(function (n, l) {
@@ -103,7 +101,7 @@ __d(
                   o("WAWebQplFlowWrapper").QPL.markerStart(p, {
                     annotations: { string: { EntryPoint: i } },
                   }),
-                  h(e, t, a)
+                  g(e, t, a)
                     .then(function (e) {
                       (o("WAWebQplFlowWrapper").QPL.markerEnd(p, 2), n(e));
                     })
@@ -124,12 +122,12 @@ __d(
         })
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o("WAWebBizProductCatalogBridge").productVisibilitySet(
             t.id.toString(),
             !t.isHidden,
@@ -145,10 +143,10 @@ __d(
             n && (n.isHidden = t.isHidden);
           });
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e, t, a, i) {
+    function v(e, t, a, i) {
       var l = t.id.toString(),
         u = !t.isHidden;
       return (
@@ -172,7 +170,7 @@ __d(
                   annotations: { string: { EntryPoint: i } },
                 }),
                   o("WAWebModalManager").ModalManager.close(),
-                  b(e, t)
+                  C(e, t)
                     .then(function () {
                       (o("WAWebQplFlowWrapper").QPL.markerEnd(_, 2),
                         u
@@ -213,12 +211,12 @@ __d(
         })
       );
     }
-    function R(e, t, n) {
-      return L.apply(this, arguments);
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function L() {
+    function R() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           (yield o("WAWebProductCollectionsJob").deleteCollection(
             t.id.toString(),
             n.session.sessionId.toString(),
@@ -229,10 +227,10 @@ __d(
               collectionId: t.id,
             }));
         })),
-        L.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function E(t, n, a) {
+    function L(t, n, a) {
       o("WAWebModalManager").ModalManager.open(
         m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           tsNavigationData: { surface: "unknown", viewName: "manage-catalog" },
@@ -241,7 +239,7 @@ __d(
           cancelText: s._(/*BTDS*/ "Cancel"),
           onOK: function () {
             (o("WAWebModalManager").ModalManager.close(),
-              R(t, n, a).catch(function (t) {
+              S(t, n, a).catch(function (t) {
                 return o("WAFilteredCatch").filteredCatch(
                   o("WAWebBackendErrors").ServerStatusCodeError,
                   function (t) {
@@ -280,7 +278,7 @@ __d(
         }),
       );
     }
-    function k(e, t, n, r, a, i) {
+    function E(e, t, n, r, a, i) {
       var l;
       return (
         o("WAWebQplFlowWrapper").QPL.markerPoint(f, "datasource_start"),
@@ -378,28 +376,7 @@ __d(
         })
       );
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (o("WAWebQplFlowWrapper").QPL.markerPoint(g, "datasource_start"),
-            yield o("WAWebProductCollectionsJob").appealCollection(
-              e.id.toString(),
-              t,
-            ),
-            e.set({
-              canAppeal: !1,
-              reviewStatus: o("WAWebProductCollection").PRODUCT_REVIEW_STATUS
-                .PENDING,
-            }),
-            o("WAWebQplFlowWrapper").QPL.markerPoint(g, "datasource_end"));
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    var D = {
+    var k = {
       OUT_OF_SYNC: {
         getTitle: function () {
           return s._(/*BTDS*/ "Changes cannot be saved");
@@ -434,19 +411,19 @@ __d(
         },
       },
     };
-    function x(e) {
+    function I(e) {
       return e instanceof o("WAWebHttpErrors").HttpNetworkError
-        ? D.HTTP_NETWORK_ERROR
+        ? k.HTTP_NETWORK_ERROR
         : e instanceof o("WAWebBackendErrors").CollectionReorderError
-          ? D.OUT_OF_SYNC
-          : D.SERVER_ERROR;
+          ? k.OUT_OF_SYNC
+          : k.SERVER_ERROR;
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function P() {
+    function D() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var a = yield o("WAWebProductCollectionsJob").reorderCollection(e);
             return (
@@ -460,7 +437,7 @@ __d(
           } catch (e) {
             var i = r("getErrorSafe")(e),
               l = i instanceof o("WAWebHttpErrors").HttpNetworkError,
-              s = x(i),
+              s = I(i),
               u = s.getDescription,
               d = s.getOkText,
               p = s.getTitle;
@@ -484,15 +461,14 @@ __d(
             });
           }
         })),
-        P.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    ((l.handleProductDelete = C),
-      (l.handleProductVisibilityChange = S),
-      (l.handleCollectionDelete = E),
-      (l.handleCollectionSave = k),
-      (l.handleCollectionAppeal = I),
-      (l.handleCollectionReorder = $));
+    ((l.handleProductDelete = y),
+      (l.handleProductVisibilityChange = v),
+      (l.handleCollectionDelete = L),
+      (l.handleCollectionSave = E),
+      (l.handleCollectionReorder = T));
   },
   226,
 );

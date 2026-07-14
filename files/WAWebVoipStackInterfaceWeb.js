@@ -850,28 +850,28 @@ __d(
           return t;
         })(),
         handleIncomingSignalingAck: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, a, i) {
-              var s = yield l,
-                u = e.node();
-              r("justknobx")._("360") &&
-                o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(u);
-              var c = o("WABase64").encodeB64(o("WAWap").encodeStanza(u)),
-                d = W(s, i);
-              try {
-                s.handleIncomingSignalingAck(c, t, n, a, d);
-              } catch (e) {
-                throw (
-                  o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    s,
-                    e,
-                  ),
-                  e
-                );
-              }
-            },
-          );
-          function t(t, n, r, o, a) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.ackInfoError,
+              n = e.ackInfoType,
+              a = e.peerJid,
+              i = e.tcToken,
+              s = e.xmlNode,
+              u = yield l,
+              c = s.node();
+            r("justknobx")._("360") &&
+              o("WAWebVoipStackInterfaceWebHelpers").overrideRelayIp(c);
+            var d = o("WABase64").encodeB64(o("WAWap").encodeStanza(c)),
+              m = W(u, i);
+            try {
+              u.handleIncomingSignalingAck(d, t, n, a, m);
+            } catch (e) {
+              throw (
+                o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(u, e),
+                e
+              );
+            }
+          });
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;

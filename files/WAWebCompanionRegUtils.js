@@ -2,8 +2,8 @@ __d(
   "WAWebCompanionRegUtils",
   [
     "Promise",
-    "WAAsyncSleep",
     "WALogger",
+    "WAPromiseDelays",
     "WAShiftTimer",
     "WATimeUtils",
     "WAWebAdvSignatureApi",
@@ -64,7 +64,7 @@ __d(
                 .sendLogs("companion-reg-history-sync-timeout-logout", {
                   sampling: 0.1,
                 }),
-              yield o("WAAsyncSleep").asyncSleep(5e3));
+              yield o("WAPromiseDelays").delayMs(5e3));
           } catch (e) {}
           (o("WAWebCoreActionsODS").isPageLoadComplete() ||
             o("WAWebCoreActionsODS").logPageLoadErrorHistorySyncIncomplete(),

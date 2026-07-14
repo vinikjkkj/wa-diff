@@ -237,13 +237,14 @@ __d(
         !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
       )
         return !1;
-      var t = o("WAWebFrontendMsgGetters").getChat(e);
-      return t.canSend;
+      var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
+      return t != null && t.canSend;
     }
     function $(e) {
       if (!r("WAWebEnvironment").isWindows) return [];
-      var t = o("WAWebFrontendMsgGetters").getChat(e),
-        n = [];
+      var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
+      if (t == null) return [];
+      var n = [];
       return (
         t.mute.canMute() &&
           n.push.apply(n, [

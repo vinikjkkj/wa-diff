@@ -23,7 +23,7 @@ __d(
     if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
       var _ = document.documentElement;
       if (_) {
-        if (_.addEventListener)
+        if ("addEventListener" in _)
           (_.addEventListener("keydown", m, !0),
             _.addEventListener("keyup", p, !0));
         else if (_.attachEvent) {

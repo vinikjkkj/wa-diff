@@ -4,39 +4,36 @@ __d(
     "WAPromiseTimeout",
     "WAWebBoolFunc",
     "WAWebEventEmitter",
-    "WAWebModernizr",
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebUA",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = "Modernizr" in window,
-      s = o("WAWebModernizr").getModernizr(),
-      u = (function (t) {
-        function n() {
-          var n;
-          ((n = t.call(this) || this),
-            (n.supported = e ? s.serviceworker : "serviceWorker" in navigator),
-            (n._checkAlive = function () {
+    var e = (function (e) {
+        function t() {
+          var t;
+          ((t = e.call(this) || this),
+            (t.supported = "serviceWorker" in navigator),
+            (t._checkAlive = function () {
               var e,
                 t =
                   (e = navigator.serviceWorker) == null ? void 0 : e.controller;
               return !!t;
             }),
-            (n._checkStreamingSupport = function () {
+            (t._checkStreamingSupport = function () {
               var e;
-              if (!n.supported || !n.alive || o("WAWebUA").UA.isSafari) {
-                n._streamingSupported = !1;
+              if (!t.supported || !t.alive || o("WAWebUA").UA.isSafari) {
+                t._streamingSupported = !1;
                 return;
               }
-              if (n._streamingSupportedPromise) return n._streamingSupported;
-              var t =
+              if (t._streamingSupportedPromise) return t._streamingSupported;
+              var n =
                 (e = navigator.serviceWorker) == null ? void 0 : e.controller;
-              t &&
-                (n._streamingSupportedPromise = o("WAPromiseTimeout")
+              n &&
+                (t._streamingSupportedPromise = o("WAPromiseTimeout")
                   .promiseTimeout(
                     r("WAWebSWBus").request(
-                      t,
+                      n,
                       r("WAWebSWBusActions").STREAMING_SUPPORTED,
                     ),
                     100,
@@ -44,40 +41,36 @@ __d(
                   .catch(o("WAWebBoolFunc").returnFalse)
                   .then(function (e) {
                     return (
-                      delete n._streamingSupportedPromise,
-                      (n.streamingSupported = e),
+                      delete t._streamingSupportedPromise,
+                      (t.streamingSupported = e),
                       e
                     );
                   }));
-            }),
-            (n._setSupported = function (e) {
-              n.supported = e;
-            }),
-            e && s.on && s.on("serviceworker", n._setSupported));
-          var a = n;
+            }));
+          var n = t;
           return (
-            Object.defineProperty(n, "streamingSupported", {
+            Object.defineProperty(t, "streamingSupported", {
               get: function () {
-                return (a._checkStreamingSupport(), a._streamingSupported);
+                return (n._checkStreamingSupport(), n._streamingSupported);
               },
               set: function (t) {
-                (t !== a._streamingSupported &&
-                  a.trigger("change:streamingSupported", t),
-                  (a._streamingSupported = t));
+                (t !== n._streamingSupported &&
+                  n.trigger("change:streamingSupported", t),
+                  (n._streamingSupported = t));
               },
             }),
-            Object.defineProperty(n, "alive", {
+            Object.defineProperty(t, "alive", {
               get: function () {
-                return a._checkAlive();
+                return n._checkAlive();
               },
             }),
-            n
+            t
           );
         }
-        return (babelHelpers.inheritsLoose(n, t), n);
+        return (babelHelpers.inheritsLoose(t, e), t);
       })(r("WAWebEventEmitter")),
-      c = new u();
-    l.default = c;
+      s = new e();
+    l.default = s;
   },
   98,
 );

@@ -11,6 +11,7 @@ __d(
             (t = e.call.apply(e, [this].concat(r)) || this),
             (t.$VoipInitEventEmitterImpl$p_1 = !1),
             (t.$VoipInitEventEmitterImpl$p_2 = !1),
+            (t.$VoipInitEventEmitterImpl$p_3 = null),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -24,14 +25,20 @@ __d(
           (n.getDidVoipInitError = function () {
             return this.$VoipInitEventEmitterImpl$p_2;
           }),
+          (n.getVoipInitFailureClass = function () {
+            return this.$VoipInitEventEmitterImpl$p_3;
+          }),
           (n.triggerVoipInitSuccess = function () {
             ((this.$VoipInitEventEmitterImpl$p_1 = !0),
               (this.$VoipInitEventEmitterImpl$p_2 = !1),
+              (this.$VoipInitEventEmitterImpl$p_3 = null),
               this.trigger("voipInitSuccess"));
           }),
-          (n.triggerVoipInitFailure = function () {
-            ((this.$VoipInitEventEmitterImpl$p_1 = !1),
+          (n.triggerVoipInitFailure = function (t) {
+            (t === void 0 && (t = null),
+              (this.$VoipInitEventEmitterImpl$p_1 = !1),
               (this.$VoipInitEventEmitterImpl$p_2 = !0),
+              (this.$VoipInitEventEmitterImpl$p_3 = t),
               this.trigger("voipInitFailure"));
           }),
           t

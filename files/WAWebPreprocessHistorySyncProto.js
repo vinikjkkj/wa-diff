@@ -4,6 +4,7 @@ __d(
     "WAAsyncSleep",
     "WALogger",
     "WALongInt",
+    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebAddonProcessMsgsUtils",
     "WAWebApiChatBulkGetByHistory",
@@ -284,7 +285,7 @@ __d(
                         pe.delayMs > 0 &&
                           (B++,
                           (W += pe.delayMs),
-                          yield o("WAAsyncSleep").asyncSleep(pe.delayMs)),
+                          yield o("WAPromiseDelays").delayMs(pe.delayMs)),
                         (D = 0),
                         (T = self.performance.now()));
                     }

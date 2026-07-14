@@ -2,8 +2,8 @@ __d(
   "WAWebDBCreateLidPnMappings",
   [
     "Promise",
-    "WAAsyncSleep",
     "WALogger",
+    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebApiContact",
@@ -104,7 +104,7 @@ __d(
               var d = self.performance.now() - c;
               (y.setLastProcessTime(d, u.length),
                 l.delayMs > 0 &&
-                  (yield o("WAAsyncSleep").asyncSleep(l.delayMs)),
+                  (yield o("WAPromiseDelays").delayMs(l.delayMs)),
                 (i += s));
             }
         })),

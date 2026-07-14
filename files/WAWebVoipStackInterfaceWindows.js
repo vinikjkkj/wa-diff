@@ -270,8 +270,13 @@ __d(
             ? void 0
             : e.handleIncomingSignalingMessage(t, n, r, a, i, l, s, u);
         },
-        handleIncomingSignalingAck: function (t, n, r, a, i) {
-          var e;
+        handleIncomingSignalingAck: function (t) {
+          var e,
+            n = t.ackInfoError,
+            r = t.ackInfoType,
+            a = t.peerJid,
+            i = t.tcToken,
+            l = t.xmlNode;
           return (e = o(
             "WAWebWindowsHybridBridgeFactory",
           ).getWindowsBridge()) == null || (e = e.voip) == null
@@ -281,7 +286,7 @@ __d(
                 ackInfoType: r,
                 peerJid: a,
                 tcToken: i,
-                xmlNode: t,
+                xmlNode: l,
               });
         },
         handleIncomingSignalingReceipt: function (t, n, r) {

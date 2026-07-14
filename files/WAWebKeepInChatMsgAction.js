@@ -119,32 +119,37 @@ __d(
         v.apply(this, arguments)
       );
     }
-    function S(e, t, n, r, a) {
-      var i = {
-        kicState: o("WAWebEphemeralConstants").KeepInChatState.KEPT,
-        kicKey: n,
-        kicTimestampMs: r,
-        keptCount: a,
-      };
+    function S(e) {
+      var t = e.keptCount,
+        n = e.kicKey,
+        r = e.kicTimestampMs,
+        a = e.msgToKeepAssociationType,
+        i = e.msgToKeepKey,
+        l = {
+          kicState: o("WAWebEphemeralConstants").KeepInChatState.KEPT,
+          kicKey: n,
+          kicTimestampMs: r,
+          keptCount: t,
+        };
       if (
-        t != null &&
+        a != null &&
         o(
           "WAWebMessageAssociationGatingUtils",
         ).isMessageAssociationInfraEnabled()
       ) {
-        var l = o(
+        var s = o(
           "WAWebAssociationProcessor",
-        ).getAssociationProcessorByAssociationType(t);
-        (l == null ? void 0 : l.processorType) ===
+        ).getAssociationProcessorByAssociationType(a);
+        (s == null ? void 0 : s.processorType) ===
           o("WAWebAssociationProcessorConstants").AssociationProcessorType
             .WithDetachedMessages &&
-          (i = babelHelpers.extends({}, i, {
+          (l = babelHelpers.extends({}, l, {
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
             associationType: null,
             parentMsgKey: null,
           }));
       }
-      return b(e, i, t);
+      return b(i, l, a);
     }
     function R(e, t, n) {
       var r = {
@@ -248,7 +253,13 @@ __d(
           ) {
             case o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL: {
               var I = (t.keptCount || 0) + 1;
-              yield S(t.id, t.associationType, f, g, I);
+              yield S({
+                keptCount: I,
+                kicKey: f,
+                kicTimestampMs: g,
+                msgToKeepAssociationType: t.associationType,
+                msgToKeepKey: t.id,
+              });
               var T = new (o(
                 "WAWebDisappearingMessageKeepInChatWamEvent",
               ).DisappearingMessageKeepInChatWamEvent)(
@@ -551,13 +562,13 @@ __d(
                   );
               }
               var T = (i.keptCount || 0) + 1;
-              (yield S(
-                i.id,
-                i.associationType,
-                a.id,
-                r("WANullthrows")(a.senderTimestampMs),
-                T,
-              ),
+              (yield S({
+                keptCount: T,
+                kicKey: a.id,
+                kicTimestampMs: r("WANullthrows")(a.senderTimestampMs),
+                msgToKeepAssociationType: i.associationType,
+                msgToKeepKey: i.id,
+              }),
                 yield o(
                   "WAWebDBMarkFutureproofMessagesReparsed",
                 ).markFutureproofMessagesReparsed([a.id.toString()]),

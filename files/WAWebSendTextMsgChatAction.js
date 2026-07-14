@@ -13,9 +13,9 @@ __d(
     "WAWebBotLoggingUtils",
     "WAWebBotMessageSecret",
     "WAWebBotProfileCollection",
-    "WAWebBotSystemMsg",
     "WAWebBotUtils",
     "WAWebChatGetters",
+    "WAWebCoexV2RelayEligibility",
     "WAWebDBProcessMessage",
     "WAWebDBThreadMetadataBulkHelper",
     "WAWebEmptyChatSystemMsg",
@@ -287,9 +287,14 @@ __d(
               o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
               o(
                 "WAWebMessagePluginGenerateReportingTokenContent",
-              ).isMsgTypeReportingTokenCompatible(V.type, V.subtype);
+              ).isMsgTypeReportingTokenCompatible(V.type, V.subtype),
+            te =
+              V.messageSecret == null &&
+              (yield o(
+                "WAWebCoexV2RelayEligibility",
+              ).genIsCoexV2RelayEligibleSend(V.to));
           if (
-            ((X || Y || J || Z || ee) &&
+            ((X || Y || J || Z || ee || te) &&
               (V.messageSecret = self.crypto.getRandomValues(
                 new Uint8Array(32),
               )),
@@ -312,24 +317,24 @@ __d(
                   o("WAWebBotUtils").META_BOT_TEE_FBID_WID),
             J || Z)
           ) {
-            var te;
-            if ((J ? (te = V.invokedBotWid) : Z && (te = V.to), te != null)) {
-              var ne,
-                re =
-                  (ne = o("WAWebBotProfileCollection").BotProfileCollection.get(
-                    te,
+            var ne;
+            if ((J ? (ne = V.invokedBotWid) : Z && (ne = V.to), ne != null)) {
+              var re,
+                oe =
+                  (re = o("WAWebBotProfileCollection").BotProfileCollection.get(
+                    ne,
                   )) == null
                     ? void 0
-                    : ne.personaId;
-              re != null && (V.botPersonaId = re);
+                    : re.personaId;
+              oe != null && (V.botPersonaId = oe);
             }
           }
-          var oe = o("WAWebBotLoggingUtils").maybeGetBotMetricsMetadata(V);
-          V.botMetricsMetadata = oe;
-          var ae = o(
+          var ae = o("WAWebBotLoggingUtils").maybeGetBotMetricsMetadata(V);
+          V.botMetricsMetadata = ae;
+          var ie = o(
             "WAWebHatchCommandMetadataUtils",
           ).resolveHatchCommandMetadata(g, t.id);
-          (ae != null && (V.botCommandMetadata = ae),
+          (ie != null && (V.botCommandMetadata = ie),
             D &&
               D.type === o("WAWebMsgType").MSG_TYPE.PRODUCT &&
               o("WAWebProductCatalogLogEvents").logProductMessageBusinessSend(
@@ -347,12 +352,12 @@ __d(
                 "WAWebNewsletterGatingUtils",
               ).isWamoSubCreatorExperienceSupported() &&
               (V.isWamoSub = !0));
-          var ie = 0;
+          var le = 0;
           return (
             a.maybeNonJidMentioned === !0 &&
               /@all\b/g.test(g) &&
-              (ie |= r("WAWebNonJidMentionType").MENTION_ALL),
-            ie > 0 && (V.nonJidMentions = ie),
+              (le |= r("WAWebNonJidMentionType").MENTION_ALL),
+            le > 0 && (V.nonJidMentions = le),
             V
           );
         })),
@@ -380,29 +385,27 @@ __d(
               "addAndSendTextMsg",
             ));
           var d = new (o("WAWebMsgModel").Msg)(t),
-            m = o("WAWebBotSystemMsg").getMaybeSysMsgForBotInvoke(d, e),
-            p = o("WAWebSendMsgChatActionUtils").maybeGetOpusSystemMsg(
+            m = o("WAWebSendMsgChatActionUtils").maybeGetOpusSystemMsg(
               e,
               "opus-send-text-fail",
             ),
-            _ = []
+            p = []
               .concat(
-                p ? [p] : [],
+                m ? [m] : [],
                 (i = yield r("WAWebEmptyChatSystemMsg")(d, e)) != null ? i : [],
-                [m],
                 a != null ? a : [],
               )
               .filter(Boolean),
-            f = !!((l = e.groupMetadata) != null && l.isLidAddressingMode),
-            g = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
+            _ = !!((l = e.groupMetadata) != null && l.isLidAddressingMode),
+            f = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
               e.id,
-              o("WAWebWamMsgUtils").msgIsLid(t, e.id, f),
+              o("WAWebWamMsgUtils").msgIsLid(t, e.id, _),
             );
           ((d.wamMessageSendReporter = new (o(
             "WAWebMessageSendReporter",
           ).MessageSendReporter)(
             d,
-            babelHelpers.extends({}, g, {
+            babelHelpers.extends({}, f, {
               frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
                 .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
             }),
@@ -422,14 +425,14 @@ __d(
             ) && (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
             (s = d.wamMessageSendPerfReporter) == null ||
               s.startRenderedStage(),
-            _.length > 0 && e.msgs.add(_),
+            p.length > 0 && e.msgs.add(p),
             e.msgs.add(d),
             o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(e, [
               d,
             ]),
             (u = d.wamMessageSendPerfReporter) == null || u.postRenderedStage(),
             (e.createdLocally = !1));
-          var h = _.length > 0 ? [].concat(_, [t]) : [t];
+          var g = p.length > 0 ? [].concat(p, [t]) : [t];
           return (
             o("WAWebABProps").getABPropConfigValue(
               "web_anr_async_msg_send_handler",
@@ -441,8 +444,7 @@ __d(
                   var n, r;
                   ((n = d.wamMessageSendPerfReporter) == null ||
                     n.startSavedStage(),
-                    yield o("WAWebDBProcessMessage").storeMessages(h, e.id),
-                    m && (yield e.updateBotInvokeSystemMsgCreated()),
+                    yield o("WAWebDBProcessMessage").storeMessages(g, e.id),
                     (r = d.wamMessageSendPerfReporter) == null ||
                       r.postSavedStage(),
                     o("WAWebThreadMsgUtils").isThreadMsg(t) &&

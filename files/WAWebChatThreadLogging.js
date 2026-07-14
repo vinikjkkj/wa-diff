@@ -4,12 +4,8 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebChatThreadLoggingEventStore",
-    "WAWebChatThreadLoggingEventUploader",
-    "WAWebChatThreadLoggingLocalstorageMetadataHandler",
     "WAWebChatThreadLoggingUtils",
     "WAWebUserPrefsMeUser",
-    "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
     "gkx",
   ],
@@ -27,19 +23,21 @@ __d(
       h,
       y,
       C,
-      b,
-      v = null;
-    function S() {
+      b = null;
+    function v() {
       return (
-        v == null &&
+        b == null &&
           o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "getChatThreadLoggingState: init incomplete!",
               ])),
           ),
-        v
+        b
       );
+    }
+    function S(e) {
+      b = e;
     }
     function R(e) {
       return L.apply(this, arguments);
@@ -47,82 +45,25 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = !0);
-          var t = e;
-          (yield o(
-            "WAWebUserPrefsMultiDevice",
-          ).getChatThreadLoggingLastUploadedStartTs()) == null &&
-            (yield o(
-              "WAWebUserPrefsMultiDevice",
-            ).setChatThreadLoggingLastUploadedStartTs(0));
-          var r = new (o(
-              "WAWebChatThreadLoggingLocalstorageMetadataHandler",
-            ).ChatThreadLoggingMetadataLocalStorage)(),
-            a = t
-              ? new (o(
-                  "WAWebChatThreadLoggingEventStore",
-                ).ChatThreadLoggingEventStoreImpl)(r)
-              : {
-                  handleMessages: function () {
-                    return (b || (b = n("Promise"))).resolve();
-                  },
-                  getEvent: function () {
-                    return (b || (b = n("Promise"))).resolve();
-                  },
-                  getBeforeInclusive: function () {
-                    return (b || (b = n("Promise"))).resolve([]);
-                  },
-                  deleteBeforeInclusive: function () {
-                    return (b || (b = n("Promise"))).resolve(0);
-                  },
-                },
-            i = t
-              ? new (o(
-                  "WAWebChatThreadLoggingEventUploader",
-                ).ChatThreadLoggingEventUploaderImpl)(r, a)
-              : {
-                  uploadEvents: function () {
-                    return (b || (b = n("Promise"))).resolve(0);
-                  },
-                },
-            l = yield r.getOffset();
-          (l != null && $(l),
-            (v = { metadataStore: r, eventStore: a, eventUploader: i }),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "chat thread logging initialized",
-                ])),
-            ));
+          var t, n;
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "chat_thread_logging: setting offset",
+              ])),
+          );
+          var r =
+            (t = yield (n = v()) == null
+              ? void 0
+              : n.metadataStore.setOffset(e)) != null
+              ? t
+              : !1;
+          return (r && D(e), r);
         })),
         L.apply(this, arguments)
       );
     }
     function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
-          o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "chat_thread_logging: setting offset",
-              ])),
-          );
-          var r =
-            (t = yield (n = S()) == null
-              ? void 0
-              : n.metadataStore.setOffset(e)) != null
-              ? t
-              : !1;
-          return (r && $(e), r);
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
       var t, r;
       return (
         o("WALogger").LOG(
@@ -131,12 +72,12 @@ __d(
               "chat_thread_logging: setting thread_id_user_secret",
             ])),
         ),
-        (t = (r = S()) == null ? void 0 : r.metadataStore.setSecret(e)) != null
+        (t = (r = v()) == null ? void 0 : r.metadataStore.setSecret(e)) != null
           ? t
-          : (b || (b = n("Promise"))).resolve(!1)
+          : (C || (C = n("Promise"))).resolve(!1)
       );
     }
-    function T(e) {
+    function k(e) {
       var t;
       (o("WALogger").LOG(
         u ||
@@ -146,7 +87,7 @@ __d(
           ])),
         e.length,
       ),
-        (t = S()) == null ||
+        (t = v()) == null ||
           t.eventStore.handleMessages(e).catch(function (e) {
             o("WALogger").ERROR(
               c ||
@@ -156,45 +97,45 @@ __d(
             );
           }));
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function x() {
+    function T() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
-            a = yield (t = S()) == null ? void 0 : t.metadataStore.getOffset();
+            a = yield (t = v()) == null ? void 0 : t.metadataStore.getOffset();
           if (a == null) {
             o("WALogger").ERROR(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[ctl] upload failed: offset unset",
                 ])),
             );
             return;
           }
-          var i = yield (n = S()) == null
+          var i = yield (n = v()) == null
             ? void 0
             : n.metadataStore.getSecret();
           if (i == null) {
             o("WALogger").ERROR(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[ctl] upload failed: secret unset",
                 ])),
             );
             return;
           }
-          var l = yield (r = S()) == null
+          var l = yield (r = v()) == null
             ? void 0
             : r.eventUploader.uploadEvents(e);
         })),
-        x.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function $(e) {
+    function D(e) {
       var t = o("WATimeUtils").unixTime(),
         r = t - (t % 86400),
         a = r + e,
@@ -203,28 +144,28 @@ __d(
         self.setTimeout(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t;
-            (yield (t = S()) == null ? void 0 : t.eventUploader.uploadEvents(),
-              $(e));
+            (yield (t = v()) == null ? void 0 : t.eventUploader.uploadEvents(),
+              D(e));
           }),
           i * 1e3,
         ));
     }
+    function x() {
+      if (!r("gkx")("26258")) return v();
+    }
+    function $() {
+      return P.apply(this, arguments);
+    }
     function P() {
-      if (!r("gkx")("26258")) return S();
-    }
-    function N() {
-      return M.apply(this, arguments);
-    }
-    function M() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield S(),
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield v(),
             t = yield e == null ? void 0 : e.metadataStore.getSecret();
           return t == null
             ? (o("WALogger")
                 .WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[ctl] secret unavailable",
                     ])),
                 )
@@ -232,20 +173,20 @@ __d(
               null)
             : t;
         })),
-        M.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function w(e, t) {
-      return A.apply(this, arguments);
+    function N(e, t) {
+      return M.apply(this, arguments);
     }
-    function A() {
+    function M() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield N();
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield $();
           if (n == null) {
             o("WALogger").WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[ctl] getChatThreadID failed: secret unset",
                 ])),
             );
@@ -256,6 +197,28 @@ __d(
           );
           return o("WAWebChatThreadLoggingUtils").generateThreadID(n, e, r);
         })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield $();
+          return t == null
+            ? (o("WALogger")
+                .WARN(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ctwa] getChatThreadIDHMAC failed: secret unset",
+                    ])),
+                )
+                .sendLogs("ctwa-labels-thread-id-hmac-error"),
+              null)
+            : o("WAWebChatThreadLoggingUtils").generateThreadIDHMAC(t, e);
+        })),
         A.apply(this, arguments)
       );
     }
@@ -265,18 +228,16 @@ __d(
     function O() {
       return (
         (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N();
+          var t = yield $();
           return t == null
-            ? (o("WALogger")
-                .WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ctwa] getChatThreadIDHMAC failed: secret unset",
-                    ])),
-                )
-                .sendLogs("ctwa-labels-thread-id-hmac-error"),
+            ? (o("WALogger").WARN(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "[ctl] getMessageIDHMAC failed: secret unset",
+                  ])),
+              ),
               null)
-            : o("WAWebChatThreadLoggingUtils").generateThreadIDHMAC(t, e);
+            : o("WAWebChatThreadLoggingUtils").generateMessageIDHMAC(t, e);
         })),
         O.apply(this, arguments)
       );
@@ -287,26 +248,6 @@ __d(
     function W() {
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N();
-          return t == null
-            ? (o("WALogger").WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ctl] getMessageIDHMAC failed: secret unset",
-                  ])),
-              ),
-              null)
-            : o("WAWebChatThreadLoggingUtils").generateMessageIDHMAC(t, e);
-        })),
-        W.apply(this, arguments)
-      );
-    }
-    function q(e) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = o("WAWebUserPrefsMeUser")
                 .getMePnUserOrThrow_DO_NOT_USE()
@@ -319,8 +260,8 @@ __d(
           } catch (e) {
             return (
               o("WALogger").WARN(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[ctl] getThreadIDHMAC failed: ",
                     "",
                   ])),
@@ -330,19 +271,20 @@ __d(
             );
           }
         })),
-        U.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    ((l.initChatThreadLogging = R),
-      (l.setThreadDsTimeframeOffset = E),
-      (l.setThreadIdUserSecret = I),
-      (l.handleActivitiesForChatThreadLogging = T),
-      (l.uploadChatThreadLoggingEvents = D),
-      (l.getChatThreadLoggingStateDebug = P),
-      (l.getChatThreadID = w),
-      (l.getChatThreadIDHMAC = F),
-      (l.getMessageIDHMAC = B),
-      (l.getThreadIDHMAC = q));
+    ((l.setChatThreadLoggingState = S),
+      (l.setThreadDsTimeframeOffset = R),
+      (l.setThreadIdUserSecret = E),
+      (l.handleActivitiesForChatThreadLogging = k),
+      (l.uploadChatThreadLoggingEvents = I),
+      (l.initUploadTimer = D),
+      (l.getChatThreadLoggingStateDebug = x),
+      (l.getChatThreadID = N),
+      (l.getChatThreadIDHMAC = w),
+      (l.getMessageIDHMAC = F),
+      (l.getThreadIDHMAC = B));
   },
   98,
 );

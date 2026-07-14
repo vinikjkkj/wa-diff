@@ -5,7 +5,6 @@ __d(
     "WAWebABPropsInternalNumber",
     "WAWebBotGating",
     "WAWebBotTos",
-    "WAWebBotTosIds",
     "WAWebBotUtils",
     "WAWebHandleMsgTypes.flow",
     "WAWebTos",
@@ -46,16 +45,7 @@ __d(
             (e.id.isFbidBot() && !o("WAWebBotTos").hasSeenUgcTos())
           );
     }
-    function u() {
-      return o("WAWebBotTos").hasSeenInvokeTos()
-        ? !1
-        : !o("WAWebBotTos").canShowBotTos(
-            o("WAWebBotTosIds").getBotInvokeTosId(),
-          );
-    }
-    ((l.shouldBlockByTos = e),
-      (l.shouldBlockByBotTos = s),
-      (l.shouldBlockBotInvokeAsTosNotAvailable = u));
+    ((l.shouldBlockByTos = e), (l.shouldBlockByBotTos = s));
   },
   98,
 );

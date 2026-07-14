@@ -1,6 +1,6 @@
 __d(
   "WAWebTableRowCountsLogger",
-  ["WAAsyncSleep", "WAWebModelStorageUtils", "asyncToGeneratorRuntime"],
+  ["WAPromiseDelays", "WAWebModelStorageUtils", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return s.apply(this, arguments);
@@ -20,7 +20,7 @@ __d(
                     return [n, e];
                   }),
               ),
-                yield o("WAAsyncSleep").asyncSleep(1e3));
+                yield o("WAPromiseDelays").delayMs(1e3));
             };
           for (var r of e.keys()) yield* n(r);
           for (var a of t);

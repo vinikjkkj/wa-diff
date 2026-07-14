@@ -29,10 +29,11 @@ __d(
     "use strict";
     var e = n("ReactiveExecutorResolverFragments").readFragment,
       l = n("RelayFBEnvironmentActorID").useActorID,
-      s = n("react-relay/relay-hooks/loadQuery").loadQuery,
-      u = n("relay-runtime").fetchQuery,
-      c = n("relay-runtime").graphql,
-      d = n("relay-runtime").readInlineData;
+      s = n("RelayFBEnvironmentActorID").useActorIDNullable,
+      u = n("react-relay/relay-hooks/loadQuery").loadQuery,
+      c = n("relay-runtime").fetchQuery,
+      d = n("relay-runtime").graphql,
+      m = n("relay-runtime").readInlineData;
     (n("configureRelayForWWW")(),
       (a.exports = {
         EntryPointContainer: n(
@@ -44,9 +45,9 @@ __d(
         RelayEnvironmentProvider: n(
           "react-relay/relay-hooks/RelayEnvironmentProvider",
         ),
-        fetchQuery: u,
-        graphql: c,
-        loadQuery: s,
+        fetchQuery: c,
+        graphql: d,
+        loadQuery: u,
         loadEntryPoint: n("react-relay/relay-hooks/loadEntryPoint"),
         preloadQuery_DEPRECATED: n(
           "react-relay/relay-hooks/preloadQuery_DEPRECATED",
@@ -54,8 +55,9 @@ __d(
         prepareEntryPoint_DEPRECATED: n(
           "react-relay/relay-hooks/prepareEntryPoint_DEPRECATED",
         ),
-        readInlineData: d,
+        readInlineData: m,
         useActorID: l,
+        useActorIDNullable: s,
         useClientQuery: n("react-relay/relay-hooks/useClientQuery"),
         useFragment: n("react-relay/relay-hooks/useFragment"),
         useLazyLoadQuery: n("react-relay/relay-hooks/useLazyLoadQuery"),

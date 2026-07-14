@@ -2,8 +2,8 @@ __d(
   "WAWebSyncdStoreMissingKeys",
   [
     "Promise",
-    "WAAsyncSleep",
     "WALogger",
+    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebGetMissingKey",
@@ -319,7 +319,7 @@ __d(
                   o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
                     .MISSING_KEY_ON_ALL_CLIENTS,
                 ),
-                yield o("WAAsyncSleep").asyncSleep(5e3),
+                yield o("WAPromiseDelays").delayMs(5e3),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "handleSyncdFatal",
                   {},

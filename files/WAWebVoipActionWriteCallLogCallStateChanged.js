@@ -14,6 +14,7 @@ __d(
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipCallStateUtils",
     "WAWebVoipOngoingCallCollection",
+    "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
@@ -124,14 +125,17 @@ __d(
     }
     function g(e, t) {
       return o("WAWebVoipCallStateUtils").isCallTerminal(e.callState)
-        ? t != null &&
-          t !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-          t !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
-          ? t
-          : o("WAWebCallLogUtils").getCallOutcomeFromCallResultNative(
-              e.callResult,
-              e.callDuration,
-            )
+        ? e.callState ===
+          o("WAWebVoipWaCallEnums").CallState.CallActiveElseWhere
+          ? o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere
+          : t != null &&
+              t !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+              t !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
+            ? t
+            : o("WAWebCallLogUtils").getCallOutcomeFromCallResultNative(
+                e.callResult,
+                e.callDuration,
+              )
         : t == null || t === o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
           ? o("WAWebCallLogUtils").getCallOutcomeFromCallState(e.callState)
           : t != null

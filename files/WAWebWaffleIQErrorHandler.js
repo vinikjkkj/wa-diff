@@ -2,9 +2,9 @@ __d(
   "WAWebWaffleIQErrorHandler",
   [
     "Promise",
-    "WAAsyncSleep",
     "WAExponentialBackoffIterator",
     "WALogger",
+    "WAPromiseDelays",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingHandler",
@@ -153,7 +153,7 @@ __d(
                 )
                 .sendLogs("waffle-nonce-retry-limit", { sampling: 0.01 }),
               !1)
-            : (yield o("WAAsyncSleep").asyncSleep(n),
+            : (yield o("WAPromiseDelays").delayMs(n),
               o("WAWebAccountLinkingNonceFetchAPI").requestNonceFromPrimary());
         })),
         b.apply(this, arguments)
