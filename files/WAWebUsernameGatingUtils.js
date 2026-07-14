@@ -39,63 +39,53 @@ __d(
     }
     function g() {
       return !!o("WAWebABProps").getABPropConfigValue(
-        "mex_usync_username_query",
+        "lid_group_migration_non_member_iq",
       );
     }
     function h() {
       return !!o("WAWebABProps").getABPropConfigValue(
-        "lid_group_migration_non_member_iq",
+        "username_group_mutation_enabled",
       );
     }
     function y() {
       return !!o("WAWebABProps").getABPropConfigValue(
-        "username_group_mutation_enabled",
-      );
-    }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "username_check_debounce_in_ms",
-      );
-    }
-    function b() {
-      return !!o("WAWebABProps").getABPropConfigValue(
         "username_contact_ui_vcard",
       );
     }
-    function v() {
+    function C() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_global_search_enabled",
       );
     }
-    function S() {
+    function b() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_exposed_logging_enabled",
       );
     }
-    function R() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue("username_key_upsell_mode");
     }
-    function L() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_characters",
       );
     }
-    function E() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_numbers",
       );
     }
-    function k() {
+    function L() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_engagement_network_impact_logging",
       );
     }
-    function I() {
+    function E() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
-    function T() {
+    function k() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_prevent_pn_populate_new_contact_creation",
       );
@@ -108,19 +98,17 @@ __d(
       (l.canShowV4NumericCode = p),
       (l.shouldDefaultToV4NumericCode = _),
       (l.shouldLogUnknownNumberError = f),
-      (l.mexUsyncUsernameQueryEnabled = g),
-      (l.lidGroupMigrationNonMemberIQEnabled = h),
-      (l.usernameGroupMutationEnabled = y),
-      (l.usernameEligibilityDebounceMs = C),
-      (l.usernameContactUiVcardEnabled = b),
-      (l.usernameGlobalSearchEnabled = v),
-      (l.usernameExposedLoggingEnabled = S),
-      (l.usernameKeyUpsellMode = R),
-      (l.usernameKeyUpsellMaxCharacters = L),
-      (l.usernameKeyUpsellMaxNumbers = E),
-      (l.usernameEngagementNetworkImpactLoggingEnabled = k),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = I),
-      (l.usernamePreventPnPopulateNewContactCreationEnabled = T));
+      (l.lidGroupMigrationNonMemberIQEnabled = g),
+      (l.usernameGroupMutationEnabled = h),
+      (l.usernameContactUiVcardEnabled = y),
+      (l.usernameGlobalSearchEnabled = C),
+      (l.usernameExposedLoggingEnabled = b),
+      (l.usernameKeyUpsellMode = v),
+      (l.usernameKeyUpsellMaxCharacters = S),
+      (l.usernameKeyUpsellMaxNumbers = R),
+      (l.usernameEngagementNetworkImpactLoggingEnabled = L),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = E),
+      (l.usernamePreventPnPopulateNewContactCreationEnabled = k));
   },
   98,
 );

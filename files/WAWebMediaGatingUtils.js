@@ -224,11 +224,6 @@ __d(
         "wa_web_media_upload_retry_retries_count",
       );
     }
-    function I() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_enable_camera_capture_refresh",
-      );
-    }
     ((l.getMaxNumberSelectableMedia = e),
       (l.supportsMultipleUploads = s),
       (l.isAlbumV2SenderEnabled = u),
@@ -246,8 +241,7 @@ __d(
       (l.isDownloadMimeTypeCheckBlockEnabled = R),
       (l.isHdImageDualUploadConsumptionEnabled = L),
       (l.getHQImageThumbnailInChatScans = E),
-      (l.getMediaUploadRetryCount = k),
-      (l.isCameraCaptureRefreshEnabled = I));
+      (l.getMediaUploadRetryCount = k));
   },
   98,
 );

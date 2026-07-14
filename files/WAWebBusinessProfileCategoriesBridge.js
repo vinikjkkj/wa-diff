@@ -2,6 +2,7 @@ __d(
   "WAWebBusinessProfileCategoriesBridge",
   [
     "JSResourceForInteraction",
+    "WAWebABProps",
     "WAWebBizLogQplEvents",
     "WAWebBizProfileGatingUtils",
     "WAWebQueryBusinessCategoriesJob",
@@ -17,7 +18,9 @@ __d(
       o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_start");
       var r;
       return (
-        o("WAWebBizProfileGatingUtils").isCategorySearchViaGraphEnabled()
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_web_category_search_via_graph_enabled",
+        )
           ? o("WAWebBizProfileGatingUtils").getCatkitVersion() >= 2
             ? (r = s.load().then(function (e) {
                 return e.getBusinessCategoriesV2(t, n);

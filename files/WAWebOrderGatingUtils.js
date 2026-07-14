@@ -41,79 +41,67 @@ __d(
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "order_details_from_cart_enabled",
-      );
-    }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
         "order_details_total_order_minimum_value",
       );
     }
-    function _(e) {
+    function p(e) {
       return o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
         ? 5e3
         : o("WAWebABProps").getABPropConfigValue(
             "order_details_total_maximum_value",
           );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue("order_management_enabled");
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "order_messages_ephemeral_exception_enabled",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "row_buyer_order_revamp_m0_enabled",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "seller_orders_management_revamp",
       );
     }
-    function C() {
+    function y() {
       return (
-        h() &&
+        g() &&
         o("WAWebABProps").getABPropConfigValue(
           "buyer_initiated_order_request_variant_enabled",
         )
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "order_statuses_revamp_m1_enabled",
       );
     }
-    function v() {
+    function b() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "payments_br_content_optimization_variant",
         ) !== 0
       );
     }
-    function S() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "utility_order_view_mbs_enabled",
-      );
-    }
     ((l.QuickPayProductTypeGating = s),
       (l.isOrderDetailsQuickPayEnabled = u),
       (l.orderDetailsCustomItemEnabled = c),
       (l.orderDetailsFromCatalogEnabled = d),
-      (l.orderDetailsFromCartEnabled = m),
-      (l.orderDetailsTotalOrderMinimumValue = p),
-      (l.orderDetailsTotalMaxValue = _),
-      (l.orderManagementEnabled = f),
-      (l.inOrderMessagesEphemeralExceptionEnabled = g),
-      (l.isBuyerOrderRevampEnabled = h),
-      (l.isSellerOrderRevampEnabled = y),
-      (l.isBuyerOrderRequestVariantEnabled = C),
-      (l.isOrderStatusM1Enabled = b),
-      (l.isOrderContentOptimizationEnabled = v),
-      (l.isInboxOrderHistoryEnabled = S));
+      (l.orderDetailsTotalOrderMinimumValue = m),
+      (l.orderDetailsTotalMaxValue = p),
+      (l.orderManagementEnabled = _),
+      (l.inOrderMessagesEphemeralExceptionEnabled = f),
+      (l.isBuyerOrderRevampEnabled = g),
+      (l.isSellerOrderRevampEnabled = h),
+      (l.isBuyerOrderRequestVariantEnabled = y),
+      (l.isOrderStatusM1Enabled = C),
+      (l.isOrderContentOptimizationEnabled = b));
   },
   98,
 );

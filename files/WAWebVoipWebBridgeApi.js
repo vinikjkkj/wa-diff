@@ -54,6 +54,7 @@ __d(
     "WAWebVoipLinkPreviewCallLink",
     "WAWebVoipNackHandlers",
     "WAWebVoipOngoingCallCollection",
+    "WAWebVoipOutgoingSetupLatencyStore",
     "WAWebVoipRelayAllCallsAction",
     "WAWebVoipScreenShareUpdateAppModal.react",
     "WAWebVoipStartCall",
@@ -1587,6 +1588,12 @@ __d(
       },
       getUnifiedSessionId: function () {
         return o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId();
+      },
+      consumeOutgoingCallSetupActiveMs: function (t) {
+        var e = t.callId;
+        return o(
+          "WAWebVoipOutgoingSetupLatencyStore",
+        ).consumeOutgoingCallSetupActiveMsForCall(e);
       },
     };
     ((l.MICROPHONE_SILENCE_TOAST_ID = o(

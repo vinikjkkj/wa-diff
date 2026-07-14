@@ -264,9 +264,9 @@ __d(
                 "WAWebNewsletterExtendedGatingUtils",
               ).getNewsletterDirectoryCategoryTypes(),
               locale: r("WAWebL10N").getLocale(),
-              perCategoryLimit: o(
-                "WAWebNewsletterGatingUtils",
-              ).getNewslettersPerDirectoryCategoryLimit(),
+              perCategoryLimit: o("WAWebABProps").getABPropConfigValue(
+                "directory_categories_newsletters_per_category_limit",
+              ),
             }),
             a = yield (b || (b = n("Promise"))).all(
               t.map(

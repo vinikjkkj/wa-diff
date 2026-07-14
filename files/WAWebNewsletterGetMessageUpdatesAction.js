@@ -5,6 +5,7 @@ __d(
     "WAJids",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebBackendErrors",
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterGatingUtils",
@@ -172,9 +173,9 @@ __d(
     function _(e) {
       return Number.isSafeInteger(e)
         ? o("WATimeUtils").unixTime() - e >
-            o(
-              "WAWebNewsletterGatingUtils",
-            ).getPullMessageUpdatesThresholdSeconds()
+            o("WAWebABProps").getABPropConfigValue(
+              "channel_pull_message_updates_threshold_seconds",
+            )
         : !1;
     }
     l.maybeUpdateMsgsAddOns = m;

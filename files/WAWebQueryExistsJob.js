@@ -265,7 +265,9 @@ __d(
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.isLid()) {
             var t, n, r;
-            if (o("WAWebUsernameGatingUtils").mexUsyncUsernameQueryEnabled()) {
+            if (
+              o("WAWebABProps").getABPropConfigValue("mex_usync_username_query")
+            ) {
               var a = o("WAWebWidFactory").createUserWidOrThrow(e.toString()),
                 i = yield o("WAWebMexUsersGetUsername").getMexUserUsername(a);
               ((n = a),

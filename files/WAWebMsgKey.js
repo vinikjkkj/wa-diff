@@ -139,12 +139,12 @@ __d(
           var E = [this.fromMe, this.remote, this.id];
           (y !== void 0 && ((this.self = y), E.push(this.self)),
             h !== void 0 && ((this.participant = h), E.push(this.participant)),
-            (this._serialized = E.join("_")));
+            (this.$1 = E.join("_")));
         }
         var a = t.prototype;
         return (
           (a.toString = function () {
-            return this._serialized;
+            return this.$1;
           }),
           (a.clone = function () {
             return new t({

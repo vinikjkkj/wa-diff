@@ -119,7 +119,6 @@ __d(
     "cr:17219",
     "cr:37961",
     "getErrorSafe",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -230,9 +229,7 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("gkx")("20033") &&
-            o("WAWebStartBackendWorker").startBackendWorker(),
-            E || k());
+          (o("WAWebStartBackendWorker").startBackendWorker(), E || k());
           var e = yield o(
             "WAWebSignalStoreApi",
           ).waSignalStore.getRegistrationInfo();

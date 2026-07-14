@@ -8,19 +8,19 @@ __d(
       u,
       c = (function () {
         function t() {
-          ((this.$1 = null), (this.$2 = []), (this.$3 = null));
+          ((this.$1 = null), (this.$2 = !1), (this.$3 = []), (this.$4 = null));
         }
         var n = t.prototype;
         return (
           (n.registerFetcher = function (t) {
-            this.$3 = t;
+            this.$4 = t;
           }),
           (n.subscribeToLinkedStatus = function (t) {
             var e = this;
             return (
-              this.$2.push(t),
+              this.$3.push(t),
               function () {
-                e.$2 = e.$2.filter(function (e) {
+                e.$3 = e.$3.filter(function (e) {
                   return e !== t;
                 });
               }
@@ -35,9 +35,15 @@ __d(
               ? !0
               : e.hasChannel && e.status === "ACTIVE" && e.isPaired;
           }),
+          (n.isOptimisticallyUnlinked = function () {
+            return this.$2;
+          }),
+          (n.markUnlinked = function () {
+            ((this.$2 = !0), this.$5(this.$1));
+          }),
           (n.fetchAndUpdateStatus = function () {
             var t = this;
-            if (this.$3 == null) {
+            if (this.$4 == null) {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,16 +52,17 @@ __d(
               );
               return;
             }
-            this.$3()
+            this.$4()
               .then(function (e) {
                 ((t.$1 = e),
+                  (t.$2 = !1),
                   o("WALogger").LOG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
                         "[HatchLinkedStatusManager] fetched linked status",
                       ])),
                   ),
-                  t.$4(e));
+                  t.$5(e));
               })
               .catch(function (e) {
                 (o("WALogger")
@@ -67,14 +74,17 @@ __d(
                   )
                   .catching(r("getErrorSafe")(e))
                   .sendLogs("hatch-linked-status-fetch-fail"),
-                  t.$4(t.$1));
+                  t.$5(t.$1));
               });
           }),
           (n.__resetForTesting = function () {
-            ((this.$1 = null), (this.$2 = []), (this.$3 = null));
+            ((this.$1 = null),
+              (this.$2 = !1),
+              (this.$3 = []),
+              (this.$4 = null));
           }),
-          (n.$4 = function (t) {
-            for (var e of [].concat(this.$2)) e(t);
+          (n.$5 = function (t) {
+            for (var e of [].concat(this.$3)) e(t);
           }),
           t
         );

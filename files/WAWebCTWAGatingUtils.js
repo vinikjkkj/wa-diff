@@ -125,39 +125,34 @@ __d(
       );
     }
     function T() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "utm_tracking_expiration_hours",
-      );
-    }
-    function D() {
       return o("WAWebABProps").getABPropConfigValue("utm_tracking_enabled");
     }
-    function x() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 0;
     }
-    function $() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 1;
     }
-    function P() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 2;
     }
-    function N() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3;
     }
-    function M() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue("cci_compliance_ctwa");
     }
-    function w() {
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_tos_filtering_enabled",
       );
     }
-    function A() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "cci_compliance_ctwa_learn_more_hyperlink",
       );
     }
-    function F() {
+    function A() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -165,12 +160,12 @@ __d(
         ) === !1
       );
     }
-    function O() {
+    function F() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_push_wait_timeout_web",
       );
     }
-    function B() {
+    function O() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_retries_max_web",
       );
@@ -196,18 +191,17 @@ __d(
       (l.isCTWA3pdDataSharingTitleChangeEnabled = E),
       (l.isCTWA3pdDataSharingAdditionalLoggingEnabled = k),
       (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = I),
-      (l.utmTrackingExpirationInHours = T),
-      (l.isUtmTrackingEnabled = D),
-      (l.isUpdatedConsumerDisclosureUiRowEnabled = x),
-      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = $),
-      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = P),
-      (l.isUpdatedConsumerDisclosureUiEuUkEnabled = N),
-      (l.showCTWACCICompliantUI = M),
-      (l.isCTWATosFilteringEnabled = w),
-      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = A),
-      (l.adAccountTokenStoringEnabled = F),
-      (l.adAccountTokenNoncePushWaitTimeoutSeconds = O),
-      (l.adAccountTokenNonceMaxRetries = B));
+      (l.isUtmTrackingEnabled = T),
+      (l.isUpdatedConsumerDisclosureUiRowEnabled = D),
+      (l.isUpdatedConsumerDisclosureUiIndiaEnabled = x),
+      (l.isUpdatedConsumerDisclosureUiBrazilEnabled = $),
+      (l.isUpdatedConsumerDisclosureUiEuUkEnabled = P),
+      (l.showCTWACCICompliantUI = N),
+      (l.isCTWATosFilteringEnabled = M),
+      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = w),
+      (l.adAccountTokenStoringEnabled = A),
+      (l.adAccountTokenNoncePushWaitTimeoutSeconds = F),
+      (l.adAccountTokenNonceMaxRetries = O));
   },
   98,
 );

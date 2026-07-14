@@ -67,14 +67,9 @@ __d(
       );
     }
     function y() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_web_category_search_via_graph_enabled",
-      );
-    }
-    function C() {
       return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_profile_google_integration_enabled",
       );
@@ -90,9 +85,8 @@ __d(
       (l.coverPhotoPrivacyMessagingEnabled = f),
       (l.bizLinkedAccountsEnabled = g),
       (l.canViewBizLinkedAccounts = h),
-      (l.isCategorySearchViaGraphEnabled = y),
-      (l.getCatkitVersion = C),
-      (l.isGoogleProfileIntegrationEnabled = b));
+      (l.getCatkitVersion = y),
+      (l.isGoogleProfileIntegrationEnabled = C));
   },
   98,
 );

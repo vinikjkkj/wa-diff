@@ -346,14 +346,15 @@ __d(
             C,
             b,
             v,
-            E = L(e, m.eventName),
-            I =
+            E,
+            I = L(e, m.eventName),
+            T =
               "" +
               e.eventType +
               (e.targetTrackingId != null ? ":" + e.targetTrackingId : ""),
-            T = {
+            D = {
               event_category: m.category,
-              event_name: E,
+              event_name: I,
               client_timestamp_ms: String(e.timestampMs),
               unified_session_id: k(),
               debounce_count:
@@ -367,30 +368,36 @@ __d(
               event_metadata: R(
                 e.eventMetadata,
                 { triggering_testid: e.triggeringTestId },
-                I,
+                T,
               ),
               custom_metadata: S(
                 e.customMetadata,
                 { custom_event_type: e.customEventTypeDisplayName },
-                I,
+                T,
               ),
             };
           r("WamPathfinderWebFalcoEvent").log(function () {
-            return T;
+            return D;
           });
-          var D = o(
-            "WAWebPathfinderUnsamplingConfig",
-          ).getUnsamplingRuleIdForScreen(e.screenName);
-          D != null &&
+          var x =
+            e.eventType === "SCREEN_CHANGED" &&
+            (E = o(
+              "WAWebPathfinderUnsamplingConfig",
+            ).getUnsamplingRuleIdForScreen(e.destinationName)) != null
+              ? E
+              : o(
+                  "WAWebPathfinderUnsamplingConfig",
+                ).getUnsamplingRuleIdForScreen(e.screenName);
+          x != null &&
             r("WamPathfinderWebUnsampledFalcoEvent").log(function () {
-              return babelHelpers.extends({}, T, {
+              return babelHelpers.extends({}, D, {
                 sampling_reason: "TRIGGER_SCREEN",
-                session_flag_rule_id: D,
+                session_flag_rule_id: x,
               });
             });
         }
         me();
-        var x = {
+        var $ = {
           eventType: e.eventType,
           timestampMs: e.timestampMs,
           trackingId: (t = e.targetTrackingId) != null ? t : void 0,
@@ -401,8 +408,8 @@ __d(
           debounceCount: (s = e.debounceCount) != null ? s : void 0,
         };
         if (
-          (u.length > 0 && (x.extra = u.join(" ")),
-          (ue[ce] = x),
+          (u.length > 0 && ($.extra = u.join(" ")),
+          (ue[ce] = $),
           (ce = (ce + 1) % se),
           pe != null)
         )

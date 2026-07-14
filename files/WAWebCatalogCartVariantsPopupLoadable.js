@@ -31,16 +31,10 @@ __d(
       });
     function d(e) {
       var t = e.collectionId,
-        n = e.handleProductChange,
-        r = e.onAddToCart,
-        a = e.product;
+        n = e.onAddToCart,
+        r = e.product;
       o("WAWebModalManager").ModalManager.open(
-        s.jsx(c, {
-          product: a,
-          collectionId: t,
-          handleProductChange: n,
-          onAddToCart: r,
-        }),
+        s.jsx(c, { product: r, collectionId: t, onAddToCart: n }),
       );
     }
     ((l.CatalogCartVariantsPopupLoadable = c),

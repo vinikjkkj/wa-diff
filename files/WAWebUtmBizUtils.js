@@ -1,6 +1,6 @@
 __d(
   "WAWebUtmBizUtils",
-  ["WAWebCTWAGatingUtils", "WAWebMsgGetters", "WAWebStateUtils"],
+  ["WAWebABProps", "WAWebMsgGetters", "WAWebStateUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       return e.contact.isEnterprise && !c(t) && !s(e, t);
@@ -24,7 +24,9 @@ __d(
     function c(e) {
       var t = Date.now(),
         n =
-          o("WAWebCTWAGatingUtils").utmTrackingExpirationInHours() *
+          o("WAWebABProps").getABPropConfigValue(
+            "utm_tracking_expiration_hours",
+          ) *
           60 *
           60 *
           1e3;

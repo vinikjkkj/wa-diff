@@ -33,6 +33,8 @@ __d(
               dbReadsCount: [14, e.TYPES.INTEGER],
               dbWritesCount: [15, e.TYPES.INTEGER],
               deviceCount: [5, e.TYPES.INTEGER],
+              hasOpenAiParticipant: [29, e.TYPES.BOOLEAN],
+              hasTeeAiParticipant: [30, e.TYPES.BOOLEAN],
               isLid: [8, e.TYPES.BOOLEAN],
               isLowPowerMode: [23, e.TYPES.BOOLEAN],
               localAddressingMode: [

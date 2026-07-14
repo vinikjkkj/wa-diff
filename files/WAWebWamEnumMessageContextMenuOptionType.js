@@ -37,6 +37,8 @@ __d(
       PAID_PARTNERSHIP: 32,
       VERIFY_SECURITY_CODE: 33,
       ADD_TO_NOTE: 34,
+      TRANSLATE: 35,
+      SPEAK: 36,
     });
     i.MESSAGE_CONTEXT_MENU_OPTION_TYPE = e;
   },

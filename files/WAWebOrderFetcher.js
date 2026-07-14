@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "Promise",
+    "WAWebABProps",
     "WAWebChatLoadMessages",
     "WAWebClock",
     "WAWebE2EProtoUtils",
@@ -11,7 +12,6 @@ __d(
     "WAWebMsgType",
     "WAWebNoop",
     "WAWebOrderDetails",
-    "WAWebOrderGatingUtils",
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatus",
     "WAWebOrderStatusButton",
@@ -154,7 +154,9 @@ __d(
     function C(e) {
       var t;
       if (
-        !o("WAWebOrderGatingUtils").isInboxOrderHistoryEnabled() ||
+        !o("WAWebABProps").getABPropConfigValue(
+          "utility_order_view_mbs_enabled",
+        ) ||
         e.nativeFlowName !==
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       )

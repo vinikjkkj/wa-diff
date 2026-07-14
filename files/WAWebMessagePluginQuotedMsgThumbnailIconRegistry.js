@@ -2,24 +2,21 @@ __d(
   "WAWebMessagePluginQuotedMsgThumbnailIconRegistry",
   [
     "WAWebChatQuotedMsgThumbnailIcon.react",
-    "WAWebDocumentQuotedMsgThumbnailIcon.react",
-    "WAWebImageQuotedMsgThumbnailIcon",
     "WAWebInteractiveQuotedMsgThumbnailIcon",
     "WAWebListQuotedMsgThumbnailIcon",
     "WAWebLocationQuotedMsgThumbnailIcon",
+    "WAWebMediaMsgPreviewQuotedMsgThumbnailIcon.react",
     "WAWebMultiVcardQuotedMsgThumbnailIcon",
     "WAWebNativeFlowQuotedMsgThumbnailIcon",
     "WAWebOrderQuotedMsgThumbnailIcon",
     "WAWebPaymentQuotedMsgThumbnailIcon",
     "WAWebProductQuotedMsgThumbnailIcon",
-    "WAWebPtvQuotedMsgThumbnailIcon",
-    "WAWebStickerPackQuotedMsgThumbnailIcon",
     "WAWebVcardQuotedMsgThumbnailIcon",
-    "WAWebVideoQuotedMsgThumbnailIcon",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = [
+      s,
+      u = [
         { type: "album", subtype: void 0, quotedMsgThumbnailIcon: null },
         { type: "audio", subtype: void 0, quotedMsgThumbnailIcon: null },
         {
@@ -64,9 +61,9 @@ __d(
         {
           type: "document",
           subtype: void 0,
-          quotedMsgThumbnailIcon: r(
-            "WAWebDocumentQuotedMsgThumbnailIcon.react",
-          ),
+          quotedMsgThumbnailIcon: (e = r(
+            "WAWebMediaMsgPreviewQuotedMsgThumbnailIcon.react",
+          )),
         },
         {
           type: "event_creation",
@@ -94,11 +91,7 @@ __d(
           quotedMsgThumbnailIcon: null,
         },
         { type: "hsm", subtype: void 0, quotedMsgThumbnailIcon: null },
-        {
-          type: "image",
-          subtype: void 0,
-          quotedMsgThumbnailIcon: r("WAWebImageQuotedMsgThumbnailIcon"),
-        },
+        { type: "image", subtype: void 0, quotedMsgThumbnailIcon: e },
         {
           type: "interactive",
           subtype: void 0,
@@ -183,12 +176,12 @@ __d(
         {
           type: "payment",
           subtype: "ciphertext",
-          quotedMsgThumbnailIcon: (e = r("WAWebPaymentQuotedMsgThumbnailIcon")),
+          quotedMsgThumbnailIcon: (s = r("WAWebPaymentQuotedMsgThumbnailIcon")),
         },
-        { type: "payment", subtype: "futureproof", quotedMsgThumbnailIcon: e },
-        { type: "payment", subtype: "invite", quotedMsgThumbnailIcon: e },
-        { type: "payment", subtype: "request", quotedMsgThumbnailIcon: e },
-        { type: "payment", subtype: "send", quotedMsgThumbnailIcon: e },
+        { type: "payment", subtype: "futureproof", quotedMsgThumbnailIcon: s },
+        { type: "payment", subtype: "invite", quotedMsgThumbnailIcon: s },
+        { type: "payment", subtype: "request", quotedMsgThumbnailIcon: s },
+        { type: "payment", subtype: "send", quotedMsgThumbnailIcon: s },
         { type: "pin_message", subtype: void 0, quotedMsgThumbnailIcon: null },
         {
           type: "pinned_message",
@@ -331,11 +324,7 @@ __d(
           quotedMsgThumbnailIcon: null,
         },
         { type: "ptt", subtype: void 0, quotedMsgThumbnailIcon: null },
-        {
-          type: "ptv",
-          subtype: void 0,
-          quotedMsgThumbnailIcon: r("WAWebPtvQuotedMsgThumbnailIcon"),
-        },
+        { type: "ptv", subtype: void 0, quotedMsgThumbnailIcon: e },
         { type: "quarantined", subtype: void 0, quotedMsgThumbnailIcon: null },
         { type: "reaction", subtype: void 0, quotedMsgThumbnailIcon: null },
         { type: "reaction_enc", subtype: void 0, quotedMsgThumbnailIcon: null },
@@ -362,11 +351,7 @@ __d(
           quotedMsgThumbnailIcon: null,
         },
         { type: "sticker", subtype: void 0, quotedMsgThumbnailIcon: null },
-        {
-          type: "sticker-pack",
-          subtype: void 0,
-          quotedMsgThumbnailIcon: r("WAWebStickerPackQuotedMsgThumbnailIcon"),
-        },
+        { type: "sticker-pack", subtype: void 0, quotedMsgThumbnailIcon: e },
         {
           type: "template_button_reply",
           subtype: void 0,
@@ -394,13 +379,9 @@ __d(
           subtype: void 0,
           quotedMsgThumbnailIcon: r("WAWebVcardQuotedMsgThumbnailIcon"),
         },
-        {
-          type: "video",
-          subtype: void 0,
-          quotedMsgThumbnailIcon: r("WAWebVideoQuotedMsgThumbnailIcon"),
-        },
+        { type: "video", subtype: void 0, quotedMsgThumbnailIcon: e },
       ];
-    l.default = s;
+    l.default = u;
   },
   98,
 );

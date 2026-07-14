@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebContactSystemMsg",
     "WAWebHandleSingleMsgWorkerCompatible",
@@ -10,7 +11,6 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
-    "WAWebPrivacyGatingUtils",
     "WAWebSchemaChat",
     "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
     "WAWebUsernameTypes",
@@ -72,9 +72,9 @@ __d(
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
-            !o(
-              "WAWebPrivacyGatingUtils",
-            ).isPhoneNumberHidingThreadPromotionToGeneralLidEnabled()
+            !o("WAWebABProps").getABPropConfigValue(
+              "pnh_thread_promotion_to_general_lid",
+            )
           ) {
             o("WALogger").LOG(
               u ||

@@ -4,19 +4,13 @@ __d(
     "Promise",
     "WALogger",
     "WAPromiseDelays",
-    "WAWebConfirmPopup.react",
     "WAWebDataLink",
-    "WAWebFbtCommon",
     "WAWebFileSaverDownloadData",
     "WAWebMediaGatingShouldClearDownloadedBlobs",
     "WAWebMiscBrowserUtils",
-    "WAWebModalManager",
-    "WAWebModernizr",
     "WAWebNoop",
-    "WAWebSafariLimited",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
-    "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -24,10 +18,7 @@ __d(
       u,
       c,
       d,
-      m,
-      p,
-      _ = p || (p = o("react")),
-      f = (function () {
+      m = (function () {
         function t() {}
         var a = t.prototype;
         return (
@@ -55,7 +46,7 @@ __d(
                     t,
                   );
                 }),
-              (m || (m = n("Promise"))).resolve()
+              (d || (d = n("Promise"))).resolve()
             );
           }),
           (a.downloadAsync = (function () {
@@ -71,43 +62,52 @@ __d(
                     };
                   })());
                 var a = e;
-                if (!o("WAWebModernizr").getModernizr().adownload) {
-                  (o("WAWebModalManager").ModalManager.open(
-                    _.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                      tsNavigationData: {
-                        surface: "unknown",
-                        viewName: "file-saver",
-                      },
-                      onOK: function () {
-                        return o("WAWebModalManager").ModalManager.close();
-                      },
-                      okText: r("WAWebFbtCommon")("OK"),
-                      children: _.jsx(
-                        o("WAWebSafariLimited").SafariLimitedText,
-                        {},
-                      ),
-                    }),
-                  ),
-                    o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "Assertion failed!",
-                          ])),
-                      )
-                      .sendLogs("safari, adownload is false in download mgr"));
-                  return;
-                }
                 r("WAWebMiscBrowserUtils").startDownloading();
                 try {
                   var i,
                     l,
-                    m,
-                    p = yield o(
+                    d,
+                    m = yield o(
                       "WAWebFileSaverDownloadData",
                     ).getMultiMsgDownloadData(a);
-                  if (r("isStringNullOrEmpty")(p.url) && !p.blob) {
-                    var f = a;
+                  if (r("isStringNullOrEmpty")(m.url) && !m.blob) {
+                    var p = a;
+                    o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "Assertion failed! ",
+                            "",
+                          ])),
+                        Array.isArray(p)
+                          ? "download a zip file"
+                          : "download " +
+                              p.id.toString() +
+                              " type " +
+                              p.type +
+                              " with state " +
+                              (p.mediaData && p.mediaData.mediaStage),
+                      )
+                      .sendLogs("download-url-creation-error");
+                  }
+                  var _ =
+                    (i = m.url) != null
+                      ? i
+                      : window.URL.createObjectURL(m.blob);
+                  [].concat(a).forEach(function (e) {
+                    if (r("WAWebMediaGatingShouldClearDownloadedBlobs")(e)) {
+                      var t;
+                      (t = e.mediaObject) == null || t.clearBlob({ reset: !0 });
+                    }
+                  });
+                  var f = o("WAWebDataLink").createDataLink(_);
+                  if (
+                    ((f.download = m.name),
+                    (f.style.display = "none"),
+                    Array.isArray(a) && a.length === 1 && (a = a[0]),
+                    !f.href)
+                  ) {
+                    var g = a;
                     o("WALogger")
                       .ERROR(
                         u ||
@@ -115,73 +115,37 @@ __d(
                             "Assertion failed! ",
                             "",
                           ])),
-                        Array.isArray(f)
+                        Array.isArray(g)
                           ? "download a zip file"
                           : "download " +
-                              f.id.toString() +
+                              g.id.toString() +
                               " type " +
-                              f.type +
+                              g.type +
                               " with state " +
-                              (f.mediaData && f.mediaData.mediaStage),
-                      )
-                      .sendLogs("download-url-creation-error");
-                  }
-                  var g =
-                    (i = p.url) != null
-                      ? i
-                      : window.URL.createObjectURL(p.blob);
-                  [].concat(a).forEach(function (e) {
-                    if (r("WAWebMediaGatingShouldClearDownloadedBlobs")(e)) {
-                      var t;
-                      (t = e.mediaObject) == null || t.clearBlob({ reset: !0 });
-                    }
-                  });
-                  var h = o("WAWebDataLink").createDataLink(g);
-                  if (
-                    ((h.download = p.name),
-                    (h.style.display = "none"),
-                    Array.isArray(a) && a.length === 1 && (a = a[0]),
-                    !h.href)
-                  ) {
-                    var y = a;
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "Assertion failed! ",
-                            "",
-                          ])),
-                        Array.isArray(y)
-                          ? "download a zip file"
-                          : "download " +
-                              y.id.toString() +
-                              " type " +
-                              y.type +
-                              " with state " +
-                              (y.mediaData && y.mediaData.mediaStage),
+                              (g.mediaData && g.mediaData.mediaStage),
                       )
                       .sendLogs("no-download-url");
                   }
                   (yield t(
-                    h.href,
-                    h.download,
+                    f.href,
+                    f.download,
                     Array.isArray(a)
                       ? ""
-                      : (l = (m = a.mediaData) == null ? void 0 : m.filehash) !=
+                      : (l = (d = a.mediaData) == null ? void 0 : d.filehash) !=
                           null
                         ? l
                         : "",
                   ),
-                    document.body && document.body.appendChild(h),
-                    h.click(),
-                    document.body && document.body.removeChild(h),
-                    r("isStringNullOrEmpty")(p.url) &&
+                    document.body && document.body.appendChild(f),
+                    f.click(),
+                    document.body && document.body.removeChild(f),
+                    r("isStringNullOrEmpty")(m.url) &&
                       (yield o("WAPromiseDelays").delayMs(100),
-                      window.URL.revokeObjectURL(h.href)));
+                      window.URL.revokeObjectURL(f.href)));
                 } catch (e) {
                   o("WALogger").WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "Download failed, error: ",
                         "",
                       ])),
@@ -210,8 +174,8 @@ __d(
           t
         );
       })(),
-      g = new f();
-    l.FileSaver = g;
+      p = new m();
+    l.FileSaver = p;
   },
   98,
 );
