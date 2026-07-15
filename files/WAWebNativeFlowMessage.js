@@ -244,9 +244,7 @@ __d(
             }),
           ),
         ]),
-        body: s._(
-          /*BTDS*/ "Use WhatsApp on your mobile device to view this order.",
-        ),
+        body: s._(/*BTDS*/ "Use WhatsApp on your phone to view this order."),
       });
     }
     function g(e, t) {

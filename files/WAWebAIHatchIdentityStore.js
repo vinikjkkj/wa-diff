@@ -121,7 +121,7 @@ __d(
             mimeType: L(t.mimeType),
             sidecarB64: L(t.sidecarB64),
             fileLength: typeof t.fileLength == "number" ? t.fileLength : null,
-            staticUrl: L(t.staticUrl),
+            staticUrl: g(L(t.staticUrl), "secure media"),
           };
     }
     function S(e) {
@@ -142,34 +142,47 @@ __d(
       return typeof e == "string" && e !== "" ? e : null;
     }
     function E(e) {
+      var t = g(e.staticUrl, "secure media");
+      return t === e.staticUrl
+        ? e
+        : babelHelpers.extends({}, e, { staticUrl: t });
+    }
+    function k(e) {
+      if (e == null) return null;
+      var t = {};
+      for (var n of Object.keys(e)) t[n] = E(e[n]);
+      return t;
+    }
+    function I(e) {
       var t,
         n,
         r,
-        a,
-        i = {
+        a = {
           name: (t = e.name) != null ? t : "",
           avatarUrl: g(e.avatarUrl),
           videoVariants: C((n = e.videoVariants) != null ? n : null),
-          secureImage: (r = e.secureImage) != null ? r : null,
-          secureVideoVariants: (a = e.secureVideoVariants) != null ? a : null,
+          secureImage: e.secureImage != null ? E(e.secureImage) : null,
+          secureVideoVariants: k(
+            (r = e.secureVideoVariants) != null ? r : null,
+          ),
           fetchedAt: o("WATimeUtils").unixTime(),
         };
-      ((m = i),
-        h(i),
+      ((m = a),
+        h(a),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
               "AIHatchIdentityStore: identity applied from push",
             ])),
         ),
-        f(i));
+        f(a));
     }
-    function k() {
+    function T() {
       return (m == null && (m = y()), m);
     }
-    function I() {
+    function D() {
       var e,
-        t = k();
+        t = T();
       return {
         name:
           (t == null ? void 0 : t.name) ||
@@ -180,7 +193,7 @@ __d(
             : o("WAWebHatchGating").getHatchBotProfileThumb() || "",
       };
     }
-    function T() {
+    function x() {
       ((m = null), (p = new Set()));
       try {
         r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(c);
@@ -188,10 +201,10 @@ __d(
     }
     ((l.subscribeToIdentityChanges = _),
       (l.validateWhatsAppNetUrl = g),
-      (l.applyHatchIdentity = E),
-      (l.getCachedHatchIdentity = k),
-      (l.getHatchInitialIdentity = I),
-      (l.__resetCacheForTesting = T));
+      (l.applyHatchIdentity = I),
+      (l.getCachedHatchIdentity = T),
+      (l.getHatchInitialIdentity = D),
+      (l.__resetCacheForTesting = x));
   },
   98,
 );

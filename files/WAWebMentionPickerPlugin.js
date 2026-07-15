@@ -758,7 +758,7 @@ __d(
       return e
         ? c.jsx("div", {
             className: "xhslqc4",
-            children: s._(/*BTDS*/ "Only available on mobile devices"),
+            children: s._(/*BTDS*/ "Only available on your phone"),
           })
         : t
           ? c.jsx("div", {

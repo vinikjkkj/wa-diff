@@ -50,11 +50,6 @@ __d(
         "web_communities_general_chat_v_2",
       );
     }
-    function g() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "improve_subgroup_activation_subgroup_poll_interval",
-      );
-    }
     ((l.communitiesCreationEnabled = e),
       (l.getParentGroupLinkLimit = s),
       (l.getParentGroupLinkLimitCommunityCreation = u),
@@ -63,8 +58,7 @@ __d(
       (l.shouldShowNewSubgroupIdentity = m),
       (l.memberSuggestedGroupsM3ReceiverEnabled = p),
       (l.memberSuggestedGroupsM3SenderEnabled = _),
-      (l.communityGeneralChatV2Enabled = f),
-      (l.communityPollIntervalTimeInSeconds = g));
+      (l.communityGeneralChatV2Enabled = f));
   },
   98,
 );

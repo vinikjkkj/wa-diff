@@ -285,7 +285,12 @@ __d(
         l = t.totalAmount,
         u = t.referenceId;
       if (a == null || i == null || l == null) return null;
-      var c = o("WAWebPixCodeUtils").getPixStaticCode(i, a, l.toFixed(2), u),
+      var c = o("WAWebPixCodeUtils").getPixStaticCode({
+          merchantName: i,
+          pixKey: a,
+          referenceId: u,
+          transactionAmount: l.toFixed(2),
+        }),
         d = s._(/*BTDS*/ "Pix code copied"),
         m = s._(/*BTDS*/ "Could not copy Pix code");
       return {

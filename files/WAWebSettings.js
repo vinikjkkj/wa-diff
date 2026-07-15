@@ -91,7 +91,7 @@ __d(
         case e.Wallpaper:
           return s._(/*BTDS*/ "Chat wallpaper");
         case e.RequestAccountInfoSettings:
-          return s._(/*BTDS*/ "Request Account Info");
+          return s._(/*BTDS*/ "Request account info");
         case e.Notifications:
           return s._(/*BTDS*/ "Notifications");
         case e.MediaAutoDownload:

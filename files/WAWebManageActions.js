@@ -68,7 +68,7 @@ __d(
                 ),
                 o("WAWebToastManager").ToastManager.open(
                   m.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Failed to delete product"),
+                    msg: s._(/*BTDS*/ "Couldn't delete product"),
                     id: o("WAWebToast.react").genId(
                       "catalog_delete_product_failed",
                     ),

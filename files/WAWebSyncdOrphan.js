@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WASyncdConst",
+    "WAWebABProps",
     "WAWebGetSyncAction",
     "WAWebHistorySyncLidChatGating",
     "WAWebMiscGatingUtils",
@@ -251,9 +252,9 @@ __d(
           (yield F(
             o("WASyncdConst").SyncModelType.FavoriteSticker,
             function () {
-              var e = o(
-                "WAWebMiscGatingUtils",
-              ).isFavoriteStickerSyncAfterPairingEnabled();
+              var e = o("WAWebABProps").getABPropConfigValue(
+                "favorite_sticker_sync_after_pairing_enabled_web",
+              );
               return (
                 o("WALogger").LOG(
                   _ ||

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebAck",
+    "WAWebExtractImageFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
@@ -19,11 +20,14 @@ __d(
     var e,
       s = "scheduled-drawer-";
     function u(t, n) {
-      var a = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(n);
-      if (a == null) return null;
-      var i;
+      var a = o(
+          "WAWebExtractImageFieldsFromScheduledMsg",
+        ).extractImageFieldsFromScheduledMsg(n),
+        i = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(n);
+      if (a == null && i == null) return null;
+      var l;
       try {
-        i = o("WAWebWidFactory").createWid(t.chatId);
+        l = o("WAWebWidFactory").createWid(t.chatId);
       } catch (t) {
         return (
           o("WALogger")
@@ -38,39 +42,47 @@ __d(
           null
         );
       }
-      var l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        u = i.isGroup(),
-        c = o(
+      var u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        c = l.isGroup(),
+        d = o(
           "WAWebScheduledMsgOutgoingMsgKey",
-        ).buildScheduledMsgOutgoingMsgKey(t.msgId, i, l),
-        d = new (r("WAWebMsgKey"))({
-          fromMe: c.fromMe,
-          remote: c.remote,
-          id: "" + s + c.id,
-          participant: c.participant,
-        });
-      return babelHelpers.extends(
-        {
-          id: d,
-          from: l,
-          to: i,
-          author: u ? l : void 0,
-          type: o("WAWebMsgType").MSG_TYPE.CHAT,
-          kind: o("WAWebMsgType").MsgKind.Chat,
-          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          body: a,
-        },
-        o(
-          "WAWebExtractMentionFieldsFromScheduledMsg",
-        ).extractMentionFieldsFromScheduledMsg(n),
-        o(
-          "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
-        ).extractLinkPreviewFieldsFromScheduledMsg(n),
-        o(
-          "WAWebExtractQuoteFieldsFromScheduledMsg",
-        ).extractQuoteFieldsFromScheduledMsg(n, d),
-        { t: t.scheduledTimestampS, ack: o("WAWebAck").ACK.SENT, invis: !1 },
-      );
+        ).buildScheduledMsgOutgoingMsgKey(t.msgId, l, u),
+        m = new (r("WAWebMsgKey"))({
+          fromMe: d.fromMe,
+          remote: d.remote,
+          id: "" + s + d.id,
+          participant: d.participant,
+        }),
+        p = babelHelpers.extends(
+          {
+            id: m,
+            from: u,
+            to: l,
+            author: c ? u : void 0,
+            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          },
+          o(
+            "WAWebExtractMentionFieldsFromScheduledMsg",
+          ).extractMentionFieldsFromScheduledMsg(n),
+          o(
+            "WAWebExtractQuoteFieldsFromScheduledMsg",
+          ).extractQuoteFieldsFromScheduledMsg(n, m),
+          { t: t.scheduledTimestampS, ack: o("WAWebAck").ACK.SENT, invis: !1 },
+        );
+      return a != null
+        ? babelHelpers.extends({}, p, a)
+        : babelHelpers.extends(
+            {},
+            p,
+            {
+              type: o("WAWebMsgType").MSG_TYPE.CHAT,
+              kind: o("WAWebMsgType").MsgKind.Chat,
+              body: i != null ? i : "",
+            },
+            o(
+              "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
+            ).extractLinkPreviewFieldsFromScheduledMsg(n),
+          );
     }
     ((l.SCHEDULED_DRAWER_MSG_ID_PREFIX = s),
       (l.buildScheduledMsgDataFromRecord = u));

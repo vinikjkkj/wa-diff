@@ -18,7 +18,16 @@ __d(
         ).isScheduledMessagesSenderEnabled()
       );
     }
-    l.isScheduledMessagesAvailableForChat = e;
+    function s(t) {
+      return (
+        e(t) &&
+        o(
+          "WAWebScheduledMessagesGatingUtils",
+        ).isScheduledMessagesPhotoVideoSenderEnabled()
+      );
+    }
+    ((l.isScheduledMessagesAvailableForChat = e),
+      (l.isScheduledMediaAvailableForChat = s));
   },
   98,
 );

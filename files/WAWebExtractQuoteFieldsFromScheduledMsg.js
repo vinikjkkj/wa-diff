@@ -1,42 +1,48 @@
 __d(
   "WAWebExtractQuoteFieldsFromScheduledMsg",
-  ["WAWebDecodeJid", "WAWebLidMigrationUtils", "WAWebQuotedMessageProtoUtils"],
+  [
+    "WAWebDecodeJid",
+    "WAWebGetScheduledMsgContextInfo",
+    "WAWebLidMigrationUtils",
+    "WAWebQuotedMessageProtoUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n,
-        r = (n = e.extendedTextMessage) == null ? void 0 : n.contextInfo;
-      if (r == null) return {};
-      var a = {},
-        i = r.quotedMessage;
-      i != null &&
-        i.reactionMessage == null &&
-        (a.quotedMsg = o("WAWebQuotedMessageProtoUtils").parseQuotedMessage({
-          quotedMsg: i,
+      var n = o("WAWebGetScheduledMsgContextInfo").getScheduledMsgContextInfo(
+        e,
+      );
+      if (n == null) return {};
+      var r = {},
+        a = n.quotedMessage;
+      a != null &&
+        a.reactionMessage == null &&
+        (r.quotedMsg = o("WAWebQuotedMessageProtoUtils").parseQuotedMessage({
+          quotedMsg: a,
           msgContext: "relay",
           isCarouselCardReply: !1,
-          contextInfo: r,
+          contextInfo: n,
           targetMessageKey: t,
         }));
-      var l = t.remote.isGroup();
-      r.stanzaId != null && (a.quotedStanzaID = r.stanzaId);
-      var u = s(r.participant);
-      if (u != null)
-        if (l && t.participant != null) {
-          var c = o("WAWebLidMigrationUtils").toCommonAddressingMode(
-              u,
+      var i = t.remote.isGroup();
+      n.stanzaId != null && (r.quotedStanzaID = n.stanzaId);
+      var l = s(n.participant);
+      if (l != null)
+        if (i && t.participant != null) {
+          var u = o("WAWebLidMigrationUtils").toCommonAddressingMode(
+              l,
               t.participant,
             ),
-            d = c[0];
-          a.quotedParticipant = d != null ? d : u;
-        } else a.quotedParticipant = u;
-      var m = s(r.remoteJid);
-      (m != null && l && (a.quotedRemoteJid = m),
-        r.groupSubject != null && (a.quotedGroupSubject = r.groupSubject));
-      var p = s(r.parentGroupJid);
+            c = u[0];
+          r.quotedParticipant = c != null ? c : l;
+        } else r.quotedParticipant = l;
+      var d = s(n.remoteJid);
+      (d != null && i && (r.quotedRemoteJid = d),
+        n.groupSubject != null && (r.quotedGroupSubject = n.groupSubject));
+      var m = s(n.parentGroupJid);
       return (
-        p != null && (a.quotedParentGroupJid = p),
-        r.quotedType != null && (a.quotedType = r.quotedType),
-        a
+        m != null && (r.quotedParentGroupJid = m),
+        n.quotedType != null && (r.quotedType = n.quotedType),
+        r
       );
     }
     function s(e) {

@@ -64,19 +64,13 @@ __d(
       return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
         .completeHistorySyncOnDemand;
     }
-    function f() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "history_sync_on_demand_time_boundary_days_desktops",
-      );
-    }
     ((l.isHistorySyncOnDemandEnabled = s),
       (l.shouldPopulateStarMessageWithTimestamp = u),
       (l.isWebLinkPreviewNseSupportEnabled = c),
       (l.isMessagePlaceholderResendNseSupportEnabled = d),
       (l.getRecentSyncMessageProcessingBreakIteration = m),
       (l.isOnDemandExtendedHistorySyncForHybridEnabled = p),
-      (l.isHistorySyncOnDemandCompleteCompanionEnabled = _),
-      (l.getHistorySyncOnDemandTimeBoundaryDaysForDesktops = f));
+      (l.isHistorySyncOnDemandCompleteCompanionEnabled = _));
   },
   98,
 );

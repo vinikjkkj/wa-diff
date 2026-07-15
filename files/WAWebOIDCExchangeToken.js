@@ -42,7 +42,7 @@ __d(
               o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
-                    /*BTDS*/ "Unable to get access token, please try again later",
+                    /*BTDS*/ "Couldn't get access token. Please try again later.",
                   ),
                 }),
                 o("WAWebToastManager").ToastPosition.LEFT,

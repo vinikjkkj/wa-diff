@@ -26,39 +26,48 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = !e.is_offline;
-          e.peer_jid.isUser() &&
-            (yield c({
-              jid: e.peer_jid,
-              phoneNumber: e.caller_pn,
+          var t = !e.is_offline,
+            r = e.peer_jid;
+          if (r.isUser()) {
+            var a = e.caller_pn;
+            yield c({
+              jid: r,
+              phoneNumber: a != null && a.isUser() ? a : null,
               username: e.caller_username,
               countryCode: e.caller_country_code,
               pushName: e.caller_push_name,
               flushImmediately: t,
-            }));
-          var r = e.group_info_updates;
-          r != null &&
-            (yield o("WAPromiseEach").promiseEach(
-              r,
+            });
+          }
+          var i = e.group_info_updates;
+          if (i != null) {
+            for (var l = -1, s = 0; s < i.length; s++)
+              i[s].jid.isUser() && (l = s);
+            yield o("WAPromiseEach").promiseEach(
+              i,
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e, n) {
-                    var o = n === r.length - 1;
-                    return c({
-                      jid: e.jid,
-                      phoneNumber: e.user_pn,
-                      username: e.username,
-                      pushName: e.push_name,
-                      accountKind: e.account_kind,
-                      flushImmediately: t && o,
-                    });
+                    var r = e.jid;
+                    if (r.isUser()) {
+                      var o = e.user_pn;
+                      return c({
+                        jid: r,
+                        phoneNumber: o != null && o.isUser() ? o : null,
+                        username: e.username,
+                        pushName: e.push_name,
+                        accountKind: e.account_kind,
+                        flushImmediately: t && n === l,
+                      });
+                    }
                   },
                 );
                 return function (t, n) {
                   return e.apply(this, arguments);
                 };
               })(),
-            ));
+            );
+          }
         })),
         u.apply(this, arguments)
       );

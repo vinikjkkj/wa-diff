@@ -18,29 +18,23 @@ __d(
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue(
-        "limit_sharing_update_enabled_web",
+        "limit_sharing_protocol_message_receiver_enabled",
       );
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(
-        "limit_sharing_protocol_message_receiver_enabled",
-      );
-    }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
         "advanced_chat_privacy_content_update_july_25",
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue("opus_admin");
     }
     ((l.isOpusFlagOn = e),
       (l.isOpusEnabled = s),
       (l.isRenderUpdatedDisclosureGatingEnabled = u),
-      (l.isLimitSharingSetterUpdateGatingEnabledForWeb = c),
-      (l.isLimitSharingReceiverGatingEnabledForChat = d),
-      (l.isLimitSharingContentUpdateJuly25Enabled = m),
-      (l.isOpusAdminOnly = p));
+      (l.isLimitSharingReceiverGatingEnabledForChat = c),
+      (l.isLimitSharingContentUpdateJuly25Enabled = d),
+      (l.isOpusAdminOnly = m));
   },
   98,
 );

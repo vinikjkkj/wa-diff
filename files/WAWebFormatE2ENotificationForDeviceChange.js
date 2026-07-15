@@ -64,18 +64,18 @@ __d(
               ? i
                 ? e.isThisDeviceAdded
                   ? (a = s._(
-                      /*BTDS*/ 'Your security code with all members changed because there was a login on this device. To verify a contact\'s security code, open their Contact Info page and click "Encryption".',
+                      /*BTDS*/ 'Your security code with all members changed because there was a login on this device. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                     ))
                   : (a = s._(
-                      /*BTDS*/ 'Your security code with all members changed because there was a login on a new device of yours. To verify a contact\'s security code, open their Contact Info page and click "Encryption"',
+                      /*BTDS*/ 'Your security code with all members changed because there was a login on a new device of yours. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                     ))
                 : l
                   ? (a = s._(
-                      /*BTDS*/ 'Your security code with all members changed because there was a logout from one of your devices. To verify a contact\'s security code, open their Contact Info page and click "Encryption".',
+                      /*BTDS*/ 'Your security code with all members changed because there was a logout from one of your devices. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                     ))
                   : c &&
                     (a = s._(
-                      /*BTDS*/ 'Your security code with all members changed because there was a login or logout from one or more of your devices. To verify a contact\'s security code, open their Contact Info page and click "Encryption".',
+                      /*BTDS*/ 'Your security code with all members changed because there was a login or logout from one or more of your devices. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                     ))
               : (a = n
                   ? s._(/*BTDS*/ "Your security code with all members changed")
@@ -87,18 +87,18 @@ __d(
                 ? i
                   ? e.isThisDeviceAdded
                     ? (a = s._(
-                        /*BTDS*/ 'Your security code with all recipients changed because there was a login on this device. To verify a contact\'s security code, open their Contact Info page and click "Encryption".',
+                        /*BTDS*/ 'Your security code with all recipients changed because there was a login on this device. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                       ))
                     : (a = s._(
-                        /*BTDS*/ 'Your security code with all recipients changed because there was a login on a new device of yours. To verify a contact\'s security code, open their Contact Info page and click "Encryption".',
+                        /*BTDS*/ 'Your security code with all recipients changed because there was a login on a new device of yours. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                       ))
                   : l
                     ? (a = s._(
-                        /*BTDS*/ 'Your security code with all recipients changed because there was a logout from one of your devices. To verify a contact\'s security code, open their Contact Info page and click "Encryption".',
+                        /*BTDS*/ 'Your security code with all recipients changed because there was a logout from one of your devices. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                       ))
                     : c &&
                       (a = s._(
-                        /*BTDS*/ 'Your security code with all recipients changed because there was a login or logout from one or more of your devices. To verify a contact\'s security code, open their Contact Info page and click "Encryption".',
+                        /*BTDS*/ 'Your security code with all recipients changed because there was a login or logout from one or more of your devices. To verify a contact\'s security code, open their contact info page and click "Encryption".',
                       ))
                 : (a = n
                     ? s._(

@@ -110,7 +110,9 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           p.jsx(o("WAWebToast.react").Toast, {
             action: { dismiss: !0, actionText: e },
-            msg: s._(/*BTDS*/ "Some per-customer Data Sharing updates failed."),
+            msg: s._(
+              /*BTDS*/ "Couldn't update some per-customer Data Sharing settings",
+            ),
             id: o("WAWebToast.react").genId(),
           }),
         );

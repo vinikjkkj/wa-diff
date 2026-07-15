@@ -14,18 +14,12 @@ __d(
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
-        "paa_support_for_disabled_epehemerality",
-      );
-    }
-    function c() {
-      return o("WAWebABProps").getABPropConfigValue(
         "mex_get_privacy_contact_list_enabled",
       );
     }
     ((l.isDataPrivacyPhase2Enabled = e),
       (l.isProfileScrappingProtectionInMexFetchEnabled = s),
-      (l.isPAASupportForDisabledEphemeralityEnabled = u),
-      (l.isMexPrivacyContactListEnabled = c));
+      (l.isMexPrivacyContactListEnabled = u));
   },
   98,
 );

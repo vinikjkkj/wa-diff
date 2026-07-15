@@ -38,7 +38,7 @@ __d(
           .FAILED
       )
         return s._(
-          /*BTDS*/ "Failed to download message history that {sender contact name} sent you",
+          /*BTDS*/ "Couldn't download message history that {sender contact name} sent you",
           [s._param("sender contact name", m)],
         );
       if (

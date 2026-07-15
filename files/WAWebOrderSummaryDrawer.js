@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WASmaxInBizSettingsEnums",
+    "WAWebABProps",
     "WAWebCTWADataSharingModel",
     "WAWebChatEphemerality",
     "WAWebClickableLink.react",
@@ -61,7 +62,9 @@ __d(
     function f(e, t, n, r) {
       if (!e) return s._(/*BTDS*/ "Items must all have a price").toString();
       var a =
-          o("WAWebOrderGatingUtils").orderDetailsTotalOrderMinimumValue() * 1e3,
+          o("WAWebABProps").getABPropConfigValue(
+            "order_details_total_order_minimum_value",
+          ) * 1e3,
         i = o("WAWebOrderGatingUtils").orderDetailsTotalMaxValue(r) * 1e3;
       return t < a
         ? s
@@ -290,17 +293,21 @@ __d(
         k
       );
     }
-    function h(e, t, n, a) {
+    function h(e) {
+      var t = e.chat,
+        n = e.itemsCount,
+        a = e.onOptOutValueToggle,
+        i = e.optOutValue;
       if (
         r(
           "WAWebCommonCTWADataSharing",
-        ).shouldDisplayDataSharingOrderOptOutOrUpsell(e, "order-create", t)
+        ).shouldDisplayDataSharingOrderOptOutOrUpsell(t, "order-create", n)
       )
         return c.jsx(
           o("WAWebDataSharingOptOutOrUpsell.react").DataSharingOptOutOrUpsell,
           {
-            chats: [e],
-            checkboxValue: n,
+            chats: [t],
+            checkboxValue: i,
             onCheckboxToggle: a,
             theme: "order-create",
           },
@@ -556,7 +563,12 @@ __d(
           : (se = t[65]);
         var ue;
         (t[66] !== a || t[67] !== I.length || t[68] !== N || t[69] !== se
-          ? ((ue = h(a, I.length, N, se)),
+          ? ((ue = h({
+              chat: a,
+              itemsCount: I.length,
+              onOptOutValueToggle: se,
+              optOutValue: N,
+            })),
             (t[66] = a),
             (t[67] = I.length),
             (t[68] = N),

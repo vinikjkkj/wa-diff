@@ -117,7 +117,7 @@ __d(
           o("WAWebStopEvent").stopEvent(t))
         : o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(/*BTDS*/ "Message cannot be edited"),
+              msg: s._(/*BTDS*/ "Message can't be edited"),
             }),
           );
     }

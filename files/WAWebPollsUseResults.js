@@ -12,6 +12,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "react",
     "react-compiler-runtime",
+    "sumBy",
     "useWAWebEventTargetValue",
     "useWAWebModelValues",
   ],
@@ -97,10 +98,9 @@ __d(
     }
     function _(e, t) {
       var n = new Map(),
-        a = 0,
-        i = 0;
-      for (var l of t)
-        n.set(l, {
+        a = 0;
+      for (var i of t)
+        n.set(i, {
           isVotedForByMe: !1,
           isCurrentLeader: !1,
           percentageOfAll: 0,
@@ -109,15 +109,18 @@ __d(
           count: 0,
           mode: "e2ee",
         });
-      var s = Array.from(e).sort(function (e, t) {
-        return o("WAWebUserPrefsMeUser").isMeAccount(t.sender)
-          ? 1
-          : o("WAWebUserPrefsMeUser").isMeAccount(e.sender)
-            ? -1
-            : o("WAWebPollVoteGetters").getTimestamp(t) -
-              o("WAWebPollVoteGetters").getTimestamp(e);
-      });
-      for (var u of s)
+      var l = Array.from(e).sort(function (e, t) {
+          return o("WAWebUserPrefsMeUser").isMeAccount(t.sender)
+            ? 1
+            : o("WAWebUserPrefsMeUser").isMeAccount(e.sender)
+              ? -1
+              : o("WAWebPollVoteGetters").getTimestamp(t) -
+                o("WAWebPollVoteGetters").getTimestamp(e);
+        }),
+        s = r("sumBy")(l, function (e) {
+          return e.selectedOptionLocalIds.length;
+        });
+      for (var u of l)
         for (var c of u.selectedOptionLocalIds) {
           var d = t[c],
             m = r("WANullthrows")(
@@ -127,14 +130,13 @@ __d(
           m.mode === "e2ee" &&
             (m.votes.push(u),
             (a = Math.max(a, m.votes.length)),
-            (i += 1),
             o("WAWebUserPrefsMeUser").isMeAccount(
               o("WAWebFrontendPollVoteGetters").getSenderObj(u).id,
             ) && (m.isVotedForByMe = !0));
         }
       for (var p of n.values())
         ((p.percentageOfMostVotedForOption = a === 0 ? 0 : p.votes.length / a),
-          (p.percentageOfAll = i === 0 ? 0 : p.votes.length / i),
+          (p.percentageOfAll = s === 0 ? 0 : p.votes.length / s),
           (p.isCurrentLeader = a > 0 && p.votes.length === a),
           (p.count = p.votes.length));
       return n;

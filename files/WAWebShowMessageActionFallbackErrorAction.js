@@ -28,7 +28,7 @@ __d(
           i = e.body,
           l =
             i === void 0
-              ? s._(/*BTDS*/ "Use WhatsApp on your mobile device to view it.")
+              ? s._(/*BTDS*/ "Use WhatsApp on your phone to view it.")
               : i;
         o("WAWebModalManager").ModalManager.open(
           u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {

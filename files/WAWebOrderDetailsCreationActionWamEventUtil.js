@@ -50,15 +50,18 @@ __d(
           .ORDER_DETAILS_CREATION_ACTION.SEND_ORDER_DETAILS,
       });
     }
-    function c(e, t, n) {
+    function c(e) {
+      var t = e.entryPoint,
+        n = e.hasAddedPrice,
+        a = e.hasCatalog;
       return new (o(
         "WAWebOrderDetailsActionsSmbWamEvent",
       ).OrderDetailsActionsSmbWamEvent)({
         actionCategory: r("WAWebOrderDetailsActionCategory")
           .ORDER_DETAILS_MANAGEMENT,
         hasAddedPrice: n,
-        hasCatalog: t,
-        orderDetailEntryPoint: e,
+        hasCatalog: a,
+        orderDetailEntryPoint: t,
         orderDetailsCreationAction: o("WAWebWamEnumOrderDetailsCreationAction")
           .ORDER_DETAILS_CREATION_ACTION.CLICK_ADD_ITEM,
       });

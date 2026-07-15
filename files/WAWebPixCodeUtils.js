@@ -17,12 +17,16 @@ __d(
       y = "070503***",
       C = "6304",
       b = 25;
-    function v(t, n, r, a) {
-      var i = e + S(n),
-        l = L(t),
-        g = l.substring(0, b),
-        h = s.concat(u, S(i), c, d, m, p, S(g), _, "*", f, S(r), E(a));
-      return h.concat(o("WACrc16").crc16(h).toString(16).toUpperCase());
+    function v(t) {
+      var n = t.merchantName,
+        r = t.pixKey,
+        a = t.referenceId,
+        i = t.transactionAmount,
+        l = e + S(r),
+        g = L(n),
+        h = g.substring(0, b),
+        y = s.concat(u, S(l), c, d, m, p, S(h), _, "*", f, S(i), E(a));
+      return y.concat(o("WACrc16").crc16(y).toString(16).toUpperCase());
     }
     function S(e) {
       return R(e) ? "" : e.length.toString().padStart(2, "0") + e;

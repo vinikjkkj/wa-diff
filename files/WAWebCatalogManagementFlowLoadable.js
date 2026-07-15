@@ -76,7 +76,7 @@ __d(
     function p() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Failed to load catalog"),
+          msg: s._(/*BTDS*/ "Couldn't load catalog"),
           id: o("WAWebActionToast.react").genId(),
         }),
       );

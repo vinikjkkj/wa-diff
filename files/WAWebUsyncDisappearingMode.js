@@ -1,6 +1,6 @@
 __d(
   "WAWebUsyncDisappearingMode",
-  ["WAWap", "WAWebPrivacyGatingUtils"],
+  ["WAWap", "WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       e.assertTag("disappearing_mode");
@@ -16,9 +16,9 @@ __d(
         i = e.maybeAttrString("ephemerality_disabled") === "true";
       return (
         i &&
-          o(
-            "WAWebPrivacyGatingUtils",
-          ).isPAASupportForDisabledEphemeralityEnabled() &&
+          o("WAWebABProps").getABPropConfigValue(
+            "paa_support_for_disabled_epehemerality",
+          ) &&
           (a.ephemeralityDisabled = !0),
         a
       );

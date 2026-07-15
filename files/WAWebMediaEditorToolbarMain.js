@@ -406,7 +406,7 @@ __d(
                 {
                   icon: ke,
                   testid: "wds-ic-hd-settings",
-                  title: s._(/*BTDS*/ "This media is not HD resolution."),
+                  title: s._(/*BTDS*/ "This media isn't HD resolution."),
                   onClick: f,
                 },
                 "hd-settings",
@@ -775,9 +775,9 @@ __d(
     function f() {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          title: s._(/*BTDS*/ "Cannot set to HD"),
+          title: s._(/*BTDS*/ "Can't set to HD"),
           onOK: o("WAWebModalManager").closeModalManager,
-          children: s._(/*BTDS*/ "This media is not HD resolution."),
+          children: s._(/*BTDS*/ "This media isn't HD resolution."),
         }),
       );
     }

@@ -31,7 +31,7 @@ __d(
     }
     function h() {
       return s._(
-        /*BTDS*/ "Choose up to three categories to show on your business profile.",
+        /*BTDS*/ "Choose up to 3 categories to show on your business profile.",
       );
     }
     function y() {
@@ -54,12 +54,12 @@ __d(
     }
     function L() {
       return s._(
-        /*BTDS*/ "You can change your business name on the app with a mobile device.",
+        /*BTDS*/ "You can change your business name on the app with your phone.",
       );
     }
     function E() {
       return s._(
-        /*BTDS*/ "You can change your phone number on the app with a mobile device.",
+        /*BTDS*/ "You can change your phone number on the app with your phone.",
       );
     }
     function k() {
@@ -70,7 +70,7 @@ __d(
     }
     function T() {
       return s._(
-        /*BTDS*/ "You can change your about on the app with a mobile device.",
+        /*BTDS*/ "You can change your about on the app with your phone.",
       );
     }
     function D() {
@@ -104,7 +104,7 @@ __d(
       return s._(/*BTDS*/ "Country of origin (required)");
     }
     function B() {
-      return s._(/*BTDS*/ "Add to Catalog");
+      return s._(/*BTDS*/ "Add to catalog");
     }
     function W() {
       return s._(/*BTDS*/ "Cancel");
@@ -130,7 +130,7 @@ __d(
       return s._(/*BTDS*/ "Profile");
     }
     function j() {
-      return s._(/*BTDS*/ "Business Information");
+      return s._(/*BTDS*/ "Business information");
     }
     function K() {
       return s._(/*BTDS*/ "Products and services");
@@ -143,7 +143,7 @@ __d(
     }
     function Y() {
       return s._(
-        /*BTDS*/ "You can change the address on the app with a mobile device.",
+        /*BTDS*/ "You can change the address on the app with your phone.",
       );
     }
     function J(e) {
@@ -165,7 +165,7 @@ __d(
     }
     function ne() {
       return s._(
-        /*BTDS*/ "You can change your username on the app with a mobile device.",
+        /*BTDS*/ "You can change your username on the app with your phone.",
       );
     }
     function re() {
@@ -182,7 +182,7 @@ __d(
     }
     function le() {
       return s._(
-        /*BTDS*/ "You can change your services on the app with a mobile device.",
+        /*BTDS*/ "You can change your services on the app with your phone.",
       );
     }
     function se() {

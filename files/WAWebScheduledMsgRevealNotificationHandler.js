@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
+    "WAWebExtractImageFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
@@ -593,34 +594,44 @@ __d(
           "WAWebExtractMentionFieldsFromScheduledMsg",
         ).extractMentionFieldsFromScheduledMsg(n),
         p = o(
-          "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
-        ).extractLinkPreviewFieldsFromScheduledMsg(n),
-        _ = o(
           "WAWebExtractQuoteFieldsFromScheduledMsg",
-        ).extractQuoteFieldsFromScheduledMsg(n, c);
+        ).extractQuoteFieldsFromScheduledMsg(n, c),
+        _ = babelHelpers.extends(
+          {
+            id: c,
+            from: t,
+            to: s,
+            author: u != null ? u : void 0,
+            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          },
+          d,
+          m,
+          p,
+          {
+            t: i,
+            scheduledTimestampS: i,
+            ack: o("WAWebAck").ACK.SENT,
+            isNewMsg: !0,
+            recvFresh: !0,
+            invis: !1,
+          },
+        ),
+        f = o(
+          "WAWebExtractImageFieldsFromScheduledMsg",
+        ).extractImageFieldsFromScheduledMsg(n);
+      if (f != null) return babelHelpers.extends({}, _, f);
+      var g = o(
+        "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
+      ).extractLinkPreviewFieldsFromScheduledMsg(n);
       return babelHelpers.extends(
-        {
-          id: c,
-          from: t,
-          to: s,
-          author: u != null ? u : void 0,
-          type: o("WAWebMsgType").MSG_TYPE.CHAT,
-          kind: o("WAWebMsgType").MsgKind.Chat,
-          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          body: l,
-        },
-        d,
-        m,
-        p,
+        {},
         _,
         {
-          t: i,
-          scheduledTimestampS: i,
-          ack: o("WAWebAck").ACK.SENT,
-          isNewMsg: !0,
-          recvFresh: !0,
-          invis: !1,
+          type: o("WAWebMsgType").MSG_TYPE.CHAT,
+          kind: o("WAWebMsgType").MsgKind.Chat,
+          body: l,
         },
+        g,
       );
     }
     function ne(e, t) {

@@ -39,50 +39,45 @@ __d(
         "order_details_from_catalog_enabled",
       );
     }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "order_details_total_order_minimum_value",
-      );
-    }
-    function p(e) {
+    function m(e) {
       return o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
         ? 5e3
         : o("WAWebABProps").getABPropConfigValue(
             "order_details_total_maximum_value",
           );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue("order_management_enabled");
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "order_messages_ephemeral_exception_enabled",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "row_buyer_order_revamp_m0_enabled",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "seller_orders_management_revamp",
       );
     }
-    function y() {
+    function h() {
       return (
-        g() &&
+        f() &&
         o("WAWebABProps").getABPropConfigValue(
           "buyer_initiated_order_request_variant_enabled",
         )
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "order_statuses_revamp_m1_enabled",
       );
     }
-    function b() {
+    function C() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "payments_br_content_optimization_variant",
@@ -93,15 +88,14 @@ __d(
       (l.isOrderDetailsQuickPayEnabled = u),
       (l.orderDetailsCustomItemEnabled = c),
       (l.orderDetailsFromCatalogEnabled = d),
-      (l.orderDetailsTotalOrderMinimumValue = m),
-      (l.orderDetailsTotalMaxValue = p),
-      (l.orderManagementEnabled = _),
-      (l.inOrderMessagesEphemeralExceptionEnabled = f),
-      (l.isBuyerOrderRevampEnabled = g),
-      (l.isSellerOrderRevampEnabled = h),
-      (l.isBuyerOrderRequestVariantEnabled = y),
-      (l.isOrderStatusM1Enabled = C),
-      (l.isOrderContentOptimizationEnabled = b));
+      (l.orderDetailsTotalMaxValue = m),
+      (l.orderManagementEnabled = p),
+      (l.inOrderMessagesEphemeralExceptionEnabled = _),
+      (l.isBuyerOrderRevampEnabled = f),
+      (l.isSellerOrderRevampEnabled = g),
+      (l.isBuyerOrderRequestVariantEnabled = h),
+      (l.isOrderStatusM1Enabled = y),
+      (l.isOrderContentOptimizationEnabled = C));
   },
   98,
 );

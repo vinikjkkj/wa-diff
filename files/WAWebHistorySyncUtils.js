@@ -2,6 +2,7 @@ __d(
   "WAWebHistorySyncUtils",
   [
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebChatConstants",
     "WAWebEnvironment",
     "WAWebPrimaryFeaturesModel",
@@ -18,9 +19,9 @@ __d(
           "WAWebSyncGatingUtils",
         ).isOnDemandExtendedHistorySyncForHybridEnabled()
       ) {
-        var e = o(
-          "WAWebSyncGatingUtils",
-        ).getHistorySyncOnDemandTimeBoundaryDaysForDesktops();
+        var e = o("WAWebABProps").getABPropConfigValue(
+          "history_sync_on_demand_time_boundary_days_desktops",
+        );
         return e * o("WATimeUtils").DAY_SECONDS;
       }
       return o("WATimeUtils").YEAR_SECONDS;

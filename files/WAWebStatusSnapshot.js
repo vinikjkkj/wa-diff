@@ -10,6 +10,7 @@ __d(
     "WAWebContactGetters",
     "WAWebMsgModelUtils",
     "WAWebStatusCollection",
+    "WAWebStatusGatingUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -57,6 +58,52 @@ __d(
         if (
           (a === void 0 && (a = !1),
           (this.$2 = function (e) {
+            var n = o("WAWebStatusCollection").StatusCollection.getUnexpired({
+                containsAnyUnreadStatus: !0,
+              }),
+              r = [];
+            n.forEach(function (e) {
+              if (
+                !o("WAWebContactGetters").getCalculatedStatusMute(e.contact)
+              ) {
+                var n = t.$4(e);
+                r.push(n);
+              }
+            });
+            var a = r.findIndex(function (t) {
+              return t.status === e;
+            });
+            return (
+              a > 0 &&
+                r.length >=
+                  o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
+                o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled() &&
+                (r = [].concat(r.slice(a), r.slice(0, a))),
+              r
+            );
+          }),
+          (this.$3 = function (e) {
+            var n = function (t) {
+                return !o("WAWebContactGetters").getCalculatedStatusMute(
+                  t.contact,
+                );
+              },
+              r = o("WAWebStatusCollection")
+                .StatusCollection.getUnexpired({ containsAnyUnreadStatus: !1 })
+                .filter(n),
+              a = o("WAWebStatusCollection")
+                .StatusCollection.getUnexpired({ containsAnyUnreadStatus: !0 })
+                .filter(n);
+            return a.length > 0 &&
+              r.length + a.length >=
+                o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
+              o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled()
+              ? [].concat(r, a).map(function (e) {
+                  return t.$4(e);
+                })
+              : [t.$4(e)];
+          }),
+          (this.$4 = function (e) {
             var n = e.msgs.getModelsArray();
             return {
               status: e,
@@ -69,7 +116,7 @@ __d(
           (this.$1 = function (e) {
             return new Set(o("WAWebMsgModelUtils").getReadMsgKeys(e));
           }),
-          (this.$3 = function () {
+          (this.$5 = function () {
             var n = 0,
               r = 0,
               a = 0;
@@ -133,7 +180,7 @@ __d(
                             statusIdx: i,
                           })
                         : t
-                            .$4(e)
+                            .$6(e)
                             .then(function () {
                               return t.getFirstUnread(e, r, a);
                             })
@@ -183,7 +230,7 @@ __d(
                   o("WAWebStatusCollection").StatusCollection.sync(),
                   (m || (m = n("Promise"))).reject(new p()))
                 : t
-                    .$4(a)
+                    .$6(a)
                     .then(function () {
                       return t.getNext(e);
                     })
@@ -236,7 +283,7 @@ __d(
               : i.msgs.msgLoadState.noEarlierMsgs
                 ? (m || (m = n("Promise"))).reject(new p())
                 : t
-                    .$4(i)
+                    .$6(i)
                     .then(function () {
                       return t.statusAt(e, r);
                     })
@@ -254,7 +301,7 @@ __d(
                       );
                     });
           }),
-          (this.$4 = (function () {
+          (this.$6 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var r = yield o("WAPromiseLoop").promiseLoop(
@@ -314,25 +361,13 @@ __d(
               readMsgKeys: this.$1([l]),
             },
           ];
-        } else if (
+        } else
           a &&
-          r.unreadCount > 0 &&
           !o("WAWebContactGetters").getIsMe(r.contact) &&
           !o("WAWebContactGetters").getCalculatedStatusMute(r.contact)
-        ) {
-          var g = o("WAWebStatusCollection").StatusCollection.getUnexpired({
-              containsAnyUnreadStatus: !0,
-            }),
-            h = [];
-          (g.forEach(function (e) {
-            if (!o("WAWebContactGetters").getCalculatedStatusMute(e.contact)) {
-              var n = t.$2(e);
-              h.push(n);
-            }
-          }),
-            (this.statuses = h));
-        } else this.statuses = [this.$2(r)];
-        this.$3();
+            ? (this.statuses = r.unreadCount > 0 ? this.$2(r) : this.$3(r))
+            : (this.statuses = [this.$4(r)]);
+        this.$5();
       };
     ((l.InvalidStatusIterator = p),
       (l.StatusLoadingError = _),

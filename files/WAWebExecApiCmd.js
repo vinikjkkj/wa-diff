@@ -616,21 +616,22 @@ __d(
           if (_e == null || _e === "not-linked") return !1;
           switch (t.trigger) {
             case "chatListBanner":
-              o("WAWebChatlistUtils").handleManageAds(
-                _e,
-                "whatsapp_smb_web_manage_ads_chat_list_banner",
-                o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
+              o("WAWebChatlistUtils").handleManageAds({
+                activeAccountInfo: _e,
+                entryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
                   .SMB_CHAT_LIST_BANNER_MANAGE_AD,
-              );
+                sourceManageAdsType:
+                  "whatsapp_smb_web_manage_ads_chat_list_banner",
+              });
               break;
             default:
               (t.trigger,
-                o("WAWebChatlistUtils").handleManageAds(
-                  _e,
-                  "whatsapp_smb_web_manage_ads_native",
-                  o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
+                o("WAWebChatlistUtils").handleManageAds({
+                  activeAccountInfo: _e,
+                  entryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
                     .SMB_BUSINESS_HOME_MANAGE_AD,
-                ));
+                  sourceManageAdsType: "whatsapp_smb_web_manage_ads_native",
+                }));
               break;
           }
           return !0;
@@ -886,7 +887,7 @@ __d(
                         colorName: "contentDeemphasized",
                         textAlign: "center",
                         children: s._(
-                          /*BTDS*/ "This feature is not supported on your device. Log into WhatsApp on your mobile phone and try again.",
+                          /*BTDS*/ "This feature isn't supported on your device. Log into WhatsApp on your phone and try again.",
                         ),
                       }),
                     ],

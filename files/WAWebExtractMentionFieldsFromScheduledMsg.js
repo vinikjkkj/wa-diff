@@ -1,38 +1,39 @@
 __d(
   "WAWebExtractMentionFieldsFromScheduledMsg",
-  ["WAWebABProps", "WAWebDecodeJid"],
+  ["WAWebABProps", "WAWebDecodeJid", "WAWebGetScheduledMsgContextInfo"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t,
-        n = (t = e.extendedTextMessage) == null ? void 0 : t.contextInfo;
-      if (n == null) return {};
-      var r = {},
-        a = n.groupMentions,
-        i = n.mentionedJid,
-        l = n.nonJidMentions;
-      if (Array.isArray(i) && i.length > 0) {
-        var u = [];
-        for (var c of i) {
-          var d = s(c);
-          d != null && u.push(d);
-        }
-        u.length > 0 && (r.mentionedJidList = u);
-      }
+      var t = o("WAWebGetScheduledMsgContextInfo").getScheduledMsgContextInfo(
+        e,
+      );
+      if (t == null) return {};
+      var n = {},
+        r = t.groupMentions,
+        a = t.mentionedJid,
+        i = t.nonJidMentions;
       if (Array.isArray(a) && a.length > 0) {
-        var m = [];
-        for (var p of a) {
-          var _ = s(p.groupJid);
-          _ != null && m.push({ groupJid: _, groupSubject: p.groupSubject });
+        var l = [];
+        for (var u of a) {
+          var c = s(u);
+          c != null && l.push(c);
         }
-        m.length > 0 && (r.groupMentions = m);
+        l.length > 0 && (n.mentionedJidList = l);
+      }
+      if (Array.isArray(r) && r.length > 0) {
+        var d = [];
+        for (var m of r) {
+          var p = s(m.groupJid);
+          p != null && d.push({ groupJid: p, groupSubject: m.groupSubject });
+        }
+        d.length > 0 && (n.groupMentions = d);
       }
       return (
-        l != null &&
+        i != null &&
           o("WAWebABProps").getABPropConfigValue(
             "enable_mention_everyone_receiver_web",
           ) &&
-          (r.nonJidMentions = l),
-        r
+          (n.nonJidMentions = i),
+        n
       );
     }
     function s(e) {

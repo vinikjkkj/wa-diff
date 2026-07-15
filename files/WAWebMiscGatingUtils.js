@@ -40,68 +40,63 @@ __d(
       );
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "favorite_sticker_sync_after_pairing_enabled_web",
-      );
-    }
-    function p() {
       var e = o("WAWebModernizr").getModernizr();
       return !(o("WAWebUA").UA.isGecko && !(e != null && e.exiforientation));
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_multi_skin_toned_emoji_picker",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_abprop_media_links_docs_search",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue("graphql_locale_remapping");
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_message_plugin_frontend_registration_enabled",
       );
     }
-    function y() {
+    function h() {
       return !o("WAWebMobilePlatforms").isSMB();
     }
-    function C() {
+    function y() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled("ddm_settings");
     }
-    function b() {
+    function C() {
       var e;
       return (e = o("WAWebABProps").getABPropConfigValue("drop_last_name")) !=
         null
         ? e
         : !1;
     }
-    function v() {
+    function b() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("smb_rambutan_enabled")
       );
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue("group_suspend_v2_enabled");
     }
-    function R() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue("blue_enabled");
     }
-    function L() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue("blue_education_enabled");
     }
-    function E() {
+    function L() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue(
             "blue_profile_locked_ui_enabled",
           )
         : !1;
     }
-    function k() {
+    function E() {
       o("WAWebABProps").getABPropConfigValue("wa_web_pre_chat_device_id_test");
     }
     ((l.webMediaAutoDownloadEnabled = e),
@@ -109,21 +104,20 @@ __d(
       (l.getGroupSizeLimit = u),
       (l.isRecentStickersMDEnabled = c),
       (l.isFavoriteStickersEnabled = d),
-      (l.isFavoriteStickerSyncAfterPairingEnabled = m),
-      (l.isHighQualityVideoThumbnailsEnabled = p),
-      (l.multiSkinToneEmojiPickerEnabled = _),
-      (l.mediaLinksDocsFilteringEnabled = f),
-      (l.getGraphqlLocaleRemapping = g),
-      (l.messagePluginFrontendRegistrationEnabled = h),
-      (l.isPrivacyNarrativeV1Enabled = y),
-      (l.isDefaultDisappearingMessagesEnabled = C),
-      (l.isDropLastNameEnabled = b),
-      (l.isRambutanEnabled = v),
-      (l.isGroupSuspendV2Enabled = S),
-      (l.isBlueEnabled = R),
-      (l.isBlueEducationEnabled = L),
-      (l.isBlueLockingEnabled = E),
-      (l.checkDeviceIdTestAbProp = k));
+      (l.isHighQualityVideoThumbnailsEnabled = m),
+      (l.multiSkinToneEmojiPickerEnabled = p),
+      (l.mediaLinksDocsFilteringEnabled = _),
+      (l.getGraphqlLocaleRemapping = f),
+      (l.messagePluginFrontendRegistrationEnabled = g),
+      (l.isPrivacyNarrativeV1Enabled = h),
+      (l.isDefaultDisappearingMessagesEnabled = y),
+      (l.isDropLastNameEnabled = C),
+      (l.isRambutanEnabled = b),
+      (l.isGroupSuspendV2Enabled = v),
+      (l.isBlueEnabled = S),
+      (l.isBlueEducationEnabled = R),
+      (l.isBlueLockingEnabled = L),
+      (l.checkDeviceIdTestAbProp = E));
   },
   98,
 );

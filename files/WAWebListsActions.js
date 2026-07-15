@@ -488,7 +488,7 @@ __d(
               .sendLogs("delete-list-failed"),
               o("WAWebToastManager").ToastManager.open(
                 D.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Failed to delete list"),
+                  msg: s._(/*BTDS*/ "Couldn't delete list"),
                 }),
               ));
           } finally {
@@ -543,7 +543,7 @@ __d(
               .sendLogs("activate-preset-list-failed"),
               o("WAWebToastManager").ToastManager.open(
                 D.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Failed to enable list"),
+                  msg: s._(/*BTDS*/ "Couldn't enable list"),
                 }),
               ));
           }
@@ -602,7 +602,7 @@ __d(
               .sendLogs("deactivate-preset-list-failed"),
               o("WAWebToastManager").ToastManager.open(
                 D.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Failed to disable list"),
+                  msg: s._(/*BTDS*/ "Couldn't disable list"),
                 }),
               ));
           }

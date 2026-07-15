@@ -97,7 +97,7 @@ __d(
           )),
           (p = (C = b == null ? void 0 : b.merchant_name) != null ? C : ""),
           (f = n
-            ? s._(/*BTDS*/ "Requested by You")
+            ? s._(/*BTDS*/ "Requested by you")
             : s._(/*BTDS*/ "Requested by {merchant_name}", [
                 s._param("merchant_name", p),
               ])),

@@ -30,7 +30,7 @@ __d(
                       "=m2",
                       u.jsx(o("WAWebExternalLink.react").ExternalLink, {
                         href: o("WAWebCxtUrl").getCommunityNotAvailableFaqUrl(),
-                        children: s._(/*BTDS*/ "Learn More"),
+                        children: s._(/*BTDS*/ "Learn more"),
                       }),
                     ),
                   ],

@@ -247,8 +247,11 @@ __d(
         }),
       );
     }
-    function g(e, t, n) {
-      o("WAWebOpenManageAdsInLwi").openManageAdsInLwi(e, t, n);
+    function g(e) {
+      var t = e.activeAccountInfo,
+        n = e.entryPoint,
+        r = e.sourceManageAdsType;
+      o("WAWebOpenManageAdsInLwi").openManageAdsInLwi(t, r, n);
     }
     ((l.openExistingChat = d),
       (l.openOrCreateLatestChat = m),

@@ -119,7 +119,7 @@ __d(
         v(
           i != null
             ? s._(
-                /*BTDS*/ "{name} is unable to join WhatsApp group calls at this time.",
+                /*BTDS*/ "{name} can't join WhatsApp group calls right now.",
                 [
                   s._param(
                     "name",
@@ -228,7 +228,7 @@ __d(
         case k.UnsupportedAppVersion:
           return s._(/*BTDS*/ "Please update WhatsApp to join this call.");
         case k.ServiceUnavailable:
-          return s._(/*BTDS*/ "Unable to connect. Please try again later.");
+          return s._(/*BTDS*/ "Couldn't connect. Please try again later.");
         default:
           return s._(/*BTDS*/ "Couldn't join this call.");
       }
@@ -258,7 +258,7 @@ __d(
               callEnded: !0,
               surveyInteracted: !1,
             }),
-            v(s._(/*BTDS*/ "Unable to connect.")));
+            v(s._(/*BTDS*/ "Couldn't connect.")));
         })),
         x.apply(this, arguments)
       );

@@ -16,7 +16,7 @@ __d(
       c = u || (u = o("react"));
     function d() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Block failed. Please try again.");
+        t = s._(/*BTDS*/ "Couldn't block. Please try again.");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );

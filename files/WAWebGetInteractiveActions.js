@@ -185,7 +185,7 @@ __d(
               ),
             ]),
             body: s._(
-              /*BTDS*/ "Use WhatsApp on your mobile device to pay for this charge with a card.",
+              /*BTDS*/ "Use WhatsApp on your phone to pay for this charge with a card.",
             ),
           });
         },
@@ -226,7 +226,7 @@ __d(
                   ),
                 ]),
                 body: s._(
-                  /*BTDS*/ "Use WhatsApp on your mobile device to view this order.",
+                  /*BTDS*/ "Use WhatsApp on your phone to view this order.",
                 ),
               });
         },

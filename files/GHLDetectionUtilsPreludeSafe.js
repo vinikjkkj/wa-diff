@@ -31,24 +31,27 @@ __d(
           o != null &&
             "p9fk3wmn" in o &&
             ((n.src = "about:blank"), (n.srcdoc = ""));
-          var a = o != null && "k7q3nv9d" in o,
-            i = o != null && "w6jt4rnq" in o;
+          var a = o != null && "z2ht6xqp" in o && "append" in t,
+            i = o != null && "k7q3nv9d" in o,
+            l = o != null && "w6jt4rnq" in o;
           try {
             (a
-              ? t.insertBefore(n, null)
+              ? t.append(n)
               : i
-                ? t.insertAdjacentElement("beforeend", n)
-                : t.appendChild(n),
+                ? t.insertBefore(n, null)
+                : l
+                  ? t.insertAdjacentElement("beforeend", n)
+                  : t.appendChild(n),
               (u = n.contentWindow.String),
               (c = n.contentWindow.Function.prototype.call),
               (d = n.contentWindow.JSON.parse),
               (m = n.contentWindow.Function.prototype.toString));
-            var l = n.contentWindow.Object.getOwnPropertyDescriptor,
-              s = n.contentWindow.XMLHttpRequest.prototype,
-              f = l(s, "response"),
-              g = l(s, "responseText");
-            (f != null && f.get && (p = f.get),
-              g != null && g.get && (_ = g.get));
+            var s = n.contentWindow.Object.getOwnPropertyDescriptor,
+              f = n.contentWindow.XMLHttpRequest.prototype,
+              g = s(f, "response"),
+              h = s(f, "responseText");
+            (g != null && g.get && (p = g.get),
+              h != null && h.get && (_ = h.get));
           } catch (e) {
             r("FBLogger")("ad_blocker_defense_ghost_owl").warn(
               "Failed to create iframe for builtin restoration",

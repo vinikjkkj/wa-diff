@@ -69,12 +69,17 @@ __d(
         ? d(e)
         : !0;
     }
-    var p = function (t, n, r, a, i) {
+    var p = function (t) {
+        var e = t.contactId,
+          n = t.field,
+          r = t.fields,
+          a = t.source,
+          i = t.value;
         return o(
           "WAWebBizCatalogGatingUtils",
-        ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(n)
+        ).canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney(e)
           ? r.some(function (e) {
-              return d(e === a ? i : t == null ? void 0 : t[e]);
+              return d(e === n ? i : a == null ? void 0 : a[e]);
             })
           : !0;
       },
@@ -88,10 +93,10 @@ __d(
         return [].concat(_(), ["email"]);
       };
     function h(e, t, n, r) {
-      return p(e, t, f(), n, r);
+      return p({ contactId: t, field: n, fields: f(), source: e, value: r });
     }
     function y(e, t, n, r) {
-      return p(e, t, g(), n, r);
+      return p({ contactId: t, field: n, fields: g(), source: e, value: r });
     }
     function C(e, t, n) {
       if (
