@@ -252,6 +252,7 @@ __d(
                     return (
                       r("WAWebVoipCallsTabPanelManager").trigger(
                         "onWriteCallLogMessage",
+                        a,
                       ),
                       a
                     );
@@ -343,6 +344,7 @@ __d(
                   ),
                     r("WAWebVoipCallsTabPanelManager").trigger(
                       "onWriteCallLogMessage",
+                      i,
                     ));
                 },
               );

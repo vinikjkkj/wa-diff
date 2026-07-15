@@ -15,10 +15,8 @@ __d(
     "WAWebMediaJpeg",
     "WAWebMediaLoad",
     "WAWebMiscErrors",
-    "WAWebModernizr",
     "WAWebNoop",
     "WAWebPREGatingUtils",
-    "WAWebReadExifOrientation",
     "WAWebStickerConstants",
     "WAWebUA",
     "WAWebWebpMetadata",
@@ -304,156 +302,52 @@ __d(
             var E = o("WAPromiseProps")
                 .promiseProps({ buffer: L, image: S })
                 .then(function (e) {
-                  var n,
-                    i = e.buffer,
-                    l = e.image,
-                    s = 0;
-                  if (
-                    !(
-                      (n = o("WAWebModernizr").getModernizr()) != null &&
-                      n.exiforientation
-                    )
-                  )
-                    e: {
-                      var u = o("WAWebReadExifOrientation").readExifOrientation(
-                        i,
+                  var n = e.buffer,
+                    i = e.image,
+                    l = document.createElement("canvas"),
+                    s = i.naturalWidth || i.width,
+                    u = i.naturalHeight || i.height,
+                    c = Math.max(s, u),
+                    d = l.getContext("2d"),
+                    m = {},
+                    f = o("WAWebImageGeometry").boundHeightWidth(u, s, t),
+                    g,
+                    y,
+                    b = a & o("WAWebMediaCacheModel").ImageOutputTypes.BLOB;
+                  if (n && b && s === f.width && u === f.height)
+                    try {
+                      var v = o("WAWebMediaJpeg").cleanJPEG(n);
+                      ((m.blob = v), (b = !1), (g = s), (y = u));
+                    } catch (e) {
+                      var S = r("getErrorSafe")(e);
+                      o("WALogger").LOG(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "Could not parse JPEG: ",
+                            "",
+                          ])),
+                        S.message,
                       );
-                      if (u === 6) {
-                        s = 1;
-                        break e;
-                      }
-                      if (u === 8) {
-                        s = -1;
-                        break e;
-                      }
-                      if (u === 3) {
-                        s = 2;
-                        break e;
-                      }
-                      break e;
                     }
-                  var c = document.createElement("canvas"),
-                    d = l.naturalWidth || l.width,
-                    m = l.naturalHeight || l.height,
-                    f = Math.max(d, m),
-                    g = c.getContext("2d"),
-                    y = {};
-                  if (s)
-                    switch (s) {
-                      case 1:
-                      case -1: {
-                        var b = Math.max(d, m),
-                          v = b / 2;
-                        ((c.width = c.height = b),
-                          C || o("WAWebCanvasUtils").fillBackgroundWithGray(c),
-                          o("WAWebCanvasUtils").rotate(g, {
-                            x: v,
-                            y: v,
-                            degrees: s * 90,
-                          }),
-                          s === 1
-                            ? g.drawImage(l, 0, b - m)
-                            : g.drawImage(l, b - d, 0),
-                          o("WAWebCanvasUtils").rotate(g, {
-                            x: v,
-                            y: v,
-                            degrees: s * -90,
-                          }),
-                          o("WAWebCanvasUtils").resize(c, m, d),
-                          _ && o("WAWebCanvasUtils").square(c),
-                          f < h && o("WAWebCanvasUtils").scale(c, h));
-                        var S = o("WAWebCanvasUtils").contain(c, t);
-                        return (
-                          N(y, S, a, C),
-                          o("WAPromiseProps")
-                            .promiseProps(y)
-                            .then(function (e) {
-                              return {
-                                width: S.width,
-                                height: S.height,
-                                images: e,
-                              };
-                            })
-                        );
-                      }
-                      case 2: {
-                        var R = o("WAWebImageGeometry").boundHeightWidth(
-                            m,
-                            d,
-                            t,
-                          ),
-                          L = (c.width = R.width),
-                          E = (c.height = R.height);
-                        return (
-                          C || o("WAWebCanvasUtils").fillBackgroundWithGray(c),
-                          o("WAWebCanvasUtils").rotate(g, {
-                            x: L / 2,
-                            y: E / 2,
-                            degrees: s * 90,
-                          }),
-                          g.drawImage(l, 0, 0, L, E),
-                          o("WAWebCanvasUtils").rotate(g, {
-                            x: L / 2,
-                            y: E / 2,
-                            degrees: s * -90,
-                          }),
-                          _ && o("WAWebCanvasUtils").square(c),
-                          f < h && o("WAWebCanvasUtils").scale(c, h),
-                          N(y, c, a, C),
-                          o("WAPromiseProps")
-                            .promiseProps(y)
-                            .then(function (e) {
-                              return {
-                                width: c.width,
-                                height: c.height,
-                                images: e,
-                              };
-                            })
-                        );
-                      }
-                    }
-                  else {
-                    var k = o("WAWebImageGeometry").boundHeightWidth(m, d, t),
-                      I,
-                      T,
-                      D = a & o("WAWebMediaCacheModel").ImageOutputTypes.BLOB;
-                    if (i && D && d === k.width && m === k.height)
-                      try {
-                        var x = o("WAWebMediaJpeg").cleanJPEG(i);
-                        ((y.blob = x), (D = !1), (I = d), (T = m));
-                      } catch (e) {
-                        var $ = r("getErrorSafe")(e);
-                        o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "Could not parse JPEG: ",
-                              "",
-                            ])),
-                          $.message,
-                        );
-                      }
-                    return (
-                      (D ||
-                        a & ~o("WAWebMediaCacheModel").ImageOutputTypes.BLOB) &&
-                        ((c.width = k.width),
-                        (c.height = k.height),
-                        C || o("WAWebCanvasUtils").fillBackgroundWithGray(c),
-                        g.drawImage(l, 0, 0, c.width, c.height),
-                        _ &&
-                          (o("WAWebCanvasUtils").square(c), (y.blob = void 0)),
-                        f < h &&
-                          (o("WAWebCanvasUtils").scale(c, h),
-                          (y.blob = void 0)),
-                        (I = c.width),
-                        (T = c.height),
-                        N(y, c, a, C)),
-                      o("WAPromiseProps")
-                        .promiseProps(y)
-                        .then(function (e) {
-                          return { width: I, height: T, images: e };
-                        })
-                    );
-                  }
+                  return (
+                    (b ||
+                      a & ~o("WAWebMediaCacheModel").ImageOutputTypes.BLOB) &&
+                      ((l.width = f.width),
+                      (l.height = f.height),
+                      C || o("WAWebCanvasUtils").fillBackgroundWithGray(l),
+                      d.drawImage(i, 0, 0, l.width, l.height),
+                      _ && (o("WAWebCanvasUtils").square(l), (m.blob = void 0)),
+                      c < h &&
+                        (o("WAWebCanvasUtils").scale(l, h), (m.blob = void 0)),
+                      (g = l.width),
+                      (y = l.height),
+                      N(m, l, a, C)),
+                    o("WAPromiseProps")
+                      .promiseProps(m)
+                      .then(function (e) {
+                        return { width: g, height: y, images: e };
+                      })
+                  );
                 })
                 .finally(r("WAWebNoop")),
               k = yield E;

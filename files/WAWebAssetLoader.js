@@ -340,23 +340,25 @@ __d(
               n = this.$5;
             if (t !== n) {
               this.$5 = t;
-              var r = o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
-                a =
-                  r === o("WAWebEmojiConst").EMOJI_TYPE.APPLE
-                    ? o("WAWebEmojiConst").EMOJI_TYPE.WHATSAPP
-                    : o("WAWebEmojiConst").EMOJI_TYPE.APPLE,
+              var a = o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
                 i =
                   a === o("WAWebEmojiConst").EMOJI_TYPE.APPLE
+                    ? o("WAWebEmojiConst").EMOJI_TYPE.WHATSAPP
+                    : o("WAWebEmojiConst").EMOJI_TYPE.APPLE,
+                l =
+                  i === o("WAWebEmojiConst").EMOJI_TYPE.APPLE
                     ? "emoji-apple-"
                     : "emoji-wa-";
               if (
                 (Object.keys(this.$2).forEach(function (t) {
-                  t.startsWith(i) && (e.$13(t, "high"), e.$13(t, "low"));
+                  t.startsWith(l) && (e.$13(t, "high"), e.$13(t, "low"));
                 }),
                 this.$4 != null)
               ) {
-                var l = Array.from(this.$4(t).values());
-                this.$11(l, y.INITIAL_EMOJI_LOAD, { forceCheck: !1 });
+                var s = Array.from(this.$4(t).values());
+                this.$11(s, y.INITIAL_EMOJI_LOAD, { forceCheck: !1 }).catch(
+                  o("WAAbortError").catchAbort(r("WAWebNoop")),
+                );
               }
             }
           }),

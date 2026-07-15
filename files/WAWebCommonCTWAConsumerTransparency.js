@@ -4,19 +4,19 @@ __d(
     "WAWebCTWAGatingUtils",
     "WAWebCommonCTWADataSharing",
     "WAWebConsumerTransparencyInfoIconModel",
+    "WAWebGetCTWAEligibilityFromConversion",
     "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t;
       if (!((t = e.contact) != null && t.isBusiness)) return !1;
-      var n = o(
+      var n = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
+      if (n != null && n.is3pdag) return !1;
+      var a = o(
         "WAWebConsumerTransparencyInfoIconModel",
       ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
-      return !(
-        !n &&
-        r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e) == null
-      );
+      return !(!a && n == null);
     }
     function s() {
       return (
@@ -29,23 +29,36 @@ __d(
           ).isUpdatedConsumerDisclosureUiBrazilEnabled())
       );
     }
-    function u(e, t, n) {
-      var r;
-      if (
-        !(t == null || n == null) &&
-        (r = e.contact) != null &&
-        r.isBusiness
-      ) {
-        var a = o(
-          "WAWebConsumerTransparencyInfoIconModel",
-        ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
-        a ||
-          (o(
+    function u(e) {
+      var t,
+        n = e.chat,
+        r = e.conversionData,
+        a = e.conversionSource,
+        i = e.ctwaSignals;
+      if (!(r == null || a == null)) {
+        var l = o(
+          "WAWebGetCTWAEligibilityFromConversion",
+        ).getCTWAEligibilityFromConversion({
+          conversionData: r,
+          conversionSource: a,
+          ctwaSignals: i,
+        });
+        if (
+          (l == null ? void 0 : l.is3pdag) !== !0 &&
+          (t = n.contact) != null &&
+          t.isBusiness
+        ) {
+          var s = o(
             "WAWebConsumerTransparencyInfoIconModel",
-          ).ConsumerTransparencyInfoIconModel.add(e.id),
-          o(
-            "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
-          ).maybeInsertCtwaConsumerDisclosureMsg(e));
+          ).ConsumerTransparencyInfoIconModel.shouldShowIcon(n.id);
+          s ||
+            (o(
+              "WAWebConsumerTransparencyInfoIconModel",
+            ).ConsumerTransparencyInfoIconModel.add(n.id),
+            o(
+              "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
+            ).maybeInsertCtwaConsumerDisclosureMsg(n));
+        }
       }
     }
     ((l.shouldShowConsumerTransparencyDisclosure = e),

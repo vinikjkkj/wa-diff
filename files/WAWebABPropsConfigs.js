@@ -2120,6 +2120,7 @@ __d(
         600,
         600,
       ],
+      show_fishfooding_toggle_in_bug_reporting_form: [33156, "bool", !1, !1],
       show_integrity_screensharing_friction_ui: [16411, "bool", !1, !0],
       show_username_non_linking_rejection_reason_enabled: [
         32920,

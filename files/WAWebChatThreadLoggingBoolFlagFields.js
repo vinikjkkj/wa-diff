@@ -12,9 +12,8 @@ __d(
       s = babelHelpers.extends({}, e, l),
       u = Object.freeze(s),
       c = Object.freeze(Object.keys(s)),
-      d = Object.freeze(Object.keys(e)),
-      m = Object.freeze(Object.keys(l));
-    function p(e) {
+      d = Object.freeze(Object.keys(e));
+    function m(e) {
       return c.find(function (t) {
         return t === e;
       });
@@ -22,8 +21,7 @@ __d(
     ((i.FLAG_FIELDS = u),
       (i.FLAG_FIELD_NAMES = c),
       (i.REGULAR_FLAG_FIELD_NAMES = d),
-      (i.STICKY_FLAG_FIELD_NAMES = m),
-      (i.toMaybeBoolFlagActionType = p));
+      (i.toMaybeBoolFlagActionType = m));
   },
   66,
 );

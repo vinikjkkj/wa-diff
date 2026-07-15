@@ -3,9 +3,9 @@ __d(
   [
     "Promise",
     "WAMd5",
-    "WAPlatformEstimate",
     "WAWebIndexedDB",
     "WAWebIndexedDBPurge",
+    "WAWebPlatformEstimate",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -198,7 +198,7 @@ __d(
             hasTaskbar: m(),
             hasWebShare: p(),
             hasChrome: _(),
-            platformEstimate: r("WAPlatformEstimate")(),
+            platformEstimate: r("WAWebPlatformEstimate")(),
             historyLength: f(),
             viewPortSize: g(),
             canvasFingerprint: o,

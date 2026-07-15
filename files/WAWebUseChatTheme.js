@@ -7,9 +7,9 @@ __d(
       s = e || (e = o("react")),
       u = s.useEffect,
       c = s.useState,
-      d = r("JSResourceForInteraction")("ChatThemeDefinitions.stylex").__setRef(
-        "WAWebUseChatTheme",
-      );
+      d = r("JSResourceForInteraction")(
+        "WAWebChatThemeDefinitions.stylex",
+      ).__setRef("WAWebUseChatTheme");
     function m(e) {
       var t = o("react-compiler-runtime").c(5),
         n;

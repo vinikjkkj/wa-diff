@@ -19,7 +19,6 @@ __d(
     "WAWebMessageAuthor.react",
     "WAWebMessageMeta.react",
     "WAWebMessagePosition",
-    "WAWebMiscGatingUtils",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMutedIcon.react",
@@ -246,11 +245,10 @@ __d(
       (o("useWAWebMsgDownloadMedia").useMsgDownloadMedia(c),
         _(
           function () {
-            o("WAWebMiscGatingUtils").isHighQualityVideoThumbnailsEnabled() &&
-              o("WAWebDownloadVideoThumbnail").downloadVideoThumbnail({
-                msg: o("WAWebStateUtils").unproxy(c),
-                chat: z,
-              });
+            o("WAWebDownloadVideoThumbnail").downloadVideoThumbnail({
+              msg: o("WAWebStateUtils").unproxy(c),
+              chat: z,
+            });
           },
           [c, z],
         ));

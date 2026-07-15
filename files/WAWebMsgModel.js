@@ -473,6 +473,7 @@ __d(
             (e.botFeedbackKind = o("WAWebBaseModel").prop()),
             (e.botFeedbackText = o("WAWebBaseModel").prop()),
             (e.botTargetSenderJid = o("WAWebBaseModel").prop()),
+            (e.metaFrom = o("WAWebBaseModel").prop(null)),
             (e.botGroupParticipant = o("WAWebBaseModel").prop()),
             (e.bizBotType = o("WAWebBaseModel").prop(null)),
             (e.botPersonaId = o("WAWebBaseModel").prop()),

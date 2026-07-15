@@ -190,6 +190,7 @@ __d(
               audioCodecEncodedNonVoiceFrames: [753, e.TYPES.INTEGER],
               audioCodecEncodedThrottledVoiceFrames: [1177, e.TYPES.INTEGER],
               audioCodecEncodedVoiceFrames: [752, e.TYPES.INTEGER],
+              audioCodecNumBwSwitches: [3072, e.TYPES.INTEGER],
               audioCodecReceivedFecFrames: [754, e.TYPES.INTEGER],
               audioDecodeErrors: [1521, e.TYPES.INTEGER],
               audioDevIsStalled: [2122, e.TYPES.BOOLEAN],
@@ -1051,7 +1052,10 @@ __d(
               hbhDcBytesReceivedCount: [3055, e.TYPES.INTEGER],
               hbhDcBytesSentCount: [3056, e.TYPES.INTEGER],
               hbhDcMsgsReceivedCount: [3057, e.TYPES.INTEGER],
+              hbhDcMsgsSentBroadcastCount: [3069, e.TYPES.INTEGER],
               hbhDcMsgsSentCount: [3058, e.TYPES.INTEGER],
+              hbhDcMsgsSentRelayOnlyCount: [3070, e.TYPES.INTEGER],
+              hbhDcMsgsSentSelectiveCount: [3071, e.TYPES.INTEGER],
               hbhDcSetupAvgT: [3059, e.TYPES.TIMER],
               hbhDtlsConnectionState: [
                 3060,

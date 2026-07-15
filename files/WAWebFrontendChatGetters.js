@@ -315,16 +315,19 @@ __d(
               i != null &&
               o("WAWebHistorySyncUtils").primaryHasMoreMessagesReadyToLoad(i),
             s = a && !l;
-          if (!s) return !1;
-          for (var u = 0; u < t.length; u++) {
-            var c = t.at(u);
+          if (!s)
+            return { startOfHistoryLoaded: !1, earliestShareableMsgT: null };
+          for (var u = null, c = 0; c < t.length; c++) {
+            var d = t.at(c);
             if (
-              c != null &&
-              r("WAWebGroupHistorySupportedMessageTypesUtil")(c.type)
-            )
-              return !1;
+              d != null &&
+              r("WAWebGroupHistorySupportedMessageTypesUtil")(d.type)
+            ) {
+              var m = d.t;
+              m != null && (u == null || m < u) && (u = m);
+            }
           }
-          return !0;
+          return { startOfHistoryLoaded: !0, earliestShareableMsgT: u };
         },
         [R, E, k, s.getEndOfHistoryTransferType],
       ),
@@ -402,7 +405,7 @@ __d(
       (l.getHasDraftMessage = ee),
       (l.getShouldAppearInList = te),
       (l.getPreviewMessage = ne),
-      (l.getHasNoShareableHistory = re),
+      (l.getShareableHistoryInfo = re),
       (l.getLatestJoinTimeByParticipant = oe),
       (l.getShowChangeNumberNotification = ae),
       (l.getDerivedLastAddOnPreview = ie));

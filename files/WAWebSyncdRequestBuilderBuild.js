@@ -6,7 +6,6 @@ __d(
     "WAJids",
     "WALogger",
     "WASyncdConst",
-    "WASyncdKeyManagementUtils",
     "WASyncdKeyTypes",
     "WAWap",
     "WAWebABProps",
@@ -21,6 +20,7 @@ __d(
     "WAWebSyncdEncryptMutationsWrapper",
     "WAWebSyncdError",
     "WAWebSyncdKeyManagement",
+    "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdMMSUpload",
     "WAWebSyncdRequestBuilderTypesConverter",
     "WAWebSyncdRequestEncode",
@@ -451,7 +451,7 @@ __d(
           );
         });
       i = r("sortBy")(i, function (e) {
-        return o("WASyncdKeyManagementUtils").getKeyEpoch(e.keyId);
+        return o("WAWebSyncdKeyManagementUtils").getKeyEpoch(e.keyId);
       });
       var l = Math.min(
         _,

@@ -5,12 +5,12 @@ __d(
     "WAJids",
     "WALogger",
     "WALongInt",
-    "WASyncdKeyManagementUtils",
     "WASyncdKeyTypes",
     "WAWebSyncdCriticalBootstrapProcessingApi",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdFatal",
     "WAWebSyncdHandleKeyShare",
+    "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdUploadFatalErrorMetric",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumBootstrapAppStateDataStageCode",
@@ -142,7 +142,7 @@ __d(
                   }
                   var I = {
                     keyId: m,
-                    keyEpoch: o("WASyncdKeyManagementUtils").getKeyEpoch(m),
+                    keyEpoch: o("WAWebSyncdKeyManagementUtils").getKeyEpoch(m),
                     keyData: d,
                     timestamp: o("WALongInt").numberOrThrowIfTooLarge(R),
                     fingerprint: {

@@ -1,7 +1,7 @@
 __d(
   "WAWebDocumentFileIcon",
   [
-    "DocumentIconWithContent",
+    "WAWebDocumentIconWithContent",
     "WAWebIcPresentationIcon.react",
     "WAWebIcSpreadsheetIcon.react",
     "WAWebMsOfficeDocIcon.react",
@@ -135,7 +135,7 @@ __d(
           n[22] !== s ||
           n[23] !== S
             ? ((R = u.jsx(
-                r("DocumentIconWithContent"),
+                r("WAWebDocumentIconWithContent"),
                 babelHelpers.extends(
                   { iconXStyle: v.iconXStyle, fontSize: S, content: v.content },
                   s,
@@ -176,7 +176,7 @@ __d(
       return (
         n[30] !== a || n[31] !== s || n[32] !== k
           ? ((I = u.jsx(
-              r("DocumentIconWithContent"),
+              r("WAWebDocumentIconWithContent"),
               babelHelpers.extends(
                 { iconXStyle: c.generalIcon, fontSize: k, content: a },
                 s,

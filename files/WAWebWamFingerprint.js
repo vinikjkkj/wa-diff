@@ -2,9 +2,9 @@ __d(
   "WAWebWamFingerprint",
   [
     "WAExternalInjectedSources",
-    "WAFPUtils",
     "WAWebBrowserFeatures",
     "WAWebDeviceFeatures",
+    "WAWebFPUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +17,7 @@ __d(
           return babelHelpers.extends(
             {
               webdriver: self.navigator.webdriver,
-              browserEngine: o("WAFPUtils").DETECTED_BROWSER_ENGINE,
+              browserEngine: o("WAWebFPUtils").DETECTED_BROWSER_ENGINE,
             },
             yield r("WAWebBrowserFeatures")(),
             r("WAExternalInjectedSources")(),

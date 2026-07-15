@@ -14,43 +14,38 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
-        "catalog_categories_enabled",
-      );
-    }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
         "web_enable_biz_catalog_view_ps_logging",
       );
     }
-    function u() {
+    function s() {
       return o("WAWebMobilePlatforms").isSMB();
     }
-    function c() {
+    function u() {
       return !1;
     }
-    function d() {
+    function c() {
       return !0;
     }
-    function m() {
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_catalog_viewing_variants_enabled",
       );
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_product_country_of_origin_m1",
       );
     }
-    function _(e) {
-      return h(e) || p();
+    function p(e) {
+      return g(e) || m();
+    }
+    function _() {
+      return g(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE());
     }
     function f() {
-      return h(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE());
-    }
-    function g() {
       return o("WAWebABProps").getABPropConfigValue("commerce_sanctioned");
     }
-    function h(e) {
+    function g(e) {
       var t;
       if (e != null) {
         var n;
@@ -63,25 +58,25 @@ __d(
         )
           return !0;
       }
-      return v(t);
+      return b(t);
     }
-    function y(e) {
-      return S(e, function () {
+    function h(e) {
+      return v(e, function () {
         return o("WAWebABProps").getABPropConfigValue(
           "smb_ecommerce_compliance_india_m4",
         );
       });
     }
-    function C(e) {
-      return S(e, function () {
+    function y(e) {
+      return v(e, function () {
         return o("WAWebABProps").getABPropConfigValue(
           "smb_ecommerce_compliance_india_m4_5",
         );
       });
     }
-    function b(e) {
+    function C(e) {
       var t,
-        n = S(e == null ? void 0 : e.id, function () {
+        n = v(e == null ? void 0 : e.id, function () {
           return o("WAWebABProps").getABPropConfigValue(
             "web_abprop_block_catalog_creation_ecommerce_compliance_india",
           );
@@ -94,7 +89,7 @@ __d(
           o("WAWebBusinessProfileTypes").CommerceExperienceTypes.NONE
       );
     }
-    function v(e) {
+    function b(e) {
       var t = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e || ""),
         n = o("WAWebComplianceConstants").COMPLIANCE_INFO_CODES.INDIA;
       return (
@@ -104,7 +99,7 @@ __d(
         )
       );
     }
-    function S(e, t) {
+    function v(e, t) {
       t === void 0 && (t = o("WAWebBoolFunc").returnFalse);
       var n;
       if (e != null) {
@@ -118,22 +113,21 @@ __d(
         )
           return !0;
       }
-      return v(n) ? t() : !1;
+      return b(n) ? t() : !1;
     }
-    ((l.catalogCategoriesEnabled = e),
-      (l.isPSForCatalogViewEnabled = s),
-      (l.graphQLForGetProductListEnabled = u),
-      (l.graphQLForSetComplianceInfo = c),
-      (l.isQuantityControlsFeatureEnabled = d),
-      (l.isCatalogVariantsViewingEnabled = m),
-      (l.isCountryOfOriginEnabled = p),
-      (l.showComplianceFieldsInEditProductDrawer = _),
-      (l.showImporterInformationInEditProductDrawer = f),
-      (l.commerceFeaturesDisabledBySanctions = g),
-      (l.canSeeECommerceComplianceIndiaSoftEnforcement = h),
-      (l.canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney = y),
-      (l.canSeeECommerceComplianceIndiaCountryOriginExemptBusinessJourney = C),
-      (l.blockCatalogCreationECommerceComplianceIndia = b));
+    ((l.isPSForCatalogViewEnabled = e),
+      (l.graphQLForGetProductListEnabled = s),
+      (l.graphQLForSetComplianceInfo = u),
+      (l.isQuantityControlsFeatureEnabled = c),
+      (l.isCatalogVariantsViewingEnabled = d),
+      (l.isCountryOfOriginEnabled = m),
+      (l.showComplianceFieldsInEditProductDrawer = p),
+      (l.showImporterInformationInEditProductDrawer = _),
+      (l.commerceFeaturesDisabledBySanctions = f),
+      (l.canSeeECommerceComplianceIndiaSoftEnforcement = g),
+      (l.canSeeECommerceComplianceIndiaHardEnforcementBusinessJourney = h),
+      (l.canSeeECommerceComplianceIndiaCountryOriginExemptBusinessJourney = y),
+      (l.blockCatalogCreationECommerceComplianceIndia = C));
   },
   98,
 );

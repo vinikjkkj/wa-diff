@@ -89,7 +89,10 @@ __d(
         );
       },
       y = function (t) {
-        return _(t) == null ||
+        return o(
+          "WAWebCTWAGatingUtils",
+        ).isCtwa3pdAggregatedConversionEnabled() ||
+          _(t) == null ||
           !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
           ? !1
           : C(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
@@ -146,6 +149,8 @@ __d(
             );
       },
       v = function (n, r) {
+        if (o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled())
+          return !1;
         var t;
         if (r === p.CHAT)
           t = o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats;

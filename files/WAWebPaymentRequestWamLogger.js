@@ -1,7 +1,6 @@
 __d(
   "WAWebPaymentRequestWamLogger",
   [
-    "P2XFunnelIdGenerator",
     "Promise",
     "WALogger",
     "WAWebBrPaymentRequest",
@@ -9,6 +8,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebP2XFunnelIdGenerator",
     "WAWebPsStructuredMessageInteractionWamEvent",
     "WAWebStructuredMessageBuyerInteractionWamEvent",
     "WAWebStructuredMessageBuyerReceiveWamEvent",
@@ -79,7 +79,10 @@ __d(
     function k() {
       return (
         (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(e, t),
+          var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+              e,
+              t,
+            ),
             r = yield n.genFunnelInfo(),
             a = r.funnel_id;
           return a;

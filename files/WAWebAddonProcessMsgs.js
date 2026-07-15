@@ -1,13 +1,13 @@
 __d(
   "WAWebAddonProcessMsgs",
   [
-    "AddonPlaceholderMsgsUtils",
     "Promise",
     "WALogger",
     "WAWebAddonConstants",
     "WAWebAddonCrossWindowUtils",
     "WAWebAddonEncryptAddonMsgData",
     "WAWebAddonLogUtils",
+    "WAWebAddonPlaceholderMsgsUtils",
     "WAWebAddonPluginProcessor",
     "WAWebAddonProcessMsgsUtils",
     "WAWebAddonSelectUtils",
@@ -103,12 +103,12 @@ __d(
             o("WAWebAddonConstants").AddonProcessorType
               .DualEncryptedWithMessageTraits
           ) {
-            var c = o("AddonPlaceholderMsgsUtils").getIncomingPlaceholderKeys(
-              t,
-            );
+            var c = o(
+              "WAWebAddonPlaceholderMsgsUtils",
+            ).getIncomingPlaceholderKeys(t);
             if (c != null) {
               var d = yield o(
-                "AddonPlaceholderMsgsUtils",
+                "WAWebAddonPlaceholderMsgsUtils",
               ).getPlaceholderMsgKeys(i, c);
               u = u.filter(function (e) {
                 return !d.has(e.id.toString());
@@ -138,7 +138,9 @@ __d(
             o("WAWebAddonConstants").AddonProcessorType
               .DualEncryptedWithMessageTraits
           ) {
-            var l = yield o("AddonPlaceholderMsgsUtils").getPlaceholderMsgKeys(
+            var l = yield o(
+              "WAWebAddonPlaceholderMsgsUtils",
+            ).getPlaceholderMsgKeys(
               i,
               n.map(function (e) {
                 return e.id;

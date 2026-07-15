@@ -16,7 +16,20 @@ __d(
         }
       return n;
     }
-    l.getCtwaConversationDepth = s;
+    function u(t) {
+      var n = 0,
+        r = null;
+      for (var o of t.msgs.getModelsArray())
+        if (e.has(o.type)) {
+          var a = o.id.fromMe,
+            i = a && r === !1;
+          (r != null && !i && n++, (r = a));
+        }
+      return n;
+    }
+    ((l.ALLOWED_MSG_TYPES = e),
+      (l.getCtwaConversationDepth = s),
+      (l.getCtwaConversationRepeat = u));
   },
   98,
 );

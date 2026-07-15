@@ -64,6 +64,7 @@ __d(
         case "newsletterId":
         case "invokedBotWid":
         case "botTargetSenderJid":
+        case "metaFrom":
         case "preMatChat":
         case "preMatWid":
         case "senderWithDevice":

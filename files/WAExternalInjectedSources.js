@@ -1,13 +1,13 @@
 __d(
   "WAExternalInjectedSources",
-  ["WAFPUtils", "getErrorSafe"],
+  ["WAWebFPUtils", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       return e.startsWith("data:");
     }
     function s(t) {
-      return t === "" || e(t) ? !1 : !o("WAFPUtils").waUrlRegex.test(t);
+      return t === "" || e(t) ? !1 : !o("WAWebFPUtils").waUrlRegex.test(t);
     }
     function u(e) {
       var t = new Set(),

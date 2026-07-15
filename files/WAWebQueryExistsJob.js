@@ -281,34 +281,38 @@ __d(
             if (n != null) {
               var s = !1,
                 u = !1,
-                c,
-                d = o("WAWebUsernameTypes").asMaybeUsername(t);
-              if (d != null) {
-                var m = yield o("WAWebSetUsernameJob").setUsernamesJob([
-                    { userId: n, username: d },
+                c = !1,
+                d,
+                m = o("WAWebUsernameTypes").asMaybeUsername(t);
+              if (m != null) {
+                var p = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                    { userId: n, username: m },
                   ]),
-                  p = m.get(n.toString());
-                ((s = (p == null ? void 0 : p.usernameChanged) === !0),
-                  (u = (p == null ? void 0 : p.wasPreviouslyKnown) === !0),
-                  (c = o("WAWebUsernameTypes").serializeMaybeUsername(
-                    p == null ? void 0 : p.oldUsername,
+                  _ = p.get(n.toString());
+                ((s = (_ == null ? void 0 : _.usernameChanged) === !0),
+                  (u = (_ == null ? void 0 : _.wasPreviouslyKnown) === !0),
+                  (c = (_ == null ? void 0 : _.isPhoneNumberKnown) === !0),
+                  (d = o("WAWebUsernameTypes").serializeMaybeUsername(
+                    _ == null ? void 0 : _.oldUsername,
                   )));
               } else if (r === !0) {
-                var _ = yield o("WAWebSetUsernameJob").setUsernamesJob([
+                var f = yield o("WAWebSetUsernameJob").setUsernamesJob([
                     { userId: n, deleteUsername: !0 },
                   ]),
-                  f = _.get(n.toString());
-                ((s = (f == null ? void 0 : f.usernameChanged) === !0),
-                  (u = (f == null ? void 0 : f.wasPreviouslyKnown) === !0),
-                  (c = o("WAWebUsernameTypes").serializeMaybeUsername(
-                    f == null ? void 0 : f.oldUsername,
+                  h = f.get(n.toString());
+                ((s = (h == null ? void 0 : h.usernameChanged) === !0),
+                  (u = (h == null ? void 0 : h.wasPreviouslyKnown) === !0),
+                  (c = (h == null ? void 0 : h.isPhoneNumberKnown) === !0),
+                  (d = o("WAWebUsernameTypes").serializeMaybeUsername(
+                    h == null ? void 0 : h.oldUsername,
                   )));
               }
               return {
                 username: t,
                 usernameChanged: s,
                 wasPreviouslyKnown: u,
-                oldUsername: c != null ? c : void 0,
+                isPhoneNumberKnown: c,
+                oldUsername: d != null ? d : void 0,
               };
             }
           }

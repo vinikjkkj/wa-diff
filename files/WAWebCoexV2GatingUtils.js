@@ -7,7 +7,12 @@ __d(
         o("WAWebABProps").getABPropConfigValue("coexv2_send_enabled") === !0
       );
     }
-    l.isCoexV2SendEnabled = e;
+    function s() {
+      return (
+        o("WAWebABProps").getABPropConfigValue("coexv2_recv_enabled") === !0
+      );
+    }
+    ((l.isCoexV2SendEnabled = e), (l.isCoexV2RecvEnabled = s));
   },
   98,
 );

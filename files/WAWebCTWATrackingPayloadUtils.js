@@ -17,11 +17,11 @@ __d(
       ),
         o(
           "WAWebCommonCTWAConsumerTransparency",
-        ).handleConsumerTransparencyForNewMsg(
-          e,
-          t.conversionData,
-          t.conversionSource,
-        ));
+        ).handleConsumerTransparencyForNewMsg({
+          chat: e,
+          conversionData: t.conversionData,
+          conversionSource: t.conversionSource,
+        }));
     }
     l.handleChatConversationOpenedWithNewMessage = e;
   },

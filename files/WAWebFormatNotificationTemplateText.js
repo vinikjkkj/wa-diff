@@ -32,7 +32,6 @@ __d(
     "WAWebSupportChatStrings",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
-    "WAWebWidFormat",
     "WAWebWidToFormattedNameOrNumber",
     "nullthrows",
   ],
@@ -955,20 +954,18 @@ __d(
         ),
         a = n[0],
         i = n.length === 4 ? n[2] : null,
-        l = o("WAWebContactCollection").ContactCollection.get(a),
-        u =
-          l != null && o("WAWebFrontendContactGetters").getIsMyContact(l)
-            ? o("WAWebFrontendContactGetters").getFormattedName(l)
-            : o("WAWebWidFormat").widToFormattedUser(a),
-        c = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, a),
-        d = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, i);
-      return c || d
+        l = o("WAWebFrontendContactGetters").getFormattedName(
+          o("WAWebContactCollection").ContactCollection.gadd(a),
+        ),
+        u = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, a),
+        c = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, i);
+      return u || c
         ? s._(/*BTDS*/ "{name} changed their phone number to a new number.", [
-            s._param("name", u),
+            s._param("name", l),
           ])
         : s._(
             /*BTDS*/ "{name} changed their phone number. You're currently chatting with their new number.",
-            [s._param("name", u)],
+            [s._param("name", l)],
           );
     }
     function d(e, t) {

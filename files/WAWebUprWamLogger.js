@@ -1,11 +1,11 @@
 __d(
   "WAWebUprWamLogger",
   [
-    "P2XFunnelIdGenerator",
     "WALogger",
     "WAWebBuyerEventLogger",
     "WAWebChatGetters",
     "WAWebMsgGetters",
+    "WAWebP2XFunnelIdGenerator",
     "WAWebPsStructuredMessageInteractionWamEvent",
     "WAWebWamEnumBizPlatform",
     "WAWebWamEnumInteractionType",
@@ -54,7 +54,10 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(e, t),
+          var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+              e,
+              t,
+            ),
             r = yield n.genFunnelInfo(),
             a = r.funnel_id;
           return a;

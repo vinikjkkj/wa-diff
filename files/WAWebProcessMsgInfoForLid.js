@@ -6,6 +6,8 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebBotUtils",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
     "WAWebGetPlatformFromStanzaId",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgTypes.flow",
@@ -70,8 +72,13 @@ __d(
               h =
                 i.author.isFbidBot() &&
                 o("WAWebBotUtils").isMaibaAiHubFbid(i.author) &&
-                n.isLid();
-            if (((f = f || g || h), f))
+                n.isLid(),
+              y =
+                i.author.isFbidBot() &&
+                i.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+                n.isLid() &&
+                o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled();
+            if (((f = f || g || h || y), f))
               d = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
             else
               throw (
@@ -92,7 +99,7 @@ __d(
                 )
               );
           } else if (a === "missing-peer-recipient-pn") {
-            var y;
+            var C;
             if (
               (o("WALogger")
                 .ERROR(
@@ -101,7 +108,7 @@ __d(
                       "findDestinationChatForSingleMapping: missing peer recipient pn in 1-1 message from device ",
                       "",
                     ])),
-                  (y = i.author.device) != null ? y : 0,
+                  (C = i.author.device) != null ? C : 0,
                 )
                 .sendLogs("misssing-peer-recipient-pn-in-1-1-message"),
               n.isLid() &&
@@ -138,13 +145,13 @@ __d(
                 "findDestinationChatForSingleMapping: missing peer recipient lid in 1-1 message",
               );
           } else d = a.lid;
-          var C = yield o(
+          var b = yield o(
               "WAWebMessageProcessUtils",
             ).selectChatForOneOnOneMessage({ lid: d, lidOrigin: m }),
-            b = C.chatId;
-          return b.isSameAccountAndAddressingMode(n)
-            ? { accountLid: C.accountLid }
-            : { newRemote: b, accountLid: C.accountLid };
+            v = b.chatId;
+          return v.isSameAccountAndAddressingMode(n)
+            ? { accountLid: b.accountLid }
+            : { newRemote: v, accountLid: b.accountLid };
         })),
         _.apply(this, arguments)
       );

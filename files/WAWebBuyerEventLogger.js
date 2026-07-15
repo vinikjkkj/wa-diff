@@ -1,8 +1,8 @@
 __d(
   "WAWebBuyerEventLogger",
   [
-    "P2XFunnelIdGenerator",
     "WAWebBuyerEventAttributes",
+    "WAWebP2XFunnelIdGenerator",
     "WAWebStructuredMessageBuyerInteractionWamEvent",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumStructuredMessageClass",
@@ -23,7 +23,10 @@ __d(
             i = t.isLoggingEnabled,
             l = t.psFunnelId;
           if (i) {
-            var s = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(l, e),
+            var s = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+                l,
+                e,
+              ),
               u = yield s.genFunnelInfo(),
               c = u.funnel_id,
               d = o("WAWebBuyerEventAttributes").buyerEventAttributesToObject(

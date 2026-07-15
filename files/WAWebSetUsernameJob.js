@@ -89,7 +89,7 @@ __d(
               d = u.username,
               m = u.usernameCountryCode,
               p = i.get(c.toJid()),
-              _ = !c.isLid() || o("WAWebApiContact").getPhoneNumber(c),
+              _ = !c.isLid() || o("WAWebApiContact").getPhoneNumber(c) != null,
               f =
                 (d != null &&
                   ((p == null ? void 0 : p.username) !== d ||
@@ -119,7 +119,7 @@ __d(
               (d != null
                 ? (S.username = d)
                 : u.deleteUsername === !0 &&
-                  (_ == null && u.forceDelete !== !0
+                  (!_ && u.forceDelete !== !0
                     ? (S.usernameSoftDeleted = !0)
                     : (S.username = void 0),
                   u.displayNameLID != null &&

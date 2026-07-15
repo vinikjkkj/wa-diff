@@ -1,11 +1,11 @@
 __d(
   "PaymentLinkPreviewWithAmountFeature",
   [
-    "PaymentLinkPreviewWithTrustSignalsFeature",
     "WALogger",
     "WAWebABProps",
     "WAWebCurrencyUtils",
     "WAWebMobilePlatforms",
+    "WAWebPaymentLinkPreviewWithTrustSignalsFeature",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -46,7 +46,7 @@ __d(
       ) ||
         r == null ||
         !o(
-          "PaymentLinkPreviewWithTrustSignalsFeature",
+          "WAWebPaymentLinkPreviewWithTrustSignalsFeature",
         ).isPSPInTrustSignalsFeatureAllowlist(r)
         ? !1
         : o("WAWebABProps").getABPropConfigValue(

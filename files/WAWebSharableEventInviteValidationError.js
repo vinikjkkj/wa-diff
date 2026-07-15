@@ -7,8 +7,6 @@ __d(
           "sharable_event_invite_missing_event_id",
         SHARABLE_EVENT_INVITE_MISSING_EVENT_TITLE:
           "sharable_event_invite_missing_event_title",
-        SHARABLE_EVENT_INVITE_MISSING_START_TIME:
-          "sharable_event_invite_missing_start_time",
         SHARABLE_EVENT_INVITE_MISSING_MESSAGE_SENDER:
           "sharable_event_invite_missing_message_sender",
       }),

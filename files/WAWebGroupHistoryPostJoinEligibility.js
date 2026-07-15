@@ -73,7 +73,20 @@ __d(
         ? { eligible: !1, reason: "window_expired" }
         : { eligible: !0 };
     }
-    function p(t) {
+    function p(e, t) {
+      return e == null || !e.startOfHistoryLoaded
+        ? !1
+        : e.earliestShareableMsgT == null
+          ? !0
+          : t == null
+            ? !1
+            : e.earliestShareableMsgT > t;
+    }
+    function _(e, t, n, r) {
+      var o;
+      return c(e, t, n) && !p(r, (o = e.joinTime) != null ? o : n);
+    }
+    function f(t) {
       if (
         !o(
           "WAWebGroupHistoryGating",
@@ -90,7 +103,9 @@ __d(
       (l.isEligibleForPostJoinHistory = c),
       (l.isPostJoinHistoryGroupEligible = d),
       (l.getParticipantPostJoinEligibility = m),
-      (l.getEligiblePostJoinParticipants = p));
+      (l.hasNoShareableHistoryBeforeJoin = p),
+      (l.canSendPostJoinHistoryToParticipant = _),
+      (l.getEligiblePostJoinParticipants = f));
   },
   98,
 );

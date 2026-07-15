@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationTargetingModalReducer",
-  ["FBImmer", "waWebBizAdCreationTargetingModalApplyTargetingAutomation"],
+  ["FBImmer", "WAWebBizAdCreationTargetingModalApplyTargetingAutomation"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -27,7 +27,7 @@ __d(
             e.flexible_spec = t.flexibleSpec;
             break;
           case "wa_web_biz_ad_creation_targeting_modal_reducer.update_targeting_automation":
-            r("waWebBizAdCreationTargetingModalApplyTargetingAutomation")(
+            r("WAWebBizAdCreationTargetingModalApplyTargetingAutomation")(
               e,
               t.enabled,
             );

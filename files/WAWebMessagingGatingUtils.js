@@ -73,13 +73,6 @@ __d(
         ) === 1
       );
     }
-    function S() {
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "web_coex_simple_signal_enabled",
-        ) === 1
-      );
-    }
     ((l.getGroupSizeBypassingSampling = e),
       (l.isReportingTokenSendingEnabled = s),
       (l.isReportingTokenReceivingEnabled = u),
@@ -94,8 +87,7 @@ __d(
       (l.isReportingTokenSwappedFallbackValidationEnabled = y),
       (l.isRemoveMessageSecretFromQuotedEnabled = C),
       (l.isMoveMessageSecretTopLevelEnabled = b),
-      (l.isSimpleSignalEnabled = v),
-      (l.isCoexSimpleSignalEnabled = S));
+      (l.isSimpleSignalEnabled = v));
   },
   98,
 );

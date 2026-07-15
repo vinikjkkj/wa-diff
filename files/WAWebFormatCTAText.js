@@ -21,8 +21,8 @@ __d(
         a = e.id,
         i = e.latestJoinTimeByRecipient,
         l = e.msgT,
-        c = e.noShareableHistory,
-        m = e.recipients,
+        c = e.recipients,
+        m = e.shareableHistoryInfo,
         p = e.subtype,
         _ = e.type,
         f;
@@ -34,7 +34,7 @@ __d(
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.GP2: {
-          f = d(p, n, m, t, l, c, i);
+          f = d(p, n, c, t, l, m, i);
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.PROTOCOL: {
@@ -130,24 +130,29 @@ __d(
             t != null &&
             o(
               "WAWebGroupHistoryPostJoinEligibility",
-            ).isEligibleForPostJoinHistory(t, s, n)
+            ).canSendPostJoinHistoryToParticipant(t, s, n, r)
           );
         });
-        return u && r !== !0 ? p() : null;
+        return u ? p() : null;
       }
       if (e.length !== 1 || e[0] == null) return null;
       var c = e[0];
       if (o("WAWebUserPrefsMeUser").isMeAccount(c) || !l(c)) return null;
       var d = i.participants.get(c);
-      if (d == null) return null;
-      var m = o(
-        "WAWebGroupHistoryPostJoinEligibility",
-      ).isEligibleForPostJoinHistory(
-        d,
-        o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(i),
-        n,
-      );
-      return m && r !== !0 ? p() : null;
+      return d == null
+        ? null
+        : o(
+              "WAWebGroupHistoryPostJoinEligibility",
+            ).canSendPostJoinHistoryToParticipant(
+              d,
+              o(
+                "WAWebGroupHistoryPostJoinEligibility",
+              ).groupContextFromMetadata(i),
+              n,
+              r,
+            )
+          ? p()
+          : null;
     }
     function p() {
       return s._(/*BTDS*/ "Send message history");

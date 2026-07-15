@@ -117,16 +117,20 @@ __d(
             var i = o("WAWebWidFactory").createUserLidOrThrow(a.id);
             if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
               var l = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
-              l == null ||
-                l.usernameChanged !== !0 ||
-                (l.wasPreviouslyKnown === !0 &&
-                  (yield o(
-                    "WAWebInsertUsernameChangeSystemMsg",
-                  ).generateUsernameChangeNotificationSystemMsg({
-                    wid: o("WAWebWidFactory").asUserLidOrThrow(i),
-                    oldUsername: l.oldUsername,
-                    newUsername: (n = l.username) != null ? n : "",
-                  })));
+              if (!(l == null || l.usernameChanged !== !0)) {
+                var s = (n = l.username) != null ? n : "",
+                  m = s === "";
+                if (m) {
+                  if (l.isPhoneNumberKnown !== !0) return;
+                } else if (l.wasPreviouslyKnown !== !0) return;
+                yield o(
+                  "WAWebInsertUsernameChangeSystemMsg",
+                ).generateUsernameChangeNotificationSystemMsg({
+                  wid: o("WAWebWidFactory").asUserLidOrThrow(i),
+                  oldUsername: l.oldUsername,
+                  newUsername: s,
+                });
+              }
             }
           }
         })),

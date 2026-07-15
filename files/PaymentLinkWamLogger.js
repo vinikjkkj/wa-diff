@@ -2,14 +2,14 @@ __d(
   "PaymentLinkWamLogger",
   [
     "$InternalEnum",
-    "P2XFunnelIdGenerator",
-    "PaymentLink",
     "WAWebABProps",
     "WAWebChatGetters",
     "WAWebLinkify",
     "WAWebMerchantCommerceEventWamEvent",
     "WAWebMobilePlatforms",
     "WAWebMsgGetters",
+    "WAWebP2XFunnelIdGenerator",
+    "WAWebPaymentLink",
     "WAWebProtobufsE2E.pb",
     "WAWebPsStructuredMessageInteractionWamEvent",
     "WAWebStructuredMessageBuyerInteractionWamEvent",
@@ -92,7 +92,7 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+          var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
             e,
             t.id.id + t.to.toJid(),
           );
@@ -108,7 +108,12 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = _(e.msg),
-            r = n != null ? n : t != null ? o("PaymentLink").getPSP(t) : null,
+            r =
+              n != null
+                ? n
+                : t != null
+                  ? o("WAWebPaymentLink").getPSP(t)
+                  : null,
             a = yield g(e.msg),
             i = b(
               e.msg,
@@ -299,7 +304,10 @@ __d(
             ))
           ) {
             var a = n.messageClassAttributes.funnel_id,
-              i = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(a, s),
+              i = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+                a,
+                s,
+              ),
               l = yield i.genFunnelInfo(),
               c = l.funnel_id;
             new (o(
@@ -425,7 +433,7 @@ __d(
         c,
         d = e
           .map(function (e) {
-            return o("PaymentLink").getPSP(e.url);
+            return o("WAWebPaymentLink").getPSP(e.url);
           })
           .filter(function (e) {
             return e != null;
@@ -523,7 +531,7 @@ __d(
     }
     function X(e) {
       for (var t of e)
-        if (t && t.isHttp) return o("PaymentLink").getPSP(t.url) != null;
+        if (t && t.isHttp) return o("WAWebPaymentLink").getPSP(t.url) != null;
       return !1;
     }
     ((l.LinkPreviewStatus = d),

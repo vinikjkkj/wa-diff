@@ -5,7 +5,6 @@ __d(
     "WAArrayUtils",
     "WACryptoUtils",
     "WALogger",
-    "WASyncdKeyManagementUtils",
     "WAWebGetCollectionVersion",
     "WAWebGetPendingMutation",
     "WAWebGetSyncAction",
@@ -14,6 +13,7 @@ __d(
     "WAWebKmpSyncdCollectionNameUtils",
     "WAWebKmpSyncdMutationUtils",
     "WAWebSyncdCollectionsStateMachine",
+    "WAWebSyncdKeyManagementUtils",
     "asyncToGeneratorRuntime",
     "err",
     "sortBy",
@@ -153,7 +153,7 @@ __d(
                   );
                 }),
                 u = r("sortBy")(s, function (e) {
-                  return o("WASyncdKeyManagementUtils").getKeyEpoch(e.keyId);
+                  return o("WAWebSyncdKeyManagementUtils").getKeyEpoch(e.keyId);
                 }),
                 c = u.slice(0, l);
               return o("WAWebKmpKotlinUtils").asKtList(

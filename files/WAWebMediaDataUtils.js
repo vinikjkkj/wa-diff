@@ -5,7 +5,6 @@ __d(
     "WABase64",
     "WAFilteredCatch",
     "WALogger",
-    "WAMediaPreProcessQpl",
     "WANullthrows",
     "WAPromiseCallSync",
     "WAWebABProps",
@@ -19,10 +18,10 @@ __d(
     "WAWebMediaConstants",
     "WAWebMediaLoad",
     "WAWebMediaOpaqueData",
+    "WAWebMediaPreProcessQpl",
     "WAWebMediaTypes",
     "WAWebMimeTypes",
     "WAWebMiscErrors",
-    "WAWebMiscGatingUtils",
     "WAWebMmsMediaTypes",
     "WAWebNetworkGetResponseIfOnline",
     "WAWebStickerUtils",
@@ -203,7 +202,10 @@ __d(
             i = t.minDimension,
             l = t.transparency,
             s = e.forceToBlob(),
-            u = o("WAMediaPreProcessQpl").startMediaPreProcessQpl("image", s);
+            u = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
+              "image",
+              s,
+            );
           try {
             var c,
               d = yield o("WAWebImageUtils").rotateAndResize(
@@ -303,7 +305,10 @@ __d(
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.forceToBlob(),
-            n = o("WAMediaPreProcessQpl").startMediaPreProcessQpl("sticker", t);
+            n = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
+              "sticker",
+              t,
+            );
           try {
             var a = yield o("WAWebImageUtils").rotateAndResize(
                 t,
@@ -384,7 +389,7 @@ __d(
               var I = null;
               if (!k) {
                 var T = !1,
-                  D = o("WAMediaPreProcessQpl").startMediaPreProcessQpl(
+                  D = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
                     L ? "video" : "audio",
                     b,
                   ),
@@ -694,7 +699,7 @@ __d(
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, s) {
             var u = e.forceToBlob(),
-              c = o("WAMediaPreProcessQpl").startMediaPreProcessQpl(
+              c = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
                 "document",
                 u,
               );
@@ -822,21 +827,17 @@ __d(
                   s = l.thumbs,
                   u = s[0],
                   c = l.duration,
-                  d;
-                (o(
-                  "WAWebMiscGatingUtils",
-                ).isHighQualityVideoThumbnailsEnabled() &&
-                  (d = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
+                  d = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
                     r("WAWebURLUtils").parseDataURL(u.url).data,
-                  )),
-                  (n = {
-                    mediaBlob: t,
-                    renderableUrl: t.url(),
-                    fullWidth: u.fullWidth,
-                    fullHeight: u.fullHeight,
-                    duration: c !== void 0 ? "" + Math.ceil(c) : void 0,
-                    fullPreviewData: d,
-                  }));
+                  );
+                n = {
+                  mediaBlob: t,
+                  renderableUrl: t.url(),
+                  fullWidth: u.fullWidth,
+                  fullHeight: u.fullHeight,
+                  duration: c !== void 0 ? "" + Math.ceil(c) : void 0,
+                  fullPreviewData: d,
+                };
                 break;
               }
               case o("WAWebMediaTypes").TYPE.AUDIO: {

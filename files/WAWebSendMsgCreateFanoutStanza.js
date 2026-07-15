@@ -576,7 +576,9 @@ __d(
               I = R.subtype,
               x = R.to,
               $ =
-                o("WAWebMessagingGatingUtils").isCoexSimpleSignalEnabled() &&
+                o("WAWebABProps").getABPropConfigValue(
+                  "web_coex_simple_signal_enabled",
+                ) === 1 &&
                 x.isUser() &&
                 ((f = o("WAWebContactCollection").ContactCollection.get(x)) ==
                   null || (f = f.privacyMode) == null

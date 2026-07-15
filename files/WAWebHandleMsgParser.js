@@ -10,6 +10,8 @@ __d(
     "WAWebAsISOCountryCode",
     "WAWebBackendJobs.flow",
     "WAWebBotTypes",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
     "WAWebCreateNackFromStanza",
     "WAWebCurrentUser",
     "WAWebGroupHistoryGating",
@@ -230,21 +232,14 @@ __d(
       if (C != null && L != null && !o("WAWebUserPrefsMeUser").isMeAccount(L))
         return l.throw("Invalid recipient from non peer device");
       var E = b(l),
-        k = i == null ? void 0 : i.targetChatJid;
-      if (r && g.isPnBot() && k != null) {
-        var I;
-        return babelHelpers.extends(
-          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
-          f,
-          {
-            chat: o("WAWebWidFactory").asUserWidOrThrow(
-              (I = i == null ? void 0 : i.targetChatJidLid) != null ? I : k,
-            ),
-            author: g,
-            botParticipant: g,
-          },
-        );
-      } else if (r && g.isFbidBot() && k != null) {
+        k = i == null ? void 0 : i.targetChatJid,
+        I = i == null ? void 0 : i.from;
+      if (
+        g.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+        I != null &&
+        k != null &&
+        o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+      ) {
         var T = o("WAWebWidFactory").asUserWidOrThrow(k);
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
@@ -256,21 +251,50 @@ __d(
               ? T
               : o("WAWebLidMigrationUtils").toPnOrThrow(T),
             author: g,
+            metaFrom: I,
+          },
+        );
+      }
+      if (r && g.isPnBot() && k != null) {
+        var D;
+        return babelHelpers.extends(
+          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+          f,
+          {
+            chat: o("WAWebWidFactory").asUserWidOrThrow(
+              (D = i == null ? void 0 : i.targetChatJidLid) != null ? D : k,
+            ),
+            author: g,
+            botParticipant: g,
+          },
+        );
+      } else if (r && g.isFbidBot() && k != null) {
+        var x = o("WAWebWidFactory").asUserWidOrThrow(k);
+        return babelHelpers.extends(
+          { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
+          f,
+          {
+            chat: o(
+              "WAWebLid1X1MigrationGating",
+            ).Lid1X1MigrationUtils.isLidMigrated()
+              ? x
+              : o("WAWebLidMigrationUtils").toPnOrThrow(x),
+            author: g,
             botParticipant: g,
           },
         );
       } else if (g.isUser()) {
-        var D = g;
+        var N = g;
         if (C != null) {
           if (!o("WAWebUserPrefsMeUser").isMeAccount(g))
             return l.throw("recipient on non peer chat message");
-          D = C;
+          N = C;
         }
-        var x = null,
-          N = o(
+        var M = null,
+          w = o(
             "WAWebSimpleSignalPNToFBIDMigration",
-          ).getDeprecatedPnChatForFbidThread(D);
-        N != null &&
+          ).getDeprecatedPnChatForFbidThread(N);
+        w != null &&
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -278,14 +302,14 @@ __d(
                 " to ",
                 "",
               ])),
-            D.toLogString(),
             N.toLogString(),
+            w.toLogString(),
           ),
-          C != null && (x = C),
-          (D = N));
-        var M = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(D);
+          C != null && (M = C),
+          (N = w));
+        var A = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(N);
         return (
-          M != null &&
+          A != null &&
             (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -293,30 +317,30 @@ __d(
                   " to ",
                   "",
                 ])),
-              D.toLogString(),
-              M.toLogString(),
+              N.toLogString(),
+              A.toLogString(),
             ),
-            C != null && (x = C),
-            (D = M)),
+            C != null && (M = C),
+            (N = A)),
           babelHelpers.extends(
             { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT },
             f,
             {
-              chat: o("WAWebWidFactory").asUserWidOrThrow(D),
+              chat: o("WAWebWidFactory").asUserWidOrThrow(N),
               author: g,
-              originalBotRecipient: x,
+              originalBotRecipient: M,
             },
           )
         );
       } else if (g.isGroup()) {
-        var w;
+        var F;
         if (y == null) return l.throw("group message with no participant");
-        var A =
-          (w = l.maybeAttrEnum(
+        var O =
+          (F = l.maybeAttrEnum(
             "addressing_mode",
             o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE,
           )) != null
-            ? w
+            ? F
             : o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.pn;
         try {
           !o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
@@ -378,7 +402,7 @@ __d(
         return babelHelpers.extends(
           { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.GROUP },
           f,
-          { chat: g, author: y, isDirect: S, addressingMode: A },
+          { chat: g, author: y, isDirect: S, addressingMode: O },
         );
       } else {
         if (g.isBroadcast() && !g.isStatus())
@@ -415,14 +439,14 @@ __d(
                   },
                 );
         if (g.isBroadcast() && g.isStatus()) {
-          var F, O;
+          var B, W;
           if (y == null) return l.throw("status message with no participant");
-          var B =
-            (F =
-              (O = l.maybeChild("meta")) == null
+          var q =
+            (B =
+              (W = l.maybeChild("meta")) == null
                 ? void 0
-                : O.maybeAttrString("status_setting")) != null
-              ? F
+                : W.maybeAttrString("status_setting")) != null
+              ? B
               : void 0;
           if (o("WAWebUserPrefsMeUser").isMeAccount(y) && S) {
             if (E == null)
@@ -432,9 +456,9 @@ __d(
                     .DIRECT_PEER_STATUS,
                 },
                 f,
-                { chat: g, author: y, isDirect: S, statusSetting: B },
+                { chat: g, author: y, isDirect: S, statusSetting: q },
               );
-            var W = E.map(function (e) {
+            var U = E.map(function (e) {
               return e.wid;
             });
             return babelHelpers.extends(
@@ -446,16 +470,16 @@ __d(
               {
                 chat: g,
                 author: y,
-                directPeerStatusBclParticipants: W,
+                directPeerStatusBclParticipants: U,
                 bclHashValidated: !1,
-                statusSetting: B,
+                statusSetting: q,
               },
             );
           }
           return babelHelpers.extends(
             { type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS },
             f,
-            { chat: g, author: y, isDirect: S, statusSetting: B },
+            { chat: g, author: y, isDirect: S, statusSetting: q },
           );
         }
       }
@@ -586,6 +610,11 @@ __d(
           m.hasAttr("target_chat_jid_lid") &&
           (f.targetChatJidLid = o("WAWebJidToWid").jidWithTypeToWid(
             m.attrJidWithType("target_chat_jid_lid"),
+          )),
+        m &&
+          m.hasAttr("from") &&
+          (f.from = o("WAWebJidToWid").jidWithTypeToWid(
+            m.attrJidWithType("from"),
           )),
         m &&
           m.hasAttr("capi") &&

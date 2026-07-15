@@ -1,7 +1,6 @@
 __d(
   "WAWebSendMessageEditAction",
   [
-    "PaymentLink",
     "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
@@ -36,6 +35,7 @@ __d(
     "WAWebNewsletterSendMsgAction",
     "WAWebOpenCoexEditDeleteAlertModal",
     "WAWebOrchestratorNonPersistedJob",
+    "WAWebPaymentLink",
     "WAWebProcessAddonsJob",
     "WAWebSendMsgRecordAction",
     "WAWebSendMsgResultAction",
@@ -206,7 +206,7 @@ __d(
                 ? l
                 : void 0,
             paymentLinkMetadata:
-              (s = o("PaymentLink").getPaymentLinkMessageMetadata(
+              (s = o("WAWebPaymentLink").getPaymentLinkMessageMetadata(
                 h,
                 o("WAWebCodeFormatMutator").removeCodeBlocks(d),
               )) != null

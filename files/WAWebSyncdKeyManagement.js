@@ -3,11 +3,11 @@ __d(
   [
     "WALogger",
     "WAPromiseQueue",
-    "WASyncdKeyManagementUtils",
     "WAWebGetSyncKey",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdGatingUtils",
     "WAWebSyncdKeyCallbacksApi",
+    "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdMetrics",
     "WAWebSyncdRotateKey",
     "asyncToGeneratorRuntime",
@@ -120,14 +120,16 @@ __d(
           var e = yield o("WAWebGetSyncKey").getAllSyncKeysInTransaction();
           if (e.length === 0) return null;
           var t = e.map(function (e) {
-              return o("WASyncdKeyManagementUtils").getKeyEpoch(e.keyId);
+              return o("WAWebSyncdKeyManagementUtils").getKeyEpoch(e.keyId);
             }),
             n = Math.max.apply(Math, t),
             r = e.filter(function (e) {
-              return o("WASyncdKeyManagementUtils").getKeyEpoch(e.keyId) === n;
+              return (
+                o("WAWebSyncdKeyManagementUtils").getKeyEpoch(e.keyId) === n
+              );
             }),
             a = r.map(function (e) {
-              return o("WASyncdKeyManagementUtils").getKeyDeviceId(e.keyId);
+              return o("WAWebSyncdKeyManagementUtils").getKeyDeviceId(e.keyId);
             }),
             i = Math.min.apply(Math, a),
             l = a.indexOf(i);

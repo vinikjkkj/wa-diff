@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebChatThreadLogging",
     "WAWebFsApiSignupFlowWamEvent",
     "WAWebPsApiSignupFlowWamEvent",
     "WAWebUnifiedSession",
@@ -117,21 +118,16 @@ __d(
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.businessWid,
-            i = t.chatTimestamp,
-            l = t.operation,
-            u = t.signupId,
-            c = a == null ? void 0 : a.toString(),
-            d = yield (s || (s = n("Promise"))).all([
-              f(a),
-              c != null
-                ? r("JSResourceForInteraction")("WAWebChatThreadLogging")
-                    .__setRef("WAWebSignupFlowLogger")
-                    .load()
-                    .then(function (e) {
-                      var t = e.getChatThreadIDHMAC;
-                      return t(c);
-                    })
+          var r = t.businessWid,
+            a = t.chatTimestamp,
+            i = t.operation,
+            l = t.signupId,
+            u = r == null ? void 0 : r.toString(),
+            c = yield (s || (s = n("Promise"))).all([
+              f(r),
+              u != null
+                ? o("WAWebChatThreadLogging")
+                    .getChatThreadIDHMAC(u)
                     .catch(function () {
                       return (
                         o("WALogger").WARN(
@@ -145,17 +141,17 @@ __d(
                     })
                 : null,
             ]),
-            m = d[0],
-            _ = m.businessLid,
-            g = m.businessPhoneNumber,
-            h = d[1];
+            d = c[0],
+            m = d.businessLid,
+            _ = d.businessPhoneNumber,
+            g = c[1];
           return p({
-            operation: l,
-            signupId: u,
-            businessPhoneNumber: g,
-            businessLid: _,
-            chatTimestamp: i,
-            threadIdHmac: h,
+            operation: i,
+            signupId: l,
+            businessPhoneNumber: _,
+            businessLid: m,
+            chatTimestamp: a,
+            threadIdHmac: g,
           });
         })),
         y.apply(this, arguments)

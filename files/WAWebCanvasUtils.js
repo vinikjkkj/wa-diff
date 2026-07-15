@@ -68,9 +68,9 @@ __d(
           ) {
             var _ = Math.floor(e.width * c),
               f = Math.floor(e.height * c);
-            d = C(_, f);
-            var g = d.getContext("2d");
-            (g.drawImage(e, 0, 0, _, f), (m = yield u(d, l)), (c *= 0.5));
+            d = g(_, f);
+            var h = d.getContext("2d");
+            (h.drawImage(e, 0, 0, _, f), (m = yield u(d, l)), (c *= 0.5));
           }
           return {
             opaqueData: yield r("WAWebMediaOpaqueData").createFromData(m, l),
@@ -82,20 +82,7 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      var n = t.x || 0,
-        r = t.y || 0;
-      (t.degrees && (t.radians = t.degrees * (Math.PI / 180)),
-        e.translate(n, r),
-        t.radians != null && e.rotate(t.radians),
-        e.translate(-n, -r));
-    }
-    function _(e, t, n) {
-      var r = e.getContext("2d"),
-        o = r.getImageData(0, 0, t, n);
-      ((e.width = t), (e.height = n), r.putImageData(o, 0, 0));
-    }
-    function f(e) {
+    function p(e) {
       var t = e.getContext("2d"),
         n = e.width,
         r = e.height,
@@ -106,37 +93,28 @@ __d(
         l = (a - r) / 2;
       (t.clearRect(0, 0, n, r), t.putImageData(o, i, l, 0, 0, n, r));
     }
-    function g(e, t) {
+    function _(e, t) {
       var n = e.getContext("2d"),
-        r = b(e),
+        r = h(e),
         a = o("WAWebImageGeometry").aspectRatioScaled(e.width / e.height, t),
         i = a.height,
         l = a.width;
       ((e.width = l), (e.height = i), n.drawImage(r, 0, 0, l, i));
     }
-    function h(e) {
+    function f(e) {
       var t = e.getContext("2d");
       ((t.fillStyle = "rgb(247,247,247)"), t.fillRect(0, 0, e.width, e.height));
     }
-    function y(e, t) {
-      var n = o("WAWebImageGeometry").boundHeightWidth(e.height, e.width, t),
-        r = n.height,
-        a = n.width;
-      if (a > e.width && r > e.height) return e;
-      var i = document.createElement("canvas"),
-        l = i.getContext("2d");
-      return ((i.width = a), (i.height = r), l.drawImage(e, 0, 0, a, r), i);
-    }
-    function C(e, t) {
+    function g(e, t) {
       var n = document.createElement("canvas");
       return ((n.width = e), (n.height = t), n);
     }
-    function b(e) {
-      var t = C(e.width, e.height),
+    function h(e) {
+      var t = g(e.width, e.height),
         n = t.getContext("2d");
       return (n.drawImage(e, 0, 0), t);
     }
-    function v(e) {
+    function y(e) {
       var t = e.getContext("2d"),
         n = t.getImageData(0, 0, e.width, e.height),
         r = n.data.length / 4,
@@ -147,7 +125,7 @@ __d(
       }
       return !0;
     }
-    function S(e) {
+    function C(e) {
       var t = e.getContext("2d"),
         n = t.getImageData(0, 0, e.width, e.height),
         r = n.data.length / 4,
@@ -169,9 +147,9 @@ __d(
       }
       return { left: o, top: a, right: i, bottom: l };
     }
-    function R(e) {
-      if (!v(e)) {
-        var t = S(e),
+    function b(e) {
+      if (!y(e)) {
+        var t = C(e),
           n = t.bottom,
           r = t.left,
           o = t.right,
@@ -180,12 +158,12 @@ __d(
           l = o - r,
           s = e.getContext("2d"),
           u = s.getImageData(r, a, l, i),
-          c = C(l, i),
+          c = g(l, i),
           d = c.getContext("2d");
         return (d.putImageData(u, 0, 0), c);
       }
     }
-    function L(e, t, n) {
+    function v(e, t, n) {
       n === void 0 && (n = "white");
       var r = document.createElement("canvas"),
         o = r.getContext("2d"),
@@ -204,15 +182,12 @@ __d(
       (l.canvasToBlob = u),
       (l.getResizedDataUrl = c),
       (l.generateMicroThumb = d),
-      (l.rotate = p),
-      (l.resize = _),
-      (l.square = f),
-      (l.scale = g),
-      (l.fillBackgroundWithGray = h),
-      (l.contain = y),
-      (l.createCanvas = C),
-      (l.trim = R),
-      (l.addBorder = L));
+      (l.square = p),
+      (l.scale = _),
+      (l.fillBackgroundWithGray = f),
+      (l.createCanvas = g),
+      (l.trim = b),
+      (l.addBorder = v));
   },
   98,
 );

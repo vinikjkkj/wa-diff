@@ -9,6 +9,8 @@ __d(
     "WAWebBotGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotTypes",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
     "WAWebDBMessageSerialization",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
@@ -175,38 +177,47 @@ __d(
                     ])),
                   i == null ? void 0 : i.botEditType,
                 ));
-          var y = o("WAWebWidToJid").widToUserJid(
-              r("WANullthrows")(l.author, "decryptMsmsgFbidBotMessage: author"),
+          var y = c.from,
+            C = o("WAWebWidToJid").widToUserJid(
+              y != null &&
+                l.author != null &&
+                l.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+                o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+                ? y
+                : r("WANullthrows")(
+                    l.author,
+                    "decryptMsmsgFbidBotMessage: author",
+                  ),
             ),
-            C = o("WAWebWidToJid").widToUserJid(m),
-            v = o("decodeProtobuf").decodeProtobuf(
+            v = o("WAWebWidToJid").widToUserJid(m),
+            R = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsE2E.pb").MessageSecretMessageSpec,
               e,
             ),
-            R = v.encIv,
-            L = v.encPayload,
-            E = r("WANullthrows")(R, "decryptMsmsgFbidBotMessage: encIv"),
-            k = r("WANullthrows")(L, "decryptMsmsgFbidBotMessage: encPayload");
-          function I(e) {
-            return T.apply(this, arguments);
+            L = R.encIv,
+            E = R.encPayload,
+            k = r("WANullthrows")(L, "decryptMsmsgFbidBotMessage: encIv"),
+            I = r("WANullthrows")(E, "decryptMsmsgFbidBotMessage: encPayload");
+          function T(e) {
+            return D.apply(this, arguments);
           }
-          function T() {
+          function D() {
             return (
-              (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+              (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
                 var t = yield S({
                   decryptSecret: f,
-                  messageSecretOriginalUserJid: C,
-                  senderJid: y,
+                  messageSecretOriginalUserJid: v,
+                  senderJid: C,
                   stanzaId: e,
                 });
-                return o("WACryptoAesGcm").gcmDecrypt(t, E, k, e + "\0" + y);
+                return o("WACryptoAesGcm").gcmDecrypt(t, k, I, e + "\0" + C);
               })),
-              T.apply(this, arguments)
+              D.apply(this, arguments)
             );
           }
           try {
-            var D = yield I(g);
-            return D;
+            var x = yield T(g);
+            return x;
           } catch (e) {
             if (h == null) throw e;
             return (
@@ -222,7 +233,7 @@ __d(
                 h,
                 String(e),
               ),
-              I(h)
+              T(h)
             );
           }
         })),

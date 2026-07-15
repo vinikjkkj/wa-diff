@@ -2,7 +2,6 @@ __d(
   "WAWebGetBrazilnteractiveActions",
   [
     "fbt",
-    "P2XFunnelIdGenerator",
     "WAWebBizFrontendGatingUtils",
     "WAWebBizOrderDetailsParams",
     "WAWebBrazilPaymentsGeoGating",
@@ -22,6 +21,7 @@ __d(
     "WAWebOrderDetails",
     "WAWebOrderDetailsCreationActionWamEventUtil",
     "WAWebOrderPaymentStatus",
+    "WAWebP2XFunnelIdGenerator",
     "WAWebPixCodeUtils",
     "WAWebPsStructuredMessageInteractionWamEvent",
     "WAWebToast.react",
@@ -485,7 +485,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+          var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
               t,
               e.id.id + e.to.toJid(),
             ),

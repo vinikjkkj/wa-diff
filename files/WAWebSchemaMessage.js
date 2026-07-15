@@ -197,6 +197,8 @@ __d(
             a("invokedBotWid"),
             a("botEditType"),
             a("botTargetSenderJid"),
+            a("metaFrom"),
+            a("senderWithDevice"),
             a("bizBotType"),
             a("botPersonaId"),
             a("botDeepLinkToken"),

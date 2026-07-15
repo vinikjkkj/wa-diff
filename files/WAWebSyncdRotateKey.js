@@ -6,10 +6,10 @@ __d(
     "WAByteArray",
     "WACryptoDependencies",
     "WAJids",
-    "WASyncdKeyManagementUtils",
     "WASyncdKeyTypes",
     "WATimeUtils",
     "WAWebSyncdGatingUtils",
+    "WAWebSyncdKeyManagementUtils",
     "equalsSet",
   ],
   function (t, n, r, o, a, i, l) {
@@ -59,10 +59,10 @@ __d(
       if (e == null) {
         var n = new Uint8Array(16);
         (o("WACryptoDependencies").getCrypto().getRandomValues(n),
-          (t = o("WASyncdKeyManagementUtils").generateNewKeyEpoch(
+          (t = o("WAWebSyncdKeyManagementUtils").generateNewKeyEpoch(
             o("WASyncdKeyTypes").toSyncKeyId(n.buffer),
           )));
-      } else t = o("WASyncdKeyManagementUtils").generateNewKeyEpoch(e.keyId);
+      } else t = o("WAWebSyncdKeyManagementUtils").generateNewKeyEpoch(e.keyId);
       var r = o("WAJids").interpretAsNumber(
         o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid()),
       );

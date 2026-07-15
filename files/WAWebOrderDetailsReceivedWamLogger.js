@@ -1,7 +1,6 @@
 __d(
   "WAWebOrderDetailsReceivedWamLogger",
   [
-    "P2XFunnelIdGenerator",
     "Promise",
     "WALogger",
     "WAWebABProps",
@@ -10,6 +9,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebP2XFunnelIdGenerator",
     "WAWebStructuredMessageBuyerReceiveWamEvent",
     "WAWebStructuredMessageReceiveWamEvent",
     "WAWebUprPaymentRequest",
@@ -79,7 +79,7 @@ __d(
             a = h(e),
             i = e.id.id + e.to.toJid(),
             l = y(e),
-            s = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(c, i),
+            s = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(c, i),
             u = yield s.genFunnelInfo(),
             m = u.funnel_id,
             p = {
@@ -105,7 +105,10 @@ __d(
               "payments_br_p2m_buyer_logging_phase_2",
             ))
           ) {
-            var _ = new (o("P2XFunnelIdGenerator").P2XFunnelIdGenerator)(m, d),
+            var _ = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+                m,
+                d,
+              ),
               f = yield _.genFunnelInfo(),
               g = f.funnel_id;
             new (o(

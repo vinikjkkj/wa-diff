@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebDBGroupsGroupMetadata",
     "WAWebGroupGatingUtils",
     "WAWebGroupSystemMsg",
@@ -83,7 +84,9 @@ __d(
               o("WATimeUtils").castToUnixTime(c),
             );
           return m.length >=
-            o("WAWebGroupGatingUtils").getAnyoneCanLinkM2FloodLimit()
+            o("WAWebABProps").getABPropConfigValue(
+              "wa_web_anyone_can_link_m2_flood_limit",
+            )
             ? (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([

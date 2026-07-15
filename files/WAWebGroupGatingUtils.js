@@ -24,52 +24,47 @@ __d(
         "wa_web_anyone_can_link_m2",
       );
     }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_anyone_can_link_m2_flood_limit",
-      );
-    }
-    var _ = 32;
-    function f() {
+    var p = 32;
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_multi_ppl_typing_indicator_for_chatlist_groups_variant",
       );
     }
-    function g() {
-      return f() !== e.NONE;
+    function f() {
+      return _() !== e.NONE;
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "enhanced_mention_suggestions_non_group_members_enabled",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_group_discard_dialog_contact_threshold",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_group_experimentation_enable",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_forward_to_small_groups",
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_suspension_appeals_redesign_enabled",
       );
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_suspension_appeals_redesign_variant_enable",
       );
     }
-    var R = 33;
-    function L() {
+    var S = 33;
+    function R() {
       return o("WAWebABProps").getABPropConfigValue("group_from_group");
     }
     ((l.GROUP_TYPING_VARIANT = e),
@@ -78,18 +73,17 @@ __d(
       (l.isPersistentPendingJoinRequestsBannerEnabled = c),
       (l.isAnyoneCanLinkToGroupsEnabled = d),
       (l.isAnyoneCanLinkToGroupsM2Enabled = m),
-      (l.getAnyoneCanLinkM2FloodLimit = p),
-      (l.ANYONE_CAN_LINK_M2_PARTICIPANT_THRESHOLD = _),
-      (l.getGroupTypingIndicatorVariant = f),
-      (l.isGroupTypingIndicatorEnabled = g),
-      (l.isEnhancedMentionSuggestionsNonGroupMembersEnabled = h),
-      (l.getGroupDiscardDialogThreshold = y),
-      (l.isGroupExperimentationEnabled = C),
-      (l.isForwardToSmallGroupsEnabled = b),
-      (l.isGroupSuspensionAppealsRedesignEnabled = v),
-      (l.isGroupSuspensionAppealsRedesignVariantEnabled = S),
-      (l.GFG_GROUP_SIZE_THRESHOLD = R),
-      (l.isGroupFromGroupEnabled = L));
+      (l.ANYONE_CAN_LINK_M2_PARTICIPANT_THRESHOLD = p),
+      (l.getGroupTypingIndicatorVariant = _),
+      (l.isGroupTypingIndicatorEnabled = f),
+      (l.isEnhancedMentionSuggestionsNonGroupMembersEnabled = g),
+      (l.getGroupDiscardDialogThreshold = h),
+      (l.isGroupExperimentationEnabled = y),
+      (l.isForwardToSmallGroupsEnabled = C),
+      (l.isGroupSuspensionAppealsRedesignEnabled = b),
+      (l.isGroupSuspensionAppealsRedesignVariantEnabled = v),
+      (l.GFG_GROUP_SIZE_THRESHOLD = S),
+      (l.isGroupFromGroupEnabled = R));
   },
   98,
 );

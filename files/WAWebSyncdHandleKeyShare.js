@@ -5,11 +5,11 @@ __d(
     "WACryptoUtils",
     "WALogger",
     "WASyncdConst",
-    "WASyncdKeyManagementUtils",
     "WAWebGetSyncKey",
     "WAWebSyncd",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdDbCallbacksApi",
+    "WAWebSyncdKeyManagementUtils",
     "WAWebSyncdStoreMissingKeys",
     "asyncToGeneratorRuntime",
   ],
@@ -105,10 +105,10 @@ __d(
                               ),
                               n.timestamp,
                               new Date(n.timestamp).toLocaleString(void 0, h),
-                              o("WASyncdKeyManagementUtils").getKeyDeviceId(
+                              o("WAWebSyncdKeyManagementUtils").getKeyDeviceId(
                                 n.keyId,
                               ),
-                              o("WASyncdKeyManagementUtils").getKeyEpoch(
+                              o("WAWebSyncdKeyManagementUtils").getKeyEpoch(
                                 n.keyId,
                               ),
                             ));
@@ -191,16 +191,16 @@ __d(
                                 l.keyData.byteLength,
                                 n.keyData.byteLength,
                                 t,
-                                o("WASyncdKeyManagementUtils").getKeyDeviceId(
+                                o(
+                                  "WAWebSyncdKeyManagementUtils",
+                                ).getKeyDeviceId(l.keyId),
+                                o(
+                                  "WAWebSyncdKeyManagementUtils",
+                                ).getKeyDeviceId(n.keyId),
+                                o("WAWebSyncdKeyManagementUtils").getKeyEpoch(
                                   l.keyId,
                                 ),
-                                o("WASyncdKeyManagementUtils").getKeyDeviceId(
-                                  n.keyId,
-                                ),
-                                o("WASyncdKeyManagementUtils").getKeyEpoch(
-                                  l.keyId,
-                                ),
-                                o("WASyncdKeyManagementUtils").getKeyEpoch(
+                                o("WAWebSyncdKeyManagementUtils").getKeyEpoch(
                                   n.keyId,
                                 ),
                                 o("WAWebSyncdCryptoUtils").syncKeyIdToHex(
@@ -249,11 +249,11 @@ __d(
                                       E.keyId,
                                     ),
                                     o(
-                                      "WASyncdKeyManagementUtils",
+                                      "WAWebSyncdKeyManagementUtils",
                                     ).getKeyDeviceId(E.keyId),
-                                    o("WASyncdKeyManagementUtils").getKeyEpoch(
-                                      E.keyId,
-                                    ),
+                                    o(
+                                      "WAWebSyncdKeyManagementUtils",
+                                    ).getKeyEpoch(E.keyId),
                                     new Date(k.timestamp).toLocaleString(
                                       void 0,
                                       h,

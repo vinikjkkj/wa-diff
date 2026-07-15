@@ -1,8 +1,8 @@
 __d(
   "PixWamLogger",
   [
-    "PaymentConstants",
     "WAWebGetMessageChatTypeFromWid",
+    "WAWebPaymentConstants",
     "WAWebPaymentsUserActionWamEvent",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebWamEnumMessageChatType",
@@ -34,7 +34,7 @@ __d(
             var c = {
                 actionTarget: e,
                 paymentActionType: t,
-                paymentsCountryCode: o("PaymentConstants").BR_COUNTRY_CODE,
+                paymentsCountryCode: o("WAWebPaymentConstants").BR_COUNTRY_CODE,
                 previousScreenName: n,
                 queryParams: JSON.stringify(s),
                 referral: r,

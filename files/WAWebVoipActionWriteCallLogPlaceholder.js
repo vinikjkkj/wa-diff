@@ -99,17 +99,21 @@ __d(
                     ])),
                   a,
                 ));
-            (yield o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(h, v),
-              b.length > 0 &&
-                (yield o("WAWebSchemaMessageOrphans")
-                  .getMessageOrphanTable()
-                  .bulkRemove(
-                    b.map(function (e) {
-                      return e.msgKey;
-                    }),
-                  )),
+            var R = yield o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(
+              h,
+              v,
+            );
+            (b.length > 0 &&
+              (yield o("WAWebSchemaMessageOrphans")
+                .getMessageOrphanTable()
+                .bulkRemove(
+                  b.map(function (e) {
+                    return e.msgKey;
+                  }),
+                )),
               r("WAWebVoipCallsTabPanelManager").trigger(
                 "onWriteCallLogMessage",
+                R,
               ));
           } catch (e) {
             o("WALogger")
