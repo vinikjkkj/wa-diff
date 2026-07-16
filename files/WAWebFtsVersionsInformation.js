@@ -2,9 +2,9 @@ __d(
   "WAWebFtsVersionsInformation",
   [
     "Promise",
-    "WAFtsDeprecationIndexer",
     "WAFtsMultiLangTokenizer",
     "WAFtsV3Indexer",
+    "WAWebFtsDeprecationIndexer",
     "WAWebFtsV3IndexTableAdapter",
     "WAWebFtsV3MessageSource",
     "WAWebFtsV3Signaller",
@@ -17,7 +17,7 @@ __d(
       return {
         indexers: {
           1: function (o) {
-            var t = new (r("WAFtsDeprecationIndexer"))("1");
+            var t = new (r("WAWebFtsDeprecationIndexer"))("1");
             return (e || (e = n("Promise"))).resolve(t);
           },
           3: function (a) {

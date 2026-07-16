@@ -1,6 +1,6 @@
 __d(
   "MqttUtils",
-  ["MqttEnv"],
+  ["MqttEnv", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -31,22 +31,22 @@ __d(
         }, 0);
       });
     }
-    function m(e, t, n, r) {
-      var a = !1;
+    function m(e, t, n, a) {
+      var i = !1;
       (o("MqttEnv").Env.setTimeout(function () {
-        if (!a) {
-          a = !0;
-          var e = new Error("promise timeout");
+        if (!i) {
+          i = !0;
+          var e = r("err")("promise timeout");
           (e.stack, n(e));
         }
-      }, r),
+      }, a),
         d(
           e,
           function (e) {
-            a || ((a = !0), t(e));
+            i || ((i = !0), t(e));
           },
           function (e) {
-            a || ((a = !0), n(e));
+            i || ((i = !0), n(e));
           },
         ));
     }

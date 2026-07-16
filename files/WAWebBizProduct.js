@@ -8,7 +8,7 @@ __d(
     "WAWebDisplayType",
     "WAWebDrawerManager",
     "WAWebEmojiText.react",
-    "WAWebFormatConfiguration",
+    "WAWebFormatConfigurationConversation",
     "WAWebFrontendMsgGetters",
     "WAWebL10N",
     "WAWebMessageAuthor.react",
@@ -181,7 +181,7 @@ __d(
           dirMismatch: M !== r("WAWebL10N").isRTL(),
           direction: E,
           inferLinesDirection: !0,
-          formatters: o("WAWebFormatConfiguration").Conversation({
+          formatters: o("WAWebFormatConfigurationConversation").Conversation({
             links: o("WAWebMsgLinks").getFooterLinks(c.unsafe()),
             phoneNumbers: o(
               "WAWebMsgPhoneNumbers",

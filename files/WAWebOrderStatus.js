@@ -147,33 +147,43 @@ __d(
           ? l
           : null;
       },
-      g = function (n, a) {
-        var t,
-          i = n.msgs.getModelsArray().slice(e),
-          l =
-            (t = i.findLast(function (e) {
-              var t, n;
-              return (
-                ((e == null ? void 0 : e.nativeFlowName) ===
-                  r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS &&
-                  ((t = d(e)) == null ? void 0 : t.refId) === a) ||
-                ((e == null ? void 0 : e.nativeFlowName) ===
-                  r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS &&
+      g = function (n, a, i) {
+        var t;
+        i === void 0 && (i = !1);
+        var l = n.msgs.getModelsArray().slice(e),
+          s =
+            (t = l.findLast(function (e) {
+              var t = e == null ? void 0 : e.nativeFlowName;
+              if (
+                t === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
+              ) {
+                var n;
+                return (
                   ((n = o(
                     "WAWebOrderPaymentStatus",
                   ).getOrderPaymentStatusInfoFromNativeFlow(e)) == null
                     ? void 0
-                    : n.refId) === a)
-              );
+                    : n.refId) === a
+                );
+              }
+              if (
+                t === r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
+              ) {
+                var l = d(e);
+                return l == null || l.refId !== a
+                  ? !1
+                  : !i || l.paymentStatus != null;
+              }
+              return !1;
             })) == null
               ? void 0
               : t.safe();
-        return l != null &&
-          (l.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW ||
-            (l.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              l.interactiveType ===
+        return s != null &&
+          (s.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW ||
+            (s.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+              s.interactiveType ===
                 r("WAWebInteractiveMessageType").NATIVE_FLOW))
-          ? l
+          ? s
           : null;
       },
       h = function (t) {
@@ -237,31 +247,32 @@ __d(
             o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending;
       return !(a && i);
     }
-    function L(e, t) {
-      var n = g(e, t),
-        a = null;
+    function L(e, t, n) {
+      n === void 0 && (n = !1);
+      var a = g(e, t, n),
+        i = null;
       if (
-        n &&
-        (n == null ? void 0 : n.nativeFlowName) ===
+        a &&
+        (a == null ? void 0 : a.nativeFlowName) ===
           r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
       ) {
-        var i = n != null ? d(n) : null;
-        ((a = i == null ? void 0 : i.paymentStatus),
-          a == null && (a = h(i == null ? void 0 : i.status)));
+        var l = d(a);
+        ((i = l == null ? void 0 : l.paymentStatus),
+          i == null && (i = h(l == null ? void 0 : l.status)));
       } else if (
-        n &&
-        (n == null ? void 0 : n.nativeFlowName) ===
+        a &&
+        (a == null ? void 0 : a.nativeFlowName) ===
           r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
       ) {
-        var l;
-        a =
-          (l = o(
+        var s;
+        i =
+          (s = o(
             "WAWebOrderPaymentStatus",
-          ).getOrderPaymentStatusInfoFromNativeFlow(n)) == null
+          ).getOrderPaymentStatusInfoFromNativeFlow(a)) == null
             ? void 0
-            : l.paymentStatus;
+            : s.paymentStatus;
       }
-      return a;
+      return i;
     }
     function E(e, t) {
       var n = e.msgs.reduce(

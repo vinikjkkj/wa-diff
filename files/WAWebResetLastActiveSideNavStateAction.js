@@ -86,7 +86,7 @@ __d(
           case o("WAWebNavBarTypes").NavBarItems.MediaHub:
           case o("WAWebNavBarTypes").NavBarItems.MetaAI:
           case o("WAWebNavBarTypes").NavBarItems.MeTab:
-          case o("WAWebNavBarTypes").NavBarItems.CustomerManager:
+          case o("WAWebNavBarTypes").NavBarItems.ContactManager:
             break;
         }
     }

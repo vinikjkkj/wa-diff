@@ -12,6 +12,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
     "WAWebMuteCollection",
+    "WAWebMuteUtils",
     "WAWebNotificationHelpers",
     "WAWebWindowsHybridBridgeFactory",
     "WAWebWindowsNotificationSettingsHelpers",
@@ -246,7 +247,7 @@ __d(
       if (t == null) return [];
       var n = [];
       return (
-        t.mute.canMute() &&
+        o("WAWebMuteUtils").canMute(t.mute) &&
           n.push.apply(n, [
             {
               content: s._(/*BTDS*/ "Mute chat for 8 hours").toString(),

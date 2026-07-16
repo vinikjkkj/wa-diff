@@ -34,13 +34,14 @@ __d(
     "WAWebModalManager",
     "WAWebMuteGetters",
     "WAWebMuteMenuItem.react",
+    "WAWebMuteUtils",
     "WAWebOpenAddParticipantModalFlow",
+    "WAWebOpenLeaveAndReportGroupModal",
     "WAWebReachoutTimelockRestrictedModalLoadable",
     "WAWebReachoutTimelockUtils",
     "WAWebSendTextFlow.react",
     "WAWebSpamConstants",
     "WAWebStateUtils",
-    "WAWebSuspendedGroupUtils",
     "WAWebUnfavoriteRefreshedIcon.react",
     "WAWebWamEnumEphemeralSettingEntryPointType",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
@@ -81,7 +82,7 @@ __d(
     }
     function d(e) {
       if (o("WAWebChatGroupUtils").shouldShowLeaveAndReportGroupModalForChat(e))
-        o("WAWebSuspendedGroupUtils").openLeaveAndReportGroupModal(
+        o("WAWebOpenLeaveAndReportGroupModal").openLeaveAndReportGroupModal(
           e,
           o("WAWebSpamConstants").SpamFlow.GroupOverflowMenuLeaveReportUpsell,
         );
@@ -340,7 +341,7 @@ __d(
           : (z = l[26]),
           S.push(z));
       }
-      if (m.mute.canMute()) {
+      if (o("WAWebMuteUtils").canMute(m.mute)) {
         var j, K;
         l[27] !== m
           ? ((j = function (t) {
@@ -704,7 +705,7 @@ __d(
             "WAWebBroadcastConversationMenuItems",
           ).getBroadcastAudienceInfoMenuItem(e),
         ),
-        e.mute.canMute() &&
+        o("WAWebMuteUtils").canMute(e.mute) &&
           t.push(
             o("WAWebBroadcastConversationMenuItems").getBroadcastMuteMenuItem(
               e,

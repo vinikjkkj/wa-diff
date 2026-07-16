@@ -12,22 +12,14 @@ __d(
     "WAWebDBGroupParticipant",
     "WAWebDBGroupsGroupMetadata",
     "WAWebEphemeralityUtils",
-    "WAWebGetHistorySyncProgress",
-    "WAWebGetMetricHistorySyncPayloadType",
     "WAWebGroupMetadataCollection",
     "WAWebGroupParticipantModel",
     "WAWebGroupParticipantsJob",
     "WAWebHistorySyncLogUtils",
     "WAWebLeaveReasonType",
-    "WAWebMdBootstrapDataAppliedWamEvent",
-    "WAWebMdBootstrapHistoryDataDownloadedWamEvent",
-    "WAWebMdBootstrapHistoryDataStartDownloadingWamEvent",
     "WAWebProtobufsHistorySync.pb",
     "WAWebSchemaHistorySyncNotification",
     "WAWebSignalProtocolStore",
-    "WAWebSyncdMdSyncFieldstatMeta",
-    "WAWebWamEnumMdBootstrapPayloadType",
-    "WAWebWamEnumMdBootstrapSource",
     "WAWebWamEnumMdBootstrapStepResult",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -293,84 +285,10 @@ __d(
         m.all([t, r])
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n =
-              e.syncType ===
-              o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
-                .INITIAL_BOOTSTRAP
-                ? o("WAWebWamEnumMdBootstrapPayloadType")
-                    .MD_BOOTSTRAP_PAYLOAD_TYPE.CRITICAL
-                : o("WAWebWamEnumMdBootstrapPayloadType")
-                    .MD_BOOTSTRAP_PAYLOAD_TYPE.NON_CRITICAL,
-            r = o(
-              "WAWebGetMetricHistorySyncPayloadType",
-            ).getMetricHistorySyncPayloadType(e.syncType),
-            a = yield o(
-              "WAWebSyncdMdSyncFieldstatMeta",
-            ).MdSyncFieldStatsMeta.getMdSessionId(),
-            i = yield o("WAWebGetHistorySyncProgress").getHistorySyncProgress(
-              e,
-            ),
-            l = new (o(
-              "WAWebMdBootstrapHistoryDataStartDownloadingWamEvent",
-            ).MdBootstrapHistoryDataStartDownloadingWamEvent)({
-              mdBootstrapPayloadType: n,
-              mdBootstrapPayloadSize: e.historySyncPayloadSize,
-              mdBootstrapHistoryPayloadType: r,
-              mdSessionId: a,
-              historySyncStageProgress: i,
-            }),
-            s = new (o(
-              "WAWebMdBootstrapHistoryDataDownloadedWamEvent",
-            ).MdBootstrapHistoryDataDownloadedWamEvent)({
-              mdBootstrapPayloadType: n,
-              mdBootstrapPayloadSize: e.historySyncPayloadSize,
-              mdBootstrapHistoryPayloadType: r,
-              mdSessionId: a,
-              historySyncStageProgress: i,
-            }),
-            u = new (o(
-              "WAWebMdBootstrapDataAppliedWamEvent",
-            ).MdBootstrapDataAppliedWamEvent)({
-              mdBootstrapPayloadType: n,
-              mdBootstrapSource: o("WAWebWamEnumMdBootstrapSource")
-                .MD_BOOTSTRAP_SOURCE.HISTORY,
-              mdBootstrapHistoryPayloadType: r,
-              mdSessionId: a,
-              sentViaMms: t,
-              historySyncStageProgress: i,
-            });
-          e.chunkOrder != null &&
-            ((l.historySyncChunkOrder = e.chunkOrder),
-            (s.historySyncChunkOrder = e.chunkOrder),
-            (u.historySyncChunkOrder = e.chunkOrder));
-          var c = yield o(
-            "WAWebSyncdMdSyncFieldstatMeta",
-          ).MdSyncFieldStatsMeta.getStorageEstimation();
-          return (
-            c.mdStorageQuotaBytes !==
-              o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
-              ((s.mdStorageQuotaUsedBytes = c.mdStorageQuotaUsedBytes),
-              (s.mdStorageQuotaBytes = c.mdStorageQuotaBytes)),
-            {
-              historySyncStartDownloadingMetric: l,
-              historySyncDownloadedMetric: s,
-              historySyncDataAppliedMetric: u,
-            }
-          );
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t, n) {
+    function b(e, t, n) {
       ((e.mdTimestamp = n), (e.mdBootstrapStepDuration = n - t), e.commit());
     }
-    function R(e) {
+    function v(e) {
       var t = e.chunkDownloadFinishTimestamp,
         n = e.historySyncDownloadMetric,
         r = e.isSuccess,
@@ -384,12 +302,12 @@ __d(
               .FAILURE),
         n.commit());
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function E() {
+    function R() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.failureReason,
             n = e.forceFlushWamBuffer,
             r = e.historySyncDataAppliedMetric,
@@ -408,10 +326,10 @@ __d(
             r.commitAndWaitForFlush(n)
           );
         })),
-        E.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function k(e) {
+    function L(e) {
       return [
         o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
           .INITIAL_BOOTSTRAP,
@@ -426,12 +344,12 @@ __d(
         ? e.initialHistBootstrapInlinePayload
         : null;
     }
-    function I() {
-      return T.apply(this, arguments);
+    function E() {
+      return k.apply(this, arguments);
     }
-    function T() {
+    function k() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebSchemaHistorySyncNotification")
             .getHistorySyncNotificationTable()
             .equals(
@@ -461,7 +379,7 @@ __d(
                 });
             });
         })),
-        T.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
     ((l.HistorySyncScheduleSource = p),
@@ -475,12 +393,11 @@ __d(
       (l.checkSelfHistorySyncIdentity = g),
       (l.saveGroupMetadataForLeftGroup = y),
       (l.handleChatThreadLoggingMetadata = C),
-      (l.getHistorySyncMetrics = b),
-      (l.commitHistoryStartDownloadingMetric = S),
-      (l.commitHistoryDownloadedMetric = R),
-      (l.commitHistoryDataAppliedMetric = L),
-      (l.maybeGetInlinePayload = k),
-      (l.getUnprocessedRecentSyncNotifications = I));
+      (l.commitHistoryStartDownloadingMetric = b),
+      (l.commitHistoryDownloadedMetric = v),
+      (l.commitHistoryDataAppliedMetric = S),
+      (l.maybeGetInlinePayload = L),
+      (l.getUnprocessedRecentSyncNotifications = E));
   },
   98,
 );

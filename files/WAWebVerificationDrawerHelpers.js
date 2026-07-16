@@ -65,7 +65,7 @@ __d(
         case o("WAValidateFingerprints").FingerprintValidationResult
           .LOCAL_PN_MISMATCH:
           n = s._(
-            /*BTDS*/ "Unable to verify your phone number. Share your phone number with {contact_name} and try again.",
+            /*BTDS*/ "Couldn't verify your phone number. Share your phone number with {contact_name} and try again.",
             [s._param("contact_name", t)],
           );
           break;
@@ -78,7 +78,7 @@ __d(
         case o("WAValidateFingerprints").FingerprintValidationResult
           .REMOTE_PN_MISSING:
           n = s._(
-            /*BTDS*/ "Unable to verify the phone number of {contact_name}. Ask {contact_name} to share their phone number and try again.",
+            /*BTDS*/ "Couldn't verify the phone number of {contact_name}. Ask {contact_name} to share their phone number and try again.",
             [s._param("contact_name", t)],
           );
           break;
@@ -89,7 +89,7 @@ __d(
         case o("WAValidateFingerprints").FingerprintValidationResult
           .LOCAL_USERNAME_MISSING:
           n = s._(
-            /*BTDS*/ "Unable to verify your username. Send a message to {contact_name} and try again.",
+            /*BTDS*/ "Couldn't verify your username. Send a message to {contact_name} and try again.",
             [s._param("contact_name", t)],
           );
           break;
@@ -102,21 +102,21 @@ __d(
         case o("WAValidateFingerprints").FingerprintValidationResult
           .REMOTE_USERNAME_MISSING:
           n = s._(
-            /*BTDS*/ "Unable to verify the username of {contact_name}. Ask {contact_name} to send you a message and try again.",
+            /*BTDS*/ "Couldn't verify the username of {contact_name}. Ask {contact_name} to send you a message and try again.",
             [s._param("contact_name", t)],
           );
           break;
         case o("WAValidateFingerprints").FingerprintValidationResult
           .LOCAL_USERNAME_UNEXPECTED:
           n = s._(
-            /*BTDS*/ "Unable to verify your username. Send a message to {contact_name} and try again.",
+            /*BTDS*/ "Couldn't verify your username. Send a message to {contact_name} and try again.",
             [s._param("contact_name", t)],
           );
           break;
         case o("WAValidateFingerprints").FingerprintValidationResult
           .REMOTE_USERNAME_UNEXPECTED:
           n = s._(
-            /*BTDS*/ "Unable to verify the username of {contact_name}. Ask {contact_name} to send you a message and try again.",
+            /*BTDS*/ "Couldn't verify the username of {contact_name}. Ask {contact_name} to send you a message and try again.",
             [s._param("contact_name", t)],
           );
           break;
@@ -125,7 +125,7 @@ __d(
         case o("WAValidateFingerprints").FingerprintValidationResult
           .LOCAL_DISPLAY_NAME_MISSING_PEER:
           n = s._(
-            /*BTDS*/ "Unable to verify your display name. Send a message to {contact_name} and try again.",
+            /*BTDS*/ "Couldn't verify your display name. Send a message to {contact_name} and try again.",
             [s._param("contact_name", t)],
           );
           break;
@@ -134,7 +134,7 @@ __d(
         case o("WAValidateFingerprints").FingerprintValidationResult
           .REMOTE_DISPLAY_NAME_MISSING_PEER:
           n = s._(
-            /*BTDS*/ "Unable to verify the display name of {contact_name}. Ask {contact_name} to send you a message and try again.",
+            /*BTDS*/ "Couldn't verify the display name of {contact_name}. Ask {contact_name} to send you a message and try again.",
             [s._param("contact_name", t)],
           );
           break;

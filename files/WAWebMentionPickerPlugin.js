@@ -16,7 +16,6 @@ __d(
     "WAWebComposeBoxActions",
     "WAWebConstantsDeprecated",
     "WAWebFbtCommon",
-    "WAWebGroupGatingUtils",
     "WAWebGroupMetadataCollection",
     "WAWebGroupType",
     "WAWebLexicalTypeAheadList.react",
@@ -506,9 +505,9 @@ __d(
         Ce;
       e: {
         if (
-          !o(
-            "WAWebGroupGatingUtils",
-          ).isEnhancedMentionSuggestionsNonGroupMembersEnabled()
+          !o("WAWebABProps").getABPropConfigValue(
+            "enhanced_mention_suggestions_non_group_members_enabled",
+          )
         ) {
           Ce = !1;
           break e;

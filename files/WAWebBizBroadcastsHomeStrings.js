@@ -367,7 +367,53 @@ __d(
         s._plural(e, "count"),
       ]);
     }
-    ((Ae.displayName = Ae.name + " [from " + i.id + "]"),
+    Ae.displayName = Ae.name + " [from " + i.id + "]";
+    function Fe() {
+      return s._(/*BTDS*/ "Settings");
+    }
+    Fe.displayName = Fe.name + " [from " + i.id + "]";
+    function Oe() {
+      return s._(/*BTDS*/ "Business broadcasts settings");
+    }
+    Oe.displayName = Oe.name + " [from " + i.id + "]";
+    function Be() {
+      return s._(/*BTDS*/ "Advanced tools");
+    }
+    Be.displayName = Be.name + " [from " + i.id + "]";
+    function We() {
+      return s._(/*BTDS*/ "Turn off");
+    }
+    We.displayName = We.name + " [from " + i.id + "]";
+    function qe() {
+      return s._(/*BTDS*/ "Manage payments");
+    }
+    qe.displayName = qe.name + " [from " + i.id + "]";
+    function Ue() {
+      return s._(/*BTDS*/ "Payments");
+    }
+    Ue.displayName = Ue.name + " [from " + i.id + "]";
+    function Ve() {
+      return s._(/*BTDS*/ "Manage customer base");
+    }
+    Ve.displayName = Ve.name + " [from " + i.id + "]";
+    function He() {
+      return s._(/*BTDS*/ "Unsubscribe recipients");
+    }
+    He.displayName = He.name + " [from " + i.id + "]";
+    function Ge() {
+      return s._(
+        /*BTDS*/ "Remove recipients from receiving broadcast messages.",
+      );
+    }
+    Ge.displayName = Ge.name + " [from " + i.id + "]";
+    function ze() {
+      return s._(/*BTDS*/ "Download subscribed recipients");
+    }
+    ze.displayName = ze.name + " [from " + i.id + "]";
+    function je() {
+      return s._(/*BTDS*/ "Download CSV file with subscribed recipients.");
+    }
+    ((je.displayName = je.name + " [from " + i.id + "]"),
       (l.getBroadcastColumnHeader = c),
       (l.getAudienceColumnHeader = d),
       (l.getStatusColumnHeader = m),
@@ -448,7 +494,18 @@ __d(
       (l.getDeliveredToLoadingLabel = Ne),
       (l.getDeliveredToErrorLabel = Me),
       (l.getDeliveredToEmptyLabel = we),
-      (l.getDeliveredToCountLabel = Ae));
+      (l.getDeliveredToCountLabel = Ae),
+      (l.getSettingsMenuLabel = Fe),
+      (l.getBusinessBroadcastsSettingsTitle = Oe),
+      (l.getAdvancedToolsLabel = Be),
+      (l.getTurnOffLabel = We),
+      (l.getManagePaymentsSectionLabel = qe),
+      (l.getPaymentsLabel = Ue),
+      (l.getManageCustomerBaseSectionLabel = Ve),
+      (l.getUnsubscribeRecipientsLabel = He),
+      (l.getUnsubscribeRecipientsSublabel = Ge),
+      (l.getDownloadSubscribedRecipientsLabel = ze),
+      (l.getDownloadSubscribedRecipientsSublabel = je));
   },
   226,
 );

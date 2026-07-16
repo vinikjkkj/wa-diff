@@ -1,0 +1,19 @@
+__d(
+  "WAWebHandleInfoBulletinTypes",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      DIRTY: "dirty",
+      ROUTING: "edge_routing",
+      OFFLINE: "offline",
+      OFFLINE_PREVIEW: "offline_preview",
+      TOS: "tos",
+      THREAD_META: "thread_metadata",
+      CLIENT_EXPIRATION: "client_expiration",
+      OFFLINE_PRIORITY_COMPLETE: "priority_offline_complete",
+      RECOVERY_NONCE: "recovery_nonce",
+    });
+    i.INFO_TYPE = e;
+  },
+  66,
+);

@@ -109,11 +109,6 @@ __d(
     function L() {
       return e() && r("justknobx")._("3269");
     }
-    function E() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_webtp_pdf_sharer_consent_copy_v2",
-      );
-    }
     ((l.isWebTPThumbnailRendererEnabled = c),
       (l.isWebTPThumbnailAttributionEnabled = d),
       (l.isWebTPPdfViewerEnabled = m),
@@ -125,8 +120,7 @@ __d(
       (l.isWebTPPdfAnnotationsEnabled = v),
       (l.isAsyncPdfSendEnabled = S),
       (l.isPdfPreviewBeforeSendEnabled = R),
-      (l.isWebTPSharerSavePreferenceEnabled = L),
-      (l.isWebTPPdfSharerConsentCopyV2Enabled = E));
+      (l.isWebTPSharerSavePreferenceEnabled = L));
   },
   98,
 );

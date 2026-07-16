@@ -22,12 +22,7 @@ __d(
         "parent_group_create_privacy",
       );
     }
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "parent_group_subgroup_filter",
-      );
-    }
-    function m(e) {
+    function d(e) {
       return e == null
         ? !1
         : (e.groupType === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
@@ -35,17 +30,17 @@ __d(
               o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP) &&
             e.getParentGroupChat() != null;
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "parent_group_allow_member_suggest_existing_m3_receiver",
       );
     }
-    function _() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "parent_group_allow_member_suggest_existing_m3_sender",
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_communities_general_chat_v_2",
       );
@@ -54,11 +49,10 @@ __d(
       (l.getParentGroupLinkLimit = s),
       (l.getParentGroupLinkLimitCommunityCreation = u),
       (l.communityCreatePrivacyEnabled = c),
-      (l.subgroupFilterEnabled = d),
-      (l.shouldShowNewSubgroupIdentity = m),
-      (l.memberSuggestedGroupsM3ReceiverEnabled = p),
-      (l.memberSuggestedGroupsM3SenderEnabled = _),
-      (l.communityGeneralChatV2Enabled = f));
+      (l.shouldShowNewSubgroupIdentity = d),
+      (l.memberSuggestedGroupsM3ReceiverEnabled = m),
+      (l.memberSuggestedGroupsM3SenderEnabled = p),
+      (l.communityGeneralChatV2Enabled = _));
   },
   98,
 );

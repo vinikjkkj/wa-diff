@@ -211,7 +211,12 @@ __d(
     function g(e) {
       var t,
         n = e.surfaceId;
-      if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
+      if (
+        !(
+          n !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP &&
+          n !== o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME
+        )
+      ) {
         var a = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
         if (a != null) {
           var i = o("WAWebApiParse").parseAPICmd(a);
@@ -219,17 +224,36 @@ __d(
             return {
               type: "bizBroadcastHome",
               onPrimaryClick: function () {
-                r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 });
+                (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
+                  n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
+                    b(
+                      n,
+                      e.id,
+                      o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
+                    ));
               },
               onImpression: function () {
-                o(
+                (o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.qpBannerViewed();
+                ).BusinessBroadcastUserJourneyLogger.qpBannerViewed(),
+                  n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
+                    b(
+                      n,
+                      e.id,
+                      o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
+                    ));
               },
               onDismiss: function () {
-                o(
+                (o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.qpBannerDismissed();
+                ).BusinessBroadcastUserJourneyLogger.qpBannerDismissed(),
+                  n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
+                    b(
+                      n,
+                      e.id,
+                      o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS
+                        .DISMISS,
+                    ));
               },
             };
         }

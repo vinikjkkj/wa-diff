@@ -9,7 +9,7 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebAddOnsUpdateSendStatesAction",
-    "WAWebAddonSendMsgData",
+    "WAWebAddonSendProcess",
     "WAWebAfterReadUtils",
     "WAWebBackendErrors",
     "WAWebBlocklistCollection",
@@ -188,7 +188,7 @@ __d(
               .then(function () {
                 return e.type === "message"
                   ? S(e.data, a)
-                  : o("WAWebAddonSendMsgData").sendAddonProcess(e.data, a);
+                  : o("WAWebAddonSendProcess").sendAddonProcess(e.data, a);
               })
               .then(
                 (function () {

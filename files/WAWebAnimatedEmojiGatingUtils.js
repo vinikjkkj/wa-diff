@@ -6,11 +6,6 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("animated_emojis_enabled");
     }
     function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "animated_emoji_set_1_enabled",
-      );
-    }
-    function u() {
       return (
         !r("gkx")("26258") &&
         o("WAWebABProps").getABPropConfigValue(
@@ -18,7 +13,7 @@ __d(
         )
       );
     }
-    function c() {
+    function u() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "animated_soccer_ball_prod_enabled",
@@ -28,16 +23,9 @@ __d(
         )
       );
     }
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "animated_soccer_ball_prod_enabled",
-      );
-    }
     ((l.isAnimatedEmojiEnabled = e),
-      (l.isAnimatedEmojiSet1Enabled = s),
-      (l.isAnimatedEmojiFinalSetEnabled = u),
-      (l.isAnimatedEmojiSoccerBallEnabled = c),
-      (l.isAnimatedEmojiSoccerBallProdEnabled = d));
+      (l.isAnimatedEmojiFinalSetEnabled = s),
+      (l.isAnimatedEmojiSoccerBallEnabled = u));
   },
   98,
 );

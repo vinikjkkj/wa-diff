@@ -4,40 +4,42 @@ __d(
     "Promise",
     "WABatcher",
     "WALogger",
-    "WAWebMemberLabelUtils",
     "WAWebSchemaMemberLabel",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
-    function c(e) {
+    var e,
+      s,
+      u,
+      c = 3e3;
+    function d(e) {
       return new Map(e);
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       var r = e.memberLabelMap.get(t);
       return r != null && r.lastEditTimestamp > n.lastEditTimestamp;
     }
-    function m(e) {
+    function p(e) {
       var t = e.chatId,
         n = e.member,
         r = e.memberLabel,
         o = e.prevRecord;
       if (!o) return { chatId: t, memberLabelMap: new Map([[n, r]]) };
-      var a = c(o.memberLabelMap);
-      return d(o, n, r)
+      var a = d(o.memberLabelMap);
+      return m(o, n, r)
         ? o
         : (a.set(n, r), babelHelpers.extends({}, o, { memberLabelMap: a }));
     }
-    function p(e) {
+    function _(e) {
       var t = e.member,
         n = e.prevRecord,
-        r = c(n.memberLabelMap);
+        r = d(n.memberLabelMap);
       return (r.delete(t), babelHelpers.extends({}, n, { memberLabelMap: r }));
     }
-    var _ = (function () {
+    var f = (function () {
       return o("WABatcher").batch(
-        { delayMs: o("WAWebMemberLabelUtils").getBatchDelayMs() },
+        { delayMs: c },
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var r = Array.from(
@@ -56,14 +58,14 @@ __d(
               l = [];
             for (var c of t) {
               var d = c.data,
-                _ = c.type,
+                m = c.type,
                 f = d.chatId,
                 g = d.member,
                 h = d.memberLabel,
                 y = i.get(f),
                 C = null,
                 b = !1;
-              switch (_) {
+              switch (m) {
                 case "UPSERT": {
                   if (h == null) {
                     (o("WALogger").LOG(
@@ -75,7 +77,7 @@ __d(
                       l.push(null));
                     continue;
                   }
-                  ((C = m({
+                  ((C = p({
                     chatId: f,
                     member: g,
                     memberLabel: h,
@@ -97,7 +99,7 @@ __d(
                       l.push(null));
                     continue;
                   }
-                  ((C = p({ prevRecord: y, member: g })), (b = !0));
+                  ((C = _({ prevRecord: y, member: g })), (b = !0));
                   break;
                 }
               }
@@ -126,7 +128,7 @@ __d(
         })(),
       );
     })();
-    l.updateMemberLabelsBatched = _;
+    l.updateMemberLabelsBatched = f;
   },
   98,
 );

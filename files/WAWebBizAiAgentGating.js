@@ -62,6 +62,12 @@ __d(
         ) === !0
       );
     }
+    function b() {
+      return (
+        o("WAWebABProps").getABPropConfigValue("biz_ai_web_gdrive_enabled") ===
+        !0
+      );
+    }
     ((l.isAiAgentAutoReplyEnabled = e),
       (l.isAiBulkThreadControlEnabled = s),
       (l.isAiHubTapCtaShowAlertEnabled = u),
@@ -74,7 +80,8 @@ __d(
       (l.MULTI_WEBSITE_DYNAMIC = g),
       (l.getMultiWebsiteMode = h),
       (l.isMaibaWASSReceivingEnabled = y),
-      (l.isMaibaWASSSendingEnabled = C));
+      (l.isMaibaWASSSendingEnabled = C),
+      (l.isGoogleDriveKnowledgeUiEnabled = b));
   },
   98,
 );

@@ -20,6 +20,7 @@ __d(
     "WAWebCommunityHomeActionWamEvent",
     "WAWebCommunityTabActionWamEvent",
     "WAWebContactCollection",
+    "WAWebContactCollectionUtils",
     "WAWebContactManagementGating",
     "WAWebCurrentUser",
     "WAWebDailyAggregatedStatsCollection",
@@ -923,9 +924,10 @@ __d(
             t = o("WAStorageEstimator").estimateStorage(),
             a = o("WAWebMediaStore").LruMediaStore.count(),
             i = r("WAWebLidAwareContactsDB").count(),
-            l = o(
-              "WAWebContactCollection",
-            ).ContactCollection.getFilteredContacts({}).length,
+            l = o("WAWebContactCollectionUtils").getFilteredContacts(
+              o("WAWebContactCollection").ContactCollection,
+              {},
+            ).length,
             s = yield (g || (g = n("Promise"))).all([t, e, a, i]),
             u = s[0],
             c = s[1],

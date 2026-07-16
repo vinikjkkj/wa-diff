@@ -21,16 +21,21 @@ __d(
               (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
               r("gkx")("15342") &&
               r("justknobx")._("566"),
-            i;
+            i =
+              (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+              r("gkx")("10092") &&
+              r("justknobx")._("3838"),
+            l;
           return (
             n("cr:7329") &&
-            (t
+            ((t
               ? o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed()
-              : o("GHLDetectionUtils").isJSONParseShimmed())
-              ? (i = n("cr:7329").parse(a))
-              : (i = JSON.parse(a)),
-            i != null && o("GHLTypenameRestore").restoreAllTypenames(i, a),
-            i
+              : o("GHLDetectionUtils").isJSONParseShimmed()) ||
+              (i && o("GHLDetectionUtils").isJSONParseBehaviorallyShimmed()))
+              ? (l = n("cr:7329").parse(a))
+              : (l = JSON.parse(a)),
+            l != null && o("GHLTypenameRestore").restoreAllTypenames(l, a),
+            l
           );
         },
       },

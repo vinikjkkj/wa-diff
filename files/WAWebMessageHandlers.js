@@ -51,7 +51,7 @@ __d(
         m = s._(
           /*BTDS*/ "Wait until this message is fully delivered before forwarding.",
         );
-      else if (_) m = s._(/*BTDS*/ "Unable to forward unsent message.");
+      else if (_) m = s._(/*BTDS*/ "Couldn't forward unsent message.");
       else if (p)
         m = s._(
           /*BTDS*/ '_j{"*":"Wait until the messages finish sending and displays a checkmark before forwarding.","_1":"Wait until the message finishes sending and displays a checkmark before forwarding."}',

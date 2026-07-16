@@ -10,7 +10,6 @@ __d(
     "WAWebApiDeviceList",
     "WAWebBotUtils",
     "WAWebBroadcastInvalidChannelsContextSourceMessageDropWamEvent",
-    "WAWebCTWAGatingUtils",
     "WAWebE2EProtoUtils",
     "WAWebGetMessageCache",
     "WAWebHandleMessageTypes.flow",
@@ -300,9 +299,9 @@ __d(
         !o("WAWebMobilePlatforms").isSMB() &&
         !o("WAWebMsgGetters").getIsSentByMe(t) &&
         r != null &&
-        o(
-          "WAWebCTWAGatingUtils",
-        ).suppressMessageWithExternalAdReplyConsumerEnabled()
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_suppress_message_with_external_ad_reply_consumer_db_level_enabled",
+        )
       )
         throw new (o("WAWebHandleMsgError").MessageValidationError)(
           "This is a spam message sent to consumer number with externalAdReply",

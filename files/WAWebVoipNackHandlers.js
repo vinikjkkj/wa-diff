@@ -171,7 +171,7 @@ __d(
                     /*BTDS*/ "Each group can only have one ongoing call at a time.",
                   ),
                   r("WAWebNoop"),
-                  s._(/*BTDS*/ "Call Failed"),
+                  s._(/*BTDS*/ "Couldn't start call"),
                 ));
               break;
             case b.NackGroupCallNotEnabled: {

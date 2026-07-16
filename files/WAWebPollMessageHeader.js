@@ -4,7 +4,7 @@ __d(
     "fbt",
     "WAWebEmojiText.react",
     "WAWebExpandableText.react",
-    "WAWebFormatConfiguration",
+    "WAWebFormatConfigurationConversation",
     "WAWebFrontendMsgGetters",
     "WAWebIcCheckCircleFilledIcon.react",
     "WAWebL10N",
@@ -68,7 +68,7 @@ __d(
       n[6] !== i || n[7] !== l || n[8] !== s || n[9] !== f
         ? ((R = function (t) {
             var e = t.textLimit,
-              n = o("WAWebFormatConfiguration").Conversation({
+              n = o("WAWebFormatConfigurationConversation").Conversation({
                 mentions: l.mentionMap(),
                 groupMentions: l.groupMentionMap(),
                 links: o("WAWebMsgLinks").getLinksFromMsg(l.unsafe(), e),

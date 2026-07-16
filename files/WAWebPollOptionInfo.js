@@ -6,7 +6,7 @@ __d(
     "WAWebFacePile.react",
     "WAWebFlex.react",
     "WAWebFlexItem.react",
-    "WAWebFormatConfiguration",
+    "WAWebFormatConfigurationConversation",
     "WAWebFrontendPollVoteGetters",
     "WAWebL10N",
     "WAWebMsgGetters",
@@ -211,7 +211,7 @@ __d(
         _ = o("WAWebMsgGetters").getIsSentByMe(l),
         f = o("WAWebTextSizeUtils").getWAWebTextSizeStyles().textSize,
         g = o("WAWebPollsGatingUtils").isTappableLinksInPollOptionEnabled(),
-        h = o("WAWebFormatConfiguration").Conversation({
+        h = o("WAWebFormatConfigurationConversation").Conversation({
           links: g
             ? (t = o("WAWebMsgLinks").getPollOptionLinks(l.unsafe(), d)) != null
               ? t

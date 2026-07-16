@@ -10,6 +10,7 @@ __d(
     "WAWebApiChatUnreadMention",
     "WAWebApiGroupInviteV4Store",
     "WAWebBackendApi",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebChatCollection",
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBGroupHistoryPreProcessor",
@@ -29,7 +30,6 @@ __d(
     "WAWebSchemaMessage",
     "WAWebSchemaMessageAssociation",
     "WAWebThreadCommonModelUtils",
-    "WAWebThreadMetadataBulkJob",
     "WAWebThreadMsgUtils",
     "WAWebUnreadMentionModel",
     "WAWebUserPrefsBot",
@@ -194,9 +194,9 @@ __d(
               "WAWebThreadCommonModelUtils",
             ).getAggregatedThreadDetailUpdatesFromMessages(y);
             (b.push(
-              o("WAWebThreadMetadataBulkJob").bulkCreateOrUpdateThreadsMetadata(
-                v,
-              ),
+              o(
+                "WAWebBulkCreateOrUpdateThreadsMetadata",
+              ).bulkCreateOrUpdateThreadsMetadata(v),
             ),
               v.some(
                 o("WAWebThreadCommonModelUtils")

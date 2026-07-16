@@ -18,7 +18,7 @@ __d(
         return (
           e === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
           n === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
-          o("WAWebMsgGetters").getIsSentByMe(t)
+          o("WAWebMsgGetters").getIsSentByMe(t.unsafe())
         );
       },
       u = function (n, r) {

@@ -10,8 +10,8 @@ __d(
     "WAWebFileUtils",
     "WAWebGetMetaAiImagineEventContext",
     "WAWebHatchGating",
-    "WAWebImagineActionLogger",
     "WAWebL10nFilesize",
+    "WAWebLogImagineAction",
     "WAWebMediaEditorEnumsThemes",
     "WAWebMediaFileTooLargeError",
     "WAWebMediaGatingUtils",
@@ -605,7 +605,7 @@ __d(
             );
           });
           n !== 0 &&
-            o("WAWebImagineActionLogger").logImagineAction({
+            o("WAWebLogImagineAction").logImagineAction({
               action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
                 .MEDIA_SIZE_EXCEED_LIMIT,
               mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE

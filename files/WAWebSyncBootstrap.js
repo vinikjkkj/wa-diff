@@ -18,6 +18,7 @@ __d(
     "WAWebClientFeatureFlags",
     "WAWebCoreActionsODS",
     "WAWebDbEncryptionKey",
+    "WAWebFetchAndUpdateBlocklistJob",
     "WAWebForceFlushWamBuffers",
     "WAWebGetUsernameQueryJob",
     "WAWebHandleAccountSyncNotification",
@@ -33,7 +34,6 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebProtobufsHistorySync.pb",
     "WAWebQueryAndUpdateGroupMetadataJob",
-    "WAWebQueryBlockListJob",
     "WAWebSchemaHistorySyncNotification",
     "WAWebSocketLogoutJob",
     "WAWebSyncContactJob",
@@ -384,7 +384,9 @@ __d(
                       sampling: 0.01,
                     });
                 }),
-              o("WAWebQueryBlockListJob").fetchAndUpdateBlocklist("bootstrap"),
+              o("WAWebFetchAndUpdateBlocklistJob").fetchAndUpdateBlocklist(
+                "bootstrap",
+              ),
               o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                 "updateOptOutList",
               ),

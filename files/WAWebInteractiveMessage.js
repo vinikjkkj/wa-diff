@@ -42,6 +42,7 @@ __d(
         h = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
           m,
           g == null ? void 0 : g.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(g),
         ),
         y = r("WAWebGetInteractiveActions")({
           msg: a,

@@ -30,6 +30,7 @@ __d(
         case o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP:
           return o("WAWebWamEnumBannerTypes").BANNER_TYPES
             .SMB_CHAT_LIST_QP_BANNER;
+        case o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME:
         case o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD:
           return o("WAWebWamEnumBannerTypes").BANNER_TYPES
             .SMB_BUSINESS_HOME_BANNER;

@@ -93,6 +93,7 @@ __d(
         d = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
           u,
           i == null ? void 0 : i.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(i),
         );
       if (
         a.nativeFlowName ===

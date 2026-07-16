@@ -2,12 +2,15 @@ __d(
   "WAWebSmbMarkAsXLabelAction",
   [
     "WASmaxInBizSettingsEnums",
+    "WATimeUtils",
     "WAWebCTWAConstants",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
     "WAWebChatModel",
     "WAWebChatThreadLogging",
     "WAWebCommonCTWADataSharing",
+    "WAWebConversionTupleCollection",
+    "WAWebConversionTupleModel",
     "WAWebCtwaConversationDepthUtils",
     "WAWebCtwaLabelSignalWamEvent",
     "WAWebLabelCollection",
@@ -76,68 +79,80 @@ __d(
         ) &&
         !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
       ) {
-        var s = (i = e.accountLid) == null ? void 0 : i.toString(),
-          u = o(
-            "WAWebPerCustomerDataSharingUtils",
-          ).getCustomerAdsDataSharingState(s),
-          c = o("WAWebCtwaConversationDepthUtils").getCtwaConversationDepth(e);
-        o("WAWebChatThreadLogging")
-          .getChatThreadIDHMAC(e.id.toString())
-          .then(function (e) {
-            (t &&
-              t.length !== 0 &&
-              t.forEach(function (t) {
-                var r = d(t),
-                  a = JSON.stringify(r),
-                  i = babelHelpers.extends(
-                    {
-                      ctwaConversationDepth: c,
-                      ctwaLabelSignalVersion: 1,
-                      ctwaLabelTarget: o("WAWebWamEnumCtwaLabelTarget")
-                        .CTWA_LABEL_TARGET.CHAT,
-                      ctwaLabelType: t,
-                      ctwaSignalMetadata: a,
-                      deepLinkConversionSource: l.source,
-                    },
-                    m(n),
-                    {
-                      customerAdsSharingSettingEnabled: u,
-                      threadIdHmac: e != null ? e : void 0,
-                    },
-                  );
-                new (o("WAWebCtwaLabelSignalWamEvent").CtwaLabelSignalWamEvent)(
-                  i,
-                ).commit();
-              }),
-              a &&
-                a.length !== 0 &&
-                a.forEach(function (t) {
-                  var r = t.ctwa_3pd_conversion_subtype;
-                  if (r) {
-                    var a = babelHelpers.extends(
+        var s = r("WAWebConversionTupleCollection").get(e.id);
+        if (
+          !(
+            s != null &&
+            o("WATimeUtils").unixTime() - s.timestamp >
+              o("WAWebConversionTupleModel").ConversionTupleExpiry &&
+            o("WAWebCTWAGatingUtils").isCtwaConversionCreationFromDelayEnabled()
+          )
+        ) {
+          var u = (i = e.accountLid) == null ? void 0 : i.toString(),
+            c = o(
+              "WAWebPerCustomerDataSharingUtils",
+            ).getCustomerAdsDataSharingState(u),
+            p = o("WAWebCtwaConversationDepthUtils").getCtwaConversationDepth(
+              e,
+            );
+          o("WAWebChatThreadLogging")
+            .getChatThreadIDHMAC(e.id.toString())
+            .then(function (e) {
+              (t &&
+                t.length !== 0 &&
+                t.forEach(function (t) {
+                  var r = d(t),
+                    a = JSON.stringify(r),
+                    i = babelHelpers.extends(
                       {
-                        ctwaConversationDepth: c,
+                        ctwaConversationDepth: p,
                         ctwaLabelSignalVersion: 1,
                         ctwaLabelTarget: o("WAWebWamEnumCtwaLabelTarget")
                           .CTWA_LABEL_TARGET.CHAT,
-                        ctwaLabelType: o(
-                          "WAWebLabelConstants",
-                        ).mapCustomLabelSubtypeToCTWALabelType(r),
-                        ctwaSignalMetadata: t.ctwa_3pd_conversion_metadata,
+                        ctwaLabelType: t,
+                        ctwaSignalMetadata: a,
                         deepLinkConversionSource: l.source,
                       },
                       m(n),
                       {
-                        customerAdsSharingSettingEnabled: u,
+                        customerAdsSharingSettingEnabled: c,
                         threadIdHmac: e != null ? e : void 0,
                       },
                     );
-                    new (o(
-                      "WAWebCtwaLabelSignalWamEvent",
-                    ).CtwaLabelSignalWamEvent)(a).commit();
-                  }
-                }));
-          });
+                  new (o(
+                    "WAWebCtwaLabelSignalWamEvent",
+                  ).CtwaLabelSignalWamEvent)(i).commit();
+                }),
+                a &&
+                  a.length !== 0 &&
+                  a.forEach(function (t) {
+                    var r = t.ctwa_3pd_conversion_subtype;
+                    if (r) {
+                      var a = babelHelpers.extends(
+                        {
+                          ctwaConversationDepth: p,
+                          ctwaLabelSignalVersion: 1,
+                          ctwaLabelTarget: o("WAWebWamEnumCtwaLabelTarget")
+                            .CTWA_LABEL_TARGET.CHAT,
+                          ctwaLabelType: o(
+                            "WAWebLabelConstants",
+                          ).mapCustomLabelSubtypeToCTWALabelType(r),
+                          ctwaSignalMetadata: t.ctwa_3pd_conversion_metadata,
+                          deepLinkConversionSource: l.source,
+                        },
+                        m(n),
+                        {
+                          customerAdsSharingSettingEnabled: c,
+                          threadIdHmac: e != null ? e : void 0,
+                        },
+                      );
+                      new (o(
+                        "WAWebCtwaLabelSignalWamEvent",
+                      ).CtwaLabelSignalWamEvent)(a).commit();
+                    }
+                  }));
+            });
+        }
       }
     }
     function _(e, t, n) {

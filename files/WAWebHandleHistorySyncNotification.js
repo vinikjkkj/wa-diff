@@ -6,6 +6,7 @@ __d(
     "WAWebABProps",
     "WAWebApiHistorySyncNotification",
     "WAWebDownloadManager",
+    "WAWebGetHistorySyncMetrics",
     "WAWebGetMetricHistorySyncPayloadType",
     "WAWebHandleHistorySyncChunk",
     "WAWebHandleHistorySyncMessageAccessStatusChange",
@@ -362,7 +363,7 @@ __d(
                     var A = I.chunkOrder != null && I.chunkOrder <= v;
                     if (A) {
                       var F = yield o(
-                          "WAWebHistorySyncNotificationUtils",
+                          "WAWebGetHistorySyncMetrics",
                         ).getHistorySyncMetrics(I, !0),
                         O = F.historySyncDownloadedMetric,
                         B = F.historySyncStartDownloadingMetric,

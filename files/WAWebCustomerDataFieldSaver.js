@@ -3,10 +3,10 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebContactManagerApplyLeadLabelAction",
     "WAWebContactType",
     "WAWebCustomerDataAction",
     "WAWebCustomerDataCollection",
-    "WAWebCustomerManagerApplyLeadLabelAction",
     "WAWebLeadStage",
     "asyncToGeneratorRuntime",
     "err",
@@ -56,14 +56,14 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (!e.endsWith(o("WAJids").LID_DOMAIN))
             throw r("err")(
-              '[CustomerManager] upsertAsCustomer: chatJid must be LID-based, got "' +
+              '[ContactManager] upsertAsCustomer: chatJid must be LID-based, got "' +
                 e +
                 '"',
             );
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[CustomerManager] upsertAsCustomer: chatJid ",
+                "[ContactManager] upsertAsCustomer: chatJid ",
                 ", leadStage ",
                 "",
               ])),
@@ -84,14 +84,14 @@ __d(
               n,
             ),
           ),
-            o("WAWebCustomerManagerApplyLeadLabelAction")
-              .customerManagerApplyLeadLabelToChat(e)
+            o("WAWebContactManagerApplyLeadLabelAction")
+              .contactManagerApplyLeadLabelToChat(e)
               .catch(function (e) {
                 o("WALogger")
                   .WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[CustomerManager] Failed to auto-apply Lead label: ",
+                        "[ContactManager] Failed to auto-apply Lead label: ",
                         "",
                       ])),
                     String(e),
@@ -105,14 +105,14 @@ __d(
     function f(t) {
       if (!t.endsWith(o("WAJids").LID_DOMAIN))
         throw r("err")(
-          '[CustomerManager] deactivateCustomer: chatJid must be LID-based, got "' +
+          '[ContactManager] deactivateCustomer: chatJid must be LID-based, got "' +
             t +
             '"',
         );
       o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
-            "[CustomerManager] deactivateCustomer: chatJid ",
+            "[ContactManager] deactivateCustomer: chatJid ",
             "",
           ])),
         t,
@@ -129,7 +129,7 @@ __d(
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[CustomerManager] Failed to deactivate customer: ",
+                  "[ContactManager] Failed to deactivate customer: ",
                   "",
                 ])),
               String(e),

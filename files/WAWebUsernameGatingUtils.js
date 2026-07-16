@@ -58,31 +58,26 @@ __d(
       );
     }
     function b() {
-      return !!o("WAWebABProps").getABPropConfigValue(
-        "username_exposed_logging_enabled",
-      );
-    }
-    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_characters",
       );
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_numbers",
       );
     }
-    function R() {
+    function S() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_engagement_network_impact_logging",
       );
     }
-    function L() {
+    function R() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
-    function E() {
+    function L() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_prevent_pn_populate_new_contact_creation",
       );
@@ -99,12 +94,11 @@ __d(
       (l.usernameGroupMutationEnabled = h),
       (l.usernameContactUiVcardEnabled = y),
       (l.usernameGlobalSearchEnabled = C),
-      (l.usernameExposedLoggingEnabled = b),
-      (l.usernameKeyUpsellMaxCharacters = v),
-      (l.usernameKeyUpsellMaxNumbers = S),
-      (l.usernameEngagementNetworkImpactLoggingEnabled = R),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = L),
-      (l.usernamePreventPnPopulateNewContactCreationEnabled = E));
+      (l.usernameKeyUpsellMaxCharacters = b),
+      (l.usernameKeyUpsellMaxNumbers = v),
+      (l.usernameEngagementNetworkImpactLoggingEnabled = S),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = R),
+      (l.usernamePreventPnPopulateNewContactCreationEnabled = L));
   },
   98,
 );

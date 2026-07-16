@@ -30,7 +30,7 @@ __d(
       d = { seeRule: { color: "x1v5yvga", cursor: "x1ypdohk", $$css: !0 } };
     function m() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Failed to request review");
+        t = s._(/*BTDS*/ "Couldn't request review");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );

@@ -7,10 +7,9 @@ __d(
     "WAWebCallLinkJoinedNotification",
     "WAWebCommentNotification",
     "WAWebMsgGetters",
+    "WAWebMsgNotification",
     "WAWebNotificationController",
     "WAWebNotificationsDeviceSwitchNotification",
-    "WAWebNotificationsMsgNotification",
-    "WAWebNotificationsNewsletterMilestoneNotification",
     "WAWebNotificationsReactionNotification",
     "WAWebNotificationsStatusReactionNotification",
     "WAWebPollsVoteNotification",
@@ -24,21 +23,10 @@ __d(
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
-        new (o("WAWebNotificationsMsgNotification").WAMsgNotification)({
-          msg: e,
-        }),
+        new (o("WAWebMsgNotification").WAMsgNotification)({ msg: e }),
       );
     }
     function u(e) {
-      return o(
-        "WAWebNotificationController",
-      ).WANotificationController.triggerNotification(
-        new (o(
-          "WAWebNotificationsNewsletterMilestoneNotification",
-        ).WANewsletterMilestoneNotification)(e),
-      );
-    }
-    function c(e) {
       return o("WAWebMsgGetters").getIsStatus(e)
         ? o(
             "WAWebNotificationController",
@@ -55,7 +43,7 @@ __d(
             ).WAReactionNotification)({ reactionMsg: e }),
           );
     }
-    function d(e) {
+    function c(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -64,14 +52,14 @@ __d(
         }),
       );
     }
-    function m(e) {
+    function d(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.closeOrCancelNotification(
         "comment:" + e.toString(),
       );
     }
-    function p(t) {
+    function m(t) {
       var r = new (o("WAWebPollsVoteNotification").PollVoteNotification)({
           creationMsg: t,
         }),
@@ -86,7 +74,7 @@ __d(
             "WAWebNotificationController",
           ).WANotificationController.triggerNotification(r);
     }
-    function _(e) {
+    function p(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -95,7 +83,7 @@ __d(
         ).WADeviceSwitchNotification)(e),
       );
     }
-    function f(e) {
+    function _(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -104,7 +92,7 @@ __d(
         ).WACallAcceptedElsewhereNotification)(e),
       );
     }
-    function g(e) {
+    function f(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -113,14 +101,14 @@ __d(
         ),
       );
     }
-    function h(e) {
+    function g(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
         new (o("WAWebWaitingRoomNotification").WAWaitingRoomNotification)(e),
       );
     }
-    function y(e) {
+    function h(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -129,7 +117,7 @@ __d(
         ),
       );
     }
-    function C(e) {
+    function y(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
@@ -138,44 +126,43 @@ __d(
         }),
       );
     }
-    function b() {
+    function C() {
       o(
         "WAWebNotificationController",
       ).WANotificationController.closeOrCancelAllNotifications();
     }
-    function v(e) {
+    function b(e) {
       o(
         "WAWebNotificationController",
       ).WANotificationController.closeOrCancelNotificationsForChat(e);
     }
-    function S(e) {
+    function v(e) {
       return o(
         "WAWebNotificationController",
       ).WANotificationController.triggerNotification(
         new (o("WAWebStatusNotification").WAStatusNotification)({ msg: e }),
       );
     }
-    function R(e) {
+    function S(e) {
       o("WAWebNotificationController").WANotificationController.setAppContext(
         e,
       );
     }
     ((l.showMsgNotification = s),
-      (l.showNewsletterMilestoneNotification = u),
-      (l.showReactionNotification = c),
-      (l.showCommentNotification = d),
-      (l.removeCommentNotification = m),
-      (l.showPollVoteNotification = p),
-      (l.showDeviceSwitchNotification = _),
-      (l.showCallAcceptedElsewhereNotification = f),
-      (l.showCallLinkJoinedNotification = g),
-      (l.showWaitingRoomNotification = h),
-      (l.showVoiceChatWaveNotification = y),
-      (l.showAiHandoffNotification = C),
-      (l.shutdownAsNeeded = b),
-      (l.closeNotifications = v),
-      (l.showStatusNotification = S),
-      (l.setAppContext = R));
+      (l.showReactionNotification = u),
+      (l.showCommentNotification = c),
+      (l.removeCommentNotification = d),
+      (l.showPollVoteNotification = m),
+      (l.showDeviceSwitchNotification = p),
+      (l.showCallAcceptedElsewhereNotification = _),
+      (l.showCallLinkJoinedNotification = f),
+      (l.showWaitingRoomNotification = g),
+      (l.showVoiceChatWaveNotification = h),
+      (l.showAiHandoffNotification = y),
+      (l.shutdownAsNeeded = C),
+      (l.closeNotifications = b),
+      (l.showStatusNotification = v),
+      (l.setAppContext = S));
   },
   98,
 );

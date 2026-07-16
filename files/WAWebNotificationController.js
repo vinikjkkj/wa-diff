@@ -6,6 +6,7 @@ __d(
     "WAWebCmd",
     "WAWebEnvironment",
     "WAWebFrontendMsgGetters",
+    "WAWebMsgNotification",
     "WAWebNotificationsMsgNotification",
     "asyncToGeneratorRuntime",
     "cr:4692",
@@ -86,8 +87,7 @@ __d(
                       o(
                         "WAWebNotificationsMsgNotification",
                       ).shouldReplaceMsgNotificationManually() &&
-                      e instanceof
-                        o("WAWebNotificationsMsgNotification").WAMsgNotification
+                      e instanceof o("WAWebMsgNotification").WAMsgNotification
                     ) {
                       var l = o("WAWebFrontendMsgGetters")
                           .getChat(e.msg)

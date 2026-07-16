@@ -3,24 +3,15 @@ __d(
   [
     "fbt",
     "$InternalEnum",
-    "WALogger",
     "WAWebCellV2.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
     "WAWebFlex.react",
-    "WAWebFrontendMsgGetters",
     "WAWebGoogleLensIcon.react",
     "WAWebHfmTextSearchCompleteWamEvent",
-    "WAWebMediaInMemoryBlobCache",
-    "WAWebMiscErrors",
     "WAWebModalManager",
-    "WAWebMsgActionCapability",
-    "WAWebMsgLinks",
-    "WAWebMsgType",
     "WAWebNetworkStatus",
     "WAWebSTWGatingUtils",
-    "WAWebSTWImage",
-    "WAWebSTWText",
     "WAWebSearchTextIcon.react",
     "WAWebSearchTheWebEventLogger",
     "WAWebSpinner.react",
@@ -31,17 +22,15 @@ __d(
     "WAWebWamEnumStwInteraction",
     "WDSIconIcInfo.react",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
     "react",
     "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u,
-      c = u || (u = o("react")),
-      d = u.useState,
-      m = {
+      u = e || (e = o("react")),
+      c = e.useState,
+      d = {
         paddingEnd4: { paddingInlineEnd: "x1uc92m", $$css: !0 },
         paddingVert4: {
           paddingTop: "x1tiyuxx",
@@ -49,164 +38,36 @@ __d(
           $$css: !0,
         },
       },
-      p = n("$InternalEnum").Mirrored(["TEXT", "URL", "IMAGE"]),
-      _ = 24,
-      f = 24;
-    function g() {
+      m = n("$InternalEnum").Mirrored(["TEXT", "URL", "IMAGE"]),
+      p = 24,
+      _ = 24;
+    function f() {
       return s._(/*BTDS*/ "Check your internet connection and try again.");
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h() {
-      return s._(/*BTDS*/ "Something went wrong. Try again.");
-    }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(e) {
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e) {
       var t = o("WAWebToast.react").genId();
       o("WAWebToastManager").ToastManager.open(
-        c.jsx(o("WAWebToast.react").Toast, { msg: e, id: t }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: e, id: t }),
       );
     }
-    function C(t) {
-      var a = o("WAWebFrontendMsgGetters").getText(t),
-        i = o("WAWebMsgLinks").getLinksFromMsg(t),
-        l = new Map();
-      if (
-        i.length > 0 &&
-        o("WAWebSTWGatingUtils").isSearchTheWebURLSearchEnabled()
-      ) {
-        var s = i[0].href;
-        l.set(p.URL, {
-          handleSearchAction: function (t) {
-            (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
-              o("WAWebExternalLink.react").openExternalLink(
-                o("WAWebSTWText").createUrlSearchLink(s),
-              ));
-          },
-        });
-      }
-      if (
-        t.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
-        o("WAWebMsgActionCapability").canWamoSubMsgBeSharedByUser(
-          t.unsafe(),
-          o("WAWebFrontendMsgGetters").getChat(t),
-        )
-      ) {
-        var u,
-          c = (u = t.mediaObject) == null ? void 0 : u.filehash;
-        if (
-          c != null &&
-          o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(c)
-        ) {
-          var d = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-            c,
-          );
-          d != null &&
-            l.set(p.IMAGE, {
-              handleSearchAction: function (a) {
-                o("WAWebSearchTheWebEventLogger").logSTWEvent(a);
-                function t(e) {
-                  return i.apply(this, arguments);
-                }
-                function i() {
-                  return (
-                    (i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        try {
-                          if (!r("WAWebNetworkStatus").online)
-                            throw (
-                              y(g()),
-                              new (o("WAWebMiscErrors").GoogleLensApiError)(
-                                o("WAWebSTWImage").LensApiErrorType
-                                  .NO_INTERNET_CONNECTION,
-                              )
-                            );
-                          var n = yield o("WAWebSTWImage").getImageSearchUrl(t);
-                          if (n == null)
-                            throw new (o("WAWebMiscErrors").GoogleLensApiError)(
-                              o("WAWebSTWImage").LensApiErrorType
-                                .NO_REDIRECT_URL,
-                            );
-                          if (n.includes("consent"))
-                            throw new (o("WAWebMiscErrors").GoogleLensApiError)(
-                              o("WAWebSTWImage").LensApiErrorType
-                                .CONSENT_FORM_IN_URL,
-                            );
-                          ((a.stwInteraction = o(
-                            "WAWebWamEnumStwInteraction",
-                          ).STW_INTERACTION.IMAGE_SEARCH_REDIRECT),
-                            o("WAWebSearchTheWebEventLogger").logSTWEvent(a),
-                            o("WAWebExternalLink.react").openExternalLink(n));
-                        } catch (t) {
-                          ((a.stwInteraction = o(
-                            "WAWebWamEnumStwInteraction",
-                          ).STW_INTERACTION.IMAGE_SEARCH_FAILED),
-                            (a.stwLensApiErrorType = o(
-                              "WAWebSTWImage",
-                            ).getImageSearchWamErrorType(r("getErrorSafe")(t))),
-                            o("WAWebSearchTheWebEventLogger").logSTWEvent(a),
-                            y(h()),
-                            o("WALogger")
-                              .ERROR(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "Error while running image seach on web",
-                                  ])),
-                              )
-                              .tags("STW"));
-                        }
-                      },
-                    )),
-                    i.apply(this, arguments)
-                  );
-                }
-                return t(d);
-              },
-            });
-        }
-      }
-      return (
-        a != null &&
-          o("WAWebSTWGatingUtils").isSearchTheWebTextSearchEnabled() &&
-          b(a, i) &&
-          l.set(p.TEXT, {
-            handleSearchAction: function (t) {
-              (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
-                o("WAWebExternalLink.react").openExternalLink(
-                  o("WAWebSTWText").createTextSearchLink(a),
-                ));
-            },
-          }),
-        l
-      );
-    }
-    function b(e, t) {
-      if (t.length === 0) return !0;
-      var n = e;
-      return (
-        t.forEach(function (t) {
-          var r = t.href;
-          n = e.replace(r, "");
-        }),
-        n.trim() !== ""
-      );
-    }
-    function v() {
+    function h() {
       return s._(/*BTDS*/ "Get more info about this message.");
     }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S() {
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y() {
       return s._(/*BTDS*/ "Search on web");
     }
-    S.displayName = S.name + " [from " + i.id + "]";
-    function R() {
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C() {
       return s._(/*BTDS*/ "Search on web");
     }
-    R.displayName = R.name + " [from " + i.id + "]";
-    function L() {
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b() {
       return s._(/*BTDS*/ "Search");
     }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(e) {
       var t = e.entryPoint,
         n = e.isNewsletter,
         r = e.messageType,
@@ -226,7 +87,7 @@ __d(
             [
               s._implicitParam(
                 "=m2",
-                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                u.jsx(o("WAWebExternalLink.react").ExternalLink, {
                   href: o("WAWebFaqUrl").getSearchTheWebFaqUrl(),
                   onClick: i,
                   children: s._(/*BTDS*/ "Learn more"),
@@ -239,7 +100,7 @@ __d(
             [
               s._implicitParam(
                 "=m2",
-                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                u.jsx(o("WAWebExternalLink.react").ExternalLink, {
                   href: o("WAWebFaqUrl").getSearchTheWebFaqUrl(),
                   onClick: i,
                   children: s._(/*BTDS*/ "Learn more"),
@@ -248,34 +109,34 @@ __d(
             ],
           );
     }
-    function k() {
+    function S() {
       return s._(/*BTDS*/ "This message will not be shared with WhatsApp.");
     }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I(e) {
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R(e) {
       switch (e) {
-        case p.TEXT:
-          return c.jsx(o("WAWebSearchTextIcon.react").SearchTextIcon, {
-            height: _,
-            width: f,
+        case m.TEXT:
+          return u.jsx(o("WAWebSearchTextIcon.react").SearchTextIcon, {
+            height: p,
+            width: _,
           });
-        case p.IMAGE:
-          return c.jsx(o("WAWebGoogleLensIcon.react").GoogleLensIcon, {
-            height: _,
-            width: f,
+        case m.IMAGE:
+          return u.jsx(o("WAWebGoogleLensIcon.react").GoogleLensIcon, {
+            height: p,
+            width: _,
           });
-        case p.URL:
-          return c.jsx(r("WDSIconIcInfo.react"), { height: _, width: f });
+        case m.URL:
+          return u.jsx(r("WDSIconIcInfo.react"), { height: p, width: _ });
       }
     }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T(e) {
+    R.displayName = R.name + " [from " + i.id + "]";
+    function L(e) {
       switch (e) {
-        case p.TEXT:
+        case m.TEXT:
           return s._(/*BTDS*/ "Search for text");
-        case p.IMAGE:
+        case m.IMAGE:
           return s._(/*BTDS*/ "Search for image");
-        case p.URL:
+        case m.URL:
           return o(
             "WAWebSTWGatingUtils",
           ).isSearchTheWebDesignExperimentV1Enabled()
@@ -283,48 +144,48 @@ __d(
             : s._(/*BTDS*/ "More info about link");
       }
     }
-    function D(e) {
+    function E(e) {
       var t = o("react-compiler-runtime").c(18),
         a = e.onSearchClick,
         i = e.searchType,
-        l = d(!1),
+        l = c(!1),
         s = l[0],
-        u = l[1],
+        m = l[1],
         p;
-      t[0] !== i ? ((p = I(i)), (t[0] = i), (t[1] = p)) : (p = t[1]);
-      var _, f;
+      t[0] !== i ? ((p = R(i)), (t[0] = i), (t[1] = p)) : (p = t[1]);
+      var _, h;
       t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = [m.paddingEnd4, m.paddingVert4]),
-          (f = [m.paddingEnd4, m.paddingVert4]),
+        ? ((_ = [d.paddingEnd4, d.paddingVert4]),
+          (h = [d.paddingEnd4, d.paddingVert4]),
           (t[2] = _),
-          (t[3] = f))
-        : ((_ = t[2]), (f = t[3]));
-      var h;
+          (t[3] = h))
+        : ((_ = t[2]), (h = t[3]));
+      var y;
       t[4] !== a
-        ? ((h = (function () {
+        ? ((y = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               r("WAWebNetworkStatus").online
-                ? (u(!0),
+                ? (m(!0),
                   yield a(),
-                  u(!1),
+                  m(!1),
                   new (o(
                     "WAWebHfmTextSearchCompleteWamEvent",
                   ).HfmTextSearchCompleteWamEvent)().commit(),
                   o("WAWebModalManager").ModalManager.close())
-                : y(g());
+                : g(f());
             });
             return function () {
               return e.apply(this, arguments);
             };
           })()),
           (t[4] = a),
-          (t[5] = h))
-        : (h = t[5]);
+          (t[5] = y))
+        : (y = t[5]);
       var C;
-      t[6] !== i ? ((C = T(i)), (t[6] = i), (t[7] = C)) : (C = t[7]);
+      t[6] !== i ? ((C = L(i)), (t[6] = i), (t[7] = C)) : (C = t[7]);
       var b;
       t[8] !== C
-        ? ((b = c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
+        ? ((b = u.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
             color: "primary",
             paddingStart: 12,
             children: C,
@@ -335,7 +196,7 @@ __d(
       var v;
       t[10] !== s
         ? ((v = s
-            ? c.jsx(o("WAWebSpinner.react").Spinner, {
+            ? u.jsx(o("WAWebSpinner.react").Spinner, {
                 size: 20,
                 color: "accent",
               })
@@ -345,17 +206,17 @@ __d(
         : (v = t[11]);
       var S;
       return (
-        t[12] !== s || t[13] !== p || t[14] !== h || t[15] !== b || t[16] !== v
-          ? ((S = c.jsx(o("WAWebFlex.react").FlexItem, {
+        t[12] !== s || t[13] !== p || t[14] !== y || t[15] !== b || t[16] !== v
+          ? ((S = u.jsx(o("WAWebFlex.react").FlexItem, {
               testid: "search-modal-row",
               paddingTop: 8,
               paddingBottom: 8,
-              children: c.jsx(r("WAWebCellV2.react"), {
+              children: u.jsx(r("WAWebCellV2.react"), {
                 detailLeft: p,
                 containerXStyle: _,
-                primaryRightXStyle: f,
+                primaryRightXStyle: h,
                 disabled: s,
-                onClick: h,
+                onClick: y,
                 primary: b,
                 alignDetailRight: "start",
                 primaryRight: v,
@@ -363,7 +224,7 @@ __d(
             })),
             (t[12] = s),
             (t[13] = p),
-            (t[14] = h),
+            (t[14] = y),
             (t[15] = b),
             (t[16] = v),
             (t[17] = S))
@@ -371,40 +232,39 @@ __d(
         S
       );
     }
-    function x(e) {
+    function k(e) {
       var t = Array.from(e.keys());
       if (t.length === 1) {
         var n = t[0];
         switch (n) {
-          case p.TEXT:
+          case m.TEXT:
             return o("WAWebWamEnumStwFormat").STW_FORMAT.SINGLE_TEXT;
-          case p.URL:
+          case m.URL:
             return o("WAWebWamEnumStwFormat").STW_FORMAT.SINGLE_LINK;
-          case p.IMAGE:
+          case m.IMAGE:
             return o("WAWebWamEnumStwFormat").STW_FORMAT.SINGLE_IMAGE;
         }
       } else if (t.length === 2) {
-        if (t.includes(p.URL) && t.includes(p.TEXT))
+        if (t.includes(m.URL) && t.includes(m.TEXT))
           return o("WAWebWamEnumStwFormat").STW_FORMAT.MULTIPLE_LINK_TEXT;
-        if (t.includes(p.URL) && t.includes(p.IMAGE))
+        if (t.includes(m.URL) && t.includes(m.IMAGE))
           return o("WAWebWamEnumStwFormat").STW_FORMAT.MULTIPLE_LINK_IMAGE;
-        if (t.includes(p.TEXT) && t.includes(p.IMAGE))
+        if (t.includes(m.TEXT) && t.includes(m.IMAGE))
           return o("WAWebWamEnumStwFormat").STW_FORMAT.MULTIPLE_IMAGE_TEXT;
       }
       return o("WAWebWamEnumStwFormat").STW_FORMAT.MULTIPLE_LINK_IMAGE_TEXT;
     }
-    ((l.SearchType = p),
-      (l.getNoInternetToastMsg = g),
-      (l.showSearchFailureToast = y),
-      (l.getSupportedSearchOptions = C),
-      (l.getHFMHeaderText = v),
-      (l.getHFMHeaderCTAText = S),
-      (l.getModalTitleText = R),
-      (l.getModalSearchActionText = L),
-      (l.getModalHeaderText = E),
-      (l.getModalHeaderSubtext = k),
-      (l.SearchModalRow = D),
-      (l.getSTWFormat = x));
+    ((l.SearchType = m),
+      (l.getNoInternetToastMsg = f),
+      (l.showSearchFailureToast = g),
+      (l.getHFMHeaderText = h),
+      (l.getHFMHeaderCTAText = y),
+      (l.getModalTitleText = C),
+      (l.getModalSearchActionText = b),
+      (l.getModalHeaderText = v),
+      (l.getModalHeaderSubtext = S),
+      (l.SearchModalRow = E),
+      (l.getSTWFormat = k));
   },
   226,
 );

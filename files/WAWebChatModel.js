@@ -179,6 +179,7 @@ __d(
             (e.colors = o("WAWebBaseModel").session()),
             (e.attachMediaContents = o("WAWebBaseModel").session()),
             (e.draftAttachMediaContentsSortTs = o("WAWebBaseModel").session()),
+            (e.isCameraCaptureDrawerOpen = o("WAWebBaseModel").session(!1)),
             (e.isComposingPoll = o("WAWebBaseModel").session(!1)),
             (e.pttRecordingSession = o("WAWebBaseModel").session()),
             (e.squelch = o("WAWebBaseModel").session()),
@@ -1478,6 +1479,9 @@ __d(
                 ? o("WATimeUtils").unixTime()
                 : null));
           }),
+          (i.setIsCameraCaptureDrawerOpen = function (t) {
+            this.isCameraCaptureDrawerOpen = t;
+          }),
           (i.isComposingWithUnsavedChanges = function () {
             return this.isComposingPoll;
           }),
@@ -2017,23 +2021,6 @@ __d(
                   "WAWebChatProductMsgsCollection",
                 ))()),
               this.productMsgs
-            );
-          }),
-          (i.getStarredMsgs = function () {
-            var e = this,
-              t = this.starredMsgs;
-            return (
-              t ||
-                ((this.starredMsgs = t =
-                  new (o("WAWebStarredMsgCollection").StarredMsgCollection)()),
-                this.starredMsgs.add(
-                  o(
-                    "WAWebStarredMsgCollection",
-                  ).AllStarredMsgsCollection.filter(function (t) {
-                    return o("WAWebFrontendMsgGetters").getChat(t) === e;
-                  }),
-                )),
-              t
             );
           }),
           (i.getKeptMsgs = function () {

@@ -18,6 +18,7 @@ __d(
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDataUtils",
     "WAWebMediaEntry",
+    "WAWebMediaGatherAndSetMetadataNoOpaque",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaLoad",
     "WAWebMediaOpaqueData",
@@ -498,7 +499,7 @@ __d(
                                   "WAWebMediaInMemoryBlobCache",
                                 ).InMemoryMediaBlobCache.put(V, Y),
                                 yield o(
-                                  "WAWebMediaDataUtils",
+                                  "WAWebMediaGatherAndSetMetadataNoOpaque",
                                 ).gatherAndSetMetadataNoOpaque(D, Y));
                             } else {
                               var I = yield r(

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WASmaxInBizSettingsEnums",
+    "WAWebABProps",
     "WAWebCTWABizDataSharingJob",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
@@ -126,9 +127,9 @@ __d(
                     ? o(
                         "WAWebUserPrefsGeneral",
                       ).getCTWADataSharingOptOutDisclosureShownCount() <
-                      o(
-                        "WAWebCTWAGatingUtils",
-                      ).getCTWA3pdDataSharingMaxTimesShownForOptedOut()
+                      o("WAWebABProps").getABPropConfigValue(
+                        "ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out",
+                      )
                     : o(
                         "WAWebUserPrefsGeneral",
                       ).getCTWADataSharingDisclosureShownCount() < u

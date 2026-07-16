@@ -19,11 +19,12 @@ __d(
       p,
       _,
       f,
-      g = new (o("WorkerMessagePort").WorkerMessagePort)(
+      g,
+      h = new (o("WorkerMessagePort").WorkerMessagePort)(
         self,
         "WAWebVoipVideoRendererWorker",
       );
-    function h() {
+    function y() {
       (o("WAWebVoipVideoRendererLogging").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -31,11 +32,11 @@ __d(
           ])),
       ),
         o("WAWebVoipVideoWebCodecsRenderer").setFatalErrorCallback(function () {
-          g.postMessage({ type: "decoderFatalError" });
+          h.postMessage({ type: "decoderFatalError" });
         }),
-        g.addMessageListener("registerCanvas", function (e) {
+        h.addMessageListener("registerCanvas", function (e) {
           try {
-            C.registerCanvas(
+            b.registerCanvas(
               e.rendererId,
               e.offscreenCanvas,
               e.rendererType,
@@ -52,9 +53,9 @@ __d(
             );
           }
         }),
-        g.addMessageListener("onVideoFrame", function (e) {
+        h.addMessageListener("onVideoFrame", function (e) {
           try {
-            C.renderFrame(
+            b.renderFrame(
               e.rendererId,
               e.frameBuffer,
               e.width,
@@ -70,7 +71,7 @@ __d(
               t instanceof
               o("WAWebVoipVideoWebCodecsRenderer").KeyFrameNeededError
             ) {
-              g.postMessage({
+              h.postMessage({
                 type: "requestKeyFrame",
                 rendererId: e.rendererId,
               });
@@ -86,9 +87,9 @@ __d(
             );
           }
         }),
-        g.addMessageListener("onCanvasResize", function (e) {
+        h.addMessageListener("onCanvasResize", function (e) {
           try {
-            C.onCanvasResize({
+            b.onCanvasResize({
               height: e.height,
               rendererId: e.rendererId,
               width: e.width,
@@ -104,9 +105,9 @@ __d(
             );
           }
         }),
-        g.addMessageListener("unregisterCanvas", function (e) {
+        h.addMessageListener("unregisterCanvas", function (e) {
           try {
-            C.unregisterCanvas(e.rendererId);
+            b.unregisterCanvas(e.rendererId);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
               d ||
@@ -118,9 +119,9 @@ __d(
             );
           }
         }),
-        g.addMessageListener("reset", function (e) {
+        h.addMessageListener("reset", function (e) {
           try {
-            C.reset(e.rendererId);
+            b.reset(e.rendererId);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
               m ||
@@ -132,9 +133,9 @@ __d(
             );
           }
         }),
-        g.addMessageListener("requireKeyframe", function (e) {
+        h.addMessageListener("requireKeyframe", function (e) {
           try {
-            C.requireKeyframe(e.rendererId);
+            b.requireKeyframe(e.rendererId);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
               p ||
@@ -146,9 +147,9 @@ __d(
             );
           }
         }),
-        g.addMessageListener("setCoverFit", function (e) {
+        h.addMessageListener("setCoverFit", function (e) {
           try {
-            C.setCoverFit(e.rendererId, e.enabled);
+            b.setCoverFit(e.rendererId, e.enabled);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
               _ ||
@@ -160,14 +161,28 @@ __d(
             );
           }
         }),
+        h.addMessageListener("setVideoEnhancement", function (e) {
+          try {
+            b.setVideoEnhancement(e.rendererId, e.brightness, e.sharpening);
+          } catch (e) {
+            o("WAWebVoipVideoRendererLogging").ERROR(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: VideoRendererWorker: Failed to set video enhancement: ",
+                  "",
+                ])),
+              e,
+            );
+          }
+        }),
         o("WAWebVoipVideoRendererLogging").LOG(
-          f ||
-            (f = babelHelpers.taggedTemplateLiteralLoose([
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
               "voip: VideoRendererWorker: Video renderer worker initialized",
             ])),
         ));
     }
-    var y = (function () {
+    var C = (function () {
         function e() {
           this.$1 = new Map();
         }
@@ -214,7 +229,7 @@ __d(
                 e.renderer.cleanup();
               } finally {
                 (this.$1.delete(t),
-                  this.$1.size === 0 && g.postMessage({ type: "shutdown" }));
+                  this.$1.size === 0 && h.postMessage({ type: "shutdown" }));
               }
           }),
           (t.reset = function (t) {
@@ -240,6 +255,10 @@ __d(
             var e = this.$1.get(t);
             e && e.renderer.setCoverFit(n);
           }),
+          (t.setVideoEnhancement = function (t, n, r) {
+            var e = this.$1.get(t);
+            e && e.renderer.setVideoEnhancement(n, r);
+          }),
           (t.renderFrame = function (t, n, r, o, a, i, l, s, u) {
             var e = this.$1.get(t);
             e &&
@@ -264,7 +283,7 @@ __d(
                 return;
               }
               try {
-                g.postMessage(
+                h.postMessage(
                   { type: "mainThreadRender", rendererId: t, bitmap: n },
                   [n],
                 );
@@ -276,8 +295,8 @@ __d(
           e
         );
       })(),
-      C = new y();
-    l.default = h;
+      b = new C();
+    l.default = y;
   },
   98,
 );

@@ -24,6 +24,7 @@ __d(
     "WAWebModalManager",
     "WAWebMsgCollection",
     "WAWebMuteGetters",
+    "WAWebMuteUtils",
     "WAWebNavBarTypes",
     "WAWebNewChatFlowLoadable",
     "WAWebNewGroupFlowLoadable",
@@ -365,7 +366,7 @@ __d(
     }
     function E() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
-      if (e && e.mute.canMute()) {
+      if (e && o("WAWebMuteUtils").canMute(e.mute)) {
         var t = o("WAWebMuteGetters").getIsMuted(e.mute);
         o("WAWebCmd").Cmd.muteChatFromEntryPoint(
           e,

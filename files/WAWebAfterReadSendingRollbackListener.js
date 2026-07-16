@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebBackendEventBus",
-    "WAWebBackendEventBusTypes.flow",
+    "WAWebBackendEventBusTypes",
     "WAWebDBAfterReadSendingRollbackMigration",
     "WAWebUserPrefsAfterReadSendingRollbackMigration",
     "asyncToGeneratorRuntime",
@@ -63,7 +63,7 @@ __d(
     function p() {
       u != null &&
         (o("WAWebBackendEventBus").BackendEventBus.removeListener(
-          o("WAWebBackendEventBusTypes.flow").BackendEvent.ON_AB_PROPS_UPDATE,
+          o("WAWebBackendEventBusTypes").BackendEvent.ON_AB_PROPS_UPDATE,
           u,
         ),
         (u = null));

@@ -1,9 +1,9 @@
 __d(
   "WAWebWamFingerprint",
   [
-    "WAExternalInjectedSources",
     "WAWebBrowserFeatures",
     "WAWebDeviceFeatures",
+    "WAWebExternalInjectedSources",
     "WAWebFPUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -20,7 +20,7 @@ __d(
               browserEngine: o("WAWebFPUtils").DETECTED_BROWSER_ENGINE,
             },
             yield r("WAWebBrowserFeatures")(),
-            r("WAExternalInjectedSources")(),
+            r("WAWebExternalInjectedSources")(),
             r("WAWebDeviceFeatures")(),
           );
         })),

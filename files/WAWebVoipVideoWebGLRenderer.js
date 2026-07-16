@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "WAWebVoipMediaEnums",
+    "WAWebVoipVideoEnhancementShader",
     "WAWebVoipVideoRendererInterface",
     "err",
   ],
@@ -15,12 +16,12 @@ __d(
       ]),
       s = (function () {
         function t(t) {
-          this.canvas = t;
+          ((this.$4 = 0), (this.$5 = 0), (this.canvas = t));
           var n = e.OffscreenTransfer;
-          if (((this.mode = n), n === e.Direct)) this.renderer = new C(t);
+          if (((this.mode = n), n === e.Direct)) this.renderer = new b(t);
           else if (
             ((this.offscreenCanvas = new OffscreenCanvas(t.width, t.height)),
-            (this.renderer = new C(this.offscreenCanvas)),
+            (this.renderer = new b(this.offscreenCanvas)),
             n === e.OffscreenTransfer)
           ) {
             if (
@@ -88,7 +89,17 @@ __d(
               u = n.width;
             if (
               (this.$3(),
-              this.renderer.render(new Uint8Array(r), u, o, l, i, t, this.$2),
+              this.renderer.render(
+                new Uint8Array(r),
+                u,
+                o,
+                l,
+                i,
+                t,
+                this.$2,
+                this.$4,
+                this.$5,
+              ),
               this.mode === e.Direct || !this.offscreenCanvas)
             ) {
               this.$1();
@@ -122,6 +133,9 @@ __d(
           }),
           (n.setCoverFit = function (t) {
             this.$2 = t;
+          }),
+          (n.setVideoEnhancement = function (t, n) {
+            ((this.$4 = t), (this.$5 = n));
           }),
           t
         );
@@ -190,12 +204,27 @@ __d(
       _ =
         "\n    attribute vec2 a_position;\n    varying vec2 v_texCoord;\n    uniform mat2 u_matrix;\n    void main() {\n     gl_Position = vec4(u_matrix * ((a_position * 2.0 - 1.0) * vec2(1, -1)), 0, 1);\n     v_texCoord = a_position;\n    }\n    ",
       f =
-        "\n     precision mediump float;\n     uniform sampler2D textureRGB;\n     varying vec2 v_texCoord;\n     void main() {\n      float r = texture2D(textureRGB, v_texCoord).r;\n      float g = texture2D(textureRGB, v_texCoord).g;\n      float b = texture2D(textureRGB, v_texCoord).b;\n      // I saw that [R G B] is actually laid out as [B G R] in the GPU memory\n      gl_FragColor = vec4(r, g, b, 1.0);\n     }",
+        "\n     precision mediump float;\n     uniform sampler2D textureRGB;\n     varying vec2 v_texCoord;\n\n     vec3 sampleRGB(vec2 coord) {\n      // I saw that [R G B] is actually laid out as [B G R] in the GPU memory\n      return texture2D(textureRGB, coord).rgb;\n     }\n     " +
+        o("WAWebVoipVideoEnhancementShader").GLSL_ENHANCEMENT_HELPERS +
+        "\n     void main() {\n      vec3 color = applyEnhancements(sampleRGB(v_texCoord), v_texCoord);\n      gl_FragColor = vec4(color, 1.0);\n     }",
       g =
-        "\n    precision mediump float;\n    uniform sampler2D videoFrameY;     uniform sampler2D videoFrameUV;     varying vec2 v_texCoord;\n    void main()     {     float y = texture2D(videoFrameY, v_texCoord).r * 1.164;     float u = texture2D(videoFrameUV, v_texCoord).r;     float v = texture2D(videoFrameUV, v_texCoord).a;     gl_FragColor = clamp(vec4(y + 1.59375 * v -0.871078431372549,    y - 0.390625 * u - v * 0.8125 + 0.532843137254902,    y + 2.0 * u - 1.075,    1.0), 0.0, 1.0);     }",
-      h = [1, 0, 0, 1],
-      y = [
-        [h, [0, -1, 1, 0], [-1, 0, 0, -1], [0, 1, -1, 0]],
+        "\n    precision mediump float;\n    uniform sampler2D videoFrameY;\n    uniform sampler2D videoFrameUV;\n    varying vec2 v_texCoord;\n\n    vec3 sampleRGB(vec2 coord) {\n      float y = texture2D(videoFrameY, coord).r * 1.164;\n      float u = texture2D(videoFrameUV, coord).r;\n      float v = texture2D(videoFrameUV, coord).a;\n      return clamp(\n        vec3(\n          y + 1.59375 * v - 0.871078431372549,\n          y - 0.390625 * u - v * 0.8125 + 0.532843137254902,\n          y + 2.0 * u - 1.075\n        ),\n        0.0,\n        1.0\n      );\n    }\n    " +
+        o("WAWebVoipVideoEnhancementShader").GLSL_ENHANCEMENT_HELPERS +
+        "\n    void main() {\n      vec3 color = applyEnhancements(sampleRGB(v_texCoord), v_texCoord);\n      gl_FragColor = vec4(color, 1.0);\n    }";
+    function h(e, t) {
+      var n = e.getUniformLocation(t, "u_matrix");
+      if (!n) throw r("err")("Failed to get matrix location");
+      return {
+        program: t,
+        matrixLocation: n,
+        brightnessLocation: e.getUniformLocation(t, "uBrightness"),
+        sharpenLocation: e.getUniformLocation(t, "uSharpen"),
+        textureSizeLocation: e.getUniformLocation(t, "uTextureSize"),
+      };
+    }
+    var y = [1, 0, 0, 1],
+      C = [
+        [y, [0, -1, 1, 0], [-1, 0, 0, -1], [0, 1, -1, 0]],
         [
           [-1, 0, 0, 1],
           [0, 1, 1, 0],
@@ -203,7 +232,7 @@ __d(
           [0, -1, -1, 0],
         ],
       ],
-      C = (function () {
+      b = (function () {
         function e(e) {
           var t = e.getContext("webgl", p);
           if (!t) throw r("err")("WebGL not supported");
@@ -220,8 +249,7 @@ __d(
             })));
           var n = c(t, [this.vertexShader_, this.rgbShader_]);
           (d(t, n), (this.textureRGB_ = m(this.gl, n, 3, "textureRGB")));
-          var a = this.gl.getUniformLocation(n, "u_matrix");
-          if (!a) throw r("err")("Failed to get matrix location");
+          var a = h(this.gl, n);
           this.nv12Shader_ = u({ gl: t, source: g, type: t.FRAGMENT_SHADER });
           var i = c(t, [this.vertexShader_, this.nv12Shader_]);
           (d(t, i),
@@ -255,12 +283,11 @@ __d(
               this.gl.UNSIGNED_BYTE,
               s,
             ));
-          var h = this.gl.getUniformLocation(i, "u_matrix");
-          if (!h) throw r("err")("Failed to get matrix location");
+          var y = h(this.gl, i);
           this.programs_ = new Map([
-            [o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24, [n, a]],
-            [o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA, [n, a]],
-            [o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12, [i, h]],
+            [o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24, a],
+            [o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA, a],
+            [o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12, y],
           ]);
         }
         var t = e.prototype;
@@ -268,7 +295,7 @@ __d(
           (t.cleanup = function () {
             var e = this;
             (this.programs_.forEach(function (t, n) {
-              e.gl.deleteProgram(t[0]);
+              e.gl.deleteProgram(t.program);
             }),
               this.programs_.clear(),
               this.gl.deleteShader(this.vertexShader_),
@@ -308,50 +335,53 @@ __d(
                 t,
               ));
           }),
-          (t.render = function (t, n, a, i, l, s, u) {
+          (t.render = function (t, n, a, i, l, s, u, c, d) {
             var e = this.programs_.get(s);
             if (!e)
               throw r("err")(
                 "[webgl]: Invalid video format: " +
                   o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.getName(s),
               );
-            var c = e[0],
-              d = e[1];
-            this.gl.useProgram(c);
-            var m = this.gl.canvas.width / this.gl.canvas.height,
-              p = i.valueOf() % 2 === 1 ? n / a : a / n;
+            var m = e.program,
+              p = e.matrixLocation,
+              _ = e.brightnessLocation,
+              f = e.sharpenLocation,
+              g = e.textureSizeLocation;
+            this.gl.useProgram(m);
+            var h = this.gl.canvas.width / this.gl.canvas.height,
+              b = i.valueOf() % 2 === 1 ? n / a : a / n;
             if (
               (u
-                ? m > p
+                ? h > b
                   ? this.gl.viewport(
                       0,
-                      (this.gl.canvas.height - this.gl.canvas.width / p) / 2,
+                      (this.gl.canvas.height - this.gl.canvas.width / b) / 2,
                       this.gl.canvas.width,
-                      this.gl.canvas.width / p,
+                      this.gl.canvas.width / b,
                     )
                   : this.gl.viewport(
-                      (this.gl.canvas.width - this.gl.canvas.height * p) / 2,
+                      (this.gl.canvas.width - this.gl.canvas.height * b) / 2,
                       0,
-                      this.gl.canvas.height * p,
+                      this.gl.canvas.height * b,
                       this.gl.canvas.height,
                     )
-                : m > p
+                : h > b
                   ? this.gl.viewport(
-                      (this.gl.canvas.width - this.gl.canvas.height * p) / 2,
+                      (this.gl.canvas.width - this.gl.canvas.height * b) / 2,
                       0,
-                      this.gl.canvas.height * p,
+                      this.gl.canvas.height * b,
                       this.gl.canvas.height,
                     )
                   : this.gl.viewport(
                       0,
-                      (this.gl.canvas.height - this.gl.canvas.width / p) / 2,
+                      (this.gl.canvas.height - this.gl.canvas.width / b) / 2,
                       this.gl.canvas.width,
-                      this.gl.canvas.width / p,
+                      this.gl.canvas.width / b,
                     ),
               s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
                 s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA)
             ) {
-              var _ = new Uint8Array(t.buffer, 0, t.length);
+              var v = new Uint8Array(t.buffer, 0, t.length);
               (this.gl.activeTexture(this.gl.TEXTURE3),
                 this.gl.bindTexture(this.gl.TEXTURE_2D, this.textureRGB_),
                 this.gl.texImage2D(
@@ -367,12 +397,12 @@ __d(
                     ? this.gl.RGB
                     : this.gl.RGBA,
                   this.gl.UNSIGNED_BYTE,
-                  _,
+                  v,
                 ));
             } else if (
               s === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
             ) {
-              var f = new Uint8Array(t.buffer, 0, n * a);
+              var S = new Uint8Array(t.buffer, 0, n * a);
               (this.gl.activeTexture(this.gl.TEXTURE4),
                 this.gl.bindTexture(this.gl.TEXTURE_2D, this.textureY_),
                 this.gl.texImage2D(
@@ -384,9 +414,9 @@ __d(
                   0,
                   this.gl.LUMINANCE,
                   this.gl.UNSIGNED_BYTE,
-                  f,
+                  S,
                 ));
-              var g = new Uint8Array(t.buffer, n * a, (n * a) / 2);
+              var R = new Uint8Array(t.buffer, n * a, (n * a) / 2);
               (this.gl.activeTexture(this.gl.TEXTURE5),
                 this.gl.bindTexture(this.gl.TEXTURE_2D, this.textureUV_),
                 this.gl.texImage2D(
@@ -398,11 +428,14 @@ __d(
                   0,
                   this.gl.LUMINANCE_ALPHA,
                   this.gl.UNSIGNED_BYTE,
-                  g,
+                  R,
                 ));
             }
-            var C = y[l ? 1 : 0][i.valueOf() - 1] || h;
-            (this.gl.uniformMatrix2fv(d, !1, C),
+            (this.gl.uniform1f(_, c),
+              this.gl.uniform1f(f, d),
+              this.gl.uniform2f(g, n, a));
+            var L = C[l ? 1 : 0][i.valueOf() - 1] || y;
+            (this.gl.uniformMatrix2fv(p, !1, L),
               this.gl.drawArrays(this.gl.TRIANGLE_STRIP, 0, 4));
           }),
           e

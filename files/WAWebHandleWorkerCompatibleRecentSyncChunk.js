@@ -13,6 +13,7 @@ __d(
     "WAWebBackendWorkerClient",
     "WAWebDBCreateLidPnMappings",
     "WAWebDownloadManager",
+    "WAWebGetHistorySyncMetrics",
     "WAWebGetHistorySyncProgress",
     "WAWebHandleHistorySyncMsg",
     "WAWebHistorySyncLogUtils",
@@ -66,9 +67,10 @@ __d(
               t,
             ),
             l = t.downloadedHistorySyncPayload,
-            v = yield o(
-              "WAWebHistorySyncNotificationUtils",
-            ).getHistorySyncMetrics(t, !0),
+            v = yield o("WAWebGetHistorySyncMetrics").getHistorySyncMetrics(
+              t,
+              !0,
+            ),
             S = v.historySyncDataAppliedMetric,
             L = v.historySyncDownloadedMetric,
             E = v.historySyncStartDownloadingMetric,

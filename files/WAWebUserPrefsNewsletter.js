@@ -2,6 +2,7 @@ __d(
   "WAWebUserPrefsNewsletter",
   [
     "$InternalEnum",
+    "WAWebABProps",
     "WAWebNewsletterGatingUtils",
     "WAWebTimedCache",
     "WAWebUserPrefsIndexedDBStorage",
@@ -29,9 +30,9 @@ __d(
       );
       return o("WAWebTimedCache").getTimedCacheItemValue(
         e,
-        o(
-          "WAWebNewsletterGatingUtils",
-        ).getRecommendedNewslettersRefreshInterval(),
+        o("WAWebABProps").getABPropConfigValue(
+          "recommended_channels_background_refresh",
+        ),
       );
     }
     function c(e) {

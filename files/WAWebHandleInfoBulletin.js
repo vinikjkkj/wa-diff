@@ -6,7 +6,7 @@ __d(
     "WASmaxClientExpirationClientExpirationRPC",
     "WATimeUtils",
     "WAWebDirtyBitsConsts",
-    "WAWebHandleInfoBulletinTypes.flow",
+    "WAWebHandleInfoBulletinTypes",
     "WAWebHandleRecoveryNonceIB",
     "WAWebHandleReportServerSyncNotification",
     "WAWebHandleRoutingInfo",
@@ -30,14 +30,14 @@ __d(
         if (
           (e.assertTag("ib"),
           e.assertFromServer(),
-          e.hasChild(o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.DIRTY))
+          e.hasChild(o("WAWebHandleInfoBulletinTypes").INFO_TYPE.DIRTY))
         ) {
           var t = [],
             n = [],
             r = [];
           return (
             e.forEachChildWithTag(
-              o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.DIRTY,
+              o("WAWebHandleInfoBulletinTypes").INFO_TYPE.DIRTY,
               function (e) {
                 var a = {
                   type: e.attrString("type"),
@@ -64,20 +64,18 @@ __d(
               },
             ),
             {
-              type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.DIRTY,
+              type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE.DIRTY,
               supported: n,
               unsupported: t,
               protocols: r,
             }
           );
         } else if (
-          e.hasChild(o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.ROUTING)
+          e.hasChild(o("WAWebHandleInfoBulletinTypes").INFO_TYPE.ROUTING)
         ) {
-          var a = e.child(
-            o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.ROUTING,
-          );
+          var a = e.child(o("WAWebHandleInfoBulletinTypes").INFO_TYPE.ROUTING);
           return {
-            type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.ROUTING,
+            type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE.ROUTING,
             edgeRouting: a.child("routing_info").contentBytes(),
             domain: a.hasChild("dns_domain")
               ? a
@@ -86,28 +84,26 @@ __d(
               : null,
           };
         } else {
-          if (
-            e.hasChild(o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE)
-          )
+          if (e.hasChild(o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE))
             return {
               count: e
-                .child(o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE)
+                .child(o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE)
                 .attrInt("count"),
-              type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE,
+              type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE,
             };
           if (
             e.hasChild(
-              o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
+              o("WAWebHandleInfoBulletinTypes").INFO_TYPE
                 .OFFLINE_PRIORITY_COMPLETE,
             )
           )
             return {
-              type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
+              type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE
                 .OFFLINE_PRIORITY_COMPLETE,
             };
           if (
             e.hasChild(
-              o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE_PREVIEW,
+              o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE_PREVIEW,
             )
           ) {
             var i;
@@ -115,7 +111,7 @@ __d(
               count: {
                 count: e
                   .child(
-                    (i = o("WAWebHandleInfoBulletinTypes.flow")).INFO_TYPE
+                    (i = o("WAWebHandleInfoBulletinTypes")).INFO_TYPE
                       .OFFLINE_PREVIEW,
                   )
                   .attrInt("count"),
@@ -133,7 +129,7 @@ __d(
               type: i.INFO_TYPE.OFFLINE_PREVIEW,
             };
           } else if (
-            e.hasChild(o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.TOS)
+            e.hasChild(o("WAWebHandleInfoBulletinTypes").INFO_TYPE.TOS)
           ) {
             var l = [];
             return (
@@ -141,27 +137,25 @@ __d(
                 l.push(e.attrString("id"));
               }),
               {
-                type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.TOS,
+                type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE.TOS,
                 noticeIds: l,
               }
             );
           } else {
             if (
               e.hasChild(
-                o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.THREAD_META,
+                o("WAWebHandleInfoBulletinTypes").INFO_TYPE.THREAD_META,
               )
             )
               return {
-                type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
-                  .THREAD_META,
+                type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE.THREAD_META,
                 threadMeta: o("WAWebParseThreadMetadata").parseThreadMetadata(
                   e,
                 ),
               };
             if (
               e.hasChild(
-                o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
-                  .CLIENT_EXPIRATION,
+                o("WAWebHandleInfoBulletinTypes").INFO_TYPE.CLIENT_EXPIRATION,
               )
             ) {
               var s = o(
@@ -170,20 +164,20 @@ __d(
                 u = s.parsedRequest.clientExpirationT,
                 c = u != null ? o("WATimeUtils").castToUnixTime(u) : null;
               return {
-                type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
+                type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE
                   .CLIENT_EXPIRATION,
                 newClientExpirationTime: c,
               };
             } else if (
               e.hasChild(
-                o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.RECOVERY_NONCE,
+                o("WAWebHandleInfoBulletinTypes").INFO_TYPE.RECOVERY_NONCE,
               )
             ) {
               var d = e.child(
-                o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.RECOVERY_NONCE,
+                o("WAWebHandleInfoBulletinTypes").INFO_TYPE.RECOVERY_NONCE,
               );
               return {
-                type: o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
+                type: o("WAWebHandleInfoBulletinTypes").INFO_TYPE
                   .RECOVERY_NONCE,
                 code: d.attrString("code"),
                 useCase: d.attrInt("use_case"),
@@ -223,7 +217,7 @@ __d(
             return;
           }
           switch (n.type) {
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.DIRTY:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.DIRTY:
               if (!m) {
                 o("WALogger").WARN(
                   c ||
@@ -234,12 +228,12 @@ __d(
                 return;
               }
               return (yield m(n), "NO_ACK");
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.ROUTING:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.ROUTING:
               return (
                 yield o("WAWebHandleRoutingInfo").handleRoutingInfo(n),
                 "NO_ACK"
               );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.OFFLINE:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE:
               return (
                 o("WAWebOfflineHandler").OfflineMessageHandler.processOfflineIb(
                   n.count,
@@ -250,34 +244,31 @@ __d(
                 o("WAWebMessageDedupUtils").maybeClearPendingMessages(n.count),
                 "NO_ACK"
               );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
-              .OFFLINE_PREVIEW:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE_PREVIEW:
               return (
                 yield o(
                   "WAWebOfflineHandler",
                 ).OfflineMessageHandler.processOfflinePreviewIb(n.count),
                 "NO_ACK"
               );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.TOS:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.TOS:
               return (
                 o("WAWebTos").TosManager.maybeUpdateServer(n.noticeIds),
                 "NO_ACK"
               );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.THREAD_META:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.THREAD_META:
               return (
                 o("WAWebThreadMetadata").setOfflineThreadMeta(n.threadMeta),
                 "NO_ACK"
               );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
-              .CLIENT_EXPIRATION:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.CLIENT_EXPIRATION:
               return (
                 yield o(
                   "WAWebHandleServerClientExpiration",
                 ).handleServerClientExpiration(n.newClientExpirationTime),
                 "NO_ACK"
               );
-            case o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE
-              .RECOVERY_NONCE:
+            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.RECOVERY_NONCE:
               return (
                 r("WAWebHandleRecoveryNonceIB")(n.code, n.useCase),
                 "NO_ACK"

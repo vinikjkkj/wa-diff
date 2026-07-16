@@ -15,7 +15,6 @@ __d(
     "WAWebIcSyncIcon.react",
     "WAWebLinkDeviceCommonInstructions.react",
     "WAWebModalManager",
-    "WAWebModalManagerUtils",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
@@ -116,7 +115,7 @@ __d(
             viewName: "load-more-messages",
           },
           title: e,
-          onOK: o("WAWebModalManagerUtils").closeModalManager,
+          onOK: o("WAWebModalManager").closeModalManager,
           buttonGroupStyle: g.popoverButtonGroup,
           children: m.jsx("ol", {
             className: "x3yw8vx xlese2p",

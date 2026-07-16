@@ -6,18 +6,16 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBaseCollection",
+    "WAWebContactCollectionUtils",
     "WAWebContactComparator",
-    "WAWebContactGetters",
     "WAWebContactModel",
     "WAWebContactSearchGatingUtils",
     "WAWebDebounce",
-    "WAWebFrontendContactGetters",
     "WAWebL10N",
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameWorkerCompatibleGatingUtils",
-    "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -86,45 +84,6 @@ __d(
               ),
               this.add(n, { silent: !0, merge: !0 }));
           }),
-          (i.getFilteredContacts = function (t) {
-            var e = t.cancelAt,
-              n = e === void 0 ? null : e,
-              a = t.filterFn,
-              i = a === void 0 ? null : a,
-              l = t.showMe,
-              s = l === void 0 ? !1 : l,
-              u = t.showWithoutName,
-              c = u === void 0 ? !1 : u,
-              d = o(
-                "WAWebUsernameWorkerCompatibleGatingUtils",
-              ).onlyShowLidContacts(),
-              m = [];
-            for (var p of this._models) {
-              if (n != null && m.length >= n) {
-                m = [];
-                break;
-              }
-              if (!(d && !p.id.isLid())) {
-                {
-                  if (!d && p.id.isLid()) continue;
-                  if (p.id.isBot()) continue;
-                  if (r("WAWebWid").isPSA(p.id)) continue;
-                  if (o("WAWebContactGetters").getIsMe(p)) {
-                    if (s) {
-                      if (i != null && i(p) !== !0) continue;
-                      m.push(p);
-                    }
-                    continue;
-                  }
-                }
-                ((!(p.name || c) ||
-                  !o("WAWebContactGetters").getIsWAContact(p)) &&
-                  !o("WAWebFrontendContactGetters").getIsUsernameContact(p)) ||
-                  (p.isActive() && ((i != null && i(p) !== !0) || m.push(p)));
-              }
-            }
-            return m.sort(o("WAWebContactComparator").ContactComparator);
-          }),
           (i.searchContacts = function (t) {
             var e = t.query,
               n = t.filter,
@@ -132,7 +91,8 @@ __d(
               a = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
               i = [];
             if (
-              (this.getFilteredContacts(
+              (o("WAWebContactCollectionUtils").getFilteredContacts(
+                this,
                 babelHelpers.extends({}, r, {
                   filterFn: function (n) {
                     var t = a
@@ -161,7 +121,8 @@ __d(
               c = !1,
               d = [];
             return (
-              this.getFilteredContacts(
+              o("WAWebContactCollectionUtils").getFilteredContacts(
+                this,
                 babelHelpers.extends({}, r, {
                   filterFn: function (n) {
                     var t = u.elapsed();

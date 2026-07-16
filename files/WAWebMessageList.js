@@ -5,7 +5,7 @@ __d(
     "WAWebBizProductListMessagePreview",
     "WAWebDrawerManager",
     "WAWebEmojiText.react",
-    "WAWebFormatConfiguration",
+    "WAWebFormatConfigurationConversation",
     "WAWebFrontendMsgGetters",
     "WAWebL10N",
     "WAWebListMsgModal.react",
@@ -160,7 +160,7 @@ __d(
           direction: o("WAWebFrontendMsgGetters").getDir(i.unsafe()),
           inferLinesDirection: !0,
         },
-        m = o("WAWebFormatConfiguration").Conversation({
+        m = o("WAWebFormatConfigurationConversation").Conversation({
           links: o("WAWebMsgLinks").getHeaderLinks(i.unsafe()),
           phoneNumbers: o("WAWebMsgPhoneNumbers").getHeaderPhoneNumbersFromMsg(
             i.unsafe(),
@@ -169,7 +169,7 @@ __d(
           trusted: o("WAWebMsgModelPropUtils").isTrusted(i.unsafe()),
           fromMe: i.id.fromMe,
         }),
-        f = o("WAWebFormatConfiguration").Conversation({
+        f = o("WAWebFormatConfigurationConversation").Conversation({
           mentions: i.mentionMap(),
           groupMentions: i.groupMentionMap(),
           links: o("WAWebMsgLinks").getLinksFromMsg(i.unsafe()),
@@ -226,7 +226,7 @@ __d(
         ),
         v = null;
       if (i.footer != null && i.footer !== "") {
-        var S = o("WAWebFormatConfiguration").Conversation({
+        var S = o("WAWebFormatConfigurationConversation").Conversation({
           links: o("WAWebMsgLinks").getFooterLinks(i.unsafe()),
           phoneNumbers: o("WAWebMsgPhoneNumbers").getFooterPhoneNumbersFromMsg(
             i.unsafe(),

@@ -5,9 +5,9 @@ __d(
     "WATimeUtils",
     "WAWebAiThreadPinSync",
     "WAWebBotGating",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebChatCollection",
     "WAWebThreadJourneyLogger",
-    "WAWebThreadMetadataBulkJob",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -54,7 +54,7 @@ __d(
                 pinThreadTimestamp: i,
               };
             (yield o(
-              "WAWebThreadMetadataBulkJob",
+              "WAWebBulkCreateOrUpdateThreadsMetadata",
             ).bulkCreateOrUpdateThreadsMetadata([l]),
               yield r("WAWebAiThreadPinSync").sendMutation(t.id, !0),
               t.set({ pinThreadTimestamp: i }),
@@ -93,7 +93,7 @@ __d(
             pinThreadTimestamp: void 0,
           };
           (yield o(
-            "WAWebThreadMetadataBulkJob",
+            "WAWebBulkCreateOrUpdateThreadsMetadata",
           ).bulkCreateOrUpdateThreadsMetadata([n]),
             yield r("WAWebAiThreadPinSync").sendMutation(e.id, !1),
             e.set({ pinThreadTimestamp: void 0 }),

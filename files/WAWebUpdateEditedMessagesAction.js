@@ -16,10 +16,10 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgInfoCollection",
+    "WAWebMsgNotification",
     "WAWebMsgType",
     "WAWebMuteGetters",
     "WAWebNotificationController",
-    "WAWebNotificationsMsgNotification",
     "WAWebThreadMsgUtils",
     "WAWebUnreadMentionModel",
     "asyncToGeneratorRuntime",
@@ -60,9 +60,9 @@ __d(
                           (t.lastBotEditBodyLength = o(
                             "WAWebBotFrontendUtils",
                           ).getBotMsgBodyLength(l)));
-                      var c = new (o(
-                        "WAWebNotificationsMsgNotification",
-                      ).WAMsgNotification)({ msg: l }).buildKey();
+                      var c = new (o("WAWebMsgNotification").WAMsgNotification)(
+                        { msg: l },
+                      ).buildKey();
                       (a.type === o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
                         t.type !== o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA &&
                         (yield l.registerAndPrepMedia(t)),
@@ -127,9 +127,7 @@ __d(
       var r = o(
           "WAWebNotificationController",
         ).WANotificationController.getNotification(t),
-        a = new (o("WAWebNotificationsMsgNotification").WAMsgNotification)({
-          msg: e,
-        });
+        a = new (o("WAWebMsgNotification").WAMsgNotification)({ msg: e });
       if (r && o("WAWebMsgGetters").getIsMetaBotResponse(e)) {
         e.botEditType === o("WAWebBotTypes").BotMsgEditType.LAST &&
           o(

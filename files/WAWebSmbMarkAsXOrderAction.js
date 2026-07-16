@@ -2,10 +2,13 @@ __d(
   "WAWebSmbMarkAsXOrderAction",
   [
     "WASmaxInBizSettingsEnums",
+    "WATimeUtils",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
     "WAWebChatThreadLogging",
     "WAWebCommonCTWADataSharing",
+    "WAWebConversionTupleCollection",
+    "WAWebConversionTupleModel",
     "WAWebCtwaOrderSignalWamEvent",
     "WAWebOrderStatus",
     "WAWebPerCustomerDataSharingUtils",
@@ -63,26 +66,38 @@ __d(
           ) &&
           !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
         ) {
-          var d = (l = t.accountLid) == null ? void 0 : l.toString();
-          o("WAWebChatThreadLogging")
-            .getChatThreadIDHMAC(t.id.toString())
-            .then(function (e) {
-              var t = {
-                ctwaOrderSignalVersion: 1,
-                deepLinkConversionSource: c.source,
-                orderPaid: i,
-                orderSignalType: o("WAWebWamEnumOrderSignalType")
-                  .ORDER_SIGNAL_TYPE.UPDATED,
-                orderStatus: u,
-                customerAdsSharingSettingEnabled: o(
-                  "WAWebPerCustomerDataSharingUtils",
-                ).getCustomerAdsDataSharingState(d),
-                threadIdHmac: e != null ? e : void 0,
-              };
-              new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
-                babelHelpers.extends({}, t, s(n)),
-              ).commit();
-            });
+          var d = r("WAWebConversionTupleCollection").get(t.id);
+          if (
+            !(
+              d != null &&
+              o("WATimeUtils").unixTime() - d.timestamp >
+                o("WAWebConversionTupleModel").ConversionTupleExpiry &&
+              o(
+                "WAWebCTWAGatingUtils",
+              ).isCtwaConversionCreationFromDelayEnabled()
+            )
+          ) {
+            var m = (l = t.accountLid) == null ? void 0 : l.toString();
+            o("WAWebChatThreadLogging")
+              .getChatThreadIDHMAC(t.id.toString())
+              .then(function (e) {
+                var t = {
+                  ctwaOrderSignalVersion: 1,
+                  deepLinkConversionSource: c.source,
+                  orderPaid: i,
+                  orderSignalType: o("WAWebWamEnumOrderSignalType")
+                    .ORDER_SIGNAL_TYPE.UPDATED,
+                  orderStatus: u,
+                  customerAdsSharingSettingEnabled: o(
+                    "WAWebPerCustomerDataSharingUtils",
+                  ).getCustomerAdsDataSharingState(m),
+                  threadIdHmac: e != null ? e : void 0,
+                };
+                new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
+                  babelHelpers.extends({}, t, s(n)),
+                ).commit();
+              });
+          }
         }
       }
     }
@@ -95,26 +110,37 @@ __d(
         ) &&
         !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
       ) {
-        var i = (n = e.accountLid) == null ? void 0 : n.toString();
-        o("WAWebChatThreadLogging")
-          .getChatThreadIDHMAC(e.id.toString())
-          .then(function (e) {
-            var n = {
-              ctwaOrderSignalVersion: 1,
-              deepLinkConversionSource: a.source,
-              orderPaid: !1,
-              orderSignalType: o("WAWebWamEnumOrderSignalType")
-                .ORDER_SIGNAL_TYPE.CREATED,
-              orderStatus: o("WAWebWamEnumOrderStatus").ORDER_STATUS.PROCESSING,
-              customerAdsSharingSettingEnabled: o(
-                "WAWebPerCustomerDataSharingUtils",
-              ).getCustomerAdsDataSharingState(i),
-              threadIdHmac: e != null ? e : void 0,
-            };
-            new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
-              babelHelpers.extends({}, n, s(t)),
-            ).commit();
-          });
+        var i = r("WAWebConversionTupleCollection").get(e.id);
+        if (
+          !(
+            i != null &&
+            o("WATimeUtils").unixTime() - i.timestamp >
+              o("WAWebConversionTupleModel").ConversionTupleExpiry &&
+            o("WAWebCTWAGatingUtils").isCtwaConversionCreationFromDelayEnabled()
+          )
+        ) {
+          var l = (n = e.accountLid) == null ? void 0 : n.toString();
+          o("WAWebChatThreadLogging")
+            .getChatThreadIDHMAC(e.id.toString())
+            .then(function (e) {
+              var n = {
+                ctwaOrderSignalVersion: 1,
+                deepLinkConversionSource: a.source,
+                orderPaid: !1,
+                orderSignalType: o("WAWebWamEnumOrderSignalType")
+                  .ORDER_SIGNAL_TYPE.CREATED,
+                orderStatus: o("WAWebWamEnumOrderStatus").ORDER_STATUS
+                  .PROCESSING,
+                customerAdsSharingSettingEnabled: o(
+                  "WAWebPerCustomerDataSharingUtils",
+                ).getCustomerAdsDataSharingState(l),
+                threadIdHmac: e != null ? e : void 0,
+              };
+              new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
+                babelHelpers.extends({}, n, s(t)),
+              ).commit();
+            });
+        }
       }
     }
     ((l.markOrderAsUpdatedStatusAction = u), (l.markOrderAsCreatedAction = c));

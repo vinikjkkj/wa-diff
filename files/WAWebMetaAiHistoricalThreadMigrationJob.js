@@ -9,12 +9,12 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotDeviceCapabilities",
     "WAWebBotUtils",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebDBMessageUtils",
     "WAWebDbEncryptionKey",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
-    "WAWebThreadMetadataBulkJob",
     "WAWebUserPrefsBot",
     "asyncToGeneratorRuntime",
   ],
@@ -164,7 +164,7 @@ __d(
                         n = e[1];
                       (yield t.bulkCreateOrMerge(i),
                         yield o(
-                          "WAWebThreadMetadataBulkJob",
+                          "WAWebBulkCreateOrUpdateThreadsMetadata",
                         ).bulkCreateOrUpdateThreadsMetadata(l));
                     },
                   );

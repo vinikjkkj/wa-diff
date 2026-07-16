@@ -21,8 +21,6 @@ __d(
     "WAWebGroupSuspensionAppealMutation",
     "WAWebGroupType",
     "WAWebL10N",
-    "WAWebLeaveAndReportGroupModal.react",
-    "WAWebLeaveAndReportGroupModalV2.react",
     "WAWebLoggerDebugInfo",
     "WAWebModalManager",
     "WAWebNoop",
@@ -378,23 +376,7 @@ __d(
             { transition: "modal-flow" },
           );
     }
-    function P(e, t) {
-      o("WAWebABProps").getABPropConfigValue("wds_web_dialog")
-        ? o("WDSDialogBridge").openWDSDialog(
-            c.jsx(r("WAWebLeaveAndReportGroupModalV2.react"), {
-              chat: e,
-              spamFlow: t,
-            }),
-          )
-        : o("WAWebModalManager").ModalManager.open(
-            c.jsx(r("WAWebLeaveAndReportGroupModal.react"), {
-              chat: e,
-              spamFlow: t,
-            }),
-            { transition: "modal-flow" },
-          );
-    }
-    function N() {
+    function P() {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebSuspendedGroupMediaDownloadFailureModal.react"), {}),
         { transition: "modal-flow" },
@@ -417,8 +399,7 @@ __d(
       (l.shouldShowGroupAppealApprovedModal = D),
       (l.openGroupAppealApprovedModal = x),
       (l.openExitAndDeleteGroupModal = $),
-      (l.openLeaveAndReportGroupModal = P),
-      (l.openSuspendedGroupMediaDownloadFailureModal = N));
+      (l.openSuspendedGroupMediaDownloadFailureModal = P));
   },
   226,
 );

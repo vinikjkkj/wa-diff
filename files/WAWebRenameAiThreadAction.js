@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WAWebAiThreadRenameSync",
     "WAWebAiThreadTypeUtils",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebThreadJourneyLogger",
-    "WAWebThreadMetadataBulkJob",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -47,7 +47,7 @@ __d(
               ),
             };
             (yield o(
-              "WAWebThreadMetadataBulkJob",
+              "WAWebBulkCreateOrUpdateThreadsMetadata",
             ).bulkCreateOrUpdateThreadsMetadata([i]),
               yield r("WAWebAiThreadRenameSync").sendMutation(t.id, n),
               t.set({ title: n }));

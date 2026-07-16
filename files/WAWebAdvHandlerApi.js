@@ -12,6 +12,7 @@ __d(
     "WAWebBackendWorkerClient",
     "WAWebCryptoCurve25519",
     "WAWebDeviceListPk",
+    "WAWebHandleAdvDeviceNotificationForUsyncApi",
     "WAWebHandleAdvDeviceNotificationUtils",
     "WAWebHandleAdvForMessageApi",
     "WAWebHandleAdvForUsyncApi",
@@ -132,14 +133,9 @@ __d(
             l = yield o(
               "WAWebLastADVCheckTimeApi",
             ).getLastADVDeviceInfoCheckTime(),
-            s = o("WAWebHandleAdvForUsyncApi").handleDeviceNotification(
-              e,
-              n,
-              t,
-              r,
-              i,
-              l,
-            );
+            s = o(
+              "WAWebHandleAdvDeviceNotificationForUsyncApi",
+            ).handleDeviceNotification(e, n, t, r, i, l);
           if (s) {
             if (s.clearRecord) {
               var u;

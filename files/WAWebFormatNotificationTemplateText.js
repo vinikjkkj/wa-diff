@@ -2,6 +2,7 @@ __d(
   "WAWebFormatNotificationTemplateText",
   [
     "fbt",
+    "WAWebABProps",
     "WAWebABPropsInternalNumber",
     "WAWebBizBroadcastFormatStatusText",
     "WAWebBotBaseGating",
@@ -1323,9 +1324,7 @@ __d(
         : s._(/*BTDS*/ "You unblocked this person");
     }
     function B() {
-      return o(
-        "WAWebCTWAGatingUtils",
-      ).isUpdatedConsumerDisclosureUiEuUkEnabled()
+      return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3
         ? s._(
             /*BTDS*/ "AI from Meta receives and generates messages for this business. Click to learn more.",
           )

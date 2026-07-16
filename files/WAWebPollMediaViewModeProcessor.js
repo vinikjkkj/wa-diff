@@ -1,18 +1,14 @@
 __d(
   "WAWebPollMediaViewModeProcessor",
-  ["WAWebBoolFunc", "WAWebCreateViewModeProcessor", "WAWebViewMode.flow"],
+  ["WAWebCreateViewModeProcessor", "WAWebViewMode.flow"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = o("WAWebCreateViewModeProcessor").createViewModeProcessor({
+    var e = o(
+        "WAWebCreateViewModeProcessor",
+      ).createFullyHiddenViewModeProcessor({
         type: o("WAWebViewMode.flow").ViewModeType.POLL_MEDIA,
-        messageVisibleInChat: (e = o("WAWebBoolFunc")).returnFalse,
-        messageVisibleInChatlistPreview: e.returnFalse,
-        shouldShowInNotification: e.returnFalse,
-        shouldShowInSearch: e.returnFalse,
-        shouldIncludeInChatSpamReport: e.returnFalse,
       }),
-      u = s;
-    l.default = u;
+      s = e;
+    l.default = s;
   },
   98,
 );

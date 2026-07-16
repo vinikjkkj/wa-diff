@@ -328,6 +328,7 @@ __d(
         Ephemeral: "EPHEMERAL",
         File: "FILE",
         Gif: "GIF",
+        MsgOpgP2PPayment: "MSG_OPG_P2P_PAYMENT",
         Permanent: "PERMANENT",
         Photo: "PHOTO",
         Raven: "RAVEN",

@@ -7,7 +7,6 @@ __d(
     "WAWebBackendApi",
     "WAWebDBDeleteAssociatedMsgsByMsgKey",
     "WAWebFetchMessagesInThread",
-    "WAWebGetUpdatedThreadMetadataRecord",
     "WAWebMessageAssociationGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
@@ -140,39 +139,6 @@ __d(
             );
     }
     function _(e) {
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(
-          ["thread-metadata"],
-          (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n = t[0];
-                if (e.length !== 0) {
-                  var r = yield n.bulkGet(
-                      e.map(function (e) {
-                        return o(
-                          "WAWebThreadsMetadataIdUtils",
-                        ).craftThreadMetadataDBId(e.threadId);
-                      }),
-                    ),
-                    a = e.map(function (e, t) {
-                      var n = r[t];
-                      return o(
-                        "WAWebGetUpdatedThreadMetadataRecord",
-                      ).getUpdatedThreadMetadataRecord(e, n);
-                    });
-                  return n.bulkCreateOrMerge(a);
-                }
-              },
-            );
-            return function (e) {
-              return t.apply(this, arguments);
-            };
-          })(),
-        );
-    }
-    function f(e) {
       var t = e.threadIds;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
@@ -187,7 +153,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function g(e, t) {
+    function f(e, t) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "bulkDeleteThreads",
@@ -205,10 +171,10 @@ __d(
                 "bulkDeleteThreads error: Unknown thread type: " + e.type,
               );
             });
-            yield f({ threadIds: i });
+            yield _({ threadIds: i });
             var l = yield (s || (s = n("Promise"))).all(
               t.map(function (e) {
-                return h(e);
+                return g(e);
               }),
             );
             for (var u of l) a.push.apply(a, u);
@@ -232,12 +198,12 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebFetchMessagesInThread").beginningOfThread(e),
             r = o("WAWebFetchMessagesInThread").endOfThread(e),
             a = yield o("WAWebSchemaMessage")
@@ -261,16 +227,15 @@ __d(
             a
           );
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.bulkUpdateThreadUnreadCountWithTable = u),
       (l.bulkUpdateThreadUnreadEditTimestampWithTable = d),
       (l.bulkIncrementThreadUnreadCount = p),
-      (l.bulkCreateOrUpdateThreadsMetadata = _),
-      (l.bulkDeleteThreadsMetadata = f),
-      (l.bulkDeleteThreads = g),
-      (l.queryAndRemoveThreadMessages = h));
+      (l.bulkDeleteThreadsMetadata = _),
+      (l.bulkDeleteThreads = f),
+      (l.queryAndRemoveThreadMessages = g));
   },
   98,
 );

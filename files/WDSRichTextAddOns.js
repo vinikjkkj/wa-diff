@@ -97,7 +97,10 @@ __d(
       );
     }
     p.displayName = p.name + " [from " + i.id + "]";
-    function _(t) {
+    function _(e, t) {
+      return e + "/" + t;
+    }
+    function f(t) {
       var n = t.EmojiIcon,
         o = t.EndIcon,
         a = t.SecondaryIcon,
@@ -242,28 +245,30 @@ __d(
         })
       );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f(e) {
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e) {
       var t = e.bottomId,
         n = e.bottomText,
-        o = e.errorText,
-        a = e.maxCharacterCount,
-        i = e.platform,
-        l = e.shouldShowError,
-        s = e.testid,
-        c = e.textLength;
-      if (n == null && a == null && o == null) return null;
-      var d;
-      l
-        ? i === "android"
-          ? (d = "secondaryNegative")
-          : (d = "secondaryNegativeEmphasized")
-        : (d = "contentDeemphasized");
-      var p = l ? s + "-error-text" : s + "-bottom-text";
+        o = e.characterCountRenderer,
+        a = o === void 0 ? _ : o,
+        i = e.errorText,
+        l = e.maxCharacterCount,
+        s = e.platform,
+        c = e.shouldShowError,
+        d = e.testid,
+        p = e.textLength;
+      if (n == null && l == null && i == null) return null;
+      var f;
+      c
+        ? s === "android"
+          ? (f = "secondaryNegative")
+          : (f = "secondaryNegativeEmphasized")
+        : (f = "contentDeemphasized");
+      var g = c ? d + "-error-text" : d + "-bottom-text";
       return u.jsxs(u.Fragment, {
         children: [
-          l
-            ? o != null &&
+          c
+            ? i != null &&
               u.jsxs("div", {
                 className:
                   "x78zum5 x1iyjqo2 xs83m0k x1r8uery xeuugli x1q0g3np x1cy8zhl x1trrmfo",
@@ -272,7 +277,7 @@ __d(
                 "data-testid": void 0,
                 children: [
                   u.jsx(r("WDSIconIcError.react"), {
-                    colorName: d,
+                    colorName: f,
                     xstyle: m.errorIcon,
                     height: 16,
                     width: 16,
@@ -280,8 +285,8 @@ __d(
                   u.jsx(r("WDSText.react"), {
                     type: "Body3",
                     selectable: !1,
-                    colorName: d,
-                    children: o,
+                    colorName: f,
+                    children: i,
                   }),
                 ],
               })
@@ -295,22 +300,22 @@ __d(
                 colorName: "contentDeemphasized",
                 children: n,
               }),
-          a != null &&
-            u.jsxs(r("WDSText.react"), {
+          l != null &&
+            u.jsx(r("WDSText.react"), {
               type: "Body3",
               selectable: !1,
               xstyle: m.counter,
               testid: void 0,
-              colorName: d,
-              children: [c, "/", a],
+              colorName: f,
+              children: a(p, l),
             }),
         ],
       });
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"),
+    ((g.displayName = g.name + " [from " + i.id + "]"),
       (l.RichTextFieldAddOnStart = p),
-      (l.RichTextFieldAddOnEnd = _),
-      (l.RichTextFieldAddOnBottom = f));
+      (l.RichTextFieldAddOnEnd = f),
+      (l.RichTextFieldAddOnBottom = g));
   },
   98,
 );

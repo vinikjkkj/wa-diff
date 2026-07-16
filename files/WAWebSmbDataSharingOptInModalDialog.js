@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WALogger",
     "WASmaxInBizSettingsEnums",
+    "WAWebABProps",
     "WAWebBusinessDataSharingIllustrationDarkIcon.react",
     "WAWebBusinessDataSharingIllustrationLightIcon.react",
     "WAWebCTWADataSharingModel",
@@ -544,9 +545,9 @@ __d(
         T;
       (t[2] !== l
         ? ((I = function () {
-            var e = o(
-              "WAWebCTWAGatingUtils",
-            ).isCTWA3pdDataSharingAdditionalLoggingEnabled()
+            var e = o("WAWebABProps").getABPropConfigValue(
+              "ctwa_3pd_data_sharing_additional_logging",
+            )
               ? b()
               : null;
             k.current = e;

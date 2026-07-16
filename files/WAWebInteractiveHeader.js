@@ -68,6 +68,7 @@ __d(
         h = o("useWAWebOrderPaymentStatus").useOrderPaymentStatus(
           p,
           g == null ? void 0 : g.referenceId,
+          o("WAWebOrderStatus").isSimplifiedOrder(g),
         ),
         y = s.interactiveHeader,
         C,

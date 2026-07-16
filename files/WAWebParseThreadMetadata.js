@@ -1,11 +1,9 @@
 __d(
   "WAWebParseThreadMetadata",
-  ["WAWebABProps", "WAWebHandleInfoBulletinTypes.flow"],
+  ["WAWebABProps", "WAWebHandleInfoBulletinTypes"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.child(
-          o("WAWebHandleInfoBulletinTypes.flow").INFO_TYPE.THREAD_META,
-        ),
+      var t = e.child(o("WAWebHandleInfoBulletinTypes").INFO_TYPE.THREAD_META),
         n = {};
       t.forEachChildWithTag("item", function (e) {
         var t = e.attrChatJid("from"),

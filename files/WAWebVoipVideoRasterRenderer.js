@@ -3,6 +3,7 @@ __d(
   [
     "WAWebRuntimeEnvironmentUtils",
     "WAWebVoipMediaEnums",
+    "WAWebVoipVideoEnhancementPass",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererLogging",
     "asyncToGeneratorRuntime",
@@ -16,9 +17,17 @@ __d(
       c,
       d,
       m,
-      p = (function () {
+      p,
+      _,
+      f = 0.01,
+      g = (function () {
         function t(e) {
-          ((this.$1 = e),
+          ((this.$5 = null),
+            (this.$7 = !1),
+            (this.$10 = !1),
+            (this.$8 = 0),
+            (this.$9 = 0),
+            (this.$1 = e),
             (this.canvas = e),
             (this.$2 = e.getContext("2d")),
             (this.$3 = o(
@@ -40,7 +49,10 @@ __d(
         })();
         var a = t.prototype;
         return (
-          (a.cleanup = function () {}),
+          (a.cleanup = function () {
+            var e;
+            ((e = this.$5) == null || e.cleanup(), (this.$5 = null));
+          }),
           (a.reset = function () {
             this.$2.clearRect(0, 0, this.$1.width, this.$1.height);
           }),
@@ -124,8 +136,55 @@ __d(
           }),
           (a.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
             (i === void 0 && (i = !1),
-              f(this.$1, this.$2, n, r, o, a, i, t, this.$4),
+              y(this.$1, this.$2, n, r, o, a, i, this.$6(t, n, r), this.$4),
               this.$3());
+          }),
+          (a.$6 = function (t, n, a) {
+            if (this.$7 || (Math.abs(this.$8) < f && Math.abs(this.$9) < f))
+              return (
+                this.$5 != null && (this.$5.cleanup(), (this.$5 = null)),
+                t
+              );
+            try {
+              this.$5 == null &&
+                (this.$5 = new (r("WAWebVoipVideoEnhancementPass"))());
+              var e = this.$5.render(t, n, a, this.$8, this.$9);
+              return (
+                this.$10 ||
+                  ((this.$10 = !0),
+                  o("WAWebVoipVideoRendererLogging").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: WAWebVoipVideoFrameRenderer: video enhancement applied brightness=",
+                        " sharpening=",
+                        " at ",
+                        "x",
+                        "",
+                      ])),
+                    this.$8,
+                    this.$9,
+                    n,
+                    a,
+                  )),
+                e
+              );
+            } catch (e) {
+              var i;
+              return (
+                (this.$7 = !0),
+                (i = this.$5) == null || i.cleanup(),
+                (this.$5 = null),
+                o("WAWebVoipVideoRendererLogging").WARN(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: WAWebVoipVideoFrameRenderer: enhancement pass failed, rendering raw frame: ",
+                      "",
+                    ])),
+                  e,
+                ),
+                t
+              );
+            }
           }),
           (a.setRenderCallback = function (t) {
             this.$3 = t;
@@ -133,10 +192,13 @@ __d(
           (a.setCoverFit = function (t) {
             this.$4 = t;
           }),
+          (a.setVideoEnhancement = function (t, n) {
+            ((this.$8 = t), (this.$9 = n));
+          }),
           t
         );
       })(),
-      _ = (function () {
+      h = (function () {
         function e(e) {
           ((this.$1 = e),
             (this.$2 = e.getContext("2d")),
@@ -179,17 +241,17 @@ __d(
               s = t.timestamp,
               u = t.width;
             this.$8();
-            var m = new Uint8Array(n),
-              p =
+            var c = new Uint8Array(n),
+              d =
                 e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12
-                  ? h(m, u, r)
+                  ? b(c, u, r)
                   : e === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
-                    ? m
+                    ? c
                     : null;
-            if (!p) {
+            if (!d) {
               o("WAWebVoipVideoRendererLogging").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "renderFrame: unsupported format: ",
                     "",
                   ])),
@@ -199,11 +261,11 @@ __d(
             }
             var _ = !0;
             try {
-              this.renderRgbaWithImageData(p, u, r, l, i, _);
+              this.renderRgbaWithImageData(d, u, r, l, i, _);
             } catch (e) {
               o("WAWebVoipVideoRendererLogging").ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "onVideoFrameWasmToJs: NV12 conversion fallback failed: ",
                     "",
                   ])),
@@ -219,12 +281,12 @@ __d(
                 (this.$3.width = n),
                 (this.$3.height = r),
                 this.$4.putImageData(e, 0, 0),
-                f(this.$1, this.$2, n, r, a, i, l, this.$3, this.$6),
+                y(this.$1, this.$2, n, r, a, i, l, this.$3, this.$6),
                 this.$5());
             } catch (e) {
               o("WAWebVoipVideoRendererLogging").ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "renderRgbaWithImageData: error rendering to canvas: ",
                     "",
                   ])),
@@ -238,11 +300,12 @@ __d(
           (t.setCoverFit = function (t) {
             this.$6 = t;
           }),
+          (t.setVideoEnhancement = function (t, n) {}),
           e
         );
       })();
-    function f(e, t, n, r, o, a, i, l, s) {
-      var u = g({
+    function y(e, t, n, r, o, a, i, l, s) {
+      var u = C({
           canvasHeight: e.height,
           canvasWidth: e.width,
           coverFit: s,
@@ -262,7 +325,7 @@ __d(
         t.drawImage(l, 0, 0, d, c),
         t.restore());
     }
-    function g(e) {
+    function C(e) {
       var t = e.canvasHeight,
         n = e.canvasWidth,
         r = e.coverFit,
@@ -291,7 +354,7 @@ __d(
         { renderWidth: _, renderHeight: f }
       );
     }
-    function h(e, t, n) {
+    function b(e, t, n) {
       for (
         var r = new Uint8Array(t * n * 4), o = t * n, a = o, i = 0;
         i < n;
@@ -325,7 +388,7 @@ __d(
         }
       return r;
     }
-    ((l.WAWebVoipVideoFrameRenderer = p), (l.WAWebVoipVideoRasterRenderer = _));
+    ((l.WAWebVoipVideoFrameRenderer = g), (l.WAWebVoipVideoRasterRenderer = h));
   },
   98,
 );

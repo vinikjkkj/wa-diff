@@ -22,7 +22,7 @@ __d(
       MediaHub: "mediaHub",
       MetaAI: "metaAI",
       MeTab: "meTab",
-      CustomerManager: "customerManager",
+      ContactManager: "contactManager",
     });
     i.NavBarItems = e;
   },

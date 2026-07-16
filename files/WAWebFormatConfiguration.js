@@ -4,8 +4,6 @@ __d(
     "WAWebABProps",
     "WAWebBlockQuoteFormatMutator",
     "WAWebBoldFormatMutator",
-    "WAWebBotBaseGating",
-    "WAWebBotCommandFormatMutator",
     "WAWebBulletedListFormatMutator",
     "WAWebBulletedListItemFormatMutator",
     "WAWebCodeFormatMutator",
@@ -16,12 +14,9 @@ __d(
     "WAWebInlineCodeFormatMutator",
     "WAWebItalicFormatMutator",
     "WAWebLinkFormatMutator",
-    "WAWebMentionAllFormatMutator",
-    "WAWebMentionFormatMutator",
     "WAWebNoop",
     "WAWebNumberedListFormatMutator",
     "WAWebNumberedListItemFormatMutator",
-    "WAWebPhoneNumberFormatMutator",
     "WAWebRawGroupMentionFormatMutator",
     "WAWebRawMentionMutator",
     "WAWebRawShortNameMentionFormatMutator",
@@ -114,159 +109,6 @@ __d(
       ];
     }
     function p(t) {
-      var a = t === void 0 ? {} : t,
-        i = a.mentions,
-        l = a.groupMentions,
-        s = a.hasMentionAll,
-        u = a.links,
-        c = u === void 0 ? [] : u,
-        d = a.phoneNumbers,
-        m = d === void 0 ? [] : d,
-        p = a.selectable,
-        _ = a.trusted,
-        f = _ === void 0 ? !1 : _,
-        g = a.fromMe,
-        h = g === void 0 ? !1 : g,
-        y = a.fromChatWid,
-        C = a.commands,
-        b = C === void 0 ? [] : C,
-        v = a.parseInlineCode,
-        S = v === void 0 ? !1 : v,
-        R = a.parseLists,
-        L = R === void 0 ? !1 : R,
-        E = a.parseQuotes,
-        k = E === void 0 ? !1 : E,
-        I = a.parseHeadings,
-        T = I === void 0 ? !1 : I,
-        D = a.onLinkClick,
-        x = D === void 0 ? r("WAWebNoop") : D,
-        $ = a.terms,
-        P = $ === void 0 ? null : $,
-        N = a.messageHasSpoiler,
-        M = N === void 0 ? !1 : N,
-        w = a.boldXstyle,
-        A = a.codeXstyle,
-        F = a.linkXstyle,
-        O =
-          f && m != null && m.length > 0
-            ? [
-                [
-                  r("WAWebPhoneNumberFormatMutator"),
-                  { phoneNumbers: m, selectable: p, fromMe: h },
-                ],
-              ]
-            : null,
-        B;
-      return (
-        (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
-          o("WAWebBotBaseGating").isBotEnabled()) &&
-          b &&
-          b.length > 0 &&
-          (B = [
-            [
-              o("WAWebBotCommandFormatMutator").BotCommand,
-              { commands: b, selectable: p },
-            ],
-          ]),
-        [
-          [
-            [
-              o("WAWebCodeFormatMutator").Code,
-              { selectable: p, codeXstyle: A },
-            ],
-          ],
-          S
-            ? [
-                [
-                  r("WAWebInlineCodeFormatMutator"),
-                  { selectable: p, codeXstyle: A },
-                ],
-              ]
-            : null,
-          L
-            ? [
-                [
-                  o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-                  { selectable: p },
-                ],
-              ]
-            : null,
-          L
-            ? [
-                [
-                  o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-                  { selectable: p },
-                ],
-              ]
-            : null,
-          L ? [[r("WAWebBulletedListFormatMutator"), { selectable: p }]] : null,
-          L
-            ? [
-                [
-                  o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-                  { selectable: p },
-                ],
-              ]
-            : null,
-          L ? [[r("WAWebNumberedListFormatMutator"), { selectable: p }]] : null,
-          f
-            ? [
-                [
-                  r("WAWebLinkFormatMutator"),
-                  { links: c, selectable: p, onLinkClick: x, linkXstyle: F },
-                ],
-              ]
-            : null,
-          i
-            ? [[r("WAWebMentionFormatMutator"), { mentions: i, selectable: p }]]
-            : null,
-          [
-            [
-              r("WAWebMentionAllFormatMutator"),
-              { hasMentionAll: s, selectable: p },
-            ],
-          ],
-          T
-            ? [[o("WAWebHeadingFormatMutator").Heading, { selectable: p }]]
-            : null,
-          l
-            ? [
-                [
-                  o("WAWebGroupMentionFormatMutator").GroupMention,
-                  { groupMentions: l, selectable: p, fromChatWid: y },
-                ],
-              ]
-            : null,
-          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(p) : null,
-          O,
-          e({ messageHasSpoiler: M, selectable: p }),
-          [
-            [r("WAWebBoldFormatMutator"), { selectable: p, boldXstyle: w }],
-            [r("WAWebItalicFormatMutator"), { selectable: p }],
-            [r("WAWebStrikethroughFormatMutator"), { selectable: p }],
-          ],
-          [[r("WAWebEmojiFormatMutator"), { selectable: p }]],
-          k
-            ? [
-                [
-                  o("WAWebBlockQuoteFormatMutator").BlockQuote,
-                  { selectable: p },
-                ],
-              ]
-            : null,
-          B,
-          P != null
-            ? [
-                [
-                  r("WAWebHighlightFormatMutator"),
-                  { terms: P, ignoreDiacritics: !0 },
-                ],
-              ]
-            : null,
-        ].filter(Boolean)
-      );
-    }
-    function _(t) {
       var n = t.boundary,
         a = t.groupMentions,
         i = t.mentions,
@@ -297,7 +139,7 @@ __d(
         ],
       ]);
     }
-    function f(e) {
+    function _(e) {
       var t = e.emojiXstyle,
         n = e.terms;
       return [
@@ -310,7 +152,7 @@ __d(
         ],
       ];
     }
-    function g(t) {
+    function f(t) {
       t === void 0 && (t = {});
       var n = o("WAWebABProps").getABPropConfigValue(
           "enable_clear_formatted_preview",
@@ -361,7 +203,7 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: c }]],
       ].filter(Boolean);
     }
-    function h(t) {
+    function g(t) {
       var n = t.boundary,
         a = t.groupMentions,
         i = t.mentions,
@@ -393,7 +235,7 @@ __d(
         ],
       ]);
     }
-    function y(e) {
+    function h(e) {
       var t = e === void 0 ? {} : e,
         n = t.selectable;
       return [
@@ -406,7 +248,7 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: n }]],
       ];
     }
-    function C(e) {
+    function y(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -429,7 +271,7 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: a }]],
       ].filter(Boolean);
     }
-    function b(t) {
+    function C(t) {
       var n = t.groupMentions,
         a = t.mentions,
         i = t.messageHasSpoiler,
@@ -489,7 +331,7 @@ __d(
         ],
       ].filter(Boolean);
     }
-    function v(e) {
+    function b(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -509,7 +351,7 @@ __d(
         ],
       ].filter(Boolean);
     }
-    function S(e) {
+    function v(e) {
       var t = e.groupMentions,
         n = e.groupMetadata,
         a = e.mentions,
@@ -537,7 +379,7 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: i }]],
       ].filter(Boolean);
     }
-    function R(e) {
+    function S(e) {
       var t,
         a = e.links,
         i = !!e.expandedFormattingEnabled,
@@ -585,7 +427,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function L(e) {
+    function R(e) {
       var t,
         a = !!(e != null && e.expandedFormattingEnabled),
         i = !!((t = e == null ? void 0 : e.bulletPointsEnabled) != null
@@ -633,7 +475,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function E(e) {
+    function L(e) {
       var t = e === void 0 ? {} : e,
         n = t.links,
         o = t.selectable,
@@ -645,7 +487,7 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: o }]],
       ].filter(Boolean);
     }
-    function k(t) {
+    function E(t) {
       t === void 0 && (t = {});
       var n = t,
         a = n.groupMentions,
@@ -718,7 +560,7 @@ __d(
         ],
       ].filter(Boolean);
     }
-    function I(e) {
+    function k(e) {
       var t = e.selectable,
         n = e.parseHeadings,
         a = n === void 0 ? !0 : n,
@@ -805,21 +647,20 @@ __d(
       (l.StatusText = c),
       (l.StatusCaption = d),
       (l.Compatibility = m),
-      (l.Conversation = p),
-      (l.Search = _),
-      (l.SearchName = f),
-      (l.LastMessage = g),
-      (l.FTSMessage = h),
-      (l.QuickReply = y),
-      (l.Unformat = C),
-      (l.QuotedMention = b),
-      (l.FormattedNotification = v),
-      (l.FormattedGroupNotification = S),
-      (l.TrustedGroupDesc = R),
-      (l.UntrustedGroupDesc = L),
-      (l.HeaderAndFooter = E),
-      (l.InlineMessage = k),
-      (l.RichResponse = I));
+      (l.Search = p),
+      (l.SearchName = _),
+      (l.LastMessage = f),
+      (l.FTSMessage = g),
+      (l.QuickReply = h),
+      (l.Unformat = y),
+      (l.QuotedMention = C),
+      (l.FormattedNotification = b),
+      (l.FormattedGroupNotification = v),
+      (l.TrustedGroupDesc = S),
+      (l.UntrustedGroupDesc = R),
+      (l.HeaderAndFooter = L),
+      (l.InlineMessage = E),
+      (l.RichResponse = k));
   },
   98,
 );

@@ -8,6 +8,7 @@ __d(
     "WAWebMediaEntry",
     "WAWebMediaPrep",
     "WAWebMediaUpdateMsg",
+    "WAWebMediaUploadMediaWithPrep",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebUserPrefsMeUser",
@@ -104,7 +105,9 @@ __d(
                 "WAWebGalaxyFlowMediaEditorCollection",
               ).GalaxyFlowMediaEditorCollection.addMsg(t, p, i),
                 yield p.waitForPrep());
-              var _ = yield o("WAWebMediaPrep").uploadMediaWithPrep(p, a),
+              var _ = yield o(
+                  "WAWebMediaUploadMediaWithPrep",
+                ).uploadMediaWithPrep(p, a),
                 f = _.body,
                 g = _.mediaResult.mediaEntry,
                 h = _.mmsThumbnailData;

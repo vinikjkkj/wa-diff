@@ -9,6 +9,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipAudioCaptureSharedBufferWorklet",
+    "WAWebVoipSharedBufferCaptureProcessorConfig",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoCameraCapture",
     "WAWebVoipVideoCaptureBase",
@@ -226,24 +227,22 @@ __d(
                   this.systemAudioSabBuffer = g;
                   var h = u.GROWABLE_HEAP_U8();
                   h.fill(0, g, g + f);
-                  var b = o(
-                      "WAWebVoipAudioCaptureSharedBufferWorklet",
-                    ).getSharedBufferCaptureProcessorCode(),
-                    v = new Blob([b], { type: "application/javascript" }),
-                    S = URL.createObjectURL(v);
-                  try {
-                    yield c.audioWorklet.addModule(S);
-                  } finally {
-                    URL.revokeObjectURL(S);
-                  }
-                  var R = new AudioWorkletNode(
+                  var b = r(
+                    "WAWebVoipSharedBufferCaptureProcessorConfig",
+                  ).module_url;
+                  if (b === "")
+                    throw r("err")(
+                      "voip: [AV:SystemAudio] Missing worklet module url",
+                    );
+                  yield c.audioWorklet.addModule(b);
+                  var v = new AudioWorkletNode(
                     c,
                     "voip-shared-buffer-capture-processor",
                     { numberOfInputs: 1, numberOfOutputs: 0 },
                   );
-                  this.systemAudioWorkletNode = R;
-                  var L = new (y || (y = n("Promise")))(function (e) {
-                      R.port.onmessage = function (t) {
+                  this.systemAudioWorkletNode = v;
+                  var S = new (y || (y = n("Promise")))(function (e) {
+                      v.port.onmessage = function (t) {
                         var n = t.data;
                         typeof n != "object" ||
                           n == null ||
@@ -257,30 +256,30 @@ __d(
                               ));
                       };
                     }),
-                    E = yield o("WAPromiseDelays").withTimeout(
-                      L,
+                    R = yield o("WAPromiseDelays").withTimeout(
+                      S,
                       5e3,
                       o("WAWebBoolFunc").returnFalse,
                     );
-                  if (E === !1)
+                  if (R === !1)
                     throw r("err")(
                       "AudioWorklet processor not ready within 5s",
                     );
-                  var k = u.GROWABLE_HEAP_F32();
-                  (R.port.postMessage({
+                  var L = u.GROWABLE_HEAP_F32();
+                  (v.port.postMessage({
                     type: "initSharedBuffer",
-                    heapBuffer: k.buffer,
+                    heapBuffer: L.buffer,
                     heapBufferOffset: g,
                     bufferSize: s,
                     targetSampleRate: l,
                   }),
-                    d.connect(R));
-                  var I = u.startSystemAudioReaderThread(g, s, i);
-                  if (!I)
+                    d.connect(v));
+                  var E = u.startSystemAudioReaderThread(g, s, i);
+                  if (!E)
                     throw r("err")(
                       "Failed to start system audio reader thread",
                     );
-                  (R.port.postMessage({ type: "start" }),
+                  (v.port.postMessage({ type: "start" }),
                     o("WALogger").LOG(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([

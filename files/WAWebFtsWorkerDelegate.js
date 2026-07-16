@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAFtsQuickSwitchOrchestrator",
-    "WAFtsSQLiteIndexer",
     "WAFtsSQLiteTableAdapter",
     "WALogger",
     "WASemaphore",
@@ -13,6 +12,7 @@ __d(
     "WAWebFtsManifestReader",
     "WAWebFtsManifestWriter",
     "WAWebFtsPurgeRangeManager",
+    "WAWebFtsSQLiteIndexer",
     "WAWebFtsStorage",
     "WAWebFtsStorageConsts",
     "WAWebFtsV3MessageSource",
@@ -98,7 +98,7 @@ __d(
                           .LATEST_TOKENIZER_VERSION,
                       ),
                       r("WAWebEnvironment").isWindows
-                        ? (this.$3 = new (r("WAFtsSQLiteIndexer"))({
+                        ? (this.$3 = new (r("WAWebFtsSQLiteIndexer"))({
                             messageSource: new (r("WAWebFtsV3MessageSource"))(
                               t,
                             ),

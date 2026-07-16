@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
-    "WAWebBackendEventBusTypes.flow",
+    "WAWebBackendEventBusTypes",
     "WAWebBackendWorkerClient",
     "WAWebBackendWorkerInitState",
     "WAWebEventEmitter",
@@ -48,7 +48,7 @@ __d(
             (e.isOfflineDeliveryEnd = !1),
             (e.socketState = o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .APP_STATE_SYNC_COMPLETED,
               function (e) {
                 o("WAWebBackendWorkerClient")
@@ -63,7 +63,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent.LOGOUT,
+              o("WAWebBackendEventBusTypes").BackendEvent.LOGOUT,
               function () {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -73,7 +73,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent.REFRESH_QR,
+              o("WAWebBackendEventBusTypes").BackendEvent.REFRESH_QR,
               function () {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -83,7 +83,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .ON_INITIAL_CHAT_SYNCED,
               function () {
                 o("WAWebBackendWorkerClient")
@@ -97,7 +97,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .ON_RECENT_CHAT_HISTORY_SYNCED,
               function () {
                 o("WAWebBackendWorkerClient")
@@ -111,7 +111,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .ON_FULL_CHAT_HISTORY_SYNCED,
               function () {
                 o("WAWebBackendWorkerClient")
@@ -125,8 +125,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
-                .ON_CRITICAL_SYNC_DONE,
+              o("WAWebBackendEventBusTypes").BackendEvent.ON_CRITICAL_SYNC_DONE,
               function () {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -139,7 +138,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .STORAGE_INITIALIZATION_ERROR,
               function () {
                 o("WAWebBackendWorkerClient")
@@ -153,7 +152,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .SOCKET_STREAM_DISCONNECTED,
               function () {
                 o("WAWebBackendWorkerClient")
@@ -167,8 +166,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
-                .OPEN_SOCKET_STREAM,
+              o("WAWebBackendEventBusTypes").BackendEvent.OPEN_SOCKET_STREAM,
               function () {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -181,7 +179,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent.RECONNECT_SOCKET,
+              o("WAWebBackendEventBusTypes").BackendEvent.RECONNECT_SOCKET,
               function () {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -191,7 +189,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent.SET_SOCKET_STATE,
+              o("WAWebBackendEventBusTypes").BackendEvent.SET_SOCKET_STATE,
               function (e) {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -203,7 +201,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .MAIN_STREAM_MODE_READY,
               function () {
                 o("WAWebBackendWorkerClient")
@@ -217,8 +215,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
-                .OFFLINE_DELIVERY_END,
+              o("WAWebBackendEventBusTypes").BackendEvent.OFFLINE_DELIVERY_END,
               function () {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -231,7 +228,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
+              o("WAWebBackendEventBusTypes").BackendEvent
                 .OFFLINE_DELIVERY_STATE_RESET,
               function () {
                 o("WAWebBackendWorkerClient")
@@ -245,8 +242,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent
-                .ON_AB_PROPS_UPDATE,
+              o("WAWebBackendEventBusTypes").BackendEvent.ON_AB_PROPS_UPDATE,
               function (e) {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -260,7 +256,7 @@ __d(
               },
             ),
             e.on(
-              o("WAWebBackendEventBusTypes.flow").BackendEvent.AB_PROPS_LOADED,
+              o("WAWebBackendEventBusTypes").BackendEvent.AB_PROPS_LOADED,
               function () {
                 o("WAWebBackendWorkerClient")
                   .getBackendWorkerBridge()
@@ -283,7 +279,7 @@ __d(
           (a.onAppStateSyncCompleted = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .APP_STATE_SYNC_COMPLETED,
                 t,
               ),
@@ -293,7 +289,7 @@ __d(
           (a.onceAppStateSyncCompleted = function (t) {
             return (
               this.once(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .APP_STATE_SYNC_COMPLETED,
                 t,
               ),
@@ -308,7 +304,7 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .APP_STATE_SYNC_COMPLETED,
                 n,
               ),
@@ -319,10 +315,7 @@ __d(
           }),
           (a.onLogout = function (t) {
             return (
-              this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent.LOGOUT,
-                t,
-              ),
+              this.on(o("WAWebBackendEventBusTypes").BackendEvent.LOGOUT, t),
               this
             );
           }),
@@ -333,9 +326,7 @@ __d(
                   "BackendEventBus: logout",
                 ])),
             ),
-              this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent.LOGOUT,
-              ),
+              this.trigger(o("WAWebBackendEventBusTypes").BackendEvent.LOGOUT),
               o("WAWebBackendApi").frontendFireAndForget(
                 "triggerLogoutFromBridge",
                 {},
@@ -356,7 +347,7 @@ __d(
           (a.onRefreshQR = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent.REFRESH_QR,
+                o("WAWebBackendEventBusTypes").BackendEvent.REFRESH_QR,
                 t,
               ),
               this
@@ -370,13 +361,13 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent.REFRESH_QR,
+                o("WAWebBackendEventBusTypes").BackendEvent.REFRESH_QR,
               ));
           }),
           (a.onInitialChatHistorySynced = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_INITIAL_CHAT_SYNCED,
                 t,
               ),
@@ -391,7 +382,7 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_INITIAL_CHAT_SYNCED,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
@@ -402,7 +393,7 @@ __d(
           (a.onRecentChatHistorySynced = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_RECENT_CHAT_HISTORY_SYNCED,
                 t,
               ),
@@ -417,14 +408,14 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_RECENT_CHAT_HISTORY_SYNCED,
               ));
           }),
           (a.onFullChatHistorySynced = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_FULL_CHAT_HISTORY_SYNCED,
                 t,
               ),
@@ -439,14 +430,14 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_FULL_CHAT_HISTORY_SYNCED,
               ));
           }),
           (a.onCriticalSyncDone = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_CRITICAL_SYNC_DONE,
                 t,
               ),
@@ -461,7 +452,7 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .ON_CRITICAL_SYNC_DONE,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
@@ -484,7 +475,7 @@ __d(
           (a.onStorageInitializationError = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .STORAGE_INITIALIZATION_ERROR,
                 t,
               ),
@@ -511,14 +502,14 @@ __d(
                   )
                   .sendLogs("storage-initialization-error-not-provided"),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .STORAGE_INITIALIZATION_ERROR,
               ));
           }),
           (a.onSocketStreamDisconnected = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .SOCKET_STREAM_DISCONNECTED,
                 t,
               ),
@@ -533,7 +524,7 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .SOCKET_STREAM_DISCONNECTED,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
@@ -544,8 +535,7 @@ __d(
           (a.onOpenSocketStream = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .OPEN_SOCKET_STREAM,
+                o("WAWebBackendEventBusTypes").BackendEvent.OPEN_SOCKET_STREAM,
                 t,
               ),
               this
@@ -559,8 +549,7 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .OPEN_SOCKET_STREAM,
+                o("WAWebBackendEventBusTypes").BackendEvent.OPEN_SOCKET_STREAM,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
                 "triggerOpenSocketStreamFromBridge",
@@ -570,8 +559,7 @@ __d(
           (a.onReconnectSocket = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .RECONNECT_SOCKET,
+                o("WAWebBackendEventBusTypes").BackendEvent.RECONNECT_SOCKET,
                 t,
               ),
               this
@@ -585,15 +573,13 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .RECONNECT_SOCKET,
+                o("WAWebBackendEventBusTypes").BackendEvent.RECONNECT_SOCKET,
               ));
           }),
           (a.onSetSocketState = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .SET_SOCKET_STATE,
+                o("WAWebBackendEventBusTypes").BackendEvent.SET_SOCKET_STATE,
                 t,
               ),
               this
@@ -610,8 +596,7 @@ __d(
             ),
               (this.socketState = t),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .SET_SOCKET_STATE,
+                o("WAWebBackendEventBusTypes").BackendEvent.SET_SOCKET_STATE,
                 t,
               ));
           }),
@@ -702,7 +687,7 @@ __d(
           (a.onMainStreamModeReady = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .MAIN_STREAM_MODE_READY,
                 t,
               ),
@@ -718,7 +703,7 @@ __d(
             ),
               (this.isMainStreamReadyMd = !0),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .MAIN_STREAM_MODE_READY,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
@@ -734,14 +719,14 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .OFFLINE_PROCESS_READY,
               ));
           }),
           (a.onOfflineDeliveryEnd = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .OFFLINE_DELIVERY_END,
                 t,
               ),
@@ -751,7 +736,7 @@ __d(
           (a.onceOfflineDeliveryEnd = function (t) {
             return (
               this.once(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .OFFLINE_DELIVERY_END,
                 t,
               ),
@@ -767,7 +752,7 @@ __d(
             ),
               (this.isOfflineDeliveryEnd = !0),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .OFFLINE_DELIVERY_END,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
@@ -778,7 +763,7 @@ __d(
           (a.onOfflineDeliveryStateReset = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .OFFLINE_DELIVERY_STATE_RESET,
                 t,
               ),
@@ -794,7 +779,7 @@ __d(
             ),
               (this.isOfflineDeliveryEnd = !1),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
+                o("WAWebBackendEventBusTypes").BackendEvent
                   .OFFLINE_DELIVERY_STATE_RESET,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
@@ -805,8 +790,7 @@ __d(
           (a.onAbPropsUpdate = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .ON_AB_PROPS_UPDATE,
+                o("WAWebBackendEventBusTypes").BackendEvent.ON_AB_PROPS_UPDATE,
                 t,
               ),
               this
@@ -820,8 +804,7 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .ON_AB_PROPS_UPDATE,
+                o("WAWebBackendEventBusTypes").BackendEvent.ON_AB_PROPS_UPDATE,
                 t,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
@@ -832,8 +815,7 @@ __d(
           (a.onAbPropsLoaded = function (t) {
             return (
               this.on(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .AB_PROPS_LOADED,
+                o("WAWebBackendEventBusTypes").BackendEvent.AB_PROPS_LOADED,
                 t,
               ),
               this
@@ -847,8 +829,7 @@ __d(
                 ])),
             ),
               this.trigger(
-                o("WAWebBackendEventBusTypes.flow").BackendEvent
-                  .AB_PROPS_LOADED,
+                o("WAWebBackendEventBusTypes").BackendEvent.AB_PROPS_LOADED,
               ),
               o("WAWebBackendApi").frontendFireAndForget(
                 "triggerAbPropsLoadedFromBridge",
@@ -858,7 +839,7 @@ __d(
         );
       })(r("WAWebEventEmitter")),
       A = new w();
-    ((l.BackendEvent = o("WAWebBackendEventBusTypes.flow").BackendEvent),
+    ((l.BackendEvent = o("WAWebBackendEventBusTypes").BackendEvent),
       (l.BackendEventBus = A));
   },
   98,

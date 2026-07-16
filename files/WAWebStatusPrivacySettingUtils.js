@@ -47,7 +47,7 @@ __d(
               o("WAWebToastManager").ToastManager.open(
                 c.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
-                    /*BTDS*/ "Failed to update privacy settings. Please try again.",
+                    /*BTDS*/ "Couldn't update privacy settings. Please try again.",
                   ),
                 }),
               ));

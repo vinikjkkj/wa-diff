@@ -6,11 +6,11 @@ __d(
     "WAWebChatCollection",
     "WAWebClock",
     "WAWebContactCollection",
+    "WAWebContactManagerDateRangeUtils",
+    "WAWebContactManagerSearchUtils",
     "WAWebContactType",
     "WAWebContactTypeNames",
     "WAWebCustomerDataModel",
-    "WAWebCustomerManagerDateRangeUtils",
-    "WAWebCustomerManagerSearchUtils",
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
     "WAWebLeadStage",
@@ -203,7 +203,7 @@ __d(
           }
           if (r.labelId != null) {
             var l = r.labelId;
-            l === o("WAWebCustomerManagerSearchUtils").NO_LABEL_FILTER_ID
+            l === o("WAWebContactManagerSearchUtils").NO_LABEL_FILTER_ID
               ? (t = t.filter(function (e) {
                   return (
                     o("WAWebLabelCollection").LabelCollection.getLabelsForModel(
@@ -230,7 +230,7 @@ __d(
           }
           if (r.lastMessageCustomRange != null) {
             var c = o(
-                "WAWebCustomerManagerDateRangeUtils",
+                "WAWebContactManagerDateRangeUtils",
               ).getCustomRangeSecondsBounds(
                 r.lastMessageCustomRange.start,
                 r.lastMessageCustomRange.end,

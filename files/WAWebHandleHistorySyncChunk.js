@@ -21,6 +21,7 @@ __d(
     "WAWebDBCreateLidPnMappings",
     "WAWebDBMessageUtils",
     "WAWebDownloadManager",
+    "WAWebGetHistorySyncMetrics",
     "WAWebGetHistorySyncProgress",
     "WAWebHandleHistorySyncMsg",
     "WAWebHistoryMsgHandlerAction",
@@ -182,9 +183,10 @@ __d(
               e,
             ),
             B = o("WAWebHistorySyncNotificationUtils").maybeGetInlinePayload(e),
-            W = yield o(
-              "WAWebHistorySyncNotificationUtils",
-            ).getHistorySyncMetrics(e, B == null),
+            W = yield o("WAWebGetHistorySyncMetrics").getHistorySyncMetrics(
+              e,
+              B == null,
+            ),
             q = W.historySyncDataAppliedMetric,
             U = W.historySyncDownloadedMetric,
             V = W.historySyncStartDownloadingMetric;

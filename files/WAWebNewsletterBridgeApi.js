@@ -18,11 +18,11 @@ __d(
     "WAWebNewsletterPullMessagesFromServerAction",
     "WAWebNewsletterSubscriberModel",
     "WAWebNewsletterValidationUtils",
-    "WAWebNotificationBackend",
     "WAWebProfilePicThumbCollection",
     "WAWebQueryAndUpdateNewslettersMetadataAction",
     "WAWebShouldUpdateLastAddOnPreview",
     "WAWebShowNewsletterMetadataUpdateNotification",
+    "WAWebShowNewsletterMilestoneNotification",
     "WAWebShowNewsletterRoleChangeNotification",
     "WAWebStatusCollection",
     "WAWebUpdateLastAddOnPreviewChatAction",
@@ -542,7 +542,9 @@ __d(
       })(),
       displayNewsletterMilestoneDesktopNotification: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebNotificationBackend").showNewsletterMilestoneNotification(e);
+          o(
+            "WAWebShowNewsletterMilestoneNotification",
+          ).showNewsletterMilestoneNotification(e);
         });
         function t(t) {
           return e.apply(this, arguments);

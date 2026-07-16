@@ -6,6 +6,7 @@ __d(
     "WAWebAttachMediaCollection",
     "WAWebBroadcastMsgDataUtils",
     "WAWebMediaPrep",
+    "WAWebMediaUploadMediaWithPrep",
     "WAWebMsgType",
     "WAWebWamEnumMediaPickerOriginType",
     "asyncToGeneratorRuntime",
@@ -190,7 +191,10 @@ __d(
             n.id.toString(),
           );
           var i = { isMediaCryptoExpectedForChat: !0, type: t },
-            l = yield o("WAWebMediaPrep").uploadMediaWithPrep(n, i),
+            l = yield o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep(
+              n,
+              i,
+            ),
             c = l.body,
             d = l.mediaResult.mediaEntry;
           if (!d) throw r("err")("Media upload failed: entry was not created");

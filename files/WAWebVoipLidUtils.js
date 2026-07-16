@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAPromiseEach",
+    "WAWebABProps",
     "WAWebAsISOCountryCode",
     "WAWebContactExternalUserState",
     "WAWebDBCreateLidPnMappings",
@@ -111,9 +112,9 @@ __d(
                 if (
                   (yield o("WAWebSetUsernameJob").setUsernamesJob([f]),
                   s != null &&
-                    o(
-                      "WAWebVoipGatingUtils",
-                    ).usernameCallingPhoneNumberPrivacyEnabled())
+                    o("WAWebABProps").getABPropConfigValue(
+                      "enable_calling_phone_number_privacy",
+                    ))
                 ) {
                   o("WALogger")
                     .ERROR(

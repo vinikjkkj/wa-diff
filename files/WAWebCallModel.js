@@ -249,9 +249,6 @@ __d(
           (a.getPeerReconnectingState = function (t) {
             return this.$Call$p_2.get(t.toString());
           }),
-          (a.isAnyPeerReconnecting = function () {
-            return this.$Call$p_2.size > 0;
-          }),
           (a.setNetHealth = function (t) {
             var e;
             ((this.$Call$p_14 = t),

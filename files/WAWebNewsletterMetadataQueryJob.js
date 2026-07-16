@@ -4,8 +4,8 @@ __d(
     "WABase64",
     "WAWebMexFetchAllNewslettersMetadataJob",
     "WAWebMexNewsletterParseUtils",
-    "WAWebMexNewsletterUtils",
     "WAWebMexUpdateNewsletterJob",
+    "WAWebNewsletterHandleMexGetNewsletter",
     "WAWebNewsletterQueryUtils",
     "WAWebNewsletterRpcUtils",
     "asyncToGeneratorRuntime",
@@ -58,7 +58,9 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebMexNewsletterUtils").handleMexGetNewsletter(e);
+          return o(
+            "WAWebNewsletterHandleMexGetNewsletter",
+          ).handleMexGetNewsletter(e);
         })),
         d.apply(this, arguments)
       );

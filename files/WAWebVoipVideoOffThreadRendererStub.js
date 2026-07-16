@@ -240,6 +240,14 @@ __d(
               enabled: t,
             });
           }),
+          (n.setVideoEnhancement = function (t, n) {
+            this.$4.postMessage({
+              type: "setVideoEnhancement",
+              rendererId: this.$1,
+              brightness: t,
+              sharpening: n,
+            });
+          }),
           (n.renderFrame = function (t) {
             var e = t.format,
               n = t.frameBuffer,

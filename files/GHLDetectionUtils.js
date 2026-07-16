@@ -17,7 +17,18 @@ __d(
               ) === "function toString() { [native code] }"
             );
     }
-    function s(e) {
+    function s() {
+      try {
+        var e,
+          t = JSON.parse(
+            '{"data":{"node":{"th_dat_spo":{"__typename":"SponsoredData"}}}}',
+          );
+        return (t == null || (e = t.data) == null ? void 0 : e.node) == null;
+      } catch (e) {
+        return !1;
+      }
+    }
+    function u(e) {
       return r("gkx")("8869")
         ? !0
         : typeof e == "function" &&
@@ -30,7 +41,7 @@ __d(
               ) === "function toString() { [native code] }"
             );
     }
-    function u(e) {
+    function c(e) {
       return r("gkx")("9063")
         ? !0
         : typeof e == "function" &&
@@ -45,7 +56,7 @@ __d(
               ) === "function toString() { [native code] }"
             );
     }
-    function c() {
+    function d() {
       return (
         typeof String == "function" &&
         !(
@@ -58,7 +69,7 @@ __d(
         )
       );
     }
-    function d() {
+    function m() {
       return (
         typeof Function.prototype.call == "function" &&
         !(
@@ -74,10 +85,11 @@ __d(
       );
     }
     ((l.isJSONParseShimmed = e),
-      (l.isXHRModified = s),
-      (l.isCanvasFillTextModified = u),
-      (l.isStringShimmed = c),
-      (l.isCallShimmed = d));
+      (l.isJSONParseBehaviorallyShimmed = s),
+      (l.isXHRModified = u),
+      (l.isCanvasFillTextModified = c),
+      (l.isStringShimmed = d),
+      (l.isCallShimmed = m));
   },
   98,
 );

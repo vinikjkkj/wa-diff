@@ -66,7 +66,7 @@ __d(
             retryStr: null,
           }
         : (e instanceof o("WAWebHttpErrors").HttpNetworkError &&
-            (n = s._(/*BTDS*/ "Unable to connect to the internet.")),
+            (n = s._(/*BTDS*/ "Couldn't connect to the internet.")),
           { text: n, retryStr: t });
     }
     function p(e) {

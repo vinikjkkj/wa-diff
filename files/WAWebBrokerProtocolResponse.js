@@ -1,18 +1,18 @@
 __d(
   "WAWebBrokerProtocolResponse",
-  ["invariant", "WAWebBrokerProtocolTypes.flow", "WAWebInvocationId"],
+  ["invariant", "WAWebBrokerProtocolTypes", "WAWebInvocationId"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
       return {
         __id: e,
-        __command: o("WAWebBrokerProtocolTypes.flow").RESPONSE_COMMAND,
+        __command: o("WAWebBrokerProtocolTypes").RESPONSE_COMMAND,
         __result: t,
       };
     }
     function u(e) {
       if (
         e != null &&
-        e.__command === o("WAWebBrokerProtocolTypes.flow").RESPONSE_COMMAND
+        e.__command === o("WAWebBrokerProtocolTypes").RESPONSE_COMMAND
       ) {
         e.__id != null || s(0, 56278);
         var t = o("WAWebInvocationId").extractInvocationId(e.__id);

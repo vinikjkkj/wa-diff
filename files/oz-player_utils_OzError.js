@@ -17,9 +17,11 @@ __d(
             var a = {};
             (Error.captureStackTrace(a, r.constructor), (o = a.stack));
           } else {
-            var i = new Error().stack.split("\n");
-            (i.splice(/^Error/.test(i[0]) ? 1 : 0, 1),
-              (o = "Error\n" + i.join("\n")));
+            var i = new Error();
+            i.stack;
+            var l = i.stack.split("\n");
+            (l.splice(/^Error/.test(l[0]) ? 1 : 0, 1),
+              (o = "Error\n" + l.join("\n")));
           }
         return (
           typeof o == "string" && o !== ""

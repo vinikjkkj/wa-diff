@@ -11,6 +11,7 @@ __d(
     "WAWebLidStatusMigrationUtils",
     "WAWebMediaEntry",
     "WAWebMediaPrep",
+    "WAWebMediaUploadMediaWithPrep",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebToast.react",
@@ -27,7 +28,7 @@ __d(
       u,
       c = u || (u = o("react"));
     function d() {
-      return s._(/*BTDS*/ "Some media failed to upload and were removed.");
+      return s._(/*BTDS*/ "Some media couldn't be uploaded and were removed");
     }
     function m(e) {
       return p.apply(this, arguments);
@@ -77,7 +78,10 @@ __d(
             }),
             l = new (o("WAWebMsgModel").Msg)(i);
           yield l.waitForPrep();
-          var s = yield o("WAWebMediaPrep").uploadMediaWithPrep(l, t),
+          var s = yield o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep(
+              l,
+              t,
+            ),
             u = s.body,
             c = s.fbid,
             d = s.mediaResult.mediaEntry,

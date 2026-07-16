@@ -606,89 +606,110 @@ __d(
           var m = d[u];
           if (m == null || c(m)) return ((o[u] = m), m);
           if (t.linkedField.plural) {
-            Array.isArray(m) || l(0, 86538, i.path, this.$8.identifier);
-            var p;
-            (t.kind === "ClientEdgeToClientObject" || l(0, 86537, t.kind),
-              t.backingField.normalizationInfo == null
-                ? (p = m.map(function (e) {
-                    var n;
-                    if (e == null) return null;
-                    var r = (n = t.concreteType) != null ? n : e.__typename;
-                    typeof r == "string" ||
-                      l(0, 86536, i.path, a.$8.identifier);
-                    var o = $(e, i.path, a.$8.identifier),
-                      s = t.modelResolvers;
-                    if (s != null) {
-                      var u = s[r];
-                      if (u !== void 0) {
-                        var c = a.$15.ensureClientRecord(o, r),
-                          d = a.$42(u, c);
-                        return d != null ? c : null;
-                      } else return o;
-                    }
-                    var m = a.$15.ensureClientRecord(o, r);
-                    return m;
-                  }))
-                : (p = m.map(function (e) {
-                    return $(e, i.path, a.$8.identifier);
-                  })));
-            var _ = this.$1;
+            (Array.isArray(m) || l(0, 86538, i.path, this.$8.identifier),
+              t.kind === "ClientEdgeToClientObject" || l(0, 86537, t.kind));
+            var p, _;
+            if (t.backingField.normalizationInfo == null) {
+              ((p = []), (_ = []));
+              for (var f = 0; f < m.length; f++) {
+                var g,
+                  h = m[f];
+                if (h == null) {
+                  (p.push(null), _.push(null));
+                  continue;
+                }
+                var y = (g = t.concreteType) != null ? g : h.__typename;
+                typeof y == "string" || l(0, 86536, i.path, this.$8.identifier);
+                var C = $(h, i.path, this.$8.identifier),
+                  b = t.modelResolvers;
+                if (b != null) {
+                  var v = b[y];
+                  if (v !== void 0) {
+                    var S = this.$15.ensureClientRecord(C, y),
+                      R = this.$42(v, S);
+                    (p.push(R != null ? S : null), _.push(null));
+                  } else {
+                    var L, E;
+                    p.push(C);
+                    var k =
+                      (L =
+                        (E = t.serverObjectOperations) == null
+                          ? void 0
+                          : E[y]) != null
+                        ? L
+                        : null;
+                    k != null
+                      ? _.push({
+                          clientEdgeDestinationID: C,
+                          readerClientEdge: { operation: k },
+                        })
+                      : _.push(null);
+                  }
+                } else
+                  (p.push(this.$15.ensureClientRecord(C, y)), _.push(null));
+              }
+            } else
+              ((p = m.map(function (e) {
+                return $(e, i.path, a.$8.identifier);
+              })),
+                (_ = null));
+            var I = this.$1;
             this.$1 = null;
-            var f = this.$45(t.linkedField, p, r, o);
-            return ((this.$1 = _), (o[u] = f), f);
+            var T = this.$45(t.linkedField, p, r, o, _);
+            return ((this.$1 = I), (o[u] = T), T);
           } else {
-            var g,
-              h,
-              y = (g = i.normalizationInfo) == null ? void 0 : g.kind,
-              C =
-                y === "ServerWeak" || y === "AbstractInline"
+            var D,
+              x,
+              N = (D = i.normalizationInfo) == null ? void 0 : D.kind,
+              M =
+                N === "ServerWeak" || N === "AbstractInline"
                   ? P(m, i.path, this.$8.identifier)
                   : $(m, i.path, this.$8.identifier),
-              b,
-              v = (h = t.concreteType) != null ? h : m.__typename,
-              S;
+              w,
+              A = (x = t.concreteType) != null ? x : m.__typename,
+              F;
             if (t.kind === "ClientEdgeToClientObject")
               if (t.backingField.normalizationInfo == null) {
-                typeof v == "string" || l(0, 86536, i.path, this.$8.identifier);
-                var R = t.modelResolvers;
-                if (R != null) {
-                  var L = R[v];
-                  if (L !== void 0) {
-                    b = this.$15.ensureClientRecord(C, v);
-                    var E = this.$42(L, b);
-                    if (E == null) return ((o[u] = null), null);
-                    S = null;
+                typeof A == "string" || l(0, 86536, i.path, this.$8.identifier);
+                var O = t.modelResolvers;
+                if (O != null) {
+                  var B = O[A];
+                  if (B !== void 0) {
+                    w = this.$15.ensureClientRecord(M, A);
+                    var W = this.$42(B, w);
+                    if (W == null) return ((o[u] = null), null);
+                    F = null;
                   } else {
-                    b = C;
-                    var k = t.serverObjectOperations,
-                      I = k != null ? k[v] : null;
-                    I != null
-                      ? (S = {
-                          clientEdgeDestinationID: C,
-                          readerClientEdge: { operation: I },
+                    w = M;
+                    var q = t.serverObjectOperations,
+                      U = q != null ? q[A] : null;
+                    U != null
+                      ? (F = {
+                          clientEdgeDestinationID: M,
+                          readerClientEdge: { operation: U },
                         })
-                      : (S = null);
+                      : (F = null);
                   }
-                } else ((b = this.$15.ensureClientRecord(C, v)), (S = null));
+                } else ((w = this.$15.ensureClientRecord(M, A)), (F = null));
               } else {
-                b = C;
-                var T = t.backingField.normalizationInfo,
-                  D =
-                    (T == null ? void 0 : T.kind) === "AbstractInline"
-                      ? T.inlineKinds[v]
-                      : T == null
+                w = M;
+                var V = t.backingField.normalizationInfo,
+                  H =
+                    (V == null ? void 0 : V.kind) === "AbstractInline"
+                      ? V.inlineKinds[A]
+                      : V == null
                         ? void 0
-                        : T.kind;
-                S = null;
+                        : V.kind;
+                F = null;
               }
             else
-              ((b = C),
-                (S = { clientEdgeDestinationID: C, readerClientEdge: t }));
-            var x = this.$1;
-            this.$1 = S;
-            var N = o[u];
-            N == null ||
-              typeof N == "object" ||
+              ((w = M),
+                (F = { clientEdgeDestinationID: M, readerClientEdge: t }));
+            var G = this.$1;
+            this.$1 = F;
+            var z = o[u];
+            z == null ||
+              typeof z == "object" ||
               l(
                 0,
                 86534,
@@ -697,12 +718,12 @@ __d(
                 (
                   s || (s = n("relay-runtime/store/RelayModernRecord"))
                 ).getDataID(r),
-                N,
+                z,
               );
-            var M = this.$6;
+            var j = this.$6;
             this.$6 = null;
-            var w = this.$21(t.linkedField, b, N);
-            return (this.$43(M, u), (this.$1 = x), (o[u] = w), w);
+            var K = this.$21(t.linkedField, w, z);
+            return (this.$43(j, u), (this.$1 = G), (o[u] = K), K);
           }
         }),
         (r.$31 = function (t, r, o) {
@@ -812,50 +833,56 @@ __d(
             this.$45(t, a, r, o)
           );
         }),
-        (r.$45 = function (t, r, o, a) {
+        (r.$45 = function (t, r, o, a, i) {
           var e,
-            i = this,
-            u = (e = t.alias) != null ? e : t.name;
-          if (r == null) return ((a[u] = r), r === void 0 && this.$24(u), r);
-          var c = a[u];
-          c == null ||
-            Array.isArray(c) ||
+            u = this,
+            c = (e = t.alias) != null ? e : t.name;
+          if (r == null) return ((a[c] = r), r === void 0 && this.$24(c), r);
+          var d = a[c];
+          d == null ||
+            Array.isArray(d) ||
             l(
               0,
               1309,
-              u,
+              c,
               (s || (s = n("relay-runtime/store/RelayModernRecord"))).getDataID(
                 o,
               ),
-              c,
+              d,
             );
-          var d = this.$6;
+          var m = this.$6;
           this.$6 = null;
-          var m = c || [];
+          var p = d || [];
           return (
             r.forEach(function (e, r) {
               if (e == null) {
-                (e === void 0 && i.$24(String(r)), (m[r] = e));
+                (e === void 0 && u.$24(String(r)), (p[r] = e));
                 return;
               }
-              var a = m[r];
+              var a = p[r];
               a == null ||
                 typeof a == "object" ||
                 l(
                   0,
                   1308,
-                  u,
+                  c,
                   (
                     s || (s = n("relay-runtime/store/RelayModernRecord"))
                   ).getDataID(o),
                   a,
                 );
-              var c = i.$6;
-              ((i.$6 = null), (m[r] = i.$21(t, e, a)), i.$43(c, r));
+              var d = u.$6;
+              u.$6 = null;
+              var m = u.$1;
+              if (i != null) {
+                var _;
+                u.$1 = (_ = i[r]) != null ? _ : null;
+              }
+              ((p[r] = u.$21(t, e, a)), (u.$1 = m), u.$43(d, r));
             }),
-            this.$43(d, u),
-            (a[u] = m),
-            m
+            this.$43(m, c),
+            (a[c] = p),
+            p
           );
         }),
         (r.$38 = function (t, r, o) {

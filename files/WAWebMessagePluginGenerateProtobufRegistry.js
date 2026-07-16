@@ -6,20 +6,16 @@ __d(
     "WAWebEventsGenerateEventEditMessageProto",
     "WAWebEventsGenerateEventResponseMessageProto",
     "WAWebGenerateAiMediaCollectionProtocolMsg",
-    "WAWebGenerateBizContentPlaceholderProto",
     "WAWebGenerateBotFeedbackProtocolMessageProto",
     "WAWebGenerateBotRequestWelcomeMessageProto",
     "WAWebGenerateButtonsResponseMessageProto",
-    "WAWebGenerateCancelPaymentMessageProto",
     "WAWebGenerateChatMessageProto",
-    "WAWebGenerateDeclinePaymentMessageProto",
     "WAWebGenerateDocumentMessageProto",
     "WAWebGenerateEncCommentMessageProto",
     "WAWebGenerateEphemeralSyncResponseMessageProto",
     "WAWebGenerateExtendedTextUrlChatMessageProto",
     "WAWebGenerateGroupInviteMessageProto",
     "WAWebGenerateHatchMetadataSyncProto",
-    "WAWebGenerateHsmMessageProto",
     "WAWebGenerateImageMessageProto",
     "WAWebGenerateInteractiveMessageProto",
     "WAWebGenerateInteractiveResponseMessageProto",
@@ -33,8 +29,8 @@ __d(
     "WAWebGenerateNativeFlowButtonsMessageProto",
     "WAWebGenerateNewsletterAdminInviteMessageProto",
     "WAWebGenerateNewsletterFollowerInviteMessageProto",
+    "WAWebGenerateNotSupportedMessageProto",
     "WAWebGenerateOrderMessageProto",
-    "WAWebGeneratePaymentInviteMessageProto",
     "WAWebGeneratePinMessageProto",
     "WAWebGeneratePollResultSnapshotMessageProto",
     "WAWebGenerateProductMessageProto",
@@ -65,7 +61,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = [
+      s,
+      u = [
         {
           type: "album",
           subtype: void 0,
@@ -79,7 +76,7 @@ __d(
         {
           type: "biz_content_placeholder",
           subtype: void 0,
-          generateProtobuf: r("WAWebGenerateBizContentPlaceholderProto"),
+          generateProtobuf: (e = r("WAWebGenerateNotSupportedMessageProto")),
         },
         {
           type: "buttons_response",
@@ -149,11 +146,7 @@ __d(
           subtype: void 0,
           generateProtobuf: r("WAWebGenerateGroupInviteMessageProto"),
         },
-        {
-          type: "hsm",
-          subtype: void 0,
-          generateProtobuf: r("WAWebGenerateHsmMessageProto"),
-        },
+        { type: "hsm", subtype: void 0, generateProtobuf: e },
         {
           type: "image",
           subtype: void 0,
@@ -250,11 +243,7 @@ __d(
         },
         { type: "payment", subtype: "ciphertext", generateProtobuf: null },
         { type: "payment", subtype: "futureproof", generateProtobuf: null },
-        {
-          type: "payment",
-          subtype: "invite",
-          generateProtobuf: r("WAWebGeneratePaymentInviteMessageProto"),
-        },
+        { type: "payment", subtype: "invite", generateProtobuf: e },
         {
           type: "payment",
           subtype: "request",
@@ -309,7 +298,7 @@ __d(
         {
           type: "protocol",
           subtype: "admin_revoke",
-          generateProtobuf: (e = r("WAWebGenerateProtocolRevokeMessageProto")),
+          generateProtobuf: (s = r("WAWebGenerateProtocolRevokeMessageProto")),
         },
         {
           type: "protocol",
@@ -390,7 +379,7 @@ __d(
           subtype: "scheduled_message_unschedule",
           generateProtobuf: null,
         },
-        { type: "protocol", subtype: "sender_revoke", generateProtobuf: e },
+        { type: "protocol", subtype: "sender_revoke", generateProtobuf: s },
         {
           type: "protocol",
           subtype: "share_phone_number",
@@ -434,8 +423,8 @@ __d(
           subtype: void 0,
           generateProtobuf: r("WAWebGenerateRequestPhoneNumberMessageProto"),
         },
-        { type: "revoked", subtype: "admin", generateProtobuf: e },
-        { type: "revoked", subtype: "sender", generateProtobuf: e },
+        { type: "revoked", subtype: "admin", generateProtobuf: s },
+        { type: "revoked", subtype: "sender", generateProtobuf: s },
         {
           type: "rich_response",
           subtype: void 0,
@@ -469,12 +458,12 @@ __d(
         {
           type: "unknown",
           subtype: "payment_action_request_declined",
-          generateProtobuf: r("WAWebGenerateDeclinePaymentMessageProto"),
+          generateProtobuf: e,
         },
         {
           type: "unknown",
           subtype: "payment_transaction_request_cancelled",
-          generateProtobuf: r("WAWebGenerateCancelPaymentMessageProto"),
+          generateProtobuf: e,
         },
         { type: "unknown", subtype: "phone", generateProtobuf: null },
         {
@@ -494,7 +483,7 @@ __d(
           generateProtobuf: r("WAWebGenerateVideoMessageProto"),
         },
       ];
-    l.default = s;
+    l.default = u;
   },
   98,
 );

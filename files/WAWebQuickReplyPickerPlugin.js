@@ -2,7 +2,6 @@ __d(
   "WAWebQuickReplyPickerPlugin",
   [
     "fbt",
-    "PixWamLogger",
     "WALogger",
     "WATypeUtils",
     "WAWebBizQuickRepliesDrawerLoadable",
@@ -14,6 +13,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebLexicalTypeAheadList.react",
     "WAWebPencilRefreshedIcon.react",
+    "WAWebPixWamLogger",
     "WAWebQuickRepliesPluginLogEvents",
     "WAWebQuickRepliesPluginResult.react",
     "WAWebQuickReplyCollection",
@@ -294,7 +294,7 @@ __d(
           "WAWebBizSendOrderAction",
         ).sendPixQuickReplyMessageAndDismissTryItPixKeyPromoBanner(n),
         e.useOnce(),
-        o("PixWamLogger").logPixSenderEvent(
+        o("WAWebPixWamLogger").logPixSenderEvent(
           void 0,
           o("WAWebWamEnumPaymentActionTypes").PAYMENT_ACTION_TYPES.CLICK,
           t ? "chat_attachment" : "chat",

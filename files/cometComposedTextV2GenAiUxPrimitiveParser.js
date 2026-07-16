@@ -13,6 +13,7 @@ __d(
     "cometComposedTextV2GenAiImagePrimitiveParser",
     "cometComposedTextV2GenAiImaginePrimitiveParser",
     "cometComposedTextV2GenAiLatexUxPrimitiveParser",
+    "cometComposedTextV2GenAiMetaSubsQuotaUpsellPrimitiveParser",
     "cometComposedTextV2GenAiMetadataTextPrimitiveParser",
     "cometComposedTextV2GenAiPostUxPrimitiveParser",
     "cometComposedTextV2GenAiProductItemCardPrimitiveParser",
@@ -77,6 +78,10 @@ __d(
         if (e.__typename === "GenAIFollowUpSuggestionPillPrimitive")
           return r(
             "cometComposedTextV2GenAiFollowUpSuggestionPillPrimitiveParser",
+          )(e);
+        if (e.__typename === "GenAIMetaSubsQuotaUpsellPrimitive")
+          return r(
+            "cometComposedTextV2GenAiMetaSubsQuotaUpsellPrimitiveParser",
           )(e);
       }
       return o("cometComposedTextV2NodeBuilders")

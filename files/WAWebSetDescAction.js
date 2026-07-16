@@ -70,8 +70,8 @@ __d(
                 if (e.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
                     y
-                      ? s._(/*BTDS*/ "Community description change failed")
-                      : s._(/*BTDS*/ "Group description change failed"),
+                      ? s._(/*BTDS*/ "Couldn't update community description")
+                      : s._(/*BTDS*/ "Couldn't update group description"),
                   );
               },
             ),

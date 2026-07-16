@@ -2,6 +2,7 @@ __d(
   "WAWebCustomLabels3pdSignalUtils",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebCTWAGatingUtils",
     "WAWebChatModel",
     "WAWebCommonCTWADataSharing",
@@ -98,9 +99,9 @@ __d(
               var t = c(e.custom_label);
               t != null ? u.push(t) : _.push(e);
             });
-            var f = o(
-              "WAWebListsLabelGatingUtils",
-            ).getCTWACustomLabelAlgorithmGroup();
+            var f = o("WAWebABProps").getABPropConfigValue(
+              "ctwa_custom_label_algorithm",
+            );
             o("WAWebCustomLabel3pdEventQuery")
               .getCustomLabel3pdEvent(_, f)
               .then(function (t) {

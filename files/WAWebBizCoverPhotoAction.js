@@ -4,9 +4,9 @@ __d(
     "fbt",
     "WAFilteredCatch",
     "WALogger",
+    "WAWebABProps",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
-    "WAWebBizProfileGatingUtils",
     "WAWebBusinessProfileJob",
     "WAWebNoop",
     "WAWebToastManager",
@@ -27,7 +27,7 @@ __d(
         d = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Setting cover photo"),
         ),
-        _ = s._(/*BTDS*/ "Cover photo set failed"),
+        _ = s._(/*BTDS*/ "Couldn't set cover photo"),
         f = o("WAWebBusinessProfileJob")
           .sendCoverPhoto(n, c, a)
           .catch(function (t) {
@@ -66,9 +66,9 @@ __d(
           .then(function () {
             var e;
             return (
-              o(
-                "WAWebBizProfileGatingUtils",
-              ).coverPhotoPrivacyMessagingEnabled()
+              o("WAWebABProps").getABPropConfigValue(
+                "smb_temp_cover_photo_privacy_messaging",
+              )
                 ? (e = s._(/*BTDS*/ "Your cover photo is now public"))
                 : (e = s._(/*BTDS*/ "Cover photo set")),
               new (o("WAWebActionToast.react").ActionType)(e)
@@ -91,7 +91,7 @@ __d(
         a = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Removing cover photo"),
         ),
-        i = s._(/*BTDS*/ "Cover photo removal failed"),
+        i = s._(/*BTDS*/ "Couldn't remove cover photo"),
         l = n
           .catch(function (e) {
             throw (

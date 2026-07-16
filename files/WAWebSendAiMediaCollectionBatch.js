@@ -8,7 +8,7 @@ __d(
     "WAWebAttachMediaModel",
     "WAWebCreateAiMediaCollectionMsgData",
     "WAWebGetMetaAiImagineEventContext",
-    "WAWebImagineActionLogger",
+    "WAWebLogImagineAction",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSendAiMediaCollectionEnvelope",
@@ -126,7 +126,7 @@ __d(
           t.every(function (e) {
             return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
           }) &&
-            o("WAWebImagineActionLogger").logImagineAction({
+            o("WAWebLogImagineAction").logImagineAction({
               action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
                 .MEDIA_INPUT_SEND_CONFIRM,
               mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE

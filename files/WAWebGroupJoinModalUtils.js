@@ -29,11 +29,9 @@ __d(
         case 400:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
             ? s._(
-                /*BTDS*/ "Unable to join this community. Please try again later.",
+                /*BTDS*/ "Couldn't join this community. Please try again later.",
               )
-            : s._(
-                /*BTDS*/ "Unable to join this group. Please try again later.",
-              );
+            : s._(/*BTDS*/ "Couldn't join this group. Please try again later.");
         case 401:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
             ? s._(
@@ -45,7 +43,7 @@ __d(
         case 404:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
             ? s._(
-                /*BTDS*/ "You can't join this community because it doesn't exist.",
+                /*BTDS*/ "You can't join this community because it does not exist.",
               )
             : s._(
                 /*BTDS*/ "You can't join this group because it no longer exists.",
@@ -104,7 +102,7 @@ __d(
       if (e instanceof o("WAWebMembershipApprovalRequestAction").RequestError)
         switch (e.status) {
           case 401:
-            return s._(/*BTDS*/ "You can't cancel this request.");
+            return s._(/*BTDS*/ "You cannot cancel this request.");
           case 404:
             return s._(/*BTDS*/ "Your request no longer exists.");
         }
@@ -132,7 +130,7 @@ __d(
       switch (t) {
         case 403:
           return s._(
-            /*BTDS*/ "You can't join this group because you aren't a member of the community.",
+            /*BTDS*/ "You can't join this group because you are not a member of the community.",
           );
         case 404:
           return s._(
@@ -140,7 +138,7 @@ __d(
           );
         case 405:
           return s._(
-            /*BTDS*/ "You can't join this group because it isn't part of the community.",
+            /*BTDS*/ "You can't join this group because it is not part of the community.",
           );
         case 503:
           return s._(/*BTDS*/ "Check your phone's connection and try again.");
@@ -154,7 +152,7 @@ __d(
           );
         default:
           return s._(
-            /*BTDS*/ "Unable to join this group. Please try again later.",
+            /*BTDS*/ "Couldn't join this group. Please try again later.",
           );
       }
     }
@@ -164,11 +162,11 @@ __d(
           return s._(/*BTDS*/ "Couldn't revoke invite");
         case 401:
           return s._(
-            /*BTDS*/ "You can't revoke this group invite because you aren't a group admin.",
+            /*BTDS*/ "You can't revoke this group invite because you are not an admin of this group.",
           );
         case 403:
           return s._(
-            /*BTDS*/ "You can't revoke this group invite because you aren't a group member.",
+            /*BTDS*/ "You can't revoke this group invite because you are not a member of this group.",
           );
         case 404:
           return s._(

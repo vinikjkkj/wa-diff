@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebGroupType",
-    "WAWebHandleGroupNotification",
+    "WAWebHandleParsedGroupNotification",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
@@ -103,7 +103,7 @@ __d(
             };
           try {
             yield o(
-              "WAWebHandleGroupNotification",
+              "WAWebHandleParsedGroupNotification",
             ).handleParsedGroupNotification(k);
           } catch (e) {
             o("WALogger")

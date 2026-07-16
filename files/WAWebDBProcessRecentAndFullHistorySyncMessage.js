@@ -9,6 +9,7 @@ __d(
     "WAWebApiFilterAndReplaceMessages",
     "WAWebApiGroupInviteV4Store",
     "WAWebBackendApi",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebDBEncryptMultipleMsgs",
     "WAWebDBStoreEncryptedMsgs",
     "WAWebMessageAssociationGatingUtils",
@@ -17,7 +18,6 @@ __d(
     "WAWebProcessMessageAssociationMessages",
     "WAWebQuarantineDataStore",
     "WAWebThreadCommonModelUtils",
-    "WAWebThreadMetadataBulkJob",
     "WAWebThreadUtils",
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsTypes",
@@ -245,7 +245,7 @@ __d(
                 "WAWebThreadCommonModelUtils",
               ).getAggregatedThreadDetailUpdatesFromMessages(e);
               yield o(
-                "WAWebThreadMetadataBulkJob",
+                "WAWebBulkCreateOrUpdateThreadsMetadata",
               ).bulkCreateOrUpdateThreadsMetadata(t);
               var n = t.filter(function (e) {
                 return (

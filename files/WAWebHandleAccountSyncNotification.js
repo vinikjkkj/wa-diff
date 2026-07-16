@@ -17,6 +17,7 @@ __d(
     "WAWebBizCoexUtils",
     "WAWebCommsWapMd",
     "WAWebContactSyncLogger",
+    "WAWebFetchAndUpdateBlocklistJob",
     "WAWebGetAboutQueryJob",
     "WAWebGetDisappearingModeJob",
     "WAWebJidToWid",
@@ -24,7 +25,6 @@ __d(
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebPDFNTypes",
-    "WAWebQueryBlockListJob",
     "WAWebSetUsernameJob",
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateDisappearingModeForContact",
@@ -455,7 +455,7 @@ __d(
               (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
                 r.usernames != null &&
                 (yield o("WAWebSetUsernameJob").setUsernamesJob(r.usernames)),
-                o("WAWebQueryBlockListJob").fetchAndUpdateBlocklist(
+                o("WAWebFetchAndUpdateBlocklistJob").fetchAndUpdateBlocklist(
                   "notification",
                 ));
               break;

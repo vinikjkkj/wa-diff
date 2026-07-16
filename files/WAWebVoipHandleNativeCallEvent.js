@@ -1005,6 +1005,10 @@ __d(
                 o("WAWebVoipCrashRecovery").markCallActive(c),
                 o("WAWebVoipCrashRecovery").registerGracefulExitHandler(c),
                 o("WAWebVoipFocusTracker").startVoipFocusTracking(),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "reloadVideoEnhancement",
+                  {},
+                ),
                 n.type === "web" &&
                   o("WAWebBackendApi")
                     .frontendSendAndReceive("initializeVoipWasm")
@@ -1107,6 +1111,10 @@ __d(
                 {},
               ),
               o("WAWebBackendApi").frontendFireAndForget("disableAVSync", {}),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "resetVideoEnhancementState",
+                {},
+              ),
               o(
                 "WAWebVoipVideoCameraCapture",
               ).WAWebVoipVideoCameraCapture.scheduleCallEndCameraRelease(),

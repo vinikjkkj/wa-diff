@@ -9,11 +9,20 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebMsgCollection").MsgCollection.get(e);
-          if (!(n == null || n.groupHistoryBundleMetadata == null))
-            return n.updateGroupHistoryBundleProcessState(t);
+          n == null || n.groupHistoryBundleMetadata == null || u(n, t);
         })),
         s.apply(this, arguments)
       );
+    }
+    function u(e, t) {
+      e.groupHistoryBundleMetadata != null &&
+        e.set({
+          groupHistoryBundleMetadata: babelHelpers.extends(
+            {},
+            e.groupHistoryBundleMetadata,
+            { processState: t },
+          ),
+        });
     }
     l.updateGroupHistoryBundleState = e;
   },

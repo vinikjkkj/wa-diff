@@ -35,38 +35,30 @@ __d(
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "enhanced_mention_suggestions_non_group_members_enabled",
+        "wa_web_group_discard_dialog_contact_threshold",
       );
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_group_discard_dialog_contact_threshold",
+        "web_group_experimentation_enable",
       );
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_group_experimentation_enable",
+        "wa_web_forward_to_small_groups",
       );
     }
     function C() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_forward_to_small_groups",
+        "group_suspension_appeals_redesign_enabled",
       );
     }
     function b() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_suspension_appeals_redesign_enabled",
-      );
-    }
-    function v() {
-      return o("WAWebABProps").getABPropConfigValue(
         "group_suspension_appeals_redesign_variant_enable",
       );
     }
-    var S = 33;
-    function R() {
-      return o("WAWebABProps").getABPropConfigValue("group_from_group");
-    }
+    var v = 33;
     ((l.GROUP_TYPING_VARIANT = e),
       (l.getGroupDescriptionLength = s),
       (l.getGroupMaxSubject = u),
@@ -76,14 +68,12 @@ __d(
       (l.ANYONE_CAN_LINK_M2_PARTICIPANT_THRESHOLD = p),
       (l.getGroupTypingIndicatorVariant = _),
       (l.isGroupTypingIndicatorEnabled = f),
-      (l.isEnhancedMentionSuggestionsNonGroupMembersEnabled = g),
-      (l.getGroupDiscardDialogThreshold = h),
-      (l.isGroupExperimentationEnabled = y),
-      (l.isForwardToSmallGroupsEnabled = C),
-      (l.isGroupSuspensionAppealsRedesignEnabled = b),
-      (l.isGroupSuspensionAppealsRedesignVariantEnabled = v),
-      (l.GFG_GROUP_SIZE_THRESHOLD = S),
-      (l.isGroupFromGroupEnabled = R));
+      (l.getGroupDiscardDialogThreshold = g),
+      (l.isGroupExperimentationEnabled = h),
+      (l.isForwardToSmallGroupsEnabled = y),
+      (l.isGroupSuspensionAppealsRedesignEnabled = C),
+      (l.isGroupSuspensionAppealsRedesignVariantEnabled = b),
+      (l.GFG_GROUP_SIZE_THRESHOLD = v));
   },
   98,
 );

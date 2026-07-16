@@ -2,8 +2,8 @@ __d(
   "WAWebUpdateBotModeSelectionAction",
   [
     "WALogger",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebMaybeGetBotModeSelection",
-    "WAWebThreadMetadataBulkJob",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,7 +46,7 @@ __d(
             botModeSelection: r,
           };
           (yield o(
-            "WAWebThreadMetadataBulkJob",
+            "WAWebBulkCreateOrUpdateThreadsMetadata",
           ).bulkCreateOrUpdateThreadsMetadata([i]),
             n.set({ botModeSelection: r }),
             o("WALogger").LOG(
@@ -74,9 +74,9 @@ __d(
             creationTimestamp: i.creationTimestamp,
             botModeOverride: t,
           };
-          (o("WAWebThreadMetadataBulkJob").bulkCreateOrUpdateThreadsMetadata([
-            l,
-          ]),
+          (o(
+            "WAWebBulkCreateOrUpdateThreadsMetadata",
+          ).bulkCreateOrUpdateThreadsMetadata([l]),
             i.set({ botModeOverride: t }));
           return;
         }

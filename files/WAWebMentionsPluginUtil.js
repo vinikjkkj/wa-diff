@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebContactCollection",
+    "WAWebContactCollectionUtils",
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
@@ -123,18 +124,21 @@ __d(
             a = o("WAWebLidMigrationUtils").toPn(n);
           (r != null && t.add(r.toString()), a != null && t.add(a.toString()));
         }),
-        o("WAWebContactCollection").ContactCollection.getFilteredContacts({
-          filterFn: function (n) {
-            var e = n.id;
-            if (t.has(e.toString())) return !1;
-            var r = o("WAWebLidMigrationUtils").toLid(e),
-              a = o("WAWebLidMigrationUtils").toPn(e);
-            return !(
-              (r != null && t.has(r.toString())) ||
-              (a != null && t.has(a.toString()))
-            );
+        o("WAWebContactCollectionUtils").getFilteredContacts(
+          o("WAWebContactCollection").ContactCollection,
+          {
+            filterFn: function (n) {
+              var e = n.id;
+              if (t.has(e.toString())) return !1;
+              var r = o("WAWebLidMigrationUtils").toLid(e),
+                a = o("WAWebLidMigrationUtils").toPn(e);
+              return !(
+                (r != null && t.has(r.toString())) ||
+                (a != null && t.has(a.toString()))
+              );
+            },
           },
-        })
+        )
       );
     }
     function g(e, t) {

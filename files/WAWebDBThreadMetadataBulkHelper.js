@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebBackendApi",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebThreadCommonModelUtils",
@@ -43,7 +44,7 @@ __d(
             return;
           }
           yield o(
-            "WAWebThreadMetadataBulkJob",
+            "WAWebBulkCreateOrUpdateThreadsMetadata",
           ).bulkCreateOrUpdateThreadsMetadata(r);
           var a = r.filter(function (e) {
             return (

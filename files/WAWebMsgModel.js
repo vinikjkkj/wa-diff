@@ -1553,26 +1553,6 @@ __d(
                 parentMsgKey: null,
               }));
           }),
-          (i.updateGroupHistoryBundleProcessState = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return this.groupHistoryBundleMetadata == null
-                  ? (g || (g = n("Promise"))).reject()
-                  : (this.set({
-                      groupHistoryBundleMetadata: babelHelpers.extends(
-                        {},
-                        this.groupHistoryBundleMetadata,
-                        { processState: e },
-                      ),
-                    }),
-                    (g || (g = n("Promise"))).resolve());
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
           a
         );
       })(o("WAWebBaseModel").BaseModel);

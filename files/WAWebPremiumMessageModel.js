@@ -27,11 +27,14 @@ __d(
       var n = t.prototype;
       return (
         (n.initialize = function () {
+          var t = this;
           (e.prototype.initialize.call(this),
             this.listenTo(
               this,
               "change:message change:sentMessageIds change:type",
-              this.hydrateMessages,
+              function () {
+                return t.hydrateMessages();
+              },
             ));
         }),
         (n.hydrateMessages = function () {

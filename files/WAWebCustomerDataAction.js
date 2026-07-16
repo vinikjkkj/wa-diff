@@ -4,9 +4,9 @@ __d(
     "WAJids",
     "WALogger",
     "WATimeUtils",
+    "WAWebContactManagerGating",
     "WAWebCustomerDataCollection",
     "WAWebCustomerDataSync",
-    "WAWebCustomerManagerGating",
     "WAWebGetCustomerDataByChatJidJob",
     "asyncToGeneratorRuntime",
     "err",
@@ -84,7 +84,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebCustomerManagerGating").customerManagerEnabled()) {
+          if (o("WAWebContactManagerGating").contactManagerEnabled()) {
             if (!t.endsWith(o("WAJids").LID_DOMAIN))
               throw r("err")(
                 '[CustomerData] customerDataDeleteAction: chatJid must be a LID-based JID, got "' +

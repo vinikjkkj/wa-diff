@@ -7,13 +7,11 @@ __d(
       if ((e === void 0 && (e = !1), !r("gkx")("20935") && !r("gkx")("21034")))
         return !1;
       if (e) {
-        var t = r("qex")._("3453") === !0,
-          n = r("qex")._("5820") === !0;
-        return t || n;
+        var t = r("qex")._("3453") === !0;
+        return t;
       }
-      var o = r("qex")._("4039") === !0,
-        a = r("qex")._("5819") === !0;
-      return o || a;
+      var n = r("qex")._("4039") === !0;
+      return n;
     }
     function s(e) {
       return (

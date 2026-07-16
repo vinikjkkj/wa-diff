@@ -17,7 +17,6 @@ __d(
     "WAWebBackendEventBus",
     "WAWebBackgroundSyncReporter",
     "WAWebBootstrapBizBroadcastCampaigns",
-    "WAWebBootstrapNewsletter",
     "WAWebBootstrapPremiumMessages",
     "WAWebBuildConstants",
     "WAWebCallsOnlyGating",
@@ -37,6 +36,7 @@ __d(
     "WAWebEnvironment",
     "WAWebEventsWaitForMain",
     "WAWebFeatureDetectionSwSupport",
+    "WAWebFetchAndUpdateBlocklistJob",
     "WAWebFtsClient",
     "WAWebGetMessageCache",
     "WAWebGetReachoutTimelockJob",
@@ -69,6 +69,7 @@ __d(
     "WAWebModelStorage",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterRestoreMetadataWithLoadingStage",
     "WAWebOffdStorage",
     "WAWebOfflineHandler",
     "WAWebOfflineResumeMainThread",
@@ -81,7 +82,6 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPrimaryFeatures",
     "WAWebPushNotificationsGatingUtils",
-    "WAWebQueryBlockListJob",
     "WAWebRegisterPassiveTasks",
     "WAWebSWBus",
     "WAWebSWBusActions",
@@ -458,9 +458,9 @@ __d(
                 "WAWebLid1x1MigrationManager",
               ).ThreadMigrationManager.addDependentMigrationTask(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  yield o("WAWebQueryBlockListJob").fetchAndUpdateBlocklist(
-                    "post-migration",
-                  );
+                  yield o(
+                    "WAWebFetchAndUpdateBlocklistJob",
+                  ).fetchAndUpdateBlocklist("post-migration");
                 }),
               ),
             yield o(
@@ -621,7 +621,7 @@ __d(
                 );
               }),
             o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
-              ? o("WAWebBootstrapNewsletter")
+              ? o("WAWebNewsletterRestoreMetadataWithLoadingStage")
                   .restoreNewsletterMetadataWithLoadingStage()
                   .finally(function () {
                     (o("WAWebBackendApi").frontendFireAndForget(

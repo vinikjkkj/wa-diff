@@ -1,6 +1,6 @@
 __d(
   "WAWebBrokerProtocolInvocation",
-  ["invariant", "WAWebBrokerProtocolTypes.flow", "WAWebInvocationId"],
+  ["invariant", "WAWebBrokerProtocolTypes", "WAWebInvocationId"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.args,
@@ -8,7 +8,7 @@ __d(
         r = e.method;
       return {
         __id: n,
-        __command: o("WAWebBrokerProtocolTypes.flow").INVOCATION_COMMAND,
+        __command: o("WAWebBrokerProtocolTypes").INVOCATION_COMMAND,
         __method: r,
         __args: t,
       };
@@ -16,7 +16,7 @@ __d(
     function u(e) {
       if (
         e != null &&
-        e.__command === o("WAWebBrokerProtocolTypes.flow").INVOCATION_COMMAND
+        e.__command === o("WAWebBrokerProtocolTypes").INVOCATION_COMMAND
       ) {
         e.__id || s(0, 56278);
         var t = o("WAWebInvocationId").extractInvocationId(e.__id);

@@ -4,7 +4,7 @@ __d(
     "fbt",
     "WAWebEmojiText.react",
     "WAWebFlex.react",
-    "WAWebFormatConfiguration",
+    "WAWebFormatConfigurationConversation",
     "WAWebPollOptionImage.react",
     "WAWebTag.react",
     "WAWebTextSizeUtils",
@@ -40,7 +40,7 @@ __d(
         h = t.voteCount,
         y = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
         C = y.pollDetailsOptionTextSize,
-        b = o("WAWebFormatConfiguration").Conversation({
+        b = o("WAWebFormatConfigurationConversation").Conversation({
           links: s != null ? s : [],
           phoneNumbers: [],
           selectable: !0,

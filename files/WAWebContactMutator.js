@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebContactCollection",
+    "WAWebContactCollectionUtils",
     "WAWebProtobufsAdv.pb",
     "WAWebWidFactory",
   ],
@@ -200,10 +201,10 @@ __d(
     function R(e) {
       var t = e.showMe,
         n = e.showWithoutName;
-      return o("WAWebContactCollection").ContactCollection.getFilteredContacts({
-        showMe: t,
-        showWithoutName: n,
-      });
+      return o("WAWebContactCollectionUtils").getFilteredContacts(
+        o("WAWebContactCollection").ContactCollection,
+        { showMe: t, showWithoutName: n },
+      );
     }
     function L(e) {
       var t = e.id,

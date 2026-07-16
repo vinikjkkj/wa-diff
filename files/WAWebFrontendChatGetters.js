@@ -61,13 +61,14 @@ __d(
       $ = m("createdLocally"),
       P = m("pendingDeleteForMeCount"),
       N = m("attachMediaContents"),
-      M = m("formattedTitle"),
-      w = m("assignedAgent"),
-      A = m("isAssignedToMe", { default: !1 }),
-      F = m("mute"),
-      O = m("presence"),
-      B = m("newsletterMetadata"),
-      W = m("promises", {
+      M = m("isCameraCaptureDrawerOpen", { default: !1 }),
+      w = m("formattedTitle"),
+      A = m("assignedAgent"),
+      F = m("isAssignedToMe", { default: !1 }),
+      O = m("mute"),
+      B = m("presence"),
+      W = m("newsletterMetadata"),
+      q = m("promises", {
         getDefault: function () {
           return {
             reportSpamAndBlockSender: void 0,
@@ -82,14 +83,14 @@ __d(
           };
         },
       }),
-      q = m("isFavorite", { default: !1 }),
-      U = m("trusted"),
-      V = m("active"),
-      H = m("pendingAction"),
-      G = m("pttRecordingSession"),
-      z = m("unopenedByAssignedAgent", { default: !1 }),
-      j = m("mmSignalSharingExpirationWindow"),
-      K = d(
+      U = m("isFavorite", { default: !1 }),
+      V = m("trusted"),
+      H = m("active"),
+      G = m("pendingAction"),
+      z = m("pttRecordingSession"),
+      j = m("unopenedByAssignedAgent", { default: !1 }),
+      K = m("mmSignalSharingExpirationWindow"),
+      Q = d(
         function (t) {
           var n = t[0],
             r = t[1],
@@ -122,7 +123,7 @@ __d(
           D,
         ],
       ),
-      Q = d(
+      X = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -132,14 +133,14 @@ __d(
         },
         [s.getIsGroup, D],
       ),
-      X = d(
+      Y = d(
         function (e) {
           var t = e[0];
           return t === !0;
         },
         [x],
       ),
-      Y = d(
+      J = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -156,9 +157,9 @@ __d(
           }
           return n.isHosted !== !0;
         },
-        [K, f],
+        [Q, f],
       ),
-      J = d(
+      Z = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -168,7 +169,7 @@ __d(
         },
         [s.getUnreadCount, g],
       ),
-      Z = d(
+      ee = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -197,7 +198,7 @@ __d(
         },
         [s.getUnreadCount, h, R],
       ),
-      ee = d(
+      te = d(
         function (e) {
           var t,
             n = e[0],
@@ -207,7 +208,7 @@ __d(
         },
         [s.getDraftMessage, N],
       ),
-      te = d(
+      ne = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -273,11 +274,11 @@ __d(
           R,
           $,
           L,
-          ee,
+          te,
           T,
         ],
       ),
-      ne = d(
+      re = d(
         function (e) {
           for (
             var t = e[0],
@@ -305,7 +306,7 @@ __d(
         },
         [R, E, P, s.getId],
       ),
-      re = d(
+      oe = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -331,7 +332,7 @@ __d(
         },
         [R, E, k, s.getEndOfHistoryTransferType],
       ),
-      oe = d(
+      ae = d(
         function (e) {
           var t = e[0];
           return o(
@@ -340,7 +341,7 @@ __d(
         },
         [R, E],
       ),
-      ae = d(
+      ie = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -359,7 +360,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      ie = d(
+      le = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -382,33 +383,34 @@ __d(
       (l.getMsgs = R),
       (l.getIsParentGroup = I),
       (l.getAttachMediaContents = N),
-      (l.getFormattedTitle = M),
-      (l.getAssignedAgent = w),
-      (l.getIsAssignedToMe = A),
-      (l.getMute = F),
-      (l.getPresence = O),
-      (l.getNewsletterMetadata = B),
-      (l.getPromises = W),
-      (l.getIsFavorite = q),
-      (l.getTrusted = U),
-      (l.getActive = V),
-      (l.getPendingAction = H),
-      (l.getPttRecordingSession = G),
-      (l.getUnopenedByAssignedAgent = z),
-      (l.getMmSignalSharingExpirationWindow = j),
-      (l.getKind = K),
-      (l.getIsCAG = Q),
-      (l.getIsCapiHostedGroup = X),
-      (l.getIsE2ee = Y),
-      (l.getOptimisticUnreadCount = J),
-      (l.getShouldShowUnreadDivider = Z),
-      (l.getHasDraftMessage = ee),
-      (l.getShouldAppearInList = te),
-      (l.getPreviewMessage = ne),
-      (l.getShareableHistoryInfo = re),
-      (l.getLatestJoinTimeByParticipant = oe),
-      (l.getShowChangeNumberNotification = ae),
-      (l.getDerivedLastAddOnPreview = ie));
+      (l.getIsCameraCaptureDrawerOpen = M),
+      (l.getFormattedTitle = w),
+      (l.getAssignedAgent = A),
+      (l.getIsAssignedToMe = F),
+      (l.getMute = O),
+      (l.getPresence = B),
+      (l.getNewsletterMetadata = W),
+      (l.getPromises = q),
+      (l.getIsFavorite = U),
+      (l.getTrusted = V),
+      (l.getActive = H),
+      (l.getPendingAction = G),
+      (l.getPttRecordingSession = z),
+      (l.getUnopenedByAssignedAgent = j),
+      (l.getMmSignalSharingExpirationWindow = K),
+      (l.getKind = Q),
+      (l.getIsCAG = X),
+      (l.getIsCapiHostedGroup = Y),
+      (l.getIsE2ee = J),
+      (l.getOptimisticUnreadCount = Z),
+      (l.getShouldShowUnreadDivider = ee),
+      (l.getHasDraftMessage = te),
+      (l.getShouldAppearInList = ne),
+      (l.getPreviewMessage = re),
+      (l.getShareableHistoryInfo = oe),
+      (l.getLatestJoinTimeByParticipant = ae),
+      (l.getShowChangeNumberNotification = ie),
+      (l.getDerivedLastAddOnPreview = le));
   },
   98,
 );

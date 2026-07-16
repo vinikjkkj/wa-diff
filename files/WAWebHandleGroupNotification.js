@@ -4,10 +4,8 @@ __d(
     "Promise",
     "WADeprecatedWapParser",
     "WALogger",
-    "WAWap",
     "WAWebABProps",
     "WAWebAsISOCountryCode",
-    "WAWebCommsWapMd",
     "WAWebCurrentUser",
     "WAWebEphemeralityTypes",
     "WAWebEphemeralityUtils",
@@ -17,20 +15,16 @@ __d(
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
     "WAWebGroupsQueryApi",
-    "WAWebHandleGroupNotificationAction",
     "WAWebHandleGroupNotificationConst",
-    "WAWebHandleGroupNotificationV2",
     "WAWebHandleGroupsDirtyNotification",
+    "WAWebHandleParsedGroupNotification",
     "WAWebJidToWid",
     "WAWebLimitSharingGatingUtils",
-    "WAWebMessageQueue",
-    "WAWebOfflineHandler",
     "WAWebRequestMethodType",
     "WAWebSchemaGroupMetadata",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsNotifications",
     "WAWebUsernameGatingUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isStringNullOrEmpty",
     "nullthrows",
@@ -1020,53 +1014,11 @@ __d(
             i.error.toString(),
           ),
           (_ || (_ = n("Promise"))).reject(i.error))
-        : $(i.success);
+        : o("WAWebHandleParsedGroupNotification").handleParsedGroupNotification(
+            i.success,
+          );
     }
-    function $(e) {
-      var t =
-        !!e.offline &&
-        !o(
-          "WAWebOfflineHandler",
-        ).OfflineMessageHandler.isResumeFromRestartComplete();
-      return o(
-        "WAWebHandleGroupNotificationV2",
-      ).isGroupNotificationOptimizationEligible(e, t) && t
-        ? o("WAWebHandleGroupNotificationV2").handleGroupNotificationV2(e, t)
-        : o("WAWebMessageQueue").onMessageQueue({
-            chatWid: e.chatId,
-            isOffline: t,
-            msgCategory: null,
-            action: (function () {
-              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
-                  return (
-                    yield (_ || (_ = n("Promise"))).all(
-                      e.actions.map(function (n) {
-                        return o(
-                          "WAWebHandleGroupNotificationAction",
-                        ).handleAction({ action: n, isOffline: t, meta: e });
-                      }),
-                    ),
-                    o("WAWap").wap("ack", {
-                      to: o("WAWebCommsWapMd").GROUP_JID(e.chatId),
-                      id: o("WAWap").CUSTOM_STRING(e.externalId),
-                      class: "notification",
-                      type: "w:gp2",
-                      participant: e.author
-                        ? o("WAWebCommsWapMd").USER_JID(e.author)
-                        : o("WAWap").DROP_ATTR,
-                    })
-                  );
-                },
-              );
-              function a() {
-                return r.apply(this, arguments);
-              }
-              return a;
-            })(),
-          });
-    }
-    ((l.handleGroupNotification = x), (l.handleParsedGroupNotification = $));
+    l.handleGroupNotification = x;
   },
   98,
 );

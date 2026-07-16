@@ -74,6 +74,8 @@ __d(
           "guest_experience_loading_impression",
         GUEST_EXPERIENCE_CHAT_SCREEN_LANDING:
           "guest_experience_chat_screen_landing",
+        GUEST_EXPERIENCE_CHAT_SCREEN_RESTORE:
+          "guest_experience_chat_screen_restore",
         INVITE_CODE_FETCH_FAILED: "error_invite_code_fetch_failed",
         INVITE_CODE_INVALID: "error_invite_code_invalid",
         UNRELATED_GUEST_SESSION_DETECTED: "unrelated_guest_session_detected",

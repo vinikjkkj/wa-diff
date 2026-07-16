@@ -1,6 +1,11 @@
 __d(
   "WAWebEmojiConst",
-  ["$InternalEnum", "WAWebAnimatedEmojiGatingUtils", "WAWebMobilePlatforms"],
+  [
+    "$InternalEnum",
+    "WAWebABProps",
+    "WAWebAnimatedEmojiGatingUtils",
+    "WAWebMobilePlatforms",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = 25,
       s = {
@@ -164,9 +169,9 @@ __d(
       b = "fifa_soccer_ball_v3",
       v = "soccer_test_ball_v1";
     function S() {
-      return o(
-        "WAWebAnimatedEmojiGatingUtils",
-      ).isAnimatedEmojiSoccerBallProdEnabled()
+      return o("WAWebABProps").getABPropConfigValue(
+        "animated_soccer_ball_prod_enabled",
+      )
         ? b
         : v;
     }
@@ -223,8 +228,9 @@ __d(
     function L() {
       var e = [];
       return (
-        o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiSet1Enabled() &&
-          (e = [].concat(e, f)),
+        o("WAWebABProps").getABPropConfigValue(
+          "animated_emoji_set_1_enabled",
+        ) && (e = [].concat(e, f)),
         o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiFinalSetEnabled() &&
           (e = [].concat(e, g)),
         o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiSoccerBallEnabled() &&

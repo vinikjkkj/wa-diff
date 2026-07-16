@@ -10,17 +10,13 @@ __d(
     "WAWebAlarm",
     "WAWebBaseModel",
     "WAWebChatMuteBridge",
-    "WAWebGroupMetadataCollection",
     "WAWebMiscErrors",
     "WAWebMuteCollection",
     "WAWebMuteGetters",
-    "WAWebNewsletterCommonGatingUtils",
-    "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterUpdateUserSettingsAction",
     "WAWebNoop",
     "WAWebToastManager",
-    "WAWebUserPrefsMeUser",
     "WAWebWamEnumChannelEventSurface",
     "WAWebWid",
     "err",
@@ -277,7 +273,7 @@ __d(
                   } else if (e.status >= 400)
                     throw S === "newsletter"
                       ? new (o("WAWebActionToast.react").ActionType)(
-                          s._(/*BTDS*/ "Failed to mute channel"),
+                          s._(/*BTDS*/ "Couldn't mute channel"),
                         )
                       : S === "group"
                         ? new (o("WAWebActionToast.react").ActionType)(
@@ -370,26 +366,6 @@ __d(
           return (
             this.set({ callExpiration: a }),
             (k || (k = n("Promise"))).resolve()
-          );
-        }),
-        (i.canMute = function () {
-          var e = !1;
-          if (o("WAWebUserPrefsMeUser").isMeAccount(this.id)) return !1;
-          if (r("WAWebWid").isGroup(this.id)) {
-            var t = r("WAWebGroupMetadataCollection").get(this.id);
-            t && (e = t.participants.iAmMember());
-          }
-          if (
-            o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
-            r("WAWebWid").isNewsletter(this.id)
-          ) {
-            var n = r("WAWebNewsletterMetadataCollection").get(this.id);
-            n != null && (e = n.canBeMuted);
-          }
-          return (
-            e ||
-            r("WAWebWid").isUser(this.id) ||
-            r("WAWebWid").isBroadcast(this.id)
           );
         }),
         (i.$MuteImpl$p_5 = function () {
@@ -520,7 +496,7 @@ __d(
                   if (t.status >= 400)
                     throw f === "newsletter"
                       ? new (o("WAWebActionToast.react").ActionType)(
-                          s._(/*BTDS*/ "Failed to unmute channel"),
+                          s._(/*BTDS*/ "Couldn't unmute channel"),
                         )
                       : f === "group"
                         ? new (o("WAWebActionToast.react").ActionType)(

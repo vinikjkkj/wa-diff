@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WABase64",
-    "WAFilteredCatch",
     "WALogger",
     "WANullthrows",
     "WAPromiseCallSync",
@@ -24,7 +23,6 @@ __d(
     "WAWebMiscErrors",
     "WAWebMmsMediaTypes",
     "WAWebNetworkGetResponseIfOnline",
-    "WAWebStickerUtils",
     "WAWebURLUtils",
     "WAWebVcardParsingUtils",
     "WAWebVideoTranscoderWamEvent",
@@ -52,7 +50,7 @@ __d(
       p,
       _ = 2e4;
     function f(e) {
-      return F(
+      return A(
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             t(e);
@@ -114,7 +112,7 @@ __d(
         });
     }
     function y(e) {
-      return F(function (t) {
+      return A(function (t) {
         t(e);
         var n = e.getBlob();
         if (n) return h(n);
@@ -146,11 +144,8 @@ __d(
         S.apply(this, arguments)
       );
     }
-    function R(e) {
-      return o("WAWebMediaLoad").videoWidthHeightDuration(e);
-    }
-    function L(e, t) {
-      return F(
+    function R(e, t) {
+      return A(
         (function () {
           var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
             n(e);
@@ -167,12 +162,12 @@ __d(
         })(),
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.maxDimension,
             r = t.minDimension,
             a = t.transparency,
@@ -189,15 +184,15 @@ __d(
             throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
           return { width: u, height: l, size: s.blob.size };
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function T() {
+    function I() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = t.maxDimension,
             i = t.minDimension,
             l = t.transparency,
@@ -295,15 +290,15 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function x() {
+    function D() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.forceToBlob(),
             n = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
               "sticker",
@@ -343,15 +338,15 @@ __d(
             );
           }
         })),
-        x.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function $(e, t, n, r, o, a, i, l, s, u, c) {
-      return P.apply(this, arguments);
+    function x(e, t, n, r, o, a, i, l, s, u, c) {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, m, p, _, f, g, h) {
             var y = !1;
             try {
@@ -632,15 +627,15 @@ __d(
             }
           },
         )),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.type;
           if (n) {
             if (n === "image/svg+xml")
@@ -688,15 +683,15 @@ __d(
             );
           }
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(e, t, n, r, o, a) {
-      return A.apply(this, arguments);
+    function M(e, t, n, r, o, a) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, s) {
             var u = e.forceToBlob(),
               c = o("WAWebMediaPreProcessQpl").startMediaPreProcessQpl(
@@ -709,7 +704,7 @@ __d(
                 _ = o("WAWebMediaCleanFileName").cleanFilename(
                   u.name || (t != null ? t : ""),
                 ),
-                f = yield N(u, _),
+                f = yield P(u, _),
                 g = a ? o("WAWebFileUtils").blobToText(u) : null,
                 h = yield (p || (p = n("Promise"))).all([
                   o("WAWebDocumentUploadEnrichment").enrich(u, f, s),
@@ -763,10 +758,10 @@ __d(
             }
           },
         )),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function F(e) {
+    function A(e) {
       var t = [];
       function n(e) {
         (e.retain(), t.push(e));
@@ -777,12 +772,12 @@ __d(
           for (var e = 0; e < t.length; e++) t[e].autorelease();
         });
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function B() {
+    function O() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield r("WAWebNetworkGetResponseIfOnline")(
             e,
             "GET",
@@ -796,18 +791,18 @@ __d(
               })
             : (p || (p = n("Promise"))).resolve(null);
         })),
-        B.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function W() {
+    function B() {
       return !!o("WAWebMediaLoad").canPlayOgg;
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function U() {
+    function q() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t.retain();
           var n, a;
           try {
@@ -841,7 +836,7 @@ __d(
                 break;
               }
               case o("WAWebMediaTypes").TYPE.AUDIO: {
-                var p = yield L(t);
+                var p = yield R(t);
                 (p.retain(),
                   (n = { mediaBlob: p, renderableUrl: p.url() }),
                   (a = function () {
@@ -875,65 +870,10 @@ __d(
             (t.autorelease(), a != null && a());
           }
         })),
-        U.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function V(e, t) {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield (p || (p = n("Promise")))
-            .resolve()
-            .then(function () {
-              switch (e.type) {
-                case o("WAWebMediaTypes").TYPE.VIDEO:
-                case o("WAWebMediaTypes").TYPE.PTV:
-                  return R(t).then(function (e) {
-                    return {
-                      fullWidth: e.width,
-                      fullHeight: e.height,
-                      duration:
-                        e.duration !== void 0
-                          ? "" + Math.ceil(e.duration)
-                          : void 0,
-                    };
-                  });
-                case o("WAWebMediaTypes").TYPE.IMAGE:
-                  return e.contentInfo.fullHeight != null &&
-                    e.contentInfo.fullWidth != null &&
-                    e.size === t.size
-                    ? null
-                    : g(t).then(function (e) {
-                        return {
-                          fullWidth: e.width,
-                          fullHeight: e.height,
-                          size: t.size,
-                        };
-                      });
-                case o("WAWebMediaTypes").TYPE.STICKER:
-                  return o("WAWebStickerUtils").parseStickerMetadata(t, e);
-                case o("WAWebMediaTypes").TYPE.AUDIO:
-                  return {};
-                default:
-                  return {};
-              }
-            })
-            .catch(
-              o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").MediaUnsupportedError,
-                function (t) {
-                  throw (e.consolidate({}), t);
-                },
-              ),
-            );
-          r != null && e.consolidate(r);
-        })),
-        H.apply(this, arguments)
-      );
-    }
-    function G(e) {
+    function U(e) {
       return (
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER ||
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE ||
@@ -947,7 +887,7 @@ __d(
         e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_AUDIO
       );
     }
-    function z(e) {
+    function V(e) {
       var t =
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER ||
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE ||
@@ -974,7 +914,7 @@ __d(
           e === o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_VIDEO;
       return t || n;
     }
-    function j(e, t) {
+    function H(e, t) {
       return new (p || (p = n("Promise")))(function (n) {
         var r = new Image();
         (r.setAttribute("crossorigin", "anonymous"),
@@ -1021,7 +961,7 @@ __d(
           (r.src = e));
       });
     }
-    function K(e) {
+    function G(e) {
       return e
         ? e.fullPreviewData
           ? e.fullPreviewData.url()
@@ -1035,20 +975,19 @@ __d(
       (l.opaqueDataToArrayBuffer = y),
       (l.decodeWebpToRGBANoOpaque = C),
       (l.parseWebpNoOpaque = v),
-      (l.getImageMetadata = E),
-      (l.processRawImage = I),
-      (l.processRawSticker = D),
-      (l.processRawAudioVideo = $),
-      (l.getRawDocumentMimetype = N),
-      (l.processRawDocument = w),
-      (l.fetchMedia = O),
-      (l.canPlayOgg = W),
-      (l.gatherAndSetMetadata = q),
-      (l.gatherAndSetMetadataNoOpaque = V),
-      (l.shouldUseMediaCache = G),
-      (l.shouldUseLruMediaStore = z),
-      (l.getResizedThumbData = j),
-      (l.getHighestQualityThumbnailUrl = K));
+      (l.getImageMetadata = L),
+      (l.processRawImage = k),
+      (l.processRawSticker = T),
+      (l.processRawAudioVideo = x),
+      (l.getRawDocumentMimetype = P),
+      (l.processRawDocument = M),
+      (l.fetchMedia = F),
+      (l.canPlayOgg = B),
+      (l.gatherAndSetMetadata = W),
+      (l.shouldUseMediaCache = U),
+      (l.shouldUseLruMediaStore = V),
+      (l.getResizedThumbData = H),
+      (l.getHighestQualityThumbnailUrl = G));
   },
   98,
 );

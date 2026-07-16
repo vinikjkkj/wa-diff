@@ -176,7 +176,7 @@ __d(
                     p.jsx(o("WAWebToast.react").Toast, {
                       action: { actionText: s._(/*BTDS*/ "OK"), dismiss: !0 },
                       msg: s._(
-                        /*BTDS*/ "Failed to update broadcast audience. Please try again.",
+                        /*BTDS*/ "Couldn't update broadcast audience. Please try again.",
                       ),
                       id: o("WAWebToast.react").genId(),
                     }),

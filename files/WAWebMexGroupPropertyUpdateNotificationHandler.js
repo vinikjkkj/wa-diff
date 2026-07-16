@@ -7,7 +7,7 @@ __d(
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
-    "WAWebHandleGroupNotification",
+    "WAWebHandleParsedGroupNotification",
     "WAWebSuspendAppealStatusType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -106,7 +106,7 @@ __d(
             };
             try {
               yield o(
-                "WAWebHandleGroupNotification",
+                "WAWebHandleParsedGroupNotification",
               ).handleParsedGroupNotification(h);
             } catch (t) {
               o("WALogger")

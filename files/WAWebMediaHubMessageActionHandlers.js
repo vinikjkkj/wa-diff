@@ -203,7 +203,7 @@ __d(
                     o("WAWebToastManager").ToastManager.open(
                       v.jsx(o("WAWebToast.react").Toast, {
                         msg: s._(
-                          /*BTDS*/ '_j{"*":"{count} files failed to be downloaded because they are no longer on your phone.","_1":"1 file failed to be downloaded because it\'s no longer on your phone."}',
+                          /*BTDS*/ '_j{"*":"{count} files couldn\'t be downloaded because they\'re no longer on your phone.","_1":"1 file couldn\'t be downloaded because it\'s no longer on your phone."}',
                           [s._plural(i.length - t.length, "count")],
                         ),
                       }),

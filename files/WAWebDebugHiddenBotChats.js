@@ -8,27 +8,23 @@ __d(
       );
       return !!e;
     }
-    var s = e(),
-      u = new Set();
-    function c() {
+    var s = e();
+    function u() {
       return s;
     }
-    function d(e) {
+    function c(e) {
       s !== e &&
         ((s = e),
         r("WAWebUserPrefsStore").set(
           r("WAWebUserPrefsDebugKeys").DEBUG_SHOW_HIDDEN_BOT_CHATS,
           e,
-        ),
-        u.forEach(function (e) {
-          e(s);
-        }));
+        ));
     }
-    ((d.doc =
+    ((c.doc =
       "Show/hide hidden bot chats (TEE, sidechat) in chat list, notifications, and search"),
-      (d.paramsToExecute = []),
-      (l.isShowHiddenBotChatsEnabled = c),
-      (l.setShowHiddenBotChats = d));
+      (c.paramsToExecute = []),
+      (l.isShowHiddenBotChatsEnabled = u),
+      (l.setShowHiddenBotChats = c));
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WAWebPerCustomerDataSharingUtils",
   [
     "WASmaxInBizSettingsEnums",
+    "WAWebABProps",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
     "WAWebChatCollection",
@@ -44,9 +45,9 @@ __d(
           (o(
             "WAWebUserPrefsGeneral",
           ).getCTWADataSharingDisclosureShownCount() === 0 ||
-            o(
-              "WAWebCTWAGatingUtils",
-            ).shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade()))
+            o("WAWebABProps").getABPropConfigValue(
+              "ctwa_per_customer_data_sharing_controls_do_not_show_msg_until_chosen",
+            )))
       );
     }
     function c(e) {

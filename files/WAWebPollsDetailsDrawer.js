@@ -9,7 +9,7 @@ __d(
     "WAWebDrawerSection.react",
     "WAWebEmojiText.react",
     "WAWebFlatListController",
-    "WAWebFormatConfiguration",
+    "WAWebFormatConfigurationConversation",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
@@ -147,7 +147,7 @@ __d(
         k = o("WAWebFrontendMsgGetters").getChat(c.unsafe()),
         I = o("WAWebPollsUseStickySortedResults").useStickySortedResults(g),
         T = o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
-        D = o("WAWebFormatConfiguration").Conversation({
+        D = o("WAWebFormatConfigurationConversation").Conversation({
           links:
             (t = o("WAWebMsgLinks").getLinksFromMsg(c.unsafe())) != null
               ? t

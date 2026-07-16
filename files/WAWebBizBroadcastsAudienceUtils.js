@@ -75,21 +75,24 @@ __d(
         u.jsx(o("WAWebToast.react").Toast, {
           id: l,
           msg: s,
-          action: {
-            actionText: r("WAWebFbtCommon")("Undo"),
-            onAction: function () {
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                yield o("WAWebBroadcastListAction")
-                  .deleteBroadcastListAction(i)
-                  .then(function () {
-                    return a();
-                  })
-                  .finally(function () {
-                    return o("WAWebToastManager").ToastManager.close(l);
-                  });
-              })();
-            },
-          },
+          action:
+            a == null
+              ? null
+              : {
+                  actionText: r("WAWebFbtCommon")("Undo"),
+                  onAction: function () {
+                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                      yield o("WAWebBroadcastListAction")
+                        .deleteBroadcastListAction(i)
+                        .then(function () {
+                          return a();
+                        })
+                        .finally(function () {
+                          return o("WAWebToastManager").ToastManager.close(l);
+                        });
+                    })();
+                  },
+                },
         }),
       );
     }

@@ -35,25 +35,30 @@ __d(
         var a = r.prototype;
         return (
           (a.initialize = function () {
+            var e = this;
             (t.prototype.initialize.call(this),
               (this.labelItemCollection = new (o(
                 "WAWebLabelItemCollection",
               ).LabelItemCollection)()),
               this.$LabelImpl$p_1(),
-              this.listenTo(this, "change:name", this.$LabelImpl$p_1),
-              this.listenTo(this, "change:color", this.$LabelImpl$p_1),
-              this.listenTo(this, "change:colorIndex", this.$LabelImpl$p_1),
-              this.listenTo(this, "change:count", this.$LabelImpl$p_1),
-              this.listenTo(
-                this.labelItemCollection,
-                "add",
-                this.$LabelImpl$p_2,
-              ),
-              this.listenTo(
-                this.labelItemCollection,
-                "remove",
-                this.$LabelImpl$p_2,
-              ),
+              this.listenTo(this, "change:name", function () {
+                return e.$LabelImpl$p_1();
+              }),
+              this.listenTo(this, "change:color", function () {
+                return e.$LabelImpl$p_1();
+              }),
+              this.listenTo(this, "change:colorIndex", function () {
+                return e.$LabelImpl$p_1();
+              }),
+              this.listenTo(this, "change:count", function () {
+                return e.$LabelImpl$p_1();
+              }),
+              this.listenTo(this.labelItemCollection, "add", function () {
+                return e.$LabelImpl$p_2();
+              }),
+              this.listenTo(this.labelItemCollection, "remove", function () {
+                return e.$LabelImpl$p_2();
+              }),
               this.orderIndex == null && (this.orderIndex = Number(this.id)));
           }),
           (a.findImpl = function (r) {

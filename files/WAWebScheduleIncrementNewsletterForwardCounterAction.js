@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
     "WAWebPersistedJobDefinitions",
@@ -36,9 +37,9 @@ __d(
         )
       ) {
         s(t, n);
-        var r = o(
-            "WAWebNewsletterGatingUtils",
-          ).newsletterForwardCounterMaxSendAfterRandomTime(),
+        var r = o("WAWebABProps").getABPropConfigValue(
+            "newsletter_forward_counter_max_send_after_random_time",
+          ),
           a = o("WATimeUtils").futureUnixTime(Math.floor(Math.random() * r));
         try {
           var i = o(

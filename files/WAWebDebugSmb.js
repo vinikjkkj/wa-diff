@@ -15,9 +15,9 @@ __d(
     "WAWebConnModel",
     "WAWebContactCollection",
     "WAWebContactInfoFieldsNuxModal.react",
+    "WAWebContactManagerNuxModal.react",
     "WAWebContactType",
     "WAWebCustomerDataAction",
-    "WAWebCustomerManagerNuxModal.react",
     "WAWebDOIntroPopup.react",
     "WAWebDebugPerCustomerDataSharing",
     "WAWebDeleteQuickReplyAction",
@@ -488,7 +488,7 @@ __d(
       (re.paramsToExecute = []));
     var oe = function () {
       o("WAWebModalManager").ModalManager.open(
-        E.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
+        E.jsx(r("WAWebContactManagerNuxModal.react"), {}),
       );
     };
     ((oe.doc = "Opens the Customer Manager Intro NUX Modal"),
@@ -734,7 +734,7 @@ __d(
         createPremiumMessage: ee,
         openDOIntroPopup: ne,
         openSMBListsIntroPopup: re,
-        openCustomerManagerNuxModal: oe,
+        openContactManagerNuxModal: oe,
         openContactInfoFieldsNuxModal: ae,
         openSmbDataSharingDialog: ie,
         syncQuickReplyDelete: le,

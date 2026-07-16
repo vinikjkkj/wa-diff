@@ -12,14 +12,14 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebDirtyBitsConsts",
     "WAWebEventsWaitForOfflineDeliveryEnd",
+    "WAWebFetchAndUpdateBlocklistJob",
     "WAWebMdAppStateDirtyBitsWamEvent",
     "WAWebNewsletterGatingUtils",
     "WAWebOfflineDeviceCache",
     "WAWebOfflineHandler",
     "WAWebPDFNTypes",
+    "WAWebQueryAndUpdateAllNewslettersMetadataAction",
     "WAWebQueryAndUpdateGroupMetadataJob",
-    "WAWebQueryAndUpdateNewslettersMetadataAction",
-    "WAWebQueryBlockListJob",
     "WAWebSyncd",
     "WAWebTos",
     "WAWebUserPrefsMeUser",
@@ -53,9 +53,9 @@ __d(
                 e === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY
                   ? o("WAWebAccountSyncJob").updatePrivacySettings()
                   : e === o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST
-                    ? o("WAWebQueryBlockListJob").fetchAndUpdateBlocklist(
-                        "dirty-bit",
-                      )
+                    ? o(
+                        "WAWebFetchAndUpdateBlocklistJob",
+                      ).fetchAndUpdateBlocklist("dirty-bit")
                     : e === o("WAWebAccountSyncJob").AccountSyncType.OPTOUTLIST
                       ? o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                           "updateOptOutList",
@@ -218,7 +218,7 @@ __d(
                     .waitForOfflineDeliveryEnd()
                     .then(function () {
                       return o(
-                        "WAWebQueryAndUpdateNewslettersMetadataAction",
+                        "WAWebQueryAndUpdateAllNewslettersMetadataAction",
                       ).queryAndUpdateAllNewsletterMetadataAction(
                         o("WAWebCommonNewsletterEnums")
                           .NewsletterMetadataUpdateEntryPoint.DirtyBit,

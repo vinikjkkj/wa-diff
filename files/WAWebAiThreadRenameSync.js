@@ -9,6 +9,7 @@ __d(
     "WAWebAiThreadTypeUtils",
     "WAWebBackendApi",
     "WAWebBotBaseGating",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
@@ -16,7 +17,6 @@ __d(
     "WAWebSyncdGetChat",
     "WAWebSyncdGetThread",
     "WAWebSyncdIndexUtils",
-    "WAWebThreadMetadataBulkJob",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -203,7 +203,7 @@ __d(
                   };
                 return (
                   yield o(
-                    "WAWebThreadMetadataBulkJob",
+                    "WAWebBulkCreateOrUpdateThreadsMetadata",
                   ).bulkCreateOrUpdateThreadsMetadata([p]),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "updateChatAiThreads",

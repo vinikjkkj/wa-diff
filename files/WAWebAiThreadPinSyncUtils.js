@@ -7,11 +7,11 @@ __d(
     "WATimeUtils",
     "WAWebAiThreadCreationUtils",
     "WAWebBackendApi",
+    "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaThreadsMetadata",
     "WAWebSyncdDb",
     "WAWebThreadId",
-    "WAWebThreadMetadataBulkJob",
     "WAWebThreadUtils",
     "WAWebThreadsMetadataIdUtils",
     "WAWebWid",
@@ -40,7 +40,7 @@ __d(
           creationTimestamp: l,
           pinThreadTimestamp: n,
         };
-      return o("WAWebThreadMetadataBulkJob")
+      return o("WAWebBulkCreateOrUpdateThreadsMetadata")
         .bulkCreateOrUpdateThreadsMetadata([s])
         .then(function () {
           o("WAWebBackendApi").frontendFireAndForget("updateChatAiThreads", {

@@ -10,11 +10,10 @@ __d(
     "WAWebNewsletterGetMyAddOnsJob",
     "WAWebNewsletterGetStatusMyReactionsJob",
     "WAWebNewsletterLoadingStageManager",
-    "WAWebNewsletterMetadataInitFromStorage",
     "WAWebNoop",
     "WAWebPrimaryFeaturesModel",
     "WAWebQplFlowWrapper",
-    "WAWebQueryAndUpdateNewslettersMetadataAction",
+    "WAWebQueryAndUpdateAllNewslettersMetadataAction",
     "WAWebStatusGatingUtils",
     "WAWebSyncdOrphan",
     "WAWebUserPrefsMultiDevice",
@@ -101,7 +100,7 @@ __d(
           ).NewsletterLoadingStageManager.start();
           try {
             var i = yield o(
-              "WAWebQueryAndUpdateNewslettersMetadataAction",
+              "WAWebQueryAndUpdateAllNewslettersMetadataAction",
             ).queryAndUpdateAllNewsletterMetadataAction(
               o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
                 .Bootstrap,
@@ -185,53 +184,7 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e =
-            o("WAWebUserPrefsMultiDevice").getNewsletterWasBootstrapped() &&
-            o("WAWebNewsletterLoadingStageManager")
-              .NewsletterLoadingStageManager.stage ===
-              o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
-                .None;
-          e &&
-            o(
-              "WAWebNewsletterLoadingStageManager",
-            ).NewsletterLoadingStageManager.start();
-          try {
-            (yield o(
-              "WAWebNewsletterMetadataInitFromStorage",
-            ).restoreNewsletterMetadata(),
-              e &&
-                o("WAWebNewsletterLoadingStageManager")
-                  .NewsletterLoadingStageManager.stage ===
-                  o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
-                    .Loading &&
-                o(
-                  "WAWebNewsletterLoadingStageManager",
-                ).NewsletterLoadingStageManager.end());
-          } catch (t) {
-            throw (
-              e &&
-                o("WAWebNewsletterLoadingStageManager")
-                  .NewsletterLoadingStageManager.stage ===
-                  o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
-                    .Loading &&
-                o(
-                  "WAWebNewsletterLoadingStageManager",
-                ).NewsletterLoadingStageManager.end(),
-              t
-            );
-          }
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    ((l.bootstrapNewsletterBackend = g),
-      (l.restoreNewsletterMetadataWithLoadingStage = C));
+    l.bootstrapNewsletterBackend = g;
   },
   98,
 );

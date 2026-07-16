@@ -1,11 +1,11 @@
 __d(
   "WACryptoPrimitives",
-  ["tweetnacl"],
+  ["cr:8712"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = {
-        scalarbase: (e = o("tweetnacl")).lowlevel.scalarbase,
+        scalarbase: (e = n("cr:8712")).lowlevel.scalarbase,
         crypto_hash: e.lowlevel.crypto_hash,
         modL: e.lowlevel.modL,
         pack25519: e.lowlevel.pack25519,
@@ -21,14 +21,14 @@ __d(
         add: e.lowlevel.add,
         scalarmult: e.lowlevel.scalarmult,
       };
-    ((l.hash = e.hash),
-      (l.scalarMult = e.scalarMult),
-      (l.verify = e.verify),
-      (l.secretbox = e.secretbox),
-      (l.lowlevel = s),
+    ((l.lowlevel = s),
       (l.keypairFromSecretKey = e.box.keyPair.fromSecretKey),
       (l.keyPair = e.box.keyPair),
-      (l.signDetachedVerify = e.sign.detached.verify));
+      (l.signDetachedVerify = e.sign.detached.verify),
+      (l.hash = e.hash),
+      (l.scalarMult = e.scalarMult),
+      (l.secretbox = e.secretbox),
+      (l.verify = e.verify));
   },
   98,
 );

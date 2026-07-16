@@ -51,6 +51,7 @@ __d(
     "WAWebHatchPairingUnavailableDialog.react",
     "WAWebInboxFiltersGatingUtils",
     "WAWebInfoFlowLoadable",
+    "WAWebInjectSignupGreetingMessage",
     "WAWebKeyboardTabUtils",
     "WAWebMdLinkedDevicesWindowsXdrWamEvent",
     "WAWebMobilePlatforms",
@@ -73,7 +74,6 @@ __d(
     "WAWebSendMsgMultiModalLoadable",
     "WAWebSendStickerToActiveChatStickersAction",
     "WAWebSignupGating",
-    "WAWebSignupGreetingAction",
     "WAWebSignupLoadingState",
     "WAWebStatusApiParse",
     "WAWebStatusAttachMediaFlow.react",
@@ -427,10 +427,9 @@ __d(
                     r.id.toString(),
                     !0,
                   ),
-                  o("WAWebSignupGreetingAction").injectSignupGreetingMessage(
-                    Q,
-                    s,
-                  )),
+                  o(
+                    "WAWebInjectSignupGreetingMessage",
+                  ).injectSignupGreetingMessage(Q, s)),
                   o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
                     j,
                     !0,

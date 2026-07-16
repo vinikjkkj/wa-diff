@@ -108,7 +108,10 @@ __d(
         ) {
           var n = o("WAWebQuickReplyEnum").QuickReplyTypes
               .ADDRESS_SMART_DEFAULT,
-            a = t.address || s._(/*BTDS*/ "Map location"),
+            a =
+              t.address != null && t.address !== ""
+                ? t.address
+                : s._(/*BTDS*/ "Map location"),
             i = "\uD83D\uDCCD";
           return new (r("WAWebQuickReplyModel"))({
             id: n,

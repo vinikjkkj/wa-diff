@@ -38,10 +38,6 @@ __d(
     "WAWebMsgModel",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
-    "WAWebMusicEligibleCountriesProvider",
-    "WAWebMusicGatingUtils",
-    "WAWebMusicParsingUtils",
-    "WAWebMusicPlaybackUtils",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterFutureProofUtils",
     "WAWebNewsletterGatingUtils",
@@ -784,62 +780,7 @@ __d(
         a = o("WATimeUtils").unixTime() - o("WAWebMsgGetters").getT(t) <= n;
       return o("WAWebBotBaseGating").isBotEnabled() && V(t) && a && r;
     }
-    function j(e, t) {
-      var n = o("WAWebStateUtils").unproxy(e),
-        r = o("WAWebFrontendMsgGetters").getChat(n);
-      if (
-        r.isSuspendedOrTerminated() &&
-        o("WAWebMiscGatingUtils").isGroupSuspendV2Enabled()
-      )
-        return !1;
-      if (
-        o("WAWebMsgGetters").getIsNewsletterMsg(n) &&
-        n.type === o("WAWebMsgType").MSG_TYPE.VIDEO
-      ) {
-        var a,
-          i =
-            (a = o("WAWebMsgGetters").getFirstMusicAnnotation(n)) == null ||
-            (a = a.embeddedContent) == null
-              ? void 0
-              : a.embeddedMusic;
-        if (i != null) {
-          if (
-            Number(i.overlapDurationInMs) >
-            o("WAWebMusicGatingUtils").MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS
-          )
-            return !1;
-          var l = o(
-              "WAWebMusicEligibleCountriesProvider",
-            ).provideMusicEligibleCountries(),
-            s = o("WAWebMusicParsingUtils").toMusicMetadata(i);
-          if (
-            (s &&
-              !o("WAWebMusicPlaybackUtils").canPlaybackMusic(
-                s.countryBlocklist,
-                l,
-              )) ||
-            !o("WAWebMusicGatingUtils").isStatusMusicSaveToDiskEnabled()
-          )
-            return !1;
-        }
-      }
-      return n.type === o("WAWebMsgType").MSG_TYPE.STICKER ||
-        n.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
-        o("WAWebFrontendMsgGetters").getAsRevoked(n) ||
-        n.isViewOnce
-        ? !1
-        : n.type === o("WAWebMsgType").MSG_TYPE.VCARD ||
-            n.type === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD
-          ? !0
-          : !(
-              n.mediaData == null ||
-              (t !== !0 && !n.mediaData.isDownloadable()) ||
-              (n.type === o("WAWebMsgType").MSG_TYPE.PTV &&
-                !o("WAWebMsgGetters").getIsSentByMe(n)) ||
-              !g(n, r)
-            );
-    }
-    function K(e) {
+    function j(e) {
       var t, n;
       return o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
         isAGMShown:
@@ -881,8 +822,7 @@ __d(
       (l.canSenderRevokeMsg = H),
       (l.canAdminRevokeMsg = G),
       (l.canBotResponseBeRevokeByInvoker = z),
-      (l.canDownloadMsg = j),
-      (l.canDeleteMsg = K));
+      (l.canDeleteMsg = j));
   },
   98,
 );
