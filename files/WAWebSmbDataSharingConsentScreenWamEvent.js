@@ -15,6 +15,7 @@ __d(
               elapsedTimeMs: [4, e.TYPES.INTEGER],
               previousImpressionCount: [5, e.TYPES.INTEGER],
               previousOptOutImpressionCount: [6, e.TYPES.INTEGER],
+              smbDataSharingConsentDisclosureVersion: [7, e.TYPES.INTEGER],
               smbDataSharingConsentScreenEntryPoint: [
                 3,
                 o("WAWebWamEnumSmbDataSharingConsentScreenEntryPoint")

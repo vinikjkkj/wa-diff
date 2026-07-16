@@ -14,6 +14,7 @@ __d(
     "WAWebSignal",
     "WAWebSignalProtocolStore",
     "WAWebSignalSessionApi",
+    "WAWebStatusChainFromMyCounter",
     "WAWebStatusDBOperations",
     "WAWebUserPrefsStatus",
     "WAWebUserPrefsStatusType",
@@ -238,7 +239,14 @@ __d(
     }
     I.doc =
       'Forget status sender key and delete all signal sessions for a LID (e.g. "12345@lid")';
-    var D = {
+    function D() {
+      o(
+        "WAWebStatusChainFromMyCounter",
+      ).resetStatusChainFromMyInteractionCount();
+    }
+    D.doc =
+      'Reset the "See more statuses" (Chain from My Status) pill tap count so the pill shows again';
+    var x = {
       sendTextStatusToAllowlist: p,
       setStatusAllowList: f,
       createOrUpdateStatusInDebug: h,
@@ -247,8 +255,9 @@ __d(
       clearNewsletterStatuses: R,
       clearStatusesByChatWid: E,
       forgetAndDeleteStatusSession: I,
+      resetStatusChainFromMyPill: D,
     };
-    l.default = D;
+    l.default = x;
   },
   98,
 );

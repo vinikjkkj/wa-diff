@@ -2,11 +2,11 @@ __d(
   "WAWebDebug",
   [
     "Promise",
-    "WAAsyncSleep",
     "WAComms",
     "WACryptoPkcs7",
     "WALogger",
     "WANullthrows",
+    "WAPromiseDelays",
     "WASendPassiveModeProtocol",
     "WATimeUtils",
     "WAWap",
@@ -46,6 +46,7 @@ __d(
     "WAWebDebugCallingNavNux",
     "WAWebDebugCapping",
     "WAWebDebugCatalog",
+    "WAWebDebugChangeNumber",
     "WAWebDebugChatLock",
     "WAWebDebugCollections",
     "WAWebDebugComments",
@@ -126,6 +127,7 @@ __d(
     "WAWebGroupHistoryDebug",
     "WAWebInMemoryLottieStickerCache",
     "WAWebInteractiveBloksWidgetDebug",
+    "WAWebJSUsageDebug",
     "WAWebListsIntroPopupLoadable",
     "WAWebManagePhoneNumberMappingJob",
     "WAWebMediaInMemoryBlobCache",
@@ -938,7 +940,7 @@ __d(
       r("WAWebDebugDownFunnelSignals").dfsInitialize();
     }
     var Ve = babelHelpers.extends(
-      { initialize: Ue, asyncSleep: o("WAAsyncSleep").asyncSleep, _: null },
+      { initialize: Ue, delayMs: o("WAPromiseDelays").delayMs, _: null },
       r("WAWebDebugL10N"),
       r("WAWebDebugNewsletter"),
       r("WAWebDebugABProps"),
@@ -948,6 +950,7 @@ __d(
       r("WAWebDebugBizBroadcast"),
       r("WAWebDebugBizBroadcastGenAI"),
       r("WAWebDebugCatalog"),
+      r("WAWebDebugChangeNumber"),
       r("WAWebDebugDownFunnelSignals"),
       r("WAWebDebugFavorites"),
       r("WAWebDebugGroup"),
@@ -1144,6 +1147,8 @@ __d(
         isCanonicalPresent: Fe,
         MemberLabel: r("WAWebMemberLabelDebug"),
         GroupHistory: r("WAWebGroupHistoryDebug"),
+        getJSUsageReport: r("WAWebJSUsageDebug").getJSUsageReport,
+        getJSUsageReportJSON: r("WAWebJSUsageDebug").getJSUsageReportJSON,
         KMP: { getDeviceJid: o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow },
         toggleVPVOverlay: o("WAWebDebugBizVPVOverlay").toggleVPVOverlay,
         injectRichResponseTestMessage: o("WAWebInteractiveBloksWidgetDebug")

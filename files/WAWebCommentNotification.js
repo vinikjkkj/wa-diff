@@ -2,7 +2,6 @@ __d(
   "WAWebCommentNotification",
   [
     "fbt",
-    "WANullthrows",
     "WAWebBaseNotification",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
@@ -14,6 +13,7 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebWamEnumNotificationTypeEnum",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -105,7 +105,7 @@ __d(
     })(o("WAWebBaseNotification").WABaseNotification);
     function u(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(
-          r("WANullthrows")(e.author, "comment author cannot be null"),
+          r("nullthrows")(e.author, "comment author cannot be null"),
         ),
         n = t ? o("WAWebFrontendContactGetters").getFormattedUser(t) : "",
         a = s._(/*BTDS*/ "{name} replied to your announcement message", [

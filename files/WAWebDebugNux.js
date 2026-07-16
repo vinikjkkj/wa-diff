@@ -1,6 +1,7 @@
 __d(
   "WAWebDebugNux",
   [
+    "WAWebDataSharingOptInCoolOffModel",
     "WAWebNoop",
     "WAWebNux",
     "WAWebNuxAction",
@@ -62,7 +63,10 @@ __d(
           o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX[e],
         );
       }),
-        o("WAWebNuxCoolOff").resetCoolOffNuxDate());
+        o("WAWebNuxCoolOff").resetCoolOffNuxDate(),
+        o(
+          "WAWebDataSharingOptInCoolOffModel",
+        ).DataSharingOptInCoolOffModel.resetCoolOffStartTimestamp());
     }
     ((d.doc =
       "Clear all data in local storage on NUX that acts based on cool-offs."),

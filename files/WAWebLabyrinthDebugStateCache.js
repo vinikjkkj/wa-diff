@@ -54,12 +54,8 @@ __d(
     function _() {
       return (c == null && (c = m()), c);
     }
-    function f() {
-      ((c = null), d(null));
-    }
     ((l.setLabyrinthDebugKeyMaterialCache = p),
-      (l.getLabyrinthDebugKeyMaterialCache = _),
-      (l.clearLabyrinthDebugKeyMaterialCache = f));
+      (l.getLabyrinthDebugKeyMaterialCache = _));
   },
   98,
 );

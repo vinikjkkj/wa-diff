@@ -5,6 +5,7 @@ __d(
     "WAWebE2EProtoParser",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebNewsletterIsNewsletterMsg",
     "WAWebQuestionValidationError",
     "WAWebQuestionsGatingUtils",
     "WAWebViewMode.flow",
@@ -115,21 +116,21 @@ __d(
         }
     }
     function d(e) {
-      var t,
-        n,
-        r =
+      var t, n;
+      if (!r("WAWebNewsletterIsNewsletterMsg")(e.msgData)) return !1;
+      var a =
           ((t = e.contextInfo) == null ? void 0 : t.isQuestion) === !0 &&
           !o("WAWebQuestionsGatingUtils").isQuestionReceiverEnabledForMsg(
             e.msgData,
           ),
-        a =
+        i =
           ((n = e.contextInfo) == null
             ? void 0
             : n.questionReplyQuotedMessage) != null &&
           !o("WAWebQuestionsGatingUtils").isQuestionReplyReceiverEnabledForMsg(
             e.msgData,
           );
-      return r || a;
+      return a || i;
     }
     ((l.getValidatedQuestionReplyQuotedMessage = s),
       (l.maybeAddQuestionReplyQuotedMessage = c),

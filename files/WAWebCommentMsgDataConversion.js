@@ -1,12 +1,12 @@
 __d(
   "WAWebCommentMsgDataConversion",
   [
-    "WANullthrows",
     "WAWebCommentMessageValidationError",
     "WAWebMsgType",
     "WAWebViewMode.flow",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -35,7 +35,7 @@ __d(
         id: n.id,
         parentMsgKey: n.targetMessageKey,
         author: o("WAWebWidFactory").asUserWidOrThrow(
-          r("WANullthrows")(n.author),
+          r("nullthrows")(n.author),
         ),
         t: n.t,
         type: o("WAWebMsgType").MSG_TYPE.COMMENT,

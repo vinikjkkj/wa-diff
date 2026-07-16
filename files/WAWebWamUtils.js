@@ -5,7 +5,6 @@ __d(
     "WABinary",
     "WALogger",
     "WAWebEnvironment",
-    "WAWebGuestCoreWamConstants",
     "WAWebPsIdUpdateWamEvent",
     "WAWebUserPrefsGeneral",
     "WAWebWamCodegenUtils",
@@ -22,15 +21,17 @@ __d(
       s,
       u,
       c = (e = n("cr:9565")) != null ? e : {},
-      d = c.getWindowsAppBuild;
-    function m(e, t, n) {
+      d = c.getWindowsAppBuild,
+      m = 1,
+      p = 2;
+    function _(e, t, n) {
       new (o("WAWebPsIdUpdateWamEvent").PsIdUpdateWamEvent)({
         psIdAction: e,
         psIdKey: t,
         psIdRotationFrequence: n,
       }).commit();
     }
-    function p(e, t) {
+    function f(e, t) {
       var n = JSON.parse(t),
         r = o("WAWebWamCodegenUtils").events[e];
       if (r == null) {
@@ -48,19 +49,19 @@ __d(
       }
       new r(n).commit();
     }
-    function _(e, t) {
+    function g(e, t) {
       var n,
         r = JSON.parse(t),
         a = r.value;
       o("WAWebWamGlobals").Global.set(((n = {}), (n[e] = a), n));
     }
-    function f(e) {
+    function h(e) {
       var t = e.action,
         n = e.name,
         r = e.payload;
-      return t === "commit" ? p(n, r) : _(n, r);
+      return t === "commit" ? f(n, r) : g(n, r);
     }
-    function g(e) {
+    function y(e) {
       var t = !0;
       try {
         var n = new (o("WABinary").Binary)(o("WABase64").decodeB64(e));
@@ -75,14 +76,14 @@ __d(
       }
       return t;
     }
-    function h(e) {
+    function C(e) {
       return e === "regular"
         ? "regular"
         : e === "realtime"
           ? "realtime"
           : "private";
     }
-    function y() {
+    function b() {
       var e = d == null ? void 0 : d();
       return e != null
         ? e
@@ -92,7 +93,7 @@ __d(
             : o("WAWebWamEnumAppBuildType").APP_BUILD_TYPE.RELEASE
           : o("WAWebWamEnumAppBuildType").APP_BUILD_TYPE.ALPHA;
     }
-    function C() {
+    function v() {
       if (r("gkx")("26259"))
         return o("WAWebWamEnumWebcEnvCode").WEBC_ENV_CODE.INTERN;
       if (r("gkx")("26258"))
@@ -101,49 +102,47 @@ __d(
         return o("WAWebWamEnumWebcEnvCode").WEBC_ENV_CODE.E2E;
       throw r("err")("invalid env");
     }
-    function b() {
+    function S() {
       return o("WAWebUserPrefsGeneral").getWhatsAppWebExternalBetaJoinedIdb();
     }
-    function v() {
-      o("WAWebWamGlobals").Global.set({ appBuild: y(), appIsBetaRelease: b() });
+    function R() {
+      o("WAWebWamGlobals").Global.set({ appBuild: b(), appIsBetaRelease: S() });
     }
-    function S(e) {
+    function L(e) {
       if (r("gkx")("26256")) {
         var t = window.__je2e_recordWAMEvent;
         (t || typeof t == "function") &&
           t(babelHelpers.extends({ name: e.$className }, e.all));
       }
     }
-    function R(e, t) {
+    function E(e, t) {
       if (r("gkx")("26256")) {
         var n = window.__je2e_recordWAMEvent;
         (n || typeof n == "function") && n({ name: e, value: t });
       }
     }
-    function L() {
+    function k() {
       return r("WAWebEnvironment").isGuest
-        ? o("WAWebGuestCoreWamConstants")
-            .WAM_IN_MEMORY_BUFFERING_DURATION_IN_SECS_FOR_GUEST
+        ? m
         : o("WAWebWamConstants").WAM_IN_MEMORY_BUFFERING_DURATION_IN_SECS;
     }
-    function E() {
+    function I() {
       return r("WAWebEnvironment").isGuest
-        ? o("WAWebGuestCoreWamConstants")
-            .WAM_BUFFER_ROTATE_INTERVAL_IN_SECS_FOR_GUEST
+        ? p
         : o("WAWebWamConstants").WAM_BUFFER_ROTATE_INTERVAL_IN_SECS;
     }
-    ((l.logPsIdUpdate = m),
-      (l.processWorkerWamDataRow = f),
-      (l.isWamBufferTooBigToUpload = g),
-      (l.getChannelFromBufferKey = h),
-      (l.getAppBuild = y),
-      (l.getWamEnv = C),
-      (l.getAppIsBetaRelease = b),
-      (l.refreshBetaWamGlobals = v),
-      (l.maybeForwardWamEventToJestE2e = S),
-      (l.maybeForwardWamAttributeToJestE2e = R),
-      (l.getInMemoryBufferingDurationInSecs = L),
-      (l.getBufferRotateIntervalInSecs = E));
+    ((l.logPsIdUpdate = _),
+      (l.processWorkerWamDataRow = h),
+      (l.isWamBufferTooBigToUpload = y),
+      (l.getChannelFromBufferKey = C),
+      (l.getAppBuild = b),
+      (l.getWamEnv = v),
+      (l.getAppIsBetaRelease = S),
+      (l.refreshBetaWamGlobals = R),
+      (l.maybeForwardWamEventToJestE2e = L),
+      (l.maybeForwardWamAttributeToJestE2e = E),
+      (l.getInMemoryBufferingDurationInSecs = k),
+      (l.getBufferRotateIntervalInSecs = I));
   },
   98,
 );

@@ -148,6 +148,8 @@ __d(
             LAST_STATUS_USAGE: "last-status-usage",
             LAST_NEWSLETTER_STATUS_BACKFILL_TS:
               "last-newsletter-status-backfill-ts",
+            STATUS_CHAIN_FROM_MY_INTERACTION_COUNT:
+              "status_chain_from_my_interaction_count",
             REMEMBER_ME: "remember-me",
             NO_TAKEOVER: "no-takeover",
             WHATSAPP_LS_VERSION: "ver",

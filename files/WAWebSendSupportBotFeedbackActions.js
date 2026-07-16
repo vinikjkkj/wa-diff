@@ -3,9 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WASmaxSupportMessageFeedbackSendFeedbackRPC",
     "WAStanzaUtils",
-    "WAWebABProps",
     "WAWebModalManager",
     "WAWebNetworkStatus",
     "WAWebSupportAiSessionWamEvent",
@@ -43,30 +41,17 @@ __d(
             supportAiEventType: o("WAWebWamEnumSupportAiEventType")
               .SUPPORT_AI_EVENT_TYPE.SUBMIT_MESSAGE_FEEDBACK,
           }).commit();
-          var a = o("WAWebABProps").getABPropConfigValue(
-            "saga_message_feedback_using_canonical_ent",
-          )
-            ? o("WAWebSupportMessageFeedbackSubmitMutation")
-                .submitSupportMessageFeedbackGraphQL({
-                  message_id: o("WAStanzaUtils").toStanzaId(t.id),
-                  feedback_types: n.map(
-                    o("WAWebSupportMessageFeedbackSubmitMutation")
-                      .feedbackKindForGraphQL,
-                  ),
-                })
-                .then(function (e) {
-                  return e.success === !0;
-                })
-            : o("WASmaxSupportMessageFeedbackSendFeedbackRPC")
-                .sendSendFeedbackRPC({
-                  messageId: o("WAStanzaUtils").toStanzaId(t.id),
-                  feedbackArgs: n.map(function (e) {
-                    return { feedbackKind: e };
-                  }),
-                })
-                .then(function (e) {
-                  return e.name === "SendFeedbackResponseSuccess";
-                });
+          var a = o("WAWebSupportMessageFeedbackSubmitMutation")
+            .submitSupportMessageFeedbackGraphQL({
+              message_id: o("WAStanzaUtils").toStanzaId(t.id),
+              feedback_types: n.map(
+                o("WAWebSupportMessageFeedbackSubmitMutation")
+                  .feedbackKindForGraphQL,
+              ),
+            })
+            .then(function (e) {
+              return e.success === !0;
+            });
           (a
             .then(function (e) {
               new (o("WAWebSupportAiSessionWamEvent").SupportAiSessionWamEvent)(

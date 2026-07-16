@@ -36,6 +36,7 @@ __d(
       USER_BLOCK_REASON_DONT_RECOGNIZE: 30,
       IAB_LPV: 31,
       IAB_LPV_BODY: 32,
+      PAYMENT_CTA_CLICK: 33,
     });
     i.MM_SIGNAL_TYPE = e;
   },

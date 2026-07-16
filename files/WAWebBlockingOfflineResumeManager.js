@@ -13,7 +13,7 @@ __d(
     "WAWebJSHaltDetector",
     "WAWebMessageQueue",
     "WAWebOfflineResumeConst",
-    "WAWebOfflineResumeTypes.flow",
+    "WAWebOfflineResumeTypes",
     "WAWebOfflineResumeUtils",
     "WAWebPageLoadLogging",
     "WAWebSignalProtocolStore",
@@ -59,7 +59,7 @@ __d(
                 e.$8.onOrAfter(o("WAWebOfflineResumeConst").UI_UPDATE_TIME_MS));
             })),
             (this.resumeType = o(
-              "WAWebOfflineResumeTypes.flow",
+              "WAWebOfflineResumeTypes",
             ).ResumeType.Blocking),
             this.$10());
         }
@@ -375,8 +375,7 @@ __d(
               ).OfflineResumeReporter.logOldestStanzaTime(t));
           }),
           (a.getResumeUIProgressBarType = function () {
-            return o("WAWebOfflineResumeTypes.flow").ResumeUIProgressBarType
-              .None;
+            return o("WAWebOfflineResumeTypes").ResumeUIProgressBarType.None;
           }),
           (a.$13 = function () {
             this.$7 &&

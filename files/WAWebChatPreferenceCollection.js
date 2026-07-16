@@ -1,13 +1,13 @@
 __d(
   "WAWebChatPreferenceCollection",
   [
-    "WANullthrows",
     "WAWebBaseCachePolicy",
     "WAWebBaseCollection",
     "WAWebChatPreferenceModel",
     "WAWebChatThemeValue",
     "WAWebUserPrefsKeys",
     "WAWebWallpaper",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -78,7 +78,7 @@ __d(
           );
         }),
         (a.getDefault = function () {
-          return r("WANullthrows")(
+          return r("nullthrows")(
             t.prototype.get.call(
               this,
               o("WAWebChatPreferenceModel").DEFAULT_PREFERENCE,

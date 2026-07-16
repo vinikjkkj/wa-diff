@@ -134,6 +134,13 @@ __d(
               ? o("WAWebFileSaverTypes").AllowedFileExtensions.TXT
               : o("WAWebFileSaverTypes").AllowedFileExtensions.ZIP,
           );
+        })
+        .catch(function () {
+          o("WAWebToastManager").ToastManager.open(
+            u.jsx(o("WAWebToast.react").Toast, {
+              msg: "Failed to download logs. Please try again.",
+            }),
+          );
         });
     }
     function g() {
@@ -166,34 +173,43 @@ __d(
       var s = new Date().toISOString().replace(/:/g, "-"),
         _ = l.slice(0, 8),
         g = "voip_call_log_" + _ + "_" + s;
-      (e || (e = n("Promise"))).all([p(), m()]).then(function (e) {
-        var t = e[0],
-          n = e[1],
-          r = h(n, l, d),
-          a = r.callIdFound,
-          i = r.filteredLog;
-        a ||
+      (e || (e = n("Promise")))
+        .all([p(), m()])
+        .then(function (e) {
+          var t = e[0],
+            n = e[1],
+            r = h(n, l, d),
+            a = r.callIdFound,
+            i = r.filteredLog;
+          a ||
+            o("WAWebToastManager").ToastManager.open(
+              u.jsx(o("WAWebToast.react").Toast, {
+                msg: "Call log entries not found in current logs. Downloading all available logs.",
+              }),
+            );
+          var m = a ? g : "web_client_log_" + s,
+            p = new Blob([i], { type: "text/plain" }),
+            _ = p;
+          return (
+            p.size > 10 * c &&
+              (t.push(i, !0),
+              (_ = new Blob([t.result()], { type: "application/zip" }))),
+            o("WAWebFileSaver").FileSaver.downloadData(
+              _,
+              _.type === "text/plain" ? m : m + ".txt",
+              _.type === "text/plain"
+                ? o("WAWebFileSaverTypes").AllowedFileExtensions.TXT
+                : o("WAWebFileSaverTypes").AllowedFileExtensions.ZIP,
+            )
+          );
+        })
+        .catch(function () {
           o("WAWebToastManager").ToastManager.open(
             u.jsx(o("WAWebToast.react").Toast, {
-              msg: "Call log entries not found in current logs. Downloading all available logs.",
+              msg: "Failed to download call log. Please try again.",
             }),
           );
-        var m = a ? g : "web_client_log_" + s,
-          p = new Blob([i], { type: "text/plain" }),
-          _ = p;
-        return (
-          p.size > 10 * c &&
-            (t.push(i, !0),
-            (_ = new Blob([t.result()], { type: "application/zip" }))),
-          o("WAWebFileSaver").FileSaver.downloadData(
-            _,
-            _.type === "text/plain" ? m : m + ".txt",
-            _.type === "text/plain"
-              ? o("WAWebFileSaverTypes").AllowedFileExtensions.TXT
-              : o("WAWebFileSaverTypes").AllowedFileExtensions.ZIP,
-          )
-        );
-      });
+        });
     }
     function h(e, t, n) {
       var r = e.indexOf(t),

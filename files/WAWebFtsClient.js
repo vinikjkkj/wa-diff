@@ -10,7 +10,7 @@ __d(
     "WAWebFtsGenRequestId",
     "WAWebFtsWorkerAdapter",
     "asyncToGeneratorRuntime",
-    "cr:1274",
+    "cr:9662",
     "err",
     "nullthrows",
   ],
@@ -19,7 +19,7 @@ __d(
       s,
       u,
       c,
-      d = (e = n("cr:1274")) != null ? e : {},
+      d = (e = n("cr:9662")) != null ? e : {},
       m = d.FtsSQLiteClient,
       p = (function () {
         function e() {

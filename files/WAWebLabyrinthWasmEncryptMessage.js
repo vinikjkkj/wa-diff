@@ -53,8 +53,7 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
-            r,
-            a = yield o("EBLabyrinthWaWasmReactorSingleton").labyrinthWaCommand(
+            r = yield o("EBLabyrinthWaWasmReactorSingleton").labyrinthWaCommand(
               {
                 InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
                 ResultSpec: o("WAWebLabyrinthWaWasm.pb")
@@ -63,29 +62,27 @@ __d(
               },
               {
                 encryptMessageInput: {
-                  backupId: (r = o("WALongInt")).decimalStringToLongInt(
+                  backupId: (n = o("WALongInt")).decimalStringToLongInt(
                     String(t.backupId),
                   ),
                   epochAnonId: e(t.epochAnonId),
-                  epochId: r.decimalStringToLongInt(String(t.epochId)),
+                  epochId: n.decimalStringToLongInt(String(t.epochId)),
                   epochRootKey: e(t.epochRootKey),
                   mailboxRootKey: e(t.mailboxRootKey),
                   orfClientState: e(t.orfClientState),
                   plaintextPayload: s(t.plaintext),
                   stanzaId: t.stanzaId,
                   threadId: t.threadId,
-                  timestampMs: r.decimalStringToLongInt(String(t.timestampMs)),
-                  waCanonicalUserFbid: r.decimalStringToLongInt(
+                  timestampMs: n.decimalStringToLongInt(String(t.timestampMs)),
+                  waCanonicalUserFbid: n.decimalStringToLongInt(
                     String(t.waCanonicalUserFbid),
                   ),
                 },
               },
             );
-          return a.success
-            ? o("WAResultOrError").makeResult(
-                c(a.value, (n = t.threadType) != null ? n : "ONE_TO_ONE"),
-              )
-            : a;
+          return r.success
+            ? o("WAResultOrError").makeResult(c(r.value, t.threadType))
+            : r;
         })),
         m.apply(this, arguments)
       );

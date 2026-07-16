@@ -903,11 +903,15 @@ __d(
         { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
       );
     }
-    function g(e, t, n) {
+    function g(e) {
+      var t = e === void 0 ? {} : e,
+        n = t.options,
+        a = t.prefilledDescription,
+        i = t.prefilledTitle;
       o("WAWebCurrentUser").isEmployee() &&
         r("WAWebLazyLoadedRetriable")(h, "bugnub_v2_popup")().then(
-          function (r) {
-            r({ options: n, prefilledDescription: e, prefilledTitle: t });
+          function (e) {
+            e({ options: n, prefilledDescription: a, prefilledTitle: i });
           },
         );
     }

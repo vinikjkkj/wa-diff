@@ -3,13 +3,13 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebAddOnParseWebMsgInfo",
     "WAWebCommentMsgDataConversion",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
     "WAWebParseWebMessageInfoUtils",
     "WAWebViewMode.flow",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -21,14 +21,14 @@ __d(
         c = [];
       if (a == null || (l == null ? void 0 : l.commentParentKey) == null)
         return c;
-      var d = r("WANullthrows")(
+      var d = r("nullthrows")(
           o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
             key: a.key,
             outerParticipant: a.participant,
           }),
         ),
         m = d.msgKey,
-        p = r("WANullthrows")(a.messageTimestamp),
+        p = r("nullthrows")(a.messageTimestamp),
         _;
       if (
         ((i == null ? void 0 : i.message) != null &&
@@ -37,10 +37,10 @@ __d(
           )),
         _ == null)
       ) {
-        var f = r("WANullthrows")(
+        var f = r("nullthrows")(
             o("WAWebParseWebMessageInfoUtils").buildMsgKey(
               a,
-              r("WANullthrows")(l == null ? void 0 : l.commentParentKey),
+              r("nullthrows")(l == null ? void 0 : l.commentParentKey),
             ),
           ),
           g = f.msgKey;
@@ -58,7 +58,7 @@ __d(
                 subtype: h.subtype,
                 kind: o("WAWebMsgType").MsgKind.RevokedAddon,
                 revokeTimestamp: o("WALongInt").numberOrThrowIfTooLarge(
-                  r("WANullthrows")(a.revokeMessageTimestamp),
+                  r("nullthrows")(a.revokeMessageTimestamp),
                 ),
                 type: o("WAWebMsgType").MSG_TYPE.REVOKED,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
@@ -92,8 +92,8 @@ __d(
               .sendLogs("parse-comment-revoke", { sampling: 0.01 }));
         }
       } else if (i != null) {
-        var b = r("WANullthrows")(i.targetMessageKey),
-          v = r("WANullthrows")(
+        var b = r("nullthrows")(i.targetMessageKey),
+          v = r("nullthrows")(
             o("WAWebParseWebMessageInfoUtils").buildMsgKey(a, b),
           ),
           S = v.msgKey;

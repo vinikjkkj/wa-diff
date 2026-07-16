@@ -49,7 +49,7 @@ __d(
     "WAWebPrimaryFeaturesModel",
     "WAWebProfilePicThumbCollection",
     "WAWebProfilePicThumbModel",
-    "WAWebQueryAndUpdateNewslettersMetadataAction",
+    "WAWebQueryAndUpdateAllNewslettersMetadataAction",
     "WAWebTos",
     "WAWebUserDisclosureCollection",
     "WAWebUserPrefsMeUser",
@@ -93,10 +93,10 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o(
-            "WAWebQueryAndUpdateNewslettersMetadataAction",
+            "WAWebQueryAndUpdateAllNewslettersMetadataAction",
           ).queryAndUpdateAllNewsletterMetadataAction(
-            o("WAWebQueryAndUpdateNewslettersMetadataAction")
-              .NewsletterMetadataUpdateEntryPoint.Debug,
+            o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
+              .Debug,
           );
         })),
         _.apply(this, arguments)

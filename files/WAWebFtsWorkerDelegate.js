@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAFtsQuickSwitchOrchestrator",
-    "WAFtsSQLiteTableAdapter",
     "WALogger",
     "WASemaphore",
     "WAWeb-dexie",
@@ -13,6 +12,7 @@ __d(
     "WAWebFtsManifestWriter",
     "WAWebFtsPurgeRangeManager",
     "WAWebFtsSQLiteIndexer",
+    "WAWebFtsSQLiteTableAdapter",
     "WAWebFtsStorage",
     "WAWebFtsStorageConsts",
     "WAWebFtsV3MessageSource",
@@ -102,7 +102,9 @@ __d(
                             messageSource: new (r("WAWebFtsV3MessageSource"))(
                               t,
                             ),
-                            tableAdapter: new (r("WAFtsSQLiteTableAdapter"))(C),
+                            tableAdapter: new (r("WAWebFtsSQLiteTableAdapter"))(
+                              C,
+                            ),
                           }))
                         : (this.$3 = new (r("WAFtsQuickSwitchOrchestrator"))(
                             this.$7,

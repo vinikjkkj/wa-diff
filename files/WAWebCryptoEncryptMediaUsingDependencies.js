@@ -14,7 +14,7 @@ __d(
     "WAWebCryptoCreateMediaKeys",
     "WAWebMiscErrors",
     "WAWebMmsMediaTypes",
-    "WAWebMmsPerformanceExperimentSwitch",
+    "WAWebServerPropConstants",
     "WAWebWebpParseWebp",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -26,6 +26,9 @@ __d(
       c,
       d = 10;
     function m(e) {
+      return e > o("WAWebServerPropConstants").DEFAULT_MAX_FILE_SIZE_BYTES;
+    }
+    function p(e) {
       var t = e.ivCiphertext,
         r = e.macKey,
         a = e.signature,
@@ -37,7 +40,7 @@ __d(
         firstFrameSidecar: (c || (c = n("Promise"))).resolve(),
       };
     }
-    function p(e) {
+    function _(e) {
       var t = e.ivCiphertext,
         a = e.macKey,
         i = e.plaintext,
@@ -56,30 +59,28 @@ __d(
             : (c || (c = n("Promise"))).resolve(),
       };
     }
-    var _ = new Map([
-      [o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO, m],
-      [o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO, m],
-      [o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER, p],
+    var f = new Map([
+      [o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO, p],
+      [o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO, p],
+      [o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER, _],
     ]);
-    function f(e, t, n, r) {
-      return g.apply(this, arguments);
+    function g(e, t, n, r) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             var l,
               s,
               u = a.encKey,
-              m = a.iv,
-              p = a.macKey,
-              f = o(
-                "WAWebMmsPerformanceExperimentSwitch",
-              ).shouldEncryptInChunks(e.byteLength)
+              p = a.iv,
+              _ = a.macKey,
+              g = m(e.byteLength)
                 ? yield o("WACryptoAesCbc").aesCbcEncryptWithChunking({
                     encKey: u,
                     plaintext: e,
-                    optionalIv: m,
+                    optionalIv: p,
                     delayInBetween: o("WAWebABProps").getABPropConfigValue(
                       "web_anr_media_chunk_enc_delay_enabled",
                     ),
@@ -91,58 +92,58 @@ __d(
                         }
                       : void 0,
                   })
-                : yield o("WACryptoAesCbc").aesCbcEncrypt(u, e, m),
-              g = yield i.computeHmac({
-                macKey: p,
-                data: f,
+                : yield o("WACryptoAesCbc").aesCbcEncrypt(u, e, p),
+              h = yield i.computeHmac({
+                macKey: _,
+                data: g,
                 length: d,
                 plaintextByteLength: e.byteLength,
               }),
-              h = g.data,
-              y = g.hmac,
-              C = g.macKey,
-              b =
+              y = h.data,
+              C = h.hmac,
+              b = h.macKey,
+              v =
                 (l =
-                  (s = _.get(t)) == null
+                  (s = f.get(t)) == null
                     ? void 0
                     : s({
                         plaintext: e,
-                        ivCiphertext: h,
-                        signature: y,
-                        macKey: C,
+                        ivCiphertext: y,
+                        signature: C,
+                        macKey: b,
                       })) != null
                   ? l
                   : {},
-              v = b.sidecar,
-              S = v === void 0 ? (c || (c = n("Promise"))).resolve() : v,
-              R = b.firstFrameSidecar,
-              L = R === void 0 ? (c || (c = n("Promise"))).resolve() : R,
-              E = new Uint8Array(h).subarray(m.byteLength),
-              k = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
-                E,
-                new Uint8Array(y),
+              S = v.sidecar,
+              R = S === void 0 ? (c || (c = n("Promise"))).resolve() : S,
+              L = v.firstFrameSidecar,
+              E = L === void 0 ? (c || (c = n("Promise"))).resolve() : L,
+              k = new Uint8Array(y).subarray(p.byteLength),
+              I = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
+                k,
+                new Uint8Array(C),
               ]).buffer,
-              I = i.computeFilehash({
-                ciphertextHmac: k,
+              T = i.computeFilehash({
+                ciphertextHmac: I,
                 plaintextByteLength: e.byteLength,
               }),
-              T = yield o("WAPromiseProps").promiseProps({
-                filehash: I,
-                sidecar: S,
-                firstFrameSidecar: L,
+              D = yield o("WAPromiseProps").promiseProps({
+                filehash: T,
+                sidecar: R,
+                firstFrameSidecar: E,
               });
             return {
-              ciphertextHmac: T.filehash.ciphertextHmac,
-              hash: T.filehash.hash,
-              sidecar: T.sidecar,
-              firstFrameSidecar: T.firstFrameSidecar,
+              ciphertextHmac: D.filehash.ciphertextHmac,
+              hash: D.filehash.hash,
+              sidecar: D.sidecar,
+              firstFrameSidecar: D.firstFrameSidecar,
             };
           },
         )),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(t) {
+    function y(t) {
       return function (i) {
         var a = i.mediaKey,
           l = i.plaintext,
@@ -167,7 +168,7 @@ __d(
             );
           r("WAWebCryptoCreateMediaKeys")(d, a)
             .then(function (e) {
-              return f(l, d, e, t);
+              return g(l, d, e, t);
             })
             .then(function (e) {
               (o("WALogger").LOG(
@@ -200,7 +201,7 @@ __d(
         });
       };
     }
-    l.createEncryptMediaUsingDependencies = h;
+    l.createEncryptMediaUsingDependencies = y;
   },
   98,
 );

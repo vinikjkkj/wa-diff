@@ -7,6 +7,7 @@ __d(
       BODY_URL_CLICK: 1,
       BODY_URL_LONG_PRESS: 2,
       CTA_APP_CLICK: 3,
+      PAYMENT_CTA_CLICK: 4,
     });
     i.SIGNAL_ORIGIN = e;
   },

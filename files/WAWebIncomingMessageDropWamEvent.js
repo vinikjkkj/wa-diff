@@ -78,6 +78,7 @@ __d(
                 21,
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
               ],
+              traceIdInt: [24, e.TYPES.INTEGER],
               typeOfGroup: [
                 10,
                 o("WAWebWamEnumTypeOfGroupEnum").TYPE_OF_GROUP_ENUM,

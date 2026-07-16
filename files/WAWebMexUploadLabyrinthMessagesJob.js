@@ -41,7 +41,7 @@ __d(
         d.apply(this, arguments)
       );
     }
-    l.mexUploadLabyrinthMessages = c;
+    ((l.wasmResultToMessageUpload = u), (l.mexUploadLabyrinthMessages = c));
   },
   98,
 );

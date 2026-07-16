@@ -1,7 +1,6 @@
 __d(
   "WAWebCommentUtils",
   [
-    "WANullthrows",
     "WAWebAddonEncryption",
     "WAWebAddonEncryptionError",
     "WAWebApiUpdateReplyCount",
@@ -17,6 +16,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -72,7 +72,7 @@ __d(
               messageSecret: l,
               iv: a,
               originalMessageSender: o("WAWebWidFactory").asUserWidOrThrow(
-                r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+                r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
               ),
               addOnSender: o("WAWebWidFactory").asUserWidOrThrow(t),
               stanzaId: e.id.id,
@@ -138,7 +138,7 @@ __d(
               threadId: [],
             });
           var a = o("WAWebWidFactory").asUserWidOrThrow(
-            r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+            r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
           );
           return babelHelpers.extends(
             { id: e.id },

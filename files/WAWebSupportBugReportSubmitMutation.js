@@ -18,17 +18,11 @@ __d(
           : null;
     }
     function u(e) {
-      var t = e.match(/Bug ID: (.*)/);
-      return t != null
-        ? { reportType: "bug", reportId: t[1] }
-        : { reportType: "task", reportId: e };
+      return c.apply(this, arguments);
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = yield o("WAWebRelayClient").commitMutation(
               e !== void 0
                 ? e
@@ -53,12 +47,10 @@ __d(
                 task_id: a.task_id,
               };
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    ((l.bugCategoryTypeForGraphQL = s),
-      (l.resolveSmaxReportId = u),
-      (l.submitBugReportGraphQL = c));
+    ((l.bugCategoryTypeForGraphQL = s), (l.submitBugReportGraphQL = u));
   },
   98,
 );

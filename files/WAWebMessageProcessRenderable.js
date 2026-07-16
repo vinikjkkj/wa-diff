@@ -33,7 +33,7 @@ __d(
     "WAWebMsmsgMsgSecretCache",
     "WAWebOfflineHandler",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-    "WAWebOfflineResumeTypes.flow",
+    "WAWebOfflineResumeTypes",
     "WAWebPreProcessOrderEphemeralExemption",
     "WAWebProtobufsProtocol.pb",
     "WAWebSagaSystemMsg",
@@ -354,7 +354,7 @@ __d(
                     o(
                       "WAWebOfflineHandler",
                     ).OfflineMessageHandler.getResumeType() ===
-                      o("WAWebOfflineResumeTypes.flow").ResumeType.NonBlocking
+                      o("WAWebOfflineResumeTypes").ResumeType.NonBlocking
                   )
                     return;
                   yield z;

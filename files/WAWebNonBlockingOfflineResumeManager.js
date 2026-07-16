@@ -14,7 +14,7 @@ __d(
     "WAWebOffdStorageUpdateOfflinePeerReceipts",
     "WAWebOfflineResumeConst",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-    "WAWebOfflineResumeTypes.flow",
+    "WAWebOfflineResumeTypes",
     "WAWebOfflineResumeUtils",
     "WAWebSignalProtocolStore",
     "WAWebThreadMetadata",
@@ -61,7 +61,7 @@ __d(
             })),
             (this.$12 = 95),
             (this.resumeType = o(
-              "WAWebOfflineResumeTypes.flow",
+              "WAWebOfflineResumeTypes",
             ).ResumeType.NonBlocking),
             e != null && e.mainScreenLoaded && (this.$6 = !0),
             this.$13());
@@ -373,9 +373,8 @@ __d(
           (t.getResumeUIProgressBarType = function () {
             return !o("WAWebBackendEventBus").BackendEventBus
               .isOfflineDeliveryEnd && this.offlineMessagePreviewCounter >= L
-              ? o("WAWebOfflineResumeTypes.flow").ResumeUIProgressBarType
-                  .Toastbar
-              : o("WAWebOfflineResumeTypes.flow").ResumeUIProgressBarType.None;
+              ? o("WAWebOfflineResumeTypes").ResumeUIProgressBarType.Toastbar
+              : o("WAWebOfflineResumeTypes").ResumeUIProgressBarType.None;
           }),
           (t.$16 = function () {
             this.$9 &&

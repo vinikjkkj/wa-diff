@@ -2,8 +2,8 @@ __d(
   "WAWebTextStatusImageRenderer",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebCanvasUtils",
-    "WAWebCrosspostingGatingUtils",
     "WAWebFontLoader",
     "WAWebMsgGetters",
     "WAWebProtobufsE2E.pb",
@@ -39,7 +39,9 @@ __d(
     }
     var m = 9 / 16;
     function p() {
-      return o("WAWebCrosspostingGatingUtils").textStatusRasterizationWidth();
+      return o("WAWebABProps").getABPropConfigValue(
+        "rasterize_text_status_pixel_width",
+      );
     }
     function _() {
       return Math.round(p() / m);

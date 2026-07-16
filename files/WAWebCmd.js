@@ -1042,7 +1042,7 @@ __d(
           }),
           (i.triggerBugReportV2 = function () {
             o("WAWebCurrentUser").isEmployee() &&
-              this.trigger("trigger_bugreport_v2");
+              this.trigger("trigger_bugreport_v2", {});
           }),
           (i.onNotificationPermissionChange = function () {
             this.trigger("on_notification_permission_change");

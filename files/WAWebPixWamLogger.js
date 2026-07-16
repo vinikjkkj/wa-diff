@@ -2,7 +2,6 @@ __d(
   "WAWebPixWamLogger",
   [
     "WAWebGetMessageChatTypeFromWid",
-    "WAWebPaymentConstants",
     "WAWebPaymentsUserActionWamEvent",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebWamEnumMessageChatType",
@@ -10,47 +9,48 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r, o, a, i, l) {
-      return s.apply(this, arguments);
+    var e = "BR";
+    function s(e, t, n, r, o, a, i, l) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s) {
-            s === void 0 && (s = {});
-            var u = yield o(
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, n, r, a, i, l, s, u) {
+            u === void 0 && (u = {});
+            var c = yield o(
               "WAWebSyncdMdSyncFieldstatMeta",
             ).MdSyncFieldStatsMeta.getMdSessionId();
-            ((s.payment_method = "pix"),
-              i &&
-                (s.chat_type = Object.keys(
+            ((u.payment_method = "pix"),
+              l &&
+                (u.chat_type = Object.keys(
                   o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE,
                 )[
                   o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
-                    i.id,
+                    l.id,
                   )
                 ].toLowerCase()),
-              l && (s.key_type = String(l.key_type)));
-            var c = {
-                actionTarget: e,
-                paymentActionType: t,
-                paymentsCountryCode: o("WAWebPaymentConstants").BR_COUNTRY_CODE,
-                previousScreenName: n,
-                queryParams: JSON.stringify(s),
-                referral: r,
-                screen: a,
-                paymentsEventId: u,
+              s && (u.key_type = String(s.key_type)));
+            var d = {
+                actionTarget: t,
+                paymentActionType: n,
+                paymentsCountryCode: e,
+                previousScreenName: r,
+                queryParams: JSON.stringify(u),
+                referral: a,
+                screen: i,
+                paymentsEventId: c,
               },
-              d = new (o(
+              m = new (o(
                 "WAWebPaymentsUserActionWamEvent",
-              ).PaymentsUserActionWamEvent)(c);
-            d.commit();
+              ).PaymentsUserActionWamEvent)(d);
+            m.commit();
           },
         )),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.logPixSenderEvent = e;
+    l.logPixSenderEvent = s;
   },
   98,
 );

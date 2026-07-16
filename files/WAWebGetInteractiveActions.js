@@ -4,9 +4,9 @@ __d(
     "fbt",
     "WAWebBizEntryPoint",
     "WAWebBizOrderDetailAction",
-    "WAWebBizShopsAction",
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebBrazilPaymentsGeoGating",
+    "WAWebExternalLink.react",
     "WAWebFbtAppName",
     "WAWebFrontendMsgGetters",
     "WAWebGetBrazilnteractiveActions",
@@ -246,7 +246,9 @@ __d(
         onClick: function () {
           if (t == null)
             return void r("WAWebShowMessageActionFallbackErrorAction")();
-          o("WAWebBizShopsAction").openShopStorefront(t);
+          o("WAWebExternalLink.react").openExternalLink(
+            "https://facebook.com/" + t + "/shop/",
+          );
         },
       };
     }

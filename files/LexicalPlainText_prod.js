@@ -298,15 +298,6 @@ __d(
           _require_Lexical.COMMAND_PRIORITY_EDITOR,
         ),
         t.registerCommand(
-          _require_Lexical.DRAGOVER_COMMAND,
-          function (e) {
-            var _i$eventFiles = require("LexicalUtils").eventFiles(e),
-              t = _i$eventFiles[0];
-            return !t && (e.preventDefault(), !0);
-          },
-          _require_Lexical.COMMAND_PRIORITY_EDITOR,
-        ),
-        t.registerCommand(
           _require_Lexical.DRAGSTART_COMMAND,
           function (n) {
             var r = require("Lexical").$getSelection();

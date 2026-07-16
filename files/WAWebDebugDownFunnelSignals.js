@@ -395,9 +395,10 @@ __d(
       (pe.paramsToExecute = []));
     var _e = function (t) {
       var e,
-        n =
+        n,
+        a =
           (t == null ? void 0 : t.chatId) || ((e = te) == null ? void 0 : e.id);
-      if (n == null) {
+      if (a == null) {
         o("WALogger").ERROR(
           E ||
             (E = babelHelpers.taggedTemplateLiteralLoose([
@@ -406,23 +407,27 @@ __d(
         );
         return;
       }
-      var a = new (o("WAWebConversionTupleModel").ConversionTuple)({
-        id: n,
+      var i = new (o("WAWebConversionTupleModel").ConversionTuple)({
+        id: a,
         timestamp: o("WATimeUtils").unixTime(),
         conversionSource: "FB_Ads",
         ctwaSignals: "3pdag,3pdag",
+        sourceId:
+          (n = t == null ? void 0 : t.sourceId) != null
+            ? n
+            : "mock_3pdag_ad_id",
         fromMe: !1,
       });
       try {
-        (r("WAWebConversionTupleCollection").remove(n),
-          r("WAWebConversionTupleCollection").add(a),
+        (r("WAWebConversionTupleCollection").remove(a),
+          r("WAWebConversionTupleCollection").add(i),
           o("WALogger").LOG(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
                 'debug:dfsMockReceived3pdagCtwaThread: Mocked inbound 3pdag CTWA thread (null payload) for chat "',
                 '" successfully.',
               ])),
-            n,
+            a,
           ));
       } catch (e) {
         o("WALogger").ERROR(
@@ -431,12 +436,12 @@ __d(
               "error:debug:dfsMockReceived3pdagCtwaThread: Error adding 3pdag CTWA thread to chat ",
               "",
             ])),
-          n,
+          a,
         );
       }
     };
     ((_e.doc =
-      'DFS - Mocks an INBOUND 3pdag (EPD) CTWA thread: FB_Ads source, ctwaSignals="3pdag,3pdag", null encrypted payload (fromMe=false). Simulates an ePD-customer thread.'),
+      'DFS - Mocks an INBOUND 3pdag (EPD) CTWA thread: FB_Ads source, ctwaSignals="3pdag,3pdag", null encrypted payload, seeded ad id (fromMe=false). Simulates an ePD-customer thread.'),
       (_e.paramsToExecute = []));
     var fe = function (t) {
       me({

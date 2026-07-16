@@ -2,7 +2,7 @@ __d(
   "WAWebBizProfileRootQuery_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "36393589646922856";
+    a.exports = "37552352951022136";
   },
   null,
 );
