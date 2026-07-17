@@ -3,11 +3,11 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAPromiseDelays",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -126,7 +126,7 @@ __d(
             );
           case "INFLIGHT":
           case "SUCCESS":
-            return r("WANullthrows")(s);
+            return r("nullthrows")(s);
           default:
             return (d || (d = n("Promise"))).reject(
               r("err")("retriable_promise_hoc:promiseStatus is invalid"),

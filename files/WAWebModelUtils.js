@@ -2,11 +2,11 @@ __d(
   "WAWebModelUtils",
   [
     "WAMemoizeCache",
-    "WANullthrows",
     "WATypeUtils",
     "err",
     "isEmptyObject",
     "isPlainObject",
+    "nullthrows",
     "omit",
     "toposort",
   ],
@@ -232,7 +232,7 @@ __d(
       return r;
     }
     function k(t, n) {
-      var o = r("WANullthrows")(n.name);
+      var o = r("nullthrows")(n.name);
       delete n.name;
       var a = E(t, o),
         i = a.prototype,

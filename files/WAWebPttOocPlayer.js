@@ -1,7 +1,6 @@
 __d(
   "WAWebPttOocPlayer",
   [
-    "WANullthrows",
     "WAWebAudioFileIcon.react",
     "WAWebAudioStatusIcon.react",
     "WAWebChatEntryPoint",
@@ -28,6 +27,7 @@ __d(
     "WAWebThemeContext",
     "WAWebUnstyledButton.react",
     "WAWebVelocityTransitionGroup",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "useWAWebAnimationFrames",
@@ -188,7 +188,7 @@ __d(
                   ((R.current = !0),
                   o("WAWebPttDailyUtils").incrementPttDailyCount(
                     o("WAWebPttDailyUtils").PttDailyCountKind.OOC_PLAYBACK,
-                    r("WANullthrows")(o("WAWebFrontendChatGetters").getKind(f)),
+                    r("nullthrows")(o("WAWebFrontendChatGetters").getKind(f)),
                   ))));
           }),
           (t[11] = f),

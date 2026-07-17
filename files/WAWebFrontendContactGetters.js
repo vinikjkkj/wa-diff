@@ -672,6 +672,7 @@ __d(
       (l.getIsEphemeralityDisabled = M),
       (l.getFormattedUsernameAndType = w),
       (l.getFormattedUsername = A),
+      (l.getDisplayNameForLidAndType = F),
       (l.getPnForLid = B),
       (l.getUserDisplayNameForLid = q),
       (l.getFormattedPhoneAndType = U),

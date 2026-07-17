@@ -1,13 +1,13 @@
 __d(
   "WAWebBizAIKnowledgeGoogleDriveTypes",
-  [],
-  function (t, n, r, o, a, i) {
+  ["countWhere"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e.filter(function (e) {
+      return r("countWhere")(e, function (e) {
         return e.sync_status === "SYNCING";
-      }).length;
+      });
     }
-    i.countSyncingGoogleDriveFiles = e;
+    l.countSyncingGoogleDriveFiles = e;
   },
-  66,
+  98,
 );

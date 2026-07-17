@@ -3,13 +3,13 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebBotBaseGating",
     "WAWebE2EProtoParser",
     "WAWebE2EProtoUtils",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -79,7 +79,7 @@ __d(
         c = babelHelpers.extends(
           {},
           o("WAWebE2EProtoParser").parseMsgProto({
-            messageProtobuf: r("WANullthrows")(l),
+            messageProtobuf: r("nullthrows")(l),
             message: e,
             msgContext: n,
           }),
@@ -202,7 +202,7 @@ __d(
           o("WAWebE2EProtoParser").parseMsgProto({
             messageProtobuf: babelHelpers.extends(
               {},
-              r("WANullthrows")(l.editedMessage),
+              r("nullthrows")(l.editedMessage),
               a ? { messageContextInfo: a } : {},
             ),
             message: t,

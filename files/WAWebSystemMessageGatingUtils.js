@@ -3,9 +3,7 @@ __d(
   ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return !!o("WAWebABProps").getABPropConfigValue(
-        "system_msg_text_styling",
-      );
+      return o("WAWebABProps").getABPropConfigValue("system_msg_text_styling");
     }
     l.systemMessageActionTextStylingEnabled = e;
   },

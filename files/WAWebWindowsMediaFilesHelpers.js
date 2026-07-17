@@ -171,28 +171,29 @@ __d(
         q.apply(this, arguments)
       );
     }
-    function U(e) {
+    function U(e, t) {
       return V.apply(this, arguments);
     }
     function V() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          o("WALogger").LOG(
-            f ||
-              (f = babelHelpers.taggedTemplateLiteralLoose([
-                "[saveMediaFile] Starting to save media file for msg ",
-                "",
-              ])),
-            e.id.toString(),
-          );
-          var r =
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r;
+          (t === void 0 && (t = !1),
+            o("WALogger").LOG(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[saveMediaFile] Starting to save media file for msg ",
+                  "",
+                ])),
+              e.id.toString(),
+            ));
+          var a =
               n("cr:17219") == null ||
-              (t = n("cr:17219").getWindowsBridge()) == null
+              (r = n("cr:17219").getWindowsBridge()) == null
                 ? void 0
-                : t.mediaFiles,
-            a = F(e);
-          if (a == null) {
+                : r.mediaFiles,
+            i = F(e);
+          if (i == null) {
             o("WALogger").ERROR(
               g ||
                 (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -201,10 +202,10 @@ __d(
                 ])),
               e.id.toString(),
             );
-            var i = new Error("Failed to get media info or media files bridge");
-            throw (i.stack, i);
+            var l = new Error("Failed to get media info or media files bridge");
+            throw (l.stack, l);
           }
-          if (r == null) {
+          if (a == null) {
             o("WALogger").ERROR(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -213,12 +214,12 @@ __d(
                 ])),
               e.id.toString(),
             );
-            var l = new Error("Failed to get media info or media files bridge");
-            throw (l.stack, l);
+            var s = new Error("Failed to get media info or media files bridge");
+            throw (s.stack, s);
           }
-          var s = a.mediaData,
-            u = a.mediaFileHash,
-            c = a.suggestedFileName;
+          var u = i.mediaData,
+            c = i.mediaFileHash,
+            d = i.suggestedFileName;
           o("WALogger").LOG(
             y ||
               (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -227,7 +228,7 @@ __d(
               ])),
             e.id.toString(),
           );
-          var d = yield r.isCachedMediaFileExist(u, c);
+          var m = yield a.isCachedMediaFileExist(c, d);
           o("WALogger").LOG(
             C ||
               (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -236,10 +237,10 @@ __d(
                 "",
               ])),
             e.id.toString(),
-            d ? "exists" : "does not exist",
+            m ? "exists" : "does not exist",
           );
-          var m = null;
-          (d ||
+          var p = null;
+          (m ||
             (o("WALogger").LOG(
               b ||
                 (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -253,13 +254,14 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e, t, n) {
-                    ((m = e), yield r.prepareForMediaFileSaving(e, t, n));
+                    ((p = e), yield a.prepareForMediaFileSaving(e, t, n));
                   },
                 );
                 return function (t, n, r) {
                   return e.apply(this, arguments);
                 };
               })(),
+              t,
             ),
             o("WALogger").LOG(
               v ||
@@ -269,9 +271,9 @@ __d(
                 ])),
               e.id.toString(),
             )),
-            s.trigger("mediaFileSavingStarted"),
-            m != null &&
-              m !== "" &&
+            u.trigger("mediaFileSavingStarted"),
+            p != null &&
+              p !== "" &&
               (o("WALogger").LOG(
                 S ||
                   (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -280,7 +282,7 @@ __d(
                   ])),
                 e.id.toString(),
               ),
-              yield r.waitTillMediaDownloadCompletes(m != null ? m : "", c, u),
+              yield a.waitTillMediaDownloadCompletes(p != null ? p : "", d, c),
               o("WALogger").LOG(
                 R ||
                   (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -297,8 +299,8 @@ __d(
                 ])),
               e.id.toString(),
             ));
-          var p = yield r.isCachedMediaFileExist(u, c);
-          if (!p) {
+          var _ = yield a.isCachedMediaFileExist(c, d);
+          if (!_) {
             (o("WALogger").ERROR(
               E ||
                 (E = babelHelpers.taggedTemplateLiteralLoose([
@@ -307,11 +309,11 @@ __d(
                 ])),
               e.id.toString(),
             ),
-              s.trigger("mediaFileSavingFailed"));
-            var _ = new Error("Failed to save media file");
-            throw (_.stack, _);
+              u.trigger("mediaFileSavingFailed"));
+            var I = new Error("Failed to save media file");
+            throw (I.stack, I);
           }
-          (s.trigger("mediaFileSavedOnFileSystem"),
+          (u.trigger("mediaFileSavedOnFileSystem"),
             o("WALogger").LOG(
               k ||
                 (k = babelHelpers.taggedTemplateLiteralLoose([

@@ -2,13 +2,13 @@ __d(
   "WAWebNewsletterHandleLiveUpdatesNotification",
   [
     "WALogger",
-    "WANullthrows",
     "WASmaxNewslettersLiveUpdatesNotificationRPC",
     "WAWebBackendApi",
     "WAWebNewsletterBackendAddOnsUtils",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -39,7 +39,7 @@ __d(
                 "WAWebNewsletterBackendAddOnsUtils",
               ).getMsgsAndAddOnsFromUpdates(
                 s,
-                o("WAWebWidFactory").createWid(r("WANullthrows")(l)),
+                o("WAWebWidFactory").createWid(r("nullthrows")(l)),
                 u,
               );
             return (

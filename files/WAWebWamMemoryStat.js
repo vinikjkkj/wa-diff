@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAShiftTimer",
     "WAWebAppTracker",
     "WAWebBackendApi",
@@ -16,6 +15,7 @@ __d(
     "WAWebWamEnumWebcScenarioType",
     "WAWebWebcMemoryStatWamEvent",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -186,7 +186,7 @@ __d(
             t = yield (d || (d = n("Promise"))).all([q(), B()]),
             a = t[0],
             i = t[1],
-            l = r("WANullthrows")(h()),
+            l = r("nullthrows")(h()),
             s = Math.round(k / I / 1e3 / 1e3),
             m = new (o("WAWebWebcMemoryStatWamEvent").WebcMemoryStatWamEvent)(
               babelHelpers.extends(

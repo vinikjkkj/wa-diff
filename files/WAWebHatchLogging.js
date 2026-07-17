@@ -6,6 +6,7 @@ __d(
     "WAWebHatchApprovalOption",
     "WAWebHatchFrontendGating",
     "WAWebHatchUserJourneyWamEvent",
+    "WAWebThreadJourneyLogger",
     "WAWebUnifiedSession",
     "WAWebWamEnumHatchActionType",
   ],
@@ -27,18 +28,18 @@ __d(
     function u(e) {
       _(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
-    function c(e) {
+    function c(e, t) {
       _(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
-        e,
+        babelHelpers.extends({}, t, { hitlIsMulti: e }),
       );
     }
     function d(e) {
       _(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
-        e,
+        babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function m(e, t) {
@@ -60,12 +61,13 @@ __d(
               })();
     }
     function _(e, t) {
-      var n, r, a;
+      var n, r, a, i, l;
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
-        var i = new (o(
+        var s = new (o(
           "WAWebHatchUserJourneyWamEvent",
         ).HatchUserJourneyWamEvent)({
           hatchActionType: e,
+          hitlIsMulti: t == null ? void 0 : t.hitlIsMulti,
           unifiedSessionId:
             (n =
               (r = t == null ? void 0 : t.unifiedSessionId) != null
@@ -75,13 +77,21 @@ __d(
                   ).UnifiedSessionManager.getSessionId()) != null
               ? n
               : void 0,
-          aiSessionId: t == null ? void 0 : t.aiSessionId,
-          rawBotEntryPoint:
-            (a = t == null ? void 0 : t.rawBotEntryPoint) != null
+          aiSessionId:
+            (a =
+              (i = t == null ? void 0 : t.aiSessionId) != null
+                ? i
+                : o(
+                    "WAWebThreadJourneyLogger",
+                  ).ThreadJourneyLogger.getAiSessionId()) != null
               ? a
+              : void 0,
+          rawBotEntryPoint:
+            (l = t == null ? void 0 : t.rawBotEntryPoint) != null
+              ? l
               : f(t == null ? void 0 : t.botEntryPoint),
         });
-        i.commit();
+        s.commit();
       }
     }
     function f(e) {

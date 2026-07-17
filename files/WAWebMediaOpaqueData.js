@@ -4,10 +4,10 @@ __d(
     "Promise",
     "WABase64",
     "WALogger",
-    "WANullthrows",
     "WAShiftTimer",
     "WAWebFileUtils",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -103,7 +103,7 @@ __d(
                 : this.$3 != null && this.$3 !== ""
                   ? ((this.$4 = "data:image/jpeg;base64," + this.$3), this.$4)
                   : ((this.$4 = window.URL.createObjectURL(
-                      r("WANullthrows")(this.blob, "unexpected empty blob"),
+                      r("nullthrows")(this.blob, "unexpected empty blob"),
                     )),
                     this.$4)
             );

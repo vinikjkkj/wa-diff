@@ -302,14 +302,19 @@ __d(
             ),
           );
         }),
-        (t.$5 = function (t, n, r, o, a) {
-          var e = b(this.$3);
-          return e({
-            direction: r,
-            factor: o,
-            first: n,
-            maxPageSize: a,
-            msgCollection: t,
+        (t.$5 = function (t) {
+          var e = t.direction,
+            n = t.factor,
+            r = t.fromIndex,
+            o = t.maxCount,
+            a = t.msgCollection,
+            i = b(this.$3);
+          return i({
+            direction: e,
+            factor: n,
+            first: r,
+            maxPageSize: o,
+            msgCollection: a,
           });
         }),
         (t.getStart = function (t) {
@@ -371,7 +376,13 @@ __d(
             s =
               r != null && r !== 0
                 ? r
-                : this.$5(t, Math.max(0, this.getStart(t) - 1), u.BEFORE, l, a);
+                : this.$5({
+                    direction: u.BEFORE,
+                    factor: l,
+                    fromIndex: Math.max(0, this.getStart(t) - 1),
+                    maxCount: a,
+                    msgCollection: t,
+                  });
           return this.$4({ before: this.before + s });
         }),
         (t.loadAfter = function (t, n) {
@@ -384,7 +395,13 @@ __d(
             s =
               r != null && r !== 0
                 ? r
-                : this.$5(t, this.getEnd(t), u.AFTER, l, a);
+                : this.$5({
+                    direction: u.AFTER,
+                    factor: l,
+                    fromIndex: this.getEnd(t),
+                    maxCount: a,
+                    msgCollection: t,
+                  });
           return this.$4({ after: this.after + s });
         }),
         (t.loadBeforeCapped = function (t, n) {
@@ -402,7 +419,13 @@ __d(
             !v(t, this.getStart(t), u.AFTER))
           ) {
             var e = Math.max(0, this.getEnd(t) - 1),
-              r = this.$5(t, e, u.BEFORE, 2, n);
+              r = this.$5({
+                direction: u.BEFORE,
+                factor: 2,
+                fromIndex: e,
+                maxCount: n,
+                msgCollection: t,
+              });
             return this.$4({ before: Math.min(this.before, r) });
           }
           return this;

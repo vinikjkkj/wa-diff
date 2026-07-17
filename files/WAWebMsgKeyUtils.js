@@ -3,9 +3,9 @@ __d(
   [
     "$InternalEnum",
     "WALogger",
-    "WANullthrows",
     "WAWebIsCagGroupCache",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -63,7 +63,7 @@ __d(
       var n = e.remote,
         a = m(t, e);
       if (n.isBroadcastList()) {
-        var i = r("WANullthrows")(
+        var i = r("nullthrows")(
             e.participant,
             "missing participant in broadcast",
           ),

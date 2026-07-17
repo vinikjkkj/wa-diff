@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebBaseCollection",
     "WAWebChatComparator",
-    "WAWebChatGetters",
     "WAWebChatLockUpdateDailyStats",
     "WAWebChatModel",
     "WAWebDebounce",
@@ -140,15 +139,6 @@ __d(
           }),
           (a.unstarAllMessages = function (t, n) {
             return o("WAWebSendUnstarAllChatAction").unstarAllMessages(t, n);
-          }),
-          (a.hasAnyUnreadSinceGivenTimestamp = function (t) {
-            return this.length === 0
-              ? !1
-              : this.some(function (e) {
-                  var n,
-                    r = (n = e.t) != null ? n : 0;
-                  return o("WAWebChatGetters").getHasUnread(e) && r > t;
-                });
           }),
           (a.delete = function () {
             (t.prototype.delete.call(this),

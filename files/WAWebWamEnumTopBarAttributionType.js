@@ -21,6 +21,7 @@ __d(
       LAYOUTS: 15,
       CLOSE_SHARING: 16,
       CHANNEL_STATUS: 17,
+      RESHARED_FROM_CHANNEL: 18,
     });
     i.TOP_BAR_ATTRIBUTION_TYPE = e;
   },

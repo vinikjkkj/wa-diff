@@ -1,7 +1,6 @@
 __d(
   "WAWebDebugEvents",
   [
-    "WANullthrows",
     "WATimeUtils",
     "WAWebChatCollection",
     "WAWebFrontendMsgGetters",
@@ -11,6 +10,7 @@ __d(
     "WAWebSendEventEditMsgAction",
     "WAWebUserPrefsMeUser",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -79,7 +79,7 @@ __d(
           callType: m,
           isEventCanceled: _,
         },
-        r("WANullthrows")(o("WAWebFrontendMsgGetters").getAsEventCreation(g)),
+        r("nullthrows")(o("WAWebFrontendMsgGetters").getAsEventCreation(g)),
       );
     }
     s.doc =

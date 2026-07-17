@@ -1,6 +1,6 @@
 __d(
   "WATagsLogger",
-  ["Promise", "WALoggerUtils", "asyncToGeneratorRuntime"],
+  ["FBLogger", "Promise", "WALoggerUtils", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -34,7 +34,12 @@ __d(
       devConsole: function () {},
     };
     function g() {
-      return p == null ? f : p;
+      return p == null
+        ? (r("FBLogger")("wmi").mustfix(
+            "WALogger called before initialization",
+          ),
+          f)
+        : p;
     }
     function h(e) {
       return {

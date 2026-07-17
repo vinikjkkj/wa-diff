@@ -283,9 +283,10 @@ __d(
         l,
         s,
         d,
-        m = g[g.length - 1];
+        m,
+        p = g[g.length - 1];
       if (
-        (m == null &&
+        (p == null &&
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -294,11 +295,11 @@ __d(
               ])),
             e.surface,
           ),
-          (m = { surface: "unknown", id: -1 })),
-        m.id !== ((t = f) == null ? void 0 : t.id))
+          (p = { surface: "unknown", id: -1 })),
+        p.id !== ((t = f) == null ? void 0 : t.id))
       ) {
-        var p = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
-        if ((T(), e.surface === "unknown" && m.surface === "unknown")) {
+        var h = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
+        if ((T(), e.surface === "unknown" && p.surface === "unknown")) {
           w();
           return;
         }
@@ -311,39 +312,43 @@ __d(
               "",
             ])),
           e.surface,
-          m.surface,
-          m.viewName,
+          p.surface,
+          p.viewName,
         );
-        var h = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
-            tsSessionId: p.id,
-            relativeTimestampMs: p.relativeTimestampMs,
+        var y = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
+            tsSessionId: h.id,
+            relativeTimestampMs: h.relativeTimestampMs,
             navigationSource: _[e.surface],
-            navigationDestination: _[m.surface],
-            groupSize: (n = m.extras) == null ? void 0 : n.groupSize,
-            typeOfGroup: (r = m.extras) == null ? void 0 : r.typeOfGroup,
-            threadType: (a = m.extras) == null ? void 0 : a.threadType,
-            cid:
-              (i = m.extras) == null || (i = i.channelWid) == null
+            navigationDestination: _[p.surface],
+            navigationDestinationProductArea:
+              (n = p.extras) == null
                 ? void 0
-                : i.user,
+                : n.navigationDestinationProductArea,
+            groupSize: (r = p.extras) == null ? void 0 : r.groupSize,
+            typeOfGroup: (a = p.extras) == null ? void 0 : a.typeOfGroup,
+            threadType: (i = p.extras) == null ? void 0 : i.threadType,
+            cid:
+              (l = p.extras) == null || (l = l.channelWid) == null
+                ? void 0
+                : l.user,
             isCanonicalEntPresent: o(
               "WAWebCanonicalUtils",
             ).isCanonicalPresent(),
           }),
-          y = (l = m.viewName) != null ? l : "";
-        (y != null && (h.navigationDestinationViewName = y),
-          p.tsTimestampMs != null && (h.tsTimestampMs = p.tsTimestampMs),
-          p.unifiedSessionId != null &&
-            (h.unifiedSessionId = p.unifiedSessionId),
+          C = (s = p.viewName) != null ? s : "";
+        (C != null && (y.navigationDestinationViewName = C),
+          h.tsTimestampMs != null && (y.tsTimestampMs = h.tsTimestampMs),
+          h.unifiedSessionId != null &&
+            (y.unifiedSessionId = h.unifiedSessionId),
           v.push({
             sourceId: e.id,
-            destId: m.id,
-            sourceSurface: (s = e.viewName) != null ? s : e.surface,
-            destSurface: (d = m.viewName) != null ? d : m.surface,
-            event: h,
+            destId: p.id,
+            sourceSurface: (d = e.viewName) != null ? d : e.surface,
+            destSurface: (m = p.viewName) != null ? m : p.surface,
+            event: y,
           }),
           S.onOrBefore(100),
-          (f = m));
+          (f = p));
       }
     }
     var L = null;

@@ -2,12 +2,12 @@ __d(
   "WAWebPollsDetailsFlow",
   [
     "$InternalEnum",
-    "WANullthrows",
     "WAWebFrontendMsgGetters",
     "WAWebPollsActionsMetricUtils",
     "WAWebPollsDetailsDrawer",
     "WAWebPollsViewAllVotesDrawer",
     "WAWebWamEnumPollActionType",
+    "nullthrows",
     "react",
     "useWAWebFlow",
   ],
@@ -61,7 +61,7 @@ __d(
           g = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
             msg: n,
             associatedMessages: t,
-            optionLocalId: r("WANullthrows")(p),
+            optionLocalId: r("nullthrows")(p),
             onBack: function () {
               l.pop();
             },

@@ -2,12 +2,12 @@ __d(
   "WAWebPttMsgAudioStore",
   [
     "invariant",
-    "WANullthrows",
     "WAWebMediaInMemoryBlobCache",
     "WAWebPttAudioChannels",
     "WAWebPttAudioManager",
     "WAWebPttAudioPlaybackController",
     "WAWebPttGetDurationFromMediaOrProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function () {
@@ -34,7 +34,7 @@ __d(
             playbackController: u,
             refCount: 1,
             dispose: function () {
-              var t = r("WANullthrows")(e.$1.get(n));
+              var t = r("nullthrows")(e.$1.get(n));
               if ((t.refCount--, t.refCount === 0)) {
                 var o;
                 (i(),

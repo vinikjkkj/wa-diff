@@ -29,12 +29,8 @@ __d(
             .map(function (e) {
               var t;
               return {
-                senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                  r("WANullthrows")(e.senderTimestampMs),
-                ),
-                serverTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                  r("WANullthrows")(e.serverTimestampMs),
-                ),
+                senderTimestampMs: e.senderTimestampMs,
+                serverTimestampMs: e.serverTimestampMs,
                 pollUpdateMessageKey: e.messageAddOnKey,
                 vote: (t = e.legacyMessage) == null ? void 0 : t.pollVote,
               };

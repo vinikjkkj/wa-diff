@@ -3,9 +3,9 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,7 +18,7 @@ __d(
         getMyDeviceId: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              return r("WANullthrows")(
+              return r("nullthrows")(
                 o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow().device,
               );
             } catch (t) {

@@ -1,7 +1,6 @@
 __d(
   "WAWebPinInChatMetricUtils",
   [
-    "WANullthrows",
     "WAWebChatGetters",
     "WAWebGroupType",
     "WAWebMsgGetters",
@@ -15,6 +14,7 @@ __d(
     "WAWebWamEnumPinInChatType",
     "WAWebWamMsgUtils",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -28,12 +28,12 @@ __d(
         p,
         _;
       if (m) {
-        var f = r("WANullthrows")(n.groupMetadata);
+        var f = r("nullthrows")(n.groupMetadata);
         ((p = c(f.groupType)), (_ = d(f.participants.iAmAdmin())));
       }
       new (o("WAWebPinInChatMessageSendWamEvent").PinInChatMessageSendWamEvent)(
         {
-          pinInChatType: u(r("WANullthrows")(a.pinMessageType)),
+          pinInChatType: u(r("nullthrows")(a.pinMessageType)),
           isAGroup: m,
           groupTypeClient: p,
           groupRole: _,
@@ -56,7 +56,7 @@ __d(
         m,
         p;
       if (s) {
-        var _ = r("WANullthrows")(t.groupMetadata);
+        var _ = r("nullthrows")(t.groupMetadata);
         ((u = c(_.groupType)),
           (m = d(_.participants.iAmAdmin())),
           (p = _.participants.length));

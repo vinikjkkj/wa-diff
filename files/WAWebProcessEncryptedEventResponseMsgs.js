@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebAddonEncryption",
     "WAWebAddonEncryptionError",
     "WAWebEventResponseMsgDataConversion",
@@ -18,6 +17,7 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -177,7 +177,7 @@ __d(
             parentMsgKey: e.targetMessageKey,
             id: e.id,
             senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-              r("WANullthrows")(p.timestampMs),
+              r("nullthrows")(p.timestampMs),
             ),
             t: o("WAWebMsgGetters").getT(e),
             ack: (n = e.ack) != null ? n : null,

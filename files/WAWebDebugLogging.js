@@ -2,7 +2,6 @@ __d(
   "WAWebDebugLogging",
   [
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebChatThreadLogging",
     "WAWebChatThreadLoggingUtils",
@@ -18,6 +17,7 @@ __d(
     "WAWebUserPrefsStore",
     "WAWebWamGlobals",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -45,7 +45,7 @@ __d(
     }
     _.doc = "log wam daily stats";
     function f() {
-      return r("WANullthrows")(
+      return r("nullthrows")(
         o("WAWebChatThreadLogging").getChatThreadLoggingStateDebug(),
       );
     }

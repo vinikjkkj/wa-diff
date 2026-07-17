@@ -111,6 +111,7 @@ __d(
         SMART_GLASSES: 35,
         BLUE_VR: 36,
         AR_WRIST: 37,
+        WAIL: 38,
       }),
       S = {},
       R = {},

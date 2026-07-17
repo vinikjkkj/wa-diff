@@ -2,7 +2,6 @@ __d(
   "WAWebPinMessageAction",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebDeleteExpiredPinsJob",
     "WAWebMsgGetters",
     "WAWebPinInChatCollection",
@@ -12,6 +11,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -26,11 +26,11 @@ __d(
           : o("WAWebPinMsgConstants").PIN_STATE.INVALID;
     }
     function c(e) {
-      var t = r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+      var t = r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
         n = {
           msgKey: e.id,
-          parentMsgKey: r("WANullthrows")(e.pinParentKey),
-          senderTimestampMs: r("WANullthrows")(e.pinSenderTimestampMs),
+          parentMsgKey: r("nullthrows")(e.pinParentKey),
+          senderTimestampMs: r("nullthrows")(e.pinSenderTimestampMs),
           sender: o("WAWebWidFactory").asUserWidOrThrow(t),
           pinType: u(e.pinMessageType),
           pinExpiryDuration: e.pinExpiryDuration,

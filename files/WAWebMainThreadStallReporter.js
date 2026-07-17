@@ -55,11 +55,15 @@ __d(
         isVoipAnr: !0,
       };
     }
-    function h(t, n, a, i) {
-      if (!_(t, a)) {
-        var l = o("WAWebAppTracker").AppTracker.getAppContextWithLookback(t, n);
+    function h(t) {
+      var n = t.durationMs,
+        a = t.endTime,
+        i = t.source,
+        l = t.visibility;
+      if (!_(n, l)) {
+        var u = o("WAWebAppTracker").AppTracker.getAppContextWithLookback(n, a);
         if (
-          l.includes(
+          u.includes(
             String(o("WAWebAppTracker").AppTrackerType.ClosingBrowserTab),
           )
         ) {
@@ -70,23 +74,23 @@ __d(
           i === "heartbeat"
             ? r("WAWebODS").incr("web.perf.anr.source.heartbeat")
             : r("WAWebODS").incr("web.perf.anr.source.longtask"),
-          f(t),
+          f(n),
           o("WAWebLowEndDeviceApi").isLowEndDevice() &&
             r("WAWebODS").incr("web.perf.anr.low_end_device"),
-          o("WAWebCrashContextUtils").recordHangEvent(n, t));
-        var u = g(l),
-          c = u.callLog,
-          d = u.isVoipAnr;
+          o("WAWebCrashContextUtils").recordHangEvent(a, n));
+        var c = g(u),
+          d = c.callLog,
+          m = c.isVoipAnr;
         o("WAWebPdfViewerAnrTracker").isPdfViewerAnrTrackingActive() &&
           o("WAWebPdfViewerAnrTracker").incrementPdfViewerAnrCount();
-        var m = n - t;
+        var h = a - n;
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[longtask] entryStartTime: ",
               "s ago",
             ])),
-          ((m - self.performance.now()) / 1e3).toFixed(0),
+          ((h - self.performance.now()) / 1e3).toFixed(0),
         ),
           o("WALogger")
             .ERROR(
@@ -99,14 +103,14 @@ __d(
                   "",
                   "",
                 ])),
-              p(t),
-              t,
+              p(n),
+              n,
               o("WAWebLowEndDeviceApi").isLowEndDevice(),
-              l || "none",
-              c,
+              u || "none",
+              d,
             )
             .sendLogs("[performance observer] longtask", {
-              sampling: d ? 1 : 0.01,
+              sampling: m ? 1 : 0.01,
               sendLogsType:
                 o("WALogger").SendLogsType.PERFORMANCE_OBSERVER_LONGTASK_SAD,
             }));

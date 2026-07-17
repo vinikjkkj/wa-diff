@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumPaidMessagingUserInteractionsHeaderMediaType",
     "WAWebWamEnumPaidMessagingUserInteractionsHostStorage",
     "WAWebWamEnumPaidMessagingUserInteractionsMarketingFormat",
+    "WAWebWamEnumPaidMessagingUserInteractionsMessageExpandState",
     "WAWebWamEnumTapTargetType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,6 +20,11 @@ __d(
             {
               messageBubbleHeightPx: [17, e.TYPES.INTEGER],
               messageBubbleWidthPx: [18, e.TYPES.INTEGER],
+              messageExpandState: [
+                19,
+                o("WAWebWamEnumPaidMessagingUserInteractionsMessageExpandState")
+                  .PAID_MESSAGING_USER_INTERACTIONS_MESSAGE_EXPAND_STATE,
+              ],
               pmxActionTarget: [
                 1,
                 o("WAWebWamEnumPaidMessagingUserInteractionsActionTarget")

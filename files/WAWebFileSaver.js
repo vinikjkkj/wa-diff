@@ -2,6 +2,7 @@ __d(
   "WAWebFileSaver",
   [
     "Promise",
+    "WAAbortError",
     "WALogger",
     "WAPromiseDelays",
     "WAWebDataLink",
@@ -10,6 +11,7 @@ __d(
     "WAWebMiscBrowserUtils",
     "WAWebNoop",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -51,8 +53,8 @@ __d(
           }),
           (a.downloadAsync = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                t === void 0 &&
+              function* (e, t, a) {
+                (t === void 0 &&
                   (t = (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {},
@@ -60,18 +62,19 @@ __d(
                     return function () {
                       return e.apply(this, arguments);
                     };
-                  })());
-                var a = e;
+                  })()),
+                  a === void 0 && (a = !1));
+                var i = e;
                 r("WAWebMiscBrowserUtils").startDownloading();
                 try {
-                  var i,
-                    l,
+                  var l,
                     d,
-                    m = yield o(
+                    m,
+                    p = yield o(
                       "WAWebFileSaverDownloadData",
-                    ).getMultiMsgDownloadData(a);
-                  if (r("isStringNullOrEmpty")(m.url) && !m.blob) {
-                    var p = a;
+                    ).getMultiMsgDownloadData(i, a);
+                  if (r("isStringNullOrEmpty")(p.url) && !p.blob) {
+                    var _ = i;
                     o("WALogger")
                       .ERROR(
                         s ||
@@ -79,35 +82,35 @@ __d(
                             "Assertion failed! ",
                             "",
                           ])),
-                        Array.isArray(p)
+                        Array.isArray(_)
                           ? "download a zip file"
                           : "download " +
-                              p.id.toString() +
+                              _.id.toString() +
                               " type " +
-                              p.type +
+                              _.type +
                               " with state " +
-                              (p.mediaData && p.mediaData.mediaStage),
+                              (_.mediaData && _.mediaData.mediaStage),
                       )
                       .sendLogs("download-url-creation-error");
                   }
-                  var _ =
-                    (i = m.url) != null
-                      ? i
-                      : window.URL.createObjectURL(m.blob);
-                  [].concat(a).forEach(function (e) {
+                  var f =
+                    (l = p.url) != null
+                      ? l
+                      : window.URL.createObjectURL(p.blob);
+                  [].concat(i).forEach(function (e) {
                     if (r("WAWebMediaGatingShouldClearDownloadedBlobs")(e)) {
                       var t;
                       (t = e.mediaObject) == null || t.clearBlob({ reset: !0 });
                     }
                   });
-                  var f = o("WAWebDataLink").createDataLink(_);
+                  var g = o("WAWebDataLink").createDataLink(f);
                   if (
-                    ((f.download = m.name),
-                    (f.style.display = "none"),
-                    Array.isArray(a) && a.length === 1 && (a = a[0]),
-                    !f.href)
+                    ((g.download = p.name),
+                    (g.style.display = "none"),
+                    Array.isArray(i) && i.length === 1 && (i = i[0]),
+                    !g.href)
                   ) {
-                    var g = a;
+                    var h = i;
                     o("WALogger")
                       .ERROR(
                         u ||
@@ -115,34 +118,36 @@ __d(
                             "Assertion failed! ",
                             "",
                           ])),
-                        Array.isArray(g)
+                        Array.isArray(h)
                           ? "download a zip file"
                           : "download " +
-                              g.id.toString() +
+                              h.id.toString() +
                               " type " +
-                              g.type +
+                              h.type +
                               " with state " +
-                              (g.mediaData && g.mediaData.mediaStage),
+                              (h.mediaData && h.mediaData.mediaStage),
                       )
                       .sendLogs("no-download-url");
                   }
                   (yield t(
-                    f.href,
-                    f.download,
-                    Array.isArray(a)
+                    g.href,
+                    g.download,
+                    Array.isArray(i)
                       ? ""
-                      : (l = (d = a.mediaData) == null ? void 0 : d.filehash) !=
+                      : (d = (m = i.mediaData) == null ? void 0 : m.filehash) !=
                           null
-                        ? l
+                        ? d
                         : "",
                   ),
-                    document.body && document.body.appendChild(f),
-                    f.click(),
-                    document.body && document.body.removeChild(f),
-                    r("isStringNullOrEmpty")(m.url) &&
+                    document.body && document.body.appendChild(g),
+                    g.click(),
+                    document.body && document.body.removeChild(g),
+                    r("isStringNullOrEmpty")(p.url) &&
                       (yield o("WAPromiseDelays").delayMs(100),
-                      window.URL.revokeObjectURL(f.href)));
+                      window.URL.revokeObjectURL(g.href)));
                 } catch (e) {
+                  var y = r("getErrorSafe")(e);
+                  if (a && y.name === o("WAAbortError").ABORT_ERROR) throw y;
                   o("WALogger").WARN(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -154,7 +159,7 @@ __d(
                 }
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;

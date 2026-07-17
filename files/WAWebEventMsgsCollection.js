@@ -8,8 +8,8 @@ __d(
     "WAWebBaseCollection",
     "WAWebCollectionConstants",
     "WAWebFrontendMsgGetters",
-    "WAWebMsgCollection",
     "WAWebMsgModel",
+    "WAWebMsgQueryUtils",
     "WAWebNoop",
     "WAWebSocketConstants",
     "WAWebSocketModel",
@@ -71,8 +71,8 @@ __d(
             var l,
               u = this.last();
             u && (l = u.id);
-            var d = (this.syncPromise = o("WAWebMsgCollection")
-              .MsgCollection.getEventMsgs(
+            var d = (this.syncPromise = o("WAWebMsgQueryUtils")
+              .getEventMsgs(
                 this.chat.id,
                 o("WAWebCollectionConstants").PAGE_SIZE,
                 l,

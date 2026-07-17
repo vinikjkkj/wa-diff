@@ -20,15 +20,16 @@ __d(
         m = t.rmrData,
         p = t.rmrReason,
         _ = t.shouldSequenceDownload,
-        f = d.mediaObject;
-      if (f) {
-        var g = f.getPendingProcess("fromDisk");
-        return g.then(
+        f = t.shouldThrowAbortError,
+        g = d.mediaObject;
+      if (g) {
+        var h = g.getPendingProcess("fromDisk");
+        return h.then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (u && f.userDownloadAttemptCount++,
+            (u && g.userDownloadAttemptCount++,
               yield o("WAWebMediaMmsV4Download").downloadMedia({
                 mimetype: d.mimetype,
-                mediaObject: f,
+                mediaObject: g,
                 downloadEvenIfExpensive: i,
                 mediaType: o("WAWebMmsMediaTypes").getMsgMediaType(d),
                 rmrReason: p,
@@ -40,8 +41,9 @@ __d(
                 isViewOnce: !!d.isViewOnce,
                 chatWid: a,
                 shouldSequenceDownload: _,
+                shouldThrow: f,
               }),
-              (f.userDownloadAttemptCount = 0));
+              (g.userDownloadAttemptCount = 0));
           }),
         );
       }

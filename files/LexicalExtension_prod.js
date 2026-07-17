@@ -662,7 +662,7 @@ __d(
     }
     var G;
     try {
-      G = "0.47.0+prod.cjs";
+      G = "0.48.0+prod.cjs";
     } catch (e) {}
     var V = G != null ? G : '"<unknown>+source"',
       Z = new Set(["__proto__", "constructor", "prototype"]);

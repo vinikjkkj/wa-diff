@@ -3,10 +3,10 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebDisappearingModeProtoUtils",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -53,7 +53,7 @@ __d(
               ephemeralDuration: d,
               ephemeralSettingTimestamp:
                 o("WALongInt").numberOrThrowIfTooLarge(m),
-              disappearingModeInitiator: r("WANullthrows")(
+              disappearingModeInitiator: r("nullthrows")(
                 o(
                   "WAWebDisappearingModeProtoUtils",
                 ).protoToDisappearingModeInitiator(i, c),

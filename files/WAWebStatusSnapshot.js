@@ -58,28 +58,19 @@ __d(
         if (
           (a === void 0 && (a = !1),
           (this.$2 = function (e) {
-            var n = o("WAWebStatusCollection").StatusCollection.getUnexpired({
-                containsAnyUnreadStatus: !0,
+            var n = t.$6().map(function (e) {
+                return t.$4(e);
               }),
-              r = [];
-            n.forEach(function (e) {
-              if (
-                !o("WAWebContactGetters").getCalculatedStatusMute(e.contact)
-              ) {
-                var n = t.$4(e);
-                r.push(n);
-              }
-            });
-            var a = r.findIndex(function (t) {
-              return t.status === e;
-            });
+              r = n.findIndex(function (t) {
+                return t.status === e;
+              });
             return (
-              a > 0 &&
-                r.length >=
+              r > 0 &&
+                n.length >=
                   o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
                 o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled() &&
-                (r = [].concat(r.slice(a), r.slice(0, a))),
-              r
+                (n = [].concat(n.slice(r), n.slice(0, r))),
+              n
             );
           }),
           (this.$3 = function (e) {
@@ -91,9 +82,7 @@ __d(
               r = o("WAWebStatusCollection")
                 .StatusCollection.getUnexpired({ containsAnyUnreadStatus: !1 })
                 .filter(n),
-              a = o("WAWebStatusCollection")
-                .StatusCollection.getUnexpired({ containsAnyUnreadStatus: !0 })
-                .filter(n);
+              a = t.$6();
             return a.length > 0 &&
               r.length + a.length >=
                 o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
@@ -102,6 +91,30 @@ __d(
                   return t.$4(e);
                 })
               : [t.$4(e)];
+          }),
+          (this.getChainableContactStatuses = function () {
+            return t.$6().filter(function (e) {
+              return !o("WAWebContactGetters").getIsMe(e.contact);
+            });
+          }),
+          (this.appendStatuses = function (e) {
+            var n = new Set(
+              t.statuses.map(function (e) {
+                return e.status;
+              }),
+            );
+            e.forEach(function (e) {
+              n.has(e) || (t.statuses.push(t.$4(e)), n.add(e));
+            });
+          }),
+          (this.$6 = function () {
+            return o("WAWebStatusCollection")
+              .StatusCollection.getUnexpired({ containsAnyUnreadStatus: !0 })
+              .filter(function (e) {
+                return !o("WAWebContactGetters").getCalculatedStatusMute(
+                  e.contact,
+                );
+              });
           }),
           (this.$4 = function (e) {
             var n = e.msgs.getModelsArray();
@@ -180,7 +193,7 @@ __d(
                             statusIdx: i,
                           })
                         : t
-                            .$6(e)
+                            .$7(e)
                             .then(function () {
                               return t.getFirstUnread(e, r, a);
                             })
@@ -230,7 +243,7 @@ __d(
                   o("WAWebStatusCollection").StatusCollection.sync(),
                   (m || (m = n("Promise"))).reject(new p()))
                 : t
-                    .$6(a)
+                    .$7(a)
                     .then(function () {
                       return t.getNext(e);
                     })
@@ -283,7 +296,7 @@ __d(
               : i.msgs.msgLoadState.noEarlierMsgs
                 ? (m || (m = n("Promise"))).reject(new p())
                 : t
-                    .$6(i)
+                    .$7(i)
                     .then(function () {
                       return t.statusAt(e, r);
                     })
@@ -301,7 +314,7 @@ __d(
                       );
                     });
           }),
-          (this.$6 = (function () {
+          (this.$7 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var r = yield o("WAPromiseLoop").promiseLoop(

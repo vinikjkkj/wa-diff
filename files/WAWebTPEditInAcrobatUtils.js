@@ -13,8 +13,9 @@ __d(
       var t = e.hasUnsavedAnnotations,
         n = e.mediaData,
         a = e.msg,
-        i = e.onPreferenceSaved;
-      (o("WAWebTPLoggingUtils").logEditInAcrobatClickEvent(t, n.filehash),
+        i = e.onPreferenceSaved,
+        l = e.source;
+      (o("WAWebTPLoggingUtils").logEditInAcrobatClickEvent(t, l, n.filehash),
         o("WAWebModalManager").ModalManager.openSupportModal(
           s.jsx(r("WAWebMediaEditPdfModal.react"), {
             msg: a,

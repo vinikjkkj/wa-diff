@@ -63,9 +63,16 @@ __d(
       return o("WAWebMimeTypes").isPdfDocument(e) && m();
     }
     function f() {
+      return r("WAWebEnvironment").isWindows
+        ? o("WAWebABProps").getABPropConfigValue(
+            "wa_win_webtp_pdf_viewer_preload_enabled",
+          )
+        : !0;
+    }
+    function g() {
       return e() && r("justknobx")._("1130");
     }
-    function g(t) {
+    function h(t) {
       return (
         e() &&
         r("justknobx")._("1130") &&
@@ -73,54 +80,55 @@ __d(
         p()
       );
     }
-    function h() {
+    function y() {
       return e() && r("justknobx")._("1228");
     }
-    var y = 137;
-    function C() {
+    var C = 137;
+    function b() {
       var e = o("WAWebUA").UA.isChrome,
         t = o("WAWebUA").UA.browser === o("WAWebUA").BROWSER_TYPE.EDGE;
       return !e && !t
         ? null
         : parseInt(o("WAWebUA").UA.browserVersion.split(".")[0], 10);
     }
-    function b() {
-      var e = C();
-      return e != null && e >= y
+    function v() {
+      var e = b();
+      return e != null && e >= C
         ? "supported"
-        : e != null && e < y
+        : e != null && e < C
           ? "upgrade_browser"
           : "unsupported";
     }
-    function v() {
+    function S() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue("wa_webtp_use_pdf_annotations")
       );
     }
-    function S() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_webtp_use_async_pdf_send",
       );
     }
-    function R() {
+    function L() {
       return r("justknobx")._("2723");
     }
-    function L() {
+    function E() {
       return e() && r("justknobx")._("3269");
     }
     ((l.isWebTPThumbnailRendererEnabled = c),
       (l.isWebTPThumbnailAttributionEnabled = d),
       (l.isWebTPPdfViewerEnabled = m),
       (l.isWebTPPdfViewerEnabledForMimeType = _),
-      (l.isWebTP3PSharingEnabled = f),
-      (l.isWebTPPdfEditAndShareEnabled = g),
-      (l.isWebTP3PExtensionSharingEnabled = h),
-      (l.getWebTPBrowserCompatibility = b),
-      (l.isWebTPPdfAnnotationsEnabled = v),
-      (l.isAsyncPdfSendEnabled = S),
-      (l.isPdfPreviewBeforeSendEnabled = R),
-      (l.isWebTPSharerSavePreferenceEnabled = L));
+      (l.isWebTPPdfViewerPreloadEnabled = f),
+      (l.isWebTP3PSharingEnabled = g),
+      (l.isWebTPPdfEditAndShareEnabled = h),
+      (l.isWebTP3PExtensionSharingEnabled = y),
+      (l.getWebTPBrowserCompatibility = v),
+      (l.isWebTPPdfAnnotationsEnabled = S),
+      (l.isAsyncPdfSendEnabled = R),
+      (l.isPdfPreviewBeforeSendEnabled = L),
+      (l.isWebTPSharerSavePreferenceEnabled = E));
   },
   98,
 );

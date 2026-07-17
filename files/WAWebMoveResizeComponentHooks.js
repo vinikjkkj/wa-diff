@@ -1,10 +1,10 @@
 __d(
   "WAWebMoveResizeComponentHooks",
   [
-    "WANullthrows",
     "WAWebMoveResizeComponentUtils",
     "WAWebMoveResizeConstants",
     "WAWebVelocityAnimate",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
   ],
@@ -252,7 +252,7 @@ __d(
               default:
                 break;
             }
-            r("WAWebVelocityAnimate")(r("WANullthrows")(a.current), v, {
+            r("WAWebVelocityAnimate")(r("nullthrows")(a.current), v, {
               duration: o("WAWebMoveResizeConstants")
                 .ESCAPE_OVERLAP_ANIMATION_DURATION,
             }).then(function () {

@@ -39,11 +39,9 @@ __d(
     "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNewsletterCollection",
-    "WAWebNewsletterSendMsgAction",
     "WAWebNotificationsMsgNotification",
     "WAWebPinInChatCollection",
     "WAWebPromiseQueue",
-    "WAWebSendMessageEditAction",
     "WAWebSendMsgRecordAction",
     "WAWebStarredMsgCollection",
     "WAWebSuspendedGroupMediaDownloadFailureModal.react",
@@ -577,6 +575,9 @@ __d(
           (i.pendingAckUpdate_TESTONLY = function () {
             return this.$MsgImpl$p_11;
           }),
+          (i.enqueueAckUpdate = function (t) {
+            this.$MsgImpl$p_11.enqueue(t);
+          }),
           (i.$MsgImpl$p_12 = function () {
             (this.$MsgImpl$p_13(),
               (!this.isViewOnce ||
@@ -978,7 +979,8 @@ __d(
               l = t.isAutoDownload,
               s = t.isUserInitiated,
               u = t.rmrReason,
-              c = t.shouldSequenceDownload;
+              c = t.shouldSequenceDownload,
+              d = t.shouldThrowAbortError;
             if (!s && !o("WAWebMsgModelPropUtils").isTrusted(this))
               return (g || (g = n("Promise"))).resolve();
             if (
@@ -1016,10 +1018,10 @@ __d(
                   .sendLogs("media-fault: downloadMedia msg is not mms type"),
               this.isUnsentPhoneMsg())
             ) {
-              var d = this.$MsgImpl$p_10;
+              var p = this.$MsgImpl$p_10;
               return (
-                d ||
-                  (d = this.$MsgImpl$p_10 =
+                p ||
+                  (p = this.$MsgImpl$p_10 =
                     r("WAWebEventsWaitForBbEvent")(
                       this.mediaData,
                       "change:mediaStage change:filehash",
@@ -1029,7 +1031,7 @@ __d(
                     ).then(function () {
                       e.$MsgImpl$p_10 = null;
                     })),
-                d.then(function () {
+                p.then(function () {
                   return e.downloadMedia(t);
                 })
               );
@@ -1050,6 +1052,7 @@ __d(
                   ? void 0
                   : a.id,
               shouldSequenceDownload: c,
+              shouldThrowAbortError: d,
             });
           }),
           (i.$MsgImpl$p_22 = function (t) {
@@ -1365,42 +1368,6 @@ __d(
           }),
           (i.updateLastPlaybackProgress = function (t) {
             ((this.lastPlaybackProgress = t), this.$MsgImpl$p_24(this.id, t));
-          }),
-          (i.resend = function () {
-            var e = this;
-            if (o("WAWebMsgGetters").getIsFailed(this)) {
-              if (o("WAWebMsgGetters").getIsEdited(this))
-                return o("WAWebSendMessageEditAction").resendLatestEdit(this);
-              var t = { ack: o("WAWebAck").ACK.CLOCK };
-              return (
-                (t.isSendFailure = !1),
-                this.$MsgImpl$p_11.enqueue(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    (yield o("WAWebDBUpdateMessageTable").updateMessageTable(
-                      e.id,
-                      t,
-                    ),
-                      e.set(t));
-                  }),
-                ),
-                o("WAWebMsgGetters").getIsNewsletterMsg(this)
-                  ? o("WAWebNewsletterSendMsgAction")
-                      .resendNewsletterMsg(this)
-                      .then(function (e) {
-                        return e && e.messageSendResult;
-                      })
-                  : o("WAWebFrontendMsgGetters").getAsMms(this)
-                    ? o("WAWebMsgGetters").getIsSentByMeFromWeb(this)
-                      ? this.resumeUpload()
-                      : this.resumeRemoteUpload()
-                    : o("WAWebSendMsgRecordAction")
-                        .sendMsgRecord(this)
-                        .then(function (e) {
-                          return e.messageSendResult;
-                        })
-              );
-            }
-            return (g || (g = n("Promise"))).resolve();
           }),
           (i.$MsgImpl$p_15 = function () {
             if (

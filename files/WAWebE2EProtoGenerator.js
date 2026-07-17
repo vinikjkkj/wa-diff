@@ -852,6 +852,65 @@ __d(
       return t;
     }
     function U(e) {
+      if (e == null) return null;
+      var t = o("WAWebWidFactory").createWid(e);
+      if (!t.isUser() || t.isBot() || t.isLid()) return null;
+      var n = o("WAWebLidMigrationUtils").toLid(t);
+      return n != null ? o("WAWebE2EProtoUtils").encodeJid(n) : null;
+    }
+    function V(e) {
+      if (e == null) return !1;
+      var t = o("WAWebWidFactory").createWid(e);
+      return t.isUser() && !t.isBot() && !t.isLid();
+    }
+    function H(e) {
+      var t = [];
+      for (var n of e) {
+        var r = U(n);
+        r != null ? t.push(r) : V(n) || t.push(n);
+      }
+      return t;
+    }
+    function G(e) {
+      var t = babelHelpers.extends({}, e),
+        n = U(e.remoteJid);
+      n != null ? (t.remoteJid = n) : V(e.remoteJid) && delete t.remoteJid;
+      var r = U(e.participant);
+      return (
+        r != null
+          ? (t.participant = r)
+          : V(e.participant) && delete t.participant,
+        e.mentionedJid != null && (t.mentionedJid = H(e.mentionedJid)),
+        t
+      );
+    }
+    function z(e) {
+      var t = babelHelpers.extends({}, e),
+        n = U(e.remoteJid);
+      n != null ? (t.remoteJid = n) : V(e.remoteJid) && delete t.remoteJid;
+      var r = U(e.participant);
+      return (
+        r != null
+          ? (t.participant = r)
+          : V(e.participant) && delete t.participant,
+        t
+      );
+    }
+    function j(e) {
+      var t = r("WAWebStructuredClone")(e),
+        n = t.extendedTextMessage;
+      (n == null ? void 0 : n.contextInfo) != null &&
+        (t.extendedTextMessage = babelHelpers.extends({}, n, {
+          contextInfo: G(n.contextInfo),
+        }));
+      var o = t.protocolMessage;
+      return (
+        (o == null ? void 0 : o.key) != null &&
+          (t.protocolMessage = babelHelpers.extends({}, o, { key: z(o.key) })),
+        t
+      );
+    }
+    function K(e) {
       var t = r("WAWebStructuredClone")(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
@@ -860,12 +919,12 @@ __d(
         t
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function Q(e) {
+      return X.apply(this, arguments);
     }
-    function H() {
+    function X() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDebugInfo",
             {
@@ -887,7 +946,7 @@ __d(
             { supportPayload: JSON.stringify(n) },
           );
         })),
-        H.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
     ((l.populateMessageContextInfo = d),
@@ -900,8 +959,9 @@ __d(
       (l.updateFbidBotProtobuf = B),
       (l.updateFbidBotInvokeProtobuf = W),
       (l.updateBotProtobuf = q),
-      (l.updateGroupMsgProtoWithCapiFlag = U),
-      (l.addDebugInfoSupportPayload = V));
+      (l.sanitizeCoexV2RelayRemoteJid = j),
+      (l.updateGroupMsgProtoWithCapiFlag = K),
+      (l.addDebugInfoSupportPayload = Q));
   },
   98,
 );

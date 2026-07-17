@@ -31,7 +31,7 @@ __d(
     }
     function m() {
       return (
-        !!o("WAWebABProps").getABPropConfigValue(
+        o("WAWebABProps").getABPropConfigValue(
           "username_enabled_on_companion",
         ) &&
         o("WAWebPrimaryFeatures").primaryFeatureEnabled("username_supported")

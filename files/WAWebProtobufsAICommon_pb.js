@@ -59,6 +59,7 @@ __d(
         GROUP_MEMBER: 54,
         CHATLIST_SEARCH: 55,
         NEW_CHAT_LIST: 56,
+        CONTACTS_TAB: 57,
       }),
       g = u({
         AI_TAB_THREAD: 1,

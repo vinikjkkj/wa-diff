@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebChatGetters",
     "WAWebCodeFormatMutator",
@@ -47,6 +46,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -180,7 +180,7 @@ __d(
             : null,
         };
       switch (
-        r("WANullthrows")(o("WAWebMessageEditUtils").getMsgEditType(u.type))
+        r("nullthrows")(o("WAWebMessageEditUtils").getMsgEditType(u.type))
       ) {
         case o("WAWebMessageEditUtils").MsgEditType.TextEdit:
           C = babelHelpers.extends({}, C, {

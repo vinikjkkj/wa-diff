@@ -15,7 +15,9 @@ __d(
       h = {},
       y = {},
       C = {},
-      b = {};
+      b = {},
+      v = {},
+      S = {};
     ((s.name = "CreateBackupInput"),
       (s.internalSpec = {
         recoveryCode: [
@@ -51,8 +53,14 @@ __d(
         orfClientState: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         threadId: [2, e.FLAGS.REQUIRED | e.TYPES.STRING],
       }),
-      (m.name = "DeviceOutput"),
+      (m.name = "DeriveMessageKeyInput"),
       (m.internalSpec = {
+        epochRootKey: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        epochAnonId: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        threadId: [3, e.FLAGS.REQUIRED | e.TYPES.STRING],
+      }),
+      (p.name = "DeviceOutput"),
+      (p.internalSpec = {
         publicKey: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         epochAuthPublicKey: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         epochAuthPublicKeySig: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
@@ -63,8 +71,8 @@ __d(
         clientVersion: [8, e.FLAGS.REQUIRED | e.TYPES.INT32],
         ocmfClientState: [9, e.FLAGS.REQUIRED | e.TYPES.BYTES],
       }),
-      (p.name = "EncryptedSecretValuesOutput"),
-      (p.internalSpec = {
+      (_.name = "EncryptedSecretValuesOutput"),
+      (_.internalSpec = {
         encryptedDevicePrivateKey: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         encryptedObliviousValidationTokenBlob: [
           2,
@@ -77,18 +85,18 @@ __d(
         encryptedEpochAnonId: [7, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         encryptedEpochRootKey: [8, e.FLAGS.REQUIRED | e.TYPES.BYTES],
       }),
-      (_.name = "VirtualDeviceOutput"),
-      (_.internalSpec = {
+      (f.name = "VirtualDeviceOutput"),
+      (f.internalSpec = {
         vdId: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         vdPublicKey: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         vdEpochStoragePublicKey: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         vdEpochStoragePublicKeySig: [4, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         ocmfRotationToken: [5, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         deviceEpochHmac: [6, e.FLAGS.REQUIRED | e.TYPES.BYTES],
-        encryptedSecretValues: [7, e.FLAGS.REQUIRED | e.TYPES.MESSAGE, p],
+        encryptedSecretValues: [7, e.FLAGS.REQUIRED | e.TYPES.MESSAGE, _],
       }),
-      (f.name = "Epoch0Output"),
-      (f.internalSpec = {
+      (g.name = "Epoch0Output"),
+      (g.internalSpec = {
         epochFbid: [1, e.FLAGS.REQUIRED | e.TYPES.UINT64],
         epochAnonId: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         epochData: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
@@ -97,16 +105,16 @@ __d(
         epochRootKeyFingerprint: [6, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         epochRootKey: [7, e.TYPES.BYTES],
       }),
-      (g.name = "CreateBackupOutput"),
-      (g.internalSpec = {
-        device: [1, e.TYPES.MESSAGE, m],
-        virtualDevice: [2, e.TYPES.MESSAGE, _],
-        epoch0: [3, e.TYPES.MESSAGE, f],
+      (h.name = "CreateBackupOutput"),
+      (h.internalSpec = {
+        device: [1, e.TYPES.MESSAGE, p],
+        virtualDevice: [2, e.TYPES.MESSAGE, f],
+        epoch0: [3, e.TYPES.MESSAGE, g],
         mailboxRootKey: [4, e.TYPES.BYTES],
         error: [5, e.TYPES.STRING],
       }),
-      (h.name = "EncryptMessageOutput"),
-      (h.internalSpec = {
+      (y.name = "EncryptMessageOutput"),
+      (y.internalSpec = {
         encryptedProtobuf: [1, e.TYPES.BYTES],
         orfThreadId: [2, e.TYPES.BYTES],
         valueSecretRef: [3, e.TYPES.STRING],
@@ -115,28 +123,35 @@ __d(
         messageKey: [6, e.TYPES.BYTES],
         error: [7, e.TYPES.STRING],
       }),
-      (y.name = "DecryptMessageOutput"),
-      (y.internalSpec = {
+      (C.name = "DecryptMessageOutput"),
+      (C.internalSpec = {
         plaintextPayload: [1, e.TYPES.BYTES],
         error: [2, e.TYPES.STRING],
       }),
-      (C.name = "OrfThreadIdOutput"),
-      (C.internalSpec = {
+      (b.name = "OrfThreadIdOutput"),
+      (b.internalSpec = {
         orfThreadId: [1, e.TYPES.BYTES],
         error: [2, e.TYPES.STRING],
       }),
-      (b.name = "LabyrinthWaCommand"),
-      (b.internalSpec = {
+      (v.name = "DeriveMessageKeyOutput"),
+      (v.internalSpec = {
+        messageKey: [1, e.TYPES.BYTES],
+        error: [2, e.TYPES.STRING],
+      }),
+      (S.name = "LabyrinthWaCommand"),
+      (S.internalSpec = {
         createBackupInput: [1, e.TYPES.MESSAGE, s],
         encryptMessageInput: [2, e.TYPES.MESSAGE, u],
         decryptMessageInput: [3, e.TYPES.MESSAGE, c],
         orfThreadIdInput: [4, e.TYPES.MESSAGE, d],
+        deriveMessageKeyInput: [5, e.TYPES.MESSAGE, m],
         __oneofs__: {
           commandInput: [
             "createBackupInput",
             "encryptMessageInput",
             "decryptMessageInput",
             "orfThreadIdInput",
+            "deriveMessageKeyInput",
           ],
         },
       }),
@@ -144,15 +159,17 @@ __d(
       (l.EncryptMessageInputSpec = u),
       (l.DecryptMessageInputSpec = c),
       (l.OrfThreadIdInputSpec = d),
-      (l.DeviceOutputSpec = m),
-      (l.EncryptedSecretValuesOutputSpec = p),
-      (l.VirtualDeviceOutputSpec = _),
-      (l.Epoch0OutputSpec = f),
-      (l.CreateBackupOutputSpec = g),
-      (l.EncryptMessageOutputSpec = h),
-      (l.DecryptMessageOutputSpec = y),
-      (l.OrfThreadIdOutputSpec = C),
-      (l.LabyrinthWaCommandSpec = b));
+      (l.DeriveMessageKeyInputSpec = m),
+      (l.DeviceOutputSpec = p),
+      (l.EncryptedSecretValuesOutputSpec = _),
+      (l.VirtualDeviceOutputSpec = f),
+      (l.Epoch0OutputSpec = g),
+      (l.CreateBackupOutputSpec = h),
+      (l.EncryptMessageOutputSpec = y),
+      (l.DecryptMessageOutputSpec = C),
+      (l.OrfThreadIdOutputSpec = b),
+      (l.DeriveMessageKeyOutputSpec = v),
+      (l.LabyrinthWaCommandSpec = S));
   },
   98,
 );

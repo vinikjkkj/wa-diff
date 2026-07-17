@@ -2,7 +2,6 @@ __d(
   "WAWebAppUI",
   [
     "fbt",
-    "WANullthrows",
     "WAWebAppMutex",
     "WAWebAppScreen",
     "WAWebConflict.react",
@@ -31,6 +30,7 @@ __d(
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "cr:169",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -306,7 +306,7 @@ __d(
         case o("WAWebAppScreen").AppScreen.MAIN: {
           var y,
             C,
-            b = r("WANullthrows")(t),
+            b = r("nullthrows")(t),
             v = b.MainComponent;
           return {
             appScreenUI: [

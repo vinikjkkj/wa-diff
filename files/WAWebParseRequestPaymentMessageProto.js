@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebDecodeJid",
     "WAWebE2EProtoParser",
     "WAWebE2EProtoUtils",
@@ -12,6 +11,7 @@ __d(
     "WAWebProtobufsWeb.pb",
     "WAWebWid",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -100,7 +100,7 @@ __d(
             (_ == null ? void 0 : _.paymentTxnStatus) == null) &&
             o("WAWebE2EProtoUtils").isEitherSenderOrReceiverOfPaymentMessage(
               a.id,
-              r("WANullthrows")(_.paymentMessageReceiverJid),
+              r("nullthrows")(_.paymentMessageReceiverJid),
             ) &&
             ((_.paymentStatus = o(
               "WAWebProtobufsWeb.pb",

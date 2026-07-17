@@ -15,7 +15,6 @@ __d(
     "WAWebCollectionConstants",
     "WAWebCollectionUtils",
     "WAWebCoreActionsODS",
-    "WAWebDBGetGroupMemberUpdateMessages",
     "WAWebDBMessageFindLocal",
     "WAWebDBMsgUtils",
     "WAWebEventsWaitForBbEvent",
@@ -339,130 +338,6 @@ __d(
                   : e;
               }, this.productListMessagesPrefetchChain);
           }),
-          (i.getStarred = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r =
-                    typeof t == "number" && !isNaN(t)
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  a = { add: "search" },
-                  i = yield o("WAWebDBMessageFindLocal").msgFindStarred({
-                    count: r,
-                    chat: e != null ? e : void 0,
-                    anchor: n,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  a,
-                  "msgCollectionGetStarred",
-                );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getEventMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r =
-                    typeof t == "number" && !Number.isNaN(t)
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  a = { add: "search" },
-                  i = yield o("WAWebDBMessageFindLocal").msgFindEvents({
-                    count: r,
-                    chat: e,
-                    anchor: n,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  a,
-                  "msgCollectionGetEvents",
-                );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getGroupMemberUpdateMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r =
-                    typeof t == "number" && !Number.isNaN(t)
-                      ? t
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  a = { add: "search" },
-                  i = yield o(
-                    "WAWebDBGetGroupMemberUpdateMessages",
-                  ).getGroupMemberUpdateMessagesForChat(e, r, n);
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  a,
-                  "msgCollectionGetGroupMemberUpdates",
-                );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getVoipCallLogMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n =
-                    typeof e == "number" && !isNaN(e)
-                      ? e
-                      : o("WAWebCollectionConstants").PAGE_SIZE,
-                  r = yield o("WAWebDBMessageFindLocal").msgFindCallLog({
-                    count: n,
-                    anchor: t,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  r,
-                  { add: "search" },
-                  "msgCollectionGetVoipCallLogs",
-                );
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getAllDocsMsgs = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = e != null ? e : g,
-                  a = n === "after" ? "after" : "before",
-                  i = yield o("WAWebDBMessageFindLocal").getAllDocsMessages({
-                    chat: t == null ? void 0 : t.remote,
-                    count: r,
-                    direction: a,
-                    msgKey: t,
-                  });
-                return this.processMultipleMessages(
-                  void 0,
-                  i,
-                  { add: "search" },
-                  "msgCollectionGetAllMedia",
-                );
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
           (i.getMessagesById = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

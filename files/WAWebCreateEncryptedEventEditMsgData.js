@@ -2,7 +2,6 @@ __d(
   "WAWebCreateEncryptedEventEditMsgData",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebAck",
     "WAWebAddonEncryption",
     "WAWebE2EProtoUtils",
@@ -15,6 +14,7 @@ __d(
     "WAWebWamEnumE2eFailureReason",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -92,7 +92,7 @@ __d(
               stanzaId: t.id.id,
               originalMessageSender: d,
               addOnSender: o("WAWebWidFactory").asUserWidOrThrow(
-                r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+                r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
               ),
             }),
             g = f.encPayload,
@@ -107,7 +107,7 @@ __d(
               type: o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED,
               kind: o("WAWebMsgType").MsgKind.EventEditEncrypted,
               t: Math.floor(
-                r("WANullthrows")(e.latestEditSenderTimestampMs) / 1e3,
+                r("nullthrows")(e.latestEditSenderTimestampMs) / 1e3,
               ),
               ack: (u = e.ack) != null ? u : o("WAWebAck").ACK.CLOCK,
               targetMessageKey: t.id,

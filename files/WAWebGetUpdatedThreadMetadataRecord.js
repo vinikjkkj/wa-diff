@@ -2,11 +2,11 @@ __d(
   "WAWebGetUpdatedThreadMetadataRecord",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebAiThreadTypeUtils",
     "WAWebThreadUtils",
     "WAWebThreadsMetadataIdUtils",
     "WAWebWidToJid",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -60,7 +60,7 @@ __d(
                     : n == null || (p = n.aiThreadInfo) == null
                       ? void 0
                       : p.title,
-                  r("WANullthrows")(
+                  r("nullthrows")(
                     (_ =
                       (f = t.aiThreadInfo) == null ? void 0 : f.aiThreadType) !=
                       null

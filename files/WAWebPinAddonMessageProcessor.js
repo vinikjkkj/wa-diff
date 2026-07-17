@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAArrayGroupBy",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebAddonConstants",
     "WAWebAddonCreateMsgProcessor",
@@ -20,6 +19,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -131,7 +131,7 @@ __d(
                                     ).genSystemMessage(
                                       l,
                                       t,
-                                      r("WANullthrows")(
+                                      r("nullthrows")(
                                         o("WAWebMsgGetters").getSender(e),
                                       ),
                                     );

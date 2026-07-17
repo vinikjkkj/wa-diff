@@ -58,7 +58,6 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f;
@@ -192,18 +191,18 @@ __d(
               })
               .then(
                 (function () {
-                  var a = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n) {
-                      var a =
+                      var r =
                         _.fromMe && o("WAWebUserPrefsMeUser").isMePrimary(g)
                           ? o("WAWebAck").ACK.READ
                           : o("WAWebAck").ACK.SENT;
                       return (
                         e.type === "message" &&
-                          (e.data.updateAck(a),
+                          (e.data.updateAck(r),
                           o(
                             "WAWebAddOnsUpdateSendStatesAction",
-                          ).maybeUpdateAddOnAckForMsgAction(e.data, a)),
+                          ).maybeUpdateAddOnAckForMsgAction(e.data, r)),
                         o(
                           "WAWebBotGenTypingIndicatorMsg",
                         ).maybeGenBotTypingIndicatorMessage(t, i),
@@ -222,8 +221,7 @@ __d(
                           o("WAWebMsgType").MSG_TYPE.REACTION,
                           o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT,
                         ].includes(i.type) || (t.lastReceivedKey = _),
-                        !r("gkx")("26258") &&
-                          !h &&
+                        !h &&
                           !y &&
                           o(
                             "WAWebOutgoingMessageTone",
@@ -242,7 +240,7 @@ __d(
                     },
                   );
                   return function (e) {
-                    return a.apply(this, arguments);
+                    return r.apply(this, arguments);
                   };
                 })(),
               )

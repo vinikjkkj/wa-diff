@@ -57,13 +57,10 @@ __d(
     function c() {
       return o("WAWebSchemaDeferredMessagesStorage").getTable().clear();
     }
-    var d = {
-      getDeferredMessages: e,
-      updateDeferredMessages: s,
-      deleteDeferredMessage: u,
-      clearDeferredMessages: c,
-    };
-    l.default = d;
+    ((l.getDeferredMessages = e),
+      (l.updateDeferredMessages = s),
+      (l.deleteDeferredMessage = u),
+      (l.clearDeferredMessages = c));
   },
   98,
 );

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAShiftTimer",
     "WAWebAck",
     "WAWebCryptoCreateMediaKeys",
@@ -19,6 +18,7 @@ __d(
     "WAWebRequestMediaReuploadBridge",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -261,7 +261,7 @@ __d(
                       })
                     : this.entries.addEntry({
                         deprecatedMms3Url: S.url,
-                        mediaKey: S.mediaKey || r("WANullthrows")(l.mediaKey),
+                        mediaKey: S.mediaKey || r("nullthrows")(l.mediaKey),
                         mediaKeyTimestamp: S.mediaKeyTimestamp,
                         encFilehash: S.encFilehash,
                         type: R,

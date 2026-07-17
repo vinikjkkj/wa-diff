@@ -2,7 +2,6 @@ __d(
   "WAWebUpsertEventResponsesModelCollectionAction",
   [
     "WAAckLevel",
-    "WANullthrows",
     "WAWebEventResponseCollection",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
@@ -10,6 +9,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -21,7 +21,7 @@ __d(
         a = [],
         i = o("WAWebPrepareEventResponsesToUpsert").getNewestEventResponses(e);
       (i.forEach(function (e) {
-        var t = r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+        var t = r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
           i = o("WAWebEventResponseCollection")
             .EventResponseCollection.byParent(e.parentMsgKey)
             .findFirst(function (e) {

@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebBackendEventBus",
     "WAWebMimeTypes",
-    "WAWebMsgCollection",
+    "WAWebMsgQueryUtils",
     "WAWebMsgType",
     "WAWebTPIframeUtils",
     "WAWebTPPdfViewerGatingUtils",
@@ -28,7 +28,10 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (u) return !0;
-          if (!o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled())
+          if (
+            !o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled() ||
+            !o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerPreloadEnabled()
+          )
             return !1;
           if (!o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {
             if (!c) {
@@ -97,13 +100,13 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e) {
             var r = e.msgs.last();
-            return o("WAWebMsgCollection").MsgCollection.getAllDocsMsgs(
+            return o("WAWebMsgQueryUtils").getAllDocsMsgs(
               t,
               r == null ? void 0 : r.id,
               "before",
             );
           }
-          return o("WAWebMsgCollection").MsgCollection.getAllDocsMsgs(n);
+          return o("WAWebMsgQueryUtils").getAllDocsMsgs(n);
         })),
         h.apply(this, arguments)
       );

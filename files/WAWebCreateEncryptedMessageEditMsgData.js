@@ -2,7 +2,6 @@ __d(
   "WAWebCreateEncryptedMessageEditMsgData",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebAck",
     "WAWebAddonEncryption",
     "WAWebCompactMapString",
@@ -17,6 +16,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -206,7 +206,7 @@ __d(
               stanzaId: t.id.id,
               originalMessageSender: c,
               addOnSender: o("WAWebWidFactory").asUserWidOrThrow(
-                r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+                r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
               ),
             }),
             L = R.encPayload,

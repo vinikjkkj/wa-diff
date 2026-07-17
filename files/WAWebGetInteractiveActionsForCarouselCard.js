@@ -1,11 +1,11 @@
 __d(
   "WAWebGetInteractiveActionsForCarouselCard",
   [
-    "WANullthrows",
     "WAWebGetInteractiveActionsFromButtons",
     "WAWebGetInteractiveCtaActions",
     "WAWebInteractiveMessageCarouselLogEvents",
     "WAWebWamEnumPaidMessagingUserInteractionsActionTarget",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -67,7 +67,7 @@ __d(
                       "WAWebInteractiveMessageCarouselLogEvents",
                     ).logCarouselCardClickCTA(
                       e.unsafe(),
-                      r("WANullthrows")(i),
+                      r("nullthrows")(i),
                       n,
                     ));
                 },

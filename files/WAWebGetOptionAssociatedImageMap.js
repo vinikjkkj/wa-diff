@@ -2,9 +2,9 @@ __d(
   "WAWebGetOptionAssociatedImageMap",
   [
     "Promise",
-    "WANullthrows",
     "WAWebPollOptionHashUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -51,8 +51,8 @@ __d(
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     var t = yield s(e, o),
-                      n = r("WANullthrows")(e.hash),
-                      a = r("WANullthrows")(t.get(n));
+                      n = r("nullthrows")(e.hash),
+                      a = r("nullthrows")(t.get(n));
                     return [e, a];
                   },
                 );

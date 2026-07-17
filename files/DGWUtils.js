@@ -11,6 +11,7 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -446,31 +447,32 @@ __d(
             return (this.free(s), this.free(e), d);
           }),
           (t.encodeDrain = function (t) {
+            r("vulture")("nAMc95pJzne7VR3aRrODB1upOas=");
             var e = this.malloc(u * 2);
             if (e === -1) return null;
             var n = e,
-              r = e + u,
-              a = m.__DgwCodecEncodeDrain(t, n, r);
+              a = e + u,
+              i = m.__DgwCodecEncodeDrain(t, n, a);
             if (
-              a !==
+              i !==
               o("DGWConstants").DgwCodecReturnCode.DgwCodecReturnCode_Success
             ) {
-              var i;
+              var l;
               return (
-                (i = this.$2) == null ||
-                  i.logError(
+                (l = this.$2) == null ||
+                  l.logError(
                     o("IDGWLoggingContext").DGWLoggingComponent.CODEC_COMPONENT,
                     "Drain Frame encode failure",
                     "Failed to encode Drain Frame. Received error code " +
-                      o("DGWConstants").DgwCodecReturnCodeToString(a),
+                      o("DGWConstants").DgwCodecReturnCodeToString(i),
                   ),
                 null
               );
             }
-            var l = m.HEAPU32.subarray(n / u, n / u + 1)[0],
-              s = m.HEAPU32.subarray(r / u, r / u + 1)[0],
-              c = new Uint8Array(m.HEAPU8.subarray(l, l + s));
-            return (this.free(l), this.free(e), c);
+            var s = m.HEAPU32.subarray(n / u, n / u + 1)[0],
+              c = m.HEAPU32.subarray(a / u, a / u + 1)[0],
+              d = new Uint8Array(m.HEAPU8.subarray(s, s + c));
+            return (this.free(s), this.free(e), d);
           }),
           (t.encodeEstablishStream = function (t, n) {
             var e = this.malloc(n.length);

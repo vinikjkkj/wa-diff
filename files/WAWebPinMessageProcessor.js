@@ -2,7 +2,6 @@ __d(
   "WAWebPinMessageProcessor",
   [
     "Promise",
-    "WANullthrows",
     "WAWebBackendApi",
     "WAWebDBCRUDOperationsPinInChat",
     "WAWebDBMarkFutureproofMessagesReparsed",
@@ -18,6 +17,7 @@ __d(
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -53,7 +53,7 @@ __d(
           yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
             e,
             function (e) {
-              return r("WANullthrows")(e.pinParentKey);
+              return r("nullthrows")(e.pinParentKey);
             },
           );
         })),
@@ -70,7 +70,7 @@ __d(
             l = [],
             u = [];
           for (var d of a) {
-            var m = i.get(r("WANullthrows")(d.pinParentKey).toString());
+            var m = i.get(r("nullthrows")(d.pinParentKey).toString());
             m ? u.push(d) : l.push(d);
           }
           yield (e || (e = n("Promise"))).all([
@@ -116,10 +116,8 @@ __d(
                           .PIN_FOR_ALL
                         ? _(
                             t,
-                            r("WANullthrows")(e.t),
-                            r("WANullthrows")(
-                              o("WAWebMsgGetters").getSender(e),
-                            ),
+                            r("nullthrows")(e.t),
+                            r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
                           )
                         : null;
                     }),

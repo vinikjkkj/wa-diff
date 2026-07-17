@@ -3,7 +3,7 @@ __d(
   [
     "WAWebContactCollection",
     "WAWebFtsMsgsChatlessCollection",
-    "WAWebMsgCollection",
+    "WAWebMsgQueryUtils",
     "WAWebPhoneNumberSearch",
     "WAWebUserPrefsMeUser",
     "WAWebVoipOngoingCallCollection",
@@ -22,10 +22,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = e.count,
               n = e.msgKeyAnchor;
-            return o("WAWebMsgCollection").MsgCollection.getVoipCallLogMsgs(
-              t,
-              n,
-            );
+            return o("WAWebMsgQueryUtils").getVoipCallLogMsgs(t, n);
           });
           function t(t) {
             return e.apply(this, arguments);

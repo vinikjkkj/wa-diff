@@ -2,7 +2,6 @@ __d(
   "WAWebTrustSignalsUtils",
   [
     "fbt",
-    "WANullthrows",
     "WAWebChatContactUtils",
     "WAWebClock",
     "WAWebContactGetters",
@@ -11,6 +10,7 @@ __d(
     "WAWebGroupType",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumOppositeVisibleIdentificationType",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "useWAWebContactValues",
@@ -59,19 +59,37 @@ __d(
       );
     }
     function d(e, t) {
-      var n = o("useWAWebModelValues").useModelValues(
-          r("WANullthrows")(
+      var n = o("react-compiler-runtime").c(7),
+        a;
+      n[0] !== e.groupMetadata
+        ? ((a = r("nullthrows")(
             e.groupMetadata,
             "Chat groupMetadata is null in useCreatedAt",
-          ),
-          ["owner", "creation", "groupAdder"],
-        ),
-        a = t != null ? t : n.groupAdder,
-        i = _(n.owner, e);
-      return o("WAWebClock").Clock.groupCreatedStr(
-        n.creation,
-        i,
-        o("WAWebUserPrefsMeUser").isMeAccount(a),
+          )),
+          (n[0] = e.groupMetadata),
+          (n[1] = a))
+        : (a = n[1]);
+      var i;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = ["owner", "creation", "groupAdder"]), (n[2] = i))
+        : (i = n[2]);
+      var l = o("useWAWebModelValues").useModelValues(a, i),
+        s = t != null ? t : l.groupAdder,
+        u = _(l.owner, e),
+        c;
+      return (
+        n[3] !== u || n[4] !== s || n[5] !== l.creation
+          ? ((c = o("WAWebClock").Clock.groupCreatedStr(
+              l.creation,
+              u,
+              o("WAWebUserPrefsMeUser").isMeAccount(s),
+            )),
+            (n[3] = u),
+            (n[4] = s),
+            (n[5] = l.creation),
+            (n[6] = c))
+          : (c = n[6]),
+        c
       );
     }
     function m(e) {

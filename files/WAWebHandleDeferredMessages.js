@@ -24,7 +24,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield r(
+          var t = yield o(
             "WAWebApiDeferredMessagesStorage",
           ).getDeferredMessages();
           yield o("WAPromiseEach").promiseEach(
@@ -149,7 +149,7 @@ __d(
                           u,
                       );
                     }
-                    yield r(
+                    yield o(
                       "WAWebApiDeferredMessagesStorage",
                     ).deleteDeferredMessage(t.id);
                   }

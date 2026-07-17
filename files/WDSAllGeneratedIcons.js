@@ -25,6 +25,7 @@ __d(
     "WDSIconIcAlertWarning.react",
     "WDSIconIcAlternateEmail.react",
     "WDSIconIcArchive.react",
+    "WDSIconIcArchiveFilled.react",
     "WDSIconIcArrowBack.react",
     "WDSIconIcArrowDownward.react",
     "WDSIconIcArrowDropDown.react",
@@ -324,6 +325,8 @@ __d(
     "WDSIconIcRealEstateAgent.react",
     "WDSIconIcReceipt.react",
     "WDSIconIcReceiptFilled.react",
+    "WDSIconIcRecentActors.react",
+    "WDSIconIcRecentActorsFilled.react",
     "WDSIconIcRedeem.react",
     "WDSIconIcRedo.react",
     "WDSIconIcRefresh.react",
@@ -618,6 +621,7 @@ __d(
     "WDSIconIosIcPersonAndBackgroundDotted.react",
     "WDSIconIosIcPersonBadgeKey.react",
     "WDSIconIosIcPersonBadgeKeyFill.react",
+    "WDSIconIosIcPersonCenterFrame.react",
     "WDSIconIosIcPersonPending.react",
     "WDSIconIosIcPersonPendingFill.react",
     "WDSIconIosIcPhonePlusFill.react",
@@ -641,6 +645,8 @@ __d(
     "WDSIconIosIcScreenshareMobile.react",
     "WDSIconIosIcScroll.react",
     "WDSIconIosIcScrollFill.react",
+    "WDSIconIosIcSend.react",
+    "WDSIconIosIcSendFill.react",
     "WDSIconIosIcSharedFolder.react",
     "WDSIconIosIcShoppingBag.react",
     "WDSIconIosIcShoppingBagFill.react",
@@ -796,6 +802,8 @@ __d(
     "WDSIconIosWdsIcAccountsCenterFill.react",
     "WDSIconIosWdsIcAi.react",
     "WDSIconIosWdsIcAiAnimate.react",
+    "WDSIconIosWdsIcAiContent.react",
+    "WDSIconIosWdsIcAiContentFill.react",
     "WDSIconIosWdsIcAiFill.react",
     "WDSIconIosWdsIcAiStudio.react",
     "WDSIconIosWdsIcAiStudioFill.react",
@@ -828,6 +836,8 @@ __d(
     "WDSIconIosWdsIcCurrencyHongKongDollar.react",
     "WDSIconIosWdsIcCurrencyHongKongDollarCircle.react",
     "WDSIconIosWdsIcCurrencyHongKongDollarCircleFill.react",
+    "WDSIconIosWdsIcCurrencyIndonesianrupiahCircle.react",
+    "WDSIconIosWdsIcCurrencyIndonesianrupiahCircleFill.react",
     "WDSIconIosWdsIcCurrencyLira.react",
     "WDSIconIosWdsIcCurrencyLiraCircle.react",
     "WDSIconIosWdsIcCurrencyLiraCircleFill.react",
@@ -837,6 +847,7 @@ __d(
     "WDSIconIosWdsIcCurrencyPound.react",
     "WDSIconIosWdsIcCurrencyPoundCircle.react",
     "WDSIconIosWdsIcCurrencyPoundCircleFill.react",
+    "WDSIconIosWdsIcCurrencyRupiah.react",
     "WDSIconIosWdsIcCurrencyUaeDirham.react",
     "WDSIconIosWdsIcCurrencyUaeDirhamCircle.react",
     "WDSIconIosWdsIcCurrencyUaeDirhamCircleFill.react",
@@ -925,10 +936,13 @@ __d(
     "WDSIconIosWdsIcParentalControlsFill.react",
     "WDSIconIosWdsIcPersonChild.react",
     "WDSIconIosWdsIcPersonChildFill.react",
+    "WDSIconIosWdsIcPersonGear.react",
     "WDSIconIosWdsIcPersonShield.react",
     "WDSIconIosWdsIcPersonShieldFill.react",
     "WDSIconIosWdsIcPersonTransferArrow.react",
     "WDSIconIosWdsIcPersonTransferArrowFill.react",
+    "WDSIconIosWdsIcPinMetaOneBadge.react",
+    "WDSIconIosWdsIcPinMetaOneBadgeFill.react",
     "WDSIconIosWdsIcPolaroids.react",
     "WDSIconIosWdsIcPolaroidsFill.react",
     "WDSIconIosWdsIcPremiumChannelDiamond.react",
@@ -937,6 +951,8 @@ __d(
     "WDSIconIosWdsIcPrivateProcessingAiLockSparkleFill.react",
     "WDSIconIosWdsIcReasoningAi.react",
     "WDSIconIosWdsIcReasoningAiFill.react",
+    "WDSIconIosWdsIcReels.react",
+    "WDSIconIosWdsIcReelsFilled.react",
     "WDSIconIosWdsIcReshareCheck.react",
     "WDSIconIosWdsIcScamDetection.react",
     "WDSIconIosWdsIcScheduleSend.react",
@@ -998,8 +1014,11 @@ __d(
     "WDSIconIosWdsIcStickerpackSmiley.react",
     "WDSIconIosWdsIcStickerpackSmileyFill.react",
     "WDSIconIosWdsIcStoreBusiness.react",
+    "WDSIconIosWdsIcSubscriptions.react",
     "WDSIconIosWdsIcSummarizeAi.react",
     "WDSIconIosWdsIcSummarizeAiFill.react",
+    "WDSIconIosWdsIcThirdPartyCalling.react",
+    "WDSIconIosWdsIcThirdPartyCallingFill.react",
     "WDSIconIosWdsIcToggleOff.react",
     "WDSIconIosWdsIcToggleOffFill.react",
     "WDSIconIosWdsIcUpdates.react",
@@ -1008,6 +1027,7 @@ __d(
     "WDSIconIosWdsIcVerticalLayoutFill.react",
     "WDSIconIosWdsIcVideoCamLink.react",
     "WDSIconIosWdsIcVideoCamLinkFill.react",
+    "WDSIconIosWdsIcViewOnceFill.react",
     "WDSIconIosWdsIcVinyl.react",
     "WDSIconIosWdsIcVinylFill.react",
     "WDSIconIosWdsIcVoiceChatChannels.react",
@@ -1069,6 +1089,8 @@ __d(
     "WDSIconWdsIcAiAnimateFilled.react",
     "WDSIconWdsIcAiChat.react",
     "WDSIconWdsIcAiChatFilled.react",
+    "WDSIconWdsIcAiContent.react",
+    "WDSIconWdsIcAiContentFilled.react",
     "WDSIconWdsIcAiFilled.react",
     "WDSIconWdsIcAiSend.react",
     "WDSIconWdsIcAiSendFilled.react",
@@ -1104,6 +1126,7 @@ __d(
     "WDSIconWdsIcChatlockOutline.react",
     "WDSIconWdsIcChatlockUnlockedFilled.react",
     "WDSIconWdsIcChatlockUnlockedOutline.react",
+    "WDSIconWdsIcClipboardFilled.react",
     "WDSIconWdsIcCommunities.react",
     "WDSIconWdsIcCommunitiesBadge.react",
     "WDSIconWdsIcCommunitiesFilled.react",
@@ -1117,6 +1140,8 @@ __d(
     "WDSIconWdsIcCurrencyHongKongDollar.react",
     "WDSIconWdsIcCurrencyHongKongDollarCircle.react",
     "WDSIconWdsIcCurrencyHongKongDollarCircleFilled.react",
+    "WDSIconWdsIcCurrencyIndonesianrupiahCircle.react",
+    "WDSIconWdsIcCurrencyIndonesianrupiahCircleFilled.react",
     "WDSIconWdsIcCurrencyLira.react",
     "WDSIconWdsIcCurrencyLiraCircle.react",
     "WDSIconWdsIcCurrencyLiraCircleFilled.react",
@@ -1130,6 +1155,7 @@ __d(
     "WDSIconWdsIcCurrencyRealFilled.react",
     "WDSIconWdsIcCurrencyRupee.react",
     "WDSIconWdsIcCurrencyRupeeFilled.react",
+    "WDSIconWdsIcCurrencyRupiah.react",
     "WDSIconWdsIcCurrencyUaeDirham.react",
     "WDSIconWdsIcCurrencyUaeDirhamCircle.react",
     "WDSIconWdsIcCurrencyUaeDirhamCircleFilled.react",
@@ -1237,6 +1263,8 @@ __d(
     "WDSIconWdsIcPhoneMessage.react",
     "WDSIconWdsIcPhoneMessageFilled.react",
     "WDSIconWdsIcPhotoAi.react",
+    "WDSIconWdsIcPinMetaOneBadge.react",
+    "WDSIconWdsIcPinMetaOneBadgeFilled.react",
     "WDSIconWdsIcPipExitTopRightToBottomLeft.react",
     "WDSIconWdsIcPipLeftBottomToTopRight.react",
     "WDSIconWdsIcPlaystore.react",
@@ -1250,6 +1278,8 @@ __d(
     "WDSIconWdsIcPushPinSlash.react",
     "WDSIconWdsIcRead.react",
     "WDSIconWdsIcReceiveFromMobile.react",
+    "WDSIconWdsIcReels.react",
+    "WDSIconWdsIcReelsFilled.react",
     "WDSIconWdsIcReshareCheck.react",
     "WDSIconWdsIcScamDetection.react",
     "WDSIconWdsIcSettingsBadge.react",
@@ -1306,8 +1336,11 @@ __d(
     "WDSIconWdsIcStickerpackSearchMagnifyingGlassSearchFilled.react",
     "WDSIconWdsIcStickerpackSmiley.react",
     "WDSIconWdsIcStickerpackSmileyFilled.react",
+    "WDSIconWdsIcSubscriptions.react",
     "WDSIconWdsIcSummarizeAi.react",
     "WDSIconWdsIcSummarizeAiFilled.react",
+    "WDSIconWdsIcThirdPartyCalling.react",
+    "WDSIconWdsIcThirdPartyCallingFilled.react",
     "WDSIconWdsIcThirdPartyChat.react",
     "WDSIconWdsIcThirdPartyChatFilled.react",
     "WDSIconWdsIcThirdPartyChatUnread.react",
@@ -1436,6 +1469,10 @@ __d(
           name: "WDSIconIcAlternateEmail",
         },
         { Component: r("WDSIconIcArchive.react"), name: "WDSIconIcArchive" },
+        {
+          Component: r("WDSIconIcArchiveFilled.react"),
+          name: "WDSIconIcArchiveFilled",
+        },
         {
           Component: r("WDSIconIcArrowBack.react"),
           name: "WDSIconIcArrowBack",
@@ -2325,6 +2362,14 @@ __d(
         {
           Component: r("WDSIconIcReceiptFilled.react"),
           name: "WDSIconIcReceiptFilled",
+        },
+        {
+          Component: r("WDSIconIcRecentActors.react"),
+          name: "WDSIconIcRecentActors",
+        },
+        {
+          Component: r("WDSIconIcRecentActorsFilled.react"),
+          name: "WDSIconIcRecentActorsFilled",
         },
         { Component: r("WDSIconIcRedeem.react"), name: "WDSIconIcRedeem" },
         { Component: r("WDSIconIcRedo.react"), name: "WDSIconIcRedo" },
@@ -3317,6 +3362,10 @@ __d(
           name: "WDSIconIosIcPersonBadgeKeyFill",
         },
         {
+          Component: r("WDSIconIosIcPersonCenterFrame.react"),
+          name: "WDSIconIosIcPersonCenterFrame",
+        },
+        {
           Component: r("WDSIconIosIcPersonPending.react"),
           name: "WDSIconIosIcPersonPending",
         },
@@ -3395,6 +3444,11 @@ __d(
         {
           Component: r("WDSIconIosIcScrollFill.react"),
           name: "WDSIconIosIcScrollFill",
+        },
+        { Component: r("WDSIconIosIcSend.react"), name: "WDSIconIosIcSend" },
+        {
+          Component: r("WDSIconIosIcSendFill.react"),
+          name: "WDSIconIosIcSendFill",
         },
         {
           Component: r("WDSIconIosIcSharedFolder.react"),
@@ -3936,6 +3990,14 @@ __d(
           name: "WDSIconIosWdsIcAiAnimate",
         },
         {
+          Component: r("WDSIconIosWdsIcAiContent.react"),
+          name: "WDSIconIosWdsIcAiContent",
+        },
+        {
+          Component: r("WDSIconIosWdsIcAiContentFill.react"),
+          name: "WDSIconIosWdsIcAiContentFill",
+        },
+        {
           Component: r("WDSIconIosWdsIcAiFill.react"),
           name: "WDSIconIosWdsIcAiFill",
         },
@@ -4064,6 +4126,16 @@ __d(
           name: "WDSIconIosWdsIcCurrencyHongKongDollarCircleFill",
         },
         {
+          Component: r("WDSIconIosWdsIcCurrencyIndonesianrupiahCircle.react"),
+          name: "WDSIconIosWdsIcCurrencyIndonesianrupiahCircle",
+        },
+        {
+          Component: r(
+            "WDSIconIosWdsIcCurrencyIndonesianrupiahCircleFill.react",
+          ),
+          name: "WDSIconIosWdsIcCurrencyIndonesianrupiahCircleFill",
+        },
+        {
           Component: r("WDSIconIosWdsIcCurrencyLira.react"),
           name: "WDSIconIosWdsIcCurrencyLira",
         },
@@ -4100,6 +4172,10 @@ __d(
         {
           Component: r("WDSIconIosWdsIcCurrencyPoundCircleFill.react"),
           name: "WDSIconIosWdsIcCurrencyPoundCircleFill",
+        },
+        {
+          Component: r("WDSIconIosWdsIcCurrencyRupiah.react"),
+          name: "WDSIconIosWdsIcCurrencyRupiah",
         },
         {
           Component: r("WDSIconIosWdsIcCurrencyUaeDirham.react"),
@@ -4453,6 +4529,10 @@ __d(
           name: "WDSIconIosWdsIcPersonChildFill",
         },
         {
+          Component: r("WDSIconIosWdsIcPersonGear.react"),
+          name: "WDSIconIosWdsIcPersonGear",
+        },
+        {
           Component: r("WDSIconIosWdsIcPersonShield.react"),
           name: "WDSIconIosWdsIcPersonShield",
         },
@@ -4467,6 +4547,14 @@ __d(
         {
           Component: r("WDSIconIosWdsIcPersonTransferArrowFill.react"),
           name: "WDSIconIosWdsIcPersonTransferArrowFill",
+        },
+        {
+          Component: r("WDSIconIosWdsIcPinMetaOneBadge.react"),
+          name: "WDSIconIosWdsIcPinMetaOneBadge",
+        },
+        {
+          Component: r("WDSIconIosWdsIcPinMetaOneBadgeFill.react"),
+          name: "WDSIconIosWdsIcPinMetaOneBadgeFill",
         },
         {
           Component: r("WDSIconIosWdsIcPolaroids.react"),
@@ -4501,6 +4589,14 @@ __d(
         {
           Component: r("WDSIconIosWdsIcReasoningAiFill.react"),
           name: "WDSIconIosWdsIcReasoningAiFill",
+        },
+        {
+          Component: r("WDSIconIosWdsIcReels.react"),
+          name: "WDSIconIosWdsIcReels",
+        },
+        {
+          Component: r("WDSIconIosWdsIcReelsFilled.react"),
+          name: "WDSIconIosWdsIcReelsFilled",
         },
         {
           Component: r("WDSIconIosWdsIcReshareCheck.react"),
@@ -4763,12 +4859,24 @@ __d(
           name: "WDSIconIosWdsIcStoreBusiness",
         },
         {
+          Component: r("WDSIconIosWdsIcSubscriptions.react"),
+          name: "WDSIconIosWdsIcSubscriptions",
+        },
+        {
           Component: r("WDSIconIosWdsIcSummarizeAi.react"),
           name: "WDSIconIosWdsIcSummarizeAi",
         },
         {
           Component: r("WDSIconIosWdsIcSummarizeAiFill.react"),
           name: "WDSIconIosWdsIcSummarizeAiFill",
+        },
+        {
+          Component: r("WDSIconIosWdsIcThirdPartyCalling.react"),
+          name: "WDSIconIosWdsIcThirdPartyCalling",
+        },
+        {
+          Component: r("WDSIconIosWdsIcThirdPartyCallingFill.react"),
+          name: "WDSIconIosWdsIcThirdPartyCallingFill",
         },
         {
           Component: r("WDSIconIosWdsIcToggleOff.react"),
@@ -4801,6 +4909,10 @@ __d(
         {
           Component: r("WDSIconIosWdsIcVideoCamLinkFill.react"),
           name: "WDSIconIosWdsIcVideoCamLinkFill",
+        },
+        {
+          Component: r("WDSIconIosWdsIcViewOnceFill.react"),
+          name: "WDSIconIosWdsIcViewOnceFill",
         },
         {
           Component: r("WDSIconIosWdsIcVinyl.react"),
@@ -5041,6 +5153,14 @@ __d(
           name: "WDSIconWdsIcAiChatFilled",
         },
         {
+          Component: r("WDSIconWdsIcAiContent.react"),
+          name: "WDSIconWdsIcAiContent",
+        },
+        {
+          Component: r("WDSIconWdsIcAiContentFilled.react"),
+          name: "WDSIconWdsIcAiContentFilled",
+        },
+        {
           Component: r("WDSIconWdsIcAiFilled.react"),
           name: "WDSIconWdsIcAiFilled",
         },
@@ -5175,6 +5295,10 @@ __d(
           name: "WDSIconWdsIcChatlockUnlockedOutline",
         },
         {
+          Component: r("WDSIconWdsIcClipboardFilled.react"),
+          name: "WDSIconWdsIcClipboardFilled",
+        },
+        {
           Component: r("WDSIconWdsIcCommunities.react"),
           name: "WDSIconWdsIcCommunities",
         },
@@ -5227,6 +5351,16 @@ __d(
           name: "WDSIconWdsIcCurrencyHongKongDollarCircleFilled",
         },
         {
+          Component: r("WDSIconWdsIcCurrencyIndonesianrupiahCircle.react"),
+          name: "WDSIconWdsIcCurrencyIndonesianrupiahCircle",
+        },
+        {
+          Component: r(
+            "WDSIconWdsIcCurrencyIndonesianrupiahCircleFilled.react",
+          ),
+          name: "WDSIconWdsIcCurrencyIndonesianrupiahCircleFilled",
+        },
+        {
           Component: r("WDSIconWdsIcCurrencyLira.react"),
           name: "WDSIconWdsIcCurrencyLira",
         },
@@ -5277,6 +5411,10 @@ __d(
         {
           Component: r("WDSIconWdsIcCurrencyRupeeFilled.react"),
           name: "WDSIconWdsIcCurrencyRupeeFilled",
+        },
+        {
+          Component: r("WDSIconWdsIcCurrencyRupiah.react"),
+          name: "WDSIconWdsIcCurrencyRupiah",
         },
         {
           Component: r("WDSIconWdsIcCurrencyUaeDirham.react"),
@@ -5697,6 +5835,14 @@ __d(
           name: "WDSIconWdsIcPhotoAi",
         },
         {
+          Component: r("WDSIconWdsIcPinMetaOneBadge.react"),
+          name: "WDSIconWdsIcPinMetaOneBadge",
+        },
+        {
+          Component: r("WDSIconWdsIcPinMetaOneBadgeFilled.react"),
+          name: "WDSIconWdsIcPinMetaOneBadgeFilled",
+        },
+        {
           Component: r("WDSIconWdsIcPipExitTopRightToBottomLeft.react"),
           name: "WDSIconWdsIcPipExitTopRightToBottomLeft",
         },
@@ -5741,6 +5887,11 @@ __d(
         {
           Component: r("WDSIconWdsIcReceiveFromMobile.react"),
           name: "WDSIconWdsIcReceiveFromMobile",
+        },
+        { Component: r("WDSIconWdsIcReels.react"), name: "WDSIconWdsIcReels" },
+        {
+          Component: r("WDSIconWdsIcReelsFilled.react"),
+          name: "WDSIconWdsIcReelsFilled",
         },
         {
           Component: r("WDSIconWdsIcReshareCheck.react"),
@@ -5983,12 +6134,24 @@ __d(
           name: "WDSIconWdsIcStickerpackSmileyFilled",
         },
         {
+          Component: r("WDSIconWdsIcSubscriptions.react"),
+          name: "WDSIconWdsIcSubscriptions",
+        },
+        {
           Component: r("WDSIconWdsIcSummarizeAi.react"),
           name: "WDSIconWdsIcSummarizeAi",
         },
         {
           Component: r("WDSIconWdsIcSummarizeAiFilled.react"),
           name: "WDSIconWdsIcSummarizeAiFilled",
+        },
+        {
+          Component: r("WDSIconWdsIcThirdPartyCalling.react"),
+          name: "WDSIconWdsIcThirdPartyCalling",
+        },
+        {
+          Component: r("WDSIconWdsIcThirdPartyCallingFilled.react"),
+          name: "WDSIconWdsIcThirdPartyCallingFilled",
         },
         {
           Component: r("WDSIconWdsIcThirdPartyChat.react"),

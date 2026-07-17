@@ -140,7 +140,7 @@ __d(
     }
     function I() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_status_chain_new_at_end",
+        "wa_web_status_chain_new_at_end",
       );
     }
     function T() {
@@ -159,9 +159,8 @@ __d(
       );
     }
     function $() {
-      return (
-        o("WAWebABProps").getABPropConfigValue("status_chain_from_cl_mode") ===
-        3
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_status_chain_from_chatlist",
       );
     }
     ((l.statusQuickReplyEmojis = u),

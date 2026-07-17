@@ -7,6 +7,8 @@ __d(
       OHAI_REQ_TIMEOUT: 1,
       OHAI_REQ_NACK: 2,
       ADD_EXTENSION_NACK: 3,
+      OHAI_REQ_HTTP_ERROR: 4,
+      OHAI_REQ_TEE_ERROR: 5,
     });
     i.CA2D_EXTENSION_ADD_FAILURE_REASON = e;
   },

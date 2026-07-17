@@ -16,6 +16,8 @@ __d(
       PREVIOUS_SET_ABOUT: 11,
       AWAY_LEAVE_A_MESSAGE: 12,
       AT_THE_GYM: 13,
+      SLEEPING: 14,
+      AT_WORK: 15,
     });
     i.PRESET_TYPE = e;
   },

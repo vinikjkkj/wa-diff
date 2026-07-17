@@ -27,12 +27,12 @@ __d(
         (t.handle = function (t) {
           for (var e of t) {
             var n = e.startTime + e.duration;
-            o("WAWebMainThreadStallReporter").reportMainThreadStall(
-              e.duration,
-              n,
-              this.documentVisibilityObserver,
-              "longtask",
-            );
+            o("WAWebMainThreadStallReporter").reportMainThreadStall({
+              durationMs: e.duration,
+              endTime: n,
+              source: "longtask",
+              visibility: this.documentVisibilityObserver,
+            });
           }
         }),
         e

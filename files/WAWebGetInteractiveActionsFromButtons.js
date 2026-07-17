@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WANullthrows",
     "WAWebBizAiAgentGating",
     "WAWebBizAiHubDeeplinkScheme",
     "WAWebBizAiKnowledgeReviewDrawerLoadable.react",
@@ -58,6 +57,7 @@ __d(
     "WDSIconIcOpenInNew.react",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -698,11 +698,11 @@ __d(
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a,
-            i = r("WANullthrows")(
+            i = r("nullthrows")(
               o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(t),
             ),
             l = o("WAWebFrontendMsgGetters").getChat(i),
-            s = r("WANullthrows")(
+            s = r("nullthrows")(
               i.carouselCards,
               "Parent of carousel card does not have carouselCards field.",
             ).slice(),

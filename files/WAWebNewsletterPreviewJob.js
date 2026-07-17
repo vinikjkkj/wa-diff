@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAJobOrchestratorTypes",
-    "WANullthrows",
     "WAWebCreateChat",
     "WAWebNewsletterBackendAddOnsUtils",
     "WAWebNewsletterGatingUtils",
@@ -16,6 +15,7 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -50,7 +50,7 @@ __d(
                 "WAWebNewsletterBackendAddOnsUtils",
               ).getMsgsAndAddOnsFromUpdates(
                 c,
-                r("WANullthrows")(m, "Unexpected null metadata"),
+                r("nullthrows")(m, "Unexpected null metadata"),
                 d,
               ),
               _ = p.ids,

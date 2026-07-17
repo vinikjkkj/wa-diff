@@ -389,7 +389,7 @@ __d(
                         .PEER_DATA_OPERATION_REQUEST_MESSAGE),
             o("WAWebRuntimeEnvironmentUtils").isWorker() && se)
           )
-            yield r("WAWebApiDeferredMessagesStorage").updateDeferredMessages([
+            yield o("WAWebApiDeferredMessagesStorage").updateDeferredMessages([
               {
                 id: c.externalId,
                 type: se,

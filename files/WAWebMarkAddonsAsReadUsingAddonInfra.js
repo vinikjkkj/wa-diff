@@ -1,11 +1,11 @@
 __d(
   "WAWebMarkAddonsAsReadUsingAddonInfra",
   [
-    "WANullthrows",
     "WAWebMarkAddOnsAsReadJob",
     "WAWebMsgGetters",
     "WAWebSendReadReceiptJob",
     "asyncToGeneratorRuntime",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "useLazyRef",
@@ -24,7 +24,7 @@ __d(
             var t = e.map(function (e) {
               return {
                 msgKey: e.id,
-                sender: r("WANullthrows")(
+                sender: r("nullthrows")(
                   o("WAWebMsgGetters").getSender(e),
                 ).toString(),
               };

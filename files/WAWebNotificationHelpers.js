@@ -21,7 +21,9 @@ __d(
     "WAWebQuotedMsgModelUtils",
     "WAWebSettingsGetters",
     "WAWebSettingsModel",
+    "WAWebUnknownUserDisplayedLogger",
     "WAWebUserPrefsNotifications",
+    "WAWebWamEnumOppositeVisibleIdentificationType",
     "gkx",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -148,9 +150,22 @@ __d(
               ])
               .toString();
       }
+      var i = o("WAWebFrontendContactGetters").getFormattedNameAndType(
+          e.contact,
+        ),
+        l = i.displayName,
+        u = i.type;
       return (
-        o("WAWebFrontendContactGetters").getFormattedName(e.contact) ||
-        y(e).toString()
+        !o("WAWebChatGetters").getIsGroup(e) &&
+          e.contact != null &&
+          u ===
+            o("WAWebWamEnumOppositeVisibleIdentificationType")
+              .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER &&
+          o("WAWebUnknownUserDisplayedLogger").logUnknownUserDisplayed(
+            "push_notification",
+            e.contact.id.toString(),
+          ),
+        l || y(e).toString()
       );
     }
     function b(t) {

@@ -45,21 +45,25 @@ __d(
       u,
       c = u || (u = o("react")),
       d = u.useEffect;
-    function m(e, t, n, r) {
-      var a,
-        i = e.groupMetadata;
+    function m(e) {
+      var t,
+        n = e.chat,
+        r = e.errorMessage,
+        a = e.uiAction,
+        i = e.uiSurface,
+        l = n.groupMetadata;
       new (o(
         "WAWebGroupSuspensionAppealEventsWamEvent",
       ).GroupSuspensionAppealEventsWamEvent)({
-        groupSuspensionAppealUiAction: t,
-        groupSuspensionAppealUiSurface: n,
+        groupSuspensionAppealUiAction: a,
+        groupSuspensionAppealUiSurface: i,
         groupTypeClient: o("WAWebGroupType").groupTypeToGroupTypeClient(
-          i == null ? void 0 : i.groupType,
+          l == null ? void 0 : l.groupType,
         ),
         isAdmin:
-          (a = i == null ? void 0 : i.participants.iAmAdmin()) != null ? a : !1,
+          (t = l == null ? void 0 : l.participants.iAmAdmin()) != null ? t : !1,
         groupJid: o("WAWebGroupJoinRequestMetricUtils").getSanitizedJid(
-          i == null ? void 0 : i.id,
+          l == null ? void 0 : l.id,
         ),
         groupSuspensionAppealErrorMessage: r,
       }).commit();
@@ -89,7 +93,7 @@ __d(
         i;
       (r[0] !== e || r[1] !== t || r[2] !== n
         ? ((a = function () {
-            n != null && e != null && m(e, t, n);
+            n != null && e != null && m({ chat: e, uiAction: t, uiSurface: n });
           }),
           (i = [e, t, n]),
           (r[0] = e),
@@ -255,13 +259,13 @@ __d(
           }
           if (l.success) {
             var d;
-            (m(
-              t,
-              o("WAWebWamEnumGroupSuspensionAppealUiAction")
+            (m({
+              chat: t,
+              uiAction: o("WAWebWamEnumGroupSuspensionAppealUiAction")
                 .GROUP_SUSPENSION_APPEAL_UI_ACTION
                 .REQUEST_REVIEW_SUBMIT_SUCCESS,
-              n,
-            ),
+              uiSurface: n,
+            }),
               yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(a, {
                 suspendAppealStatus: "IN_REVIEW",
                 suspendAppealUpdateTime: l.appealCreationTime,
@@ -275,15 +279,15 @@ __d(
               I(t));
           } else {
             var p;
-            (m(
-              t,
-              o("WAWebWamEnumGroupSuspensionAppealUiAction")
+            (m({
+              chat: t,
+              errorMessage: (p = l.errorMessage) != null ? p : "Unknown error",
+              uiAction: o("WAWebWamEnumGroupSuspensionAppealUiAction")
                 .GROUP_SUSPENSION_APPEAL_UI_ACTION
                 .REQUEST_REVIEW_SUBMIT_FAILURE,
-              o("WAWebWamEnumGroupSuspensionAppealUiSurface")
+              uiSurface: o("WAWebWamEnumGroupSuspensionAppealUiSurface")
                 .GROUP_SUSPENSION_APPEAL_UI_SURFACE.REQUEST_REVIEW_ERROR_DIALOG,
-              (p = l.errorMessage) != null ? p : "Unknown error",
-            ),
+            }),
               o("WAWebToastManager").ToastManager.open(
                 c.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(

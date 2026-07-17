@@ -12,6 +12,7 @@ __d(
     "WAWebWamEnumAudiencePredicateTypeEnum",
     "WAWebWamEnumAudienceResolutionTriggerType",
     "asyncToGeneratorRuntime",
+    "countWhere",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -51,7 +52,7 @@ __d(
             var t = yield o("WAWebSchemaBroadcastMetadata")
                 .getBroadcastMetadataTable()
                 .all(),
-              r = t.filter(function (e) {
+              a = t.filter(function (e) {
                 var t;
                 return (
                   ((t = e.audienceExpression) == null ? void 0 : t.type) ===
@@ -65,11 +66,11 @@ __d(
                         .PREDICATE_TYPE_NOT_MESSAGED_RECENTLY)
                 );
               });
-            if (r.length !== 0) {
-              var a = 0,
-                i = 0;
+            if (a.length !== 0) {
+              var i = 0,
+                l = 0;
               (yield (u || (u = n("Promise"))).all(
-                r.map(
+                a.map(
                   (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (t) {
@@ -77,28 +78,28 @@ __d(
                           var n = yield o(
                               "WAWebAudienceResolver",
                             ).resolveAudienceExpression(t.audienceExpression),
-                            r = t.recipients;
-                          if (d(r, n)) return;
+                            a = t.recipients;
+                          if (d(a, n)) return;
                           (yield o("WAWebSchemaBroadcastMetadata")
                             .getBroadcastMetadataTable()
                             .createOrReplace(
                               babelHelpers.extends({}, t, { recipients: n }),
                             ),
-                            a++);
-                          var l = new Set(r),
-                            s = new Set(n),
-                            u = n.filter(function (e) {
-                              return !l.has(e);
-                            }).length,
-                            m = r.filter(function (e) {
+                            i++);
+                          var s = new Set(a),
+                            u = new Set(n),
+                            m = r("countWhere")(n, function (e) {
                               return !s.has(e);
-                            }).length;
+                            }),
+                            p = r("countWhere")(a, function (e) {
+                              return !u.has(e);
+                            });
                           new (o(
                             "WAWebAudienceManagementWamEvent",
                           ).AudienceManagementWamEvent)({
                             audienceExtraData: JSON.stringify({
-                              added_count: u,
-                              removed_count: m,
+                              added_count: m,
+                              removed_count: p,
                               resolved_count: n.length,
                             }),
                             audienceManagementAction: o(
@@ -116,7 +117,7 @@ __d(
                             ).AUDIENCE_RESOLUTION_TRIGGER_TYPE.PERIODIC_REFRESH,
                           }).commit();
                         } catch (n) {
-                          (i++,
+                          (l++,
                             o("WALogger")
                               .ERROR(
                                 e ||
@@ -151,19 +152,19 @@ __d(
                         " errors=",
                         "",
                       ])),
-                    r.length,
-                    a,
+                    a.length,
                     i,
+                    l,
                   )
                   .tags("wa-smb", "business-broadcast", "audience-refresh"),
                 new (o(
                   "WAWebAudienceManagementWamEvent",
                 ).AudienceManagementWamEvent)({
                   audienceExtraData: JSON.stringify({
-                    refresh_error_count: i,
-                    refresh_skipped_count: r.length - a - i,
-                    refresh_success_count: a,
-                    refresh_total_audiences: r.length,
+                    refresh_error_count: l,
+                    refresh_skipped_count: a.length - i - l,
+                    refresh_success_count: i,
+                    refresh_total_audiences: a.length,
                   }),
                   audienceManagementAction: o(
                     "WAWebWamEnumAudienceManagementActionType",

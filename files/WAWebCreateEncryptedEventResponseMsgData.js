@@ -1,7 +1,6 @@
 __d(
   "WAWebCreateEncryptedEventResponseMsgData",
   [
-    "WANullthrows",
     "WAWebAck",
     "WAWebAddonEncryption",
     "WAWebAddonEncryptionError",
@@ -13,6 +12,7 @@ __d(
     "WAWebWamEnumE2eFailureReason",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -50,7 +50,7 @@ __d(
               stanzaId: t.id.id,
               originalMessageSender: l,
               addOnSender: o("WAWebWidFactory").asUserWidOrThrow(
-                r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+                r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
               ),
             }),
             c = u.encPayload;

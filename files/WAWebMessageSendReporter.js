@@ -3,7 +3,6 @@ __d(
   [
     "MetaConfig",
     "WALogger",
-    "WANullthrows",
     "WAStartSendToSentQplFlow",
     "WAWebABProps",
     "WAWebAfterReadUtils",
@@ -36,6 +35,7 @@ __d(
     "WAWebWamMsgUtils",
     "WAWebWamNumberToSizeBucket",
     "WAWebWid",
+    "nullthrows",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -222,7 +222,7 @@ __d(
             q != null && (this.$2.revokeDuration = q);
           }
           if (o("WAWebMsgGetters").getIsEditProtocolMsg(t)) {
-            var U = r("WANullthrows")(
+            var U = r("nullthrows")(
               n == null ? void 0 : n.originalMessage,
               "edit protocol msg must have an original msg",
             );

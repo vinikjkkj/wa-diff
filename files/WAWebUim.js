@@ -249,23 +249,32 @@ __d(
           return "D";
       }
     }
-    function L(e, t, n, r) {
-      var o;
-      (n === !0 && r
-        ? (o = S)
-        : n === !0 && !r
-          ? (o = v)
-          : n !== !0 && r
-            ? (o = b)
-            : (o = C),
-        e === f.Manager.root && (o = h));
-      var a = e.displayName;
-      e === f.Manager.getTop() && (a = a + " \u2B25");
-      var i = "(" + R(e.getState()) + ")" + (r ? "\n" : "");
-      return "" + t.join("") + o + " " + a + " " + i;
+    function L(e) {
+      var t = e.ancestors,
+        n = e.hasChild,
+        r = e.hasSibling,
+        o = e.node,
+        a;
+      (r === !0 && n
+        ? (a = S)
+        : r === !0 && !n
+          ? (a = v)
+          : r !== !0 && n
+            ? (a = b)
+            : (a = C),
+        o === f.Manager.root && (a = h));
+      var i = o.displayName;
+      o === f.Manager.getTop() && (i = i + " \u2B25");
+      var l = "(" + R(o.getState()) + ")" + (n ? "\n" : "");
+      return "" + t.join("") + a + " " + i + " " + l;
     }
     function E(e, t, n) {
-      var r = L(e, t, n, !!e.children.length);
+      var r = L({
+        ancestors: t,
+        hasChild: !!e.children.length,
+        hasSibling: n,
+        node: e,
+      });
       return (
         r +
         e.children

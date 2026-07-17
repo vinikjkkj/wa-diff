@@ -3,14 +3,15 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebBaseCollection",
     "WAWebCollectionConstants",
     "WAWebFrontendMsgGetters",
     "WAWebMsgCollection",
     "WAWebMsgModel",
+    "WAWebMsgQueryUtils",
     "WAWebSocketConstants",
     "WAWebSocketModel",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -52,12 +53,8 @@ __d(
               l = this.last();
             return (
               l && (i = l.id),
-              (this.syncPromise = o("WAWebMsgCollection")
-                .MsgCollection.getStarred(
-                  a,
-                  o("WAWebCollectionConstants").PAGE_SIZE,
-                  i,
-                )
+              (this.syncPromise = o("WAWebMsgQueryUtils")
+                .getStarred(a, o("WAWebCollectionConstants").PAGE_SIZE, i)
                 .then(function (e) {
                   (e.length && t.add(e, { silent: !0 }),
                     e.length < o("WAWebCollectionConstants").PAGE_SIZE &&
@@ -75,7 +72,7 @@ __d(
                   ((t.syncPromise = null), t.trigger("sync"));
                 })),
               this.trigger("sync"),
-              r("WANullthrows")(this.syncPromise, "syncPromise can not be null")
+              r("nullthrows")(this.syncPromise, "syncPromise can not be null")
             );
           }),
           (i.updateMsgs = function (t, r, a) {

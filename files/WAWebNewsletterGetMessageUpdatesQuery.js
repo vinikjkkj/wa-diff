@@ -2,12 +2,12 @@ __d(
   "WAWebNewsletterGetMessageUpdatesQuery",
   [
     "Promise",
-    "WANullthrows",
     "WASmaxNewslettersGetNewsletterMessageUpdatesRPC",
     "WATimeUtils",
     "WAWebBackendErrors",
     "WAWebNewsletterRpcUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -125,7 +125,7 @@ __d(
         ? { messageUpdatesAfterMixin: { messageUpdatesAfter: e.after } }
         : {
             messageUpdatesBeforeMixin: {
-              messageUpdatesBefore: r("WANullthrows")(e.before),
+              messageUpdatesBefore: r("nullthrows")(e.before),
             },
           };
     }

@@ -1,13 +1,13 @@
 __d(
   "WebBloksQPLUtils",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WebBloksUtils"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
       var r = n != null ? n : void 0;
-      return { i: e, m: r, r: t };
+      return o("WebBloksUtils").cast({ i: e, m: r, r: t });
     }
-    i.createSyntheticQPLEvent = e;
+    l.createSyntheticQPLEvent = e;
   },
-  66,
+  98,
 );

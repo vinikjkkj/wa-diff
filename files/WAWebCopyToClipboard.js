@@ -3,21 +3,21 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebMiscErrors",
     "WAWebUA",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
       try {
-        r("WANullthrows")(window.getSelection()).removeAllRanges();
+        r("nullthrows")(window.getSelection()).removeAllRanges();
         var t = document.createRange();
-        (t.selectNode(e), r("WANullthrows")(window.getSelection()).addRange(t));
+        (t.selectNode(e), r("nullthrows")(window.getSelection()).addRange(t));
         var n = document.execCommand("copy");
-        return (r("WANullthrows")(window.getSelection()).removeAllRanges(), n);
+        return (r("nullthrows")(window.getSelection()).removeAllRanges(), n);
       } catch (e) {
         return !1;
       }
