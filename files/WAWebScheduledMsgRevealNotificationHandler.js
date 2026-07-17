@@ -581,32 +581,33 @@ __d(
         l = e.text,
         s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         u = e.type === "group" ? e.senderWid : null,
-        c = new (r("WAWebMsgKey"))({
+        c = a.includes("_") ? r("WAWebMsgKey").fromString(a).id : a,
+        d = new (r("WAWebMsgKey"))({
           fromMe: !1,
           remote: t,
-          id: a,
+          id: c,
           participant: u != null ? u : void 0,
         }),
-        d = o(
+        m = o(
           "WAWebExtractEphemeralFieldsFromScheduledMsg",
         ).extractEphemeralFieldsFromScheduledMsg(n, t),
-        m = o(
+        p = o(
           "WAWebExtractMentionFieldsFromScheduledMsg",
         ).extractMentionFieldsFromScheduledMsg(n),
-        p = o(
+        _ = o(
           "WAWebExtractQuoteFieldsFromScheduledMsg",
-        ).extractQuoteFieldsFromScheduledMsg(n, c),
-        _ = babelHelpers.extends(
+        ).extractQuoteFieldsFromScheduledMsg(n, d),
+        f = babelHelpers.extends(
           {
-            id: c,
+            id: d,
             from: t,
             to: s,
             author: u != null ? u : void 0,
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
           },
-          d,
           m,
           p,
+          _,
           {
             t: i,
             scheduledTimestampS: i,
@@ -616,22 +617,22 @@ __d(
             invis: !1,
           },
         ),
-        f = o(
+        g = o(
           "WAWebExtractImageFieldsFromScheduledMsg",
         ).extractImageFieldsFromScheduledMsg(n);
-      if (f != null) return babelHelpers.extends({}, _, f);
-      var g = o(
+      if (g != null) return babelHelpers.extends({}, f, g);
+      var h = o(
         "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
       ).extractLinkPreviewFieldsFromScheduledMsg(n);
       return babelHelpers.extends(
         {},
-        _,
+        f,
         {
           type: o("WAWebMsgType").MSG_TYPE.CHAT,
           kind: o("WAWebMsgType").MsgKind.Chat,
           body: l,
         },
-        g,
+        h,
       );
     }
     function ne(e, t) {

@@ -2,7 +2,7 @@ __d(
   "WAWebScheduledMsgUnscheduleHandler",
   [
     "WALogger",
-    "WAWebDBStoreRevokeMsgs",
+    "WAWebDBProcessRevokeMsgs",
     "WAWebScheduledMsgRevealKeyStore",
     "asyncToGeneratorRuntime",
   ],
@@ -57,7 +57,7 @@ __d(
             d = n.revokeTimestamp,
             m = n.sender;
           m != null &&
-            (yield o("WAWebDBStoreRevokeMsgs").processRevokeMsgs([
+            (yield o("WAWebDBProcessRevokeMsgs").processRevokeMsgs([
               {
                 revokeMsgKey: t,
                 newMsgKey: c,

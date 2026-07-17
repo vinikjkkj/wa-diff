@@ -2,6 +2,7 @@ __d(
   "WAWebGalaxyFlowsData",
   [
     "Promise",
+    "WAWebDBUpdateMessageTable",
     "WAWebGalaxyFlowQPLLoggerUtils",
     "WAWebGalaxyFlowsDrawerGetFlowDataQuery",
     "WAWebGalaxyFlowsDrawerUtils",
@@ -22,33 +23,29 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l) {
             try {
-              var s, u, c;
+              var s, u, d;
               if (t.flowJSON != null || (l != null && l.aborted)) return t;
-              var d = a.unsafe(),
-                m =
-                  d.galaxyFlowWAMMessageId == null ||
-                  d.galaxyFlowQPLMessageId == null,
-                p = m
-                  ? yield o("WAWebGalaxyFlowsUtils").computeMessageIds(d.id)
+              var m = a.unsafe(),
+                p =
+                  m.galaxyFlowWAMMessageId == null ||
+                  m.galaxyFlowQPLMessageId == null,
+                _ = p
+                  ? yield o("WAWebGalaxyFlowsUtils").computeMessageIds(m.id)
                   : null;
-              p &&
-                d.updateGalaxyFlowMsgLoggingIds(
-                  p.flowWAMMessageId,
-                  p.flowQPLMessageId,
-                );
-              var _ =
-                d.galaxyFlowQPLMessageId != null
-                  ? d.galaxyFlowQPLMessageId
-                  : p == null
+              _ && c(m, _.flowWAMMessageId, _.flowQPLMessageId);
+              var f =
+                m.galaxyFlowQPLMessageId != null
+                  ? m.galaxyFlowQPLMessageId
+                  : _ == null
                     ? void 0
-                    : p.flowQPLMessageId;
-              if (_ != null) {
-                var f = o("WAWebGalaxyFlowsSessionsCache").createFlowSession(
-                  d.id.id.toString(),
-                  _,
+                    : _.flowQPLMessageId;
+              if (f != null) {
+                var g = o("WAWebGalaxyFlowsSessionsCache").createFlowSession(
+                  m.id.id.toString(),
+                  f,
                 );
-                ((t.flowQPLSessionId = "qpl_" + f),
-                  (t.flowWAMSessionId = "wam_" + f));
+                ((t.flowQPLSessionId = "qpl_" + g),
+                  (t.flowWAMSessionId = "wam_" + g));
               }
               (o(
                 "WAWebGalaxyFlowQPLLoggerUtils",
@@ -61,49 +58,49 @@ __d(
                   o("WAWebGalaxyFlowQPLLoggerUtils")
                     .WaeScreenNavigationQPLPoints.FETCHING_FLOW_DATA_START,
                 ));
-              var g =
+              var h =
                   o(
                     "WAWebGalaxyFlowsMetadataUtils",
                   ).skipIfStaleMedatadataOrNullDataApiVersion(t) ||
                   !!t.isResponseFlow,
-                h = yield (e || (e = n("Promise"))).all([
+                y = yield (e || (e = n("Promise"))).all([
                   o("WAWebGalaxyFlowsUtils").fetchFlowJSON(t.flowId, l),
-                  g
+                  h
                     ? (e || (e = n("Promise"))).resolve(null)
                     : r("WAWebGalaxyFlowsDrawerGetFlowDataQuery")(t, a, i, l),
                 ]),
-                y = h[0],
-                C = h[1];
+                C = y[0],
+                b = y[1];
               return (
                 o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationPoint(
                   o("WAWebGalaxyFlowQPLLoggerUtils")
                     .WaeScreenNavigationQPLPoints.FETCHING_FLOW_DATA_END,
                 ),
                 babelHelpers.extends({}, t, {
-                  flowJSON: y,
+                  flowJSON: C,
                   flowWAMMessageId:
-                    (s = p == null ? void 0 : p.flowWAMMessageId) != null
+                    (s = _ == null ? void 0 : _.flowWAMMessageId) != null
                       ? s
-                      : d.galaxyFlowWAMMessageId,
+                      : m.galaxyFlowWAMMessageId,
                   flowQPLMessageId:
-                    (u = p == null ? void 0 : p.flowQPLMessageId) != null
+                    (u = _ == null ? void 0 : _.flowQPLMessageId) != null
                       ? u
-                      : d.galaxyFlowQPLMessageId,
-                  hsmTag: d.hsmTag,
+                      : m.galaxyFlowQPLMessageId,
+                  hsmTag: m.hsmTag,
                   categories:
-                    (c = o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
+                    (d = o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
                       t.flowId,
                       t.flowFetchedMetadata,
                     )) == null
                       ? void 0
-                      : c.categories,
+                      : d.categories,
                   flowEntryPoint: o("WAWebWamEnumFlowEntryPoint")
                     .FLOW_ENTRY_POINT.MESSAGE_CTA,
                   mode: String(
-                    o("WAWebGalaxyFlowsDrawerUtils").getFlowStatus(t, C),
+                    o("WAWebGalaxyFlowsDrawerUtils").getFlowStatus(t, b),
                   ),
-                  isTemplate: d.templateId != null ? 1 : 0,
-                  flowFetchedMetadata: C,
+                  isTemplate: m.templateId != null ? 1 : 0,
+                  flowFetchedMetadata: b,
                 })
               );
             } catch (e) {
@@ -118,7 +115,7 @@ __d(
                   },
                 });
               else {
-                var b = o(
+                var v = o(
                   "WAWebGalaxyFlowsError",
                 ).WaeGalaxyFlowMetadataErrors.cast(
                   e instanceof o("WAWebGalaxyFlowsError").WaeGalaxyFlowError
@@ -127,7 +124,7 @@ __d(
                 );
                 e: {
                   if (
-                    b ===
+                    v ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                       .SANCTIONED
                   ) {
@@ -138,7 +135,7 @@ __d(
                     break e;
                   }
                   if (
-                    b ===
+                    v ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                       .METADATA_EMPTY_RESPONSE
                   ) {
@@ -146,7 +143,7 @@ __d(
                     break e;
                   }
                   if (
-                    b ===
+                    v ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                       .METADATA_INVALID_EXTENSIONS_ID
                   ) {
@@ -154,7 +151,7 @@ __d(
                     break e;
                   }
                   if (
-                    b ===
+                    v ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                       .METADATA_INVALID_PUBLIC_KEY
                   ) {
@@ -162,7 +159,7 @@ __d(
                     break e;
                   }
                   if (
-                    b ===
+                    v ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                       .PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION
                   ) {
@@ -177,7 +174,7 @@ __d(
                     break e;
                   }
                   if (
-                    b ===
+                    v ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                       .MISSING_IDENTITY_KEY
                   ) {
@@ -192,7 +189,7 @@ __d(
                     break e;
                   }
                   if (
-                    b ===
+                    v ===
                     o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                       .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR
                   ) {
@@ -207,20 +204,20 @@ __d(
                     break e;
                   }
                   {
-                    var v;
-                    ((v = o(
+                    var S;
+                    ((S = o(
                       "WAWebGalaxyFlowQPLLoggerUtils",
                     )).qplWaeMetadataAnnotate({
                       string: {
                         error_type:
-                          v.WaeMetadataQPLErrorTypes
+                          S.WaeMetadataQPLErrorTypes
                             .EXTENSIONS_METADATA_RESPONSE_ERROR,
                       },
                     }),
-                      v.qplWaeMetadataAnnotate({
+                      S.qplWaeMetadataAnnotate({
                         bool: { endpoint_public_key_received: !1 },
                       }),
-                      v.qplWaeMetadataEnd(3));
+                      S.qplWaeMetadataEnd(3));
                     break e;
                   }
                 }
@@ -229,7 +226,7 @@ __d(
                 ).qplWaeScreenNavigationAnnotate({
                   string: {
                     error_type:
-                      b ===
+                      v ===
                       o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                         .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR
                         ? o("WAWebGalaxyFlowQPLLoggerUtils")
@@ -249,6 +246,16 @@ __d(
           },
         )),
         u.apply(this, arguments)
+      );
+    }
+    function c(e, t, n) {
+      return (
+        (e.galaxyFlowWAMMessageId = t),
+        (e.galaxyFlowQPLMessageId = n),
+        o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+          galaxyFlowWAMMessageId: t,
+          galaxyFlowQPLMessageId: n,
+        })
       );
     }
     l.default = s;

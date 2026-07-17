@@ -2,7 +2,6 @@ __d(
   "WAWebAssociationProtoUtils",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebApiContact",
     "WAWebAssociationProcessor",
     "WAWebE2EProtoUtils",
@@ -18,6 +17,7 @@ __d(
     "WAWebWidFactory",
     "err",
     "justknobx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -118,7 +118,7 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
       return {
-        associationParentMsgKey: r("WANullthrows")(
+        associationParentMsgKey: r("nullthrows")(
           a,
           "associationParentMsgKey can't be null",
         ),

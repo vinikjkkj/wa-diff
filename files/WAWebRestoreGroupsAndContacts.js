@@ -3,13 +3,13 @@ __d(
   [
     "Promise",
     "TaskSchedulerPriority",
-    "WACommonTaskScheduler",
     "WALogger",
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebApiHydrateWidsUtil",
     "WAWebBackendApi",
     "WAWebChatCollection",
+    "WAWebCommonTaskScheduler",
     "WAWebContactCollection",
     "WAWebDBOutContactDatabaseApi",
     "WAWebGroupMetadataCollection",
@@ -292,7 +292,7 @@ __d(
             for (var t of e)
               (o("WAWebApiHydrateWidsUtil").hydrateWids(t),
                 r("WAWebGroupMetadataCollection").add(t, { merge: !0 }),
-                yield r("WACommonTaskScheduler").yield(
+                yield r("WAWebCommonTaskScheduler").yield(
                   o("TaskSchedulerPriority").HIGH_PRIORITY,
                 ));
             return;
@@ -326,7 +326,7 @@ __d(
                   silent: !0,
                   merge: !0,
                 }),
-                yield r("WACommonTaskScheduler").yield(
+                yield r("WAWebCommonTaskScheduler").yield(
                   o("TaskSchedulerPriority").HIGH_PRIORITY,
                 ));
             return;

@@ -6,6 +6,7 @@ __d(
     "WebBloksAnchorTagExtensionHandler",
     "WebBloksAutomationTestExtensionHandler",
     "WebBloksBKSTextInputFormatterHandler",
+    "WebBloksCssAnimationExtensionHandler",
     "WebBloksGestureExtensionHandler",
     "WebBloksHoverExtensionHandler",
     "WebBloksOnDataChangeExtensionHandler",
@@ -45,6 +46,9 @@ __d(
       ),
       "bk.components.ViewTransformsExtension": r(
         "WebBloksViewTransformExtensionHandler",
+      ),
+      "bk.components.WebCssAnimationExtension": r(
+        "WebBloksCssAnimationExtensionHandler",
       ),
       "bk.components.FoaTouchExtension": r("WebBloksTouchExtensionHandler"),
       "bk.components.FoaGestureExtension": r("WebBloksGestureExtensionHandler"),

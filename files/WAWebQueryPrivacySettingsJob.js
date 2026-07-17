@@ -112,8 +112,15 @@ __d(
               t.defenseMode = m;
               break e;
             }
+            if (n === "pix") {
+              var _ = e.attrEnum(
+                "value",
+                o("WAWebPrivacySettings").VISIBILITY_WITH_ERROR,
+              );
+              _ !== "error" ? (t.pix = _) : p("pix", e);
+              break e;
+            }
             if (
-              n === "pix" ||
               n === "linked_profiles" ||
               n === "stickers" ||
               n === "dependentaccountmessages" ||

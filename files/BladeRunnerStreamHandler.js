@@ -9,9 +9,9 @@ __d(
       function e(e, t, n, r, o, a) {
         ((this.$1 = e),
           (this.$2 = t),
-          (this.$3 = n || function (e) {}),
-          (this.$4 = r || function (e) {}),
-          (this.$5 = o || function (e) {}),
+          (this.$3 = n || function () {}),
+          (this.$4 = r || function () {}),
+          (this.$5 = o || function () {}),
           (this.$6 = a));
       }
       var t = e.prototype;

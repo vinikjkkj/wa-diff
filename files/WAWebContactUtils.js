@@ -76,21 +76,21 @@ __d(
           };
         }
         var f = e.shortName,
-          h = e.name.replace(f, "").trim();
-        if (r("isStringNullOrEmpty")(f) && !r("isStringNullOrEmpty")(h)) {
-          var y = h.split(" "),
+          g = e.name.replace(f, "").trim();
+        if (r("isStringNullOrEmpty")(f) && !r("isStringNullOrEmpty")(g)) {
+          var y = g.split(" "),
             C = y[0],
             b = babelHelpers.arrayLikeToArray(y).slice(1);
-          ((f = C), (h = b.join(" ")));
+          ((f = C), (g = b.join(" ")));
         }
         var v = o("WAWebFrontendContactGetters").getIsUsernameContact(e);
         return {
           lid: n,
           phoneNumber: v ? null : a,
           firstName: f,
-          lastName: h,
+          lastName: g,
           isExistingContact: l,
-          syncToAddressbook: g(e),
+          syncToAddressbook: h(e),
           username: i,
         };
       }
@@ -181,6 +181,13 @@ __d(
       return n;
     }
     function g(e) {
+      (e.name &&
+        (e.set("name", void 0),
+        e.set("shortName", void 0),
+        e.set("type", "out")),
+        e.set("isUsernameContact", !1));
+    }
+    function h(e) {
       var t;
       return o("WAWebContactManagementGating").contactManagementEnabled()
         ? (t = e.syncToAddressbook) != null
@@ -194,7 +201,8 @@ __d(
       (l.canSaveAsMyContact = m),
       (l.shouldShowNativeContactsNux = p),
       (l.getContactDataFromVcard = _),
-      (l.mergeSortedContacts = f));
+      (l.mergeSortedContacts = f),
+      (l.setContactNotMine = g));
   },
   98,
 );

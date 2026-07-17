@@ -11,7 +11,7 @@ __d(
     "WAWebEphemeralityUtils",
     "WAWebGroupApiConst",
     "WAWebGroupHistoryGating",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
     "WAWebGroupsQueryApi",
@@ -103,9 +103,7 @@ __d(
             username: t.maybeAttrString("username"),
             joinTime: r ? t.maybeAttrTime("join_time") : void 0,
             groupHistorySentState: r
-              ? o(
-                  "WAWebGroupHistoryPostJoinTypes.flow",
-                ).parseGroupHistorySentState(
+              ? o("WAWebGroupHistoryPostJoinTypes").parseGroupHistorySentState(
                   t.maybeAttrString("group_history_sent_state"),
                 )
               : void 0,

@@ -1480,10 +1480,11 @@ __d(
             s = n.preprocess;
           return {
             $generateNodesFromDOM: function $generateNodesFromDOM(n, i) {
-              var c = i && i.context ? a(i.context, r) : r,
-                l = void 0 !== c && c !== r ? c : Object.create(r || null),
-                u = new _Ie(l),
-                f = { session: u };
+              var c = l(E, e) || r,
+                u = i && i.context ? a(i.context, c) : c,
+                f = void 0 !== u && u !== c ? u : Object.create(c || null),
+                d = new _Ie(f),
+                h = { session: d };
               return (
                 (function (e, t, n) {
                   var o = e.length - 1;
@@ -1491,10 +1492,10 @@ __d(
                     for (; o >= 0; ) return void (0, e[o--])(t, n, _r10);
                   };
                   _r10();
-                })(i && i.preprocess ? [].concat(s, i.preprocess) : s, n, f),
+                })(i && i.preprocess ? [].concat(s, i.preprocess) : s, n, h),
                 p(
                   E,
-                  l,
+                  f,
                   function () {
                     return (function (e, n, o, r) {
                       return it(
@@ -1509,7 +1510,7 @@ __d(
                         require("Lexical").isDOMDocumentNode(o) ? o.body : o,
                         { schema: Ae },
                       );
-                    })(o, e, n, u);
+                    })(o, e, n, d);
                   },
                   e,
                 )

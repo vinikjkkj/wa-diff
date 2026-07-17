@@ -2,9 +2,9 @@ __d(
   "WAWebVoipOperationQueue",
   [
     "Promise",
-    "WACommonTaskScheduler",
     "WALogger",
     "WAWebABProps",
+    "WAWebCommonTaskScheduler",
     "WAWebReleaseToEventLoop",
     "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
@@ -128,7 +128,7 @@ __d(
                         f != null && self.clearTimeout(f);
                       }
                       a
-                        ? yield r("WACommonTaskScheduler").yield()
+                        ? yield r("WAWebCommonTaskScheduler").yield()
                         : o(
                             "WAWebVoipPerfOptimizations",
                           ).isPerfOptimizationEnabled(

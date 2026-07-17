@@ -6,16 +6,21 @@ __d(
     "WAWebAck",
     "WAWebAnimatedEmojiGatingUtils",
     "WAWebBackendErrors",
+    "WAWebBusinessProfileTypes",
+    "WAWebChatCommunityUtils",
+    "WAWebChatContactUtils",
     "WAWebChatEphemerality",
     "WAWebChatMsgsCollection",
     "WAWebChatPreferenceCollection",
     "WAWebCommonMsgUtils",
+    "WAWebConnModel",
     "WAWebConstantsDeprecated",
     "WAWebEmoji",
     "WAWebEmojiConst",
     "WAWebFileUtils",
     "WAWebFindChatAction",
     "WAWebForwardDocCaptionGating",
+    "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGetPlainTextFromBotMsg",
     "WAWebGroupMetadataCollection",
@@ -30,9 +35,14 @@ __d(
     "WAWebMsgType",
     "WAWebMuteCollection",
     "WAWebProtobufsE2E.pb",
+    "WAWebUserPrefsMeUser",
+    "WAWebUsernameGatingUtils",
     "WAWebViewMode.flow",
     "WAWebWid",
+    "WAWebWidFormat",
     "WAWebWidJsonReviver",
+    "fbs",
+    "isStringNullOrEmpty",
     "promiseDone",
   ],
   function (t, n, r, o, a, i, l) {
@@ -498,6 +508,67 @@ __d(
           );
       }
     }
+    function V(e, t) {
+      var n;
+      t === void 0 && (t = {});
+      var a = t,
+        i = a.newPushNameFormatting,
+        l = i === void 0 ? !1 : i,
+        s = a.showShortName,
+        u = s === void 0 ? !1 : s,
+        c = a.showVerifiedName,
+        d = c === void 0 ? !1 : c,
+        m = a.withPushName,
+        p = m === void 0 ? !1 : m,
+        _ = a.withPushNameOnly,
+        f = _ === void 0 ? !1 : _;
+      if (!o("WAWebMsgGetters").getSender(e)) return "";
+      if (
+        o("WAWebUserPrefsMeUser").isMeAccount(o("WAWebMsgGetters").getSender(e))
+      )
+        return r("fbs")._(/*BTDS*/ "You").toString();
+      if (o("WAWebMsgGetters").getIsPSA(e))
+        return o("WAWebConnModel").Conn.isSMB
+          ? r("fbs")._(/*BTDS*/ "WhatsApp Business").toString()
+          : r("fbs")._(/*BTDS*/ "WhatsApp").toString();
+      if (e.senderObj == null) return "";
+      var g = e.senderObj,
+        h = u ? g.shortName : void 0;
+      if (r("isStringNullOrEmpty")(h)) {
+        if (g.name) return g.name;
+      } else return h;
+      if (
+        d &&
+        g.verifiedLevel ===
+          o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
+        g.verifiedName
+      )
+        return g.verifiedName;
+      if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
+        var y = o("WAWebFrontendContactGetters").getFormattedUsernameAndType(g);
+        if (y != null) return y.displayName;
+      }
+      var C = l
+          ? o("WAWebChatContactUtils")
+              .getFormattedNotifyName(e.notifyName)
+              .toString()
+          : "~" + e.notifyName,
+        b = p && e.notifyName ? C : "";
+      if (f && b) return b;
+      var v =
+        (n = o("WAWebMsgGetters").getSender(e)) != null && n.isLid()
+          ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(g)
+          : o("WAWebWidFormat").widToFormattedUser(
+              o("WAWebMsgGetters").getSender(e),
+            );
+      return (
+        o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
+          o("WAWebFrontendMsgGetters").getChat(e),
+          g,
+        ) && (v = o("WAWebFrontendContactGetters").getMaskedPhoneLid(g)),
+        "" + v + (b ? " " : "") + b
+      );
+    }
     ((l.typeIsMms = g),
       (l.typeIsUrl = h),
       (l.notRefiningTypeIsUrl = y),
@@ -518,7 +589,8 @@ __d(
       (l.getMsgForwardingScoreWhenForwarded = B),
       (l.getMsgTimeUntilExpiration = W),
       (l.shouldShowMsgNotificationPreview = q),
-      (l.hideParentMessageInChat = U));
+      (l.hideParentMessageInChat = U),
+      (l.getMsgDisplayName = V));
   },
-  98,
+  226,
 );

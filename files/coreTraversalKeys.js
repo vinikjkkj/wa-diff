@@ -200,6 +200,9 @@ __d(
           subnodes: ["drop_shadow_color"],
           plural_subnodes: ["child_templates"],
         },
+        "bk.components.WebCssAnimationExtension": {
+          plural_subnodes: ["keyframes", "child_templates"],
+        },
         "bk.components.Zoomable": {
           subnodes: ["_style", "content", "config"],
           plural_subnodes: ["extensions", "child_templates"],

@@ -46,6 +46,11 @@ __d(
               .ProfilePicture
           )
             n = "profile";
+          else if (
+            t ===
+            o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType.Pix
+          )
+            n = "pix";
           else
             throw (
               o("WALogger").ERROR(

@@ -8,7 +8,6 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebAdvSignatureApi",
-    "WAWebBackendApi",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
     "WAWebCommsAckParser",
@@ -21,6 +20,7 @@ __d(
     "WAWebSignal",
     "WAWebSignalProtocolStore",
     "WAWebVoipGatingUtils",
+    "WAWebVoipPeerTcToken",
     "WAWebVoipStackInterface",
     "WAWebVoipWapNodeUtils",
     "WAWebWidFactory",
@@ -130,12 +130,10 @@ __d(
             P = Date.now(),
             N = o("WAWebVoipWapNodeUtils").toVoipParsableWapNode($),
             M = yield (C || (C = n("Promise"))).all([
-              o("WAWebBackendApi").frontendSendAndReceive("getTcToken", {
-                wid: _,
-              }),
+              o("WAWebVoipPeerTcToken").fetchPeerTcToken(_),
               o("WAWebVoipStackInterface").getVoipStackInterface(),
             ]),
-            w = M[0].tcToken,
+            w = M[0],
             A = M[1];
           (m.tag === "offer" &&
             o("WAWebVoipGatingUtils").markCurrentCallAsFna(

@@ -3,12 +3,12 @@ __d(
   [
     "Promise",
     "WAArrayBuffersConcat",
-    "WACommonTaskScheduler",
     "WACryptoAesCbc",
     "WALogger",
     "WAPromiseProps",
     "WATypedArraysConcat",
     "WAWebABProps",
+    "WAWebCommonTaskScheduler",
     "WAWebCryptoCalculateFirstFrameSidecar",
     "WAWebCryptoCalculateStreamingSidecar",
     "WAWebCryptoCreateMediaKeys",
@@ -88,7 +88,7 @@ __d(
                       "wmi_worker_scheduler_web",
                     )
                       ? function () {
-                          return r("WACommonTaskScheduler").yield();
+                          return r("WAWebCommonTaskScheduler").yield();
                         }
                       : void 0,
                   })

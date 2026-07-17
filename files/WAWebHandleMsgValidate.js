@@ -12,7 +12,7 @@ __d(
     "WAWebBroadcastInvalidChannelsContextSourceMessageDropWamEvent",
     "WAWebE2EProtoUtils",
     "WAWebGetMessageCache",
-    "WAWebHandleMessageTypes.flow",
+    "WAWebHandleMessageTypes",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgError",
     "WAWebHandleMsgMetaUtils",
@@ -358,7 +358,7 @@ __d(
           "[messaging] Biz node validation failed due to absence of biz node in SMAX",
         );
       var s = l[0];
-      if (s != null) {
+      if (s != null && s.type !== o("WAWebMsgType").MSG_TYPE.QUARANTINED) {
         if (
           o("WAWebHandleMsgMetaUtils").isReactionMsgMeta(a) &&
           s.type !== o("WAWebMsgType").MSG_TYPE.REACTION &&
@@ -613,8 +613,8 @@ __d(
                     .getMessageCache()
                     .addAdditionalInfo(
                       {
-                        type: o("WAWebHandleMessageTypes.flow")
-                          .MsgAdditionalInfoType.ReportingInfo,
+                        type: o("WAWebHandleMessageTypes").MsgAdditionalInfoType
+                          .ReportingInfo,
                         data: babelHelpers.extends({}, g),
                       },
                       f != null,
@@ -660,8 +660,8 @@ __d(
                     .getMessageCache()
                     .addAdditionalInfo(
                       {
-                        type: o("WAWebHandleMessageTypes.flow")
-                          .MsgAdditionalInfoType.ReportingInfo,
+                        type: o("WAWebHandleMessageTypes").MsgAdditionalInfoType
+                          .ReportingInfo,
                         data: babelHelpers.extends({}, g, v),
                       },
                       f != null || i === !0,

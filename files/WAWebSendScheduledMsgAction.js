@@ -1,8 +1,10 @@
 __d(
   "WAWebSendScheduledMsgAction",
   [
+    "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
+    "WAWebAttachMediaModel",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactSystemMsg",
     "WAWebDBProcessMessage",
@@ -30,13 +32,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n, r, o) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d, m, p, _;
+    function f(e, t, n, r, o) {
+      return g.apply(this, arguments);
     }
-    function m() {
+    function g() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l, c) {
             if (
               (l === void 0 && (l = {}),
@@ -65,7 +67,7 @@ __d(
                 ).showScheduledMsgLimitReachedDialog();
                 return;
               }
-              var _ = babelHelpers.extends({}, m, {
+              var p = babelHelpers.extends({}, m, {
                 isScheduledMsg: !0,
                 scheduledTimestampS: i,
                 viewMode:
@@ -81,35 +83,35 @@ __d(
                 d.id.toLogString(),
                 String(i),
               );
-              var f = null;
+              var _ = null;
               try {
-                var g;
+                var f;
                 yield o(
                   "WAWebLidMigrationFrontendUtils",
-                ).validateMissingAccountLid(d, _, "addAndSendTextMsg");
-                var h = new (o("WAWebMsgModel").Msg)(_),
-                  y = !!(
-                    (g = d.groupMetadata) != null && g.isLidAddressingMode
+                ).validateMissingAccountLid(d, p, "addAndSendTextMsg");
+                var g = new (o("WAWebMsgModel").Msg)(p),
+                  h = !!(
+                    (f = d.groupMetadata) != null && f.isLidAddressingMode
                   ),
-                  C = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
+                  y = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
                     d.id,
-                    o("WAWebWamMsgUtils").msgIsLid(_, d.id, y),
+                    o("WAWebWamMsgUtils").msgIsLid(p, d.id, h),
                   );
-                ((h.wamMessageSendReporter = new (o(
+                ((g.wamMessageSendReporter = new (o(
                   "WAWebMessageSendReporter",
                 ).MessageSendReporter)(
-                  h,
-                  babelHelpers.extends({}, C, {
+                  g,
+                  babelHelpers.extends({}, y, {
                     frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
                       .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
                   }),
                 )),
-                  (h.wamMessageSendPerfReporter = new (o(
+                  (g.wamMessageSendPerfReporter = new (o(
                     "WAWebMessageSendPerfReporter",
                   ).MessageSendPerfReporter)({
-                    chatWid: h.to,
-                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(h),
-                    messageType: o("WAWebWamMsgUtils").getWamMessageType(h),
+                    chatWid: g.to,
+                    mediaType: o("WAWebWamMsgUtils").getWamMediaType(g),
+                    messageType: o("WAWebWamMsgUtils").getWamMessageType(g),
                   })),
                   yield o("WAWebOrchestratorNonPersistedJob")
                     .createNonPersistedJob(
@@ -117,18 +119,18 @@ __d(
                       n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* () {
                           var e, t;
-                          ((e = h.wamMessageSendPerfReporter) == null ||
+                          ((e = g.wamMessageSendPerfReporter) == null ||
                             e.startSavedStage(),
                             yield o("WAWebDBProcessMessage").storeMessages(
-                              [_],
+                              [p],
                               d.id,
                             ),
-                            (t = h.wamMessageSendPerfReporter) == null ||
+                            (t = g.wamMessageSendPerfReporter) == null ||
                               t.postSavedStage());
                           var n = yield o(
                             "WAWebSendMsgRecordAction",
-                          ).sendMsgRecord(h);
-                          return ((f = n.ackErrorCode), n);
+                          ).sendMsgRecord(g);
+                          return ((_ = n.ackErrorCode), n);
                         },
                       ),
                       {
@@ -152,19 +154,19 @@ __d(
                 );
               }
               if (
-                (f ===
+                (_ ===
                   o("WAWebScheduledMsgConstants")
                     .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE &&
                   (yield o(
                     "WAWebScheduledMsgRevealKeyStore",
-                  ).updateRevealKeyStatus(_.id.toString(), "FAILED"),
+                  ).updateRevealKeyStatus(p.id.toString(), "FAILED"),
                   o(
                     "WAWebScheduledMsgLimitDialog.react",
                   ).showScheduledMsgLimitReachedDialog()),
                 c)
               )
                 try {
-                  yield p(d);
+                  yield C(d);
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
@@ -179,15 +181,140 @@ __d(
             }
           },
         )),
-        m.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function h(e, t, n, r, o) {
+      return y.apply(this, arguments);
     }
-    function _() {
+    function y() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, a, i, l) {
+            if (
+              (i === void 0 && (i = {}),
+              l === void 0 && (l = !0),
+              !o(
+                "WAWebIsScheduledMessagesAvailableForChat",
+              ).isScheduledMediaAvailableForChat(e))
+            )
+              throw r("err")(
+                "[scheduled_msg] Scheduled media not available for this chat",
+              );
+            if (t.length !== 0) {
+              var s = o("WAWebStateUtils").unproxy(e);
+              if (
+                yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(
+                  o("WAWebWidToJid").widToChatJid(s.id),
+                )
+              ) {
+                o(
+                  "WAWebScheduledMsgLimitDialog.react",
+                ).showScheduledMsgLimitReachedDialog();
+                return;
+              }
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[scheduled_msg] Scheduling ",
+                    " media message(s) for chat ",
+                    " at ",
+                    "",
+                  ])),
+                String(t.length),
+                s.id.toLogString(),
+                String(a),
+              );
+              var u = s.composeQuotedMsg;
+              s.composeQuotedMsg = null;
+              var p = !1,
+                f = [];
+              for (var g of t.entries()) {
+                var h = g[0],
+                  y = g[1],
+                  b = y.media,
+                  v = {
+                    type: b.type,
+                    caption: b.caption,
+                    mentionedJidList: y.mentionedJidList,
+                    groupMentions: y.groupMentions,
+                    addEvenWhilePreparing:
+                      b.previewable &&
+                      b.state ===
+                        o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
+                          .PROCESSING,
+                    quotedMsg: h === 0 ? u : void 0,
+                    isViewOnce: i.isViewOnce,
+                    threadId: i.threadId,
+                    isScheduledMsg: !0,
+                    scheduledTimestampS: a,
+                    viewMode:
+                      o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE,
+                  };
+                try {
+                  var S = yield b.sendToChat({ chat: s, options: v });
+                  if (
+                    S.ackErrorCode ===
+                    o("WAWebScheduledMsgConstants")
+                      .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE
+                  ) {
+                    ((p = !0), S.msg != null && f.push(S.msg.id.toString()));
+                    break;
+                  }
+                } catch (e) {
+                  throw (
+                    o("WALogger")
+                      .ERROR(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[scheduled_msg] Failed to send scheduled media message",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("scheduled-media-send-error"),
+                    e
+                  );
+                }
+              }
+              if (
+                (p &&
+                  (yield (_ || (_ = n("Promise"))).all(
+                    f.map(function (e) {
+                      return o(
+                        "WAWebScheduledMsgRevealKeyStore",
+                      ).updateRevealKeyStatus(e, "FAILED");
+                    }),
+                  ),
+                  o(
+                    "WAWebScheduledMsgLimitDialog.react",
+                  ).showScheduledMsgLimitReachedDialog()),
+                l)
+              )
+                try {
+                  yield C(s);
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "[scheduled_msg] Failed to add scheduled system message",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("scheduled-media-sys-error");
+                }
+            }
+          },
+        )),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebContactSystemMsg").genNotificationMsg(e.id, {
             type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
             kind: o("WAWebMsgType").MsgKind.Notification,
@@ -200,8 +327,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[scheduled_msg] persist ScheduledMessageCreated bubble -",
                   ])),
               )
@@ -211,10 +338,10 @@ __d(
           var n = new (o("WAWebMsgModel").Msg)(t);
           e.msgs.add(n);
         })),
-        _.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.sendScheduledTextMsgToChat = d;
+    ((l.sendScheduledTextMsgToChat = f), (l.sendScheduledMediaMsgToChat = h));
   },
   98,
 );

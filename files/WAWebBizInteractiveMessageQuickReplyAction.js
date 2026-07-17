@@ -1,10 +1,10 @@
 __d(
   "WAWebBizInteractiveMessageQuickReplyAction",
   [
-    "WANullthrows",
     "WAWebCarouselMsgUtils",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -34,10 +34,10 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = d(e.interactivePayload, t),
-            a = r("WANullthrows")(
+            a = r("nullthrows")(
               o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(e),
             ),
-            i = r("WANullthrows")(a.carouselCardsParsed).slice(),
+            i = r("nullthrows")(a.carouselCardsParsed).slice(),
             l = i.findIndex(function (t) {
               return t.id.toString() === e.id.toString();
             });

@@ -42,7 +42,7 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C() {
-      return s._(/*BTDS*/ "This can take a few minutes or up to three hours.");
+      return s._(/*BTDS*/ "This can take a few minutes or up to 3 hours.");
     }
     C.displayName = C.name + " [from " + i.id + "]";
     function b() {

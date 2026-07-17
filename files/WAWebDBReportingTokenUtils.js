@@ -7,7 +7,7 @@ __d(
     "WAStanzaUtils",
     "WATimeUtils",
     "WAWebGetMessageCache",
-    "WAWebHandleMessageTypes.flow",
+    "WAWebHandleMessageTypes",
     "WAWebMessagingGatingUtils",
     "WAWebMsgKey",
     "WAWebReportingTokenConstants",
@@ -182,7 +182,7 @@ __d(
             .getMessageCache()
             .addAdditionalInfo(
               {
-                type: o("WAWebHandleMessageTypes.flow").MsgAdditionalInfoType
+                type: o("WAWebHandleMessageTypes").MsgAdditionalInfoType
                   .ReportingInfo,
                 data: {
                   msgKey: n.toString(),

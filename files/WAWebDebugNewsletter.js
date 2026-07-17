@@ -39,6 +39,7 @@ __d(
     "WAWebNewsletterDBUtils",
     "WAWebNewsletterDirectorySearchAction",
     "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterGetRecommendedNewslettersAction",
     "WAWebNewsletterGetReportsAction",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataModel",
@@ -352,7 +353,7 @@ __d(
       getRecommendedNewsletters: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
-            "WAWebNewsletterDirectorySearchAction",
+            "WAWebNewsletterGetRecommendedNewslettersAction",
           ).getRecommendedNewslettersAction();
           return e;
         });

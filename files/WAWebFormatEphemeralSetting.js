@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WANullthrows",
     "WAWebAfterReadUtils",
     "WAWebChatEphemerality",
     "WAWebContactCollection",
@@ -16,6 +15,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u;
@@ -24,7 +24,7 @@ __d(
         n = b(e),
         a = n.initiatingUser,
         i = n.newDuration,
-        l = o("WAWebUserPrefsMeUser").isMeAccount(r("WANullthrows")(a));
+        l = o("WAWebUserPrefsMeUser").isMeAccount(r("nullthrows")(a));
       if (
         o("WAWebAfterReadUtils").isAfterReadDuration(i) &&
         o("WAWebAfterReadUtils").isAfterReadEnabled()
@@ -32,7 +32,7 @@ __d(
         var s = null;
         if (!l) {
           var u = o("WAWebContactCollection").ContactCollection.gadd(
-            r("WANullthrows")(a),
+            r("nullthrows")(a),
           );
           s = o("WAWebFrontendContactGetters").getFormattedName(u);
         }
@@ -41,7 +41,7 @@ __d(
       if (l) t = o("WAWebEphemeralFbtKic").getDisappearingModeYouStringKic(i);
       else {
         var c = o("WAWebContactCollection").ContactCollection.gadd(
-          r("WANullthrows")(a),
+          r("nullthrows")(a),
         );
         t = o("WAWebEphemeralFbtKic").getDisappearingModeOtherStringKic(
           i,
@@ -112,11 +112,11 @@ __d(
       var t = b(e),
         n = t.initiatingUser,
         a = t.newDuration,
-        i = o("WAWebUserPrefsMeUser").isMeAccount(r("WANullthrows")(n)),
+        i = o("WAWebUserPrefsMeUser").isMeAccount(r("nullthrows")(n)),
         l = null;
       if (!i) {
         var u = o("WAWebContactCollection").ContactCollection.gadd(
-          r("WANullthrows")(n),
+          r("nullthrows")(n),
         );
         l = o("WAWebFrontendContactGetters").getFormattedName(u);
       }

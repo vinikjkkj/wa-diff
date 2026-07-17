@@ -9,7 +9,6 @@ __d(
     "WAMemoizeConcurrent",
     "WAWebABProps",
     "WAWebBaseModel",
-    "WAWebChatPreferenceCollection",
     "WAWebFileUtils",
     "WAWebHDMediaUtils",
     "WAWebMedia",
@@ -255,16 +254,6 @@ __d(
                     )
                     .tags("media")
                     .sendLogs("attach-media-update-quality-null-attachment"));
-          }),
-          (i.setQualityFromPrefs = function () {
-            if (!this.hasSetFromPrefs) {
-              var e =
-                this.hdEligible &&
-                r("WAWebChatPreferenceCollection").getDefault().hdMediaEnabled
-                  ? _.HD
-                  : _.Standard;
-              (this.updateQuality(e), (this.hasSetFromPrefs = !0));
-            }
           }),
           (i.$AttachMediaImpl$p_6 = function (t) {
             return t == null || this.supportedTypes == null

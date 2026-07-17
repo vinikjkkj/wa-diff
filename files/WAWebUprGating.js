@@ -31,9 +31,14 @@ __d(
     }
     function c(t) {
       if (t == null) return null;
-      for (var n of e())
-        if (o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(t, n))
-          return n;
+      var n = e();
+      for (var r of n)
+        if (o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(t, r))
+          return r;
+      if (o("WAWebABProps").getABPropConfigValue("is_internal_tester")) {
+        var a;
+        return (a = n.values().next().value) != null ? a : null;
+      }
       return null;
     }
     ((l.isUprBubbleEnabledForSenderCountry = s),

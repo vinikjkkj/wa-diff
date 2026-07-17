@@ -4,10 +4,10 @@ __d(
     "$InternalEnum",
     "Promise",
     "WALogger",
-    "WANullthrows",
     "bx",
     "err",
     "gkx",
+    "nullthrows",
     "webfontloader",
   ],
   function (t, n, r, o, a, i, l) {
@@ -80,7 +80,7 @@ __d(
           }),
           (a.loadMessageFont = function (n) {
             if (r("gkx")("26256") && !n)
-              return this.load(r("WANullthrows")(m.cast(0)));
+              return this.load(r("nullthrows")(m.cast(0)));
             var t = m.cast(n);
             return t == null
               ? (o("WALogger").WARN(

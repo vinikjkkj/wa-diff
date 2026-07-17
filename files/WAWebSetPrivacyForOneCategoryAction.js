@@ -33,6 +33,8 @@ __d(
           return "callAdd";
         case "messages":
           return "messages";
+        case "pix":
+          return "pix";
       }
     }
     function u(e) {
@@ -53,6 +55,8 @@ __d(
           return "calladd";
         case "messages":
           return "messages";
+        case "pix":
+          return "pix";
       }
     }
     function c(e) {
@@ -69,6 +73,9 @@ __d(
         case "profile":
           return o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
             .ProfilePicture;
+        case "pix":
+          return o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
+            .Pix;
         default:
           throw r("err")("castToPrivacyDisallowedListType: invalid name");
       }

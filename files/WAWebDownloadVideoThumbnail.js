@@ -2,7 +2,6 @@ __d(
   "WAWebDownloadVideoThumbnail",
   [
     "WALogger",
-    "WANullthrows",
     "WAPromiseLoop",
     "WAWebDownloadManager",
     "WAWebImageUtils",
@@ -19,6 +18,7 @@ __d(
     "WAWebURLUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -153,7 +153,7 @@ __d(
                     C = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(
                       r("WAWebURLUtils").parseDataURL(y.url).data,
                     ),
-                    b = r("WANullthrows")(
+                    b = r("nullthrows")(
                       n.mediaObject,
                       "mediaObject cannot be null for thumbnail download",
                     ),

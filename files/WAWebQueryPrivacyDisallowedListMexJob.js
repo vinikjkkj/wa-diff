@@ -23,12 +23,16 @@ __d(
                 o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
                   .ProfilePicture
               ? "PROFILE"
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
+              : e ===
+                  o("WAWebSchemaPrivacyDisallowedList")
+                    .PrivacyDisallowedListType.Pix
+                ? "PIX"
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
     }
     function s(e, t) {
       return u.apply(this, arguments);

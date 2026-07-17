@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebGroupHistoryGating",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
@@ -85,7 +85,7 @@ __d(
                                 ? u
                                 : null,
                             groupHistorySentState: o(
-                              "WAWebGroupHistoryPostJoinTypes.flow",
+                              "WAWebGroupHistoryPostJoinTypes",
                             ).GroupHistorySentState.NOTICE_SENT,
                           });
                         }
@@ -106,7 +106,7 @@ __d(
                 {
                   group: e,
                   receiverIds: t,
-                  state: o("WAWebGroupHistoryPostJoinTypes.flow")
+                  state: o("WAWebGroupHistoryPostJoinTypes")
                     .GroupHistorySentState.NOTICE_SENT,
                 },
               ));

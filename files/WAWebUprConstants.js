@@ -19,6 +19,7 @@ __d(
         QRIS: "qris",
         PHONE_NUMBER: "phone_number",
         ACCOUNT_NUMBER: "account_number",
+        ID_ACCOUNT_NUMBER: "id_account_number",
         EMAIL: "email",
       }),
       d = e({

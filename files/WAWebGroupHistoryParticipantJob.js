@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebGroupHistoryGating",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
@@ -213,10 +213,10 @@ __d(
               var t, a;
               if (
                 e.groupHistorySentState ===
-                  o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                  o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
                     .HISTORY_SENT ||
                 e.groupHistorySentState ===
-                  o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                  o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
                     .NOTICE_SENT
               )
                 return e;
@@ -229,10 +229,10 @@ __d(
                   ? void 0
                   : a.groupHistorySentState;
               return l !==
-                o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
                   .HISTORY_SENT &&
                 l !==
-                  o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+                  o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
                     .NOTICE_SENT
                 ? e
                 : ((r = !0),

@@ -11,23 +11,18 @@ __d(
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
     "WAWebBusinessHSMTypes",
-    "WAWebBusinessProfileTypes",
     "WAWebCarouselCardsCollection",
     "WAWebChangePresenceHandlerAction",
     "WAWebChatCollection",
-    "WAWebChatCommunityUtils",
-    "WAWebChatContactUtils",
     "WAWebChatGetMessage",
     "WAWebChatGetters",
     "WAWebCmd",
     "WAWebCommonMsgUtils",
-    "WAWebConnModel",
     "WAWebContactCollection",
     "WAWebDBUpdateMessageTable",
     "WAWebDebounce",
     "WAWebDirectConnectionGatingUtils",
     "WAWebEventsWaitForBbEvent",
-    "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebMedia",
     "WAWebMediaData",
@@ -52,20 +47,15 @@ __d(
     "WAWebSendMsgRecordAction",
     "WAWebStarredMsgCollection",
     "WAWebSuspendedGroupMediaDownloadFailureModal.react",
-    "WAWebUserPrefsMeUser",
-    "WAWebUsernameGatingUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebViewOnceState",
     "WAWebWamEnumWebcRmrReasonCode",
     "WAWebWid",
     "WAWebWidFactory",
-    "WAWebWidFormat",
     "asyncToGeneratorRuntime",
-    "fbs",
     "getErrorSafe",
     "gkx",
-    "isStringNullOrEmpty",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -1295,71 +1285,6 @@ __d(
               quotedRemoteJid: x,
             };
           }),
-          (i.displayName = function (t) {
-            var e;
-            t === void 0 && (t = {});
-            var n = t,
-              a = n.newPushNameFormatting,
-              i = a === void 0 ? !1 : a,
-              l = n.showShortName,
-              s = l === void 0 ? !1 : l,
-              u = n.showVerifiedName,
-              c = u === void 0 ? !1 : u,
-              d = n.withPushName,
-              m = d === void 0 ? !1 : d,
-              p = n.withPushNameOnly,
-              _ = p === void 0 ? !1 : p;
-            if (!o("WAWebMsgGetters").getSender(this)) return "";
-            if (
-              o("WAWebUserPrefsMeUser").isMeAccount(
-                o("WAWebMsgGetters").getSender(this),
-              )
-            )
-              return r("fbs")._(/*BTDS*/ "You").toString();
-            if (o("WAWebMsgGetters").getIsPSA(this))
-              return o("WAWebConnModel").Conn.isSMB
-                ? r("fbs")._(/*BTDS*/ "WhatsApp Business").toString()
-                : r("fbs")._(/*BTDS*/ "WhatsApp").toString();
-            if (this.senderObj == null) return "";
-            var f = this.senderObj,
-              g = s ? f.shortName : void 0;
-            if (r("isStringNullOrEmpty")(g)) {
-              if (f.name) return f.name;
-            } else return g;
-            if (
-              c &&
-              f.verifiedLevel ===
-                o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
-              f.verifiedName
-            )
-              return f.verifiedName;
-            if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
-              var h = o(
-                "WAWebFrontendContactGetters",
-              ).getFormattedUsernameAndType(f);
-              if (h != null) return h.displayName;
-            }
-            var y = i
-                ? o("WAWebChatContactUtils")
-                    .getFormattedNotifyName(this.notifyName)
-                    .toString()
-                : "~" + this.notifyName,
-              C = m && this.notifyName ? y : "";
-            if (_ && C) return C;
-            var b =
-              (e = o("WAWebMsgGetters").getSender(this)) != null && e.isLid()
-                ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(f)
-                : o("WAWebWidFormat").widToFormattedUser(
-                    o("WAWebMsgGetters").getSender(this),
-                  );
-            return (
-              o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
-                o("WAWebFrontendMsgGetters").getChat(this),
-                f,
-              ) && (b = o("WAWebFrontendContactGetters").getMaskedPhoneLid(f)),
-              "" + b + (C ? " " : "") + C
-            );
-          }),
           (i.mentionMap = function () {
             if (!this.mentionedJidList || !this.mentionedJidList.length)
               return null;
@@ -1433,24 +1358,6 @@ __d(
             }
             return t;
           })()),
-          (i.updateErrorCode = function (t) {
-            return (
-              (this.errorCode = t),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(this.id, {
-                errorCode: t,
-              })
-            );
-          }),
-          (i.updateGalaxyFlowMsgLoggingIds = function (t, n) {
-            return (
-              (this.galaxyFlowWAMMessageId = t),
-              (this.galaxyFlowQPLMessageId = n),
-              o("WAWebDBUpdateMessageTable").updateMessageTable(this.id, {
-                galaxyFlowWAMMessageId: t,
-                galaxyFlowQPLMessageId: n,
-              })
-            );
-          }),
           (i.updateNFMButtonsState = function (t) {
             return o("WAWebDBUpdateMessageTable").updateMessageTable(this.id, {
               galaxyFlowDisabled: t,
@@ -1562,5 +1469,5 @@ __d(
     var b = o("WAWebBaseModel").defineModel(C);
     l.Msg = b;
   },
-  226,
+  98,
 );

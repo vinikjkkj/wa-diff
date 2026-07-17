@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebApiDirectConnectionKeys",
     "WAWebBaseCollection",
     "WAWebBizBusinessProfileAction",
@@ -15,6 +14,7 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -213,7 +213,7 @@ __d(
                     ),
                     null
                   );
-                var g = r("WANullthrows")(
+                var g = r("nullthrows")(
                     yield o("WAWebBusinessDirectUtils").getCypher({
                       cypherType: t,
                       extractedCertificates: _.chain,
@@ -274,7 +274,7 @@ __d(
                     ),
                     null
                   );
-                var d = r("WANullthrows")(
+                var d = r("nullthrows")(
                     yield o("WAWebBusinessDirectUtils").getCypher({
                       cypherType: i,
                       extractedCertificates: u.chain,

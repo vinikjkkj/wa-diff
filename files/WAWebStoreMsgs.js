@@ -24,9 +24,9 @@ __d(
     "WAWebDBProcessPollUpdateMsgs",
     "WAWebDBProcessReactionsMsgs",
     "WAWebDBProcessReplyMsgs",
+    "WAWebDBProcessRevokeMsgs",
     "WAWebDBReplaceUnknownAssociations",
     "WAWebDBStoreMessage",
-    "WAWebDBStoreRevokeMsgs",
     "WAWebDBThreadMetadataBulkHelper",
     "WAWebDeriveViewRepliesThreadIdForIncomingMsgs",
     "WAWebHandleForMessageRange",
@@ -320,7 +320,7 @@ __d(
             });
           }
         }),
-        o("WAWebDBStoreRevokeMsgs")
+        o("WAWebDBProcessRevokeMsgs")
           .processRevokeMsgs(t)
           .then(
             (function () {

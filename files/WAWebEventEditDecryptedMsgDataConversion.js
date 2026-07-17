@@ -2,7 +2,6 @@ __d(
   "WAWebEventEditDecryptedMsgDataConversion",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebE2EProtoUtils",
     "WAWebEventsParseEventCreationMessageProto",
     "WAWebEventsValidationError",
@@ -12,6 +11,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebViewMode.flow",
     "WAWebWamEnumE2eFailureReason",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
@@ -23,7 +23,7 @@ __d(
         c,
         d,
         m,
-        p = r("WANullthrows")(
+        p = r("nullthrows")(
           e.protocolMessage,
           "[Event][Edit] Missing protocol message",
         );
@@ -40,7 +40,7 @@ __d(
             .EDIT_TYPE_AND_PROTOCOL_MISMATCH,
         );
       var _ = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
-        f = r("WANullthrows")(
+        f = r("nullthrows")(
           o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
             p.key,
             _,
@@ -64,11 +64,11 @@ __d(
             .EVENT_EDIT_MISSING_SENDER_TIMESTAMP,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var y = r("WANullthrows")(
+      var y = r("nullthrows")(
           r("WAWebEventsParseEventCreationMessageProto")({
             messageProtobuf: babelHelpers.extends({}, g, {
               messageContextInfo: {
-                messageSecret: r("WANullthrows")(
+                messageSecret: r("nullthrows")(
                   (a = t.messageSecret) != null ? a : n,
                 ).buffer,
                 threadId: [],
@@ -88,7 +88,7 @@ __d(
         ),
         {
           id: t.id,
-          t: Math.floor(r("WANullthrows")(h) / 1e3),
+          t: Math.floor(r("nullthrows")(h) / 1e3),
           type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
           subtype: "event_edit_decrypted",
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
@@ -97,8 +97,8 @@ __d(
           latestEditMsgKey: t.id,
           protocolMessageKey: f,
           editMsgType: o("WAWebMsgType").MSG_TYPE.EVENT_CREATION,
-          eventName: r("WANullthrows")(C == null ? void 0 : C.eventName),
-          eventStartTime: r("WANullthrows")(
+          eventName: r("nullthrows")(C == null ? void 0 : C.eventName),
+          eventStartTime: r("nullthrows")(
             C == null ? void 0 : C.eventStartTime,
           ),
           isEventCanceled:

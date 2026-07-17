@@ -33,17 +33,24 @@ __d(
         toTopDistance: e.bottom - t.top,
       };
     }
-    function _(e, t, n, r, o, a, i) {
-      var l = window.innerWidth,
-        s = window.innerHeight,
-        u = n + e,
-        c = r + t,
-        d = o / a,
-        m = i.x,
-        p = l - o - i.x,
-        _ = i.y,
-        f = s - d - i.y;
-      return _ > c || c > f || m > u || u > p;
+    function _(e) {
+      var t = e.aspectRatio,
+        n = e.bottom,
+        r = e.deltaBottom,
+        o = e.deltaLeft,
+        a = e.left,
+        i = e.margin,
+        l = e.width,
+        s = window.innerWidth,
+        u = window.innerHeight,
+        c = a + o,
+        d = n + r,
+        m = l / t,
+        p = i.x,
+        _ = s - l - i.x,
+        f = i.y,
+        g = u - m - i.y;
+      return f > d || d > g || p > c || c > _;
     }
     function f(t) {
       var n = t.aspectRatio,
@@ -55,16 +62,48 @@ __d(
         s,
         u;
       return (
-        _(-o.toLeftDistance, 0, a, r, l, n, i) ||
+        _({
+          aspectRatio: n,
+          bottom: r,
+          deltaBottom: 0,
+          deltaLeft: -o.toLeftDistance,
+          left: a,
+          margin: i,
+          width: l,
+        }) ||
           ((s === void 0 || o.toLeftDistance < s) &&
             ((s = o.toLeftDistance), (u = e.LEFT))),
-        _(0, -o.toBottomDistance, a, r, l, n, i) ||
+        _({
+          aspectRatio: n,
+          bottom: r,
+          deltaBottom: -o.toBottomDistance,
+          deltaLeft: 0,
+          left: a,
+          margin: i,
+          width: l,
+        }) ||
           ((s === void 0 || o.toBottomDistance < s) &&
             ((s = o.toBottomDistance), (u = e.BOTTOM))),
-        _(o.toRightDistance, 0, a, r, l, n, i) ||
+        _({
+          aspectRatio: n,
+          bottom: r,
+          deltaBottom: 0,
+          deltaLeft: o.toRightDistance,
+          left: a,
+          margin: i,
+          width: l,
+        }) ||
           ((s === void 0 || o.toRightDistance < s) &&
             ((s = o.toRightDistance), (u = e.RIGHT))),
-        _(0, o.toTopDistance, a, r, l, n, i) ||
+        _({
+          aspectRatio: n,
+          bottom: r,
+          deltaBottom: o.toTopDistance,
+          deltaLeft: 0,
+          left: a,
+          margin: i,
+          width: l,
+        }) ||
           ((s === void 0 || o.toTopDistance < s) &&
             ((s = o.toTopDistance), (u = e.TOP))),
         { direction: u, distance: s }

@@ -2,7 +2,6 @@ __d(
   "WAWebSocketModel",
   [
     "Promise",
-    "WAComms",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebABPropsCache",
@@ -17,37 +16,29 @@ __d(
     "WAWebDeleteAllCacheStorage",
     "WAWebEnvironment",
     "WAWebFeatureDetectionDetermineIncognito",
-    "WAWebFtsClient",
-    "WAWebFtsStorage",
     "WAWebGroupABPropsCache",
     "WAWebInvocationInterface",
-    "WAWebJobsStorage",
     "WAWebLocalStorage",
     "WAWebLogStorageSizeForCrash",
     "WAWebLogoutReasonConstants",
-    "WAWebLruMediaStorageUtils",
     "WAWebMediaStore",
     "WAWebMiscErrors",
-    "WAWebModelStorage",
     "WAWebNetworkStatus",
-    "WAWebOffdStorage",
-    "WAWebQplStorage",
     "WAWebReleaseToEventLoop",
     "WAWebReloadAfterLogout",
     "WAWebSentinel",
     "WAWebSocketConstants",
+    "WAWebSocketLogoutStorageUtils",
+    "WAWebSocketLogoutUtils",
     "WAWebSubscribePushManagerAction",
     "WAWebSyncBootstrap",
     "WAWebSyncdGatingUtils",
-    "WAWebUnpairDeviceJob",
     "WAWebUpdater",
     "WAWebUserPrefsAppStateSync",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
-    "WAWebWorkerStorage",
     "asyncToGeneratorRuntime",
-    "cr:10201",
     "cr:17219",
     "err",
     "getErrorSafe",
@@ -88,18 +79,16 @@ __d(
       A,
       F,
       O,
-      B,
-      W,
-      q = r("requireDeferred")("WAWebClearAppStates").__setRef(
+      B = r("requireDeferred")("WAWebClearAppStates").__setRef(
         "WAWebSocketModel",
       ),
-      U = [
-        (W = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
-        W.LogoutReason.WebFailEncSalt,
-        W.LogoutReason.WebFailOfflineResume,
-        W.LogoutReason.WebFailStorageInitialization,
+      W = [
+        (O = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
+        O.LogoutReason.WebFailEncSalt,
+        O.LogoutReason.WebFailOfflineResume,
+        O.LogoutReason.WebFailStorageInitialization,
       ],
-      V = (function (t) {
+      q = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -127,7 +116,7 @@ __d(
           (i.initialize = function () {
             var t = this,
               a;
-            ((this.clearAppStatesDeferred = q.load()),
+            ((this.clearAppStatesDeferred = B.load()),
               o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
                 return t.$SocketImpl$p_1();
@@ -276,7 +265,7 @@ __d(
                 }
                 var l = !1;
                 if (
-                  (e != null && U.includes(e) && (l = !0),
+                  (e != null && W.includes(e) && (l = !0),
                   this.$SocketImpl$p_4(),
                   (l = yield this.clearCredentials()),
                   this.$SocketImpl$p_6())
@@ -300,7 +289,7 @@ __d(
                   ),
                   this.$SocketImpl$p_4());
                 try {
-                  yield this.destroyStorage();
+                  yield o("WAWebSocketLogoutStorageUtils").destroyStorage();
                 } catch (e) {
                   ((l = !0),
                     r("gkx")("26258")
@@ -331,28 +320,6 @@ __d(
               },
             );
             function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.destroyStorage = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = [
-                o("WAWebModelStorage").destroy(),
-                o("WAWebLruMediaStorageUtils").destroyStorage(),
-              ];
-              (e.push(o("WAWebFtsStorage").destroy()),
-                e.push(o("WAWebOffdStorage").destroy()),
-                e.push(o("WAWebJobsStorage").destroy()),
-                e.push(o("WAWebQplStorage").destroy()),
-                e.push(
-                  o("WAWebFtsClient").ftsClient.clearInitializationPromises(),
-                ),
-                e.push(o("WAWebFtsClient").ftsClient.destroyExternalStorage()),
-                e.push(o("WAWebWorkerStorage").destroy()),
-                yield (B || (B = n("Promise"))).all(e));
-            });
-            function t() {
               return e.apply(this, arguments);
             }
             return t;
@@ -409,7 +376,7 @@ __d(
                   "ws2:user logged out",
                 ])),
             );
-            var i = (B || (B = n("Promise"))).resolve(),
+            var i = (F || (F = n("Promise"))).resolve(),
               l = 0,
               s = 20,
               u = Math.min(
@@ -434,7 +401,7 @@ __d(
               .promiseTimeout(
                 i
                   .then(function () {
-                    return e.sendCurrentLogout(t);
+                    return o("WAWebSocketLogoutUtils").sendCurrentLogout(t);
                   })
                   .catch(
                     (function () {
@@ -600,7 +567,7 @@ __d(
                 o("WAWebAddMeContactAction").addMeToContacts(e)
               );
             }
-            return (B || (B = n("Promise"))).resolve();
+            return (F || (F = n("Promise"))).resolve();
           }),
           (i.clearCredentials = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -654,7 +621,7 @@ __d(
                       .sendLogs("clear_session_app_state");
               }
               try {
-                yield z();
+                yield H();
               } catch (t) {
                 e = !0;
                 var n = r("getErrorSafe")(t);
@@ -684,34 +651,6 @@ __d(
             }
             return t;
           })()),
-          (i.sendCurrentLogout = function (t) {
-            return o("WAWebUnpairDeviceJob")
-              .unpairDevice(t)
-              .then(function (e) {
-                (e.status !== 200 &&
-                  o("WALogger").WARN(
-                    A ||
-                      (A = babelHelpers.taggedTemplateLiteralLoose([
-                        "ws2:multi-device logout failed with error code ",
-                        "",
-                      ])),
-                    e.status,
-                  ),
-                  o("WAComms").stopComms());
-              })
-              .catch(function (e) {
-                var t = r("getErrorSafe")(e);
-                o("WALogger")
-                  .ERROR(
-                    F ||
-                      (F = babelHelpers.taggedTemplateLiteralLoose([
-                        "[CRITICAL] unpairDevice failed, proceeding with local logout",
-                      ])),
-                  )
-                  .catching(t)
-                  .verbose();
-              });
-          }),
           (i.updateImmediately = function (t) {
             o("WAWebCrashlog")
               .upload({ reason: t, immediate: !0 })
@@ -721,8 +660,8 @@ __d(
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
-                        O ||
-                          (O = babelHelpers.taggedTemplateLiteralLoose([
+                        A ||
+                          (A = babelHelpers.taggedTemplateLiteralLoose([
                             "[socket model] failed to restart updater",
                           ])),
                       )
@@ -734,15 +673,15 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      H = o("WAWebBaseModel").defineModel(V),
-      G = new H();
-    function z() {
-      return j.apply(this, arguments);
+      U = o("WAWebBaseModel").defineModel(q),
+      V = new U();
+    function H() {
+      return G.apply(this, arguments);
     }
-    function j() {
+    function G() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (B || (B = n("Promise"))).allSettled([
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield (F || (F = n("Promise"))).allSettled([
             r("WAWebDeleteAllCacheStorage")(),
             o("WAWebMediaStore").LruMediaStore.clear(),
           ]);
@@ -753,10 +692,10 @@ __d(
                 : r("err")(String(e.reason));
           });
         })),
-        j.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    l.Socket = G;
+    l.Socket = V;
   },
   98,
 );

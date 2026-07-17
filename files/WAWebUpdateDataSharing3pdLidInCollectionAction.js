@@ -1,6 +1,6 @@
 __d(
   "WAWebUpdateDataSharing3pdLidInCollectionAction",
-  ["PerCustomerDataSharingModel", "WAWebDataSharing3pdLidCollection"],
+  ["WAWebDataSharing3pdLidCollection", "WAWebPerCustomerDataSharingModel"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.dataSharing3pdEnabled,
@@ -11,10 +11,9 @@ __d(
       r
         ? r.set("dataSharing3pdEnabled", t)
         : o("WAWebDataSharing3pdLidCollection").DataSharing3pdLidCollection.add(
-            new (o("PerCustomerDataSharingModel").PerCustomerDataSharingModel)({
-              id: n,
-              dataSharing3pdEnabled: t,
-            }),
+            new (o(
+              "WAWebPerCustomerDataSharingModel",
+            ).PerCustomerDataSharingModel)({ id: n, dataSharing3pdEnabled: t }),
           );
     }
     function s(e) {

@@ -9,6 +9,7 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebParticipantListUtils",
     "WAWebVoipPopoutWindowState",
+    "WAWebWaitingRoomNameFormat",
     "asyncToGeneratorRuntime",
     "bx",
   ],
@@ -83,12 +84,18 @@ __d(
           (i.$WAWaitingRoomNotification$p_1 = function () {
             return this.waitingRoomUserWids.length === 0
               ? s._(/*BTDS*/ "Someone").toString()
-              : o(
-                  "WAWebParticipantListUtils",
-                ).formatParticipantWidsPreserveOrder(
-                  this.waitingRoomUserWids,
-                  !0,
-                );
+              : this.waitingRoomUserWids.length === 1
+                ? o(
+                    "WAWebWaitingRoomNameFormat",
+                  ).getWaitingRoomNotificationUserDisplayName(
+                    this.waitingRoomUserWids[0],
+                  )
+                : o(
+                    "WAWebParticipantListUtils",
+                  ).formatParticipantWidsPreserveOrder(
+                    this.waitingRoomUserWids,
+                    !0,
+                  );
           }),
           a
         );

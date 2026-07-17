@@ -462,9 +462,10 @@ __d(
             });
           }),
           (i.getUnjoinedSubgroupsMetadata = function () {
-            var e = this.getUnjoinedCollection();
-            return r("compactMap")(this.unjoinedSubgroups, function (t) {
-              return e.get(t.toString());
+            return r("compactMap")(this.unjoinedSubgroups, function (e) {
+              return r("WAWebUnjoinedSubgroupMetadataCollection").get(
+                e.toString(),
+              );
             });
           }),
           (i.getSubgroupsMetadata = function () {
@@ -498,9 +499,6 @@ __d(
             if (!e) return !1;
             var t = this.getCollection().get(e);
             return !!(t != null && t.joinedSubgroups.length);
-          }),
-          (i.getUnjoinedCollection = function () {
-            return r("WAWebUnjoinedSubgroupMetadataCollection");
           }),
           (i.getCollection = function () {
             return r("WAWebGroupMetadataCollection");

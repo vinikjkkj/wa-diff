@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryParticipantJob",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupMetadataCollection",
     "WAWebLidMigrationUtils",
     "WAWebWidFactory",
@@ -99,7 +99,7 @@ __d(
         : t.map(function (e) {
             if (
               e.groupHistorySentState !==
-              o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+              o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
                 .HISTORY_NOT_SENT
             )
               return e;
@@ -112,11 +112,10 @@ __d(
     function f(e) {
       return (
         e ===
-          o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+          o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
             .HISTORY_SENT ||
         e ===
-          o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
-            .NOTICE_SENT
+          o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState.NOTICE_SENT
       );
     }
     ((l.initializeGroupHistoryStateForChat = c),

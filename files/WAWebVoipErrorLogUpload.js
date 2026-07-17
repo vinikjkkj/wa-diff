@@ -1,6 +1,13 @@
 __d(
   "WAWebVoipErrorLogUpload",
-  ["WALogger", "WAWebEnvironment", "WAWebUA", "gkx", "justknobx"],
+  [
+    "WALogger",
+    "WAWebEnvironment",
+    "WAWebUA",
+    "WAWebVoipGatingUtils",
+    "gkx",
+    "justknobx",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -34,8 +41,11 @@ __d(
       if (!t) return null;
       var n = o("WAWebUA").UA.isChrome ? m : d,
         a = o("WAWebUA").UA.browser.toLowerCase() || "unknown",
-        i = e === u ? "setup-error" : "accepted-but-not-connected";
-      return { reason: "voip-call-error-" + a + "-" + i, sampling: n };
+        i = o("WAWebVoipGatingUtils").isWebTransportEnabled()
+          ? "webtransport-"
+          : "",
+        l = e === u ? "setup-error" : "accepted-but-not-connected";
+      return { reason: "voip-call-error-" + a + "-" + i + l, sampling: n };
     }
     function h() {
       var t,

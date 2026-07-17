@@ -12,6 +12,7 @@ __d(
       GroupAdd: "groupadd",
       LastSeen: "last",
       ProfilePicture: "profile",
+      Pix: "pix",
     });
     function s() {
       var e = o("WAWebModelStorageUtils").getStorage(),

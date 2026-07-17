@@ -2,8 +2,8 @@ __d(
   "WAWebScheduledMsgUnscheduleDirectSend",
   [
     "WALogger",
+    "WAWebEncryptAndSendGroupMsg",
     "WAWebGenerateProtocolUnscheduleMessageProto",
-    "WAWebSendGroupMsgJob",
     "WAWebSendUserMsgJob",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -37,7 +37,7 @@ __d(
             _ = { kind: "unschedule", revealKeyId: c };
           try {
             p
-              ? yield o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg({
+              ? yield o("WAWebEncryptAndSendGroupMsg").encryptAndSendGroupMsg({
                   msgRecord: i,
                   msgProtobuf: m,
                   metricReporter: a,

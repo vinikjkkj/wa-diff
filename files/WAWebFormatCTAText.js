@@ -34,7 +34,15 @@ __d(
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.GP2: {
-          f = d(p, n, c, t, l, m, i);
+          f = d({
+            chat: t,
+            iAmAdmin: n,
+            latestJoinTimeByRecipient: i,
+            msgT: l,
+            recipients: c,
+            shareableHistoryInfo: m,
+            subtype: p,
+          });
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.PROTOCOL: {
@@ -73,14 +81,21 @@ __d(
           });
     }
     c.displayName = c.name + " [from " + i.id + "]";
-    function d(e, t, n, a, i, l, u) {
+    function d(e) {
+      var t = e.chat,
+        n = e.iAmAdmin,
+        a = e.latestJoinTimeByRecipient,
+        i = e.msgT,
+        l = e.recipients,
+        u = e.shareableHistoryInfo,
+        c = e.subtype;
       if (
-        o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(e)
+        o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(c)
       ) {
-        var c = m(n, a, i, l, u);
-        if (c != null) return c;
+        var d = m(l, t, i, u, a);
+        if (d != null) return d;
       }
-      switch (e) {
+      switch (c) {
         case "growth_unlocked":
         case "revoke_invite":
           return s._(/*BTDS*/ "View the new invite link");
@@ -98,7 +113,7 @@ __d(
         case "created_membership_requests":
           return s._(/*BTDS*/ "Review");
         case "join_flood_notification":
-          return t !== !0 ? null : s._(/*BTDS*/ "Manage members");
+          return n !== !0 ? null : s._(/*BTDS*/ "Manage members");
         case "created_subgroup_suggestion":
           return s._(/*BTDS*/ "Approve or reject");
         default:

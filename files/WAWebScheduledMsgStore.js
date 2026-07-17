@@ -63,17 +63,26 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.revealKey.byteLength === 0)
-            return { body: null, mentionedJidList: null };
+            return { body: null, isImage: !1, mentionedJidList: null };
           var t = yield o(
             "WAWebScheduledMsgDecryptInnerProto",
           ).decryptAndDecodeRevealPayload(e.encPayload, e.encIv, e.revealKey);
-          if (t == null) return { body: null, mentionedJidList: null };
-          var n = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(t),
-            r = o(
+          if (t == null)
+            return { body: null, isImage: !1, mentionedJidList: null };
+          var n = o(
               "WAWebExtractMentionFieldsFromScheduledMsg",
             ).extractMentionFieldsFromScheduledMsg(t),
-            a = r.mentionedJidList;
-          return { body: n, mentionedJidList: a != null ? a : null };
+            r = n.mentionedJidList,
+            a = t.imageMessage,
+            i =
+              a != null
+                ? a.caption
+                : o("WAWebScheduledMsgExtractText").extractScheduledMsgText(t);
+          return {
+            body: i,
+            isImage: a != null,
+            mentionedJidList: r != null ? r : null,
+          };
         })),
         p.apply(this, arguments)
       );

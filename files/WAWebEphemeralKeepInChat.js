@@ -1,11 +1,11 @@
 __d(
   "WAWebEphemeralKeepInChat",
   [
-    "WANullthrows",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebMsgKey",
     "WAWebWidFactory",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -29,9 +29,9 @@ __d(
           );
         return {
           kicKey: new (r("WAWebMsgKey"))({
-            fromMe: r("WANullthrows")(a),
-            id: r("WANullthrows")(i),
-            remote: r("WANullthrows")(
+            fromMe: r("nullthrows")(a),
+            id: r("nullthrows")(i),
+            remote: r("nullthrows")(
               o("WAWebWidFactory").createWidFromWidLike(s),
             ),
             participant:

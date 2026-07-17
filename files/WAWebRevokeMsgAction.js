@@ -14,7 +14,7 @@ __d(
     "WAWebCmd",
     "WAWebCoexEditDeleteAlertUtils",
     "WAWebDBProcessMessage",
-    "WAWebDBStoreRevokeMsgs",
+    "WAWebDBProcessRevokeMsgs",
     "WAWebErrorType",
     "WAWebFrontendMsgGetters",
     "WAWebFtsClient",
@@ -295,7 +295,7 @@ __d(
                           o("WAWebWamMsgUtils").getWamMediaType(_),
                         revokeSendDelay: R,
                       }).commit(),
-                      o("WAWebDBStoreRevokeMsgs")
+                      o("WAWebDBProcessRevokeMsgs")
                         .processRevokeMsgs([
                           {
                             revokeMsgKey: _.id,

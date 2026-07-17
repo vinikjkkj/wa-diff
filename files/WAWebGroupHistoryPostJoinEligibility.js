@@ -5,7 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebBotUtils",
     "WAWebGroupHistoryGating",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupType",
   ],
@@ -59,11 +59,10 @@ __d(
       var a = e.groupHistorySentState;
       if (
         a ===
-          o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
+          o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
             .HISTORY_SENT ||
         a ===
-          o("WAWebGroupHistoryPostJoinTypes.flow").GroupHistorySentState
-            .NOTICE_SENT
+          o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState.NOTICE_SENT
       )
         return { eligible: !1, reason: "already_received" };
       var i = o("WAWebABProps").getABPropConfigValue(

@@ -51,6 +51,22 @@ __d(
           return s._(/*BTDS*/ "Wallet number copied");
         },
       }),
+      (e[
+        c(
+          u.UprPaymentAccountType.BANK_ACCOUNT,
+          u.UprIdentifierType.ID_ACCOUNT_NUMBER,
+        )
+      ] = {
+        label: function () {
+          return s._(/*BTDS*/ "Account number");
+        },
+        copyLabel: function () {
+          return s._(/*BTDS*/ "Copy account number");
+        },
+        copySuccessToast: function () {
+          return s._(/*BTDS*/ "Account number copied");
+        },
+      }),
       e);
     function m(e, t) {
       var n;

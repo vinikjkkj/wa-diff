@@ -7,6 +7,7 @@ __d(
     "WAWebContactCollection",
     "WAWebContactShortName",
     "WAWebContactTextStatusBridge",
+    "WAWebContactUtils",
     "WAWebDBCreateLidPnMappings",
     "WAWebIsCagGroupCache",
     "WAWebLidAwareContactsDB",
@@ -149,7 +150,10 @@ __d(
               var t = o("WAWebWidFactory").createUserWidOrThrow(e.id);
               if (!t.isLid() || !e.isAddressBookContact) return null;
               var n = o("WAWebContactCollection").ContactCollection.get(t);
-              return (n != null && n.setNotMyContact(), e.id);
+              return (
+                n != null && o("WAWebContactUtils").setContactNotMine(n),
+                e.id
+              );
             });
             t.length > 0 &&
               (yield o("WAWebApiContact").setNotAddressBookContacts(t));

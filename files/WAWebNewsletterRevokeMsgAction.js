@@ -7,7 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebAssociatedMessagesRevokeUtils",
     "WAWebChatSendMessages",
-    "WAWebDBStoreRevokeMsgs",
+    "WAWebDBProcessRevokeMsgs",
     "WAWebMsgActionCapability",
     "WAWebMsgKey",
     "WAWebMsgModel",
@@ -188,7 +188,7 @@ __d(
             r = e.msgToBeRevoked,
             a = e.revokeMsg;
           return (
-            yield o("WAWebDBStoreRevokeMsgs").processRevokeMsgs([
+            yield o("WAWebDBProcessRevokeMsgs").processRevokeMsgs([
               {
                 revokeMsgKey: r.id,
                 newMsgKey: a.id,

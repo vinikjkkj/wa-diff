@@ -1,7 +1,6 @@
 __d(
   "WAWebMessageBizContentPlaceholder",
   [
-    "WAWebBizContentPlaceholderGatingUtils",
     "WAWebBizContentPlaceholderMsgData.flow",
     "WAWebClickableLink.react",
     "WAWebExternalLink.react",
@@ -18,7 +17,7 @@ __d(
       s = e || (e = o("react"));
     function u() {
       o("WAWebExternalLink.react").openExternalLink(
-        o("WAWebBizContentPlaceholderGatingUtils").getLearnMoreLink(),
+        "https://faq.whatsapp.com/372839278914311",
       );
     }
     var c = s.jsx(r("WAWebClickableLink.react"), {

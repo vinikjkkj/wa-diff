@@ -7,7 +7,6 @@ __d(
     "WABackoffUtils",
     "WADeepEquals",
     "WALogger",
-    "WANullthrows",
     "WAPriorityQueue",
     "WAPromiseRaceAbort",
     "WAWebAssetLoaderDpiChangeDispatch",
@@ -25,6 +24,7 @@ __d(
     "err",
     "getErrorSafe",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -144,7 +144,7 @@ __d(
             );
           }),
           (a.loadEmojis = function () {
-            var e = r("WANullthrows")(this.$5);
+            var e = r("nullthrows")(this.$5);
             this.$4 != null || s(0, 56365);
             var t = Array.from(this.$4(e).values()),
               n = new (o("WAWebWebcAssetLoadWamEvent").WebcAssetLoadWamEvent)({

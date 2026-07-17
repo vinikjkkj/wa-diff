@@ -34,6 +34,7 @@ __d(
     "WAWebMessageCommunitySubgroupWelcome.react",
     "WAWebMessageCommunityWelcomeAdmin.react",
     "WAWebMessageCommunityWelcomeMember.react",
+    "WAWebMsgModelUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFormat",
   ],
@@ -44,7 +45,7 @@ __d(
         i = t.get("type");
       if (i !== "gp2") return a;
       var l = t.get("subtype"),
-        u = t.displayName(),
+        u = o("WAWebMsgModelUtils").getMsgDisplayName(t),
         c = t.get("author"),
         d = t.get("body"),
         m,

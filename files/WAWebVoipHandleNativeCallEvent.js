@@ -28,6 +28,7 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipThreadPoolManagerRegistry",
     "WAWebVoipVideoCameraCapture",
+    "WAWebVoipVideoCaptureAndRendering",
     "WAWebVoipWaCallEnums",
     "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebTransportConnectionManager",
@@ -1119,6 +1120,7 @@ __d(
                 "WAWebVoipVideoCameraCapture",
               ).WAWebVoipVideoCameraCapture.scheduleCallEndCameraRelease(),
               o("WAWebVoipAudioCaptureBase").scheduleCallEndMicRelease(),
+              o("WAWebVoipVideoCaptureAndRendering").releaseDesktopStreamJS(),
               n.type === "web" &&
                 o("WAWebVoipHandleNativeCallEventFieldstatsHandlers")
                   .cleanupFieldstatsAfterNormalEnd()

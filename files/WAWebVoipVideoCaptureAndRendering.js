@@ -225,11 +225,17 @@ __d(
         I.apply(this, arguments)
       );
     }
+    function T() {
+      o(
+        "WAWebVoipVideoDesktopCapture",
+      ).WAWebVoipVideoDesktopCapture.releaseDesktopStream();
+    }
     ((l.startVideoCaptureJS = h),
       (l.stopVideoCaptureJS = C),
       (l.onVideoFrameWasmToJs = S),
       (l.startDesktopCaptureJS = L),
-      (l.stopDesktopCaptureJS = k));
+      (l.stopDesktopCaptureJS = k),
+      (l.releaseDesktopStreamJS = T));
   },
   98,
 );

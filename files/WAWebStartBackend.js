@@ -204,9 +204,9 @@ __d(
         ).registerMetaAiBotSessionCleanupOnResume(),
         (E = !0));
     }
-    var I = function () {
+    function I() {
       r("WAWebCommonCTWADataSharing").fetchDataSharingSettingAndUpdateModel();
-    };
+    }
     function T() {
       return D.apply(this, arguments);
     }

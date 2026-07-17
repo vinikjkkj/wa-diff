@@ -3,7 +3,6 @@ __d(
   [
     "ReactDOM_DEPRECATED",
     "WALogger",
-    "WANullthrows",
     "WAWebClientFeatureFlags",
     "WAWebCmd",
     "WAWebDebugE2EMode",
@@ -12,6 +11,7 @@ __d(
     "WAWebMiscBrowserUtils",
     "WAWebThemeContext",
     "WAWebUserPrefsGeneral",
+    "nullthrows",
     "react",
     "useWAWebAdjustableChatListWidth",
   ],
@@ -34,7 +34,7 @@ __d(
     }
     ((m.doc = "Toggles CSS debug mode"), (m.paramsToExecute = []));
     function p(t, n) {
-      var a = r("WANullthrows")(document.getElementById("app"));
+      var a = r("nullthrows")(document.getElementById("app"));
       o("ReactDOM_DEPRECATED").render_DEPRECATED(
         c.jsx(r("WAWebInternalToolsLoadingScreenSimulator.react"), {
           variant: t,

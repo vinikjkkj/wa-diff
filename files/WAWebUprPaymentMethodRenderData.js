@@ -32,6 +32,12 @@ __d(
             o("WAWebUprConstants").UprIdentifierType.PHONE_NUMBER,
           )
         ] = r("WDSIconIcAccountBalanceWallet.react")),
+        (e[
+          o("WAWebUprPaymentMethodLabels").methodKey(
+            o("WAWebUprConstants").UprPaymentAccountType.BANK_ACCOUNT,
+            o("WAWebUprConstants").UprIdentifierType.ID_ACCOUNT_NUMBER,
+          )
+        ] = r("WDSIconIcAccountBalance.react")),
         e);
     function d(e, t) {
       var n = o("WAWebUprPaymentMethodLabels").getUprMethodLabels(e, t),

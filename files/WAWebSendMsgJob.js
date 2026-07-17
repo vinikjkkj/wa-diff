@@ -5,12 +5,12 @@ __d(
     "WALogger",
     "WAWebABPropsSaga",
     "WAWebE2EProtoGenerator",
+    "WAWebEncryptAndSendGroupMsg",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebMaibaWASSMigration",
     "WAWebOutgoingMessage",
     "WAWebPnlessStanzaMigration",
     "WAWebScheduledMsgSenderJob",
-    "WAWebSendGroupMsgJob",
     "WAWebSendTcTokenChatAction",
     "WAWebSendUserMsgJob",
     "WAWebSimpleSignalPNToFBIDMigration",
@@ -102,7 +102,7 @@ __d(
               g
             );
           } else if (c.isGroup())
-            return o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg({
+            return o("WAWebEncryptAndSendGroupMsg").encryptAndSendGroupMsg({
               metricReporter: a,
               msgProtobuf: _,
               msgRecord: t,

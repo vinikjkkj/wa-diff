@@ -8,6 +8,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetBusinessNameFromMsg",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebOrderGatingUtils",
     "WAWebSupportChatStrings",
     "WAWebWid",
@@ -49,7 +50,12 @@ __d(
         case "verified_initial_unknown":
           return s._(
             /*BTDS*/ "{businessName} may be a business account, but WhatsApp hasn't verified their name yet.",
-            [s._param("businessName", e.displayName())],
+            [
+              s._param(
+                "businessName",
+                o("WAWebMsgModelUtils").getMsgDisplayName(e),
+              ),
+            ],
           );
         case "verified_initial_low":
           return s._(
@@ -94,7 +100,12 @@ __d(
         case "verified_transition_none_to_unknown":
           return s._(
             /*BTDS*/ "{businessName} registered as a business account, but WhatsApp hasn't verified their name yet.",
-            [s._param("businessName", e.displayName())],
+            [
+              s._param(
+                "businessName",
+                o("WAWebMsgModelUtils").getMsgDisplayName(e),
+              ),
+            ],
           );
         case "biz_verified_transition_top_to_bottom":
           return s._(

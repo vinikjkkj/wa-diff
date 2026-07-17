@@ -1,6 +1,6 @@
 __d(
   "WAWebScheduledMsgOutgoingMsgKey",
-  ["WAWebMsgKey"],
+  ["WAWebMsgKey", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
       try {
@@ -22,7 +22,25 @@ __d(
         });
       }
     }
-    l.buildScheduledMsgOutgoingMsgKey = e;
+    function s(e, t, n) {
+      var a;
+      if (t.isGroup() && n != null)
+        try {
+          a = o("WAWebWidFactory").asUserWidOrThrow(
+            o("WAWebWidFactory").createWid(n),
+          );
+        } catch (e) {
+          a = void 0;
+        }
+      return new (r("WAWebMsgKey"))({
+        fromMe: !1,
+        remote: t,
+        id: e,
+        participant: a,
+      });
+    }
+    ((l.buildScheduledMsgOutgoingMsgKey = e),
+      (l.buildScheduledMsgIncomingMsgKey = s));
   },
   98,
 );

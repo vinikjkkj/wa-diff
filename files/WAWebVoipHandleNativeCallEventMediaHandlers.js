@@ -195,7 +195,10 @@ __d(
               ),
               n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped &&
                 o("WAWebUserPrefsMeUser").isMeAccount(n.sharer_jid) &&
-                o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
+                (o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
+                o(
+                  "WAWebVoipVideoCaptureAndRendering",
+                ).releaseDesktopStreamJS()),
               o("WAWebBackendApi").frontendFireAndForget(
                 "handleScreenShareStateChange",
                 n,

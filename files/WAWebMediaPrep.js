@@ -367,6 +367,8 @@ __d(
               interactiveAnnotations: s.interactiveAnnotations,
               threadIds: s.threadId != null ? [s.threadId] : void 0,
               statusAttributions: s.statusAttributions,
+              isScheduledMsg: s.isScheduledMsg,
+              scheduledTimestampS: s.scheduledTimestampS,
             },
             k,
           );
@@ -741,7 +743,9 @@ __d(
                     ),
                   }
                 : r != null
-                  ? r
+                  ? F != null
+                    ? babelHelpers.extends({}, r, { msg: F })
+                    : r
                   : (F &&
                       o("WAWebMmsMediaTypes").getMsgMediaType(F) ===
                         o("WAWebMediaTypes").OUTWARD_TYPES.STICKER &&

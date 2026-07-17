@@ -11,6 +11,7 @@ __d(
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebContactSyncUtils",
+    "WAWebContactUtils",
     "WAWebHandleUsernameSync",
     "WAWebLidMigrationUtils",
     "WAWebNetworkStatus",
@@ -326,7 +327,7 @@ __d(
                 },
               );
               var N = o("WAWebContactCollection").ContactCollection.get($);
-              N != null && N.setNotMyContact();
+              N != null && o("WAWebContactUtils").setContactNotMine(N);
             }
           }
           if (
@@ -347,7 +348,7 @@ __d(
               },
             );
             var A = o("WAWebContactCollection").ContactCollection.get(w);
-            A != null && A.setNotMyContact();
+            A != null && o("WAWebContactUtils").setContactNotMine(A);
           }
         })),
         L.apply(this, arguments)

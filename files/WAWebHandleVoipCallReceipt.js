@@ -6,9 +6,9 @@ __d(
     "WALogger",
     "WAParsableWapNode",
     "WAWap",
-    "WAWebBackendApi",
     "WAWebCommsWapMd",
     "WAWebJidToWid",
+    "WAWebVoipPeerTcToken",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
   ],
@@ -53,12 +53,10 @@ __d(
             c = a.type,
             d = yield (s || (s = n("Promise"))).all([
               o("WAWebVoipStackInterface").getVoipStackInterface(),
-              o("WAWebBackendApi").frontendSendAndReceive("getTcToken", {
-                wid: i,
-              }),
+              o("WAWebVoipPeerTcToken").fetchPeerTcToken(i),
             ]),
             m = d[0],
-            p = d[1].tcToken;
+            p = d[1];
           return (
             yield m == null
               ? void 0

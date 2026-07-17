@@ -14,6 +14,7 @@ __d(
     "WAWebMessageMeta.react",
     "WAWebMessageTextBubble.react",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNoop",
@@ -447,7 +448,9 @@ __d(
       t[31] !== b ||
       t[32] !== w
         ? ((J = I({
-            authorDisplayName: d.displayName(),
+            authorDisplayName: o("WAWebMsgModelUtils").getMsgDisplayName(
+              d.unsafe(),
+            ),
             commaSeparatedOptionsAndResults: j,
             isPollEnded: l,
             isSentByMe: A,

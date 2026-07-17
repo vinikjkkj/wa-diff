@@ -77,12 +77,12 @@ __d(
         x = 0;
       if (k.deltaWidth === 0 && k.deltaLeft === 0 && k.deltaBottom === 0) {
         if (v < 0) {
-          var $ = o("WAWebMoveResizeLogic").adjustDeltasForMinWidth(
-            m,
-            c,
-            f.width,
-            t,
-          );
+          var $ = o("WAWebMoveResizeLogic").adjustDeltasForMinWidth({
+            aspectRatio: t,
+            minWidth: c,
+            resizeDirection: m,
+            resizeStartPiPStyleWidth: f.width,
+          });
           ((v = $.deltaWidth),
             (C = $.deltaHeight),
             (b = $.deltaLeft),

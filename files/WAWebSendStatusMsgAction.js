@@ -16,7 +16,6 @@ __d(
     "WAWebDBProcessMessage",
     "WAWebEncryptAndSendStatusMsg",
     "WAWebLidStatusMigrationUtils",
-    "WAWebLogStatusPosterActions",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgGetters",
@@ -37,6 +36,7 @@ __d(
     "WAWebStatusInteractionSentWamEvent",
     "WAWebStatusLoggingUtils",
     "WAWebStatusMsgDataUtils",
+    "WAWebStatusPosterActionsLogger",
     "WAWebStatusSessionGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
@@ -259,7 +259,7 @@ __d(
                 e.id,
               ));
             var l = new (o(
-                "WAWebLogStatusPosterActions",
+                "WAWebStatusPosterActionsLogger",
               ).StatusPosterActionsLogger)(i == null ? void 0 : i.sessionId),
               s = C(e.type);
             l.logPostStatusRequest(s, a, i == null ? void 0 : i.entryPoint);

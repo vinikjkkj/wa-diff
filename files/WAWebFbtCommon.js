@@ -39,6 +39,9 @@ __d(
       Cancel: function () {
         return s._(/*BTDS*/ "Cancel");
       },
+      Back: function () {
+        return s._(/*BTDS*/ "Back");
+      },
       Close: function () {
         return s._(/*BTDS*/ "Close");
       },

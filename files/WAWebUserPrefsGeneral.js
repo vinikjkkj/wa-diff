@@ -159,6 +159,7 @@ __d(
             e,
             t.defenseMode,
           ),
+          x(["pix", o("WAWebPrivacySettings").VISIBILITY], e, t.pix),
           e.defenseMode != null && e.defenseMode !== "off"
             ? (e.disableLinkPreviews = !0)
             : t.disableLinkPreviews != null &&

@@ -370,6 +370,7 @@ __d(
           "questionResponsesCount",
           "readQuestionResponsesCount",
           "groupHistoryBundleMessageKey",
+          "groupHistoryIndividualMessageInfo",
           "hasPaidPartnershipLabel",
           "newsletterAdminProfile",
         ],

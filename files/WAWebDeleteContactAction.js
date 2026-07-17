@@ -9,6 +9,7 @@ __d(
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebContactSyncUtils",
+    "WAWebContactUtils",
     "WAWebFrontendContactGetters",
     "WAWebHandleUsernameSync",
     "WAWebNetworkStatus",
@@ -152,7 +153,7 @@ __d(
             );
             return;
           }
-          if ((h.setNotMyContact(), e.lid)) {
+          if ((o("WAWebContactUtils").setContactNotMine(h), e.lid)) {
             var y = e.lid,
               C = o("WAWebUsernameTypes").asMaybeUsername(e.username);
             if (C == null) {
@@ -304,7 +305,7 @@ __d(
               var t = o("WAWebContactCollection").ContactCollection.get(e);
               return !t || !o("WAWebFrontendContactGetters").getIsMyContact(t)
                 ? (u++, s.length < 3 && s.push(e), !1)
-                : (t.setNotMyContact(), !0);
+                : (o("WAWebContactUtils").setContactNotMine(t), !0);
             });
           (u > 0 &&
             o("WALogger").ERROR(

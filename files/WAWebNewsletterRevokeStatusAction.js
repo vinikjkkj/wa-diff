@@ -3,9 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebDBMessageDelete",
-    "WAWebLogStatusPosterActions",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterRevokeStatusQueryJob",
+    "WAWebStatusPosterActionsLogger",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -26,7 +26,7 @@ __d(
             throw r("err")("[newsletter][status] User is not admin or owner");
           var l = o("WAWebWidToJid").widToNewsletterJid(a),
             u = new (o(
-              "WAWebLogStatusPosterActions",
+              "WAWebStatusPosterActionsLogger",
             ).StatusPosterActionsLogger)(void 0, a);
           u.logDeleteStatusRequest();
           try {

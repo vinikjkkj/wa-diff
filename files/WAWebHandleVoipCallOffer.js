@@ -13,6 +13,7 @@ __d(
     "WAWebVoipContactUtils",
     "WAWebVoipGatingUtils",
     "WAWebVoipIncomingCallQpl",
+    "WAWebVoipPeerTcToken",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
     "WAWebVoipValidateAndDecryptEnc",
@@ -68,9 +69,8 @@ __d(
                     i,
                     t.VoipIncomingCallQplPoint.TC_TOKEN_START,
                   );
-                  var n = yield o("WAWebBackendApi").frontendSendAndReceive(
-                    "getTcToken",
-                    { wid: e.peer_jid },
+                  var n = yield o("WAWebVoipPeerTcToken").fetchPeerTcToken(
+                    e.peer_jid,
                   );
                   return (
                     t.voipIncomingCallQplAddPoint(
@@ -103,7 +103,7 @@ __d(
               s = l[0],
               u = s.result,
               d = s.retryCount,
-              m = l[1].tcToken,
+              m = l[1],
               _ = l[2];
             if (e.group_jid != null) {
               var f;

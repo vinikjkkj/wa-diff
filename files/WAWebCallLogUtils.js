@@ -2,7 +2,6 @@ __d(
   "WAWebCallLogUtils",
   [
     "fbt",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebBotUtils",
     "WAWebCallCollection",
@@ -18,6 +17,7 @@ __d(
     "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipConnectingStatus.react",
     "WAWebVoipWaCallEnums",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -296,7 +296,7 @@ __d(
       if (t.length === 0) return [];
       for (
         var n = t.map(function (e) {
-            return r("WANullthrows")(
+            return r("nullthrows")(
               o("WAWebFrontendMsgGetters").getAsCallLog(e),
               "[mergeCallRecords] record is not a call log record",
             );

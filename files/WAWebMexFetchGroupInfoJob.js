@@ -5,7 +5,7 @@ __d(
     "WAWebAfterReadUtils",
     "WAWebBackendErrors",
     "WAWebGroupHistoryGating",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebMexClient",
@@ -389,9 +389,7 @@ __d(
                 : null,
               joinTime: r && l != null ? l : null,
               groupHistorySentState: r
-                ? o(
-                    "WAWebGroupHistoryPostJoinTypes.flow",
-                  ).groupHistorySentToState(i)
+                ? o("WAWebGroupHistoryPostJoinTypes").groupHistorySentToState(i)
                 : void 0,
             }
           );

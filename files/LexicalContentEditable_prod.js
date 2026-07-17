@@ -135,7 +135,7 @@ __d(
               role: v,
               spellCheck: y,
               style: L,
-              tabIndex: g,
+              tabIndex: g != null ? g : R ? void 0 : -1,
             },
             w,
           ),

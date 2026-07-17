@@ -6,11 +6,7 @@ __d(
     function e() {
       return s._(/*BTDS*/ "Business broadcast");
     }
-    function u() {
-      return s._(/*BTDS*/ "View all broadcasts and audiences");
-    }
-    ((l.getBizBroadcastsToolsEntryPrimaryText = e),
-      (l.getBizBroadcastsToolsEntrySecondaryText = u));
+    l.getBizBroadcastsToolsEntryPrimaryText = e;
   },
   226,
 );

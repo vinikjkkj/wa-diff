@@ -12,6 +12,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebChatGetters",
     "WAWebChatSeenBridge",
+    "WAWebChatSendConversationSeen",
     "WAWebCmd",
     "WAWebConstantsDeprecated",
     "WAWebCurrentUser",
@@ -313,7 +314,7 @@ __d(
               C.lastReceivedKey.toString(),
           ));
       }
-      return o("WAWebChatSeenBridge")
+      return o("WAWebChatSendConversationSeen")
         .sendConversationSeen({
           chat: s,
           key: h,

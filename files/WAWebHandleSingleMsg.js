@@ -14,7 +14,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebCheckUpdateOrphanReactions",
     "WAWebDBProcessMessage",
-    "WAWebDBStoreRevokeMsgs",
+    "WAWebDBProcessRevokeMsgs",
     "WAWebHandleForMessageRange",
     "WAWebHandleForMessageRangeEnums",
     "WAWebHandleMsgTypes.flow",
@@ -147,7 +147,7 @@ __d(
                                 "revoke timestamp is null",
                               );
                               (yield o(
-                                "WAWebDBStoreRevokeMsgs",
+                                "WAWebDBProcessRevokeMsgs",
                               ).processRevokeMsgs([
                                 {
                                   revokeMsgKey: T.protocolMessageKey,

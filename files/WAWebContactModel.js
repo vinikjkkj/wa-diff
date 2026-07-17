@@ -524,13 +524,6 @@ __d(
           (a.getCollection = function () {
             return o("WAWebContactCollection").ContactCollection;
           }),
-          (a.setNotMyContact = function () {
-            (this.name &&
-              (this.set("name", void 0),
-              this.set("shortName", void 0),
-              this.set("type", "out")),
-              this.set("isUsernameContact", !1));
-          }),
           (a.canToggleFavorite = function () {
             return o("WAWebListsGatingUtils").isListsEnabled() ||
               this.isFavorite

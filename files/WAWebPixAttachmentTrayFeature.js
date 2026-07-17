@@ -8,6 +8,7 @@ __d(
     "WAWebGetMessageChatTypeFromWid",
     "WAWebPaymentsChatUtils",
     "WAWebPaymentsConstants",
+    "WAWebPaymentsGatingUtils",
     "WAWebPixFeature",
     "WAWebPixQuickReplyFeature",
     "WAWebWamEnumMessageChatType",
@@ -19,25 +20,30 @@ __d(
       );
     }
     function s(t) {
+      var n =
+          o("WAWebConnModel").Conn.isSMB &&
+          o("WAWebPixFeature").isPixEnabled() &&
+          o("WAWebAddEditPixFeature").isAddEditPixEnabled() &&
+          e(),
+        r =
+          !o("WAWebConnModel").Conn.isSMB &&
+          o("WAWebPaymentsGatingUtils").consumerPixActionsEnabled();
       if (
-        !o("WAWebConnModel").Conn.isSMB ||
+        (!n && !r) ||
         o("WAWebContactGetters").getIsMe(t.contact) ||
         t.contact.isEnterprise ||
-        !o("WAWebPixFeature").isPixEnabled() ||
-        !o("WAWebAddEditPixFeature").isAddEditPixEnabled() ||
-        !e() ||
         t.id.isAiHub()
       )
         return !1;
-      var n = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
+      var a = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
         t.id,
       );
-      return n === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.INDIVIDUAL
+      return a === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.INDIVIDUAL
         ? o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(
             t.id,
             o("WAWebPaymentsConstants").BRAZIL_COUNTRY_CODE,
           )
-        : n === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.GROUP
+        : a === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.GROUP
           ? o(
               "WAWebPixQuickReplyFeature",
             ).showPixQuickReplyInAttachmentTrayForGroups(t)

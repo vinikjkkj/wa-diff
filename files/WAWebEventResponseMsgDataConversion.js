@@ -1,12 +1,12 @@
 __d(
   "WAWebEventResponseMsgDataConversion",
   [
-    "WANullthrows",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -22,7 +22,7 @@ __d(
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
           kind: o("WAWebMsgType").MsgKind.EventResponseDecrypted,
           parentMsgKey: e.parentMsgKey,
-          eventResponse: r("WANullthrows")(
+          eventResponse: r("nullthrows")(
             e.responseProtobuf.response,
             "eventResponse",
           ),
@@ -61,9 +61,7 @@ __d(
         parentMsgKey: e.parentMsgKey.toString(),
         timestamp: e.senderTimestampMs,
         sender: o("WAWebWidFactory")
-          .asUserWidOrThrow(
-            r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
-          )
+          .asUserWidOrThrow(r("nullthrows")(o("WAWebMsgGetters").getSender(e)))
           .toString(),
         eventResponse: e.eventResponse,
       };

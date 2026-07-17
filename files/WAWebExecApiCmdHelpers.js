@@ -2,7 +2,6 @@ __d(
   "WAWebExecApiCmdHelpers",
   [
     "Promise",
-    "WANullthrows",
     "WAWebContactUtils",
     "WAWebDeepLinkOpenWamEvent",
     "WAWebDrawerManager",
@@ -24,6 +23,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWindowsDefaultProtocolActivationWamEvent",
     "asyncToGeneratorRuntime",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -138,8 +138,8 @@ __d(
               }
             : { customUrl: t, fallbackUrl: i }
           : s != null
-            ? { username: r("WANullthrows")(l), usernameKey: s }
-            : { username: r("WANullthrows")(l), invalidUsernameKey: n };
+            ? { username: r("nullthrows")(l), usernameKey: s }
+            : { username: r("nullthrows")(l), invalidUsernameKey: n };
     }
     function _(e) {
       var t = e.campaign,

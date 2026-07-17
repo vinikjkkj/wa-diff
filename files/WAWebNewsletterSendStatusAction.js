@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebAck",
     "WAWebDBProcessMessage",
-    "WAWebLogStatusPosterActions",
     "WAWebMessageSendReporter",
     "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgModel",
@@ -19,6 +18,7 @@ __d(
     "WAWebStatusCollection",
     "WAWebStatusLoggingUtils",
     "WAWebStatusMsgDataUtils",
+    "WAWebStatusPosterActionsLogger",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWamEnumStatusContentType",
     "WAWebWidFactory",
@@ -90,7 +90,7 @@ __d(
             c(e, l.t),
             yield o("WAWebDBProcessMessage").storeMessages([l], e));
           var d = new (o(
-            "WAWebLogStatusPosterActions",
+            "WAWebStatusPosterActionsLogger",
           ).StatusPosterActionsLogger)(n == null ? void 0 : n.sessionId, e);
           d.logPostStatusRequest(
             o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.TEXT,
@@ -211,7 +211,7 @@ __d(
               d.type,
             ),
             g = new (o(
-              "WAWebLogStatusPosterActions",
+              "WAWebStatusPosterActionsLogger",
             ).StatusPosterActionsLogger)(n == null ? void 0 : n.sessionId, a);
           g.logPostStatusRequest(_, 0, n == null ? void 0 : n.entryPoint);
           try {

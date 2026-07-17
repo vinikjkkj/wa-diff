@@ -9,7 +9,7 @@ __d(
     "WAWebDBReportingTokenUtils",
     "WAWebGetGroupAddressingMode",
     "WAWebGroupDatabaseJob",
-    "WAWebHandleMessageTypes.flow",
+    "WAWebHandleMessageTypes",
     "WAWebHandleMsgCommon",
     "WAWebPromiseQueue",
     "WAWebSendOfflineDeliveryReceiptJob",
@@ -226,7 +226,7 @@ __d(
                   .filter(function (e) {
                     return (
                       e.type ===
-                      o("WAWebHandleMessageTypes.flow").MsgAdditionalInfoType
+                      o("WAWebHandleMessageTypes").MsgAdditionalInfoType
                         .ReportingInfo
                     );
                   })

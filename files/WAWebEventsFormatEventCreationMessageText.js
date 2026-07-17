@@ -2,18 +2,16 @@ __d(
   "WAWebEventsFormatEventCreationMessageText",
   [
     "fbt",
-    "WANullthrows",
     "WAWebFormatEventDateString",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
         n = e.options,
-        a = r("WANullthrows")(
-          o("WAWebFrontendMsgGetters").getAsEventCreation(t),
-        );
+        a = r("nullthrows")(o("WAWebFrontendMsgGetters").getAsEventCreation(t));
       if (n.formatAsLastMsg === !0)
         return o("WAWebMsgGetters").getIsSentByMe(a)
           ? s._(/*BTDS*/ "created an event: {event-name}", [

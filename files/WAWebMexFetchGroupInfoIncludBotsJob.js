@@ -7,7 +7,7 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebGroupHistoryGating",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebMexClient",
@@ -431,9 +431,7 @@ __d(
               : null,
             joinTime: r && d != null ? d : null,
             groupHistorySentState: r
-              ? o(
-                  "WAWebGroupHistoryPostJoinTypes.flow",
-                ).groupHistorySentToState(c)
+              ? o("WAWebGroupHistoryPostJoinTypes").groupHistorySentToState(c)
               : void 0,
           };
           !(f || g) ||

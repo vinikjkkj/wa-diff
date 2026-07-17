@@ -5,7 +5,6 @@ __d(
     "WACryptoAesGcm",
     "WACryptoHkdf",
     "WALogger",
-    "WANullthrows",
     "WAWebBotGating",
     "WAWebBotGroupGatingUtils",
     "WAWebBotTypes",
@@ -22,6 +21,7 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -77,7 +77,7 @@ __d(
             d = {
               fromMe: c,
               remote: (a = s.targetChatJid) != null ? a : l.chat,
-              id: r("WANullthrows")(
+              id: r("nullthrows")(
                 s.targetId,
                 "decryptMsmsgBotMessage: targetId",
               ),
@@ -90,11 +90,11 @@ __d(
                 : o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             ),
             _ = o("WAWebWidToJid").widToUserJid(
-              r("WANullthrows")(l.author, "decryptMsmsgBotMessage: author"),
+              r("nullthrows")(l.author, "decryptMsmsgBotMessage: author"),
             ),
             f = null,
-            g = r("WANullthrows")(u.encIv, "decryptMsmsgBotMessage: encIv"),
-            h = r("WANullthrows")(
+            g = r("nullthrows")(u.encIv, "decryptMsmsgBotMessage: encIv"),
+            h = r("nullthrows")(
               u.encPayload,
               "decryptMsmsgBotMessage: encPayload",
             );
@@ -117,7 +117,7 @@ __d(
                 ])),
               t,
             );
-            var R = r("WANullthrows")(
+            var R = r("nullthrows")(
                 (v = n.msgBotInfo) == null ? void 0 : v.botEditTargetId,
                 "decryptMsmsgBotMessage: botEditTargetId",
               ),
@@ -149,7 +149,7 @@ __d(
             p = {
               fromMe: o("WAWebUserPrefsMeUser").isMeAccount(m),
               remote: l.chat,
-              id: r("WANullthrows")(
+              id: r("nullthrows")(
                 c.targetId,
                 "decryptMsmsgFbidBotMessage: targetId",
               ),
@@ -184,7 +184,7 @@ __d(
                 l.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
                 o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
                 ? y
-                : r("WANullthrows")(
+                : r("nullthrows")(
                     l.author,
                     "decryptMsmsgFbidBotMessage: author",
                   ),
@@ -196,8 +196,8 @@ __d(
             ),
             L = R.encIv,
             E = R.encPayload,
-            k = r("WANullthrows")(L, "decryptMsmsgFbidBotMessage: encIv"),
-            I = r("WANullthrows")(E, "decryptMsmsgFbidBotMessage: encPayload");
+            k = r("nullthrows")(L, "decryptMsmsgFbidBotMessage: encIv"),
+            I = r("nullthrows")(E, "decryptMsmsgFbidBotMessage: encPayload");
           function T(e) {
             return D.apply(this, arguments);
           }
@@ -273,7 +273,7 @@ __d(
             if (d == null && o("WAWebBotGating").isBotOrphanMsgEnabled())
               throw new (r("WAWebOrphanBotMsgError"))(a);
             var p = o("WAWebDBMessageSerialization").messageFromDbRow(
-              r("WANullthrows")(d, "decryptMsmsgBotMessage: targetMsg"),
+              r("nullthrows")(d, "decryptMsmsgBotMessage: targetMsg"),
             );
             if (
               ((l = p == null ? void 0 : p.messageSecret),
@@ -295,7 +295,7 @@ __d(
             }
           }
           return m(
-            r("WANullthrows")(l, "decryptMsmsgBotMessage: decryptSecretBase"),
+            r("nullthrows")(l, "decryptMsmsgBotMessage: decryptSecretBase"),
           );
         })),
         v.apply(this, arguments)

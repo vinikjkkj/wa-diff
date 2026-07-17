@@ -78,34 +78,38 @@ __d(
         resizedBottom: f,
       };
     }
-    function d(e, t, n, r) {
-      var a = t - n,
-        i = 0,
+    function d(e) {
+      var t = e.aspectRatio,
+        n = e.minWidth,
+        r = e.resizeDirection,
+        a = e.resizeStartPiPStyleWidth,
+        i = n - a,
         l = 0,
-        s = 0;
-      switch (e) {
+        s = 0,
+        u = 0;
+      switch (r) {
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.TOP:
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.TOP_RIGHT:
-          ((s = 0), (l = 0));
+          ((u = 0), (s = 0));
           break;
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.TOP_LEFT:
-          ((l = -a), (s = 0));
+          ((s = -i), (u = 0));
           break;
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.RIGHT:
-          ((i = a / r), (s = 0), (l = 0));
+          ((l = i / t), (u = 0), (s = 0));
           break;
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.LEFT:
-          ((i = a / r), (s = 0), (l = -a));
+          ((l = i / t), (u = 0), (s = -i));
           break;
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.BOTTOM:
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.BOTTOM_RIGHT:
-          ((i = a / r), (s = -i), (l = 0));
+          ((l = i / t), (u = -l), (s = 0));
           break;
         case o("WAWebMoveResizeComponentUtils").ResizeDirections.BOTTOM_LEFT:
-          ((i = a / r), (s = -i), (l = -a));
+          ((l = i / t), (u = -l), (s = -i));
           break;
       }
-      return { deltaWidth: a, deltaHeight: i, deltaLeft: l, deltaBottom: s };
+      return { deltaWidth: i, deltaHeight: l, deltaLeft: s, deltaBottom: u };
     }
     function m(e) {
       var t = e.aspectRatio,

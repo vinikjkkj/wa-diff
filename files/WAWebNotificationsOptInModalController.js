@@ -1,15 +1,12 @@
 __d(
   "WAWebNotificationsOptInModalController",
   [
-    "WATimeUtils",
     "WAWebGuidePopup.react",
     "WAWebModalManager",
     "WAWebMuteCollection",
     "WAWebNotificationConstants",
-    "WAWebNotificationsOptInModal.react",
     "WAWebPushNotificationsGatingUtils",
     "WAWebSubscribePushManagerAction",
-    "WAWebUserPrefsNotifications",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -69,27 +66,7 @@ __d(
         }
       });
     }
-    function c() {
-      o("WAWebUserPrefsNotifications").setWebNotificationsBBStatus({
-        isDismissed: !0,
-        lastDismissTime: o("WATimeUtils").unixTime(),
-      });
-    }
-    function d(e, t) {
-      o("WAWebModalManager").ModalManager.open(
-        s.jsx(r("WAWebNotificationsOptInModal.react"), {
-          onAllow: function () {
-            return u(e, {
-              showGuidePopup: !1,
-              onPermissionResult: t == null ? void 0 : t.onPermissionResult,
-            });
-          },
-          onDismiss: c,
-        }),
-      );
-    }
-    ((l.requestNotificationsPermission = u),
-      (l.openNotificationsOptInModal = d));
+    l.requestNotificationsPermission = u;
   },
   98,
 );

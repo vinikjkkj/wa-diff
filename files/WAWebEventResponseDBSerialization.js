@@ -1,7 +1,6 @@
 __d(
   "WAWebEventResponseDBSerialization",
   [
-    "WANullthrows",
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
@@ -10,6 +9,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -30,7 +30,7 @@ __d(
       return ((n[0] = e), n.buffer);
     }
     function u(e) {
-      var t = r("WANullthrows")(o("WAWebMsgGetters").getSender(e));
+      var t = r("nullthrows")(o("WAWebMsgGetters").getSender(e));
       return {
         msgKey: e.id.toString(),
         parentMsgKey: e.parentMsgKey.toString(),

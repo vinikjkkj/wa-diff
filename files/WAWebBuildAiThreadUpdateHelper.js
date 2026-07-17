@@ -1,7 +1,6 @@
 __d(
   "WAWebBuildAiThreadUpdateHelper",
   [
-    "WANullthrows",
     "WAWebAiThreadCreationUtils",
     "WAWebAiThreadTypeUtils",
     "WAWebBotBaseGating",
@@ -12,6 +11,7 @@ __d(
     "WAWebThreadMsgUtils",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -97,7 +97,7 @@ __d(
     }
     function _(e, t) {
       if (o("WAWebThreadMsgUtils").msgHasAiThread(e)) {
-        var n = r("WANullthrows")(o("WAWebThreadMsgUtils").getMsgAiThread(e)),
+        var n = r("nullthrows")(o("WAWebThreadMsgUtils").getMsgAiThread(e)),
           a = o("WAWebAiThreadTypeUtils").getAiThreadInfoFromType(
             void 0,
             o("WAWebAiThreadTypeUtils").AiThreadType.Default,

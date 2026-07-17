@@ -1,9 +1,9 @@
 __d(
   "WAWebVoipLogDrainer",
   [
-    "WACommonTaskScheduler",
     "WALogger",
     "WAWebABProps",
+    "WAWebCommonTaskScheduler",
     "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -257,7 +257,7 @@ __d(
                   if (
                     c > 0 &&
                     (Atomics.store(n, S, l),
-                    yield r("WACommonTaskScheduler").yield(),
+                    yield r("WAWebCommonTaskScheduler").yield(),
                     w !== e)
                   )
                     return;

@@ -23,7 +23,6 @@ __d(
     "WAWebSMBDataSharingSettingAction",
     "WAWebSmbDataSharingConsentScreenWamEvent",
     "WAWebSpinner.react",
-    "WAWebText.react",
     "WAWebText_DONOTUSE.react",
     "WAWebThemeContext",
     "WAWebToast.react",
@@ -37,6 +36,7 @@ __d(
     "WDSIconIcAccountCircle.react",
     "WDSIconIcSettings.react",
     "WDSIconIcVisibilityOff.react",
+    "WDSText.react",
     "asyncToGeneratorRuntime",
     "compactMap",
     "react",
@@ -163,16 +163,19 @@ __d(
         p.jsx(M, { entrypoint: n, callback: t, chats: [e] }),
       );
     }
-    function I(e, t, n, a) {
-      var i = e.some(function (e) {
-        return r("WAWebCommonCTWADataSharing").shouldShowLabelDataSharingDialog(
-          e,
-          t,
-        );
-      });
-      if (!i) return n();
+    function I(e) {
+      var t = e.cb,
+        n = e.chats,
+        a = e.entrypoint,
+        i = e.target,
+        l = n.some(function (e) {
+          return r(
+            "WAWebCommonCTWADataSharing",
+          ).shouldShowLabelDataSharingDialog(e, i);
+        });
+      if (!l) return t();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(M, { entrypoint: a, callback: n, chats: e }),
+        p.jsx(M, { entrypoint: a, callback: t, chats: n }),
       );
     }
     function T(e, t, n) {
@@ -433,7 +436,9 @@ __d(
       var A;
       t[35] !== M
         ? ((A = p.jsx(o("WAWebFlex.react").FlexRow, {
-            children: p.jsx(o("WAWebText.react").WAWebTextMuted, {
+            children: p.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDeemphasized",
               xstyle: M,
               children: w,
             }),

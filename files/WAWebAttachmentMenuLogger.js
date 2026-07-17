@@ -2,12 +2,12 @@ __d(
   "WAWebAttachmentMenuLogger",
   [
     "$InternalEnum",
-    "WANullthrows",
     "WAWebAttachmentTrayActionsWamEvent",
     "WAWebChatGetters",
     "WAWebWamEnumAttachmentTrayActionTargetType",
     "WAWebWamEnumAttachmentTrayActionType",
     "WAWebWamNumberToClientGroupSizeBucket",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored(["OPEN", "CLOSE"]),
@@ -77,7 +77,7 @@ __d(
             this.$1 = Date.now();
           }),
           (n.$3 = function () {
-            return Date.now() - r("WANullthrows")(this.$1);
+            return Date.now() - r("nullthrows")(this.$1);
           }),
           t
         );

@@ -2,7 +2,6 @@ __d(
   "WAWebCryptoDecryptMedia",
   [
     "Promise",
-    "WACommonTaskScheduler",
     "WACryptoAesCbc",
     "WACryptoHmac",
     "WACryptoUtils",
@@ -15,6 +14,7 @@ __d(
     "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebBackendWorkerClient",
+    "WAWebCommonTaskScheduler",
     "WAWebMiscErrors",
     "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
@@ -47,7 +47,7 @@ __d(
               "wmi_worker_scheduler_web",
             );
           m
-            ? yield r("WACommonTaskScheduler").yield()
+            ? yield r("WAWebCommonTaskScheduler").yield()
             : d
               ? yield o("WAWebReleaseToEventLoop").releaseToEventLoop()
               : yield (p || (p = n("Promise"))).resolve();
@@ -94,7 +94,7 @@ __d(
                         );
                       d &&
                         (m
-                          ? yield r("WACommonTaskScheduler").yield()
+                          ? yield r("WAWebCommonTaskScheduler").yield()
                           : yield o(
                               "WAWebReleaseToEventLoop",
                             ).releaseToEventLoop());
@@ -116,7 +116,7 @@ __d(
                       if (l == null) return e;
                       d &&
                         (m
-                          ? yield r("WACommonTaskScheduler").yield()
+                          ? yield r("WAWebCommonTaskScheduler").yield()
                           : yield o(
                               "WAWebReleaseToEventLoop",
                             ).releaseToEventLoop());

@@ -5,7 +5,6 @@ __d(
     "WAComms",
     "WACryptoPkcs7",
     "WALogger",
-    "WANullthrows",
     "WAPromiseDelays",
     "WASendPassiveModeProtocol",
     "WATimeUtils",
@@ -200,6 +199,7 @@ __d(
     "cr:5553",
     "decodeProtobuf",
     "err",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -581,7 +581,7 @@ __d(
     Z.doc = "Decode a stanza from a buffer and return the WAP node";
     function ee(e) {
       var t = o("WACryptoPkcs7").unpadPkcs7(
-        new Uint8Array(r("WANullthrows")(e.futureproofBuffer)),
+        new Uint8Array(r("nullthrows")(e.futureproofBuffer)),
       );
       return o("decodeProtobuf").decodeProtobuf(
         o("WAWebProtobufsE2E.pb").MessageSpec,

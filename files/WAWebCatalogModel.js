@@ -1,7 +1,6 @@
 __d(
   "WAWebCatalogModel",
   [
-    "WANullthrows",
     "WAWebBaseModel",
     "WAWebBizProductCatalogAction",
     "WAWebBizProductCatalogBridge",
@@ -11,6 +10,7 @@ __d(
     "WAWebProductModel",
     "WAWebWid",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -78,7 +78,7 @@ __d(
             var a = yield o("WAWebBizProductCatalogAction").addProduct(e);
             a.catalogWid = n;
             var i = this.productCollection.add(a, { merge: !0, at: 0 })[0];
-            return r("WANullthrows")(i);
+            return r("nullthrows")(i);
           });
           function t(t) {
             return e.apply(this, arguments);
@@ -99,7 +99,7 @@ __d(
                   t.productCollection.get(e.id) &&
                     t.productCollection.add(n, { merge: !0 });
                 }),
-              r("WANullthrows")(a)
+              r("nullthrows")(a)
             );
           });
           function t(t) {

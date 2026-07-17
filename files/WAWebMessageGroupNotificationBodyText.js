@@ -40,6 +40,7 @@ __d(
     "WAWebMessageCommunityWelcomeAdmin.react",
     "WAWebMessageCommunityWelcomeMember.react",
     "WAWebMessageCommunityWelcomeSubgroup.react",
+    "WAWebMsgModelUtils",
     "WAWebStateUtils",
     "WAWebSystemMessageGatingUtils",
     "WAWebSystemMessagesUtils",
@@ -77,7 +78,7 @@ __d(
         h = g === void 0 ? [] : g,
         y = l.templateParams,
         C = o("WAWebFrontendMsgGetters").getChat(l.unsafe()),
-        b = l.displayName(),
+        b = o("WAWebMsgModelUtils").getMsgDisplayName(l.unsafe()),
         v = _
           ? o("WAWebFormatParticipantNames").getFormattedName(
               _,

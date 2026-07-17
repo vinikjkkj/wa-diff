@@ -10,7 +10,6 @@ __d(
     "WAWebDBProcessMessage",
     "WAWebEncryptAndSendStatusMsg",
     "WAWebLidStatusMigrationUtils",
-    "WAWebLogStatusPosterActions",
     "WAWebLogStatusRevoke",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporterFrontendDeps",
@@ -21,6 +20,7 @@ __d(
     "WAWebPostSendStatusFailure",
     "WAWebSendMsgMetricReporter",
     "WAWebSendMsgTypes",
+    "WAWebStatusPosterActionsLogger",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
     "WAWebViewMode.flow",
@@ -47,7 +47,7 @@ __d(
             n.id,
           );
           var h = new (o(
-            "WAWebLogStatusPosterActions",
+            "WAWebStatusPosterActionsLogger",
           ).StatusPosterActionsLogger)();
           h.logDeleteStatusRequest();
           var y = yield g(n);

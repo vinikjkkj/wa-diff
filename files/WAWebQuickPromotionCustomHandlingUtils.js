@@ -6,19 +6,25 @@ __d(
     "WAWebApi",
     "WAWebApiParse",
     "WAWebBannerEventWamEvent",
+    "WAWebBizAiHubDeeplinkScheme",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastNewBroadcastFlowLoadable",
     "WAWebBizNativeAdsEntryPointUtils",
     "WAWebBizNativeAdsWamLogger",
+    "WAWebBizToolsFlowLoadable",
+    "WAWebBizToolsFlowSteps",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebCTWAConstants",
+    "WAWebCmd",
     "WAWebDrawerManager",
     "WAWebExecApiCmd",
     "WAWebExternalLink.react",
     "WAWebKeyboardTabUtils",
     "WAWebMobilePlatforms",
+    "WAWebNavBarTypes",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumBannerOperations",
+    "WAWebWamEnumBusinessToolsEntryPointType",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSmbFeatureNameEnum",
     "react",
@@ -128,21 +134,21 @@ __d(
               type: "openCatalogBanner",
               onPrimaryClick: function () {
                 (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
-                  b(
+                  v(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                b(
+                v(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                b(
+                v(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -167,21 +173,21 @@ __d(
                 o("WAWebApi").BrazilPaymentResultSubtype.PIX_ONBOARDING
                   ? r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 })
                   : o("WAWebExternalLink.react").openExternalLink(a),
-                  b(
+                  v(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                b(
+                v(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                b(
+                v(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -226,7 +232,7 @@ __d(
               onPrimaryClick: function () {
                 (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    b(
+                    v(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
@@ -237,7 +243,7 @@ __d(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.qpBannerViewed(),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    b(
+                    v(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
@@ -248,7 +254,7 @@ __d(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.qpBannerDismissed(),
                   n === o("WAWebCTWAConstants").QP_SURFACE_ID_BB_HOME &&
-                    b(
+                    v(
                       n,
                       e.id,
                       o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS
@@ -324,6 +330,48 @@ __d(
       }
     }
     function C(e) {
+      var t,
+        n = e.id,
+        r = e.surfaceId;
+      if (
+        !(
+          r !== o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP &&
+          r !== o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD
+        )
+      ) {
+        var a = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
+        if (
+          !(
+            a == null ||
+            !a.startsWith(
+              o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_DEEPLINK_SCHEME,
+            )
+          )
+        )
+          return {
+            type: "bizAi",
+            onPrimaryClick: function () {
+              (o("WAWebCmd").Cmd.setActiveNavBarItem(
+                o("WAWebNavBarTypes").NavBarItems.BizTools,
+              ),
+                o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
+                  u.jsx(o("WAWebBizToolsFlowLoadable").BizToolsFlowLoadable, {
+                    entryPoint: o("WAWebWamEnumBusinessToolsEntryPointType")
+                      .BUSINESS_TOOLS_ENTRY_POINT_TYPE.ENTRY_DEEPLINK,
+                    autoSelectStep: o("WAWebBizToolsFlowSteps").BizToolsSteps
+                      .BusinessAI,
+                    bizAiQrHandoffQpId: n,
+                  }),
+                  {
+                    focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+                    transition: "pop-drawer-fast",
+                  },
+                ));
+            },
+          };
+      }
+    }
+    function b(e) {
       var t = [],
         n = c(e);
       n && t.push(n);
@@ -340,9 +388,11 @@ __d(
       var s = g(e);
       s && t.push(s);
       var u = y(e);
-      return (u && t.push(u), t);
+      u && t.push(u);
+      var h = C(e);
+      return (h && t.push(h), t);
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
         bannerType: o(
           "WAWebBizNativeAdsEntryPointUtils",
@@ -351,8 +401,8 @@ __d(
         bannerId: t,
       }).commit();
     }
-    function v(e, t) {
-      var n = C(e);
+    function S(e, t) {
+      var n = b(e);
       n.forEach(function (e) {
         switch (t) {
           case "primaryActionClick":
@@ -366,7 +416,7 @@ __d(
         }
       });
     }
-    l.maybeExecuteQuickPromotionCustomHandlingSpec = v;
+    l.maybeExecuteQuickPromotionCustomHandlingSpec = S;
   },
   98,
 );

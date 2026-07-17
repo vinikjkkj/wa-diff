@@ -27,7 +27,13 @@ __d(
                 .sendLogs(
                   "privacy_settings_drawer: get all privacy disallowed lists failed",
                 ),
-              { about: null, groupadd: null, last: null, profile: null }
+              {
+                about: null,
+                groupadd: null,
+                last: null,
+                profile: null,
+                pix: null,
+              }
             );
           }
         })),
@@ -35,7 +41,13 @@ __d(
       );
     }
     function c(e) {
-      var t = { about: null, groupadd: null, last: null, profile: null };
+      var t = {
+        about: null,
+        groupadd: null,
+        last: null,
+        profile: null,
+        pix: null,
+      };
       return (
         e.forEach(function (e) {
           e: {
@@ -69,6 +81,14 @@ __d(
                 .ProfilePicture
             ) {
               t.profile = e;
+              break e;
+            }
+            if (
+              e.id ===
+              o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
+                .Pix
+            ) {
+              t.pix = e;
               break e;
             }
             throw Error(

@@ -41,6 +41,7 @@ __d(
         onClick: c,
         disabled: (n = u || s) != null ? n : !1,
         nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW,
+        testid: "cta-flow-button",
       };
     }
     l.getCtaFlowInteractiveAction = e;

@@ -61,13 +61,13 @@ __d(
             editTsInSeconds: n,
             msgKey: e.id,
           })
-            ? yield t.updateErrorCode(
-                o("WAWebErrorType").SendFailureErrorCode.NoError,
-              )
-            : (yield e.updateErrorCode(
+            ? yield L(t, o("WAWebErrorType").SendFailureErrorCode.NoError)
+            : (yield L(
+                e,
                 o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired,
               ),
-              yield t.updateErrorCode(
+              yield L(
+                t,
                 o("WAWebErrorType").SendFailureErrorCode.EditWindowExpired,
               ));
         })),
@@ -382,6 +382,14 @@ __d(
             });
         })),
         R.apply(this, arguments)
+      );
+    }
+    function L(e, t) {
+      return (
+        (e.errorCode = t),
+        o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+          errorCode: t,
+        })
       );
     }
     ((l.resendLatestEdit = f),

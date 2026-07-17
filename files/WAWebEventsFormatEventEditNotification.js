@@ -2,7 +2,6 @@ __d(
   "WAWebEventsFormatEventEditNotification",
   [
     "fbt",
-    "WANullthrows",
     "WAWebChatCommunityUtils",
     "WAWebChatContactUtils",
     "WAWebContactCollection",
@@ -13,10 +12,11 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      var t = r("WANullthrows")(
+      var t = r("nullthrows")(
           e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
             e.subtype === "event_edit_decrypted"
             ? e

@@ -1,11 +1,11 @@
 __d(
   "WAWebUserPrefsTabMutex",
   [
-    "WANullthrows",
     "WAWebLocalStorage",
     "WAWebPermanentStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "x" + Math.round(Math.random() * 1e9);
@@ -43,11 +43,11 @@ __d(
     }
     function _() {
       var t = { wa_tab_src: e };
-      (r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+      (r("nullthrows")(r("WAWebLocalStorage")).setItem(
         o("WAWebUserPrefsKeys").KEYS.LOCAL_TAKEOVER_OK,
         JSON.stringify(t),
       ),
-        r("WANullthrows")(r("WAWebLocalStorage")).removeItem(
+        r("nullthrows")(r("WAWebLocalStorage")).removeItem(
           o("WAWebUserPrefsKeys").KEYS.LOCAL_TAKEOVER_OK,
         ));
     }

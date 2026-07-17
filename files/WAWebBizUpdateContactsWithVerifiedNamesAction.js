@@ -1,13 +1,13 @@
 __d(
   "WAWebBizUpdateContactsWithVerifiedNamesAction",
   [
-    "WANullthrows",
     "WAWebApiVerifiedBusinessName",
     "WAWebBusinessProfileTypes",
     "WAWebContactCollection",
     "WAWebHandleMsgTypes.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -63,12 +63,12 @@ __d(
               isSmb: a,
               privacyMode: s
                 ? {
-                    actualActors: r("WANullthrows")(
+                    actualActors: r("nullthrows")(
                       o("WAWebHandleMsgTypes.flow").ActualActorsEnumType.cast(
                         s.actualActors,
                       ),
                     ),
-                    hostStorage: r("WANullthrows")(
+                    hostStorage: r("nullthrows")(
                       o("WAWebHandleMsgTypes.flow").HostStorageEnumType.cast(
                         s.hostStorage,
                       ),

@@ -10,6 +10,7 @@ __d(
     "WAWebBackendApi",
     "WAWebContactCollection",
     "WAWebContactShortName",
+    "WAWebContactUtils",
     "WAWebCurrentUser",
     "WAWebDBCreateLidPnMappings",
     "WAWebLidAwareContactsDB",
@@ -326,12 +327,12 @@ __d(
                     var t = o("WAWebContactCollection").ContactCollection.get(
                       e,
                     );
-                    t && t.setNotMyContact();
+                    t && o("WAWebContactUtils").setContactNotMine(t);
                     var n = v.get(e),
                       r = n
                         ? o("WAWebContactCollection").ContactCollection.get(n)
                         : null;
-                    r && r.setNotMyContact();
+                    r && o("WAWebContactUtils").setContactNotMine(r);
                   }),
                   o("WALogger").LOG(
                     g ||

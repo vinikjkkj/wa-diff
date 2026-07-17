@@ -1,7 +1,6 @@
 __d(
   "WAWebChatMessageSearch",
   [
-    "WANullthrows",
     "WAWebBizAiAgentStatusUtils",
     "WAWebChatAssignmentUtils",
     "WAWebChatConstants",
@@ -24,6 +23,7 @@ __d(
     "WAWebViewModeUtils",
     "WAWebWamEnumWebcQueryTriggerType",
     "isEmptyObject",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -104,7 +104,7 @@ __d(
               a = m ? o("WAWebMsgCollection").MsgCollection.get(m) : d;
             if (a && Array.isArray(n) && n.length < C) {
               var i = a.getMsgChunk(h);
-              ((r("WANullthrows")(i).msgLoadState.noEarlierMsgs =
+              ((r("nullthrows")(i).msgLoadState.noEarlierMsgs =
                 c.endOfHistoryTransferType !==
                 o("WAWebChatConstants")
                   .ConversationEndOfHistoryTransferModelPropType.INCOMPLETE),

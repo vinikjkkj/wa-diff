@@ -2,17 +2,17 @@ __d(
   "WAWebDBMessageFindLocal",
   [
     "Promise",
-    "WACommonTaskScheduler",
     "WAFilteredCatch",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebCallLogMsgData.flow",
+    "WAWebCommonTaskScheduler",
     "WAWebDBGetEventMessagesForChat",
     "WAWebDBGetStarredMessagesForChat",
     "WAWebDBMessageSerialization",
-    "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
+    "WAWebDBQueryChatVisibleMessageHelper",
     "WAWebFetchMessagesInThread",
     "WAWebFtsClient",
     "WAWebMediaHubGating",
@@ -285,7 +285,7 @@ __d(
           if (n)
             for (var a = 0; a < e.length; a++)
               (t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[a])),
-                yield r("WACommonTaskScheduler").yield());
+                yield r("WAWebCommonTaskScheduler").yield());
           else
             for (
               var i = r("justknobx")._("3116") || T, l = 0;
@@ -579,7 +579,7 @@ __d(
           }
           var h = { lowerInclusive: !0, upperInclusive: !1 },
             y = yield o(
-              "WAWebDBMessageStoreUtils",
+              "WAWebDBQueryChatVisibleMessageHelper",
             ).queryChatVisibleMessageHelper({
               lowerBound: p,
               upperBound: _,
@@ -633,7 +633,7 @@ __d(
                 (c = o("WAWebDBMessageUtils").endOfChat(t.remote)));
             }
             var _ = { lowerInclusive: !1, upperInclusive: !0 };
-            return o("WAWebDBMessageStoreUtils")
+            return o("WAWebDBQueryChatVisibleMessageHelper")
               .queryChatVisibleMessageHelper({
                 lowerBound: a,
                 upperBound: c,

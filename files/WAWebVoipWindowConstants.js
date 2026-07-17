@@ -16,14 +16,22 @@ __d(
     function p(e) {
       ((d = e), m.trigger("change", e));
     }
-    function _() {
+    var _ = !1,
+      f = new (r("WAWebTypedEventEmitter"))();
+    function g(e) {
+      e !== _ && ((_ = e), f.trigger("change", e));
+    }
+    function h() {
+      return _;
+    }
+    function y() {
       var e = r("WAWebCallCollection").activeCall;
       return (e == null ? void 0 : e.isGroup) === !0 &&
         (e == null ? void 0 : e.isVideo) !== !0
         ? u
         : s;
     }
-    function f() {
+    function C() {
       return d ? c : e;
     }
     ((l.MIN_WINDOW_WIDTH = e),
@@ -35,8 +43,11 @@ __d(
       (l.MIN_WINDOW_WIDTH_WITH_SIDEBAR = c),
       (l.sidebarVisibilityEmitter = m),
       (l.setIsSidebarVisible = p),
-      (l.getEffectiveMinWindowHeight = _),
-      (l.getEffectiveMinWindowWidth = f));
+      (l.speakerDominantTooSmallEmitter = f),
+      (l.updateSpeakerDominantTooSmall = g),
+      (l.getIsSpeakerDominantTooSmall = h),
+      (l.getEffectiveMinWindowHeight = y),
+      (l.getEffectiveMinWindowWidth = C));
   },
   98,
 );

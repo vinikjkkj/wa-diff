@@ -1,6 +1,6 @@
 __d(
   "WAWebDataSharing3pdLidCollection",
-  ["PerCustomerDataSharingModel", "WAWebBaseCollection"],
+  ["WAWebBaseCollection", "WAWebPerCustomerDataSharingModel"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -12,7 +12,7 @@ __d(
         (n.initializeFromCache = function (t) {
           var e = t.map(function (e) {
             return new (o(
-              "PerCustomerDataSharingModel",
+              "WAWebPerCustomerDataSharingModel",
             ).PerCustomerDataSharingModel)(
               babelHelpers.extends({ id: e.lidRawString }, e),
             );
@@ -26,7 +26,7 @@ __d(
         t
       );
     })(o("WAWebBaseCollection").BaseCollection);
-    e.model = o("PerCustomerDataSharingModel").PerCustomerDataSharingModel;
+    e.model = o("WAWebPerCustomerDataSharingModel").PerCustomerDataSharingModel;
     var s = new e();
     l.DataSharing3pdLidCollection = s;
   },

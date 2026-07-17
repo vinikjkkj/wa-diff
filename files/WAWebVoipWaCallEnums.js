@@ -395,8 +395,13 @@ __d(
     function N(e) {
       return e === P ? $.Guest : $.Unknown;
     }
-    var M = e({ Gallery: 0, Speaker: 1, Pinning: 2 }),
-      w = e({
+    var M = e({ None: 0, GuestsOnly: 1 }),
+      w = "guests_only";
+    function A(e) {
+      return e === w ? M.GuestsOnly : M.None;
+    }
+    var F = e({ Gallery: 0, Speaker: 1, Pinning: 2 }),
+      O = e({
         Unknown: 0,
         Android: 1,
         IPhone: 2,
@@ -440,8 +445,10 @@ __d(
       (l.ServerReminderType = x),
       (l.AccountKind = $),
       (l.wireStringToAccountKind = N),
-      (l.UiViewMode = M),
-      (l.ClientPlatform = w));
+      (l.WaitingRoomFilter = M),
+      (l.wireStringToWaitingRoomFilter = A),
+      (l.UiViewMode = F),
+      (l.ClientPlatform = O));
   },
   98,
 );

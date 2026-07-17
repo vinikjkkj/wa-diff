@@ -105,7 +105,6 @@ __d(
     "WAWebWamEnumWebcChatType",
     "WAWebWid",
     "asyncToGeneratorRuntime",
-    "countWhere",
     "getErrorSafe",
     "isStringNullOrEmpty",
     "nullthrows",
@@ -1264,14 +1263,6 @@ __d(
             ((e.notSpam[this.id] = this.notSpam),
               this.isTrusted(),
               this.notSpam && this.stopListening(this, "change:notSpam"));
-          }),
-          (i.senderMsgCount = function () {
-            return r("countWhere")(this.getAllMsgs(), function (e) {
-              return (
-                !o("WAWebMsgGetters").getIsSentByMe(e) &&
-                !o("WAWebMsgGetters").getIsNotification(e)
-              );
-            });
           }),
           (i.isCAGAdmin = function () {
             var e,

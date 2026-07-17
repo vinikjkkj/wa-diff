@@ -2,7 +2,6 @@ __d(
   "WAWebBaseModel",
   [
     "WALogger",
-    "WANullthrows",
     "WATypeUtils",
     "WAWebABProps",
     "WAWebBaseMirror",
@@ -14,6 +13,7 @@ __d(
     "cr:5292",
     "err",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -184,18 +184,18 @@ __d(
               d.size > 0)
             )
               for (
-                var m = r("WANullthrows")(
+                var m = r("nullthrows")(
                     this._topo,
                     "_topo unexpectedly undefined",
                   ),
-                  p = r("WANullthrows")(this._topoIndexMap),
+                  p = r("nullthrows")(this._topoIndexMap),
                   _ = function (t) {
                     var e = m[t];
                     if (!d.has(e)) return 1;
                     var n = i._setD(e);
                     n == null ||
                       n.forEach(function (e) {
-                        var n = r("WANullthrows")(p.get(e));
+                        var n = r("nullthrows")(p.get(e));
                         if (n < t)
                           throw r("err")(
                             "Circular derived properties / event listeners",

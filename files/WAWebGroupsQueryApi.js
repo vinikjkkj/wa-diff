@@ -5,7 +5,7 @@ __d(
     "WAWebAfterReadUtils",
     "WAWebAsISOCountryCode",
     "WAWebGroupHistoryGating",
-    "WAWebGroupHistoryPostJoinTypes.flow",
+    "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
     "WAWebJidToWid",
     "WAWebSchemaGroupMetadata",
@@ -136,9 +136,7 @@ __d(
           u = i.participantMixins,
           c = t ? s : void 0,
           p = t
-            ? o("WAWebGroupHistoryPostJoinTypes.flow").groupHistorySentToState(
-                l,
-              )
+            ? o("WAWebGroupHistoryPostJoinTypes").groupHistorySentToState(l)
             : void 0;
         return u.name === "ParticipantWithJid"
           ? {

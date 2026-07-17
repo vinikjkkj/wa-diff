@@ -61,21 +61,24 @@ __d(
         l = Math.floor(Math.log2((i * o * a) / (2.5 * e)));
       return Math.max(1, Math.min(l, s));
     }
-    function L(t, n, o) {
-      var a = r("WAWebL10N").getNormalizedLocale();
-      return o
+    function L(t) {
+      var n = t.lat,
+        o = t.lng,
+        a = t.name,
+        i = r("WAWebL10N").getNormalizedLocale();
+      return a
         ? g +
             "/" +
-            encodeURIComponent(o) +
+            encodeURIComponent(a) +
             "/@" +
-            t +
-            "," +
             n +
+            "," +
+            o +
             "," +
             e +
             "z?hl=" +
-            a
-        : r("WAWebURLUtils").build(h, { q: t + "," + n, z: e, hl: a });
+            i
+        : r("WAWebURLUtils").build(h, { q: n + "," + o, z: e, hl: i });
     }
     function E(e) {
       var t = e.height,

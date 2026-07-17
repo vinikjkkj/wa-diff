@@ -228,6 +228,13 @@ __d(
               !o("WAWebVoipCallStateUtils").isCallConnected(this.$Call$p_1)
             );
           }),
+          (a.isWaitingRoomToggleOn = function (t) {
+            return o("WAWebVoipWaCallEnums").wireStringToWaitingRoomFilter(
+              this.waitingRoomFilter,
+            ) === o("WAWebVoipWaCallEnums").WaitingRoomFilter.GuestsOnly && t()
+              ? !1
+              : this.isWaitingRoomEnabled;
+          }),
           (a.setPeerReconnectingState = function (t, n, a) {
             var e = t.toString();
             (n

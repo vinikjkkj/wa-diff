@@ -20,6 +20,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebReportingTokenConstants",
     "WAWebScheduledMsgCrypto",
+    "WAWebScheduledMsgOutgoingMsgKey",
     "WAWebScheduledMsgRevealKeyStore",
     "WAWebScheduledMsgStore",
     "WAWebUserPrefsMeUser",
@@ -214,7 +215,10 @@ __d(
           m = s.scheduledTime;
         if (!(c == null || d == null || m == null)) {
           var p = (n = t.id) == null ? void 0 : n.remote,
-            _ = (a = t.id) == null ? void 0 : a.id;
+            _ =
+              ((a = t.id) == null ? void 0 : a.id) != null
+                ? t.id.toString()
+                : null;
           if (!(p == null || _ == null)) {
             var g = o("WAWebWidToJid").widToChatJid(p),
               h = typeof t.body == "string" ? t.body : null,
@@ -298,10 +302,13 @@ __d(
                 var d = s.remote,
                   m = s.id;
                 if (!(d == null || m == null)) {
-                  var p = _(d, s.participant);
+                  var p = _(d, s.participant),
+                    f = o("WAWebScheduledMsgOutgoingMsgKey")
+                      .buildScheduledMsgIncomingMsgKey(m, d, p)
+                      .toString();
                   (o("WAWebScheduledMsgRevealKeyStore")
                     .storeRevealKey({
-                      msgId: m,
+                      msgId: f,
                       chatId: o("WAWebWidToJid").widToChatJid(d),
                       revealKeyId: u.revealKeyId,
                       revealKey: new Uint8Array(0),

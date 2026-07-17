@@ -1,10 +1,6 @@
 __d(
   "getWizardContextQuery.entrypointutils",
-  [
-    "BillingContextFactoryQuery$Parameters",
-    "BillingWizardGKConfig",
-    "BillingWizardQEConfig",
-  ],
+  ["BillingContextFactoryQuery$Parameters"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -13,10 +9,8 @@ __d(
         billingContextQuery: {
           parameters: r("BillingContextFactoryQuery$Parameters"),
           variables: {
-            gks: o("BillingWizardGKConfig").BillingWizardGKs,
             hasPaymentAccount: t != null && t !== "",
             paymentAccountID: t != null ? t : "",
-            universes: o("BillingWizardQEConfig").BillingWizardQEUniverses,
           },
         },
       };

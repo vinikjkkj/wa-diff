@@ -17,6 +17,7 @@ __d(
     "WAWebDBMessageSerialization",
     "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
+    "WAWebDBQueryChatVisibleMessageHelper",
     "WAWebDbEncryptionKey",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebModelStorageInitialize",
@@ -414,7 +415,7 @@ __d(
             a != null && a.canRenderInUi(r) && n.push(t.id.toString());
           }
           var i = yield o(
-            "WAWebDBMessageStoreUtils",
+            "WAWebDBQueryChatVisibleMessageHelper",
           ).queryChatVisibleMessageHelper({
             lowerBound: e.id + "_/",
             upperBound: e.id + "_g",
@@ -452,7 +453,7 @@ __d(
               );
             (t && l != null && l.canRenderInUi(i) && r.push(t.id.toString()),
               (n = yield o(
-                "WAWebDBMessageStoreUtils",
+                "WAWebDBQueryChatVisibleMessageHelper",
               ).queryChatVisibleMessageHelper({
                 lowerBound: a,
                 upperBound: e.id + "_g",
@@ -462,7 +463,7 @@ __d(
           } else {
             var s = 1;
             n = yield o(
-              "WAWebDBMessageStoreUtils",
+              "WAWebDBQueryChatVisibleMessageHelper",
             ).queryChatVisibleMessageHelper({
               lowerBound: e.id + "_/",
               upperBound: e.id + "_g",
@@ -629,7 +630,7 @@ __d(
           o("WAWebWidFactory").createWid(e.id),
         ),
         i = o("WAWebDBMessageUtils").craftInternalId(e.id, t);
-      return o("WAWebDBMessageStoreUtils")
+      return o("WAWebDBQueryChatVisibleMessageHelper")
         .queryChatVisibleMessageHelper({
           lowerBound: a,
           upperBound: i,
@@ -642,7 +643,9 @@ __d(
     }
     function A(e, t, n) {
       var r = { lowerInclusive: !0, upperInclusive: !1 };
-      return o("WAWebDBMessageStoreUtils").queryChatVisibleMessageHelper({
+      return o(
+        "WAWebDBQueryChatVisibleMessageHelper",
+      ).queryChatVisibleMessageHelper({
         lowerBound: o("WAWebDBMessageUtils").craftInternalId(e.id, t),
         upperBound: o("WAWebDBMessageUtils").endOfChat(
           o("WAWebWidFactory").createWid(e.id),

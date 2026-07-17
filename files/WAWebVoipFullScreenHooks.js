@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipFullScreenHooks",
-  ["WAWebVoipGatingUtils", "react-compiler-runtime"],
+  ["WAWebABProps", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -8,7 +8,9 @@ __d(
         t;
       return (
         e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = o("WAWebVoipGatingUtils").isFullScreenToggleEnabled()),
+          ? ((t = o("WAWebABProps").getABPropConfigValue(
+              "web_calling_full_screen_toggle_enabled",
+            )),
             (e[0] = t))
           : (t = e[0]),
         t

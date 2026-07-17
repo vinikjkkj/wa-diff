@@ -3,7 +3,6 @@ __d(
   [
     "WAAbortError",
     "WALogger",
-    "WANullthrows",
     "WAWebDownloadManager",
     "WAWebHttpErrors",
     "WAWebMediaGetDownloadOriginForMsg",
@@ -15,6 +14,7 @@ __d(
     "WAWebStartMediaDownloadQpl",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
@@ -41,7 +41,7 @@ __d(
           });
           try {
             var f,
-              g = (f = r("WANullthrows"))(i.scanLengths),
+              g = (f = r("nullthrows"))(i.scanLengths),
               h = f(i.scansSidecar),
               y = f(i.mediaObject),
               C = f(y.filehash),

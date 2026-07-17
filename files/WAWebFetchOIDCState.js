@@ -1,11 +1,11 @@
 __d(
   "WAWebFetchOIDCState",
   [
-    "WANullthrows",
     "WAWebFetchAdAccountToken",
     "WAWebFetchOIDCStateQuery.graphql",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,7 +24,7 @@ __d(
               {},
               { accessToken: a.token, environmentType: "facebook" },
             );
-          return r("WANullthrows")(
+          return r("nullthrows")(
             i == null ? void 0 : i.xfb_wa_biz_get_oidc_state,
           );
         })),

@@ -43,36 +43,41 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n = this;
-                if (o("WAWebMobilePlatforms").isSMB() !== !0)
-                  return (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[CustomPaymentMethodsSync] op not supported, not SMB",
-                        ])),
-                    ),
-                    t.map(function () {
-                      return {
-                        actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
-                      };
-                    })
-                  );
-                var r =
+                if (o("WAWebMobilePlatforms").isSMB()) {
+                  var r =
+                    o("WAWebABProps").getABPropConfigValue(
+                      "payments_br_pix_phase_1_seller_sync_enabled",
+                    ) === !0;
+                  if (
+                    !r &&
+                    !o(
+                      "WAWebUprPaymentKeySyncGating",
+                    ).isCustomPaymentMethodsSyncEnabled()
+                  )
+                    return (
+                      o("WALogger").WARN(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[CustomPaymentMethodsSync] op not supported, ABProp fail",
+                          ])),
+                      ),
+                      t.map(function () {
+                        return {
+                          actionState:
+                            o("WASyncdConst").SyncActionState.Unsupported,
+                        };
+                      })
+                    );
+                } else if (
                   o("WAWebABProps").getABPropConfigValue(
-                    "payments_br_pix_phase_1_seller_sync_enabled",
-                  ) === !0;
-                if (
-                  !r &&
-                  !o(
-                    "WAWebUprPaymentKeySyncGating",
-                  ).isCustomPaymentMethodsSyncEnabled()
+                    "br_consumer_pix_sync_receive_web_enabled",
+                  ) !== !0
                 )
                   return (
                     o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[CustomPaymentMethodsSync] op not supported, ABProp fail",
+                          "[CustomPaymentMethodsSync] consumer sync not enabled, ABProp fail",
                         ])),
                     ),
                     t.map(function () {

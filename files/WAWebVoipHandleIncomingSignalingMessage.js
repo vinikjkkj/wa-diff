@@ -6,6 +6,7 @@ __d(
     "WAWebBackendApi",
     "WAWebHandleVoipEncRekey",
     "WAWebVoipGatingUtils",
+    "WAWebVoipPeerTcToken",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
     "err",
@@ -26,11 +27,9 @@ __d(
             var r = yield o("WAWebVoipStackInterface").getVoipStackInterface();
             if (r) {
               var a,
-                i = yield o("WAWebBackendApi").frontendSendAndReceive(
-                  "getTcToken",
-                  { wid: e.peer_jid },
-                ),
-                l = i.tcToken;
+                i = yield o("WAWebVoipPeerTcToken").fetchPeerTcToken(
+                  e.peer_jid,
+                );
               yield r.handleIncomingSignalingMessage(
                 t,
                 e.peer_platform,
@@ -39,7 +38,7 @@ __d(
                 e.t,
                 (a = e.isContact) != null ? a : !1,
                 e.peer_jid.toString(),
-                l,
+                i,
               );
               return;
             }

@@ -5,12 +5,13 @@ __d(
     "WAWebFormatAddNotification",
     "WAWebFormatParticipantNames",
     "WAWebFrontendContactGetters",
+    "WAWebMsgModelUtils",
     "WAWebWidFormat",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.msg,
-        n = t.displayName(),
+        n = o("WAWebMsgModelUtils").getMsgDisplayName(t),
         r = t.get("author"),
         a = t.recipients || [],
         i = o("WAWebFormatParticipantNames").getFormattedNames(a, !1),

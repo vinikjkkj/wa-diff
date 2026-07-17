@@ -4,14 +4,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      var n = e - t,
-        r = o(
+      var n = o(
           "WAWebScheduledMessagesGatingUtils",
         ).getScheduledMessagesMinDurationSeconds(),
-        a = o(
+        r = o(
           "WAWebScheduledMessagesGatingUtils",
-        ).getScheduledMessagesMaxDurationSeconds();
-      return n >= r && n <= a;
+        ).getScheduledMessagesMaxDurationSeconds(),
+        a = Math.floor(t / 60) * 60;
+      return e - a >= n && e - t <= r;
     }
     l.default = e;
   },

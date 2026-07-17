@@ -47,7 +47,7 @@ __d(
       if (
         (o("WAWebMsgGetters").getIsGroupMsg(e) ||
         o("WAWebMsgGetters").getIsMetaBotInvokeResponse(e)
-          ? (l = e.displayName({
+          ? (l = o("WAWebMsgModelUtils").getMsgDisplayName(e, {
               withPushName: a,
               withPushNameOnly: a,
               newPushNameFormatting: a,
