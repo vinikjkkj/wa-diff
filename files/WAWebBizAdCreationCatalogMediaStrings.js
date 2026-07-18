@@ -19,26 +19,21 @@ __d(
       return s._(/*BTDS*/ "Choose up to 10 images");
     }
     function p(e) {
-      return s._(/*BTDS*/ '_j{"*":"{number} items","_1":"1 item"}', [
-        s._plural(e, "number"),
-      ]);
-    }
-    function _(e) {
       return s._(
         /*BTDS*/ "Your business name and photo will be shared with Meta in order to create your ad. {learnMoreLink}",
         [s._param("learnMoreLink", e)],
       );
     }
-    function f() {
+    function _() {
       return s._(/*BTDS*/ "Choose catalog media");
     }
-    function g() {
+    function f() {
       return s._(/*BTDS*/ "No catalog items");
     }
-    function h() {
+    function g() {
       return s._(/*BTDS*/ "Choose up to 10 images");
     }
-    function y() {
+    function h() {
       return s._(/*BTDS*/ "Catalog image");
     }
     ((l.getAddMediaModalTitle = e),
@@ -46,12 +41,11 @@ __d(
       (l.getUploadSourceDescription = c),
       (l.getCatalogSourceLabel = d),
       (l.getCatalogSourceDescription = m),
-      (l.getCatalogItemCountText = p),
-      (l.getSharingDisclosure = _),
-      (l.getChooseCatalogMediaTitle = f),
-      (l.getNoCatalogItemsText = g),
-      (l.getCatalogFooterHint = h),
-      (l.getCatalogImageTileLabel = y));
+      (l.getSharingDisclosure = p),
+      (l.getChooseCatalogMediaTitle = _),
+      (l.getNoCatalogItemsText = f),
+      (l.getCatalogFooterHint = g),
+      (l.getCatalogImageTileLabel = h));
   },
   226,
 );

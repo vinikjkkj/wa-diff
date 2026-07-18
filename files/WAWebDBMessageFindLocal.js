@@ -15,7 +15,6 @@ __d(
     "WAWebDBQueryChatVisibleMessageHelper",
     "WAWebFetchMessagesInThread",
     "WAWebFtsClient",
-    "WAWebMediaHubGating",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -311,7 +310,7 @@ __d(
       return (
         t -
         o("WATimeUtils").DAY_SECONDS *
-          o("WAWebMediaHubGating").getMaxDaysInMediaHub()
+          o("WAWebABProps").getABPropConfigValue("media_hub_history_max_days")
       );
     }
     function P(e, t, n, r, o) {

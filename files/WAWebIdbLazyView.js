@@ -4,7 +4,7 @@ __d(
     "Promise",
     "WAWebBrokerGlobalAppState",
     "WAWebDBStats",
-    "WAWebMiscErrors",
+    "WAWebDbErrors",
     "WAWebStorageCmd",
     "WAWebStorageErrorHandlingUtils",
     "getErrorSafe",
@@ -30,7 +30,7 @@ __d(
             var t = this;
             if (r("WAWebBrokerGlobalAppState").isLogoutInProgress)
               return (e || (e = n("Promise"))).reject(
-                new (o("WAWebMiscErrors").DbOnLogoutAbort)(
+                new (o("WAWebDbErrors").DbOnLogoutAbort)(
                   "dropping db read operation due to logout",
                 ),
               );
@@ -70,7 +70,7 @@ __d(
               i !== !0 && r("WAWebBrokerGlobalAppState").isLogoutInProgress)
             )
               return (e || (e = n("Promise"))).reject(
-                new (o("WAWebMiscErrors").DbOnLogoutAbort)(
+                new (o("WAWebDbErrors").DbOnLogoutAbort)(
                   "dropping db write operation due to logout",
                 ),
               );

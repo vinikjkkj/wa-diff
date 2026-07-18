@@ -101,7 +101,7 @@ __d(
             .filter(Boolean);
     }
     function h(e) {
-      switch (e) {
+      switch ((r("vulture")("CjHQFfFIaW28NdjFOnHtIs4ckEM="), e)) {
         case "DESKTOP":
           return "desktop";
         case "MOBILE":

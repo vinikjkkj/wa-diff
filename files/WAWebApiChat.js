@@ -15,10 +15,10 @@ __d(
     "WAWebDBChatValidation",
     "WAWebDBMessageUtils",
     "WAWebDBPendingReadReceiptQueries",
+    "WAWebDbErrors",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebEphemeralityUtils",
     "WAWebLidMigrationUtils",
-    "WAWebMiscErrors",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -90,7 +90,7 @@ __d(
               .getChatTable()
               .create(babelHelpers.extends({ id: e.toString() }, t));
           } catch (n) {
-            throw n instanceof o("WAWebMiscErrors").DbOnLogoutAbort
+            throw n instanceof o("WAWebDbErrors").DbOnLogoutAbort
               ? n
               : (o("WALogger")
                   .ERROR(

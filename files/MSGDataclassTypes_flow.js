@@ -501,6 +501,7 @@ __d(
         ContentReply: "CONTENT_REPLY",
         ContentShare: "CONTENT_SHARE",
         ConversationStarter: "CONVERSATION_STARTER",
+        DailyGamesScoreSharing: "DAILY_GAMES_SCORE_SHARING",
         DisappearingMessage: "DISAPPEARING_MESSAGE",
         EditMessage: "EDIT_MESSAGE",
         ForwardByAttachmentId: "FORWARD_BY_ATTACHMENT_ID",

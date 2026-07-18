@@ -142,12 +142,24 @@ __d(
         )
       );
     }
+    function v() {
+      try {
+        var e,
+          t = JSON.parse(
+            '{"data":{"node":{"th_dat_spo":{"__typename":"SponsoredData"}}}}',
+          );
+        return (t == null || (e = t.data) == null ? void 0 : e.node) == null;
+      } catch (e) {
+        return !1;
+      }
+    }
     ((l.normalize = s),
       (l.restoreNativeString = g),
       (l.restoreNativeCall = h),
       (l.restoreNativeXHRGetters = y),
       (l.isXHRResponseGetterShimmed = C),
-      (l.isJSONParseShimmed = b));
+      (l.isJSONParseShimmed = b),
+      (l.isJSONParseBehaviorallyShimmed = v));
   },
   98,
 );

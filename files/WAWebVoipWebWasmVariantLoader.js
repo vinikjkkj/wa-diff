@@ -6,6 +6,7 @@ __d(
     "WAWebABProps",
     "WAWebABPropsConfigs",
     "WAWebVoipGatingUtils",
+    "WAWebVoipWebWasmMemory",
     "asyncToGeneratorRuntime",
     "cr:12201",
   ],
@@ -21,8 +22,8 @@ __d(
       f = new Set(["prod-nonlab", "prod-lab", "prod-labvideo"]),
       g = 20,
       h = 0;
-    function y() {
-      if (o("WAWebVoipGatingUtils").isWebKitBrowser())
+    function y(t) {
+      if (t)
         return (
           o("WALogger").LOG(
             e ||
@@ -35,10 +36,10 @@ __d(
           g
         );
       try {
-        var t = o("WAWebABProps").getABPropConfigValue(
+        var n = o("WAWebABProps").getABPropConfigValue(
           "web_voip_dynamic_thread_preallocate_count",
         );
-        if (typeof t == "number" && t > 0)
+        if (typeof n == "number" && n > 0)
           return (
             o("WALogger").LOG(
               s ||
@@ -46,7 +47,7 @@ __d(
                   "voip: ThreadPoolManager: Using on-demand worker startup with target pool size ",
                   "",
                 ])),
-              t,
+              n,
             ),
             h
           );
@@ -64,7 +65,12 @@ __d(
       );
     }
     function C() {
-      return { pthreadPoolSizeOverride: y() };
+      var e = o("WAWebVoipGatingUtils").isWebKitBrowser(),
+        t = y(e),
+        n = o("WAWebVoipWebWasmMemory").createVoipWasmMemoryOverride(e);
+      return n == null
+        ? { pthreadPoolSizeOverride: t }
+        : { pthreadPoolSizeOverride: t, wasmMemory: n };
     }
     function b(e) {
       return v.apply(this, arguments);
@@ -183,7 +189,7 @@ __d(
                 r,
                 String(e),
               ),
-              b(a)
+              b()
             );
           }
         })),

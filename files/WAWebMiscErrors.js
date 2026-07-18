@@ -1,6 +1,6 @@
 __d(
   "WAWebMiscErrors",
-  ["WACustomError", "WAWebNonEmptyString"],
+  ["WACustomError"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function (e) {
@@ -208,49 +208,6 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
       I = (function (e) {
-        function t(t, n, r) {
-          var a,
-            i,
-            l =
-              (a = o("WAWebNonEmptyString").asMaybeNonEmptyString(t)) != null
-                ? a
-                : "Server replied with a failed status code";
-          return (
-            (i = e.call(this, l + ": " + r) || this),
-            (i.name = "ServerStatusError"),
-            (i.url = n),
-            (i.status = r),
-            i
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      T = (function (e) {
-        function t(t, n, r) {
-          var o,
-            a = "Invalid response for " + t + ", with status " + n;
-          return (
-            r && (a = a + ": " + r),
-            (o = e.call(this, a) || this),
-            (o.name = "InvalidServerResponseError"),
-            o
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      D = (function (e) {
-        function t(t, n, r) {
-          var o,
-            a = "Error " + n + " for " + t + ": " + JSON.stringify(r);
-          return (
-            (o = e.call(this, a, t, n) || this),
-            (o.name = "BingServerError"),
-            o
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(I),
-      x = (function (e) {
         function t(t) {
           var n;
           return (
@@ -261,7 +218,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      $ = (function (e) {
+      T = (function (e) {
         function t(t) {
           var n;
           return (
@@ -272,7 +229,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      P = (function (e) {
+      D = (function (e) {
         function t(t) {
           var n;
           return (
@@ -284,7 +241,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      N = (function (e) {
+      x = (function (e) {
         function t() {
           var t;
           return (
@@ -295,7 +252,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      M = (function (e) {
+      $ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -308,7 +265,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      w = (function (e) {
+      P = (function (e) {
         function t(t) {
           var n;
           return (
@@ -318,8 +275,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(P),
-      A = (function (e) {
+      })(D),
+      N = (function (e) {
         function t(t) {
           var n;
           return (
@@ -330,8 +287,8 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    A.message = "Media format is unsupported";
-    var F = (function (e) {
+    N.message = "Media format is unsupported";
+    var M = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -343,103 +300,19 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      O = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n =
-              e.call(
-                this,
-                "MasterDatabaseEncryptionKey." +
-                  t +
-                  " was accessed before init",
-              ) || this),
-            (n.name = "DbEncKeyNotLoaded"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      B = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n =
-              e.call(
-                this,
-                "MasterDatabaseMessageEncryptionKey." +
-                  t +
-                  " was accessed before init",
-              ) || this),
-            (n.name = "DbMsgEncKeyNotLoaded"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      W = (function (e) {
+      w = (function (e) {
         function t(n) {
           var r;
           return (
             (r = e.call(this, n != null ? n : t.message) || this),
-            (r.name = "DbOnLogoutAbort"),
+            (r.name = "ActionError"),
             r
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    W.message = "DB operation was dropped due to logout activity";
-    var q = (function (e) {
-      function t(n) {
-        var r;
-        return (
-          (r = e.call(this, n != null ? n : t.message) || this),
-          (r.name = "DbClosedOnTakeover"),
-          r
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(e.CustomError);
-    q.message = "DB operation was dropped due to session takeover (DB closed)";
-    var U = (function (e) {
-      function t(n) {
-        var r;
-        return (
-          (r = e.call(this, n != null ? n : t.message) || this),
-          (r.name = "DbNotFoundOnTakeover"),
-          r
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(e.CustomError);
-    U.message =
-      "DB operation was dropped due to session takeover (DB not found)";
-    var V = (function (e) {
-      function t(n) {
-        var r;
-        return (
-          (r = e.call(this, n != null ? n : t.message) || this),
-          (r.name = "DBInvalidFtsHMACKey"),
-          r
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(e.CustomError);
-    V.message =
-      "MasterDatabaseEncryptionKey.fts_hmac_keys is in an invalid state";
-    var H = (function (e) {
-      function t(n) {
-        var r;
-        return (
-          (r = e.call(this, n != null ? n : t.message) || this),
-          (r.name = "ActionError"),
-          r
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(e.CustomError);
-    H.message = "Could not perform action.";
-    var G = (function (e) {
+    w.message = "Could not perform action.";
+    var A = (function (e) {
         function t(t) {
           var n;
           return (
@@ -450,7 +323,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      z = (function (e) {
+      F = (function (e) {
         function t(t) {
           var n;
           return (
@@ -461,7 +334,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      j = (function (e) {
+      O = (function (e) {
         function t(t) {
           var n;
           return (
@@ -471,9 +344,9 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(z);
-    j.message = "The operation is not supported.";
-    var K = (function (e) {
+      })(F);
+    O.message = "The operation is not supported.";
+    var B = (function (e) {
       function t(t) {
         var n;
         return (
@@ -483,9 +356,9 @@ __d(
         );
       }
       return (babelHelpers.inheritsLoose(t, e), t);
-    })(z);
-    K.message = "The user did not grant permission for the operation";
-    var Q = (function (e) {
+    })(F);
+    B.message = "The user did not grant permission for the operation";
+    var W = (function (e) {
         function t(t) {
           var n;
           return (
@@ -502,8 +375,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(z),
-      X = (function (e) {
+      })(F),
+      q = (function (e) {
         function t(t) {
           var n;
           return (
@@ -513,9 +386,9 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(z);
-    X.message = "One of the mandatory Constraints could not be satisfied.";
-    var Y = (function (e) {
+      })(F);
+    q.message = "One of the mandatory Constraints could not be satisfied.";
+    var U = (function (e) {
       function t(t) {
         var n;
         return (
@@ -525,10 +398,10 @@ __d(
         );
       }
       return (babelHelpers.inheritsLoose(t, e), t);
-    })(z);
-    Y.message =
+    })(F);
+    U.message =
       "Due to changes in the environment, one or more mandatory constraints can no longer be satisfied.";
-    var J = (function (e) {
+    var V = (function (e) {
       function t(t) {
         var n;
         return (
@@ -538,9 +411,9 @@ __d(
         );
       }
       return (babelHelpers.inheritsLoose(t, e), t);
-    })(z);
-    J.message = "The object can not be found here.";
-    var Z = (function (e) {
+    })(F);
+    V.message = "The object can not be found here.";
+    var H = (function (e) {
       function t(t) {
         var n;
         return (
@@ -550,10 +423,10 @@ __d(
         );
       }
       return (babelHelpers.inheritsLoose(t, e), t);
-    })(z);
-    Z.message =
+    })(F);
+    H.message =
       "The source of the MediaStream could not be accessed due to a hardware error (e.g. lock from another process).";
-    var ee = (function (e) {
+    var G = (function (e) {
       function t(t) {
         var n;
         return (
@@ -563,10 +436,10 @@ __d(
         );
       }
       return (babelHelpers.inheritsLoose(t, e), t);
-    })(z);
-    ee.message =
+    })(F);
+    G.message =
       "Although the user granted permission to use the matching devices, a hardware error occurred which prevented access to the device.";
-    var te = (function (e) {
+    var z = (function (e) {
       function t(t) {
         var n;
         return (
@@ -577,18 +450,18 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(e.CustomError);
-    te.message = "Failed to get media contentLength from mms";
-    var ne = {
-        GetUserMediaError: z,
-        NotSupportedError: j,
-        NotAllowedError: K,
-        ConstraintNotSatisfiedError: X,
-        OverconstrainedError: Y,
-        NotFoundError: J,
-        NotReadableError: ee,
-        SourceUnavailableError: Z,
+    z.message = "Failed to get media contentLength from mms";
+    var j = {
+        GetUserMediaError: F,
+        NotSupportedError: O,
+        NotAllowedError: B,
+        ConstraintNotSatisfiedError: q,
+        OverconstrainedError: U,
+        NotFoundError: V,
+        NotReadableError: G,
+        SourceUnavailableError: H,
       },
-      re = (function (e) {
+      K = (function (e) {
         function t(t) {
           var n;
           return (
@@ -618,32 +491,23 @@ __d(
       (l.ImageError = L),
       (l.DecodeWebpResultsError = E),
       (l.EncodeWebpError = k),
-      (l.ServerStatusError = I),
-      (l.InvalidServerResponseError = T),
-      (l.BingServerError = D),
-      (l.MediaNeedsReupload = x),
-      (l.FileNotReadableError = $),
-      (l.MediaLoadError = P),
-      (l.TranscodeBlobTooLargeError = N),
-      (l.UnableToPlayVideoError = M),
-      (l.MediaDragDropError = w),
-      (l.MediaUnsupportedError = A),
-      (l.ModelCreateError = F),
-      (l.DbEncKeyNotLoaded = O),
-      (l.DbMsgEncKeyNotLoaded = B),
-      (l.DbOnLogoutAbort = W),
-      (l.DbClosedOnTakeover = q),
-      (l.DbNotFoundOnTakeover = U),
-      (l.DBInvalidFtsHMACKey = V),
-      (l.ActionError = H),
-      (l.Unmount = G),
-      (l.GetUserMediaError = z),
-      (l.NotAllowedError = K),
-      (l.RMRNotSupportedOnNewsletterMessagesError = Q),
-      (l.NotFoundError = J),
-      (l.UnableToGetContentLengthError = te),
-      (l.GetUserMedia = ne),
-      (l.GoogleLensApiError = re));
+      (l.MediaNeedsReupload = I),
+      (l.FileNotReadableError = T),
+      (l.MediaLoadError = D),
+      (l.TranscodeBlobTooLargeError = x),
+      (l.UnableToPlayVideoError = $),
+      (l.MediaDragDropError = P),
+      (l.MediaUnsupportedError = N),
+      (l.ModelCreateError = M),
+      (l.ActionError = w),
+      (l.Unmount = A),
+      (l.GetUserMediaError = F),
+      (l.NotAllowedError = B),
+      (l.RMRNotSupportedOnNewsletterMessagesError = W),
+      (l.NotFoundError = V),
+      (l.UnableToGetContentLengthError = z),
+      (l.GetUserMedia = j),
+      (l.GoogleLensApiError = K));
   },
   98,
 );

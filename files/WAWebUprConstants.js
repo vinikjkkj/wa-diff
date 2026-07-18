@@ -20,6 +20,8 @@ __d(
         PHONE_NUMBER: "phone_number",
         ACCOUNT_NUMBER: "account_number",
         ID_ACCOUNT_NUMBER: "id_account_number",
+        IBAN: "iban",
+        FPSID: "fpsid",
         EMAIL: "email",
       }),
       d = e({

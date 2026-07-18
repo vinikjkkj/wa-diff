@@ -8,8 +8,8 @@ __d(
     "WAResolvable",
     "WATimeUtils",
     "WAWeb-dexie",
+    "WAWebDbErrors",
     "WAWebDexieCastTypes",
-    "WAWebMiscErrors",
     "WAWebPageLoadLogging",
     "asyncToGeneratorRuntime",
     "err",
@@ -76,7 +76,7 @@ __d(
                 .then(function (e) {
                   if (!e || e.length === 0) return t.$14();
                   if (e.length > 1)
-                    throw new (o("WAWebMiscErrors").DBInvalidFtsHMACKey)();
+                    throw new (o("WAWebDbErrors").DBInvalidFtsHMACKey)();
                   t.$4 = e[e.length - 1];
                 });
             }),
@@ -165,7 +165,7 @@ __d(
                             "Base ftsHMACKey is null in _generateFinalFtsHmacKey",
                           ])),
                       ),
-                      new (o("WAWebMiscErrors").DBInvalidFtsHMACKey)()
+                      new (o("WAWebDbErrors").DBInvalidFtsHMACKey)()
                     );
                   var r = [t.$4.id, t.$4.key],
                     a = r[0],
@@ -268,18 +268,16 @@ __d(
             return this.$9.promise;
           }),
           (a.getEncKeys = function () {
-            if (!this.$2) throw new (o("WAWebMiscErrors").DbEncKeyNotLoaded)(d);
+            if (!this.$2) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(d);
             return this.$2;
           }),
           (a.getDbMsgEncKeys = function (t) {
             if (!this.$3)
-              throw new (o("WAWebMiscErrors").DbMsgEncKeyNotLoaded)(
-                t.tableName,
-              );
+              throw new (o("WAWebDbErrors").DbMsgEncKeyNotLoaded)(t.tableName);
             return this.$3;
           }),
           (a.getFtsHMACKey = function () {
-            if (!this.$5) throw new (o("WAWebMiscErrors").DbEncKeyNotLoaded)(g);
+            if (!this.$5) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(g);
             return this.$5;
           }),
           t

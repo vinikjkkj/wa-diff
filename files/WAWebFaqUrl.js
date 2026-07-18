@@ -364,51 +364,54 @@ __d(
       return u(0x4047e189c6f13);
     }
     function ft() {
-      return u(813462751272572);
+      return u(0x5c1079d27797b);
     }
     function gt() {
-      return u(829033686455542);
+      return u(813462751272572);
     }
     function ht() {
-      return u(0x43c034e1473e6);
+      return u(829033686455542);
     }
     function yt() {
-      return u(0x3c601ac2e47ea);
+      return u(0x43c034e1473e6);
     }
     function Ct() {
-      return u(0x4c4f0ab002a27);
+      return u(0x3c601ac2e47ea);
     }
     function bt() {
-      return u(0x5586e377c54fe);
+      return u(0x4c4f0ab002a27);
     }
     function vt() {
-      return u(0xf65c3fa5555e5);
+      return u(0x5586e377c54fe);
     }
     function St() {
-      return u(0x55f94b56578b1);
+      return u(0xf65c3fa5555e5);
     }
     function Rt() {
-      return u(0x804bec3ee93f0);
+      return u(0x55f94b56578b1);
     }
     function Lt() {
-      return u(0x86a9e572bfaa1);
+      return u(0x804bec3ee93f0);
     }
     function Et() {
       return u(0x86a9e572bfaa1);
     }
     function kt() {
-      return u(0x56aefcbc25d3f);
+      return u(0x86a9e572bfaa1);
     }
     function It() {
-      return u(8122483904494954);
+      return u(0x56aefcbc25d3f);
     }
     function Tt() {
-      return u(0x566e31f78e0b2);
+      return u(8122483904494954);
     }
     function Dt() {
-      return u(0x769e543c0aed3);
+      return u(0x566e31f78e0b2);
     }
     function xt() {
+      return u(0x769e543c0aed3);
+    }
+    function $t() {
       return u(0x548d90f8cf00c);
     }
     ((l.FAQ_BASE_URL = e),
@@ -527,22 +530,23 @@ __d(
       (l.getMessagingBestPracticeUrl = mt),
       (l.getSMBLinkedCatalogUrl = pt),
       (l.getGuestFAQUrl = _t),
-      (l.getSMBIndividualNewChatMessageCappingHCAUrl = ft),
-      (l.getConsumerIndividualNewChatMessageCappingHCAUrl = gt),
-      (l.getNewsletterQuestionResponsePrivacyBannerFAQUrl = ht),
-      (l.getGroupHistoryFAQUrl = yt),
-      (l.getGroupMemberTagUrl = Ct),
-      (l.getOpenGroupLearnMoreUrl = bt),
-      (l.getTeeGroupLearnMoreUrl = vt),
-      (l.getPaidPartnershipLabelFaqUrl = St),
-      (l.getBotSessionTransparencyUrl = Rt),
-      (l.getManusLearnMoreUrl = Lt),
-      (l.getHatchLearnMoreUrl = Et),
-      (l.getBusinessBroadcastsLearnMoreUrl = kt),
-      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = It),
-      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Tt),
-      (l.getCloseFriendLearnMoreUrl = Dt),
-      (l.getNewsletterStatusIntroFaqUrl = xt));
+      (l.getGuestUsernameReservationFAQUrl = ft),
+      (l.getSMBIndividualNewChatMessageCappingHCAUrl = gt),
+      (l.getConsumerIndividualNewChatMessageCappingHCAUrl = ht),
+      (l.getNewsletterQuestionResponsePrivacyBannerFAQUrl = yt),
+      (l.getGroupHistoryFAQUrl = Ct),
+      (l.getGroupMemberTagUrl = bt),
+      (l.getOpenGroupLearnMoreUrl = vt),
+      (l.getTeeGroupLearnMoreUrl = St),
+      (l.getPaidPartnershipLabelFaqUrl = Rt),
+      (l.getBotSessionTransparencyUrl = Lt),
+      (l.getManusLearnMoreUrl = Et),
+      (l.getHatchLearnMoreUrl = kt),
+      (l.getBusinessBroadcastsLearnMoreUrl = It),
+      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = Tt),
+      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Dt),
+      (l.getCloseFriendLearnMoreUrl = xt),
+      (l.getNewsletterStatusIntroFaqUrl = $t));
   },
   98,
 );

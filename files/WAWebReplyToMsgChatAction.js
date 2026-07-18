@@ -1,7 +1,6 @@
 __d(
   "WAWebReplyToMsgChatAction",
   [
-    "WANullthrows",
     "WATimeUtils",
     "WAWebChatEntryPoint",
     "WAWebChatGroupUtils",
@@ -12,6 +11,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebMsgModelUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -20,7 +20,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("WANullthrows")(e.author),
+          var t = r("nullthrows")(e.author),
             n = o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
               t,
               "private_reply",

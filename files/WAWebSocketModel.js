@@ -13,6 +13,7 @@ __d(
     "WAWebClearCredentials",
     "WAWebConnModel",
     "WAWebCrashlog",
+    "WAWebDbErrors",
     "WAWebDeleteAllCacheStorage",
     "WAWebEnvironment",
     "WAWebFeatureDetectionDetermineIncognito",
@@ -22,7 +23,6 @@ __d(
     "WAWebLogStorageSizeForCrash",
     "WAWebLogoutReasonConstants",
     "WAWebMediaStore",
-    "WAWebMiscErrors",
     "WAWebNetworkStatus",
     "WAWebReleaseToEventLoop",
     "WAWebReloadAfterLogout",
@@ -601,7 +601,7 @@ __d(
               } catch (n) {
                 e = !0;
                 var t = r("getErrorSafe")(n);
-                n instanceof o("WAWebMiscErrors").DbOnLogoutAbort
+                n instanceof o("WAWebDbErrors").DbOnLogoutAbort
                   ? o("WALogger").WARN(
                       P ||
                         (P = babelHelpers.taggedTemplateLiteralLoose([
@@ -625,7 +625,7 @@ __d(
               } catch (t) {
                 e = !0;
                 var n = r("getErrorSafe")(t);
-                t instanceof o("WAWebMiscErrors").DbOnLogoutAbort
+                t instanceof o("WAWebDbErrors").DbOnLogoutAbort
                   ? o("WALogger").WARN(
                       M ||
                         (M = babelHelpers.taggedTemplateLiteralLoose([

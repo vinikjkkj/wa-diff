@@ -357,7 +357,7 @@ __d(
                   G(i, t));
                 return;
               }
-              l = new u(s, { serverCertificateHashes: [] });
+              l = new u(s);
               var c = w(),
                 d = new ($ || ($ = n("Promise")))(function (e, t) {
                   if (c.aborted) {
@@ -643,19 +643,16 @@ __d(
               if (a == null) {
                 if (i == null) {
                   var l = Array.from(A.keys()).join(",");
-                  (o("WAWebCoreActionsODS").logCallWebtransportNoRelayInfo(),
-                    o("WALogger")
-                      .WARN(
-                        T ||
-                          (T = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [WebTransportConnectionManager] No relay info for ",
-                            ", cannot create connection. knownRelays=[",
-                            "]",
-                          ])),
-                        r,
-                        l,
-                      )
-                      .sendLogs("webtransport-no-relay-info"));
+                  o("WALogger").LOG(
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [WebTransportConnectionManager] No relay info for ",
+                        ", skipping send (pruned candidate). knownRelays=[",
+                        "]",
+                      ])),
+                    r,
+                    l,
+                  );
                   return;
                 }
                 var s = i.clusterDomain,

@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebDBChatValidation",
-    "WAWebMiscErrors",
+    "WAWebDbErrors",
     "WAWebSchemaChat",
     "err",
   ],
@@ -19,7 +19,7 @@ __d(
           .getChatTable()
           .merge(t.toString(), n)
           .catch(function (t) {
-            throw t instanceof o("WAWebMiscErrors").DbOnLogoutAbort
+            throw t instanceof o("WAWebDbErrors").DbOnLogoutAbort
               ? t
               : (o("WALogger")
                   .ERROR(

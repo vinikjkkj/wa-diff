@@ -5,11 +5,11 @@ __d(
     "WALogger",
     "WAWeb-dexie",
     "WAWebBrokerGlobalAppState",
+    "WAWebDbErrors",
     "WAWebEnvironment",
     "WAWebGetSpecialAbProps",
     "WAWebIdbLazyView",
     "WAWebIndexedDB",
-    "WAWebMiscErrors",
     "WAWebProfiler",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebSchemaVersions",
@@ -165,9 +165,7 @@ __d(
                   r("WAWebBrokerGlobalAppState").takeOver &&
                   e.message.includes("DatabaseClosedError")
                 )
-                  throw new (o("WAWebMiscErrors").DbClosedOnTakeover)(
-                    e.message,
-                  );
+                  throw new (o("WAWebDbErrors").DbClosedOnTakeover)(e.message);
               },
             ),
               this.addErrorHandler(
@@ -177,7 +175,7 @@ __d(
                     r("WAWebBrokerGlobalAppState").takeOver &&
                     e.message.includes("NoSuchDatabaseError")
                   )
-                    throw new (o("WAWebMiscErrors").DbNotFoundOnTakeover)(
+                    throw new (o("WAWebDbErrors").DbNotFoundOnTakeover)(
                       e.message,
                     );
                 },

@@ -46,15 +46,21 @@ __d(
           e.dataset.processed = "1";
           var n = null;
           try {
-            var a = window.Env != null && "x3m9kf2n" in window.Env,
-              i = window.Env != null && "k8pq2mnb" in window.Env,
-              l = e.textContent;
+            var a = window.Env != null && "v9k2mt7q" in window.Env,
+              i = window.Env != null && "d3hf9km2" in window.Env,
+              l = window.Env != null && "k8pq2mnb" in window.Env,
+              s = e.textContent;
             if (
-              (i && l != null && (l = d(l)),
-              a && o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed())
+              (l && s != null && (s = d(s)),
+              a &&
+                (o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed() ||
+                  (i &&
+                    o(
+                      "GHLDetectionUtilsPreludeSafe",
+                    ).isJSONParseBehaviorallyShimmed())))
             )
               try {
-                var s =
+                var u =
                     typeof String == "function" &&
                     !(
                       String.toString === String.toString.toString &&
@@ -65,20 +71,20 @@ __d(
                         String.toString.toString(),
                       ) === "function toString() { [native code] }"
                     ),
-                  u = window.Env != null && "r4wt7kmj" in window.Env;
-                (u &&
-                  s &&
+                  c = window.Env != null && "r4wt7kmj" in window.Env;
+                (c &&
+                  u &&
                   o("GHLDetectionUtilsPreludeSafe").restoreNativeString(),
-                  (n = r("json5").parse(l)));
+                  (n = r("json5").parse(s)));
               } catch (e) {
                 (r("FBLogger")("ad_blocker_defense_ghost_owl")
                   .catching(r("getErrorSafe")(e))
                   .mustfix("Failed to parse ServerJS payload using json5"),
-                  (n = JSON.parse(l)));
+                  (n = JSON.parse(s)));
               }
-            else n = JSON.parse(l);
+            else n = JSON.parse(s);
             if (
-              (i && n != null && m(n),
+              (l && n != null && m(n),
               n != null && o("GHLTypenameRestore").restoreAllTypenames(n),
               n == null)
             )

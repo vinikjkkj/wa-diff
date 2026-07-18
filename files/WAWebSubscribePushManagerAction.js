@@ -3,9 +3,9 @@ __d(
   [
     "WABase64",
     "WALogger",
+    "WAWebDbErrors",
     "WAWebGetPushServerSettingsJob",
     "WAWebL10N",
-    "WAWebMiscErrors",
     "WAWebPushNotificationsGatingUtils",
     "WAWebSetPushConfigJob",
     "WAWebSetWorkerLocalStorage",
@@ -171,7 +171,7 @@ __d(
               yield o("WAWebSetWorkerLocalStorage")
                 .clearWorkerLocalStorage()
                 .catch(function (e) {
-                  if (!(e instanceof o("WAWebMiscErrors").DbOnLogoutAbort))
+                  if (!(e instanceof o("WAWebDbErrors").DbOnLogoutAbort))
                     throw e;
                 }),
               r

@@ -5,8 +5,8 @@ __d(
     "WAWebL10NCountryCodes",
     "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
     "WAWebMediaHostsUtil",
-    "WAWebMiscErrors",
     "WAWebPonyfillsFetch",
+    "WAWebServerErrors",
     "WAWebStickerCommonQueryToStaticServerWamEvent",
     "WAWebStickerModel",
     "WAWebStickerUtils",
@@ -70,14 +70,14 @@ __d(
             b.commit(),
             !v.ok)
           )
-            throw new (o("WAWebMiscErrors").InvalidServerResponseError)(
+            throw new (o("WAWebServerErrors").InvalidServerResponseError)(
               C,
               v.status.toString(),
               "Invalid response from WhatsApp stickers endpoint",
             );
           var S = yield v.json();
           if (S == null)
-            throw new (o("WAWebMiscErrors").InvalidServerResponseError)(
+            throw new (o("WAWebServerErrors").InvalidServerResponseError)(
               C,
               v.status.toString(),
               "Invalid response from WhatsApp stickers endpoint: " +

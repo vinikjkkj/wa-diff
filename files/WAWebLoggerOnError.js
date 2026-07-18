@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WAWebCoreActionsODS",
     "WAWebCrashlog",
+    "WAWebDbErrors",
     "WAWebLoggerImpl",
-    "WAWebMiscErrors",
     "WAWebNoop",
     "WAWebUim",
     "gkx",
@@ -109,9 +109,9 @@ __d(
       m = window.navigator.userAgent;
     function p(e) {
       var t = [
-        o("WAWebMiscErrors").DbOnLogoutAbort,
-        o("WAWebMiscErrors").DbClosedOnTakeover,
-        o("WAWebMiscErrors").DbNotFoundOnTakeover,
+        o("WAWebDbErrors").DbOnLogoutAbort,
+        o("WAWebDbErrors").DbClosedOnTakeover,
+        o("WAWebDbErrors").DbNotFoundOnTakeover,
       ];
       return !t.some(function (t) {
         return e instanceof t;

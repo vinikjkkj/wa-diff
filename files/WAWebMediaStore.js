@@ -3,12 +3,12 @@ __d(
   [
     "WALogger",
     "WAMemoizeConcurrent",
+    "WAWebDbErrors",
     "WAWebIndexedDB",
     "WAWebMediaArrayBufferCacheStore",
     "WAWebMediaArrayBufferIdbStore",
     "WAWebMediaStoreDummyImpl",
     "WAWebMediaStoreLruImpl",
-    "WAWebMiscErrors",
     "WAWebPromiseQueue",
     "WAWebSerializeError",
     "WAWebStoreQuotaManager",
@@ -42,8 +42,7 @@ __d(
                       )),
                   );
                 else {
-                  if (t instanceof o("WAWebMiscErrors").DbOnLogoutAbort)
-                    throw t;
+                  if (t instanceof o("WAWebDbErrors").DbOnLogoutAbort) throw t;
                   o("WALogger")
                     .ERROR(
                       s ||

@@ -6,6 +6,7 @@ __d(
     "WDSIconIcCampaignMegaphoneFilled.react",
     "WDSIconIcGridFilled.react",
     "WDSIconIcGroupFilled.react",
+    "WDSIconIcPersonFilled.react",
     "WDSIconIcStoreFilled.react",
     "WDSIconWdsIcChannelsFilled.react",
     "WDSIconWdsIcCommunitiesFilled.react",
@@ -222,33 +223,35 @@ __d(
         }),
       };
     function L(e, t) {
-      return e === "group"
-        ? s.jsx(r("WDSIconIcGroupFilled.react"), { height: t, width: t })
-        : e === "business"
-          ? s.jsx(r("WDSIconIcStoreFilled.react"), { height: t, width: t })
-          : e === "channel"
-            ? s.jsx(r("WDSIconWdsIcChannelsFilled.react"), {
-                height: t,
-                width: t,
-              })
-            : e === "thirdParty"
-              ? s.jsx(r("WDSIconIcGridFilled.react"), { height: t, width: t })
-              : e === "community"
-                ? s.jsx(r("WDSIconWdsIcCommunitiesFilled.react"), {
-                    height: t,
-                    width: t,
-                  })
-                : e === "announcement"
-                  ? s.jsx(r("WDSIconIcCampaignMegaphoneFilled.react"), {
+      return e === "person"
+        ? s.jsx(r("WDSIconIcPersonFilled.react"), { height: t, width: t })
+        : e === "group"
+          ? s.jsx(r("WDSIconIcGroupFilled.react"), { height: t, width: t })
+          : e === "business"
+            ? s.jsx(r("WDSIconIcStoreFilled.react"), { height: t, width: t })
+            : e === "channel"
+              ? s.jsx(r("WDSIconWdsIcChannelsFilled.react"), {
+                  height: t,
+                  width: t,
+                })
+              : e === "thirdParty"
+                ? s.jsx(r("WDSIconIcGridFilled.react"), { height: t, width: t })
+                : e === "community"
+                  ? s.jsx(r("WDSIconWdsIcCommunitiesFilled.react"), {
                       height: t,
                       width: t,
                     })
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })();
+                  : e === "announcement"
+                    ? s.jsx(r("WDSIconIcCampaignMegaphoneFilled.react"), {
+                        height: t,
+                        width: t,
+                      })
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })();
     }
     ((L.displayName = L.name + " [from " + i.id + "]"),
       (l.SIZE_TO_PX = u),

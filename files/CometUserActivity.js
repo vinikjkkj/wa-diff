@@ -1,6 +1,6 @@
 __d(
   "CometUserActivity",
-  ["BaseEventEmitter"],
+  ["BaseEventEmitter", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 5e3,
@@ -124,6 +124,7 @@ __d(
       window.addEventListener("focus", W, { capture: !1, passive: !0 }),
       window.addEventListener("blur", q, { capture: !1, passive: !0 }),
       (function () {
+        r("vulture")("Kb8wYAy98kZCenZP0jlb6Z9a6IY=");
         var e = document.documentElement;
         e != null &&
           ["keydown", "mouseover", "mousemove", "click"].forEach(function (t) {

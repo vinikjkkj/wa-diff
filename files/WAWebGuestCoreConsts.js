@@ -31,6 +31,10 @@ __d(
         NEW_INVITE: "new_invite",
         SESSION_REOPEN: "session_reopen",
         PUSH_NOTIF_PRIMER: "push_notif_primer",
+        EVENTS_GUEST_LIST: "events_guest_list",
+        EVENTS_DETAILS: "events_details",
+        EVENTS_HEADER_BANNER: "events_header_banner",
+        EVENTS_DOWNLOAD: "events_download",
       }),
       c = e({
         APPCLIP_LOADING: "app_clip_loading",

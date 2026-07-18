@@ -6,8 +6,8 @@ __d(
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
     "WAWebArchiveChatSync",
+    "WAWebDbErrors",
     "WAWebMessageRangeUtils",
-    "WAWebMiscErrors",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -56,7 +56,7 @@ __d(
                     { status: 200 }
                   );
                 } catch (t) {
-                  throw t instanceof o("WAWebMiscErrors").DbOnLogoutAbort
+                  throw t instanceof o("WAWebDbErrors").DbOnLogoutAbort
                     ? t
                     : (o("WALogger")
                         .ERROR(

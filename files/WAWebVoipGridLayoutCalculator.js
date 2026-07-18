@@ -58,7 +58,12 @@ __d(
                 ? { cols: 3, rows: 3 }
                 : { cols: 4, rows: Math.ceil(e / 4) };
     }
-    function m(t, n) {
+    function m(e, t, n) {
+      var r = d(Math.min(e, n)),
+        o = d(Math.min(t, n));
+      return r.cols !== o.cols || r.rows !== o.rows;
+    }
+    function p(t, n) {
       if (t <= 0 || n <= 0) return 0;
       var r = d(n),
         o = r.cols,
@@ -73,7 +78,8 @@ __d(
       (i.GRID_PADDING_SINGLE_PX = s),
       (i.calculateOptimalGridLayout = c),
       (i.canonicalGridShape = d),
-      (i.calculateGroupVideoGridContentHeight = m));
+      (i.hasCanonicalGridShapeChanged = m),
+      (i.calculateGroupVideoGridContentHeight = p));
   },
   66,
 );

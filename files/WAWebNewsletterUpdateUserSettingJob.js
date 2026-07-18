@@ -4,8 +4,8 @@ __d(
     "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
+    "WAWebDbErrors",
     "WAWebMexUpdateNewsletterUserSetting",
-    "WAWebMiscErrors",
     "WAWebNewsletterModelUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaChat",
@@ -66,7 +66,7 @@ __d(
             return yield _(l, r, t);
           } catch (e) {
             throw (
-              e instanceof o("WAWebMiscErrors").DbOnLogoutAbort ||
+              e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
                 o("WALogger")
                   .ERROR(
                     u ||

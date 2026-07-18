@@ -5,7 +5,7 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAPromiseTimeout",
-    "WAWebMiscErrors",
+    "WAWebServerErrors",
     "WAWebWebcImgErrorWamEvent",
     "WAWebXHR",
     "getErrorSafe",
@@ -84,12 +84,12 @@ __d(
                   ).WebcImgErrorWamEvent)({ webcImgErrorCode: n });
                   throw (
                     i.commit(),
-                    new (o("WAWebMiscErrors").ServerStatusError)(null, a, n)
+                    new (o("WAWebServerErrors").ServerStatusError)(null, a, n)
                   );
                 })
                 .catch(function (e) {
                   if (
-                    e instanceof o("WAWebMiscErrors").ServerStatusError ||
+                    e instanceof o("WAWebServerErrors").ServerStatusError ||
                     r("getErrorSafe")(e).name === o("WAAbortError").ABORT_ERROR
                   )
                     throw e;

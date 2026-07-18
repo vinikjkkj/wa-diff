@@ -31,7 +31,10 @@ __d(
             ((t
               ? o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed()
               : o("GHLDetectionUtils").isJSONParseShimmed()) ||
-              (i && o("GHLDetectionUtils").isJSONParseBehaviorallyShimmed()))
+              (i &&
+                o(
+                  "GHLDetectionUtilsPreludeSafe",
+                ).isJSONParseBehaviorallyShimmed()))
               ? (l = n("cr:7329").parse(a))
               : (l = JSON.parse(a)),
             l != null && o("GHLTypenameRestore").restoreAllTypenames(l, a),

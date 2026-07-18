@@ -4,9 +4,9 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
+    "WAWebDbErrors",
     "WAWebMarkChatAsReadSync",
     "WAWebMessageRangeUtils",
-    "WAWebMiscErrors",
     "WAWebSchemaChat",
     "err",
   ],
@@ -35,7 +35,7 @@ __d(
         .getChatTable()
         .merge(t.toString(), { unreadCount: n, unreadDividerOffset: 0 })
         .catch(function (t) {
-          throw t instanceof o("WAWebMiscErrors").DbOnLogoutAbort
+          throw t instanceof o("WAWebDbErrors").DbOnLogoutAbort
             ? t
             : (o("WALogger")
                 .ERROR(
@@ -56,7 +56,7 @@ __d(
         .getChatTable()
         .merge(e.toString(), { unreadCount: -1, unreadDividerOffset: 0 })
         .catch(function (e) {
-          throw e instanceof o("WAWebMiscErrors").DbOnLogoutAbort
+          throw e instanceof o("WAWebDbErrors").DbOnLogoutAbort
             ? e
             : (o("WALogger")
                 .ERROR(

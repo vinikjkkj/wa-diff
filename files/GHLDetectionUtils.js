@@ -17,18 +17,7 @@ __d(
               ) === "function toString() { [native code] }"
             );
     }
-    function s() {
-      try {
-        var e,
-          t = JSON.parse(
-            '{"data":{"node":{"th_dat_spo":{"__typename":"SponsoredData"}}}}',
-          );
-        return (t == null || (e = t.data) == null ? void 0 : e.node) == null;
-      } catch (e) {
-        return !1;
-      }
-    }
-    function u(e) {
+    function s(e) {
       return r("gkx")("8869")
         ? !0
         : typeof e == "function" &&
@@ -41,7 +30,7 @@ __d(
               ) === "function toString() { [native code] }"
             );
     }
-    function c(e) {
+    function u(e) {
       return r("gkx")("9063")
         ? !0
         : typeof e == "function" &&
@@ -56,7 +45,7 @@ __d(
               ) === "function toString() { [native code] }"
             );
     }
-    function d() {
+    function c() {
       return (
         typeof String == "function" &&
         !(
@@ -69,7 +58,7 @@ __d(
         )
       );
     }
-    function m() {
+    function d() {
       return (
         typeof Function.prototype.call == "function" &&
         !(
@@ -85,11 +74,10 @@ __d(
       );
     }
     ((l.isJSONParseShimmed = e),
-      (l.isJSONParseBehaviorallyShimmed = s),
-      (l.isXHRModified = u),
-      (l.isCanvasFillTextModified = c),
-      (l.isStringShimmed = d),
-      (l.isCallShimmed = m));
+      (l.isXHRModified = s),
+      (l.isCanvasFillTextModified = u),
+      (l.isStringShimmed = c),
+      (l.isCallShimmed = d));
   },
   98,
 );
