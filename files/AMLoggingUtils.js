@@ -13,11 +13,12 @@ __d(
         o = {};
       return (
         r.split(n).forEach(function (e) {
-          var t = e.split(":"),
-            n = t.shift().trim();
-          if (n) {
-            var r = t.join(":").trim();
-            o[n.toLowerCase()] = r;
+          var t,
+            n = e.split(":"),
+            r = ((t = n.shift()) != null ? t : "").trim();
+          if (r) {
+            var a = n.join(":").trim();
+            o[r.toLowerCase()] = a;
           }
         }),
         o

@@ -51,24 +51,29 @@ __d(
         return s();
       };
     var y = {
-        setFallback: u,
-        fromRelativeTime: (function () {
-          if (d === -1) {
-            var t = p ? Date.now() - (e || (e = r("performance"))).now() : 0;
-            return function (e) {
-              return e + t;
-            };
-          } else
-            return function (e) {
-              return e + d;
-            };
-        })(),
-        __adjust: g,
-        adjusted: f,
-      },
-      C = Object.assign(_, y),
-      b = C;
-    l.default = b;
+      setFallback: u,
+      fromRelativeTime: (function () {
+        if (d === -1) {
+          var t = p ? Date.now() - (e || (e = r("performance"))).now() : 0;
+          return function (e) {
+            return e + t;
+          };
+        } else
+          return function (e) {
+            return e + d;
+          };
+      })(),
+      __adjust: g,
+      adjusted: f,
+    };
+    function C() {
+      return _();
+    }
+    ((C.setFallback = y.setFallback),
+      (C.fromRelativeTime = y.fromRelativeTime),
+      (C.__adjust = y.__adjust),
+      (C.adjusted = y.adjusted),
+      (l.default = C));
   },
   98,
 );
