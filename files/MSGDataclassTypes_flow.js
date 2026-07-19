@@ -636,6 +636,7 @@ __d(
         FbNotes: "FB_NOTES",
         FbSearch: "FB_SEARCH",
         Feed: "FEED",
+        GamingHangouts: "GAMING_HANGOUTS",
         GenAiAssistant: "GEN_AI_ASSISTANT",
         GenAiFlAshImagine: "GEN_AI_FlASH_IMAGINE",
         GenAiLocation: "GEN_AI_LOCATION",

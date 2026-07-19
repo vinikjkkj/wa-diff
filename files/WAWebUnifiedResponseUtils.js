@@ -69,11 +69,36 @@ __d(
       }
       return !1;
     }
+    function g(e) {
+      var t = e == null ? void 0 : e.embedded_screens;
+      if (t == null || t.length === 0) return [];
+      var n = [];
+      for (var r of t)
+        for (var o of (a = r.content) != null ? a : []) {
+          var a;
+          if ("viewModel" in o) {
+            var i = o.viewModel;
+            if (i != null)
+              for (var l of (s = i.sources) != null ? s : []) {
+                var s;
+                l.source_url != null && l.source_url !== "" && n.push(l);
+              }
+          }
+        }
+      return n;
+    }
+    function h(e) {
+      return e.embedded_screens == null || e.embedded_screens.length === 0
+        ? e
+        : babelHelpers.extends({}, e, { embedded_screens: void 0 });
+    }
     ((l.UnifiedResponseQPLLogger = s),
       (l.isUnifiedResponseVisible = c),
       (l.isImagineResponse = m),
       (l.buildUnifiedResponseFromRawData = _),
-      (l.unifiedResponseHasMediaContent = f));
+      (l.unifiedResponseHasMediaContent = f),
+      (l.getMetaAiEmbeddedSources = g),
+      (l.stripEmbeddedScreens = h));
   },
   98,
 );
