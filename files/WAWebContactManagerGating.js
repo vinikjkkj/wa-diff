@@ -43,6 +43,7 @@ __d(
         !o("WAWebContactGetters").getIsMe(e) &&
         !t.isPSA() &&
         !t.isOfficialBizAccount() &&
+        !t.isAiHub() &&
         !t.isIAS() &&
         !t.isSupportAccount() &&
         !t.isCAPISupportAccount() &&

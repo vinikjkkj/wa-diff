@@ -5,6 +5,9 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = e.useRef;
+    o("WebBloksCSSUtils").insertCssRule(
+      "@supports (height: 100dvh) {\n:root {\n--wbloks-dvh: 1dvh;\n}\n}",
+    );
     function c(e, t, n) {
       n === void 0 && (n = !1);
       var o = e.getValues(),

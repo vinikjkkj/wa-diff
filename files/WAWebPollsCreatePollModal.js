@@ -2,7 +2,6 @@ __d(
   "WAWebPollsCreatePollModal",
   [
     "fbt",
-    "WANullthrows",
     "WAWebAttachMediaCollection",
     "WAWebAttachmentMenuLogger",
     "WAWebBizBotTosUtils",
@@ -40,6 +39,7 @@ __d(
     "WDSSwitch.react",
     "WDSText.react",
     "asyncToGeneratorRuntime",
+    "nullthrows",
     "react",
     "stylex",
     "useLazyRef",
@@ -88,7 +88,7 @@ __d(
             options: n.map(function (e) {
               var t = e.image,
                 n = e.name;
-              return { name: n, image: r("WANullthrows")(t) };
+              return { name: n, image: r("nullthrows")(t) };
             }),
             pollType: u,
           })

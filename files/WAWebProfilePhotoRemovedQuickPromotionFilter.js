@@ -1,11 +1,11 @@
 __d(
   "WAWebProfilePhotoRemovedQuickPromotionFilter",
   [
-    "WANullthrows",
     "WATimeUtils",
     "WAWebCommonQPSurfacesTypes",
     "WAWebQuickPromotionValidatorUtils",
     "WAWebUserPrefsGeneral",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -32,7 +32,7 @@ __d(
           var l = o(
               "WAWebQuickPromotionValidatorUtils",
             ).convertFilterParametersIntoMap(a),
-            d = parseInt(r("WANullthrows")(l.get("param")), 10);
+            d = parseInt(r("nullthrows")(l.get("param")), 10);
           if (Number.isNaN(d)) return c;
           if (
             !o("WATimeUtils").isInFuture(

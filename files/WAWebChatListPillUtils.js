@@ -75,7 +75,7 @@ __d(
       }
       return r;
     }
-    ((l.MAX_VISIBLE_PILLS = s), (l.selectVisiblePills = d));
+    l.selectVisiblePills = d;
   },
   98,
 );

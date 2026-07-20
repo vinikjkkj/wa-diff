@@ -2,7 +2,6 @@ __d(
   "WAWebPollVoteEncryptMsgData",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebAck",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
@@ -13,6 +12,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -34,12 +34,12 @@ __d(
               ),
               r("err")("Poll has ended")
             );
-          var l = r("WANullthrows")(o("WAWebMsgGetters").getPollOptions(n)),
-            s = r("WANullthrows")(
+          var l = r("nullthrows")(o("WAWebMsgGetters").getPollOptions(n)),
+            s = r("nullthrows")(
               o("WAWebMsgGetters").getMessageSecret(n),
               "Poll creation missing message secret",
             ),
-            u = r("WANullthrows")(o("WAWebMsgGetters").getOriginalSender(n)),
+            u = r("nullthrows")(o("WAWebMsgGetters").getOriginalSender(n)),
             c = self.crypto.getRandomValues(new Uint8Array(12)),
             d = yield o("WAWebPollsVoteEncryption").encryptVote({
               encodedProtobuf: yield o(
@@ -50,7 +50,7 @@ __d(
               pollCreationOriginalSender: u,
               stanzaId: n.id.id,
               voteSender: o("WAWebWidFactory").asUserWidOrThrow(
-                r("WANullthrows")(o("WAWebMsgGetters").getSender(t)),
+                r("nullthrows")(o("WAWebMsgGetters").getSender(t)),
               ),
               isOneOnOne: o("WAWebMsgGetters").getRemote(n).isUser(),
             }),

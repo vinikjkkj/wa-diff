@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebAddonEncryptionError",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -15,6 +14,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -81,9 +81,9 @@ __d(
               o("WAWebMsgType").MsgKind.PollVoteEncrypted,
               t,
             ),
-            a = r("WANullthrows")(t.pollSelectableOptionsCount),
-            i = r("WANullthrows")(t.pollOptions),
-            l = r("WANullthrows")(e.encPollVote),
+            a = r("nullthrows")(t.pollSelectableOptionsCount),
+            i = r("nullthrows")(t.pollOptions),
+            l = r("nullthrows")(e.encPollVote),
             s = o("WAWebWidFactory").asUserWidOrThrow(
               o("WAWebMsgGetters").getSender(e),
             ),
@@ -126,7 +126,7 @@ __d(
             parentMsgKey: e.pollUpdateParentKey,
             sender: s,
             senderTimestampMs: e.senderTimestampMs,
-            t: r("WANullthrows")(e.t),
+            t: r("nullthrows")(e.t),
             optionLocalIdMap: d,
             ack: e.ack,
             read: o("WAWebUserPrefsMeUser").isMeAccount(s),

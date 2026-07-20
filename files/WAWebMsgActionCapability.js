@@ -2,7 +2,6 @@ __d(
   "WAWebMsgActionCapability",
   [
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAck",
@@ -51,6 +50,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
     "cr:6009",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -370,7 +370,7 @@ __d(
           : !1;
       if (a.isCarouselCard) return !1;
       if (o("WAWebMsgGetters").getIsGroupMsg(a)) {
-        var l = r("WANullthrows")(i.groupMetadata);
+        var l = r("nullthrows")(i.groupMetadata);
         if (
           !l.participants.iAmMember() ||
           ((l.restrict || l.announce) && !l.participants.iAmAdmin())

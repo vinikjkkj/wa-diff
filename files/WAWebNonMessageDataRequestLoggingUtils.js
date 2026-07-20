@@ -131,12 +131,17 @@ __d(
                           .Message$PeerDataOperationRequestType
                           .BUSINESS_BROADCAST_INSIGHTS_REFRESH
                     ? -1
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
+                    : e ===
+                        o("WAWebProtobufsE2E.pb")
+                          .Message$PeerDataOperationRequestType
+                          .CONTACT_REFRESH_REQUEST
+                      ? 1
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              e,
+                          );
+                        })();
     }
     function m(e) {
       switch (e) {
@@ -191,6 +196,10 @@ __d(
             .UPLOAD_STICKER;
         case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .BUSINESS_BROADCAST_INSIGHTS_REFRESH:
+          return o("WAWebWamEnumPeerDataRequestType").PEER_DATA_REQUEST_TYPE
+            .UPLOAD_STICKER;
+        case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+          .CONTACT_REFRESH_REQUEST:
           return o("WAWebWamEnumPeerDataRequestType").PEER_DATA_REQUEST_TYPE
             .UPLOAD_STICKER;
       }

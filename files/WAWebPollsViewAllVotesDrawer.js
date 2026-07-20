@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WANullthrows",
     "WAWebDrawer.react",
     "WAWebDrawerBody.react",
     "WAWebDrawerHeader.react",
@@ -13,6 +12,7 @@ __d(
     "WAWebMsgModelPropUtils",
     "WAWebPollsOptionSection",
     "WAWebPollsUseResults",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "useLazyRef",
@@ -163,7 +163,7 @@ __d(
             .sendLogs("null-poll-option"),
           null
         );
-      var h = r("WANullthrows")(c.get(_)),
+      var h = r("nullthrows")(c.get(_)),
         y = o("WAWebMsgModelPropUtils").isTrusted(i.unsafe());
       return d.jsxs(
         r("WAWebDrawer.react"),

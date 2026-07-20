@@ -219,10 +219,10 @@ __d(
             r = e[2],
             a = e[3];
           if (t === o("WAWebMsgType").MSG_TYPE.VCARD)
-            return n ? o("WABidi").dir(n) : void 0;
+            return n ? o("WABidi").bidiDir(n) : void 0;
           if (r != null) {
             var i = a != null && a.length ? r.replace(/@\d+@g.us/, "") : r,
-              l = o("WABidi").dir(i);
+              l = o("WABidi").bidiDir(i);
             return l;
           }
         },
@@ -242,9 +242,9 @@ __d(
             r = e[2];
           return t === o("WAWebMsgType").MSG_TYPE.VCARD
             ? n
-              ? o("WABidi").dir(n) === "rtl"
+              ? o("WABidi").bidiDir(n) === "rtl"
               : !1
-            : !!r && o("WABidi").dir(r) === "rtl";
+            : !!r && o("WABidi").bidiDir(r) === "rtl";
         },
         [u.getType, u.getSubtype, C],
       ),

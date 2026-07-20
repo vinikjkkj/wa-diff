@@ -28,19 +28,19 @@ __d(
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
                   var n =
-                      typeof t == "string"
-                        ? o("WAWebWidFactory").createWid(t)
-                        : t,
-                    a = e.gadd(t);
+                      t instanceof r("WAWebWid")
+                        ? t
+                        : o("WAWebWidFactory").createWid(t.toString()),
+                    a = e.gadd(n);
                   return a.isGroup
-                    ? (yield e._subscribe(n), { id: t })
+                    ? (yield e._subscribe(n), { id: n })
                     : !a.isUser ||
-                        r("WAWebWid").isServer(t) ||
-                        r("WAWebWid").isPSA(t) ||
-                        r("WAWebWid").isBot(t) ||
+                        r("WAWebWid").isServer(n) ||
+                        r("WAWebWid").isPSA(n) ||
+                        r("WAWebWid").isBot(n) ||
                         o("WAWebUserPrefsMeUser").isMeAccount(a.id)
-                      ? { id: t }
-                      : (yield e._subscribe(n), { id: t });
+                      ? { id: n }
+                      : (yield e._subscribe(n), { id: n });
                 },
               );
               return function (e) {

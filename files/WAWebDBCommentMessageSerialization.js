@@ -1,7 +1,6 @@
 __d(
   "WAWebDBCommentMessageSerialization",
   [
-    "WANullthrows",
     "WAWebDBMessageSerialization",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -9,6 +8,7 @@ __d(
     "WAWebMsgType",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -26,7 +26,7 @@ __d(
       var t;
       return {
         msgKey: e.id.toString(),
-        sender: r("WANullthrows")(
+        sender: r("nullthrows")(
           o("WAWebMsgGetters").getSender(e),
           "undefined sender",
         ).toString(),
@@ -44,7 +44,7 @@ __d(
       return {
         isPlaceholder: !0,
         msgKey: e.id.toString(),
-        sender: r("WANullthrows")(
+        sender: r("nullthrows")(
           o("WAWebMsgGetters").getSender(e),
           "undefined sender",
         ).toString(),
@@ -70,11 +70,11 @@ __d(
         return babelHelpers.extends({}, i, {
           type: o("WAWebMsgType").MSG_TYPE.REVOKED,
           kind: o("WAWebMsgType").MsgKind.RevokedAddon,
-          subtype: r("WANullthrows")(e.subtype),
+          subtype: r("nullthrows")(e.subtype),
           revokeAddonType: o("WAWebMsgType").MSG_TYPE.COMMENT,
           revokeTimestamp: (l = e.revokeTimestamp) != null ? l : void 0,
           protocolMessageKey: r("WAWebMsgKey").from(
-            r("WANullthrows")(
+            r("nullthrows")(
               e.protocolMessageKey,
               "undefined protocolMessageKey",
             ),

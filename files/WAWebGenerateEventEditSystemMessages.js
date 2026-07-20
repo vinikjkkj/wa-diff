@@ -2,7 +2,6 @@ __d(
   "WAWebGenerateEventEditSystemMessages",
   [
     "Promise",
-    "WANullthrows",
     "WAWebBackendApi",
     "WAWebDBProcessMessage",
     "WAWebMsgGetters",
@@ -13,6 +12,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -77,10 +77,10 @@ __d(
             u = n.editedMsgData,
             c = n.protocolMsg,
             d = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            m = r("WANullthrows")(o("WAWebMsgGetters").getSender(c)),
+            m = r("nullthrows")(o("WAWebMsgGetters").getSender(c)),
             p = {
-              eventName: r("WANullthrows")(u == null ? void 0 : u.eventName),
-              eventStartTime: r("WANullthrows")(
+              eventName: r("nullthrows")(u == null ? void 0 : u.eventName),
+              eventStartTime: r("nullthrows")(
                 u == null ? void 0 : u.eventStartTime,
               ),
               eventEndTime: u == null ? void 0 : u.eventEndTime,

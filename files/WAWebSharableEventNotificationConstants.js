@@ -36,34 +36,11 @@ __d(
     }
     var d = e.Mirrored(["Going", "Maybe", "NotGoing", "NoResponse"]),
       m = e.Mirrored(["Active", "Canceled", "Suspended"]),
-      p = new Set([l.Invite, l.InviteRemove]),
-      _ = new Set([l.Update, l.Rsvp, l.Delete]);
+      p = new Set([l.Update, l.Rsvp, l.Delete]);
+    function _(e) {
+      return p.has(e);
+    }
     function f(e) {
-      return _.has(e);
-    }
-    function g(e) {
-      return e === l.Invite
-        ? "NotificationEventInvite"
-        : e === l.Update
-          ? "NotificationEventUpdate"
-          : e === l.Rsvp
-            ? "NotificationEventRsvp"
-            : e === l.Delete
-              ? "NotificationEventDelete"
-              : e === l.Reminder
-                ? "NotificationEventReminder"
-                : e === l.InviteRemove
-                  ? "NotificationEventInviteRemove"
-                  : e === l.Suspended
-                    ? "NotificationEventUpdate"
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
-    }
-    function h(e) {
       return e === l.Invite
         ? "invite"
         : e === l.Update
@@ -91,11 +68,8 @@ __d(
       (i.nearestReminderBucket = c),
       (i.SharableEventNotificationRsvpStatus = d),
       (i.SharableEventStatus = m),
-      (i.PERSISTENCE_ONLY_NOTIFICATION_TYPES = p),
-      (i.SENDER_ATTRIBUTED_NOTIFICATION_TYPES = _),
-      (i.isSenderAttributed = f),
-      (i.getOperationName = g),
-      (i.getIdentifierTag = h));
+      (i.isSenderAttributed = _),
+      (i.getIdentifierTag = f));
   },
   66,
 );

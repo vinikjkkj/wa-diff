@@ -6,23 +6,19 @@ __d(
     function e(e, t) {
       return o("WABase64").encodeB64UrlSafe(e, t);
     }
-    function s(e, t) {
-      return o("WABase64").encodeB64UrlSafe(e, t);
+    function s(e) {
+      return e;
     }
     function u(e) {
       return e;
     }
     function c(e) {
-      return e;
-    }
-    function d(e) {
       return "" + e.slice(0, 3);
     }
     ((l.toPlaintextHash = e),
-      (l.toCiphertextHash = s),
-      (l.stringToPlaintextHash = u),
-      (l.toHashedPlaintextHash = c),
-      (l.sanitisePlaintextHash = d));
+      (l.stringToPlaintextHash = s),
+      (l.toHashedPlaintextHash = u),
+      (l.sanitisePlaintextHash = c));
   },
   98,
 );

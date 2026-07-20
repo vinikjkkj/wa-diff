@@ -87,7 +87,7 @@ __d(
               r.length + a.length >=
                 o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
               o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled()
-              ? [].concat(r, a).map(function (e) {
+              ? [e].concat(a).map(function (e) {
                   return t.$4(e);
                 })
               : [t.$4(e)];

@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebAddOnParseWebMsgInfo",
     "WAWebMsgType",
     "WAWebPollsCreateOptionLocalIdMap",
@@ -12,6 +11,7 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -60,7 +60,7 @@ __d(
             return r("compactMap")(d, function (t) {
               try {
                 var n,
-                  a = (n = r("WANullthrows"))(t.pollUpdateMessageKey),
+                  a = (n = r("nullthrows"))(t.pollUpdateMessageKey),
                   i = n(t.vote),
                   s = n(
                     o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({ key: a }),

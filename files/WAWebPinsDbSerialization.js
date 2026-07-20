@@ -1,7 +1,6 @@
 __d(
   "WAWebPinsDbSerialization",
   [
-    "WANullthrows",
     "WAWebAddonConstants",
     "WAWebAddonProcessMsgsUtils",
     "WAWebMsgGetters",
@@ -11,6 +10,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -33,7 +33,7 @@ __d(
     }
     function u(e) {
       var t = o("WAWebWidFactory")
-        .asUserWidOrThrow(r("WANullthrows")(o("WAWebMsgGetters").getSender(e)))
+        .asUserWidOrThrow(r("nullthrows")(o("WAWebMsgGetters").getSender(e)))
         .toString();
       return {
         msgKey: e.id.toString(),

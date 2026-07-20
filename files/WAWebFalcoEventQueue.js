@@ -103,20 +103,26 @@ __d(
         self.addEventListener("pagehide", b));
     }
     function L(e) {
-      (R(),
-        _.length >= d &&
-          (o("WALogger")
-            .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[falco] queue overflow, dropping ",
-                  " oldest events",
-                ])),
-              m,
-            )
-            .sendLogs("wam_falco_queue_overflow", { sampling: 0.01 }),
-          _.splice(0, m)),
-        _.push(e),
+      if ((R(), _.length >= d)) {
+        o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[falco] queue overflow, dropping ",
+                " oldest events",
+              ])),
+            m,
+          )
+          .sendLogs("wam_falco_queue_overflow", { sampling: 0.01 });
+        var t = _.splice(0, m);
+        if (
+          o("WAWebWamFalcoABProps").getWamFalcoMode() ===
+          o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
+        )
+          for (var n of t)
+            r("WAWebODS").incr("web.falco.shadow." + n.name + ".evicted");
+      }
+      (_.push(e),
         _.length >= c
           ? v.onOrBefore(0)
           : v.onOrBefore(

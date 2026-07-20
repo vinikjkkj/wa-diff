@@ -41,11 +41,11 @@ __d(
     "WAWebHeader.react",
     "WAWebKeyboardTabUtils",
     "WAWebLazyLoadedRetriable",
+    "WAWebMessageAssociationUIUtils",
     "WAWebMiscErrors",
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebModalManager",
     "WAWebMsgActionCapability",
-    "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
@@ -479,8 +479,8 @@ __d(
                     (h.abort(),
                       i.list.forEach(R),
                       o(
-                        "WAWebMsgCollection",
-                      ).MsgCollection.makeParentMessagesVisibleInChat(i.list),
+                        "WAWebMessageAssociationUIUtils",
+                      ).makeParentMessagesVisibleInChat(i.list),
                       (a.pendingDeleteForMeCount =
                         a.pendingDeleteForMeCount - i.list.length),
                       o(

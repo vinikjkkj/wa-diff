@@ -394,45 +394,49 @@ __d(
             "quotedRemoteJid",
             "quotedStanzaID",
           ].concat(l)));
-      var c = new Set(l),
-        d = r("filterObject")(e.toJSON(), function (e, t) {
-          return !c.has(t);
+      var c =
+        o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
+        r("WAWebWid").isNewsletter(t.id);
+      c || (l = ["aiProvenance"].concat(l));
+      var d = new Set(l),
+        m = r("filterObject")(e.toJSON(), function (e, t) {
+          return !d.has(t);
         });
       (e.ctwaContext &&
-        ((d.body = e.ctwaContext.sourceUrl),
-        (d.type = o("WAWebMsgType").MSG_TYPE.CHAT),
-        (d.mediaObject = void 0)),
+        ((m.body = e.ctwaContext.sourceUrl),
+        (m.type = o("WAWebMsgType").MSG_TYPE.CHAT),
+        (m.mediaObject = void 0)),
         e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
-          ((d.type = o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT),
-          (d.pollVotesSnapshot = o(
+          ((m.type = o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT),
+          (m.pollVotesSnapshot = o(
             "WAWebGeneratePollVotesSnapshotFromPoll",
           ).generatePollVotesSnapshotFromPoll(
             r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPollCreation(e)),
           ))),
         e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
-          o("WAWebForwardRichResponseHandler").updateRichResponseFields(e, d),
-        (d.forwardedNewsletterMessageInfo = o(
+          o("WAWebForwardRichResponseHandler").updateRichResponseFields(e, m),
+        (m.forwardedNewsletterMessageInfo = o(
           "WAWebGetNewsletterContextForForwardedMsg",
         ).getNewsletterContextForForwardedMsg(e)),
-        (d.forwardedAiBotMessageInfo = o(
+        (m.forwardedAiBotMessageInfo = o(
           "WAWebGetAiBotContextForForwardedMsg",
         ).getAiBotContextForForwardedMsg(e)),
         o("WAWebChatEphemerality").isEphemeralSettingOn(t) &&
-          ((d.ephemeralDuration = o(
+          ((m.ephemeralDuration = o(
             "WAWebChatEphemerality",
           ).getEphemeralSetting(t)),
-          (d.afterReadDuration = o(
+          (m.afterReadDuration = o(
             "WAWebChatEphemerality",
           ).getAfterReadDurationForChat(t))));
-      var m = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(t);
-      m != null && (d.ephemeralSettingTimestamp = m);
-      var p = o("WAWebChatEphemerality").getDisappearingModeInitiator(t);
-      p != null && (d.disappearingModeInitiator = p);
-      var _ = o("WAWebChatEphemerality").getDisappearingModeTrigger(t);
-      _ != null && (d.disappearingModeTrigger = _);
-      var f = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(t);
+      var p = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(t);
+      p != null && (m.ephemeralSettingTimestamp = p);
+      var _ = o("WAWebChatEphemerality").getDisappearingModeInitiator(t);
+      _ != null && (m.disappearingModeInitiator = _);
+      var f = o("WAWebChatEphemerality").getDisappearingModeTrigger(t);
+      f != null && (m.disappearingModeTrigger = f);
+      var g = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(t);
       if (
-        (f != null && (d.disappearingModeInitiatedByMe = f),
+        (g != null && (m.disappearingModeInitiatedByMe = g),
         !(
           ((a = e.id.remote) != null && a.isBot()) ||
           ((i = e.mentionedJidList) == null
@@ -442,19 +446,19 @@ __d(
               })) != null
         ) &&
           t.isCAGAdmin() &&
-          (d.messageSecret = self.crypto.getRandomValues(new Uint8Array(32))),
+          (m.messageSecret = self.crypto.getRandomValues(new Uint8Array(32))),
         t.id.isBot())
       ) {
-        var g,
-          h =
-            (g = o("WAWebBotProfileCollection").BotProfileCollection.get(
+        var h,
+          y =
+            (h = o("WAWebBotProfileCollection").BotProfileCollection.get(
               t.id,
             )) == null
               ? void 0
-              : g.personaId;
-        h != null && (d.botPersonaId = h);
+              : h.personaId;
+        y != null && (m.botPersonaId = y);
       }
-      return d;
+      return m;
     }
     ((l.forwardMessages = v), (l.getForwardedMessageFields = R));
   },

@@ -5,7 +5,6 @@ __d(
     "WAAbortError",
     "WABase64",
     "WALogger",
-    "WANullthrows",
     "WAWebDownloadManager",
     "WAWebFrontendMsgGetters",
     "WAWebMediaCryptoEligibilityUtils",
@@ -19,6 +18,7 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g;
@@ -79,7 +79,7 @@ __d(
                 filehash: _,
                 mediaKey: p.mediaKey,
                 mediaKeyTimestamp: p.mediaKeyTimestamp,
-                type: r("WANullthrows")(
+                type: r("nullthrows")(
                   o(
                     "WAWebMessagePluginGetThumbnailTypeForMediaMsg",
                   ).getThumbnailTypeForMediaMsg({ msg: i }),
@@ -190,7 +190,7 @@ __d(
                   filehash: d,
                   mediaKey: l,
                   mediaKeyTimestamp: s,
-                  type: r("WANullthrows")(
+                  type: r("nullthrows")(
                     o(
                       "WAWebMessagePluginGetThumbnailTypeForMediaMsg",
                     ).getThumbnailTypeForMediaMsg({ msg: a }),
@@ -206,7 +206,7 @@ __d(
                 });
                 if (g) g.thumbnailHQ = o("WABase64").encodeB64(y);
                 else {
-                  var C = r("WANullthrows")(
+                  var C = r("nullthrows")(
                       a.mediaObject,
                       "mediaObject cannot be null for thumbnail download",
                     ),
@@ -217,8 +217,8 @@ __d(
                     };
                   (a.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
                     (b.fullPreviewSize = {
-                      height: r("WANullthrows")(a.thumbnailHeight),
-                      width: r("WANullthrows")(a.thumbnailWidth),
+                      height: r("nullthrows")(a.thumbnailHeight),
+                      width: r("nullthrows")(a.thumbnailWidth),
                     }),
                     C.consolidate(b));
                 }

@@ -80,20 +80,14 @@ __d(
       return I.verificationCode;
     }
     function x() {
-      return I.prologuePayloadBytes;
-    }
-    function $() {
-      return I.skipHandoffUx;
-    }
-    function P() {
       I.skipHandoffUx = !0;
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function M() {
+    function P() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -120,10 +114,10 @@ __d(
             n.prologuePayloadBytes
           );
         })),
-        M.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function w() {
+    function N() {
       (I.stage === L.Initialized || s(0, 152465, String(I.stage)),
         (I.stage = L.WaitingForPrimaryIdentity),
         (I.timeoutId = self.setTimeout(function () {
@@ -146,12 +140,12 @@ __d(
             ])),
         ));
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function F() {
+    function w() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WALogger").LOG(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -252,15 +246,15 @@ __d(
             );
           }
         })),
-        F.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function B() {
+    function F() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WALogger").LOG(
             C ||
               (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -341,10 +335,10 @@ __d(
             );
           }
         })),
-        B.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function W() {
+    function O() {
       (o("WALogger").LOG(
         c ||
           (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -357,14 +351,12 @@ __d(
     ((l.ShortcakeLinkingStage = L),
       (l.getShortcakeLinkingStage = T),
       (l.getVerificationCode = D),
-      (l.getProloguePayloadBytes = x),
-      (l.shouldSkipHandoffUx = $),
-      (l.setSkipHandoffUx = P),
-      (l.initializeShortcakeLinking = N),
-      (l.markPrologueSent = w),
-      (l.handlePrimaryEphemeralIdentity = A),
-      (l.confirmVerificationCode = O),
-      (l.cancelShortcakeLinking = W));
+      (l.setSkipHandoffUx = x),
+      (l.initializeShortcakeLinking = $),
+      (l.markPrologueSent = N),
+      (l.handlePrimaryEphemeralIdentity = M),
+      (l.confirmVerificationCode = A),
+      (l.cancelShortcakeLinking = O));
   },
   98,
 );

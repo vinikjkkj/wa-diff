@@ -1,6 +1,6 @@
 __d(
   "WAWebGetSearchMatchFromMsg",
-  ["WANullthrows", "WAWebFuzzySearch", "WAWebMsgType", "err"],
+  ["WAWebFuzzySearch", "WAWebMsgType", "err", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       if (t.length === 0) return null;
@@ -18,7 +18,7 @@ __d(
     function s(e, t) {
       var n;
       return c(
-        r("WANullthrows")(e.pollName),
+        r("nullthrows")(e.pollName),
         (n = e.pollOptions) != null ? n : [],
         t,
       );
@@ -29,7 +29,7 @@ __d(
         a = o.map(function (e) {
           return e.option;
         });
-      return c(r("WANullthrows")(e.pollName), a, t);
+      return c(r("nullthrows")(e.pollName), a, t);
     }
     function c(e, t, n) {
       var r = n.join(" ").toLowerCase(),

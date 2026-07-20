@@ -480,7 +480,7 @@ __d(
                 : r("WAWebL10N").isolateRTL(l)),
         i)
       ) {
-        var s = o("WABidi").dir(i);
+        var s = o("WABidi").bidiDir(i);
         return n === "ltr" && (!t || t === "ltr") && (!s || s === "ltr")
           ? l
             ? i + "\u200E: " + l + "\u200E " + a + "\u200E"

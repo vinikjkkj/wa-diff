@@ -1,10 +1,10 @@
 __d(
   "WAWebRecentStickerAction",
-  ["WANullthrows", "WAWebRecentStickerCollectionMd", "WAWebRemoveStickerJob"],
+  ["WAWebRecentStickerCollectionMd", "WAWebRemoveStickerJob", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       o("WAWebRemoveStickerJob").sendRemoveStickerFromRecent(
-        r("WANullthrows")(
+        r("nullthrows")(
           o("WAWebRecentStickerCollectionMd").RecentStickerCollectionMd.get(
             e.id,
           ),

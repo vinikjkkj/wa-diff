@@ -167,7 +167,7 @@ __d(
         h.apply(this, arguments)
       );
     }
-    ((l.performWebAuthnAssertion = m), (l.executePasskeyPrologue = g));
+    l.executePasskeyPrologue = g;
   },
   98,
 );

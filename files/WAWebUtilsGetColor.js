@@ -1,6 +1,6 @@
 __d(
   "WAWebUtilsGetColor",
-  ["WANullthrows", "err"],
+  ["err", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     var e = new Map([
         ["sand-200", "rgb(234, 224, 214)"],
@@ -43,8 +43,8 @@ __d(
     function u(t, n) {
       var o =
         t === "sand"
-          ? r("WANullthrows")(e.get(t + "-" + n))
-          : r("WANullthrows")(s.get(t + "-" + n));
+          ? r("nullthrows")(e.get(t + "-" + n))
+          : r("nullthrows")(s.get(t + "-" + n));
       if (o === "")
         throw r("err")(
           "Get color failed (color=" +

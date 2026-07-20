@@ -24,10 +24,7 @@ __d(
         t.has(a.reactionAggregate) && (r += a.reactionSenders.length);
       return r;
     }
-    ((l.STATUS_LIKE_EMOJI = e),
-      (l.STATUS_LIKE_EMOJIS = s),
-      (l.countLikes = u),
-      (l.countStatusLikes = c));
+    ((l.STATUS_LIKE_EMOJI = e), (l.countLikes = u), (l.countStatusLikes = c));
   },
   98,
 );

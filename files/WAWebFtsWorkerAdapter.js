@@ -1,10 +1,10 @@
 __d(
   "WAWebFtsWorkerAdapter",
   [
-    "WANullthrows",
     "WAWebBrokerMainConnect",
     "WAWebFtsWorkerResource",
     "WorkerBundleResource",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = null,
@@ -18,18 +18,18 @@ __d(
             ((this.worker = o("WorkerBundleResource").createDedicatedWebWorker(
               r("WAWebFtsWorkerResource"),
             )),
-              (r("WANullthrows")(this.worker).onmessage = function (e) {
+              (r("nullthrows")(this.worker).onmessage = function (e) {
                 t(e.data.message);
               }),
-              (r("WANullthrows")(this.worker).onerror = n),
+              (r("nullthrows")(this.worker).onerror = n),
               r("WAWebBrokerMainConnect")(this));
           }),
           (t.postMessage = function (t, n) {
             var e = { type: "message", message: t };
-            r("WANullthrows")(this.worker).postMessage(e, n);
+            r("nullthrows")(this.worker).postMessage(e, n);
           }),
           (t.terminate = function () {
-            r("WANullthrows")(this.worker).terminate();
+            r("nullthrows")(this.worker).terminate();
           }),
           e
         );

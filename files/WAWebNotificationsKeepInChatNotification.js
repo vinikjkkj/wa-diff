@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WANullthrows",
     "WAWebBaseNotification",
     "WAWebChatGetters",
     "WAWebContactCollection",
@@ -24,6 +23,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidFormat",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -53,7 +53,7 @@ __d(
               ).incrementNotificationDailyCount(
                 o("WAWebNotificationsDailyUtils").NotificationDailyCountKind
                   .KIC_NOTIFICATION_TAP,
-                r("WANullthrows")(a.getChatKind()),
+                r("nullthrows")(a.getChatKind()),
               ),
                 a.$WAKeepInChatNotification$p_1 == null ||
                   a.$WAKeepInChatNotification$p_1());
@@ -153,7 +153,7 @@ __d(
                   ).incrementNotificationDailyCount(
                     o("WAWebNotificationsDailyUtils").NotificationDailyCountKind
                       .KIC_NOTIFICATION,
-                    r("WANullthrows")(this.getChatKind()),
+                    r("nullthrows")(this.getChatKind()),
                   ));
               },
             );

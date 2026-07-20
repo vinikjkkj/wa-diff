@@ -1,7 +1,6 @@
 __d(
   "WAWebPrepareEventResponsesToUpsert",
   [
-    "WANullthrows",
     "WAWebAddonDBTable",
     "WAWebLidMigrationUtils",
     "WAWebMaxPerGroup",
@@ -9,11 +8,12 @@ __d(
     "WAWebMsgType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = o("WAWebWidFactory").createWidFromWidLike(
-        r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+        r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
       );
       return (
         String(e.parentMsgKey) +
@@ -41,7 +41,7 @@ __d(
           var n = t.map(function (e) {
               return [
                 e.parentMsgKey,
-                r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+                r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
               ];
             }),
             a = s(t),

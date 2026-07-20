@@ -2,7 +2,6 @@ __d(
   "WAWebStatusNotification",
   [
     "fbt",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebBaseNotification",
     "WAWebContactCollection",
@@ -19,6 +18,7 @@ __d(
     "WAWebStatusNotificationUtils",
     "WAWebWamEnumNotificationTypeEnum",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -31,7 +31,7 @@ __d(
           (n.status = o(
             "WAWebStatusCollection",
           ).StatusCollection.getStatusModel(
-            r("WANullthrows")(
+            r("nullthrows")(
               o("WAWebMsgGetters").getSender(n.msg),
               "[WAStatusNotification]: status poster cannot be null",
             ),
@@ -87,7 +87,7 @@ __d(
                   this.status.contact,
                 )
               : o("WAWebFrontendContactGetters").getFormattedName(
-                  r("WANullthrows")(
+                  r("nullthrows")(
                     o("WAWebContactCollection").ContactCollection.get(
                       this.msg.author,
                     ),
@@ -102,7 +102,7 @@ __d(
             };
           return {
             wid: this.msg.author,
-            title: r("WANullthrows")(n),
+            title: r("nullthrows")(n),
             body: a,
             onClick: i,
           };
@@ -113,7 +113,7 @@ __d(
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-              r("WANullthrows")(o("WAWebMsgGetters").getSender(this.msg)),
+              r("nullthrows")(o("WAWebMsgGetters").getSender(this.msg)),
               this.abortController.signal,
               o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
             );

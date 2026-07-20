@@ -2,7 +2,6 @@ __d(
   "WAWebDebugPolls",
   [
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebChatCollection",
     "WAWebChatGetters",
@@ -25,6 +24,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "filterNulls",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -208,7 +208,7 @@ __d(
             ).createPollCreationMsgData({ poll: i, chat: n })),
               h.set(n, a));
           }
-          var l = r("WANullthrows")(a.pollOptions),
+          var l = r("nullthrows")(a.pollOptions),
             s =
               t != null
                 ? t
@@ -217,7 +217,7 @@ __d(
                       return e === 0 || Math.random() > 5 ? e : null;
                     }),
                   ),
-            u = r("WANullthrows")(
+            u = r("nullthrows")(
               o("WAWebFrontendMsgGetters").getAsPollCreation(
                 new (o("WAWebMsgModel").Msg)(a),
               ),

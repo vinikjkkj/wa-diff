@@ -3,13 +3,13 @@ __d(
   [
     "WABinary",
     "WACryptoSha256",
-    "WANullthrows",
     "WAWebCryptoCurve25519",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -23,7 +23,7 @@ __d(
                 o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
               )
               .toString(),
-            t = r("WANullthrows")(
+            t = r("nullthrows")(
               yield o("WAWebSignalProtocolStore")
                 .getPersistSignalProtocolStore()
                 .loadIdentityKey(e),
@@ -31,7 +31,7 @@ __d(
             n = o("WAWebCryptoCurve25519").toCurveKeyPubKey(
               o("WAWebSignalCommonUtils").strToBuffer(t),
             ),
-            a = r("WANullthrows")(
+            a = r("nullthrows")(
               yield o("WAWebSignalProtocolStore")
                 .getPersistSignalProtocolStore()
                 .getIdentityKeyPair(),

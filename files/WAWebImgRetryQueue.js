@@ -4,13 +4,13 @@ __d(
     "Promise",
     "WAAbortError",
     "WABackoffUtils",
-    "WANullthrows",
     "WAPromiseRaceAbort",
     "WAResolvable",
     "WAWebIdleTaskRunner",
     "WAWebMiscErrors",
     "WAWebNetworkStatus",
     "WAWebNoop",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -87,7 +87,7 @@ __d(
               (n = e.next()) && !n.done && !(this.$3 > t.maxInProgressRetry());
             ) {
               var o = n.value;
-              this.$8(r("WANullthrows")(o));
+              this.$8(r("nullthrows")(o));
             }
           }),
           (a.$8 = function (t) {

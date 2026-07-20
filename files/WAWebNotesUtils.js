@@ -18,6 +18,7 @@ __d(
         e.isUser() &&
         !e.isPSA() &&
         !e.isOfficialBizAccount() &&
+        !e.isAiHub() &&
         !e.isIAS() &&
         !e.isSupportAccount() &&
         !e.isCAPISupportAccount() &&

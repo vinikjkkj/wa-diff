@@ -92,7 +92,6 @@ __d(
       return n >= e + r;
     }
     ((l.SharableEventInviteReceivingVersion = s),
-      (l.getSharableEventInviteReceivingVersion = u),
       (l.isSharableEventInviteReceiveEnabled = c),
       (l.shouldRenderSharableEventInviteBubble = d),
       (l.SharableEventAddToCalendarEntryPoint = m),

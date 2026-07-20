@@ -214,10 +214,6 @@ __d(
               deny: void 0,
             }));
         }),
-        (a.isActive = function () {
-          var e = this.chatstate.type;
-          return this.hasData && (e === "typing" || e === "recording_audio");
-        }),
         (a.getGroupSubtitleText = function (n) {
           var t, r;
           if (!this.hasData) return null;

@@ -2,7 +2,6 @@ __d(
   "WAWebPollEditEncryptMsgData",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebAck",
     "WAWebAddonEncryption",
     "WAWebE2EProtoUtils",
@@ -15,6 +14,7 @@ __d(
     "WAWebWamEnumE2eFailureReason",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
@@ -81,7 +81,7 @@ __d(
               t.latestEditSenderTimestampMs,
             );
           e(m, u, p);
-          var _ = (i = r("WANullthrows"))(m),
+          var _ = (i = r("nullthrows"))(m),
             f = i(u),
             g = i(p),
             h = s(n),

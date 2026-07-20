@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WANullthrows",
     "WAWebAttachMediaCollection",
     "WAWebAttachMediaModel",
     "WAWebMsgType",
@@ -15,6 +14,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "isStringNullOrEmpty",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -27,7 +27,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = r("WANullthrows")(
+          var a = r("nullthrows")(
             new (r("WAWebAttachMediaCollection"))({ chatParticipantCount: t }),
           );
           if (

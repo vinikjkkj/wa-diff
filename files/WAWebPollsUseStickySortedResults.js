@@ -1,6 +1,6 @@
 __d(
   "WAWebPollsUseStickySortedResults",
-  ["WANullthrows", "react", "useLazyRef"],
+  ["nullthrows", "react", "useLazyRef"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useMemo;
@@ -31,8 +31,8 @@ __d(
             var o = e[0],
               a = t[0];
             return (
-              r("WANullthrows")(n.get(o.localId)) -
-              r("WANullthrows")(n.get(a.localId))
+              r("nullthrows")(n.get(o.localId)) -
+              r("nullthrows")(n.get(a.localId))
             );
           });
         },

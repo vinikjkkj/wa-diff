@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAPromiseEach",
     "WAResolvable",
     "WATimeUtils",
@@ -23,6 +22,7 @@ __d(
     "compactMap",
     "getErrorSafe",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -235,7 +235,7 @@ __d(
                   callOutcome: o(
                     "WAWebCallLogUtils",
                   ).getCallOutcomeFromCallResultSyncProto(
-                    r("WANullthrows")(
+                    r("nullthrows")(
                       d,
                       "generateCallLogFromCallSyncRecord: callResult is null from call log record sync",
                     ),
@@ -259,7 +259,7 @@ __d(
                     .map(function (e) {
                       return {
                         participant: o("WAWebWidFactory").createWid(
-                          r("WANullthrows")(e.userJid),
+                          r("nullthrows")(e.userJid),
                         ),
                         outcome:
                           e.callResult != null

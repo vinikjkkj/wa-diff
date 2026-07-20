@@ -152,27 +152,15 @@ __d(
       return s._(/*BTDS*/ "Audience info");
     }
     function te() {
-      return s._(/*BTDS*/ "Delete audience");
-    }
-    function ne() {
-      return s._(/*BTDS*/ "Broadcast details");
-    }
-    function re() {
-      return s._(/*BTDS*/ "Star");
-    }
-    function oe() {
-      return s._(/*BTDS*/ "Unstar");
-    }
-    function ae() {
       return s._(/*BTDS*/ "Continue without saving?");
     }
-    function ie() {
+    function ne() {
       return s._(/*BTDS*/ "Your progress will be lost.");
     }
-    function le() {
+    function re() {
       return s._(/*BTDS*/ "Continue");
     }
-    function se(e) {
+    function oe(e) {
       var t = e.broadcastJidIsNull,
         n = e.checkoutFailed,
         r = e.contactsCount,
@@ -258,14 +246,10 @@ __d(
       (l.getExistingAudiencesSaveButtonLabel = J),
       (l.getDocumentPreviewRemoveDocumentLabel = Z),
       (l.getBroadcastAudienceInfoLabel = ee),
-      (l.getDeleteBroadcastAudienceLabel = te),
-      (l.getBroadcastDetailsLabel = ne),
-      (l.getBroadcastStarLabel = re),
-      (l.getBroadcastUnstarLabel = oe),
-      (l.getExitConfirmationTitle = ae),
-      (l.getExitConfirmationBody = ie),
-      (l.getExitConfirmationContinueButton = le),
-      (l.getSendNowButtonDisabledReason = se));
+      (l.getExitConfirmationTitle = te),
+      (l.getExitConfirmationBody = ne),
+      (l.getExitConfirmationContinueButton = re),
+      (l.getSendNowButtonDisabledReason = oe));
   },
   226,
 );

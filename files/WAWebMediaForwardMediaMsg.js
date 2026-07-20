@@ -21,6 +21,7 @@ __d(
     "WAWebWamEnumStickerSendOriginType",
     "WAWebWamEnumWebcRmrReasonCode",
     "WAWebWebpMetadata",
+    "WAWebWid",
     "asyncToGeneratorRuntime",
     "err",
     "isStringNullOrEmpty",
@@ -212,6 +213,11 @@ __d(
               forwardedAiBotMessageInfo: o(
                 "WAWebGetAiBotContextForForwardedMsg",
               ).getAiBotContextForForwardedMsg(N),
+              aiProvenance:
+                o("WAWebMsgGetters").getIsNewsletterMsg(N) &&
+                r("WAWebWid").isNewsletter(x.id)
+                  ? N.aiProvenance
+                  : void 0,
               stickers: (_ = N.stickers) != null ? _ : void 0,
               publisher: (f = N.stickerPackPublisher) != null ? f : void 0,
               fileLength: (g = N.size) != null ? g : void 0,

@@ -1,10 +1,10 @@
 __d(
   "WAWebDBPollsGetParentMessages",
   [
-    "WANullthrows",
     "WAWebAddonProcessMsgsUtils",
     "WAWebMsgType",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -33,7 +33,7 @@ __d(
       );
     }
     function u(e) {
-      return r("WANullthrows")(e.pollUpdateParentKey).toString();
+      return r("nullthrows")(e.pollUpdateParentKey).toString();
     }
     l.getParentMessages = e;
   },

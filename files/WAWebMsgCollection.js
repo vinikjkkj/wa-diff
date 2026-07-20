@@ -20,7 +20,6 @@ __d(
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendMsgGetters",
     "WAWebFtsConstants",
-    "WAWebInvisiblePlaceholderViewModeProcessor",
     "WAWebKeepInChatMsgUtils",
     "WAWebLidMigrationUtils",
     "WAWebMessageAssociationUIUtils",
@@ -40,8 +39,6 @@ __d(
     "WAWebSyncButtonState",
     "WAWebThreadModelResolver",
     "WAWebUserPrefsMeUser",
-    "WAWebViewMode.flow",
-    "WAWebViewModeUtils",
     "WAWebWid",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
@@ -218,47 +215,15 @@ __d(
               }),
               l = t.prototype.add.call(this, i, a);
             return (
-              this.makeParentMessagesVisibleInChat(l),
+              o(
+                "WAWebMessageAssociationUIUtils",
+              ).makeParentMessagesVisibleInChat(l),
               r("WAWebSyncButtonState")(l),
               this._prefetchProductListMessages(l),
               this.processVCardMessagesForLidMappings(l),
               this.processEditedMessages(l),
               l
             );
-          }),
-          (i.makeParentMessagesVisibleInChat = function (t) {
-            var e = this;
-            t.filter(Boolean).forEach(function (t) {
-              var n = t.parentMsgKey,
-                r = t.viewMode;
-              if (
-                n &&
-                !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
-                  o("WAWebViewMode.flow").ViewModeSurface.CHAT,
-                  r,
-                )
-              ) {
-                var a,
-                  i = e.get(n);
-                i &&
-                  (a = o("WAWebInvisiblePlaceholderViewModeProcessor")
-                    .InvisiblePlaceholderViewModeProcessor
-                    .compatibleMessageTypes) != null &&
-                  a.includes(i.type) &&
-                  !o("WAWebMessageAssociationUIUtils").shouldHideParentMessage({
-                    parentMsg: i,
-                    duringDetach: !1,
-                  }) &&
-                  !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
-                    o("WAWebViewMode.flow").ViewModeSurface.CHAT,
-                    i == null ? void 0 : i.viewMode,
-                  ) &&
-                  i.set(
-                    "viewMode",
-                    o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                  );
-              }
-            });
           }),
           (i.processVCardMessagesForLidMappings = function (t) {
             var e = t.reduce(function (e, t) {

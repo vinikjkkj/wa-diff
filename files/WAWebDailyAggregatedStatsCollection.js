@@ -1,12 +1,12 @@
 __d(
   "WAWebDailyAggregatedStatsCollection",
   [
-    "WANullthrows",
     "WAWebBaseCachePolicy",
     "WAWebBaseCollection",
     "WAWebDailyAggregatedStats",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsKeys",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 864e5,
@@ -25,7 +25,7 @@ __d(
               s = a + e * l;
             return (t = this.get(s)) != null
               ? t
-              : r("WANullthrows")(
+              : r("nullthrows")(
                   this.add({ id: s.toString(), startTime: s })[0],
                 );
           }),

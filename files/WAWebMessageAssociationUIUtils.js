@@ -2,6 +2,7 @@ __d(
   "WAWebMessageAssociationUIUtils",
   [
     "WAWebFrontendMsgGetters",
+    "WAWebInvisiblePlaceholderViewModeProcessor",
     "WAWebMessageAssociation.flow",
     "WAWebMsgCollection",
     "WAWebMsgType",
@@ -102,12 +103,40 @@ __d(
             !p({ parentMsg: n })
           : !0;
     }
+    function f(e) {
+      e.filter(Boolean).forEach(function (e) {
+        var t = e.parentMsgKey,
+          n = e.viewMode;
+        if (
+          t &&
+          !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+            o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+            n,
+          )
+        ) {
+          var r,
+            a = o("WAWebMsgCollection").MsgCollection.get(t);
+          a &&
+            (r = o("WAWebInvisiblePlaceholderViewModeProcessor")
+              .InvisiblePlaceholderViewModeProcessor.compatibleMessageTypes) !=
+              null &&
+            r.includes(a.type) &&
+            !p({ parentMsg: a, duringDetach: !1 }) &&
+            !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+              o("WAWebViewMode.flow").ViewModeSurface.CHAT,
+              a == null ? void 0 : a.viewMode,
+            ) &&
+            a.set("viewMode", o("WAWebViewMode.flow").ViewModeType.VISIBLE);
+        }
+      });
+    }
     ((l.getLowestAckState = s),
       (l.getHiddenAssociatedMessages = u),
       (l.getHiddenViewModeMessagesForChat = c),
       (l.filterOutVisibleAssociatedMessages = d),
       (l.shouldHideParentMessage = p),
-      (l.shouldDisplayOrphanMessage = _));
+      (l.shouldDisplayOrphanMessage = _),
+      (l.makeParentMessagesVisibleInChat = f));
   },
   98,
 );

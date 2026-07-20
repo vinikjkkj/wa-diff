@@ -118,24 +118,25 @@ __d(
       return e == null ? [] : e.map(S);
     }
     function S(e) {
-      var t;
-      return {
-        approvalId: (t = o("WAWebHatchJsonReaders")).readString(
-          e,
-          "approval_id",
-        ),
-        decision: t.readString(e, "decision"),
-        reason: t.readString(e, "reason"),
-        shortExplanation: t.readString(e, "short_explanation"),
-        richExplanation: t.readString(e, "rich_explanation"),
-        displayName: t.readString(e, "display_name"),
-        actionLabel: t.readString(e, "action_label"),
-        iconUrl: t.readString(e, "icon_url"),
-        payloadPreview: t.readString(e, "payload_preview"),
-        scheme: t.readString(e, "scheme"),
-        host: t.readString(e, "host"),
-        path: t.readString(e, "path"),
-      };
+      var t,
+        n = (t = o("WAWebHatchJsonReaders")).readBool(e, "turn_grant_eligible");
+      return babelHelpers.extends(
+        {
+          approvalId: t.readString(e, "approval_id"),
+          decision: t.readString(e, "decision"),
+          reason: t.readString(e, "reason"),
+          shortExplanation: t.readString(e, "short_explanation"),
+          richExplanation: t.readString(e, "rich_explanation"),
+          displayName: t.readString(e, "display_name"),
+          actionLabel: t.readString(e, "action_label"),
+          iconUrl: t.readString(e, "icon_url"),
+          payloadPreview: t.readString(e, "payload_preview"),
+          scheme: t.readString(e, "scheme"),
+          host: t.readString(e, "host"),
+          path: t.readString(e, "path"),
+        },
+        n != null ? { turnGrantEligible: n } : null,
+      );
     }
     l.decodeHatchPayload = d;
   },

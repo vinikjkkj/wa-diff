@@ -19,14 +19,16 @@ __d(
       c,
       d,
       m,
-      p = 2;
-    function _(e, t) {
-      return f.apply(this, arguments);
+      p,
+      _,
+      f = 2;
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = yield y(t, n);
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = yield L(t, n);
           return a == null
             ? (o("WALogger").WARN(
                 e ||
@@ -36,8 +38,8 @@ __d(
                   ])),
                 t.toString(),
               ),
-              g(t))
-            : (yield b(t, a))
+              y(t))
+            : (yield k(t, a))
               ? {
                   chatId: t,
                   anchorMessage: a,
@@ -48,18 +50,18 @@ __d(
                     ),
                   ),
                 }
-              : g(t);
+              : y(t);
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function h() {
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield L(e),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield x(e),
             n = t == null ? void 0 : t.internalId;
           return n == null
             ? null
@@ -69,15 +71,91 @@ __d(
                 anchorInChatMsgId: o("WAWebDBMessageUtils").getInChatMsgId(n),
               };
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t <= 0) return e;
+          var n = yield S(e.chatId, e.anchorInChatMsgId);
+          if (n == null) return e;
+          var r = e.anchorInChatMsgId - n - 1;
+          if (r >= t) return e;
+          var a = yield x(e.chatId),
+            i =
+              (a == null ? void 0 : a.internalId) != null
+                ? o("WAWebDBMessageUtils").getInChatMsgId(a.internalId)
+                : null;
+          return i == null
+            ? e
+            : (o("WALogger").WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] insufficient gap below join (",
+                    " free < ",
+                    " msgs) for chat ",
+                    "; rebasing history below start of chat",
+                  ])),
+                r,
+                t,
+                e.chatId.toString(),
+              ),
+              babelHelpers.extends({}, e, { anchorInChatMsgId: i }));
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e, t) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o("WAWebDBMessageUtils").beginningOfChat(e),
+            r = o("WAWebDBMessageUtils").craftInternalId(e.toString(), t);
+          try {
+            var a,
+              i = yield o("WAWebSchemaMessage")
+                .getMessageTable()
+                .between(["internalId"], n, r, {
+                  lowerInclusive: !0,
+                  upperInclusive: !1,
+                  reverse: !0,
+                  limit: 1,
+                }),
+              l = (a = i[0]) == null ? void 0 : a.internalId;
+            return l == null
+              ? null
+              : o("WAWebDBMessageUtils").getInChatMsgId(l);
+          } catch (t) {
+            return (
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] getHighestInChatMsgIdBelow err ",
+                    ": ",
+                    "",
+                  ])),
+                e.toString(),
+                t,
+              ),
+              null
+            );
+          }
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e, t) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebDBMessageUtils").beginningOfChat(e),
             r;
           if (t != null) {
@@ -109,8 +187,8 @@ __d(
           } catch (t) {
             return (
               o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "Error finding join message for chat ",
                     ": ",
                     "",
@@ -122,15 +200,15 @@ __d(
             );
           }
         })),
-        C.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function k(e, t) {
+      return I.apply(this, arguments);
     }
-    function v() {
+    function I() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t == null || t.internalId == null) return !1;
           var n = o("WAWebDBMessageUtils").getInChatMsgId(t.internalId),
             r = o("WAWebDBMessageUtils").beginningOfChat(e),
@@ -138,13 +216,13 @@ __d(
           try {
             var i = yield o("WAWebSchemaMessage")
               .getMessageTable()
-              .between(["internalId"], r, a, { limit: p + 1 });
-            return i.length > p;
+              .between(["internalId"], r, a, { limit: f + 1 });
+            return i.length > f;
           } catch (t) {
             return (
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[groupHistory] last valid msg before join err ",
                     ": ",
                     "",
@@ -156,15 +234,15 @@ __d(
             );
           }
         })),
-        v.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function R() {
+    function D() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t == null || t.internalId == null) return null;
           var n = o("WAWebDBMessageUtils").getInChatMsgId(t.internalId),
             a = o("WAWebDBMessageUtils").beginningOfChat(e),
@@ -193,8 +271,8 @@ __d(
           } catch (t) {
             return (
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[groupHistory] last valid msg before join err ",
                     ": ",
                     "",
@@ -206,15 +284,15 @@ __d(
             );
           }
         })),
-        R.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function E() {
+    function $() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebDBMessageUtils").beginningOfChat(e),
             n = o("WAWebDBMessageUtils").endOfChat(e);
           try {
@@ -230,8 +308,8 @@ __d(
           } catch (t) {
             return (
               o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "Error finding start of chat ",
                     ": ",
                     "",
@@ -243,21 +321,21 @@ __d(
             );
           }
         })),
-        E.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    var k = new Set([
+    var P = new Set([
       o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
         .FAILED_NO_RETRY,
       o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
         .DEDUPED,
     ]);
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function N(e, t, n) {
+      return M.apply(this, arguments);
     }
-    function T() {
+    function M() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = t.toString(),
             a = n == null ? void 0 : n.internalId,
             i = a != null ? a : o("WAWebDBMessageUtils").beginningOfChat(e),
@@ -272,15 +350,15 @@ __d(
                 { lowerInclusive: a == null, upperInclusive: !0, limit: 1 },
                 void 0,
                 function (e) {
-                  return D(e, r);
+                  return w(e, r);
                 },
               );
             return s.length > 0;
           } catch (t) {
             return (
               o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[group-history] hasReceivedBundleForJoinSession err ",
                     ": ",
                     "",
@@ -292,10 +370,10 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function D(e, t) {
+    function w(e, t) {
       var n;
       if (
         e.type !== o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE ||
@@ -305,12 +383,13 @@ __d(
         return !1;
       var a =
         (n = e.groupHistoryBundleMetadata) == null ? void 0 : n.processState;
-      return a == null ? !1 : !k.has(a);
+      return a == null ? !1 : !P.has(a);
     }
-    ((l.findGroupHistoryInsertionAnchor = _),
-      (l.findMostRecentJoinSystemMessage = y),
-      (l.findLastValidMessageBefore = S),
-      (l.hasReceivedBundleForJoinSession = I));
+    ((l.findGroupHistoryInsertionAnchor = g),
+      (l.ensureAnchorHasRoomForHistory = b),
+      (l.findMostRecentJoinSystemMessage = L),
+      (l.findLastValidMessageBefore = T),
+      (l.hasReceivedBundleForJoinSession = N));
   },
   98,
 );

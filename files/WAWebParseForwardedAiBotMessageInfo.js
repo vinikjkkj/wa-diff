@@ -1,6 +1,6 @@
 __d(
   "WAWebParseForwardedAiBotMessageInfo",
-  ["WANullthrows", "WAWebDecodeJid", "WAWebWidFactory"],
+  ["WAWebDecodeJid", "WAWebWidFactory", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.botJid,
@@ -8,7 +8,7 @@ __d(
         a = e.creatorName,
         i = o("WAWebDecodeJid").strictDecodeJid(t);
       return {
-        botId: o("WAWebWidFactory").asBotWidOrThrow(r("WANullthrows")(i)),
+        botId: o("WAWebWidFactory").asBotWidOrThrow(r("nullthrows")(i)),
         botName: n,
         creatorName: a,
         validationStatus: "pending",

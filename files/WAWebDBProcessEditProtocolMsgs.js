@@ -578,16 +578,21 @@ __d(
       };
     }
     function A(e, t, n) {
-      var r = {
-        latestEditMsgKey: t.latestEditMsgKey,
-        latestEditSenderTimestampMs: t.latestEditSenderTimestampMs,
-        errorCode: t.errorCode,
-        ack: x(e, t),
-        pendingReadReceipt: o("WAWebMsgGetters").getIsSentByMe(e)
-          ? void 0
-          : o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit,
-        hasPaidPartnershipLabel: t.hasPaidPartnershipLabel,
-      };
+      var r = babelHelpers.extends(
+        {
+          latestEditMsgKey: t.latestEditMsgKey,
+          latestEditSenderTimestampMs: t.latestEditSenderTimestampMs,
+          errorCode: t.errorCode,
+          ack: x(e, t),
+          pendingReadReceipt: o("WAWebMsgGetters").getIsSentByMe(e)
+            ? void 0
+            : o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit,
+          hasPaidPartnershipLabel: t.hasPaidPartnershipLabel,
+        },
+        o("WAWebMsgGetters").getIsNewsletterMsg(e)
+          ? { aiProvenance: t.aiProvenance }
+          : null,
+      );
       switch (n) {
         case o("WAWebMessageEditUtils").MsgEditType.TextEdit: {
           var a,

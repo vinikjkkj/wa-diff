@@ -99,6 +99,7 @@ __d(
       return (
         e.isRegularUser() &&
         !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+        !r("WAWebWid").isAiHub(e) &&
         !r("WAWebWid").isIAS(e) &&
         !r("WAWebWid").isCAPISupportAccount(e) &&
         !r("WAWebWid").isSupportAccount(e)

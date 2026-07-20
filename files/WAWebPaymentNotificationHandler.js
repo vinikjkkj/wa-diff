@@ -2,7 +2,6 @@ __d(
   "WAWebPaymentNotificationHandler",
   [
     "WALogger",
-    "WANullthrows",
     "WAWap",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDBMsgUtils",
@@ -20,6 +19,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -61,7 +61,7 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("WANullthrows")(e.msgKey),
+          var t = r("nullthrows")(e.msgKey),
             n = o("WAWebLidMigrationUtils").getAlternateMsgKey(t),
             a = k(t, n),
             i = a ? o("WAWebStateUtils").unproxy(a) : yield I(t, n);
@@ -155,9 +155,9 @@ __d(
             "WAWebPaymentStatusUtils",
           ).getPaymentTxnWebStatus(t.status))),
         (e.paymentCurrency = t.currency || ""),
-        (e.paymentAmount1000 = r("WANullthrows")(t.amount1000)),
+        (e.paymentAmount1000 = r("nullthrows")(t.amount1000)),
         (e.paymentMessageReceiverJid = t.receiver),
-        (e.paymentTransactionTimestamp = r("WANullthrows")(t.ts)));
+        (e.paymentTransactionTimestamp = r("nullthrows")(t.ts)));
     }
     function C(e) {
       return b.apply(this, arguments);
@@ -238,9 +238,9 @@ __d(
                   "WAWebPaymentStatusUtils",
                 ).getPaymentTxnWebStatus(n.status)),
                 (e.paymentCurrency = n.currency || ""),
-                (e.paymentAmount1000 = r("WANullthrows")(n.amount1000)),
+                (e.paymentAmount1000 = r("nullthrows")(n.amount1000)),
                 (e.paymentMessageReceiverJid = n.receiver),
-                (e.paymentTransactionTimestamp = r("WANullthrows")(n.ts)));
+                (e.paymentTransactionTimestamp = r("nullthrows")(n.ts)));
             });
             return o("WAWebDBProcessMessage").updateExistingMessages(a);
           }

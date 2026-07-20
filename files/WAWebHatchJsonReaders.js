@@ -21,13 +21,18 @@ __d(
     }
     function d(e, t) {
       var n = s(e, t);
+      return typeof n == "boolean" ? n : null;
+    }
+    function m(e, t) {
+      var n = s(e, t);
       return Array.isArray(n) ? n : null;
     }
     ((l.isObject = e),
       (l.readField = s),
       (l.readString = u),
       (l.readNumber = c),
-      (l.readArray = d));
+      (l.readBool = d),
+      (l.readArray = m));
   },
   98,
 );

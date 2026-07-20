@@ -5,7 +5,6 @@ __d(
     "WAComms",
     "WAJids",
     "WALinkify",
-    "WANullthrows",
     "WASmaxNewslettersGetNewsletterMessagesRPC",
     "WASmaxNewslettersGetNewsletterResponsesRPC",
     "WAWap",
@@ -57,6 +56,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -64,7 +64,7 @@ __d(
       s,
       u = s || (s = o("react")),
       c = function (t) {
-        return r("WANullthrows")(o("WAComms").getComms()).handleStanza(
+        return r("nullthrows")(o("WAComms").getComms()).handleStanza(
           t,
           o("WAComms").DEFAULT_SOCKET_ID,
           0,

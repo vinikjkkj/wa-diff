@@ -3,11 +3,11 @@ __d(
   [
     "$InternalEnum",
     "Lexical",
-    "WANullthrows",
     "WAWebDelimiterNode",
     "WAWebLexicalUtils",
     "WAWebListBulletNode",
     "WAWebListNumberNode",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored([
@@ -74,12 +74,12 @@ __d(
       var y = _(
         n,
         0,
-        r("WANullthrows")(n[n.length - 1]).getTextContentSize() - 1,
+        r("nullthrows")(n[n.length - 1]).getTextContentSize() - 1,
       );
       return y
         ? babelHelpers.extends({}, y, {
-            startNode: r("WANullthrows")(y.selectedNodes[0]),
-            endNode: r("WANullthrows")(
+            startNode: r("nullthrows")(y.selectedNodes[0]),
+            endNode: r("nullthrows")(
               y.selectedNodes[y.selectedNodes.length - 1],
             ),
             isCollapsed: !0,
@@ -107,8 +107,8 @@ __d(
         c = _(t, n, a);
       return c
         ? babelHelpers.extends({}, c, {
-            startNode: r("WANullthrows")(c.selectedNodes[0]),
-            endNode: r("WANullthrows")(
+            startNode: r("nullthrows")(c.selectedNodes[0]),
+            endNode: r("nullthrows")(
               c.selectedNodes[c.selectedNodes.length - 1],
             ),
             isCollapsed: !1,
@@ -242,7 +242,7 @@ __d(
           a = o.keepNumberedList,
           i = e.endNode,
           l = e.startNode,
-          s = r("WANullthrows")(l.getParent()),
+          s = r("nullthrows")(l.getParent()),
           u = (n = i.getParent()) == null ? void 0 : n.getNextSibling();
         s;
       ) {
@@ -271,7 +271,7 @@ __d(
       var a,
         i = t.endNode,
         l = t.startNode,
-        s = r("WANullthrows")(l.getParent()),
+        s = r("nullthrows")(l.getParent()),
         c = (a = i.getParent()) == null ? void 0 : a.getNextSibling(),
         d = 1;
       if (n === e.NumberedList) {
@@ -333,8 +333,8 @@ __d(
         o = e.selectedNodes,
         a = e.selection,
         i = e.startOffset,
-        l = r("WANullthrows")(b(o, i, t)),
-        s = r("WANullthrows")(v({ format: t, nodes: o, offset: n }));
+        l = r("nullthrows")(b(o, i, t)),
+        s = r("nullthrows")(v({ format: t, nodes: o, offset: n }));
       (k(a, l, s), l.remove(), s.remove());
     }
     function C(t, n) {
@@ -349,8 +349,8 @@ __d(
         _ = n === e.Code;
       if (l && !p && !_) return c.Skip;
       if (p) {
-        var f = r("WANullthrows")(d.getParent()),
-          g = r("WANullthrows")(o.getParent()).getNextSibling();
+        var f = r("nullthrows")(d.getParent()),
+          g = r("nullthrows")(o.getParent()).getNextSibling();
         if (!l && f.getTextContentSize() === 0) return c.Add;
         for (var h = !0, y = f; y; ) {
           if (
@@ -422,7 +422,7 @@ __d(
             o("Lexical").$isTextNode(t) &&
             (["Bold", "Italic", "Strikethrough"].forEach(function (o) {
               t.hasFormat(o.toLowerCase()) &&
-                n.push(r("WANullthrows")(e.cast(o)));
+                n.push(r("nullthrows")(e.cast(o)));
             }),
             t.hasFormat("code"))
           ) {
@@ -441,7 +441,7 @@ __d(
       (R[e.InlineCode] = "`"));
     var L = Array.from(Object.values(R));
     function E(e) {
-      return r("WANullthrows")(R[e]);
+      return r("nullthrows")(R[e]);
     }
     function k(e, t, n, a) {
       a === void 0 && (a = !0);
@@ -452,8 +452,8 @@ __d(
         o("WAWebDelimiterNode").$isDelimiterNode(l) &&
         i.getTextContent() === l.getTextContent();
       )
-        ((i = r("WANullthrows")(i.getNextSibling())),
-          (l = r("WANullthrows")(l.getPreviousSibling())));
+        ((i = r("nullthrows")(i.getNextSibling())),
+          (l = r("nullthrows")(l.getPreviousSibling())));
       e.setTextNodeRange(i, 0, l, l.getTextContentSize());
     }
     function I(e) {

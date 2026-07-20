@@ -83,7 +83,8 @@ __d(
         ).getIsHostedMeAccountFromLocalStorage() &&
           !o("WAWebChatGetters").getIsGroup(t)) ||
         o("WAWebChatGetters").getIsPSA(t) ||
-        t.id.isBot()
+        t.id.isBot() ||
+        t.id.isAiHub()
       )
         return !1;
       if (o("WAWebChatGetters").getIsGroup(t)) {

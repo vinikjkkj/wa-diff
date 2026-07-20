@@ -1,12 +1,12 @@
 __d(
   "WAWebUserHasExitedGroupQuickPromotionFilter",
   [
-    "WANullthrows",
     "WATimeUtils",
     "WAWebCommonQPSurfacesTypes",
     "WAWebQuickPromotionValidatorUtils",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -44,7 +44,7 @@ __d(
           var _ = o(
               "WAWebQuickPromotionValidatorUtils",
             ).convertFilterParametersIntoMap(a),
-            f = parseInt(r("WANullthrows")(_.get("param")), 10);
+            f = parseInt(r("nullthrows")(_.get("param")), 10);
           if (
             !o("WATimeUtils").isInFuture(
               o("WATimeUtils").futureUnixTime(

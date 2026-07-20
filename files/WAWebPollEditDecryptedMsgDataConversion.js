@@ -2,7 +2,6 @@ __d(
   "WAWebPollEditDecryptedMsgDataConversion",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebE2EProtoUtils",
     "WAWebMessageEditUtils",
     "WAWebMsgGetters",
@@ -13,6 +12,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebViewMode.flow",
     "WAWebWamEnumE2eFailureReason",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
@@ -21,7 +21,7 @@ __d(
         l,
         s,
         u,
-        c = r("WANullthrows")(
+        c = r("nullthrows")(
           e.protocolMessage,
           "[Poll][Edit] Missing protocol message",
         );
@@ -36,7 +36,7 @@ __d(
             .EDIT_TYPE_AND_PROTOCOL_MISMATCH,
         );
       var d = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
-        m = r("WANullthrows")(
+        m = r("nullthrows")(
           o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
             c.key,
             d,
@@ -129,7 +129,7 @@ __d(
         ),
         {
           id: t.id,
-          t: Math.floor(r("WANullthrows")(_) / 1e3),
+          t: Math.floor(r("nullthrows")(_) / 1e3),
           type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
           subtype: "poll_edit_decrypted",
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,

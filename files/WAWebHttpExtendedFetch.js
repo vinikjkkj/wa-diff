@@ -13,7 +13,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
-    "w3c-domcore-errors",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -57,7 +56,7 @@ __d(
         new (e || (e = n("Promise")))(function (i, l) {
           var u;
           if ((u = a.signal) != null && u.aborted) {
-            l(new (o("w3c-domcore-errors").DOMException)("AbortError"));
+            l(new DOMException("The operation was aborted.", "AbortError"));
             return;
           }
           var c = new XMLHttpRequest();
@@ -67,7 +66,9 @@ __d(
               (d.removeEventListener("abort", e),
                 (c.onreadystatechange = r("WAWebNoop")),
                 c.abort(),
-                l(new (o("w3c-domcore-errors").DOMException)("AbortError")));
+                l(
+                  new DOMException("The operation was aborted.", "AbortError"),
+                ));
             });
           }
           var m = a,

@@ -1,6 +1,6 @@
 __d(
   "WAWebMmsClientFormatHashUrl",
-  ["WABase64UrlSafe", "WANullthrows", "WAWebMmsMediaTypes"],
+  ["WABase64UrlSafe", "WAWebMmsMediaTypes", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -58,7 +58,7 @@ __d(
         n = e.hostname,
         a = e.query,
         i = e.type,
-        l = r("WANullthrows")(u[i]),
+        l = r("nullthrows")(u[i]),
         s = new URL(
           "https://" + n + l + "/" + o("WABase64UrlSafe").urlSafeBase64(t),
         ),

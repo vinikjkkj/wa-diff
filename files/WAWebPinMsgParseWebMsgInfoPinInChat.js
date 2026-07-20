@@ -3,12 +3,12 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebAddOnParseWebMsgInfo",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsWeb.pb",
     "WAWebWidFactory",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -50,7 +50,7 @@ __d(
               m != null &&
                 l.push({
                   key: m.key,
-                  type: u(r("WANullthrows")(m.type)),
+                  type: u(r("nullthrows")(m.type)),
                   senderTimestampMs: c.senderTimestampMs,
                   serverTimestampMs: c.serverTimestampMs,
                   messageAddOnContextInfo: c.addOnContextInfo,
@@ -63,9 +63,9 @@ __d(
             g = p.senderTimestampMs,
             h = p.serverTimestampMs,
             y = p.type,
-            C = r("WANullthrows")(
+            C = r("nullthrows")(
               o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({
-                key: r("WANullthrows")(_),
+                key: r("nullthrows")(_),
               }),
             ),
             b = C.msgKey,
@@ -84,7 +84,7 @@ __d(
               parentMsgKey: n.id,
               chatId: o("WAWebWidFactory").asChatWid(b.remote),
               senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                r("WANullthrows")(g),
+                r("nullthrows")(g),
               ),
               t:
                 (S = o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
@@ -92,7 +92,7 @@ __d(
                 )) != null
                   ? S
                   : void 0,
-              pinType: r("WANullthrows")(y),
+              pinType: r("nullthrows")(y),
               sender: v,
               pinExpiryDuration:
                 f == null ? void 0 : f.messageAddOnDurationInSecs,

@@ -43,6 +43,7 @@ __d(
           !d &&
           !s &&
           !i.isBot() &&
+          !i.isAiHub() &&
           !a.isEnterprise &&
           !c &&
           !_ &&

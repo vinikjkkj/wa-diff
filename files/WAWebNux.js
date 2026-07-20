@@ -75,7 +75,10 @@ __d(
     function p(e) {
       return "subgroup_suggestions_banner_" + e;
     }
-    var _ = n("$InternalEnum")({
+    function _(e) {
+      return "ai_label_nux_" + e;
+    }
+    var f = n("$InternalEnum")({
         EPHEMERAL: "ephemeral",
         EPHEMERAL_VIEW_ONCE: "ephemeral_view_once",
         EPHEMERAL_VIEW_ONCE_RECEIVER: "ephemeral_view_once_receiver",
@@ -107,7 +110,7 @@ __d(
         BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
         PRIVACY_SCREEN_UPSELL_BANNER: "privacy_screen_upsell_banner",
       }),
-      f = {
+      g = {
         COOL_OFF_NUX: {
           INCOMPLETE_BUSINESS_PROFILE_BANNER:
             "incomplete_business_profile_banner",
@@ -167,7 +170,7 @@ __d(
           NEWSLETTER_STATUS_ADD_TOOLTIP: "newsletter_status_add_tooltip",
         },
       },
-      g = {
+      h = {
         DEFAULT: "default_cool_off_banners_key",
         CATALOG: "catalog_banners_key",
         CTWA_SUGGESTION: "ctwa_suggestion_banners_key",
@@ -176,7 +179,7 @@ __d(
           "message_label_deprecation_migrated_chat_list_key",
         WHATS_NEW: "whats_new_cool_off_key",
       };
-    function h(e) {
+    function y(e) {
       return e + "_cool_off";
     }
     ((i.NUX = e),
@@ -187,10 +190,11 @@ __d(
       (i.getMembershipApprovalRequestsBannerNuxKey = d),
       (i.getNewsletterAlertsBannerNuxKey = m),
       (i.getSubgroupSuggestionsBannerNuxKey = p),
-      (i.NuxSyncKey = _),
-      (i.NuxKeyTypes = f),
-      (i.CoolOffPeriodKeys = g),
-      (i.asCoolOffNuxType = h));
+      (i.getAILabelBannerNuxKey = _),
+      (i.NuxSyncKey = f),
+      (i.NuxKeyTypes = g),
+      (i.CoolOffPeriodKeys = h),
+      (i.asCoolOffNuxType = y));
   },
   66,
 );

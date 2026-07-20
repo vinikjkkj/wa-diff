@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebCallCollection",
+    "WAWebCallEndTone",
     "WAWebCallNotificationBus",
     "WAWebEnvironment",
     "WAWebEventEmitter",
@@ -105,9 +106,14 @@ __d(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
                 ),
               ),
-              o("WAWebVoipCallStateUtils").isCallActive(t) &&
+              o("WAWebVoipCallStateUtils").isCallConnected(t) &&
                 (this.wasEverConnected = !0),
               this.$Call$p_15(e),
+              !r("WAWebEnvironment").isWindows &&
+                this.wasEverConnected &&
+                !o("WAWebVoipCallStateUtils").isCallTerminal(e) &&
+                o("WAWebVoipCallStateUtils").isCallTerminal(t) &&
+                o("WAWebCallEndTone").playCallEndTone(),
               o("WAWebVoipPerfMeasurement").onCallStateChange(t, this.outgoing),
               o("WAWebVoipCallStateUtils").isCallTerminal(t))
             ) {

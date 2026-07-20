@@ -1,6 +1,6 @@
 __d(
   "WAWebWamCodegenGlobalMetrics",
-  ["WANullthrows", "WAWebWamCodegenUtils"],
+  ["WAWebWamCodegenUtils", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return typeof e == "number" && e === Math.floor(e);
@@ -40,7 +40,7 @@ __d(
           }),
           (t.getEvent = function (t, n) {
             var e = this.$3(t, n);
-            return r("WANullthrows")(this.$1[e], e);
+            return r("nullthrows")(this.$1[e], e);
           }),
           (t.define = function (t, n, r, o) {
             var e = this.$3(t, n);
@@ -49,11 +49,11 @@ __d(
           (t.defineGlobal = function (t, n, o, a) {
             return (
               this.$2.has(t) || this.$2.set(t, new u(t, n, o, a)),
-              r("WANullthrows")(this.$2.get(t), t)
+              r("nullthrows")(this.$2.get(t), t)
             );
           }),
           (t.getGlobal = function (t) {
-            return r("WANullthrows")(this.$2.get(t), t);
+            return r("nullthrows")(this.$2.get(t), t);
           }),
           e
         );

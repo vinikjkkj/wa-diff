@@ -1,7 +1,6 @@
 __d(
   "WAWebPollAddOptionDecryptedMsgDataConversion",
   [
-    "WANullthrows",
     "WAWebE2EProtoUtils",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
@@ -10,10 +9,11 @@ __d(
     "WAWebProcessBaseMsgInfo",
     "WAWebViewMode.flow",
     "WAWebWamEnumE2eFailureReason",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      var a = r("WANullthrows")(
+      var a = r("nullthrows")(
           e.pollAddOptionMessage,
           "[Poll][AddOption] Missing pollAddOptionMessage",
         ),

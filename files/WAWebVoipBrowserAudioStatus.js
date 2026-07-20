@@ -62,7 +62,6 @@ __d(
     ((l.BROWSER_AUDIO_PROCESSING_STATUS_UNKNOWN = u),
       (l.BROWSER_AUDIO_PROCESSING_STATUS_ALL = c),
       (l.setBrowserAudioProcessingApplied = m),
-      (l.getBrowserAudioProcessingApplied = p),
       (l.getBrowserAudioProcessingStatusForVoipStack = _),
       (l.preDetectBrowserAudioCapabilities = f));
   },

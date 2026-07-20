@@ -1,17 +1,17 @@
 __d(
   "WAWebPollsFormatPollMessageText",
   [
-    "WANullthrows",
     "WAWebFrontendMsgGetters",
     "WAWebGetSearchMatchFromMsg",
     "WAWebL10N",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
         n = e.msg,
         a = e.options,
-        i = r("WANullthrows")(o("WAWebFrontendMsgGetters").getAsPoll(n)),
+        i = r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPoll(n)),
         l = o("WAWebGetSearchMatchFromMsg").getSearchMatchFromMsg(
           i,
           (t = a.searchQuery) != null ? t : [],

@@ -118,10 +118,7 @@ __d(
         f.apply(this, arguments)
       );
     }
-    ((l.showUnsupportedBrowserModalIfNeeded = c),
-      (l.showVoipInitErrorModalIfNeeded = d),
-      (l.showCouldNotPlaceCallModal = p),
-      (l.showCallBlockedModalIfNeeded = _));
+    ((l.showCouldNotPlaceCallModal = p), (l.showCallBlockedModalIfNeeded = _));
   },
   226,
 );

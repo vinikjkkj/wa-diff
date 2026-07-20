@@ -135,8 +135,7 @@ __d(
           ? o("WAWebWamEnumWpbujBenefitStatus").WPBUJ_BENEFIT_STATUS.NOT_ACTIVE
           : o("WAWebWamEnumWpbujBenefitStatus").WPBUJ_BENEFIT_STATUS.DISABLED;
     }
-    ((l.getOrCreateSharedSessionId = d),
-      (l.clearSharedSessionId = m),
+    ((l.clearSharedSessionId = m),
       (l.shouldLogTargetOnceForBenefit = p),
       (l.WaPlusBenefitJourneyLogger = _),
       (l.resolveBenefitStatus = g));

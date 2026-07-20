@@ -28,7 +28,7 @@ __d(
         subtitle: { color: "xhslqc4", $$css: !0 },
       };
     function d(e) {
-      var t = o("WABidi").dir(e),
+      var t = o("WABidi").bidiDir(e),
         n = t === "rtl";
       return { direction: t, dirMismatch: n !== r("WAWebL10N").isRTL() };
     }

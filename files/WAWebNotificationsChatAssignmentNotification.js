@@ -2,7 +2,6 @@ __d(
   "WAWebNotificationsChatAssignmentNotification",
   [
     "fbt",
-    "WANullthrows",
     "WAWebBaseNotification",
     "WAWebChatCollection",
     "WAWebChatGetters",
@@ -15,6 +14,7 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -34,7 +34,7 @@ __d(
             .filter(function (e) {
               return e != null;
             })),
-          (a.primaryChat = r("WANullthrows")(a.chats[0])),
+          (a.primaryChat = r("nullthrows")(a.chats[0])),
           (a.assignmentTimestamps = i),
           (a.businessName =
             (n = o("WAWebConnModel").Conn.pushname) != null

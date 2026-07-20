@@ -3,12 +3,12 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAWebMiscErrors",
     "WAWebMmsMediaTypes",
     "WAWebMsgGetters",
     "WAWebSendServerErrorReceiptJob",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -28,12 +28,12 @@ __d(
                       o("WAWebMmsMediaTypes").getMsgMediaType(e),
                     );
                   var i = t.$1.get(a);
-                  if (i) return r("WANullthrows")(i.request);
+                  if (i) return r("nullthrows")(i.request);
                   var l = new (s || (s = n("Promise")))(function (n, r) {
                     t.$1.set(a, { resolve: n, reject: r, msg: e });
                   });
                   return (
-                    (r("WANullthrows")(t.$1.get(a)).request = l),
+                    (r("nullthrows")(t.$1.get(a)).request = l),
                     yield r("WAWebSendServerErrorReceiptJob")(e),
                     l
                   );

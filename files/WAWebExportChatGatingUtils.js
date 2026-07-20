@@ -27,7 +27,6 @@ __d(
       return o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete();
     }
     ((l.isExportChatEnabled = e),
-      (l.chatHasExportableContent = s),
       (l.canExportChat = u),
       (l.isExportChatHistorySyncReady = c));
   },

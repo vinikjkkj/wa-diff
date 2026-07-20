@@ -1,6 +1,6 @@
 __d(
   "WAWebLexicalUtils",
-  ["Lexical", "LexicalSelection", "WANullthrows"],
+  ["Lexical", "LexicalSelection", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e() {
       var e = s();
@@ -172,7 +172,7 @@ __d(
       n.clear();
       for (var a = e.split(/\r?\n/), i = 0; i < a.length; i++) {
         n.append(o("Lexical").$createParagraphNode());
-        var l = r("WANullthrows")(n.getLastChild()),
+        var l = r("nullthrows")(n.getLastChild()),
           s = new (o("Lexical").TextNode)(a[i]);
         l.append(s);
       }

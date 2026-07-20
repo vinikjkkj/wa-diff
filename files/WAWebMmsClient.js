@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAExponentialBackoff",
     "WALogger",
-    "WANullthrows",
     "WARaceSignal",
     "WARetryPromise",
     "WAWebMediaHosts",
@@ -21,6 +20,7 @@ __d(
     "WAWebNetworkStatus",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _;
@@ -356,7 +356,7 @@ __d(
                 };
               })(),
             );
-          return { response: r("WANullthrows")(S), retryStartTime: y };
+          return { response: r("nullthrows")(S), retryStartTime: y };
         })),
         R.apply(this, arguments)
       );

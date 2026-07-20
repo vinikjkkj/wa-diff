@@ -10,7 +10,9 @@ __d(
           ? "dp"
           : e.endsWith("px")
             ? "px"
-            : null;
+            : e.endsWith("dvh")
+              ? "dvh"
+              : null;
     }
     function l(t) {
       if (t == null) return null;

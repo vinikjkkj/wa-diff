@@ -104,7 +104,7 @@ __d(
         EVENTS_RSVP_OPTION_SELECTED: "guest_events_rsvp_option_selected",
         EVENTS_RSVP_SUBMIT_ATTEMPTED: "guest_events_rsvp_submit_attempted",
         EVENTS_RSVP_SUBMIT_ENDED: "guest_events_rsvp_submit_ended",
-        EVENTS_UPSELL_VIEW: "guest_events_upsell_view",
+        EVENTS_UPSELL_INTERACTION: "guest_events_upsell_interaction",
         EVENTS_RSVP_WA_WEB_CONFLICT: "guest_events_rsvp_wa_web_conflict",
         EVENTS_LOCATION_DIRECTIONS_CLICKED:
           "guest_events_location_directions_clicked",

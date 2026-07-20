@@ -11,43 +11,49 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 4194304;
-    function c(e) {
-      return d.apply(this, arguments);
+      u,
+      c = 4194304;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.force;
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.force;
           if (r("WAWebLocalStorage") != null) {
-            var a =
-              n ||
-              m() > u ||
+            var n =
+              t ||
+              _() > c ||
               (yield o(
                 "WAWebStorageErrorHandlingUtils",
               ).isQuotaActuallyExceeded());
-            if (a) {
-              var i = p();
-              if (i.length !== 0)
+            if (n) {
+              var a = f();
+              if (a.length !== 0)
                 try {
-                  (i.forEach(function (e) {
+                  var i = new Set();
+                  (a.forEach(function (e) {
+                    var t = r("WAWebLocalStorage")[e];
                     r("WAWebLocalStorage").removeItem(e);
+                    for (var n of p(e, t)) i.add(n);
                   }),
                     o("WALogger")
                       .LOG(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "[falco] cleared ",
-                            " keys",
+                            " keys; lost event names: ",
+                            "",
                           ])),
-                        i.length,
+                        a.length,
+                        Array.from(i).join(","),
                       )
                       .sendLogs("wam_falco_buffer_cleared"));
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[falco] error clearing falco buffer",
                         ])),
                     )
@@ -57,10 +63,49 @@ __d(
             }
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m() {
+    function p(t, n) {
+      if (typeof n != "string") return [];
+      try {
+        var a = JSON.parse(n),
+          i = null;
+        if (
+          (t ===
+          o("WAWebCanonicalWamFalcoBufferConstants")
+            .CANONICAL_WAM_FALCO_BUFFER_STORAGE_KEY
+            ? (i = a)
+            : a != null &&
+              typeof a == "object" &&
+              Array.isArray(a.items) &&
+              (i = a.items),
+          !Array.isArray(i))
+        )
+          return [];
+        var l = [];
+        for (var s of i)
+          s != null &&
+            typeof s == "object" &&
+            typeof s.name == "string" &&
+            l.push(s.name);
+        return l;
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[falco] unable to read cleared event names",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("wam_falco_buffer_clear_count_error"),
+          []
+        );
+      }
+    }
+    function _() {
       if (r("WAWebLocalStorage") == null) return 0;
       var e = 0;
       for (var t of Object.keys(r("WAWebLocalStorage"))) {
@@ -70,7 +115,7 @@ __d(
       }
       return e;
     }
-    function p() {
+    function f() {
       return r("WAWebLocalStorage") == null
         ? []
         : Object.keys(r("WAWebLocalStorage")).filter(function (e) {
@@ -82,7 +127,7 @@ __d(
             );
           });
     }
-    l.clearFalcoBuffer = c;
+    l.clearFalcoBuffer = d;
   },
   98,
 );

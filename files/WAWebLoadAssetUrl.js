@@ -2,11 +2,11 @@ __d(
   "WAWebLoadAssetUrl",
   [
     "WACustomError",
-    "WANullthrows",
     "WAWebFeatureDetectionDetectWebpSupport",
     "WAWebHttpExtendedFetch",
     "WAWebNetworkStatus",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = { DEFAULT: "default", WEBP: "webp" },
@@ -43,7 +43,7 @@ __d(
             a = t.asset,
             i = t.resolution,
             l = n && a[i][e.WEBP] ? e.WEBP : e.DEFAULT;
-          return r("WANullthrows")(a[i][l]);
+          return r("nullthrows")(a[i][l]);
         })),
         c.apply(this, arguments)
       );

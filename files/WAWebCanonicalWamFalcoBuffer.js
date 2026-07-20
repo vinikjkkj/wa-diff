@@ -8,7 +8,9 @@ __d(
     "WAWebFalcoEventQueue",
     "WAWebLocalStorage",
     "WAWebNetworkStatus",
+    "WAWebODS",
     "WAWebWamFalcoABProps",
+    "WAWebWamFalcoModes",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -192,7 +194,10 @@ __d(
       return (v == null && (v = new b()), v);
     }
     function R(e) {
-      S().buffer(e);
+      (o("WAWebWamFalcoABProps").getWamFalcoMode() ===
+        o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING &&
+        r("WAWebODS").incr("web.falco.shadow." + e.name + ".buffer"),
+        S().buffer(e));
     }
     function L() {
       (v == null && h().length === 0) || S().drain();

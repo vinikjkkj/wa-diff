@@ -28,7 +28,7 @@ __d(
           marginInlineEnd: null,
           $$css: !0,
         },
-        viewCount: { color: "x14ug900", $$css: !0 },
+        secondaryContentDefault: { color: "x14ug900", $$css: !0 },
         info: {
           flex: "x12lumcd",
           order: "x14yy4lh",
@@ -49,6 +49,7 @@ __d(
           $$css: !0,
         },
         author: { minWidth: "x1pshirs", $$css: !0 },
+        aiContentLabel: { marginTop: "xav9cv8", $$css: !0 },
         dot: {
           marginTop: "xdj266r",
           marginInlineEnd: "x7g7pl8",

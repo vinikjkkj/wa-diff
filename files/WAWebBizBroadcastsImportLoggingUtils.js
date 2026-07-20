@@ -106,7 +106,6 @@ __d(
       h = "application/vnd.ms-excel",
       y = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     ((i.ImportAudienceCancelPhase = e),
-      (i.getImportAudienceFileType = l),
       (i.createImportAudienceLoggingContext = s),
       (i.createImportAudienceSuccessLoggingContext = u),
       (i.getImportAudienceLoggingExtraAttributes = c),

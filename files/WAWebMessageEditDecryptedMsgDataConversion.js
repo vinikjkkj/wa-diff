@@ -2,7 +2,6 @@ __d(
   "WAWebMessageEditDecryptedMsgDataConversion",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebE2EProtoParser",
     "WAWebE2EProtoUtils",
     "WAWebMessageEditValidationError",
@@ -12,11 +11,12 @@ __d(
     "WAWebProcessBaseMsgInfo",
     "WAWebProtobufsE2E.pb",
     "WAWebWamEnumE2eFailureReason",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
       var a,
-        i = r("WANullthrows")(
+        i = r("nullthrows")(
           e.protocolMessage,
           "[MessageEdit] Missing protocol message",
         );
@@ -33,7 +33,7 @@ __d(
             .MESSAGE_SECRET_INVALID,
         );
       var l = o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
-        s = r("WANullthrows")(
+        s = r("nullthrows")(
           o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
             i.key,
             l,
@@ -50,7 +50,7 @@ __d(
             .MESSAGE_SECRET_INVALID,
         );
       var c = o("WALongInt").maybeNumberOrThrowIfTooLarge(i.timestampMs),
-        d = r("WANullthrows")(
+        d = r("nullthrows")(
           r("WAWebParseProtocolMessageEditProto")({
             messageProtobuf: {
               protocolMessage: {
@@ -60,7 +60,7 @@ __d(
                 timestampMs: i.timestampMs,
               },
               messageContextInfo: {
-                messageSecret: r("WANullthrows")(
+                messageSecret: r("nullthrows")(
                   (a = t.messageSecret) != null ? a : n,
                 ).buffer,
                 threadId: [],
@@ -84,7 +84,7 @@ __d(
           ),
           {
             id: t.id,
-            t: Math.floor(r("WANullthrows")(c) / 1e3),
+            t: Math.floor(r("nullthrows")(c) / 1e3),
             type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
             subtype: "message_edit_decrypted",
             kind: o("WAWebMsgType").MsgKind.MessageEditDecrypted,

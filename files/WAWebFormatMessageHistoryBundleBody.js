@@ -34,8 +34,11 @@ __d(
           : c.toString();
       if (
         t ===
-        o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
-          .FAILED
+          o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
+            .FAILED ||
+        t ===
+          o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
+            .FAILED_NO_RETRY
       )
         return s._(
           /*BTDS*/ "Couldn't download message history that {sender contact name} sent you",

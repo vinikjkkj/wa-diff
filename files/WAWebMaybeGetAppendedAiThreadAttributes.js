@@ -1,7 +1,6 @@
 __d(
   "WAWebMaybeGetAppendedAiThreadAttributes",
   [
-    "WANullthrows",
     "WAWebAiThreadCreationUtils",
     "WAWebAiThreadTypeUtils",
     "WAWebBotBaseGating",
@@ -11,6 +10,7 @@ __d(
     "WAWebThreadMsgUtils",
     "WAWebThreadUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -30,7 +30,7 @@ __d(
             return d(e);
           if (u(e)) return c(e);
           var i = e.quotedMsg;
-          if (u(i)) return c(r("WANullthrows")(i, "quotedMsg"));
+          if (u(i)) return c(r("nullthrows")(i, "quotedMsg"));
           var l = o("WAWebAiThreadCreationUtils").getHistoricalMetaAiThreadId(),
             s = {
               aiThreadType: o("WAWebAiThreadTypeUtils").AiThreadType.Default,

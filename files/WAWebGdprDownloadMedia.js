@@ -2,7 +2,6 @@ __d(
   "WAWebGdprDownloadMedia",
   [
     "WABase64",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaMmsV4Download",
@@ -12,11 +11,12 @@ __d(
     "WAWebWamEnumDownloadOriginType",
     "WAWebWamEnumWebcRmrReasonCode",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
-        n = o("WABase64").encodeB64((t = r("WANullthrows"))(e.fileSha256)),
+        n = o("WABase64").encodeB64((t = r("nullthrows"))(e.fileSha256)),
         a = o("WAWebMediaStorage").getOrCreateMediaObject(n),
         i = {
           debugHint: "setMediaObjectValues",

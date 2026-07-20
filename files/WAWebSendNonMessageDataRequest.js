@@ -160,6 +160,9 @@ __d(
               .WAFFLE_LINKING_NONCE_FETCH:
               break;
             case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+              .CONTACT_REFRESH_REQUEST:
+              break;
+            case o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
               .UPLOAD_STICKER: {
               var r = T(t);
               if (r == null) return null;

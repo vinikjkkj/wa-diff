@@ -3,7 +3,6 @@ __d(
   [
     "invariant",
     "Promise",
-    "WANullthrows",
     "WAWebBrokerConnectionManager",
     "WAWebBrokerProtocolHandshake",
     "WAWebFtsWorkerContext",
@@ -11,6 +10,7 @@ __d(
     "WAWebInvocationHandler",
     "WAWebInvocationInterface",
     "WAWebWorkerFrontendInterface",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -30,7 +30,7 @@ __d(
         if (t != null) {
           (r("WAWebBrokerConnectionManager").connectVia(t),
             r("WAWebInvocationHandler").respondTo(t),
-            r("WANullthrows")(u).then(function () {
+            r("nullthrows")(u).then(function () {
               ((typeof DedicatedWorkerGlobalScope != "undefined" &&
                 self instanceof DedicatedWorkerGlobalScope) ||
                 s(0, 56318),
@@ -56,7 +56,7 @@ __d(
             r("WAWebBrokerConnectionManager"),
           ),
           o("WAWebInvocationInterface").set(r("WAWebWorkerFrontendInterface"))),
-        r("WANullthrows")(u)
+        r("nullthrows")(u)
       );
     }
     l.default = _;

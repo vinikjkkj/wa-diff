@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAExponentialBackoff",
     "WALogger",
-    "WANullthrows",
     "WARaceSignal",
     "WARetryPromise",
     "WAWebMmsClientIsErrorRetryable",
@@ -19,6 +18,7 @@ __d(
     "WAWebWamEnumOverallLastUploadRetryPhaseType",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -72,7 +72,7 @@ __d(
                       "mmsClient.upload: success",
                     ])),
                 ),
-                r("WANullthrows")(g)
+                r("nullthrows")(g)
               );
             } catch (e) {
               var y = r("getErrorSafe")(e);

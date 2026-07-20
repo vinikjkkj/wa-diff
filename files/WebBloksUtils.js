@@ -64,7 +64,13 @@ __d(
     function R(e) {
       if (typeof e == "string") {
         var t = o("WebBloksDimensionUtils").parseDimension(e);
-        return t == null ? e : t.type === "%" ? t.value + "%" : t.value + "px";
+        return t == null
+          ? e
+          : t.type === "%"
+            ? t.value + "%"
+            : t.type === "dvh"
+              ? "calc(" + t.value + " * var(--wbloks-dvh, 1vh))"
+              : t.value + "px";
       }
       return e;
     }

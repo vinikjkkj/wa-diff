@@ -4,13 +4,13 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebCRUDOperationsNewsletterPollsVotes",
     "WAWebMexFetchNewsletterPollVotersJob",
     "WAWebNewsletterFetchPollVotersAction",
     "WAWebPollOptionHashUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -106,7 +106,7 @@ __d(
           }
           var t = yield r("WAWebMexFetchNewsletterPollVotersJob")({
             newsletterId: o("WAJids").toNewsletterJid(e.id.remote.toString()),
-            serverId: r("WANullthrows")(e.serverId),
+            serverId: r("nullthrows")(e.serverId),
             limit: 100,
             voteHash: null,
           });

@@ -1,7 +1,6 @@
 __d(
   "WAWebPollsUseResults",
   [
-    "WANullthrows",
     "WAWebAddonHydrationUtils",
     "WAWebFrontendPollVoteGetters",
     "WAWebMarkAddOnsAsReadAction",
@@ -10,6 +9,7 @@ __d(
     "WAWebPollVoteGetters",
     "WAWebPollsPollVoteCollection",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "sumBy",
@@ -123,7 +123,7 @@ __d(
       for (var u of l)
         for (var c of u.selectedOptionLocalIds) {
           var d = t[c],
-            m = r("WANullthrows")(
+            m = r("nullthrows")(
               n.get(d),
               "Option with local ID " + c + " not found",
             );

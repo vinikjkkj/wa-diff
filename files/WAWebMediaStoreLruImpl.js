@@ -3,13 +3,13 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAPromiseQueue",
     "WAWeb-dexie",
     "WAWebAbstractStore",
     "WAWebMediaStoreMetaInfo",
     "WAWebStorageErrorHandlingUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -47,7 +47,7 @@ __d(
                             "[LruMediaStore] QuotaExceededError, shrinking",
                           ])),
                       ),
-                        i.setMaxSize(r("WANullthrows")(i.getCurrentSize()) / 2),
+                        i.setMaxSize(r("nullthrows")(i.getCurrentSize()) / 2),
                         o(
                           "WAWebStorageErrorHandlingUtils",
                         ).reportQuotaExceededError(t, {

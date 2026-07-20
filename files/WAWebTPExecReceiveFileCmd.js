@@ -15,40 +15,21 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-              "WAWebSchemaWebTPSharedSession",
-            ).getWebTPSharedSessionTable(),
-            n = yield t.get(e);
-          return n == null
-            ? null
-            : o("WATimeUtils").unixTime() > n.expiresAt
-              ? (yield t.remove(e), null)
-              : n;
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(t) {
-      var a = t.sessionId,
-        i = t.utmCampaign;
+      var t = e.sessionId,
+        a = e.utmCampaign;
       if (
-        a == null ||
-        a.length === 0 ||
+        t == null ||
+        t.length === 0 ||
         !o("WAWebTPPdfViewerGatingUtils").isWebTPPdfEditAndShareEnabled()
       )
         return !1;
-      var l = o("WAWebTP3PBridge").WAWebTP3PBridge.getDefaultApp();
-      if (l == null) return !1;
+      var i = o("WAWebTP3PBridge").WAWebTP3PBridge.getDefaultApp();
+      if (i == null) return !1;
       try {
-        if (a == null) return !1;
-        (o("WAWebTPLoggingUtils").logPdfReceiverFileForwardedEvent(a),
+        if (t == null) return !1;
+        (o("WAWebTPLoggingUtils").logPdfReceiverFileForwardedEvent(t),
           o("WAWebTPPdfViewerQpl").pdfViewerQpl.receiverForwardStart(),
-          e(a).then(
+          s(t).then(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
@@ -57,16 +38,16 @@ __d(
                       o("WAWebTPLoggingUtils").logPdfReceiverErrorEvent(
                         "forward_session_not_found",
                         "Session not found or file buffer is null",
-                        a,
+                        t,
                       ),
                       r("err")("Session not found or file buffer is null")
                     );
-                  var t = new File([e.fileBuffer], e.fileName, {
+                  var n = new File([e.fileBuffer], e.fileName, {
                     type: "application/pdf",
                   });
                   (yield o(
                     "WAWebWebTPSharedSessionUtils",
-                  ).clearWebTPSharedSessionFileBuffer(a),
+                  ).clearWebTPSharedSessionFileBuffer(t),
                     o(
                       "WAWebTPPdfViewerQpl",
                     ).pdfViewerQpl.receiverForwardComplete(),
@@ -75,27 +56,27 @@ __d(
                     ).isPdfPreviewBeforeSendEnabled()
                       ? (o(
                           "WAWebTPLoggingUtils",
-                        ).logPdfReceiverPreviewOpenEvent(a, i),
+                        ).logPdfReceiverPreviewOpenEvent(t, a),
                         o("WAWebCmd").Cmd.trigger(
                           "open_file_forward_modal_with_preview",
-                          t,
+                          n,
                           {
                             showPreview: !0,
                             onSend: function () {
                               o(
                                 "WAWebTPLoggingUtils",
-                              ).logPdfReceiverPreviewSendEvent(a);
+                              ).logPdfReceiverPreviewSendEvent(t);
                             },
                             onCancel: function () {
                               o(
                                 "WAWebTPLoggingUtils",
-                              ).logPdfReceiverPreviewCancelEvent(a);
+                              ).logPdfReceiverPreviewCancelEvent(t);
                             },
                           },
                         ))
                       : o("WAWebCmd").Cmd.trigger(
                           "open_file_forward_modal",
-                          t,
+                          n,
                         ));
                 },
               );
@@ -109,17 +90,36 @@ __d(
           o("WAWebTPLoggingUtils").logPdfReceiverErrorEvent(
             "forward_failed",
             "Exception during file forward",
-            a,
+            t,
           ),
           o("WAWebWebTPSharedSessionUtils").clearWebTPSharedSessionFileBuffer(
-            a,
+            t,
           ),
           !1
         );
       }
       return !0;
     }
-    l.default = u;
+    function s(e) {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o(
+              "WAWebSchemaWebTPSharedSession",
+            ).getWebTPSharedSessionTable(),
+            n = yield t.get(e);
+          return n == null
+            ? null
+            : o("WATimeUtils").unixTime() > n.expiresAt
+              ? (yield t.remove(e), null)
+              : n;
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    l.default = e;
   },
   98,
 );

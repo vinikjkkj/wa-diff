@@ -260,35 +260,43 @@ __d(
                 "logGroupHistoryParseHistoryProtoFailed",
                 { groupId: a.toJid(), messagesCount: i + l, oowPinsCount: l },
               ),
+              t instanceof r("WAWeb-dexie").BulkError)
+            ) {
               yield o(
                 "WAWebUpdateMessageHistoryBundleState",
               ).updateGroupHistoryBundleState(
                 e.id,
                 o("WAWebGroupHistoryMsgData.flow")
-                  .MessageHistoryBundleProcessState.FAILED,
-              ),
-              t instanceof r("WAWeb-dexie").BulkError)
-            )
+                  .MessageHistoryBundleProcessState.FAILED_NO_RETRY,
+              );
               return;
-            t instanceof Error
-              ? o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[group-history]: Failed to process bundle",
-                      ])),
-                  )
-                  .catching(t)
-                  .sendLogs("group-history-bundle-processing-failed")
-              : o("WALogger")
-                  .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[group-history]: Failed to process bundle",
-                      ])),
-                  )
-                  .catching(r("err")(String(t)))
-                  .sendLogs("group-history-bundle-processing-failed");
+            }
+            (yield o(
+              "WAWebUpdateMessageHistoryBundleState",
+            ).updateGroupHistoryBundleState(
+              e.id,
+              o("WAWebGroupHistoryMsgData.flow")
+                .MessageHistoryBundleProcessState.FAILED,
+            ),
+              t instanceof Error
+                ? o("WALogger")
+                    .ERROR(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "[group-history]: Failed to process bundle",
+                        ])),
+                    )
+                    .catching(t)
+                    .sendLogs("group-history-bundle-processing-failed")
+                : o("WALogger")
+                    .ERROR(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "[group-history]: Failed to process bundle",
+                        ])),
+                    )
+                    .catching(r("err")(String(t)))
+                    .sendLogs("group-history-bundle-processing-failed"));
           }
         })),
         E.apply(this, arguments)
@@ -703,15 +711,19 @@ __d(
           function* (e, t, n, a) {
             var i = null;
             try {
-              var l, s, u, c, d, m;
-              i = yield o(
-                "WAWebGroupHistoryMessageManager",
-              ).findGroupHistoryInsertionAnchor(t, n);
-              var p = yield o(
+              var l,
+                s,
+                u,
+                c,
+                d,
+                m = yield o(
+                  "WAWebGroupHistoryMessageManager",
+                ).findGroupHistoryInsertionAnchor(t, n),
+                p = yield o(
                   "WAWebGroupHistoryMessageManager",
                 ).findLastValidMessageBefore(
                   t,
-                  (l = i) == null ? void 0 : l.anchorMessage,
+                  m == null ? void 0 : m.anchorMessage,
                 ),
                 _ = yield o(
                   "WAWebApiFilterAndReplaceMessages",
@@ -722,33 +734,39 @@ __d(
                   g,
                   !1,
                 );
-              (o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history]: anchorType=",
-                    " anchorInChatMsgId=",
-                    " hasAnchorMessage=",
-                    " chatId=",
-                    " msgCount=",
-                    " messagesAfterJoinTime=",
-                    " bundleMsgKey=",
-                    "",
-                  ])),
-                (s =
-                  (u = i) == null || (u = u.anchorMessage) == null
-                    ? void 0
-                    : u.type) != null
-                  ? s
-                  : "null",
-                (c = (d = i) == null ? void 0 : d.anchorInChatMsgId) != null
-                  ? c
-                  : "null",
-                ((m = i) == null ? void 0 : m.anchorMessage) != null,
-                t.toLogString(),
-                h.length,
-                g.length,
-                n.toString(),
-              ),
+              ((i =
+                m != null
+                  ? yield o(
+                      "WAWebGroupHistoryMessageManager",
+                    ).ensureAnchorHasRoomForHistory(m, h.length)
+                  : m),
+                o("WALogger").LOG(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "[group-history]: anchorType=",
+                      " anchorInChatMsgId=",
+                      " hasAnchorMessage=",
+                      " chatId=",
+                      " msgCount=",
+                      " messagesAfterJoinTime=",
+                      " bundleMsgKey=",
+                      "",
+                    ])),
+                  (l =
+                    (s = i) == null || (s = s.anchorMessage) == null
+                      ? void 0
+                      : s.type) != null
+                    ? l
+                    : "null",
+                  (u = (c = i) == null ? void 0 : c.anchorInChatMsgId) != null
+                    ? u
+                    : "null",
+                  ((d = i) == null ? void 0 : d.anchorMessage) != null,
+                  t.toLogString(),
+                  h.length,
+                  g.length,
+                  n.toString(),
+                ),
                 yield o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
                   h,
                   [t.toString()],

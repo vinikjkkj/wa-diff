@@ -20,7 +20,7 @@ __d(
           subtype: void 0,
           generateWebMessageInfo: null,
         },
-        { type: "chat", subtype: "url", generateWebMessageInfo: null },
+        { type: "chat", subtype: "url", generateWebMessageInfo: e },
         { type: "chat", subtype: void 0, generateWebMessageInfo: e },
         {
           type: "ciphertext",

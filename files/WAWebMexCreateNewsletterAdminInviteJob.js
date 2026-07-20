@@ -1,13 +1,13 @@
 __d(
   "WAWebMexCreateNewsletterAdminInviteJob",
   [
-    "WANullthrows",
     "WATimeUtils",
     "WAWebLidMigrationUtils",
     "WAWebMexClient",
     "WAWebMexCreateNewsletterAdminInviteJobMutation.graphql",
     "WAWebNewsletterRpcUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -40,9 +40,7 @@ __d(
               user_id: n.toString(),
             }),
             i = a.xwa2_newsletter_admin_invite_create,
-            l = r("WANullthrows")(
-              i == null ? void 0 : i.invite_expiration_time,
-            );
+            l = r("nullthrows")(i == null ? void 0 : i.invite_expiration_time);
           return {
             inviteExpiration: o("WATimeUtils").castToUnixTime(
               Number.parseInt(l, 10),

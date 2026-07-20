@@ -15,7 +15,16 @@ __d(
       u,
       c = 5e3,
       d = null;
-    function m(e) {
+    function m() {
+      return d != null
+        ? d
+        : o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+              o("WAWebVoipPerfOptimizations").PerfOptimizationFlag.SCTP_PREWARM,
+            )
+          ? ((d = _()), d)
+          : (u || (u = n("Promise"))).resolve();
+    }
+    function p(e) {
       if (e.iceGatheringState === "complete" && e.localDescription != null) {
         var t = e.localDescription,
           r = t.sdp,
@@ -35,15 +44,6 @@ __d(
           }
         };
       });
-    }
-    function p() {
-      return d != null
-        ? d
-        : o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-              o("WAWebVoipPerfOptimizations").PerfOptimizationFlag.SCTP_PREWARM,
-            )
-          ? ((d = _()), d)
-          : (u || (u = n("Promise"))).resolve();
     }
     function _() {
       return f.apply(this, arguments);
@@ -122,17 +122,17 @@ __d(
             }),
             i = yield e.createOffer();
           yield e.setLocalDescription(i);
-          var l = yield m(e);
+          var l = yield p(e);
           yield t.setRemoteDescription(l);
           var s = yield t.createAnswer();
           yield t.setLocalDescription(s);
-          var c = yield m(t);
+          var c = yield p(t);
           (yield e.setRemoteDescription(c), yield a);
         })),
         h.apply(this, arguments)
       );
     }
-    l.default = p;
+    l.default = m;
   },
   98,
 );

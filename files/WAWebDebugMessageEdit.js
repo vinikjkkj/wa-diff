@@ -2,7 +2,6 @@ __d(
   "WAWebDebugMessageEdit",
   [
     "WALogger",
-    "WANullthrows",
     "WAPromiseDelays",
     "WATimeUtils",
     "WAWebChatCollection",
@@ -26,6 +25,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -62,7 +62,7 @@ __d(
             t =
               "On the receiver client, if you see this message, it has *failed* to process the orphan messag eedit.",
             n = m(),
-            a = r("WANullthrows")(
+            a = r("nullthrows")(
               yield o("WAWebSendTextMsgChatAction").createTextMsgData(n, t),
             ),
             i = new (o("WAWebMsgModel").Msg)(a),
@@ -94,14 +94,14 @@ __d(
               "If you see this message, it has *failed* to process the out of order edits",
             n = m();
           d("Sending parent message.");
-          var a = r("WANullthrows")(
+          var a = r("nullthrows")(
             yield o("WAWebSendTextMsgChatAction").createTextMsgData(
               n,
               "parent message",
             ),
           );
           yield o("WAWebSendTextMsgChatAction").addAndSendTextMsg(n, a);
-          var i = r("WANullthrows")(
+          var i = r("nullthrows")(
             o("WAWebMsgCollection").MsgCollection.get(a.id),
           );
           d("Sending out of order message edits");
@@ -142,7 +142,7 @@ __d(
             t,
             n = m();
           d("Sending test messages.");
-          var a = (t = r("WANullthrows"))(
+          var a = (t = r("nullthrows"))(
               yield (e = o("WAWebSendTextMsgChatAction")).createTextMsgData(
                 n,
                 "quoted message",
@@ -180,7 +180,7 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = m(),
-            t = r("WANullthrows")(
+            t = r("nullthrows")(
               yield o("WAWebSendTextMsgChatAction").createTextMsgData(
                 e,
                 "Sending an unknown message edit. Receiver should not show a FP message for it",

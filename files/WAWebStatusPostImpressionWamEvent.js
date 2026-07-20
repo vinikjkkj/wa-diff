@@ -44,6 +44,7 @@ __d(
               isCloseSharingPost: [42, e.TYPES.BOOLEAN],
               isEngagementCard: [45, e.TYPES.BOOLEAN],
               isFirstView: [2, e.TYPES.BOOLEAN],
+              isGroupMentioned: [53, e.TYPES.BOOLEAN],
               isLastStatus: [43, e.TYPES.BOOLEAN],
               isPosterBiz: [3, e.TYPES.BOOLEAN],
               isResharable: [49, e.TYPES.BOOLEAN],

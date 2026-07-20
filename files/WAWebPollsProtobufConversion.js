@@ -2,9 +2,9 @@ __d(
   "WAWebPollsProtobufConversion",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebPollsCreateOptionLocalIdMap",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -34,7 +34,7 @@ __d(
         d = e.voteProtobuf;
       return {
         msgKey: i,
-        parentMsgKey: r("WANullthrows")(a),
+        parentMsgKey: r("nullthrows")(a),
         selectedOptionLocalIds: d.selectedOptions.map(n.getLocalIdForHash),
         senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(u),
         t: o("WALongInt").maybeNumberOrThrowIfTooLarge(c),

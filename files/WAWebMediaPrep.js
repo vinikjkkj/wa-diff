@@ -346,6 +346,7 @@ __d(
               forwardingScore: s.forwardingScore,
               forwardedNewsletterMessageInfo: s.forwardedNewsletterMessageInfo,
               forwardedAiBotMessageInfo: s.forwardedAiBotMessageInfo,
+              aiProvenance: s.aiProvenance,
               multicast: s.multicast,
               forwardedFromWeb: s.forwardedFromWeb,
               ctwaContext: s.ctwaContext,

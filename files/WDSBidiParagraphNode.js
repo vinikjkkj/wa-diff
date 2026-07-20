@@ -32,7 +32,7 @@ __d(
           var e = o("Locale").isRTL() ? "rtl" : "ltr",
             n = this.getTextContent();
           if (n) {
-            var r = o("WABidi").dir(n);
+            var r = o("WABidi").bidiDir(n);
             e = r != null ? r : e;
           }
           t.dir = e;

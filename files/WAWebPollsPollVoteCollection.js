@@ -1,7 +1,6 @@
 __d(
   "WAWebPollsPollVoteCollection",
   [
-    "WANullthrows",
     "WAWebApiContact",
     "WAWebBaseCollection",
     "WAWebLidMigrationUtils",
@@ -9,6 +8,7 @@ __d(
     "WAWebPollsPollVoteModel",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -137,7 +137,7 @@ __d(
         e &&
           e.forEach(function (e) {
             var n = e.parentMsgKey;
-            (t.has(n) || t.set(n, []), r("WANullthrows")(t.get(n)).push(e));
+            (t.has(n) || t.set(n, []), r("nullthrows")(t.get(n)).push(e));
           }),
         t
       );

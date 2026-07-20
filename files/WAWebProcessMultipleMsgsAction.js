@@ -23,6 +23,7 @@ __d(
     "WAWebMediaGatingUtils",
     "WAWebMediaLinkPreviewUtils",
     "WAWebMediaTypes",
+    "WAWebMessageAssociationUIUtils",
     "WAWebMiscGatingUtils",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
@@ -64,8 +65,8 @@ __d(
               });
             if (
               (o(
-                "WAWebMsgCollection",
-              ).MsgCollection.makeParentMessagesVisibleInChat(R),
+                "WAWebMessageAssociationUIUtils",
+              ).makeParentMessagesVisibleInChat(R),
               y.length === 0 && b.length === 0)
             ) {
               if (t && i.pendingMsgsDone === !0) {

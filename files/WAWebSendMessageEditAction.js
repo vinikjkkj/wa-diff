@@ -31,6 +31,7 @@ __d(
     "WAWebMsgModel",
     "WAWebMsgModelFromData",
     "WAWebMsgType",
+    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterSendMsgAction",
     "WAWebOpenCoexEditDeleteAlertModal",
     "WAWebOrchestratorNonPersistedJob",
@@ -136,86 +137,93 @@ __d(
         i,
         l,
         s,
-        u = e.msg,
-        c = e.options,
-        d = e.text,
-        m = o("WAWebFrontendMsgGetters").getChat(u),
-        p = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
-          m,
+        u,
+        c = e.msg,
+        d = e.options,
+        m = e.text,
+        p = o("WAWebFrontendMsgGetters").getChat(c),
+        _ = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+          p,
           o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
         ),
-        _ = o("WAWebChatGetters").getIsGroup(m)
-          ? o("WAWebWidFactory").asUserWidOrThrow(p)
+        f = o("WAWebChatGetters").getIsGroup(p)
+          ? o("WAWebWidFactory").asUserWidOrThrow(_)
           : void 0,
-        f = new (r("WAWebMsgKey"))({
+        g = new (r("WAWebMsgKey"))({
           id: r("WAWebMsgKey").newId_DEPRECATED(),
-          remote: u.id.remote,
+          remote: c.id.remote,
           fromMe: !0,
-          participant: _,
+          participant: f,
         }),
-        g = c.groupMentions,
-        h = c.linkPreview,
-        y = c.mentionedJidList,
-        C = {
-          id: f,
-          from: p,
-          to: u.id.remote,
+        h = d.groupMentions,
+        y = d.linkPreview,
+        C = d.mentionedJidList,
+        b = {
+          id: g,
+          from: _,
+          to: c.id.remote,
           type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
           kind: o("WAWebMsgType").MsgKind.Protocol,
           subtype: "message_edit",
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          protocolMessageKey: u.id,
+          protocolMessageKey: c.id,
           local: !0,
           t: o("WATimeUtils").unixTime(),
-          mentionedJidList: y,
-          groupMentions: g,
-          latestEditMsgKey: f,
+          mentionedJidList: C,
+          groupMentions: h,
+          latestEditMsgKey: g,
           latestEditSenderTimestampMs: o("WATimeUtils").unixTimeMs(),
-          editMsgType: u.type,
+          editMsgType: c.type,
           errorCode: o("WAWebErrorType").SendFailureErrorCode.NoError,
           messageSecret: o(
             "WAWebMessagingGatingUtils",
           ).isReportingTokenSendingEnabled()
-            ? u.messageSecret
+            ? c.messageSecret
             : null,
+          aiProvenance:
+            o("WAWebMsgGetters").getIsNewsletterMsg(c) &&
+            o("WAWebNewsletterGatingUtils").isChannelSGISenderEnabled() &&
+            (t = c.aiProvenance) != null
+              ? t
+              : void 0,
         };
       switch (
-        r("nullthrows")(o("WAWebMessageEditUtils").getMsgEditType(u.type))
+        r("nullthrows")(o("WAWebMessageEditUtils").getMsgEditType(c.type))
       ) {
         case o("WAWebMessageEditUtils").MsgEditType.TextEdit:
-          C = babelHelpers.extends({}, C, {
-            body: d.trim(),
-            title: (t = h == null ? void 0 : h.title) != null ? t : void 0,
+          b = babelHelpers.extends({}, b, {
+            body: m.trim(),
+            title: (n = y == null ? void 0 : y.title) != null ? n : void 0,
             matchedText:
-              (n = h == null ? void 0 : h.matchedText) != null ? n : void 0,
-            description: h == null ? void 0 : h.description,
+              (a = y == null ? void 0 : y.matchedText) != null ? a : void 0,
+            description: y == null ? void 0 : y.description,
             thumbnail:
-              (a = h == null ? void 0 : h.thumbnail) != null ? a : void 0,
-            richPreviewType: h == null ? void 0 : h.richPreviewType,
-            doNotPlayInline: h == null ? void 0 : h.doNotPlayInline,
-            inviteGrpType: h == null ? void 0 : h.inviteGrpType,
-            thumbnailDirectPath: h == null ? void 0 : h.thumbnailDirectPath,
-            thumbnailSha256: h == null ? void 0 : h.thumbnailSha256,
-            thumbnailEncSha256: h == null ? void 0 : h.thumbnailEncSha256,
-            thumbnailHeight: h == null ? void 0 : h.thumbnailHeight,
-            thumbnailWidth: h == null ? void 0 : h.thumbnailWidth,
+              (i = y == null ? void 0 : y.thumbnail) != null ? i : void 0,
+            richPreviewType: y == null ? void 0 : y.richPreviewType,
+            doNotPlayInline: y == null ? void 0 : y.doNotPlayInline,
+            inviteGrpType: y == null ? void 0 : y.inviteGrpType,
+            thumbnailDirectPath: y == null ? void 0 : y.thumbnailDirectPath,
+            thumbnailSha256: y == null ? void 0 : y.thumbnailSha256,
+            thumbnailEncSha256: y == null ? void 0 : y.thumbnailEncSha256,
+            thumbnailHeight: y == null ? void 0 : y.thumbnailHeight,
+            thumbnailWidth: y == null ? void 0 : y.thumbnailWidth,
             mediaKey:
-              (i = h == null ? void 0 : h.mediaKey) != null ? i : void 0,
+              (l = y == null ? void 0 : y.mediaKey) != null ? l : void 0,
             mediaKeyTimestamp:
-              (l = h == null ? void 0 : h.mediaKeyTimestamp) != null
-                ? l
+              (s = y == null ? void 0 : y.mediaKeyTimestamp) != null
+                ? s
                 : void 0,
             paymentLinkMetadata:
-              (s = o("WAWebPaymentLink").getPaymentLinkMessageMetadata(
-                h,
-                o("WAWebCodeFormatMutator").removeCodeBlocks(d),
+              (u = o("WAWebPaymentLink").getPaymentLinkMessageMetadata(
+                y,
+                o("WAWebCodeFormatMutator").removeCodeBlocks(m),
               )) != null
-                ? s
+                ? u
                 : void 0,
           });
           break;
         case o("WAWebMessageEditUtils").MsgEditType.CaptionEdit:
-          C = babelHelpers.extends({}, C, { caption: d.trim() });
+          b = babelHelpers.extends({}, b, { caption: m.trim() });
           break;
         case o("WAWebMessageEditUtils").MsgEditType.EventEdit:
         case o("WAWebMessageEditUtils").MsgEditType.PollEdit:
@@ -223,7 +231,7 @@ __d(
         case o("WAWebMessageEditUtils").MsgEditType.LoadingMediaEdit:
           break;
       }
-      return C;
+      return b;
     }
     function y(e, t, n, r, o) {
       return C.apply(this, arguments);

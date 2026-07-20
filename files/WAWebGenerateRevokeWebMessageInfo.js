@@ -1,11 +1,11 @@
 __d(
   "WAWebGenerateRevokeWebMessageInfo",
-  ["WANullthrows", "WAWebCommonMsgSubtypeTypes", "WAWebProtobufsWeb.pb"],
+  ["WAWebCommonMsgSubtypeTypes", "WAWebProtobufsWeb.pb", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       var n,
-        a = r("WANullthrows")(
+        a = r("nullthrows")(
           (n = e.protocolMessageKey) == null ? void 0 : n.id,
           "revoke message must have an associated message key",
         );

@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAAckLevel",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebChatGetters",
     "WAWebCoreActionsODS",
@@ -43,6 +42,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g;
@@ -508,7 +508,7 @@ __d(
                 a,
               ),
               c = u.inviteExpiration,
-              d = r("WANullthrows")(r("WAWebNewsletterCollection").get(l)),
+              d = r("nullthrows")(r("WAWebNewsletterCollection").get(l)),
               m = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               p = babelHelpers.extends(
                 {
@@ -532,7 +532,7 @@ __d(
                     newsletterId:
                       o("WAWebWidFactory").asNewsletterWidOrThrow(l),
                     newsletterName: d == null ? void 0 : d.name,
-                    inviteExpiration: r("WANullthrows")(c),
+                    inviteExpiration: r("nullthrows")(c),
                     inviteMessage: i,
                     pictureThumbnail: n,
                   },
@@ -576,7 +576,7 @@ __d(
             i = t.newsletterWid;
           try {
             var l = o("WAWebStateUtils").unproxy(e),
-              s = r("WANullthrows")(r("WAWebNewsletterCollection").get(i)),
+              s = r("nullthrows")(r("WAWebNewsletterCollection").get(i)),
               u = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               c = babelHelpers.extends(
                 {
