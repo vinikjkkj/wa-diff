@@ -363,6 +363,9 @@ __d(
           (a.hasReceivedFirstFrameForJid = function (t) {
             return this.$9.has(t);
           }),
+          (a.resetFirstFrameReceivedForJid = function (t) {
+            this.$9.delete(t) && this.$10(t);
+          }),
           (a.addFirstFrameReceivedListener = function (t) {
             var e = this;
             return (
