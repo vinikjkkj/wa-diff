@@ -6,6 +6,7 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebCallAcceptedElsewhereNotificationDeferral",
+    "WAWebCallBusyTone",
     "WAWebCallCollection",
     "WAWebCallLogUtils",
     "WAWebGroupMetadataCollection",
@@ -276,6 +277,16 @@ __d(
       showParticipantRemovedToast: function (t) {
         var e = t.removeeJid;
         o("WAWebVoipNackHandlers").showParticipantRemovedToast(e);
+      },
+      playBusyTone: function () {
+        o("WAWebCallBusyTone").playBusyTone();
+      },
+      stopBusyTone: function () {
+        o("WAWebCallBusyTone").stopBusyTone();
+      },
+      setPeerBusy: function () {
+        var e;
+        (e = r("WAWebCallCollection").activeCall) == null || e.markPeerBusy();
       },
     };
     l.VoipBridgeNotificationHandlers = y;

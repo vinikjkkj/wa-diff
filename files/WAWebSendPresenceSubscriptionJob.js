@@ -2,7 +2,7 @@ __d(
   "WAWebSendPresenceSubscriptionJob",
   [
     "WASmaxPresenceSubscribeRPC",
-    "WAWebApiChat",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
@@ -14,7 +14,9 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = yield o("WAWebApiChat").getChatRecordByAccountLid(e),
+            n = yield o(
+              "WAWebGetChatRecordByAccountLid",
+            ).getChatRecordByAccountLid(e),
             r = (t = n[0]) == null ? void 0 : t.tcToken,
             a;
           (r != null &&

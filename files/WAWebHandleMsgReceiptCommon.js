@@ -15,6 +15,7 @@ __d(
     "WAWebDBBulkGetRootMsgs",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebMarkAddOnsAsReadJob",
     "WAWebMsgKey",
     "WAWebNewsletterCommonGatingUtils",
@@ -95,7 +96,9 @@ __d(
             );
           }
           if (t.isLid()) {
-            var a = yield o("WAWebApiChat").getChatRecordByAccountLid(t);
+            var a = yield o(
+              "WAWebGetChatRecordByAccountLid",
+            ).getChatRecordByAccountLid(t);
             if (a.length > 0) {
               var i = o("WAWebWidFactory").createWid(a[0].id);
               return (

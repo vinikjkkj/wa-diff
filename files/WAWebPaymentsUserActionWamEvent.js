@@ -2,6 +2,7 @@ __d(
   "WAWebPaymentsUserActionWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumCustomPaymentMethodsSyncStatus",
     "WAWebWamEnumMerchantTypeType",
     "WAWebWamEnumP2mTypeType",
     "WAWebWamEnumPaymentActionTargets",
@@ -26,6 +27,11 @@ __d(
               actionTarget: [
                 4,
                 o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS,
+              ],
+              customPaymentMethodsSyncStatus: [
+                48,
+                o("WAWebWamEnumCustomPaymentMethodsSyncStatus")
+                  .CUSTOM_PAYMENT_METHODS_SYNC_STATUS,
               ],
               merchantType: [
                 43,

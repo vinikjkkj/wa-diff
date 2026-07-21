@@ -3,6 +3,7 @@ __d(
   [
     "WAResultOrError",
     "WASmaxInMessageDeliverAdminProfileMetaMixin",
+    "WASmaxInMessageDeliverNewsletterAIContentMetaMixin",
     "WASmaxInMessageDeliverNewsletterMessageFanoutContent",
     "WASmaxInMessageDeliverNewsletterMessageLastEditTimestampMixin",
     "WASmaxInMessageDeliverNewsletterMessageOriginalTimestampMixin",
@@ -44,9 +45,12 @@ __d(
           "WASmaxInMessageDeliverPaidPartnershipContentMixin",
         ).parsePaidPartnershipContentMixin(e),
         d = o(
+          "WASmaxInMessageDeliverNewsletterAIContentMetaMixin",
+        ).parseNewsletterAIContentMetaMixin(e),
+        m = o(
           "WASmaxInMessageDeliverNewsletterMessageFanoutContent",
         ).parseNewsletterMessageFanoutContent(e);
-      return d.success
+      return m.success
         ? o("WAResultOrError").makeResult({
             id: n.value,
             serverId: r.value,
@@ -56,9 +60,10 @@ __d(
             newsletterMessageLastEditTimestampMixin: s.success ? s.value : null,
             adminProfileMetaMixin: u.success ? u.value : null,
             hasPaidPartnershipContentMixin: c.success,
-            newsletterMessageFanoutContent: d.value,
+            hasNewsletterAIContentMetaMixin: d.success,
+            newsletterMessageFanoutContent: m.value,
           })
-        : d;
+        : m;
     }
     l.parseNewsletterMessageFanoutMixin = e;
   },

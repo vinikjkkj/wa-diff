@@ -139,11 +139,15 @@ __d(
             .PDF_VIEWER,
         }).commit();
     }
-    function v(e, t, n, r) {
-      var a = e.firstPageAjsTotalTime,
-        i = e.firstPageRenderTime,
-        l = e.timeTillFirstPage;
-      l != null &&
+    function v(e) {
+      var t = e.filehash,
+        n = e.sdkVersion,
+        r = e.size,
+        a = e.telemetryEvent,
+        i = a.firstPageAjsTotalTime,
+        l = a.firstPageRenderTime,
+        s = a.timeTillFirstPage;
+      s != null &&
         p(t, c) &&
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
@@ -151,13 +155,13 @@ __d(
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .PDF_VIEWER,
           webtpSessionId: t,
-          webtpFileSize: n,
-          webtpSdkVersion: r,
+          webtpFileSize: r,
+          webtpSdkVersion: n,
           webtpTelemetryData: JSON.stringify({
             action: "viewer_render_time",
-            timeTillFirstPage: l,
-            firstPageAjsTotalTime: a,
-            firstPageRenderTime: i,
+            timeTillFirstPage: s,
+            firstPageAjsTotalTime: i,
+            firstPageRenderTime: l,
             sampleRate: c,
           }),
         }).commit();
@@ -716,22 +720,25 @@ __d(
     function Q(e) {
       j(e, JSON.stringify({ action: "edit_pdf_click" }));
     }
-    function X(e) {
+    function X(e, t) {
+      return e === t ? "select" : t === "shape" ? "draw" : t;
+    }
+    function Y(e) {
       j(e, JSON.stringify({ action: "edit_mode_enter" }));
     }
-    function Y(e, t) {
+    function J(e, t) {
       j(t, JSON.stringify({ action: "tool_select", tool: e }));
     }
-    function J(e, t, n) {
+    function Z(e, t, n) {
       j(
         n,
         JSON.stringify({ action: "annotation_applied", tool: e, source: t }),
       );
     }
-    function Z(e, t, n) {
-      j(n, JSON.stringify({ action: "style_change", kind: e, value: t }));
+    function ee(e, t) {
+      j(t, JSON.stringify({ action: "style_change", kind: e }));
     }
-    function ee(e, t, n) {
+    function te(e, t, n) {
       j(
         t,
         JSON.stringify(
@@ -741,20 +748,51 @@ __d(
         ),
       );
     }
-    function te(e, t) {
+    function ne(e, t) {
       j(t, JSON.stringify({ action: "annotated_send", hadAnnotations: e }));
     }
-    function ne(e, t) {
-      switch (e.action) {
-        case "annotation_applied":
-          J(e.tool, e.source, t);
-          break;
-        case "style_change":
-          Z(e.kind, e.value, t);
-          break;
-        case "edit_action":
-          ee(e.op, t, e.method);
-          break;
+    function re(e, t) {
+      j(t, JSON.stringify({ action: "annotated_download", hadAnnotations: e }));
+    }
+    function oe(e, t) {
+      j(t, JSON.stringify({ action: "annotated_discard", hadAnnotations: e }));
+    }
+    function ae(e, t) {
+      e: {
+        var n = e;
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.action === "annotation_applied" &&
+          "source" in n &&
+          "tool" in n
+        ) {
+          var r = n.source,
+            o = n.tool;
+          Z(o, r, t);
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.action === "style_change" &&
+          "kind" in n
+        ) {
+          var a = n.kind;
+          ee(a, t);
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.action === "edit_action" &&
+          "op" in n
+        ) {
+          var i = n.op;
+          te(i, t, e.method);
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            n,
+        );
       }
     }
     ((l.logDocumentOpenEvent = _),
@@ -787,13 +825,16 @@ __d(
       (l.logPdfReceiverPreviewCancelEvent = z),
       (l.logEditInAcrobatClickEvent = K),
       (l.logEditPdfClickEvent = Q),
-      (l.logAnnotationEditModeEnterEvent = X),
-      (l.logAnnotationToolSelectEvent = Y),
-      (l.logAnnotationAppliedEvent = J),
-      (l.logAnnotationStyleChangeEvent = Z),
-      (l.logAnnotationEditActionEvent = ee),
-      (l.logAnnotatedSendEvent = te),
-      (l.logAnnotationInteractionFromBridge = ne));
+      (l.toolSelectForToolClick = X),
+      (l.logAnnotationEditModeEnterEvent = Y),
+      (l.logAnnotationToolSelectEvent = J),
+      (l.logAnnotationAppliedEvent = Z),
+      (l.logAnnotationStyleChangeEvent = ee),
+      (l.logAnnotationEditActionEvent = te),
+      (l.logAnnotatedSendEvent = ne),
+      (l.logAnnotatedDownloadEvent = re),
+      (l.logAnnotatedDiscardEvent = oe),
+      (l.logAnnotationInteractionFromBridge = ae));
   },
   98,
 );

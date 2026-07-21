@@ -13,7 +13,6 @@ __d(
       s = [
         "aria-hidden",
         "aria-label",
-        "className_DONOTUSE",
         "containerRef",
         "directional",
         "displayInline",
@@ -29,7 +28,7 @@ __d(
         inline: { display: "x1rg5ohu", verticalAlign: "x16dsc37", $$css: !0 },
       };
     function p(t) {
-      var n = o("react-compiler-runtime").c(38),
+      var n = o("react-compiler-runtime").c(36),
         a,
         i;
       if (
@@ -43,19 +42,18 @@ __d(
         a == null)
       )
         throw r("err")("Cannot use BaseSvgSpan without SVG children");
-      var l, c, p, _, f, g, h, y, C, b;
+      var l, c, p, _, f, g, h, y, C;
       if (n[3] !== i) {
-        var v = i;
-        ((g = v["aria-hidden"]),
-          (l = v["aria-label"]),
-          (c = v.className_DONOTUSE),
-          (p = v.containerRef),
-          (_ = v.directional),
-          (f = v.displayInline),
-          (h = v.name),
-          (C = v.overrideDirection),
-          (b = v.xstyle),
-          (y = babelHelpers.objectWithoutPropertiesLoose(v, s)),
+        var b = i;
+        ((f = b["aria-hidden"]),
+          (l = b["aria-label"]),
+          (c = b.containerRef),
+          (p = b.directional),
+          (_ = b.displayInline),
+          (g = b.name),
+          (y = b.overrideDirection),
+          (C = b.xstyle),
+          (h = babelHelpers.objectWithoutPropertiesLoose(b, s)),
           (n[3] = i),
           (n[4] = l),
           (n[5] = c),
@@ -65,8 +63,7 @@ __d(
           (n[9] = g),
           (n[10] = h),
           (n[11] = y),
-          (n[12] = C),
-          (n[13] = b));
+          (n[12] = C));
       } else
         ((l = n[4]),
           (c = n[5]),
@@ -76,94 +73,91 @@ __d(
           (g = n[9]),
           (h = n[10]),
           (y = n[11]),
-          (C = n[12]),
-          (b = n[13]));
-      var S, R, L, E, k, I;
+          (C = n[12]));
+      var v, S, R, L, E, k;
       if (
-        n[14] !== l ||
-        n[15] !== c ||
-        n[16] !== p ||
-        n[17] !== _ ||
-        n[18] !== f ||
-        n[19] !== g ||
-        n[20] !== h ||
-        n[21] !== C ||
-        n[22] !== b
+        n[13] !== l ||
+        n[14] !== c ||
+        n[15] !== p ||
+        n[16] !== _ ||
+        n[17] !== f ||
+        n[18] !== g ||
+        n[19] !== y ||
+        n[20] !== C
       ) {
-        var T;
-        C != null
-          ? (T = C === "rtl")
-          : (T = _ === !0 ? o("Locale").isRTL() : !1);
-        var D = (u || (u = r("stylex")))(
-            T && m.reverse,
-            f === !0 && m.inline,
-            b,
+        var I;
+        y != null
+          ? (I = y === "rtl")
+          : (I = p === !0 ? o("Locale").isRTL() : !1);
+        var T = (u || (u = r("stylex")))(
+            I && m.reverse,
+            _ === !0 && m.inline,
+            C,
           ),
-          x = g === !1 ? !1 : l == null;
-        ((S = h),
-          (R = x),
-          (L = l),
-          (E = p),
-          (k = h),
-          (I = o("WAWebClassnames").classnamesConvertMeToStylexPlease(c, D)),
-          (n[14] = l),
-          (n[15] = c),
-          (n[16] = p),
-          (n[17] = _),
-          (n[18] = f),
-          (n[19] = g),
-          (n[20] = h),
-          (n[21] = C),
-          (n[22] = b),
-          (n[23] = S),
-          (n[24] = R),
-          (n[25] = L),
-          (n[26] = E),
-          (n[27] = k),
-          (n[28] = I));
+          D = f === !1 ? !1 : l == null;
+        ((v = g),
+          (S = D),
+          (R = l),
+          (L = c),
+          (E = g),
+          (k = o("WAWebClassnames").classnamesConvertMeToStylexPlease(T)),
+          (n[13] = l),
+          (n[14] = c),
+          (n[15] = p),
+          (n[16] = _),
+          (n[17] = f),
+          (n[18] = g),
+          (n[19] = y),
+          (n[20] = C),
+          (n[21] = v),
+          (n[22] = S),
+          (n[23] = R),
+          (n[24] = L),
+          (n[25] = E),
+          (n[26] = k));
       } else
-        ((S = n[23]),
-          (R = n[24]),
-          (L = n[25]),
-          (E = n[26]),
-          (k = n[27]),
-          (I = n[28]));
-      var $;
+        ((v = n[21]),
+          (S = n[22]),
+          (R = n[23]),
+          (L = n[24]),
+          (E = n[25]),
+          (k = n[26]));
+      var x;
       return (
-        n[29] !== a ||
-        n[30] !== y ||
-        n[31] !== S ||
-        n[32] !== R ||
-        n[33] !== L ||
-        n[34] !== E ||
-        n[35] !== k ||
-        n[36] !== I
-          ? (($ = d.jsx(
+        n[27] !== a ||
+        n[28] !== h ||
+        n[29] !== v ||
+        n[30] !== S ||
+        n[31] !== R ||
+        n[32] !== L ||
+        n[33] !== E ||
+        n[34] !== k
+          ? ((x = d.jsx(
               "span",
               babelHelpers.extends(
                 {
-                  "data-testid": S,
-                  "aria-hidden": R,
-                  "aria-label": L,
-                  ref: E,
-                  "data-icon": k,
-                  className: I,
+                  "data-testid": v,
+                  "aria-hidden": S,
+                  "aria-label": R,
+                  ref: L,
+                  "data-icon": E,
+                  className: k,
                 },
-                y,
+                h,
                 { children: a },
               ),
             )),
-            (n[29] = a),
-            (n[30] = y),
-            (n[31] = S),
-            (n[32] = R),
-            (n[33] = L),
-            (n[34] = E),
-            (n[35] = k),
-            (n[36] = I),
-            (n[37] = $))
-          : ($ = n[37]),
-        $
+            (n[27] = a),
+            (n[28] = h),
+            (n[29] = v),
+            (n[30] = S),
+            (n[31] = R),
+            (n[32] = L),
+            (n[33] = E),
+            (n[34] = k),
+            (n[35] = x))
+          : (x = n[35]),
+        x
       );
     }
     l.BaseSvgSpan = p;

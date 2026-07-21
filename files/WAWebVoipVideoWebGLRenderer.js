@@ -342,12 +342,12 @@ __d(
                 "[webgl]: Invalid video format: " +
                   o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.getName(s),
               );
-            var m = e.program,
+            var m = e.brightnessLocation,
               p = e.matrixLocation,
-              _ = e.brightnessLocation,
+              _ = e.program,
               f = e.sharpenLocation,
               g = e.textureSizeLocation;
-            this.gl.useProgram(m);
+            this.gl.useProgram(_);
             var h = this.gl.canvas.width / this.gl.canvas.height,
               b = i.valueOf() % 2 === 1 ? n / a : a / n;
             if (
@@ -431,7 +431,7 @@ __d(
                   R,
                 ));
             }
-            (this.gl.uniform1f(_, c),
+            (this.gl.uniform1f(m, c),
               this.gl.uniform1f(f, d),
               this.gl.uniform2f(g, n, a));
             var L = C[l ? 1 : 0][i.valueOf() - 1] || y;

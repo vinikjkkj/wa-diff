@@ -3,9 +3,9 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebApiChat",
     "WAWebApiContact",
     "WAWebContactSystemMsg",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLidAwareContactsDB",
     "WAWebSchemaGroupMetadata",
@@ -138,7 +138,9 @@ __d(
             n = e.newUsername,
             r = e.oldUsername,
             a = e.wid,
-            i = (yield o("WAWebApiChat").getChatRecordByAccountLid(a))[0];
+            i = (yield o(
+              "WAWebGetChatRecordByAccountLid",
+            ).getChatRecordByAccountLid(a))[0];
           if (i != null) {
             var l = o("WAWebWidFactory").createWid(i.id),
               s = o("WAWebContactSystemMsg").genUsernameChangeSystemMsg({

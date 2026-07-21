@@ -21,11 +21,19 @@ __d(
     function m() {
       return s._(/*BTDS*/ "Catalog image");
     }
+    function p() {
+      return s._(/*BTDS*/ "Couldn't load your catalog. Please try again.");
+    }
+    function _() {
+      return s._(/*BTDS*/ "You don't have a catalog yet");
+    }
     ((l.getSharingDisclosure = e),
       (l.getChooseCatalogMediaTitle = u),
       (l.getNoCatalogItemsText = c),
       (l.getCatalogFooterHint = d),
-      (l.getCatalogImageTileLabel = m));
+      (l.getCatalogImageTileLabel = m),
+      (l.getCatalogLoadErrorText = p),
+      (l.getNoCatalogText = _));
   },
   226,
 );

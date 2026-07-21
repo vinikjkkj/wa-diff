@@ -1579,6 +1579,8 @@ __d(
         "lwi_browser_add_ons_defaulting_wtwa_and_wtm_ml_90_eligible",
       LWI_BROWSER_ADD_ONS_DEFAULTING_ML_WTM_75_THRESHOLD:
         "lwi_browser_add_ons_defaulting_ml_wtm_75_threshold",
+      LWI_BROWSER_ADD_ONS_DEFAULTING_WTWA_ML:
+        "lwi_browser_add_ons_defaulting_wtwa_ml",
       LWI_SUBSCRIPTION_SUBSIDY_OFFER_IMPRESSION:
         "lwi_subscription_subsidy_offer_impression",
       LWI_SUBSCRIPTION_SUBSIDY_OFFER_ACCEPT:
@@ -1711,6 +1713,9 @@ __d(
       GENAI_TRANSPARENCY_TOGGLE_OPT_OUT: "genai_transparency_toggle_opt_out",
       GENAI_TRANSPARENCY_SELF_DISCLOSURE_TOGGLE:
         "genai_transparency_self_disclosure_toggle",
+      SAPR_PAUSE_DIALOG_IMPRESSION: "sapr_pause_dialog_impression",
+      SAPR_PAUSE_DIALOG_KEEP_RUNNING: "sapr_pause_dialog_keep_running",
+      SAPR_PAUSE_DIALOG_PAUSE_CONFIRMED: "sapr_pause_dialog_pause_confirmed",
     });
     i.default = e;
   },

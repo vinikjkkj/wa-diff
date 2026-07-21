@@ -59,6 +59,29 @@ __d(
       );
     }
     function h(e) {
+      if (e == null) return null;
+      var t = {};
+      return (
+        e.iptc != null && (t.iptc = e.iptc),
+        e.c2pa != null && (t.c2pa = e.c2pa),
+        t.iptc == null && t.c2pa == null ? null : t
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield n("cr:36997").detectAiProvenanceInWorker(e),
+            r = t.provenance,
+            o = t.transferredBuffer;
+          return { transferredBuffer: o, provenance: h(r) };
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
       n("cr:36997").prewarmMediaWasmWorker(e);
     }
     ((l.calculateFilehashInWorker = e),
@@ -66,7 +89,8 @@ __d(
       (l.transcodeToMp4InWorker = d),
       (l.mp4RepairMuxInWorker = p),
       (l.kaleidoscopeClassifyInWorker = f),
-      (l.prewarmMediaWasmWorker = h));
+      (l.detectAiProvenanceInWorker = y),
+      (l.prewarmMediaWasmWorker = b));
   },
   98,
 );

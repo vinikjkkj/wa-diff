@@ -73,7 +73,10 @@ __d(
         )
       );
     }
-    ((l.isJSONParseShimmed = e),
+    ((l.isXHRResponseGetterShimmed = o(
+      "GHLDetectionUtilsPreludeSafe",
+    ).isXHRResponseGetterShimmed),
+      (l.isJSONParseShimmed = e),
       (l.isXHRModified = s),
       (l.isCanvasFillTextModified = u),
       (l.isStringShimmed = c),

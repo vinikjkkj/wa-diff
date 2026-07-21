@@ -9,6 +9,7 @@ __d(
       ADD_TO_GROUP: 4,
       CHATS_LIST_GLOBAL_SEARCH: 5,
       CALLS_TAB_GLOBAL_SEARCH: 6,
+      EVENT_INVITE: 7,
     });
     i.CONTACT_SEARCH_ENTRYPOINT = e;
   },

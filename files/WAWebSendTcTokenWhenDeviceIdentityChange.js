@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
-    "WAWebApiChat",
     "WAWebApiChatCommon",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebSetPrivacyTokensJob",
@@ -26,7 +26,9 @@ __d(
           ) {
             var r = o("WAWebLidMigrationUtils").toUserLid(t);
             r != null &&
-              (n = (yield o("WAWebApiChat").getChatRecordByAccountLid(r))[0]);
+              (n = (yield o(
+                "WAWebGetChatRecordByAccountLid",
+              ).getChatRecordByAccountLid(r))[0]);
           } else n = yield o("WAWebApiChatCommon").getChatRecord(t);
           if (n != null) {
             var a = n.tcTokenSenderTimestamp;

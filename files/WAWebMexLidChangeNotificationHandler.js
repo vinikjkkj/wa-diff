@@ -1,7 +1,7 @@
 __d(
   "WAWebMexLidChangeNotificationHandler",
   [
-    "WAWebApiChat",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMexLidChangeNotification",
     "WAWebMsgKey",
@@ -51,7 +51,9 @@ __d(
               ).parseLidChangeNotification(n),
               a = r.newLid,
               i = r.oldLid,
-              l = (yield o("WAWebApiChat").getChatRecordByAccountLid(i))[0],
+              l = (yield o(
+                "WAWebGetChatRecordByAccountLid",
+              ).getChatRecordByAccountLid(i))[0],
               s = l != null ? o("WAWebWidFactory").createWid(l.id) : i,
               u = yield e(s, a.toString());
             yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({

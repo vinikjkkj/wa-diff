@@ -2,12 +2,8 @@ __d(
   "WAWebSendSupportRequestJob",
   [
     "WALogger",
-    "WASmaxSupportContactFormRPC",
-    "WAWebABProps",
     "WAWebCrashlog",
     "WAWebSupportContactFormSubmitMutation",
-    "WAWebUserPrefsMeUser",
-    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -54,76 +50,8 @@ __d(
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = {
-              iqFrom: o("WAWebWidToJid").widToUserJid(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-              ),
-              descriptionElementValue: e,
-              debugInformationJsonArgs: { debugInformationJsonElementValue: t },
-            },
-            r = yield o("WASmaxSupportContactFormRPC").sendContactFormRPC(n);
-          return (function (e) {
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.name === "ContactFormResponseError" &&
-              "value" in e
-            ) {
-              var t = e.value;
-              return {
-                type: "error",
-                errorCode: Number(t.errorContactFormError.value.code),
-                errorText: t.errorContactFormError.value.text,
-              };
-            }
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.name === "ContactFormResponseRetryableError" &&
-              "value" in e
-            ) {
-              var n = e.value;
-              return {
-                type: "error",
-                errorCode: Number(n.responseErrorCode),
-                errorText: "retryable error",
-              };
-            }
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.name === "ContactFormResponseSuccess" &&
-              "value" in e
-            ) {
-              var r = e.value;
-              return {
-                type: "success",
-                message: r.responseMessageElementValue,
-                ticketId: r.responseTicketIdElementValue,
-                groupId: r.responseGroupJidElementValue,
-              };
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                e,
-            );
-          })(r);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = yield o("WAWebABProps").getABPropConfigValue(
-            "support_contact_form_using_graphql",
-          )
-            ? m(t, n)
-            : _(t, n);
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r = yield m(t, n);
           return (
             r.type === "error"
               ? o("WALogger")
@@ -182,10 +110,10 @@ __d(
             r
           );
         })),
-        h.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.sendSupportRequest = g;
+    l.sendSupportRequest = _;
   },
   98,
 );

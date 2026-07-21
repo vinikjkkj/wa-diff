@@ -2,9 +2,9 @@ __d(
   "WAWebMessageProcessUtils",
   [
     "WALogger",
-    "WAWebApiChat",
     "WAWebApiContact",
     "WAWebCurrentUser",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebWidFactory",
@@ -120,7 +120,9 @@ __d(
               ])),
             e.toLogString(),
           );
-          var t = yield o("WAWebApiChat").getChatRecordByAccountLid(e);
+          var t = yield o(
+            "WAWebGetChatRecordByAccountLid",
+          ).getChatRecordByAccountLid(e);
           if (t.length > 1)
             throw (
               o("WALogger").LOG(

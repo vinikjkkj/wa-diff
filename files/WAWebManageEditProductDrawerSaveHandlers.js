@@ -38,7 +38,7 @@ __d(
             o("WAWebProductCatalogContext").getProductCatalogContext(t),
             n.statusCode,
           );
-      var p = s._(/*BTDS*/ "Failed to save changes");
+      var p = s._(/*BTDS*/ "Couldn't save changes");
       if (
         n instanceof o("WAWebBackendErrors").CatalogEditServerError &&
         n.errors != null
@@ -109,7 +109,7 @@ __d(
         .catch(function () {
           o("WAWebToastManager").ToastManager.open(
             u.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(/*BTDS*/ "Failed to delete item"),
+              msg: s._(/*BTDS*/ "Couldn't delete item"),
             }),
           );
         });

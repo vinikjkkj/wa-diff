@@ -25,6 +25,7 @@ __d(
       SHARE_UPI_QR: 20,
       MUSIC: 21,
       DRAWING: 22,
+      EVENT_V2_CREATION: 23,
     });
     i.ATTACHMENT_TRAY_ACTION_TARGET_TYPE = e;
   },

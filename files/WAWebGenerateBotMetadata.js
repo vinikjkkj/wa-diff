@@ -47,13 +47,17 @@ __d(
               : void 0,
         };
     }
-    function c(t) {
+    function c(e) {
+      if (o("WAWebBotBaseGating").isBotEnabled()) return d(e);
+      if (e.botGroupParticipant != null) return p(e);
+    }
+    function d(t) {
       var n = t.botPersonaId != null ? t.botPersonaId : void 0,
-        r = p(t),
+        r = f(t),
         o = t.aiThreadInfo != null ? e(t) : void 0,
-        a = g(t.botModeSelection, t.botModeOverride),
+        a = y(t.botModeSelection, t.botModeOverride),
         i = s(t),
-        l = f(t.type),
+        l = h(t.type),
         c = u(t);
       if (
         !(
@@ -69,16 +73,16 @@ __d(
         return {
           personaId: n,
           invokerJid: r,
-          capabilityMetadata: t.id ? _(t.id.remote) : void 0,
+          capabilityMetadata: t.id ? g(t.id.remote) : void 0,
           botThreadInfo: o,
-          botGroupMetadata: m(t.botGroupParticipant),
+          botGroupMetadata: _(t.botGroupParticipant),
           botModeSelectionMetadata: a,
           botMetricsMetadata: i,
           botDocumentMessageMetadata: l,
           aiMediaCollectionMetadata: c,
         };
     }
-    function d(e, t) {
+    function m(e, t) {
       return e == null
         ? t != null
           ? t
@@ -87,7 +91,11 @@ __d(
           ? e
           : babelHelpers.extends({}, e, t);
     }
-    function m(e) {
+    function p(e) {
+      var t = _(e.botGroupParticipant);
+      return t != null ? { botGroupMetadata: t } : void 0;
+    }
+    function _(e) {
       if (
         !(
           !(
@@ -102,7 +110,7 @@ __d(
           participantsMetadata: [{ botFbid: e == null ? void 0 : e.user }],
         };
     }
-    function p(e) {
+    function f(e) {
       if (e.subtype === "bot_feedback") {
         var t;
         return (t = e.botTargetSenderJid) == null ? void 0 : t.toJid();
@@ -115,7 +123,7 @@ __d(
           : n.toJid();
       }
     }
-    function _(e) {
+    function g(e) {
       var t,
         n = [
           (t = o("WAWebProtobufsAICommon.pb"))
@@ -261,7 +269,7 @@ __d(
         );
       return n.length === 0 ? void 0 : { capabilities: n };
     }
-    function f(e) {
+    function h(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -271,7 +279,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function g(e, t) {
+    function y(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -288,9 +296,9 @@ __d(
       (l.generateBotMetricsMetadata = s),
       (l.generateAiMediaCollectionMetadata = u),
       (l.generateBotMetadata = c),
-      (l.mergeBotMetadata = d),
-      (l.generateBotCapabilityMetadata = _),
-      (l.generateBotModeSelectionMetadata = g));
+      (l.mergeBotMetadata = m),
+      (l.generateBotCapabilityMetadata = g),
+      (l.generateBotModeSelectionMetadata = y));
   },
   98,
 );

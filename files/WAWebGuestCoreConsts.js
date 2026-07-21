@@ -47,6 +47,9 @@ __d(
         ENTER_NUMBER: "enter_number",
         CHOOSE_COUNTRY: "choose_country",
         ENTER_CODE: "verify_sms",
+        ACCOUNT_LINKING: "account_linking",
+        USERNAME_CLAIMED: "username_claimed",
+        ERROR_POPUP: "error_popup",
       }),
       d = e({
         REG_ROUTE_SELECTOR_IMPRESSION: "reg_route_selector_impression",
@@ -111,6 +114,22 @@ __d(
         EVENTS_ADD_TO_CALENDAR_CLICKED: "guest_events_add_to_calendar_clicked",
         EVENTS_DESCRIPTION_READ_MORE_CLICKED:
           "guest_events_description_read_more_clicked",
+        USERNAME_RESERVATION_RESOLVE_PROFILE_ERROR:
+          "username_reservation_resolve_profile_error",
+        USERNAME_RESERVATION_ACCOUNT_LINKING_IMPRESSION:
+          "username_reservation_account_linking_impression",
+        USERNAME_RESERVATION_ACCOUNT_LINKING_SUCCESS:
+          "username_reservation_account_linking_success",
+        USERNAME_RESERVATION_ACCOUNT_LINKING_ERROR:
+          "username_reservation_account_linking_error",
+        USERNAME_RESERVATION_ERROR_POPUP_OK_CLICKED:
+          "username_reservation_error_popup_ok_clicked",
+        USERNAME_RESERVATION_CLAIMED_IMPRESSION:
+          "username_reservation_claimed_impression",
+        USERNAME_RESERVATION_CLAIMED_GET_WHATSAPP_CLICKED:
+          "username_reservation_claimed_get_whatsapp_clicked",
+        USERNAME_RESERVATION_CLAIMED_REMIND_LATER_CLICKED:
+          "username_reservation_claimed_remind_later_clicked",
       }),
       m = e.Mirrored([
         "GuestActiveInviteCode",

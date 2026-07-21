@@ -19,24 +19,23 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
-            i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (i == null) throw r("err")("editProductGraphQL: meUser is null");
-          var l = yield o("WAWebBizCatalogManagementEditProduct").editProduct({
-            product: {
-              biz_jid:
-                (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                  i,
-                )) != null
-                  ? a
-                  : i.toJid(),
-              product_id: e.id.toString(),
-              width: t,
-              height: n,
-              product_info: o(
-                "WAWebBizCatalogManagementParseProductGraphql",
-              ).productModelToGraphQLInput(e),
-            },
-          });
+            i = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            l = yield o("WAWebBizCatalogManagementEditProduct").editProduct({
+              product: {
+                biz_jid:
+                  (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    i,
+                  )) != null
+                    ? a
+                    : i.toJid(),
+                product_id: e.id.toString(),
+                width: t,
+                height: n,
+                product_info: o(
+                  "WAWebBizCatalogManagementParseProductGraphql",
+                ).productModelToGraphQLInput(e),
+              },
+            });
           if (l.type === "success") return l.productResult;
           throw (
             l.type === "graphql-error"

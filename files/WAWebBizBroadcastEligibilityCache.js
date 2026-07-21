@@ -5,14 +5,28 @@ __d(
     var e = "bb_eligibility_cache";
     function s(e) {
       var t = {},
-        n = c(e.genai);
-      n != null && (t.genai = n);
-      var r = d(e.marketingMessages);
-      r != null && (t.marketingMessages = r);
-      var o = m(e.metaVerified);
-      return (o != null && (t.metaVerified = o), t);
+        n = c(e.bbPro);
+      n != null && (t.bbPro = n);
+      var r = m(e.genai);
+      r != null && (t.genai = r);
+      var o = p(e.marketingMessages);
+      o != null && (t.marketingMessages = o);
+      var a = _(e.metaVerified);
+      return (a != null && (t.metaVerified = a), t);
     }
     function u(e) {
+      return e === "ELIGIBLE_TO_ONBOARD" ||
+        e === "NOT_ELIGIBLE" ||
+        e === "ONBOARDED"
+        ? e
+        : null;
+    }
+    function c(e) {
+      if (e == null || typeof e != "object" || Array.isArray(e)) return null;
+      var t = u(e.status);
+      return t == null ? null : { status: t };
+    }
+    function d(e) {
       return e === "SUCCESS" ||
         e === "FAIL" ||
         e === "PAUSED" ||
@@ -20,16 +34,16 @@ __d(
         ? e
         : null;
     }
-    function c(e) {
+    function m(e) {
       return e == null || typeof e != "object" || Array.isArray(e)
         ? null
         : e.status === "SUCCESS" || e.status === "FAIL"
           ? { status: e.status }
           : null;
     }
-    function d(e) {
+    function p(e) {
       if (e == null || typeof e != "object" || Array.isArray(e)) return null;
-      var t = u(e.status);
+      var t = d(e.status);
       if (t == null) return null;
       var n = { status: t };
       return (
@@ -37,9 +51,9 @@ __d(
         n
       );
     }
-    function m(e) {
+    function _(e) {
       if (e == null || typeof e != "object" || Array.isArray(e)) return null;
-      var t = u(e.status);
+      var t = d(e.status);
       if (t == null) return null;
       var n = { status: t };
       return (
@@ -49,7 +63,7 @@ __d(
         n
       );
     }
-    function p() {
+    function f() {
       var t = r("WAWebUserPrefsStore").getUser(e);
       if (t == null || typeof t != "object" || Array.isArray(t)) return null;
       var n = t.lastFailureAt,
@@ -68,14 +82,14 @@ __d(
             result: s(a),
           };
     }
-    function _(t) {
+    function g(t) {
       var n = { lastFailureAt: null, lastSuccessAt: Date.now(), result: t };
       r("WAWebUserPrefsStore").setUser(e, n, { shouldWriteToIdb: !1 });
     }
-    function f() {
+    function h() {
       var t,
         n,
-        o = p(),
+        o = f(),
         a = {
           lastFailureAt: Date.now(),
           lastSuccessAt:
@@ -84,45 +98,45 @@ __d(
         };
       r("WAWebUserPrefsStore").setUser(e, a, { shouldWriteToIdb: !1 });
     }
-    function g(e) {
+    function y(e) {
       var t = Date.now();
-      if (t - e.lastSuccessAt >= y()) return !1;
+      if (t - e.lastSuccessAt >= b()) return !1;
       var n = e.result.marketingMessages;
       return !(
         n != null &&
         n.status === "PAUSED" &&
         n.expiration != null &&
-        t >= n.expiration * b()
+        t >= n.expiration * S()
       );
     }
-    function h(e) {
+    function C(e) {
       var t = e.lastFailureAt;
-      return t == null ? !1 : Date.now() - t < C();
-    }
-    function y() {
-      return r("justknobx")._("825");
-    }
-    function C() {
-      return r("justknobx")._("2071");
+      return t == null ? !1 : Date.now() - t < v();
     }
     function b() {
-      return r("justknobx")._("2475");
+      return r("justknobx")._("825");
     }
     function v() {
-      return r("justknobx")._("2610");
+      return r("justknobx")._("2071");
     }
     function S() {
+      return r("justknobx")._("2475");
+    }
+    function R() {
+      return r("justknobx")._("2610");
+    }
+    function L() {
       r("WAWebUserPrefsStore").setUser(e, null, { shouldWriteToIdb: !1 });
     }
-    ((l.readCache = p),
-      (l.writeCacheSuccess = _),
-      (l.writeCacheFailure = f),
-      (l.isCacheFresh = g),
-      (l.isInFailureBackoff = h),
-      (l.getEligibilityRefreshIntervalMs = y),
-      (l.getEligibilityFailureBackoffMs = C),
-      (l.isEligibilityCachingEnabled = v),
-      (l.clearCache = S));
+    ((l.readCache = f),
+      (l.writeCacheSuccess = g),
+      (l.writeCacheFailure = h),
+      (l.isCacheFresh = y),
+      (l.isInFailureBackoff = C),
+      (l.getEligibilityRefreshIntervalMs = b),
+      (l.getEligibilityFailureBackoffMs = v),
+      (l.isEligibilityCachingEnabled = R),
+      (l.clearCache = L));
   },
   98,
 );

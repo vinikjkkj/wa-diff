@@ -17,6 +17,7 @@ __d(
       META_VERIFIED: 12,
       UNKNOWN: 13,
       QUICK_REPLY_SETTINGS: 14,
+      EVENT_COMPOSER: 15,
     });
     i.BUSINESS_PROFILE_ENTRY_POINT = e;
   },

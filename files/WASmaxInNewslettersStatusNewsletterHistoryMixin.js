@@ -2,6 +2,7 @@ __d(
   "WASmaxInNewslettersStatusNewsletterHistoryMixin",
   [
     "WAResultOrError",
+    "WASmaxInNewslettersStatusAIContentMetaMixin",
     "WASmaxInNewslettersStatusAdminProfileMetaMixin",
     "WASmaxInNewslettersStatusLastEditTimestampMixin",
     "WASmaxInNewslettersStatusNewsletterContentMixin",
@@ -59,9 +60,12 @@ __d(
           "WASmaxInNewslettersStatusPaidPartnershipContentMixin",
         ).parseStatusPaidPartnershipContentMixin(e),
         m = o(
+          "WASmaxInNewslettersStatusAIContentMetaMixin",
+        ).parseStatusAIContentMetaMixin(e),
+        p = o(
           "WASmaxInNewslettersStatusNewsletterInteractionTypeQuestionMixin",
         ).parseStatusNewsletterInteractionTypeQuestionMixin(e),
-        p = o(
+        _ = o(
           "WASmaxInNewslettersStatusNewsletterInteractionTypeQuestionReshareMixin",
         ).parseStatusNewsletterInteractionTypeQuestionReshareMixin(e);
       return o("WAResultOrError").makeResult({
@@ -74,11 +78,12 @@ __d(
         statusLastEditTimestampMixin: u.success ? u.value : null,
         statusAdminProfileMetaMixin: c.success ? c.value : null,
         hasStatusPaidPartnershipContentMixin: d.success,
-        statusNewsletterInteractionTypeQuestionMixin: m.success
-          ? m.value
-          : null,
-        statusNewsletterInteractionTypeQuestionReshareMixin: p.success
+        hasStatusAIContentMetaMixin: m.success,
+        statusNewsletterInteractionTypeQuestionMixin: p.success
           ? p.value
+          : null,
+        statusNewsletterInteractionTypeQuestionReshareMixin: _.success
+          ? _.value
           : null,
       });
     }

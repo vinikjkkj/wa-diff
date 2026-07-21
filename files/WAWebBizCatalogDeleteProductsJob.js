@@ -18,20 +18,18 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (n == null)
-            throw r("err")("deleteProductsGraphQL: meUser is null");
-          var a = yield o(
-            "WAWebBizCatalogManagementDeleteProduct",
-          ).deleteProduct({
-            biz_jid:
-              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                n,
-              )) != null
-                ? t
-                : n.toJid(),
-            product_ids: e,
-          });
+            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            a = yield o("WAWebBizCatalogManagementDeleteProduct").deleteProduct(
+              {
+                biz_jid:
+                  (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    n,
+                  )) != null
+                    ? t
+                    : n.toJid(),
+                product_ids: e,
+              },
+            );
           if (a.type === "success") return a.deleteResult;
           throw (
             a.type === "graphql-error"

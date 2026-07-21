@@ -5,6 +5,7 @@ __d(
     "WAWeb-moment",
     "WAWebBusinessProfileTypes",
     "WAWebSmbUtilsTimeUtils",
+    "compactMap",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
@@ -117,8 +118,7 @@ __d(
     function g(e) {
       var t, n;
       if (e == null || e.operating_ranges.length === 0) return null;
-      var r = e.operating_ranges
-        .map(function (e) {
+      var a = r("compactMap")(e.operating_ranges, function (e) {
           var t = e.day_of_week != null ? _[e.day_of_week] : null,
             n = e.mode != null ? f[e.mode] : null;
           if (
@@ -132,9 +132,8 @@ __d(
               ? [e.open_time, e.close_time]
               : null;
           return { dayKey: t, mode: n, window: r };
-        })
-        .filter(Boolean)
-        .reduce(function (e, t) {
+        }),
+        i = a.reduce(function (e, t) {
           var n = t.dayKey,
             r = t.mode,
             a = t.window,
@@ -155,7 +154,7 @@ __d(
           );
         }, {});
       return p({
-        config: r,
+        config: i,
         note: (t = e.note) != null ? t : void 0,
         timezone: (n = e.timezone_id) != null ? n : void 0,
       });

@@ -2,8 +2,8 @@ __d(
   "WAWebLidMigrationDbUtils",
   [
     "WALogger",
-    "WAWebApiChat",
     "WAWebApiContact",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebLid1X1MigrationGating",
     "WAWebSchemaChat",
     "WAWebWidFactory",
@@ -100,7 +100,9 @@ __d(
             "WAWebLid1X1MigrationGating",
           ).Lid1X1MigrationUtils.isLidMigrated();
           if (t) {
-            var n = yield o("WAWebApiChat").getChatRecordByAccountLid(e),
+            var n = yield o(
+                "WAWebGetChatRecordByAccountLid",
+              ).getChatRecordByAccountLid(e),
               r = n[0],
               a = r == null ? void 0 : r.id;
             return a ? o("WAWebWidFactory").createUserWidOrThrow(a) : void 0;

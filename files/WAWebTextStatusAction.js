@@ -112,7 +112,7 @@ __d(
                 var d = !t && !r,
                   m = o("WAWebContactTextStatusBridge").setTextStatus(t, r, a),
                   p = s._(/*BTDS*/ "Updating About"),
-                  _ = s._(/*BTDS*/ "Updating About failed"),
+                  _ = s._(/*BTDS*/ "Couldn't update About"),
                   f = new (o("WAWebActionToast.react").ActionType)(p),
                   g = u.textStatusEmoji,
                   y = u.textStatusEphemeralDuration,

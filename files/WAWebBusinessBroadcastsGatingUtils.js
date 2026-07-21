@@ -40,6 +40,11 @@ __d(
             );
     }
     function c() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_bb_in_thread_insight_metrics_enabled",
+      );
+    }
+    function d() {
       return (
         s() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -47,7 +52,7 @@ __d(
         )
       );
     }
-    function d() {
+    function m() {
       return (
         u() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -55,22 +60,22 @@ __d(
         )
       );
     }
-    function m() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_business_broadcast_multi_audience_send_web",
       );
     }
-    function p() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_broadcasts_catalog_attachment",
       );
     }
-    function _() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_broadcast_disappearing_messages_fix",
       );
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_broadcasts_contextual_entrypoints",
       );
@@ -78,12 +83,13 @@ __d(
     ((l.isBizBroadcastContactImportEnabled = e),
       (l.isBizBroadcastSendWebEnabled = s),
       (l.isBizBroadcastSendWebEnabledNoExposure = u),
-      (l.isBizBroadcastDuplicateEnabled = c),
-      (l.isBizBroadcastProEnabled = d),
-      (l.isBizBroadcastMultiAudienceSendEnabled = m),
-      (l.isBizBroadcastCatalogAttachmentEnabled = p),
-      (l.isBizBroadcastDisappearingMessagesFixEnabled = _),
-      (l.isBizBroadcastContextualEntrypointsEnabled = f));
+      (l.isBizBroadcastInThreadInsightMetricsEnabled = c),
+      (l.isBizBroadcastDuplicateEnabled = d),
+      (l.isBizBroadcastProEnabled = m),
+      (l.isBizBroadcastMultiAudienceSendEnabled = p),
+      (l.isBizBroadcastCatalogAttachmentEnabled = _),
+      (l.isBizBroadcastDisappearingMessagesFixEnabled = f),
+      (l.isBizBroadcastContextualEntrypointsEnabled = g));
   },
   98,
 );

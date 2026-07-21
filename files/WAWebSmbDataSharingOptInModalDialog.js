@@ -123,6 +123,11 @@ __d(
           "WAWebSmbDataSharingConsentScreenWamEvent",
         ).SmbDataSharingConsentScreenWamEvent)();
         ((t.smbDataSharingConsentScreenVersion = 0),
+          (t.smbDataSharingConsentDisclosureVersion = o(
+            "WAWebCTWAGatingUtils",
+          ).isCtwa3pdAggregatedConversionEnabled()
+            ? o("WAWebCTWADataSharingModel").EPD_DISCLOSURE_VERSION
+            : o("WAWebCTWADataSharingModel").BASE_DISCLOSURE_VERSION),
           (t.smbDataSharingConsentScreenType = n),
           (t.smbDataSharingConsentScreenEntryPoint = r),
           a != null && v(t, a, n),
@@ -485,6 +490,11 @@ __d(
           "WAWebSmbDataSharingConsentScreenWamEvent",
         ).SmbDataSharingConsentScreenWamEvent)();
         ((e.smbDataSharingConsentScreenVersion = 0),
+          (e.smbDataSharingConsentDisclosureVersion = o(
+            "WAWebCTWAGatingUtils",
+          ).isCtwa3pdAggregatedConversionEnabled()
+            ? o("WAWebCTWADataSharingModel").EPD_DISCLOSURE_VERSION
+            : o("WAWebCTWADataSharingModel").BASE_DISCLOSURE_VERSION),
           (e.smbDataSharingConsentScreenType = o(
             "WAWebWamEnumSmbDataSharingConsentScreenType",
           ).SMB_DATA_SHARING_CONSENT_SCREEN_TYPE.SMB_DATA_SHARING_CONSENT_SCREEN_VIEW),

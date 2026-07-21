@@ -10,7 +10,7 @@ __d(
     "WAWebBBInfoDrawerLogs",
     "WAWebBBNuxLogs",
     "WAWebBBPaymentLogs",
-    "WAWebBizBroadcastProNuxTos",
+    "WAWebBizBroadcastProOnboardingStatus",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumSmbFeatureNameEnum",
   ],
@@ -24,7 +24,7 @@ __d(
                 (t = e.bbTier) != null
                   ? t
                   : o(
-                      "WAWebBizBroadcastProNuxTos",
+                      "WAWebBizBroadcastProOnboardingStatus",
                     ).getBizBroadcastProductTier();
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
               bbTier: n,

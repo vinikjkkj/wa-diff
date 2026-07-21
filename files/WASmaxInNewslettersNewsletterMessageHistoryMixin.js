@@ -3,6 +3,7 @@ __d(
   [
     "WAResultOrError",
     "WASmaxInNewslettersAdminProfileMetaMixin",
+    "WASmaxInNewslettersNewsletterAIContentMetaMixin",
     "WASmaxInNewslettersNewsletterMessageHistoryContent",
     "WASmaxInNewslettersNewsletterMessageLastEditTimestampMixin",
     "WASmaxInNewslettersNewsletterMessageOriginalTimestampMixin",
@@ -54,6 +55,9 @@ __d(
           "WASmaxInNewslettersPaidPartnershipContentMixin",
         ).parsePaidPartnershipContentMixin(e),
         d = o(
+          "WASmaxInNewslettersNewsletterAIContentMetaMixin",
+        ).parseNewsletterAIContentMetaMixin(e),
+        m = o(
           "WASmaxInNewslettersNewsletterMessageHistoryContent",
         ).parseNewsletterMessageHistoryContent(e);
       return o("WAResultOrError").makeResult({
@@ -65,7 +69,8 @@ __d(
         newsletterMessageLastEditTimestampMixin: s.success ? s.value : null,
         adminProfileMetaMixin: u.success ? u.value : null,
         hasPaidPartnershipContentMixin: c.success,
-        newsletterMessageHistoryContent: d.success ? d.value : null,
+        hasNewsletterAIContentMetaMixin: d.success,
+        newsletterMessageHistoryContent: m.success ? m.value : null,
       });
     }
     l.parseNewsletterMessageHistoryMixin = e;

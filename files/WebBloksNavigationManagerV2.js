@@ -17,21 +17,20 @@ __d(
             (this.navigationDirection = "forward"),
             (this.pendingCloses = []),
             (this.pendingOpen = null),
-            (this.$1 = null),
-            (this.$2 = !1),
+            (this.$1 = !1),
+            (this.$2 = null),
             (this.$3 = null),
-            (this.$4 = null),
             (this.currentScreenPointer = {
               stackIndex: -1,
               screenIndex: -1,
               isModal: !1,
               modalIndex: -1,
             }),
-            (this.$5 = function (e) {
+            (this.$4 = function (e) {
               var t = e.state;
-              a.$6(t);
+              a.$5(t);
             }),
-            (this.$11 = function () {
+            (this.$10 = function () {
               document.visibilityState === "hidden" &&
                 a.pendingCloses.length > 0 &&
                 a.pendingCloses.map(function () {
@@ -47,7 +46,7 @@ __d(
             r)
           ) {
             var i;
-            ((this.$2 = !0),
+            ((this.$1 = !0),
               o("WebBloksSSRUtils").canUseDOM &&
                 (i = window.history) != null &&
                 i.scrollRestoration &&
@@ -64,13 +63,13 @@ __d(
                 null || n.setCurrentController(e);
             }
           }),
-          (n.$6 = function (n) {
+          (n.$5 = function (n) {
             if (n.isWebBloks) {
-              this.navigationDirection = this.$7(
+              this.navigationDirection = this.$6(
                 babelHelpers.extends({}, n.screenPointer),
               );
               var t = this.getCurrentModalOrScreen();
-              (this.$8(t) || this.$9(t),
+              (this.$7(t) || this.$8(t),
                 t == null || t.onExit(this.navigationDirection),
                 t == null || t.dismiss());
               var r = this.screensCache.get(n.screenId);
@@ -82,7 +81,7 @@ __d(
                   n.screenPointer,
                 )),
                 this.notifyChanged(),
-                this.$8(this.getCurrentScreen()) || this.$10(),
+                this.$7(this.getCurrentScreen()) || this.$9(),
                 this.pendingCloses.length > 0)
               ) {
                 var a = this.pendingCloses.pop();
@@ -100,12 +99,12 @@ __d(
           (n.open = function (t, n, r) {
             var e = this;
             (r === void 0 && (r = !1),
-              this.$12("open", function () {
-                e.$13(t, n, r);
+              this.$11("open", function () {
+                e.$12(t, n, r);
               }));
           }),
-          (n.$13 = function (t, n, r) {
-            (r === void 0 && (r = !1), this.$2 && this.$9(this.$4));
+          (n.$12 = function (t, n, r) {
+            (r === void 0 && (r = !1), this.$1 && this.$8(this.$3));
             var e = this.getCurrentModalOrScreen();
             if (
               (e == null || e.onExit("forward"),
@@ -115,11 +114,11 @@ __d(
               var o = this.currentScreenPointer,
                 a = o.modalIndex,
                 i = o.stackIndex,
-                l = this.$14(t, i);
+                l = this.$13(t, i);
               (this.modals.splice(a + 1),
                 this.modals.push(l),
-                this.$15({ isModal: !0, modalIndex: this.modals.length - 1 }),
-                this.$16(t, r),
+                this.$14({ isModal: !0, modalIndex: this.modals.length - 1 }),
+                this.$15(t, r),
                 this.notifyChanged());
               return;
             }
@@ -131,20 +130,20 @@ __d(
               return;
             }
             if (n === !0) {
-              var u = this.$17();
-              u != null ? this.$18(t, u) : this.$19(t);
-            } else this.$19(t);
-            (this.$16(t, r), this.notifyChanged(), this.$8(t) || this.$20());
+              var u = this.$16();
+              u != null ? this.$17(t, u) : this.$18(t);
+            } else this.$18(t);
+            (this.$15(t, r), this.notifyChanged(), this.$7(t) || this.$19());
           }),
           (n.close = function (t, n, r) {
             var e = this;
-            this.$12("close", function () {
-              e.$21(t, n, r);
+            this.$11("close", function () {
+              e.$20(t, n, r);
             });
           }),
-          (n.$21 = function (t, n, r) {
+          (n.$20 = function (t, n, r) {
             var e = this.currentScreenPointer.isModal,
-              a = this.$17();
+              a = this.$16();
             if (a == null)
               throw new (o("WebBloksErrors").WebBloksError)(
                 "Tried closing a screen when there are no modals or stacks",
@@ -154,28 +153,28 @@ __d(
             switch (t) {
               case "close":
                 if (e)
-                  (this.$22("modal"), (i = this.getModalCount()), this.$23());
+                  (this.$21("modal"), (i = this.getModalCount()), this.$22());
                 else {
-                  this.$22("screen");
+                  this.$21("screen");
                   var l = this.currentScreenPointer.screenIndex;
-                  ((i = l + 1), this.$24());
+                  ((i = l + 1), this.$23());
                 }
                 break;
               case "pop": {
                 (e
-                  ? (this.$22("modal"),
-                    this.$15({
+                  ? (this.$21("modal"),
+                    this.$14({
                       modalIndex: this.currentScreenPointer.modalIndex - 1,
                     }))
-                  : (this.$22("screen"),
-                    this.$15({
+                  : (this.$21("screen"),
+                    this.$14({
                       screenIndex: this.currentScreenPointer.screenIndex - 1,
                     })),
                   (i = 1));
                 break;
               }
               case "pop_to_screen": {
-                this.$22("screen");
+                this.$21("screen");
                 for (
                   var s = this.currentScreenPointer.screenIndex, u = !1;
                   !u && s >= 0;
@@ -188,27 +187,27 @@ __d(
                   throw new (o("WebBloksErrors").WebBloksError)(
                     "Tried popping to a screenId that does not exist in the current stack",
                   );
-                this.$15({ screenIndex: s });
+                this.$14({ screenIndex: s });
                 break;
               }
               case "close_all": {
                 (e
-                  ? (this.$22("modal"),
+                  ? (this.$21("modal"),
                     (i = this.getModalCount() + this.getScreenCount()))
-                  : (this.$22("screen"), (i = this.getScreenCount())),
-                  this.$25());
+                  : (this.$21("screen"), (i = this.getScreenCount())),
+                  this.$24());
                 break;
               }
             }
             (!e &&
               (t === "pop" || t === "pop_to_screen") &&
               this.currentScreenPointer.screenIndex === -1 &&
-              this.$24(),
+              this.$23(),
               e &&
                 t === "pop" &&
                 this.currentScreenPointer.modalIndex === -1 &&
-                this.$23(),
-              this.$26(i),
+                this.$22(),
+              this.$25(i),
               this.notifyChanged());
           }),
           (n.getVisibleScreens = function () {
@@ -229,16 +228,18 @@ __d(
             return { screens: e.reverse(), modal: this.getCurrentModal() };
           }),
           (n.notifyChanged = function () {
-            if (this.$2) {
+            if (this.$1) {
               var e = this.getCurrentScreen();
-              e != null && e.getIsOverlay() !== !0 && (this.$4 = e);
+              e != null && e.getIsOverlay() !== !0 && (this.$3 = e);
             }
             this.screenChangeListener.emit(this.getVisibleScreens());
           }),
           (n.destroy = function () {
-            (window.removeEventListener("popstate", this.$5),
-              window.removeEventListener("visibilitychange", this.$11),
-              this.$25(),
+            (this.$26(),
+              (this.$3 = null),
+              window.removeEventListener("popstate", this.$4),
+              window.removeEventListener("visibilitychange", this.$10),
+              this.$24(),
               this.enableCometRouter ||
                 (this.screensCache.forEach(function (e) {
                   return e.destroy();
@@ -298,14 +299,14 @@ __d(
           (n.attachNavigationListeners = function () {
             this.disableHistoryStack ||
               this.enableCometRouter ||
-              (window.addEventListener("popstate", this.$5),
-              window.addEventListener("visibilitychange", this.$11));
+              (window.addEventListener("popstate", this.$4),
+              window.addEventListener("visibilitychange", this.$10));
           }),
           (n.attachAndTriggerPopStateHandler = function () {
             this.disableHistoryStack ||
-              (window.addEventListener("popstate", this.$5),
-              window.addEventListener("visibilitychange", this.$11),
-              this.$6(window.history.state));
+              (window.addEventListener("popstate", this.$4),
+              window.addEventListener("visibilitychange", this.$10),
+              this.$5(window.history.state));
           }),
           (n.push = function (t, n) {
             this.open(t, !0, n);
@@ -361,12 +362,12 @@ __d(
           (n.getNavigationDirection = function () {
             return this.navigationDirection;
           }),
-          (n.$17 = function () {
+          (n.$16 = function () {
             if (this.currentScreenPointer.isModal === !0) return this.modals;
             var e = this.currentScreenPointer.stackIndex;
             return e != null ? this.screenStacks[e] : null;
           }),
-          (n.$18 = function (t, n) {
+          (n.$17 = function (t, n) {
             var e = this.currentScreenPointer,
               r = e.screenIndex,
               o = e.stackIndex,
@@ -376,10 +377,10 @@ __d(
             for (var l of i) this.$27(l);
             var s = this.modals.splice(0);
             (this.$27(s),
-              n.push(this.$14(t, o)),
-              this.$15({ screenIndex: r + 1 }));
+              n.push(this.$13(t, o)),
+              this.$14({ screenIndex: r + 1 }));
           }),
-          (n.$19 = function (t) {
+          (n.$18 = function (t) {
             var e = this.currentScreenPointer,
               n = e.screenIndex,
               r = e.stackIndex,
@@ -392,8 +393,8 @@ __d(
             for (var l of i) this.$27(l);
             var s = this.modals.splice(0);
             (this.$27(s),
-              this.screenStacks.push([this.$14(t, r + 1)]),
-              this.$15({ stackIndex: r + 1, screenIndex: 0, isModal: !1 }));
+              this.screenStacks.push([this.$13(t, r + 1)]),
+              this.$14({ stackIndex: r + 1, screenIndex: 0, isModal: !1 }));
           }),
           (n.$27 = function (t) {
             for (var e of t) {
@@ -401,7 +402,7 @@ __d(
               (n != null && n.destroy(), this.screensCache.delete(e));
             }
           }),
-          (n.$22 = function (t) {
+          (n.$21 = function (t) {
             if (this.disableHistoryStack) {
               var e;
               if (
@@ -416,7 +417,7 @@ __d(
               (e.onExit("back"), e.dismiss());
             }
           }),
-          (n.$7 = function (t) {
+          (n.$6 = function (t) {
             var e = this.currentScreenPointer,
               n = babelHelpers.extends({}, e, t);
             return e.isModal && !n.isModal
@@ -435,8 +436,8 @@ __d(
                       ? "forward"
                       : "back";
           }),
-          (n.$15 = function (t) {
-            var e = this.$7(t);
+          (n.$14 = function (t) {
+            var e = this.$6(t);
             (e === "back" && !this.disableHistoryStack) ||
               (this.currentScreenPointer = babelHelpers.extends(
                 {},
@@ -444,99 +445,89 @@ __d(
                 t,
               ));
           }),
-          (n.$23 = function () {
-            this.$15({ isModal: !1, modalIndex: -1 });
+          (n.$22 = function () {
+            this.$14({ isModal: !1, modalIndex: -1 });
           }),
-          (n.$24 = function () {
+          (n.$23 = function () {
             var e = this.currentScreenPointer.stackIndex;
             e === 0
-              ? this.$15({
+              ? this.$14({
                   stackIndex: -1,
                   screenIndex: -1,
                   isModal: !1,
                   modalIndex: -1,
                 })
-              : this.$15({
+              : this.$14({
                   stackIndex: e - 1,
                   screenIndex: this.screenStacks[e - 1].length - 1,
                 });
           }),
-          (n.$25 = function () {
-            this.$15({
+          (n.$24 = function () {
+            this.$14({
               stackIndex: -1,
               screenIndex: -1,
               isModal: !1,
               modalIndex: -1,
             });
           }),
-          (n.$8 = function (t) {
+          (n.$7 = function (t) {
             var e;
-            return !this.$2 || t == null
+            return !this.$1 || t == null
               ? !0
               : ((e = t.options) == null ? void 0 : e.isModal) === !0 ||
                   t.getIsOverlay() === !0;
           }),
-          (n.$9 = function (t) {
-            var e, n;
+          (n.$8 = function (t) {
             !o("WebBloksSSRUtils").canUseDOM ||
-              !this.$2 ||
-              (t != null &&
-                (t.savedScrollY =
-                  (e = (n = this.$1) == null ? void 0 : n.scrollTop) != null
-                    ? e
-                    : window.scrollY));
+              !this.$1 ||
+              (t != null && (t.savedScrollY = window.scrollY));
           }),
-          (n.setScrollContainer = function (t) {
-            this.$1 = t;
+          (n.$26 = function () {
+            this.$2 != null &&
+              (window.cancelAnimationFrame(this.$2), (this.$2 = null));
           }),
-          (n.$28 = function () {
-            this.$3 != null &&
-              (window.cancelAnimationFrame(this.$3), (this.$3 = null));
-          }),
-          (n.$10 = function () {
+          (n.$9 = function () {
             var e = this;
-            !this.$2 ||
+            !this.$1 ||
               !o("WebBloksSSRUtils").canUseDOM ||
-              (this.$28(),
-              (this.$3 = window.requestAnimationFrame(function () {
-                ((e.$3 = null), e.$29());
+              (this.$26(),
+              (this.$2 = window.requestAnimationFrame(function () {
+                ((e.$2 = null), e.$28());
               })));
           }),
-          (n.$20 = function () {
+          (n.$19 = function () {
             var e = this;
-            if (!(!this.$2 || !o("WebBloksSSRUtils").canUseDOM)) {
+            if (!(!this.$1 || !o("WebBloksSSRUtils").canUseDOM)) {
               var t = this.getCurrentScreen();
               (t != null && (t.savedScrollY = 0),
-                this.$28(),
-                (this.$3 = window.requestAnimationFrame(function () {
-                  ((e.$3 = null), e.$30());
+                this.$26(),
+                (this.$2 = window.requestAnimationFrame(function () {
+                  ((e.$2 = null), e.$29());
                 })));
             }
           }),
-          (n.$29 = function () {
+          (n.$28 = function () {
             var e;
             if (
               !(
                 !o("WebBloksSSRUtils").canUseDOM ||
-                this.$8(this.getCurrentScreen())
+                this.$7(this.getCurrentScreen())
               )
             ) {
               var t = this.getCurrentScreen();
-              this.$31(
+              this.$30(
                 (e = t == null ? void 0 : t.savedScrollY) != null ? e : 0,
               );
             }
           }),
-          (n.$30 = function () {
-            !o("WebBloksSSRUtils").canUseDOM ||
-              this.$8(this.getCurrentScreen()) ||
-              this.$31(0);
+          (n.$29 = function () {
+            var e = this.getCurrentScreen();
+            !o("WebBloksSSRUtils").canUseDOM || this.$7(e) || this.$30(0);
           }),
-          (n.$31 = function (t) {
-            var e = this.$1;
-            e != null ? (e.scrollTop = t) : window.scrollTo(0, Math.max(t, 1));
+          (n.$30 = function (t) {
+            window.scrollTo(0, Math.max(t, 1));
           }),
-          (n.$16 = function (n, r) {
+          (n.$15 = function (n, r) {
             var t;
             if (!this.disableHistoryStack) {
               var a = n.uri != null ? n.uri : "#",
@@ -545,7 +536,7 @@ __d(
               var l = {
                 uri: a,
                 pageTitle: i,
-                screenId: this.$14(n, this.currentScreenPointer.stackIndex),
+                screenId: this.$13(n, this.currentScreenPointer.stackIndex),
                 appId: n.appId,
                 isWebBloks: !0,
                 sessionId: e,
@@ -560,10 +551,10 @@ __d(
                 : window.history.pushState(l, null, a);
             }
           }),
-          (n.$26 = function (t) {
+          (n.$25 = function (t) {
             this.disableHistoryStack || window.history.go(-t);
           }),
-          (n.$14 = function (t, n) {
+          (n.$13 = function (t, n) {
             var e = t.options.isModal === !0 ? "modal" : "stack_" + n,
               r = e + ":" + t.screenId;
             return (
@@ -572,7 +563,7 @@ __d(
               r
             );
           }),
-          (n.$12 = function (t, n) {
+          (n.$11 = function (t, n) {
             if (this.disableHistoryStack) {
               n();
               return;

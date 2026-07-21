@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "Keys",
     "WALogger",
+    "WAWebABProps",
     "WAWebUimUtils",
     "compactMap",
     "gkx",
@@ -139,15 +140,24 @@ __d(
           if (
             (n === void 0 && (n = m.UIM_INTERACTION),
             r === void 0 && (r = !0),
-            this.getState() !== d.DEAD)
+            this.getState() === d.DEAD)
           ) {
-            this.$3(this.children, n);
-            var e = this.parent.children.indexOf(this);
-            (e !== -1 && this.parent.children.splice(e, 1),
-              t.Manager.root === this && (t.Manager.root = void 0));
-            var o = t.findMostRecentlyActiveFocusable(this);
-            (o && (o.shouldRequestFocus = r), t.Manager.setTop(o), t.pprint());
+            if (
+              o("WAWebABProps").getABPropConfigValue(
+                "web_detached_dom_unmount_cleanup",
+              )
+            ) {
+              var e = this.parent.children.indexOf(this);
+              e !== -1 && this.parent.children.splice(e, 1);
+            }
+            return;
           }
+          this.$3(this.children, n);
+          var a = this.parent.children.indexOf(this);
+          (a !== -1 && this.parent.children.splice(a, 1),
+            t.Manager.root === this && (t.Manager.root = void 0));
+          var i = t.findMostRecentlyActiveFocusable(this);
+          (i && (i.shouldRequestFocus = r), t.Manager.setTop(i), t.pprint());
         }),
         (n.requestDismiss = function (t, n) {
           (o("WALogger").LOG(

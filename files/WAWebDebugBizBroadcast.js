@@ -5,7 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastDeviceCapabilityCommon",
-    "WAWebBizBroadcastProNuxTos",
+    "WAWebBizBroadcastProOnboardingStatus",
     "WAWebBizBroadcastSystemMessageManager",
     "WAWebBizBroadcastTos",
     "WAWebChatCollection",
@@ -36,13 +36,12 @@ __d(
     ((u.doc = "Accept BB TOS locally (skips server RPC, bypasses TOS modal)"),
       (u.paramsToExecute = []));
     function c() {
-      (o(
-        "WAWebBizBroadcastProNuxTos",
-      ).suppressBizBroadcastProNuxServerSyncForTest(),
-        o("WAWebBizBroadcastProNuxTos").setBizBroadcastProNuxOnboardingStatus(
-          o("WAWebBizBroadcastProNuxTos").BBProOnboardingStatus
-            .ELIGIBLE_TO_ONBOARD,
-        ));
+      o(
+        "WAWebBizBroadcastProOnboardingStatus",
+      ).debugSetBizBroadcastProOnboardingStatus(
+        o("WAWebBizBroadcastProOnboardingStatus").BBProOnboardingStatus
+          .ELIGIBLE_TO_ONBOARD,
+      );
     }
     ((c.doc = "Force BB Pro onboarding status to eligible_to_onboard (E2E)"),
       (c.paramsToExecute = []));

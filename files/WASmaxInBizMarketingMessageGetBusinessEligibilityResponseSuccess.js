@@ -67,11 +67,58 @@ __d(
         "status",
         o("WASmaxInBizMarketingMessageEnums").ENUM_FAIL_SUCCESS,
       );
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrStringEnum,
+        e,
+        "v1_enabled",
+        o("WASmaxInBizMarketingMessageEnums").ENUM_FALSE_TRUE,
+      );
+      return r.success
+        ? o("WAResultOrError").makeResult({
+            status: n.value,
+            v1Enabled: r.value,
+          })
+        : r;
+    }
+    function c(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "genai_image");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrStringEnum(
+        e,
+        "status",
+        o("WASmaxInBizMarketingMessageEnums").ENUM_FAIL_SUCCESS,
+      );
       return n.success
         ? o("WAResultOrError").makeResult({ status: n.value })
         : n;
     }
-    function c(t, n) {
+    function d(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "meta_one");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrStringEnum(
+        e,
+        "status",
+        o("WASmaxInBizMarketingMessageEnums").ENUM_FAIL_SUCCESS,
+      );
+      return n.success
+        ? o("WAResultOrError").makeResult({ status: n.value })
+        : n;
+    }
+    function m(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "bb_pro");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrStringEnum(
+        e,
+        "status",
+        o("WASmaxInBizMarketingMessageEnums")
+          .ENUM_ELIGIBLETOONBOARD_NOTELIGIBLE_ONBOARDED,
+      );
+      return n.success
+        ? o("WAResultOrError").makeResult({ status: n.value })
+        : n;
+    }
+    function p(t, n) {
       var r = o("WASmaxParseUtils").assertTag(t, "iq");
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").optionalChildWithTag(t, "meta_verified", e);
@@ -84,23 +131,35 @@ __d(
       if (!i.success) return i;
       var l = o("WASmaxParseUtils").optionalChildWithTag(t, "genai", u);
       if (!l.success) return l;
-      var c = o(
+      var p = o("WASmaxParseUtils").optionalChildWithTag(t, "genai_image", c);
+      if (!p.success) return p;
+      var _ = o("WASmaxParseUtils").optionalChildWithTag(t, "meta_one", d);
+      if (!_.success) return _;
+      var f = o("WASmaxParseUtils").optionalChildWithTag(t, "bb_pro", m);
+      if (!f.success) return f;
+      var g = o(
         "WASmaxInBizMarketingMessageHackBaseIQResultResponseMixin",
       ).parseHackBaseIQResultResponseMixin(t, n);
-      return c.success
+      return g.success
         ? o("WAResultOrError").makeResult(
-            babelHelpers.extends({}, c.value, {
+            babelHelpers.extends({}, g.value, {
               metaVerified: a.value,
               marketingMessages: i.value,
               genai: l.value,
+              genaiImage: p.value,
+              metaOne: _.value,
+              bbPro: f.value,
             }),
           )
-        : c;
+        : g;
     }
     ((l.parseGetBusinessEligibilityResponseSuccessMetaVerified = e),
       (l.parseGetBusinessEligibilityResponseSuccessMarketingMessages = s),
       (l.parseGetBusinessEligibilityResponseSuccessGenai = u),
-      (l.parseGetBusinessEligibilityResponseSuccess = c));
+      (l.parseGetBusinessEligibilityResponseSuccessGenaiImage = c),
+      (l.parseGetBusinessEligibilityResponseSuccessMetaOne = d),
+      (l.parseGetBusinessEligibilityResponseSuccessBbPro = m),
+      (l.parseGetBusinessEligibilityResponseSuccess = p));
   },
   98,
 );

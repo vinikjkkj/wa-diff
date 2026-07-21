@@ -2785,6 +2785,7 @@ __d(
               videoRenderNumSinceLastFreeze5s: [570, e.TYPES.INTEGER],
               videoRenderPauseT: [1132, e.TYPES.TIMER],
               videoRenderSumTimeSinceLastFreeze: [568, e.TYPES.TIMER],
+              videoRenderUniqueFps: [3076, e.TYPES.NUMBER],
               videoRenderedRxBitrate: [2587, e.TYPES.NUMBER],
               videoRetxRtcpNack: [1178, e.TYPES.INTEGER],
               videoRetxRtcpPli: [1179, e.TYPES.INTEGER],

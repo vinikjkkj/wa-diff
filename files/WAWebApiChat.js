@@ -18,6 +18,7 @@ __d(
     "WAWebDbErrors",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebEphemeralityUtils",
+    "WAWebGetChatRecordByAccountLid",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
@@ -101,7 +102,7 @@ __d(
                   )
                   .verbose(),
                 n instanceof r("WAWeb-dexie").ConstraintError
-                  ? (yield K(e, t), new x())
+                  ? (yield j(e, t), new x())
                   : r("err")("create chat table failed"));
           }
         })),
@@ -695,12 +696,7 @@ __d(
           })(),
         );
     }
-    function H(e) {
-      return o("WAWebSchemaChat")
-        .getChatTable()
-        .anyOf(["accountLid"], [e.toString()]);
-    }
-    function G() {
+    function H() {
       return o("WAWebSchemaChat")
         .getChatTable()
         .all()
@@ -710,12 +706,12 @@ __d(
           });
         });
     }
-    function z(e) {
-      return j.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function j() {
+    function z() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return e.id.toString();
             }),
@@ -741,15 +737,15 @@ __d(
             });
           return r;
         })),
-        j.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function K(e, t) {
-      return Q.apply(this, arguments);
+    function j(e, t) {
+      return K.apply(this, arguments);
     }
-    function Q() {
+    function K() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(e)) {
               if (
@@ -766,7 +762,9 @@ __d(
                 t.accountLid != null)
               ) {
                 var n = o("WAWebWidFactory").createUserLidOrThrow(t.accountLid),
-                  r = yield H(n);
+                  r = yield o(
+                    "WAWebGetChatRecordByAccountLid",
+                  ).getChatRecordByAccountLid(n);
                 if (r.length === 0)
                   o("WALogger")
                     .LOG(
@@ -814,7 +812,7 @@ __d(
               .tags("missing-lid");
           }
         })),
-        Q.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
     ((l.CreateChatDuplicateError = x),
@@ -828,9 +826,8 @@ __d(
       (l.reduceChatUnreadCount = q),
       (l.pruneExpiredTcTokens = U),
       (l.pruneExpiredOrphanTcTokens = V),
-      (l.getChatRecordByAccountLid = H),
-      (l.getAllChatsDeserialized = G),
-      (l.injectAdditionalEphemeralInfoFromDB = z));
+      (l.getAllChatsDeserialized = H),
+      (l.injectAdditionalEphemeralInfoFromDB = G));
   },
   98,
 );

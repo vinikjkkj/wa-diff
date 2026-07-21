@@ -69,6 +69,7 @@ __d(
             (n.callLogResult = null),
             (n.userEndedCall = !1),
             (n.callFailedReason = null),
+            (n.peerBusy = !1),
             (n.networkOfflineTimer = null),
             (n.$Call$p_1 = null),
             (n.$Call$p_2 = new Map()),
@@ -132,6 +133,7 @@ __d(
                 this.$Call$p_12.clear(),
                 this.$Call$p_13.clear(),
                 (this.$Call$p_14 = null),
+                (this.peerBusy = !1),
                 this.trigger(
                   (n = o("WAWebVoipEventConstants")).getChangeEvent(
                     n.VoipCallModelEvents.PEER_RECONNECTING,
@@ -156,6 +158,14 @@ __d(
                   n.getChangeEvent(n.VoipCallModelEvents.NETWORK_HEALTH),
                 ));
             }
+          }),
+          (a.markPeerBusy = function () {
+            ((this.peerBusy = !0),
+              this.trigger(
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
+                ),
+              ));
           }),
           (a.hasActiveVideo = function () {
             return (

@@ -416,7 +416,7 @@ __d(
             u.messageContextInfo,
             { messageSecret: e.messageSecret },
           )),
-        o("WAWebBotBaseGating").isBotEnabled())
+        o("WAWebBotBaseGating").isBotEnabled() || e.botGroupParticipant != null)
       ) {
         var m,
           p = (m = u.messageContextInfo) == null ? void 0 : m.botMetadata,

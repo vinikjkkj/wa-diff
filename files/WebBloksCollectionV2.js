@@ -1,13 +1,16 @@
 __d(
   "WebBloksCollectionV2",
   [
+    "WebBloksBooleanUtils",
     "WebBloksCollectionChildBase",
     "WebBloksCollectionHelpers",
     "WebBloksCollectionScrollRefs",
+    "WebBloksEnvironmentContext",
     "WebBloksStyle",
     "WebBloksUtils",
     "react",
     "react-compiler-runtime",
+    "usePersistentScroll",
     "useWebBloksCollectionScrollHandlers",
     "useWebBloksCollectionScrollingElementStyle",
     "useWebBloksCollectionStopPropagation",
@@ -17,84 +20,96 @@ __d(
       s = e || (e = o("react"));
     function u(e) {
       var t,
-        n = o("react-compiler-runtime").c(8),
-        a = e.externalStyle,
-        i = e.node,
-        l = i.getValues(),
-        u = l.children,
-        d = l.direction,
-        m = l.item_spacing,
-        p = l.spacing_after,
-        _ = l.spacing_before,
-        f = o("WebBloksStyle").useStyle(i, a),
-        g = f.ref,
-        h = f.style,
-        y = f.wrapper,
-        C = f.wrapperProps,
-        b = r("useWebBloksCollectionScrollingElementStyle")(l),
-        v = b.scrollingElementClassNames,
-        S = b.scrollingElementStyle,
-        R = o(
+        n,
+        a = o("react-compiler-runtime").c(8),
+        i = e.externalStyle,
+        l = e.node,
+        u = l.getValues(),
+        d = u.children,
+        m = u.direction,
+        p = u.item_spacing,
+        _ = u.persist_scroll_position,
+        f = u.spacing_after,
+        g = u.spacing_before,
+        h = o("WebBloksStyle").useStyle(l, i),
+        y = h.ref,
+        C = h.style,
+        b = h.wrapper,
+        v = h.wrapperProps,
+        S = r("useWebBloksCollectionScrollingElementStyle")(u),
+        R = S.scrollingElementClassNames,
+        L = S.scrollingElementStyle,
+        E = o(
           "WebBloksCollectionScrollRefs",
-        ).useWebbloksCollectionScrollContainerRef(i);
-      r("useWebBloksCollectionScrollHandlers")(i);
-      var L = r("useWebBloksCollectionStopPropagation")(g),
-        E = o("WebBloksCollectionHelpers").getDirectionPropNames(d),
-        k = E.crossAxisSize,
-        I = E.mainAxisMarginEnd,
-        T = E.mainAxisMarginStart,
-        D = E.mainAxisSize,
-        x;
-      n[0] !== v
-        ? ((x = o("WebBloksStyle").classNames.apply(
+        ).useWebbloksCollectionScrollContainerRef(l);
+      r("useWebBloksCollectionScrollHandlers")(l);
+      var k = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        I = k.isRtl;
+      r("usePersistentScroll")({
+        childCount: (t = d == null ? void 0 : d.length) != null ? t : 0,
+        enabled: o("WebBloksBooleanUtils").isTrue(_),
+        isRtl: I,
+        isVertical: m === "column",
+        node: l,
+        scrollableElementRef: y,
+      });
+      var T = r("useWebBloksCollectionStopPropagation")(y),
+        D = o("WebBloksCollectionHelpers").getDirectionPropNames(m),
+        x = D.crossAxisSize,
+        $ = D.mainAxisMarginEnd,
+        P = D.mainAxisMarginStart,
+        N = D.mainAxisSize,
+        M;
+      a[0] !== R
+        ? ((M = o("WebBloksStyle").classNames.apply(
             void 0,
-            [o("WebBloksStyle").WebBloksStyles.container].concat(v),
+            [o("WebBloksStyle").WebBloksStyles.container].concat(R),
           )),
-          (n[0] = v),
-          (n[1] = x))
-        : (x = n[1]);
-      var $;
-      n[2] !== i
-        ? (($ = o("WebBloksCollectionHelpers").getContainerType(i)),
-          (n[2] = i),
-          (n[3] = $))
-        : ($ = n[3]);
-      var P;
+          (a[0] = R),
+          (a[1] = M))
+        : (M = a[1]);
+      var w;
+      a[2] !== l
+        ? ((w = o("WebBloksCollectionHelpers").getContainerType(l)),
+          (a[2] = l),
+          (a[3] = w))
+        : (w = a[3]);
+      var A;
       return (
-        n[4] !== S || n[5] !== h || n[6] !== $
-          ? ((P = babelHelpers.extends({}, S, h, {
+        a[4] !== L || a[5] !== C || a[6] !== w
+          ? ((A = babelHelpers.extends({}, L, C, {
               display: "block",
               pointerEvents: "auto",
-              containerType: $,
+              containerType: w,
             })),
-            (n[4] = S),
-            (n[5] = h),
-            (n[6] = $),
-            (n[7] = P))
-          : (P = n[7]),
-        y(
+            (a[4] = L),
+            (a[5] = C),
+            (a[6] = w),
+            (a[7] = A))
+          : (A = a[7]),
+        b(
           s.jsx(
             "div",
-            babelHelpers.extends({}, C, { ref: g, className: x, style: P }, L, {
+            babelHelpers.extends({}, v, { ref: y, className: M, style: A }, T, {
               children: s.jsx("div", {
-                ref: R,
+                ref: E,
                 style:
-                  ((t = {
+                  ((n = {
                     display: "flex",
-                    flexDirection: d,
-                    gap: o("WebBloksUtils").toPx(m),
+                    flexDirection: m,
+                    gap: o("WebBloksUtils").toPx(p),
                   }),
-                  (t[D] = "max-content"),
-                  (t[k] = "100%"),
-                  (t[T] = _ != null ? o("WebBloksUtils").toPx(_) : void 0),
-                  (t[I] = p != null ? o("WebBloksUtils").toPx(p) : void 0),
-                  t),
+                  (n[N] = "max-content"),
+                  (n[x] = "100%"),
+                  (n[P] = g != null ? o("WebBloksUtils").toPx(g) : void 0),
+                  (n[$] = f != null ? o("WebBloksUtils").toPx(f) : void 0),
+                  n),
                 children:
-                  u &&
-                  u.map(function (e) {
+                  d &&
+                  d.map(function (e) {
                     return s.jsx(
                       c,
-                      { scrollerRef: g, node: e, collectionNode: i },
+                      { scrollerRef: y, node: e, collectionNode: l },
                       e.clientId,
                     );
                   }),

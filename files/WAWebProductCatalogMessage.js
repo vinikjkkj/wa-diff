@@ -134,7 +134,7 @@ __d(
               throw (
                 o("WAWebToastManager").ToastManager.open(
                   c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Failed to send product"),
+                    msg: s._(/*BTDS*/ "Couldn't send product"),
                   }),
                 ),
                 o("WALogger")

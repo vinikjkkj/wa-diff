@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumContactType",
     "WAWebWamEnumMessageActionEntryPoint",
     "WAWebWamEnumMessageLevelAction",
+    "WAWebWamEnumPillEntryPoint",
     "WAWebWamEnumSignupEntryPoint",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,6 +32,7 @@ __d(
               isBizIntent: [10, e.TYPES.BOOLEAN],
               isBroadcastMessage: [11, e.TYPES.BOOLEAN],
               isCoex: [27, e.TYPES.BOOLEAN],
+              isFromPill: [32, e.TYPES.BOOLEAN],
               isIasSubscriber: [31, e.TYPES.BOOLEAN],
               isInsubContact: [4, e.TYPES.BOOLEAN],
               isOba: [15, e.TYPES.BOOLEAN],
@@ -46,6 +48,10 @@ __d(
               messageLevelAction: [
                 8,
                 o("WAWebWamEnumMessageLevelAction").MESSAGE_LEVEL_ACTION,
+              ],
+              pillEntryPoint: [
+                33,
+                o("WAWebWamEnumPillEntryPoint").PILL_ENTRY_POINT,
               ],
               submessageFieldJsonArray: [18, e.TYPES.STRING],
               threadIdHmac: [9, e.TYPES.STRING],

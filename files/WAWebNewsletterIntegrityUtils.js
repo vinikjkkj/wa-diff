@@ -44,7 +44,7 @@ __d(
     }
     function _() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Failed to get reference number");
+        t = s._(/*BTDS*/ "Couldn't get reference number");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );

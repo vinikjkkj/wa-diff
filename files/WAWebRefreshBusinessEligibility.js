@@ -8,6 +8,8 @@ __d(
     "WAWebBizBroadcastGenAIEligibilityModel",
     "WAWebBizBroadcastGenAIGating",
     "WAWebBizBroadcastMarketingMessagesEligibilityModel",
+    "WAWebBizBroadcastProOnboardingStatus",
+    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebGetBusinessEligibilityJob",
     "asyncToGeneratorRuntime",
   ],
@@ -17,7 +19,7 @@ __d(
       u = { maxTimeout: 1e4, minTimeout: 1e3, retries: 2 },
       c = null;
     function d(e) {
-      var t, n;
+      var t, n, r;
       (o(
         "WAWebBizBroadcastMarketingMessagesEligibilityModel",
       ).updateMarketingMessagesEligibility(
@@ -27,6 +29,11 @@ __d(
         o("WAWebBizBroadcastGenAIEligibilityModel").updateGenAIEligibility(
           (e == null || (n = e.genai) == null ? void 0 : n.status) ===
             "SUCCESS",
+        ),
+        o(
+          "WAWebBizBroadcastProOnboardingStatus",
+        ).updateBizBroadcastProEligibility(
+          e == null || (r = e.bbPro) == null ? void 0 : r.status,
         ));
     }
     function m() {
@@ -36,6 +43,9 @@ __d(
         function (e) {
           return o("WAWebGetBusinessEligibilityJob")
             .getBusinessEligibility({
+              checkBBPro: o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastProEnabled(),
               checkGenAI: o(
                 "WAWebBizBroadcastGenAIGating",
               ).isGenAIMasterEnabled(),

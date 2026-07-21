@@ -35,7 +35,12 @@ __d(
       _ = 3e4,
       f = 600 * 1e3,
       g = 6e4;
-    function h() {
+    function h(e, t) {
+      o("WAWebWamFalcoABProps").getWamFalcoMode() ===
+        o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING &&
+        r("WAWebODS").incr("web.falco.shadow." + e.name + "." + t);
+    }
+    function y() {
       try {
         var t =
           r("WAWebLocalStorage") == null
@@ -68,7 +73,7 @@ __d(
       }
       return [];
     }
-    function y(e) {
+    function C(e) {
       r("WAWebLocalStorage") == null ||
         r("WAWebLocalStorage").setItem(
           o("WAWebCanonicalWamFalcoBufferConstants")
@@ -76,21 +81,21 @@ __d(
           JSON.stringify(e),
         );
     }
-    function C() {
+    function b() {
       r("WAWebLocalStorage") == null ||
         r("WAWebLocalStorage").removeItem(
           o("WAWebCanonicalWamFalcoBufferConstants")
             .CANONICAL_WAM_FALCO_BUFFER_STORAGE_KEY,
         );
     }
-    var b = (function () {
+    var v = (function () {
         function e() {
           var e = this;
           ((this.$2 = !1),
             (this.$6 = function () {
               r("WAWebNetworkStatus").online &&
                 o("WAWebCanonicalUtils").isCanonicalPresent() &&
-                e.drain();
+                e.drain("canonical");
             }),
             (this.$7 = function () {
               !e.$2 || e.$1.length === 0 || e.$5();
@@ -109,7 +114,7 @@ __d(
                     e.$1.length,
                     Math.round(t / 1e3),
                   ),
-                  e.drain());
+                  e.drain("stale"));
               }
             }),
             (this.$5 = function () {
@@ -119,7 +124,7 @@ __d(
                       "WAWebWamFalcoABProps",
                     ).getCanonicalWamFalcoMaxBufferSize(),
                     n = e.$1.length > t ? e.$1.slice(-t) : e.$1;
-                  (y(n), (e.$2 = !1));
+                  (C(n), (e.$2 = !1));
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
@@ -132,7 +137,7 @@ __d(
                     .sendLogs("wam_falco_buffer_persist_error");
                 }
             }),
-            (this.$1 = h()),
+            (this.$1 = y()),
             self.addEventListener("beforeunload", this.$5),
             self.addEventListener("pagehide", this.$5),
             r("WAWebNetworkStatus").on("change:online", this.$6),
@@ -144,25 +149,28 @@ __d(
           (t.buffer = function (t) {
             (this.$1.push(t), (this.$2 = !0), this.$9());
           }),
-          (t.drain = function () {
+          (t.drain = function (t) {
             if (r("WAWebNetworkStatus").online) {
               var e = Date.now(),
-                t = this.$1.filter(function (t) {
+                n = this.$1.filter(function (t) {
                   return e - t.timestamp < m;
                 });
-              ((this.$1 = []),
-                (this.$2 = !1),
-                C(),
-                t.length !== 0 &&
-                  (o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[falco] draining ",
-                        " buffered events",
-                      ])),
-                    t.length,
-                  ),
-                  o("WAWebFalcoEventQueue").sendFalcoEventsChunked(t)));
+              if (((this.$1 = []), (this.$2 = !1), b(), n.length !== 0)) {
+                var a =
+                  t === "stale"
+                    ? "buffer_stale_drain"
+                    : "buffer_canonical_drain";
+                for (var i of n) h(i, a);
+                (o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[falco] draining ",
+                      " buffered events",
+                    ])),
+                  n.length,
+                ),
+                  o("WAWebFalcoEventQueue").sendFalcoEventsChunked(n));
+              }
             }
           }),
           (t.flushNow = function () {
@@ -170,10 +178,10 @@ __d(
               t = this.$1.filter(function (t) {
                 return e - t.timestamp < m;
               });
-            ((this.$1 = []),
-              (this.$2 = !1),
-              C(),
-              t.length > 0 && o("WAWebFalcoEventQueue").sendFalcoEventsNow(t));
+            if (((this.$1 = []), (this.$2 = !1), b(), t.length > 0)) {
+              for (var n of t) h(n, "buffer_logout_flush");
+              o("WAWebFalcoEventQueue").sendFalcoEventsNow(t);
+            }
           }),
           (t.$9 = function () {
             var e = o(
@@ -183,31 +191,30 @@ __d(
             if (!(t <= 0)) {
               var n = Math.min(t, p),
                 r = this.$1.splice(0, n);
-              for (var a of r) o("WAWebFalcoEventQueue").enqueueFalcoEvent(a);
+              for (var a of r)
+                (h(a, "buffer_overflow"),
+                  o("WAWebFalcoEventQueue").enqueueFalcoEvent(a));
             }
           }),
           e
         );
       })(),
-      v = null;
-    function S() {
-      return (v == null && (v = new b()), v);
+      S = null;
+    function R() {
+      return (S == null && (S = new v()), S);
     }
-    function R(e) {
-      (o("WAWebWamFalcoABProps").getWamFalcoMode() ===
-        o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING &&
-        r("WAWebODS").incr("web.falco.shadow." + e.name + ".buffer"),
-        S().buffer(e));
-    }
-    function L() {
-      (v == null && h().length === 0) || S().drain();
+    function L(e) {
+      (h(e, "buffer"), R().buffer(e));
     }
     function E() {
-      (v == null && h().length === 0) || S().flushNow();
+      (S == null && y().length === 0) || R().drain("canonical");
     }
-    ((l.bufferCanonicalFalcoEvent = R),
-      (l.drainCanonicalWamFalcoBuffer = L),
-      (l.flushCanonicalWamFalcoBuffer = E));
+    function k() {
+      (S == null && y().length === 0) || R().flushNow();
+    }
+    ((l.bufferCanonicalFalcoEvent = L),
+      (l.drainCanonicalWamFalcoBuffer = E),
+      (l.flushCanonicalWamFalcoBuffer = k));
   },
   98,
 );

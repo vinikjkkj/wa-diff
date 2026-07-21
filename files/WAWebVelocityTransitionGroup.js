@@ -15,7 +15,7 @@ __d(
       c = u || (u = o("react")),
       d = u.Children;
     function m(t) {
-      var n = o("react-compiler-runtime").c(31),
+      var n = o("react-compiler-runtime").c(30),
         a,
         i;
       n[0] !== t
@@ -30,35 +30,32 @@ __d(
         var b = d.toArray(a.children),
           v = a,
           S = v.appear,
-          R = v.className_DONOTUSE,
-          L = v.component,
-          E = v.delay,
-          k = v.displayName,
-          I = v.enter,
-          T = v.exit,
-          D = v.onAnimationComplete,
-          x = v.testid,
-          $ = v.transitionName,
-          P = v.xstyle,
-          N = L === void 0 ? "span" : L,
-          M = $ === void 0 ? "default" : $;
-        ((u = N),
+          R = v.component,
+          L = v.delay,
+          E = v.displayName,
+          k = v.enter,
+          I = v.exit,
+          T = v.onAnimationComplete,
+          D = v.testid,
+          x = v.transitionName,
+          $ = v.xstyle,
+          P = R === void 0 ? "span" : R,
+          N = x === void 0 ? "default" : x;
+        ((u = P),
           (h = i),
-          n[15] !== R || n[16] !== P
+          n[15] !== $
             ? ((y = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-                R,
-                (s || (s = r("stylex")))(P),
+                (s || (s = r("stylex")))($),
               )),
-              (n[15] = R),
-              (n[16] = P),
-              (n[17] = y))
-            : (y = n[17]),
-          (C = x),
+              (n[15] = $),
+              (n[16] = y))
+            : (y = n[16]),
+          (C = D),
           (l = o("react-transition-group").TransitionGroup),
           (m = null),
           (p = S),
-          (_ = I),
-          (f = T),
+          (_ = k),
+          (f = I),
           (g =
             b == null
               ? void 0
@@ -66,10 +63,10 @@ __d(
                   return c.jsx(
                     r("WAWebVelocityTransition"),
                     {
-                      transitionName: M,
-                      delay: E,
-                      onAnimationComplete: D,
-                      displayName: k,
+                      transitionName: N,
+                      delay: L,
+                      onAnimationComplete: T,
+                      displayName: E,
                       children: e,
                     },
                     e.key,
@@ -98,45 +95,45 @@ __d(
           (h = n[12]),
           (y = n[13]),
           (C = n[14]));
-      var w;
-      n[18] !== l ||
-      n[19] !== m ||
-      n[20] !== p ||
-      n[21] !== _ ||
-      n[22] !== f ||
-      n[23] !== g
-        ? ((w = c.jsx(l, {
+      var M;
+      n[17] !== l ||
+      n[18] !== m ||
+      n[19] !== p ||
+      n[20] !== _ ||
+      n[21] !== f ||
+      n[22] !== g
+        ? ((M = c.jsx(l, {
             component: m,
             appear: p,
             enter: _,
             exit: f,
             children: g,
           })),
-          (n[18] = l),
-          (n[19] = m),
-          (n[20] = p),
-          (n[21] = _),
-          (n[22] = f),
-          (n[23] = g),
-          (n[24] = w))
-        : (w = n[24]);
-      var A;
+          (n[17] = l),
+          (n[18] = m),
+          (n[19] = p),
+          (n[20] = _),
+          (n[21] = f),
+          (n[22] = g),
+          (n[23] = M))
+        : (M = n[23]);
+      var w;
       return (
-        n[25] !== u || n[26] !== h || n[27] !== y || n[28] !== C || n[29] !== w
-          ? ((A = c.jsx(u, {
+        n[24] !== u || n[25] !== h || n[26] !== y || n[27] !== C || n[28] !== M
+          ? ((w = c.jsx(u, {
               ref: h,
               className: y,
               "data-testid": C,
-              children: w,
+              children: M,
             })),
-            (n[25] = u),
-            (n[26] = h),
-            (n[27] = y),
-            (n[28] = C),
-            (n[29] = w),
-            (n[30] = A))
-          : (A = n[30]),
-        A
+            (n[24] = u),
+            (n[25] = h),
+            (n[26] = y),
+            (n[27] = C),
+            (n[28] = M),
+            (n[29] = w))
+          : (w = n[29]),
+        w
       );
     }
     l.default = m;

@@ -73,7 +73,7 @@ __d(
                       t.loggingInfo,
                     ),
                     new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Failed to add text to note."),
+                      s._(/*BTDS*/ "Couldn't add text to note"),
                     ));
             });
           o("WAWebToastManager").ToastManager.open(

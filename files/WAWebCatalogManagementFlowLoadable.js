@@ -82,7 +82,7 @@ __d(
       );
     }
     function _(e) {
-      var t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+      var t = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         n = o("WAWebCatalogCollection").CatalogCollection.get(t);
       n == null
         ? o("WAWebCatalogCollection")
