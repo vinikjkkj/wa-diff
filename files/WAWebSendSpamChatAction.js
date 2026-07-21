@@ -23,6 +23,7 @@ __d(
     "WAWebReportGatingUtils",
     "WAWebReportSpamJob",
     "WAWebSendClearChatAction",
+    "WAWebSmb1pdConversionSignalAction",
     "WAWebSpamConstants",
     "WAWebStateUtils",
     "WAWebToastManager",
@@ -178,8 +179,21 @@ __d(
                 }));
       }
       if (!R) return new (m || (m = n("Promise")))(r("WAWebNoop"));
-      var L = new (o("WAWebActionToast.react").ActionType)(h),
-        E = R.then(function (e) {
+      var L =
+        C != null
+          ? C
+          : s != null
+            ? o("WAWebFrontendMsgGetters").getChat(s)
+            : null;
+      t.skipCtwa1pdNbfSignal !== !0 &&
+        L != null &&
+        R.then(function () {
+          return o(
+            "WAWebSmb1pdConversionSignalAction",
+          ).log1pdReportConversionSignal(L);
+        }).catch(r("WAWebNoop"));
+      var E = new (o("WAWebActionToast.react").ActionType)(h),
+        k = R.then(function (e) {
           return e != null &&
             s != null &&
             o("WAWebReportGatingUtils").isPostReportingAusOSAModalEnabled(C, s)
@@ -222,8 +236,8 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           _.jsx(o("WAWebActionToast.react").ActionToast, {
             id: c,
-            initialAction: L,
-            pendingAction: E,
+            initialAction: E,
+            pendingAction: k,
           }),
         ),
         R.finally(function () {
@@ -240,14 +254,20 @@ __d(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       var i = o("WAWebBlocklistUtils").getBlockEntryPointFromSpamFlow(t),
-        l = S({ chat: e, spamFlow: t });
+        l = S({ chat: e, spamFlow: t, skipCtwa1pdNbfSignal: !0 });
       return (
         (a.reportSpamBlockClear = l
           .then(function () {
             return o("WAWebBlockContactAction").blockContact({
               contact: r,
               blockEntryPoint: i,
+              skipCtwa1pdNbfSignal: !0,
             });
+          })
+          .then(function () {
+            return o(
+              "WAWebSmb1pdConversionSignalAction",
+            ).log1pdBlockAndReportConversionSignal(e);
           })
           .finally(function () {
             a.reportSpamBlockClear = null;
@@ -288,20 +308,20 @@ __d(
         a = r.promises;
       if (a.reportMessageBlock) return a.reportMessageBlock;
       var i = o("WAWebBlocklistUtils").getBlockEntryPointFromSpamFlow(t),
-        l = S({ chat: r, spamFlow: t, msg: e });
+        l = S({ chat: r, spamFlow: t, msg: e, skipCtwa1pdNbfSignal: !0 });
       return (
         (a.reportMessageBlock = l
           .then(function (t) {
             o("WAWebModalManager").ModalManager.close();
-            var r = o(
+            var a = o(
               "WAWebPrivateMessageComplianceUtils",
             ).getPrivateMessageReportComplianceConfig({ reportId: t, msg: e });
             return (
-              r != null &&
+              a != null &&
                 f
                   .load()
                   .then(function (e) {
-                    return e.WAWebComplianceReportTrigger(r);
+                    return e.WAWebComplianceReportTrigger(a);
                   })
                   .catch(function (e) {
                     o("WALogger")
@@ -316,7 +336,16 @@ __d(
                       .sendLogs("report-message-compliance-error");
                   }),
               o("WAWebBlockContactAction")
-                .blockContact({ contact: n, blockEntryPoint: i })
+                .blockContact({
+                  contact: n,
+                  blockEntryPoint: i,
+                  skipCtwa1pdNbfSignal: !0,
+                })
+                .then(function () {
+                  return o(
+                    "WAWebSmb1pdConversionSignalAction",
+                  ).log1pdBlockAndReportConversionSignal(r);
+                })
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(

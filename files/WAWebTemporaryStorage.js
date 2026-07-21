@@ -2,10 +2,10 @@ __d(
   "WAWebTemporaryStorage",
   [
     "Promise",
-    "WANullthrows",
     "WATypeUtils",
     "WAWebSessionStorage",
     "WAWebUserPrefsKeys",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,27 +17,27 @@ __d(
         return (
           (o.setItem = function (t, n) {
             ((this.dataStore[t] = n),
-              r("WANullthrows")(r("WAWebSessionStorage")).setItem(t, n));
+              r("nullthrows")(r("WAWebSessionStorage")).setItem(t, n));
           }),
           (o.getItem = function (t, n) {
             return (
               n === void 0 && (n = !1),
               this.dataStore[t] == null || n
-                ? r("WANullthrows")(r("WAWebSessionStorage")).getItem(t)
+                ? r("nullthrows")(r("WAWebSessionStorage")).getItem(t)
                 : this.dataStore[t]
             );
           }),
           (o.removeItem = function (t) {
             (delete this.dataStore[t],
-              r("WANullthrows")(r("WAWebSessionStorage")).removeItem(t));
+              r("nullthrows")(r("WAWebSessionStorage")).removeItem(t));
           }),
           (o.clear = function (o) {
             return (
               (this.dataStore = {}),
-              r("WANullthrows")(r("WAWebSessionStorage")).clear(),
+              r("nullthrows")(r("WAWebSessionStorage")).clear(),
               o &&
                 Object.keys(o).forEach(function (e) {
-                  r("WANullthrows")(r("WAWebSessionStorage")).setItem(
+                  r("nullthrows")(r("WAWebSessionStorage")).setItem(
                     e,
                     String(o[e]),
                   );
@@ -71,7 +71,7 @@ __d(
       })();
     function c() {
       try {
-        var e = r("WANullthrows")(r("WAWebSessionStorage"));
+        var e = r("nullthrows")(r("WAWebSessionStorage"));
         return (
           e.setItem(
             o("WAWebUserPrefsKeys").KEYS.STORAGE_TEST,

@@ -183,6 +183,20 @@ __d(
                       )
                       .toString();
               }
+              if (n === "MESSAGE_FORWARDS")
+                return s
+                  ._(
+                    /*BTDS*/ '_j{"*":"{channel_forwards_count} forwards{colon}","_1":"{channel_forwards_count} forward{colon}"}',
+                    [
+                      s._plural(this.value),
+                      s._param(
+                        "channel_forwards_count",
+                        r("WAWebL10N").d(this.value),
+                      ),
+                      s._param("colon", t),
+                    ],
+                  )
+                  .toString();
               {
                 return (
                   o("WALogger").WARN(
@@ -209,6 +223,8 @@ __d(
                 return o("WAWebUA").UA.hasEmoji ? "\u2753" : "";
               if (e === "MESSAGE_VOTES")
                 return o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCCA" : "";
+              if (e === "MESSAGE_FORWARDS")
+                return s._(/*BTDS*/ "of your update").toString();
               {
                 return (
                   o("WALogger").WARN(

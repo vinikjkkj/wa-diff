@@ -1,13 +1,13 @@
 __d(
   "WAWebEventResponseCollection",
   [
-    "WANullthrows",
     "WAWebAck",
     "WAWebBaseCollection",
     "WAWebCollectionUtils",
     "WAWebEventResponseModel",
     "WAWebMsgGetters",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -39,7 +39,7 @@ __d(
     function s(e) {
       return new (o("WAWebEventResponseModel").EventResponse)(
         babelHelpers.extends({}, e, {
-          sender: r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+          sender: r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
         }),
       );
     }

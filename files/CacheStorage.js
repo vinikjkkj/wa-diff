@@ -55,10 +55,9 @@ __d(
             this._store.clear();
           }),
           (t.clearWithPrefix = function (t) {
-            t = t || "";
-            for (var e = this.keys(), n = 0; n < e.length; n++) {
-              var r = e[n];
-              r != null && r.startsWith(t) && this.remove(r);
+            for (var e = t || "", n = this.keys(), r = 0; r < n.length; r++) {
+              var o = n[r];
+              o != null && o.startsWith(e) && this.remove(o);
             }
           }),
           e
@@ -129,10 +128,9 @@ __d(
             this._store = {};
           }),
           (t.clearWithPrefix = function (t) {
-            t = t || "";
-            for (var e = this.keys(), n = 0; n < e.length; n++) {
-              var r = e[n];
-              r.startsWith(t) && this.remove(r);
+            for (var e = t || "", n = this.keys(), r = 0; r < n.length; r++) {
+              var o = n[r];
+              o.startsWith(e) && this.remove(o);
             }
           }),
           (e.available = function () {

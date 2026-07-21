@@ -35,6 +35,7 @@ __d(
         e.downloadStartTs,
         e.downloadSize,
         e.isSuccess,
+        e.failureReason,
       );
     }
     function f(e, t, n) {

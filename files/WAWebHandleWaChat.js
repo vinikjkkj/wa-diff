@@ -83,54 +83,12 @@ __d(
           return { type: "revoke", stanzaId: t, ts: n, revokeMessageIds: u };
         },
       );
-    function d(e, t) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.campaignId,
-            r = e.ts,
-            a = t.body,
-            i = t.id,
-            l = o("WAWebWidFactory").createWid(o("WAJids").PSA_JID),
-            s = {
-              type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS,
-              externalId: i,
-              ts: r,
-              edit: -1,
-              isHsm: !1,
-              count: null,
-              chat: l,
-              author: l,
-              pushname: null,
-              isDirect: !1,
-              campaignId: n,
-            },
-            u = {
-              retryCount: 0,
-              e2eType: o("WAWebBackendJobs.flow").CiphertextType.Msg,
-              encMediaType: o("WAWebBackendJobs.flow").EncMediaType.Image,
-              hideFail: !1,
-            };
-          yield o("WAWebHandleMsgProcess").processDecryptedMessageProto({
-            decrypted: a,
-            info: s,
-            e2eInfo: u,
-            bizInfo: t.bizInfo,
-            hsmInfo: null,
-            isPadded: !1,
-          });
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = c.parse(t);
           if (r.error)
             throw (
@@ -176,17 +134,59 @@ __d(
               (a.type,
                 yield (u || (u = n("Promise"))).all(
                   a.messages.map(function (e) {
-                    return d(a, e);
+                    return p(a, e);
                   }),
                 ));
               break;
           }
           return i;
         })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.campaignId,
+            r = e.ts,
+            a = t.body,
+            i = t.id,
+            l = o("WAWebWidFactory").createWid(o("WAJids").PSA_JID),
+            s = {
+              type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.OTHER_STATUS,
+              externalId: i,
+              ts: r,
+              edit: -1,
+              isHsm: !1,
+              count: null,
+              chat: l,
+              author: l,
+              pushname: null,
+              isDirect: !1,
+              campaignId: n,
+            },
+            u = {
+              retryCount: 0,
+              e2eType: o("WAWebBackendJobs.flow").CiphertextType.Msg,
+              encMediaType: o("WAWebBackendJobs.flow").EncMediaType.Image,
+              hideFail: !1,
+            };
+          yield o("WAWebHandleMsgProcess").processDecryptedMessageProto({
+            decrypted: a,
+            info: s,
+            e2eInfo: u,
+            bizInfo: t.bizInfo,
+            hsmInfo: null,
+            isPadded: !1,
+          });
+        })),
         _.apply(this, arguments)
       );
     }
-    l.default = p;
+    l.default = d;
   },
   98,
 );

@@ -10,7 +10,33 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    function e(e, t, n) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = yield o("WAWebBizOrderAction").createOrder(
+            t.id,
+            e.cartItemCollection.toArray(),
+          );
+          return (
+            yield r("WAWebSendOrderChatAction")(
+              t,
+              a,
+              e.itemCount,
+              u(e),
+              e.message,
+              n == null ? void 0 : n.getCatalogType(),
+            ),
+            o("WAWebBizCartBridge").updateCart(e),
+            a.id
+          );
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    function u(e) {
       var t,
         n,
         a = e.cartItemCollection.at(0);
@@ -30,33 +56,7 @@ __d(
           ? n
           : "";
     }
-    function s(e, t, n) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i = yield o("WAWebBizOrderAction").createOrder(
-            n.id,
-            t.cartItemCollection.toArray(),
-          );
-          return (
-            yield r("WAWebSendOrderChatAction")(
-              n,
-              i,
-              t.itemCount,
-              e(t),
-              t.message,
-              a == null ? void 0 : a.getCatalogType(),
-            ),
-            o("WAWebBizCartBridge").updateCart(t),
-            i.id
-          );
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.default = s;
+    l.default = e;
   },
   98,
 );

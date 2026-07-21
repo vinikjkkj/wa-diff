@@ -1,7 +1,6 @@
 __d(
   "WAWebInitialSystemMsg",
   [
-    "WANullthrows",
     "WAWebAdvHostedAccountTypeSystemMsg",
     "WAWebApiDeviceList",
     "WAWebBizCoexUtils",
@@ -15,6 +14,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -69,7 +69,7 @@ __d(
                 !0
             )
               return [
-                r("WANullthrows")(
+                r("nullthrows")(
                   o(
                     "WAWebAdvHostedAccountTypeSystemMsg",
                   ).genAdvMeAccountIsHostedNotificationMsg(t, t),
@@ -88,7 +88,7 @@ __d(
                 )
                   ? []
                   : [
-                      r("WANullthrows")(
+                      r("nullthrows")(
                         o(
                           "WAWebAdvHostedAccountTypeSystemMsg",
                         ).genAdvAccountTypeInitialSysMsg(t, t),

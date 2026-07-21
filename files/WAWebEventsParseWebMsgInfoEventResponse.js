@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WAWebAddOnParseWebMsgInfo",
     "WAWebEventResponseMsgDataConversion",
     "WAWebMsgType",
@@ -11,6 +10,7 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -61,7 +61,7 @@ __d(
             return r("compactMap")(c, function (t) {
               try {
                 var n,
-                  a = (n = r("WANullthrows"))(
+                  a = (n = r("nullthrows"))(
                     t.eventResponseMessageKey,
                     "eventResponseMessageKey",
                   ),

@@ -6,7 +6,7 @@ __d(
     "WADeprecatedSendIq",
     "WALogger",
     "WAWap",
-    "WAWebConstantsDeprecated",
+    "WAWebSignalConst",
     "WAWebSignalKeyApi",
     "WAWebSignalStoreApi",
     "WAWebSignalUtilsApi",
@@ -106,7 +106,7 @@ __d(
                   o("WAWap").wap(
                     "type",
                     null,
-                    r("WAWebConstantsDeprecated").KEY_BUNDLE_TYPE,
+                    o("WAWebSignalConst").KEY_BUNDLE_TYPE,
                   ),
                   o("WAWap").wap("identity", null, f.pubKey),
                   o("WAWap").wap(

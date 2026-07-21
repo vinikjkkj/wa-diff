@@ -1,7 +1,6 @@
 __d(
   "WAWebSendEventResponseMsgAction",
   [
-    "WANullthrows",
     "WAWebAddonSendMsgData",
     "WAWebCreateEncryptedEventResponseMsgData",
     "WAWebCreateEventResponseMsgData",
@@ -14,6 +13,7 @@ __d(
     "WAWebSendMsgResultAction",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -22,10 +22,10 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("WANullthrows")(
+          var t = r("nullthrows")(
               o("WAWebMsgCollection").MsgCollection.get(e.parentMsgKey),
             ),
-            n = r("WANullthrows")(
+            n = r("nullthrows")(
               o("WAWebFrontendMsgGetters").getAsEventCreation(t),
             ),
             a = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(

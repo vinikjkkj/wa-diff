@@ -5,12 +5,12 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WAWebDownloadManager",
+    "WAWebGetUserMediaErrors",
     "WAWebMediaEntry",
     "WAWebMediaMmsV4Download",
     "WAWebMediaPrep",
     "WAWebMediaStorage",
     "WAWebMediaTypes",
-    "WAWebMiscErrors",
     "WAWebMmsMediaTypes",
     "WAWebRecentStickerCollectionMd",
     "WAWebWamEnumDownloadOriginType",
@@ -196,7 +196,8 @@ __d(
             })
             .catch(
               o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").RMRNotSupportedOnNewsletterMessagesError,
+                o("WAWebGetUserMediaErrors")
+                  .RMRNotSupportedOnNewsletterMessagesError,
                 function (e) {
                   if (
                     e.mediaType !==

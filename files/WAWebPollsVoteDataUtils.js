@@ -1,13 +1,13 @@
 __d(
   "WAWebPollsVoteDataUtils",
   [
-    "WANullthrows",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -47,7 +47,7 @@ __d(
         senderTimestampMs: e.senderTimestampMs,
         t: e.t,
         sender: o("WAWebWidFactory").asUserWidOrThrow(
-          r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+          r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
         ),
         ack: o("WAWebMsgGetters").getAck(e),
         read: o("WAWebUserPrefsMeUser").isMeAccount(e.from) || e.read,

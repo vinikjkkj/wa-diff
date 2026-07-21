@@ -2,7 +2,6 @@ __d(
   "WAWebSetPrivacyForOneCategoryAction",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebBackendErrors",
     "WAWebLidMigrationUtils",
     "WAWebQueryPrivacyDisallowedListUtil",
@@ -12,6 +11,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -116,8 +116,8 @@ __d(
             var m = c(l),
               _ = {
                 id: m,
-                disallowedList: p(r("WANullthrows")(t)),
-                dhash: r("WANullthrows")(i.dhash),
+                disallowedList: p(r("nullthrows")(t)),
+                dhash: r("nullthrows")(i.dhash),
               };
             yield o("WAWebSchemaPrivacyDisallowedList")
               .getPrivacyDisallowedListTable()

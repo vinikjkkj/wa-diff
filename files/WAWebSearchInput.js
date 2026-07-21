@@ -3,8 +3,6 @@ __d(
   [
     "fbt",
     "LexicalComposer",
-    "WANullthrows",
-    "WAWebBackIcon.react",
     "WAWebClickable.react",
     "WAWebEditorRefPlugin",
     "WAWebEditorStatePlugin.react",
@@ -18,8 +16,10 @@ __d(
     "WAWebSearchFilterChip.react",
     "WAWebSearchRefreshedThinIcon.react",
     "WAWebSpinner.react",
+    "WDSIconIcArrowBack.react",
     "WDSIconIcClose.react",
     "WDSPaddings.stylex",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
   ],
@@ -216,7 +216,7 @@ __d(
         ? ((K = function () {
             var e;
             ((e = F.current) == null || e.blur(),
-              r("WANullthrows")(A.current).focus(),
+              r("nullthrows")(A.current).focus(),
               q(!0));
           }),
           (t[6] = K))
@@ -227,7 +227,7 @@ __d(
         ? ((X = function () {
             var e;
             ((e = F.current) == null || e.blur(),
-              r("WANullthrows")(A.current).blur(),
+              r("nullthrows")(A.current).blur(),
               q(!1));
           }),
           (t[7] = X))
@@ -316,7 +316,7 @@ __d(
                         1: { className: "x1hc1fzr x7a90jq x1nb0u29" },
                       }[!!(W || O) << 0],
                       {
-                        children: u.jsx(o("WAWebBackIcon.react").BackIcon, {
+                        children: u.jsx(r("WDSIconIcArrowBack.react"), {
                           iconXstyle: _.tealLighterColor,
                           height: 24,
                           overrideDirection: r("WAWebL10N").isRTL()

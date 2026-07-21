@@ -35,6 +35,7 @@ __d(
     "WAWebHistorySyncProgress",
     "WAWebHistorySyncWorkerCompatibleNotificationUtils",
     "WAWebHttpErrors",
+    "WAWebMdSyncDownloadFailureReason",
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationGatingUtils",
     "WAWebMetricsAttributionActions",
@@ -288,6 +289,9 @@ __d(
                   "WAWebHistorySyncNotificationUtils",
                 ).commitHistoryDownloadedMetric({
                   chunkDownloadFinishTimestamp: o("WATimeUtils").unixTimeMs(),
+                  failureReason: o(
+                    "WAWebMdSyncDownloadFailureReason",
+                  ).getMdSyncDownloadFailureReason(n),
                   historySyncDownloadMetric: U,
                   isSuccess: !1,
                   startTs: e.historySyncStepStartedTs,

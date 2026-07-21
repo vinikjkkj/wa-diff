@@ -3,6 +3,15 @@ __d(
   ["WAWebProtobufsMmsRetry.pb", "WAWebRequestMediaReuploadManager"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      return o("WAWebRequestMediaReuploadManager")
+        .RequestMediaReuploadManager.requestMediaReupload(e)
+        .then(function (e) {
+          var t = e.directPath,
+            n = e.result;
+          return { status: s(n), directPath: t, isMD: !0 };
+        });
+    }
+    function s(e) {
       if (e != null)
         switch (e) {
           case o("WAWebProtobufsMmsRetry.pb").MediaRetryNotification$ResultType
@@ -19,16 +28,7 @@ __d(
         }
       return 500;
     }
-    function s(t) {
-      return o("WAWebRequestMediaReuploadManager")
-        .RequestMediaReuploadManager.requestMediaReupload(t)
-        .then(function (t) {
-          var n = t.directPath,
-            r = t.result;
-          return { status: e(r), directPath: n, isMD: !0 };
-        });
-    }
-    l.default = s;
+    l.default = e;
   },
   98,
 );

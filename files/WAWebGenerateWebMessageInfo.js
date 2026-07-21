@@ -10,68 +10,57 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return (
-        e === "video" ||
-        e === "sticker" ||
-        e === "ptv" ||
-        e === "ptt" ||
-        e === "image" ||
-        e === "document" ||
-        e === "audio"
-      );
-    }
-    function s(t, n) {
-      var a,
+    function e(e, t) {
+      var n,
+        a,
         i,
         l,
-        s,
         u,
         c,
-        d = babelHelpers.extends({}, n),
-        m = t.type,
-        p = e(m)
+        d = babelHelpers.extends({}, t),
+        m = e.type,
+        p = s(m)
           ? {
-              url: t.deprecatedMms3Url,
-              directPath: t.directPath,
-              encFilehash: t.encFilehash,
-              mediaKey: t.mediaKey,
-              mediaKeyTimestamp: t.mediaKeyTimestamp,
-              filehash: (a = t.filehash) != null ? a : "",
+              url: e.deprecatedMms3Url,
+              directPath: e.directPath,
+              encFilehash: e.encFilehash,
+              mediaKey: e.mediaKey,
+              mediaKeyTimestamp: e.mediaKeyTimestamp,
+              filehash: (n = e.filehash) != null ? n : "",
               type: m,
-              mimetype: (i = t.mimetype) != null ? i : "",
-              filename: (l = t.filename) != null ? l : "",
-              duration: (s = t.duration) != null ? s : "",
-              width: (u = t.width) != null ? u : 0,
-              height: (c = t.height) != null ? c : 0,
-              firstFrameLength: t.firstFrameLength,
-              isAnimated: t.isAnimated,
-              isLottie: t.isLottie,
-              stickerPremiumStatus: t.stickerPremiumStatus,
-              thumbnailDirectPath: t.thumbnailDirectPath,
-              thumbnailSha256: t.thumbnailSha256,
-              thumbnailEncSha256: t.thumbnailEncSha256,
-              thumbnailHeight: t.thumbnailHeight,
-              thumbnailWidth: t.thumbnailWidth,
-              waveform: t.waveform,
-              staticUrl: t.staticUrl,
-              metadataUrl: t.metadataUrl,
+              mimetype: (a = e.mimetype) != null ? a : "",
+              filename: (i = e.filename) != null ? i : "",
+              duration: (l = e.duration) != null ? l : "",
+              width: (u = e.width) != null ? u : 0,
+              height: (c = e.height) != null ? c : 0,
+              firstFrameLength: e.firstFrameLength,
+              isAnimated: e.isAnimated,
+              isLottie: e.isLottie,
+              stickerPremiumStatus: e.stickerPremiumStatus,
+              thumbnailDirectPath: e.thumbnailDirectPath,
+              thumbnailSha256: e.thumbnailSha256,
+              thumbnailEncSha256: e.thumbnailEncSha256,
+              thumbnailHeight: e.thumbnailHeight,
+              thumbnailWidth: e.thumbnailWidth,
+              waveform: e.waveform,
+              staticUrl: e.staticUrl,
+              metadataUrl: e.metadataUrl,
             }
           : void 0,
-        _ = o("WAWebE2EProtoGenerator").createProtobuf(t, p);
-      if (t.latestEditMsgKey != null && t.latestEditSenderTimestampMs != null) {
+        _ = o("WAWebE2EProtoGenerator").createProtobuf(e, p);
+      if (e.latestEditMsgKey != null && e.latestEditSenderTimestampMs != null) {
         var f,
           g,
           h = { mentionedJid: [], groupMentions: [], statusAttributions: [] };
-        (t.mentionedJidList &&
-          t.mentionedJidList.length > 0 &&
+        (e.mentionedJidList &&
+          e.mentionedJidList.length > 0 &&
           (h.mentionedJid = r("WAWebCompactMapString")(
-            t.mentionedJidList,
+            e.mentionedJidList,
             o("WAWebE2EProtoUtils").encodeJid,
           )),
-          t.groupMentions &&
-            t.groupMentions.length > 0 &&
-            (h.groupMentions = t.groupMentions.map(function (e) {
+          e.groupMentions &&
+            e.groupMentions.length > 0 &&
+            (h.groupMentions = e.groupMentions.map(function (e) {
               var t, n;
               return {
                 groupSubject: (t = e.groupSubject) != null ? t : "",
@@ -83,9 +72,9 @@ __d(
             })));
         var y = h.mentionedJid.length > 0 || h.groupMentions.length > 0,
           C = r("WAWebGenerateProtocolMessageEditProto")({
-            json: babelHelpers.extends({}, t, {
-              protocolMessageKey: t.id,
-              editMsgType: t.type,
+            json: babelHelpers.extends({}, e, {
+              protocolMessageKey: e.id,
+              editMsgType: e.type,
             }),
             contextInfo: y ? h : null,
           }),
@@ -137,7 +126,18 @@ __d(
         d
       );
     }
-    l.default = s;
+    function s(e) {
+      return (
+        e === "video" ||
+        e === "sticker" ||
+        e === "ptv" ||
+        e === "ptt" ||
+        e === "image" ||
+        e === "document" ||
+        e === "audio"
+      );
+    }
+    l.default = e;
   },
   98,
 );

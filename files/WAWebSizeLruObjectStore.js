@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAPromiseLoop",
     "WAPromiseQueue",
     "WAShiftTimer",
@@ -11,6 +10,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "nullthrows",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -110,7 +110,7 @@ __d(
                     s = yield l.$SizeLruObjectStore$p_1.put(e, t);
                   return (
                     (l.$SizeLruObjectStore$p_6 =
-                      r("WANullthrows")(l.getCurrentSize()) + i),
+                      r("nullthrows")(l.getCurrentSize()) + i),
                     l.$SizeLruObjectStore$p_12(),
                     s
                   );
@@ -143,7 +143,7 @@ __d(
                     }
                     (yield l.$SizeLruObjectStore$p_1.del(e),
                       (l.$SizeLruObjectStore$p_6 =
-                        r("WANullthrows")(l.getCurrentSize()) -
+                        r("nullthrows")(l.getCurrentSize()) -
                         l.$SizeLruObjectStore$p_13(t)));
                   }
                 }),

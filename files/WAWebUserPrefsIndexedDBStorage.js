@@ -2,7 +2,6 @@ __d(
   "WAWebUserPrefsIndexedDBStorage",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebApiUserPrefs",
     "WAWebCurrentUser",
     "WAWebUserPrefsKeys",
@@ -11,6 +10,7 @@ __d(
     "WAWebUserPrefsStorageUtils",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f;
@@ -172,7 +172,7 @@ __d(
                       )
                       .sendLogs("userprefs-idb-set-before-init"),
                     yield this.init());
-                  var l = r("WANullthrows")(this.loadedUserPrefs),
+                  var l = r("nullthrows")(this.loadedUserPrefs),
                     s = o("WAWebUserPrefsPreProcessors").preProcessUserPref(
                       t,
                       n,
@@ -240,7 +240,7 @@ __d(
                     )
                     .sendLogs("userprefs-idb-remove-before-init"),
                   yield this.init());
-                var n = r("WANullthrows")(this.loadedUserPrefs),
+                var n = r("nullthrows")(this.loadedUserPrefs),
                   a = L(e);
                 a != null &&
                   (delete n[a],
@@ -291,7 +291,7 @@ __d(
                       )
                       .sendLogs("userprefs-idb-bulk-set-before-init"),
                     yield this.init()));
-                var a = r("WANullthrows")(this.loadedUserPrefs);
+                var a = r("nullthrows")(this.loadedUserPrefs);
                 for (var i of n) {
                   var l = i.key,
                     s = i.value;

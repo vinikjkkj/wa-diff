@@ -25,25 +25,12 @@ __d(
     var e,
       u,
       c = u || (u = o("react"));
-    function d() {
-      (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
-        o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
-        o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-          o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
-            ? { descriptorType: "community_flow" }
-            : c.jsx(o("WAWebCommunityFlowLoadable").CommunityFlowLoadable, {}),
-          { disableRotateFocus: !0 },
-        ),
-        o("WAWebCmd").Cmd.setActiveNavBarItem(
-          o("WAWebNavBarTypes").NavBarItems.Communities,
-        ));
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (!r("WAWebNetworkStatus").online) {
             o("WAWebToastManager").ToastManager.open(
               c.jsx(o("WAWebToast.react").Toast, {
@@ -94,7 +81,7 @@ __d(
             }),
           );
           try {
-            (yield i, d());
+            (yield i, p());
           } catch (e) {
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
@@ -113,7 +100,7 @@ __d(
                       }),
                     )
                   : e.status === 404
-                    ? (d(),
+                    ? (p(),
                       o("WAWebToastManager").ToastManager.open(
                         c.jsx(o("WAWebToast.react").Toast, {
                           msg: s._(/*BTDS*/ "This community no longer exists"),
@@ -128,7 +115,7 @@ __d(
                           },
                           okText: r("WAWebFbtCommon")("Try again"),
                           onOK: function () {
-                            (o("WAWebModalManager").ModalManager.close(), m(t));
+                            (o("WAWebModalManager").ModalManager.close(), d(t));
                           },
                           onCancel: o("WAWebModalManager").closeModalManager,
                           children: s._(
@@ -140,10 +127,23 @@ __d(
             )(e);
           }
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.default = m;
+    function p() {
+      (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
+        o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+        o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
+          o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
+            ? { descriptorType: "community_flow" }
+            : c.jsx(o("WAWebCommunityFlowLoadable").CommunityFlowLoadable, {}),
+          { disableRotateFocus: !0 },
+        ),
+        o("WAWebCmd").Cmd.setActiveNavBarItem(
+          o("WAWebNavBarTypes").NavBarItems.Communities,
+        ));
+    }
+    l.default = d;
   },
   226,
 );

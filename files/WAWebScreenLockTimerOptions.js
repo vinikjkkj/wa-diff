@@ -1,12 +1,6 @@
 __d(
   "WAWebScreenLockTimerOptions",
-  [
-    "fbt",
-    "WALogger",
-    "WANullthrows",
-    "WATimeUtils",
-    "WAWebUserPrefsScreenLock",
-  ],
+  ["fbt", "WALogger", "WATimeUtils", "WAWebUserPrefsScreenLock", "nullthrows"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = 15 * o("WATimeUtils").MINUTE_SECONDS;
@@ -54,7 +48,7 @@ __d(
             t,
           ),
           o("WAWebUserPrefsScreenLock").setScreenLockDurationInSeconds(u),
-          r("WANullthrows")(
+          r("nullthrows")(
             (a = c().find(function (e) {
               return e.value === u;
             })) == null

@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WABase64",
     "WALogger",
-    "WANullthrows",
     "WAPromiseCallSync",
     "WAWebABProps",
     "WAWebCanvasUtils",
@@ -39,6 +38,7 @@ __d(
     "err",
     "file-type",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -116,7 +116,7 @@ __d(
         t(e);
         var n = e.getBlob();
         if (n) return h(n);
-        var a = r("WANullthrows")(e.getBase64(), "b64 should be defined");
+        var a = r("nullthrows")(e.getBase64(), "b64 should be defined");
         return o("WABase64").decodeB64(a);
       });
     }

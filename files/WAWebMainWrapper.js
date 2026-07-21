@@ -13,6 +13,7 @@ __d(
     "WAWebKaleidoscopeWasmFeatureSupport",
     "WAWebMain.react",
     "WAWebMediaWorkerProxy",
+    "WAWebNewsletterGatingUtils",
     "WAWebNoop",
     "WAWebNotificationBackend",
     "WAWebPathfinderCrashLog",
@@ -68,9 +69,10 @@ __d(
         ),
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
           (r("WAWebPrefetchLoadables")(),
-          o("WAWebABProps").getABPropConfigValue(
+          (o("WAWebABProps").getABPropConfigValue(
             "web_use_kaleidoscope_media_check_enabled",
-          ) &&
+          ) ||
+            o("WAWebNewsletterGatingUtils").isChannelSGISenderEnabled()) &&
             o("WAWebKaleidoscopeWasmFeatureSupport")
               .checkKaleidoscopeWasmFeatureSupport()
               .then(function (e) {

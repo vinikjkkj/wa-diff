@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WATypeUtils",
     "WAWebAck",
     "WAWebButtonCollection",
@@ -36,6 +35,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "gkx",
+    "nullthrows",
     "omit",
     "vulture",
   ],
@@ -161,11 +161,11 @@ __d(
                               else {
                                 (N++, M.length < 3 && M.push(u.id.toString()));
                                 var m = new (o("WAWebMsgModel").Msg)(n),
-                                  p = r("WANullthrows")(
+                                  p = r("nullthrows")(
                                     o("WAWebMsgGetters").getSender(m),
                                   );
                                 if (o("WAWebMsgGetters").getIsGroupMsg(u)) {
-                                  var _ = r("WANullthrows")(
+                                  var _ = r("nullthrows")(
                                       o("WAWebFrontendMsgGetters").getChat(u)
                                         .groupMetadata,
                                     ),

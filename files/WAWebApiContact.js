@@ -343,7 +343,7 @@ __d(
           )
           .sendLogs("lidInfraAccount-" + i, { sampling: 0 });
     }
-    var U = 5e3,
+    var U = 1e4,
       V = null;
     function H() {
       V == null && (V = new (o("WAResolvable").Resolvable)());
@@ -358,46 +358,58 @@ __d(
     function j() {
       return (
         (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield K();
-          var t = yield r("WAWebLidAwareContactsDB").equals(["contactHash"], e);
-          if (t.length > 0) return t[0];
+          var t = yield K(e);
+          if (t != null) return t;
+          var n = yield X();
+          if (n) return K(e);
         })),
         j.apply(this, arguments)
       );
     }
-    function K() {
+    function K(e) {
       return Q.apply(this, arguments);
     }
     function Q() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = V;
-          if (!(e == null || e.resolveWasCalled()))
-            try {
-              yield o("WAPromiseTimeout").promiseTimeout(e.promise, U);
-            } catch (e) {
-              if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
-              o("WALogger")
-                .WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "getContactRecordByHash: timed out waiting for contact hash repair",
-                    ])),
-                )
-                .sendLogs("contact-hash-repair-wait-timeout", {
-                  sampling: 0.1,
-                });
-            }
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield r("WAWebLidAwareContactsDB").equals(["contactHash"], e);
+          if (t.length > 0) return t[0];
         })),
         Q.apply(this, arguments)
       );
     }
-    function X(e) {
+    function X() {
       return Y.apply(this, arguments);
     }
     function Y() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = V;
+          if (e == null || e.resolveWasCalled()) return !1;
+          try {
+            yield o("WAPromiseTimeout").promiseTimeout(e.promise, U);
+          } catch (e) {
+            if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
+            o("WALogger")
+              .WARN(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "getContactRecordByHash: timed out waiting for contact hash repair",
+                  ])),
+              )
+              .sendLogs("contact-hash-repair-wait-timeout", { sampling: 0.1 });
+          }
+          return !0;
+        })),
+        Y.apply(this, arguments)
+      );
+    }
+    function J(e) {
+      return Z.apply(this, arguments);
+    }
+    function Z() {
+      return (
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
           for (var n of e) t.push({ id: n.id, contactHash: n.contactHash });
           yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
@@ -405,7 +417,7 @@ __d(
             "ApiContact.updateContactsHashes",
           );
         })),
-        Y.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
     ((l.lidPnCache = g),
@@ -433,7 +445,7 @@ __d(
       (l.armContactHashRepairWait = H),
       (l.markContactHashRepairComplete = G),
       (l.getContactRecordByHash = z),
-      (l.updateContactsHashes = X));
+      (l.updateContactsHashes = J));
   },
   98,
 );

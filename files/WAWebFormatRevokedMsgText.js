@@ -1,12 +1,12 @@
 __d(
   "WAWebFormatRevokedMsgText",
-  ["WANullthrows", "WAWebFormatRevokedMsg", "WAWebFrontendMsgGetters"],
+  ["WAWebFormatRevokedMsg", "WAWebFrontendMsgGetters", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.msg,
         n = o("WAWebFrontendMsgGetters").getAsRevoked(t);
       return o("WAWebFormatRevokedMsg")
-        .formatRevokedMsg(r("WANullthrows")(n))
+        .formatRevokedMsg(r("nullthrows")(n))
         .toString();
     }
     l.default = e;

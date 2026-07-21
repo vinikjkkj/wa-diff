@@ -6,7 +6,6 @@ __d(
     "WACryptoUtils",
     "WALogger",
     "WALongInt",
-    "WANullthrows",
     "WASyncdConst",
     "WASyncdKeyTypes",
     "WATimeUtils",
@@ -16,6 +15,7 @@ __d(
     "WAWebGetMissingKey",
     "WAWebGetPendingMutation",
     "WAWebGetSyncAction",
+    "WAWebMdSyncDownloadFailureReason",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
     "WAWebRequestSyncdSnapshotRecovery",
@@ -48,6 +48,7 @@ __d(
     "decodeProtobuf",
     "getErrorSafe",
     "gkx",
+    "nullthrows",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -1133,6 +1134,7 @@ __d(
                     downloadStartTs: u,
                     downloadSize: s,
                     isSuccess: "success",
+                    failureReason: null,
                   }));
             } catch (t) {
               throw (
@@ -1144,6 +1146,9 @@ __d(
                     downloadStartTs: u,
                     downloadSize: s,
                     isSuccess: "failure",
+                    failureReason: o(
+                      "WAWebMdSyncDownloadFailureReason",
+                    ).getMdSyncDownloadFailureReason(t),
                   }),
                 t
               );
@@ -2312,7 +2317,7 @@ __d(
                   var t;
                   return (
                     e.binarySyncData
-                      ? (t = r("WANullthrows")(
+                      ? (t = r("nullthrows")(
                           o("decodeProtobuf").decodeProtobuf(
                             o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
                             e.binarySyncData,

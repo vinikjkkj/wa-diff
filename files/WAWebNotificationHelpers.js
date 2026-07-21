@@ -2,7 +2,6 @@ __d(
   "WAWebNotificationHelpers",
   [
     "fbt",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebChatCollection",
     "WAWebChatGetters",
@@ -25,6 +24,7 @@ __d(
     "WAWebUserPrefsNotifications",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
@@ -130,7 +130,7 @@ __d(
         return o(
           "WAWebParticipantListUtils",
         ).calculateUnnamedGroupFullParticipantsList(
-          r("WANullthrows")(e.groupMetadata),
+          r("nullthrows")(e.groupMetadata),
           !0,
         );
       var n = e.msgs.last();

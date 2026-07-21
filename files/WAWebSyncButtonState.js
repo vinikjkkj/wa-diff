@@ -2,7 +2,6 @@ __d(
   "WAWebSyncButtonState",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebBizInteractiveMessageQuickReplyAction",
     "WAWebFrontendMsgGetters",
     "WAWebGetInteractiveCtaActions",
@@ -15,6 +14,7 @@ __d(
     "WAWebTemplateButtonReplyMsgCollection",
     "WAWebUserPrefsMeUser",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -44,12 +44,12 @@ __d(
                   ))(),
                 }),
                 (s = i.get(l.id)));
-              var u = r("WANullthrows")(s),
+              var u = r("nullthrows")(s),
                 c = u.unsyncedButtonReplies;
               c.add(t);
               var d = o("WAWebMsgCollection").MsgCollection.get(l.id);
               if (d != null && d.buttons) {
-                var m = d.buttons.get("" + r("WANullthrows")(t.selectedIndex));
+                var m = d.buttons.get("" + r("nullthrows")(t.selectedIndex));
                 (m && (m.selected = !0), c.remove(t));
               }
             } else if (t.isFromTemplate && t.buttons) {
@@ -59,8 +59,8 @@ __d(
               var f = _.get(t.id);
               f &&
                 (f.unsyncedButtonReplies.forEach(function (e) {
-                  var n = r("WANullthrows")(t.buttons).get(
-                    "" + r("WANullthrows")(e.selectedIndex),
+                  var n = r("nullthrows")(t.buttons).get(
+                    "" + r("nullthrows")(e.selectedIndex),
                   );
                   n && (n.selected = !0);
                 }),
@@ -143,8 +143,8 @@ __d(
             var t = e[a];
             if (!t) return 0;
             if (h(t) && t.selectedCarouselCardIndex != null) {
-              var n = r("WANullthrows")(t.selectedCarouselCardIndex),
-                i = r("WANullthrows")(t.selectedIndex),
+              var n = r("nullthrows")(t.selectedCarouselCardIndex),
+                i = r("nullthrows")(t.selectedIndex),
                 l = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
               if (!l) return 0;
               var s = o("WAWebMsgCollection").MsgCollection.get(l.id);
@@ -189,10 +189,10 @@ __d(
                     );
                   });
               if (d.length === 0) return 0;
-              var m = r("WANullthrows")(t.carouselCardsParsed).slice();
+              var m = r("nullthrows")(t.carouselCardsParsed).slice();
               for (var p of d) {
-                var _ = r("WANullthrows")(p.selectedCarouselCardIndex),
-                  f = r("WANullthrows")(p.selectedIndex);
+                var _ = r("nullthrows")(p.selectedCarouselCardIndex),
+                  f = r("nullthrows")(p.selectedIndex);
                 m[_] != null &&
                   (m[_] = babelHelpers.extends({}, m[_], {
                     interactivePayload: o(

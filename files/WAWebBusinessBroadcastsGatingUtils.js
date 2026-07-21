@@ -61,21 +61,29 @@ __d(
       );
     }
     function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "smb_business_broadcast_multi_audience_send_web",
+      return (
+        m() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_business_broadcast_pro_web_scheduled_sends_enabled",
+        )
       );
     }
     function _() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_biz_broadcasts_catalog_attachment",
+        "smb_business_broadcast_multi_audience_send_web",
       );
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_broadcast_disappearing_messages_fix",
+        "wa_web_biz_broadcasts_catalog_attachment",
       );
     }
     function g() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_broadcast_disappearing_messages_fix",
+      );
+    }
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_broadcasts_contextual_entrypoints",
       );
@@ -86,10 +94,11 @@ __d(
       (l.isBizBroadcastInThreadInsightMetricsEnabled = c),
       (l.isBizBroadcastDuplicateEnabled = d),
       (l.isBizBroadcastProEnabled = m),
-      (l.isBizBroadcastMultiAudienceSendEnabled = p),
-      (l.isBizBroadcastCatalogAttachmentEnabled = _),
-      (l.isBizBroadcastDisappearingMessagesFixEnabled = f),
-      (l.isBizBroadcastContextualEntrypointsEnabled = g));
+      (l.isBizBroadcastProScheduledSendsEnabled = p),
+      (l.isBizBroadcastMultiAudienceSendEnabled = _),
+      (l.isBizBroadcastCatalogAttachmentEnabled = f),
+      (l.isBizBroadcastDisappearingMessagesFixEnabled = g),
+      (l.isBizBroadcastContextualEntrypointsEnabled = h));
   },
   98,
 );

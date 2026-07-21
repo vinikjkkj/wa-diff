@@ -8,7 +8,6 @@ __d(
     "WAWebL10N",
     "WAWebNewsletterDirectorySearchJob",
     "WAWebNewsletterExtendedGatingUtils",
-    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterValidationUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -37,9 +36,9 @@ __d(
             a = e.searchText,
             i = e.skipSubscribedNewsletters,
             l = e.view,
-            s = o(
-              "WAWebNewsletterGatingUtils",
-            ).getNewsletterDirectoryPageSize();
+            s = o("WAWebABProps").getABPropConfigValue(
+              "channels_directory_page_size",
+            );
           return a.trim() !== ""
             ? E({
                 searchText: a,

@@ -19,6 +19,23 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (
+            o(
+              "WAWebBizCatalogGatingUtils",
+            ).commerceFeaturesDisabledBySanctions()
+          )
+            throw new (o("WAWebBackendErrors").E451)();
+          return d(e, t, n);
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d(e, t, n) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
             a = {
               jid:
@@ -53,27 +70,10 @@ __d(
               })
           );
         })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).commerceFeaturesDisabledBySanctions()
-          )
-            throw new (o("WAWebBackendErrors").E451)();
-          return u(e, t, n);
-        })),
         m.apply(this, arguments)
       );
     }
-    l.default = d;
+    l.default = u;
   },
   98,
 );

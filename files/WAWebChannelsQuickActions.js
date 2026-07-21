@@ -14,17 +14,8 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u = e || (e = o("react"));
-    function c() {
-      r("JSResourceForInteraction")("WAWebOpenNewsletterTab")
-        .__setRef("WAWebChannelsQuickActions")
-        .load()
-        .then(function (e) {
-          var t = e.openNewsletterTab;
-          t();
-        });
-    }
-    var d = [
+      u = e || (e = o("react")),
+      c = [
         {
           id: "create_channel",
           Icon: r("WDSIconWdsIcNewChannel.react"),
@@ -47,7 +38,7 @@ __d(
                           initialStep: o("WAWebNewsletterTabFlowStep")
                             .NewsletterTabFlowStep.CreateNewsletter,
                           adminFunnelLogger: t,
-                          onBack: c,
+                          onBack: m,
                         },
                       ),
                       {
@@ -87,7 +78,7 @@ __d(
                           directoryEntryPoint: o(
                             "WAWebWamEnumChannelDirectoryEntryPoint",
                           ).CHANNEL_DIRECTORY_ENTRY_POINT.FIND_CHANNELS_BUTTON,
-                          onBack: c,
+                          onBack: m,
                         },
                       ),
                       {
@@ -104,8 +95,17 @@ __d(
           },
         },
       ],
-      m = d;
-    l.default = m;
+      d = c;
+    function m() {
+      r("JSResourceForInteraction")("WAWebOpenNewsletterTab")
+        .__setRef("WAWebChannelsQuickActions")
+        .load()
+        .then(function (e) {
+          var t = e.openNewsletterTab;
+          t();
+        });
+    }
+    l.default = d;
   },
   226,
 );

@@ -3,7 +3,6 @@ __d(
   [
     "invariant",
     "WALogger",
-    "WANullthrows",
     "WAPromiseDelays",
     "WAWebChatCollection",
     "WAWebDBCRUDOperationsPinInChat",
@@ -18,6 +17,7 @@ __d(
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -134,7 +134,7 @@ __d(
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = "Hey, this is the parent message",
             t = C(),
-            n = r("WANullthrows")(
+            n = r("nullthrows")(
               yield o("WAWebSendTextMsgChatAction").createTextMsgData(t, e),
             ),
             a = new (o("WAWebMsgModel").Msg)(n);

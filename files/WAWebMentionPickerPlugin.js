@@ -14,7 +14,6 @@ __d(
     "WAWebBotUtils",
     "WAWebCommunityAnnouncementGroupUtils",
     "WAWebComposeBoxActions",
-    "WAWebConstantsDeprecated",
     "WAWebFbtCommon",
     "WAWebGroupMetadataCollection",
     "WAWebGroupType",
@@ -28,6 +27,7 @@ __d(
     "WAWebMentionsPluginUtil",
     "WAWebNonJidMentionNode",
     "WAWebNoop",
+    "WAWebPushnameConstants",
     "WAWebRichTextInputConst",
     "WAWebSchemaGroupMetadata",
     "WAWebTextStatusGatingUtils",
@@ -61,7 +61,7 @@ __d(
       g = 52,
       h = 60,
       y = 9,
-      C = r("WAWebConstantsDeprecated").MAX_PUSHNAME_LENGTH * 2,
+      C = o("WAWebPushnameConstants").MAX_PUSHNAME_LENGTH * 2,
       b = {
         separator: {
           borderInlineEndStyle: "x18oe1m7",

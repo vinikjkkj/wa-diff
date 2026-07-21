@@ -5,7 +5,6 @@ __d(
     "WAErrors",
     "WAFilteredCatch",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebAck",
     "WAWebAddOnsUpdateSendStatesAction",
@@ -58,6 +57,7 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f;
@@ -123,7 +123,7 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = e.data,
-            l = r("WANullthrows")(i.to),
+            l = r("nullthrows")(i.to),
             _ = i.id,
             g = _.remote;
           (r("WAWebWid").isGroup(l) &&

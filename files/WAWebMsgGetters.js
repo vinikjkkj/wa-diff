@@ -15,7 +15,6 @@ __d(
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
     "WAWebCommonMsgUtils",
-    "WAWebConstantsDeprecated",
     "WAWebEphemeralConstants",
     "WAWebEphemeralityWAMUtils",
     "WAWebGetters",
@@ -857,37 +856,36 @@ __d(
         },
         [Sn, Rn],
       ),
-      En = p(
+      En = 127,
+      kn = p(
         function (e) {
           var t = e[0];
-          return (
-            t >= r("WAWebConstantsDeprecated").FREQUENTLY_FORWARDED_SENTINEL
-          );
+          return t >= En;
         },
         [Ln],
       ),
-      kn = _("isQuestion", { default: !1 }),
-      In = _("isSpoiler", { default: !1 }),
-      Tn = _("questionResponsesCount"),
-      Dn = _("readQuestionResponsesCount"),
-      xn = p(
+      In = _("isQuestion", { default: !1 }),
+      Tn = _("isSpoiler", { default: !1 }),
+      Dn = _("questionResponsesCount"),
+      xn = _("readQuestionResponsesCount"),
+      $n = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t - n;
         },
-        [Tn, Dn],
+        [Dn, xn],
       ),
-      $n = _("questionReplyQuotedMessage"),
-      Pn = p(
+      Pn = _("questionReplyQuotedMessage"),
+      Nn = p(
         function (e) {
           var t = e[0];
           return t != null;
         },
-        [$n],
+        [Pn],
       ),
-      Nn = _("newsletterAdminProfile"),
-      Mn = p(
+      Mn = _("newsletterAdminProfile"),
+      wn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -901,7 +899,7 @@ __d(
         },
         [R, ne],
       ),
-      wn = p(
+      An = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -909,21 +907,21 @@ __d(
             o = e[3];
           return t || n || o || !r;
         },
-        [Sn, Ze, nt, Mn],
+        [Sn, Ze, nt, wn],
       ),
-      An = _("invis", { default: !1 }),
-      Fn = _("isNewMsg", { default: !1 }),
-      On = _("isSendFailure", { default: !1 }),
-      Bn = p(
+      Fn = _("invis", { default: !1 }),
+      On = _("isNewMsg", { default: !1 }),
+      Bn = _("isSendFailure", { default: !1 }),
+      Wn = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return (t && n != null && n < o("WAWebAck").ACK.CLOCK) || r;
         },
-        [nt, N, On],
+        [nt, N, Bn],
       ),
-      Wn = p(
+      qn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -936,18 +934,18 @@ __d(
         },
         [b, bt],
       ),
-      qn = _("description"),
-      Un = _("matchedText", { default: "" }),
-      Vn = _("thumbnail"),
-      Hn = _("thumbnailHQ"),
-      Gn = _("musicArtwork"),
-      zn = _("richPreviewType", {
+      Un = _("description"),
+      Vn = _("matchedText", { default: "" }),
+      Hn = _("thumbnail"),
+      Gn = _("thumbnailHQ"),
+      zn = _("musicArtwork"),
+      jn = _("richPreviewType", {
         default: o("WAWebProtobufsE2E.pb")
           .Message$ExtendedTextMessage$PreviewType.NONE,
       }),
-      jn = _("paymentLinkMetadata", { default: null }),
-      Kn = _("faviconMMSMetadata", { default: null }),
-      Qn = p(
+      Kn = _("paymentLinkMetadata", { default: null }),
+      Qn = _("faviconMMSMetadata", { default: null }),
+      Xn = p(
         function (e) {
           var t,
             n = e[0],
@@ -1002,9 +1000,9 @@ __d(
             return null;
           }
         },
-        [jn],
+        [Kn],
       ),
-      Xn = p(
+      Yn = p(
         function (e) {
           var t = e[0];
           return (
@@ -1012,9 +1010,9 @@ __d(
             (t == null ? void 0 : t.providerName) != null
           );
         },
-        [Qn],
+        [Xn],
       ),
-      Yn = p(
+      Jn = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1027,9 +1025,9 @@ __d(
             t.includes(i)
           );
         },
-        [bt, Ct, qn, Un],
+        [bt, Ct, Un, Vn],
       ),
-      Jn = p(
+      Zn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1037,7 +1035,7 @@ __d(
         },
         [un, ln],
       ),
-      Zn = p(
+      er = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1049,17 +1047,17 @@ __d(
         },
         [b, un],
       ),
-      er = 768,
-      tr = p(
+      tr = 768,
+      nr = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = 308;
-          return n != null && n.isBot() ? 1 / 0 : t ? r : er;
+          return n != null && n.isBot() ? 1 / 0 : t ? r : tr;
         },
-        [En, rt],
+        [kn, rt],
       ),
-      nr = p(
+      rr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1073,7 +1071,7 @@ __d(
         },
         [b, v],
       ),
-      rr = p(
+      or = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1084,8 +1082,8 @@ __d(
         },
         [b, v],
       ),
-      or = _("kicKey"),
-      ar = p(
+      ar = _("kicKey"),
+      ir = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1096,9 +1094,9 @@ __d(
             if (!n) return o("WAWebWidFactory").asUserWidOrThrow(t.remote);
           }
         },
-        [or, Ye],
+        [ar, Ye],
       ),
-      ir = p(
+      lr = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1114,7 +1112,7 @@ __d(
         },
         [H, K, v, z],
       ),
-      lr = p(
+      sr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1127,8 +1125,8 @@ __d(
         },
         [b, v],
       ),
-      sr = _("revokeDuration"),
-      ur = p(
+      ur = _("revokeDuration"),
+      cr = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1141,9 +1139,9 @@ __d(
               ? o("WAWebWamEnumEditType").EDIT_TYPE.EDITED
               : o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED;
         },
-        [v, lr, mn],
+        [v, sr, mn],
       ),
-      cr = p(
+      dr = p(
         function (e) {
           var t = e[0];
           if (t != null)
@@ -1153,7 +1151,7 @@ __d(
         },
         [ye],
       ),
-      dr = p(
+      mr = p(
         function (e) {
           var t = e[0];
           if (t != null)
@@ -1163,7 +1161,7 @@ __d(
         },
         [Ce],
       ),
-      mr = p(
+      pr = p(
         function (e) {
           var t = e[0];
           if (t != null)
@@ -1173,13 +1171,13 @@ __d(
         },
         [he],
       ),
-      pr = _("inviteCode", { default: "" }),
-      _r = _("inviteCodeExp", { default: "" }),
-      fr = _("inviteGrp", { default: "" }),
-      gr = _("inviteGrpName"),
-      hr = _("inviteGrpJpegThum"),
-      yr = _("inviteGrpType"),
-      Cr = p(
+      _r = _("inviteCode", { default: "" }),
+      fr = _("inviteCodeExp", { default: "" }),
+      gr = _("inviteGrp", { default: "" }),
+      hr = _("inviteGrpName"),
+      yr = _("inviteGrpJpegThum"),
+      Cr = _("inviteGrpType"),
+      br = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1189,9 +1187,9 @@ __d(
           var a = Date.now() / 1e3;
           return parseInt(a, 10) >= parseInt(r, 10);
         },
-        [b, pr, _r],
+        [b, _r, fr],
       ),
-      br = p(
+      vr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1204,8 +1202,8 @@ __d(
         },
         [b, Te],
       ),
-      vr = _("productHeaderImageRejected", { default: !1 }),
-      Sr = p(
+      Sr = _("productHeaderImageRejected", { default: !1 }),
+      Rr = p(
         function (e) {
           var t,
             n,
@@ -1222,9 +1220,9 @@ __d(
               ? t
               : null;
         },
-        [vr, q],
+        [Sr, q],
       ),
-      Rr = p(
+      Lr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1236,31 +1234,31 @@ __d(
         },
         [b, Ze],
       ),
-      Lr = _("hasReaction", { default: !1 }),
-      Er = _("recipients", {
+      Er = _("hasReaction", { default: !1 }),
+      kr = _("recipients", {
         getDefault: function () {
           return [];
         },
       }),
-      kr = _("templateParams", {
+      Ir = _("templateParams", {
         getDefault: function () {
           return [];
         },
       }),
-      Ir = _("clientUrl", { default: "" }),
-      Tr = _("loc", { default: "" }),
-      Dr = _("lat"),
-      xr = _("lng"),
-      $r = _("shareDuration"),
-      Pr = _("finalLat"),
-      Nr = _("finalLng"),
-      Mr = _("star", { default: !1 }),
-      wr = _("currencyCode"),
-      Ar = _("priceAmount1000"),
-      Fr = _("salePriceAmount1000"),
-      Or = _("isVcardOverMmsDocument", { default: !1 }),
-      Br = _("interactiveAnnotations"),
-      Wr = p(
+      Tr = _("clientUrl", { default: "" }),
+      Dr = _("loc", { default: "" }),
+      xr = _("lat"),
+      $r = _("lng"),
+      Pr = _("shareDuration"),
+      Nr = _("finalLat"),
+      Mr = _("finalLng"),
+      wr = _("star", { default: !1 }),
+      Ar = _("currencyCode"),
+      Fr = _("priceAmount1000"),
+      Or = _("salePriceAmount1000"),
+      Br = _("isVcardOverMmsDocument", { default: !1 }),
+      Wr = _("interactiveAnnotations"),
+      qr = p(
         function (e) {
           var t = e[0];
           return t == null
@@ -1274,9 +1272,9 @@ __d(
                 );
               });
         },
-        [Br],
+        [Wr],
       ),
-      qr = p(
+      Ur = p(
         function (e) {
           var t = e[0];
           return t == null
@@ -1290,40 +1288,40 @@ __d(
                 );
               });
         },
-        [Br],
-      ),
-      Ur = p(
-        function (e) {
-          var t = e[0];
-          return t == null ? null : t[0];
-        },
         [Wr],
       ),
       Vr = p(
         function (e) {
-          var t = e[0],
-            n = e[1];
-          return t && n != null && n.length > 0;
+          var t = e[0];
+          return t == null ? null : t[0];
         },
-        [et, Wr],
+        [qr],
       ),
       Hr = p(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t && n != null;
+          return t && n != null && n.length > 0;
         },
-        [Je, Ur],
+        [et, qr],
       ),
       Gr = p(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t && n;
+          return t && n != null;
         },
-        [et, qr],
+        [Je, Vr],
       ),
       zr = p(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t && n;
+        },
+        [et, Ur],
+      ),
+      jr = p(
         function (e) {
           var t,
             n = e[0];
@@ -1333,65 +1331,65 @@ __d(
             ? null
             : o("WAWebMusicParsingUtils").toMusicMetadata(r);
         },
-        [Ur],
+        [Vr],
       ),
-      jr = _("messageSecret"),
-      Kr = _("broadcast", { default: !1 }),
-      Qr = _("vcardList", {
+      Kr = _("messageSecret"),
+      Qr = _("broadcast", { default: !1 }),
+      Xr = _("vcardList", {
         getDefault: function () {
           return [];
         },
       }),
-      Xr = _("vcardFormattedName"),
-      Yr = _("labels", {
+      Yr = _("vcardFormattedName"),
+      Jr = _("labels", {
         getDefault: function () {
           return [];
         },
       }),
-      Jr = _("agentId"),
-      Zr = _("url"),
-      eo = _("retailerId"),
-      to = _("businessOwnerJid"),
-      no = _("productId"),
-      ro = _("productImageCount"),
-      oo = _("isMdHistoryMsg", { default: !1 }),
-      ao = _("campaignId"),
-      io = _("filename"),
-      lo = _("smbClientCampaignId"),
-      so = _("isCaptionByUser", { default: !1 }),
-      uo = _("doNotPlayInline"),
-      co = _("thumbnailDirectPath"),
-      mo = _("thumbnailHeight"),
-      po = _("thumbnailWidth"),
-      _o = _("orderTitle"),
-      fo = _("itemCount"),
-      go = _("totalAmount1000"),
-      ho = _("totalCurrencyCode"),
-      yo = _("futureproofType"),
-      Co = _("futureproofSubtype"),
-      bo = _("ephemeralOutOfSync"),
-      vo = _("isAvatar"),
-      So = _("bizPrivacyStatus"),
-      Ro = _("verifiedBizName"),
-      Lo = _("mediaKey"),
-      Eo = _("message", { default: "" }),
-      ko = _("size", { default: 0 }),
-      Io = _("hostedBizEncStateMismatch"),
-      To = p(
+      Zr = _("agentId"),
+      eo = _("url"),
+      to = _("retailerId"),
+      no = _("businessOwnerJid"),
+      ro = _("productId"),
+      oo = _("productImageCount"),
+      ao = _("isMdHistoryMsg", { default: !1 }),
+      io = _("campaignId"),
+      lo = _("filename"),
+      so = _("smbClientCampaignId"),
+      uo = _("isCaptionByUser", { default: !1 }),
+      co = _("doNotPlayInline"),
+      mo = _("thumbnailDirectPath"),
+      po = _("thumbnailHeight"),
+      _o = _("thumbnailWidth"),
+      fo = _("orderTitle"),
+      go = _("itemCount"),
+      ho = _("totalAmount1000"),
+      yo = _("totalCurrencyCode"),
+      Co = _("futureproofType"),
+      bo = _("futureproofSubtype"),
+      vo = _("ephemeralOutOfSync"),
+      So = _("isAvatar"),
+      Ro = _("bizPrivacyStatus"),
+      Lo = _("verifiedBizName"),
+      Eo = _("mediaKey"),
+      ko = _("message", { default: "" }),
+      Io = _("size", { default: 0 }),
+      To = _("hostedBizEncStateMismatch"),
+      Do = p(
         function (e) {
           var t = e[0];
           return t === "bot_unavailable_fanout";
         },
         [v],
       ),
-      Do = p(
+      xo = p(
         function (e) {
           var t = e[0];
           return t === "view_once_unavailable_fanout";
         },
         [v],
       ),
-      xo = p(
+      $o = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1404,7 +1402,7 @@ __d(
         },
         [R, ne],
       ),
-      $o = p(
+      Po = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1417,77 +1415,77 @@ __d(
         },
         [P, $],
       ),
-      Po = p(
+      No = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return !r && !t.fromMe && n === o("WAWebBotTypes").BizBotType.BIZ_1P;
         },
-        [R, ve, $o],
+        [R, ve, Po],
       ),
-      No = p(
+      Mo = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return !r && !t.fromMe && n === o("WAWebBotTypes").BizBotType.BIZ_3P;
         },
-        [R, ve, $o],
+        [R, ve, Po],
       ),
-      Mo = _("botPluginSearchProvider"),
-      wo = _("botPluginSearchUrl"),
-      Ao = _("botResponseTargetId"),
-      Fo = _("botPluginSearchQuery"),
-      Oo = _("botPluginType"),
-      Bo = _("botMessageDisclaimerText"),
-      Wo = _("botModeSelection"),
-      qo = _("botModeOverride"),
-      Uo = _("richResponse"),
-      Vo = _("unifiedResponse"),
-      Ho = p(
+      wo = _("botPluginSearchProvider"),
+      Ao = _("botPluginSearchUrl"),
+      Fo = _("botResponseTargetId"),
+      Oo = _("botPluginSearchQuery"),
+      Bo = _("botPluginType"),
+      Wo = _("botMessageDisclaimerText"),
+      qo = _("botModeSelection"),
+      Uo = _("botModeOverride"),
+      Vo = _("richResponse"),
+      Ho = _("unifiedResponse"),
+      Go = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t != null && n != null && r != null;
         },
-        [Mo, wo, Fo],
-      ),
-      Go = p(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return !n && (t == null ? void 0 : t.isBot()) === !0;
-        },
-        [rt, $o],
+        [wo, Ao, Oo],
       ),
       zo = p(
         function (e) {
           var t = e[0],
             n = e[1];
-          return !!(t && o("WAWebUserPrefsMeUser").isMeAccount(n));
+          return !n && (t == null ? void 0 : t.isBot()) === !0;
         },
-        [Go, Se],
+        [rt, Po],
       ),
       jo = p(
         function (e) {
           var t = e[0],
             n = e[1];
-          return n && !t.remote.isBot();
+          return !!(t && o("WAWebUserPrefsMeUser").isMeAccount(n));
         },
-        [R, Go],
+        [zo, Se],
       ),
       Ko = p(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return n && !t.remote.isBot();
+        },
+        [R, zo],
+      ),
+      Qo = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t || n || r;
         },
-        [Go, Po, No],
+        [zo, No, Mo],
       ),
-      Qo = p(
+      Xo = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1497,31 +1495,31 @@ __d(
         },
         [b, v],
       ),
-      Xo = _("hsmTag"),
-      Yo = p(
+      Yo = _("hsmTag"),
+      Jo = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.AUTHENTICATION;
         },
-        [Xo],
+        [Yo],
       ),
-      Jo = p(
+      Zo = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.MARKETING;
         },
-        [Xo],
+        [Yo],
       ),
-      Zo = _("botRespOrInvocationRevokeBotWid"),
-      ea = p(
+      ea = _("botRespOrInvocationRevokeBotWid"),
+      ta = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return !!(t != null && t.isBot() && n);
         },
-        [Zo, lr],
+        [ea, sr],
       ),
-      ta = p(
+      na = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1535,30 +1533,30 @@ __d(
                   .REELS)
           );
         },
-        [Oo, Go],
+        [Bo, zo],
       ),
-      na = _("botPluginMaybeParent"),
-      ra = _("botReelPluginThumbnailCdnUrl"),
-      oa = p(
+      ra = _("botPluginMaybeParent"),
+      oa = _("botReelPluginThumbnailCdnUrl"),
+      aa = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebMsgType").MSG_TYPE.BIZ_CONTENT_PLACEHOLDER;
         },
         [b],
       ),
-      aa = _("statusMentioned"),
-      ia = _("isWamoSub"),
-      la = _("hasPaidPartnershipLabel"),
-      sa = _("aiProvenance"),
-      ua = p(
+      ia = _("statusMentioned"),
+      la = _("isWamoSub"),
+      sa = _("hasPaidPartnershipLabel"),
+      ua = _("aiProvenance"),
+      ca = p(
         function (e) {
           var t = e[0];
           return o("WAWebMsgAIProvenance").hasAIProvenanceSignal(t);
         },
-        [sa],
+        [ua],
       ),
-      ca = _("isVideoCall"),
-      da = p(
+      da = _("isVideoCall"),
+      ma = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1568,9 +1566,9 @@ __d(
             (n === "miss_video" || n === "miss_group_video" || r === !0)
           );
         },
-        [b, v, ca],
+        [b, v, da],
       ),
-      ma = p(
+      pa = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1578,9 +1576,9 @@ __d(
         },
         [b, R],
       ),
-      pa = _("callOutcome"),
-      _a = _("callSilenceReason"),
-      fa = p(
+      _a = _("callOutcome"),
+      fa = _("callSilenceReason"),
+      ga = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1590,9 +1588,9 @@ __d(
             (n === "silence" || r != null)
           );
         },
-        [b, v, _a],
+        [b, v, fa],
       ),
-      ga = p(
+      ha = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1609,10 +1607,10 @@ __d(
               !y.includes(r))
           );
         },
-        [b, v, pa, rt],
+        [b, v, _a, rt],
       ),
-      ha = _("callDuration"),
-      ya = p(
+      ya = _("callDuration"),
+      Ca = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1630,16 +1628,16 @@ __d(
             r > 0
           );
         },
-        [b, D, ha],
+        [b, D, ya],
       ),
-      Ca = _("bytesSent"),
-      ba = _("bytesReceived"),
-      va = _("callParticipants"),
-      Sa = _("isCallLink"),
-      Ra = _("callLinkToken"),
-      La = _("terminatedByDeviceSwitch"),
-      Ea = _("selfOtherDeviceConnected"),
-      ka = p(
+      ba = _("bytesSent"),
+      va = _("bytesReceived"),
+      Sa = _("callParticipants"),
+      Ra = _("isCallLink"),
+      La = _("callLinkToken"),
+      Ea = _("terminatedByDeviceSwitch"),
+      ka = _("selfOtherDeviceConnected"),
+      Ia = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1653,57 +1651,57 @@ __d(
                 }) > 1))
           );
         },
-        [Ye, va, Ra],
+        [Ye, Sa, La],
       ),
-      Ia = p(
+      Ta = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [Ye, ka],
+        [Ye, Ia],
       ),
-      Ta = _("finalCallOutcome"),
-      Da = _("groupHistoryBundleMessageKey"),
-      xa = _("groupHistoryBundleMetadata"),
-      $a = _("groupHistoryIndividualMessageInfo"),
-      Pa = p(
+      Da = _("finalCallOutcome"),
+      xa = _("groupHistoryBundleMessageKey"),
+      $a = _("groupHistoryBundleMetadata"),
+      Pa = _("groupHistoryIndividualMessageInfo"),
+      Na = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [$a, Da],
-      ),
-      Na = p(
-        function (e) {
-          var t = e[0];
-          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
-        },
-        [$a],
+        [Pa, xa],
       ),
       Ma = p(
         function (e) {
           var t = e[0];
+          return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
+        },
+        [Pa],
+      ),
+      wa = p(
+        function (e) {
+          var t = e[0];
           return t == null ? void 0 : t.bundleSender;
         },
-        [$a],
+        [Pa],
       ),
-      wa = _("botGroupParticipant");
-    function Aa(e) {
+      Aa = _("botGroupParticipant");
+    function Fa(e) {
       var t =
         b(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(k(e));
       return (
         !t &&
-        !nr(e) &&
+        !rr(e) &&
         b(e) !== o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
         !bn(e) &&
         !["change_number", "change_username", "masked_thread_created"].includes(
           v(e),
         ) &&
-        !rr(e)
+        !or(e)
       );
     }
     ((l.clearMsgGetterCacheFor = g),
@@ -1868,178 +1866,179 @@ __d(
       (l.getIsForwarded = Sn),
       (l.getForwardingScore = Rn),
       (l.getNumTimesForwarded = Ln),
-      (l.getIsFrequentlyForwarded = En),
-      (l.getIsQuestion = kn),
-      (l.getIsSpoiler = In),
-      (l.getQuestionResponsesCount = Tn),
-      (l.getReadQuestionResponsesCount = Dn),
-      (l.getUnreadQuestionResponsesCount = xn),
-      (l.getQuestionReplyQuotedMessage = $n),
-      (l.getIsQuestionReply = Pn),
-      (l.getNewsletterAdminProfile = Nn),
-      (l.getIsBotInvoke = Mn),
-      (l.getShouldDisplayAsForwarded = wn),
-      (l.getInvis = An),
-      (l.getIsNewMsg = Fn),
-      (l.getIsSendFailure = On),
-      (l.getIsFailed = Bn),
-      (l.getVcard = Wn),
-      (l.getDescription = qn),
-      (l.getMatchedText = Un),
-      (l.getThumbnail = Vn),
-      (l.getThumbnailHQ = Hn),
-      (l.getMusicArtwork = Gn),
-      (l.getRichPreviewType = zn),
-      (l.getPaymentLinkMetadata = jn),
-      (l.getFaviconMMSMetadata = Kn),
-      (l.getPaymentLinkPreviewMetaTags = Qn),
-      (l.getHasPaymentLinkTrustSignals = Xn),
-      (l.getLinkPreview = Yn),
-      (l.getSupportsMessageFooter = Jn),
-      (l.getSupportsMessageFooterLinks = Zn),
-      (l.INITIAL_PAGE_SIZE = er),
-      (l.getInitialPageSize = tr),
-      (l.getIsInitialE2ENotification = nr),
-      (l.getIsDisappearingModeSystemMessage = rr),
-      (l.getKicKey = or),
-      (l.getKicSender = ar),
-      (l.getEphemeralExpirationTimestamp = ir),
-      (l.getIsRevoke = lr),
-      (l.getRevokeDuration = sr),
-      (l.getWamEditType = ur),
-      (l.getWamDisappearingModeTrigger = cr),
-      (l.getWamDisappearingModeInitiatedByMe = dr),
-      (l.getWamDisappearingModeInitiator = mr),
-      (l.getInviteCode = pr),
-      (l.getInviteCodeExp = _r),
-      (l.getInviteGrp = fr),
-      (l.getInviteGrpName = gr),
-      (l.getInviteGrpJpegThum = hr),
-      (l.getInviteGrpType = yr),
-      (l.getIsGroupsV4InviteExpired = Cr),
-      (l.getIsNewsletterAdminInviteExpired = br),
-      (l.getProductHeaderImageRejected = vr),
-      (l.getProductListHeaderImage = Sr),
-      (l.getIsAckPlayable = Rr),
-      (l.getHasReaction = Lr),
-      (l.getRecipients = Er),
-      (l.getTemplateParams = kr),
-      (l.getClientUrl = Ir),
-      (l.getLoc = Tr),
-      (l.getLat = Dr),
-      (l.getLng = xr),
-      (l.getShareDuration = $r),
-      (l.getFinalLat = Pr),
-      (l.getFinalLng = Nr),
-      (l.getStar = Mr),
-      (l.getCurrencyCode = wr),
-      (l.getPriceAmount1000 = Ar),
-      (l.getSalePriceAmount1000 = Fr),
-      (l.getIsVcardOverMmsDocument = Or),
-      (l.getInteractiveAnnotations = Br),
-      (l.getMusicAnnotations = Wr),
-      (l.getHasEmbeddedMessagesAnnotation = qr),
-      (l.getFirstMusicAnnotation = Ur),
-      (l.isStatusWithMusic = Vr),
-      (l.isNewsletterMsgWithMusic = Hr),
-      (l.isStatusWithEmbeddedMessages = Gr),
-      (l.getFirstMusicAnnotationEmbeddedContent = zr),
-      (l.getMessageSecret = jr),
-      (l.getBroadcast = Kr),
-      (l.getVcardList = Qr),
-      (l.getVcardFormattedName = Xr),
-      (l.getLabels = Yr),
-      (l.getAgentId = Jr),
-      (l.getUrl = Zr),
-      (l.getRetailerId = eo),
-      (l.getBusinessOwnerJid = to),
-      (l.getProductId = no),
-      (l.getProductImageCount = ro),
-      (l.getIsMdHistoryMsg = oo),
-      (l.getCampaignId = ao),
-      (l.getFilename = io),
-      (l.getSmbClientCampaignId = lo),
-      (l.getIsCaptionByUser = so),
-      (l.getDoNotPlayInline = uo),
-      (l.getThumbnailDirectPath = co),
-      (l.getThumbnailHeight = mo),
-      (l.getThumbnailWidth = po),
-      (l.getOrderTitle = _o),
-      (l.getItemCount = fo),
-      (l.getTotalAmount1000 = go),
-      (l.getTotalCurrencyCode = ho),
-      (l.getFutureproofType = yo),
-      (l.getFutureproofSubtype = Co),
-      (l.getEphemeralOutOfSync = bo),
-      (l.getIsAvatar = vo),
-      (l.getBizPrivacyStatus = So),
-      (l.getVerifiedBizName = Ro),
-      (l.getMediaKey = Lo),
-      (l.getMessage = Eo),
-      (l.getSize = ko),
-      (l.getHostedBizEncStateMismatch = Io),
-      (l.getIsBotFutureproofPlaceholder = To),
-      (l.getIsViewOncePlaceholder = Do),
-      (l.getIsBotQuery = xo),
-      (l.getIsCoexV2Relay = $o),
-      (l.getIsBizBot1pResponse = Po),
-      (l.getIsBizBot3pResponse = No),
-      (l.getBotPluginSearchProvider = Mo),
-      (l.getBotPluginSearchUrl = wo),
-      (l.getBotResponseTargetId = Ao),
-      (l.getBotPluginSearchQuery = Fo),
-      (l.getBotPluginType = Oo),
-      (l.getBotMessageDisclaimerText = Bo),
-      (l.getBotModeSelection = Wo),
-      (l.getBotModeOverride = qo),
-      (l.getRichResponse = Uo),
-      (l.getUnifiedResponse = Vo),
-      (l.getIsBotSearchResponse = Ho),
-      (l.getIsMetaBotResponse = Go),
-      (l.isMetaBotResponseToMyInvoke = zo),
-      (l.getIsMetaBotInvokeResponse = jo),
-      (l.getIsBotResponse = Ko),
-      (l.getIsBotFeedbackMessage = Qo),
-      (l.getHsmTag = Xo),
-      (l.getIsAuthenticationMessage = Yo),
-      (l.getIsMarketingTemplateTag = Jo),
-      (l.getBotRespOrInvocationRevokeBotWid = Zo),
-      (l.getIsRevokeForMsgFromOrDeliveredToBot = ea),
-      (l.getIsBotPluginCarouselMsg = ta),
-      (l.getBotPluginMaybeParent = na),
-      (l.getBotReelPluginThumbnailCdnUrl = ra),
-      (l.getIsBizContentPlaceholder = oa),
-      (l.getStatusMentioned = aa),
-      (l.getIsWamoSub = ia),
-      (l.getHasPaidPartnershipLabel = la),
-      (l.getAiProvenance = sa),
-      (l.getIsAiContent = ua),
-      (l.getIsVideoCall = da),
-      (l.getCallId = ma),
-      (l.getCallOutcome = pa),
-      (l.getCallSilenceReason = _a),
-      (l.getIsCallSilenced = fa),
-      (l.getIsMissedCall = ga),
-      (l.getCallDuration = ha),
-      (l.getIsVisibleCallLog = ya),
-      (l.getBytesSent = Ca),
-      (l.getBytesReceived = ba),
-      (l.getCallParticipants = va),
-      (l.getIsCallLink = Sa),
-      (l.getCallLinkToken = Ra),
-      (l.getTerminatedByDeviceSwitch = La),
-      (l.getSelfOtherDeviceConnected = Ea),
-      (l.getIsAdHocGroupCall = ka),
-      (l.getIsGroupCall = Ia),
-      (l.getFinalCallOutcome = Ta),
-      (l.getGroupHistoryBundleMessageKeyDeprecated = Da),
-      (l.getGroupHistoryBundleMetadata = xa),
-      (l.getGroupHistoryIndividualMessageInfo = $a),
-      (l.getGroupHistoryBundleMessageKey = Pa),
-      (l.getIsEditedAfterReceivedAsHistory = Na),
-      (l.getGroupHistoryBundleSender = Ma),
-      (l.getBotGroupParticipant = wa),
-      (l.isRealMessage = Aa));
+      (l.FREQUENTLY_FORWARDED_SENTINEL = En),
+      (l.getIsFrequentlyForwarded = kn),
+      (l.getIsQuestion = In),
+      (l.getIsSpoiler = Tn),
+      (l.getQuestionResponsesCount = Dn),
+      (l.getReadQuestionResponsesCount = xn),
+      (l.getUnreadQuestionResponsesCount = $n),
+      (l.getQuestionReplyQuotedMessage = Pn),
+      (l.getIsQuestionReply = Nn),
+      (l.getNewsletterAdminProfile = Mn),
+      (l.getIsBotInvoke = wn),
+      (l.getShouldDisplayAsForwarded = An),
+      (l.getInvis = Fn),
+      (l.getIsNewMsg = On),
+      (l.getIsSendFailure = Bn),
+      (l.getIsFailed = Wn),
+      (l.getVcard = qn),
+      (l.getDescription = Un),
+      (l.getMatchedText = Vn),
+      (l.getThumbnail = Hn),
+      (l.getThumbnailHQ = Gn),
+      (l.getMusicArtwork = zn),
+      (l.getRichPreviewType = jn),
+      (l.getPaymentLinkMetadata = Kn),
+      (l.getFaviconMMSMetadata = Qn),
+      (l.getPaymentLinkPreviewMetaTags = Xn),
+      (l.getHasPaymentLinkTrustSignals = Yn),
+      (l.getLinkPreview = Jn),
+      (l.getSupportsMessageFooter = Zn),
+      (l.getSupportsMessageFooterLinks = er),
+      (l.INITIAL_PAGE_SIZE = tr),
+      (l.getInitialPageSize = nr),
+      (l.getIsInitialE2ENotification = rr),
+      (l.getIsDisappearingModeSystemMessage = or),
+      (l.getKicKey = ar),
+      (l.getKicSender = ir),
+      (l.getEphemeralExpirationTimestamp = lr),
+      (l.getIsRevoke = sr),
+      (l.getRevokeDuration = ur),
+      (l.getWamEditType = cr),
+      (l.getWamDisappearingModeTrigger = dr),
+      (l.getWamDisappearingModeInitiatedByMe = mr),
+      (l.getWamDisappearingModeInitiator = pr),
+      (l.getInviteCode = _r),
+      (l.getInviteCodeExp = fr),
+      (l.getInviteGrp = gr),
+      (l.getInviteGrpName = hr),
+      (l.getInviteGrpJpegThum = yr),
+      (l.getInviteGrpType = Cr),
+      (l.getIsGroupsV4InviteExpired = br),
+      (l.getIsNewsletterAdminInviteExpired = vr),
+      (l.getProductHeaderImageRejected = Sr),
+      (l.getProductListHeaderImage = Rr),
+      (l.getIsAckPlayable = Lr),
+      (l.getHasReaction = Er),
+      (l.getRecipients = kr),
+      (l.getTemplateParams = Ir),
+      (l.getClientUrl = Tr),
+      (l.getLoc = Dr),
+      (l.getLat = xr),
+      (l.getLng = $r),
+      (l.getShareDuration = Pr),
+      (l.getFinalLat = Nr),
+      (l.getFinalLng = Mr),
+      (l.getStar = wr),
+      (l.getCurrencyCode = Ar),
+      (l.getPriceAmount1000 = Fr),
+      (l.getSalePriceAmount1000 = Or),
+      (l.getIsVcardOverMmsDocument = Br),
+      (l.getInteractiveAnnotations = Wr),
+      (l.getMusicAnnotations = qr),
+      (l.getHasEmbeddedMessagesAnnotation = Ur),
+      (l.getFirstMusicAnnotation = Vr),
+      (l.isStatusWithMusic = Hr),
+      (l.isNewsletterMsgWithMusic = Gr),
+      (l.isStatusWithEmbeddedMessages = zr),
+      (l.getFirstMusicAnnotationEmbeddedContent = jr),
+      (l.getMessageSecret = Kr),
+      (l.getBroadcast = Qr),
+      (l.getVcardList = Xr),
+      (l.getVcardFormattedName = Yr),
+      (l.getLabels = Jr),
+      (l.getAgentId = Zr),
+      (l.getUrl = eo),
+      (l.getRetailerId = to),
+      (l.getBusinessOwnerJid = no),
+      (l.getProductId = ro),
+      (l.getProductImageCount = oo),
+      (l.getIsMdHistoryMsg = ao),
+      (l.getCampaignId = io),
+      (l.getFilename = lo),
+      (l.getSmbClientCampaignId = so),
+      (l.getIsCaptionByUser = uo),
+      (l.getDoNotPlayInline = co),
+      (l.getThumbnailDirectPath = mo),
+      (l.getThumbnailHeight = po),
+      (l.getThumbnailWidth = _o),
+      (l.getOrderTitle = fo),
+      (l.getItemCount = go),
+      (l.getTotalAmount1000 = ho),
+      (l.getTotalCurrencyCode = yo),
+      (l.getFutureproofType = Co),
+      (l.getFutureproofSubtype = bo),
+      (l.getEphemeralOutOfSync = vo),
+      (l.getIsAvatar = So),
+      (l.getBizPrivacyStatus = Ro),
+      (l.getVerifiedBizName = Lo),
+      (l.getMediaKey = Eo),
+      (l.getMessage = ko),
+      (l.getSize = Io),
+      (l.getHostedBizEncStateMismatch = To),
+      (l.getIsBotFutureproofPlaceholder = Do),
+      (l.getIsViewOncePlaceholder = xo),
+      (l.getIsBotQuery = $o),
+      (l.getIsCoexV2Relay = Po),
+      (l.getIsBizBot1pResponse = No),
+      (l.getIsBizBot3pResponse = Mo),
+      (l.getBotPluginSearchProvider = wo),
+      (l.getBotPluginSearchUrl = Ao),
+      (l.getBotResponseTargetId = Fo),
+      (l.getBotPluginSearchQuery = Oo),
+      (l.getBotPluginType = Bo),
+      (l.getBotMessageDisclaimerText = Wo),
+      (l.getBotModeSelection = qo),
+      (l.getBotModeOverride = Uo),
+      (l.getRichResponse = Vo),
+      (l.getUnifiedResponse = Ho),
+      (l.getIsBotSearchResponse = Go),
+      (l.getIsMetaBotResponse = zo),
+      (l.isMetaBotResponseToMyInvoke = jo),
+      (l.getIsMetaBotInvokeResponse = Ko),
+      (l.getIsBotResponse = Qo),
+      (l.getIsBotFeedbackMessage = Xo),
+      (l.getHsmTag = Yo),
+      (l.getIsAuthenticationMessage = Jo),
+      (l.getIsMarketingTemplateTag = Zo),
+      (l.getBotRespOrInvocationRevokeBotWid = ea),
+      (l.getIsRevokeForMsgFromOrDeliveredToBot = ta),
+      (l.getIsBotPluginCarouselMsg = na),
+      (l.getBotPluginMaybeParent = ra),
+      (l.getBotReelPluginThumbnailCdnUrl = oa),
+      (l.getIsBizContentPlaceholder = aa),
+      (l.getStatusMentioned = ia),
+      (l.getIsWamoSub = la),
+      (l.getHasPaidPartnershipLabel = sa),
+      (l.getAiProvenance = ua),
+      (l.getIsAiContent = ca),
+      (l.getIsVideoCall = ma),
+      (l.getCallId = pa),
+      (l.getCallOutcome = _a),
+      (l.getCallSilenceReason = fa),
+      (l.getIsCallSilenced = ga),
+      (l.getIsMissedCall = ha),
+      (l.getCallDuration = ya),
+      (l.getIsVisibleCallLog = Ca),
+      (l.getBytesSent = ba),
+      (l.getBytesReceived = va),
+      (l.getCallParticipants = Sa),
+      (l.getIsCallLink = Ra),
+      (l.getCallLinkToken = La),
+      (l.getTerminatedByDeviceSwitch = Ea),
+      (l.getSelfOtherDeviceConnected = ka),
+      (l.getIsAdHocGroupCall = Ia),
+      (l.getIsGroupCall = Ta),
+      (l.getFinalCallOutcome = Da),
+      (l.getGroupHistoryBundleMessageKeyDeprecated = xa),
+      (l.getGroupHistoryBundleMetadata = $a),
+      (l.getGroupHistoryIndividualMessageInfo = Pa),
+      (l.getGroupHistoryBundleMessageKey = Na),
+      (l.getIsEditedAfterReceivedAsHistory = Ma),
+      (l.getGroupHistoryBundleSender = wa),
+      (l.getBotGroupParticipant = Aa),
+      (l.isRealMessage = Fa));
   },
   98,
 );

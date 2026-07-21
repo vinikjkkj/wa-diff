@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebAfterReadUtils",
     "WAWebApiContact",
@@ -29,6 +28,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "compactMap",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -36,7 +36,7 @@ __d(
       var i = t.chatId,
         l = o("WAWebChatCollection").ChatCollection.get(i);
       if (!l) return (c || (c = n("Promise"))).resolve();
-      var d = r("WANullthrows")(l.groupMetadata),
+      var d = r("nullthrows")(l.groupMetadata),
         m = t.author,
         p = t.ts;
       switch (a.actionType) {
@@ -513,7 +513,7 @@ __d(
             return {
               id: e.wid,
               t: p,
-              addedBy: r("WANullthrows")(m),
+              addedBy: r("nullthrows")(m),
               requestMethod: a.requestMethod,
               parentGroupId: a.parentGroupId,
             };

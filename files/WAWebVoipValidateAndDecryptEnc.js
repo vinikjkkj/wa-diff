@@ -6,7 +6,6 @@ __d(
     "WAFilteredCatch",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WAWebAdvSignatureApi",
     "WAWebAppTracker",
     "WAWebBackendJobs.flow",
@@ -17,6 +16,7 @@ __d(
     "WAWebSignalProtocolStore",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u, c, d, m;
@@ -89,7 +89,7 @@ __d(
               h = _.result;
             return (
               h === o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS &&
-                (n.unsafeSetNodeContent(new Uint8Array(r("WANullthrows")(g))),
+                (n.unsafeSetNodeContent(new Uint8Array(r("nullthrows")(g))),
                 yield o("WAWebSignalProtocolStore")
                   .getSignalProtocolStore()
                   .flushBufferToDiskIfNotMemOnlyMode()),

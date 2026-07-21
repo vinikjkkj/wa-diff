@@ -5,6 +5,7 @@ __d(
     "WAWebBackendApi",
     "WAWebChatGetExistingBridge",
     "WAWebMsgModelFromData",
+    "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterDBUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -45,6 +46,13 @@ __d(
                 .sendLogs("newsletter-mex-milestone-notification-no-chat");
               return;
             }
+            if (
+              c === "MESSAGE_FORWARDS" &&
+              !o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+                "channels_admin_notifications_forwards_enabled",
+              )
+            )
+              return;
             o("WAWebBackendApi").frontendFireAndForget(
               "displayNewsletterMilestoneDesktopNotification",
               {

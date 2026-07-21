@@ -11,13 +11,13 @@ __d(
     "WACryptoUtils",
     "WACustomError",
     "WALogger",
-    "WANullthrows",
     "WATypedArraysConcat",
     "WAWebIdentityFunction",
     "WAWebMediaInMemoryBlobCache",
     "WAWebPromiseQueue",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
     "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
@@ -82,7 +82,7 @@ __d(
                 t === 0 && (this._nextChunkIV = n.iv);
                 var a = n.macKey,
                   i = this._scansSideCar.slice(t * g, t * g + g),
-                  l = r("WANullthrows")(this._nextChunkIV);
+                  l = r("nullthrows")(this._nextChunkIV);
                 this._nextChunkIV = e.slice(0 - h);
                 var s = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
                     new Uint8Array(l),

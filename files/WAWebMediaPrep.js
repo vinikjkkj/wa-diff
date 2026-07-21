@@ -405,7 +405,10 @@ __d(
             return (
               (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
                 F = e;
-                var t = e.mediaObject;
+                var t;
+                s.aiProvenancePromise != null &&
+                  (t = yield s.aiProvenancePromise);
+                var a = e.mediaObject;
                 ((s.earlyUpload = l),
                   (s.isMediaCryptoExpectedForChat = o(
                     "WAWebMediaCryptoEligibilityUtils",
@@ -413,109 +416,110 @@ __d(
                   (s.uploadOriginForChat = r(
                     "WAWebMediaGetUploadOriginForChat",
                   )(i)));
-                var a = function () {
+                var u = function () {
                     return o(
                       "WAWebMediaUploadMediaWithPrep",
                     ).uploadMediaWithPrep(e, s);
                   },
-                  u = o("WAPromiseBackoffs").createTimer({
+                  c = o("WAPromiseBackoffs").createTimer({
                     algo: { type: "exponential", first: 1e3, base: 2 },
                     max: 3e3,
                     jitter: 0.5,
                   });
-                u();
-                var c = o("WAWebMediaGatingUtils").getMediaUploadRetryCount(),
-                  d =
-                    c > 0
+                c();
+                var d = o("WAWebMediaGatingUtils").getMediaUploadRetryCount(),
+                  m =
+                    d > 0
                       ? yield o("WABackoffDelay").backoff(
                           {
                             delay: function () {
-                              return u();
+                              return c();
                             },
                             signal: C,
-                            retries: c,
+                            retries: d,
                           },
                           (function () {
                             var e = n(
                               "asyncToGeneratorRuntime",
-                            ).asyncToGenerator(function* (e, n) {
-                              var r,
-                                i,
-                                l =
-                                  (r = t == null ? void 0 : t.loadedSize) !=
+                            ).asyncToGenerator(function* (e, t) {
+                              var n,
+                                r,
+                                i =
+                                  (n = a == null ? void 0 : a.loadedSize) !=
+                                  null
+                                    ? n
+                                    : 0,
+                                l = yield u(),
+                                s =
+                                  (r = a == null ? void 0 : a.loadedSize) !=
                                   null
                                     ? r
                                     : 0,
-                                s = yield a(),
-                                u =
-                                  (i = t == null ? void 0 : t.loadedSize) !=
-                                  null
-                                    ? i
-                                    : 0,
-                                d = u > l;
-                              return !s.mediaResult.mediaEntry &&
-                                s.mediaResult.kind ===
+                                c = s > i;
+                              return !l.mediaResult.mediaEntry &&
+                                l.mediaResult.kind ===
                                   o("WAWebMediaMmsV4Upload")
                                     .UploadMediaResultKind.ERROR &&
-                                (t == null ? void 0 : t.uploadStage) ===
+                                (a == null ? void 0 : a.uploadStage) ===
                                   o("WAWebMediaTypes").UploadStage
                                     .NEED_UPLOAD &&
-                                d
-                                ? (n < c &&
-                                    (t == null ||
-                                      t.consolidate({
+                                c
+                                ? (t < d &&
+                                    (a == null ||
+                                      a.consolidate({
                                         uploadStage:
                                           o("WAWebMediaTypes").UploadStage
                                             .UPLOADING,
                                       })),
                                   e(b))
-                                : s;
+                                : l;
                             });
                             return function (t, n) {
                               return e.apply(this, arguments);
                             };
                           })(),
                         )
-                      : yield a(),
-                  m = d.body,
-                  p = d.mediaResult,
-                  _ = p.kind,
-                  f = p.mediaEntry,
-                  g = d.mmsThumbnailData;
-                if (((O = _), !f))
+                      : yield u(),
+                  p = m.body,
+                  _ = m.mediaResult,
+                  f = _.kind,
+                  g = _.mediaEntry,
+                  h = m.mmsThumbnailData;
+                if (((O = f), !g))
                   throw r("err")("upload failed: media entry was not created");
                 return (
                   yield r("WAWebMediaUpdateMsg")(
                     F,
                     babelHelpers.extends(
                       {
-                        deprecatedMms3Url: f.deprecatedMms3Url,
-                        directPath: f.directPath,
-                        mediaKey: f.getMediaKey(),
-                        mediaKeyTimestamp: f.getMediaKeyTimestamp(),
-                        filehash: r("nullthrows")(t).filehash,
-                        encFilehash: f.getEncfilehash(),
-                        size: r("nullthrows")(t).size,
-                        streamingSidecar: f.sidecar,
-                        firstFrameSidecar: f.firstFrameSidecar,
-                        body: m,
+                        aiProvenance: t,
+                        deprecatedMms3Url: g.deprecatedMms3Url,
+                        directPath: g.directPath,
+                        mediaKey: g.getMediaKey(),
+                        mediaKeyTimestamp: g.getMediaKeyTimestamp(),
+                        filehash: r("nullthrows")(a).filehash,
+                        encFilehash: g.getEncfilehash(),
+                        size: r("nullthrows")(a).size,
+                        streamingSidecar: g.sidecar,
+                        firstFrameSidecar: g.firstFrameSidecar,
+                        body: p,
                         stickerSentTs: o("WATimeUtils").unixTimeMs(),
                         mediaHandle:
-                          f instanceof
+                          g instanceof
                           o("WAWebMediaEntry").UnencryptedMediaEntry
-                            ? f.handle
+                            ? g.handle
                             : null,
                         metadataUrl:
-                          f instanceof
+                          g instanceof
                             o("WAWebMediaEntry").UnencryptedMediaEntry &&
-                          f.metadataUrl != null &&
+                          g.metadataUrl != null &&
                           o(
                             "WAWebChannelVideoServerTranscodeGating",
                           ).isChannelVideoServerTranscodeUploadEnabled()
-                            ? f.metadataUrl
+                            ? g.metadataUrl
                             : null,
                       },
-                      g,
+                      h,
                     ),
                   ),
                   F

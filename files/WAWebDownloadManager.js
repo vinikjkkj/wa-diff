@@ -20,6 +20,7 @@ __d(
     "WAWebDownloadManagerErrors",
     "WAWebFrontendMsgGetters",
     "WAWebGetMediaDownloadByterange",
+    "WAWebGetUserMediaErrors",
     "WAWebKaleidoscopeWasmFeatureSupport",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDebugString",
@@ -767,7 +768,8 @@ __d(
             if (
               ((l.webcMediaRmrError = !0),
               e instanceof
-                o("WAWebMiscErrors").RMRNotSupportedOnNewsletterMessagesError)
+                o("WAWebGetUserMediaErrors")
+                  .RMRNotSupportedOnNewsletterMessagesError)
             )
               throw (
                 e.mediaType ===

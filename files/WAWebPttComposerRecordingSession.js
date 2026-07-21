@@ -7,7 +7,6 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAMediaCalculateFilehash",
-    "WANullthrows",
     "WAPromiseRaceAbort",
     "WAPttComposerRecorder",
     "WAPttComposerScaleWaveform",
@@ -21,6 +20,7 @@ __d(
     "WAWebCreateMediaUploadMetrics",
     "WAWebCryptoRandomMediaKey",
     "WAWebFrontendChatGetters",
+    "WAWebGetUserMediaErrors",
     "WAWebGuidePopup.react",
     "WAWebMedia",
     "WAWebMediaCapture",
@@ -29,7 +29,6 @@ __d(
     "WAWebMediaHosts",
     "WAWebMediaLoad",
     "WAWebMediaOpaqueData",
-    "WAWebMiscErrors",
     "WAWebMmsClientUploadStreamer",
     "WAWebMmsMediaTypes",
     "WAWebModalManager",
@@ -54,6 +53,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s, u) {
@@ -392,7 +392,7 @@ __d(
                     ),
                     o("WAWebPttDailyUtils").incrementPttDailyCount(
                       o("WAWebPttDailyUtils").PttDailyCountKind.RECORD,
-                      r("WANullthrows")(
+                      r("nullthrows")(
                         o("WAWebFrontendChatGetters").getKind(this._chat),
                       ),
                     ),
@@ -515,7 +515,7 @@ __d(
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.RecordPTT,
                 ));
-              var e = r("WANullthrows")(this._recorder);
+              var e = r("nullthrows")(this._recorder);
               e.pause();
             }
           }),
@@ -542,7 +542,7 @@ __d(
                 "WAWebRecordingSessionStateEnum",
               ).RecordingSessionState.RECORDING;
               try {
-                var e = r("WANullthrows")(this._recorder),
+                var e = r("nullthrows")(this._recorder),
                   t = yield e.resume();
                 return t
                   ? (o("WAWebAppTracker").AppTracker.start(
@@ -595,14 +595,14 @@ __d(
                 .RecordingSessionStopReason.SENT
                 ? o("WAWebPttDailyUtils").incrementPttDailyCount(
                     o("WAWebPttDailyUtils").PttDailyCountKind.SEND,
-                    r("WANullthrows")(
+                    r("nullthrows")(
                       o("WAWebFrontendChatGetters").getKind(this._chat),
                     ),
                   )
                 : this.duration > F &&
                   o("WAWebPttDailyUtils").incrementPttDailyCount(
                     o("WAWebPttDailyUtils").PttDailyCountKind.CANCEL,
-                    r("WANullthrows")(
+                    r("nullthrows")(
                       o("WAWebFrontendChatGetters").getKind(this._chat),
                     ),
                   ),
@@ -624,7 +624,7 @@ __d(
                       "WAWebPttComposerRecordingSession: _getDataForSending started",
                     ])),
                 );
-                var e = r("WANullthrows")(this._recorder),
+                var e = r("nullthrows")(this._recorder),
                   t = yield e.getCompleteRecording();
                 o("WALogger").LOG(
                   h ||
@@ -668,7 +668,7 @@ __d(
           })()),
           (i._getDataForPlayback = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = r("WANullthrows")(this._recorder),
+              var e = r("nullthrows")(this._recorder),
                 t = yield e.getPartialRecording(),
                 n = yield o("WAWebMediaLoad").transcode(t);
               return r("WAWebMediaOpaqueData").createFromData(n, n.type);
@@ -718,7 +718,7 @@ __d(
                             "WAWebPttComposerRecordingSession: Recorder is null in send method",
                           ])),
                       ));
-                  var m = r("WANullthrows")(this._recorder),
+                  var m = r("nullthrows")(this._recorder),
                     p = this._chat;
                   o("WALogger").LOG(
                     S ||
@@ -882,7 +882,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t,
-                  n = r("WANullthrows")(this._recorder),
+                  n = r("nullthrows")(this._recorder),
                   a = yield n.getCompleteRecording();
                 new (o("WAWebPttWamEvent").PttWamEvent)({
                   pttSource: o("WAWebWamEnumPttSourceType").PTT_SOURCE_TYPE
@@ -909,7 +909,7 @@ __d(
               ((this._draftPreviewSeen = !0),
               o("WAWebPttDailyUtils").incrementPttDailyCount(
                 o("WAWebPttDailyUtils").PttDailyCountKind.DRAFT_REVIEW,
-                r("WANullthrows")(
+                r("nullthrows")(
                   o("WAWebFrontendChatGetters").getKind(this._chat),
                 ),
               ));
@@ -925,7 +925,7 @@ __d(
               this._pauseCount === 1 &&
                 o("WAWebPttDailyUtils").incrementPttDailyCount(
                   o("WAWebPttDailyUtils").PttDailyCountKind.PAUSED_RECORD,
-                  r("WANullthrows")(
+                  r("nullthrows")(
                     o("WAWebFrontendChatGetters").getKind(this._chat),
                   ),
                 ));
@@ -1001,9 +1001,7 @@ __d(
           try {
             return yield n;
           } catch (e) {
-            if (
-              e instanceof o("WAWebMiscErrors").GetUserMedia.NotAllowedError
-            ) {
+            if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
               var i;
               return (
                 o("WAWebModalManager").ModalManager.open(
@@ -1016,9 +1014,7 @@ __d(
                 null
               );
             }
-            if (
-              e instanceof o("WAWebMiscErrors").GetUserMedia.GetUserMediaError
-            ) {
+            if (e instanceof o("WAWebGetUserMediaErrors").GetUserMediaError) {
               var i;
               return (
                 o("WAWebModalManager").ModalManager.open(

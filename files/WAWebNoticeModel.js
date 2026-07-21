@@ -7,7 +7,6 @@ __d(
     "WACcToIso",
     "WACustomError",
     "WALogger",
-    "WANullthrows",
     "WAPhoneFindCC",
     "WAPromiseBackoffs",
     "WAWebBaseModel",
@@ -23,6 +22,7 @@ __d(
     "err",
     "getErrorSafe",
     "isNonZeroNumber",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -122,7 +122,7 @@ __d(
           (i.$Notice$p_1 = function (t) {
             var e = parseInt(t, 10),
               n = r("WACcToIso")[e];
-            return r("WANullthrows")(n);
+            return r("nullthrows")(n);
           }),
           (i.validateResponseFields = function (t, n) {
             t.forEach(function (e) {

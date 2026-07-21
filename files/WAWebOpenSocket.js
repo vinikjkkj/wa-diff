@@ -5,13 +5,9 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAPromiseRetryLoop",
-    "WAWebCookieDomain",
-    "WAWebLocalStorage",
     "WAWebMiscErrors",
     "WAWebWatchedSocket",
     "getErrorSafe",
-    "gkx",
-    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -27,24 +23,7 @@ __d(
         "wss://web.whatsapp.com/ws/chat",
         "wss://web.whatsapp.com:5222/ws/chat",
       ];
-    function h() {
-      if (!r("gkx")("26258")) {
-        var e,
-          t =
-            (e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
-              "wdev-pinning-cookie-value",
-            )) != null
-              ? e
-              : "";
-        document.cookie = [
-          "sticky_routing=" + t.replace(/\"/g, ""),
-          "path=/",
-          "domain=" + o("WAWebCookieDomain").COOKIE_DOMAIN,
-          "secure",
-        ].join(";");
-      }
-    }
-    function y(t) {
+    function h(t) {
       t.code !== 1e3 &&
         o("WALogger")
           .WARN(
@@ -59,7 +38,7 @@ __d(
           )
           .tags("socket");
     }
-    function C(e, t) {
+    function y(e, t) {
       var n =
         e != null
           ? "[socket] " + e + " closed. code: " + t.code
@@ -143,13 +122,13 @@ __d(
         }
       }
     }
-    function b(e) {
+    function C(e) {
       var t = new AbortController();
       return new (f || (f = n("Promise")))(function (n, a) {
         var i = !1,
           l = [];
         e.forEach(function (s) {
-          v(s, t.signal, y, C)
+          b(s, t.signal, h, y)
             .then(function (e) {
               i
                 ? (t.abort(), e.close(1e3, "loser socket"))
@@ -186,7 +165,7 @@ __d(
         });
       });
     }
-    function v(e, t, r, a) {
+    function b(e, t, r, a) {
       var i = new WebSocket(e);
       return (
         (i.binaryType = "arraybuffer"),
@@ -206,7 +185,7 @@ __d(
         })
       );
     }
-    function S() {
+    function v() {
       return {
         jitter: 0.1,
         max: 1e4,
@@ -214,28 +193,27 @@ __d(
         relativeDelay: !0,
       };
     }
-    function R() {
+    function S() {
       return self.navigator != null ? self.navigator.onLine : !0;
     }
-    function L(e) {
+    function R(e) {
       var t = g.map(function (t) {
           return e != null ? t + "?ED=" + e : t;
         }),
-        n = !0;
-      h();
-      var r = function () {
-          R() && n === !1 && ((n = !0), a.reset());
+        n = !0,
+        r = function () {
+          S() && n === !1 && ((n = !0), a.reset());
         },
         a = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           name: "socketOpener",
-          timer: S(),
+          timer: v(),
           code: function (r) {
-            return b(t)
+            return C(t)
               .then(function (e) {
                 r(new (o("WAWebWatchedSocket").WatchedSocket)(e));
               })
               .catch(function () {
-                n = R();
+                n = S();
               });
           },
         });
@@ -247,7 +225,7 @@ __d(
         })
       );
     }
-    l.openWebSocket = L;
+    l.openWebSocket = R;
   },
   98,
 );

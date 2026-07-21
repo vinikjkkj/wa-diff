@@ -1,27 +1,39 @@
 __d(
   "WAWebCartModel",
-  ["WAWebBaseModel", "WAWebCartCollection", "WAWebCartItemCollection"],
+  [
+    "WAWebBaseCollection",
+    "WAWebBaseModel",
+    "WAWebCartCollection",
+    "WAWebCartItemModel",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
-        for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
+        return e.apply(this, arguments) || this;
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(o("WAWebBaseCollection").BaseCollection);
+    e.model = o("WAWebCartItemModel").CartItem;
+    var s = (function (t) {
+      function n() {
+        for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
           r[a] = arguments[a];
         return (
-          (t = e.call.apply(e, [this].concat(r)) || this),
-          (t.id = o("WAWebBaseModel").prop()),
-          (t.products = o("WAWebBaseModel").prop()),
-          (t.itemCount = o("WAWebBaseModel").prop()),
-          (t.total = o("WAWebBaseModel").prop()),
-          (t.currency = o("WAWebBaseModel").prop()),
-          (t.message = o("WAWebBaseModel").prop()),
-          babelHelpers.assertThisInitialized(t) ||
-            babelHelpers.assertThisInitialized(t)
+          (e = t.call.apply(t, [this].concat(r)) || this),
+          (e.id = o("WAWebBaseModel").prop()),
+          (e.products = o("WAWebBaseModel").prop()),
+          (e.itemCount = o("WAWebBaseModel").prop()),
+          (e.total = o("WAWebBaseModel").prop()),
+          (e.currency = o("WAWebBaseModel").prop()),
+          (e.message = o("WAWebBaseModel").prop()),
+          babelHelpers.assertThisInitialized(e) ||
+            babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var r = n.prototype;
       return (
-        (n.countTotals = function () {
+        (r.countTotals = function () {
           var e = this.cartItemCollection.reduce(
               function (e, t) {
                 var n;
@@ -46,20 +58,20 @@ __d(
             };
           this.set(n);
         }),
-        (n.initialize = function () {
-          (e.prototype.initialize.call(this),
-            (this.cartItemCollection = new (r("WAWebCartItemCollection"))()),
+        (r.initialize = function () {
+          (t.prototype.initialize.call(this),
+            (this.cartItemCollection = new e()),
             this.listenTo(this, "change:cartItemCollection", this.countTotals));
         }),
-        (n.getCollection = function () {
+        (r.getCollection = function () {
           return o("WAWebCartCollection").CartCollection;
         }),
-        t
+        n
       );
     })(o("WAWebBaseModel").BaseModel);
-    e.Proxy = "cart";
-    var s = o("WAWebBaseModel").defineModel(e);
-    l.default = s;
+    s.Proxy = "cart";
+    var u = o("WAWebBaseModel").defineModel(s);
+    l.default = u;
   },
   98,
 );

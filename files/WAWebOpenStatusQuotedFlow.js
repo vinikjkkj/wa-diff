@@ -34,71 +34,79 @@ __d(
           { transition: "status-modal" },
         );
     }
-    var m = new Set();
+    var m = new Map();
     function p(t) {
-      var a = t.event,
-        i = t.newsletterJid,
-        l = t.rowIndex,
-        u = t.rowSection,
-        c = t.statusModelId;
-      (a == null || a.stopPropagation == null || a.stopPropagation(),
-        a == null || a.preventDefault == null || a.preventDefault());
-      var p = c.toString();
-      if (!m.has(p)) {
-        m.add(p);
-        var _ = o("WAWebStatusCollection").StatusCollection.get(c);
-        (_ != null && (_.isLoading = !0),
-          r("JSResourceForInteraction")("WAWebNewsletterStatusFetchAction")
-            .__setRef("WAWebOpenStatusQuotedFlow")
-            .load()
-            .then(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = yield (s || (s = n("Promise"))).all([
-                        e.fetchNewsletterStatuses(i),
-                        e.fetchMyStatusReactions(i).catch(function () {
-                          return [];
-                        }),
-                      ]),
-                      a = t[1];
-                    yield e
-                      .hydrateMyStatusReactions(a, i)
-                      .catch(r("WAWebNoop"));
-                    var m = o("WAWebStatusCollection").StatusCollection.get(c);
-                    m != null &&
-                      !m.isSyntheticFromMetadata &&
-                      m.totalCount > 0 &&
-                      d({ status: m, rowSection: u, rowIndex: l });
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
+      var a = t.newsletterJid,
+        i = t.statusModelId,
+        l = i.toString();
+      if (m.has(l)) return null;
+      var u = o("WAWebStatusCollection").StatusCollection.get(i);
+      u != null && (u.isLoading = !0);
+      var c = r("JSResourceForInteraction")("WAWebNewsletterStatusFetchAction")
+        .__setRef("WAWebOpenStatusQuotedFlow")
+        .load()
+        .then(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = yield (s || (s = n("Promise"))).all([
+                    e.fetchNewsletterStatuses(a),
+                    e.fetchMyStatusReactions(a).catch(function () {
+                      return [];
+                    }),
+                  ]),
+                  o = t[1];
+                yield e.hydrateMyStatusReactions(o, a).catch(r("WAWebNoop"));
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        )
+        .catch(function (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter][status] fetch statuses failed ",
+                  "",
+                ])),
+              a,
             )
-            .catch(function (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletter][status] fetch/open viewer failed ",
-                      "",
-                    ])),
-                  i,
-                )
-                .catching(r("getErrorSafe")(t))
-                .tags("newsletter", "status")
-                .sendLogs("newsletter-status-fetch-open-failed");
-            })
-            .finally(function () {
-              m.delete(p);
-              var e = o("WAWebStatusCollection").StatusCollection.get(c);
-              e != null && (e.isLoading = !1);
-            }));
-      }
+            .catching(r("getErrorSafe")(t))
+            .tags("newsletter", "status")
+            .sendLogs("newsletter-status-ensure-load-failed");
+        })
+        .finally(function () {
+          m.delete(l);
+          var e = o("WAWebStatusCollection").StatusCollection.get(i);
+          e != null && (e.isLoading = !1);
+        });
+      return (m.set(l, c), c);
     }
-    l.fetchAndOpenNewsletterStatus = p;
+    function _(e) {
+      var t,
+        n = e.event,
+        a = e.newsletterJid,
+        i = e.rowIndex,
+        l = e.rowSection,
+        s = e.statusModelId;
+      (n == null || n.stopPropagation == null || n.stopPropagation(),
+        n == null || n.preventDefault == null || n.preventDefault(),
+        (t = p({ newsletterJid: a, statusModelId: s })) == null ||
+          t
+            .then(function () {
+              var e = o("WAWebStatusCollection").StatusCollection.get(s);
+              e != null &&
+                !e.isSyntheticFromMetadata &&
+                e.totalCount > 0 &&
+                d({ status: e, rowSection: l, rowIndex: i });
+            })
+            .catch(r("WAWebNoop")));
+    }
+    ((l.ensureNewsletterStatusLoaded = p),
+      (l.fetchAndOpenNewsletterStatus = _));
   },
   98,
 );

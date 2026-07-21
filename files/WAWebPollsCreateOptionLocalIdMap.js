@@ -3,9 +3,9 @@ __d(
   [
     "Promise",
     "WAHex",
-    "WANullthrows",
     "WAWebPollOptionHashUtils",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -41,15 +41,15 @@ __d(
           }
           return {
             getLocalIdForHexHash: function (t) {
-              return r("WANullthrows")(i.get(t));
+              return r("nullthrows")(i.get(t));
             },
             getLocalIdForHash: function (t) {
-              return r("WANullthrows")(
+              return r("nullthrows")(
                 i.get(o("WAHex").toHex(new Uint8Array(t))),
               );
             },
             getHashForLocalId: function (t) {
-              return r("WANullthrows")(l.get(t));
+              return r("nullthrows")(l.get(t));
             },
             includesHashes: function (t) {
               return t.every(function (e) {

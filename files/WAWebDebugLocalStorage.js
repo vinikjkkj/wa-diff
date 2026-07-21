@@ -2,19 +2,19 @@ __d(
   "WAWebDebugLocalStorage",
   [
     "WAMd5",
-    "WANullthrows",
     "WAWebLocalStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsLocalStorage",
     "WAWebUserPrefsMeUser",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = { keyWithoutHash: e, keyInLocalStorage: e, value: null },
         n = r("WAWebUserPrefsLocalStorage").getItemFromLocalStorage(e);
       if (n != null) return ((t.value = n), t);
-      var a = r("WANullthrows")(
+      var a = r("nullthrows")(
           o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         ).toString(),
         i = o("WAMd5").md5(a + ":" + e);

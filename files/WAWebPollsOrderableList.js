@@ -1,7 +1,7 @@
 __d(
   "WAWebPollsOrderableList",
   [
-    "WANullthrows",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "useLazyRef",
@@ -116,7 +116,7 @@ __d(
           o;
         if (e.key === y && v != null) {
           var i,
-            c = r("WANullthrows")(n == null ? void 0 : n.startTop),
+            c = r("nullthrows")(n == null ? void 0 : n.startTop),
             d = (i = u.current) != null ? i : 0,
             m = Math.min(Math.max(w, v + d), M);
           o = m - c;

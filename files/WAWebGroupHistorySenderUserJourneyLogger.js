@@ -108,6 +108,20 @@ __d(
               t,
             );
           }),
+          (n.sendMessageHistoryCtaSystemMessageDisplayed = function (t) {
+            var e = t.groupHistorySystemMessageType,
+              n = t.recipientCount,
+              r = t.uiSurface;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .SEND_MESSAGE_HISTORY_CTA_SYSTEM_MESSAGE_DISPLAY,
+              groupHistorySystemMessageType: e,
+              recipientCount: n,
+              uiSurface: r,
+            });
+          }),
           (n.dropdownMenuItemDisplayed = function (t) {
             var e = t.recipientCount,
               n = t.uiSurface;

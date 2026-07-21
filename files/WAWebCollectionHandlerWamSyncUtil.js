@@ -15,14 +15,14 @@ __d(
       o("WASyncdConst").CollectionName.CriticalBlock,
       o("WASyncdConst").CollectionName.CriticalUnblockLow,
     ];
-    function s(e, t, n, r) {
+    function s(e, t, n, r, o) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = new (o(
+          function* (t, n, r, a, i) {
+            var l = new (o(
                 "WAWebMdBootstrapAppStateDataDownloadedWamEvent",
               ).MdBootstrapAppStateDataDownloadedWamEvent)({
                 mdBootstrapPayloadType: e.includes(t)
@@ -41,19 +41,20 @@ __d(
                 mdSessionId: yield o(
                   "WAWebSyncdMdSyncFieldstatMeta",
                 ).MdSyncFieldStatsMeta.getMdSessionId(),
+                mdSyncFailureReason: i != null ? i : void 0,
               }),
-              l = yield o(
+              s = yield o(
                 "WAWebSyncdMdSyncFieldstatMeta",
               ).MdSyncFieldStatsMeta.getStorageEstimation();
-            l.mdStorageQuotaBytes !==
+            s.mdStorageQuotaBytes !==
               o("WAWebSyncdMdSyncFieldstatMeta").STORAGE_QUOTA_UNAVAILABLE &&
-              ((i.mdStorageQuotaUsedBytes = l.mdStorageQuotaUsedBytes),
-              (i.mdStorageQuotaBytes = l.mdStorageQuotaBytes));
+              ((l.mdStorageQuotaUsedBytes = s.mdStorageQuotaUsedBytes),
+              (l.mdStorageQuotaBytes = s.mdStorageQuotaBytes));
             try {
-              var s = o("WALongInt").maybeNumberOrThrowIfTooLarge(r);
-              s != null && (i.mdBootstrapPayloadSize = s);
+              var u = o("WALongInt").maybeNumberOrThrowIfTooLarge(r);
+              u != null && (l.mdBootstrapPayloadSize = u);
             } catch (e) {}
-            i.commit();
+            l.commit();
           },
         )),
         u.apply(this, arguments)

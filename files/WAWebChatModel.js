@@ -41,6 +41,7 @@ __d(
     "WAWebChatParticipantColor",
     "WAWebChatProductMsgsCollection",
     "WAWebChatShowUnreadInTitle",
+    "WAWebChatSquelchConstants",
     "WAWebChatThemeGatingUtils",
     "WAWebChatThemeValue",
     "WAWebChatUnreadMentions",
@@ -48,7 +49,6 @@ __d(
     "WAWebCmd",
     "WAWebCollectionConstants",
     "WAWebConnModel",
-    "WAWebConstantsDeprecated",
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebCurrentUser",
@@ -1169,11 +1169,11 @@ __d(
             if (
               (o("WAWebChatGetters").getIsGroup(this) &&
                 this.active &&
-                ((this.squelch = r(
-                  "WAWebConstantsDeprecated",
+                ((this.squelch = o(
+                  "WAWebChatSquelchConstants",
                 ).SQUELCH_RESET_VALUE),
-                (this.reactionSquelch = r(
-                  "WAWebConstantsDeprecated",
+                (this.reactionSquelch = o(
+                  "WAWebChatSquelchConstants",
                 ).SQUELCH_RESET_VALUE),
                 (this.hasChatBeenOpened = !0)),
               (this.presence.chatActive = this.active),

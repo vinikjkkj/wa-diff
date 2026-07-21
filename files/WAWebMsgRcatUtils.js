@@ -5,7 +5,6 @@ __d(
     "WABase64",
     "WACryptoHkdf",
     "WACryptoHmac",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebFrontendMsgGetters",
@@ -17,6 +16,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -123,7 +123,7 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = r("WANullthrows")(o("WAWebMsgGetters").getFrom(t)),
+          var i = r("nullthrows")(o("WAWebMsgGetters").getFrom(t)),
             l = h(t),
             s = o("WAWebMsgGetters").getMessageSecret(t);
           if (

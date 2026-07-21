@@ -20,6 +20,7 @@ __d(
     "getErrorSafe",
     "gkx",
     "guid",
+    "justknobx",
     "performanceAbsoluteNow",
     "performanceNavigationStart",
     "performanceNow",
@@ -86,22 +87,28 @@ __d(
     }
     function C(e, t) {
       return new (_ || (_ = n("Promise")))(function () {
-        var n = t || e;
+        var n,
+          o = t || e;
         (typeof f.__je2e_recordQPLMarker == "function" &&
-          f.__je2e_recordQPLMarker(n),
+          f.__je2e_recordQPLMarker(o),
           (p || (p = r("Env"))).enable_qplinspector === !0 &&
-            r("QPLInspector").appendLog(n),
+            r("QPLInspector").appendLog(o),
           r("gkx")("21053") || r("gkx")("20935") || r("gkx")("5679")
             ? r("PerfFalcoEvent").logImmediately(function () {
-                return n;
+                return o;
               })
             : r("gkx")("2160") || r("gkx")("21055") || r("gkx")("9550")
               ? r("PerfFalcoEvent").logCritical(function () {
-                  return n;
+                  return o;
                 })
-              : r("PerfFalcoEvent").log(function () {
-                  return n;
-                }));
+              : ((n = o.annotations) == null ? void 0 : n.join_id) != null &&
+                  r("justknobx")._("3011")
+                ? r("PerfFalcoEvent").logImmediately(function () {
+                    return o;
+                  })
+                : r("PerfFalcoEvent").log(function () {
+                    return o;
+                  }));
       });
     }
     function b(e) {

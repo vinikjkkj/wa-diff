@@ -18,16 +18,11 @@ __d(
       u,
       c = ["deny", "none", "error"];
     function d(e) {
-      if (e != null) {
-        if (!c.includes(e)) return o("WATimeUtils").castToUnixTime(Number(e));
-      } else return o("WATimeUtils").unixTime();
+      return m.apply(this, arguments);
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var a = o("WASmaxPresenceServerUpdateRPC").receiveServerUpdateRPC(
                 t,
@@ -68,7 +63,7 @@ __d(
               id: l,
               type: i.value.type || "available",
               deny: i.value.last === "deny" || void 0,
-              t: i.value.type === "unavailable" ? d(i.value.last) : void 0,
+              t: i.value.type === "unavailable" ? p(i.value.last) : void 0,
             };
             r("WAWebChangePresenceHandlerAction")(c);
           } catch (e) {
@@ -85,10 +80,15 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.default = m;
+    function p(e) {
+      if (e != null) {
+        if (!c.includes(e)) return o("WATimeUtils").castToUnixTime(Number(e));
+      } else return o("WATimeUtils").unixTime();
+    }
+    l.default = d;
   },
   98,
 );

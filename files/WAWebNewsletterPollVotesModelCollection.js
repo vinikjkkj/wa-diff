@@ -5,7 +5,7 @@ __d(
     "WAWebBaseCollection",
     "WAWebCRUDOperationsNewsletterMyVotes",
     "WAWebCRUDOperationsNewsletterPollsVotes",
-    "WAWebMiscErrors",
+    "WAWebGetUserMediaErrors",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebNewsletterPollVotesModel",
@@ -31,7 +31,7 @@ __d(
                   ).MsgCollection.hydrateOrGetMessages([t]),
                   i = a[0];
                 if (i == null)
-                  throw new (o("WAWebMiscErrors").NotFoundError)(
+                  throw new (o("WAWebGetUserMediaErrors").NotFoundError)(
                     "No votes found",
                   );
                 var l = i.id.remote.toJid(),
@@ -44,11 +44,11 @@ __d(
                         ).getMyVote(l, u)
                       : null;
                 if (s == null)
-                  throw new (o("WAWebMiscErrors").NotFoundError)(
+                  throw new (o("WAWebGetUserMediaErrors").NotFoundError)(
                     "No pollOptions found",
                   );
                 if (n == null && c == null)
-                  throw new (o("WAWebMiscErrors").NotFoundError)(
+                  throw new (o("WAWebGetUserMediaErrors").NotFoundError)(
                     "No polls to display",
                   );
                 var d = {

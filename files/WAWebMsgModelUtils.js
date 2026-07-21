@@ -14,7 +14,6 @@ __d(
     "WAWebChatPreferenceCollection",
     "WAWebCommonMsgUtils",
     "WAWebConnModel",
-    "WAWebConstantsDeprecated",
     "WAWebEmoji",
     "WAWebEmojiConst",
     "WAWebFileUtils",
@@ -466,9 +465,7 @@ __d(
         n =
           o("WAWebMsgGetters").getNumTimesForwarded(e) +
           (o("WAWebMsgGetters").getShouldDisplayAsForwarded(e) ? 1 : 0);
-      return n >= t
-        ? r("WAWebConstantsDeprecated").FREQUENTLY_FORWARDED_SENTINEL
-        : n;
+      return n >= t ? o("WAWebMsgGetters").FREQUENTLY_FORWARDED_SENTINEL : n;
     }
     function W(e) {
       var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);

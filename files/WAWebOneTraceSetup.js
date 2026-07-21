@@ -14,31 +14,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = !1;
-    function s(e) {
-      var t;
-      switch (e.traceType) {
-        case "IMAGE":
-          return null;
-        case "SCROLL":
-          return r("qpl")._(891431964, "3274");
-        case "LONG_ANIMATION_FRAME":
-          return ((t = e.annotations.bool) == null
-            ? void 0
-            : t.isLoggingSample) === !0
-            ? r("qpl")._(891427004, "3275")
-            : null;
-        case "LONGTASK":
-          return null;
-        case "TYPING":
-          return r("qpl")._(891422674, "918");
-        case "RESPONSIVENESS":
-          return null;
-        case "INP":
-          return r("qpl")._(891431786, "3252");
-      }
-      return null;
-    }
-    function u() {
+    function s() {
       if (!e) {
         var t;
         ((e = !0),
@@ -69,7 +45,7 @@ __d(
             Typing: { enableTracking: t("19206") },
           }),
           r("one-trace").subscribe("trace-start", function (e) {
-            o("OneTraceQPLLogger").initQPL(s(e), e);
+            o("OneTraceQPLLogger").initQPL(u(e), e);
           }),
           r("one-trace").subscribe("trace-end", function (e) {
             (r("one-trace").addAnnotations(e.annotations, {
@@ -84,11 +60,35 @@ __d(
               },
               bool: { is_compiler_enabled: r("gkx")("7685") },
             }),
-              o("OneTraceQPLLogger").logQPL(s(e), e));
+              o("OneTraceQPLLogger").logQPL(u(e), e));
           }));
       }
     }
-    l.default = u;
+    function u(e) {
+      var t;
+      switch (e.traceType) {
+        case "IMAGE":
+          return null;
+        case "SCROLL":
+          return r("qpl")._(891431964, "3274");
+        case "LONG_ANIMATION_FRAME":
+          return ((t = e.annotations.bool) == null
+            ? void 0
+            : t.isLoggingSample) === !0
+            ? r("qpl")._(891427004, "3275")
+            : null;
+        case "LONGTASK":
+          return null;
+        case "TYPING":
+          return r("qpl")._(891422674, "918");
+        case "RESPONSIVENESS":
+          return null;
+        case "INP":
+          return r("qpl")._(891431786, "3252");
+      }
+      return null;
+    }
+    l.default = s;
   },
   98,
 );

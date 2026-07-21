@@ -8,6 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserPrefsMeUser",
+    "WAWebUsernameTypes",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
     "err",
@@ -111,8 +112,8 @@ __d(
             kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
             subtype: "change_username",
             templateParams: [
-              a != null ? a : "",
-              r != null ? r : "",
+              a != null ? o("WAWebUsernameTypes").serializeUsername(a) : "",
+              r != null ? o("WAWebUsernameTypes").serializeUsername(r) : "",
               l,
               n != null ? n : "",
             ],

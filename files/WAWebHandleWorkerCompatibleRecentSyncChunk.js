@@ -21,6 +21,7 @@ __d(
     "WAWebHistorySyncProgress",
     "WAWebHistorySyncWorkerCompatibleNotificationUtils",
     "WAWebHttpErrors",
+    "WAWebMdSyncDownloadFailureReason",
     "WAWebMetricsAttributionActions",
     "WAWebMmsClient",
     "WAWebMsgKey",
@@ -150,6 +151,9 @@ __d(
                 "WAWebHistorySyncNotificationUtils",
               ).commitHistoryDownloadedMetric({
                 chunkDownloadFinishTimestamp: o("WATimeUtils").unixTimeMs(),
+                failureReason: o(
+                  "WAWebMdSyncDownloadFailureReason",
+                ).getMdSyncDownloadFailureReason(e),
                 historySyncDownloadMetric: L,
                 isSuccess: !1,
                 startTs: t.historySyncStepStartedTs,

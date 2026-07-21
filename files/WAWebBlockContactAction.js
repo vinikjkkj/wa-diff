@@ -13,6 +13,8 @@ __d(
     "WAWebChatCollection",
     "WAWebFrontendContactGetters",
     "WAWebMmSignalSharingLoggingEvents",
+    "WAWebNoop",
+    "WAWebSmb1pdConversionSignalAction",
     "WAWebStateUtils",
     "WAWebToastManager",
     "WAWebUpdateBlocklistDbJob",
@@ -30,31 +32,42 @@ __d(
     function _(e) {
       var t = e.bizOptOutArgs,
         n = e.blockEntryPoint,
-        r = e.contact,
-        a = o("WAWebBlocklistUtils").getBlockEventMetricFromBlockEntryPoint(n);
+        a = e.contact,
+        i = e.skipCtwa1pdNbfSignal,
+        l = o("WAWebBlocklistUtils").getBlockEventMetricFromBlockEntryPoint(n);
       o("WAWebWamBlockEventReporter").logBlockEvent({
-        contact: r,
-        blockEntryPoint: a,
+        contact: a,
+        blockEntryPoint: l,
         isBlock: !0,
       });
-      var i = o("WAWebChatCollection").ChatCollection.get(r.id);
-      return (
-        o(
-          "WAWebMmSignalSharingLoggingEvents",
-        ).logMmSignalSharingBlockVerificationEvent({
-          blockEntryPoint: n,
-          chat: i,
-          reason: t == null ? void 0 : t.reason,
-          blockEntryPointMetric: a,
-        }),
+      var s = o("WAWebChatCollection").ChatCollection.get(a.id);
+      (o(
+        "WAWebMmSignalSharingLoggingEvents",
+      ).logMmSignalSharingBlockVerificationEvent({
+        blockEntryPoint: n,
+        chat: s,
+        reason: t == null ? void 0 : t.reason,
+        blockEntryPointMetric: l,
+      }),
         o(
           "WAWebMmSignalSharingLoggingEvents",
         ).logMmSignalSharingUserBlockWithReasonEvent({
-          chat: i,
+          chat: s,
           reason: t == null ? void 0 : t.reason,
-          blockEntryPointMetric: a,
-        }),
-        y(o("WAWebStateUtils").unproxy(r), !0, n, t)
+          blockEntryPointMetric: l,
+        }));
+      var u = y(o("WAWebStateUtils").unproxy(a), !0, n, t);
+      return (
+        i !== !0 &&
+          s != null &&
+          u
+            .then(function () {
+              return o(
+                "WAWebSmb1pdConversionSignalAction",
+              ).log1pdBlockConversionSignal(s);
+            })
+            .catch(r("WAWebNoop")),
+        u
       );
     }
     function f(e, t) {

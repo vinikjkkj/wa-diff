@@ -2,12 +2,12 @@ __d(
   "WAWebRecentStickerCollection",
   [
     "WALogger",
-    "WANullthrows",
     "WAWebBaseCollection",
     "WAWebConnModel",
     "WAWebMobilePlatforms",
     "WAWebStickerModel",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -33,7 +33,7 @@ __d(
               if (t) {
                 if ((e.sort(), t > s)) {
                   for (var n = s; n < t; n++)
-                    e._weightMap.delete(r("WANullthrows")(e.at(n)).id);
+                    e._weightMap.delete(r("nullthrows")(e.at(n)).id);
                   e.remove(e.slice(s));
                 }
                 var o = e.head(),
@@ -52,7 +52,7 @@ __d(
         var i = a.prototype;
         return (
           (i._getWeight = function (t) {
-            return r("WANullthrows")(this._weightMap.get(t.id));
+            return r("nullthrows")(this._weightMap.get(t.id));
           }),
           (i.enqueue = function (t) {
             t.length !== 0 &&

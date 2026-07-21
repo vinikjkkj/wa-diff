@@ -1,7 +1,6 @@
 __d(
   "WAWebPollsCreatePollUpdateVoteMsg",
   [
-    "WANullthrows",
     "WAWebAck",
     "WAWebMsgGetters",
     "WAWebMsgKeyUtils",
@@ -11,6 +10,7 @@ __d(
     "WAWebReferentialMsgKey",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -27,7 +27,7 @@ __d(
               ).protobufFromVote(e, t.pollOptions),
               isOneOnOne: o("WAWebMsgGetters").getRemote(t).isUser(),
               iv: a,
-              messageSecret: r("WANullthrows")(
+              messageSecret: r("nullthrows")(
                 t.messageSecret,
                 "Poll creation missing message secret",
               ),

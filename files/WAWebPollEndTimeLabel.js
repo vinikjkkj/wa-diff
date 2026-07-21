@@ -25,29 +25,16 @@ __d(
       m = 3600,
       p = 24 * m;
     function _(e) {
-      if (e < m) return s._(/*BTDS*/ "Ends in less than 1h");
-      if (e < p) {
-        var t = Math.floor(e / m);
-        return s._(/*BTDS*/ "Ends in {hours}h", [s._param("hours", t)]);
-      }
-      var n = Math.floor(e / p);
-      return s._(
-        /*BTDS*/ '_j{"*":"Ends in {days} days","_1":"Ends in {days} day"}',
-        [s._plural(n), s._param("days", n)],
-      );
-    }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f(e) {
       var t = o("react-compiler-runtime").c(15),
         n = e.isPollEnded,
         a = e.isSingleOptionPoll,
         i = e.pollEndTime,
         l = i - o("WAWebClock").Clock.getServerTimeMs(),
         p = Math.max(0, Math.ceil(l / d)),
-        f = p < m && !n,
+        _ = p < m && !n,
         g = n ? "poll-ended-label" : "poll-end-time-label",
         h = a ? void 0 : c.iconContainer,
-        y = f ? "secondaryNegative" : "contentDeemphasized",
+        y = _ ? "secondaryNegative" : "contentDeemphasized",
         C;
       t[0] !== h || t[1] !== y
         ? ((C = u.jsx(r("WDSIconIcScheduleFilled.react"), {
@@ -61,17 +48,17 @@ __d(
           (t[2] = C))
         : (C = t[2]);
       var b;
-      t[3] !== f
+      t[3] !== _
         ? ((b = {
             0: { className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8" },
             1: { className: "x1pg5gke x1d3mw78 x30a034 xaso8d8" },
-          }[!!f << 0]),
-          (t[3] = f),
+          }[!!_ << 0]),
+          (t[3] = _),
           (t[4] = b))
         : (b = t[4]);
       var v;
       t[5] !== n || t[6] !== p
-        ? ((v = n ? s._(/*BTDS*/ "Poll ended") : _(p)),
+        ? ((v = n ? s._(/*BTDS*/ "Poll ended") : f(p)),
           (t[5] = n),
           (t[6] = p),
           (t[7] = v))
@@ -100,7 +87,19 @@ __d(
         R
       );
     }
-    l.default = f;
+    function f(e) {
+      if (e < m) return s._(/*BTDS*/ "Ends in less than 1h");
+      if (e < p) {
+        var t = Math.floor(e / m);
+        return s._(/*BTDS*/ "Ends in {hours}h", [s._param("hours", t)]);
+      }
+      var n = Math.floor(e / p);
+      return s._(
+        /*BTDS*/ '_j{"*":"Ends in {days} days","_1":"Ends in {days} day"}',
+        [s._plural(n), s._param("days", n)],
+      );
+    }
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

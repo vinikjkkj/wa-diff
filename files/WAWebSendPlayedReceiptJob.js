@@ -14,7 +14,49 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    function e(e, t) {
+      return s.apply(this, arguments);
+    }
+    function s() {
+      return (
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.broadcastId || t,
+            r = e.id.id,
+            a = n.isUser() ? null : e.author,
+            i = u(t),
+            l = yield o("WAWebPnlessStanzaMigration").getStanzaToFromChatId(
+              n,
+              i,
+            ),
+            s = o("WAWap").wap("receipt", {
+              to: o("WAWebCommsWapMd").CHAT_JID(l),
+              type: i,
+              id: o("WAWap").CUSTOM_STRING(r),
+              t: o("WAWap").CUSTOM_STRING(Date.now().toString()),
+              participant: a
+                ? o("WAWebCommsWapMd").DEVICE_JID(a)
+                : o("WAWap").DROP_ATTR,
+            });
+          return (
+            yield o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+              s,
+              o("WAWebCommsAckParser").toCoreAckTemplate({
+                id: r,
+                class: "receipt",
+                type: i,
+                from: l,
+                participant: a,
+              }),
+            ),
+            o("WAWebSchemaMessage")
+              .getMessageTable()
+              .merge(e.id.toString(), { ack: o("WAWebAck").ACK.PLAYED })
+          );
+        })),
+        s.apply(this, arguments)
+      );
+    }
+    function u(e) {
       if (e.isGroup())
         return o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PLAYED;
       if (e.isNewsletter())
@@ -26,49 +68,7 @@ __d(
         ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PLAYED_SELF
         : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PLAYED;
     }
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = t.broadcastId || n,
-            a = t.id.id,
-            i = r.isUser() ? null : t.author,
-            l = e(n),
-            s = yield o("WAWebPnlessStanzaMigration").getStanzaToFromChatId(
-              r,
-              l,
-            ),
-            u = o("WAWap").wap("receipt", {
-              to: o("WAWebCommsWapMd").CHAT_JID(s),
-              type: l,
-              id: o("WAWap").CUSTOM_STRING(a),
-              t: o("WAWap").CUSTOM_STRING(Date.now().toString()),
-              participant: i
-                ? o("WAWebCommsWapMd").DEVICE_JID(i)
-                : o("WAWap").DROP_ATTR,
-            });
-          return (
-            yield o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
-              u,
-              o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: a,
-                class: "receipt",
-                type: l,
-                from: s,
-                participant: i,
-              }),
-            ),
-            o("WAWebSchemaMessage")
-              .getMessageTable()
-              .merge(t.id.toString(), { ack: o("WAWebAck").ACK.PLAYED })
-          );
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.default = s;
+    l.default = e;
   },
   98,
 );

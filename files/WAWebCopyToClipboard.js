@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebMiscErrors",
+    "WAWebGetUserMediaErrors",
     "WAWebUA",
     "asyncToGeneratorRuntime",
     "err",
@@ -59,7 +59,8 @@ __d(
             try {
               return (yield n.navigator.clipboard.writeText(e), !0);
             } catch (e) {
-              if (e instanceof o("WAWebMiscErrors").NotAllowedError) return !1;
+              if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError)
+                return !1;
             }
           var a = !1,
             i = n.document,

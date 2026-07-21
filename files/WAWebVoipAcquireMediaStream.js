@@ -13,11 +13,11 @@ __d(
     "WAWebCallCollection",
     "WAWebCoreActionsODS",
     "WAWebEnvironment",
+    "WAWebGetUserMediaErrors",
     "WAWebGuidePopup.react",
     "WAWebMediaCapture",
     "WAWebMediaCaptureStreamType",
     "WAWebMediaPermissionsUtils",
-    "WAWebMiscErrors",
     "WAWebModalManager",
     "WAWebNoop",
     "WAWebNullFunc",
@@ -481,9 +481,7 @@ __d(
                 !0)
               : !1;
           } catch (e) {
-            if (
-              e instanceof o("WAWebMiscErrors").GetUserMedia.NotAllowedError
-            ) {
+            if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
               o("WAWebCoreActionsODS").logCallPermissionDenied();
               var s = Ne(t, a);
               o("WAWebModalManager").ModalManager.open(
@@ -495,9 +493,8 @@ __d(
                 }),
               );
             } else if (
-              e instanceof o("WAWebMiscErrors").GetUserMedia.NotReadableError ||
-              e instanceof
-                o("WAWebMiscErrors").GetUserMedia.SourceUnavailableError
+              e instanceof o("WAWebGetUserMediaErrors").NotReadableError ||
+              e instanceof o("WAWebGetUserMediaErrors").SourceUnavailableError
             ) {
               o("WAWebCoreActionsODS").logCallPermissionDeviceError();
               var u = Ne(t, a);
@@ -510,8 +507,7 @@ __d(
                 }),
               );
             } else
-              e instanceof
-                o("WAWebMiscErrors").GetUserMedia.GetUserMediaError &&
+              e instanceof o("WAWebGetUserMediaErrors").GetUserMediaError &&
                 o("WAWebModalManager").ModalManager.open(
                   Q.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                     messaging: t
@@ -794,7 +790,7 @@ __d(
             })
             .catch(
               o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").GetUserMedia.NotAllowedError,
+                o("WAWebGetUserMediaErrors").NotAllowedError,
                 function () {
                   if (
                     (o("WAWebCoreActionsODS").logCallMediaMicError(), a !== !0)
@@ -817,8 +813,8 @@ __d(
             .catch(
               o("WAFilteredCatch").filteredCatch(
                 [
-                  o("WAWebMiscErrors").GetUserMedia.NotReadableError,
-                  o("WAWebMiscErrors").GetUserMedia.SourceUnavailableError,
+                  o("WAWebGetUserMediaErrors").NotReadableError,
+                  o("WAWebGetUserMediaErrors").SourceUnavailableError,
                 ],
                 function () {
                   if (
@@ -841,7 +837,7 @@ __d(
             )
             .catch(
               o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").GetUserMedia.GetUserMediaError,
+                o("WAWebGetUserMediaErrors").GetUserMediaError,
                 function () {
                   if (
                     (o("WAWebCoreActionsODS").logCallMediaMicError(), a !== !0)
@@ -1129,7 +1125,7 @@ __d(
             })
             .catch(
               o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").GetUserMedia.NotAllowedError,
+                o("WAWebGetUserMediaErrors").NotAllowedError,
                 function () {
                   o("WAWebCoreActionsODS").logCallMediaCameraError();
                   var e = Date.now() - p;
@@ -1159,8 +1155,8 @@ __d(
             .catch(
               o("WAFilteredCatch").filteredCatch(
                 [
-                  o("WAWebMiscErrors").GetUserMedia.NotReadableError,
-                  o("WAWebMiscErrors").GetUserMedia.SourceUnavailableError,
+                  o("WAWebGetUserMediaErrors").NotReadableError,
+                  o("WAWebGetUserMediaErrors").SourceUnavailableError,
                 ],
                 function (e) {
                   o("WAWebCoreActionsODS").logCallMediaCameraError();
@@ -1192,7 +1188,7 @@ __d(
             )
             .catch(
               o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").GetUserMedia.GetUserMediaError,
+                o("WAWebGetUserMediaErrors").GetUserMediaError,
                 function (e) {
                   o("WAWebCoreActionsODS").logCallMediaCameraError();
                   var t = Date.now() - p;
@@ -1540,9 +1536,7 @@ __d(
               c = u.asyncStream,
               d = u.disposeStream;
             return _t(c, d, r).catch(function (e) {
-              if (
-                e instanceof o("WAWebMiscErrors").GetUserMedia.NotAllowedError
-              ) {
+              if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
                 o("WAWebCoreActionsODS").logCallScreenShareDenied();
                 var t = Date.now() - s;
                 if (t < le) {
@@ -1577,9 +1571,7 @@ __d(
               return null;
             });
           } catch (e) {
-            if (
-              e instanceof o("WAWebMiscErrors").GetUserMedia.NotAllowedError
-            ) {
+            if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
               o("WAWebCoreActionsODS").logCallScreenShareDenied();
               var m = Date.now() - s;
               if (m < le) {

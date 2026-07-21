@@ -16,7 +16,6 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -72,16 +71,12 @@ __d(
       var i = p(e, a);
       return {
         wid: o("WAWebWidFactory").asUserLidOrThrow(n),
-        oldUsername: o("WAWebUsernameTypes").serializeMaybeUsername(
-          r.oldUsername,
-        ),
+        oldUsername: r.oldUsername,
         newUsername: i,
       };
     }
     function p(e, t) {
-      return t || e.username == null
-        ? ""
-        : o("WAWebUsernameTypes").serializeUsername(e.username);
+      return t || e.username == null ? null : e.username;
     }
     function _(e) {
       return f.apply(this, arguments);
@@ -90,9 +85,12 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.newUsername,
-            a = e.oldUsername,
-            i = e.wid;
-          if (r("isStringNullOrEmpty")(a) && r("isStringNullOrEmpty")(t)) {
+            r = e.oldUsername,
+            a = e.wid;
+          if (
+            !o("WAWebUsernameTypes").isPresentUsername(r) &&
+            !o("WAWebUsernameTypes").isPresentUsername(t)
+          ) {
             o("WALogger")
               .ERROR(
                 s ||
@@ -100,17 +98,17 @@ __d(
                     "[username] old+new username empty ",
                     "",
                   ])),
-                i.toLogString(),
+                a.toLogString(),
               )
               .sendLogs(
                 "generateUsernameChangeNotificationSystemMsg-usernames-empty",
               );
             return;
           }
-          var l = yield g(i);
+          var i = yield g(a);
           yield (u || (u = n("Promise"))).all([
-            y({ wid: i, oldUsername: a, newUsername: t, displayName: l }),
-            b({ wid: i, oldUsername: a, newUsername: t, displayName: l }),
+            y({ wid: a, oldUsername: r, newUsername: t, displayName: i }),
+            b({ wid: a, oldUsername: r, newUsername: t, displayName: i }),
           ]);
         })),
         f.apply(this, arguments)

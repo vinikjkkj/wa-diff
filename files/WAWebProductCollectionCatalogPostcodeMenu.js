@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WAWebAccessibility.react",
-    "WAWebBusinessAddressIcon.react",
     "WAWebDropdown.react",
     "WAWebFlex.react",
     "WAWebModalManager",
@@ -16,6 +15,7 @@ __d(
     "WAWebUimUie.react",
     "WAWebUimUieTooltip.react",
     "WAWebUserPrefsGeneral",
+    "WDSIconIcLocationOn.react",
     "react",
     "useWAWebModelValues",
     "useWAWebOnUnmount",
@@ -201,10 +201,7 @@ __d(
             children: [
               c.jsx("span", {
                 className: "x1h678fw xv6tirj x11ahuha xl3akx1 xvy4d1p xhslqc4",
-                children: c.jsx(
-                  o("WAWebBusinessAddressIcon.react").BusinessAddressIcon,
-                  {},
-                ),
+                children: c.jsx(r("WDSIconIcLocationOn.react"), {}),
               }),
               c.jsxs(o("WAWebFlex.react").FlexColumn, {
                 ref: M,

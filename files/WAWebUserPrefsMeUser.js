@@ -3,7 +3,6 @@ __d(
   [
     "WABaseGlobals",
     "WALogger",
-    "WANullthrows",
     "WAWebBeyondPhoneNumberGatingUtils",
     "WAWebGlobals",
     "WAWebMemoizeWithClearUtils",
@@ -15,6 +14,7 @@ __d(
     "WAWebWidToJid",
     "err",
     "gkx",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -41,10 +41,10 @@ __d(
       return n == null || !a ? null : o("WAWebWidFactory").createWid(n);
     }
     function p() {
-      return r("WANullthrows")(d(), "me");
+      return r("nullthrows")(d(), "me");
     }
     function _() {
-      return r("WANullthrows")(m(), "meLid");
+      return r("nullthrows")(m(), "meLid");
     }
     function f() {
       var e = m(!1);
@@ -68,7 +68,7 @@ __d(
       return o("WAWebWidFactory").asUserWidOrThrow(p());
     }
     function R() {
-      return r("WANullthrows")(b(), "meLidUser");
+      return r("nullthrows")(b(), "meLidUser");
     }
     function L() {
       return o(
@@ -116,7 +116,7 @@ __d(
       );
     }
     function D() {
-      return r("WANullthrows")(N(), "meDisplayName");
+      return r("nullthrows")(N(), "meDisplayName");
     }
     function x() {
       return [_(), d()].filter(Boolean);

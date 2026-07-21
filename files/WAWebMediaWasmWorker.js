@@ -11,6 +11,7 @@ __d(
     "WAGetKaleidoscopeWasm",
     "WAKaleidoscopeClassify",
     "WAKaleidoscopeMp4RepairMux",
+    "WAKaleidoscopeProvenance",
     "WAMediaWasmWorkerMainThreadBridge",
     "WAMediaWasmWorkerQplProxy",
     "WAResultOrError",
@@ -153,6 +154,29 @@ __d(
           );
         })),
         v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.input,
+            n = e.provenance,
+            r = e.requestId,
+            o = yield s.fullyConnected;
+          o.postMessage(
+            {
+              type: "kaleidoscopeProvenanceResponse",
+              provenance: n,
+              transferredBuffer: t,
+              requestId: r,
+            },
+            [t],
+          );
+        })),
+        R.apply(this, arguments)
       );
     }
     (o("WorkerSelf").init(s),
@@ -376,9 +400,33 @@ __d(
               })
             );
           });
+      }),
+      s.addMessageListener("kaleidoscopeProvenanceRequest", function (t) {
+        return (e || (e = n("Promise")))
+          .resolve()
+          .then(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = t.input,
+                n = t.requestId,
+                r = yield o(
+                  "WAKaleidoscopeProvenance",
+                ).detectAiProvenanceFromBytes(e);
+              return S({ provenance: r, input: e, requestId: n });
+            }),
+          )
+          .catch(function (e) {
+            return (
+              u(
+                "error",
+                "kaleidoscopeProvenance has runtime-error " +
+                  o("WAErrorMessage").maybeGetMessageFromError(e),
+              ),
+              S({ provenance: null, input: t.input, requestId: t.requestId })
+            );
+          });
       }));
-    function S() {}
-    ((l.default = S), (l.sendLogToMainThread = u));
+    function L() {}
+    ((l.default = L), (l.sendLogToMainThread = u));
   },
   98,
 );

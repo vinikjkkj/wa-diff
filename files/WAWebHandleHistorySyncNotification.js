@@ -16,6 +16,7 @@ __d(
     "WAWebHttpErrors",
     "WAWebJestE2ELogUtils",
     "WAWebMdBootstrapHistoryDataReceivedWamEvent",
+    "WAWebMdSyncDownloadFailureReason",
     "WAWebMsgKey",
     "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
     "WAWebProtobufsE2E.pb",
@@ -453,6 +454,9 @@ __d(
                           ).commitHistoryDownloadedMetric({
                             chunkDownloadFinishTimestamp:
                               o("WATimeUtils").unixTimeMs(),
+                            failureReason: o(
+                              "WAWebMdSyncDownloadFailureReason",
+                            ).getMdSyncDownloadFailureReason(e),
                             historySyncDownloadMetric: O,
                             isSuccess: !1,
                             startTs: I.historySyncStepStartedTs,

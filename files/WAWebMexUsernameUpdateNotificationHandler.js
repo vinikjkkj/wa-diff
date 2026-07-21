@@ -86,7 +86,6 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
             o("WALogger").LOG(
               u ||
@@ -94,9 +93,9 @@ __d(
                   "[mex][username] side-sub change notification",
                 ])),
             );
-            var r = t.xwa2_notify_username_on_update_side_sub.hash,
-              a = yield o("WAWebApiContact").getContactRecordByHash(r);
-            if (a == null) {
+            var n = t.xwa2_notify_username_on_update_side_sub.hash,
+              r = yield o("WAWebApiContact").getContactRecordByHash(n);
+            if (r == null) {
               o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -105,7 +104,7 @@ __d(
               );
               return;
             }
-            if (a.isAddressBookContact === 1) {
+            if (r.isAddressBookContact === 1) {
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -114,21 +113,23 @@ __d(
               );
               return;
             }
-            var i = o("WAWebWidFactory").createUserLidOrThrow(a.id);
-            if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
-              var l = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
-              if (!(l == null || l.usernameChanged !== !0)) {
-                var s = (n = l.username) != null ? n : "",
-                  m = s === "";
-                if (m) {
-                  if (l.isPhoneNumberKnown !== !0) return;
-                } else if (l.wasPreviouslyKnown !== !0) return;
+            var a = o("WAWebWidFactory").createUserLidOrThrow(r.id);
+            if (!o("WAWebUserPrefsMeUser").isMeAccount(a)) {
+              var i = yield o("WAWebQueryExistsJob").queryWidUsernameExists(a);
+              if (!(i == null || i.usernameChanged !== !0)) {
+                var l = o("WAWebUsernameTypes").asMaybeUsername(i.username),
+                  s = l == null;
+                if (s) {
+                  if (i.isPhoneNumberKnown !== !0) return;
+                } else if (i.wasPreviouslyKnown !== !0) return;
                 yield o(
                   "WAWebInsertUsernameChangeSystemMsg",
                 ).generateUsernameChangeNotificationSystemMsg({
-                  wid: o("WAWebWidFactory").asUserLidOrThrow(i),
-                  oldUsername: l.oldUsername,
-                  newUsername: s,
+                  wid: o("WAWebWidFactory").asUserLidOrThrow(a),
+                  oldUsername: o("WAWebUsernameTypes").asMaybeUsername(
+                    i.oldUsername,
+                  ),
+                  newUsername: l,
                 });
               }
             }

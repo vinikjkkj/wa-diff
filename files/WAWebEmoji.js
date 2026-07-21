@@ -4,7 +4,6 @@ __d(
     "invariant",
     "WABitArray",
     "WAMemoizeCache",
-    "WANullthrows",
     "WAOnceWithReset",
     "WAWebABProps",
     "WAWebEmojiCompile",
@@ -12,6 +11,7 @@ __d(
     "WAWebGetEmojiPathExperimental",
     "compactMap",
     "justknobx",
+    "nullthrows",
     "objectEntries",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -516,7 +516,7 @@ __d(
           (n.$18 = function (t) {
             var e = this.$12(),
               n = e.glyphIdToIndex;
-            return r("WANullthrows")(n.get(t));
+            return r("nullthrows")(n.get(t));
           }),
           (n.getEmojiAggregate = function (t) {
             var e = this.getNormalizedOrTofu(t),

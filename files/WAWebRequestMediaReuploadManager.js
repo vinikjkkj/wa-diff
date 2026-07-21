@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebMiscErrors",
+    "WAWebGetUserMediaErrors",
     "WAWebMmsMediaTypes",
     "WAWebMsgGetters",
     "WAWebSendServerErrorReceiptJob",
@@ -23,7 +23,7 @@ __d(
                   var a = e.id.id;
                   if (o("WAWebMsgGetters").getIsNewsletterMsg(e))
                     throw new (o(
-                      "WAWebMiscErrors",
+                      "WAWebGetUserMediaErrors",
                     ).RMRNotSupportedOnNewsletterMessagesError)(
                       o("WAWebMmsMediaTypes").getMsgMediaType(e),
                     );

@@ -328,151 +328,25 @@ __d(
           var n;
           return (
             (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "GetUserMediaError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      O = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "NotSupportedError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(F);
-    O.message = "The operation is not supported.";
-    var B = (function (e) {
-      function t(t) {
-        var n;
-        return (
-          (n = e.call(this, t != null ? t : "") || this),
-          (n.name = "NotAllowedError"),
-          n
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(F);
-    B.message = "The user did not grant permission for the operation";
-    var W = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n =
-              e.call(
-                this,
-                "RMR attempted on a newsletter message of media type " +
-                  t +
-                  ", newsletter messages do not support media reupload requests",
-              ) || this),
-            (n.name = "RMRNotSupportedOnNewsletterMessagesError"),
-            (n.mediaType = t),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(F),
-      q = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "ConstraintNotSatisfiedError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(F);
-    q.message = "One of the mandatory Constraints could not be satisfied.";
-    var U = (function (e) {
-      function t(t) {
-        var n;
-        return (
-          (n = e.call(this, t != null ? t : "") || this),
-          (n.name = "OverconstrainedError"),
-          n
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(F);
-    U.message =
-      "Due to changes in the environment, one or more mandatory constraints can no longer be satisfied.";
-    var V = (function (e) {
-      function t(t) {
-        var n;
-        return (
-          (n = e.call(this, t != null ? t : "") || this),
-          (n.name = "NotFoundError"),
-          n
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(F);
-    V.message = "The object can not be found here.";
-    var H = (function (e) {
-      function t(t) {
-        var n;
-        return (
-          (n = e.call(this, t != null ? t : "") || this),
-          (n.name = "SourceUnavailableError"),
-          n
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(F);
-    H.message =
-      "The source of the MediaStream could not be accessed due to a hardware error (e.g. lock from another process).";
-    var G = (function (e) {
-      function t(t) {
-        var n;
-        return (
-          (n = e.call(this, t != null ? t : "") || this),
-          (n.name = "NotReadableError"),
-          n
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(F);
-    G.message =
-      "Although the user granted permission to use the matching devices, a hardware error occurred which prevented access to the device.";
-    var z = (function (e) {
-      function t(t) {
-        var n;
-        return (
-          (n = e.call(this, t != null ? t : "") || this),
-          (n.name = "UnableToGetContentLengthError"),
-          n
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(e.CustomError);
-    z.message = "Failed to get media contentLength from mms";
-    var j = {
-        GetUserMediaError: F,
-        NotSupportedError: O,
-        NotAllowedError: B,
-        ConstraintNotSatisfiedError: q,
-        OverconstrainedError: U,
-        NotFoundError: V,
-        NotReadableError: G,
-        SourceUnavailableError: H,
-      },
-      K = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t) || this),
-            (n.name = "GoogleLensApiError"),
-            (n.error = t),
+            (n.name = "UnableToGetContentLengthError"),
             n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
+    F.message = "Failed to get media contentLength from mms";
+    var O = (function (e) {
+      function t(t) {
+        var n;
+        return (
+          (n = e.call(this, t) || this),
+          (n.name = "GoogleLensApiError"),
+          (n.error = t),
+          n
+        );
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(e.CustomError);
     ((l.Offline = s),
       (l.GaveUpRetry = u),
       (l.CatalogImageDownloadError = c),
@@ -501,13 +375,8 @@ __d(
       (l.ModelCreateError = M),
       (l.ActionError = w),
       (l.Unmount = A),
-      (l.GetUserMediaError = F),
-      (l.NotAllowedError = B),
-      (l.RMRNotSupportedOnNewsletterMessagesError = W),
-      (l.NotFoundError = V),
-      (l.UnableToGetContentLengthError = z),
-      (l.GetUserMedia = j),
-      (l.GoogleLensApiError = K));
+      (l.UnableToGetContentLengthError = F),
+      (l.GoogleLensApiError = O));
   },
   98,
 );

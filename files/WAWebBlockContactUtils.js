@@ -15,8 +15,10 @@ __d(
     "WAWebFbtCommon",
     "WAWebModalManager",
     "WAWebName.react",
+    "WAWebNoop",
     "WAWebPsaBlockContactPopup.react",
     "WAWebSendSpamChatAction",
+    "WAWebSmb1pdConversionSignalAction",
     "WAWebStateUtils",
     "WAWebWamChatPSALogger",
     "WDSDialogBridge",
@@ -46,11 +48,20 @@ __d(
           (o("WAWebSendSpamChatAction").sendReport({
             chat: o("WAWebStateUtils").unproxy(e),
             spamFlow: a,
+            skipCtwa1pdNbfSignal: !0,
           }),
-            o("WAWebBlockContactAction").blockContact({
-              contact: n,
-              blockEntryPoint: t,
-            }),
+            o("WAWebBlockContactAction")
+              .blockContact({
+                contact: n,
+                blockEntryPoint: t,
+                skipCtwa1pdNbfSignal: !0,
+              })
+              .then(function () {
+                return o(
+                  "WAWebSmb1pdConversionSignalAction",
+                ).log1pdBlockAndReportConversionSignal(e);
+              })
+              .catch(r("WAWebNoop")),
             o("WAWebModalManager").ModalManager.close());
         },
         s =

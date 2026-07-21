@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebAck",
     "WAWebAssociationProcessor",
@@ -62,6 +61,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -340,7 +340,7 @@ __d(
     }
     function k(e) {
       return Math.round(
-        (o("WATimeUtils").unixTime() - r("WANullthrows")(e) / 1e3) / 3600,
+        (o("WATimeUtils").unixTime() - r("nullthrows")(e) / 1e3) / 3600,
       );
     }
     function I(e, t) {
@@ -417,7 +417,7 @@ __d(
           }
           var s = o("WAWebChatCollection").ChatCollection.get(a.id.remote),
             h = o("WAWebWidFactory").asUserWidOrThrow(
-              r("WANullthrows")(o("WAWebMsgGetters").getSender(a)),
+              r("nullthrows")(o("WAWebMsgGetters").getSender(a)),
             ),
             y;
           if (
@@ -444,7 +444,7 @@ __d(
             return;
           }
           var C = o("WAWebWidFactory").asUserWidOrThrow(
-              r("WANullthrows")(o("WAWebMsgGetters").getSender(i)),
+              r("nullthrows")(o("WAWebMsgGetters").getSender(i)),
             ),
             b = r("WAWebWid").equals.apply(
               r("WAWebWid"),
@@ -565,7 +565,7 @@ __d(
               (yield S({
                 keptCount: T,
                 kicKey: a.id,
-                kicTimestampMs: r("WANullthrows")(a.senderTimestampMs),
+                kicTimestampMs: r("nullthrows")(a.senderTimestampMs),
                 msgToKeepAssociationType: i.associationType,
                 msgToKeepKey: i.id,
               }),
@@ -583,7 +583,7 @@ __d(
               break;
             }
             case o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL:
-              (yield R(i.id, a.id, r("WANullthrows")(a.senderTimestampMs)),
+              (yield R(i.id, a.id, r("nullthrows")(a.senderTimestampMs)),
                 yield o(
                   "WAWebDBMarkFutureproofMessagesReparsed",
                 ).markFutureproofMessagesReparsed([a.id.toString()]),
