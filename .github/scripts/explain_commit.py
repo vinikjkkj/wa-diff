@@ -93,6 +93,29 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
     raise RuntimeError("Gemini failed to return valid output after 3 attempts")
 
 
+def fix_code_fences(md: str) -> str:
+    """Re-indent fenced code blocks so their content keeps the list indentation.
+
+    Gemini often emits code lines at column 0 inside fences opened within
+    indented list items, which terminates the list mid-fence in CommonMark
+    and mangles the rest of the document.
+    """
+    out = []
+    fence_indent = None
+    for line in md.splitlines():
+        stripped = line.lstrip()
+        if fence_indent is None:
+            if stripped.startswith("```"):
+                fence_indent = line[: len(line) - len(stripped)]
+            out.append(line)
+        elif stripped.startswith("```"):
+            out.append(fence_indent + "```")
+            fence_indent = None
+        else:
+            out.append(line if line.startswith(fence_indent) or not stripped else fence_indent + line)
+    return "\n".join(out)
+
+
 def emit_outputs(title: str, body: str, tag: str) -> None:
     out_path = os.environ.get("GITHUB_OUTPUT")
     if not out_path:
@@ -122,12 +145,14 @@ def main() -> int:
     server = os.environ.get("GITHUB_SERVER_URL", "https://github.com")
     commit_link = f"[`{sha[:10]}`]({server}/{repo}/commit/{sha})" if repo else f"`{sha[:10]}`"
 
+    body_en = fix_code_fences(result["body_en"])
+    body_pt = fix_code_fences(result["body_pt"])
     body = (
         "<details open><summary>🇺🇸 <b>English</b></summary>\n\n"
-        f"{result['body_en']}\n\n"
+        f"{body_en}\n\n"
         "</details>\n\n"
         "<details><summary>🇧🇷 <b>Português</b></summary>\n\n"
-        f"{result['body_pt']}\n\n"
+        f"{body_pt}\n\n"
         "</details>\n\n"
         f"---\nCommit: {commit_link}"
     )
