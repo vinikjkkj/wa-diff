@@ -98,7 +98,6 @@ __d(
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WAWebHatchApprovalDialog.react"), {
           richDescription: "Create an email draft to xyz@meta.com",
-          serviceName: "Gmail",
           title: "Hatch wants to use draft email from Gmail",
           onConfirm: function (n) {
             (o("WALogger").LOG(

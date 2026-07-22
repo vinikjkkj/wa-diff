@@ -899,13 +899,6 @@ __d(
               this.ack < o("WAWebAck").ACK.SENT
             );
           }),
-          (i.interactiveButtonsReleased = function () {
-            return (
-              this.isFromTemplate ||
-              (!o("WAWebFrontendMsgGetters").getHasTemplateButtons(this) &&
-                this.type !== o("WAWebMsgType").MSG_TYPE.TEMPLATE_BUTTON_REPLY)
-            );
-          }),
           (i.resumeRemoteUpload = function () {
             return o("WAWebMsgGetters").getIsNewsletterMsg(this)
               ? o("WAWebMedia").resumeUploadMsg(this)

@@ -34,9 +34,15 @@ __d(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "participant missing mapping, addressing mode mismatch = ",
+                        ", localAddressingMode = ",
+                        ", serverAddressingMode = ",
+                        ", participant = ",
                         "",
                       ])),
                     String(i !== l),
+                    String(i),
+                    String(l),
+                    s.toLogString(),
                   )
                   .sendLogs("GroupLidInfra/incoming_group_message_unknown", {
                     sampling: 0.01,

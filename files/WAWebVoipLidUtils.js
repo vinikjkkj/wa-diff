@@ -13,7 +13,6 @@ __d(
     "WAWebUpdateContactExternalUserState",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
-    "WAWebVoipGatingUtils",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -90,7 +89,9 @@ __d(
             p = m(n);
           if (
             (p != null &&
-              o("WAWebVoipGatingUtils").isGuestCallingRepresentationEnabled() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "web_guest_calling_representation_enabled",
+              ) &&
               o(
                 "WAWebUpdateContactExternalUserState",
               ).updateContactExternalUserState(l, p),

@@ -216,14 +216,18 @@ __d(
             c = t.participant,
             d = t.retryCount;
           if (d >= o("WAWebPostMessageHighRetryCountMetric").MAX_RETRY) {
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleRetryRequest refusing retry attempt #",
-                  "",
-                ])),
-              d,
-            );
+            o("WALogger")
+              .LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleRetryRequest refusing retry attempt #",
+                    " for ",
+                    "",
+                  ])),
+                d,
+                e.toLogString(),
+              )
+              .sendLogs("retry-request-cap-exhausted", { sampling: 0.01 });
             return;
           }
           var h = e.isUser() ? a : c;

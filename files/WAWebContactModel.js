@@ -524,14 +524,6 @@ __d(
           (a.getCollection = function () {
             return o("WAWebContactCollection").ContactCollection;
           }),
-          (a.canToggleFavorite = function () {
-            return o("WAWebListsGatingUtils").isListsEnabled() ||
-              this.isFavorite
-              ? !0
-              : o("WAWebFrontendContactGetters").getIsMyContact(this) &&
-                  !this.id.isBot() &&
-                  !o("WAWebContactGetters").getIsMe(this);
-          }),
           n
         );
       })(o("WAWebBaseModel").BaseModel);

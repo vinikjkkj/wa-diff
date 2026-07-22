@@ -227,7 +227,7 @@ __d(
         if (s.nativeFlowName != null) return !1;
       }
       if (
-        !s.interactiveButtonsReleased() ||
+        !o("WAWebMsgModelUtils").interactiveButtonsReleased(s) ||
         (s.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
           s.subtype ===
             o("WAWebBotGenTypingIndicatorMsg")
@@ -299,7 +299,7 @@ __d(
         o("WAWebMsgLinks").getSuspiciousLinks(t).length !== 0 ||
         o("WAWebFrontendMsgGetters").getAsPttLike(t) != null ||
         t.type === o("WAWebMsgType").MSG_TYPE.STICKER ||
-        !t.interactiveButtonsReleased() ||
+        !o("WAWebMsgModelUtils").interactiveButtonsReleased(t) ||
         (o("WAWebChatGetters").getIsNewsletter(
           o("WAWebFrontendMsgGetters").getChat(t),
         ) &&
@@ -343,7 +343,7 @@ __d(
               r.ack < o("WAWebAck").ACK.SENT &&
               o("WAWebMsgGetters").getIsSentByMe(r)
             ) &&
-            r.interactiveButtonsReleased() &&
+            o("WAWebMsgModelUtils").interactiveButtonsReleased(r) &&
             !o("WAWebFrontendMsgGetters").getAsAlbum(r);
     }
     function L(e) {
@@ -366,7 +366,7 @@ __d(
               !o("WAWebMsgGetters").getIsFutureproof(a) &&
               a.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
               a.type !== o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER &&
-              a.interactiveButtonsReleased() &&
+              o("WAWebMsgModelUtils").interactiveButtonsReleased(a) &&
               !o("WAWebFrontendMsgGetters").getAsAlbum(a)
           : !1;
       if (a.isCarouselCard) return !1;
@@ -397,7 +397,7 @@ __d(
               a.ack < o("WAWebAck").ACK.SENT &&
               o("WAWebMsgGetters").getIsSentByMe(a)
             ) &&
-            a.interactiveButtonsReleased() &&
+            o("WAWebMsgModelUtils").interactiveButtonsReleased(a) &&
             !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(a) &&
             !o("WAWebFrontendMsgGetters").getAsAlbum(a);
     }

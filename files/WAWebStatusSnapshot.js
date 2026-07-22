@@ -74,20 +74,12 @@ __d(
             );
           }),
           (this.$3 = function (e) {
-            var n = function (t) {
-                return !o("WAWebContactGetters").getCalculatedStatusMute(
-                  t.contact,
-                );
-              },
-              r = o("WAWebStatusCollection")
-                .StatusCollection.getUnexpired({ containsAnyUnreadStatus: !1 })
-                .filter(n),
-              a = t.$6();
-            return a.length > 0 &&
-              r.length + a.length >=
+            var n = t.$6();
+            return n.length > 0 &&
+              n.length >=
                 o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
               o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled()
-              ? [e].concat(a).map(function (e) {
+              ? [e].concat(n).map(function (e) {
                   return t.$4(e);
                 })
               : [t.$4(e)];

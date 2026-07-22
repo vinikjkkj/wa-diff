@@ -136,7 +136,37 @@ __d(
           path: t.readString(e, "path"),
         },
         n != null ? { turnGrantEligible: n } : null,
+        R(e),
       );
+    }
+    function R(e) {
+      var t = {},
+        n = o("WAWebHatchJsonReaders").readBool(
+          e,
+          "space_reader_grant_eligible",
+        );
+      n != null && (t.spaceReaderGrantEligible = n);
+      var r = o("WAWebHatchJsonReaders").readString(
+        o("WAWebHatchJsonReaders").readField(e, "runtime_request_trace"),
+        "space_display_name",
+      );
+      r != null && (t.spaceDisplayName = r);
+      var a = o("WAWebHatchJsonReaders").readString(e, "policy_subject");
+      a != null && (t.policySubject = a);
+      var i = o("WAWebHatchJsonReaders").readString(e, "workload");
+      i != null && (t.workload = i);
+      var l = L(o("WAWebHatchJsonReaders").readArray(e, "declared_hosts"));
+      return (l.length > 0 && (t.declaredHosts = l), t);
+    }
+    function L(e) {
+      if (e == null) return [];
+      var t = [],
+        n = new Set();
+      for (var r of e) {
+        var a = o("WAWebHatchJsonReaders").readString(r, "host");
+        a != null && a !== "" && !n.has(a) && (n.add(a), t.push(a));
+      }
+      return t;
     }
     l.decodeHatchPayload = d;
   },

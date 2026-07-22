@@ -38,7 +38,7 @@ __d(
         t.type !== o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER &&
         t.type !== o("WAWebMsgType").MSG_TYPE.OVERSIZED &&
         t.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
-        t.interactiveButtonsReleased() &&
+        o("WAWebMsgModelUtils").interactiveButtonsReleased(t) &&
         !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(t) &&
         !(
           t.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
@@ -103,7 +103,7 @@ __d(
               r.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
               !o("WAWebMsgGetters").getIsSentByMe(r) &&
               o("WAWebMsgGetters").getIsGroupMsg(r) &&
-              r.interactiveButtonsReleased() &&
+              o("WAWebMsgModelUtils").interactiveButtonsReleased(r) &&
               !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(r);
     }
     function d(e) {
@@ -133,7 +133,7 @@ __d(
             r.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
             r.type !== o("WAWebMsgType").MSG_TYPE.OVERSIZED &&
             r.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
-            r.interactiveButtonsReleased() &&
+            o("WAWebMsgModelUtils").interactiveButtonsReleased(r) &&
             !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(r) &&
             !r.isCarouselCard;
     }

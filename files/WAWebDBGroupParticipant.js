@@ -31,13 +31,14 @@ __d(
       p,
       _,
       f,
-      g = 3e3;
-    function h(e) {
-      return y.apply(this, arguments);
+      g,
+      h = 3e3;
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.groupInfos,
             n = yield o("WAWebSchemaParticipant")
               .getParticipantTable()
@@ -119,10 +120,10 @@ __d(
             .getParticipantTable()
             .bulkCreateOrReplace(a);
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
+    function b(e) {
       var t = e.admins,
         r = e.deviceIds,
         a = e.group,
@@ -180,7 +181,7 @@ __d(
           })(),
         );
     }
-    function b(e) {
+    function v(e) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -215,9 +216,9 @@ __d(
           })(),
         );
     }
-    var v = (function () {
+    var S = (function () {
         return o("WABatcher").batch(
-          { delayMs: g },
+          { delayMs: h },
           (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
@@ -392,9 +393,9 @@ __d(
           })(),
         );
       })(),
-      S = (function () {
+      R = (function () {
         return o("WABatcher").batch(
-          { delayMs: g },
+          { delayMs: h },
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
@@ -507,12 +508,12 @@ __d(
           })(),
         );
       })();
-    function R(e) {
+    function L(e) {
       var t = e.data,
         a = e.group,
         i = e.isOffline,
         l = i === void 0 ? !1 : i;
-      if (l) return S({ id: String(a), data: t });
+      if (l) return R({ id: String(a), data: t });
       var s = t.participants,
         u = a.toString();
       return o("WAWebModelStorageUtils")
@@ -568,7 +569,7 @@ __d(
           })(),
         );
     }
-    function L(e, t) {
+    function E(e, t) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -593,10 +594,10 @@ __d(
           })(),
         );
     }
-    function E(e, t, a, i) {
+    function k(e, t, a, i) {
       i === void 0 && (i = !1);
       var l = !!(a != null && a.defaultSubgroup);
-      if (i) return v({ id: String(e), data: t, groupMetadata: a });
+      if (i) return S({ id: String(e), data: t, groupMetadata: a });
       var s = t.participants,
         u = e.toString();
       return o("WAWebModelStorageUtils")
@@ -711,14 +712,14 @@ __d(
           })(),
         );
     }
-    var k = n("$InternalEnum").Mirrored(["Success", "Error"]);
-    function I(e, t) {
-      return T.apply(this, arguments);
+    var I = n("$InternalEnum").Mirrored(["Success", "Error"]);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = k.Error;
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = I.Error;
           return (
             yield o("WAWebModelStorageUtils")
               .getStorage()
@@ -737,7 +738,7 @@ __d(
                             yield l.get(e.toString()),
                             "missing participant record to migrate",
                           ),
-                          m = Array.from(c.senderKey.entries()),
+                          d = Array.from(c.senderKey.entries()),
                           p = o("WAWebGroupUtils").amIGroupAdmin(c.admins),
                           _ = {
                             admins: c.admins.map(function (e) {
@@ -761,23 +762,23 @@ __d(
                               ).toString();
                             }),
                             senderKey: new Map(
-                              m.map(function (e) {
+                              d.map(function (e) {
                                 var t = e[0],
                                   n = e[1];
-                                return [D(t, u).toString(), !1];
+                                return [x(t, u).toString(), !1];
                               }),
                             ),
                           },
-                          g = { isLidAddressingMode: t };
-                        (yield (f || (f = n("Promise"))).all([
+                          f = { isLidAddressingMode: t };
+                        (yield (g || (g = n("Promise"))).all([
                           l.merge(e.toString(), _),
-                          s.merge(e.toString(), g),
+                          s.merge(e.toString(), f),
                         ]),
-                          (a = k.Success));
+                          (a = I.Success));
                       } catch (t) {
                         o("WALogger").ERROR(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
                               "addressing mode migration failed for ",
                               ": ",
                               "",
@@ -796,25 +797,36 @@ __d(
             a
           );
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
+    function x(e, t) {
       var n,
         a = o("WAWebWidFactory").createDeviceWidOrThrow(e),
-        i = r("nullthrows")(
-          t(o("WAWebWidFactory").asUserWidOrThrow(a)),
-          "senderkey device missing a LID-PN mapping",
-        );
+        i = t(o("WAWebWidFactory").asUserWidOrThrow(a));
+      i == null &&
+        o("WALogger")
+          .WARN(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "GroupLidInfra: senderkey device missing a LID-PN mapping, device = ",
+                "",
+              ])),
+            a,
+          )
+          .sendLogs("grouplidinfra-senderkey-missing-mapping", {
+            sampling: 0.01,
+          });
+      var l = r("nullthrows")(i, "senderkey device missing a LID-PN mapping");
       return o("WAWebWidFactory")
         .createDeviceWidFromUserAndDevice(
-          i.user,
-          i.server,
+          l.user,
+          l.server,
           (n = a.device) != null ? n : o("WAJids").DEFAULT_DEVICE_ID,
         )
         .toString();
     }
-    function x(e) {
+    function $(e) {
       var t = e.group;
       return o("WAWebModelStorageUtils")
         .getStorage()
@@ -825,7 +837,7 @@ __d(
           });
         });
     }
-    function $(e) {
+    function P(e) {
       var t = e.groupIds;
       return o("WAWebModelStorageUtils")
         .getStorage()
@@ -841,7 +853,7 @@ __d(
           );
         });
     }
-    function P(e) {
+    function N(e) {
       var t = e.group,
         r = e.newId,
         a = e.oldId,
@@ -874,12 +886,12 @@ __d(
           })(),
         );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
@@ -894,16 +906,16 @@ __d(
             var u,
               c,
               d,
-              p,
+              m,
               _ = (u = s.admins) == null ? void 0 : u.length,
               f = (c = s.superAdmins) == null ? void 0 : c.length,
               g = (d = s.participants) == null ? void 0 : d.length,
-              h = (p = s.pastParticipants) == null ? void 0 : p.length;
+              h = (m = s.pastParticipants) == null ? void 0 : m.length;
             return (
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "getGroupParticipant: group participant info missing sender key in ",
                       ": admins ",
                       ", superAdmins ",
@@ -970,15 +982,15 @@ __d(
             deviceCount: s.senderKey.size,
           };
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o("WAWebSchemaParticipant")
               .getParticipantTable()
@@ -992,8 +1004,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "computeGroupParticipantsHash: ",
                       "",
                     ])),
@@ -1004,31 +1016,31 @@ __d(
             );
           }
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    ((l.addParticipantInfo = (_ = o(
+    ((l.addParticipantInfo = (f = o(
       "WAWebDBGroupParticipantHelpers",
     )).addParticipantInfo),
-      (l.addParticipantInfoCAG = _.addParticipantInfoCAG),
-      (l.createParticipantInfo = _.createParticipantInfo),
-      (l.removeParticipantInfo = _.removeParticipantInfo),
-      (l.removeParticipantInfoCAG = _.removeParticipantInfoCAG),
-      (l.replaceParticipantInfo = _.replaceParticipantInfo),
-      (l.replaceParticipantInfoCAG = _.replaceParticipantInfoCAG),
-      (l.updateGroupParticipantTableWithoutDeviceSync = h),
-      (l.replaceParticipants = C),
-      (l.addPastParticipants = b),
-      (l.updateCommunityParticipants = R),
-      (l.setDBGroupSuperAdmin = L),
-      (l.updateDBParticipants = E),
-      (l.AddressingModeMigrationResult = k),
-      (l.migrateParticipantInfoAddressingMode = I),
-      (l.markGroupParticipantStale = x),
-      (l.bulkMarkGroupParticipantStale = $),
-      (l.modifyGroupParticipant = P),
-      (l.getGroupParticipant = N),
-      (l.computeGroupParticipantsHash = w));
+      (l.addParticipantInfoCAG = f.addParticipantInfoCAG),
+      (l.createParticipantInfo = f.createParticipantInfo),
+      (l.removeParticipantInfo = f.removeParticipantInfo),
+      (l.removeParticipantInfoCAG = f.removeParticipantInfoCAG),
+      (l.replaceParticipantInfo = f.replaceParticipantInfo),
+      (l.replaceParticipantInfoCAG = f.replaceParticipantInfoCAG),
+      (l.updateGroupParticipantTableWithoutDeviceSync = y),
+      (l.replaceParticipants = b),
+      (l.addPastParticipants = v),
+      (l.updateCommunityParticipants = L),
+      (l.setDBGroupSuperAdmin = E),
+      (l.updateDBParticipants = k),
+      (l.AddressingModeMigrationResult = I),
+      (l.migrateParticipantInfoAddressingMode = T),
+      (l.markGroupParticipantStale = $),
+      (l.bulkMarkGroupParticipantStale = P),
+      (l.modifyGroupParticipant = N),
+      (l.getGroupParticipant = M),
+      (l.computeGroupParticipantsHash = A));
   },
   98,
 );

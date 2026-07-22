@@ -12,14 +12,8 @@ __d(
         "profile_scraping_privacy_token_in_about_iq",
       );
     }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "mex_get_privacy_contact_list_enabled",
-      );
-    }
     ((l.isDataPrivacyPhase2Enabled = e),
-      (l.isProfileScrappingProtectionInMexFetchEnabled = s),
-      (l.isMexPrivacyContactListEnabled = u));
+      (l.isProfileScrappingProtectionInMexFetchEnabled = s));
   },
   98,
 );

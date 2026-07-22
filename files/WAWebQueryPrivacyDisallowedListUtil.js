@@ -2,7 +2,7 @@ __d(
   "WAWebQueryPrivacyDisallowedListUtil",
   [
     "WALogger",
-    "WAWebPrivacyGatingUtils",
+    "WAWebABProps",
     "WAWebQueryPrivacyDisallowedListLidJob",
     "WAWebQueryPrivacyDisallowedListMexJob",
     "WAWebQueryPrivacyDisallowedListPnJob",
@@ -18,7 +18,11 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebPrivacyGatingUtils").isMexPrivacyContactListEnabled()) {
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "mex_get_privacy_contact_list_enabled",
+            )
+          ) {
             var n = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
             try {
               return yield o(

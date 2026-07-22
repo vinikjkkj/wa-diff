@@ -1,11 +1,11 @@
 __d(
   "WAWebPaymentLink",
   [
-    "PaymentLinkPreviewWithAmountFeature",
     "WAWebABProps",
     "WAWebLinkify",
     "WAWebLoggingPaymentLinkWithoutPreviewFeature",
     "WAWebMobilePlatforms",
+    "WAWebPaymentLinkPreviewWithAmountFeature",
     "WAWebPaymentLinkPreviewWithTrustSignalsFeature",
     "WAWebPaymentLinkTraceIdLoggingFeature",
     "WAWebPaymentLinkWithCTAFeature",
@@ -16,7 +16,7 @@ __d(
     var e = "Open payment link";
     function s(e) {
       return o(
-        "PaymentLinkPreviewWithAmountFeature",
+        "WAWebPaymentLinkPreviewWithAmountFeature",
       ).getPaymentLinkOrderHeaderComponentDisplayParamsForAmountFeature(e);
     }
     function u(e) {
@@ -50,7 +50,7 @@ __d(
           n,
           r,
         )),
-        (n = o("PaymentLinkPreviewWithAmountFeature").setAmountMetadata(
+        (n = o("WAWebPaymentLinkPreviewWithAmountFeature").setAmountMetadata(
           e,
           n,
           r,

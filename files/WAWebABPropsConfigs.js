@@ -842,6 +842,7 @@ __d(
       community_general_chat_create_enabled: [5453, "bool", !1, !1],
       companion_contact_refresh: [33093, "bool", !1, !0],
       companion_contact_refresh_debounce_ms: [33497, "int", 0, 0],
+      companion_contact_refresh_receiver: [33635, "bool", !1, !1],
       companion_initiated_companion_contact_refresh: [33123, "bool", !1, !1],
       consumer_graphql_enable_double_log_for_survey: [28129, "bool", !1, !1],
       consumer_graphql_web_to_fetch_qp_surface_ids: [
@@ -2623,6 +2624,8 @@ __d(
       wa_meta_one_launch_free_trial_enabled: [29290, "bool", !1, !1],
       wa_meta_one_rollout_enabled: [28612, "bool", !1, !1],
       wa_meta_one_subscription_notifications_enabled: [29866, "bool", !1, !0],
+      wa_native_ads_web_creation_dummy: [33640, "bool", !1, !1],
+      wa_native_ads_web_creation_rollout: [33639, "bool", !1, !1],
       wa_native_ads_xplat_draft_ads_ms1a_dummy_enabled: [33374, "bool", !1, !1],
       wa_native_ads_xplat_draft_ads_ms1a_enabled: [33372, "bool", !1, !1],
       wa_nct_token_history_sync_enabled: [25189, "bool", !1, !1],
