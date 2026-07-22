@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBaseModel",
+    "WAWebBizAiAssetResolver",
     "WAWebChatCollection",
     "WAWebMediaHosts",
     "WAWebMediaHostsRouteSelection",
@@ -39,6 +40,8 @@ __d(
             (e.lastHostUsed = o("WAWebBaseModel").session()),
             (e.img = o("WAWebBaseModel").derived(
               function () {
+                if (r("WAWebWid").isAiHub(this.id))
+                  return o("WAWebBizAiAssetResolver").getAiHubProfileURL();
                 if (this.raw) return "data:image/jpeg;base64," + this.raw;
                 if (!this.tag && this.stale) return null;
                 if (this.tag)
@@ -50,6 +53,7 @@ __d(
                     : this.previewEurl;
               },
               [
+                "id",
                 "tag",
                 "raw",
                 "stale",
@@ -62,6 +66,8 @@ __d(
             )),
             (e.imgFull = o("WAWebBaseModel").derived(
               function () {
+                if (r("WAWebWid").isAiHub(this.id))
+                  return o("WAWebBizAiAssetResolver").getAiHubProfileURL();
                 if ((this.raw || !this.tag) && this.stale) return null;
                 if (!this.raw && this.tag)
                   return this.fullDirectPath != null
@@ -72,6 +78,7 @@ __d(
                     : this.eurl;
               },
               [
+                "id",
                 "tag",
                 "raw",
                 "stale",

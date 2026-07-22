@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WANullthrows",
     "WAPromiseProps",
     "WATimeUtils",
     "WATypeUtils",
@@ -43,6 +42,7 @@ __d(
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -342,7 +342,7 @@ __d(
                     );
                 }
                 return e.map(function (e) {
-                  return r("WANullthrows")(t.get(e));
+                  return r("nullthrows")(t.get(e));
                 });
               },
             );
@@ -677,7 +677,7 @@ __d(
                     (function () {
                       var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                         function* (t) {
-                          var s = r("WANullthrows")(t[0]),
+                          var s = r("nullthrows")(t[0]),
                             c = s.id,
                             d = e.count + 1,
                             _ = { add: "before", isHistory: !0 },

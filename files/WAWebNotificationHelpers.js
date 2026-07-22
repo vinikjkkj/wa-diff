@@ -126,6 +126,7 @@ __d(
     function C(e) {
       var t;
       if (e.isLocked) return r("WAWebFbtCommon")("WhatsApp").toString();
+      if (e.id.isAiHub()) return "Meta Business Agent";
       if ((t = e.groupMetadata) != null && t.isUnnamed)
         return o(
           "WAWebParticipantListUtils",

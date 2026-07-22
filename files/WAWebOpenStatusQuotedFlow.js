@@ -52,11 +52,15 @@ __d(
                 var t = yield (s || (s = n("Promise"))).all([
                     e.fetchNewsletterStatuses(a),
                     e.fetchMyStatusReactions(a).catch(function () {
-                      return [];
+                      return null;
                     }),
                   ]),
                   o = t[1];
-                yield e.hydrateMyStatusReactions(o, a).catch(r("WAWebNoop"));
+                o != null &&
+                  (yield e.hydrateMyStatusReactions(o, a).catch(r("WAWebNoop")),
+                  yield e
+                    .reconcileMyStatusReactions(o, a)
+                    .catch(r("WAWebNoop")));
               },
             );
             return function (t) {

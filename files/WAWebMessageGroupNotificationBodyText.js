@@ -386,7 +386,13 @@ __d(
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatLinkNotification",
-            ).formatLinkNotification(c, _, S, y, a),
+            ).formatLinkNotification({
+              author: _,
+              clickable: a,
+              subject: S,
+              subtype: c,
+              templateParams: y,
+            }),
           };
         case "community_create":
           return {

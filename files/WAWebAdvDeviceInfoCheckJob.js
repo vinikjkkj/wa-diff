@@ -172,9 +172,7 @@ __d(
               r = e.some(function (e) {
                 var t = e[0],
                   n = e[1];
-                return (
-                  t.user === o("WAWebUserPrefsMeUser").getMeUserOrThrow().user
-                );
+                return o("WAWebUserPrefsMeUser").isMeAccount(t);
               });
             return r &&
               o("WAWebABProps").getABPropConfigValue(

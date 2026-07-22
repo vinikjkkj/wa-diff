@@ -356,12 +356,25 @@ __d(
         W.apply(this, arguments)
       );
     }
-    function q(e, t, n) {
-      return U.apply(this, arguments);
+    var q = 1,
+      U = "rsa2048";
+    function V(e) {
+      var t;
+      return JSON.stringify({
+        algorithm: U,
+        auth_tag: (t = o("WABase64")).encodeB64(e.tag),
+        encrypted_data: t.encodeB64(e.cipherText),
+        encrypted_key: t.encodeB64(e.encryptedKey),
+        nonce: t.encodeB64(e.nonce),
+        v: q,
+      });
     }
-    function U() {
+    function H(e, t, n) {
+      return G.apply(this, arguments);
+    }
+    function G() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = new TextEncoder(),
             a = r.encode(e),
             i = self.crypto.getRandomValues(new Uint8Array(12)),
@@ -396,15 +409,15 @@ __d(
             v = Math.floor(Date.now() / 1e3);
           return "#PWD_WA:11:" + v + ":" + b;
         })),
-        U.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function H() {
+    function j() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSignalProtocolStore")
             .getSignalProtocolStore()
             .getIdentityKeyPair();
@@ -416,15 +429,15 @@ __d(
             ).calculateSignature(n, a.buffer);
           return new Uint8Array(i);
         })),
-        H.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function K(e) {
+      return Q.apply(this, arguments);
     }
-    function z() {
+    function Q() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) throw r("err")("Empty PEM string");
           var t = "-----BEGIN PUBLIC KEY-----",
             n = "-----END PUBLIC KEY-----",
@@ -446,7 +459,7 @@ __d(
             ["encrypt"],
           );
         })),
-        z.apply(this, arguments)
+        Q.apply(this, arguments)
       );
     }
     ((l.generateRSAKeys = d),
@@ -456,9 +469,11 @@ __d(
       (l.convertTestKeys = $),
       (l.decryptRSAEncryptedPayload = w),
       (l.wrapPayloadWithRSAAESEncryption = B),
-      (l.encryptPassword = q),
-      (l.computeIdSign = V),
-      (l.importPasswordPublicKey = G));
+      (l.WAFFLE_AUTH_ENVELOPE_VERSION_V1 = q),
+      (l.serializeWaffleEncryptedEnvelope = V),
+      (l.encryptPassword = H),
+      (l.computeIdSign = z),
+      (l.importPasswordPublicKey = K));
   },
   98,
 );

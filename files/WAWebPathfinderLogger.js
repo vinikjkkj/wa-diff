@@ -205,8 +205,8 @@ __d(
       return n != null && t - n < P;
     }
     function B() {
-      (Y++,
-        Y === 1 &&
+      (J++,
+        J === 1 &&
           o("WALogger").WARN(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -240,78 +240,82 @@ __d(
       G = 1e4,
       z = 5e4,
       j = 864e5,
-      K = 0,
+      K = -1,
       Q = 0,
       X = 0,
       Y = 0,
-      J = -1,
-      Z = G,
-      ee = z;
-    function te(e) {
+      J = 0,
+      Z = -1,
+      ee = G,
+      te = z,
+      ne = !1;
+    function re(e) {
       var t = e.max,
         n = e.min,
         r = e.value;
       return Math.max(n, Math.min(t, r));
     }
-    function ne(e, t) {
+    function oe(e, t) {
       return !Number.isFinite(e) || e <= 0 ? t : e;
     }
-    function re() {
-      var e = r("justknobx")._("2845");
-      return te({ max: V, min: U, value: ne(e, G) });
-    }
-    function oe() {
-      var e = r("justknobx")._("2846");
-      return te({ max: H, min: U, value: ne(e, z) });
-    }
     function ae() {
-      var e = Math.floor(Date.now() / j);
-      e !== J &&
-        ((Q = 0), (K = 0), (X = 0), (Y = 0), (J = e), (Z = re()), (ee = oe()));
+      var e = r("justknobx")._("2845");
+      return re({ max: V, min: U, value: oe(e, G) });
     }
     function ie() {
-      ((K = 0), N.clear(), M.clear(), w.clear());
+      ee = ae();
+      var e = r("justknobx")._("2846");
+      ((ne = e === K), (te = re({ max: H, min: U, value: oe(e, z) })));
     }
     function le() {
-      (ie(), (Q = 0), (X = 0), (Y = 0), (J = -1), (Z = re()), (ee = oe()));
+      var e = Math.floor(Date.now() / j);
+      e !== Z && ((X = 0), (Q = 0), (Y = 0), (J = 0), (Z = e), ie());
     }
-    var se = 50,
-      ue = new Array(se),
-      ce = 0,
-      de = !1;
-    function me() {
-      de ||
-        ((de = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(he));
+    function se() {
+      ((Q = 0), N.clear(), M.clear(), w.clear());
     }
-    var pe = null;
-    function _e(e) {
-      pe = e;
+    function ue() {
+      (se(), (X = 0), (Y = 0), (J = 0), (Z = -1), ie());
     }
-    function fe(e) {
-      return x()
-        ? (ae(),
-          K >= Z || Q >= ee
-            ? (X++,
-              X === 1 &&
-                o("WALogger").WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[pathfinder] Event cap reached (session=",
-                      " daily=",
-                      "), dropping subsequent events",
-                    ])),
-                  String(K),
-                  String(Q),
-                ),
-              !1)
-            : $.has(e.eventType) && !W(e)
-              ? !1
-              : (K++, Q++, !0))
-        : !1;
+    function ce() {
+      return te;
     }
-    function ge(e) {
+    var de = 50,
+      me = new Array(de),
+      pe = 0,
+      _e = !1;
+    function fe() {
+      _e ||
+        ((_e = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(be));
+    }
+    var ge = null;
+    function he(e) {
+      ge = e;
+    }
+    function ye(e) {
+      return !x() || (le(), ne)
+        ? !1
+        : Q >= ee || X >= te
+          ? (Y++,
+            Y === 1 &&
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[pathfinder] Event cap reached (session=",
+                    " daily=",
+                    "), dropping subsequent events",
+                  ])),
+                String(Q),
+                String(X),
+              ),
+            !1)
+          : $.has(e.eventType) && !W(e)
+            ? !1
+            : (Q++, X++, !0);
+    }
+    function Ce(e) {
       var t, n, a, i, l, s;
-      if (fe(e)) {
+      if (ye(e)) {
         var u = [];
         if (
           (e.screenName != null && u.push("screen=" + e.screenName),
@@ -396,7 +400,7 @@ __d(
               });
             });
         }
-        me();
+        fe();
         var $ = {
           eventType: e.eventType,
           timestampMs: e.timestampMs,
@@ -409,12 +413,12 @@ __d(
         };
         if (
           (u.length > 0 && ($.extra = u.join(" ")),
-          (ue[ce] = $),
-          (ce = (ce + 1) % se),
-          pe != null)
+          (me[pe] = $),
+          (pe = (pe + 1) % de),
+          ge != null)
         )
           try {
-            pe(e.eventType);
+            ge(e.eventType);
           } catch (e) {
             try {
               o("WALogger")
@@ -430,21 +434,22 @@ __d(
           }
       }
     }
-    function he() {
-      for (var e = [], t = 0; t < se; t++) {
-        var n = (ce + t) % se,
-          r = ue[n];
+    function be() {
+      for (var e = [], t = 0; t < de; t++) {
+        var n = (pe + t) % de,
+          r = me[n];
         r != null && e.push(r);
       }
       return e;
     }
     ((l.FALCO_MAP = f),
       (l.isPathfinderLoggingEnabled = x),
-      (l.resetPathfinderSessionState = ie),
-      (l.resetEventGuardsForTesting = le),
-      (l.registerPathfinderEmitObserver = _e),
-      (l.emitPathfinderEvent = ge),
-      (l.getPathfinderLogSnapshot = he));
+      (l.resetPathfinderSessionState = se),
+      (l.resetEventGuardsForTesting = ue),
+      (l.getDailyEventCapForTesting = ce),
+      (l.registerPathfinderEmitObserver = he),
+      (l.emitPathfinderEvent = Ce),
+      (l.getPathfinderLogSnapshot = be));
   },
   98,
 );

@@ -13,7 +13,7 @@ __d(
     "WAWebChatFlowTypes",
     "WAWebChatGetters",
     "WAWebChatModelDerivedMethods",
-    "WAWebConstantsDeprecated",
+    "WAWebChatUnreadConstants",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebGetters",
@@ -163,7 +163,7 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1];
-          return t === r("WAWebConstantsDeprecated").MARKED_AS_UNREAD
+          return t === o("WAWebChatUnreadConstants").MARKED_AS_UNREAD
             ? t
             : Math.max(0, t - n);
         },

@@ -40,7 +40,7 @@ __d(
       return g(e) || m();
     }
     function _() {
-      return g(o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE());
+      return g(o("WAWebUserPrefsMeUser").getMeUserOrThrow());
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue("commerce_sanctioned");

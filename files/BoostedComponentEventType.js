@@ -1716,6 +1716,7 @@ __d(
       SAPR_PAUSE_DIALOG_IMPRESSION: "sapr_pause_dialog_impression",
       SAPR_PAUSE_DIALOG_KEEP_RUNNING: "sapr_pause_dialog_keep_running",
       SAPR_PAUSE_DIALOG_PAUSE_CONFIRMED: "sapr_pause_dialog_pause_confirmed",
+      SAPR_VIEW_RESULTS_IMPRESSION: "sapr_view_results_impression",
     });
     i.default = e;
   },

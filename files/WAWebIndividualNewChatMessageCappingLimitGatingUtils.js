@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_individual_new_chat_msg_capping_limit",
+        "wa_individual_new_chat_thread_capping_limit",
       );
     }
     function s() {

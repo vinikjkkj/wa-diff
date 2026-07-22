@@ -533,7 +533,7 @@ __d(
               return [];
             })),
             (e.phoneNumbersIndexParsed = o("WAWebBaseModel").session(0)),
-            (e.$MsgImpl$p_10 = o("WAWebBaseModel").session()),
+            (e.waitForPhoneUploadPromise = o("WAWebBaseModel").session()),
             (e.requiresDirectConnection = o("WAWebBaseModel").prop(null)),
             (e.isGroupStatus = o("WAWebBaseModel").prop()),
             (e.isNewsletterStatus = o("WAWebBaseModel").prop()),
@@ -560,7 +560,7 @@ __d(
             (e.newType = o("WAWebBaseModel").session()),
             (e.typeOnInit = o("WAWebBaseModel").session()),
             (e.calledCiphertextDecrypted = o("WAWebBaseModel").session(!1)),
-            (e.$MsgImpl$p_24 = r("WAWebDebounce")(function (e, t) {
+            (e.$MsgImpl$p_23 = r("WAWebDebounce")(function (e, t) {
               o("WAWebDBUpdateMessageTable").updateMessageTable(e, {
                 lastPlaybackProgress: t,
               });
@@ -573,13 +573,13 @@ __d(
         var i = a.prototype;
         return (
           (i.pendingAckUpdate_TESTONLY = function () {
-            return this.$MsgImpl$p_11;
+            return this.$MsgImpl$p_10;
           }),
           (i.enqueueAckUpdate = function (t) {
-            this.$MsgImpl$p_11.enqueue(t);
+            this.$MsgImpl$p_10.enqueue(t);
           }),
-          (i.$MsgImpl$p_12 = function () {
-            (this.$MsgImpl$p_13(),
+          (i.$MsgImpl$p_11 = function () {
+            (this.$MsgImpl$p_12(),
               (!this.isViewOnce ||
                 o("WAWebViewOnceState").isUnviewed(this.safe())) &&
                 o("WAWebMedia").registerMsg(this));
@@ -589,14 +589,14 @@ __d(
               n;
             (t.prototype.initialize.call(this),
               (this.typeOnInit = this.type),
-              this.carouselCardsParsed != null && this.$MsgImpl$p_14(),
+              this.carouselCardsParsed != null && this.$MsgImpl$p_13(),
               this.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
                 this.listenTo(
                   this,
                   "change:carouselCardsParsed",
-                  this.$MsgImpl$p_14,
+                  this.$MsgImpl$p_13,
                 ),
-              (this.$MsgImpl$p_11 = new (o(
+              (this.$MsgImpl$p_10 = new (o(
                 "WAWebPromiseQueue",
               ).PromiseQueue)()));
             var a = o("WAWebMsgModelUtils").getValidatedSender(this);
@@ -626,22 +626,22 @@ __d(
                 return o("WAWebContactCollection").ContactCollection.gadd(e);
               }),
               this.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
-                this.listenToOnce(this, "change:type", this.$MsgImpl$p_15),
+                this.listenToOnce(this, "change:type", this.$MsgImpl$p_14),
               (this.mediaObject = void 0),
               o("WAWebMsgModelUtils").typeIsMms(this) &&
-                ((this.createdMediaDataOnInit = !0), this.$MsgImpl$p_12()),
+                ((this.createdMediaDataOnInit = !0), this.$MsgImpl$p_11()),
               this.isViewOnce &&
-                (this.listenTo(this, "change:ack", this.$MsgImpl$p_16),
+                (this.listenTo(this, "change:ack", this.$MsgImpl$p_15),
                 this.listenTo(
                   this.mediaData,
                   "change:mediaStage",
-                  this.$MsgImpl$p_16,
+                  this.$MsgImpl$p_15,
                 )),
-              this.listenTo(this, "change:viewMode", this.$MsgImpl$p_17),
+              this.listenTo(this, "change:viewMode", this.$MsgImpl$p_16),
               o("WAWebViewModeUtils").isViewModeVisibleInSurface(
                 o("WAWebViewMode.flow").ViewModeSurface.CHAT,
                 this.viewMode,
-              ) || this.$MsgImpl$p_17(),
+              ) || this.$MsgImpl$p_16(),
               !r("gkx")("26258"))
             ) {
               var i = o("WAWebABProps").getABPropConfigValue(
@@ -651,7 +651,7 @@ __d(
                 this,
                 "change:t",
                 i
-                  ? this.$MsgImpl$p_18
+                  ? this.$MsgImpl$p_17
                   : function () {
                       Number.isInteger(e.t) ||
                         o("WALogger")
@@ -675,7 +675,7 @@ __d(
               );
             }
             (o("WAWebMsgGetters").getIsMetaBotResponse(this) &&
-              this.listenTo(this, "change:botEditType", this.$MsgImpl$p_19),
+              this.listenTo(this, "change:botEditType", this.$MsgImpl$p_18),
               this.recvFresh &&
                 (n = this.senderObj) != null &&
                 (n = n.id) != null &&
@@ -683,9 +683,9 @@ __d(
                 (this.botEditType == null &&
                   (this.botEditType = o("WAWebBotTypes").BotMsgEditType.FULL),
                 (this.activeBotMsgStreamingInProgress = !0)),
-              this.$MsgImpl$p_19());
+              this.$MsgImpl$p_18());
           }),
-          (i.$MsgImpl$p_18 = function () {
+          (i.$MsgImpl$p_17 = function () {
             Number.isInteger(this.t) ||
               o("WALogger")
                 .ERROR(
@@ -705,7 +705,7 @@ __d(
                 .tags("date_marker")
                 .sendLogs("Msg TS updated to invalid value");
           }),
-          (i.$MsgImpl$p_17 = function () {
+          (i.$MsgImpl$p_16 = function () {
             var e,
               t,
               n =
@@ -720,12 +720,12 @@ __d(
               this.viewMode,
             )
               ? n == null || n.trigger("insert_msgs", [this], {})
-              : (this.$MsgImpl$p_20(),
-                this.$MsgImpl$p_21({ messageInHiddenViewMode: !0 }),
+              : (this.$MsgImpl$p_19(),
+                this.$MsgImpl$p_20({ messageInHiddenViewMode: !0 }),
                 n == null || n.trigger("remove_msgs", [this], {})),
               n == null || n.triggerChangeLast(null, n, {}));
           }),
-          (i.$MsgImpl$p_20 = function () {
+          (i.$MsgImpl$p_19 = function () {
             var e = o("WAWebFrontendMsgGetters").getEventType(this),
               t = this.parentMsgKey,
               n =
@@ -750,7 +750,7 @@ __d(
                   );
             }
           }),
-          (i.$MsgImpl$p_14 = function () {
+          (i.$MsgImpl$p_13 = function () {
             var e,
               t,
               n = this.carouselCardsParsed;
@@ -779,7 +779,7 @@ __d(
                 this.getCollection().add(c.slice()));
             }
           }),
-          (i.$MsgImpl$p_19 = function () {
+          (i.$MsgImpl$p_18 = function () {
             var e = this;
             if (
               this.subtype ===
@@ -889,7 +889,7 @@ __d(
           (i.setRawFooterPhoneNumbers = function (t) {
             t.length > 0 && (this.$MsgImpl$p_9 = t);
           }),
-          (i.$MsgImpl$p_13 = function () {
+          (i.$MsgImpl$p_12 = function () {
             this.addChild("mediaData", new (r("WAWebMediaData"))());
           }),
           (i.isUnsentPhoneMsg = function () {
@@ -940,28 +940,6 @@ __d(
           (i.cancelUpload = function () {
             o("WAWebMedia").cancelUploadMsg(this);
           }),
-          (i.waitForPhoneUpload = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              (this.mediaData != null &&
-                this.mediaData.filehash &&
-                !this.isUnsentPhoneMsg()) ||
-                (this.$MsgImpl$p_10 ||
-                  (this.$MsgImpl$p_10 = r("WAWebEventsWaitForBbEvent")(
-                    this.mediaData,
-                    "change:mediaStage change:filehash",
-                    function () {
-                      return !!e.mediaData.filehash && !e.isUnsentPhoneMsg();
-                    },
-                  )),
-                yield this.$MsgImpl$p_10,
-                (this.$MsgImpl$p_10 = null));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
           (i.forceDownloadMediaEvenIfExpensive = function () {
             return this.downloadMedia({
               downloadEvenIfExpensive: !0,
@@ -1018,10 +996,10 @@ __d(
                   .sendLogs("media-fault: downloadMedia msg is not mms type"),
               this.isUnsentPhoneMsg())
             ) {
-              var p = this.$MsgImpl$p_10;
+              var p = this.waitForPhoneUploadPromise;
               return (
                 p ||
-                  (p = this.$MsgImpl$p_10 =
+                  (p = this.waitForPhoneUploadPromise =
                     r("WAWebEventsWaitForBbEvent")(
                       this.mediaData,
                       "change:mediaStage change:filehash",
@@ -1029,7 +1007,7 @@ __d(
                         return !!e.mediaData.filehash && !e.isUnsentPhoneMsg();
                       },
                     ).then(function () {
-                      e.$MsgImpl$p_10 = null;
+                      e.waitForPhoneUploadPromise = null;
                     })),
                 p.then(function () {
                   return e.downloadMedia(t);
@@ -1044,7 +1022,7 @@ __d(
                   .MSG_CLICK,
               downloadEvenIfExpensive: i,
               rmrReason: u,
-              rmrData: this.$MsgImpl$p_22(u),
+              rmrData: this.$MsgImpl$p_21(u),
               mode: s ? "manual" : "auto",
               isAutoDownload: l,
               chatWid:
@@ -1055,7 +1033,7 @@ __d(
               shouldThrowAbortError: d,
             });
           }),
-          (i.$MsgImpl$p_22 = function (t) {
+          (i.$MsgImpl$p_21 = function (t) {
             var e = { webcRmrReason: t, webcMessageT: this.t },
               n = o("WAWebFrontendMsgGetters").getMaybeChat(this);
             if (n) {
@@ -1105,7 +1083,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 ((this.createdMediaDataOnUpdate = !0),
-                  this.$MsgImpl$p_13(),
+                  this.$MsgImpl$p_12(),
                   o("WAWebMedia").registerMsgEarly(this, e));
                 try {
                   yield o("WAWebMedia").prepareMsg(this);
@@ -1157,7 +1135,7 @@ __d(
                   this.newType,
                   this.calledCiphertextDecrypted,
                 ),
-                this.$MsgImpl$p_12());
+                this.$MsgImpl$p_11());
               var a =
                   this.requiresDirectConnection == null
                     ? o("WAWebDirectConnectionGatingUtils")
@@ -1180,8 +1158,8 @@ __d(
             }
             return t;
           })()),
-          (i.$MsgImpl$p_21 = function (t) {
-            var e = this.$MsgImpl$p_23().get(this.id.remote);
+          (i.$MsgImpl$p_20 = function (t) {
+            var e = this.$MsgImpl$p_22().get(this.id.remote);
             if (e) {
               var n, r;
               ((this.id.remote.isBot() ||
@@ -1243,7 +1221,7 @@ __d(
             for (var r of this.$MsgImpl$p_2.values())
               r.remove(this.id, {}, !!(n != null && n.skipUpdatingSortTime));
             (this.$MsgImpl$p_2.clear(),
-              this.$MsgImpl$p_21(n),
+              this.$MsgImpl$p_20(n),
               o("WAWebMsgGetters").clearMsgGetterCacheFor(this),
               o("WAWebFrontendMsgGetters").clearFrontendMsgGetterCacheFor(
                 this,
@@ -1340,7 +1318,7 @@ __d(
                   (n === void 0 || e > n || e === o("WAWebAck").ACK.FAILED)
                     ? ((this.ack = e),
                       t ||
-                        this.$MsgImpl$p_11.enqueue(function () {
+                        this.$MsgImpl$p_10.enqueue(function () {
                           return o(
                             "WAWebDBUpdateMessageTable",
                           ).updateMessageTable(a, { ack: e });
@@ -1348,7 +1326,7 @@ __d(
                     : e === o("WAWebAck").ACK.FAILED &&
                       this.ack === o("WAWebAck").ACK.CLOCK &&
                       ((this.ack = o("WAWebAck").ACK.FAILED),
-                      this.$MsgImpl$p_11.enqueue(function () {
+                      this.$MsgImpl$p_10.enqueue(function () {
                         return o(
                           "WAWebDBUpdateMessageTable",
                         ).updateMessageTable(a, { ack: e });
@@ -1367,9 +1345,9 @@ __d(
             });
           }),
           (i.updateLastPlaybackProgress = function (t) {
-            ((this.lastPlaybackProgress = t), this.$MsgImpl$p_24(this.id, t));
+            ((this.lastPlaybackProgress = t), this.$MsgImpl$p_23(this.id, t));
           }),
-          (i.$MsgImpl$p_15 = function () {
+          (i.$MsgImpl$p_14 = function () {
             if (
               ((this.calledCiphertextDecrypted = !0),
               !o("WAWebMsgGetters").getIsStatus(this))
@@ -1383,7 +1361,7 @@ __d(
                 o("WAWebCmd").Cmd.alertNewMsg(this);
             }
           }),
-          (i.$MsgImpl$p_16 = function () {
+          (i.$MsgImpl$p_15 = function () {
             if (this.isViewOnce && this.mediaData != null) {
               var e =
                   o("WAWebMsgGetters").getIsSentByMe(this) &&
@@ -1394,11 +1372,11 @@ __d(
                   !o("WAWebMsgGetters").getIsSentByMe(this) &&
                   this.ack >= o("WAWebAck").ACK.PLAYED;
               (e || t) &&
-                (this.stopListening(this, "change:ack", this.$MsgImpl$p_16),
+                (this.stopListening(this, "change:ack", this.$MsgImpl$p_15),
                 this.stopListening(
                   this.mediaData,
                   "change:mediaStage",
-                  this.$MsgImpl$p_16,
+                  this.$MsgImpl$p_15,
                 ),
                 o("WAWebMedia").deregisterMsg(this));
             }
@@ -1406,7 +1384,7 @@ __d(
           (i.getCollection = function () {
             return o("WAWebMsgCollection").MsgCollection;
           }),
-          (i.$MsgImpl$p_23 = function () {
+          (i.$MsgImpl$p_22 = function () {
             return o("WAWebMsgGetters").getIsNewsletterMsg(this)
               ? r("WAWebNewsletterCollection")
               : o("WAWebChatCollection").ChatCollection;

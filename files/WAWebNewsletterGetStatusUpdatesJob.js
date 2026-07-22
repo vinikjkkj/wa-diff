@@ -83,14 +83,14 @@ __d(
                 jidType: "newsletter",
                 newsletterJid: t,
               }),
-              u = p(i);
-            if (u.length === 0) return null;
-            var d = _(i),
-              m = new Map(
-                u.map(function (e) {
-                  return [e.serverId, e.viewCount];
-                }),
-              );
+              u = p(i),
+              d = _(i);
+            if (u.length === 0 && d.size === 0) return null;
+            var m = new Map(
+              u.map(function (e) {
+                return [e.serverId, e.viewCount];
+              }),
+            );
             return (
               o("WALogger").LOG(
                 e ||

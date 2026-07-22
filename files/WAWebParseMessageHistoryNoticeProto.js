@@ -23,9 +23,10 @@ __d(
       var s = (n = l.contextInfo) != null ? n : null,
         c = u(l.messageHistoryMetadata),
         d =
-          (r = l.messageHistoryMetadata) == null
+          (r = l.messageHistoryMetadata) == null ||
+          (r = r.historyReceivers) == null
             ? void 0
-            : r.historyReceivers.some(function (e) {
+            : r.some(function (e) {
                 return o("WAWebUserPrefsMeUser").isMeAccount(
                   o("WAWebWidFactory").createWid(e),
                 );
@@ -77,17 +78,19 @@ __d(
           };
     }
     function u(e) {
+      var t, n;
       return e == null
         ? null
         : babelHelpers.extends({}, e, {
-            historyReceivers: e.historyReceivers.map(
+            historyReceivers: ((t = e.historyReceivers) != null ? t : []).map(
               o("WAWebWidFactory").createWid,
             ),
             processState: o("WAWebGroupHistoryMsgData.flow")
               .MessageHistoryBundleProcessState.NONE,
-            nonHistoryReceivers: e.nonHistoryReceivers.map(
-              o("WAWebWidFactory").createWid,
-            ),
+            nonHistoryReceivers: ((n = e.nonHistoryReceivers) != null
+              ? n
+              : []
+            ).map(o("WAWebWidFactory").createWid),
           });
     }
     l.default = s;

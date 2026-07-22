@@ -9,7 +9,6 @@ __d(
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -20,35 +19,33 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (n == null)
-            throw r("err")("createProductCatalogGraphQL: meUser is null");
-          var a = yield o(
-            "WAWebBizCatalogManagementCreateCatalog",
-          ).createCatalog({
-            product_catalog: {
-              biz_jid:
-                (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                  n,
-                )) != null
-                  ? t
-                  : n.toJid(),
-            },
-            platform: "WEB",
-          });
-          a.type !== "success" &&
-            (a.type === "graphql-error"
+            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            r = yield o("WAWebBizCatalogManagementCreateCatalog").createCatalog(
+              {
+                product_catalog: {
+                  biz_jid:
+                    (t = o(
+                      "WAWebGetFormattedCatalogJid",
+                    ).getFormattedCatalogJid(n)) != null
+                      ? t
+                      : n.toJid(),
+                },
+                platform: "WEB",
+              },
+            );
+          r.type !== "success" &&
+            (r.type === "graphql-error"
               ? o(
                   "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(a.error)
-              : a.type,
+                ).maybeThrowLocalErrorForCatalogQuery(r.error)
+              : r.type,
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "createProductCatalogGraphQL: unhandled error ",
                   "",
                 ])),
-              JSON.stringify(a),
+              JSON.stringify(r),
             ));
         })),
         u.apply(this, arguments)

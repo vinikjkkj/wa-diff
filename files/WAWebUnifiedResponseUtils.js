@@ -53,23 +53,32 @@ __d(
       }
       return t;
     }
-    var p = [
+    function p(e) {
+      var t;
+      if (e == null) return !1;
+      var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
+      for (var r of n)
+        for (var o of u(r.view_model))
+          if (o.__typename === "GenAIMetaSubsQuotaUpsellPrimitive") return !0;
+      return !1;
+    }
+    var _ = [
       "GenAIImaginePrimitive",
       "GenAIImagePrimitive",
       "GenAIReelPrimitive",
     ];
-    function _(e) {
+    function f(e) {
       if (e != null) return { data: e };
     }
-    function f(e) {
+    function g(e) {
       if (e == null) return !1;
       for (var t of e.sections) {
         var n = u(t.view_model);
-        for (var r of n) if (p.includes(r.__typename)) return !0;
+        for (var r of n) if (_.includes(r.__typename)) return !0;
       }
       return !1;
     }
-    function g(e) {
+    function h(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -87,7 +96,7 @@ __d(
         }
       return n;
     }
-    function h(e) {
+    function y(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
@@ -95,10 +104,11 @@ __d(
     ((l.UnifiedResponseQPLLogger = s),
       (l.isUnifiedResponseVisible = c),
       (l.isImagineResponse = m),
-      (l.buildUnifiedResponseFromRawData = _),
-      (l.unifiedResponseHasMediaContent = f),
-      (l.getMetaAiEmbeddedSources = g),
-      (l.stripEmbeddedScreens = h));
+      (l.isQuotaUpsellResponse = p),
+      (l.buildUnifiedResponseFromRawData = f),
+      (l.unifiedResponseHasMediaContent = g),
+      (l.getMetaAiEmbeddedSources = h),
+      (l.stripEmbeddedScreens = y));
   },
   98,
 );

@@ -70,7 +70,14 @@ __d(
         R = "presentation",
         L = f,
         E = -1,
-        k = h != null && s.jsx("div", { className: f.title, children: h }),
+        k =
+          h != null &&
+          s.jsx("div", {
+            className: f.title,
+            role: "heading",
+            "aria-level": 2,
+            children: h,
+          }),
         I = y != null && s.jsx("div", { className: f.message, children: y }),
         T;
       t[5] !== k || t[6] !== I

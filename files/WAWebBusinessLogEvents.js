@@ -109,14 +109,17 @@ __d(
         hasCoverPhoto: r,
       });
     }
-    function y(t, n, r) {
+    function y(t) {
+      var n = t.catalogSessionId,
+        r = t.hasCoverPhoto,
+        a = t.likes;
       e({
         viewBusinessProfileAction: o("WAWebWamEnumViewBusinessProfileAction")
           .VIEW_BUSINESS_PROFILE_ACTION.ACTION_CLICK_APP_LINK,
         linkedAccount: o("WAWebWamEnumBusinessToolsLinkedAccountType")
           .BUSINESS_TOOLS_LINKED_ACCOUNT_TYPE.FACEBOOK,
-        catalogSessionId: t,
-        bizFbSize: v(n),
+        catalogSessionId: n,
+        bizFbSize: v(a),
         isProfileLinked: !0,
         hasCoverPhoto: r,
       });

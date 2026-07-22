@@ -45,29 +45,33 @@ __d(
         "viewOnceMessageV2Extension",
       ],
       s = 5,
-      u = 3;
-    function c() {
+      u = 3,
+      c = "wa_web_defense_mode_quarantine_extra_pn_check";
+    function d() {
       if (o("WAWebABProps").getABPropConfigValue("defense_mode_available") < 1)
         return !1;
       var e = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
       return e.defenseMode === "on_standard";
     }
-    var d = { type: "NoQuarantine" },
-      m = { type: "QuarantineWithoutText" };
-    function p(e) {
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(c);
+    }
+    var p = { type: "NoQuarantine" },
+      _ = { type: "QuarantineWithoutText" };
+    function f(e) {
       return { type: "QuarantineWithText", text: e };
     }
-    var _ = {
-      NoQuarantine: d,
-      QuarantineWithoutText: m,
-      QuarantineWithText: p,
+    var g = {
+      NoQuarantine: p,
+      QuarantineWithoutText: _,
+      QuarantineWithText: f,
     };
-    function f(e) {
-      return g.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function g() {
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("WAWebWid").isUser(e) &&
             !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
@@ -80,21 +84,21 @@ __d(
               r("WAWebWid").isAiHub(e) ||
               o("WAWebBotUtils").isMetaAiBot(e)
             ) &&
-            !(yield o("WAWebApiContact").isAddressBookContact(e.toJid()))
+            !(yield o("WAWebApiContact").isAddressBookContact(e.toJid(), m()))
           );
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e) {
+    function C(e) {
       return e.type === "QuarantineWithText" ? e.text : null;
     }
-    function y(e) {
+    function b(e) {
       return r("isStringNullOrEmpty")(e)
-        ? _.QuarantineWithoutText
-        : _.QuarantineWithText(e);
+        ? g.QuarantineWithoutText
+        : g.QuarantineWithText(e);
     }
-    function C(e) {
+    function v(e) {
       return e == null
         ? !1
         : e.jpegThumbnail != null ||
@@ -102,24 +106,24 @@ __d(
             e.mediaKey != null ||
             e.thumbnailSha256 != null;
     }
-    function b(e, t) {
+    function S(e, t) {
       return (
         t === void 0 && (t = 0),
-        e == null ? !0 : t > s ? !1 : v(e.hydratedHsm, t + 1)
+        e == null ? !0 : t > s ? !1 : R(e.hydratedHsm, t + 1)
       );
     }
-    function v(e, t) {
+    function R(e, t) {
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
       var n = t + 1;
       return !(
-        !L(e.interactiveMessageTemplate, n) ||
-        !S(e.fourRowTemplate, n) ||
-        !R(e.hydratedFourRowTemplate, n) ||
-        !R(e.hydratedTemplate, n)
+        !k(e.interactiveMessageTemplate, n) ||
+        !L(e.fourRowTemplate, n) ||
+        !E(e.hydratedFourRowTemplate, n) ||
+        !E(e.hydratedTemplate, n)
       );
     }
-    function S(e, t) {
+    function L(e, t) {
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (
         t > s ||
@@ -131,18 +135,18 @@ __d(
         return !1;
       var n = t + 1;
       if (
-        !b(e.highlyStructuredMessage, n) ||
-        !b(e.content, n) ||
-        !b(e.footer, n)
+        !S(e.highlyStructuredMessage, n) ||
+        !S(e.content, n) ||
+        !S(e.footer, n)
       )
         return !1;
       var r = e.buttons;
       if (r != null) {
-        for (var o of r) if (!E(o, n)) return !1;
+        for (var o of r) if (!I(o, n)) return !1;
       }
       return !0;
     }
-    function R(e, t) {
+    function E(e, t) {
       return (
         t === void 0 && (t = 0),
         e == null
@@ -156,7 +160,7 @@ __d(
             )
       );
     }
-    function L(e, t) {
+    function k(e, t) {
       var n;
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
@@ -175,24 +179,24 @@ __d(
         return !1;
       var o = (n = e.carouselMessage) == null ? void 0 : n.cards;
       if (o != null) {
-        for (var a of o) if (!L(a, t + 1)) return !1;
+        for (var a of o) if (!k(a, t + 1)) return !1;
       }
       return !0;
     }
-    function E(e, t) {
+    function I(e, t) {
       var n, r, o, a, i;
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
       var l = t + 1;
       return !(
-        !b((n = e.quickReplyButton) == null ? void 0 : n.displayText, l) ||
-        !b((r = e.urlButton) == null ? void 0 : r.displayText, l) ||
-        !b((o = e.urlButton) == null ? void 0 : o.url, l) ||
-        !b((a = e.callButton) == null ? void 0 : a.displayText, l) ||
-        !b((i = e.callButton) == null ? void 0 : i.phoneNumber, l)
+        !S((n = e.quickReplyButton) == null ? void 0 : n.displayText, l) ||
+        !S((r = e.urlButton) == null ? void 0 : r.displayText, l) ||
+        !S((o = e.urlButton) == null ? void 0 : o.url, l) ||
+        !S((a = e.callButton) == null ? void 0 : a.displayText, l) ||
+        !S((i = e.callButton) == null ? void 0 : i.phoneNumber, l)
       );
     }
-    function k(t) {
+    function T(t) {
       var n = t.$$unknownFieldCount,
         r = t.associatedChildMessage,
         o = t.bcallMessage,
@@ -231,34 +235,34 @@ __d(
         })
       );
     }
-    function I(e) {
-      if (k(e)) return _.NoQuarantine;
+    function D(e) {
+      if (T(e)) return g.NoQuarantine;
       var t = e.extendedTextMessage;
       return t != null
-        ? C(t)
-          ? y(t.text)
-          : _.NoQuarantine
+        ? v(t)
+          ? b(t.text)
+          : g.NoQuarantine
         : e.imageMessage != null
-          ? y(e.imageMessage.caption)
+          ? b(e.imageMessage.caption)
           : e.videoMessage != null
-            ? y(e.videoMessage.caption)
+            ? b(e.videoMessage.caption)
             : e.documentMessage != null
-              ? y(e.documentMessage.caption)
-              : T(e)
-                ? _.NoQuarantine
+              ? b(e.documentMessage.caption)
+              : x(e)
+                ? g.NoQuarantine
                 : e.highlyStructuredMessage != null ||
                     e.templateMessage != null ||
                     e.interactiveMessage != null
-                  ? b(e.highlyStructuredMessage) &&
-                    v(e.templateMessage) &&
-                    L(e.interactiveMessage)
-                    ? _.NoQuarantine
-                    : _.QuarantineWithoutText
+                  ? S(e.highlyStructuredMessage) &&
+                    R(e.templateMessage) &&
+                    k(e.interactiveMessage)
+                    ? g.NoQuarantine
+                    : g.QuarantineWithoutText
                   : e.callLogMesssage != null
-                    ? _.NoQuarantine
-                    : _.QuarantineWithoutText;
+                    ? g.NoQuarantine
+                    : g.QuarantineWithoutText;
     }
-    function T(e) {
+    function x(e) {
       return (
         e.conversation != null ||
         e.protocolMessage != null ||
@@ -270,7 +274,7 @@ __d(
         e.albumMessage != null
       );
     }
-    function D(e) {
+    function $(e) {
       switch (e.type) {
         case "NoQuarantine":
           return 0;
@@ -282,23 +286,23 @@ __d(
           return 0;
       }
     }
-    function x(e, t) {
-      return D(t) > D(e) ? t : e;
+    function P(e, t) {
+      return $(t) > $(e) ? t : e;
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function N(e, t) {
+      return M.apply(this, arguments);
     }
-    function P() {
+    function M() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          if (e == null || !c() || !(yield f(t))) return _.NoQuarantine;
-          for (var r = I(e), a = e, i = 0; i < u; i++) {
+          if (e == null || !d() || !(yield h(t))) return g.NoQuarantine;
+          for (var r = D(e), a = e, i = 0; i < u; i++) {
             var l = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
               a,
             );
             if ((l == null ? void 0 : l.message) == null) break;
-            ((a = l.message), (r = x(r, I(a))));
+            ((a = l.message), (r = P(r, D(a))));
           }
           return (
             (((n = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
@@ -309,16 +313,16 @@ __d(
               o("WAWebFutureproofProtoUtils").hasGatedOffFutureproofWrapper(
                 a,
               )) &&
-              (r = x(r, _.QuarantineWithoutText)),
+              (r = P(r, g.QuarantineWithoutText)),
             r
           );
         })),
-        P.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    ((l.QuarantineAction = _),
-      (l.maybeGetQuarantineText = h),
-      (l.getQuarantineAction = $));
+    ((l.QuarantineAction = g),
+      (l.maybeGetQuarantineText = C),
+      (l.getQuarantineAction = N));
   },
   98,
 );

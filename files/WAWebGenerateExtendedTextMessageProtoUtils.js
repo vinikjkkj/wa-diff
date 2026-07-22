@@ -8,6 +8,58 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t = e.contextInfo,
+        n = e.json,
+        r = n.faviconMMSMetadata != null;
+      return {
+        extendedTextMessage: {
+          text: n.body,
+          matchedText: n.matchedText,
+          description: n.description,
+          title: n.title,
+          jpegThumbnail: o("WAWebE2EProtoUtils").encodeBytes(n.thumbnail),
+          previewType: n.richPreviewType,
+          contextInfo: t,
+          mediaKey: o("WAWebE2EProtoUtils").encodeBytes(n.mediaKey),
+          mediaKeyTimestamp: o("WATypeUtils").isNumber(n.mediaKeyTimestamp)
+            ? n.mediaKeyTimestamp
+            : void 0,
+          thumbnailDirectPath: n.thumbnailDirectPath,
+          thumbnailSha256: o("WAWebE2EProtoUtils").encodeBytes(
+            n.thumbnailSha256,
+          ),
+          thumbnailEncSha256: o("WAWebE2EProtoUtils").encodeBytes(
+            n.thumbnailEncSha256,
+          ),
+          thumbnailHeight: n.thumbnailHeight,
+          thumbnailWidth: n.thumbnailWidth,
+          inviteLinkGroupTypeV2: s(n.inviteGrpType),
+          backgroundArgb: n.backgroundColor,
+          font: n.font,
+          paymentLinkMetadata: n.paymentLinkMetadata,
+          faviconMmsMetadata: r
+            ? {
+                mediaKey: o("WAWebE2EProtoUtils").encodeBytes(
+                  n.faviconMMSMetadata.mediaKey,
+                ),
+                mediaKeyTimestamp: o("WATypeUtils").isNumber(
+                  n.faviconMMSMetadata.mediaKeyTimestamp,
+                )
+                  ? n.faviconMMSMetadata.mediaKeyTimestamp
+                  : void 0,
+                thumbnailDirectPath: n.faviconMMSMetadata.thumbnailDirectPath,
+                thumbnailSha256: o("WAWebE2EProtoUtils").encodeBytes(
+                  n.faviconMMSMetadata.thumbnailSha256,
+                ),
+                thumbnailEncSha256: o("WAWebE2EProtoUtils").encodeBytes(
+                  n.faviconMMSMetadata.thumbnailEncSha256,
+                ),
+              }
+            : void 0,
+        },
+      };
+    }
+    function s(e) {
       switch (e) {
         case o("WAWebGroupType").GroupType.COMMUNITY:
           return o("WAWebProtobufsE2E.pb")
@@ -23,59 +75,7 @@ __d(
             .Message$ExtendedTextMessage$InviteLinkGroupType.DEFAULT;
       }
     }
-    function s(t) {
-      var n = t.contextInfo,
-        r = t.json,
-        a = r.faviconMMSMetadata != null;
-      return {
-        extendedTextMessage: {
-          text: r.body,
-          matchedText: r.matchedText,
-          description: r.description,
-          title: r.title,
-          jpegThumbnail: o("WAWebE2EProtoUtils").encodeBytes(r.thumbnail),
-          previewType: r.richPreviewType,
-          contextInfo: n,
-          mediaKey: o("WAWebE2EProtoUtils").encodeBytes(r.mediaKey),
-          mediaKeyTimestamp: o("WATypeUtils").isNumber(r.mediaKeyTimestamp)
-            ? r.mediaKeyTimestamp
-            : void 0,
-          thumbnailDirectPath: r.thumbnailDirectPath,
-          thumbnailSha256: o("WAWebE2EProtoUtils").encodeBytes(
-            r.thumbnailSha256,
-          ),
-          thumbnailEncSha256: o("WAWebE2EProtoUtils").encodeBytes(
-            r.thumbnailEncSha256,
-          ),
-          thumbnailHeight: r.thumbnailHeight,
-          thumbnailWidth: r.thumbnailWidth,
-          inviteLinkGroupTypeV2: e(r.inviteGrpType),
-          backgroundArgb: r.backgroundColor,
-          font: r.font,
-          paymentLinkMetadata: r.paymentLinkMetadata,
-          faviconMmsMetadata: a
-            ? {
-                mediaKey: o("WAWebE2EProtoUtils").encodeBytes(
-                  r.faviconMMSMetadata.mediaKey,
-                ),
-                mediaKeyTimestamp: o("WATypeUtils").isNumber(
-                  r.faviconMMSMetadata.mediaKeyTimestamp,
-                )
-                  ? r.faviconMMSMetadata.mediaKeyTimestamp
-                  : void 0,
-                thumbnailDirectPath: r.faviconMMSMetadata.thumbnailDirectPath,
-                thumbnailSha256: o("WAWebE2EProtoUtils").encodeBytes(
-                  r.faviconMMSMetadata.thumbnailSha256,
-                ),
-                thumbnailEncSha256: o("WAWebE2EProtoUtils").encodeBytes(
-                  r.faviconMMSMetadata.thumbnailEncSha256,
-                ),
-              }
-            : void 0,
-        },
-      };
-    }
-    l.default = s;
+    l.default = e;
   },
   98,
 );

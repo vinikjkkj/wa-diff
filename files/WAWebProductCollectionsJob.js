@@ -30,23 +30,22 @@ __d(
             ).commerceFeaturesDisabledBySanctions()
           )
             throw new (o("WAWebBackendErrors").E451)();
-          var i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (i == null) throw r("err")("createCollection: meUser is null");
-          var l = yield o(
-            "WAWebBizCatalogManagementCreateCollection",
-          ).createCollection({
-            collection: {
-              name: e,
-              product_ids: t,
-              biz_jid:
-                (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                  i,
-                )) != null
-                  ? a
-                  : i.toJid(),
-              catalog_session_id: n,
-            },
-          });
+          var i = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            l = yield o(
+              "WAWebBizCatalogManagementCreateCollection",
+            ).createCollection({
+              collection: {
+                name: e,
+                product_ids: t,
+                biz_jid:
+                  (a = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    i,
+                  )) != null
+                    ? a
+                    : i.toJid(),
+                catalog_session_id: n,
+              },
+            });
           if (l.type === "success") return l.collectionResult;
           throw (
             l.type === "graphql-error" &&
@@ -69,23 +68,21 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (a == null)
-            throw r("err")("deleteCollectionGraphQL: meUser is null");
-          var i = yield o(
-            "WAWebBizCatalogManagementDeleteCollections",
-          ).deleteCollections({
-            collections: {
-              collection_ids: [e],
-              biz_jid:
-                (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                  a,
-                )) != null
-                  ? n
-                  : a.toJid(),
-              catalog_session_id: t,
-            },
-          });
+            a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            i = yield o(
+              "WAWebBizCatalogManagementDeleteCollections",
+            ).deleteCollections({
+              collections: {
+                collection_ids: [e],
+                biz_jid:
+                  (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                    a,
+                  )) != null
+                    ? n
+                    : a.toJid(),
+                catalog_session_id: t,
+              },
+            });
           if (i.type !== "success")
             throw (
               i.type === "graphql-error"
@@ -127,21 +124,19 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             var l,
-              s = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-            if (s == null)
-              throw r("err")("editCollectionGraphQL: meUser is null");
-            var u = {
-              collection: {
-                id: e,
-                biz_jid:
-                  (l = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                    s,
-                  )) != null
-                    ? l
-                    : s.toJid(),
-                catalog_session_id: i,
-              },
-            };
+              s = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              u = {
+                collection: {
+                  id: e,
+                  biz_jid:
+                    (l = o(
+                      "WAWebGetFormattedCatalogJid",
+                    ).getFormattedCatalogJid(s)) != null
+                      ? l
+                      : s.toJid(),
+                  catalog_session_id: i,
+                },
+              };
             (t != null && (u.collection.name = t),
               n.length > 0 && (u.collection.add = { ids: n }),
               a.length > 0 && (u.collection.remove = { ids: a }));
@@ -190,21 +185,19 @@ __d(
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
-            a = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (a == null)
-            throw r("err")("appealCollectionGraphQL: meUser is null");
-          var i = yield o(
-            "WAWebBizCatalogManagementAppealCollection",
-          ).appealCollection({
-            product_set_id: e,
-            jid:
-              (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                a,
-              )) != null
-                ? n
-                : a.toJid(),
-            reason: t,
-          });
+            a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            i = yield o(
+              "WAWebBizCatalogManagementAppealCollection",
+            ).appealCollection({
+              product_set_id: e,
+              jid:
+                (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  a,
+                )) != null
+                  ? n
+                  : a.toJid(),
+              reason: t,
+            });
           if (i.type === "success") return i.result;
           throw (
             i.type === "graphql-error"
@@ -245,25 +238,23 @@ __d(
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (n == null)
-            throw r("err")("reorderCollectionGraphQL: meUser is null");
-          var a = yield o(
-            "WAWebBizCatalogManagementUpdateCollectionList",
-          ).updateCollectionList({
-            biz_jid:
-              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                n,
-              )) != null
-                ? t
-                : n.toJid(),
-            move: e.map(function (e) {
-              var t = e[0],
-                n = e[1],
-                r = e[2];
-              return { collection_id: t, from_index: n, to_index: r };
-            }),
-          });
+            n = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            a = yield o(
+              "WAWebBizCatalogManagementUpdateCollectionList",
+            ).updateCollectionList({
+              biz_jid:
+                (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  n,
+                )) != null
+                  ? t
+                  : n.toJid(),
+              move: e.map(function (e) {
+                var t = e[0],
+                  n = e[1],
+                  r = e[2];
+                return { collection_id: t, from_index: n, to_index: r };
+              }),
+            });
           if (a.type === "success") return a.result;
           throw (
             a.type === "graphql-error"

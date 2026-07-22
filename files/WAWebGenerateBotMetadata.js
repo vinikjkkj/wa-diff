@@ -266,6 +266,20 @@ __d(
                   .SESSION_TRANSPARENCY_SYSTEM_MESSAGE,
               ]
             : [],
+          o("WAWebBotBaseGating").isAiSubscriptionMeteringEnabled()
+            ? [
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .AI_SUBSCRIPTION_METERING_ENABLED,
+              ]
+            : [],
+          o("WAWebBotBaseGating").isAiSubscriptionEnabled()
+            ? [
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .AI_SUBSCRIPTION_ENABLED,
+              ]
+            : [],
         );
       return n.length === 0 ? void 0 : { capabilities: n };
     }

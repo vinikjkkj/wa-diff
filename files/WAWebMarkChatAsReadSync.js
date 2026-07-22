@@ -6,7 +6,7 @@ __d(
     "WASyncdConst",
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
-    "WAWebConstantsDeprecated",
+    "WAWebChatUnreadConstants",
     "WAWebMessageRangeUtils",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
@@ -100,7 +100,7 @@ __d(
                   .get(e.toString(), !1);
                 return (
                   (t == null ? void 0 : t.unreadCount) ===
-                  r("WAWebConstantsDeprecated").MARKED_AS_UNREAD
+                  o("WAWebChatUnreadConstants").MARKED_AS_UNREAD
                 );
               },
             );

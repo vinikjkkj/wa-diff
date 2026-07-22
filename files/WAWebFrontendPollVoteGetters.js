@@ -1,7 +1,6 @@
 __d(
   "WAWebFrontendPollVoteGetters",
   [
-    "WANullthrows",
     "WAWebAck",
     "WAWebContactCollection",
     "WAWebFrontendMsgGetters",
@@ -10,6 +9,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebPollVoteGetters",
     "WAWebUserPrefsMeUser",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -25,8 +25,8 @@ __d(
       _ = c(
         function (e) {
           var t = e[0],
-            n = r("WANullthrows")(o("WAWebMsgCollection").MsgCollection.get(t));
-          return r("WANullthrows")(
+            n = r("nullthrows")(o("WAWebMsgCollection").MsgCollection.get(t));
+          return r("nullthrows")(
             o("WAWebFrontendMsgGetters").getAsPollCreation(n),
           );
         },

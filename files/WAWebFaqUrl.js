@@ -217,7 +217,7 @@ __d(
       return "https://www.facebook.com/privacy/policy";
     }
     function Le() {
-      return "https://www.facebook.com/privacy/guide/generative-ai";
+      return "https://www.facebook.com/privacy/genai/";
     }
     function Ee() {
       return "https://www.facebook.com/legal/ai-terms";

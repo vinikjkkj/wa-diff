@@ -190,17 +190,20 @@ __d(
       var a = r("WAWebUnjoinedSubgroupMetadataCollection").get(e.toString());
       return a != null && a.subject ? a.subject : null;
     }
-    function S(e, t, n) {
-      t === void 0 && (t = !1);
-      var a = o("WAWebPairList")
-        .unFlattenPairList(e)
-        .map(function (e) {
-          var r = e[0],
-            o = e[1],
-            a = v(r, t, n);
-          return a !== "" && a != null ? a : o;
-        });
-      return r("WAWebL10NEnumeration.react")(a, t);
+    function S(e) {
+      var t = e.asString,
+        n = t === void 0 ? !1 : t,
+        a = e.groups,
+        i = e.subtype,
+        l = o("WAWebPairList")
+          .unFlattenPairList(a)
+          .map(function (e) {
+            var t = e[0],
+              r = e[1],
+              o = v(t, n, i);
+            return o !== "" && o != null ? o : r;
+          });
+      return r("WAWebL10NEnumeration.react")(l, n);
     }
     function R(e, t, n, r) {
       if ((t === void 0 && (t = !0), !e.isUser()))

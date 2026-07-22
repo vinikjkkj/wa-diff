@@ -118,66 +118,69 @@ __d(
       }
     }
     function f(e, t, n, r) {
-      return g.apply(this, arguments);
+      var o = [],
+        a = new Map(),
+        i = [],
+        l = [];
+      for (var s of e.msgs.toArray()) {
+        var u = s.serverId;
+        if (u != null) {
+          var c = t.get(u),
+            d = n == null ? void 0 : n.get(u);
+          (c == null && d == null) ||
+            (c != null && (s.set("viewCount", c), a.set(s.id.toString(), c)),
+            o.push(s.id),
+            n != null &&
+              (d != null
+                ? i.push({
+                    parentMsgKey: s.id,
+                    emojiCountMap: new Map(d),
+                    serverTimestamp: r,
+                  })
+                : l.push(s.id.toString())));
+        }
+      }
+      return { ids: o, reactionIdsToRemove: l, reactions: i, viewCounts: a };
     }
-    function g() {
+    function g(e, t, n, r) {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = o("WAWebStatusCollection").StatusCollection.get(e);
             if (a != null) {
-              var i = r != null ? r : o("WATimeUtils").unixTime(),
-                l = [],
-                s = new Map(),
-                u = [],
-                c = [];
-              for (var d of a.msgs.toArray()) {
-                var m = d.serverId;
-                if (m != null) {
-                  var p = t.get(m);
-                  if (
-                    p != null &&
-                    (d.set("viewCount", p),
-                    l.push(d.id),
-                    s.set(d.id.toString(), p),
-                    n != null)
-                  ) {
-                    var _ = n.get(m);
-                    _ != null
-                      ? u.push({
-                          parentMsgKey: d.id,
-                          emojiCountMap: new Map(_),
-                          serverTimestamp: i,
-                        })
-                      : c.push(d.id.toString());
-                  }
-                }
-              }
+              var i = f(a, t, n, r != null ? r : o("WATimeUtils").unixTime()),
+                l = i.ids,
+                s = i.reactionIdsToRemove,
+                u = i.reactions,
+                c = i.viewCounts;
               l.length !== 0 &&
                 (yield o(
                   "WAWebNewsletterBackendAddOnsUtils",
                 ).persistNewsletterStatusInteractions({
                   ids: l,
-                  reactionIdsToRemove: c,
+                  reactionIdsToRemove: s,
                   reactions: u,
                   timestamp: Date.now(),
-                  viewCounts: s,
+                  viewCounts: c,
                 }),
                 n != null &&
                   (yield o(
                     "WAWebNewsletterBridgeMsgAddOnsUtils",
                   ).updateReactions({
                     ids: l,
-                    reactionIdsToRemove: c,
+                    reactionIdsToRemove: s,
                     reactions: u,
                   })));
             }
           },
         )),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       var r = [],
         o = [];
       for (var a of e) {
@@ -193,7 +196,7 @@ __d(
       }
       return { reactions: r, reactionIdsToRemove: o };
     }
-    function y(e) {
+    function C(e) {
       var t = o("WAWebStatusCollection").StatusCollection.get(e);
       if (t != null) {
         var n = t.msgs.countWhere(function (e) {
@@ -207,9 +210,9 @@ __d(
       (l.computeMaxServerId = c),
       (l.addAndPersistStatusMessages = m),
       (l.updateStatusViewCounts = _),
-      (l.applyAndPersistInteractions = f),
-      (l.prepareReactionsForPersist = h),
-      (l.updateStatusUnreadCount = y));
+      (l.applyAndPersistInteractions = g),
+      (l.prepareReactionsForPersist = y),
+      (l.updateStatusUnreadCount = C));
   },
   98,
 );

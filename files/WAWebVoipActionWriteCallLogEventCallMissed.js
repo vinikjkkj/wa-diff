@@ -13,6 +13,7 @@ __d(
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipWaCallEnums",
+    "WAWebWamEnumCallTermReason",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,64 +28,63 @@ __d(
           try {
             var n = t.CallId,
               a = t.CallParticipantInfos,
-              i = t.GroupInfo,
-              l = t.GroupJid,
-              u = t.IsVideoCall,
-              c = t.PeerUserJid,
-              d = t.TimeElapsedSinceCallOffer;
-            if (i != null) return;
-            var m = c != null ? o("WAWebUserPrefsMeUser").isMeAccount(c) : !1,
-              p = m
-                ? o("WAWebCallLogMsgData.flow").CallOutcome.Completed
-                : o("WAWebCallLogMsgData.flow").CallOutcome.Missed,
-              _ = o(
+              i = t.CallTermReason,
+              l = t.GroupInfo,
+              u = t.GroupJid,
+              c = t.IsVideoCall,
+              m = t.PeerUserJid,
+              p = t.TimeElapsedSinceCallOffer;
+            if (l != null) return;
+            var _ = m != null ? o("WAWebUserPrefsMeUser").isMeAccount(m) : !1,
+              f = d(_, i),
+              g = o(
                 "WAWebVoipOngoingCallCollection",
               ).WAWebVoipOngoingCallCollection.getByCallId(n),
-              f,
-              g;
-            if (_ != null)
-              ((f = babelHelpers.extends({}, _.toJSON(), {
-                callOutcome: p,
-                isVideoCall: u,
+              h,
+              y;
+            if (g != null)
+              ((h = babelHelpers.extends({}, g.toJSON(), {
+                callOutcome: f,
+                isVideoCall: c,
               })),
-                (g = f.to),
+                (y = h.to),
                 o(
                   "WAWebVoipOngoingCallCollection",
-                ).WAWebVoipOngoingCallCollection.remove(f.id));
-            else if (c != null) {
-              var h = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
+                ).WAWebVoipOngoingCallCollection.remove(h.id));
+            else if (m != null) {
+              var C = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                   callId: n,
-                  peerWid: c,
-                  groupJid: l,
-                  callCreatorWid: c,
+                  peerWid: m,
+                  groupJid: u,
+                  callCreatorWid: m,
                 }),
-                y = h.chatId,
-                C = h.msgKeyId,
-                b = h.participant,
-                v = h.viewMode;
-              g = y;
-              var S = o("WATimeUtils").castToUnixTime(
-                  d != null ? (Date.now() - d) / 1e3 : Date.now() / 1e3,
+                b = C.chatId,
+                v = C.msgKeyId,
+                S = C.participant,
+                R = C.viewMode;
+              y = b;
+              var L = o("WATimeUtils").castToUnixTime(
+                  p != null ? (Date.now() - p) / 1e3 : Date.now() / 1e3,
                 ),
-                R =
+                E =
                   !o(
                     "WAWebVoipCallLogPlaceholderTracker",
                   ).isOfflineCallLogOrderingEnabled() &&
-                  !o("WATimeUtils").sameDay(S, o("WATimeUtils").unixTime())
+                  !o("WATimeUtils").sameDay(L, o("WATimeUtils").unixTime())
                     ? o("WAWebViewMode.flow").ViewModeType
                         .CALL_LOG_OFFLINE_RESUME
-                    : v;
-              f = {
+                    : R;
+              h = {
                 id: new (r("WAWebMsgKey"))({
-                  remote: g,
-                  participant: b,
-                  fromMe: m,
-                  id: C,
+                  remote: y,
+                  participant: S,
+                  fromMe: _,
+                  id: v,
                 }),
                 type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                 kind: "callLog",
-                callOutcome: p,
-                isVideoCall: u,
+                callOutcome: f,
+                isVideoCall: c,
                 callParticipants:
                   a != null && a.length > 0
                     ? a.map(function (e) {
@@ -92,15 +92,15 @@ __d(
                       })
                     : [
                         {
-                          participant: c,
+                          participant: m,
                           outcome: o("WAWebVoipWaCallEnums")
                             .CallParticipantState.Terminated,
                         },
                       ],
-                to: g,
-                from: c,
-                t: S,
-                viewMode: R,
+                to: y,
+                from: m,
+                t: L,
+                viewMode: E,
               };
             } else {
               o("WALogger")
@@ -114,10 +114,10 @@ __d(
                 .sendLogs("generate-call-log-event=call-missed-no-peer");
               return;
             }
-            var L = yield o(
+            var k = yield o(
               "WAWebVoipActionWriteCallLogImpl",
-            ).writeVoipCallLogMessageImpl(g, f, !1);
-            L != null &&
+            ).writeVoipCallLogMessageImpl(y, h, !1);
+            k != null &&
               o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n);
           } catch (e) {
             o("WALogger")
@@ -135,6 +135,20 @@ __d(
         })),
         c.apply(this, arguments)
       );
+    }
+    function d(e, t) {
+      return e
+        ? o("WAWebCallLogMsgData.flow").CallOutcome.Completed
+        : t ===
+              o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
+                .ACCEPTED_ELSEWHERE ||
+            t === o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.DEVICE_SWITCH
+          ? o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere
+          : t ===
+              o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
+                .REJECTED_ELSEWHERE
+            ? o("WAWebCallLogMsgData.flow").CallOutcome.Rejected
+            : o("WAWebCallLogMsgData.flow").CallOutcome.Missed;
     }
     l.generateCallLogFromEventCallMissed = u;
   },

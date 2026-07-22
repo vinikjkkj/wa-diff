@@ -32,6 +32,27 @@ __d(
       m = d.useMemo,
       p = d.useState,
       _ = {
+        alignItems: "x6s0dn4",
+        display: "x78zum5",
+        flexShrink: "x2lah0s",
+        justifyContent: "xl56j7k",
+        marginInlineStart: "x15w1vwp",
+        $$css: !0,
+      },
+      f = {
+        center: function (t) {
+          return [
+            _,
+            { width: t != null ? "x5lhr3w" : t, $$css: !0 },
+            {
+              "--x-width": (function (e) {
+                return typeof e == "number" ? e + "px" : e != null ? e : void 0;
+              })(t),
+            },
+          ];
+        },
+      },
+      g = {
         wrapper: {
           display: "x78zum5",
           alignItems: "x6s0dn4",
@@ -67,8 +88,8 @@ __d(
         },
         dragging: { opacity: "xti2d7y", $$css: !0 },
       };
-    function f(e, t, n) {
-      return n == null || S.includes(e)
+    function h(e, t, n) {
+      return n == null || L.includes(e)
         ? null
         : {
             draggable: !0,
@@ -86,14 +107,14 @@ __d(
             onDrop: function (r) {
               r.preventDefault();
               var t = r.dataTransfer.getData("text/plain"),
-                o = R.find(function (e) {
+                o = E.find(function (e) {
                   return e === t;
                 });
               o != null && o !== e && n(o, e);
             },
           };
     }
-    function g(t) {
+    function y(t) {
       var n = o("react-compiler-runtime").c(23),
         a = t.columnKey,
         i = t.label,
@@ -102,21 +123,21 @@ __d(
         u = t.sortConfig,
         d = p(!1),
         m = d[0],
-        g = d[1],
-        h;
+        _ = d[1],
+        f;
       n[0] !== a || n[1] !== l
-        ? ((h = f(a, g, l)), (n[0] = a), (n[1] = l), (n[2] = h))
-        : (h = n[2]);
-      var y = h,
+        ? ((f = h(a, _, l)), (n[0] = a), (n[1] = l), (n[2] = f))
+        : (f = n[2]);
+      var y = f,
         C = u != null && u.key === a ? u.direction : null,
         b;
       n[3] !== y || n[4] !== m
         ? ((b = (e || (e = r("stylex"))).props(
-            _.wrapper,
-            _.sortable,
+            g.wrapper,
+            g.sortable,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            y != null && _.draggableExpand,
-            m && _.dragging,
+            y != null && g.draggableExpand,
+            m && g.dragging,
           )),
           (n[3] = y),
           (n[4] = m),
@@ -200,7 +221,7 @@ __d(
         k
       );
     }
-    function h(e) {
+    function C(e) {
       var t = o("react-compiler-runtime").c(14),
         n = e.columnKey,
         a = e.label,
@@ -210,7 +231,7 @@ __d(
         u = l[1],
         d;
       t[0] !== n || t[1] !== i
-        ? ((d = f(n, u, i)), (t[0] = n), (t[1] = i), (t[2] = d))
+        ? ((d = h(n, u, i)), (t[0] = n), (t[1] = i), (t[2] = d))
         : (d = t[2]);
       var m = d,
         _;
@@ -236,39 +257,39 @@ __d(
           (t[4] = s),
           (t[5] = _))
         : (_ = t[5]);
-      var g;
+      var f;
       t[6] !== m
-        ? ((g = m != null ? m : {}), (t[6] = m), (t[7] = g))
-        : (g = t[7]);
-      var h;
+        ? ((f = m != null ? m : {}), (t[6] = m), (t[7] = f))
+        : (f = t[7]);
+      var g;
       t[8] !== a
-        ? ((h = c.jsx(r("WDSText.react"), {
+        ? ((g = c.jsx(r("WDSText.react"), {
             maxLines: 1,
             type: "Body2Emphasized",
             colorName: "contentDeemphasized",
             children: a,
           })),
           (t[8] = a),
-          (t[9] = h))
-        : (h = t[9]);
+          (t[9] = g))
+        : (g = t[9]);
       var y;
       return (
-        t[10] !== _ || t[11] !== g || t[12] !== h
+        t[10] !== _ || t[11] !== f || t[12] !== g
           ? ((y = c.jsx(
               "div",
-              babelHelpers.extends({}, _, g, { children: h }),
+              babelHelpers.extends({}, _, f, { children: g }),
             )),
             (t[10] = _),
-            (t[11] = g),
-            (t[12] = h),
+            (t[11] = f),
+            (t[12] = g),
             (t[13] = y))
           : (y = t[13]),
         y
       );
     }
-    function y(e, t, n, r, o) {
+    function b(e, t, n, r, o) {
       return function () {
-        return c.jsx(g, {
+        return c.jsx(y, {
           label: e,
           columnKey: t,
           sortConfig: n,
@@ -277,12 +298,12 @@ __d(
         });
       };
     }
-    function C(e, t, n) {
+    function v(e, t, n) {
       return function () {
-        return c.jsx(h, { label: e, columnKey: t, onColumnReorder: n });
+        return c.jsx(C, { label: e, columnKey: t, onColumnReorder: n });
       };
     }
-    function b(e) {
+    function S(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.chatJid,
         a;
@@ -318,7 +339,7 @@ __d(
         u
       );
     }
-    function v(e) {
+    function R(e) {
       if (e == null || e === 0) return "\u2014";
       try {
         return new Intl.DateTimeFormat(void 0, {
@@ -330,8 +351,8 @@ __d(
         return "\u2014";
       }
     }
-    var S = ["select", "customer", "actions"],
-      R = [
+    var L = ["select", "customer", "actions"],
+      E = [
         "customer",
         "phone",
         "leadStage",
@@ -343,8 +364,8 @@ __d(
         "notes",
         "actions",
       ],
-      L = R;
-    function E(e) {
+      k = E;
+    function I(e) {
       return e === "select"
         ? "Select"
         : e === "customer"
@@ -376,54 +397,83 @@ __d(
                                 );
                               })();
     }
-    function k(e) {
+    function T(e) {
       return e.isAllSelected ? !0 : e.isIndeterminate ? "indeterminate" : !1;
     }
-    function I(e) {
+    function D(t) {
       return {
-        cell: function (n) {
-          var t = o("WAWebContactCollection").ContactCollection.get(
-              n.item.chatJid,
+        cell: function (a) {
+          var n = o("WAWebContactCollection").ContactCollection.get(
+              a.item.chatJid,
             ),
-            a =
-              t != null
-                ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(t)
+            i =
+              n != null
+                ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(n)
                     .displayName
                 : null;
-          return c.jsx(r("WDSBaseCheckbox.react"), {
-            "aria-label":
-              a != null
-                ? s._(/*BTDS*/ "Select {name}", [s._param("name", a)])
-                : s._(/*BTDS*/ "Select customer"),
-            onChange: function (r) {
-              (r != null && r.stopPropagation(), e.toggle(n.item.chatJid));
-            },
-            testid: "customer_manager_select_row",
-            value: e.isSelected(n.item.chatJid),
-          });
+          return c.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
+                f.center(
+                  o("WAWebContactManagerListViewColumnWidths")
+                    .SELECT_COLUMN_WIDTH_PX,
+                ),
+              ),
+              {
+                children: c.jsx(r("WDSBaseCheckbox.react"), {
+                  "aria-label":
+                    i != null
+                      ? s._(/*BTDS*/ "Select {name}", [s._param("name", i)])
+                      : s._(/*BTDS*/ "Select customer"),
+                  onChange: function (n) {
+                    (n != null && n.stopPropagation(),
+                      t.toggle(a.item.chatJid));
+                  },
+                  testid: "customer_manager_select_row",
+                  value: t.isSelected(a.item.chatJid),
+                }),
+              },
+            ),
+          );
         },
         key: "select",
         renderHeader: function () {
-          return c.jsx(r("WDSBaseCheckbox.react"), {
-            "aria-label": s._(/*BTDS*/ "Select all customers"),
-            onChange: function () {
-              return e.toggleAll();
-            },
-            testid: "customer_manager_select_all",
-            value: k(e),
-          });
+          return c.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
+                f.center(
+                  o("WAWebContactManagerListViewColumnWidths")
+                    .SELECT_COLUMN_WIDTH_PX,
+                ),
+              ),
+              {
+                children: c.jsx(r("WDSBaseCheckbox.react"), {
+                  "aria-label": s._(/*BTDS*/ "Select all customers"),
+                  onChange: function () {
+                    return t.toggleAll();
+                  },
+                  testid: "customer_manager_select_all",
+                  value: T(t),
+                }),
+              },
+            ),
+          );
         },
         stickyStart: !0,
         width: o("WAWebContactManagerListViewColumnWidths")
           .contactManagerColumnWidths.select,
       };
     }
-    function T(e, t, n, a, i, l) {
+    function x(e, t, n, a, i, l) {
       var u = function (t, r) {
-          return a != null ? y(t, r, n, a, i) : void 0;
+          return a != null ? b(t, r, n, a, i) : void 0;
         },
         d = s._(/*BTDS*/ "Customer"),
-        m = l != null ? I(l) : null;
+        m = l != null ? D(l) : null;
       return [].concat(m != null ? [m] : [], [
         {
           cell: function (t) {
@@ -440,7 +490,7 @@ __d(
         },
         {
           cell: function (t) {
-            return c.jsx(b, { chatJid: t.item.chatJid });
+            return c.jsx(S, { chatJid: t.item.chatJid });
           },
           header: s._(/*BTDS*/ "Phone number"),
           key: "phone",
@@ -563,7 +613,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: v(e == null ? void 0 : e.t),
+              children: R(e == null ? void 0 : e.t),
             });
           },
           header: s._(/*BTDS*/ "Last message"),
@@ -579,7 +629,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: v(t.item.lastOrder),
+              children: R(t.item.lastOrder),
             });
           },
           header: s._(/*BTDS*/ "Last order"),
@@ -597,7 +647,7 @@ __d(
           },
           header: s._(/*BTDS*/ "Notes"),
           key: "notes",
-          renderHeader: C(s._(/*BTDS*/ "Notes"), "notes", i),
+          renderHeader: v(s._(/*BTDS*/ "Notes"), "notes", i),
           width: o("WAWebContactManagerListViewColumnWidths")
             .contactManagerColumnWidths.notes,
         },
@@ -616,11 +666,11 @@ __d(
         },
       ]);
     }
-    ((l.ALWAYS_VISIBLE_COLUMNS = S),
-      (l.ALL_COLUMN_KEYS = R),
-      (l.DEFAULT_VISIBLE_COLUMNS = L),
-      (l.getColumnLabel = E),
-      (l.getContactManagerListColumns = T));
+    ((l.ALWAYS_VISIBLE_COLUMNS = L),
+      (l.ALL_COLUMN_KEYS = E),
+      (l.DEFAULT_VISIBLE_COLUMNS = k),
+      (l.getColumnLabel = I),
+      (l.getContactManagerListColumns = x));
   },
   226,
 );

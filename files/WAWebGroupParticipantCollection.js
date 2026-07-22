@@ -294,11 +294,10 @@ __d(
           });
         }),
         (n.getMeParticipant = function () {
-          var e;
-          return (e = this.get(o("WAWebUserPrefsMeUser").getMeUserOrThrow())) !=
-            null
-            ? e
-            : this.get(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
+          var e = this.get(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow());
+          if (e) return e;
+          var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+          return t != null ? this.get(t) : void 0;
         }),
         (n.getChat = function () {
           var e = this.parent.id;

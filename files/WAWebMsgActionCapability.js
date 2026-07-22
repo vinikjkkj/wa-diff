@@ -104,6 +104,7 @@ __d(
       return o("WAWebNewsletterFutureProofUtils").isMsgTypeSupported(e.type);
     }
     function y(e, t, n) {
+      if (e.isAiHub()) return !1;
       if (!e.isBot()) return !0;
       if (o("WAWebBotUtils").isMetaAiBot(e))
         return o("WAWebBotForwardCapability").isMetaAiForwardRowVisibleForMsgs(

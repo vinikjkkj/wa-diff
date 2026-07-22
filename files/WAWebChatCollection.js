@@ -9,7 +9,6 @@ __d(
     "WAWebDebounce",
     "WAWebIdleTaskRunner",
     "WAWebLidMigrationUtils",
-    "WAWebSendUnstarAllChatAction",
     "WAWebSocketConstants",
     "WAWebSocketModel",
   ],
@@ -136,9 +135,6 @@ __d(
               ? o("WAWebLidMigrationUtils").toLid(t)
               : null;
             return e != null ? c.getChatByAccountLid(e) : c.get(t);
-          }),
-          (a.unstarAllMessages = function (t, n) {
-            return o("WAWebSendUnstarAllChatAction").unstarAllMessages(t, n);
           }),
           (a.delete = function () {
             (t.prototype.delete.call(this),

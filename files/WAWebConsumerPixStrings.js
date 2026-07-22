@@ -46,19 +46,28 @@ __d(
       );
     }
     function h() {
-      return s._(/*BTDS*/ "Pix key");
+      return s._(/*BTDS*/ "Edit your Pix key");
     }
     function y() {
-      return s._(/*BTDS*/ "Hide Pix key from...");
+      return s._(/*BTDS*/ "Pix key");
     }
     function C() {
-      return s._(/*BTDS*/ "Add your Pix key for fast and secure payments");
+      return s._(/*BTDS*/ "Hide Pix key from...");
     }
     function b() {
-      return s._(/*BTDS*/ "Add Pix key");
+      return s._(/*BTDS*/ "Add your Pix key for fast and secure payments");
     }
     function v() {
+      return s._(/*BTDS*/ "Add Pix key");
+    }
+    function S() {
       return s._(/*BTDS*/ "Your Pix key");
+    }
+    function R(e) {
+      return s._(
+        /*BTDS*/ "Your Pix key and name will be securely stored and encrypted. {learn-more-link}",
+        [s._param("learn-more-link", e)],
+      );
     }
     ((l.getConsumerPixKeyTypeOptions = e),
       (l.getConsumerAddPixKeyTitle = u),
@@ -69,11 +78,13 @@ __d(
       (l.getConsumerPixVisibilityNobody = _),
       (l.getConsumerPixVisibilityLabel = f),
       (l.getConsumerPixVisibilityUpdateError = g),
-      (l.getConsumerPixKeyLabel = h),
-      (l.getConsumerPixHideFromContactsTitle = y),
-      (l.getConsumerPaymentsHomeEmptyStateTitle = C),
-      (l.getConsumerPaymentsHomeAddPixKeyButton = b),
-      (l.getConsumerPaymentsHomePixKeyHeader = v));
+      (l.getConsumerPixEditKeyAriaLabel = h),
+      (l.getConsumerPixKeyLabel = y),
+      (l.getConsumerPixHideFromContactsTitle = C),
+      (l.getConsumerPaymentsHomeEmptyStateTitle = b),
+      (l.getConsumerPaymentsHomeAddPixKeyButton = v),
+      (l.getConsumerPaymentsHomePixKeyHeader = S),
+      (l.getConsumerPixEncryptedFooter = R));
   },
   226,
 );

@@ -189,7 +189,7 @@ __d(
         },
         hiddenSubgroupIcon: { color: "xhslqc4", $$css: !0 },
         backgroundFill: { fill: "x1flh12g", $$css: !0 },
-        primaryFill: { fill: "xvt3oi1", $$css: !0 },
+        primaryFill: { fill: "xvt3oi1", color: "xhslqc4", $$css: !0 },
         svgSize: { width: "xh8yej3", height: "x5yr21d", $$css: !0 },
         separator: {
           borderInlineEndStyle: "x18oe1m7",

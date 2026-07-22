@@ -36,40 +36,51 @@ __d(
         n = e.subject,
         r = e.subtype,
         o = e.templateParams;
-      return L(r, t, n, o, !1);
+      return L({
+        author: t,
+        clickable: !1,
+        subject: n,
+        subtype: r,
+        templateParams: o,
+      });
     }
-    function L(t, n, r, a, i) {
-      var l = n
-          ? o("WAWebFormatParticipantNames").getFormattedName(n, i, t)
+    function L(t) {
+      var n = t.author,
+        r = t.clickable,
+        a = t.subject,
+        i = t.subtype,
+        l = t.templateParams,
+        s = n
+          ? o("WAWebFormatParticipantNames").getFormattedName(n, r, i)
           : null,
-        s = r ? o("WAWebFormatParticipantNames").getFormattedName(r, i) : null;
-      switch (t) {
+        u = a ? o("WAWebFormatParticipantNames").getFormattedName(a, r) : null;
+      switch (i) {
         case "parent_group_link":
-          return M(a, i, n, l);
+          return M(l, r, n, s);
         case "sibling_group_link":
-          return w(a, i, n, l, t);
+          return w(l, r, n, s, i);
         case "sub_group_link":
           break;
         case "parent_group_unlink":
-          return N(a, i, n, l);
+          return N(l, r, n, s);
         case "integrity_parent_group_unlink":
-          return P(a, i);
+          return P(l, r);
         case "delete_parent_group_unlink":
         case "delete_parent_group":
-          return $(a, l, n, i);
+          return $(l, s, n, r);
         case "sibling_group_unlink":
-          return A(a, i, n, l);
+          return A(l, r, n, s);
         case "sub_group_unlink":
           break;
         case "community_create":
-          return F(a, i, n, l);
+          return F(l, r, n, s);
         case "linked_group_join":
-          return O(r, s);
+          return O(a, u);
         case "auto_add":
         case "default_sub_group_admin_add":
-          return B(a, i, l);
+          return B(l, r, s);
         case "invite_auto_add":
-          return W(a, i, r, s);
+          return W(l, r, a, u);
         default:
           o("WALogger").LOG(
             e ||
@@ -77,7 +88,7 @@ __d(
                 "wa:formatLinkNotification:unknown message subtype: ",
                 "",
               ])),
-            t,
+            i,
           );
           break;
       }
@@ -345,11 +356,11 @@ __d(
     M.displayName = M.name + " [from " + i.id + "]";
     function w(e, t, n, r, a) {
       var i = babelHelpers.arrayLikeToArray(e).slice(0),
-        l = o("WAWebFormatParticipantNames").getFormattedGroupListForCommunity(
-          i,
-          !t,
-          a,
-        ),
+        l = o("WAWebFormatParticipantNames").getFormattedGroupListForCommunity({
+          asString: !t,
+          groups: i,
+          subtype: a,
+        }),
         u = o("WAWebPairList").unFlattenPairList(i).length;
       return n != null && !v(n)
         ? l == null
@@ -379,10 +390,10 @@ __d(
     }
     function A(e, t, n, r) {
       var a = babelHelpers.arrayLikeToArray(e).slice(0),
-        i = o("WAWebFormatParticipantNames").getFormattedGroupListForCommunity(
-          a,
-          !t,
-        ),
+        i = o("WAWebFormatParticipantNames").getFormattedGroupListForCommunity({
+          asString: !t,
+          groups: a,
+        }),
         l = o("WAWebPairList").unFlattenPairList(a).length;
       return n != null && !v(n)
         ? i == null

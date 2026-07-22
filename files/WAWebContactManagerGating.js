@@ -31,11 +31,19 @@ __d(
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue(
+          "smb_web_customer_manager_header_menu_enabled",
+        )
+      );
+    }
+    function d() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_manager_bulk_edit_enabled",
         )
       );
     }
-    function d(e) {
+    function m(e) {
       var t = e.id;
       return (
         t != null &&
@@ -53,8 +61,9 @@ __d(
     ((l.contactManagerEnabled = e),
       (l.contactManagerDateRangeFilterEnabled = s),
       (l.contactManagerExportEnabled = u),
-      (l.contactManagerBulkEditEnabled = c),
-      (l.isEligibleForCustomerFields = d));
+      (l.contactManagerHeaderMenuEnabled = c),
+      (l.contactManagerBulkEditEnabled = d),
+      (l.isEligibleForCustomerFields = m));
   },
   98,
 );

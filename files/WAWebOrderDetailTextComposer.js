@@ -1,7 +1,7 @@
 __d(
   "WAWebOrderDetailTextComposer",
   [
-    "WAWebConstantsDeprecated",
+    "WAWebOrderConstants",
     "WAWebRichTextField.react",
     "WAWebRound.react",
     "WAWebVelocityTransitionGroup",
@@ -77,8 +77,7 @@ __d(
             xstyle: f,
             children: u.jsx("div", {
               children: u.jsx(o("WAWebRichTextField.react").RichTextField, {
-                maxLength: r("WAWebConstantsDeprecated")
-                  .MAX_CART_MESSAGE_LENGTH,
+                maxLength: o("WAWebOrderConstants").MAX_CART_MESSAGE_LENGTH,
                 placeholder: d,
                 value: _,
                 testid: p,

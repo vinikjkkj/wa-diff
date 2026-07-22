@@ -87,6 +87,7 @@ __d(
               )
                 return (_ || (_ = n("Promise"))).resolve({ id: t, stale: !0 });
               if (
+                t.isAiHub() ||
                 o("WAWebBotUtils").isBotChannelFBID(t) ||
                 o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t)
               )

@@ -13,8 +13,8 @@ __d(
     "WAWebChatGetters",
     "WAWebChatSeenBridge",
     "WAWebChatSendConversationSeen",
+    "WAWebChatUnreadConstants",
     "WAWebCmd",
-    "WAWebConstantsDeprecated",
     "WAWebCurrentUser",
     "WAWebDBUpdateChatTable",
     "WAWebNoop",
@@ -420,15 +420,15 @@ __d(
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             e.unreadCount === 0 ||
-            e.unreadCount === r("WAWebConstantsDeprecated").MARKED_AS_UNREAD
+            e.unreadCount === o("WAWebChatUnreadConstants").MARKED_AS_UNREAD
           )
             return (
               e.active && (e.markedUnread = !0),
               o("WAWebChatSeenBridge")
                 .markConversationUnseen(e.id)
                 .then(function () {
-                  e.unreadCount = r(
-                    "WAWebConstantsDeprecated",
+                  e.unreadCount = o(
+                    "WAWebChatUnreadConstants",
                   ).MARKED_AS_UNREAD;
                 })
             );

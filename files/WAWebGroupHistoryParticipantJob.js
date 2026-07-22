@@ -19,14 +19,13 @@ __d(
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r;
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
           if (
             o(
               "WAWebGroupHistoryGating",
             ).isGroupHistoryAfterJoinPrerequisitesEnabled()
           ) {
-            var a = n.filter(function (e) {
+            var a = r.filter(function (e) {
               return e.joinTime != null;
             });
             if (a.length !== 0) {
@@ -36,59 +35,75 @@ __d(
               } catch (e) {
                 return;
               }
-              o("WALogger").LOG(
+              (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[group-history][M2] Storing join metadata for ",
                     " participants",
                   ])),
                 a.length,
-              );
-              var l = o(
-                  "WAWebSchemaGroupHistoryParticipant",
-                ).getGroupHistoryParticipantTable(),
-                s = yield l.get(i),
-                u =
-                  (r = s == null ? void 0 : s.participantMetadataMap) != null
-                    ? r
-                    : new Map();
-              for (var c of a) {
-                var d,
-                  m,
-                  p,
-                  _,
-                  f,
-                  g = (d = c.lid) != null ? d : c.id,
-                  h = o("WAWebLidMigrationUtils").toUserLid(g);
-                if (h != null) {
-                  var y = o("WAWebWidToJid").userLidtoLidUserJid(h),
-                    C = u.get(y);
-                  u.set(y, {
-                    joinTime:
-                      (m =
-                        (p = c.joinTime) != null
-                          ? p
-                          : C == null
-                            ? void 0
-                            : C.joinTime) != null
-                        ? m
-                        : null,
-                    groupHistorySentState:
-                      (_ =
-                        (f = c.groupHistorySentState) != null
-                          ? f
-                          : C == null
-                            ? void 0
-                            : C.groupHistorySentState) != null
-                        ? _
-                        : null,
-                  });
-                }
-              }
-              yield l.createOrMerge(i, {
-                chatId: i,
-                participantMetadataMap: u,
-              });
+              ),
+                yield o("WAWebModelStorageUtils")
+                  .getStorage()
+                  .lock(
+                    ["group-history-participant"],
+                    (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e) {
+                          var t,
+                            n = e[0],
+                            r = yield n.get(i),
+                            l =
+                              (t =
+                                r == null
+                                  ? void 0
+                                  : r.participantMetadataMap) != null
+                                ? t
+                                : new Map();
+                          for (var s of a) {
+                            var u,
+                              c,
+                              d,
+                              m,
+                              p,
+                              _ = (u = s.lid) != null ? u : s.id,
+                              f = o("WAWebLidMigrationUtils").toUserLid(_);
+                            if (f != null) {
+                              var g = o("WAWebWidToJid").userLidtoLidUserJid(f),
+                                h = l.get(g);
+                              l.set(g, {
+                                joinTime:
+                                  (c =
+                                    (d = s.joinTime) != null
+                                      ? d
+                                      : h == null
+                                        ? void 0
+                                        : h.joinTime) != null
+                                    ? c
+                                    : null,
+                                groupHistorySentState:
+                                  (m =
+                                    (p = s.groupHistorySentState) != null
+                                      ? p
+                                      : h == null
+                                        ? void 0
+                                        : h.groupHistorySentState) != null
+                                    ? m
+                                    : null,
+                              });
+                            }
+                          }
+                          yield n.createOrMerge(i, {
+                            chatId: i,
+                            participantMetadataMap: l,
+                          });
+                        },
+                      );
+                      return function (t) {
+                        return e.apply(this, arguments);
+                      };
+                    })(),
+                  ));
             }
           }
         })),

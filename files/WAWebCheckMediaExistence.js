@@ -2,6 +2,7 @@ __d(
   "WAWebCheckMediaExistence",
   [
     "WALogger",
+    "WAWebEventsWaitForBbEvent",
     "WAWebMediaMmsV4Download",
     "WAWebMmsMediaTypes",
     "asyncToGeneratorRuntime",
@@ -14,7 +15,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if ((yield t.waitForPhoneUpload(), !t.mediaObject)) {
+          if ((yield c(t), !t.mediaObject)) {
             o("WALogger")
               .ERROR(
                 e ||
@@ -36,6 +37,29 @@ __d(
           });
         })),
         u.apply(this, arguments)
+      );
+    }
+    function c(e) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (e.mediaData != null &&
+            e.mediaData.filehash &&
+            !e.isUnsentPhoneMsg()) ||
+            (e.waitForPhoneUploadPromise ||
+              (e.waitForPhoneUploadPromise = r("WAWebEventsWaitForBbEvent")(
+                e.mediaData,
+                "change:mediaStage change:filehash",
+                function () {
+                  return !!e.mediaData.filehash && !e.isUnsentPhoneMsg();
+                },
+              )),
+            yield e.waitForPhoneUploadPromise,
+            (e.waitForPhoneUploadPromise = null));
+        })),
+        d.apply(this, arguments)
       );
     }
     l.checkMediaExistence = s;
