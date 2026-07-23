@@ -7,24 +7,20 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.activeAccountInfo,
-        n = e.isEligibleWhenNotLinked;
+      var t = e.activeAccountInfo;
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         t != null &&
-        (t !== "not-linked" || n()) &&
         !o("WAWebAuthAgentFeatureControlGateKeeper").isFeatureDisabled(
           "CTW_ADS",
         )
       );
     }
-    function s(t) {
-      var n = t.isEligibleWhenNotLinked;
+    function s() {
       return e({
         activeAccountInfo: o(
           "WAWebActiveAccountInfoContext.react",
         ).getActiveAccountInfo(),
-        isEligibleWhenNotLinked: n,
       });
     }
     ((l.computeShouldShowAdCreationEntryPoint = e),

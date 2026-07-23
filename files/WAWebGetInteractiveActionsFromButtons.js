@@ -188,7 +188,13 @@ __d(
                         .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
                       defaultUrl: e.data.url,
                       onLinkReady: function (r, o, a) {
-                        y(r, t, e, o, a);
+                        y({
+                          btn: e,
+                          chat: r,
+                          ctaLink: o,
+                          hasShownDisclosure: a,
+                          msg: t,
+                        });
                       },
                     });
                   }
@@ -207,7 +213,13 @@ __d(
                         .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
                       defaultUrl: e.data.url,
                       onLinkReady: function (r, o, a) {
-                        y(r, t, e, o, a);
+                        y({
+                          btn: e,
+                          chat: r,
+                          ctaLink: o,
+                          hasShownDisclosure: a,
+                          msg: t,
+                        });
                       },
                     }));
                 },
@@ -343,39 +355,45 @@ __d(
               : i(u, c, !1));
         });
     }
-    function y(e, t, n, r, a) {
+    function y(e) {
+      var t = e.btn,
+        n = e.chat,
+        r = e.ctaLink,
+        a = e.hasShownDisclosure,
+        i = a === void 0 ? !1 : a,
+        l = e.msg;
       if (
-        (a === void 0 && (a = !1),
         o(
           "WAWebPremiumMessagesGatingUtils",
-        ).isPremiumMessagesUrlCtaDialogEnabled() && !a)
+        ).isPremiumMessagesUrlCtaDialogEnabled() &&
+        !i
       )
-        C({ btn: n, chat: e, ctaLink: r, hasShownDisclosure: a, msg: t });
+        C({ btn: t, chat: n, ctaLink: r, hasShownDisclosure: i, msg: l });
       else {
         if (r == null) return;
-        (o("WAWebExternalLink.react").openExternalLink(r), E(n, t));
-        var i = t.unsafe();
+        (o("WAWebExternalLink.react").openExternalLink(r), E(t, l));
+        var s = l.unsafe();
         (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-          msg: i,
-          chat: e,
+          msg: s,
+          chat: n,
           buttonClickedType: o("WAWebWamEnumQbmMessageClickButtonClickedType")
             .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
-          nativeFlowName: n.name,
+          nativeFlowName: t.name,
         }),
           o(
             "WAWebMmSignalSharingLoggingEvents",
           ).logMmSignalSharingLinkClickEvent({
             eventType: o("WAWebWamEnumDisclosureEventType")
               .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
-            linkTypeIndex: n.index,
-            msg: i,
-            chat: e,
-            hasShownDisclosure: a,
-            mmCarouselCardIndex: I(i),
+            linkTypeIndex: t.index,
+            msg: s,
+            chat: n,
+            hasShownDisclosure: i,
+            mmCarouselCardIndex: I(s),
           }),
           o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
-            msg: i,
-            chat: e,
+            msg: s,
+            chat: n,
             messageLevelAction: o("WAWebWamEnumMessageLevelAction")
               .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
             messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")

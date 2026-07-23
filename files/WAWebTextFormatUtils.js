@@ -14,6 +14,7 @@ __d(
         "Bold",
         "Italic",
         "Strikethrough",
+        "Spoiler",
         "Code",
         "InlineCode",
         "BulletedList",
@@ -437,6 +438,7 @@ __d(
     ((R[e.Bold] = "*"),
       (R[e.Italic] = "_"),
       (R[e.Strikethrough] = "~"),
+      (R[e.Spoiler] = "||"),
       (R[e.Code] = "```"),
       (R[e.InlineCode] = "`"));
     var L = Array.from(Object.values(R));

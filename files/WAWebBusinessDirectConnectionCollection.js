@@ -357,28 +357,32 @@ __d(
                 ))
               : (d || (d = n("Promise"))).resolve();
           }),
-          (i._isCypherInGoodCondition = function (t, n, r, a) {
+          (i._isCypherInGoodCondition = function (t) {
+            var e = t.cypherExpirationTimestamp,
+              n = t.cypherType,
+              r = t.id,
+              a = t.postcodeSetByUser;
             return (
               !o("WAWebBusinessDirectUtils").isCypherFromLaunch1(n) &&
-              !o("WAWebBusinessDirectUtils").isCypherExpired(n, r) &&
-              n === this._getCypherTypeForConversation(t, a)
+              !o("WAWebBusinessDirectUtils").isCypherExpired(n, e) &&
+              n === this._getCypherTypeForConversation(r, a)
             );
           }),
           (i._isRowDataInGoodCondition = function (t, n) {
-            return this._isCypherInGoodCondition(
-              t,
-              n.cypherType,
-              n.cypherExpirationTimestamp,
-              n.postcodeSetByUser === !0,
-            );
+            return this._isCypherInGoodCondition({
+              cypherExpirationTimestamp: n.cypherExpirationTimestamp,
+              cypherType: n.cypherType,
+              id: t,
+              postcodeSetByUser: n.postcodeSetByUser === !0,
+            });
           }),
           (i._isModelDataInGoodCondition = function (t, n) {
-            return this._isCypherInGoodCondition(
-              t,
-              n.cypherType,
-              n.cypherExpirationTimestamp,
-              n.postcodeSetByUser === !0,
-            );
+            return this._isCypherInGoodCondition({
+              cypherExpirationTimestamp: n.cypherExpirationTimestamp,
+              cypherType: n.cypherType,
+              id: t,
+              postcodeSetByUser: n.postcodeSetByUser === !0,
+            });
           }),
           (i.getCypher = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(

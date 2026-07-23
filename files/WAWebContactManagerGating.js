@@ -43,7 +43,15 @@ __d(
         )
       );
     }
-    function m(e) {
+    function m() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_contact_manager_sublist_enabled",
+        )
+      );
+    }
+    function p(e) {
       var t = e.id;
       return (
         t != null &&
@@ -63,7 +71,8 @@ __d(
       (l.contactManagerExportEnabled = u),
       (l.contactManagerHeaderMenuEnabled = c),
       (l.contactManagerBulkEditEnabled = d),
-      (l.isEligibleForCustomerFields = m));
+      (l.contactManagerSublistEnabled = m),
+      (l.isEligibleForCustomerFields = p));
   },
   98,
 );

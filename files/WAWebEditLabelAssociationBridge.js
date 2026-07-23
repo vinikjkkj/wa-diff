@@ -3,19 +3,25 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebContactManagerGating",
     "WAWebDBLabelAssociationDatabaseApi",
+    "WAWebDBLabelSublistDatabaseApi",
     "WAWebLabelJidSync",
+    "WAWebLabelSublistSync",
+    "WAWebLeadListConstants",
     "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
+    "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
+    "WAWebSchemaLabelSublist",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      var n = d(
+    var e, s, u, c;
+    function d(e, t) {
+      var n = m(
         e,
         t.map(function (e) {
           return {
@@ -28,72 +34,151 @@ __d(
       );
       return n;
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           if (
             !(
               o("WAWebListsLabelGatingUtils").canEditLabelAssociation() ||
               o("WAWebListsGatingUtils").isListsEnabled()
             )
           )
-            return (u || (u = n("Promise"))).reject(
+            return (c || (c = n("Promise"))).reject(
               r("err")("editLabelAssociation is not supported"),
             );
-          var a = yield r("WAWebLabelJidSync").createLabelAssociationMutations(
-            e,
-            t,
-          );
+          var i = yield r("WAWebLabelJidSync").createLabelAssociationMutations(
+              t,
+              a,
+            ),
+            l = o("WAWebContactManagerGating").contactManagerEnabled()
+              ? yield _(t, a)
+              : { sublistLocalRemoves: [], sublistMutations: [] },
+            s = l.sublistLocalRemoves,
+            u = l.sublistMutations,
+            d =
+              u.length > 0
+                ? ["label-association", "chat", "label_sublist"]
+                : ["label-association", "chat"];
           return o("WAWebSyncdCoreApi").lockForSync(
-            ["label-association", "chat"],
-            a,
-            function () {
-              return p(e, t);
-            },
+            d,
+            [].concat(i, u),
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (yield g(t, a),
+                yield (c || (c = n("Promise"))).all(
+                  s.map(function (t) {
+                    return o("WAWebDBLabelSublistDatabaseApi")
+                      .removeLabelSublist(t)
+                      .catch(function (t) {
+                        throw (
+                          o("WALogger")
+                            .ERROR(
+                              e ||
+                                (e = babelHelpers.taggedTemplateLiteralLoose([
+                                  "removeLabelSublist: clear lead sub-list on Lead removal failed",
+                                ])),
+                            )
+                            .verbose()
+                            .sendLogs(
+                              "edit-label-association-remove-lead-sublist-failed",
+                            ),
+                          r("err")(
+                            "removeLabelSublist for lead sub-list cleanup failed",
+                          )
+                        );
+                      });
+                  }),
+                ));
+            }),
           );
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = [],
-            l = [];
-          (t.forEach(function (e) {
-            var t = e.id,
-              n = e.type;
-            a.map(function (e) {
-              var r = e.labelAssociationType,
-                a = e.modelId;
-              n === "add"
-                ? i.push({ labelId: t, associationId: a, type: r })
-                : l.push(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = [],
+            i = [],
+            l = yield (c || (c = n("Promise"))).all(
+              e.map(function (e) {
+                var t = e.id;
+                return o("WAWebSchemaLabel").getLabelTable().get(t);
+              }),
+            );
+          e.forEach(function (e, n) {
+            var s,
+              u = e.type;
+            if (
+              ((s = l[n]) == null ? void 0 : s.predefinedId) ===
+                o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID &&
+              u === "remove"
+            )
+              for (var c of t) {
+                var d = c.modelId;
+                (i.push(
+                  r("WAWebLabelSublistSync").getLabelSublistRemoveMutation({
+                    predefinedId: o("WAWebLeadListConstants")
+                      .LEAD_LIST_PREDEFINED_ID,
+                    chatJid: d,
+                  }),
+                ),
+                  a.push(
+                    o("WAWebSchemaLabelSublist").createLabelSublistPrimaryKey({
+                      predefinedId: o("WAWebLeadListConstants")
+                        .LEAD_LIST_PREDEFINED_ID,
+                      chatJid: d,
+                    }),
+                  ));
+              }
+          });
+          var s = yield c.all(i);
+          return { sublistLocalRemoves: a, sublistMutations: s };
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a = [],
+            i = [];
+          (e.forEach(function (e) {
+            var n = e.id,
+              r = e.type;
+            t.map(function (e) {
+              var t = e.labelAssociationType,
+                l = e.modelId;
+              r === "add"
+                ? a.push({ labelId: n, associationId: l, type: t })
+                : i.push(
                     o(
                       "WAWebSchemaLabelAssociation",
                     ).createLabelAssociationPrimaryKey({
-                      labelId: t,
-                      associationId: a,
-                      type: r,
+                      labelId: n,
+                      associationId: l,
+                      type: t,
                     }),
                   );
             });
           }),
-            yield (u || (u = n("Promise"))).all([
+            yield (c || (c = n("Promise"))).all([
               o("WAWebDBLabelAssociationDatabaseApi")
-                .addOrEditLabelAssociations(i)
-                .catch(function (t) {
+                .addOrEditLabelAssociations(a)
+                .catch(function (e) {
                   throw (
                     o("WALogger")
                       .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "addOrEditLabelAssociations: label assoc table failed",
                           ])),
                       )
@@ -107,13 +192,13 @@ __d(
                   );
                 }),
               o("WAWebDBLabelAssociationDatabaseApi")
-                .removeLabelAssociations(l)
+                .removeLabelAssociations(i)
                 .catch(function (e) {
                   throw (
                     o("WALogger")
                       .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "removeLabelAssociations from label association table failed",
                           ])),
                       )
@@ -128,10 +213,10 @@ __d(
                 }),
             ]));
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.editLabelAssociation = c), (l.editLocalLabelAssociationMD = p));
+    ((l.editLabelAssociation = d), (l.editLocalLabelAssociationMD = g));
   },
   98,
 );

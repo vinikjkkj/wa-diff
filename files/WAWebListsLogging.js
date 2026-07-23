@@ -34,6 +34,7 @@ __d(
             return o("WAWebWamEnumListType").LIST_TYPE.BUSINESS_AI;
           case o("WAWebSchemaLabel").ListType.AI_RESPONDING:
           case o("WAWebSchemaLabel").ListType.CHANNELS:
+          case o("WAWebSchemaLabel").ListType.LEAD:
             return null;
         }
     }

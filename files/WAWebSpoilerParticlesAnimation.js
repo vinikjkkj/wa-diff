@@ -18,29 +18,39 @@ __d(
       y = 0.03,
       C = 3,
       b = 0.5,
-      v = Math.PI * 2,
-      S = 1e3,
-      R = 0.5 * p,
-      L = 0.5 * _,
-      E = 1 / 30,
-      k = "#000",
-      I = 0,
-      T = 1,
-      D = 2,
-      x = 3,
-      $ = 4,
-      P = 5,
-      N = 6,
-      M = 7,
-      w = (function () {
+      v = 800,
+      S = 5,
+      R = 20,
+      L = 1.05,
+      E = 1.5,
+      k = Math.PI * 2,
+      I = 1e3,
+      T = 0.5 * p,
+      D = 0.5 * _,
+      x = 0.5 * R,
+      $ = 1 / 30,
+      P = "#000",
+      N = 0,
+      M = 1,
+      w = 2,
+      A = 3,
+      F = 4,
+      O = 5,
+      B = 6,
+      W = 7,
+      q = (function () {
         function t(e, t) {
           var n = this;
-          ((this.$19 = function (e) {
-            var t = n.$12 === 0 ? 0 : Math.min((e - n.$12) / S, 0.05);
+          ((this.$25 = function (e) {
+            var t = n.$12 === 0 ? 0 : Math.min((e - n.$12) / I, 0.05);
             (n.$11
-              ? (n.$14 = window.requestAnimationFrame(n.$19))
+              ? (n.$14 = window.requestAnimationFrame(n.$25))
               : (n.$14 = null),
-              !(n.$12 !== 0 && t < E) && ((n.$12 = e), (n.$13 += t), n.$18()));
+              !(n.$12 !== 0 && t < $) &&
+                ((n.$12 = e),
+                (n.$13 += t),
+                n.$24(),
+                n.isDismissed() && n.pause()));
           }),
             (this.$1 = e),
             (this.$2 = e.getContext("2d")),
@@ -56,18 +66,25 @@ __d(
             (this.$12 = 0),
             (this.$13 = 0),
             (this.$14 = null),
-            (this.$15 = k));
+            (this.$15 = P),
+            (this.$16 = NaN),
+            (this.$17 = 0),
+            (this.$18 = 0),
+            (this.$19 = 0),
+            (this.$20 = 0),
+            (this.$21 = 0));
         }
         var n = t.prototype;
         return (
           (n.init = function (t) {
-            (this.$16(t), this.$17(), this.$18());
+            (this.$22(t), this.$23(), this.$24());
           }),
           (n.play = function () {
             this.$11 ||
+              this.isDismissed() ||
               ((this.$11 = !0),
               (this.$12 = 0),
-              (this.$14 = window.requestAnimationFrame(this.$19)));
+              (this.$14 = window.requestAnimationFrame(this.$25)));
           }),
           (n.pause = function () {
             this.$11 &&
@@ -78,7 +95,14 @@ __d(
           (n.setParticleColor = function (t) {
             this.$15 = t;
           }),
-          (n.$16 = function (t) {
+          (n.dismiss = function (t, n) {
+            Number.isNaN(this.$16) &&
+              ((this.$16 = this.$13), (this.$17 = t), (this.$18 = n));
+          }),
+          (n.isDismissed = function () {
+            return Number.isNaN(this.$16) ? !1 : this.$13 - this.$16 >= E;
+          }),
+          (n.$22 = function (t) {
             var e = window.devicePixelRatio || 1,
               n = t.height,
               r = t.width;
@@ -114,25 +138,25 @@ __d(
             }
             this.$8 = g;
           }),
-          (n.$17 = function () {
+          (n.$23 = function () {
             if (this.$5 === 0) {
               ((this.$9 = new Float32Array(0)), (this.$10 = 0));
               return;
             }
             var e = Math.ceil(this.$7 * c);
-            ((this.$9 = new Float32Array(e * M)), (this.$10 = e));
+            ((this.$9 = new Float32Array(e * W)), (this.$10 = e));
             for (var t = 0; t < e; t++) {
-              var n = A() * C;
-              this.$20(t * M, -n);
+              var n = U() * C;
+              this.$26(t * W, -n);
             }
           }),
-          (n.$20 = function (n, r) {
+          (n.$26 = function (n, r) {
             for (
               var t = this.$9,
                 o = this.$4,
                 a = this.$6,
                 i = this.$5,
-                c = A() * this.$7,
+                c = U() * this.$7,
                 d = 0;
               d < i - 1 && !(c <= a[d]);
               d++
@@ -142,60 +166,93 @@ __d(
               _ = o[m + 1],
               h = o[m + 2],
               y = o[m + 3],
-              C = A() * v,
-              b = s + A() * (u - s),
-              S = e + A() * (l - e),
-              R = F(f + (A() - 0.5) * g, 0, 1);
-            ((t[n + I] = p + A() * (h - p)),
-              (t[n + T] = _ + A() * (y - _)),
-              (t[n + D] = Math.cos(C) * b),
-              (t[n + x] = Math.sin(C) * b),
-              (t[n + $] = S),
-              (t[n + P] = R),
-              (t[n + N] = r));
+              C = U() * k,
+              b = s + U() * (u - s),
+              v = e + U() * (l - e),
+              S = V(f + (U() - 0.5) * g, 0, 1);
+            ((t[n + N] = p + U() * (h - p)),
+              (t[n + M] = _ + U() * (y - _)),
+              (t[n + w] = Math.cos(C) * b),
+              (t[n + A] = Math.sin(C) * b),
+              (t[n + F] = v),
+              (t[n + O] = S),
+              (t[n + B] = r));
           }),
-          (n.$18 = function () {
+          (n.$24 = function () {
             var e = this.$2,
               t = this.$9,
               n = this.$10,
-              r = this.$13;
+              r = this.$13,
+              o = !Number.isNaN(this.$16),
+              a = o ? r - this.$16 : 0,
+              i = a * v,
+              l = i * i;
             (e.clearRect(0, 0, this.$1.width, this.$1.height),
               e.save(),
               this.$8 != null && e.clip(this.$8),
               (e.fillStyle = this.$15));
-            for (var o = 0; o < n; o++) {
-              var a = o * M,
-                i = t[a + N],
-                l = r - i,
-                s = t[a + P],
-                u = s - h * l,
-                c = 1 - y * l;
-              if (l >= C || u <= 0 || c <= 0) {
-                this.$20(a, r);
+            for (var s = 0; s < n; s++) {
+              var u = s * W,
+                c = t[u + B],
+                d = r - c,
+                m = t[u + O],
+                p = m - h * d,
+                _ = 1 - y * d,
+                f = d >= C || p <= 0 || _ <= 0;
+              if (f) {
+                if (o) continue;
+                this.$26(u, r);
                 continue;
               }
-              var d = t[a + I],
-                m = t[a + T],
-                p = t[a + D],
-                _ = t[a + x],
-                f = l * l,
-                g = d + p * l + R * f,
-                S = m + _ * l + L * f;
-              if (!this.$21(g, S) && A() < b) {
-                this.$20(a, r);
+              var g = t[u + N],
+                S = t[u + M],
+                R = t[u + w],
+                L = t[u + A],
+                E = d * d,
+                I = g + R * d + T * E,
+                x = S + L * d + D * E,
+                $ = p;
+              if (o)
+                this.$27(I, x, p, l, i) &&
+                  ((I = this.$19), (x = this.$20), ($ = this.$21));
+              else if (!this.$28(I, x) && U() < b) {
+                this.$26(u, r);
                 continue;
               }
-              var E = t[a + $] * c;
-              E <= 0.05 ||
-                u <= 0 ||
-                ((e.globalAlpha = u),
+              var P = t[u + F] * _;
+              P <= 0.05 ||
+                $ <= 0 ||
+                ((e.globalAlpha = $),
                 e.beginPath(),
-                e.arc(g, S, E, 0, v),
+                e.arc(I, x, P, 0, k),
                 e.fill());
             }
             ((e.globalAlpha = 1), e.restore());
           }),
-          (n.$21 = function (t, n) {
+          (n.$27 = function (t, n, r, o, a) {
+            var e = t - this.$17,
+              i = n - this.$18,
+              l = e * e + i * i;
+            if (l > o) return !1;
+            var s = Math.sqrt(l),
+              u = (a - s) / v,
+              c,
+              d;
+            if (s > 0.01) ((c = e / s), (d = i / s));
+            else {
+              var m = U() * k;
+              ((c = Math.cos(m)), (d = Math.sin(m)));
+            }
+            var p = S * u + x * u * u,
+              _ = Math.max(0, 1 - u / L);
+            return (
+              (this.$19 = t + c * p),
+              (this.$20 = n + d * p),
+              (this.$21 = r * _),
+              !0
+            );
+          }),
+          (n.$28 = function (t, n) {
             for (var e = this.$4, r = this.$5, o = 0; o < r; o++) {
               var a = o * 4;
               if (t >= e[a] && t <= e[a + 2] && n >= e[a + 1] && n <= e[a + 3])
@@ -206,13 +263,13 @@ __d(
           t
         );
       })();
-    function A() {
+    function U() {
       return Math.random();
     }
-    function F(e, t, n) {
+    function V(e, t, n) {
       return e < t ? t : e > n ? n : e;
     }
-    i.default = w;
+    i.default = q;
   },
   66,
 );

@@ -6,6 +6,7 @@ __d(
     "WAWebAdCreationLogger",
     "WAWebBizAdCreationEntryPointModal.react",
     "WAWebBizNativeAdsEntryTapLogger",
+    "WAWebBizNativeAdsGatingUtils",
     "WAWebBotFrontendUtils",
     "WAWebBotGating",
     "WAWebBotUtils",
@@ -18,7 +19,6 @@ __d(
     "WAWebFbtCommon",
     "WAWebFindChatAction",
     "WAWebModalManager",
-    "WAWebNativeAdsGatingUtils",
     "WAWebNativeAdsMvpEligibilityModel",
     "WAWebOpenBizNativeAdsFlow",
     "WAWebOpenManageAdsInLwi",
@@ -133,15 +133,8 @@ __d(
           s === "whatsapp_smb_web_catalog_product",
         m =
           !d &&
-          o("WAWebNativeAdsGatingUtils").shouldUseNativeAdsMvpExperience({
-            hasAdvertisedViaLWI: o(
-              "WAWebNativeAdsMvpEligibilityModel",
-            ).hasAdvertisedViaLWI(),
-            isQE2Eligible: o(
-              "WAWebNativeAdsMvpEligibilityModel",
-            ).isQE2Eligible(),
-            logExposure: !0,
-          }),
+          (o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled() ||
+            o("WAWebBizNativeAdsGatingUtils").nativeAdsWebCreationEnabled()),
         p;
       if (
         (m

@@ -935,6 +935,18 @@ __d(
       PAYMENT_SECTION_IMPRESSION: "payment_section_impression",
       PAYMENT_SUMMARY_SECTION_IMPRESSION: "payment_summary_section_impression",
       PIXEL_SECTION_IMPRESSION: "pixel_section_impression",
+      PIXEL_SETUP_IMPRESSION: "pixel_setup_impression",
+      PIXEL_SETUP_PLAN_SHOWN: "pixel_setup_plan_shown",
+      PIXEL_SETUP_CLICKED: "pixel_setup_clicked",
+      PIXEL_SETUP_DATA_SHARING_MODAL_SHOWN:
+        "pixel_setup_data_sharing_modal_shown",
+      PIXEL_SETUP_DATA_SHARING_RESOLVED: "pixel_setup_data_sharing_resolved",
+      PIXEL_SETUP_INSTALL_OUTCOME: "pixel_setup_install_outcome",
+      PIXEL_SETUP_DONE_CLICKED: "pixel_setup_done_clicked",
+      PIXEL_SETUP_LIVE_SHOWN: "pixel_setup_live_shown",
+      PIXEL_SETUP_TEST_TRAFFIC_CLICKED: "pixel_setup_test_traffic_clicked",
+      PIXEL_SETUP_VERIFY_OUTCOME: "pixel_setup_verify_outcome",
+      PIXEL_SETUP_FLOW_COMPLETE: "pixel_setup_flow_complete",
       PRODUCT_EXTENSION_AD_CREATED: "product_extension_ad_created",
       PRODUCT_EXTENSION_ELIGIBLE_AD_CREATED_WITHOUT_PE:
         "product_extension_eligible_ad_created_without_pe",

@@ -10,9 +10,10 @@ __d(
       d = o("WATimeUtils").DAY_MILLISECONDS * 2,
       m = 0,
       p = 3,
-      _ = 7,
-      f = 0,
-      g = (e = n("$InternalEnum"))({
+      _ = 1,
+      f = 7,
+      g = 0,
+      h = (e = n("$InternalEnum"))({
         Star: "star",
         Contact: "contact",
         Mute: "mute",
@@ -21,6 +22,7 @@ __d(
         SettingPushName: "setting_pushName",
         LabelEdit: "label_edit",
         LabelJid: "label_jid",
+        LabelSublist: "label_sublist",
         QuickReply: "quick_reply",
         LocaleSetting: "setting_locale",
         Archive: "archive",
@@ -84,14 +86,14 @@ __d(
         BizAiSettingsNudge: "biz_ai_settings_nudge",
         WasaRootSecret: "wasa_root_secret",
       }),
-      h = e({
+      y = e({
         Regular: "regular",
         RegularLow: "regular_low",
         RegularHigh: "regular_high",
         CriticalBlock: "critical_block",
         CriticalUnblockLow: "critical_unblock_low",
       }),
-      y = e.Mirrored([
+      C = e.Mirrored([
         "Success",
         "SuccessHasMore",
         "Conflict",
@@ -100,14 +102,14 @@ __d(
         "ErrorFatal",
         "Blocked",
       ]),
-      C = e.Mirrored([
+      b = e.Mirrored([
         "UpToDate",
         "Dirty",
         "FailingFiniteRetry",
         "Fatal",
         "Blocked",
       ]),
-      b = e.Mirrored([
+      v = e.Mirrored([
         "Success",
         "Malformed",
         "Orphan",
@@ -115,7 +117,7 @@ __d(
         "Skipped",
         "Failed",
       ]),
-      v = e.Mirrored([
+      S = e.Mirrored([
         "Msg",
         "Chat",
         "Agent",
@@ -125,28 +127,29 @@ __d(
         "FavoriteSticker",
         "Thread",
       ]),
-      S = e.Mirrored([
+      R = e.Mirrored([
         "ApplyRemoteAndDropLocal",
         "SkipRemote",
         "SkipRemoteAndDropLocal",
       ]),
-      R = e.Mirrored(["Patch", "Snapshot", "Local"]);
+      L = e.Mirrored(["Patch", "Snapshot", "Local"]);
     ((l.BACKOFF_MIN_TIMEOUT = s),
       (l.BACKOFF_MAX_TIMEOUT = u),
       (l.BACKOFF_BASE = c),
       (l.FINITE_FAILURE_EXPIRY_DURATION = d),
       (l.DEFAULT_COLLECTION_VERSION = m),
       (l.LABEL_ASSOCIATION_SYNC_VERSION = p),
-      (l.CHAT_ASSIGNMENT_SYNC_VERSION = _),
-      (l.MUTATION_NAME_INDEX = f),
-      (l.Actions = g),
-      (l.CollectionName = h),
-      (l.CollectionState = y),
-      (l.CollectionSyncState = C),
-      (l.SyncActionState = b),
-      (l.SyncModelType = v),
-      (l.ConflictResolutionState = S),
-      (l.SyncDataType = R));
+      (l.LABEL_SUBLIST_SYNC_VERSION = _),
+      (l.CHAT_ASSIGNMENT_SYNC_VERSION = f),
+      (l.MUTATION_NAME_INDEX = g),
+      (l.Actions = h),
+      (l.CollectionName = y),
+      (l.CollectionState = C),
+      (l.CollectionSyncState = b),
+      (l.SyncActionState = v),
+      (l.SyncModelType = S),
+      (l.ConflictResolutionState = R),
+      (l.SyncDataType = L));
   },
   98,
 );

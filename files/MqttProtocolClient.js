@@ -126,7 +126,6 @@ __d(
                   t.$10 != null &&
                     ((a = o("MqttProtocolUtils").concatBuffers(t.$10, a)),
                     t.$9.bumpCounter("protocol.debug.usingMessagesBuffer"),
-                    delete t.$10,
                     (t.$10 = null));
                   var i = o("MqttProtocolCodec").decodeByteMessages(a),
                     l = i.messages;

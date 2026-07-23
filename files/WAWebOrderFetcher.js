@@ -99,40 +99,43 @@ __d(
     function g(e, t) {
       var n = e.contact,
         r = e.msgs;
-      return h(r.toArray(), n, t);
+      return h({ contact: n, msgs: r.toArray(), orderViewType: t });
     }
-    function h(e, t, n) {
-      return e.reduce(
-        function (e, a) {
+    function h(e) {
+      var t = e.contact,
+        n = e.msgs,
+        a = e.orderViewType;
+      return n.reduce(
+        function (e, n) {
           var i,
             l,
             u,
             c =
-              (i = a.interactivePayload) != null &&
+              (i = n.interactivePayload) != null &&
               i.buttons &&
-              (l = a.interactivePayload) != null &&
+              (l = n.interactivePayload) != null &&
               l.buttons.length
-                ? (u = a.interactivePayload) == null
+                ? (u = n.interactivePayload) == null
                   ? void 0
                   : u.buttons
                 : [{}],
             d = c[0],
             m = d.buttonParamsJson,
             p = d.name,
-            _ = C(a);
+            _ = C(n);
           return (
             _ != null
-              ? b(e, a, t, _, m)
-              : (n === s.PAYMENTS_HOME ||
-                  o("WAWebUserPrefsMeUser").isMeAccount(a.from)) &&
-                (a.nativeFlowName ===
+              ? b(e, n, t, _, m)
+              : (a === s.PAYMENTS_HOME ||
+                  o("WAWebUserPrefsMeUser").isMeAccount(n.from)) &&
+                (n.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-                  ? y(e, a, t, p, m)
-                  : a.nativeFlowName ===
+                  ? y(e, n, t, p, m)
+                  : n.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
                     ? S(e, m)
                     : o("WAWebE2EProtoUtils").isOrderNativeFlow(
-                        a.nativeFlowName,
+                        n.nativeFlowName,
                       ) && v(e, m)),
             e
           );

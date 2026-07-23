@@ -45,6 +45,12 @@ __d(
         (e.empty = function () {
           return new e({ width: 0, height: 0 });
         }),
+        (e.nonNegative = function (n) {
+          return new e({
+            width: Math.max(0, n.width),
+            height: Math.max(0, n.height),
+          });
+        }),
         (t.getWidth = function () {
           return this.$1.width;
         }),

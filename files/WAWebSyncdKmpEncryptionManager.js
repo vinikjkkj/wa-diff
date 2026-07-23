@@ -22,9 +22,7 @@ __d(
       c,
       d,
       m,
-      p,
-      _,
-      f = new (o(
+      p = new (o(
         "wa-kmp-syncd-engine-crypto-api",
       ).JsKmpSyncdMutationDataFactoryImpl)({
         createInternal: function (t, n, r, a) {
@@ -33,24 +31,18 @@ __d(
           ).toKmpSyncdMutationDataForDecryption(t, n, r, a);
         },
       }),
-      g = new (o("wa-kmp-syncd-engine-crypto-api").KmpSyncdEncryptionManager)(
+      _ = new (o("wa-kmp-syncd-engine-crypto-api").KmpSyncdEncryptionManager)(
         r("WAWebKmpSyncdDerivedKeysProvider"),
-        f,
+        p,
         r("WAWebKmpSyncdCryptoProvider"),
         r("WAWebKmpSyncdProtobufEncoder"),
       );
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function y() {
+    function g() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "syncd:kmp: encrypting mutation",
-              ])),
-          );
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           try {
             var a = o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKey(
                 n,
@@ -59,55 +51,49 @@ __d(
               i = o(
                 "WAWebSyncdKmpConversion",
               ).toKmpSyncdMutationDataForEncryption(n, t),
-              l = g.encrypt(a, i),
-              c = yield l.toPromise();
+              l = _.encrypt(a, i),
+              u = yield l.toPromise();
             return {
-              indexMac: c.indexHash.buffer,
-              indexAndValueCipherText: c.indexAndValueCipherText.buffer,
+              indexMac: u.indexHash.buffer,
+              indexAndValueCipherText: u.indexAndValueCipherText.buffer,
             };
-          } catch (e) {
+          } catch (n) {
             throw (
               o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
                 o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
                   .ENCRYPTION_FAILED,
                 { collection: t.collection },
               ),
-              e instanceof Error
+              n instanceof Error
                 ? (o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
                           "syncd:kmp: encryption failed",
                         ])),
                     )
-                    .catching(e),
-                  new (o("WAWebSyncdError").SyncdFatalError)(e.message))
+                    .catching(n),
+                  new (o("WAWebSyncdError").SyncdFatalError)(n.message))
                 : (o("WALogger").ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "syncd:kmp: encryption failed",
                       ])),
                   ),
-                  e)
+                  n)
             );
           }
         })),
-        y.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o) {
-      return b.apply(this, arguments);
+    function h(e, t, n, r, o) {
+      return y.apply(this, arguments);
     }
-    function b() {
+    function y() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd:kmp: decrypting mutation",
-                ])),
-            );
             try {
               var l,
                 s = o("WAWebSyncdKmpConversion").toKmpSyncdEncryptedData(
@@ -115,29 +101,27 @@ __d(
                   a,
                   i,
                 ),
-                u = yield g
-                  .decrypt(
-                    o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKey(
-                      t,
-                      n,
-                    ),
-                    s,
-                  )
-                  .toPromise(),
-                p = u.mutation,
-                _ = u.plaintext,
+                d = yield _.decrypt(
+                  o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKey(
+                    t,
+                    n,
+                  ),
+                  s,
+                ).toPromise(),
+                m = d.mutation,
+                p = d.plaintext,
                 f = r("nullthrows")(
-                  p.mutationMac,
+                  m.mutationMac,
                   "SyncdMutation decryption returned a null mutationMac, this should not happen",
                 ).buffer,
-                h = o("WAArrayBufferUtils").stringToArrayBuffer(p.index);
+                g = o("WAArrayBufferUtils").stringToArrayBuffer(m.index);
               return {
-                version: p.version,
-                index: h,
+                version: m.version,
+                index: g,
                 indexMac: s.indexHash.buffer,
-                value: (l = p.value) == null ? void 0 : l.buffer,
+                value: (l = m.value) == null ? void 0 : l.buffer,
                 valueMac: f,
-                plaintext: _.buffer,
+                plaintext: p.buffer,
               };
             } catch (t) {
               throw (
@@ -149,16 +133,16 @@ __d(
                 t instanceof Error
                   ? (o("WALogger")
                       .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
                             "syncd:kmp: decryption failed",
                           ])),
                       )
                       .catching(t),
                     new (o("WAWebSyncdError").SyncdFatalError)(t.message))
                   : (o("WALogger").ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "syncd:kmp: decryption failed",
                         ])),
                     ),
@@ -167,75 +151,71 @@ __d(
             }
           },
         )),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t, n, r, o) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, a) {
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd:kmp: generating patch mac",
+                ])),
+            );
+            var i = yield _.calculatePatchMac(
+              a,
+              o("wa-kmp-syncd-engine-crypto-api").KmpLong.fromDecimalString(
+                r.toString(),
+              ),
+              o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKeyData(e),
+              new Int8Array(o("WAWebSyncdCryptoUtils").combine(n)),
+              new Int8Array(t),
+            ).toPromise();
+            return i.buffer;
+          },
+        )),
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n, r, o) {
+    function v(e, t, n, r) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
+          function* (e, t, n, r) {
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd:kmp: generating patch mac",
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd:kmp: generating snapshot mac",
                 ])),
             );
-            var i = yield g
-              .calculatePatchMac(
-                a,
-                o("wa-kmp-syncd-engine-crypto-api").KmpLong.fromDecimalString(
-                  r.toString(),
-                ),
-                o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKeyData(e),
-                new Int8Array(o("WAWebSyncdCryptoUtils").combine(n)),
-                new Int8Array(t),
-              )
-              .toPromise();
-            return i.buffer;
+            var a = yield _.calculateSnapshotMac(
+              r,
+              o("wa-kmp-syncd-engine-crypto-api").KmpLong.fromDecimalString(
+                n.toString(),
+              ),
+              new Int8Array(t),
+              o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKeyData(e),
+            ).toPromise();
+            return a.buffer;
           },
         )),
         S.apply(this, arguments)
       );
     }
-    function R(e, t, n, r) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd:kmp: generating snapshot mac",
-                ])),
-            );
-            var a = yield g
-              .calculateSnapshotMac(
-                r,
-                o("wa-kmp-syncd-engine-crypto-api").KmpLong.fromDecimalString(
-                  n.toString(),
-                ),
-                new Int8Array(t),
-                o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKeyData(e),
-              )
-              .toPromise();
-            return a.buffer;
-          },
-        )),
-        L.apply(this, arguments)
-      );
-    }
-    var E = {
-      encryptMutation: h,
-      decryptMutation: C,
-      generatePatchMac: v,
-      generateSnapshotMac: R,
+    var R = {
+      encryptMutation: f,
+      decryptMutation: h,
+      generatePatchMac: C,
+      generateSnapshotMac: v,
     };
-    l.WASyncdKmpEncryptionManager = E;
+    l.WASyncdKmpEncryptionManager = R;
   },
   98,
 );

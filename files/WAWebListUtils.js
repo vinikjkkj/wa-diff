@@ -4,9 +4,10 @@ __d(
     "fbt",
     "WAWebChatCollection",
     "WAWebChatGetters",
+    "WAWebChatMessageSearch",
     "WAWebChatSearchFilters",
     "WAWebConnModel",
-    "WAWebGroupType",
+    "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebLabelPillColors",
@@ -192,28 +193,28 @@ __d(
           n.set(e.id, 0);
         }),
         o("WAWebChatCollection").ChatCollection.forEach(function (e) {
-          if (e.unreadCount !== 0 && !e.archive && !e.isLocked) {
-            if ((r++, o("WAWebChatGetters").getIsGroup(e))) {
-              var t;
-              a++;
-              var s = (t = e.groupMetadata) == null ? void 0 : t.groupType;
-              (s === o("WAWebGroupType").GroupType.COMMUNITY ||
-                s === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
-                s === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
-                s === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP) &&
-                l++;
-            }
-            (e.isFavorite && i++,
+          e.archive ||
+            !o("WAWebFrontendChatGetters").getShouldAppearInList(e) ||
+            (o("WAWebChatMessageSearch").matchFilter(e, {
+              kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
+            }) && r++,
+            o("WAWebChatGetters").getHasUnread(e) &&
+              (o("WAWebChatMessageSearch").matchFilter(e, {
+                kind: o("WAWebChatSearchFilters").SearchFilters.GROUP,
+              }) && a++,
+              o("WAWebChatMessageSearch").matchFilter(e, {
+                kind: o("WAWebChatSearchFilters").SearchFilters.COMMUNITY,
+              }) && l++,
+              o("WAWebChatMessageSearch").matchFilter(e, {
+                kind: o("WAWebChatSearchFilters").SearchFilters.FAVORITES,
+              }) && i++,
               e.labels != null &&
                 e.labels.length > 0 &&
                 e.labels.forEach(function (e) {
-                  if (n.has(e)) {
-                    var t,
-                      r = (t = n.get(e)) != null ? t : 0;
-                    n.set(e, r + 1);
-                  } else n.set(e, 1);
-                }));
-          }
+                  var t,
+                    r = (t = n.get(e)) != null ? t : 0;
+                  n.set(e, r + 1);
+                })));
         }),
         n.set(
           String((e = o("WAWebChatSearchFilters")).SearchFilters.UNREAD),

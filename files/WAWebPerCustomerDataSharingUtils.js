@@ -111,27 +111,31 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(e, t, n, a) {
+    function _(e) {
+      var t = e.accountLid,
+        n = e.chat,
+        a = e.entrypoint,
+        i = e.perCustomerEntryPoint;
       if (o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()) {
-        var i = o(
+        var l = o(
             "WAWebDataSharing3pdLidCollection",
-          ).DataSharing3pdLidCollection.isDataSharingEnabled(e),
-          l = r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
+          ).DataSharing3pdLidCollection.isDataSharingEnabled(t),
+          u = r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
             o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
             o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
           );
-        l
-          ? i
+        u
+          ? l
             ? o("WAWebModalManager").ModalManager.open(
                 s.jsx(r("WAWebSmbPerCustomerDataSharingOptOutModal"), {
-                  accountLid: e,
-                  entryPoint: n,
+                  accountLid: t,
+                  entryPoint: i,
                 }),
               )
             : o("WAWebModalManager").ModalManager.open(
                 s.jsx(r("WAWebSmbPerCustomerDataSharingOptInModal"), {
-                  accountLids: [e],
-                  entryPoint: n,
+                  accountLids: [t],
+                  entryPoint: i,
                 }),
               )
           : o("WAWebModalManager").ModalManager.open(
@@ -139,16 +143,16 @@ __d(
                 r("WAWebSmbDataSharingOptInModalDialog")
                   .SmbDataSharingOptInModalDialog,
                 {
-                  entrypoint: t,
-                  chats: a != null ? [a] : null,
+                  entrypoint: a,
+                  chats: n != null ? [n] : null,
                   callback: function () {
                     o(
                       "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
                     ).maybeGeneratePerCustomerDataSharingSystemMessage({
-                      accountLid: e,
-                      perCustomerDataSharingState: i,
-                      entryPoint: n,
-                      globalDataSharingEntryPoint: t,
+                      accountLid: t,
+                      perCustomerDataSharingState: l,
+                      entryPoint: i,
+                      globalDataSharingEntryPoint: a,
                     });
                   },
                 },

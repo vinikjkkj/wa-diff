@@ -381,7 +381,7 @@ __d(
       (R.prototype.dispose = function () {
         this.d();
       }));
-    var T = (_require_Lexical = require("Lexical")).defineExtension({
+    var D = (_require_Lexical = require("Lexical")).defineExtension({
       build: function build(e, t, n) {
         return O(t);
       },
@@ -412,7 +412,7 @@ __d(
         });
       },
     });
-    function D() {
+    function I() {
       var t = require("Lexical").$getRoot(),
         n = require("Lexical").$getSelection(),
         i = require("Lexical").$createParagraphNode();
@@ -421,9 +421,9 @@ __d(
         null !== n && i.select(),
         require("Lexical").$isRangeSelection(n) && (n.format = 0));
     }
-    function I(t, n) {
+    function T(t, n) {
       if (n === void 0) {
-        n = D;
+        n = I;
       }
       return t.registerCommand(
         require("Lexical").CLEAR_EDITOR_COMMAND,
@@ -437,13 +437,13 @@ __d(
       build: function build(e, t, n) {
         return O(t);
       },
-      config: _require_Lexical.safeCast({ $onClear: D }),
+      config: _require_Lexical.safeCast({ $onClear: I }),
       name: "@lexical/extension/ClearEditor",
       register: function register(e, t, n) {
         var _n$getOutput = n.getOutput(),
           i = _n$getOutput.$onClear;
         return $(function () {
-          return I(e, i.value);
+          return T(e, i.value);
         });
       },
     });
@@ -666,7 +666,7 @@ __d(
     } catch (e) {}
     var V = G != null ? G : '"<unknown>+source"',
       Z = new Set(["__proto__", "constructor", "prototype"]);
-    function J(e, t) {
+    function X(e, t) {
       if (
         e &&
         t &&
@@ -679,13 +679,13 @@ __d(
         for (var _e0 in _i3)
           !Z.has(_e0) &&
             Object.prototype.hasOwnProperty.call(_i3, _e0) &&
-            (_n5[_e0] = J(_n5[_e0], _i3[_e0]));
+            (_n5[_e0] = X(_n5[_e0], _i3[_e0]));
         return e;
       }
       return t;
     }
-    var X = 0,
-      q = 1,
+    var q = 0,
+      J = 1,
       Q = 2,
       ee = 3,
       te = 4,
@@ -693,7 +693,7 @@ __d(
       ie = 6,
       oe = 7;
     function se(e) {
-      return e.id === X;
+      return e.id === q;
     }
     function re(e) {
       return e.id === Q;
@@ -701,8 +701,8 @@ __d(
     function ae(e) {
       return (
         (function (e) {
-          return e.id === q;
-        })(e) || H(305, String(e.id), String(q)),
+          return e.id === J;
+        })(e) || H(305, String(e.id), String(J)),
         Object.assign(e, { id: Q })
       );
     }
@@ -712,7 +712,7 @@ __d(
         ((this.builder = e),
           (this.extension = t),
           (this.configs = new Set()),
-          (this.state = { id: X }));
+          (this.state = { id: q }));
       }
       var _proto2 = le.prototype;
       _proto2.mergeConfigs = function mergeConfigs() {
@@ -1092,8 +1092,8 @@ __d(
             var s = n.extension.name;
             var r;
             (se(o) || H(300, s, i || "[unknown]"),
-              se((r = o)) || H(304, String(r.id), String(X)),
-              (o = Object.assign(r, { id: q })),
+              se((r = o)) || H(304, String(r.id), String(q)),
+              (o = Object.assign(r, { id: J })),
               (n.state = o));
             var a = _this5.outgoingConfigEdges.get(s);
             if (a)
@@ -1184,7 +1184,7 @@ __d(
               }
             _r.html["import"] && Object.assign(o, _r.html["import"]);
           }
-          _r.theme && J(s, _r.theme);
+          _r.theme && X(s, _r.theme);
         }
         (Object.keys(s).length > 0 && (e.theme = s),
           t.size && (e.nodes = [].concat(t)));
@@ -1273,23 +1273,16 @@ __d(
         return _e$DecoratorNode2.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(Re, _e$DecoratorNode2);
-      Re.getType = function getType() {
-        return "horizontalrule";
-      };
-      Re.clone = function clone(e) {
-        return new Re(e.__key);
-      };
-      Re.importJSON = function importJSON(e) {
-        return Oe().updateFromJSON(e);
-      };
-      Re.importDOM = function importDOM() {
-        return {
-          hr: function hr() {
-            return { conversion: $e, priority: 0 };
-          },
-        };
-      };
       var _proto4 = Re.prototype;
+      _proto4.$config = function $config() {
+        return this.config("horizontalrule", {
+          importDOM: {
+            hr: function hr() {
+              return { conversion: $e, priority: 0 };
+            },
+          },
+        });
+      };
       _proto4.exportDOM = function exportDOM() {
         return {
           element: require("Lexical").$getDocument().createElement("hr"),
@@ -1316,10 +1309,10 @@ __d(
     function Oe() {
       return require("Lexical").$create(_Re);
     }
-    function Te(e) {
+    function De(e) {
       return e instanceof _Re;
     }
-    var De = require("Lexical").defineExtension({
+    var Ie = require("Lexical").defineExtension({
         dependencies: [Y, be],
         name: "@lexical/extension/HorizontalRule",
         nodes: function nodes() {
@@ -1352,7 +1345,7 @@ __d(
               function (t) {
                 if (require("Lexical").isDOMNode(t.target)) {
                   var _n10 = require("Lexical").$getNodeFromDOMNode(t.target);
-                  if (Te(_n10))
+                  if (De(_n10))
                     return (
                       (function (t, n) {
                         if (n === void 0) {
@@ -1426,7 +1419,7 @@ __d(
           );
         },
       }),
-      Ie = require("Lexical").defineExtension({
+      Te = require("Lexical").defineExtension({
         build: function build(e) {
           return { composingTextNode: m(null), compositionKey: m(null) };
         },
@@ -2014,16 +2007,16 @@ __d(
       (exports.$isDecoratorTextNode = function (e) {
         return e instanceof _k;
       }),
-      (exports.$isHorizontalRuleNode = Te),
-      (exports.AutoFocusExtension = T),
+      (exports.$isHorizontalRuleNode = De),
+      (exports.AutoFocusExtension = D),
       (exports.ClearEditorExtension = _),
       (exports.ClickAfterLastBlockExtension = A),
       (exports.DecoratorTextExtension = U),
       (exports.DecoratorTextNode = _k),
       (exports.EditorStateExtension = Y),
-      (exports.HorizontalRuleExtension = De),
+      (exports.HorizontalRuleExtension = Ie),
       (exports.HorizontalRuleNode = _Re),
-      (exports.IMEExtension = Ie),
+      (exports.IMEExtension = Te),
       (exports.INSERT_HORIZONTAL_RULE_COMMAND = Ce),
       (exports.InitialStateExtension = fe),
       (exports.LexicalBuilder = _xe),
@@ -2083,7 +2076,7 @@ __d(
         return (void 0 === n && H(291, t), n);
       }),
       (exports.namedSignals = O),
-      (exports.registerClearEditor = I),
+      (exports.registerClearEditor = T),
       (exports.registerTabIndentation = Ue),
       (exports.signal = m),
       (exports.untracked = a),

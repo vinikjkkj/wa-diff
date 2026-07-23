@@ -53,7 +53,22 @@ __d(
         ? { error: s._(/*BTDS*/ "Add at least one image"), isValid: !1 }
         : { error: "", isValid: !0 };
     }
-    function p(e) {
+    function p(t) {
+      var n = e(t.itemName),
+        r = m(t.images),
+        o = t.isCountryOfOriginRequired && t.countryOfOrigin.trim() === "";
+      return {
+        errors: {
+          countryOfOriginError: o
+            ? s._(/*BTDS*/ "Add a country of origin")
+            : "",
+          imageError: r.isValid ? null : r.error,
+          nameError: n.error,
+        },
+        hasBlockingError: !n.isValid || !r.isValid || o,
+      };
+    }
+    function _(e) {
       return e !== "" &&
         !r("WAWebURLUtils").isHttps(e) &&
         !r("WAWebURLUtils").isHttp(e)
@@ -65,7 +80,8 @@ __d(
       (l.validateItemSalePrice = c),
       (l.validateItemLink = d),
       (l.validateItemImages = m),
-      (l.autoPrefixLinkWithHttps = p));
+      (l.validateCatalogItemForSave = p),
+      (l.autoPrefixLinkWithHttps = _));
   },
   226,
 );
