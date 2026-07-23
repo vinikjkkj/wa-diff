@@ -2,9 +2,11 @@ __d(
   "WAWebVoipErrorLogUpload",
   [
     "WALogger",
+    "WAWebCrashlog",
     "WAWebEnvironment",
     "WAWebUA",
     "WAWebVoipGatingUtils",
+    "getErrorSafe",
     "gkx",
     "justknobx",
   ],
@@ -12,19 +14,26 @@ __d(
     "use strict";
     var e,
       s,
-      u = 6,
-      c = 10,
-      d = 0.1,
-      m = 0.01,
-      p = 5e3,
-      _ = null;
-    function f(e) {
-      if (_ == null)
+      u,
+      c,
+      d,
+      m = 6,
+      p = 10,
+      _ = 0.1,
+      f = 0.01,
+      g = 5e3,
+      h = "voip-group-call-cer",
+      y = 3,
+      C = 3e4,
+      b = null,
+      v = new Set();
+    function S(e) {
+      if (b == null)
         try {
           var t,
             n,
             r = JSON.parse(e);
-          _ =
+          b =
             (t =
               r == null || (n = r.call_info) == null
                 ? void 0
@@ -32,26 +41,26 @@ __d(
               ? t
               : null;
         } catch (e) {
-          _ = null;
+          b = null;
         }
     }
-    function g(e) {
+    function R(e) {
       if (!r("justknobx")._("5297")) return null;
-      var t = e === u || e === c;
+      var t = e === m || e === p;
       if (!t) return null;
-      var n = o("WAWebUA").UA.isChrome ? m : d,
+      var n = o("WAWebUA").UA.isChrome ? f : _,
         a = o("WAWebUA").UA.browser.toLowerCase() || "unknown",
         i = o("WAWebVoipGatingUtils").isWebTransportEnabled()
           ? "webtransport-"
           : "",
-        l = e === u ? "setup-error" : "accepted-but-not-connected";
+        l = e === m ? "setup-error" : "accepted-but-not-connected";
       return { reason: "voip-call-error-" + a + "-" + i + l, sampling: n };
     }
-    function h() {
+    function L() {
       var t,
-        n = _;
-      if (((_ = null), !!r("WAWebEnvironment").isWeb && n != null)) {
-        var a = g(n);
+        n = b;
+      if (((b = null), !!r("WAWebEnvironment").isWeb && n != null)) {
+        var a = R(n);
         if (a != null) {
           var i = a.reason,
             l = a.sampling;
@@ -88,11 +97,82 @@ __d(
                   sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
                   sampling: l,
                 });
-            }, p));
+            }, g));
         }
       }
     }
-    ((l.captureWamCallResult = f), (l.maybeUploadErrorLogs = h));
+    function E(e) {
+      var t, n;
+      if (
+        !(
+          !r("WAWebEnvironment").isWeb ||
+          e.callEndReconnecting !== !0 ||
+          e.groupCallIsLastSegment !== !0 ||
+          e.maxConnectedParticipants < y ||
+          !r("justknobx")._("5297")
+        )
+      ) {
+        var a =
+          ((t = e.callId) != null ? t : "unknown-call") +
+          ":" +
+          String((n = e.groupCallSegmentIdx) != null ? n : "unknown-segment");
+        if (!v.has(a)) {
+          v.add(a);
+          var i = o("WAWebUA").UA.isChrome ? f : _,
+            l = r("gkx")("26258") ? h : h + "-testing",
+            s = k(e);
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] scheduling group CER log upload reason=",
+                " rate=",
+                "",
+              ])),
+            l,
+            i,
+          ),
+            self.setTimeout(function () {
+              (o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: uploading group CER logs: ",
+                    "",
+                  ])),
+                l,
+              ),
+                o("WAWebCrashlog")
+                  .upload({
+                    reason: l,
+                    clientSamplingRate: i,
+                    fromTimestamp: s,
+                    hasTaggedMessage: !1,
+                    sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                  })
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: group CER log upload failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e));
+                  })
+                  .finally(function () {
+                    v.delete(a);
+                  }));
+            }, g));
+        }
+      }
+    }
+    function k(e) {
+      var t = e.groupCallTotalCallTSinceCallStart,
+        n = t != null && t >= 0 ? t : e.callT;
+      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - C);
+    }
+    ((l.captureWamCallResult = S),
+      (l.maybeUploadErrorLogs = L),
+      (l.maybeUploadGroupCallCerLogs = E));
   },
   98,
 );

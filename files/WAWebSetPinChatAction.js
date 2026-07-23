@@ -99,9 +99,19 @@ __d(
                     405,
                     "Pin limit exceeded",
                   );
-                return o("WAWebChatPinBridge").setPin(t.id, u, _, h);
+                return o("WAWebChatPinBridge").setPin({
+                  _lastPinTime: _,
+                  chatId: t.id,
+                  newPinTime: u,
+                  timestamp: h,
+                });
               })
-          : o("WAWebChatPinBridge").setPin(t.id, u, _, h),
+          : o("WAWebChatPinBridge").setPin({
+              _lastPinTime: _,
+              chatId: t.id,
+              newPinTime: u,
+              timestamp: h,
+            }),
         S = a
           ? new (o("WAWebActionToast.react").ActionType)(g.getPinningText(t))
           : new (o("WAWebActionToast.react").ActionType)(g.getUnpinningText(t)),

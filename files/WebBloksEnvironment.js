@@ -34,6 +34,7 @@ __d(
         logger: new (r("WebBloksLogger"))(),
         locale: "en_US",
         isRtl: !1,
+        omitDataBloksName: !1,
         accessibilityModule: {
           FocusAppWrapper: r("WebBloksFragment"),
           FocusRegion: r("WebBloksFragment"),
@@ -91,14 +92,39 @@ __d(
       return s(e)[0];
     }
     function m(e, t) {
-      var n, r, o, a, i, l, s, u, c, d, m, _, f, g, h, y, C, b, v, S, R, L, E;
+      var n,
+        r,
+        o,
+        a,
+        i,
+        l,
+        s,
+        u,
+        c,
+        d,
+        m,
+        _,
+        f,
+        g,
+        h,
+        y,
+        C,
+        b,
+        v,
+        S,
+        R,
+        L,
+        E,
+        k;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
             locale: (r = t.locale) != null ? r : e.locale,
             isRtl: (o = t.isRtl) != null ? o : e.isRtl,
+            omitDataBloksName:
+              (a = t.omitDataBloksName) != null ? a : e.omitDataBloksName,
             actions: babelHelpers.extends({}, e.actions, t.actions),
-            appLoader: (a = t.appLoader) != null ? a : e.appLoader,
+            appLoader: (i = t.appLoader) != null ? i : e.appLoader,
             components: babelHelpers.extends({}, e.components, t.components),
             extensionHandlers: babelHelpers.extends(
               {},
@@ -116,45 +142,45 @@ __d(
               t.traversalKeys,
             ),
             disableHistoryStack:
-              (i = t.disableHistoryStack) != null ? i : e.disableHistoryStack,
+              (l = t.disableHistoryStack) != null ? l : e.disableHistoryStack,
             enableCometRouter:
-              (l = t.enableCometRouter) != null ? l : e.enableCometRouter,
-            embedded: (s = t.embedded) != null ? s : e.embedded,
+              (s = t.enableCometRouter) != null ? s : e.enableCometRouter,
+            embedded: (u = t.embedded) != null ? u : e.embedded,
             allowScreenOverflow:
-              (u = t.allowScreenOverflow) != null ? u : e.allowScreenOverflow,
+              (c = t.allowScreenOverflow) != null ? c : e.allowScreenOverflow,
             allowFoldingAddressBar:
-              (c = t.allowFoldingAddressBar) != null
-                ? c
+              (d = t.allowFoldingAddressBar) != null
+                ? d
                 : e.allowFoldingAddressBar,
             enableScrollRestoration:
-              (d = t.enableScrollRestoration) != null
-                ? d
+              (m = t.enableScrollRestoration) != null
+                ? m
                 : e.enableScrollRestoration,
             loadingFallback:
-              (m = t.loadingFallback) != null ? m : e.loadingFallback,
+              (_ = t.loadingFallback) != null ? _ : e.loadingFallback,
             dataModulesStore: p(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (_ = t.navigationTrackingUtils) != null
-                ? _
+              (f = t.navigationTrackingUtils) != null
+                ? f
                 : e.navigationTrackingUtils,
-            logger: (f = t.logger) != null ? f : e.logger,
+            logger: (g = t.logger) != null ? g : e.logger,
             disableErrorBoundary:
-              (g = t.disableErrorBoundary) != null ? g : e.disableErrorBoundary,
-            AssetRenderer: (h = t.AssetRenderer) != null ? h : e.AssetRenderer,
-            staticAssets: (y = t.staticAssets) != null ? y : e.staticAssets,
+              (h = t.disableErrorBoundary) != null ? h : e.disableErrorBoundary,
+            AssetRenderer: (y = t.AssetRenderer) != null ? y : e.AssetRenderer,
+            staticAssets: (C = t.staticAssets) != null ? C : e.staticAssets,
             globalStateStore:
-              (C = t.globalStateStore) != null ? C : e.globalStateStore,
+              (b = t.globalStateStore) != null ? b : e.globalStateStore,
             fontFamilyMappings:
-              (b = t.fontFamilyMappings) != null ? b : e.fontFamilyMappings,
-            timeoutIDS: (v = t.timeoutIDS) != null ? v : e.timeoutIDS,
+              (v = t.fontFamilyMappings) != null ? v : e.fontFamilyMappings,
+            timeoutIDS: (S = t.timeoutIDS) != null ? S : e.timeoutIDS,
             screenQueryTemplate:
-              (S = t.screenQueryTemplate) != null ? S : e.screenQueryTemplate,
+              (R = t.screenQueryTemplate) != null ? R : e.screenQueryTemplate,
             accessibilityModule:
-              (R = t.accessibilityModule) != null ? R : e.accessibilityModule,
-            gkx: (L = t.gkx) != null ? L : e.gkx,
+              (L = t.accessibilityModule) != null ? L : e.accessibilityModule,
+            gkx: (E = t.gkx) != null ? E : e.gkx,
             controllerNavigationLogger:
-              (E = t.controllerNavigationLogger) != null
-                ? E
+              (k = t.controllerNavigationLogger) != null
+                ? k
                 : e.controllerNavigationLogger,
           }
         : e;

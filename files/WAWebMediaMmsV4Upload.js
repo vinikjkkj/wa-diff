@@ -19,10 +19,10 @@ __d(
     "WAWebMediaGetDownloadOriginFromUploadOrigin",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaLoad",
+    "WAWebMediaLoadErrors",
     "WAWebMediaMmsV4Download",
     "WAWebMediaStore",
     "WAWebMediaTypes",
-    "WAWebMiscErrors",
     "WAWebMmsClientErrors",
     "WAWebMmsConst",
     "WAWebMmsMediaTypes",
@@ -409,7 +409,7 @@ __d(
           })
           .catch(
             o("WAFilteredCatch").filteredCatch(
-              o("WAWebMiscErrors").FileNotReadableError,
+              o("WAWebMediaLoadErrors").FileNotReadableError,
               function () {
                 return (
                   b.consolidate({

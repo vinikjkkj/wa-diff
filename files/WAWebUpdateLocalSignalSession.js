@@ -69,15 +69,15 @@ __d(
                 " for peer device",
             );
           var C = t.isUser() && !o("WAWebUserPrefsMeUser").isMeAccount(h),
-            b = yield o("WAWebProcessRetryKeyBundle").processKeyBundle(
-              l,
-              f,
-              p,
-              y,
-              c,
-              a,
-              C,
-            );
+            b = yield o("WAWebProcessRetryKeyBundle").processKeyBundle({
+              is1on1: C,
+              keyBundle: l,
+              offline: c,
+              remoteRegId: p,
+              requester: f,
+              savedRegId: y,
+              sessionScope: a,
+            });
           b ||
             (y != null &&
               y !== p &&

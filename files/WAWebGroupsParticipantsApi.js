@@ -106,16 +106,16 @@ __d(
                       a,
                     ));
             var h = yield C(g, n);
-            return o("WAWebDBGroupParticipant").updateDBParticipants(
-              t,
-              {
+            return o("WAWebDBGroupParticipant").updateDBParticipants({
+              data: {
                 action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.ADD,
                 participants: a,
                 deviceIds: h,
               },
-              d,
-              n,
-            );
+              group: t,
+              groupMetadata: d,
+              isOffline: n,
+            });
           }
         })),
         c.apply(this, arguments)
@@ -129,33 +129,33 @@ __d(
         i = e.participants,
         l = e.reason,
         s = e.timestamp;
-      return o("WAWebDBGroupParticipant").updateDBParticipants(
-        n,
-        {
+      return o("WAWebDBGroupParticipant").updateDBParticipants({
+        data: {
           action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.REMOVE,
           participants: i,
           timestamp: s,
           author: t,
           reason: l,
         },
-        r,
-        a,
-      );
+        group: n,
+        groupMetadata: r,
+        isOffline: a,
+      });
     }
     function m(e) {
       var t = e.group,
         n = e.groupMetadata,
         r = e.isOffline,
         a = e.participants;
-      return o("WAWebDBGroupParticipant").updateDBParticipants(
-        t,
-        {
+      return o("WAWebDBGroupParticipant").updateDBParticipants({
+        data: {
           action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.DEMOTE,
           participants: a,
         },
-        n,
-        r,
-      );
+        group: t,
+        groupMetadata: n,
+        isOffline: r,
+      });
     }
     function p(e) {
       return _.apply(this, arguments);
@@ -187,17 +187,17 @@ __d(
                 (c = yield C([].concat(l, [s]), r)));
             }
           }
-          return o("WAWebDBGroupParticipant").updateDBParticipants(
-            t,
-            {
+          return o("WAWebDBGroupParticipant").updateDBParticipants({
+            data: {
               action: o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                 .PROMOTE,
               participants: a,
               deviceIds: c,
             },
-            n,
-            r,
-          );
+            group: t,
+            groupMetadata: n,
+            isOffline: r,
+          });
         })),
         _.apply(this, arguments)
       );

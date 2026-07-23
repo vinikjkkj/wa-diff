@@ -111,12 +111,16 @@ __d(
         S.apply(this, arguments)
       );
     }
-    function R(t, n, r, a) {
-      var i =
-        o("WAWebApiContact").lidPnCache.getPhoneNumber(
-          o("WAWebWidFactory").createUserLidOrThrow(n.user, "lid"),
-        ) != null;
-      if (i) {
+    function R(t) {
+      var n = t.cachedPnForMappingLid,
+        r = t.learningSource,
+        a = t.mappingLid,
+        i = t.mappingPn,
+        l =
+          o("WAWebApiContact").lidPnCache.getPhoneNumber(
+            o("WAWebWidFactory").createUserLidOrThrow(i.user, "lid"),
+          ) != null;
+      if (l) {
         o("WALogger")
           .ERROR(
             e ||
@@ -125,13 +129,13 @@ __d(
                 " is actually a LID src ",
                 "",
               ])),
-            n,
-            a,
+            i,
+            r,
           )
           .sendLogs("lid-pn-mapping-conflict-pn-is-lid");
         return;
       }
-      if (o("WAWebWidDevTools").isWidClientAssigned(t)) {
+      if (o("WAWebWidDevTools").isWidClientAssigned(a)) {
         o("WALogger")
           .ERROR(
             s ||
@@ -141,11 +145,11 @@ __d(
                 " != new PN ",
                 "",
               ])),
-            t,
-            r,
+            a,
             n,
+            i,
           )
-          .sendLogs("lid-pn-mapping-conflict-fake-lid-" + a);
+          .sendLogs("lid-pn-mapping-conflict-fake-lid-" + r);
         return;
       }
       o("WALogger")
@@ -157,11 +161,11 @@ __d(
               " != new PN ",
               "",
             ])),
-          t,
-          r,
+          a,
           n,
+          i,
         )
-        .sendLogs("lid-pn-mapping-conflict-" + a);
+        .sendLogs("lid-pn-mapping-conflict-" + r);
     }
     function L(e) {
       return E.apply(this, arguments);
@@ -194,7 +198,13 @@ __d(
               h = !p,
               y = (i == null ? void 0 : i.equals(n)) === !0,
               C = h && !y;
-            (m == null ? void 0 : m.equals(r)) === !1 && R(n, r, m, a);
+            (m == null ? void 0 : m.equals(r)) === !1 &&
+              R({
+                cachedPnForMappingLid: m,
+                learningSource: a,
+                mappingLid: n,
+                mappingPn: r,
+              });
             var b, v;
             switch (a) {
               case "usync":

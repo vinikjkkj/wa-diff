@@ -5,8 +5,8 @@ __d(
     "WAFilteredCatch",
     "WAWebMediaDataUtils",
     "WAWebMediaLoad",
+    "WAWebMediaLoadErrors",
     "WAWebMediaTypes",
-    "WAWebMiscErrors",
     "WAWebStickerUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -61,7 +61,7 @@ __d(
             })
             .catch(
               o("WAFilteredCatch").filteredCatch(
-                o("WAWebMiscErrors").MediaUnsupportedError,
+                o("WAWebMediaLoadErrors").MediaUnsupportedError,
                 function (e) {
                   throw (t.consolidate({}), e);
                 },

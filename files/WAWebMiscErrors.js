@@ -30,7 +30,7 @@ __d(
           var n;
           return (
             (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "CatalogImageDownloadError"),
+            (n.name = "MediaFileError"),
             n
           );
         }
@@ -41,24 +41,13 @@ __d(
           var n;
           return (
             (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "MediaFileError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      m = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t != null ? t : "") || this),
             (n.name = "InvalidImageFileType"),
             n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d),
-      p = (function (e) {
+      })(c),
+      m = (function (e) {
         function t(t, n, r) {
           var o;
           return (
@@ -70,8 +59,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d),
-      _ = (function (e) {
+      })(c),
+      p = (function (e) {
         function t(t) {
           var n;
           return (
@@ -81,8 +70,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d),
-      f = (function (e) {
+      })(c),
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -92,9 +81,9 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d),
-      g = "plaintext hash mismatch",
-      h = (function (e) {
+      })(c),
+      f = "plaintext hash mismatch",
+      g = (function (e) {
         function t(t) {
           var n;
           return (
@@ -104,8 +93,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d),
-      y = (function (e) {
+      })(c),
+      h = (function (e) {
         function t(t) {
           var n;
           return (
@@ -115,8 +104,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d),
-      C = (function (e) {
+      })(c),
+      y = (function (e) {
         function t(t) {
           var n;
           return (
@@ -126,8 +115,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d),
-      b = (function (e) {
+      })(c),
+      C = (function (e) {
         function t(t) {
           var n;
           return (
@@ -137,18 +126,18 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(d);
-    function v(e) {
+      })(c);
+    function b(e) {
       try {
         return JSON.stringify(e);
       } catch (t) {
         return e.toString();
       }
     }
-    var S = (function (e) {
+    var v = (function (e) {
         function t(t) {
           var n,
-            r = typeof t == "string" ? t : v(t);
+            r = typeof t == "string" ? t : b(t);
           return (
             (n = e.call(this, r) || this),
             (n.name = "SocketError"),
@@ -158,7 +147,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      R = (function (e) {
+      S = (function (e) {
         function t(t) {
           var n;
           return (
@@ -169,21 +158,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      L = (function (e) {
-        function t(t, n) {
-          var r;
-          return (
-            (r = e.call(this, "Image failed to load.") || this),
-            (r.name = "ImageError"),
-            (r.src = t),
-            (r.status = n),
-            (r.target = { src: t, status: n }),
-            r
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      E = (function (e) {
+      R = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -195,7 +170,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      k = (function (e) {
+      L = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -207,88 +182,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      I = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "MediaNeedsReupload"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      T = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "FileNotReadableError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      D = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t) || this),
-            (n.name = "MediaLoadError"),
-            (n.src = t),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      x = (function (e) {
-        function t() {
-          var t;
-          return (
-            (t = e.call(this, "Transcode blob too large") || this),
-            (t.name = "TranscodeBlobTooLargeError"),
-            t
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      $ = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n =
-              e.call(this, "Unable to play video. Reason: " + String(t)) ||
-              this),
-            (n.name = "UnableToPlayVideoError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      P = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t) || this),
-            (n.name = "MediaDragDropError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(D),
-      N = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "MediaUnsupportedError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError);
-    N.message = "Media format is unsupported";
-    var M = (function (e) {
+      E = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -300,7 +194,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      w = (function (e) {
+      k = (function (e) {
         function t(n) {
           var r;
           return (
@@ -311,8 +205,8 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    w.message = "Could not perform action.";
-    var A = (function (e) {
+    k.message = "Could not perform action.";
+    var I = (function (e) {
         function t(t) {
           var n;
           return (
@@ -323,60 +217,38 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      F = (function (e) {
+      T = (function (e) {
         function t(t) {
           var n;
           return (
-            (n = e.call(this, t != null ? t : "") || this),
-            (n.name = "UnableToGetContentLengthError"),
+            (n = e.call(this, t) || this),
+            (n.name = "GoogleLensApiError"),
+            (n.error = t),
             n
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    F.message = "Failed to get media contentLength from mms";
-    var O = (function (e) {
-      function t(t) {
-        var n;
-        return (
-          (n = e.call(this, t) || this),
-          (n.name = "GoogleLensApiError"),
-          (n.error = t),
-          n
-        );
-      }
-      return (babelHelpers.inheritsLoose(t, e), t);
-    })(e.CustomError);
     ((l.Offline = s),
       (l.GaveUpRetry = u),
-      (l.CatalogImageDownloadError = c),
-      (l.MediaFileError = d),
-      (l.InvalidImageFileType = m),
-      (l.InvalidMediaFileType = p),
-      (l.InvalidMediaCheckRepairFailedType = _),
-      (l.MediaEncryptionError = f),
-      (l.PLAINTEXT_HASH_MISMATCH_ERROR = g),
-      (l.MediaDecryptionError = h),
-      (l.MediaHashMismatch = y),
-      (l.MediaFileFailedLoad = C),
-      (l.MediaFileEmpty = b),
-      (l.SocketError = S),
-      (l.SocketNotOpen = R),
-      (l.ImageError = L),
-      (l.DecodeWebpResultsError = E),
-      (l.EncodeWebpError = k),
-      (l.MediaNeedsReupload = I),
-      (l.FileNotReadableError = T),
-      (l.MediaLoadError = D),
-      (l.TranscodeBlobTooLargeError = x),
-      (l.UnableToPlayVideoError = $),
-      (l.MediaDragDropError = P),
-      (l.MediaUnsupportedError = N),
-      (l.ModelCreateError = M),
-      (l.ActionError = w),
-      (l.Unmount = A),
-      (l.UnableToGetContentLengthError = F),
-      (l.GoogleLensApiError = O));
+      (l.MediaFileError = c),
+      (l.InvalidImageFileType = d),
+      (l.InvalidMediaFileType = m),
+      (l.InvalidMediaCheckRepairFailedType = p),
+      (l.MediaEncryptionError = _),
+      (l.PLAINTEXT_HASH_MISMATCH_ERROR = f),
+      (l.MediaDecryptionError = g),
+      (l.MediaHashMismatch = h),
+      (l.MediaFileFailedLoad = y),
+      (l.MediaFileEmpty = C),
+      (l.SocketError = v),
+      (l.SocketNotOpen = S),
+      (l.DecodeWebpResultsError = R),
+      (l.EncodeWebpError = L),
+      (l.ModelCreateError = E),
+      (l.ActionError = k),
+      (l.Unmount = I),
+      (l.GoogleLensApiError = T));
   },
   98,
 );

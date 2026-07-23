@@ -148,6 +148,7 @@ __d(
         "assethub",
         "gizmo",
         "aura",
+        "hatch",
         "basel",
         "lantern",
         "fb-owl",

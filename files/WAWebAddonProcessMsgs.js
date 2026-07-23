@@ -321,41 +321,43 @@ __d(
         T.apply(this, arguments)
       );
     }
-    function D(e, t, n, r) {
+    function D(e) {
       return x.apply(this, arguments);
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a) {
-            var i = r.getForAddon(t),
-              l = (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var e = o(
-                      "WAWebAddonEncryptAddonMsgData",
-                    ).createDualEncryptionHelper(t, i);
-                    return e ? e.encrypt() : t;
-                  },
-                );
-                return function () {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              s = yield (f || (f = n("Promise"))).all([
-                l(),
-                S(
-                  { mode: e },
-                  o("WAWebAddonSelectUtils").getAddonTableMode(t),
-                  [t],
-                  r,
-                  a,
-                ),
-              ]),
-              u = s[0];
-            return { encryptedMsgData: u, decryptedMsgData: t, parent: i };
-          },
-        )),
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.decryptedMsgData,
+            r = e.metricReporter,
+            a = e.parentSelector,
+            i = e.processMode,
+            l = a.getForAddon(t),
+            s = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  var e = o(
+                    "WAWebAddonEncryptAddonMsgData",
+                  ).createDualEncryptionHelper(t, l);
+                  return e ? e.encrypt() : t;
+                },
+              );
+              return function () {
+                return e.apply(this, arguments);
+              };
+            })(),
+            u = yield (f || (f = n("Promise"))).all([
+              s(),
+              S(
+                { mode: i },
+                o("WAWebAddonSelectUtils").getAddonTableMode(t),
+                [t],
+                a,
+                r,
+              ),
+            ]),
+            c = u[0];
+          return { encryptedMsgData: c, decryptedMsgData: t, parent: l };
+        })),
         x.apply(this, arguments)
       );
     }
@@ -394,12 +396,14 @@ __d(
               ),
               d = c[0],
               m = c[1],
-              f = yield D(
-                e,
-                m[0],
-                o("WAWebAddonSelectUtils").createAddonParentSelector(d),
-                n,
-              );
+              f = yield D({
+                decryptedMsgData: m[0],
+                metricReporter: n,
+                parentSelector: o(
+                  "WAWebAddonSelectUtils",
+                ).createAddonParentSelector(d),
+                processMode: e,
+              });
             return f;
           } catch (e) {
             var g = r("getErrorSafe")(e);

@@ -653,7 +653,6 @@ __d(
         ],
       );
     ((l.getPhoneNumber = _),
-      (l.getExternalUserState = g),
       (l.getIsGuest = h),
       (l.getPendingAction = C),
       (l.getIsContactBlocked = b),

@@ -51,26 +51,29 @@ __d(
         staleType: n.staleType,
       };
     }
-    function s(e, t, n) {
-      var r = new Map(e.senderKey);
-      n.forEach(function (e) {
+    function s(e) {
+      var t = e.deviceIds,
+        n = e.oldDBRecord,
+        r = e.participantsAdded,
+        a = new Map(n.senderKey);
+      t.forEach(function (e) {
         o("WAWebUserPrefsMeUser").isMeDevice(e) ||
           e.isHosted() ||
-          r.set(e.toString(), !1);
+          a.set(e.toString(), !1);
       });
-      var a = new Set(),
-        i = new Set();
-      t.forEach(function (e) {
+      var i = new Set(),
+        l = new Set();
+      r.forEach(function (e) {
         var t = e.id,
           n = e.lid;
-        (i.add(t.toString()), n != null && !t.isLid() && a.add(n.toString()));
+        (l.add(t.toString()), n != null && !t.isLid() && i.add(n.toString()));
       });
-      var l = u(e.pastParticipants, i),
-        s = [].concat(
-          e.participants.filter(function (e) {
-            return !a.has(e) && !i.has(e);
+      var s = u(n.pastParticipants, l),
+        c = [].concat(
+          n.participants.filter(function (e) {
+            return !i.has(e) && !l.has(e);
           }),
-          i
+          l
             .values()
             .toArray()
             .map(function (e) {
@@ -78,14 +81,14 @@ __d(
             }),
         );
       return {
-        groupId: e.groupId,
-        senderKey: r,
-        participants: s,
-        pastParticipants: l,
-        admins: e.admins,
-        superAdmins: e.superAdmins,
-        rotateKey: e.rotateKey,
-        staleType: e.staleType,
+        groupId: n.groupId,
+        senderKey: a,
+        participants: c,
+        pastParticipants: s,
+        admins: n.admins,
+        superAdmins: n.superAdmins,
+        rotateKey: n.rotateKey,
+        staleType: n.staleType,
       };
     }
     function u(e, t) {

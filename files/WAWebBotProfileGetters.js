@@ -4,16 +4,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebGetters").createGetterFactories(),
       s = e.field,
-      u = s("description"),
-      c = s("prompts"),
-      d = s("commands"),
-      m = s("isDefault"),
-      p = s("posingAsProfessional");
-    ((l.getDescription = u),
-      (l.getPrompts = c),
-      (l.getCommands = d),
-      (l.getIsDefault = m),
-      (l.getPosingAsProfessional = p));
+      u = s("prompts"),
+      c = s("commands"),
+      d = s("isDefault"),
+      m = s("posingAsProfessional");
+    ((l.getPrompts = u),
+      (l.getCommands = c),
+      (l.getIsDefault = d),
+      (l.getPosingAsProfessional = m));
   },
   98,
 );

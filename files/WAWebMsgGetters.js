@@ -1688,8 +1688,16 @@ __d(
         },
         [Pa],
       ),
-      Aa = _("botGroupParticipant");
-    function Fa(e) {
+      Aa = p(
+        function (e) {
+          var t = e[0],
+            n = e[1];
+          return t != null && r("WAWebWid").equals(t.remote, n);
+        },
+        [Na, T],
+      ),
+      Fa = _("botGroupParticipant");
+    function Oa(e) {
       var t =
         b(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         o("WAWebUserPrefsMeUser").isMeAccount(k(e));
@@ -2037,8 +2045,9 @@ __d(
       (l.getGroupHistoryBundleMessageKey = Na),
       (l.getIsEditedAfterReceivedAsHistory = Ma),
       (l.getGroupHistoryBundleSender = wa),
-      (l.getBotGroupParticipant = Aa),
-      (l.isRealMessage = Fa));
+      (l.getIsGroupHistoryMessageInOwnChat = Aa),
+      (l.getBotGroupParticipant = Fa),
+      (l.isRealMessage = Oa));
   },
   98,
 );

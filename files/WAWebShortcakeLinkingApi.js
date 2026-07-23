@@ -187,10 +187,12 @@ __d(
                 "WAWebShortcakeLinkingAlgorithm",
               ).deriveVerificationCode(t, l),
               m = yield o("WAWebShortcakeLinkingAlgorithm").deriveEncryptionKey(
-                n.privKey,
-                u,
-                a,
-                i,
+                {
+                  companionEphemeralPrivateKey: n.privKey,
+                  deviceType: a,
+                  primaryPublicKey: u,
+                  ref: i,
+                },
               );
             if (I.epoch !== c)
               throw (

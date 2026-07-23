@@ -21,6 +21,7 @@ __d(
     "WAWebMediaGatherAndSetMetadataNoOpaque",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaLoad",
+    "WAWebMediaLoadErrors",
     "WAWebMediaOpaqueData",
     "WAWebMediaSetSuspiciousContent",
     "WAWebMediaTypes",
@@ -567,7 +568,7 @@ __d(
                         )
                         .catch(
                           F.filteredCatch(
-                            o("WAWebMiscErrors").MediaUnsupportedError,
+                            o("WAWebMediaLoadErrors").MediaUnsupportedError,
                             function (e) {
                               if (
                                 (D.consolidate({
@@ -726,7 +727,8 @@ __d(
                               downloadStage:
                                 o("WAWebMediaTypes").DownloadStage.NEED_POKE,
                             }),
-                            e instanceof o("WAWebMiscErrors").MediaLoadError)
+                            e instanceof
+                              o("WAWebMediaLoadErrors").MediaLoadError)
                           ) {
                             if (
                               (o("WALogger").WARN(
@@ -761,7 +763,7 @@ __d(
                           }
                           if (
                             e instanceof
-                            o("WAWebMiscErrors").TranscodeBlobTooLargeError
+                            o("WAWebMediaLoadErrors").TranscodeBlobTooLargeError
                           ) {
                             if (
                               (o("WALogger").WARN(
@@ -795,7 +797,7 @@ __d(
                           }
                           if (
                             e instanceof
-                            o("WAWebMiscErrors").UnableToPlayVideoError
+                            o("WAWebMediaLoadErrors").UnableToPlayVideoError
                           ) {
                             if (
                               (o("WALogger").WARN(

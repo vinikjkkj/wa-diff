@@ -2,7 +2,7 @@ __d(
   "WAWebBlockedParticipantWarning",
   [
     "Promise",
-    "WAWebBlockWarningGatingUtils",
+    "WAWebABProps",
     "WAWebBlockedParticipantWarningAction",
     "WAWebBlockedParticipantWarningDialogLoadable",
     "WAWebChatGetters",
@@ -17,9 +17,9 @@ __d(
     function c(t) {
       if (
         !o("WAWebChatGetters").getIsGroup(t) ||
-        !o(
-          "WAWebBlockWarningGatingUtils",
-        ).isBlockedParticipantChatWarningEnabled()
+        !o("WAWebABProps").getABPropConfigValue(
+          "wa_web_blocked_participant_chat_warning",
+        )
       )
         return (e || (e = n("Promise"))).resolve(!1);
       var r = o(

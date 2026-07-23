@@ -7,6 +7,7 @@ __d(
     "CometThemeInfraUtils",
     "CometTransientDialogProvider.react",
     "FBLogger",
+    "FXAccountsCenterWYLILoggerQPL",
     "OutsideExceptionKeyCommandListener.react",
     "SecuredActionDialogRoot.entrypoint",
     "deferredLoadComponent",
@@ -35,8 +36,10 @@ __d(
         : e.includes("accountscenter");
     }
     function m(e, t) {
-      var n,
-        r = (n = t.force_cds) != null ? n : !1;
+      var n;
+      if (e.metaAccount != null && t.account_type === "META_ACCOUNT")
+        return e.metaAccount;
+      var r = (n = t.force_cds) != null ? n : !1;
       return ((d() || r) && e.CDS) || e.default;
     }
     function p(e, t) {
@@ -46,7 +49,11 @@ __d(
     }
     function _(e, t) {
       var n = o("CometThemeInfraUtils").getCometThemeInfraThemesForApp();
-      e.challenge_type === "2fac" ? y(t, e, n) : f(t, e, n);
+      (o("FXAccountsCenterWYLILoggerQPL").addPoint(
+        o("FXAccountsCenterWYLILoggerQPL").FXAccountsCenterWYLILoggerPoint
+          .SECURED_ACTION_CHALLENGE_TRIGGERED,
+      ),
+        e.challenge_type === "2fac" ? y(t, e, n) : f(t, e, n));
     }
     function f(e, t, n) {
       return C(n, e, function (e) {

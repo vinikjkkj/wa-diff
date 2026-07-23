@@ -36,44 +36,37 @@ __d(
       return r("justknobx")._("2716");
     }
     function f() {
-      return r("justknobx")._("2367");
-    }
-    function g() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_canonical_wam_falco_buffer_size",
       );
       return e > 0 ? e : 2e3;
     }
-    function h() {
+    function g() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_wam_falco_flush_interval_ms",
       );
       return e > 0 ? e : u;
     }
-    function y() {
-      return !b() || !_() || !o("WAWebCanonicalGating").isCanonicalEnabled()
+    function h() {
+      return !y() || !_() || !o("WAWebCanonicalGating").isCanonicalEnabled()
         ? !1
-        : !r("WAWebNetworkStatus").online ||
-            (f() && !o("WAWebCanonicalUtils").isCanonicalPresent());
+        : !r("WAWebNetworkStatus").online;
     }
-    function C() {
-      return f() && _() && o("WAWebCanonicalGating").isCanonicalEnabled();
-    }
-    function b() {
+    function y() {
       return (
         o("WAWebABPropsCache").isABPropConfigsReady() &&
         r("justknobx")._("1600") &&
-        S() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY &&
-        (o("WAWebCanonicalUtils").isCanonicalPresent() || C())
+        b() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY &&
+        o("WAWebCanonicalUtils").isCanonicalPresent()
       );
     }
-    function v() {
+    function C() {
       return (
         o("WAWebABPropsCache").isABPropConfigsReady() &&
-        S() === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
+        b() === o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
       );
     }
-    function S() {
+    function b() {
       var e = o("WAWebABProps").getABPropConfigValue("wa_web_wam_falco_mode");
       return e === o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
         ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
@@ -93,7 +86,7 @@ __d(
                     ? o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING_FULL
                     : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
     }
-    function R() {
+    function v() {
       if (c != null) return c;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
@@ -115,7 +108,7 @@ __d(
       }
       return c;
     }
-    function L() {
+    function S() {
       if (d != null) return d;
       if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
@@ -137,20 +130,19 @@ __d(
       }
       return d;
     }
-    function E(e) {
-      return o("WAWebABPropsCache").isABPropConfigsReady() && L().has(e);
+    function R(e) {
+      return o("WAWebABPropsCache").isABPropConfigsReady() && S().has(e);
     }
     ((l.isCanonicalWamFalcoBufferEnabled = _),
-      (l.isPreCanonicalBufferEnabled = f),
-      (l.getCanonicalWamFalcoMaxBufferSize = g),
-      (l.getWamFalcoFlushIntervalMs = h),
-      (l.shouldBufferFalcoEvent = y),
-      (l.isFalcoLoggingEnabled = b),
-      (l.isWamLoggingDisabled = v),
-      (l.getWamFalcoMode = S),
-      (l.getShadowLoggingEventIds = R),
-      (l.getCriticalLoggingEventIds = L),
-      (l.isCriticalEvent = E));
+      (l.getCanonicalWamFalcoMaxBufferSize = f),
+      (l.getWamFalcoFlushIntervalMs = g),
+      (l.shouldBufferFalcoEvent = h),
+      (l.isFalcoLoggingEnabled = y),
+      (l.isWamLoggingDisabled = C),
+      (l.getWamFalcoMode = b),
+      (l.getShadowLoggingEventIds = v),
+      (l.getCriticalLoggingEventIds = S),
+      (l.isCriticalEvent = R));
   },
   98,
 );

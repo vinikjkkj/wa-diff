@@ -266,11 +266,11 @@ __d(
                                     d = a
                                       ? o(
                                           "WAWebDBGroupParticipantHelpers",
-                                        ).addParticipantInfoCAG(
-                                          s,
-                                          c,
-                                          t.deviceIds,
-                                        )
+                                        ).addParticipantInfoCAG({
+                                          deviceIds: t.deviceIds,
+                                          oldDBRecord: s,
+                                          participantsAdded: c,
+                                        })
                                       : o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).addParticipantInfo({
@@ -594,12 +594,16 @@ __d(
           })(),
         );
     }
-    function k(e, t, a, i) {
-      i === void 0 && (i = !1);
-      var l = !!(a != null && a.defaultSubgroup);
-      if (i) return S({ id: String(e), data: t, groupMetadata: a });
-      var s = t.participants,
-        u = e.toString();
+    function k(e) {
+      var t = e.data,
+        a = e.group,
+        i = e.groupMetadata,
+        l = e.isOffline,
+        s = l === void 0 ? !1 : l,
+        u = !!(i != null && i.defaultSubgroup);
+      if (s) return S({ id: String(a), data: t, groupMetadata: i });
+      var c = t.participants,
+        d = a.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -608,7 +612,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var n = e[0],
-                  a = yield n.get(u);
+                  a = yield n.get(d);
                 if (!a)
                   throw new (o("WAWebDBParticipantTypes").GroupUnSyncedError)(
                     "updateParticipants: group participant info missing for action " +
@@ -617,27 +621,31 @@ __d(
                 switch (t.action) {
                   case o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.ADD:
                     return n.createOrReplace(
-                      l
+                      u
                         ? o(
                             "WAWebDBGroupParticipantHelpers",
-                          ).addParticipantInfoCAG(a, s, t.deviceIds)
+                          ).addParticipantInfoCAG({
+                            deviceIds: t.deviceIds,
+                            oldDBRecord: a,
+                            participantsAdded: c,
+                          })
                         : o(
                             "WAWebDBGroupParticipantHelpers",
                           ).addParticipantInfo({
                             deviceIds: t.deviceIds,
                             oldDBRecord: a,
-                            participantsAdded: s,
+                            participantsAdded: c,
                           }),
                     );
                   case o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                     .REMOVE:
                     return n.createOrReplace(
-                      l
+                      u
                         ? o(
                             "WAWebDBGroupParticipantHelpers",
                           ).removeParticipantInfoCAG(
                             a,
-                            s,
+                            c,
                             t.timestamp,
                             t.author,
                             t.reason,
@@ -646,7 +654,7 @@ __d(
                             "WAWebDBGroupParticipantHelpers",
                           ).removeParticipantInfo(
                             a,
-                            s,
+                            c,
                             t.timestamp,
                             t.author,
                             t.reason,
@@ -655,12 +663,12 @@ __d(
                   case o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                     .DEMOTE:
                     return n.createOrReplace(
-                      l
+                      u
                         ? o(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfoCAG(
                             a,
-                            s,
+                            c,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .DEMOTE,
@@ -669,7 +677,7 @@ __d(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfo(
                             a,
-                            s,
+                            c,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .DEMOTE,
@@ -678,12 +686,12 @@ __d(
                   case o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                     .PROMOTE:
                     return n.createOrReplace(
-                      l
+                      u
                         ? o(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfoCAG(
                             a,
-                            s,
+                            c,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .PROMOTE,
@@ -692,7 +700,7 @@ __d(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfo(
                             a,
-                            s,
+                            c,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .PROMOTE,

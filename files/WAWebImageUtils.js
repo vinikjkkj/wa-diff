@@ -14,7 +14,7 @@ __d(
     "WAWebMediaCacheModel",
     "WAWebMediaJpeg",
     "WAWebMediaLoad",
-    "WAWebMiscErrors",
+    "WAWebMediaLoadErrors",
     "WAWebNoop",
     "WAWebPREGatingUtils",
     "WAWebStickerConstants",
@@ -464,7 +464,7 @@ __d(
               o("WAWebCanvasUtils").canvasToBlob(n)
             );
           } catch (t) {
-            throw new (o("WAWebMiscErrors").MediaDragDropError)(
+            throw new (o("WAWebMediaLoadErrors").MediaDragDropError)(
               "unable to render image",
               e,
             );

@@ -321,7 +321,11 @@ __d(
       }
       if ((u != null && (_.rowId = u), a != null)) {
         var C = o("WAWebDBMessageUtils").getPrefixForInternalId(i);
-        _.internalId = o("WAWebDBMessageUtils").craftInternalId(t, a, C);
+        _.internalId = o("WAWebDBMessageUtils").craftInternalId({
+          chatId: t,
+          inChatMsgId: a,
+          internalIdPrefix: C,
+        });
       }
       (a != null &&
         i.threadIds != null &&

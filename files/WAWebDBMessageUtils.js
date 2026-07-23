@@ -32,10 +32,13 @@ __d(
     function m(e) {
       return e.toString() + "_g";
     }
-    function p(e, t, n) {
-      n === void 0 && (n = s.Default);
-      var r = u(t);
-      return "" + n + e + "_" + r + "_m";
+    function p(e) {
+      var t = e.chatId,
+        n = e.inChatMsgId,
+        r = e.internalIdPrefix,
+        o = r === void 0 ? s.Default : r,
+        a = u(n);
+      return "" + o + t + "_" + a + "_m";
     }
     function _(e) {
       var t = e.split("_")[1];

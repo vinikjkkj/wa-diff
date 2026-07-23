@@ -313,45 +313,48 @@ __d(
         S.apply(this, arguments)
       );
     }
-    function R(e, t, n) {
+    function R(e) {
       return L.apply(this, arguments);
     }
     function L() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = t.map(function (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatId,
+            n = e.messages,
+            a = e.options,
+            i = n.map(function (e) {
               return o("WAWebProtobufMsgKeyUtils")
                 .protobufToMsgKey(r("nullthrows")(e.key))
                 .toString();
             }),
-            i = [];
-          e.isGroup() &&
-            a.forEach(function (e) {
+            l = [];
+          t.isGroup() &&
+            i.forEach(function (e) {
               var t = r("WAWebMsgKey").fromString(e);
               if (t.fromMe) {
                 var n = o("WAWebLidMigrationUtils").getAlternateMsgKey(t);
-                n && i.push(n.toString());
+                n && l.push(n.toString());
               }
             });
-          var l = yield o("WAWebSchemaMessage")
+          var s = yield o("WAWebSchemaMessage")
               .getMessageTable()
-              .bulkGet(a.concat(i)),
-            s = [];
+              .bulkGet(i.concat(l)),
+            u = [];
           return (
-            l.forEach(function (e) {
+            s.forEach(function (e) {
               if (e != null) {
                 if (
-                  ((n == null ? void 0 : n.skipStarred) !== !1 &&
+                  ((a == null ? void 0 : a.skipStarred) !== !1 &&
                     e.isStarred != null) ||
-                  ((n == null ? void 0 : n.skipScheduledMessages) === !0 &&
+                  ((a == null ? void 0 : a.skipScheduledMessages) === !0 &&
                     e.viewMode ===
                       o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE)
                 )
                   return;
-                s.push(e.id);
+                u.push(e.id);
               }
             }),
-            s
+            u
           );
         })),
         L.apply(this, arguments)
@@ -404,7 +407,7 @@ __d(
                       r,
                     ),
                   ),
-                  m.push(R(t, s, r)),
+                  m.push(R({ chatId: t, messages: s, options: r })),
                   (r == null ? void 0 : r.deleteAutomatedGreetingMessages) ===
                     !0 && m.push(v(t)));
                 var _ = yield (c || (c = n("Promise"))).all(m);

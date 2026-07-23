@@ -1,7 +1,6 @@
 __d(
   "WAWebContactGetters",
   [
-    "WAMd5",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBotUtils",
@@ -29,26 +28,25 @@ __d(
       y = u("forcedBusinessUpdateFromServer"),
       C = u("isContactSyncCompleted"),
       b = u("type"),
-      v = u("isDeactivated"),
-      S = u("requestedPnTimestamp"),
-      R = u("shortName"),
-      L = u("isEnterprise"),
-      E = u("isSmb"),
-      k = u("labels"),
-      I = u("statusMute"),
-      T = u("parentStatusMute"),
-      D = s(
+      v = u("requestedPnTimestamp"),
+      S = u("shortName"),
+      R = u("isEnterprise"),
+      L = u("isSmb"),
+      E = u("labels"),
+      k = u("statusMute"),
+      I = u("parentStatusMute"),
+      T = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [I, T],
+        [k, I],
       ),
-      x = u("privacyMode"),
-      $ = u("isHosted"),
-      P = u("businessProfile"),
-      N = s(
+      D = u("privacyMode"),
+      x = u("isHosted"),
+      $ = u("businessProfile"),
+      P = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -60,123 +58,107 @@ __d(
         },
         [p, _, f, g],
       ),
-      M = s(
+      N = s(
         function (e) {
           var t = e[0];
           return t || "";
         },
         [p],
       ),
-      w = s(
+      M = s(
         function (e) {
           var t = e[0];
           return o("WAWebUserPrefsMeUser").isMeAccount(t);
         },
         [m],
       ),
-      A = s(
+      w = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
         [m],
       ),
-      F = s(
+      A = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
         [m],
       ),
-      O = s(
+      F = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBroadcast(t);
         },
         [m],
       ),
-      B = s(
+      O = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isNewsletter(t);
         },
         [m],
       ),
-      W = s(
+      B = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBot(t);
         },
         [m],
       ),
-      q = s(
+      W = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isAiHub(t);
         },
         [m],
       ),
-      U = s(
+      q = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t);
         },
         [m],
       ),
-      V = s(
+      U = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t);
         },
         [m],
       ),
-      H = s(
+      V = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isSupportAccount(t);
         },
         [m],
       ),
-      G = s(
+      H = s(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isCAPISupportAccount(t);
         },
         [m],
       ),
-      z = s(
+      G = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n === "in";
         },
-        [A, b],
+        [w, b],
       ),
-      j = s(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t && n;
-        },
-        [A, v],
-      ),
-      K = s(
-        function (e) {
-          var t = e[0],
-            n = e[1];
-          return t ? o("WAMd5").md5((n.user || "") + "WA_ADD_NOTIF") : null;
-        },
-        [A, m],
-      ),
-      Q = s(
+      z = s(
         function (e) {
           var t = e[0],
             n = e[1];
           return t ? r("WAWebWid").user(n) : null;
         },
-        [A, m],
+        [w, m],
       ),
-      X = s(
+      j = s(
         function (e) {
           var t = e[0];
           return (
@@ -184,9 +166,9 @@ __d(
             t + o("WATimeUtils").DAY_SECONDS < o("WATimeUtils").unixTime()
           );
         },
-        [S],
+        [v],
       ),
-      Y = s(
+      K = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -202,9 +184,9 @@ __d(
               (r === a || !r || l.isBot()))
           );
         },
-        [_, f, h, g, H, m],
+        [_, f, h, g, V, m],
       ),
-      J = s(
+      Q = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -219,7 +201,7 @@ __d(
         },
         [_, f, h, g],
       ),
-      Z = s(
+      X = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -231,7 +213,7 @@ __d(
         },
         [_, f, m],
       ),
-      ee = s(
+      Y = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -243,7 +225,7 @@ __d(
         },
         [_, f],
       ),
-      te = s(
+      J = s(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -256,9 +238,9 @@ __d(
             ? !1
             : !t && !n;
         },
-        [y, C, A],
+        [y, C, w],
       ),
-      ne = s(
+      Z = s(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -273,40 +255,38 @@ __d(
       (l.getVerifiedLevel = f),
       (l.getVerifiedName = g),
       (l.getName = h),
-      (l.getRequestedPnTimestamp = S),
-      (l.getShortName = R),
-      (l.getIsEnterprise = L),
-      (l.getIsSmb = E),
-      (l.getLabels = k),
-      (l.getStatusMute = I),
-      (l.getCalculatedStatusMute = D),
-      (l.getPrivacyMode = x),
-      (l.getIsHosted = $),
-      (l.getBusinessProfile = P),
-      (l.getNotifyName = N),
-      (l.getPremiumMessageName = M),
-      (l.getIsMe = w),
-      (l.getIsUser = A),
-      (l.getIsGroup = F),
-      (l.getIsBroadcast = O),
-      (l.getIsNewsletter = B),
-      (l.getIsBot = W),
-      (l.getIsAiHub = q),
-      (l.getIsPSA = U),
-      (l.getIsIAS = V),
-      (l.getIsSupportAccount = H),
-      (l.getIsCAPISupportAccount = G),
-      (l.getIsWAContact = z),
-      (l.getIsContactDeactivated = j),
-      (l.getUserhash = K),
-      (l.getUserid = Q),
-      (l.getCanRequestPhoneNumber = X),
-      (l.getShowBusinessCheckmarkAsPrimary = Y),
-      (l.getShowBusinessCheckmarkAsSecondary = J),
-      (l.getShowBusinessCheckmarkInChatlist = Z),
-      (l.getIsDisplayNameApproved = ee),
-      (l.getShouldForceBusinessUpdate = te),
-      (l.getShowAsMetaVerified = ne));
+      (l.getRequestedPnTimestamp = v),
+      (l.getShortName = S),
+      (l.getIsEnterprise = R),
+      (l.getIsSmb = L),
+      (l.getLabels = E),
+      (l.getStatusMute = k),
+      (l.getCalculatedStatusMute = T),
+      (l.getPrivacyMode = D),
+      (l.getIsHosted = x),
+      (l.getBusinessProfile = $),
+      (l.getNotifyName = P),
+      (l.getPremiumMessageName = N),
+      (l.getIsMe = M),
+      (l.getIsUser = w),
+      (l.getIsGroup = A),
+      (l.getIsBroadcast = F),
+      (l.getIsNewsletter = O),
+      (l.getIsBot = B),
+      (l.getIsAiHub = W),
+      (l.getIsPSA = q),
+      (l.getIsIAS = U),
+      (l.getIsSupportAccount = V),
+      (l.getIsCAPISupportAccount = H),
+      (l.getIsWAContact = G),
+      (l.getUserid = z),
+      (l.getCanRequestPhoneNumber = j),
+      (l.getShowBusinessCheckmarkAsPrimary = K),
+      (l.getShowBusinessCheckmarkAsSecondary = Q),
+      (l.getShowBusinessCheckmarkInChatlist = X),
+      (l.getIsDisplayNameApproved = Y),
+      (l.getShouldForceBusinessUpdate = J),
+      (l.getShowAsMetaVerified = Z));
   },
   98,
 );

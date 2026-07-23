@@ -7,7 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebHttpErrors",
     "WAWebHttpExtendedFetch",
-    "WAWebMiscErrors",
+    "WAWebMediaLoadErrors",
     "WAWebMmsCdnUrlValidationUtils",
     "WAWebMmsClientErrors",
     "WAWebMmsClientFormatDownloadUrl",
@@ -206,7 +206,9 @@ __d(
             }),
             s = l.headers.get("content-length");
           if (!s)
-            throw new (o("WAWebMiscErrors").UnableToGetContentLengthError)();
+            throw new (o(
+              "WAWebMediaLoadErrors",
+            ).UnableToGetContentLengthError)();
           return parseInt(s, 10);
         })),
         h.apply(this, arguments)

@@ -397,7 +397,10 @@ __d(
       return (
         (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.map(function (e) {
-              return o("WAWebDBMessageUtils").craftInternalId(t.toJid(), e);
+              return o("WAWebDBMessageUtils").craftInternalId({
+                chatId: t.toJid(),
+                inChatMsgId: e,
+              });
             }),
             a = yield o("WAWebSchemaMessage")
               .getMessageTable()

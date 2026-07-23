@@ -12,14 +12,12 @@ __d(
     "WAWebBaseModel",
     "WAWebBizBusinessChangeAction",
     "WAWebBizLabelUtils",
-    "WAWebBlocklistCollection",
-    "WAWebBlocklistMigration",
     "WAWebBotBaseGating",
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebBusinessProfileCollection",
-    "WAWebChatCollection",
     "WAWebConnModel",
+    "WAWebContactBlocklistUtils",
     "WAWebContactCollection",
     "WAWebContactGetters",
     "WAWebContactSearchMatcher",
@@ -238,7 +236,7 @@ __d(
                         },
                   ),
                 this.id.isUser() &&
-                  (this.updateContactBlocked(),
+                  (o("WAWebContactBlocklistUtils").updateContactBlocked(this),
                   this.updateContactOptedOutOfMarketingMessages()),
                 this.listenTo(this, "change:name", this.$Contact$p_6),
                 this.listenTo(this, "change:name", this.updateName),
@@ -424,44 +422,6 @@ __d(
                     ])),
                 ),
                 (this.pendingAction = 0));
-          }),
-          (a.updateContactBlocked = function () {
-            this.id.isUser() &&
-              (o("WAWebBlocklistMigration").applyBlocklistV2Rules()
-                ? (this.isContactBlocked = this.$Contact$p_11())
-                : (this.isContactBlocked = this.$Contact$p_12()));
-          }),
-          (a.$Contact$p_12 = function () {
-            if (o("WAWebBlocklistCollection").BlocklistCollection.get(this.id))
-              return !0;
-            if (this.id.isLid() && this.phoneNumber != null)
-              return (
-                o("WAWebBlocklistCollection").BlocklistCollection.get(
-                  this.phoneNumber,
-                ) != null
-              );
-            var e = o("WAWebApiContact").getAlternateUserWid(
-                o("WAWebWidFactory").asUserWidOrThrow(this.id),
-              ),
-              t =
-                e != null &&
-                o("WAWebBlocklistCollection").BlocklistCollection.get(e) !=
-                  null;
-            return t;
-          }),
-          (a.$Contact$p_11 = function () {
-            if (this.id.isRegularUserPn()) {
-              var e = o("WAWebChatCollection").ChatCollection.get(this.id);
-              return (e == null ? void 0 : e.accountLid) == null
-                ? !1
-                : o("WAWebBlocklistCollection").BlocklistCollection.get(
-                    e.accountLid,
-                  ) != null;
-            }
-            return (
-              o("WAWebBlocklistCollection").BlocklistCollection.get(this.id) !=
-              null
-            );
           }),
           (a.updateContactOptedOutOfMarketingMessages = function () {
             if (this.id.isUser()) {

@@ -6,6 +6,8 @@ __d(
       RENDER_FLOW_ENTRY_POINT: "render_flow_entry_point",
       RENDER_FLOW_ENTRY_POINT_ERROR: "render_flow_entry_point_error",
       BOOST_WITH_AI_IMPRESSION: "boost_with_ai_impression",
+      BOOST_CHOICE_MODAL_IMPRESSION: "boost_choice_modal_impression",
+      BOOST_SETUP_METHOD_SELECTED: "boost_setup_method_selected",
       ENTER_FLOW_CLICK: "enter_flow_click",
       ENTER_ROUTE: "enter_route",
       ENTER_FLOW_DATA_READY: "enter_flow_data_ready",

@@ -10,10 +10,10 @@ __d(
     "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaDataUtils",
+    "WAWebMediaLoadErrors",
     "WAWebMediaOpaqueData",
     "WAWebMediaStore",
     "WAWebMediaTypes",
-    "WAWebMiscErrors",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -147,7 +147,7 @@ __d(
                           return !n || !(n.status >= 200 && n.status < 300)
                             ? t(
                                 new (o(
-                                  "WAWebMiscErrors",
+                                  "WAWebMediaLoadErrors",
                                 ).CatalogImageDownloadError)(),
                               )
                             : n;

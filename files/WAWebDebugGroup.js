@@ -134,11 +134,7 @@ __d(
       var a = self.performance.now(),
         i = new RegExp("^" + r("escapeRegex")(t)),
         l = o("WAWebChatCollection").ChatCollection.filter(function (e) {
-          return (
-            o("WAWebChatGetters").getIsGroup(e) &&
-            i.test(e.title()) &&
-            e.canArchive()
-          );
+          return o("WAWebChatGetters").getIsGroup(e) && i.test(e.title());
         });
       if (l.length === 0) return (c || (c = n("Promise"))).resolve();
       var s = [];

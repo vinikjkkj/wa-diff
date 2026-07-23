@@ -8,6 +8,7 @@ __d(
     "WAOpusRecorderPlayer",
     "WAPromiseDelays",
     "WAPromiseTimeout",
+    "WAWebMediaLoadErrors",
     "WAWebMimeTypes",
     "WAWebMiscErrors",
     "WAWebNoop",
@@ -81,12 +82,12 @@ __d(
               fullWidth: e.naturalWidth,
               fullHeight: e.naturalHeight,
             };
-          throw new (o("WAWebMiscErrors").MediaLoadError)(
+          throw new (o("WAWebMediaLoadErrors").MediaLoadError)(
             "image loaded with zero width",
           );
         })
         .catch(function () {
-          throw new (o("WAWebMiscErrors").MediaLoadError)(
+          throw new (o("WAWebMediaLoadErrors").MediaLoadError)(
             "unable to render image",
           );
         });
@@ -194,7 +195,7 @@ __d(
                 t.type,
               );
               var n = S(i);
-              r(new (o("WAWebMiscErrors").UnableToPlayVideoError)(n));
+              r(new (o("WAWebMediaLoadErrors").UnableToPlayVideoError)(n));
             }),
             (i.src = l = window.URL.createObjectURL(t)),
             o("WAWebUA").UA.isSafari)
@@ -273,14 +274,14 @@ __d(
                   i.readyState,
                   i.videoWidth,
                 ),
-                new (o("WAWebMiscErrors").MediaUnsupportedError)(
+                new (o("WAWebMediaLoadErrors").MediaUnsupportedError)(
                   "video loaded with duration but no dims",
                 ))
               : ((r.webcMediaLoadResult = o(
                   "WAWebWamEnumWebcMediaLoadResultCode",
                 ).WEBC_MEDIA_LOAD_RESULT_CODE.ZEROWIDTH),
                 r.commit(),
-                new (o("WAWebMiscErrors").MediaLoadError)(
+                new (o("WAWebMediaLoadErrors").MediaLoadError)(
                   "video loaded with zero width",
                 ));
           })
@@ -359,7 +360,7 @@ __d(
             e.size,
           ),
           (h || (h = n("Promise"))).reject(
-            new (o("WAWebMiscErrors").TranscodeBlobTooLargeError)(),
+            new (o("WAWebMediaLoadErrors").TranscodeBlobTooLargeError)(),
           )
         );
       }

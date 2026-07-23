@@ -27,7 +27,10 @@ __d(
           t
         );
       } catch (e) {
-        e instanceof Error && r("FBLogger")("secured_action").catching(e);
+        e instanceof Error &&
+          r("FBLogger")("secured_action")
+            .catching(e)
+            .warn("Failed to parse secured action data from error response");
       }
       return {
         account_id: "",
@@ -36,6 +39,7 @@ __d(
       };
     }
     function s(e) {
+      if (e == null || e === "") return null;
       try {
         var t,
           n = JSON.parse(e);

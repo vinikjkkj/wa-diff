@@ -53,36 +53,41 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      g = function (r, a, i) {
+      g = function (r, a, i, l) {
         var t = this;
         if (
           (a === void 0 && (a = !1),
-          (this.$2 = function (e) {
-            var n = t.$6().map(function (e) {
+          l === void 0 && (l = !1),
+          (this.$2 = function (e, n) {
+            var r = t.$6().map(function (e) {
                 return t.$4(e);
               }),
-              r = n.findIndex(function (t) {
+              a = r.findIndex(function (t) {
                 return t.status === e;
               });
-            return (
-              r > 0 &&
-                n.length >=
-                  o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
-                o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled() &&
-                (n = [].concat(n.slice(r), n.slice(0, r))),
-              n
-            );
+            return n && a > 0
+              ? [r[a]].concat(r.slice(0, a), r.slice(a + 1))
+              : (a > 0 &&
+                  r.length >=
+                    o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
+                  o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled() &&
+                  (r = [].concat(r.slice(a), r.slice(0, a))),
+                r);
           }),
-          (this.$3 = function (e) {
-            var n = t.$6();
-            return n.length > 0 &&
-              n.length >=
-                o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
-              o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled()
-              ? [e].concat(n).map(function (e) {
+          (this.$3 = function (e, n) {
+            var r = t.$6();
+            return n
+              ? [e].concat(r).map(function (e) {
                   return t.$4(e);
                 })
-              : [t.$4(e)];
+              : r.length > 0 &&
+                  r.length >=
+                    o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
+                  o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled()
+                ? [e].concat(r).map(function (e) {
+                    return t.$4(e);
+                  })
+                : [t.$4(e)];
           }),
           (this.getChainableContactStatuses = function () {
             return t.$6().filter(function (e) {
@@ -353,24 +358,28 @@ __d(
           })()),
           i)
         ) {
-          var l = r.msgs.getModelsArray().find(function (e) {
+          var g = r.msgs.getModelsArray().find(function (e) {
             return i && e.id.toString() === i.toString();
           });
-          if (!l) throw new f();
+          if (!g) throw new f();
           this.statuses = [
             {
               status: r,
               totalCount: 1,
               unreadCount: 0,
-              msgs: [l],
-              readMsgKeys: this.$1([l]),
+              msgs: [g],
+              readMsgKeys: this.$1([g]),
             },
           ];
         } else
           a &&
-          !o("WAWebContactGetters").getIsMe(r.contact) &&
+          (!o("WAWebContactGetters").getIsMe(r.contact) || l) &&
           !o("WAWebContactGetters").getCalculatedStatusMute(r.contact)
-            ? (this.statuses = r.unreadCount > 0 ? this.$2(r) : this.$3(r))
+            ? (this.statuses =
+                r.unreadCount > 0 &&
+                !o("WAWebContactGetters").getIsMe(r.contact)
+                  ? this.$2(r, l)
+                  : this.$3(r, l))
             : (this.statuses = [this.$4(r)]);
         this.$5();
       };

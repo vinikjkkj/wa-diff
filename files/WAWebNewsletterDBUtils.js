@@ -71,7 +71,11 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           n === void 0 &&
             (n = o("WAWebDBMessageUtils").InternalIdPrefix.Default);
-          var r = o("WAWebDBMessageUtils").craftInternalId(t, e, n),
+          var r = o("WAWebDBMessageUtils").craftInternalId({
+              chatId: t,
+              inChatMsgId: e,
+              internalIdPrefix: n,
+            }),
             a = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .anyOf(["internalId"], [r]),
@@ -94,7 +98,14 @@ __d(
           var r = new Map(),
             a = new Map(
               e.map(function (e) {
-                return [o("WAWebDBMessageUtils").craftInternalId(t, e, n), e];
+                return [
+                  o("WAWebDBMessageUtils").craftInternalId({
+                    chatId: t,
+                    inChatMsgId: e,
+                    internalIdPrefix: n,
+                  }),
+                  e,
+                ];
               }),
             ),
             i = yield o("WAWebSchemaMessage")
@@ -134,7 +145,11 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 &&
             (t = o("WAWebDBMessageUtils").InternalIdPrefix.Default);
-          var n = o("WAWebDBMessageUtils").craftInternalId(e.toJid(), p, t),
+          var n = o("WAWebDBMessageUtils").craftInternalId({
+              chatId: e.toJid(),
+              inChatMsgId: p,
+              internalIdPrefix: t,
+            }),
             r = "" + t + o("WAWebDBMessageUtils").endOfChat(e),
             a = yield o("WAWebSchemaMessage")
               .getMessageTable()

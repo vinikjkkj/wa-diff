@@ -15,6 +15,7 @@ __d(
     "WAWebMediaCleanFileName",
     "WAWebMediaConstants",
     "WAWebMediaLoad",
+    "WAWebMediaLoadErrors",
     "WAWebMediaOpaqueData",
     "WAWebMediaPreProcessQpl",
     "WAWebMediaTypes",
@@ -863,7 +864,7 @@ __d(
             }
             e.consolidate(n);
           } catch (n) {
-            if (n instanceof o("WAWebMiscErrors").MediaUnsupportedError)
+            if (n instanceof o("WAWebMediaLoadErrors").MediaUnsupportedError)
               e.consolidate({ mediaBlob: t, renderableUrl: t.url() });
             else throw n;
           } finally {

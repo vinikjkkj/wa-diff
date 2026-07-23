@@ -112,20 +112,22 @@ __d(
         C.apply(this, arguments)
       );
     }
-    function b(e, t, n, r) {
+    function b(e) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o("WAWebCryptoCurve25519").sharedSecret(t, e),
-              i = new TextEncoder().encode(
-                "Companion Pairing " + String(n) + " with ref " + r,
-              );
-            return o("WACryptoHkdf").extractWithSaltAndExpand(a, i, d, c);
-          },
-        )),
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.companionEphemeralPrivateKey,
+            n = e.deviceType,
+            r = e.primaryPublicKey,
+            a = e.ref,
+            i = yield o("WAWebCryptoCurve25519").sharedSecret(r, t),
+            l = new TextEncoder().encode(
+              "Companion Pairing " + String(n) + " with ref " + a,
+            );
+          return o("WACryptoHkdf").extractWithSaltAndExpand(i, l, d, c);
+        })),
         v.apply(this, arguments)
       );
     }

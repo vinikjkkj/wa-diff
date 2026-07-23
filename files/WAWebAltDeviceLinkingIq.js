@@ -33,48 +33,50 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function u(e, t, n, r) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            var l = r("WAWebBrowserInfo")(),
-              s = yield o("WASmaxMdCompanionHelloRPC").sendCompanionHelloRPC({
-                linkCodePairingNonceArgs: {
-                  linkCodePairingNonceElementValue: new Uint8Array(1),
-                },
-                linkCodeCompanionRegJid: t,
-                linkCodePairingWrappedCompanionEphemeralPubElementValue:
-                  new Uint8Array(n),
-                companionServerAuthKeyPubElementValue: new Uint8Array(a),
-                companionPlatformIdElMixinArgs: {
-                  companionPlatformIdElementValue: o(
-                    "WAWebCompanionRegClientUtils",
-                  ).DEVICE_PLATFORM,
-                },
-                companionPlatformDisplayElMixinArgs: {
-                  companionPlatformDisplayElementValue:
-                    l.name + " (" + l.os + ")",
-                },
-                linkCodeCompanionRegShouldShowPushNotification: i
-                  ? "true"
-                  : "false",
-              });
-            if (s.name === "CompanionHelloResponseNotifyCompanion")
-              return s.value.linkCodeCompanionRegLinkCodePairingRefElementValue;
-            throw s.name === "CompanionHelloResponseError"
-              ? new e(
-                  "alt pairing: Got an error from alt paring: companion hello: " +
-                    s.value.errorIqMixinErrors.name,
-                  s.value.errorIqMixinErrors,
-                )
-              : new e(
-                  "alt pairing: Got an unknown error from alt paring: companion hello",
-                );
-          },
-        )),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.companionServerAuthKeyPub,
+            a = t.linkCodePairingWrappedCompanionEphemeralPub,
+            i = t.phone,
+            l = t.shouldPush,
+            s = r("WAWebBrowserInfo")(),
+            u = yield o("WASmaxMdCompanionHelloRPC").sendCompanionHelloRPC({
+              linkCodePairingNonceArgs: {
+                linkCodePairingNonceElementValue: new Uint8Array(1),
+              },
+              linkCodeCompanionRegJid: i,
+              linkCodePairingWrappedCompanionEphemeralPubElementValue:
+                new Uint8Array(a),
+              companionServerAuthKeyPubElementValue: new Uint8Array(n),
+              companionPlatformIdElMixinArgs: {
+                companionPlatformIdElementValue: o(
+                  "WAWebCompanionRegClientUtils",
+                ).DEVICE_PLATFORM,
+              },
+              companionPlatformDisplayElMixinArgs: {
+                companionPlatformDisplayElementValue:
+                  s.name + " (" + s.os + ")",
+              },
+              linkCodeCompanionRegShouldShowPushNotification: l
+                ? "true"
+                : "false",
+            });
+          if (u.name === "CompanionHelloResponseNotifyCompanion")
+            return u.value.linkCodeCompanionRegLinkCodePairingRefElementValue;
+          throw u.name === "CompanionHelloResponseError"
+            ? new e(
+                "alt pairing: Got an error from alt paring: companion hello: " +
+                  u.value.errorIqMixinErrors.name,
+                u.value.errorIqMixinErrors,
+              )
+            : new e(
+                "alt pairing: Got an unknown error from alt paring: companion hello",
+              );
+        })),
         c.apply(this, arguments)
       );
     }

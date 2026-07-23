@@ -242,12 +242,13 @@ __d(
               "send_companion_hello_start",
             ),
             e.phone != null || s(0, 67482),
-            (e.ref = yield o("WAWebAltDeviceLinkingIq").sendCompanionHello(
-              o("WAJids").toPhoneUserJid(e.phone),
-              a.linkCodePairingWrappedCompanionEphemeralPub,
-              t.staticKeyPair.pubKey,
-              n,
-            )),
+            (e.ref = yield o("WAWebAltDeviceLinkingIq").sendCompanionHello({
+              companionServerAuthKeyPub: t.staticKeyPair.pubKey,
+              linkCodePairingWrappedCompanionEphemeralPub:
+                a.linkCodePairingWrappedCompanionEphemeralPub,
+              phone: o("WAJids").toPhoneUserJid(e.phone),
+              shouldPush: n,
+            })),
             o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
               "send_companion_hello_end",
             ),

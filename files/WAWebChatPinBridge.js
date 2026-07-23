@@ -9,32 +9,34 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = t !== 0,
-              i = yield o("WAWebPinChatSync").PinChatSync.getMutationsForPin(
-                r,
-                a,
-                e,
-              );
-            return (
-              a || o("WAWebSyncdWamAppState").addUnsetActionCount(1),
-              o("WAWebSyncdCoreApi")
-                .lockForSync(["chat"], i, function (n) {
-                  var r = n[0];
-                  return r.merge(e.toString(), { pin: t });
-                })
-                .then(function () {
-                  return { status: 200 };
-                })
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e._lastPinTime,
+            n = e.chatId,
+            r = e.newPinTime,
+            a = e.timestamp,
+            i = r !== 0,
+            l = yield o("WAWebPinChatSync").PinChatSync.getMutationsForPin(
+              a,
+              i,
+              n,
             );
-          },
-        )),
+          return (
+            i || o("WAWebSyncdWamAppState").addUnsetActionCount(1),
+            o("WAWebSyncdCoreApi")
+              .lockForSync(["chat"], l, function (e) {
+                var t = e[0];
+                return t.merge(n.toString(), { pin: r });
+              })
+              .then(function () {
+                return { status: 200 };
+              })
+          );
+        })),
         s.apply(this, arguments)
       );
     }

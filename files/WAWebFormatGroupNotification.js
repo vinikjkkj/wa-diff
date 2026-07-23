@@ -30,10 +30,10 @@ __d(
     "WAWebMessageCommunityEmptySubgroupWelcomeTitle.react",
     "WAWebMessageCommunityGeneralChatAutoAddDisabledNotification.react",
     "WAWebMessageCommunityGeneralChatWelcomeTitle.react",
-    "WAWebMessageCommunityLinkGroup.react",
-    "WAWebMessageCommunitySubgroupWelcome.react",
-    "WAWebMessageCommunityWelcomeAdmin.react",
-    "WAWebMessageCommunityWelcomeMember.react",
+    "WAWebMessageCommunityLinkGroupTitle.react",
+    "WAWebMessageCommunitySubgroupWelcomeTitle.react",
+    "WAWebMessageCommunityWelcomeAdminTitle.react",
+    "WAWebMessageCommunityWelcomeMemberTitle.react",
     "WAWebMsgModelUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFormat",
@@ -282,13 +282,13 @@ __d(
         case "subgroup_admin_triggered_auto_add":
         case "subgroup_admin_triggered_invite_auto_add":
           a = o(
-            "WAWebMessageCommunityWelcomeMember.react",
+            "WAWebMessageCommunityWelcomeMemberTitle.react",
           ).communityWelcomeMemberTitle();
           break;
         case "sub_group_participant_add_rich":
         case "sub_group_invite_rich":
           a = o(
-            "WAWebMessageCommunitySubgroupWelcome.react",
+            "WAWebMessageCommunitySubgroupWelcomeTitle.react",
           ).communitySubgroupWelcomeTitle({
             templateParams: t.templateParams,
             clickable: !1,
@@ -296,13 +296,17 @@ __d(
           });
           break;
         case "community_link_parent_group_rich":
-          a = o("WAWebMessageCommunityLinkGroup.react").communityLinkGroupTitle(
-            { templateParams: t.templateParams, clickable: !1, author: c },
-          );
+          a = o(
+            "WAWebMessageCommunityLinkGroupTitle.react",
+          ).communityLinkGroupTitle({
+            templateParams: t.templateParams,
+            clickable: !1,
+            author: c,
+          });
           break;
         case "community_create":
           a = o(
-            "WAWebMessageCommunityWelcomeAdmin.react",
+            "WAWebMessageCommunityWelcomeAdminTitle.react",
           ).communityWelcomeAdminTitle({
             templateParams: t.templateParams,
             author: c,

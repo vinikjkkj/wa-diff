@@ -8,6 +8,7 @@ __d(
     "PinnedCommentEventsConnectionHandler",
     "UFI2CommentsConnectionHandler",
     "VideoTimestampedCommentsConnectionHandler",
+    "WmiIrisInactiveSeqIdHandler",
     "WorkNotificationsThinClientConnectionHandler",
     "relay-runtime",
   ],
@@ -31,6 +32,8 @@ __d(
           return o("BizKitNotificationsThinClientConnectionHandler");
         case "work_notifications_thin_client":
           return o("WorkNotificationsThinClientConnectionHandler");
+        case "wmi_iris_inactive_seq_id":
+          return r("WmiIrisInactiveSeqIdHandler");
         case "deleteRecord":
           return o("relay-runtime").MutationHandlers.DeleteRecordHandler;
         case "appendEdge":

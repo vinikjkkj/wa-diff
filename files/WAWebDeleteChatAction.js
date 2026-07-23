@@ -95,7 +95,11 @@ __d(
         i = a ? t.msgs.get(a) : void 0,
         l = (t.promises.sendDelete = o(
           "WAWebChatDeleteBridge",
-        ).sendConversationDelete(t.id, t.tcToken, t.tcTokenTimestamp)),
+        ).sendConversationDelete({
+          id: t.id,
+          tcToken: t.tcToken,
+          tcTokenTimestamp: t.tcTokenTimestamp,
+        })),
         u = o("WAWebFrontendChatGetters").getKind(t),
         m = l
           .then(

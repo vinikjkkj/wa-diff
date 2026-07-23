@@ -204,7 +204,7 @@ __d(
           n.getIsSentByMe,
           o("WAWebFrontendMsgGetters").getSenderObj,
           n.getHasReaction,
-          n.getGroupHistoryBundleMessageKey,
+          n.getIsGroupHistoryMessageInOwnChat,
           o("WAWebFrontendMsgGetters").getIsTransparentMsg,
         ]),
         W = B[0],
@@ -399,7 +399,7 @@ __d(
           isSentByMe: q,
           isTransparent: G,
           displayType: i,
-          xstyle: H != null && x.groupHistoryMessage,
+          xstyle: H && x.groupHistoryMessage,
           children: d.jsx(o("WAWebMessageMeta.react").Meta, { msg: c }),
         }),
         Se = d.jsx(d.Fragment, {
@@ -451,7 +451,7 @@ __d(
                   (m === o("WAWebMessagePosition").MsgPosition.FRONT ||
                     m === o("WAWebMessagePosition").MsgPosition.SINGLE) &&
                     x.isFirst,
-                  H != null && x.groupHistoryMessage,
+                  H && x.groupHistoryMessage,
                 ),
                 {
                   children: d.jsx(r("WAWebMessageAuthor.react"), {

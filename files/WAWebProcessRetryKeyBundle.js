@@ -200,118 +200,123 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o, a, i) {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l) {
-            if (n == null || !e || (e.type === "regular_retry" && !e.key))
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.is1on1,
+            n = e.keyBundle,
+            r = e.offline,
+            a = e.remoteRegId,
+            i = e.requester,
+            l = e.savedRegId,
+            s = e.sessionScope;
+          if (a == null || !n || (n.type === "regular_retry" && !n.key))
+            return (
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "processKeyBundle: skip due to missing key bundle",
+                  ])),
+              ),
+              !1
+            );
+          if (r) {
+            if (l == null)
               return (
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "processKeyBundle: skip due to missing key bundle",
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "processKeyBundle: missing session for retry",
                     ])),
                 ),
+                yield o("WAWebSignal").Session.deleteRemoteInfo(i),
                 !1
               );
-            if (a) {
-              if (r == null)
-                return (
-                  o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "processKeyBundle: missing session for retry",
-                      ])),
-                  ),
-                  yield o("WAWebSignal").Session.deleteRemoteInfo(t),
-                  !1
-                );
-              if (r !== n)
-                return (
-                  o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "processKeyBundle: del session, reg mismatch saved=",
-                        " recv=",
-                        "",
-                      ])),
-                    r,
-                    n,
-                  ),
-                  yield o("WAWebSignal").Session.deleteRemoteInfo(t),
-                  !1
-                );
-              o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "processKeyBundle: update session w/ retry bundle (offline)",
-                  ])),
+            if (l !== a)
+              return (
+                o("WALogger").LOG(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "processKeyBundle: del session, reg mismatch saved=",
+                      " recv=",
+                      "",
+                    ])),
+                  l,
+                  a,
+                ),
+                yield o("WAWebSignal").Session.deleteRemoteInfo(i),
+                !1
               );
-            } else
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "processKeyBundle: update session w/ retry bundle",
-                  ])),
-              );
-            if (
+            o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "processKeyBundle: update session w/ retry bundle (offline)",
+                ])),
+            );
+          } else
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "processKeyBundle: update session w/ retry bundle",
+                ])),
+            );
+          if (
+            (yield o("WAWebSignal").Session.createSignalSession(
+              {
+                wid: i,
+                regId: a,
+                identity: n.identity,
+                deviceIdentity: n.deviceIdentity,
+                key: n.key,
+                skey: n.skey,
+              },
+              s,
+            ),
+            n.kyberKey != null &&
+              t === !0 &&
+              (s == null ||
+                s === o("WAWebSessionScope").SessionScope.DEFAULT) &&
+              !i.isBot() &&
+              !i.isFbidBot() &&
+              !i.isHosted() &&
+              o("WAWebPQGatingUtils").isPq1on1MessageEnabled())
+          )
+            try {
               (yield o("WAWebSignal").Session.createSignalSession(
                 {
-                  wid: t,
-                  regId: n,
-                  identity: e.identity,
-                  deviceIdentity: e.deviceIdentity,
-                  key: e.key,
-                  skey: e.skey,
+                  wid: i,
+                  regId: a,
+                  identity: n.identity,
+                  deviceIdentity: n.deviceIdentity,
+                  key: n.key,
+                  skey: n.skey,
+                  kyberKey: n.kyberKey,
                 },
-                i,
+                o("WAWebSessionScope").SessionScope.PQ,
               ),
-              e.kyberKey != null &&
-                l === !0 &&
-                (i == null ||
-                  i === o("WAWebSessionScope").SessionScope.DEFAULT) &&
-                !t.isBot() &&
-                !t.isFbidBot() &&
-                !t.isHosted() &&
-                o("WAWebPQGatingUtils").isPq1on1MessageEnabled())
-            )
-              try {
-                (yield o("WAWebSignal").Session.createSignalSession(
-                  {
-                    wid: t,
-                    regId: n,
-                    identity: e.identity,
-                    deviceIdentity: e.deviceIdentity,
-                    key: e.key,
-                    skey: e.skey,
-                    kyberKey: e.kyberKey,
-                  },
-                  o("WAWebSessionScope").SessionScope.PQ,
-                ),
-                  o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "processKeyBundle: established PQXDH session from retry bundle",
-                      ])),
-                  ));
-              } catch (e) {
-                o("WALogger")
-                  .WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "processKeyBundle: failed to build PQXDH session from retry bundle: ",
-                        "",
-                      ])),
-                    e,
-                  )
-                  .sendLogs("retry-pqxdh-session-fail");
-              }
-            return !0;
-          },
-        )),
+                o("WALogger").LOG(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "processKeyBundle: established PQXDH session from retry bundle",
+                    ])),
+                ));
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "processKeyBundle: failed to build PQXDH session from retry bundle: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .sendLogs("retry-pqxdh-session-fail");
+            }
+          return !0;
+        })),
         b.apply(this, arguments)
       );
     }

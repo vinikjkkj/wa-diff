@@ -36,9 +36,13 @@ __d(
     "WAWebMessageCommunityGeneralChatWelcome.react",
     "WAWebMessageCommunityGeneralChatWelcomeTitle.react",
     "WAWebMessageCommunityLinkGroup.react",
+    "WAWebMessageCommunityLinkGroupTitle.react",
     "WAWebMessageCommunitySubgroupWelcome.react",
+    "WAWebMessageCommunitySubgroupWelcomeTitle.react",
     "WAWebMessageCommunityWelcomeAdmin.react",
+    "WAWebMessageCommunityWelcomeAdminTitle.react",
     "WAWebMessageCommunityWelcomeMember.react",
+    "WAWebMessageCommunityWelcomeMemberTitle.react",
     "WAWebMessageCommunityWelcomeSubgroup.react",
     "WAWebMsgModelUtils",
     "WAWebStateUtils",
@@ -398,7 +402,7 @@ __d(
           return {
             l10nBodyTextInstance: i
               ? o(
-                  "WAWebMessageCommunityWelcomeAdmin.react",
+                  "WAWebMessageCommunityWelcomeAdminTitle.react",
                 ).communityWelcomeAdminTitle({
                   author: _,
                   chat: C,
@@ -416,7 +420,7 @@ __d(
           return {
             l10nBodyTextInstance: i
               ? o(
-                  "WAWebMessageCommunityWelcomeMember.react",
+                  "WAWebMessageCommunityWelcomeMemberTitle.react",
                 ).communityWelcomeMemberTitle()
               : d.jsx(
                   o("WAWebMessageCommunityWelcomeMember.react")
@@ -429,7 +433,7 @@ __d(
           return {
             l10nBodyTextInstance: i
               ? o(
-                  "WAWebMessageCommunityWelcomeMember.react",
+                  "WAWebMessageCommunityWelcomeMemberTitle.react",
                 ).communityWelcomeMemberTitle()
               : d.jsx(r("WAWebMessageCommunityWelcomeSubgroup.react"), {
                   templateParams: y,
@@ -440,7 +444,7 @@ __d(
           return {
             l10nBodyTextInstance: i
               ? o(
-                  "WAWebMessageCommunitySubgroupWelcome.react",
+                  "WAWebMessageCommunitySubgroupWelcomeTitle.react",
                 ).communitySubgroupWelcomeTitle({
                   templateParams: y,
                   clickable: a,
@@ -456,7 +460,7 @@ __d(
           return {
             l10nBodyTextInstance: i
               ? o(
-                  "WAWebMessageCommunityLinkGroup.react",
+                  "WAWebMessageCommunityLinkGroupTitle.react",
                 ).communityLinkGroupTitle({
                   templateParams: y,
                   clickable: a,

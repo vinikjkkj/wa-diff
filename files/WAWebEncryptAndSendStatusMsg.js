@@ -427,9 +427,16 @@ __d(
       );
     }
     function I(e) {
-      return o("WAWebStatusGatingUtils").isStatusStanzaSendEnabled()
-        ? ((e.tag = "status"), "status")
-        : "message";
+      if (o("WAWebStatusGatingUtils").isStatusStanzaSendEnabled()) {
+        e.tag = "status";
+        var t =
+          Array.isArray(e.content) &&
+          e.content.some(function (e) {
+            return e instanceof o("WAWap").WapNode && e.tag === "participants";
+          });
+        return (t || delete e.attrs.device_fanout, "status");
+      }
+      return "message";
     }
     function T(e) {
       return e ===

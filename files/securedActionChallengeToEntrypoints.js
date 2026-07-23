@@ -2,6 +2,7 @@ __d(
   "securedActionChallengeToEntrypoints",
   [
     "SecuredActionBlockDialog.entrypoint",
+    "SecuredActionBlockDialogMeta.entrypoint",
     "SecuredActionChallengeCDSPasswordDialog.entrypoint",
     "SecuredActionChallengePasswordDialog.entrypoint",
     "SecuredActionNoChallengeAvailableCDSDialog.entrypoint",
@@ -15,6 +16,7 @@ __d(
           return {
             CDS: r("SecuredActionBlockDialog.entrypoint"),
             default: r("SecuredActionBlockDialog.entrypoint"),
+            metaAccount: r("SecuredActionBlockDialogMeta.entrypoint"),
           };
         case "no_challenge_available":
           return {

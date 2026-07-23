@@ -3,8 +3,8 @@ __d(
   [
     "Promise",
     "WAWebBoolFunc",
+    "WAWebMediaLoadErrors",
     "WAWebMimeTypes",
-    "WAWebMiscErrors",
     "WAWebMsgType",
     "asyncToGeneratorRuntime",
     "err",
@@ -34,7 +34,7 @@ __d(
             var e;
             n(
               ((e = a.error) == null ? void 0 : e.name) === u
-                ? new (o("WAWebMiscErrors").FileNotReadableError)(
+                ? new (o("WAWebMediaLoadErrors").FileNotReadableError)(
                     "blobToArrayBuffer error: " + c(a.error),
                   )
                 : r("err")("blobToArrayBuffer error: " + c(a.error)),

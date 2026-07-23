@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebApiContact",
+    "WAWebContactBlocklistUtils",
     "WAWebContactCollection",
     "WAWebContactCollectionUtils",
     "WAWebProtobufsAdv.pb",
@@ -86,8 +87,8 @@ __d(
             o("WAWebWidFactory").createUserWidOrThrow(n));
           r.copyFieldsFromPnContact(i);
         }
-        (r == null || r.updateContactBlocked(),
-          a == null || a.updateContactBlocked(),
+        (r != null && o("WAWebContactBlocklistUtils").updateContactBlocked(r),
+          a != null && o("WAWebContactBlocklistUtils").updateContactBlocked(a),
           r == null || r.updateContactOptedOutOfMarketingMessages(),
           a == null || a.updateContactOptedOutOfMarketingMessages());
       });

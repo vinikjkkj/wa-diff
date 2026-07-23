@@ -6,6 +6,7 @@ __d(
     "FBLogger",
     "MetaBrandFacebookFilled24Icon.react",
     "MetaBrandInstagramFilled24Icon.react",
+    "MetaBrandInstagramThreadsFilled24Icon.react",
     "MetaBrandMetaOutline24Icon.react",
     "getFXClientInterfaceName.entrypoint",
   ],
@@ -125,6 +126,10 @@ __d(
           return "Oculus";
         case "THREADS":
           return "Threads";
+        case "WHATSAPP":
+          return "WhatsApp";
+        case "ABRA":
+          return "Meta AI";
         default:
           throw r("FBLogger")("fx_accounts_center_settings").mustfixThrow(
             "Unsupported MAEntAccountType %s",
@@ -144,6 +149,8 @@ __d(
           return 4;
         case "THREADS":
           return 5;
+        case "ABRA":
+          return 6;
         default:
           throw r("FBLogger")("fx_accounts_center_settings").mustfixThrow(
             "Unsupported Platform Type %s",
@@ -163,6 +170,10 @@ __d(
           return "FRL";
         case 5:
           return "THREADS";
+        case 6:
+          return "ABRA";
+        case 100:
+          return "META_ACCOUNT";
         default:
           return null;
       }
@@ -220,8 +231,8 @@ __d(
           return "WA";
         case "THREADS":
           return "THREADS";
-        case "EXAMPLE":
-          return "EXAMPLE";
+        case "ABRA":
+          return "META_AI";
         default:
           return null;
       }
@@ -271,6 +282,10 @@ __d(
           return s._(/*BTDS*/ "{setting_name}, open in meta.com", [
             s._param("setting_name", t),
           ]);
+        case 5:
+          return s._(/*BTDS*/ "{setting_name}, open in Threads", [
+            s._param("setting_name", t),
+          ]);
         default:
           return null;
       }
@@ -283,6 +298,8 @@ __d(
           return r("MetaBrandInstagramFilled24Icon.react");
         case 4:
           return r("MetaBrandMetaOutline24Icon.react");
+        case 5:
+          return r("MetaBrandInstagramThreadsFilled24Icon.react");
         default:
           return null;
       }

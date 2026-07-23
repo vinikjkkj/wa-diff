@@ -1335,16 +1335,6 @@ __d(
             }
             return !1;
           }),
-          (i.isSuspended = function () {
-            if (o("WAWebChatGetters").getIsGroup(this)) {
-              var e;
-              return !!((e = this.groupMetadata) != null && e.suspended);
-            } else if (o("WAWebChatGetters").getIsNewsletter(this)) {
-              var t;
-              return !!((t = this.newsletterMetadata) != null && t.suspended);
-            }
-            return !1;
-          }),
           (i.canToggleFavorite = function () {
             var e, t, n, r;
             return o("WAWebListsGatingUtils").isListsEnabled() ||
@@ -1417,12 +1407,6 @@ __d(
           }),
           (i.isDirty = function () {
             return this.unreadCount !== 0;
-          }),
-          (i.canArchive = function () {
-            return !0;
-          }),
-          (i.supportsChatLock = function () {
-            return !0;
           }),
           (i.hasUnreadEdit = function () {
             return this.unreadEditTimestampMs != null;

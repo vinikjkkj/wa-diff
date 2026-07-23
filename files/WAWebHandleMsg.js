@@ -540,6 +540,9 @@ __d(
                             : P.offline == null ||
                                 P.category ===
                                   o("WAWebHandleMsgCommon").MSG_CATEGORY.peer ||
+                                o(
+                                  "WAWebHandleMsgSendReceipt",
+                                ).isCoexV2SenderReceiptMessage(P) ||
                                 N.type ===
                                   o("WAWebHandleMsgCommon").STANZA_MSG_TYPES
                                     .medianotify ||

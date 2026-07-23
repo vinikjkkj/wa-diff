@@ -8,8 +8,8 @@ __d(
     "WAWebMediaConstants",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaGetDownloadOriginForMsg",
+    "WAWebMediaLoadErrors",
     "WAWebMediaOpaqueData",
-    "WAWebMiscErrors",
     "WAWebMmsMediaTypes",
     "WAWebMsgGetters",
     "WAWebMsgModelPropUtils",
@@ -86,7 +86,7 @@ __d(
                     if (
                       a == null &&
                       t instanceof
-                        o("WAWebMiscErrors").UnableToPlayVideoError &&
+                        o("WAWebMediaLoadErrors").UnableToPlayVideoError &&
                       s === 0
                     ) {
                       o("WALogger").LOG(

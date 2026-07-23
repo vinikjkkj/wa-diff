@@ -841,7 +841,6 @@ __d(
       (l.getIsRTL = S),
       (l.getRtl = R),
       (l.getHasBodyOrFooter = L),
-      (l.getChatCollection = E),
       (l.getCurrentChat = k),
       (l.getChat = I),
       (l.getMaybeChat = T),

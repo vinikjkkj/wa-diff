@@ -4,6 +4,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
+    "WAWebCoexV2GatingUtils",
     "WAWebE2eMessageRecvWamEvent",
     "WAWebGetMetricE2eDestination",
     "WAWebGroupType",
@@ -98,6 +99,10 @@ __d(
               : (c.isLid = u.isLid());
           return (
             i.author.isBot() &&
+              !o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(
+                i.author,
+                i.metaFrom,
+              ) &&
               (i.chat.isBot()
                 ? (c.agentEngagementType = o(
                     "WAWebWamEnumAgentEngagementEnumType",

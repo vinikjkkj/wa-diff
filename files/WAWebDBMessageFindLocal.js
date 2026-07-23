@@ -117,22 +117,22 @@ __d(
               (c =
                 s == null
                   ? o("WAWebDBMessageUtils").endOfChat(t)
-                  : o("WAWebDBMessageUtils").craftInternalId(
-                      t.toString(),
-                      o("WAWebDBMessageUtils").getInChatMsgId(
+                  : o("WAWebDBMessageUtils").craftInternalId({
+                      chatId: t.toString(),
+                      inChatMsgId: o("WAWebDBMessageUtils").getInChatMsgId(
                         s.internalId || "",
                       ),
-                    )),
+                    })),
               (d = !0))
             : ((u =
                 s == null
                   ? o("WAWebDBMessageUtils").beginningOfChat(t)
-                  : o("WAWebDBMessageUtils").craftInternalId(
-                      t.toString(),
-                      o("WAWebDBMessageUtils").getInChatMsgId(
+                  : o("WAWebDBMessageUtils").craftInternalId({
+                      chatId: t.toString(),
+                      inChatMsgId: o("WAWebDBMessageUtils").getInChatMsgId(
                         s.internalId || "",
                       ),
-                    )),
+                    })),
               (c = o("WAWebDBMessageUtils").endOfChat(t))),
           o("WAWebSchemaMessage")
             .getMessageTable()
@@ -574,7 +574,10 @@ __d(
             l)
           ) {
             var g = o("WAWebDBMessageUtils").getInChatMsgId(l.internalId || "");
-            _ = o("WAWebDBMessageUtils").craftInternalId(i, g);
+            _ = o("WAWebDBMessageUtils").craftInternalId({
+              chatId: i,
+              inChatMsgId: g,
+            });
           }
           var h = { lowerInclusive: !0, upperInclusive: !1 },
             y = yield o(
@@ -627,8 +630,14 @@ __d(
                 (d = ["internalThreadIDs"]));
             else {
               var p = r + i;
-              ((a = o("WAWebDBMessageUtils").craftInternalId(u, r)),
-                (c = o("WAWebDBMessageUtils").craftInternalId(u, p)),
+              ((a = o("WAWebDBMessageUtils").craftInternalId({
+                chatId: u,
+                inChatMsgId: r,
+              })),
+                (c = o("WAWebDBMessageUtils").craftInternalId({
+                  chatId: u,
+                  inChatMsgId: p,
+                })),
                 (c = o("WAWebDBMessageUtils").endOfChat(t.remote)));
             }
             var _ = { lowerInclusive: !1, upperInclusive: !0 };

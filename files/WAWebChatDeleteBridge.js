@@ -429,12 +429,15 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e, t, r) {
-      return g(e, !0, !1, t, r).then(
+    function L(e) {
+      var t = e.id,
+        r = e.tcToken,
+        a = e.tcTokenTimestamp;
+      return g(t, !0, !1, r, a).then(
         (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            if (t.result != null && t.result.length > 0) {
-              var n = t.result;
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            if (e.result != null && e.result.length > 0) {
+              var n = e.result;
               return (
                 yield o("WAWebBackendApi").frontendSendAndReceive(
                   "deleteModelsForLastAddOnPreview",
@@ -442,21 +445,21 @@ __d(
                 ),
                 yield o(
                   "WAWebNonMessageDataRequestHistorySyncOnDemandUtils",
-                ).deleteChatFromInitialSyncBoundary(e),
+                ).deleteChatFromInitialSyncBoundary(t),
                 yield o("WAWebPersistedJobManagerWorkerCompatible")
                   .getJobManager()
                   .waitUntilPersisted(
                     o(
                       "WAWebPersistedJobDefinitions",
-                    ).jobSerializers.deleteAddOns(e.toString(), n),
+                    ).jobSerializers.deleteAddOns(t.toString(), n),
                   ),
-                t
+                e
               );
             }
-            return t;
+            return e;
           });
-          return function (e) {
-            return t.apply(this, arguments);
+          return function (t) {
+            return e.apply(this, arguments);
           };
         })(),
       );

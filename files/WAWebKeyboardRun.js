@@ -359,7 +359,7 @@ __d(
     }
     function L() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
-      if (e && e.canArchive()) {
+      if (e) {
         var t = e.archive;
         o("WAWebCmd").Cmd.archiveChat(e, !t);
       }

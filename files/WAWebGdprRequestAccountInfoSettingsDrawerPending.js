@@ -4,12 +4,12 @@ __d(
     "fbt",
     "WATimeUtils",
     "WAWeb-moment",
-    "WAWebBusinessHoursIcon.react",
     "WAWebClock",
     "WAWebDrawerButton.react",
     "WAWebGdprRequestAccountInfoSettingsFooterNotice",
     "WAWebNoop",
     "WAWebText.react",
+    "WDSIconIcSchedule.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -34,7 +34,7 @@ __d(
         d;
       t[2] === Symbol.for("react.memo_cache_sentinel")
         ? ((c = "xt0e3qv x178xt8z x13fuv20 xx42vgk xso031l x1q0q8m5 x120ee7l"),
-          (d = u.jsx(o("WAWebBusinessHoursIcon.react").BusinessHoursIcon, {})),
+          (d = u.jsx(r("WDSIconIcSchedule.react"), {})),
           (t[2] = c),
           (t[3] = d))
         : ((c = t[2]), (d = t[3]));

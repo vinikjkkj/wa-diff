@@ -792,10 +792,10 @@ __d(
                   R = "null";
                 if (y != null)
                   try {
-                    var L = o("WAWebDBMessageUtils").craftInternalId(
-                        t.toString(),
-                        y,
-                      ),
+                    var L = o("WAWebDBMessageUtils").craftInternalId({
+                        chatId: t.toString(),
+                        inChatMsgId: y,
+                      }),
                       E = yield o("WAWebSchemaMessage")
                         .getMessageTable()
                         .between(["internalId"], L, L, {

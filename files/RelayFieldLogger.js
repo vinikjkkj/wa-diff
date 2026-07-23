@@ -43,10 +43,17 @@ __d(
         n
       );
     }
-    function h(e) {
+    function h(e, t) {
+      return e === null
+        ? t != null
+          ? " (the server returned null with an error: " + t.message + ")"
+          : " (the server returned null)"
+        : "";
+    }
+    function y(e) {
       return e.kind + "-" + e.fieldPath + "-" + e.owner;
     }
-    function y(e, t) {
+    function C(e, t) {
       p(e) ||
         d === !1 ||
         (m(e) &&
@@ -61,47 +68,65 @@ __d(
                 t,
             ));
     }
-    function C() {
+    function b() {
       var t = new Set();
       return function (o) {
-        var n = h(o),
+        var n = y(o),
           a = t.has(n);
         switch ((a || t.add(n), o.kind)) {
           case "missing_required_field.log":
-            a ||
-              r("FBLogger")(e)
-                .blameToPreviousFrame()
-                .addMetadata("RELAY", "OPERATION", o.owner)
-                .event(o.owner)
-                .mustfix(
-                  'Encountered a missing `@required` field with action "LOG" at "%s" in "%s"',
+            if (!a) {
+              var i,
+                l = h(o.fieldValue, o.fieldError),
+                s = r("FBLogger")(e)
+                  .blameToPreviousFrame()
+                  .addMetadata("RELAY", "OPERATION", o.owner)
+                  .event(o.owner),
+                d = (i = o.fieldError) == null ? void 0 : i.mids;
+              (Array.isArray(d) &&
+                d.forEach(function (e) {
+                  s = s.addMetadata("OPES", "MID", e);
+                }),
+                s.mustfix(
+                  'Encountered a missing `@required` field with action "LOG" at "%s" in "%s"%s',
                   o.fieldPath,
                   o.owner,
-                );
+                  l,
+                ));
+            }
             break;
           case "missing_required_field.throw": {
-            var i = [
+            var m = h(o.fieldValue, o.fieldError),
+              g = [
                 'Encountered a missing `@required` field with action "THROW" at "' +
                   o.fieldPath +
                   '" in "' +
                   o.owner +
-                  '"',
+                  '"' +
+                  m,
               ],
-              l = r("err").apply(void 0, i);
+              b = r("err").apply(void 0, g);
             if (
-              ((l.is_js_error = !0),
-              (l.taalOpcodes = l.taalOpcodes || []),
-              l.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
-              (l.operation = o.owner),
+              ((b.is_js_error = !0),
+              (b.taalOpcodes = b.taalOpcodes || []),
+              b.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
+              (b.operation = o.owner),
               !a)
             ) {
-              var s;
-              (s = r("FBLogger")(e)
-                .blameToPreviousFrame()
-                .addMetadata("RELAY", "OPERATION", o.owner)
-                .event(o.owner)).mustfix.apply(s, i);
+              var v,
+                S,
+                R = r("FBLogger")(e)
+                  .blameToPreviousFrame()
+                  .addMetadata("RELAY", "OPERATION", o.owner)
+                  .event(o.owner),
+                L = (v = o.fieldError) == null ? void 0 : v.mids;
+              (Array.isArray(L) &&
+                L.forEach(function (e) {
+                  R = R.addMetadata("OPES", "MID", e);
+                }),
+                (S = R).mustfix.apply(S, g));
             }
-            if (!o.handled) throw l;
+            if (!o.handled) throw b;
             break;
           }
           case "relay_resolver.error":
@@ -118,37 +143,35 @@ __d(
                 );
             break;
           case "relay_field_payload.error": {
-            var d = o.error;
+            var E = o.error;
             if (!a) {
-              var m = f(o);
+              var k = f(o);
               if (p(o)) {
-                var g = r("FBLogger")(c)
-                  .catching(r("err")(m))
+                var I = r("FBLogger")(c)
+                  .catching(r("err")(k))
                   .addToCategoryKey(o.owner + "." + o.fieldPath);
-                (Array.isArray(d.mids) &&
-                  d.mids.forEach(function (e) {
-                    g = g.addMetadata("OPES", "MID", e);
+                (Array.isArray(E.mids) &&
+                  E.mids.forEach(function (e) {
+                    I = I.addMetadata("OPES", "MID", e);
                   }),
-                  g
-                    .addMetadata("RELAY", "OPERATION", o.owner)
-                    .info(
-                      'RelayFieldPayloadError: An unexpected error ocurred at "%s" in "%s"',
-                      o.fieldPath,
-                      o.owner,
-                    ));
-              } else y(o, m);
+                  I.addMetadata("RELAY", "OPERATION", o.owner).info(
+                    'RelayFieldPayloadError: An unexpected error ocurred at "%s" in "%s"',
+                    o.fieldPath,
+                    o.owner,
+                  ));
+              } else C(o, k);
             }
             if (p(o)) {
-              var C = _
+              var T = _
                   ? f(o)
                   : "Relay: Unexpected response payload - check server logs for details.",
-                b = r("err")(C);
+                D = r("err")(T);
               throw (
-                (b.taalOpcodes = b.taalOpcodes || []),
-                b.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
-                (b.operation = o.owner),
-                Array.isArray(d.mids) && (b.mids = d.mids),
-                b
+                (D.taalOpcodes = D.taalOpcodes || []),
+                D.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
+                (D.operation = o.owner),
+                Array.isArray(E.mids) && (D.mids = E.mids),
+                D
               );
             }
             break;
@@ -156,7 +179,7 @@ __d(
         }
       };
     }
-    ((l.eventShouldLogWouldThrow = m), (l.create = C));
+    ((l.eventShouldLogWouldThrow = m), (l.create = b));
   },
   98,
 );

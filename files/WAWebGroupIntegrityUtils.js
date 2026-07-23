@@ -5,7 +5,7 @@ __d(
     "WAWebFbtCommon",
     "WAWebFlex.react",
     "WAWebStateUtils",
-    "WAWebText.react",
+    "WDSText.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -38,37 +38,38 @@ __d(
     function d(e) {
       var t = o("react-compiler-runtime").c(7),
         n = e.content,
-        r = e.icon,
-        a = e.testId,
-        i;
+        a = e.icon,
+        i = e.testId,
+        l;
       t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [u.marginInline15, u.marginTop15]), (t[0] = i))
-        : (i = t[0]);
-      var l;
+        ? ((l = [u.marginInline15, u.marginTop15]), (t[0] = l))
+        : (l = t[0]);
+      var c;
       t[1] !== n
-        ? ((l = s.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
-            color: "primary",
+        ? ((c = s.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDefault",
             children: n,
           })),
           (t[1] = n),
-          (t[2] = l))
-        : (l = t[2]);
-      var c;
+          (t[2] = c))
+        : (c = t[2]);
+      var d;
       return (
-        t[3] !== r || t[4] !== l || t[5] !== a
-          ? ((c = s.jsxs(o("WAWebFlex.react").FlexRow, {
+        t[3] !== a || t[4] !== c || t[5] !== i
+          ? ((d = s.jsxs(o("WAWebFlex.react").FlexRow, {
               justify: "center",
               align: "center",
-              xstyle: i,
-              testid: a,
-              children: [r, l],
+              xstyle: l,
+              testid: i,
+              children: [a, c],
             })),
-            (t[3] = r),
-            (t[4] = l),
-            (t[5] = a),
-            (t[6] = c))
-          : (c = t[6]),
-        c
+            (t[3] = a),
+            (t[4] = c),
+            (t[5] = i),
+            (t[6] = d))
+          : (d = t[6]),
+        d
       );
     }
     ((l.getLeaveGroupString = c), (l.SuspendedModalBodyParagraph = d));

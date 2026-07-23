@@ -153,10 +153,14 @@ __d(
         })(),
       );
     })();
-    function d(e, t, n, r) {
-      r === void 0 && (r = !1);
-      var o = { chatId: e, subgroups: t, action: n };
-      return r ? c(o) : s([o]);
+    function d(e) {
+      var t = e.action,
+        n = e.chatId,
+        r = e.isOffline,
+        o = r === void 0 ? !1 : r,
+        a = e.subgroups,
+        i = { chatId: n, subgroups: a, action: t };
+      return o ? c(i) : s([i]);
     }
     function m(e) {
       return o("WAWebSchemaGroupMetadata")

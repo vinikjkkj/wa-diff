@@ -71,11 +71,11 @@ __d(
                 isNewsletterStatus: a.isNewsletterStatus,
               });
             (n != null &&
-              (i.internalId = o("WAWebDBMessageUtils").craftInternalId(
-                r.id.toJid(),
-                n,
-                l,
-              )),
+              (i.internalId = o("WAWebDBMessageUtils").craftInternalId({
+                chatId: r.id.toJid(),
+                inChatMsgId: n,
+                internalIdPrefix: l,
+              })),
               yield o("WAWebSchemaMessage")
                 .getMessageTable()
                 .merge(t.id.toString(), i));

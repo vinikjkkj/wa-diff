@@ -3,55 +3,52 @@ __d(
   ["RealtimeGraphQLRequest"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "FBLQ",
-      s = "GRAPHQL";
-    function u(t) {
+    var e = "GRAPHQL";
+    function s(t) {
       var n = t.access_token,
         o = t.actor_id,
-        a = t.config_id,
-        i = t.doc_id,
-        l = t.enable_canonical_naming,
-        u = t.graphiql_impersonation,
-        c = t.graphiql_sandbox,
-        d = t.instrumentation_data,
-        m = t.last_response_digest,
-        p = t.logging_context,
-        _ = t.oncall,
-        f = t.operation_name,
-        g = t.product,
-        h = t.resumption_group_name,
-        y = t.variables,
-        C = s + ":" + f;
-      a != null && a !== "" && (C = e + ":" + a);
-      var b = { method: C, doc_id: i, body: { variables: y != null ? y : {} } };
-      c != null && (b = babelHelpers.extends({}, b, { graphiql_sandbox: c }));
-      var v = {};
+        a = t.doc_id,
+        i = t.enable_canonical_naming,
+        l = t.graphiql_impersonation,
+        s = t.graphiql_sandbox,
+        u = t.instrumentation_data,
+        c = t.last_response_digest,
+        d = t.logging_context,
+        m = t.oncall,
+        p = t.operation_name,
+        _ = t.product,
+        f = t.resumption_group_name,
+        g = t.variables,
+        h = e + ":" + p,
+        y = { method: h, doc_id: a, body: { variables: g != null ? g : {} } };
+      s != null && (y = babelHelpers.extends({}, y, { graphiql_sandbox: s }));
+      var C = {};
       if (
-        (m != null &&
-          (v = babelHelpers.extends({}, v, { last_response_digest: m })),
+        (c != null &&
+          (C = babelHelpers.extends({}, C, { last_response_digest: c })),
         o != null)
       ) {
-        var S = o;
-        v = babelHelpers.extends({}, v, { actor_id: o, page_id: S });
+        var b = o;
+        C = babelHelpers.extends({}, C, { actor_id: o, page_id: b });
       }
       return (
-        p != null && (v = babelHelpers.extends({}, v, { logging_context: p })),
-        n != null && (v = babelHelpers.extends({}, v, { access_token: n })),
+        d != null && (C = babelHelpers.extends({}, C, { logging_context: d })),
+        n != null && (C = babelHelpers.extends({}, C, { access_token: n })),
+        l != null &&
+          (C = babelHelpers.extends({}, C, { graphiql_impersonation: l })),
+        i === !0 &&
+          (C = babelHelpers.extends({}, C, { enable_canonical_naming: !0 })),
+        f != null &&
+          (C = babelHelpers.extends({}, C, { resumption_group_name: f })),
+        m != null && (C = babelHelpers.extends({}, C, { oncall: m })),
+        _ != null && (C = babelHelpers.extends({}, C, { product: _ })),
+        (y = babelHelpers.extends({}, y, { extra_headers: C })),
         u != null &&
-          (v = babelHelpers.extends({}, v, { graphiql_impersonation: u })),
-        l === !0 &&
-          (v = babelHelpers.extends({}, v, { enable_canonical_naming: !0 })),
-        h != null &&
-          (v = babelHelpers.extends({}, v, { resumption_group_name: h })),
-        _ != null && (v = babelHelpers.extends({}, v, { oncall: _ })),
-        g != null && (v = babelHelpers.extends({}, v, { product: g })),
-        (b = babelHelpers.extends({}, b, { extra_headers: v })),
-        d != null &&
-          (b = babelHelpers.extends({}, b, { instrumentation_data: d })),
-        new (r("RealtimeGraphQLRequest"))(b)
+          (y = babelHelpers.extends({}, y, { instrumentation_data: u })),
+        new (r("RealtimeGraphQLRequest"))(y)
       );
     }
-    i.exports = u;
+    i.exports = s;
   },
   34,
 );

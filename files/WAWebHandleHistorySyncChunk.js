@@ -463,7 +463,13 @@ __d(
           ae.statusV3Messages &&
           ae.statusV3Messages.length > 0
             ? yield o("WAWebHistorySyncHandleStatusMessages")
-                .handleStatusMessages(ae, e, U, q, ce)
+                .handleStatusMessages({
+                  chunkDownloadFinishTimestamp: ce,
+                  chunkInfo: e,
+                  historySyncDataAppliedMetric: q,
+                  historySyncDownloadMetric: U,
+                  proto: ae,
+                })
                 .catch(function (e) {
                   throw (
                     o("WALogger")

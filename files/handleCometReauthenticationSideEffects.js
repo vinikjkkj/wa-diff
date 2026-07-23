@@ -19,12 +19,30 @@ __d(
     var e = r("json-bigint")({ storeAsString: !0 }),
       s = new Set(),
       u = new Set(),
-      c = new Set([
-        "bizweb.pageIGLinking.startLinking",
+      c = new Set(["bizweb.pageIGLinking.startLinking"]),
+      d = new Set([
         "bai_permissions.invite_flow.submit",
         "bai_permissions.update_user_permission_on_asset_flow.save",
+        "bai_permissions.send_partnership_request_flow.send_request",
+        "bai_permissions.share_asset_to_partner_flow.assign",
+        "bai_permissions.review_partnership_request_flow.review",
+        "bai_permissions.review_partnership_request_flow.confirm",
+        "bai_permissions.review_partnership_request_flow.approve_and_assign",
+        "bai_permissions.review_partnership_request_flow.decline_confirm",
+        "bai_permissions.review_partnership_request_flow.unified_decline",
+        "bai_permissions.review_business_user_invitation_request_flow.approve",
+        "bai_permissions.review_business_user_invitation_request_flow.decline",
+        "bai_permissions.share_asset_to_partner.page.legacy",
+        "bai_permissions.share_asset_to_partner.ad_account.legacy",
+        "bai_permissions.share_asset_to_partner.instagram.legacy",
+        "bai_permissions.share_asset_to_partner.page.assign",
+        "bai_permissions.share_asset_to_partner.ad_account.assign",
+        "bai_permissions.share_asset_to_partner.instagram.assign",
+        "bai_permissions.share_asset_to_partner.page.share_link",
+        "bai_permissions.share_asset_to_partner.ad_account.share_link",
+        "bai_permissions.share_asset_to_partner.instagram.share_link",
       ]);
-    function d() {
+    function m() {
       o("CometReauthChallengeListener").notifyReauthChallengeListeners(
         "canceled",
       );
@@ -37,7 +55,7 @@ __d(
         n(e);
       }
     }
-    function m() {
+    function p() {
       o("CometReauthChallengeListener").notifyReauthChallengeListeners(
         "success",
       );
@@ -46,7 +64,7 @@ __d(
         t();
       }
     }
-    function p(t) {
+    function _(t) {
       try {
         var n = e.parse(t);
         return (
@@ -59,7 +77,12 @@ __d(
           n
         );
       } catch (e) {
-        e instanceof Error && r("FBLogger")("secured_action").catching(e);
+        e instanceof Error &&
+          r("FBLogger")("secured_action")
+            .catching(e)
+            .mustfix(
+              "Failed to parse secured action challenge data from error payload",
+            );
       }
       return {
         account_id: "",
@@ -67,24 +90,24 @@ __d(
         sensitive_action: null,
       };
     }
-    function _(e, t, a) {
+    function f(e, t, a) {
       var i,
         l,
-        _ = e == null ? void 0 : e.source,
-        f =
+        f = e == null ? void 0 : e.source,
+        g =
           (i =
-            (l = _ == null ? void 0 : _.errorCode) != null
+            (l = f == null ? void 0 : f.errorCode) != null
               ? l
-              : _ == null
+              : f == null
                 ? void 0
-                : _.code) != null
+                : f.code) != null
             ? i
-            : _ == null
+            : f == null
               ? void 0
-              : _.error;
+              : f.error;
       if (
-        typeof f != "number" ||
-        !o("SecuredActionUtils").isReauthenticationErrorCode(f)
+        typeof g != "number" ||
+        !o("SecuredActionUtils").isReauthenticationErrorCode(g)
       )
         return !1;
       if (
@@ -93,49 +116,55 @@ __d(
           .forEach(function (e) {
             var t,
               n = (t = e.getTrace()) == null ? void 0 : t.tracePolicy;
-            n != null && c.has(n) && e.forceCompleteTrace();
+            n != null &&
+              (c.has(n)
+                ? e.cancelTrace("dropped", !0)
+                : d.has(n) && e.forceCompleteTrace());
           }),
         u.add({ onError: a, onSuccess: t }),
-        s.has(f))
+        s.has(g))
       )
         return !0;
-      s.add(f);
-      var g = function () {
-          (s.delete(f), u.clear());
+      s.add(g);
+      var h = function () {
+          (s.delete(g), u.clear());
         },
-        h =
+        y =
           n("cr:5888") == null
             ? void 0
             : n("cr:5888")({
                 error: e,
-                onCleanup: g,
-                onError: d,
-                onSuccess: m,
+                onCleanup: h,
+                onError: m,
+                onSuccess: p,
               });
-      if (h === !0) return !0;
-      var y =
-        n("cr:27369") == null
-          ? void 0
-          : n("cr:27369")({ error: e, onCleanup: g, onError: d, onSuccess: m });
       if (y === !0) return !0;
       var C =
+        n("cr:27369") == null
+          ? void 0
+          : n("cr:27369")({ error: e, onCleanup: h, onError: m, onSuccess: p });
+      if (C === !0) return !0;
+      var b =
         n("cr:3096") == null
           ? void 0
-          : n("cr:3096")({ error: e, onCleanup: g, onError: d, onSuccess: m });
-      if (C === !0) return !0;
+          : n("cr:3096")({ error: e, onCleanup: h, onError: m, onSuccess: p });
+      if (b === !0) return !0;
       try {
-        var b,
-          v = p((b = _ == null ? void 0 : _.description) != null ? b : "");
-        r("securedActionTriggerChallenge")(v, {
-          onExit: function () {
-            (d(), g());
-          },
-          onSuccess: function () {
-            (m(), g());
-          },
-        });
+        var v,
+          S = _((v = f == null ? void 0 : f.description) != null ? v : "");
+        (o("CometReauthChallengeListener").notifyReauthChallengeListeners(
+          "challenged",
+        ),
+          r("securedActionTriggerChallenge")(S, {
+            onExit: function () {
+              (m(), h());
+            },
+            onSuccess: function () {
+              (p(), h());
+            },
+          }));
       } catch (e) {
-        if ((s.delete(f), e instanceof Error))
+        if ((s.delete(g), e instanceof Error))
           throw r("FBLogger")("secured_action").mustfixThrow(
             "Something when wrong while triggering the dialog: %s",
             e.message,
@@ -144,7 +173,7 @@ __d(
       }
       return !0;
     }
-    l.default = _;
+    l.default = f;
   },
   98,
 );

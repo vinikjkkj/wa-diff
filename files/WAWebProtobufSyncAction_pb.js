@@ -178,6 +178,7 @@ __d(
         EXAMPLE_RESPONSES: 3,
         KNOWLEDGE: 4,
         LEAD_GEN: 5,
+        HANDOFF_REMOVAL_TIMING: 6,
       }),
       R = s({ MUTED: 0, AI_AGENT: 1, SUGGESTIONS: 2 }),
       L = s({ ENABLED: 0, ENABLED_HAS_LEARNING: 1, DISABLED: 2 }),

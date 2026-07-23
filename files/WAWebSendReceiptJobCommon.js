@@ -9,6 +9,7 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebABProps",
+    "WAWebCoexV2BotWid",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebLidMigrationUtils",
@@ -119,12 +120,28 @@ __d(
         );
       return o("WADeprecatedSendIq").deprecatedCastStanza(s);
     }
-    function g(e) {
+    function g(e, t) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return y({
+            to: o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
+            type: u.SENDER,
+            recipient: t,
+            groupedReceipt: new Map([[t, [e]]]),
+          });
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.groupedReceipt,
             a = t.isStatusReceipt,
             i = t.maxStsByAuthor,
@@ -341,14 +358,15 @@ __d(
             ),
           );
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
     ((l.RECEIPT_TYPE = u),
       (l.ReceiptModeBitPosition = c),
       (l.genReceiptMetaModeNode = d),
       (l.sendBotInvokeResponseAcks = f),
-      (l.sendAggregateReceipts = g));
+      (l.sendCoexV2SenderReceipt = g),
+      (l.sendAggregateReceipts = y));
   },
   98,
 );

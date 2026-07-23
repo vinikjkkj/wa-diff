@@ -106,6 +106,7 @@ __d(
             "thumb_color",
             "filled_track_color",
             "unfilled_track_color",
+            "custom_knob",
           ],
           plural_subnodes: ["extensions", "child_templates"],
         },

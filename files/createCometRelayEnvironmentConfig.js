@@ -26,6 +26,7 @@ __d(
     "createRelayFBNetworkFetch",
     "createRelayFBSubscribeFunction",
     "createRelayQPLLogger",
+    "gkx",
     "liveQueryFetch",
     "liveQueryFetchWithWWWInitial",
     "relay-runtime",
@@ -38,7 +39,12 @@ __d(
         o = t == null ? "" : " - " + t;
       return "CometRelayEnvironment (" + String(e) + o + ")" + n;
     }
-    function s(e, t) {
+    function s(e) {
+      var t = r("gkx")("3367") ? r("RelayAPIConfig").customHeaders : {},
+        n = e != null ? e() : {};
+      return babelHelpers.extends({}, t, n);
+    }
+    function u(e, t) {
       var a = {
           actorID: e,
           batchResponseChunks: !0,
@@ -52,12 +58,12 @@ __d(
               t
             );
           },
-          getAdditionalHeaders:
-            n("cr:13458") != null
-              ? n("cr:13458")()
-              : function () {
-                  return {};
-                },
+          getAdditionalHeaders: (function () {
+            var e = n("cr:13458") != null ? n("cr:13458")() : null;
+            return function () {
+              return s(e);
+            };
+          })(),
           graphURI: t,
           liveQueryFetchFn: r("liveQueryFetch"),
           liveQueryFetchWithWWWInitialFn: r("liveQueryFetchWithWWWInitial"),
@@ -70,17 +76,17 @@ __d(
             : r("createRelayFBNetworkFetch")(a),
         l = r("createRelayFBNetwork")(
           i,
-          u(e),
+          c(e),
           null,
           r("cometPrefetchVideoDashV2"),
         );
       return o("LSRelayEnvironmentConfig").injectLSRelayHandler(l, void 0);
     }
-    function u(e) {
+    function c(e) {
       var t = r("createRelayFBSubscribeFunction")({ actorID: e });
       return n("cr:27596") != null ? n("cr:27596")(t) : t;
     }
-    function c() {
+    function d() {
       var e = n("cr:1121434") != null ? n("cr:1121434")() : null,
         t =
           n("cr:534") != null
@@ -100,12 +106,12 @@ __d(
           a != null && a(r));
       };
     }
-    function d(t, a) {
+    function m(t, a) {
       var i,
         l,
-        u = t.actorID,
-        d = t.graphURI,
-        m = c(),
+        s = t.actorID,
+        c = t.graphURI,
+        m = d(),
         p = a == null ? void 0 : a.extraLoggingFunction,
         _ = p
           ? function (e) {
@@ -114,14 +120,14 @@ __d(
           : m;
       return {
         UNSTABLE_defaultRenderPolicy: "partial",
-        actorID: u,
-        configName: e(u),
+        actorID: s,
+        configName: e(s),
         getDataID: r("relayFBGetDataID"),
         handlerProvider: r("cometHandlerProvider"),
         isServer: o("CometRootInitServerFlag").isServerEnvironment(),
         log: _,
         missingFieldHandlers: r("CometMissingFieldHandlers"),
-        network: (i = a == null ? void 0 : a.network) != null ? i : s(u, d),
+        network: (i = a == null ? void 0 : a.network) != null ? i : u(s, c),
         normalizeResponse:
           o("LSRelayEnvironmentConfig") == null
             ? void 0
@@ -139,9 +145,10 @@ __d(
       };
     }
     ((l.createCometEnvironmentConfigName = e),
-      (l.createCometNetwork = s),
-      (l.createCometEnvironmentLogFn = c),
-      (l.createCometRelayEnvironmentConfig = d));
+      (l.mergeCometRequestHeaders = s),
+      (l.createCometNetwork = u),
+      (l.createCometEnvironmentLogFn = d),
+      (l.createCometRelayEnvironmentConfig = m));
   },
   98,
 );

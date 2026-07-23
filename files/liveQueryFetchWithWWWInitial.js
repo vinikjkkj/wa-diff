@@ -18,7 +18,6 @@ __d(
       var l = babelHelpers.extends(
         {
           doc_id: r("nullthrows")(e.id),
-          config_id: n.config_id,
           operation_name: e.name,
           actor_id: n.actor_id,
           variables: t,

@@ -39,6 +39,8 @@ __d(
       ADD_TO_NOTE: 34,
       TRANSLATE: 35,
       SPEAK: 36,
+      VIEW_TRANSLATION: 37,
+      REMOVE_TRANSLATION: 38,
     });
     i.MESSAGE_CONTEXT_MENU_OPTION_TYPE = e;
   },

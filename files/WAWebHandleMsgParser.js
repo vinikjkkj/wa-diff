@@ -224,7 +224,7 @@ __d(
           : o("WAWebWidToJid").widToChatJid(
               o("WAWebWidFactory").asUserWidOrThrow(g),
             );
-        P(i, f.offline, _, h);
+        P({ chatJid: h, msgMeta: i, offline: f.offline, sts: _ });
       }
       var y = l.hasAttr("participant")
           ? o("WAWebJidToWid").deviceJidToDeviceWid(
@@ -1024,15 +1024,19 @@ __d(
       }
       return l;
     }
-    function P(e, t, n, r) {
+    function P(e) {
+      var t = e.chatJid,
+        n = e.msgMeta,
+        r = e.offline,
+        a = e.sts;
       if (
         o("WAWebABProps").getABPropConfigValue(
           "web_read_self_watermark_processing",
         ) &&
-        !(e == null || t == null || n == null || n <= 0)
+        !(n == null || r == null || a == null || a <= 0)
       ) {
-        var a = o("WAWebThreadMetadata").getPeerWatermark(r);
-        a != null && n <= a.readSts && (e.isReadByPeer = !0);
+        var i = o("WAWebThreadMetadata").getPeerWatermark(t);
+        i != null && a <= i.readSts && (n.isReadByPeer = !0);
       }
     }
     function N(e) {

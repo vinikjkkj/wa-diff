@@ -730,13 +730,13 @@ __d(
             }
             case o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_LINK:
               F.push(
-                o("WAWebDBCommunity").persistCommunityLink(
-                  l,
-                  a.groupDatas,
-                  o("WAWebDBCommunityTypes").CommunityLinkOperation
+                o("WAWebDBCommunity").persistCommunityLink({
+                  action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SubGroupLink,
-                  i,
-                ),
+                  chatId: l,
+                  isOffline: i,
+                  subgroups: a.groupDatas,
+                }),
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
                   l,
                   { lastActivityTimestamp: o("WATimeUtils").unixTime() },
@@ -746,13 +746,13 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_LINK:
               F.push(
-                o("WAWebDBCommunity").persistCommunityLink(
-                  l,
-                  a.groupDatas,
-                  o("WAWebDBCommunityTypes").CommunityLinkOperation
+                o("WAWebDBCommunity").persistCommunityLink({
+                  action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SiblingGroupLink,
-                  i,
-                ),
+                  chatId: l,
+                  isOffline: i,
+                  subgroups: a.groupDatas,
+                }),
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_UNLINK:
@@ -766,24 +766,24 @@ __d(
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_UNLINK:
               F.push(
-                o("WAWebDBCommunity").persistCommunityLink(
-                  l,
-                  a.groupDatas,
-                  o("WAWebDBCommunityTypes").CommunityLinkOperation
+                o("WAWebDBCommunity").persistCommunityLink({
+                  action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SubGroupUnlink,
-                  i,
-                ),
+                  chatId: l,
+                  isOffline: i,
+                  subgroups: a.groupDatas,
+                }),
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_UNLINK:
               F.push(
-                o("WAWebDBCommunity").persistCommunityLink(
-                  l,
-                  a.groupDatas,
-                  o("WAWebDBCommunityTypes").CommunityLinkOperation
+                o("WAWebDBCommunity").persistCommunityLink({
+                  action: o("WAWebDBCommunityTypes").CommunityLinkOperation
                     .SiblingGroupUnlink,
-                  i,
-                ),
+                  chatId: l,
+                  isOffline: i,
+                  subgroups: a.groupDatas,
+                }),
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_APPROVAL_MODE:

@@ -12,6 +12,7 @@ __d(
     "WAWebVoipBrowserMetrics",
     "WAWebVoipCallRatingStore",
     "WAWebVoipDeviceClassUtils",
+    "WAWebVoipErrorLogUpload",
     "WAWebVoipFocusTracker",
     "WAWebVoipGatingUtils",
     "WAWebVoipJsonParserPayloads",
@@ -107,12 +108,15 @@ __d(
             a = n.stats.fieldStatsRowType,
             i = n.isLastFieldStatsReport;
           if (i) {
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [Fieldstats] last segment stored for rating",
-                ])),
-            );
+            (n.eventType ===
+              o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
+              x(n.stats),
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [Fieldstats] last segment stored for rating",
+                  ])),
+              ));
             return;
           }
           yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
@@ -142,22 +146,48 @@ __d(
             n.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
               ? new (o("WAWebCallWamEvent").CallWamEvent)(s)
-              : x(s);
+              : $(s);
           _.commit();
         })),
         D.apply(this, arguments)
       );
     }
     function x(e) {
+      var t = e.callEndReconnecting,
+        n = e.groupCallIsLastSegment,
+        r = e.maxConnectedParticipants;
+      if (
+        !(
+          typeof t != "boolean" ||
+          typeof n != "boolean" ||
+          typeof r != "number"
+        )
+      ) {
+        var a = e.callId,
+          i = e.callT,
+          l = e.groupCallSegmentIdx,
+          s = e.groupCallTotalCallTSinceCallStart;
+        o("WAWebVoipErrorLogUpload").maybeUploadGroupCallCerLogs({
+          callEndReconnecting: t,
+          callId: typeof a == "string" ? a : null,
+          callT: typeof i == "number" ? i : null,
+          groupCallIsLastSegment: n,
+          groupCallSegmentIdx: typeof l == "number" ? l : null,
+          groupCallTotalCallTSinceCallStart: typeof s == "number" ? s : null,
+          maxConnectedParticipants: r,
+        });
+      }
+    }
+    function $(e) {
       var t = new (o("WAWebJoinableCallWamEvent").JoinableCallWamEvent)();
       return (t.set(e), t);
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o(
             "WAWebVoipCallRatingStore",
           ).consumePendingFieldstatsJsonStr();
@@ -264,10 +294,10 @@ __d(
               a.eventType ===
                 o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call)
             ) {
-              var $ = yield o("WAWebBackendApi").frontendSendAndReceive(
+              var x = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "getUnifiedSessionId",
               );
-              $ != null && (s.unifiedSessionId = $);
+              x != null && (s.unifiedSessionId = x);
               var P = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "consumeOutgoingCallSetupActiveMs",
                 { callId: T },
@@ -375,7 +405,7 @@ __d(
                     O != null ? O : "null",
                   )),
                 (q = U));
-            } else q = x(s);
+            } else q = $(s);
             (a.uploadInRealtime ? yield q.commitAndWaitForFlush() : q.commit(),
               o("WALogger").LOG(
                 S ||
@@ -387,15 +417,15 @@ __d(
               ));
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N() {
-      return M.apply(this, arguments);
-    }
     function M() {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e =
               yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -413,10 +443,10 @@ __d(
               .catching(r("getErrorSafe")(e));
           }
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w() {
+    function A() {
       o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
         var t = Date.now();
         o("WAWebBackendApi")
@@ -448,9 +478,9 @@ __d(
       });
     }
     ((l.handleFieldstatsReady = T),
-      (l.sendStoredFieldstats = $),
-      (l.cleanupFieldstatsAfterNormalEnd = N),
-      (l.syncVoipPersistentFSWithIdleCallback = w));
+      (l.sendStoredFieldstats = P),
+      (l.cleanupFieldstatsAfterNormalEnd = M),
+      (l.syncVoipPersistentFSWithIdleCallback = A));
   },
   98,
 );

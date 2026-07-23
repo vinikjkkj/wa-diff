@@ -629,7 +629,10 @@ __d(
         a = o("WAWebDBMessageUtils").beginningOfChat(
           o("WAWebWidFactory").createWid(e.id),
         ),
-        i = o("WAWebDBMessageUtils").craftInternalId(e.id, t);
+        i = o("WAWebDBMessageUtils").craftInternalId({
+          chatId: e.id,
+          inChatMsgId: t,
+        });
       return o("WAWebDBQueryChatVisibleMessageHelper")
         .queryChatVisibleMessageHelper({
           lowerBound: a,
@@ -646,7 +649,10 @@ __d(
       return o(
         "WAWebDBQueryChatVisibleMessageHelper",
       ).queryChatVisibleMessageHelper({
-        lowerBound: o("WAWebDBMessageUtils").craftInternalId(e.id, t),
+        lowerBound: o("WAWebDBMessageUtils").craftInternalId({
+          chatId: e.id,
+          inChatMsgId: t,
+        }),
         upperBound: o("WAWebDBMessageUtils").endOfChat(
           o("WAWebWidFactory").createWid(e.id),
         ),

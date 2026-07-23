@@ -1,6 +1,6 @@
 __d(
   "WAWebEventFiles",
-  ["Promise", "WAWebFileUtils", "WAWebImageUtils", "WAWebMiscErrors"],
+  ["Promise", "WAWebFileUtils", "WAWebImageUtils", "WAWebMediaLoadErrors"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, r) {
@@ -34,7 +34,7 @@ __d(
         ) {
           if (c.getData("text/plain"))
             return (e || (e = n("Promise"))).reject(
-              new (o("WAWebMiscErrors").MediaDragDropError)(
+              new (o("WAWebMediaLoadErrors").MediaDragDropError)(
                 "dropped html has text nodes",
               ),
             );

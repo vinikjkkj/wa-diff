@@ -25,6 +25,7 @@ __d(
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDebugString",
     "WAWebMediaGatingUtils",
+    "WAWebMediaLoadErrors",
     "WAWebMediaObject",
     "WAWebMediaTypes",
     "WAWebMediaWorkerProxy",
@@ -841,7 +842,7 @@ __d(
                   p.stack,
                 )
                 .verbose(),
-              new (o("WAWebMiscErrors").MediaNeedsReupload)()
+              new (o("WAWebMediaLoadErrors").MediaNeedsReupload)()
             );
           } finally {
             (c != null && window.clearTimeout(c),
