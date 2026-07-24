@@ -90,61 +90,63 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t, n, r) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l =
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.desc,
+            a = t.groupWid,
+            i = t.newDescId,
+            l = t.prevDescId,
+            s =
               r != null
                 ? yield o(
                     "WASmaxGroupsSetDescriptionRPC",
                   ).sendSetDescriptionRPC({
                     bodyArgs: { bodyElementValue: r },
-                    iqTo: o("WAWebWidToJid").widToGroupJid(t),
-                    descriptionId: a,
-                    descriptionPrev: i,
+                    iqTo: o("WAWebWidToJid").widToGroupJid(a),
+                    descriptionId: i,
+                    descriptionPrev: l,
                     hasDescriptionDeleteTrue: !1,
                   })
                 : yield o(
                     "WASmaxGroupsSetDescriptionRPC",
                   ).sendSetDescriptionRPC({
                     bodyArgs: void 0,
-                    iqTo: o("WAWebWidToJid").widToGroupJid(t),
-                    descriptionId: a,
-                    descriptionPrev: i,
+                    iqTo: o("WAWebWidToJid").widToGroupJid(a),
+                    descriptionId: i,
+                    descriptionPrev: l,
                     hasDescriptionDeleteTrue: !0,
                   });
-            switch (l.name) {
-              case "SetDescriptionResponseSuccess":
-                return;
-              case "SetDescriptionResponseClientError": {
-                var s = l.value.errorSetDescriptionClientErrors.value,
-                  u = s.code,
-                  c = s.text;
-                return (e || (e = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(u),
-                    c,
-                  ),
-                );
-              }
-              case "SetDescriptionResponseServerError": {
-                var d = l.value.errorServerErrors.value,
-                  m = d.code,
-                  p = d.text;
-                return (e || (e = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                    Number(m),
-                    p,
-                  ),
-                );
-              }
+          switch (s.name) {
+            case "SetDescriptionResponseSuccess":
+              return;
+            case "SetDescriptionResponseClientError": {
+              var u = s.value.errorSetDescriptionClientErrors.value,
+                c = u.code,
+                d = u.text;
+              return (e || (e = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(c),
+                  d,
+                ),
+              );
             }
-          },
-        )),
+            case "SetDescriptionResponseServerError": {
+              var m = s.value.errorServerErrors.value,
+                p = m.code,
+                _ = m.text;
+              return (e || (e = n("Promise"))).reject(
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(
+                  Number(p),
+                  _,
+                ),
+              );
+            }
+          }
+        })),
         d.apply(this, arguments)
       );
     }

@@ -2,7 +2,6 @@ __d(
   "WAWebPollsParsePollCreationMessageProto",
   [
     "WALongInt",
-    "WANullthrows",
     "WAWebIsPhotoPollReceiverEnabled",
     "WAWebMessageSecretErrorsWamEvent",
     "WAWebMsgType",
@@ -16,6 +15,7 @@ __d(
     "WAWebWamEnumMessageSecretErrorType",
     "compactMap",
     "isStringNullOrEmpty",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -219,7 +219,7 @@ __d(
                   name: n,
                   hash: o(
                     "WAWebPollOptionHashUtils",
-                  ).createOptionHashHexFromString(r("WANullthrows")(t)),
+                  ).createOptionHashHexFromString(r("nullthrows")(t)),
                   localId: a,
                 }
               : { name: n, localId: a }

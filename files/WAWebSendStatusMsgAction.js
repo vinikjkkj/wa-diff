@@ -4,7 +4,6 @@ __d(
     "invariant",
     "WAJids",
     "WALogger",
-    "WANullthrows",
     "WATimeUtils",
     "WAWebAck",
     "WAWebAddonConstants",
@@ -52,6 +51,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e, u, c, d, m, p, _, f, g, h, y;
@@ -338,7 +338,7 @@ __d(
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            var n = r("WANullthrows")(o("WAWebMsgGetters").getSender(e)),
+            var n = r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
               a = o("WAWebLidStatusMigrationUtils").matWidConvert(
                 o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
               ),

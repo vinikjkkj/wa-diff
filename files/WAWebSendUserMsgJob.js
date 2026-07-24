@@ -112,11 +112,11 @@ __d(
               )
               .tags("messaging");
             var x = o("WATimeUtils").unixTime();
-            (o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric(
-              S,
-              l,
-              i,
-            ),
+            (o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric({
+              chatWid: S,
+              msgProtobuf: i,
+              msgRecord: l,
+            }),
               (a.sendReporter = a.createSendReporter({
                 isResend: !0,
                 originalMessage: l.type === "message" ? l.data : void 0,
@@ -146,7 +146,15 @@ __d(
                   );
                 })
                 .then(function () {
-                  return g(l, i, E, x, a, r, p);
+                  return g({
+                    ackTime: x,
+                    chatId: r,
+                    excludeList: E,
+                    metricReporter: a,
+                    msgProtobuf: i,
+                    msgRecord: l,
+                    scheduledMsgMetadata: p,
+                  });
                 })
                 .catch(function (e) {
                   (o("WALogger")
@@ -190,28 +198,33 @@ __d(
           );
       }
     }
-    function g(e, t, n, r, o, a, i) {
+    function g(e) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l) {
-            var s = yield o("WAWebPersistedJobManagerWorkerCompatible")
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.ackTime,
+            n = e.chatId,
+            r = e.excludeList,
+            a = e.metricReporter,
+            i = e.msgProtobuf,
+            l = e.msgRecord,
+            s = e.scheduledMsgMetadata,
+            u = yield o("WAWebPersistedJobManagerWorkerCompatible")
               .getJobManager()
               .accessors.maybeCreateJob(
                 o("WAWebPersistedJobDefinitions").jobSerializers.resendUserMsg(
-                  e,
-                  n,
+                  l,
                   r,
+                  t,
                 ),
               );
-            (yield o("WAWebResendUserMsg").resendUserMsg(e, t, n, r, a, i, l),
-              yield o("WAWebPersistedJobManagerWorkerCompatible")
-                .getJobManager()
-                .accessors.deletePersistedJob(s.id));
-          },
-        )),
+          (yield o("WAWebResendUserMsg").resendUserMsg(l, i, r, t, a, n, s),
+            yield o("WAWebPersistedJobManagerWorkerCompatible")
+              .getJobManager()
+              .accessors.deletePersistedJob(u.id));
+        })),
         h.apply(this, arguments)
       );
     }

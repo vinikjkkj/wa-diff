@@ -1,6 +1,6 @@
 __d(
   "WAWebPollsDbUtils",
-  ["invariant", "WANullthrows", "WAWebPollOptionHashUtils"],
+  ["invariant", "WAWebPollOptionHashUtils", "nullthrows"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e == null
@@ -48,9 +48,9 @@ __d(
             var n = e.hash,
               a = e.name;
             return n == null
-              ? { name: r("WANullthrows")(a), localId: t }
+              ? { name: r("nullthrows")(a), localId: t }
               : {
-                  name: r("WANullthrows")(a),
+                  name: r("nullthrows")(a),
                   localId: t,
                   hash: o(
                     "WAWebPollOptionHashUtils",
@@ -69,10 +69,10 @@ __d(
                   o = e.optionVoteCount;
                 return {
                   option: {
-                    name: r("WANullthrows")(n == null ? void 0 : n.name),
+                    name: r("nullthrows")(n == null ? void 0 : n.name),
                     localId: t,
                   },
-                  optionVoteCount: r("WANullthrows")(o),
+                  optionVoteCount: r("nullthrows")(o),
                 };
               });
       return { pollVotes: o };

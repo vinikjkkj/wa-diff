@@ -2,17 +2,17 @@ __d(
   "WAWebSharableEventInviteFormatMessageText",
   [
     "fbt",
-    "WANullthrows",
     "WAWebFormatEventDateString",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
     "WAWebSharableEventInviteCoerceTimestampSeconds",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.msg,
         n = e.options,
-        a = r("WANullthrows")(
+        a = r("nullthrows")(
           o("WAWebFrontendMsgGetters").getAsSharableEventInvite(t),
         );
       if (n.formatAsLastMsg === !0)

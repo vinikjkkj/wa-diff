@@ -24,12 +24,16 @@ __d(
         ? n
         : null;
     }
-    function u(t, n, r, a) {
-      if (n != null && o("WAWebBotUtils").isMetaAiBot(t)) return n;
-      var i =
-        r.data.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
-        r.data.isForwarded === !0;
-      return i ? e : s(t, a);
+    function u(t) {
+      var n = t.botMetricsOrigin,
+        r = t.chatId,
+        a = t.includeAttributes,
+        i = t.msgRecord;
+      if (n != null && o("WAWebBotUtils").isMetaAiBot(r)) return n;
+      var l =
+        i.data.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
+        i.data.isForwarded === !0;
+      return l ? e : s(r, a);
     }
     function c(e) {
       var t,
@@ -62,7 +66,12 @@ __d(
               )
             : null,
         R = (n = v == null ? void 0 : v.destinationId) != null ? n : null,
-        L = u(a, S, c, l),
+        L = u({
+          botMetricsOrigin: S,
+          chatId: a,
+          includeAttributes: l,
+          msgRecord: c,
+        }),
         E = p(c, l),
         k = f(c),
         I = ((r = c.data.mediaData) == null ? void 0 : r.isViewOnce) === !0,

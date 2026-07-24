@@ -23,19 +23,24 @@ __d(
         )
         .waitUntilCompleted(a);
     }
-    function s(e, t, n, r, a) {
-      var i = { groupWid: e, code: t, expiration: n, adminWid: r, option: a };
+    function s(e) {
+      var t = e.adminWid,
+        n = e.code,
+        r = e.expiration,
+        a = e.groupWid,
+        i = e.option,
+        l = { groupWid: a, code: n, expiration: r, adminWid: t, option: i };
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "queryGroupInviteMessageProfilePic",
           function (e) {
             return o(
               "WAWebQueryGroupInviteProfilePicApi",
-            ).queryGroupInviteMessageProfilePic(i);
+            ).queryGroupInviteMessageProfilePic(l);
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
-        .waitUntilCompleted(i);
+        .waitUntilCompleted(l);
     }
     ((l.queryGroupInviteLinkProfilePicJob = e),
       (l.queryGroupInviteMessageProfilePicJob = s));

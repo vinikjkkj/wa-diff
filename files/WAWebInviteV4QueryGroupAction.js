@@ -29,7 +29,13 @@ __d(
                   }),
                 )),
               o("WAWebGroupInviteV4Job")
-                .queryGroupInviteV4(e, t, n, a, i)
+                .queryGroupInviteV4({
+                  from: a,
+                  inviteCode: e,
+                  inviteCodeExp: t,
+                  inviteGrp: n,
+                  phash: i,
+                })
                 .then(function (e) {
                   if (e.phashMatch === !0)
                     return { status: 200, phashMatch: !0 };

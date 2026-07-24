@@ -32,6 +32,7 @@ __d(
         send_document: s.WEBC_QUICK_ACTION_ID.SEND_DOCUMENT,
         add_contact: s.WEBC_QUICK_ACTION_ID.ADD_CONTACT,
         ask_meta_ai: s.WEBC_QUICK_ACTION_ID.ASK_META_AI,
+        start_call: s.WEBC_QUICK_ACTION_ID.START_CALL,
       },
       d = !1,
       m = new Set(),

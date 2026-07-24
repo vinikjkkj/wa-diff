@@ -8,7 +8,6 @@ __d(
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebChatAssignmentLogEvents.flow",
     "WAWebChatAssignmentUtils",
-    "WAWebChatAssignmentWithContainerIcon.react",
     "WAWebChatContextMenuItemEditLabel.react",
     "WAWebChatContextMenuItemEditList.react",
     "WAWebChatContextMenuItemLock.react",
@@ -58,6 +57,7 @@ __d(
     "WDSIconIcSearch.react",
     "WDSIconIcShare.react",
     "WDSIconWdsIcDisappearingMessages.react",
+    "WDSIconWdsIcTransferOwnership.react",
     "WDSMenuItem.react",
     "cr:23149",
     "gkx",
@@ -195,8 +195,7 @@ __d(
           ? ((P = u.jsx(
               r("WDSMenuItem.react"),
               {
-                Icon: o("WAWebChatAssignmentWithContainerIcon.react")
-                  .ChatAssignmentWithContainerIcon,
+                Icon: r("WDSIconWdsIcTransferOwnership.react"),
                 title: $,
                 onPress: function () {
                   o("WAWebCmd").Cmd.assignChat(

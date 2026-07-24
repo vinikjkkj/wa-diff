@@ -10,7 +10,6 @@ __d(
     "WAWebBroadcastDeviceClassifier",
     "WAWebBroadcastEphemeralUtils",
     "WAWebBroadcastODS",
-    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebCommsWapMd",
     "WAWebE2EProtoUtils",
     "WAWebEncryptMsgProtobuf",
@@ -95,44 +94,39 @@ __d(
             g = o("WAWebBroadcastDeviceClassifier").classifyBroadcastDevice(i);
           o("WAWebBroadcastODS").bumpBroadcastRetry();
           try {
-            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-              [i],
-              !1,
-              o("WAWebSessionScope").SessionScope.DEFAULT,
-            );
+            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              identityChanged: !1,
+              sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+              wids: [i],
+            });
             var h = n,
               y = null;
-            if (
-              o(
-                "WAWebBusinessBroadcastsGatingUtils",
-              ).isBizBroadcastDisappearingMessagesFixEnabled()
-            )
-              try {
-                var C = yield o(
-                  "WAWebBroadcastEphemeralUtils",
-                ).buildBroadcastRetryEphemeral({
-                  authorId: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-                  broadcastJid: l,
-                  proto: n,
-                  recipient: o("WAWebWidFactory").asUserWidOrThrow(i),
-                });
-                ((h = C.content), (y = C.ephSetting));
-              } catch (e) {
-                (o("WAWebBroadcastODS").bumpBroadcastEphemeralSetupError(),
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[broadcast:retry] ephemeral setup failed, resending without DM: retryCount=",
-                          "",
-                        ])),
-                      f,
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("broadcast-retry-ephemeral-setup-failed"),
-                  (h = n),
-                  (y = null));
-              }
+            try {
+              var C = yield o(
+                "WAWebBroadcastEphemeralUtils",
+              ).buildBroadcastRetryEphemeral({
+                authorId: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+                broadcastJid: l,
+                proto: n,
+                recipient: o("WAWebWidFactory").asUserWidOrThrow(i),
+              });
+              ((h = C.content), (y = C.ephSetting));
+            } catch (e) {
+              (o("WAWebBroadcastODS").bumpBroadcastEphemeralSetupError(),
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[broadcast:retry] ephemeral setup failed, resending without DM: retryCount=",
+                        "",
+                      ])),
+                    f,
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("broadcast-retry-ephemeral-setup-failed"),
+                (h = n),
+                (y = null));
+            }
             o("WALogger")
               .LOG(
                 u ||

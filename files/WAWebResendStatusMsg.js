@@ -50,7 +50,11 @@ __d(
                   ])),
               );
           }
-          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions([p], !1, d);
+          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+            identityChanged: !1,
+            sessionScope: d,
+            wids: [p],
+          });
           var g = i.data.id,
             h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
           o("WALogger")

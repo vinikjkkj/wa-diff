@@ -34,12 +34,12 @@ __d(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       g === "" && (g = null);
-      var h = o("WAWebGroupModifyInfoJob").setGroupDescription(
-          t.id,
-          g,
-          o("WARandomHex").randomHex(8),
-          (m = t.groupMetadata) == null ? void 0 : m.descId,
-        ),
+      var h = o("WAWebGroupModifyInfoJob").setGroupDescription({
+          desc: g,
+          groupWid: t.id,
+          newDescId: o("WARandomHex").randomHex(8),
+          prevDescId: (m = t.groupMetadata) == null ? void 0 : m.descId,
+        }),
         y =
           ((_ = t.groupMetadata) == null ? void 0 : _.groupType) ===
           o("WAWebGroupType").GroupType.COMMUNITY,

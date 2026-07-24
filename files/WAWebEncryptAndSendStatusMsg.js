@@ -236,11 +236,11 @@ __d(
             try {
               var K, Q;
               (K = n.sendPerfReporter) == null || K.startPrekeysFetchStage();
-              var X = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                V,
-                !1,
-                k,
-              );
+              var X = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                identityChanged: !1,
+                sessionScope: k,
+                wids: V,
+              });
               ((Q = n.sendPerfReporter) == null ||
                 Q.setFetchedPrekeyCount(
                   X == null ? void 0 : X.missedPrekeyCount,
@@ -518,15 +518,17 @@ __d(
           );
           var d = l.data.to,
             m = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
-              l,
-              i,
-              r,
               {
-                fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
-                sessionScope: s,
+                chatId: d,
+                deviceList: r,
+                metricReporter: a,
+                msgProtobuf: i,
+                msgRecord: l,
+                option: {
+                  fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.GROUP_DIRECT,
+                  sessionScope: s,
+                },
               },
-              a,
-              d,
             ),
             p = m.stanza,
             _ = I(p);

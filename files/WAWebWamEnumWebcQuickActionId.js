@@ -16,6 +16,7 @@ __d(
       ADD_CONTACT: 11,
       ASK_META_AI: 12,
       START_CALL: 13,
+      GO_TO_CALLS: 14,
     });
     i.WEBC_QUICK_ACTION_ID = e;
   },

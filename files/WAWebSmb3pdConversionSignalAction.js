@@ -12,7 +12,6 @@ __d(
     "WAWebConversionTupleCollection",
     "WAWebConversionTupleModel",
     "WAWebCtwa3pdConversionWamEvent",
-    "WAWebCtwaConversationDepthUtils",
     "WAWebDataSharing3pdLidCollection",
     "WAWebDownloads3PDSignalsDatabaseApi",
     "WAWebLabelCollection",
@@ -44,23 +43,25 @@ __d(
         }
       },
       u = function (n, a) {
-        var t = n.chat,
-          i = n.orderStatus,
-          l = n.paidData,
-          u = n.subType,
-          c = n.surface,
-          d = n.type,
-          m = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t),
-          p = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(t);
+        var t,
+          i,
+          l = n.chat,
+          u = n.orderStatus,
+          c = n.paidData,
+          d = n.subType,
+          m = n.surface,
+          p = n.type,
+          _ = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(l),
+          f = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(l);
         if (
-          m != null &&
+          _ != null &&
           !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
         ) {
-          var _ = r("WAWebConversionTupleCollection").get(t.id);
+          var g = r("WAWebConversionTupleCollection").get(l.id);
           if (
             !(
-              _ != null &&
-              o("WATimeUtils").unixTime() - _.timestamp >
+              g != null &&
+              o("WATimeUtils").unixTime() - g.timestamp >
                 o("WAWebConversionTupleModel").ConversionTupleExpiry &&
               o(
                 "WAWebCTWAGatingUtils",
@@ -69,31 +70,33 @@ __d(
             o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
               o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
           ) {
-            var f = u == null ? s(i != null ? i : null, d) : u,
-              g = JSON.stringify(l),
-              h = o("WAWebCtwaConversationDepthUtils").getCtwaConversationDepth(
-                t,
-              ),
-              y = {
+            var h = d == null ? s(u != null ? u : null, p) : d,
+              y = JSON.stringify(c),
+              C =
+                (t = g == null ? void 0 : g.conversationDepth) != null ? t : 0,
+              b =
+                (i = g == null ? void 0 : g.conversationRepeat) != null ? i : 0,
+              v = {
                 ctwa3pdSchemaVersion: 2,
-                ctwa3pdSurfaceType: c,
-                ctwa3pdConversionType: d,
-                ctwa3pdConversionSubtype: f,
-                ctwa3pdConversionMetadata: g,
-                ctwaConversationDepth: h,
-                ctwaSignals: p != null ? p : void 0,
+                ctwa3pdSurfaceType: m,
+                ctwa3pdConversionType: p,
+                ctwa3pdConversionSubtype: h,
+                ctwa3pdConversionMetadata: y,
+                ctwaConversationDepth: C,
+                ctwaConversationRepeat: b,
+                ctwaSignals: f != null ? f : void 0,
               };
             if (
-              (m.data != null && (y.ctwaTrackingPayload = m.data),
+              (_.data != null && (v.ctwaTrackingPayload = _.data),
               o("WAWebCTWAGatingUtils").isDownload3PDSignalsEnabled())
             ) {
-              var C;
+              var S;
               o("WAWebDownloads3PDSignalsDatabaseApi")
                 .addOrEdit3PDSignal({
-                  clickId: (C = y.ctwaTrackingPayload) != null ? C : "",
-                  ctwa3pdConversionType: d,
-                  ctwa3pdConversionSubtype: f,
-                  ctwa3pdConversionMetadata: g,
+                  clickId: (S = v.ctwaTrackingPayload) != null ? S : "",
+                  ctwa3pdConversionType: p,
+                  ctwa3pdConversionSubtype: h,
+                  ctwa3pdConversionMetadata: y,
                   timestamp: o("WATimeUtils").unixTimeMs(),
                 })
                 .catch(function (t) {
@@ -108,20 +111,20 @@ __d(
                   );
                 });
             }
-            var b = o(
+            var R = o(
               "WAWebCTWAGatingUtils",
             ).isPerCustomerDataSharingControlsEnabled()
-              ? t.accountLid == null ||
+              ? l.accountLid == null ||
                 !o(
                   "WAWebDataSharing3pdLidCollection",
                 ).DataSharing3pdLidCollection.isDataSharingEnabled(
-                  t.accountLid.toString(),
+                  l.accountLid.toString(),
                 )
               : !a;
-            b ||
+            R ||
               new (o(
                 "WAWebCtwa3pdConversionWamEvent",
-              ).Ctwa3pdConversionWamEvent)(y).commit();
+              ).Ctwa3pdConversionWamEvent)(v).commit();
           }
         }
       },

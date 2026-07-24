@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebBatchUpdateBroadcastAck",
     "WAWebBroadcastEphemeralUtils",
@@ -384,10 +383,7 @@ __d(
             !a.some(function (e) {
               var t = e.setting;
               return t.duration > 0;
-            }) ||
-            !o("WAWebABProps").getABPropConfigValue(
-              "wa_web_broadcast_disappearing_messages_fix",
-            )
+            })
           )
             return null;
           var i = o(

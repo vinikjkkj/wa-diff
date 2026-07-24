@@ -72,15 +72,6 @@ __d(
           belowHard: e,
         });
       },
-      getHardExpireTime: function () {
-        var e,
-          t = document.getElementById("hard_expire_time"),
-          n = parseInt(
-            t == null || (e = t.dataset) == null ? void 0 : e.time,
-            10,
-          );
-        return Number.isNaN(n) ? 1572566400 : n;
-      },
     };
     l.SocketBridgeApi = e;
   },

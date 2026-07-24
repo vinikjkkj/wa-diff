@@ -287,11 +287,11 @@ __d(
                 (yield o(
                   "WAWebUpdateLocalSignalSession",
                 ).updateLocalSignalSession(e, t, r),
-                  yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                    [h],
-                    !1,
-                    r,
-                  ));
+                  yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                    identityChanged: !1,
+                    sessionScope: r,
+                    wids: [h],
+                  }));
                 var n = yield o("WAWebSignalProtocolStore")
                   .getPersistSignalProtocolStore()
                   .getIdentityWithRowId(

@@ -5,6 +5,7 @@ __d(
     "WAJids",
     "WALogger",
     "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
+    "WASmaxBrPaymentRemoveCustomPaymentMethodRPC",
     "WAWebBackendApi",
     "WAWebCustomPaymentMethodsSync",
     "WAWebMobilePlatforms",
@@ -12,13 +13,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function p() {
+    function C() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.customPaymentMethodUpdate,
             r = n === void 0 ? "false" : n,
             a = t.pixDisplayName,
@@ -60,7 +61,7 @@ __d(
                     ])),
                 )
                 .sendLogs("payment-brazil"),
-                yield _(d));
+                yield L(d));
               break e;
             }
             if (
@@ -91,15 +92,135 @@ __d(
           }
           return d;
         })),
-        p.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function f() {
+    function v() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = { accountCredentialId: e };
+          o("WALogger")
+            .LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "Removing Pix Key",
+                ])),
+            )
+            .sendLogs("payment-brazil");
+          var n;
+          try {
+            n = yield o(
+              "WASmaxBrPaymentRemoveCustomPaymentMethodRPC",
+            ).sendRemoveCustomPaymentMethodRPC(t);
+          } catch (e) {
+            var r = e instanceof Error ? e.message : String(e);
+            throw (
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "Remove Pix Key RPC threw: ",
+                      "",
+                    ])),
+                  r,
+                )
+                .sendLogs("payment-brazil"),
+              e
+            );
+          }
+          e: {
+            if (n.name === "RemoveCustomPaymentMethodResponseSuccess") {
+              o("WALogger")
+                .LOG(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "Pix Key removed successfully",
+                    ])),
+                )
+                .sendLogs("payment-brazil");
+              try {
+                yield S();
+              } catch (e) {
+                var a = e instanceof Error ? e.message : String(e);
+                o("WALogger")
+                  .ERROR(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "Pix Key removed but removal sync failed: ",
+                        "",
+                      ])),
+                    a,
+                  )
+                  .sendLogs("payment-brazil");
+              }
+              break e;
+            }
+            if (n.name === "RemoveCustomPaymentMethodResponseError") {
+              o("WALogger")
+                .ERROR(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to remove Pix Key: code=",
+                      " reason=",
+                      "",
+                    ])),
+                  n.value.errorCode,
+                  n.value.errorText,
+                )
+                .sendLogs("payment-brazil");
+              break e;
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                n.name,
+            );
+          }
+          return n;
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = { customPaymentMethods: [] },
+            t = yield r(
+              "WAWebCustomPaymentMethodsSync",
+            ).getCustomPaymentMethodSetMutation(e);
+          return o("WAWebSyncdCoreApi")
+            .lockForSync([], [t], function () {
+              return (h || (h = n("Promise"))).resolve();
+            })
+            .then(function () {
+              (o("WALogger")
+                .LOG(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "Synced pix removal mutation",
+                    ])),
+                )
+                .sendLogs("payment-brazil"),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "setCustomPaymentMethods",
+                  { customPaymentMethods: [] },
+                ));
+            });
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
             i,
@@ -126,7 +247,7 @@ __d(
               })) == null
                 ? void 0
                 : a.value) || "",
-            m =
+            c =
               ((i =
                 e.value.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
                 null ||
@@ -137,52 +258,52 @@ __d(
               })) == null
                 ? void 0
                 : i.value) || "",
-            p =
+            d =
               ((l =
                 e.value.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
               null
                 ? void 0
                 : l.credentialId) || "",
-            _ = {
+            m = {
               customPaymentMethods: [
                 {
-                  credentialId: p,
+                  credentialId: d,
                   country: "BR",
                   type: "pix_key",
                   metadata: [
                     { key: "pix_key_type", value: s },
                     { key: "pix_key", value: u },
-                    { key: "pix_display_name", value: m },
+                    { key: "pix_display_name", value: c },
                   ],
                 },
               ],
             },
-            f = yield r(
+            p = yield r(
               "WAWebCustomPaymentMethodsSync",
-            ).getCustomPaymentMethodSetMutation(_);
+            ).getCustomPaymentMethodSetMutation(m);
           return o("WAWebSyncdCoreApi")
-            .lockForSync([], [f], function () {
-              return (d || (d = n("Promise"))).resolve();
+            .lockForSync([], [p], function () {
+              return (h || (h = n("Promise"))).resolve();
             })
             .then(function () {
               (o("WALogger")
                 .LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "Synced pix mutation",
                     ])),
                 )
                 .sendLogs("payment-brazil"),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "setCustomPaymentMethods",
-                  { customPaymentMethods: _.customPaymentMethods },
+                  { customPaymentMethods: m.customPaymentMethods },
                 ));
             });
         })),
-        f.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    l.addOrUpdatePix = m;
+    ((l.addOrUpdatePix = y), (l.removePix = b));
   },
   98,
 );

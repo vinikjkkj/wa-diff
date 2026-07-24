@@ -235,11 +235,11 @@ __d(
             R = o("WAWebUserPrefsMeUser").isMeAccount(a),
             E = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([a, m], a);
           try {
-            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-              E,
-              !1,
-              o("WAWebSessionScope").SessionScope.DEFAULT,
-            );
+            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              identityChanged: !1,
+              sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+              wids: E,
+            });
           } catch (e) {
             o("WALogger").ERROR(
               s ||

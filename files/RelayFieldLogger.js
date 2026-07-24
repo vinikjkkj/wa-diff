@@ -1,13 +1,15 @@
 __d(
   "RelayFieldLogger",
-  ["invariant", "FBLogger", "err", "fb-error", "gkx"],
+  ["invariant", "FBLogger", "Random", "err", "fb-error", "gkx"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = "relay-required",
       u = "relay-resolver",
       c = "relay-error-handling",
-      d = r("gkx")("13037");
-    function m(e) {
+      d = r("gkx")("13037"),
+      m = r("gkx")("18885"),
+      p = 0.01;
+    function _(e) {
       if (e.shouldThrow === !0 || d === !1) return !1;
       switch (e.kind) {
         case "relay_resolver.error":
@@ -23,40 +25,40 @@ __d(
           (e.kind, s(0, 93051, e.kind));
       }
     }
-    function p(e) {
+    function f(e) {
       return e.shouldThrow && !e.handled;
     }
-    var _ = r("gkx")("10182");
-    function f(e) {
+    var g = r("gkx")("10182");
+    function h(e) {
       var t,
         n = e.error,
         r = n == null ? void 0 : n.message,
         o = n == null || (t = n.exception) == null ? void 0 : t.message;
-      return g(r, o);
+      return y(r, o);
     }
-    function g(e, t) {
+    function y(e, t) {
       if (e == null && t == null) return "Unknown error";
       var n = "Relay field server error: ";
       return (
-        t != null && _ && (n += "\n[OriginalServerError]: " + t),
+        t != null && g && (n += "\n[OriginalServerError]: " + t),
         e != null && (n += "\n[GraphQLServerError]: " + e),
         n
       );
     }
-    function h(e, t) {
+    function C(e, t) {
       return e === null
         ? t != null
           ? " (the server returned null with an error: " + t.message + ")"
           : " (the server returned null)"
         : "";
     }
-    function y(e) {
+    function b(e) {
       return e.kind + "-" + e.fieldPath + "-" + e.owner;
     }
-    function C(e, t) {
-      p(e) ||
+    function v(e, t) {
+      f(e) ||
         d === !1 ||
-        (m(e) &&
+        (_(e) &&
           r("FBLogger")(c)
             .blameToPreviousFrame()
             .info(
@@ -68,16 +70,16 @@ __d(
                 t,
             ));
     }
-    function b() {
+    function S() {
       var t = new Set();
       return function (o) {
-        var n = y(o),
+        var n = b(o),
           a = t.has(n);
         switch ((a || t.add(n), o.kind)) {
           case "missing_required_field.log":
             if (!a) {
               var i,
-                l = h(o.fieldValue, o.fieldError),
+                l = C(o.fieldValue, o.fieldError),
                 s = r("FBLogger")(e)
                   .blameToPreviousFrame()
                   .addMetadata("RELAY", "OPERATION", o.owner)
@@ -96,37 +98,37 @@ __d(
             }
             break;
           case "missing_required_field.throw": {
-            var m = h(o.fieldValue, o.fieldError),
-              g = [
+            var _ = C(o.fieldValue, o.fieldError),
+              y = [
                 'Encountered a missing `@required` field with action "THROW" at "' +
                   o.fieldPath +
                   '" in "' +
                   o.owner +
                   '"' +
-                  m,
+                  _,
               ],
-              b = r("err").apply(void 0, g);
+              S = r("err").apply(void 0, y);
             if (
-              ((b.is_js_error = !0),
-              (b.taalOpcodes = b.taalOpcodes || []),
-              b.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
-              (b.operation = o.owner),
+              ((S.is_js_error = !0),
+              (S.taalOpcodes = S.taalOpcodes || []),
+              S.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
+              (S.operation = o.owner),
               !a)
             ) {
-              var v,
-                S,
-                R = r("FBLogger")(e)
+              var R,
+                L,
+                E = r("FBLogger")(e)
                   .blameToPreviousFrame()
                   .addMetadata("RELAY", "OPERATION", o.owner)
                   .event(o.owner),
-                L = (v = o.fieldError) == null ? void 0 : v.mids;
-              (Array.isArray(L) &&
-                L.forEach(function (e) {
-                  R = R.addMetadata("OPES", "MID", e);
+                k = (R = o.fieldError) == null ? void 0 : R.mids;
+              (Array.isArray(k) &&
+                k.forEach(function (e) {
+                  E = E.addMetadata("OPES", "MID", e);
                 }),
-                (S = R).mustfix.apply(S, g));
+                (L = E).mustfix.apply(L, y));
             }
-            if (!o.handled) throw b;
+            if (!o.handled) throw S;
             break;
           }
           case "relay_resolver.error":
@@ -143,43 +145,56 @@ __d(
                 );
             break;
           case "relay_field_payload.error": {
-            var E = o.error;
+            var I = o.error;
             if (!a) {
-              var k = f(o);
-              if (p(o)) {
-                var I = r("FBLogger")(c)
-                  .catching(r("err")(k))
+              var T = h(o);
+              if (f(o)) {
+                var D = r("FBLogger")(c)
+                  .catching(r("err")(T))
                   .addToCategoryKey(o.owner + "." + o.fieldPath);
-                (Array.isArray(E.mids) &&
-                  E.mids.forEach(function (e) {
-                    I = I.addMetadata("OPES", "MID", e);
+                (Array.isArray(I.mids) &&
+                  I.mids.forEach(function (e) {
+                    D = D.addMetadata("OPES", "MID", e);
                   }),
-                  I.addMetadata("RELAY", "OPERATION", o.owner).info(
+                  D.addMetadata("RELAY", "OPERATION", o.owner).info(
                     'RelayFieldPayloadError: An unexpected error ocurred at "%s" in "%s"',
                     o.fieldPath,
                     o.owner,
                   ));
-              } else C(o, k);
+              } else v(o, T);
             }
-            if (p(o)) {
-              var T = _
-                  ? f(o)
+            if (f(o)) {
+              var x = g
+                  ? h(o)
                   : "Relay: Unexpected response payload - check server logs for details.",
-                D = r("err")(T);
+                $ = r("err")(x);
               throw (
-                (D.taalOpcodes = D.taalOpcodes || []),
-                D.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
-                (D.operation = o.owner),
-                Array.isArray(E.mids) && (D.mids = E.mids),
-                D
+                ($.taalOpcodes = $.taalOpcodes || []),
+                $.taalOpcodes.push(r("fb-error").TAALOpcode.PREVIOUS_FRAME),
+                ($.operation = o.owner),
+                Array.isArray(I.mids) && ($.mids = I.mids),
+                $
               );
             }
             break;
           }
+          case "missing_expected_data.log":
+            m &&
+              !a &&
+              r("Random").coinflip(p) &&
+              r("FBLogger")(c)
+                .blameToPreviousFrame()
+                .addMetadata("RELAY", "OPERATION", o.owner)
+                .warn(
+                  'Relay: Missing expected data at "%s" in "%s"',
+                  o.fieldPath,
+                  o.owner,
+                );
+            break;
         }
       };
     }
-    ((l.eventShouldLogWouldThrow = m), (l.create = b));
+    ((l.eventShouldLogWouldThrow = _), (l.create = S));
   },
   98,
 );

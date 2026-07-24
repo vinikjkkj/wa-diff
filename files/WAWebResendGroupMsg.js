@@ -53,13 +53,13 @@ __d(
               I.toString(),
             )
             .tags("messaging"),
-            o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric(
-              I,
-              b,
-              l,
-              r,
-              R,
-            ),
+            o("WAWebPostMdDeviceSyncAckMetric").postMdDeviceSyncAckMetric({
+              chatWid: I,
+              groupData: r,
+              msgProtobuf: l,
+              msgRecord: b,
+              serverAddressingMode: R,
+            }),
             (i.sendReporter = i.createSendReporter({
               isResend: !0,
               originalMessage: b.type === "message" ? b.data : void 0,

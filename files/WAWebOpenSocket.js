@@ -3,9 +3,9 @@ __d(
   [
     "Promise",
     "WAAbortError",
+    "WACustomError",
     "WALogger",
     "WAPromiseRetryLoop",
-    "WAWebMiscErrors",
     "WAWebWatchedSocket",
     "getErrorSafe",
   ],
@@ -176,9 +176,7 @@ __d(
                 n(new (o("WAAbortError").AbortError)());
                 return;
               }
-              (r == null || r(e),
-                a == null || a(null, e),
-                n(new (o("WAWebMiscErrors").SocketError)(e)));
+              (r == null || r(e), a == null || a(null, e), n(new E(e)));
             }));
         }).then(function () {
           return i;
@@ -225,6 +223,26 @@ __d(
         })
       );
     }
+    function L(e) {
+      try {
+        return JSON.stringify(e);
+      } catch (t) {
+        return e.toString();
+      }
+    }
+    var E = (function (e) {
+      function t(t) {
+        var n,
+          r = typeof t == "string" ? t : L(t);
+        return (
+          (n = e.call(this, r) || this),
+          (n.name = "SocketError"),
+          (n.event = t),
+          n
+        );
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(o("WACustomError").CustomError);
     l.openWebSocket = R;
   },
   98,

@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAWebChatCollection",
     "WAWebChatListMenuItem.react",
-    "WAWebChatMsgIcon.react",
     "WAWebChatSearchModel",
     "WAWebChatlistUtils",
     "WAWebCommandPaletteController",
@@ -26,6 +25,7 @@ __d(
     "WAWebSettingsIcon.react",
     "WAWebSparklesIcon.react",
     "WAWebStaticMenuItem.react",
+    "WDSIconWdsIcChat.react",
     "WDSText.react",
     "react",
     "react-compiler-runtime",
@@ -188,7 +188,7 @@ __d(
           var d;
           t[8] === Symbol.for("react.memo_cache_sentinel")
             ? ((d = u.jsx(f, {
-                icon: u.jsx(o("WAWebChatMsgIcon.react").ChatMsgIcon, {
+                icon: u.jsx(r("WDSIconWdsIcChat.react"), {
                   iconXstyle: _.tealColor,
                   height: 24,
                   width: 24,

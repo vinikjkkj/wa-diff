@@ -46,13 +46,15 @@ __d(
       );
     }
     function h() {
-      return s._(/*BTDS*/ "Edit your Pix key");
+      return s._(
+        /*BTDS*/ "You can't edit or delete your Pix key because passkey is enabled on your primary device.",
+      );
     }
     function y() {
-      return s._(/*BTDS*/ "Pix key");
+      return s._(/*BTDS*/ "Edit your Pix key");
     }
     function C() {
-      return s._(/*BTDS*/ "Hide Pix key from...");
+      return s._(/*BTDS*/ "Pix key");
     }
     function b() {
       return s._(/*BTDS*/ "Add your Pix key for fast and secure payments");
@@ -69,6 +71,26 @@ __d(
         [s._param("learn-more-link", e)],
       );
     }
+    function L() {
+      return s._(/*BTDS*/ "Delete Pix key");
+    }
+    function E() {
+      return s._(/*BTDS*/ "Delete Pix key?");
+    }
+    function k() {
+      return s._(
+        /*BTDS*/ "You'll always be able to add a Pix key later if you delete it.",
+      );
+    }
+    function I() {
+      return s._(/*BTDS*/ "Delete");
+    }
+    function T() {
+      return s._(/*BTDS*/ "Pix key deleted");
+    }
+    function D() {
+      return s._(/*BTDS*/ "Couldn't delete Pix key. Please try again.");
+    }
     ((l.getConsumerPixKeyTypeOptions = e),
       (l.getConsumerAddPixKeyTitle = u),
       (l.getConsumerAddPixKeySubtitle = c),
@@ -78,13 +100,19 @@ __d(
       (l.getConsumerPixVisibilityNobody = _),
       (l.getConsumerPixVisibilityLabel = f),
       (l.getConsumerPixVisibilityUpdateError = g),
-      (l.getConsumerPixEditKeyAriaLabel = h),
-      (l.getConsumerPixKeyLabel = y),
-      (l.getConsumerPixHideFromContactsTitle = C),
+      (l.getConsumerPixPasskeyBlockedToast = h),
+      (l.getConsumerPixEditKeyAriaLabel = y),
+      (l.getConsumerPixKeyLabel = C),
       (l.getConsumerPaymentsHomeEmptyStateTitle = b),
       (l.getConsumerPaymentsHomeAddPixKeyButton = v),
       (l.getConsumerPaymentsHomePixKeyHeader = S),
-      (l.getConsumerPixEncryptedFooter = R));
+      (l.getConsumerPixEncryptedFooter = R),
+      (l.getConsumerPixDeleteKeyButton = L),
+      (l.getConsumerPixDeleteKeyConfirmTitle = E),
+      (l.getConsumerPixDeleteKeyConfirmBody = k),
+      (l.getConsumerPixDeleteKeyConfirmCta = I),
+      (l.getConsumerPixDeleteKeyDeletedToast = T),
+      (l.getConsumerPixDeleteKeyErrorToast = D));
   },
   226,
 );

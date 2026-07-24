@@ -379,7 +379,11 @@ __d(
               Y ||
                 F.push(
                   o("WAWebGroupParticipantsJob")
-                    .demoteCommunityParticipantsJob(X, a.participants, i)
+                    .demoteCommunityParticipantsJob({
+                      group: X,
+                      isOffline: i,
+                      participants: a.participants,
+                    })
                     .catch(
                       o("WAFilteredCatch").filteredCatch(
                         o("WAWebDBParticipantTypes").GroupUnSyncedError,

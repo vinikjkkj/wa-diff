@@ -20,7 +20,6 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebFtsConstants",
     "WAWebKeepInChatMsgUtils",
-    "WAWebLidMigrationUtils",
     "WAWebMessageAssociationUIUtils",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
@@ -39,7 +38,6 @@ __d(
     "WAWebThreadModelResolver",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
-    "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
@@ -220,45 +218,10 @@ __d(
               ).makeParentMessagesVisibleInChat(l),
               r("WAWebSyncButtonState")(l),
               this._prefetchProductListMessages(l),
-              this.processVCardMessagesForLidMappings(l),
+              o("WAWebMsgVcardUtils").processVCardMessagesForLidMappings(l),
               this.processEditedMessages(l),
               l
             );
-          }),
-          (i.processVCardMessagesForLidMappings = function (t) {
-            var e = t.reduce(function (e, t) {
-              if (
-                t == null ||
-                (t.type !== o("WAWebMsgType").MSG_TYPE.VCARD &&
-                  t.type !== o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)
-              )
-                return e;
-              var n =
-                t.type === o("WAWebMsgType").MSG_TYPE.VCARD
-                  ? o("WAWebMsgVcardUtils").getVcardWids(t)
-                  : o("WAWebMsgVcardUtils").getMultiVcardWids(t);
-              if (n == null) return e;
-              var r = n.filter(function (e) {
-                return o("WAWebLidMigrationUtils").toUserLid(e) == null;
-              });
-              return r.length === 0
-                ? e
-                : e == null
-                  ? new Set(r)
-                  : (r.forEach(function (t) {
-                      return e.add(t);
-                    }),
-                    e);
-            }, null);
-            e != null &&
-              o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-                "syncContactListJob",
-                {
-                  contactIds: Array.from(e),
-                  shouldSyncDevice: !1,
-                  mode: "query",
-                },
-              );
           }),
           (i._prefetchProductListMessages = function (t) {
             this.productListMessagesPrefetchChain = t

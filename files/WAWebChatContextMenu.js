@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebChatAssignmentUtils",
-    "WAWebChatAssignmentWithContainerIcon.react",
     "WAWebChatCellDebugMenuItems.react",
     "WAWebChatContextMenuItemAddContact.react",
     "WAWebChatContextMenuItemArchive.react",
@@ -26,6 +25,7 @@ __d(
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WDSIconIcDoNotDisturbOn.react",
     "WDSIconIcFavorite.react",
+    "WDSIconWdsIcTransferOwnership.react",
     "WDSMenuItem.react",
     "cr:23046",
     "react",
@@ -64,8 +64,7 @@ __d(
       o("WAWebChatAssignmentUtils").canAssignChats() &&
         p.push(
           u.jsx(r("WDSMenuItem.react"), {
-            Icon: o("WAWebChatAssignmentWithContainerIcon.react")
-              .ChatAssignmentWithContainerIcon,
+            Icon: r("WDSIconWdsIcTransferOwnership.react"),
             title: s._(/*BTDS*/ "Assign chat"),
             onPress: t,
             testid: "mi-assign-chat",

@@ -41,7 +41,13 @@ __d(
                 t == null ? void 0 : t.id.toString(),
               )
               .tags("messaging");
-            var _ = yield f(p, i, u, a, d),
+            var _ = yield f({
+                dsmPhash: d,
+                groupId: a,
+                proto: p,
+                shouldWrapDeviceSendMessage: u,
+                skDistributionList: i,
+              }),
               g = i.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -193,97 +199,98 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n, r, o) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i) {
-            var l = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-              s = [].concat(
-                Array.from(
-                  new Set(t.map(o("WAWebWidFactory").asUserWidOrThrow)),
-                ),
-              ),
-              u = yield o("WAWebApiDeviceList").bulkGetDeviceRecord(
-                [l].concat(s),
-              ),
-              d = u[0],
-              m = babelHelpers.arrayLikeToArray(u).slice(1),
-              p = null;
-            try {
-              p = yield o("WAWebIdentityIcdcApi").getICDCMetaFromDeviceRecord(
-                l,
-                d,
-              );
-            } catch (e) {
-              throw (
-                new (o(
-                  "WAWebAdvMetadataCreationFailureWamEvent",
-                ).AdvMetadataCreationFailureWamEvent)({
-                  advMetadataIsMe: !0,
-                }).commit(),
-                e
-              );
-            }
-            var _ = new Map();
-            return (
-              yield (c || (c = n("Promise"))).all(
-                m.map(
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t, n) {
-                        var l = s[n],
-                          u = babelHelpers.extends({}, e),
-                          c = null;
-                        if (o("WAWebUserPrefsMeUser").isMeAccount(l))
-                          r &&
-                            ((u = o(
-                              "WAWebDeviceSentMessageProtoUtils",
-                            ).wrapDeviceSentMessage(u, a)),
-                            i != null &&
-                              u.deviceSentMessage != null &&
-                              (u = babelHelpers.extends({}, u, {
-                                deviceSentMessage: babelHelpers.extends(
-                                  {},
-                                  u.deviceSentMessage,
-                                  { phash: i },
-                                ),
-                              })));
-                        else
-                          try {
-                            c = yield o(
-                              "WAWebIdentityIcdcApi",
-                            ).getICDCMetaFromDeviceRecord(l, t);
-                          } catch (e) {
-                            throw (
-                              new (o(
-                                "WAWebAdvMetadataCreationFailureWamEvent",
-                              ).AdvMetadataCreationFailureWamEvent)({
-                                advMetadataIsMe: !1,
-                              }).commit(),
-                              e
-                            );
-                          }
-                        (o("WAWebE2EProtoGenerator").populateMessageContextInfo(
-                          u,
-                          p,
-                          c,
-                        ),
-                          _.set(l.toString(), u));
-                      },
-                    );
-                    return function (e, n) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              ),
-              _
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.dsmPhash,
+            r = e.groupId,
+            a = e.proto,
+            i = e.shouldWrapDeviceSendMessage,
+            l = e.skDistributionList,
+            s = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+            u = [].concat(
+              Array.from(new Set(l.map(o("WAWebWidFactory").asUserWidOrThrow))),
+            ),
+            d = yield o("WAWebApiDeviceList").bulkGetDeviceRecord(
+              [s].concat(u),
+            ),
+            m = d[0],
+            p = babelHelpers.arrayLikeToArray(d).slice(1),
+            _ = null;
+          try {
+            _ = yield o("WAWebIdentityIcdcApi").getICDCMetaFromDeviceRecord(
+              s,
+              m,
             );
-          },
-        )),
+          } catch (e) {
+            throw (
+              new (o(
+                "WAWebAdvMetadataCreationFailureWamEvent",
+              ).AdvMetadataCreationFailureWamEvent)({
+                advMetadataIsMe: !0,
+              }).commit(),
+              e
+            );
+          }
+          var f = new Map();
+          return (
+            yield (c || (c = n("Promise"))).all(
+              p.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e, n) {
+                      var l = u[n],
+                        s = babelHelpers.extends({}, a),
+                        c = null;
+                      if (o("WAWebUserPrefsMeUser").isMeAccount(l))
+                        i &&
+                          ((s = o(
+                            "WAWebDeviceSentMessageProtoUtils",
+                          ).wrapDeviceSentMessage(s, r)),
+                          t != null &&
+                            s.deviceSentMessage != null &&
+                            (s = babelHelpers.extends({}, s, {
+                              deviceSentMessage: babelHelpers.extends(
+                                {},
+                                s.deviceSentMessage,
+                                { phash: t },
+                              ),
+                            })));
+                      else
+                        try {
+                          c = yield o(
+                            "WAWebIdentityIcdcApi",
+                          ).getICDCMetaFromDeviceRecord(l, e);
+                        } catch (e) {
+                          throw (
+                            new (o(
+                              "WAWebAdvMetadataCreationFailureWamEvent",
+                            ).AdvMetadataCreationFailureWamEvent)({
+                              advMetadataIsMe: !1,
+                            }).commit(),
+                            e
+                          );
+                        }
+                      (o("WAWebE2EProtoGenerator").populateMessageContextInfo(
+                        s,
+                        _,
+                        c,
+                      ),
+                        f.set(l.toString(), s));
+                    },
+                  );
+                  return function (t, n) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
+            ),
+            f
+          );
+        })),
         g.apply(this, arguments)
       );
     }

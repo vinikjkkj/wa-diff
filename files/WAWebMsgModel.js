@@ -49,7 +49,6 @@ __d(
     "WAWebViewModeUtils",
     "WAWebViewOnceState",
     "WAWebWamEnumWebcRmrReasonCode",
-    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -1258,31 +1257,6 @@ __d(
               quotedStanzaID: D.id,
               quotedRemoteJid: x,
             };
-          }),
-          (i.mentionMap = function () {
-            if (!this.mentionedJidList || !this.mentionedJidList.length)
-              return null;
-            var e = {};
-            return (
-              this.mentionedJidList.forEach(function (t) {
-                e["@" + (r("WAWebWid").user(t) || "")] = o(
-                  "WAWebContactCollection",
-                ).ContactCollection.gadd(t);
-              }),
-              e
-            );
-          }),
-          (i.groupMentionMap = function () {
-            var e;
-            return !this.groupMentions || !this.groupMentions.length
-              ? null
-              : (e = this.groupMentions) == null
-                ? void 0
-                : e.reduce(function (e, t) {
-                    var n,
-                      r = "@" + t.groupJid.toString();
-                    return ((e[r] = (n = t.groupSubject) != null ? n : ""), e);
-                  }, {});
           }),
           (i.updateAck = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(

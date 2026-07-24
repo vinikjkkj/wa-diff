@@ -97,11 +97,11 @@ __d(
                 ).shouldUseStatusSessionForOutgoingMessage()
                   ? o("WAWebSessionScope").SessionScope.STATUS
                   : o("WAWebSessionScope").SessionScope.DEFAULT,
-              y = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                n,
-                !1,
-                h,
-              );
+              y = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                identityChanged: !1,
+                sessionScope: h,
+                wids: n,
+              });
             o(
               "WAWebPostPrekeysDepletionMetric",
             ).maybePostPrekeysDepletionMetric({

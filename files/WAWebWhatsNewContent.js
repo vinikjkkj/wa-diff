@@ -2,16 +2,30 @@ __d(
   "WAWebWhatsNewContent",
   [
     "fbt",
+    "WAWebABProps",
     "WAWebEnvironment",
+    "WAWebMobilePlatforms",
     "WDSIconIcDescription.react",
+    "WDSIconIcDownload.react",
+    "WDSIconIcHistory.react",
+    "WDSIconIcMood.react",
     "WDSIconIcPermMedia.react",
     "WDSIconIcShare.react",
     "WDSIconIcVideoCall.react",
+    "WDSIconIcVideocam.react",
+    "WDSIconWdsIcAi.react",
     "WDSIconWdsIcLogoMetaAi.react",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e = [
+    var e = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Open and preview PDFs directly in your chats without downloading them.",
+          );
+        },
+        Icon: r("WDSIconIcDescription.react"),
+      },
+      u = [
         {
           description: function () {
             return s._(
@@ -20,14 +34,7 @@ __d(
           },
           Icon: r("WDSIconWdsIcLogoMetaAi.react"),
         },
-        {
-          description: function () {
-            return s._(
-              /*BTDS*/ "Open and preview PDFs directly in your chats without downloading them.",
-            );
-          },
-          Icon: r("WDSIconIcDescription.react"),
-        },
+        e,
         {
           description: function () {
             return r("WAWebEnvironment").isWindows
@@ -41,7 +48,7 @@ __d(
           Icon: r("WDSIconIcShare.react"),
         },
       ],
-      u = {
+      c = {
         description: function () {
           return s._(
             /*BTDS*/ "Find photos, videos, links and docs from all your chats in the media tab.",
@@ -49,21 +56,103 @@ __d(
         },
         Icon: r("WDSIconIcPermMedia.react"),
       },
-      c = {
+      d = {
         description: function () {
           return s._(
             /*BTDS*/ "Make HD video calls with sharper, smoother quality.",
           );
         },
         Icon: r("WDSIconIcVideoCall.react"),
+      },
+      m = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Voice and video calling is now available in chats or in the new Calls tab.",
+          );
+        },
+        Icon: r("WDSIconIcVideocam.react"),
+      },
+      p = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Share past messages with new group members so they never miss the context.",
+          );
+        },
+        Icon: r("WDSIconIcHistory.react"),
+      },
+      _ = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Express yourself with a dynamic status that contacts can reply to.",
+          );
+        },
+        Icon: r("WDSIconIcMood.react"),
+      },
+      f = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Share files with Meta AI to get summaries, answers, and ideas on the spot.",
+          );
+        },
+        Icon: r("WDSIconWdsIcLogoMetaAi.react"),
+      },
+      g = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Set up your Meta Business Agent to reply to customers automatically, 24\/7.",
+          );
+        },
+        Icon: r("WDSIconWdsIcAi.react"),
+      },
+      h = {
+        description: function () {
+          return s._(
+            /*BTDS*/ "Download customer form responses as CSV directly from Web.",
+          );
+        },
+        Icon: r("WDSIconIcDownload.react"),
       };
-    function d() {
-      return r("justknobx")._("1516") >= 2;
+    function y() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_whats_new_auto_modal_content_version",
+      );
     }
-    function m() {
-      return [].concat(e, [r("WAWebEnvironment").isWindows ? c : u]);
+    function C() {
+      return y() >= 2;
     }
-    ((l.hasWhatsNewContent = d), (l.getWhatsNewFeatures = m));
+    function b() {
+      return y() >= 3;
+    }
+    function v(e) {
+      var t = e.bizAgentEligible;
+      return y() >= 3
+        ? S(t)
+        : [].concat(u, [r("WAWebEnvironment").isWindows ? d : c]);
+    }
+    function S(e) {
+      var t =
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_calling_whats_new_modal_update_enabled",
+        ) === !0;
+      return o("WAWebMobilePlatforms").isSMB() ? L(t, e) : R(t);
+    }
+    function R(t) {
+      return t ? [m, p, _, f] : [p, _, f, e];
+    }
+    function L(t, n) {
+      var r = t ? [m, g, h, p] : [g, h, p, f];
+      return n
+        ? r
+        : [].concat(
+            r.filter(function (e) {
+              return e !== g;
+            }),
+            [e],
+          );
+    }
+    ((l.hasWhatsNewContent = C),
+      (l.hasSmbWhatsNewContent = b),
+      (l.getWhatsNewFeatures = v));
   },
   226,
 );

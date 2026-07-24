@@ -13,9 +13,9 @@ __d(
     "WAWebMiscErrors",
     "WAWebMuteCollection",
     "WAWebMuteGetters",
+    "WAWebMuteMentionAllUtils",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterUpdateUserSettingsAction",
-    "WAWebNoop",
     "WAWebToastManager",
     "WAWebWamEnumChannelEventSurface",
     "WAWebWid",
@@ -23,21 +23,21 @@ __d(
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L, E, k, I;
-    function T(e) {
+    var e, u, c, d, m, p, _, f, g, h, y, C, b, v;
+    function S(e) {
       throw new TypeError('"' + e + '" is read-only');
     }
-    var D = I || (I = o("react")),
-      x = -1,
-      $ = "global_reactions_mute";
-    function P(e, t) {
+    var R = v || (v = o("react")),
+      L = -1,
+      E = "global_reactions_mute";
+    function k(e, t) {
       return r("WAWebWid").isGroup(e) && !t
         ? "group"
         : r("WAWebWid").isNewsletter(e) && !t
           ? "newsletter"
           : "chat";
     }
-    var N = (function (t) {
+    var I = (function (t) {
       function a() {
         for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
           r[a] = arguments[a];
@@ -79,7 +79,10 @@ __d(
             r("WAWebWid").isGroup(this.id) &&
               this.mentionAllMuteExpiration != null &&
               this.mentionAllMuteExpiration !== 0 &&
-              this.muteMentionAll(this.mentionAllMuteExpiration));
+              o("WAWebMuteMentionAllUtils").muteMentionAll(
+                this,
+                this.mentionAllMuteExpiration,
+              ));
         }),
         (i.setMute = function (t, n, r) {
           (n === void 0 && (n = !1),
@@ -106,8 +109,8 @@ __d(
             h = a.showToast,
             y = h === void 0 ? !0 : h,
             C = a.toastId,
-            b = i;
-          if (!o("WATypeUtils").isNumber(b))
+            v = i;
+          if (!o("WATypeUtils").isNumber(v))
             return (
               o("WALogger").LOG(
                 e ||
@@ -115,14 +118,14 @@ __d(
                     "models:Mute:mute called with invalid expiration ",
                     "",
                   ])),
-                b,
+                v,
               ),
-              (k || (k = n("Promise"))).reject(
+              (b || (b = n("Promise"))).reject(
                 new (o("WAWebMiscErrors").ActionError)(),
               )
             );
-          ((b = Math.round(b)),
-            b > 2e9 &&
+          ((v = Math.round(v)),
+            v > 2e9 &&
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -131,14 +134,14 @@ __d(
                     "",
                   ])),
                 this.id.toString(),
-                b,
+                v,
               ));
-          var v = function () {
+          var S = function () {
               if (
                 (o("WAWebMuteGetters").getIsMuted(t) &&
                   (r("WAWebAlarm").clearTimeout(t.$MuteImpl$p_1),
                   t.unset("_unmuteTimer")),
-                b === x)
+                v === L)
               )
                 o("WALogger").LOG(
                   c ||
@@ -149,7 +152,7 @@ __d(
                   t.id.toString(),
                 );
               else {
-                var e = b - r("WAWeb-moment")().unix();
+                var e = v - r("WAWeb-moment")().unix();
                 (o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -164,23 +167,23 @@ __d(
                     function () {
                       return void t.unmute();
                     },
-                    b * 1e3,
+                    v * 1e3,
                   )));
               }
-              t.set({ expiration: b, isAutoMuted: f });
+              t.set({ expiration: v, isAutoMuted: f });
             },
-            S = P(this.id, p);
+            E = k(this.id, p);
           if (g === !0) {
-            var R;
+            var I;
             if (
               !r("WAWebWid").isNewsletter(this.id) &&
               this.promises.mute != null
             )
               return this.promises.mute;
-            var L = r("WAWebWid").isNewsletter(this.id)
-                ? (R = this.promises.mute) != null
-                  ? R
-                  : (k || (k = n("Promise"))).reject(
+            var T = r("WAWebWid").isNewsletter(this.id)
+                ? (I = this.promises.mute) != null
+                  ? I
+                  : (b || (b = n("Promise"))).reject(
                       r("err")("No promise for newsletter mute"),
                     )
                 : (this.promises.mute = o(
@@ -188,24 +191,24 @@ __d(
                   ).sendConversationMute({
                     $MuteImpl3: this.expiration,
                     chatId: this.id,
-                    expiration: b,
+                    expiration: v,
                     mentionAllMuteExpiration: r("WAWebWid").isGroup(this.id)
                       ? this.mentionAllMuteExpiration
                       : void 0,
                   })),
-              E = new (o("WAWebActionToast.react").ActionType)(
+              D = new (o("WAWebActionToast.react").ActionType)(
                 s._(/*BTDS*/ "Muting chat"),
               );
-            S === "group"
-              ? (E = new (o("WAWebActionToast.react").ActionType)(
+            E === "group"
+              ? (D = new (o("WAWebActionToast.react").ActionType)(
                   s._(/*BTDS*/ "Muting group"),
                 ))
-              : S === "newsletter" &&
-                (E = new (o("WAWebActionToast.react").ActionType)(
+              : E === "newsletter" &&
+                (D = new (o("WAWebActionToast.react").ActionType)(
                   s._(/*BTDS*/ "Muting channel"),
                 ));
-            var I = C != null ? C : o("WAWebActionToast.react").genId(),
-              T = L.catch(function (e) {
+            var x = C != null ? C : o("WAWebActionToast.react").genId(),
+              $ = T.catch(function (e) {
                 o("WALogger").WARN(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -214,10 +217,10 @@ __d(
                 );
                 var n = s._(/*BTDS*/ "Couldn't mute chat.");
                 if (
-                  (S === "group"
+                  (E === "group"
                     ? (n = s._(/*BTDS*/ "Couldn't mute group."))
-                    : S === "newsletter" &&
-                      (E = new (o("WAWebActionToast.react").ActionType)(
+                    : E === "newsletter" &&
+                      (D = new (o("WAWebActionToast.react").ActionType)(
                         s._(/*BTDS*/ "Couldn't mute channel"),
                       )),
                   !r("WAWebWid").isNewsletter(t.id))
@@ -226,10 +229,10 @@ __d(
                     actionText: s._(/*BTDS*/ "Try again."),
                     actionHandler: function () {
                       return t.mute({
-                        expiration: b,
+                        expiration: v,
                         isAutoMuted: f,
                         sendDevice: g,
-                        toastId: I,
+                        toastId: x,
                       });
                     },
                   });
@@ -237,9 +240,9 @@ __d(
                 if (e.status === 200) {
                   var n = s._(/*BTDS*/ "Chat muted");
                   return (
-                    S === "group"
+                    E === "group"
                       ? (n = s._(/*BTDS*/ "Group muted"))
-                      : S === "newsletter" &&
+                      : E === "newsletter" &&
                         (n = s._(/*BTDS*/ "Channel muted")),
                     p
                       ? new (o("WAWebActionToast.react").ActionType)(n)
@@ -262,16 +265,16 @@ __d(
                                     ).CHANNEL_EVENT_SURFACE.CHANNEL_PROFILE,
                                   },
                                 )
-                              : t.unmute({ sendDevice: g, toastId: I });
+                              : t.unmute({ sendDevice: g, toastId: x });
                           },
                         })
                   );
                 } else if (e.status >= 400)
-                  throw S === "newsletter"
+                  throw E === "newsletter"
                     ? new (o("WAWebActionToast.react").ActionType)(
                         s._(/*BTDS*/ "Couldn't mute channel"),
                       )
-                    : S === "group"
+                    : E === "group"
                       ? new (o("WAWebActionToast.react").ActionType)(
                           s._(/*BTDS*/ "Couldn't mute group."),
                         )
@@ -282,20 +285,20 @@ __d(
             return (
               y &&
                 o("WAWebToastManager").ToastManager.open(
-                  D.jsx(o("WAWebActionToast.react").ActionToast, {
-                    id: I,
-                    initialAction: E,
-                    pendingAction: T,
+                  R.jsx(o("WAWebActionToast.react").ActionToast, {
+                    id: x,
+                    initialAction: D,
+                    pendingAction: $,
                   }),
                 ),
-              L.then(function (e) {
-                e.status === 200 && v();
+              T.then(function (e) {
+                e.status === 200 && S();
               }).finally(function () {
                 t.promises.mute = null;
               })
             );
           }
-          return (v(), (k || (k = n("Promise"))).resolve());
+          return (S(), (b || (b = n("Promise"))).resolve());
         }),
         (i.muteCall = function (t) {
           var e = this,
@@ -310,7 +313,7 @@ __d(
                   ])),
                 a,
               ),
-              (k || (k = n("Promise"))).reject(
+              (b || (b = n("Promise"))).reject(
                 new (o("WAWebMiscErrors").ActionError)(),
               )
             );
@@ -330,7 +333,7 @@ __d(
             o("WAWebMuteGetters").getIsCallMuted(this) &&
               (r("WAWebAlarm").clearTimeout(this.$MuteImpl$p_2),
               this.unset("_unmuteCallTimer")),
-            a === x)
+            a === L)
           )
             o("WALogger").LOG(
               f ||
@@ -361,7 +364,7 @@ __d(
           }
           return (
             this.set({ callExpiration: a }),
-            (k || (k = n("Promise"))).resolve()
+            (b || (b = n("Promise"))).resolve()
           );
         }),
         (i.$MuteImpl$p_5 = function () {
@@ -403,7 +406,7 @@ __d(
                   ),
                 ));
             },
-            f = P(this.id, l);
+            f = k(this.id, l);
           if (u === !0) {
             var g;
             if (!r("WAWebWid").isNewsletter(this.id) && this.promises.unmute)
@@ -411,7 +414,7 @@ __d(
             var C = r("WAWebWid").isNewsletter(this.id)
                 ? (g = this.promises.unmute) != null
                   ? g
-                  : (k || (k = n("Promise"))).reject(
+                  : (b || (b = n("Promise"))).reject(
                       r("err")("No promise for newsletter mute"),
                     )
                 : (this.promises.unmute = o(
@@ -421,19 +424,19 @@ __d(
                     chatId: this.id,
                     expiration: 0,
                   })),
-              b = new (o("WAWebActionToast.react").ActionType)(
+              v = new (o("WAWebActionToast.react").ActionType)(
                 s._(/*BTDS*/ "Unmuting chat"),
               );
             f === "group"
-              ? (b = new (o("WAWebActionToast.react").ActionType)(
+              ? (v = new (o("WAWebActionToast.react").ActionType)(
                   s._(/*BTDS*/ "Unmuting group"),
                 ))
               : f === "newsletter" &&
-                (b = new (o("WAWebActionToast.react").ActionType)(
+                (v = new (o("WAWebActionToast.react").ActionType)(
                   s._(/*BTDS*/ "Unmuting channel"),
                 ));
-            var v = m || o("WAWebActionToast.react").genId(),
-              S = this.promises.unmute
+            var S = m || o("WAWebActionToast.react").genId(),
+              L = this.promises.unmute
                 .catch(function (t) {
                   o("WALogger").WARN(
                     y ||
@@ -452,7 +455,7 @@ __d(
                     throw new (o("WAWebActionToast.react").ActionType)(n, {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return e.unmute({ sendDevice: u, toastId: v });
+                        return e.unmute({ sendDevice: u, toastId: S });
                       },
                     });
                 })
@@ -505,10 +508,10 @@ __d(
             return (
               d &&
                 o("WAWebToastManager").ToastManager.open(
-                  D.jsx(o("WAWebActionToast.react").ActionToast, {
-                    id: v,
-                    initialAction: b,
-                    pendingAction: S,
+                  R.jsx(o("WAWebActionToast.react").ActionToast, {
+                    id: S,
+                    initialAction: v,
+                    pendingAction: L,
                   }),
                 ),
               C.then(function (e) {
@@ -518,7 +521,7 @@ __d(
               })
             );
           }
-          return (_(), (k || (k = n("Promise"))).resolve());
+          return (_(), (b || (b = n("Promise"))).resolve());
         }),
         (i.$MuteImpl$p_4 = function () {
           return (
@@ -531,134 +534,8 @@ __d(
               this.id.toString(),
             ),
             this.$MuteImpl$p_6(),
-            (k || (k = n("Promise"))).resolve()
+            (b || (b = n("Promise"))).resolve()
           );
-        }),
-        (i.muteMentionAll = function (t) {
-          var e,
-            a = this;
-          if (!r("WAWebWid").isGroup(this.id))
-            return (
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "models:Mute:muteMentionAll called on non-group chat ",
-                    "",
-                  ])),
-                this.id.toString(),
-              ),
-              (k || (k = n("Promise"))).reject()
-            );
-          var i = t;
-          if (!o("WATypeUtils").isNumber(i))
-            return (
-              o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "models:Mute:muteMentionAll called with invalid expiration ",
-                    "",
-                  ])),
-                i,
-              ),
-              (k || (k = n("Promise"))).reject()
-            );
-          if (
-            ((i = Math.round(i)),
-            i > 2e9 &&
-              o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "models:Mute:muteMentionAll called with wrong units?",
-                    " exp:",
-                    "",
-                  ])),
-                this.id.toString(),
-                i,
-              ),
-            i === x)
-          )
-            o("WALogger").LOG(
-              R ||
-                (R = babelHelpers.taggedTemplateLiteralLoose([
-                  "models:Mute:muteMentionAll ",
-                  " muted, no expiration",
-                ])),
-              this.id.toString(),
-            );
-          else {
-            var l = i - r("WAWeb-moment")().unix();
-            o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "models:Mute:muteMentionAll ",
-                  " duration:",
-                  "",
-                ])),
-              this.id.toString(),
-              l,
-            );
-          }
-          return this.promises.muteMentionAll
-            ? this.promises.muteMentionAll.then(r("WAWebNoop"))
-            : ((this.promises.muteMentionAll = o(
-                "WAWebChatMuteBridge",
-              ).sendConversationMute({
-                $MuteImpl3: this.expiration,
-                chatId: this.id,
-                expiration: (e = this.expiration) != null ? e : 0,
-                mentionAllMuteExpiration: i,
-              })),
-              this.promises.muteMentionAll
-                .then(function (e) {
-                  e.status === 200 && a.set({ mentionAllMuteExpiration: i });
-                })
-                .finally(function () {
-                  a.promises.muteMentionAll = null;
-                }));
-        }),
-        (i.unmuteMentionAll = function () {
-          var e,
-            t = this;
-          return (
-            o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "models:Mute:unmuteMentionAll ",
-                  "",
-                ])),
-              this.id.toString(),
-            ),
-            this.promises.unmuteMentionAll
-              ? this.promises.unmuteMentionAll.then(r("WAWebNoop"))
-              : ((this.promises.unmuteMentionAll = o(
-                  "WAWebChatMuteBridge",
-                ).sendConversationMute({
-                  $MuteImpl3: this.expiration,
-                  chatId: this.id,
-                  expiration: (e = this.expiration) != null ? e : 0,
-                  mentionAllMuteExpiration: 0,
-                })),
-                this.promises.unmuteMentionAll
-                  .then(function (e) {
-                    e.status === 200 && t.set({ mentionAllMuteExpiration: 0 });
-                  })
-                  .finally(function () {
-                    t.promises.unmuteMentionAll = null;
-                  }))
-          );
-        }),
-        (i.getIsMentionAllMuted = function () {
-          if (
-            !r("WAWebWid").isGroup(this.id) ||
-            !o("WAWebMuteGetters").getIsMuted(this)
-          )
-            return !1;
-          var e = this.mentionAllMuteExpiration;
-          return e == null || e === 0
-            ? !1
-            : e === x
-              ? !0
-              : e > r("WAWeb-moment")().unix();
         }),
         (i.delete = function () {
           (t.prototype.delete.call(this),
@@ -672,9 +549,9 @@ __d(
         a
       );
     })(o("WAWebBaseModel").BaseModel);
-    ((N.Proxy = "mute"), (N.idClass = r("WAWebWid")), (N.allowedIds = [$]));
-    var M = o("WAWebBaseModel").defineModel(N);
-    ((l.GLOBAL_REACTIONS_MUTE = $), (l.Mute = M));
+    ((I.Proxy = "mute"), (I.idClass = r("WAWebWid")), (I.allowedIds = [E]));
+    var T = o("WAWebBaseModel").defineModel(I);
+    ((l.GLOBAL_REACTIONS_MUTE = E), (l.Mute = T));
   },
   226,
 );

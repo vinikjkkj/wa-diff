@@ -126,39 +126,8 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(c);
-    function b(e) {
-      try {
-        return JSON.stringify(e);
-      } catch (t) {
-        return e.toString();
-      }
-    }
-    var v = (function (e) {
-        function t(t) {
-          var n,
-            r = typeof t == "string" ? t : b(t);
-          return (
-            (n = e.call(this, r) || this),
-            (n.name = "SocketError"),
-            (n.event = t),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      S = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, "socket not open, is " + t) || this),
-            (n.name = "SocketNotOpen"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(e.CustomError),
-      R = (function (e) {
+      })(c),
+      b = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -170,7 +139,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      L = (function (e) {
+      v = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -182,7 +151,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      E = (function (e) {
+      S = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -194,7 +163,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      k = (function (e) {
+      R = (function (e) {
         function t(n) {
           var r;
           return (
@@ -205,8 +174,8 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError);
-    k.message = "Could not perform action.";
-    var I = (function (e) {
+    R.message = "Could not perform action.";
+    var L = (function (e) {
         function t(t) {
           var n;
           return (
@@ -217,7 +186,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(e.CustomError),
-      T = (function (e) {
+      E = (function (e) {
         function t(t) {
           var n;
           return (
@@ -241,14 +210,12 @@ __d(
       (l.MediaHashMismatch = h),
       (l.MediaFileFailedLoad = y),
       (l.MediaFileEmpty = C),
-      (l.SocketError = v),
-      (l.SocketNotOpen = S),
-      (l.DecodeWebpResultsError = R),
-      (l.EncodeWebpError = L),
-      (l.ModelCreateError = E),
-      (l.ActionError = k),
-      (l.Unmount = I),
-      (l.GoogleLensApiError = T));
+      (l.DecodeWebpResultsError = b),
+      (l.EncodeWebpError = v),
+      (l.ModelCreateError = S),
+      (l.ActionError = R),
+      (l.Unmount = L),
+      (l.GoogleLensApiError = E));
   },
   98,
 );

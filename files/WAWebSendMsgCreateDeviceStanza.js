@@ -54,11 +54,11 @@ __d(
               l = n.to,
               u = t;
             return (
-              yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                [l],
-                !1,
-                o("WAWebSessionScope").SessionScope.DEFAULT,
-              ),
+              yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                identityChanged: !1,
+                sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+                wids: [l],
+              }),
               o("WAWebUserPrefsMeUser").isMeAccount(l) &&
               a.type !== c.AppStateSync
                 ? (i != null || s(0, 56363),
@@ -90,11 +90,11 @@ __d(
             l = a.participant,
             s = a.to;
           if (
-            (yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-              [l],
-              !1,
-              o("WAWebSessionScope").SessionScope.DEFAULT,
-            ),
+            (yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              identityChanged: !1,
+              sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+              wids: [l],
+            }),
             i.type === c.AppStateSync)
           )
             return (u || (u = n("Promise"))).reject(

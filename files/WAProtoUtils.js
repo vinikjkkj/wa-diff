@@ -16,7 +16,23 @@ __d(
             ? o("WAProtoConst").ENC.BINARY
             : o("WAProtoConst").ENC.BIT32;
     }
-    l.typeToEncType = e;
+    function s(e) {
+      return (
+        (e & o("WAProtoConst").TYPE_MASK) === o("WAProtoConst").TYPES.MESSAGE
+      );
+    }
+    function u(e) {
+      return (e & o("WAProtoConst").FLAGS.REPEATED) !== 0;
+    }
+    function c(e) {
+      return (
+        (e & o("WAProtoConst").TYPE_MASK) === o("WAProtoConst").TYPES.STRING
+      );
+    }
+    ((l.typeToEncType = e),
+      (l.isMessageType = s),
+      (l.isRepeatedField = u),
+      (l.isStringType = c));
   },
   98,
 );

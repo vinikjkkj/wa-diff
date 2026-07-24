@@ -119,8 +119,11 @@ __d(
         )
         .waitUntilCompleted(r);
     }
-    function f(e, t, n) {
-      var r = { group: e, participants: t, isOffline: n };
+    function f(e) {
+      var t = e.group,
+        n = e.isOffline,
+        r = e.participants,
+        a = { group: t, participants: r, isOffline: n };
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "demoteCommunityParticipants",
@@ -131,7 +134,7 @@ __d(
           },
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
         )
-        .waitUntilCompleted(r);
+        .waitUntilCompleted(a);
     }
     function g(e) {
       return h.apply(this, arguments);

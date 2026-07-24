@@ -15,6 +15,7 @@ __d(
     "WAWebMessageTextBubble.react",
     "WAWebModalManager",
     "WAWebMsgLinks",
+    "WAWebMsgMentionMap",
     "WAWebMsgModelPropUtils",
     "WAWebMsgPhoneNumbers",
     "WAWebProductCatalogContext",
@@ -170,8 +171,8 @@ __d(
           fromMe: i.id.fromMe,
         }),
         f = o("WAWebFormatConfigurationConversation").Conversation({
-          mentions: i.mentionMap(),
-          groupMentions: i.groupMentionMap(),
+          mentions: o("WAWebMsgMentionMap").calculateMsgMentionMap(i),
+          groupMentions: o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(i),
           links: o("WAWebMsgLinks").getLinksFromMsg(i.unsafe()),
           phoneNumbers: o("WAWebMsgPhoneNumbers").getPhoneNumbersFromMsg(
             i.unsafe(),

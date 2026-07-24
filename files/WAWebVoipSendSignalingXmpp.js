@@ -65,12 +65,14 @@ __d(
             ((g = o("WAWap").DEVICE_JID(
               o("WAJids").unsafeCoerceToDeviceJid(s),
             )),
-              yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                [_],
-                !1,
-                o("WAWebSessionScope").SessionScope.DEFAULT,
-                { skipOfflineDeliveryWait: r("WAWebEnvironment").isGuest },
-              ));
+              yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                identityChanged: !1,
+                options: {
+                  skipOfflineDeliveryWait: r("WAWebEnvironment").isGuest,
+                },
+                sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+                wids: [_],
+              }));
           else {
             var y = yield R(m, s);
             ((g = y[0]), (h = y[1]));
@@ -199,12 +201,14 @@ __d(
               l.unshift(s);
             }
             var u = Date.now();
-            (yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-              l,
-              !1,
-              o("WAWebSessionScope").SessionScope.DEFAULT,
-              { skipOfflineDeliveryWait: r("WAWebEnvironment").isGuest },
-            ),
+            (yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              identityChanged: !1,
+              options: {
+                skipOfflineDeliveryWait: r("WAWebEnvironment").isGuest,
+              },
+              sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+              wids: l,
+            }),
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -300,12 +304,14 @@ __d(
               return o("WAWebWidFactory").createWid(e.attrString("jid"));
             });
           try {
-            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-              u,
-              !1,
-              o("WAWebSessionScope").SessionScope.DEFAULT,
-              { skipOfflineDeliveryWait: r("WAWebEnvironment").isGuest },
-            );
+            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              identityChanged: !1,
+              options: {
+                skipOfflineDeliveryWait: r("WAWebEnvironment").isGuest,
+              },
+              sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+              wids: u,
+            });
           } catch (e) {
             o("WALogger").WARN(
               f ||

@@ -4,7 +4,6 @@ __d(
     "WAWebCTWAGatingUtils",
     "WAWebCommonCTWADataSharing",
     "WAWebCtwa1pdConversionWamEvent",
-    "WAWebCtwaConversationDepthUtils",
     "WAWebMobilePlatforms",
     "WAWebWamEnumCtwa1pdConversionType",
     "WAWebWamEnumCtwaDirectionFrom",
@@ -47,12 +46,8 @@ __d(
             ctwa1pdConversionType: n,
             ctwa1pdConversionSchemaVersion: e,
             ctwaTrackingPayload: a,
-            ctwaConversationDepth: o(
-              "WAWebCtwaConversationDepthUtils",
-            ).getCtwaConversationDepth(t),
-            ctwaConversationRepeat: o(
-              "WAWebCtwaConversationDepthUtils",
-            ).getCtwaConversationRepeat(t),
+            ctwaConversationDepth: 0,
+            ctwaConversationRepeat: 0,
             ctwaDirectionFrom: o("WAWebWamEnumCtwaDirectionFrom")
               .CTWA_DIRECTION_FROM.BUSINESS,
             ctwaSignals: i != null ? i : void 0,

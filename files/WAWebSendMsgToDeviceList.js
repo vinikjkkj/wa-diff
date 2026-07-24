@@ -23,7 +23,15 @@ __d(
               g = _.to,
               h = yield o(
                 "WAWebSendMsgCreateFanoutStanza",
-              ).createFanoutMsgStanza(e, t, n, a, i, l, void 0, s),
+              ).createFanoutMsgStanza({
+                chatId: l,
+                deviceList: n,
+                metricReporter: i,
+                msgProtobuf: t,
+                msgRecord: e,
+                option: a,
+                scheduledMsgMetadata: s,
+              }),
               y = h.stanza;
             ((c = i.sendPerfReporter) == null || c.postReadyToSendStage(),
               (d = i.sendPerfReporter) == null || d.startWrittenWireStage());

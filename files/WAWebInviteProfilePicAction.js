@@ -31,7 +31,13 @@ __d(
             var a = { type: "image", query: "url" },
               i = yield o(
                 "WAWebGroupInviteProfilePicJob",
-              ).queryGroupInviteMessageProfilePicJob(e, t, n, r, a);
+              ).queryGroupInviteMessageProfilePicJob({
+                adminWid: r,
+                code: t,
+                expiration: n,
+                groupWid: e,
+                option: a,
+              });
             return i.url;
           },
         )),

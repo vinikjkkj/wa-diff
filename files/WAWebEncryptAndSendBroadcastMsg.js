@@ -133,11 +133,11 @@ __d(
               try {
                 var M,
                   w,
-                  A = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                    N,
-                    !1,
-                    o("WAWebSessionScope").SessionScope.DEFAULT,
-                  ),
+                  A = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                    identityChanged: !1,
+                    sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+                    wids: N,
+                  }),
                   F =
                     (M = A == null ? void 0 : A.missedPrekeyCount) != null
                       ? M
@@ -231,11 +231,11 @@ __d(
                   .getSignalProtocolStore()
                   .storeSenderKey(K, ""),
                   yield o("WAWebSignal").Session.deleteGroupSenderKeyInfo(C, i),
-                  yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                    R,
-                    !1,
-                    o("WAWebSessionScope").SessionScope.DEFAULT,
-                  ),
+                  yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                    identityChanged: !1,
+                    sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+                    wids: R,
+                  }),
                   (j = R),
                   (z = yield y(
                     C,

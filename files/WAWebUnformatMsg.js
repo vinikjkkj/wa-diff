@@ -6,6 +6,7 @@ __d(
     "WAWebFormatConfiguration",
     "WAWebFrontendMsgGetters",
     "WAWebMiscGatingUtils",
+    "WAWebMsgMentionMap",
     "WAWebUnformatSerializer",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,8 +27,8 @@ __d(
         });
         return r("WAWebFormat")(n, a, r("WAWebUnformatSerializer"));
       }
-      var i = e.mentionMap(),
-        l = e.groupMentionMap();
+      var i = o("WAWebMsgMentionMap").calculateMsgMentionMap(e),
+        l = o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(e);
       if (!i && !l) return c(n);
       if (o("WAWebMiscGatingUtils").isDropLastNameEnabled()) {
         var s = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata;

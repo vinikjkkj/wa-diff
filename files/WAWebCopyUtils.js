@@ -11,6 +11,7 @@ __d(
     "WAWebMediaInMemoryBlobCache",
     "WAWebMentionDisplayUtils",
     "WAWebMsgActionCapability",
+    "WAWebMsgMentionMap",
     "WAWebMsgType",
     "WAWebRichResponseCopyText",
     "WAWebRichTextInputConst",
@@ -79,7 +80,7 @@ __d(
     }
     function d(e) {
       var t = [],
-        n = e.mentionMap();
+        n = o("WAWebMsgMentionMap").calculateMsgMentionMap(e);
       n != null &&
         Object.entries(n).forEach(function (e) {
           var n = e[0],
@@ -96,7 +97,7 @@ __d(
             token: n,
           });
         });
-      var r = e.groupMentionMap();
+      var r = o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(e);
       return (
         r != null &&
           Object.entries(r).forEach(function (e) {

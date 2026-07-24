@@ -11,6 +11,7 @@ __d(
     "WAWebMessageSpacerText.react",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
+    "WAWebMsgMentionMap",
     "WAWebMsgPhoneNumbers",
     "WAWebMultiSelectIconFilledIcon.react",
     "WAWebPollCreationUtils",
@@ -69,8 +70,9 @@ __d(
         ? ((R = function (t) {
             var e = t.textLimit,
               n = o("WAWebFormatConfigurationConversation").Conversation({
-                mentions: l.mentionMap(),
-                groupMentions: l.groupMentionMap(),
+                mentions: o("WAWebMsgMentionMap").calculateMsgMentionMap(l),
+                groupMentions:
+                  o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(l),
                 links: o("WAWebMsgLinks").getLinksFromMsg(l.unsafe(), e),
                 phoneNumbers: o("WAWebMsgPhoneNumbers").getPhoneNumbersFromMsg(
                   l.unsafe(),

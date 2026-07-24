@@ -155,11 +155,11 @@ __d(
                 ).markBroadcastSenderKeyRotateForUser(h),
                 C ||
                   o("WAWebManageE2ESessionsJob")
-                    .ensureE2ESessions(
-                      [h],
-                      !0,
-                      o("WAWebSessionScope").SessionScope.DEFAULT,
-                    )
+                    .ensureE2ESessions({
+                      identityChanged: !0,
+                      sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+                      wids: [h],
+                    })
                     .catch(function (e) {
                       o("WALogger").WARN(
                         d ||

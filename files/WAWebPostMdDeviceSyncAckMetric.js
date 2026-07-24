@@ -7,28 +7,33 @@ __d(
     "WAWebWamAddressingModeUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, a) {
-      var i = new (o("WAWebMdDeviceSyncAckWamEvent").MdDeviceSyncAckWamEvent)({
-        revoke: o("WAWebSendMsgCommonApi").isRevokeMsg(n),
-      });
+    function e(e) {
+      var t = e.chatWid,
+        n = e.groupData,
+        r = e.msgProtobuf,
+        a = e.msgRecord,
+        i = e.serverAddressingMode,
+        l = new (o("WAWebMdDeviceSyncAckWamEvent").MdDeviceSyncAckWamEvent)({
+          revoke: o("WAWebSendMsgCommonApi").isRevokeMsg(r),
+        });
       if (
-        ((i.chatType = o(
+        ((l.chatType = o(
           "WAWebGetMessageChatTypeFromWid",
-        ).getMessageChatTypeFromWid(e)),
-        e.isGroup() ? (i.isLid = t.data.from.isLid()) : (i.isLid = e.isLid()),
-        r != null)
+        ).getMessageChatTypeFromWid(t)),
+        t.isGroup() ? (l.isLid = a.data.from.isLid()) : (l.isLid = t.isLid()),
+        n != null)
       ) {
-        var l = o(
+        var s = o(
           "WAWebWamAddressingModeUtils",
-        ).getAddressingModeMetricsFromGroupMetadata(r);
-        l != null && (i.localAddressingMode = l);
+        ).getAddressingModeMetricsFromGroupMetadata(n);
+        s != null && (l.localAddressingMode = s);
       }
-      (e.isGroup() &&
-        a != null &&
-        (i.serverAddressingMode = o(
+      (t.isGroup() &&
+        i != null &&
+        (l.serverAddressingMode = o(
           "WAWebWamAddressingModeUtils",
-        ).getWamAddressingModeFromString(a)),
-        i.commit());
+        ).getWamAddressingModeFromString(i)),
+        l.commit());
     }
     l.postMdDeviceSyncAckMetric = e;
   },

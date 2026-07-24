@@ -36,14 +36,16 @@ __d(
             C = h.to,
             b = _.data.to,
             v = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
-              _,
-              p,
-              c,
-              f,
-              m,
-              b,
-              d,
-              g,
+              {
+                chatId: b,
+                deviceList: c,
+                groupData: d,
+                metricReporter: m,
+                msgProtobuf: p,
+                msgRecord: _,
+                option: f,
+                scheduledMsgMetadata: g,
+              },
             ),
             S = v.stanza;
           (yield o("WAWebSignalProtocolStore")

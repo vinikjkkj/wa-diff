@@ -75,11 +75,11 @@ __d(
           )
             try {
               var u,
-                c = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-                  s,
-                  !1,
-                  o("WAWebSessionScope").SessionScope.DEFAULT,
-                );
+                c = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+                  identityChanged: !1,
+                  sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+                  wids: s,
+                });
               ((u = l.sendPerfReporter) == null ||
                 u.setFetchedPrekeyCount(
                   c == null ? void 0 : c.missedPrekeyCount,
@@ -607,11 +607,11 @@ __d(
             { msgKey: e.id, receiverId: a },
           ]);
           var s = !1;
-          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions(
-            [a],
-            !1,
-            o("WAWebSessionScope").SessionScope.DEFAULT,
-          );
+          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+            identityChanged: !1,
+            sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
+            wids: [a],
+          });
           var u = yield o(
             "WAWebE2EProtoGenerator",
           ).updateBotInvokeMsgProtoCopyForCapi({
