@@ -5,8 +5,8 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WAParsableWapNode",
+    "WAPromiseQueue",
     "WAWebNewsletterHandleLiveUpdatesNotification",
-    "WAWebNewsletterNotificationQueue",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -15,7 +15,8 @@ __d(
       s,
       u,
       c = n("$InternalEnum")({ LiveUpdates: "live_updates" }),
-      d = new (r("WADeprecatedWapParser"))(
+      d = new (o("WAPromiseQueue").PromiseQueueMap)(),
+      m = new (r("WADeprecatedWapParser"))(
         "incomingNewsletterNotificationParser",
         function (t) {
           var n = t.mapFirstChild(function (e) {
@@ -56,27 +57,24 @@ __d(
           return { firstChildTag: a, from: i.newsletterJid };
         },
       );
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = d.parseOrThrow(e),
+            var t = m.parseOrThrow(e),
               n = t.firstChildTag,
-              a = t.from;
-            return yield r("WAWebNewsletterNotificationQueue").enqueue(
-              a,
-              function () {
-                switch (n) {
-                  case c.LiveUpdates:
-                    return o(
-                      "WAWebNewsletterHandleLiveUpdatesNotification",
-                    ).handleNewsletterLiveUpdatesNotification(e);
-                }
-              },
-            );
+              r = t.from;
+            return yield d.enqueue(r, function () {
+              switch (n) {
+                case c.LiveUpdates:
+                  return o(
+                    "WAWebNewsletterHandleLiveUpdatesNotification",
+                  ).handleNewsletterLiveUpdatesNotification(e);
+              }
+            });
           } catch (e) {
             throw (
               o("WALogger")
@@ -97,10 +95,10 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.default = m;
+    l.default = p;
   },
   98,
 );

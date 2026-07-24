@@ -6,7 +6,6 @@ __d(
     "WAWebEnvironment",
     "WAWebSocketModel",
     "WAWebUpdater",
-    "WAWebUpdaterHardExpireTime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -74,7 +73,13 @@ __d(
         });
       },
       getHardExpireTime: function () {
-        return r("WAWebUpdaterHardExpireTime");
+        var e,
+          t = document.getElementById("hard_expire_time"),
+          n = parseInt(
+            t == null || (e = t.dataset) == null ? void 0 : e.time,
+            10,
+          );
+        return Number.isNaN(n) ? 1572566400 : n;
       },
     };
     l.SocketBridgeApi = e;

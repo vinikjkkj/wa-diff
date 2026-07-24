@@ -10,8 +10,8 @@ __d(
     "WAWebPostUnknownStanzaMetric",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t, n) {
+    var e, s, u, c, d;
+    function m(t, n) {
       if (n instanceof o("WAParsableWapNode").XmppParsingFailure)
         return (
           o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(t),
@@ -62,10 +62,21 @@ __d(
             o("WAJids").maybeSanitizeLogLineText(t.toString()),
           )
           .verbose(),
+        p(t) &&
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "handleMsg: drop msg with username field",
+                ])),
+            )
+            .catching(n)
+            .tags("messaging", "username")
+            .sendLogs("incoming-message-drop-internal-error-username"),
         o("WALogger")
           .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "handleMsg: drop msg",
               ])),
           )
@@ -80,14 +91,25 @@ __d(
         )
       );
     }
-    function m(e) {
+    function p(e) {
+      if (e.attrs.username != null || e.attrs.peer_recipient_username != null)
+        return !0;
+      var t = e.content;
+      return (
+        Array.isArray(t) &&
+        t.some(function (e) {
+          return p(e);
+        })
+      );
+    }
+    function _(e) {
       if (Array.isArray(e.content) && e.content.length > 0) {
         var t = e.content[0].tag;
         return t === "offer" || t === "accept" || t === "reject";
       }
       return !1;
     }
-    ((l.handleMessageParsingFailure = d), (l.isCallReceipt = m));
+    ((l.handleMessageParsingFailure = m), (l.isCallReceipt = _));
   },
   98,
 );

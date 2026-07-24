@@ -1,6 +1,7 @@
 __d(
   "WAWebDeleteGuestSessionOnWebLoad",
   [
+    "Promise",
     "WALogger",
     "WAWebGuestCoreLocalStorage",
     "WAWebIndexedDBPurge",
@@ -10,13 +11,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s() {
-      return u.apply(this, arguments);
+    var e, s, u, c;
+    function d() {
+      return m.apply(this, arguments);
     }
-    function u() {
+    function m() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebGuestCoreLocalStorage").getGuestExperienceType() !== "") {
             (o("WALogger").LOG(
               e ||
@@ -24,6 +25,7 @@ __d(
                   "[guest] nuking existing guest session on this browser",
                 ])),
             ),
+              p(),
               r("WAWebLocalStorage") == null || r("WAWebLocalStorage").clear(),
               r("WAWebLocalStorage") == null ||
                 r("WAWebLocalStorage").setItem(
@@ -38,10 +40,57 @@ __d(
               );
           }
         })),
-        u.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.maybeDeleteGuestSessionOnWebLoad = s;
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var e,
+              t = yield (e = window.navigator.serviceWorker) == null ||
+              e.getRegistrations == null
+                ? void 0
+                : e.getRegistrations();
+            if (t == null) return;
+            var r = [];
+            for (var a of t)
+              f(a.scope) &&
+                r.push(
+                  a.unregister().catch(function (e) {
+                    o("WALogger").ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[guest] failed to unregister service worker",
+                        ])),
+                    );
+                  }),
+                );
+            yield (c || (c = n("Promise"))).all(r);
+          } catch (e) {
+            o("WALogger").ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[guest] failed to unregister service workers",
+                ])),
+            );
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      try {
+        return new URL(e).pathname.startsWith("/guest");
+      } catch (e) {
+        return !1;
+      }
+    }
+    ((l.maybeDeleteGuestSessionOnWebLoad = d),
+      (l.unregisterGuestServiceWorkers = p));
   },
   98,
 );

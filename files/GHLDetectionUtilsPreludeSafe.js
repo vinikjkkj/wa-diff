@@ -153,13 +153,65 @@ __d(
         return !1;
       }
     }
+    function S(e) {
+      try {
+        e();
+      } catch (e) {
+        if (e != null && typeof e == "object") {
+          var t = e;
+          if (typeof t.stack == "string") return t.stack;
+        }
+      }
+      return "";
+    }
+    function R(e) {
+      return e === "" ? 0 : e.split("\n").length;
+    }
+    function L() {
+      if (!(e || (e = r("ExecutionEnvironment"))).canUseDOM) return !1;
+      var t = document.body || document.documentElement;
+      if (t == null) return !1;
+      var n = document.createElement("iframe");
+      (n.setAttribute("aria-hidden", "true"), (n.style.display = "none"));
+      try {
+        t.appendChild(n);
+        var o = n.contentWindow;
+        if (o == null) return !1;
+        var a = R(
+            S(function () {
+              JSON.parse("{ ");
+            }),
+          ),
+          i = R(
+            S(function () {
+              o.JSON.parse("{ ");
+            }),
+          ),
+          l = R(
+            S(function () {
+              new XMLHttpRequest().send();
+            }),
+          ),
+          s = R(
+            S(function () {
+              new o.XMLHttpRequest().send();
+            }),
+          );
+        return (i > 0 && a > i) || (s > 0 && l > s);
+      } catch (e) {
+        return !1;
+      } finally {
+        n.remove();
+      }
+    }
     ((l.normalize = s),
       (l.restoreNativeString = g),
       (l.restoreNativeCall = h),
       (l.restoreNativeXHRGetters = y),
       (l.isXHRResponseGetterShimmed = C),
       (l.isJSONParseShimmed = b),
-      (l.isJSONParseBehaviorallyShimmed = v));
+      (l.isJSONParseBehaviorallyShimmed = v),
+      (l.isNativeStackTampered = L));
   },
   98,
 );

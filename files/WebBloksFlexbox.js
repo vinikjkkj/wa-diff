@@ -122,25 +122,38 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(2),
+      var t = o("react-compiler-runtime").c(5),
         n = e.drawable,
-        a = m(null),
-        i = r("WebBloksDrawable")(n, a),
-        l = r("useWebBloksDrawableNode")(n);
-      if (l != null) return l;
-      var s;
+        a = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        i = a.omitDataBloksName,
+        l = m(null),
+        s = r("WebBloksDrawable")(n, l),
+        c = r("useWebBloksDrawableNode")(n);
+      if (c != null) return c;
+      var d;
+      t[0] !== i
+        ? ((d = i
+            ? null
+            : { "data-bloks-name": "bk.components.BoxDecoration" }),
+          (t[0] = i),
+          (t[1] = d))
+        : (d = t[1]);
+      var p;
       return (
-        t[0] !== i
-          ? ((s = u.jsx("div", {
-              "data-bloks-name": "bk.components.BoxDecoration",
-              ref: a,
-              className: f.foreground,
-              style: i,
-            })),
-            (t[0] = i),
-            (t[1] = s))
-          : (s = t[1]),
-        s
+        t[2] !== s || t[3] !== d
+          ? ((p = u.jsx(
+              "div",
+              babelHelpers.extends({}, d, {
+                ref: l,
+                className: f.foreground,
+                style: s,
+              }),
+            )),
+            (t[2] = s),
+            (t[3] = d),
+            (t[4] = p))
+          : (p = t[4]),
+        p
       );
     }
     var f = o("WebBloksStyle").createStyles({

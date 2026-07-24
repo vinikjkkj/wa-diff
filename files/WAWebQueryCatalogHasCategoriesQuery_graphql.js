@@ -57,7 +57,7 @@ __d(
           selections: t,
         },
         params: {
-          id: "9759957480718978",
+          id: "9746549555457302",
           metadata: {},
           name: "WAWebQueryCatalogHasCategoriesQuery",
           operationKind: "query",

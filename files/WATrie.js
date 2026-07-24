@@ -1,6 +1,6 @@
 __d(
   "WATrie",
-  ["WANullthrows"],
+  ["nullthrows"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
@@ -46,7 +46,7 @@ __d(
         (t.getChildren = function () {
           var e = this;
           return Object.keys(this._children).map(function (t) {
-            return { prefix: t, node: r("WANullthrows")(e.get(t)) };
+            return { prefix: t, node: r("nullthrows")(e.get(t)) };
           });
         }),
         (t.hasChildren = function () {

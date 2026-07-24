@@ -24,6 +24,9 @@ __d(
             (e.conversionSource = o("WAWebBaseModel").prop()),
             (e.ctwaSignals = o("WAWebBaseModel").prop()),
             (e.sourceId = o("WAWebBaseModel").prop()),
+            (e.conversationDepth = o("WAWebBaseModel").prop()),
+            (e.conversationRepeat = o("WAWebBaseModel").prop()),
+            (e.lastMessageFromMe = o("WAWebBaseModel").prop()),
             (e.fromMe = o("WAWebBaseModel").prop()),
             (e.timestamp = o("WAWebBaseModel").prop(function () {
               return o("WATimeUtils").unixTime();

@@ -19,6 +19,7 @@ __d(
     "WAWebCmd",
     "WAWebCollectionConstants",
     "WAWebCommonCTWAConsumerTransparency",
+    "WAWebCommonCTWADataSharing",
     "WAWebCommonCTWALogging",
     "WAWebCommonMsgUtils",
     "WAWebConversionTupleCollection",
@@ -370,19 +371,27 @@ __d(
                       }
                       o(
                         "WAWebCtwaConversationDepthUtils",
-                      ).ALLOWED_MSG_TYPES.has(t.type) &&
-                        o(
-                          "WAWebSmb3pdAggregatedConversionSignalAction",
-                        ).log3pdAggregatedConversionSignal(
-                          e,
-                          "message",
-                          "message",
-                          t.id.fromMe
-                            ? o("WAWebWamEnumCtwaDirectionFrom")
-                                .CTWA_DIRECTION_FROM.BUSINESS
-                            : o("WAWebWamEnumCtwaDirectionFrom")
-                                .CTWA_DIRECTION_FROM.CUSTOMER,
-                        );
+                      ).CTWA_CONVERSATION_COUNTER_MSG_TYPES.has(t.type) &&
+                        r(
+                          "WAWebCommonCTWADataSharing",
+                        ).getReceivedCTWAEligibilityFromChat(e) &&
+                        queueMicrotask(function () {
+                          (o(
+                            "WAWebCtwaConversationDepthUtils",
+                          ).advanceCtwaConversationCounters(e, t.id.fromMe),
+                            o(
+                              "WAWebSmb3pdAggregatedConversionSignalAction",
+                            ).log3pdAggregatedConversionSignal(
+                              e,
+                              "message",
+                              "message",
+                              t.id.fromMe
+                                ? o("WAWebWamEnumCtwaDirectionFrom")
+                                    .CTWA_DIRECTION_FROM.BUSINESS
+                                : o("WAWebWamEnumCtwaDirectionFrom")
+                                    .CTWA_DIRECTION_FROM.CUSTOMER,
+                            ));
+                        });
                       var m = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
                         p = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
                       if (

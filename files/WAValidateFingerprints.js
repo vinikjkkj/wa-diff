@@ -4,8 +4,8 @@ __d(
     "$InternalEnum",
     "WACryptoUtils",
     "WAFingerprint.pb",
-    "WANullthrows",
     "decodeProtobuf",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -59,10 +59,10 @@ __d(
       if (!i || i.version == null) return e.MALFORMED_CODE;
       if (i.version < s) return e.UNEXPECTED_VERSION_OLD;
       if (i.version > u) return e.UNEXPECTED_VERSION_NEW;
-      var c = r("WANullthrows")(l.localFingerprint),
+      var c = r("nullthrows")(l.localFingerprint),
         d = c.pnIdentifier,
         m = c.lidIdentifier,
-        _ = r("WANullthrows")(l.remoteFingerprint),
+        _ = r("nullthrows")(l.remoteFingerprint),
         f = _.pnIdentifier,
         g = _.lidIdentifier,
         h = i.localFingerprint,
@@ -156,9 +156,9 @@ __d(
       if (!i || i.version == null) return e.MALFORMED_CODE;
       if (i.version < s) return e.UNEXPECTED_VERSION_OLD;
       if (i.version > u) return e.UNEXPECTED_VERSION_NEW;
-      var c = r("WANullthrows")(l.localFingerprint),
+      var c = r("nullthrows")(l.localFingerprint),
         d = c.lidIdentifier,
-        m = r("WANullthrows")(l.remoteFingerprint),
+        m = r("nullthrows")(l.remoteFingerprint),
         _ = m.lidIdentifier,
         f = i.localFingerprint,
         g = i.remoteFingerprint;

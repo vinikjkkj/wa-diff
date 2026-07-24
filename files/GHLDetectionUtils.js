@@ -73,9 +73,12 @@ __d(
         )
       );
     }
-    ((l.isXHRResponseGetterShimmed = o(
+    ((l.isNativeStackTampered = o(
       "GHLDetectionUtilsPreludeSafe",
-    ).isXHRResponseGetterShimmed),
+    ).isNativeStackTampered),
+      (l.isXHRResponseGetterShimmed = o(
+        "GHLDetectionUtilsPreludeSafe",
+      ).isXHRResponseGetterShimmed),
       (l.isJSONParseShimmed = e),
       (l.isXHRModified = s),
       (l.isCanvasFillTextModified = u),

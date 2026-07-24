@@ -521,7 +521,7 @@ __d(
           selections: u,
         },
         params: {
-          id: "9647868451963105",
+          id: "9660926520672123",
           metadata: {},
           name: "WAWebQueryCatalogProductQuery",
           operationKind: "query",

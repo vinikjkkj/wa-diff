@@ -3,6 +3,7 @@ __d(
   [
     "WATimeUtils",
     "WAWebAck",
+    "WAWebHsmGatingUtils",
     "WAWebMsgKey",
     "WAWebProtobufsE2E.pb",
     "WAWebSendMsgChatAction",
@@ -37,16 +38,18 @@ __d(
                 to: n.id,
               },
               i,
-              {
-                buttonsResponse: {
-                  selectedButtonId: t.id,
-                  selectedDisplayText: t.displayText,
-                  type: o("WAWebProtobufsE2E.pb")
-                    .Message$ButtonsResponseMessage$Type.DISPLAY_TEXT,
-                },
-                body: t.displayText || "",
-                viewMode: "VISIBLE",
-              },
+              { selectedButtonId: t.id },
+              o("WAWebHsmGatingUtils").shouldUseLegacyButtonsResponse()
+                ? {
+                    buttonsResponse: {
+                      selectedButtonId: t.id,
+                      selectedDisplayText: t.displayText,
+                      type: o("WAWebProtobufsE2E.pb")
+                        .Message$ButtonsResponseMessage$Type.DISPLAY_TEXT,
+                    },
+                  }
+                : {},
+              { body: t.displayText || "", viewMode: "VISIBLE" },
             );
           return o("WAWebSendMsgChatAction").addAndSendMsgToChat(n, l)[1];
         })),

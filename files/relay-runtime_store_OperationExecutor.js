@@ -435,7 +435,7 @@ __d(
                 var g = this.$53(l);
                 this.$54(g);
               }
-              if (d)
+              if (d) {
                 for (var h = [], y = 0; y < u.length; y++) {
                   var C,
                     b,
@@ -458,9 +458,10 @@ __d(
                   (this.$41().commitPayload(this.$10, E, this.$26),
                     h.push(E),
                     (this.$34 = L),
-                    L &&
-                      (this.$35 && (this.$23 = "loading_final"), this.$45()));
+                    L && this.$35 && (this.$23 = "loading_final"));
                 }
+                this.$45();
+              }
               if (s.length > 0) {
                 var k = this.$55(s);
                 this.$54(k);

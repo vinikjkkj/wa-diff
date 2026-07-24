@@ -2,75 +2,57 @@ __d(
   "WAWebBizAdCreationLWIMediaUpload",
   [
     "FBLogger",
+    "WAWebBizAdCreationLWIMediaHelpers",
     "WAWebBizAdCreationLWIMediaUploadMutation.graphql",
-    "WAWebBizAdCreationResolveStoredIdentity",
     "WAWebFetchAdAccountToken",
-    "WAWebMmsMediaTypes",
     "WAWebRelayClient",
-    "WAWebUserPrefsCTWA",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(e) {
-      if (
-        e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NATIVE_AD_IMAGE ||
-        e === o("WAWebMmsMediaTypes").MEDIA_TYPES.NATIVE_AD_VIDEO
-      )
-        return e;
-      throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
-        "Invalid ad media type: " + e,
-      );
+    function s(e, t, n) {
+      return u.apply(this, arguments);
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
           var l =
               e !== void 0
                 ? e
                 : (e = n("WAWebBizAdCreationLWIMediaUploadMutation.graphql")),
-            u = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (u.type === "success") {
-            var c,
-              d = t.map(function (e) {
+            s = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (s.type === "success") {
+            var u,
+              c = t.map(function (e) {
                 return e.fbid;
               }),
-              m = o("WAWebUserPrefsCTWA").getFBIdentity(),
-              p =
-                o(
-                  "WAWebBizAdCreationResolveStoredIdentity",
-                ).resolveStoredAccountType() === "FB"
-                  ? m == null
-                    ? void 0
-                    : m.token
-                  : null,
-              _ = yield o("WAWebRelayClient").commitMutation(
+              d = yield o("WAWebRelayClient").commitMutation(
                 l,
                 {
                   ad_account_id: i,
-                  fb_access_token:
-                    p != null ? { sensitive_string_value: p } : null,
-                  media_ids: d,
+                  fb_access_token: o(
+                    "WAWebBizAdCreationLWIMediaHelpers",
+                  ).getFBAccessTokenValue(),
+                  media_ids: c,
                   page_id: a,
                 },
-                { accessToken: u.token, environmentType: "facebook" },
+                { accessToken: s.token, environmentType: "facebook" },
               ),
-              f =
-                _ == null || (c = _.wa_ad_creation_lwi_media_upload) == null
+              m =
+                d == null || (u = d.wa_ad_creation_lwi_media_upload) == null
                   ? void 0
-                  : c.uploaded_media_data;
-            if (!f || f.length !== d.length)
+                  : u.uploaded_media_data;
+            if (!m || m.length !== c.length)
               throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
                 "LWI media upload failed",
               );
-            return f.map(function (e) {
+            return m.map(function (e) {
               return {
                 hash: e.hash,
-                type: s(e.type),
+                type: o(
+                  "WAWebBizAdCreationLWIMediaHelpers",
+                ).coerceToAdMediaType(e.type),
                 url: e.url,
                 videoId: e.video_id,
               };
@@ -80,10 +62,10 @@ __d(
             "Failed to fetch token for LWI upload",
           );
         })),
-        c.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    l.default = u;
+    l.default = s;
   },
   98,
 );

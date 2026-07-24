@@ -2,6 +2,7 @@ __d(
   "WAWebFormatMsgText",
   [
     "fbt",
+    "WAWebABProps",
     "WAWebBizCtwaAGMUtils",
     "WAWebBizFormatInteractiveMsg",
     "WAWebFormatBroadcastNotification",
@@ -18,7 +19,6 @@ __d(
     "WAWebGalaxyFlowResponseUtils",
     "WAWebMessagePluginFormatMsgText",
     "WAWebMessagePluginFutureproofMsgText",
-    "WAWebMiscGatingUtils",
     "WAWebMsgType",
     "WAWebSystemMessagePluginFormatMsgText",
     "WAWebUnformatMsg",
@@ -44,7 +44,9 @@ __d(
         C = y === void 0 ? [] : y,
         b = l.safe();
       if (
-        o("WAWebMiscGatingUtils").messagePluginFrontendRegistrationEnabled()
+        o("WAWebABProps").getABPropConfigValue(
+          "web_message_plugin_frontend_registration_enabled",
+        )
       ) {
         var v;
         if (b.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && b.futureproofType)

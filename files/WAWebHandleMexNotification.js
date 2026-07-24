@@ -37,18 +37,26 @@ __d(
     "WAWebScheduledMsgRevealNotificationHandler",
     "WAWebSharableEventNotificationHandler",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = new Set([
+      c,
+      d = new Set([
         "NotificationLinkedProfilesUpdatesSideSub",
         "NotificationAgeCollection",
         "NotificationLinkedProfilesUpdates",
       ]),
-      d = "mexNotificationParser",
-      m = new (r("WADeprecatedWapParser"))(d, function (e) {
+      m = new Set([
+        "UsernameSetNotification",
+        "UsernameDeleteNotification",
+        "UsernameUpdateNotification",
+        "AccountSyncUsernameNotification",
+      ]),
+      p = "mexNotificationParser",
+      _ = new (r("WADeprecatedWapParser"))(p, function (e) {
         (e.assertTag("notification"), e.assertAttr("type", "mex"));
         var t = e.child("update"),
           n = e.attrString("id"),
@@ -61,7 +69,7 @@ __d(
           s = JSON.parse(l);
         } catch (e) {
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
-            d,
+            p,
             "JSON parsing error: " + String(e),
           );
         }
@@ -73,24 +81,41 @@ __d(
           mexResponse: s,
         };
       });
-    function p(e) {
-      return _.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = m.parseOrThrow(t);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = _.parseOrThrow(t);
           try {
-            var r = yield f(n);
-            return r;
+            var a = yield h(n);
+            return a;
           } catch (t) {
-            if (t instanceof o("WAParsableWapNode").XmppParsingFailure) throw t;
-            if (t instanceof g)
-              if (c.has(t.operationName))
+            var i = n.OperationName;
+            if (
+              (m.has(i) &&
                 o("WALogger")
-                  .WARN(
+                  .ERROR(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[mex][username] notification handling failed op=",
+                        "",
+                      ])),
+                    i,
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .tags("mex", "notification", "username")
+                  .sendLogs("mex-username-notification-failed-" + i),
+              t instanceof o("WAParsableWapNode").XmppParsingFailure)
+            )
+              throw t;
+            if (t instanceof y)
+              if (d.has(t.operationName))
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "[mex] handleMexNotification: ",
                         " unsupported, nack",
                       ])),
@@ -101,8 +126,8 @@ __d(
                 throw (
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[mex] handleMexNotification: ",
                           " unknown op, nack",
                         ])),
@@ -115,38 +140,38 @@ __d(
                   t
                 );
             throw new (o("WAParsableWapNode").XmppParsingFailure)(
-              d,
+              p,
               "unexpected error: " + String(t),
             );
           }
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function f(e) {
+    function h(e) {
       return e.OperationName === "MexNotificationEvent"
-        ? h(e, b)
+        ? C(e, S)
         : e.OperationName === "NotificationNewsletterUserSettingChange"
-          ? h(
+          ? C(
               e,
               o("WAWebMexNewsletterUserSettingChangeHandler")
                 .mexHandleNewsletterUserSettingChange,
             )
           : e.OperationName === "NotificationNewsletterJoin"
-            ? h(e, o("WAWebMexNewsletterJoinHandler").mexHandleNewsletterJoin)
+            ? C(e, o("WAWebMexNewsletterJoinHandler").mexHandleNewsletterJoin)
             : e.OperationName === "NotificationNewsletterLeave"
-              ? h(
+              ? C(
                   e,
                   o("WAWebMexNewsletterLeaveHandler").mexHandleNewsletterLeave,
                 )
               : e.OperationName === "NotificationNewsletterStateChange"
-                ? h(
+                ? C(
                     e,
                     o("WAWebMexNewsletterStateChangeHandler")
                       .mexHandleNewsletterStateChange,
                   )
                 : e.OperationName === "NotificationNewsletterAdminProfileUpdate"
-                  ? h(
+                  ? C(
                       e,
                       o(
                         "WAWebMexNewsletterAdminProfileUpdateNotificationHandler",
@@ -154,19 +179,19 @@ __d(
                     )
                   : e.OperationName ===
                       "NotificationNewsletterAdminMetadataUpdate"
-                    ? h(
+                    ? C(
                         e,
                         o("WAWebMexNewsletterAdminNotificationHandler")
                           .mexHandleNewsletterAdminNotification,
                       )
                     : e.OperationName === "NotificationNewsletterOwnerUpdate"
-                      ? h(
+                      ? C(
                           e,
                           o("WAWebMexNewsletterOwnerNotificationHandler")
                             .mexHandleNewsletterOwnerNotification,
                         )
                       : e.OperationName === "NotificationNewsletterUpdate"
-                        ? h(
+                        ? C(
                             e,
                             o(
                               "WAWebMexNewsletterMetadataUpdateNotificationHandler",
@@ -176,7 +201,7 @@ __d(
                               "NotificationNewsletterAdminPromote" ||
                             e.OperationName ===
                               "NotificationNewsletterAdminDemote"
-                          ? h(
+                          ? C(
                               e,
                               o(
                                 "WAWebMexNewsletterRoleChangeNotificationHandler",
@@ -184,7 +209,7 @@ __d(
                             )
                           : e.OperationName ===
                               "NotificationNewsletterAdminInviteRevoke"
-                            ? h(
+                            ? C(
                                 e,
                                 o(
                                   "WAWebMexNewsletterAdminInviteRevokeNotificationHandler",
@@ -192,7 +217,7 @@ __d(
                               )
                             : e.OperationName ===
                                 "NotificationNewsletterWamoSubStatusChange"
-                              ? h(
+                              ? C(
                                   e,
                                   o(
                                     "WAWebMexNewsletterWamoSubStatusChangeNotificationHandler",
@@ -200,7 +225,7 @@ __d(
                                 )
                               : e.OperationName ===
                                   "NewsletterResponseStateUpdate"
-                                ? h(
+                                ? C(
                                     e,
                                     o(
                                       "WAWebMexNewsletterQuestionResponseStateChangeNotificationHandler",
@@ -209,7 +234,7 @@ __d(
                                   )
                                 : e.OperationName ===
                                     "NotificationNewsletterBlockUser"
-                                  ? h(
+                                  ? C(
                                       e,
                                       o(
                                         "WAWebMexNewsletterQuestionResponseBlockedNotificationHandler",
@@ -218,7 +243,7 @@ __d(
                                     )
                                   : e.OperationName ===
                                       "NotificationNewsletterPaidPartnershipUpdate"
-                                    ? h(
+                                    ? C(
                                         e,
                                         o(
                                           "WAWebMexNewsletterPaidPartnershipNotificationHandler",
@@ -226,7 +251,7 @@ __d(
                                       )
                                     : e.OperationName ===
                                         "NotificationNewsletterMilestone"
-                                      ? h(
+                                      ? C(
                                           e,
                                           o(
                                             "WAWebMexNewsletterMilestoneNotificationHandler",
@@ -234,7 +259,7 @@ __d(
                                         )
                                       : e.OperationName ===
                                           "TextStatusUpdateNotification"
-                                        ? h(
+                                        ? C(
                                             e,
                                             o(
                                               "WAWebMexTextStatusUpdateNotificationHandler",
@@ -242,7 +267,7 @@ __d(
                                           )
                                         : e.OperationName ===
                                             "TextStatusUpdateNotificationSideSub"
-                                          ? h(
+                                          ? C(
                                               e,
                                               o(
                                                 "WAWebMexTextStatusUpdateNotificationHandler",
@@ -261,7 +286,7 @@ __d(
                                                 "NotificationGroupMemberShareGroupHistoryModePropertyUpdate" ||
                                               e.OperationName ===
                                                 "NotificationGroupAppealStatusUpdate"
-                                            ? h(
+                                            ? C(
                                                 e,
                                                 o(
                                                   "WAWebMexGroupPropertyUpdateNotificationHandler",
@@ -269,7 +294,7 @@ __d(
                                               )
                                             : e.OperationName ===
                                                 "NotificationCommunityOwnerUpdate"
-                                              ? h(
+                                              ? C(
                                                   e,
                                                   o(
                                                     "WAWebMexCommunityOwnerUpdateNotificationHandler",
@@ -278,7 +303,7 @@ __d(
                                                 )
                                               : e.OperationName ===
                                                   "UsernameSetNotification"
-                                                ? h(
+                                                ? C(
                                                     e,
                                                     o(
                                                       "WAWebMexUsernameUpdateNotificationHandler",
@@ -286,7 +311,7 @@ __d(
                                                   )
                                                 : e.OperationName ===
                                                     "UsernameDeleteNotification"
-                                                  ? h(
+                                                  ? C(
                                                       e,
                                                       o(
                                                         "WAWebMexUsernameUpdateNotificationHandler",
@@ -294,7 +319,7 @@ __d(
                                                     )
                                                   : e.OperationName ===
                                                       "UsernameUpdateNotification"
-                                                    ? h(
+                                                    ? C(
                                                         e,
                                                         o(
                                                           "WAWebMexUsernameUpdateNotificationHandler",
@@ -303,7 +328,7 @@ __d(
                                                       )
                                                     : e.OperationName ===
                                                         "AccountSyncUsernameNotification"
-                                                      ? h(
+                                                      ? C(
                                                           e,
                                                           o(
                                                             "WAWebMexUsernameAccountSyncNotificationHandler",
@@ -312,7 +337,7 @@ __d(
                                                         )
                                                       : e.OperationName ===
                                                           "LidChangeNotification"
-                                                        ? h(
+                                                        ? C(
                                                             e,
                                                             o(
                                                               "WAWebMexLidChangeNotificationHandler",
@@ -321,7 +346,7 @@ __d(
                                                           )
                                                         : e.OperationName ===
                                                             "NotificationUserBrigadingUpdate"
-                                                          ? h(
+                                                          ? C(
                                                               e,
                                                               o(
                                                                 "WAWebHandleBrigadingUpdateNotification",
@@ -330,7 +355,7 @@ __d(
                                                             )
                                                           : e.OperationName ===
                                                               "NotificationGroupLimitSharingPropertyUpdate"
-                                                            ? h(
+                                                            ? C(
                                                                 e,
                                                                 o(
                                                                   "WAWebMexLimitSharingUpdateHandler",
@@ -339,7 +364,7 @@ __d(
                                                               )
                                                             : e.OperationName ===
                                                                 "NotificationUserReachoutTimelockUpdate"
-                                                              ? h(
+                                                              ? C(
                                                                   e,
                                                                   o(
                                                                     "WAWebMexReachoutTimelockNotificationHandler",
@@ -348,7 +373,7 @@ __d(
                                                                 )
                                                               : e.OperationName ===
                                                                   "NotificationIntegrityChallengeRequest"
-                                                                ? h(
+                                                                ? C(
                                                                     e,
                                                                     o(
                                                                       "WAWebMexIntegrityChallengeNotificationHandler",
@@ -357,7 +382,7 @@ __d(
                                                                   )
                                                                 : e.OperationName ===
                                                                     "MessageCappingInfoNotification"
-                                                                  ? h(
+                                                                  ? C(
                                                                       e,
                                                                       o(
                                                                         "WAWebNewChatMessageCappingNotificationHandler",
@@ -366,7 +391,7 @@ __d(
                                                                     )
                                                                   : e.OperationName ===
                                                                       "NotificationScheduledMessagePost"
-                                                                    ? h(
+                                                                    ? C(
                                                                         e,
                                                                         o(
                                                                           "WAWebScheduledMsgPostNotificationHandler",
@@ -375,7 +400,7 @@ __d(
                                                                       )
                                                                     : e.OperationName ===
                                                                         "NotificationScheduledMessageReveal"
-                                                                      ? h(
+                                                                      ? C(
                                                                           e,
                                                                           o(
                                                                             "WAWebScheduledMsgRevealNotificationHandler",
@@ -384,7 +409,7 @@ __d(
                                                                         )
                                                                       : e.OperationName ===
                                                                           "NotificationEventInvite"
-                                                                        ? h(
+                                                                        ? C(
                                                                             e,
                                                                             o(
                                                                               "WAWebSharableEventNotificationHandler",
@@ -393,7 +418,7 @@ __d(
                                                                           )
                                                                         : e.OperationName ===
                                                                             "NotificationEventUpdate"
-                                                                          ? h(
+                                                                          ? C(
                                                                               e,
                                                                               o(
                                                                                 "WAWebSharableEventNotificationHandler",
@@ -402,7 +427,7 @@ __d(
                                                                             )
                                                                           : e.OperationName ===
                                                                               "NotificationEventRsvp"
-                                                                            ? h(
+                                                                            ? C(
                                                                                 e,
                                                                                 o(
                                                                                   "WAWebSharableEventNotificationHandler",
@@ -411,7 +436,7 @@ __d(
                                                                               )
                                                                             : e.OperationName ===
                                                                                 "NotificationEventDelete"
-                                                                              ? h(
+                                                                              ? C(
                                                                                   e,
                                                                                   o(
                                                                                     "WAWebSharableEventNotificationHandler",
@@ -420,7 +445,7 @@ __d(
                                                                                 )
                                                                               : e.OperationName ===
                                                                                   "NotificationEventReminder"
-                                                                                ? h(
+                                                                                ? C(
                                                                                     e,
                                                                                     o(
                                                                                       "WAWebSharableEventNotificationHandler",
@@ -429,7 +454,7 @@ __d(
                                                                                   )
                                                                                 : e.OperationName ===
                                                                                     "NotificationEventInviteRemove"
-                                                                                  ? h(
+                                                                                  ? C(
                                                                                       e,
                                                                                       o(
                                                                                         "WAWebSharableEventNotificationHandler",
@@ -437,18 +462,18 @@ __d(
                                                                                         .mexHandleSharableEventInviteRemoveNotification,
                                                                                     )
                                                                                   : (
-                                                                                      u ||
-                                                                                      (u =
+                                                                                      c ||
+                                                                                      (c =
                                                                                         n(
                                                                                           "Promise",
                                                                                         ))
                                                                                     ).reject(
-                                                                                      new g(
+                                                                                      new y(
                                                                                         e.OperationName,
                                                                                       ),
                                                                                     );
     }
-    var g = (function (e) {
+    var y = (function (e) {
       function t(n) {
         var r;
         return (
@@ -467,32 +492,32 @@ __d(
         t
       );
     })(babelHelpers.wrapNativeSuper(Error));
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.mexResponse,
             r = o("WAWebMexRelayEnvironment").parseFatalExtensionError(
               n.errors,
             );
           if (r != null)
             throw new (o("WAParsableWapNode").XmppParsingFailure)(
-              d,
+              p,
               "errors list in parsed json has fatal error",
             );
           if (n.data != null)
-            return (yield t(e, n.data), C(e.stanzaId, e.from));
+            return (yield t(e, n.data), v(e.stanzaId, e.from));
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
-            d,
+            p,
             "null data in parsed json",
           );
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e, t) {
+    function v(e, t) {
       return o("WAWap").wap("ack", {
         id: o("WAWap").CUSTOM_STRING(e),
         to: t,
@@ -500,18 +525,18 @@ __d(
         type: "mex",
       });
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t) {},
         )),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.handleMexNotification = p), (l.MissingMEXNotificationHandler = g));
+    ((l.handleMexNotification = f), (l.MissingMEXNotificationHandler = y));
   },
   98,
 );

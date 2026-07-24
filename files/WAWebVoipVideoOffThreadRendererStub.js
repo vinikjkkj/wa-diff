@@ -18,37 +18,44 @@ __d(
       c,
       d,
       m,
-      p = 4,
-      _ = 5e3,
-      f = (function () {
+      p,
+      _ = 4,
+      f = 5e3,
+      g = (function () {
         function t(e) {
           var n = e.canvas,
             r = e.portalMode,
-            o = e.rendererType,
-            a = e.threadingMode,
-            i = t.rendererIdCounter++;
-          this.$1 = i;
-          var l = r
+            a = e.rendererType,
+            i = e.threadingMode;
+          ((this.$10 = !1),
+            (this.$11 = o(
+              "WAWebVoipVideoRendererInterface",
+            ).onRenderCallbackNoop));
+          var l = t.rendererIdCounter++,
+            s = 0;
+          ((this.$1 = l), (this.$2 = s));
+          var u = r
             ? new OffscreenCanvas(n.width, n.height)
             : n.transferControlToOffscreen();
-          ((this.$2 = n),
-            (this.$3 = l),
-            (this.$4 = this.$5(a)),
-            this.$4.postMessage(
+          ((this.$3 = n),
+            (this.$4 = u),
+            (this.$5 = this.$6(i)),
+            this.$5.postMessage(
               {
                 type: "registerCanvas",
-                rendererId: i,
-                offscreenCanvas: l,
-                rendererType: o,
+                rendererId: l,
+                generation: s,
+                offscreenCanvas: u,
+                rendererType: a,
                 portalMode: r,
               },
-              [l],
+              [u],
             ));
         }
         ((t.checkAvailability = function () {
           return !!window.OffscreenCanvas && !!window.Worker;
         }),
-          (t.$6 = function (n, r) {
+          (t.$7 = function (n, r) {
             var e, o;
             return (e =
               (o = t.workerPool.get(n)) == null ? void 0 : o.get(r)) != null
@@ -57,7 +64,7 @@ __d(
           }));
         var n = t.prototype;
         return (
-          (n.$7 = function (a) {
+          (n.$8 = function (a) {
             var n = this,
               i = new (o("WorkerMessagePort").WorkerMessagePort)(
                 o("WorkerBundleResource").createDedicatedWebWorker(
@@ -67,12 +74,12 @@ __d(
               ),
               l = Date.now(),
               p = !1,
-              f = !1;
+              _ = !1;
             (i.onMessage.add(function () {
               if (!p) {
                 p = !0;
                 var t = Date.now() - l;
-                f
+                _
                   ? o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -104,16 +111,16 @@ __d(
               }));
             var g = window.setTimeout(function () {
               p ||
-                ((f = !0),
+                ((_ = !0),
                 o("WALogger").WARN(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: VideoRendererWorker silent >",
                       "ms, may stay gray",
                     ])),
-                  _,
+                  f,
                 ));
-            }, _);
+            }, f);
             return (
               i.addMessageListener("shutdown", function () {
                 window.clearTimeout(g);
@@ -131,19 +138,21 @@ __d(
               }),
               i.addMessageListener("mainThreadRender", function (e) {
                 var l = e.bitmap,
-                  s = e.rendererId;
+                  s = e.generation,
+                  u = e.isReadyFrame,
+                  c = e.rendererId,
+                  m = a ? t.$7(i, c) : n;
+                if (!m || s !== m.$2) {
+                  l.close();
+                  return;
+                }
                 try {
-                  var u = a ? t.$6(i, s) : n;
-                  if (!u) {
-                    l.close();
-                    return;
-                  }
-                  var c = u.$2.getContext("bitmaprenderer");
-                  if (!c)
+                  var p = m.$3.getContext("bitmaprenderer");
+                  if (!p)
                     throw r("err")(
-                      "Could not get bitmaprenderer context for " + s,
+                      "Could not get bitmaprenderer context for " + c,
                     );
-                  c.transferFromImageBitmap(l);
+                  p.transferFromImageBitmap(l);
                 } catch (e) {
                   (o("WALogger").WARN(
                     d ||
@@ -154,16 +163,24 @@ __d(
                     e,
                   ),
                     l.close());
+                  return;
                 }
+                u && m.$9();
+              }),
+              i.addMessageListener("frameRendered", function (e) {
+                var r = e.generation,
+                  o = e.rendererId,
+                  l = a ? t.$7(i, o) : n;
+                l != null && r === l.$2 && l.$9();
               }),
               i.addMessageListener("requestKeyFrame", function (e) {
                 var r = e.rendererId;
                 try {
-                  var l = a ? t.$6(i, r) : n;
+                  var l = a ? t.$7(i, r) : n;
                   if (!l) return;
                   o(
                     "WAWebVoipVideoRendererRegistry",
-                  ).videoRendererRegistry.requestKeyFrameForCanvas(l.$2);
+                  ).videoRendererRegistry.requestKeyFrameForCanvas(l.$3);
                 } catch (e) {
                   o("WALogger").WARN(
                     m ||
@@ -183,7 +200,7 @@ __d(
               i
             );
           }),
-          (n.$5 = function (n) {
+          (n.$6 = function (n) {
             if (
               n ===
                 o("WAWebVoipVideoRendererInterface")
@@ -197,36 +214,43 @@ __d(
                 o("WAWebVoipVideoRendererInterface")
                   .WAWebVoipVideoRendererThreadingMode.SINGLE_WORKER
                   ? 1 / 0
-                  : p;
+                  : _;
               for (var r of t.workerPool) {
                 var a = r[0],
                   i = r[1];
                 if (i.size < e) return (i.set(this.$1, this), a);
               }
-              var l = this.$7(!0);
+              var l = this.$8(!0);
               return (t.workerPool.set(l, new Map([[this.$1, this]])), l);
             }
-            return this.$7(!1);
+            return this.$8(!1);
           }),
           (n.cleanup = function () {
-            var e = t.workerPool.get(this.$4);
+            this.$2 += 1;
+            var e = t.workerPool.get(this.$5);
             (e != null && e.delete(this.$1),
-              this.$4.postMessage({
+              this.$5.postMessage({
                 type: "unregisterCanvas",
                 rendererId: this.$1,
               }));
           }),
           (n.reset = function () {
-            this.$4.postMessage({ type: "reset", rendererId: this.$1 });
+            ((this.$2 += 1),
+              (this.$10 = !1),
+              this.$5.postMessage({
+                type: "reset",
+                rendererId: this.$1,
+                generation: this.$2,
+              }));
           }),
           (n.requireKeyframe = function () {
-            this.$4.postMessage({
+            this.$5.postMessage({
               type: "requireKeyframe",
               rendererId: this.$1,
             });
           }),
           (n.onCanvasResize = function (t, n) {
-            this.$4.postMessage({
+            this.$5.postMessage({
               type: "onCanvasResize",
               rendererId: this.$1,
               width: t,
@@ -234,14 +258,14 @@ __d(
             });
           }),
           (n.setCoverFit = function (t) {
-            this.$4.postMessage({
+            this.$5.postMessage({
               type: "setCoverFit",
               rendererId: this.$1,
               enabled: t,
             });
           }),
           (n.setVideoEnhancement = function (t, n) {
-            this.$4.postMessage({
+            this.$5.postMessage({
               type: "setVideoEnhancement",
               rendererId: this.$1,
               brightness: t,
@@ -257,7 +281,7 @@ __d(
               i = t.orientation,
               l = t.timestamp,
               s = t.width;
-            this.$4.postMessage({
+            this.$5.postMessage({
               type: "onVideoFrame",
               rendererId: this.$1,
               frameBuffer: n,
@@ -271,14 +295,29 @@ __d(
             });
           }),
           (n.setRenderCallback = function (t) {
-            throw r("err")(
-              "renderCallback not implemented for off thread renderer",
-            );
+            this.$11 = t;
+          }),
+          (n.$9 = function () {
+            if (!this.$10) {
+              this.$10 = !0;
+              try {
+                this.$11();
+              } catch (e) {
+                o("WALogger").WARN(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: VideoRendererWorker: render callback failed: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+            }
           }),
           t
         );
       })();
-    ((f.rendererIdCounter = 0), (f.workerPool = new Map()), (l.default = f));
+    ((g.rendererIdCounter = 0), (g.workerPool = new Map()), (l.default = g));
   },
   98,
 );

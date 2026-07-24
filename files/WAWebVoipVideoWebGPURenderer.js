@@ -113,42 +113,40 @@ __d(
               i = t.orientation,
               l = t.timestamp,
               s = t.width;
-            if (
-              (this.$3(),
-              this.renderer.render({
-                coverFit: this.$2,
-                data: new Uint8Array(n),
-                format: e,
-                height: r,
-                mirror: a,
-                orientation: i,
-                width: s,
-              }),
-              this.mode === _.Direct || !this.offscreenCanvas)
-            ) {
-              this.$1();
-              return;
-            }
-            if (this.renderer.initialized) {
-              var u = this.offscreenCanvas.transferToImageBitmap();
+            this.$3();
+            var u = this.renderer.render({
+              coverFit: this.$2,
+              data: new Uint8Array(n),
+              format: e,
+              height: r,
+              mirror: a,
+              orientation: i,
+              width: s,
+            });
+            if (u) {
+              if (this.mode === _.Direct || !this.offscreenCanvas) {
+                this.$1();
+                return;
+              }
+              var c = this.offscreenCanvas.transferToImageBitmap();
               e: {
-                var c = this.mode;
-                if (c === _.Direct) break e;
-                if (c === _.OffscreenTransfer) {
-                  var d;
-                  (d = this.transferContext) == null ||
-                    d.transferFromImageBitmap(u);
+                var d = this.mode;
+                if (d === _.Direct) break e;
+                if (d === _.OffscreenTransfer) {
+                  var m;
+                  (m = this.transferContext) == null ||
+                    m.transferFromImageBitmap(c);
                   break e;
                 }
-                if (c === _.OffscreenDraw) {
-                  var m;
-                  ((m = this.drawContext) == null || m.drawImage(u, 0, 0),
-                    u.close());
+                if (d === _.OffscreenDraw) {
+                  var p;
+                  ((p = this.drawContext) == null || p.drawImage(c, 0, 0),
+                    c.close());
                   break e;
                 }
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    c,
+                    d,
                 );
               }
               this.$1();
@@ -365,176 +363,172 @@ __d(
               d = t.orientation,
               m = t.width;
             if (
-              !(
-                !this.initialized ||
-                this.device == null ||
-                this.context == null ||
-                this.sampler == null ||
-                this.uniformBuffer == null ||
-                this.enhancementBuffer == null
-              )
-            ) {
-              var _ = this.device,
-                f = this.context,
-                g = this.sampler,
-                h = this.uniformBuffer,
-                y = this.enhancementBuffer,
-                C = this.canvas.width / this.canvas.height,
-                S = d.valueOf() % 2 === 1 ? m / i : i / m,
-                R = 1,
-                L = 1;
-              e
-                ? C > S
-                  ? (L = C / S)
-                  : (R = S / C)
-                : C > S
-                  ? (R = S / C)
-                  : (L = C / S);
-              var E = v[l ? 1 : 0][d.valueOf() - 1] || b;
-              ((this.lastTransformMatrix !== E ||
-                this.lastFitScaleX !== R ||
-                this.lastFitScaleY !== L) &&
-                ((this.lastTransformMatrix = E),
-                (this.lastFitScaleX = R),
-                (this.lastFitScaleY = L),
-                this.cachedMatrixData.set(E, 0),
-                (this.cachedMatrixData[4] = R),
-                (this.cachedMatrixData[5] = L),
-                _.queue.writeBuffer(h, 0, this.cachedMatrixData)),
-                (this.lastEnhancementWidth !== m ||
-                  this.lastEnhancementHeight !== i ||
-                  this.lastEnhancementBrightness !== this.brightness ||
-                  this.lastEnhancementSharpening !== this.sharpening) &&
-                  ((this.lastEnhancementWidth = m),
-                  (this.lastEnhancementHeight = i),
-                  (this.lastEnhancementBrightness = this.brightness),
-                  (this.lastEnhancementSharpening = this.sharpening),
-                  (this.cachedEnhancementData[0] = this.brightness),
-                  (this.cachedEnhancementData[1] = this.sharpening),
-                  (this.cachedEnhancementData[2] = m),
-                  (this.cachedEnhancementData[3] = i),
-                  _.queue.writeBuffer(y, 0, this.cachedEnhancementData)));
-              var k = null,
-                I = null;
-              if (a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12) {
-                var T = m * i,
-                  D = n.subarray(0, T),
-                  x = n.subarray(T);
-                if (
-                  this.yTexture == null ||
-                  this.uvTexture == null ||
-                  this.lastWidth !== m ||
-                  this.lastHeight !== i
-                ) {
-                  (this.yTexture != null && this.yTexture.destroy(),
-                    this.uvTexture != null && this.uvTexture.destroy());
-                  var $ = _.createTexture({
-                    size: { width: m, height: i, depthOrArrayLayers: 1 },
-                    format: "r8unorm",
-                    usage: p.TEXTURE_BINDING | p.COPY_DST,
-                  });
-                  this.yTexture = $;
-                  var P = _.createTexture({
-                    size: {
-                      width: m / 2,
-                      height: i / 2,
-                      depthOrArrayLayers: 1,
-                    },
-                    format: "rg8unorm",
-                    usage: p.TEXTURE_BINDING | p.COPY_DST,
-                  });
-                  ((this.uvTexture = P),
-                    (this.lastWidth = m),
-                    (this.lastHeight = i));
-                  var N = this.nv12BindGroupLayout;
-                  if (N == null) return;
-                  this.cachedNV12BindGroup = _.createBindGroup({
-                    layout: N,
-                    entries: [
-                      { binding: 0, resource: $.createView() },
-                      { binding: 1, resource: P.createView() },
-                      { binding: 2, resource: g },
-                      { binding: 3, resource: { buffer: h } },
-                      { binding: 4, resource: { buffer: y } },
-                    ],
-                  });
-                }
-                var M = this.yTexture,
-                  w = this.uvTexture;
-                if (M == null || w == null) return;
-                (_.queue.writeTexture(
-                  { texture: M },
-                  D,
-                  { offset: 0, bytesPerRow: m, rowsPerImage: i },
-                  { width: m, height: i, depthOrArrayLayers: 1 },
-                ),
-                  _.queue.writeTexture(
-                    { texture: w },
-                    x,
-                    { offset: 0, bytesPerRow: m, rowsPerImage: i / 2 },
-                    { width: m / 2, height: i / 2, depthOrArrayLayers: 1 },
-                  ),
-                  (k = this.nv12Pipeline),
-                  (I = this.cachedNV12BindGroup));
-              } else if (
-                a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
-                a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
+              !this.initialized ||
+              this.device == null ||
+              this.context == null ||
+              this.sampler == null ||
+              this.uniformBuffer == null ||
+              this.enhancementBuffer == null
+            )
+              return !1;
+            var _ = this.device,
+              f = this.context,
+              g = this.sampler,
+              h = this.uniformBuffer,
+              y = this.enhancementBuffer,
+              C = this.canvas.width / this.canvas.height,
+              S = d.valueOf() % 2 === 1 ? m / i : i / m,
+              R = 1,
+              L = 1;
+            e
+              ? C > S
+                ? (L = C / S)
+                : (R = S / C)
+              : C > S
+                ? (R = S / C)
+                : (L = C / S);
+            var E = v[l ? 1 : 0][d.valueOf() - 1] || b;
+            ((this.lastTransformMatrix !== E ||
+              this.lastFitScaleX !== R ||
+              this.lastFitScaleY !== L) &&
+              ((this.lastTransformMatrix = E),
+              (this.lastFitScaleX = R),
+              (this.lastFitScaleY = L),
+              this.cachedMatrixData.set(E, 0),
+              (this.cachedMatrixData[4] = R),
+              (this.cachedMatrixData[5] = L),
+              _.queue.writeBuffer(h, 0, this.cachedMatrixData)),
+              (this.lastEnhancementWidth !== m ||
+                this.lastEnhancementHeight !== i ||
+                this.lastEnhancementBrightness !== this.brightness ||
+                this.lastEnhancementSharpening !== this.sharpening) &&
+                ((this.lastEnhancementWidth = m),
+                (this.lastEnhancementHeight = i),
+                (this.lastEnhancementBrightness = this.brightness),
+                (this.lastEnhancementSharpening = this.sharpening),
+                (this.cachedEnhancementData[0] = this.brightness),
+                (this.cachedEnhancementData[1] = this.sharpening),
+                (this.cachedEnhancementData[2] = m),
+                (this.cachedEnhancementData[3] = i),
+                _.queue.writeBuffer(y, 0, this.cachedEnhancementData)));
+            var k = null,
+              I = null;
+            if (a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12) {
+              var T = m * i,
+                D = n.subarray(0, T),
+                x = n.subarray(T);
+              if (
+                this.yTexture == null ||
+                this.uvTexture == null ||
+                this.lastWidth !== m ||
+                this.lastHeight !== i
               ) {
-                if (
-                  this.rgbTexture == null ||
-                  this.lastWidth !== m ||
-                  this.lastHeight !== i
-                ) {
-                  this.rgbTexture != null && this.rgbTexture.destroy();
-                  var A = _.createTexture({
-                    size: { width: m, height: i, depthOrArrayLayers: 1 },
-                    format: "rgba8unorm",
-                    usage: p.TEXTURE_BINDING | p.COPY_DST,
-                  });
-                  ((this.rgbTexture = A),
-                    (this.rgbaConversionBuffer = new Uint8Array(m * i * 4)),
-                    (this.lastWidth = m),
-                    (this.lastHeight = i));
-                  var F = this.rgbBindGroupLayout;
-                  if (F == null) return;
-                  this.cachedRGBBindGroup = _.createBindGroup({
-                    layout: F,
-                    entries: [
-                      { binding: 0, resource: A.createView() },
-                      { binding: 2, resource: g },
-                      { binding: 3, resource: { buffer: h } },
-                      { binding: 4, resource: { buffer: y } },
-                    ],
-                  });
-                }
-                var O = n;
-                if (a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24) {
-                  var B = m * i * 4;
-                  (this.rgbaConversionBuffer == null ||
-                    this.rgbaConversionBuffer.length < B) &&
-                    (this.rgbaConversionBuffer = new Uint8Array(B));
-                  for (
-                    var W = this.rgbaConversionBuffer, q = m * i, U = 0;
-                    U < q;
-                    U++
-                  )
-                    ((W[U * 4] = n[U * 3]),
-                      (W[U * 4 + 1] = n[U * 3 + 1]),
-                      (W[U * 4 + 2] = n[U * 3 + 2]),
-                      (W[U * 4 + 3] = 255));
-                  O = W;
-                }
-                var V = this.rgbTexture;
-                if (V == null) return;
-                (_.queue.writeTexture(
-                  { texture: V },
-                  O,
-                  { offset: 0, bytesPerRow: m * 4, rowsPerImage: i },
-                  { width: m, height: i, depthOrArrayLayers: 1 },
+                (this.yTexture != null && this.yTexture.destroy(),
+                  this.uvTexture != null && this.uvTexture.destroy());
+                var $ = _.createTexture({
+                  size: { width: m, height: i, depthOrArrayLayers: 1 },
+                  format: "r8unorm",
+                  usage: p.TEXTURE_BINDING | p.COPY_DST,
+                });
+                this.yTexture = $;
+                var P = _.createTexture({
+                  size: { width: m / 2, height: i / 2, depthOrArrayLayers: 1 },
+                  format: "rg8unorm",
+                  usage: p.TEXTURE_BINDING | p.COPY_DST,
+                });
+                ((this.uvTexture = P),
+                  (this.lastWidth = m),
+                  (this.lastHeight = i));
+                var N = this.nv12BindGroupLayout;
+                if (N == null) return !1;
+                this.cachedNV12BindGroup = _.createBindGroup({
+                  layout: N,
+                  entries: [
+                    { binding: 0, resource: $.createView() },
+                    { binding: 1, resource: P.createView() },
+                    { binding: 2, resource: g },
+                    { binding: 3, resource: { buffer: h } },
+                    { binding: 4, resource: { buffer: y } },
+                  ],
+                });
+              }
+              var M = this.yTexture,
+                w = this.uvTexture;
+              if (M == null || w == null) return !1;
+              (_.queue.writeTexture(
+                { texture: M },
+                D,
+                { offset: 0, bytesPerRow: m, rowsPerImage: i },
+                { width: m, height: i, depthOrArrayLayers: 1 },
+              ),
+                _.queue.writeTexture(
+                  { texture: w },
+                  x,
+                  { offset: 0, bytesPerRow: m, rowsPerImage: i / 2 },
+                  { width: m / 2, height: i / 2, depthOrArrayLayers: 1 },
                 ),
-                  (k = this.rgbPipeline),
-                  (I = this.cachedRGBBindGroup));
-              } else {
+                (k = this.nv12Pipeline),
+                (I = this.cachedNV12BindGroup));
+            } else if (
+              a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24 ||
+              a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGBA
+            ) {
+              if (
+                this.rgbTexture == null ||
+                this.lastWidth !== m ||
+                this.lastHeight !== i
+              ) {
+                this.rgbTexture != null && this.rgbTexture.destroy();
+                var A = _.createTexture({
+                  size: { width: m, height: i, depthOrArrayLayers: 1 },
+                  format: "rgba8unorm",
+                  usage: p.TEXTURE_BINDING | p.COPY_DST,
+                });
+                ((this.rgbTexture = A),
+                  (this.rgbaConversionBuffer = new Uint8Array(m * i * 4)),
+                  (this.lastWidth = m),
+                  (this.lastHeight = i));
+                var F = this.rgbBindGroupLayout;
+                if (F == null) return !1;
+                this.cachedRGBBindGroup = _.createBindGroup({
+                  layout: F,
+                  entries: [
+                    { binding: 0, resource: A.createView() },
+                    { binding: 2, resource: g },
+                    { binding: 3, resource: { buffer: h } },
+                    { binding: 4, resource: { buffer: y } },
+                  ],
+                });
+              }
+              var O = n;
+              if (a === o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.RGB24) {
+                var B = m * i * 4;
+                (this.rgbaConversionBuffer == null ||
+                  this.rgbaConversionBuffer.length < B) &&
+                  (this.rgbaConversionBuffer = new Uint8Array(B));
+                for (
+                  var W = this.rgbaConversionBuffer, q = m * i, U = 0;
+                  U < q;
+                  U++
+                )
+                  ((W[U * 4] = n[U * 3]),
+                    (W[U * 4 + 1] = n[U * 3 + 1]),
+                    (W[U * 4 + 2] = n[U * 3 + 2]),
+                    (W[U * 4 + 3] = 255));
+                O = W;
+              }
+              var V = this.rgbTexture;
+              if (V == null) return !1;
+              (_.queue.writeTexture(
+                { texture: V },
+                O,
+                { offset: 0, bytesPerRow: m * 4, rowsPerImage: i },
+                { width: m, height: i, depthOrArrayLayers: 1 },
+              ),
+                (k = this.rgbPipeline),
+                (I = this.cachedRGBBindGroup));
+            } else
+              return (
                 o("WALogger").ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -542,66 +536,62 @@ __d(
                       "",
                     ])),
                   o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.getName(a),
+                ),
+                !1
+              );
+            if (k == null || I == null) return !1;
+            var H = _.createCommandEncoder(),
+              G;
+            try {
+              G = f.getCurrentTexture();
+            } catch (e) {
+              this.contextReconfigured ||
+                (o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WebGPU] canvas ctx needs reconfig each frame",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e)),
+                (this.contextReconfigured = !0));
+              try {
+                (f.configure({ device: _, format: this.swapChainFormat }),
+                  (G = f.getCurrentTexture()));
+              } catch (e) {
+                return (
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "VideoRendererWorker: Failed to reconfigure canvas context",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e)),
+                  !1
                 );
-                return;
-              }
-              if (!(k == null || I == null)) {
-                var H = _.createCommandEncoder(),
-                  G;
-                try {
-                  G = f.getCurrentTexture();
-                } catch (e) {
-                  this.contextReconfigured ||
-                    (o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[WebGPU] canvas ctx needs reconfig each frame",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e)),
-                    (this.contextReconfigured = !0));
-                  try {
-                    (f.configure({ device: _, format: this.swapChainFormat }),
-                      (G = f.getCurrentTexture()));
-                  } catch (e) {
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "VideoRendererWorker: Failed to reconfigure canvas context",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e));
-                    return;
-                  }
-                }
-                var z = {
-                    colorAttachments: [
-                      {
-                        view: G.createView(),
-                        clearValue: { r: 0, g: 0, b: 0, a: 1 },
-                        loadOp: "clear",
-                        storeOp: "store",
-                      },
-                    ],
-                  },
-                  j = H.beginRenderPass(z);
-                (j.setPipeline(k),
-                  j.setViewport(
-                    0,
-                    0,
-                    this.canvas.width,
-                    this.canvas.height,
-                    0,
-                    1,
-                  ),
-                  j.setBindGroup(0, I),
-                  j.draw(4, 1, 0, 0),
-                  j.end(),
-                  _.queue.submit([H.finish()]));
               }
             }
+            var z = {
+                colorAttachments: [
+                  {
+                    view: G.createView(),
+                    clearValue: { r: 0, g: 0, b: 0, a: 1 },
+                    loadOp: "clear",
+                    storeOp: "store",
+                  },
+                ],
+              },
+              j = H.beginRenderPass(z);
+            return (
+              j.setPipeline(k),
+              j.setViewport(0, 0, this.canvas.width, this.canvas.height, 0, 1),
+              j.setBindGroup(0, I),
+              j.draw(4, 1, 0, 0),
+              j.end(),
+              _.queue.submit([H.finish()]),
+              !0
+            );
           }),
           t
         );

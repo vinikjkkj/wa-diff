@@ -73,15 +73,18 @@ __d(
         e.enable_bulk_route_fetch === !1
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function R(e) {
+      return e != null && typeof e == "object" && Object.keys(e).length === 0;
     }
-    function L() {
+    function L(e, t) {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var o,
             a = e == null ? void 0 : e.payloads;
-          $(
+          P(
             (o = e == null ? void 0 : e.sr_payload) != null
               ? o
               : Object.freeze({}),
@@ -106,24 +109,24 @@ __d(
           }
           return i;
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t) {
+    function k(e, t) {
       return (
         t === void 0 && (t = f),
         e().catch(function (o) {
           if (t > 0)
             return new (c || (c = n("Promise")))(function (n, o) {
               r("setTimeout")(function () {
-                r("promiseDone")(E(e, t - 1), n, o);
+                r("promiseDone")(k(e, t - 1), n, o);
               }, g);
             });
           throw o;
         })
       );
     }
-    function k(e) {
+    function I(e) {
       if (!h)
         return (c || (c = n("Promise"))).reject({
           error: { extras: { bulkRouteFetchStatus: "disabled" } },
@@ -138,20 +141,24 @@ __d(
           shouldShowErrorDialog: !1,
         });
       };
-      return E(t).then(function (e) {
+      return k(t).then(function (e) {
         if (S(e)) {
           var t;
           y();
-          var n = r("err")("Bulk route definition fetch disabled");
-          n.extra = babelHelpers.extends({}, (t = n.extra) != null ? t : {}, {
+          var o = r("err")("Bulk route definition fetch disabled");
+          o.extra = babelHelpers.extends({}, (t = o.extra) != null ? t : {}, {
             bulkRouteFetchStatus: "disabled",
           });
         }
-        var o = b(e);
-        return R(o, "comet_route_fetch");
+        if (R(e))
+          return (c || (c = n("Promise"))).reject({
+            extras: { bulkRouteFetchStatus: "empty_payload" },
+          });
+        var a = b(e);
+        return L(a, "comet_route_fetch");
       });
     }
-    function I(e) {
+    function T(e) {
       if (e instanceof r("CometAsyncFetchError")) return e.toString();
       if (typeof e == "object") {
         var t;
@@ -161,7 +168,7 @@ __d(
       }
       return e;
     }
-    function T(t) {
+    function D(t) {
       if (m[t] != null) return m[t];
       if (!h) return (c || (c = n("Promise"))).resolve({ error: !0 });
       var a = new (c || (c = n("Promise")))(function (e, n) {
@@ -183,7 +190,7 @@ __d(
                     r("CometRouterConfig").bulkRouteFetchBatchSize,
                   );
                   r("promiseDone")(
-                    k(
+                    I(
                       e.map(function (e) {
                         var t = e.url;
                         return t;
@@ -214,12 +221,21 @@ __d(
                             "comet_infra",
                             "Skipping fetch since bulk route fetch is disabled",
                           )
-                        : r("FBLogger")("comet_infra")
-                            .catching(t)
-                            .mustfix(
-                              "Failed call to /ajax/bulk-route-definitions/: %s",
-                              I(t),
-                            ),
+                        : t.extras != null &&
+                            Object.prototype.hasOwnProperty.call(
+                              t.extras,
+                              "bulkRouteFetchStatus",
+                            ) &&
+                            t.extras.bulkRouteFetchStatus === "empty_payload"
+                          ? r("FBLogger")("comet_infra").warn(
+                              "Skipping fetch: /ajax/bulk-route-definitions/ returned an empty routing payload",
+                            )
+                          : r("FBLogger")("comet_infra")
+                              .catching(t)
+                              .mustfix(
+                                "Failed call to /ajax/bulk-route-definitions/: %s",
+                                T(t),
+                              ),
                         e.forEach(function (e) {
                           var t = e.resolve;
                           return t({ error: !0 });
@@ -235,7 +251,7 @@ __d(
         a
       );
     }
-    function D(e, t) {
+    function x(e, t) {
       var n = !1;
       return function (a) {
         var i,
@@ -271,7 +287,7 @@ __d(
             throw r("FBLogger")("comet_infra").mustfixThrow(
               "There cannot be two first responses to one request",
             );
-          ((n = !0), P(i), t(i.payload));
+          ((n = !0), N(i), t(i.payload));
         } else if (i.__type === "preloader") {
           var c = i.id,
             d = i.result;
@@ -284,11 +300,11 @@ __d(
         }
       };
     }
-    function x(e, t, a) {
+    function $(e, t, a) {
       if (d[e] != null) return d[e];
       var i = function () {
           return new (c || (c = n("Promise")))(function (n, i) {
-            var l = r("createChunkedResponseParser")(D(e, n)),
+            var l = r("createChunkedResponseParser")(x(e, n)),
               c = "/ajax/route-definition/",
               d = o("cometAsyncRequestHeaders").getHeaders();
             Object.keys(d)
@@ -315,7 +331,7 @@ __d(
               .send();
           });
         },
-        l = E(i).then(r("parseCometRouteFetchPayload"));
+        l = k(i).then(r("parseCometRouteFetchPayload"));
       return (
         (d[e] = l),
         l.finally(function () {
@@ -324,16 +340,16 @@ __d(
         l
       );
     }
-    function $(e, t, n) {
+    function P(e, t, n) {
       o("HasteResponse").handle(e, {
         source: t,
         sourceDetail: JSON.stringify(n),
       });
     }
-    function P(e) {
+    function N(e) {
       var t;
       if (
-        ($(
+        (P(
           (t = e.sr_payload) != null ? t : {},
           "comet_route_first_response",
           null,
@@ -355,11 +371,12 @@ __d(
       (l.enableBulkRouteFetch = C),
       (l.assertRoutingPayload = b),
       (l.handleBulkRouteFetchToggle = v),
-      (l.responseHandler = R),
-      (l.retryFetchOnError = E),
-      (l.fetchAnonymousCometRouteForPreload = T),
-      (l.fetchAnonymousCometRouteForTransition = x),
-      (l.handleSRandJSModules = $));
+      (l.isEmptyRoutingPayload = R),
+      (l.responseHandler = L),
+      (l.retryFetchOnError = k),
+      (l.fetchAnonymousCometRouteForPreload = D),
+      (l.fetchAnonymousCometRouteForTransition = $),
+      (l.handleSRandJSModules = P));
   },
   98,
 );

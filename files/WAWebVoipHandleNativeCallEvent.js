@@ -20,6 +20,7 @@ __d(
     "WAWebVoipHandleNativeCallEventCallLogHandlers",
     "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     "WAWebVoipHandleNativeCallEventMediaHandlers",
+    "WAWebVoipLocalCallStateStore",
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPersistentFS",
     "WAWebVoipQplHelpers",
@@ -910,16 +911,17 @@ __d(
                 ? t
                 : o("WAWebVoipWaCallEnums").CallState.None,
             l = a.call_info;
-          (ne(n, i, l).catch(function (e) {
-            o("WALogger")
-              .ERROR(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: handleCallerTimeout failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e));
-          }),
+          (o("WAWebVoipLocalCallStateStore").setLocalCallState(i),
+            ne(n, i, l).catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: handleCallerTimeout failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e));
+            }),
             ae({ callInfo: l, callState: i, voipStackInterface: n }));
           var s = o(
             "WAWebVoipThreadPoolManagerRegistry",

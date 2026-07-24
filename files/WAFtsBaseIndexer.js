@@ -4,10 +4,10 @@ __d(
     "Promise",
     "WACustomError",
     "WALogger",
-    "WANullthrows",
     "WAResolvable",
     "WorkerSchedulerPriority",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -92,7 +92,7 @@ __d(
               function* (t, a) {
                 var i = this;
                 if ((t === void 0 && (t = g), this.isQueuedIndexingPending()))
-                  return r("WANullthrows")(this.__currentQueuedIndexingOp);
+                  return r("nullthrows")(this.__currentQueuedIndexingOp);
                 var l = new (o("WAResolvable").Resolvable)(),
                   m = !0;
                 try {
@@ -215,7 +215,7 @@ __d(
                   this.__progressCallbacks.push(e),
                   this.isFullIndexingPending())
                 )
-                  return r("WANullthrows")(this.__currentFullIndexingOp);
+                  return r("nullthrows")(this.__currentFullIndexingOp);
                 (this.__resetFullIndexingProgress(),
                   (this.__isFullIndexingPending = !0));
                 var i = new (o("WAResolvable").Resolvable)();

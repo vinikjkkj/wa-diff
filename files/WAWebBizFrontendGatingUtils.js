@@ -105,6 +105,19 @@ __d(
         ).isCustomPaymentMethodsSyncEnabledForCountry("ID")
       );
     }
+    function y(e) {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+          .customPaymentMethodsSyncSupport &&
+        o(
+          "WAWebUprPaymentKeySyncGating",
+        ).isCustomPaymentMethodsSyncEnabledForCountry(e)
+      );
+    }
+    function C() {
+      return !1;
+    }
     ((l.isOrderDetailsPaymentInstructionsSyncEnabled = e),
       (l.isCustomPaymentMethodsSyncEnabled = s),
       (l.isPixInQuickReplyEnabled = u),
@@ -115,7 +128,9 @@ __d(
       (l.isCTWASMBListsMultiSelectEnabled = _),
       (l.isCTWASMBListsDropdownApplicationFixEnabled = f),
       (l.isClabeSyncEnabled = g),
-      (l.isIdPaymentAccountSyncEnabled = h));
+      (l.isIdPaymentAccountSyncEnabled = h),
+      (l.isUprSendEnabledForCountry = y),
+      (l.isUprAttachmentTrayEnabled = C));
   },
   98,
 );

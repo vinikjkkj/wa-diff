@@ -4,8 +4,8 @@ __d(
     "Promise",
     "WACustomError",
     "WAFtsIndexerSelector",
-    "WANullthrows",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -44,9 +44,9 @@ __d(
                   (yield this.$1.upgradeVersion(),
                     yield this.__initVersions(!0));
                   var a = yield this.$3.select(
-                    r("WANullthrows")(this.$4).previous,
+                    r("nullthrows")(this.$4).previous,
                   );
-                  yield r("WANullthrows")(a).eraseIndex();
+                  yield r("nullthrows")(a).eraseIndex();
                 }
                 o && (yield o(t, n));
               },
@@ -87,8 +87,8 @@ __d(
                   e === void 0 && (e = !0),
                   yield this.__initVersions(),
                   e
-                    ? this.$3.select(r("WANullthrows")(this.$4).current)
-                    : this.$3.select(r("WANullthrows")(this.$4).next)
+                    ? this.$3.select(r("nullthrows")(this.$4).current)
+                    : this.$3.select(r("nullthrows")(this.$4).next)
                 );
               },
             );

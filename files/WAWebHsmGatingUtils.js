@@ -14,16 +14,22 @@ __d(
     }
     function u() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_shop_storefront_message",
+        "wa_web_buttons_response_prop_removal_killswitch",
       );
     }
     function c() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_shop_storefront_message",
+      );
+    }
+    function d() {
       return o("WAWebABProps").getABPropConfigValue("im_bloks_widget_enable");
     }
     ((l.interactiveNativeFlowMessagesEnabled = e),
       (l.interactiveNativeFlowResponseMessagesEnabled = s),
-      (l.shopsInteractiveMessageEnabled = u),
-      (l.isBloksWidgetEnabled = c));
+      (l.shouldUseLegacyButtonsResponse = u),
+      (l.shopsInteractiveMessageEnabled = c),
+      (l.isBloksWidgetEnabled = d));
   },
   98,
 );

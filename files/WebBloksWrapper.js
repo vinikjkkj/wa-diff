@@ -160,45 +160,74 @@ __d(
       aspectRatioSVG: { height: "100%", width: "100%", display: "flex" },
     });
     function h(e) {
-      var t = o("react-compiler-runtime").c(7),
+      var t = o("react-compiler-runtime").c(17),
         n = e.aspectRatio,
         r = e.children,
-        a;
-      t[0] !== n
-        ? ((a = s.jsx("div", {
-            "data-bloks-name": "bk.components.AspectRatio",
-            className: g.aspectRatioContainer,
-            style: { aspectRatio: n },
-            children: s.jsx("svg", {
-              "aria-hidden": "true",
-              xmlns: "http://www.w3.org/2000/svg",
-              height: 1,
-              width: n,
-              className: g.aspectRatioSVG,
+        a = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        i = a.omitDataBloksName,
+        l;
+      t[0] !== i
+        ? ((l = i ? null : { "data-bloks-name": "bk.components.AspectRatio" }),
+          (t[0] = i),
+          (t[1] = l))
+        : (l = t[1]);
+      var u, c;
+      t[2] !== n
+        ? ((u = { aspectRatio: n }),
+          (c = s.jsx("svg", {
+            "aria-hidden": "true",
+            xmlns: "http://www.w3.org/2000/svg",
+            height: 1,
+            width: n,
+            className: g.aspectRatioSVG,
+          })),
+          (t[2] = n),
+          (t[3] = u),
+          (t[4] = c))
+        : ((u = t[3]), (c = t[4]));
+      var d;
+      t[5] !== l || t[6] !== u || t[7] !== c
+        ? ((d = s.jsx(
+            "div",
+            babelHelpers.extends({}, l, {
+              className: g.aspectRatioContainer,
+              style: u,
+              children: c,
             }),
-          })),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
-      var i;
-      t[2] !== r
-        ? ((i = s.jsx("div", {
-            "data-bloks-name": "bk.components.AspectRatio",
-            className: g.aspectRatioContent,
-            children: r,
-          })),
-          (t[2] = r),
-          (t[3] = i))
-        : (i = t[3]);
-      var l;
+          )),
+          (t[5] = l),
+          (t[6] = u),
+          (t[7] = c),
+          (t[8] = d))
+        : (d = t[8]);
+      var m;
+      t[9] !== i
+        ? ((m = i ? null : { "data-bloks-name": "bk.components.AspectRatio" }),
+          (t[9] = i),
+          (t[10] = m))
+        : (m = t[10]);
+      var p;
+      t[11] !== r || t[12] !== m
+        ? ((p = s.jsx(
+            "div",
+            babelHelpers.extends({}, m, {
+              className: g.aspectRatioContent,
+              children: r,
+            }),
+          )),
+          (t[11] = r),
+          (t[12] = m),
+          (t[13] = p))
+        : (p = t[13]);
+      var _;
       return (
-        t[4] !== a || t[5] !== i
-          ? ((l = s.jsxs(s.Fragment, { children: [a, i] })),
-            (t[4] = a),
-            (t[5] = i),
-            (t[6] = l))
-          : (l = t[6]),
-        l
+        t[14] !== d || t[15] !== p
+          ? ((_ = s.jsxs(s.Fragment, { children: [d, p] })),
+            (t[14] = d),
+            (t[15] = p),
+            (t[16] = _))
+          : (_ = t[16]),
+        _
       );
     }
     function y(e) {

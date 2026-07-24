@@ -46,46 +46,41 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("graphql_locale_remapping");
     }
     function _() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_message_plugin_frontend_registration_enabled",
-      );
-    }
-    function f() {
       return !o("WAWebMobilePlatforms").isSMB();
     }
-    function g() {
+    function f() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled("ddm_settings");
     }
-    function h() {
+    function g() {
       var e;
       return (e = o("WAWebABProps").getABPropConfigValue("drop_last_name")) !=
         null
         ? e
         : !1;
     }
-    function y() {
+    function h() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("smb_rambutan_enabled")
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue("group_suspend_v2_enabled");
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue("blue_enabled");
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue("blue_education_enabled");
     }
-    function S() {
+    function v() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o("WAWebABProps").getABPropConfigValue(
             "blue_profile_locked_ui_enabled",
           )
         : !1;
     }
-    function R() {
+    function S() {
       o("WAWebABProps").getABPropConfigValue("wa_web_pre_chat_device_id_test");
     }
     ((l.webMediaAutoDownloadEnabled = e),
@@ -95,16 +90,15 @@ __d(
       (l.isFavoriteStickersEnabled = d),
       (l.multiSkinToneEmojiPickerEnabled = m),
       (l.getGraphqlLocaleRemapping = p),
-      (l.messagePluginFrontendRegistrationEnabled = _),
-      (l.isPrivacyNarrativeV1Enabled = f),
-      (l.isDefaultDisappearingMessagesEnabled = g),
-      (l.isDropLastNameEnabled = h),
-      (l.isRambutanEnabled = y),
-      (l.isGroupSuspendV2Enabled = C),
-      (l.isBlueEnabled = b),
-      (l.isBlueEducationEnabled = v),
-      (l.isBlueLockingEnabled = S),
-      (l.checkDeviceIdTestAbProp = R));
+      (l.isPrivacyNarrativeV1Enabled = _),
+      (l.isDefaultDisappearingMessagesEnabled = f),
+      (l.isDropLastNameEnabled = g),
+      (l.isRambutanEnabled = h),
+      (l.isGroupSuspendV2Enabled = y),
+      (l.isBlueEnabled = C),
+      (l.isBlueEducationEnabled = b),
+      (l.isBlueLockingEnabled = v),
+      (l.checkDeviceIdTestAbProp = S));
   },
   98,
 );

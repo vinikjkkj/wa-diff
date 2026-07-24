@@ -1,6 +1,7 @@
 __d(
   "WebBloksViewTransformsExtensionWrapper",
   [
+    "WebBloksEnvironmentContext",
     "WebBloksStyle",
     "WebBloksTheme",
     "WebBloksUtils",
@@ -12,107 +13,119 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(16),
+      var t = o("react-compiler-runtime").c(19),
         n = e.children,
         a = e.node,
-        i = [],
-        l = a.get("alpha"),
-        u;
+        i = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        l = i.omitDataBloksName,
+        u = [],
+        c = a.get("alpha"),
+        d;
       t[0] !== a
-        ? ((u = a.get("rotation")), (t[0] = a), (t[1] = u))
-        : (u = t[1]);
-      var c = u,
-        d = a.get("scale_x"),
-        m = a.get("scale_y"),
-        p = a.get("translate_x"),
-        _ = a.get("translate_y"),
-        f = r("useWebBloksViewTransformsExtensionWrapperVisibilityState")({
-          alpha: l,
-          scaleX: d,
-          scaleY: m,
+        ? ((d = a.get("rotation")), (t[0] = a), (t[1] = d))
+        : (d = t[1]);
+      var m = d,
+        p = a.get("scale_x"),
+        _ = a.get("scale_y"),
+        f = a.get("translate_x"),
+        g = a.get("translate_y"),
+        h = r("useWebBloksViewTransformsExtensionWrapperVisibilityState")({
+          alpha: c,
+          scaleX: p,
+          scaleY: _,
         });
-      (p != null && i.push("translateX(" + o("WebBloksUtils").toPx(p) + ")"),
-        _ != null && i.push("translateY(" + o("WebBloksUtils").toPx(_) + ")"),
-        c != null && i.push("rotate(" + c + "deg)"),
-        d != null && i.push("scaleX(" + d + ")"),
-        m != null && i.push("scaleY(" + m + ")"));
-      var g = i.join(" "),
-        h = a.get("css_transition_duration"),
-        y;
-      t[2] !== a
-        ? ((y = a.get("css_transition_timing_function")),
-          (t[2] = a),
-          (t[3] = y))
-        : (y = t[3]);
-      var C = y,
+      (f != null && u.push("translateX(" + o("WebBloksUtils").toPx(f) + ")"),
+        g != null && u.push("translateY(" + o("WebBloksUtils").toPx(g) + ")"),
+        m != null && u.push("rotate(" + m + "deg)"),
+        p != null && u.push("scaleX(" + p + ")"),
+        _ != null && u.push("scaleY(" + _ + ")"));
+      var y = u.join(" "),
+        C = a.get("css_transition_duration"),
         b;
-      t[4] !== a
-        ? ((b = a.get("css_transition_delay")), (t[4] = a), (t[5] = b))
-        : (b = t[5]);
+      t[2] !== a
+        ? ((b = a.get("css_transition_timing_function")),
+          (t[2] = a),
+          (t[3] = b))
+        : (b = t[3]);
       var v = b,
-        S = a.get("will_change"),
-        R = void 0,
-        L = void 0;
-      if (h != null && h > 0) {
-        var E = C != null ? C : "ease",
-          k = h + "s",
-          I = v != null ? " " + v + "s" : "";
-        ((R = "transform " + k + " " + E + I + ", opacity " + k + " " + E + I),
-          (L = "transform, opacity"));
-      } else S === !0 && (L = "transform, opacity");
-      var T = a.get("drop_shadow_color"),
-        D;
-      t[6] !== a
-        ? ((D = a.get("drop_shadow_offset_x")), (t[6] = a), (t[7] = D))
-        : (D = t[7]);
-      var x = D,
+        S;
+      t[4] !== a
+        ? ((S = a.get("css_transition_delay")), (t[4] = a), (t[5] = S))
+        : (S = t[5]);
+      var R = S,
+        L = a.get("will_change"),
+        E = void 0,
+        k = void 0;
+      if (C != null && C > 0) {
+        var I = v != null ? v : "ease",
+          T = C + "s",
+          D = R != null ? " " + R + "s" : "";
+        ((E = "transform " + T + " " + I + D + ", opacity " + T + " " + I + D),
+          (k = "transform, opacity"));
+      } else L === !0 && (k = "transform, opacity");
+      var x = a.get("drop_shadow_color"),
         $;
-      t[8] !== a
-        ? (($ = a.get("drop_shadow_offset_y")), (t[8] = a), (t[9] = $))
-        : ($ = t[9]);
+      t[6] !== a
+        ? (($ = a.get("drop_shadow_offset_x")), (t[6] = a), (t[7] = $))
+        : ($ = t[7]);
       var P = $,
         N;
-      t[10] !== a
-        ? ((N = a.get("drop_shadow_blur_radius")), (t[10] = a), (t[11] = N))
-        : (N = t[11]);
+      t[8] !== a
+        ? ((N = a.get("drop_shadow_offset_y")), (t[8] = a), (t[9] = N))
+        : (N = t[9]);
       var M = N,
-        w = o("WebBloksTheme").useTheme().getTheme(),
-        A = void 0;
-      if (T != null) {
-        var F = x != null ? x : 0,
-          O = P != null ? P : 0,
-          B = M != null ? M : 0,
-          W = o("WebBloksUtils").getRGBColorWithTheme(T, w);
-        A = "drop-shadow(" + F + "px " + O + "px " + B + "px " + W + ")";
+        w;
+      t[10] !== a
+        ? ((w = a.get("drop_shadow_blur_radius")), (t[10] = a), (t[11] = w))
+        : (w = t[11]);
+      var A = w,
+        F = o("WebBloksTheme").useTheme().getTheme(),
+        O = void 0;
+      if (x != null) {
+        var B = P != null ? P : 0,
+          W = M != null ? M : 0,
+          q = A != null ? A : 0,
+          U = o("WebBloksUtils").getRGBColorWithTheme(x, F);
+        O = "drop-shadow(" + B + "px " + W + "px " + q + "px " + U + ")";
       }
-      var q = "bk.components.ViewTransformsExtension",
-        U = o("WebBloksStyle").getStyleProps({
+      var V;
+      t[12] !== l
+        ? ((V = l
+            ? null
+            : { "data-bloks-name": "bk.components.ViewTransformsExtension" }),
+          (t[12] = l),
+          (t[13] = V))
+        : (V = t[13]);
+      var H = o("WebBloksStyle").getStyleProps({
           height: "100%",
           width: "100%",
-          transform: g,
-          opacity: l,
-          transition: R,
-          willChange: L,
-          filter: A,
+          transform: y,
+          opacity: c,
+          transition: E,
+          willChange: k,
+          filter: O,
           pointerEvents: "inherit",
         }),
-        V;
+        G;
       return (
-        t[12] !== n || t[13] !== U || t[14] !== f
-          ? ((V = s.jsx(
+        t[14] !== n || t[15] !== V || t[16] !== H || t[17] !== h
+          ? ((G = s.jsx(
               "div",
               babelHelpers.extends(
-                { "data-bloks-name": q, "data-bloks-visibility-state": f },
-                U,
+                {},
+                V,
+                { "data-bloks-visibility-state": h },
+                H,
                 { children: n },
               ),
             )),
-            (t[12] = n),
-            (t[13] = U),
-            (t[14] = f),
-            (t[15] = V))
-          : (V = t[15]),
-        V
+            (t[14] = n),
+            (t[15] = V),
+            (t[16] = H),
+            (t[17] = h),
+            (t[18] = G))
+          : (G = t[18]),
+        G
       );
     }
     l.default = u;

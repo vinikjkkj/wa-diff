@@ -38,6 +38,7 @@ __d(
           try {
             b.registerCanvas(
               e.rendererId,
+              e.generation,
               e.offscreenCanvas,
               e.rendererType,
               e.portalMode,
@@ -121,7 +122,7 @@ __d(
         }),
         h.addMessageListener("reset", function (e) {
           try {
-            b.reset(e.rendererId);
+            b.reset(e.rendererId, e.generation);
           } catch (e) {
             o("WAWebVoipVideoRendererLogging").ERROR(
               m ||
@@ -188,38 +189,44 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.registerCanvas = function (t, n, a, i) {
+          (t.registerCanvas = function (t, n, a, i, l) {
             var e = this;
             if (!this.$1.has(t)) {
-              var l =
-                a ===
+              var s =
+                i ===
                 o("WAWebVoipVideoRendererInterface").WAWebVoipVideoRendererType
                   .WEBCODECS_H264
                   ? new (o(
                       "WAWebVoipVideoWebCodecsRenderer",
-                    ).WAWebVoipVideoWebCodecsRenderer)(n)
-                  : a ===
+                    ).WAWebVoipVideoWebCodecsRenderer)(a)
+                  : i ===
                       o("WAWebVoipVideoRendererInterface")
                         .WAWebVoipVideoRendererType.WEBGPU
-                    ? new (r("WAWebVoipVideoWebGPURenderer"))(n)
-                    : a ===
+                    ? new (r("WAWebVoipVideoWebGPURenderer"))(a)
+                    : i ===
                         o("WAWebVoipVideoRendererInterface")
                           .WAWebVoipVideoRendererType.WEBGL
-                      ? new (r("WAWebVoipVideoWebGLRenderer"))(n)
-                      : a ===
+                      ? new (r("WAWebVoipVideoWebGLRenderer"))(a)
+                      : i ===
                           o("WAWebVoipVideoRendererInterface")
                             .WAWebVoipVideoRendererType.VIDEOFRAME
                         ? new (o(
                             "WAWebVoipVideoRasterRenderer",
-                          ).WAWebVoipVideoFrameRenderer)(n)
+                          ).WAWebVoipVideoFrameRenderer)(a)
                         : new (o(
                             "WAWebVoipVideoRasterRenderer",
-                          ).WAWebVoipVideoRasterRenderer)(n);
-              (i &&
-                l.setRenderCallback(function () {
-                  e.$2(t);
-                }),
-                this.$1.set(t, { renderer: l, canvas: n, portalMode: i }));
+                          ).WAWebVoipVideoRasterRenderer)(a);
+              (s.setRenderCallback(function () {
+                e.$2(t);
+              }),
+                this.$1.set(t, {
+                  renderer: s,
+                  canvas: a,
+                  generation: n,
+                  hasReportedFirstFrame: !1,
+                  isResetting: !1,
+                  portalMode: l,
+                }));
             }
           }),
           (t.unregisterCanvas = function (t) {
@@ -232,9 +239,18 @@ __d(
                   this.$1.size === 0 && h.postMessage({ type: "shutdown" }));
               }
           }),
-          (t.reset = function (t) {
+          (t.reset = function (t, n) {
             var e = this.$1.get(t);
-            e && e.renderer.reset();
+            if (e) {
+              ((e.generation = n),
+                (e.hasReportedFirstFrame = !1),
+                (e.isResetting = !0));
+              try {
+                (e.renderer.reset(), e.portalMode && this.$3(t, !1));
+              } finally {
+                e.isResetting = !1;
+              }
+            }
           }),
           (t.requireKeyframe = function (t) {
             var e = this.$1.get(t);
@@ -275,20 +291,42 @@ __d(
           }),
           (t.$2 = function (t) {
             var e = this.$1.get(t);
+            if (e != null && !e.isResetting) {
+              if (e.portalMode) {
+                this.$3(t, !0);
+                return;
+              }
+              e.hasReportedFirstFrame ||
+                ((e.hasReportedFirstFrame = !0),
+                h.postMessage({
+                  type: "frameRendered",
+                  rendererId: t,
+                  generation: e.generation,
+                }));
+            }
+          }),
+          (t.$3 = function (t, n) {
+            var e = this.$1.get(t);
             if (e) {
-              var n;
+              var r;
               try {
-                n = e.canvas.transferToImageBitmap();
+                r = e.canvas.transferToImageBitmap();
               } catch (e) {
                 return;
               }
               try {
                 h.postMessage(
-                  { type: "mainThreadRender", rendererId: t, bitmap: n },
-                  [n],
+                  {
+                    type: "mainThreadRender",
+                    rendererId: t,
+                    generation: e.generation,
+                    bitmap: r,
+                    isReadyFrame: n,
+                  },
+                  [r],
                 );
               } catch (e) {
-                n.close();
+                r.close();
               }
             }
           }),

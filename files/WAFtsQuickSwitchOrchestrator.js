@@ -4,8 +4,8 @@ __d(
     "Promise",
     "WAFtsBaseOrchestrator",
     "WAFtsSearchResultComparator",
-    "WANullthrows",
     "asyncToGeneratorRuntime",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -167,7 +167,7 @@ __d(
                 ]),
                 i = a[0],
                 l = a[1],
-                s = r("WANullthrows")(l != null ? l : i),
+                s = r("nullthrows")(l != null ? l : i),
                 c = u(s, t);
               return s.incremental(c, o);
             },

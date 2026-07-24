@@ -9,7 +9,6 @@ __d(
     "WAWebCommonCTWADataSharing",
     "WAWebConversionTupleCollection",
     "WAWebCtwa3pdAggregatedConversionWamEvent",
-    "WAWebCtwaConversationDepthUtils",
     "WAWebDataSharing3pdLidCollection",
     "WAWebLidMigrationUtils",
     "WAWebWamEnumCtwaDirectionFrom",
@@ -20,11 +19,13 @@ __d(
       s,
       u = 1;
     function c(t, n, a, i) {
-      var l = r(
-        "WAWebCommonCTWADataSharing",
-      ).getReceivedCTWAEligibilityFromChat(t);
+      var l,
+        c,
+        d = r("WAWebCommonCTWADataSharing").getReceivedCTWAEligibilityFromChat(
+          t,
+        );
       if (
-        !(l == null || !l.is3pdag) &&
+        !(d == null || !d.is3pdag) &&
         r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
           o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
           o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
@@ -38,28 +39,25 @@ __d(
           )
         )
       ) {
-        var c = o("WAWebCtwaConversationDepthUtils").getCtwaConversationDepth(
-          t,
-        );
+        var m = r("WAWebConversionTupleCollection").get(t.id),
+          p = (l = m == null ? void 0 : m.conversationDepth) != null ? l : 0;
         if (
           !(
             i ===
               o("WAWebWamEnumCtwaDirectionFrom").CTWA_DIRECTION_FROM.CUSTOMER &&
-            c === 0
+            p === 0
           ) &&
           o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
         ) {
-          var d = r("WAWebConversionTupleCollection").get(t.id),
-            m = d == null ? void 0 : d.sourceId;
-          if (!(m == null || m === "")) {
-            var p = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(
+          var _ = m == null ? void 0 : m.sourceId;
+          if (!(_ == null || _ === "")) {
+            var f = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(
                 t,
               ),
-              _ = o(
-                "WAWebCtwaConversationDepthUtils",
-              ).getCtwaConversationRepeat(t),
-              f = o("WAWebLidMigrationUtils").toPn(t.id);
-            if (f == null) {
+              g =
+                (c = m == null ? void 0 : m.conversationRepeat) != null ? c : 0,
+              h = o("WAWebLidMigrationUtils").toPn(t.id);
+            if (h == null) {
               o("WALogger")
                 .ERROR(
                   e ||
@@ -70,21 +68,21 @@ __d(
                 .sendLogs("ctwa-3pd-aggregated-no-pn");
               return;
             }
-            var g = o("WAJids").toPhoneUserJid(f.user);
+            var y = o("WAJids").toPhoneUserJid(h.user);
             o("WAWebChatThreadLogging")
-              .getCtwa3pdAggregatedThreadIDHMAC(g)
+              .getCtwa3pdAggregatedThreadIDHMAC(y)
               .then(function (e) {
                 var t = {
-                  adId: m,
+                  adId: _,
                   threadIdHmac: e != null ? e : void 0,
                   ctwa3pdConversionType: n,
                   ctwa3pdConversionSubtype: a,
                   ctwa3pdSurfaceType: "thread",
                   ctwaDirectionFrom: i,
-                  ctwaConversationDepth: c,
-                  ctwaConversationRepeat: _,
+                  ctwaConversationDepth: p,
+                  ctwaConversationRepeat: g,
                   ctwa3pdAggregatedSchemaVersion: u,
-                  ctwaSignals: p != null ? p : void 0,
+                  ctwaSignals: f != null ? f : void 0,
                 };
                 new (o(
                   "WAWebCtwa3pdAggregatedConversionWamEvent",

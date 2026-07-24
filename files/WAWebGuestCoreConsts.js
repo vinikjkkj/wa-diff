@@ -114,6 +114,12 @@ __d(
         EVENTS_ADD_TO_CALENDAR_CLICKED: "guest_events_add_to_calendar_clicked",
         EVENTS_DESCRIPTION_READ_MORE_CLICKED:
           "guest_events_description_read_more_clicked",
+        EVENTS_NOTIFICATION_PRIMER_SHOWN:
+          "guest_events_notification_primer_shown",
+        EVENTS_NOTIFICATION_PRIMER_ACTION:
+          "guest_events_notification_primer_action",
+        EVENTS_NOTIFICATION_PERMISSION_RESULT:
+          "guest_events_notification_permission_result",
         USERNAME_RESERVATION_RESOLVE_PROFILE_ERROR:
           "username_reservation_resolve_profile_error",
         USERNAME_RESERVATION_ACCOUNT_LINKING_IMPRESSION:

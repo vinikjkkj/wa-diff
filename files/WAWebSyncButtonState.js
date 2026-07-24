@@ -2,6 +2,7 @@ __d(
   "WAWebSyncButtonState",
   [
     "WALogger",
+    "WAWebAck",
     "WAWebBizInteractiveMessageQuickReplyAction",
     "WAWebFrontendMsgGetters",
     "WAWebGetInteractiveCtaActions",
@@ -19,14 +20,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
-      (c(e), d(e), m(e), p(e));
+      (c(e), d(e), p(e), _(e));
     }
     function c(e) {
       for (
         var t = function () {
             var t = e[a];
             if (!t || t.selectedCarouselCardIndex != null) return 0;
-            if (h(t)) {
+            if (y(t)) {
               var n = o("WAWebFrontendMsgGetters").getChat(t);
               n.msgUnsyncedButtonReplyMsgs == null &&
                 (n.msgUnsyncedButtonReplyMsgs = new (r(
@@ -79,11 +80,7 @@ __d(
         var t = function () {
             var t = e[r];
             if (!t || t.selectedCarouselCardIndex != null) return 0;
-            if (
-              t.type === o("WAWebMsgType").MSG_TYPE.BUTTONS_RESPONSE &&
-              t.selectedButtonId != null &&
-              y(t)
-            ) {
+            if (m(t)) {
               var n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
               if (!n) return 0;
               var a = o("WAWebMsgCollection").MsgCollection.get(n.id);
@@ -110,9 +107,7 @@ __d(
                 .filter(function (e) {
                   var n;
                   return (
-                    e.type === o("WAWebMsgType").MSG_TYPE.BUTTONS_RESPONSE &&
-                    e.selectedButtonId != null &&
-                    y(e) &&
+                    m(e) &&
                     ((n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e)) ==
                     null
                       ? void 0
@@ -138,11 +133,22 @@ __d(
         n = t();
     }
     function m(e) {
+      var t;
+      return (
+        e.type === o("WAWebMsgType").MSG_TYPE.BUTTONS_RESPONSE &&
+        e.selectedButtonId != null &&
+        e.isSendFailure !== !0 &&
+        ((t = e.ack) != null ? t : o("WAWebAck").ACK.CLOCK) >=
+          o("WAWebAck").ACK.CLOCK &&
+        C(e)
+      );
+    }
+    function p(e) {
       for (
         var t = function () {
             var t = e[a];
             if (!t) return 0;
-            if (h(t) && t.selectedCarouselCardIndex != null) {
+            if (y(t) && t.selectedCarouselCardIndex != null) {
               var n = r("nullthrows")(t.selectedCarouselCardIndex),
                 i = r("nullthrows")(t.selectedIndex),
                 l = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
@@ -180,7 +186,7 @@ __d(
                   .filter(function (e) {
                     var n;
                     return (
-                      h(t) &&
+                      y(t) &&
                       e.selectedCarouselCardIndex != null &&
                       ((n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e)) ==
                       null
@@ -213,16 +219,16 @@ __d(
       )
         n = t();
     }
-    function p(e) {
+    function _(e) {
       for (
         var t = function () {
             var t = e[a];
             if (!t) return 0;
-            if (_(t)) {
+            if (f(t)) {
               var n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(t);
               if (!n) return 0;
               var i = o("WAWebMsgCollection").MsgCollection.get(n.id);
-              i != null && f(i, t);
+              i != null && g(i, t);
             } else if (
               t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
               t.interactivePayload != null &&
@@ -238,7 +244,7 @@ __d(
                 .filter(function (e) {
                   var n;
                   return (
-                    _(e) &&
+                    f(e) &&
                     ((n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e)) ==
                     null
                       ? void 0
@@ -246,7 +252,7 @@ __d(
                   );
                 })
                 .forEach(function (e) {
-                  f(t, e);
+                  g(t, e);
                 });
             }
           },
@@ -257,11 +263,11 @@ __d(
       )
         n = t();
     }
-    function _(e) {
+    function f(e) {
       if (
         e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE ||
         e.interactivePayload == null ||
-        !y(e)
+        !C(e)
       )
         return !1;
       var t = e.interactivePayload;
@@ -269,9 +275,9 @@ __d(
         t.name === r("WAWebInteractiveMessagesNativeFlowName").MENU_OPTIONS
       );
     }
-    function f(t, n) {
+    function g(t, n) {
       var a,
-        i = g(n);
+        i = h(n);
       if (i != null) {
         var l =
           (a = o(
@@ -298,7 +304,7 @@ __d(
             });
       }
     }
-    function g(e) {
+    function h(e) {
       if (e.interactivePayload == null) return null;
       var t = e.interactivePayload;
       try {
@@ -323,14 +329,14 @@ __d(
         );
       }
     }
-    function h(e) {
+    function y(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.TEMPLATE_BUTTON_REPLY &&
         e.selectedIndex != null &&
-        y(e)
+        C(e)
       );
     }
-    var y = function (t) {
+    var C = function (t) {
       var e = o("WAWebMsgGetters").getSender(t);
       return e != null ? o("WAWebUserPrefsMeUser").isMeAccount(e) : !1;
     };

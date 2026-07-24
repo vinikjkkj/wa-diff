@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebPaymentMethodPIX",
+    "WAWebUprConstants",
     "WAWebUserPrefsTypes",
     "WAWebUserPrefsValidators",
   ],
@@ -167,6 +168,20 @@ __d(
       flushErrors: E,
       isStoredValid: I,
       removeEntry: T,
+      uprAttachment: {
+        accountType: o("WAWebUprConstants").UprPaymentAccountType.BANK_ACCOUNT,
+        identifierType: o("WAWebUprConstants").UprIdentifierType.CLABE,
+        currency: "MXN",
+        getStoredKeys: function (t) {
+          var e, n;
+          return (
+            (e = t == null || (n = t.methods) == null ? void 0 : n.clabe) !=
+            null
+              ? e
+              : []
+          ).filter(k);
+        },
+      },
     };
     function x(e, t, n) {
       var r,

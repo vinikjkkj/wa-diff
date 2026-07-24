@@ -4,18 +4,18 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
-        !!o("WAWebABProps").getABPropConfigValue("username_contact_display") ||
+        o("WAWebABProps").getABPropConfigValue("username_contact_display") ||
         r("WAWebEnvironment").isGuest
       );
     }
     function s() {
-      return !!o("WAWebABProps").getABPropConfigValue("username_search");
+      return o("WAWebABProps").getABPropConfigValue("username_search");
     }
     function u() {
       return e() && s();
     }
     function c() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "username_security_code_generation",
       );
     }
@@ -38,22 +38,22 @@ __d(
       return !1;
     }
     function g() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "lid_group_migration_non_member_iq",
       );
     }
     function h() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "username_group_mutation_enabled",
       );
     }
     function y() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "username_contact_ui_vcard",
       );
     }
     function C() {
-      return !!o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebABProps").getABPropConfigValue(
         "username_global_search_enabled",
       );
     }
