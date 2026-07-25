@@ -26,15 +26,17 @@ __d(
             var u = c(s, r, i, a);
             if (u) {
               var d = u.contactChange,
-                m = u.ephemeralityDisabledInFrontend;
+                m = u.effectiveDuration,
+                p = u.effectiveSettingTimestamp,
+                _ = u.ephemeralityDisabledInFrontend;
               (yield o("WAWebDBUpdateContactTable").updateContactTable(l, d),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateDisappearingMode",
                   {
-                    disappearingModeDuration: r,
-                    disappearingModeSettingTimestamp: i,
+                    disappearingModeDuration: m,
+                    disappearingModeSettingTimestamp: p,
                     contactId: l,
-                    isEphemeralityDisabled: m,
+                    isEphemeralityDisabled: _,
                   },
                 ),
                 o("WALogger")
@@ -47,8 +49,8 @@ __d(
                         ".",
                       ])),
                     l.toLogString(),
-                    r,
-                    i,
+                    m,
+                    p,
                   )
                   .tags("DM", "DDM"));
             }
@@ -58,21 +60,32 @@ __d(
       );
     }
     function c(e, t, n, r) {
-      var o = e.disappearingModeSettingTimestamp;
-      if (!((o == null && n !== 0) || (o != null && o < n))) return null;
-      var a = {
-          disappearingModeDuration: t,
-          disappearingModeSettingTimestamp: n,
-        },
-        i = e.isEphemeralityDisabled;
-      return (
-        r === !0 && e.isEphemeralityDisabled !== !0
-          ? ((a.isEphemeralityDisabled = !0), (i = !0))
+      var o,
+        a = e.disappearingModeSettingTimestamp,
+        i = (a == null && n !== 0) || (a != null && a < n),
+        l = {},
+        s = e.isEphemeralityDisabled,
+        u = !1;
+      if (
+        (r === !0 && e.isEphemeralityDisabled !== !0
+          ? ((l.isEphemeralityDisabled = !0), (s = !0), (u = !0))
           : r === !1 &&
             e.isEphemeralityDisabled != null &&
-            ((a.isEphemeralityDisabled = void 0), (i = void 0)),
-        { contactChange: a, ephemeralityDisabledInFrontend: i }
-      );
+            ((l.isEphemeralityDisabled = void 0), (s = void 0), (u = !0)),
+        !i && !u)
+      )
+        return null;
+      i &&
+        ((l.disappearingModeDuration = t),
+        (l.disappearingModeSettingTimestamp = n));
+      var c = i ? t : (o = e.disappearingModeDuration) != null ? o : 0,
+        d = i ? n : a != null ? a : 0;
+      return {
+        contactChange: l,
+        ephemeralityDisabledInFrontend: s,
+        effectiveDuration: c,
+        effectiveSettingTimestamp: d,
+      };
     }
     l.updateDisappearingModeForContact = s;
   },

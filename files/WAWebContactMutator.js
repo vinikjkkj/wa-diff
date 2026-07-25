@@ -224,21 +224,23 @@ __d(
     }
     function E(e) {
       var t = e.displayNameLID,
-        n = e.isUsernameContact,
-        r = e.lid,
-        o = e.pushname,
-        a = e.username,
-        i = e.usernameKey,
-        l = d(r),
-        s = {};
-      (a != null && (s.username = a),
-        i != null && (s.usernameKey = i),
-        n != null && (s.isUsernameContact = n),
-        o != null && (s.pushname = o),
-        m(l, s),
+        n = e.isEphemeralityDisabled,
+        r = e.isUsernameContact,
+        o = e.lid,
+        a = e.pushname,
+        i = e.username,
+        l = e.usernameKey,
+        s = d(o),
+        u = {};
+      (i != null && (u.username = i),
+        l != null && (u.usernameKey = l),
+        r != null && (u.isUsernameContact = r),
+        a != null && (u.pushname = a),
+        n != null && (u.isEphemeralityDisabled = n),
+        m(s, u),
         t != null &&
-          l.lidContact != null &&
-          l.lidContact.set({ displayNameLID: t }));
+          s.lidContact != null &&
+          s.lidContact.set({ displayNameLID: t }));
     }
     ((l.updatePushname = p),
       (l.updateContactExternalUserState = _),

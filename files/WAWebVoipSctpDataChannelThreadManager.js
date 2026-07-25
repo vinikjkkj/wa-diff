@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebABProps",
+    "WAWebVoipGatingUtils",
     "WAWebVoipSctpDataChannelThread",
     "asyncToGeneratorRuntime",
     "justknobx",
@@ -154,10 +155,12 @@ __d(
             (b = r("WAWebVoipSctpDataChannelThread").create()));
           try {
             var i, l, y, C;
-            v = yield b;
-            var S = r("justknobx")._("1929");
             return (
-              (i = v) == null || i.setRemoveRelayPortOverride(S),
+              (v = yield b),
+              (i = v) == null ||
+                i.setRemoveRelayPortOverride(
+                  o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort(),
+                ),
               (l = v) == null || l.setSctpTimeoutMs(e()),
               (y = v) == null ||
                 y.setRelayParkedTxIdleMs(r("justknobx")._("1307") || 0),

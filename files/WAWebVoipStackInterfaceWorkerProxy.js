@@ -29,6 +29,7 @@ __d(
     "WAWebVoipScreenShareStreamKey",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStorageInit",
+    "WAWebVoipTransportFallbackTracker",
     "WAWebVoipVideoCaptureFpsTracker",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererRegistry",
@@ -79,8 +80,12 @@ __d(
       q,
       U,
       V,
-      H;
-    function G() {
+      H,
+      G,
+      z,
+      j,
+      K;
+    function Q() {
       var t = {};
       for (var n of r("WAWebVoipABPropConfig")) {
         var a = n.abProp,
@@ -101,13 +106,13 @@ __d(
       }
       return t;
     }
-    var z = 9e4,
-      j = 300 * 1e3,
-      K = 45 * 1e3,
-      Q = 600 * 1e3,
-      X = 9e4,
-      Y = 300 * 1e3;
-    function J() {
+    var X = 9e4,
+      Y = 300 * 1e3,
+      J = 45 * 1e3,
+      Z = 600 * 1e3,
+      ee = 9e4,
+      te = 300 * 1e3;
+    function ne() {
       return (
         "hidden=" +
         String(document.hidden) +
@@ -117,31 +122,31 @@ __d(
         String(document.hasFocus())
       );
     }
-    function Z(e) {
+    function re(e) {
       e === "foreground"
         ? o("WAWebCoreActionsODS").logCallVoipRpcReadyTimeoutForeground()
         : o("WAWebCoreActionsODS").logCallVoipRpcReadyTimeoutAbsolute();
     }
-    function ee(e) {
+    function oe(e) {
       e === "foreground"
         ? o("WAWebCoreActionsODS").logCallVoipRpcInitTimeoutForeground()
         : o("WAWebCoreActionsODS").logCallVoipRpcInitTimeoutAbsolute();
     }
-    function te() {
+    function ae() {
       try {
         return r("justknobx")._("1699");
       } catch (e) {
         return !1;
       }
     }
-    function ne() {
+    function ie() {
       var e,
         t = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"),
         a = 0,
         i = null,
         l = !1;
-      function ne(e, t, a) {
-        return new (H || (H = n("Promise")))(function (n, i) {
+      function ie(e, t, a) {
+        return new (K || (K = n("Promise")))(function (n, i) {
           var l = !1,
             p = null,
             _ = !1,
@@ -156,7 +161,7 @@ __d(
             },
             y = function (n, u) {
               if (!l) {
-                ((l = !0), g(), h(), a.close("RPC ready timeout"), Z(n));
+                ((l = !0), g(), h(), a.close("RPC ready timeout"), re(n));
                 var e =
                   n === "foreground"
                     ? "foreground timeout"
@@ -175,7 +180,7 @@ __d(
                   e,
                   u.wallMs.toFixed(1),
                   u.visibleMs.toFixed(1),
-                  J(),
+                  ne(),
                 ),
                   i(
                     r("err")(
@@ -200,13 +205,13 @@ __d(
                     ])),
                   t,
                   n.wallMs.toFixed(1),
-                  J(),
+                  ne(),
                 ),
                 (f = o(
                   "WAWebVisibilityAwareTimeout",
                 ).startVisibilityAwareTimeout({
-                  foregroundMs: K,
-                  absoluteMs: Q,
+                  foregroundMs: J,
+                  absoluteMs: Z,
                   onTimeout: function (t, r) {
                     (t === "foreground"
                       ? o(
@@ -225,11 +230,11 @@ __d(
                 })));
             },
             b = o("WAWebVisibilityAwareTimeout").startVisibilityAwareTimeout({
-              foregroundMs: z,
-              absoluteMs: j,
+              foregroundMs: X,
+              absoluteMs: Y,
               onTimeout: function (t, n) {
                 if (!l) {
-                  if (te() && t === "absolute" && document.hidden && !_) {
+                  if (ae() && t === "absolute" && document.hidden && !_) {
                     ((_ = !0), C(n));
                     return;
                   }
@@ -247,7 +252,7 @@ __d(
                     ])),
                   t,
                   n.visibleMs.toFixed(1),
-                  J(),
+                  ne(),
                 );
               },
               onResume: function (n) {
@@ -261,7 +266,7 @@ __d(
                     ])),
                   t,
                   n.visibleMs.toFixed(1),
-                  J(),
+                  ne(),
                 );
               },
             });
@@ -291,14 +296,14 @@ __d(
                   t,
                   r.wallMs.toFixed(1),
                   r.visibleMs.toFixed(1),
-                  J(),
+                  ne(),
                 ),
                 n());
             }
           });
         });
       }
-      function re() {
+      function le() {
         var e = i;
         if (e != null) return e;
         var s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -333,7 +338,7 @@ __d(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.RPC_SETUP_START,
             ));
           var u = a++,
-            c = ne(n, u, s);
+            c = ie(n, u, s);
           (o("WALogger").LOG(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -342,7 +347,7 @@ __d(
                 "",
               ])),
             u,
-            J(),
+            ne(),
           ),
             n.worker.postMessage(
               {
@@ -409,40 +414,10 @@ __d(
                     "",
                   ])),
                 String(e),
-                J(),
+                ne(),
               ));
           }),
           s
-        );
-      }
-      function oe(e, t, n) {
-        return ae.apply(this, arguments);
-      }
-      function ae() {
-        return (
-          (ae = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              var r = yield re(),
-                o = r.rpc;
-              o.fire(e, t, n);
-            },
-          )),
-          ae.apply(this, arguments)
-        );
-      }
-      function ie(e, t, n) {
-        return le.apply(this, arguments);
-      }
-      function le() {
-        return (
-          (le = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              var r = yield re(),
-                o = r.rpc;
-              return o.invoke(e, t, n);
-            },
-          )),
-          le.apply(this, arguments)
         );
       }
       function se(e, t, n) {
@@ -452,15 +427,45 @@ __d(
         return (
           (ue = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              var r = yield re(),
+              var r = yield le(),
+                o = r.rpc;
+              o.fire(e, t, n);
+            },
+          )),
+          ue.apply(this, arguments)
+        );
+      }
+      function ce(e, t, n) {
+        return de.apply(this, arguments);
+      }
+      function de() {
+        return (
+          (de = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r = yield le(),
+                o = r.rpc;
+              return o.invoke(e, t, n);
+            },
+          )),
+          de.apply(this, arguments)
+        );
+      }
+      function me(e, t, n) {
+        return pe.apply(this, arguments);
+      }
+      function pe() {
+        return (
+          (pe = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r = yield le(),
                 a = r.rpc;
               return a.invokeWithVisibilityAwareTimeout(
                 e,
                 t,
                 {
-                  foregroundMs: X,
-                  absoluteMs: Y,
-                  onTimeout: ee,
+                  foregroundMs: ee,
+                  absoluteMs: te,
+                  onTimeout: oe,
                   onBackgroundPauseSuccess: o("WAWebCoreActionsODS")
                     .logCallVoipRpcInitBackgroundPauseSuccess,
                 },
@@ -468,10 +473,10 @@ __d(
               );
             },
           )),
-          ue.apply(this, arguments)
+          pe.apply(this, arguments)
         );
       }
-      function ce(e) {
+      function _e(e) {
         var t = i;
         t != null &&
           ((i = null),
@@ -485,7 +490,7 @@ __d(
                 "",
               ])),
             String(e),
-            J(),
+            ne(),
           ),
           t
             .then(function (e) {
@@ -505,7 +510,7 @@ __d(
             })
             .catch(r("WAWebNoop")));
       }
-      var de = {
+      var fe = {
         onVoipReady: (e = r("WAWebNoop")),
         onCallEvent: e,
         initCaptureDriverJS: o("WAWebVoipAudioCaptureAndPlayback")
@@ -519,19 +524,67 @@ __d(
         voipInit: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, n, r) {
-              var a = yield re(),
+              var a = yield le(),
                 i = a.rpc,
                 l = yield t;
-              (o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-                o(
-                  "WAWebVoipWebTransportConnectionManager",
-                ).registerPacketHandler(function (e, t, n) {
-                  i.fire(
-                    "handleOnTransportMessage",
-                    { packet: e, ip: t, port: n },
-                    [e],
-                  );
-                }),
+              (o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                  (o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).registerPacketHandler(function (e, t, n) {
+                    i.fire(
+                      "handleOnTransportMessage",
+                      { packet: e, ip: t, port: n },
+                      [e],
+                    );
+                  }),
+                  o("WAWebVoipGatingUtils").isWebTransportFallbackEnabled()
+                    ? (o("WALogger").LOG(
+                        v ||
+                          (v = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [WebTransport] Registering SCTP fallback handler (abprop on, worker proxy)",
+                          ])),
+                      ),
+                      o(
+                        "WAWebVoipWebTransportConnectionManager",
+                      ).registerFallbackHandler(function (e) {
+                        (o("WALogger")
+                          .LOG(
+                            S ||
+                              (S = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: [WebTransport] Falling back to SCTP after connect failure (worker proxy)",
+                              ])),
+                          )
+                          .sendLogs("webtransport-fallback-handler-invoked"),
+                          o("WAWebVoipGatingUtils").markWebTransportFellBack(),
+                          o(
+                            "WAWebVoipTransportFallbackTracker",
+                          ).markFallbackTriggered(),
+                          o(
+                            "WAWebVoipWebTransportConnectionManager",
+                          ).closeAllConnections(),
+                          e != null
+                            ? o(
+                                "WAWebVoipSctpConnectionManager",
+                              ).handleRelayListUpdate(e)
+                            : o("WALogger")
+                                .WARN(
+                                  R ||
+                                    (R =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "voip: [WebTransport] Fallback handler had no cached relay list to replay",
+                                      ])),
+                                )
+                                .sendLogs(
+                                  "webtransport-fallback-no-relay-list",
+                                ));
+                      }))
+                    : o("WALogger").LOG(
+                        L ||
+                          (L = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [WebTransport] SCTP fallback disabled (abprop off) \u2014 no handler registered",
+                          ])),
+                      )),
                 o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                   o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                     .LOG_RING_BUFFER,
@@ -569,8 +622,8 @@ __d(
                     : !1;
               } catch (e) {
                 o("WALogger").WARN(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: video cap detect failed, passthrough off: ",
                       "",
                     ])),
@@ -581,8 +634,8 @@ __d(
                 o("WAWebVoipQplHelpers").VoipInitQplPoint.WEBCODECS_PROBE_END,
               ),
                 o("WALogger").LOG(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                  k ||
+                    (k = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [WorkerProxy] dec=",
                       " enc=",
                       "",
@@ -591,8 +644,8 @@ __d(
                   u,
                 ),
                 o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [webcodec-encode] enabled=",
                       "",
                     ])),
@@ -602,14 +655,14 @@ __d(
                   u,
                 ),
                 o("WALogger").LOG(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                  T ||
+                    (T = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [webcodec-encode] WebCodecs encoder state ",
                       "",
                     ])),
                   u,
                 ));
-              var p = G();
+              var p = Q();
               ((p.enable_passthrough_video_decoder = {
                 value: s,
                 type: "bool",
@@ -637,14 +690,14 @@ __d(
                     .VOIP_STACK_INIT_START,
                 ));
               try {
-                yield se("voipInit", {
+                yield me("voipInit", {
                   selfJid: e,
                   selfUserJid: n,
                   selfLid: r,
                   abProps: p,
                 });
               } catch (e) {
-                throw (ce(e), e);
+                throw (_e(e), e);
               } finally {
                 o("WAWebVoipQplHelpers").voipInitQplAddPoint(
                   o("WAWebVoipQplHelpers").VoipInitQplPoint.VOIP_STACK_INIT_END,
@@ -664,7 +717,7 @@ __d(
               ),
                 o("WAWebVoipP2PConnectionManager").registerOnDataChannelMessage(
                   function (e) {
-                    oe(
+                    se(
                       "handleOnTransportMessage",
                       { packet: e, ip: _, port: g },
                       [e],
@@ -678,23 +731,23 @@ __d(
                 e === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
                   ? ((h = !0),
                     o("WALogger").LOG(
-                      E ||
-                        (E = babelHelpers.taggedTemplateLiteralLoose([
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: P2P DataChannel opened, notifying WASM active=true",
                         ])),
                     ),
-                    oe("notifyWebP2PChannelReady", { active: !0, useIPv6: !1 }))
+                    se("notifyWebP2PChannelReady", { active: !0, useIPv6: !1 }))
                   : h &&
                     ((h = !1),
                     o("WALogger").LOG(
-                      k ||
-                        (k = babelHelpers.taggedTemplateLiteralLoose([
+                      x ||
+                        (x = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: P2P DataChannel ",
                           " (was open), WASM active=false",
                         ])),
                       e,
                     ),
-                    oe("notifyWebP2PChannelReady", {
+                    se("notifyWebP2PChannelReady", {
                       active: !1,
                       useIPv6: !1,
                     }));
@@ -709,14 +762,14 @@ __d(
         setHideMyIp: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             (o("WALogger").LOG(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
+              $ ||
+                ($ = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: setHideMyIp called with hideMyIp=",
                   "",
                 ])),
               e,
             ),
-              yield se("setHideMyIp", { hideMyIp: e }));
+              yield me("setHideMyIp", { hideMyIp: e }));
           });
           function t(t) {
             return e.apply(this, arguments);
@@ -726,8 +779,8 @@ __d(
         handleSignOut: function () {
           if (
             (o("WALogger").LOG(
-              T ||
-                (T = babelHelpers.taggedTemplateLiteralLoose([
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: handleSignOut: cleaning up all connections",
                 ])),
             ),
@@ -737,7 +790,13 @@ __d(
               ? o(
                   "WAWebVoipWebTransportConnectionManager",
                 ).closeAllConnections()
-              : o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
+              : (o(
+                  "WAWebVoipWebTransportConnectionManager",
+                ).closeAllConnections(),
+                o("WAWebVoipSctpConnectionManager").cleanupAllConnections()),
+            o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
+            o("WAWebVoipTransportFallbackTracker").resetFallbackTracker(),
+            o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
             i != null)
           ) {
             var e = i;
@@ -750,8 +809,8 @@ __d(
                 })
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    D ||
-                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                    N ||
+                      (N = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [handleSignOut] worker shutdown error: ",
                         "",
                       ])),
@@ -769,15 +828,15 @@ __d(
                 .initBweMLModelsForCall(u)
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    x ||
-                      (x = babelHelpers.taggedTemplateLiteralLoose([
+                    M ||
+                      (M = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [initBweMLModelsForCall] unhandled error: ",
                         "",
                       ])),
                     e,
                   );
                 }),
-                yield oe("startCall", {
+                yield se("startCall", {
                   peerJid: e.toString({ legacy: !0 }),
                   deviceJids: n,
                   callId: r,
@@ -798,8 +857,8 @@ __d(
             function* (e, n, r, a, i, l, s, u, c, d, m, p, _) {
               if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
                 o("WALogger").ERROR(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
+                  w ||
+                    (w = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: startGroupCall: Web group calling is not enabled",
                     ])),
                 );
@@ -814,15 +873,15 @@ __d(
                 .initBweMLModelsForCall(f)
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    P ||
-                      (P = babelHelpers.taggedTemplateLiteralLoose([
+                    A ||
+                      (A = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [initBweMLModelsForCall] unhandled error: ",
                         "",
                       ])),
                     e,
                   );
                 }),
-                yield oe("startGroupCall", {
+                yield se("startGroupCall", {
                   pnUserJids: e,
                   lidUserJids: n,
                   deviceJidsCsv: r,
@@ -848,7 +907,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               (o("WAWebVoipLobbyEntryPointStore").resetLobbyEntryPoint(),
-                yield oe("acceptCall", {
+                yield se("acceptCall", {
                   isMicEnabled: e,
                   isCameraEnabled: t,
                 }));
@@ -861,7 +920,7 @@ __d(
         })(),
         rejectCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            yield oe("rejectCall", {});
+            yield se("rejectCall", {});
           });
           function t() {
             return e.apply(this, arguments);
@@ -874,12 +933,17 @@ __d(
               o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
                 o("WAWebVoipWebTransportConnectionManager").prepareForEndCall();
               try {
-                yield oe("endCall", { endCallReason: e, sendTerminate: t });
+                yield se("endCall", { endCallReason: e, sendTerminate: t });
               } finally {
-                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                (o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
                   o(
                     "WAWebVoipWebTransportConnectionManager",
-                  ).closeAllConnections();
+                  ).closeAllConnections(),
+                  o(
+                    "WAWebVoipTransportFallbackTracker",
+                  ).finalizeFallbackOutcome(),
+                  o("WAWebVoipTransportFallbackTracker").resetFallbackTracker(),
+                  o("WAWebVoipGatingUtils").resetWebTransportFallbackState());
               }
             },
           );
@@ -891,7 +955,7 @@ __d(
         rejectCallWithoutCallContext: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, o, a, i) {
-              yield oe("rejectCallWithoutCallContext", {
+              yield se("rejectCallWithoutCallContext", {
                 callId: e,
                 isGroupCall: t,
                 peerJid: n,
@@ -912,8 +976,8 @@ __d(
             function* (e, t, n, r, a, i, l, s, u, c, d, m, p, _, f, g, h) {
               if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
                 o("WALogger").ERROR(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
+                  F ||
+                    (F = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: joinOngoingCall: Web group calling is not enabled",
                     ])),
                 );
@@ -923,7 +987,7 @@ __d(
                 g != null ? g : null,
                 e,
               ),
-                yield oe("joinOngoingCall", {
+                yield se("joinOngoingCall", {
                   callId: e,
                   callCreatorJid: t,
                   initialPeerJid: n,
@@ -957,8 +1021,8 @@ __d(
               if (!o("WAWebVoipGatingUtils").callLinksEnabled())
                 return (
                   o("WALogger").ERROR(
-                    M ||
-                      (M = babelHelpers.taggedTemplateLiteralLoose([
+                    O ||
+                      (O = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: previewCallLink: Call link feature is not enabled",
                       ])),
                   ),
@@ -968,8 +1032,8 @@ __d(
               if (e.length !== i)
                 return (
                   o("WALogger").ERROR(
-                    w ||
-                      (w = babelHelpers.taggedTemplateLiteralLoose([
+                    B ||
+                      (B = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: previewCallLink: invalid token length ",
                         ", expected ",
                         "",
@@ -983,7 +1047,7 @@ __d(
                 n != null ? n : null,
                 null,
               );
-              var l = yield ie("previewCallLink", {
+              var l = yield ce("previewCallLink", {
                 token: e,
                 videoEnabled: t,
                 lobbyEntryType: n != null ? n : 0,
@@ -993,8 +1057,8 @@ __d(
               return (
                 l !== 0 &&
                   (o("WALogger").ERROR(
-                    A ||
-                      (A = babelHelpers.taggedTemplateLiteralLoose([
+                    W ||
+                      (W = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: previewCallLink: failed with status ",
                         "",
                       ])),
@@ -1014,14 +1078,14 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
               o("WALogger").ERROR(
-                F ||
-                  (F = babelHelpers.taggedTemplateLiteralLoose([
+                q ||
+                  (q = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: joinCallLink: Call link feature is not enabled",
                   ])),
               );
               return;
             }
-            yield oe("joinCallLink", {});
+            yield se("joinCallLink", {});
           });
           function t() {
             return e.apply(this, arguments);
@@ -1033,8 +1097,8 @@ __d(
             function* (e, n, r, a, i, l) {
               if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
                 o("WALogger").ERROR(
-                  O ||
-                    (O = babelHelpers.taggedTemplateLiteralLoose([
+                  U ||
+                    (U = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: previewAndJoinCallLink: call links disabled",
                     ])),
                 );
@@ -1049,15 +1113,15 @@ __d(
                 .initBweMLModelsForCall(s)
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    B ||
-                      (B = babelHelpers.taggedTemplateLiteralLoose([
+                    V ||
+                      (V = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [initBweMLModelsForCall] unhandled error: ",
                         "",
                       ])),
                     e,
                   );
                 }),
-                yield oe("previewAndJoinCallLink", {
+                yield se("previewAndJoinCallLink", {
                   token: e,
                   videoEnabled: n,
                   lobbyEntryType: r != null ? r : 0,
@@ -1080,8 +1144,8 @@ __d(
                 .initBweMLModelsForCall(m)
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    W ||
-                      (W = babelHelpers.taggedTemplateLiteralLoose([
+                    H ||
+                      (H = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [initBweMLModelsForCall] unhandled error: ",
                         "",
                       ])),
@@ -1094,7 +1158,7 @@ __d(
               var _ = o("WABase64").encodeB64(o("WAWap").encodeStanza(p)),
                 f = i != null ? String(i) : "0",
                 g = l != null ? String(l) : "0";
-              yield oe("handleIncomingSignalingOffer", {
+              yield se("handleIncomingSignalingOffer", {
                 b64Stanza: _,
                 msgPlatform: n,
                 msgVersion: a,
@@ -1121,7 +1185,7 @@ __d(
               var d = o("WABase64").encodeB64(o("WAWap").encodeStanza(c)),
                 m = a != null ? String(a) : "0",
                 p = i != null ? String(i) : "0";
-              yield oe("handleIncomingSignalingMessage", {
+              yield se("handleIncomingSignalingMessage", {
                 b64Stanza: d,
                 msgPlatform: t,
                 msgVersion: n,
@@ -1149,7 +1213,7 @@ __d(
             r("justknobx")._("360") &&
               o("WAWebVoipRelayOverrides").overrideRelayIp(s);
             var u = o("WABase64").encodeB64(o("WAWap").encodeStanza(s));
-            yield oe("handleIncomingSignalingAck", {
+            yield se("handleIncomingSignalingAck", {
               b64Stanza: u,
               ackInfoError: t,
               ackInfoType: n,
@@ -1169,7 +1233,7 @@ __d(
               r("justknobx")._("360") &&
                 o("WAWebVoipRelayOverrides").overrideRelayIp(a);
               var i = o("WABase64").encodeB64(o("WAWap").encodeStanza(a));
-              yield oe("handleIncomingSignalingReceipt", {
+              yield se("handleIncomingSignalingReceipt", {
                 b64Stanza: i,
                 peerJid: t,
                 tcToken: n,
@@ -1184,7 +1248,7 @@ __d(
         resendOfferOnDecryptionFailure: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              yield oe("resendOfferOnDecryptionFailure", {
+              yield se("resendOfferOnDecryptionFailure", {
                 peerJid: e,
                 callId: t,
               });
@@ -1198,7 +1262,7 @@ __d(
         resendEncRekeyRetry: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              yield oe("resendEncRekeyRetry", { peerJid: e, retryCount: t });
+              yield se("resendEncRekeyRetry", { peerJid: e, retryCount: t });
             },
           );
           function t(t, n) {
@@ -1210,7 +1274,7 @@ __d(
         handleOnTransportMessage: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              yield oe(
+              yield se(
                 "handleOnTransportMessage",
                 { packet: e, ip: t, port: n },
                 [e],
@@ -1225,7 +1289,7 @@ __d(
         markRelayConnected: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              yield oe("markRelayConnected", { ip: e, port: t });
+              yield se("markRelayConnected", { ip: e, port: t });
             },
           );
           function t(t, n) {
@@ -1235,7 +1299,7 @@ __d(
         })(),
         setCallMute: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("setCallMute", { enable: e });
+            var t = yield ce("setCallMute", { enable: e });
             return Number(t);
           });
           function t(t) {
@@ -1245,7 +1309,7 @@ __d(
         })(),
         setCallVideoMute: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("setCallVideoMute", { enable: e });
+            var t = yield ce("setCallVideoMute", { enable: e });
             return Number(t);
           });
           function t(t) {
@@ -1255,7 +1319,7 @@ __d(
         })(),
         videoStreamPause: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("videoStreamPause", {});
+            var e = yield ce("videoStreamPause", {});
             return Number(e);
           });
           function t() {
@@ -1265,7 +1329,7 @@ __d(
         })(),
         videoStreamResume: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("videoStreamResume", {});
+            var e = yield ce("videoStreamResume", {});
             return Number(e);
           });
           function t() {
@@ -1275,7 +1339,7 @@ __d(
         })(),
         broadcastVideoState: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("broadcastVideoState", {});
+            var e = yield ce("broadcastVideoState", {});
             return Number(e);
           });
           function t() {
@@ -1285,7 +1349,7 @@ __d(
         })(),
         sendReaction: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            yield oe("sendReaction", { reaction: e });
+            yield se("sendReaction", { reaction: e });
           });
           function t(t) {
             return e.apply(this, arguments);
@@ -1294,7 +1358,7 @@ __d(
         })(),
         raiseHand: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            yield oe("raiseHand", { isHandRaised: e });
+            yield se("raiseHand", { isHandRaised: e });
           });
           function t(t) {
             return e.apply(this, arguments);
@@ -1304,7 +1368,7 @@ __d(
         notifyUiViewChange: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var n = yield ie("notifyUiViewChange", {
+              var n = yield ce("notifyUiViewChange", {
                 viewMode: e,
                 pinnedPeerJid: t != null ? t : "",
               });
@@ -1318,7 +1382,7 @@ __d(
         })(),
         requestVideoUpgrade: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("requestVideoUpgrade", {});
+            var e = yield ce("requestVideoUpgrade", {});
             return Number(e);
           });
           function t() {
@@ -1328,12 +1392,12 @@ __d(
         })(),
         getCallInfo: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("getCallInfo", {});
+            var e = yield ce("getCallInfo", {});
             return (
               e === "" &&
                 o("WALogger").ERROR(
-                  q ||
-                    (q = babelHelpers.taggedTemplateLiteralLoose([
+                  G ||
+                    (G = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: getCallInfo() failed to retrieve call info",
                     ])),
                 ),
@@ -1347,12 +1411,12 @@ __d(
         })(),
         acceptPeerVideo: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("acceptPeerVideo", { jid: e.jid });
+            var t = yield ce("acceptPeerVideo", { jid: e.jid });
             return (
               t !== 0 &&
                 o("WALogger").ERROR(
-                  U ||
-                    (U = babelHelpers.taggedTemplateLiteralLoose([
+                  z ||
+                    (z = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: acceptPeerVideo: Failed with status ",
                       "",
                     ])),
@@ -1368,7 +1432,7 @@ __d(
         })(),
         requestPeerMute: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("requestPeerMute", { peerJid: e });
+            var t = yield ce("requestPeerMute", { peerJid: e });
             return Number(t);
           });
           function t(t) {
@@ -1378,7 +1442,7 @@ __d(
         })(),
         removeCallParticipant: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("removeCallParticipant", { peerJid: e });
+            var t = yield ce("removeCallParticipant", { peerJid: e });
             return Number(t);
           });
           function t(t) {
@@ -1388,7 +1452,7 @@ __d(
         })(),
         waitingRoomAdmit: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("waitingRoomAdmit", { peerJid: e });
+            var t = yield ce("waitingRoomAdmit", { peerJid: e });
             return Number(t);
           });
           function t(t) {
@@ -1398,7 +1462,7 @@ __d(
         })(),
         waitingRoomDeny: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("waitingRoomDeny", { peerJid: e });
+            var t = yield ce("waitingRoomDeny", { peerJid: e });
             return Number(t);
           });
           function t(t) {
@@ -1408,7 +1472,7 @@ __d(
         })(),
         waitingRoomAdmitAll: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("waitingRoomAdmitAll", {});
+            var e = yield ce("waitingRoomAdmitAll", {});
             return Number(e);
           });
           function t() {
@@ -1418,7 +1482,7 @@ __d(
         })(),
         waitingRoomToggleActiveCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ie("waitingRoomToggleActiveCall", { enabled: e });
+            var t = yield ce("waitingRoomToggleActiveCall", { enabled: e });
             return Number(t);
           });
           function t(t) {
@@ -1428,7 +1492,7 @@ __d(
         })(),
         startScreenShare: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("startScreenShare", {});
+            var e = yield ce("startScreenShare", {});
             return Number(e);
           });
           function t() {
@@ -1438,7 +1502,7 @@ __d(
         })(),
         stopScreenShare: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield ie("stopScreenShare", {});
+            var e = yield ce("stopScreenShare", {});
             return Number(e);
           });
           function t() {
@@ -1449,7 +1513,7 @@ __d(
         startVideoPreview: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var n = yield ie("startVideoPreview", { callId: e, selfJid: t });
+              var n = yield ce("startVideoPreview", { callId: e, selfJid: t });
               return Number(n);
             },
           );
@@ -1463,7 +1527,7 @@ __d(
             var t = o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(
                 e,
               ),
-              n = yield ie("requestKeyFrame", { userJid: t });
+              n = yield ce("requestKeyFrame", { userJid: t });
             return Number(n);
           });
           function t(t) {
@@ -1474,7 +1538,7 @@ __d(
         updateParticipantsRxSubscription: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var n = yield ie("updateParticipantsRxSubscription", {
+              var n = yield ce("updateParticipantsRxSubscription", {
                 participantJids: e,
                 videoQualities: t,
               });
@@ -1489,7 +1553,7 @@ __d(
         updateNetworkMedium: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              yield oe("updateNetworkMedium", {
+              yield se("updateNetworkMedium", {
                 networkMedium: e,
                 networkMtu: t,
               });
@@ -1503,7 +1567,7 @@ __d(
         getNetworkConditionerState: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var e = yield ie("getNetworkConditionerState", {});
+              var e = yield ce("getNetworkConditionerState", {});
               if (e == null) return null;
               var t = JSON.stringify(e);
               return t == null ? null : JSON.parse(t);
@@ -1519,7 +1583,7 @@ __d(
         getShortStatisticString: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var e = yield ie("getShortStatisticString", {});
+              var e = yield ce("getShortStatisticString", {});
               return String(e != null ? e : "");
             } catch (e) {
               return "";
@@ -1533,7 +1597,7 @@ __d(
         getDebugStatisticString: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var e = yield ie("getDebugStatisticString", {});
+              var e = yield ce("getDebugStatisticString", {});
               return String(e != null ? e : "");
             } catch (e) {
               return "";
@@ -1558,7 +1622,7 @@ __d(
         getVoipParam: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
-              var t = yield ie("getVoipParam", { paramPath: e });
+              var t = yield ce("getVoipParam", { paramPath: e });
               return String(t != null ? t : "");
             } catch (e) {
               return "";
@@ -1572,13 +1636,13 @@ __d(
         isWebP2PEnabled: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
-              var t = yield ie("isWebP2PEnabled", { callId: e });
+              var t = yield ce("isWebP2PEnabled", { callId: e });
               return t === !0;
             } catch (e) {
               return (
                 o("WALogger").WARN(
-                  V ||
-                    (V = babelHelpers.taggedTemplateLiteralLoose([
+                  j ||
+                    (j = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [WorkerProxy] isWebP2PEnabled RPC failed, defaulting to false: ",
                       "",
                     ])),
@@ -1593,11 +1657,11 @@ __d(
           }
           return t;
         })(),
-        callbacks: de,
+        callbacks: fe,
         inviteToCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              yield oe("inviteToCall", {
+              yield se("inviteToCall", {
                 invitedParticipantPnUserJid: e,
                 invitedParticipantLidUserJid: t,
                 deviceJids: n,
@@ -1612,7 +1676,7 @@ __d(
         checkOngoingCalls: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              yield oe("checkOngoingCalls", { callIds: e, callCreatorJids: t });
+              yield se("checkOngoingCalls", { callIds: e, callCreatorJids: t });
             },
           );
           function t(t, n) {
@@ -1623,7 +1687,7 @@ __d(
         sendWebP2PTransport: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, o, a) {
-              yield oe("sendWebP2PTransport", {
+              yield se("sendWebP2PTransport", {
                 callId: e,
                 ufrag: t,
                 pwd: n,
@@ -1640,7 +1704,7 @@ __d(
         })(),
       };
     }
-    l.createWorkerProxyStackInterface = ne;
+    l.createWorkerProxyStackInterface = ie;
   },
   98,
 );

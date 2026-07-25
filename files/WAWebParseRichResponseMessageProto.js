@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBotBaseGating",
     "WAWebBotUnifiedResponseGating",
+    "WAWebBotUnifiedResponseMutationUtils",
     "WAWebMsgType",
     "WAWebRichResponseParseUtils",
     "WAWebRichResponseValidationError",
@@ -70,6 +71,15 @@ __d(
                 richResponse: p,
                 unifiedResponse: _,
                 unifiedResponseRawData: f,
+                unifiedResponseMutationMediaList: o(
+                  "WAWebBotUnifiedResponseGating",
+                ).isUnifiedResponseMutationEnabled()
+                  ? o(
+                      "WAWebBotUnifiedResponseMutationUtils",
+                    ).parseUnifiedResponseMutationMediaList(
+                      r.messageContextInfo,
+                    )
+                  : void 0,
               }),
               contextInfo: o(
                 "WAWebBotBaseGating",

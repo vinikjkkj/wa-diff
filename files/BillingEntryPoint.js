@@ -585,6 +585,7 @@ __d(
       UNICORN_BOT: "unicorn_bot",
       WEB_ADS: "web_ads",
       BUNNYLOL_BILLH: "bunnylol_billh",
+      BUNNYLOL_BILLP: "bunnylol_billp",
       ADS_PAY_TOOL: "ads_pay_tool",
       WORK_ACCOUNTS_MIGRATION: "work_accounts_migration",
       WORK_ACCOUNTS_PRODUCT_SUBSCRIBE: "work_accounts_product_subscribe",

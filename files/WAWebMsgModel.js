@@ -494,6 +494,7 @@ __d(
             (e.richResponse = o("WAWebBaseModel").prop()),
             (e.unifiedResponse = o("WAWebBaseModel").prop()),
             (e.unifiedResponseRawData = o("WAWebBaseModel").prop()),
+            (e.unifiedResponseMutationMediaList = o("WAWebBaseModel").prop()),
             (e.botSignatureVerificationMetadata = o("WAWebBaseModel").prop()),
             (e.forwardedNewsletterMessageInfo = o("WAWebBaseModel").prop()),
             (e.forwardedAiBotMessageInfo = o("WAWebBaseModel").prop()),

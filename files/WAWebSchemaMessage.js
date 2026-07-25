@@ -265,6 +265,7 @@ __d(
             a("bytesReceived"),
             a("richResponse"),
             a("unifiedResponse"),
+            a("unifiedResponseMutationMediaList"),
             a("limitSharing"),
             a("galaxyFlowWAMMessageId"),
             a("galaxyFlowQPLMessageId"),

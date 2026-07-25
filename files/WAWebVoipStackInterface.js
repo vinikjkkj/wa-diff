@@ -30,12 +30,13 @@ __d(
       return (
         f == null &&
           (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return r("WAWebEnvironment").isWindows
-              ? (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
-                o("WAWebABProps").getABPropConfigValue(
+            return !r("WAWebEnvironment").isWindows ||
+              (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+              o("WAWebVoipGatingUtils").isWinHybridPlusEnabled())
+              ? !1
+              : o("WAWebABProps").getABPropConfigValue(
                   "web_voip_runtime_stack_selection_enabled",
-                ) === !0)
-              : !1;
+                ) === !0;
           })()),
         f
       );

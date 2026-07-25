@@ -1367,6 +1367,7 @@ __d(
     "WDSIconWdsIcVoiceChatChannelsFill.react",
     "WDSIconWdsIcWand.react",
     "WDSIconWdsIcWandFilled.react",
+    "WDSIconWdsIcWeave.react",
     "WDSIconWdsIcWhatsapp.react",
     "WDSIconWdsIcWhatsappSmbLogo.react",
     "WDSIconWdsMicVoiceReplybadge.react",
@@ -6248,6 +6249,7 @@ __d(
           Component: r("WDSIconWdsIcWandFilled.react"),
           name: "WDSIconWdsIcWandFilled",
         },
+        { Component: r("WDSIconWdsIcWeave.react"), name: "WDSIconWdsIcWeave" },
         {
           Component: r("WDSIconWdsIcWhatsapp.react"),
           name: "WDSIconWdsIcWhatsapp",

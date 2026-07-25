@@ -58,26 +58,29 @@ __d(
         var i = a.prototype;
         return (
           (i.preflightAcquireDesktopStream = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e;
-              return (
-                (this.desktopStream = {
-                  streamPromise: o("WAWebBackendApi").frontendSendAndReceive(
-                    "voipAcquireMediaStream",
-                    {
-                      type: "desktop",
-                      params:
-                        (e = o("WAWebVoipVideoCameraCapture")
-                          .WAWebVoipVideoCameraCapture.captureParams) != null
-                          ? e
-                          : void 0,
-                    },
-                  ),
-                }),
-                this.desktopStream.streamPromise
-              );
-            });
-            function t() {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t;
+                return (
+                  (this.desktopStream = {
+                    streamPromise: o("WAWebBackendApi").frontendSendAndReceive(
+                      "voipAcquireMediaStream",
+                      {
+                        type: "desktop",
+                        params:
+                          (t = o("WAWebVoipVideoCameraCapture")
+                            .WAWebVoipVideoCameraCapture.captureParams) != null
+                            ? t
+                            : void 0,
+                        targetWindow: e,
+                      },
+                    ),
+                  }),
+                  this.desktopStream.streamPromise
+                );
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

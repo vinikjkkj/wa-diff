@@ -442,7 +442,10 @@ __d(
     function we() {
       return (
         (we = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (r("WAWebEnvironment").isWindows)
+          if (
+            r("WAWebEnvironment").isWindows &&
+            !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
+          )
             return ((ae.microphone = !0), (ae.camera = !0), !0);
           var t = e && !X(),
             n = !ee();

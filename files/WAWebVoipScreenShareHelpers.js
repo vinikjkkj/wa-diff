@@ -65,7 +65,8 @@ __d(
             m = t.isVideoCall,
             _ = t.isVideoMuted,
             f = t.onVideoMuteToggle,
-            g = t.openModal;
+            g = t.openModal,
+            h = t.targetWindow;
           if (!m) {
             if (u) {
               g(
@@ -117,7 +118,7 @@ __d(
                     function* () {
                       try {
                         (yield (d || (d = n("Promise"))).resolve(f()),
-                          yield y());
+                          yield y(h));
                       } catch (t) {
                         o("WALogger")
                           .ERROR(
@@ -135,40 +136,40 @@ __d(
             );
             return;
           }
-          yield y();
+          yield y(h);
         })),
         h.apply(this, arguments)
       );
     }
-    function y() {
+    function y(e) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity
               .USER_START_SCREEN_SHARE,
           );
-          var e = yield o(
+          var t = yield o(
             "WAWebVoipVideoDesktopCapture",
-          ).WAWebVoipVideoDesktopCapture.preflightAcquireDesktopStream();
-          if (e != null)
+          ).WAWebVoipVideoDesktopCapture.preflightAcquireDesktopStream(e);
+          if (t != null)
             try {
-              var t = yield o(
+              var n = yield o(
                 "WAWebVoipStackInterface",
               ).getVoipStackInterface();
-              if ((t == null ? void 0 : t.type) === "web")
-                yield t.startScreenShare();
+              if ((n == null ? void 0 : n.type) === "web")
+                yield n.startScreenShare();
               else {
-                var n;
+                var a;
                 o("WALogger").WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[voip] screen share: op not available for ",
                       "",
                     ])),
-                  (n = t == null ? void 0 : t.type) != null ? n : "null",
+                  (a = n == null ? void 0 : n.type) != null ? a : "null",
                 );
               }
             } catch (e) {

@@ -134,7 +134,10 @@ __d(
                       .InvalidHostedCompanionStanza),
                     o(
                       "WAWebPostIncomingMessageDropMetric",
-                    ).postIncomingMessageDropInvalidHostedCompanionStanza(t))
+                    ).postIncomingMessageDropForCoexV2RelayOrHostedCompanion(
+                      t,
+                      l.success.from,
+                    ))
                   : o(
                       "WAWebPostIncomingMessageDropMetric",
                     ).postIncomingMessageDropInvalidStanza(t),

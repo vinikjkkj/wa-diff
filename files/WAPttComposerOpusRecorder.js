@@ -4,10 +4,10 @@ __d(
     "$InternalEnum",
     "Promise",
     "WAGetUserMedia",
-    "WANullthrows",
     "WAOpusRecorderWorkerClient",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -186,7 +186,7 @@ __d(
             if (this._state === u.RECORDING) {
               for (var n = [], o = 0; o < t.numberOfChannels; o++)
                 n[o] = t.getChannelData(o);
-              var a = r("WANullthrows")(this._encoder);
+              var a = r("nullthrows")(this._encoder);
               (a.postMessage({ command: "encode", buffers: n }),
                 (this._duration += t.duration),
                 (e = this._onDuration) == null || e.call(this, this._duration));
@@ -217,7 +217,7 @@ __d(
             if ((this._recordedPages.push(t), t[5] & 4)) {
               var n, o;
               (n = this._handlePage) == null || n.call(this, t, !0);
-              var a = r("WANullthrows")(this._encoder);
+              var a = r("nullthrows")(this._encoder);
               (a.removeEventListener("message", this._handleEncoderMessage),
                 this._resolveCompleteRecordingPromise(d(this._recordedPages)),
                 (this._recordedPages = []),
@@ -227,7 +227,7 @@ __d(
             (e = this._handlePage) == null || e.call(this, t, !1);
           }),
           (a._handleFlushed = function (t) {
-            var e = r("WANullthrows")(this._pendingFlushResolvers.get(t));
+            var e = r("nullthrows")(this._pendingFlushResolvers.get(t));
             (this._pendingFlushResolvers.delete(t), e(d(this._recordedPages)));
           }),
           (a.getPartialRecording = function () {
@@ -236,7 +236,7 @@ __d(
               a = new (e || (e = n("Promise")))(function (e) {
                 t._pendingFlushResolvers.set(o, e);
               }),
-              i = r("WANullthrows")(this._encoder);
+              i = r("nullthrows")(this._encoder);
             return (i.postMessage({ command: "flush", requestId: o }), a);
           }),
           (a.getCompleteRecording = function () {

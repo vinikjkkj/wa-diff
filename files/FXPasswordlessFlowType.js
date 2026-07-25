@@ -13,6 +13,7 @@ __d(
           "deletion_no_eligible_accounts_for_reauth",
         GENERIC_CENTRALIZED_SETTINGS_NO_ELIGIBLE_ACCOUNTS_FOR_REAUTH:
           "generic_centralized_settings_no_eligible_accounts_for_reauth",
+        INSTAGRAM_PW_CREATION: "instagram_pw_creation",
         META_PW_CREATION: "meta_pw_creation",
         SSO: "sso",
         THREADS_PW_CREATION: "threads_pw_creation",

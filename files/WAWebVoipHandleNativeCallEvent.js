@@ -1104,8 +1104,11 @@ __d(
               o("WAWebVoipPersistentFS").stopPeriodicVoipSync(),
               o("WAWebVoipBrowserMetrics").stopBrowserMetrics(),
               o("WAWebVoipWindowMetrics").stopWindowMetrics(),
-              o("WAWebVoipGatingUtils").isWebTransportEnabled() ||
-                o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
+              o("WAWebVoipGatingUtils").isWebTransportEnabled()
+                ? o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).closeAllConnections()
+                : o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
               o("WAWebVoipGatingUtils").markCurrentCallAsFna(!1),
               o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
               (z = G()),

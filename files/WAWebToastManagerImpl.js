@@ -125,6 +125,7 @@ __d(
                 align: c,
                 type: "default",
                 message: l,
+                dedupId: a,
                 action: {
                   label: d.actionText,
                   onPress: function () {
@@ -137,6 +138,7 @@ __d(
                 align: c,
                 type: "default",
                 message: l,
+                dedupId: a,
               }),
           !0
         );

@@ -205,6 +205,10 @@ __d(
               throw r("err")(
                 "UPR payment request attempted for a non-UPR method",
               );
+            if (n.length === 0)
+              throw r("err")(
+                "UPR payment request attempted with no payment keys",
+              );
             var s = o("WAWebOrderCollection").OrderCollection.addOrder(),
               u = babelHelpers.extends(
                 {},
@@ -212,7 +216,7 @@ __d(
                   accountType: l.accountType,
                   identifierType: l.identifierType,
                   currency: l.currency,
-                  paymentKey: n,
+                  paymentKeys: n,
                   amount: a,
                   offset: i,
                   referenceId: r("WAWebBizOrderGetFriendlyRandomIdAction")(),

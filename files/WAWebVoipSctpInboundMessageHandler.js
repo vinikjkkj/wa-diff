@@ -2,23 +2,22 @@ __d(
   "WAWebVoipSctpInboundMessageHandler",
   [
     "WALogger",
+    "WAWebVoipGatingUtils",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpConnectionManagerConstants",
     "WAWebVoipSctpConnectionState",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
     function u(e) {
-      var t,
-        n = r("justknobx")._("1929");
-      if (n) {
-        var a;
-        return (a = e.originalPort) != null ? a : e.port;
+      var t;
+      if (o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort()) {
+        var n;
+        return (n = e.originalPort) != null ? n : e.port;
       }
       return ((t = e.originalPort) != null ? t : e.port) ===
         o("WAWebVoipSctpConnectionManagerConstants").SctpConnectionConfig

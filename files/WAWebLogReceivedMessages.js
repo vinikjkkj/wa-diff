@@ -12,6 +12,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebChatThreadLogging",
     "WAWebChatThreadLoggingUtils",
+    "WAWebCoexV2WamClassification",
     "WAWebDBMsgUtils",
     "WAWebDBProcessReplyMsgs",
     "WAWebEphemeralityResolver",
@@ -38,7 +39,6 @@ __d(
     "WAWebWamAddressingModeUtils",
     "WAWebWamEnumChatGatedReason",
     "WAWebWamEnumChatOriginsType",
-    "WAWebWamEnumEncryptionTypeCode",
     "WAWebWamEnumRevokeType",
     "WAWebWamGroupMetadataMetricUtils",
     "WAWebWamGroupMetricCache",
@@ -249,20 +249,22 @@ __d(
                       var P =
                         o("WAWebWamMsgUtils").getWamAgentEngagementType(e);
                       P != null && (v.agentEngagementType = P);
-                      var N = e.senderWithDevice;
-                      if (N != null) {
-                        var M = o("WAWebWamMsgUtils").getWamE2eSenderType(N);
-                        (M != null && (v.e2eSenderType = M),
-                          N.isHosted() &&
-                            (v.encryptionType = o(
-                              "WAWebWamEnumEncryptionTypeCode",
-                            ).ENCRYPTION_TYPE_CODE.COEX));
-                      }
-                      var w = yield o(
+                      var N = o(
+                          "WAWebCoexV2WamClassification",
+                        ).getRecvWamE2eClassification(
+                          e.senderWithDevice,
+                          e.senderWithDevice,
+                          e.metaFrom,
+                        ),
+                        M = N.e2eSenderType,
+                        w = N.encryptionType;
+                      (M != null && (v.e2eSenderType = M),
+                        w != null && (v.encryptionType = w));
+                      var A = yield o(
                         "WAWebWamGroupMetadataMetricUtils",
                       ).getGroupTypeFromChatWid(a);
                       if (
-                        (w != null && (v.typeOfGroup = w),
+                        (A != null && (v.typeOfGroup = A),
                         p != null &&
                           (v.serverAddressingMode = o(
                             "WAWebWamAddressingModeUtils",
@@ -279,20 +281,20 @@ __d(
                               .PREMIUM),
                         a != null && a.isGroup())
                       ) {
-                        var A = yield o(
+                        var F = yield o(
                             "WAWebWamGroupMetadataMetricUtils",
                           ).isCagFromChatWid(a),
-                          F = o("WAWebMsgGetters").getIsReaction(e);
-                        A != null && F != null && (v.isLid = A && F);
-                        var O = yield o(
+                          O = o("WAWebMsgGetters").getIsReaction(e);
+                        F != null && O != null && (v.isLid = F && O);
+                        var B = yield o(
                           "WAWebWamGroupMetricCache",
                         ).getGroupMetrics(a);
-                        ((O == null ? void 0 : O.participantCount) != null &&
-                          (v.participantCount = O.participantCount),
-                          (O == null ? void 0 : O.deviceCount) != null &&
-                            (v.deviceCount = O.deviceCount),
-                          (O == null ? void 0 : O.deviceSizeBucket) != null &&
-                            (v.deviceSizeBucket = O.deviceSizeBucket));
+                        ((B == null ? void 0 : B.participantCount) != null &&
+                          (v.participantCount = B.participantCount),
+                          (B == null ? void 0 : B.deviceCount) != null &&
+                            (v.deviceCount = B.deviceCount),
+                          (B == null ? void 0 : B.deviceSizeBucket) != null &&
+                            (v.deviceSizeBucket = B.deviceSizeBucket));
                       }
                       v.commit();
                     }

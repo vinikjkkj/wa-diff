@@ -5,6 +5,7 @@ __d(
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
     "WAWebCoexV2GatingUtils",
+    "WAWebCoexV2WamClassification",
     "WAWebE2eMessageRecvWamEvent",
     "WAWebGetMetricE2eDestination",
     "WAWebGroupType",
@@ -12,7 +13,6 @@ __d(
     "WAWebSessionScopeWamUtils",
     "WAWebWamAddressingModeUtils",
     "WAWebWamEnumAgentEngagementEnumType",
-    "WAWebWamEnumEncryptionTypeCode",
     "WAWebWamMsgUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -65,33 +65,36 @@ __d(
             }),
             d = o("WAWebGetMetricE2eDestination").getMetricE2eDestination(r);
           d != null && (c.e2eDestination = d);
-          var m = o("WAWebWamMsgUtils").getWamE2eSenderType(r);
+          var m = o("WAWebCoexV2WamClassification").getRecvWamE2eClassification(
+              i.author,
+              r,
+              i.metaFrom,
+            ),
+            p = m.e2eSenderType,
+            _ = m.encryptionType;
           if (
-            (m != null && (c.e2eSenderType = m),
-            r.isHosted() &&
-              (c.encryptionType = o(
-                "WAWebWamEnumEncryptionTypeCode",
-              ).ENCRYPTION_TYPE_CODE.COEX),
+            (p != null && (c.e2eSenderType = p),
+            _ != null && (c.encryptionType = _),
             i.addressingMode != null &&
               (c.serverAddressingMode = o(
                 "WAWebWamAddressingModeUtils",
               ).getWamAddressingModeFromString(i.addressingMode)),
             u.isGroup())
           ) {
-            var p = yield o("WAWebBackendApi").frontendSendAndReceive(
+            var f = yield o("WAWebBackendApi").frontendSendAndReceive(
               "getGroupMetadata",
               { groupWid: u },
             );
-            if (p != null) {
-              c.isLid = (p.isCag && s) || !!p.isLidAddressingMode;
-              var _ = o("WAWebGroupType").groupTypeToWamEnum(
-                o("WAWebGroupType").getGroupTypeFromGroupMetadata(p),
+            if (f != null) {
+              c.isLid = (f.isCag && s) || !!f.isLidAddressingMode;
+              var g = o("WAWebGroupType").groupTypeToWamEnum(
+                o("WAWebGroupType").getGroupTypeFromGroupMetadata(f),
               );
-              c.typeOfGroup = _;
-              var f = o(
+              c.typeOfGroup = g;
+              var h = o(
                 "WAWebWamAddressingModeUtils",
-              ).getAddressingModeMetricsFromGroupMetadata(p);
-              f != null && (c.localAddressingMode = f);
+              ).getAddressingModeMetricsFromGroupMetadata(f);
+              h != null && (c.localAddressingMode = h);
             }
           } else
             u.isBroadcast()

@@ -124,36 +124,31 @@ __d(
     function _(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.drawable,
-        a = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        i = a.omitDataBloksName,
-        l = m(null),
-        s = r("WebBloksDrawable")(n, l),
-        c = r("useWebBloksDrawableNode")(n);
-      if (c != null) return c;
+        a = o("WebBloksEnvironmentContext").useDataBloksName(),
+        i = m(null),
+        l = r("WebBloksDrawable")(n, i),
+        s = r("useWebBloksDrawableNode")(n);
+      if (s != null) return s;
+      var c;
+      t[0] !== a
+        ? ((c = a("bk.components.BoxDecoration")), (t[0] = a), (t[1] = c))
+        : (c = t[1]);
       var d;
-      t[0] !== i
-        ? ((d = i
-            ? null
-            : { "data-bloks-name": "bk.components.BoxDecoration" }),
-          (t[0] = i),
-          (t[1] = d))
-        : (d = t[1]);
-      var p;
       return (
-        t[2] !== s || t[3] !== d
-          ? ((p = u.jsx(
+        t[2] !== l || t[3] !== c
+          ? ((d = u.jsx(
               "div",
-              babelHelpers.extends({}, d, {
-                ref: l,
+              babelHelpers.extends({}, c, {
+                ref: i,
                 className: f.foreground,
-                style: s,
+                style: l,
               }),
             )),
-            (t[2] = s),
-            (t[3] = d),
-            (t[4] = p))
-          : (p = t[4]),
-        p
+            (t[2] = l),
+            (t[3] = c),
+            (t[4] = d))
+          : (d = t[4]),
+        d
       );
     }
     var f = o("WebBloksStyle").createStyles({

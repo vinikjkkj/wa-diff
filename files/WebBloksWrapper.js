@@ -24,9 +24,9 @@ __d(
       };
     function f(e, t, n) {
       var r,
-        a = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        i = a.extensionHandlers,
-        l = a.omitDataBloksName,
+        a = o("WebBloksEnvironmentContext").useDataBloksName(),
+        i = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        l = i.extensionHandlers,
         u = o("WebBloksComponentContext").useWebBloksContext(),
         d = o("WebBloksTheme").useTheme().getTheme(),
         f = e.getValues(),
@@ -46,9 +46,9 @@ __d(
         L = e.get("extensions"),
         E = m(
           function () {
-            return o("WebBloksExtensions").processExtensions(L, i);
+            return o("WebBloksExtensions").processExtensions(L, l);
           },
-          [i, L],
+          [l, L],
         ),
         k = p(e);
       ((k.current = e),
@@ -56,7 +56,7 @@ __d(
           if (!(!E || E.length === 0)) {
             var e = [],
               t = function (n) {
-                var t = i.get(n.styleId),
+                var t = l.get(n.styleId),
                   r = t == null ? void 0 : t.onMount;
                 if (r != null) {
                   var o = function () {
@@ -81,11 +81,10 @@ __d(
           }
         }, []));
       var I = b != null || R || !!(E && E.length > 0),
-        T = babelHelpers.extends(
-          {},
-          l ? null : { "data-bloks-name": e.styleId },
-          { ref: n, id: e.get("html_id") },
-        );
+        T = babelHelpers.extends({}, a(e.styleId), {
+          ref: n,
+          id: e.get("html_id"),
+        });
       if (!I)
         return {
           hasWrapper: !1,
@@ -96,7 +95,7 @@ __d(
       var D = b != null;
       if (E)
         for (var x of E) {
-          var $ = i.get(x.styleId);
+          var $ = l.get(x.styleId);
           $ &&
             ($.hasLayoutWrapper != null && $.hasLayoutWrapper(x) && (D = !0),
             $.getStyles && (v = babelHelpers.extends({}, v, $.getStyles(x, d))),
@@ -120,11 +119,11 @@ __d(
             })),
           E)
         )
-          for (var l of E) {
-            var u = i.get(l.styleId);
+          for (var i of E) {
+            var u = l.get(i.styleId);
             if (u) {
               var c = u.wrap;
-              c && (r = c(l, r, e, n));
+              c && (r = c(i, r, e, n));
             }
           }
         return D
@@ -163,18 +162,15 @@ __d(
       var t = o("react-compiler-runtime").c(17),
         n = e.aspectRatio,
         r = e.children,
-        a = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        i = a.omitDataBloksName,
-        l;
-      t[0] !== i
-        ? ((l = i ? null : { "data-bloks-name": "bk.components.AspectRatio" }),
-          (t[0] = i),
-          (t[1] = l))
-        : (l = t[1]);
-      var u, c;
+        a = o("WebBloksEnvironmentContext").useDataBloksName(),
+        i;
+      t[0] !== a
+        ? ((i = a("bk.components.AspectRatio")), (t[0] = a), (t[1] = i))
+        : (i = t[1]);
+      var l, u;
       t[2] !== n
-        ? ((u = { aspectRatio: n }),
-          (c = s.jsx("svg", {
+        ? ((l = { aspectRatio: n }),
+          (u = s.jsx("svg", {
             "aria-hidden": "true",
             xmlns: "http://www.w3.org/2000/svg",
             height: 1,
@@ -182,52 +178,50 @@ __d(
             className: g.aspectRatioSVG,
           })),
           (t[2] = n),
-          (t[3] = u),
-          (t[4] = c))
-        : ((u = t[3]), (c = t[4]));
-      var d;
-      t[5] !== l || t[6] !== u || t[7] !== c
-        ? ((d = s.jsx(
+          (t[3] = l),
+          (t[4] = u))
+        : ((l = t[3]), (u = t[4]));
+      var c;
+      t[5] !== i || t[6] !== l || t[7] !== u
+        ? ((c = s.jsx(
             "div",
-            babelHelpers.extends({}, l, {
+            babelHelpers.extends({}, i, {
               className: g.aspectRatioContainer,
-              style: u,
-              children: c,
+              style: l,
+              children: u,
             }),
           )),
-          (t[5] = l),
-          (t[6] = u),
-          (t[7] = c),
-          (t[8] = d))
-        : (d = t[8]);
+          (t[5] = i),
+          (t[6] = l),
+          (t[7] = u),
+          (t[8] = c))
+        : (c = t[8]);
+      var d;
+      t[9] !== a
+        ? ((d = a("bk.components.AspectRatio")), (t[9] = a), (t[10] = d))
+        : (d = t[10]);
       var m;
-      t[9] !== i
-        ? ((m = i ? null : { "data-bloks-name": "bk.components.AspectRatio" }),
-          (t[9] = i),
-          (t[10] = m))
-        : (m = t[10]);
-      var p;
-      t[11] !== r || t[12] !== m
-        ? ((p = s.jsx(
+      t[11] !== r || t[12] !== d
+        ? ((m = s.jsx(
             "div",
-            babelHelpers.extends({}, m, {
+            babelHelpers.extends({}, d, {
               className: g.aspectRatioContent,
               children: r,
             }),
           )),
           (t[11] = r),
-          (t[12] = m),
-          (t[13] = p))
-        : (p = t[13]);
-      var _;
+          (t[12] = d),
+          (t[13] = m))
+        : (m = t[13]);
+      var p;
       return (
-        t[14] !== d || t[15] !== p
-          ? ((_ = s.jsxs(s.Fragment, { children: [d, p] })),
-            (t[14] = d),
-            (t[15] = p),
-            (t[16] = _))
-          : (_ = t[16]),
-        _
+        t[14] !== c || t[15] !== m
+          ? ((p = s.jsxs(s.Fragment, { children: [c, m] })),
+            (t[14] = c),
+            (t[15] = m),
+            (t[16] = p))
+          : (p = t[16]),
+        p
       );
     }
     function y(e) {

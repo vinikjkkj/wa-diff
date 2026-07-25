@@ -7,6 +7,7 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebBotModeSelectionProtoUtils",
     "WAWebBotUnifiedResponseGating",
+    "WAWebBotUnifiedResponseMutationUtils",
     "WAWebLidMigrationUtils",
     "WAWebMsgType",
     "WAWebProtobufsAICommon.pb",
@@ -54,32 +55,42 @@ __d(
     function d(t) {
       var n = t.botPersonaId != null ? t.botPersonaId : void 0,
         r = f(t),
-        o = t.aiThreadInfo != null ? e(t) : void 0,
-        a = y(t.botModeSelection, t.botModeOverride),
-        i = s(t),
-        l = h(t.type),
-        c = u(t);
+        a = t.aiThreadInfo != null ? e(t) : void 0,
+        i = y(t.botModeSelection, t.botModeOverride),
+        l = s(t),
+        c = h(t.type),
+        d = u(t),
+        m =
+          t.unifiedResponseMutationMediaList != null
+            ? o(
+                "WAWebBotUnifiedResponseMutationUtils",
+              ).generateUnifiedResponseMutation(
+                t.unifiedResponseMutationMediaList,
+              )
+            : void 0;
       if (
         !(
           t.botGroupParticipant == null &&
           n == null &&
           r == null &&
-          a == null &&
           i == null &&
           l == null &&
-          c == null
+          c == null &&
+          d == null &&
+          m == null
         )
       )
         return {
           personaId: n,
           invokerJid: r,
           capabilityMetadata: t.id ? g(t.id.remote) : void 0,
-          botThreadInfo: o,
+          botThreadInfo: a,
           botGroupMetadata: _(t.botGroupParticipant),
-          botModeSelectionMetadata: a,
-          botMetricsMetadata: i,
-          botDocumentMessageMetadata: l,
-          aiMediaCollectionMetadata: c,
+          botModeSelectionMetadata: i,
+          botMetricsMetadata: l,
+          botDocumentMessageMetadata: c,
+          aiMediaCollectionMetadata: d,
+          unifiedResponseMutation: m,
         };
     }
     function m(e, t) {

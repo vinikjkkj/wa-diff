@@ -29,58 +29,58 @@ __d(
     function s(e) {
       var t = e.autoLoopSuspendedRef,
         n = e.concurrentAutoplayManagementAPI,
-        a = e.createExposedState,
-        i = e.debugAPI,
-        l = e.fullscreenControllerRef,
-        s = e.loggerToSNAPL,
-        u = e.loggerToVPL,
-        c = e.machine,
-        d = e.setVideoElementImpl,
-        m = e.subscribers,
-        p = e.videoElementAPIRef,
-        _ = e.videoPlayerPassiveViewabilityInfo,
-        f = {
+        r = e.createExposedState,
+        a = e.debugAPI,
+        i = e.fullscreenControllerRef,
+        l = e.loggerToSNAPL,
+        s = e.loggerToVPL,
+        u = e.machine,
+        c = e.setVideoElementImpl,
+        d = e.subscribers,
+        m = e.videoElementAPIRef,
+        p = e.videoPlayerPassiveViewabilityInfo,
+        _ = {
           logVPLEvent_DO_NOT_USE: function (t, n) {
-            u.logVPLEvent({
+            s.logVPLEvent({
               eventType: t,
               logDataOverrides: n,
-              state: c.getCurrentState(),
+              state: u.getCurrentState(),
             });
           },
           setLoggingToSNAPLAdditionalData: function (t) {
-            s == null || s.setLoggingToSNAPLAdditionalData(t);
+            l == null || l.setLoggingToSNAPLAdditionalData(t);
           },
           setLoggingToVPLAdditionalData: function (t, n) {
-            u.setLoggingToVPLAdditionalData(t, n);
+            s.setLoggingToVPLAdditionalData(t, n);
           },
         };
       return o(
         "VideoPlayerImplementationControllerImpl",
       ).createVideoPlayerImplementationControllerImpl({
         concurrentAutoplayManagementAPI: n,
-        debugAPI: i,
+        debugAPI: a,
         exitPictureInPictureImpl: function () {
-          c.dispatch({ type: "controller_picture_in_picture_exit_requested" });
+          u.dispatch({ type: "controller_picture_in_picture_exit_requested" });
         },
-        fullscreenControllerRef: l,
+        fullscreenControllerRef: i,
         getCurrentExposedState: function () {
-          return a(c.getCurrentState());
+          return r(u.getCurrentState());
         },
         getCurrentIsDesktopPictureInPicture: function () {
           var e;
           return (e =
-            c.getCurrentState().controlledState.isDesktopPictureInPicture) !=
+            u.getCurrentState().controlledState.isDesktopPictureInPicture) !=
             null
             ? e
             : !1;
         },
         getCurrentIsFullscreen: function () {
-          var e = l.current;
+          var e = i.current;
           return e ? e.getIsFullscreen() : !1;
         },
         getCurrentLiveRewindPlayheadPosition: function () {
           var e,
-            t = c.getCurrentState(),
+            t = u.getCurrentState(),
             n = t.controlledState,
             r = n.isLiveRewindActive,
             o = n.seekableRanges,
@@ -95,136 +95,136 @@ __d(
             n,
             r = 0;
           return (e =
-            (t = (n = p.current) == null ? void 0 : n.getPlayheadPosition()) !=
+            (t = (n = m.current) == null ? void 0 : n.getPlayheadPosition()) !=
             null
               ? t
-              : c.getCurrentState().uncontrolledState
+              : u.getCurrentState().uncontrolledState
                   .videoElementPlayheadPosition) != null
             ? e
             : r;
         },
         internal_getCurrentStateMachineState: function () {
-          return c.getCurrentState();
+          return u.getCurrentState();
         },
         internal_injectFatalError: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { fatalError: t },
             type: "controller_inject_fatal_error",
           });
         },
-        loggerAPI: f,
+        loggerAPI: _,
         pauseImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { reason: t },
             type: "controller_pause_requested",
           });
         },
         playImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { reason: t },
             type: "controller_play_requested",
           });
         },
         registerEmsgObserverImpl: function (t) {
-          c.dispatch({ payload: { token: t }, type: "register_emsg_observer" });
+          u.dispatch({ payload: { token: t }, type: "register_emsg_observer" });
         },
         requestPictureInPictureImpl: function () {
-          c.dispatch({ type: "controller_picture_in_picture_requested" });
+          u.dispatch({ type: "controller_picture_in_picture_requested" });
         },
         scrubBeginImpl: function () {
-          c.dispatch({ type: "controller_scrub_begin_requested" });
+          u.dispatch({ type: "controller_scrub_begin_requested" });
         },
         scrubEndImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { seekTargetPosition: t },
             type: "controller_scrub_end_requested",
           });
         },
         seekImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { seekTargetPosition: t },
             type: "controller_seek_requested",
           });
         },
         selectVideoQualityImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { selectedVideoQuality: t },
             type: "controller_quality_requested",
           });
         },
         selectVideoVariantImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { selectedVideoVariant: t },
             type: "controller_video_variant_requested",
           });
         },
         setCaptionsDisplayStyleImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { captionDisplayStyle: t },
             type: "controller_set_caption_display_style_requested",
           });
         },
         setCaptionsUrlImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { captionsUrl: t },
             type: "controller_set_captions_url_requested",
           });
         },
         setCaptionsVisibleImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { captionsVisible: t },
             type: "controller_set_captions_visible_requested",
           });
         },
         setIsLiveRewindActiveImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { isLiveRewindActive: t },
             type: "controller_set_is_live_rewind_active_requested",
           });
         },
         setLatencyLevelImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { latencyLevel: t },
             type: "controller_set_latency_level_requested",
           });
         },
         setMutedImpl: function (t, n) {
-          c.dispatch({
+          u.dispatch({
             payload: { muted: t, reason: n },
             type: "controller_muted_requested",
           });
         },
         setPictureInPictureStateImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { isInPictureInPictureMode: t },
             type: "controller_set_picture_in_picture_state_requested",
           });
         },
         setPlaybackRateImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { playbackRate: t },
             type: "controller_set_playback_rate",
           });
         },
-        setVideoElementImpl: d,
+        setVideoElementImpl: c,
         setVolumeImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { volume: t },
             type: "controller_volume_requested",
           });
         },
-        subscribers: m,
+        subscribers: d,
         suspendAutoLoopImpl: function (n) {
-          r("gkx")("22756") && (t.current = n);
+          t.current = n;
         },
         unregisterEmsgObserverImpl: function (t) {
-          c.dispatch({
+          u.dispatch({
             payload: { token: t },
             type: "unregister_emsg_observer",
           });
         },
-        videoElementAPIRef: p,
-        videoPlayerPassiveViewabilityInfo: _,
+        videoElementAPIRef: m,
+        videoPlayerPassiveViewabilityInfo: p,
       });
     }
     function u(e) {

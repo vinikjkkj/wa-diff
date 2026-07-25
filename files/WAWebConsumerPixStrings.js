@@ -91,6 +91,45 @@ __d(
     function D() {
       return s._(/*BTDS*/ "Couldn't delete Pix key. Please try again.");
     }
+    function x(e) {
+      return s._(
+        /*BTDS*/ '_j{"*":"{number} contacts excluded","_1":"1 contact excluded"}',
+        [s._plural(e, "number")],
+      );
+    }
+    function $() {
+      return s._(/*BTDS*/ "Settings");
+    }
+    function P() {
+      return s._(/*BTDS*/ "Delete payment information");
+    }
+    function N() {
+      return s._(/*BTDS*/ "Delete payment information?");
+    }
+    function M() {
+      return s._(
+        /*BTDS*/ "Deleting your payment information will cancel any transactions in progress and delete all your payment data. You can set up payments again the next time you want to send or receive money.",
+      );
+    }
+    function w() {
+      return s._(/*BTDS*/ "Delete");
+    }
+    function A() {
+      return s._(/*BTDS*/ "Payment information deleted");
+    }
+    function F() {
+      return s._(
+        /*BTDS*/ "Your Pix key and payment details have been removed.",
+      );
+    }
+    function O() {
+      return s._(/*BTDS*/ "Done");
+    }
+    function B() {
+      return s._(
+        /*BTDS*/ "You can't delete your payment information because passkey is enabled on your primary device.",
+      );
+    }
     ((l.getConsumerPixKeyTypeOptions = e),
       (l.getConsumerAddPixKeyTitle = u),
       (l.getConsumerAddPixKeySubtitle = c),
@@ -112,7 +151,17 @@ __d(
       (l.getConsumerPixDeleteKeyConfirmBody = k),
       (l.getConsumerPixDeleteKeyConfirmCta = I),
       (l.getConsumerPixDeleteKeyDeletedToast = T),
-      (l.getConsumerPixDeleteKeyErrorToast = D));
+      (l.getConsumerPixDeleteKeyErrorToast = D),
+      (l.getConsumerPixContactsExcludedCount = x),
+      (l.getConsumerPaymentsHomeSettingsHeader = $),
+      (l.getConsumerDeletePaymentInfoRowLabel = P),
+      (l.getConsumerDeletePaymentInfoConfirmTitle = N),
+      (l.getConsumerDeletePaymentInfoConfirmBody = M),
+      (l.getConsumerDeletePaymentInfoConfirmCta = w),
+      (l.getConsumerDeletePaymentInfoSuccessTitle = A),
+      (l.getConsumerDeletePaymentInfoSuccessBody = F),
+      (l.getConsumerDeletePaymentInfoDoneCta = O),
+      (l.getConsumerDeletePaymentInfoPasskeyBlockedToast = B));
   },
   226,
 );

@@ -9,6 +9,7 @@ __d(
     "WebBloksLogger",
     "WebBloksModuleStore",
     "WebBloksViewportDimensionsDataModule",
+    "WebDriverConfig",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,7 +35,7 @@ __d(
         logger: new (r("WebBloksLogger"))(),
         locale: "en_US",
         isRtl: !1,
-        omitDataBloksName: !1,
+        emitDataBloksName: r("WebDriverConfig").isTestRunning,
         accessibilityModule: {
           FocusAppWrapper: r("WebBloksFragment"),
           FocusRegion: r("WebBloksFragment"),
@@ -121,8 +122,8 @@ __d(
             analytics: (n = t.analytics) != null ? n : e.analytics,
             locale: (r = t.locale) != null ? r : e.locale,
             isRtl: (o = t.isRtl) != null ? o : e.isRtl,
-            omitDataBloksName:
-              (a = t.omitDataBloksName) != null ? a : e.omitDataBloksName,
+            emitDataBloksName:
+              (a = t.emitDataBloksName) != null ? a : e.emitDataBloksName,
             actions: babelHelpers.extends({}, e.actions, t.actions),
             appLoader: (i = t.appLoader) != null ? i : e.appLoader,
             components: babelHelpers.extends({}, e.components, t.components),

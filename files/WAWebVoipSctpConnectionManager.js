@@ -6,6 +6,7 @@ __d(
     "WAWebABProps",
     "WAWebCoreActionsODS",
     "WAWebReleaseToEventLoop",
+    "WAWebVoipGatingUtils",
     "WAWebVoipRelayConnectQpl",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpBufferDrain",
@@ -19,6 +20,7 @@ __d(
     "WAWebVoipSctpSendData",
     "WAWebVoipSctpStatsInstrumentation",
     "WAWebVoipStackInterface",
+    "WAWebVoipTransportFallbackTracker",
     "WAWebVoipTsLogger",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -281,6 +283,7 @@ __d(
         (t.stats.connectionReadyTime = Date.now()),
         (t.isReconnecting = !1),
         de(e),
+        o("WAWebVoipTransportFallbackTracker").notifySctpConnectionOpened(),
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -669,7 +672,7 @@ __d(
           ((oe = r("justknobx")._("5402") || 1e4),
             (ae = r("justknobx")._("5558") || oe),
             se++);
-          var t = r("justknobx")._("1929"),
+          var t = o("WAWebVoipGatingUtils").shouldUseOriginalRelayPort(),
             a = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(
               e,
               {
@@ -1455,6 +1458,7 @@ __d(
           (r.stats.connectionReadyTime = Date.now()),
           (r.isReconnecting = !1),
           de(t),
+          o("WAWebVoipTransportFallbackTracker").notifySctpConnectionOpened(),
           r.connectionTimeout &&
             (window.clearTimeout(r.connectionTimeout),
             (r.connectionTimeout = null)),

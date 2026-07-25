@@ -89,7 +89,8 @@ __d(
             a = t.callInfo,
             i = t.callState;
           if (
-            (r("WAWebEnvironment").isWindows ||
+            ((!r("WAWebEnvironment").isWindows ||
+              o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) &&
               o("WAWebVoipUiManager").setupVoipActiveCallChangeListener(),
             r("WAWebCallCollection").activeCall == null &&
               o("WAWebVoipCallStateUtils").isCallTerminal(i))
@@ -757,7 +758,8 @@ __d(
             r("WAWebCallCollection").setActiveCall(null));
           return;
         }
-        r("WAWebEnvironment").isWindows ||
+        (!r("WAWebEnvironment").isWindows ||
+          o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) &&
           o("WAWebVoipUiManager").setupVoipActiveCallChangeListener();
         var n = r("WAWebCallCollection").activeCall;
         if (n == null) {

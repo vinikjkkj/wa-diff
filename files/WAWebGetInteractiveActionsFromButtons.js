@@ -13,6 +13,7 @@ __d(
     "WAWebBizTemplateAndInteractiveMessagesUtils",
     "WAWebBrPaymentRequest",
     "WAWebCarouselMsgUtils",
+    "WAWebContactGetters",
     "WAWebCopyRefreshedIcon.react",
     "WAWebCopyTextWithToast",
     "WAWebCouponCodeHelper",
@@ -137,17 +138,21 @@ __d(
       return n;
     }
     function _(e, t) {
-      if (e.data.url != null) {
-        var n = e.data.url.startsWith(
+      var n = e.data.url;
+      if (n != null) {
+        var a = n.startsWith(
             o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_DEEPLINK_SCHEME,
           ),
-          a =
-            e.data.url != null &&
-            e.data.url.startsWith(
-              o("WAWebBizAiHubDeeplinkScheme")
-                .BIZ_AI_HUB_REVIEW_KNOWLEDGE_DEEPLINK,
-            );
-        return a && o("WAWebBizAiAgentGating").isAiAgentAutoSaveEnabled()
+          i =
+            n.startsWith("whatsapp-smb://") &&
+            o("WAWebContactGetters").getIsAiHub(
+              o("WAWebFrontendMsgGetters").getChat(t.unsafe()).contact,
+            ),
+          l = n.startsWith(
+            o("WAWebBizAiHubDeeplinkScheme")
+              .BIZ_AI_HUB_REVIEW_KNOWLEDGE_DEEPLINK,
+          );
+        return l && o("WAWebBizAiAgentGating").isAiAgentAutoSaveEnabled()
           ? {
               label: e.data.label,
               onClick: function () {
@@ -155,22 +160,20 @@ __d(
                   m.jsx(
                     o("WAWebBizAiKnowledgeReviewDrawerLoadable.react")
                       .WAWebBizAiKnowledgeReviewDrawerLoadable,
-                    { url: e.data.url },
+                    { url: n },
                   ),
                 );
               },
               testid: "biz-ai-review-knowledge-cta",
             }
-          : n
+          : a || i
             ? {
                 label: e.data.label,
                 onClick: function () {
                   if (
                     !(
-                      e.data.url != null &&
-                      o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(
-                        e.data.url,
-                      )
+                      a &&
+                      o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(n)
                     )
                   ) {
                     if (
@@ -186,7 +189,7 @@ __d(
                       msg: t,
                       eventType: o("WAWebWamEnumDisclosureEventType")
                         .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
-                      defaultUrl: e.data.url,
+                      defaultUrl: n,
                       onLinkReady: function (r, o, a) {
                         y({
                           btn: e,

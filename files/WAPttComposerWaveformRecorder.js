@@ -1,10 +1,10 @@
 __d(
   "WAPttComposerWaveformRecorder",
   [
-    "WANullthrows",
     "WAPttComposerRecorderPollableTimer",
     "WAPttComposerScaleWaveform",
     "WAStartAnimationLoop",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -49,7 +49,7 @@ __d(
         }),
         (t.$11 = function () {
           var e,
-            t = r("WANullthrows")(this.$7);
+            t = r("nullthrows")(this.$7);
           this.$8 =
             (e = this.$8) != null ? e : new Uint8Array(t.frequencyBinCount);
           var n = this.$8;

@@ -1338,6 +1338,12 @@ __d(
       LWI_BROWSER_ADD_ONS_OPT_OUT_WTM: "lwi_browser_add_ons_opt_out_wtm",
       LWI_BROWSER_ADD_ONS_OPT_IN_CALL: "lwi_browser_add_ons_opt_in_call",
       LWI_BROWSER_ADD_ONS_OPT_OUT_CALL: "lwi_browser_add_ons_opt_out_call",
+      LWI_MOBILE_BROWSER_ADD_ONS_OPT_IN_CALL:
+        "lwi_mobile_browser_add_ons_opt_in_call",
+      LWI_MOBILE_BROWSER_ADD_ONS_OPT_OUT_CALL:
+        "lwi_mobile_browser_add_ons_opt_out_call",
+      LWI_MOBILE_BROWSER_ADD_ONS_DEFAULT_CALL:
+        "lwi_mobile_browser_add_ons_default_call",
       WTM_LWI_HOLDOUT_RESTART_TARGETING_CHECK:
         "wtm_lwi_holdout_restart_targeting_check",
       CLICK_EXTEND_BOOST: "click_extend_boost",

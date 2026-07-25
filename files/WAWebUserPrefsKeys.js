@@ -148,6 +148,7 @@ __d(
             LAST_STATUS_USAGE: "last-status-usage",
             LAST_NEWSLETTER_STATUS_BACKFILL_TS:
               "last-newsletter-status-backfill-ts",
+            UNKNOWN_USER_WAM_WINDOW: "unknown-user-wam-window",
             STATUS_CHAIN_FROM_MY_INTERACTION_COUNT:
               "status_chain_from_my_interaction_count",
             REMEMBER_ME: "remember-me",

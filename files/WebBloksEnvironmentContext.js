@@ -32,9 +32,28 @@ __d(
         n
       );
     }
+    function p() {
+      var e = o("react-compiler-runtime").c(2),
+        t = m(),
+        n = t.emitDataBloksName,
+        r;
+      return (
+        e[0] !== n
+          ? ((r = function (t) {
+              return n
+                ? { "data-bloks-name": t }
+                : o("WebBloksUtils").EMPTY_OBJECT;
+            }),
+            (e[0] = n),
+            (e[1] = r))
+          : (r = e[1]),
+        r
+      );
+    }
     ((l.WebBloksEnvironmentContext = c),
       (l.WebBloksEnvironmentProvider = d),
-      (l.useWebBloksEnvironment = m));
+      (l.useWebBloksEnvironment = m),
+      (l.useDataBloksName = p));
   },
   98,
 );

@@ -3,13 +3,19 @@ __d(
   [
     "WABackendHandleError",
     "WACreateHandleChatState",
+    "WAHandleChatStateProtocol",
     "WAHandleDecisionTreeResult",
     "WAJids",
     "WALogger",
     "WAParsableWapNode",
+    "WASmaxChatstateServerNotificationRPC",
     "WAWebAccountLinkingNotificationHandler",
     "WAWebAltDeviceLinkingHandleNotification",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2ChatState",
+    "WAWebCoexV2GatingUtils",
     "WAWebCreateNackFromStanza",
+    "WAWebDecodeJid",
     "WAWebHandleAboutNotification",
     "WAWebHandleAccountSyncNotification",
     "WAWebHandleBotProfileNotification",
@@ -47,7 +53,10 @@ __d(
     "WAWebPostUnknownStanzaMetric",
     "WAWebShortcakeLinkingHandleNotification",
     "WAWebShortcakeLinkingHandlePasskeyPrologueRequest",
+    "WAWebWid",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -58,7 +67,8 @@ __d(
       c,
       d,
       m,
-      p = o("WACreateHandleChatState").createHandleChatState({
+      p,
+      _ = o("WACreateHandleChatState").createHandleChatState({
         groupMessage: {
           handleGroupChatState: o("WAWebHandleChatState").handleGroupChatState,
         },
@@ -67,12 +77,12 @@ __d(
             .handleIndividualChatState,
         },
       });
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.attrs;
           switch (e.tag) {
             case "receipt":
@@ -159,9 +169,9 @@ __d(
                     return l;
                   }
                   case "encrypt": {
-                    var _ = e.content;
-                    if (!Array.isArray(_) || !_.length) break;
-                    var f = _[0].tag;
+                    var p = e.content;
+                    if (!Array.isArray(p) || !p.length) break;
+                    var f = p[0].tag;
                     switch (f) {
                       case "count":
                       case "pq_count":
@@ -192,14 +202,14 @@ __d(
                       n.from != null &&
                       n.from.toString() === o("WAJids").PSA_JID
                     ) {
-                      var h = e.content;
-                      if (!Array.isArray(h) || !h.length) break;
-                      var y = h[0].tag;
-                      return y === "surfaces"
+                      var g = e.content;
+                      if (!Array.isArray(g) || !g.length) break;
+                      var C = g[0].tag;
+                      return C === "surfaces"
                         ? yield o(
                             "WAWebHandleQPSurfacesNotification",
                           ).handleQPSurfacesNotification(e)
-                        : y === "reset_smb_last_qp_prefetch_timestamp"
+                        : C === "reset_smb_last_qp_prefetch_timestamp"
                           ? o(
                               "WAWebHandleQPPrefetchTimestampNotification",
                             ).handleQPPrefetchTimestampNotification(e)
@@ -252,11 +262,11 @@ __d(
                   ).handleShortcakeLinkingNotification(e);
               } catch (t) {
                 if (t instanceof o("WAParsableWapNode").XmppParsingFailure) {
-                  var C, b;
+                  var b, v;
                   o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e);
-                  var v =
-                    (C = (b = n.type) == null ? void 0 : b.toString()) != null
-                      ? C
+                  var S =
+                    (b = (v = n.type) == null ? void 0 : v.toString()) != null
+                      ? b
                       : "[empty]";
                   return (
                     o("WALogger")
@@ -267,10 +277,10 @@ __d(
                             " stanza: ",
                             "",
                           ])),
-                        v,
+                        S,
                         t,
                       )
-                      .sendLogs("failed-to-parse-notification-stanza-" + v, {
+                      .sendLogs("failed-to-parse-notification-stanza-" + S, {
                         sampling: 0.01,
                       }),
                     o("WAWebCreateNackFromStanza").createNackFromStanza(
@@ -281,18 +291,22 @@ __d(
                 }
                 return t instanceof
                   o("WAWebHandleMexNotification").MissingMEXNotificationHandler
-                  ? g(e)
+                  ? h(e)
                   : o("WAWebCreateNackFromStanza").createNackFromStanza(
                       e,
                       o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
                     );
               }
-              return g(e);
-            case "chatstate":
-              return o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
-                e,
-                p(e),
-              );
+              return h(e);
+            case "chatstate": {
+              var R = y(e);
+              return R != null
+                ? R
+                : o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
+                    e,
+                    _(e),
+                  );
+            }
             case "presence":
               return r("WAWebHandlePresence")(e);
             case "ib":
@@ -333,10 +347,10 @@ __d(
             )
           );
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(t) {
+    function h(t) {
       return (
         o("WALogger").DEV_XMPP(
           e ||
@@ -352,7 +366,64 @@ __d(
         )
       );
     }
-    l.handleLoggedInStanza = _;
+    function y(e) {
+      var t,
+        n = v((t = e.attrs.from) == null ? void 0 : t.toString());
+      return n == null ||
+        !n.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) ||
+        !o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+        ? null
+        : C(e, n);
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var n,
+              a = v((n = e.attrs.participant) == null ? void 0 : n.toString()),
+              i = o("WAWebCoexV2ChatState").normalizeCoexV2BotChatStateWid(
+                t,
+                a,
+              );
+            if (i == null) return "NO_ACK";
+            var l = o(
+                "WASmaxChatstateServerNotificationRPC",
+              ).receiveServerNotificationRPC(e),
+              s = l.parsedRequest.stateTypes,
+              u = o("WAHandleChatStateProtocol").parseChatStatus(s);
+            return (
+              yield o("WAWebHandleChatState").handleIndividualChatState({
+                jid: o("WAWebWidToJid").widToUserJid(i),
+                status: u,
+              }),
+              "NO_ACK"
+            );
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to handle CoEx v2 chatstate",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("coexv2-chatstate-handle-fail", { sampling: 0.1 }),
+              "NO_ACK"
+            );
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
+      var t = o("WAWebDecodeJid").decodeJid(e);
+      return t instanceof r("WAWebWid") ? t : null;
+    }
+    l.handleLoggedInStanza = f;
   },
   98,
 );

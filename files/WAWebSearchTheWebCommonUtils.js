@@ -7,7 +7,6 @@ __d(
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
     "WAWebFlex.react",
-    "WAWebGoogleLensIcon.react",
     "WAWebHfmTextSearchCompleteWamEvent",
     "WAWebModalManager",
     "WAWebNetworkStatus",
@@ -20,6 +19,7 @@ __d(
     "WAWebToastManager",
     "WAWebWamEnumStwFormat",
     "WAWebWamEnumStwInteraction",
+    "WDSIconIcGoogleLensIcon.react",
     "WDSIconIcInfo.react",
     "asyncToGeneratorRuntime",
     "react",
@@ -121,7 +121,7 @@ __d(
             width: _,
           });
         case m.IMAGE:
-          return u.jsx(o("WAWebGoogleLensIcon.react").GoogleLensIcon, {
+          return u.jsx(r("WDSIconIcGoogleLensIcon.react"), {
             height: p,
             width: _,
           });

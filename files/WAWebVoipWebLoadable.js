@@ -165,8 +165,7 @@ __d(
                 o("WAWebAppTracker").AppTrackerType.VoipThreadPoolSetup,
               ));
             var d = new (r("WAWebVoipThreadPoolManager"))(n, s, u);
-            return (
-              d.init(),
+            (d.init(),
               (p = d),
               o("WAWebVoipThreadPoolManagerRegistry").setVoipThreadPoolManager(
                 d,
@@ -178,13 +177,25 @@ __d(
                 n,
                 "thread_pool_setup",
               ),
-              o("WAWebVoipQplHelpers").voipInitQplAnnotateThreadPool(l, s, t),
-              o("WAWebVoipGatingUtils").shouldSkipEagerSctpPrewarm() ||
-                o("WAWebPonyfillsIdleCallback").requestIdleCallback(
-                  function () {
-                    r("WAWebVoipSctpPrewarm")();
-                  },
-                ),
+              o("WAWebVoipQplHelpers").voipInitQplAnnotateThreadPool(l, s, t));
+            var m =
+              o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "enable_web_voip_webtransport_fallback",
+              );
+            return (
+              m
+                ? o("WAWebPonyfillsIdleCallback").requestIdleCallback(
+                    function () {
+                      r("WAWebVoipSctpPrewarm")({ force: !0 });
+                    },
+                  )
+                : o("WAWebVoipGatingUtils").shouldSkipEagerSctpPrewarm() ||
+                  o("WAWebPonyfillsIdleCallback").requestIdleCallback(
+                    function () {
+                      r("WAWebVoipSctpPrewarm")();
+                    },
+                  ),
               n
             );
           } finally {

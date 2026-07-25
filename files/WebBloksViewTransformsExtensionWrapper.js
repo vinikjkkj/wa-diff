@@ -16,116 +16,113 @@ __d(
       var t = o("react-compiler-runtime").c(19),
         n = e.children,
         a = e.node,
-        i = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        l = i.omitDataBloksName,
-        u = [],
-        c = a.get("alpha"),
-        d;
+        i = o("WebBloksEnvironmentContext").useDataBloksName(),
+        l = [],
+        u = a.get("alpha"),
+        c;
       t[0] !== a
-        ? ((d = a.get("rotation")), (t[0] = a), (t[1] = d))
-        : (d = t[1]);
-      var m = d,
-        p = a.get("scale_x"),
-        _ = a.get("scale_y"),
-        f = a.get("translate_x"),
-        g = a.get("translate_y"),
-        h = r("useWebBloksViewTransformsExtensionWrapperVisibilityState")({
-          alpha: c,
-          scaleX: p,
-          scaleY: _,
+        ? ((c = a.get("rotation")), (t[0] = a), (t[1] = c))
+        : (c = t[1]);
+      var d = c,
+        m = a.get("scale_x"),
+        p = a.get("scale_y"),
+        _ = a.get("translate_x"),
+        f = a.get("translate_y"),
+        g = r("useWebBloksViewTransformsExtensionWrapperVisibilityState")({
+          alpha: u,
+          scaleX: m,
+          scaleY: p,
         });
-      (f != null && u.push("translateX(" + o("WebBloksUtils").toPx(f) + ")"),
-        g != null && u.push("translateY(" + o("WebBloksUtils").toPx(g) + ")"),
-        m != null && u.push("rotate(" + m + "deg)"),
-        p != null && u.push("scaleX(" + p + ")"),
-        _ != null && u.push("scaleY(" + _ + ")"));
-      var y = u.join(" "),
-        C = a.get("css_transition_duration"),
-        b;
+      (_ != null && l.push("translateX(" + o("WebBloksUtils").toPx(_) + ")"),
+        f != null && l.push("translateY(" + o("WebBloksUtils").toPx(f) + ")"),
+        d != null && l.push("rotate(" + d + "deg)"),
+        m != null && l.push("scaleX(" + m + ")"),
+        p != null && l.push("scaleY(" + p + ")"));
+      var h = l.join(" "),
+        y = a.get("css_transition_duration"),
+        C;
       t[2] !== a
-        ? ((b = a.get("css_transition_timing_function")),
+        ? ((C = a.get("css_transition_timing_function")),
           (t[2] = a),
-          (t[3] = b))
-        : (b = t[3]);
-      var v = b,
-        S;
+          (t[3] = C))
+        : (C = t[3]);
+      var b = C,
+        v;
       t[4] !== a
-        ? ((S = a.get("css_transition_delay")), (t[4] = a), (t[5] = S))
-        : (S = t[5]);
-      var R = S,
-        L = a.get("will_change"),
-        E = void 0,
-        k = void 0;
-      if (C != null && C > 0) {
-        var I = v != null ? v : "ease",
-          T = C + "s",
-          D = R != null ? " " + R + "s" : "";
-        ((E = "transform " + T + " " + I + D + ", opacity " + T + " " + I + D),
-          (k = "transform, opacity"));
-      } else L === !0 && (k = "transform, opacity");
-      var x = a.get("drop_shadow_color"),
-        $;
+        ? ((v = a.get("css_transition_delay")), (t[4] = a), (t[5] = v))
+        : (v = t[5]);
+      var S = v,
+        R = a.get("will_change"),
+        L = void 0,
+        E = void 0;
+      if (y != null && y > 0) {
+        var k = b != null ? b : "ease",
+          I = y + "s",
+          T = S != null ? " " + S + "s" : "";
+        ((L = "transform " + I + " " + k + T + ", opacity " + I + " " + k + T),
+          (E = "transform, opacity"));
+      } else R === !0 && (E = "transform, opacity");
+      var D = a.get("drop_shadow_color"),
+        x;
       t[6] !== a
-        ? (($ = a.get("drop_shadow_offset_x")), (t[6] = a), (t[7] = $))
-        : ($ = t[7]);
-      var P = $,
-        N;
+        ? ((x = a.get("drop_shadow_offset_x")), (t[6] = a), (t[7] = x))
+        : (x = t[7]);
+      var $ = x,
+        P;
       t[8] !== a
-        ? ((N = a.get("drop_shadow_offset_y")), (t[8] = a), (t[9] = N))
-        : (N = t[9]);
-      var M = N,
-        w;
+        ? ((P = a.get("drop_shadow_offset_y")), (t[8] = a), (t[9] = P))
+        : (P = t[9]);
+      var N = P,
+        M;
       t[10] !== a
-        ? ((w = a.get("drop_shadow_blur_radius")), (t[10] = a), (t[11] = w))
-        : (w = t[11]);
-      var A = w,
-        F = o("WebBloksTheme").useTheme().getTheme(),
-        O = void 0;
-      if (x != null) {
-        var B = P != null ? P : 0,
-          W = M != null ? M : 0,
-          q = A != null ? A : 0,
-          U = o("WebBloksUtils").getRGBColorWithTheme(x, F);
-        O = "drop-shadow(" + B + "px " + W + "px " + q + "px " + U + ")";
+        ? ((M = a.get("drop_shadow_blur_radius")), (t[10] = a), (t[11] = M))
+        : (M = t[11]);
+      var w = M,
+        A = o("WebBloksTheme").useTheme().getTheme(),
+        F = void 0;
+      if (D != null) {
+        var O = $ != null ? $ : 0,
+          B = N != null ? N : 0,
+          W = w != null ? w : 0,
+          q = o("WebBloksUtils").getRGBColorWithTheme(D, A);
+        F = "drop-shadow(" + O + "px " + B + "px " + W + "px " + q + ")";
       }
-      var V;
-      t[12] !== l
-        ? ((V = l
-            ? null
-            : { "data-bloks-name": "bk.components.ViewTransformsExtension" }),
-          (t[12] = l),
-          (t[13] = V))
-        : (V = t[13]);
-      var H = o("WebBloksStyle").getStyleProps({
+      var U;
+      t[12] !== i
+        ? ((U = i("bk.components.ViewTransformsExtension")),
+          (t[12] = i),
+          (t[13] = U))
+        : (U = t[13]);
+      var V = o("WebBloksStyle").getStyleProps({
           height: "100%",
           width: "100%",
-          transform: y,
-          opacity: c,
-          transition: E,
-          willChange: k,
-          filter: O,
+          transform: h,
+          opacity: u,
+          transition: L,
+          willChange: E,
+          filter: F,
           pointerEvents: "inherit",
         }),
-        G;
+        H;
       return (
-        t[14] !== n || t[15] !== V || t[16] !== H || t[17] !== h
-          ? ((G = s.jsx(
+        t[14] !== n || t[15] !== U || t[16] !== V || t[17] !== g
+          ? ((H = s.jsx(
               "div",
               babelHelpers.extends(
                 {},
+                U,
+                { "data-bloks-visibility-state": g },
                 V,
-                { "data-bloks-visibility-state": h },
-                H,
                 { children: n },
               ),
             )),
             (t[14] = n),
-            (t[15] = V),
-            (t[16] = H),
-            (t[17] = h),
-            (t[18] = G))
-          : (G = t[18]),
-        G
+            (t[15] = U),
+            (t[16] = V),
+            (t[17] = g),
+            (t[18] = H))
+          : (H = t[18]),
+        H
       );
     }
     l.default = u;

@@ -16,7 +16,10 @@ __d(
       s,
       u = {
         initializeVoipWasm: function () {
-          if (r("WAWebEnvironment").isWindows) {
+          if (
+            r("WAWebEnvironment").isWindows &&
+            !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
+          ) {
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([

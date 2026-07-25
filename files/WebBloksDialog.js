@@ -2,6 +2,7 @@ __d(
   "WebBloksDialog",
   [
     "WebBloksComponentContext",
+    "WebBloksEnvironmentContext",
     "WebBloksStyle",
     "react",
     "react-compiler-runtime",
@@ -14,7 +15,7 @@ __d(
       d = u.useEffect,
       m = u.useRef;
     function p(e) {
-      var t = o("react-compiler-runtime").c(25),
+      var t = o("react-compiler-runtime").c(28),
         n = e.node,
         r = n.styleId,
         a = n.getValues(),
@@ -24,27 +25,28 @@ __d(
         c = a.tertiary_button,
         d = a.title,
         m = o("WebBloksComponentContext").useWebBloksContext(),
-        p;
+        p = o("WebBloksEnvironmentContext").useDataBloksName(),
+        g;
       t[0] !== m.objectSet.navigationManager
-        ? ((p = function (t) {
+        ? ((g = function (t) {
             t.target === t.currentTarget && m.objectSet.navigationManager.pop();
           }),
           (t[0] = m.objectSet.navigationManager),
-          (t[1] = p))
-        : (p = t[1]);
-      var g = p,
-        h = d != null ? d : i,
-        y = d != null ? i : null,
-        C = _(),
-        b;
-      t[2] !== m.objectSet.navigationManager || t[3] !== C
-        ? ((b = function (t) {
+          (t[1] = g))
+        : (g = t[1]);
+      var h = g,
+        y = d != null ? d : i,
+        C = d != null ? i : null,
+        b = _(),
+        v;
+      t[2] !== m.objectSet.navigationManager || t[3] !== b
+        ? ((v = function (t) {
             if (t.key === "Escape") {
               (t.stopPropagation(), m.objectSet.navigationManager.pop());
               return;
             }
             if (t.key === "Tab") {
-              var e = C.current;
+              var e = b.current;
               if (e == null) return;
               var n = Array.from(
                 e.querySelectorAll(
@@ -62,86 +64,92 @@ __d(
             }
           }),
           (t[2] = m.objectSet.navigationManager),
-          (t[3] = C),
-          (t[4] = b))
-        : (b = t[4]);
-      var v = b,
-        S = f,
-        R = "presentation",
-        L = f,
-        E = -1,
-        k =
-          h != null &&
+          (t[3] = b),
+          (t[4] = v))
+        : (v = t[4]);
+      var S = v,
+        R;
+      t[5] !== p || t[6] !== r
+        ? ((R = p(r)), (t[5] = p), (t[6] = r), (t[7] = R))
+        : (R = t[7]);
+      var L = f,
+        E = "presentation",
+        k = f,
+        I = -1,
+        T =
+          y != null &&
           s.jsx("div", {
             className: f.title,
             role: "heading",
             "aria-level": 2,
-            children: h,
+            children: y,
           }),
-        I = y != null && s.jsx("div", { className: f.message, children: y }),
-        T;
-      t[5] !== k || t[6] !== I
-        ? ((T = s.jsxs("div", { className: f.header, children: [k, I] })),
-          (t[5] = k),
-          (t[6] = I),
-          (t[7] = T))
-        : (T = t[7]);
-      var D = f,
-        x = m.renderNode(l),
-        $ = m.renderNode(u),
-        P = m.renderNode(c),
-        N;
-      t[8] !== D.buttons || t[9] !== x || t[10] !== $ || t[11] !== P
-        ? ((N = s.jsxs("div", { className: D.buttons, children: [x, $, P] })),
-          (t[8] = D.buttons),
-          (t[9] = x),
-          (t[10] = $),
-          (t[11] = P),
-          (t[12] = N))
-        : (N = t[12]);
-      var M;
-      t[13] !== C ||
-      t[14] !== h ||
-      t[15] !== N ||
-      t[16] !== L.container ||
-      t[17] !== T
-        ? ((M = s.jsxs("div", {
-            className: L.container,
-            ref: C,
-            tabIndex: E,
-            "aria-label": h,
-            children: [T, N],
+        D = C != null && s.jsx("div", { className: f.message, children: C }),
+        x;
+      t[8] !== T || t[9] !== D
+        ? ((x = s.jsxs("div", { className: f.header, children: [T, D] })),
+          (t[8] = T),
+          (t[9] = D),
+          (t[10] = x))
+        : (x = t[10]);
+      var $ = f,
+        P = m.renderNode(l),
+        N = m.renderNode(u),
+        M = m.renderNode(c),
+        w;
+      t[11] !== $.buttons || t[12] !== P || t[13] !== N || t[14] !== M
+        ? ((w = s.jsxs("div", { className: $.buttons, children: [P, N, M] })),
+          (t[11] = $.buttons),
+          (t[12] = P),
+          (t[13] = N),
+          (t[14] = M),
+          (t[15] = w))
+        : (w = t[15]);
+      var A;
+      t[16] !== b ||
+      t[17] !== y ||
+      t[18] !== x ||
+      t[19] !== w ||
+      t[20] !== k.container
+        ? ((A = s.jsxs("div", {
+            className: k.container,
+            ref: b,
+            tabIndex: I,
+            "aria-label": y,
+            children: [x, w],
           })),
-          (t[13] = C),
-          (t[14] = h),
-          (t[15] = N),
-          (t[16] = L.container),
-          (t[17] = T),
-          (t[18] = M))
-        : (M = t[18]);
-      var w;
+          (t[16] = b),
+          (t[17] = y),
+          (t[18] = x),
+          (t[19] = w),
+          (t[20] = k.container),
+          (t[21] = A))
+        : (A = t[21]);
+      var F;
       return (
-        t[19] !== g ||
-        t[20] !== r ||
-        t[21] !== v ||
-        t[22] !== M ||
-        t[23] !== S.background
-          ? ((w = s.jsx("div", {
-              "data-bloks-name": r,
-              className: S.background,
-              onClick: g,
-              onKeyDown: v,
-              role: R,
-              children: M,
-            })),
-            (t[19] = g),
-            (t[20] = r),
-            (t[21] = v),
-            (t[22] = M),
-            (t[23] = S.background),
-            (t[24] = w))
-          : (w = t[24]),
-        w
+        t[22] !== h ||
+        t[23] !== S ||
+        t[24] !== A ||
+        t[25] !== R ||
+        t[26] !== L.background
+          ? ((F = s.jsx(
+              "div",
+              babelHelpers.extends({}, R, {
+                className: L.background,
+                onClick: h,
+                onKeyDown: S,
+                role: E,
+                children: A,
+              }),
+            )),
+            (t[22] = h),
+            (t[23] = S),
+            (t[24] = A),
+            (t[25] = R),
+            (t[26] = L.background),
+            (t[27] = F))
+          : (F = t[27]),
+        F
       );
     }
     function _() {

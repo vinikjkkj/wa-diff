@@ -3,10 +3,10 @@ __d(
   [
     "FBLogger",
     "Promise",
-    "WANullthrows",
     "WAPriorityQueue",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -128,7 +128,7 @@ __d(
               var e = new Set();
               return (this.$4.set(t, e), e);
             }
-            return r("WANullthrows")(this.$4.get(t));
+            return r("nullthrows")(this.$4.get(t));
           }),
           (o.$13 = function (t) {
             var e = this.$4.get(t);
@@ -141,7 +141,7 @@ __d(
               });
               this.$5.set(t, e);
             }
-            return r("WANullthrows")(this.$5.get(t));
+            return r("nullthrows")(this.$5.get(t));
           }),
           (o.$14 = function (t) {
             var e = this.$2[t];

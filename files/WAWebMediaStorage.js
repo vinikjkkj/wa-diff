@@ -19,7 +19,7 @@ __d(
       ((t.mediaObject = null),
         e.removeMsg(t),
         !e.hasAssociatedMsgsOrStickers() &&
-          (C(
+          (y(
             e.filehash,
             o("WAWebMediaDataUtils").shouldUseLruMediaStore(
               o("WAWebMmsMediaTypes").getMsgMediaType(t),
@@ -60,24 +60,23 @@ __d(
       }
       return (u[t] = new (o("WAWebMediaObject").MediaObject)());
     }
-    function _(e) {}
-    function f(e, t) {
+    function _(e, t) {
       e.addStickerPack(t);
     }
-    function g(e, t) {
+    function f(e, t) {
       ((t.mediaObject = null),
         e.removeStickerPack(t),
-        !e.hasAssociatedMsgsOrStickers() && (C(e.filehash), e.delete()));
+        !e.hasAssociatedMsgsOrStickers() && (y(e.filehash), e.delete()));
     }
-    function h(e, t) {
+    function g(e, t) {
       e.addSticker(t);
     }
-    function y(e, t) {
+    function h(e, t) {
       ((t.mediaObject = null),
         e.removeSticker(t),
-        !e.hasAssociatedMsgsOrStickers() && (C(e.filehash), e.delete()));
+        !e.hasAssociatedMsgsOrStickers() && (y(e.filehash), e.delete()));
     }
-    var C = function (t, n) {
+    var y = function (t, n) {
       (n === void 0 && (n = !0),
         !r("isStringNullOrEmpty")(t) &&
           (delete u[t],
@@ -97,11 +96,10 @@ __d(
       (l.disassociateMediaFromMsg = d),
       (l.delistAndDeleteAllMedia = m),
       (l.getOrCreateMediaObject = p),
-      (l.clearMediaForChat = _),
-      (l.associateMediaWithStickerPack = f),
-      (l.disassociateMediaFromStickerPack = g),
-      (l.associateMediaWithSticker = h),
-      (l.disassociateMediaFromSticker = y));
+      (l.associateMediaWithStickerPack = _),
+      (l.disassociateMediaFromStickerPack = f),
+      (l.associateMediaWithSticker = g),
+      (l.disassociateMediaFromSticker = h));
   },
   98,
 );

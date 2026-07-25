@@ -13,6 +13,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVoipCallStateUtils",
     "WAWebVoipEventConstants",
+    "WAWebVoipGatingUtils",
     "WAWebVoipPerfMeasurement",
     "WAWebVoipVideoStateUtils",
     "WAWebVoipWaCallEnums",
@@ -470,7 +471,13 @@ __d(
             this.$Call$p_13.set(t.toString(), n);
           }),
           (a.$Call$p_15 = function (t) {
-            if (!r("WAWebEnvironment").isWindows && this.peerJid) {
+            if (
+              !(
+                r("WAWebEnvironment").isWindows &&
+                !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
+              ) &&
+              this.peerJid
+            ) {
               var e = {
                 wid: this.peerJid,
                 msgId: this.id,

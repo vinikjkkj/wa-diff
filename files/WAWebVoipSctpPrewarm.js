@@ -15,14 +15,15 @@ __d(
       u,
       c = 5e3,
       d = null;
-    function m() {
-      return d != null
-        ? d
-        : o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-              o("WAWebVoipPerfOptimizations").PerfOptimizationFlag.SCTP_PREWARM,
-            )
-          ? ((d = _()), d)
-          : (u || (u = n("Promise"))).resolve();
+    function m(e) {
+      if (d != null) return d;
+      var t = (e == null ? void 0 : e.force) === !0;
+      return !t &&
+        !o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+          o("WAWebVoipPerfOptimizations").PerfOptimizationFlag.SCTP_PREWARM,
+        )
+        ? (u || (u = n("Promise"))).resolve()
+        : ((d = _()), d);
     }
     function p(e) {
       if (e.iceGatheringState === "complete" && e.localDescription != null) {

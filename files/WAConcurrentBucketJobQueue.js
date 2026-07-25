@@ -9,10 +9,10 @@ __d(
     "WAJobPriorityBucket",
     "WALogger",
     "WAMetrics",
-    "WANullthrows",
     "WAPromiseTimeout",
     "asyncToGeneratorRuntime",
     "err",
+    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -352,7 +352,7 @@ __d(
         }),
         (a.$19 = function (t) {
           var e = this.$20(t);
-          return r("WANullthrows")(this.$5.get(e));
+          return r("nullthrows")(this.$5.get(e));
         }),
         (a.$20 = function (t) {
           var e = t.split("-")[0],

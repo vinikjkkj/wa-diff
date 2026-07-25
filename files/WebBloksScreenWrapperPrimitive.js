@@ -12,76 +12,82 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(20),
+      var t = o("react-compiler-runtime").c(23),
         n = e.node,
         r = o("WebBloksComponentContext").useWebBloksContext(),
         a = r.renderNode,
-        i = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        l = i.embedded,
-        u;
+        i = o("WebBloksEnvironmentContext").useDataBloksName(),
+        l = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        u = l.embedded,
+        d;
       t[0] !== n || t[1] !== a
-        ? ((u = a(n.get("content"))), (t[0] = n), (t[1] = a), (t[2] = u))
-        : (u = t[2]);
-      var d = u,
-        m = n.get("navbar"),
-        p,
+        ? ((d = a(n.get("content"))), (t[0] = n), (t[1] = a), (t[2] = d))
+        : (d = t[2]);
+      var m = d,
+        p = n.get("navbar"),
         _,
-        f;
-      if (t[3] !== d || t[4] !== n) {
-        f = Symbol.for("react.early_return_sentinel");
+        f,
+        g;
+      if (t[3] !== m || t[4] !== n) {
+        g = Symbol.for("react.early_return_sentinel");
         e: {
-          var g = n.get("contribs");
-          if (((_ = null), (p = !1), g !== void 0 && g.length > 0)) {
-            for (var h of g)
-              if (o("WebBloksBooleanUtils").isFalse(h.get("should_wrap"))) {
-                f = d;
+          var h = n.get("contribs");
+          if (((f = null), (_ = !1), h !== void 0 && h.length > 0)) {
+            for (var y of h)
+              if (o("WebBloksBooleanUtils").isFalse(y.get("should_wrap"))) {
+                g = m;
                 break e;
               }
           }
         }
-        ((t[3] = d), (t[4] = n), (t[5] = p), (t[6] = _), (t[7] = f));
-      } else ((p = t[5]), (_ = t[6]), (f = t[7]));
-      if (f !== Symbol.for("react.early_return_sentinel")) return f;
-      m !== void 0 && ((_ = a(m)), (p = m.getValues().hide_navbar === !0));
-      var y = n.styleId,
-        C;
-      t[8] !== p || t[9] !== _
-        ? ((C =
-            _ != null && !p
-              ? s.jsx("div", { className: c.header, children: _ }, "navbar")
-              : null),
-          (t[8] = p),
-          (t[9] = _),
-          (t[10] = C))
+        ((t[3] = m), (t[4] = n), (t[5] = _), (t[6] = f), (t[7] = g));
+      } else ((_ = t[5]), (f = t[6]), (g = t[7]));
+      if (g !== Symbol.for("react.early_return_sentinel")) return g;
+      p !== void 0 && ((f = a(p)), (_ = p.getValues().hide_navbar === !0));
+      var C;
+      t[8] !== i || t[9] !== n.styleId
+        ? ((C = i(n.styleId)), (t[8] = i), (t[9] = n.styleId), (t[10] = C))
         : (C = t[10]);
-      var b = l ? c.contentEmbedded : c.contentFullScreen,
-        v;
-      t[11] !== b
-        ? ((v = o("WebBloksStyle").classNames(c.content, b)),
-          (t[11] = b),
-          (t[12] = v))
-        : (v = t[12]);
-      var S;
-      t[13] !== d || t[14] !== v
-        ? ((S = s.jsx("div", { className: v, children: d }, "content")),
-          (t[13] = d),
+      var b;
+      t[11] !== _ || t[12] !== f
+        ? ((b =
+            f != null && !_
+              ? s.jsx("div", { className: c.header, children: f }, "navbar")
+              : null),
+          (t[11] = _),
+          (t[12] = f),
+          (t[13] = b))
+        : (b = t[13]);
+      var v = u ? c.contentEmbedded : c.contentFullScreen,
+        S;
+      t[14] !== v
+        ? ((S = o("WebBloksStyle").classNames(c.content, v)),
           (t[14] = v),
           (t[15] = S))
         : (S = t[15]);
       var R;
+      t[16] !== m || t[17] !== S
+        ? ((R = s.jsx("div", { className: S, children: m }, "content")),
+          (t[16] = m),
+          (t[17] = S),
+          (t[18] = R))
+        : (R = t[18]);
+      var L;
       return (
-        t[16] !== n.styleId || t[17] !== C || t[18] !== S
-          ? ((R = s.jsxs("div", {
-              "data-bloks-name": y,
-              className: c.root,
-              children: [C, S],
-            })),
-            (t[16] = n.styleId),
-            (t[17] = C),
-            (t[18] = S),
-            (t[19] = R))
-          : (R = t[19]),
-        R
+        t[19] !== C || t[20] !== b || t[21] !== R
+          ? ((L = s.jsxs(
+              "div",
+              babelHelpers.extends({}, C, {
+                className: c.root,
+                children: [b, R],
+              }),
+            )),
+            (t[19] = C),
+            (t[20] = b),
+            (t[21] = R),
+            (t[22] = L))
+          : (L = t[22]),
+        L
       );
     }
     var c = o("WebBloksStyle").createStyles({

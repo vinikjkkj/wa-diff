@@ -38,6 +38,23 @@ __d(
                 (e = JSON.parse(u)));
             } catch (e) {
               var c = r("getErrorSafe")(e);
+              if (u.startsWith("<")) {
+                (r("FBLogger")("comet_infra").warn(
+                  "Received non-JSON (HTML) response for uri %s. response: %s",
+                  t.toString(),
+                  u.substring(0, 1e3),
+                ),
+                  s(
+                    new (r("CometAsyncFetchError"))(
+                      "Received non-JSON response for " + t.toString(),
+                      null,
+                      l,
+                      u.substring(0, 1e3),
+                      "NonJSONResponse",
+                    ),
+                  ));
+                return;
+              }
               (r("FBLogger")("comet_infra").mustfix(
                 "Unable to parse uri %s response. Error: %s, response: %s",
                 t.toString(),

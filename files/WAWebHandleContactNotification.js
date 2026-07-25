@@ -224,38 +224,42 @@ __d(
             a = n[0];
           if (a != null) {
             var i = a.displayNameLID,
-              l = a.isUsernameContact,
-              s = a.pushname,
-              u = a.username,
-              c = a.usernameKey;
+              l = a.isEphemeralityDisabled,
+              s = a.isUsernameContact,
+              u = a.pushname,
+              c = a.username,
+              d = a.usernameKey;
             if (
               !(
-                !o("WAWebUsernameTypes").isPresentUsername(u) &&
-                c == null &&
-                l == null &&
-                r("isStringNullOrEmpty")(s) &&
-                r("isStringNullOrEmpty")(i)
+                !o("WAWebUsernameTypes").isPresentUsername(c) &&
+                d == null &&
+                s == null &&
+                r("isStringNullOrEmpty")(u) &&
+                r("isStringNullOrEmpty")(i) &&
+                l !== !0
               )
             ) {
-              var d = { id: t.toString() };
-              (o("WAWebUsernameTypes").isPresentUsername(u) && (d.username = u),
-                c != null && (d.usernameKey = c),
-                l != null && (d.isUsernameContact = l),
-                r("isStringNullOrEmpty")(s) || (d.pushname = s),
-                r("isStringNullOrEmpty")(i) || (d.displayNameLID = i),
+              var m = { id: t.toString() };
+              (o("WAWebUsernameTypes").isPresentUsername(c) && (m.username = c),
+                d != null && (m.usernameKey = d),
+                s != null && (m.isUsernameContact = s),
+                r("isStringNullOrEmpty")(u) || (m.pushname = u),
+                r("isStringNullOrEmpty")(i) || (m.displayNameLID = i),
+                l === !0 && (m.isEphemeralityDisabled = !0),
                 yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-                  [d],
+                  [m],
                   "propagateContactDataToNewLid",
                 ),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "propagateIdentityFieldsToLidContact",
                   {
                     lid: t,
-                    username: u,
-                    usernameKey: c,
-                    isUsernameContact: l,
-                    pushname: s,
+                    username: c,
+                    usernameKey: d,
+                    isUsernameContact: s,
+                    pushname: u,
                     displayNameLID: i,
+                    isEphemeralityDisabled: l,
                   },
                 ));
             }

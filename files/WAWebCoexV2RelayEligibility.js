@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebApiDeviceList",
     "WAWebCoexV2GatingUtils",
+    "WAWebCoexV2HostedContactUtils",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -15,18 +16,26 @@ __d(
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (
-            !t.isUser() ||
-            t.isBot() ||
-            t.isFbidBot() ||
-            o("WAWebUserPrefsMeUser").getMaybeMeLidUser() == null
-          )
-            return !1;
-          var n = !1;
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (!e.isUser() || e.isBot() || e.isFbidBot()) return !1;
+          var t =
+            (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(e)) ||
+            (yield c());
+          return t ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (o("WAWebUserPrefsMeUser").getMaybeMeLidUser() == null) return !1;
           try {
-            var a = yield o("WAWebApiDeviceList").getMyDeviceList();
-            n = a.devices.some(function (e) {
+            var t = yield o("WAWebApiDeviceList").getMyDeviceList();
+            return t.devices.some(function (e) {
               return e.isHosted === !0;
             });
           } catch (t) {
@@ -43,9 +52,8 @@ __d(
               !1
             );
           }
-          return n ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
         })),
-        u.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
     l.genIsCoexV2RelayEligibleSend = s;

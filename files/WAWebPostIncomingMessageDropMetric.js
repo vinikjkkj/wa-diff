@@ -5,6 +5,8 @@ __d(
     "WAWebAck",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
     "WAWebGetMetricE2eDestination",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgTypes.flow",
@@ -233,7 +235,32 @@ __d(
         stanza: e,
       });
     }
-    function f(t, n) {
+    function f(e) {
+      u({
+        messageDropReason: o("WAWebWamEnumMessageDropReasonType")
+          .MESSAGE_DROP_REASON_TYPE.COEX_V2_RECV_UNSUPPORTED,
+        stanza: e,
+      });
+    }
+    function g(e) {
+      u({
+        messageDropReason: o("WAWebWamEnumMessageDropReasonType")
+          .MESSAGE_DROP_REASON_TYPE.COEX_V2_INVALID_SENDER,
+        stanza: e,
+      });
+    }
+    function h(e, t) {
+      if (t == null || !t.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) {
+        _(e);
+        return;
+      }
+      if (o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()) {
+        g(e);
+        return;
+      }
+      f(e);
+    }
+    function y(t, n) {
       var r = t.enc,
         a = t.error,
         i = t.msgInfo,
@@ -286,36 +313,36 @@ __d(
       }
       s.commit();
     }
-    function g(e) {
-      f(
+    function C(e) {
+      y(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .RECEIVED_WITH_OLD_COUNTER,
       );
     }
-    function h(e) {
-      f(
+    function b(e) {
+      y(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .DUPLICATE_MESSAGE,
       );
     }
-    function y(e) {
-      f(
+    function v(e) {
+      y(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .INVALID_PROTOBUF,
       );
     }
-    function C(e) {
-      f(
+    function S(e) {
+      y(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE
           .INVALID_STANZA,
       );
     }
-    function b(e) {
-      f(
+    function R(e) {
+      y(
         e,
         o("WAWebWamEnumMessageDropReasonType").MESSAGE_DROP_REASON_TYPE.EXPIRED,
       );
@@ -325,11 +352,14 @@ __d(
       (l.postIncomingMessageDropInternalError = m),
       (l.postIncomingMessageDropDBOperationFailed = p),
       (l.postIncomingMessageDropInvalidHostedCompanionStanza = _),
-      (l.postIncomingMessageDropOldCounter = g),
-      (l.postIncomingMessageDropDuplicateMessage = h),
-      (l.postIncomingMessageDropInvalidProtobuf = y),
-      (l.postIncomingMessageDropInvalidStanzaFromDecryptedMessageInfo = C),
-      (l.postIncomingMessageDropExpired = b));
+      (l.postIncomingMessageDropCoexV2RecvUnsupported = f),
+      (l.postIncomingMessageDropCoexV2InvalidSender = g),
+      (l.postIncomingMessageDropForCoexV2RelayOrHostedCompanion = h),
+      (l.postIncomingMessageDropOldCounter = C),
+      (l.postIncomingMessageDropDuplicateMessage = b),
+      (l.postIncomingMessageDropInvalidProtobuf = v),
+      (l.postIncomingMessageDropInvalidStanzaFromDecryptedMessageInfo = S),
+      (l.postIncomingMessageDropExpired = R));
   },
   98,
 );

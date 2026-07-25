@@ -352,7 +352,8 @@ __d(
                   "NO_ACK"
                 );
               case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:
-                return r("WAWebEnvironment").isWindows
+                return r("WAWebEnvironment").isWindows &&
+                  !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
                   ? (o("WALogger").ERROR(
                       g ||
                         (g = babelHelpers.taggedTemplateLiteralLoose([
