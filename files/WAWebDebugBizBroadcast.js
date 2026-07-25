@@ -6,6 +6,7 @@ __d(
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastProOnboardingStatus",
+    "WAWebBizBroadcastProUpdateCampaignAction",
     "WAWebBizBroadcastSystemMessageManager",
     "WAWebBizBroadcastTos",
     "WAWebChatCollection",
@@ -124,14 +125,30 @@ __d(
     ((_.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
       (_.paramsToExecute = []));
-    var g = {
+    function g(e) {
+      return o(
+        "WAWebBizBroadcastProUpdateCampaignAction",
+      ).cancelBizBroadcastProCampaign(e);
+    }
+    g.doc =
+      "Cancel (pause) a BB Pro scheduled campaign by id (server mutation)";
+    function h(e, t) {
+      return o(
+        "WAWebBizBroadcastProUpdateCampaignAction",
+      ).rescheduleBizBroadcastProCampaign(e, t);
+    }
+    h.doc =
+      "Reschedule a BB Pro campaign: new start (epoch s); stop auto-set to +5d";
+    var y = {
       acceptBizBroadcastTos: u,
+      cancelBizBroadcastProCampaign: g,
       completeTestCampaignsForActiveChat: _,
       createTestProcessingCampaignForActiveChat: m,
+      rescheduleBizBroadcastProCampaign: h,
       setBizBroadcastDeviceCapability: s,
       setBizBroadcastProNuxEligible: c,
     };
-    l.default = g;
+    l.default = y;
   },
   98,
 );

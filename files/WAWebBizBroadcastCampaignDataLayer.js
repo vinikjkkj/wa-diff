@@ -449,12 +449,29 @@ __d(
         o("WAWebBroadcastConsts").MS_PER_SEC
       );
     }
-    function $(e) {
+    function $(e, t) {
       return P.apply(this, arguments);
     }
     function P() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (e == null) return null;
+          var n = yield w(e, t);
+          if (n == null) return null;
+          var r = o("WAWebDBMessageSerialization").messageFromDbRow(n);
+          return (r == null ? void 0 : r.t) != null
+            ? r.t * o("WAWebBroadcastConsts").MS_PER_SEC
+            : null;
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N(e) {
+      return M.apply(this, arguments);
+    }
+    function M() {
+      return (
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.pendingBroadcastMessageId;
           if (t != null) {
             var n,
@@ -475,15 +492,15 @@ __d(
           }
           return null;
         })),
-        P.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function w(e, t) {
+      return A.apply(this, arguments);
     }
-    function M() {
+    function A() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o(
               "WAWebBizBroadcastCampaignMsgKeyUtils",
             ).reconstructCampaignMsgKey(e, t),
@@ -527,15 +544,15 @@ __d(
           }
           return null;
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function w(e, t, n) {
-      return A.apply(this, arguments);
+    function F(e, t, n) {
+      return O.apply(this, arguments);
     }
-    function A() {
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i,
             l,
             s,
@@ -552,17 +569,17 @@ __d(
             R = (i = t.get(e.campaignId)) != null ? i : null,
             L = yield (f || (f = n("Promise"))).all([
               e.msgId != null
-                ? N(e.msgId, e.broadcastJid)
+                ? w(e.msgId, e.broadcastJid)
                 : (f || (f = n("Promise"))).resolve(null),
-              $(e),
+              N(e),
             ]),
             k = L[0],
-            P = L[1],
-            M =
+            $ = L[1],
+            P =
               k != null
                 ? o("WAWebDBMessageSerialization").messageFromDbRow(k)
                 : null,
-            w = M == null ? void 0 : M.type;
+            M = P == null ? void 0 : P.type;
           if (e.deviceId !== a && e.msgId != null && k == null) {
             var A = new Error(
               o("WAWebBroadcastConsts").CAMPAIGN_MSG_UNAVAILABLE_ERROR,
@@ -570,7 +587,7 @@ __d(
             throw (A.stack, A);
           }
           var F = E(e, k),
-            O = T(k, P),
+            O = T(k, $),
             B = x(k, e.createdTimestamp),
             W = D(S),
             q =
@@ -584,8 +601,8 @@ __d(
                     : c.length) != null
                 ? l
                 : 0,
-            U = I(k, P),
-            V = yield C(k, P),
+            U = I(k, $),
+            V = yield C(k, $),
             H = U != null ? U : h(V),
             G = (d = R == null ? void 0 : R.deliveredCount) != null ? d : 0;
           if (
@@ -639,7 +656,7 @@ __d(
                 ? y
                 : null,
             messageBody: O,
-            msgType: w,
+            msgType: M,
             readRate: J,
             recipientCount: q,
             replyRate: Z,
@@ -648,15 +665,15 @@ __d(
             status: F,
           };
         })),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F() {
-      return O.apply(this, arguments);
+    function B() {
+      return W.apply(this, arguments);
     }
-    function O() {
+    function W() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -700,7 +717,7 @@ __d(
           );
           var s = yield f.allSettled(
               l.map(function (e) {
-                return w(e, a, i);
+                return F(e, a, i);
               }),
             ),
             u = [];
@@ -731,20 +748,20 @@ __d(
             }
           return u;
         })),
-        O.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function q(e, t) {
+      return U.apply(this, arguments);
     }
-    function W() {
+    function U() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = yield (f || (f = n("Promise"))).all([
               e.msgId != null
-                ? N(e.msgId, e.broadcastJid)
+                ? w(e.msgId, e.broadcastJid)
                 : (f || (f = n("Promise"))).resolve(null),
-              $(e),
+              N(e),
             ]),
             o = r[0],
             a = r[1],
@@ -773,21 +790,21 @@ __d(
             thumbnailUrl: l,
           };
         })),
-        W.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function V(e) {
+      return H.apply(this, arguments);
     }
-    function U() {
+    function H() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o(
               "WAWebBizBroadcastCampaignAPI",
             ).getBizBroadcastCampaignByKey(e);
             if (t == null) return null;
-            var n = yield $(t);
+            var n = yield N(t);
             if ((n == null ? void 0 : n.mediaFile) != null) {
               var a;
               return (a = yield o(
@@ -797,7 +814,7 @@ __d(
                 : null;
             }
             if (t.msgId == null) return null;
-            var i = yield N(t.msgId, t.broadcastJid);
+            var i = yield w(t.msgId, t.broadcastJid);
             if (i == null) return null;
             var l = o("WAWebMsgCollection").MsgCollection.get(i.id);
             if (l == null) {
@@ -845,22 +862,23 @@ __d(
             );
           }
         })),
-        U.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
     ((l.getThumbnailUrl = v),
       (l.deriveCampaignStatus = E),
       (l.getDisplayMessageBody = T),
-      (l.lookupCampaignMessage = N),
+      (l.resolveCampaignSentAtMs = $),
+      (l.lookupCampaignMessage = w),
       (l.filterCampaignsByDevice = o(
         "WAWebBizBroadcastCampaignAPI",
       ).filterCampaignsByDevice),
       (l.getAllRawCampaignsForCurrentDevice = o(
         "WAWebBizBroadcastCampaignAPI",
       ).getAllRawCampaignsForCurrentDevice),
-      (l.loadBroadcastCampaigns = F),
-      (l.fetchCampaignMediaContext = B),
-      (l.resolveAttachmentDataForCampaign = q));
+      (l.loadBroadcastCampaigns = B),
+      (l.fetchCampaignMediaContext = q),
+      (l.resolveAttachmentDataForCampaign = V));
   },
   98,
 );

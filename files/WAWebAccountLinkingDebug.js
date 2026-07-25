@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebAccountLinkingAPI",
+    "WAWebAccountLinkingAdminAPI",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingNonceFetchAPI",
@@ -177,7 +178,7 @@ __d(
     function F() {
       return (
         (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").generateWAEntACUser({
+          yield o("WAWebAccountLinkingAdminAPI").generateWAEntACUser({
             rawPassword: "test",
             disclosureId: 1,
             disclosureVersion: "1",
@@ -195,7 +196,7 @@ __d(
     function B() {
       return (
         (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").generateAccessTokens();
+          yield o("WAWebAccountLinkingAdminAPI").generateAccessTokens();
         })),
         B.apply(this, arguments)
       );
@@ -207,7 +208,7 @@ __d(
     function q() {
       return (
         (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebAccountLinkingAPI").sendLinkingMutation(
+          yield o("WAWebAccountLinkingAdminAPI").sendLinkingMutation(
             e,
             "IG",
             "waffle_debug",
@@ -225,18 +226,22 @@ __d(
       return (
         (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n, r, a;
-            (yield (a = o("WAWebAccountLinkingAPI")).generateWAEntACUser({
+            var n, r;
+            (yield o("WAWebAccountLinkingAdminAPI").generateWAEntACUser({
               rawPassword: "test",
               disclosureId: 1,
               disclosureVersion: "1",
               disclosureLg: "en",
               disclosureLc: "US",
             }),
-              yield a.generateAccessTokens(),
-              yield a.sendLinkingMutation(t, "IG", "waffle_debug"));
-            var i = yield a.stateExists(),
-              l =
+              yield o("WAWebAccountLinkingAdminAPI").generateAccessTokens(),
+              yield o("WAWebAccountLinkingAdminAPI").sendLinkingMutation(
+                t,
+                "IG",
+                "waffle_debug",
+              ));
+            var a = yield o("WAWebAccountLinkingAPI").stateExists(),
+              i =
                 ((n = {}),
                 (n[
                   o(
@@ -254,8 +259,8 @@ __d(
                   ).AccountLinkingStateExists.UNLINKED
                 ] = "UNLINKED"),
                 n),
-              s = i != null && (r = l[i]) != null ? r : "UNKNOWN";
-            return s;
+              l = a != null && (r = i[a]) != null ? r : "UNKNOWN";
+            return l;
           } catch (t) {
             throw (
               o("WALogger").ERROR(
