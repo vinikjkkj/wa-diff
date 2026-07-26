@@ -6,6 +6,7 @@ __d(
     "WAWebEnvironment",
     "WAWebUA",
     "WAWebVoipGatingUtils",
+    "WAWebWamEnumCallResultType",
     "getErrorSafe",
     "gkx",
     "justknobx",
@@ -23,17 +24,18 @@ __d(
       f = 0.01,
       g = 5e3,
       h = "voip-group-call-cer",
-      y = 3,
-      C = 3e4,
-      b = null,
-      v = new Set();
-    function S(e) {
-      if (b == null)
+      y = 0.1,
+      C = 3,
+      b = 3e4,
+      v = null,
+      S = new Set();
+    function R(e) {
+      if (v == null)
         try {
           var t,
             n,
             r = JSON.parse(e);
-          b =
+          v =
             (t =
               r == null || (n = r.call_info) == null
                 ? void 0
@@ -41,10 +43,10 @@ __d(
               ? t
               : null;
         } catch (e) {
-          b = null;
+          v = null;
         }
     }
-    function R(e) {
+    function L(e) {
       if (!r("justknobx")._("5297")) return null;
       var t = e === m || e === p;
       if (!t) return null;
@@ -56,11 +58,11 @@ __d(
         l = e === m ? "setup-error" : "accepted-but-not-connected";
       return { reason: "voip-call-error-" + a + "-" + i + l, sampling: n };
     }
-    function L() {
+    function E() {
       var t,
-        n = b;
-      if (((b = null), !!r("WAWebEnvironment").isWeb && n != null)) {
-        var a = R(n);
+        n = v;
+      if (((v = null), !!r("WAWebEnvironment").isWeb && n != null)) {
+        var a = L(n);
         if (a != null) {
           var i = a.reason,
             l = a.sampling;
@@ -101,26 +103,34 @@ __d(
         }
       }
     }
-    function E(e) {
-      var t, n;
+    function k(e) {
+      var t,
+        n,
+        a =
+          (e.groupCallTotalCallTSinceCallStart != null &&
+            e.groupCallTotalCallTSinceCallStart > 0) ||
+          (e.callT != null && e.callT > 0);
       if (
         !(
           !r("WAWebEnvironment").isWeb ||
           e.callEndReconnecting !== !0 ||
+          e.callResult !==
+            o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.CONNECTED ||
+          !a ||
           e.groupCallIsLastSegment !== !0 ||
-          e.maxConnectedParticipants < y ||
+          e.maxConnectedParticipants < C ||
           !r("justknobx")._("5297")
         )
       ) {
-        var a =
+        var i =
           ((t = e.callId) != null ? t : "unknown-call") +
           ":" +
           String((n = e.groupCallSegmentIdx) != null ? n : "unknown-segment");
-        if (!v.has(a)) {
-          v.add(a);
-          var i = o("WAWebUA").UA.isChrome ? f : _,
-            l = r("gkx")("26258") ? h : h + "-testing",
-            s = k(e);
+        if (!S.has(i)) {
+          S.add(i);
+          var l = y,
+            s = r("gkx")("26258") ? h : h + "-testing",
+            m = I(e);
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -128,8 +138,8 @@ __d(
                 " rate=",
                 "",
               ])),
+            s,
             l,
-            i,
           ),
             self.setTimeout(function () {
               (o("WALogger").LOG(
@@ -138,13 +148,13 @@ __d(
                     "voip: uploading group CER logs: ",
                     "",
                   ])),
-                l,
+                s,
               ),
                 o("WAWebCrashlog")
                   .upload({
-                    reason: l,
-                    clientSamplingRate: i,
-                    fromTimestamp: s,
+                    reason: s,
+                    clientSamplingRate: l,
+                    fromTimestamp: m,
                     hasTaggedMessage: !1,
                     sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
                   })
@@ -159,20 +169,20 @@ __d(
                       .catching(r("getErrorSafe")(e));
                   })
                   .finally(function () {
-                    v.delete(a);
+                    S.delete(i);
                   }));
             }, g));
         }
       }
     }
-    function k(e) {
+    function I(e) {
       var t = e.groupCallTotalCallTSinceCallStart,
         n = t != null && t >= 0 ? t : e.callT;
-      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - C);
+      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - b);
     }
-    ((l.captureWamCallResult = S),
-      (l.maybeUploadErrorLogs = L),
-      (l.maybeUploadGroupCallCerLogs = E));
+    ((l.captureWamCallResult = R),
+      (l.maybeUploadErrorLogs = E),
+      (l.maybeUploadGroupCallCerLogs = k));
   },
   98,
 );

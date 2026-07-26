@@ -13,13 +13,7 @@ __d(
         ? s._(/*BTDS*/ "Charge")
         : s._(/*BTDS*/ "Order");
     }
-    function d() {
-      return s._(/*BTDS*/ "Drawing");
-    }
-    ((l.CatalogText = e),
-      (l.DocumentText = u),
-      (l.OrderText = c),
-      (l.DrawingText = d));
+    ((l.CatalogText = e), (l.DocumentText = u), (l.OrderText = c));
   },
   226,
 );

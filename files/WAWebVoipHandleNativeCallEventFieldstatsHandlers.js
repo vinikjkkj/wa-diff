@@ -154,27 +154,30 @@ __d(
     }
     function x(e) {
       var t = e.callEndReconnecting,
-        n = e.groupCallIsLastSegment,
-        r = e.maxConnectedParticipants;
+        n = e.callResult,
+        r = e.groupCallIsLastSegment,
+        a = e.maxConnectedParticipants;
       if (
         !(
           typeof t != "boolean" ||
-          typeof n != "boolean" ||
-          typeof r != "number"
+          typeof n != "number" ||
+          typeof r != "boolean" ||
+          typeof a != "number"
         )
       ) {
-        var a = e.callId,
-          i = e.callT,
-          l = e.groupCallSegmentIdx,
-          s = e.groupCallTotalCallTSinceCallStart;
+        var i = e.callId,
+          l = e.callT,
+          s = e.groupCallSegmentIdx,
+          u = e.groupCallTotalCallTSinceCallStart;
         o("WAWebVoipErrorLogUpload").maybeUploadGroupCallCerLogs({
           callEndReconnecting: t,
-          callId: typeof a == "string" ? a : null,
-          callT: typeof i == "number" ? i : null,
-          groupCallIsLastSegment: n,
-          groupCallSegmentIdx: typeof l == "number" ? l : null,
-          groupCallTotalCallTSinceCallStart: typeof s == "number" ? s : null,
-          maxConnectedParticipants: r,
+          callId: typeof i == "string" ? i : null,
+          callResult: n,
+          callT: typeof l == "number" ? l : null,
+          groupCallIsLastSegment: r,
+          groupCallSegmentIdx: typeof s == "number" ? s : null,
+          groupCallTotalCallTSinceCallStart: typeof u == "number" ? u : null,
+          maxConnectedParticipants: a,
         });
       }
     }

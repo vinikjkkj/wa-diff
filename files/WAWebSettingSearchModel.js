@@ -1,11 +1,6 @@
 __d(
   "WAWebSettingSearchModel",
-  [
-    "WAWebSearchModel",
-    "WAWebSearchUtils",
-    "WAWebSettingsHierarchy",
-    "WAWebThunk",
-  ],
+  ["WAWebSearchModel", "WAWebSearchUtils", "WAWebSettingsHierarchy"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -27,10 +22,9 @@ __d(
               o("WAWebSettingsHierarchy").getSettingsSearchHierarchy(!0),
             )
             .filter(function (e) {
-              return e.parent != null &&
-                !o("WAWebThunk").getResult(e.parent.isAvailable)
+              return e.parent != null && !s(e.parent.isAvailable)
                 ? !1
-                : o("WAWebThunk").getResult(e.isAvailable);
+                : s(e.isAvailable);
             });
         }),
         (n.queryFn = function (t) {
@@ -49,6 +43,9 @@ __d(
         t
       );
     })(o("WAWebSearchModel").Search);
+    function s(e) {
+      return typeof e == "function" ? e() : e;
+    }
     l.SettingSearch = e;
   },
   98,
