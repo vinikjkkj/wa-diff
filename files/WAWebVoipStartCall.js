@@ -1119,7 +1119,8 @@ __d(
                 ee.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Call not found."),
                 }),
-              ));
+              ),
+              o("WAWebVoipActivityTracker").clearAllActivityTracking());
             return;
           }
           var r = n.to;
@@ -1138,7 +1139,8 @@ __d(
                 ee.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Could not join call."),
                 }),
-              ));
+              ),
+              o("WAWebVoipActivityTracker").clearAllActivityTracking());
             return;
           }
           var a = yield o("WAWebFindChatAction").findOrCreateLatestChat(

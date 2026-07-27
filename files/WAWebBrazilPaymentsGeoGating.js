@@ -16,14 +16,7 @@ __d(
         o("WAWebABProps").getABPropConfigValue("payments_br_p2m_boleto_enabled")
       );
     }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "br_enable_payment_logos_on_bubble",
-      );
-    }
-    ((l.isPaymentLinkEnabled = e),
-      (l.isBoletoEnabled = s),
-      (l.isPaymentLogoEnabled = u));
+    ((l.isPaymentLinkEnabled = e), (l.isBoletoEnabled = s));
   },
   98,
 );

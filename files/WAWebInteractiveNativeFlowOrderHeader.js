@@ -1,6 +1,7 @@
 __d(
   "WAWebInteractiveNativeFlowOrderHeader",
   [
+    "WAWebABProps",
     "WAWebBrazilPaymentsGeoGating",
     "WAWebCurrencyUtils",
     "WAWebFrontendMsgGetters",
@@ -241,7 +242,9 @@ __d(
     function m(e, t) {
       if (
         t == null ||
-        !o("WAWebBrazilPaymentsGeoGating").isPaymentLogoEnabled() ||
+        !o("WAWebABProps").getABPropConfigValue(
+          "br_enable_payment_logos_on_bubble",
+        ) ||
         !o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(e)
       )
         return [];

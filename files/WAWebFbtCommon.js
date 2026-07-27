@@ -96,6 +96,9 @@ __d(
       "Search name, number or username": function () {
         return s._(/*BTDS*/ "Search name, number or username");
       },
+      "Search name, number or @username": function () {
+        return s._(/*BTDS*/ "Search name, number or \u0040username");
+      },
       "Not in your contacts": function () {
         return s._(/*BTDS*/ "Not in your contacts");
       },
