@@ -21,12 +21,12 @@ __d(
     function c(t, n, a, i) {
       var l,
         c,
-        d = r("WAWebCommonCTWADataSharing").getReceivedCTWAEligibilityFromChat(
+        d = o("WAWebCommonCTWADataSharing").getReceivedCTWAEligibilityFromChat(
           t,
         );
       if (
         !(d == null || !d.is3pdag) &&
-        r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
+        o("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
           o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
           o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
         ) &&
@@ -51,7 +51,7 @@ __d(
         ) {
           var _ = m == null ? void 0 : m.sourceId;
           if (!(_ == null || _ === "")) {
-            var f = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(
+            var f = o("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(
                 t,
               ),
               g =

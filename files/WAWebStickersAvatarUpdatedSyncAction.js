@@ -1,6 +1,11 @@
 __d(
   "WAWebStickersAvatarUpdatedSyncAction",
-  ["WALogger", "WASyncdConst", "WAWebSyncdAction", "asyncToGeneratorRuntime"],
+  [
+    "WALogger",
+    "WAWebSyncdAction",
+    "WAWebSyncdConst",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function (t) {
@@ -9,7 +14,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -21,7 +26,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.AvatarUpdated;
+            return o("WAWebSyncdConst").Actions.AvatarUpdated;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -36,7 +41,7 @@ __d(
                   t.map(function () {
                     return {
                       actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
                     };
                   })
                 );

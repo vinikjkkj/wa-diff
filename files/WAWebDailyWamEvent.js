@@ -246,6 +246,7 @@ __d(
               supportedDecoders: [169, e.TYPES.STRING],
               supportedEncoders: [170, e.TYPES.STRING],
               syncedInNetworkContactsSize: [192, e.TYPES.INTEGER],
+              textMessageAnimationEnabled: [259, e.TYPES.BOOLEAN],
               totalCountInNetworkUniquePhoneNumber: [193, e.TYPES.INTEGER],
               totalCountSyncedInNetworkUniquePhoneNumber: [
                 194,

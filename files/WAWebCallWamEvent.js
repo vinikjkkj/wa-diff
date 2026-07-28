@@ -383,6 +383,7 @@ __d(
               bwaVidDisablingTxCandidateDuration: [1115, e.TYPES.TIMER],
               bweSlrOutputBps: [2461, e.TYPES.INTEGER],
               c50Linked: [3001, e.TYPES.BOOLEAN],
+              ca2dEverConnected: [3077, e.TYPES.BOOLEAN],
               ca2dExtensionAddFailureReason: [
                 3067,
                 o("WAWebWamEnumCa2dExtensionAddFailureReason")

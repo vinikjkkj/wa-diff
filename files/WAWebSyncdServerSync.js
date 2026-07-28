@@ -5,11 +5,11 @@ __d(
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
     "WALogger",
-    "WASyncdConst",
     "WAWebGetPendingMutation",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebSyncd",
     "WAWebSyncdCollectionHandler",
+    "WAWebSyncdConst",
     "WAWebSyncdCriticalBootstrapProcessingApi",
     "WAWebSyncdDbCallbacksApi",
     "WAWebSyncdError",
@@ -85,7 +85,7 @@ __d(
               (a = a.concat(
                 i.map(function (e) {
                   return {
-                    state: o("WASyncdConst").CollectionState.ErrorRetry,
+                    state: o("WAWebSyncdConst").CollectionState.ErrorRetry,
                     name: e,
                   };
                 }),
@@ -178,17 +178,17 @@ __d(
               v = [];
             (C.forEach(function (e) {
               switch (e.state) {
-                case o("WASyncdConst").CollectionState.ErrorRetry:
-                case o("WASyncdConst").CollectionState.ErrorFatal:
-                case o("WASyncdConst").CollectionState.Blocked:
+                case o("WAWebSyncdConst").CollectionState.ErrorRetry:
+                case o("WAWebSyncdConst").CollectionState.ErrorFatal:
+                case o("WAWebSyncdConst").CollectionState.Blocked:
                   v.push(e);
                   return;
                 default:
                   b.push(e);
               }
-              (e.state === o("WASyncdConst").CollectionState.Conflict ||
+              (e.state === o("WAWebSyncdConst").CollectionState.Conflict ||
                 e.state ===
-                  o("WASyncdConst").CollectionState.ConflictHasMore) &&
+                  o("WAWebSyncdConst").CollectionState.ConflictHasMore) &&
                 o("WAWebSyncdWamAppState").incConflict();
             }),
               o("WALogger").LOG(
@@ -230,7 +230,8 @@ __d(
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
                         if (
-                          e.state === o("WASyncdConst").CollectionState.Conflict
+                          e.state ===
+                          o("WAWebSyncdConst").CollectionState.Conflict
                         ) {
                           var t =
                             (yield o(
@@ -241,15 +242,17 @@ __d(
                           t
                             ? E.push(e.name)
                             : ((e.state =
-                                o("WASyncdConst").CollectionState.Success),
+                                o("WAWebSyncdConst").CollectionState.Success),
                               v.push(e));
                         } else
                           e.state ===
-                            o("WASyncdConst").CollectionState.ConflictHasMore ||
+                            o("WAWebSyncdConst").CollectionState
+                              .ConflictHasMore ||
                           e.state ===
-                            o("WASyncdConst").CollectionState.SuccessHasMore ||
+                            o("WAWebSyncdConst").CollectionState
+                              .SuccessHasMore ||
                           (e.state ===
-                            o("WASyncdConst").CollectionState.Success &&
+                            o("WAWebSyncdConst").CollectionState.Success &&
                             a.some(function (t) {
                               return t === e.name;
                             }))
@@ -290,7 +293,7 @@ __d(
                 ));
               var k = e.map(function (e) {
                 return {
-                  state: o("WASyncdConst").CollectionState.ErrorFatal,
+                  state: o("WAWebSyncdConst").CollectionState.ErrorFatal,
                   name: e,
                 };
               });
@@ -313,7 +316,7 @@ __d(
               yield I(e, "[" + t + "] retryable error: " + n));
             var T = e.map(function (e) {
               return {
-                state: o("WASyncdConst").CollectionState.ErrorRetry,
+                state: o("WAWebSyncdConst").CollectionState.ErrorRetry,
                 name: e,
                 serverBackoff: n.errorBackoff,
               };

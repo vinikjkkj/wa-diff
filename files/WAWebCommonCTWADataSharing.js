@@ -292,29 +292,26 @@ __d(
         return function () {
           return e.apply(this, arguments);
         };
-      })(),
-      k = {
-        SMB_DATA_SHARING_ALLOWED_SOURCE: o(
-          "WAWebGetCTWAEligibilityFromConversion",
-        ).SMB_DATA_SHARING_ALLOWED_SOURCE,
-        SmbDataSharingLabelTargetValues: p,
-        getCTWAEligibilityFromChat: _,
-        getReceivedCTWAEligibilityFromChat: f,
-        getCTWASignalsValueFromChat: g,
-        shouldDisplayDataSharingSetting: h,
-        shouldShowOrderDataSharingDialog: y,
-        shouldShowDisclosureBasedOnCurrentDataSharingSetting: C,
-        shouldShowLabelDataSharingDialog: v,
-        shouldShowListsManagementDataSharingDialog: S,
-        shouldShowChatEntryDataSharingDialog: b,
-        shouldDisplayDataSharingOrderOptOutOrUpsell: R,
-        shouldDisplayDataSharingLabelOptOutOrUpsell: L,
-        fetchDataSharingSettingAndUpdateModel: E,
-        shouldShowV2Disclosure: c,
-        markV2DisclosureSeen: m,
-        isGlobalDataSharingAccepted: d,
-      };
-    l.default = k;
+      })();
+    ((l.shouldShowV2Disclosure = c),
+      (l.isGlobalDataSharingAccepted = d),
+      (l.markV2DisclosureSeen = m),
+      (l.SmbDataSharingLabelTargetValues = p),
+      (l.getCTWAEligibilityFromChat = _),
+      (l.getReceivedCTWAEligibilityFromChat = f),
+      (l.getCTWASignalsValueFromChat = g),
+      (l.shouldDisplayDataSharingSetting = h),
+      (l.shouldShowOrderDataSharingDialog = y),
+      (l.shouldShowDisclosureBasedOnCurrentDataSharingSetting = C),
+      (l.shouldShowChatEntryDataSharingDialog = b),
+      (l.shouldShowLabelDataSharingDialog = v),
+      (l.shouldShowListsManagementDataSharingDialog = S),
+      (l.shouldDisplayDataSharingOrderOptOutOrUpsell = R),
+      (l.shouldDisplayDataSharingLabelOptOutOrUpsell = L),
+      (l.fetchDataSharingSettingAndUpdateModel = E),
+      (l.SMB_DATA_SHARING_ALLOWED_SOURCE = o(
+        "WAWebGetCTWAEligibilityFromConversion",
+      ).SMB_DATA_SHARING_ALLOWED_SOURCE));
   },
   98,
 );

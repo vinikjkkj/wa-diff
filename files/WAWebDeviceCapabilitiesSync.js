@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebBizBroadcastDeviceCapabilityCommon",
@@ -13,6 +12,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdDb",
     "WAWebUserPrefsDeviceCapabilities",
@@ -38,7 +38,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -50,7 +50,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.DeviceCapabilities;
+            return o("WAWebSyncdConst").Actions.DeviceCapabilities;
           }),
           (a.getJidIndex = function () {
             return o("WAWebUserPrefsMeUser")
@@ -67,7 +67,7 @@ __d(
                   n = t.reduce(function (e, t) {
                     if (
                       t.actionState ===
-                      o("WASyncdConst").SyncActionState.Success
+                      o("WAWebSyncdConst").SyncActionState.Success
                     ) {
                       var n = o("decodeProtobuf").decodeProtobuf(
                           o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
@@ -161,7 +161,7 @@ __d(
                       }
                     }
                     return {
-                      actionState: o("WASyncdConst").SyncActionState.Success,
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     };
                   });
                 return (

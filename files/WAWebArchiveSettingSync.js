@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
@@ -13,6 +12,7 @@ __d(
     "WAWebSchemaActiveMessageRanges",
     "WAWebSchemaChat",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
@@ -31,8 +31,8 @@ __d(
       m,
       p,
       _ = [
-        o("WASyncdConst").SyncActionState.Success,
-        o("WASyncdConst").SyncActionState.Orphan,
+        o("WAWebSyncdConst").SyncActionState.Success,
+        o("WAWebSyncdConst").SyncActionState.Orphan,
       ],
       f = (function (t) {
         function a() {
@@ -40,7 +40,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -52,7 +52,7 @@ __d(
             return 4;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.UnarchiveChatsSetting;
+            return o("WAWebSyncdConst").Actions.UnarchiveChatsSetting;
           }),
           (i.decodeValue = function (n) {
             if (n.binarySyncData) {
@@ -169,7 +169,7 @@ __d(
                         [
                           {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Success,
+                              o("WAWebSyncdConst").SyncActionState.Success,
                           },
                         ]
                       );
@@ -184,13 +184,16 @@ __d(
                       [
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         },
                       ]
                     );
                   } catch (e) {
                     return [
-                      { actionState: o("WASyncdConst").SyncActionState.Failed },
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Failed,
+                      },
                     ];
                   }
                 }
@@ -201,7 +204,7 @@ __d(
                         "archive setting sync: no mutations",
                       ])),
                   ),
-                  [{ actionState: o("WASyncdConst").SyncActionState.Failed }]
+                  [{ actionState: o("WAWebSyncdConst").SyncActionState.Failed }]
                 );
               },
             );
@@ -250,7 +253,7 @@ __d(
                     c.map(function (t) {
                       var r = o("WAWebWidFactory").createWid(t),
                         a = JSON.stringify([
-                          o("WASyncdConst").Actions.Archive,
+                          o("WAWebSyncdConst").Actions.Archive,
                           r.toString({ legacy: !0 }),
                         ]),
                         i = e.find(function (e) {
@@ -344,10 +347,10 @@ __d(
                   r = [],
                   a = yield o("WAWebSyncdDb").getSyncActionsRows(
                     ["action"],
-                    [o("WASyncdConst").Actions.Archive],
+                    [o("WAWebSyncdConst").Actions.Archive],
                   ),
                   i = e.filter(function (e) {
-                    return e.action === o("WASyncdConst").Actions.Archive;
+                    return e.action === o("WAWebSyncdConst").Actions.Archive;
                   }),
                   l = i.map(function (e) {
                     return e.index;
@@ -359,7 +362,7 @@ __d(
                   c = u.filter(function (e) {
                     if (
                       e.actionState ===
-                      o("WASyncdConst").SyncActionState.Success
+                      o("WAWebSyncdConst").SyncActionState.Success
                     ) {
                       var n,
                         r = t.decodeValue(e);

@@ -1,9 +1,9 @@
 __d(
   "WAWebBotDeviceCapabilities",
   [
-    "WASyncdConst",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsDeviceCapabilities.pb",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -40,7 +40,7 @@ __d(
             t,
             n =
               '["' +
-              o("WASyncdConst").Actions.DeviceCapabilities +
+              o("WAWebSyncdConst").Actions.DeviceCapabilities +
               '","' +
               o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
               ':0@s.whatsapp.net"]',

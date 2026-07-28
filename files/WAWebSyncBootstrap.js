@@ -7,7 +7,6 @@ __d(
     "WAJobOrchestratorTypes",
     "WALogger",
     "WAPromiseDelays",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebAccountSyncJob",
     "WAWebApiHistorySyncNotification",
@@ -39,6 +38,7 @@ __d(
     "WAWebSyncContactJob",
     "WAWebSyncDeviceAdvDeviceListJob",
     "WAWebSyncd",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdMdSyncFieldstatMeta",
@@ -404,9 +404,9 @@ __d(
               (this.$4 = ce.InProcess),
               o("WAWebSyncd")
                 .markCollectionsForSync([
-                  o("WASyncdConst").CollectionName.Regular,
-                  o("WASyncdConst").CollectionName.RegularLow,
-                  o("WASyncdConst").CollectionName.RegularHigh,
+                  o("WAWebSyncdConst").CollectionName.Regular,
+                  o("WAWebSyncdConst").CollectionName.RegularLow,
+                  o("WAWebSyncdConst").CollectionName.RegularHigh,
                 ])
                 .then(function () {
                   var t;
@@ -559,13 +559,14 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = yield o("WAWebSyncdDb").getSyncActionsRows(
                 ["action"],
-                [o("WASyncdConst").Actions.SettingPushName],
+                [o("WAWebSyncdConst").Actions.SettingPushName],
               );
               return (
                 e.length > 0 &&
                 e.find(function (e) {
                   return (
-                    e.actionState === o("WASyncdConst").SyncActionState.Success
+                    e.actionState ===
+                    o("WAWebSyncdConst").SyncActionState.Success
                   );
                 }) != null
               );
@@ -708,8 +709,8 @@ __d(
               var l = a
                   .then(function () {
                     return o("WAWebSyncd").markCollectionsForSync([
-                      o("WASyncdConst").CollectionName.CriticalBlock,
-                      o("WASyncdConst").CollectionName.CriticalUnblockLow,
+                      o("WAWebSyncdConst").CollectionName.CriticalBlock,
+                      o("WAWebSyncdConst").CollectionName.CriticalUnblockLow,
                     ]);
                   })
                   .then(

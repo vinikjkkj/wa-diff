@@ -1,6 +1,11 @@
 __d(
   "WAWebSyncdActionUtils",
-  ["WALogger", "WASyncdConst", "WAWebProtobufSyncAction.pb", "encodeProtobuf"],
+  [
+    "WALogger",
+    "WAWebProtobufSyncAction.pb",
+    "WAWebSyncdConst",
+    "encodeProtobuf",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
@@ -37,7 +42,7 @@ __d(
     }
     function d(e, t) {
       var n = c(e, t);
-      return n == null ? void 0 : n[o("WASyncdConst").MUTATION_NAME_INDEX];
+      return n == null ? void 0 : n[o("WAWebSyncdConst").MUTATION_NAME_INDEX];
     }
     function m(e) {
       var t = e.action,

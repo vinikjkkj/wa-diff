@@ -228,11 +228,11 @@ __d(
               ).getFuzzySearchDistanceThreshold(),
             r = [];
           for (var a of e) {
-            var i = o("WAWebFuzzyMatcher").fuzzyMatch(
-              this.searchName,
-              a,
-              o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
-            );
+            var i = o("WAWebFuzzyMatcher").fuzzyMatch({
+              costTolerance: o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
+              input: this.searchName,
+              query: a,
+            });
             if (!i.isMatch() || i.getSimilarityRating() < n) return null;
             r.push(i);
           }

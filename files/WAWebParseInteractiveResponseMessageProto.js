@@ -5,24 +5,26 @@ __d(
     "WAWebGalaxyFlowMessageInteractiveResponseMessageParser",
     "WAWebGalaxyFlowsUtils",
     "WAWebHsmGatingUtils",
+    "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
+    "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.baseMessage,
         n = e.bizInfo,
-        r = e.messageProtobuf,
-        a = e.msgContext,
-        i = r.interactiveResponseMessage;
-      if (i != null) {
-        var l =
-          o("WAWebE2EProtoUtils").getInteractiveResponseMessageTypeForProto(i);
+        a = e.messageProtobuf,
+        i = e.msgContext,
+        l = a.interactiveResponseMessage;
+      if (l != null) {
+        var s =
+          o("WAWebE2EProtoUtils").getInteractiveResponseMessageTypeForProto(l);
         if (
           !o(
             "WAWebHsmGatingUtils",
           ).interactiveNativeFlowResponseMessagesEnabled() ||
-          !l ||
-          !o("WAWebE2EProtoUtils").isInteractiveResponseMessageTypeEnabled(l)
+          !s ||
+          !o("WAWebE2EProtoUtils").isInteractiveResponseMessageTypeEnabled(s)
         )
           return {
             msgData: babelHelpers.extends({}, t, {
@@ -30,43 +32,56 @@ __d(
               kind: o("WAWebMsgType").MsgKind.Unknown,
               subtype: "phone_only_feature",
             }),
-            contextInfo: i.contextInfo,
+            contextInfo: l.contextInfo,
           };
-        if (o("WAWebGalaxyFlowsUtils").isResponseFlowSupported(i))
-          return o("WAWebGalaxyFlowsUtils").isFlexibleCheckoutForm(i)
+        if (o("WAWebGalaxyFlowsUtils").isResponseFlowSupported(l))
+          return o("WAWebGalaxyFlowsUtils").isFlexibleCheckoutForm(l)
             ? {
                 msgData: babelHelpers.extends({}, t, {
                   type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
                   kind: o("WAWebMsgType").MsgKind.Unknown,
                   subtype: "phone_only_feature",
                 }),
-                contextInfo: i.contextInfo,
+                contextInfo: l.contextInfo,
               }
             : o(
                 "WAWebGalaxyFlowMessageInteractiveResponseMessageParser",
-              ).getGalaxyMessageInteractiveResponse(t, i);
+              ).getGalaxyMessageInteractiveResponse(t, l);
         try {
-          var s, u;
-          return {
-            msgData: babelHelpers.extends({}, t, {
-              type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
-              kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
-              body:
-                (s = o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-                  (u = i.body) == null ? void 0 : u.text,
-                )) != null
-                  ? s
-                  : "",
-              interactivePayload: o(
-                "WAWebE2EProtoUtils",
-              ).getInteractiveResponsePayload({
-                type: l,
-                message: i,
-                bizInfo: n,
-                msgContext: a,
-              }),
+          var u,
+            c,
+            d = o("WAWebE2EProtoUtils").getInteractiveResponsePayload({
+              type: s,
+              message: l,
+              bizInfo: n,
+              msgContext: i,
             }),
-            contextInfo: i.contextInfo,
+            m =
+              (d == null ? void 0 : d.name) ===
+              r("WAWebInteractiveMessagesNativeFlowName")
+                .CALL_PERMISSION_REQUEST;
+          return {
+            msgData: babelHelpers.extends(
+              {},
+              t,
+              {
+                type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
+                kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
+                body:
+                  (u = o(
+                    "WAWebE2EProtoUtils",
+                  ).convertToTextWithoutSpecialEmojis(
+                    (c = l.body) == null ? void 0 : c.text,
+                  )) != null
+                    ? u
+                    : "",
+                interactivePayload: d,
+              },
+              m
+                ? { viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN }
+                : null,
+            ),
+            contextInfo: l.contextInfo,
           };
         } catch (e) {
           return {
@@ -75,7 +90,7 @@ __d(
               kind: o("WAWebMsgType").MsgKind.Unknown,
               subtype: "phone_only_feature",
             }),
-            contextInfo: i.contextInfo,
+            contextInfo: l.contextInfo,
           };
         }
       }

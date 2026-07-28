@@ -30,6 +30,7 @@ __d(
     "WAWebWamEnumChatOriginsType",
     "WAWebWid",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -382,14 +383,15 @@ __d(
                             c,
                             d,
                             m = h[t],
-                            _ = r("WAWebWid").isGroup(e.chatId),
-                            f = b[t],
-                            g = o("WAWebBotTypes").BizBotAutomatedType.cast(
+                            _ = o("WAWebWidFactory").createWid(e.chatId),
+                            f = _.isGroup(),
+                            g = b[t],
+                            k = o("WAWebBotTypes").BizBotAutomatedType.cast(
                               (n = S[t]) == null ? void 0 : n.automatedType,
                             ),
-                            k = _
+                            D = f
                               ? {
-                                  isAGroup: _,
+                                  isAGroup: f,
                                   groupSize:
                                     (a =
                                       (i = v[t]) == null ||
@@ -399,20 +401,23 @@ __d(
                                       ? a
                                       : 1,
                                   groupType:
-                                    f == null
+                                    g == null
                                       ? o("WAWebGroupType").GroupType.DEFAULT
                                       : o(
                                           "WAWebGroupType",
-                                        ).getGroupTypeFromGroupMetadata(f),
+                                        ).getGroupTypeFromGroupMetadata(g),
                                 }
                               : {
-                                  isAGroup: _,
-                                  isAContact: yield o(
-                                    "WAWebApiContact",
-                                  ).isAddressBookContact(e.chatId),
-                                  automatedType: g,
+                                  isAGroup: f,
+                                  isAContact: _.isUserNotPSA()
+                                    ? yield o(
+                                        "WAWebApiContact",
+                                      ).isAddressBookContact(
+                                        o("WAWebWidToJid").widToUserJid(_),
+                                      )
+                                    : !1,
+                                  automatedType: k,
                                 },
-                            D = o("WAWebWidFactory").createWid(e.chatId),
                             x =
                               ((l = m == null ? void 0 : m.pin) != null
                                 ? l
@@ -434,13 +439,13 @@ __d(
                             w = C[t]
                               ? yield o(
                                   "WAWebGetBizCatalogType",
-                                ).getBizCatalogType(D)
+                                ).getBizCatalogType(_)
                               : null,
                             A =
                               r("WAWebWid").isStringLid(e.chatId) ||
-                              (f == null ? void 0 : f.defaultSubgroup) === !0,
-                            F = o("WAWebUserPrefsMeUser").isMeAccount(D),
-                            O = D.isBot(),
+                              (g == null ? void 0 : g.defaultSubgroup) === !0,
+                            F = o("WAWebUserPrefsMeUser").isMeAccount(_),
+                            O = _.isBot(),
                             B = o(
                               "WAWebChatThreadLoggingUtils",
                             ).getWamDisappearingModeInitiatedByMe(
@@ -460,14 +465,14 @@ __d(
                             ((B = o(
                               "WAWebChatThreadLoggingUtils",
                             ).getWamDisappearingModeInitiatedByMe(
-                              f == null
+                              g == null
                                 ? void 0
-                                : f.disappearingModeInitiatedByMe,
+                                : g.disappearingModeInitiatedByMe,
                             )),
                             (W = o(
                               "WAWebChatThreadLoggingUtils",
                             ).getWamDisappearingModeTriggerGroups(
-                              f == null ? void 0 : f.disappearingModeTrigger,
+                              g == null ? void 0 : g.disappearingModeTrigger,
                             )));
                           var q = I,
                             U = T,
@@ -491,7 +496,7 @@ __d(
                           var Q = null,
                             X = null,
                             Y = null;
-                          if (!_ && D.isRegularUser() && p) {
+                          if (!f && _.isRegularUser() && p) {
                             var J, Z;
                             ((Q = e.msgsSent > 0),
                               (X =
@@ -504,7 +509,7 @@ __d(
                           var ee = o("WAWebWamEnumChatOriginsType")
                             .CHAT_ORIGINS_TYPE.OTHERS;
                           if (
-                            (D.isLid() &&
+                            (_.isLid() &&
                               (ee = o("WAWebWamEnumChatOriginsType")
                                 .CHAT_ORIGINS_TYPE.LID_CTWA),
                             m != null && m.lidOriginType)
@@ -524,7 +529,7 @@ __d(
                           return babelHelpers.extends({}, e, {
                             isPinned: x,
                             isArchived: $,
-                            contactInfo: k,
+                            contactInfo: D,
                             messagesStarred: P,
                             messagesUnread: N,
                             isMuted: M,

@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebArchiveChatSync",
@@ -19,6 +18,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
@@ -83,7 +83,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -95,7 +95,7 @@ __d(
             return 5;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.Pin;
+            return o("WAWebSyncdConst").Actions.Pin;
           }),
           (i.applyMutations = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -126,7 +126,7 @@ __d(
                     ),
                     (d || (d = n("Promise"))).resolve({
                       actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
                     })
                   );
                 var a = t.indexParts,
@@ -179,7 +179,7 @@ __d(
                   );
                   if (!f.success)
                     return {
-                      actionState: o("WASyncdConst").SyncActionState.Orphan,
+                      actionState: o("WAWebSyncdConst").SyncActionState.Orphan,
                       orphanModel: f.orphanModel,
                     };
                   var g = f.chat.id,
@@ -190,7 +190,10 @@ __d(
                       yield this.applyUpdates([
                         { wid: y, pinned: !1, timestamp: i },
                       ]),
-                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
                     );
                   var C = y.isNewsletter()
                     ? yield this.getLocalNewsletterPins()
@@ -204,14 +207,20 @@ __d(
                       yield this.applyUpdates([
                         { wid: y, pinned: _, timestamp: i },
                       ]),
-                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
                     );
                   if (C.length < o("WAWebChatPinBridge").getPinLimit(y))
                     return (
                       yield this.applyUpdates([
                         { wid: y, pinned: _, timestamp: i },
                       ]),
-                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
                     );
                   r("gkx")("26258") ||
                     new (o(
@@ -236,12 +245,12 @@ __d(
                       this.createPendingUnpin(S, i),
                     ]),
                     d.resolve({
-                      actionState: o("WASyncdConst").SyncActionState.Success,
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     })
                   );
                 } catch (e) {
                   return {
-                    actionState: o("WASyncdConst").SyncActionState.Failed,
+                    actionState: o("WAWebSyncdConst").SyncActionState.Failed,
                   };
                 }
               },
@@ -343,7 +352,7 @@ __d(
                   a = o("WAWebSyncdDb")
                     .getPendingMutationsRows(
                       ["action"],
-                      o("WASyncdConst").Actions.Pin,
+                      o("WAWebSyncdConst").Actions.Pin,
                     )
                     .then(function (e) {
                       return new Set(
@@ -359,13 +368,13 @@ __d(
                   i = o("WAWebSyncdDb")
                     .getSyncActionsRows(
                       ["action"],
-                      [o("WASyncdConst").Actions.Pin],
+                      [o("WAWebSyncdConst").Actions.Pin],
                     )
                     .then(function (e) {
                       var t = e.filter(function (e) {
                         return (
                           e.actionState ===
-                          o("WASyncdConst").SyncActionState.Orphan
+                          o("WAWebSyncdConst").SyncActionState.Orphan
                         );
                       });
                       return r("compactMap")(t, function (e) {
@@ -514,7 +523,7 @@ __d(
                   indexArgs: [
                     yield o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
                       n,
-                      o("WASyncdConst").Actions.Pin,
+                      o("WAWebSyncdConst").Actions.Pin,
                     ),
                   ],
                   value: r,

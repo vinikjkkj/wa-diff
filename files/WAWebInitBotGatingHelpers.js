@@ -8,6 +8,7 @@ __d(
     "WAWebCanonicalHatchLinkedStatusGetQuery",
     "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
+    "WAWebPrefetchHatchLinkedStatusOnLogin",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,9 +21,12 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("WAWebHatchLinkedStatusManager").registerFetcher(
+          (r("WAWebHatchLinkedStatusManager").registerFetcher(
             o("WAWebCanonicalHatchLinkedStatusGetQuery").fetchHatchLinkedStatus,
-          );
+          ),
+            o(
+              "WAWebPrefetchHatchLinkedStatusOnLogin",
+            ).maybePrefetchHatchLinkedStatusOnLogin());
           try {
             var t = yield o("WAWebBackendApi").frontendSendAndReceive(
               "getLanguage",
@@ -49,12 +53,18 @@ __d(
             ((u = !0),
             o("WAWebBackendEventBus").BackendEventBus.onAbPropsUpdate(
               function () {
-                o("WAWebInitializeBots").initializeBots();
+                (o("WAWebInitializeBots").initializeBots(),
+                  o(
+                    "WAWebPrefetchHatchLinkedStatusOnLogin",
+                  ).maybePrefetchHatchLinkedStatusOnLogin());
               },
             ),
             o("WAWebBackendEventBus").BackendEventBus.onAbPropsLoaded(
               function () {
-                o("WAWebInitializeBots").initializeBots();
+                (o("WAWebInitializeBots").initializeBots(),
+                  o(
+                    "WAWebPrefetchHatchLinkedStatusOnLogin",
+                  ).maybePrefetchHatchLinkedStatusOnLogin());
               },
             ));
         })),

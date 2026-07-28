@@ -3,13 +3,13 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebDBUpdateChatTable",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
@@ -26,7 +26,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -38,7 +38,7 @@ __d(
             return 2;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.BotWelcomeRequest;
+            return o("WAWebSyncdConst").Actions.BotWelcomeRequest;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -85,7 +85,7 @@ __d(
                                   if (!d.success)
                                     return {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Orphan,
                                       orphanModel: d.orphanModel,
                                     };
@@ -108,7 +108,7 @@ __d(
                                     ),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     }
                                   );
@@ -123,7 +123,7 @@ __d(
                                     i++,
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Unsupported,
                                     }
                                   );
@@ -137,7 +137,7 @@ __d(
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -187,7 +187,7 @@ __d(
                         "WAWebSyncdGetChat",
                       ).getChatJidMutationIndexForChat(
                         e,
-                        o("WASyncdConst").Actions.BotWelcomeRequest,
+                        o("WAWebSyncdConst").Actions.BotWelcomeRequest,
                       ),
                     ],
                     value: n,

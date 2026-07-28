@@ -1,15 +1,20 @@
 __d(
   "WAWebPollsVoterRow",
   [
+    "WALogger",
+    "WAWebABProps",
     "WAWebBoolFunc",
     "WAWebBusinessProfileTypes",
     "WAWebChatCell.react",
     "WAWebChatContactUtils",
+    "WAWebChatGetters",
+    "WAWebChatGroupUtils",
     "WAWebClock",
     "WAWebContactGetters",
     "WAWebDetailImage.react",
     "WAWebElevatedPushNamesFlag",
     "WAWebEmojiText.react",
+    "WAWebFindChatAction",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebFrontendPollVoteGetters",
@@ -26,44 +31,46 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = s || (s = o("react")),
-      c = { marginInlineStart9: { marginInlineStart: "x1y3qizg", $$css: !0 } };
-    function d(e) {
+      u,
+      c = u || (u = o("react")),
+      d = { marginInlineStart9: { marginInlineStart: "x1y3qizg", $$css: !0 } },
+      m = 0;
+    function p(e) {
       var t = o("react-compiler-runtime").c(9),
         n = e.vote,
         r = n.time * 1e3,
         a;
       t[0] !== r
-        ? ((a = u.jsx(g, { timestamp: r })), (t[0] = r), (t[1] = a))
+        ? ((a = c.jsx(y, { timestamp: r })), (t[0] = r), (t[1] = a))
         : (a = t[1]);
       var i = a,
         l;
       t[2] !== i || t[3] !== n
-        ? ((l = u.jsx(m, { vote: n, fallbackNode: i })),
+        ? ((l = c.jsx(_, { vote: n, fallbackNode: i })),
           (t[2] = i),
           (t[3] = n),
           (t[4] = l))
         : (l = t[4]);
       var s = l,
-        c = n.contact != null ? i : null,
+        u = n.contact != null ? i : null,
         d;
       return (
-        t[5] !== s || t[6] !== c || t[7] !== n.id
-          ? ((d = u.jsx(h, {
+        t[5] !== s || t[6] !== u || t[7] !== n.id
+          ? ((d = c.jsx(C, {
               primary: s,
               primaryDetail: null,
               id: n.id,
-              secondary: c,
+              secondary: u,
             })),
             (t[5] = s),
-            (t[6] = c),
+            (t[6] = u),
             (t[7] = n.id),
             (t[8] = d))
           : (d = t[8]),
         d
       );
     }
-    function m(e) {
+    function _(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.fallbackNode,
         r = e.vote,
@@ -72,7 +79,7 @@ __d(
       var i;
       return (
         t[0] !== a || t[1] !== n
-          ? ((i = u.jsx(p, { contact: a, fallbackNode: n })),
+          ? ((i = c.jsx(f, { contact: a, fallbackNode: n })),
             (t[0] = a),
             (t[1] = n),
             (t[2] = i))
@@ -80,7 +87,7 @@ __d(
         i
       );
     }
-    function p(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.contact,
         r = e.fallbackNode,
@@ -96,173 +103,140 @@ __d(
       var i = o("useWAWebContactValues").useContactValues(n.id, a),
         l = i[0],
         s = i[1],
-        c = i[2],
+        u = i[2],
         d;
       return (
-        t[1] !== r || t[2] !== l || t[3] !== c || t[4] !== s
+        t[1] !== r || t[2] !== l || t[3] !== u || t[4] !== s
           ? ((d =
-              s || c
-                ? u.jsx(f, { formattedUserName: l, accessibleUserName: null })
+              s || u
+                ? c.jsx(h, { formattedUserName: l, accessibleUserName: null })
                 : r),
             (t[1] = r),
             (t[2] = l),
-            (t[3] = c),
+            (t[3] = u),
             (t[4] = s),
             (t[5] = d))
           : (d = t[5]),
         d
       );
     }
-    function _(e) {
-      var t = o("react-compiler-runtime").c(31),
-        n = e.vote,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
-            o("WAWebFrontendPollVoteGetters").getSenderObj,
-            o("WAWebPollVoteGetters").getTimestamp,
-            o("WAWebFrontendPollVoteGetters").getParentMsg,
-          ]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebPollVoteValues").usePollVoteValues(n.id, a),
-        l = i[0],
-        s = i[1],
-        c = i[2],
-        d;
-      if (t[1] === Symbol.for("react.memo_cache_sentinel")) {
-        var m;
-        ((d = [
-          (m = o("WAWebContactGetters")).getId,
-          o("WAWebFrontendContactGetters").getFormattedName,
-          m.getNotifyName,
-          m.getVerifiedLevel,
-          m.getIsBusiness,
-          m.getVerifiedName,
+    function g(t) {
+      var n,
+        a = t.onOpenContactInfo,
+        i = t.vote,
+        l = o("useWAWebPollVoteValues").usePollVoteValues(i.id, [
+          o("WAWebFrontendPollVoteGetters").getSenderObj,
+          o("WAWebPollVoteGetters").getTimestamp,
+          o("WAWebFrontendPollVoteGetters").getParentMsg,
         ]),
-          (t[1] = d));
-      } else d = t[1];
-      var p = o("useWAWebContactValues").useContactValues(l.id, d),
+        s = l[0],
+        u = l[1],
+        d = l[2],
+        p = o("useWAWebContactValues").useContactValues(s.id, [
+          (n = o("WAWebContactGetters")).getId,
+          o("WAWebFrontendContactGetters").getFormattedName,
+          n.getNotifyName,
+          n.getVerifiedLevel,
+          n.getIsBusiness,
+          n.getVerifiedName,
+          n.getIsMe,
+        ]),
         _ = p[0],
-        y = p[1],
-        C = p[2],
+        f = p[1],
+        g = p[2],
         b = p[3],
         v = p[4],
         S = p[5],
-        R;
-      t[2] !== c
-        ? ((R = o("WAWebFrontendMsgGetters").getChat(c.unsafe())),
-          (t[2] = c),
-          (t[3] = R))
-        : (R = t[3]);
-      var L = R,
-        E = r("useWAWebContactFormattedUsernameOrPhoneByChat")(L, l),
-        k = E.formattedUsernameOrPhone,
-        I = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(L),
-        T =
-          o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(l) &&
-          (I ||
+        R = p[6],
+        L = o("WAWebFrontendMsgGetters").getChat(d.unsafe()),
+        E =
+          a != null &&
+          !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(L) &&
+          !R &&
+          o("WAWebABProps").getABPropConfigValue(
+            "enable_poll_results_contact_info_entry_point",
+          ),
+        k = E
+          ? function () {
+              var t = o("WAWebChatGetters").getIsGroup(L)
+                ? o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
+                    _,
+                    "poll_voter_row",
+                  )
+                : _;
+              if (t != null) {
+                var n = ++m;
+                o("WAWebFindChatAction")
+                  .findOrCreateLatestChat(t, "pollVoterRow")
+                  .then(function (e) {
+                    var t = e.chat;
+                    n === m && (a == null || a(t));
+                  })
+                  .catch(function () {
+                    return o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[polls] failed to open voter contact info",
+                          ])),
+                      )
+                      .sendLogs("polls-voter-open-contact-info");
+                  });
+              }
+            }
+          : null,
+        I = r("useWAWebContactFormattedUsernameOrPhoneByChat")(L, s),
+        T = I.formattedUsernameOrPhone,
+        D = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(L),
+        x =
+          o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(s) &&
+          (D ||
             (v && b === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH)),
-        D,
-        x;
-      if (T) {
-        var $;
-        t[4] !== C
-          ? (($ = o("WAWebChatContactUtils").getAccessibleNotifyName(C)),
-            (t[4] = C),
-            (t[5] = $))
-          : ($ = t[5]);
-        var P;
-        t[6] !== C
-          ? ((P = o("WAWebChatContactUtils").getFormattedNotifyName(C)),
-            (t[6] = C),
-            (t[7] = P))
-          : (P = t[7]);
-        var N;
-        (t[8] !== $ || t[9] !== P
-          ? ((N = u.jsx(f, { accessibleUserName: $, formattedUserName: P })),
-            (t[8] = $),
-            (t[9] = P),
-            (t[10] = N))
-          : (N = t[10]),
-          (D = N));
-        var M;
-        (t[11] !== k
-          ? ((M = u.jsx(o("WAWebEmojiText.react").EmojiText, {
-              direction: "auto",
-              text: k,
-            })),
-            (t[11] = k),
-            (t[12] = M))
-          : (M = t[12]),
-          (x = M));
-      } else if (v && S != null) {
-        var w;
-        t[13] !== S
-          ? ((w = o("WAWebChatContactUtils").getAccessibleNotifyName(S)),
-            (t[13] = S),
-            (t[14] = w))
-          : (w = t[14]);
-        var A;
-        t[15] !== S
-          ? ((A = o("WAWebChatContactUtils").getFormattedNotifyName(S)),
-            (t[15] = S),
-            (t[16] = A))
-          : (A = t[16]);
-        var F;
-        (t[17] !== w || t[18] !== A
-          ? ((F = u.jsx(f, { accessibleUserName: w, formattedUserName: A })),
-            (t[17] = w),
-            (t[18] = A),
-            (t[19] = F))
-          : (F = t[19]),
-          (D = F));
-        var O;
-        (t[20] !== k
-          ? ((O = u.jsx(o("WAWebEmojiText.react").EmojiText, {
-              direction: "auto",
-              text: k,
-            })),
-            (t[20] = k),
-            (t[21] = O))
-          : (O = t[21]),
-          (x = O));
-      } else {
-        var B;
-        (t[22] !== y
-          ? ((B = u.jsx(f, {
-              accessibleUserName: void 0,
-              formattedUserName: y,
-            })),
-            (t[22] = y),
-            (t[23] = B))
-          : (B = t[23]),
-          (D = B),
-          (x = null));
-      }
-      var W;
-      t[24] !== s
-        ? ((W = u.jsx(g, { timestamp: s })), (t[24] = s), (t[25] = W))
-        : (W = t[25]);
-      var q;
+        $,
+        P;
       return (
-        t[26] !== _ || t[27] !== D || t[28] !== x || t[29] !== W
-          ? ((q = u.jsx(h, {
-              id: _,
-              primary: D,
-              primaryDetail: x,
-              secondary: W,
+        x
+          ? (($ = c.jsx(h, {
+              accessibleUserName: o(
+                "WAWebChatContactUtils",
+              ).getAccessibleNotifyName(g),
+              formattedUserName: o(
+                "WAWebChatContactUtils",
+              ).getFormattedNotifyName(g),
             })),
-            (t[26] = _),
-            (t[27] = D),
-            (t[28] = x),
-            (t[29] = W),
-            (t[30] = q))
-          : (q = t[30]),
-        q
+            (P = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+              direction: "auto",
+              text: T,
+            })))
+          : v && S != null
+            ? (($ = c.jsx(h, {
+                accessibleUserName: o(
+                  "WAWebChatContactUtils",
+                ).getAccessibleNotifyName(S),
+                formattedUserName: o(
+                  "WAWebChatContactUtils",
+                ).getFormattedNotifyName(S),
+              })),
+              (P = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+                direction: "auto",
+                text: T,
+              })))
+            : (($ = c.jsx(h, {
+                accessibleUserName: void 0,
+                formattedUserName: f,
+              })),
+              (P = null)),
+        c.jsx(C, {
+          id: _,
+          onClick: k,
+          primary: $,
+          primaryDetail: P,
+          secondary: c.jsx(y, { timestamp: u }),
+        })
       );
     }
-    function f(e) {
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
       var t = o("react-compiler-runtime").c(4),
         n = e.accessibleUserName,
         r = e.formattedUserName,
@@ -275,7 +249,7 @@ __d(
         s;
       return (
         t[1] !== n || t[2] !== r
-          ? ((s = u.jsx(o("WAWebEmojiText.react").EmojiText, {
+          ? ((s = c.jsx(o("WAWebEmojiText.react").EmojiText, {
               direction: "auto",
               text: r,
               ariaLabel: n,
@@ -290,97 +264,108 @@ __d(
         s
       );
     }
-    function g(t) {
-      var n = o("react-compiler-runtime").c(8),
-        a = t.timestamp,
-        i,
-        l,
-        s;
-      if (n[0] !== a) {
-        var c = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
-          d = c.pollDetailsOptionTextSize;
-        ((i = o("WAWebClock").Clock.relativeDateAndTimeStr(a / 1e3)),
-          (l = i),
-          (s = (e || (e = r("stylex"))).props(d)),
-          (n[0] = a),
-          (n[1] = i),
-          (n[2] = l),
-          (n[3] = s));
-      } else ((i = n[1]), (l = n[2]), (s = n[3]));
-      var m;
-      return (
-        n[4] !== i || n[5] !== l || n[6] !== s
-          ? ((m = u.jsx(
-              "span",
-              babelHelpers.extends({ title: l }, s, { children: i }),
-            )),
-            (n[4] = i),
-            (n[5] = l),
-            (n[6] = s),
-            (n[7] = m))
-          : (m = n[7]),
-        m
-      );
-    }
-    function h(e) {
+    function y(e) {
       var t = o("react-compiler-runtime").c(8),
-        n = e.id,
-        a = e.primary,
-        i = e.primaryDetail,
-        l = e.secondary,
-        s;
-      t[0] !== n
-        ? ((s = u.jsx(o("WAWebDetailImage.react").DetailImage, {
-            xstyle: c.marginInlineStart9,
-            id: n,
-            size: o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
-          })),
+        n = e.timestamp,
+        a,
+        i,
+        l;
+      if (t[0] !== n) {
+        var u = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
+          d = u.pollDetailsOptionTextSize;
+        ((a = o("WAWebClock").Clock.relativeDateAndTimeStr(n / 1e3)),
+          (i = a),
+          (l = (s || (s = r("stylex"))).props(d)),
           (t[0] = n),
-          (t[1] = s))
-        : (s = t[1]);
-      var d;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = { cursor: "auto" }), (t[2] = d))
-        : (d = t[2]);
+          (t[1] = a),
+          (t[2] = i),
+          (t[3] = l));
+      } else ((a = t[1]), (i = t[2]), (l = t[3]));
       var m;
       return (
-        t[3] !== a || t[4] !== i || t[5] !== l || t[6] !== s
-          ? ((m = u.jsx(r("WAWebChatCell.react"), {
-              contextEnabled: o("WAWebBoolFunc").returnFalse,
-              image: s,
-              primary: a,
-              secondary: l,
-              primaryDetail: i,
-              style: d,
-              theme: "chat-info",
-              idle: !0,
-            })),
-            (t[3] = a),
-            (t[4] = i),
-            (t[5] = l),
-            (t[6] = s),
+        t[4] !== a || t[5] !== i || t[6] !== l
+          ? ((m = c.jsx(
+              "span",
+              babelHelpers.extends({ title: i }, l, { children: a }),
+            )),
+            (t[4] = a),
+            (t[5] = i),
+            (t[6] = l),
             (t[7] = m))
           : (m = t[7]),
         m
       );
     }
-    function y(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.vote,
-        r;
+    function C(e) {
+      var t = o("react-compiler-runtime").c(10),
+        n = e.id,
+        a = e.onClick,
+        i = e.primary,
+        l = e.primaryDetail,
+        s = e.secondary,
+        u = a != null,
+        m = !u,
+        p;
+      t[0] !== n
+        ? ((p = c.jsx(o("WAWebDetailImage.react").DetailImage, {
+            xstyle: d.marginInlineStart9,
+            id: n,
+            size: o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
+          })),
+          (t[0] = n),
+          (t[1] = p))
+        : (p = t[1]);
+      var _;
       return (
-        t[0] !== n
-          ? ((r =
-              n instanceof o("WAWebPollsPollVoteModel").PollVote
-                ? u.jsx(_, { vote: n })
-                : u.jsx(d, { vote: n })),
-            (t[0] = n),
-            (t[1] = r))
-          : (r = t[1]),
-        r
+        t[2] !== u ||
+        t[3] !== a ||
+        t[4] !== i ||
+        t[5] !== l ||
+        t[6] !== s ||
+        t[7] !== m ||
+        t[8] !== p
+          ? ((_ = c.jsx(r("WAWebChatCell.react"), {
+              contextEnabled: o("WAWebBoolFunc").returnFalse,
+              handleKeyboardClick: u,
+              idle: m,
+              image: p,
+              onClick: a,
+              primary: i,
+              primaryDetail: l,
+              secondary: s,
+              theme: "chat-info",
+            })),
+            (t[2] = u),
+            (t[3] = a),
+            (t[4] = i),
+            (t[5] = l),
+            (t[6] = s),
+            (t[7] = m),
+            (t[8] = p),
+            (t[9] = _))
+          : (_ = t[9]),
+        _
       );
     }
-    l.default = y;
+    function b(e) {
+      var t = o("react-compiler-runtime").c(3),
+        n = e.onOpenContactInfo,
+        r = e.vote,
+        a;
+      return (
+        t[0] !== n || t[1] !== r
+          ? ((a =
+              r instanceof o("WAWebPollsPollVoteModel").PollVote
+                ? c.jsx(g, { vote: r, onOpenContactInfo: n })
+                : c.jsx(p, { vote: r })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
+    }
+    l.default = b;
   },
   98,
 );

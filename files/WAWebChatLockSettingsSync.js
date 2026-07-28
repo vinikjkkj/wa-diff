@@ -2,10 +2,10 @@ __d(
   "WAWebChatLockSettingsSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebChatLockSettings",
     "WAWebProtobufsUserPassword.pb",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -24,7 +24,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -36,7 +36,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.ChatLockSettings;
+            return o("WAWebSyncdConst").Actions.ChatLockSettings;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -57,7 +57,7 @@ __d(
                         i.length < 3 && i.push(e.operation),
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var t = e.value.chatLockSettings;
@@ -128,7 +128,7 @@ __d(
                       };
                     }
                     return {
-                      actionState: o("WASyncdConst").SyncActionState.Success,
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     };
                   });
                 if (

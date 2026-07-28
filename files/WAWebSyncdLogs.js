@@ -2,8 +2,8 @@ __d(
   "WAWebSyncdLogs",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebPriorLogs",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
     "compactMap",
   ],
@@ -36,7 +36,9 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [].concat(
-              Array.from(e ? [e] : o("WASyncdConst").CollectionName.members()),
+              Array.from(
+                e ? [e] : o("WAWebSyncdConst").CollectionName.members(),
+              ),
               [""],
             ),
             n = r("compactMap")(t, function (e) {

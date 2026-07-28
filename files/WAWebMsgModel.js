@@ -24,6 +24,7 @@ __d(
     "WAWebDirectConnectionGatingUtils",
     "WAWebEventsWaitForBbEvent",
     "WAWebFrontendMsgGetters",
+    "WAWebInteractiveMessageCarouselConstants",
     "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaTypes",
@@ -755,28 +756,38 @@ __d(
               t,
               n = this.carouselCardsParsed;
             if (n != null) {
-              var o =
+              var a =
+                  n.length >
+                  o("WAWebInteractiveMessageCarouselConstants")
+                    .MAX_CAROUSEL_CARDS
+                    ? n.slice(
+                        0,
+                        o("WAWebInteractiveMessageCarouselConstants")
+                          .MAX_CAROUSEL_CARDS,
+                      )
+                    : n,
+                i =
                   (e =
                     (t = this.carouselCards) == null
                       ? void 0
                       : t.getCardsById()) != null
                     ? e
                     : {},
-                a = [];
-              for (var i of n) {
-                var l = i.id.toString();
-                if (o[l] != null) {
-                  var s = o[l];
-                  (s.set(i), a.push(s));
+                l = [];
+              for (var s of a) {
+                var u = s.id.toString();
+                if (i[u] != null) {
+                  var c = i[u];
+                  (c.set(s), l.push(c));
                 } else {
-                  var u = babelHelpers.extends({}, i);
-                  a.push(u);
+                  var d = babelHelpers.extends({}, s);
+                  l.push(d);
                 }
               }
-              var c = new (r("WAWebCarouselCardsCollection"))();
-              (c.add(a),
-                (this.carouselCards = c),
-                this.getCollection().add(c.slice()));
+              var m = new (r("WAWebCarouselCardsCollection"))();
+              (m.add(l),
+                (this.carouselCards = m),
+                this.getCollection().add(m.slice()));
             }
           }),
           (i.$MsgImpl$p_18 = function () {

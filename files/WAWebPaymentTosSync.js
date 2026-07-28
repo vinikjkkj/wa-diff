@@ -2,13 +2,13 @@ __d(
   "WAWebPaymentTosSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebMobilePlatforms",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebUserPrefsPaymentTos",
     "asyncToGeneratorRuntime",
@@ -24,7 +24,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -36,7 +36,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.PaymentTos;
+            return o("WAWebSyncdConst").Actions.PaymentTos;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -53,7 +53,7 @@ __d(
                     t.map(function () {
                       return {
                         actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
                       };
                     })
                   );
@@ -72,7 +72,7 @@ __d(
                     t.map(function () {
                       return {
                         actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
                       };
                     })
                   );
@@ -84,7 +84,7 @@ __d(
                         r++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var t = e.value.paymentTosAction;
@@ -96,7 +96,7 @@ __d(
                       : (o("WAWebUserPrefsPaymentTos").setPaymentTos(t),
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Success,
+                            o("WAWebSyncdConst").SyncActionState.Success,
                         });
                   });
                 return (

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
@@ -20,6 +19,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
@@ -46,7 +46,8 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             (e.chatJidIndex = 1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
@@ -63,7 +64,7 @@ __d(
             return 6;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.DeleteChat;
+            return o("WAWebSyncdConst").Actions.DeleteChat;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -109,7 +110,8 @@ __d(
                                 if (!d.success)
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: d.orphanModel,
                                   };
                                 var m = o("WAWebWidFactory").createWid(
@@ -129,14 +131,14 @@ __d(
                                 l++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -297,7 +299,7 @@ __d(
                   );
                 }
                 return {
-                  actionState: o("WASyncdConst").SyncActionState.Success,
+                  actionState: o("WAWebSyncdConst").SyncActionState.Success,
                 };
               },
             );
@@ -320,7 +322,7 @@ __d(
                     "WAWebSyncdGetChat",
                   ).getChatJidMutationIndexForChat(
                     t,
-                    o("WASyncdConst").Actions.DeleteChat,
+                    o("WAWebSyncdConst").Actions.DeleteChat,
                   ),
                   i = o("WAWebWidFactory").createWid(a),
                   l = yield o(
@@ -393,17 +395,18 @@ __d(
                 switch (_) {
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeAEnclosesRangeB:
-                    return o("WASyncdConst").ConflictResolutionState
+                    return o("WAWebSyncdConst").ConflictResolutionState
                       .ApplyRemoteAndDropLocal;
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeBEnclosesRangeA:
-                    return o("WASyncdConst").ConflictResolutionState.SkipRemote;
+                    return o("WAWebSyncdConst").ConflictResolutionState
+                      .SkipRemote;
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesAreEqual:
                     return s <= u
-                      ? o("WASyncdConst").ConflictResolutionState
+                      ? o("WAWebSyncdConst").ConflictResolutionState
                           .ApplyRemoteAndDropLocal
-                      : o("WASyncdConst").ConflictResolutionState.SkipRemote;
+                      : o("WAWebSyncdConst").ConflictResolutionState.SkipRemote;
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesNotEnclosing: {
                     var f = o("WAWebMessageRangeUtils").mergeMessageRanges(
@@ -457,7 +460,7 @@ __d(
                           },
                         ),
                       ),
-                      o("WASyncdConst").ConflictResolutionState
+                      o("WAWebSyncdConst").ConflictResolutionState
                         .SkipRemoteAndDropLocal
                     );
                   }

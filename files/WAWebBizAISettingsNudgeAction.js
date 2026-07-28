@@ -3,11 +3,11 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebBizAISettingsVersionCollection",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
   ],
@@ -27,7 +27,7 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = o("WATimeUtils").unixTimeMs(),
             a = o("WAWebSyncdActionUtils").buildPendingMutation({
-              collection: o("WASyncdConst").CollectionName.RegularHigh,
+              collection: o("WAWebSyncdConst").CollectionName.RegularHigh,
               indexArgs: [String(e)],
               value: {
                 bizAiSettingsNudgeAction: {
@@ -40,7 +40,7 @@ __d(
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.SET,
               timestamp: r,
-              action: o("WASyncdConst").Actions.BizAiSettingsNudge,
+              action: o("WAWebSyncdConst").Actions.BizAiSettingsNudge,
             });
           yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
             return (u || (u = n("Promise"))).resolve();

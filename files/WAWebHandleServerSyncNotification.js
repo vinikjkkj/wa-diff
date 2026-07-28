@@ -4,12 +4,12 @@ __d(
     "Promise",
     "WADeprecatedWapParser",
     "WALogger",
-    "WASyncdConst",
     "WAWap",
     "WAWebHandleReportServerSyncNotification",
     "WAWebSyncBootstrap",
     "WAWebSyncd",
     "WAWebSyncdCollectionUtils",
+    "WAWebSyncdConst",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -51,7 +51,7 @@ __d(
         for (var i of e.changedCollections) {
           var l = i[0],
             d = i[1],
-            p = o("WASyncdConst").CollectionName.cast(l);
+            p = o("WAWebSyncdConst").CollectionName.cast(l);
           p != null ? t.set(p, d) : a.length < 3 && a.push(l);
         }
         a.length > 0 &&

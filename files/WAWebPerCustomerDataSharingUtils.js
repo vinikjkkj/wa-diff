@@ -36,10 +36,10 @@ __d(
         return !1;
       var n = o("WAWebWidFactory").createWid(e);
       if (!n.isUser()) return !1;
-      var a = o("WAWebChatCollection").ChatCollection.get(n);
+      var r = o("WAWebChatCollection").ChatCollection.get(n);
       return !(
-        a == null ||
-        r("WAWebCommonCTWADataSharing").getReceivedCTWAEligibilityFromChat(a) ==
+        r == null ||
+        o("WAWebCommonCTWADataSharing").getReceivedCTWAEligibilityFromChat(r) ==
           null ||
         (t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset &&
           (o(
@@ -52,7 +52,7 @@ __d(
     }
     function c(e) {
       if (e == null) return !1;
-      var t = r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
+      var t = o("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
         o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
         o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
       );
@@ -120,7 +120,7 @@ __d(
         var l = o(
             "WAWebDataSharing3pdLidCollection",
           ).DataSharing3pdLidCollection.isDataSharingEnabled(t),
-          u = r("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
+          u = o("WAWebCommonCTWADataSharing").isGlobalDataSharingAccepted(
             o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
             o("WAWebCTWADataSharingModel").CTWADataSharingModel.getVersion(),
           );

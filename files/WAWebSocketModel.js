@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebAddMeContactAction",
     "WAWebBackendApi",
@@ -32,7 +33,6 @@ __d(
     "WAWebSocketLogoutUtils",
     "WAWebSubscribePushManagerAction",
     "WAWebSyncBootstrap",
-    "WAWebSyncdGatingUtils",
     "WAWebUpdater",
     "WAWebUserPrefsAppStateSync",
     "WAWebUserPrefsKeys",
@@ -383,7 +383,9 @@ __d(
                 s,
                 Math.max(
                   l,
-                  o("WAWebSyncdGatingUtils").getSyncdSentinelTimeoutSeconds(),
+                  o("WAWebABProps").getABPropConfigValue(
+                    "syncd_sentinel_timeout_seconds",
+                  ),
                 ),
               );
             i = o("WAPromiseTimeout")

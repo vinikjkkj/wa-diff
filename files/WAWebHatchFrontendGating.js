@@ -1,13 +1,12 @@
 __d(
   "WAWebHatchFrontendGating",
-  ["WAWebABProps", "WAWebPrimaryFeaturesModel"],
+  ["WAWebABProps", "WAWebHatchGating", "WAWebPrimaryFeaturesModel"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return (
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-          .aiBotIntegrationEnabled &&
-        o("WAWebABProps").getABPropConfigValue("ai_hatch_integration_enabled")
-      );
+      return o("WAWebHatchGating").isHatchIntegrationEnabledForPrimaryFeature({
+        primaryAiBotIntegrationEnabled: o("WAWebPrimaryFeaturesModel")
+          .PrimaryFeatures.aiBotIntegrationEnabled,
+      });
     }
     function s() {
       return o("WAWebABProps").getABPropConfigValue(

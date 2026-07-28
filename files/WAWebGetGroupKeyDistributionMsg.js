@@ -17,15 +17,15 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n, r, o, a, i) {
-      return m.apply(this, arguments);
+    var e, s, u;
+    function c(e, t, n, r, o, a, i) {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, u, d, m) {
-            var p = {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l, c, d, p) {
+            var _ = {
               senderKeyDistributionMessage: {
                 groupId: a.toString({ legacy: !0 }),
                 axolotlSenderKeyDistributionMessage: l,
@@ -41,11 +41,11 @@ __d(
                 t == null ? void 0 : t.id.toString(),
               )
               .tags("messaging");
-            var _ = yield f({
+            var f = yield m({
                 dsmPhash: d,
                 groupId: a,
-                proto: p,
-                shouldWrapDeviceSendMessage: u,
+                proto: _,
+                shouldWrapDeviceSendMessage: c,
                 skDistributionList: i,
               }),
               g = i.map(
@@ -55,16 +55,16 @@ __d(
                       try {
                         var t,
                           a =
-                            (t = _.get(
+                            (t = f.get(
                               o("WAWebWidFactory")
                                 .asUserWidOrThrow(e)
                                 .toString(),
                             )) != null
                               ? t
-                              : babelHelpers.extends({}, p),
+                              : babelHelpers.extends({}, _),
                           i = yield o(
                             "WAWebEncryptMsgProtobuf",
-                          ).encryptMsgProtobuf(e, 0, a, void 0, void 0, m);
+                          ).encryptMsgProtobuf(e, 0, a, void 0, void 0, p);
                         return {
                           type: i.type,
                           ciphertext: i.ciphertext,
@@ -72,7 +72,7 @@ __d(
                         };
                       } catch (t) {
                         var l,
-                          u = o("WAWebApiContact").getAlternateUserWid(
+                          c = o("WAWebApiContact").getAlternateUserWid(
                             o("WAWebWidFactory").asUserWidOrThrow(e),
                           );
                         if (
@@ -86,7 +86,7 @@ __d(
                                   "",
                                 ])),
                               e.toString(),
-                              (l = u == null ? void 0 : u.toString()) != null
+                              (l = c == null ? void 0 : c.toString()) != null
                                 ? l
                                 : "null",
                               t,
@@ -94,7 +94,7 @@ __d(
                             .tags("messaging"),
                           o("WAWebSendMsgCommonApi").isPrimaryDevice(e))
                         )
-                          return (c || (c = n("Promise"))).reject(
+                          return (u || (u = n("Promise"))).reject(
                             r("err")(
                               "getKeyDistributionMsg: encryption fail for primary device",
                             ),
@@ -107,115 +107,30 @@ __d(
                   };
                 })(),
               ),
-              h = yield (c || (c = n("Promise"))).all(g);
+              h = yield (u || (u = n("Promise"))).all(g);
             return h.filter(Boolean);
           },
         )),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function p(e, t, n, r) {
-      return _.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a) {
-            if (t.length === 0) return null;
-            var i = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-              l = yield o("WAWebApiDeviceList").bulkGetDeviceRecord([i]),
-              s = l[0],
-              d = null;
-            try {
-              d = yield o("WAWebIdentityIcdcApi").getICDCMetaFromDeviceRecord(
-                i,
-                s,
-              );
-            } catch (e) {
-              throw (
-                new (o(
-                  "WAWebAdvMetadataCreationFailureWamEvent",
-                ).AdvMetadataCreationFailureWamEvent)({
-                  advMetadataIsMe: !0,
-                }).commit(),
-                e
-              );
-            }
-            var m = o("WAWebDeviceSentMessageProtoUtils").wrapDeviceSentMessage(
-              a,
-              e,
-            );
-            (m.deviceSentMessage != null &&
-              (m = babelHelpers.extends({}, m, {
-                deviceSentMessage: babelHelpers.extends(
-                  {},
-                  m.deviceSentMessage,
-                  { phash: r },
-                ),
-              })),
-              o("WAWebE2EProtoGenerator").populateMessageContextInfo(
-                m,
-                d,
-                null,
-              ));
-            var p = t.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      try {
-                        var t = yield o(
-                          "WAWebEncryptMsgProtobuf",
-                        ).encryptMsgProtobuf(e, 0, m);
-                        return {
-                          type: t.type,
-                          ciphertext: t.ciphertext,
-                          participant: e,
-                        };
-                      } catch (t) {
-                        o("WALogger")
-                          .LOG(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
-                                "getCompanionDsmPhashMsg: encryption fail for ",
-                                ", ",
-                                "",
-                              ])),
-                            e.toString(),
-                            t,
-                          )
-                          .tags("messaging");
-                      }
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-              _ = yield (c || (c = n("Promise"))).all(p);
-            return _.filter(Boolean);
-          },
-        )),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.dsmPhash,
             r = e.groupId,
             a = e.proto,
             i = e.shouldWrapDeviceSendMessage,
             l = e.skDistributionList,
             s = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-            u = [].concat(
+            c = [].concat(
               Array.from(new Set(l.map(o("WAWebWidFactory").asUserWidOrThrow))),
             ),
             d = yield o("WAWebApiDeviceList").bulkGetDeviceRecord(
-              [s].concat(u),
+              [s].concat(c),
             ),
             m = d[0],
             p = babelHelpers.arrayLikeToArray(d).slice(1),
@@ -237,14 +152,14 @@ __d(
           }
           var f = new Map();
           return (
-            yield (c || (c = n("Promise"))).all(
+            yield (u || (u = n("Promise"))).all(
               p.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e, n) {
-                      var l = u[n],
+                      var l = c[n],
                         s = babelHelpers.extends({}, a),
-                        c = null;
+                        u = null;
                       if (o("WAWebUserPrefsMeUser").isMeAccount(l))
                         i &&
                           ((s = o(
@@ -261,7 +176,7 @@ __d(
                             })));
                       else
                         try {
-                          c = yield o(
+                          u = yield o(
                             "WAWebIdentityIcdcApi",
                           ).getICDCMetaFromDeviceRecord(l, e);
                         } catch (e) {
@@ -277,7 +192,7 @@ __d(
                       (o("WAWebE2EProtoGenerator").populateMessageContextInfo(
                         s,
                         _,
-                        c,
+                        u,
                       ),
                         f.set(l.toString(), s));
                     },
@@ -291,12 +206,10 @@ __d(
             f
           );
         })),
-        g.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.getKeyDistributionMsg = d),
-      (l.getCompanionDsmPhashMsg = p),
-      (l.generateMsgProtobufs = f));
+    ((l.getKeyDistributionMsg = c), (l.generateMsgProtobufs = m));
   },
   98,
 );

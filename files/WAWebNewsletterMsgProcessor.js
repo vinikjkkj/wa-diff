@@ -47,7 +47,10 @@ __d(
             (m.isWamoSub = e.isWamoSub),
             e.hasPaidPartnershipLabel != null &&
               o("WAWebNewsletterGatingUtils").isChannelDSA26ReceiverEnabled() &&
-              (m.hasPaidPartnershipLabel = e.hasPaidPartnershipLabel));
+              (m.hasPaidPartnershipLabel = e.hasPaidPartnershipLabel),
+            e.hasSelfDisclosedAiContent != null &&
+              o("WAWebNewsletterGatingUtils").isChannelSGIReceiverEnabled() &&
+              (m.hasSelfDisclosedAiContent = e.hasSelfDisclosedAiContent));
           var p = o("WAWebNewsletterMsgUtils").mapMsgStanzaToMsgData(
               { msg: e, msgContext: m },
               "relay",

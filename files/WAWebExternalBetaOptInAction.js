@@ -2,12 +2,12 @@ __d(
   "WAWebExternalBetaOptInAction",
   [
     "Promise",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebExternalBetaApi",
     "WAWebExternalWebBetaSync",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,7 +15,7 @@ __d(
     function s(e, t) {
       var n = { externalWebBetaAction: { isOptIn: t } };
       return o("WAWebSyncdActionUtils").buildPendingMutation({
-        collection: o("WASyncdConst").CollectionName.Regular,
+        collection: o("WAWebSyncdConst").CollectionName.Regular,
         indexArgs: [],
         value: n,
         version: r("WAWebExternalWebBetaSync").getVersion(),

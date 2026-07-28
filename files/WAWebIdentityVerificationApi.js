@@ -91,17 +91,19 @@ __d(
         C.apply(this, arguments)
       );
     }
-    function b(e, t, n, r) {
+    function b(e) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, o) {
-            var a = yield (d || (d = n("Promise"))).all([y(e, t), y(r, o)]);
-            return a.sort().join("");
-          },
-        )),
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.localIdentifier,
+            r = e.localIdentityKeyList,
+            o = e.remoteIdentifier,
+            a = e.remoteIdentityKeyList,
+            i = yield (d || (d = n("Promise"))).all([y(t, r), y(o, a)]);
+          return i.sort().join("");
+        })),
         v.apply(this, arguments)
       );
     }
@@ -313,7 +315,13 @@ __d(
                 o("WAWebUsernameGatingUtils").canShowV3NumericCode() &&
                 O != null &&
                 B != null;
-            V && (U = b(r("nullthrows")(O), N, r("nullthrows")(B), M));
+            V &&
+              (U = b({
+                localIdentifier: r("nullthrows")(O),
+                localIdentityKeyList: N,
+                remoteIdentifier: r("nullthrows")(B),
+                remoteIdentityKeyList: M,
+              }));
             var H = null,
               G =
                 (r("WAWebEnvironment").isGuest ||
@@ -326,7 +334,12 @@ __d(
             if (G) {
               var z = _(m),
                 j = _(r("nullthrows")(C));
-              H = b(z, N, j, M);
+              H = b({
+                localIdentifier: z,
+                localIdentityKeyList: N,
+                remoteIdentifier: j,
+                remoteIdentityKeyList: M,
+              });
             }
             var K = o(
                 "WAWebUsernameGatingUtils",

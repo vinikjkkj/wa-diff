@@ -2,7 +2,7 @@ __d(
   "WAWebBizCatalogParseProduct",
   [
     "WAWebBizCartConstants",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebSignedShimmedUrl",
     "WAWebSyntheticCountryCode",
   ],
@@ -19,7 +19,7 @@ __d(
         d =
           (t = e.maybeAttrString("availability")) != null
             ? t
-            : o("WAWebProductTypes.flow").ProductAvailability.UNKNOWN,
+            : o("WAWebProductTypes").ProductAvailability.UNKNOWN,
         m = o("WAWebBizCartConstants").CART_ITEM_MAX_QUANTITY,
         p = e.maybeAttrString("max_available");
       p != null && (m = Number(p));
@@ -87,10 +87,10 @@ __d(
         w = M ? M.contentString() : "",
         A = e.hasAttr("is_hidden") ? e.attrString("is_hidden") === "true" : !1,
         F = e.hasAttr("compliance_category")
-          ? o("WAWebProductTypes.flow").ProductComplianceCategory.cast(
+          ? o("WAWebProductTypes").ProductComplianceCategory.cast(
               e.attrString("compliance_category"),
             )
-          : o("WAWebProductTypes.flow").ProductComplianceCategory.Default,
+          : o("WAWebProductTypes").ProductComplianceCategory.Default,
         O = e.maybeChild("sale_price"),
         B = O
           ? babelHelpers.extends(
@@ -134,8 +134,7 @@ __d(
           B,
         ),
         U = e.maybeChild("compliance_info");
-      F ===
-      o("WAWebProductTypes.flow").ProductComplianceCategory.CountryOriginExempt
+      F === o("WAWebProductTypes").ProductComplianceCategory.CountryOriginExempt
         ? (q.compliance_info = c())
         : U && (q.compliance_info = s(U));
       var V = e.maybeChild("shimmed_url");

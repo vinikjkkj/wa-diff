@@ -48,9 +48,15 @@ __d(
         r
       );
     }
+    function m(e) {
+      return babelHelpers.extends({}, e != null ? e : {}, {
+        selfDisclosed: !0,
+      });
+    }
     ((i.hasAIProvenanceSignal = l),
       (i.aiProvenanceFromProto = u),
-      (i.aiProvenanceToProto = d));
+      (i.aiProvenanceToProto = d),
+      (i.withSelfDisclosed = m));
   },
   66,
 );

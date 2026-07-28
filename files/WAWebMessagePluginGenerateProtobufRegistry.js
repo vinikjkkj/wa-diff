@@ -13,7 +13,7 @@ __d(
     "WAWebGenerateDocumentMessageProto",
     "WAWebGenerateEncCommentMessageProto",
     "WAWebGenerateEphemeralSyncResponseMessageProto",
-    "WAWebGenerateExtendedTextUrlChatMessageProto",
+    "WAWebGenerateExtendedTextMessageProtoUtils",
     "WAWebGenerateGroupInviteMessageProto",
     "WAWebGenerateHatchMetadataSyncProto",
     "WAWebGenerateImageMessageProto",
@@ -86,7 +86,7 @@ __d(
         {
           type: "chat",
           subtype: "url",
-          generateProtobuf: r("WAWebGenerateExtendedTextUrlChatMessageProto"),
+          generateProtobuf: r("WAWebGenerateExtendedTextMessageProtoUtils"),
         },
         {
           type: "chat",

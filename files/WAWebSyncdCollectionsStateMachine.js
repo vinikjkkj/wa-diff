@@ -2,9 +2,9 @@ __d(
   "WAWebSyncdCollectionsStateMachine",
   [
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebGetCollectionVersion",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
     "compactMap",
   ],
@@ -68,13 +68,13 @@ __d(
             return e
               ? e.state
               : (this.moveCollectionsToUpToDate([t]),
-                o("WASyncdConst").CollectionSyncState.UpToDate);
+                o("WAWebSyncdConst").CollectionSyncState.UpToDate);
           }),
           (t.getCollectionsInStateDirty = function () {
             var e = [];
             return (
               this.collectionStates.forEach(function (t) {
-                t.state === o("WASyncdConst").CollectionSyncState.Dirty &&
+                t.state === o("WAWebSyncdConst").CollectionSyncState.Dirty &&
                   e.push(t.collection);
               }),
               e
@@ -85,7 +85,7 @@ __d(
             return (
               this.collectionStates.forEach(function (t) {
                 t.state ===
-                  o("WASyncdConst").CollectionSyncState.FailingFiniteRetry &&
+                  o("WAWebSyncdConst").CollectionSyncState.FailingFiniteRetry &&
                   e.push(t.collection);
               }),
               e
@@ -95,7 +95,7 @@ __d(
             var e = [];
             return (
               this.collectionStates.forEach(function (t) {
-                t.state === o("WASyncdConst").CollectionSyncState.Fatal &&
+                t.state === o("WAWebSyncdConst").CollectionSyncState.Fatal &&
                   e.push(t.collection);
               }),
               e
@@ -105,7 +105,7 @@ __d(
             var e = [];
             return (
               this.collectionStates.forEach(function (t) {
-                t.state === o("WASyncdConst").CollectionSyncState.Blocked &&
+                t.state === o("WAWebSyncdConst").CollectionSyncState.Blocked &&
                   e.push(t.collection);
               }),
               e
@@ -116,7 +116,7 @@ __d(
             t.forEach(function (t) {
               return e.collectionStates.set(t, {
                 collection: t,
-                state: o("WASyncdConst").CollectionSyncState.UpToDate,
+                state: o("WAWebSyncdConst").CollectionSyncState.UpToDate,
                 finiteFailureStartTime: void 0,
               });
             });
@@ -127,7 +127,7 @@ __d(
               var n;
               return e.collectionStates.set(t, {
                 collection: t,
-                state: o("WASyncdConst").CollectionSyncState.Dirty,
+                state: o("WAWebSyncdConst").CollectionSyncState.Dirty,
                 finiteFailureStartTime:
                   (n = e.collectionStates.get(t)) == null
                     ? void 0
@@ -141,7 +141,8 @@ __d(
               var n, r;
               return e.collectionStates.set(t, {
                 collection: t,
-                state: o("WASyncdConst").CollectionSyncState.FailingFiniteRetry,
+                state:
+                  o("WAWebSyncdConst").CollectionSyncState.FailingFiniteRetry,
                 finiteFailureStartTime:
                   (n =
                     (r = e.collectionStates.get(t)) == null
@@ -157,7 +158,7 @@ __d(
             t.forEach(function (t) {
               return e.collectionStates.set(t, {
                 collection: t,
-                state: o("WASyncdConst").CollectionSyncState.Fatal,
+                state: o("WAWebSyncdConst").CollectionSyncState.Fatal,
               });
             });
           }),
@@ -167,7 +168,7 @@ __d(
               var n;
               return e.collectionStates.set(t, {
                 collection: t,
-                state: o("WASyncdConst").CollectionSyncState.Blocked,
+                state: o("WAWebSyncdConst").CollectionSyncState.Blocked,
                 finiteFailureStartTime:
                   (n = e.collectionStates.get(t)) == null
                     ? void 0
@@ -183,13 +184,14 @@ __d(
               this.collectionStates.forEach(function (r) {
                 if (
                   r.state ===
-                  o("WASyncdConst").CollectionSyncState.FailingFiniteRetry
+                  o("WAWebSyncdConst").CollectionSyncState.FailingFiniteRetry
                 ) {
                   var a;
                   r.finiteFailureStartTime == null
                     ? ((a = 1 / 0), n++, t.length < 3 && t.push(r.collection))
                     : (a = r.finiteFailureStartTime);
-                  var i = a + o("WASyncdConst").FINITE_FAILURE_EXPIRY_DURATION;
+                  var i =
+                    a + o("WAWebSyncdConst").FINITE_FAILURE_EXPIRY_DURATION;
                   i < o("WATimeUtils").unixTimeMs() && e.push(r.collection);
                 }
               }),
@@ -212,7 +214,7 @@ __d(
                 function (e) {
                   return (
                     e.state ===
-                    o("WASyncdConst").CollectionSyncState.FailingFiniteRetry
+                    o("WAWebSyncdConst").CollectionSyncState.FailingFiniteRetry
                   );
                 },
               ),

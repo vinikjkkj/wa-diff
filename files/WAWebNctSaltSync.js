@@ -4,8 +4,8 @@ __d(
     "Promise",
     "WABase64",
     "WALogger",
-    "WASyncdConst",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "asyncToGeneratorRuntime",
@@ -24,7 +24,8 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -36,7 +37,7 @@ __d(
             return 1;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.NctSaltSync;
+            return o("WAWebSyncdConst").Actions.NctSaltSync;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -50,7 +51,7 @@ __d(
                   l = r("countWhere")(i, function (e) {
                     return (
                       e.actionState ===
-                      o("WASyncdConst").SyncActionState.Success
+                      o("WAWebSyncdConst").SyncActionState.Success
                     );
                   });
                 return (
@@ -90,7 +91,9 @@ __d(
                     ).userPrefsIdb.remove(
                       o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.NCT_SALT,
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Success }
+                    {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
+                    }
                   );
                 if (e.operation !== "set")
                   return (
@@ -104,7 +107,7 @@ __d(
                     ),
                     {
                       actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
                     }
                   );
                 var n =
@@ -133,7 +136,7 @@ __d(
                         "[nct-salt-sync] Stored NCT salt",
                       ])),
                   ),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
+                  { actionState: o("WAWebSyncdConst").SyncActionState.Success }
                 );
               },
             );

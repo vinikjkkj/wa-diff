@@ -44,40 +44,35 @@ __d(
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "username_group_mutation_enabled",
+        "username_contact_ui_vcard",
       );
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "username_contact_ui_vcard",
-      );
-    }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
         "username_global_search_enabled",
       );
     }
-    function b() {
+    function C() {
       return !o("WAWebABProps").getABPropConfigValue(
         "username_search_without_atsign_enabled",
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_characters",
       );
     }
-    function S() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_numbers",
       );
     }
-    function R() {
+    function S() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_engagement_network_impact_logging",
       );
     }
-    function L() {
+    function R() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
@@ -91,14 +86,13 @@ __d(
       (l.shouldDefaultToV4NumericCode = _),
       (l.shouldLogUnknownNumberError = f),
       (l.lidGroupMigrationNonMemberIQEnabled = g),
-      (l.usernameGroupMutationEnabled = h),
-      (l.usernameContactUiVcardEnabled = y),
-      (l.usernameGlobalSearchEnabled = C),
-      (l.usernameSearchRequiresAtSign = b),
-      (l.usernameKeyUpsellMaxCharacters = v),
-      (l.usernameKeyUpsellMaxNumbers = S),
-      (l.usernameEngagementNetworkImpactLoggingEnabled = R),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = L));
+      (l.usernameContactUiVcardEnabled = h),
+      (l.usernameGlobalSearchEnabled = y),
+      (l.usernameSearchRequiresAtSign = C),
+      (l.usernameKeyUpsellMaxCharacters = b),
+      (l.usernameKeyUpsellMaxNumbers = v),
+      (l.usernameEngagementNetworkImpactLoggingEnabled = S),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = R));
   },
   98,
 );

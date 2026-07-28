@@ -21,7 +21,6 @@ __d(
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebNewsletterUpdateNewslettersRecordsJob",
     "WAWebQplFlowWrapper",
-    "WAWebQplQuickPerformanceLoggerMarkerIds",
     "WAWebStoreNewsletterMessageAddOns",
     "WAWebWamEnumChannelEventSurface",
     "WAWebWamEnumChannelEventType",
@@ -53,10 +52,7 @@ __d(
         o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled() &&
           !o(
             "WAWebNewsletterExtendedGatingUtils",
-          ).isNewsletterQplLoggingEnabledForMarkerId(
-            o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-              .CHANNEL_FOLLOW,
-          ) &&
+          ).isNewsletterQplLoggingEnabledForMarkerId(1026960759) &&
           (y = o("WAWebQplFlowWrapper").QPL.markerStart(c)),
         (l = y) == null || l.annotate({ int: { surface: _, unit: f } }),
         o("WAWebNewsletterQueues").newsletterSubscribeQueue.enqueue(

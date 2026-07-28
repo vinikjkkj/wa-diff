@@ -21,7 +21,13 @@ __d(
         );
       })();
     function u(e) {
-      return e.primitive ? [e.primitive] : e.primitives ? e.primitives : [];
+      return e == null
+        ? []
+        : e.primitive
+          ? [e.primitive]
+          : e.primitives
+            ? e.primitives
+            : [];
     }
     function c(e) {
       var t = e.unifiedResponse;
@@ -102,6 +108,7 @@ __d(
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
     ((l.UnifiedResponseQPLLogger = s),
+      (l.getPrimitives = u),
       (l.isUnifiedResponseVisible = c),
       (l.isImagineResponse = m),
       (l.isQuotaUpsellResponse = p),

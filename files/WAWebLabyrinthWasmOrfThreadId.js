@@ -1,8 +1,8 @@
 __d(
   "WAWebLabyrinthWasmOrfThreadId",
   [
-    "EBLabyrinthWaWasmReactorSingleton",
     "WAResultOrError",
+    "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthWaWasm.pb",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -27,7 +27,7 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n = yield o(
-              "EBLabyrinthWaWasmReactorSingleton",
+              "WAWebEBLabyrinthWaWasmReactorSingleton",
             ).labyrinthWaCommand(
               {
                 InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,

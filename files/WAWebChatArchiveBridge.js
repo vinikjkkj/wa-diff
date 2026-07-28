@@ -2,12 +2,12 @@ __d(
   "WAWebChatArchiveBridge",
   [
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
     "WAWebArchiveChatSync",
     "WAWebDbErrors",
     "WAWebMessageRangeUtils",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -31,7 +31,8 @@ __d(
                           function* (e) {
                             var n = e[0];
                             if (
-                              i[0].action !== o("WASyncdConst").Actions.Archive
+                              i[0].action !==
+                              o("WAWebSyncdConst").Actions.Archive
                             )
                               throw r("err")(
                                 "syncd: expected archive action from getMutationsForArchive",

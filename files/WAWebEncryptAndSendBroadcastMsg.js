@@ -15,6 +15,7 @@ __d(
     "WAWebDBDeviceListFanout",
     "WAWebE2EProtoUtils",
     "WAWebGetGroupKeyDistributionMsg",
+    "WAWebGroupGetCompanionDsmPhashMsg",
     "WAWebHandleMsgError",
     "WAWebManageE2ESessionsJob",
     "WAWebPhashUtils",
@@ -402,7 +403,7 @@ __d(
               i.length > 0 && s != null)
             ) {
               var S = yield o(
-                "WAWebGetGroupKeyDistributionMsg",
+                "WAWebGroupGetCompanionDsmPhashMsg",
               ).getCompanionDsmPhashMsg(e, i, s, l);
               S != null &&
                 S.length > 0 &&

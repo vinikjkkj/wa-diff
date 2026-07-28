@@ -8,6 +8,8 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
+    "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
@@ -84,7 +86,12 @@ __d(
               r("WAWebWid").isAiHub(e) ||
               o("WAWebBotUtils").isMetaAiBot(e)
             ) &&
-            !(yield o("WAWebApiContact").isAddressBookContact(e.toJid(), m()))
+            !(yield o("WAWebApiContact").isAddressBookContact(
+              o("WAWebWidToJid").widToUserJid(
+                o("WAWebWidFactory").asUserWidOrThrow(e),
+              ),
+              m(),
+            ))
           );
         })),
         y.apply(this, arguments)

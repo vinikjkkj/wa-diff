@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAResolvable",
-    "WASyncdConst",
     "WASyncdKeyTypes",
     "WATextEncoding",
     "WATimeUtils",
@@ -13,6 +12,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsServerSync.pb",
     "WAWebSendNonMessageDataRequest",
+    "WAWebSyncdConst",
     "WAWebSyncdCrypto",
     "WAWebSyncdKeyCache",
     "asyncToGeneratorRuntime",
@@ -201,7 +201,7 @@ __d(
                                 i,
                               )
                               .readBuffer(),
-                            h = o("WASyncdConst").CollectionName.cast(a);
+                            h = o("WAWebSyncdConst").CollectionName.cast(a);
                           if (h == null)
                             throw r("err")(
                               "syncd recovery: invalid collection name",

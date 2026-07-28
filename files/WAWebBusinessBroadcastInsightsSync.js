@@ -3,11 +3,11 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebBackendApi",
     "WAWebBizBroadcastInsightsStorageUtils",
     "WAWebBusinessBroadcastsGatingUtils",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -22,7 +22,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -34,7 +34,7 @@ __d(
             return 1;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.BusinessBroadcastInsights;
+            return o("WAWebSyncdConst").Actions.BusinessBroadcastInsights;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -48,7 +48,7 @@ __d(
                   return t.map(function () {
                     return {
                       actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
                     };
                   });
                 var a = 0,
@@ -132,7 +132,7 @@ __d(
                                     }),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     }
                                   );
@@ -152,7 +152,7 @@ __d(
                                     _.push(n),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     }
                                   );
@@ -166,7 +166,7 @@ __d(
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },

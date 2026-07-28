@@ -1,8 +1,8 @@
 __d(
   "WAWebPrimaryDeviceCapabilities",
   [
-    "WASyncdConst",
     "WAWebProtobufSyncAction.pb",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
@@ -20,7 +20,7 @@ __d(
           var t,
             n =
               '["' +
-              o("WASyncdConst").Actions.DeviceCapabilities +
+              o("WAWebSyncdConst").Actions.DeviceCapabilities +
               '","' +
               o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
               ":" +

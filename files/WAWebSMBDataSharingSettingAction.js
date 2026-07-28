@@ -14,7 +14,7 @@ __d(
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
         return e
           ? (s || (s = n("Promise"))).resolve(e)
-          : r(
+          : o(
               "WAWebCommonCTWADataSharing",
             ).fetchDataSharingSettingAndUpdateModel();
       };

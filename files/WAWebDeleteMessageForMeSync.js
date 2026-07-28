@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebAddonProcessDeleteForMe",
     "WAWebBackendApi",
@@ -18,6 +17,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebSyncdResolveMessages",
@@ -54,7 +54,7 @@ __d(
                   o("WAWebWidFactory").createWid(
                     yield o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
                       e,
-                      o("WASyncdConst").Actions.DeleteMessageForMe,
+                      o("WAWebSyncdConst").Actions.DeleteMessageForMe,
                     ),
                   ),
                 );
@@ -68,7 +68,8 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             (e.chatJidIndex = 1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
@@ -89,7 +90,7 @@ __d(
             return 3;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.DeleteMessageForMe;
+            return o("WAWebSyncdConst").Actions.DeleteMessageForMe;
           }),
           (i.applyMutations = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -186,11 +187,12 @@ __d(
                                 if (S == null)
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: {
                                       modelId: R.toString(),
                                       modelType:
-                                        o("WASyncdConst").SyncModelType.Msg,
+                                        o("WAWebSyncdConst").SyncModelType.Msg,
                                     },
                                   };
                                 var L = r("nullthrows")(
@@ -249,7 +251,7 @@ __d(
                                         ).processDeleteForMeSingle(k),
                                         {
                                           actionState:
-                                            o("WASyncdConst").SyncActionState
+                                            o("WAWebSyncdConst").SyncActionState
                                               .Success,
                                         }
                                       );
@@ -268,12 +270,13 @@ __d(
                                       ),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Orphan,
                                       orphanModel: {
                                         modelId: R.toString(),
                                         modelType:
-                                          o("WASyncdConst").SyncModelType.Msg,
+                                          o("WAWebSyncdConst").SyncModelType
+                                            .Msg,
                                       },
                                     }
                                   );
@@ -288,7 +291,8 @@ __d(
                                   ),
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Success,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Success,
                                   }
                                 );
                               }
@@ -296,14 +300,14 @@ __d(
                                 b++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -393,10 +397,10 @@ __d(
               );
             return !c && u
               ? (y || (y = n("Promise"))).resolve(
-                  o("WASyncdConst").ConflictResolutionState.SkipRemote,
+                  o("WAWebSyncdConst").ConflictResolutionState.SkipRemote,
                 )
               : (y || (y = n("Promise"))).resolve(
-                  o("WASyncdConst").ConflictResolutionState
+                  o("WAWebSyncdConst").ConflictResolutionState
                     .SkipRemoteAndDropLocal,
                 );
           }),

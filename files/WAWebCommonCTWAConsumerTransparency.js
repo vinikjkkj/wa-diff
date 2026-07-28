@@ -11,12 +11,12 @@ __d(
     function e(e) {
       var t;
       if (!((t = e.contact) != null && t.isBusiness)) return !1;
-      var n = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
+      var n = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
       if (n != null && n.is3pdag) return !1;
-      var a = o(
+      var r = o(
         "WAWebConsumerTransparencyInfoIconModel",
       ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
-      return !(!a && n == null);
+      return !(!r && n == null);
     }
     function s() {
       return (

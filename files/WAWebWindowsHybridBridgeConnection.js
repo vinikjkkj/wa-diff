@@ -39,8 +39,12 @@ __d(
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
                   var n,
-                    i = t.data.toString(),
-                    l = (n = t.channel) == null ? void 0 : n.toString();
+                    i,
+                    l,
+                    s = t.data.toString(),
+                    u = (n = t.channel) == null ? void 0 : n.toString(),
+                    c = (i = t.pkey) == null ? void 0 : i.toString(),
+                    d = (l = t.settings) != null ? l : null;
                   (o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -49,8 +53,10 @@ __d(
                   ),
                     yield r("WAWebEventsWaitForMainStreamReadyMd")(),
                     yield o("WAWebSetWindowsPushConfig").setWindowsPushConfig(
-                      i,
-                      l,
+                      s,
+                      u,
+                      c,
+                      d,
                     ),
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.connection.send.handle_connection_state",
@@ -75,7 +81,7 @@ __d(
                         type: "async",
                       },
                       function () {
-                        return a.$1.acknowledgeNotificationsToken(i, l);
+                        return a.$1.acknowledgeNotificationsToken(s, u);
                       },
                     ));
                 },

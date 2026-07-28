@@ -2,28 +2,28 @@ __d(
   "WAWebMimeTypesBuildExtToMime",
   ["WATypeUtils", "WAWebMimeToExt"],
   function (t, n, r, o, a, i, l) {
-    function e(t, n, r, a) {
-      var i = t;
-      if (Array.isArray(i) || o("WATypeUtils").isString(i)) {
-        o("WATypeUtils").isString(i) && (i = [i]);
-        for (var l = 0; l < i.length; l++) {
-          var s = i[l];
-          o("WATypeUtils").isString(s) && (n[s] = a + r);
-        }
-        return;
-      }
-      if (typeof i == "object") for (var u in i) e(i[u], n, u, a + r);
-    }
-    function s(t) {
+    function e(e) {
       try {
-        var n = t != null && t !== "" ? JSON.parse(t) : r("WAWebMimeToExt"),
-          o = {};
-        return (e(n, o, "", ""), o);
+        var t = e != null && e !== "" ? JSON.parse(e) : r("WAWebMimeToExt"),
+          n = {};
+        return (s(t, n, "", ""), n);
       } catch (e) {
         return null;
       }
     }
-    l.default = s;
+    function s(e, t, n, r) {
+      var a = e;
+      if (Array.isArray(a) || o("WATypeUtils").isString(a)) {
+        o("WATypeUtils").isString(a) && (a = [a]);
+        for (var i = 0; i < a.length; i++) {
+          var l = a[i];
+          o("WATypeUtils").isString(l) && (t[l] = r + n);
+        }
+        return;
+      }
+      if (typeof a == "object") for (var u in a) s(a[u], t, u, r + n);
+    }
+    l.default = e;
   },
   98,
 );

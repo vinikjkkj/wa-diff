@@ -51,8 +51,8 @@ __d(
           d = n.subType,
           m = n.surface,
           p = n.type,
-          _ = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(l),
-          f = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(l);
+          _ = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(l),
+          f = o("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(l);
         if (
           _ != null &&
           !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()

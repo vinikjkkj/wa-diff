@@ -1,7 +1,6 @@
 __d(
   "WAWebDebugLabyrinth",
   [
-    "EBLabyrinthWaWasmReactorSingleton",
     "Promise",
     "WABase64",
     "WALogger",
@@ -10,6 +9,7 @@ __d(
     "WAWebCreateLabyrinthBackupJob",
     "WAWebDebugLabyrinthInboxSnapshotQuery",
     "WAWebDebugLabyrinthRangeQuery",
+    "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthCanonicalUserFbid",
     "WAWebLabyrinthDebugStateCache",
     "WAWebLabyrinthWasmCreateBackup",
@@ -74,7 +74,7 @@ __d(
       X = 20,
       Y = 20,
       J = "Call Debug.labyrinthCreateBackupWasm() first";
-    o("EBLabyrinthWaWasmReactorSingleton")
+    o("WAWebEBLabyrinthWaWasmReactorSingleton")
       .ebLabyrinthWaReactor()
       .catch(function (t) {
         o("WALogger")

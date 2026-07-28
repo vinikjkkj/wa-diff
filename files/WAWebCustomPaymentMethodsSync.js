@@ -2,7 +2,6 @@ __d(
   "WAWebCustomPaymentMethodsSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBackendApi",
@@ -10,6 +9,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebUprPaymentKeySyncGating",
     "asyncToGeneratorRuntime",
@@ -25,7 +25,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -37,7 +37,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.CustomPaymentMethods;
+            return o("WAWebSyncdConst").Actions.CustomPaymentMethods;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -64,7 +64,7 @@ __d(
                       t.map(function () {
                         return {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         };
                       })
                     );
@@ -83,7 +83,7 @@ __d(
                     t.map(function () {
                       return {
                         actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
                       };
                     })
                   );
@@ -96,7 +96,7 @@ __d(
                         a++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var r =
@@ -114,7 +114,7 @@ __d(
                         ),
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Success,
+                            o("WAWebSyncdConst").SyncActionState.Success,
                         });
                   });
                 return (

@@ -4,10 +4,10 @@ __d(
     "WACryptoUtils",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdError",
     "WAWebSyncdMetricFatalError",
     "decodeProtobuf",
@@ -21,7 +21,7 @@ __d(
       d,
       m,
       p = [
-        (m = o("WASyncdConst")).Actions.Agent,
+        (m = o("WAWebSyncdConst")).Actions.Agent,
         m.Actions.AndroidUnsupportedActions,
         m.Actions.Archive,
         m.Actions.BotWelcomeRequest,
@@ -89,7 +89,7 @@ __d(
       return e == null ? !0 : p.includes(e);
     }
     function g(t) {
-      var n = o("WASyncdConst").Actions.cast(
+      var n = o("WAWebSyncdConst").Actions.cast(
           o("WAWebSyncdActionUtils").getMutationNameFromIndex(
             t.collection,
             t.index,
@@ -135,7 +135,7 @@ __d(
           l)
         )
           e: {
-            if (n === o("WASyncdConst").SyncDataType.Patch) {
+            if (n === o("WAWebSyncdConst").SyncDataType.Patch) {
               throw (
                 o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
                   o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
@@ -148,7 +148,7 @@ __d(
               );
               break e;
             }
-            if (n === o("WASyncdConst").SyncDataType.Snapshot) {
+            if (n === o("WAWebSyncdConst").SyncDataType.Snapshot) {
               (o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
                 o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
                   .SAME_INDEX_FOR_MULTIPLE_MUTATIONS_IN_SNAPSHOT,
@@ -157,7 +157,7 @@ __d(
                 y(t));
               break e;
             }
-            if (n === o("WASyncdConst").SyncDataType.Local) {
+            if (n === o("WAWebSyncdConst").SyncDataType.Local) {
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([

@@ -22,29 +22,53 @@ __d(
           { kind: "Variable", name: "draft_id", variableName: "draftID" },
           { kind: "Variable", name: "input", variableName: "input" },
         ],
-        l = [{ kind: "Variable", name: "id", variableName: "pageID" }],
-        s = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "__typename",
-          storageKey: null,
-        },
-        u = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "name",
-          storageKey: null,
-        },
-        c = {
+        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        d = [
+        s = {
+          alias: null,
+          args: null,
+          concreteType: "CTWAAPI",
+          kind: "LinkedField",
+          name: "ctwa",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: [
+                { kind: "Variable", name: "page_id", variableName: "pageID" },
+                { kind: "Literal", name: "product", value: "BOOSTED_MESSAGE" },
+              ],
+              concreteType: "AdsLWIDraftWrapper",
+              kind: "LinkedField",
+              name: "latest_wa_web_draft",
+              plural: !1,
+              selections: [l],
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        },
+        u = [{ kind: "Variable", name: "id", variableName: "pageID" }],
+        c = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+        d = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "name",
+          storageKey: null,
+        },
+        m = [
           {
             alias: "offsetAmount",
             args: null,
@@ -53,36 +77,36 @@ __d(
             storageKey: null,
           },
         ],
-        m = [s, c],
-        p = {
+        p = [c, l],
+        _ = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "type",
           storageKey: null,
         },
-        _ = {
+        f = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "image_hash",
           storageKey: null,
         },
-        f = {
+        g = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "image_url",
           storageKey: null,
         },
-        g = {
+        h = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "instagram_actor_id",
           storageKey: null,
         },
-        h = {
+        y = {
           condition:
             "__relay_internal__pv__LWICometIGUserIdDoubleWriteEnabledrelayprovider",
           kind: "Condition",
@@ -97,35 +121,35 @@ __d(
             },
           ],
         },
-        y = {
+        C = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "app_link",
           storageKey: null,
         },
-        C = {
+        b = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "event_id",
           storageKey: null,
         },
-        b = {
+        v = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "link",
           storageKey: null,
         },
-        v = {
+        S = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "whatsapp_number",
           storageKey: null,
         },
-        S = {
+        R = {
           alias: null,
           args: null,
           concreteType: "AdCallToActionSpecification",
@@ -155,8 +179,8 @@ __d(
                   name: "app_destination",
                   storageKey: null,
                 },
-                y,
                 C,
+                b,
                 {
                   alias: null,
                   args: null,
@@ -171,7 +195,7 @@ __d(
                   name: "lead_gen_form_id",
                   storageKey: null,
                 },
-                b,
+                v,
                 {
                   alias: null,
                   args: null,
@@ -179,7 +203,7 @@ __d(
                   name: "page_id",
                   storageKey: null,
                 },
-                v,
+                S,
               ],
               storageKey: null,
             },
@@ -193,28 +217,28 @@ __d(
           ],
           storageKey: null,
         },
-        R = {
+        L = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "description",
           storageKey: null,
         },
-        L = {
+        E = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "picture",
           storageKey: null,
         },
-        E = {
+        k = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "video_id",
           storageKey: null,
         },
-        k = [
+        I = [
           {
             alias: null,
             args: null,
@@ -230,23 +254,23 @@ __d(
             storageKey: null,
           },
         ],
-        I = {
+        T = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "message",
           storageKey: null,
         },
-        T = {
+        D = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "url",
           storageKey: null,
         },
-        D = [
-          g,
+        x = [
           h,
+          y,
           {
             alias: null,
             args: null,
@@ -255,7 +279,7 @@ __d(
             name: "link_data",
             plural: !1,
             selections: [
-              S,
+              R,
               {
                 alias: null,
                 args: null,
@@ -263,11 +287,11 @@ __d(
                 kind: "LinkedField",
                 name: "child_attachments",
                 plural: !0,
-                selections: [R, _, b, u, L, E],
+                selections: [L, f, v, d, E, k],
                 storageKey: null,
               },
-              R,
-              C,
+              L,
+              b,
               {
                 alias: null,
                 args: null,
@@ -290,7 +314,7 @@ __d(
                     kind: "LinkedField",
                     name: "lower_right",
                     plural: !1,
-                    selections: k,
+                    selections: I,
                     storageKey: null,
                   },
                   {
@@ -300,17 +324,17 @@ __d(
                     kind: "LinkedField",
                     name: "upper_left",
                     plural: !1,
-                    selections: k,
+                    selections: I,
                     storageKey: null,
                   },
                 ],
                 storageKey: null,
               },
-              _,
-              b,
-              I,
-              u,
-              L,
+              f,
+              v,
+              T,
+              d,
+              E,
               {
                 alias: null,
                 args: null,
@@ -343,7 +367,7 @@ __d(
                 kind: "LinkedField",
                 name: "node",
                 plural: !1,
-                selections: m,
+                selections: p,
                 storageKey: null,
               },
             ],
@@ -357,7 +381,7 @@ __d(
             name: "photo_data",
             plural: !1,
             selections: [
-              S,
+              R,
               {
                 alias: null,
                 args: null,
@@ -365,8 +389,8 @@ __d(
                 name: "caption",
                 storageKey: null,
               },
-              _,
-              T,
+              f,
+              D,
             ],
             storageKey: null,
           },
@@ -403,9 +427,9 @@ __d(
             name: "video_data",
             plural: !1,
             selections: [
-              S,
-              _,
+              R,
               f,
+              g,
               {
                 alias: null,
                 args: null,
@@ -413,7 +437,7 @@ __d(
                 name: "link_description",
                 storageKey: null,
               },
-              I,
+              T,
               {
                 alias: null,
                 args: null,
@@ -421,7 +445,7 @@ __d(
                 name: "title",
                 storageKey: null,
               },
-              E,
+              k,
             ],
             storageKey: null,
           },
@@ -433,10 +457,10 @@ __d(
             name: "template_data",
             plural: !1,
             selections: [
-              S,
-              b,
-              u,
               R,
+              v,
+              d,
+              L,
               {
                 alias: null,
                 args: null,
@@ -444,7 +468,7 @@ __d(
                 name: "format_option",
                 storageKey: null,
               },
-              I,
+              T,
               {
                 alias: null,
                 args: null,
@@ -456,7 +480,7 @@ __d(
             storageKey: null,
           },
         ],
-        x = {
+        $ = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -522,6 +546,7 @@ __d(
               ],
               storageKey: null,
             },
+            s,
             {
               args: null,
               kind: "FragmentSpread",
@@ -529,7 +554,7 @@ __d(
             },
             {
               alias: null,
-              args: l,
+              args: u,
               concreteType: "Page",
               kind: "LinkedField",
               name: "page",
@@ -642,7 +667,7 @@ __d(
                   name: "boosted_component_wrapper",
                   plural: !1,
                   selections: [
-                    s,
+                    c,
                     {
                       kind: "TypeDiscriminator",
                       abstractKey: "__isBoostedComponentCommonWrapper",
@@ -859,7 +884,7 @@ __d(
                       name: "spec",
                       plural: !1,
                       selections: [
-                        s,
+                        c,
                         {
                           alias: null,
                           args: null,
@@ -896,7 +921,7 @@ __d(
                               name: "client_editable",
                               storageKey: null,
                             },
-                            u,
+                            d,
                             {
                               alias: null,
                               args: null,
@@ -911,7 +936,7 @@ __d(
                               name: "target_spec_string_without_placements",
                               storageKey: null,
                             },
-                            c,
+                            l,
                           ],
                           storageKey: null,
                         },
@@ -922,7 +947,7 @@ __d(
                           kind: "LinkedField",
                           name: "budget",
                           plural: !1,
-                          selections: d,
+                          selections: m,
                           storageKey: null,
                         },
                         {
@@ -942,8 +967,8 @@ __d(
                           name: "ad_account",
                           plural: !1,
                           selections: [
-                            c,
-                            u,
+                            l,
+                            d,
                             {
                               alias: "legacyAccountID",
                               args: null,
@@ -979,7 +1004,7 @@ __d(
                               kind: "LinkedField",
                               name: "payment_account",
                               plural: !1,
-                              selections: m,
+                              selections: p,
                               storageKey: null,
                             },
                           ],
@@ -1158,7 +1183,7 @@ __d(
                                               kind: "LinkedField",
                                               name: "action_metadata",
                                               plural: !1,
-                                              selections: [p],
+                                              selections: [_],
                                               storageKey: null,
                                             },
                                             {
@@ -1196,10 +1221,10 @@ __d(
                                   ],
                                   storageKey: null,
                                 },
-                                _,
                                 f,
                                 g,
                                 h,
+                                y,
                                 {
                                   alias: null,
                                   args: null,
@@ -1247,7 +1272,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "object_story_spec",
                                   plural: !1,
-                                  selections: D,
+                                  selections: x,
                                   storageKey: null,
                                 },
                                 {
@@ -1257,7 +1282,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "catalog_story_spec",
                                   plural: !1,
-                                  selections: D,
+                                  selections: x,
                                   storageKey: null,
                                 },
                                 {
@@ -1291,7 +1316,7 @@ __d(
                               name: "creative_spec_json",
                               storageKey: null,
                             },
-                            c,
+                            l,
                             {
                               alias: null,
                               args: null,
@@ -1324,8 +1349,8 @@ __d(
                                           name: "hash",
                                           storageKey: null,
                                         },
-                                        T,
-                                        x,
+                                        D,
+                                        $,
                                       ],
                                       storageKey: null,
                                     },
@@ -1338,9 +1363,9 @@ __d(
                                       name: "videos",
                                       plural: !0,
                                       selections: [
-                                        _,
                                         f,
-                                        x,
+                                        g,
+                                        $,
                                         {
                                           alias: null,
                                           args: null,
@@ -1355,7 +1380,7 @@ __d(
                                           name: "thumbnail_source",
                                           storageKey: null,
                                         },
-                                        E,
+                                        k,
                                       ],
                                       storageKey: null,
                                     },
@@ -1408,7 +1433,7 @@ __d(
                           kind: "LinkedField",
                           name: "cta",
                           plural: !1,
-                          selections: [y, p, b, v],
+                          selections: [C, _, v, S],
                           storageKey: null,
                         },
                       ],
@@ -1422,7 +1447,7 @@ __d(
                       name: "options",
                       plural: !1,
                       selections: [
-                        s,
+                        c,
                         {
                           alias: "budgetOptions",
                           args: [
@@ -1436,7 +1461,7 @@ __d(
                           kind: "LinkedField",
                           name: "budget_options",
                           plural: !0,
-                          selections: d,
+                          selections: m,
                           storageKey: 'budget_options(granularity:"HIGH")',
                         },
                         {
@@ -1454,7 +1479,7 @@ __d(
                               kind: "LinkedField",
                               name: "budget_message_threshold",
                               plural: !1,
-                              selections: d,
+                              selections: m,
                               storageKey: null,
                             },
                           ],
@@ -1478,7 +1503,7 @@ __d(
                           kind: "LinkedField",
                           name: "min_daily_budget",
                           plural: !1,
-                          selections: d,
+                          selections: m,
                           storageKey: null,
                         },
                         {
@@ -1488,7 +1513,7 @@ __d(
                           kind: "LinkedField",
                           name: "max_daily_budget",
                           plural: !1,
-                          selections: d,
+                          selections: m,
                           storageKey: null,
                         },
                       ],
@@ -1502,7 +1527,7 @@ __d(
                       name: "options",
                       plural: !1,
                       selections: [
-                        s,
+                        c,
                         {
                           alias: null,
                           args: null,
@@ -1511,7 +1536,7 @@ __d(
                           name: "eligible_publisher_platforms",
                           plural: !0,
                           selections: [
-                            p,
+                            _,
                             {
                               alias: null,
                               args: null,
@@ -1533,7 +1558,7 @@ __d(
                       name: "context_spec",
                       plural: !1,
                       selections: [
-                        s,
+                        c,
                         {
                           alias: null,
                           args: null,
@@ -1541,19 +1566,20 @@ __d(
                           kind: "LinkedField",
                           name: "page",
                           plural: !1,
-                          selections: [T, c],
+                          selections: [D, l],
                           storageKey: null,
                         },
                       ],
                       storageKey: null,
                     },
-                    c,
+                    l,
                   ],
                   storageKey: null,
                 },
               ],
               storageKey: null,
             },
+            s,
             {
               alias: null,
               args: null,
@@ -1607,8 +1633,8 @@ __d(
                               name: "legacy_account_id",
                               storageKey: null,
                             },
-                            u,
-                            c,
+                            d,
+                            l,
                           ],
                           storageKey: null,
                         },
@@ -1621,7 +1647,7 @@ __d(
             },
             {
               alias: null,
-              args: l,
+              args: u,
               concreteType: "Page",
               kind: "LinkedField",
               name: "page",
@@ -1645,7 +1671,7 @@ __d(
                   ],
                   storageKey: null,
                 },
-                u,
+                d,
                 {
                   alias: null,
                   args: null,
@@ -1653,7 +1679,7 @@ __d(
                   name: "is_verified",
                   storageKey: null,
                 },
-                c,
+                l,
               ],
               storageKey: null,
             },
@@ -1670,9 +1696,9 @@ __d(
                   name: "me",
                   plural: !1,
                   selections: [
-                    s,
+                    c,
                     { kind: "TypeDiscriminator", abstractKey: "__isActor" },
-                    u,
+                    d,
                     {
                       alias: null,
                       args: null,
@@ -1691,7 +1717,7 @@ __d(
                       ],
                       storageKey: null,
                     },
-                    c,
+                    l,
                   ],
                   storageKey: null,
                 },

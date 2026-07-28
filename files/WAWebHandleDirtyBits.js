@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebAccountSyncJob",
     "WAWebApiPendingDeviceSync",
     "WAWebBackendApi",
@@ -21,6 +20,7 @@ __d(
     "WAWebQueryAndUpdateAllNewslettersMetadataAction",
     "WAWebQueryAndUpdateGroupMetadataJob",
     "WAWebSyncd",
+    "WAWebSyncdConst",
     "WAWebTos",
     "WAWebUserPrefsMeUser",
     "WAWebWamoNewsletterGatingUtils",
@@ -84,7 +84,7 @@ __d(
           },
         ),
         o("WAWebSyncd").markCollectionsForSync(
-          Array.from(o("WASyncdConst").CollectionName.members()),
+          Array.from(o("WAWebSyncdConst").CollectionName.members()),
         )
       );
     }

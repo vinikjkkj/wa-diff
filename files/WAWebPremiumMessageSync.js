@@ -1,10 +1,10 @@
 __d(
   "WAWebPremiumMessageSync",
   [
-    "WASyncdConst",
     "WAWebPremiumMessageCollection",
     "WAWebPremiumMessageSchema",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -15,7 +15,7 @@ __d(
             r[a] = arguments[a];
           return (
             (t = e.call.apply(e, [this].concat(r)) || this),
-            (t.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (t.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -27,7 +27,7 @@ __d(
             return 7;
           }),
           (r.getAction = function () {
-            return o("WASyncdConst").Actions.MarketingMessage;
+            return o("WAWebSyncdConst").Actions.MarketingMessage;
           }),
           (r.applyMutations = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -72,19 +72,20 @@ __d(
                             }),
                             {
                               actionState:
-                                o("WASyncdConst").SyncActionState.Success,
+                                o("WAWebSyncdConst").SyncActionState.Success,
                             });
                       }
                       return (
                         i++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     } catch (e) {
                       return {
-                        actionState: o("WASyncdConst").SyncActionState.Failed,
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Failed,
                       };
                     }
                   });

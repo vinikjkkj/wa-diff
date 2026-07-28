@@ -17,6 +17,7 @@ __d(
     "WAWebAccountLinkingHandler",
     "WAWebDirectConnectionX509",
     "WAWebGraphQLServerError",
+    "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebRelayClient",
     "WAWebWaffleCertificateCache",
     "WAWebWaffleFXServiceDataQueryV2Mutation",
@@ -281,7 +282,13 @@ __d(
               return a != null;
             }
             if (e === "purge") {
-              return (yield L.purgeWaffleData(), !0);
+              return (
+                o(
+                  "WAWebMetaAiWaffleAuthTokenCache",
+                ).clearMetaAiWaffleAuthTokenBlobCache(),
+                yield L.purgeWaffleData(),
+                !0
+              );
               break e;
             }
             if (e === "pause") {
@@ -293,7 +300,14 @@ __d(
             }
             if (e === "server_purge") {
               var i = yield j();
-              return (i && (yield L.purgeWaffleData()), i);
+              return (
+                i &&
+                  (o(
+                    "WAWebMetaAiWaffleAuthTokenCache",
+                  ).clearMetaAiWaffleAuthTokenBlobCache(),
+                  yield L.purgeWaffleData()),
+                i
+              );
               break e;
             }
             if (e === "server_pause") {
@@ -396,6 +410,9 @@ __d(
                 if ("access_token" in b)
                   return (
                     yield L.updateAccesstoken(b.access_token),
+                    o(
+                      "WAWebMetaAiWaffleAuthTokenCache",
+                    ).refreshMetaAiWaffleAuthTokenBlob(),
                     o("WAWebWaffleLifecycleWamLogger").logRefreshToken({
                       elapsedMs: Date.now() - e,
                       hasAccessToken: !0,

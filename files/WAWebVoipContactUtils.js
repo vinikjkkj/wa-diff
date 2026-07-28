@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebApiContact",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -16,9 +17,12 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (!t.isUserNotPSA()) return !0;
           try {
             return !(yield o("WAWebApiContact").isAddressBookContact(
-              o("WAWebWidFactory").asUserWidOrThrow(t).toJid(),
+              o("WAWebWidToJid").widToUserJid(
+                o("WAWebWidFactory").asUserWidOrThrow(t),
+              ),
             ));
           } catch (t) {
             return (

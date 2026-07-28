@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebAiThreadCreationUtils",
     "WAWebAiThreadPinSyncUtils",
@@ -12,6 +11,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
@@ -36,7 +36,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -48,7 +48,7 @@ __d(
             return 7;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.AiThreadPin;
+            return o("WAWebSyncdConst").Actions.AiThreadPin;
           }),
           (i.getIndexParts = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -58,7 +58,7 @@ __d(
                     "WAWebSyncdGetChat",
                   ).getChatJidMutationIndexForChat(
                     t,
-                    o("WASyncdConst").Actions.AiThreadPin,
+                    o("WAWebSyncdConst").Actions.AiThreadPin,
                   ),
                   r = e.key.id;
                 return [n, r];
@@ -92,7 +92,7 @@ __d(
                                     index: t,
                                     result: {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Unsupported,
                                     },
                                   }
@@ -141,7 +141,7 @@ __d(
                                   index: t,
                                   result: {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState
+                                      o("WAWebSyncdConst").SyncActionState
                                         .Unsupported,
                                   },
                                 };
@@ -163,7 +163,7 @@ __d(
                                     index: t,
                                     result: {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Orphan,
                                       orphanModel: _.orphanModel,
                                     },
@@ -173,7 +173,7 @@ __d(
                                 index: t,
                                 result: {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Failed,
+                                    o("WAWebSyncdConst").SyncActionState.Failed,
                                 },
                               };
                             }
@@ -199,7 +199,8 @@ __d(
                       c.push(p);
                     } catch (e) {
                       c.push({
-                        actionState: o("WASyncdConst").SyncActionState.Failed,
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Failed,
                       });
                     }
                 return (
@@ -244,7 +245,9 @@ __d(
                       t,
                       void 0,
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Success }
+                    {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
+                    }
                   );
                 var l = t.pinThreadTimestamp;
                 if (l != null && l > 0)
@@ -254,7 +257,9 @@ __d(
                       t,
                       r,
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Success }
+                    {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
+                    }
                   );
                 var s = e.key.remote.toString(),
                   c = yield o("WAWebAiThreadPinSyncUtils").getLocalThreadPins(
@@ -268,7 +273,9 @@ __d(
                       t,
                       r,
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Success }
+                    {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
+                    }
                   );
                 var m = c.filter(function (e) {
                   return e.isOrphan !== !0;
@@ -283,7 +290,9 @@ __d(
                         ])),
                       e.toString(),
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Success }
+                    {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
+                    }
                   );
                 var p = m.reduce(function (e, t) {
                   return t.timestamp < e.timestamp ? t : e;
@@ -296,7 +305,7 @@ __d(
                       t,
                       r,
                     )),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
+                  { actionState: o("WAWebSyncdConst").SyncActionState.Success }
                 );
               },
             );

@@ -3,13 +3,13 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATagsLogger",
     "WATimeUtils",
     "WAWebGetSyncKey",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebSyncdKeyManagement",
     "asyncToGeneratorRuntime",
@@ -29,7 +29,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -41,7 +41,7 @@ __d(
             return 3;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.Sentinel;
+            return o("WAWebSyncdConst").Actions.Sentinel;
           }),
           (a.applyMutations = function (r) {
             var t = this;
@@ -75,20 +75,22 @@ __d(
                                 ).expireSyncKeyInTransaction(r),
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 });
                           }
                           return (
                             i++,
                             {
                               actionState:
-                                o("WASyncdConst").SyncActionState.Unsupported,
+                                o("WAWebSyncdConst").SyncActionState
+                                  .Unsupported,
                             }
                           );
                         } catch (e) {
                           return {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Failed,
+                              o("WAWebSyncdConst").SyncActionState.Failed,
                           };
                         }
                       },
@@ -133,7 +135,7 @@ __d(
                   ])),
               );
               var t = o("WATimeUtils").unixTimeMs(),
-                n = Array.from(o("WASyncdConst").CollectionName.members()),
+                n = Array.from(o("WAWebSyncdConst").CollectionName.members()),
                 r = yield o("WAWebSyncdKeyManagement").getNewestKeyPair();
               if (r == null)
                 return (

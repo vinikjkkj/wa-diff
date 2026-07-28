@@ -2,7 +2,6 @@ __d(
   "WAWebKmpSyncdRequestBuilder",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWap",
     "WAWebGetPendingMutation",
     "WAWebKmpKotlinUtils",
@@ -11,6 +10,7 @@ __d(
     "WAWebKmpSyncdResultUtils",
     "WAWebKmpSyncdServiceLocator",
     "WAWebRunInTransaction",
+    "WAWebSyncdConst",
     "WAWebSyncdRequestBuilderUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -229,7 +229,7 @@ __d(
           name: o("WAWap").CUSTOM_STRING(t),
           return_snapshot: r === void 0 ? "true" : "false",
           version: o("WAWap").INT(
-            r != null ? r : o("WASyncdConst").DEFAULT_COLLECTION_VERSION,
+            r != null ? r : o("WAWebSyncdConst").DEFAULT_COLLECTION_VERSION,
           ),
         },
         h(n),

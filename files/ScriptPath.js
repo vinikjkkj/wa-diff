@@ -44,7 +44,7 @@ __d(
       var e = (l || (l = n("WebStorage"))).getSessionStorageForRead();
       if (e) {
         var t = e.getItem(s);
-        if (t) {
+        if (t != null && t !== "") {
           var r = JSON.parse(t);
           r &&
             (r.time < Date.now() - u &&

@@ -118,6 +118,7 @@ __d(
           discount: L,
           subtotal: E,
           totalAmount: g,
+          isOrderNodeOmitted: m == null,
           items: y,
           payment_configuration: p,
           type: l.type,

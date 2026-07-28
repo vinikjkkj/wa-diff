@@ -1,10 +1,10 @@
 __d(
   "WAWebPremiumMessageBroadcastSync",
   [
-    "WASyncdConst",
     "WAWebPremiumMessageAddSendAction",
     "WAWebPremiumMessageCollection",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,7 +14,7 @@ __d(
             r[a] = arguments[a];
           return (
             (t = e.call.apply(e, [this].concat(r)) || this),
-            (t.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (t.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -26,7 +26,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.MarketingMessageBroadcast;
+            return o("WAWebSyncdConst").Actions.MarketingMessageBroadcast;
           }),
           (a.applyMutations = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -47,21 +47,23 @@ __d(
                             ).PremiumMessageCollection.find(i) == null
                             ? {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Orphan,
+                                  o("WAWebSyncdConst").SyncActionState.Orphan,
                               }
                             : (n.push({ messageId: l, premiumMessageId: i }),
                               {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Success,
+                                  o("WAWebSyncdConst").SyncActionState.Success,
                               })
                           : (a++,
                             {
                               actionState:
-                                o("WASyncdConst").SyncActionState.Unsupported,
+                                o("WAWebSyncdConst").SyncActionState
+                                  .Unsupported,
                             });
                     } catch (e) {
                       return {
-                        actionState: o("WASyncdConst").SyncActionState.Failed,
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Failed,
                       };
                     }
                   });

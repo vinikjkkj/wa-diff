@@ -2,9 +2,9 @@ __d(
   "WAWebMerchantPaymentPartnerSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebMobilePlatforms",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,7 +16,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -28,7 +28,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.MerchantPaymentPartner;
+            return o("WAWebSyncdConst").Actions.MerchantPaymentPartner;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -43,7 +43,7 @@ __d(
                     t.map(function () {
                       return {
                         actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
                       };
                     }))
                   : (o("WALogger").WARN(
@@ -55,7 +55,7 @@ __d(
                     t.map(function () {
                       return {
                         actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
                       };
                     }));
               },

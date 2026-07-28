@@ -2,11 +2,11 @@ __d(
   "WAWebSyncdWamUtils",
   [
     "WABase64",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebGetSyncKey",
     "WAWebSchemaSyncActions",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebWamEnumMutationCountBucket",
     "asyncToGeneratorRuntime",
     "err",
@@ -41,33 +41,35 @@ __d(
                       };
               e: {
                 if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Success ||
-                  t.actionState === o("WASyncdConst").SyncActionState.Skipped
+                  t.actionState ===
+                    o("WAWebSyncdConst").SyncActionState.Success ||
+                  t.actionState === o("WAWebSyncdConst").SyncActionState.Skipped
                 ) {
                   a.applied++;
                   break e;
                 }
                 if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Malformed
+                  t.actionState ===
+                  o("WAWebSyncdConst").SyncActionState.Malformed
                 ) {
                   a.invalid++;
                   break e;
                 }
                 if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Orphan
+                  t.actionState === o("WAWebSyncdConst").SyncActionState.Orphan
                 ) {
                   a.orphan++;
                   break e;
                 }
                 if (
                   t.actionState ===
-                  o("WASyncdConst").SyncActionState.Unsupported
+                  o("WAWebSyncdConst").SyncActionState.Unsupported
                 ) {
                   a.unsupported++;
                   break e;
                 }
                 if (
-                  t.actionState === o("WASyncdConst").SyncActionState.Failed
+                  t.actionState === o("WAWebSyncdConst").SyncActionState.Failed
                 ) {
                   a.failed++;
                   break e;

@@ -37,83 +37,85 @@ __d(
       p = 5,
       _ = 68;
     function f(t) {
-      var n = o("react-compiler-runtime").c(27),
+      var n = o("react-compiler-runtime").c(28),
         a = t.associatedMsg,
         i = t.flatListController,
         l = t.hideVoterNames,
         u = t.isCorrectOption,
         f = t.isPollFromMe,
         g = t.links,
-        C = t.onViewAllVotes,
-        b = t.option,
-        v = t.result,
-        S = t.testid,
-        R = t.trusted,
-        L = t.withSectioning,
-        E = l === void 0 ? !1 : l,
-        k = v.count,
-        I = v.isCurrentLeader,
-        T = v.percentageOfAll,
-        D = v.votes,
-        x = R === void 0 ? !1 : R,
+        C = t.onOpenContactInfo,
+        b = t.onViewAllVotes,
+        v = t.option,
+        S = t.result,
+        R = t.testid,
+        L = t.trusted,
+        E = t.withSectioning,
+        k = l === void 0 ? !1 : l,
+        I = S.count,
+        T = S.isCurrentLeader,
+        D = S.percentageOfAll,
+        x = S.votes,
         $ = L === void 0 ? !1 : L,
-        P = k - p,
-        N = D.length;
-      C && (N = P === 1 ? D.length : p);
-      var M;
-      n[0] !== N || n[1] !== t.result || n[2] !== $
-        ? ((M = h(t.result, $, N)),
-          (n[0] = N),
+        P = E === void 0 ? !1 : E,
+        N = I - p,
+        M = x.length;
+      b && (M = N === 1 ? x.length : p);
+      var w;
+      n[0] !== M || n[1] !== t.result || n[2] !== P
+        ? ((w = h(t.result, P, M)),
+          (n[0] = M),
           (n[1] = t.result),
-          (n[2] = $),
-          (n[3] = M))
-        : (M = n[3]);
-      var w = M,
-        A = T * 100,
-        F;
+          (n[2] = P),
+          (n[3] = w))
+        : (w = n[3]);
+      var A = w,
+        F = D * 100,
+        O;
       n[4] !== a ||
       n[5] !== u ||
-      n[6] !== I ||
+      n[6] !== T ||
       n[7] !== f ||
       n[8] !== g ||
-      n[9] !== b.name ||
-      n[10] !== A ||
-      n[11] !== x ||
-      n[12] !== k
-        ? ((F = c.jsx(r("WAWebPollsOptionMetadataRow"), {
+      n[9] !== v.name ||
+      n[10] !== F ||
+      n[11] !== $ ||
+      n[12] !== I
+        ? ((O = c.jsx(r("WAWebPollsOptionMetadataRow"), {
             associatedMsg: a,
-            name: b.name,
-            isCurrentLeader: I,
-            percentage: A,
-            voteCount: k,
+            name: v.name,
+            isCurrentLeader: T,
+            percentage: F,
+            voteCount: I,
             isPollFromMe: f,
             links: g,
-            trusted: x,
+            trusted: $,
             isCorrectOption: u,
           })),
           (n[4] = a),
           (n[5] = u),
-          (n[6] = I),
+          (n[6] = T),
           (n[7] = f),
           (n[8] = g),
-          (n[9] = b.name),
-          (n[10] = A),
-          (n[11] = x),
-          (n[12] = k),
-          (n[13] = F))
-        : (F = n[13]);
-      var O;
+          (n[9] = v.name),
+          (n[10] = F),
+          (n[11] = $),
+          (n[12] = I),
+          (n[13] = O))
+        : (O = n[13]);
+      var B;
       n[14] !== i ||
-      n[15] !== E ||
-      n[16] !== N ||
+      n[15] !== k ||
+      n[16] !== M ||
       n[17] !== C ||
-      n[18] !== t.mode ||
-      n[19] !== P ||
-      n[20] !== k ||
-      n[21] !== w
-        ? ((O =
-            !E &&
-            w.length > 0 &&
+      n[18] !== b ||
+      n[19] !== t.mode ||
+      n[20] !== N ||
+      n[21] !== I ||
+      n[22] !== A
+        ? ((B =
+            !k &&
+            A.length > 0 &&
             c.jsxs(
               "div",
               babelHelpers.extends({}, (e || (e = r("stylex"))).props(null), {
@@ -121,14 +123,16 @@ __d(
                   c.jsx(o("WAWebFlatList.react").FlatList, {
                     flatListController: i,
                     direction: "vertical",
-                    data: w,
-                    renderItem: y,
+                    data: A,
+                    renderItem: function (t) {
+                      return y(t, C);
+                    },
                     defaultItemHeight: _,
                     reorderAnimationsEnabled: !1,
                   }),
-                  k > p &&
-                    C != null &&
-                    N < k &&
+                  I > p &&
+                    b != null &&
+                    M < I &&
                     c.jsx(
                       "div",
                       babelHelpers.extends(
@@ -144,7 +148,7 @@ __d(
                             o("WAWebButton.react").WAWebButtonSimplified,
                             {
                               onClick: function (t) {
-                                C();
+                                b();
                               },
                               shadowOnHover: !1,
                               children:
@@ -153,7 +157,7 @@ __d(
                                       /*BTDS*/ '_j{"*":"See all ({leftover_votes_details_view} more)","_1":"See all (1 more)"}',
                                       [
                                         s._plural(
-                                          P,
+                                          N,
                                           "leftover_votes_details_view",
                                         ),
                                       ],
@@ -168,29 +172,30 @@ __d(
               }),
             )),
           (n[14] = i),
-          (n[15] = E),
-          (n[16] = N),
+          (n[15] = k),
+          (n[16] = M),
           (n[17] = C),
-          (n[18] = t.mode),
-          (n[19] = P),
-          (n[20] = k),
-          (n[21] = w),
-          (n[22] = O))
-        : (O = n[22]);
-      var B;
+          (n[18] = b),
+          (n[19] = t.mode),
+          (n[20] = N),
+          (n[21] = I),
+          (n[22] = A),
+          (n[23] = B))
+        : (B = n[23]);
+      var W;
       return (
-        n[23] !== F || n[24] !== O || n[25] !== S
-          ? ((B = c.jsxs(r("WAWebDrawerSection.react"), {
+        n[24] !== O || n[25] !== B || n[26] !== R
+          ? ((W = c.jsxs(r("WAWebDrawerSection.react"), {
               theme: "no-padding",
-              testid: S,
-              children: [F, O],
+              testid: R,
+              children: [O, B],
             })),
-            (n[23] = F),
             (n[24] = O),
-            (n[25] = S),
-            (n[26] = B))
-          : (B = n[26]),
-        B
+            (n[25] = B),
+            (n[26] = R),
+            (n[27] = W))
+          : (W = n[27]),
+        W
       );
     }
     function g(e) {
@@ -214,10 +219,13 @@ __d(
       }
       return e.votes.slice(0, n).map(g);
     }
-    function y(e) {
+    function y(e, t) {
       switch (e.kind) {
         case "vote":
-          return c.jsx(r("WAWebPollsVoterRow"), { vote: e.vote });
+          return c.jsx(r("WAWebPollsVoterRow"), {
+            vote: e.vote,
+            onOpenContactInfo: t,
+          });
         case "section":
           return c.jsx(
             o("WAWebPollsVoterSectionHeader").PollsVoterSectionHeader,

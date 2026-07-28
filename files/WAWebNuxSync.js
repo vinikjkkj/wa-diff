@@ -3,12 +3,12 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WATypeUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebUserPrefsNuxPreferences",
     "asyncToGeneratorRuntime",
@@ -24,7 +24,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -36,7 +36,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.Nux;
+            return o("WAWebSyncdConst").Actions.Nux;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -55,7 +55,7 @@ __d(
                         a.length < 3 && a.push(e),
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var s = e.indexParts[1];
@@ -73,7 +73,7 @@ __d(
                         }),
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Success,
+                            o("WAWebSyncdConst").SyncActionState.Success,
                         })
                       : (c++,
                         l.length < 3 && l.push(e),

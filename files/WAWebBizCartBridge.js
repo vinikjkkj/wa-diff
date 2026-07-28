@@ -22,7 +22,13 @@ __d(
       var s = o(
         "WAWebBusinessDirectConnectionBridge",
       ).attemptWithDirectConnectionRetry(t, function (e) {
-        return o("WAWebBizRefreshCartJob").refreshCart(t, r, a, i, e);
+        return o("WAWebBizRefreshCartJob").refreshCart({
+          bizJID: t,
+          directConnectionEncryptedInfo: e,
+          ids: r,
+          imageHeight: i,
+          imageWidth: a,
+        });
       });
       return s.then(function (e) {
         return (

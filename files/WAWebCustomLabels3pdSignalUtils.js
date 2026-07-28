@@ -73,7 +73,7 @@ __d(
         var i = n.filter(function (e) {
           return (
             e instanceof o("WAWebChatModel").Chat &&
-            r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e) !=
+            o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e) !=
               null
           );
         });

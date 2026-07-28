@@ -1,8 +1,8 @@
 __d(
   "WAWebSyncdSnapshotRecoveryGatingUtils",
   [
-    "WASyncdConst",
     "WAWebABProps",
+    "WAWebSyncdConst",
     "WAWebSyncdError",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebWamEnumRecoveryStatusEnum",
@@ -47,7 +47,7 @@ __d(
           reason: o("WAWebWamEnumRecoveryStatusEnum").RECOVERY_STATUS_ENUM
             .PRIMARY_UNSUPPORTED,
         };
-      if (e === o("WASyncdConst").CollectionName.CriticalBlock)
+      if (e === o("WAWebSyncdConst").CollectionName.CriticalBlock)
         return {
           shouldPerformRecovery: !1,
           reason: o("WAWebWamEnumRecoveryStatusEnum").RECOVERY_STATUS_ENUM

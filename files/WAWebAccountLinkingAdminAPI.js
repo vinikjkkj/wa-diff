@@ -10,6 +10,7 @@ __d(
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingCryptoUtils",
     "WAWebAccountLinkingDBOperationsAPI",
+    "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebWaffleIQErrorHandler",
     "asyncToGeneratorRuntime",
     "err",
@@ -375,9 +376,12 @@ __d(
               I.success === !0 &&
               I.link_mutation_succeeded === !0
             )
-              yield S.updateAccountLinkingState(
+              (yield S.updateAccountLinkingState(
                 o("WAWebAccountLinkingConstants").AccountLinkState.Active,
-              );
+              ),
+                o(
+                  "WAWebMetaAiWaffleAuthTokenCache",
+                ).refreshMetaAiWaffleAuthTokenBlob());
             else {
               var T = "success" in I ? I.success : void 0,
                 D =

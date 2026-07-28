@@ -54,7 +54,14 @@ __d(
             o("WAWebOutgoingMessage").OutgoingMessageOriginType.ChatResend,
             u,
           );
-          return o("WAWebResendUserMsg").resendUserMsg(u, m, s, t, c, d);
+          return o("WAWebResendUserMsg").resendUserMsg({
+            ackTime: t,
+            chatId: d,
+            excludeList: s,
+            metricReporter: c,
+            msgProtobuf: m,
+            msgRecord: u,
+          });
         })),
         s.apply(this, arguments)
       );

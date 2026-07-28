@@ -3,6 +3,8 @@ __d(
   [
     "$InternalEnum",
     "WAWebFrontendMsgGetters",
+    "WAWebInfoFlowLoadable",
+    "WAWebInfoFlowStep",
     "WAWebPollsActionsMetricUtils",
     "WAWebPollsDetailsDrawer",
     "WAWebPollsViewAllVotesDrawer",
@@ -17,7 +19,7 @@ __d(
       u = e,
       c = u.useEffect,
       d = u.useState,
-      m = n("$InternalEnum").Mirrored(["Details", "ViewAll"]);
+      m = n("$InternalEnum").Mirrored(["Details", "ViewAll", "ContactInfo"]);
     function p(e) {
       var t = e.associatedMessages,
         n = e.msg,
@@ -29,13 +31,19 @@ __d(
         u = d(null),
         p = u[0],
         _ = u[1],
-        f = o("WAWebFrontendMsgGetters").getChat(n.unsafe());
+        f = d(null),
+        g = f[0],
+        h = f[1],
+        y = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
+        C = function (t) {
+          (h(t), l.push(m.ContactInfo));
+        };
       if (
         (c(function () {
           o("WAWebPollsActionsMetricUtils").commitPollsActionsMetric({
             action: o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
               .VIEW_RESULTS_MODAL,
-            chat: f,
+            chat: y,
             creationDateInSeconds: n.t,
             pollOptionsCount: n.pollOptions.length,
           });
@@ -43,10 +51,10 @@ __d(
         l.step == null)
       )
         return null;
-      var g;
+      var b;
       switch (l.step) {
         case m.Details:
-          g = s.jsx(o("WAWebPollsDetailsDrawer").DetailsDrawer, {
+          b = s.jsx(o("WAWebPollsDetailsDrawer").DetailsDrawer, {
             msg: n,
             associatedMessages: t,
             onClose: function () {
@@ -55,20 +63,32 @@ __d(
             onViewAllVotes: function (t) {
               (_(t), l.push(m.ViewAll));
             },
+            onOpenContactInfo: C,
           });
           break;
         case m.ViewAll:
-          g = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
+          b = s.jsx(o("WAWebPollsViewAllVotesDrawer").ViewAllVotesDrawer, {
             msg: n,
             associatedMessages: t,
             optionLocalId: r("nullthrows")(p),
             onBack: function () {
               l.pop();
             },
+            onOpenContactInfo: C,
+          });
+          break;
+        case m.ContactInfo:
+          b = s.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
+            chat: r("nullthrows")(g),
+            initialStep: o("WAWebInfoFlowStep").InfoFlowStep.ContactInfo,
+            onBack: l.pop,
+            onEnd: function () {
+              return l.pop();
+            },
           });
           break;
       }
-      return s.jsx(i, { flow: l, children: g });
+      return s.jsx(i, { flow: l, children: b });
     }
     ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },

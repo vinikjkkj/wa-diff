@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebBackendApi",
     "WAWebCurrentUser",
@@ -15,6 +14,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
@@ -37,7 +37,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             (e.chatJidIndex = 1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
@@ -58,7 +58,7 @@ __d(
             return 1;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.InteractiveMessageAction;
+            return o("WAWebSyncdConst").Actions.InteractiveMessageAction;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -128,11 +128,12 @@ __d(
                                   }
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: {
                                       modelId: S.toString(),
                                       modelType:
-                                        o("WASyncdConst").SyncModelType.Msg,
+                                        o("WAWebSyncdConst").SyncModelType.Msg,
                                     },
                                   };
                                 }
@@ -164,17 +165,18 @@ __d(
                                   return k != null && v != null
                                     ? {
                                         actionState:
-                                          o("WASyncdConst").SyncActionState
+                                          o("WAWebSyncdConst").SyncActionState
                                             .Success,
                                       }
                                     : {
                                         actionState:
-                                          o("WASyncdConst").SyncActionState
+                                          o("WAWebSyncdConst").SyncActionState
                                             .Orphan,
                                         orphanModel: {
                                           modelId: S.toString(),
                                           modelType:
-                                            o("WASyncdConst").SyncModelType.Msg,
+                                            o("WAWebSyncdConst").SyncModelType
+                                              .Msg,
                                         },
                                       };
                                 var I =
@@ -192,14 +194,14 @@ __d(
                                     h.length < 3 && h.push(L.toString()),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     })
                                   : (y++,
                                     C.length < 3 && C.push(L.toString()),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Skipped,
                                     });
                               }
@@ -207,14 +209,14 @@ __d(
                                 b++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -290,7 +292,7 @@ __d(
                         "WAWebSyncdGetChat",
                       ).getChatJidMutationIndexForChat(
                         e.remote,
-                        o("WASyncdConst").Actions.InteractiveMessageAction,
+                        o("WAWebSyncdConst").Actions.InteractiveMessageAction,
                       ),
                     ),
                     id: e.id,

@@ -3,10 +3,10 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSyncd",
+    "WAWebSyncdConst",
     "WAWebUserPrefsAppStateSync",
     "asyncToGeneratorRuntime",
   ],
@@ -24,11 +24,11 @@ __d(
                 ])),
             ),
               yield o("WAWebSyncd").markCollectionsForSync([
-                o("WASyncdConst").CollectionName.CriticalBlock,
-                o("WASyncdConst").CollectionName.CriticalUnblockLow,
-                o("WASyncdConst").CollectionName.Regular,
-                o("WASyncdConst").CollectionName.RegularLow,
-                o("WASyncdConst").CollectionName.RegularHigh,
+                o("WAWebSyncdConst").CollectionName.CriticalBlock,
+                o("WAWebSyncdConst").CollectionName.CriticalUnblockLow,
+                o("WAWebSyncdConst").CollectionName.Regular,
+                o("WAWebSyncdConst").CollectionName.RegularLow,
+                o("WAWebSyncdConst").CollectionName.RegularHigh,
               ]),
               yield o(
                 "WAWebUserPrefsAppStateSync",

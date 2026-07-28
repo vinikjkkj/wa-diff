@@ -2,8 +2,8 @@ __d(
   "WAWebPrimaryVersionSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -17,7 +17,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -29,7 +29,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.PrimaryVersion;
+            return o("WAWebSyncdConst").Actions.PrimaryVersion;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -44,7 +44,7 @@ __d(
                         r++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var i = e.indexParts,
@@ -61,7 +61,7 @@ __d(
                         ))
                       : {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Success,
+                            o("WAWebSyncdConst").SyncActionState.Success,
                         };
                   });
                 return (

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebApiContact",
     "WAWebBackendApi",
@@ -20,6 +19,7 @@ __d(
     "WAWebSchemaLabelAssociation",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebUserPrefsGeneral",
@@ -39,7 +39,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 2),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -48,10 +48,10 @@ __d(
         var i = a.prototype;
         return (
           (i.getVersion = function () {
-            return o("WASyncdConst").LABEL_ASSOCIATION_SYNC_VERSION;
+            return o("WAWebSyncdConst").LABEL_ASSOCIATION_SYNC_VERSION;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.LabelJid;
+            return o("WAWebSyncdConst").Actions.LabelJid;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -232,7 +232,8 @@ __d(
                                     }),
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Success,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Success,
                                   }
                                 );
                               }
@@ -240,14 +241,14 @@ __d(
                                 _++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -315,9 +316,10 @@ __d(
                       operation: o("WAWebProtobufsServerSync.pb")
                         .SyncdMutation$SyncdOperation.SET,
                       indexArgs: [n].concat(t),
-                      version: o("WASyncdConst").LABEL_ASSOCIATION_SYNC_VERSION,
+                      version:
+                        o("WAWebSyncdConst").LABEL_ASSOCIATION_SYNC_VERSION,
                       value: s,
-                      action: o("WASyncdConst").Actions.LabelJid,
+                      action: o("WAWebSyncdConst").Actions.LabelJid,
                     });
                   });
                 });
@@ -358,7 +360,7 @@ __d(
                     ),
                   ),
                   s = function* (t) {
-                    if (t.action === o("WASyncdConst").Actions.LabelJid) {
+                    if (t.action === o("WAWebSyncdConst").Actions.LabelJid) {
                       var e = t.indexArgs,
                         n = e[0],
                         r = babelHelpers.arrayLikeToArray(e).slice(1),

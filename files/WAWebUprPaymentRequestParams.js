@@ -12,6 +12,7 @@ __d(
         s = e.referenceId,
         u = {
           payment_type: o("WAWebUprConstants").UPR_PAYMENT_TYPE,
+          type: "physical-goods",
           reference_id: s,
           currency: r,
           payment_settings: l.map(function (e) {

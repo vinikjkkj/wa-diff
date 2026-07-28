@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebAiThreadCreationUtils",
     "WAWebBackendApi",
@@ -11,6 +10,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdGetChat",
     "WAWebSyncdGetThread",
@@ -31,7 +31,8 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -43,7 +44,7 @@ __d(
             return 7;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.AiThreadDelete;
+            return o("WAWebSyncdConst").Actions.AiThreadDelete;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -61,7 +62,7 @@ __d(
                                   i++,
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState
+                                      o("WAWebSyncdConst").SyncActionState
                                         .Unsupported,
                                   }
                                 );
@@ -86,7 +87,7 @@ __d(
                               )
                                 return {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 };
                               var c = o(
@@ -99,13 +100,14 @@ __d(
                                 ? a.$AiThreadDeleteSync$p_1(u, c, d.thread)
                                 : {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: d.orphanModel,
                                   };
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -148,7 +150,7 @@ __d(
                     { chatId: e, threadIds: [t], msgIds: a },
                   ),
                   (s || (s = n("Promise"))).resolve({
-                    actionState: o("WASyncdConst").SyncActionState.Success,
+                    actionState: o("WAWebSyncdConst").SyncActionState.Success,
                   })
                 );
               },
@@ -166,7 +168,7 @@ __d(
                     "WAWebSyncdGetChat",
                   ).getChatJidMutationIndexForChat(
                     t,
-                    o("WASyncdConst").Actions.AiThreadDelete,
+                    o("WAWebSyncdConst").Actions.AiThreadDelete,
                   ),
                   r = e.key.id;
                 return [n, r];

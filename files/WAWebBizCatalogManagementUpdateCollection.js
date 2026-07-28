@@ -6,7 +6,7 @@ __d(
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
@@ -80,7 +80,7 @@ __d(
           if (r == null || a == null) return d;
           var i = a.status;
           if (i == null) return d;
-          var l = o("WAWebProductTypes.flow").asProductReviewType(i);
+          var l = o("WAWebProductTypes").asProductReviewType(i);
           return l == null
             ? d
             : { type: "success", collectionResult: { id: r, reviewStatus: l } };

@@ -1,10 +1,10 @@
 __d(
   "WAWebSentinel",
   [
-    "WASyncdConst",
     "WAWebGetPendingMutation",
     "WAWebSentinelMutationSync",
     "WAWebSyncd",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,7 +21,7 @@ __d(
               "WAWebGetPendingMutation",
             ).bulkCreateSyncPendingMutationsInTransaction(e),
             o("WAWebSyncd").markCollectionsForSync(
-              Array.from(o("WASyncdConst").CollectionName.members()),
+              Array.from(o("WAWebSyncdConst").CollectionName.members()),
             )
           );
         })),

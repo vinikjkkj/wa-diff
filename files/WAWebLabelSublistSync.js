@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebApiContact",
     "WAWebBackendApi",
@@ -13,6 +12,7 @@ __d(
     "WAWebSchemaLabelSublist",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
@@ -32,7 +32,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 2),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -41,10 +41,10 @@ __d(
         var i = a.prototype;
         return (
           (i.getVersion = function () {
-            return o("WASyncdConst").LABEL_SUBLIST_SYNC_VERSION;
+            return o("WAWebSyncdConst").LABEL_SUBLIST_SYNC_VERSION;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.LabelSublist;
+            return o("WAWebSyncdConst").Actions.LabelSublist;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -101,7 +101,7 @@ __d(
                                   : {
                                       result: {
                                         actionState:
-                                          o("WASyncdConst").SyncActionState
+                                          o("WAWebSyncdConst").SyncActionState
                                             .Success,
                                       },
                                       add: {
@@ -119,7 +119,7 @@ __d(
                                     return {
                                       result: {
                                         actionState:
-                                          o("WASyncdConst").SyncActionState
+                                          o("WAWebSyncdConst").SyncActionState
                                             .Success,
                                       },
                                       add: null,
@@ -138,7 +138,8 @@ __d(
                                 return {
                                   result: {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Success,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Success,
                                   },
                                   add: null,
                                   remove: null,
@@ -149,7 +150,7 @@ __d(
                                 {
                                   result: {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState
+                                      o("WAWebSyncdConst").SyncActionState
                                         .Unsupported,
                                   },
                                   add: null,
@@ -168,7 +169,8 @@ __d(
                                 {
                                   result: {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Failed,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Failed,
                                   },
                                   add: null,
                                   remove: null,

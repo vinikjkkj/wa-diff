@@ -4,9 +4,9 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WAWebProtobufSyncAction.pb",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
@@ -103,7 +103,8 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -115,7 +116,7 @@ __d(
             return 1;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.WasaRootSecret;
+            return o("WAWebSyncdConst").Actions.WasaRootSecret;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -154,7 +155,8 @@ __d(
                                 if (!p.success)
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: p.orphanModel,
                                   };
                                 var _ = o("WAWebWidFactory").createWid(
@@ -168,7 +170,8 @@ __d(
                                   yield m(_, l, f),
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Success,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Success,
                                   }
                                 );
                                 break e;
@@ -180,7 +183,7 @@ __d(
                               )
                                 return {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 };
                               throw Error(
@@ -202,7 +205,7 @@ __d(
                                 .sendLogs("wasa-root-secret-sync-failed"),
                               {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               }
                             );
                           }

@@ -14,7 +14,9 @@ __d(
     function e(e, t) {
       return t.uprAttachment == null ||
         !o("WAWebConnModel").Conn.isSMB ||
-        !o("WAWebBizFrontendGatingUtils").isUprAttachmentTrayEnabled() ||
+        !o("WAWebBizFrontendGatingUtils").isUprAttachmentTrayEnabled(
+          t.country,
+        ) ||
         !s(e) ||
         !o("WAWebBizFrontendGatingUtils").isUprSendEnabledForCountry(
           t.country,

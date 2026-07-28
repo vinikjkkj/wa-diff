@@ -503,7 +503,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.DataSharing,
             id: "data_sharing",
-            isAvailable: r(
+            isAvailable: o(
               "WAWebCommonCTWADataSharing",
             ).shouldDisplayDataSharingSetting(),
             searchCriteria: String(

@@ -193,32 +193,34 @@ __d(
       });
       t.commit();
     }
-    function f(e, t, n, r) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = {
-                actionType: o("WAWebWamEnumChatFilterActionTypes")
-                  .CHAT_FILTER_ACTION_TYPES.SEARCH_ITEM_SELECTED,
-                filterType: e(n),
-                searchResultType: m(r),
-                targetScreen: o("WAWebWamEnumChatFilterTargetScreen")
-                  .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
-                sessionId: t,
-              },
-              l =
-                a != null
-                  ? yield o("WAWebChatThreadLogging").getChatThreadID(a.toJid())
-                  : null;
-            (s({ eventData: i, filter: n, threadId: l }),
-              new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
-                i,
-              ).commit());
-          },
-        )),
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.chatId,
+            r = t.filter,
+            a = t.searchResult,
+            i = t.sessionId,
+            l = {
+              actionType: o("WAWebWamEnumChatFilterActionTypes")
+                .CHAT_FILTER_ACTION_TYPES.SEARCH_ITEM_SELECTED,
+              filterType: e(r),
+              searchResultType: m(a),
+              targetScreen: o("WAWebWamEnumChatFilterTargetScreen")
+                .CHAT_FILTER_TARGET_SCREEN.CHAT_LIST,
+              sessionId: i,
+            },
+            u =
+              n != null
+                ? yield o("WAWebChatThreadLogging").getChatThreadID(n.toJid())
+                : null;
+          (s({ eventData: l, filter: r, threadId: u }),
+            new (o("WAWebChatFilterEventWamEvent").ChatFilterEventWamEvent)(
+              l,
+            ).commit());
+        })),
         g.apply(this, arguments)
       );
     }

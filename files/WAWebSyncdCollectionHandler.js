@@ -6,7 +6,6 @@ __d(
     "WACryptoUtils",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WASyncdKeyTypes",
     "WATimeUtils",
     "WAWebABProps",
@@ -24,6 +23,7 @@ __d(
     "WAWebSyncdAntiTampering",
     "WAWebSyncdCollectionHandlerTypesConverter",
     "WAWebSyncdCollectionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCriticalBootstrapProcessingApi",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdDbCallbacksApi",
@@ -170,7 +170,7 @@ __d(
                       var l = yield Xe(
                           r,
                           a,
-                          o("WASyncdConst").SyncDataType.Local,
+                          o("WAWebSyncdConst").SyncDataType.Local,
                           t,
                           null,
                           null,
@@ -591,7 +591,10 @@ __d(
                       ])),
                     i,
                   ),
-                  { name: i, state: o("WASyncdConst").CollectionState.Blocked })
+                  {
+                    name: i,
+                    state: o("WAWebSyncdConst").CollectionState.Blocked,
+                  })
                 : e instanceof o("WAWebSyncdError").SyncdFatalError
                   ? (o("WALogger")
                       .ERROR(
@@ -609,7 +612,7 @@ __d(
                       ),
                     {
                       name: i,
-                      state: o("WASyncdConst").CollectionState.ErrorFatal,
+                      state: o("WAWebSyncdConst").CollectionState.ErrorFatal,
                     })
                   : (o("WALogger")
                       .WARN(
@@ -627,7 +630,7 @@ __d(
                       ),
                     {
                       name: i,
-                      state: o("WASyncdConst").CollectionState.ErrorRetry,
+                      state: o("WAWebSyncdConst").CollectionState.ErrorRetry,
                     });
             }
           },
@@ -730,7 +733,7 @@ __d(
                     .SET
                 );
               }),
-              o("WASyncdConst").SyncActionState.Success,
+              o("WAWebSyncdConst").SyncActionState.Success,
             );
             yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
               e,
@@ -1165,7 +1168,7 @@ __d(
             function* (n, r) {
               e == null ||
                 e.mark("anti_tampering_start", {
-                  source: o("WASyncdConst").SyncDataType.Snapshot,
+                  source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                 });
               var a = yield o(
                 "WAWebSyncdAntiTampering",
@@ -1173,7 +1176,7 @@ __d(
               return (
                 e == null ||
                   e.mark("anti_tampering_end", {
-                    source: o("WASyncdConst").SyncDataType.Snapshot,
+                    source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                   }),
                 a
               );
@@ -1188,7 +1191,7 @@ __d(
             function* (t, n) {
               e == null ||
                 e.mark("decryption_start", {
-                  source: o("WASyncdConst").SyncDataType.Snapshot,
+                  source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                 });
               var r = yield o(
                 "WAWebSyncdDecryptMutationsWrapper",
@@ -1196,7 +1199,7 @@ __d(
               return (
                 e == null ||
                   e.mark("decryption_end", {
-                    source: o("WASyncdConst").SyncDataType.Snapshot,
+                    source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                   }),
                 r
               );
@@ -1217,7 +1220,7 @@ __d(
             function* (t, n, r, a, i) {
               e == null ||
                 e.mark("anti_tampering_start", {
-                  source: o("WASyncdConst").SyncDataType.Patch,
+                  source: o("WAWebSyncdConst").SyncDataType.Patch,
                 });
               var l = yield o(
                 "WAWebSyncdAntiTampering",
@@ -1225,7 +1228,7 @@ __d(
               return (
                 e == null ||
                   e.mark("anti_tampering_end", {
-                    source: o("WASyncdConst").SyncDataType.Patch,
+                    source: o("WAWebSyncdConst").SyncDataType.Patch,
                   }),
                 l
               );
@@ -1240,7 +1243,7 @@ __d(
             function* (t, n) {
               e == null ||
                 e.mark("decryption_start", {
-                  source: o("WASyncdConst").SyncDataType.Patch,
+                  source: o("WAWebSyncdConst").SyncDataType.Patch,
                 });
               var r = yield o(
                 "WAWebSyncdDecryptMutationsWrapper",
@@ -1248,7 +1251,7 @@ __d(
               return (
                 e == null ||
                   e.mark("decryption_end", {
-                    source: o("WASyncdConst").SyncDataType.Patch,
+                    source: o("WAWebSyncdConst").SyncDataType.Patch,
                   }),
                 r
               );
@@ -1300,7 +1303,7 @@ __d(
                 g = _.measuredTryDecryptSnapshot;
               (i == null ||
                 i.mark("apply_start", {
-                  source: o("WASyncdConst").SyncDataType.Snapshot,
+                  source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                   snapshotRecordsCount: t.records.length,
                 }),
                 o("WALogger").LOG(
@@ -1452,13 +1455,13 @@ __d(
                 ).validateNoSameIndexForMultipleMutations(
                   e,
                   v,
-                  o("WASyncdConst").SyncDataType.Snapshot,
+                  o("WAWebSyncdConst").SyncDataType.Snapshot,
                 ));
               var E = d && y != null ? y : t.version.version,
                 k = yield Xe(
                   e,
                   v,
-                  o("WASyncdConst").SyncDataType.Snapshot,
+                  o("WAWebSyncdConst").SyncDataType.Snapshot,
                   l,
                   i,
                   E,
@@ -1495,7 +1498,7 @@ __d(
               if (
                 (i == null ||
                   i.mark("update_DB_start", {
-                    source: o("WASyncdConst").SyncDataType.Snapshot,
+                    source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                     setMutationsToPersistCount: T.length,
                     pendingMutationsToDropCount: I.length,
                   }),
@@ -1535,7 +1538,7 @@ __d(
                 ),
                 i == null ||
                   i.mark("update_DB_end", {
-                    source: o("WASyncdConst").SyncDataType.Snapshot,
+                    source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                   }),
                 D != null)
               ) {
@@ -1562,7 +1565,7 @@ __d(
               ),
                 i == null ||
                   i.mark("apply_end", {
-                    source: o("WASyncdConst").SyncDataType.Snapshot,
+                    source: o("WAWebSyncdConst").SyncDataType.Snapshot,
                     decryptedMutationsCount: v.length,
                   }));
             } catch (n) {
@@ -1591,13 +1594,13 @@ __d(
                 !d &&
                 (i == null ||
                   i.mark("apply_start", {
-                    source: o("WASyncdConst").SyncDataType.Patch,
+                    source: o("WAWebSyncdConst").SyncDataType.Patch,
                     patchCount: a.length,
                   }),
                 yield He(e, a, i, l, s),
                 i == null ||
                   i.mark("apply_end", {
-                    source: o("WASyncdConst").SyncDataType.Patch,
+                    source: o("WAWebSyncdConst").SyncDataType.Patch,
                     patchCount: a.length,
                   })));
           },
@@ -1752,8 +1755,8 @@ __d(
         (je = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (
-              e === o("WASyncdConst").CollectionName.CriticalBlock ||
-              e === o("WASyncdConst").CollectionName.RegularLow
+              e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
+              e === o("WAWebSyncdConst").CollectionName.RegularLow
             ) {
               var a = n
                   .map(function (e) {
@@ -1819,8 +1822,8 @@ __d(
               o("WAWebABProps").getABPropConfigValue(
                 "enable_syncd_debug_data_in_patch",
               ) ||
-              e === o("WASyncdConst").CollectionName.CriticalBlock ||
-              e === o("WASyncdConst").CollectionName.RegularLow ||
+              e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
+              e === o("WAWebSyncdConst").CollectionName.RegularLow ||
               o("WAWebCurrentUser").isEmployee();
             if (d) {
               var m, p, _, f;
@@ -2030,7 +2033,7 @@ __d(
               ).validateNoSameIndexForMultipleMutations(
                 e,
                 E,
-                o("WASyncdConst").SyncDataType.Patch,
+                o("WAWebSyncdConst").SyncDataType.Patch,
               ));
             var T = tt(E),
               D = T.filter(function (e) {
@@ -2064,7 +2067,7 @@ __d(
               N = yield Xe(
                 e,
                 P,
-                o("WASyncdConst").SyncDataType.Patch,
+                o("WAWebSyncdConst").SyncDataType.Patch,
                 s,
                 a,
                 t.version.version,
@@ -2089,7 +2092,7 @@ __d(
             var A = $.concat(M);
             a == null ||
               a.mark("update_DB_start", {
-                source: o("WASyncdConst").SyncDataType.Patch,
+                source: o("WAWebSyncdConst").SyncDataType.Patch,
                 setMutationsToPersistCount: w.length,
                 pendingMutationsToDropCount: A.length,
               });
@@ -2149,7 +2152,7 @@ __d(
                   .sendLogs("syncd: processing old version for " + e));
             }
             ((d ||
-              e === o("WASyncdConst").CollectionName.RegularLow ||
+              e === o("WAWebSyncdConst").CollectionName.RegularLow ||
               o("WAWebCurrentUser").isEmployee()) &&
               (yield o("WAWebSyncdAntiTampering").logMacsInSnapshot(
                 e,
@@ -2158,7 +2161,7 @@ __d(
               )),
               a == null ||
                 a.mark("update_DB_end", {
-                  source: o("WASyncdConst").SyncDataType.Patch,
+                  source: o("WAWebSyncdConst").SyncDataType.Patch,
                 }),
               o("WALogger").LOG(
                 ce ||
@@ -2229,7 +2232,7 @@ __d(
                   .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE.ABOUT_TO_APPLY_MUTATIONS,
               ));
             var u =
-                n === o("WASyncdConst").SyncDataType.Local
+                n === o("WAWebSyncdConst").SyncDataType.Local
                   ? " (individual mutations)"
                   : "",
               c = [],
@@ -2246,7 +2249,7 @@ __d(
                   "WAWebSyncdCollectionHandlerTypesConverter",
                 ).setMutationToSyncAction(
                   e,
-                  o("WASyncdConst").SyncActionState.Unsupported,
+                  o("WAWebSyncdConst").SyncActionState.Unsupported,
                 ),
               );
             }),
@@ -2299,7 +2302,7 @@ __d(
                     "WAWebSyncdCollectionHandlerTypesConverter",
                   ).setMutationToSyncAction(
                     e,
-                    o("WASyncdConst").SyncActionState.Skipped,
+                    o("WAWebSyncdConst").SyncActionState.Skipped,
                     e.actionName,
                   ),
                 );
@@ -2423,7 +2426,7 @@ __d(
               } catch (t) {
                 if (
                   t instanceof o("WAWebSyncdError").SyncdFatalError ||
-                  e === o("WASyncdConst").CollectionName.CriticalBlock
+                  e === o("WAWebSyncdConst").CollectionName.CriticalBlock
                 )
                   throw t;
                 ((k = !0),
@@ -2452,7 +2455,7 @@ __d(
                 var D,
                   x,
                   $ = k
-                    ? o("WASyncdConst").SyncActionState.Failed
+                    ? o("WAWebSyncdConst").SyncActionState.Failed
                     : E[T].actionState;
                 c.push(
                   o(
@@ -2507,7 +2510,7 @@ __d(
                 o("WAWebWamEnumBootstrapAppStateDataStageCode")
                   .BOOTSTRAP_APP_STATE_DATA_STAGE_CODE.APPLIED_MUTATIONS,
               ),
-              e === o("WASyncdConst").CollectionName.CriticalBlock &&
+              e === o("WAWebSyncdConst").CollectionName.CriticalBlock &&
                 (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                   e,
                   a +
@@ -2627,7 +2630,7 @@ __d(
           if (e.version > o("WAWebSyncdGetActionHandler").maxSupportedVersion())
             return { unsupported: e };
           var t = it(e.collection, e.index),
-            l = o("WASyncdConst").Actions.cast(t[0]);
+            l = o("WAWebSyncdConst").Actions.cast(t[0]);
           if (!l)
             return (r++, n.length < 3 && n.push(t[0]), { unsupported: e });
           var s = o("WAWebSyncdGetActionHandler").getActionHandler(l);
@@ -2713,7 +2716,7 @@ __d(
           if (t.version > o("WAWebSyncdGetActionHandler").maxSupportedVersion())
             return { unsupported: t };
           var l = it(e, t.index),
-            s = o("WASyncdConst").Actions.cast(l[0]);
+            s = o("WAWebSyncdConst").Actions.cast(l[0]);
           if (!s)
             return (r++, n.length < 3 && n.push(l[0]), { unsupported: t });
           var u = o("WAWebSyncdGetActionHandler").getActionHandler(s);

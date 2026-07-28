@@ -1,20 +1,15 @@
 __d(
   "WAWebContactModel",
   [
-    "fbt",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
-    "WAWebAIHatchIdentityStore",
-    "WAWebAIHatchIdentitySync",
     "WAWebAlarm",
     "WAWebApiContact",
     "WAWebBaseModel",
     "WAWebBizBusinessChangeAction",
     "WAWebBizLabelUtils",
     "WAWebBotBaseGating",
-    "WAWebBotGating",
-    "WAWebBotUtils",
     "WAWebBusinessProfileCollection",
     "WAWebConnModel",
     "WAWebContactBlocklistUtils",
@@ -23,9 +18,9 @@ __d(
     "WAWebContactSearchMatcher",
     "WAWebContactShortName",
     "WAWebFrontendContactGetters",
+    "WAWebInitializeBotContact",
     "WAWebL10N",
     "WAWebListsGatingUtils",
-    "WAWebMetaAiRingAssetResolver",
     "WAWebOptOutListCollection",
     "WAWebProfilePicThumbCollection",
     "WAWebTextStatusCollection",
@@ -35,12 +30,12 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e,
+      s,
       u,
-      c,
-      d = 1e3,
-      m = (function (t) {
+      c = 1e3,
+      d = (function (t) {
         function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -142,7 +137,7 @@ __d(
                     function () {
                       return e.$Contact$p_1();
                     },
-                    t * d,
+                    t * c,
                     this.meTextStatusExpiryTimer,
                   )));
           }),
@@ -261,7 +256,8 @@ __d(
                           n.$Contact$p_7();
                         },
                   ));
-              this.$Contact$p_8();
+              this.id.isBot() &&
+                o("WAWebInitializeBotContact").initializeBotContact(this);
             }
           }),
           (a.$Contact$p_2 = function () {
@@ -278,64 +274,6 @@ __d(
           }),
           (a.$Contact$p_5 = function () {
             this.locale = r("WAWebL10N").getLocale();
-          }),
-          (a.$Contact$p_8 = function () {
-            if (this.id.isBot()) {
-              if (o("WAWebBotUtils").isManusBot(this.id)) {
-                this.set({ name: o("WAWebBotGating").getManusBotName() });
-                var e = o("WAWebBotGating").getManusBotProfileThumb();
-                e !== "" &&
-                  o("WAWebProfilePicThumbCollection")
-                    .ProfilePicThumbCollection.gadd(this.id)
-                    .set({
-                      eurl: e,
-                      previewEurl: e,
-                      tag: "man",
-                      stale: !1,
-                      timestamp: Date.now(),
-                    });
-              } else if (o("WAWebBotUtils").isHatchBot(this.id)) {
-                var t = o(
-                    "WAWebAIHatchIdentityStore",
-                  ).getHatchInitialIdentity(),
-                  n = t.name,
-                  r = t.profileThumb;
-                (this.set({ name: n }),
-                  r !== "" &&
-                    o("WAWebProfilePicThumbCollection")
-                      .ProfilePicThumbCollection.gadd(this.id)
-                      .set({
-                        eurl: r,
-                        previewEurl: r,
-                        tag: "hat",
-                        stale: !1,
-                        timestamp: Date.now(),
-                      }),
-                  o("WAWebAIHatchIdentitySync").syncHatchContactIdentity({
-                    contact: this,
-                    wid: this.id,
-                  }));
-              } else if (
-                o("WAWebBotUtils").isMetaAiBot(this.id) ||
-                o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(this.id)
-              ) {
-                this.set({ name: "Meta AI" });
-                var a = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
-                o("WAWebProfilePicThumbCollection")
-                  .ProfilePicThumbCollection.gadd(this.id)
-                  .set({
-                    eurl: a,
-                    previewEurl: a,
-                    tag: "man",
-                    stale: !1,
-                    timestamp: Date.now(),
-                  });
-              } else {
-                if (this.name) return;
-                this.set({ name: s._(/*BTDS*/ "AI").toString() });
-              }
-              this.set({ type: "out" });
-            }
           }),
           (a.updateName = function () {
             var e;
@@ -356,7 +294,7 @@ __d(
               e != null && this.set("shortName", e);
             }
           }),
-          (a.$Contact$p_9 = function () {
+          (a.$Contact$p_8 = function () {
             var e = o("WAWebWidFactory").asUserWidOrThrow(this.id);
             if (e.isLid()) return this;
             var t = o("WAWebApiContact").getCurrentLid(e);
@@ -365,7 +303,7 @@ __d(
               : null;
           }),
           (a.$Contact$p_7 = function () {
-            var e = this.$Contact$p_9();
+            var e = this.$Contact$p_8();
             e &&
               (e.set({ name: this.name }),
               e.set({ parentStatusMute: this.statusMute }));
@@ -388,8 +326,8 @@ __d(
             return (
               r("WAWebWid").user(this.id) ||
                 o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "contact:getStatus for non-user ",
                       "",
                     ])),
@@ -408,16 +346,16 @@ __d(
           (a.addPendingAction = function (t) {
             var e = this,
               n = function () {
-                e.$Contact$p_10();
+                e.$Contact$p_9();
               };
             return (t.then(n, n), this.pendingAction++, t);
           }),
-          (a.$Contact$p_10 = function () {
+          (a.$Contact$p_9 = function () {
             this.pendingAction > 0
               ? this.pendingAction--
               : (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "contact:onPendingActionUpdate pendingAction value is invalid",
                     ])),
                 ),
@@ -487,9 +425,9 @@ __d(
           n
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((m.Proxy = "contact"), (m.idClass = r("WAWebWid")));
-    var p = o("WAWebBaseModel").defineModel(m);
-    l.default = p;
+    ((d.Proxy = "contact"), (d.idClass = r("WAWebWid")));
+    var m = o("WAWebBaseModel").defineModel(d);
+    l.default = m;
   },
-  226,
+  98,
 );

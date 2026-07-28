@@ -2,8 +2,8 @@ __d(
   "WAWebShareOwnPnSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebUpdateLidMetadataJob",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -17,7 +17,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -29,7 +29,7 @@ __d(
             return 8;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.ShareOwnPn;
+            return o("WAWebSyncdConst").Actions.ShareOwnPn;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -44,7 +44,7 @@ __d(
                         a++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var t = e.indexParts[1];
@@ -53,7 +53,10 @@ __d(
                     var l = o("WAWebWidFactory").createUserLidOrThrow(t);
                     return (
                       r.push({ lid: l, data: { shareOwnPn: !0 } }),
-                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
                     );
                   });
                 return (

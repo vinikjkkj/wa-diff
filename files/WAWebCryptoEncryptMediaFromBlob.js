@@ -20,12 +20,68 @@ __d(
       u,
       c,
       d = 16777216;
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function m(t) {
+      var a = t.blob,
+        i = t.mediaKey,
+        l = t.type;
+      return new (c || (c = n("Promise")))(function (t, n) {
+        var c = { mediaKey: i.slice(0, 10), type: l };
+        if (
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "encryptMediaFromBlob: start",
+              ])),
+          ),
+          !l)
+        )
+          throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+            'encryptMediaFromBlob: missing "type"',
+          );
+        if (!i)
+          throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+            'encryptMediaFromBlob: missing "mediaKey"',
+          );
+        r("WAWebCryptoCreateMediaKeys")(l, i)
+          .then(function (e) {
+            return p(a, e);
+          })
+          .then(function (e) {
+            (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "encryptMediaFromBlob: success",
+                ])),
+            ),
+              t(e));
+          })
+          .catch(function (e) {
+            throw (
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "encryptMediaFromBlob: error",
+                  ])),
+              ),
+              e instanceof o("WAWebMiscErrors").MediaEncryptionError
+                ? e
+                : new (o("WAWebMiscErrors").MediaEncryptionError)(
+                    "encryption error: " +
+                      String(e) +
+                      "; stack: " +
+                      r("getErrorSafe")(e).stack,
+                  )
+            );
+          })
+          .catch(n);
+      });
     }
-    function p() {
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           for (
             var n,
               r = t.encKey,
@@ -69,66 +125,10 @@ __d(
             firstFrameSidecar: void 0,
           };
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(t) {
-      var a = t.blob,
-        i = t.mediaKey,
-        l = t.type;
-      return new (c || (c = n("Promise")))(function (t, n) {
-        var c = { mediaKey: i.slice(0, 10), type: l };
-        if (
-          (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "encryptMediaFromBlob: start",
-              ])),
-          ),
-          !l)
-        )
-          throw new (o("WAWebMiscErrors").MediaEncryptionError)(
-            'encryptMediaFromBlob: missing "type"',
-          );
-        if (!i)
-          throw new (o("WAWebMiscErrors").MediaEncryptionError)(
-            'encryptMediaFromBlob: missing "mediaKey"',
-          );
-        r("WAWebCryptoCreateMediaKeys")(l, i)
-          .then(function (e) {
-            return m(a, e);
-          })
-          .then(function (e) {
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "encryptMediaFromBlob: success",
-                ])),
-            ),
-              t(e));
-          })
-          .catch(function (e) {
-            throw (
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "encryptMediaFromBlob: error",
-                  ])),
-              ),
-              e instanceof o("WAWebMiscErrors").MediaEncryptionError
-                ? e
-                : new (o("WAWebMiscErrors").MediaEncryptionError)(
-                    "encryption error: " +
-                      String(e) +
-                      "; stack: " +
-                      r("getErrorSafe")(e).stack,
-                  )
-            );
-          })
-          .catch(n);
-      });
-    }
-    l.default = _;
+    l.default = m;
   },
   98,
 );

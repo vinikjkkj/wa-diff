@@ -11,7 +11,7 @@ __d(
     "WAWebGetFormattedCatalogJid",
     "WAWebGraphQLServerError",
     "WAWebMaybeThrowCatalogErrors",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebQueryProductCollectionsQuery.graphql",
     "WAWebRelayClient",
     "WAWebUserPrefsMeUser",
@@ -95,7 +95,7 @@ __d(
                   s =
                     (t =
                       l != null
-                        ? o("WAWebProductTypes.flow").asProductReviewType(l)
+                        ? o("WAWebProductTypes").asProductReviewType(l)
                         : void 0) != null
                       ? t
                       : "APPROVED";

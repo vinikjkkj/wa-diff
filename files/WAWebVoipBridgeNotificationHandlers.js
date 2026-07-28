@@ -16,6 +16,7 @@ __d(
     "WAWebParticipantListUtils",
     "WAWebVoipCallSurveyState",
     "WAWebVoipGatingUtils",
+    "WAWebVoipHandleNativeCallEvent",
     "WAWebVoipLinkPreviewCallLink",
     "WAWebVoipNackHandlers",
     "WAWebVoipStartCall",
@@ -26,8 +27,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e, u, c, d, m, p, _, f;
-    function g(t, n) {
+    var e, u, c, d, m, p, _, f, g;
+    function h(t, n) {
       var a = s._(/*BTDS*/ "Group call").toString();
       try {
         if (t != null) {
@@ -55,7 +56,7 @@ __d(
         );
       }
     }
-    function h(e, t) {
+    function y(e, t) {
       if (
         t === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere &&
         e.isGroup &&
@@ -68,7 +69,7 @@ __d(
         if (n != null) {
           var r,
             a = (r = e.groupCallParticipants) != null ? r : [],
-            i = g(e.groupJid, a),
+            i = h(e.groupJid, a),
             l = {
               callId: n,
               groupJid: e.groupJid,
@@ -93,7 +94,7 @@ __d(
         }
       }
     }
-    var y = {
+    var C = {
       cancelCallNotification: function (t) {
         var e = t.wid;
         o("WAWebNotificationsCallNotification").cancelCallNotification(e);
@@ -136,22 +137,35 @@ __d(
                 ])),
               e,
             ),
-            h(i, e)),
+            y(i, e)),
           e === o("WAWebVoipWaCallEnums").CallLogResult.Missed &&
             document.hidden &&
             o("WAWebNotificationsMissedCallTracker").markCallMissedWhileHidden(
               o("WATimeUtils").unixTime(),
             ),
-          o("WAWebVoipCallSurveyState").shouldShowSurveyBasedOnInterval(a) &&
-            (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: Showing post-call survey based on call ending event (fallback)",
-                ])),
-            ),
-            r(
-              "WAWebCallCollection",
-            ).setShouldShowPostCallSurveyOnLastActiveCall(!0)));
+          o("WAWebVoipCallSurveyState").shouldShowSurveyBasedOnInterval(a)
+            ? (o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: Showing post-call survey based on call ending event (fallback)",
+                  ])),
+              ),
+              r(
+                "WAWebCallCollection",
+              ).setShouldShowPostCallSurveyOnLastActiveCall(!0))
+            : a >= 0 &&
+              o("WAWebVoipHandleNativeCallEvent")
+                .sendStoredFieldstats()
+                .catch(function (e) {
+                  o("WALogger")
+                    .WARN(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: sendStoredFieldstats failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e));
+                }));
       },
       handleGroupCallReminder: function (t) {
         var e = t.linkToken;
@@ -247,8 +261,8 @@ __d(
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: failed to join ongoing call from wave notification",
                           ])),
                       )
@@ -261,8 +275,8 @@ __d(
           .catch(function (e) {
             o("WALogger")
               .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: failed to show voice chat wave notification",
                   ])),
               )
@@ -289,7 +303,7 @@ __d(
         (e = r("WAWebCallCollection").activeCall) == null || e.markPeerBusy();
       },
     };
-    l.VoipBridgeNotificationHandlers = y;
+    l.VoipBridgeNotificationHandlers = C;
   },
   226,
 );

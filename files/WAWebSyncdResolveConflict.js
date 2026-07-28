@@ -2,8 +2,8 @@ __d(
   "WAWebSyncdResolveConflict",
   [
     "Promise",
-    "WASyncdConst",
     "WAWebGetPendingMutation",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
     "compactMap",
   ],
@@ -72,11 +72,13 @@ __d(
             var t = u.get(e.index);
             if (t)
               e: {
-                if (t === o("WASyncdConst").ConflictResolutionState.SkipRemote)
+                if (
+                  t === o("WAWebSyncdConst").ConflictResolutionState.SkipRemote
+                )
                   break e;
                 if (
                   t ===
-                  o("WASyncdConst").ConflictResolutionState
+                  o("WAWebSyncdConst").ConflictResolutionState
                     .ApplyRemoteAndDropLocal
                 ) {
                   (n.push(e),
@@ -89,7 +91,7 @@ __d(
                 }
                 if (
                   t ===
-                  o("WASyncdConst").ConflictResolutionState
+                  o("WAWebSyncdConst").ConflictResolutionState
                     .SkipRemoteAndDropLocal
                 ) {
                   a = a.concat(

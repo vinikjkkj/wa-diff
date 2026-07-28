@@ -16,7 +16,6 @@ __d(
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebCmd",
     "WAWebCommonMsgSubtypeTypes",
-    "WAWebConstantsDeprecated",
     "WAWebContactBlockedErrorAction",
     "WAWebContactCollection",
     "WAWebCreateNackFromStanza",
@@ -179,9 +178,7 @@ __d(
               i.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT &&
               !y &&
               !h &&
-              o("WAWebMsgCollection").MsgCollection.trigger(
-                r("WAWebConstantsDeprecated").NEW_MSG_SENT,
-              ),
+              o("WAWebMsgCollection").MsgCollection.trigger("new_msg_sent"),
             (f || (f = n("Promise")))
               .resolve()
               .then(function () {

@@ -3,13 +3,13 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebMiscGatingUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebRecentStickerCollectionMd",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,7 +22,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -34,7 +34,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.RemoveRecentSticker;
+            return o("WAWebSyncdConst").Actions.RemoveRecentSticker;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -51,7 +51,7 @@ __d(
                     t.map(function () {
                       return {
                         actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
                       };
                     })
                   );
@@ -64,7 +64,7 @@ __d(
                         r++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var i = e.indexParts,
@@ -79,7 +79,8 @@ __d(
                       ).RecentStickerCollectionMd.get(l);
                     if (!u)
                       return {
-                        actionState: o("WASyncdConst").SyncActionState.Orphan,
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Orphan,
                       };
                     var c = o("WALongInt").maybeNumberOrThrowIfTooLarge(s);
                     return (
@@ -89,7 +90,10 @@ __d(
                         o(
                           "WAWebRecentStickerCollectionMd",
                         ).RecentStickerCollectionMd.removeAndSave(u),
-                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
                     );
                   });
                 return (

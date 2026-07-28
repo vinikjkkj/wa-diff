@@ -4,9 +4,9 @@ __d(
     "Promise",
     "WACryptoUtils",
     "WALogger",
-    "WASyncdConst",
     "WAWebGetSyncKey",
     "WAWebSyncd",
+    "WAWebSyncdConst",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdDbCallbacksApi",
     "WAWebSyncdKeyManagementUtils",
@@ -155,7 +155,7 @@ __d(
                             b)
                           ) {
                             (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                              o("WASyncdConst").CollectionName.CriticalBlock,
+                              o("WAWebSyncdConst").CollectionName.CriticalBlock,
                               "incoming shared key has mismatch with an existing key:\n            key id: " +
                                 o("WAWebSyncdCryptoUtils").syncKeyIdToHex(
                                   n.keyId,

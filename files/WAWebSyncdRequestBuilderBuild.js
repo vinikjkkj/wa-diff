@@ -5,7 +5,6 @@ __d(
     "WABaseGlobals",
     "WAJids",
     "WALogger",
-    "WASyncdConst",
     "WASyncdKeyTypes",
     "WAWap",
     "WAWebABProps",
@@ -16,6 +15,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdActionUtils",
     "WAWebSyncdAntiTampering",
+    "WAWebSyncdConst",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdEncryptMutationsWrapper",
     "WAWebSyncdError",
@@ -163,7 +163,7 @@ __d(
                     version: o("WAWap").INT(
                       i != null
                         ? i
-                        : o("WASyncdConst").DEFAULT_COLLECTION_VERSION,
+                        : o("WAWebSyncdConst").DEFAULT_COLLECTION_VERSION,
                     ),
                   },
                   a,
@@ -350,7 +350,7 @@ __d(
             o("WAWebSyncdActionUtils").getMutationNameFromIndex(
               e.collection,
               e.index,
-            ) === o("WASyncdConst").Actions.Sentinel
+            ) === o("WAWebSyncdConst").Actions.Sentinel
           );
         })
       );

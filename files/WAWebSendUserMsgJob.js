@@ -89,15 +89,15 @@ __d(
             o("WAWebDBUpdateMessageTable").updateMessageTable(l.data.id, {
               senderOrRecipientAccountTypeHosted: !0,
             });
-          var T = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList(
-            l,
-            i,
-            E,
-            { fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT },
-            a,
-            r,
-            p,
-          );
+          var T = yield o("WAWebSendMsgToDeviceList").sendMsgToDeviceList({
+            chatId: r,
+            deviceWids: E,
+            metricReporter: a,
+            msgProtobuf: i,
+            msgRecord: l,
+            option: { fanoutType: o("WAWebMsgFanoutTypes").FANOUT_TYPE.CHAT },
+            scheduledMsgMetadata: p,
+          });
           f(S, T);
           var D = T.phash;
           if (D != null) {
@@ -220,7 +220,15 @@ __d(
                   t,
                 ),
               );
-          (yield o("WAWebResendUserMsg").resendUserMsg(l, i, r, t, a, n, s),
+          (yield o("WAWebResendUserMsg").resendUserMsg({
+            ackTime: t,
+            chatId: n,
+            excludeList: r,
+            metricReporter: a,
+            msgProtobuf: i,
+            msgRecord: l,
+            scheduledMsgMetadata: s,
+          }),
             yield o("WAWebPersistedJobManagerWorkerCompatible")
               .getJobManager()
               .accessors.deletePersistedJob(u.id));

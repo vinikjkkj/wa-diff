@@ -8,7 +8,9 @@ __d(
     "WAWebBotModeSelectionProtoUtils",
     "WAWebBotUnifiedResponseGating",
     "WAWebBotUnifiedResponseMutationUtils",
+    "WAWebBotUtils",
     "WAWebLidMigrationUtils",
+    "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebMsgType",
     "WAWebProtobufsAICommon.pb",
   ],
@@ -50,24 +52,25 @@ __d(
     }
     function c(e) {
       if (o("WAWebBotBaseGating").isBotEnabled()) return d(e);
-      if (e.botGroupParticipant != null) return p(e);
+      if (e.botGroupParticipant != null) return _(e);
     }
     function d(t) {
       var n = t.botPersonaId != null ? t.botPersonaId : void 0,
-        r = f(t),
+        r = g(t),
         a = t.aiThreadInfo != null ? e(t) : void 0,
-        i = y(t.botModeSelection, t.botModeOverride),
+        i = C(t.botModeSelection, t.botModeOverride),
         l = s(t),
-        c = h(t.type),
+        c = y(t.type),
         d = u(t),
-        m =
+        p =
           t.unifiedResponseMutationMediaList != null
             ? o(
                 "WAWebBotUnifiedResponseMutationUtils",
               ).generateUnifiedResponseMutation(
                 t.unifiedResponseMutationMediaList,
               )
-            : void 0;
+            : void 0,
+        _ = m(t);
       if (
         !(
           t.botGroupParticipant == null &&
@@ -77,23 +80,45 @@ __d(
           l == null &&
           c == null &&
           d == null &&
-          m == null
+          p == null &&
+          _ == null
         )
       )
         return {
           personaId: n,
           invokerJid: r,
-          capabilityMetadata: t.id ? g(t.id.remote) : void 0,
+          capabilityMetadata: t.id ? h(t.id.remote) : void 0,
           botThreadInfo: a,
-          botGroupMetadata: _(t.botGroupParticipant),
+          botGroupMetadata: f(t.botGroupParticipant),
           botModeSelectionMetadata: i,
           botMetricsMetadata: l,
           botDocumentMessageMetadata: c,
           aiMediaCollectionMetadata: d,
-          unifiedResponseMutation: m,
+          unifiedResponseMutation: p,
+          botLinkedAccountsMetadata: _,
         };
     }
-    function m(e, t) {
+    function m(e) {
+      if (
+        !(
+          e.id == null ||
+          !o("WAWebBotUtils").isMetaAiBot(e.id.remote) ||
+          !o("WAWebBotBaseGating").isAiAccountLinkingEnabled() ||
+          e.subtype === "bot_feedback" ||
+          e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL
+        )
+      ) {
+        var t = o(
+          "WAWebMetaAiWaffleAuthTokenCache",
+        ).getCachedMetaAiWaffleAuthTokenBlob();
+        if (!(t == null || t === ""))
+          return {
+            accounts: [],
+            acAuthTokens: new TextEncoder().encode(t).buffer,
+          };
+      }
+    }
+    function p(e, t) {
       return e == null
         ? t != null
           ? t
@@ -102,11 +127,11 @@ __d(
           ? e
           : babelHelpers.extends({}, e, t);
     }
-    function p(e) {
-      var t = _(e.botGroupParticipant);
+    function _(e) {
+      var t = f(e.botGroupParticipant);
       return t != null ? { botGroupMetadata: t } : void 0;
     }
-    function _(e) {
+    function f(e) {
       if (
         !(
           !(
@@ -121,7 +146,7 @@ __d(
           participantsMetadata: [{ botFbid: e == null ? void 0 : e.user }],
         };
     }
-    function f(e) {
+    function g(e) {
       if (e.subtype === "bot_feedback") {
         var t;
         return (t = e.botTargetSenderJid) == null ? void 0 : t.toJid();
@@ -134,7 +159,7 @@ __d(
           : n.toJid();
       }
     }
-    function g(e) {
+    function h(e) {
       var t,
         n = [
           (t = o("WAWebProtobufsAICommon.pb"))
@@ -294,7 +319,7 @@ __d(
         );
       return n.length === 0 ? void 0 : { capabilities: n };
     }
-    function h(e) {
+    function y(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -304,7 +329,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function y(e, t) {
+    function C(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -321,9 +346,9 @@ __d(
       (l.generateBotMetricsMetadata = s),
       (l.generateAiMediaCollectionMetadata = u),
       (l.generateBotMetadata = c),
-      (l.mergeBotMetadata = m),
-      (l.generateBotCapabilityMetadata = g),
-      (l.generateBotModeSelectionMetadata = y));
+      (l.mergeBotMetadata = p),
+      (l.generateBotCapabilityMetadata = h),
+      (l.generateBotModeSelectionMetadata = C));
   },
   98,
 );

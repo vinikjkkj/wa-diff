@@ -3,10 +3,10 @@ __d(
   [
     "WAJids",
     "WALogger",
-    "WASyncdConst",
     "WAWebBackendApi",
     "WAWebDBOutContactDatabaseApi",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,7 +20,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -32,7 +32,7 @@ __d(
             return 1;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.OutContact;
+            return o("WAWebSyncdConst").Actions.OutContact;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -46,7 +46,8 @@ __d(
                   if (d == null) {
                     (n++,
                       i.push({
-                        actionState: o("WASyncdConst").SyncActionState.Skipped,
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Skipped,
                       }));
                     continue;
                   }
@@ -62,7 +63,8 @@ __d(
                     ),
                       n++,
                       i.push({
-                        actionState: o("WASyncdConst").SyncActionState.Skipped,
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Skipped,
                       }));
                     continue;
                   }
@@ -74,7 +76,7 @@ __d(
                       (n++,
                         i.push({
                           actionState:
-                            o("WASyncdConst").SyncActionState.Skipped,
+                            o("WAWebSyncdConst").SyncActionState.Skipped,
                         }));
                       continue;
                     }
@@ -90,7 +92,8 @@ __d(
                         d,
                       ),
                       i.push({
-                        actionState: o("WASyncdConst").SyncActionState.Success,
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
                       }));
                   } else
                     l.operation === "remove"
@@ -105,12 +108,12 @@ __d(
                         ),
                         i.push({
                           actionState:
-                            o("WASyncdConst").SyncActionState.Success,
+                            o("WAWebSyncdConst").SyncActionState.Success,
                         }))
                       : (n++,
                         i.push({
                           actionState:
-                            o("WASyncdConst").SyncActionState.Skipped,
+                            o("WAWebSyncdConst").SyncActionState.Skipped,
                         }));
                 }
                 return (

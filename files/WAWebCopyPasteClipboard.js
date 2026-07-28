@@ -7,11 +7,11 @@ __d(
     "WAWebDomElementIs",
     "WAWebDomIsTextNode",
     "WAWebDomRangeGetContents",
+    "range",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "application/whatsapp",
-      s = "data-native-text-fallback",
-      u = (function () {
+      s = (function () {
         function e(e) {
           this.$1 = e || "";
         }
@@ -45,9 +45,9 @@ __d(
           e
         );
       })(),
-      c = (function () {
+      u = (function () {
         function e(e, t) {
-          (e === void 0 && (e = ""), (this.$1 = new u(e)), (this.$2 = t));
+          (e === void 0 && (e = ""), (this.$1 = new s(e)), (this.$2 = t));
         }
         ((e.fromEl = function (n, r) {
           r === void 0 && (r = o("WAWebCopyPasteCopyable.react").isCopyable(n));
@@ -95,11 +95,11 @@ __d(
           e
         );
       })(),
-      d = (function () {
+      c = (function () {
         function e(e, t) {
           var n = e || "";
-          ((this.$1 = new u(n)),
-            t != null && t !== "" && (this.$2 = new c(n, t)));
+          ((this.$1 = new s(n)),
+            t != null && t !== "" && (this.$2 = new u(n, t)));
         }
         ((e.$3 = function (n) {
           var t = this,
@@ -110,46 +110,38 @@ __d(
         }),
           (e.$4 = function (t, n, a) {
             for (
-              var e = this,
-                i = n.cloneContents().childNodes,
-                l = Array.from(i).some(function (t) {
-                  return e.$5(t);
-                }),
-                s = r("WAWebDomRangeGetContents")(n),
-                u = [],
-                c = [],
-                d = 0;
-              d < i.length;
-              d++
+              var e = n.cloneContents().childNodes,
+                i = r("WAWebDomRangeGetContents")(n),
+                l = [],
+                s = [],
+                u = 0;
+              u < e.length;
+              u++
             ) {
-              var m = i[d],
-                p = s[d].parentElement,
-                _ =
+              var c = e[u],
+                d = i[u].parentElement,
+                m =
                   (a ||
-                    o("WAWebCopyPasteSelectable.react").isSelectable(s[d]) ||
+                    o("WAWebCopyPasteSelectable.react").isSelectable(i[u]) ||
                     o("WAWebCopyPasteSelectable.react").hasSelectableChildren(
-                      m,
+                      c,
                     )) &&
-                  (t.contains(s[d]) || (p != null && p.contains(t)));
-              _ && (u.push(m), c.push(s[d]));
+                  (t.contains(i[u]) || (d != null && d.contains(t)));
+              m && (l.push(c), s.push(i[u]));
             }
-            ((i = u), (s = c));
-            var f = a;
-            if (i.length === 1) {
-              var g = i[0];
-              ((f =
-                f || o("WAWebCopyPasteSelectable.react").isSelectable(s[0])),
-                f ||
-                  ((i = o(
+            ((e = l), (i = s));
+            var p = a;
+            if (e.length === 1) {
+              var _ = e[0];
+              ((p =
+                p || o("WAWebCopyPasteSelectable.react").isSelectable(i[0])),
+                p ||
+                  ((e = o(
                     "WAWebCopyPasteSelectable.react",
-                  ).findSelectableChildren(g)),
-                  (f = !1)));
+                  ).findSelectableChildren(_)),
+                  (p = !1)));
             }
-            return {
-              rangeHasCopyableContent: l,
-              rangeNodes: i,
-              parentIsSelectable: f,
-            };
+            return { rangeNodes: e, parentIsSelectable: p };
           }),
           (e.fromCopyableEl = function (n, a) {
             var t = this;
@@ -190,75 +182,62 @@ __d(
           (e.fromRange = function (n, r) {
             var t = this,
               a = r.commonAncestorContainer,
-              i = c.getTemplate(a),
+              i = u.getTemplate(a),
               l = new e("", i),
               s = o("WAWebCopyPasteSelectable.react").isSelectAll(a)
                 ? a
                 : o("WAWebCopyPasteSelectable.react").findSelectAllParent(a);
             if (s instanceof HTMLElement)
               return l.append(this.fromCopyableEl(s));
-            var u = this.$4(
+            var c = this.$4(
                 n,
                 r,
                 o("WAWebCopyPasteSelectable.react").isSelectable(a),
               ),
-              d = u.parentIsSelectable,
-              m = u.rangeHasCopyableContent,
-              p = u.rangeNodes,
-              _ = p.reduceRight(function (e, n) {
-                var r = t.fromNode(n, d),
-                  o = !d && !r.toAppString().endsWith("\n") ? "\n" : "";
-                return e.prepend(r, o);
-              }, l);
-            if (
-              _.toPlainString() === "" &&
-              this.$6(n, r) &&
-              !this.$7(n, r, m)
-            ) {
-              var f = r.toString();
-              if (f.trim() !== "") return new e(f);
-            }
-            return _;
+              d = c.parentIsSelectable,
+              m = c.rangeNodes;
+            return m.reduceRight(function (e, n) {
+              var r = t.fromNode(n, d),
+                o = !d && !r.toAppString().endsWith("\n") ? "\n" : "";
+              return e.prepend(r, o);
+            }, l);
           }),
-          (e.$7 = function (t, n, r) {
-            if (r) return !0;
-            for (
-              var e = n.commonAncestorContainer,
-                a = e instanceof HTMLElement ? e : e.parentElement;
-              a != null && t.contains(a);
-            ) {
+          (e.selectionRequiresCustomSerialization = function (t) {
+            for (var e = this, n = 0; n < t.rangeCount; n++) {
+              var r = t.getRangeAt(n);
               if (
-                a.classList.contains(
-                  o("WAWebCopyPasteCopyable.react").COPYABLE_CSS_CLASS,
-                )
+                this.$5(r.commonAncestorContainer) ||
+                Array.from(r.cloneContents().childNodes).some(function (t) {
+                  return e.$6(t);
+                })
               )
                 return !0;
-              a = a.parentElement;
             }
             return !1;
           }),
           (e.$5 = function (t) {
-            var e = this;
-            return t instanceof HTMLElement
-              ? t.classList.contains(
-                  o("WAWebCopyPasteCopyable.react").COPYABLE_CSS_CLASS,
-                )
-                ? !0
-                : Array.from(t.childNodes).some(function (t) {
-                    return e.$5(t);
-                  })
-              : !1;
-          }),
-          (e.$6 = function (t, n) {
-            for (
-              var e = n.commonAncestorContainer,
-                r = e instanceof HTMLElement ? e : e.parentElement;
-              r != null && t.contains(r);
-            ) {
-              if (r.hasAttribute(s)) return !0;
-              r = r.parentElement;
+            for (var e = t; e != null; ) {
+              if (
+                (e instanceof HTMLElement &&
+                  o("WAWebCopyPasteCopyable.react").isCopyable(e)) ||
+                o("WAWebCopyPasteSelectable.react").isSelectable(e) ||
+                o("WAWebCopyPasteSelectable.react").isSelectAll(e)
+              )
+                return !0;
+              e = e.parentElement;
             }
             return !1;
+          }),
+          (e.$6 = function (t) {
+            var e = this;
+            return t instanceof HTMLElement
+              ? o("WAWebCopyPasteCopyable.react").isCopyable(t) ||
+                  o("WAWebCopyPasteSelectable.react").isSelectable(t) ||
+                  o("WAWebCopyPasteSelectable.react").isSelectAll(t) ||
+                  Array.from(t.childNodes).some(function (t) {
+                    return e.$6(t);
+                  })
+              : !1;
           }),
           (e.fromSelectableNode = function (n) {
             var t = this;
@@ -289,10 +268,17 @@ __d(
               i
             );
           }),
-          (e.fromSelection = function (n, r) {
-            for (var t = new e(), o = 0; o < r.rangeCount; o++)
-              t.append(this.fromRange(n, r.getRangeAt(o)), "\n");
-            return t;
+          (e.fromSelection = function (n, o) {
+            var t = this,
+              a = new e();
+            return r("range")(0, o.rangeCount)
+              .map(function (e) {
+                var r = o.getRangeAt(e);
+                return t.fromRange(n, r);
+              })
+              .reduce(function (e, t) {
+                return e.append(t, "\n");
+              }, a);
           }));
         var t = e.prototype;
         return (
@@ -300,7 +286,7 @@ __d(
             return (
               n === void 0 && (n = ""),
               t.hasAppText()
-                ? ((this.$2 = this.$2 || new c(this.toPlainString())),
+                ? ((this.$2 = this.$2 || new u(this.toPlainString())),
                   this.$2.append(t.toAppString(), n))
                 : this.hasAppText() && this.$2.append(t.toAppString(), n),
               this.$1.append(t.toPlainString(), n),
@@ -314,7 +300,7 @@ __d(
             return (
               n === void 0 && (n = ""),
               t.hasAppText()
-                ? ((this.$2 = this.$2 || new c(this.toPlainString())),
+                ? ((this.$2 = this.$2 || new u(this.toPlainString())),
                   this.$2.prepend(t.toAppString(), n))
                 : this.hasAppText() && this.$2.prepend(t.toAppString(), n),
               this.$1.prepend(t.toPlainString(), n),
@@ -325,7 +311,7 @@ __d(
             return !!this.$2;
           }),
           (t.toAppText = function () {
-            return this.hasAppText() ? this.$2 : new c(this.toPlainString());
+            return this.hasAppText() ? this.$2 : new u(this.toPlainString());
           }),
           (t.toPlainString = function () {
             return this.$1.toString();
@@ -338,9 +324,7 @@ __d(
           e
         );
       })();
-    ((l.APP_TEXT_MIMETYPE = e),
-      (l.NATIVE_TEXT_FALLBACK_DATA_ATTR = s),
-      (l.Clipboard = d));
+    ((l.APP_TEXT_MIMETYPE = e), (l.Clipboard = c));
   },
   98,
 );

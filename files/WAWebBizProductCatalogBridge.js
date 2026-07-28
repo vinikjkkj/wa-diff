@@ -17,7 +17,7 @@ __d(
     "WAWebNoop",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebQplFlowWrapper",
     "WAWebQueryCatalog",
     "WAWebQueryCatalogHasCategories",
@@ -294,11 +294,11 @@ __d(
           name: e.name,
           description: e.description || "",
           availability:
-            (r = o("WAWebProductTypes.flow").ProductAvailability.cast(
+            (r = o("WAWebProductTypes").ProductAvailability.cast(
               e.availability,
             )) != null
               ? r
-              : o("WAWebProductTypes.flow").ProductAvailability.UNKNOWN,
+              : o("WAWebProductTypes").ProductAvailability.UNKNOWN,
           maxAvailable: e.max_available,
           additionalImageCdnUrl: e.additional_image_cdn_urls.map(function (e) {
             return e[1].value;

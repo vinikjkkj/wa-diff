@@ -21,12 +21,12 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.accountLid,
-            i = t.entryPoint,
-            l = t.globalDataSharingEntryPoint,
-            s = t.perCustomerDataSharingState;
+          var r = t.accountLid,
+            a = t.entryPoint,
+            i = t.globalDataSharingEntryPoint,
+            l = t.perCustomerDataSharingState;
           yield e.enqueue(
-            a,
+            r,
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = o(
                   "WAWebCTWADataSharingModel",
@@ -37,21 +37,21 @@ __d(
               if (
                 o(
                   "WAWebPerCustomerDataSharingUtils",
-                ).isPerCustomerDataSharingFeatureEnabled(a, e)
+                ).isPerCustomerDataSharingFeatureEnabled(r, e)
               ) {
-                var n = o("WAWebWidFactory").createWid(a),
-                  u = yield o(
+                var n = o("WAWebWidFactory").createWid(r),
+                  s = yield o(
                     "WAWebPerCustomerDataSharingUtils",
                   ).getLastDataSharingState(n),
-                  c = r(
+                  u = o(
                     "WAWebCommonCTWADataSharing",
                   ).isGlobalDataSharingAccepted(e, t),
-                  d = s && c;
-                if (!(u != null && u === d)) {
-                  var m = o("WAWebContactSystemMsg").genNotificationMsg(n, {
+                  c = l && u;
+                if (!(s != null && s === c)) {
+                  var d = o("WAWebContactSystemMsg").genNotificationMsg(n, {
                     type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
                     kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-                    subtype: d
+                    subtype: c
                       ? "biz_per_customer_3pd_data_share_opt_in"
                       : "biz_per_customer_3pd_data_share_opt_out",
                     templateParams: [],
@@ -60,7 +60,7 @@ __d(
                     "WAWebHandleSingleMsgWorkerCompatible",
                   ).handleSingleMsg({
                     chatId: n,
-                    newMsg: m,
+                    newMsg: d,
                     handleSingleMsgOrigin: "perCustomerDataSharingNotification",
                     preserveOrder: !1,
                   }),
@@ -71,9 +71,9 @@ __d(
                         "WAWebWamEnumSmbPerCustomerDataSharingControlAction",
                       ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ACTION
                         .SYSTEM_MESSAGE_INSERTED,
-                      currentOptInStatus: d,
-                      entryPoint: i,
-                      globalDataSharingEntryPoint: l,
+                      currentOptInStatus: c,
+                      entryPoint: a,
+                      globalDataSharingEntryPoint: i,
                     }));
                 }
               }

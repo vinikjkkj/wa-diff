@@ -10,6 +10,8 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
     "WAWebViewMode.flow",
+    "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -165,6 +167,7 @@ __d(
           if (
             (t.isEnterprise && !t.isFMXCtWA) ||
             !e.isUser() ||
+            e.isPSA() ||
             t.isWASupportStartingChat ||
             (t.iAmStartingChat && !t.isFMXCtWA) ||
             (t.isFromCTWA &&
@@ -173,7 +176,11 @@ __d(
             e.isBot()
           )
             return null;
-          var n = yield o("WAWebApiContact").isAddressBookContact(e.toJid());
+          var n = yield o("WAWebApiContact").isAddressBookContact(
+            o("WAWebWidToJid").widToUserJid(
+              o("WAWebWidFactory").asUserWidOrThrow(e),
+            ),
+          );
           return n
             ? null
             : f(e, {

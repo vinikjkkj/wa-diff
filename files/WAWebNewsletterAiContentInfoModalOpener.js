@@ -28,9 +28,14 @@ __d(
               {
                 variant: e,
                 onConfirm: function () {
-                  (a(), o("WAWebModalManager").closeModalManager());
+                  (a(),
+                    r == null || r(),
+                    o("WAWebModalManager").closeModalManager());
                 },
-                onCancel: o("WAWebModalManager").closeModalManager,
+                onCancel: function () {
+                  (r == null || r(),
+                    o("WAWebModalManager").closeModalManager());
+                },
               },
             ),
           ));

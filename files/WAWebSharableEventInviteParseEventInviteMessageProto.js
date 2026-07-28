@@ -68,25 +68,32 @@ __d(
             .SHARABLE_EVENT_INVITE_MISSING_EVENT_TITLE,
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
-      var h = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
-          o("WALongInt").maybeNumberOrThrowIfTooLarge(g),
-        ),
-        y = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
-          o("WALongInt").maybeNumberOrThrowIfTooLarge(d),
-        ),
-        C = babelHelpers.extends({}, t, {
+      var h = o(
+          "WAWebSharableEventGatingUtils",
+        ).isSharableEventInviteDatetimeEnabled(),
+        y = h
+          ? r("WAWebSharableEventInviteCoerceTimestampSeconds")(
+              o("WALongInt").maybeNumberOrThrowIfTooLarge(g),
+            )
+          : null,
+        C = h
+          ? r("WAWebSharableEventInviteCoerceTimestampSeconds")(
+              o("WALongInt").maybeNumberOrThrowIfTooLarge(d),
+            )
+          : null,
+        b = babelHelpers.extends({}, t, {
           type: o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE,
           kind: o("WAWebMsgType").MsgKind.SharableEventInvite,
           sharableEventInviteId: m,
           sharableEventInviteTitle: p,
-          sharableEventInviteStartTime: h != null ? h : void 0,
-          sharableEventInviteEndTime: y != null ? y : void 0,
+          sharableEventInviteStartTime: y != null ? y : void 0,
+          sharableEventInviteEndTime: C != null ? C : void 0,
           sharableEventInviteCaption: u != null ? u : void 0,
           sharableEventInviteIsCanceled: _ != null ? _ : void 0,
           sharableEventInviteJpegThumbnail: f != null ? f : void 0,
           sharableEventInviteCallLink: s != null ? s : void 0,
         });
-      return { msgData: C, contextInfo: c };
+      return { msgData: b, contextInfo: c };
     }
     l.default = e;
   },

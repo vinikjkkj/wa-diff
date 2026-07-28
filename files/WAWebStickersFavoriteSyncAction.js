@@ -6,13 +6,13 @@ __d(
     "WABaseGlobals",
     "WAJids",
     "WALogger",
-    "WASyncdConst",
     "WAWebFavoriteStickerCollection",
     "WAWebMiscGatingUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebStickerModel",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -28,7 +28,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -40,7 +40,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.FavoriteSticker;
+            return o("WAWebSyncdConst").Actions.FavoriteSticker;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -61,7 +61,7 @@ __d(
                                   a++,
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState
+                                      o("WAWebSyncdConst").SyncActionState
                                         .Unsupported,
                                   }
                                 );
@@ -102,11 +102,12 @@ __d(
                                   l++,
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: {
                                       modelId: u,
                                       modelType:
-                                        o("WASyncdConst").SyncModelType
+                                        o("WAWebSyncdConst").SyncModelType
                                           .FavoriteSticker,
                                     },
                                   }
@@ -121,7 +122,7 @@ __d(
                                     m++,
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     }
                                   );
@@ -155,7 +156,8 @@ __d(
                                 if (!v)
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Success,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Success,
                                   };
                                 o(
                                   "WAWebFavoriteStickerCollection",
@@ -163,12 +165,12 @@ __d(
                               }
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Success,
+                                  o("WAWebSyncdConst").SyncActionState.Success,
                               };
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },

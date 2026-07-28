@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
@@ -23,6 +22,7 @@ __d(
     "WAWebStatusCollection",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
@@ -53,7 +53,8 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             (e.chatJidIndex = 1),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
@@ -70,14 +71,14 @@ __d(
             return 6;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.ClearChat;
+            return o("WAWebSyncdConst").Actions.ClearChat;
           }),
           (i.$ClearChatSync$p_1 = function (t, n, a, i) {
             var e = new Set();
             return (
               t.forEach(function (t) {
                 if (
-                  t.actionName === o("WASyncdConst").Actions.Star &&
+                  t.actionName === o("WAWebSyncdConst").Actions.Star &&
                   t.timestamp > n
                 ) {
                   var l = o(
@@ -152,7 +153,8 @@ __d(
                                 if (!_.success)
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: _.orphanModel,
                                   };
                                 var f = o("WAWebWidFactory").createWid(
@@ -184,7 +186,7 @@ __d(
                                 m++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
@@ -209,7 +211,7 @@ __d(
                                 ),
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Failed,
+                                    o("WAWebSyncdConst").SyncActionState.Failed,
                                 }
                               );
                             }
@@ -224,7 +226,7 @@ __d(
                   f = r("countWhere")(_, function (e) {
                     return (
                       e.actionState ===
-                      o("WASyncdConst").SyncActionState.Success
+                      o("WAWebSyncdConst").SyncActionState.Success
                     );
                   });
                 return (
@@ -338,7 +340,7 @@ __d(
                     l,
                   ),
                   yield this.clearChat(e, t, n, a),
-                  { actionState: o("WASyncdConst").SyncActionState.Success }
+                  { actionState: o("WAWebSyncdConst").SyncActionState.Success }
                 );
               },
             );
@@ -372,7 +374,7 @@ __d(
                         "WAWebSyncdGetChat",
                       ).getChatJidMutationIndexForChat(
                         t,
-                        o("WASyncdConst").Actions.ClearChat,
+                        o("WAWebSyncdConst").Actions.ClearChat,
                       ),
                   s = yield o(
                     "WAWebMessageRangeUtils",
@@ -451,28 +453,30 @@ __d(
                     o("WAWebMessageRangeUtils").MessageRangeEncloseType
                       .RangeAEnclosesRangeB
                   )
-                    return o("WASyncdConst").ConflictResolutionState
+                    return o("WAWebSyncdConst").ConflictResolutionState
                       .ApplyRemoteAndDropLocal;
                   if (
                     _ ===
                     o("WAWebMessageRangeUtils").MessageRangeEncloseType
                       .RangeBEnclosesRangeA
                   )
-                    return o("WASyncdConst").ConflictResolutionState.SkipRemote;
+                    return o("WAWebSyncdConst").ConflictResolutionState
+                      .SkipRemote;
                   if (
                     _ ===
                       o("WAWebMessageRangeUtils").MessageRangeEncloseType
                         .RangesAreEqual &&
                     s <= u
                   )
-                    return o("WASyncdConst").ConflictResolutionState
+                    return o("WAWebSyncdConst").ConflictResolutionState
                       .ApplyRemoteAndDropLocal;
                   if (
                     _ ===
                     o("WAWebMessageRangeUtils").MessageRangeEncloseType
                       .RangesAreEqual
                   )
-                    return o("WASyncdConst").ConflictResolutionState.SkipRemote;
+                    return o("WAWebSyncdConst").ConflictResolutionState
+                      .SkipRemote;
                   if (
                     _ ===
                     o("WAWebMessageRangeUtils").MessageRangeEncloseType
@@ -532,7 +536,7 @@ __d(
                           },
                         ),
                       ),
-                      o("WASyncdConst").ConflictResolutionState
+                      o("WAWebSyncdConst").ConflictResolutionState
                         .SkipRemoteAndDropLocal
                     );
                     break e;

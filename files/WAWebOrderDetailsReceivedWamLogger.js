@@ -9,6 +9,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebOrderDetails",
     "WAWebP2XFunnelIdGenerator",
     "WAWebStructuredMessageBuyerReceiveWamEvent",
     "WAWebStructuredMessageReceiveWamEvent",
@@ -79,15 +80,17 @@ __d(
             a = h(e),
             i = e.id.id + e.to.toJid(),
             l = y(e),
-            s = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(c, i),
-            u = yield s.genFunnelInfo(),
-            m = u.funnel_id,
-            p = {
+            s = C(e),
+            u = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(c, i),
+            m = yield u.genFunnelInfo(),
+            p = m.funnel_id,
+            _ = {
               cta: r,
-              order_funnel_id: m,
+              order_funnel_id: p,
               chat_type: a,
               is_template: n ? "1" : "0",
               p2m_offering_type: l,
+              is_simplified_order: s,
             };
           if (
             (new (o(
@@ -98,19 +101,19 @@ __d(
               messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
                 .INTERACTIVE_NFM,
               bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-              businessOwnerJid: C(e),
-              messageClassAttributes: JSON.stringify(p),
+              businessOwnerJid: b(e),
+              messageClassAttributes: JSON.stringify(_),
             }).commit(),
             o("WAWebABProps").getABPropConfigValue(
               "payments_br_p2m_buyer_logging_phase_2",
             ))
           ) {
-            var _ = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
-                m,
+            var f = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+                p,
                 d,
               ),
-              f = yield _.genFunnelInfo(),
-              g = f.funnel_id;
+              g = yield f.genFunnelInfo(),
+              v = g.funnel_id;
             new (o(
               "WAWebStructuredMessageBuyerReceiveWamEvent",
             ).StructuredMessageBuyerReceiveWamEvent)({
@@ -122,10 +125,11 @@ __d(
                 cta: r,
                 is_template: n ? "1" : "0",
                 chat_type: a,
-                order_funnel_id: g,
+                order_funnel_id: v,
                 p2m_offering_type: l,
                 wa_pay_registered: !1,
                 is_cta_available: !1,
+                is_simplified_order: s,
               }),
             }).commit();
           }
@@ -181,6 +185,20 @@ __d(
       return "unknown";
     }
     function C(e) {
+      var t,
+        n,
+        r =
+          (t = e.interactivePayload) == null || (t = t.buttons) == null
+            ? void 0
+            : t[0];
+      return (n = o("WAWebOrderDetails").paramsJsonToOrderInfo(
+        r == null ? void 0 : r.name,
+        r == null ? void 0 : r.buttonParamsJson,
+      )) == null
+        ? void 0
+        : n.isOrderNodeOmitted;
+    }
+    function b(e) {
       var t;
       return (t = o("WAWebMsgGetters").getSender(e)) == null ? void 0 : t.user;
     }

@@ -91,9 +91,13 @@ __d(
                   }
                 : void 0,
             );
-          return o("WAWebNewsletterMsgUtils").mapMsgStanzaToMsgData(
-            { msg: s, msgContext: u },
-            "relay",
+          return (
+            o("WAWebNewsletterGatingUtils").isChannelSGIReceiverEnabled() &&
+              (u.hasSelfDisclosedAiContent = t.hasStatusAIContentMetaMixin),
+            o("WAWebNewsletterMsgUtils").mapMsgStanzaToMsgData(
+              { msg: s, msgContext: u },
+              "relay",
+            )
           );
         }
         default:

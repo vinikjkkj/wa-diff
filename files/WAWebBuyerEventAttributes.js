@@ -28,6 +28,7 @@ __d(
       "isTemplate",
       "isCtaAvailable",
       "chatType",
+      "isSimplifiedOrder",
     ];
     function l(e) {
       return e.replace(/[A-Z]/g, function (e) {

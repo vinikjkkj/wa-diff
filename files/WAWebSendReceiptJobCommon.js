@@ -85,40 +85,44 @@ __d(
         );
       return o("WADeprecatedSendIq").deprecatedCastStanza(l);
     }
-    function f(e, t, n, r) {
-      var a = e[0],
-        i = babelHelpers.arrayLikeToArray(e).slice(1),
-        l =
-          i.length > 0
+    function f(e) {
+      var t = e.messageIds,
+        n = e.participant,
+        r = e.recipient,
+        a = e.to,
+        i = t[0],
+        l = babelHelpers.arrayLikeToArray(t).slice(1),
+        s =
+          l.length > 0
             ? o("WAWap").wap(
                 "list",
                 null,
-                i.map(function (e) {
+                l.map(function (e) {
                   return o("WAWap").wap("item", {
                     id: o("WAWap").CUSTOM_STRING(e),
                   });
                 }),
               )
             : null,
-        s = o("WAWap").wap(
+        u = o("WAWap").wap(
           "ack",
           {
-            id: o("WAWap").CUSTOM_STRING(a),
-            to: o("WAWebCommsWapMd").JID(t),
+            id: o("WAWap").CUSTOM_STRING(i),
+            to: o("WAWebCommsWapMd").JID(a),
             recipient:
-              n != null
-                ? o("WAWebCommsWapMd").USER_JID(n)
-                : o("WAWap").DROP_ATTR,
-            participant:
               r != null
                 ? o("WAWebCommsWapMd").USER_JID(r)
+                : o("WAWap").DROP_ATTR,
+            participant:
+              n != null
+                ? o("WAWebCommsWapMd").USER_JID(n)
                 : o("WAWap").DROP_ATTR,
             class: "message",
             type: "text",
           },
-          l,
+          s,
         );
-      return o("WADeprecatedSendIq").deprecatedCastStanza(s);
+      return o("WADeprecatedSendIq").deprecatedCastStanza(u);
     }
     function g(e, t) {
       return h.apply(this, arguments);
@@ -171,7 +175,12 @@ __d(
                       if (y === u.DELIVERY && v) {
                         var S, R, L;
                         (h.isUser() ? ((S = t), (R = h)) : ((S = h), (L = t)),
-                          f(_, S, R, L));
+                          f({
+                            messageIds: _,
+                            participant: L,
+                            recipient: R,
+                            to: S,
+                          }));
                         return;
                       }
                       var E = h.isUser() || h.isNewsletter() ? null : t,

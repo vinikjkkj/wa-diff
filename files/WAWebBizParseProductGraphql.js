@@ -4,7 +4,7 @@ __d(
     "WAWebBizCartConstants",
     "WAWebBizCatalogGatingUtils",
     "WAWebBizParseProductGraphql_product.graphql",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebSignedShimmedUrl",
     "WAWebSyntheticCountryCode",
     "nullthrows",
@@ -18,11 +18,11 @@ __d(
       ],
       s,
       u = {
-        AVAILABLE_FOR_ANOTHER_POSTCODE: o("WAWebProductTypes.flow")
-          .ProductAvailability.AVAILABLE_FOR_ANOTHER_POSTCODE,
-        IN_STOCK: o("WAWebProductTypes.flow").ProductAvailability.IN_STOCK,
-        OUT_OF_STOCK: o("WAWebProductTypes.flow").ProductAvailability
-          .OUT_OF_STOCK,
+        AVAILABLE_FOR_ANOTHER_POSTCODE:
+          o("WAWebProductTypes").ProductAvailability
+            .AVAILABLE_FOR_ANOTHER_POSTCODE,
+        IN_STOCK: o("WAWebProductTypes").ProductAvailability.IN_STOCK,
+        OUT_OF_STOCK: o("WAWebProductTypes").ProductAvailability.OUT_OF_STOCK,
       };
     function c(t) {
       var n,
@@ -66,7 +66,7 @@ __d(
             availability:
               v && v in u
                 ? u[v]
-                : o("WAWebProductTypes.flow").ProductAvailability.UNKNOWN,
+                : o("WAWebProductTypes").ProductAvailability.UNKNOWN,
           },
           (S == null ? void 0 : S.price) != null
             ? babelHelpers.extends(

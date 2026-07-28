@@ -3,12 +3,12 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebABProps",
     "WAWebGetSyncAction",
     "WAWebHistorySyncLidChatGating",
     "WAWebMiscGatingUtils",
     "WAWebSyncdCollectionHandler",
+    "WAWebSyncdConst",
     "WAWebSyncdDbCallbacksApi",
     "WAWebSyncdDisabled",
     "asyncToGeneratorRuntime",
@@ -52,7 +52,7 @@ __d(
                   "WAWebSyncdDbCallbacksApi",
                 ).getAdditionalHistoryChatIdMsgKeys(e)
               : [];
-          yield E(e.concat(t, n), o("WASyncdConst").SyncModelType.Msg);
+          yield E(e.concat(t, n), o("WAWebSyncdConst").SyncModelType.Msg);
         })),
         b.apply(this, arguments)
       );
@@ -66,7 +66,7 @@ __d(
           var t = o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat()
             ? yield o("WAWebSyncdDbCallbacksApi").getAdditionalHistoryChatIds(e)
             : [];
-          yield E(e.concat(t), o("WASyncdConst").SyncModelType.Chat);
+          yield E(e.concat(t), o("WAWebSyncdConst").SyncModelType.Chat);
         })),
         S.apply(this, arguments)
       );
@@ -77,7 +77,7 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.Account);
+          yield E(e, o("WAWebSyncdConst").SyncModelType.Account);
         })),
         L.apply(this, arguments)
       );
@@ -94,7 +94,7 @@ __d(
             "WAWebGetSyncAction",
           ).getSyncActionsByModelInfosInTransaction(
             e.map(function (e) {
-              return [e, t, o("WASyncdConst").SyncActionState.Orphan];
+              return [e, t, o("WAWebSyncdConst").SyncActionState.Orphan];
             }),
           );
           yield o("WAWebSyncdCollectionHandler").applyIndividualMutations(r);
@@ -119,8 +119,8 @@ __d(
           var t = yield o(
             "WAWebGetSyncAction",
           ).getSyncActionsByActionStatesInTransaction([
-            o("WASyncdConst").SyncActionState.Orphan,
-            o("WASyncdConst").SyncActionState.Unsupported,
+            o("WAWebSyncdConst").SyncActionState.Orphan,
+            o("WAWebSyncdConst").SyncActionState.Unsupported,
           ]);
           (yield o("WAWebSyncdCollectionHandler").applyIndividualMutations(t),
             o("WALogger").LOG(
@@ -139,7 +139,7 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.Thread);
+          yield E(e, o("WAWebSyncdConst").SyncModelType.Thread);
         })),
         x.apply(this, arguments)
       );
@@ -150,7 +150,7 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.Agent);
+          yield E(e, o("WAWebSyncdConst").SyncModelType.Agent);
         })),
         P.apply(this, arguments)
       );
@@ -161,7 +161,7 @@ __d(
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.ChatAssignment);
+          yield E(e, o("WAWebSyncdConst").SyncModelType.ChatAssignment);
         })),
         M.apply(this, arguments)
       );
@@ -172,7 +172,7 @@ __d(
     function A() {
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.UserStatusMute);
+          yield E(e, o("WAWebSyncdConst").SyncModelType.UserStatusMute);
         })),
         A.apply(this, arguments)
       );
@@ -250,7 +250,7 @@ __d(
             return;
           }
           (yield F(
-            o("WASyncdConst").SyncModelType.FavoriteSticker,
+            o("WAWebSyncdConst").SyncModelType.FavoriteSticker,
             function () {
               var e = o("WAWebABProps").getABPropConfigValue(
                 "favorite_sticker_sync_after_pairing_enabled_web",

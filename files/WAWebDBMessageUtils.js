@@ -145,10 +145,10 @@ __d(
         var i,
           l = JSON.parse(a),
           s = l == null || (i = l.action_selected) == null ? void 0 : i.type;
-        if (s === "permanent_allow")
+        if (s === "permanent_allow" || s === "temporary_allow" || s === "yes")
           return o("WAWebDBCAPIPermissions").CloudAPICallingPermissionType
             .ALLOW;
-        if (s === "disallow")
+        if (s === "disallow" || s === "no")
           return o("WAWebDBCAPIPermissions").CloudAPICallingPermissionType
             .DENIED;
       } catch (e) {

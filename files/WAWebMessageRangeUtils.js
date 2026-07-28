@@ -4,11 +4,11 @@ __d(
     "$InternalEnum",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WAWebApiActiveMessageRanges",
     "WAWebDBMessageRange",
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaActiveMessageRanges",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdDb",
     "WAWebSyncdMetrics",
@@ -413,7 +413,7 @@ __d(
           var n = [],
             r = yield o("WAWebSyncdDb").getSyncActionsRows(
               ["action"],
-              [o("WASyncdConst").Actions.DeleteMessageForMe],
+              [o("WAWebSyncdConst").Actions.DeleteMessageForMe],
             );
           o("WALogger").LOG(
             e ||
@@ -433,7 +433,7 @@ __d(
               if (s.length !== 5) (i++, a.length < 3 && a.push(e.index));
               else if (
                 r === s[1] &&
-                e.actionState === o("WASyncdConst").SyncActionState.Success
+                e.actionState === o("WAWebSyncdConst").SyncActionState.Success
               ) {
                 var u,
                   c = o("decodeProtobuf").decodeProtobuf(

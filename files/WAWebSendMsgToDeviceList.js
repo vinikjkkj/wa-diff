@@ -9,57 +9,66 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, o, a, i) {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l, s) {
-            var u, c, d, m, p;
-            (u = i.sendPerfReporter) == null || u.startReadyToSendStage();
-            var _ = e.data,
-              f = _.id,
-              g = _.to,
-              h = yield o(
-                "WAWebSendMsgCreateFanoutStanza",
-              ).createFanoutMsgStanza({
-                chatId: l,
-                deviceList: n,
-                metricReporter: i,
-                msgProtobuf: t,
-                msgRecord: e,
-                option: a,
-                scheduledMsgMetadata: s,
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            a,
+            i,
+            l,
+            s = e.chatId,
+            u = e.deviceWids,
+            c = e.metricReporter,
+            d = e.msgProtobuf,
+            m = e.msgRecord,
+            p = e.option,
+            _ = e.scheduledMsgMetadata;
+          (t = c.sendPerfReporter) == null || t.startReadyToSendStage();
+          var f = m.data,
+            g = f.id,
+            h = f.to,
+            y = yield o("WAWebSendMsgCreateFanoutStanza").createFanoutMsgStanza(
+              {
+                chatId: s,
+                deviceList: u,
+                metricReporter: c,
+                msgProtobuf: d,
+                msgRecord: m,
+                option: p,
+                scheduledMsgMetadata: _,
+              },
+            ),
+            C = y.stanza;
+          ((n = c.sendPerfReporter) == null || n.postReadyToSendStage(),
+            (a = c.sendPerfReporter) == null || a.startWrittenWireStage());
+          var b = yield o(
+              "WADeprecatedSendIq",
+            ).deprecatedSendStanzaAndReturnAck(
+              C,
+              o("WAWebCommsAckParser").toCoreAckTemplate({
+                id: g.id,
+                class: "message",
+                from: h,
+                participant: null,
               }),
-              y = h.stanza;
-            ((c = i.sendPerfReporter) == null || c.postReadyToSendStage(),
-              (d = i.sendPerfReporter) == null || d.startWrittenWireStage());
-            var C = yield o(
-                "WADeprecatedSendIq",
-              ).deprecatedSendStanzaAndReturnAck(
-                y,
-                o("WAWebCommsAckParser").toCoreAckTemplate({
-                  id: f.id,
-                  class: "message",
-                  from: g,
-                  participant: null,
-                }),
-              ),
-              b = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(C);
-            if (b.error)
-              throw r("err")(
-                "[messaging] sendMsgToDeviceList: Invalid ack from server",
-              );
-            return (
-              (m = i.sendPerfReporter) == null || m.postWrittenWireStage(),
-              (i.sendPerfReporter = null),
-              (p = i.sendReporter) == null || p.postSuccess(),
-              (i.sendReporter = null),
-              b.success
+            ),
+            v = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(b);
+          if (v.error)
+            throw r("err")(
+              "[messaging] sendMsgToDeviceList: Invalid ack from server",
             );
-          },
-        )),
+          return (
+            (i = c.sendPerfReporter) == null || i.postWrittenWireStage(),
+            (c.sendPerfReporter = null),
+            (l = c.sendReporter) == null || l.postSuccess(),
+            (c.sendReporter = null),
+            v.success
+          );
+        })),
         s.apply(this, arguments)
       );
     }

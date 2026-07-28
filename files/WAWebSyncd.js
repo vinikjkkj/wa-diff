@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebGetCollectionVersion",
     "WAWebGetMissingKey",
     "WAWebGetPendingMutation",
@@ -11,6 +10,7 @@ __d(
     "WAWebGetSyncKey",
     "WAWebSyncdAntiTampering",
     "WAWebSyncdCollectionsStateMachine",
+    "WAWebSyncdConst",
     "WAWebSyncdCriticalBootstrapProcessingApi",
     "WAWebSyncdDbCallbacksApi",
     "WAWebSyncdDisabled",
@@ -88,11 +88,11 @@ __d(
                 e,
                 t,
               ),
-                t === o("WASyncdConst").CollectionSyncState.UpToDate
+                t === o("WAWebSyncdConst").CollectionSyncState.UpToDate
                   ? r(
                       "WAWebSyncdCollectionsStateMachine",
                     ).moveCollectionsToDirty([e])
-                  : t === o("WASyncdConst").CollectionSyncState.Dirty &&
+                  : t === o("WAWebSyncdConst").CollectionSyncState.Dirty &&
                     (F = new Set([].concat(Array.from(F), [e]))));
             }),
             yield r("WAWebSyncdCollectionsStateMachine").persistToDb(),
@@ -194,13 +194,13 @@ __d(
           var n = yield o(
             "WAWebGetSyncAction",
           ).getSyncActionsByActionStatesInTransaction([
-            o("WASyncdConst").SyncActionState.Malformed,
+            o("WAWebSyncdConst").SyncActionState.Malformed,
           ]);
           e.setInvalidActionCount(n.length);
           var r = yield o(
             "WAWebGetSyncAction",
           ).getSyncActionsByActionStatesInTransaction([
-            o("WASyncdConst").SyncActionState.Unsupported,
+            o("WAWebSyncdConst").SyncActionState.Unsupported,
           ]);
           e.setUnsupportedActionCount(r.length);
           var a = yield o("WAWebGetMissingKey").getMissingKeyCountTransaction();
@@ -306,7 +306,9 @@ __d(
                   ])),
               ));
             var i = a.filter(function (e) {
-              return e.state === o("WASyncdConst").CollectionState.ErrorRetry;
+              return (
+                e.state === o("WAWebSyncdConst").CollectionState.ErrorRetry
+              );
             });
             (i.length > 0 && ((q = i[0].serverBackoff || 0), (W = 0)), ie(a));
           } catch (e) {
@@ -482,13 +484,13 @@ __d(
     function ie(e) {
       return e.forEach(function (e) {
         if (
-          e.state === o("WASyncdConst").CollectionState.Success &&
+          e.state === o("WAWebSyncdConst").CollectionState.Success &&
           !F.has(e.name)
         )
           return r(
             "WAWebSyncdCollectionsStateMachine",
           ).moveCollectionsToUpToDate([e.name]);
-        if (e.state === o("WASyncdConst").CollectionState.ErrorRetry)
+        if (e.state === o("WAWebSyncdConst").CollectionState.ErrorRetry)
           return (
             o(
               "WAWebSyncdCriticalBootstrapProcessingApi",
@@ -500,12 +502,12 @@ __d(
               [e.name],
             )
           );
-        if (e.state === o("WASyncdConst").CollectionState.ErrorFatal)
+        if (e.state === o("WAWebSyncdConst").CollectionState.ErrorFatal)
           return r("WAWebSyncdCollectionsStateMachine").moveCollectionsToFatal([
             e.name,
           ]);
         if (
-          e.state === o("WASyncdConst").CollectionState.Blocked &&
+          e.state === o("WAWebSyncdConst").CollectionState.Blocked &&
           !F.has(e.name)
         )
           return r(

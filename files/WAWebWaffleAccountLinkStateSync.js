@@ -2,13 +2,13 @@ __d(
   "WAWebWaffleAccountLinkStateSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebAccountLinkingUtils",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
@@ -28,7 +28,8 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -40,7 +41,7 @@ __d(
             return 1;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.WaffleAccountLinkState;
+            return o("WAWebSyncdConst").Actions.WaffleAccountLinkState;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -49,7 +50,7 @@ __d(
                 if (o("WAWebAccountLinkingGatingUtils").isGuestMode())
                   return t.map(function () {
                     return {
-                      actionState: o("WASyncdConst").SyncActionState.Success,
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     };
                   });
                 var a,
@@ -61,7 +62,7 @@ __d(
                       ? (i++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         })
                       : ((t = e.value.waffleAccountLinkStateAction) == null
                             ? void 0
@@ -73,7 +74,7 @@ __d(
                         : ((a == null || e.timestamp > a.timestamp) && (a = e),
                           {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Success,
+                              o("WAWebSyncdConst").SyncActionState.Success,
                           });
                   });
                 if (

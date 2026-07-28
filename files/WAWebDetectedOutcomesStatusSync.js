@@ -3,9 +3,9 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebBackendApi",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -21,7 +21,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -33,7 +33,7 @@ __d(
             return 1;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.DetectedOutcomeStatus;
+            return o("WAWebSyncdConst").Actions.DetectedOutcomeStatus;
           }),
           (a.applyMutations = function (r) {
             var t = this,
@@ -61,14 +61,16 @@ __d(
                                 ),
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 });
                           }
                           return (
                             i++,
                             {
                               actionState:
-                                o("WASyncdConst").SyncActionState.Unsupported,
+                                o("WAWebSyncdConst").SyncActionState
+                                  .Unsupported,
                             }
                           );
                         } catch (t) {
@@ -81,7 +83,7 @@ __d(
                             ),
                             {
                               actionState:
-                                o("WASyncdConst").SyncActionState.Failed,
+                                o("WAWebSyncdConst").SyncActionState.Failed,
                             }
                           );
                         }

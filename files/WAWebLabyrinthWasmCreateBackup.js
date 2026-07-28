@@ -1,10 +1,10 @@
 __d(
   "WAWebLabyrinthWasmCreateBackup",
   [
-    "EBLabyrinthWaWasmReactorSingleton",
     "WABase64",
     "WALongInt",
     "WAResultOrError",
+    "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthCanonicalUserFbid",
     "WAWebLabyrinthWaWasm.pb",
     "asyncToGeneratorRuntime",
@@ -117,7 +117,7 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o(
-            "EBLabyrinthWaWasmReactorSingleton",
+            "WAWebEBLabyrinthWaWasmReactorSingleton",
           ).labyrinthWaCommand(
             {
               InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,

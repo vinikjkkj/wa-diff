@@ -7,7 +7,6 @@ __d(
     "WAGzip",
     "WALogger",
     "WAPromiseTimeout",
-    "WASyncdConst",
     "WAWebABPropsWamGlobals",
     "WAWebAdvDeviceInfoCheckJob",
     "WAWebAfterReadSendingRollbackListener",
@@ -95,6 +94,7 @@ __d(
     "WAWebSyncBootstrap",
     "WAWebSyncContactsJob",
     "WAWebSyncd",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdOrphan",
     "WAWebSyncdOrphanWorkerCompatible",
@@ -205,7 +205,7 @@ __d(
         (E = !0));
     }
     function I() {
-      r("WAWebCommonCTWADataSharing").fetchDataSharingSettingAndUpdateModel();
+      o("WAWebCommonCTWADataSharing").fetchDataSharingSettingAndUpdateModel();
     }
     function T() {
       return D.apply(this, arguments);
@@ -586,9 +586,9 @@ __d(
               o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled() &&
                 o("WAWebInitFavoritesFromStorage").restoreFavorites(),
               o("WAWebSyncd").markCollectionsForSync([
-                o("WASyncdConst").CollectionName.Regular,
-                o("WASyncdConst").CollectionName.RegularLow,
-                o("WASyncdConst").CollectionName.RegularHigh,
+                o("WAWebSyncdConst").CollectionName.Regular,
+                o("WAWebSyncdConst").CollectionName.RegularLow,
+                o("WAWebSyncdConst").CollectionName.RegularHigh,
               ]));
             return;
           }

@@ -7,7 +7,7 @@ __d(
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
@@ -98,7 +98,7 @@ __d(
             g =
               (i =
                 f != null
-                  ? o("WAWebProductTypes.flow").asProductReviewType(f)
+                  ? o("WAWebProductTypes").asProductReviewType(f)
                   : void 0) != null
                 ? i
                 : "APPROVED",

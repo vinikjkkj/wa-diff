@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebArchiveChatSync",
     "WAWebChatLockAction",
@@ -11,6 +10,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
@@ -31,7 +31,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -43,7 +43,7 @@ __d(
             return 7;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.LockChat;
+            return o("WAWebSyncdConst").Actions.LockChat;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -67,7 +67,7 @@ __d(
                                 m.length < 3 && m.push(e.operation),
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
@@ -97,7 +97,7 @@ __d(
                             if (!u.success)
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Orphan,
+                                  o("WAWebSyncdConst").SyncActionState.Orphan,
                                 orphanModel: u.orphanModel,
                               };
                             var c = o("WAWebWidFactory").createWid(u.chat.id);
@@ -105,7 +105,7 @@ __d(
                               i.push({ isLocked: s, chatId: c }),
                               {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Success,
+                                  o("WAWebSyncdConst").SyncActionState.Success,
                               }
                             );
                           },
@@ -185,7 +185,7 @@ __d(
                   indexArgs: [
                     yield o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
                       n,
-                      o("WASyncdConst").Actions.LockChat,
+                      o("WAWebSyncdConst").Actions.LockChat,
                     ),
                   ],
                   value: { lockChatAction: { locked: t } },

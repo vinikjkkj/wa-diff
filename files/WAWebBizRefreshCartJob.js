@@ -52,10 +52,15 @@ __d(
           return t.apply(this, arguments);
         };
       })();
-    function u(e, t, n, r, a) {
-      var i,
-        l = (i = o("WAWebLidMigrationUtils").toPn(e)) != null ? i : e;
-      return s(l, t, n, r, a);
+    function u(e) {
+      var t,
+        n = e.bizJID,
+        r = e.directConnectionEncryptedInfo,
+        a = e.ids,
+        i = e.imageHeight,
+        l = e.imageWidth,
+        u = (t = o("WAWebLidMigrationUtils").toPn(n)) != null ? t : n;
+      return s(u, a, l, i, r);
     }
     l.refreshCart = u;
   },

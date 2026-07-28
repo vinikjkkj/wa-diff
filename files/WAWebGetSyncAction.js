@@ -1,6 +1,6 @@
 __d(
   "WAWebGetSyncAction",
-  ["WASyncdConst", "WAWebRunInTransaction"],
+  ["WAWebRunInTransaction", "WAWebSyncdConst"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -81,12 +81,12 @@ __d(
         function (t) {
           var n = t.SyncActionStore;
           return n
-            .getByActionStates([o("WASyncdConst").SyncActionState.Orphan])
+            .getByActionStates([o("WAWebSyncdConst").SyncActionState.Orphan])
             .then(function (t) {
               return t.filter(function (t) {
                 return (
                   t.modelType != null &&
-                  o("WASyncdConst").SyncModelType.cast(t.modelType) === e
+                  o("WAWebSyncdConst").SyncModelType.cast(t.modelType) === e
                 );
               });
             });

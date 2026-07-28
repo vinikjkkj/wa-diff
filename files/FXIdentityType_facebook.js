@@ -15,6 +15,7 @@ __d(
         "IG_USER",
         "MESSENGER_KID",
         "META",
+        "SOLO_USER",
         "THREADS_USER",
         "VR_PROFILE",
         "WA_BUSINESS_PROFILE",

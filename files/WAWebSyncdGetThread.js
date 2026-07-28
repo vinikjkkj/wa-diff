@@ -2,8 +2,8 @@ __d(
   "WAWebSyncdGetThread",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebSchemaThreadsMetadata",
+    "WAWebSyncdConst",
     "WAWebThreadsMetadataIdUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -25,7 +25,7 @@ __d(
                 success: !1,
                 orphanModel: {
                   modelId: t.toString(),
-                  modelType: o("WASyncdConst").SyncModelType.Thread,
+                  modelType: o("WAWebSyncdConst").SyncModelType.Thread,
                 },
               }
             : (o("WALogger").LOG(

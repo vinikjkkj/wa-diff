@@ -2,8 +2,8 @@ __d(
   "WAWebSyncdIndexUtils",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebMsgKey",
+    "WAWebSyncdConst",
     "WAWebSyncdMetrics",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumMdSyncdCriticalEventCode",
@@ -17,7 +17,7 @@ __d(
       u,
       c = /\d(?=)/gm;
     function d(e) {
-      return { actionState: o("WASyncdConst").SyncActionState.Malformed };
+      return { actionState: o("WAWebSyncdConst").SyncActionState.Malformed };
     }
     function m(e) {
       var t = e.toString();
@@ -93,7 +93,7 @@ __d(
           e,
           t,
         ),
-        { actionState: o("WASyncdConst").SyncActionState.Malformed }
+        { actionState: o("WAWebSyncdConst").SyncActionState.Malformed }
       );
     }
     ((l.malformedActionValue = d),

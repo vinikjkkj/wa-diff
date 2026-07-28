@@ -45,6 +45,7 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgRecordAction",
+    "WAWebSpoilerFormatRegex",
     "WAWebStateUtils",
     "WAWebThreadMsgUtils",
     "WAWebThreadWriteThroughAction",
@@ -197,6 +198,11 @@ __d(
                 groupMentions: S,
                 ctwaContext: b,
                 body: g,
+                isSpoiler:
+                  o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(g) &&
+                  o("WAWebABProps").getABPropConfigValue(
+                    "is_spoiler_rich_format_sender_enabled",
+                  ),
                 subtype: r("isEmptyObject")(U) ? null : "url",
                 urlText: t.urlText,
                 urlNumber: t.urlNumber,

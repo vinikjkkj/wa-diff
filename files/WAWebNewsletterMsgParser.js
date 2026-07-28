@@ -42,6 +42,8 @@ __d(
       return (
         o("WAWebNewsletterGatingUtils").isChannelDSA26ReceiverEnabled() &&
           (l.hasPaidPartnershipLabel = u),
+        o("WAWebNewsletterGatingUtils").isChannelSGIReceiverEnabled() &&
+          (l.hasSelfDisclosedAiContent = i.hasNewsletterAIContentMetaMixin),
         { ack: a(), msg: d(l, i) }
       );
     }

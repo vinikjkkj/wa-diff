@@ -3,12 +3,12 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
@@ -31,7 +31,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -43,7 +43,7 @@ __d(
             return 1;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.CallLog;
+            return o("WAWebSyncdConst").Actions.CallLog;
           }),
           (i.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -87,25 +87,27 @@ __d(
                                 }
                                 return {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 };
                               } else if (e.operation === "remove")
                                 return {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 };
                               return (
                                 l++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },

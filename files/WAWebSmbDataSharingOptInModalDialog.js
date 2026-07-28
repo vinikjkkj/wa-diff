@@ -162,7 +162,7 @@ __d(
           .catch(S);
       };
     function k(e, t, n) {
-      if (!r("WAWebCommonCTWADataSharing").shouldShowOrderDataSharingDialog(e))
+      if (!o("WAWebCommonCTWADataSharing").shouldShowOrderDataSharingDialog(e))
         return t();
       o("WAWebModalManager").ModalManager.open(
         p.jsx(M, { entrypoint: n, callback: t, chats: [e] }),
@@ -171,21 +171,21 @@ __d(
     function I(e) {
       var t = e.cb,
         n = e.chats,
-        a = e.entrypoint,
-        i = e.target,
-        l = n.some(function (e) {
-          return r(
+        r = e.entrypoint,
+        a = e.target,
+        i = n.some(function (e) {
+          return o(
             "WAWebCommonCTWADataSharing",
-          ).shouldShowLabelDataSharingDialog(e, i);
+          ).shouldShowLabelDataSharingDialog(e, a);
         });
-      if (!l) return t();
+      if (!i) return t();
       o("WAWebModalManager").ModalManager.open(
-        p.jsx(M, { entrypoint: a, callback: t, chats: n }),
+        p.jsx(M, { entrypoint: r, callback: t, chats: n }),
       );
     }
     function T(e, t, n) {
       if (
-        !r("WAWebCommonCTWADataSharing").shouldShowChatEntryDataSharingDialog(e)
+        !o("WAWebCommonCTWADataSharing").shouldShowChatEntryDataSharingDialog(e)
       )
         return t();
       o("WAWebModalManager").ModalManager.open(
@@ -194,7 +194,7 @@ __d(
     }
     function D(e) {
       if (
-        !r(
+        !o(
           "WAWebCommonCTWADataSharing",
         ).shouldShowListsManagementDataSharingDialog()
       )
@@ -586,7 +586,7 @@ __d(
                 "WAWebUserPrefsGeneral",
               ).setCTWADataSharingOptOutDisclosureShownCount(n + 1);
             }
-            (P(l, e), r("WAWebCommonCTWADataSharing").markV2DisclosureSeen());
+            (P(l, e), o("WAWebCommonCTWADataSharing").markV2DisclosureSeen());
           }),
           (T = [l]),
           (t[2] = l),

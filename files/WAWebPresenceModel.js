@@ -239,14 +239,14 @@ __d(
               null
                 ? r
                 : !1;
-          return S(
-            this.chatstate.type,
-            this.typingUserIds,
-            this.recordingUserIds,
-            this.groupOnlineCount,
-            a,
-            i,
-          );
+          return S({
+            chatstateType: this.chatstate.type,
+            elevatedPushNamesEnabled: a,
+            groupOnlineCount: this.groupOnlineCount,
+            isTypingIndicatorMessageBubbleEnabled: i,
+            recordingUserIds: this.recordingUserIds,
+            typingUserIds: this.typingUserIds,
+          });
         }),
         (a.$PresenceImpl$p_3 = function () {
           var e = this.chatstate.id;
@@ -521,26 +521,32 @@ __d(
       }
     }
     var v = m.defineModel(C);
-    function S(e, t, n, r, o, a) {
-      if (!a && e === "typing" && t.length > 0) return R(t, o);
-      if (!a && e === "recording_audio" && n.length > 0) {
-        var i = L(n[n.length - 1], o),
-          l = i.accessibleName,
-          u = i.name;
+    function S(e) {
+      var t = e.chatstateType,
+        n = e.elevatedPushNamesEnabled,
+        r = e.groupOnlineCount,
+        o = e.isTypingIndicatorMessageBubbleEnabled,
+        a = e.recordingUserIds,
+        i = e.typingUserIds;
+      if (!o && t === "typing" && i.length > 0) return R(i, n);
+      if (!o && t === "recording_audio" && a.length > 0) {
+        var l = L(a[a.length - 1], n),
+          u = l.accessibleName,
+          c = l.name;
         return {
           text: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", u),
+            s._param("member", c),
           ]),
           ariaLabel: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", l),
+            s._param("member", u),
           ]),
         };
       }
       if (r > 1) {
-        var c = s._(/*BTDS*/ '_j{"*":"{count} online","_1":"1 online"}', [
+        var d = s._(/*BTDS*/ '_j{"*":"{count} online","_1":"1 online"}', [
           s._plural(r, "count"),
         ]);
-        return { text: c, ariaLabel: c };
+        return { text: d, ariaLabel: d };
       }
       return null;
     }

@@ -103,11 +103,11 @@ __d(
           if (!r) return null;
           var a = [];
           for (var i of e) {
-            var l = o("WAWebFuzzyMatcher").fuzzyMatch(
-              r,
-              i,
-              o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
-            );
+            var l = o("WAWebFuzzyMatcher").fuzzyMatch({
+              costTolerance: o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
+              input: r,
+              query: i,
+            });
             if (!l.isMatch() || l.getSimilarityRating() < n) return null;
             a.push(l);
           }

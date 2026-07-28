@@ -547,6 +547,7 @@ __d(
                   accepted_pay_methods: u,
                   p2m_type: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
                   payment_method_choice: n,
+                  is_simplified_order: t.isOrderNodeOmitted,
                 }),
                 messageInteraction:
                   n ===
@@ -585,6 +586,7 @@ __d(
                       "WAWebGetMessageChatTypeFromWid",
                     ).getMessageChatTypeFromWid(s.id)
                   ].toLowerCase(),
+                  isSimplifiedOrder: t.isOrderNodeOmitted,
                 },
                 interaction:
                   n ===

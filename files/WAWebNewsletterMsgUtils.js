@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebE2EProtoParser",
+    "WAWebMsgAIProvenance",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNewsletterAdminProfilesSmaxUtils",
@@ -121,9 +122,14 @@ __d(
       u.newsletterAdminProfile != null &&
         (h.newsletterAdminProfile = u.newsletterAdminProfile);
       var C = d.hasPaidPartnershipLabel;
-      C != null &&
+      (C != null &&
         o("WAWebNewsletterGatingUtils").isChannelDSA26ReceiverEnabled() &&
-        (h.hasPaidPartnershipLabel = C);
+        (h.hasPaidPartnershipLabel = C),
+        d.hasSelfDisclosedAiContent === !0 &&
+          o("WAWebNewsletterGatingUtils").isChannelSGIReceiverEnabled() &&
+          (h.aiProvenance = o("WAWebMsgAIProvenance").withSelfDisclosed(
+            h.aiProvenance,
+          )));
       var b = o("WAWebNewsletterFutureProofUtils").isMsgSupported(h),
         v = b.reason,
         S = b.supported;
@@ -222,7 +228,9 @@ __d(
           },
         );
       if (
-        o("WAWebNewsletterGatingUtils").isWamoSubMessagesProcessingEnabled()
+        (e.hasNewsletterAIContentMetaMixin != null &&
+          (h.hasSelfDisclosedAiContent = e.hasNewsletterAIContentMetaMixin),
+        o("WAWebNewsletterGatingUtils").isWamoSubMessagesProcessingEnabled())
       ) {
         var y;
         h.isWamoSub =

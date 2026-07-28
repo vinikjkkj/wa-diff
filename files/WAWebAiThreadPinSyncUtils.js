@@ -3,13 +3,13 @@ __d(
   [
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebAiThreadCreationUtils",
     "WAWebBackendApi",
     "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaThreadsMetadata",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebThreadId",
     "WAWebThreadUtils",
@@ -86,11 +86,11 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = yield o("WAWebSyncdDb").getSyncActionsRows(
               ["action"],
-              [o("WASyncdConst").Actions.AiThreadPin],
+              [o("WAWebSyncdConst").Actions.AiThreadPin],
             ),
             a = [];
           for (var i of n)
-            if (i.actionState === o("WASyncdConst").SyncActionState.Orphan)
+            if (i.actionState === o("WAWebSyncdConst").SyncActionState.Orphan)
               try {
                 var l = JSON.parse(i.index);
                 if (l.length < s) continue;

@@ -5,7 +5,6 @@ __d(
     "WAJids",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WAWebBackendApi",
     "WAWebDBNoteDatabaseApi",
     "WAWebNotesIdUtils",
@@ -14,6 +13,7 @@ __d(
     "WAWebSchemaNote",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
@@ -36,7 +36,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -48,7 +48,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.NoteEdit;
+            return o("WAWebSyncdConst").Actions.NoteEdit;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -74,7 +74,7 @@ __d(
                                 a++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
@@ -99,7 +99,8 @@ __d(
                                   v.push(s),
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Success,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Success,
                                   }
                                 );
                               var c = u.chatJid,
@@ -139,7 +140,7 @@ __d(
                               if (!R.success)
                                 return {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Orphan,
+                                    o("WAWebSyncdConst").SyncActionState.Orphan,
                                   orphanModel: R.orphanModel,
                                 };
                               var L = o("WAWebWidToJid").widToChatJid(
@@ -169,13 +170,14 @@ __d(
                                 S.push(k),
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 }
                               );
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -295,7 +297,7 @@ __d(
                     "WAWebSyncdGetChat",
                   ).getChatJidMutationIndexForChat(
                     o("WAWebWidFactory").createWid(e.chatJid),
-                    o("WASyncdConst").Actions.NoteEdit,
+                    o("WAWebSyncdConst").Actions.NoteEdit,
                   ),
                   n = o("WAWebWidToJid").widToChatJid(
                     o("WAWebWidFactory").createWid(t),

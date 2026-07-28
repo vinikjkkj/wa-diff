@@ -2,12 +2,12 @@ __d(
   "WAWebAgentSync",
   [
     "Promise",
-    "WASyncdConst",
     "WAWebAgentCollection",
     "WAWebAgentModelUtils",
     "WAWebMsgCollection",
     "WAWebSchemaAgent",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebUnattributedMessageCollection",
     "asyncToGeneratorRuntime",
   ],
@@ -40,7 +40,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -52,7 +52,7 @@ __d(
             return 7;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.Agent;
+            return o("WAWebSyncdConst").Actions.Agent;
           }),
           (a.getValidatedContentSet = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -117,7 +117,7 @@ __d(
                                     i.push(t),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     }
                                   );
@@ -149,7 +149,7 @@ __d(
                                     }),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     }
                                   );

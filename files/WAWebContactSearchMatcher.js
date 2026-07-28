@@ -67,13 +67,17 @@ __d(
       } else return n != null && u(t, n) ? n : null;
       return null;
     }
-    function p(e, t, n, r) {
-      var a = f(e, t, n, r, o("WAWebSearchMatchStrategies").substringMatch);
-      return a == null
+    function p(e) {
+      var t = e.contact,
+        n = e.label,
+        r = e.numeric,
+        a = e.term,
+        i = f(t, a, r, n, o("WAWebSearchMatchStrategies").substringMatch);
+      return i == null
         ? null
         : {
-            match: a.match,
-            results: a.results.map(function (e) {
+            match: i.match,
+            results: i.results.map(function (e) {
               return new (o(
                 "WAWebExactSearchMatchResult",
               ).WAWebExactSearchMatchResult)(e.startIndex, e.length);
@@ -170,11 +174,11 @@ __d(
           "similarityThreshold must be between 0.0 and 1.0, got: " + a,
         );
       if (n.length === 0) return null;
-      var i = o("WAWebFuzzyMatcher").fuzzyMatch(
-        t,
-        n,
-        o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
-      );
+      var i = o("WAWebFuzzyMatcher").fuzzyMatch({
+        costTolerance: o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
+        input: t,
+        query: n,
+      });
       return i.isMatch() && i.getSimilarityRating() >= a ? i : null;
     }
     function h(e, t) {
@@ -228,9 +232,11 @@ __d(
       ) {
         var a,
           i = d(t);
-        return (a = p(e, i, n, r)) != null ? a : p(e, t, n, r);
+        return (a = p({ contact: e, label: r, numeric: n, term: i })) != null
+          ? a
+          : p({ contact: e, label: r, numeric: n, term: t });
       }
-      return p(e, t, n, r);
+      return p({ contact: e, label: r, numeric: n, term: t });
     }
     function b(e, t) {
       if (

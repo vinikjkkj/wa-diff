@@ -2,7 +2,6 @@ __d(
   "WAWebHandleForMessageRange",
   [
     "Promise",
-    "WASyncdConst",
     "WAWebActiveMessageRanges",
     "WAWebAddonGatingUtils",
     "WAWebApiActiveMessageRanges",
@@ -12,6 +11,7 @@ __d(
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaActiveMessageRanges",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdUtils",
     "WAWebWidFactory",
@@ -122,7 +122,7 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebSyncdActionUtils").buildIndex(
-              o("WASyncdConst").Actions.Star,
+              o("WAWebSyncdConst").Actions.Star,
               o("WAWebSyncdUtils").constructMsgKeySegmentsFromMsgKey(e),
             ),
             n = yield o("WAWebSyncdDb").getSyncAction(t);

@@ -105,13 +105,14 @@ __d(
                             o("WAWebWidFactory").createUserWidOrThrow(n.id),
                             n,
                           )
-                        : R(
-                            e,
-                            a -
+                        : R({
+                            currentTs: e,
+                            deviceListRow: n,
+                            numSecondsCloseExpiration:
+                              a -
                               t.getNumDaysBeforeDeviceExpiryCheck() *
                                 o("WATimeUtils").DAY_SECONDS,
-                            n,
-                          ) &&
+                          }) &&
                           l.set(
                             o("WAWebWidFactory").createUserWidOrThrow(n.id),
                             n,
@@ -285,8 +286,11 @@ __d(
           ? e - n.expectedTsUpdateTs >= m && n.expectedTsLastDeviceJobTs !== r
           : !1;
     }
-    function R(e, t, n) {
-      return e - n.timestamp >= t
+    function R(e) {
+      var t = e.currentTs,
+        n = e.deviceListRow,
+        r = e.numSecondsCloseExpiration;
+      return t - n.timestamp >= r
         ? !0
         : n.expectedTs != null
           ? n.expectedTs > n.timestamp

@@ -120,6 +120,10 @@ __d(
           "guest_events_notification_primer_action",
         EVENTS_NOTIFICATION_PERMISSION_RESULT:
           "guest_events_notification_permission_result",
+        EVENTS_REPORT_CTA_CLICKED: "guest_events_report_cta_clicked",
+        EVENTS_REPORT_SUCCESS: "guest_events_report_success",
+        EVENTS_REPORT_FAILURE: "guest_events_report_failure",
+        EVENTS_REPORT_ABANDON: "guest_events_report_abandon",
         USERNAME_RESERVATION_RESOLVE_PROFILE_ERROR:
           "username_reservation_resolve_profile_error",
         USERNAME_RESERVATION_ACCOUNT_LINKING_IMPRESSION:

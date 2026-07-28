@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebDBFavoriteDatabaseApi",
@@ -11,6 +10,7 @@ __d(
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
@@ -27,7 +27,8 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularHigh),
+            (e.collectionName =
+              o("WAWebSyncdConst").CollectionName.RegularHigh),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -39,7 +40,7 @@ __d(
             return 1;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.Favorites;
+            return o("WAWebSyncdConst").Actions.Favorites;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -66,7 +67,7 @@ __d(
                         : ((i == null || e.timestamp > i.timestamp) && (i = e),
                           {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Success,
+                              o("WAWebSyncdConst").SyncActionState.Success,
                           });
                   });
                 (l > 0 &&

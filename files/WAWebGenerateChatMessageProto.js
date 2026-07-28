@@ -1,6 +1,6 @@
 __d(
   "WAWebGenerateChatMessageProto",
-  ["WAWebGenerateExtendedTextUrlChatMessageProto"],
+  ["WAWebGenerateExtendedTextMessageProtoUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.contextInfo,
@@ -23,7 +23,7 @@ __d(
         n.paymentLinkMetadata ||
         ((t == null ? void 0 : t.nonJidMentions) != null &&
           t.nonJidMentions > 0)
-        ? r("WAWebGenerateExtendedTextUrlChatMessageProto")({
+        ? r("WAWebGenerateExtendedTextMessageProtoUtils")({
             json: n,
             contextInfo: t,
           })

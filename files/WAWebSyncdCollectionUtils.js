@@ -1,18 +1,18 @@
 __d(
   "WAWebSyncdCollectionUtils",
-  ["WASyncdConst"],
+  ["WAWebSyncdConst"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       return e == null;
     }
     function s(e) {
-      return e === o("WASyncdConst").CollectionName.CriticalBlock ||
-        e === o("WASyncdConst").CollectionName.CriticalUnblockLow
+      return e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
+        e === o("WAWebSyncdConst").CollectionName.CriticalUnblockLow
         ? !0
-        : e === o("WASyncdConst").CollectionName.Regular ||
-            e === o("WASyncdConst").CollectionName.RegularHigh ||
-            e === o("WASyncdConst").CollectionName.RegularLow
+        : e === o("WAWebSyncdConst").CollectionName.Regular ||
+            e === o("WAWebSyncdConst").CollectionName.RegularHigh ||
+            e === o("WAWebSyncdConst").CollectionName.RegularLow
           ? !1
           : (function () {
               throw Error(

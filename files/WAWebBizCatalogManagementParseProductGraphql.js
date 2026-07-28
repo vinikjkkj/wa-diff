@@ -5,7 +5,7 @@ __d(
     "WAWebBizCatalogManagementParseProductGraphql_product.graphql",
     "WAWebBizCatalogParseProduct",
     "WAWebBizParseProductGraphql",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebSyntheticCountryCode",
     "err",
     "isStringNullOrEmpty",
@@ -87,11 +87,9 @@ __d(
               }
             : null,
         compliance_category: o(
-          "WAWebProductTypes.flow",
+          "WAWebProductTypes",
         ).mapComplianceCategoryToWASchema(e.compliance_category),
-        is_hidden: o("WAWebProductTypes.flow").mapIsHiddenToWASchema(
-          e.is_hidden,
-        ),
+        is_hidden: o("WAWebProductTypes").mapIsHiddenToWASchema(e.is_hidden),
         is_sanctioned: e.is_sanctioned,
         variant_info: e.variant_info,
       });
@@ -129,9 +127,10 @@ __d(
           o("WAWebSyntheticCountryCode").SyntheticCountryCode.NotApplicable ||
           (e.importerInformationExempt &&
             o("WAWebBizCatalogGatingUtils").isCountryOfOriginEnabled())) &&
-          (a.compliance_category = o(
-            "WAWebProductTypes.flow",
-          ).ProductComplianceCategory.CountryOriginExempt),
+          (a.compliance_category =
+            o(
+              "WAWebProductTypes",
+            ).ProductComplianceCategory.CountryOriginExempt),
         a
       );
     }

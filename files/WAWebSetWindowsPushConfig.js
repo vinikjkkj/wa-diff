@@ -41,35 +41,47 @@ __d(
           { errorCode: r, errorText: a }
         );
       });
-    function c(e, t) {
+    function c(e, t, n, r) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = "uwp_beta");
-          var n = o("WAWap").wap(
-              "iq",
-              {
-                to: o("WAWap").S_WHATSAPP_NET,
-                type: "set",
-                xmlns: "urn:xmpp:whatsapp:push",
-                id: o("WAWap").generateId(),
-              },
-              o("WAWap").wap("config", {
-                id: o("WAWap").CUSTOM_STRING(e),
-                platform: "wns",
-                version: m(t),
-              }),
-            ),
-            r = yield o("WADeprecatedSendIq").deprecatedSendIq(n, u);
-          if (!r.success) {
-            var a = r.errorCode,
-              i = r.errorText;
-            return { errorCode: a, errorText: i };
-          }
-          return r.result;
-        })),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            (t === void 0 && (t = "uwp_beta"),
+              n === void 0 && (n = null),
+              r === void 0 && (r = null));
+            var a = o("WAWap").wap(
+                "iq",
+                {
+                  to: o("WAWap").S_WHATSAPP_NET,
+                  type: "set",
+                  xmlns: "urn:xmpp:whatsapp:push",
+                  id: o("WAWap").generateId(),
+                },
+                o("WAWap").wap("config", {
+                  id: o("WAWap").CUSTOM_STRING(e),
+                  platform: "wns",
+                  version: m(t),
+                  pkey:
+                    n != null && n.length > 0
+                      ? o("WAWap").CUSTOM_STRING(n)
+                      : o("WAWap").DROP_ATTR,
+                  settings:
+                    r != null && r > 0
+                      ? o("WAWap").CUSTOM_STRING(String(r))
+                      : o("WAWap").DROP_ATTR,
+                }),
+              ),
+              i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, u);
+            if (!i.success) {
+              var l = i.errorCode,
+                s = i.errorText;
+              return { errorCode: l, errorText: s };
+            }
+            return i.result;
+          },
+        )),
         d.apply(this, arguments)
       );
     }

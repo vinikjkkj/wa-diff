@@ -68,17 +68,20 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
+    function y(e) {
+      var t = e.anchorMsg,
+        n = e.msgCollection,
+        r = e.threadId;
       if (
-        n != null &&
-        n.type === o("WAWebThreadUtils").ThreadType.ViewAllReplies &&
-        e != null &&
-        o("WAWebThreadMsgUtils").isMsgRootOfThread(e, n)
+        r != null &&
+        r.type === o("WAWebThreadUtils").ThreadType.ViewAllReplies &&
+        t != null &&
+        o("WAWebThreadMsgUtils").isMsgRootOfThread(t, r)
       ) {
-        var r;
-        return (r = t.at(1)) != null ? r : null;
+        var a;
+        return (a = n.at(1)) != null ? a : null;
       }
-      return e;
+      return t;
     }
     function C(e) {
       return b.apply(this, arguments);
@@ -133,7 +136,7 @@ __d(
             );
           if (_.msgLoadState.isLoadingEarlierMsgs) return _.loadEarlierPromise;
           var C = _ ? _.head() : null,
-            b = y(C, _, h);
+            b = y({ anchorMsg: C, msgCollection: _, threadId: h });
           if (b == null && C != null)
             return ((_.msgLoadState.noEarlierMsgs = !0), []);
           if (

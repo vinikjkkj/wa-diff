@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebApiActiveMessageRanges",
     "WAWebChatDbUpdatesApi",
     "WAWebMessageRangeUtils",
@@ -13,6 +12,7 @@ __d(
     "WAWebSchemaChat",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebUserPrefsMultiDevice",
@@ -31,7 +31,7 @@ __d(
         t ===
           o("WAWebMessageRangeUtils").MessageRangeEncloseType
             .RangeAEnclosesRangeB
-        ? { actionState: o("WASyncdConst").SyncActionState.Success }
+        ? { actionState: o("WAWebSyncdConst").SyncActionState.Success }
         : t ===
               o("WAWebMessageRangeUtils").MessageRangeEncloseType
                 .RangeBEnclosesRangeA ||
@@ -39,9 +39,9 @@ __d(
               o("WAWebMessageRangeUtils").MessageRangeEncloseType
                 .RangesNotEnclosing
           ? {
-              actionState: o("WASyncdConst").SyncActionState.Orphan,
+              actionState: o("WAWebSyncdConst").SyncActionState.Orphan,
               orphanModel: {
-                modelType: o("WASyncdConst").SyncModelType.Chat,
+                modelType: o("WAWebSyncdConst").SyncModelType.Chat,
                 modelId: e.toString(),
               },
             }
@@ -59,7 +59,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -75,7 +75,7 @@ __d(
             return 3;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.Archive;
+            return o("WAWebSyncdConst").Actions.Archive;
           }),
           (i.validateSyncActionValue = function (t) {
             var e = t.archiveChatAction,
@@ -118,7 +118,8 @@ __d(
                                 if (!u.success)
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: u.orphanModel,
                                   };
                                 var c = u.chat.id,
@@ -154,14 +155,14 @@ __d(
                                 d++,
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState
+                                    o("WAWebSyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },
@@ -278,7 +279,7 @@ __d(
                   return {
                     updates: { id: e.toString(), archive: t },
                     syncApplyActionResult: {
-                      actionState: o("WASyncdConst").SyncActionState.Success,
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     },
                   };
                 var a = yield o("WAWebMessageRangeUtils").constructMessageRange(
@@ -351,7 +352,7 @@ __d(
                     "WAWebSyncdGetChat",
                   ).getChatJidMutationIndexForChat(
                     n,
-                    o("WASyncdConst").Actions.Archive,
+                    o("WAWebSyncdConst").Actions.Archive,
                   ),
                   a = {
                     archiveChatAction: {
@@ -425,17 +426,18 @@ __d(
                 switch (d) {
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeAEnclosesRangeB:
-                    return o("WASyncdConst").ConflictResolutionState
+                    return o("WAWebSyncdConst").ConflictResolutionState
                       .ApplyRemoteAndDropLocal;
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeBEnclosesRangeA:
-                    return o("WASyncdConst").ConflictResolutionState.SkipRemote;
+                    return o("WAWebSyncdConst").ConflictResolutionState
+                      .SkipRemote;
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesAreEqual:
                     return l <= s
-                      ? o("WASyncdConst").ConflictResolutionState
+                      ? o("WAWebSyncdConst").ConflictResolutionState
                           .ApplyRemoteAndDropLocal
-                      : o("WASyncdConst").ConflictResolutionState.SkipRemote;
+                      : o("WAWebSyncdConst").ConflictResolutionState.SkipRemote;
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesNotEnclosing: {
                     var m,
@@ -499,7 +501,7 @@ __d(
                           },
                         ),
                       ),
-                      o("WASyncdConst").ConflictResolutionState
+                      o("WAWebSyncdConst").ConflictResolutionState
                         .SkipRemoteAndDropLocal
                     );
                   }

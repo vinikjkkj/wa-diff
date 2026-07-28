@@ -4,13 +4,13 @@ __d(
     "$InternalEnum",
     "WAJids",
     "WALogger",
-    "WASyncdConst",
     "WAWebApiChatCommon",
     "WAWebApiContact",
     "WAWebBackendApi",
     "WAWebHistorySyncLidChatGating",
     "WAWebLid1X1MigrationGating",
     "WAWebSchemaChat",
+    "WAWebSyncdConst",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -140,7 +140,7 @@ __d(
                     success: !1,
                     orphanModel: {
                       modelId: e.toString(),
-                      modelType: o("WASyncdConst").SyncModelType.Account,
+                      modelType: o("WAWebSyncdConst").SyncModelType.Account,
                     },
                   }
                 : (o("WALogger").LOG(
@@ -175,7 +175,7 @@ __d(
                   success: !1,
                   orphanModel: {
                     modelId: e.toString(),
-                    modelType: o("WASyncdConst").SyncModelType.Chat,
+                    modelType: o("WAWebSyncdConst").SyncModelType.Chat,
                   },
                 };
           }
@@ -187,7 +187,7 @@ __d(
                 success: !1,
                 orphanModel: {
                   modelId: e.toString(),
-                  modelType: o("WASyncdConst").SyncModelType.Chat,
+                  modelType: o("WAWebSyncdConst").SyncModelType.Chat,
                 },
               }
             : (o("WALogger").LOG(

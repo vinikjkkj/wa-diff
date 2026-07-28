@@ -1,11 +1,11 @@
 __d(
   "WAWebKmpSyncdMutationNameUtils",
-  ["WALogger", "WASyncdConst", "wa-kmp-syncd-engine-api"],
+  ["WALogger", "WAWebSyncdConst", "wa-kmp-syncd-engine-api"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
     function u(t) {
-      var n = o("WASyncdConst").Actions.cast(t.value);
+      var n = o("WAWebSyncdConst").Actions.cast(t.value);
       return (
         n == null &&
           o("WALogger").LOG(

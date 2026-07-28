@@ -40,32 +40,35 @@ __d(
         "biz_ai_responding_list_enabled",
       );
     }
-    var _ = 0,
-      f = 1,
-      g = 2;
-    function h() {
+    function _() {
+      return p();
+    }
+    var f = 0,
+      g = 1,
+      h = 2;
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function y() {
-      return h() !== _;
-    }
     function C() {
+      return y() !== f;
+    }
+    function b() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_receiving",
         ) === !0
       );
     }
-    function b() {
+    function v() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
         ) === !0
       );
     }
-    function v() {
+    function S() {
       return (
         o("WAWebABProps").getABPropConfigValue("biz_ai_web_gdrive_enabled") ===
         !0
@@ -78,14 +81,15 @@ __d(
       (l.isAiMuteUnmuteV2Enabled = d),
       (l.isAiReplyFabConfirmModalEnabled = m),
       (l.isAiRespondingChipEnabled = p),
-      (l.MULTI_WEBSITE_DISABLED = _),
-      (l.MULTI_WEBSITE_BRAZIL = f),
-      (l.MULTI_WEBSITE_LATAM = g),
-      (l.getMultiWebsiteMode = h),
-      (l.isMultiWebsiteEnabled = y),
-      (l.isMaibaWASSReceivingEnabled = C),
-      (l.isMaibaWASSSendingEnabled = b),
-      (l.isGoogleDriveKnowledgeUiEnabled = v));
+      (l.isHandoffRemovalTimingSettingEnabled = _),
+      (l.MULTI_WEBSITE_DISABLED = f),
+      (l.MULTI_WEBSITE_BRAZIL = g),
+      (l.MULTI_WEBSITE_LATAM = h),
+      (l.getMultiWebsiteMode = y),
+      (l.isMultiWebsiteEnabled = C),
+      (l.isMaibaWASSReceivingEnabled = b),
+      (l.isMaibaWASSSendingEnabled = v),
+      (l.isGoogleDriveKnowledgeUiEnabled = S));
   },
   98,
 );

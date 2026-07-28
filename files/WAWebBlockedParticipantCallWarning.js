@@ -2,7 +2,7 @@ __d(
   "WAWebBlockedParticipantCallWarning",
   [
     "fbt",
-    "WAWebBlockWarningGatingUtils",
+    "WAWebABProps",
     "WAWebBlockedParticipantWarningAction",
     "WAWebConfirmPopup.react",
     "WAWebFbtIntlList",
@@ -17,9 +17,9 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
-            !o(
-              "WAWebBlockWarningGatingUtils",
-            ).isBlockedParticipantCallWarningEnabled()
+            !o("WAWebABProps").getABPropConfigValue(
+              "wa_web_blocked_participant_call_warning",
+            )
           )
             return !0;
           var n = o(

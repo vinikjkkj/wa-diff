@@ -34,33 +34,33 @@ __d(
     }
     function m(t, n) {
       if (o("WAWebMobilePlatforms").isSMB()) {
-        var a = p(t);
+        var r = p(t);
         if (
-          a != null &&
+          r != null &&
           o("WAWebCTWAGatingUtils").isCtwa1pdWebNbfSignalsEnabled()
         ) {
-          var i = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(
+          var a = o("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(
             t,
           );
           new (o("WAWebCtwa1pdConversionWamEvent").Ctwa1pdConversionWamEvent)({
             ctwa1pdConversionType: n,
             ctwa1pdConversionSchemaVersion: e,
-            ctwaTrackingPayload: a,
+            ctwaTrackingPayload: r,
             ctwaConversationDepth: 0,
             ctwaConversationRepeat: 0,
             ctwaDirectionFrom: o("WAWebWamEnumCtwaDirectionFrom")
               .CTWA_DIRECTION_FROM.BUSINESS,
-            ctwaSignals: i != null ? i : void 0,
+            ctwaSignals: a != null ? a : void 0,
           }).commit();
         }
       }
     }
     function p(e) {
-      var t = r(
+      var t = o(
         "WAWebCommonCTWADataSharing",
       ).getReceivedCTWAEligibilityFromChat(e);
       if (t == null || t.is3pdag || t.data == null) return null;
-      var n = r("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(e);
+      var n = o("WAWebCommonCTWADataSharing").getCTWASignalsValueFromChat(e);
       return _(n) ? null : t.data;
     }
     function _(e) {

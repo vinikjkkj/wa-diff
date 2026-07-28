@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATypeUtils",
     "WAWebBackendEventBus",
     "WAWebDebounce",
@@ -15,6 +14,7 @@ __d(
     "WAWebSchemaSyncActions",
     "WAWebSyncd",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdDisabled",
     "WAWebSyncdGetActionHandler",
@@ -80,7 +80,7 @@ __d(
                     e.collection,
                     e.index,
                   ),
-                  n = o("WASyncdConst").Actions.cast(t);
+                  n = o("WAWebSyncdConst").Actions.cast(t);
                 return n
                   ? babelHelpers.extends({}, e, { action: n })
                   : (i++,

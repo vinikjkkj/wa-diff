@@ -23,7 +23,7 @@ __d(
     "WAWebJidToWid",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebParseSubscriptionNotification",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "WAWebSubscriptions",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
@@ -174,7 +174,7 @@ __d(
                 i,
                 l = {
                   reviewStatus:
-                    (t = o("WAWebProductTypes.flow").asProductReviewType(
+                    (t = o("WAWebProductTypes").asProductReviewType(
                       e.child("status_info").child("status").contentString(),
                     )) != null
                       ? t

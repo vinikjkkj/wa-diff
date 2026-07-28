@@ -4,7 +4,6 @@ __d(
     "WABinary",
     "WAGzip",
     "WALogger",
-    "WASyncdConst",
     "WAWebBackendApi",
     "WAWebBizBroadcastInsightsContactListHandler",
     "WAWebNonMessageDataRequestHandlerCanonicalEntNonce",
@@ -17,6 +16,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsSyncdSnapshotRecovery.pb",
     "WAWebRequestSyncdSnapshotRecovery",
+    "WAWebSyncdConst",
     "WAWebSyncdSnapshotRecoveryGatingUtils",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
@@ -182,7 +182,7 @@ __d(
                 .SyncdSnapshotRecoverySpec,
               s,
             ),
-            c = o("WASyncdConst").CollectionName.cast(u.collectionName);
+            c = o("WAWebSyncdConst").CollectionName.cast(u.collectionName);
           (c != null &&
             o(
               "WAWebRequestSyncdSnapshotRecovery",

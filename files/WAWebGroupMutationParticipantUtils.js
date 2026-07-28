@@ -2,9 +2,9 @@ __d(
   "WAWebGroupMutationParticipantUtils",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebApiContact",
     "WAWebMiscErrors",
-    "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
   ],
@@ -12,7 +12,12 @@ __d(
     var e, s, u;
     function c(t, n, r) {
       var a = t.id.isLid() ? t.phoneNumber : t.id;
-      if (o("WAWebUsernameGatingUtils").usernameGroupMutationEnabled() && n) {
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "username_group_mutation_enabled",
+        ) &&
+        n
+      ) {
         var i = t.id.isLid()
           ? t.id
           : o("WAWebApiContact").getCurrentLid(

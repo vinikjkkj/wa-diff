@@ -3,7 +3,7 @@ __d(
   [
     "WADeprecatedWapParser",
     "WALogger",
-    "WASyncdConst",
+    "WAWebSyncdConst",
     "WAWebSyncdDecode",
     "WAWebSyncdError",
     "WAWebSyncdMetricFatalError",
@@ -30,7 +30,9 @@ __d(
           r = t.child("sync");
         return (
           r.mapChildrenWithTag("collection", function (e) {
-            var t = o("WASyncdConst").CollectionName.cast(e.attrString("name"));
+            var t = o("WAWebSyncdConst").CollectionName.cast(
+              e.attrString("name"),
+            );
             if (!t)
               throw new (o("WAWebSyncdError").SyncdFatalError)(
                 "invalid collection name",
@@ -95,8 +97,8 @@ __d(
         e: {
           if (r === "409")
             return e.hasAttr("has_more_patches")
-              ? o("WASyncdConst").CollectionState.ConflictHasMore
-              : o("WASyncdConst").CollectionState.Conflict;
+              ? o("WAWebSyncdConst").CollectionState.ConflictHasMore
+              : o("WAWebSyncdConst").CollectionState.Conflict;
           if (r === "400") {
             return (
               o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
@@ -115,7 +117,7 @@ __d(
                   a,
                 )
                 .sendLogs("syncd: fatal error 400: collection " + String(t)),
-              o("WASyncdConst").CollectionState.ErrorFatal
+              o("WAWebSyncdConst").CollectionState.ErrorFatal
             );
             break e;
           }
@@ -137,7 +139,7 @@ __d(
                   a,
                 )
                 .sendLogs("syncd: fatal error: collection " + String(t)),
-              o("WASyncdConst").CollectionState.ErrorFatal
+              o("WAWebSyncdConst").CollectionState.ErrorFatal
             );
             break e;
           }
@@ -155,7 +157,7 @@ __d(
                   a,
                 )
                 .sendLogs("syncd: retryable error: collection " + String(t)),
-              o("WASyncdConst").CollectionState.ErrorRetry
+              o("WAWebSyncdConst").CollectionState.ErrorRetry
             );
             break e;
           }
@@ -170,7 +172,7 @@ __d(
                 ])),
               t,
             ),
-            o("WASyncdConst").CollectionState.SuccessHasMore)
+            o("WAWebSyncdConst").CollectionState.SuccessHasMore)
           : (o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -179,7 +181,7 @@ __d(
                 ])),
               t,
             ),
-            o("WASyncdConst").CollectionState.Success);
+            o("WAWebSyncdConst").CollectionState.Success);
     }
     l.syncResponseParser = g;
   },

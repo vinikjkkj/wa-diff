@@ -2,9 +2,9 @@ __d(
   "WAWebCollectionHandlerWamSyncUtil",
   [
     "WALongInt",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebMdBootstrapAppStateDataDownloadedWamEvent",
+    "WAWebSyncdConst",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebWamEnumMdBootstrapPayloadType",
     "WAWebWamEnumMdBootstrapStepResult",
@@ -12,8 +12,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = [
-      o("WASyncdConst").CollectionName.CriticalBlock,
-      o("WASyncdConst").CollectionName.CriticalUnblockLow,
+      o("WAWebSyncdConst").CollectionName.CriticalBlock,
+      o("WAWebSyncdConst").CollectionName.CriticalUnblockLow,
     ];
     function s(e, t, n, r, o) {
       return u.apply(this, arguments);

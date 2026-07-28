@@ -2,9 +2,9 @@ __d(
   "WAWebPnForLidChatSync",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebDBCreateLidPnMappings",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -19,7 +19,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -31,7 +31,7 @@ __d(
             return 8;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.PnForLidChat;
+            return o("WAWebSyncdConst").Actions.PnForLidChat;
           }),
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -48,7 +48,7 @@ __d(
                         a++,
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     var s = e.indexParts[1];
@@ -69,7 +69,10 @@ __d(
                       d = o("WAWebWidFactory").createUserLidOrThrow(s);
                     return (
                       r.push({ lid: d, pn: c }),
-                      { actionState: o("WASyncdConst").SyncActionState.Success }
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
                     );
                   });
                 return (

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebEnvironment",
@@ -14,6 +13,7 @@ __d(
     "WAWebSettingsSyncHelpers",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
     "err",
@@ -35,7 +35,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.RegularLow),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.RegularLow),
             (e.chatJidIndex = 3),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
@@ -48,7 +48,7 @@ __d(
             return 1;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.SettingsSync;
+            return o("WAWebSyncdConst").Actions.SettingsSync;
           }),
           (i.applyMutations = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -58,7 +58,7 @@ __d(
                   return e.map(function () {
                     return {
                       actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
                     };
                   });
                 var r = [],
@@ -78,12 +78,12 @@ __d(
                     return n == null
                       ? {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Malformed,
+                            o("WAWebSyncdConst").SyncActionState.Malformed,
                         }
                       : n !== e
                         ? {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Skipped,
+                              o("WAWebSyncdConst").SyncActionState.Skipped,
                           }
                         : t.$SettingsSync$p_1(e);
                   }),
@@ -111,7 +111,10 @@ __d(
                         ])),
                       JSON.stringify(n),
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Malformed }
+                    {
+                      actionState:
+                        o("WAWebSyncdConst").SyncActionState.Malformed,
+                    }
                   );
                 var i = n[0],
                   l = n[1],
@@ -134,7 +137,7 @@ __d(
                           .HYBRID);
                 if (!g)
                   return {
-                    actionState: o("WASyncdConst").SyncActionState.Skipped,
+                    actionState: o("WAWebSyncdConst").SyncActionState.Skipped,
                   };
                 var h = o(
                   "WAWebProtobufSyncAction.pb",
@@ -149,7 +152,10 @@ __d(
                         ])),
                       p,
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Malformed }
+                    {
+                      actionState:
+                        o("WAWebSyncdConst").SyncActionState.Malformed,
+                    }
                   );
                 var y = o("WAWebSettingsSyncConst").SETTING_KEY_TO_FIELD[h];
                 if (!y)
@@ -162,7 +168,10 @@ __d(
                         ])),
                       h,
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Malformed }
+                    {
+                      actionState:
+                        o("WAWebSyncdConst").SyncActionState.Malformed,
+                    }
                   );
                 var C = a == null ? void 0 : a.settingsSyncAction;
                 if (!C)
@@ -173,7 +182,10 @@ __d(
                           "[settings-sync] Missing settingsSyncAction in value",
                         ])),
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Malformed }
+                    {
+                      actionState:
+                        o("WAWebSyncdConst").SyncActionState.Malformed,
+                    }
                   );
                 var b = C[y];
                 if (b === void 0)
@@ -186,7 +198,10 @@ __d(
                         ])),
                       y,
                     ),
-                    { actionState: o("WASyncdConst").SyncActionState.Malformed }
+                    {
+                      actionState:
+                        o("WAWebSyncdConst").SyncActionState.Malformed,
+                    }
                   );
                 try {
                   yield o("WAWebSettingsSyncHelpers").applySettingUpdate(
@@ -204,11 +219,11 @@ __d(
                           ])),
                       )
                       .catching(r("getErrorSafe")(e)),
-                    { actionState: o("WASyncdConst").SyncActionState.Failed }
+                    { actionState: o("WAWebSyncdConst").SyncActionState.Failed }
                   );
                 }
                 return {
-                  actionState: o("WASyncdConst").SyncActionState.Success,
+                  actionState: o("WAWebSyncdConst").SyncActionState.Success,
                 };
               },
             );
@@ -226,7 +241,7 @@ __d(
             if (!l || !s)
               throw r("err")("[settings-sync] Unknown setting: " + n);
             return o("WAWebSyncdActionUtils").buildPendingMutation({
-              collection: o("WASyncdConst").CollectionName.RegularLow,
+              collection: o("WAWebSyncdConst").CollectionName.RegularLow,
               indexArgs: [String(u), String(l), i],
               value: { settingsSyncAction: ((e = {}), (e[s] = a), e) },
               version: this.getVersion(),

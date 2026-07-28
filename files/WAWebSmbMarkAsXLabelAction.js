@@ -71,7 +71,7 @@ __d(
     function p(e, t, n, a) {
       var i,
         l,
-        s = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
+        s = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
       if (
         !(
           s == null ||

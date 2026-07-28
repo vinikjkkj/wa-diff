@@ -2,8 +2,8 @@ __d(
   "WAWebWasaRootSecretWriter",
   [
     "WALogger",
-    "WASyncdConst",
     "WAWebProtobufSyncAction.pb",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebWasaRootSecretDb",
     "WAWebWasaUserPrefs",
@@ -85,7 +85,7 @@ __d(
             r,
             a =
               '["' +
-              o("WASyncdConst").Actions.WasaRootSecret +
+              o("WAWebSyncdConst").Actions.WasaRootSecret +
               '","' +
               e.toJid() +
               '"]',

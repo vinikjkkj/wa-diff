@@ -2,13 +2,13 @@ __d(
   "WAWebChatAssignmentOpenedStatusSync",
   [
     "Promise",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebBizChatAssignmentOpenedAction",
     "WAWebChatAssignmentCollection",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
@@ -23,7 +23,7 @@ __d(
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
             (e.chatJidIndex = 1),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -32,10 +32,10 @@ __d(
         var a = r.prototype;
         return (
           (a.getVersion = function () {
-            return o("WASyncdConst").CHAT_ASSIGNMENT_SYNC_VERSION;
+            return o("WAWebSyncdConst").CHAT_ASSIGNMENT_SYNC_VERSION;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.ChatAssignmentOpenedStatus;
+            return o("WAWebSyncdConst").Actions.ChatAssignmentOpenedStatus;
           }),
           (a.createChatOpenedMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -65,17 +65,18 @@ __d(
                                   "WAWebSyncdGetChat",
                                 ).getChatJidMutationIndexForChat(
                                   o("WAWebWidFactory").createWid(n),
-                                  o("WASyncdConst").Actions
+                                  o("WAWebSyncdConst").Actions
                                     .ChatAssignmentOpenedStatus,
                                 ),
                                 t,
                               ],
                               value: l,
                               action:
-                                o("WASyncdConst").Actions
+                                o("WAWebSyncdConst").Actions
                                   .ChatAssignmentOpenedStatus,
                               version:
-                                o("WASyncdConst").CHAT_ASSIGNMENT_SYNC_VERSION,
+                                o("WAWebSyncdConst")
+                                  .CHAT_ASSIGNMENT_SYNC_VERSION,
                             });
                           },
                         );
@@ -118,7 +119,8 @@ __d(
                                 if (!l.success)
                                   return {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Orphan,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Orphan,
                                     orphanModel: l.orphanModel,
                                   };
                                 var s = o("WAWebWidFactory").createWid(
@@ -141,12 +143,12 @@ __d(
                                 return m == null
                                   ? {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Orphan,
                                       orphanModel: {
                                         modelId: d,
                                         modelType:
-                                          o("WASyncdConst").SyncModelType
+                                          o("WAWebSyncdConst").SyncModelType
                                             .ChatAssignment,
                                       },
                                     }
@@ -158,18 +160,19 @@ __d(
                                     }),
                                     {
                                       actionState:
-                                        o("WASyncdConst").SyncActionState
+                                        o("WAWebSyncdConst").SyncActionState
                                           .Success,
                                     });
                               }
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Unsupported,
+                                  o("WAWebSyncdConst").SyncActionState
+                                    .Unsupported,
                               };
                             } catch (e) {
                               return {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
+                                  o("WAWebSyncdConst").SyncActionState.Failed,
                               };
                             }
                           },

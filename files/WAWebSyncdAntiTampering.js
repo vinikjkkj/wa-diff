@@ -8,7 +8,6 @@ __d(
     "WAEncodeString",
     "WALogger",
     "WAPromiseEach",
-    "WASyncdConst",
     "WASyncdKeyTypes",
     "WATextEncoding",
     "WAWebABProps",
@@ -23,6 +22,7 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdAntiTampering.flow",
     "WAWebSyncdAntiTamperingLtHash",
+    "WAWebSyncdConst",
     "WAWebSyncdCrypto",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdDbCallbacksApi",
@@ -67,7 +67,7 @@ __d(
       w,
       A,
       F = [
-        (A = o("WASyncdConst")).Actions.LocaleSetting,
+        (A = o("WAWebSyncdConst")).Actions.LocaleSetting,
         A.Actions.SettingPushName,
         "generated_wui",
         A.Actions.Sentinel,
@@ -217,7 +217,7 @@ __d(
               g = yield o("WAWebSyncdKeyCache").getKeyData(f);
             if (!g) throw new (o("WAWebSyncdError").SyncdMissingKeyError)();
             var h = i.map(function (t) {
-                var n = o("WASyncdConst").Actions.cast(
+                var n = o("WAWebSyncdConst").Actions.cast(
                   o("WAWebSyncdActionUtils").getMutationNameFromIndex(
                     e,
                     t.index,
@@ -873,7 +873,7 @@ __d(
                     var t;
                     return (t = e == null ? void 0 : e.version) != null
                       ? t
-                      : o("WASyncdConst").DEFAULT_COLLECTION_VERSION;
+                      : o("WAWebSyncdConst").DEFAULT_COLLECTION_VERSION;
                   })) + 1,
               i = o("WAWebSyncdCryptoUtils").to64BitNetworkOrder(a),
               l = o("WAEncodeString").toUtf8(e).buffer,
@@ -928,7 +928,7 @@ __d(
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_syncd_debug_data_in_patch",
                 ) ||
-                e === o("WASyncdConst").CollectionName.CriticalBlock ||
+                e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
                 l ===
                   o("WAWebSyncdAntiTampering.flow").SyncdPatchDirection
                     .Outgoing,
@@ -1119,7 +1119,8 @@ __d(
                             o("WAWebSyncdCryptoUtils")
                               .arrayBufferToHexPadded(u)
                               .slice(-16);
-                          e === o("WASyncdConst").CollectionName.CriticalBlock
+                          e ===
+                          o("WAWebSyncdConst").CollectionName.CriticalBlock
                             ? (yield o(
                                 "WAWebSyncdDbCallbacksApi",
                               ).printSyncdLog(e),
@@ -1358,11 +1359,11 @@ __d(
       if (
         n &&
         (o("WAWebCurrentUser").isEmployee() ||
-          e === o("WASyncdConst").CollectionName.RegularLow ||
-          e === o("WASyncdConst").CollectionName.CriticalBlock ||
+          e === o("WAWebSyncdConst").CollectionName.RegularLow ||
+          e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
           F.includes(n))
       ) {
-        if (n === o("WASyncdConst").Actions.DeviceCapabilities) {
+        if (n === o("WAWebSyncdConst").Actions.DeviceCapabilities) {
           if (o("WAWebCurrentUser").isEmployee()) return t.index;
           var r = t.index.indexOf(":");
           return "device_capabilities:" + t.index.slice(r - 4);
@@ -1440,8 +1441,8 @@ __d(
                     })
                     .join("\n"),
                 ),
-              (e === o("WASyncdConst").CollectionName.CriticalBlock ||
-                e === o("WASyncdConst").CollectionName.RegularLow ||
+              (e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
+                e === o("WAWebSyncdConst").CollectionName.RegularLow ||
                 o("WAWebCurrentUser").isEmployee()) &&
                 (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                   e,

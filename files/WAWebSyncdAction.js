@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -30,11 +30,11 @@ __d(
             var e = r.timestamp;
             return e >= t.timestamp
               ? (u || (u = n("Promise"))).resolve(
-                  o("WASyncdConst").ConflictResolutionState
+                  o("WAWebSyncdConst").ConflictResolutionState
                     .ApplyRemoteAndDropLocal,
                 )
               : (u || (u = n("Promise"))).resolve(
-                  o("WASyncdConst").ConflictResolutionState.SkipRemote,
+                  o("WAWebSyncdConst").ConflictResolutionState.SkipRemote,
                 );
           }),
           (a.dropMutationDueToCrossIndexConflict = function (t, r) {
@@ -95,7 +95,7 @@ __d(
                   case "unsupported":
                     return {
                       actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
                     };
                   case "ok":
                     return n(r.content).catch(function (t) {
@@ -112,7 +112,8 @@ __d(
                           n,
                         ),
                         {
-                          actionState: o("WASyncdConst").SyncActionState.Failed,
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Failed,
                         }
                       );
                     });

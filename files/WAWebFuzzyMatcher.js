@@ -89,27 +89,31 @@ __d(
             "WAWebFuzzySearchMatchResult",
           ).WAWebFuzzySearchMatchResult.noMatch();
     }
-    function f(e, t, n, r, a, i) {
-      if (
-        (n === void 0 && (n = 0),
-        r === void 0 && (r = 0),
-        a === void 0 && (a = o("WAWebIdentityFunction").identityFunction),
-        i === void 0 && (i = o("WAWebL10NIsWordSeparator").isWordSeparator),
-        e == null || e.trim() === "" || t == null || t.trim() === "")
-      )
+    function f(e) {
+      var t = e.costTolerance,
+        n = t === void 0 ? 0 : t,
+        r = e.input,
+        a = e.normalizationFunction,
+        i = a === void 0 ? o("WAWebIdentityFunction").identityFunction : a,
+        l = e.prefixCost,
+        s = l === void 0 ? 0 : l,
+        u = e.query,
+        c = e.separatorFunction,
+        d = c === void 0 ? o("WAWebL10NIsWordSeparator").isWordSeparator : c;
+      if (r == null || r.trim() === "" || u == null || u.trim() === "")
         return o(
           "WAWebFuzzySearchMatchResult",
         ).WAWebFuzzySearchMatchResult.noMatch();
-      var l = a(e),
-        s = a(t);
-      return s.length - l.length > n
+      var m = i(r),
+        p = i(u);
+      return p.length - m.length > n
         ? o("WAWebFuzzySearchMatchResult").WAWebFuzzySearchMatchResult.noMatch()
         : _({
             costTolerance: n,
-            input: l,
-            prefixCost: r,
-            query: s,
-            separatorFunction: i,
+            input: m,
+            prefixCost: s,
+            query: p,
+            separatorFunction: d,
           });
     }
     l.fuzzyMatch = f;

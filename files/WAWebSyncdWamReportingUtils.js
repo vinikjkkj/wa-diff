@@ -6,7 +6,6 @@ __d(
     "WACryptoDependencies",
     "WACryptoSha256",
     "WALogger",
-    "WASyncdConst",
     "WASyncdKeyTypes",
     "WAWebABProps",
     "WAWebGetSharedSessionId",
@@ -15,6 +14,7 @@ __d(
     "WAWebMdSyncdMutationsSummaryWamEvent",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdKeyCache",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebWamEnumKmpSyncdFlowEnum",
@@ -30,18 +30,18 @@ __d(
       return e ? o("WABase64").encodeB64UrlSafe(e) : "";
     }
     function h(e) {
-      return e === o("WASyncdConst").CollectionName.RegularHigh
+      return e === o("WAWebSyncdConst").CollectionName.RegularHigh
         ? o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
             .REGULAR_HIGH
-        : e === o("WASyncdConst").CollectionName.RegularLow
+        : e === o("WAWebSyncdConst").CollectionName.RegularLow
           ? o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
               .REGULAR_LOW
-          : e === o("WASyncdConst").CollectionName.Regular
+          : e === o("WAWebSyncdConst").CollectionName.Regular
             ? o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE.REGULAR
-            : e === o("WASyncdConst").CollectionName.CriticalBlock
+            : e === o("WAWebSyncdConst").CollectionName.CriticalBlock
               ? o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
                   .CRITICAL_BLOCK
-              : e === o("WASyncdConst").CollectionName.CriticalUnblockLow
+              : e === o("WAWebSyncdConst").CollectionName.CriticalUnblockLow
                 ? o("WAWebWamEnumSyncdCollectionType").SYNCD_COLLECTION_TYPE
                     .CRITICAL_UNBLOCK_LOW
                 : (function () {

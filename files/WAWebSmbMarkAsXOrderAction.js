@@ -58,7 +58,7 @@ __d(
       var l,
         u = e(a);
       if (u != null) {
-        var c = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t);
+        var c = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t);
         if (
           !(
             c == null ||
@@ -103,7 +103,7 @@ __d(
     }
     function c(e, t) {
       var n,
-        a = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
+        a = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
       if (
         !(
           a == null || !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()

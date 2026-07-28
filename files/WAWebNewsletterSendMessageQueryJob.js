@@ -109,6 +109,7 @@ __d(
         case "editText":
           return {
             messageId: o("WAStanzaUtils").toStanzaId(e.messageId),
+            hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
             newsletterClientIdContentArgs: {
               newsletterEdit: {
                 hasWAMOSub: e.isWamoSub,
@@ -133,6 +134,7 @@ __d(
             { messageId: o("WAStanzaUtils").toStanzaId(e.messageId) },
             t,
             {
+              hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
               newsletterClientIdContentArgs: {
                 newsletterEdit: {
                   hasWAMOSub: e.isWamoSub,
@@ -178,6 +180,7 @@ __d(
         case "text":
           return {
             messageId: o("WAStanzaUtils").toStanzaId(e.messageId),
+            hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
             newsletterClientIdContentArgs: babelHelpers.extends(
               {},
               _(
@@ -198,6 +201,7 @@ __d(
             senderContentTypeMediaRCATMixinArgs: {
               plaintextContentId: e.contentId,
             },
+            hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
             newsletterClientIdContentArgs: babelHelpers.extends(
               {},
               _(
@@ -228,6 +232,7 @@ __d(
         case "video":
           return {
             messageId: o("WAStanzaUtils").toStanzaId(e.messageId),
+            hasNewsletterAIContentMeta: e.hasNewsletterAIContentMeta,
             newsletterClientIdContentArgs: babelHelpers.extends(
               {},
               _(

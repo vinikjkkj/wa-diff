@@ -4,11 +4,11 @@ __d(
     "WAJids",
     "WALogger",
     "WALongInt",
-    "WASyncdConst",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebSchemaPendingBusinessBroadcastMessage",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebValidationUtils",
     "asyncToGeneratorRuntime",
@@ -341,8 +341,8 @@ __d(
               },
               m = { businessBroadcastCampaignAction: d },
               p = o("WAWebSyncdActionUtils").buildPendingMutation({
-                action: o("WASyncdConst").Actions.BusinessBroadcastCampaign,
-                collection: o("WASyncdConst").CollectionName.Regular,
+                action: o("WAWebSyncdConst").Actions.BusinessBroadcastCampaign,
+                collection: o("WAWebSyncdConst").CollectionName.Regular,
                 indexArgs: [e],
                 operation: o("WAWebProtobufsServerSync.pb")
                   .SyncdMutation$SyncdOperation.SET,

@@ -116,7 +116,28 @@ __d(
       );
     }
     function C() {
-      return !1;
+      var e,
+        t =
+          (e = o("WAWebABProps").getABPropConfigValue(
+            "payments_upr_send_key_from_web",
+          )) != null
+            ? e
+            : "";
+      return t === ""
+        ? new Set()
+        : new Set(
+            t
+              .split(",")
+              .map(function (e) {
+                return e.trim().toUpperCase();
+              })
+              .filter(function (e) {
+                return e !== "";
+              }),
+          );
+    }
+    function b(e) {
+      return e == null || e === "" ? !1 : C().has(e.toUpperCase());
     }
     ((l.isOrderDetailsPaymentInstructionsSyncEnabled = e),
       (l.isCustomPaymentMethodsSyncEnabled = s),
@@ -130,7 +151,7 @@ __d(
       (l.isClabeSyncEnabled = g),
       (l.isIdPaymentAccountSyncEnabled = h),
       (l.isUprSendEnabledForCountry = y),
-      (l.isUprAttachmentTrayEnabled = C));
+      (l.isUprAttachmentTrayEnabled = b));
   },
   98,
 );

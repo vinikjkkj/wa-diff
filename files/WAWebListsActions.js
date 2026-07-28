@@ -5,7 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WASmaxInBizSettingsEnums",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebBIzLabelReorderAction",
     "WAWebBizLabelEditingAction",
@@ -26,6 +25,7 @@ __d(
     "WAWebSmb3pdConversionSignalAction",
     "WAWebSmbMarkAsXLabelAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -84,31 +84,31 @@ __d(
       }
     }
     function $(t, n) {
-      var a = n.customListTitle,
-        i = n.entryPoint,
-        l = n.listId,
-        s = n.listsApplied,
-        u = n.listsRemoved,
-        c = function (n) {
+      var r = n.customListTitle,
+        a = n.entryPoint,
+        i = n.listId,
+        l = n.listsApplied,
+        s = n.listsRemoved,
+        u = function (n) {
           var t = o("WAWebChatGetters").getIsGroup(n);
           if (t)
             o("WAWebWamSmbListEventReporter").logSmbListEvent({
               labelOperation: o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS
                 .UPDATE_MEMBERS,
-              updateEntryPoint: i,
-              listId: l,
-              customListTitle: a,
+              updateEntryPoint: a,
+              listId: i,
+              customListTitle: r,
               labelTarget: o("WAWebWamEnumLabelTargets").LABEL_TARGETS.GROUP,
-              listsApplied: s,
-              listsRemoved: u,
+              listsApplied: l,
+              listsRemoved: s,
             });
           else {
-            var c,
-              d = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(n),
-              m = (c = n.msgs) == null ? void 0 : c.getModelsArray().at(-1),
-              p;
-            (m != null &&
-              (p = m.id.fromMe
+            var u,
+              c = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(n),
+              d = (u = n.msgs) == null ? void 0 : u.getModelsArray().at(-1),
+              m;
+            (d != null &&
+              (m = d.id.fromMe
                 ? o("WAWebWamEnumLastMessageDirection").LAST_MESSAGE_DIRECTION
                     .SELF_INITIATED
                 : o("WAWebWamEnumLastMessageDirection").LAST_MESSAGE_DIRECTION
@@ -119,19 +119,19 @@ __d(
                   o("WAWebWamSmbListEventReporter").logSmbListEvent({
                     labelOperation: o("WAWebWamEnumLabelOperations")
                       .LABEL_OPERATIONS.UPDATE_MEMBERS,
-                    updateEntryPoint: i,
-                    listId: l,
-                    customListTitle: a,
+                    updateEntryPoint: a,
+                    listId: i,
+                    customListTitle: r,
                     labelTarget: o("WAWebWamEnumLabelTargets").LABEL_TARGETS
                       .CONTACT,
-                    listsApplied: s,
-                    listsRemoved: u,
+                    listsApplied: l,
+                    listsRemoved: s,
                     threadIdHmac: e != null ? e : void 0,
-                    entryPointConversionSource: d != null ? "ctwa_ad" : void 0,
+                    entryPointConversionSource: c != null ? "ctwa_ad" : void 0,
                     messageDepth: o(
                       "WAWebCtwaConversationDepthUtils",
                     ).getCtwaConversationDepth(n),
-                    lastMessageDirection: p,
+                    lastMessageDirection: m,
                   });
                 })
                 .catch(function () {
@@ -144,7 +144,7 @@ __d(
                 }));
           }
         };
-      for (var d of t) c(d);
+      for (var c of t) u(c);
     }
     function P(e) {
       return N.apply(this, arguments);
@@ -639,7 +639,7 @@ __d(
               }));
             try {
               var a = o("WAWebSyncdActionUtils").buildPendingMutation({
-                collection: o("WASyncdConst").CollectionName.Regular,
+                collection: o("WAWebSyncdConst").CollectionName.Regular,
                 indexArgs: [],
                 value: { labelReorderingAction: { sortedLabelIds: e } },
                 version: r("WAWebLabelReorderingSync").getVersion(),

@@ -296,10 +296,10 @@ __d(
     function h(e) {
       var t = e.chat,
         n = e.itemsCount,
-        a = e.onOptOutValueToggle,
-        i = e.optOutValue;
+        r = e.onOptOutValueToggle,
+        a = e.optOutValue;
       if (
-        r(
+        o(
           "WAWebCommonCTWADataSharing",
         ).shouldDisplayDataSharingOrderOptOutOrUpsell(t, "order-create", n)
       )
@@ -307,8 +307,8 @@ __d(
           o("WAWebDataSharingOptOutOrUpsell.react").DataSharingOptOutOrUpsell,
           {
             chats: [t],
-            checkboxValue: i,
-            onCheckboxToggle: a,
+            checkboxValue: a,
+            onCheckboxToggle: r,
             theme: "order-create",
           },
         );

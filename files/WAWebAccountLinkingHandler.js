@@ -8,6 +8,7 @@ __d(
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingNonceFetchAPI",
+    "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
@@ -25,8 +26,13 @@ __d(
         "account_linking",
       );
     function f() {
-      return _.updateAccountLinkingState(
-        o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
+      return (
+        o(
+          "WAWebMetaAiWaffleAuthTokenCache",
+        ).clearMetaAiWaffleAuthTokenBlobCache(),
+        _.updateAccountLinkingState(
+          o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
+        )
       );
     }
     function g(e) {
@@ -36,7 +42,10 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t === o("WAWebAccountLinkingConstants").AccountUnlinkType.SELF)
-            (yield _.purgeWaffleData(),
+            (o(
+              "WAWebMetaAiWaffleAuthTokenCache",
+            ).clearMetaAiWaffleAuthTokenBlobCache(),
+              yield _.purgeWaffleData(),
               o("WAWebWaffleLifecycleWamLogger").logPurge({
                 linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
                   .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.UNLINKED,
@@ -113,7 +122,10 @@ __d(
               switch (e) {
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .UNLINKED:
-                  yield _.purgeWaffleData();
+                  (o(
+                    "WAWebMetaAiWaffleAuthTokenCache",
+                  ).clearMetaAiWaffleAuthTokenBlobCache(),
+                    yield _.purgeWaffleData());
                   break;
                 case o("WAWebAccountLinkingConstants").AccountLinkingStateExists
                   .ACTIVE:

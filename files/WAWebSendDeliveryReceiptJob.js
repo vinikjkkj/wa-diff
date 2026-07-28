@@ -16,42 +16,48 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r, o, a, i, l) {
+    function s(e) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l, s, u, d) {
-            d === void 0 && (d = 0);
-            var m =
-                (n.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(n)) ||
-                (i != null && o("WAWebUserPrefsMeUser").isMeAccount(i)),
-              p = s.hasInactiveMsg === !0 && !m,
-              _ = !p;
-            c({
-              externalId: t,
-              isActiveReceipt: _,
-              isFromPeer: m,
-              isPeerMsg: l,
-              isStatusContext: u === !0,
-              participant: i,
-              recipient: a,
-              to: n,
-              receiptModeBitmask: d,
-            }).catch(function (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "sendDeliveryReceipt failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("send-delivery-receipt-error", { sampling: 0.01 });
-            });
-          },
-        )),
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.isPeerMsg,
+            a = t.isStatusContext,
+            i = t.msgId,
+            l = t.participant,
+            s = t.receiptModeBitmask,
+            u = s === void 0 ? 0 : s,
+            d = t.recipient,
+            m = t.response,
+            p = t.to,
+            _ =
+              (p.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(p)) ||
+              (l != null && o("WAWebUserPrefsMeUser").isMeAccount(l)),
+            f = m.hasInactiveMsg === !0 && !_,
+            g = !f;
+          c({
+            externalId: i,
+            isActiveReceipt: g,
+            isFromPeer: _,
+            isPeerMsg: n,
+            isStatusContext: a === !0,
+            participant: l,
+            recipient: d,
+            to: p,
+            receiptModeBitmask: u,
+          }).catch(function (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendDeliveryReceipt failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("send-delivery-receipt-error", { sampling: 0.01 });
+          });
+        })),
         u.apply(this, arguments)
       );
     }

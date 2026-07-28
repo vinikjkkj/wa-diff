@@ -3,12 +3,12 @@ __d(
   [
     "$InternalEnum",
     "WALogger",
-    "WASyncdConst",
     "WAWebAppTracker",
     "WAWebCollectionHandlerWamMutation",
     "WAWebCollectionHandlerWamSyncUtil",
     "WAWebMdAppStateKeyRotationWamEvent",
     "WAWebMdCriticalEventWamEvent",
+    "WAWebSyncdConst",
     "WAWebSyncdQpl",
     "WAWebWamEnumCollection",
     "WAWebWamEnumMdAppStateKeyRotationReasonCode",
@@ -42,15 +42,15 @@ __d(
       o("WAWebCollectionHandlerWamMutation").logMetricsForDataApplied(e, t, n);
     }
     function g(e) {
-      return e === o("WASyncdConst").CollectionName.CriticalBlock
+      return e === o("WAWebSyncdConst").CollectionName.CriticalBlock
         ? o("WAWebWamEnumCollection").COLLECTION.CRITICAL_BLOCK
-        : e === o("WASyncdConst").CollectionName.CriticalUnblockLow
+        : e === o("WAWebSyncdConst").CollectionName.CriticalUnblockLow
           ? o("WAWebWamEnumCollection").COLLECTION.CRITICAL_UNBLOCK_LOW
-          : e === o("WASyncdConst").CollectionName.Regular
+          : e === o("WAWebSyncdConst").CollectionName.Regular
             ? o("WAWebWamEnumCollection").COLLECTION.REGULAR
-            : e === o("WASyncdConst").CollectionName.RegularHigh
+            : e === o("WAWebSyncdConst").CollectionName.RegularHigh
               ? o("WAWebWamEnumCollection").COLLECTION.REGULAR_HIGH
-              : e === o("WASyncdConst").CollectionName.RegularLow
+              : e === o("WAWebSyncdConst").CollectionName.RegularLow
                 ? o("WAWebWamEnumCollection").COLLECTION.REGULAR_LOW
                 : (function () {
                     throw Error(
@@ -118,7 +118,7 @@ __d(
           null)
         : {
             type: i,
-            collection: o("WASyncdConst").CollectionName.cast(
+            collection: o("WAWebSyncdConst").CollectionName.cast(
               t == null || (r = t.string) == null ? void 0 : r.collection,
             ),
           };

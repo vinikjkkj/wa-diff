@@ -10,7 +10,7 @@ __d(
     "WAWebMsgKey",
     "WAWebProductCollection",
     "WAWebProductMessageListConstant",
-    "WAWebProductTypes.flow",
+    "WAWebProductTypes",
     "asyncToGeneratorRuntime",
     "compactMap",
     "countWhere",
@@ -129,7 +129,7 @@ __d(
             );
           }),
           (i.getPageSize = function () {
-            var e = o("WAWebProductTypes.flow").PRODUCT_PAGE_SIZE,
+            var e = o("WAWebProductTypes").PRODUCT_PAGE_SIZE,
               t = this.getProductSize();
             return t < 3 * e ? t : e * 2;
           }),

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebApiActiveMessageRanges",
@@ -33,6 +32,7 @@ __d(
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebThreadMetadataJob",
     "WAWebWidFactory",
@@ -373,7 +373,7 @@ __d(
                       !(
                         t == null ||
                         t.actionState ===
-                          o("WASyncdConst").SyncActionState.Orphan
+                          o("WAWebSyncdConst").SyncActionState.Orphan
                       )
                     )
                       return e;
@@ -389,8 +389,8 @@ __d(
             i.map(function (t) {
               return {
                 index: t,
-                actionState: o("WASyncdConst").SyncActionState.Orphan,
-                modelType: o("WASyncdConst").SyncModelType.Chat,
+                actionState: o("WAWebSyncdConst").SyncActionState.Orphan,
+                modelType: o("WAWebSyncdConst").SyncModelType.Chat,
                 modelId: e.toString(),
               };
             }),

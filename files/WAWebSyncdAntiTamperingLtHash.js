@@ -6,10 +6,10 @@ __d(
     "WACryptoUtils",
     "WAJids",
     "WALogger",
-    "WASyncdConst",
     "WAWebCurrentUser",
     "WAWebLid1X1MigrationGating",
     "WAWebRunInTransaction",
+    "WAWebSyncdConst",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdDb",
     "WAWebSyncdDbCallbacksApi",
@@ -175,7 +175,7 @@ __d(
                 yield o("WAWebSyncdDbCallbacksApi").printSyncdLog(e));
               var _ = "syncd: lthash inconsistent";
               return (
-                e === o("WASyncdConst").CollectionName.CriticalBlock ||
+                e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
                 o("WAWebCurrentUser").isEmployee()
                   ? o("WALogger")
                       .ERROR(
@@ -265,14 +265,14 @@ __d(
           var t = yield o("WAWebSyncdDb").getSyncActionsRows(
               ["action"],
               [
-                o("WASyncdConst").Actions.Archive,
-                o("WASyncdConst").Actions.ClearChat,
-                o("WASyncdConst").Actions.DeleteChat,
-                o("WASyncdConst").Actions.DeleteMessageForMe,
-                o("WASyncdConst").Actions.MarkChatAsRead,
-                o("WASyncdConst").Actions.Mute,
-                o("WASyncdConst").Actions.Pin,
-                o("WASyncdConst").Actions.Star,
+                o("WAWebSyncdConst").Actions.Archive,
+                o("WAWebSyncdConst").Actions.ClearChat,
+                o("WAWebSyncdConst").Actions.DeleteChat,
+                o("WAWebSyncdConst").Actions.DeleteMessageForMe,
+                o("WAWebSyncdConst").Actions.MarkChatAsRead,
+                o("WAWebSyncdConst").Actions.Mute,
+                o("WAWebSyncdConst").Actions.Pin,
+                o("WAWebSyncdConst").Actions.Star,
               ],
             ),
             n = t.find(function (e) {

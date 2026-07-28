@@ -131,12 +131,12 @@ __d(
                     t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
                       ? ((E = t.author), (k = t.chat))
                       : ((E = t.chat), (I = t.author)),
-                    o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks(
-                      [d],
-                      E,
-                      k,
-                      I,
-                    )
+                    o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks({
+                      messageIds: [d],
+                      participant: I,
+                      recipient: k,
+                      to: E,
+                    })
                   );
                 } else if (
                   n.type ===
@@ -151,7 +151,16 @@ __d(
                   });
                 return o(
                   "WAWebSendDeliveryReceiptJob",
-                ).sendDeliveryReceiptsAfterDecryption(d, g, h, C, b, a, S, L);
+                ).sendDeliveryReceiptsAfterDecryption({
+                  isPeerMsg: b,
+                  isStatusContext: S,
+                  msgId: d,
+                  participant: C,
+                  receiptModeBitmask: L,
+                  recipient: h,
+                  response: a,
+                  to: g,
+                });
               }
               if (
                 a.result ===

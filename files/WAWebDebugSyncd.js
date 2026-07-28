@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WASyncdKeyTypes",
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
@@ -20,6 +19,7 @@ __d(
     "WAWebStarMessageSync",
     "WAWebSyncd",
     "WAWebSyncdCollectionHandlerTypesConverter",
+    "WAWebSyncdConst",
     "WAWebSyncdDb",
     "WAWebSyncdFatal",
     "WAWebSyncdIndexUtils",
@@ -112,12 +112,12 @@ __d(
                   binarySyncData: t,
                   timestamp: e.timestamp,
                 },
-                o("WASyncdConst").SyncActionState.Orphan,
-                o("WASyncdConst").Actions.Star,
+                o("WAWebSyncdConst").SyncActionState.Orphan,
+                o("WAWebSyncdConst").Actions.Star,
                 o("WAWebSyncdIndexUtils")
                   .getMsgKeyFromStarActionIndex(e.index)
                   .toString(),
-                o("WASyncdConst").SyncModelType.Msg,
+                o("WAWebSyncdConst").SyncModelType.Msg,
               );
             });
           yield o("WAWebSyncdDb").setSyncActionRows(
@@ -173,12 +173,12 @@ __d(
                   binarySyncData: n,
                   timestamp: e.timestamp,
                 },
-                o("WASyncdConst").SyncActionState.Orphan,
-                o("WASyncdConst").Actions.DeleteMessageForMe,
+                o("WAWebSyncdConst").SyncActionState.Orphan,
+                o("WAWebSyncdConst").Actions.DeleteMessageForMe,
                 o("WAWebSyncdIndexUtils")
                   .getMsgKeyFromStarActionIndex(e.index)
                   .toString(),
-                o("WASyncdConst").SyncModelType.Msg,
+                o("WAWebSyncdConst").SyncModelType.Msg,
               );
             });
           yield o("WAWebSyncdDb").setSyncActionRows(
@@ -231,9 +231,9 @@ __d(
             t = yield e.all(),
             n = t.filter(function (e) {
               return (
-                e.collection === o("WASyncdConst").CollectionName.Regular &&
-                e.actionState !== o("WASyncdConst").SyncActionState.Orphan &&
-                e.actionState !== o("WASyncdConst").SyncActionState.Failed
+                e.collection === o("WAWebSyncdConst").CollectionName.Regular &&
+                e.actionState !== o("WAWebSyncdConst").SyncActionState.Orphan &&
+                e.actionState !== o("WAWebSyncdConst").SyncActionState.Failed
               );
             });
           if (n.length === 0) {
@@ -259,7 +259,7 @@ __d(
           var a = o("WATimeUtils").unixTimeMs(),
             i = { timestamp: a },
             l = {
-              collection: o("WASyncdConst").CollectionName.Regular,
+              collection: o("WAWebSyncdConst").CollectionName.Regular,
               index: r.index,
               binarySyncAction: o("encodeProtobuf")
                 .encodeProtobuf(
@@ -283,7 +283,7 @@ __d(
               r.index,
             ),
             yield o("WAWebSyncd").markCollectionsForSync([
-              o("WASyncdConst").CollectionName.Regular,
+              o("WAWebSyncdConst").CollectionName.Regular,
             ]),
             o("WALogger").LOG(
               d ||

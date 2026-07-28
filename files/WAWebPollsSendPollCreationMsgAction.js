@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebChatGetters",
     "WAWebFrontendChatGetters",
@@ -18,6 +19,7 @@ __d(
     "WAWebPollOptionHashUtils",
     "WAWebPollsActionsMetricUtils",
     "WAWebSendMsgChatAction",
+    "WAWebSpoilerFormatRegex",
     "WAWebViewMode.flow",
     "WAWebWamEnumPollActionType",
     "WAWebWid",
@@ -87,16 +89,26 @@ __d(
       );
     }
     function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
+      var t = e.pollName,
+        n = e.pollOptions;
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(t) ||
+        n.some(function (e) {
+          return o("WAWebSpoilerFormatRegex").hasSpoilerMarkup(e.name);
+        })
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.chat,
             i = t.isWamoSub,
             l = t.poll,
             u = t.quotedMsg,
-            c = yield f({ poll: l, chat: a, quotedMsg: u, isWamoSub: i });
+            c = yield g({ poll: l, chat: a, quotedMsg: u, isWamoSub: i });
           if (
             l.contentType === o("WAWebPollCreationUtils").PollContentType.IMAGE
           ) {
@@ -141,15 +153,15 @@ __d(
             pollOptionsCount: l.options.length,
           });
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.chat,
             a = e.isWamoSub,
@@ -159,29 +171,29 @@ __d(
             u = s.correctOptionIndex,
             c = s.pollContentType,
             m = s.pollEndTime,
-            p = s.pollHideVoterNames,
-            _ = s.pollName,
-            f = s.pollOptions,
-            g = s.pollSelectableOptionsCount,
-            h = s.pollType,
-            y = r("WAWebWid").isNewsletter(n.id),
-            C = n.id,
-            b = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            _ = s.pollHideVoterNames,
+            f = s.pollName,
+            g = s.pollOptions,
+            h = s.pollSelectableOptionsCount,
+            y = s.pollType,
+            C = r("WAWebWid").isNewsletter(n.id),
+            b = n.id,
+            v = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
               n,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
             ),
-            v =
+            S =
               (t = l == null ? void 0 : l.msgContextInfo(n.id)) != null
                 ? t
                 : {};
           return babelHelpers.extends(
             {
               id: new (r("WAWebMsgKey"))({
-                from: b,
-                to: C,
+                from: v,
+                to: b,
                 id: r("WAWebMsgKey").newId_DEPRECATED(),
                 participant: o("WAWebChatGetters").getIsGroup(n)
-                  ? o("WAWebWidFactory").asUserWidOrThrow(b)
+                  ? o("WAWebWidFactory").asUserWidOrThrow(v)
                   : void 0,
                 selfDir: "out",
               }),
@@ -192,34 +204,39 @@ __d(
                 ? !0
                 : void 0,
               t: o("WATimeUtils").unixTime(),
-              from: b,
-              to: C,
+              from: v,
+              to: b,
               isNewMsg: !0,
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
-              pollName: _,
-              pollOptions: f,
-              messageSecret: y
+              pollName: f,
+              pollOptions: g,
+              messageSecret: C
                 ? void 0
                 : self.crypto.getRandomValues(new Uint8Array(32)),
-              pollSelectableOptionsCount: g,
+              isSpoiler:
+                p({ pollName: f, pollOptions: g }) &&
+                o("WAWebABProps").getABPropConfigValue(
+                  "is_spoiler_rich_format_sender_enabled",
+                ),
+              pollSelectableOptionsCount: h,
               isWamoSub: a,
               pollContentType: c,
             },
-            v,
+            S,
             o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(n),
             {
-              pollType: h,
+              pollType: y,
               correctOptionIndex: u,
               pollEndTime: m,
-              pollHideVoterNames: p,
+              pollHideVoterNames: _,
             },
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.sendPollCreation = p), (l.createPollCreationMsgData = f));
+    ((l.sendPollCreation = _), (l.createPollCreationMsgData = g));
   },
   98,
 );

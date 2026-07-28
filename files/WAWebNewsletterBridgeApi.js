@@ -8,6 +8,7 @@ __d(
     "WAWebDeleteStatusAction",
     "WAWebLastAddOnDBSerialization",
     "WAWebMexNewsletterUtils",
+    "WAWebMsgAIProvenance",
     "WAWebMsgCollection",
     "WAWebMsgModelFromData",
     "WAWebMsgType",
@@ -296,6 +297,17 @@ __d(
         var e = t.id,
           n = o("WAWebMsgCollection").MsgCollection.get(e);
         n == null || n.set("hasPaidPartnershipLabel", !0);
+      },
+      updateNewsletterMsgAiContentLabel: function (t) {
+        var e = t.id,
+          n = o("WAWebMsgCollection").MsgCollection.get(e);
+        n == null ||
+          n.set(
+            "aiProvenance",
+            o("WAWebMsgAIProvenance").withSelfDisclosed(
+              n == null ? void 0 : n.aiProvenance,
+            ),
+          );
       },
       updateNewsletterMessages: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {

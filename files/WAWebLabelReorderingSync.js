@@ -3,10 +3,10 @@ __d(
   [
     "WALogger",
     "WAPromiseEach",
-    "WASyncdConst",
     "WAWebBackendApi",
     "WAWebDBLabelsReorder",
     "WAWebSyncdAction",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebWamLabelSyncTrackingReporter",
     "asyncToGeneratorRuntime",
@@ -22,7 +22,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -34,7 +34,7 @@ __d(
             return 3;
           }),
           (a.getAction = function () {
-            return o("WASyncdConst").Actions.LabelReordering;
+            return o("WAWebSyncdConst").Actions.LabelReordering;
           }),
           (a.applyMutations = function (r) {
             var t = this;
@@ -113,7 +113,7 @@ __d(
                           ),
                           {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Success,
+                              o("WAWebSyncdConst").SyncActionState.Success,
                           }
                         );
                       }
@@ -126,7 +126,7 @@ __d(
                         ),
                         {
                           actionState:
-                            o("WASyncdConst").SyncActionState.Unsupported,
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
                     } catch (e) {
@@ -140,7 +140,8 @@ __d(
                           )
                           .verbose(),
                         {
-                          actionState: o("WASyncdConst").SyncActionState.Failed,
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Failed,
                         }
                       );
                     }

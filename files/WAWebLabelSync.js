@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WASyncdConst",
     "WAWebABProps",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebLabelCollection",
@@ -16,6 +15,7 @@ __d(
     "WAWebSchemaLabel",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
+    "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
     "WAWebWamLabelSyncTrackingReporter",
     "asyncToGeneratorRuntime",
@@ -35,7 +35,7 @@ __d(
             r[a] = arguments[a];
           return (
             (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.collectionName = o("WASyncdConst").CollectionName.Regular),
+            (e.collectionName = o("WAWebSyncdConst").CollectionName.Regular),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -47,7 +47,7 @@ __d(
             return 3;
           }),
           (i.getAction = function () {
-            return o("WASyncdConst").Actions.LabelEdit;
+            return o("WAWebSyncdConst").Actions.LabelEdit;
           }),
           (i.applyMutations = function (a) {
             var t = this,
@@ -119,7 +119,8 @@ __d(
                                   }),
                                 {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 }
                               );
                             }
@@ -164,7 +165,8 @@ __d(
                                   f.length < 3 && f.push(R),
                                   {
                                     actionState:
-                                      o("WASyncdConst").SyncActionState.Skipped,
+                                      o("WAWebSyncdConst").SyncActionState
+                                        .Skipped,
                                   }
                                 );
                             }
@@ -206,7 +208,8 @@ __d(
                               if (x != null)
                                 return {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 };
                             }
                             if (
@@ -229,7 +232,8 @@ __d(
                               if (N)
                                 return {
                                   actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
+                                    o("WAWebSyncdConst").SyncActionState
+                                      .Success,
                                 };
                             }
                             var M = yield o("WAWebModelStorageUtils")
@@ -307,7 +311,7 @@ __d(
                                 }),
                               {
                                 actionState:
-                                  o("WASyncdConst").SyncActionState.Success,
+                                  o("WAWebSyncdConst").SyncActionState.Success,
                               }
                             );
                           }
@@ -315,13 +319,14 @@ __d(
                             g++,
                             {
                               actionState:
-                                o("WASyncdConst").SyncActionState.Unsupported,
+                                o("WAWebSyncdConst").SyncActionState
+                                  .Unsupported,
                             }
                           );
                         } catch (e) {
                           return {
                             actionState:
-                              o("WASyncdConst").SyncActionState.Failed,
+                              o("WAWebSyncdConst").SyncActionState.Failed,
                           };
                         }
                       },
