@@ -3,7 +3,6 @@ __d(
   [
     "WAWebCreateLabyrinthBackupJobMutation.graphql",
     "WAWebLabyrinthDebugStateCache",
-    "WAWebMexCreateLabyrinthBackupJob",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
     "err",
@@ -16,14 +15,55 @@ __d(
           ? e
           : (e = n("WAWebCreateLabyrinthBackupJobMutation.graphql"));
     function c(e, t) {
-      var n = o("WAWebMexCreateLabyrinthBackupJob").wasmResultToMexInput(e, t);
+      var n = e.device,
+        r = e.epoch0,
+        o = e.mailboxRootKey,
+        a = e.virtualDevice,
+        i = a.encryptedSecretValues;
       return {
-        device: babelHelpers.extends({}, n.device, { device_id: t.deviceId }),
-        epoch_0: babelHelpers.extends({}, n.epoch_0),
-        mailbox_root_key: n.mailbox_root_key,
-        virtual_device: babelHelpers.extends({}, n.virtual_device, {
+        device: {
+          public_key: n.publicKey,
+          epoch_auth_public_key: n.epochAuthPublicKey,
+          epoch_auth_public_key_sig: n.epochAuthPublicKeySig,
+          epoch_storage_public_key: n.epochStoragePublicKey,
+          epoch_storage_public_key_sig: n.epochStoragePublicKeySig,
+          supported_encryption_versions: n.supportedEncryptionVersions,
+          encryption_version_signature: n.encryptionVersionSignature,
+          client_version: n.clientVersion,
+          device_registration_id: t.deviceRegistrationId,
+          ocmf_client_state: n.ocmfClientState,
+          device_id: t.deviceId,
+          family_device_id: t.familyDeviceId,
+        },
+        virtual_device: {
+          vd_id: a.vdId,
+          vd_public_key: a.vdPublicKey,
+          vd_epoch_storage_public_key: a.vdEpochStoragePublicKey,
+          vd_epoch_storage_public_key_sig: a.vdEpochStoragePublicKeySig,
+          encrypted_secret_values: JSON.stringify({
+            encrypted_device_private_key: i.encryptedDevicePrivateKey,
+            encrypted_epoch_anon_id: i.encryptedEpochAnonId,
+            encrypted_epoch_root_key: i.encryptedEpochRootKey,
+            encrypted_epoch_storage_private_key:
+              i.encryptedEpochStoragePrivateKey,
+            encrypted_mailbox_root_key_blob: i.encryptedMailboxRootKeyBlob,
+            encrypted_oblivious_validation_token_blob:
+              i.encryptedObliviousValidationTokenBlob,
+            encrypted_ocmf_client_state: i.encryptedOcmfClientState,
+            encrypted_orf_client_state_v2: i.encryptedOrfClientStateV2,
+          }),
+          device_epoch_hmac: a.deviceEpochHmac,
+          ocmf_rotation_token: a.ocmfRotationToken,
           vd_type: s,
-        }),
+        },
+        epoch_0: {
+          epoch_anon_id: r.epochAnonId,
+          epoch_data: r.epochData,
+          wrapped_root_key_for_self: r.wrappedRootKeyForSelf,
+          epoch_signature: r.epochSignature,
+          epoch_root_key_fingerprint: r.epochRootKeyFingerprint,
+        },
+        mailbox_root_key: o,
       };
     }
     function d(e, t) {

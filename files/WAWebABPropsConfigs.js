@@ -373,6 +373,7 @@ __d(
       biz_ai_web_ai_hub_tap_cta_show_alert: [17093, "bool", !1, !1],
       biz_ai_web_bulk_thread_control_enabled: [32588, "bool", !1, !1],
       biz_ai_web_gdrive_enabled: [32906, "bool", !1, !1],
+      biz_ai_web_integration_hub_enabled: [33956, "bool", !1, !1],
       biz_ai_web_onboarding_handoff: [29298, "bool", !1, !0],
       biz_ai_web_onboarding_handoff_killswitch: [32263, "bool", !1, !1],
       biz_vpv_dimensions_logging_enabled: [30266, "bool", !1, !1],

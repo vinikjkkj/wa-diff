@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebApiContact",
     "WAWebBackendApi",
+    "WAWebBotUtils",
     "WAWebCurrentUser",
     "WAWebGroupConstants",
     "WAWebModelStorageUtils",
@@ -22,7 +23,8 @@ __d(
       u,
       c,
       d,
-      m = (function (e) {
+      m,
+      p = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -35,103 +37,113 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.toString(),
             n = yield o("WAWebSchemaParticipant").getParticipantTable().get(t);
-          return f(e, n);
+          return g(e, n);
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = [],
             a = [];
           if (!t) return { skDistribList: n, skList: a, rotateKey: !1 };
           var i = t == null ? void 0 : t.participants,
             l = t.rotateKey,
             s = t.senderKey,
-            m = 0,
-            p = [],
-            _ = new Set();
+            p = 0,
+            _ = [],
+            f = new Set();
           if (
             (s.forEach(function (e, t) {
               var r;
               if (!t.includes("hosted")) {
-                _ = _.add(t);
-                var i = o("WAWebWidFactory").createWid(t),
-                  l = o("WAWebWidFactory").asUserWidOrThrow(i),
-                  u = (r = s.get(l.toString())) != null ? r : !1;
-                e && u
+                var i = o("WAWebWidFactory").createWid(t);
+                try {
+                  if (o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(i)) return;
+                } catch (e) {
+                  o("WALogger").ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Participant filter error",
+                      ])),
+                  );
+                }
+                f = f.add(t);
+                var l = o("WAWebWidFactory").asUserWidOrThrow(i),
+                  c = (r = s.get(l.toString())) != null ? r : !1;
+                e && c
                   ? a.push(i)
                   : (n.push(i),
                     i.isCompanion() &&
                       e &&
-                      !u &&
-                      (p.length < 3 && p.push(t), m++));
+                      !c &&
+                      (_.length < 3 && _.push(t), p++));
               }
             }),
-            m > 0 &&
+            p > 0 &&
               o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "getGroupSenderKeyList: ",
                     " added, primary missing key => ",
                     "",
                   ])),
-                m,
                 p,
+                _,
               ),
             o("WAWebCurrentUser").isEmployee())
           ) {
-            var f = i.filter(function (e) {
-              return !_.has(e);
+            var g = i.filter(function (e) {
+              return !f.has(e);
             });
-            f.length > 0 &&
+            g.length > 0 &&
               o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "getGroupSenderKeyList: missing keys for ",
                     ": ",
                     "",
                   ])),
-                f.length,
-                f.join(),
+                g.length,
+                g.join(),
               );
           }
           return (
             r("gkx")("26258") ||
-              (m > 0 &&
+              (p > 0 &&
                 o("WALogger")
                   .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "getGroupSenderKeyList: missed ",
                         " keys on primary",
                       ])),
-                    m,
+                    p,
                   )
                   .sendLogs("missing-sender-key-on-primary")),
-            yield b(e, s.size),
+            yield v(e, s.size),
             o("WAWebWamGroupMetricCache").cacheGroupMetrics(t),
             l
               ? { skDistribList: [].concat(n, a), skList: [], rotateKey: l }
               : { skDistribList: n, skList: a, rotateKey: l }
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(t, r) {
+    function y(t, r) {
       var a = t.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
@@ -153,7 +165,7 @@ __d(
                   );
                   return;
                 }
-                yield n.createOrReplace(C(i, r, !0));
+                yield n.createOrReplace(b(i, r, !0));
               },
             );
             return function (e) {
@@ -162,7 +174,7 @@ __d(
           })(),
         );
     }
-    function y(e, t) {
+    function C(e, t) {
       var r = e.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
@@ -184,7 +196,7 @@ __d(
                   );
                   return;
                 }
-                yield n.createOrReplace(C(a, t, !1));
+                yield n.createOrReplace(b(a, t, !1));
               },
             );
             return function (t) {
@@ -193,7 +205,7 @@ __d(
           })(),
         );
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       var r = new Map(e.senderKey),
         a = !1;
       return (
@@ -215,13 +227,13 @@ __d(
         }
       );
     }
-    function b(e, t) {
+    function v(e, t) {
       return o("WAWebBackendApi").frontendSendAndReceive(
         "updateCachedDeviceCount",
         { groupWid: e, deviceCount: t },
       );
     }
-    function v(e, t, n) {
+    function S(e, t, n) {
       if (n !== "add") return t;
       var a = new Set(
         t.map(function (e) {
@@ -241,12 +253,12 @@ __d(
       });
       return i;
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.map(function (e) {
               return e.id.toString();
             }),
@@ -270,15 +282,15 @@ __d(
                           leaveReason: n,
                         };
                       })) || [],
-                s = v(i.participants, l, t);
+                s = S(i.participants, l, t);
               return babelHelpers.extends({}, e, { pastParticipants: s });
             });
           return a;
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L() {
+    function E() {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -321,20 +333,20 @@ __d(
           })(),
         );
     }
-    var E = new Map();
-    function k(e, t) {
-      E.set(e, t);
-    }
-    function I(e) {
-      e != null ? E.delete(e) : E.clear();
+    var k = new Map();
+    function I(e, t) {
+      k.set(e, t);
     }
     function T(e) {
-      return D.apply(this, arguments);
+      e != null ? k.delete(e) : k.clear();
     }
-    function D() {
+    function D(e) {
+      return x.apply(this, arguments);
+    }
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = E.get(e);
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = k.get(e);
           if (t == null) {
             var n = yield o("WAWebSchemaParticipant")
                 .getParticipantTable()
@@ -345,23 +357,23 @@ __d(
                 n.admins.some(function (e) {
                   return o("WAWebUserPrefsMeUser").isSerializedWidMe(e);
                 });
-            return (E.set(e, r), r);
+            return (k.set(e, r), r);
           }
           return t;
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((l.GroupUnSyncedError = m),
-      (l.getGroupSenderKeyList = p),
-      (l.getGroupSenderKeyListFromParticipantRecord = f),
-      (l.markHasSenderKey = h),
-      (l.markForgetSenderKey = y),
-      (l.injectPastParticipantsFromDB = S),
-      (l.pruneExpiredPastParticipants = L),
-      (l.setAdminshipCache = k),
-      (l.clearAdminshipCache = I),
-      (l.isCurrentUserGroupAdmin = T));
+    ((l.GroupUnSyncedError = p),
+      (l.getGroupSenderKeyList = _),
+      (l.getGroupSenderKeyListFromParticipantRecord = g),
+      (l.markHasSenderKey = y),
+      (l.markForgetSenderKey = C),
+      (l.injectPastParticipantsFromDB = R),
+      (l.pruneExpiredPastParticipants = E),
+      (l.setAdminshipCache = I),
+      (l.clearAdminshipCache = T),
+      (l.isCurrentUserGroupAdmin = D));
   },
   98,
 );

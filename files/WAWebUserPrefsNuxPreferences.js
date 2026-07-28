@@ -152,6 +152,8 @@ __d(
           return 3;
         case "web_ui_refresh":
           return 2;
+        case "notifications_opt_in":
+          return 2;
         default:
           return 1;
       }

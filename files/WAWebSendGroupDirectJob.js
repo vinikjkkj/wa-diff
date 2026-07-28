@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebBotUtils",
     "WAWebMsgFanoutTypes",
     "WAWebResendGroupMsg",
     "WAWebSendDirectMsgToDeviceList",
@@ -31,10 +32,13 @@ __d(
                 d.toLogString(),
               )
               .tags("messaging");
-            var m = yield o(
+            var m = r.filter(function (e) {
+                return !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e);
+              }),
+              p = yield o(
                 "WAWebSendDirectMsgToDeviceList",
               ).sendDirectMsgToDeviceList({
-                deviceList: r,
+                deviceList: m,
                 groupData: a,
                 metricReporter: i,
                 msgProtobuf: n,
@@ -44,10 +48,10 @@ __d(
                 },
                 scheduledMsgMetadata: l,
               }),
-              p = m.addressingMode,
-              _ = m.phash;
+              _ = p.addressingMode,
+              f = p.phash;
             return (
-              _ &&
+              f &&
                 (o("WALogger")
                   .LOG(
                     s ||
@@ -55,7 +59,7 @@ __d(
                         "[encryptAndSendGroupDirectMsg] phash mismatch, server: ",
                         "",
                       ])),
-                    _,
+                    f,
                   )
                   .tags("messaging"),
                 o("WAWebResendGroupMsg")
@@ -63,12 +67,12 @@ __d(
                     isDirect: !0,
                     msgRecord: t,
                     msgProtobuf: n,
-                    oldList: r,
+                    oldList: m,
                     ackTime: o("WATimeUtils").unixTime(),
                     groupData: a,
-                    phash: _,
+                    phash: f,
                     metricReporter: i,
-                    serverAddressingMode: p,
+                    serverAddressingMode: _,
                   })
                   .catch(function (e) {
                     (o("WALogger")
@@ -95,7 +99,7 @@ __d(
                         .tags("messaging")
                         .sendLogs("message-resend-failed", { sampling: 0.01 }));
                   })),
-              m
+              p
             );
           },
         )),

@@ -113,7 +113,12 @@ __d(
         !e,
       );
     }
-    var C = { isDismissed: !1, firstSeenTime: null, lastDismissTime: null };
+    var C = {
+      isDismissed: !1,
+      firstSeenTime: null,
+      lastDismissTime: null,
+      lastModalShownTime: null,
+    };
     function b() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.WEB_NOTIFICATIONS_BB_STATUS,
@@ -129,30 +134,48 @@ __d(
           typeof e.lastDismissTime == "number"
             ? o("WATimeUtils").castToUnixTime(e.lastDismissTime)
             : null,
+        lastModalShownTime:
+          typeof e.lastModalShownTime == "number"
+            ? o("WATimeUtils").castToUnixTime(e.lastModalShownTime)
+            : null,
       };
       return t;
     }
     function v(e) {
       var t,
         n,
-        a = b(),
-        i = a.firstSeenTime,
-        l = i === void 0 ? null : i,
-        s = a.lastDismissTime,
-        u = s === void 0 ? null : s,
-        c = (t = e.firstSeenTime) != null ? t : l,
-        d = (n = e.lastDismissTime) != null ? n : u;
+        a,
+        i = b(),
+        l = i.firstSeenTime,
+        s = l === void 0 ? null : l,
+        u = i.lastDismissTime,
+        c = u === void 0 ? null : u,
+        d = i.lastModalShownTime,
+        m = d === void 0 ? null : d,
+        p = (t = e.firstSeenTime) != null ? t : s,
+        _ = (n = e.lastDismissTime) != null ? n : c,
+        f = (a = e.lastModalShownTime) != null ? a : m;
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.WEB_NOTIFICATIONS_BB_STATUS,
-        { isDismissed: e.isDismissed, firstSeenTime: c, lastDismissTime: d },
+        {
+          isDismissed: e.isDismissed,
+          firstSeenTime: p,
+          lastDismissTime: _,
+          lastModalShownTime: f,
+        },
       );
     }
-    var S = { isDismissed: !1, firstSeenTime: null, isLongResumeTime: !1 };
-    function R() {
+    function S() {
+      var e = b(),
+        t = e.isDismissed;
+      v({ isDismissed: t, lastModalShownTime: o("WATimeUtils").unixTime() });
+    }
+    var R = { isDismissed: !1, firstSeenTime: null, isLongResumeTime: !1 };
+    function L() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.OFFLINE_NOTIFICATIONS_BB_STATUS,
       );
-      if (e == null || typeof e != "object" || e instanceof Array) return S;
+      if (e == null || typeof e != "object" || e instanceof Array) return R;
       var t = {
         isDismissed: e.isDismissed === !0,
         firstSeenTime:
@@ -163,11 +186,11 @@ __d(
       };
       return t;
     }
-    function L(e) {
+    function E(e) {
       var t,
         n,
         a,
-        i = R(),
+        i = L(),
         l = i.firstSeenTime,
         s = l === void 0 ? null : l,
         u = i.isDismissed,
@@ -182,7 +205,7 @@ __d(
         { isDismissed: p, firstSeenTime: _, isLongResumeTime: f },
       );
     }
-    function E() {
+    function k() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_MUTE_PREVIEWS,
       );
@@ -190,53 +213,53 @@ __d(
         ? !0
         : e !== !0;
     }
-    function k(e) {
+    function I(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_MUTE_PREVIEWS,
         !e,
       );
     }
-    function I() {
+    function T() {
       return n("cr:5151")
         ? r("WAWebUserPrefsStore").getUser(
             n("cr:5151").IGNORE_NONDIRECT_GROUP_MSG,
           ) === !0
         : !1;
     }
-    function T(e) {
+    function D(e) {
       n("cr:5151") &&
         r("WAWebUserPrefsStore").setUser(
           n("cr:5151").IGNORE_NONDIRECT_GROUP_MSG,
           e,
         );
     }
-    function D() {
+    function x() {
       return (
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").KEYS.OUTGOING_MESSAGE_SOUND,
         ) === !0
       );
     }
-    function x(e) {
+    function $(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.OUTGOING_MESSAGE_SOUND,
         e,
       );
     }
-    function $() {
+    function P() {
       return (
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").KEYS.GLOBAL_COLLAPSE_MUTED,
         ) === !0
       );
     }
-    function P(e) {
+    function N(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_COLLAPSE_MUTED,
         e,
       );
     }
-    function N() {
+    function M() {
       return (
         r("WAWebUserPrefsStore").getUser(
           o("WAWebUserPrefsKeys").KEYS
@@ -244,131 +267,131 @@ __d(
         ) === !0
       );
     }
-    function M() {
+    function w() {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_OFFLINE_NOTIFICATIONS_ENABLED_ONCE,
         !0,
       );
     }
-    function w() {
+    function A() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_NOTIFICATIONS_ENABLED,
       );
       return typeof e != "boolean" ? d() : e;
     }
-    function A(e) {
+    function F(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_NOTIFICATIONS_ENABLED,
         e,
       );
     }
-    function F(e) {
+    function O(e) {
       var t = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_NOTIFICATION_REACTIONS_ENABLED,
       );
       return typeof t != "boolean" ? (e != null ? e : !1) : t;
     }
-    function O(e) {
+    function B(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_NOTIFICATION_REACTIONS_ENABLED,
         e,
       );
     }
-    function B() {
+    function W() {
       var t = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_SOUNDS_ENABLED,
       );
       return typeof t != "boolean" ? e() : t;
     }
-    function W(e) {
+    function q(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_SOUNDS_ENABLED,
         e,
       );
     }
-    function q() {
+    function U() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_GROUP_NOTIFICATIONS_ENABLED,
       );
-      return typeof e != "boolean" ? w() : e;
+      return typeof e != "boolean" ? A() : e;
     }
-    function U(e) {
+    function V(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_GROUP_NOTIFICATIONS_ENABLED,
         e,
       );
     }
-    function V() {
+    function H() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS
           .GLOBAL_GROUP_NOTIFICATION_REACTIONS_ENABLED,
       );
-      return typeof e != "boolean" ? F() : e;
+      return typeof e != "boolean" ? O() : e;
     }
-    function H(e) {
+    function G(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS
           .GLOBAL_GROUP_NOTIFICATION_REACTIONS_ENABLED,
         e,
       );
     }
-    function G() {
+    function z() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_GROUP_SOUNDS_ENABLED,
       );
-      return typeof e != "boolean" ? B() : e;
+      return typeof e != "boolean" ? W() : e;
     }
-    function z(e) {
+    function j(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_GROUP_SOUNDS_ENABLED,
         e,
       );
     }
-    function j() {
+    function K() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_STATUS_NOTIFICATIONS_ENABLED,
       );
-      return typeof e != "boolean" ? w() : e;
+      return typeof e != "boolean" ? A() : e;
     }
-    function K(e) {
+    function Q(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_STATUS_NOTIFICATIONS_ENABLED,
         e,
       );
     }
-    function Q() {
+    function X() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS
           .GLOBAL_STATUS_NOTIFICATION_REACTIONS_ENABLED,
       );
-      return typeof e != "boolean" ? F() : e;
+      return typeof e != "boolean" ? O() : e;
     }
-    function X(e) {
+    function Y(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS
           .GLOBAL_STATUS_NOTIFICATION_REACTIONS_ENABLED,
         e,
       );
     }
-    function Y() {
+    function J() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_STATUS_SOUNDS_ENABLED,
       );
-      return typeof e != "boolean" ? B() : e;
+      return typeof e != "boolean" ? W() : e;
     }
-    function J(e) {
+    function Z(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.GLOBAL_STATUS_SOUNDS_ENABLED,
         e,
       );
     }
-    var Z = { isDismissed: !1, dismissedTime: null };
-    function ee() {
+    var ee = { isDismissed: !1, dismissedTime: null };
+    function te() {
       var e = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS
           .NOTIFICATIONS_GRANULARITY_AWARENESS_BANNER_STATUS,
       );
-      if (e == null || typeof e != "object" || e instanceof Array) return Z;
+      if (e == null || typeof e != "object" || e instanceof Array) return ee;
       var t = {
         isDismissed: e.isDismissed === !0,
         dismissedTime:
@@ -393,38 +416,39 @@ __d(
       (l.DEFAULT_NOTIFICATION_BB_STATUS = C),
       (l.getWebNotificationsBBStatus = b),
       (l.setWebNotificationsBBStatus = v),
-      (l.DEFAULT_OFFLINE_NOTIFICATION_BB_STATUS = S),
-      (l.getOfflineNotificationsBBStatus = R),
-      (l.setOfflineNotificationsBBStatus = L),
-      (l.getGlobalPreviews = E),
-      (l.setGlobalPreviews = k),
-      (l.getIgnoreNondirectGroupMsg = I),
-      (l.setIgnoreNondirectGroupMsg = T),
-      (l.getOutgoingMessageSound = D),
-      (l.setOutgoingMessageSound = x),
-      (l.getCollapseMuted = $),
-      (l.setCollapseMuted = P),
-      (l.getOfflineNotificationsEnabledOnce = N),
-      (l.setOfflineNotificationsEnabledOnce = M),
-      (l.getGlobalNotificationsEnabled = w),
-      (l.setGlobalNotificationsEnabled = A),
-      (l.getGlobalNotificationReactionsEnabled = F),
-      (l.setGlobalNotificationReactionsEnabled = O),
-      (l.getGlobalSoundsEnabled = B),
-      (l.setGlobalSoundsEnabled = W),
-      (l.getGlobalGroupNotificationsEnabled = q),
-      (l.setGlobalGroupNotificationsEnabled = U),
-      (l.getGlobalGroupNotificationReactionsEnabled = V),
-      (l.setGlobalGroupNotificationReactionsEnabled = H),
-      (l.getGlobalGroupSoundsEnabled = G),
-      (l.setGlobalGroupSoundsEnabled = z),
-      (l.getGlobalStatusNotificationsEnabled = j),
-      (l.setGlobalStatusNotificationsEnabled = K),
-      (l.getGlobalStatusNotificationReactionsEnabled = Q),
-      (l.setGlobalStatusNotificationReactionsEnabled = X),
-      (l.getGlobalStatusSoundsEnabled = Y),
-      (l.setGlobalStatusSoundsEnabled = J),
-      (l.getNotificationsGranularityAwarenessBannerStatus = ee));
+      (l.recordOptInModalShown = S),
+      (l.DEFAULT_OFFLINE_NOTIFICATION_BB_STATUS = R),
+      (l.getOfflineNotificationsBBStatus = L),
+      (l.setOfflineNotificationsBBStatus = E),
+      (l.getGlobalPreviews = k),
+      (l.setGlobalPreviews = I),
+      (l.getIgnoreNondirectGroupMsg = T),
+      (l.setIgnoreNondirectGroupMsg = D),
+      (l.getOutgoingMessageSound = x),
+      (l.setOutgoingMessageSound = $),
+      (l.getCollapseMuted = P),
+      (l.setCollapseMuted = N),
+      (l.getOfflineNotificationsEnabledOnce = M),
+      (l.setOfflineNotificationsEnabledOnce = w),
+      (l.getGlobalNotificationsEnabled = A),
+      (l.setGlobalNotificationsEnabled = F),
+      (l.getGlobalNotificationReactionsEnabled = O),
+      (l.setGlobalNotificationReactionsEnabled = B),
+      (l.getGlobalSoundsEnabled = W),
+      (l.setGlobalSoundsEnabled = q),
+      (l.getGlobalGroupNotificationsEnabled = U),
+      (l.setGlobalGroupNotificationsEnabled = V),
+      (l.getGlobalGroupNotificationReactionsEnabled = H),
+      (l.setGlobalGroupNotificationReactionsEnabled = G),
+      (l.getGlobalGroupSoundsEnabled = z),
+      (l.setGlobalGroupSoundsEnabled = j),
+      (l.getGlobalStatusNotificationsEnabled = K),
+      (l.setGlobalStatusNotificationsEnabled = Q),
+      (l.getGlobalStatusNotificationReactionsEnabled = X),
+      (l.setGlobalStatusNotificationReactionsEnabled = Y),
+      (l.getGlobalStatusSoundsEnabled = J),
+      (l.setGlobalStatusSoundsEnabled = Z),
+      (l.getNotificationsGranularityAwarenessBannerStatus = te));
   },
   98,
 );

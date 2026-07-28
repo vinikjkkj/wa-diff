@@ -234,7 +234,8 @@ __d(
       }),
       fe = e({ Primary: "PRIMARY", Secondary: "SECONDARY" }),
       ge = e({ VibesVideoBlock: "VIBES_VIDEO_BLOCK" }),
-      he = e({
+      he = e({ Active: "ACTIVE", Ended: "ENDED" }),
+      ye = e({
         ClearDay: "CLEAR_DAY",
         ClearNight: "CLEAR_NIGHT",
         Cloud: "CLOUD",
@@ -245,12 +246,12 @@ __d(
         RainySnow: "RAINY_SNOW",
         Thunderstorm: "THUNDERSTORM",
       }),
-      ye = e({
+      Ce = e({
         CriticalUserMessage: "CRITICAL_USER_MESSAGE",
         Default: "DEFAULT",
         NonCriticalAdminXma: "NON_CRITICAL_ADMIN_XMA",
       }),
-      Ce = e({
+      be = e({
         AiLookup: "AI_LOOKUP",
         GenericPrompt: "GENERIC_PROMPT",
         Icebreakers: "ICEBREAKERS",
@@ -265,7 +266,7 @@ __d(
         TypeaheadSuggestedPrompt: "TYPEAHEAD_SUGGESTED_PROMPT",
         UserInputPrompt: "USER_INPUT_PROMPT",
       }),
-      be = e({
+      ve = e({
         AttachmentWithLink: "ATTACHMENT_WITH_LINK",
         CarouselMultiPhoto: "CAROUSEL_MULTI_PHOTO",
         ReshareWithPhoto: "RESHARE_WITH_PHOTO",
@@ -274,7 +275,7 @@ __d(
         SinglePhotoSensitiveContent: "SINGLE_PHOTO_SENSITIVE_CONTENT",
         Text: "TEXT",
       }),
-      ve = e({
+      Se = e({
         DeleteAndInsertPakeMessage: "DELETE_AND_INSERT_PAKE_MESSAGE",
         DeleteBackupStateOnClient: "DELETE_BACKUP_STATE_ON_CLIENT",
         InitializeRestore: "INITIALIZE_RESTORE",
@@ -288,31 +289,31 @@ __d(
         UpsertReenrollmentTrigger: "UPSERT_REENROLLMENT_TRIGGER",
         UpsertStatusTrigger: "UPSERT_STATUS_TRIGGER",
       }),
-      Se = e({ Message: "MESSAGE", Thread: "THREAD" }),
-      Re = e({
+      Re = e({ Message: "MESSAGE", Thread: "THREAD" }),
+      Le = e({
         RemoveBackupItem: "REMOVE_BACKUP_ITEM",
         UpsertBackupItem: "UPSERT_BACKUP_ITEM",
       }),
-      Le = e({
+      Ee = e({
         IneligibleForLabyrinth_11: "INELIGIBLE_FOR_LABYRINTH_11",
         NoOpenEpoch: "NO_OPEN_EPOCH",
         Ok: "OK",
         Outdated: "OUTDATED",
         RateLimited: "RATE_LIMITED",
       }),
-      Ee = e({
+      ke = e({
         Echo: "ECHO",
         EncryptedPlaceholder: "ENCRYPTED_PLACEHOLDER",
         Open: "OPEN",
         Protobuf: "PROTOBUF",
       }),
-      ke = e({
+      Ie = e({
         BackupNotFound: "BACKUP_NOT_FOUND",
         ClientNotSupported: "CLIENT_NOT_SUPPORTED",
         DecryptionFailed: "DECRYPTION_FAILED",
         Unknown: "UNKNOWN",
       }),
-      Ie = e({
+      Te = e({
         InfiniteRetroactive: "INFINITE_RETROACTIVE",
         Realtime: "REALTIME",
         RealtimeDelayed: "REALTIME_DELAYED",
@@ -320,8 +321,8 @@ __d(
         Retroactive: "RETROACTIVE",
         Retry: "RETRY",
       }),
-      Te = e({ After: "AFTER", Before: "BEFORE" }),
-      De = e({
+      De = e({ After: "AFTER", Before: "BEFORE" }),
+      xe = e({
         ActionLog: "ACTION_LOG",
         Audio: "AUDIO",
         DisappearingMessage: "DISAPPEARING_MESSAGE",
@@ -345,60 +346,60 @@ __d(
         UnreadRaven: "UNREAD_RAVEN",
         Video: "VIDEO",
       }),
-      xe = e({
+      $e = e({
         Fts: "FTS",
         HistoryRestore: "HISTORY_RESTORE",
         MpsReadApis: "MPS_READ_APIS",
         NewMemberExport: "NEW_MEMBER_EXPORT",
         Reporting: "REPORTING",
       }),
-      $e = e({
+      Pe = e({
         AlreadyUploaded: "ALREADY_UPLOADED",
         NeedsUpload: "NEEDS_UPLOAD",
         NotApplicable: "NOT_APPLICABLE",
       }),
-      Pe = e({
+      Ne = e({
         PermanentFailure: "PERMANENT_FAILURE",
         RetryableException: "RETRYABLE_EXCEPTION",
         Success: "SUCCESS",
       }),
-      Ne = e({ Fbn: "FBN", Instamadillo: "INSTAMADILLO", Unknown: "UNKNOWN" }),
-      Me = e({
+      Me = e({ Fbn: "FBN", Instamadillo: "INSTAMADILLO", Unknown: "UNKNOWN" }),
+      we = e({
         GetMealDetails: "GET_MEAL_DETAILS",
         SuggestSimilarMeals: "SUGGEST_SIMILAR_MEALS",
         UpdateIngredients: "UPDATE_INGREDIENTS",
       }),
-      we = e({
+      Ae = e({
         Landscape: "LANDSCAPE",
         Square: "SQUARE",
         Vertical: "VERTICAL",
       }),
-      Ae = e({
+      Fe = e({
         EditPrompt: "EDIT_PROMPT",
         NewMessage: "NEW_MESSAGE",
         Regenerate: "REGENERATE",
       }),
-      Fe = e({
+      Oe = e({
         Daily: "DAILY",
         Hourly: "HOURLY",
         Monthly: "MONTHLY",
         Never: "NEVER",
         Weekly: "WEEKLY",
       }),
-      Oe = e({ Assistant: "ASSISTANT", User: "USER" }),
-      Be = e({
+      Be = e({ Assistant: "ASSISTANT", User: "USER" }),
+      We = e({
         CanFeedbackOnBotResponse: "CAN_FEEDBACK_ON_BOT_RESPONSE",
         CanReadAloud: "CAN_READ_ALOUD",
         Copy: "COPY",
       }),
-      We = e({
+      qe = e({
         Memu: "MEMU",
         Synthetic: "SYNTHETIC",
         Unknown: "UNKNOWN",
         UserUploaded: "USER_UPLOADED",
       }),
-      qe = e({ AskMetaAi: "ASK_META_AI", Summarize: "SUMMARIZE" }),
-      Ue = e({
+      Ue = e({ AskMetaAi: "ASK_META_AI", Summarize: "SUMMARIZE" }),
+      Ve = e({
         Address: "ADDRESS",
         FindNextGame: "FIND_NEXT_GAME",
         GetInfo: "GET_INFO",
@@ -409,14 +410,14 @@ __d(
         Reviews: "REVIEWS",
         WhereToWatch: "WHERE_TO_WATCH",
       }),
-      Ve = e({
+      He = e({
         Celebrity: "CELEBRITY",
         Movie: "MOVIE",
         Restaurant: "RESTAURANT",
         SportsTeam: "SPORTS_TEAM",
         TvShows: "TV_SHOWS",
       }),
-      He = e({
+      Ge = e({
         AiAnimatedPhoto: "AI_ANIMATED_PHOTO",
         AiMeme: "AI_MEME",
         AiMusicSongGen: "AI_MUSIC_SONG_GEN",
@@ -432,7 +433,7 @@ __d(
         ThirdPartyAi: "THIRD_PARTY_AI",
         ThirdPartyAiEdited: "THIRD_PARTY_AI_EDITED",
       }),
-      Ge = e({
+      ze = e({
         Compacting: "COMPACTING",
         MakingSomething: "MAKING_SOMETHING",
         NeedsApproval: "NEEDS_APPROVAL",
@@ -442,7 +443,7 @@ __d(
         WaitingForSubagents: "WAITING_FOR_SUBAGENTS",
         Working: "WORKING",
       }),
-      ze = e({
+      je = e({
         MarketplaceXmatCallFunction: "MARKETPLACE_XMAT_CALL_FUNCTION",
         MarketplaceXmaCallFunction: "MARKETPLACE_XMA_CALL_FUNCTION",
         ViewAllAiTasks: "VIEW_ALL_AI_TASKS",
@@ -475,17 +476,17 @@ __d(
         XmaSharedAlbumViewer: "XMA_SHARED_ALBUM_VIEWER",
         XmaWebUrl: "XMA_WEB_URL",
       }),
-      je = e({
+      Ke = e({
         NoBranding: "NO_BRANDING",
         PaidPartnership: "PAID_PARTNERSHIP",
       }),
-      Ke = e({
+      Qe = e({
         Imagine: "IMAGINE",
         Imagineme: "IMAGINEME",
         Imaginev2: "IMAGINEV2",
       }),
-      Qe = e({ Animate: "ANIMATE", AnimateImagineme: "ANIMATE_IMAGINEME" }),
-      Xe = e({
+      Xe = e({ Animate: "ANIMATE", AnimateImagineme: "ANIMATE_IMAGINEME" }),
+      Ye = e({
         AiAnimatedPhoto: "AI_ANIMATED_PHOTO",
         AiGeneratedSticker: "AI_GENERATED_STICKER",
         AiMeme: "AI_MEME",
@@ -546,21 +547,21 @@ __d(
         WriteWithMetaAi: "WRITE_WITH_META_AI",
         ZeroBalanceDetected: "ZERO_BALANCE_DETECTED",
       }),
-      Ye = e({
+      Je = e({
         Imagine: "IMAGINE",
         ImagineRestyle: "IMAGINE_RESTYLE",
         Memu: "MEMU",
       }),
-      Je = e({ Reminder: "REMINDER", Subscription: "SUBSCRIPTION" }),
-      Ze = e({
+      Ze = e({ Reminder: "REMINDER", Subscription: "SUBSCRIPTION" }),
+      et = e({
         Image: "image",
         Link_1p: "link_1p",
         Link_3p: "link_3p",
         Text: "text",
         Voice: "voice",
       }),
-      et = e({ MessageBreaks: "MESSAGE_BREAKS", SideBySide: "SIDE_BY_SIDE" }),
-      tt = e({
+      tt = e({ MessageBreaks: "MESSAGE_BREAKS", SideBySide: "SIDE_BY_SIDE" }),
+      nt = e({
         FathersDay: "FATHERS_DAY",
         FriendshipDay: "FRIENDSHIP_DAY",
         Graduation: "GRADUATION",
@@ -569,8 +570,8 @@ __d(
         NationalSelfie: "NATIONAL_SELFIE",
         PhIndependenceDay: "PH_INDEPENDENCE_DAY",
       }),
-      nt = e({ Attribution: "ATTRIBUTION", Birthday: "BIRTHDAY" }),
-      rt = e({
+      rt = e({ Attribution: "ATTRIBUTION", Birthday: "BIRTHDAY" }),
+      ot = e({
         Clip: "CLIP",
         Comment: "COMMENT",
         Feed: "FEED",
@@ -584,49 +585,49 @@ __d(
         Story: "STORY",
         StoryHighlight: "STORY_HIGHLIGHT",
       }),
-      ot = e({ Mention: "MENTION", Reply: "REPLY" }),
-      at = e({
+      at = e({ Mention: "MENTION", Reply: "REPLY" }),
+      it = e({
         Mention: "MENTION",
         React: "REACT",
         Reply: "REPLY",
         Share: "SHARE",
       }),
-      it = e({
+      lt = e({
         AnimatedEmoji: "ANIMATED_EMOJI",
         Genmoji: "GENMOJI",
         Metamoji: "METAMOJI",
         Undefined: "UNDEFINED",
       }),
-      lt = e({
+      st = e({
         GenAiGetInfo: "GEN_AI_GET_INFO",
         GenAiReminder: "GEN_AI_REMINDER",
         GenAiThreadSurfing: "GEN_AI_THREAD_SURFING",
       }),
-      st = e({
+      ut = e({
         AnimatedThankImage: "ANIMATED_THANK_IMAGE",
         AnimatedThankImageWithTextMessage:
           "ANIMATED_THANK_IMAGE_WITH_TEXT_MESSAGE",
         Unknown: "UNKNOWN",
       }),
-      ut = e({
+      ct = e({
         AutoReply: "AUTO_REPLY",
         AutoReplyV2: "AUTO_REPLY_V2",
         BulkReply: "BULK_REPLY",
         Unknown: "UNKNOWN",
       }),
-      ct = e({
+      dt = e({
         AttachmentPreviewHeaderMedia: "ATTACHMENT_PREVIEW_HEADER_MEDIA",
         AttachmentPreviewMedia: "ATTACHMENT_PREVIEW_MEDIA",
       }),
-      dt = e({ Photo: "PHOTO" }),
-      mt = e({ Messages: "MESSAGES", Retro: "RETRO", Simple: "SIMPLE" }),
+      mt = e({ Photo: "PHOTO" }),
       pt = e({ Messages: "MESSAGES", Retro: "RETRO", Simple: "SIMPLE" }),
-      _t = e({
+      _t = e({ Messages: "MESSAGES", Retro: "RETRO", Simple: "SIMPLE" }),
+      ft = e({
         Accepted: "ACCEPTED",
         Deleted: "DELETED",
         Unactioned: "UNACTIONED",
       }),
-      ft = e({
+      gt = e({
         CommentMentions: "COMMENT_MENTIONS",
         Ctm: "CTM",
         Cts: "CTS",
@@ -666,15 +667,15 @@ __d(
         Watch: "WATCH",
         ZorroMessage: "ZORRO_MESSAGE",
       }),
-      gt = e({ MsgrE2EeGenai: "MSGR_E2EE_GENAI" }),
-      ht = e({
+      ht = e({ MsgrE2EeGenai: "MSGR_E2EE_GENAI" }),
+      yt = e({
         Grouppost: "GROUPPOST",
         Momentlink: "MOMENTLINK",
         Shareurl: "SHAREURL",
         Statusupdate: "STATUSUPDATE",
         Unifiedresponse: "UNIFIEDRESPONSE",
       }),
-      yt = e({
+      Ct = e({
         DxmaPlaceholder: "DXMA_PLACEHOLDER",
         ExpiredPlaceholder: "EXPIRED_PLACEHOLDER",
         Grid: "GRID",
@@ -690,28 +691,28 @@ __d(
         StandardDxma: "STANDARD_DXMA",
         Xcenter: "XCENTER",
       }),
-      Ct = e({
+      bt = e({
         Bump: "BUMP",
         Mention: "MENTION",
         Reply: "REPLY",
         Share: "SHARE",
       }),
-      bt = e({
+      vt = e({
         AiWidget: "AI_WIDGET",
         GamePrediction: "GAME_PREDICTION",
         HorizonWeelXma: "HORIZON_WEEL_XMA",
         MomentLink: "MOMENT_LINK",
         ThreadsPostShare: "THREADS_POST_SHARE",
       }),
-      vt = e({ XmaWebUrl: "XMA_WEB_URL" }),
-      St = e({ Mention: "MENTION", Reply: "REPLY" }),
-      Rt = e({
+      St = e({ XmaWebUrl: "XMA_WEB_URL" }),
+      Rt = e({ Mention: "MENTION", Reply: "REPLY" }),
+      Lt = e({
         Note: "NOTE",
         Prompt: "PROMPT",
         PromptResponse: "PROMPT_RESPONSE",
         Status: "STATUS",
       }),
-      Lt = e({
+      Et = e({
         FbContentShare: "FB_CONTENT_SHARE",
         FeelingsNote: "FEELINGS_NOTE",
         GameNote: "GAME_NOTE",
@@ -724,9 +725,9 @@ __d(
         Status: "STATUS",
         TextNote: "TEXT_NOTE",
       }),
-      Et = e({ Image: "IMAGE", Other: "OTHER", Video: "VIDEO" }),
-      kt = e({ Connector: "CONNECTOR", Network: "NETWORK" }),
-      It = e({
+      kt = e({ Image: "IMAGE", Other: "OTHER", Video: "VIDEO" }),
+      It = e({ Connector: "CONNECTOR", Network: "NETWORK" }),
+      Tt = e({
         AntiValentines: "ANTI_VALENTINES",
         AvatarAngry: "AVATAR_ANGRY",
         AvatarCry: "AVATAR_CRY",
@@ -741,21 +742,21 @@ __d(
         NomNomDash: "NOM_NOM_DASH",
         ValentinesDay: "VALENTINES_DAY",
       }),
-      Tt = e({
+      Dt = e({
         BasicSuperReactAnimation: "BASIC_SUPER_REACT_ANIMATION",
         FbEmoji: "FB_EMOJI",
         None: "NONE",
         NonDefaultEmoji: "NON_DEFAULT_EMOJI",
       }),
-      Dt = e({ Media: "MEDIA", Text: "TEXT" }),
-      xt = e({
+      xt = e({ Media: "MEDIA", Text: "TEXT" }),
+      $t = e({
         Classifier: "CLASSIFIER",
         ReactiveEnforcement: "REACTIVE_ENFORCEMENT",
         RecipientParent: "RECIPIENT_PARENT",
         SenderParent: "SENDER_PARENT",
       }),
-      $t = e({ Restore: "RESTORE", Takedown: "TAKEDOWN" }),
-      Pt = e({
+      Pt = e({ Restore: "RESTORE", Takedown: "TAKEDOWN" }),
+      Nt = e({
         PermanentDelete: "PERMANENT_DELETE",
         SoftDeleteWithoutAppeal: "SOFT_DELETE_WITHOUT_APPEAL",
         SoftDeleteWithoutAppealParentUnviewable:
@@ -765,13 +766,13 @@ __d(
           "SOFT_DELETE_WITH_APPEAL_PARENT_UNVIEWABLE",
         Unknown: "UNKNOWN",
       }),
-      Nt = e({
+      Mt = e({
         FiveOptionStarRating: "FIVE_OPTION_STAR_RATING",
         IgTwoOptionCombined: "IG_TWO_OPTION_COMBINED",
         TwoOptionCombined: "TWO_OPTION_COMBINED",
         Unknown: "UNKNOWN",
       }),
-      Mt = e({
+      wt = e({
         AntiBully: "ANTI_BULLY",
         Event: "EVENT",
         Fundraiser: "FUNDRAISER",
@@ -784,7 +785,7 @@ __d(
         ResharedPost: "RESHARED_POST",
         Unknown: "UNKNOWN",
       }),
-      wt = e({
+      At = e({
         AboveKeyboardEmojiLightWeight: "ABOVE_KEYBOARD_EMOJI_LIGHT_WEIGHT",
         AboveKeyboardSuggestedEmoji: "ABOVE_KEYBOARD_SUGGESTED_EMOJI",
         AboveKeyboardSuggestedEmojiText: "ABOVE_KEYBOARD_SUGGESTED_EMOJI_TEXT",
@@ -803,7 +804,7 @@ __d(
         Unspecified: "UNSPECIFIED",
         WriteWithAi: "WRITE_WITH_AI",
       }),
-      At = e({
+      Ft = e({
         Generating: "GENERATING",
         Imagining: "IMAGINING",
         RequestStart: "REQUEST_START",
@@ -811,7 +812,7 @@ __d(
         StreamingImage: "STREAMING_IMAGE",
         UnderstandingImage: "UNDERSTANDING_IMAGE",
       }),
-      Ft = e({
+      Ot = e({
         BanUser: "BAN_USER",
         HideMessage: "HIDE_MESSAGE",
         RemoveMessage: "REMOVE_MESSAGE",
@@ -819,16 +820,16 @@ __d(
         ReportMessage: "REPORT_MESSAGE",
         SuspendUser: "SUSPEND_USER",
       }),
-      Ot = e({ Bar: "BAR", Baz: "BAZ", Foo: "FOO" }),
       Bt = e({ Bar: "BAR", Baz: "BAZ", Foo: "FOO" }),
-      Wt = e({
+      Wt = e({ Bar: "BAR", Baz: "BAZ", Foo: "FOO" }),
+      qt = e({
         Error: "ERROR",
         Success: "SUCCESS",
         Transcribing: "TRANSCRIBING",
         UnsupportedLanguage: "UNSUPPORTED_LANGUAGE",
         Untranscribed: "UNTRANSCRIBED",
       }),
-      qt = e({
+      Ut = e({
         Chat: "CHAT",
         Faq: "FAQ",
         Other: "OTHER",
@@ -836,7 +837,7 @@ __d(
         Product: "PRODUCT",
         Unknown: "UNKNOWN",
       }),
-      Ut = e({
+      Vt = e({
         Chat: "CHAT",
         Faq: "FAQ",
         Other: "OTHER",
@@ -845,7 +846,7 @@ __d(
         Product: "PRODUCT",
         Unknown: "UNKNOWN",
       }),
-      Vt = e({
+      Ht = e({
         Comment: "COMMENT",
         Default: "DEFAULT",
         Keyword: "KEYWORD",
@@ -853,10 +854,10 @@ __d(
         Number: "NUMBER",
         Str: "STR",
       }),
-      Ht = e({ Chevron: "CHEVRON" }),
-      Gt = e({ Circle: "CIRCLE", Square: "SQUARE" }),
-      zt = e({ Album: "ALBUM", Clips: "CLIPS", Video: "VIDEO" }),
-      jt = e({
+      Gt = e({ Chevron: "CHEVRON" }),
+      zt = e({ Circle: "CIRCLE", Square: "SQUARE" }),
+      jt = e({ Album: "ALBUM", Clips: "CLIPS", Video: "VIDEO" }),
+      Kt = e({
         FbCommentMentionShare: "FB_COMMENT_MENTION_SHARE",
         FbEvent: "FB_EVENT",
         FbFeedPostPrivateReply: "FB_FEED_POST_PRIVATE_REPLY",
@@ -937,7 +938,7 @@ __d(
         RtcVideoCall: "RTC_VIDEO_CALL",
         Test: "TEST",
       }),
-      Kt = e({
+      Qt = e({
         ChevronDown: "CHEVRON_DOWN",
         DotsThreeHorizontal: "DOTS_THREE_HORIZONTAL",
         Fb: "FB",
@@ -945,7 +946,7 @@ __d(
         FbInfoSmall: "FB_INFO_SMALL",
         None: "NONE",
       }),
-      Qt = e({
+      Xt = e({
         AutoPlayable: "AUTO_PLAYABLE",
         AutoPlayableWithAspectRatio: "AUTO_PLAYABLE_WITH_ASPECT_RATIO",
         BlurredImage: "BLURRED_IMAGE",
@@ -960,14 +961,14 @@ __d(
         Playable: "PLAYABLE",
         YoutubePlayer: "YOUTUBE_PLAYER",
       }),
-      Xt = e({
+      Yt = e({
         Accepted: "ACCEPTED",
         AlreadyPlayed: "ALREADY_PLAYED",
         Completed: "COMPLETED",
         Expired: "EXPIRED",
         Invited: "INVITED",
       }),
-      Yt = e({
+      Jt = e({
         Arrived: "ARRIVED",
         Cancelled: "CANCELLED",
         Delayed: "DELAYED",
@@ -975,9 +976,9 @@ __d(
         OnTime: "ON_TIME",
         Unknown: "UNKNOWN",
       }),
-      Jt = e({ Draw: "DRAW", Option1: "OPTION1", Option2: "OPTION2" }),
-      Zt = e({ Vote: "VOTE" }),
-      en = e({
+      Zt = e({ Draw: "DRAW", Option1: "OPTION1", Option2: "OPTION2" }),
+      en = e({ Vote: "VOTE" }),
+      tn = e({
         MediaLabel: "MEDIA_LABEL",
         Misinformation: "MISINFORMATION",
         PostCover: "POST_COVER",
@@ -986,7 +987,7 @@ __d(
         Sensitive: "SENSITIVE",
         WarningScreens: "WARNING_SCREENS",
       }),
-      tn = e({
+      nn = e({
         Blur: "BLUR",
         Collage: "COLLAGE",
         InstagramIcon: "INSTAGRAM_ICON",
@@ -1001,7 +1002,7 @@ __d(
         YoutubeShorts: "YOUTUBE_SHORTS",
         YoutubeVideo: "YOUTUBE_VIDEO",
       }),
-      nn = e({
+      rn = e({
         Grid: "GRID",
         Hscroll: "HSCROLL",
         Portrait: "PORTRAIT",
@@ -1009,33 +1010,33 @@ __d(
         Single: "SINGLE",
         Vstack: "VSTACK",
       }),
-      rn = e({
+      on = e({
         Active: "ACTIVE",
         Ended: "ENDED",
         Expired: "EXPIRED",
         Started: "STARTED",
       }),
-      on = e({
+      an = e({
         BlurredCircle: "BLURRED_CIRCLE",
         Default: "DEFAULT",
         DefaultWithGradient: "DEFAULT_WITH_GRADIENT",
         Rounded: "ROUNDED",
         TemplateAsset: "TEMPLATE_ASSET",
       }),
-      an = e({ Paypal: "PAYPAL", Venmo: "VENMO" }),
-      ln = e({ Payment: "PAYMENT", Request: "REQUEST" }),
-      sn = e({
+      ln = e({ Paypal: "PAYPAL", Venmo: "VENMO" }),
+      sn = e({ Payment: "PAYMENT", Request: "REQUEST" }),
+      un = e({
         LiveVideo: "LIVE_VIDEO",
         None: "NONE",
         ShortsVideo: "SHORTS_VIDEO",
         VodVideo: "VOD_VIDEO",
       }),
-      un = e({ Ended: "ENDED", Missed: "MISSED", Started: "STARTED" }),
-      cn = e({ Audio: "AUDIO", Video: "VIDEO" }),
-      dn = e({ Default: "DEFAULT", Overlay: "OVERLAY" }),
-      mn = e({ Bold: "BOLD", Regular: "REGULAR" }),
-      pn = e({ Daily: "DAILY", Weekly: "WEEKLY" }),
-      _n = e({
+      cn = e({ Ended: "ENDED", Missed: "MISSED", Started: "STARTED" }),
+      dn = e({ Audio: "AUDIO", Video: "VIDEO" }),
+      mn = e({ Default: "DEFAULT", Overlay: "OVERLAY" }),
+      pn = e({ Bold: "BOLD", Regular: "REGULAR" }),
+      _n = e({ Daily: "DAILY", Weekly: "WEEKLY" }),
+      fn = e({
         Default: "DEFAULT",
         ExternalLinkIcon: "EXTERNAL_LINK_ICON",
         FacebookIcon: "FACEBOOK_ICON",
@@ -1048,10 +1049,10 @@ __d(
         ThreadsIcon: "THREADS_ICON",
         VibesIcon: "VIBES_ICON",
       }),
-      fn = e({ Center: "CENTER", Left: "LEFT" }),
-      gn = e({ Default: "DEFAULT" }),
-      hn = e({ FinalScore: "FINAL_SCORE", Goal: "GOAL", RedCard: "RED_CARD" }),
-      yn = e({
+      gn = e({ Center: "CENTER", Left: "LEFT" }),
+      hn = e({ Default: "DEFAULT" }),
+      yn = e({ FinalScore: "FINAL_SCORE", Goal: "GOAL", RedCard: "RED_CARD" }),
+      Cn = e({
         None: "NONE",
         YoutubeShorts: "YOUTUBE_SHORTS",
         YoutubeVideo: "YOUTUBE_VIDEO",
@@ -1120,115 +1121,116 @@ __d(
       (i.GenAiUpsellCardButtonAction = _e),
       (i.GenAiUpsellCardButtonStyle = fe),
       (i.GenAiUpsellCardKind = ge),
-      (i.GenAiWeatherIconName = he),
-      (i.GenAiContextInjectionType = ye),
-      (i.GenAiPromptType = Ce),
-      (i.ImmersivePostContentType = be),
-      (i.MebSplitDatabaseExecutionType = ve),
-      (i.MpsBackupContentType = Se),
-      (i.MpsBackupOperation = Re),
-      (i.MpsDeviceEpochStatus = Le),
-      (i.MpsEncryptedBackupMessageType = Ee),
-      (i.MpsEncryptedPlaceholderErrorCode = ke),
-      (i.MpsMessageBackupSource = Ie),
-      (i.MpsMessageRangeQueryDirection = Te),
-      (i.MpsMessageTag = De),
-      (i.MpsQueryCaller = xe),
-      (i.MpsServerAttachmentUploadStatus = $e),
-      (i.MpsServerMessageUploadStatus = Pe),
-      (i.MpsUploadType = Ne),
-      (i.SlvBasilConversationStarterType = Me),
-      (i.SlvImagineImageOrientation = we),
-      (i.SlvPromptEditType = Ae),
-      (i.SlvReminderRecurrence = Fe),
-      (i.SlvResponseRole = Oe),
-      (i.SlvViewerAction = Be),
-      (i.XmsgaiBotResponseImagineSource = We),
-      (i.XmsgaiInvocationOptions = qe),
-      (i.XmsgaiLookupActionType = Ue),
-      (i.XmsgaiLookupEntityType = Ve),
-      (i.XmsgaiProduct = He),
-      (i.XmsgAiAgentActivityStatus = Ge),
-      (i.XmsgctaType = ze),
-      (i.XmsgContentBrandingOption = je),
-      (i.Xmsge2EeGenAiEncryptedImageProductType = Ke),
-      (i.Xmsge2EeGenAiEncryptedVideoProductType = Qe),
-      (i.XmsgFeatureTags = Xe),
-      (i.XmsgGenAiBotResponseProductType = Ye),
-      (i.XmsgGenAiBotSubscriptionProductType = Je),
-      (i.XmsgGenAiMessageType = Ze),
-      (i.XmsgGenAiNestedUnifiedResponseType = et),
-      (i.XmsgHighlightsTabMoment = tt),
-      (i.XmsgHighlightsTabReplySourceType = nt),
-      (i.XmsgIgReceiverFetchContentType = rt),
-      (i.XmsgIgReceiverFetchXmaMediaNoteFetchParamsMessageType = ot),
-      (i.XmsgIgXmaActionType = at),
-      (i.XmsgImageGlyphType = it),
-      (i.XmsgInlineEntityType = lt),
-      (i.XmsgMarketplaceLightweightReplyType = st),
-      (i.XmsgMarketplaceSmartRepliesTriggerType = ut),
-      (i.XmsgMediaDispatchKey = ct),
-      (i.XmsgMediaReactionType = dt),
-      (i.XmsgMemoriesE2EeSendTemplateType = mt),
-      (i.XmsgMemoriesTemplateType = pt),
-      (i.XmsgMessageRequestStatus = _t),
-      (i.XmsgMessageSendProductType = ft),
-      (i.XmsgMessageStreamingProductType = gt),
-      (i.XmsgMsgrReceiverFetchContentType = ht),
-      (i.XmsgMsgrReceiverFetchXmaLayoutType = yt),
-      (i.XmsgMsgrXmaActionType = Ct),
-      (i.XmsgMsgrXmaUnifiedQueryType = bt),
-      (i.XmsgMustacheCtaType = vt),
-      (i.XmsgNoteMessageType = St),
-      (i.XmsgNoteModelType = Rt),
-      (i.XmsgNoteType = Lt),
-      (i.XmsgOculusMediaType = Et),
-      (i.XmsgPendingApprovalType = kt),
-      (i.XmsgPowerUpStyle = It),
-      (i.XmsgReactionStyle = Tt),
-      (i.XmsgReportedMessageType = Dt),
-      (i.XmsgSpectraActionSource = xt),
-      (i.XmsgSpectraActionType = $t),
-      (i.XmsgSpectraTakeDownActionType = Pt),
-      (i.XmsgStoryOverlayPollStyle = Nt),
-      (i.XmsgStoryOverlayTagType = Mt),
-      (i.XmsgStoryReplyType = wt),
-      (i.XmsgStreamStatusType = At),
-      (i.XmsgSuggestedModerationActionType = Ft),
-      (i.XmsgTestEnum = Ot),
-      (i.XmsgTestMinimalEnum = Bt),
-      (i.XmsgTranscriptionStatus = Wt),
-      (i.XmsgXmaBizAiUnifiedResponseAttributionType = qt),
-      (i.XmsgXmaBizAiUnifiedResponseSourceAttributionType = Ut),
-      (i.XmsgXmaCodeBlockType = Vt),
-      (i.XmsgXmaCompactGenericTemplateAccessoryType = Ht),
-      (i.XmsgXmaCompactGenericTemplatePreviewStyle = Gt),
-      (i.XmsgXmaContentAttributionIcon = zt),
-      (i.XmsgXmaContentType = jt),
-      (i.XmsgXmaCtaIconType = Kt),
-      (i.XmsgXmaCustomPreviewType = Qt),
-      (i.XmsgXmaDailyGameChallengePlayerStatus = Xt),
-      (i.XmsgXmaFlightStatusEnum = Yt),
-      (i.XmsgXmaGamePredictionOption = Jt),
-      (i.XmsgXmaGamePredictionType = Zt),
-      (i.XmsgXmaGatingType = en),
-      (i.XmsgXmaImageDecorationType = tn),
-      (i.XmsgXmaLayoutType = nn),
-      (i.XmsgXmaLiveLocationSessionState = rn),
-      (i.XmsgXmaMessagingAttachmentFaviconStyle = on),
-      (i.XmsgXmaOpgP2pPaymentMethodType = an),
-      (i.XmsgXmaOpgP2pTransactionType = ln),
-      (i.XmsgXmaOverlayContentType = sn),
-      (i.XmsgXmaRtcCallState = un),
-      (i.XmsgXmaRtcCallType = cn),
-      (i.XmsgXmaStandardGenericBodyLayoutType = dn),
-      (i.XmsgXmaStandardGenericBodyTitleStyle = mn),
-      (i.XmsgXmaSubscriptionRecurrenceType = pn),
-      (i.XmsgXmaSubtitleDecorationType = _n),
-      (i.XmsgXmaVStackLayoutHeaderAlignmentType = fn),
-      (i.XmsgXmaVerifiedType = gn),
-      (i.XmsgXmaWatchPartySoccerEventType = hn),
-      (i.XmsgXmaYoutubePreviewMediaType = yn));
+      (i.GenAiVoicePreferenceCaptureCardState = he),
+      (i.GenAiWeatherIconName = ye),
+      (i.GenAiContextInjectionType = Ce),
+      (i.GenAiPromptType = be),
+      (i.ImmersivePostContentType = ve),
+      (i.MebSplitDatabaseExecutionType = Se),
+      (i.MpsBackupContentType = Re),
+      (i.MpsBackupOperation = Le),
+      (i.MpsDeviceEpochStatus = Ee),
+      (i.MpsEncryptedBackupMessageType = ke),
+      (i.MpsEncryptedPlaceholderErrorCode = Ie),
+      (i.MpsMessageBackupSource = Te),
+      (i.MpsMessageRangeQueryDirection = De),
+      (i.MpsMessageTag = xe),
+      (i.MpsQueryCaller = $e),
+      (i.MpsServerAttachmentUploadStatus = Pe),
+      (i.MpsServerMessageUploadStatus = Ne),
+      (i.MpsUploadType = Me),
+      (i.SlvBasilConversationStarterType = we),
+      (i.SlvImagineImageOrientation = Ae),
+      (i.SlvPromptEditType = Fe),
+      (i.SlvReminderRecurrence = Oe),
+      (i.SlvResponseRole = Be),
+      (i.SlvViewerAction = We),
+      (i.XmsgaiBotResponseImagineSource = qe),
+      (i.XmsgaiInvocationOptions = Ue),
+      (i.XmsgaiLookupActionType = Ve),
+      (i.XmsgaiLookupEntityType = He),
+      (i.XmsgaiProduct = Ge),
+      (i.XmsgAiAgentActivityStatus = ze),
+      (i.XmsgctaType = je),
+      (i.XmsgContentBrandingOption = Ke),
+      (i.Xmsge2EeGenAiEncryptedImageProductType = Qe),
+      (i.Xmsge2EeGenAiEncryptedVideoProductType = Xe),
+      (i.XmsgFeatureTags = Ye),
+      (i.XmsgGenAiBotResponseProductType = Je),
+      (i.XmsgGenAiBotSubscriptionProductType = Ze),
+      (i.XmsgGenAiMessageType = et),
+      (i.XmsgGenAiNestedUnifiedResponseType = tt),
+      (i.XmsgHighlightsTabMoment = nt),
+      (i.XmsgHighlightsTabReplySourceType = rt),
+      (i.XmsgIgReceiverFetchContentType = ot),
+      (i.XmsgIgReceiverFetchXmaMediaNoteFetchParamsMessageType = at),
+      (i.XmsgIgXmaActionType = it),
+      (i.XmsgImageGlyphType = lt),
+      (i.XmsgInlineEntityType = st),
+      (i.XmsgMarketplaceLightweightReplyType = ut),
+      (i.XmsgMarketplaceSmartRepliesTriggerType = ct),
+      (i.XmsgMediaDispatchKey = dt),
+      (i.XmsgMediaReactionType = mt),
+      (i.XmsgMemoriesE2EeSendTemplateType = pt),
+      (i.XmsgMemoriesTemplateType = _t),
+      (i.XmsgMessageRequestStatus = ft),
+      (i.XmsgMessageSendProductType = gt),
+      (i.XmsgMessageStreamingProductType = ht),
+      (i.XmsgMsgrReceiverFetchContentType = yt),
+      (i.XmsgMsgrReceiverFetchXmaLayoutType = Ct),
+      (i.XmsgMsgrXmaActionType = bt),
+      (i.XmsgMsgrXmaUnifiedQueryType = vt),
+      (i.XmsgMustacheCtaType = St),
+      (i.XmsgNoteMessageType = Rt),
+      (i.XmsgNoteModelType = Lt),
+      (i.XmsgNoteType = Et),
+      (i.XmsgOculusMediaType = kt),
+      (i.XmsgPendingApprovalType = It),
+      (i.XmsgPowerUpStyle = Tt),
+      (i.XmsgReactionStyle = Dt),
+      (i.XmsgReportedMessageType = xt),
+      (i.XmsgSpectraActionSource = $t),
+      (i.XmsgSpectraActionType = Pt),
+      (i.XmsgSpectraTakeDownActionType = Nt),
+      (i.XmsgStoryOverlayPollStyle = Mt),
+      (i.XmsgStoryOverlayTagType = wt),
+      (i.XmsgStoryReplyType = At),
+      (i.XmsgStreamStatusType = Ft),
+      (i.XmsgSuggestedModerationActionType = Ot),
+      (i.XmsgTestEnum = Bt),
+      (i.XmsgTestMinimalEnum = Wt),
+      (i.XmsgTranscriptionStatus = qt),
+      (i.XmsgXmaBizAiUnifiedResponseAttributionType = Ut),
+      (i.XmsgXmaBizAiUnifiedResponseSourceAttributionType = Vt),
+      (i.XmsgXmaCodeBlockType = Ht),
+      (i.XmsgXmaCompactGenericTemplateAccessoryType = Gt),
+      (i.XmsgXmaCompactGenericTemplatePreviewStyle = zt),
+      (i.XmsgXmaContentAttributionIcon = jt),
+      (i.XmsgXmaContentType = Kt),
+      (i.XmsgXmaCtaIconType = Qt),
+      (i.XmsgXmaCustomPreviewType = Xt),
+      (i.XmsgXmaDailyGameChallengePlayerStatus = Yt),
+      (i.XmsgXmaFlightStatusEnum = Jt),
+      (i.XmsgXmaGamePredictionOption = Zt),
+      (i.XmsgXmaGamePredictionType = en),
+      (i.XmsgXmaGatingType = tn),
+      (i.XmsgXmaImageDecorationType = nn),
+      (i.XmsgXmaLayoutType = rn),
+      (i.XmsgXmaLiveLocationSessionState = on),
+      (i.XmsgXmaMessagingAttachmentFaviconStyle = an),
+      (i.XmsgXmaOpgP2pPaymentMethodType = ln),
+      (i.XmsgXmaOpgP2pTransactionType = sn),
+      (i.XmsgXmaOverlayContentType = un),
+      (i.XmsgXmaRtcCallState = cn),
+      (i.XmsgXmaRtcCallType = dn),
+      (i.XmsgXmaStandardGenericBodyLayoutType = mn),
+      (i.XmsgXmaStandardGenericBodyTitleStyle = pn),
+      (i.XmsgXmaSubscriptionRecurrenceType = _n),
+      (i.XmsgXmaSubtitleDecorationType = fn),
+      (i.XmsgXmaVStackLayoutHeaderAlignmentType = gn),
+      (i.XmsgXmaVerifiedType = hn),
+      (i.XmsgXmaWatchPartySoccerEventType = yn),
+      (i.XmsgXmaYoutubePreviewMediaType = Cn));
   },
   66,
 );

@@ -9,7 +9,6 @@ __d(
     "WAWebProductCatalogContext",
     "WAWebProductCatalogLogEvents",
     "WAWebQplFlowWrapper",
-    "WAWebQplQuickPerformanceLoggerMarkerIds",
     "WAWebToast.react",
     "WAWebToastManager",
     "qpl",
@@ -48,20 +47,10 @@ __d(
             return e.reason === "duplicate";
           })
         ) {
-          var _ =
-            r ===
-            o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-              .WHATSAPP_PRODUCT_SAVE
-              ? c
-              : d;
+          var _ = r === c ? c : d;
           o("WAWebQplFlowWrapper").QPL.markerDrop(_);
         } else {
-          var f =
-            r ===
-            o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-              .WHATSAPP_PRODUCT_SAVE
-              ? c
-              : d;
+          var f = r === c ? c : d;
           o("WAWebQplFlowWrapper").QPL.markerEnd(f, 3);
         }
         n.errors.map(function (e) {
@@ -167,12 +156,7 @@ __d(
             .catch(function (e) {
               (e instanceof o("WAWebBackendErrors").CatalogEditServerError ||
                 e instanceof o("WAWebBackendErrors").ServerStatusCodeError) &&
-                ((_ = !1),
-                n(
-                  e,
-                  o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
-                    .WHATSAPP_PRODUCT_SET_VISIBLE,
-                ));
+                ((_ = !1), n(e, d));
             })
             .finally(function () {
               (_ && o("WAWebQplFlowWrapper").QPL.markerEnd(d, 3), p(!1));
@@ -199,12 +183,7 @@ __d(
                       o("WAWebBackendErrors").CatalogEditServerError ||
                       e instanceof
                         o("WAWebBackendErrors").ServerStatusCodeError) &&
-                      ((_ = !1),
-                      n(
-                        e,
-                        o("WAWebQplQuickPerformanceLoggerMarkerIds")
-                          .QuickLogMarkerId.WHATSAPP_PRODUCT_SAVE,
-                      ));
+                      ((_ = !1), n(e, c));
                   })
                   .finally(function () {
                     (_ && o("WAWebQplFlowWrapper").QPL.markerEnd(c, 3), p(!1));

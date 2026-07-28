@@ -120,7 +120,6 @@ __d(
         valueSecretRef: [3, e.TYPES.STRING],
         offlineThreadingId: [4, e.TYPES.UINT64],
         timestampMs: [5, e.TYPES.UINT64],
-        messageKey: [6, e.TYPES.BYTES],
         error: [7, e.TYPES.STRING],
       }),
       (C.name = "DecryptMessageOutput"),

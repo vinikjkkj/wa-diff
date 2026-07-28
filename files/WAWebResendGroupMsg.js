@@ -4,6 +4,7 @@ __d(
     "WAArrayDifferenceBy",
     "WALogger",
     "WATimeUtils",
+    "WAWebBotUtils",
     "WAWebCurrentUser",
     "WAWebDBDeviceListFanout",
     "WAWebFetchResendMissingKeyJob",
@@ -65,20 +66,25 @@ __d(
               originalMessage: b.type === "message" ? b.data : void 0,
               groupData: r,
             })));
-          var T = Array.from(
-            new Set(
-              v.map(function (e) {
-                return o("WAWebWidFactory").asUserWidOrThrow(e).toString();
-              }),
-            ),
-            function (e) {
-              return o("WAWebWidFactory").createUserWidOrThrow(e);
-            },
-          );
+          var T = a
+              ? v.filter(function (e) {
+                  return !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e);
+                })
+              : v,
+            D = Array.from(
+              new Set(
+                T.map(function (e) {
+                  return o("WAWebWidFactory").asUserWidOrThrow(e).toString();
+                }),
+              ),
+              function (e) {
+                return o("WAWebWidFactory").createUserWidOrThrow(e);
+              },
+            );
           if (!o("WAWebGroupMsgSendUtils").isCagAddon(b.data, r))
             try {
               yield o("WAWebFetchResendMissingKeyJob").fetchResendMissingKeys(
-                v,
+                T,
               );
             } catch (e) {
               o("WALogger")
@@ -92,7 +98,7 @@ __d(
             }
           if (a)
             yield o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-              v,
+              T,
               "message",
               S,
             );
@@ -103,7 +109,7 @@ __d(
                   groupData: r,
                   groupId: I,
                   msgProtobuf: l,
-                  oldParticipantList: T.map(
+                  oldParticipantList: D.map(
                     o("WAWebWidFactory").createWidFromWidLike,
                   ),
                 }).catch(function (e) {
@@ -138,9 +144,9 @@ __d(
                 e
               );
             }
-          var D = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
-          if (o("WATimeUtils").unixTime() - n > D) {
-            var x;
+          var x = o("WAWebSendMsgCommonApi").getResendTimeoutInSeconds();
+          if (o("WATimeUtils").unixTime() - n > x) {
+            var $;
             (o("WALogger")
               .LOG(
                 d ||
@@ -150,11 +156,11 @@ __d(
                     " min timeout",
                   ])),
                 k,
-                D / 60,
+                x / 60,
               )
               .tags("messaging"),
-              (x = i.sendReporter) == null ||
-                x.postFailure({
+              ($ = i.sendReporter) == null ||
+                $.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_EXPIRED,
                   isTerminal: !1,
@@ -163,14 +169,14 @@ __d(
             return;
           }
           try {
-            var $ = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
+            var P = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
                 I.toString(),
               ),
-              P = $ == null ? void 0 : $.participants;
-            if (P != null && P.length !== T.length) {
-              var N = P.length - T.length,
-                M = N > 0 ? "increased" : "decreased",
-                w = Math.abs(N);
+              N = P == null ? void 0 : P.participants;
+            if (N != null && N.length !== D.length) {
+              var M = N.length - D.length,
+                w = M > 0 ? "increased" : "decreased",
+                A = Math.abs(M);
               if (
                 (o("WALogger").LOG(
                   m ||
@@ -181,19 +187,19 @@ __d(
                       "",
                     ])),
                   k,
-                  M,
                   w,
+                  A,
                 ),
                 o("WAWebCurrentUser").isEmployee())
               ) {
-                var A = P.map(function (e) {
+                var F = N.map(function (e) {
                     return o("WAWebWidFactory").createUserWidOrThrow(e);
                   }),
-                  F = new Set(T),
-                  O = A.filter(function (e) {
-                    return !F.has(e);
+                  O = new Set(D),
+                  B = F.filter(function (e) {
+                    return !O.has(e);
                   }),
-                  B = O.join();
+                  W = B.join();
                 o("WALogger")
                   .LOG(
                     p ||
@@ -203,18 +209,18 @@ __d(
                         "",
                       ])),
                     k,
-                    B,
+                    W,
                   )
                   .sendLogs("resendGroupMsg-missed-participants", {
                     sampling: 0.01,
                   });
               }
             }
-            var W = yield o("WAWebDBDeviceListFanout").getFanOutList({
-                wids: T,
+            var q = yield o("WAWebDBDeviceListFanout").getFanOutList({
+                wids: D,
               }),
-              q = o("WAArrayDifferenceBy").differenceBy(W, v, String);
-            if (q.length === 0) {
+              U = o("WAArrayDifferenceBy").differenceBy(q, T, String);
+            if (U.length === 0) {
               o("WALogger")
                 .LOG(
                   _ ||
@@ -237,7 +243,7 @@ __d(
                       "",
                     ])),
                   k,
-                  q.join(","),
+                  U.join(","),
                 )
                 .tags("messaging"),
               b.data.isOverwrittenByRevoke === !0)
@@ -257,7 +263,7 @@ __d(
             (yield o(
               "WAWebSendDirectMsgToDeviceList",
             ).sendDirectMsgToDeviceList({
-              deviceList: q,
+              deviceList: U,
               groupData: r,
               metricReporter: i,
               msgProtobuf: l,
@@ -278,7 +284,7 @@ __d(
                 )
                 .tags("messaging"));
           } catch (e) {
-            var U;
+            var V;
             throw (
               o("WALogger")
                 .LOG(
@@ -302,8 +308,8 @@ __d(
                   e,
                 )
                 .tags("messaging"),
-              (U = i.sendReporter) == null ||
-                U.postFailure({
+              (V = i.sendReporter) == null ||
+                V.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !1,

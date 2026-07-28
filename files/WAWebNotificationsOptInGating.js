@@ -5,24 +5,38 @@ __d(
     "WAWebEnvironment",
     "WAWebNotificationConstants",
     "WAWebNotificationsModalVariant",
+    "WAWebNux",
     "WAWebUserPrefsNotifications",
+    "WAWebUserPrefsNuxPreferences",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e = 2 * o("WATimeUtils").WEEK_SECONDS;
+    function s(e) {
       return !(
         r("WAWebEnvironment").isWindows ||
         window.Notification == null ||
         e !== o("WAWebNotificationConstants").PERMISSION_DEFAULT ||
-        !u(!0)
+        !d(!0)
       );
     }
-    function s(t) {
+    function u(e) {
       return (
-        e(t) &&
+        s(e) &&
         o("WAWebNotificationsModalVariant").isNotificationsOptInModalVariant()
       );
     }
-    function u(e, t) {
+    function c() {
+      if (
+        !o("WAWebUserPrefsNuxPreferences").shouldShowNUX(
+          o("WAWebNux").NUX.NOTIFICATIONS_OPT_IN,
+        )
+      )
+        return !1;
+      var t = o("WAWebUserPrefsNotifications").getWebNotificationsBBStatus(),
+        n = t.lastModalShownTime;
+      return n == null || o("WATimeUtils").unixTime() - n > e;
+    }
+    function d(e, t) {
       if ((t === void 0 && (t = !1), r("WAWebEnvironment").isWindows && !t))
         return !1;
       var n = o("WAWebUserPrefsNotifications").getWebNotificationsBBStatus(),
@@ -47,9 +61,10 @@ __d(
         return !1;
       return !0;
     }
-    ((l.isNotificationsOptInEligible = e),
-      (l.shouldShowNotificationsOptInModal = s),
-      (l.shouldShowNotificationSettingsV2Butterbar = u));
+    ((l.isNotificationsOptInEligible = s),
+      (l.shouldShowNotificationsOptInModal = u),
+      (l.shouldShowOptInModalNow = c),
+      (l.shouldShowNotificationSettingsV2Butterbar = d));
   },
   98,
 );

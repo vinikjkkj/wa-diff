@@ -27,7 +27,6 @@ __d(
           ? o("WAResultOrError").makeError("missing-output")
           : o("WAResultOrError").makeResult({
               encryptedProtobuf: e.encryptedProtobuf,
-              messageKey: e.messageKey,
               offlineThreadingId: e.offlineThreadingId,
               orfThreadId: e.orfThreadId,
               timestampMs: e.timestampMs,
@@ -36,11 +35,11 @@ __d(
     }
     function c(e, t) {
       return {
-        encryptedPayload: o("WABase64").encodeB64(e.encryptedProtobuf),
+        encryptedPayload: e.encryptedProtobuf,
         offlineThreadingId: o("WALongInt").longIntToDecimalString(
           e.offlineThreadingId,
         ),
-        orfThreadId: o("WABase64").encodeB64(e.orfThreadId),
+        orfThreadId: e.orfThreadId,
         threadType: t,
         timestamp: o("WALongInt").longIntToDecimalString(e.timestampMs),
         valueSecretRef: e.valueSecretRef,

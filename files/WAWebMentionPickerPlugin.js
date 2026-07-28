@@ -4,7 +4,6 @@ __d(
     "fbt",
     "Lexical",
     "LexicalComposerContext",
-    "WANullthrows",
     "WAWebABProps",
     "WAWebBotDisclaimerManager",
     "WAWebBotInvokeUpsellRow.react",
@@ -36,6 +35,7 @@ __d(
     "WDSMargins.stylex",
     "asyncToGeneratorRuntime",
     "countWhere",
+    "nullthrows",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -692,7 +692,7 @@ __d(
                     return ee(e);
                   },
                   width: 360,
-                  height: r("WANullthrows")(e.height),
+                  height: r("nullthrows")(e.height),
                   skipKeyboardNav:
                     e.type === "contact_header" ||
                     e.type === "group_header" ||

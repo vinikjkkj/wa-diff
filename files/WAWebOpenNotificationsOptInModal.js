@@ -17,18 +17,24 @@ __d(
         lastDismissTime: o("WATimeUtils").unixTime(),
       });
     }
-    function c(e, t) {
+    function c(e, t, n) {
       o("WAWebModalManager").ModalManager.open(
         s.jsx(r("WAWebNotificationsOptInModal.react"), {
+          copy: t,
+          missedCount: n == null ? void 0 : n.missedCount,
           onAllow: function () {
-            return o(
-              "WAWebNotificationsOptInModalController",
-            ).requestNotificationsPermission(e, {
-              showGuidePopup: !1,
-              onPermissionResult: t == null ? void 0 : t.onPermissionResult,
-            });
+            (n == null || n.onModalResolved == null || n.onModalResolved(),
+              o(
+                "WAWebNotificationsOptInModalController",
+              ).requestNotificationsPermission(e, {
+                showGuidePopup: !1,
+                onPermissionResult: n == null ? void 0 : n.onPermissionResult,
+              }));
           },
-          onDismiss: u,
+          onDismiss: function () {
+            (n == null || n.onModalResolved == null || n.onModalResolved(),
+              u());
+          },
         }),
       );
     }
