@@ -175,14 +175,14 @@ __d(
               return (
                 (O = a.sendReporter) == null || O.setDeviceCount(q.length),
                 (B = a.sendPerfReporter) == null || B.setIsDirectedMessage(!0),
-                o("WAWebSendGroupDirectJob").encryptAndSendGroupDirectMsg(
-                  l,
-                  F,
-                  q,
-                  L,
-                  a,
-                  d,
-                )
+                o("WAWebSendGroupDirectJob").encryptAndSendGroupDirectMsg({
+                  deviceList: q,
+                  groupData: L,
+                  metricReporter: a,
+                  msgProtobuf: F,
+                  msgRecord: l,
+                  scheduledMsgMetadata: d,
+                })
               );
             }
             var U = T,

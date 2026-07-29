@@ -45,7 +45,11 @@ __d(
         var a = t.prototype;
         return (
           (a.$1 = function (t, n, r) {
-            o("WAWebIdbHelpers").logStorageError(t, n, this.table.name);
+            o("WAWebIdbHelpers").logStorageError({
+              error: t,
+              operation: n,
+              tableName: this.table.name,
+            });
             var e = this.errorHandlers.get(t.name);
             if (e) {
               var a = { op: n, table: this.table.name, db: this.db.name };

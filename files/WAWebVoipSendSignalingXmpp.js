@@ -3,7 +3,6 @@ __d(
   [
     "invariant",
     "Promise",
-    "WADeprecatedSendIq",
     "WAJids",
     "WALogger",
     "WAWap",
@@ -12,6 +11,7 @@ __d(
     "WAWebBackendJobsCommon",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebEnvironment",
     "WAWebManageE2ESessionsJob",
     "WAWebReleaseToEventLoop",
@@ -120,7 +120,9 @@ __d(
           }
           var D = o("WAWap").generateId(),
             x = o("WAWap").wap("call", { to: g, id: D }, h),
-            $ = yield o("WADeprecatedSendIq").deprecatedSendStanzaAndReturnAck(
+            $ = yield o(
+              "WAWebDeprecatedSendIqWorkerCompatible",
+            ).deprecatedSendStanzaAndReturnAck(
               x,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: String(D),

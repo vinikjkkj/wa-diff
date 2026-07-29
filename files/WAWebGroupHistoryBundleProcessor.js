@@ -576,7 +576,12 @@ __d(
           });
         }
       }
-      var R = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(t);
+      var R = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(
+        babelHelpers.extends({}, t, {
+          is1PBizBotMessage: void 0,
+          botMessageInvokerJid: void 0,
+        }),
+      );
       if (!R) return null;
       var L = n.author;
       return L == null

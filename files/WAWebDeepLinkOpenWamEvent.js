@@ -20,6 +20,7 @@ __d(
               ],
               deepLinkSessionId: [6, e.TYPES.STRING],
               deepLinkType: [3, o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE],
+              failureReason: [9, e.TYPES.STRING],
               isContact: [4, e.TYPES.BOOLEAN],
               linkOwnerType: [5, o("WAWebWamEnumOwnerType").OWNER_TYPE],
               sourceSurface: [7, e.TYPES.INTEGER],

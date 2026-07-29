@@ -383,6 +383,7 @@ __d(
               bwaVidDisablingTxCandidateDuration: [1115, e.TYPES.TIMER],
               bweSlrOutputBps: [2461, e.TYPES.INTEGER],
               c50Linked: [3001, e.TYPES.BOOLEAN],
+              ca2dE2eNetworkDelayMs: [3080, e.TYPES.NUMBER],
               ca2dEverConnected: [3077, e.TYPES.BOOLEAN],
               ca2dExtensionAddFailureReason: [
                 3067,
@@ -396,6 +397,8 @@ __d(
                   .CA2D_EXTENSION_CONNECTION_STATE,
               ],
               ca2dExtensionCreateT: [3036, e.TYPES.TIMER],
+              ca2dNetCathodeSfuRttMs: [3081, e.TYPES.NUMBER],
+              ca2dNetCreatorSfuRttMs: [3082, e.TYPES.NUMBER],
               ca2dPreviewT: [3037, e.TYPES.TIMER],
               ca2dReceiverExtConnectT: [3074, e.TYPES.TIMER],
               ca2dReceiverFirstFrameT: [3075, e.TYPES.TIMER],
@@ -810,6 +813,8 @@ __d(
               deviceClass: [1269, e.TYPES.STRING],
               deviceHardware: [229, e.TYPES.STRING],
               deviceNativeSamplingRate: [1879, e.TYPES.INTEGER],
+              deviceSocManufacturer: [3078, e.TYPES.STRING],
+              deviceSocModel: [3079, e.TYPES.STRING],
               dlOnlyHighPlrPct: [1364, e.TYPES.NUMBER],
               dndRingPath: [
                 2923,

@@ -51,11 +51,11 @@ __d(
             } catch (e) {
               var _ = r("getErrorSafe")(e);
               throw (
-                o("WAWebIdbHelpers").logStorageError(
-                  _,
-                  "encryptDbMaterial",
-                  null,
-                ),
+                o("WAWebIdbHelpers").logStorageError({
+                  error: _,
+                  operation: "encryptDbMaterial",
+                  tableName: null,
+                }),
                 _
               );
             }
@@ -119,11 +119,11 @@ __d(
             } catch (e) {
               var f = r("getErrorSafe")(e);
               throw (
-                o("WAWebIdbHelpers").logStorageError(
-                  f,
-                  "decryptDbMaterial",
-                  null,
-                ),
+                o("WAWebIdbHelpers").logStorageError({
+                  error: f,
+                  operation: "decryptDbMaterial",
+                  tableName: null,
+                }),
                 f
               );
             }

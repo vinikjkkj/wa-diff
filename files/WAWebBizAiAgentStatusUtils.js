@@ -3,12 +3,11 @@ __d(
   [
     "fbt",
     "WAWebBizAiAgentGating",
-    "WAWebBotTypes",
+    "WAWebBizAiHandoffRemoval",
     "WAWebBusinessProfileCollection",
     "WAWebChatGetters",
     "WAWebCommunityGatingUtils",
     "WAWebContactGetters",
-    "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
     "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
@@ -100,7 +99,7 @@ __d(
                 .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
                 .CONTROL_PASSED &&
             e.isAiHandoff === !0 &&
-            !h(o("WAWebFrontendChatGetters").getPreviewMessage(e))
+            o("WAWebBizAiHandoffRemoval").isHandoffChatRetained(e)
           ? "handoff"
           : null;
     }
@@ -110,16 +109,11 @@ __d(
       );
     }
     function h(e) {
-      return e == null || e.bizBotType === o("WAWebBotTypes").BizBotType.BIZ_1P
-        ? !1
-        : e.id.fromMe === !0;
-    }
-    function y(e) {
       return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? C(e)
+        ? y(e)
         : !1;
     }
-    function C(e) {
+    function y(e) {
       var t = e.labels;
       return t == null ||
         t.length === 0 ||
@@ -133,7 +127,7 @@ __d(
             return t != null && !!t.name;
           });
     }
-    function b(e, t) {
+    function C(e, t) {
       return (
         t === void 0 && (t = !1),
         t &&
@@ -141,7 +135,7 @@ __d(
           e.groupMetadata,
         )
           ? !1
-          : g(e) || y(e)
+          : g(e) || h(e)
       );
     }
     ((l.getAiHubSubtitle = e),
@@ -153,10 +147,9 @@ __d(
       (l.shouldMuteNotification = _),
       (l.resolveAiChatStatus = f),
       (l.shouldShowAiChipsForChat = g),
-      (l.hasBusinessRepliedAfterHandoff = h),
-      (l.shouldShowLabelPillsForChat = y),
-      (l.hasDisplayableLabels = C),
-      (l.shouldShowTertiaryRowForChat = b));
+      (l.shouldShowLabelPillsForChat = h),
+      (l.hasDisplayableLabels = y),
+      (l.shouldShowTertiaryRowForChat = C));
   },
   226,
 );

@@ -9,6 +9,7 @@ __d(
     "WAWebApiChat",
     "WAWebBackendErrors",
     "WAWebBeyondPhoneNumberGatingUtils",
+    "WAWebBizAiHandoffRemoval",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebCTWAGatingUtils",
     "WAWebChangePresenceHandlerAction",
@@ -131,9 +132,11 @@ __d(
       return a
         .then(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = {};
-            (e.promises.updateSortTime &&
-              e.promises.updateSortTime.abortController.abort(),
+            var n = {},
+              a = o("WAWebBizAiHandoffRemoval").computeHandoffRemovalExpiry(e);
+            (a !== void 0 && (n.aiHandoffRemovalExpiry = a),
+              e.promises.updateSortTime &&
+                e.promises.updateSortTime.abortController.abort(),
               o("WAWebMsgGetters").getIsSentByMeFromWeb(t) &&
                 e.archive &&
                 o("WAWebSetArchiveChatActionUtils").shouldUnarchiveChat(
@@ -163,10 +166,10 @@ __d(
             try {
               yield o("WAWebDBUpdateChatTable").updateChatTable(e.id, n);
             } catch (t) {
-              var a = yield o("WAWebSchemaChat")
+              var l = yield o("WAWebSchemaChat")
                   .getChatTable()
                   .get(e.id.toString()),
-                l = a != null;
+                s = l != null;
               throw (
                 o("WALogger")
                   .ERROR(
@@ -177,26 +180,26 @@ __d(
                         "",
                       ])),
                     e.id.toLogString(),
-                    l,
+                    s,
                   )
                   .catching(r("getErrorSafe")(t))
                   .sendLogs("handle-new-msg-cannot-update-chat"),
                 t
               );
             }
-            var s = babelHelpers.extends({}, n);
+            var f = babelHelpers.extends({}, n);
             try {
-              var f;
+              var g;
               if (
                 b() &&
                 (o("WAWebViewModeUtils").isViewModeVisibleInSurface(
                   o("WAWebViewMode.flow").ViewModeSurface.CHAT,
                   t.viewMode,
                 ) ||
-                  ((f = o("WAWebInvisiblePlaceholderViewModeProcessor")
+                  ((g = o("WAWebInvisiblePlaceholderViewModeProcessor")
                     .InvisiblePlaceholderViewModeProcessor
                     .compatibleMessageTypes) != null &&
-                    f.includes(t.type)) ||
+                    g.includes(t.type)) ||
                   o(
                     "WAWebViewModeUtils",
                   ).isOfflineResumeCallLogPlaceholderViewMode(t.viewMode))
@@ -209,7 +212,7 @@ __d(
                     ])),
                   e.id.toLogString(),
                 ),
-                  (s.t = t.t),
+                  (f.t = t.t),
                   (o("WAWebFrontendMsgGetters").getEventType(t) ===
                     o("WAWebCommonMsgUtils").EventType.AMBIENT ||
                     o("WAWebFrontendMsgGetters").getEventType(t) ===
@@ -224,13 +227,13 @@ __d(
                           e.set({ activeUnreadCount: e.activeUnreadCount + 1 }))
                       : (i = !0)));
               else {
-                var g = yield o("WAWebApiChat").getChatMeta(e.id),
-                  h = g.timestamp,
-                  y = g.unreadCount;
-                ((s.unreadCount = y),
-                  (s.t = h),
+                var h = yield o("WAWebApiChat").getChatMeta(e.id),
+                  y = h.timestamp,
+                  C = h.unreadCount;
+                ((f.unreadCount = C),
+                  (f.t = y),
                   e.activeUnreadCount > 0 &&
-                    (s.activeUnreadCount =
+                    (f.activeUnreadCount =
                       e.activeUnreadCount +
                       Number(
                         o("WAWebViewModeUtils").isViewModeVisibleInSurface(
@@ -239,9 +242,9 @@ __d(
                         ),
                       )));
               }
-              s.unreadDividerOffset = 0;
+              f.unreadDividerOffset = 0;
             } catch (t) {
-              var C = r("getErrorSafe")(t);
+              var S = r("getErrorSafe")(t);
               if (
                 (o("WALogger")
                   .ERROR(
@@ -252,22 +255,22 @@ __d(
                       ])),
                     e.id.toLogString(),
                   )
-                  .catching(C),
+                  .catching(S),
                 !v)
               ) {
-                var S, R;
+                var R, L;
                 v = !0;
-                var L = yield o("WAWebSchemaChat")
+                var E = yield o("WAWebSchemaChat")
                     .getChatTable()
                     .get(e.id.toString()),
-                  E = e.accountLid
+                  k = e.accountLid
                     ? yield o("WAWebSchemaChat")
                         .getChatTable()
-                        .get((S = e.accountLid) == null ? void 0 : S.toString())
+                        .get((R = e.accountLid) == null ? void 0 : R.toString())
                     : null;
                 o("WAWebLidMigrationUtils").logLidMetadata();
-                var k = L != null,
-                  I = E != null;
+                var I = E != null,
+                  T = k != null;
                 (o("WALogger")
                   .LOG(
                     p ||
@@ -279,9 +282,9 @@ __d(
                         "",
                       ])),
                     e.id.toLogString(),
-                    (R = e.accountLid) == null ? void 0 : R.toLogString(),
-                    k,
+                    (L = e.accountLid) == null ? void 0 : L.toLogString(),
                     I,
+                    T,
                   )
                   .tags("missing-lid"),
                   o("WALogger")
@@ -293,13 +296,13 @@ __d(
                         ])),
                       e.id.toLogString(),
                     )
-                    .catching(C)
+                    .catching(S)
                     .sendLogs(
                       "onNewMsg: unable to find metadata from chat table",
                     ));
               }
             }
-            return s;
+            return f;
           }),
         )
         .then(
@@ -312,6 +315,10 @@ __d(
                     e.activeUnreadCount > 0 &&
                       (n.activeUnreadCount = e.activeUnreadCount + 1)),
                   e.set(n),
+                  n.aiHandoffRemovalExpiry !== void 0 &&
+                    o(
+                      "WAWebBizAiHandoffRemoval",
+                    ).armHandoffRemovalEvictionTimer(e),
                   t.ctwaContext != null &&
                     (o(
                       "WAWebCommonCTWAConsumerTransparency",

@@ -20,12 +20,12 @@ __d(
             a = t.from,
             i = t.groupId,
             l = t.to,
-            s = yield o("WAWebApiGroupInviteV4Store").revokeGroupInvites(
-              a,
-              l,
-              i,
-              r,
-            ),
+            s = yield o("WAWebApiGroupInviteV4Store").revokeGroupInvites({
+              expiration: r,
+              from: a,
+              groupId: i,
+              to: l,
+            }),
             u =
               (s == null
                 ? void 0

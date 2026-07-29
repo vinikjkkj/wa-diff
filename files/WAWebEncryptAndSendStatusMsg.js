@@ -1,7 +1,6 @@
 __d(
   "WAWebEncryptAndSendStatusMsg",
   [
-    "WADeprecatedSendIq",
     "WAJids",
     "WALogger",
     "WAWap",
@@ -12,6 +11,7 @@ __d(
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebDBDeviceListFanout",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoUtils",
     "WAWebGetGroupKeyDistributionMsg",
     "WAWebLidMigrationUtils",
@@ -319,7 +319,9 @@ __d(
                 ])),
               v.id,
             ),
-            yield o("WADeprecatedSendIq").deprecatedSendStanzaAndReturnAck(
+            yield o(
+              "WAWebDeprecatedSendIqWorkerCompatible",
+            ).deprecatedSendStanzaAndReturnAck(
               re,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: v.id,
@@ -567,7 +569,9 @@ __d(
                 ])),
               u.id,
             ),
-            yield o("WADeprecatedSendIq").deprecatedSendStanzaAndReturnAck(
+            yield o(
+              "WAWebDeprecatedSendIqWorkerCompatible",
+            ).deprecatedSendStanzaAndReturnAck(
               p,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: u.id,

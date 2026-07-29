@@ -1,9 +1,9 @@
 __d(
   "WAWebSendAppStateSyncMsgJob",
   [
-    "WADeprecatedSendIq",
     "WALogger",
     "WAWebCommsAckParser",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebSendMsgCreateDeviceStanza",
@@ -55,7 +55,9 @@ __d(
                 },
               },
             );
-          return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+          return o(
+            "WAWebDeprecatedSendIqWorkerCompatible",
+          ).deprecatedSendStanzaAndWaitForAck(
             s,
             o("WAWebCommsAckParser").toCoreAckTemplate({
               id: n.id.id,

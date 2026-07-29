@@ -14,6 +14,7 @@ __d(
     "WAWebAuthAgentFeatureControlLifecycle",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
+    "WAWebBackendWorkerClient",
     "WAWebBackgroundSyncReporter",
     "WAWebBootstrapBizBroadcastCampaigns",
     "WAWebBootstrapPremiumMessages",
@@ -23,7 +24,9 @@ __d(
     "WAWebClientPayload",
     "WAWebCommonCTWADataSharing",
     "WAWebCommsConfig",
+    "WAWebCommsGating",
     "WAWebCommsHandleStanza",
+    "WAWebCommsWorkerProxy",
     "WAWebCrashlog",
     "WAWebCryptoEncKeyHelper",
     "WAWebDBAfterReadSendingRollbackMigration",
@@ -108,6 +111,7 @@ __d(
     "WAWebUserPrefsLocales",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserPrefsWorkerCompatibleMainThread",
     "WAWebWaitForInitialChatsSynced",
     "WAWebWamGlobals",
     "WAWebWamOfflineResumeReporter",
@@ -229,11 +233,15 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WAWebStartBackendWorker").startBackendWorker(), E || k());
-          var e = yield o(
+          o(
+            "WAWebUserPrefsWorkerCompatibleMainThread",
+          ).initializeUserPrefsWorkerCompatibleMainThread();
+          var e = o("WAWebStartBackendWorker").startBackendWorker();
+          E || k();
+          var t = yield o(
             "WAWebSignalStoreApi",
           ).waSignalStore.getRegistrationInfo();
-          if (!e) {
+          if (!t) {
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -253,27 +261,27 @@ __d(
             ),
             r("WAWebEnvironment").isWindows)
           ) {
-            var t =
+            var a =
               r("WAWebLocalStorage") == null
                 ? void 0
                 : r("WAWebLocalStorage").getItem(
                     o("WAWebUserPrefsKeys").KEYS
                       .WINDOWS_PENDING_CLIENT_KEY_SETUP,
                   );
-            if (t != null) {
-              var a,
-                i,
-                l = o("WAWebUserPrefsMultiDevice").getNoiseInfo(),
-                s =
-                  l == null || (a = l.staticKeyPair) == null
+            if (a != null) {
+              var i,
+                l,
+                s = o("WAWebUserPrefsMultiDevice").getNoiseInfo(),
+                u =
+                  s == null || (i = s.staticKeyPair) == null
                     ? void 0
-                    : a.privKey,
-                u = s != null ? o("WABase64").encodeB64(s) : "";
+                    : i.privKey,
+                c = u != null ? o("WABase64").encodeB64(u) : "";
               (yield n("cr:17219") == null ||
-              (i = n("cr:17219").getWindowsBridge()) == null ||
-              (i = i.getClientKeyBridge()) == null
+              (l = n("cr:17219").getWindowsBridge()) == null ||
+              (l = l.getClientKeyBridge()) == null
                 ? void 0
-                : i.setClientKey(u),
+                : l.setClientKey(c),
                 yield o("WAWebFtsClient").ftsClient.initExternalStorage(),
                 r("WAWebLocalStorage") == null ||
                   r("WAWebLocalStorage").removeItem(
@@ -309,11 +317,11 @@ __d(
             B(),
             yield o("WAWebPrimaryFeatures").loadPrimaryFeatures(),
             o("WAWebMediaHosts").mediaHosts.maybeLoadMediaConnFromStorage());
-          var c = o(
+          var y = o(
             "WAWebUserPrefsHistorySync",
           ).getInitialHistorySyncComplete();
           if (
-            (!c &&
+            (!y &&
               !o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() &&
               (o("WALogger").LOG(
                 p ||
@@ -324,7 +332,18 @@ __d(
               o(
                 "WAWebWaitForInitialChatsSynced",
               ).initWaitForInitialChatsSynced()),
-            yield q(),
+            o("WAWebCommsGating").isCommsInWorker())
+          ) {
+            var C = yield o(
+              "WAWebBackendWorkerClient",
+            ).getBackendWorkerBridge();
+            (o("WAComms").setCommsFactory(function () {
+              return o("WAWebCommsWorkerProxy").createCommsWorkerProxy(C);
+            }),
+              yield e);
+          }
+          if (
+            (yield q(),
             M(),
             o("WAWebABPropsWamGlobals").setAbPropDependingGlobalWamAttributes(),
             o("WAWebL10NHelpers").isLocalLanguageOverrideEnabled() &&
@@ -368,13 +387,13 @@ __d(
             ),
             o("WAWebBuildConstants").WINDOWS_OFFLINE)
           ) {
-            var y,
-              C = yield n("cr:17219") == null ||
-              (y = n("cr:17219").getWindowsBridge()) == null ||
-              (y = y.serverEncKeySaltBridge) == null
+            var b,
+              v = yield n("cr:17219") == null ||
+              (b = n("cr:17219").getWindowsBridge()) == null ||
+              (b = b.serverEncKeySaltBridge) == null
                 ? void 0
-                : y.getServerEncKeySalt();
-            if (C == null)
+                : b.getServerEncKeySalt();
+            if (v == null)
               o("WALogger").ERROR(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -382,15 +401,15 @@ __d(
                   ])),
               );
             else {
-              var b = new TextDecoder(),
-                v = o("WABase64").decodeB64(C),
-                S = b.decode(v);
+              var S = new TextDecoder(),
+                R = o("WABase64").decodeB64(v),
+                L = S.decode(R);
               (yield o(
                 "WAWebDbEncryptionKey",
-              ).DbEncKeyStore.generateFinalDbEncryptionAndFtsKey(S),
+              ).DbEncKeyStore.generateFinalDbEncryptionAndFtsKey(L),
                 yield o(
                   "WAWebCryptoEncKeyHelper",
-                ).generateFinalDbEncryptionAndFtsKeyForInvoker(S));
+                ).generateFinalDbEncryptionAndFtsKeyForInvoker(L));
             }
             (o(
               "WAWebBackendEventBus",
@@ -470,8 +489,8 @@ __d(
               "WAWebPassiveModeManager",
             ).PassiveTaskManager.waitForPassiveTaskEnd(),
             yield o("WAWebSyncdCoreApi").initialize());
-          var R = !(yield r("WAWebSyncBootstrap").isCriticalDataSynced());
-          (R
+          var T = !(yield r("WAWebSyncBootstrap").isCriticalDataSynced());
+          (T
             ? yield r("WAWebSyncBootstrap").syncCriticalData()
             : o("WALogger").LOG(
                 h ||
@@ -513,20 +532,27 @@ __d(
     function N() {
       return (
         (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t, a;
           (e === void 0 && (e = { passive: !1, pull: !0 }),
             o("WAWebPageLoadLogging").startPageLoadQplMeasure("startWebComms"));
-          var t = o("WAWebCommsConfig").getCommsConfig(e);
+          var i = o("WAWebCommsConfig").getCommsConfig(e);
           yield o("WAWebEventsWaitForMain").waitForMain();
-          var a = !o("WAWebBuildConstants").WINDOWS_OFFLINE;
-          (o("WAComms").startComms(
-            r("WAWebCommsHandleStanza"),
-            t,
-            function (e) {
-              return (L || (L = n("Promise"))).resolve(o("WAGzip").inflate(e));
-            },
-            a,
-          ),
-            a && (yield o("WAComms").waitForConnection()),
+          var l = !o("WAWebBuildConstants").WINDOWS_OFFLINE;
+          (o("WAWebCommsWorkerProxy").setStartCommsArgs({
+            passive: (t = e) == null ? void 0 : t.passive,
+            pull: (a = e) == null ? void 0 : a.pull,
+          }),
+            o("WAComms").startComms(
+              r("WAWebCommsHandleStanza"),
+              i,
+              function (e) {
+                return (L || (L = n("Promise"))).resolve(
+                  o("WAGzip").inflate(e),
+                );
+              },
+              l,
+            ),
+            l && (yield o("WAComms").waitForConnection()),
             o("WAWebPageLoadLogging").endPageLoadQplMeasure("startWebComms"));
         })),
         N.apply(this, arguments)

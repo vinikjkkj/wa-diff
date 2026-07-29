@@ -29,6 +29,7 @@ __d(
               ],
               protobufValidationPath: [5, e.TYPES.STRING],
               protobufValidationRuleId: [6, e.TYPES.STRING],
+              protobufValidationThumbnailFormat: [10, e.TYPES.STRING],
             },
             [1, 1, 1],
             "regular",

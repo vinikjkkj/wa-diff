@@ -31,6 +31,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsStatusAttributions.pb",
     "WAWebSimpleSignalPNToFBIDMigration",
+    "WAWebSpoilerFutureproofProtoUtils",
     "WAWebStructuredClone",
     "WAWebURLUtils",
     "WAWebWid",
@@ -213,6 +214,7 @@ __d(
         e.conversionTuple && Object.assign(a, e.conversionTuple),
         e.isForwarded && (a.isForwarded = e.isForwarded),
         e.isQuestion && (a.isQuestion = e.isQuestion),
+        e.isSpoiler === !0 && (a.isSpoiler = !0),
         e.questionReplyQuotedMessage &&
           (a.questionReplyQuotedMessage = {
             serverQuestionId: e.questionReplyQuotedMessage.questionServerId,
@@ -626,6 +628,10 @@ __d(
         t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
           t.isForwarded === !0 &&
           (d = E(d)),
+        (n == null ? void 0 : n.isSpoiler) === !0 &&
+          (d = o(
+            "WAWebSpoilerFutureproofProtoUtils",
+          ).createSpoilerFutureproofMessage(d, n)),
         c != null &&
           (d = babelHelpers.extends({}, d, {
             messageContextInfo: babelHelpers.extends(
@@ -670,6 +676,7 @@ __d(
       "editedMessage",
       "viewOnceMessageV2Extension",
       "groupMentionedMessage",
+      "spoilerMessage",
       "botInvokeMessage",
       "statusMentionMessage",
       "pollCreationOptionImageMessage",

@@ -487,15 +487,18 @@ __d(
           return F(n, e, t, o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message);
       }
     }
-    function A(e, t, n) {
-      var a = o("WAWebAddonProcessingError").validateMsgMeta(e, n),
-        i = a.threadMsgId,
-        l = a.threadMsgSenderJid;
+    function A(e) {
+      var t = e.info,
+        n = e.msgMeta,
+        a = e.realType,
+        i = o("WAWebAddonProcessingError").validateMsgMeta(n, a),
+        l = i.threadMsgId,
+        s = i.threadMsgSenderJid;
       return new (r("WAWebMsgKey"))({
-        id: i,
-        fromMe: o("WAWebUserPrefsMeUser").isMeAccount(l),
+        id: l,
+        fromMe: o("WAWebUserPrefsMeUser").isMeAccount(s),
         remote: t.chat,
-        participant: l,
+        participant: s,
       });
     }
     function F(e, t, n, a) {

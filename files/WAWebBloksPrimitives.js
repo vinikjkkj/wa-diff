@@ -1,10 +1,11 @@
 __d(
   "WAWebBloksPrimitives",
-  ["WAWebBloksCommerceActionWithCallback"],
+  ["WAWebBloksCommerceActionWithCallback", "WAWebBloksSendFieldStat"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {},
       s = {
+        "wa.action.SendFieldStat": r("WAWebBloksSendFieldStat"),
         "wa.action.commerce.ActionWithCallback": r(
           "WAWebBloksCommerceActionWithCallback",
         ),

@@ -1,8 +1,8 @@
 __d(
   "WAWebSendMsgToDeviceList",
   [
-    "WADeprecatedSendIq",
     "WAWebCommsAckParser",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgCreateFanoutStanza",
     "asyncToGeneratorRuntime",
@@ -46,7 +46,7 @@ __d(
           ((n = c.sendPerfReporter) == null || n.postReadyToSendStage(),
             (a = c.sendPerfReporter) == null || a.startWrittenWireStage());
           var b = yield o(
-              "WADeprecatedSendIq",
+              "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
               C,
               o("WAWebCommsAckParser").toCoreAckTemplate({

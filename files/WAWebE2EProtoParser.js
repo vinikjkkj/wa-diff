@@ -99,7 +99,11 @@ __d(
         }),
         b = C.contextInfo,
         v = C.msgData;
-      return (L(v, b, p, g), x(v, y, p), v);
+      return (
+        L({ contextInfo: b, message: v, msgContext: p, quotedPaymentInfo: g }),
+        x(v, y, p),
+        v
+      );
     }
     function S(e) {
       var t = e.bizInfo,
@@ -302,10 +306,14 @@ __d(
           ).isChannelVideoServerTranscodeUploadEnabled() &&
           (e.metadataUrl = void 0));
     }
-    function L(e, t, n, r) {
+    function L(e) {
+      var t = e.contextInfo,
+        n = e.message,
+        r = e.msgContext,
+        a = e.quotedPaymentInfo;
       t &&
-        (E(e, t, n, r),
-        o("WAWebE2EProtoParserForCtwaContext").parseCtwaContextProto(e, t));
+        (E(n, t, r, a),
+        o("WAWebE2EProtoParserForCtwaContext").parseCtwaContextProto(n, t));
     }
     function E(e, t, n, a) {
       var i = t.quotedMessage,

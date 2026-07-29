@@ -41,6 +41,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsIsLoggedIn",
     "WAWebUserPrefsMultiDevice",
+    "WAWebUserPrefsWorkerCompatibleMainThread",
     "WAWebWaitForInitialChatsSynced",
     "WAWebWamEnumWebcScenarioType",
     "WAWebWamMemoryStat",
@@ -82,6 +83,9 @@ __d(
       (o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(
         o("WAWebBackendEventBus").BackendEventBus,
       ),
+        o(
+          "WAWebUserPrefsWorkerCompatibleMainThread",
+        ).initializeUserPrefsWorkerCompatibleMainThread(),
         o("WAWebHistorySyncProgress").initHistorySyncProgressListeners(),
         o("WAWebBackendEventBus").BackendEventBus.onRefreshQR(
           o("WAWebLaunchSocketUtils").refreshQR,

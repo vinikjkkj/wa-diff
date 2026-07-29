@@ -7,15 +7,15 @@ __d(
     "WABinary",
     "WALogger",
     "WAWebBackendApi",
-    "WAWebBackendEventBus",
+    "WAWebBackendEventBusWorkerCompatible",
     "WAWebCoreActionsODS",
     "WAWebCryptoCurve25519",
     "WAWebDbEncryptionKey",
     "WAWebLogoutReasonConstants",
     "WAWebSocketConstants",
     "WAWebSocketLogoutJob",
-    "WAWebUserPrefsMultiDevice",
-    "WAWebUserPrefsScreenLock",
+    "WAWebUserPrefsMultiDeviceWorkerCompatible",
+    "WAWebUserPrefsScreenLockWorkerCompatible",
     "asyncToGeneratorRuntime",
     "gkx",
   ],
@@ -74,17 +74,23 @@ __d(
           }),
           (r.get = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = o("WAWebUserPrefsMultiDevice").getNoiseInfo();
+              var e = yield o(
+                "WAWebUserPrefsMultiDeviceWorkerCompatible",
+              ).getNoiseInfo();
               if (!e) return null;
-              var t = this.$1();
+              var t = yield this.$1();
               if (!t) return null;
               if (
                 ((e = yield this.$2(e, t)),
-                o("WAWebUserPrefsScreenLock").getScreenLockEnabled())
+                yield o(
+                  "WAWebUserPrefsScreenLockWorkerCompatible",
+                ).getScreenLockEnabled())
               ) {
-                o("WAWebBackendEventBus").BackendEventBus.triggerSetSocketState(
-                  o("WAWebSocketConstants").SOCKET_STATE.SCREEN_LOCKED,
-                );
+                o("WAWebBackendEventBusWorkerCompatible")
+                  .getBackendEventBus()
+                  .triggerSetSocketState(
+                    o("WAWebSocketConstants").SOCKET_STATE.SCREEN_LOCKED,
+                  );
                 var n = yield this.passcodeUnlockNoiseInfo(e);
                 n && (e = n);
               }
@@ -193,7 +199,7 @@ __d(
                   (r.staticKeyPair.pubKey = y),
                   (r.staticKeyPair.privKey = C),
                   (r.certificateChainBuffer = b),
-                  o("WAWebUserPrefsMultiDevice").setNoiseInfo(r)
+                  o("WAWebUserPrefsMultiDeviceWorkerCompatible").setNoiseInfo(r)
                 );
               },
             );
@@ -203,18 +209,26 @@ __d(
             return t;
           })()),
           (r.$5 = function (t) {
-            return o("WAWebUserPrefsMultiDevice").setNoiseInfoIv(
-              t.map(o("WABase64").encodeB64),
-            );
+            return o(
+              "WAWebUserPrefsMultiDeviceWorkerCompatible",
+            ).setNoiseInfoIv(t.map(o("WABase64").encodeB64));
           }),
-          (r.$1 = function () {
-            var e = o("WAWebUserPrefsMultiDevice").getNoiseInfoIv();
-            return e
-              ? e.map(function (e) {
-                  return new Uint8Array(o("WABase64").decodeB64(e));
-                })
-              : null;
-          }),
+          (r.$1 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
+                "WAWebUserPrefsMultiDeviceWorkerCompatible",
+              ).getNoiseInfoIv();
+              return e
+                ? e.map(function (e) {
+                    return new Uint8Array(o("WABase64").decodeB64(e));
+                  })
+                : null;
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (r.$4 = function (t) {
             var e = new (o("WABinary").Binary)(t);
             return [
@@ -330,7 +344,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = yield this.deriveKeyFromPasscode(e);
-                this.createScreenLockIv();
+                yield this.createScreenLockIv();
                 var n = yield this.get();
                 if (!n || !n.staticKeyPair) return !1;
                 try {
@@ -383,11 +397,11 @@ __d(
                       "correctPasscodeEntered",
                       { key: n },
                     ),
-                    o(
-                      "WAWebBackendEventBus",
-                    ).BackendEventBus.triggerSetSocketState(
-                      o("WAWebSocketConstants").SOCKET_STATE.OPENING,
-                    ),
+                    o("WAWebBackendEventBusWorkerCompatible")
+                      .getBackendEventBus()
+                      .triggerSetSocketState(
+                        o("WAWebSocketConstants").SOCKET_STATE.OPENING,
+                      ),
                     a);
               },
             );
@@ -433,9 +447,11 @@ __d(
           (r.removeLockOnNoiseInfo = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = o("WAWebUserPrefsMultiDevice").getNoiseInfo();
+                var t = yield o(
+                  "WAWebUserPrefsMultiDeviceWorkerCompatible",
+                ).getNoiseInfo();
                 if (!t) return !1;
-                var n = this.$1();
+                var n = yield this.$1();
                 if (!n) return !1;
                 t = yield this.$2(t, n);
                 var r = yield this.deriveKeyFromPasscode(e),
@@ -445,10 +461,14 @@ __d(
                   return i
                     ? ((this.cachedPasscodeDerivedKey = null),
                       yield this.set(a),
-                      o("WAWebUserPrefsScreenLock").setScreenLockSalt(null),
-                      o("WAWebUserPrefsScreenLock").setScreenLockIvString(""),
                       yield o(
-                        "WAWebUserPrefsScreenLock",
+                        "WAWebUserPrefsScreenLockWorkerCompatible",
+                      ).setScreenLockSalt(null),
+                      yield o(
+                        "WAWebUserPrefsScreenLockWorkerCompatible",
+                      ).setScreenLockIvString(""),
+                      yield o(
+                        "WAWebUserPrefsScreenLockWorkerCompatible",
                       ).setScreenLockIterations(null),
                       !0)
                     : (o("WALogger")
@@ -501,49 +521,75 @@ __d(
             }
             return t;
           })()),
-          (r.getOrGenScreenLockSalt = function () {
-            var e = null;
-            return (
-              o("WAWebUserPrefsScreenLock").getScreenLockEnabled() ||
-                ((e = new Uint8Array(_)),
-                self.crypto.getRandomValues(e),
-                (e = btoa(
-                  String.fromCharCode.apply(
-                    String,
-                    Array.from(new Uint8Array(e)),
-                  ),
-                )),
-                o("WAWebUserPrefsScreenLock").setScreenLockSalt(e)),
-              (e = o("WAWebUserPrefsScreenLock").getScreenLockSalt()),
-              e == null &&
-                (o("WAWebCoreActionsODS").logSessionForcedLogout(),
-                o("WAWebSocketLogoutJob").socketLogout(
-                  o("WAWebLogoutReasonConstants").LogoutReason
-                    .MissingScreenLockSalt,
-                )),
-              (e = Uint8Array.from(atob(e), function (e) {
-                return e.charCodeAt(0);
-              })),
-              (p || (p = n("Promise"))).resolve(e)
-            );
-          }),
-          (r.createScreenLockIv = function () {
-            var e = new Uint8Array(16);
-            self.crypto.getRandomValues(e);
-            var t = new (o("WABinary").Binary)(e).readByteArrayView(16);
-            o("WAWebUserPrefsScreenLock").setScreenLockIvString(
-              o("WABase64").encodeB64(t),
-            );
-          }),
-          (r.getScreenLockIvArray = function () {
-            var e = o("WAWebUserPrefsScreenLock").getScreenLockIvString();
-            return e ? new Uint8Array(o("WABase64").decodeB64(e)) : null;
-          }),
+          (r.getOrGenScreenLockSalt = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = null;
+              return (
+                (yield o(
+                  "WAWebUserPrefsScreenLockWorkerCompatible",
+                ).getScreenLockEnabled()) ||
+                  ((e = new Uint8Array(_)),
+                  self.crypto.getRandomValues(e),
+                  (e = btoa(
+                    String.fromCharCode.apply(
+                      String,
+                      Array.from(new Uint8Array(e)),
+                    ),
+                  )),
+                  yield o(
+                    "WAWebUserPrefsScreenLockWorkerCompatible",
+                  ).setScreenLockSalt(e)),
+                (e = yield o(
+                  "WAWebUserPrefsScreenLockWorkerCompatible",
+                ).getScreenLockSalt()),
+                e == null &&
+                  (o("WAWebCoreActionsODS").logSessionForcedLogout(),
+                  o("WAWebSocketLogoutJob").socketLogout(
+                    o("WAWebLogoutReasonConstants").LogoutReason
+                      .MissingScreenLockSalt,
+                  )),
+                (e = Uint8Array.from(atob(e), function (e) {
+                  return e.charCodeAt(0);
+                })),
+                e
+              );
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.createScreenLockIv = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = new Uint8Array(16);
+              self.crypto.getRandomValues(e);
+              var t = new (o("WABinary").Binary)(e).readByteArrayView(16);
+              yield o(
+                "WAWebUserPrefsScreenLockWorkerCompatible",
+              ).setScreenLockIvString(o("WABase64").encodeB64(t));
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (r.getScreenLockIvArray = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield o(
+                "WAWebUserPrefsScreenLockWorkerCompatible",
+              ).getScreenLockIvString();
+              return e ? new Uint8Array(o("WABase64").decodeB64(e)) : null;
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (r.encryptNoiseWithPasscodeDerivedKey = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 if (e == null) return null;
-                var n = this.getScreenLockIvArray();
+                var n = yield this.getScreenLockIvArray();
                 if (!n) return null;
                 var r = yield self.crypto.subtle.encrypt(
                   { iv: n, name: f },
@@ -562,7 +608,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
                 if (e == null) return null;
-                var n = this.getScreenLockIvArray();
+                var n = yield this.getScreenLockIvArray();
                 if (!n) return null;
                 var r = yield self.crypto.subtle.decrypt(
                   { iv: n, name: f },
@@ -584,15 +630,17 @@ __d(
           (r.getScreenLockIterationCount = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = yield o(
-                "WAWebUserPrefsScreenLock",
+                "WAWebUserPrefsScreenLockWorkerCompatible",
               ).getScreenLockIterations();
               return (
-                (!o("WAWebUserPrefsScreenLock").getScreenLockEnabled() ||
+                (!(yield o(
+                  "WAWebUserPrefsScreenLockWorkerCompatible",
+                ).getScreenLockEnabled()) ||
                   e == null) &&
                   ((e = this.calculatePBKDF2Iterations()),
-                  yield o("WAWebUserPrefsScreenLock").setScreenLockIterations(
-                    e,
-                  )),
+                  yield o(
+                    "WAWebUserPrefsScreenLockWorkerCompatible",
+                  ).setScreenLockIterations(e)),
                 e
               );
             });

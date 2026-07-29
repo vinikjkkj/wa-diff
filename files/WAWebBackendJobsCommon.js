@@ -146,15 +146,18 @@ __d(
       } else if (e.documentWithCaptionMessage) {
         var s = e.documentWithCaptionMessage.message;
         return s ? f(s) : null;
-      } else if (e.botInvokeMessage) {
-        var u = e.botInvokeMessage.message;
+      } else if (e.spoilerMessage) {
+        var u = e.spoilerMessage.message;
         return u ? f(u) : null;
-      } else if (e.associatedChildMessage) {
-        var c = e.associatedChildMessage.message;
+      } else if (e.botInvokeMessage) {
+        var c = e.botInvokeMessage.message;
         return c ? f(c) : null;
-      } else if (e.pollCreationOptionImageMessage) {
-        var d = e.pollCreationOptionImageMessage.message;
+      } else if (e.associatedChildMessage) {
+        var d = e.associatedChildMessage.message;
         return d ? f(d) : null;
+      } else if (e.pollCreationOptionImageMessage) {
+        var m = e.pollCreationOptionImageMessage.message;
+        return m ? f(m) : null;
       } else {
         if (e.imageMessage)
           return o("WAWebBackendJobs.flow").EncMediaType.Image;
@@ -207,14 +210,14 @@ __d(
         )
           return o("WAWebBackendJobs.flow").EncMediaType.Url;
         if (e.questionMessage) {
-          var m = e.questionMessage.message;
-          return m ? f(m) : null;
-        } else if (e.questionReplyMessage) {
-          var p = e.questionReplyMessage.message;
+          var p = e.questionMessage.message;
           return p ? f(p) : null;
-        } else if (e.newsletterAdminProfileMessage) {
-          var _ = e.newsletterAdminProfileMessage.message;
+        } else if (e.questionReplyMessage) {
+          var _ = e.questionReplyMessage.message;
           return _ ? f(_) : null;
+        } else if (e.newsletterAdminProfileMessage) {
+          var g = e.newsletterAdminProfileMessage.message;
+          return g ? f(g) : null;
         }
       }
       return null;

@@ -47,6 +47,7 @@ __d(
         NEWSLETTER_STATUS: 9,
         STATUS_CLOSE_SHARING: 10,
         PAID_PARTNERSHIP: 11,
+        USERNAME_STATUS: 12,
       }),
       _ = {},
       f = {},

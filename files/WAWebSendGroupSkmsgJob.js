@@ -2,7 +2,6 @@ __d(
   "WAWebSendGroupSkmsgJob",
   [
     "Promise",
-    "WADeprecatedSendIq",
     "WALogger",
     "WATimeUtils",
     "WAWap",
@@ -18,6 +17,7 @@ __d(
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebCreateNackFromStanza",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
     "WAWebE2EProtoUtils",
     "WAWebEncryptMsgProtobuf",
@@ -420,7 +420,7 @@ __d(
               (E = l.sendPerfReporter) == null || E.startWrittenWireStage(),
               n("cr:10199") == null || n("cr:10199").printEncNode(t));
             var X = yield o(
-              "WADeprecatedSendIq",
+              "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
               Q,
               o("WAWebCommsAckParser").toCoreAckTemplate({

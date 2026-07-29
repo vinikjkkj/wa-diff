@@ -2,11 +2,11 @@ __d(
   "WAWebSendHistSyncServerErrorReceiptJob",
   [
     "WABase64",
-    "WADeprecatedSendIq",
     "WAWap",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebCryptoMediaRetry",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,7 +39,9 @@ __d(
                 r.wap("enc_iv", null, s),
               ),
             );
-          return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+          return o(
+            "WAWebDeprecatedSendIqWorkerCompatible",
+          ).deprecatedSendStanzaAndWaitForAck(
             u,
             o("WAWebCommsAckParser").toCoreAckTemplate({
               id: t,

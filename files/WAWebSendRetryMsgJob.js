@@ -2,11 +2,11 @@ __d(
   "WAWebSendRetryMsgJob",
   [
     "invariant",
-    "WADeprecatedSendIq",
     "WALogger",
     "WAWebABPropsSaga",
     "WAWebBotMessageSecret",
     "WAWebCommsAckParser",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
     "WAWebOutgoingMessage",
     "WAWebResendBroadcastMsg",
@@ -140,7 +140,9 @@ __d(
               m != null &&
               !(m != null && m.isBot()) &&
               ((k = f), m != null || s(0, 75958), (I = m)),
-            o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+            o(
+              "WAWebDeprecatedSendIqWorkerCompatible",
+            ).deprecatedSendStanzaAndWaitForAck(
               S,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: g,

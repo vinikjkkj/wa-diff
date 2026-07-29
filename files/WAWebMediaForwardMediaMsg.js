@@ -28,16 +28,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    function m(e, t) {
+      return t || o("WAWebMsgGetters").getIsNewsletterMsg(e);
     }
-    function p() {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
             i,
             l,
-            m,
             p,
             _,
             f,
@@ -53,22 +55,23 @@ __d(
             E,
             k,
             I,
-            T = t.appendedText,
-            D = t.associationOptions,
-            x = t.chat,
-            $ = t.includeCaption,
-            P = $ === void 0 ? !1 : $,
-            N = t.msg,
-            M = t.multicast,
-            w = M === void 0 ? !1 : M;
+            T,
+            D = t.appendedText,
+            x = t.associationOptions,
+            $ = t.chat,
+            P = t.includeCaption,
+            N = P === void 0 ? !1 : P,
+            M = t.msg,
+            w = t.multicast,
+            A = w === void 0 ? !1 : w;
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "Prepping media msg",
               ])),
           );
-          var A = N.mediaObject;
-          if (!A)
+          var F = M.mediaObject;
+          if (!F)
             return (
               o("WALogger")
                 .ERROR(
@@ -78,8 +81,8 @@ __d(
                       " type: ",
                       "",
                     ])),
-                  N.id.toString(),
-                  N.type,
+                  M.id.toString(),
+                  M.type,
                 )
                 .sendLogs(
                   "media-fault: forwardMediaMsg msg without mediaObject",
@@ -88,20 +91,20 @@ __d(
                 r("err")("non initialized media"),
               )
             );
-          var F = N.mediaData.toJSON(),
-            O = o("WAWebFrontendMsgGetters").getMaybeChat(N),
-            B =
-              (O == null || (a = O.contact) == null || (a = a.id) == null
+          var O = M.mediaData.toJSON(),
+            B = o("WAWebFrontendMsgGetters").getMaybeChat(M),
+            W =
+              (B == null || (a = B.contact) == null || (a = a.id) == null
                 ? void 0
                 : a.isBot()) === !0,
-            W =
+            q =
               (i =
-                O == null || (l = O.id) == null ? void 0 : l.toLogString()) !=
+                B == null || (l = B.id) == null ? void 0 : l.toLogString()) !=
               null
                 ? i
                 : "unknown",
-            q = F.mediaBlob instanceof r("WAWebMediaOpaqueData"),
-            U = (m = F.filehash) != null ? m : "none";
+            U = O.mediaBlob instanceof r("WAWebMediaOpaqueData"),
+            V = (p = O.filehash) != null ? p : "none";
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -113,188 +116,188 @@ __d(
                 " dl=",
                 "",
               ])),
-            W,
-            B,
-            F.type,
             q,
+            W,
+            O.type,
             U,
-            A.downloadStage,
+            V,
+            F.downloadStage,
           ),
-            B &&
-              !o("WAWebMediaMmsV4Upload").getBlobFromMediaObject(A) &&
+            m(M, W) &&
+              !o("WAWebMediaMmsV4Upload").getBlobFromMediaObject(F) &&
               (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[media-fwd] bot blob missing, downloading",
+                    "[media-fwd] source blob missing, downloading",
                   ])),
               ),
-              yield N.downloadMedia({
+              yield M.downloadMedia({
                 downloadEvenIfExpensive: !0,
                 rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
                   .WEBC_RMR_REASON_CODE.SEND_TO_CHAT,
                 isUserInitiated: !0,
               })),
-            F.preview != null && (F.preview = A.contentInfo._preview),
-            F.mediaBlob instanceof r("WAWebMediaOpaqueData") &&
-              F.mediaBlob.retain());
-          var V = { mimetype: F.mimetype },
-            H = F.isGif ? babelHelpers.extends({}, V, { isGif: !0 }) : V;
-          F.type === o("WAWebMediaTypes").OUTWARD_TYPES.PTT &&
-            !o("WAWebMsgGetters").getHasOriginatedFromNewsletter(N) &&
-            (F.type = o("WAWebMediaTypes").OUTWARD_TYPES.AUDIO);
-          var G = {
-              businessOwnerJid: N.businessOwnerJid,
-              productId: N.productId,
-              currencyCode: N.currencyCode,
-              priceAmount1000: N.priceAmount1000,
-              salePriceAmount1000: N.salePriceAmount1000,
-              retailerId: N.retailerId,
-              url: N.url,
-              productImageCount: N.productImageCount,
-              title: N.title,
-              description: N.description,
+            O.preview != null && (O.preview = F.contentInfo._preview),
+            O.mediaBlob instanceof r("WAWebMediaOpaqueData") &&
+              O.mediaBlob.retain());
+          var H = { mimetype: O.mimetype },
+            G = O.isGif ? babelHelpers.extends({}, H, { isGif: !0 }) : H;
+          O.type === o("WAWebMediaTypes").OUTWARD_TYPES.PTT &&
+            !o("WAWebMsgGetters").getHasOriginatedFromNewsletter(M) &&
+            (O.type = o("WAWebMediaTypes").OUTWARD_TYPES.AUDIO);
+          var z = {
+              businessOwnerJid: M.businessOwnerJid,
+              productId: M.productId,
+              currencyCode: M.currencyCode,
+              priceAmount1000: M.priceAmount1000,
+              salePriceAmount1000: M.salePriceAmount1000,
+              retailerId: M.retailerId,
+              url: M.url,
+              productImageCount: M.productImageCount,
+              title: M.title,
+              description: M.description,
             },
-            z =
-              F.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT &&
-              (N.isFromTemplate || N.isDynamicReplyButtonsMsg),
             j =
-              z || F.type === o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT
-                ? N.caption
+              O.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT &&
+              (M.isFromTemplate || M.isDynamicReplyButtonsMsg),
+            K =
+              j || O.type === o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT
+                ? M.caption
                 : void 0;
-          (P &&
-            (F.type === o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE ||
-              F.type === o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO ||
-              F.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT ||
-              F.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER_PACK) &&
-            (j = N.caption),
-            F.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT &&
-              j != null &&
-              j === N.filename &&
+          (N &&
+            (O.type === o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE ||
+              O.type === o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO ||
+              O.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT ||
+              O.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER_PACK) &&
+            (K = M.caption),
+            O.type === o("WAWebMediaTypes").OUTWARD_TYPES.DOCUMENT &&
+              K != null &&
+              K === M.filename &&
               o("WAWebForwardDocCaptionGating").isForwardDocCaptionEnabled() &&
-              (j = void 0),
-            o("WAWebBotUtils").isMetaAiBot(x.id) &&
-              !r("isStringNullOrEmpty")(T) &&
-              r("isStringNullOrEmpty")(j) &&
-              (j = T));
-          var K = o("WAWebMediaFastForwardUtils").canEnableFastForward(
-              x.contact,
+              (K = void 0),
+            o("WAWebBotUtils").isMetaAiBot($.id) &&
+              !r("isStringNullOrEmpty")(D) &&
+              r("isStringNullOrEmpty")(K) &&
+              (K = D));
+          var Q = o("WAWebMediaFastForwardUtils").canEnableFastForward(
+              $.contact,
             ),
-            Q = o("WAWebMediaFastForwardUtils").canEnableFastForward(
-              o("WAWebFrontendMsgGetters").getChat(N).contact,
+            X = o("WAWebMediaFastForwardUtils").canEnableFastForward(
+              o("WAWebFrontendMsgGetters").getChat(M).contact,
             ),
-            X = {
-              parentMsgKey: D == null ? void 0 : D.parentMsgKey,
-              associationType: D == null ? void 0 : D.associationType,
-              viewMode: D == null ? void 0 : D.viewMode,
+            Y = {
+              parentMsgKey: x == null ? void 0 : x.parentMsgKey,
+              associationType: x == null ? void 0 : x.associationType,
+              viewMode: x == null ? void 0 : x.viewMode,
               forwardedFromWeb: !0,
-              canEnableFastForward: K && Q,
-              caption: j,
-              type: N.type,
-              mentionedJidList: N.mentionedJidList,
-              groupMentions: N.groupMentions,
+              canEnableFastForward: Q && X,
+              caption: K,
+              type: M.type,
+              mentionedJidList: M.mentionedJidList,
+              groupMentions: M.groupMentions,
               footer:
-                F.type === o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT
-                  ? N.footer
+                O.type === o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT
+                  ? M.footer
                   : void 0,
               addEvenWhilePreparing:
-                N.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
+                M.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
               useBasePropsType:
-                N.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
-              placeholderProps: H,
-              isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(N),
+                M.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
+              placeholderProps: G,
+              isForwarded: o("WAWebMsgGetters").getShouldDisplayAsForwarded(M),
               forwardingScore:
-                o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(N),
-              multicast: w,
-              productMsgOptions: G,
-              isAvatar: (p = N.isAvatar) != null ? p : !1,
+                o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(M),
+              multicast: A,
+              productMsgOptions: z,
+              isAvatar: (_ = M.isAvatar) != null ? _ : !1,
               forwardedNewsletterMessageInfo: o(
                 "WAWebGetNewsletterContextForForwardedMsg",
-              ).getNewsletterContextForForwardedMsg(N),
+              ).getNewsletterContextForForwardedMsg(M),
               forwardedAiBotMessageInfo: o(
                 "WAWebGetAiBotContextForForwardedMsg",
-              ).getAiBotContextForForwardedMsg(N),
+              ).getAiBotContextForForwardedMsg(M),
               aiProvenance:
-                o("WAWebMsgGetters").getIsNewsletterMsg(N) &&
-                r("WAWebWid").isNewsletter(x.id)
-                  ? N.aiProvenance
+                o("WAWebMsgGetters").getIsNewsletterMsg(M) &&
+                r("WAWebWid").isNewsletter($.id)
+                  ? M.aiProvenance
                   : void 0,
-              stickers: (_ = N.stickers) != null ? _ : void 0,
-              publisher: (f = N.stickerPackPublisher) != null ? f : void 0,
-              fileLength: (g = N.size) != null ? g : void 0,
+              stickers: (f = M.stickers) != null ? f : void 0,
+              publisher: (g = M.stickerPackPublisher) != null ? g : void 0,
+              fileLength: (h = M.size) != null ? h : void 0,
               description:
-                F.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER_PACK &&
-                N.description != null
-                  ? N.description
+                O.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER_PACK &&
+                M.description != null
+                  ? M.description
                   : "",
-              stickerPackId: (h = N.stickerPackId) != null ? h : void 0,
+              stickerPackId: (y = M.stickerPackId) != null ? y : void 0,
               thumbnailDirectPath:
-                (y = N.thumbnailDirectPath) != null ? y : void 0,
-              thumbnailSha256: (C = N.thumbnailSha256) != null ? C : void 0,
+                (C = M.thumbnailDirectPath) != null ? C : void 0,
+              thumbnailSha256: (b = M.thumbnailSha256) != null ? b : void 0,
               thumbnailEncSha256:
-                (b = N.thumbnailEncSha256) != null ? b : void 0,
-              trayIconFileName: (v = N.trayIconFileName) != null ? v : void 0,
-              stickerPackSize: (S = N.stickerPackSize) != null ? S : void 0,
+                (v = M.thumbnailEncSha256) != null ? v : void 0,
+              trayIconFileName: (S = M.trayIconFileName) != null ? S : void 0,
+              stickerPackSize: (R = M.stickerPackSize) != null ? R : void 0,
               interactiveAnnotations:
-                (R = N.interactiveAnnotations) != null ? R : void 0,
-              interactiveHeader: (L = N.interactiveHeader) != null ? L : void 0,
-              interactiveType: (E = N.interactiveType) != null ? E : void 0,
+                (L = M.interactiveAnnotations) != null ? L : void 0,
+              interactiveHeader: (E = M.interactiveHeader) != null ? E : void 0,
+              interactiveType: (k = M.interactiveType) != null ? k : void 0,
               interactivePayload:
-                (k = N.interactivePayload) != null ? k : void 0,
+                (I = M.interactivePayload) != null ? I : void 0,
               nativeFlowInteractiveMsg:
-                N.interactiveType ===
+                M.interactiveType ===
                 r("WAWebInteractiveMessageType").NATIVE_FLOW
                   ? !0
                   : void 0,
-              nativeFlowName: (I = N.nativeFlowName) != null ? I : void 0,
+              nativeFlowName: (T = M.nativeFlowName) != null ? T : void 0,
             },
-            Y = yield new (o("WAWebMediaPrep").MediaPrep)(
-              F.type,
-              (d || (d = n("Promise"))).resolve(F),
+            J = yield new (o("WAWebMediaPrep").MediaPrep)(
+              O.type,
+              (d || (d = n("Promise"))).resolve(O),
             ).sendToChat({
-              chat: x,
+              chat: $,
               options: o(
                 "WAWebGetNewsletterContextForForwardedMsg",
               ).maybeStripNewsletterForwardMetadata({
-                forwardable: X,
-                destination: x.id,
-                source: N.id.remote,
-                isOriginalMsgForwarded: N.isForwarded,
+                forwardable: Y,
+                destination: $.id,
+                source: M.id.remote,
+                isOriginalMsgForwarded: M.isForwarded,
                 isQuestionOrQuestionReply:
-                  N.isQuestion || N.questionReplyQuotedMessage != null,
+                  M.isQuestion || M.questionReplyQuotedMessage != null,
               }),
             });
-          if (F.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER) {
-            var J,
-              Z,
+          if (O.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER) {
+            var Z,
               ee,
               te,
               ne,
-              re = {
+              re,
+              oe = {
                 stickerSendOrigin: o("WAWebWamEnumStickerSendOriginType")
                   .STICKER_SEND_ORIGIN_TYPE.FORWARD,
                 stickerIsAnimated: !!(
-                  (J = N.mediaData) != null && J.isAnimated
+                  (Z = M.mediaData) != null && Z.isAnimated
                 ),
                 stickerIsFirstParty: !!(
-                  (Z = N.mediaData) != null && Z.isFirstParty
+                  (ee = M.mediaData) != null && ee.isFirstParty
                 ),
                 stickerIsFromStickerMaker: !!(
-                  (ee = N.mediaData) != null && ee.isFromStickerMaker
+                  (te = M.mediaData) != null && te.isFromStickerMaker
                 ),
-                stickerIsLottie: !!((te = N.mediaData) != null && te.isLottie),
+                stickerIsLottie: !!((ne = M.mediaData) != null && ne.isLottie),
               },
-              oe = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(re),
-              ae = o("WAWebWebpMetadata").getStickerMakerSourceType(
-                (ne = N.mediaData) == null ? void 0 : ne.stickerMakerSourceType,
+              ae = new (o("WAWebStickerSendWamEvent").StickerSendWamEvent)(oe),
+              ie = o("WAWebWebpMetadata").getStickerMakerSourceType(
+                (re = M.mediaData) == null ? void 0 : re.stickerMakerSourceType,
               );
-            (ae != null && (oe.stickerMakerSourceType = ae), oe.commit());
+            (ie != null && (ae.stickerMakerSourceType = ie), ae.commit());
           }
-          return Y;
+          return J;
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.forwardMediaMsg = m;
+    l.forwardMediaMsg = p;
   },
   98,
 );

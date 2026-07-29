@@ -21,7 +21,7 @@ __d(
     "WAWebSocketLogoutJob",
     "WAWebUserPrefsInfoStore",
     "WAWebUserPrefsMultiDevice",
-    "WAWebUserPrefsScreenLock",
+    "WAWebUserPrefsScreenLockWorkerCompatible",
     "WAWebWamEnumWebcSocketConnectReasonType",
     "WAWebWebcSocketConnectWamEvent",
     "asyncToGeneratorRuntime",
@@ -480,7 +480,12 @@ __d(
     function X() {
       return (
         (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebUserPrefsScreenLock").getScreenLockEnabled()) return null;
+          if (
+            yield o(
+              "WAWebUserPrefsScreenLockWorkerCompatible",
+            ).getScreenLockEnabled()
+          )
+            return null;
           if (e >= $)
             return (
               o("WALogger")
@@ -596,19 +601,18 @@ __d(
     function Z() {
       return self.navigator != null ? self.navigator.onLine : !0;
     }
-    function ee(e) {
+    function ee(e, t) {
       return te.apply(this, arguments);
     }
     function te() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMultiDevice").isRegistered();
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           return Y(e, t);
         })),
         te.apply(this, arguments)
       );
     }
-    l.default = ee;
+    l.openChatSocket = ee;
   },
   98,
 );

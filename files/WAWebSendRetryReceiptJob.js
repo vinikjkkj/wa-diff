@@ -3,13 +3,13 @@ __d(
   [
     "$InternalEnum",
     "Promise",
-    "WADeprecatedSendIq",
     "WALogger",
     "WAWap",
     "WAWebAdvSignatureApi",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebCryptoCurve25519",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebEphemeralDecodeBroadcastSetting",
     "WAWebHandleMsgError",
     "WAWebKyberPreKeyStore",
@@ -185,7 +185,9 @@ __d(
                 k,
                 N,
               );
-            return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+            return o(
+              "WAWebDeprecatedSendIqWorkerCompatible",
+            ).deprecatedSendStanzaAndWaitForAck(
               M,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,

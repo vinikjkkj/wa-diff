@@ -12,6 +12,7 @@ __d(
     "WAWebCoexV2BotWid",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebLidMigrationUtils",
     "WAWebMaibaWASSMigration",
     "WAWebPnlessStanzaMigration",
@@ -298,7 +299,7 @@ __d(
                                   };
                                   if (y === u.READ || y === u.READ_SELF) {
                                     var r = yield o(
-                                        "WADeprecatedSendIq",
+                                        "WAWebDeprecatedSendIqWorkerCompatible",
                                       ).deprecatedSendStanzaAndReturnAck(
                                         S,
                                         o(
@@ -335,7 +336,7 @@ __d(
                                     }
                                   } else
                                     return o(
-                                      "WADeprecatedSendIq",
+                                      "WAWebDeprecatedSendIqWorkerCompatible",
                                     ).deprecatedSendStanzaAndWaitForAck(
                                       S,
                                       o(

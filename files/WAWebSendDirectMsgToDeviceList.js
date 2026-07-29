@@ -2,8 +2,8 @@ __d(
   "WAWebSendDirectMsgToDeviceList",
   [
     "Promise",
-    "WADeprecatedSendIq",
     "WAWebCommsAckParser",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebSendMsgCommonApi",
     "WAWebSendMsgCreateFanoutStanza",
     "WAWebSignalProtocolStore",
@@ -54,7 +54,7 @@ __d(
             (a = m.sendPerfReporter) == null || a.postReadyToSendStage(),
             (i = m.sendPerfReporter) == null || i.startWrittenWireStage());
           var R = yield o(
-              "WADeprecatedSendIq",
+              "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
               S,
               o("WAWebCommsAckParser").toCoreAckTemplate({

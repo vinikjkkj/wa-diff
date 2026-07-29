@@ -603,6 +603,12 @@ __d(
     function zn() {
       return o("WAWebModelStorageUtils").getStorage().versions.version(199);
     }
+    function jn() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(200);
+    }
+    function Kn() {
+      return o("WAWebModelStorageUtils").getStorage().versions.version(201);
+    }
     ((l.pendingMutationsCreateTable = s),
       (l.collectionVersionCreateTable = u),
       (l.syncActionsCreateTable = c),
@@ -802,7 +808,9 @@ __d(
       (l.scheduledMsgOrphanRevealKeyCreateTable = Vn),
       (l.inAppSignupInfoCreateTable = Hn),
       (l.chatAddIsAiHandoff = Gn),
-      (l.labelSublistCreateTable = zn));
+      (l.labelSublistCreateTable = zn),
+      (l.coexV2RelayReceiptCreateTable = jn),
+      (l.chatAddAiHandoffRemovalExpiry = Kn));
   },
   98,
 );

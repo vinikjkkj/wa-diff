@@ -66,39 +66,41 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield (s || (s = n("Promise"))).all([
-              c.abProps.promise,
               c.dbInit.promise,
-              c.dbFinalKey.promise,
               c.eventBusSyncState.promise,
             ]),
             r = t[0],
             a = t[1],
-            i = t[2],
-            l = t[3],
-            u = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+            i = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
               o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME,
             ),
-            m = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+            l = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
               o("WAWebUserPrefsKeys").KEYS.LID,
             );
-          yield e.sendAndReceive("workerInit", "setup", {
+          (yield e.sendAndReceive("workerInit", "setup", {
             globals: {
               deviceJid: o("WAWebGlobals").getMyDeviceJid(),
               allowHistorySyncPutAllowDuplicate:
                 o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate(),
               enableImprovedBulkMerge:
                 o("WAWebGlobals").getEnableImprovedBulkMerge(),
-              lidDeviceJid: m != null ? String(m) : null,
-              displayName: u != null ? String(u) : null,
+              lidDeviceJid: l != null ? String(l) : null,
+              displayName: i != null ? String(i) : null,
               callsOnly: o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled(),
             },
-            abProps: d != null ? d : r,
-            dbInit: babelHelpers.extends({}, a, {
-              salt: new Uint8Array(a.salt),
+            dbInit: babelHelpers.extends({}, r, {
+              salt: new Uint8Array(r.salt),
             }),
-            dbFinalKey: i,
-            eventBusSyncState: l,
-          });
+            eventBusSyncState: a,
+          }),
+            c.abProps.promise.then(function (t) {
+              e.fireAndForget("workerInit", "setAbProps", {
+                abProps: d != null ? d : t,
+              });
+            }),
+            c.dbFinalKey.promise.then(function (t) {
+              e.fireAndForget("workerInit", "setDbFinalKey", { dbFinalKey: t });
+            }));
         })),
         h.apply(this, arguments)
       );

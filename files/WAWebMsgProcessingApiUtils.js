@@ -778,11 +778,11 @@ __d(
       var u = o("WAWebHandleMsgMetaUtils").getMsgTypeFromMsgMeta(n);
       return u != null
         ? babelHelpers.extends({}, s, {
-            parentMsgKey: o("WAWebE2EProtoUtils").createMsgKeyFromThreadInfo(
-              n,
-              t,
-              u,
-            ),
+            parentMsgKey: o("WAWebE2EProtoUtils").createMsgKeyFromThreadInfo({
+              info: t,
+              msgMeta: n,
+              realType: u,
+            }),
             kind: o("WAWebMsgType").MsgKind.PlaceholderAddon,
             realType: u,
           })

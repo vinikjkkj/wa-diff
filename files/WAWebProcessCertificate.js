@@ -5,7 +5,7 @@ __d(
     "WAVerifyChainCertificateWA6",
     "WAWebDbEncryptionKey",
     "WAWebUserPrefsInfoStore",
-    "WAWebUserPrefsScreenLock",
+    "WAWebUserPrefsScreenLockWorkerCompatible",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -46,7 +46,12 @@ __d(
             !l.success)
           )
             throw r("err")("[socket] processCertificate error: " + l.error);
-          if (a && !o("WAWebUserPrefsScreenLock").getScreenLockEnabled()) {
+          if (
+            a &&
+            !(yield o(
+              "WAWebUserPrefsScreenLockWorkerCompatible",
+            ).getScreenLockEnabled())
+          ) {
             var m = l.value,
               p = m.intermediate,
               _ = m.leaf;

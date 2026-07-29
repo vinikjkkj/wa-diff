@@ -112,7 +112,10 @@ __d(
             return e;
           };
     }
-    function h(e, t, n) {
+    function h(e) {
+      var t = e.error,
+        n = e.operation,
+        r = e.tableName;
       o("WALogger")
         .WARN(
           u ||
@@ -122,9 +125,9 @@ __d(
               ". Failed with error ",
               "",
             ])),
-          t,
           n,
-          e,
+          r,
+          t,
         )
         .sendLogs("storage-error", { sampling: 0 })
         .verbose();

@@ -18,6 +18,7 @@ __d(
         n.ctwaContext ||
         n.backgroundColor ||
         (t != null && t.utm) ||
+        (t == null ? void 0 : t.isSpoiler) === !0 ||
         (t == null ? void 0 : t.isQuestion) === !0 ||
         (t != null && t.questionReplyQuotedMessage) ||
         n.paymentLinkMetadata ||

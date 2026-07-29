@@ -1,11 +1,11 @@
 __d(
   "WAWebSendPlayedReceiptJob",
   [
-    "WADeprecatedSendIq",
     "WAWap",
     "WAWebAck",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebPnlessStanzaMigration",
     "WAWebPrivacySettings",
     "WAWebSchemaMessage",
@@ -38,7 +38,9 @@ __d(
                 : o("WAWap").DROP_ATTR,
             });
           return (
-            yield o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+            yield o(
+              "WAWebDeprecatedSendIqWorkerCompatible",
+            ).deprecatedSendStanzaAndWaitForAck(
               s,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: r,

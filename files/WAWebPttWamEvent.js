@@ -13,6 +13,8 @@ __d(
           Ptt: [
             458,
             {
+              audioDriverRestartCount: [52, e.TYPES.INTEGER],
+              audioDriverRestartReason: [53, e.TYPES.INTEGER],
               isMetaAiThread: [15, e.TYPES.BOOLEAN],
               pttAuddevRecorderAvgCbT: [17, e.TYPES.TIMER],
               pttAuddevRecorderInitT: [18, e.TYPES.TIMER],

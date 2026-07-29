@@ -3,13 +3,13 @@ __d(
   [
     "Promise",
     "WABase64",
-    "WADeprecatedSendIq",
     "WALogger",
     "WAWap",
     "WAWebChatGetters",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebCryptoMediaRetry",
+    "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebFrontendMsgGetters",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
@@ -99,7 +99,9 @@ __d(
                 participant: g,
               }),
             );
-          return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+          return o(
+            "WAWebDeprecatedSendIqWorkerCompatible",
+          ).deprecatedSendStanzaAndWaitForAck(
             y,
             o("WAWebCommsAckParser").toCoreAckTemplate({
               id: t,

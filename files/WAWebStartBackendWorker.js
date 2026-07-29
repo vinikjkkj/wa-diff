@@ -4,6 +4,8 @@ __d(
     "Promise",
     "QPLFlow",
     "WALogger",
+    "WATransferableResult",
+    "WAWap",
     "WAWebABPropsCache",
     "WAWebApiHydrateWidsUtil",
     "WAWebAppTracker",
@@ -13,6 +15,8 @@ __d(
     "WAWebBackendWorkerClient",
     "WAWebBackendWorkerInitState",
     "WAWebBackendWorkerV2Resource",
+    "WAWebCommsHandleStanza",
+    "WAWebCommsWorkerProxy",
     "WAWebCrashlog",
     "WAWebGetMessageCache",
     "WAWebHandleSingleMsgWorkerCompatible",
@@ -32,7 +36,8 @@ __d(
     "WAWebUA",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
     "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsMultiDevice",
+    "WAWebUserPrefsMultiDeviceMainThread",
+    "WAWebUserPrefsScreenLockMainThread",
     "WAWebUserPrefsTabMutex",
     "WAWebWorkerSafeBackendApi",
     "WAXMultiSiteWebWorkerV4HasteResponseControllerRouteBuilder",
@@ -402,6 +407,76 @@ __d(
             },
           },
           {
+            namespace: "mainthread_userPrefsMultiDevice",
+            handlers: {
+              getNoiseInfo: function () {
+                return o(
+                  "WAWebUserPrefsMultiDeviceMainThread",
+                ).userPrefsMultiDeviceMainThread.getNoiseInfo();
+              },
+              getNoiseInfoIv: function () {
+                return o(
+                  "WAWebUserPrefsMultiDeviceMainThread",
+                ).userPrefsMultiDeviceMainThread.getNoiseInfoIv();
+              },
+              setNoiseInfo: function (t) {
+                var e = t.info;
+                return o(
+                  "WAWebUserPrefsMultiDeviceMainThread",
+                ).userPrefsMultiDeviceMainThread.setNoiseInfo(e);
+              },
+              setNoiseInfoIv: function (t) {
+                var e = t.iv;
+                return o(
+                  "WAWebUserPrefsMultiDeviceMainThread",
+                ).userPrefsMultiDeviceMainThread.setNoiseInfoIv(e);
+              },
+            },
+          },
+          {
+            namespace: "mainthread_userPrefsScreenLock",
+            handlers: {
+              getScreenLockEnabled: function () {
+                return o(
+                  "WAWebUserPrefsScreenLockMainThread",
+                ).userPrefsScreenLockMainThread.getScreenLockEnabled();
+              },
+              getScreenLockIterations: function () {
+                return o(
+                  "WAWebUserPrefsScreenLockMainThread",
+                ).userPrefsScreenLockMainThread.getScreenLockIterations();
+              },
+              getScreenLockIvString: function () {
+                return o(
+                  "WAWebUserPrefsScreenLockMainThread",
+                ).userPrefsScreenLockMainThread.getScreenLockIvString();
+              },
+              getScreenLockSalt: function () {
+                return o(
+                  "WAWebUserPrefsScreenLockMainThread",
+                ).userPrefsScreenLockMainThread.getScreenLockSalt();
+              },
+              setScreenLockIterations: function (t) {
+                var e = t.iterations;
+                return o(
+                  "WAWebUserPrefsScreenLockMainThread",
+                ).userPrefsScreenLockMainThread.setScreenLockIterations(e);
+              },
+              setScreenLockIvString: function (t) {
+                var e = t.iv;
+                return o(
+                  "WAWebUserPrefsScreenLockMainThread",
+                ).userPrefsScreenLockMainThread.setScreenLockIvString(e);
+              },
+              setScreenLockSalt: function (t) {
+                var e = t.salt;
+                return o(
+                  "WAWebUserPrefsScreenLockMainThread",
+                ).userPrefsScreenLockMainThread.setScreenLockSalt(e);
+              },
+            },
+          },
+          {
             namespace: "mainthread_mediaHostsSync",
             handlers: {
               refresh: function () {
@@ -546,6 +621,40 @@ __d(
               },
             },
           },
+          {
+            namespace: "mainthread_comms",
+            handlers: {
+              onSocketStateChange: function (t) {
+                var e = t.isConnected,
+                  n = t.socketId;
+                o("WAWebCommsWorkerProxy").updateCommsProxySocketState(e, n);
+              },
+              handleStanza: (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var t = e.size,
+                      a = e.socketId,
+                      i = e.stanza,
+                      l = yield o("WAWap").decodeStanza(i, function (e) {
+                        return (g || (g = n("Promise"))).resolve(e);
+                      }),
+                      s = yield r("WAWebCommsHandleStanza")(l, a, t);
+                    if (s instanceof o("WAWap").WapNode) {
+                      var u = o("WAWap").encodeStanza(s);
+                      return o("WATransferableResult").withTransferables(u, [
+                        u.buffer,
+                      ]);
+                    }
+                    return s;
+                  },
+                );
+                function t(t) {
+                  return e.apply(this, arguments);
+                }
+                return t;
+              })(),
+            },
+          },
         ]);
       return (
         a.setNamespaceHandler("event", function (e, t, n) {
@@ -581,9 +690,8 @@ __d(
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
-            i = o("WAWebUserPrefsMultiDevice").isRegistered(),
-            l = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
-            s =
+            i = (t = e == null ? void 0 : e.retryStart) != null ? t : 0,
+            l =
               (a = e == null ? void 0 : e.qpl) != null
                 ? a
                 : o("QPLFlow").startQPLFlow(b, {
@@ -591,37 +699,36 @@ __d(
                       bool: {
                         wa_web_media_wasm_worker_split: r("gkx")("24042"),
                         supportModule: r("supportsModuleWorker")(!1),
-                        isLoggedIn: i,
                       },
-                      int: { retryStart: l },
+                      int: { retryStart: i },
                     },
                     timeoutInMs: 6e4,
                   });
           try {
-            s.addPoint("create_worker_start");
-            var u =
+            l.addPoint("create_worker_start");
+            var s =
                 o("WAWebUA").UA.isFirefox &&
                 parseInt(o("WAWebUA").UA.browserVersion.split(".")[0], 10) <=
                   115,
-              c = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
+              u = o("WebWorkerV4Resource").createDedicatedV4WebWorker(
                 r("WAWebBackendWorkerV2Resource"),
                 S,
                 y,
-                u,
+                s,
               ),
-              f = c.initReady,
-              h = c.worker;
-            (s.addPoint("worker_connect_start"),
-              yield (g || (g = n("Promise"))).all([f, $(h)]),
-              s.addPoint("worker_connect_end"));
-            var v;
+              c = u.initReady,
+              f = u.worker;
+            (l.addPoint("worker_connect_start"),
+              yield (g || (g = n("Promise"))).all([c, $(f)]),
+              l.addPoint("worker_connect_end"));
+            var h;
             o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady()
-              ? (v = yield o(
+              ? (h = yield o(
                   "WAWebBackendWorkerClient",
                 ).getBackendWorkerBridge())
-              : (v = L());
-            var x = R(h);
-            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(v, x, [
+              : (h = L());
+            var v = R(f);
+            (o("WAWebBackendWorkerBridge").attachBridgeToPortal(h, v, [
               "historySync",
               "deviceSync",
               "crypto",
@@ -633,6 +740,7 @@ __d(
               "workerInit",
               "mediaHostsSync",
               "networkStatusSync",
+              "comms",
             ]),
               o("WAWebBackendWorkerClient")
                 .getBackendWorkerBridge()
@@ -698,15 +806,12 @@ __d(
                     )
                     .sendLogs("network-status-sync-failed");
                 }),
-              o("WAWebBackendWorkerClient").setBackendWorkerBridge(v),
-              i
-                ? (s.addPoint("init_data_start"),
-                  yield o("WAWebBackendWorkerInitState").sendInitState(v),
-                  s.addPoint("init_data_end"))
-                : (s.addPoint("init_data_triggered"),
-                  o("WAWebBackendWorkerInitState").sendInitState(v)),
-              s.addPoint("create_worker_end"),
-              s.endSuccess(),
+              o("WAWebBackendWorkerClient").setBackendWorkerBridge(h),
+              l.addPoint("init_data_start"),
+              yield o("WAWebBackendWorkerInitState").sendInitState(h),
+              l.addPoint("init_data_end"),
+              l.addPoint("create_worker_end"),
+              l.endSuccess(),
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -717,11 +822,11 @@ __d(
                 globalThis.navigator.locks.request(
                   y + "-kill-switch-lock",
                   function () {
-                    l < T && D({ retryStart: l + 1 });
+                    i < T && D({ retryStart: i + 1 });
                   },
                 ));
           } catch (t) {
-            var P;
+            var x;
             globalThis.navigator.locks != null &&
               (yield globalThis.navigator.locks.request(
                 y + "-kill-switch-lock",
@@ -730,7 +835,7 @@ __d(
                   return (g || (g = n("Promise"))).resolve();
                 },
               ));
-            var N = r("getErrorSafe")(t);
+            var P = r("getErrorSafe")(t);
             if (
               (o("WALogger")
                 .ERROR(
@@ -739,17 +844,17 @@ __d(
                       "WAWebBackendWorkerClient init fails",
                     ])),
                 )
-                .catching(N)
+                .catching(P)
                 .sendLogs("main-thread-backend-worker-init-fails"),
-              N.message.includes(C))
+              P.message.includes(C))
             ) {
-              s.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t));
+              l.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t));
               return;
             }
-            var M = (P = e == null ? void 0 : e.retryInit) != null ? P : 0;
-            M < I && globalThis.navigator.locks != null
-              ? (s.addPoint("retry_" + M), D({ qpl: s, retryInit: M + 1 }))
-              : s.endFail(
+            var N = (x = e == null ? void 0 : e.retryInit) != null ? x : 0;
+            N < I && globalThis.navigator.locks != null
+              ? (l.addPoint("retry_" + N), D({ qpl: l, retryInit: N + 1 }))
+              : l.endFail(
                   o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t),
                 );
           }

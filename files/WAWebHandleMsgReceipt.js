@@ -4,9 +4,12 @@ __d(
     "Promise",
     "WALogger",
     "WAWebAck",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
     "WAWebCreateReceiptStanzaReceiveMetric",
     "WAWebHandleAckPeerSimpleReceipt",
     "WAWebHandleBotInvokeMsgReceipt",
+    "WAWebHandleCoexV2Receipt",
     "WAWebHandleDirectChatReceipt",
     "WAWebHandleGroupChatReceipt",
     "WAWebHandleMsgReceiptParser",
@@ -166,6 +169,11 @@ __d(
         return o("WAWebHandleAckPeerSimpleReceipt").handleAckPeerSimpleReceipt(
           t,
         );
+      if (
+        l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+        o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
+      )
+        return o("WAWebHandleCoexV2Receipt").handleCoexV2Receipt(t);
       if (l.isNewsletter())
         return o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
           ? o("WAWebHandleNewsletterReceipt").handleNewsletterSimpleReceipt(t)

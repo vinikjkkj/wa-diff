@@ -107,6 +107,9 @@ __d(
             ])
             .version(n.chatAddHistoryChatIdIndex(), [l("historyChatId")])
             .version(n.chatAddIsAiHandoff(), [r("isAiHandoff")])
+            .version(n.chatAddAiHandoffRemovalExpiry(), [
+              r("aiHandoffRemovalExpiry"),
+            ])
             .view(function (e) {
               return e;
             })
