@@ -1,7 +1,6 @@
 __d(
   "WACryptoLibrary",
   [
-    "Promise",
     "WACryptoUtils",
     "WAJids",
     "WALockMap",
@@ -19,70 +18,65 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = o("WALockMap").makeLockMap(6e4),
-      c = [],
-      d = 300;
-    function m(e) {
-      (c.push(e), c.length >= d && c.shift());
+      s = o("WALockMap").makeLockMap(6e4),
+      u = [],
+      c = 300;
+    function d(e) {
+      (u.push(e), u.length >= c && u.shift());
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          m("createOutgoingSession");
-          var a = I(t),
-            i = a.signedKey,
-            l = yield o("WASignalSignatures").verifyMsgSignalVariant(
-              a.identity,
-              i.publicKey,
-              i.signature,
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          d("createOutgoingSession");
+          var n = k(t),
+            r = n.signedKey,
+            a = yield o("WASignalSignatures").verifyMsgSignalVariant(
+              n.identity,
+              r.publicKey,
+              r.signature,
             );
-          if (!l)
+          if (!a)
             return (
-              m("createOutgoingSession: errSignalInvalidKey"),
+              d("createOutgoingSession: errSignalInvalidKey"),
               o("WAResultOrError").makeError("errSignalInvalidKey")
             );
-          r === !0 &&
-            (yield new (s || (s = n("Promise")))(function (e) {
-              globalThis.setTimeout(e, 0);
-            }));
-          var u = yield o("WASignalWhitepaper").initiateSessionOutgoing(
+          var i = yield o("WASignalWhitepaper").initiateSessionOutgoing(
             e,
-            a,
+            n,
             o("WASignalKeys").makeKeyPair(),
           );
-          return o("WAResultOrError").makeResult(u);
+          return o("WAResultOrError").makeResult(i);
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(e, t, n, r, o, a) {
-      return g.apply(this, arguments);
+    function _(e, t, n, r, o) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o, a) {
-            var i = e.handleNewSession;
-            m("establishOutgoingSession");
-            var l = yield p(t, r, a);
-            if (!l.success) return l;
-            var s = l.value;
-            return i(n, s, s.remote.pubKey, null, o);
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r, o) {
+            var a = e.handleNewSession;
+            d("establishOutgoingSession");
+            var i = yield m(t, r);
+            if (!i.success) return i;
+            var l = i.value;
+            return a(n, l, l.remote.pubKey, null, o);
           },
         )),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e, t, r, a) {
+    function g(e, t, r, a) {
       var i = e.handleNewSession,
         l = e.loadSession;
       return (
-        m("encryptContent"),
-        u.lock(
+        d("encryptContent"),
+        s.lock(
           [o("WAJids").extractUserJid(t)],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = null;
@@ -90,7 +84,7 @@ __d(
               var n = yield l(t, "cryptoLibraryEncryptContent");
               if (n == null)
                 return (
-                  m("encryptContent: errSignalInvalidKey"),
+                  d("encryptContent: errSignalInvalidKey"),
                   o("WAResultOrError").makeError("errSignalInvalidKey")
                 );
               if (
@@ -98,51 +92,51 @@ __d(
                 !o("WACryptoUtils").uint8ArraysEqual(a, n.remote.pubKey)
               )
                 return (
-                  m("encryptContent: identity-mismatch"),
+                  d("encryptContent: identity-mismatch"),
                   o("WAResultOrError").makeError("identity-mismatch")
                 );
               var s = yield o("WASignalCipher").encryptMsg(n, r),
                 u = s[0],
                 c = s[1],
-                d = yield i(t, u, u.remote.pubKey);
-              d.success
+                m = yield i(t, u, u.remote.pubKey);
+              m.success
                 ? (e = o("WAResultOrError").makeResult(
                     babelHelpers.extends({}, c, { baseKey: u.aliceBaseKey }),
                   ))
-                : d.error;
+                : m.error;
             } while (e == null);
             return e;
           }),
         )
       );
     }
-    function y(e, t, r, a, i) {
+    function h(e, t, r, a, i) {
       var l = e.deleteKyberPreKey,
-        s = e.handleNewSession,
+        u = e.handleNewSession,
         c = e.loadKyberPreKey,
-        d = e.loadOneTimePreKey,
+        m = e.loadOneTimePreKey,
         p = e.loadSession,
         _ = e.loadSignedPreKey;
       return (
-        m("decryptContent"),
-        u.lock(
+        d("decryptContent"),
+        s.lock(
           [o("WAJids").extractUserJid(r)],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = !1,
               n = yield p(r, "decryptContent"),
-              u;
+              s;
             if (a.type === "pkmsg") {
               var f = o("WASignalCipher").deserializePkMsg(a.ciphertext);
               if (!f.success)
                 return (
-                  m("decryptContent: errCryptoDeserialization"),
+                  d("decryptContent: errCryptoDeserialization"),
                   o("WAResultOrError").makeError("errCryptoDeserialization")
                 );
               var g = f.value,
-                h = yield C(
+                h = yield y(
                   {
                     loadSignedPreKey: _,
-                    loadOneTimePreKey: d,
+                    loadOneTimePreKey: m,
                     loadKyberPreKey: c != null ? c : null,
                   },
                   t,
@@ -150,53 +144,53 @@ __d(
                   n,
                 );
               if (!h.success) return h;
-              u = h.value;
+              s = h.value;
             } else {
               a.type;
-              var y = o("WASignalCipher").deserializeMsg(a.ciphertext);
-              if (!y.success)
+              var C = o("WASignalCipher").deserializeMsg(a.ciphertext);
+              if (!C.success)
                 return (
-                  m("decryptContent: errCryptoDeserialization"),
+                  d("decryptContent: errCryptoDeserialization"),
                   o("WAResultOrError").makeError("errCryptoDeserialization")
                 );
-              var b = y.value,
+              var b = C.value,
                 v = yield o("WASignalCipher").decryptMsg(n, b);
               if (!v.success) return v;
-              u = v.value;
+              s = v.value;
             }
-            var S = u,
+            var S = s,
               R = S.newSessionInfo;
             if (
               (R &&
                 (R.newIdentity != null || R.usedPreKey != null) &&
-                (yield s(r, R.baseSession, R.newIdentity, R.usedPreKey)),
+                (yield u(r, R.baseSession, R.newIdentity, R.usedPreKey)),
               (R == null ? void 0 : R.usedKyberPreKey) != null &&
                 l != null &&
                 (yield l(R.usedKyberPreKey)),
               !e)
             ) {
               var L = R == null ? void 0 : R.baseSession.remote.pubKey;
-              (yield i(new Uint8Array(u.plaintext), L), (e = !0));
+              (yield i(new Uint8Array(s.plaintext), L), (e = !0));
             }
             return (
-              yield s(r, u.updatedSession, u.updatedSession.remote.pubKey),
+              yield u(r, s.updatedSession, s.updatedSession.remote.pubKey),
               o("WAResultOrError").makeResult()
             );
           }),
         )
       );
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
+    function y(e, t, n, r) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = e.loadKyberPreKey,
               i = e.loadOneTimePreKey,
               l = e.loadSignedPreKey;
-            m("decryptPkMsg");
+            d("decryptPkMsg");
             var s = o("WASignalCipher").findMatchingSession(
               r,
               n.sessionBaseKey,
@@ -206,9 +200,9 @@ __d(
             if (u) {
               var c = yield o("WASignalCipher").decryptMsgFromSession(u, n);
               if (!c.success) return c;
-              var d = c.value,
-                p = d[0],
-                _ = d[1];
+              var m = c.value,
+                p = m[0],
+                _ = m[1];
               return o("WAResultOrError").makeResult({
                 newSessionInfo: null,
                 updatedSession: p,
@@ -256,15 +250,15 @@ __d(
             }
           },
         )),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e, t, r, a) {
+    function b(e, t, r, a) {
       var i = e.loadSenderKeySession,
         l = e.saveSenderKeySession;
       return (
-        m("encryptGroupContent"),
-        u.lock(
+        d("encryptGroupContent"),
+        s.lock(
           [t, o("WAJids").extractUserJid(r)],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = null;
@@ -277,9 +271,9 @@ __d(
                 ).encryptSenderKeyMsgWithSession(s, a);
               if (u.success) {
                 var c = u.value,
-                  d = c[0],
+                  m = c[0],
                   p = c[1];
-                yield l(t, r, d);
+                yield l(t, r, m);
                 var _ = s.senderKeyStates[s.senderKeyStates.length - 1];
                 e = o("WAResultOrError").makeResult({
                   ciphertext: { ciphertext: p, type: "skmsg" },
@@ -292,7 +286,7 @@ __d(
                 });
               } else
                 return (
-                  m("encryptGroupContent: sender-key-no-session"),
+                  d("encryptGroupContent: sender-key-no-session"),
                   o("WAResultOrError").makeError("sender-key-no-session")
                 );
             } while (e == null);
@@ -301,16 +295,16 @@ __d(
         )
       );
     }
-    function S(t, r, a, i, l) {
-      var s = t.loadSenderKeySession,
+    function v(t, r, a, i, l) {
+      var u = t.loadSenderKeySession,
         c = t.saveSenderKeySession;
       return (
-        m("decryptGroupContent"),
-        u.lock(
+        d("decryptGroupContent"),
+        s.lock(
           [r, o("WAJids").extractUserJid(a)],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var t = !1,
-              n = yield s(r, a);
+              n = yield u(r, a);
             if (!n.success)
               return (
                 o("WALogger").WARN(
@@ -325,16 +319,16 @@ __d(
                 ),
                 o("WAResultOrError").makeError(n.error)
               );
-            var u = o("WASignalGroupCipher").deserializeSenderKeyMsg(i);
-            if (!u.success)
+            var s = o("WASignalGroupCipher").deserializeSenderKeyMsg(i);
+            if (!s.success)
               return (
-                m("decryptGroupContent: errCryptoDeserialization"),
+                d("decryptGroupContent: errCryptoDeserialization"),
                 o("WAResultOrError").makeError("errCryptoDeserialization")
               );
-            var d = n.value,
+            var m = n.value,
               p = yield o("WASignalGroupCipher").decryptSenderKeyMsgFromSession(
-                d,
-                u.value,
+                m,
+                s.value,
               );
             if (!p.success) return p;
             var _ = p.value,
@@ -349,12 +343,12 @@ __d(
         )
       );
     }
-    function R(e, t, r, a) {
+    function S(e, t, r, a) {
       var i = e.loadSenderKeySession,
         l = e.saveSenderKeySession;
       return (
-        m("saveSenderKeySession"),
-        u.lock(
+        d("saveSenderKeySession"),
+        s.lock(
           [t, o("WAJids").extractUserJid(r)],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = null;
@@ -372,11 +366,11 @@ __d(
         )
       );
     }
-    function L(e, t, r, a) {
+    function R(e, t, r, a) {
       var i = e.saveSenderKeySession;
       return (
-        m("rotateGroupSenderKey"),
-        u.lock(
+        d("rotateGroupSenderKey"),
+        s.lock(
           [t, o("WAJids").extractUserJid(r)],
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e =
@@ -389,20 +383,20 @@ __d(
         )
       );
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
+    function L(e, t, n) {
+      return E.apply(this, arguments);
     }
-    function k() {
+    function E() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = e.loadSenderKeySession,
             a = e.saveSenderKeySession;
-          m("createSenderKeyDistributionMsg");
+          d("createSenderKeyDistributionMsg");
           var i = yield r(t, n),
             l = i.error;
           if (!i.success && l === "errLoadSenderKeySession") {
             var s = yield o("WASignalKeys").makeKeyPair();
-            (yield L({ saveSenderKeySession: a }, t, n, s),
+            (yield R({ saveSenderKeySession: a }, t, n, s),
               (i = yield r(t, n)));
           }
           if (i.success) {
@@ -417,19 +411,19 @@ __d(
               );
           }
           return (
-            m("createSenderKeyDistributionMsg: errGetSenderKeyProto"),
+            d("createSenderKeyDistributionMsg: errGetSenderKeyProto"),
             o("WAResultOrError").makeError("errGetSenderKeyProto")
           );
         })),
-        k.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function I(e) {
+    function k(e) {
       var t = e.identity,
         n = e.oneTimeKey,
         r = e.regId,
         a = e.signedKey;
-      m("sanitizeInitialSessionInfo");
+      d("sanitizeInitialSessionInfo");
       var i = o("WASignalKeys").castToSerializedPubKey(a.publicKey);
       return {
         regId: o("WASignalOther").castRegistrationId(r),
@@ -446,15 +440,15 @@ __d(
         ratchetKey: i,
       };
     }
-    ((l.createOutgoingSession = p),
-      (l.establishOutgoingSession = f),
-      (l.encryptContent = h),
-      (l.decryptContent = y),
-      (l.encryptGroupContent = v),
-      (l.decryptGroupContent = S),
-      (l.saveSenderKeySession = R),
-      (l.rotateGroupSenderKey = L),
-      (l.createSenderKeyDistributionMsg = E));
+    ((l.createOutgoingSession = m),
+      (l.establishOutgoingSession = _),
+      (l.encryptContent = g),
+      (l.decryptContent = h),
+      (l.encryptGroupContent = b),
+      (l.decryptGroupContent = v),
+      (l.saveSenderKeySession = S),
+      (l.rotateGroupSenderKey = R),
+      (l.createSenderKeyDistributionMsg = L));
   },
   98,
 );

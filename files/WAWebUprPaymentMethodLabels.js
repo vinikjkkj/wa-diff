@@ -155,6 +155,22 @@ __d(
         (e[
           d(
             c.UprPaymentAccountType.DIGITAL_WALLET,
+            c.UprIdentifierType.ID_ACCOUNT_NUMBER,
+          )
+        ] = {
+          label: function () {
+            return s._(/*BTDS*/ "Account number");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy account number");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "Account number copied");
+          },
+        }),
+        (e[
+          d(
+            c.UprPaymentAccountType.DIGITAL_WALLET,
             c.UprIdentifierType.ACCOUNT_NUMBER,
           )
         ] = {

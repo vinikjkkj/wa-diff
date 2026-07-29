@@ -2268,7 +2268,7 @@ __d(
               a.format = _g4 ? _h4 : 0;
             }
           }
-          $i(n, ve, void 0);
+          $i(n, ve);
         });
     }
     function Dn(t, e, n) {
@@ -2427,7 +2427,7 @@ __d(
         h = u.getNode();
       if ("insertText" === n || "insertTranspose" === n) {
         if ("\n" === c) (e.preventDefault(), $i(r, we, !1));
-        else if (c === v) (e.preventDefault(), $i(r, Ie, void 0));
+        else if (c === v) (e.preventDefault(), $i(r, Ie));
         else if (null == c && e.dataTransfer) {
           var _t64 = e.dataTransfer.getData("text/plain");
           (e.preventDefault(), i.insertRawText(_t64));
@@ -2464,7 +2464,7 @@ __d(
           (ai(null),
             s.isInsertLineBreak && !l
               ? ((s.isInsertLineBreak = !1), $i(r, we, !1))
-              : $i(r, Ie, void 0));
+              : $i(r, Ie));
           break;
         case "insertFromPaste":
         case "insertFromPasteAsQuotation":
@@ -2512,10 +2512,10 @@ __d(
           $i(r, Be, "underline");
           break;
         case "historyUndo":
-          $i(r, ze, void 0);
+          $i(r, ze);
           break;
         case "historyRedo":
-          $i(r, We, void 0);
+          $i(r, We);
       }
       return !0;
     }
@@ -2852,7 +2852,7 @@ __d(
           return Di(t, "z", wi);
         })(t)
       )
-        (t.preventDefault(), $i(e, ze, void 0));
+        (t.preventDefault(), $i(e, ze));
       else if (
         (function (t) {
           if (r) return Di(t, "z", { metaKey: !0, shiftKey: !0 });
@@ -2862,7 +2862,7 @@ __d(
           );
         })(t)
       )
-        (t.preventDefault(), $i(e, We, void 0));
+        (t.preventDefault(), $i(e, We));
       else {
         var _o29 = e._editorState._selection;
         !(function (t) {
@@ -6457,7 +6457,7 @@ __d(
           Yo(l) ||
             null === l ||
             (null !== i && i.is(l)) ||
-            t.dispatchCommand(ve, void 0);
+            t.dispatchCommand(ve);
           var C = t._pendingDecorators;
           null !== C &&
             ((t._decorators = C),
@@ -7948,8 +7948,17 @@ __d(
       _proto17.hasNodes = function hasNodes(t) {
         return t.every(this.hasNode.bind(this));
       };
-      _proto17.dispatchCommand = function dispatchCommand(t, e) {
-        return $i(this, t, e);
+      _proto17.dispatchCommand = function dispatchCommand(t) {
+        for (
+          var _len6 = arguments.length,
+            e = new Array(_len6 > 1 ? _len6 - 1 : 0),
+            _key6 = 1;
+          _key6 < _len6;
+          _key6++
+        ) {
+          e[_key6 - 1] = arguments[_key6];
+        }
+        return $i.apply(void 0, [this, t].concat(e));
       };
       _proto17.getDecorators = function getDecorators() {
         return this._decorators;
@@ -8127,11 +8136,11 @@ __d(
       };
       _proto17.read = function read() {
         for (
-          var _len6 = arguments.length, t = new Array(_len6), _key6 = 0;
-          _key6 < _len6;
-          _key6++
+          var _len7 = arguments.length, t = new Array(_len7), _key7 = 0;
+          _key7 < _len7;
+          _key7++
         ) {
-          t[_key6] = arguments[_key6];
+          t[_key7] = arguments[_key7];
         }
         var _ref39 = 1 === t.length ? ["force-commit", t[0]] : t,
           e = _ref39[0],
@@ -8660,8 +8669,8 @@ __d(
         n = e && e.inputType;
       return "insertFromPaste" === n || "insertFromPasteAsQuotation" === n;
     }
-    function $i(t, e, n) {
-      return os(t, e, n, t);
+    function $i(t, e) {
+      return os(t, e, arguments.length <= 2 ? undefined : arguments[2], t);
     }
     function zi(e, n) {
       var o = e._keyToDOMMap.get(n);
@@ -9427,11 +9436,11 @@ __d(
       function Ec() {
         var _this6;
         for (
-          var _len7 = arguments.length, args = new Array(_len7), _key7 = 0;
-          _key7 < _len7;
-          _key7++
+          var _len8 = arguments.length, args = new Array(_len8), _key8 = 0;
+          _key8 < _len8;
+          _key8++
         ) {
-          args[_key7] = arguments[_key7];
+          args[_key8] = arguments[_key8];
         }
         return (
           ((_this6 = _vc.call.apply(_vc, [this].concat(args)) || this),
@@ -9488,11 +9497,11 @@ __d(
       function Mc() {
         var _this7;
         for (
-          var _len8 = arguments.length, args = new Array(_len8), _key8 = 0;
-          _key8 < _len8;
-          _key8++
+          var _len9 = arguments.length, args = new Array(_len9), _key9 = 0;
+          _key9 < _len9;
+          _key9++
         ) {
-          args[_key8] = arguments[_key8];
+          args[_key9] = arguments[_key9];
         }
         return (
           ((_this7 = _vc2.call.apply(_vc2, [this].concat(args)) || this),
@@ -9607,11 +9616,11 @@ __d(
           function _class() {
             var _this9;
             for (
-              var _len9 = arguments.length, args = new Array(_len9), _key9 = 0;
-              _key9 < _len9;
-              _key9++
+              var _len0 = arguments.length, args = new Array(_len0), _key0 = 0;
+              _key0 < _len0;
+              _key0++
             ) {
-              args[_key9] = arguments[_key9];
+              args[_key0] = arguments[_key0];
             }
             return (
               ((_this9 = _Ac.call.apply(_Ac, [this].concat(args)) || this),
@@ -9634,11 +9643,11 @@ __d(
           function _class3() {
             var _this0;
             for (
-              var _len0 = arguments.length, args = new Array(_len0), _key0 = 0;
-              _key0 < _len0;
-              _key0++
+              var _len1 = arguments.length, args = new Array(_len1), _key1 = 0;
+              _key1 < _len1;
+              _key1++
             ) {
-              args[_key0] = arguments[_key0];
+              args[_key1] = arguments[_key1];
             }
             return (
               ((_this0 = _Ac2.call.apply(_Ac2, [this].concat(args)) || this),
@@ -9663,11 +9672,13 @@ __d(
           function _class5() {
             var _this1;
             for (
-              var _len1 = arguments.length, args = new Array(_len1), _key1 = 0;
-              _key1 < _len1;
-              _key1++
+              var _len10 = arguments.length,
+                args = new Array(_len10),
+                _key10 = 0;
+              _key10 < _len10;
+              _key10++
             ) {
-              args[_key1] = arguments[_key1];
+              args[_key10] = arguments[_key10];
             }
             return (
               ((_this1 = _Mc.call.apply(_Mc, [this].concat(args)) || this),
@@ -9690,13 +9701,13 @@ __d(
           function _class7() {
             var _this10;
             for (
-              var _len10 = arguments.length,
-                args = new Array(_len10),
-                _key10 = 0;
-              _key10 < _len10;
-              _key10++
+              var _len11 = arguments.length,
+                args = new Array(_len11),
+                _key11 = 0;
+              _key11 < _len11;
+              _key11++
             ) {
-              args[_key10] = arguments[_key10];
+              args[_key11] = arguments[_key11];
             }
             return (
               ((_this10 = _Mc2.call.apply(_Mc2, [this].concat(args)) || this),
@@ -9721,13 +9732,13 @@ __d(
           function _class9() {
             var _this11;
             for (
-              var _len11 = arguments.length,
-                args = new Array(_len11),
-                _key11 = 0;
-              _key11 < _len11;
-              _key11++
+              var _len12 = arguments.length,
+                args = new Array(_len12),
+                _key12 = 0;
+              _key12 < _len12;
+              _key12++
             ) {
-              args[_key11] = arguments[_key11];
+              args[_key12] = arguments[_key12];
             }
             return (
               ((_this11 = _Ec.call.apply(_Ec, [this].concat(args)) || this),
@@ -9750,13 +9761,13 @@ __d(
           function _class1() {
             var _this12;
             for (
-              var _len12 = arguments.length,
-                args = new Array(_len12),
-                _key12 = 0;
-              _key12 < _len12;
-              _key12++
+              var _len13 = arguments.length,
+                args = new Array(_len13),
+                _key13 = 0;
+              _key13 < _len13;
+              _key13++
             ) {
-              args[_key12] = arguments[_key12];
+              args[_key13] = arguments[_key13];
             }
             return (
               ((_this12 = _Ec2.call.apply(_Ec2, [this].concat(args)) || this),
@@ -10342,11 +10353,11 @@ __d(
     function xa() {
       var e = [];
       for (
-        var _len13 = arguments.length, t = new Array(_len13), _key13 = 0;
-        _key13 < _len13;
-        _key13++
+        var _len14 = arguments.length, t = new Array(_len14), _key14 = 0;
+        _key14 < _len14;
+        _key14++
       ) {
-        t[_key13] = arguments[_key13];
+        t[_key14] = arguments[_key14];
       }
       for (var _n123 of t)
         if (_n123 && "string" == typeof _n123)
@@ -10358,11 +10369,11 @@ __d(
     }
     function Ca() {
       for (
-        var _len14 = arguments.length, t = new Array(_len14), _key14 = 0;
-        _key14 < _len14;
-        _key14++
+        var _len15 = arguments.length, t = new Array(_len15), _key15 = 0;
+        _key15 < _len15;
+        _key15++
       ) {
-        t[_key14] = arguments[_key14];
+        t[_key15] = arguments[_key15];
       }
       return function () {
         for (var _e162 = t.length - 1; _e162 >= 0; _e162--) t[_e162]();
@@ -10749,13 +10760,13 @@ __d(
       (exports.addClassNamesToElement = function (t) {
         var _t$classList2;
         for (
-          var _len15 = arguments.length,
-            e = new Array(_len15 > 1 ? _len15 - 1 : 0),
-            _key15 = 1;
-          _key15 < _len15;
-          _key15++
+          var _len16 = arguments.length,
+            e = new Array(_len16 > 1 ? _len16 - 1 : 0),
+            _key16 = 1;
+          _key16 < _len16;
+          _key16++
         ) {
-          e[_key15 - 1] = arguments[_key15];
+          e[_key16 - 1] = arguments[_key16];
         }
         var n = xa.apply(void 0, e);
         n.length > 0 &&
@@ -10766,11 +10777,11 @@ __d(
       }),
       (exports.configExtension = function () {
         for (
-          var _len16 = arguments.length, t = new Array(_len16), _key16 = 0;
-          _key16 < _len16;
-          _key16++
+          var _len17 = arguments.length, t = new Array(_len17), _key17 = 0;
+          _key17 < _len17;
+          _key17++
         ) {
-          t[_key16] = arguments[_key16];
+          t[_key17] = arguments[_key17];
         }
         return t;
       }),
@@ -11026,13 +11037,13 @@ __d(
       (exports.removeClassNamesFromElement = function (t) {
         var _t$classList3;
         for (
-          var _len17 = arguments.length,
-            e = new Array(_len17 > 1 ? _len17 - 1 : 0),
-            _key17 = 1;
-          _key17 < _len17;
-          _key17++
+          var _len18 = arguments.length,
+            e = new Array(_len18 > 1 ? _len18 - 1 : 0),
+            _key18 = 1;
+          _key18 < _len18;
+          _key18++
         ) {
-          e[_key17 - 1] = arguments[_key17];
+          e[_key18 - 1] = arguments[_key18];
         }
         var n = xa.apply(void 0, e);
         n.length > 0 &&

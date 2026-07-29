@@ -200,35 +200,28 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
-            var l = t.uprAttachment;
-            if (l == null)
-              throw r("err")(
-                "UPR payment request attempted for a non-UPR method",
-              );
-            if (n.length === 0)
+            if (t.length === 0)
               throw r("err")(
                 "UPR payment request attempted with no payment keys",
               );
-            var s = o("WAWebOrderCollection").OrderCollection.addOrder(),
-              u = babelHelpers.extends(
+            var l = o("WAWebOrderCollection").OrderCollection.addOrder(),
+              s = babelHelpers.extends(
                 {},
                 o("WAWebUprPaymentRequestParams").buildUprPaymentRequestParams({
-                  accountType: l.accountType,
-                  identifierType: l.identifierType,
-                  currency: l.currency,
-                  paymentKeys: n,
+                  currency: n,
+                  paymentKeys: t,
                   amount: a,
                   offset: i,
                   referenceId: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
                 }),
-                { order_request_id: s.id },
+                { order_request_id: l.id },
               );
             yield c({
               caption: null,
               chat: e,
               nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
                 .ORDER_DETAILS,
-              buttonParamsJson: JSON.stringify(u),
+              buttonParamsJson: JSON.stringify(s),
               errorMessage: "UPR payment request send to chat failure",
               thumbnail: "",
               buttonName: "review_and_pay",

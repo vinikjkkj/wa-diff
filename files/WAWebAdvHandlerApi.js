@@ -64,7 +64,7 @@ __d(
         ? (u || (u = n("Promise"))).reject(
             r("err")("handleADVDeviceNotification: notification without type"),
           )
-        : g(a, t, o);
+        : g({ devices: t, type: o, wid: a });
     }
     function f(t) {
       if (t.length === 0) return (u || (u = n("Promise"))).resolve();
@@ -109,46 +109,60 @@ __d(
           ));
       });
     }
-    function g(e, t, n) {
+    function g(e) {
       return h.apply(this, arguments);
     }
     function h() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = null;
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.devices,
+            n = e.type,
+            r = e.wid,
+            a = null;
           if (n === "add") {
-            var a = yield o("WAWebSignalProtocolStore")
+            var i = yield o("WAWebSignalProtocolStore")
               .getPersistSignalProtocolStore()
               .loadIdentityKey(
-                o("WAWebSignalCommonUtils").createSignalAddress(e).toString(),
+                o("WAWebSignalCommonUtils").createSignalAddress(r).toString(),
               );
-            r =
-              a != null
+            a =
+              i != null
                 ? o("WAWebCryptoCurve25519").toCurveKeyPubKey(
-                    o("WAWebSignalCommonUtils").strToBuffer(a),
+                    o("WAWebSignalCommonUtils").strToBuffer(i),
                   )
                 : null;
           }
-          var i = yield o("WAWebApiDeviceList").getDeviceRecord(e),
-            l = yield o(
+          var l = yield o("WAWebApiDeviceList").getDeviceRecord(r),
+            s = yield o(
               "WAWebLastADVCheckTimeApi",
             ).getLastADVDeviceInfoCheckTime(),
-            s = o(
+            u = o(
               "WAWebHandleAdvDeviceNotificationForUsyncApi",
-            ).handleDeviceNotification(e, n, t, r, i, l);
-          if (s) {
-            if (s.clearRecord) {
-              var u;
+            ).handleDeviceNotification({
+              deviceNotification: t,
+              lastDeviceJobTs: s,
+              localDeviceRecord: l,
+              localPrimaryIdentity: a,
+              type: n,
+              userWid: r,
+            });
+          if (u) {
+            if (u.clearRecord) {
+              var c;
               yield o("WAWebIdentityUpdateDeviceTableApi").clearDeviceRecord(
-                e,
-                (i == null ? void 0 : i.devices) || [],
+                r,
+                (l == null ? void 0 : l.devices) || [],
                 !1,
-                i == null ? void 0 : i.advAccountType,
-                s == null || (u = s.update) == null ? void 0 : u.advAccountType,
+                l == null ? void 0 : l.advAccountType,
+                u == null || (c = u.update) == null ? void 0 : c.advAccountType,
               );
             }
             return o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate(
-              [{ wid: e, update: s.update, currentRecord: i }],
+              {
+                deviceUpdateResult: [
+                  { wid: r, update: u.update, currentRecord: l },
+                ],
+              },
             );
           }
         })),
@@ -294,11 +308,11 @@ __d(
                 );
               }),
             ),
-            yield o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate(
-              c,
-              !1,
-              m,
-            ));
+            yield o("WAWebIdentityUpdateDeviceTableApi").bulkApplyDeviceUpdate({
+              deviceUpdateResult: c,
+              offline: !1,
+              shouldAddHostedSystemMsgIfApplicable: m,
+            }));
         })),
         C.apply(this, arguments)
       );
@@ -473,7 +487,11 @@ __d(
               function (e) {
                 return o(
                   "WAWebIdentityUpdateDeviceTableApi",
-                ).bulkApplyDeviceUpdate(e, !1, v);
+                ).bulkApplyDeviceUpdate({
+                  deviceUpdateResult: e,
+                  offline: !1,
+                  shouldAddHostedSystemMsgIfApplicable: v,
+                });
               },
               { batchSize: L },
             ));

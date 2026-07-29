@@ -84,6 +84,7 @@ __d(
         case "reaction_enc":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.REACTION;
         case "poll_creation":
+        case "poll_edit_encrypted":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.POLL_CREATE;
         case "poll_result_snapshot":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.POLL_RESULT_SNAPSHOT;
@@ -100,7 +101,9 @@ __d(
         case "protocol":
           return e.subtype === "ephemeral_sync_response"
             ? o("WAWebWamEnumMediaType").MEDIA_TYPE.EPHEMERAL_SYNC_RESPONSE
-            : o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
+            : e.subtype === "poll_edit_decrypted"
+              ? o("WAWebWamEnumMediaType").MEDIA_TYPE.POLL_CREATE
+              : o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
         case "event_creation":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.EVENT_CREATE;
         case "event_response":

@@ -93,6 +93,7 @@ __d(
                                   t.$5,
                                   m,
                                 )
+                                .tags("non-sad")
                                 .sendLogs("voip-operation-queue-timeout-benign")
                             : o("WALogger")
                                 .ERROR(

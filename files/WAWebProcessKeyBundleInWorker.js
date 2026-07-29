@@ -180,9 +180,6 @@ __d(
               {
                 regInfo: $,
                 sessions: L,
-                shouldYield: o("WAWebABProps").getABPropConfigValue(
-                  "web_anr_async_msg_send_handler",
-                ),
                 useScheduler: o("WAWebABProps").getABPropConfigValue(
                   "wmi_worker_scheduler_web",
                 ),

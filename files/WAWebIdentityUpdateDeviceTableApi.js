@@ -172,65 +172,69 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          (t === void 0 && (t = !1), a === void 0 && (a = !1));
-          var i = [],
-            l = [],
-            s = !1,
-            m = !1,
-            f = !1,
-            g = [];
-          (e.forEach(function (e) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.deviceUpdateResult,
+            a = e.offline,
+            i = a === void 0 ? !1 : a,
+            l = e.shouldAddHostedSystemMsgIfApplicable,
+            s = l === void 0 ? !1 : l,
+            m = [],
+            f = [],
+            g = !1,
+            h = !1,
+            y = !1,
+            b = [];
+          (t.forEach(function (e) {
             var t = e.currentRecord,
               n = e.update,
               r = e.wid,
               a = n.devices,
-              u = a.map(function (e) {
+              i = a.map(function (e) {
                 return e.id;
               }),
-              c =
+              l =
                 t && !t.deleted
                   ? t.devices.map(function (e) {
                       return e.id;
                     })
                   : [],
-              d = Array.from(new Set(u).difference(new Set(c))).filter(
+              s = Array.from(new Set(i).difference(new Set(l))).filter(
                 function (e) {
                   return e !== o("WAJids").DEFAULT_DEVICE_ID;
                 },
               ),
-              p = Array.from(new Set(c).difference(new Set(u))).filter(
+              u = Array.from(new Set(l).difference(new Set(i))).filter(
                 function (e) {
                   return e !== o("WAJids").DEFAULT_DEVICE_ID;
                 },
               ),
-              h = t == null,
-              y = _(
+              c = t == null,
+              d = _(
                 t == null ? void 0 : t.advAccountType,
                 n == null ? void 0 : n.advAccountType,
               );
-            (y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-              (g.length < 3 && g.push(r == null ? void 0 : r.toLogString()),
+            (d === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+              (b.length < 3 && b.push(r == null ? void 0 : r.toLogString()),
               o(
                 "WAWebBizCoexHostedAddVerification",
               ).assertThrowsWidAdvTypeFromVerificationCache(r)),
-              y != null && (m = !0),
-              y === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-                (f = !0),
-              i.push({
+              d != null && (h = !0),
+              d === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+                (y = !0),
+              m.push({
                 wid: r,
-                added: d,
-                removed: p,
-                isNewRecord: h,
-                newAdvAccountType: y,
+                added: s,
+                removed: u,
+                isNewRecord: c,
+                newAdvAccountType: d,
               }),
-              p.forEach(function (e) {
-                l.push(
+              u.forEach(function (e) {
+                f.push(
                   o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
                     r.user,
                     r.server,
@@ -239,10 +243,10 @@ __d(
                 );
               }),
               o("WAWebUserPrefsMeUser").isMeAccount(r) &&
-                p.length > 0 &&
-                (s = !0));
+                u.length > 0 &&
+                (g = !0));
           }),
-            g.length > 0 &&
+            b.length > 0 &&
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -250,38 +254,38 @@ __d(
                     " wids => ",
                     "",
                   ])),
-                g.length,
-                g,
+                b.length,
+                b,
               ),
-            f === !0 &&
+            y === !0 &&
               (yield o("WAWebUserPrefsMultiDevice").setHaveProcessedCoexAdv()));
-          var h = yield C(i, t, (t || a) && m),
-            y = h.chatIds,
-            b = h.encryptedNotifications;
+          var S = yield C(m, i, (i || s) && h),
+            R = S.chatIds,
+            L = S.encryptedNotifications;
           (p || (p = n("Promise"))).all(
-            l.map(function (e) {
+            f.map(function (e) {
               return v(e);
             }),
           );
-          var S = (b == null ? void 0 : b.length) > 0,
-            R = [];
+          var E = (L == null ? void 0 : L.length) > 0,
+            k = [];
           yield o("WAWebApiGetDeviceUpdateLock").getDeviceUpdateLock(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t =
-                  b.length > 0
+              var e =
+                  L.length > 0
                     ? o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
-                        b,
+                        L,
                         [],
-                        y,
+                        R,
                         !1,
                       )
                     : (p || (p = n("Promise"))).resolve(),
                 a = o(
                   "WAWebAdvUpdateParticipantApi",
-                ).bulkUpdateGroupParticipantsInTransaction(i),
-                l = o("WAWebApiDeviceList")
+                ).bulkUpdateGroupParticipantsInTransaction(m),
+                i = o("WAWebApiDeviceList")
                   .bulkCreateOrReplaceDeviceRecord(
-                    e.map(function (e) {
+                    t.map(function (e) {
                       return e.update;
                     }),
                   )
@@ -303,8 +307,8 @@ __d(
                       )
                     );
                   }),
-                u = s
-                  ? l.then(function () {
+                l = g
+                  ? i.then(function () {
                       return o("WAWebSyncdStoreMissingKeys")
                         .updateMissingKeyDevices()
                         .catch(function (e) {
@@ -319,32 +323,32 @@ __d(
                         });
                     })
                   : (p || (p = n("Promise"))).resolve(),
-                m = [];
-              (S &&
-                i.forEach(function (e) {
+                s = [];
+              (E &&
+                m.forEach(function (e) {
                   var t = e.newAdvAccountType,
                     n = e.wid;
                   t != null &&
-                    (m.push(
+                    (s.push(
                       o("WAWebApiContact").updateContactAdvHostedType(n, t),
                     ),
-                    R.push({
+                    k.push({
                       contactId: o("WAWebWidFactory").asUserWidOrThrow(n),
                       advAccountType: t,
                     }));
                 }),
-                yield (p || (p = n("Promise"))).all([t, a, l, u].concat(m)));
+                yield (p || (p = n("Promise"))).all([e, a, i, l].concat(s)));
             }),
-            b.length > 0,
-            s,
-            S,
+            L.length > 0,
+            g,
+            E,
           );
-          for (var L of R)
+          for (var I of k)
             o("WAWebBackendApi").frontendFireAndForget(
               "updateContactAdvAccountType",
-              L,
+              I,
             );
-          o("WAWebBizCoexUtils").sendWamCoexPrivacySysMsgInsertSuccess(b);
+          o("WAWebBizCoexUtils").sendWamCoexPrivacySysMsgInsertSuccess(L);
         })),
         y.apply(this, arguments)
       );

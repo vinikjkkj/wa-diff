@@ -48,7 +48,13 @@ __d(
                 });
             return;
           }
-          var m = p(d, u, r, a, i);
+          var m = p({
+            contact: d,
+            emoji: r,
+            ephemeralDuration: a,
+            newUpdateTime: i,
+            textString: u,
+          });
           m &&
             (yield o("WAWebDBUpdateContactTable").updateContactTable(
               c,
@@ -92,13 +98,13 @@ __d(
               var s = t[l],
                 u = n[l];
               if (u) {
-                var c = p(
-                  u,
-                  s.textString,
-                  s.emoji,
-                  s.ephemeralDuration,
-                  s.newUpdateTime,
-                );
+                var c = p({
+                  contact: u,
+                  emoji: s.emoji,
+                  ephemeralDuration: s.ephemeralDuration,
+                  newUpdateTime: s.newUpdateTime,
+                  textString: s.textString,
+                });
                 if (c) {
                   var d = s.contactUserWid.isLid()
                     ? o("WAJids").toLidUserJid(s.contactUserWid.user)
@@ -126,24 +132,29 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n, r, a) {
-      var i = e.textStatusLastUpdateTime,
-        l =
+    function p(e) {
+      var t = e.contact,
+        n = e.emoji,
+        r = e.ephemeralDuration,
+        a = e.newUpdateTime,
+        i = e.textString,
+        l = t.textStatusLastUpdateTime,
+        s =
           a ===
             o("WAWebTextStatusUtils").CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL ||
           a === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_AUTHORIZED ||
           a === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED;
-      if (a == null || (i != null && !l && a < i)) return null;
-      var s = o("WAWebTextStatusUtils").resolveTextStatusUpdateTime(a, i),
-        u;
+      if (a == null || (l != null && !s && a < l)) return null;
+      var u = o("WAWebTextStatusUtils").resolveTextStatusUpdateTime(a, l),
+        c;
       return (
-        r != null && r > 0 && !l && (u = Number(a) + Number(r)),
+        r != null && r > 0 && !s && (c = Number(a) + Number(r)),
         {
-          textStatusString: t,
+          textStatusString: i,
           textStatusEmoji: n,
           textStatusEphemeralDuration: r,
-          textStatusLastUpdateTime: s,
-          textStatusExpiryTs: u,
+          textStatusLastUpdateTime: u,
+          textStatusExpiryTs: c,
         }
       );
     }

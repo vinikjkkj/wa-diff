@@ -66,9 +66,11 @@ __d(
               );
             if (s) {
               var u = new Uint8Array(s.contentBytes()),
-                p = yield o("WAWebAdvSignatureApi").validateADVwithEncs(a, u, [
-                  l,
-                ]);
+                p = yield o("WAWebAdvSignatureApi").validateADVwithEncs({
+                  author: a,
+                  deviceIdentity: u,
+                  encs: [l],
+                });
               if (!p)
                 return {
                   result: o("WAWebHandleMsgTypes.flow").E2EProcessResult

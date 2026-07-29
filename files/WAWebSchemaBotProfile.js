@@ -28,6 +28,8 @@ __d(
           n("creatorProfileUrl"),
           n("lastUpdateTs"),
           n("posingAsProfessional"),
+          n("product"),
+          n("isDeprecated"),
         ])
         .view(function (e) {
           return e;

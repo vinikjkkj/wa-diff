@@ -10,11 +10,13 @@ __d(
     "WAWebLocalStorage",
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
+    "WAWebVoipCallRatingStore",
     "WAWebVoipDeviceClassUtils",
     "WAWebVoipGatingUtils",
     "WAWebVoipPersistentFS",
     "WAWebWamEnumAppExitReason",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -33,23 +35,27 @@ __d(
       C,
       b,
       v,
-      S = "wa_voip_call_state",
-      R = "wa_voip_web_transport_used",
-      L = "active",
-      E = "closing",
-      k = !1,
-      I = null;
-    function T() {
+      S,
+      R,
+      L,
+      E,
+      k = "wa_voip_call_state",
+      I = "wa_voip_web_transport_used",
+      T = "active",
+      D = "closing",
+      x = !1,
+      $ = null;
+    function P() {
       return (
         o("WAWebABProps").getABPropConfigValue("app_exit_reason_version") > 0
       );
     }
-    function D() {
+    function N() {
       if (r("WAWebLocalStorage") == null)
         return o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.UNKNOWN;
       try {
-        var t = r("WAWebLocalStorage").getItem(S);
-        return t === E
+        var t = r("WAWebLocalStorage").getItem(k);
+        return t === D
           ? (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -57,7 +63,7 @@ __d(
                 ])),
             ),
             o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.USER_REQUESTED)
-          : t === L
+          : t === T
             ? (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -70,136 +76,226 @@ __d(
         return o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.UNKNOWN;
       }
     }
-    function x() {
+    function M() {
       if (r("WAWebLocalStorage") != null)
         try {
-          (r("WAWebLocalStorage").removeItem(S),
-            r("WAWebLocalStorage").removeItem(R));
+          (r("WAWebLocalStorage").removeItem(k),
+            r("WAWebLocalStorage").removeItem(I));
         } catch (e) {}
     }
-    function $() {
+    function w() {
       if (r("WAWebLocalStorage") == null) return !1;
       try {
-        return r("WAWebLocalStorage").getItem(R) === "1";
+        return r("WAWebLocalStorage").getItem(I) === "1";
       } catch (e) {
         return !1;
       }
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function A(e, t) {
+      e.appExitReason = t;
+      var n = o("WAWebBrowserApi").getNumCpu(),
+        r = o("WAWebBrowserApi").getMemClass();
+      (n != null && (e.numCpuCores = n),
+        r != null && (e.totalMemoryGb = Math.round(r / 1e3)));
+      var a = r != null ? Math.round(r / 1e3) : null,
+        i = o("WAWebVoipDeviceClassUtils").computeDeviceClass(n, a);
+      i != null && (e.deviceClass = i);
+      var l = o("WAWebVoipBrowserMetrics").getBrowserMetricsCapabilities();
+      ((e.browserCpuPressureSupported = l.browserCpuPressureSupported),
+        (e.browserMemorySupported = l.browserMemorySupported));
+      var s = o(
+        "WAWebVoipBatteryDiagnostics",
+      ).getBatteryDiagnosticsCapabilities();
+      ((e.browserBatterySupported = s.browserBatterySupported),
+        (e.webTransportUsed = w()));
     }
-    function N() {
+    function F(e) {
+      return O.apply(this, arguments);
+    }
+    function O() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (k) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            (e.cleanupUnfinishedCallStats(),
+              yield o("WAWebVoipPersistentFS").syncPersistentFS(e),
+              M(),
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip:recovery] cleaned up fieldstats",
+                  ])),
+              ));
+          } catch (e) {
+            (o("WAWebCoreActionsODS").logCallFieldstatsRecoveryCleanupFailed(),
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip:recovery] fieldstats cleanup failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("voip-fieldstats-recovery-cleanup-failed", {
+                  employeeSampling: 1,
+                  sampling: 0.01,
+                  sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                }));
+          }
+        })),
+        O.apply(this, arguments)
+      );
+    }
+    function B(e) {
+      return W.apply(this, arguments);
+    }
+    function W() {
+      return (
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (x) {
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip:recovery] already attempted, skip",
                 ])),
             );
             return;
           }
-          k = !0;
+          x = !0;
+          var t = !1;
           try {
-            var t = o("WAWebVoipPersistentFS").getVoipPersistentDirectoryPath();
-            if (t === "") {
+            var n = o("WAWebVoipPersistentFS").getVoipPersistentDirectoryPath();
+            if (n === "") {
               o("WALogger").WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
                     "[voip:recovery] no cache dir, skip",
                   ])),
               );
               return;
             }
             yield o("WAWebVoipPersistentFS").initPersistentFS(e);
-            var n = e.getUnfinishedCallFieldstats(t);
-            if (n == null || n.length === 0) {
+            var a = e.getUnfinishedCallFieldstats(n);
+            if (a == null || a.length === 0) {
               o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[voip:recovery] no unfinished fieldstats",
                   ])),
               );
               return;
             }
-            (o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip:recovery] found fieldstats len=",
-                  "",
-                ])),
-              n.length,
-            ),
-              o("WAWebCoreActionsODS").logCallErrorTerminal());
-            try {
-              var r = JSON.parse(n),
-                a = D();
-              (a === o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.CRASH &&
-                o("WAWebCoreActionsODS").logCallWasmCrash(),
-                (r.appExitReason = a));
-              var i = o("WAWebBrowserApi").getNumCpu(),
-                l = o("WAWebBrowserApi").getMemClass();
-              (i != null && (r.numCpuCores = i),
-                l != null && (r.totalMemoryGb = Math.round(l / 1e3)));
-              var s = l != null ? Math.round(l / 1e3) : null,
-                u = o("WAWebVoipDeviceClassUtils").computeDeviceClass(i, s);
-              u != null && (r.deviceClass = u);
-              var c = o(
-                "WAWebVoipBrowserMetrics",
-              ).getBrowserMetricsCapabilities();
-              ((r.browserCpuPressureSupported = c.browserCpuPressureSupported),
-                (r.browserMemorySupported = c.browserMemorySupported));
-              var d = o(
-                "WAWebVoipBatteryDiagnostics",
-              ).getBatteryDiagnosticsCapabilities();
-              ((r.browserBatterySupported = d.browserBatterySupported),
-                (r.webTransportUsed = $()));
-              var C = new (o("WAWebCallWamEvent").CallWamEvent)(r);
-              (yield C.commitAndWaitForFlush(),
-                o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip:recovery] uploaded fieldstats exit=",
-                      "",
-                    ])),
-                  a,
-                ));
-            } finally {
-              (x(),
-                e.cleanupUnfinishedCallStats(),
-                yield o("WAWebVoipPersistentFS").syncPersistentFS(e),
-                o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip:recovery] cleaned up fieldstats",
-                    ])),
-                ));
-            }
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip:recovery] fieldstats recovery failed",
+            if (
+              (o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip:recovery] found fieldstats len=",
+                    "",
                   ])),
-              )
-              .catching(e);
+                a.length,
+              ),
+              (t = !0),
+              o("WAWebCoreActionsODS").logCallErrorTerminal(),
+              o("WAWebCoreActionsODS").logCallFieldstatsRecoveryFound(),
+              o("WAWebVoipCallRatingStore").werePersistedFieldstatsHandedOff(a))
+            ) {
+              (o(
+                "WAWebCoreActionsODS",
+              ).logCallFieldstatsRecoveryDuplicateSuppressed(),
+                o("WALogger").LOG(
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip:recovery] skipping fieldstats already handed to WAM",
+                    ])),
+                ),
+                yield F(e));
+              return;
+            }
+            var i;
+            try {
+              i = JSON.parse(a);
+            } catch (t) {
+              (o("WAWebCoreActionsODS").logCallFieldstatsRecoveryParseFailed(),
+                o("WALogger")
+                  .ERROR(
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                        "[voip:recovery] invalid persisted fieldstats",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("voip-fieldstats-recovery-parse-failed", {
+                    employeeSampling: 1,
+                    sampling: 0.01,
+                    sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                  }),
+                yield F(e));
+              return;
+            }
+            var l = N();
+            (l === o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.CRASH &&
+              o("WAWebCoreActionsODS").logCallWasmCrash(),
+              A(i, l));
+            var s = new (o("WAWebCallWamEvent").CallWamEvent)(i);
+            (yield s.commitAndWaitForFlush(),
+              o("WAWebVoipCallRatingStore").markPersistedFieldstatsHandedOff(a),
+              o("WALogger").LOG(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip:recovery] uploaded fieldstats exit=",
+                    "",
+                  ])),
+                l,
+              ),
+              o("WAWebCoreActionsODS").logCallFieldstatsRecoveryCompleted(),
+              yield F(e));
+          } catch (e) {
+            ((x = !1),
+              t
+                ? (o("WAWebCoreActionsODS").logCallFieldstatsRecoveryFailed(),
+                  o("WALogger")
+                    .ERROR(
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                          "[voip:recovery] fieldstats recovery failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("voip-fieldstats-recovery-failed", {
+                      employeeSampling: 1,
+                      sampling: 0.01,
+                      sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                    }))
+                : (o(
+                    "WAWebCoreActionsODS",
+                  ).logCallFieldstatsRecoveryInitFailed(),
+                  o("WALogger")
+                    .ERROR(
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
+                          "[voip:recovery] fieldstats discovery failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("voip-fieldstats-recovery-init-failed", {
+                      employeeSampling: 1,
+                      sampling: 0.01,
+                      sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+                    })));
           }
         })),
-        N.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function M() {
-      return w.apply(this, arguments);
+    function q() {
+      return U.apply(this, arguments);
     }
-    function w() {
+    function U() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!T()) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!P()) {
             o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip:recovery] exit reason feature disabled, skip",
                 ])),
             );
@@ -207,8 +303,8 @@ __d(
           }
           try {
             o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
+              L ||
+                (L = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip:recovery] init fieldstats recovery",
                 ])),
             );
@@ -216,27 +312,27 @@ __d(
               yield o("WAWebBackendApi").frontendSendAndReceive(
                 "initializeVoipWasm",
               );
-            yield P(e);
+            yield B(e);
           } catch (e) {
             o("WALogger")
               .ERROR(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
                     "[voip:recovery] init failed",
                   ])),
               )
               .catching(e);
           }
         })),
-        w.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function A(e) {
+    function V(e) {
       if (r("WAWebLocalStorage") != null)
         try {
-          (r("WAWebLocalStorage").setItem(S, L),
+          (r("WAWebLocalStorage").setItem(k, T),
             r("WAWebLocalStorage").setItem(
-              R,
+              I,
               o("WAWebVoipGatingUtils").isWebTransportEnabled() ? "1" : "0",
             ),
             o("WALogger").LOG(
@@ -249,12 +345,12 @@ __d(
             ));
         } catch (e) {}
     }
-    function F(e) {
+    function H(e) {
       if (r("WAWebLocalStorage") != null)
         try {
-          var t = r("WAWebLocalStorage").getItem(S);
-          t === L &&
-            (r("WAWebLocalStorage").setItem(S, E),
+          var t = r("WAWebLocalStorage").getItem(k);
+          t === T &&
+            (r("WAWebLocalStorage").setItem(k, D),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -265,11 +361,11 @@ __d(
             ));
         } catch (e) {}
     }
-    function O(e) {
+    function G(e) {
       if (r("WAWebLocalStorage") != null)
         try {
-          (r("WAWebLocalStorage").removeItem(S),
-            r("WAWebLocalStorage").removeItem(R),
+          (r("WAWebLocalStorage").removeItem(k),
+            r("WAWebLocalStorage").removeItem(I),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -280,25 +376,25 @@ __d(
             ));
         } catch (e) {}
     }
-    function B(e) {
-      if ((W(), typeof window != "undefined")) {
+    function z(e) {
+      if ((j(), typeof window != "undefined")) {
         var t = function () {
-          F(e);
+          H(e);
         };
         (window.addEventListener("beforeunload", t),
-          (I = function () {
+          ($ = function () {
             window.removeEventListener("beforeunload", t);
           }));
       }
     }
-    function W() {
-      I != null && (I(), (I = null));
+    function j() {
+      $ != null && ($(), ($ = null));
     }
-    ((l.initCrashRecovery = M),
-      (l.markCallActive = A),
-      (l.clearExitMarkers = O),
-      (l.registerGracefulExitHandler = B),
-      (l.unregisterGracefulExitHandler = W));
+    ((l.initCrashRecovery = q),
+      (l.markCallActive = V),
+      (l.clearExitMarkers = G),
+      (l.registerGracefulExitHandler = z),
+      (l.unregisterGracefulExitHandler = j));
   },
   98,
 );

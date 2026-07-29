@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WAWebFlex.react",
     "WDSIconIcVisibilityOffFilled.react",
-    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
   ],
@@ -13,49 +12,61 @@ __d(
     var e,
       u = e || (e = o("react")),
       c = {
-        iconContainer: {
-          display: "x78zum5",
-          justifyContent: "xl56j7k",
-          width: "xn6xy2s",
+        container: {
+          flex: "x3psx0u",
+          paddingTop: "x1iorvi4",
+          paddingBottom: "xjkvuk6",
           $$css: !0,
         },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.isSingleOptionPoll,
-        a = n ? void 0 : c.iconContainer,
-        i;
-      t[0] !== a
-        ? ((i = u.jsx(r("WDSIconIcVisibilityOffFilled.react"), {
+      var t = o("react-compiler-runtime").c(7),
+        n = e.trailingSeparator,
+        a,
+        i,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = u.jsx(r("WDSIconIcVisibilityOffFilled.react"), {
             width: 12,
             height: 12,
-            xstyle: a,
             colorName: "contentDeemphasized",
           })),
+          (i = { className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8" }),
+          (l = s._(/*BTDS*/ "Names hidden")),
           (t[0] = a),
-          (t[1] = i))
-        : (i = t[1]);
-      var l;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = u.jsx("span", {
-            className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8",
-            children: s._(/*BTDS*/ "Voter names hidden"),
-          })),
+          (t[1] = i),
           (t[2] = l))
-        : (l = t[2]);
+        : ((a = t[0]), (i = t[1]), (l = t[2]));
       var d;
+      t[3] !== n
+        ? ((d = n
+            ? u.jsx("span", {
+                className: "x135b78x x11lfxj5",
+                children: "\xB7",
+              })
+            : null),
+          (t[3] = n),
+          (t[4] = d))
+        : (d = t[4]);
+      var m;
       return (
-        t[3] !== i
-          ? ((d = u.jsxs(o("WAWebFlex.react").FlexRow, {
+        t[5] !== d
+          ? ((m = u.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
-              xstyle: o("WDSPaddings.stylex").wdsPaddings.padding4,
+              xstyle: c.container,
               testid: "poll-hide-voter-names-label",
-              children: [i, l],
+              children: [
+                a,
+                u.jsxs(
+                  "span",
+                  babelHelpers.extends({}, i, { children: [l, d] }),
+                ),
+              ],
             })),
-            (t[3] = i),
-            (t[4] = d))
-          : (d = t[4]),
-        d
+            (t[5] = d),
+            (t[6] = m))
+          : (m = t[6]),
+        m
       );
     }
     l.default = d;

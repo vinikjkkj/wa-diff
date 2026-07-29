@@ -31,30 +31,34 @@ __d(
           o != null &&
             "p9fk3wmn" in o &&
             ((n.src = "about:blank"), (n.srcdoc = ""));
-          var a = o != null && "r7c2m9xk" in o && "prepend" in t,
-            i = o != null && "z2ht6xqp" in o && "append" in t,
-            l = o != null && "k7q3nv9d" in o,
-            s = o != null && "w6jt4rnq" in o;
+          var a = t.firstElementChild,
+            i = o != null && "b3xk8fqm" in o && a != null && "before" in a,
+            l = o != null && "r7c2m9xk" in o && "prepend" in t,
+            s = o != null && "z2ht6xqp" in o && "append" in t,
+            f = o != null && "k7q3nv9d" in o,
+            g = o != null && "w6jt4rnq" in o;
           try {
-            (a
-              ? t.prepend(n)
-              : i
-                ? t.append(n)
-                : l
-                  ? t.insertBefore(n, null)
-                  : s
-                    ? t.insertAdjacentElement("beforeend", n)
-                    : t.appendChild(n),
+            (i && a != null
+              ? a.before(n)
+              : l
+                ? t.prepend(n)
+                : s
+                  ? t.append(n)
+                  : f
+                    ? t.insertBefore(n, null)
+                    : g
+                      ? t.insertAdjacentElement("beforeend", n)
+                      : t.appendChild(n),
               (u = n.contentWindow.String),
               (c = n.contentWindow.Function.prototype.call),
               (d = n.contentWindow.JSON.parse),
               (m = n.contentWindow.Function.prototype.toString));
-            var f = n.contentWindow.Object.getOwnPropertyDescriptor,
-              g = n.contentWindow.XMLHttpRequest.prototype,
-              h = f(g, "response"),
-              y = f(g, "responseText");
-            (h != null && h.get && (p = h.get),
-              y != null && y.get && (_ = y.get));
+            var h = n.contentWindow.Object.getOwnPropertyDescriptor,
+              y = n.contentWindow.XMLHttpRequest.prototype,
+              C = h(y, "response"),
+              b = h(y, "responseText");
+            (C != null && C.get && (p = C.get),
+              b != null && b.get && (_ = b.get));
           } catch (e) {
             r("FBLogger")("ad_blocker_defense_ghost_owl").warn(
               "Failed to create iframe for builtin restoration",

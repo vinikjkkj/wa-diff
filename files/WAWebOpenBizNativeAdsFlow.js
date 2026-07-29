@@ -12,16 +12,17 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t) {
+    function u(e, t, n) {
       (o("WAWebBizNativeAdsQplHelpers").startAdsManagementQpl(!1),
         o("WAWebCmd").Cmd.setActiveNavBarItem(
           o("WAWebNavBarTypes").NavBarItems.AdCreation,
         ));
-      var n = s.jsx(r("WAWebBizNativeAdsTwoPhaseContainer.react"), {
+      var a = s.jsx(r("WAWebBizNativeAdsTwoPhaseContainer.react"), {
         entryPoint: e,
         flowID: t,
+        preselectedProductId: n,
       });
-      o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(n, {
+      o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(a, {
         focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
         transition: "slide-left",
       });

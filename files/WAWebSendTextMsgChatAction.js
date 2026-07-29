@@ -42,7 +42,6 @@ __d(
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
     "WAWebProductCatalogLogEvents",
     "WAWebQuestionsGatingUtils",
-    "WAWebReleaseToEventLoop",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgRecordAction",
     "WAWebSpoilerFormatRegex",
@@ -426,9 +425,6 @@ __d(
             o("WAWebAppTracker").AppTracker.start(
               o("WAWebAppTracker").AppTrackerType.SendMessage,
             ),
-            o("WAWebABProps").getABPropConfigValue(
-              "web_anr_async_msg_send_handler",
-            ) && (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
             (s = d.wamMessageSendPerfReporter) == null ||
               s.startRenderedStage(),
             p.length > 0 && e.msgs.add(p),
@@ -439,33 +435,26 @@ __d(
             (u = d.wamMessageSendPerfReporter) == null || u.postRenderedStage(),
             (e.createdLocally = !1));
           var g = p.length > 0 ? [].concat(p, [t]) : [t];
-          return (
-            o("WAWebABProps").getABPropConfigValue(
-              "web_anr_async_msg_send_handler",
-            ) && (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
-            o("WAWebOrchestratorNonPersistedJob")
-              .createNonPersistedJob(
-                "sendMessage",
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  var n, r;
-                  ((n = d.wamMessageSendPerfReporter) == null ||
-                    n.startSavedStage(),
-                    yield o("WAWebDBProcessMessage").storeMessages(g, e.id),
-                    (r = d.wamMessageSendPerfReporter) == null ||
-                      r.postSavedStage(),
-                    o("WAWebThreadMsgUtils").isThreadMsg(t) &&
-                      (yield o(
-                        "WAWebDBThreadMetadataBulkHelper",
-                      ).persistNewMessagesThreadMetadataInBulk([t])));
-                  var a = yield o("WAWebSendMsgRecordAction").sendMsgRecord(d);
-                  return a;
-                }),
-                {
-                  priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
-                },
-              )
-              .waitUntilCompleted()
-          );
+          return o("WAWebOrchestratorNonPersistedJob")
+            .createNonPersistedJob(
+              "sendMessage",
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var n, r;
+                ((n = d.wamMessageSendPerfReporter) == null ||
+                  n.startSavedStage(),
+                  yield o("WAWebDBProcessMessage").storeMessages(g, e.id),
+                  (r = d.wamMessageSendPerfReporter) == null ||
+                    r.postSavedStage(),
+                  o("WAWebThreadMsgUtils").isThreadMsg(t) &&
+                    (yield o(
+                      "WAWebDBThreadMetadataBulkHelper",
+                    ).persistNewMessagesThreadMetadataInBulk([t])));
+                var a = yield o("WAWebSendMsgRecordAction").sendMsgRecord(d);
+                return a;
+              }),
+              { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+            )
+            .waitUntilCompleted();
         })),
         g.apply(this, arguments)
       );

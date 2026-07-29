@@ -9,7 +9,6 @@ __d(
     "WAWebReleaseToEventLoop",
     "WAWebStructuredClone",
     "asyncToGeneratorRuntime",
-    "structuredClone",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -59,43 +58,37 @@ __d(
             var e = this,
               t = [],
               n = [],
-              a = o("WAWebABProps").getABPropConfigValue(
-                "web_anr_async_msg_send_handler",
-              ),
-              i = function (i) {
-                var o = e.SessionStore.get(i);
+              a = function (a) {
+                var o = e.SessionStore.get(a);
                 o &&
                   (o.deleted
-                    ? n.push(i)
+                    ? n.push(a)
                     : t.push({
-                        address: i,
-                        session:
-                          r("structuredClone") != null && a
-                            ? r("structuredClone")(o.session)
-                            : r("WAWebStructuredClone")(o.session),
+                        address: a,
+                        session: r("WAWebStructuredClone")(o.session),
                       }));
               },
-              l = o("WAWebABProps").getABPropConfigValue(
+              i = o("WAWebABProps").getABPropConfigValue(
                 "wmi_worker_scheduler_web",
               );
-            if (l) {
-              var s = o("TaskScheduler").taskScheduler(
+            if (i) {
+              var l = o("TaskScheduler").taskScheduler(
                 "signal",
                 { concurrency: 1 },
                 o(
                   "NativeSchedulerTickStrategy",
                 ).makeNativeSchedulerTickStrategy(),
               );
-              for (var c of this.Dirty.session)
-                (i(c), yield s.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
+              for (var s of this.Dirty.session)
+                (a(s), yield l.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
             } else {
-              var d = a ? 20 : u,
-                m = self.performance.now();
-              for (var p of this.Dirty.session)
-                (self.performance.now() - m > d &&
+              var c = u,
+                d = self.performance.now();
+              for (var m of this.Dirty.session)
+                (self.performance.now() - d > c &&
                   (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                  (m = self.performance.now())),
-                  i(p));
+                  (d = self.performance.now())),
+                  a(m));
             }
             return { update: t, remove: n };
           });

@@ -1128,16 +1128,21 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1],
-            r = e[2];
-          return n
-            ? t === "admin_revoke" || t === "admin"
+            r = e[2],
+            a = e[3];
+          if (r)
+            return n === "admin_revoke" || n === "admin"
               ? o("WAWebWamEnumEditType").EDIT_TYPE.ADMIN_REVOKE
-              : o("WAWebWamEnumEditType").EDIT_TYPE.SENDER_REVOKE
-            : r
-              ? o("WAWebWamEnumEditType").EDIT_TYPE.EDITED
-              : o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED;
+              : o("WAWebWamEnumEditType").EDIT_TYPE.SENDER_REVOKE;
+          var i =
+            t === o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED ||
+            (t === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+              n === "poll_edit_decrypted");
+          return a || i
+            ? o("WAWebWamEnumEditType").EDIT_TYPE.EDITED
+            : o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED;
         },
-        [v, ir, cn],
+        [b, v, ir, cn],
       ),
       ur = p(
         function (e) {

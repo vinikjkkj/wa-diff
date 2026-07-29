@@ -48,11 +48,12 @@ __d(
             $ && T.setLinkedRecord($, d));
           var P = [],
             N = t.args;
-          if (x && D)
+          if (x && D) {
+            var M = [];
             if (N.after != null)
               if (R && N.after === R.getValue(l)) {
-                var M = new Set();
-                (_(x, P, M), _(D, P, M));
+                var w = new Set();
+                (_(x, M, w), _(D, M, w));
               } else {
                 r("warning")(
                   !1,
@@ -64,8 +65,8 @@ __d(
               }
             else if (N.before != null)
               if (R && N.before === R.getValue(h)) {
-                var w = new Set();
-                (_(D, P, w), _(x, P, w));
+                var A = new Set();
+                (_(D, M, A), _(x, M, A));
               } else {
                 r("warning")(
                   !1,
@@ -76,21 +77,22 @@ __d(
                 return;
               }
             else {
-              var A = f(x),
-                F = new Set();
-              g(D, P, A, F);
+              var F = f(x),
+                O = new Set();
+              g(D, M, F, O);
             }
-          else D ? (P = D) : (P = x);
+            P = M;
+          } else D ? (P = D) : (P = x);
           if ((P != null && P !== x && T.setLinkedRecords(P, i), R && C)) {
             if (N.after == null && N.before == null) R.copyFieldsFrom(C);
             else if (N.before != null || (N.after == null && N.last)) {
               R.setValue(!!C.getValue(u), u);
-              var O = C.getValue(h);
-              typeof O == "string" && R.setValue(O, h);
+              var B = C.getValue(h);
+              typeof B == "string" && R.setValue(B, h);
             } else if (N.after != null || (N.before == null && N.first)) {
               R.setValue(!!C.getValue(s), s);
-              var B = C.getValue(l);
-              typeof B == "string" && R.setValue(B, l);
+              var W = C.getValue(l);
+              typeof W == "string" && R.setValue(W, l);
             }
           }
         } else {

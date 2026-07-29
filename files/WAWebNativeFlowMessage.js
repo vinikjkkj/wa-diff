@@ -7,7 +7,6 @@ __d(
     "WAWebBrazilPixKeyFormattingUtils",
     "WAWebBuyerEventLogger",
     "WAWebContactUtils",
-    "WAWebCopyRefreshedIcon.react",
     "WAWebCopyToClipboard",
     "WAWebEmojiText.react",
     "WAWebFbtAppName",
@@ -34,6 +33,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageChatType",
     "WAWebWamEnumStructuredMessageClass",
+    "WDSIconIcContentCopy.react",
     "isStringNullOrEmpty",
     "react",
     "react-compiler-runtime",
@@ -295,7 +295,7 @@ __d(
           ),
             h(t));
         },
-        Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+        Icon: r("WDSIconIcContentCopy.react"),
       };
     }
     function h(e) {

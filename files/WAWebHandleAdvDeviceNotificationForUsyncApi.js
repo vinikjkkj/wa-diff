@@ -2,29 +2,35 @@ __d(
   "WAWebHandleAdvDeviceNotificationForUsyncApi",
   ["invariant", "WAWebHandleAdvDeviceNotificationApi"],
   function (t, n, r, o, a, i, l, s) {
-    function e(e, t, n, r, a, i) {
-      var l = n.deviceList,
-        u = n.keyIndex;
-      (l != null || s(0, 75739, t), u != null || s(0, 75740, t));
-      var c = u.signedKeyIndexBytes,
-        d = u.ts;
-      if (t === "add")
+    function e(e) {
+      var t = e.deviceNotification,
+        n = e.lastDeviceJobTs,
+        r = e.localDeviceRecord,
+        a = e.localPrimaryIdentity,
+        i = e.type,
+        l = e.userWid,
+        u = t.deviceList,
+        c = t.keyIndex;
+      (u != null || s(0, 75739, i), c != null || s(0, 75740, i));
+      var d = c.signedKeyIndexBytes,
+        m = c.ts;
+      if (i === "add")
         return (
-          c != null || s(0, 75741, t),
-          o("WAWebHandleAdvDeviceNotificationApi").handleDeviceAddNotification(
-            e,
-            l,
-            d,
-            c,
-            r,
-            a,
-            i,
-          )
+          d != null || s(0, 75741, i),
+          o("WAWebHandleAdvDeviceNotificationApi").handleDeviceAddNotification({
+            addDeviceList: u,
+            keyIndexTs: m,
+            lastDeviceJobTs: n,
+            localDeviceRecord: r,
+            localPrimaryIdentity: a,
+            signedKeyIndexBytes: d,
+            wid: l,
+          })
         );
-      if (t === "remove")
+      if (i === "remove")
         return o(
           "WAWebHandleAdvDeviceNotificationApi",
-        ).handleDeviceRemoveNotification(l, u.ts, a);
+        ).handleDeviceRemoveNotification(u, c.ts, r);
     }
     l.handleDeviceNotification = e;
   },

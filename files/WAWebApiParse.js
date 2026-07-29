@@ -779,13 +779,19 @@ __d(
       };
     }
     function $t(e) {
-      var t = e.indexOf("?");
-      if (t === -1) return null;
-      var n = new URLSearchParams(e.slice(t));
-      if (n.get("cmd") !== "call_link") return null;
-      var r = n.get("call_type"),
-        a = n.get("call_token");
-      if ((r !== "video" && r !== "voice") || a == null || a === "")
+      var t;
+      try {
+        t = new URL(e);
+      } catch (e) {
+        return null;
+      }
+      var n = t.hostname.toLowerCase();
+      if (n !== "whatsapp.com" && !n.endsWith(".whatsapp.com")) return null;
+      var r = t.searchParams;
+      if (r.get("cmd") !== "call_link") return null;
+      var a = r.get("call_type"),
+        i = r.get("call_token");
+      if ((a !== "video" && a !== "voice") || i == null || i === "")
         return null;
       o("WALogger").LOG(
         c ||
@@ -795,10 +801,10 @@ __d(
           ])),
         e,
       );
-      var i = xt(n);
+      var l = xt(r);
       return {
         resultType: "CALL_LINK",
-        data: babelHelpers.extends({ token: a, callType: r }, i),
+        data: babelHelpers.extends({ token: i, callType: a }, l),
       };
     }
     function Pt(e) {

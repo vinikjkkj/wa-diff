@@ -13,43 +13,50 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(t, n, r, a, i, l, u) {
-      if (!l || l.deleted)
+    function u(t) {
+      var n = t.addDeviceList,
+        r = t.keyIndexTs,
+        a = t.lastDeviceJobTs,
+        i = t.localDeviceRecord,
+        l = t.localPrimaryIdentity,
+        u = t.signedKeyIndexBytes,
+        c = t.wid;
+      if (!i || i.deleted)
         return (
-          o("WAWebBizCoexUtils").triggerUsyncForCoexDeviceAdd(n, t),
+          o("WAWebBizCoexUtils").triggerUsyncForCoexDeviceAdd(n, c),
           null
         );
-      if (r < l.timestamp || i == null) return null;
-      var c = o(
+      if (r < i.timestamp || l == null) return null;
+      var d = o(
         "WAWebHandleAdvDeviceNotificationUtils",
-      ).decodeSignedKeyIndexBytes(i, a);
-      if (!c) return null;
-      var d = c.rawId,
-        m = o("WALongInt").numberOrThrowIfTooLarge(c.timestamp),
-        p = c.accountType;
+      ).decodeSignedKeyIndexBytes(l, u);
+      if (!d) return null;
+      var m = d.rawId,
+        p = o("WALongInt").numberOrThrowIfTooLarge(d.timestamp),
+        _ = d.accountType;
       if (
-        (p === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+        (_ === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "handleDeviceAddNotification: add to coex cache for ",
                 "",
               ])),
-            t == null ? void 0 : t.toLogString(),
+            c == null ? void 0 : c.toLogString(),
           ),
           o(
             "WAWebBizCoexHostedAddVerification",
-          ).addToCoexHostedVerificationCache(t)),
-        m !== r)
+          ).addToCoexHostedVerificationCache(c)),
+        p !== r)
       )
         return null;
-      var _ = !1,
-        f = null,
-        g = l.timestamp;
-      (l.rawId !== d ? (_ = !0) : (f = l.devices),
-        l.advAccountType != null &&
-          l.advAccountType !== p &&
-          ((_ = !0),
+      var f = !1,
+        g = null,
+        h = i.timestamp;
+      (i.rawId !== m ? (f = !0) : (g = i.devices),
+        i.advAccountType != null &&
+          i.advAccountType !== _ &&
+          ((f = !0),
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -57,18 +64,18 @@ __d(
                 " for ",
                 "",
               ])),
-            p,
-            t == null ? void 0 : t.toLogString(),
+            _,
+            c == null ? void 0 : c.toLogString(),
           )));
-      var h = new Set(c.validIndexes),
-        y = c.currentIndex || 0,
-        C =
-          f == null
+      var y = new Set(d.validIndexes),
+        C = d.currentIndex || 0,
+        b =
+          g == null
             ? []
-            : f.filter(function (e) {
+            : g.filter(function (e) {
                 return (
                   e.id !== o("WAJids").DEFAULT_DEVICE_ID &&
-                  (h.has(e.keyIndex) || e.keyIndex > y)
+                  (y.has(e.keyIndex) || e.keyIndex > C)
                 );
               });
       (n.forEach(function (e) {
@@ -76,30 +83,30 @@ __d(
           n = e.keyIndex;
         t !== o("WAJids").DEFAULT_DEVICE_ID &&
           n != null &&
-          h.has(n) &&
-          C.push({ id: t, keyIndex: n });
+          y.has(n) &&
+          b.push({ id: t, keyIndex: n });
       }),
-        C.push({ id: o("WAJids").DEFAULT_DEVICE_ID, keyIndex: 0 }));
-      var b = {
-          id: o("WAWebDeviceListPk").createDeviceListPK(t),
-          rawId: d,
-          timestamp: g,
-          validIndexes: Array.from(h),
-          devices: C,
-          currentIndex: c.currentIndex,
+        b.push({ id: o("WAJids").DEFAULT_DEVICE_ID, keyIndex: 0 }));
+      var v = {
+          id: o("WAWebDeviceListPk").createDeviceListPK(c),
+          rawId: m,
+          timestamp: h,
+          validIndexes: Array.from(y),
+          devices: b,
+          currentIndex: d.currentIndex,
           deleted: !1,
         },
-        v = o("WAWebAdvExpectedTsApi").computeExpectedTsForDeviceRecord({
-          deviceRecord: b,
-          incomingTs: m,
-          lastDeviceJobTs: u,
+        S = o("WAWebAdvExpectedTsApi").computeExpectedTsForDeviceRecord({
+          deviceRecord: v,
+          incomingTs: p,
+          lastDeviceJobTs: a,
         });
       return (
-        (b.expectedTs = v.expectedTs),
-        (b.expectedTsLastDeviceJobTs = v.expectedTsLastDeviceJobTs),
-        (b.expectedTsUpdateTs = v.expectedTsUpdateTs),
-        p != null && (b.advAccountType = p),
-        { update: b, clearRecord: _ }
+        (v.expectedTs = S.expectedTs),
+        (v.expectedTsLastDeviceJobTs = S.expectedTsLastDeviceJobTs),
+        (v.expectedTsUpdateTs = S.expectedTsUpdateTs),
+        _ != null && (v.advAccountType = _),
+        { update: v, clearRecord: f }
       );
     }
     function c(e, t, n) {

@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebPaymentMethodPIX",
     "WAWebPaymentMethodTypeRegistry",
+    "WAWebUprConstants",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsLocalStorage",
     "WAWebUserPrefsTypes",
@@ -22,15 +23,40 @@ __d(
         ? e
         : null;
     }
-    function d(e) {
-      var t,
-        n =
-          (t = o(
-            "WAWebPaymentMethodTypeRegistry",
-          ).PaymentMethodTypeRegistry.get(e)) == null
-            ? void 0
-            : t.uprAttachment;
-      return n == null ? [] : n.getStoredKeys(u());
+    function d() {
+      var e,
+        t,
+        n,
+        r,
+        a = u(),
+        i = (
+          (e = a == null || (t = a.methods) == null ? void 0 : t.uprKeys) !=
+          null
+            ? e
+            : []
+        ).filter(o("WAWebPaymentMethodTypeRegistry").isStoredUprKeyValid),
+        l = (
+          (n = a == null || (r = a.methods) == null ? void 0 : r.clabe) != null
+            ? n
+            : []
+        )
+          .filter(o("WAWebPaymentMethodTypeRegistry").isStoredClabeEntryValid)
+          .map(function (e) {
+            return {
+              credentialId: e.credentialId,
+              country: e.country,
+              accountType:
+                o("WAWebUprConstants").UprPaymentAccountType.BANK_ACCOUNT,
+              identifierType: o("WAWebUprConstants").UprIdentifierType.CLABE,
+              currency: "MXN",
+              key: e.key,
+              institution_name: e.institution_name,
+              full_name_on_account: e.full_name_on_account,
+              time_added: e.time_added,
+              time_last_used: e.time_last_used,
+            };
+          });
+      return [].concat(i, l);
     }
     function m(t) {
       var n = {},
@@ -40,20 +66,30 @@ __d(
         c = [],
         d = new Map();
       (t.forEach(function (e) {
-        var t,
-          r = o("WAWebUserPrefsTypes").WACustomPaymentMethodType.cast(e.type);
-        if (r == null) {
-          (l++, c.length < 3 && c.push(e.type));
-          return;
-        }
-        var s = o(
-          "WAWebPaymentMethodTypeRegistry",
-        ).PaymentMethodTypeRegistry.get(r);
-        if (s != null) {
-          var u = (t = d.get(r)) != null ? t : { received: 0, wrote: 0 };
-          u.received++;
-          var m = s.extract(e, { out: n, existingMethods: a }, i);
-          (m && u.wrote++, d.set(r, u));
+        var t;
+        if (
+          !o("WAWebPaymentMethodTypeRegistry").tryExtractUprKey(
+            e,
+            { out: n, existingMethods: a },
+            i,
+          )
+        ) {
+          var r = o("WAWebUserPrefsTypes").WACustomPaymentMethodType.cast(
+            e.type,
+          );
+          if (r == null) {
+            (l++, c.length < 3 && c.push(e.type));
+            return;
+          }
+          var s = o(
+            "WAWebPaymentMethodTypeRegistry",
+          ).PaymentMethodTypeRegistry.get(r);
+          if (s != null) {
+            var u = (t = d.get(r)) != null ? t : { received: 0, wrote: 0 };
+            u.received++;
+            var m = s.extract(e, { out: n, existingMethods: a }, i);
+            (m && u.wrote++, d.set(r, u));
+          }
         }
       }),
         l > 0 &&
@@ -93,10 +129,11 @@ __d(
         "WAWebPaymentMethodTypeRegistry",
       ).PaymentMethodTypeRegistry.values())
         h.flushErrors(i);
-      r("WAWebUserPrefsLocalStorage").setItemToLocalStorage(
-        o("WAWebUserPrefsKeys").KEYS.CUSTOM_PAYMENT_METHODS,
-        n,
-      );
+      (o("WAWebPaymentMethodTypeRegistry").flushUprKeyErrors(i),
+        r("WAWebUserPrefsLocalStorage").setItemToLocalStorage(
+          o("WAWebUserPrefsKeys").KEYS.CUSTOM_PAYMENT_METHODS,
+          n,
+        ));
     }
     function p() {
       return o("WAWebPaymentMethodPIX").isStoredPIXValid(u());
@@ -119,7 +156,7 @@ __d(
       }
     }
     ((l.getPIX = c),
-      (l.getUprStoredKeys = d),
+      (l.getAllUprStoredKeys = d),
       (l.setCustomPaymentMethods = m),
       (l.isPIXValid = p),
       (l.removeCustomPaymentMethod = _),

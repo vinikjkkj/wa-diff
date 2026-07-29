@@ -122,16 +122,16 @@ __d(
                   L,
                 );
               } else
-                T = yield o("WAWebSendGroupMsgJob").getCagMessageSendList(
-                  l,
-                  h,
-                  b,
-                  S,
-                  v,
-                  x,
-                  R,
-                  I,
-                );
+                T = yield o("WAWebSendGroupMsgJob").getCagMessageSendList({
+                  editedMsgKey: v,
+                  groupId: h,
+                  isAdmin: x,
+                  isLidAddressingMode: I,
+                  keptMessageKey: S,
+                  msgRecord: l,
+                  participantRecord: R,
+                  revokeMsgKey: b,
+                });
             } else {
               var w;
               o("WALogger")

@@ -10,7 +10,6 @@ __d(
     "WAWebContact.MenuItem",
     "WAWebContactSearchGatingUtils",
     "WAWebContactSearchModel",
-    "WAWebContactsIcon.react",
     "WAWebDefaultUserIcon.react",
     "WAWebFlex.react",
     "WAWebFrontendChatGetters",
@@ -25,6 +24,7 @@ __d(
     "WAWebSettingsIcon.react",
     "WAWebSparklesIcon.react",
     "WAWebStaticMenuItem.react",
+    "WDSIconIcPerson.react",
     "WDSIconWdsIcChat.react",
     "WDSText.react",
     "react",
@@ -241,7 +241,7 @@ __d(
           var h;
           t[18] === Symbol.for("react.memo_cache_sentinel")
             ? ((h = u.jsx(f, {
-                icon: u.jsx(o("WAWebContactsIcon.react").ContactsIcon, {
+                icon: u.jsx(r("WDSIconIcPerson.react"), {
                   iconXstyle: _.tealColor,
                   height: 24,
                   width: 24,

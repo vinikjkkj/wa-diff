@@ -74,17 +74,17 @@ __d(
                 (h.advAccountType = c),
                 yield o(
                   "WAWebIdentityUpdateDeviceTableApi",
-                ).bulkApplyDeviceUpdate(
-                  [
+                ).bulkApplyDeviceUpdate({
+                  deviceUpdateResult: [
                     {
                       wid: o("WAWebWidFactory").asUserWidOrThrow(t),
                       update: h,
                       currentRecord: i,
                     },
                   ],
-                  l,
-                  !0,
-                ),
+                  offline: l,
+                  shouldAddHostedSystemMsgIfApplicable: !0,
+                }),
                 yield o("WAWebSignalProtocolStore")
                   .getSignalProtocolStore()
                   .saveIdentity(

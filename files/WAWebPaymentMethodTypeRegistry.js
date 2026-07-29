@@ -17,51 +17,64 @@ __d(
       p,
       _,
       f,
-      g = new Set(["bank_account", "wallet"]),
-      h = new Map();
-    function y(e, t) {
-      h.set(e, t);
+      g,
+      h,
+      y,
+      C,
+      b = new Set(["bank_account", "wallet"]),
+      v = new Map([
+        ["MX", "MXN"],
+        ["ID", "IDR"],
+        ["HK", "HKD"],
+        ["TW", "TWD"],
+        ["TR", "TRY"],
+        ["AE", "AED"],
+        ["EG", "EGP"],
+      ]),
+      S = new Map();
+    function R(e, t) {
+      S.set(e, t);
     }
-    function C() {
-      for (var e of h.values()) e();
+    function L() {
+      for (var e of S.values()) e();
     }
-    function b(e, t) {
+    function E(e, t) {
       var n,
         r = t.out;
       ((n = r.pix) == null ? void 0 : n.credentialId) === e && delete r.pix;
     }
-    var v = {
-      type: (f = o("WAWebUserPrefsTypes")).WACustomPaymentMethodType.PIX_KEY,
+    var k = {
+      type: (C = o("WAWebUserPrefsTypes")).WACustomPaymentMethodType.PIX_KEY,
       country: "BR",
       extract: o("WAWebPaymentMethodPIX").extractAndStorePix,
       flushErrors: o("WAWebPaymentMethodPIX").flushPixErrors,
       isStoredValid: o("WAWebPaymentMethodPIX").isStoredPIXValid,
-      removeEntry: b,
+      removeEntry: E,
     };
-    function S(e, t, n, r) {
+    function I(e, t, n, r) {
       var a = o("WAWebPaymentMethodPIX").findMetadataValue(e, t);
       return a == null || !o("WAWebUserPrefsValidators").isStringFieldValid(a)
         ? (o("WAWebPaymentMethodPIX").recordError(r, n), null)
         : a;
     }
-    function R(e, t) {
+    function T(e, t) {
       var n = e.findIndex(function (e) {
         return e.credentialId === t.credentialId;
       });
       n >= 0 ? (e[n] = t) : e.push(t);
     }
-    function L(e, t, n) {
+    function D(e, t, n) {
       var r,
         o,
         a,
         i,
         l,
         s,
-        u = S(e, "key", "clabe_key_null", n);
+        u = I(e, "key", "clabe_key_null", n);
       if (u == null) return !1;
-      var c = S(e, "institution_name", "clabe_institution_name_null", n);
+      var c = I(e, "institution_name", "clabe_institution_name_null", n);
       if (c == null) return !1;
-      var d = S(
+      var d = I(
         e,
         "full_name_on_account",
         "clabe_full_name_on_account_null",
@@ -93,9 +106,9 @@ __d(
         y = (l = h.methods) != null ? l : {};
       h.methods = y;
       var C = (s = y.clabe) != null ? s : [];
-      return (R(C, g), (y.clabe = C), !0);
+      return (T(C, g), (y.clabe = C), !0);
     }
-    function E(t) {
+    function x(t) {
       var n,
         r,
         a,
@@ -137,7 +150,7 @@ __d(
           )
           .sendLogs("monitor-errors");
     }
-    function k(e) {
+    function $(e) {
       return (
         o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
@@ -146,12 +159,12 @@ __d(
         o("WAWebUserPrefsValidators").isStringFieldValid(e.full_name_on_account)
       );
     }
-    function I(e) {
+    function P(e) {
       var t,
         n = e == null || (t = e.methods) == null ? void 0 : t.clabe;
-      return n == null || n.length === 0 ? !1 : n.every(k);
+      return n == null || n.length === 0 ? !1 : n.every($);
     }
-    function T(e, t) {
+    function N(e, t) {
       var n = t.out.methods,
         r = n == null ? void 0 : n.clabe;
       if (!(n == null || r == null)) {
@@ -161,40 +174,190 @@ __d(
         o.length === 0 ? delete n.clabe : (n.clabe = o);
       }
     }
-    var D = {
-      type: f.WACustomPaymentMethodType.CLABE,
+    var M = {
+      type: C.WACustomPaymentMethodType.CLABE,
       country: "MX",
-      extract: L,
-      flushErrors: E,
-      isStoredValid: I,
-      removeEntry: T,
-      uprAttachment: {
-        accountType: o("WAWebUprConstants").UprPaymentAccountType.BANK_ACCOUNT,
-        identifierType: o("WAWebUprConstants").UprIdentifierType.CLABE,
-        currency: "MXN",
-        getStoredKeys: function (t) {
-          var e, n;
-          return (
-            (e = t == null || (n = t.methods) == null ? void 0 : n.clabe) !=
-            null
-              ? e
-              : []
-          ).filter(k);
-        },
-      },
+      extract: D,
+      flushErrors: x,
+      isStoredValid: P,
+      removeEntry: N,
     };
-    function x(e, t, n) {
+    function w(e) {
+      return (
+        o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
+        o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
+        o("WAWebUprConstants").UprPaymentAccountType.cast(e.accountType) !=
+          null &&
+        o("WAWebUprConstants").UprIdentifierType.cast(e.identifierType) !=
+          null &&
+        o("WAWebUserPrefsValidators").isStringFieldValid(e.currency) &&
+        o("WAWebUserPrefsValidators").isStringFieldValid(e.key) &&
+        o("WAWebUserPrefsValidators").isStringFieldValid(e.institution_name) &&
+        o("WAWebUserPrefsValidators").isStringFieldValid(e.full_name_on_account)
+      );
+    }
+    function A(e) {
+      return {
+        accountType: o("WAWebPaymentMethodPIX").findMetadataValue(
+          e,
+          "account_type",
+        ),
+        identifierType: o("WAWebPaymentMethodPIX").findMetadataValue(
+          e,
+          "identifier_type",
+        ),
+      };
+    }
+    function F(e, t, n, r) {
+      var a,
+        i,
+        l,
+        s =
+          (a = t.existingMethods) == null ||
+          (a = a.methods) == null ||
+          (a = a.uprKeys) == null
+            ? void 0
+            : a.find(function (t) {
+                return t.credentialId === e;
+              }),
+        u =
+          n === o("WAWebUprConstants").UprPaymentAccountType.BANK_ACCOUNT &&
+          r === o("WAWebUprConstants").UprIdentifierType.CLABE
+            ? (i = t.existingMethods) == null ||
+              (i = i.methods) == null ||
+              (i = i.clabe) == null
+              ? void 0
+              : i.find(function (t) {
+                  return t.credentialId === e;
+                })
+            : null;
+      return (l = s != null ? s : u) != null ? l : null;
+    }
+    function O(e, t, n) {
+      var r,
+        o,
+        a,
+        i,
+        l = F(e.credentialId, t, n.accountType, n.identifierType),
+        s = {
+          credentialId: e.credentialId,
+          country: e.country,
+          accountType: n.accountType,
+          identifierType: n.identifierType,
+          currency: n.currency,
+          key: n.key,
+          institution_name: n.institutionName,
+          full_name_on_account: n.fullNameOnAccount,
+          time_added:
+            (r = l == null ? void 0 : l.time_added) != null ? r : Date.now(),
+          time_last_used:
+            (o = l == null ? void 0 : l.time_last_used) != null ? o : null,
+        },
+        u = t.out,
+        c = (a = u.methods) != null ? a : {};
+      u.methods = c;
+      var d = (i = c.uprKeys) != null ? i : [];
+      (T(d, s), (c.uprKeys = d));
+    }
+    function B(e, t, n) {
+      var r,
+        a = A(e),
+        i = a.accountType,
+        l = a.identifierType;
+      if (i == null || l == null) return !1;
+      var s = o("WAWebUprConstants").UprPaymentAccountType.cast(i),
+        u = o("WAWebUprConstants").UprIdentifierType.cast(l);
+      if (s == null || u == null) return !0;
+      var c =
+          (r = o("WAWebPaymentMethodPIX").findMetadataValue(e, "currency")) !=
+          null
+            ? r
+            : v.get(e.country),
+        d = I(e, "key", "upr_key_null", n),
+        m = I(e, "institution_name", "upr_institution_name_null", n),
+        p = I(e, "full_name_on_account", "upr_full_name_on_account_null", n);
+      return c == null || !o("WAWebUserPrefsValidators").isStringFieldValid(c)
+        ? (o("WAWebPaymentMethodPIX").recordError(n, "upr_currency_null"), !0)
+        : (d == null ||
+            m == null ||
+            p == null ||
+            O(e, t, {
+              accountType: s,
+              identifierType: u,
+              currency: c,
+              key: d,
+              institutionName: m,
+              fullNameOnAccount: p,
+            }),
+          !0);
+    }
+    function W(e) {
+      var t,
+        n,
+        r,
+        a,
+        i = (t = e.counts.get("upr_key_null")) != null ? t : 0;
+      i > 0 &&
+        o("WALogger")
+          .ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "",
+                " UPR key values are null",
+              ])),
+            i,
+          )
+          .sendLogs("monitor-errors");
+      var l = (n = e.counts.get("upr_institution_name_null")) != null ? n : 0;
+      l > 0 &&
+        o("WALogger")
+          .ERROR(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "",
+                " UPR institution_name values are null",
+              ])),
+            l,
+          )
+          .sendLogs("monitor-errors");
+      var s =
+        (r = e.counts.get("upr_full_name_on_account_null")) != null ? r : 0;
+      s > 0 &&
+        o("WALogger")
+          .ERROR(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "",
+                " UPR full_name_on_account values are null",
+              ])),
+            s,
+          )
+          .sendLogs("monitor-errors");
+      var u = (a = e.counts.get("upr_currency_null")) != null ? a : 0;
+      u > 0 &&
+        o("WALogger")
+          .ERROR(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "",
+                " UPR currency values are null",
+              ])),
+            u,
+          )
+          .sendLogs("monitor-errors");
+    }
+    function q(e, t, n) {
       var r,
         a,
         i,
         l,
         s,
         u,
-        c = S(e, "key", "id_key_null", n);
+        c = I(e, "key", "id_key_null", n);
       if (c == null) return !1;
-      var d = S(e, "institution_name", "id_institution_name_null", n);
+      var d = I(e, "institution_name", "id_institution_name_null", n);
       if (d == null) return !1;
-      var m = S(e, "full_name_on_account", "id_full_name_on_account_null", n);
+      var m = I(e, "full_name_on_account", "id_full_name_on_account_null", n);
       if (m == null) return !1;
       var p = o("WAWebPaymentMethodPIX").findMetadataValue(e, "account_type");
       if (p == null)
@@ -242,10 +405,10 @@ __d(
         b = t.out,
         v = (s = b.methods) != null ? s : {};
       b.methods = v;
-      var L = (u = v.idPaymentAccount) != null ? u : [];
-      return (R(L, C), (v.idPaymentAccount = L), !0);
+      var S = (u = v.idPaymentAccount) != null ? u : [];
+      return (T(S, C), (v.idPaymentAccount = S), !0);
     }
-    function $(e) {
+    function U(e) {
       var t,
         n,
         r,
@@ -255,8 +418,8 @@ __d(
       l > 0 &&
         o("WALogger")
           .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " ID Payment Account key values are null",
               ])),
@@ -267,8 +430,8 @@ __d(
       s > 0 &&
         o("WALogger")
           .ERROR(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " ID Payment Account institution_name values are null",
               ])),
@@ -280,45 +443,45 @@ __d(
       u > 0 &&
         o("WALogger")
           .ERROR(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " ID Payment Account full_name_on_account values are null",
               ])),
             u,
           )
           .sendLogs("monitor-errors");
-      var f = (a = e.counts.get("id_account_type_null")) != null ? a : 0;
-      f > 0 &&
+      var c = (a = e.counts.get("id_account_type_null")) != null ? a : 0;
+      c > 0 &&
         o("WALogger")
           .ERROR(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " ID Payment Account account_type values are null",
               ])),
-            f,
+            c,
           )
           .sendLogs("monitor-errors");
-      var g = (i = e.counts.get("id_account_type_invalid")) != null ? i : 0;
-      if (g > 0) {
-        var h,
-          y = (h = e.samples.get("id_account_type_invalid")) != null ? h : [];
+      var d = (i = e.counts.get("id_account_type_invalid")) != null ? i : 0;
+      if (d > 0) {
+        var m,
+          p = (m = e.samples.get("id_account_type_invalid")) != null ? m : [];
         o("WALogger")
           .ERROR(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " ID Payment Account account_type values are invalid: ",
                 "",
               ])),
-            g,
-            y,
+            d,
+            p,
           )
           .sendLogs("monitor-errors");
       }
     }
-    function P(e) {
+    function V(e) {
       return (
         o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
@@ -327,15 +490,15 @@ __d(
         o("WAWebUserPrefsValidators").isStringFieldValid(
           e.full_name_on_account,
         ) &&
-        g.has(e.account_type)
+        b.has(e.account_type)
       );
     }
-    function N(e) {
+    function H(e) {
       var t,
         n = e == null || (t = e.methods) == null ? void 0 : t.idPaymentAccount;
-      return n == null || n.length === 0 ? !1 : n.every(P);
+      return n == null || n.length === 0 ? !1 : n.every(V);
     }
-    function M(e, t) {
+    function G(e, t) {
       var n = t.out.methods,
         r = n == null ? void 0 : n.idPaymentAccount;
       if (!(n == null || r == null)) {
@@ -345,23 +508,26 @@ __d(
         o.length === 0 ? delete n.idPaymentAccount : (n.idPaymentAccount = o);
       }
     }
-    var w = {
-        type: f.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT,
+    var z = {
+        type: C.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT,
         country: "ID",
-        extract: x,
-        flushErrors: $,
-        isStoredValid: N,
-        removeEntry: M,
+        extract: q,
+        flushErrors: U,
+        isStoredValid: H,
+        removeEntry: G,
       },
-      A = new Map([
-        [f.WACustomPaymentMethodType.PIX_KEY, v],
-        [f.WACustomPaymentMethodType.CLABE, D],
-        [f.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT, w],
+      j = new Map([
+        [C.WACustomPaymentMethodType.PIX_KEY, k],
+        [C.WACustomPaymentMethodType.CLABE, M],
+        [C.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT, z],
       ]);
-    ((l.registerPaymentMethodSmartDefault = y),
-      (l.runAllPaymentMethodSmartDefaults = C),
-      (l.isStoredClabeEntryValid = k),
-      (l.PaymentMethodTypeRegistry = A));
+    ((l.registerPaymentMethodSmartDefault = R),
+      (l.runAllPaymentMethodSmartDefaults = L),
+      (l.isStoredClabeEntryValid = $),
+      (l.isStoredUprKeyValid = w),
+      (l.tryExtractUprKey = B),
+      (l.flushUprKeyErrors = W),
+      (l.PaymentMethodTypeRegistry = j));
   },
   98,
 );

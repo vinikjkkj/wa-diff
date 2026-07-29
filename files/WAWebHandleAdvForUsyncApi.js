@@ -27,12 +27,12 @@ __d(
           );
           return;
         }
-        return o("WAWebHandleAdvOmittedResultApi").handleOmittedResult(
-          u == null ? void 0 : u.ts,
-          a,
-          u == null ? void 0 : u.expectedTs,
-          i,
-        );
+        return o("WAWebHandleAdvOmittedResultApi").handleOmittedResult({
+          incomingExpectedTs: u == null ? void 0 : u.expectedTs,
+          incomingTs: u == null ? void 0 : u.ts,
+          lastDeviceJobTs: i,
+          localDeviceRecord: a,
+        });
       }
       var c = u.expectedTs,
         d = u.signedKeyIndexBytes,

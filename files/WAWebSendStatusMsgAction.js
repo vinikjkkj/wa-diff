@@ -279,11 +279,11 @@ __d(
             );
             try {
               var d;
-              (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg(
-                u,
-                c,
-                n,
-              ),
+              (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
+                metricsReporter: n,
+                msgProtobuf: c,
+                sendMsgRecord: u,
+              }),
                 (d = n.sendReporter) == null || d.postSuccess(),
                 e.updateAck(o("WAWebAck").ACK.SENT));
               var m = yield o("WAWebStatusLoggingUtils").statusIdForLogging(e);

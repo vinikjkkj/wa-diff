@@ -3,14 +3,17 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebCTWABizDataSharingJob",
     "WAWebCTWADataSharingModel",
     "WAWebCommonCTWADataSharing",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = function () {
+      u = r("requireDeferred")("WAWebCTWABizDataSharingJob").__setRef(
+        "WAWebSMBDataSharingSettingAction",
+      ),
+      c = function () {
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
         return e
           ? (s || (s = n("Promise"))).resolve(e)
@@ -18,9 +21,12 @@ __d(
               "WAWebCommonCTWADataSharing",
             ).fetchDataSharingSettingAndUpdateModel();
       };
-    function c(t, n) {
-      return o("WAWebCTWABizDataSharingJob")
-        .setCtwaBizDataSharingSettingJob(t, n)
+    function d(t, n) {
+      return u
+        .load()
+        .then(function (e) {
+          return e.setCtwaBizDataSharingSettingJob(t, n);
+        })
         .then(function (e) {
           var t, r;
           if (e == null) return null;
@@ -45,8 +51,8 @@ __d(
           );
         });
     }
-    ((l.getSMBDataSharingSettingAction = u),
-      (l.setSMBDataSharingSettingAction = c));
+    ((l.getSMBDataSharingSettingAction = c),
+      (l.setSMBDataSharingSettingAction = d));
   },
   98,
 );

@@ -27,6 +27,8 @@ __d(
           (t.creatorProfileUrl = o("WAWebBaseModel").prop()),
           (t.posingAsProfessional = o("WAWebBaseModel").prop()),
           (t.lastUpdateTs = o("WAWebBaseModel").prop()),
+          (t.product = o("WAWebBaseModel").prop()),
+          (t.isDeprecated = o("WAWebBaseModel").prop()),
           (t.contact = o("WAWebBaseModel").session()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

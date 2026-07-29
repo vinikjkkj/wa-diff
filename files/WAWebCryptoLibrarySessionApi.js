@@ -9,9 +9,9 @@ __d(
           return e == null ? void 0 : e.regId;
         });
     }
-    function s(e, t, n, r) {
-      var a = e.kyberKey,
-        i = {
+    function s(e, t, n) {
+      var r = e.kyberKey,
+        a = {
           identity: new Uint8Array(e.identityKey),
           oneTimeKey:
             e.preKey != null
@@ -27,15 +27,15 @@ __d(
             signature: new Uint8Array(e.signedPreKey.signature),
           },
           kyberKey:
-            a != null
+            r != null
               ? {
-                  id: a.keyId,
-                  publicKey: new Uint8Array(a.publicKey),
-                  signature: new Uint8Array(a.signature),
+                  id: r.keyId,
+                  publicKey: new Uint8Array(r.publicKey),
+                  signature: new Uint8Array(r.signature),
                 }
               : null,
         };
-      return o("WAWebCryptoLibrary").createSignalSession(t, i, n, r);
+      return o("WAWebCryptoLibrary").createSignalSession(t, a, n);
     }
     function u(e, t, n) {
       return o("WAWebCryptoLibrary").processSenderKeyDistributionMsg(e, t, n);

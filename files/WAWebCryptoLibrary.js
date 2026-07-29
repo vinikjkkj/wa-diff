@@ -69,97 +69,90 @@ __d(
         rotateGroupSenderKey: e.rotateGroupSenderKey,
       };
     }
-    function D(e, t, n, r) {
+    function D(e, t, n) {
       return x.apply(this, arguments);
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i) {
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "CryptoLibrarySignal::createSignalSession sessionScope=",
-                  "",
-                ])),
-              a != null ? a : "default",
-            );
-            var l = yield k.getRegistrationInfo();
-            if (!l) throw r("err")("No registration info found");
-            var s =
-              a === o("WAWebSessionScope").SessionScope.STATUS
-                ? k.handleNewSessionStatusScope
-                : k.handleNewSession;
-            if (
-              a === o("WAWebSessionScope").SessionScope.PQ &&
-              o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-                .isPq1on1MessageEnabled === !0 &&
-              t.kyberKey != null
-            )
-              try {
-                i === !0 &&
-                  (yield new (E || (E = n("Promise")))(function (e) {
-                    globalThis.setTimeout(e, 0);
-                  }));
-                var u = yield o("WACryptoPQSession").createOutgoingSessionPQ(
-                  l,
-                  t,
-                );
-                if (u.success) {
-                  yield k.handleNewSessionPqScope(
-                    o("WAWebWidToJid").widToDeviceJid(e),
-                    u.value.session,
-                    u.value.session.remote.pubKey,
-                    null,
-                    void 0,
-                  );
-                  return;
-                }
-                o("WALogger")
-                  .WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[pq] createSignalSession: PQXDH failed, falling back to empty PQ slot",
-                      ])),
-                  )
-                  .sendLogs("createSignalSession-pqxdh-failed");
-              } catch (e) {
-                o("WALogger")
-                  .WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[pq] createSignalSession: PQXDH threw",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("createSignalSession-pqxdh-threw");
-              }
-            if (a !== o("WAWebSessionScope").SessionScope.PQ)
-              return T()
-                .establishOutgoingSession(
-                  { handleNewSession: s },
-                  l,
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "CryptoLibrarySignal::createSignalSession sessionScope=",
+                "",
+              ])),
+            n != null ? n : "default",
+          );
+          var a = yield k.getRegistrationInfo();
+          if (!a) throw r("err")("No registration info found");
+          var i =
+            n === o("WAWebSessionScope").SessionScope.STATUS
+              ? k.handleNewSessionStatusScope
+              : k.handleNewSession;
+          if (
+            n === o("WAWebSessionScope").SessionScope.PQ &&
+            o("WACryptoLibraryConfig").getCryptoLibraryConfig()
+              .isPq1on1MessageEnabled === !0 &&
+            t.kyberKey != null
+          )
+            try {
+              var l = yield o("WACryptoPQSession").createOutgoingSessionPQ(
+                a,
+                t,
+              );
+              if (l.success) {
+                yield k.handleNewSessionPqScope(
                   o("WAWebWidToJid").widToDeviceJid(e),
-                  t,
+                  l.value.session,
+                  l.value.session.remote.pubKey,
+                  null,
                   void 0,
-                  i,
+                );
+                return;
+              }
+              o("WALogger")
+                .WARN(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[pq] createSignalSession: PQXDH failed, falling back to empty PQ slot",
+                    ])),
                 )
-                .then(function (e) {
-                  if (!e.success)
-                    throw (
-                      o("WALogger").WARN(
-                        h ||
-                          (h = babelHelpers.taggedTemplateLiteralLoose([
-                            "CryptoLibrarySignal::createSignalSession failed with error ",
-                            "",
-                          ])),
-                        e.error,
-                      ),
-                      r("err")(e.error)
-                    );
-                });
-          },
-        )),
+                .sendLogs("createSignalSession-pqxdh-failed");
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "[pq] createSignalSession: PQXDH threw",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("createSignalSession-pqxdh-threw");
+            }
+          if (n !== o("WAWebSessionScope").SessionScope.PQ)
+            return T()
+              .establishOutgoingSession(
+                { handleNewSession: i },
+                a,
+                o("WAWebWidToJid").widToDeviceJid(e),
+                t,
+                void 0,
+              )
+              .then(function (e) {
+                if (!e.success)
+                  throw (
+                    o("WALogger").WARN(
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                          "CryptoLibrarySignal::createSignalSession failed with error ",
+                          "",
+                        ])),
+                      e.error,
+                    ),
+                    r("err")(e.error)
+                  );
+              });
+        })),
         x.apply(this, arguments)
       );
     }

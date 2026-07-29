@@ -34,12 +34,12 @@ __d(
             h = e.reportingTokenInfo,
             y = o("WAWebMsgProcessingApiUtils").getFrom(m);
           if ((p(i, m), m.author.device != null && m.author.device !== 0)) {
-            var C = yield o("WAWebAdvSignatureApi").validateADVwithEncs(
-              m.author,
-              a,
-              i,
-              !!m.offline,
-            );
+            var C = yield o("WAWebAdvSignatureApi").validateADVwithEncs({
+              author: m.author,
+              deviceIdentity: a,
+              encs: i,
+              offline: !!m.offline,
+            });
             if (!C)
               return (
                 o("WALogger")

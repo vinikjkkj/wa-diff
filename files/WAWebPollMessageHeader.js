@@ -29,192 +29,224 @@ __d(
       u,
       c = u || (u = o("react")),
       d = {
-        container: { display: "x78zum5", alignItems: "x6s0dn4", $$css: !0 },
         pollName: { fontWeight: "x1s688f", fontSize: "x1jchvi3", $$css: !0 },
         selectIcon: { fill: "x2u7xp1", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(35),
+      var n = o("react-compiler-runtime").c(38),
         a = t.isPollEnded,
         i = t.isSentByMe,
         l = t.msg,
         s = t.name,
         u = t.pollEndTime,
         m = t.pollHideVoterNames,
-        _ = t.pollSelectableOptionsCount,
-        f = t.trusted,
-        g;
+        f = t.pollSelectableOptionsCount,
+        g = t.trusted,
+        h;
       n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = o("WAWebTextSizeUtils").getWAWebTextSizeStyles()), (n[0] = g))
-        : (g = n[0]);
-      var h = g.pollQuestionTextSize,
-        y = _ === 1,
-        C;
-      n[1] !== l ? ((C = l.unsafe()), (n[1] = l), (n[2] = C)) : (C = n[2]);
-      var b = l.id,
-        v;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = (e || (e = r("stylex"))).props(
-            o("WDSPaddings.stylex").wdsPaddings.padding4,
-          )),
-          (n[3] = v))
-        : (v = n[3]);
-      var S;
-      n[4] !== l
-        ? ((S = o("WAWebMsgGetters").getInitialPageSize(l)),
-          (n[4] = l),
-          (n[5] = S))
-        : (S = n[5]);
-      var R;
-      n[6] !== i || n[7] !== l || n[8] !== s || n[9] !== f
-        ? ((R = function (t) {
-            var e = t.textLimit,
-              n = o("WAWebFormatConfigurationConversation").Conversation({
-                mentions: o("WAWebMsgMentionMap").calculateMsgMentionMap(l),
-                groupMentions:
-                  o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(l),
-                links: o("WAWebMsgLinks").getLinksFromMsg(l.unsafe(), e),
-                phoneNumbers: o("WAWebMsgPhoneNumbers").getPhoneNumbersFromMsg(
-                  l.unsafe(),
-                  e,
-                ),
-                selectable: !0,
-                trusted: f === !0,
-                fromMe: i,
-                fromChatWid: l.id.remote,
+        ? ((h = o("WAWebTextSizeUtils").getWAWebTextSizeStyles()), (n[0] = h))
+        : (h = n[0]);
+      var y = h.pollQuestionTextSize,
+        C = f === 1,
+        b,
+        v,
+        S;
+      if (
+        n[1] !== a ||
+        n[2] !== i ||
+        n[3] !== C ||
+        n[4] !== l ||
+        n[5] !== s ||
+        n[6] !== u ||
+        n[7] !== m ||
+        n[8] !== f ||
+        n[9] !== g
+      ) {
+        var R = [];
+        (f != null &&
+          !a &&
+          R.push({
+            key: "selectable-options",
+            render: function (t) {
+              return c.jsx(_, {
+                isSingleOptionPoll: C,
+                pollType: l.pollType,
+                trailingSeparator: t,
               });
-            return c.jsx(o("WAWebEmojiText.react").EmojiText, {
-              text: s,
-              dirMismatch:
-                o("WAWebFrontendMsgGetters").getRtl(l) !==
-                r("WAWebL10N").isRTL(),
-              direction: o("WAWebFrontendMsgGetters").getDir(l),
-              inferLinesDirection: !0,
-              formatters: n,
-              selectable: !0,
-              textLimit: e,
-              xstyle: [d.pollName, h],
-            });
+            },
           }),
-          (n[6] = i),
-          (n[7] = l),
-          (n[8] = s),
-          (n[9] = f),
-          (n[10] = R))
-        : (R = n[10]);
-      var L;
-      n[11] !== s || n[12] !== S || n[13] !== R
-        ? ((L = c.jsx(
-            "div",
-            babelHelpers.extends({}, v, {
-              children: c.jsx(o("WAWebExpandableText.react").ExpandableText, {
+          m && R.push({ key: "hidden-voter-names", render: p }),
+          u != null &&
+            R.push({
+              key: "end-time",
+              render: function (t) {
+                return c.jsx(r("WAWebPollEndTimeLabel"), {
+                  isPollEnded: a,
+                  pollEndTime: u,
+                  trailingSeparator: t,
+                });
+              },
+            }));
+        var L;
+        n[13] !== l
+          ? ((L = l.unsafe()), (n[13] = l), (n[14] = L))
+          : (L = n[14]);
+        var E = l.id,
+          k;
+        n[15] === Symbol.for("react.memo_cache_sentinel")
+          ? ((k = (e || (e = r("stylex"))).props(
+              o("WDSPaddings.stylex").wdsPaddings.padding4,
+            )),
+            (n[15] = k))
+          : (k = n[15]);
+        var I;
+        n[16] !== l
+          ? ((I = o("WAWebMsgGetters").getInitialPageSize(l)),
+            (n[16] = l),
+            (n[17] = I))
+          : (I = n[17]);
+        var T;
+        n[18] !== i || n[19] !== l || n[20] !== s || n[21] !== g
+          ? ((T = function (t) {
+              var e = t.textLimit,
+                n = o("WAWebFormatConfigurationConversation").Conversation({
+                  mentions: o("WAWebMsgMentionMap").calculateMsgMentionMap(l),
+                  groupMentions:
+                    o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(l),
+                  links: o("WAWebMsgLinks").getLinksFromMsg(l.unsafe(), e),
+                  phoneNumbers: o(
+                    "WAWebMsgPhoneNumbers",
+                  ).getPhoneNumbersFromMsg(l.unsafe(), e),
+                  selectable: !0,
+                  trusted: g === !0,
+                  fromMe: i,
+                  fromChatWid: l.id.remote,
+                });
+              return c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 text: s,
-                textLimit: S,
-                children: R,
-              }),
+                dirMismatch:
+                  o("WAWebFrontendMsgGetters").getRtl(l) !==
+                  r("WAWebL10N").isRTL(),
+                direction: o("WAWebFrontendMsgGetters").getDir(l),
+                inferLinesDirection: !0,
+                formatters: n,
+                selectable: !0,
+                textLimit: e,
+                xstyle: [d.pollName, y],
+              });
             }),
-          )),
-          (n[11] = s),
-          (n[12] = S),
-          (n[13] = R),
-          (n[14] = L))
-        : (L = n[14]);
-      var E;
-      n[15] !== l.id || n[16] !== C || n[17] !== L
-        ? ((E = c.jsx(r("WAWebMessageSpacerText.react"), {
-            msg: C,
-            spacer: !1,
-            "data-id": b,
-            children: L,
+            (n[18] = i),
+            (n[19] = l),
+            (n[20] = s),
+            (n[21] = g),
+            (n[22] = T))
+          : (T = n[22]);
+        var D;
+        (n[23] !== s || n[24] !== I || n[25] !== T
+          ? ((D = c.jsx(
+              "div",
+              babelHelpers.extends({}, k, {
+                children: c.jsx(o("WAWebExpandableText.react").ExpandableText, {
+                  text: s,
+                  textLimit: I,
+                  children: T,
+                }),
+              }),
+            )),
+            (n[23] = s),
+            (n[24] = I),
+            (n[25] = T),
+            (n[26] = D))
+          : (D = n[26]),
+          n[27] !== l.id || n[28] !== D || n[29] !== L
+            ? ((S = c.jsx(r("WAWebMessageSpacerText.react"), {
+                msg: L,
+                spacer: !1,
+                "data-id": E,
+                children: D,
+              })),
+              (n[27] = l.id),
+              (n[28] = D),
+              (n[29] = L),
+              (n[30] = S))
+            : (S = n[30]),
+          n[31] === Symbol.for("react.memo_cache_sentinel")
+            ? ((b = { className: "x78zum5 x6s0dn4 x1q0g3np x1a02dak" }),
+              (n[31] = b))
+            : (b = n[31]),
+          (v = R.map(function (e, t) {
+            var n = e.key,
+              r = e.render;
+            return c.jsx(c.Fragment, { children: r(t < R.length - 1) }, n);
           })),
-          (n[15] = l.id),
-          (n[16] = C),
-          (n[17] = L),
-          (n[18] = E))
-        : (E = n[18]);
-      var k;
-      n[19] !== y || n[20] !== l.pollType || n[21] !== _
-        ? ((k =
-            _ != null &&
-            c.jsx(p, { isSingleOptionPoll: y, pollType: l.pollType })),
-          (n[19] = y),
-          (n[20] = l.pollType),
-          (n[21] = _),
-          (n[22] = k))
-        : (k = n[22]);
-      var I;
-      n[23] !== y || n[24] !== m
-        ? ((I =
-            m &&
-            c.jsx(r("WAWebPollHideVoterNamesLabel"), {
-              isSingleOptionPoll: y,
-            })),
-          (n[23] = y),
-          (n[24] = m),
-          (n[25] = I))
-        : (I = n[25]);
-      var T;
-      n[26] !== a || n[27] !== y || n[28] !== u
-        ? ((T =
-            u != null &&
-            c.jsx(r("WAWebPollEndTimeLabel"), {
-              isPollEnded: a,
-              isSingleOptionPoll: y,
-              pollEndTime: u,
-            })),
-          (n[26] = a),
-          (n[27] = y),
-          (n[28] = u),
-          (n[29] = T))
-        : (T = n[29]);
-      var D;
+          (n[1] = a),
+          (n[2] = i),
+          (n[3] = C),
+          (n[4] = l),
+          (n[5] = s),
+          (n[6] = u),
+          (n[7] = m),
+          (n[8] = f),
+          (n[9] = g),
+          (n[10] = b),
+          (n[11] = v),
+          (n[12] = S));
+      } else ((b = n[10]), (v = n[11]), (S = n[12]));
+      var x;
+      n[32] !== b || n[33] !== v
+        ? ((x = c.jsx("div", babelHelpers.extends({}, b, { children: v }))),
+          (n[32] = b),
+          (n[33] = v),
+          (n[34] = x))
+        : (x = n[34]);
+      var $;
       return (
-        n[30] !== I || n[31] !== T || n[32] !== E || n[33] !== k
-          ? ((D = c.jsxs(c.Fragment, { children: [E, k, I, T] })),
-            (n[30] = I),
-            (n[31] = T),
-            (n[32] = E),
-            (n[33] = k),
-            (n[34] = D))
-          : (D = n[34]),
-        D
+        n[35] !== S || n[36] !== x
+          ? (($ = c.jsxs(c.Fragment, { children: [S, x] })),
+            (n[35] = S),
+            (n[36] = x),
+            (n[37] = $))
+          : ($ = n[37]),
+        $
       );
     }
-    function p(t) {
-      var n = o("react-compiler-runtime").c(12),
-        a = t.isSingleOptionPoll,
-        i = t.pollType,
-        l;
-      if (i === o("WAWebPollCreationUtils").PollType.QUIZ) {
+    function p(e) {
+      return c.jsx(r("WAWebPollHideVoterNamesLabel"), { trailingSeparator: e });
+    }
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(e) {
+      var t = o("react-compiler-runtime").c(15),
+        n = e.isSingleOptionPoll,
+        r = e.pollType,
+        a = e.trailingSeparator,
+        i;
+      if (r === o("WAWebPollCreationUtils").PollType.QUIZ) {
+        var l;
+        (t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((l = s._(/*BTDS*/ "Select your answer")), (t[0] = l))
+          : (l = t[0]),
+          (i = l));
+      } else if (n) {
         var u;
-        (n[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((u = s._(/*BTDS*/ "Select your answer")), (n[0] = u))
-          : (u = n[0]),
-          (l = u));
-      } else if (a) {
-        var m;
-        (n[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((m = s._(/*BTDS*/ "Select one")), (n[1] = m))
-          : (m = n[1]),
-          (l = m));
+        (t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((u = s._(/*BTDS*/ "Select one")), (t[1] = u))
+          : (u = t[1]),
+          (i = u));
       } else {
-        var p;
-        (n[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((p = s._(/*BTDS*/ "Select one or more")), (n[2] = p))
-          : (p = n[2]),
-          (l = p));
+        var m;
+        (t[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((m = s._(/*BTDS*/ "Select one or more")), (t[2] = m))
+          : (m = t[2]),
+          (i = m));
       }
+      var p;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = { className: "x78zum5 x6s0dn4 x3psx0u x1iorvi4 xjkvuk6" }),
+          (t[3] = p))
+        : (p = t[3]);
       var _;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = (e || (e = r("stylex"))).props(
-            d.container,
-            o("WDSPaddings.stylex").wdsPaddings.padding4,
-          )),
-          (n[3] = _))
-        : (_ = n[3]);
-      var f;
-      n[4] !== a
-        ? ((f = a
+      t[4] !== n
+        ? ((_ = n
             ? c.jsx(
                 o("WAWebIcCheckCircleFilledIcon.react").IcCheckCircleFilledIcon,
                 { innerStyles: { background: d.selectIcon } },
@@ -224,31 +256,46 @@ __d(
                   .MultiSelectIconFilledIcon,
                 { innerStyles: { background: d.selectIcon } },
               )),
-          (n[4] = a),
-          (n[5] = f))
-        : (f = n[5]);
+          (t[4] = n),
+          (t[5] = _))
+        : (_ = t[5]);
+      var f;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = { className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8" }),
+          (t[6] = f))
+        : (f = t[6]);
       var g;
-      n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = { className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8" }),
-          (n[6] = g))
-        : (g = n[6]);
+      t[7] !== a
+        ? ((g = a
+            ? c.jsx("span", {
+                className: "x135b78x x11lfxj5",
+                children: "\xB7",
+              })
+            : null),
+          (t[7] = a),
+          (t[8] = g))
+        : (g = t[8]);
       var h;
-      n[7] !== l
-        ? ((h = c.jsx("span", babelHelpers.extends({}, g, { children: l }))),
-          (n[7] = l),
-          (n[8] = h))
-        : (h = n[8]);
+      t[9] !== i || t[10] !== g
+        ? ((h = c.jsxs(
+            "span",
+            babelHelpers.extends({}, f, { children: [i, g] }),
+          )),
+          (t[9] = i),
+          (t[10] = g),
+          (t[11] = h))
+        : (h = t[11]);
       var y;
       return (
-        n[9] !== f || n[10] !== h
+        t[12] !== _ || t[13] !== h
           ? ((y = c.jsxs(
               "div",
-              babelHelpers.extends({}, _, { children: [f, h] }),
+              babelHelpers.extends({}, p, { children: [_, h] }),
             )),
-            (n[9] = f),
-            (n[10] = h),
-            (n[11] = y))
-          : (y = n[11]),
+            (t[12] = _),
+            (t[13] = h),
+            (t[14] = y))
+          : (y = t[14]),
         y
       );
     }

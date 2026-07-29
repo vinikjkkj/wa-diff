@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WAWebBizBroadcastsCreationStrings",
     "WAWebBusinessBroadcastUserJourneyLogger",
-    "WAWebCloseCircleRefreshedIcon.react",
     "WAWebCmd",
     "WAWebDeleteMenuItem.react",
     "WAWebInfoRefreshedIcon.react",
@@ -13,6 +12,7 @@ __d(
     "WAWebWamEnumMuteEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
+    "WDSIconIcCancel.react",
     "WDSMenuItem.react",
     "react",
   ],
@@ -72,8 +72,7 @@ __d(
           onPress: function () {
             return o("WAWebCmd").Cmd.closeChat(e);
           },
-          Icon: o("WAWebCloseCircleRefreshedIcon.react")
-            .CloseCircleRefreshedIcon,
+          Icon: r("WDSIconIcCancel.react"),
           title: s._(/*BTDS*/ "Close chat"),
         },
         "close",

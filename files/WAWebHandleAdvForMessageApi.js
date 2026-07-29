@@ -47,16 +47,16 @@ __d(
                   y,
                 ),
               !h || h.deleted || h.rawId !== m || y
-                ? o("WAWebHandleAdvListResetApi").handleListReset(
-                    t,
-                    _,
-                    y ? a : null,
-                    i,
-                    h,
-                    l,
-                    u,
-                    c,
-                  )
+                ? o("WAWebHandleAdvListResetApi").handleListReset({
+                    deviceWid: t,
+                    incomingAdvAccountType: c,
+                    incomingAdvDeviceIdentity: _,
+                    incomingDeviceIdentity: i,
+                    lastDeviceJobTs: u,
+                    localDeviceRecord: h,
+                    newPrimaryKey: y ? a : null,
+                    offline: l,
+                  })
                 : o("WAWebHandleAdvNoListResetApi").handleNoListReset(
                     t,
                     _,

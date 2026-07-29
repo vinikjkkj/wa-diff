@@ -99,11 +99,11 @@ __d(
           );
           try {
             var R;
-            (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg(
-              v,
-              S,
-              b,
-            ),
+            (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
+              metricsReporter: b,
+              msgProtobuf: S,
+              sendMsgRecord: v,
+            }),
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([

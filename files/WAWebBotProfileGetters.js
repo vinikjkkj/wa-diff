@@ -7,11 +7,15 @@ __d(
       u = s("prompts"),
       c = s("commands"),
       d = s("isDefault"),
-      m = s("posingAsProfessional");
+      m = s("posingAsProfessional"),
+      p = s("product"),
+      _ = s("isDeprecated");
     ((l.getPrompts = u),
       (l.getCommands = c),
       (l.getIsDefault = d),
-      (l.getPosingAsProfessional = m));
+      (l.getPosingAsProfessional = m),
+      (l.getProduct = p),
+      (l.getIsDeprecated = _));
   },
   98,
 );

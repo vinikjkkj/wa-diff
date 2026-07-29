@@ -8,7 +8,6 @@ __d(
     "WAWebBrazilPixKeyFormattingUtils",
     "WAWebBuyerEventLogger",
     "WAWebContactUtils",
-    "WAWebCopyRefreshedIcon.react",
     "WAWebCopyTextWithToast",
     "WAWebExternalLink.react",
     "WAWebFrontendMsgGetters",
@@ -32,6 +31,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageChatType",
     "WAWebWamEnumStructuredMessageClass",
+    "WDSIconIcContentCopy.react",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -85,7 +85,7 @@ __d(
             text: o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(a, i),
           });
         },
-        Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+        Icon: r("WDSIconIcContentCopy.react"),
       };
     }
     function p(e) {
@@ -261,12 +261,12 @@ __d(
             text: i,
           });
         },
-        Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+        Icon: r("WDSIconIcContentCopy.react"),
       };
     }
     function h(e, t) {
       var n = t.paymentSettings,
-        r =
+        a =
           n == null
             ? void 0
             : n.find(function (e) {
@@ -275,37 +275,37 @@ __d(
                     .PIX_STATIC_CODE
                 ];
               });
-      if (r == null) return null;
-      var a =
-          r[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
+      if (a == null) return null;
+      var i =
+          a[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
             .key,
-        i =
-          r[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
+        l =
+          a[o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE]
             .merchant_name,
-        l = t.totalAmount,
-        u = t.referenceId;
-      if (a == null || i == null || l == null) return null;
-      var c = o("WAWebPixCodeUtils").getPixStaticCode({
-          merchantName: i,
-          pixKey: a,
-          referenceId: u,
-          transactionAmount: l.toFixed(2),
+        u = t.totalAmount,
+        c = t.referenceId;
+      if (i == null || l == null || u == null) return null;
+      var d = o("WAWebPixCodeUtils").getPixStaticCode({
+          merchantName: l,
+          pixKey: i,
+          referenceId: c,
+          transactionAmount: u.toFixed(2),
         }),
-        d = s._(/*BTDS*/ "Pix code copied"),
-        m = s._(/*BTDS*/ "Could not copy Pix code");
+        m = s._(/*BTDS*/ "Pix code copied"),
+        p = s._(/*BTDS*/ "Could not copy Pix code");
       return {
         label: s._(/*BTDS*/ "Copy Pix code"),
         onClick: function () {
           o("WAWebCopyTextWithToast").copyTextWithToast({
-            failureMsg: m,
+            failureMsg: p,
             onSuccess: function () {
               y(e, t);
             },
-            successMsg: d,
-            text: c,
+            successMsg: m,
+            text: d,
           });
         },
-        Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+        Icon: r("WDSIconIcContentCopy.react"),
       };
     }
     function y(e, t) {
@@ -476,7 +476,7 @@ __d(
             text: o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(i),
           });
         },
-        Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+        Icon: r("WDSIconIcContentCopy.react"),
       };
     }
     function v(e, t) {

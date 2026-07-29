@@ -856,7 +856,12 @@ __d(
       }
       if (1 === n.length) return ne(n[0].tags, n[0].predicates);
       var o = new Set();
-      for (var _e15 of n) for (var _t13 of _e15.tags) o.add(_t13);
+      if (
+        n.every(function (e) {
+          return e.tags.size > 0;
+        })
+      )
+        for (var _e15 of n) for (var _t13 of _e15.tags) o.add(_t13);
       return ne(o, [
         function (e, t) {
           for (var _o7 of n) {

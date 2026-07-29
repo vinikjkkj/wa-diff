@@ -299,7 +299,17 @@ __d(
             c = t.serverAddressingMode;
           return o(
             "WAWebResendGroupMsgMainThreadOnly",
-          ).resendGroupMsgMainThreadOnly(a, l, i, n, r, s, u, e, c);
+          ).resendGroupMsgMainThreadOnly({
+            ackTime: e,
+            groupId: n,
+            isDirect: r,
+            msgId: a,
+            msgRecordType: i,
+            msgType: l,
+            oldList: s,
+            phash: u,
+            serverAddressingMode: c,
+          });
         },
         updateOptOutList: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

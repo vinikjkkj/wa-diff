@@ -30,59 +30,65 @@ __d(
     function m(e) {
       return !e.isLid();
     }
-    function p(e, t, n, r, o, a, i, l) {
+    function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s) {
-            var u = yield o(
-                "WAWebApiParticipantStore",
-              ).getGroupSenderKeyListFromParticipantRecord(t, l),
-              p = u.skDistribList,
-              _ = u.skList,
-              g = s || f(e, i),
-              h = g ? d : m,
-              C = {
-                type: c.SKMSG,
-                senderKeyList: {
-                  skList: _.filter(h),
-                  skDistribList: p.filter(h),
-                  rotateKey: !1,
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.editedMsgKey,
+            n = e.groupId,
+            r = e.isAdmin,
+            a = e.isLidAddressingMode,
+            i = e.keptMessageKey,
+            l = e.msgRecord,
+            s = e.participantRecord,
+            u = e.revokeMsgKey,
+            p = yield o(
+              "WAWebApiParticipantStore",
+            ).getGroupSenderKeyListFromParticipantRecord(n, s),
+            _ = p.skDistribList,
+            g = p.skList,
+            h = a || f(l, r),
+            C = h ? d : m,
+            v = {
+              type: c.SKMSG,
+              senderKeyList: {
+                skList: g.filter(C),
+                skDistribList: _.filter(C),
+                rotateKey: !1,
+              },
+            };
+          if (o("WAWebMsgGetters").getSubtype(l.data) === "sender_revoke") {
+            var R =
+                !r &&
+                o("WAWebABProps").getABPropConfigValue(
+                  "send_cag_member_revokes_as_GDM",
+                ),
+              L =
+                u == null
+                  ? null
+                  : yield y(u, v.senderKeyList, {
+                      forceDirectMessage: R,
+                      normalizeAddressingModeFn: function (t) {
+                        return t;
+                      },
+                    });
+            return L != null ? L : v;
+          }
+          if (o("WAWebMsgGetters").getType(l.data) === "keep_in_chat") {
+            var E = !r,
+              k = i == null ? null : yield b(i, v.senderKeyList, E);
+            return k != null ? k : v;
+          }
+          return t
+            ? S(t, v.senderKeyList, {
+                normalizeAddressingModeFn: function (t) {
+                  return t;
                 },
-              };
-            if (o("WAWebMsgGetters").getSubtype(e.data) === "sender_revoke") {
-              var v =
-                  !i &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "send_cag_member_revokes_as_GDM",
-                  ),
-                R =
-                  n == null
-                    ? null
-                    : yield y(n, C.senderKeyList, {
-                        forceDirectMessage: v,
-                        normalizeAddressingModeFn: function (t) {
-                          return t;
-                        },
-                      });
-              return R != null ? R : C;
-            }
-            if (o("WAWebMsgGetters").getType(e.data) === "keep_in_chat") {
-              var L = !i,
-                E = r == null ? null : yield b(r, C.senderKeyList, L);
-              return E != null ? E : C;
-            }
-            return a
-              ? S(a, C.senderKeyList, {
-                  normalizeAddressingModeFn: function (t) {
-                    return t;
-                  },
-                })
-              : C;
-          },
-        )),
+              })
+            : v;
+        })),
         _.apply(this, arguments)
       );
     }

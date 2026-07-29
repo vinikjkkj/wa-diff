@@ -5,31 +5,20 @@ __d(
     "WAWebConnModel",
     "WAWebContactGetters",
     "WAWebGetMessageChatTypeFromWid",
-    "WAWebPaymentMethodTypeRegistry",
     "WAWebPaymentsChatUtils",
     "WAWebUserPrefsCustomPaymentMethods",
     "WAWebWamEnumMessageChatType",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      return t.uprAttachment == null ||
-        !o("WAWebConnModel").Conn.isSMB ||
-        !o("WAWebBizFrontendGatingUtils").isUprAttachmentTrayEnabled(
-          t.country,
-        ) ||
+      return !o("WAWebConnModel").Conn.isSMB ||
+        !o("WAWebBizFrontendGatingUtils").isUprAttachmentTrayEnabled(t) ||
         !s(e) ||
-        !o("WAWebBizFrontendGatingUtils").isUprSendEnabledForCountry(
-          t.country,
-        ) ||
-        o("WAWebUserPrefsCustomPaymentMethods").getUprStoredKeys(t.type)
-          .length === 0 ||
+        !o("WAWebBizFrontendGatingUtils").isUprSendEnabledForCountry(t) ||
         o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(e.id) !==
           o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.INDIVIDUAL
         ? !1
-        : o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(
-            e.id,
-            t.country,
-          );
+        : o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(e.id, t);
     }
     function s(e) {
       var t = e.contact;
@@ -38,14 +27,22 @@ __d(
       );
     }
     function u(t) {
-      for (var n of o(
-        "WAWebPaymentMethodTypeRegistry",
-      ).PaymentMethodTypeRegistry.values())
-        if (n.uprAttachment != null && e(t, n)) return n;
+      var n = new Map();
+      for (var r of o(
+        "WAWebUserPrefsCustomPaymentMethods",
+      ).getAllUprStoredKeys()) {
+        var a,
+          i = (a = n.get(r.country)) != null ? a : [];
+        (i.push(r), n.set(r.country, i));
+      }
+      for (var l of n) {
+        var s = l[0],
+          u = l[1];
+        if (e(t, s)) return { country: s, currency: u[0].currency, keys: u };
+      }
       return null;
     }
-    ((l.shouldShowUprMethodInAttachmentTray = e),
-      (l.resolveUprMethodForChat = u));
+    ((l.isChatEligibleForUprCountry = e), (l.resolveUprMethodForChat = u));
   },
   98,
 );

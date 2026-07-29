@@ -14,7 +14,6 @@ __d(
     "WAWebBrPaymentRequest",
     "WAWebCarouselMsgUtils",
     "WAWebContactGetters",
-    "WAWebCopyRefreshedIcon.react",
     "WAWebCopyTextWithToast",
     "WAWebCouponCodeHelper",
     "WAWebDrawerManager",
@@ -55,6 +54,7 @@ __d(
     "WAWebWamEnumPmButtonEventType",
     "WAWebWamEnumPmButtonType",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
+    "WDSIconIcContentCopy.react",
     "WDSIconIcOpenInNew.react",
     "asyncToGeneratorRuntime",
     "err",
@@ -600,7 +600,7 @@ __d(
                 .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
         },
-        Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+        Icon: r("WDSIconIcContentCopy.react"),
       };
     }
     function L(e, t) {
@@ -801,8 +801,8 @@ __d(
       if (n == null) return null;
       switch (n.paymentType) {
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType.BOLETO: {
-          var r = n.digitableLine;
-          return r == null
+          var a = n.digitableLine;
+          return a == null
             ? null
             : {
                 label: s._(/*BTDS*/ "Copy boleto code"),
@@ -818,16 +818,16 @@ __d(
                       );
                     },
                     successMsg: s._(/*BTDS*/ "Boleto code copied"),
-                    text: r,
+                    text: a,
                   });
                 },
-                Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+                Icon: r("WDSIconIcContentCopy.react"),
               };
         }
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType
           .PIX_DYNAMIC_CODE: {
-          var a = n.code;
-          return a == null
+          var i = n.code;
+          return i == null
             ? null
             : {
                 label: s._(/*BTDS*/ "Copy Pix code"),
@@ -844,20 +844,20 @@ __d(
                       );
                     },
                     successMsg: s._(/*BTDS*/ "Pix Code copied"),
-                    text: a,
+                    text: i,
                   });
                 },
-                Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+                Icon: r("WDSIconIcContentCopy.react"),
               };
         }
         case o("WAWebBrPaymentRequest").PaymentRequestCtaType.PAYMENT_LINK: {
-          var i = n.uri;
-          return i == null
+          var l = n.uri;
+          return l == null
             ? null
             : {
                 label: s._(/*BTDS*/ "Open payment link"),
                 onClick: function () {
-                  (o("WAWebExternalLink.react").openExternalLink(i),
+                  (o("WAWebExternalLink.react").openExternalLink(l),
                     o(
                       "WAWebPaymentRequestWamLogger",
                     ).logPaymentRequestInteractionWAMEvent(

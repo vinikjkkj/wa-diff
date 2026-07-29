@@ -150,6 +150,8 @@ __d(
               .CREATE_POLL,
             chat: a,
             creationDateInSeconds: _.t,
+            hideVoterName: l.hideVoterNames,
+            pollDurationMs: l.endTime == null ? void 0 : l.endTime - _.t * 1e3,
             pollOptionsCount: l.options.length,
           });
         })),

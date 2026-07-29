@@ -27,13 +27,29 @@ __d(
     function _() {
       return s._(/*BTDS*/ "You don't have a catalog yet");
     }
+    function f() {
+      return s._(/*BTDS*/ "Couldn't add your catalog image. Please try again.");
+    }
+    function g() {
+      return s._(/*BTDS*/ "We couldn't add some images.");
+    }
+    function h() {
+      return s._(/*BTDS*/ "These images can't be added to your ad.");
+    }
+    function y() {
+      return s._(/*BTDS*/ "Something went wrong. Please try again.");
+    }
     ((l.getSharingDisclosure = e),
       (l.getChooseCatalogMediaTitle = u),
       (l.getNoCatalogItemsText = c),
       (l.getCatalogFooterHint = d),
       (l.getCatalogImageTileLabel = m),
       (l.getCatalogLoadErrorText = p),
-      (l.getNoCatalogText = _));
+      (l.getNoCatalogText = _),
+      (l.getCatalogMediaResolveErrorText = f),
+      (l.getCatalogMediaPartialSkipText = g),
+      (l.getCatalogMediaNoneAddableText = h),
+      (l.getCatalogMediaGenericErrorText = y));
   },
   226,
 );

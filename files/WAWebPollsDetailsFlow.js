@@ -40,13 +40,18 @@ __d(
         };
       if (
         (c(function () {
-          o("WAWebPollsActionsMetricUtils").commitPollsActionsMetric({
-            action: o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
-              .VIEW_RESULTS_MODAL,
-            chat: y,
-            creationDateInSeconds: n.t,
-            pollOptionsCount: n.pollOptions.length,
-          });
+          o("WAWebPollsActionsMetricUtils").commitPollsActionsMetric(
+            babelHelpers.extends(
+              {
+                action: o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
+                  .VIEW_RESULTS_MODAL,
+                chat: y,
+              },
+              o(
+                "WAWebPollsActionsMetricUtils",
+              ).getPollMetricFieldsFromCreationMsg(n),
+            ),
+          );
         }, []),
         l.step == null)
       )

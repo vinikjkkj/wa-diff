@@ -14,7 +14,6 @@ __d(
     "WAWebChatContextMenuItemMarkUnread.react",
     "WAWebChatContextMenuItemMute.react",
     "WAWebChatContextMenuItemPin.react",
-    "WAWebCloseCircleRefreshedIcon.react",
     "WAWebCmd",
     "WAWebDropdownItemSeparator.react",
     "WAWebInboxFiltersGatingUtils",
@@ -23,6 +22,7 @@ __d(
     "WAWebListsLabelGatingUtils",
     "WAWebUnfavoriteRefreshedIcon.react",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
+    "WDSIconIcCancel.react",
     "WDSIconIcDoNotDisturbOn.react",
     "WDSIconIcFavorite.react",
     "WDSIconWdsIcTransferOwnership.react",
@@ -143,8 +143,7 @@ __d(
                   return o("WAWebCmd").Cmd.closeChat(i);
                 },
                 testid: "mi-close-chat",
-                Icon: o("WAWebCloseCircleRefreshedIcon.react")
-                  .CloseCircleRefreshedIcon,
+                Icon: r("WDSIconIcCancel.react"),
               },
               "close-chat",
             ),

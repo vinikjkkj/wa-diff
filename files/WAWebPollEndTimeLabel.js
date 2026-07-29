@@ -5,7 +5,6 @@ __d(
     "WAWebClock",
     "WAWebFlex.react",
     "WDSIconIcScheduleFilled.react",
-    "WDSPaddings.stylex",
     "react",
     "react-compiler-runtime",
   ],
@@ -14,10 +13,10 @@ __d(
     var e,
       u = e || (e = o("react")),
       c = {
-        iconContainer: {
-          display: "x78zum5",
-          justifyContent: "xl56j7k",
-          width: "xn6xy2s",
+        container: {
+          flex: "x3psx0u",
+          paddingTop: "x1iorvi4",
+          paddingBottom: "xjkvuk6",
           $$css: !0,
         },
       },
@@ -25,65 +24,77 @@ __d(
       m = 3600,
       p = 24 * m;
     function _(e) {
-      var t = o("react-compiler-runtime").c(15),
+      var t = o("react-compiler-runtime").c(17),
         n = e.isPollEnded,
-        a = e.isSingleOptionPoll,
-        i = e.pollEndTime,
-        l = i - o("WAWebClock").Clock.getServerTimeMs(),
+        a = e.pollEndTime,
+        i = e.trailingSeparator,
+        l = a - o("WAWebClock").Clock.getServerTimeMs(),
         p = Math.max(0, Math.ceil(l / d)),
         _ = p < m && !n,
         g = n ? "poll-ended-label" : "poll-end-time-label",
-        h = a ? void 0 : c.iconContainer,
-        y = _ ? "secondaryNegative" : "contentDeemphasized",
-        C;
-      t[0] !== h || t[1] !== y
-        ? ((C = u.jsx(r("WDSIconIcScheduleFilled.react"), {
+        h = _ ? "secondaryNegative" : "contentDeemphasized",
+        y;
+      t[0] !== h
+        ? ((y = u.jsx(r("WDSIconIcScheduleFilled.react"), {
             width: 12,
             height: 12,
-            xstyle: h,
-            colorName: y,
+            colorName: h,
           })),
           (t[0] = h),
-          (t[1] = y),
-          (t[2] = C))
-        : (C = t[2]);
-      var b;
-      t[3] !== _
-        ? ((b = {
+          (t[1] = y))
+        : (y = t[1]);
+      var C;
+      t[2] !== _
+        ? ((C = {
             0: { className: "x1pg5gke x1d3mw78 x1bvqhpb xaso8d8" },
             1: { className: "x1pg5gke x1d3mw78 x30a034 xaso8d8" },
           }[!!_ << 0]),
-          (t[3] = _),
-          (t[4] = b))
-        : (b = t[4]);
+          (t[2] = _),
+          (t[3] = C))
+        : (C = t[3]);
+      var b;
+      t[4] !== n || t[5] !== p
+        ? ((b = n ? s._(/*BTDS*/ "Poll ended") : f(p)),
+          (t[4] = n),
+          (t[5] = p),
+          (t[6] = b))
+        : (b = t[6]);
       var v;
-      t[5] !== n || t[6] !== p
-        ? ((v = n ? s._(/*BTDS*/ "Poll ended") : f(p)),
-          (t[5] = n),
-          (t[6] = p),
-          (t[7] = v))
-        : (v = t[7]);
+      t[7] !== i
+        ? ((v = i
+            ? u.jsx("span", {
+                className: "x135b78x x11lfxj5",
+                children: "\xB7",
+              })
+            : null),
+          (t[7] = i),
+          (t[8] = v))
+        : (v = t[8]);
       var S;
-      t[8] !== b || t[9] !== v
-        ? ((S = u.jsx("span", babelHelpers.extends({}, b, { children: v }))),
-          (t[8] = b),
-          (t[9] = v),
-          (t[10] = S))
-        : (S = t[10]);
+      t[9] !== C || t[10] !== b || t[11] !== v
+        ? ((S = u.jsxs(
+            "span",
+            babelHelpers.extends({}, C, { children: [b, v] }),
+          )),
+          (t[9] = C),
+          (t[10] = b),
+          (t[11] = v),
+          (t[12] = S))
+        : (S = t[12]);
       var R;
       return (
-        t[11] !== g || t[12] !== C || t[13] !== S
+        t[13] !== g || t[14] !== y || t[15] !== S
           ? ((R = u.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
-              xstyle: o("WDSPaddings.stylex").wdsPaddings.padding4,
+              xstyle: c.container,
               testid: g,
-              children: [C, S],
+              children: [y, S],
             })),
-            (t[11] = g),
-            (t[12] = C),
-            (t[13] = S),
-            (t[14] = R))
-          : (R = t[14]),
+            (t[13] = g),
+            (t[14] = y),
+            (t[15] = S),
+            (t[16] = R))
+          : (R = t[16]),
         R
       );
     }
@@ -94,10 +105,7 @@ __d(
         return s._(/*BTDS*/ "Ends in {hours}h", [s._param("hours", t)]);
       }
       var n = Math.floor(e / p);
-      return s._(
-        /*BTDS*/ '_j{"*":"Ends in {days} days","_1":"Ends in {days} day"}',
-        [s._plural(n), s._param("days", n)],
-      );
+      return s._(/*BTDS*/ "Ends in {days}d", [s._param("days", n)]);
     }
     ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = _));
   },

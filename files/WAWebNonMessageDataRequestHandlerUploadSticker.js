@@ -432,16 +432,16 @@ __d(
             o(
               "WAWebNonMessageDataRequestMediaHandlingUtils",
             ).insertMediaUploadResult(C, c),
-            o("WAWebNonMessageDataRequestLoggingUtils").logMediaUpload(
-              o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-                .UPLOAD_STICKER,
-              e,
-              a,
-              i,
-              l,
-              s,
-              u,
-            ));
+            o("WAWebNonMessageDataRequestLoggingUtils").logMediaUpload({
+              errorCount: s,
+              existingDataNoUploadCount: l,
+              notFoundCount: u,
+              requestCount: a,
+              requestType: o("WAWebProtobufsE2E.pb")
+                .Message$PeerDataOperationRequestType.UPLOAD_STICKER,
+              stanzaId: e,
+              successUploadCount: i,
+            }));
         })),
         g.apply(this, arguments)
       );

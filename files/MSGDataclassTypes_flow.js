@@ -467,6 +467,7 @@ __d(
         XmaMetaAiSingleSubscription: "XMA_META_AI_SINGLE_SUBSCRIPTION",
         XmaMetaAiSubscriptions: "XMA_META_AI_SUBSCRIPTIONS",
         XmaMetaAiTask: "XMA_META_AI_TASK",
+        XmaMobiclawMessagingConsent: "XMA_MOBICLAW_MESSAGING_CONSENT",
         XmaMomentAddedView: "XMA_MOMENT_ADDED_VIEW",
         XmaMsgExternalLinkShare: "XMA_MSG_EXTERNAL_LINK_SHARE",
         XmaMusicArtist: "XMA_MUSIC_ARTIST",

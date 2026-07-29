@@ -189,12 +189,17 @@ __d(
                 : o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE.VOTE)
             : (y = o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
                 .REMOVE_VOTE),
-            o("WAWebPollsActionsMetricUtils").commitPollsActionsMetric({
-              action: y,
-              chat: o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
-              creationDateInSeconds: e.t,
-              pollOptionsCount: e.pollOptions.length,
-            }));
+            o("WAWebPollsActionsMetricUtils").commitPollsActionsMetric(
+              babelHelpers.extends(
+                {
+                  action: y,
+                  chat: o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
+                },
+                o(
+                  "WAWebPollsActionsMetricUtils",
+                ).getPollMetricFieldsFromCreationMsg(e),
+              ),
+            ));
         })),
         f.apply(this, arguments)
       );

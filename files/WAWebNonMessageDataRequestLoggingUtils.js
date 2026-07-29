@@ -218,23 +218,30 @@ __d(
         peerDataRequestSessionId: t,
       }).commit();
     }
-    function _(e, t, n, r, a, i, l) {
+    function _(e) {
+      var t = e.errorCount,
+        n = e.existingDataNoUploadCount,
+        r = e.notFoundCount,
+        a = e.requestCount,
+        i = e.requestType,
+        l = e.stanzaId,
+        s = e.successUploadCount;
       if (
-        e ===
+        i ===
         o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
           .UPLOAD_STICKER
       ) {
-        var s = m(e);
+        var u = m(i);
         new (o(
           "WAWebNonMessagePeerDataMediaUploadWamEvent",
         ).NonMessagePeerDataMediaUploadWamEvent)({
-          peerDataRequestCount: n,
-          peerDataSuccessUploadCount: r,
-          peerDataExistingDataNoUploadCount: a,
-          peerDataErrorCount: i,
-          peerDataNotFoundCount: l,
-          peerDataRequestType: s,
-          peerDataRequestSessionId: t,
+          peerDataRequestCount: a,
+          peerDataSuccessUploadCount: s,
+          peerDataExistingDataNoUploadCount: n,
+          peerDataErrorCount: t,
+          peerDataNotFoundCount: r,
+          peerDataRequestType: u,
+          peerDataRequestSessionId: l,
         }).commit();
       }
     }

@@ -12,14 +12,15 @@ __d(
         /^https:\/\/call\.[^/]+\.whatsapp\.com\/(video|voice)\/(\w+)(?:\?.*)?$/i,
       d =
         /^https:\/\/dev-web\.[^/]+\.whatsapp\.com\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i;
-    function m(t) {
-      var n,
-        r = (n = t.match(e)) != null ? n : t.match(s);
+    function m(t, n) {
+      var r;
+      n === void 0 && (n = !1);
+      var a = (r = t.match(e)) != null ? r : t.match(s);
       return (
-        r == null && o("WAWebCurrentUser").isEmployee() && (r = t.match(u)),
-        r == null || !o("WAWebVoipGatingUtils").callLinksEnabled()
+        a == null && o("WAWebCurrentUser").isEmployee() && (a = t.match(u)),
+        a == null || (!n && !o("WAWebVoipGatingUtils").callLinksEnabled())
           ? null
-          : r[1].toLowerCase() === "video"
+          : a[1].toLowerCase() === "video"
             ? "video"
             : "voice"
       );

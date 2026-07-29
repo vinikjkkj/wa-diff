@@ -5,7 +5,6 @@ __d(
     "WABinary",
     "WAJids",
     "WALogger",
-    "WAWebABProps",
     "WAWebAdvSignatureApi",
     "WAWebApiContact",
     "WAWebCryptoCurve25519",
@@ -146,14 +145,7 @@ __d(
                 publicKey: new Uint8Array(h.publicKey).buffer,
                 signature: new Uint8Array(h.signature).buffer,
               }),
-            o("WAWebCryptoLibrarySessionApi").createSignalSession(
-              g,
-              l,
-              n,
-              o("WAWebABProps").getABPropConfigValue(
-                "web_anr_async_msg_send_handler",
-              ),
-            )
+            o("WAWebCryptoLibrarySessionApi").createSignalSession(g, l, n)
           );
         })),
         v.apply(this, arguments)

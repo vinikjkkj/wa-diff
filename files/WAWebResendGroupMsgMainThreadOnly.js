@@ -13,60 +13,65 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, o, a, i, l, u) {
+    function e(e) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l, s, u, c) {
-            var d = l.map(function (e) {
-                return o("WAWebWidFactory").createWid(e);
-              }),
-              m = yield o("WAWebCreateSendMsgRecord").createMsgRecord(e, t, n);
-            if (m == null)
-              throw r("err")(
-                "resendUserGroupMsgJob failed to deserialize msg from db",
-              );
-            var p = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(a),
-              _ = yield o("WAWebGroupMsgSendUtils").getGroupData(
-                a.toString(),
-                p,
-                m,
-              ),
-              f =
-                m.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
-                  ? o(
-                      "WAWebSendMsgMetricReporter",
-                    ).createMsgModelMetricReporter(
-                      m.data,
-                      o("WAWebMessageSendReporterFrontendDeps")
-                        .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
-                    )
-                  : o("WAWebSendMsgMetricReporter").createAddonMetricReporter(
-                      m.data,
-                    );
-            f.sendReporter = f.createSendReporter({
-              isResend: !0,
-              originalMessage: m.type === "message" ? m.data : void 0,
-            });
-            var g = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-              o("WAWebOutgoingMessage").OutgoingMessageOriginType.ChatResend,
-              m,
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.ackTime,
+            n = e.groupId,
+            a = e.isDirect,
+            i = e.msgId,
+            l = e.msgRecordType,
+            s = e.msgType,
+            u = e.oldList,
+            c = e.phash,
+            d = e.serverAddressingMode,
+            m = u.map(function (e) {
+              return o("WAWebWidFactory").createWid(e);
+            }),
+            p = yield o("WAWebCreateSendMsgRecord").createMsgRecord(i, s, l);
+          if (p == null)
+            throw r("err")(
+              "resendUserGroupMsgJob failed to deserialize msg from db",
             );
-            return o("WAWebResendGroupMsg").resendGroupMsg({
-              isDirect: i,
-              msgRecord: m,
-              msgProtobuf: g,
-              groupData: _,
-              ackTime: u,
-              oldList: d,
-              phash: s,
-              metricReporter: f,
-              serverAddressingMode: c,
-            });
-          },
-        )),
+          var _ = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(n),
+            f = yield o("WAWebGroupMsgSendUtils").getGroupData(
+              n.toString(),
+              _,
+              p,
+            ),
+            g =
+              p.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
+                ? o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
+                    p.data,
+                    o("WAWebMessageSendReporterFrontendDeps")
+                      .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+                  )
+                : o("WAWebSendMsgMetricReporter").createAddonMetricReporter(
+                    p.data,
+                  );
+          g.sendReporter = g.createSendReporter({
+            isResend: !0,
+            originalMessage: p.type === "message" ? p.data : void 0,
+          });
+          var h = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+            o("WAWebOutgoingMessage").OutgoingMessageOriginType.ChatResend,
+            p,
+          );
+          return o("WAWebResendGroupMsg").resendGroupMsg({
+            isDirect: a,
+            msgRecord: p,
+            msgProtobuf: h,
+            groupData: f,
+            ackTime: t,
+            oldList: m,
+            phash: c,
+            metricReporter: g,
+            serverAddressingMode: d,
+          });
+        })),
         s.apply(this, arguments)
       );
     }

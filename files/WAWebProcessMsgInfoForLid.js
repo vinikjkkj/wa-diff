@@ -4,12 +4,10 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBotUtils",
     "WAWebCoexV2BotWid",
     "WAWebCoexV2GatingUtils",
-    "WAWebEnvironment",
     "WAWebGetPlatformFromStanzaId",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgTypes.flow",
@@ -82,55 +80,56 @@ __d(
                 o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled();
             if (((g = g || h || y || C), g))
               m = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
-            else
+            else if (i.username != null) {
+              var b = f
+                ? "missing-pn-lid-mapping-in-1-1-message-with-username-UN-enabled"
+                : "missing-pn-lid-mapping-in-1-1-message-with-username-UN-off";
+              if (
+                (o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message with username, sender: ",
+                        ", type: ",
+                        ", author: ",
+                        ", chatWid: ",
+                        "",
+                      ])),
+                    o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(
+                      i.externalId,
+                    ),
+                    i.type,
+                    i.author.toLogString(),
+                    n.toLogString(),
+                  )
+                  .sendLogs(b),
+                !f)
+              )
+                m = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
+              else
+                throw r("err")(
+                  "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message",
+                );
+            } else
               throw (
-                i.username != null
-                  ? o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message with username, sender: ",
-                            ", type: ",
-                            ", author: ",
-                            ", chatWid: ",
-                            ", isGuest: ",
-                            ", username_contact_display: ",
-                            "",
-                          ])),
-                        o(
-                          "WAWebGetPlatformFromStanzaId",
-                        ).getPlatformFromStanzaId(i.externalId),
-                        i.type,
-                        i.author.toLogString(),
-                        n.toLogString(),
-                        String(r("WAWebEnvironment").isGuest),
-                        String(
-                          o("WAWebABProps").getABPropConfigValue(
-                            "username_contact_display",
-                          ),
-                        ),
-                      )
-                      .sendLogs(
-                        "missing-pn-lid-mapping-in-1-1-message-with-username",
-                      )
-                  : o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message, sender: ",
-                            "",
-                          ])),
-                        o(
-                          "WAWebGetPlatformFromStanzaId",
-                        ).getPlatformFromStanzaId(i.externalId),
-                      )
-                      .sendLogs("misssing-pn-lid-mapping-in-1-1-message"),
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message, sender: ",
+                        "",
+                      ])),
+                    o("WAWebGetPlatformFromStanzaId").getPlatformFromStanzaId(
+                      i.externalId,
+                    ),
+                  )
+                  .sendLogs("misssing-pn-lid-mapping-in-1-1-message"),
                 r("err")(
                   "findDestinationChatForSingleMapping: missing pn-lid mapping in 1-1 message",
                 )
               );
           } else if (a === "missing-peer-recipient-pn") {
-            var b;
+            var v;
             if (
               (o("WALogger")
                 .ERROR(
@@ -139,7 +138,7 @@ __d(
                       "findDestinationChatForSingleMapping: missing peer recipient pn in 1-1 message from device ",
                       "",
                     ])),
-                  (b = i.author.device) != null ? b : 0,
+                  (v = i.author.device) != null ? v : 0,
                 )
                 .sendLogs("misssing-peer-recipient-pn-in-1-1-message"),
               n.isLid() &&
@@ -176,13 +175,13 @@ __d(
                 "findDestinationChatForSingleMapping: missing peer recipient lid in 1-1 message",
               );
           } else m = a.lid;
-          var v = yield o(
+          var S = yield o(
               "WAWebMessageProcessUtils",
             ).selectChatForOneOnOneMessage({ lid: m, lidOrigin: p }),
-            S = v.chatId;
-          return S.isSameAccountAndAddressingMode(n)
-            ? { accountLid: v.accountLid }
-            : { newRemote: S, accountLid: v.accountLid };
+            R = S.chatId;
+          return R.isSameAccountAndAddressingMode(n)
+            ? { accountLid: S.accountLid }
+            : { newRemote: R, accountLid: S.accountLid };
         })),
         f.apply(this, arguments)
       );

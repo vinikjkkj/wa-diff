@@ -182,52 +182,54 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n, r) {
+    function v(e) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            r === void 0 && (r = !1);
-            var a = n.find(function (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.author,
+            n = e.deviceIdentity,
+            r = e.encs,
+            a = e.offline,
+            i = a === void 0 ? !1 : a,
+            l = r.find(function (e) {
               return (
                 e.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
               );
             });
-            if (!a) return !0;
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "validateADVwithEncs: start validate prekey msg ",
-                ])),
+          if (!l) return !0;
+          o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "validateADVwithEncs: start validate prekey msg ",
+              ])),
+          );
+          try {
+            t != null || s(0, 56346);
+            var u = o("WAWebSignalUtilsApi").extractIdentityKey(l.ciphertext);
+            u != null || s(0, 56345);
+            var c = yield C(t, n, new Uint8Array(u), i);
+            return (
+              yield o("WAWebSignalProtocolStore")
+                .getSignalProtocolStore()
+                .flushBufferToDiskIfNotMemOnlyMode(),
+              c
             );
-            try {
-              e != null || s(0, 56346);
-              var i = o("WAWebSignalUtilsApi").extractIdentityKey(a.ciphertext);
-              i != null || s(0, 56345);
-              var l = yield C(e, t, new Uint8Array(i), r);
-              return (
-                yield o("WAWebSignalProtocolStore")
-                  .getSignalProtocolStore()
-                  .flushBufferToDiskIfNotMemOnlyMode(),
-                l
-              );
-            } catch (e) {
-              return (
-                o("WALogger").WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "validateADVwithEncs: failed ",
-                      "",
-                    ])),
-                  e,
-                ),
-                !1
-              );
-            }
-          },
-        )),
+          } catch (e) {
+            return (
+              o("WALogger").WARN(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "validateADVwithEncs: failed ",
+                    "",
+                  ])),
+                e,
+              ),
+              !1
+            );
+          }
+        })),
         S.apply(this, arguments)
       );
     }

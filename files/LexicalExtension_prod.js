@@ -1929,7 +1929,7 @@ __d(
                 ? require("Lexical").OUTDENT_CONTENT_COMMAND
                 : require("Lexical").INDENT_CONTENT_COMMAND
               : require("Lexical").INSERT_TAB_COMMAND;
-            return n.dispatchCommand(s, void 0);
+            return n.dispatchCommand(s);
           },
           require("Lexical").COMMAND_PRIORITY_EDITOR,
         ),

@@ -5,7 +5,6 @@ __d(
     "WAJobOrchestratorTypes",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebApiGroupInviteV4Store",
     "WAWebAppTracker",
     "WAWebBizAgentAction",
@@ -35,7 +34,6 @@ __d(
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
-    "WAWebReleaseToEventLoop",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgRecordAction",
     "WAWebStateUtils",
@@ -353,10 +351,6 @@ __d(
                   (o("WAWebAppTracker").AppTracker.start(
                     o("WAWebAppTracker").AppTrackerType.SendMessage,
                   ),
-                  o("WAWebABProps").getABPropConfigValue(
-                    "web_anr_async_msg_send_handler",
-                  ) &&
-                    (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
                   (n = r.wamMessageSendPerfReporter) == null ||
                     n.startRenderedStage(),
                   a)

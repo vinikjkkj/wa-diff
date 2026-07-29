@@ -20,24 +20,37 @@ __d(
           ((a = t.expectedTs),
           (i = t.expectedTsLastDeviceJobTs),
           (l = t.expectedTsUpdateTs)),
-        s(n, o, r, a, i, l)
+        s({
+          currentExpectedTs: a,
+          currentExpectedTsLastDeviceJobTs: i,
+          currentExpectedTsUpdateTs: l,
+          currentLastDeviceJobTs: r,
+          currentTs: o,
+          incomingExpectedTs: n,
+        })
       );
     }
-    function s(e, t, n, r, a, i) {
-      var l = {
-        expectedTs: r,
-        expectedTsLastDeviceJobTs: a,
-        expectedTsUpdateTs: i,
-      };
+    function s(e) {
+      var t = e.currentExpectedTs,
+        n = e.currentExpectedTsLastDeviceJobTs,
+        r = e.currentExpectedTsUpdateTs,
+        a = e.currentLastDeviceJobTs,
+        i = e.currentTs,
+        l = e.incomingExpectedTs,
+        s = {
+          expectedTs: t,
+          expectedTsLastDeviceJobTs: n,
+          expectedTsUpdateTs: r,
+        };
       return (
-        t >= e ||
-          (r != null && r >= e) ||
-          ((l.expectedTs = e),
-          (l.expectedTsLastDeviceJobTs = n != null ? n : void 0),
-          (r == null || t >= r) &&
-            (l.expectedTsUpdateTs =
+        i >= l ||
+          (t != null && t >= l) ||
+          ((s.expectedTs = l),
+          (s.expectedTsLastDeviceJobTs = a != null ? a : void 0),
+          (t == null || i >= t) &&
+            (s.expectedTsUpdateTs =
               o("WATimeUtils").unixTimeWithoutClockSkewCorrection())),
-        l
+        s
       );
     }
     function u(e, t, n, r) {
