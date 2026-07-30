@@ -1,6 +1,6 @@
 __d(
   "WAWebUsyncBusiness",
-  ["WAWap", "WAWebCommonParsersVerifiedName"],
+  ["WAWap", "WAWebCommonParsersVerifiedName", "WAWebJidToWid"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       e.assertTag("business");
@@ -11,8 +11,11 @@ __d(
           errorText: t.attrString("text"),
         };
       var n = e.maybeChild("verified_name"),
-        o = n ? r("WAWebCommonParsersVerifiedName")(n) : null;
-      return { verifiedName: o };
+        a = n ? r("WAWebCommonParsersVerifiedName")(n) : null,
+        i = e.hasAttr("pn_jid")
+          ? o("WAWebJidToWid").deviceJidToUserWid(e.attrDeviceJid("pn_jid"))
+          : null;
+      return { pn: i, verifiedName: a };
     }
     var s = (function () {
       function e() {}

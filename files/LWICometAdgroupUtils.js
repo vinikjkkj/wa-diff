@@ -600,161 +600,161 @@ __d(
         z,
         j,
         K,
-        Q,
-        X = e == null || (a = e.link_data) == null ? void 0 : a.image_crops;
-      X =
-        ((i = X) == null ? void 0 : i.crop_dimension) != null
-          ? JSON.stringify(
-              ((d = {}),
-              (d[X.crop_dimension] = [
-                [
-                  (l = X.upper_left) == null ? void 0 : l.x,
-                  (s = X.upper_left) == null ? void 0 : s.y,
-                ],
-                [
-                  (u = X.lower_right) == null ? void 0 : u.x,
-                  (c = X.lower_right) == null ? void 0 : c.y,
-                ],
-              ]),
-              d),
-            )
-          : void 0;
-      var Y =
-        e == null || (m = e.link_data) == null ? void 0 : m.child_attachments;
-      ((Y =
-        Y != null
-          ? Y.map(function (e) {
-              var t;
-              return babelHelpers.extends({}, e, {
-                link: (t = e.link) != null ? t : "",
-              });
-            })
-          : void 0),
-        ((p = Y) == null ? void 0 : p.length) === 0 && (Y = void 0));
-      var J =
-          e == null || (_ = e.product_data) == null
+        Q = e == null || (a = e.link_data) == null ? void 0 : a.image_crops,
+        X =
+          (Q == null ? void 0 : Q.crop_dimension) != null
+            ? JSON.stringify(
+                ((c = {}),
+                (c[Q.crop_dimension] = [
+                  [
+                    (i = Q.upper_left) == null ? void 0 : i.x,
+                    (l = Q.upper_left) == null ? void 0 : l.y,
+                  ],
+                  [
+                    (s = Q.lower_right) == null ? void 0 : s.x,
+                    (u = Q.lower_right) == null ? void 0 : u.y,
+                  ],
+                ]),
+                c),
+              )
+            : void 0,
+        Y =
+          e == null || (d = e.link_data) == null ? void 0 : d.child_attachments,
+        J =
+          Y != null
+            ? Y.map(function (e) {
+                var t;
+                return babelHelpers.extends({}, e, {
+                  link: (t = e.link) != null ? t : "",
+                });
+              })
+            : void 0;
+      ((m = J) == null ? void 0 : m.length) === 0 && (J = void 0);
+      var Z =
+          e == null || (p = e.product_data) == null
             ? void 0
-            : _.map(function (e) {
+            : p.map(function (e) {
                 var t;
                 return {
                   product_id: e.product_id,
                   product_source: (t = e.product_source) != null ? t : "",
                 };
               }),
-        Z =
-          e == null || (f = e.link_data) == null ? void 0 : f.retailer_item_ids,
         ee =
-          (e == null || (g = e.photo_data) == null ? void 0 : g.image_hash) !==
+          e == null || (_ = e.link_data) == null ? void 0 : _.retailer_item_ids,
+        te =
+          (e == null || (f = e.photo_data) == null ? void 0 : f.image_hash) !==
           null,
-        te = o("LWICometCTALinkUtils").getShouldUseLinkFromCTA(t, e),
-        ne =
-          (h = e == null || (y = e.link_data) == null ? void 0 : y.link) != null
-            ? h
+        ne = o("LWICometCTALinkUtils").getShouldUseLinkFromCTA(t, e),
+        re =
+          (g = e == null || (h = e.link_data) == null ? void 0 : h.link) != null
+            ? g
             : void 0;
       return e
         ? babelHelpers.extends(
             {
               instagram_actor_id:
-                (C = e == null ? void 0 : e.instagram_actor_id) != null
-                  ? C
+                (y = e == null ? void 0 : e.instagram_actor_id) != null
+                  ? y
                   : void 0,
             },
             r && {
               instagram_user_id:
-                (b = e == null ? void 0 : e.instagram_user_id) != null
-                  ? b
+                (C = e == null ? void 0 : e.instagram_user_id) != null
+                  ? C
                   : void 0,
             },
             {
               link_data: e.link_data
                 ? {
                     call_to_action: t != null ? t : void 0,
-                    child_attachments: Y != null ? Y : void 0,
+                    child_attachments: J != null ? J : void 0,
                     description:
-                      (v = e.link_data.description) != null ? v : void 0,
-                    event_id: (S = e.link_data.event_id) != null ? S : void 0,
+                      (b = e.link_data.description) != null ? b : void 0,
+                    event_id: (v = e.link_data.event_id) != null ? v : void 0,
                     image_crops: X,
                     image_hash:
-                      (R = e.link_data.image_hash) != null ? R : void 0,
+                      (S = e.link_data.image_hash) != null ? S : void 0,
                     link: o("LWICometCTAUtils").getLWICTALinkData(
-                      te,
-                      t == null || (L = t.value) == null ? void 0 : L.link,
                       ne,
+                      t == null || (R = t.value) == null ? void 0 : R.link,
+                      re,
                       n,
                     ),
                     message:
-                      (E = (k = e.link_data) == null ? void 0 : k.message) !=
+                      (L = (E = e.link_data) == null ? void 0 : E.message) !=
                       null
-                        ? E
+                        ? L
                         : void 0,
                     name:
-                      (I = (T = e.link_data) == null ? void 0 : T.name) != null
-                        ? I
+                      (k = (I = e.link_data) == null ? void 0 : I.name) != null
+                        ? k
                         : void 0,
                     picture:
-                      (D = (x = e.link_data) == null ? void 0 : x.picture) !=
+                      (T = (D = e.link_data) == null ? void 0 : D.picture) !=
                       null
-                        ? D
+                        ? T
                         : void 0,
-                    retailer_item_ids: Z != null && Z.length > 0 ? Z : void 0,
+                    retailer_item_ids:
+                      ee != null && ee.length > 0 ? ee : void 0,
                     use_flexible_image_aspect_ratio:
-                      (($ = e.link_data) == null
+                      ((x = e.link_data) == null
                         ? void 0
-                        : $.use_flexible_image_aspect_ratio) === !0
+                        : x.use_flexible_image_aspect_ratio) === !0
                         ? !0
                         : void 0,
                   }
                 : void 0,
               page_id:
-                (P =
-                  (N = e.page) == null || (N = N.node) == null
+                ($ =
+                  (P = e.page) == null || (P = P.node) == null
                     ? void 0
-                    : N.id) != null
-                  ? P
+                    : P.id) != null
+                  ? $
                   : void 0,
               photo_data: e.photo_data
-                ? ee
+                ? te
                   ? {
                       call_to_action: t != null ? t : void 0,
-                      caption: (M = e.photo_data.caption) != null ? M : void 0,
+                      caption: (N = e.photo_data.caption) != null ? N : void 0,
                       image_hash:
-                        (w = e.photo_data.image_hash) != null ? w : void 0,
+                        (M = e.photo_data.image_hash) != null ? M : void 0,
                     }
                   : {
                       call_to_action: t != null ? t : void 0,
-                      caption: (A = e.photo_data.caption) != null ? A : void 0,
-                      url: (F = e.photo_data.url) != null ? F : void 0,
+                      caption: (w = e.photo_data.caption) != null ? w : void 0,
+                      url: (A = e.photo_data.url) != null ? A : void 0,
                     }
                 : void 0,
-              product_data: J != null ? J : void 0,
+              product_data: Z != null ? Z : void 0,
               template_data: e.template_data
                 ? {
                     call_to_action: t != null ? t : void 0,
                     description:
-                      (O = e.template_data.description) != null ? O : void 0,
+                      (F = e.template_data.description) != null ? F : void 0,
                     format_option:
-                      (B = e.template_data.format_option) != null ? B : void 0,
-                    link: (W = e.template_data.link) != null ? W : void 0,
-                    message: (q = e.template_data.message) != null ? q : void 0,
+                      (O = e.template_data.format_option) != null ? O : void 0,
+                    link: (B = e.template_data.link) != null ? B : void 0,
+                    message: (W = e.template_data.message) != null ? W : void 0,
                     multi_share_end_card:
-                      (U = e.template_data.multi_share_end_card) != null
-                        ? U
+                      (q = e.template_data.multi_share_end_card) != null
+                        ? q
                         : void 0,
-                    name: (V = e.template_data.name) != null ? V : void 0,
+                    name: (U = e.template_data.name) != null ? U : void 0,
                   }
                 : void 0,
               video_data: e.video_data
                 ? {
                     call_to_action: t != null ? t : void 0,
                     image_hash:
-                      (H = e.video_data.image_hash) != null ? H : void 0,
+                      (V = e.video_data.image_hash) != null ? V : void 0,
                     image_url:
-                      (G = e.video_data.image_url) != null ? G : void 0,
+                      (H = e.video_data.image_url) != null ? H : void 0,
                     link_description:
-                      (z = e.video_data.link_description) != null ? z : void 0,
-                    message: (j = e.video_data.message) != null ? j : void 0,
-                    title: (K = e.video_data.title) != null ? K : void 0,
-                    video_id: (Q = e.video_data.video_id) != null ? Q : void 0,
+                      (G = e.video_data.link_description) != null ? G : void 0,
+                    message: (z = e.video_data.message) != null ? z : void 0,
+                    title: (j = e.video_data.title) != null ? j : void 0,
+                    video_id: (K = e.video_data.video_id) != null ? K : void 0,
                   }
                 : void 0,
             },

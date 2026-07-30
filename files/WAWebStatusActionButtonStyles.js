@@ -4,7 +4,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = {
       iconButton: {
-        display: "x1rg5ohu",
+        display: "x3nfvp2",
+        alignItems: "x6s0dn4",
+        justifyContent: "xl56j7k",
         alignSelf: "xpvyfi4",
         marginBottom: "xfitlp5",
         marginInlineStart: "x1j0eyxp",

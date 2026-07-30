@@ -317,7 +317,7 @@ __d(
           f = o("WAWebFormatE2ENotification").formatE2ENotification(_);
           break;
         case "call_log":
-          f = r("WAWebFormatCallLog")(e);
+          f = r("WAWebFormatCallLog")({ msg: e, options: {} });
           break;
         case "ciphertext":
           f = s._(/*BTDS*/ "Waiting for this message. This may take a while.");

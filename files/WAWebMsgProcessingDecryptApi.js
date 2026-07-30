@@ -74,13 +74,13 @@ __d(
                   o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
                     .msgProcessReporter.stage.Decryption,
                 ),
-                E = yield o("WAWebMsgProcessingDecryptEnc").decryptEnc(
-                  R,
-                  y,
-                  m.author,
-                  e,
-                  n,
-                );
+                E = yield o("WAWebMsgProcessingDecryptEnc").decryptEnc({
+                  enc: R,
+                  from: y,
+                  parsedMsgPayload: e,
+                  participant: m.author,
+                  sessionScope: n,
+                });
               (L == null || L(),
                 o("WALogger")
                   .LOG(

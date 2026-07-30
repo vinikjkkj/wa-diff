@@ -47,6 +47,7 @@ __d(
         .lock(
           [
             "chat",
+            "label",
             "label-association",
             "message-association",
             "message",
@@ -267,6 +268,7 @@ __d(
                   "message",
                   "chat",
                   "group-history-participant",
+                  "label",
                   "label-association",
                   "message-association",
                   "group-metadata",

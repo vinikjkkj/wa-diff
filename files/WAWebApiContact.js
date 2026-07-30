@@ -79,40 +79,46 @@ __d(
           if ((n == null ? void 0 : n.isAddressBookContact) === 1) return !0;
           if (!t || !r("WAWebWid").isStringLid(e)) return !1;
           var a = null;
-          if ((n == null ? void 0 : n.phoneNumber) != null)
+          if ((n == null ? void 0 : n.phoneNumber) != null) {
+            var i = n.phoneNumber;
             try {
-              a = o("WAWebWidFactory").createUserWidOrThrow(n.phoneNumber);
+              a = o("WAWebWidFactory").createUserWidOrThrow(i);
             } catch (e) {
               o("WALogger")
                 .WARN(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "isAddressBookContact: unexpected PN parse failure in LID row",
+                      "isAddressBookContact: unexpected PN parse failure in LID row for ",
+                      "",
                     ])),
+                  i,
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("is-address-book-contact-pn-parse-fail");
             }
+          }
           if (a == null)
             try {
               a = F(o("WAWebWidFactory").createUserLidOrThrow(e));
-            } catch (e) {
+            } catch (t) {
               o("WALogger")
                 .WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "isAddressBookContact: unexpected LID parse failure",
+                      "isAddressBookContact: unexpected LID parse failure for ",
+                      "",
                     ])),
+                  e,
                 )
-                .catching(r("getErrorSafe")(e))
+                .catching(r("getErrorSafe")(t))
                 .sendLogs("is-address-book-contact-lid-parse-fail");
             }
           if (a != null)
             try {
-              var i = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+              var l = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
                 .getContactTable()
                 .get(a.toJid());
-              if ((i == null ? void 0 : i.isAddressBookContact) === 1)
+              if ((l == null ? void 0 : l.isAddressBookContact) === 1)
                 return (
                   o("WALogger")
                     .WARN(

@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebAudioDeviceManager",
     "WAWebAudioUtility",
+    "WAWebBoolFunc",
     "WAWebDebounce",
     "WAWebUA",
     "WAWebVoipAudioPlaybackScriptProcessor",
@@ -235,108 +236,181 @@ __d(
             return t;
           })()),
           (a.startPlayback = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.audioPlaybackInitState === D.Initializing)
-                try {
-                  var e;
-                  yield (e = this.audioPlaybackInitResolvable) == null
-                    ? void 0
-                    : e.promise;
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:startPlayback] error: ",
-                          "",
-                        ])),
-                      e,
-                    )
-                    .sendLogs("voip: startPlayback error: ${error}");
-                  return;
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e != null ? e : o("WAWebBoolFunc").returnFalse;
+                if ((yield this.$1(t)) && !t()) {
+                  if (this.audioPlaybackInitState !== D.Ready) {
+                    o("WALogger")
+                      .ERROR(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:startPlayback] invalid initialization. state = ",
+                            "",
+                          ])),
+                        this.audioPlaybackInitState,
+                      )
+                      .sendLogs(
+                        "voip: startPlayback invalid initialization. state = ${this.audioPlaybackInitState}",
+                      );
+                    return;
+                  }
+                  if (!this.playbackAudioContext) {
+                    o("WALogger")
+                      .ERROR(
+                        _ ||
+                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:startPlayback] audio context is null",
+                          ])),
+                      )
+                      .sendLogs("voip: startPlayback audio context is null");
+                    return;
+                  }
+                  var n = this.playbackParams;
+                  if (!n) {
+                    o("WALogger")
+                      .ERROR(
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:startPlayback] playback parameters are null",
+                          ])),
+                      )
+                      .sendLogs(
+                        "voip: startPlayback playback parameters are null",
+                      );
+                    return;
+                  }
+                  var r = this.playbackAudioContext;
+                  yield this.$2(r, n, t);
                 }
-              if (this.audioPlaybackInitState !== D.Ready) {
-                o("WALogger")
-                  .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startPlayback] invalid initialization. state = ",
-                        "",
-                      ])),
-                    this.audioPlaybackInitState,
-                  )
-                  .sendLogs(
-                    "voip: startPlayback invalid initialization. state = ${this.audioPlaybackInitState}",
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$1 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                if (e()) return !1;
+                if (this.audioPlaybackInitState !== D.Initializing) return !0;
+                try {
+                  var t;
+                  return (
+                    yield (t = this.audioPlaybackInitResolvable) == null
+                      ? void 0
+                      : t.promise,
+                    !e()
                   );
-                return;
-              }
-              if (!this.playbackAudioContext) {
-                o("WALogger")
-                  .ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startPlayback] audio context is null",
-                      ])),
-                  )
-                  .sendLogs("voip: startPlayback audio context is null");
-                return;
-              }
-              var t = this.playbackParams;
-              if (!t) {
-                o("WALogger")
-                  .ERROR(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startPlayback] playback parameters are null",
-                      ])),
-                  )
-                  .sendLogs("voip: startPlayback playback parameters are null");
-                return;
-              }
-              var n = this.playbackAudioContext;
-              try {
-                n &&
-                  n.state === "suspended" &&
-                  (o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startPlayback] resuming suspended AudioContext",
-                      ])),
-                  ),
-                  yield n.resume(),
-                  o("WALogger").LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startPlayback] AudioContext resumed successfully",
-                      ])),
-                  ));
-                var r = t.framesPerChunk * 4;
-                ((this.playbackBuffer =
-                  yield o("WAWebAudioUtility").mallocWasmBuffer(r)),
-                  this.implementation != null &&
+                } catch (t) {
+                  return (
+                    e() ||
+                      o("WALogger")
+                        .ERROR(
+                          g ||
+                            (g = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [AV:startPlayback] error: ",
+                              "",
+                            ])),
+                          t,
+                        )
+                        .sendLogs("voip: startPlayback error: ${error}"),
+                    !1
+                  );
+                }
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$2 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                try {
+                  if (e.state === "suspended") {
+                    if (
+                      (o("WALogger").LOG(
+                        h ||
+                          (h = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:startPlayback] resuming suspended AudioContext",
+                          ])),
+                      ),
+                      yield e.resume(),
+                      n())
+                    )
+                      return;
+                    o("WALogger").LOG(
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:startPlayback] AudioContext resumed successfully",
+                        ])),
+                    );
+                  }
+                  var r = t.framesPerChunk * 4,
+                    a = yield o("WAWebAudioUtility").mallocWasmBuffer(r);
+                  if (((this.playbackBuffer = a), n())) {
+                    yield this.$3(a);
+                    return;
+                  }
+                  if (
+                    this.implementation != null &&
                     (yield this.implementation.startAudioPlayback({
-                      audioContext: n,
+                      audioContext: e,
                       sampleRate: t.sampleRate,
                       channels: t.channels,
                       framesPerChunk: t.framesPerChunk,
-                      playbackBuffer: this.playbackBuffer,
-                    })));
-              } catch (e) {
-                if (
-                  (o("WALogger").ERROR(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startPlayback] failed to start audio playback: ",
-                        "",
-                      ])),
-                    e,
-                  ),
-                  !(n && n.state === "suspended"))
-                )
-                  throw e;
-              }
-            });
-            function t() {
+                      playbackBuffer: a,
+                      isStartCancelled: n,
+                    }),
+                    n())
+                  )
+                    return;
+                } catch (t) {
+                  if (n()) return;
+                  if (
+                    (o("WALogger").ERROR(
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:startPlayback] failed to start audio playback: ",
+                          "",
+                        ])),
+                      t,
+                    ),
+                    e.state !== "suspended")
+                  )
+                    throw t;
+                }
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (a.$3 = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                if (this.playbackBuffer === e) {
+                  this.playbackBuffer = null;
+                  try {
+                    yield o("WAWebAudioUtility").freeWasmBuffer(e);
+                  } catch (e) {
+                    o("WALogger").WARN(
+                      b ||
+                        (b = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:stopPlayback] error freeing WASM playback buffer: ",
+                          "",
+                        ])),
+                      e,
+                    );
+                  }
+                }
+              },
+            );
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;
@@ -345,8 +419,8 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               this.audioPlaybackInitState !== D.Ready &&
                 o("WALogger").ERROR(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:stopPlayback] invalid initialization. state = ",
                       "",
                     ])),
@@ -356,8 +430,8 @@ __d(
                 yield this.cleanup();
               } catch (e) {
                 o("WALogger").ERROR(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:stopPlayback] error: ",
                       "",
                     ])),
@@ -391,8 +465,8 @@ __d(
                         .then(function () {})
                         .catch(function (e) {
                           o("WALogger").WARN(
-                            S ||
-                              (S = babelHelpers.taggedTemplateLiteralLoose([
+                            R ||
+                              (R = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: [AV:cleanup] playback AudioContext close error (non-fatal): ",
                                 "",
                               ])),
@@ -403,19 +477,7 @@ __d(
               } finally {
                 if (this.playbackBuffer != null) {
                   var t = this.playbackBuffer;
-                  try {
-                    yield o("WAWebAudioUtility").freeWasmBuffer(t);
-                  } catch (e) {
-                    o("WALogger").WARN(
-                      R ||
-                        (R = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:stopPlayback] error freeing WASM playback buffer: ",
-                          "",
-                        ])),
-                      e,
-                    );
-                  }
-                  this.playbackBuffer = null;
+                  yield this.$3(t);
                 }
                 this.audioPlaybackInitState = D.Uninitialized;
               }

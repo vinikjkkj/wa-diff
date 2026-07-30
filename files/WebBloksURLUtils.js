@@ -15,7 +15,11 @@ __d(
         : o.replace("?&", r);
     }
     function l(e) {
-      if (/^(fb|https?|intent):\/\//i.test(e) || /^mailto:/i.test(e)) return e;
+      if (
+        /^(fb|https?|intent):\/\//i.test(e) ||
+        /^(mailto|tel|telprompt|sms):/i.test(e)
+      )
+        return e;
       var t = window.location.protocol + "//" + window.location.hostname,
         n = e;
       return (e.charAt(0) === "/" && (n = e.substr(1)), t + "/" + n);

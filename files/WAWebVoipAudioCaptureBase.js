@@ -9,6 +9,7 @@ __d(
     "WAWebAudioDeviceManager",
     "WAWebAudioUtility",
     "WAWebBackendApi",
+    "WAWebBoolFunc",
     "WAWebDebounce",
     "WAWebUA",
     "WAWebUserPrefsVoip",
@@ -107,15 +108,18 @@ __d(
       Ae,
       Fe,
       Oe,
-      Be = new Set(),
-      We = 2e3,
-      qe = null;
-    function Ue() {
-      qe != null && (window.clearTimeout(qe), (qe = null));
-      var t = Array.from(Be);
+      Be,
+      We,
+      qe,
+      Ue = new Set(),
+      Ve = 2e3,
+      He = null;
+    function Ge() {
+      He != null && (window.clearTimeout(He), (He = null));
+      var t = Array.from(Ue);
       t.length !== 0 &&
-        (qe = window.setTimeout(function () {
-          qe = null;
+        (He = window.setTimeout(function () {
+          He = null;
           var n = 0,
             r = 0,
             a = 0;
@@ -144,7 +148,7 @@ __d(
               }
               c && a++;
             }
-            Be.delete(i);
+            Ue.delete(i);
           }
           (n > 0 &&
             o("WALogger")
@@ -170,21 +174,21 @@ __d(
                   r,
                 )
                 .sendLogs("voip-mic-callend-backstop-stuck"));
-        }, We));
+        }, Ve));
     }
-    var Ve = n("$InternalEnum").Mirrored([
+    var ze = n("$InternalEnum").Mirrored([
         "Uninitialized",
         "Initializing",
         "Ready",
         "Error",
       ]),
-      He = n("$InternalEnum")({
+      je = n("$InternalEnum")({
         DEFAULT: 0,
         SCRIPT_PROCESSOR: 1,
         AUDIO_WORKLET: 2,
         SHARED_BUFFER_WORKLET: 3,
       });
-    function Ge(e) {
+    function Ke(e) {
       e.state === "suspended" &&
         e
           .resume()
@@ -207,11 +211,11 @@ __d(
             );
           });
     }
-    function ze(e) {
+    function Qe(e) {
       var t = Reflect.get(e, "closed");
       return t === !0;
     }
-    var je = (function () {
+    var Xe = (function () {
       function e() {
         var e;
         ((this.audioContext = null),
@@ -219,29 +223,29 @@ __d(
           (this.audioStream = null),
           (this.audioBuffer = null),
           (this.captureParams = null),
-          (this.audioCaptureInitState = Ve.Uninitialized),
+          (this.audioCaptureInitState = ze.Uninitialized),
           (this.audioCaptureInitResolvable = null),
           (this.implementation = null),
           (this.deviceChangeHandler = null));
         var t = o("WAWebABProps").getABPropConfigValue(
             "web_voip_audio_capture_impl",
           ),
-          n = (e = He.cast(t)) != null ? e : He.DEFAULT;
-        o("WAWebUA").UA.isFirefox && (n = He.SCRIPT_PROCESSOR);
+          n = (e = je.cast(t)) != null ? e : je.DEFAULT;
+        o("WAWebUA").UA.isFirefox && (n = je.SCRIPT_PROCESSOR);
         e: {
-          if (n === He.SCRIPT_PROCESSOR) {
+          if (n === je.SCRIPT_PROCESSOR) {
             this.implementation = new (o(
               "WAWebVoipAudioCaptureScriptProcessor",
             ).WAWebVoipAudioCaptureScriptProcessor)();
             break e;
           }
-          if (n === He.AUDIO_WORKLET) {
+          if (n === je.AUDIO_WORKLET) {
             this.implementation = new (o(
               "WAWebVoipAudioCaptureWorklet",
             ).WAWebVoipAudioCaptureWorklet)();
             break e;
           }
-          if (n === He.SHARED_BUFFER_WORKLET) {
+          if (n === je.SHARED_BUFFER_WORKLET) {
             this.implementation = new (o(
               "WAWebVoipAudioCaptureSharedBufferWorklet",
             ).WAWebVoipAudioCaptureSharedBufferWorklet)();
@@ -291,7 +295,7 @@ __d(
                 a,
                 l,
               ),
-              this.audioCaptureInitState !== Ve.Uninitialized)
+              this.audioCaptureInitState !== ze.Uninitialized)
             ) {
               (o("WALogger")
                 .ERROR(
@@ -308,7 +312,7 @@ __d(
                 yield this.cleanup());
               return;
             }
-            ((this.audioCaptureInitState = Ve.Initializing),
+            ((this.audioCaptureInitState = ze.Initializing),
               (this.audioCaptureInitResolvable = new (o(
                 "WAResolvable",
               ).Resolvable)()),
@@ -321,7 +325,7 @@ __d(
             var u = yield o("WAWebAudioDeviceManager").selectAudioDevice();
             if (u == null) {
               var c;
-              ((this.audioCaptureInitState = Ve.Error),
+              ((this.audioCaptureInitState = ze.Error),
                 (c = this.audioCaptureInitResolvable) == null ||
                   c.reject(r("err")("voip: [AV] No audio device selected.")));
               return;
@@ -345,7 +349,7 @@ __d(
                     ])),
                 )
                 .sendLogs("voip: capture parameters are null"),
-                (this.audioCaptureInitState = Ve.Error),
+                (this.audioCaptureInitState = ze.Error),
                 (m = this.audioCaptureInitResolvable) == null ||
                   m.reject(r("err")("capture parameters are null")));
               return;
@@ -434,7 +438,7 @@ __d(
                   );
                 }
                 ((this.audioStream = x),
-                  Be.add(x),
+                  Ue.add(x),
                   o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                     o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                       .WORKLET_PRELOAD,
@@ -491,7 +495,7 @@ __d(
                       "devicechange",
                       this.deviceChangeHandler,
                     ),
-                  (this.audioCaptureInitState = Ve.Ready),
+                  (this.audioCaptureInitState = ze.Ready),
                   (D = this.audioCaptureInitResolvable) == null || D.resolve());
               } else {
                 var N;
@@ -503,7 +507,7 @@ __d(
                       ])),
                   )
                   .sendLogs("voip: getUserMedia not supported"),
-                  (this.audioCaptureInitState = Ve.Error),
+                  (this.audioCaptureInitState = ze.Error),
                   (N = this.audioCaptureInitResolvable) == null ||
                     N.reject(r("err")("getUserMedia not supported")));
               }
@@ -519,7 +523,7 @@ __d(
                   e,
                 )
                 .sendLogs("voip: error in initCaptureDriver"),
-                (this.audioCaptureInitState = Ve.Error),
+                (this.audioCaptureInitState = ze.Error),
                 (M = this.audioCaptureInitResolvable) == null || M.reject(e),
                 yield this.cleanup());
             }
@@ -536,128 +540,227 @@ __d(
           return t;
         })()),
         (t.startCapture = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (
-              (o("WALogger").LOG(
-                T ||
-                  (T = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV:startCapture] start audio capture",
-                  ])),
-              ),
-              this.audioCaptureInitState === Ve.Initializing)
-            )
-              try {
-                var e;
-                yield (e = this.audioCaptureInitResolvable) == null
-                  ? void 0
-                  : e.promise;
-              } catch (e) {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            o("WALogger").LOG(
+              T ||
+                (T = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [AV:startCapture] start audio capture",
+                ])),
+            );
+            var t = e != null ? e : o("WAWebBoolFunc").returnFalse;
+            if ((yield this.$1(t)) && !t()) {
+              if (this.audioCaptureInitState !== ze.Ready) {
                 o("WALogger")
                   .ERROR(
                     D ||
                       (D = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startCapture] invalid initialization.\n        State = ",
+                        "",
+                      ])),
+                    this.audioCaptureInitState,
+                  )
+                  .sendLogs(
+                    "voip: invalid initialization. state = ${this.audioCaptureInitState}",
+                  );
+                return;
+              }
+              if (!this.audioContext || !this.mediaStreamSource) {
+                o("WALogger")
+                  .ERROR(
+                    x ||
+                      (x = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startCapture] audio context or media stream source is null",
+                      ])),
+                  )
+                  .sendLogs(
+                    "voip: audio context or media stream source is null",
+                  );
+                return;
+              }
+              var n = this.captureParams;
+              if (!n) {
+                o("WALogger")
+                  .ERROR(
+                    $ ||
+                      ($ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startCapture] capture parameters are null",
+                      ])),
+                  )
+                  .sendLogs("voip: capture parameters are null");
+                return;
+              }
+              var r = this.audioContext,
+                a = this.mediaStreamSource;
+              yield this.$2(r, a, n, t);
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.$1 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            if (e()) return !1;
+            if (this.audioCaptureInitState !== ze.Initializing) return !0;
+            try {
+              var t;
+              return (
+                yield (t = this.audioCaptureInitResolvable) == null
+                  ? void 0
+                  : t.promise,
+                !e()
+              );
+            } catch (t) {
+              return e()
+                ? (o("WALogger").LOG(
+                    P ||
+                      (P = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startCapture] cancelled after init error: ",
+                        "",
+                      ])),
+                    t,
+                  ),
+                  !1)
+                : (o("WALogger")
+                    .ERROR(
+                      N ||
+                        (N = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:startCapture] error: ",
+                          "",
+                        ])),
+                      t,
+                    )
+                    .sendLogs("voip: error in startCapture: ${error}"),
+                  !1);
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.$2 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n, r) {
+              try {
+                if (e.state === "suspended") {
+                  try {
+                    (yield e.resume(),
+                      o("WALogger").LOG(
+                        M ||
+                          (M = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:startCapture] AudioContext resumed successfully",
+                          ])),
+                      ));
+                  } catch (e) {
+                    if (r()) {
+                      o("WALogger").LOG(
+                        w ||
+                          (w = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:startCapture] cancelled after AudioContext resume error: ",
+                            "",
+                          ])),
+                        e,
+                      );
+                      return;
+                    }
+                    o("WALogger").LOG(
+                      A ||
+                        (A = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:startCapture] AudioContext resume failed: ",
+                          "",
+                        ])),
+                      e,
+                    );
+                  }
+                  if (r()) return;
+                }
+                var a =
+                    n.framesPerChunk *
+                    n.channels *
+                    Float32Array.BYTES_PER_ELEMENT,
+                  i = yield o("WAWebAudioUtility").mallocWasmBuffer(a);
+                if (((this.audioBuffer = i), r())) {
+                  yield this.$3(i);
+                  return;
+                }
+                if (
+                  this.implementation != null &&
+                  (yield this.implementation.startAudioCapture({
+                    audioContext: e,
+                    mediaStreamSource: t,
+                    sampleRate: n.sampleRate,
+                    channels: n.channels,
+                    framesPerChunk: n.framesPerChunk,
+                    audioBuffer: i,
+                    isStartCancelled: r,
+                  }),
+                  r())
+                )
+                  return;
+                o("WALogger").LOG(
+                  F ||
+                    (F = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:startCapture] audio capture started successfully",
+                    ])),
+                );
+              } catch (e) {
+                if (r()) {
+                  o("WALogger").LOG(
+                    O ||
+                      (O = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startCapture] cancelled after start error: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                  return;
+                }
+                (o("WALogger")
+                  .ERROR(
+                    B ||
+                      (B = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:startCapture] error: ",
                         "",
                       ])),
                     e,
                   )
-                  .sendLogs("voip: error in startCapture: ${error}");
-                return;
+                  .sendLogs("voip: error in startCapture: ${error}"),
+                  yield this.cleanup());
               }
-            if (this.audioCaptureInitState !== Ve.Ready) {
-              o("WALogger")
-                .ERROR(
-                  x ||
-                    (x = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:startCapture] invalid initialization.\n        State = ",
-                      "",
-                    ])),
-                  this.audioCaptureInitState,
-                )
-                .sendLogs(
-                  "voip: invalid initialization. state = ${this.audioCaptureInitState}",
-                );
-              return;
-            }
-            if (!this.audioContext || !this.mediaStreamSource) {
-              o("WALogger")
-                .ERROR(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:startCapture] audio context or media stream source is null",
-                    ])),
-                )
-                .sendLogs("voip: audio context or media stream source is null");
-              return;
-            }
-            var t = this.captureParams;
-            if (!t) {
-              o("WALogger")
-                .ERROR(
-                  P ||
-                    (P = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:startCapture] capture parameters are null",
-                    ])),
-                )
-                .sendLogs("voip: capture parameters are null");
-              return;
-            }
-            var n = this.audioContext,
-              r = this.mediaStreamSource;
-            try {
-              if (n && n.state === "suspended")
-                try {
-                  (yield n.resume(),
-                    o("WALogger").LOG(
-                      N ||
-                        (N = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:startCapture] AudioContext resumed successfully",
-                        ])),
-                    ));
-                } catch (e) {
+            },
+          );
+          function t(t, n, r, o) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
+        (t.$3 = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            if (this.audioBuffer === e) {
+              this.audioBuffer = null;
+              try {
+                (yield o("WAWebAudioUtility").freeWasmBuffer(e),
                   o("WALogger").LOG(
-                    M ||
-                      (M = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startCapture] AudioContext resume failed: ",
-                        "",
+                    W ||
+                      (W = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:stopCapture] freed WASM audio buffer",
                       ])),
-                    e,
-                  );
-                }
-              var a =
-                t.framesPerChunk * t.channels * Float32Array.BYTES_PER_ELEMENT;
-              ((this.audioBuffer =
-                yield o("WAWebAudioUtility").mallocWasmBuffer(a)),
-                this.implementation != null &&
-                  (yield this.implementation.startAudioCapture({
-                    audioContext: n,
-                    mediaStreamSource: r,
-                    sampleRate: t.sampleRate,
-                    channels: t.channels,
-                    framesPerChunk: t.framesPerChunk,
-                    audioBuffer: this.audioBuffer,
-                  })),
-                o("WALogger").LOG(
-                  w ||
-                    (w = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:startCapture] audio capture started successfully",
-                    ])),
-                ));
-            } catch (e) {
-              (o("WALogger")
-                .ERROR(
-                  A ||
-                    (A = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:startCapture] error: ",
+                  ));
+              } catch (e) {
+                o("WALogger").WARN(
+                  q ||
+                    (q = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:stopCapture] error freeing WASM audio buffer: ",
                       "",
                     ])),
                   e,
-                )
-                .sendLogs("voip: error in startCapture: ${error}"),
-                yield this.cleanup());
+                );
+              }
             }
           });
-          function t() {
+          function t(t) {
             return e.apply(this, arguments);
           }
           return t;
@@ -666,27 +769,27 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             if (
               (o("WALogger").LOG(
-                F ||
-                  (F = babelHelpers.taggedTemplateLiteralLoose([
+                U ||
+                  (U = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: stopCapture",
                   ])),
               ),
-              this.audioCaptureInitState !== Ve.Ready)
+              this.audioCaptureInitState !== ze.Ready)
             ) {
               if (
                 (o("WALogger").WARN(
-                  O ||
-                    (O = babelHelpers.taggedTemplateLiteralLoose([
+                  V ||
+                    (V = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:stopCapture] invalid initialization.\n        State = ",
                       "",
                     ])),
                   this.audioCaptureInitState,
                 ),
-                this.audioCaptureInitState === Ve.Initializing)
+                this.audioCaptureInitState === ze.Initializing)
               ) {
                 o("WALogger").LOG(
-                  B ||
-                    (B = babelHelpers.taggedTemplateLiteralLoose([
+                  H ||
+                    (H = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:stopCapture] waiting for init (up to 5s)",
                     ])),
                 );
@@ -695,15 +798,15 @@ __d(
                     t,
                     a = 5e3,
                     i = null;
-                  yield (Oe || (Oe = n("Promise")))
+                  yield (qe || (qe = n("Promise")))
                     .race([
                       (e =
                         (t = this.audioCaptureInitResolvable) == null
                           ? void 0
                           : t.promise) != null
                         ? e
-                        : (Oe || (Oe = n("Promise"))).resolve(),
-                      new Oe(function (e, t) {
+                        : (qe || (qe = n("Promise"))).resolve(),
+                      new qe(function (e, t) {
                         i = window.setTimeout(function () {
                           t(
                             r("err")(
@@ -718,8 +821,8 @@ __d(
                     });
                 } catch (e) {
                   o("WALogger").WARN(
-                    W ||
-                      (W = babelHelpers.taggedTemplateLiteralLoose([
+                    G ||
+                      (G = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:stopCapture] init wait failed or timed out, proceeding with cleanup: ",
                         "",
                       ])),
@@ -728,8 +831,8 @@ __d(
                 }
               }
               o("WALogger").LOG(
-                q ||
-                  (q = babelHelpers.taggedTemplateLiteralLoose([
+                z ||
+                  (z = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:stopCapture] proceeding with cleanup",
                   ])),
               );
@@ -744,8 +847,8 @@ __d(
         (t.cleanup = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             o("WALogger").LOG(
-              U ||
-                (U = babelHelpers.taggedTemplateLiteralLoose([
+              j ||
+                (j = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: cleanup audio capture",
                 ])),
             );
@@ -766,8 +869,8 @@ __d(
                   (this.mediaStreamSource.disconnect(),
                   (this.mediaStreamSource = null),
                   o("WALogger").LOG(
-                    V ||
-                      (V = babelHelpers.taggedTemplateLiteralLoose([
+                    K ||
+                      (K = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: cleanup disconnected media stream source",
                       ])),
                   )),
@@ -778,8 +881,8 @@ __d(
                   e.stop();
                 }),
                   o("WALogger").LOG(
-                    H ||
-                      (H = babelHelpers.taggedTemplateLiteralLoose([
+                    Q ||
+                      (Q = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:stopCapture] stopped ",
                         " tracks. Kinds: ",
                         "",
@@ -791,8 +894,8 @@ __d(
                   ),
                   (this.audioStream = null),
                   o("WALogger").LOG(
-                    G ||
-                      (G = babelHelpers.taggedTemplateLiteralLoose([
+                    X ||
+                      (X = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:stopCapture] stopped audio stream",
                       ])),
                   ));
@@ -802,8 +905,8 @@ __d(
                   var n = this.audioContext;
                   n.close().catch(function (e) {
                     o("WALogger").LOG(
-                      z ||
-                        (z = babelHelpers.taggedTemplateLiteralLoose([
+                      Y ||
+                        (Y = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:cleanup] AudioContext close error (non-fatal): ",
                           "",
                         ])),
@@ -816,30 +919,12 @@ __d(
             } finally {
               if (this.audioBuffer != null) {
                 var r = this.audioBuffer;
-                try {
-                  (yield o("WAWebAudioUtility").freeWasmBuffer(r),
-                    o("WALogger").LOG(
-                      j ||
-                        (j = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:stopCapture] freed WASM audio buffer",
-                        ])),
-                    ));
-                } catch (e) {
-                  o("WALogger").WARN(
-                    K ||
-                      (K = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:stopCapture] error freeing WASM audio buffer: ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }
-                this.audioBuffer = null;
+                yield this.$3(r);
               }
-              ((this.audioCaptureInitState = Ve.Uninitialized),
+              ((this.audioCaptureInitState = ze.Uninitialized),
                 o("WALogger").LOG(
-                  Q ||
-                    (Q = babelHelpers.taggedTemplateLiteralLoose([
+                  J ||
+                    (J = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: cleanup finalized",
                     ])),
                 ));
@@ -856,8 +941,8 @@ __d(
               var a = this;
               if (
                 (o("WALogger").LOG(
-                  X ||
-                    (X = babelHelpers.taggedTemplateLiteralLoose([
+                  Z ||
+                    (Z = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] switchDevice called with deviceId: ",
                       ", forceContextRecreation: ",
                       "",
@@ -865,12 +950,12 @@ __d(
                   e.slice(0, 8),
                   String(n != null ? n : !1),
                 ),
-                this.audioCaptureInitState === Ve.Initializing)
+                this.audioCaptureInitState === ze.Initializing)
               )
                 return (
                   o("WALogger").ERROR(
-                    Y ||
-                      (Y = babelHelpers.taggedTemplateLiteralLoose([
+                    ee ||
+                      (ee = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] audio capture is initializing already",
                       ])),
                   ),
@@ -880,8 +965,8 @@ __d(
               if (!i)
                 return (
                   o("WALogger").ERROR(
-                    J ||
-                      (J = babelHelpers.taggedTemplateLiteralLoose([
+                    te ||
+                      (te = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] capture parameters are null",
                       ])),
                   ),
@@ -891,19 +976,19 @@ __d(
               if (o("WAWebUA").UA.isFirefox && t != null && l)
                 return (
                   o("WALogger").LOG(
-                    Z ||
-                      (Z = babelHelpers.taggedTemplateLiteralLoose([
+                    ne ||
+                      (ne = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] Firefox context recreation needed, will recreate AudioContext in target window context",
                       ])),
                   ),
-                  this.$1(e, t, t !== window, r)
+                  this.$4(e, t, t !== window, r)
                 );
               var s = this.audioContext;
               if (s == null)
                 return (
                   o("WALogger").ERROR(
-                    ee ||
-                      (ee = babelHelpers.taggedTemplateLiteralLoose([
+                    re ||
+                      (re = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] audio context is null",
                       ])),
                   ),
@@ -925,8 +1010,8 @@ __d(
                       e.stop();
                     }),
                       o("WALogger").LOG(
-                        te ||
-                          (te = babelHelpers.taggedTemplateLiteralLoose([
+                        oe ||
+                          (oe = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:switchDevice] stopped ",
                             " tracks. Kinds: ",
                             "",
@@ -940,8 +1025,8 @@ __d(
                   (a.mediaStreamSource &&
                     (a.mediaStreamSource.disconnect(),
                     o("WALogger").LOG(
-                      ne ||
-                        (ne = babelHelpers.taggedTemplateLiteralLoose([
+                      ae ||
+                        (ae = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchDevice] disconnected media stream source",
                         ])),
                     )),
@@ -950,15 +1035,15 @@ __d(
                       null
                         ? e
                         : null),
-                    a.audioStream != null && Be.delete(a.audioStream),
+                    a.audioStream != null && Ue.delete(a.audioStream),
                     (a.audioStream = t),
-                    Be.add(t),
+                    Ue.add(t),
                     a.implementation != null &&
                       a.mediaStreamSource != null &&
                       a.implementation.reconnect(a.mediaStreamSource),
                     o("WALogger").LOG(
-                      re ||
-                        (re = babelHelpers.taggedTemplateLiteralLoose([
+                      ie ||
+                        (ie = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchDevice] created new media stream source",
                         ])),
                     ));
@@ -967,16 +1052,16 @@ __d(
               return (
                 u
                   ? o("WALogger").LOG(
-                      oe ||
-                        (oe = babelHelpers.taggedTemplateLiteralLoose([
+                      le ||
+                        (le = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchDevice] Successfully switched to device: ",
                           "",
                         ])),
                       e.slice(0, 8),
                     )
                   : o("WALogger").ERROR(
-                      ae ||
-                        (ae = babelHelpers.taggedTemplateLiteralLoose([
+                      se ||
+                        (se = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchDevice] Failed to switch to device: ",
                           "",
                         ])),
@@ -991,14 +1076,14 @@ __d(
           }
           return t;
         })()),
-        (t.$2 = function (t) {
+        (t.$5 = function (t) {
           if (o("WAWebUA").UA.isFirefox) {
             var e = t.AudioContext,
               n = new e({ latencyHint: "interactive" });
             return (
               o("WALogger").LOG(
-                ie ||
-                  (ie = babelHelpers.taggedTemplateLiteralLoose([
+                ue ||
+                  (ue = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] created AudioContext in target window context, sample rate: ",
                     "Hz",
                   ])),
@@ -1010,8 +1095,8 @@ __d(
           var r = new AudioContext({ latencyHint: "interactive" });
           return (
             o("WALogger").LOG(
-              le ||
-                (le = babelHelpers.taggedTemplateLiteralLoose([
+              ce ||
+                (ce = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [AV:switchDevice] created new AudioContext with sample rate: ",
                   "Hz",
                 ])),
@@ -1020,7 +1105,7 @@ __d(
             r
           );
         }),
-        (t.$3 = (function () {
+        (t.$6 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             for (
               var t = e.audioContext,
@@ -1035,7 +1120,7 @@ __d(
                   if (
                     ((u = l),
                     l > 0 &&
-                      (yield new (Oe || (Oe = n("Promise")))(function (e) {
+                      (yield new (qe || (qe = n("Promise")))(function (e) {
                         return window.setTimeout(e, s[l]);
                       })),
                     (c = yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -1061,8 +1146,8 @@ __d(
             return (
               u > 0 &&
                 o("WALogger").LOG(
-                  se ||
-                    (se = babelHelpers.taggedTemplateLiteralLoose([
+                  de ||
+                    (de = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] completed after ",
                       " retries with delays: ",
                       "ms",
@@ -1078,22 +1163,23 @@ __d(
           }
           return t;
         })()),
-        (t.$4 = (function () {
+        (t.$7 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              var o = this.implementation,
-                a = this.audioBuffer;
-              if (o == null || a == null)
+              var a = this.implementation,
+                i = this.audioBuffer;
+              if (a == null || i == null)
                 throw r("err")(
                   "voip: [AV:switchDevice] missing capture implementation or audio buffer",
                 );
-              yield o.startAudioCapture({
+              yield a.startAudioCapture({
                 audioContext: e,
                 mediaStreamSource: t,
                 sampleRate: n.sampleRate,
                 channels: n.channels,
                 framesPerChunk: n.framesPerChunk,
-                audioBuffer: a,
+                audioBuffer: i,
+                isStartCancelled: o("WAWebBoolFunc").returnFalse,
               });
             },
           );
@@ -1102,20 +1188,20 @@ __d(
           }
           return t;
         })()),
-        (t.$5 = function (t) {
+        (t.$8 = function (t) {
           if (t != null)
             try {
               (t.disconnect(),
                 o("WALogger").LOG(
-                  ue ||
-                    (ue = babelHelpers.taggedTemplateLiteralLoose([
+                  me ||
+                    (me = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] disconnected media stream source",
                     ])),
                 ));
             } catch (e) {
               o("WALogger").WARN(
-                ce ||
-                  (ce = babelHelpers.taggedTemplateLiteralLoose([
+                pe ||
+                  (pe = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] media stream source disconnect failed: ",
                     "",
                   ])),
@@ -1123,15 +1209,15 @@ __d(
               );
             }
         }),
-        (t.$6 = function (t) {
+        (t.$9 = function (t) {
           if (t != null) {
             var e;
             try {
               e = t.getTracks();
             } catch (e) {
               o("WALogger").WARN(
-                de ||
-                  (de = babelHelpers.taggedTemplateLiteralLoose([
+                _e ||
+                  (_e = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] audio stream getTracks failed: ",
                     "",
                   ])),
@@ -1144,8 +1230,8 @@ __d(
                 e.stop();
               } catch (e) {
                 o("WALogger").WARN(
-                  me ||
-                    (me = babelHelpers.taggedTemplateLiteralLoose([
+                  fe ||
+                    (fe = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] audio track stop failed: ",
                       "",
                     ])),
@@ -1154,8 +1240,8 @@ __d(
               }
             }),
               o("WALogger").LOG(
-                pe ||
-                  (pe = babelHelpers.taggedTemplateLiteralLoose([
+                ge ||
+                  (ge = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] attempted to stop ",
                     " audio tracks",
                   ])),
@@ -1163,13 +1249,13 @@ __d(
               ));
           }
         }),
-        (t.$7 = function (t, n) {
+        (t.$10 = function (t, n) {
           if (!(t == null || t.state === "closed"))
             try {
               (t.close().catch(function (e) {
                 o("WALogger").LOG(
-                  _e ||
-                    (_e = babelHelpers.taggedTemplateLiteralLoose([
+                  he ||
+                    (he = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] ",
                       " AudioContext close failed: ",
                       "",
@@ -1179,8 +1265,8 @@ __d(
                 );
               }),
                 o("WALogger").LOG(
-                  fe ||
-                    (fe = babelHelpers.taggedTemplateLiteralLoose([
+                  ye ||
+                    (ye = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] initiated ",
                       " AudioContext close for context recreation",
                     ])),
@@ -1188,8 +1274,8 @@ __d(
                 ));
             } catch (e) {
               o("WALogger").WARN(
-                ge ||
-                  (ge = babelHelpers.taggedTemplateLiteralLoose([
+                Ce ||
+                  (Ce = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] ",
                     " AudioContext close threw: ",
                     "",
@@ -1199,28 +1285,28 @@ __d(
               );
             }
         }),
-        (t.$8 = function (t, n, r, o) {
-          (this.$5(n), this.$6(r), this.$7(t, o));
+        (t.$11 = function (t, n, r, o) {
+          (this.$8(n), this.$9(r), this.$10(t, o));
         }),
-        (t.$9 = function () {
+        (t.$12 = function () {
           return {
             audioContext: this.audioContext,
             mediaStreamSource: this.mediaStreamSource,
             audioStream: this.audioStream,
           };
         }),
-        (t.$10 = function (t) {
+        (t.$13 = function (t) {
           (this.audioContext === t.audioContext && (this.audioContext = null),
             this.mediaStreamSource === t.mediaStreamSource &&
               (this.mediaStreamSource = null),
             this.audioStream === t.audioStream && (this.audioStream = null));
         }),
-        (t.$11 = function (t) {
-          return this.audioCaptureInitState === Ve.Ready
+        (t.$14 = function (t) {
+          return this.audioCaptureInitState === ze.Ready
             ? !0
             : (o("WALogger").WARN(
-                he ||
-                  (he = babelHelpers.taggedTemplateLiteralLoose([
+                be ||
+                  (be = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] capture state changed during ",
                     ", aborting context recreation. State = ",
                     "",
@@ -1230,13 +1316,13 @@ __d(
               ),
               !1);
         }),
-        (t.$12 = function () {
+        (t.$15 = function () {
           return this.implementation != null && this.audioBuffer != null
             ? !0
             : (o("WALogger")
                 .ERROR(
-                  ye ||
-                    (ye = babelHelpers.taggedTemplateLiteralLoose([
+                  ve ||
+                    (ve = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] missing capture implementation or audio buffer",
                     ])),
                 )
@@ -1245,14 +1331,14 @@ __d(
                 ),
               !1);
         }),
-        (t.$13 = (function () {
+        (t.$16 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this.implementation;
             e != null &&
               (yield e.stopAudioCapture(),
               o("WALogger").LOG(
-                Ce ||
-                  (Ce = babelHelpers.taggedTemplateLiteralLoose([
+                Se ||
+                  (Se = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] stopped audio capture implementation",
                   ])),
               ));
@@ -1262,22 +1348,22 @@ __d(
           }
           return t;
         })()),
-        (t.$14 = (function () {
+        (t.$17 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this.$9();
+            var e = this.$12();
             return (
-              yield this.$13(),
-              this.$8(
+              yield this.$16(),
+              this.$11(
                 e.audioContext,
                 e.mediaStreamSource,
                 e.audioStream,
                 "old",
               ),
-              this.$10(e),
-              yield new (Oe || (Oe = n("Promise")))(function (e) {
+              this.$13(e),
+              yield new (qe || (qe = n("Promise")))(function (e) {
                 return window.setTimeout(e, 200);
               }),
-              this.$11("current capture release")
+              this.$14("current capture release")
             );
           });
           function t() {
@@ -1285,7 +1371,7 @@ __d(
           }
           return t;
         })()),
-        (t.$15 = (function () {
+        (t.$18 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this.implementation;
             if (e != null)
@@ -1293,8 +1379,8 @@ __d(
                 yield e.stopAudioCapture();
               } catch (e) {
                 o("WALogger").WARN(
-                  be ||
-                    (be = babelHelpers.taggedTemplateLiteralLoose([
+                  Re ||
+                    (Re = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] stop capture after context recreation abort failed: ",
                       "",
                     ])),
@@ -1307,34 +1393,34 @@ __d(
           }
           return t;
         })()),
-        (t.$16 = (function () {
+        (t.$19 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
               if (t == null || n == null) {
                 o("WALogger").WARN(
-                  ve ||
-                    (ve = babelHelpers.taggedTemplateLiteralLoose([
+                  Le ||
+                    (Le = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchDevice] cannot rollback context recreation; previous capture graph is missing",
                     ])),
                 );
                 return;
               }
               try {
-                (Ge(t),
-                  yield this.$4(t, n, e),
+                (Ke(t),
+                  yield this.$7(t, n, e),
                   (this.audioContext = t),
                   (this.mediaStreamSource = n),
                   o("WALogger").LOG(
-                    Se ||
-                      (Se = babelHelpers.taggedTemplateLiteralLoose([
+                    Ee ||
+                      (Ee = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] rolled back to previous capture graph after context recreation failure",
                       ])),
                   ));
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    Re ||
-                      (Re = babelHelpers.taggedTemplateLiteralLoose([
+                    ke ||
+                      (ke = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] rollback to previous capture graph failed: ",
                         "",
                       ])),
@@ -1351,12 +1437,12 @@ __d(
           }
           return t;
         })()),
-        (t.$1 = (function () {
+        (t.$4 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r) {
               o("WALogger").LOG(
-                Le ||
-                  (Le = babelHelpers.taggedTemplateLiteralLoose([
+                Ie ||
+                  (Ie = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchDevice] Starting context recreation for device: ",
                     "",
                   ])),
@@ -1366,18 +1452,18 @@ __d(
               if (!a)
                 return (
                   o("WALogger").ERROR(
-                    Ee ||
-                      (Ee = babelHelpers.taggedTemplateLiteralLoose([
+                    Te ||
+                      (Te = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] capture parameters are null",
                       ])),
                   ),
                   !1
                 );
-              if (ze(t))
+              if (Qe(t))
                 return (
                   o("WALogger").LOG(
-                    ke ||
-                      (ke = babelHelpers.taggedTemplateLiteralLoose([
+                    De ||
+                      (De = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] target window already closed, skipping switch",
                       ])),
                   ),
@@ -1392,12 +1478,12 @@ __d(
                 m = !1,
                 p = !1;
               try {
-                if (((i = this.$2(t)), !this.$12()))
-                  return (this.$8(i, null, null, "replacement"), !1);
-                if (!n && !(yield this.$14()))
-                  return (this.$8(i, null, null, "replacement"), !1);
+                if (((i = this.$5(t)), !this.$15()))
+                  return (this.$11(i, null, null, "replacement"), !1);
+                if (!n && !(yield this.$17()))
+                  return (this.$11(i, null, null, "replacement"), !1);
                 if (
-                  ((l = yield this.$3({
+                  ((l = yield this.$6({
                     audioContext: i,
                     deviceId: e,
                     params: a,
@@ -1409,8 +1495,8 @@ __d(
                     n
                       ? o("WALogger")
                           .ERROR(
-                            Ie ||
-                              (Ie = babelHelpers.taggedTemplateLiteralLoose([
+                            xe ||
+                              (xe = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: [AV:switchDevice] failed to acquire new audio stream",
                               ])),
                           )
@@ -1419,73 +1505,73 @@ __d(
                           )
                       : o("WALogger")
                           .ERROR(
-                            Te ||
-                              (Te = babelHelpers.taggedTemplateLiteralLoose([
+                            $e ||
+                              ($e = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: [AV:switchDevice] failed to reacquire main-window audio stream after releasing popout capture",
                               ])),
                           )
                           .sendLogs(
                             "voip: switchDevice main reacquisition failed after popout release",
                           ),
-                    this.$8(i, null, null, "replacement"),
+                    this.$11(i, null, null, "replacement"),
                     !1
                   );
                 if (
                   (o("WALogger").LOG(
-                    De ||
-                      (De = babelHelpers.taggedTemplateLiteralLoose([
+                    Pe ||
+                      (Pe = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] acquired new audio stream before stopping current capture",
                       ])),
                   ),
-                  !this.$11("stream acquisition"))
+                  !this.$14("stream acquisition"))
                 )
-                  return (this.$8(i, null, l, "replacement"), !1);
+                  return (this.$11(i, null, l, "replacement"), !1);
                 if (
                   ((s = i.createMediaStreamSource(l)),
                   (u = this.audioContext),
                   (c = this.mediaStreamSource),
                   (d = this.audioStream),
-                  n && (yield this.$13(), (m = !0)),
-                  !this.$11("capture stop"))
+                  n && (yield this.$16(), (m = !0)),
+                  !this.$14("capture stop"))
                 )
-                  return (this.$8(i, s, l, "replacement"), !1);
+                  return (this.$11(i, s, l, "replacement"), !1);
                 if (
-                  (Ge(i),
-                  yield this.$4(i, s, a),
+                  (Ke(i),
+                  yield this.$7(i, s, a),
                   o("WALogger").LOG(
-                    xe ||
-                      (xe = babelHelpers.taggedTemplateLiteralLoose([
+                    Ne ||
+                      (Ne = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] restarted audio capture implementation",
                       ])),
                   ),
-                  !this.$11("replacement capture start"))
+                  !this.$14("replacement capture start"))
                 )
                   return (
-                    yield this.$15(),
-                    this.$8(i, s, l, "replacement"),
+                    yield this.$18(),
+                    this.$11(i, s, l, "replacement"),
                     !1
                   );
                 if (
                   ((this.audioContext = i),
                   (this.mediaStreamSource = s),
-                  this.audioStream != null && Be.delete(this.audioStream),
+                  this.audioStream != null && Ue.delete(this.audioStream),
                   (this.audioStream = l),
-                  Be.add(l),
+                  Ue.add(l),
                   (p = !0),
                   o("WALogger").LOG(
-                    $e ||
-                      ($e = babelHelpers.taggedTemplateLiteralLoose([
+                    Me ||
+                      (Me = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] created new media stream source from new stream",
                       ])),
                   ),
                   n)
                 )
                   try {
-                    this.$8(u, c, d, "old");
+                    this.$11(u, c, d, "old");
                   } catch (e) {
                     o("WALogger").WARN(
-                      Pe ||
-                        (Pe = babelHelpers.taggedTemplateLiteralLoose([
+                      we ||
+                        (we = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchDevice] old capture graph cleanup failed after replacement commit: ",
                           "",
                         ])),
@@ -1501,8 +1587,8 @@ __d(
                     ));
                 } catch (e) {
                   o("WALogger").WARN(
-                    Ne ||
-                      (Ne = babelHelpers.taggedTemplateLiteralLoose([
+                    Ae ||
+                      (Ae = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] device selection update failed after context recreation: ",
                         "",
                       ])),
@@ -1511,8 +1597,8 @@ __d(
                 }
                 return (
                   o("WALogger").LOG(
-                    Me ||
-                      (Me = babelHelpers.taggedTemplateLiteralLoose([
+                    Fe ||
+                      (Fe = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:switchDevice] Successfully switched device with context recreation: ",
                         "",
                       ])),
@@ -1524,8 +1610,8 @@ __d(
                 if (
                   (o("WALogger")
                     .ERROR(
-                      we ||
-                        (we = babelHelpers.taggedTemplateLiteralLoose([
+                      Oe ||
+                        (Oe = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchDevice] Context recreation failed: ",
                           "",
                         ])),
@@ -1539,8 +1625,8 @@ __d(
                   } catch (e) {
                     o("WALogger")
                       .ERROR(
-                        Ae ||
-                          (Ae = babelHelpers.taggedTemplateLiteralLoose([
+                        Be ||
+                          (Be = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [AV:switchDevice] cleanup after context recreation failure also failed: ",
                             "",
                           ])),
@@ -1551,8 +1637,8 @@ __d(
                       );
                   }
                 else
-                  (this.$8(i, s, l, "replacement"),
-                    m && (yield this.$16(a, u, c)));
+                  (this.$11(i, s, l, "replacement"),
+                    m && (yield this.$19(a, u, c)));
                 return !1;
               }
             },
@@ -1589,8 +1675,8 @@ __d(
           return (
             c > 2 &&
               o("WALogger").WARN(
-                Fe ||
-                  (Fe = babelHelpers.taggedTemplateLiteralLoose([
+                We ||
+                  (We = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:",
                     "] processed ",
                     " chunks, remaining buffer: ",
@@ -1606,7 +1692,7 @@ __d(
         e
       );
     })();
-    ((l.scheduleCallEndMicRelease = Ue), (l.WAWebVoipAudioCaptureBase = je));
+    ((l.scheduleCallEndMicRelease = Ge), (l.WAWebVoipAudioCaptureBase = Xe));
   },
   98,
 );

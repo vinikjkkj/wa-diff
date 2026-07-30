@@ -162,18 +162,20 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.input,
-            n = e.provenance,
-            r = e.requestId,
-            o = yield s.fullyConnected;
-          o.postMessage(
+          var t = e.engineErrorCode,
+            n = e.input,
+            r = e.provenance,
+            o = e.requestId,
+            a = yield s.fullyConnected;
+          a.postMessage(
             {
               type: "kaleidoscopeProvenanceResponse",
-              provenance: n,
-              transferredBuffer: t,
-              requestId: r,
+              provenance: r,
+              engineErrorCode: t,
+              transferredBuffer: n,
+              requestId: o,
             },
-            [t],
+            [n],
           );
         })),
         R.apply(this, arguments)
@@ -407,11 +409,23 @@ __d(
           .then(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = t.input,
-                n = t.requestId,
-                r = yield o(
+                n = t.qplData,
+                r = t.requestId,
+                a =
+                  n != null
+                    ? o(
+                        "WAMediaWasmWorkerQplProxy",
+                      ).continueQplMediaWasmWorkeQplFlow(n.event, n.instanceKey)
+                    : null,
+                i = yield o(
                   "WAKaleidoscopeProvenance",
-                ).detectAiProvenanceFromBytes(e);
-              return S({ provenance: r, input: e, requestId: n });
+                ).detectAiProvenanceFromBytes(e, a);
+              return S({
+                provenance: i.provenance,
+                engineErrorCode: i.engineErrorCode,
+                input: e,
+                requestId: r,
+              });
             }),
           )
           .catch(function (e) {

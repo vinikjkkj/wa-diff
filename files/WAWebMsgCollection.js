@@ -863,9 +863,7 @@ __d(
       })(o("WAWebBaseCollection").BaseCollection);
     h.model = o("WAWebMsgModel").Msg;
     var y = new h();
-    ((l.MEDIA_QUERY_LIMIT = g),
-      (l.MsgCollectionImpl = h),
-      (l.MsgCollection = y));
+    ((l.MEDIA_QUERY_LIMIT = g), (l.MsgCollection = y));
   },
   98,
 );

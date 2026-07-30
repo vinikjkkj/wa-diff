@@ -26,7 +26,13 @@ __d(
         !(l === "relay" && (a == null ? void 0 : a.verifiedHsmEnvelope) !== !0)
       ) {
         var c = u.interactiveMessageTemplate;
-        if (c) return s(n, l, u, a);
+        if (c)
+          return s({
+            baseMessage: n,
+            bizInfo: a,
+            msgContext: l,
+            templateMessage: u,
+          });
         var d =
             (t = u.hydratedTemplate) != null
               ? t
@@ -149,47 +155,51 @@ __d(
         };
       }
     }
-    function s(e, t, n, a) {
-      var i,
-        l,
-        s,
-        u,
-        c = n.contextInfo,
-        d = n.interactiveMessageTemplate,
-        m = n.templateId,
-        p = babelHelpers.extends(
+    function s(e) {
+      var t,
+        n,
+        a,
+        i,
+        l = e.baseMessage,
+        s = e.bizInfo,
+        u = e.msgContext,
+        c = e.templateMessage,
+        d = c.contextInfo,
+        m = c.interactiveMessageTemplate,
+        p = c.templateId,
+        _ = babelHelpers.extends(
           {},
-          e,
+          l,
           {
             type: o("WAWebMsgType").MSG_TYPE.CHAT,
             kind: o("WAWebMsgType").MsgKind.Chat,
           },
-          !!(!(d == null || (i = d.body) == null) && i.text) && {
+          !!(!(m == null || (t = m.body) == null) && t.text) && {
             body: o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(
-              d == null || (l = d.body) == null ? void 0 : l.text,
+              m == null || (n = m.body) == null ? void 0 : n.text,
             ),
           },
         ),
-        _ =
-          (s =
-            (u = r("WAWebParseInteractiveMessageProto")({
-              messageProtobuf: { interactiveMessage: d },
-              baseMessage: e,
-              msgContext: t,
-              bizSource: e.bizSource || "",
-              bizInfo: a,
+        f =
+          (a =
+            (i = r("WAWebParseInteractiveMessageProto")({
+              messageProtobuf: { interactiveMessage: m },
+              baseMessage: l,
+              msgContext: u,
+              bizSource: l.bizSource || "",
+              bizInfo: s,
             })) == null
               ? void 0
-              : u.msgData) != null
-            ? s
-            : p;
+              : i.msgData) != null
+            ? a
+            : _;
       return {
-        msgData: babelHelpers.extends({}, _, {
-          templateId: m,
+        msgData: babelHelpers.extends({}, f, {
+          templateId: p,
           isFromTemplate: !0,
-          caption: _.caption,
-          footer: _.footer,
-          title: _.title,
+          caption: f.caption,
+          footer: f.footer,
+          title: f.title,
         }),
         contextInfo:
           o(
@@ -201,7 +211,7 @@ __d(
             o(
               "WAWebMmSignalSharingContextInfo",
             ).existsMmSignalSharingURlTrackingMapElements() != null)
-            ? c
+            ? d
             : void 0,
       };
     }

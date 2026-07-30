@@ -19,14 +19,14 @@ __d(
       _ = "output",
       f = "/" + p,
       g = "/" + _;
-    function h(e) {
+    function h(e, t) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WASI").createWasi(
-              v({
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a = o("WASI").createWasi(
+              S({
                 input: t,
                 stderr: function (n) {
                   o("WAKaleidoscopeLogger")
@@ -48,17 +48,18 @@ __d(
                 },
               }),
             ),
-            a = n.getImportObject,
-            i = n.start,
-            l;
+            i = a.getImportObject,
+            l = a.start,
+            p;
+          n == null || n.addPoint("extraction_start");
           try {
-            var p,
-              _ = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-              f = yield WebAssembly.instantiate(_, a()),
-              h = i(f),
-              y = h.exitCode,
-              C = h.fs;
-            if (y !== 0)
+            var _,
+              f = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+              h = yield WebAssembly.instantiate(f, i()),
+              y = l(h),
+              b = y.exitCode,
+              R = y.fs;
+            if (b !== 0)
               return (
                 o("WAKaleidoscopeLogger")
                   .ksLogger()
@@ -68,11 +69,13 @@ __d(
                         "detectAiProvenance: non-zero exit code ",
                         "",
                       ])),
-                    y,
+                    b,
                   ),
-                null
+                n == null ||
+                  n.addPoint("extraction_end", { int: { exit_code: b } }),
+                { provenance: null, engineErrorCode: null }
               );
-            l = (p = C[g]) == null ? void 0 : p.content;
+            p = (_ = R[g]) == null ? void 0 : _.content;
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -85,10 +88,14 @@ __d(
                     ])),
                   r("getErrorSafe")(e).message,
                 ),
-              null
+              n == null ||
+                n.addPoint("extraction_fail", {
+                  string: { failure_reason: "wasi_error" },
+                }),
+              { provenance: null, engineErrorCode: null }
             );
           }
-          if (typeof l != "string")
+          if (typeof p != "string")
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -98,10 +105,15 @@ __d(
                       "detectAiProvenance: missing/invalid output",
                     ])),
                 ),
-              null
+              n == null ||
+                n.addPoint("extraction_fail", {
+                  string: { failure_reason: "parse_error" },
+                }),
+              { provenance: null, engineErrorCode: null }
             );
+          var L;
           try {
-            return b(JSON.parse(l));
+            L = JSON.parse(p);
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -114,14 +126,39 @@ __d(
                     ])),
                   r("getErrorSafe")(e).message,
                 ),
-              null
+              n == null ||
+                n.addPoint("extraction_fail", {
+                  string: { failure_reason: "parse_error" },
+                }),
+              { provenance: null, engineErrorCode: null }
             );
           }
+          var E = C(L);
+          return E != null
+            ? (n == null ||
+                n.addPoint("extraction_fail", {
+                  int: { engine_error_code: E },
+                  string: { failure_reason: "engine_error" },
+                }),
+              { provenance: null, engineErrorCode: E })
+            : (n == null || n.addPoint("extraction_end"),
+              { provenance: v(L), engineErrorCode: null });
         })),
         y.apply(this, arguments)
       );
     }
     function C(e) {
+      if (e == null || typeof e != "object") return null;
+      var t = e,
+        n = t.error_code;
+      return typeof n == "number" &&
+        Number.isInteger(n) &&
+        n >= 0 &&
+        n <= 4294967295
+        ? n
+        : null;
+    }
+    function b(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
         n = t.created_with_genai === !0,
@@ -130,16 +167,16 @@ __d(
       var o = {};
       return (n && (o.createdWithGenAi = !0), r && (o.editedWithGenAi = !0), o);
     }
-    function b(e) {
+    function v(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
-        n = C(t.iptc),
-        r = C(t.c2pa);
+        n = b(t.iptc),
+        r = b(t.c2pa);
       if (n == null && r == null) return null;
       var o = {};
       return (n != null && (o.iptc = n), r != null && (o.c2pa = r), o);
     }
-    function v(e) {
+    function S(e) {
       var t,
         n = e.input,
         r = e.stderr,

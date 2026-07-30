@@ -16,22 +16,27 @@ __d(
     var e;
     function s(t) {
       var n,
-        a = t.attrs;
+        a = t.attrs,
+        i = !1;
       if (
         t.tag === "status" &&
         !r("WAWebWid").isNewsletter(
           (n = a.from) == null ? void 0 : n.toString(),
         )
       )
-        if (o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled())
-          t.tag = "message";
-        else {
-          var i = o("WAWebCreateNackFromStanza").createNackFromStanza(
+        if (o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()) {
+          var l;
+          ((i = r("WAWebWid").isGroup(
+            (l = a.from) == null ? void 0 : l.toString(),
+          )),
+            (t.tag = "message"));
+        } else {
+          var s = o("WAWebCreateNackFromStanza").createNackFromStanza(
             t,
             o("WAWebCreateNackFromStanza").NackReason.UnsupportedMessage,
           );
           return (
-            i !== "NO_ACK" &&
+            s !== "NO_ACK" &&
               o("WALogger")
                 .WARN(
                   e ||
@@ -40,19 +45,21 @@ __d(
                     ])),
                 )
                 .sendLogs("status-stanza-recv-disabled"),
-            i
+            s
           );
         }
       switch (t.tag) {
         case "message":
           {
-            var l = t.attrs.from;
-            if (!r("WAWebWid").isNewsletter(l == null ? void 0 : l.toString()))
-              return r("WAWebHandleMsg")(t).catch(function (e) {
-                return o(
-                  "WAWebCommsHandleStanzaUtils",
-                ).handleMessageParsingFailure(t, r("getErrorSafe")(e));
-              });
+            var u = t.attrs.from;
+            if (!r("WAWebWid").isNewsletter(u == null ? void 0 : u.toString()))
+              return r("WAWebHandleMsg")(t, { isGroupStatusStanza: i }).catch(
+                function (e) {
+                  return o(
+                    "WAWebCommsHandleStanzaUtils",
+                  ).handleMessageParsingFailure(t, r("getErrorSafe")(e));
+                },
+              );
           }
           break;
         case "receipt":

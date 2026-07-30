@@ -35,7 +35,11 @@ __d(
                 }
               : null,
         };
-      return o("WAWebCryptoLibrary").createSignalSession(t, a, n);
+      return o("WAWebCryptoLibrary").createSignalSession({
+        deviceId: t,
+        sessionInfo: a,
+        sessionScope: n,
+      });
     }
     function u(e, t, n) {
       return o("WAWebCryptoLibrary").processSenderKeyDistributionMsg(e, t, n);

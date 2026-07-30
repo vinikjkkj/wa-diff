@@ -3,6 +3,7 @@ __d(
   [
     "SecuredActionBlockDialog.entrypoint",
     "SecuredActionBlockDialogMeta.entrypoint",
+    "SecuredActionChallengeCDSMetaPasswordDialog.entrypoint",
     "SecuredActionChallengeCDSPasswordDialog.entrypoint",
     "SecuredActionChallengePasswordDialog.entrypoint",
     "SecuredActionNoChallengeAvailableCDSDialog.entrypoint",
@@ -27,6 +28,9 @@ __d(
           return {
             CDS: r("SecuredActionChallengeCDSPasswordDialog.entrypoint"),
             default: r("SecuredActionChallengePasswordDialog.entrypoint"),
+            metaCDS: r(
+              "SecuredActionChallengeCDSMetaPasswordDialog.entrypoint",
+            ),
           };
         case "allow_but_deny_auto_confirm":
         case "captcha_cardnumber":

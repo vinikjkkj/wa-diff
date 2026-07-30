@@ -15,6 +15,7 @@ __d(
       "LeadGenResponses",
       "LeadGenResponseDetail",
       "Knowledge",
+      "IntegrationHub",
     ]);
     i.BizAIStep = e;
   },

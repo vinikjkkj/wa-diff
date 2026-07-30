@@ -7,11 +7,10 @@ __d(
     "WAWebProductCatalogContext",
     "WAWebProductCatalogEventUtils",
     "WAWebProductCatalogSession",
-    "WAWebUserPrefsMeUser",
+    "WAWebSelfCatalogOwnership",
     "WAWebWamEnumCatalogBizAction",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumCatalogViewAction",
-    "WAWebWidFactory",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -339,9 +338,7 @@ __d(
         i = "";
       (e.businessOwnerJid != null &&
         ((i = e.businessOwnerJid),
-        (a = o("WAWebUserPrefsMeUser")
-          .getMePnUserOrThrow_DO_NOT_USE()
-          .equals(o("WAWebWidFactory").createWid(i)))),
+        (a = o("WAWebSelfCatalogOwnership").isSelfCatalogOwnerJid(i))),
         o("WAWebProductCatalogEventUtils").logCatalogViewOrBizEvent({
           isOwner: a,
           catalogOwnerJid: i,

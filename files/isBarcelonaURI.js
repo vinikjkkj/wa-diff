@@ -2,7 +2,8 @@ __d(
   "isBarcelonaURI",
   [],
   function (t, n, r, o, a, i) {
-    function e(e) {
+    var e = "(^|\\.)threads\\.(net|com)$";
+    function l(e) {
       var t = e.getProtocol(),
         n = e.getDomain();
       return (
@@ -13,7 +14,7 @@ __d(
           n.endsWith(".threads.com"))
       );
     }
-    i.default = e;
+    i.default = l;
   },
   66,
 );

@@ -417,7 +417,8 @@ __d(
             oldestMsgId: a == null ? void 0 : a.id.id,
             oldestMsgFromMe: a == null ? void 0 : a.id.fromMe,
             onDemandMsgCount: i,
-            oldestMsgTimestampMs: a == null ? void 0 : a.t,
+            oldestMsgTimestampMs:
+              (a == null ? void 0 : a.t) != null ? a.t * 1e3 : void 0,
             supportInlineResponse: !0,
           };
         })),

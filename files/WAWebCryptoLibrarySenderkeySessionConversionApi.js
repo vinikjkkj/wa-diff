@@ -118,7 +118,12 @@ __d(
               ),
         l = o(
           "WAWebCryptoLibrarySignalGroupUtilsApi",
-        ).makeLibsignalSenderKeyState(i, n, r, t);
+        ).makeLibsignalSenderKeyState({
+          chainKey: n,
+          keyId: r,
+          messageKeys: t,
+          signatureKey: i,
+        });
       return l;
     }
     function p(e) {

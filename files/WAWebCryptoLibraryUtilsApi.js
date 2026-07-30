@@ -25,30 +25,34 @@ __d(
         return (
           (r.createSenderKeyDistributionMsg = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var a = yield e(n, r);
-                if (!a.success && a.error === "errLoadSenderKeySession") {
-                  var i = yield o("WASignalKeys").makeKeyPair();
+              function* (e) {
+                var t = e.author,
+                  n = e.groupJid,
+                  r = e.loadSenderKeySession,
+                  a = e.saveSenderKeySession,
+                  i = yield r(n, t);
+                if (!i.success && i.error === "errLoadSenderKeySession") {
+                  var l = yield o("WASignalKeys").makeKeyPair();
                   (yield o("WAWebCryptoLibrary")
                     .getCryptoLibModule()
-                    .rotateGroupSenderKey({ saveSenderKeySession: t }, n, r, i),
-                    (a = yield e(n, r)));
+                    .rotateGroupSenderKey({ saveSenderKeySession: a }, n, t, l),
+                    (i = yield r(n, t)));
                 }
-                if (a.success) {
-                  var l = a.value.senderKeyStates.slice(-1);
-                  if (l.length > 0)
+                if (i.success) {
+                  var s = i.value.senderKeyStates.slice(-1);
+                  if (s.length > 0)
                     return o("WAResultOrError").makeResult(
                       o("WASignalGroupCipher").createSenderKeyDistributionProto(
                         o(
                           "WASignalGroupSession",
-                        ).convertFromRawToSenderKeyState(l[0]),
+                        ).convertFromRawToSenderKeyState(s[0]),
                       ),
                     );
                 }
                 return o("WAResultOrError").makeError("errGetSenderKeyProto");
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

@@ -76,7 +76,6 @@ __d(
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
     "WAWebMsgLinks",
-    "WAWebMsgModelUtils",
     "WAWebMuteCollection",
     "WAWebNewsletterCollection",
     "WAWebNewsletterMetadataCollection",
@@ -104,7 +103,6 @@ __d(
     "WAWebWid",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "isStringNullOrEmpty",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -1443,24 +1441,7 @@ __d(
                   );
                 }));
           }),
-          (i.deleteMsgsBeforeMsgInclusive = function (t, n, a) {
-            n === void 0 && (n = !1);
-            var e;
-            if (!t) e = this.msgs.length;
-            else if (this.msgs.get(t.id)) e = this.msgs.indexOf(t);
-            else return;
-            var i = function (i, l, s) {
-              return (
-                (!r("isStringNullOrEmpty")(a) &&
-                  !o("WAWebMsgModelUtils").msgMatchesType(i, a)) ||
-                (i.getMsgChunk() === this.msgs && l > e) ||
-                (n && i.star) ||
-                (o("WAWebMsgGetters").getIsInitialE2ENotification(i) && n)
-              );
-            };
-            this.$ChatImpl$p_43(i, !0);
-          }),
-          (i.$ChatImpl$p_43 = function (t, n) {
+          (i.deleteMsgsPartial = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
             var r = this.unreadCount,
@@ -1511,7 +1492,7 @@ __d(
             var e = function (n, r, o) {
               return !t.includes(n.id.toString());
             };
-            (this.$ChatImpl$p_43(e, !0),
+            (this.deleteMsgsPartial(e, !0),
               this.getAllMsgs().length === 0 &&
                 o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: this }),
               o("WAWebLimitSharingModelUtils").createLimitSharingMsgOnChatClear(
@@ -1655,12 +1636,12 @@ __d(
             }
           }),
           (i.isUnreadMsg = function (t) {
-            return this.$ChatImpl$p_44(t, this.unreadCount);
+            return this.$ChatImpl$p_43(t, this.unreadCount);
           }),
           (i.isActiveUnreadMsg = function (t) {
-            return this.$ChatImpl$p_44(t, this.activeUnreadCount);
+            return this.$ChatImpl$p_43(t, this.activeUnreadCount);
           }),
-          (i.$ChatImpl$p_44 = function (t, n) {
+          (i.$ChatImpl$p_43 = function (t, n) {
             if (n <= 0) return !1;
             for (
               var e = this.msgs.getModelsArray(), r = 0, a = e.length - 1;

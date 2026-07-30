@@ -69,42 +69,45 @@ __d(
         rotateGroupSenderKey: e.rotateGroupSenderKey,
       };
     }
-    function D(e, t, n) {
+    function D(e) {
       return x.apply(this, arguments);
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.deviceId,
+            n = e.sessionInfo,
+            a = e.sessionScope;
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "CryptoLibrarySignal::createSignalSession sessionScope=",
                 "",
               ])),
-            n != null ? n : "default",
+            a != null ? a : "default",
           );
-          var a = yield k.getRegistrationInfo();
-          if (!a) throw r("err")("No registration info found");
-          var i =
-            n === o("WAWebSessionScope").SessionScope.STATUS
+          var i = yield k.getRegistrationInfo();
+          if (!i) throw r("err")("No registration info found");
+          var l =
+            a === o("WAWebSessionScope").SessionScope.STATUS
               ? k.handleNewSessionStatusScope
               : k.handleNewSession;
           if (
-            n === o("WAWebSessionScope").SessionScope.PQ &&
+            a === o("WAWebSessionScope").SessionScope.PQ &&
             o("WACryptoLibraryConfig").getCryptoLibraryConfig()
               .isPq1on1MessageEnabled === !0 &&
-            t.kyberKey != null
+            n.kyberKey != null
           )
             try {
-              var l = yield o("WACryptoPQSession").createOutgoingSessionPQ(
-                a,
-                t,
+              var s = yield o("WACryptoPQSession").createOutgoingSessionPQ(
+                i,
+                n,
               );
-              if (l.success) {
+              if (s.success) {
                 yield k.handleNewSessionPqScope(
-                  o("WAWebWidToJid").widToDeviceJid(e),
-                  l.value.session,
-                  l.value.session.remote.pubKey,
+                  o("WAWebWidToJid").widToDeviceJid(t),
+                  s.value.session,
+                  s.value.session.remote.pubKey,
                   null,
                   void 0,
                 );
@@ -129,13 +132,13 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("createSignalSession-pqxdh-threw");
             }
-          if (n !== o("WAWebSessionScope").SessionScope.PQ)
+          if (a !== o("WAWebSessionScope").SessionScope.PQ)
             return T()
               .establishOutgoingSession(
-                { handleNewSession: i },
-                a,
-                o("WAWebWidToJid").widToDeviceJid(e),
-                t,
+                { handleNewSession: l },
+                i,
+                o("WAWebWidToJid").widToDeviceJid(t),
+                n,
                 void 0,
               )
               .then(function (e) {
@@ -525,12 +528,12 @@ __d(
           );
           var n = yield r(
             "WAWebCryptoLibraryUtilsApi",
-          ).createSenderKeyDistributionMsg(
-            k.loadSenderKeySession,
-            k.saveSenderKeySession,
-            o("WAJids").toGroupJid(e.toString({ legacy: !0 })),
-            o("WAWebWidToJid").widToDeviceJid(t),
-          );
+          ).createSenderKeyDistributionMsg({
+            author: o("WAWebWidToJid").widToDeviceJid(t),
+            groupJid: o("WAJids").toGroupJid(e.toString({ legacy: !0 })),
+            loadSenderKeySession: k.loadSenderKeySession,
+            saveSenderKeySession: k.saveSenderKeySession,
+          });
           if (n.success) return o("WAByteArray").uint8ArrayToBuffer(n.value);
           throw (
             o("WALogger").WARN(

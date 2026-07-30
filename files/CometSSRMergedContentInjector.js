@@ -220,36 +220,7 @@ __d(
           return r("FBLogger")("comet_ssr").mustfix(
             "mountSSRRootContent(): Cannot mount SSR root content - ssrInit did not run",
           );
-        if (_.gks.enable_render_to_container) {
-          ((D = document.getElementById(_.eid)), D && I && pe(D, I));
-          return;
-        }
-        if (D == null) {
-          var t, n;
-          return r("FBLogger")("comet_ssr").mustfix(
-            "mountSSRRootContent(): Cannot mount SSR root content - root element is null (ssrData.eid: %s)",
-            (t = (n = _) == null ? void 0 : n.eid) != null ? t : "unknown",
-          );
-        }
-        for (; (o = D) != null && o.firstChild; ) {
-          var o, a, i;
-          (a = D) != null &&
-            a.lastChild &&
-            D.removeChild((i = D) == null ? void 0 : i.lastChild);
-        }
-        var l = document.getElementById(e);
-        if (D && l) {
-          for (var s = l.childNodes; s.length; ) {
-            if (_ == null || D == null)
-              return r("FBLogger")("comet_ssr").mustfix(
-                "mountSSRRootContent(): Cannot append child nodes - ssrData: %s, rootElement: %s",
-                _ ? "available" : "null",
-                D ? "available" : "null",
-              );
-            D.appendChild(s[0]);
-          }
-          l.remove();
-        }
+        ((D = document.getElementById(_.eid)), D && I && pe(D, I));
       }
     }
     function z() {
@@ -354,16 +325,10 @@ __d(
         D)
       )
         Q(D);
-      else if (e.gks.enable_render_to_container && !_.enabled) {
+      else if (!_.enabled) {
         var o;
         w((o = _.disabled_reason) != null ? o : "fail_ssr_disabled");
-      } else
-        e.gks.enable_render_to_container ||
-          N(
-            "Error locating root element with id: " +
-              e.eid +
-              " (enable_render_to_container: false)",
-          );
+      }
       ((window.__invalidateSSR = function (e) {
         (r("FBLogger")("comet_ssr").warn(e),
           U({

@@ -74,8 +74,11 @@ __d(
         n
       );
     }
-    function g(e, t, n) {
-      return e == null || !t.isRegularUser()
+    function g(e) {
+      var t = e.chat,
+        n = e.messages,
+        r = e.preMatChat;
+      return r == null || !t.isRegularUser()
         ? n
         : n.map(function (e) {
             return o("WAWebMessageAssociation.flow").isAssociatedMsg(e)
@@ -99,7 +102,7 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
-            var i = g(t.preMatChat, t.chat, e),
+            var i = g({ chat: t.chat, messages: e, preMatChat: t.preMatChat }),
               l = yield o("WAWebGetPrivacyModeWhenSent").getPrivacyModeWhenSent(
                 t,
                 n,

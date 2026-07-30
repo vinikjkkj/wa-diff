@@ -1,6 +1,6 @@
 __d(
   "WAWebFetchDynamicAIModesQuery.graphql",
-  [],
+  ["WAWebFetchDynamicAIModesQuery_facebookRelayOperation"],
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
@@ -70,7 +70,7 @@ __d(
           selections: e,
         },
         params: {
-          id: "25335662402775799",
+          id: n("WAWebFetchDynamicAIModesQuery_facebookRelayOperation"),
           metadata: {},
           name: "WAWebFetchDynamicAIModesQuery",
           operationKind: "query",

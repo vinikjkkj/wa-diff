@@ -223,14 +223,30 @@ __d(
           });
       }
     }
-    function v(e, t) {
+    function v(t) {
+      if (typeof (e || (e = r("performance"))).getEntriesByType == "function") {
+        var n = (e || (e = r("performance"))).getEntriesByType("navigation")[0];
+        if (!(n == null || Object.keys(n).length === 0)) {
+          var o = n.serverTiming;
+          if (o != null)
+            for (var a of o)
+              a.name.startsWith("slb_") &&
+                r("InteractionTracingMetrics").addAnnotationInt(
+                  t,
+                  a.name,
+                  Math.round(a.duration),
+                );
+        }
+      }
+    }
+    function S(e, t) {
       e == null &&
         r("FBLogger")("comet_infra", "qpl_initial_load_undefined").info(
           "No INITIAL_LOAD QPL event set for trace policy '%s'. Falling back to default.",
           t,
         );
     }
-    function S(e, t, a, i, l, s, m, p, f) {
+    function R(e, t, a, i, l, s, m, p, f) {
       var g = (u || (u = r("performanceNow")))();
       n("cr:719780") && n("cr:719780").init(t);
       var h =
@@ -240,7 +256,7 @@ __d(
             ? r("CometNavigationTracingQPLEvents").initialLoadClient
             : r("CometNavigationTracingQPLEvents").fbWebInitialLoad_CHANGE_ME;
       (o("QuickMarkersComet").mark("NavigationTracingStart"),
-        v(s, a != null ? a : ""),
+        S(s, a != null ? a : ""),
         o("NavigationTracing").traceInitialLoad(
           {
             VCConfigOverride: p,
@@ -306,6 +322,7 @@ __d(
                   o("CometAddInlineTiming").addServerAnnotationsInt(e, t),
                   C(e, t),
                   b(e, t),
+                  v(e),
                   o("CometAddInlineTiming").addServerTags(e),
                   r("gkx")("23406") && y(e, g),
                   r("InteractionTracingMetrics").addMetadata(
@@ -328,7 +345,7 @@ __d(
                     r("InteractionTracingMetrics").addMetadata(e, "is_pwa", !0),
                   a.addMetadata("is_mobile", r("gkx")("22968")),
                   n("cr:719780") && n("cr:719780").log(),
-                  d && R(e),
+                  d && L(e),
                   o("CometCurrentInitialLoadVC").setInitialLoadVC(
                     (l = i.markerPoints.visuallyComplete) == null
                       ? void 0
@@ -351,7 +368,7 @@ __d(
           },
         ));
     }
-    function R(e, t) {
+    function L(e, t) {
       (r("InteractionTracingMetrics").addMetadata(
         e,
         "hasExtraResourceMetadata",
@@ -359,7 +376,7 @@ __d(
       ),
         h(e, t));
     }
-    function L(e, t, n, a, i, l, s, u) {
+    function E(e, t, n, a, i, l, s, u) {
       var m;
       i === void 0 && (i = r("uuidv4")());
       var p = o("CometEventTimings").getCurrentQueueTime(n),
@@ -383,7 +400,7 @@ __d(
           (e.onComplete(function () {
             var n = (c || (c = r("Env"))).brsid;
             (n != null && e.addAnnotation("brsid", "" + n),
-              d && R(i, _),
+              d && L(i, _),
               o("CometAddInlineTiming").addServerTags(i),
               e.addMetadata("is_mobile", r("gkx")("22968")),
               o("WorkPWAUtil").isBrowserPWA() && e.addMetadata("is_pwa", !0),
@@ -401,7 +418,9 @@ __d(
         },
       );
     }
-    ((l.traceInitialLoad = S), (l.traceNavigation = L));
+    ((l.addSlbServerTimingAnnotations = v),
+      (l.traceInitialLoad = R),
+      (l.traceNavigation = E));
   },
   98,
 );

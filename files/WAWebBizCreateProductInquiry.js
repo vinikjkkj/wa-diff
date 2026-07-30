@@ -26,7 +26,7 @@ __d(
             fromMe: !0,
           }),
           from: n,
-          to: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
           t: o("WATimeUtils").unixTime(),
           type: o("WAWebMsgType").MSG_TYPE.PRODUCT,
           kind: o("WAWebMsgType").MsgKind.Product,

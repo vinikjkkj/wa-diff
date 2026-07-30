@@ -18,7 +18,6 @@ __d(
     "WAWebPnlessStanzaMigration",
     "WAWebPrivacySettings",
     "WAWebSimpleSignalPNToFBIDMigration",
-    "WAWebStatusGatingUtils",
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
   ],
@@ -245,11 +244,8 @@ __d(
                                     })
                                   : null,
                               h =
-                                o(
-                                  "WAWebStatusGatingUtils",
-                                ).isStatusStanzaSendEnabled() &&
-                                (a === !0 ||
-                                  k.toString() === o("WAJids").STATUS_JID)
+                                a === !0 ||
+                                k.toString() === o("WAJids").STATUS_JID
                                   ? "status"
                                   : null,
                               v = l != null ? l : h,

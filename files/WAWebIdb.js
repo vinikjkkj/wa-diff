@@ -12,6 +12,7 @@ __d(
     "WAWebIdbHelpers",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "gkx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -1227,8 +1228,9 @@ __d(
                 throw (e.$1(t, "betweenCount"), t);
               });
           }),
-          (a.forEachSortedBy = function (t, r) {
-            var e = this;
+          (a.forEachSortedBy = function (t, o) {
+            var e = this,
+              a = r("gkx")("14574");
             return this.table
               .orderBy(t)
               .each(
@@ -1236,8 +1238,8 @@ __d(
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (t) {
                       var n = e.$2(t),
-                        o = yield e.$4(n);
-                      return r(o);
+                        r = yield e.$4(n);
+                      return o(a ? e.view(r) : r);
                     },
                   );
                   return function (e) {
@@ -1250,15 +1252,16 @@ __d(
               });
           }),
           (a.forEach = function (t) {
-            var e = this;
+            var e = this,
+              o = r("gkx")("14574");
             return this.table
               .each(
                 (function () {
                   var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n) {
                       var r = e.$2(n),
-                        o = yield e.$4(r);
-                      return t(o);
+                        a = yield e.$4(r);
+                      return t(o ? e.view(a) : a);
                     },
                   );
                   return function (e) {

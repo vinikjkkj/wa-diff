@@ -74,9 +74,10 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield n("cr:36997").detectAiProvenanceInWorker(e),
-            r = t.provenance,
-            o = t.transferredBuffer;
-          return { transferredBuffer: o, provenance: h(r) };
+            r = t.engineErrorCode,
+            o = t.provenance,
+            a = t.transferredBuffer;
+          return { transferredBuffer: a, provenance: h(o), engineErrorCode: r };
         })),
         C.apply(this, arguments)
       );

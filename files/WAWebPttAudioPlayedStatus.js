@@ -32,7 +32,7 @@ __d(
           ]),
           (t[0] = r))
         : (r = t[0]);
-      var a = o("useWAWebMsgValues").useMsgValues(e.msg.id, r),
+      var a = o("useWAWebMsgValues").useMsgValues(n.id, r),
         i = a[0],
         l = a[1],
         c = a[2],

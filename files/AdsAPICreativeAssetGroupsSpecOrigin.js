@@ -30,6 +30,7 @@ __d(
       DELETED: "deleted_cag_spec",
       DEPRECATED: "deprecated",
       DESTINATION_LIQUIDITY: "destination_liquidity",
+      DESTINATION_OPTIMIZATION_LP: "destination_optimization_lp",
       DYNAMIC_LANGUAGE_OPTIMIZATION: "dynamic_language_optimization",
       FLEX_FORMAT: "flexible_format",
       FORMAT_LIQUIDITY: "format_liquidity",

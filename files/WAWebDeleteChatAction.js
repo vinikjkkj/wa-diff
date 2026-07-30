@@ -217,9 +217,7 @@ __d(
           .then(function (e) {
             if (e.status === 200) {
               var n = t.getLastMsgKeyForAction();
-              ((a && a.equals(n)) || a === n
-                ? t.delete()
-                : t.deleteMsgsBeforeMsgInclusive(i),
+              ((a && a.equals(n)) || a === n ? t.delete() : y(t, i),
                 o("WAWebFrontendChatGetters").getKind(t) ===
                   o("WAWebChatFlowTypes").ChatKindType.Community &&
                   o("WAWebContactCollection").ContactCollection.remove(
@@ -231,6 +229,16 @@ __d(
             t.promises.sendDelete = null;
           })
       );
+    }
+    function y(e, t) {
+      var n;
+      if (!t) n = e.msgs.length;
+      else if (e.msgs.get(t.id)) n = e.msgs.indexOf(t);
+      else return;
+      var r = function (r, o, a) {
+        return r.getMsgChunk() === e.msgs && o > n;
+      };
+      e.deleteMsgsPartial(r, !0);
     }
     ((l.sendDelete = m),
       (l.deleteActionFbtMap = p),

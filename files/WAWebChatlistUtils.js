@@ -122,6 +122,12 @@ __d(
       );
     };
     function f(e) {
+      return e.sourceAdCreation === "whatsapp_smb_web_catalog" ||
+        e.sourceAdCreation === "whatsapp_smb_web_catalog_product"
+        ? e.productId
+        : null;
+    }
+    function g(e) {
       var t = e.adCreationUrlInput,
         a = e.lwiEntryPoint,
         i = e.waCampaignId,
@@ -132,9 +138,10 @@ __d(
           s === "whatsapp_smb_web_catalog" ||
           s === "whatsapp_smb_web_catalog_product",
         m =
-          !d &&
           (o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled() ||
-            o("WAWebBizNativeAdsGatingUtils").nativeAdsWebCreationEnabled()),
+            o("WAWebBizNativeAdsGatingUtils").nativeAdsWebCreationEnabled()) &&
+          (!d ||
+            o("WAWebBizNativeAdsGatingUtils").nativeAdsCatalogBoostEnabled()),
         p;
       if (
         (m
@@ -180,24 +187,24 @@ __d(
         }),
         m)
       ) {
-        r("WAWebOpenBizNativeAdsFlow")(s, p);
+        r("WAWebOpenBizNativeAdsFlow")(s, p, f(t));
         return;
       }
-      var f = l !== "not-linked" && l.type === "whatsapp",
-        g = o(
+      var g = l !== "not-linked" && l.type === "whatsapp",
+        h = o(
           "WAWebAdCreationLogger",
         ).getLwiAdsIdentityTypeFromActiveAccountInfo(l);
       o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
         o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION.LWI_ACTION_VIEW,
-        g,
+        h,
         u,
       );
-      var h = (function () {
+      var y = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
             o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
               .LWI_ACTION_NUX_CONTINUE_TAPPED,
-            g,
+            h,
             u,
           );
           try {
@@ -219,12 +226,12 @@ __d(
       })();
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebBizAdCreationEntryPointModal.react"), {
-          onOK: h,
+          onOK: y,
           onClose: function () {
             return o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
               o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
                 .LWI_ACTION_CANCEL_DIALOG_BUTTON_TAPPED,
-              g,
+              h,
               u,
             );
           },
@@ -232,15 +239,15 @@ __d(
             return o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
               o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
                 .LWI_ACTION_LEARN_MORE_TAPPED,
-              g,
+              h,
               u,
             );
           },
-          isPagelessAd: f,
+          isPagelessAd: g,
         }),
       );
     }
-    function g(e) {
+    function h(e) {
       var t = e.activeAccountInfo,
         n = e.entryPoint,
         r = e.sourceManageAdsType;
@@ -248,8 +255,8 @@ __d(
     }
     ((l.openExistingChat = d),
       (l.openOrCreateLatestChat = m),
-      (l.handleAdCreation = f),
-      (l.handleManageAds = g));
+      (l.handleAdCreation = g),
+      (l.handleManageAds = h));
   },
   226,
 );

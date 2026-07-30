@@ -5,6 +5,7 @@ __d(
     "WAWebAppMutex",
     "WAWebBuildConstants",
     "WAWebStreamModel",
+    "cr:11133",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,25 +27,25 @@ __d(
       "SERVICE_UNAVAILABLE",
     ]);
     function s(t) {
-      var n,
-        a = t.anotherSession,
-        i = t.mainLoaded,
-        l = t.mode,
-        s = t.screenLocked;
-      if ((n = t.temporaryBan) != null && n.banned) return e.TEMP_BAN;
+      var a,
+        i = t.anotherSession,
+        l = t.mainLoaded,
+        s = t.mode,
+        u = t.screenLocked;
+      if ((a = t.temporaryBan) != null && a.banned) return e.TEMP_BAN;
       if (t.serviceUnavailable === !0) return e.SERVICE_UNAVAILABLE;
       if (t.startLogout) return e.LOGOUT;
       if (r("WAWebAppMutex").hasShownCallTakeoverModal())
         return e.CALL_TAKEOVER_PREVENTION;
-      if (a) return e.ANOTHER_SESSION;
-      if (s) return i ? e.SCREEN_LOCK : e.STARTUP;
-      switch (l) {
+      if (i) return e.ANOTHER_SESSION;
+      if (u) return l ? e.SCREEN_LOCK : e.STARTUP;
+      switch (s) {
         case o("WAWebStreamModel").StreamMode.QR:
           return e.QR;
         case o("WAWebStreamModel").StreamMode.SYNCING:
           return e.SYNCING;
         case o("WAWebStreamModel").StreamMode.OFFLINE:
-          return i && o("WAWebBuildConstants").WINDOWS_OFFLINE
+          return l && o("WAWebBuildConstants").WINDOWS_OFFLINE
             ? e.MAIN
             : e.OFFLINE;
         case o("WAWebStreamModel").StreamMode.PROXYBLOCK:
@@ -58,13 +59,14 @@ __d(
         case o("WAWebStreamModel").StreamMode.MAIN:
           return o("WAWebBuildConstants").WINDOWS_OFFLINE
             ? e.MAIN
-            : i
-              ? t.stayInSync
+            : l
+              ? t.stayInSync &&
+                (n("cr:11133") == null ? void 0 : n("cr:11133")()) !== !0
                 ? e.SYNCING
                 : e.MAIN
               : e.STARTUP;
       }
-      throw r("err")("[app] render Error invalid StreamMode: " + l);
+      throw r("err")("[app] render Error invalid StreamMode: " + s);
     }
     ((l.AppScreen = e), (l.getScreen = s));
   },

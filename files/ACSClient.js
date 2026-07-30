@@ -30,160 +30,166 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(babelHelpers.wrapNativeSuper(Error));
-    function c(t) {
+      })(babelHelpers.wrapNativeSuper(Error)),
+      c = 720 * 60 * 1e3;
+    function d(t) {
       for (
         var r = t.storageManager.getServerConfigs(), o = null, a = 0;
         a < (r == null ? void 0 : r.length);
         a++
       ) {
         var i = r[a];
-        if (!d(i)) {
+        if (!m(i)) {
           t.storageManager.removeServerConfig(i.configId);
           continue;
         }
-        o == null && (o = i);
+        (o == null || i.configExpiresOnMillis > o.configExpiresOnMillis) &&
+          (o = i);
       }
-      return new (e || (e = n("Promise")))(function (e) {
-        o != null ? e(o) : e(m(t));
-      });
+      if (o == null) return p(t);
+      var l = o;
+      return l.configExpiresOnMillis <= Date.now() + c
+        ? p(t).catch(function () {
+            return l;
+          })
+        : (e || (e = n("Promise"))).resolve(l);
     }
-    function d(e) {
+    function m(e) {
       var t = Date.now() > e.configExpiresOnMillis,
         n = !t;
       return n;
     }
-    function m(e) {
+    function p(e) {
       return e.serverProvider
         .getPublicParameters(e.projectName, e.attributeIdentifier)
         .then(function (t) {
           return (e.storageManager.storeServerConfig(t), t);
         });
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield c(e);
-          return v(e, r, n, t);
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield d(e);
+          return S(e, r, n, t);
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    var f = new WeakMap();
-    function g(e, t) {
-      var n = f.get(e);
-      n == null && ((n = new Map()), f.set(e, n));
+    var g = new WeakMap();
+    function h(e, t) {
+      var n = g.get(e);
+      n == null && ((n = new Map()), g.set(e, n));
       var r = n.get(t);
       if (r != null) return r;
       var o = n,
-        a = h(e, t).finally(function () {
+        a = y(e, t).finally(function () {
           o.delete(t);
         });
       return (o.set(t, a), a);
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield c(e),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield d(e),
             r = e.storageManager.getCachedToken(n.configId);
           if (
             !(r != null && o("ACSCachedTokenModule").isCachedTokenRedeemable(r))
           ) {
-            var a = yield $(e, n, n.maxEvals, t);
-            I(e, a);
+            var a = yield P(e, n, n.maxEvals, t);
+            T(e, a);
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield c(e),
-            o = yield $(e, r, t, n);
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield d(e),
+            o = yield P(e, r, t, n);
           return o;
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e, t, n, r) {
-      return S.apply(this, arguments);
+    function S(e, t, n, r) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var o = yield R(e, t.cipherSuite, t.configId, r);
+            var o = yield L(e, t.cipherSuite, t.configId, r);
             if (o != null) return o;
-            var a = yield $(e, t, t.maxEvals, n);
-            return E(e, a, t, r);
+            var a = yield P(e, t, t.maxEvals, n);
+            return k(e, a, t, r);
           },
         )),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e, t, n, r) {
-      return L.apply(this, arguments);
+    function L(e, t, n, r) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var o = yield D(e, t, n, r);
+            var o = yield x(e, t, n, r);
             return o;
           },
         )),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e, t, n, r) {
-      return k.apply(this, arguments);
+    function k(e, t, n, r) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (t.length < 1) throw new u("No tokens received from ACS!");
-            I(e, t);
-            var o = yield D(e, n.cipherSuite, n.configId, r);
+            T(e, t);
+            var o = yield x(e, n.cipherSuite, n.configId, r);
             if (o == null) throw new u("No redeemable token generated!");
             return o;
           },
         )),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e, t) {
+    function T(e, t) {
       t.forEach(function (t) {
-        return T(e, t);
+        return D(e, t);
       });
     }
-    function T(e, t) {
+    function D(e, t) {
       t != null &&
         (o("ACSCachedTokenModule").isCachedTokenRedeemable(t)
           ? e.storageManager.storeCachedToken(t)
           : e.storageManager.deleteCachedToken(t));
     }
-    function D(e, t, n, r) {
-      return x.apply(this, arguments);
+    function x(e, t, n, r) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = e.storageManager.getCachedToken(n);
             if (a == null) return null;
             var i = o("ACSCachedTokenModule").redeemCachedToken(a);
-            if ((T(e, a), i)) {
+            if ((D(e, a), i)) {
               var l = yield o("ACSTokenUtil").generateTag(t, a, r),
                 s = {
                   projectName: e.projectName,
@@ -201,15 +207,15 @@ __d(
               );
           },
         )),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e, t, n, r) {
-      return P.apply(this, arguments);
+    function P(e, t, n, r) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (n <= 0) throw new s("Invalid number of tokens requested: " + n);
             var a = o("ACSTokenUtil").generateBlindedTokens(
@@ -224,13 +230,13 @@ __d(
                 projectName: e.projectName,
                 requestProof: r,
               });
-            return N(e, t, a, l.signedBlindedTokens, l.dleqProofs, r);
+            return M(e, t, a, l.signedBlindedTokens, l.dleqProofs, r);
           },
         )),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t, n, r, a, i) {
+    function M(e, t, n, r, a, i) {
       var l = o("ACSTokenUtil").unblindTokens(
           t,
           n,
@@ -243,7 +249,7 @@ __d(
         s = o("ACSTokenUtil").getCachedTokens(l, t, e.voprfWasm, e.voprfInfo);
       return s;
     }
-    function M(e, t, n, r, o) {
+    function w(e, t, n, r, o) {
       var a = o.createCurveRistretto(),
         i = o.createVoprfExpTwohashdh(a);
       return {
@@ -256,12 +262,12 @@ __d(
       };
     }
     ((l.ACSClientError = s),
-      (l.loadACSServerConfig = c),
-      (l.fetchAndRedeem = p),
-      (l.prewarmTokenCache = g),
-      (l.loadServerConfigAndGetNewTokens = C),
-      (l.getNewTokens = $),
-      (l.buildACSClient = M));
+      (l.loadACSServerConfig = d),
+      (l.fetchAndRedeem = _),
+      (l.prewarmTokenCache = h),
+      (l.loadServerConfigAndGetNewTokens = b),
+      (l.getNewTokens = P),
+      (l.buildACSClient = w));
   },
   98,
 );

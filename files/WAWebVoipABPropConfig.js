@@ -44,6 +44,11 @@ __d(
           type: "bool",
         },
         {
+          abProp: "enable_web_voip_audio_driver_lifetime_fix",
+          wasmKey: "enable_web_voip_audio_driver_lifetime_fix",
+          type: "bool",
+        },
+        {
           abProp: "wa_web_console_log_level",
           wasmKey: "log_level",
           type: "int",

@@ -128,7 +128,12 @@ __d(
         var i = !1,
           l = [];
         e.forEach(function (s) {
-          b(s, t.signal, h, y)
+          b({
+            abortSignal: t.signal,
+            onWebSocketClosedImmediately: h,
+            onWebSocketCloseEvent: y,
+            url: s,
+          })
             .then(function (e) {
               i
                 ? (t.abort(), e.close(1e3, "loser socket"))
@@ -165,13 +170,17 @@ __d(
         });
       });
     }
-    function b(e, t, r, a) {
-      var i = new WebSocket(e);
+    function b(e) {
+      var t = e.abortSignal,
+        r = e.onWebSocketClosedImmediately,
+        a = e.onWebSocketCloseEvent,
+        i = e.url,
+        l = new WebSocket(i);
       return (
-        (i.binaryType = "arraybuffer"),
+        (l.binaryType = "arraybuffer"),
         new (f || (f = n("Promise")))(function (e, n) {
-          ((i.onopen = e),
-            (i.onclose = function (e) {
+          ((l.onopen = e),
+            (l.onclose = function (e) {
               if (t != null && t.aborted) {
                 n(new (o("WAAbortError").AbortError)());
                 return;
@@ -179,7 +188,7 @@ __d(
               (r == null || r(e), a == null || a(null, e), n(new E(e)));
             }));
         }).then(function () {
-          return i;
+          return l;
         })
       );
     }

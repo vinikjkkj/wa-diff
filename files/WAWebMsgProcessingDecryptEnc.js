@@ -13,51 +13,60 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, a, i, l, s) {
-      var c = t.ciphertext,
-        d = t.e2eType;
-      return d === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
+    function s(t) {
+      var a = t.enc,
+        i = t.from,
+        l = t.parsedMsgPayload,
+        s = t.participant,
+        c = t.sessionScope,
+        d = a.ciphertext,
+        m = a.e2eType;
+      return m === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
         ? (function () {
-            return a.isGroup() || a.isBroadcast()
-              ? i
-                ? o("WAWebSignal").Cipher.decryptGroupSignalProto(a, i, c)
+            return i.isGroup() || i.isBroadcast()
+              ? s
+                ? o("WAWebSignal").Cipher.decryptGroupSignalProto({
+                    ciphertext: d,
+                    sender: s,
+                    target: i,
+                  })
                 : (e || (e = n("Promise"))).reject(
                     r("err")(
                       "['messaging'] decryptEnc: receive msg from " +
-                        a.toString() +
+                        i.toString() +
                         " without participant",
                     ),
                   )
               : (e || (e = n("Promise"))).reject(
                   r("err")(
                     "['messaging'] decryptEnc: Can not do skmsg for non group " +
-                      a.toString(),
+                      i.toString(),
                   ),
                 );
           })()
-        : d === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg ||
-            d === o("WAWebBackendJobs.flow").CiphertextType.Msg
+        : m === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg ||
+            m === o("WAWebBackendJobs.flow").CiphertextType.Msg
           ? (function () {
-              var u = a.isUser() ? a : i;
-              if (!u)
+              var t = i.isUser() ? i : s;
+              if (!t)
                 return (e || (e = n("Promise"))).reject(
                   r("err")(
                     "['messaging'] decryptEnc: receive msg from " +
-                      a.toString() +
+                      i.toString() +
                       " without participant",
                   ),
                 );
-              var m = o(
+              var u = o(
                 "WAWebMsgProcessingApiUtils",
-              ).shouldOmitSessionPersistence(d, l, t, u);
-              return o("WAWebSignal").Cipher.decryptSignalProto(u, d, c, m, s);
+              ).shouldOmitSessionPersistence(m, l, a, t);
+              return o("WAWebSignal").Cipher.decryptSignalProto(t, m, d, u, c);
             })()
-          : d === o("WAWebBackendJobs.flow").CiphertextType.Msmsg
-            ? u(c, l)
+          : m === o("WAWebBackendJobs.flow").CiphertextType.Msmsg
+            ? u(d, l)
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    d,
+                    m,
                 );
               })();
     }

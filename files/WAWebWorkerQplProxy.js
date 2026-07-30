@@ -1,6 +1,6 @@
 __d(
   "WAWebWorkerQplProxy",
-  ["WANullthrows"],
+  ["nullthrows"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null;
@@ -8,10 +8,7 @@ __d(
       e = t;
     }
     function u(t) {
-      var n = r("WANullthrows")(
-          e,
-          "WAWebWorkerQplProxy: bridge not initialized",
-        ),
+      var n = r("nullthrows")(e, "WAWebWorkerQplProxy: bridge not initialized"),
         o = t.instanceKey,
         a = t.markerId,
         i = !1;

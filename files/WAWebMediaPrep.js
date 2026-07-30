@@ -416,7 +416,9 @@ __d(
                 O = e;
                 var t = s.aiProvenance;
                 s.aiProvenancePromise != null &&
-                  (t = yield s.aiProvenancePromise);
+                  (t = yield s.aiProvenancePromise.catch(function () {
+                    return null;
+                  }));
                 var a = e.mediaObject;
                 ((s.earlyUpload = l),
                   (s.isMediaCryptoExpectedForChat = o(

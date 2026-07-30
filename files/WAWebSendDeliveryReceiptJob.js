@@ -8,7 +8,6 @@ __d(
     "WAWebCommsWapMd",
     "WAWebOnlineDanglingReceipts",
     "WAWebSendReceiptJobCommon",
-    "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -82,10 +81,7 @@ __d(
             : r
               ? (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER)
               : n || (d = o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.INACTIVE);
-          var m =
-              i && o("WAWebStatusGatingUtils").isStatusStanzaSendEnabled()
-                ? o("WAWap").CUSTOM_STRING("status")
-                : o("WAWap").DROP_ATTR,
+          var m = i ? o("WAWap").CUSTOM_STRING("status") : o("WAWap").DROP_ATTR,
             p = o("WAJids").extractJidFromJidWithType(
               o("WAWebWidToJid").widToJidWithType(c),
             ),

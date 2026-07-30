@@ -3,31 +3,32 @@ __d(
   ["fbt", "WAWebCallLogMsgData.flow", "WAWebCallLogUtils", "WAWebMsgGetters"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      if (o("WAWebMsgGetters").getIsCallSilenced(e))
+      var t = e.msg;
+      if (o("WAWebMsgGetters").getIsCallSilenced(t))
         return s._(/*BTDS*/ "Silenced unknown caller");
-      var t = u(e.subtype);
-      if (t != null) return t;
-      var n = o("WAWebMsgGetters").getCallOutcome(e),
-        r = o("WAWebMsgGetters").getIsAdHocGroupCall(e),
-        a = o("WAWebMsgGetters").getIsMissedCall(e),
-        i = o("WAWebMsgGetters").getIsVideoCall(e),
-        l = o("WAWebMsgGetters").getIsSentByMe(e),
-        d = o("WAWebMsgGetters").getCallParticipants(e),
-        m = o("WAWebMsgGetters").getFinalCallOutcome(e),
-        p = o("WAWebCallLogUtils").getIsSelfConnected(d),
-        _ = o("WAWebCallLogUtils").getIsMissedCallOrNotConnected(a, p, l, n, m),
-        f =
-          n === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-          m !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
+      var n = u(t.subtype);
+      if (n != null) return n;
+      var r = o("WAWebMsgGetters").getCallOutcome(t),
+        a = o("WAWebMsgGetters").getIsAdHocGroupCall(t),
+        i = o("WAWebMsgGetters").getIsMissedCall(t),
+        l = o("WAWebMsgGetters").getIsVideoCall(t),
+        d = o("WAWebMsgGetters").getIsSentByMe(t),
+        m = o("WAWebMsgGetters").getCallParticipants(t),
+        p = o("WAWebMsgGetters").getFinalCallOutcome(t),
+        _ = o("WAWebCallLogUtils").getIsSelfConnected(m),
+        f = o("WAWebCallLogUtils").getIsMissedCallOrNotConnected(i, _, d, r, p),
+        g =
+          r === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+          p !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
       return (
-        n &&
-          (t = c({
-            isAdHocGroupCall: r,
-            isMissedCall: _,
-            isOngoing: f,
-            isVideoCall: i,
+        r &&
+          (n = c({
+            isAdHocGroupCall: a,
+            isMissedCall: f,
+            isOngoing: g,
+            isVideoCall: l,
           })),
-        t != null ? t : ""
+        n != null ? n : ""
       );
     }
     function u(e) {

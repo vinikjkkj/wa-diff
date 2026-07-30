@@ -81,6 +81,13 @@ __d(
         !0
       );
     }
+    function L() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "biz_ai_web_integration_hub_enabled",
+        ) === !0
+      );
+    }
     ((l.isAiAgentAutoReplyEnabled = e),
       (l.isAiBulkThreadControlEnabled = s),
       (l.isAiHubTapCtaShowAlertEnabled = u),
@@ -97,7 +104,8 @@ __d(
       (l.isMultiWebsiteEnabled = b),
       (l.isMaibaWASSReceivingEnabled = v),
       (l.isMaibaWASSSendingEnabled = S),
-      (l.isGoogleDriveKnowledgeUiEnabled = R));
+      (l.isGoogleDriveKnowledgeUiEnabled = R),
+      (l.isIntegrationHubEnabled = L));
   },
   98,
 );

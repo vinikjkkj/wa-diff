@@ -354,7 +354,7 @@ __d(
             o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE,
           )) != null
             ? W
-            : o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.pn;
+            : void 0;
         try {
           !o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
             y.isLid() &&

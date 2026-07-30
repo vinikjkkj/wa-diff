@@ -11,6 +11,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebPollsDbUtils",
     "WAWebProtobufsMdStorageMsgRowOpaqueData.pb",
+    "WAWebStatusGatingUtils",
     "WAWebViewMode.flow",
     "WAWebWid",
     "WAWebWidFactory",
@@ -44,87 +45,94 @@ __d(
         s,
         u,
         d,
-        _ = babelHelpers.extends({}, t);
-      (t.quotedMsg && (_.quotedMsg = babelHelpers.extends({}, t.quotedMsg)),
+        f = babelHelpers.extends({}, t);
+      (t.quotedMsg && (f.quotedMsg = babelHelpers.extends({}, t.quotedMsg)),
         (a = t.quotedMsg) != null &&
           a.paymentNoteMsg &&
-          (_.quotedMsg.paymentNoteMsg = babelHelpers.extends(
+          (f.quotedMsg.paymentNoteMsg = babelHelpers.extends(
             {},
             t.quotedMsg.paymentNoteMsg,
           )),
         t.paymentNoteMsg &&
-          (_.paymentNoteMsg = babelHelpers.extends({}, t.paymentNoteMsg)),
+          (f.paymentNoteMsg = babelHelpers.extends({}, t.paymentNoteMsg)),
         t.groupMentions &&
-          (_.groupMentions = t.groupMentions.map(function (e) {
+          (f.groupMentions = t.groupMentions.map(function (e) {
             return {
               groupSubject: e.groupSubject,
               groupJid: o("WAWebWidFactory").createWidFromWidLike(e.groupJid),
             };
           })),
-        (_.star = _.isStarred !== void 0),
-        (_.isMdHistoryMsg = _.rowId < e),
-        _.internalId != null &&
-          (((i = _.to) == null ? void 0 : i.server) === "newsletter" ||
-            ((l = _.from) != null && l.endsWith("@newsletter"))) &&
-          (_.serverId = o("WAWebDBMessageUtils").getInChatMsgId(_.internalId)),
-        r("isArrayNullOrEmpty")(_.internalThreadIDs) ||
-          (_.threadIds = _.internalThreadIDs.map(function (e) {
+        (f.star = f.isStarred !== void 0),
+        (f.isMdHistoryMsg = f.rowId < e),
+        f.internalId != null &&
+          (((i = f.to) == null ? void 0 : i.server) === "newsletter" ||
+            ((l = f.from) != null && l.endsWith("@newsletter"))) &&
+          (f.serverId = o("WAWebDBMessageUtils").getInChatMsgId(f.internalId)),
+        r("isArrayNullOrEmpty")(f.internalThreadIDs) ||
+          (f.threadIds = f.internalThreadIDs.map(function (e) {
             return o("WAWebDBMessageUtils").getThreadIdFromInternalThreadId(e);
           })),
-        delete _.internalId,
-        delete _.isStarred,
-        delete _.count,
-        delete _.hasLink,
-        delete _.isMediaMsg,
-        delete _.isDocMsg,
-        delete _.isCallLogMsg,
-        delete _.isCarouselMsg,
-        delete _.isEventMsg,
-        delete _.typeFlag,
-        delete _.pendingReadReceipt,
-        p(_),
-        o("WAWebApiHydrateWidsUtil").hydrateWids(_),
+        delete f.internalId,
+        delete f.isStarred,
+        delete f.count,
+        delete f.hasLink,
+        delete f.isMediaMsg,
+        delete f.isDocMsg,
+        delete f.isCallLogMsg,
+        delete f.isCarouselMsg,
+        delete f.isEventMsg,
+        delete f.typeFlag,
+        delete f.pendingReadReceipt,
+        _(f),
+        o("WAWebApiHydrateWidsUtil").hydrateWids(f),
         c.forEach(function (e) {
-          _[e] != null && (_[e] = r("WAWebMsgKey").from(_[e]));
+          f[e] != null && (f[e] = r("WAWebMsgKey").from(f[e]));
         }),
-        ((s = _.quotedMsg) == null ? void 0 : s.id) != null &&
-          (_.quotedMsg.id = r("WAWebMsgKey").from(_.quotedMsg.id)),
-        ((u = _.groupHistoryIndividualMessageInfo) == null
+        ((s = f.quotedMsg) == null ? void 0 : s.id) != null &&
+          (f.quotedMsg.id = r("WAWebMsgKey").from(f.quotedMsg.id)),
+        ((u = f.groupHistoryIndividualMessageInfo) == null
           ? void 0
           : u.bundleMessageKey) != null &&
-          (_.groupHistoryIndividualMessageInfo.bundleMessageKey = r(
+          (f.groupHistoryIndividualMessageInfo.bundleMessageKey = r(
             "WAWebMsgKey",
-          ).from(_.groupHistoryIndividualMessageInfo.bundleMessageKey)),
-        _.groupHistoryBundleMetadata != null &&
-          _.groupHistoryBundleMetadata.oldestMessageTimestampInWindow == null &&
-          _.groupHistoryBundleMetadata.oldestMessageTimestamp != null &&
-          ((_.groupHistoryBundleMetadata = babelHelpers.extends(
+          ).from(f.groupHistoryIndividualMessageInfo.bundleMessageKey)),
+        f.groupHistoryBundleMetadata != null &&
+          f.groupHistoryBundleMetadata.oldestMessageTimestampInWindow == null &&
+          f.groupHistoryBundleMetadata.oldestMessageTimestamp != null &&
+          ((f.groupHistoryBundleMetadata = babelHelpers.extends(
             {},
-            _.groupHistoryBundleMetadata,
+            f.groupHistoryBundleMetadata,
             {
               oldestMessageTimestampInWindow:
-                _.groupHistoryBundleMetadata.oldestMessageTimestamp,
+                f.groupHistoryBundleMetadata.oldestMessageTimestamp,
             },
           )),
-          delete _.groupHistoryBundleMetadata.oldestMessageTimestamp),
-        _.messageSecret != null &&
-          (_.messageSecret = new Uint8Array(_.messageSecret)),
-        _.botMessageSecret != null &&
-          (_.botMessageSecret = new Uint8Array(_.botMessageSecret)));
-      var f = m(_),
-        g = f[0],
-        h = f[1],
-        y = f[2];
+          delete f.groupHistoryBundleMetadata.oldestMessageTimestamp),
+        f.messageSecret != null &&
+          (f.messageSecret = new Uint8Array(f.messageSecret)),
+        f.botMessageSecret != null &&
+          (f.botMessageSecret = new Uint8Array(f.botMessageSecret)));
+      var g = m(f),
+        h = g[0],
+        y = g[1],
+        C = g[2];
+      ((f.futureproofType = h),
+        (f.futureproofSubtype = y),
+        (f.subtype = C != null ? C : void 0));
+      var b = p(f.type, f.subtype);
       return (
-        (_.futureproofType = g),
-        (_.futureproofSubtype = h),
-        (_.subtype = y != null ? y : void 0),
-        (_.viewMode =
-          (d = _.viewMode) != null
+        b != null &&
+          ((f.type = b.type),
+          (f.kind = b.kind),
+          (f.subtype = b.subtype),
+          (f.futureproofType = b.futureproofType),
+          (f.futureproofSubtype = b.futureproofSubtype)),
+        (f.viewMode =
+          (d = f.viewMode) != null
             ? d
             : o("WAWebViewMode.flow").ViewModeType.VISIBLE),
-        _.carouselCardsParsed != null &&
-          (_.carouselCardsParsed = _.carouselCardsParsed.map(function (e) {
+        f.carouselCardsParsed != null &&
+          (f.carouselCardsParsed = f.carouselCardsParsed.map(function (e) {
             return babelHelpers.extends({}, e, {
               id:
                 e.id instanceof r("WAWebMsgKey")
@@ -136,8 +144,8 @@ __d(
                   : new (r("WAWebMsgKey"))(e.parentMsgId),
             });
           })),
-        n == null || n(_),
-        _
+        n == null || n(f),
+        f
       );
     }
     function m(e) {
@@ -175,7 +183,21 @@ __d(
         [n, t, r]
       );
     }
-    function p(e) {
+    function p(e, t) {
+      return e === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+        (t === "status_mention_message" ||
+          t === "status_group_mention_message") &&
+        !o("WAWebStatusGatingUtils").isStatusMentionMessageEnabled()
+        ? {
+            futureproofSubtype: t,
+            futureproofType: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+            kind: o("WAWebMsgType").MsgKind.Unknown,
+            subtype: void 0,
+            type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+          }
+        : null;
+    }
+    function _(e) {
       var t = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb").MsgRowOpaqueDataSpec,
           e.msgRowOpaqueData,
@@ -227,7 +249,7 @@ __d(
           a.pollOptions,
         )));
     }
-    function _(e, t) {
+    function f(e, t) {
       var n,
         r,
         o = babelHelpers.extends({}, e);
@@ -262,11 +284,11 @@ __d(
         delete o.linkPreview,
         delete o.star,
         delete o.forwardedFromWeb,
-        f(o, t),
+        g(o, t),
         o
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       var n,
         r,
         a = { currentMsg: {}, quotedMsg: {} };
@@ -332,9 +354,10 @@ __d(
       e.msgRowOpaqueData = l.readBuffer();
     }
     ((l.messageFromDbRow = d),
-      (l.movFieldFromOpaqueDataBackToMsg = p),
-      (l.dbRowFromMessage = _),
-      (l.movEncFieldToOpaqueData = f));
+      (l.getGatedOffStatusMentionFutureproof = p),
+      (l.movFieldFromOpaqueDataBackToMsg = _),
+      (l.dbRowFromMessage = f),
+      (l.movEncFieldToOpaqueData = g));
   },
   98,
 );

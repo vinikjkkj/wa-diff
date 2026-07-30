@@ -4,34 +4,35 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "(^|\\.)instagram\\.com$",
-      s = "(^|\\.)messenger\\.com$",
-      u = "(^|\\.)workplace\\.com$",
-      c = "(^|\\.)workrooms\\.com$",
-      d = "(^|\\.)work\\.meta\\.com$",
-      m = "(^|\\.)horizon\\.meta\\.com$",
-      p = "(^|\\.)spark\\.meta\\.com$",
-      _ = "(^|\\.)developers\\.meta\\.com$",
-      f = "(^|\\.)ar\\.meta\\.com$",
-      g = "(^|\\.)aidemos\\.meta\\.com$",
-      h = "(^|\\.)bugbounty\\.meta\\.com$",
-      y = "(^|\\.)devicemanager\\.meta\\.com$",
-      C = "(^|\\.)www\\.meta\\.com$",
-      b = "(^|\\.)wearables?(\\.[^.]+)*\\.developer\\.meta\\.com$",
-      v = [e, s, u, c, d, m, p, _, f, g, h, y, C, b].join("|"),
-      S = "(^|\\.)internalfb\\.com$",
-      R = null,
-      L = null;
-    function E(e) {
+      s = "(^|\\.)threads\\.(net|com)$",
+      u = "(^|\\.)messenger\\.com$",
+      c = "(^|\\.)workplace\\.com$",
+      d = "(^|\\.)workrooms\\.com$",
+      m = "(^|\\.)work\\.meta\\.com$",
+      p = "(^|\\.)horizon\\.meta\\.com$",
+      _ = "(^|\\.)spark\\.meta\\.com$",
+      f = "(^|\\.)developers\\.meta\\.com$",
+      g = "(^|\\.)ar\\.meta\\.com$",
+      h = "(^|\\.)aidemos\\.meta\\.com$",
+      y = "(^|\\.)bugbounty\\.meta\\.com$",
+      C = "(^|\\.)devicemanager\\.meta\\.com$",
+      b = "(^|\\.)www\\.meta\\.com$",
+      v = "(^|\\.)wearables?(\\.[^.]+)*\\.developer\\.meta\\.com$",
+      S = [e, s, u, c, d, m, p, _, f, g, h, y, C, b, v].join("|"),
+      R = "(^|\\.)internalfb\\.com$",
+      L = null,
+      E = null;
+    function k(e) {
       if (r("isFacebookURI")(e) || r("isMetaAIURI")(e)) return !0;
       var t = e.getDomain(),
-        n = L;
-      if ((n == null && ((n = new RegExp(S, "i")), (L = n)), n.test(t)))
+        n = E;
+      if ((n == null && ((n = new RegExp(R, "i")), (E = n)), n.test(t)))
         return !0;
       if (e.getProtocol() !== "https") return !1;
-      var o = R;
-      return (o == null && ((o = new RegExp(v, "i")), (R = o)), o.test(t));
+      var o = L;
+      return (o == null && ((o = new RegExp(S, "i")), (L = o)), o.test(t));
     }
-    l.default = E;
+    l.default = k;
   },
   98,
 );

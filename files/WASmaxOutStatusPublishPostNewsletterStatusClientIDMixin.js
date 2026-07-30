@@ -4,19 +4,26 @@ __d(
     "WASmaxJsx",
     "WASmaxMixins",
     "WASmaxOutStatusPublishNewsletterClientIdContent",
+    "WASmaxOutStatusPublishStatusAIContentMetaMixin",
     "WAWap",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.statusId,
-        n = e.newsletterClientIdContentArgs,
-        r = o(
+        n = e.hasStatusAIContentMeta,
+        r = e.newsletterClientIdContentArgs,
+        a = o(
           "WASmaxOutStatusPublishNewsletterClientIdContent",
         ).mergeNewsletterClientIdContent(
-          o("WASmaxJsx").smax("status", { id: o("WAWap").STANZA_ID(t) }),
-          n,
+          o("WASmaxMixins").optionalMerge(
+            o("WASmaxOutStatusPublishStatusAIContentMetaMixin")
+              .mergeStatusAIContentMetaMixin,
+            o("WASmaxJsx").smax("status", { id: o("WAWap").STANZA_ID(t) }),
+            n,
+          ),
+          r,
         );
-      return r;
+      return a;
     }
     function s(t, n) {
       var r = e(n);

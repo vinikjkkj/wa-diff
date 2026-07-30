@@ -53,26 +53,29 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = t.ciphertext,
+            i = t.sender,
+            l = t.target;
           if (!r("gkx")("26258")) {
-            var l =
+            var s =
               n("cr:4533") == null
                 ? void 0
                 : n("cr:4533").getDebugDecryptFail();
-            if (l != null && l > 0)
+            if (s != null && s > 0)
               return (
-                n("cr:4533") == null || n("cr:4533").setDebugDecryptFail(l - 1),
+                n("cr:4533") == null || n("cr:4533").setDebugDecryptFail(s - 1),
                 (e || (e = n("Promise"))).reject(
                   new (o("WAWebSignalCommonErrors").SignalDecryptionError)(),
                 )
               );
           }
-          return o("WAWebCryptoLibrary").decryptGroupSignalProto(t, a, i);
+          return o("WAWebCryptoLibrary").decryptGroupSignalProto(l, i, a);
         })),
         p.apply(this, arguments)
       );

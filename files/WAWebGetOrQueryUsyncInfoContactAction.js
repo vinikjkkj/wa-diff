@@ -11,6 +11,7 @@ __d(
     "WAWebContactCollection",
     "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
+    "WAWebDBCreateLidPnMappings",
     "WAWebQueryExistsJob",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUsync",
@@ -180,7 +181,15 @@ __d(
             (yield o("WAWebBizUpdateVerifiedInfoAction").updateVerifiedInfo(
               t,
               d.verifiedName,
-            ));
+            ),
+            m != null &&
+              m.isLid() &&
+              d.pn != null &&
+              (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+                mappings: [{ pn: d.pn, lid: m }],
+                flushImmediately: !0,
+                learningSource: "usync",
+              })));
           var p = t.isRegularUserPn() ? !1 : void 0,
             _ = { wid: m, biz: d != null, bizInfo: d, isUsernameSearch: p };
           return (

@@ -1,7 +1,7 @@
 __d(
   "WAWebSystemMessagePluginFormatMsgTextRegistry",
   [
-    "WAWebFormatCallLogMsgtext",
+    "WAWebFormatCallLog",
     "WAWebGroupsGp2AddFormatSystemMessageText",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
   ],
@@ -11,7 +11,7 @@ __d(
         {
           type: "call_log",
           subtype: "miss",
-          formatMsgText: (e = r("WAWebFormatCallLogMsgtext")),
+          formatMsgText: (e = r("WAWebFormatCallLog")),
         },
         { type: "call_log", subtype: "miss_group", formatMsgText: e },
         { type: "call_log", subtype: "miss_group_video", formatMsgText: e },

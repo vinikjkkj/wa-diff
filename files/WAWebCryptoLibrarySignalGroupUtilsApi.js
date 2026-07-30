@@ -3,9 +3,13 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = "v1";
-    function l(e, t, n, r) {
+    function l(e) {
+      var t = e.chainKey,
+        n = e.keyId,
+        r = e.messageKeys,
+        o = e.signatureKey;
       return {
-        signatureKey: e,
+        signatureKey: o,
         chainKey: t,
         keyId: n,
         messageKeys: r == null ? [] : r,

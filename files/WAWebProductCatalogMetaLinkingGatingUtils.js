@@ -12,7 +12,7 @@ __d(
     function e() {
       if (!c()) return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
       return d(e);
     }
@@ -23,7 +23,7 @@ __d(
       )
         return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-        o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
       return d(e);
     }

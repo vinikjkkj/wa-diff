@@ -393,6 +393,14 @@ __d(
               null
             );
           if (p != null) {
+            p.isLid() &&
+              d != null &&
+              d.pn != null &&
+              (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+                mappings: [{ pn: d.pn, lid: p }],
+                flushImmediately: !0,
+                learningSource: "usync",
+              }));
             var g = !1,
               h = o("WAWebUsernameTypes").asMaybeUsername(f);
             if (h != null) {

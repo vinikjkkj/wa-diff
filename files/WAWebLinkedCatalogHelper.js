@@ -11,7 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+      var e = o("WAWebUserPrefsMeUser").getMeUserOrThrow();
       return s(e);
     }
     function s(e) {

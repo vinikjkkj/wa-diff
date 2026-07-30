@@ -40,7 +40,16 @@ __d(
       if (e.metaAccount != null && t.account_type === "META_ACCOUNT")
         return e.metaAccount;
       var r = (n = t.force_cds) != null ? n : !1;
-      return ((d() || r) && e.CDS) || e.default;
+      if (d() || r) {
+        if (t.account_type === "META_ACCOUNT") {
+          var o, a;
+          return (o = (a = e.metaCDS) != null ? a : e.CDS) != null
+            ? o
+            : e.default;
+        }
+        return e.CDS || e.default;
+      }
+      return e.default;
     }
     function p(e, t) {
       var n,
