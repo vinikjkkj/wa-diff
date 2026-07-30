@@ -29,6 +29,7 @@ __d(
     "WAWebTos.react",
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
+    "cr:11133",
     "cr:169",
     "nullthrows",
     "react",
@@ -176,20 +177,22 @@ __d(
           };
         case o("WAWebAppScreen").AppScreen.STARTUP:
         case o("WAWebAppScreen").AppScreen.SYNCING:
-          return {
-            appScreenUI: [
-              {
-                ui: u.jsx(o("WAWebFavicon.react").DefaultFavicon, {
-                  children: u.jsx(r("WAWebStartup.react"), {
-                    initialLoadState: m.initialLoadState,
-                    onReady: l,
-                  }),
-                }),
-                errorBoundaryName: p,
-              },
-            ],
-            requiresBackendCheck: !0,
-          };
+          return n("cr:11133") != null && n("cr:11133")()
+            ? { appScreenUI: [], requiresBackendCheck: !0 }
+            : {
+                appScreenUI: [
+                  {
+                    ui: u.jsx(o("WAWebFavicon.react").DefaultFavicon, {
+                      children: u.jsx(r("WAWebStartup.react"), {
+                        initialLoadState: m.initialLoadState,
+                        onReady: l,
+                      }),
+                    }),
+                    errorBoundaryName: p,
+                  },
+                ],
+                requiresBackendCheck: !0,
+              };
         case o("WAWebAppScreen").AppScreen.OFFLINE:
           return {
             appScreenUI: [

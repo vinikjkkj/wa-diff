@@ -141,7 +141,7 @@ __d(
               ));
           }
           var E = o("WAWebPQGatingUtils").isPqKeysUploadEnabled();
-          (E
+          E
             ? o(
                 "WAWebPassiveModeManager",
               ).PassiveTaskManager.registerPassiveTask(
@@ -256,13 +256,15 @@ __d(
                     return e.apply(this, arguments);
                   };
                 })(),
-              ),
-            (r("gkx")("17264") ||
-              r("gkx")("26259") ||
-              !o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync() ||
-              (yield o(
-                "WAWebUserPrefsGeneral",
-              ).getWhatsAppWebExternalBetaDirtyBitIdb())) &&
+              );
+          var k = !0;
+          ((k =
+            r("gkx")("26259") ||
+            !o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync() ||
+            (yield o(
+              "WAWebUserPrefsGeneral",
+            ).getWhatsAppWebExternalBetaDirtyBitIdb())),
+            k &&
               (yield o(
                 "WAWebPassiveModeManager",
               ).PassiveTaskManager.registerPassiveTask(

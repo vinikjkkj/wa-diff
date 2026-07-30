@@ -6,11 +6,13 @@ __d(
     "CometThemeInfraBaseThemeGated.react",
     "CometThemeInfraUtils",
     "CometTransientDialogProvider.react",
+    "ExecutionEnvironment",
     "FBLogger",
     "FXAccountsCenterWYLILoggerQPL",
     "OutsideExceptionKeyCommandListener.react",
     "SecuredActionDialogRoot.entrypoint",
     "deferredLoadComponent",
+    "isAccountsMetaDotComDomain.entrypointutils",
     "react",
     "requireDeferredForDisplay",
     "securedActionChallengeToEntrypoints",
@@ -18,54 +20,54 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react")),
-      u = r("deferredLoadComponent")(
+      s,
+      u = s || (s = o("react")),
+      c = r("deferredLoadComponent")(
         r("requireDeferredForDisplay")(
           "SecuredActionTriggerWithEncryptedContext.react",
         ).__setRef("securedActionTriggerChallenge"),
       ),
-      c = r("deferredLoadComponent")(
+      d = r("deferredLoadComponent")(
         r("requireDeferredForDisplay")(
           "SecuredActionTriggerWithAccountID.react",
         ).__setRef("securedActionTriggerChallenge"),
       );
-    function d() {
-      var e;
-      return (e = document.location.href) == null
-        ? void 0
-        : e.includes("accountscenter");
+    function m() {
+      return (e || (e = r("ExecutionEnvironment"))).canUseDOM
+        ? document.location.href.includes("accountscenter")
+        : !1;
     }
-    function m(e, t) {
+    function p(e, t) {
       var n;
       if (e.metaAccount != null && t.account_type === "META_ACCOUNT")
         return e.metaAccount;
-      var r = (n = t.force_cds) != null ? n : !1;
-      if (d() || r) {
+      var o = (n = t.force_cds) != null ? n : !1;
+      if (m() || r("isAccountsMetaDotComDomain.entrypointutils")() || o) {
         if (t.account_type === "META_ACCOUNT") {
-          var o, a;
-          return (o = (a = e.metaCDS) != null ? a : e.CDS) != null
-            ? o
+          var a, i;
+          return (a = (i = e.metaCDS) != null ? i : e.CDS) != null
+            ? a
             : e.default;
         }
         return e.CDS || e.default;
       }
       return e.default;
     }
-    function p(e, t) {
+    function _(e, t) {
       var n,
         r = (n = t.force_cds) != null ? n : !1;
-      return ((d() || r) && e.CDS) || e.default;
+      return ((m() || r) && e.CDS) || e.default;
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = o("CometThemeInfraUtils").getCometThemeInfraThemesForApp();
       (o("FXAccountsCenterWYLILoggerQPL").addPoint(
         o("FXAccountsCenterWYLILoggerQPL").FXAccountsCenterWYLILoggerPoint
           .SECURED_ACTION_CHALLENGE_TRIGGERED,
       ),
-        e.challenge_type === "2fac" ? y(t, e, n) : f(t, e, n));
+        e.challenge_type === "2fac" ? C(t, e, n) : g(t, e, n));
     }
-    function f(e, t, n) {
-      return C(n, e, function (e) {
+    function g(e, t, n) {
+      return b(n, e, function (e) {
         var n = e.onCancel,
           r = e.onExit,
           o = e.onFailure,
@@ -73,19 +75,19 @@ __d(
           i = t.challenge_type;
         switch (i) {
           case "reauth":
-            return g(i, t, r, a);
+            return h(i, t, r, a);
           default:
-            return h(i, t, r, a, n, o);
+            return y(i, t, r, a, n, o);
         }
       });
     }
-    function g(e, t, n, a) {
+    function h(e, t, n, a) {
       var i,
         l,
-        c = o(
+        s = o(
           "securedActionChallengeToEntrypoints",
         ).securedActionChallengeToEntrypointsWithEncryptedContext(e);
-      if (c === null)
+      if (s === null)
         throw (
           n(),
           r("FBLogger")("secured_action").mustfixThrow(
@@ -93,9 +95,9 @@ __d(
             e,
           )
         );
-      return s.jsx(u, {
+      return u.jsx(c, {
         encryptedContext: (i = t.encrypted_context) != null ? i : "",
-        entrypoint: p(c, t),
+        entrypoint: _(s, t),
         flow: "secured_action",
         onExit: n,
         onSuccess: a,
@@ -103,12 +105,12 @@ __d(
         xfacConfig: "XFAC_ORGANIC_SENSITIVE_ACTIONS",
       });
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h(e, t, n, a, i, l) {
-      var u = o(
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e, t, n, a, i, l) {
+      var s = o(
         "securedActionChallengeToEntrypoints",
       ).securedActionChallengeToEntrypointsWithAccountID(e);
-      if (u === null)
+      if (s === null)
         throw (
           n(),
           r("FBLogger")("secured_action").mustfixThrow(
@@ -116,12 +118,12 @@ __d(
             e,
           )
         );
-      return s.jsx(c, {
+      return u.jsx(d, {
         accountID: t.account_id,
         accountType: t.account_type,
         categoryName: t.category_name,
         context: t.context,
-        entrypoint: m(u, t),
+        entrypoint: p(s, t),
         onCancel: i,
         onExit: n,
         onFailure: l,
@@ -130,9 +132,9 @@ __d(
         sensitiveAction: t.sensitive_action,
       });
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(e, t, n) {
-      return C(n, e, function (e) {
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(e, t, n) {
+      return b(n, e, function (e) {
         var n,
           o = e.onExit,
           a = e.onSuccess,
@@ -144,7 +146,7 @@ __d(
               "two_factor challenge was thrown without a context",
             )
           );
-        return s.jsx(u, {
+        return u.jsx(c, {
           encryptedContext: i,
           entrypoint: r("SecuredActionDialogRoot.entrypoint"),
           flow: "secured_action",
@@ -155,11 +157,11 @@ __d(
         });
       });
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       var a = t.onCancel,
         i = t.onExit,
         l = t.onFailure,
-        u = t.onSuccess;
+        s = t.onSuccess;
       return o("CometErrorOverlay").injectComponent(function (t) {
         var c =
           o(
@@ -168,14 +170,14 @@ __d(
           e != null &&
           r("CometThemeInfraBaseThemeGated.react") != null;
         return c
-          ? s.jsx(r("CometRelayEnvironmentProvider"), {
-              children: s.jsx(r("OutsideExceptionKeyCommandListener.react"), {
+          ? u.jsx(r("CometRelayEnvironmentProvider"), {
+              children: u.jsx(r("OutsideExceptionKeyCommandListener.react"), {
                 children:
                   e &&
                   r("CometThemeInfraBaseThemeGated.react") &&
-                  s.jsx(r("CometThemeInfraBaseThemeGated.react"), {
+                  u.jsx(r("CometThemeInfraBaseThemeGated.react"), {
                     themes: e,
-                    children: s.jsx(r("CometTransientDialogProvider.react"), {
+                    children: u.jsx(r("CometTransientDialogProvider.react"), {
                       children: n({
                         onCancel: function () {
                           a == null || a();
@@ -187,16 +189,16 @@ __d(
                           l == null || l();
                         },
                         onSuccess: function () {
-                          (u(), t());
+                          (s(), t());
                         },
                       }),
                     }),
                   }),
               }),
             })
-          : s.jsx(r("CometRelayEnvironmentProvider"), {
-              children: s.jsx(r("OutsideExceptionKeyCommandListener.react"), {
-                children: s.jsx(r("CometTransientDialogProvider.react"), {
+          : u.jsx(r("CometRelayEnvironmentProvider"), {
+              children: u.jsx(r("OutsideExceptionKeyCommandListener.react"), {
+                children: u.jsx(r("CometTransientDialogProvider.react"), {
                   children: n({
                     onCancel: function () {
                       a == null || a();
@@ -208,7 +210,7 @@ __d(
                       l == null || l();
                     },
                     onSuccess: function () {
-                      (u(), t());
+                      (s(), t());
                     },
                   }),
                 }),
@@ -216,7 +218,7 @@ __d(
             });
       });
     }
-    l.default = _;
+    l.default = f;
   },
   98,
 );

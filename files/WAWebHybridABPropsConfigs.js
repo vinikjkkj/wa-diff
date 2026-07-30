@@ -86,7 +86,6 @@ __d(
       call_info_optimizations_ahgc_call_link: [31096, "bool", !1, !1],
       call_info_optimizations_lgc: [31094, "bool", !1, !1],
       call_info_optimizations_version: [27483, "int", 0, 0],
-      call_info_use_typed_jid: [29027, "int", 0, 0],
       call_offer_failed_soft_landing_screen_version: [10559, "int", 0, 1],
       call_screen_share_dual_stream_app_update_dialog_enabled: [
         31922,
@@ -117,7 +116,6 @@ __d(
         5800,
         5800,
       ],
-      calling_e2e_keygen_via_self_lid: [26411, "int", 0, 0],
       calling_lid_version: [3358, "int", 0, 0],
       calling_rust_migration_bitmap: [17954, "int", 0, 0],
       calling_rust_migration_incoming_ack_stanza_bitmap: [28434, "int", 0, 0],

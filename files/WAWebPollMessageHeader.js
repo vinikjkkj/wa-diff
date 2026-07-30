@@ -121,6 +121,9 @@ __d(
                   trusted: g === !0,
                   fromMe: i,
                   fromChatWid: l.id.remote,
+                  messageHasSpoiler: o("WAWebMsgGetters").getIsSpoiler(
+                    l.unsafe(),
+                  ),
                 });
               return c.jsx(o("WAWebEmojiText.react").EmojiText, {
                 text: s,

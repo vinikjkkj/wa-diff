@@ -261,6 +261,7 @@ __d(
       CALLS_TAB_SECONDARY: 257,
       MERCHANT_APP_UNIVERSAL_LINK: 258,
       MERCHANT_APP_DEEPLINK: 259,
+      PINBOARD: 260,
     });
     i.TS_SURFACE = e;
   },

@@ -2,7 +2,7 @@ __d(
   "WAWebNewsletterFollowQPLLogger",
   [
     "WAWebEncryptedRid",
-    "WAWebNewsletterExtendedGatingUtils",
+    "WAWebNewsletterQplGatingUtils",
     "WAWebQplFlowWrapper",
     "WAWebQplQuickPerformanceLoggerMarkerIds",
     "qpl",
@@ -19,7 +19,7 @@ __d(
             i = t.markerId;
           if (
             o(
-              "WAWebNewsletterExtendedGatingUtils",
+              "WAWebNewsletterQplGatingUtils",
             ).isNewsletterQplLoggingEnabledForMarkerId(i)
           ) {
             var l = {

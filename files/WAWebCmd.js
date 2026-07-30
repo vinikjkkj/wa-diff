@@ -1062,6 +1062,9 @@ __d(
           (i.groupNotificationContextCardRendered = function (t) {
             this.trigger("group_notification_context_card_rendered", t);
           }),
+          (i.contactInfoCardRendered = function (t) {
+            this.trigger("contact_info_card_rendered", t);
+          }),
           (i.botTogglePluginSearchDetailsToggle = function (t, n) {
             if (t == null) {
               o("WALogger").WARN(

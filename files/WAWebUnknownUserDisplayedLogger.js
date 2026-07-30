@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebCurrentUser",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
     "WAWebUsernameGatingUtils",
@@ -12,10 +13,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 6 * o("WATimeUtils").HOUR_SECONDS,
-      c = -1,
-      d = new Set();
-    function m() {
+      u,
+      c,
+      d = 6 * o("WATimeUtils").HOUR_SECONDS,
+      m = -1,
+      p = new Set();
+    function _() {
       var t = r("WAWebUserPrefsStore").getUser(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_USER_WAM_WINDOW,
       );
@@ -46,31 +49,52 @@ __d(
           null)
         : { count: n, start: o("WATimeUtils").castToUnixTime(a) };
     }
-    function p(e) {
+    function f(e) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_USER_WAM_WINDOW,
         e,
       );
     }
-    function _(e, t) {
+    function g(e, t) {
       if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
         var n = o("WAWebABProps").getABPropConfigValue(
           "unknown_user_wam_max_events_per_window",
         );
         if (!(n <= 0)) {
           var r = o("WATimeUtils").unixTime(),
-            a = m(),
+            a = _(),
             i,
             l;
-          (a != null && r - a.start < u
+          (a != null && r - a.start < d
             ? ((i = a.start), (l = a.count))
             : ((i = r), (l = 0)),
-            i !== c && ((c = i), d.clear()));
-          var s = t + "_" + e;
-          d.has(s) ||
+            i !== m && ((m = i), p.clear()));
+          var s = t.toString() + "_" + e;
+          p.has(s) ||
             l >= n ||
-            (d.add(s),
-            p({ count: l + 1, start: i }),
+            (o("WAWebCurrentUser").isEmployee()
+              ? o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[uname]: Unknown user placeholder shown on ",
+                        ", wid=",
+                        "",
+                      ])),
+                    e,
+                    t.toString(),
+                  )
+                  .sendLogs("unknown-user-displayed-employee")
+              : o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[uname]: Unknown user placeholder shown on ",
+                      "",
+                    ])),
+                  e,
+                ),
+            p.add(s),
+            f({ count: l + 1, start: i }),
             new (o(
               "WAWebUsernameUnknownUserDisplayedWamEvent",
             ).UsernameUnknownUserDisplayedWamEvent)({
@@ -79,7 +103,7 @@ __d(
         }
       }
     }
-    ((l.WINDOW_SECONDS = u), (l.logUnknownUserDisplayed = _));
+    ((l.WINDOW_SECONDS = d), (l.logUnknownUserDisplayed = g));
   },
   98,
 );

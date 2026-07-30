@@ -15,6 +15,7 @@ __d(
     "WAWebNewsletterGetMyAddOnsJob",
     "WAWebNewsletterMembershipActionLogger",
     "WAWebNewsletterMetadataJob",
+    "WAWebNewsletterQplGatingUtils",
     "WAWebNewsletterQueues",
     "WAWebNewsletterStorageUtils",
     "WAWebNewsletterSubscribeJob",
@@ -51,7 +52,7 @@ __d(
       return (
         o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled() &&
           !o(
-            "WAWebNewsletterExtendedGatingUtils",
+            "WAWebNewsletterQplGatingUtils",
           ).isNewsletterQplLoggingEnabledForMarkerId(1026960759) &&
           (y = o("WAWebQplFlowWrapper").QPL.markerStart(c)),
         (l = y) == null || l.annotate({ int: { surface: _, unit: f } }),

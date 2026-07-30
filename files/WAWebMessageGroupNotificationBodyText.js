@@ -59,14 +59,17 @@ __d(
       m = o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageActionTextStylingEnabled();
-    function p(e, t, n) {
+    function p(e) {
+      var t = e.chat,
+        n = e.clickable,
+        r = e.id;
       return (
+        r &&
         n &&
-        e &&
-        (!n.isUser() ||
+        (!r.isUser() ||
           !o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
             t,
-            o("WAWebContactCollection").ContactCollection.gadd(n),
+            o("WAWebContactCollection").ContactCollection.gadd(r),
           ))
       );
     }
@@ -86,7 +89,7 @@ __d(
         v = _
           ? o("WAWebFormatParticipantNames").getFormattedName(
               _,
-              p(a, C, _),
+              p({ chat: C, clickable: a, id: _ }),
               void 0,
               "0",
             )
@@ -95,7 +98,7 @@ __d(
         R = S
           ? o("WAWebFormatParticipantNames").getFormattedName(
               S,
-              p(a, C, S),
+              p({ chat: C, clickable: a, id: S }),
               void 0,
               "0",
             )

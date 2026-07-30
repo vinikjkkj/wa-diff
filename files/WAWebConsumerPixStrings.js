@@ -130,6 +130,27 @@ __d(
         /*BTDS*/ "You can't delete your payment information because passkey is enabled on your primary device.",
       );
     }
+    function W() {
+      return s._(/*BTDS*/ "Transactions");
+    }
+    function q() {
+      return s._(/*BTDS*/ "See all");
+    }
+    function U() {
+      return s._(/*BTDS*/ "Completed");
+    }
+    function V() {
+      return s._(/*BTDS*/ "Pending");
+    }
+    function H() {
+      return s._(/*BTDS*/ "Failed");
+    }
+    function G() {
+      return s._(/*BTDS*/ "You requested");
+    }
+    function z() {
+      return s._(/*BTDS*/ "They requested");
+    }
     ((l.getConsumerPixKeyTypeOptions = e),
       (l.getConsumerAddPixKeyTitle = u),
       (l.getConsumerAddPixKeySubtitle = c),
@@ -161,7 +182,14 @@ __d(
       (l.getConsumerDeletePaymentInfoSuccessTitle = A),
       (l.getConsumerDeletePaymentInfoSuccessBody = F),
       (l.getConsumerDeletePaymentInfoDoneCta = O),
-      (l.getConsumerDeletePaymentInfoPasskeyBlockedToast = B));
+      (l.getConsumerDeletePaymentInfoPasskeyBlockedToast = B),
+      (l.getConsumerTransactionsHeader = W),
+      (l.getConsumerTransactionsSeeAll = q),
+      (l.getConsumerTransactionStatusCompleted = U),
+      (l.getConsumerTransactionStatusPending = V),
+      (l.getConsumerTransactionStatusFailed = H),
+      (l.getConsumerTransactionStatusRequestedByYou = G),
+      (l.getConsumerTransactionStatusRequestedByThem = z));
   },
   226,
 );

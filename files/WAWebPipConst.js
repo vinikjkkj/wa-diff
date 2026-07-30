@@ -1,12 +1,7 @@
 __d(
   "WAWebPipConst",
-  [
-    "$InternalEnum",
-    "WAWebLogoFacebookIcon.react",
-    "WAWebLogoInstagramIcon.react",
-    "WAWebLogoYoutubeIcon.react",
-  ],
-  function (t, n, r, o, a, i, l) {
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
     var e = {
         YOUTUBE: "youtube.com",
         YOUTUBE_MOBILE: "m.youtube.com",
@@ -18,29 +13,15 @@ __d(
         FBWATCH_ALT: "fb.watch",
         SHARECHAT: "sharechat.com",
       },
-      s = n("$InternalEnum").Mirrored([
+      l = n("$InternalEnum").Mirrored([
         "FLOATER",
         "OG_FLOATER",
         "OG_INLINE_PLAYER",
         "MEDIA_VIEWER",
       ]),
-      u = n("$InternalEnum").Mirrored(["OG", "YOUTUBE", "MSG", "VOIP"]),
-      c = 16 / 9;
-    function d(t) {
-      switch (t) {
-        case e.YOUTUBE:
-        case e.YOUTUBE_MOBILE:
-        case e.YOUTUBE_SHORTENED:
-          return o("WAWebLogoYoutubeIcon.react").LogoYoutubeIcon;
-        case e.INSTAGRAM:
-          return o("WAWebLogoInstagramIcon.react").LogoInstagramIcon;
-        case e.FACEBOOK:
-          return o("WAWebLogoFacebookIcon.react").LogoFacebookIcon;
-        default:
-          return null;
-      }
-    }
-    var m = {
+      s = n("$InternalEnum").Mirrored(["OG", "YOUTUBE", "MSG", "VOIP"]),
+      u = 16 / 9,
+      c = {
         ONLINE_VIDEO_URL: {
           YOUTUBE: [
             /^https?:\/\/youtu\.be\/(.{11})/,
@@ -49,16 +30,15 @@ __d(
           ],
         },
       },
-      p = "t",
-      _ = /^(\d+h)?(\d+m)?(\d+s)?(\d+)?$/;
-    ((l.HOSTNAME = e),
-      (l.PlayerType = s),
-      (l.PiPVideoType = u),
-      (l.YOUTUBE_VIDEO_DEFAULT_ASPECT_RATIO = c),
-      (l.getAttributionIcon = d),
-      (l.URL_PATTERNS = m),
-      (l.YOUTUBE_URL_TIME_PARAM_NAME = p),
-      (l.YOUTUBE_URL_TIME_PARAM_PATTERN = _));
+      d = "t",
+      m = /^(\d+h)?(\d+m)?(\d+s)?(\d+)?$/;
+    ((i.HOSTNAME = e),
+      (i.PlayerType = l),
+      (i.PiPVideoType = s),
+      (i.YOUTUBE_VIDEO_DEFAULT_ASPECT_RATIO = u),
+      (i.URL_PATTERNS = c),
+      (i.YOUTUBE_URL_TIME_PARAM_NAME = d),
+      (i.YOUTUBE_URL_TIME_PARAM_PATTERN = m));
   },
-  98,
+  66,
 );

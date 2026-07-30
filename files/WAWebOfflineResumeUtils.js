@@ -12,6 +12,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebBlocklistMigration",
     "WAWebClearDanglingReceipts",
+    "WAWebDbEncryptionKey",
     "WAWebGetMessageCache",
     "WAWebLogoutReasonConstants",
     "WAWebMessageReceiptBatcher",
@@ -25,6 +26,7 @@ __d(
     "WAWebWamOfflineResumeReporter",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
+    "cr:11133",
     "cr:37442",
     "getErrorSafe",
   ],
@@ -41,15 +43,16 @@ __d(
       g,
       h,
       y,
-      C = (e = n("cr:37442")) != null ? e : {},
-      b = C.reconcileMetaAiUnreadCounts,
-      v = { MIN_MESSAGE: 20, LIMIT_WITH_MESSAGE: 50, MAX_STANZA: 200 };
-    function S() {
-      return R.apply(this, arguments);
-    }
+      C,
+      b = (e = n("cr:37442")) != null ? e : {},
+      v = b.reconcileMetaAiUnreadCounts,
+      S = { MIN_MESSAGE: 20, LIMIT_WITH_MESSAGE: 50, MAX_STANZA: 200 };
     function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o("WAWebGetMessageCache").getMessageCache().createSnapshot(),
             o(
               "WAWebOfflineDeviceCache",
@@ -63,12 +66,12 @@ __d(
           (e.push(
             o("WAWebMessageReceiptBatcher").receiptBatcher.runActiveBatches(),
           ),
-            yield (y || (y = n("Promise"))).all(e));
+            yield (C || (C = n("Promise"))).all(e));
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L() {
+    function E() {
       return r("WAWebNetworkStatus").online
         ? o("WAPromiseLoop").promiseLoop(
             (function () {
@@ -126,9 +129,9 @@ __d(
                 "[offline-resume][utils] runReceiptCleanUpLoop: offline skip",
               ])),
           ),
-          (y || (y = n("Promise"))).resolve());
+          (C || (C = n("Promise"))).resolve());
     }
-    function E() {
+    function k() {
       var e;
       (o("WALogger").LOG(
         m ||
@@ -138,7 +141,7 @@ __d(
       ),
         (e = window.location) == null || e.reload());
     }
-    function k(e, t) {
+    function I(e, t) {
       return (
         o("WALogger")
           .ERROR(
@@ -161,19 +164,19 @@ __d(
         !0
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             if (e.shouldUpdateReceipts === !0) {
               yield o(
                 "WAWebOffdStorageUpdateOfflinePeerReceipts",
               ).updatePeerReceipts();
               try {
-                yield b == null ? void 0 : b();
+                yield v == null ? void 0 : v();
               } catch (e) {
                 o("WALogger").LOG(
                   _ ||
@@ -193,18 +196,18 @@ __d(
                   "restoreBlocklist",
                 )));
           } catch (e) {
-            k("chats", e);
+            I("chats", e);
           }
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
             "restoreDataFromStorage",
           ),
@@ -220,36 +223,36 @@ __d(
             r = o("WAWebWorkerSafeBackendApi")
               .workerSafeSendAndReceive("restoreProfilePictures")
               .catch(function (e) {
-                k("profile-pictures", e);
+                I("profile-pictures", e);
               });
           if (t)
-            (yield (y || (y = n("Promise"))).all([I(e), r]),
+            (yield (C || (C = n("Promise"))).all([T(e), r]),
               yield o("WAWebWorkerSafeBackendApi")
                 .workerSafeSendAndReceive("restoreGroupsAndContacts")
                 .catch(function (e) {
-                  k("groups-and-contacts", e);
+                  I("groups-and-contacts", e);
                 }));
           else {
             var a = o("WAWebWorkerSafeBackendApi")
               .workerSafeSendAndReceive("restoreGroupsAndContacts")
               .catch(function (e) {
-                k("groups-and-contacts", e);
+                I("groups-and-contacts", e);
               });
-            yield (y || (y = n("Promise"))).all([I(e), a, r]);
+            yield (C || (C = n("Promise"))).all([T(e), a, r]);
           }
           o("WAWebPageLoadLogging").endPageLoadQplMeasure(
             "restoreDataFromStorage",
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebAppTracker").AppTracker.start(
             o("WAWebAppTracker").AppTrackerType.LoadMainScreen,
           );
@@ -269,14 +272,32 @@ __d(
                   e
                 );
               }),
-              yield D(e),
-              N(),
+              n("cr:11133") != null && n("cr:11133")()
+                ? (yield o(
+                    "WAWebDbEncryptionKey",
+                  ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
+                  M(),
+                  yield x(e).catch(function (e) {
+                    throw (
+                      o("WALogger")
+                        .ERROR(
+                          h ||
+                            (h = babelHelpers.taggedTemplateLiteralLoose([
+                              "[offline-resume] restoreDataFromStorage failed after entering MAIN",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("startup-restore-after-main-failed"),
+                      e
+                    );
+                  }))
+                : (yield x(e), M()),
               o(
                 "WAWebBackendEventBus",
               ).BackendEventBus.triggerOfflineProcessReady(),
               o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[offline-resume] loadMainScreen complete",
                   ])),
               ));
@@ -286,27 +307,27 @@ __d(
             );
           }
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N() {
+    function M() {
       (o("WAWebBackendEventBus").BackendEventBus.triggerMainStreamModeReady(),
         o(
           "WAWebWamOfflineResumeReporter",
         ).OfflineResumeReporter.logMainScreenLoadT(),
         o("WAWebPushNotificationsOfflineBbApi").setMainStreamModeReadyT());
     }
-    function M(e, t) {
+    function w(e, t) {
       return (
-        e + t > v.MAX_STANZA ||
-        (e > v.MIN_MESSAGE && e + t > v.LIMIT_WITH_MESSAGE)
+        e + t > S.MAX_STANZA ||
+        (e > S.MIN_MESSAGE && e + t > S.LIMIT_WITH_MESSAGE)
       );
     }
-    ((l.clearOfflineSnapShot = S),
-      (l.runReceiptCleanUpLoop = L),
-      (l.refreshWindow = E),
-      (l.loadMainScreen = $),
-      (l.exceedResumeWithOpenTabLimit = M));
+    ((l.clearOfflineSnapShot = R),
+      (l.runReceiptCleanUpLoop = E),
+      (l.refreshWindow = k),
+      (l.loadMainScreen = P),
+      (l.exceedResumeWithOpenTabLimit = w));
   },
   98,
 );

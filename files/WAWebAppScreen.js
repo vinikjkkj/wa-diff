@@ -6,6 +6,7 @@ __d(
     "WAWebBuildConstants",
     "WAWebStreamModel",
     "cr:11133",
+    "cr:12321",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -43,7 +44,13 @@ __d(
         case o("WAWebStreamModel").StreamMode.QR:
           return e.QR;
         case o("WAWebStreamModel").StreamMode.SYNCING:
-          return e.SYNCING;
+          return (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
+            l &&
+            (n("cr:12321") == null
+              ? void 0
+              : n("cr:12321").isMeUserRestored()) === !0
+            ? e.MAIN
+            : e.SYNCING;
         case o("WAWebStreamModel").StreamMode.OFFLINE:
           return l && o("WAWebBuildConstants").WINDOWS_OFFLINE
             ? e.MAIN

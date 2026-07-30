@@ -16,31 +16,32 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function () {
-        function t(t, r, a, i) {
-          var l = this;
+        function t(t, r, a, i, l) {
+          var s = this;
           (i === void 0 && (i = null),
+            l === void 0 && (l = null),
             (this.callArgsStack = []),
             (this.splicesStack = []),
             (this.scope = o("WebBloksUtils").EMPTY_KEY_PATH),
             (this.execute = function (e, t) {
               try {
                 return (
-                  l.bloksContext.treeManager.beginUpdates(),
-                  o("WebBloksScriptExecutor").execute(l, e, t)
+                  s.bloksContext.treeManager.beginUpdates(),
+                  o("WebBloksScriptExecutor").execute(s, e, t)
                 );
               } finally {
-                l.bloksContext.treeManager.endUpdates();
+                s.bloksContext.treeManager.endUpdates();
               }
             }),
             (this.executeCatch = function (e, t) {
               try {
-                return l.execute(e, t);
+                return s.execute(e, t);
               } catch (t) {
                 o("WebBloksScriptDebuggingUtils").logScriptError(
-                  l.objectSet,
+                  s.objectSet,
                   t,
                   e,
-                  l,
+                  s,
                 );
               }
             }),
@@ -48,26 +49,28 @@ __d(
               (e || (e = n("Promise")))
                 .resolve()
                 .then(function () {
-                  l.execute(t, r);
+                  s.execute(t, r);
                 })
                 .catch(function (e) {
                   return o("WebBloksScriptDebuggingUtils").logScriptError(
-                    l.objectSet,
+                    s.objectSet,
                     e,
                     t,
-                    l,
+                    s,
                   );
                 });
             }),
             (this.bloksContext = t),
             (this.$2 = r),
             (this.$4 = a),
-            (this.$1 = i));
+            (this.$1 = i),
+            (this.$5 = l));
         }
-        ((t.forBind = function (n, r, a, i) {
+        ((t.forBind = function (n, r, a, i, l) {
+          l === void 0 && (l = null);
           var e = new (o("BindTreeResources").BindTreeResources)(a, i),
-            l = new t(n, r, "BIND", e);
-          return ((l.resources = a), (l.expandedVariablesOverride = i), l);
+            s = new t(n, r, "BIND", e, l);
+          return ((s.resources = a), (s.expandedVariablesOverride = i), s);
         }),
           (t.forAction = function (n, r) {
             var e = new (o(
@@ -93,6 +96,9 @@ __d(
           }),
           (r.getScriptMode = function () {
             return this.$4;
+          }),
+          (r.getBindTimeSnapshotMs = function () {
+            return this.$5 != null ? this.$5() : Date.now();
           }),
           (r.requireResources = function () {
             return o("WebBloksUtils").nullthrows(this.getResources());
@@ -191,9 +197,9 @@ __d(
               a.endUpdates();
             }
           }),
-          (r.$5 = function () {
+          (r.$6 = function () {
             var e = null,
-              n = new t(this.bloksContext, e, this.$4, this.$1);
+              n = new t(this.bloksContext, e, this.$4, this.$1, this.$5);
             return (
               (n.callArgsStack = this.callArgsStack),
               (n.resources = this.resources),
@@ -204,14 +210,14 @@ __d(
           }),
           (r.createBloksModelScopedContext = function (t) {
             if (t === this.scope) return this;
-            var e = this.$5();
+            var e = this.$6();
             return (
               (e.scope = t != null ? t : o("WebBloksUtils").EMPTY_KEY_PATH),
               e
             );
           }),
           (r.createScopedContext = function () {
-            var e = this.$5();
+            var e = this.$6();
             return (
               (e.scope = o("WebBloksScopedIds").extendKeyPath(this.scope)),
               e
@@ -219,7 +225,7 @@ __d(
           }),
           (r.createScopedContextWithDepth = function (t) {
             if (t == null) return this.createScopedContext();
-            var e = this.$5();
+            var e = this.$6();
             return (
               (e.scope = o("WebBloksScopedIds").truncateKeyPath(this.scope, t)),
               e

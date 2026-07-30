@@ -1,38 +1,53 @@
 __d(
   "WAWebFocusTracer",
-  ["WALogger", "WAShiftTimer"],
+  ["WALogger", "WAShiftTimer", "WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 5,
-      c = 75,
-      d = [],
-      m = !1;
-    function p() {
-      ((d = []), (m = !1));
-    }
+      u,
+      c = 5,
+      d = 75,
+      m = [],
+      p = !1;
     function _() {
-      if (d.length < u) return !1;
-      for (var e = new Set(), t = 0; t < d.length; t++) {
-        if (e.has(d[t])) return !0;
-        e.add(d[t]);
+      ((m = []), (p = !1));
+    }
+    function f() {
+      if (m.length < c) return !1;
+      for (var e = new Set(), t = 0; t < m.length; t++) {
+        if (e.has(m[t])) return !0;
+        e.add(m[t]);
       }
       return !1;
     }
-    function f(e) {
-      (d.length === u && d.shift(), d.push(e));
+    function g(e) {
+      (m.length === c && m.shift(), m.push(e));
     }
-    var g = new (o("WAShiftTimer").ShiftTimer)(p);
+    var h = new (o("WAShiftTimer").ShiftTimer)(_);
     document.addEventListener(
       "keydown",
       function (e) {
-        g.forceRunNow();
+        h.forceRunNow();
       },
       { capture: !0, passive: !0 },
     );
-    function h(t, n) {
-      if (t && !(d.length && t === d[d.length - 1])) {
-        if (((m = m || window.event != null), f(t), _() && !m)) {
+    function y(e) {
+      if (e == null) return "null";
+      if (e instanceof Element) {
+        var t = e.getAttribute("data-testid");
+        return (
+          "<" +
+          e.tagName.toLowerCase() +
+          (e.id ? "#" + e.id : "") +
+          (t != null ? " [testid=" + t + "]" : "") +
+          ">"
+        );
+      }
+      return e instanceof Text ? "#text" : "[focusable]";
+    }
+    function C(t, n) {
+      if (t && !(m.length && t === m[m.length - 1])) {
+        if (((p = p || window.event != null), g(t), f() && !p)) {
           o("WALogger")
             .ERROR(
               e ||
@@ -43,12 +58,12 @@ __d(
             .sendLogs("focus-loop");
           return;
         }
-        (g.onOrBefore(c), t.focus(n));
+        (h.onOrBefore(d), t.focus(n));
       }
     }
-    var y = { focus: h },
-      C = y;
-    l.default = C;
+    var b = { focus: C },
+      v = b;
+    l.default = v;
   },
   98,
 );

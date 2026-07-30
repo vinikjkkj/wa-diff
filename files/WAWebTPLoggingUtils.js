@@ -184,9 +184,12 @@ __d(
             i = t.memInfo;
           return {
             errorType: "ajsError",
-            errorMessage: n + ", currEvent: " + (a != null ? a : ""),
+            errorMessage:
+              "" +
+              (o != null ? o : "") +
+              (a != null ? ", currEvent: " + a : ""),
             errorStack: r != null ? r : "",
-            errorCode: o != null ? o : "",
+            errorCode: n != null ? n : "",
             telemetryData: JSON.stringify({ memInfo: i }),
           };
         }
@@ -400,29 +403,47 @@ __d(
         }).commit();
         return;
       }
-      var i = E(e);
+      var i = R(e);
       if (i != null) {
+        var l,
+          s = S(i);
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
-          webtpErrorType: i.type,
-          webtpErrorMessage: i.message,
-          webtpErrorStack: i.stack,
+          webtpErrorType: s.errorType,
+          webtpErrorMessage: s.errorMessage,
+          webtpErrorStack: s.errorStack,
+          webtpErrorCode: s.errorCode,
+          webtpTelemetryData: (l = s.telemetryData) != null ? l : "",
+          webtpSessionId: t,
+          webtpFileSize: n,
+          webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+            .THUMBNAIL,
+        }).commit();
+        return;
+      }
+      var u = E(e);
+      if (u != null) {
+        new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
+          webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
+          webtpErrorType: u.type,
+          webtpErrorMessage: u.message,
+          webtpErrorStack: u.stack,
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,
           webtpFileSize: n,
-          webtpSdkVersion: i.sdkVersion,
+          webtpSdkVersion: u.sdkVersion,
         }).commit();
         return;
       }
-      var l = L(e);
-      if (l != null) {
-        var s;
+      var c = L(e);
+      if (c != null) {
+        var d;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
           webtpErrorType: "error",
-          webtpErrorMessage: l.message,
-          webtpErrorStack: (s = l.stack) != null ? s : "",
+          webtpErrorMessage: c.message,
+          webtpErrorStack: (d = c.stack) != null ? d : "",
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,

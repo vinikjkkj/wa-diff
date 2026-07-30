@@ -18,9 +18,21 @@ __d(
         ) === !0
       );
     }
+    function c() {
+      return typeof showSaveFilePicker == "function";
+    }
+    function d() {
+      return (
+        e() &&
+        c() &&
+        o("WAWebABProps").getABPropConfigValue("enable_fsa_save_as") === !0
+      );
+    }
     ((l.isWindowsHybridEnabled = e),
       (l.isHybridNuxBeta50Enabled = s),
-      (l.isWindowsShareSheetEnabled = u));
+      (l.isWindowsShareSheetEnabled = u),
+      (l.hasFsaSaveFilePickerSupport = c),
+      (l.isFsaSaveAsEnabled = d));
   },
   98,
 );

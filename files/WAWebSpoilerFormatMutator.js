@@ -20,9 +20,11 @@ __d(
         return (
           babelHelpers.inheritsLoose(t, e),
           (t.jsx = function (t, n, o) {
-            var e = o.selectable;
+            var e = o.selectable,
+              a = o.spoilerInteractive;
             return s.jsx(r("WAWebSpoilerMutatorComponent.react"), {
               selectable: e,
+              interactive: a,
               children: t,
             });
           }),

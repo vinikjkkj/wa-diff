@@ -6,6 +6,7 @@ __d(
     "WAWebWamEnumGroupTypeClient",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumPinInChatInteractionType",
+    "WAWebWamEnumTsSurface",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -30,6 +31,7 @@ __d(
                   .PIN_IN_CHAT_INTERACTION_TYPE,
               ],
               pinIndex: [9, e.TYPES.INTEGER],
+              uiSurface: [10, o("WAWebWamEnumTsSurface").TS_SURFACE],
             },
             [1, 1, 1],
             "regular",

@@ -10,11 +10,11 @@ __d(
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterDeleteChatJob",
     "WAWebNewsletterDeleteMessageAddOns",
-    "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterFollowQPLLogger",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMembershipActionLogger",
     "WAWebNewsletterMetadataJob",
+    "WAWebNewsletterQplGatingUtils",
     "WAWebNewsletterStorageUtils",
     "WAWebNewsletterUnsubscribeJob",
     "WAWebQplFlowWrapper",
@@ -41,7 +41,7 @@ __d(
             a = null;
           (o("WAWebNewsletterGatingUtils").isNewsletterQPLLoggingEnabled() &&
             !o(
-              "WAWebNewsletterExtendedGatingUtils",
+              "WAWebNewsletterQplGatingUtils",
             ).isNewsletterQplLoggingEnabledForMarkerId(
               o("WAWebQplQuickPerformanceLoggerMarkerIds").QuickLogMarkerId
                 .CHANNEL_UNFOLLOW,

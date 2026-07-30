@@ -28,6 +28,7 @@ __d(
             (this.$1 = new Set()),
             (this.$2 = new Map()),
             (this.$3 = new Map()),
+            (this.$4 = null),
             (this.bindDataModuleDelegate = new (o(
               "BindResourceProcessingDelegate",
             ).BindResourceProcessingDelegate)({
@@ -65,89 +66,96 @@ __d(
         }
         var t = e.prototype;
         return (
+          (t.getBindTimeSnapshotMs = function () {
+            return (this.$4 == null && (this.$4 = Date.now()), this.$4);
+          }),
           (t.apply = function (n, a, i, l, s) {
-            var t,
+            var t = this,
               u,
-              c = n,
-              d = c.getExpression(o("WebBloksConstants").ON_BIND);
-            if (d == null) return c;
-            var m = r("WebBloksInterpreterEnvironment").forBind(
+              c,
+              d = n,
+              m = d.getExpression(o("WebBloksConstants").ON_BIND);
+            if (m == null) return d;
+            var p = r("WebBloksInterpreterEnvironment").forBind(
               this.bloksContext,
-              d.getSourceMapNode(),
+              m.getSourceMapNode(),
               this.resources,
               this.expandedVariables,
+              function () {
+                return t.getBindTimeSnapshotMs();
+              },
             );
-            ((m.scope =
-              (t = c.keyPath) != null ? t : o("WebBloksUtils").EMPTY_KEY_PATH),
-              (m.variableAccessLog = l));
-            var p = d.getValue(),
-              _ =
-                Array.isArray(p) &&
-                p.length > 0 &&
+            ((p.scope =
+              (u = d.keyPath) != null ? u : o("WebBloksUtils").EMPTY_KEY_PATH),
+              (p.variableAccessLog = l));
+            var _ = m.getValue(),
+              f =
+                Array.isArray(_) &&
+                _.length > 0 &&
                 !(
-                  p[0] instanceof
+                  _[0] instanceof
                   o("WebBloksScriptTokens").WebBloksIdentifierToken
                 ),
-              f;
-            if (_) {
-              var g = o("WebBloksUtils").cast(p);
-              f = [];
-              for (var v = 0; v < g.length; v += 2) {
-                var S = g[v],
-                  R = o("WebBloksUtils").cast(g[v + 1]),
-                  L = o("WebBloksScriptExecutor").execute(
-                    m,
-                    R,
+              g;
+            if (f) {
+              var v = o("WebBloksUtils").cast(_);
+              g = [];
+              for (var S = 0; S < v.length; S += 2) {
+                var R = v[S],
+                  L = o("WebBloksUtils").cast(v[S + 1]),
+                  E = o("WebBloksScriptExecutor").execute(
+                    p,
+                    L,
                     o("WebBloksUtils").EMPTY_ARRAY,
                   );
-                f.push(S, L);
+                g.push(R, E);
               }
             } else
-              f = o("WebBloksUtils").cast(
+              g = o("WebBloksUtils").cast(
                 o("WebBloksScriptExecutor").execute(
-                  m,
                   p,
+                  _,
                   o("WebBloksUtils").EMPTY_ARRAY,
                 ),
               );
             for (
-              var E = null,
-                k = c.getId(),
-                I = (u = c.keyPath) != null ? u : [],
-                T = this.bloksContext.objectSet.environment.traversalKeys,
-                D = _ || (f.length > 0 && !Array.isArray(f[0])),
-                x = 0;
-              x < f.length;
-              x++
+              var k = null,
+                I = d.getId(),
+                T = (c = d.keyPath) != null ? c : [],
+                D = this.bloksContext.objectSet.environment.traversalKeys,
+                x = f || (g.length > 0 && !Array.isArray(g[0])),
+                $ = 0;
+              $ < g.length;
+              $++
             ) {
-              var $ = null,
-                P = void 0,
-                N = void 0;
-              if (D) ((N = f[x]), (P = f[++x]));
+              var P = null,
+                N = void 0,
+                M = void 0;
+              if (x) ((M = g[$]), (N = g[++$]));
               else {
-                var M = f[x];
-                (($ = M[0] == null ? null : "" + M[0]),
-                  (N = "" + M[1]),
-                  (P = M[2]));
+                var w = g[$];
+                ((P = w[0] == null ? null : "" + w[0]),
+                  (M = "" + w[1]),
+                  (N = w[2]));
               }
-              var w = void 0;
-              if (h(N, c.styleId, T)) {
-                var A = C(this, c, i, I, s, P, T);
-                for (var F of A) E = this.addToTemplateCache(E, F);
-                w = A;
-              } else if (y(N, c.styleId, T)) {
-                var O = b(this, c, i, I, s, P, T);
-                ((w = O), O != null && (E = this.addToTemplateCache(E, O)));
-              } else w = P;
-              if (D || $ === k) c = e.applyOperation(c, a, N, w);
+              var A = void 0;
+              if (h(M, d.styleId, D)) {
+                var F = C(this, d, i, T, s, N, D);
+                for (var O of F) k = this.addToTemplateCache(k, O);
+                A = F;
+              } else if (y(M, d.styleId, D)) {
+                var B = b(this, d, i, T, s, N, D);
+                ((A = B), B != null && (k = this.addToTemplateCache(k, B)));
+              } else A = N;
+              if (x || P === I) d = e.applyOperation(d, a, M, A);
               else
                 throw new (o("WebBloksErrors").WebBloksError)(
                   'Encountered binding targeted for a descendant from bind script "' +
-                    N +
+                    M +
                     '"',
                 );
             }
-            return (this.nextCache.cacheUnboundChildTemplates(c, E), c);
+            return (this.nextCache.cacheUnboundChildTemplates(d, k), d);
           }),
           (t.addToTemplateCache = function (t, n) {
             var e = t != null ? t : new Map();
@@ -227,6 +235,9 @@ __d(
                         null,
                         e.resources,
                         e.expandedVariables,
+                        function () {
+                          return e.getBindTimeSnapshotMs();
+                        },
                       );
                       return (
                         (t.scope = n),

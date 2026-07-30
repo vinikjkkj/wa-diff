@@ -821,7 +821,13 @@ __d(
           function* (e, t, n, r, a, i, l, s) {
             var u = o("WAWebEncryptionManagerSelector").syncdEncryptionManager()
                 .generatePatchMac,
-              c = yield u(n, r, a, l, e),
+              c = yield u({
+                collection: e,
+                keyData: n,
+                patchVersion: l,
+                snapshotMac: r,
+                valueMacs: a,
+              }),
               d = o("WACryptoUtils").arrayBuffersEqual(c, t);
             if (!d)
               throw (
@@ -879,15 +885,15 @@ __d(
               l = o("WAEncodeString").toUtf8(e).buffer,
               s = o("WAWebEncryptionManagerSelector").syncdEncryptionManager(),
               u = yield s.generateSnapshotMac(r, t, a, e),
-              c = yield s.generatePatchMac(
-                r,
-                u,
-                n.map(function (e) {
+              c = yield s.generatePatchMac({
+                collection: e,
+                keyData: r,
+                patchVersion: a,
+                snapshotMac: u,
+                valueMacs: n.map(function (e) {
                   return e.valueMac;
                 }),
-                a,
-                e,
-              ),
+              }),
               d = yield o("WAWebSyncdCrypto").generateEncryptionKeys(r),
               m = d.patchMacKey,
               p = d.snapshotMacKey;

@@ -10,7 +10,13 @@ __d(
     function u(e) {
       return e != null && e.indexOf("||") >= 0 && s(e);
     }
-    ((i.SPOILER_REGEX = e), (i.containsSpoiler = s), (i.hasSpoilerMarkup = u));
+    function c(t, n) {
+      return t.replace(e, n);
+    }
+    ((i.SPOILER_REGEX = e),
+      (i.containsSpoiler = s),
+      (i.hasSpoilerMarkup = u),
+      (i.maskSpoilers = c));
   },
   66,
 );

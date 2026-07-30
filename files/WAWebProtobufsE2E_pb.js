@@ -1554,9 +1554,8 @@ __d(
       (Mn.internalSpec = {
         coveredRequestIds: [1, e.FLAGS.REPEATED | e.TYPES.STRING],
         collectionVersion: [2, e.TYPES.UINT64],
-        primaryProcessStartTimestampMs: [3, e.TYPES.INT64],
-        primaryProcessEndTimestampMs: [4, e.TYPES.INT64],
-        uploadedContactCount: [5, e.TYPES.UINT32],
+        primaryDurationMs: [3, e.TYPES.INT64],
+        uniqueContactCount: [4, e.TYPES.UINT32],
       }),
       (wn.name =
         "Message$PeerDataOperationRequestResponseMessage$PeerDataOperationResult$BizBroadcastInsightsContactListResponse"),

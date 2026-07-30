@@ -179,6 +179,7 @@ __d(
                 c > o("TaskSchedulerPriority").BLOCKING_PRIORITY &&
                 this.$9(g),
               this.$6({
+                metrics: a == null ? void 0 : a.metrics,
                 name: u,
                 priority: c,
                 taskId: d,
@@ -193,6 +194,9 @@ __d(
                 id: d,
                 name: u,
                 promise: m.promise,
+                promote: function (t) {
+                  return l.$11(d, t);
+                },
               }
             );
           }),
@@ -219,12 +223,12 @@ __d(
                     r.delete(a);
                     continue;
                   }
-                  (r.delete(a), this.$11(i));
+                  (r.delete(a), this.$12(i));
                   return;
                 }
             }
           }),
-          (r.$11 = function (t) {
+          (r.$12 = function (t) {
             (this.$2.set(t.id, t.priority),
               (t.state = o("TaskSchedulerTypes").RunState.RUNNING));
             var e = o("WATimeUtils").performanceAbsoluteNow();
@@ -242,9 +246,9 @@ __d(
             var e = this.$1.get(t);
             e != null &&
               e.state === o("TaskSchedulerTypes").RunState.RUNNING &&
-              (this.$12(e), this.maybeStartTask());
+              (this.$13(e), this.maybeStartTask());
           }),
-          (r.$12 = function (t) {
+          (r.$13 = function (t) {
             var e = o("WATimeUtils").performanceAbsoluteNow();
             (this.$6({
               name: t.name,
@@ -308,7 +312,15 @@ __d(
               e
             );
           }),
-          (r.$13 = function (t, n) {
+          (r.$11 = function (t, n) {
+            var e = this.$1.get(t);
+            return e == null ||
+              e.state !== o("TaskSchedulerTypes").RunState.PENDING ||
+              n >= e.priority
+              ? !1
+              : (this.$14(e, n), this.maybeStartTask(), !0);
+          }),
+          (r.$14 = function (t, n) {
             var e = t.priority;
             n >= e ||
               (this.$3[e].delete(t.id),
@@ -330,7 +342,7 @@ __d(
               (t.promotionTimerId = globalThis.setTimeout(function () {
                 t.state === o("TaskSchedulerTypes").RunState.PENDING &&
                   ((t.promotionTimerId = null),
-                  e.$13(t, o("TaskSchedulerPriority").NORMAL_PRIORITY),
+                  e.$14(t, o("TaskSchedulerPriority").NORMAL_PRIORITY),
                   e.maybeStartTask());
               }, this.config.promotionTimeoutMs));
           }),

@@ -13,7 +13,6 @@ __d(
     "WAWebCanonicalUtils",
     "WAWebClearCredentials",
     "WAWebConnModel",
-    "WAWebCrashlog",
     "WAWebDbErrors",
     "WAWebDeleteAllCacheStorage",
     "WAWebEnvironment",
@@ -33,7 +32,6 @@ __d(
     "WAWebSocketLogoutUtils",
     "WAWebSubscribePushManagerAction",
     "WAWebSyncBootstrap",
-    "WAWebUpdater",
     "WAWebUserPrefsAppStateSync",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
@@ -79,17 +77,16 @@ __d(
       A,
       F,
       O,
-      B,
-      W = r("requireDeferred")("WAWebClearAppStates").__setRef(
+      B = r("requireDeferred")("WAWebClearAppStates").__setRef(
         "WAWebSocketModel",
       ),
-      q = [
-        (B = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
-        B.LogoutReason.WebFailEncSalt,
-        B.LogoutReason.WebFailOfflineResume,
-        B.LogoutReason.WebFailStorageInitialization,
+      W = [
+        (O = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
+        O.LogoutReason.WebFailEncSalt,
+        O.LogoutReason.WebFailOfflineResume,
+        O.LogoutReason.WebFailStorageInitialization,
       ],
-      U = (function (t) {
+      q = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -117,7 +114,7 @@ __d(
           (i.initialize = function () {
             var t = this,
               a;
-            ((this.clearAppStatesDeferred = W.load()),
+            ((this.clearAppStatesDeferred = B.load()),
               o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
                 return t.$SocketImpl$p_1();
@@ -275,7 +272,7 @@ __d(
                 }
                 var l = !1;
                 if (
-                  (e != null && q.includes(e) && (l = !0),
+                  (e != null && W.includes(e) && (l = !0),
                   this.$SocketImpl$p_4(),
                   (l = yield this.clearCredentials()),
                   this.$SocketImpl$p_6())
@@ -386,7 +383,7 @@ __d(
                   "ws2:user logged out",
                 ])),
             );
-            var i = (O || (O = n("Promise"))).resolve(),
+            var i = (F || (F = n("Promise"))).resolve(),
               l = 0,
               s = 20,
               u = Math.min(
@@ -579,7 +576,7 @@ __d(
                 o("WAWebAddMeContactAction").addMeToContacts(e)
               );
             }
-            return (O || (O = n("Promise"))).resolve();
+            return (F || (F = n("Promise"))).resolve();
           }),
           (i.clearCredentials = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -633,7 +630,7 @@ __d(
                       .sendLogs("clear_session_app_state");
               }
               try {
-                yield G();
+                yield H();
               } catch (t) {
                 e = !0;
                 var n = r("getErrorSafe")(t);
@@ -663,37 +660,18 @@ __d(
             }
             return t;
           })()),
-          (i.updateImmediately = function (t) {
-            o("WAWebCrashlog")
-              .upload({ reason: t, immediate: !0 })
-              .finally(function () {
-                o("WAWebUpdater")
-                  .Updater.restart(!0)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        F ||
-                          (F = babelHelpers.taggedTemplateLiteralLoose([
-                            "[socket model] failed to restart updater",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("socket-model-failed-to-restart-updater");
-                  });
-              });
-          }),
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      V = o("WAWebBaseModel").defineModel(U),
-      H = new V();
-    function G() {
-      return z.apply(this, arguments);
+      U = o("WAWebBaseModel").defineModel(q),
+      V = new U();
+    function H() {
+      return G.apply(this, arguments);
     }
-    function z() {
+    function G() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (O || (O = n("Promise"))).allSettled([
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield (F || (F = n("Promise"))).allSettled([
             r("WAWebDeleteAllCacheStorage")(),
             o("WAWebMediaStore").LruMediaStore.clear(),
           ]);
@@ -704,10 +682,10 @@ __d(
                 : r("err")(String(e.reason));
           });
         })),
-        z.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    l.Socket = H;
+    l.Socket = V;
   },
   98,
 );

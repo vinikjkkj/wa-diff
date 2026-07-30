@@ -221,6 +221,7 @@ __d(
           selectable: m,
           trusted: p === !0,
           fromMe: _,
+          messageHasSpoiler: o("WAWebMsgGetters").getIsSpoiler(l.unsafe()),
         }),
         y = u.jsx(o("WAWebEmojiText.react").EmojiText, {
           text: s,

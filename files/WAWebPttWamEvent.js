@@ -2,6 +2,8 @@ __d(
   "WAWebPttWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumDeviceAgcStateType",
+    "WAWebWamEnumDeviceNsStateType",
     "WAWebWamEnumPttResultType",
     "WAWebWamEnumPttSourceType",
     "WAWebWamEnumPttWaveformResult",
@@ -15,6 +17,14 @@ __d(
             {
               audioDriverRestartCount: [52, e.TYPES.INTEGER],
               audioDriverRestartReason: [53, e.TYPES.INTEGER],
+              deviceAgcState: [
+                54,
+                o("WAWebWamEnumDeviceAgcStateType").DEVICE_AGC_STATE_TYPE,
+              ],
+              deviceNsState: [
+                55,
+                o("WAWebWamEnumDeviceNsStateType").DEVICE_NS_STATE_TYPE,
+              ],
               isMetaAiThread: [15, e.TYPES.BOOLEAN],
               pttAuddevRecorderAvgCbT: [17, e.TYPES.TIMER],
               pttAuddevRecorderInitT: [18, e.TYPES.TIMER],

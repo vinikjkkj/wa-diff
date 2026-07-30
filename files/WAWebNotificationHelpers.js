@@ -164,7 +164,7 @@ __d(
               .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER &&
           o("WAWebUnknownUserDisplayedLogger").logUnknownUserDisplayed(
             "push_notification",
-            e.contact.id.toString(),
+            e.contact.id,
           ),
         l || y(e).toString()
       );

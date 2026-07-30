@@ -34,6 +34,7 @@ __d(
               aiCreationPersonalityCategoryInsert: [26, e.TYPES.STRING],
               aiCreationPersonalityCategorySelect: [27, e.TYPES.STRING],
               aiDiscoveryTab: [4, e.TYPES.STRING],
+              aiHomeQpPromotionId: [53, e.TYPES.INTEGER],
               aiSessionId: [18, e.TYPES.STRING],
               aiVoiceOnSelectionDefault: [24, e.TYPES.BOOLEAN],
               aiVoiceSelectionEnum: [25, e.TYPES.STRING],

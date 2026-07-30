@@ -6,7 +6,9 @@ __d(
     "WAWebBaseModel",
     "WAWebCollections",
     "WAWebProxyStateFactory",
+    "WAWebSocketModel",
     "WAWebStreamModel",
+    "cr:11133",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -106,8 +108,10 @@ __d(
                   )
                   .sendLogs("state-hoc-error"),
                 null)
-            : (o("WAWebStreamModel").Stream.mode ===
-                o("WAWebStreamModel").StreamMode.MAIN &&
+            : (((n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0
+                ? o("WAWebSocketModel").Socket.hasSynced === !0
+                : o("WAWebStreamModel").Stream.mode ===
+                  o("WAWebStreamModel").StreamMode.MAIN) &&
                 o("WALogger")
                   .ERROR(
                     u ||

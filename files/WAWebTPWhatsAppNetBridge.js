@@ -6,16 +6,13 @@ __d(
     "WAWebTPFrameUrlBuilder",
     "WAWebTPPdfViewerQpl",
     "asyncToGeneratorRuntime",
-    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = "whatsapp.net",
-      u = r("gkx")("17264")
-        ? Number.MAX_SAFE_INTEGER
-        : r("justknobx")._("5486"),
+      u = r("justknobx")._("5486"),
       c = (function (t) {
         function r(e) {
           var n,

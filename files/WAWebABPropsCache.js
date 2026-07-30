@@ -17,96 +17,97 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = null;
-    function c() {
+      u,
+      c = null;
+    function d() {
       var e = window.location.search;
-      if (u == null || u.search !== e) {
+      if (c == null || c.search !== e) {
         var t = new Map();
         (new URLSearchParams(e).forEach(function (e, n) {
           t.has(n) || t.set(n, e);
         }),
-          (u = { search: e, params: t }));
+          (c = { search: e, params: t }));
       }
-      return u.params;
+      return c.params;
     }
-    var d = 10,
-      m = new Map();
-    function p() {
+    var m = 10,
+      p = new Map();
+    function _() {
       var e,
         t = r("err")("");
       return (e = t.stack) != null ? e : "";
     }
-    var _ = new Map(),
-      f = new (o("WAResolvable").Resolvable)(),
-      g;
-    function h(e) {
+    var f = new Map(),
+      g = new (o("WAResolvable").Resolvable)(),
+      h;
+    function y(e) {
       return (
-        g == null &&
-          ((g = {}),
+        h == null &&
+          ((h = {}),
           Object.keys(o("WAWebABPropsConfigs").ABPropConfigs).forEach(
             function (e) {
               var t = o("WAWebABPropsConfigs").ABPropConfigs[e],
                 n = t[0];
-              g[n] = e;
+              h[n] = e;
             },
           ),
-          Object.freeze(g)),
-        g[e]
+          Object.freeze(h)),
+        h[e]
       );
     }
-    function y() {
-      (o("WAWebABProps").setGetABPropConfigValueImpl(C),
+    function C() {
+      (o("WAWebABProps").setGetABPropConfigValueImpl(b),
         o("WAWebGroupABPropsCache").initializeGroupABPropsCache());
     }
-    function C(t) {
-      var n = o("WAWebABPropsConfigs").ABPropConfigs[t],
-        a = n[0],
-        i = n[1],
-        l = n[2],
-        u = n[3],
-        _ = l;
+    function b(e) {
+      var t = o("WAWebABPropsConfigs").ABPropConfigs[e],
+        n = t[0],
+        a = t[1],
+        i = t[2],
+        l = t[3],
+        c = i;
       if (!r("gkx")("26258") && !o("WAWebRuntimeEnvironmentUtils").isWorker()) {
-        var g = c();
-        if (g) {
-          var h = g.get(t);
+        var f = d();
+        if (f) {
+          var h = f.get(e);
           if (h != null && h !== "")
-            return o("WAWebABPropsParseConfigValue").parseConfigValue(h, i, _);
+            return o("WAWebABPropsParseConfigValue").parseConfigValue(h, a, c);
         }
       }
-      if (!f.resolveWasCalled()) {
-        if (!o("WAWebABProps").usedBeforeInitializationConfigs.includes(t)) {
+      if (!g.resolveWasCalled()) {
+        if (!o("WAWebABProps").usedBeforeInitializationConfigs.includes(e)) {
           var y,
-            C = (y = m.get(t)) != null ? y : 0;
-          C < d &&
-            (m.set(t, C + 1),
-            C === 0 && !r("gkx")("17264")
+            C = (y = p.get(e)) != null ? y : 0;
+          C < m &&
+            (p.set(e, C + 1),
+            C === 0
               ? o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[abprops] config accessed before init: ",
                       " stack: ",
                       "",
                     ])),
-                  t,
-                  p(),
+                  e,
+                  _(),
                 )
               : o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[abprops] config accessed before init: ",
                       "",
                     ])),
-                  t,
+                  e,
                 ));
         }
-        return _;
+        return c;
       }
-      return v(a);
+      return S(n);
     }
-    function b(e) {
-      if (_.get(e) && !o("WAWebABPropsGlobals").accessedConfigs.has(e)) {
+    function v(e) {
+      if (f.get(e) && !o("WAWebABPropsGlobals").accessedConfigs.has(e)) {
         var t,
-          n = (t = _.get(e)) == null ? void 0 : t.configExpoKey;
+          n = (t = f.get(e)) == null ? void 0 : t.configExpoKey;
         (n != null &&
           !o("WAWebABPropsGlobals").exposureKeys.has(n) &&
           (o("WAWebABPropsGlobals").exposureKeys.add(n),
@@ -117,9 +118,9 @@ __d(
           }, 0));
       }
     }
-    function v(e) {
-      b(e);
-      var t = _.get(e);
+    function S(e) {
+      v(e);
+      var t = f.get(e);
       return !r("gkx")("26258") &&
         (t == null ? void 0 : t.overriddenConfigValue) != null
         ? t.overriddenConfigValue
@@ -127,16 +128,16 @@ __d(
           ? void 0
           : t.configValue;
     }
-    function S() {
-      return Array.from(_.values());
-    }
     function R() {
-      return _;
+      return Array.from(f.values());
     }
-    function L(e) {
+    function L() {
+      return f;
+    }
+    function E(e) {
       var t = !1;
       (e.forEach(function (e) {
-        (_.set(e.configCode, e),
+        (f.set(e.configCode, e),
           e.hasAccessed === !0 &&
             (o("WAWebABPropsGlobals").accessedConfigs.add(e.configCode),
             e.configExpoKey != null &&
@@ -144,8 +145,8 @@ __d(
               (t = !0))));
       }),
         t && o("WAWebABPropsGlobals").updateGlobalExpoKey(),
-        f.resolve());
-      var n = R(),
+        g.resolve());
+      var n = L(),
         r = Array.from(n.values()).map(function (e) {
           return { configCode: e.configCode, configValue: e.configValue };
         });
@@ -154,27 +155,27 @@ __d(
         urlSearch: window.location.search,
       });
     }
-    function E() {
-      return f.promise;
-    }
     function k() {
-      return f.resolveWasCalled();
+      return g.promise;
     }
     function I() {
-      (_.clear(),
+      return g.resolveWasCalled();
+    }
+    function T() {
+      (f.clear(),
         o("WAWebABPropsGlobals").accessedConfigs.clear(),
         o("WAWebABPropsGlobals").exposureKeys.clear(),
-        (f = new (o("WAResolvable").Resolvable)()));
+        (g = new (o("WAResolvable").Resolvable)()));
     }
-    ((l.getABPropConfigNameFromCode = h),
-      (l.initializeABPropsCache = y),
-      (l.saveExposure = b),
-      (l.getAllABPropConfigs = S),
-      (l.getAllABPropsMap = R),
-      (l.bulkCreateOrReplaceABPropConfigs = L),
-      (l.waitForABPropConfigsReady = E),
-      (l.isABPropConfigsReady = k),
-      (l.clearABPropConfigs = I));
+    ((l.getABPropConfigNameFromCode = y),
+      (l.initializeABPropsCache = C),
+      (l.saveExposure = v),
+      (l.getAllABPropConfigs = R),
+      (l.getAllABPropsMap = L),
+      (l.bulkCreateOrReplaceABPropConfigs = E),
+      (l.waitForABPropConfigsReady = k),
+      (l.isABPropConfigsReady = I),
+      (l.clearABPropConfigs = T));
   },
   98,
 );

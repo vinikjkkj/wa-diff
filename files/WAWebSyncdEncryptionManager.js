@@ -31,23 +31,26 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e, t, n, r, o) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i = yield o("WAWebSyncdCrypto").generateEncryptionKeys(e),
-              l = i.patchMacKey,
-              s = o("WAEncodeString").toUtf8(a).buffer,
-              u = o("WAWebSyncdCryptoUtils").to64BitNetworkOrder(r);
-            return o("WACryptoHmac").hmacSha256(
-              l,
-              o("WAWebSyncdCryptoUtils").combine([t].concat(n, [u, s])),
-            );
-          },
-        )),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.collection,
+            n = e.keyData,
+            r = e.patchVersion,
+            a = e.snapshotMac,
+            i = e.valueMacs,
+            l = yield o("WAWebSyncdCrypto").generateEncryptionKeys(n),
+            s = l.patchMacKey,
+            u = o("WAEncodeString").toUtf8(t).buffer,
+            c = o("WAWebSyncdCryptoUtils").to64BitNetworkOrder(r);
+          return o("WACryptoHmac").hmacSha256(
+            s,
+            o("WAWebSyncdCryptoUtils").combine([a].concat(i, [c, u])),
+          );
+        })),
         c.apply(this, arguments)
       );
     }

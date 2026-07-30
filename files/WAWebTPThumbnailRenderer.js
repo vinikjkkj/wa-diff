@@ -8,15 +8,12 @@ __d(
     "WAWebTPPdfViewerGatingUtils",
     "WAWebTPWhatsAppNetBridge",
     "asyncToGeneratorRuntime",
-    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("gkx")("17264")
-        ? Number.MAX_SAFE_INTEGER
-        : r("justknobx")._("2857") || 15e3;
+      s = r("justknobx")._("2857") || 15e3;
     function u() {
       var e;
       return o("WAWebTPPdfViewerGatingUtils").isAsyncPdfSendEnabled()

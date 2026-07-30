@@ -8,6 +8,8 @@ __d(
           ChannelMessageVisibilityTracking: [
             5998,
             {
+              aiProvenanceLabelEnabled: [13, e.TYPES.BOOLEAN],
+              aiProvenanceLabelShown: [14, e.TYPES.BOOLEAN],
               channelUserType: [
                 10,
                 o("WAWebWamEnumChannelUserType").CHANNEL_USER_TYPE,

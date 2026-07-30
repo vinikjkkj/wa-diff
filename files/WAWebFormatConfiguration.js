@@ -31,10 +31,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.messageHasSpoiler,
-        n = e.selectable;
+        n = e.selectable,
+        a = e.spoilerInteractive;
       return t !== !0 || !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
         ? null
-        : [[r("WAWebSpoilerFormatMutator"), { selectable: n }]];
+        : [
+            [
+              r("WAWebSpoilerFormatMutator"),
+              { selectable: n, spoilerInteractive: a },
+            ],
+          ];
     }
     function s(e) {
       var t = e === void 0 ? {} : e,
@@ -316,7 +322,7 @@ __d(
             },
           ],
         ],
-        e({ messageHasSpoiler: i, selectable: l }),
+        e({ messageHasSpoiler: i, selectable: l, spoilerInteractive: !0 }),
         [
           [r("WAWebBoldFormatMutator"), { selectable: l }],
           [r("WAWebItalicFormatMutator"), { selectable: l }],

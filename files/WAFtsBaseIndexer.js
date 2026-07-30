@@ -2,10 +2,10 @@ __d(
   "WAFtsBaseIndexer",
   [
     "Promise",
+    "TaskSchedulerPriority",
     "WACustomError",
     "WALogger",
     "WAResolvable",
-    "WorkerSchedulerPriority",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
@@ -119,7 +119,8 @@ __d(
                       m = !1;
                       break;
                     }
-                    if (this.scheduler)
+                    var p = this.scheduler;
+                    if (p)
                       (a == null &&
                         o("WALogger").ERROR(
                           s ||
@@ -127,12 +128,9 @@ __d(
                               "FTS:Indexer:indexQueuedBatch: Priority is null",
                             ])),
                         ),
-                        yield this.scheduler.runTask({
-                          name: "fts_incremental",
-                          fn: (function () {
-                            var e = n(
-                              "asyncToGeneratorRuntime",
-                            ).asyncToGenerator(function* () {
+                        yield p.run(
+                          n("asyncToGeneratorRuntime").asyncToGenerator(
+                            function* () {
                               var e = yield i.messageSource.getBacklogged({
                                 limit: i.batchSize,
                               });
@@ -154,28 +152,27 @@ __d(
                                     return e.id;
                                   }),
                                 ));
-                            });
-                            function r() {
-                              return e.apply(this, arguments);
-                            }
-                            return r;
-                          })(),
-                          priority:
-                            a != null
-                              ? a
-                              : o("WorkerSchedulerPriority")
-                                  .BACKGROUND_PRIORITY,
-                        }));
+                            },
+                          ),
+                          {
+                            name: "fts_incremental",
+                            priority:
+                              a != null
+                                ? a
+                                : o("TaskSchedulerPriority")
+                                    .BACKGROUND_PRIORITY,
+                          },
+                        ).promise);
                     else {
-                      var p = yield this.messageSource.getBacklogged({
+                      var _ = yield this.messageSource.getBacklogged({
                         limit: this.batchSize,
                       });
-                      if (p == null) {
+                      if (_ == null) {
                         m = !1;
                         break;
                       }
-                      p.length !== 0 &&
-                        (yield this.__processBatch(p),
+                      _.length !== 0 &&
+                        (yield this.__processBatch(_),
                         o("WALogger").LOG(
                           c ||
                             (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -183,7 +180,7 @@ __d(
                             ])),
                         ),
                         yield t(
-                          p.map(function (e) {
+                          _.map(function (e) {
                             return e.id;
                           }),
                         ));
@@ -234,55 +231,50 @@ __d(
                     s <= c && _;
                   ) {
                     var g = performance.now();
-                    if (
-                      (o("WALogger").LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "Current message batch is from entry ",
-                            " of ",
-                            "...",
-                          ])),
-                        s,
-                        c,
-                      ),
-                      this.scheduler)
-                    )
-                      yield this.scheduler.runTask({
-                        name: "fts_full",
-                        fn: (function () {
-                          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* () {
-                              var e = yield t != null
-                                ? a.messageSource.getAllAfterId(t, {
-                                    offset: s,
-                                    limit: l,
-                                    fromMessageId: u,
-                                  })
-                                : a.messageSource.getAll({
-                                    offset: s,
-                                    limit: l,
-                                    fromMessageId: u,
-                                  });
-                              if (e == null || e.length === 0) {
-                                _ = !1;
-                                return;
-                              }
-                              var n = e[e.length - 1];
-                              ((u = n.id), yield a.__processBatch(e));
-                              var r = Math.min(1, (s + l) / c);
-                              a.__notifyProgress(r, n.id);
-                            },
-                          );
-                          function r() {
-                            return e.apply(this, arguments);
-                          }
-                          return r;
-                        })(),
-                        priority: o("WorkerSchedulerPriority")
-                          .BACKGROUND_PRIORITY,
-                      });
+                    o("WALogger").LOG(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "Current message batch is from entry ",
+                          " of ",
+                          "...",
+                        ])),
+                      s,
+                      c,
+                    );
+                    var h = this.scheduler;
+                    if (h)
+                      yield h.run(
+                        n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* () {
+                            var e = yield t != null
+                              ? a.messageSource.getAllAfterId(t, {
+                                  offset: s,
+                                  limit: l,
+                                  fromMessageId: u,
+                                })
+                              : a.messageSource.getAll({
+                                  offset: s,
+                                  limit: l,
+                                  fromMessageId: u,
+                                });
+                            if (e == null || e.length === 0) {
+                              _ = !1;
+                              return;
+                            }
+                            var n = e[e.length - 1];
+                            ((u = n.id), yield a.__processBatch(e));
+                            var r = Math.min(1, (s + l) / c);
+                            a.__notifyProgress(r, n.id);
+                          },
+                        ),
+                        {
+                          name: "fts_full",
+                          priority: o("TaskSchedulerPriority")
+                            .BACKGROUND_PRIORITY,
+                        },
+                      ).promise;
                     else {
-                      var h = yield t != null
+                      var y = yield t != null
                         ? this.messageSource.getAllAfterId(t, {
                             offset: s,
                             limit: l,
@@ -293,13 +285,13 @@ __d(
                             limit: l,
                             fromMessageId: u,
                           });
-                      if (h == null || h.length === 0) break;
-                      var y = h[h.length - 1];
-                      ((u = y.id), yield this.__processBatch(h));
-                      var C = Math.min(1, (s + l) / c);
-                      this.__notifyProgress(C, y.id);
+                      if (y == null || y.length === 0) break;
+                      var C = y[y.length - 1];
+                      ((u = C.id), yield this.__processBatch(y));
+                      var b = Math.min(1, (s + l) / c);
+                      this.__notifyProgress(b, C.id);
                     }
-                    var b = performance.now();
+                    var v = performance.now();
                     (o("WALogger").LOG(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -310,9 +302,9 @@ __d(
                         ])),
                       s,
                       c,
-                      b - g,
+                      v - g,
                     ),
-                      d.push(b - g),
+                      d.push(v - g),
                       (s += l));
                   }
                   return (this.__notifyProgress(1), i.resolve(d), d);

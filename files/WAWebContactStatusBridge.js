@@ -11,6 +11,8 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebSendReadReceiptJob",
     "asyncToGeneratorRuntime",
+    "cr:11133",
+    "cr:12317",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -20,18 +22,23 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.wid;
+          var r = t.wid;
+          if (
+            (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 &&
+            (n("cr:12317") == null ? void 0 : n("cr:12317").getComms()) == null
+          )
+            return { id: r, stale: !0, status: null };
           if (
             o("WAWebABProps").getABPropConfigValue("mex_usync_about_status")
           ) {
-            var r = yield o(
+            var a = yield o(
                 "WAWebMexUsersGetAboutStatus",
               ).getMexUsersAboutStatus(t),
-              a = r.state,
-              i = r.status;
-            return a == null
-              ? { id: n, status: i }
-              : { id: n, stale: !0, status: null };
+              i = a.state,
+              l = a.status;
+            return i == null
+              ? { id: r, status: l }
+              : { id: r, stale: !0, status: null };
           }
           return o("WAWebGetAboutQueryJob")
             .getAbout(t)

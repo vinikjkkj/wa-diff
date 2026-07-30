@@ -154,31 +154,34 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n, r, o) {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "syncd:kmp: generating patch mac",
-                ])),
-            );
-            var i = yield _.calculatePatchMac(
-              a,
-              o("wa-kmp-syncd-engine-crypto-api").KmpLong.fromDecimalString(
-                r.toString(),
-              ),
-              o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKeyData(e),
-              new Int8Array(o("WAWebSyncdCryptoUtils").combine(n)),
-              new Int8Array(t),
-            ).toPromise();
-            return i.buffer;
-          },
-        )),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.collection,
+            n = e.keyData,
+            r = e.patchVersion,
+            a = e.snapshotMac,
+            i = e.valueMacs;
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "syncd:kmp: generating patch mac",
+              ])),
+          );
+          var l = yield _.calculatePatchMac(
+            t,
+            o("wa-kmp-syncd-engine-crypto-api").KmpLong.fromDecimalString(
+              r.toString(),
+            ),
+            o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKeyData(n),
+            new Int8Array(o("WAWebSyncdCryptoUtils").combine(i)),
+            new Int8Array(a),
+          ).toPromise();
+          return l.buffer;
+        })),
         b.apply(this, arguments)
       );
     }

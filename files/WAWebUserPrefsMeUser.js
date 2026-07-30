@@ -81,10 +81,17 @@ __d(
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).removePnDependenciesEnabled()
+        ? b() != null
+        : h() != null;
+    }
+    function k() {
+      return o(
+        "WAWebBeyondPhoneNumberGatingUtils",
+      ).removePnDependenciesEnabled()
         ? _()
         : p();
     }
-    function k(e) {
+    function I(e) {
       if (e.isLid()) return R();
       var t = h();
       if (t != null) return t;
@@ -100,28 +107,28 @@ __d(
         r("err")("no matching self PN for given PN wid")
       );
     }
-    function I() {
+    function T() {
       return o(
         "WAWebBeyondPhoneNumberGatingUtils",
       ).peerMessageLidMigrationOutgoingEnabled()
         ? _()
         : p();
     }
-    function T() {
-      var e = I();
+    function D() {
+      var e = T();
       return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
         e.user,
         e.server,
         0,
       );
     }
-    function D() {
-      return r("nullthrows")(N(), "meDisplayName");
-    }
     function x() {
+      return r("nullthrows")(M(), "meDisplayName");
+    }
+    function $() {
       return [_(), d()].filter(Boolean);
     }
-    function $(e) {
+    function P(e) {
       (y(),
         o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
           o("WAWebUserPrefsKeys").KEYS.LAST_WID_MD,
@@ -129,7 +136,7 @@ __d(
         ),
         o("WABaseGlobals").setMyJids(o("WAWebWidToJid").widToMyJids(e)));
     }
-    function P(e) {
+    function N(e) {
       (v(),
         o("WAWebRuntimeEnvironmentUtils").isWorker()
           ? o("WAWebGlobals").setMyLidDeviceJid(e.toString())
@@ -138,7 +145,7 @@ __d(
               e.toString(),
             ));
     }
-    function N() {
+    function M() {
       o("WAWebRuntimeEnvironmentUtils").isWorker() &&
         o("WAWebGlobals").getMyDisplayName();
       var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
@@ -146,7 +153,7 @@ __d(
       );
       if (typeof e == "string") return e;
     }
-    function M(e) {
+    function w(e) {
       o("WAWebRuntimeEnvironmentUtils").isWorker()
         ? o("WAWebGlobals").setMyDisplayName(e)
         : o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
@@ -154,7 +161,7 @@ __d(
             e,
           );
     }
-    function w(e) {
+    function A(e) {
       var t = e instanceof r("WAWebWid");
       if (!t)
         if (r("gkx")("26258"))
@@ -184,45 +191,45 @@ __d(
         }
       return t;
     }
-    function A(e) {
-      return e == null || !w(e) ? !1 : O(e) || F(e);
-    }
     function F(e) {
+      return e == null || !A(e) ? !1 : B(e) || O(e);
+    }
+    function O(e) {
       var t = h();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function O(e) {
+    function B(e) {
       var t = m();
       return t != null && e.isSameAccountAndAddressingMode(t);
     }
-    function B(e) {
-      if (e == null || !w(e)) return !1;
+    function W(e) {
+      if (e == null || !A(e)) return !1;
       var t = d();
       if (t != null && e.equals(t)) return !0;
       var n = m();
       return n != null && e.equals(n);
     }
-    function W(e) {
-      if (e == null || !w(e)) return !1;
+    function q(e) {
+      if (e == null || !A(e)) return !1;
       var t = b();
       if (t != null && e.equals(t)) return !0;
       var n = h();
       return n != null && e.equals(n);
     }
-    function q(e) {
-      return A(o("WAWebWidFactory").createWid(e));
+    function U(e) {
+      return F(o("WAWebWidFactory").createWid(e));
     }
-    function U() {
+    function V() {
       var e = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
       );
       return (
         (typeof e != "string" || e === "") &&
-          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), V(e)),
+          ((e = "unknown-" + Math.floor(Math.random() * 1e10)), H(e)),
         e
       );
     }
-    function V(e) {
+    function H(e) {
       return o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
         o("WAWebUserPrefsKeys").KEYS.UNKNOWN_ID,
         e,
@@ -240,23 +247,24 @@ __d(
       (l.getMePnUserOrThrow_DO_NOT_USE = S),
       (l.getMeLidUserOrThrow = R),
       (l.getMeUserOrThrow = L),
-      (l.getMeDeviceOrThrow = E),
-      (l.getMeUserMatchingAddressingModeOrThrow = k),
-      (l.getMeDeviceForOutgoingPeerMessage = I),
-      (l.getMyPrimaryForOutgoingPeerMessage = T),
-      (l.getMeDisplayNameOrThrow = D),
-      (l.getMeDeviceWids = x),
-      (l.setMe = $),
-      (l.setMeLid = P),
-      (l.getMaybeMeDisplayName = N),
-      (l.setMeDisplayName = M),
-      (l.isMeAccount = A),
-      (l.isMePnUser = F),
-      (l.isMeDevice = B),
-      (l.isMePrimary = W),
-      (l.isSerializedWidMe = q),
-      (l.getUnknownId = U),
-      (l.setUnknownId = V));
+      (l.isMeUserRestored = E),
+      (l.getMeDeviceOrThrow = k),
+      (l.getMeUserMatchingAddressingModeOrThrow = I),
+      (l.getMeDeviceForOutgoingPeerMessage = T),
+      (l.getMyPrimaryForOutgoingPeerMessage = D),
+      (l.getMeDisplayNameOrThrow = x),
+      (l.getMeDeviceWids = $),
+      (l.setMe = P),
+      (l.setMeLid = N),
+      (l.getMaybeMeDisplayName = M),
+      (l.setMeDisplayName = w),
+      (l.isMeAccount = F),
+      (l.isMePnUser = O),
+      (l.isMeDevice = W),
+      (l.isMePrimary = q),
+      (l.isSerializedWidMe = U),
+      (l.getUnknownId = V),
+      (l.setUnknownId = H));
   },
   98,
 );

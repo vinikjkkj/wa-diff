@@ -28,6 +28,7 @@ __d(
     "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebPollCreationUtils",
+    "WAWebSpoilerNotificationMask",
     "WAWebUA",
     "WAWebUnformatMsg",
     "WAWebVcardUtils",
@@ -460,8 +461,11 @@ __d(
             ""
           );
       }
-      var le = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "";
-      return "" + le + f.toString();
+      var le = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "",
+        se = "" + le + f.toString();
+      return e.isSpoiler === !0
+        ? o("WAWebSpoilerNotificationMask").maskSpoilersForNotification(se)
+        : se;
     }
     function f(e) {
       var t = e.msgDir,

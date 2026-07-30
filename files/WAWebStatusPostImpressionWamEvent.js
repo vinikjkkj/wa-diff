@@ -23,6 +23,8 @@ __d(
           StatusPostImpression: [
             6364,
             {
+              aiProvenanceLabelEnabled: [54, e.TYPES.BOOLEAN],
+              aiProvenanceLabelShown: [55, e.TYPES.BOOLEAN],
               channelStatusId: [46, e.TYPES.INTEGER],
               channelUserType: [
                 47,

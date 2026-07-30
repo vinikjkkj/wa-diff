@@ -9,6 +9,7 @@ __d(
     "WAWebWam",
     "WAWebWamResourceLoadReporter",
     "WAWebWebcPageLoadWamEvent",
+    "cr:11133",
     "once",
   ],
   function (t, n, r, o, a, i, l) {
@@ -117,12 +118,12 @@ __d(
         return;
       }
       if (!c) return;
-      var n = c,
-        r = self.performance.timing,
-        a = self.performance.navigation,
-        i = r.navigationStart,
-        l = r.loadEventEnd - i;
-      if (l <= 0) {
+      var r = c,
+        a = self.performance.timing,
+        i = self.performance.navigation,
+        l = a.navigationStart,
+        u = a.loadEventEnd - l;
+      if (u <= 0) {
         (o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -132,47 +133,50 @@ __d(
           self.setTimeout(D, 1e4));
         return;
       }
-      function u(e) {
-        var t = r[e];
+      function p(e) {
+        var t = a[e];
         return t && I(t);
       }
-      (n.set({
-        webcPageLoadT: l,
-        webcUnloadEventStart: u("unloadEventStart"),
-        webcUnloadEventEnd: u("unloadEventEnd"),
-        webcRedirectStart: u("redirectStart"),
-        webcRedirectEnd: u("redirectEnd"),
-        webcFetchStart: u("fetchStart"),
-        webcDomainLookupStart: u("domainLookupStart"),
-        webcDomainLookupEnd: u("domainLookupEnd"),
-        webcConnectStart: u("connectStart"),
-        webcConnectEnd: u("connectEnd"),
-        webcSecureConnectionStart: u("secureConnectionStart"),
-        webcRequestStart: u("requestStart"),
-        webcResponseStart: u("responseStart"),
-        webcResponseEnd: u("responseEnd"),
-        webcDomLoading: u("domLoading"),
-        webcDomInteractive: u("domInteractive"),
-        webcDomContentLoadedEventStart: u("domContentLoadedEventStart"),
-        webcDomContentLoadedEventEnd: u("domContentLoadedEventEnd"),
-        webcDomComplete: u("domComplete"),
-        webcLoadEventStart: u("loadEventStart"),
-        webcLoadEventEnd: u("loadEventEnd"),
-        webcCached: r.fetchStart === r.domainLookupEnd,
-        webcNavigation: a.type,
-        webcRedirectCount: a.redirectCount,
+      (r.set({
+        webcPageLoadT: u,
+        webcUnloadEventStart: p("unloadEventStart"),
+        webcUnloadEventEnd: p("unloadEventEnd"),
+        webcRedirectStart: p("redirectStart"),
+        webcRedirectEnd: p("redirectEnd"),
+        webcFetchStart: p("fetchStart"),
+        webcDomainLookupStart: p("domainLookupStart"),
+        webcDomainLookupEnd: p("domainLookupEnd"),
+        webcConnectStart: p("connectStart"),
+        webcConnectEnd: p("connectEnd"),
+        webcSecureConnectionStart: p("secureConnectionStart"),
+        webcRequestStart: p("requestStart"),
+        webcResponseStart: p("responseStart"),
+        webcResponseEnd: p("responseEnd"),
+        webcDomLoading: p("domLoading"),
+        webcDomInteractive: p("domInteractive"),
+        webcDomContentLoadedEventStart: p("domContentLoadedEventStart"),
+        webcDomContentLoadedEventEnd: p("domContentLoadedEventEnd"),
+        webcDomComplete: p("domComplete"),
+        webcLoadEventStart: p("loadEventStart"),
+        webcLoadEventEnd: p("loadEventEnd"),
+        webcCached: a.fetchStart === a.domainLookupEnd,
+        webcNavigation: i.type,
+        webcRedirectCount: i.redirectCount,
         webcWsOpening: m.OPENING,
         webcWsPairing: m.PAIRING,
         webcWsSyncing: m.SYNCING,
         webcWsNormal: m.NORMAL,
         webcWsAttempts: m.socketSequence,
         webcQrCode: !m.SYNCING,
-        webcInitialPanelMountT: d - i,
+        webcInitialPanelMountT:
+          (n("cr:11133") == null ? void 0 : n("cr:11133")()) === !0 && d == null
+            ? null
+            : d - l,
         webcLoadInForeground: v,
         webcPageLoadId: o("WAWebPageLoadLogging").getPageLoadId(),
       }),
-        x(n),
-        n.commit(),
+        x(r),
+        r.commit(),
         window.document && document.removeEventListener("visibilitychange", T),
         (c = null));
     }
