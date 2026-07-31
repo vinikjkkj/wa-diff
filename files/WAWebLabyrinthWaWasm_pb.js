@@ -17,7 +17,11 @@ __d(
       C = {},
       b = {},
       v = {},
-      S = {};
+      S = {},
+      R = {},
+      L = {},
+      E = {},
+      k = {};
     ((s.name = "CreateBackupInput"),
       (s.internalSpec = {
         recoveryCode: [
@@ -137,13 +141,45 @@ __d(
         messageKey: [1, e.TYPES.BYTES],
         error: [2, e.TYPES.STRING],
       }),
-      (S.name = "LabyrinthWaCommand"),
+      (S.name = "RotateEpochMemberInput"),
       (S.internalSpec = {
+        deviceId: [1, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        epochStoragePublicKey: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        devicePublicKey: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+      }),
+      (R.name = "RotateEpochInput"),
+      (R.internalSpec = {
+        currentEpochRootKey: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        currentEpochAnonId: [2, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        currentEpochFbid: [3, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        newEpochFbid: [4, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        epochStoragePrivateKey: [5, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        members: [6, e.FLAGS.REPEATED | e.TYPES.MESSAGE, S],
+      }),
+      (L.name = "RotateEpochMemberEdge"),
+      (L.internalSpec = {
+        deviceId: [1, e.TYPES.UINT64],
+        encryptedEpochKey: [2, e.TYPES.BYTES],
+        deviceEpochHmac: [3, e.TYPES.BYTES],
+      }),
+      (E.name = "RotateEpochOutput"),
+      (E.internalSpec = {
+        newEpochRootKey: [1, e.TYPES.BYTES],
+        newEpochAnonId: [2, e.TYPES.UINT64],
+        epochAnonId: [3, e.TYPES.BYTES],
+        epochData: [4, e.TYPES.BYTES],
+        memberEdges: [5, e.FLAGS.REPEATED | e.TYPES.MESSAGE, L],
+        epochRootKeyFingerprint: [6, e.TYPES.BYTES],
+        error: [7, e.TYPES.STRING],
+      }),
+      (k.name = "LabyrinthWaCommand"),
+      (k.internalSpec = {
         createBackupInput: [1, e.TYPES.MESSAGE, s],
         encryptMessageInput: [2, e.TYPES.MESSAGE, u],
         decryptMessageInput: [3, e.TYPES.MESSAGE, c],
         orfThreadIdInput: [4, e.TYPES.MESSAGE, d],
         deriveMessageKeyInput: [5, e.TYPES.MESSAGE, m],
+        rotateEpochInput: [6, e.TYPES.MESSAGE, R],
         __oneofs__: {
           commandInput: [
             "createBackupInput",
@@ -151,6 +187,7 @@ __d(
             "decryptMessageInput",
             "orfThreadIdInput",
             "deriveMessageKeyInput",
+            "rotateEpochInput",
           ],
         },
       }),
@@ -168,7 +205,11 @@ __d(
       (l.DecryptMessageOutputSpec = C),
       (l.OrfThreadIdOutputSpec = b),
       (l.DeriveMessageKeyOutputSpec = v),
-      (l.LabyrinthWaCommandSpec = S));
+      (l.RotateEpochMemberInputSpec = S),
+      (l.RotateEpochInputSpec = R),
+      (l.RotateEpochMemberEdgeSpec = L),
+      (l.RotateEpochOutputSpec = E),
+      (l.LabyrinthWaCommandSpec = k));
   },
   98,
 );

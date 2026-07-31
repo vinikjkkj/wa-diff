@@ -30,7 +30,7 @@ __d(
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "cr:11133",
-    "cr:169",
+    "cr:8094",
     "nullthrows",
     "react",
   ],
@@ -160,15 +160,15 @@ __d(
               },
               {
                 ui: u.jsx(o("WAWebFavicon.react").DefaultFavicon, {
-                  children: n("cr:169")
-                    ? u.jsx(n("cr:169"), { apiCmd: m.apiCmd })
+                  children: n("cr:8094")
+                    ? u.jsx(n("cr:8094"), { apiCmd: m.apiCmd })
                     : u.jsx(
                         r("WAWebLinkDeviceScreen.react"),
                         { apiCmd: m.apiCmd },
                         "qr-code",
                       ),
                 }),
-                errorBoundaryName: n("cr:169")
+                errorBoundaryName: n("cr:8094")
                   ? "windows-link-screen-wrapper"
                   : "link-device-screen",
               },

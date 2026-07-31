@@ -23,26 +23,13 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            a = t.accountLid,
-            i = t.isLidBot,
-            l = t.lidOrigin,
-            c = t.msgRecord,
-            d = t.participant,
-            m = t.recipient,
-            p = t.retryCount,
-            _ = t.sessionScope,
-            f = t.to,
-            g = c.data.id.id,
-            h = d || f,
-            y = c == null || (n = c.data) == null ? void 0 : n.messageSecret,
-            C = y
-              ? new Uint8Array(
-                  yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
-                    y,
-                  ),
-                )
-              : null;
+          var n = t.msgRecord,
+            r = t.participant,
+            a = t.recipient,
+            i = t.retryCount,
+            l = t.to,
+            c = n.data.id.id,
+            d = r || l;
           o("WALogger")
             .LOG(
               e ||
@@ -53,74 +40,15 @@ __d(
                   ", count: ",
                   "",
                 ])),
-              g,
-              f.toString(),
-              h.toString(),
-              p,
+              c,
+              l.toString(),
+              d.toString(),
+              i,
             )
             .tags("messaging");
-          var b = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-              o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
-              c,
-            ),
-            v = {
-              type: o("WAWebSendMsgCreateDeviceStanza").MsgType.Retry,
-              retryCount: p,
-            },
-            S,
-            R = "message",
-            L = { to: f, option: v, botMessageSecret: C };
-          if (
-            (r("WAWebWid").isCAPISupportAccount(f) &&
-              o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
-              o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
-              (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(b)),
-            f.isUser())
-          )
-            S = yield o(
-              "WAWebSendMsgCreateDeviceStanza",
-            ).createUserDeviceMsgStanza(
-              c,
-              b,
-              babelHelpers.extends({}, L, {
-                recipient: m,
-                peerRecipientLid: a,
-              }),
-              l,
-            );
-          else if (f.isStatus()) {
-            d != null || s(0, 111426);
-            var E = yield o("WAWebResendStatusMsg").createStatusDeviceMsgStanza(
-              {
-                to: f,
-                participant: d,
-                msgRecord: c,
-                msgProtobuf: b,
-                deviceMsgType: v,
-                sessionScope: _,
-              },
-            );
-            ((S = E.stanza), (R = E.stanzaClass));
-          } else
-            f.isBroadcastList()
-              ? (d != null || s(0, 141738),
-                (S = yield o(
-                  "WAWebResendBroadcastMsg",
-                ).createBroadcastDeviceMsgStanza({
-                  to: f,
-                  participant: d,
-                  msgRecord: c,
-                  msgProtobuf: b,
-                  deviceMsgType: v,
-                })))
-              : (d != null || s(0, 56263),
-                (S = yield o(
-                  "WAWebSendMsgCreateDeviceStanza",
-                ).createGroupDeviceMsgStanza(
-                  c,
-                  b,
-                  babelHelpers.extends({}, L, { isLidBot: i, participant: d }),
-                )));
+          var p = yield m(t),
+            _ = p.stanza,
+            f = p.statusStanzaClass;
           o("WALogger")
             .LOG(
               u ||
@@ -129,31 +57,128 @@ __d(
                   " to ",
                   "",
                 ])),
-              g,
-              f.toString(),
+              c,
+              l.toString(),
             )
             .tags("messaging");
-          var k = f.isStatus() ? null : d,
-            I = f;
+          var g = l.isStatus() ? null : r,
+            h = l;
           return (
-            f.isBot() &&
-              m != null &&
-              !(m != null && m.isBot()) &&
-              ((k = f), m != null || s(0, 75958), (I = m)),
+            l.isBot() &&
+              a != null &&
+              !(a != null && a.isBot()) &&
+              ((g = l), a != null || s(0, 75958), (h = a)),
             o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
-              S,
+              _,
               o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: g,
-                class: f.isStatus() ? R : "message",
-                from: I,
-                participant: k,
+                id: c,
+                class: l.isStatus() ? f : "message",
+                from: h,
+                participant: g,
               }),
             )
           );
         })),
         d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = e.accountLid,
+            a = e.isLidBot,
+            i = e.lidOrigin,
+            l = e.msgRecord,
+            u = e.participant,
+            c = e.recipient,
+            d = e.retryCount,
+            m = e.sessionScope,
+            p = e.to,
+            _ = l == null || (t = l.data) == null ? void 0 : t.messageSecret,
+            f = _
+              ? new Uint8Array(
+                  yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
+                    _,
+                  ),
+                )
+              : null,
+            g = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+              o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
+              l,
+            ),
+            h = {
+              type: o("WAWebSendMsgCreateDeviceStanza").MsgType.Retry,
+              retryCount: d,
+            },
+            y = { to: p, option: h, botMessageSecret: f };
+          if (
+            (r("WAWebWid").isCAPISupportAccount(p) &&
+              o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
+              o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
+              (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(g)),
+            p.isUser())
+          )
+            return {
+              stanza: yield o(
+                "WAWebSendMsgCreateDeviceStanza",
+              ).createUserDeviceMsgStanza(
+                l,
+                g,
+                babelHelpers.extends({}, y, {
+                  recipient: c,
+                  peerRecipientLid: n,
+                }),
+                i,
+              ),
+              statusStanzaClass: "message",
+            };
+          if (p.isStatus()) {
+            u != null || s(0, 111426);
+            var C = yield o("WAWebResendStatusMsg").createStatusDeviceMsgStanza(
+              {
+                to: p,
+                participant: u,
+                msgRecord: l,
+                msgProtobuf: g,
+                deviceMsgType: h,
+                sessionScope: m,
+              },
+            );
+            return { stanza: C.stanza, statusStanzaClass: C.stanzaClass };
+          }
+          return p.isBroadcastList()
+            ? (u != null || s(0, 141738),
+              {
+                stanza: yield o(
+                  "WAWebResendBroadcastMsg",
+                ).createBroadcastDeviceMsgStanza({
+                  to: p,
+                  participant: u,
+                  msgRecord: l,
+                  msgProtobuf: g,
+                  deviceMsgType: h,
+                }),
+                statusStanzaClass: "message",
+              })
+            : (u != null || s(0, 56263),
+              {
+                stanza: yield o(
+                  "WAWebSendMsgCreateDeviceStanza",
+                ).createGroupDeviceMsgStanza(
+                  l,
+                  g,
+                  babelHelpers.extends({}, y, { isLidBot: a, participant: u }),
+                ),
+                statusStanzaClass: "message",
+              });
+        })),
+        p.apply(this, arguments)
       );
     }
     l.sendRetry = c;

@@ -16,6 +16,7 @@ __d(
               isFirstDisplay: [7, e.TYPES.BOOLEAN],
               jidType: [8, e.TYPES.STRING],
               unknownUserDisplayContext: [1, e.TYPES.STRING],
+              unknownUserDisplayLid: [9, e.TYPES.STRING],
             },
             [1, 1, 1],
             "regular",

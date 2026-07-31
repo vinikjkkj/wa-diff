@@ -85,6 +85,7 @@ __d(
               isForwardedForward: [18, e.TYPES.BOOLEAN],
               isLid: [24, e.TYPES.BOOLEAN],
               isPq: [55, e.TYPES.BOOLEAN],
+              isStickerAnnotation: [66, e.TYPES.BOOLEAN],
               isViewOnce: [9, e.TYPES.BOOLEAN],
               localAddressingMode: [
                 33,

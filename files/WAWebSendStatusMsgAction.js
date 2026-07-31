@@ -2,60 +2,37 @@ __d(
   "WAWebSendStatusMsgAction",
   [
     "invariant",
-    "WAJids",
     "WALogger",
-    "WATimeUtils",
     "WAWebAck",
-    "WAWebAddonConstants",
-    "WAWebAddonProcessMsgs",
     "WAWebAutoCrosspostAction",
-    "WAWebChatThreadLogging",
-    "WAWebDBDeviceListFanout",
-    "WAWebDBGetReactions",
     "WAWebDBProcessMessage",
     "WAWebEncryptAndSendStatusMsg",
     "WAWebLidStatusMigrationUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporterFrontendDeps",
-    "WAWebMsgGetters",
     "WAWebMsgKey",
-    "WAWebMsgKeyUtils",
     "WAWebMsgModel",
-    "WAWebMsgType",
     "WAWebOutgoingMessage",
     "WAWebPostSendStatusFailure",
-    "WAWebReactionsUtils",
-    "WAWebReferentialMsgKey",
     "WAWebSendMsgMetricReporter",
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
-    "WAWebSessionScope",
     "WAWebStatusCollection",
     "WAWebStatusGatingUtils",
-    "WAWebStatusInteractionSentWamEvent",
     "WAWebStatusLoggingUtils",
     "WAWebStatusMsgDataUtils",
     "WAWebStatusPosterActionsLogger",
-    "WAWebStatusSessionGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
-    "WAWebViewMode.flow",
     "WAWebWamEnumMessageSendResultType",
     "WAWebWamEnumStatusContentType",
-    "WAWebWamEnumStatusInteractionActors",
-    "WAWebWamEnumStatusInteractionMessageType",
-    "WAWebWamEnumStatusInteractionResultType",
-    "WAWebWamEnumStatusInteractionType",
     "WAWebWamMsgUtils",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
     "getErrorSafe",
-    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e, u, c, d, m, p, _, f, g, h, y;
-    function C(e) {
+    var e, u, c, d, m, p, _, f, g, h;
+    function y(e) {
       switch (e) {
         case "chat":
           return o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.TEXT;
@@ -73,12 +50,12 @@ __d(
           return o("WAWebWamEnumStatusContentType").STATUS_CONTENT_TYPE.PHOTO;
       }
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r, a, i, l, c;
           o("WALogger").LOG(
             e ||
@@ -120,18 +97,18 @@ __d(
                 ])),
             ),
             (c = p.sendPerfReporter) == null || c.postSavedStage(),
-            L(m, d, p, 0, n)
+            R(m, d, p, 0, n)
           );
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
@@ -236,18 +213,18 @@ __d(
                   "sendStatusMediaMsgAction: media prep done for status message",
                 ])),
             ),
-            L(C, y, b, 0, f)
+            R(C, y, b, 0, f)
           );
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e, t, n, r, o) {
-      return E.apply(this, arguments);
+    function R(e, t, n, r, o) {
+      return L.apply(this, arguments);
     }
-    function E() {
+    function L() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             (a === void 0 && (a = 0),
               o("WALogger").LOG(
@@ -261,7 +238,7 @@ __d(
             var l = new (o(
                 "WAWebStatusPosterActionsLogger",
               ).StatusPosterActionsLogger)(i == null ? void 0 : i.sessionId),
-              s = C(e.type);
+              s = y(e.type);
             l.logPostStatusRequest(s, a, i == null ? void 0 : i.entryPoint);
             var u = {
                 type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
@@ -319,166 +296,21 @@ __d(
                     ])),
                   t,
                 ));
-              var y = yield r("WAWebUserPrefsStatus").getStatusPrivacySetting();
+              var C = yield r("WAWebUserPrefsStatus").getStatusPrivacySetting();
               return o("WAWebPostSendStatusFailure").postStatusSendFailure(
                 p,
                 n,
-                y,
+                C,
               );
             }
           },
         )),
-        E.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = r("nullthrows")(o("WAWebMsgGetters").getSender(e)),
-              a = o("WAWebLidStatusMigrationUtils").matWidConvert(
-                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-              ),
-              i = o("WAWebWidFactory").asUserWidOrThrow(
-                o("WAWebLidStatusMigrationUtils").matWidConvert(n),
-              ),
-              l = new (r("WAWebMsgKey"))({
-                fromMe: !0,
-                remote: o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-                id: yield r("WAWebMsgKey").newId(),
-                participant: i,
-              }),
-              s = yield T({ msgKey: l, reaction: t, parent: e }),
-              u = yield o(
-                "WAWebAddonProcessMsgs",
-              ).processOutgoingMsgOptimisticUpdate(
-                o("WAWebAddonConstants").AddonProcessMode.Send,
-                s,
-              ),
-              c = {
-                type: o("WAWebSendMsgTypes").SendMessageRecordType.Addon,
-                data: u.encryptedMsgData,
-              },
-              d = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-                o("WAWebOutgoingMessage").OutgoingMessageOriginType.Status,
-                c,
-              ),
-              m = yield o("WAWebDBDeviceListFanout").getFanOutList({
-                wids: [i, a],
-                shouldMergeAltDevices: !0,
-              });
-            (yield o(
-              "WAWebEncryptAndSendStatusMsg",
-            ).encryptAndSendStatusDirectMsg({
-              deviceList: m,
-              metricsReporter: o(
-                "WAWebSendMsgMetricReporter",
-              ).createMsgModelMetricReporter(new (o("WAWebMsgModel").Msg)(s)),
-              msgProtobuf: d,
-              sendMsgRecord: c,
-              sessionScope: o(
-                "WAWebStatusSessionGatingUtils",
-              ).shouldUseStatusSessionForOutgoingMessage()
-                ? o("WAWebSessionScope").SessionScope.STATUS
-                : o("WAWebSessionScope").SessionScope.DEFAULT,
-            }),
-              o("WAWebReactionsUtils").updateRecentReaction(
-                t,
-                s.reactionTimestamp,
-              ),
-              t !== "" &&
-                (o(
-                  "WAWebChatThreadLogging",
-                ).handleActivitiesForChatThreadLogging([
-                  {
-                    activityType: "statusReactionsSent",
-                    ts: o("WATimeUtils").unixTime(),
-                    chatId: i,
-                  },
-                ]),
-                new (o(
-                  "WAWebStatusInteractionSentWamEvent",
-                ).StatusInteractionSentWamEvent)({
-                  statusInteractionType: o("WAWebWamEnumStatusInteractionType")
-                    .STATUS_INTERACTION_TYPE.REACTION,
-                  statusInteractionMessageType: o(
-                    "WAWebWamEnumStatusInteractionMessageType",
-                  ).STATUS_INTERACTION_MESSAGE_TYPE.LIKE,
-                  statusInteractionResultType: o(
-                    "WAWebWamEnumStatusInteractionResultType",
-                  ).STATUS_INTERACTION_RESULT_TYPE.OK,
-                  statusInteractionActors: o(
-                    "WAWebWamEnumStatusInteractionActors",
-                  ).STATUS_INTERACTION_ACTORS.POSTER_VIEWER,
-                }).commit()));
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "sendStatusReaction: failed with ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("status-reaction-send-error"),
-              r("err")("Status reaction send error")
-            );
-          }
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msgKey,
-            n = e.parent,
-            r = e.reaction,
-            a = o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-              t,
-              o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
-            ),
-            i = o("WATimeUtils").unixTime(),
-            l = i * 1e3,
-            s = yield o(
-              "WAWebDBGetReactions",
-            ).existsReactionAddressingModeInsensitive({
-              parentMsgKey: n.id.toString(),
-              senderUserJid: a.from.toString(),
-            });
-          return (
-            s && (l = Math.max(s.timestamp + 1, l)),
-            babelHelpers.extends({ id: t }, a, {
-              reactionParentKey: o(
-                "WAWebReferentialMsgKey",
-              ).getReferentialMsgKey(n),
-              type: o("WAWebMsgType").MSG_TYPE.REACTION,
-              kind: o("WAWebMsgType").MsgKind.ReactionDecrypted,
-              t: i,
-              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-              ack: o("WAWebAck").ACK.CLOCK,
-              reactionText: r,
-              reactionTimestamp: l,
-              read: !0,
-            })
-          );
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    ((l.getContentTypeForLogging = C),
-      (l.sendStatusTextMsgAction = b),
-      (l.sendStatusMediaMsgAction = S),
-      (l.sendStatusReaction = k),
-      (l.buildStatusReactionMsgData = T));
+    ((l.getContentTypeForLogging = y),
+      (l.sendStatusTextMsgAction = C),
+      (l.sendStatusMediaMsgAction = v));
   },
   98,
 );

@@ -98,80 +98,78 @@ __d(
             return (e || (e = n("Promise"))).reject(
               r("err")("WebTP PDF thumbnail renderer is not enabled"),
             );
-          var u = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
-          (u.initialize("thumbnail"), u.renderThumbnailStart());
-          var c = _.getIframe(),
-            d = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(c),
-            m = null,
-            p = new (e || (e = n("Promise")))(function (e, t) {
-              m = t;
+          var u = yield o(
+            "WAWebCryptoCalculateFilehash",
+          ).calculateFilehashFromBlob(a);
+          o("WAWebTPLoggingUtils").logThumbnailRenderAttemptEvent(u, a.size);
+          var c = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
+          (c.initialize("thumbnail"), c.renderThumbnailStart());
+          var d = _.getIframe(),
+            m = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(d),
+            p = null,
+            f = new (e || (e = n("Promise")))(function (e, t) {
+              p = t;
             }),
-            f = function () {
-              m != null &&
-                m(
+            g = function () {
+              p != null &&
+                p(
                   new (o("WAAbortError").AbortError)(
                     "Render thumbnail aborted",
                   ),
                 );
             };
-          (s != null && (s.aborted ? f() : s.addEventListener("abort", f)),
-            d.listen("QPL", function (e) {
+          (s != null && (s.aborted ? g() : s.addEventListener("abort", g)),
+            m.listen("QPL", function (e) {
               e.forEach(function (e) {
                 var t = e.data,
                   n = e.pointName,
                   r = e.timestamp;
-                u.addIframePoint(n, r, t);
+                c.addIframePoint(n, r, t);
               });
             }),
-            d.listen("APP_READY", function () {
-              u.appReady();
+            m.listen("APP_READY", function () {
+              c.appReady();
             }),
-            d.listen("APP_ERROR", function () {
-              u.appError();
+            m.listen("APP_ERROR", function () {
+              c.appError();
             }));
           try {
-            var g = yield (e || (e = n("Promise"))).race([
-                d.getThumbnail({
-                  file: a,
-                  fileName: i,
-                  width: l.width,
-                  height: l.height,
-                }),
-                p,
-              ]),
-              h = yield o(
-                "WAWebCryptoCalculateFilehash",
-              ).calculateFilehashFromBlob(a);
+            var h = yield (e || (e = n("Promise"))).race([
+              m.getThumbnail({
+                file: a,
+                fileName: i,
+                width: l.width,
+                height: l.height,
+              }),
+              f,
+            ]);
             return (
               o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
-                g.perfData,
-                h,
+                h.perfData,
+                u,
                 a.size,
-                g.sdkVersion,
+                h.sdkVersion,
               ),
-              u.renderThumbnailEnd(),
+              c.renderThumbnailEnd(),
               {
-                thumbnail: g.thumbnail,
-                numPages: g.numPages,
-                perfData: g.perfData,
+                thumbnail: h.thumbnail,
+                numPages: h.numPages,
+                perfData: h.perfData,
               }
             );
           } catch (e) {
-            var y = yield o(
-              "WAWebCryptoCalculateFilehash",
-            ).calculateFilehashFromBlob(a);
             throw (
               o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(
                 e,
-                y,
+                u,
                 a.size,
               ),
-              u.renderThumbnailError(),
+              c.renderThumbnailError(),
               e
             );
           } finally {
-            (s == null || s.removeEventListener("abort", f),
-              d.destroy(),
+            (s == null || s.removeEventListener("abort", g),
+              m.destroy(),
               _.release());
           }
         })),

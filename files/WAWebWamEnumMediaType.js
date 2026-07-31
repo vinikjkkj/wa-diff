@@ -81,6 +81,7 @@ __d(
       MIXED_COLLECTION: 76,
       CONDITIONAL_REVEAL: 77,
       EVENT_INVITE: 78,
+      STICKER_REACTION: 79,
     });
     i.MEDIA_TYPE = e;
   },

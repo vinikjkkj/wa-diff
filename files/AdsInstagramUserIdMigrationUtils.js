@@ -9,7 +9,7 @@ __d(
       c = ["creative", "object_story_spec", "instagram_user_id"],
       d = ["creative", "object_story_spec", "instagram_actor_id"];
     function m(e) {
-      return (r("vulture")("iJ23-3UVuIO5vRkrz_14qPE9Z-4="), e);
+      return e;
     }
     function p(e) {
       return e;

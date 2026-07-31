@@ -39,7 +39,6 @@ __d(
     "WAWebChatMessageSearch",
     "WAWebChatModelDerivedMethods",
     "WAWebChatParticipantColor",
-    "WAWebChatProductMsgsCollection",
     "WAWebChatShowUnreadInTitle",
     "WAWebChatSquelchConstants",
     "WAWebChatThemeGatingUtils",
@@ -1917,15 +1916,6 @@ __d(
             return this.groupMetadata
               ? this.groupMetadata.participants.iAmAdmin()
               : !1;
-          }),
-          (i.getProductMsgs = function () {
-            return (
-              this.productMsgs ||
-                (this.productMsgs = new (r(
-                  "WAWebChatProductMsgsCollection",
-                ))()),
-              this.productMsgs
-            );
           }),
           (i.getKeptMsgs = function () {
             var e = this.keptMsgs;

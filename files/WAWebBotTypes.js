@@ -29,19 +29,27 @@ __d(
         UNKNOWN: "unknown",
         PARTIAL_1P: "1p_partial",
         FULL_3P: "3p_full",
-      }),
-      d = e({ NONE: "none", BASIC: "basic" }),
-      m = e({ PROMPT: "prompt", COMMAND: "command", VOICE: "voice" }),
-      p = e({ DEFAULT: "default", UGC: "ugc", FIRST_PARTY_CHARACTER: "1p" }),
-      _ = e({ UNKNOWN: "unknown", YES: "yes", NO: "no" });
+      });
+    function d(e) {
+      return e === s.BIZ_1P
+        ? c.PARTIAL_1P.valueOf()
+        : e === s.BIZ_3P
+          ? c.FULL_3P.valueOf()
+          : null;
+    }
+    var m = e({ NONE: "none", BASIC: "basic" }),
+      p = e({ PROMPT: "prompt", COMMAND: "command", VOICE: "voice" }),
+      _ = e({ DEFAULT: "default", UGC: "ugc", FIRST_PARTY_CHARACTER: "1p" }),
+      f = e({ UNKNOWN: "unknown", YES: "yes", NO: "no" });
     ((i.BotMsgEditType = l),
       (i.BizBotType = s),
       (i.BotFeedbackKind = u),
       (i.BizBotAutomatedType = c),
-      (i.BotWelcomeMsgProtocolModeType = d),
-      (i.BotMsgBodyType = m),
-      (i.BotPersonaType = p),
-      (i.BotPosingAsProfessionalType = _));
+      (i.getBotLocalAutomatedType = d),
+      (i.BotWelcomeMsgProtocolModeType = m),
+      (i.BotMsgBodyType = p),
+      (i.BotPersonaType = _),
+      (i.BotPosingAsProfessionalType = f));
   },
   66,
 );

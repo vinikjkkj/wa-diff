@@ -13,6 +13,7 @@ __d(
       CHAT_HEADER: 7,
       GROUP_MEMBER: 8,
       CHAT_LIST_GLOBAL_SEARCH: 9,
+      SUSPICIOUS_CHAT_BANNER: 10,
     });
     i.COMPANION_ADD_CONTACT_SOURCE = e;
   },
