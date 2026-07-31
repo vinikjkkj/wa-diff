@@ -2,7 +2,11 @@ __d(
   "WAWebGraphQLServerError",
   ["$InternalEnum"],
   function (t, n, r, o, a, i) {
-    var e = n("$InternalEnum")({ INVALID_ACCESS_TOKEN: 190 }),
+    var e = n("$InternalEnum")({
+        INVALID_ACCESS_TOKEN: 190,
+        BUSINESS_BANHAMMERED: 2859017,
+        AD_ACCOUNT_LINKING_DISABLED: 2859050,
+      }),
       l = (function (e) {
         function t(t) {
           var n;

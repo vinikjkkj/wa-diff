@@ -285,7 +285,11 @@ __d(
                   t.map(function (e) {
                     return r(
                       "WAWebCtwaPerCustomerDataSharingSync",
-                    ).sendPerCustomerDataSharingUpdate(e, !0, l);
+                    ).sendPerCustomerDataSharingUpdate({
+                      accountLid: e,
+                      entryPoint: l,
+                      isEnabled: !0,
+                    });
                   }),
                 ),
                 s = a.every(S);

@@ -27,39 +27,27 @@ __d(
     }
     function s(e) {
       var t = e.activeAccountInfoType,
-        n = e.eligibilityFetchAttempted,
-        r = e.hasAdvertisedViaLWI,
-        a = e.hasCreatedAd,
-        i = e.hasEligibilityData,
-        l = e.hasFacebookPage,
-        s = e.isPageAssetLinked,
-        u = e.isPagelessAssetLinked,
-        c = e.lifetimeNativeCTWAAdvertiser,
-        d = e.lwiEntryPoint,
-        m = e.lwiFlowId,
-        p = e.sourceAdCreation,
-        _ = e.usesNativeAds;
+        n = e.hasCreatedAd,
+        r = e.hasFacebookPage,
+        a = e.lwiEntryPoint,
+        i = e.lwiFlowId,
+        l = e.sourceAdCreation,
+        s = e.usesNativeAds;
       new (o(
         "WAWebCtwaAdCreationAndManagementJourneyWamEvent",
       ).CtwaAdCreationAndManagementJourneyWamEvent)({
         extraAttributes: JSON.stringify({
           active_account_info_type: t,
-          eligibility_fetch_attempted: n,
           event_type: "advertise_ep_routing_decision",
-          has_advertised_via_lwi: r,
-          has_created_ad: a,
-          has_eligibility_data: i,
-          has_facebook_page: l,
-          is_page_asset_linked: s,
-          is_pageless_asset_linked: u,
-          lifetime_native_ctwa_advertiser: c,
-          source_ad_creation: p,
-          uses_native_ads: _,
+          has_created_ad: n,
+          has_facebook_page: r,
+          source_ad_creation: l,
+          uses_native_ads: s,
         }),
-        lwiEntryPoint: d,
-        lwiFlowId: m,
+        lwiEntryPoint: a,
+        lwiFlowId: i,
         seqId: 0,
-        unifiedSessionId: m,
+        unifiedSessionId: i,
       }).commit();
     }
     function u(e) {

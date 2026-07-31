@@ -156,6 +156,8 @@ __d(
         "GuestPNVerificationRateLimitEligibleAt",
         "GuestExperienceType",
         "GuestVerifiedPn",
+        "GuestDeviceCountry",
+        "GuestCampaign",
       ]),
       p = 720 * 60 * 1e3,
       _ = 3,

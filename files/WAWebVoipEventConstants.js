@@ -30,6 +30,7 @@ __d(
       },
       l = {
         ACTIVE_CALL: "activeCall",
+        END_CALL_TONE: "endCallTone",
         SHOULD_SHOW_POST_CALL_SURVEY: "shouldShowPostCallSurvey",
         IS_IN_CONNECTED_CALL: "isInConnectedCall",
         MUTE_REQUEST_FAILED: "muteRequestFailed",

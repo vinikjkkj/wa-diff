@@ -38,10 +38,15 @@ __d(
             (e.timestamp = o("WAWebBaseModel").session()),
             (e.hostRetryCount = o("WAWebBaseModel").session(0)),
             (e.lastHostUsed = o("WAWebBaseModel").session()),
+            (e.aiHubProfileIsDarkTheme = o("WAWebBaseModel").session(
+              o("WAWebBizAiAssetResolver").getAiHubProfileIsDarkTheme,
+            )),
             (e.img = o("WAWebBaseModel").derived(
               function () {
                 if (r("WAWebWid").isAiHub(this.id))
-                  return o("WAWebBizAiAssetResolver").getAiHubProfileURL();
+                  return o("WAWebBizAiAssetResolver").getAiHubProfileURL(
+                    this.aiHubProfileIsDarkTheme,
+                  );
                 if (this.raw) return "data:image/jpeg;base64," + this.raw;
                 if (!this.tag && this.stale) return null;
                 if (this.tag)
@@ -62,12 +67,15 @@ __d(
                 "previewEurl",
                 "previewDirectPath",
                 "hostRetryCount",
+                "aiHubProfileIsDarkTheme",
               ],
             )),
             (e.imgFull = o("WAWebBaseModel").derived(
               function () {
                 if (r("WAWebWid").isAiHub(this.id))
-                  return o("WAWebBizAiAssetResolver").getAiHubProfileURL();
+                  return o("WAWebBizAiAssetResolver").getAiHubProfileURL(
+                    this.aiHubProfileIsDarkTheme,
+                  );
                 if ((this.raw || !this.tag) && this.stale) return null;
                 if (!this.raw && this.tag)
                   return this.fullDirectPath != null
@@ -86,6 +94,7 @@ __d(
                 "eurlStale",
                 "fullDirectPath",
                 "hostRetryCount",
+                "aiHubProfileIsDarkTheme",
               ],
             )),
             (e.fallbackType = o("WAWebBaseModel").derived(

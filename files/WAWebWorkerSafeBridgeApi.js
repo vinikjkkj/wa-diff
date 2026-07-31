@@ -11,7 +11,6 @@ __d(
     "WAWebContactCollection",
     "WAWebEphemeralityResolver",
     "WAWebFetchBizAiLargeScreensGate",
-    "WAWebFetchNativeAdsMvpEligibility",
     "WAWebFetchQuickPromotions",
     "WAWebFtsClient",
     "WAWebGetNewChatMessageCappingInfoJob",
@@ -255,11 +254,6 @@ __d(
           return o(
             "WAWebFetchBizAiLargeScreensGate",
           ).fetchBizAiLargeScreensGate(e);
-        },
-        fetchNativeAdsMvpEligibility: function () {
-          return o(
-            "WAWebFetchNativeAdsMvpEligibility",
-          ).fetchNativeAdsMvpEligibility();
         },
         restoreCTWASuggestions: function () {
           return o(

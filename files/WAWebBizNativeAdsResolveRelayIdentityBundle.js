@@ -345,13 +345,19 @@ __d(
               t +
               n,
           )
-        : r("FBLogger")("wa_ctwa_web")
-            .catching(e)
-            .mustfix(
-              "Unexpected error during identity resolution for account type: " +
+        : o("WAWebFetchAdAccountToken").hasTerminalIntegrityDenial(e)
+          ? r("FBLogger")("wa_ctwa_web").warn(
+              "Terminal integrity denial during identity resolution for account type: " +
                 t +
                 n,
-            );
+            )
+          : r("FBLogger")("wa_ctwa_web")
+              .catching(e)
+              .mustfix(
+                "Unexpected error during identity resolution for account type: " +
+                  t +
+                  n,
+              );
     }
     function S(e, t) {
       var n,

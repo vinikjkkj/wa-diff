@@ -133,33 +133,6 @@ __d(
           e.bp_id,
         ));
     }
-    function y(e) {
-      r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").KEYS.NATIVE_ADS_MVP_ELIGIBILITY,
-        e,
-      );
-    }
-    function C() {
-      var e = r("WAWebUserPrefsStore").getUser(
-        o("WAWebUserPrefsKeys").KEYS.NATIVE_ADS_MVP_ELIGIBILITY,
-      );
-      if (e == null || typeof e != "object") return null;
-      var t = e.is_page_asset_linked,
-        n = e.is_pageless_asset_linked,
-        a = e.lifetime_native_ctwa_advertiser,
-        i = e.webclient_l90_ad_creator;
-      return typeof t != "boolean" ||
-        typeof n != "boolean" ||
-        typeof a != "boolean" ||
-        typeof i != "boolean"
-        ? null
-        : {
-            is_page_asset_linked: t,
-            is_pageless_asset_linked: n,
-            lifetime_native_ctwa_advertiser: a,
-            webclient_l90_ad_creator: i,
-          };
-    }
     ((l.generateAdCreationFlowId = e),
       (l.getAdCreationFlowId = s),
       (l.getAndIncrementAdCreationSequenceNumber = u),
@@ -169,9 +142,7 @@ __d(
       (l.clearAdAccountToken = _),
       (l.clearFBIdentity = f),
       (l.getFBIdentity = g),
-      (l.setFbIdentity = h),
-      (l.setNativeAdsMvpEligibility = y),
-      (l.getNativeAdsMvpEligibility = C));
+      (l.setFbIdentity = h));
   },
   98,
 );

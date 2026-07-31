@@ -35,7 +35,7 @@ __d(
         ? (n.resolve({ token: r, type: "success" }), n.promise)
         : (o("WAWebQplFlowWrapper").QPL.markerStart(e),
           o("WAWebQplFlowWrapper").QPL.markerPoint(e, "request_token_start"),
-          f(c)
+          g(c)
             .then(function (e) {
               (e.type === "success"
                 ? o("WAWebUserPrefsCTWA").setAdAccountToken(e.token)
@@ -71,19 +71,34 @@ __d(
       return !1;
     }
     function f(e) {
+      return e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+        ? e.source.errors.some(function (e) {
+            var t = o("WAWebGraphQLServerError").GraphQLErrorCode.cast(e.code);
+            return (
+              t ===
+                o("WAWebGraphQLServerError").GraphQLErrorCode
+                  .BUSINESS_BANHAMMERED ||
+              t ===
+                o("WAWebGraphQLServerError").GraphQLErrorCode
+                  .AD_ACCOUNT_LINKING_DISABLED
+            );
+          })
+        : !1;
+    }
+    function g(e) {
       return o("WAWebCTWABizAccessTokenNonceManager")
         .fetchNonce()
         .then(function (t) {
           switch (t.type) {
             case "error":
             case "recovery-required":
-              return (C(t.type), t);
+              return (b(t.type), t);
             default:
               return (
                 t.type,
-                g(t.nonce).then(function (t) {
+                h(t.nonce).then(function (t) {
                   return t.type === "incorrect-nonce" && e > 0
-                    ? f(e - 1).then(function (e) {
+                    ? g(e - 1).then(function (e) {
                         return e.type === "success" ? e : (e.type, t);
                       })
                     : t;
@@ -92,7 +107,7 @@ __d(
           }
         });
     }
-    function g(e) {
+    function h(e) {
       return (
         o("WAWebCTWABizAccessTokenNonceManager").markNonceAsUsed(),
         o("WASmaxBizCtwaAdAccountGetAccessTokenAndSessionCookiesRPC")
@@ -100,15 +115,15 @@ __d(
           .then(function (e) {
             switch (e.name) {
               case "GetAccessTokenAndSessionCookiesResponseTooManyAttempts":
-                return (C("too-many-attempts"), { type: "too-many-attempts" });
+                return (b("too-many-attempts"), { type: "too-many-attempts" });
               case "GetAccessTokenAndSessionCookiesResponseIncorrectNonce":
-                return (C("incorrect-nonce"), { type: "incorrect-nonce" });
+                return (b("incorrect-nonce"), { type: "incorrect-nonce" });
               case "GetAccessTokenAndSessionCookiesResponseError":
-                return (C("error"), { type: "error" });
+                return (b("error"), { type: "error" });
               default:
                 return (
                   e.name,
-                  y(),
+                  C(),
                   {
                     token: o("WAWebCommonAdsTypes").asAdAccountToken(
                       e.value.accessTokenElementValue,
@@ -122,24 +137,24 @@ __d(
             }
           })
           .catch(function (e) {
-            throw (C("error"), e);
+            throw (b("error"), e);
           })
       );
     }
-    function h(t) {
+    function y(t) {
       (o("WAWebQplFlowWrapper").QPL.markerPoint(e, "request_token_end"),
         o("WAWebQplFlowWrapper").QPL.markerEnd(e, t));
     }
-    function y() {
-      h(2);
+    function C() {
+      y(2);
     }
-    function C(t) {
+    function b(t) {
       (o("WAWebQplFlowWrapper").QPL.markerAnnotate(e, {
         string: { failure_reason: t },
       }),
-        h(3));
+        y(3));
     }
-    function b() {
+    function v() {
       return (
         o(
           "WAWebCTWABizAccessTokenNonceManager",
@@ -152,7 +167,8 @@ __d(
       (l.markTokenAsInvalid = m),
       (l.setToken = p),
       (l.hasGraphQLAuthError = _),
-      (l.getMaximumAdAccountFetchTimeoutSeconds = b));
+      (l.hasTerminalIntegrityDenial = f),
+      (l.getMaximumAdAccountFetchTimeoutSeconds = v));
   },
   98,
 );

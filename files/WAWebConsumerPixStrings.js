@@ -98,58 +98,28 @@ __d(
       );
     }
     function $() {
-      return s._(/*BTDS*/ "Settings");
-    }
-    function P() {
-      return s._(/*BTDS*/ "Delete payment information");
-    }
-    function N() {
-      return s._(/*BTDS*/ "Delete payment information?");
-    }
-    function M() {
-      return s._(
-        /*BTDS*/ "Deleting your payment information will cancel any transactions in progress and delete all your payment data. You can set up payments again the next time you want to send or receive money.",
-      );
-    }
-    function w() {
-      return s._(/*BTDS*/ "Delete");
-    }
-    function A() {
-      return s._(/*BTDS*/ "Payment information deleted");
-    }
-    function F() {
-      return s._(
-        /*BTDS*/ "Your Pix key and payment details have been removed.",
-      );
-    }
-    function O() {
-      return s._(/*BTDS*/ "Done");
-    }
-    function B() {
-      return s._(
-        /*BTDS*/ "You can't delete your payment information because passkey is enabled on your primary device.",
-      );
-    }
-    function W() {
       return s._(/*BTDS*/ "Transactions");
     }
-    function q() {
+    function P() {
       return s._(/*BTDS*/ "See all");
     }
-    function U() {
+    function N() {
       return s._(/*BTDS*/ "Completed");
     }
-    function V() {
+    function M() {
       return s._(/*BTDS*/ "Pending");
     }
-    function H() {
+    function w() {
       return s._(/*BTDS*/ "Failed");
     }
-    function G() {
+    function A() {
       return s._(/*BTDS*/ "You requested");
     }
-    function z() {
+    function F() {
       return s._(/*BTDS*/ "They requested");
+    }
+    function O() {
+      return s._(/*BTDS*/ "No transactions yet");
     }
     ((l.getConsumerPixKeyTypeOptions = e),
       (l.getConsumerAddPixKeyTitle = u),
@@ -174,22 +144,14 @@ __d(
       (l.getConsumerPixDeleteKeyDeletedToast = T),
       (l.getConsumerPixDeleteKeyErrorToast = D),
       (l.getConsumerPixContactsExcludedCount = x),
-      (l.getConsumerPaymentsHomeSettingsHeader = $),
-      (l.getConsumerDeletePaymentInfoRowLabel = P),
-      (l.getConsumerDeletePaymentInfoConfirmTitle = N),
-      (l.getConsumerDeletePaymentInfoConfirmBody = M),
-      (l.getConsumerDeletePaymentInfoConfirmCta = w),
-      (l.getConsumerDeletePaymentInfoSuccessTitle = A),
-      (l.getConsumerDeletePaymentInfoSuccessBody = F),
-      (l.getConsumerDeletePaymentInfoDoneCta = O),
-      (l.getConsumerDeletePaymentInfoPasskeyBlockedToast = B),
-      (l.getConsumerTransactionsHeader = W),
-      (l.getConsumerTransactionsSeeAll = q),
-      (l.getConsumerTransactionStatusCompleted = U),
-      (l.getConsumerTransactionStatusPending = V),
-      (l.getConsumerTransactionStatusFailed = H),
-      (l.getConsumerTransactionStatusRequestedByYou = G),
-      (l.getConsumerTransactionStatusRequestedByThem = z));
+      (l.getConsumerTransactionsHeader = $),
+      (l.getConsumerTransactionsSeeAll = P),
+      (l.getConsumerTransactionStatusCompleted = N),
+      (l.getConsumerTransactionStatusPending = M),
+      (l.getConsumerTransactionStatusFailed = w),
+      (l.getConsumerTransactionStatusRequestedByYou = A),
+      (l.getConsumerTransactionStatusRequestedByThem = F),
+      (l.getConsumerTransactionsEmpty = O));
   },
   226,
 );

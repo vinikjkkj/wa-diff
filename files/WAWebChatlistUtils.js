@@ -19,7 +19,6 @@ __d(
     "WAWebFbtCommon",
     "WAWebFindChatAction",
     "WAWebModalManager",
-    "WAWebNativeAdsMvpEligibilityModel",
     "WAWebOpenBizNativeAdsFlow",
     "WAWebOpenManageAdsInLwi",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -162,24 +161,6 @@ __d(
           lwiEntryPoint: a,
           lwiFlowId: p,
           usesNativeAds: m,
-          lifetimeNativeCTWAAdvertiser: o(
-            "WAWebNativeAdsMvpEligibilityModel",
-          ).lifetimeNativeCTWAAdvertiser(),
-          isPageAssetLinked: o(
-            "WAWebNativeAdsMvpEligibilityModel",
-          ).isPageAssetLinked(),
-          isPagelessAssetLinked: o(
-            "WAWebNativeAdsMvpEligibilityModel",
-          ).isPagelessAssetLinked(),
-          hasAdvertisedViaLWI: o(
-            "WAWebNativeAdsMvpEligibilityModel",
-          ).hasAdvertisedViaLWI(),
-          eligibilityFetchAttempted: o(
-            "WAWebNativeAdsMvpEligibilityModel",
-          ).isEligibilityDataLoaded(),
-          hasEligibilityData: o(
-            "WAWebNativeAdsMvpEligibilityModel",
-          ).hasEligibilityData(),
           hasFacebookPage: u,
           activeAccountInfoType: l === "not-linked" ? "not-linked" : l.type,
           hasCreatedAd: l !== "not-linked" && l.hasCreatedAd,

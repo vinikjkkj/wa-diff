@@ -50,8 +50,6 @@ __d(
       u = 3,
       c = "wa_web_defense_mode_quarantine_extra_pn_check";
     function d() {
-      if (o("WAWebABProps").getABPropConfigValue("defense_mode_available") < 1)
-        return !1;
       var e = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
       return e.defenseMode === "on_standard";
     }

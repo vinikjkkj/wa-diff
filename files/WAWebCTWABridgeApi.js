@@ -3,7 +3,6 @@ __d(
   [
     "WAWebCTWADetectedOutcomeOnboardingStatusUpdateAction",
     "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
-    "WAWebNativeAdsMvpEligibilityAction",
     "WAWebNewCTWASuggestionAction",
     "WAWebQuickPromotionAction",
     "WAWebSmbDataSharingServerUpdateAction",
@@ -34,8 +33,6 @@ __d(
           "WAWebSmbDataSharingServerUpdateAction",
         ).smbDataSharingSettingUpdateAction(e, n);
       },
-      loadedNativeAdsMvpEligibility: o("WAWebNativeAdsMvpEligibilityAction")
-        .loadedNativeAdsMvpEligibility,
       ctwaDetectedOutcomeOnboardingStatusUpdate: function (t) {
         var e = t.onboardingStatus;
         return o(

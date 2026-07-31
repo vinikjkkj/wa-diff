@@ -8,6 +8,7 @@ __d(
     "WAWebApiContact",
     "WAWebBackendErrors",
     "WAWebBaseCachePolicy",
+    "WAWebBizAiAssetResolver",
     "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebChatGetters",
@@ -397,8 +398,21 @@ __d(
         policy: o("WAWebBaseCachePolicy").CACHE_POLICY.NONE,
         delay: 5e3,
       }));
-    var h = new g();
-    l.ProfilePicThumbCollection = h;
+    function h() {
+      var e = new g();
+      return (
+        o("WAWebBizAiAssetResolver").registerAiHubProfileThemeChangeHandler(
+          function (t) {
+            e.getModelsArray().forEach(function (e) {
+              e.id.isAiHub() && e.set({ aiHubProfileIsDarkTheme: t });
+            });
+          },
+        ),
+        e
+      );
+    }
+    var y = h();
+    l.ProfilePicThumbCollection = y;
   },
   98,
 );

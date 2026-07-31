@@ -12,6 +12,7 @@ __d(
         "Lists",
         "KeyboardShortcuts",
         "Notifications",
+        "PaymentsTransactions",
         "PaymentsHome",
         "DirectMessages",
         "GroupMessages",

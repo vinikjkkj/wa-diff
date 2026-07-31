@@ -1,6 +1,6 @@
 __d(
   "WAWebContactManagementGating",
-  ["WAWebABProps", "WAWebPrimaryFeatures"],
+  ["WAWebABProps", "WAWebPrimaryFeatures", "WAWebUserPrefsMeUser", "WAWebWid"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return s();
@@ -36,7 +36,18 @@ __d(
     function f() {
       return c("new_chat_drawer");
     }
-    function g() {
+    function g(e, t, n) {
+      return (
+        e.isRegularUser() &&
+        !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+        !r("WAWebWid").isIAS(e) &&
+        !r("WAWebWid").isCAPISupportAccount(e) &&
+        !r("WAWebWid").isSupportAccount(e) &&
+        !t &&
+        n
+      );
+    }
+    function h() {
       var e = Number.parseInt(
         o("WAWebABProps").getABPropConfigValue(
           "native_contact_companion_nux_learn_more_article_id",
@@ -52,7 +63,8 @@ __d(
       (l.addContactGroupMemberEnabled = p),
       (l.addContactFMXCardEnabled = _),
       (l.addContactNewChatDrawerEnabled = f),
-      (l.getNativeContactLearnMoreArticleId = g));
+      (l.shouldShowAddContactButton = g),
+      (l.getNativeContactLearnMoreArticleId = h));
   },
   98,
 );

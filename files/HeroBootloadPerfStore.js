@@ -7,7 +7,6 @@ __d(
     "filterMap",
     "gkx",
     "performanceNavigationStart",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -141,7 +140,6 @@ __d(
       }
     }
     function y(e) {
-      r("vulture")("IPE8CbyoKswqJlJ9so8NrdZo3AI=");
       var t = new Map();
       (e.heroRelay.forEach(function (n) {
         var a = n.pageletStack,

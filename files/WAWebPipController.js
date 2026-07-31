@@ -6,6 +6,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgRcatUtils",
     "WAWebPipConst",
+    "WAWebVoipGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -15,7 +16,9 @@ __d(
       d,
       m,
       p,
-      _ = (function (t) {
+      _,
+      f,
+      g = (function (t) {
         function n() {
           for (var n, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
             a[i] = arguments[i];
@@ -74,10 +77,19 @@ __d(
                 });
             }),
             (n.openVoipUiPiP = function (t) {
-              if (n.manager != null) {
-                (o("WALogger").LOG(
+              if (!o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
+                o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[PiP] openVoipUiPiP: suppressed, native platform owns the call UI",
+                    ])),
+                );
+                return;
+              }
+              if (n.manager != null) {
+                (o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] openVoipUiPiP: delegating to PiPManager",
                     ])),
                 ),
@@ -85,8 +97,8 @@ __d(
                 return;
               }
               (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] openVoipUiPiP: manager not ready, deferring",
                   ])),
               ),
@@ -95,10 +107,19 @@ __d(
                 }));
             }),
             (n.openVoipUiPiPForCallLink = function () {
+              if (!o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[PiP] openVoipUiPiPForCallLink: suppressed, native platform owns the call UI",
+                    ])),
+                );
+                return;
+              }
               if (n.manager != null) {
                 (o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] openVoipUiPiPForCallLink: delegating to PiPManager",
                     ])),
                 ),
@@ -106,8 +127,8 @@ __d(
                 return;
               }
               (o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] openVoipUiPiPForCallLink: manager not ready, deferring",
                   ])),
               ),
@@ -117,8 +138,8 @@ __d(
             }),
             (n.openVoipUiPiPForOutgoing = function () {
               (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] openVoipUiPiPForOutgoing: opening msg-less PiP for outgoing call",
                   ])),
               ),
@@ -141,8 +162,8 @@ __d(
           (r.register = function (t) {
             if (
               (o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[PiP] PiPManager registered",
                   ])),
               ),
@@ -152,8 +173,8 @@ __d(
               var e = this.__pendingAction;
               ((this.__pendingAction = null),
                 o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[PiP] flushing pending PiP action after manager registration",
                     ])),
                 ),
@@ -197,9 +218,9 @@ __d(
           n
         );
       })(r("WAWebEventEmitter")),
-      f = new _(),
-      g = f;
-    l.default = g;
+      h = new g(),
+      y = h;
+    l.default = y;
   },
   98,
 );

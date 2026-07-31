@@ -145,6 +145,18 @@ __d(
               "clearIncidentFromDB",
             );
           }),
+          (i.countIncidentsInDB = function () {
+            var e = this;
+            return this.guardDB(
+              function () {
+                return t.prototype.countIncidentsInDB.call(e);
+              },
+              function () {
+                return 0;
+              },
+              "countIncidentsInDB",
+            );
+          }),
           (i.clearObjectStore = function (n) {
             var e = this;
             return (

@@ -195,6 +195,7 @@ __d(
       enable_grid_layout_tile_unification: [18066, "bool", !1, !1],
       enable_hybrid_call_links_creation: [15502, "bool", !0, !0],
       enable_hybrid_call_links_join: [15501, "bool", !0, !0],
+      enable_hybrid_open_with_shared_buffer: [34175, "bool", !1, !1],
       enable_hybrid_video_transcoding: [19895, "bool", !1, !1],
       enable_hybrid_video_transcoding_for_valid_mp4: [20070, "bool", !1, !1],
       enable_join_ongoing_call_refactor: [34093, "bool", !1, !1],

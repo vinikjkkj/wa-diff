@@ -127,11 +127,17 @@ __d(
       return "rgba(" + t + "," + n + "," + r + "," + a.toFixed(4) + ")";
     }
     function T(e, t) {
-      var n =
-        t === o("WebBloksTheme").THEME.dark
-          ? e.get("dark_color")
-          : e.get("light_color");
-      return k(n);
+      var n,
+        r,
+        a =
+          t === o("WebBloksTheme").THEME.dark
+            ? (n = e.get("dark_color")) != null
+              ? n
+              : e.get("darkColor")
+            : (r = e.get("light_color")) != null
+              ? r
+              : e.get("lightColor");
+      return k(a);
     }
     function D(e, t) {
       return I(T(e, t));

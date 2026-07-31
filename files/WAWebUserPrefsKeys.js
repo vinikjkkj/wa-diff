@@ -223,7 +223,6 @@ __d(
             AD_ACCOUNT_TOKEN_STRENGTH: "ad_account_token_strength",
             FB_ACCOUNT_TOKEN: "fb_account_token",
             FB_ACCOUNT_BP_ID: "fb_account_bp_id",
-            NATIVE_ADS_MVP_ELIGIBILITY: "native_ads_mvp_eligibility",
             CHATLIST_PANEL_STATE: "chatlist_panel_state",
             CTWA_DATA_SHARING_UPSELL_ACTIVE: "ctwa_data_sharing_upsell_active",
             CTWA_DATA_SHARING_COOL_OFF: "ctwa_data_sharing_cool_off",

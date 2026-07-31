@@ -2,7 +2,6 @@ __d(
   "WAWebDefenseModeUtils",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebClickableLink.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
@@ -37,8 +36,6 @@ __d(
           .DEFENSE_MODE_CLICK_CONTROL_NAME.SILENCE_UNKNOWN_CALLERS,
       };
     function d() {
-      if (o("WAWebABProps").getABPropConfigValue("defense_mode_available") < 1)
-        return !1;
       var e = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
       return e.defenseMode === "on_standard" ? !0 : (e.defenseMode, !1);
     }

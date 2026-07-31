@@ -126,6 +126,7 @@ __d(
       SHOPS_ADS: "shops_ads",
       SHOPS_ADS_BAU_PARITY_MEASUREMENT_OFFSITE:
         "shops_ads_bau_parity_measurement_offsite",
+      STACKED_PRODUCT_A: "stacked_product_a",
       VIEW_OP: "view_op",
       WEB2APP_PARITY_MLX: "web2app_parity_mlx",
     });

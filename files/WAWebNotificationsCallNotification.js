@@ -189,11 +189,13 @@ __d(
             ? !1
             : o(
                 "WAWebMuteCollection",
-              ).MuteCollection.getGlobalCallNotifications();
+              ).MuteCollection.getGlobalCallNotifications() &&
+                o("WAWebVoipGatingUtils").isWebCallingUiEnabled();
         }),
         (a.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
-            ? o("WAWebMuteCollection").MuteCollection.getGlobalCallRingtone()
+            ? o("WAWebMuteCollection").MuteCollection.getGlobalCallRingtone() &&
+                o("WAWebVoipGatingUtils").isWebCallingUiEnabled()
             : !1;
         }),
         (a.playSound = function () {

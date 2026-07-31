@@ -249,50 +249,54 @@ __d(
           }),
           (a.sendPerCustomerDataSharingUpdate = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r, a) {
-                var i = this,
-                  l,
-                  s,
-                  u = this.getCtwaPerCustomerDataSharingMutation({
-                    accountLid: e,
-                    isEnabled: t,
+              function* (e) {
+                var t = this,
+                  r,
+                  a,
+                  i = e.accountLid,
+                  l = e.entryPoint,
+                  s = e.globalDataSharingEntryPoint,
+                  u = e.isEnabled,
+                  c = this.getCtwaPerCustomerDataSharingMutation({
+                    accountLid: i,
+                    isEnabled: u,
                   }),
-                  c = o(
+                  d = o(
                     "WAWebSchemaDataSharing3pdLidV2",
                   ).getDataSharing3pdLidTable(),
-                  d = e.toString(),
-                  p;
+                  p = i.toString(),
+                  _;
                 yield o("WAWebSyncdCoreApi").lockForSync(
                   ["data-sharing-3pd-lid-v2"],
-                  [u],
+                  [c],
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    ((p = yield c.get(d)),
-                      yield i.$CtwaPerCustomerDataSharingSync$p_1(c, d, t));
+                    ((_ = yield d.get(p)),
+                      yield t.$CtwaPerCustomerDataSharingSync$p_1(d, p, u));
                   }),
                 );
-                var _ =
-                  (l = (s = p) == null ? void 0 : s.dataSharing3pdEnabled) !=
+                var f =
+                  (r = (a = _) == null ? void 0 : a.dataSharing3pdEnabled) !=
                   null
-                    ? l
+                    ? r
                     : !0;
                 (m({
-                  actionOptInStatus: t,
-                  currentOptInStatus: _,
-                  entryPoint: r,
-                  globalDataSharingEntryPoint: a,
+                  actionOptInStatus: u,
+                  currentOptInStatus: f,
+                  entryPoint: l,
+                  globalDataSharingEntryPoint: s,
                 }),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "maybeGeneratePerCustomerDataSharingSystemMessage",
                     {
-                      accountLid: d,
-                      perCustomerDataSharingState: t,
-                      entryPoint: r,
-                      globalDataSharingEntryPoint: a,
+                      accountLid: p,
+                      perCustomerDataSharingState: u,
+                      entryPoint: l,
+                      globalDataSharingEntryPoint: s,
                     },
                   ));
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

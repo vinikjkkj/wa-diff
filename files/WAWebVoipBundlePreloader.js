@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebCallCollection",
     "WAWebVoipEventConstants",
+    "WAWebVoipGatingUtils",
     "WAWebVoipUiLoadable",
     "WAWebVoipUiVideoCallLoadable",
     "WAWebVoipUiVideoGroupCallLoadable",
@@ -14,6 +15,7 @@ __d(
     var e, s, u, c;
     function d(t) {
       t != null &&
+        o("WAWebVoipGatingUtils").isWebCallingUiEnabled() &&
         (o("WAWebVoipUiLoadable")
           .requireBundle()
           .catch(function (t) {

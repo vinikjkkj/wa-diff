@@ -5,6 +5,7 @@ __d(
     "WAWebAddOnsBridgeApi",
     "WAWebBizAgentBridgeApi",
     "WAWebBizAiBridgeApi",
+    "WAWebBizAiSettingsFetchOnLaunch",
     "WAWebBlocklistBridgeApi",
     "WAWebBroadcastBridgeApi",
     "WAWebBusinessProfileBridgeApi",
@@ -160,7 +161,10 @@ __d(
               .SharableEventNotificationBridgeApi,
             o("WAWebShortcakeLinkingBridgeApi").ShortcakeLinkingBridgeApi,
           ),
-        ));
+        ),
+        o(
+          "WAWebBizAiSettingsFetchOnLaunch",
+        ).initHandoffRemovalTimingFetchOnLaunch());
     }
     l.setFrontendHandlers = e;
   },

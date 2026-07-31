@@ -615,15 +615,15 @@ __d(
                         m = u.map(function (e) {
                           return r(
                             "WAWebCtwaPerCustomerDataSharingSync",
-                          ).sendPerCustomerDataSharingUpdate(
-                            e,
-                            !0,
-                            o(
+                          ).sendPerCustomerDataSharingUpdate({
+                            accountLid: e,
+                            entryPoint: o(
                               "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
                             ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT
                               .SMB_DATA_SHARING_CONSENT_SCREEN,
-                            l,
-                          );
+                            globalDataSharingEntryPoint: l,
+                            isEnabled: !0,
+                          });
                         }),
                         p = yield (d || (d = n("Promise"))).allSettled(m),
                         _ = p.some(w);

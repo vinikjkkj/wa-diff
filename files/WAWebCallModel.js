@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebCallCollection",
-    "WAWebCallEndTone",
     "WAWebCallNotificationBus",
     "WAWebEnvironment",
     "WAWebEventEmitter",
@@ -115,7 +114,12 @@ __d(
                 this.wasEverConnected &&
                 !o("WAWebVoipCallStateUtils").isCallTerminal(e) &&
                 o("WAWebVoipCallStateUtils").isCallTerminal(t) &&
-                o("WAWebCallEndTone").playCallEndTone(),
+                r("WAWebCallCollection").trigger(
+                  o("WAWebVoipEventConstants").getChangeEvent(
+                    o("WAWebVoipEventConstants").VoipCallCollectionEvents
+                      .END_CALL_TONE,
+                  ),
+                ),
               o("WAWebVoipPerfMeasurement").onCallStateChange(t, this.outgoing),
               o("WAWebVoipCallStateUtils").isCallTerminal(t))
             ) {

@@ -5,6 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebAppTracker",
     "WAWebCallCollection",
+    "WAWebCallEndTone",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
@@ -66,22 +67,33 @@ __d(
       A = null,
       F = null;
     function O() {
-      P ||
+      if (!P) {
+        var e;
         (r("WAWebCallCollection").on(
-          o("WAWebVoipEventConstants").getChangeEvent(
-            o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
+          (e = o("WAWebVoipEventConstants")).getChangeEvent(
+            e.VoipCallCollectionEvents.ACTIVE_CALL,
           ),
           V,
         ),
-        (P = !0));
+          r("WAWebCallCollection").on(
+            e.getChangeEvent(e.VoipCallCollectionEvents.END_CALL_TONE),
+            o("WAWebCallEndTone").playCallEndTone,
+          ),
+          (P = !0));
+      }
     }
     function B() {
+      var e;
       (r("WAWebCallCollection").off(
-        o("WAWebVoipEventConstants").getChangeEvent(
-          o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
+        (e = o("WAWebVoipEventConstants")).getChangeEvent(
+          e.VoipCallCollectionEvents.ACTIVE_CALL,
         ),
         V,
       ),
+        r("WAWebCallCollection").off(
+          e.getChangeEvent(e.VoipCallCollectionEvents.END_CALL_TONE),
+          o("WAWebCallEndTone").playCallEndTone,
+        ),
         (P = !1));
     }
     function W() {
@@ -126,6 +138,10 @@ __d(
     }
     function V() {
       var t = r("WAWebCallCollection").activeCall;
+      if (t != null && !o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
+        B();
+        return;
+      }
       if (t == null) {
         var n, a;
         (o("WAWebVoipQplHelpers").endVoipUiLifecycleQplSuccess(),

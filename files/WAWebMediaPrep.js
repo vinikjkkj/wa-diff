@@ -36,6 +36,7 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterSendMsgAction",
+    "WAWebNullFunc",
     "WAWebRecentStickerCollectionMd",
     "WAWebSchemaChat",
     "WAWebSendMsgChatAction",
@@ -416,9 +417,9 @@ __d(
                 O = e;
                 var t = s.aiProvenance;
                 s.aiProvenancePromise != null &&
-                  (t = yield s.aiProvenancePromise.catch(function () {
-                    return null;
-                  }));
+                  (t = yield s.aiProvenancePromise.catch(
+                    o("WAWebNullFunc").returnNull,
+                  ));
                 var a = e.mediaObject;
                 ((s.earlyUpload = l),
                   (s.isMediaCryptoExpectedForChat = o(

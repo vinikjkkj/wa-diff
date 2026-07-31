@@ -191,7 +191,11 @@ __d(
               var e = o("WAWebWidFactory").createUserLidOrThrow(t);
               yield r(
                 "WAWebCtwaPerCustomerDataSharingSync",
-              ).sendPerCustomerDataSharingUpdate(e, !1, a);
+              ).sendPerCustomerDataSharingUpdate({
+                accountLid: e,
+                entryPoint: a,
+                isEnabled: !1,
+              });
             } catch (e) {
               g();
             } finally {

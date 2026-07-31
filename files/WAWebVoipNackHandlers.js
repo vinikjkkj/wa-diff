@@ -83,55 +83,46 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(t, n) {
-      var a = t != null && o("WAWebUserPrefsMeUser").isMeAccount(t);
-      if (a)
-        return (
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: handleCallOfferNacked: Self nacked for NackGroupCallNotEnabled (427)",
-              ])),
-          ),
+    function L(t) {
+      var n = t != null && o("WAWebUserPrefsMeUser").isMeAccount(t);
+      if (n) {
+        (o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleCallOfferNacked: Self nacked for NackGroupCallNotEnabled (427)",
+            ])),
+        ),
           v(
             s._(
               /*BTDS*/ "Your version of WhatsApp doesn't support group calls.",
             ),
             r("WAWebNoop"),
-          ),
-          n
-        );
+          ));
+        return;
+      }
       o("WALogger").LOG(
         u ||
           (u = babelHelpers.taggedTemplateLiteralLoose([
-            "voip: handleCallOfferNacked: Showing dialog for NackGroupCallNotEnabled (427) for peer, isCompleteNack=",
-            "",
+            "voip: handleCallOfferNacked: Showing dialog for NackGroupCallNotEnabled (427) for peer",
           ])),
-        n,
       );
-      var i =
+      var a =
         t != null
           ? o("WAWebContactCollection").ContactCollection.gadd(t, {
               silent: !0,
             })
           : null;
-      return (
-        v(
-          i != null
-            ? s._(
-                /*BTDS*/ "{name} can't join WhatsApp group calls right now.",
-                [
-                  s._param(
-                    "name",
-                    C.jsx(o("WAWebName.react").Name, { contact: i }),
-                  ),
-                ],
-              )
-            : s._(
-                /*BTDS*/ "This person's version of WhatsApp doesn't support group calls. Ask them to update WhatsApp and try again.",
+      v(
+        a != null
+          ? s._(/*BTDS*/ "{name} can't join WhatsApp group calls right now.", [
+              s._param(
+                "name",
+                C.jsx(o("WAWebName.react").Name, { contact: a }),
               ),
-        ),
-        !1
+            ])
+          : s._(
+              /*BTDS*/ "This person's version of WhatsApp doesn't support group calls. Ask them to update WhatsApp and try again.",
+            ),
       );
     }
     function E(e) {
@@ -156,9 +147,8 @@ __d(
             default:
               break;
           }
-        var a = e.isCompleteNack;
-        for (var i of e.errors)
-          switch (i.errorCode) {
+        for (var a of e.errors)
+          switch (a.errorCode) {
             case b.NackDuplicateLinkedGroupCall:
               (o("WALogger").LOG(
                 c ||
@@ -175,17 +165,17 @@ __d(
                 ));
               break;
             case b.NackGroupCallNotEnabled: {
-              a = L(i.errorJid, a);
+              L(a.errorJid);
               break;
             }
             default:
               break;
           }
-        if (a) {
+        if (e.isFatalNack) {
           (o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: Complete nack received, ending call",
+                "voip: Fatal offer nack received, ending call",
               ])),
           ),
             S());
@@ -194,7 +184,7 @@ __d(
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: Partial nack received, call continuing",
+              "voip: Offer nack received, call continuing",
             ])),
         );
       }

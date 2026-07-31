@@ -183,12 +183,43 @@ __d(
         }),
         (a.persistLog = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            (yield this.initDB(), yield this.persistEventToDB(e));
+            var t = r("RSTConfig").MAX_INCIDENT_COUNT;
+            (t != null && (yield this.countIncidentsInDB()) >= t) ||
+              (yield this.persistEventToDB(e));
           });
           function t(t) {
             return e.apply(this, arguments);
           }
           return t;
+        })()),
+        (a.countIncidentsInDB = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = this;
+            return (
+              yield this.initDB(),
+              new (e || (e = n("Promise")))(function (e, n) {
+                if (t.$1 == null) {
+                  n("indexed db instance is not initialized yet");
+                  return;
+                }
+                var o = t.$1.transaction(
+                    [r("RSTConfig").INDEX_DB_TABLE_NAME],
+                    "readonly",
+                  ),
+                  a = o.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
+                  i = a.count();
+                ((i.onsuccess = function () {
+                  e(i.result);
+                }),
+                  t.$9(i, n, "countIncidentsInDB"),
+                  t.$10(o, n, "countIncidentsInDB"));
+              })
+            );
+          });
+          function o() {
+            return t.apply(this, arguments);
+          }
+          return o;
         })()),
         (a.persistEventToDB = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {

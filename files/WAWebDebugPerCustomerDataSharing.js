@@ -35,12 +35,13 @@ __d(
           var n = o("WAWebWidFactory").createUserLidOrThrow(e);
           return r(
             "WAWebCtwaPerCustomerDataSharingSync",
-          ).sendPerCustomerDataSharingUpdate(
-            n,
-            t,
-            o("WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint")
-              .SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT.SYNCD_MUTATION,
-          );
+          ).sendPerCustomerDataSharingUpdate({
+            accountLid: n,
+            entryPoint: o(
+              "WAWebWamEnumSmbPerCustomerDataSharingControlEntryPoint",
+            ).SMB_PER_CUSTOMER_DATA_SHARING_CONTROL_ENTRY_POINT.SYNCD_MUTATION,
+            isEnabled: t,
+          });
         })),
         S.apply(this, arguments)
       );
