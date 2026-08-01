@@ -1,11 +1,17 @@
 __d(
   "WAWebWindowsMediaFilesHelpers",
   [
+    "WAAbortError",
     "WALogger",
+    "WAStreamAsyncIterator",
     "WAWebFileSaver",
+    "WAWebFileSaverDownloadData",
     "WAWebFilenameManager",
+    "WAWebODS",
+    "WAWebWindowsGatingUtils",
     "asyncToGeneratorRuntime",
     "cr:17219",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -38,8 +44,15 @@ __d(
       N,
       M,
       w,
-      A;
-    function F(e) {
+      A,
+      F,
+      O = 0,
+      B = 2 * 1024 * 1024 * 1024,
+      W = 0;
+    function q() {
+      return W++;
+    }
+    function U(e) {
       var t = e.mediaData;
       if (t == null) return null;
       var n = t.filehash;
@@ -47,28 +60,37 @@ __d(
       var r = o("WAWebFilenameManager").getDefaultName(e);
       return { mediaData: t, mediaFileHash: n, suggestedFileName: r };
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
+    function V(e, t) {
+      return H.apply(this, arguments);
     }
-    function B() {
+    function H() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a;
-          o("WALogger").LOG(
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i;
+          (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "[openMediaFile] Starting to open media file for msg ",
                 "",
               ])),
             t.id.toString(),
-          );
-          var i =
+          ),
+            (O += 1));
+          var l = O > 1;
+          l
+            ? r("WAWebODS").incr(
+                "web.hybrid.bridge.media_files.open_with.attempt.repeat",
+              )
+            : r("WAWebODS").incr(
+                "web.hybrid.bridge.media_files.open_with.attempt.first",
+              );
+          var _ =
               n("cr:17219") == null ||
-              (a = n("cr:17219").getWindowsBridge()) == null
+              (i = n("cr:17219").getWindowsBridge()) == null
                 ? void 0
-                : a.mediaFiles,
-            l = F(t);
-          if (l == null) {
+                : i.mediaFiles,
+            f = U(t);
+          if (f == null) {
             o("WALogger").ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -77,10 +99,10 @@ __d(
                 ])),
               t.id.toString(),
             );
-            var _ = new Error("Failed to get media info or media files bridge");
-            throw (_.stack, _);
+            var g = new Error("Failed to get media info or media files bridge");
+            throw (g.stack, g);
           }
-          if (i == null) {
+          if (_ == null) {
             o("WALogger").ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,67 +111,81 @@ __d(
                 ])),
               t.id.toString(),
             );
-            var f = new Error("Failed to get media info or media files bridge");
-            throw (f.stack, f);
+            var h = new Error("Failed to get media info or media files bridge");
+            throw (h.stack, h);
           }
-          var g = l.mediaFileHash,
-            h = l.suggestedFileName;
-          (o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[openMediaFile] Ensuring media file is saved for msg ",
-                "",
-              ])),
-            t.id.toString(),
-          ),
-            yield U(t),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[openMediaFile] opening cached file for msg ",
+          var y = f.mediaFileHash,
+            C = f.suggestedFileName;
+          try {
+            (o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[openMediaFile] Ensuring media file is saved for msg ",
                   "",
                 ])),
               t.id.toString(),
             ),
-            r == null || r(t));
-          var y = yield i.tryOpenCachedMediaFile(g, h);
-          if (!y) {
-            o("WALogger").ERROR(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[openMediaFile] Failed to open cached media file for msg ",
+              yield j(t),
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[openMediaFile] opening cached file for msg ",
+                    "",
+                  ])),
+                t.id.toString(),
+              ),
+              a == null || a(t));
+            var b = yield _.tryOpenCachedMediaFile(y, C);
+            if (!b) {
+              o("WALogger").ERROR(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[openMediaFile] Failed to open cached media file for msg ",
+                    "",
+                  ])),
+                t.id.toString(),
+              );
+              var v = new Error("Failed to open cached media file");
+              throw (v.stack, v);
+            }
+            (o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[openMediaFile] Successfully opened media file for msg ",
                   "",
                 ])),
               t.id.toString(),
+            ),
+              l &&
+                r("WAWebODS").incr(
+                  "web.hybrid.bridge.media_files.open_with.repeat_ok",
+                ));
+          } catch (e) {
+            throw (
+              l &&
+                r("WAWebODS").incr(
+                  "web.hybrid.bridge.media_files.open_with.repeat_fail",
+                ),
+              e
             );
-            var C = new Error("Failed to open cached media file");
-            throw (C.stack, C);
           }
-          o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "[openMediaFile] Successfully opened media file for msg ",
-                "",
-              ])),
-            t.id.toString(),
-          );
         })),
-        B.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function G(e) {
+      return z.apply(this, arguments);
     }
-    function q() {
+    function z() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             r =
               n("cr:17219") == null ||
               (t = n("cr:17219").getWindowsBridge()) == null
                 ? void 0
                 : t.mediaFiles,
-            a = F(e);
+            a = U(e);
           if (a == null || r == null) return !1;
           var i = a.mediaFileHash,
             l = a.suggestedFileName,
@@ -168,16 +204,16 @@ __d(
             s
           );
         })),
-        q.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function U(e, t) {
-      return V.apply(this, arguments);
+    function j(e, t) {
+      return K.apply(this, arguments);
     }
-    function V() {
+    function K() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r;
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var a;
           (t === void 0 && (t = !1),
             o("WALogger").LOG(
               f ||
@@ -187,13 +223,13 @@ __d(
                 ])),
               e.id.toString(),
             ));
-          var a =
+          var i =
               n("cr:17219") == null ||
-              (r = n("cr:17219").getWindowsBridge()) == null
+              (a = n("cr:17219").getWindowsBridge()) == null
                 ? void 0
-                : r.mediaFiles,
-            i = F(e);
-          if (i == null) {
+                : a.mediaFiles,
+            l = U(e);
+          if (l == null) {
             o("WALogger").ERROR(
               g ||
                 (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -202,10 +238,10 @@ __d(
                 ])),
               e.id.toString(),
             );
-            var l = new Error("Failed to get media info or media files bridge");
-            throw (l.stack, l);
+            var s = new Error("Failed to get media info or media files bridge");
+            throw (s.stack, s);
           }
-          if (a == null) {
+          if (i == null) {
             o("WALogger").ERROR(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -214,12 +250,12 @@ __d(
                 ])),
               e.id.toString(),
             );
-            var s = new Error("Failed to get media info or media files bridge");
-            throw (s.stack, s);
+            var u = new Error("Failed to get media info or media files bridge");
+            throw (u.stack, u);
           }
-          var u = i.mediaData,
-            c = i.mediaFileHash,
-            d = i.suggestedFileName;
+          var c = l.mediaData,
+            d = l.mediaFileHash,
+            m = l.suggestedFileName;
           o("WALogger").LOG(
             y ||
               (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -228,7 +264,7 @@ __d(
               ])),
             e.id.toString(),
           );
-          var m = yield a.isCachedMediaFileExist(c, d);
+          var p = yield i.isCachedMediaFileExist(d, m);
           o("WALogger").LOG(
             C ||
               (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -237,96 +273,256 @@ __d(
                 "",
               ])),
             e.id.toString(),
-            m ? "exists" : "does not exist",
+            p ? "exists" : "does not exist",
           );
-          var p = null;
-          (m ||
-            (o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "[saveMediaFile] file missing, downloading msg ",
-                  "",
-                ])),
-              e.id.toString(),
-            ),
-            yield o("WAWebFileSaver").FileSaver.downloadAsync(
-              e,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, t, n) {
-                    ((p = e), yield a.prepareForMediaFileSaving(e, t, n));
-                  },
-                );
-                return function (t, n, r) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              t,
-            ),
-            o("WALogger").LOG(
-              v ||
-                (v = babelHelpers.taggedTemplateLiteralLoose([
-                  "[saveMediaFile] Download preparation completed for msg ",
-                  "",
-                ])),
-              e.id.toString(),
-            )),
-            u.trigger("mediaFileSavingStarted"),
-            p != null &&
-              p !== "" &&
-              (o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "[saveMediaFile] waiting for download for msg ",
-                    "",
-                  ])),
-                e.id.toString(),
-              ),
-              yield a.waitTillMediaDownloadCompletes(p != null ? p : "", d, c),
+          var _ = (function () {
+            var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               o("WALogger").LOG(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "[saveMediaFile] Media download completed for msg ",
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "[saveMediaFile] file missing, downloading msg ",
                     "",
                   ])),
                 e.id.toString(),
-              )),
-            o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "[saveMediaFile] verifying file after save for msg ",
-                  "",
-                ])),
-              e.id.toString(),
-            ));
-          var _ = yield a.isCachedMediaFileExist(c, d);
-          if (!_) {
+              );
+              var r = null;
+              (yield o("WAWebFileSaver").FileSaver.downloadAsync(
+                e,
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e, t, n) {
+                      ((r = e), yield i.prepareForMediaFileSaving(e, t, n));
+                    },
+                  );
+                  return function (t, n, r) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+                t,
+              ),
+                o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "[saveMediaFile] Download preparation completed for msg ",
+                      "",
+                    ])),
+                  e.id.toString(),
+                ));
+              var a = r;
+              a != null &&
+                a !== "" &&
+                (o("WALogger").LOG(
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                      "[saveMediaFile] waiting for download for msg ",
+                      "",
+                    ])),
+                  e.id.toString(),
+                ),
+                yield i.waitTillMediaDownloadCompletes(a, m, d),
+                o("WALogger").LOG(
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                      "[saveMediaFile] Media download completed for msg ",
+                      "",
+                    ])),
+                  e.id.toString(),
+                ));
+            });
+            return function () {
+              return r.apply(this, arguments);
+            };
+          })();
+          c.trigger("mediaFileSavingStarted");
+          var T = (function () {
+              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  var n = yield o(
+                      "WAWebFileSaverDownloadData",
+                    ).getMsgDownloadData(e, t),
+                    r = n.blob;
+                  if (r.size > B) return "oversize";
+                  var a = q(),
+                    l = yield i.requestSharedBufferForMediaFile == null
+                      ? void 0
+                      : i.requestSharedBufferForMediaFile(a, r.size);
+                  if (l == null) return "unsupported";
+                  yield Q(l, r);
+                  var s = yield i.saveMediaFileFromSharedBuffer == null
+                    ? void 0
+                    : i.saveMediaFileFromSharedBuffer(a, d, m);
+                  if (s !== !0) {
+                    var u = new Error(
+                      "saveMediaFileFromSharedBuffer did not succeed",
+                    );
+                    throw (u.stack, u);
+                  }
+                  return "ok";
+                },
+              );
+              return function () {
+                return r.apply(this, arguments);
+              };
+            })(),
+            D = (function () {
+              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  try {
+                    e: {
+                      var t = yield T();
+                      if (t === "oversize") {
+                        (r("WAWebODS").incr(
+                          "web.hybrid.bridge.media_files.open_with.oversize_routed_post_fetch",
+                        ),
+                          yield _());
+                        break e;
+                      }
+                      if (t === "unsupported") {
+                        (r("WAWebODS").incr(
+                          "web.hybrid.bridge.media_files.open_with.unsupported_routed",
+                        ),
+                          yield _());
+                        break e;
+                      }
+                      if (t === "ok") {
+                        r("WAWebODS").incr(
+                          "web.hybrid.bridge.media_files.open_with.buffer_transfer_ok",
+                        );
+                        break e;
+                      }
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          t,
+                      );
+                    }
+                  } catch (t) {
+                    var n = r("getErrorSafe")(t);
+                    if (n.name === o("WAAbortError").ABORT_ERROR) throw n;
+                    (o("WALogger")
+                      .ERROR(
+                        L ||
+                          (L = babelHelpers.taggedTemplateLiteralLoose([
+                            "[saveMediaFile] shared-buffer open-with failed for msg ",
+                            "",
+                          ])),
+                        e.id.toString(),
+                      )
+                      .catching(n)
+                      .sendLogs("open-with-shared-buffer-failed"),
+                      r("WAWebODS").incr(
+                        "web.hybrid.bridge.media_files.open_with.fallback_used",
+                      ));
+                    try {
+                      yield _();
+                    } catch (e) {
+                      throw (
+                        r("WAWebODS").incr(
+                          "web.hybrid.bridge.media_files.open_with.fallback_failed",
+                        ),
+                        e
+                      );
+                    }
+                  }
+                },
+              );
+              return function () {
+                return t.apply(this, arguments);
+              };
+            })();
+          if (!p) {
+            var x = o(
+                "WAWebWindowsGatingUtils",
+              ).isOpenWithSharedBufferEnabled(),
+              $ = c.size != null && c.size <= B;
+            x && $
+              ? yield D()
+              : (x &&
+                  r("WAWebODS").incr(
+                    "web.hybrid.bridge.media_files.open_with.oversize_routed_pre_fetch",
+                  ),
+                yield _());
+          }
+          o("WALogger").LOG(
+            E ||
+              (E = babelHelpers.taggedTemplateLiteralLoose([
+                "[saveMediaFile] verifying file after save for msg ",
+                "",
+              ])),
+            e.id.toString(),
+          );
+          var P = yield i.isCachedMediaFileExist(d, m);
+          if (!P) {
             (o("WALogger").ERROR(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              k ||
+                (k = babelHelpers.taggedTemplateLiteralLoose([
                   "[saveMediaFile] file missing after save for msg ",
                   "",
                 ])),
               e.id.toString(),
             ),
-              u.trigger("mediaFileSavingFailed"));
-            var I = new Error("Failed to save media file");
-            throw (I.stack, I);
+              c.trigger("mediaFileSavingFailed"));
+            var N = new Error("Failed to save media file");
+            throw (N.stack, N);
           }
-          (u.trigger("mediaFileSavedOnFileSystem"),
+          (c.trigger("mediaFileSavedOnFileSystem"),
             o("WALogger").LOG(
-              k ||
-                (k = babelHelpers.taggedTemplateLiteralLoose([
+              I ||
+                (I = babelHelpers.taggedTemplateLiteralLoose([
                   "[saveMediaFile] Successfully saved media file for msg ",
                   "",
                 ])),
               e.id.toString(),
             ));
         })),
-        V.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
-    function H() {
+    function Q(e, t) {
+      return X.apply(this, arguments);
+    }
+    function X() {
+      return (
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (e.byteLength !== t.size) {
+            var n = new Error(
+              "Shared buffer size " +
+                e.byteLength +
+                " does not match blob size " +
+                t.size,
+            );
+            throw (n.stack, n);
+          }
+          var r = new Uint8Array(e),
+            a = 0,
+            i = !1,
+            l = !1,
+            s;
+          try {
+            for (
+              var u = babelHelpers.asyncIterator(
+                  o("WAStreamAsyncIterator").streamAsyncIterator(t.stream()),
+                ),
+                c;
+              (i = !(c = yield u.next()).done);
+              i = !1
+            ) {
+              var d = c.value;
+              d != null && (r.set(d, a), (a += d.byteLength));
+            }
+          } catch (e) {
+            ((l = !0), (s = e));
+          } finally {
+            try {
+              i && u.return != null && (yield u.return());
+            } finally {
+              if (l) throw s;
+            }
+          }
+        })),
+        X.apply(this, arguments)
+      );
+    }
+    function Y() {
       var e,
         t =
           n("cr:17219") == null ||
@@ -335,17 +531,17 @@ __d(
             : e.mediaFiles;
       return t != null;
     }
-    function G(e) {
-      return z.apply(this, arguments);
+    function J(e) {
+      return Z.apply(this, arguments);
     }
-    function z() {
+    function Z() {
       return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           if (e.length === 0) {
             o("WALogger").LOG(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
+              T ||
+                (T = babelHelpers.taggedTemplateLiteralLoose([
                   "[selectFolderAndSaveFiles] No media infos to save",
                 ])),
             );
@@ -358,8 +554,8 @@ __d(
               : t.mediaFiles;
           if (r == null) {
             o("WALogger").ERROR(
-              T ||
-                (T = babelHelpers.taggedTemplateLiteralLoose([
+              D ||
+                (D = babelHelpers.taggedTemplateLiteralLoose([
                   "[selectFolderAndSaveFiles] Media files bridge is null",
                 ])),
             );
@@ -369,8 +565,8 @@ __d(
           var i = yield r.selectFolderForBulkMediaSaving();
           if (i == null || i === "") {
             o("WALogger").LOG(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
+              x ||
+                (x = babelHelpers.taggedTemplateLiteralLoose([
                   "[selectFolderAndSaveFiles] no folder selected, cancelled",
                 ])),
             );
@@ -395,10 +591,10 @@ __d(
             })(),
           );
         })),
-        z.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function j() {
+    function ee() {
       var e,
         t =
           n("cr:17219") == null ||
@@ -407,16 +603,16 @@ __d(
             : e.mediaFiles;
       return t != null;
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    function te(e) {
+      return ne.apply(this, arguments);
     }
-    function Q() {
+    function ne() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           o("WALogger").LOG(
-            x ||
-              (x = babelHelpers.taggedTemplateLiteralLoose([
+            $ ||
+              ($ = babelHelpers.taggedTemplateLiteralLoose([
                 "[copyMediaFile] Starting to copy media file for msg ",
                 "",
               ])),
@@ -427,11 +623,11 @@ __d(
               (t = n("cr:17219").getWindowsBridge()) == null
                 ? void 0
                 : t.mediaFiles,
-            a = F(e);
+            a = U(e);
           if (a == null) {
             o("WALogger").ERROR(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
                   "[copyMediaFile] Failed to get media info for msg ",
                   "",
                 ])),
@@ -442,8 +638,8 @@ __d(
           }
           if (r == null) {
             o("WALogger").ERROR(
-              P ||
-                (P = babelHelpers.taggedTemplateLiteralLoose([
+              N ||
+                (N = babelHelpers.taggedTemplateLiteralLoose([
                   "[copyMediaFile] Media files bridge is null for msg ",
                   "",
                 ])),
@@ -455,17 +651,17 @@ __d(
           var s = a.mediaFileHash,
             u = a.suggestedFileName;
           (o("WALogger").LOG(
-            N ||
-              (N = babelHelpers.taggedTemplateLiteralLoose([
+            M ||
+              (M = babelHelpers.taggedTemplateLiteralLoose([
                 "[copyMediaFile] Ensuring media file is saved for msg ",
                 "",
               ])),
             e.id.toString(),
           ),
-            yield U(e),
+            yield j(e),
             o("WALogger").LOG(
-              M ||
-                (M = babelHelpers.taggedTemplateLiteralLoose([
+              w ||
+                (w = babelHelpers.taggedTemplateLiteralLoose([
                   "[copyMediaFile] copying cached file for msg ",
                   "",
                 ])),
@@ -474,8 +670,8 @@ __d(
           var c = yield r.tryCopyCachedMediaFile(s);
           if (!c) {
             o("WALogger").ERROR(
-              w ||
-                (w = babelHelpers.taggedTemplateLiteralLoose([
+              A ||
+                (A = babelHelpers.taggedTemplateLiteralLoose([
                   "[copyMediaFile] Failed to copy cached media file for msg ",
                   "",
                 ])),
@@ -486,8 +682,8 @@ __d(
           }
           return (
             o("WALogger").LOG(
-              A ||
-                (A = babelHelpers.taggedTemplateLiteralLoose([
+              F ||
+                (F = babelHelpers.taggedTemplateLiteralLoose([
                   "[copyMediaFile] Successfully copied media file for msg ",
                   "",
                 ])),
@@ -496,17 +692,18 @@ __d(
             u
           );
         })),
-        Q.apply(this, arguments)
+        ne.apply(this, arguments)
       );
     }
-    ((l.getMediaFileInfo = F),
-      (l.openMediaFile = O),
-      (l.isMediaFileSaved = W),
-      (l.saveMediaFile = U),
-      (l.supportsBulkMediaSaving = H),
-      (l.selectFolderAndSaveFiles = G),
-      (l.supportsMediaFileCopy = j),
-      (l.copyMediaFile = K));
+    ((l.getMediaFileInfo = U),
+      (l.openMediaFile = V),
+      (l.isMediaFileSaved = G),
+      (l.saveMediaFile = j),
+      (l.copyBlobIntoSharedBuffer = Q),
+      (l.supportsBulkMediaSaving = Y),
+      (l.selectFolderAndSaveFiles = J),
+      (l.supportsMediaFileCopy = ee),
+      (l.copyMediaFile = te));
   },
   98,
 );

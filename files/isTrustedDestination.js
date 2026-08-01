@@ -109,7 +109,9 @@ __d(
                   r("isSecureOculusDotComURI")(t) ||
                   r("isMetaDotComURI")(t)
                 : g()
-                  ? r("isBarcelonaURI")(t) || r("isMetaAIURI")(t)
+                  ? r("isBarcelonaURI")(t) ||
+                    r("isInstagramURI")(t) ||
+                    r("isMetaAIURI")(t)
                   : h()
                     ? r("isBarcelonaURI")(t) || r("isInstagramURI")(t)
                     : y()

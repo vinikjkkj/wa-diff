@@ -4,6 +4,7 @@ __d(
     "WAWebUprPaymentMethodLabels",
     "WDSIconIcAccountBalance.react",
     "WDSIconIcAccountBalanceWallet.react",
+    "WDSIconIcPhoneAndroid.react",
     "WDSIconIcQrCode.react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,11 +14,13 @@ __d(
     }
     function s(e) {
       return r(
-        e === "digital_wallet" || e === "mobile_money"
+        e === "digital_wallet"
           ? "WDSIconIcAccountBalanceWallet.react"
-          : e === "qr_code"
-            ? "WDSIconIcQrCode.react"
-            : "WDSIconIcAccountBalance.react",
+          : e === "mobile_money"
+            ? "WDSIconIcPhoneAndroid.react"
+            : e === "qr_code"
+              ? "WDSIconIcQrCode.react"
+              : "WDSIconIcAccountBalance.react",
       );
     }
     l.getUprMethodRenderData = e;

@@ -311,13 +311,18 @@ __d(
         errorMessage: null,
       };
     }
-    function P(e, t, n, r, o) {
+    function P(e) {
+      var t = e.bootstrapState,
+        n = e.bundleType,
+        r = e.collection,
+        o = e.direction,
+        a = e.mdSessionId;
       return {
-        collection: e,
-        direction: t,
+        collection: r,
+        direction: o,
         bundleType: n,
-        bootstrapState: r,
-        mdSessionId: o,
+        bootstrapState: t,
+        mdSessionId: a,
         version: null,
         bundleSize: null,
         keyId: null,

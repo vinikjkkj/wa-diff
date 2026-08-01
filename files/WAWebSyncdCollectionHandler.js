@@ -1285,13 +1285,13 @@ __d(
             );
             var d = !1,
               m = yield o("WAWebSyncdWamReportingUtils").getShortMdSessionId(),
-              p = o("WAWebSyncdWamReportingUtils").createSyncdWamAccumulator(
-                e,
-                "incoming",
-                "snapshot",
-                s,
-                m,
-              );
+              p = o("WAWebSyncdWamReportingUtils").createSyncdWamAccumulator({
+                bootstrapState: s,
+                bundleType: "snapshot",
+                collection: e,
+                direction: "incoming",
+                mdSessionId: m,
+              });
             ((p.version = t.version.version),
               (p.bundleSize = t.records.length),
               (p.keyId =
@@ -1950,13 +1950,13 @@ __d(
               v = b.measuredComputeLtHashAndValidatePatch,
               S = b.measuredTryDecryptPatch,
               R = yield o("WAWebSyncdWamReportingUtils").getShortMdSessionId(),
-              L = o("WAWebSyncdWamReportingUtils").createSyncdWamAccumulator(
-                e,
-                "incoming",
-                "patch",
-                l,
-                R,
-              );
+              L = o("WAWebSyncdWamReportingUtils").createSyncdWamAccumulator({
+                bootstrapState: l,
+                bundleType: "patch",
+                collection: e,
+                direction: "incoming",
+                mdSessionId: R,
+              });
             ((L.version = t.version.version),
               (L.bundleSize = t.mutations.length),
               (L.keyId =

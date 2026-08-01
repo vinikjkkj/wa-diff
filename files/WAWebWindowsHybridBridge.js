@@ -124,7 +124,7 @@ __d(
         h != null &&
           (this.mediaFiles = new (o(
             "WAWebWindowsHybridBridgeMediaFiles",
-          ).WAWebWindowsHybridBridgeMediaFiles)(h));
+          ).WAWebWindowsHybridBridgeMediaFiles)(h, e));
         var y = e.hostObjects.SharesheetBridge;
         y != null &&
           (this.sharesheetBridge = new (o(

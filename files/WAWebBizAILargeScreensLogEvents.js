@@ -608,6 +608,58 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.API,
       });
     }
+    function ue() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.AI_HOME,
+        userActionTarget: "connections_entry_point",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function ce() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.AI_HOME,
+        userActionTarget: "connections_entry_point",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function de(e, t) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        extraAttributes: { connected_partners: e, success: t },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .PARTNERS_CONNECTIONS_HUB,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function me(e) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        extraAttributes: { partner_id: e },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .PARTNERS_CONNECTIONS_HUB,
+        userActionTarget: "partner_item",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function pe() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.PARTNER_MANAGEMENT,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
     ((l.logBizAiHubDeeplinkClick = e),
       (l.logViewAIHome = s),
       (l.logClickAIHomeSection = u),
@@ -663,7 +715,12 @@ __d(
       (l.logViewGoogleDriveDrawer = ae),
       (l.logClickGoogleDriveDelete = ie),
       (l.logApiGoogleDriveFetchFiles = le),
-      (l.logApiGoogleDriveDeleteFile = se));
+      (l.logApiGoogleDriveDeleteFile = se),
+      (l.logViewConnectionsEntryPoint = ue),
+      (l.logClickConnectionsEntryPoint = ce),
+      (l.logViewPartnersHub = de),
+      (l.logClickPartnerRow = me),
+      (l.logViewPartnerManagement = pe));
   },
   98,
 );

@@ -28,11 +28,20 @@ __d(
         o("WAWebABProps").getABPropConfigValue("enable_fsa_save_as") === !0
       );
     }
+    function m() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "enable_hybrid_open_with_shared_buffer",
+        ) === !0
+      );
+    }
     ((l.isWindowsHybridEnabled = e),
       (l.isHybridNuxBeta50Enabled = s),
       (l.isWindowsShareSheetEnabled = u),
       (l.hasFsaSaveFilePickerSupport = c),
-      (l.isFsaSaveAsEnabled = d));
+      (l.isFsaSaveAsEnabled = d),
+      (l.isOpenWithSharedBufferEnabled = m));
   },
   98,
 );

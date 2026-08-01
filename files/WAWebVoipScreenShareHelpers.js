@@ -58,58 +58,64 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
-            i = t.closeModal,
-            l = t.isCallLink,
-            u = l === void 0 ? !1 : l,
-            c = t.isSelfScreenSharing,
-            m = t.isVideoCall,
-            _ = t.isVideoMuted,
-            f = t.onVideoMuteToggle,
-            g = t.openModal,
-            h = t.targetWindow;
-          if (!m) {
-            if (u) {
-              g(
+            i,
+            l,
+            u = t.closeModal,
+            c = t.isCallLink,
+            m = c === void 0 ? !1 : c,
+            _ = t.isSelfScreenSharing,
+            f = t.isVideoCall,
+            g = t.isVideoMuted,
+            h = t.onVideoMuteToggle,
+            C = t.openModal,
+            v = t.targetWindow;
+          if (!f) {
+            if (m) {
+              C(
                 p.jsx(
                   o("WAWebVoipScreenShareConfirmPopup.react")
                     .WAWebVoipScreenShareConfirmPopup,
                   {
-                    closeModal: i,
+                    closeModal: u,
                     hideCancel: !0,
                     message: s._(
                       /*BTDS*/ "You can only share your screen in video calls.",
                     ),
                     okText: s._(/*BTDS*/ "OK"),
-                    onOK: i,
+                    onOK: u,
                   },
                 ),
               );
               return;
             }
-            g(
+            C(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
-                { closeModal: i },
+                { closeModal: u },
               ),
             );
             return;
           }
-          if (c) {
+          if (_) {
             yield b();
             return;
           }
-          if (
-            ((a = r("WAWebCallCollection").activeCall) == null ||
-              a.setSelfScreenShareRejected(!1),
-            _)
-          ) {
-            g(
+          (a = r("WAWebCallCollection").activeCall) == null ||
+            a.setSelfScreenShareRejected(!1);
+          var S = !(
+            (i =
+              (l = r("WAWebCallCollection").activeCall) == null
+                ? void 0
+                : l.isDualStreamScreenShareEnabled()) != null && i
+          );
+          if (g && S) {
+            C(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
                 {
-                  closeModal: i,
+                  closeModal: u,
                   message: s._(
                     /*BTDS*/ "Turn on your video to share your screen.",
                   ),
@@ -117,8 +123,8 @@ __d(
                   onOK: n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
                       try {
-                        (yield (d || (d = n("Promise"))).resolve(f()),
-                          yield y(h));
+                        (yield (d || (d = n("Promise"))).resolve(h()),
+                          yield y(v));
                       } catch (t) {
                         o("WALogger")
                           .ERROR(
@@ -136,7 +142,7 @@ __d(
             );
             return;
           }
-          yield y(h);
+          yield y(v);
         })),
         h.apply(this, arguments)
       );

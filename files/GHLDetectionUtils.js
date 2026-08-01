@@ -6,16 +6,7 @@ __d(
     function e() {
       return r("gkx")("5415")
         ? !0
-        : typeof JSON.parse == "function" &&
-            !(
-              JSON.parse.toString === JSON.parse.toString.toString &&
-              o("GHLDetectionUtilsPreludeSafe").normalize(
-                JSON.parse.toString(),
-              ) === "function parse() { [native code] }" &&
-              o("GHLDetectionUtilsPreludeSafe").normalize(
-                JSON.parse.toString.toString(),
-              ) === "function toString() { [native code] }"
-            );
+        : o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed();
     }
     function s(e) {
       return r("gkx")("8869")

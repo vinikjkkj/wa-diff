@@ -61,6 +61,8 @@ __d(
         ENTER_NUMBER_IMPRESSION: "enter_number_impression",
         ENTER_NUMBER_NEXT_CLICKED: "enter_number_next_clicked",
         ENTER_NUMBER_ERROR: "enter_number_error",
+        ENTER_NUMBER_SERVER_ERROR_RESPONSE:
+          "enter_number_server_error_response",
         ENTER_NUMBER_COUNTRY_PICKER_OPENED:
           "enter_number_country_picker_opened",
         ENTER_NUMBER_COUNTRY_PICKER_SELECTED:
@@ -76,6 +78,7 @@ __d(
         ENTER_CODE_WRONG_NUMBER_CLICKED: "enter_code_wrong_number_clicked",
         ENTER_CODE_RESEND_CLICKED: "enter_code_resend_clicked",
         ENTER_CODE_ERROR: "enter_code_error",
+        ENTER_CODE_SERVER_ERROR_RESPONSE: "enter_code_server_error_response",
         ENTER_CODE_REGISTRATION_SUCCESS: "enter_code_registration_success",
         GUEST_EXPERIENCE_LOADING_IMPRESSION:
           "guest_experience_loading_impression",

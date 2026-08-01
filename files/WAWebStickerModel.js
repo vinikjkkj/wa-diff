@@ -77,7 +77,11 @@ __d(
           (a.downloadMedia = function (n) {
             var t = this;
             return o("WAWebMedia")
-              .downloadStickerOrStickerPackIcon(this, "STICKER", n)
+              .downloadStickerOrStickerPackIcon({
+                shouldThrow: n,
+                sticker: this,
+                type: "STICKER",
+              })
               .catch(function (n) {
                 o("WALogger")
                   .ERROR(

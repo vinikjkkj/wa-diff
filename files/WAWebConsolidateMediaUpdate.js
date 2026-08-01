@@ -63,18 +63,22 @@ __d(
             mediaStage: o("WAWebMediaTypes").MediaDataStage.REMOTE_NEED_UPLOAD,
           }),
         );
-      } else m(t, t, n);
+      } else m({ msg: t, msgValues: t, rmrReason: n });
     }
-    function m(e, t, n, a) {
-      var i = c(t),
-        l = e.mediaObject,
-        u = t.filehash,
-        d = o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
-          e,
+    function m(e) {
+      var t = e.chatWid,
+        n = e.msg,
+        a = e.msgValues,
+        i = e.rmrReason,
+        l = c(a),
+        u = n.mediaObject,
+        d = a.filehash,
+        m = o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
+          n,
         );
-      if (l)
-        u &&
-          u !== l.filehash &&
+      if (u)
+        d &&
+          d !== u.filehash &&
           (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -82,130 +86,130 @@ __d(
                 " ",
                 " filehash",
               ])),
-            e.id.toString(),
-            l.filehash ? "changed" : "added",
+            n.id.toString(),
+            u.filehash ? "changed" : "added",
           ),
-          o("WAWebMediaStorage").disassociateMediaFromMsg(l, e),
-          (l = o("WAWebMediaStorage").getOrCreateMediaObject(u)),
-          (e.mediaObject = l),
-          o("WAWebMediaStorage").associateMediaWithMsg(l, e));
+          o("WAWebMediaStorage").disassociateMediaFromMsg(u, n),
+          (u = o("WAWebMediaStorage").getOrCreateMediaObject(d)),
+          (n.mediaObject = u),
+          o("WAWebMediaStorage").associateMediaWithMsg(u, n));
       else {
-        u
-          ? (l = o("WAWebMediaStorage").getOrCreateMediaObject(u))
-          : (l = new (o("WAWebMediaObject").MediaObject)());
-        var m = e.mediaData;
-        (m.aspectRatio !== void 0 && (i.aspectRatio = m.aspectRatio),
-          (e.mediaObject = l),
-          o("WAWebMediaStorage").associateMediaWithMsg(l, e));
+        d
+          ? (u = o("WAWebMediaStorage").getOrCreateMediaObject(d))
+          : (u = new (o("WAWebMediaObject").MediaObject)());
+        var p = n.mediaData;
+        (p.aspectRatio !== void 0 && (l.aspectRatio = p.aspectRatio),
+          (n.mediaObject = u),
+          o("WAWebMediaStorage").associateMediaWithMsg(u, n));
       }
-      var p = !1,
-        _ = t.deprecatedMms3Url,
-        f = t.directPath,
-        g = t.encFilehash,
-        h = t.firstFrameSidecar,
-        y = t.mediaKey,
-        C = t.mediaKeyTimestamp,
-        b = t.scanLengths,
-        v = t.scansSidecar,
-        S = t.staticUrl,
-        R = t.streamingSidecar,
-        L = t.type;
-      if (_ || g || f || !d) {
-        var E;
+      var _ = !1,
+        f = a.deprecatedMms3Url,
+        g = a.directPath,
+        h = a.encFilehash,
+        y = a.firstFrameSidecar,
+        C = a.mediaKey,
+        b = a.mediaKeyTimestamp,
+        v = a.scanLengths,
+        S = a.scansSidecar,
+        R = a.staticUrl,
+        L = a.streamingSidecar,
+        E = a.type;
+      if (f || h || g || !m) {
+        var k;
         try {
-          E = o("WAWebMmsMediaTypes").msgToMediaType({
-            type: t.type,
-            isGif: t.isGif,
-            interactiveHeader: t.interactiveHeader,
-            isNewsletter: o("WAWebMsgGetters").getIsNewsletterMsg(t),
+          k = o("WAWebMmsMediaTypes").msgToMediaType({
+            type: a.type,
+            isGif: a.isGif,
+            interactiveHeader: a.interactiveHeader,
+            isNewsletter: o("WAWebMsgGetters").getIsNewsletterMsg(a),
           });
         } catch (e) {
-          E = ~o("WAWebMmsMediaTypes").MEDIA_TYPE_VALUES.indexOf(L) ? L : null;
+          k = ~o("WAWebMmsMediaTypes").MEDIA_TYPE_VALUES.indexOf(E) ? E : null;
         }
-        p = d
-          ? !l.entries.has({ encFilehash: g, deprecatedMms3Url: _ })
-          : !l.entries.hasUnencryptedEntry({ filehash: u, directPath: f });
-        var k;
-        (p
-          ? E != null &&
-            (g != null ||
-              (f != null &&
-                E === o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT) ||
-              !d)
-            ? d && y != null
-              ? (k = l.entries.addEntry({
-                  deprecatedMms3Url: _,
-                  mediaKey: y,
-                  mediaKeyTimestamp: C,
-                  encFilehash: g,
-                  type: E,
-                  sidecar: R,
-                  directPath: f,
-                  firstFrameSidecar: h,
-                  scansSidecar: v,
-                  scanLengths: b,
+        _ = m
+          ? !u.entries.has({ encFilehash: h, deprecatedMms3Url: f })
+          : !u.entries.hasUnencryptedEntry({ filehash: d, directPath: g });
+        var I;
+        (_
+          ? k != null &&
+            (h != null ||
+              (g != null &&
+                k === o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT) ||
+              !m)
+            ? m && C != null
+              ? (I = u.entries.addEntry({
+                  deprecatedMms3Url: f,
+                  mediaKey: C,
+                  mediaKeyTimestamp: b,
+                  encFilehash: h,
+                  type: k,
+                  sidecar: L,
+                  directPath: g,
+                  firstFrameSidecar: y,
+                  scansSidecar: S,
+                  scanLengths: v,
                   debugHint: "consolidate",
-                  staticUrl: S,
+                  staticUrl: R,
                 }))
-              : !d &&
-                f != null &&
-                u != null &&
-                (k = l.entries.addUnencryptedEntry({
+              : !m &&
+                g != null &&
+                d != null &&
+                (I = u.entries.addUnencryptedEntry({
                   debugHint: "consolidate",
-                  directPath: f,
-                  filehash: u,
-                  type: E,
+                  directPath: g,
+                  filehash: d,
+                  type: k,
                 }))
-            : (p = !1)
-          : d && y != null && y !== ""
-            ? (k = l.entries.updateEntry({
-                deprecatedMms3Url: _,
-                mediaKey: y,
-                mediaKeyTimestamp: C,
-                encFilehash: g,
-                type: E,
-                sidecar: R,
-                directPath: f,
-                firstFrameSidecar: h,
-                scansSidecar: v,
-                scanLengths: b,
-                staticUrl: S,
+            : (_ = !1)
+          : m && C != null && C !== ""
+            ? (I = u.entries.updateEntry({
+                deprecatedMms3Url: f,
+                mediaKey: C,
+                mediaKeyTimestamp: b,
+                encFilehash: h,
+                type: k,
+                sidecar: L,
+                directPath: g,
+                firstFrameSidecar: y,
+                scansSidecar: S,
+                scanLengths: v,
+                staticUrl: R,
               }))
-            : !d &&
-              u != null &&
-              (k = l.entries.updateUnencryptedEntry({
-                filehash: u,
-                directPath: f,
+            : !m &&
+              d != null &&
+              (I = u.entries.updateUnencryptedEntry({
+                filehash: d,
+                directPath: g,
               })),
-          k || (p = !1),
-          p &&
-            l.downloadStage ===
+          I || (_ = !1),
+          _ &&
+            u.downloadStage ===
               o("WAWebMediaTypes").DownloadStage.ERROR_MISSING &&
-            (i.downloadStage = o("WAWebMediaTypes").DownloadStage.INIT));
+            (l.downloadStage = o("WAWebMediaTypes").DownloadStage.INIT));
       }
       if (
-        (l.consolidate(i) || l.notifyMsgsAsync(),
-        p && l.downloadStage === o("WAWebMediaTypes").DownloadStage.NEED_POKE)
+        (u.consolidate(l) || u.notifyMsgsAsync(),
+        _ && u.downloadStage === o("WAWebMediaTypes").DownloadStage.NEED_POKE)
       ) {
-        var I;
+        var T;
         try {
-          I = o("WAWebMmsMediaTypes").getMsgMediaType(e);
-        } catch (n) {
-          if (!t.type) throw n;
-          I = o("WAWebMmsMediaTypes").msgToMediaType({
-            type: t.type,
-            isGif: e.isGif,
-            isNewsletter: o("WAWebMsgGetters").getIsNewsletterMsg(e),
+          T = o("WAWebMmsMediaTypes").getMsgMediaType(n);
+        } catch (e) {
+          if (!a.type) throw e;
+          T = o("WAWebMmsMediaTypes").msgToMediaType({
+            type: a.type,
+            isGif: n.isGif,
+            isNewsletter: o("WAWebMsgGetters").getIsNewsletterMsg(n),
           });
         }
         o("WAWebMediaMmsV4Download").downloadMedia({
-          mimetype: t.mimetype,
-          mediaObject: l,
+          mimetype: a.mimetype,
+          mediaObject: u,
           downloadEvenIfExpensive: !1,
-          mediaType: I,
-          rmrReason: n,
-          downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(e),
-          chatWid: a,
+          mediaType: T,
+          rmrReason: i,
+          downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(n),
+          chatWid: t,
         });
       }
     }

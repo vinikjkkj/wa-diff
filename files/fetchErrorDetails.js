@@ -26,7 +26,11 @@ __d(
         l = null;
       return (
         n("cr:1411056") !== null
-          ? (l = n("cr:1411056")(o, { data: i, method: "POST" }))
+          ? (l = n("cr:1411056")(o, {
+              data: i,
+              method: "POST",
+              shouldShowErrorDialog: !1,
+            }))
           : n("cr:885544") !== null &&
             (l = new (n("cr:885544"))()
               .setURI(o)

@@ -136,95 +136,127 @@ __d(
           d.push(babelHelpers.extends({ type: e }, t)));
         return;
       }
-      o("WAWebSyncdUploadFatalErrorMetricEmitter").emitUploadFatalErrorMetric(
-        o("WAWebSyncdMetricFatalErrorListener").convertSyncdErrorCode(e),
-        (r = t == null ? void 0 : t.collection) != null ? r : null,
-        (a = t == null ? void 0 : t.patchSnapshotMutationCount) != null
-          ? a
-          : void 0,
-        (i = t == null ? void 0 : t.patchVersion) != null ? i : void 0,
-        (l = t == null ? void 0 : t.isFatal) != null ? l : void 0,
-        (s = t == null ? void 0 : t.isLtHashConsistent) != null ? s : void 0,
-        (c = t == null ? void 0 : t.macFatalCollectionNameMismatch) != null
-          ? c
-          : void 0,
-        (m = t == null ? void 0 : t.macFatalCurrentLthashMismatch) != null
-          ? m
-          : void 0,
-        (p = t == null ? void 0 : t.macFatalNewLthashMismatch) != null
-          ? p
-          : void 0,
-        (_ = t == null ? void 0 : t.macFatalPatchVersionMismatch) != null
-          ? _
-          : void 0,
-        (f = t == null ? void 0 : t.macFatalNewLthashSubtractMismatch) != null
-          ? f
-          : void 0,
-        (g = t == null ? void 0 : t.macFatalNumberHasOverrideMutation) != null
-          ? g
-          : void 0,
-        (h = t == null ? void 0 : t.macFatalNumberNumAddMutation) != null
-          ? h
-          : void 0,
-        (y = t == null ? void 0 : t.macFatalNumberNumRemoveMutation) != null
-          ? y
-          : void 0,
-        (C =
-          t == null
-            ? void 0
-            : t.macFatalSenderCurrentLthashToLocalCalculatedCurrentLthashMismatch) !=
+      o("WAWebSyncdUploadFatalErrorMetricEmitter").emitUploadFatalErrorMetric({
+        collection: (r = t == null ? void 0 : t.collection) != null ? r : null,
+        didBootstrapFromSnapshot:
+          (a = t == null ? void 0 : t.didBootstrapFromSnapshot) != null
+            ? a
+            : void 0,
+        isFatal: (i = t == null ? void 0 : t.isFatal) != null ? i : void 0,
+        isLastPatchSenderAPrimaryDevice:
+          (l = t == null ? void 0 : t.isLastPatchSenderAPrimaryDevice) != null
+            ? l
+            : void 0,
+        isLtHashConsistent:
+          (s = t == null ? void 0 : t.isLtHashConsistent) != null ? s : void 0,
+        isPatchSenderPrimary:
+          (c = t == null ? void 0 : t.isPatchSenderPrimary) != null
+            ? c
+            : void 0,
+        isPreviousPatchAnIncomingPatch:
+          (m = t == null ? void 0 : t.isPreviousPatchAnIncomingPatch) != null
+            ? m
+            : void 0,
+        isPureSyncdSession:
+          (p = t == null ? void 0 : t.isPureSyncdSession) != null ? p : void 0,
+        isSenderIndexSameAsPreviousSenderIndex:
+          (_ = t == null ? void 0 : t.isSenderIndexSameAsPreviousSenderIndex) !=
           null
-          ? C
-          : void 0,
-        (b = t == null ? void 0 : t.isPatchSenderPrimary) != null ? b : void 0,
-        (v = t == null ? void 0 : t.macFatalDidUseMacFetchFallback) != null
-          ? v
-          : void 0,
-        (S = t == null ? void 0 : t.macFatalHasMissingRemove) != null
-          ? S
-          : void 0,
-        (R = t == null ? void 0 : t.macFatalNumberAddMismatch) != null
-          ? R
-          : void 0,
-        (L = t == null ? void 0 : t.macFatalNumberRemoveMismatch) != null
-          ? L
-          : void 0,
-        (E =
-          t == null
-            ? void 0
-            : t.macFatalDidPreviousPatchFailPostSaveValidation) != null
-          ? E
-          : void 0,
-        (k =
-          t == null
-            ? void 0
-            : t.macFatalPreviousPatchNewLthashToCurrentPatchCurrentLthash) !=
+            ? _
+            : void 0,
+        isThereAnotherSyncdCompanion:
+          (f = t == null ? void 0 : t.isThereAnotherSyncdCompanion) != null
+            ? f
+            : void 0,
+        lidMigrationStage:
+          (g = t == null ? void 0 : t.lidMigrationStage) != null ? g : void 0,
+        macFatalCollectionNameMismatch:
+          (h = t == null ? void 0 : t.macFatalCollectionNameMismatch) != null
+            ? h
+            : void 0,
+        macFatalCurrentLthashMismatch:
+          (y = t == null ? void 0 : t.macFatalCurrentLthashMismatch) != null
+            ? y
+            : void 0,
+        macFatalDidPreviousPatchFailPostSaveValidation:
+          (C =
+            t == null
+              ? void 0
+              : t.macFatalDidPreviousPatchFailPostSaveValidation) != null
+            ? C
+            : void 0,
+        macFatalDidUseMacFetchFallback:
+          (b = t == null ? void 0 : t.macFatalDidUseMacFetchFallback) != null
+            ? b
+            : void 0,
+        macFatalHasMissingRemove:
+          (v = t == null ? void 0 : t.macFatalHasMissingRemove) != null
+            ? v
+            : void 0,
+        macFatalNewLthashMismatch:
+          (S = t == null ? void 0 : t.macFatalNewLthashMismatch) != null
+            ? S
+            : void 0,
+        macFatalNewLthashSubtractMismatch:
+          (R = t == null ? void 0 : t.macFatalNewLthashSubtractMismatch) != null
+            ? R
+            : void 0,
+        macFatalNumberAddMismatch:
+          (L = t == null ? void 0 : t.macFatalNumberAddMismatch) != null
+            ? L
+            : void 0,
+        macFatalNumberHasOverrideMutation:
+          (E = t == null ? void 0 : t.macFatalNumberHasOverrideMutation) != null
+            ? E
+            : void 0,
+        macFatalNumberNumAddMutation:
+          (k = t == null ? void 0 : t.macFatalNumberNumAddMutation) != null
+            ? k
+            : void 0,
+        macFatalNumberNumRemoveMutation:
+          (I = t == null ? void 0 : t.macFatalNumberNumRemoveMutation) != null
+            ? I
+            : void 0,
+        macFatalNumberRemoveMismatch:
+          (T = t == null ? void 0 : t.macFatalNumberRemoveMismatch) != null
+            ? T
+            : void 0,
+        macFatalPatchVersionMismatch:
+          (D = t == null ? void 0 : t.macFatalPatchVersionMismatch) != null
+            ? D
+            : void 0,
+        macFatalPreviousPatchNewLthashToCurrentPatchCurrentLthash:
+          (x =
+            t == null
+              ? void 0
+              : t.macFatalPreviousPatchNewLthashToCurrentPatchCurrentLthash) !=
           null
-          ? k
-          : void 0,
-        (I = t == null ? void 0 : t.isPreviousPatchAnIncomingPatch) != null
-          ? I
-          : void 0,
-        (T = t == null ? void 0 : t.isLastPatchSenderAPrimaryDevice) != null
-          ? T
-          : void 0,
-        (D = t == null ? void 0 : t.isSenderIndexSameAsPreviousSenderIndex) !=
+            ? x
+            : void 0,
+        macFatalSenderCurrentLthashToLocalCalculatedCurrentLthashMismatch:
+          ($ =
+            t == null
+              ? void 0
+              : t.macFatalSenderCurrentLthashToLocalCalculatedCurrentLthashMismatch) !=
           null
-          ? D
-          : void 0,
-        (x = t == null ? void 0 : t.didBootstrapFromSnapshot) != null
-          ? x
-          : void 0,
-        ($ = t == null ? void 0 : t.isThereAnotherSyncdCompanion) != null
-          ? $
-          : void 0,
-        (P = t == null ? void 0 : t.isPureSyncdSession) != null ? P : void 0,
-        (N = t == null ? void 0 : t.lidMigrationStage) != null ? N : void 0,
-        (M = t == null ? void 0 : t.recoveryRequestDurationMs) != null
-          ? M
-          : void 0,
-        (w = t == null ? void 0 : t.recoveryStatus) != null ? w : void 0,
-      );
+            ? $
+            : void 0,
+        mdFatalErrorCode: o(
+          "WAWebSyncdMetricFatalErrorListener",
+        ).convertSyncdErrorCode(e),
+        patchSnapshotMutationCount:
+          (P = t == null ? void 0 : t.patchSnapshotMutationCount) != null
+            ? P
+            : void 0,
+        patchVersion:
+          (N = t == null ? void 0 : t.patchVersion) != null ? N : void 0,
+        recoveryRequestDurationMs:
+          (M = t == null ? void 0 : t.recoveryRequestDurationMs) != null
+            ? M
+            : void 0,
+        recoveryStatus:
+          (w = t == null ? void 0 : t.recoveryStatus) != null ? w : void 0,
+      });
     }
     ((l.SyncdFatalErrorType = c),
       (l.flushDeferredFatalError = m),

@@ -50,8 +50,7 @@ __d(
             (this.$1 = n),
             (this.$2 = t),
             this.$2.addEventListener("sharedbufferreceived", function (e) {
-              var t = e;
-              r.$5(t);
+              r.$5(e);
             }),
             this.$1.addEventListener("onProgressChangedEvent", this.$6),
             this.$1.subscribe(null));

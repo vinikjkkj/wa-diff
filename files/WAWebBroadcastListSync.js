@@ -172,26 +172,31 @@ __d(
             }
             return r;
           })()),
-          (a.getBroadcastListMutation = function (t, n, r, a, i) {
-            var e = {
-              businessBroadcastListAction: {
-                participants: n,
-                listName: r,
-                labelIds: [],
-                audienceExpression: o(
-                  "WAWebAudienceExpressionTypes",
-                ).serializeAudienceExpression(i),
-              },
-            };
+          (a.getBroadcastListMutation = function (t) {
+            var e = t.expression,
+              n = t.id,
+              r = t.listName,
+              a = t.participants,
+              i = t.timestamp,
+              l = {
+                businessBroadcastListAction: {
+                  participants: a,
+                  listName: r,
+                  labelIds: [],
+                  audienceExpression: o(
+                    "WAWebAudienceExpressionTypes",
+                  ).serializeAudienceExpression(e),
+                },
+              };
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               action: this.getAction(),
-              indexArgs: [t],
+              indexArgs: [n],
               collection: this.collectionName,
-              value: e,
+              value: l,
               version: this.getVersion(),
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.SET,
-              timestamp: a,
+              timestamp: i,
             });
           }),
           (a.getDeleteBroadcastListMutation = function (t, n) {

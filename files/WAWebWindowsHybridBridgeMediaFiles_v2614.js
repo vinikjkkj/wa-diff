@@ -4,7 +4,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
-        this.$1 = e;
+        ((this.requestSharedBufferForMediaFile = null),
+          (this.saveMediaFileFromSharedBuffer = null),
+          (this.$1 = e));
       }
       var t = e.prototype;
       return (

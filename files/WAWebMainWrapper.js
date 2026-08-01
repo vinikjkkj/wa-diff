@@ -17,7 +17,6 @@ __d(
     "WAWebNoop",
     "WAWebNotificationBackend",
     "WAWebPathfinderCrashLog",
-    "WAWebPrefetchLoadables",
     "WAWebProfilePicThumbCollection",
     "WAWebSWBus",
     "WAWebSWBusActions",
@@ -28,6 +27,7 @@ __d(
     "cr:8432",
     "cr:8752",
     "cr:8753",
+    "cr:9486",
     "getErrorSafe",
     "gkx",
     "justknobx",
@@ -68,7 +68,7 @@ __d(
           o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(t),
         ),
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled() ||
-          (r("WAWebPrefetchLoadables")(),
+          (n("cr:9486") == null || n("cr:9486")(),
           (o("WAWebABProps").getABPropConfigValue(
             "web_use_kaleidoscope_media_check_enabled",
           ) ||

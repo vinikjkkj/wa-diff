@@ -25,6 +25,24 @@ __d(
           kind: "ScalarField",
           name: "display_name",
           storageKey: null,
+        },
+        a = {
+          alias: null,
+          args: null,
+          concreteType: "Image",
+          kind: "LinkedField",
+          name: "logo",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "uri",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
         };
       return {
         fragment: {
@@ -57,7 +75,7 @@ __d(
                       kind: "LinkedField",
                       name: "plugin",
                       plural: !1,
-                      selections: [r, o],
+                      selections: [r, o, a],
                       storageKey: null,
                     },
                   ],
@@ -111,6 +129,7 @@ __d(
                         },
                         r,
                         o,
+                        a,
                       ],
                       storageKey: null,
                     },

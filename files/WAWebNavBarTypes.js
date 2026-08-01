@@ -23,6 +23,7 @@ __d(
       MetaAI: "metaAI",
       MeTab: "meTab",
       ContactManager: "contactManager",
+      TeamLink: "teamLink",
     });
     i.NavBarItems = e;
   },

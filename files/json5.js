@@ -241,7 +241,7 @@ __d(
         function (n, r) {
           var i;
           return (
-            (o = String(n)),
+            (o = typeof n == "string" ? n : String(n)),
             (e = 0),
             (t = " "),
             (i = g()),

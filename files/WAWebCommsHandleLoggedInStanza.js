@@ -49,6 +49,7 @@ __d(
     "WAWebHandleSuccess",
     "WAWebHandleVoipCall",
     "WAWebHandleWaChat",
+    "WAWebMaibaWASSMigration",
     "WAWebPaymentNotificationHandler",
     "WAWebPostUnknownStanzaMetric",
     "WAWebShortcakeLinkingHandleNotification",
@@ -68,7 +69,8 @@ __d(
       d,
       m,
       p,
-      _ = o("WACreateHandleChatState").createHandleChatState({
+      _,
+      f = o("WACreateHandleChatState").createHandleChatState({
         groupMessage: {
           handleGroupChatState: o("WAWebHandleChatState").handleGroupChatState,
         },
@@ -77,12 +79,12 @@ __d(
             .handleIndividualChatState,
         },
       });
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.attrs;
           switch (e.tag) {
             case "receipt":
@@ -171,8 +173,8 @@ __d(
                   case "encrypt": {
                     var p = e.content;
                     if (!Array.isArray(p) || !p.length) break;
-                    var f = p[0].tag;
-                    switch (f) {
+                    var _ = p[0].tag;
+                    switch (_) {
                       case "count":
                       case "pq_count":
                         return yield r("WAWebHandlePreKeyLow")(e, t);
@@ -204,12 +206,12 @@ __d(
                     ) {
                       var g = e.content;
                       if (!Array.isArray(g) || !g.length) break;
-                      var C = g[0].tag;
-                      return C === "surfaces"
+                      var h = g[0].tag;
+                      return h === "surfaces"
                         ? yield o(
                             "WAWebHandleQPSurfacesNotification",
                           ).handleQPSurfacesNotification(e)
-                        : C === "reset_smb_last_qp_prefetch_timestamp"
+                        : h === "reset_smb_last_qp_prefetch_timestamp"
                           ? o(
                               "WAWebHandleQPPrefetchTimestampNotification",
                             ).handleQPPrefetchTimestampNotification(e)
@@ -264,7 +266,7 @@ __d(
                 if (t instanceof o("WAParsableWapNode").XmppParsingFailure) {
                   var b, v;
                   o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(e);
-                  var S =
+                  var R =
                     (b = (v = n.type) == null ? void 0 : v.toString()) != null
                       ? b
                       : "[empty]";
@@ -277,10 +279,10 @@ __d(
                             " stanza: ",
                             "",
                           ])),
-                        S,
+                        R,
                         t,
                       )
-                      .sendLogs("failed-to-parse-notification-stanza-" + S, {
+                      .sendLogs("failed-to-parse-notification-stanza-" + R, {
                         sampling: 0.01,
                       }),
                     o("WAWebCreateNackFromStanza").createNackFromStanza(
@@ -291,20 +293,22 @@ __d(
                 }
                 return t instanceof
                   o("WAWebHandleMexNotification").MissingMEXNotificationHandler
-                  ? h(e)
+                  ? y(e)
                   : o("WAWebCreateNackFromStanza").createNackFromStanza(
                       e,
                       o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
                     );
               }
-              return h(e);
+              return y(e);
             case "chatstate": {
-              var R = y(e);
-              return R != null
-                ? R
+              var L = C(e);
+              if (L != null) return L;
+              var E = S(e);
+              return E != null
+                ? E
                 : o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
                     e,
-                    _(e),
+                    f(e),
                   );
             }
             case "presence":
@@ -347,10 +351,10 @@ __d(
             )
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(t) {
+    function y(t) {
       return (
         o("WALogger").DEV_XMPP(
           e ||
@@ -366,24 +370,70 @@ __d(
         )
       );
     }
-    function y(e) {
+    function C(e) {
       var t,
-        n = v((t = e.attrs.from) == null ? void 0 : t.toString());
+        n = E((t = e.attrs.from) == null ? void 0 : t.toString());
+      if (n == null) return null;
+      var r = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(n);
+      return r == null ? null : b(e, r);
+    }
+    function b(e, t) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          try {
+            var n = o(
+                "WASmaxChatstateServerNotificationRPC",
+              ).receiveServerNotificationRPC(e),
+              a = n.parsedRequest.stateTypes,
+              i = o("WAHandleChatStateProtocol").parseChatStatus(a);
+            return (
+              yield o("WAWebHandleChatState").handleIndividualChatState({
+                jid: o("WAWebWidToJid").widToUserJid(t),
+                status: i,
+              }),
+              "NO_ACK"
+            );
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to handle MAIBA AI Hub chatstate",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("maiba-ai-hub-chatstate-handle-fail", {
+                  sampling: 0.1,
+                }),
+              "NO_ACK"
+            );
+          }
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      var t,
+        n = E((t = e.attrs.from) == null ? void 0 : t.toString());
       return n == null ||
         !n.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) ||
         !o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
         ? null
-        : C(e, n);
+        : R(e, n);
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function b() {
+    function L() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n,
-              a = v((n = e.attrs.participant) == null ? void 0 : n.toString()),
+              a = E((n = e.attrs.participant) == null ? void 0 : n.toString()),
               i = o("WAWebCoexV2ChatState").normalizeCoexV2BotChatStateWid(
                 t,
                 a,
@@ -405,8 +455,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "Failed to handle CoEx v2 chatstate",
                     ])),
                 )
@@ -416,14 +466,14 @@ __d(
             );
           }
         })),
-        b.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function v(e) {
+    function E(e) {
       var t = o("WAWebDecodeJid").decodeJid(e);
       return t instanceof r("WAWebWid") ? t : null;
     }
-    l.handleLoggedInStanza = f;
+    l.handleLoggedInStanza = g;
   },
   98,
 );

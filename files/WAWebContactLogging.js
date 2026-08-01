@@ -32,6 +32,7 @@ __d(
         "MessageContextMenu",
         "NewChatDrawer",
         "ChatListGlobalSearch",
+        "SuspiciousChatBanner",
       ]);
     function c(e) {
       switch (e) {
@@ -55,6 +56,8 @@ __d(
           return "VCARD";
         case u.ChatListGlobalSearch:
           return "CHAT_LIST_GLOBAL_SEARCH";
+        case u.SuspiciousChatBanner:
+          return "SUSPICIOUS_CHAT_BANNER";
       }
     }
     var d = (function () {
@@ -263,6 +266,9 @@ __d(
         case u.ChatListGlobalSearch:
           return o("WAWebWamEnumNativeContactsNuxEntryPoint")
             .NATIVE_CONTACTS_NUX_ENTRY_POINT.CHAT_SEARCH;
+        case u.SuspiciousChatBanner:
+          return o("WAWebWamEnumNativeContactsNuxEntryPoint")
+            .NATIVE_CONTACTS_NUX_ENTRY_POINT.SPAM_PROMPT;
       }
     }
     function p(e) {

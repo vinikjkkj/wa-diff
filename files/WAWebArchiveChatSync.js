@@ -135,12 +135,12 @@ __d(
                                   _ = m.messageRange,
                                   f = o("WAWebWidFactory").createWid(c);
                                 yield a.$ArchiveChatSync$p_1(f, "before apply");
-                                var g = yield a.$ArchiveChatSync$p_2(
-                                  f,
-                                  p,
-                                  _,
-                                  n,
-                                );
+                                var g = yield a.$ArchiveChatSync$p_2({
+                                  archived: p,
+                                  chatWid: f,
+                                  incomingRange: _,
+                                  syncActionValue: n,
+                                });
                                 return (
                                   g.updates &&
                                     (i.push(g.updates),
@@ -264,12 +264,16 @@ __d(
           })()),
           (i.$ArchiveChatSync$p_2 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
+              function* (e) {
+                var t = e.archived,
+                  n = e.chatWid,
+                  r = e.incomingRange,
+                  a = e.syncActionValue;
                 if (
                   (yield o(
                     "WAWebApiActiveMessageRanges",
                   ).removeActiveMessageRange(
-                    e.toString(),
+                    n.toString(),
                     o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                       "archive",
                     ),
@@ -277,65 +281,65 @@ __d(
                   !t)
                 )
                   return {
-                    updates: { id: e.toString(), archive: t },
+                    updates: { id: n.toString(), archive: t },
                     syncApplyActionResult: {
                       actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     },
                   };
-                var a = yield o("WAWebMessageRangeUtils").constructMessageRange(
-                    e,
+                var i = yield o("WAWebMessageRangeUtils").constructMessageRange(
+                    n,
                     { forOutgoingMutation: !1 },
                   ),
-                  i = o("WAWebMessageRangeUtils").compareMessageRanges(a, n),
-                  l = o("encodeProtobuf")
+                  l = o("WAWebMessageRangeUtils").compareMessageRanges(i, r),
+                  s = o("encodeProtobuf")
                     .encodeProtobuf(
                       o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                      r,
+                      a,
                     )
                     .readBuffer(),
-                  s = function () {
+                  u = function () {
                     return o(
                       "WAWebApiActiveMessageRanges",
                     ).addActiveMessageRange(
-                      e.toString(),
+                      n.toString(),
                       o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                         "archive",
                       ),
-                      l,
+                      s,
                     );
                   },
-                  u = o(
+                  c = o(
                     "WAWebUserPrefsMultiDevice",
                   ).getArchiveV2EnabledSetting(),
-                  c = o("WAWebUserPrefsMultiDevice").getUnarchiveChatsSetting(),
-                  d = u && !c;
-                switch (i) {
+                  d = o("WAWebUserPrefsMultiDevice").getUnarchiveChatsSetting(),
+                  m = c && !d;
+                switch (l) {
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesAreEqual:
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeBEnclosesRangeA:
                     return (
-                      yield s(),
+                      yield u(),
                       {
-                        updates: { id: e.toString(), archive: t },
-                        syncApplyActionResult: h(e, i),
+                        updates: { id: n.toString(), archive: t },
+                        syncApplyActionResult: h(n, l),
                       }
                     );
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangeAEnclosesRangeB:
                   case o("WAWebMessageRangeUtils").MessageRangeEncloseType
                     .RangesNotEnclosing:
-                    return d
+                    return m
                       ? {
-                          updates: { id: e.toString(), archive: t },
-                          syncApplyActionResult: h(e, i),
+                          updates: { id: n.toString(), archive: t },
+                          syncApplyActionResult: h(n, l),
                         }
-                      : (yield s(),
-                        { updates: void 0, syncApplyActionResult: h(e, i) });
+                      : (yield u(),
+                        { updates: void 0, syncApplyActionResult: h(n, l) });
                 }
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

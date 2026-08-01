@@ -3,6 +3,20 @@ __d(
   [],
   function (t, n, r, o, a, i, l) {
     var e = {
+      backgroundProtection: {
+        alignItems: "x6s0dn4",
+        backgroundColor: "x1honnu5",
+        borderStartStartRadius: "xt8t1vi",
+        borderStartEndRadius: "x1xc408v",
+        borderEndEndRadius: "x129tdwq",
+        borderEndStartRadius: "x15urzxu",
+        display: "x78zum5",
+        flexShrink: "x2lah0s",
+        height: "x1vqgdyp",
+        justifyContent: "xl56j7k",
+        width: "x100vrsf",
+        $$css: !0,
+      },
       iconButton: {
         display: "x3nfvp2",
         alignItems: "x6s0dn4",
@@ -13,7 +27,13 @@ __d(
         marginInlineEnd: "xcknrev",
         $$css: !0,
       },
-      square26Svg: { width: "x23j0i4", height: "xd7y6wv", $$css: !0 },
+      square26Svg: { height: "xd7y6wv", width: "x23j0i4", $$css: !0 },
+      square26SvgCentered: {
+        alignItems: "x6s0dn4",
+        display: "x78zum5",
+        justifyContent: "xl56j7k",
+        $$css: !0,
+      },
       bottomBarContainer: {
         position: "x10l6tqk",
         right: "x3m8u43",

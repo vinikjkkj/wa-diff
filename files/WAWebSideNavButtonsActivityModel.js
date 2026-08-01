@@ -102,6 +102,7 @@ __d(
           case o("WAWebNavBarTypes").NavBarItems.MetaAI:
           case o("WAWebNavBarTypes").NavBarItems.MeTab:
           case o("WAWebNavBarTypes").NavBarItems.ContactManager:
+          case o("WAWebNavBarTypes").NavBarItems.TeamLink:
             break;
         }
       }

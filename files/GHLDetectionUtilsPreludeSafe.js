@@ -77,10 +77,25 @@ __d(
     function g() {
       (f(), u != null && (window.String = u));
     }
-    function h() {
-      (f(), c != null && (Function.prototype.call = c));
+    function h(e) {
+      for (
+        var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
+        r < t;
+        r++
+      )
+        n[r - 1] = arguments[r];
+      return Reflect.apply(this, e, n);
     }
     function y() {
+      if (typeof Reflect == "object" && typeof Reflect.apply == "function") {
+        var e = Function.prototype,
+          t = "call";
+        e[t] = h;
+        return;
+      }
+      (f(), c != null && (Function.prototype.call = c));
+    }
+    function C() {
       if ((f(), p != null))
         try {
           Object.defineProperty(t.XMLHttpRequest.prototype, "response", {
@@ -106,7 +121,7 @@ __d(
           );
         }
     }
-    function C() {
+    function b() {
       f();
       var e = p,
         n = m;
@@ -134,13 +149,15 @@ __d(
       } catch (e) {}
       return !1;
     }
-    function b() {
+    function v() {
       f();
       var e = d,
         t = m;
       if (e != null && t != null)
         try {
-          return t.call(JSON.parse) !== t.call(e);
+          var n = s(t.call(JSON.parse)),
+            r = s(t.call(e));
+          return n !== r ? !0 : n !== "function parse() { [native code] }";
         } catch (e) {}
       return (
         typeof JSON.parse == "function" &&
@@ -152,7 +169,7 @@ __d(
         )
       );
     }
-    function v() {
+    function S() {
       try {
         var e,
           t = JSON.parse(
@@ -163,7 +180,7 @@ __d(
         return !1;
       }
     }
-    function S(e) {
+    function R(e) {
       try {
         e();
       } catch (e) {
@@ -174,10 +191,10 @@ __d(
       }
       return "";
     }
-    function R(e) {
+    function L(e) {
       return e === "" ? 0 : e.split("\n").length;
     }
-    function L() {
+    function E() {
       if (!(e || (e = r("ExecutionEnvironment"))).canUseDOM) return !1;
       var t = document.body || document.documentElement;
       if (t == null) return !1;
@@ -187,23 +204,23 @@ __d(
         t.appendChild(n);
         var o = n.contentWindow;
         if (o == null) return !1;
-        var a = R(
-            S(function () {
+        var a = L(
+            R(function () {
               JSON.parse("{ ");
             }),
           ),
-          i = R(
-            S(function () {
+          i = L(
+            R(function () {
               o.JSON.parse("{ ");
             }),
           ),
-          l = R(
-            S(function () {
+          l = L(
+            R(function () {
               new XMLHttpRequest().send();
             }),
           ),
-          s = R(
-            S(function () {
+          s = L(
+            R(function () {
               new o.XMLHttpRequest().send();
             }),
           );
@@ -216,12 +233,12 @@ __d(
     }
     ((l.normalize = s),
       (l.restoreNativeString = g),
-      (l.restoreNativeCall = h),
-      (l.restoreNativeXHRGetters = y),
-      (l.isXHRResponseGetterShimmed = C),
-      (l.isJSONParseShimmed = b),
-      (l.isJSONParseBehaviorallyShimmed = v),
-      (l.isNativeStackTampered = L));
+      (l.restoreNativeCall = y),
+      (l.restoreNativeXHRGetters = C),
+      (l.isXHRResponseGetterShimmed = b),
+      (l.isJSONParseShimmed = v),
+      (l.isJSONParseBehaviorallyShimmed = S),
+      (l.isNativeStackTampered = E));
   },
   98,
 );

@@ -432,7 +432,7 @@ __d(
           : null,
         p = a.loggingToSNAPLCreateLogFlusher,
         _ = m != null && p != null ? p(t, m) : null,
-        f = a.loggingToSigmateVideoPlayIntervalCreateStateMachineLogger,
+        f = a.loggingToSigmateCreateStateMachineLogger,
         g =
           a.disableLogging === !0 || f == null
             ? null
@@ -450,7 +450,7 @@ __d(
         {
           logFlusherToSNAPL: _,
           logFlusherToVPL: u,
-          loggerToSigmateVideoPlayInterval: g,
+          loggerToSigmate: g,
           loggerToSNAPL: m,
           loggerToVPL: s,
           loggingToSNAPLEnabled: c,
@@ -592,7 +592,7 @@ __d(
         }),
         G = H.logFlusherToSNAPL,
         z = H.logFlusherToVPL,
-        j = H.loggerToSigmateVideoPlayInterval,
+        j = H.loggerToSigmate,
         K = H.loggerToSNAPL,
         Q = H.loggerToVPL,
         X = H.loggingToSNAPLEnabled,

@@ -110,7 +110,10 @@ __d(
             return this.isPlaceholder || this.isFirstParty
               ? (u || (u = n("Promise"))).resolve()
               : o("WAWebMedia")
-                  .downloadStickerOrStickerPackIcon(this, "STICKER_PACK")
+                  .downloadStickerOrStickerPackIcon({
+                    sticker: this,
+                    type: "STICKER_PACK",
+                  })
                   .catch(function (t) {
                     o("WALogger")
                       .ERROR(

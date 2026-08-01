@@ -141,13 +141,13 @@ __d(
                             return e.lidJid != null ? [e.lidJid] : [];
                           }),
                         ),
-                  g = r("WAWebBroadcastListSync").getBroadcastListMutation(
-                    e,
-                    m,
-                    n,
-                    d,
-                    f,
-                  );
+                  g = r("WAWebBroadcastListSync").getBroadcastListMutation({
+                    expression: f,
+                    id: e,
+                    listName: n,
+                    participants: m,
+                    timestamp: d,
+                  });
                 yield o(
                   "WAWebBroadcastListStorageUtils",
                 ).updateBroadcastListStorage(

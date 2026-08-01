@@ -22,7 +22,6 @@ __d(
     "gkx",
     "objectValues",
     "once",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -117,10 +116,7 @@ __d(
               : (p.onreadystatechange = function () {
                   (u || (u = r("JSScheduler"))).scheduleNormalPriCallback(
                     function () {
-                      if (
-                        (r("vulture")("q-7hB0q_4HiCxfJ5r52i81etUZo="),
-                        p.readyState >= 4)
-                      ) {
+                      if (p.readyState >= 4) {
                         var e = d.indexOf(p);
                         e >= 0 && d.splice(e, 1);
                         var t;

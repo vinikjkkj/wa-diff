@@ -120,12 +120,12 @@ __d(
                                   p = o(
                                     "WAWebMessageRangeUtils",
                                   ).replaceMessageRangeRemoteJid(m, c);
-                                return a.$DeleteChatSync$p_1(
-                                  m,
-                                  p,
-                                  u === "0",
-                                  n,
-                                );
+                                return a.$DeleteChatSync$p_1({
+                                  chatWid: m,
+                                  deleteMediaFiles: u === "0",
+                                  incomingRange: p,
+                                  syncActionValue: n,
+                                });
                               }
                               return (
                                 l++,
@@ -250,52 +250,56 @@ __d(
           })()),
           (i.$DeleteChatSync$p_1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var a = o("encodeProtobuf")
-                  .encodeProtobuf(
-                    o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                    r,
-                  )
-                  .readBuffer();
+              function* (e) {
+                var t = e.chatWid,
+                  n = e.deleteMediaFiles,
+                  r = e.incomingRange,
+                  a = e.syncActionValue,
+                  i = o("encodeProtobuf")
+                    .encodeProtobuf(
+                      o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                      a,
+                    )
+                    .readBuffer();
                 yield o("WAWebApiActiveMessageRanges").addActiveMessageRange(
-                  e.toString(),
+                  t.toString(),
                   o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                     "deleteChat",
                     { deleteMedia: n },
                   ),
-                  a,
+                  i,
                 );
-                var i = yield o("WAWebMessageRangeUtils").constructMessageRange(
-                    e,
+                var l = yield o("WAWebMessageRangeUtils").constructMessageRange(
+                    t,
                     { forOutgoingMutation: !1 },
                   ),
-                  l = o("WAWebMessageRangeUtils").compareMessageRanges(i, t);
+                  s = o("WAWebMessageRangeUtils").compareMessageRanges(l, r);
                 e: {
                   if (
-                    l ===
+                    s ===
                       o("WAWebMessageRangeUtils").MessageRangeEncloseType
                         .RangeAEnclosesRangeB ||
-                    l ===
+                    s ===
                       o("WAWebMessageRangeUtils").MessageRangeEncloseType
                         .RangesNotEnclosing
                   ) {
-                    yield this.deleteChat(e, t);
+                    yield this.deleteChat(t, r);
                     break e;
                   }
                   if (
-                    l ===
+                    s ===
                       o("WAWebMessageRangeUtils").MessageRangeEncloseType
                         .RangeBEnclosesRangeA ||
-                    l ===
+                    s ===
                       o("WAWebMessageRangeUtils").MessageRangeEncloseType
                         .RangesAreEqual
                   ) {
-                    yield this.deleteChat(e);
+                    yield this.deleteChat(t);
                     break e;
                   }
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      l,
+                      s,
                   );
                 }
                 return {
@@ -303,7 +307,7 @@ __d(
                 };
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

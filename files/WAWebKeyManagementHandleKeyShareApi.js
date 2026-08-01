@@ -77,11 +77,11 @@ __d(
                   return (
                     o(
                       "WAWebSyncdUploadFatalErrorMetric",
-                    ).uploadFatalErrorMetric(
-                      o("WAWebWamEnumMdSyncdFatalErrorCode")
+                    ).uploadFatalErrorMetric({
+                      collection: null,
+                      mdFatalErrorCode: o("WAWebWamEnumMdSyncdFatalErrorCode")
                         .MD_SYNCD_FATAL_ERROR_CODE.INVALID_KEY_SHARE_KEY_ID,
-                      null,
-                    ),
+                    }),
                     o("WALogger")
                       .ERROR(
                         s ||
@@ -122,11 +122,11 @@ __d(
                     return (
                       o(
                         "WAWebSyncdUploadFatalErrorMetric",
-                      ).uploadFatalErrorMetric(
-                        o("WAWebWamEnumMdSyncdFatalErrorCode")
+                      ).uploadFatalErrorMetric({
+                        collection: null,
+                        mdFatalErrorCode: o("WAWebWamEnumMdSyncdFatalErrorCode")
                           .MD_SYNCD_FATAL_ERROR_CODE.INVALID_KEY_SHARE_KEY_DATA,
-                        null,
-                      ),
+                      }),
                       o("WALogger")
                         .ERROR(
                           c ||

@@ -72,11 +72,12 @@ __d(
         r.type === o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE &&
         (n.mimetype = r.mimetype = "image/jpeg"),
         t.on(c, d),
-        o("WAWebConsolidateMediaUpdate").consolidateMediaUpdateWithValues(
-          t,
-          r,
-          o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE.MSG_UPDATE,
-        ));
+        o("WAWebConsolidateMediaUpdate").consolidateMediaUpdateWithValues({
+          msg: t,
+          msgValues: r,
+          rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+            .MSG_UPDATE,
+        }));
       for (
         var s = {}, u = 0;
         u < o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS.length;

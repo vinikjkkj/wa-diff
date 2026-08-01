@@ -52,16 +52,16 @@ __d(
             m;
           o("WAWebListsGatingUtils").isListsEnabled() &&
             ((d = !0), (m = o("WAWebSchemaLabel").ListType.CUSTOM));
-          var p = r("WAWebLabelSync").getLabelMutation(
-            String(i),
-            t,
-            a,
-            !1,
-            c,
-            d,
-            m,
-            l,
-          );
+          var p = r("WAWebLabelSync").getLabelMutation({
+            color: a,
+            deleted: !1,
+            id: String(i),
+            isActive: d,
+            name: t,
+            predefinedId: c,
+            timestamp: l,
+            type: m,
+          });
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -105,16 +105,16 @@ __d(
             o("WAWebListsLabelGatingUtils").labelsEditingEnabled() ||
               s(0, 75241);
             var d = o("WATimeUtils").unixTime(),
-              p = r("WAWebLabelSync").getLabelMutation(
-                e,
-                t,
-                i,
-                !1,
-                a != null ? a : m,
-                l,
-                u,
-                d,
-              );
+              p = r("WAWebLabelSync").getLabelMutation({
+                color: i,
+                deleted: !1,
+                id: e,
+                isActive: l,
+                name: t,
+                predefinedId: a != null ? a : m,
+                timestamp: d,
+                type: u,
+              });
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -161,16 +161,16 @@ __d(
               "WAWebDBLabelAssociationDatabaseApi",
             ).queryLabelAssociationsForLabelIds([a]),
             u = o("WATimeUtils").unixTime(),
-            c = r("WAWebLabelSync").getLabelMutation(
-              a,
-              i,
-              t,
-              !0,
-              m,
-              void 0,
-              void 0,
-              u,
-            ),
+            c = r("WAWebLabelSync").getLabelMutation({
+              color: t,
+              deleted: !0,
+              id: a,
+              isActive: void 0,
+              name: i,
+              predefinedId: m,
+              timestamp: u,
+              type: void 0,
+            }),
             p = [],
             _ = l.filter(function (e) {
               return (

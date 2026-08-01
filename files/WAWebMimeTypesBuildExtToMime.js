@@ -6,22 +6,36 @@ __d(
       try {
         var t = e != null && e !== "" ? JSON.parse(e) : r("WAWebMimeToExt"),
           n = {};
-        return (s(t, n, "", ""), n);
+        return (
+          s({ data_: t, extToMime: n, lastMimeType: "", mimeTypeSoFar: "" }),
+          n
+        );
       } catch (e) {
         return null;
       }
     }
-    function s(e, t, n, r) {
-      var a = e;
-      if (Array.isArray(a) || o("WATypeUtils").isString(a)) {
-        o("WATypeUtils").isString(a) && (a = [a]);
-        for (var i = 0; i < a.length; i++) {
-          var l = a[i];
-          o("WATypeUtils").isString(l) && (t[l] = r + n);
+    function s(e) {
+      var t = e.data_,
+        n = e.extToMime,
+        r = e.lastMimeType,
+        a = e.mimeTypeSoFar,
+        i = t;
+      if (Array.isArray(i) || o("WATypeUtils").isString(i)) {
+        o("WATypeUtils").isString(i) && (i = [i]);
+        for (var l = 0; l < i.length; l++) {
+          var u = i[l];
+          o("WATypeUtils").isString(u) && (n[u] = a + r);
         }
         return;
       }
-      if (typeof a == "object") for (var u in a) s(a[u], t, u, r + n);
+      if (typeof i == "object")
+        for (var c in i)
+          s({
+            data_: i[c],
+            extToMime: n,
+            lastMimeType: c,
+            mimeTypeSoFar: a + r,
+          });
     }
     l.default = e;
   },

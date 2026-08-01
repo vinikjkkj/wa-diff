@@ -14,13 +14,17 @@ __d(
       if (n == null) return [];
       var r = [];
       for (var o of n) {
-        var a = o == null ? void 0 : o.plugin;
-        (a == null ? void 0 : a.id) == null ||
-          a.display_name == null ||
+        var a,
+          i,
+          l = o == null ? void 0 : o.plugin;
+        (l == null ? void 0 : l.id) == null ||
+          l.display_name == null ||
           r.push({
-            display_name: a.display_name,
-            id: a.id,
+            display_name: l.display_name,
+            id: l.id,
             is_connected: o.is_connected === !0,
+            logoUri:
+              (a = (i = l.logo) == null ? void 0 : i.uri) != null ? a : null,
           });
       }
       return r;

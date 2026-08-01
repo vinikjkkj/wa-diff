@@ -1735,6 +1735,7 @@ __d(
       SGC_OPTIMIZATION_RUN: "sgc_optimization_run",
       SGC_OPTIMIZATION_SUCCESS: "sgc_optimization_success",
       SGC_OPTIMIZATION_FAILED: "sgc_optimization_failed",
+      SGC_OPTIMIZATION_RETRY: "sgc_optimization_retry",
       SGC_TOGGLE_IMPRESSION: "sgc_toggle_impression",
       SGC_TOGGLE_INTERACTION: "sgc_toggle_interaction",
       PROACTIVE_MESSAGE_SENT: "proactive_message_sent",

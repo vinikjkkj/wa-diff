@@ -54,7 +54,7 @@ __d(
     }
     function m() {
       return (
-        u() &&
+        o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_business_broadcast_pro_enabled",
         )

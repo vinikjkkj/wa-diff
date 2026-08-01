@@ -10,7 +10,6 @@ __d(
     "cometAsyncFetch",
     "promiseDone",
     "setTimeout",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -125,7 +124,7 @@ __d(
               }, t));
           }),
           (n.$18 = function (t, n) {
-            (r("vulture")("pzBtPFX0kC-a4HSDET-T3rChggc="), this.$15());
+            this.$15();
             var e = Date.now() - n;
             if (
               (t.d != null
@@ -134,12 +133,12 @@ __d(
                 : this.$1.logHttpResponseBad("no data field", e),
               t.a != null)
             ) {
-              var a = t.a.t;
-              switch (a) {
+              var r = t.a.t;
+              switch (r) {
                 case "p":
-                  var i = t.a.pi;
-                  (i == null && (i = u),
-                    this.$14(i * o("DateConsts").MS_PER_SEC));
+                  var a = t.a.pi;
+                  (a == null && (a = u),
+                    this.$14(a * o("DateConsts").MS_PER_SEC));
                   break;
                 case "s":
                   this.$10 = !0;

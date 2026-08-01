@@ -25,7 +25,6 @@ __d(
     "oz-player/utils/OzErrorUtils",
     "oz-player/utils/OzMimeUtil",
     "oz-player/utils/OzTaggedTimeRanges",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -1074,11 +1073,10 @@ __d(
                   function () {},
                 )
                 .catch(function (e) {
-                  (r("vulture")("YwWY34ASN-436pPsGDoMbaLhKHc="),
-                    r("oz-player/shims/ozReportUnexpectedError")(
-                      e,
-                      "OzMediaStream SBM promise then - destroy",
-                    ));
+                  r("oz-player/shims/ozReportUnexpectedError")(
+                    e,
+                    "OzMediaStream SBM promise then - destroy",
+                  );
                 }),
               this.$OzMediaStream$p_30.destroy(),
               this.$OzMediaStream$p_17.release(),

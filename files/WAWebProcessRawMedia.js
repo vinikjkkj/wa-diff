@@ -85,19 +85,19 @@ __d(
               }
               if (c === "video" || c === "audio") {
                 if (
-                  ((_ = yield o("WAWebMediaDataUtils").processRawAudioVideo(
-                    t,
-                    !!a.isPtt,
-                    a.precomputedFields,
-                    a.asGif,
-                    p,
-                    t.type(),
-                    a.accessibilityLabel,
-                    a.setProgressPercentage,
-                    a.setMediaPreview,
-                    a.resetMediaPreview,
-                    a.setMimeType,
-                  )),
+                  ((_ = yield o("WAWebMediaDataUtils").processRawAudioVideo({
+                    _mimetype: t.type(),
+                    accessibilityLabel: a.accessibilityLabel,
+                    asGif: a.asGif,
+                    asPtt: !!a.isPtt,
+                    gifAttribution: p,
+                    opaqueData: t,
+                    precomputedFields: a.precomputedFields,
+                    resetMediaPreview: a.resetMediaPreview,
+                    setMediaPreview: a.setMediaPreview,
+                    setMimeType: a.setMimeType,
+                    setProgressPercentage: a.setProgressPercentage,
+                  })),
                   u && c === "video" && _.size != null && _.size > m)
                 )
                   throw new (r("WAWebMediaFileTooLargeError"))(c, m, _.size);

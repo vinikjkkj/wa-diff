@@ -107,12 +107,15 @@ __d(
               ),
               i instanceof o("WAWebMmsClientErrors").MediaNotFoundError
                 ? (o("WAWebSyncdUploadFatalErrorMetric").uploadFatalErrorMetric(
-                    n === "patch"
-                      ? o("WAWebWamEnumMdSyncdFatalErrorCode")
-                          .MD_SYNCD_FATAL_ERROR_CODE.EXTERNAL_PATCH_EXPIRED
-                      : o("WAWebWamEnumMdSyncdFatalErrorCode")
-                          .MD_SYNCD_FATAL_ERROR_CODE.SNAPSHOT_EXPIRED,
-                    a,
+                    {
+                      collection: a,
+                      mdFatalErrorCode:
+                        n === "patch"
+                          ? o("WAWebWamEnumMdSyncdFatalErrorCode")
+                              .MD_SYNCD_FATAL_ERROR_CODE.EXTERNAL_PATCH_EXPIRED
+                          : o("WAWebWamEnumMdSyncdFatalErrorCode")
+                              .MD_SYNCD_FATAL_ERROR_CODE.SNAPSHOT_EXPIRED,
+                    },
                   ),
                   new (o("WAWebSyncdError").SyncdFatalError)(
                     "external patch expired",

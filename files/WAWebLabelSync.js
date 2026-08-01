@@ -390,31 +390,39 @@ __d(
               );
             });
           }),
-          (i.getLabelMutation = function (t, n, r, a, i, l, s, u) {
-            var e = { name: n, deleted: a };
+          (i.getLabelMutation = function (t) {
+            var e = t.color,
+              n = t.deleted,
+              r = t.id,
+              a = t.isActive,
+              i = t.name,
+              l = t.predefinedId,
+              s = t.timestamp,
+              u = t.type,
+              c = { name: i, deleted: n };
             if (
-              (r != null && (e.color = r),
-              i != null && (e.predefinedId = i),
-              l != null && (e.isActive = l),
-              s != null)
+              (e != null && (c.color = e),
+              l != null && (c.predefinedId = l),
+              a != null && (c.isActive = a),
+              u != null)
             ) {
-              var c = o(
+              var d = o(
                 "WAWebProtobufSyncAction.pb",
-              ).SyncActionValue$LabelEditAction$ListType.cast(s);
-              c != null
-                ? (e.type = c)
+              ).SyncActionValue$LabelEditAction$ListType.cast(u);
+              d != null
+                ? (c.type = d)
                 : o("WALogger").WARN(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
                         "getLabelMutation: type has unexpected value: ",
                         "",
                       ])),
-                    s,
+                    u,
                   );
             }
             return (
               o("WAWebWamLabelSyncTrackingReporter")
-                .generateLabelEditHash(t)
+                .generateLabelEditHash(r)
                 .then(function (e) {
                   var t;
                   (t = o(
@@ -424,20 +432,20 @@ __d(
                     t.LABEL_SYNC_TYPE_ENUM.LABEL_EDIT,
                     t.LABEL_SYNC_DIRECTION_TYPE.SENDER,
                     t.LABEL_SYNC_RESULT_TYPE.SUCCESS,
-                    !a,
-                    u,
+                    !n,
+                    s,
                     void 0,
-                    i,
+                    l,
                   );
                 }),
               o("WAWebSyncdActionUtils").buildPendingMutation({
                 collection: this.collectionName,
-                indexArgs: [t],
-                value: { labelEditAction: e },
+                indexArgs: [r],
+                value: { labelEditAction: c },
                 version: this.getVersion(),
                 operation: o("WAWebProtobufsServerSync.pb")
                   .SyncdMutation$SyncdOperation.SET,
-                timestamp: u,
+                timestamp: s,
                 action: this.getAction(),
               })
             );

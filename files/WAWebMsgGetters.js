@@ -417,22 +417,22 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1],
-            r = e[2],
-            a = e[3],
-            i = e[4],
-            l = e[5],
-            s = e[6],
-            u = e[7],
-            c = e[8];
-          return i || l
-            ? t.remote
-            : n
-              ? s
-                ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
-                : u
-              : r || a || (c != null && c.isBot())
+            a = e[2],
+            i = e[3],
+            l = e[4],
+            s = e[5],
+            u = e[6],
+            c = e[7],
+            d = e[8];
+          if (l || s) return t.remote;
+          if (n)
+            return u
+              ? o("WAWebUserPrefsMeUser").getMeUserOrThrow()
+              : c instanceof r("WAWebWid")
                 ? c
-                : u;
+                : null;
+          var m = a || i || (d instanceof r("WAWebWid") && d.isBot()) ? d : c;
+          return m instanceof r("WAWebWid") ? m : null;
         },
         [R, tt, Xe, Ze, xe, $e, Ye, k, x],
       ),
