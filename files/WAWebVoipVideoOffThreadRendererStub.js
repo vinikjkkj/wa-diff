@@ -2,6 +2,7 @@ __d(
   "WAWebVoipVideoOffThreadRendererStub",
   [
     "WALogger",
+    "WAWebUA",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererLogging",
     "WAWebVoipVideoRendererRegistry",
@@ -53,7 +54,9 @@ __d(
             ));
         }
         ((t.checkAvailability = function () {
-          return !!window.OffscreenCanvas && !!window.Worker;
+          return o("WAWebUA").UA.isSafari
+            ? !1
+            : !!window.OffscreenCanvas && !!window.Worker;
         }),
           (t.$7 = function (n, r) {
             var e, o;

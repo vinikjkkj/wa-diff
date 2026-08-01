@@ -1,0 +1,45 @@
+__d(
+  "VenusFlytrapLoggingEntrypoint",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("$InternalEnum")({
+        OMNI_PRESENT_BUGNUB: "omni_present_bugnub",
+        TOP_NAVIGATION_SETTINGS: "top_navigation_settings",
+        KEYBOARD_SHORTCUT: "keyboard_shortcut",
+        FACEBOOK_COMPOSER: "facebook_composer",
+        INTERNAL_REACT_ERROR_DIALOG: "internal_react_error_dialog",
+        DESKTOP_NAVIGATION_MENU: "desktop_navigation_menu",
+        MSITE_PROFILE_SETTINGS: "msite_profile_settings",
+        FACEBOOK_STORIES: "facebook_stories",
+        FACEBOOK_UNIFIED_VIDEO: "facebook_unified_video",
+        FACEBOOK_LIVE_PRODUCER: "facebook_live_producer",
+        FACEBOOK_REELS: "facebook_reels",
+        FACEBOOK_HELP_CENTER: "facebook_help_center",
+        FACEBOOK_LWI: "facebook_lwi",
+        FACEBOOK_NOTIFICATIONS: "facebook_notifications",
+        FACEBOOK_UNIFIED_SHARE_SHEET: "facebook_unified_share_sheet",
+        FACEBOOK_GENAI_CREATE: "facebook_genai_create",
+        FACEBOOK_ZENON: "facebook_zenon",
+        FACEBOOK_GHOST_OWL: "facebook_ghost_owl",
+        FACEBOOK_AUTH_PLATFORM: "facebook_auth_platform",
+        FACEBOOK_FEED_END_OF_FEED: "facebook_feed_end_of_feed",
+        FACEBOOK_FEED_STORY_MENU: "facebook_feed_story_menu",
+        FACEBOOK_COMMENT_ERROR: "facebook_comment_error",
+        FACEBOOK_METAMATE: "facebook_metamate",
+        FACEBOOK_INSTANT_GAMES_CSM: "facebook_instant_games_csm",
+        FACEBOOK_INSTANT_GAMES_PERF_OPTIMIZATION:
+          "facebook_instant_games_perf_optimization",
+        FACEBOOK_SHARE_SHEET_LEGACY: "facebook_share_sheet_legacy",
+        FACEBOOK_LEXICAL: "facebook_lexical",
+        FACEBOOK_MARKETPLACE: "facebook_marketplace",
+        URL_DEEP_LINK: "url_deep_link",
+        RAGE_MOUSE_CLICK: "rage_mouse_click",
+        RAGE_MOUSE_ENERGY: "rage_mouse_energy",
+        RAGE_MOUSE_REVERSAL: "rage_mouse_reversal",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

@@ -9,36 +9,46 @@ __d(
       c = null,
       d = !1,
       m = !1,
-      p = !1;
-    function _() {
+      p = 0,
+      _ = new Set();
+    function f() {
       return u;
     }
-    function f(e) {
+    function g(e) {
       u = e;
     }
-    function g() {
+    function h() {
       return d;
     }
-    function h(t) {
+    function y(t) {
       d !== t &&
         ((d = t), e.trigger("popoutWindowOpeningChanged", { isOpening: t }));
     }
-    function y() {
+    function C() {
       return m;
     }
-    function C() {
+    function b() {
       m = !0;
     }
-    function b() {
+    function v() {
       m = !1;
     }
-    function v() {
-      return p;
-    }
-    function S(e) {
-      p = e;
+    function S() {
+      return _.size > 0;
     }
     function R() {
+      var e = p++;
+      return (
+        _.add(e),
+        function () {
+          _.delete(e);
+        }
+      );
+    }
+    function L() {
+      _.clear();
+    }
+    function E() {
       if (c == null || !u) return !1;
       try {
         return !(c.document.hidden || c.innerWidth <= 0 || c.innerHeight <= 0);
@@ -46,40 +56,42 @@ __d(
         return !1;
       }
     }
-    function L() {
+    function k() {
       return c;
     }
-    function E(e) {
+    function I(e) {
       c = e;
     }
-    function k() {
+    function T() {
       if (c == null) return !1;
       try {
-        return !I(c);
+        return !D(c);
       } catch (e) {
         return !1;
       }
     }
-    function I(e) {
+    function D(e) {
       return (
         e != null && typeof e == "object" && "closed" in e && e.closed === !0
       );
     }
     ((l.WAWebVoipUiPopoutWindowEventEmitter = e),
       (l.MAIN_WINDOW_NAME = s),
-      (l.getIsCallActiveInPopoutWindow = _),
-      (l.setIsCallActiveInPopoutWindow = f),
-      (l.getIsPopoutWindowOpening = g),
-      (l.setIsPopoutWindowOpening = h),
-      (l.getIsPopoutUiReady = y),
-      (l.markPopoutUiReady = C),
-      (l.resetPopoutUiReady = b),
-      (l.getIsCameraStreamReacquisitionInProgress = v),
-      (l.setIsCameraStreamReacquisitionInProgress = S),
-      (l.getIsPopoutWindowActiveAndVisible = R),
-      (l.getPopoutWindow = L),
-      (l.setPopoutWindow = E),
-      (l.isPopoutWindowAlive = k));
+      (l.getIsCallActiveInPopoutWindow = f),
+      (l.setIsCallActiveInPopoutWindow = g),
+      (l.getIsPopoutWindowOpening = h),
+      (l.setIsPopoutWindowOpening = y),
+      (l.getIsPopoutUiReady = C),
+      (l.markPopoutUiReady = b),
+      (l.resetPopoutUiReady = v),
+      (l.getIsCameraStreamReacquisitionInProgress = S),
+      (l.beginCameraStreamReacquisition = R),
+      (l.resetCameraStreamReacquisitions = L),
+      (l.getIsPopoutWindowActiveAndVisible = E),
+      (l.getPopoutWindow = k),
+      (l.setPopoutWindow = I),
+      (l.isPopoutWindowAlive = T),
+      (l.isWindowClosed = D));
   },
   98,
 );

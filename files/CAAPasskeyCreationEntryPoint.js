@@ -22,12 +22,17 @@ __d(
         LOGIN_FLOW: "login_flow",
         MEGAPHONE: "megaphone",
         MIGRATION_MOMENT_NUX: "migration_moment_nux",
+        MIGRATION_MOMENT_NUX_SECURITY_CHECKUP:
+          "migration_moment_nux_security_checkup",
         MT_ACCOUNTS_CENTER_PASSWORD_AND_SECURITY:
           "mt_accounts_center_password_and_security",
         NFX_COMPROMISED_ACCOUNT: "nfx_compromised_account",
         PAYMENTS_AUTOFILL: "payments_autofill",
+        PAYOUT_SETTINGS: "payout_settings",
+        PAYOUT_SETTINGS_ENFORCED: "payout_settings_enforced",
         POST_AFAD_MOBILE: "post_afad_mobile",
         POST_AFAD_WEB: "post_afad_web",
+        POST_CHECKOUT_UPSELL: "post_checkout_upsell",
         POST_EPSILON: "post_epsilon",
         POST_EPSILON_MOBILE: "post_epsilon_mobile",
         POST_EPSILON_WEB: "post_epsilon_web",
@@ -45,6 +50,7 @@ __d(
           "post_two_factor_login_additional_passkey_web",
         REGISTARTION_FLOW: "registration_flow",
         SECURITY_CHECKUP: "security_checkup",
+        SECURITY_CHECKUP_REACTIVE: "security_checkup_reactive",
         WARM_START: "warm_start",
       }),
       l = e;

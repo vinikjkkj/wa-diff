@@ -397,10 +397,7 @@ __d(
       return n === !0 ? re() : t ? ne() : r ? te() : ee();
     }
     function ae() {
-      return (
-        r("justknobx")._("2102") &&
-        (o("WAWebUA").UA.isSafari || o("WAWebUA").UA.isFirefox)
-      );
+      return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
     }
     function ie() {
       return o("WAWebABProps").getABPropConfigValue(

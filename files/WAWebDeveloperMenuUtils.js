@@ -70,8 +70,7 @@ __d(
         m.apply(this, arguments)
       );
     }
-    var p = { copyToClipboard: c, executeDebugCommand: d };
-    l.default = p;
+    ((l.copyToClipboard = c), (l.executeDebugCommand = d));
   },
   98,
 );
