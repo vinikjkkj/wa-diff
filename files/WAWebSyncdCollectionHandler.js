@@ -278,363 +278,364 @@ __d(
         ke.apply(this, arguments)
       );
     }
-    function Ie(e, t, n, r) {
+    function Ie(e) {
       return Te.apply(this, arguments);
     }
     function Te() {
       return (
-        (Te = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = e.name,
-              l = e.patches,
-              s = e.snapshot,
-              u = e.syncedEncryptedMutations,
-              c = e.syncedPendingMutationsId,
-              d = e.version;
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "[",
-                  "] syncd: start applying collection ",
-                  "",
-                ])),
-              t,
-              i,
-            );
-            try {
-              var m, p;
-              a == null ||
-                a.mark("external_mutations_download_start", {
-                  patchCount: (m = e.patches) == null ? void 0 : m.length,
-                  snapshotSizeBytes:
-                    (p = e.snapshot) == null ? void 0 : p.fileSizeBytes,
-                });
-              var _ = yield Ae(i, l, s, n),
-                f = _[0],
-                g = _[1];
-              a == null ||
-                a.mark("external_mutations_download_end", {
-                  patchesWithMutationsCount: g == null ? void 0 : g.length,
-                  snapshotRecordsCount: f == null ? void 0 : f.records.length,
-                });
-              var h = performance.now();
-              if (f != null)
-                (yield We(
-                  i,
-                  f,
-                  g,
+        (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.collectionDetails,
+            n = e.localVersion,
+            a = e.session,
+            i = e.syncdEventFlow,
+            l = t.name,
+            s = t.patches,
+            u = t.snapshot,
+            c = t.syncedEncryptedMutations,
+            d = t.syncedPendingMutationsId,
+            m = t.version;
+          o("WALogger").LOG(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "[",
+                "] syncd: start applying collection ",
+                "",
+              ])),
+            a,
+            l,
+          );
+          try {
+            var p, _;
+            i == null ||
+              i.mark("external_mutations_download_start", {
+                patchCount: (p = t.patches) == null ? void 0 : p.length,
+                snapshotSizeBytes:
+                  (_ = t.snapshot) == null ? void 0 : _.fileSizeBytes,
+              });
+            var f = yield Ae(l, s, u, n),
+              g = f[0],
+              h = f[1];
+            i == null ||
+              i.mark("external_mutations_download_end", {
+                patchesWithMutationsCount: h == null ? void 0 : h.length,
+                snapshotRecordsCount: g == null ? void 0 : g.records.length,
+              });
+            var x = performance.now();
+            if (g != null)
+              (yield We(
+                l,
+                g,
+                h,
+                i,
+                a,
+                o("WAWebSyncdCollectionUtils").isBootstrap(n)
+                  ? "bootstrap"
+                  : "non_bootstrap",
+              ),
+                o("WALogger").LOG(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "[",
+                      "] syncd: ",
+                      " snapshot and patches applied successfully",
+                    ])),
                   a,
-                  t,
-                  o("WAWebSyncdCollectionUtils").isBootstrap(n)
-                    ? "bootstrap"
-                    : "non_bootstrap",
+                  l,
+                ));
+            else if (h != null) {
+              var $ = Math.min.apply(
+                  Math,
+                  h.map(function (e) {
+                    return e.version.version;
+                  }),
                 ),
+                P = n != null && $ > n + 1 && h.length > 0;
+              if (P) {
+                yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                  l,
+                  a + " has missing patches",
+                );
+                var N =
+                  yield o(
+                    "WAWebGetMissingKey",
+                  ).getAllMissingKeysInTransaction();
+                throw (
                   o("WALogger").LOG(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "[",
-                        "] syncd: ",
-                        " snapshot and patches applied successfully",
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        " syncd: missing keys: [",
+                        "]",
                       ])),
-                    t,
-                    i,
-                  ));
-              else if (g != null) {
-                var x = Math.min.apply(
-                    Math,
-                    g.map(function (e) {
-                      return e.version.version;
+                    a,
+                    N.map(function (e) {
+                      return e.keyHex + ":" + e.timestamp;
                     }),
                   ),
-                  $ = n != null && x > n + 1 && g.length > 0;
-                if ($) {
-                  yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                    i,
-                    t + " has missing patches",
-                  );
-                  var P =
-                    yield o(
-                      "WAWebGetMissingKey",
-                    ).getAllMissingKeysInTransaction();
-                  throw (
-                    o("WALogger").LOG(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          " syncd: missing keys: [",
-                          "]",
-                        ])),
-                      t,
-                      P.map(function (e) {
-                        return e.keyHex + ":" + e.timestamp;
-                      }),
-                    ),
-                    o("WALogger").LOG(
-                      v ||
-                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                  o("WALogger").LOG(
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        " syncd: has missing patches. collection: ",
+                        ", localVersion: ",
+                        ",\n           minPatch: ",
+                        "",
+                      ])),
+                    a,
+                    l,
+                    n,
+                    $,
+                  ),
+                  yield De(l, h[0]),
+                  yield o("WAWebSyncdDbCallbacksApi").printSyncdLog(l),
+                  o("WALogger")
+                    .ERROR(
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " syncd: has missing patches. collection: ",
-                          ", localVersion: ",
-                          ",\n           minPatch: ",
                           "",
                         ])),
-                      t,
-                      i,
-                      n,
-                      x,
-                    ),
-                    yield De(i, g[0]),
-                    yield o("WAWebSyncdDbCallbacksApi").printSyncdLog(i),
-                    o("WALogger")
-                      .ERROR(
-                        S ||
-                          (S = babelHelpers.taggedTemplateLiteralLoose([
-                            "",
-                            " syncd: has missing patches. collection: ",
-                            "",
-                          ])),
-                        t,
-                        i,
-                      )
-                      .sendLogs("syncd: has missing patches"),
-                    o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
-                      o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
-                        .SERVER_DID_NOT_SEND_ALL_PATCHES,
-                      { collection: i, patchVersion: n != null ? n : 0 },
-                    ),
-                    new (o("WAWebSyncdError").SyncdFatalError)(
-                      "syncd: has missing patches",
+                      a,
+                      l,
                     )
-                  );
-                }
-                (yield He(
-                  i,
-                  g,
+                    .sendLogs("syncd: has missing patches"),
+                  o("WAWebSyncdMetricFatalError").reportSyncdFatalError(
+                    o("WAWebSyncdMetricFatalError").SyncdFatalErrorType
+                      .SERVER_DID_NOT_SEND_ALL_PATCHES,
+                    { collection: l, patchVersion: n != null ? n : 0 },
+                  ),
+                  new (o("WAWebSyncdError").SyncdFatalError)(
+                    "syncd: has missing patches",
+                  )
+                );
+              }
+              (yield He(
+                l,
+                h,
+                i,
+                a,
+                o("WAWebSyncdCollectionUtils").isBootstrap(n)
+                  ? "bootstrap"
+                  : "non_bootstrap",
+              ),
+                o("WALogger").LOG(
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                      "[",
+                      "] syncd: ",
+                      " patches applied successfully",
+                    ])),
                   a,
-                  t,
-                  o("WAWebSyncdCollectionUtils").isBootstrap(n)
-                    ? "bootstrap"
-                    : "non_bootstrap",
-                ),
-                  o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
-                        "[",
-                        "] syncd: ",
-                        " patches applied successfully",
-                      ])),
-                    t,
-                    i,
-                  ));
-              } else if (d != null) {
-                var N = r("countWhere")(u, function (e) {
-                    return (
-                      e.operation ===
-                      o("WAWebProtobufsServerSync.pb")
-                        .SyncdMutation$SyncdOperation.SET
-                    );
-                  }),
-                  M = r("countWhere")(u, function (e) {
-                    return (
-                      e.operation ===
-                      o("WAWebProtobufsServerSync.pb")
-                        .SyncdMutation$SyncdOperation.REMOVE
-                    );
-                  }),
-                  w = Array.from(
-                    new Set(
-                      u.map(function (e) {
-                        return e.index;
-                      }),
-                    ),
-                  ).length;
-                (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                  i,
-                  t +
-                    " start upload patch. version: " +
-                    d +
-                    ". mutation count: " +
-                    u.length +
-                    ",\n        numSet: " +
-                    N +
-                    ", numRemove: " +
-                    M +
-                    ", numUniqueIndex: " +
-                    w,
-                ),
-                  yield $e(i, d, c, u, t));
-                var A = yield o(
-                  "WAWebSyncdWamReportingUtils",
-                ).getShortMdSessionId();
-                (u.forEach(function (e) {
-                  var t = o("WAWebSyncdActionUtils").getMutationNameFromIndex(
-                    e.collection,
-                    e.index,
-                  );
-                  o("WAWebSyncdWamReportingUtils").syncReportMutationToWam(
-                    i,
-                    d,
-                    !1,
-                    o("WABase64").encodeB64UrlSafe(e.indexMac),
-                    t,
+                  l,
+                ));
+            } else if (m != null) {
+              var M = r("countWhere")(c, function (e) {
+                  return (
                     e.operation ===
-                      o("WAWebProtobufsServerSync.pb")
-                        .SyncdMutation$SyncdOperation.REMOVE,
-                    !0,
-                    A,
-                    e.patchMac
-                      ? o("WABase64").encodeB64UrlSafe(e.patchMac)
-                      : void 0,
+                    o("WAWebProtobufsServerSync.pb")
+                      .SyncdMutation$SyncdOperation.SET
                   );
                 }),
-                  yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                    i,
-                    t + " end upload patches",
-                  ),
-                  o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "[",
-                        "] syncd: ",
-                        " v",
-                        " uploaded successfully",
-                      ])),
-                    t,
-                    i,
-                    d,
-                  ));
-              } else {
-                if (
-                  (o("WAWebSyncdCollectionUtils").isBootstrap(n) &&
-                    (yield o(
-                      "WAWebGetCollectionVersion",
-                    ).updateCollectionVersionAndLtHashInTransaction(i, Re, Le)),
-                  u.length > 0)
-                ) {
-                  var F = yield o(
-                    "WAWebSyncdWamReportingUtils",
-                  ).getShortMdSessionId();
-                  o("WAWebSyncdWamReportingUtils").syncReportOutgoingToWam(
-                    i,
-                    n != null ? n : 0,
-                    new ArrayBuffer(0),
-                    u,
-                    F,
-                    "error: no response from server for collection",
+                w = r("countWhere")(c, function (e) {
+                  return (
+                    e.operation ===
+                    o("WAWebProtobufsServerSync.pb")
+                      .SyncdMutation$SyncdOperation.REMOVE
                   );
-                }
+                }),
+                A = Array.from(
+                  new Set(
+                    c.map(function (e) {
+                      return e.index;
+                    }),
+                  ),
+                ).length;
+              (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                l,
+                a +
+                  " start upload patch. version: " +
+                  m +
+                  ". mutation count: " +
+                  c.length +
+                  ",\n        numSet: " +
+                  M +
+                  ", numRemove: " +
+                  w +
+                  ", numUniqueIndex: " +
+                  A,
+              ),
+                yield $e(l, m, d, c, a));
+              var F = yield o(
+                "WAWebSyncdWamReportingUtils",
+              ).getShortMdSessionId();
+              (c.forEach(function (e) {
+                var t = o("WAWebSyncdActionUtils").getMutationNameFromIndex(
+                  e.collection,
+                  e.index,
+                );
+                o("WAWebSyncdWamReportingUtils").syncReportMutationToWam(
+                  l,
+                  m,
+                  !1,
+                  o("WABase64").encodeB64UrlSafe(e.indexMac),
+                  t,
+                  e.operation ===
+                    o("WAWebProtobufsServerSync.pb")
+                      .SyncdMutation$SyncdOperation.REMOVE,
+                  !0,
+                  F,
+                  e.patchMac
+                    ? o("WABase64").encodeB64UrlSafe(e.patchMac)
+                    : void 0,
+                );
+              }),
+                yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                  l,
+                  a + " end upload patches",
+                ),
                 o("WALogger").LOG(
-                  E ||
-                    (E = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: sync ",
-                      " but there are no updates",
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "[",
+                      "] syncd: ",
+                      " v",
+                      " uploaded successfully",
                     ])),
-                  i,
-                );
-              }
-              var O = Math.floor(performance.now() - h);
+                  a,
+                  l,
+                  m,
+                ));
+            } else {
               if (
-                (o("WALogger").LOG(
-                  k ||
-                    (k = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: applyAppStateSyncResponse: finished applying ",
-                      " in ",
-                      "ms",
-                    ])),
-                  i,
-                  O,
-                ),
-                (g || f) &&
-                  o("WAWebSyncdCollectionUtils").isBootstrap(n) &&
-                  !o("WAWebSyncdCollectionUtils").isCriticalCollection(i))
+                (o("WAWebSyncdCollectionUtils").isBootstrap(n) &&
+                  (yield o(
+                    "WAWebGetCollectionVersion",
+                  ).updateCollectionVersionAndLtHashInTransaction(l, Re, Le)),
+                c.length > 0)
               ) {
-                var B = f != null;
-                o("WAWebSyncdMetrics").reportSyncdBootstrapDataApplied(
-                  i,
-                  B
-                    ? o("WAWebSyncdMetrics")
-                        .SyncdBootstrapDataAppliedSnapshotUsed.SNAPSHOT_USED
-                    : o("WAWebSyncdMetrics")
-                        .SyncdBootstrapDataAppliedSnapshotUsed
-                        .SNAPSHOT_NOT_USED,
-                  O,
-                );
-              }
-              return e;
-            } catch (e) {
-              var W = r("getErrorSafe")(e).message;
-              if (
-                (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
-                  i,
-                  "error (maybe retryable): " + W,
-                ),
-                u.length > 0)
-              ) {
-                var q = yield o(
+                var O = yield o(
                   "WAWebSyncdWamReportingUtils",
                 ).getShortMdSessionId();
                 o("WAWebSyncdWamReportingUtils").syncReportOutgoingToWam(
-                  i,
+                  l,
                   n != null ? n : 0,
                   new ArrayBuffer(0),
-                  u,
-                  q,
-                  "error: " + W,
+                  c,
+                  O,
+                  "error: no response from server for collection",
                 );
               }
-              return e instanceof o("WAWebSyncdError").SyncdMissingKeyError
-                ? (o("WALogger").WARN(
-                    I ||
-                      (I = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: key error: ",
-                        " missing keys",
-                      ])),
-                    i,
-                  ),
-                  {
-                    name: i,
-                    state: o("WAWebSyncdConst").CollectionState.Blocked,
-                  })
-                : e instanceof o("WAWebSyncdError").SyncdFatalError
-                  ? (o("WALogger")
-                      .ERROR(
-                        T ||
-                          (T = babelHelpers.taggedTemplateLiteralLoose([
-                            "syncd: fatal error: ",
-                            " throws ",
-                            "",
-                          ])),
-                        i,
-                        W,
-                      )
-                      .sendLogs(
-                        "syncd: fatal error: " + String(i) + " throws " + W,
-                      ),
-                    {
-                      name: i,
-                      state: o("WAWebSyncdConst").CollectionState.ErrorFatal,
-                    })
-                  : (o("WALogger")
-                      .WARN(
-                        D ||
-                          (D = babelHelpers.taggedTemplateLiteralLoose([
-                            "syncd: retryable error: ",
-                            " throws ",
-                            "",
-                          ])),
-                        i,
-                        W,
-                      )
-                      .sendLogs(
-                        "syncd: retryable error: " + String(i) + " throws " + W,
-                      ),
-                    {
-                      name: i,
-                      state: o("WAWebSyncdConst").CollectionState.ErrorRetry,
-                    });
+              o("WALogger").LOG(
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: sync ",
+                    " but there are no updates",
+                  ])),
+                l,
+              );
             }
-          },
-        )),
+            var B = Math.floor(performance.now() - x);
+            if (
+              (o("WALogger").LOG(
+                k ||
+                  (k = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: applyAppStateSyncResponse: finished applying ",
+                    " in ",
+                    "ms",
+                  ])),
+                l,
+                B,
+              ),
+              (h || g) &&
+                o("WAWebSyncdCollectionUtils").isBootstrap(n) &&
+                !o("WAWebSyncdCollectionUtils").isCriticalCollection(l))
+            ) {
+              var W = g != null;
+              o("WAWebSyncdMetrics").reportSyncdBootstrapDataApplied(
+                l,
+                W
+                  ? o("WAWebSyncdMetrics").SyncdBootstrapDataAppliedSnapshotUsed
+                      .SNAPSHOT_USED
+                  : o("WAWebSyncdMetrics").SyncdBootstrapDataAppliedSnapshotUsed
+                      .SNAPSHOT_NOT_USED,
+                B,
+              );
+            }
+            return t;
+          } catch (e) {
+            var q = r("getErrorSafe")(e).message;
+            if (
+              (yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
+                l,
+                "error (maybe retryable): " + q,
+              ),
+              c.length > 0)
+            ) {
+              var U = yield o(
+                "WAWebSyncdWamReportingUtils",
+              ).getShortMdSessionId();
+              o("WAWebSyncdWamReportingUtils").syncReportOutgoingToWam(
+                l,
+                n != null ? n : 0,
+                new ArrayBuffer(0),
+                c,
+                U,
+                "error: " + q,
+              );
+            }
+            return e instanceof o("WAWebSyncdError").SyncdMissingKeyError
+              ? (o("WALogger").WARN(
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                      "syncd: key error: ",
+                      " missing keys",
+                    ])),
+                  l,
+                ),
+                {
+                  name: l,
+                  state: o("WAWebSyncdConst").CollectionState.Blocked,
+                })
+              : e instanceof o("WAWebSyncdError").SyncdFatalError
+                ? (o("WALogger")
+                    .ERROR(
+                      T ||
+                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                          "syncd: fatal error: ",
+                          " throws ",
+                          "",
+                        ])),
+                      l,
+                      q,
+                    )
+                    .sendLogs(
+                      "syncd: fatal error: " + String(l) + " throws " + q,
+                    ),
+                  {
+                    name: l,
+                    state: o("WAWebSyncdConst").CollectionState.ErrorFatal,
+                  })
+                : (o("WALogger")
+                    .WARN(
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
+                          "syncd: retryable error: ",
+                          " throws ",
+                          "",
+                        ])),
+                      l,
+                      q,
+                    )
+                    .sendLogs(
+                      "syncd: retryable error: " + String(l) + " throws " + q,
+                    ),
+                  {
+                    name: l,
+                    state: o("WAWebSyncdConst").CollectionState.ErrorRetry,
+                  });
+          }
+        })),
         Te.apply(this, arguments)
       );
     }

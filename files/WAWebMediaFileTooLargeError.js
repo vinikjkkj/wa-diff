@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaFileTooLargeError",
-  ["WAWebMiscErrors"],
+  ["WAWebMediaFileErrors"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t(t, n, r) {
@@ -19,7 +19,7 @@ __d(
         );
       }
       return (babelHelpers.inheritsLoose(t, e), t);
-    })(o("WAWebMiscErrors").MediaFileError);
+    })(o("WAWebMediaFileErrors").MediaFileError);
     l.default = e;
   },
   98,

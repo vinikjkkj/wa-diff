@@ -2,7 +2,7 @@ __d(
   "WAWebLocaleToMomentResource",
   [],
   function (t, n, r, o, a, i) {
-    var e = { "zh-HK": "zh-TW", pa: "pa-IN" },
+    var e = { "zh-hant": "zh-tw", "zh-hans": "zh-cn", pa: "pa-in" },
       l = e;
     i.default = l;
   },

@@ -108,12 +108,12 @@ __d(
               ),
               null
             );
-          var S = yield o("WAWebApiMessageInfoStore").isRetryEligible(
-              _,
-              l,
-              h,
-              g,
-            ),
+          var S = yield o("WAWebApiMessageInfoStore").isRetryEligible({
+              identityRowId: h,
+              messageRowId: g,
+              msgKey: _,
+              receiver: l,
+            }),
             R =
               S ===
               o("WAWebApiMessageInfoStore").RetryEligibilityResult
@@ -124,12 +124,12 @@ __d(
                 )
               : null;
           (L &&
-            (S = yield o("WAWebApiMessageInfoStore").isRetryEligible(
-              _,
-              L,
-              h,
-              g,
-            )),
+            (S = yield o("WAWebApiMessageInfoStore").isRetryEligible({
+              identityRowId: h,
+              messageRowId: g,
+              msgKey: _,
+              receiver: L,
+            })),
             f.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message &&
               (yield f.data.waitForPrep()),
             o("WALogger")

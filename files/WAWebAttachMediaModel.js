@@ -15,6 +15,7 @@ __d(
     "WAWebMedia",
     "WAWebMediaDataUtils",
     "WAWebMediaEditorData",
+    "WAWebMediaFileErrors",
     "WAWebMediaFileTooLargeError",
     "WAWebMediaGatingUtils",
     "WAWebMediaLoad",
@@ -22,7 +23,6 @@ __d(
     "WAWebMediaProvenanceQpl",
     "WAWebMediaWorkerProxy",
     "WAWebMimeTypes",
-    "WAWebMiscErrors",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebPREGatingUtils",
@@ -315,7 +315,9 @@ __d(
                     function* (n) {
                       var a;
                       if (!e.$AttachMediaImpl$p_6(n.type))
-                        throw new (o("WAWebMiscErrors").InvalidMediaFileType)();
+                        throw new (o(
+                          "WAWebMediaFileErrors",
+                        ).InvalidMediaFileType)();
                       (e.set(n), (e.originalFilename = n.filename));
                       var i = {
                           maxDimension: e.$AttachMediaImpl$p_5(),
@@ -337,7 +339,9 @@ __d(
                         (l === !0 || g === !0) &&
                         n.type === o("WAWebFileUtils").FILETYPE.VIDEO
                       )
-                        throw new (o("WAWebMiscErrors").InvalidMediaFileType)();
+                        throw new (o(
+                          "WAWebMediaFileErrors",
+                        ).InvalidMediaFileType)();
                       (_ === !0
                         ? ((i.asGif = !0),
                           (i.gifAttribution = p != null ? p : void 0),
@@ -465,7 +469,7 @@ __d(
               .catch(
                 o("WAFilteredCatch").filteredCatch(
                   [
-                    (a = o("WAWebMiscErrors")).InvalidMediaFileType,
+                    (a = o("WAWebMediaFileErrors")).InvalidMediaFileType,
                     a.InvalidImageFileType,
                   ],
                   function (n) {
@@ -512,7 +516,7 @@ __d(
                   ),
                   e.set({
                     exception: new (o(
-                      "WAWebMiscErrors",
+                      "WAWebMediaFileErrors",
                     ).InvalidMediaFileType)(),
                     state: y.ERROR,
                   }),

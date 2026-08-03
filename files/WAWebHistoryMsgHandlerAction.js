@@ -293,11 +293,14 @@ __d(
                       if (Y) break;
                       var h = o(
                         "WAWebAdvHostedAccountTypeSystemMsg",
-                      ).genAdvAccountTypeChangeNotificationMsg(
-                        C,
-                        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-                        o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE,
-                      );
+                      ).genAdvAccountTypeChangeNotificationMsg({
+                        accountTypeChangedUser: o(
+                          "WAWebUserPrefsMeUser",
+                        ).getMeUserOrThrow(),
+                        chatId: C,
+                        newAdvAccountType: o("WAWebProtobufsAdv.pb")
+                          .ADVEncryptionType.E2EE,
+                      });
                       (H.push(h),
                         o(
                           "WAWebBizCoexUtils",
@@ -323,11 +326,14 @@ __d(
                       .NE2EE_OTHER: {
                       var b = o(
                         "WAWebAdvHostedAccountTypeSystemMsg",
-                      ).genAdvAccountTypeChangeNotificationMsg(
-                        C,
-                        o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-                        o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED,
-                      );
+                      ).genAdvAccountTypeChangeNotificationMsg({
+                        accountTypeChangedUser: o(
+                          "WAWebUserPrefsMeUser",
+                        ).getMeUserOrThrow(),
+                        chatId: C,
+                        newAdvAccountType: o("WAWebProtobufsAdv.pb")
+                          .ADVEncryptionType.HOSTED,
+                      });
                       (H.push(b),
                         o(
                           "WAWebBizCoexUtils",

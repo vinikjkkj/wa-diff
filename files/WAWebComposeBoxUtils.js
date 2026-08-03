@@ -9,8 +9,8 @@ __d(
     "WAWebFbtCommon",
     "WAWebImageUtils",
     "WAWebMediaConstants",
+    "WAWebMediaFileErrors",
     "WAWebMessageEditFlow.react",
-    "WAWebMiscErrors",
     "WAWebModalManager",
     "WAWebMsgActionCapability",
     "WAWebPonyfillsFetch",
@@ -55,7 +55,7 @@ __d(
                   ])),
                 t.status,
               ),
-              new (o("WAWebMiscErrors").MediaFileFailedLoad)()
+              new (o("WAWebMediaFileErrors").MediaFileFailedLoad)()
             );
           return t.blob();
         })

@@ -10,8 +10,8 @@ __d(
     "WAWebCanvasUtils",
     "WAWebImageUtils",
     "WAWebMediaConstants",
+    "WAWebMediaFileErrors",
     "WAWebMediaOpaqueData",
-    "WAWebMiscErrors",
     "WAWebPDFWorkerSrc",
     "asyncToGeneratorRuntime",
   ],
@@ -90,7 +90,7 @@ __d(
                   u = l.canvas,
                   c = l.dataUrl;
                 if (u == null || s == null || c == null)
-                  throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
+                  throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
                 return {
                   url: URL.createObjectURL(n),
                   thumbUrl: c,

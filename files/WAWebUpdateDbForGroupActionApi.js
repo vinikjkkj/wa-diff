@@ -912,12 +912,12 @@ __d(
               F.push(
                 o(
                   "WAWebApiSubgroupSuggestionStore",
-                ).updateOwnerInSubgroupSuggestions(
-                  a.parentGroupId,
-                  a.subgroupSuggestions,
-                  a.oldOwner,
-                  a.newOwner,
-                ),
+                ).updateOwnerInSubgroupSuggestions({
+                  newOwner: a.newOwner,
+                  oldOwner: a.oldOwner,
+                  parentGroupId: a.parentGroupId,
+                  subgroupSuggestions: a.subgroupSuggestions,
+                }),
               );
               break;
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_ADD_MODE: {

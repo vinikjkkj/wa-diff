@@ -110,7 +110,6 @@ __d(
                       e === "EphemeralSettingAdmin" ||
                       e === "EphemeralSyncResponse" ||
                       e === "EphemeralSettingChangeFromCurrentDevice" ||
-                      e === "AlertICDC" ||
                       e === "GroupInvite" ||
                       e === "SenderKeyDistribution" ||
                       e === "Reaction" ||

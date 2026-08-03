@@ -23,14 +23,14 @@ __d(
           o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
             s(0, 73617);
           var c = o("WATimeUtils").unixTime(),
-            d = r("WAWebQuickRepliesSync").getQuickReplyAddOrEditMutation(
-              a,
-              u,
-              l,
-              t,
-              i,
-              c,
-            );
+            d = r("WAWebQuickRepliesSync").getQuickReplyAddOrEditMutation({
+              count: t,
+              id: a,
+              keywords: i,
+              message: l,
+              shortcut: u,
+              timestamp: c,
+            });
           yield o("WAWebSyncdCoreApi").lockForSync(
             ["quick-reply"],
             [d],

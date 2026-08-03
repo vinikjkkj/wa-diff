@@ -8,9 +8,9 @@ __d(
     "WAOpusRecorderPlayer",
     "WAPromiseDelays",
     "WAPromiseTimeout",
+    "WAWebMediaFileErrors",
     "WAWebMediaLoadErrors",
     "WAWebMimeTypes",
-    "WAWebMiscErrors",
     "WAWebNoop",
     "WAWebPonyfillsMediaError",
     "WAWebUA",
@@ -63,7 +63,7 @@ __d(
           }),
           (a.onerror = function (e) {
             i(
-              new (o("WAWebMiscErrors").InvalidImageFileType)(
+              new (o("WAWebMediaFileErrors").InvalidImageFileType)(
                 "Image tag load error",
               ),
             );

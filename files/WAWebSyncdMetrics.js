@@ -30,13 +30,13 @@ __d(
     function _(e) {
       o(
         "WAWebCollectionHandlerWamSyncUtil",
-      ).commitBootstrapAppStateDownloadMetric(
-        e.collection,
-        e.downloadStartTs,
-        e.downloadSize,
-        e.isSuccess,
-        e.failureReason,
-      );
+      ).commitBootstrapAppStateDownloadMetric({
+        collectionName: e.collection,
+        downloadSize: e.downloadSize,
+        downloadStartTs: e.downloadStartTs,
+        failureReason: e.failureReason,
+        isSuccess: e.isSuccess,
+      });
     }
     function f(e, t, n) {
       o("WAWebCollectionHandlerWamMutation").logMetricsForDataApplied(e, t, n);

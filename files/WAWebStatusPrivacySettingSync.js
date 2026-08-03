@@ -235,24 +235,29 @@ __d(
             }
             return a;
           })()),
-          (i.getStatusPrivacySettingMutation = function (t, n, r, a, i) {
-            var e;
-            switch (t) {
+          (i.getStatusPrivacySettingMutation = function (t) {
+            var e = t.list,
+              n = t.setting,
+              r = t.shareToFB,
+              a = t.shareToIG,
+              i = t.timestamp,
+              l;
+            switch (n) {
               case o("WAWebUserPrefsStatusType").StatusPrivacySettingType
                 .Contact:
-                e = o("WAWebProtobufSyncAction.pb")
+                l = o("WAWebProtobufSyncAction.pb")
                   .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                   .CONTACTS;
                 break;
               case o("WAWebUserPrefsStatusType").StatusPrivacySettingType
                 .AllowList:
-                e = o("WAWebProtobufSyncAction.pb")
+                l = o("WAWebProtobufSyncAction.pb")
                   .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                   .ALLOW_LIST;
                 break;
               case o("WAWebUserPrefsStatusType").StatusPrivacySettingType
                 .DenyList:
-                e = o("WAWebProtobufSyncAction.pb")
+                l = o("WAWebProtobufSyncAction.pb")
                   .SyncActionValue$StatusPrivacyAction$StatusDistributionMode
                   .DENY_LIST;
                 break;
@@ -263,15 +268,15 @@ __d(
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.SET,
               version: this.getVersion(),
-              timestamp: r,
+              timestamp: i,
               action: this.getAction(),
               value: {
                 statusPrivacy: babelHelpers.extends(
-                  { mode: e, userJid: n },
+                  { mode: l, userJid: e },
                   o(
                     "WAWebCrosspostingBackendGatingUtils",
                   ).crosspostSettingsSyncSenderEnabled()
-                    ? { shareToFb: a, shareToIg: i }
+                    ? { shareToFb: r, shareToIg: a }
                     : {},
                   { customLists: [], modes: [] },
                 ),

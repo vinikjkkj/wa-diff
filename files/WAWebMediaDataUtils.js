@@ -14,13 +14,13 @@ __d(
     "WAWebMediaAnalyzer",
     "WAWebMediaCleanFileName",
     "WAWebMediaConstants",
+    "WAWebMediaFileErrors",
     "WAWebMediaLoad",
     "WAWebMediaLoadErrors",
     "WAWebMediaOpaqueData",
     "WAWebMediaPreProcessQpl",
     "WAWebMediaTypes",
     "WAWebMimeTypes",
-    "WAWebMiscErrors",
     "WAWebMmsMediaTypes",
     "WAWebNetworkGetResponseIfOnline",
     "WAWebURLUtils",
@@ -182,7 +182,7 @@ __d(
             s = i.images,
             u = i.width;
           if (s == null || s.blob == null)
-            throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
+            throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
           return { width: u, height: l, size: s.blob.size };
         })),
         E.apply(this, arguments)
@@ -214,7 +214,7 @@ __d(
               p = d.images,
               f = d.width;
             if (p == null || p.canvas == null)
-              throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
+              throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
             var g = yield o("WAWebImageUtils").rotateAndResize(
                 p.canvas,
                 o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
@@ -222,7 +222,7 @@ __d(
               ),
               h = g.images;
             if (h == null || h.canvas == null)
-              throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
+              throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
             var y = o("WAWebCanvasUtils").getResizedDataUrl(
                 h.canvas,
                 "image/jpeg",
@@ -316,7 +316,7 @@ __d(
               l = a.images,
               s = a.width;
             if (l == null || l.blob == null)
-              throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
+              throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
             var u = yield o("WAWebImageUtils").toWebpSticker(l.blob),
               c = yield r("WAWebMediaOpaqueData").createFromData(u, u.type);
             return (
@@ -466,7 +466,9 @@ __d(
                     ])),
                   v.type,
                 ),
-                new (o("WAWebMiscErrors").InvalidMediaCheckRepairFailedType)()
+                new (o(
+                  "WAWebMediaFileErrors",
+                ).InvalidMediaCheckRepairFailedType)()
               );
             var F = T.type,
               O = T.file;
@@ -491,7 +493,7 @@ __d(
                           ])),
                       )
                       .sendLogs("media-fault: ptt became video"),
-                    new (o("WAWebMiscErrors").InvalidMediaFileType)()
+                    new (o("WAWebMediaFileErrors").InvalidMediaFileType)()
                   );
                 R.set({
                   targetFormat: o("WAWebWamEnumVideoTranscoderTargetFormatType")
@@ -644,7 +646,7 @@ __d(
           var n = e.type;
           if (n) {
             if (n === "image/svg+xml")
-              throw new (o("WAWebMiscErrors").InvalidMediaFileType)(
+              throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
                 "disallowed mimetype " + n,
               );
             if (
@@ -652,7 +654,7 @@ __d(
               o("WAWebMimeTypes").DOC_MIMES.includes(n)
             )
               return n;
-            throw new (o("WAWebMiscErrors").InvalidMediaFileType)(
+            throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
               "disallowed mimetype " + n,
             );
           } else {
@@ -683,7 +685,7 @@ __d(
               var d = o("WAWebFileUtils").getMimeTypeForFilepath(t);
               if (!r("isStringNullOrEmpty")(d)) return d;
             }
-            throw new (o("WAWebMiscErrors").InvalidMediaFileType)(
+            throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
               "type: " + String(e.type) + " name: " + String(t),
             );
           }

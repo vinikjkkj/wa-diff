@@ -49,7 +49,12 @@ __d(
           return new (r("WAWebStorageAddColumn"))(t, a(t), n);
         },
         l = function (t, o) {
-          return new (r("WAWebStorageAddEncryptedColumn"))(t, a(t), o, n);
+          return new (r("WAWebStorageAddEncryptedColumn"))({
+            dataType: o,
+            name: t,
+            opts: n,
+            packedName: a(t),
+          });
         },
         u = function (t) {
           return new (r("WAWebStorageUserDefinedPrimaryKey"))(

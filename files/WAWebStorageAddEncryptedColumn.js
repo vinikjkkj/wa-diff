@@ -3,14 +3,18 @@ __d(
   ["invariant", "WAWebStorageMutation", "WAWebStorageSchema"],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
-      function t(t, n, r, o) {
-        var a;
+      function t(t) {
+        var n,
+          r = t.dataType,
+          o = t.name,
+          a = t.opts,
+          i = t.packedName;
         return (
-          (a = e.call(this, o) || this),
-          (a.name = t),
-          (a.packedName = n),
-          (a.dataType = r),
-          a
+          (n = e.call(this, a) || this),
+          (n.name = o),
+          (n.packedName = i),
+          (n.dataType = r),
+          n
         );
       }
       babelHelpers.inheritsLoose(t, e);

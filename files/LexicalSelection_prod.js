@@ -331,7 +331,7 @@ __d(
           var _t12 = f[_e10];
           s.append(_t12);
         }
-      var m = null;
+      var S = null;
       if (require("Lexical").$isRootOrShadowRoot(a)) {
         if (g) {
           if (null !== s) a.insertAfter(s);
@@ -350,33 +350,33 @@ __d(
             else
               for (var _e12 = 0; _e12 < f.length; _e12++) {
                 var _n0 = f[_e12];
-                (_t14.append(_n0), (m = _n0));
+                (_t14.append(_n0), (S = _n0));
               }
           } else if (null !== s) _n9.insertBefore(s);
           else
             for (var _e13 = 0; _e13 < f.length; _e13++) {
               var _t15 = f[_e13];
-              (_n9.insertBefore(_t15), (m = _t15));
+              (_n9.insertBefore(_t15), (S = _t15));
             }
         }
       } else if (s) a.insertAfter(s);
       else
         for (var _e14 = f.length - 1; _e14 >= 0; _e14--) {
           var _t16 = f[_e14];
-          (a.insertAfter(_t16), (m = _t16));
+          (a.insertAfter(_t16), (S = _t16));
         }
-      var S = require("Lexical").$getPreviousSelection();
-      require("Lexical").$isRangeSelection(S) && p(S.anchor) && p(S.focus)
-        ? require("Lexical").$setSelection(S.clone())
-        : null !== m
-          ? m.selectEnd()
+      var m = require("Lexical").$getPreviousSelection();
+      require("Lexical").$isRangeSelection(m) && p(m.anchor) && p(m.focus)
+        ? require("Lexical").$setSelection(m.clone())
+        : null !== S
+          ? S.selectEnd()
           : (n.dirty = !0);
     }
-    function m(e) {
-      var t = S(e);
+    function S(e) {
+      var t = m(e);
       return null !== t && "vertical-rl" === t.writingMode;
     }
-    function S(t) {
+    function m(t) {
       var n = t.anchor.getNode();
       return require("Lexical").$isElementNode(n) ? i(n) : s(n);
     }
@@ -384,7 +384,7 @@ __d(
       e.modify(t ? "extend" : "move", n, o);
     }
     function x(e) {
-      var t = S(e);
+      var t = m(e);
       return null !== t && "rtl" === t.direction;
     }
     function y(t, n, o) {
@@ -461,7 +461,7 @@ __d(
       (exports.$moveCharacter = function (e, t, n) {
         var o = x(e);
         var r;
-        ((r = m(e) || o ? !n : n), N(e, t, r, "character"));
+        ((r = S(e) || o ? !n : n), N(e, t, r, "character"));
       }),
       (exports.$patchStyleText = function (t, n) {
         if (require("Lexical").$isRangeSelection(t) && t.isCollapsed()) {
@@ -537,13 +537,14 @@ __d(
             require("Lexical").$isElementNode(_t19) &&
               l.set(_t19.getKey(), _t19);
           }
-        for (var _e16 of l.values()) {
-          var _t20 = n();
-          (o(_e16, _t20), _e16.replace(_t20, !0));
+        for (var _t20 of l.values()) {
+          if (null !== require("Lexical").$getSlotHost(_t20)) continue;
+          var _r6 = n();
+          (o(_t20, _r6), _t20.replace(_r6, !0));
         }
       }),
       (exports.$shouldOverrideDefaultCharacterSelection = function (t, n) {
-        var o = m(t) ? !n : n;
+        var o = S(t) ? !n : n;
         x(t) && (o = !o);
         var r = require("Lexical").$caretFromPoint(
           t.focus,
@@ -592,7 +593,7 @@ __d(
           if (_d3 || _a2) {
             var _e$$getCharacterOffse =
                 require("Lexical").$getCharacterOffsets(t),
-              _r6 = _e$$getCharacterOffse[0],
+              _r7 = _e$$getCharacterOffse[0],
               _i5 = _e$$getCharacterOffse[1],
               _s5 = _c4.is(_f4),
               _d4 = n.is(_l2 ? _f4 : _c4),
@@ -600,11 +601,11 @@ __d(
             var _g,
               _u = 0;
             if (_s5)
-              ((_u = _r6 > _i5 ? _i5 : _r6), (_g = _r6 > _i5 ? _r6 : _i5));
+              ((_u = _r7 > _i5 ? _i5 : _r7), (_g = _r7 > _i5 ? _r7 : _i5));
             else if (_d4) {
-              ((_u = _l2 ? _i5 : _r6), (_g = void 0));
+              ((_u = _l2 ? _i5 : _r7), (_g = void 0));
             } else if (_a3) {
-              ((_u = 0), (_g = _l2 ? _r6 : _i5));
+              ((_u = 0), (_g = _l2 ? _r7 : _i5));
             }
             var _p = n.__text.slice(_u, _g);
             _p !== n.__text &&
@@ -631,24 +632,24 @@ __d(
               "element" === i.type &&
               0 === i.getNode().getChildrenSize()))
         ) {
-          var _e17 =
+          var _e16 =
               "text" === i.type ? i.getNode().getParentOrThrow() : i.getNode(),
-            _t23 = _e17.getChildren();
-          var _r7 = n();
+            _t23 = _e16.getChildren();
+          var _r8 = n();
           return (
-            _r7.setFormat(_e17.getFormatType()),
-            _r7.setIndent(_e17.getIndent()),
+            _r8.setFormat(_e16.getFormatType()),
+            _r8.setIndent(_e16.getIndent()),
             _t23.forEach(function (e) {
-              return _r7.append(e);
+              return _r8.append(e);
             }),
-            o && (_r7 = o.append(_r7)),
-            void _e17.replace(_r7)
+            o && (_r8 = o.append(_r8)),
+            void _e16.replace(_r8)
           );
         }
         var c = null,
           f = [];
-        for (var _r8 = 0; _r8 < l; _r8++) {
-          var _i6 = s[_r8];
+        for (var _r9 = 0; _r9 < l; _r9++) {
+          var _i6 = s[_r9];
           require("Lexical").$isRootOrShadowRoot(_i6)
             ? (h(t, f, f.length, n, o), (f = []), (c = _i6))
             : null === c ||
@@ -710,15 +711,15 @@ __d(
           var n = e.top - t.top;
           return Math.abs(n) <= 3 ? e.left - t.left : n;
         });
-        for (var _e18 = 0; _e18 < c; _e18++) {
-          var _t24 = s[_e18],
+        for (var _e17 = 0; _e17 < c; _e17++) {
+          var _t24 = s[_e17],
             _n11 =
               l &&
               l.top <= _t24.top &&
               l.top + l.height > _t24.top &&
               l.left + l.width > _t24.left,
-            _r9 = _t24.width + i === o.width;
-          _n11 || _r9 ? (s.splice(_e18--, 1), c--) : (l = _t24);
+            _r0 = _t24.width + i === o.width;
+          _n11 || _r0 ? (s.splice(_e17--, 1), c--) : (l = _t24);
         }
         return s;
       }),

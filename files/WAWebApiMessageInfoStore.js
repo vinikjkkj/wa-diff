@@ -94,90 +94,91 @@ __d(
           )
       );
     }
-    function f(e, t, n, r) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = o("WAWebWidFactory").asUserWidOrThrow(t).toString(),
-              i = t.device || 0,
-              l = yield o("WAWebSchemaMessageInfo")
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.identityRowId,
+            n = e.messageRowId,
+            r = e.msgKey,
+            a = e.receiver,
+            i = o("WAWebWidFactory").asUserWidOrThrow(a).toString(),
+            l = a.device || 0,
+            m = yield o("WAWebSchemaMessageInfo")
+              .getMessageInfoTable()
+              .get([r.toString(), i]);
+          if (!m) {
+            var _ = o("WAWebLidMigrationUtils").getAlternateMsgKey(r);
+            _ != null &&
+              (m = yield o("WAWebSchemaMessageInfo")
                 .getMessageInfoTable()
-                .get([e.toString(), a]);
-            if (!l) {
-              var m = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
-              m != null &&
-                (l = yield o("WAWebSchemaMessageInfo")
-                  .getMessageInfoTable()
-                  .get([m.toString(), a]));
-            }
-            if (l) {
-              if (l.deviceNotDelivered.includes(i))
-                return n != null && r >= n
-                  ? p.ELIGIBLE
-                  : t.device != null &&
-                      t.device !== o("WAJids").DEFAULT_DEVICE_ID
+                .get([_.toString(), i]));
+          }
+          if (m) {
+            if (m.deviceNotDelivered.includes(l))
+              return t != null && n >= t
+                ? p.ELIGIBLE
+                : a.device != null && a.device !== o("WAJids").DEFAULT_DEVICE_ID
+                  ? (o("WALogger").LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "MessageInfoStore: ",
+                          ", ",
+                          ":",
+                          ": companion identity changed",
+                        ])),
+                      r.toString(),
+                      i,
+                      l,
+                    ),
+                    p.INELIGIBLE_CHANGED_IDENTITY)
+                  : m.delivery != null
                     ? (o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
                             "MessageInfoStore: ",
                             ", ",
                             ":",
-                            ": companion identity changed",
+                            ": primary id changed post-delivery",
                           ])),
-                        e.toString(),
-                        a,
+                        r.toString(),
                         i,
+                        l,
                       ),
                       p.INELIGIBLE_CHANGED_IDENTITY)
-                    : l.delivery != null
-                      ? (o("WALogger").LOG(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "MessageInfoStore: ",
-                              ", ",
-                              ":",
-                              ": primary id changed post-delivery",
-                            ])),
-                          e.toString(),
-                          a,
-                          i,
-                        ),
-                        p.INELIGIBLE_CHANGED_IDENTITY)
-                      : p.ELIGIBLE;
-            } else
-              return (
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "MessageInfoStore: missing record for ",
-                      ", ",
-                      "",
-                    ])),
-                  e.toString(),
-                  a,
-                ),
-                p.INELIGIBLE_RECORD_MISSING
-              );
+                    : p.ELIGIBLE;
+          } else
             return (
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "MessageInfoStore: ",
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "MessageInfoStore: missing record for ",
                     ", ",
-                    ":",
-                    " has been delivered",
+                    "",
                   ])),
-                e.toString(),
-                a,
+                r.toString(),
                 i,
               ),
-              p.INELIGIBLE_ALREADY_DELIVERED
+              p.INELIGIBLE_RECORD_MISSING
             );
-          },
-        )),
+          return (
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "MessageInfoStore: ",
+                  ", ",
+                  ":",
+                  " has been delivered",
+                ])),
+              r.toString(),
+              i,
+              l,
+            ),
+            p.INELIGIBLE_ALREADY_DELIVERED
+          );
+        })),
         g.apply(this, arguments)
       );
     }

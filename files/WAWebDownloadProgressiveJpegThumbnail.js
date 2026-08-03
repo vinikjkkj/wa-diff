@@ -5,9 +5,9 @@ __d(
     "WALogger",
     "WAWebDownloadManager",
     "WAWebHttpErrors",
+    "WAWebMediaFileErrors",
     "WAWebMediaGetDownloadOriginForMsg",
     "WAWebMediaOpaqueData",
-    "WAWebMiscErrors",
     "WAWebMmsClientErrors",
     "WAWebMmsMediaTypes",
     "WAWebSerializeError",
@@ -102,7 +102,7 @@ __d(
             ),
               e instanceof o("WAWebHttpErrors").HttpNetworkError ||
               e instanceof o("WAWebMmsClientErrors").MediaNotFoundError ||
-              e instanceof o("WAWebMiscErrors").MediaDecryptionError
+              e instanceof o("WAWebMediaFileErrors").MediaDecryptionError
                 ? o("WALogger")
                     .WARN(
                       c ||

@@ -6,8 +6,8 @@ __d(
     "WAWebCanvasUtils",
     "WAWebImageUtils",
     "WAWebMediaConstants",
+    "WAWebMediaFileErrors",
     "WAWebMediaOpaqueData",
-    "WAWebMiscErrors",
     "WAWebTPThumbnailUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -21,7 +21,7 @@ __d(
           return e(r);
         }),
           (r.onerror = function () {
-            return n(new (o("WAWebMiscErrors").MediaFileFailedLoad)(t));
+            return n(new (o("WAWebMediaFileErrors").MediaFileFailedLoad)(t));
           }),
           (r.src = t));
       });
@@ -65,7 +65,7 @@ __d(
             b = h.canvas,
             v = h.dataUrl;
           if (b == null || C == null || v == null)
-            throw new (o("WAWebMiscErrors").MediaFileFailedLoad)();
+            throw new (o("WAWebMediaFileErrors").MediaFileFailedLoad)();
           var S = yield o("WAWebCanvasUtils").generateMicroThumb(
               b,
               o("WAWebABProps").getABPropConfigValue(

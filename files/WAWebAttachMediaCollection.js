@@ -13,10 +13,10 @@ __d(
     "WAWebL10nFilesize",
     "WAWebLogImagineAction",
     "WAWebMediaEditorEnumsThemes",
+    "WAWebMediaFileErrors",
     "WAWebMediaFileTooLargeError",
     "WAWebMediaGatingUtils",
     "WAWebMimeTypes",
-    "WAWebMiscErrors",
     "WAWebServerPropConstants",
     "WAWebSingleSelection",
     "WAWebTPPdfViewerGatingUtils",
@@ -387,7 +387,8 @@ __d(
                         break;
                     }
                   else if (
-                    e.exception instanceof o("WAWebMiscErrors").MediaFileEmpty
+                    e.exception instanceof
+                    o("WAWebMediaFileErrors").MediaFileEmpty
                   )
                     switch (e.getFileType()) {
                       case o("WAWebFileUtils").FILETYPE.IMAGE:
@@ -407,7 +408,7 @@ __d(
                     }
                   else
                     e.exception instanceof
-                    o("WAWebMiscErrors").MediaFileFailedLoad
+                    o("WAWebMediaFileErrors").MediaFileFailedLoad
                       ? (C = !0)
                       : (y += 1);
               }),

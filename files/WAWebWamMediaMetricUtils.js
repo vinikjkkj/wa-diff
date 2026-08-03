@@ -4,8 +4,8 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAWebHttpErrors",
+    "WAWebMediaFileErrors",
     "WAWebMediaHostsErrors",
-    "WAWebMiscErrors",
     "WAWebMmsClientErrors",
     "WAWebMmsMediaTypes",
     "WAWebWamEnumBackendStoreType",
@@ -183,9 +183,9 @@ __d(
         : e instanceof o("WAWebHttpErrors").MmsDownloadFilehashMismatchError
           ? o("WAWebWamEnumMediaDownloadResultType").MEDIA_DOWNLOAD_RESULT_TYPE
               .ERROR_ENC_HASH_MISMATCH
-          : e instanceof o("WAWebMiscErrors").MediaDecryptionError &&
+          : e instanceof o("WAWebMediaFileErrors").MediaDecryptionError &&
               e.message.includes(
-                o("WAWebMiscErrors").PLAINTEXT_HASH_MISMATCH_ERROR,
+                o("WAWebMediaFileErrors").PLAINTEXT_HASH_MISMATCH_ERROR,
               )
             ? o("WAWebWamEnumMediaDownloadResultType")
                 .MEDIA_DOWNLOAD_RESULT_TYPE.ERROR_HASH_MISMATCH

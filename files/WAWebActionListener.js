@@ -32,7 +32,6 @@ __d(
     "WAWebCommandPalette.react",
     "WAWebConfirmPopup.react",
     "WAWebCountrySelectorPopup.react",
-    "WAWebCurrentUser",
     "WAWebDeleteChatDialogV2.react",
     "WAWebDeleteChatPopup.react",
     "WAWebDrawerManager",
@@ -72,6 +71,7 @@ __d(
     "asyncToGeneratorRuntime",
     "countWhere",
     "err",
+    "gkx",
     "isStringNullOrEmpty",
     "qpl",
     "react",
@@ -906,12 +906,12 @@ __d(
     function g(e) {
       var t = e === void 0 ? {} : e,
         n = t.options,
-        a = t.prefilledDescription,
-        i = t.prefilledTitle;
-      o("WAWebCurrentUser").isEmployee() &&
+        o = t.prefilledDescription,
+        a = t.prefilledTitle;
+      r("gkx")("9092") &&
         r("WAWebLazyLoadedRetriable")(h, "bugnub_v2_popup")().then(
           function (e) {
-            e({ options: n, prefilledDescription: a, prefilledTitle: i });
+            e({ options: n, prefilledDescription: o, prefilledTitle: a });
           },
         );
     }

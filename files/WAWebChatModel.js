@@ -349,15 +349,14 @@ __d(
               this.name && !this.contact.name)
             ) {
               var s = { name: this.name };
-              o("WAWebChatGetters").getIsGroup(this)
-                ? this.contact.set(s)
-                : o("WAWebChatGetters").getIsNewsletter(this)
-                  ? this.contact.set(s)
-                  : o("WAWebDBUpdateContactTable")
-                      .updateContactTable(this.contact.id, s)
-                      .then(function () {
-                        n.contact.set(s);
-                      });
+              o("WAWebChatGetters").getIsUser(this) &&
+              !o("WAWebChatGetters").getIsPSA(this)
+                ? o("WAWebDBUpdateContactTable")
+                    .updateContactTable(this.contact.id, s)
+                    .then(function () {
+                      n.contact.set(s);
+                    })
+                : this.contact.set(s);
             }
             if (
               (this.listenTo(

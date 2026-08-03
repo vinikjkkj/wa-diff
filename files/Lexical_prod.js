@@ -4779,14 +4779,18 @@ __d(
         if (0 === e.length) return;
         this.isCollapsed() || this.removeText();
         var n = this.anchor.getNode();
-        if ("element" === this.anchor.type && as(n) && null !== nc(n)) {
+        if (
+          "element" === this.anchor.type &&
+          as(n) &&
+          n.isShadowRoot() &&
+          null !== nc(n)
+        ) {
           var _n$getFirstChild;
-          var _o35 = n.isShadowRoot()
-            ? (_n$getFirstChild = n.getFirstChild()) != null
+          var _o35 =
+            (_n$getFirstChild = n.getFirstChild()) != null
               ? _n$getFirstChild
-              : n.append(Ms()).getFirstChild()
-            : n.getFirstChild();
-          if (n.isShadowRoot() && null !== _o35 && !as(_o35)) {
+              : n.append(Ms()).getFirstChild();
+          if (null !== _o35 && !as(_o35)) {
             var _t123 = Ms();
             (_o35.insertBefore(_t123), (_o35 = _t123));
           }
@@ -5125,6 +5129,7 @@ __d(
                     } else _e88.origin.remove();
                     return;
                   }
+                  if (Ns(_e88.origin)) return void _e88.origin.remove();
                   break;
                 }
               }

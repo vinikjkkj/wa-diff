@@ -208,7 +208,12 @@ __d(
                 b.map(function (e) {
                   return o(
                     "WAWebSyncdCollectionHandler",
-                  ).applyAppStateSyncResponse(e, t, f.get(e.name), S);
+                  ).applyAppStateSyncResponse({
+                    collectionDetails: e,
+                    localVersion: f.get(e.name),
+                    session: t,
+                    syncdEventFlow: S,
+                  });
                 }),
               );
             (S.end(),

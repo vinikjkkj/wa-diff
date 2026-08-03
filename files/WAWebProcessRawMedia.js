@@ -4,9 +4,9 @@ __d(
     "WAWebABProps",
     "WAWebFileUtils",
     "WAWebMediaDataUtils",
+    "WAWebMediaFileErrors",
     "WAWebMediaFileTooLargeError",
     "WAWebMediaGatingUtils",
-    "WAWebMiscErrors",
     "WAWebProcessRawMediaLogging",
     "asyncToGeneratorRuntime",
     "cr:10296",
@@ -54,7 +54,7 @@ __d(
               throw new (r("WAWebMediaFileTooLargeError"))(c, e, s);
             if (!u && s > m)
               throw new (r("WAWebMediaFileTooLargeError"))(c, m, s);
-            if (s <= 0) throw new (o("WAWebMiscErrors").MediaFileEmpty)();
+            if (s <= 0) throw new (o("WAWebMediaFileErrors").MediaFileEmpty)();
             var p;
             a.gifAttribution != null
               ? (p = a.gifAttribution)

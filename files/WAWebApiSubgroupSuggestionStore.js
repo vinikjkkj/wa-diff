@@ -65,51 +65,57 @@ __d(
         .getSubgroupSuggestionTable()
         .bulkCreateOrReplace(n);
     }
-    function d(t, r, a, i) {
-      var l = (function () {
-        var l = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var l = yield (e || (e = n("Promise"))).all(
-              r.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = yield o("WAWebSchemaSubgroupSuggestionV2")
-                        .getSubgroupSuggestionTable()
-                        .get([t.toString(), e.toString(), a.toString()]);
-                      return n;
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
+    function d(t) {
+      var r = t.newOwner,
+        a = t.oldOwner,
+        i = t.parentGroupId,
+        l = t.subgroupSuggestions,
+        s = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = yield (e || (e = n("Promise"))).all(
+                l.map(
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var t = yield o("WAWebSchemaSubgroupSuggestionV2")
+                          .getSubgroupSuggestionTable()
+                          .get([i.toString(), e.toString(), a.toString()]);
+                        return t;
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                ),
               ),
-            ),
-            s = l.filter(Boolean),
-            u = s.map(function (e) {
-              return babelHelpers.extends({}, e, {
-                owner: i,
-                parentGroupId: o("WAWebWidFactory").createWid(e.parentGroupId),
-                id: o("WAWebWidFactory").createWid(e.id),
+              s = t.filter(Boolean),
+              u = s.map(function (e) {
+                return babelHelpers.extends({}, e, {
+                  owner: r,
+                  parentGroupId: o("WAWebWidFactory").createWid(
+                    e.parentGroupId,
+                  ),
+                  id: o("WAWebWidFactory").createWid(e.id),
+                });
               });
-            });
-          (yield m(
-            s.map(function (e) {
-              var n = e.id;
-              return {
-                parentGroupId: t,
-                id: o("WAWebWidFactory").createWid(n),
-                owner: a,
-              };
-            }),
-          ),
-            yield c(t, u));
-        });
-        return function () {
-          return l.apply(this, arguments);
-        };
-      })();
-      return l();
+            (yield m(
+              s.map(function (e) {
+                var t = e.id;
+                return {
+                  parentGroupId: i,
+                  id: o("WAWebWidFactory").createWid(t),
+                  owner: a,
+                };
+              }),
+            ),
+              yield c(i, u));
+          });
+          return function () {
+            return t.apply(this, arguments);
+          };
+        })();
+      return s();
     }
     function m(e) {
       return o("WAWebSchemaSubgroupSuggestionV2")

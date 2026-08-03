@@ -1,6 +1,11 @@
 __d(
   "WAWebBloksSendFieldStat",
-  ["WALogger", "WAWebBloksSendFieldStatUtils", "WAWebWamCodegenWamEvent"],
+  [
+    "WALogger",
+    "WAWebA2UIRenderTiming",
+    "WAWebBloksSendFieldStatUtils",
+    "WAWebWamCodegenWamEvent",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, n, r, a, i, l) {
@@ -16,9 +21,10 @@ __d(
           .sendLogs("wa-web-bloks-send-field-stat-malformed");
         return;
       }
-      new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
+      (new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
         babelHelpers.extends({}, s, { id: r }),
-      ).commit();
+      ).commit(),
+        o("WAWebA2UIRenderTiming").maybeEndA2UIRenderMarkerFromFieldStat(r, s));
     }
     l.default = s;
   },

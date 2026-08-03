@@ -24,12 +24,12 @@ __d(
     "WAWebKaleidoscopeWasmFeatureSupport",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDebugString",
+    "WAWebMediaFileErrors",
     "WAWebMediaGatingUtils",
     "WAWebMediaLoadErrors",
     "WAWebMediaObject",
     "WAWebMediaTypes",
     "WAWebMediaWorkerProxy",
-    "WAWebMiscErrors",
     "WAWebMmsClient",
     "WAWebMmsClientErrors",
     "WAWebMmsDownloadUploadCrashLogger",
@@ -162,7 +162,7 @@ __d(
                                   .WAWebSuspiciousContent.YES
                               )
                                 throw new (o(
-                                  "WAWebMiscErrors",
+                                  "WAWebMediaFileErrors",
                                 ).InvalidMediaFileType)(
                                   "Kaleidoscope dangerous score " +
                                     y +
@@ -277,7 +277,7 @@ __d(
                               ).isDownloadMimeTypeCheckBlockEnabled()
                             )
                               throw new (o(
-                                "WAWebMiscErrors",
+                                "WAWebMediaFileErrors",
                               ).InvalidMediaFileType)(
                                 "Unexpected mimetype " +
                                   p +
@@ -396,7 +396,7 @@ __d(
                 )
                 .tags("media")
                 .sendLogs("missing-media-key-for-media-type-" + T),
-              new (o("WAWebMiscErrors").MediaDecryptionError)(
+              new (o("WAWebMediaFileErrors").MediaDecryptionError)(
                 "decryptMedia: missing key for type " + T,
               )
             );
@@ -414,7 +414,7 @@ __d(
                   )
                   .tags("media")
                   .sendLogs("missing-encfilehash-for-media-type-" + T),
-                new (o("WAWebMiscErrors").MediaDecryptionError)(
+                new (o("WAWebMediaFileErrors").MediaDecryptionError)(
                   "decryptMedia: missing encFilehash for type " + T,
                 )
               );
@@ -429,7 +429,7 @@ __d(
                   )
                   .tags("media")
                   .sendLogs("missing-encfilehash-and-path-for-product"),
-                new (o("WAWebMiscErrors").MediaDecryptionError)(
+                new (o("WAWebMediaFileErrors").MediaDecryptionError)(
                   "decryptMedia: missing encFilehash and directPath/staticUrl for type " +
                     T,
                 )
@@ -565,7 +565,7 @@ __d(
                       ? void 0
                       : ae.handleProgress(ie, re);
                   if (le == null)
-                    throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+                    throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
                       "Partial PJPEG decryption returned no data (encryptedFileSize=" +
                         ie +
                         ", scanCount=" +
@@ -621,7 +621,8 @@ __d(
                   oe,
                   u,
                 );
-                if (!ce) throw new (o("WAWebMiscErrors").MediaHashMismatch)();
+                if (!ce)
+                  throw new (o("WAWebMediaFileErrors").MediaHashMismatch)();
               }
             }
             return (

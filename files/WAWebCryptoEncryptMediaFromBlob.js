@@ -10,7 +10,7 @@ __d(
     "WATypedArraysCast",
     "WAWebCryptoCreateMediaKeys",
     "WAWebFileUtils",
-    "WAWebMiscErrors",
+    "WAWebMediaFileErrors",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -35,11 +35,11 @@ __d(
           ),
           !l)
         )
-          throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+          throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
             'encryptMediaFromBlob: missing "type"',
           );
         if (!i)
-          throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+          throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
             'encryptMediaFromBlob: missing "mediaKey"',
           );
         r("WAWebCryptoCreateMediaKeys")(l, i)
@@ -63,9 +63,9 @@ __d(
                     "encryptMediaFromBlob: error",
                   ])),
               ),
-              e instanceof o("WAWebMiscErrors").MediaEncryptionError
+              e instanceof o("WAWebMediaFileErrors").MediaEncryptionError
                 ? e
-                : new (o("WAWebMiscErrors").MediaEncryptionError)(
+                : new (o("WAWebMediaFileErrors").MediaEncryptionError)(
                     "encryption error: " +
                       String(e) +
                       "; stack: " +

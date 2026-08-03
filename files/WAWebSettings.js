@@ -65,7 +65,7 @@ __d(
         case e.DeleteAccount:
           return !0;
         case e.Bugnub:
-          return o("WAWebCurrentUser").isEmployee();
+          return r("gkx")("9092");
         case e.DownloadLogs:
           return (
             o("WAWebCurrentUser").isEmployee() ||

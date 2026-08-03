@@ -11,7 +11,7 @@ __d(
     "WAWebL10NCookieUtils",
     "WAWebL10NHelpers",
     "WAWebL10nGetRenderedLocale",
-    "WAWebLocaleToMomentResource",
+    "WAWebMomentLocaleResolver",
     "WAWebMomentLocales",
     "WAWebUserPrefsLocales",
     "asyncToGeneratorRuntime",
@@ -357,25 +357,23 @@ __d(
                   ).DEFAULT_MOMENT_LOCALE.toLocaleLowerCase("en")
                 )
                   n = t;
-                else {
-                  var a = [];
-                  if ((a.push(t), t.match(/en/i) == null)) {
-                    var i = t.replace(/_/g, "-");
-                    (a.push(i),
-                      r("WAWebLocaleToMomentResource")[i] != null &&
-                        a.push(r("WAWebLocaleToMomentResource")[i]));
-                  }
-                  (a.push(this.getLanguage()), a.push(L));
-                  for (var l = 0; l < a.length; ++l) {
-                    var s = yield o(
+                else
+                  for (
+                    var a = o(
+                        "WAWebMomentLocaleResolver",
+                      ).getMomentLocalesToTry(t, L),
+                      i = 0;
+                    i < a.length;
+                    ++i
+                  ) {
+                    var l = yield o(
                       "WAWebMomentLocales",
-                    ).downloadAndDefineLocale(a[l]);
-                    if (s) {
-                      n = a[l];
+                    ).downloadAndDefineLocale(a[i]);
+                    if (l) {
+                      n = a[i];
                       break;
                     }
                   }
-                }
                 (n == null &&
                   (o("WALogger").WARN(
                     C ||

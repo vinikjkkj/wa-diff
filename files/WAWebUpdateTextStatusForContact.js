@@ -1,7 +1,6 @@
 __d(
   "WAWebUpdateTextStatusForContact",
   [
-    "WAJids",
     "WALogger",
     "WAWebApiContact",
     "WAWebBackendApi",
@@ -9,6 +8,7 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebTextStatusUtils",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -106,9 +106,7 @@ __d(
                   textString: s.textString,
                 });
                 if (c) {
-                  var d = s.contactUserWid.isLid()
-                    ? o("WAJids").toLidUserJid(s.contactUserWid.user)
-                    : o("WAJids").toPhoneUserJid(s.contactUserWid.user);
+                  var d = o("WAWebWidToJid").widToUserJid(s.contactUserWid);
                   (a.push(babelHelpers.extends({ id: d }, c)),
                     i.push({ contactChange: c, contactId: s.contactUserWid }));
                 }

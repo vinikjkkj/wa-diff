@@ -62,6 +62,20 @@ __d(
             llll: "YYYY\u5E74MMMD\u65E5ddddLT",
           },
         },
+        "zh-hk": {
+          longDateFormat: {
+            LT: "Ah:mm",
+            LTS: "Ah:m:s",
+            L: "YYYY\u5E74MMMD\u65E5",
+            LL: "YYYY\u5E74MMMD\u65E5",
+            LLL: "YYYY\u5E74MMMD\u65E5LT",
+            LLLL: "YYYY\u5E74MMMD\u65E5ddddLT",
+            l: "YYYY\u5E74MMMD\u65E5",
+            ll: "YYYY\u5E74MMMD\u65E5",
+            lll: "YYYY\u5E74MMMD\u65E5LT",
+            llll: "YYYY\u5E74MMMD\u65E5ddddLT",
+          },
+        },
         "zh-cn": {
           longDateFormat: {
             LT: "Ah:mm",

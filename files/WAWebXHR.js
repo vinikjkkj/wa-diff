@@ -90,8 +90,13 @@ __d(
         C
       );
     }
-    function g(e, t, n, r) {
-      return (n === void 0 && (n = null), f(e, m.GET, null, r, t, void 0, n));
+    function g(e) {
+      var t = e.customHeaders,
+        n = t === void 0 ? null : t,
+        r = e.responseType,
+        o = e.signal,
+        a = e.url;
+      return f(a, m.GET, null, o, r, void 0, n);
     }
     function h(e, t, n) {
       return f(e, m.POST, t, n);

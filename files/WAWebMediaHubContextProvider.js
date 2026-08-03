@@ -9,7 +9,6 @@ __d(
     "WAWebNoop",
     "WAWebWamEnumActionCode",
     "WAWebWamEnumSurfaceCode",
-    "justknobx",
     "react",
     "react-compiler-runtime",
   ],
@@ -224,8 +223,8 @@ __d(
       t[13] !== $
         ? ((ne = function (t, n) {
             var e = z.current.isSelected(t),
-              a = z.current.getSelected().pop(),
-              i = (n == null ? void 0 : n.shiftKey) === !0;
+              r = z.current.getSelected().pop(),
+              a = (n == null ? void 0 : n.shiftKey) === !0;
             (e
               ? (c(function (e) {
                   return e.filter(function (e) {
@@ -240,22 +239,21 @@ __d(
                 o("WAWebMediaHubLogger").logMediaHubAction({
                   action: o("WAWebWamEnumActionCode").ACTION_CODE.MULTISELECT,
                 })),
-              i &&
-                a &&
-                r("justknobx")._("3140") &&
+              a &&
+                r &&
                 ($ === "media"
-                  ? J(o("WAWebAllMediaCollection").AllMediaCollection, a, t, !e)
+                  ? J(o("WAWebAllMediaCollection").AllMediaCollection, r, t, !e)
                   : $ === "links"
                     ? J(
                         o("WAWebAllLinksCollection").AllLinksCollection,
-                        a,
+                        r,
                         t,
                         !e,
                       )
                     : $ === "docs" &&
                       J(
                         o("WAWebAllDocsCollection").AllDocsCollection,
-                        a,
+                        r,
                         t,
                         !e,
                       )));

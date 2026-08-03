@@ -190,12 +190,12 @@ __d(
                   if (m.result != null) c.push(m.result);
                   else
                     try {
-                      var p = yield this.$AiThreadPinSync$p_1(
-                        m.threadId,
-                        m.thread,
-                        m.value,
-                        m.timestamp,
-                      );
+                      var p = yield this.$AiThreadPinSync$p_1({
+                        incomingTimestamp: m.timestamp,
+                        threadDbRow: m.thread,
+                        threadId: m.threadId,
+                        value: m.value,
+                      });
                       c.push(p);
                     } catch (e) {
                       c.push({
@@ -233,54 +233,58 @@ __d(
           })()),
           (i.$AiThreadPinSync$p_1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var a,
-                  i =
-                    ((a = n.threadPinAction) == null ? void 0 : a.pinned) ===
+              function* (e) {
+                var t,
+                  n = e.incomingTimestamp,
+                  r = e.threadDbRow,
+                  a = e.threadId,
+                  i = e.value,
+                  l =
+                    ((t = i.threadPinAction) == null ? void 0 : t.pinned) ===
                     !0;
-                if (!i)
+                if (!l)
                   return (
                     yield o("WAWebAiThreadPinSyncUtils").updatePinState(
-                      e,
-                      t,
+                      a,
+                      r,
                       void 0,
                     ),
                     {
                       actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     }
                   );
-                var l = t.pinThreadTimestamp;
-                if (l != null && l > 0)
+                var s = r.pinThreadTimestamp;
+                if (s != null && s > 0)
                   return (
                     yield o("WAWebAiThreadPinSyncUtils").updatePinState(
-                      e,
-                      t,
+                      a,
                       r,
+                      n,
                     ),
                     {
                       actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     }
                   );
-                var s = e.key.remote.toString(),
-                  c = yield o("WAWebAiThreadPinSyncUtils").getLocalThreadPins(
-                    s,
+                var c = a.key.remote.toString(),
+                  d = yield o("WAWebAiThreadPinSyncUtils").getLocalThreadPins(
+                    c,
                   ),
-                  d = o("WAWebBotGating").getAiThreadPinMaxCount();
-                if (c.length < d)
+                  m = o("WAWebBotGating").getAiThreadPinMaxCount();
+                if (d.length < m)
                   return (
                     yield o("WAWebAiThreadPinSyncUtils").updatePinState(
-                      e,
-                      t,
+                      a,
                       r,
+                      n,
                     ),
                     {
                       actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     }
                   );
-                var m = c.filter(function (e) {
+                var p = d.filter(function (e) {
                   return e.isOrphan !== !0;
                 });
-                if (m.length === 0)
+                if (p.length === 0)
                   return (
                     o("WALogger").WARN(
                       u ||
@@ -288,28 +292,28 @@ __d(
                           "[syncd][ai-thread-pin] all pins orphan, drop incoming ",
                           "",
                         ])),
-                      e.toString(),
+                      a.toString(),
                     ),
                     {
                       actionState: o("WAWebSyncdConst").SyncActionState.Success,
                     }
                   );
-                var p = m.reduce(function (e, t) {
+                var _ = p.reduce(function (e, t) {
                   return t.timestamp < e.timestamp ? t : e;
                 });
                 return (
-                  r > p.timestamp &&
-                    (yield this.$AiThreadPinSync$p_2(p.threadId, p.dbRow, r),
+                  n > _.timestamp &&
+                    (yield this.$AiThreadPinSync$p_2(_.threadId, _.dbRow, n),
                     yield o("WAWebAiThreadPinSyncUtils").updatePinState(
-                      e,
-                      t,
+                      a,
                       r,
+                      n,
                     )),
                   { actionState: o("WAWebSyncdConst").SyncActionState.Success }
                 );
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

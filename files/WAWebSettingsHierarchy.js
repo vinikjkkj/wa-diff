@@ -669,7 +669,7 @@ __d(
           {
             step: o("WAWebSettingsConst").SettingsSteps.Bugnub,
             id: "bugnub",
-            isAvailable: o("WAWebCurrentUser").isEmployee(),
+            isAvailable: r("gkx")("9092"),
             searchCriteria: "Report a bug",
             title: function () {
               return "Report a bug (internal)";

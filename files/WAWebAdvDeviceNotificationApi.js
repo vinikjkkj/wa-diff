@@ -57,7 +57,12 @@ __d(
           var u = r("compactMap")(i, function (e) {
             return o(
               "WAWebAdvHostedAccountTypeSystemMsg",
-            ).genAdvAccountTypeChangeNotificationMsg(e, t, n, !0);
+            ).genAdvAccountTypeChangeNotificationMsg({
+              accountTypeChangedUser: t,
+              chatId: e,
+              newAdvAccountType: n,
+              useEncryptNowSubtype: !0,
+            });
           });
           return ((a.notifications = u), (a.chatIds = i.map(String)), a);
         })),

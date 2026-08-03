@@ -15,7 +15,7 @@ __d(
     "WAWebABPropsCache",
     "WAWebBackendWorkerClient",
     "WAWebCommonTaskScheduler",
-    "WAWebMiscErrors",
+    "WAWebMediaFileErrors",
     "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -63,7 +63,7 @@ __d(
             ),
             a.byteLength < _)
           )
-            throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
               "ciphertext too short: " + a.byteLength,
             );
           var g = c.encKey,
@@ -89,9 +89,9 @@ __d(
                     function* (e) {
                       var t = v.buffer.slice(0 - _);
                       if (!o("WACryptoUtils").arrayBuffersEqual(e, t))
-                        throw new (o("WAWebMiscErrors").MediaDecryptionError)(
-                          "decryptMedia: hmac mismatch",
-                        );
+                        throw new (o(
+                          "WAWebMediaFileErrors",
+                        ).MediaDecryptionError)("decryptMedia: hmac mismatch");
                       d &&
                         (m
                           ? yield r("WAWebCommonTaskScheduler").yield()
@@ -126,9 +126,12 @@ __d(
                             e,
                           );
                       if (t !== l)
-                        throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+                        throw new (o(
+                          "WAWebMediaFileErrors",
+                        ).MediaDecryptionError)(
                           "decryptMedia: " +
-                            o("WAWebMiscErrors").PLAINTEXT_HASH_MISMATCH_ERROR,
+                            o("WAWebMediaFileErrors")
+                              .PLAINTEXT_HASH_MISMATCH_ERROR,
                         );
                       return (
                         o("WALogger").LOG(
@@ -158,11 +161,11 @@ __d(
                   ])),
                 i,
               ),
-              e instanceof o("WAWebMiscErrors").MediaDecryptionError)
+              e instanceof o("WAWebMediaFileErrors").MediaDecryptionError)
             )
               throw e;
             var k = r("getErrorSafe")(e);
-            throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
               "decryption error: " + String(k) + "; stack: " + k.stack,
             );
           }

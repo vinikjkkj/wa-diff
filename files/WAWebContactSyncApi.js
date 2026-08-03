@@ -2,7 +2,6 @@ __d(
   "WAWebContactSyncApi",
   [
     "Promise",
-    "WAJids",
     "WALogger",
     "WAPromiseDelays",
     "WATimeUtils",
@@ -31,6 +30,7 @@ __d(
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "compactMap",
     "err",
@@ -490,9 +490,7 @@ __d(
     }
     function O(e) {
       var t = e.map(function (e) {
-        var t = e.isLid()
-          ? o("WAJids").toLidUserJid(e.user)
-          : o("WAJids").toPhoneUserJid(e.user);
+        var t = o("WAWebWidToJid").widToUserJid(e);
         return { id: t, isContactSyncCompleted: 1 };
       });
       return (

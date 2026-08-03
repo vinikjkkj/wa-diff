@@ -10,35 +10,40 @@ __d(
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, a) {
-      if ((a === void 0 && (a = !1), !e.isUser())) return null;
-      var i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-        l = new (r("WAWebMsgKey"))({
+    function e(e) {
+      var t = e.accountTypeChangedUser,
+        n = e.chatId,
+        a = e.newAdvAccountType,
+        i = e.useEncryptNowSubtype,
+        l = i === void 0 ? !1 : i;
+      if (!n.isUser()) return null;
+      var s = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        u = new (r("WAWebMsgKey"))({
           fromMe: o("WAWebUserPrefsMeUser").isMeAccount(t),
-          remote: e,
+          remote: n,
           id: r("WAWebMsgKey").newId_DEPRECATED(),
         });
-      return n === o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE
+      return a === o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE
         ? {
-            id: l,
+            id: u,
             t: o("WATimeUtils").unixTime(),
             type: "e2e_notification",
             kind: o("WAWebMsgType").MsgKind.E2eNotification,
             viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            subtype: a ? "encrypt_now" : "encrypt",
-            from: e,
-            to: i,
+            subtype: l ? "encrypt_now" : "encrypt",
+            from: n,
+            to: s,
           }
-        : n === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
+        : a === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
           ? {
-              id: l,
+              id: u,
               t: o("WATimeUtils").unixTime(),
               type: "notification_template",
               kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
               viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
               subtype: "biz_account_type_changed_to_hosted",
-              from: e,
-              to: i,
+              from: n,
+              to: s,
             }
           : null;
     }

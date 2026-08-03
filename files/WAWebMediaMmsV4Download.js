@@ -18,6 +18,7 @@ __d(
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDataUtils",
     "WAWebMediaEntry",
+    "WAWebMediaFileErrors",
     "WAWebMediaGatherAndSetMetadataNoOpaque",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaLoad",
@@ -26,7 +27,6 @@ __d(
     "WAWebMediaSetSuspiciousContent",
     "WAWebMediaTypes",
     "WAWebMimeTypes",
-    "WAWebMiscErrors",
     "WAWebMmsClientErrors",
     "WAWebMmsConst",
     "WAWebMmsMediaTypes",
@@ -666,8 +666,8 @@ __d(
                         .catch(
                           F.filteredCatch(
                             [
-                              o("WAWebMiscErrors").MediaDecryptionError,
-                              o("WAWebMiscErrors").MediaHashMismatch,
+                              o("WAWebMediaFileErrors").MediaDecryptionError,
+                              o("WAWebMediaFileErrors").MediaHashMismatch,
                             ],
                             function (e) {
                               var t = D.progressiveStage;

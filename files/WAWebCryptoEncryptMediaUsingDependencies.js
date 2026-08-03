@@ -12,7 +12,7 @@ __d(
     "WAWebCryptoCalculateFirstFrameSidecar",
     "WAWebCryptoCalculateStreamingSidecar",
     "WAWebCryptoCreateMediaKeys",
-    "WAWebMiscErrors",
+    "WAWebMediaFileErrors",
     "WAWebMmsMediaTypes",
     "WAWebServerPropConstants",
     "WAWebWebpParseWebp",
@@ -159,11 +159,11 @@ __d(
             ),
             !d)
           )
-            throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
               'encryptMedia: missing "type"',
             );
           if (!a)
-            throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
               'encryptMedia: missing "mediaKey"',
             );
           r("WAWebCryptoCreateMediaKeys")(d, a)
@@ -187,9 +187,9 @@ __d(
                       "encryptMedia: error",
                     ])),
                 ),
-                e instanceof o("WAWebMiscErrors").MediaEncryptionError
+                e instanceof o("WAWebMediaFileErrors").MediaEncryptionError
                   ? e
-                  : new (o("WAWebMiscErrors").MediaEncryptionError)(
+                  : new (o("WAWebMediaFileErrors").MediaEncryptionError)(
                       "encryption error: " +
                         String(e) +
                         "; stack: " +

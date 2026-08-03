@@ -1,18 +1,17 @@
 __d(
   "WAWebArkoseExpUtils",
-  ["$InternalEnum", "WAWebAutoLogoutGating", "gkx", "justknobx"],
+  ["$InternalEnum", "WAWebAutoLogoutGating", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum")({ NONE: -1, CONTROL: 0, TEST: 1, DEV: 2 });
     function s() {
-      if (!r("justknobx")._("5007")) return u();
       if (o("WAWebAutoLogoutGating").isRunningInAutoLogoutIframe()) {
         var t = window.parent.arkoseVariant,
           n = e.cast(t);
         return n != null ? n : u();
       }
-      var a = u();
-      return ((window.arkoseVariant = a), a);
+      var r = u();
+      return ((window.arkoseVariant = r), r);
     }
     function u() {
       return r("gkx")("26256") || !r("gkx")("18518")

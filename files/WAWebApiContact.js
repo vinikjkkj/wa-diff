@@ -19,6 +19,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -331,9 +332,7 @@ __d(
               o(
                 "WAWebBizCoexHostedAddVerification",
               ).assertThrowsWidAdvTypeFromVerificationCache(e));
-            var n = e.isLid()
-                ? o("WAJids").toLidUserJid(e.user)
-                : o("WAJids").toPhoneUserJid(e.user),
+            var n = o("WAWebWidToJid").widToUserJid(e),
               a = t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED;
             yield r("WAWebLidAwareContactsDB")
               .merge(

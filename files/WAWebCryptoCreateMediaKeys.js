@@ -5,7 +5,7 @@ __d(
     "WACryptoHkdf",
     "WALogger",
     "WAWebCryptoMediaTypeInfo",
-    "WAWebMiscErrors",
+    "WAWebMediaFileErrors",
     "asyncToGeneratorRuntime",
     "gkx",
   ],
@@ -33,7 +33,7 @@ __d(
               );
           }
           if (!n || !a || !i)
-            throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
               "createKeys fail: !!mediakey: " +
                 !!n +
                 " info: " +
@@ -43,7 +43,7 @@ __d(
             );
           var l = yield o("WACryptoHkdf").extractAndExpand(i, a, 112);
           if (!l || l.byteLength < 112)
-            throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
               "computeMediaKeys: hkdf error",
             );
           return {

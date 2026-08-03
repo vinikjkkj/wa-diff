@@ -192,21 +192,27 @@ __d(
               action: this.getAction(),
             });
           }),
-          (a.getQuickReplyAddOrEditMutation = function (t, n, r, a, i, l) {
-            var e = {
-              quickReplyAction: {
-                deleted: !1,
-                keywords: i,
-                shortcut: n,
-                message: r,
-                count: a,
-                associatedLabelIds: [],
-              },
-            };
+          (a.getQuickReplyAddOrEditMutation = function (t) {
+            var e = t.count,
+              n = t.id,
+              r = t.keywords,
+              a = t.message,
+              i = t.shortcut,
+              l = t.timestamp,
+              s = {
+                quickReplyAction: {
+                  deleted: !1,
+                  keywords: r,
+                  shortcut: i,
+                  message: a,
+                  count: e,
+                  associatedLabelIds: [],
+                },
+              };
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               collection: this.collectionName,
-              indexArgs: [t],
-              value: e,
+              indexArgs: [n],
+              value: s,
               version: this.getVersion(),
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.SET,

@@ -2,7 +2,6 @@ __d(
   "WAWebContactSync",
   [
     "Promise",
-    "WAJids",
     "WALogger",
     "WATimeUtils",
     "WAWebApiContact",
@@ -24,6 +23,7 @@ __d(
     "WAWebSyncdOrphan",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
@@ -281,9 +281,7 @@ __d(
                   k.length > 0)
                 ) {
                   var D = k.map(function (e) {
-                    return e.isLid()
-                      ? o("WAJids").toLidUserJid(e.user)
-                      : o("WAJids").toPhoneUserJid(e.user);
+                    return o("WAWebWidToJid").widToUserJid(e);
                   });
                   (yield o("WAWebApiContact").setNotAddressBookContacts(D),
                     o("WAWebBackendApi")

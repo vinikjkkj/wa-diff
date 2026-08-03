@@ -2641,74 +2641,298 @@ __d(
             Nt = (o._SmaxVisualizedStanzaFree = function (e) {
               return (Nt = o._SmaxVisualizedStanzaFree = v.y)(e);
             }),
-            Mt = (o._SmaxBinaryStanzaConnectionCreate = function (e, t, n, r) {
-              return (Mt = o._SmaxBinaryStanzaConnectionCreate = v.A)(
-                e,
-                t,
-                n,
-                r,
-              );
+            Mt = (o._SmaxManualMockRunnerNext = function (e, t, n) {
+              return (Mt = o._SmaxManualMockRunnerNext = v.A)(e, t, n);
             }),
-            wt = (o._SmaxBinaryStanzaFree = function (e, t) {
-              return (wt = o._SmaxBinaryStanzaFree = v.B)(e, t);
+            wt = (o._SmaxManualMockRunnerStart = function (e, t, n) {
+              return (wt = o._SmaxManualMockRunnerStart = v.B)(e, t, n);
             }),
-            At = (o._SmaxBinaryStanzaReaderFree = function (e) {
-              return (At = o._SmaxBinaryStanzaReaderFree = v.C)(e);
-            }),
-            Ft = (o._SmaxBinaryStanzaReaderNextStanzaBytes = function (
+            At = (o._SmaxManualMockRunnerStartAndInject = function (
               e,
               t,
               n,
               r,
             ) {
-              return (Ft = o._SmaxBinaryStanzaReaderNextStanzaBytes = v.D)(
+              return (At = o._SmaxManualMockRunnerStartAndInject = v.C)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            Ot = (o._SmaxBinaryStanzaWriterFree = function (e) {
-              return (Ot = o._SmaxBinaryStanzaWriterFree = v.E)(e);
+            Ft = (o._SmaxRunnerBuilderAddDefaultIdentityName = function (
+              e,
+              t,
+              n,
+            ) {
+              return (Ft = o._SmaxRunnerBuilderAddDefaultIdentityName = v.D)(
+                e,
+                t,
+                n,
+              );
             }),
-            Bt = (o._SmaxBinaryStanzaWriterWriteStanzaBytes = function (
+            Ot = (o._SmaxRunnerBuilderAddDeviceJid = function (e, t, n) {
+              return (Ot = o._SmaxRunnerBuilderAddDeviceJid = v.E)(e, t, n);
+            }),
+            Bt = (o._SmaxRunnerBuilderAddFileRepo = function (e, t, n) {
+              return (Bt = o._SmaxRunnerBuilderAddFileRepo = v.F)(e, t, n);
+            }),
+            Wt = (o._SmaxRunnerBuilderAddIdentityFolder = function (e, t, n) {
+              return (Wt = o._SmaxRunnerBuilderAddIdentityFolder = v.G)(
+                e,
+                t,
+                n,
+              );
+            }),
+            qt = (o._SmaxRunnerBuilderAddLidUserJid = function (e, t, n) {
+              return (qt = o._SmaxRunnerBuilderAddLidUserJid = v.H)(e, t, n);
+            }),
+            Ut = (o._SmaxRunnerBuilderAddMockFile = function (e, t, n) {
+              return (Ut = o._SmaxRunnerBuilderAddMockFile = v.I)(e, t, n);
+            }),
+            Vt = (o._SmaxRunnerBuilderAddResponseMapping = function (
               e,
               t,
               n,
               r,
             ) {
-              return (Bt = o._SmaxBinaryStanzaWriterWriteStanzaBytes = v.F)(
+              return (Vt = o._SmaxRunnerBuilderAddResponseMapping = v.J)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            Wt = (o._SmaxDisableLocationReporting = function () {
-              return (Wt = o._SmaxDisableLocationReporting = v.G)();
+            Ht = (o._SmaxRunnerBuilderAddRunnerMode = function (e, t, n) {
+              return (Ht = o._SmaxRunnerBuilderAddRunnerMode = v.K)(e, t, n);
             }),
-            qt = (o._SmaxEventReaderCreate = function (e, t, n) {
-              return (qt = o._SmaxEventReaderCreate = v.H)(e, t, n);
+            Gt = (o._SmaxRunnerBuilderAddStoredMutationsProvider = function (
+              e,
+              t,
+              n,
+            ) {
+              return (Gt = o._SmaxRunnerBuilderAddStoredMutationsProvider =
+                v.L)(e, t, n);
             }),
-            Ut = (o._SmaxEventReaderFree = function (e) {
-              return (Ut = o._SmaxEventReaderFree = v.I)(e);
+            zt = (o._SmaxRunnerBuilderAddVariable = function (e, t, n, r) {
+              return (zt = o._SmaxRunnerBuilderAddVariable = v.M)(e, t, n, r);
             }),
-            Vt = (o._SmaxEventReaderNextEvent = function (e, t, n) {
-              return (Vt = o._SmaxEventReaderNextEvent = v.J)(e, t, n);
+            jt = (o._SmaxRunnerBuilderBuild = function (e, t, n) {
+              return (jt = o._SmaxRunnerBuilderBuild = v.N)(e, t, n);
             }),
-            Ht = (o._SmaxMockRunnerAddMockFile = function (e, t, n) {
-              return (Ht = o._SmaxMockRunnerAddMockFile = v.K)(e, t, n);
+            Kt = (o._SmaxRunnerBuilderFree = function (e) {
+              return (Kt = o._SmaxRunnerBuilderFree = v.O)(e);
             }),
-            Gt = (o._SmaxMockRunnerAddResponseMapping = function (e, t, n, r) {
-              return (Gt = o._SmaxMockRunnerAddResponseMapping = v.L)(
+            Qt = (o._SmaxRunnerBuilderSetDictionaryVersion = function (
+              e,
+              t,
+              n,
+            ) {
+              return (Qt = o._SmaxRunnerBuilderSetDictionaryVersion = v.P)(
+                e,
+                t,
+                n,
+              );
+            }),
+            Xt = (o._SmaxRunnerSequenceCollectionViewFree = function (e) {
+              return (Xt = o._SmaxRunnerSequenceCollectionViewFree = v.Q)(e);
+            }),
+            Yt = (o._SmaxDisableLocationReporting = function () {
+              return (Yt = o._SmaxDisableLocationReporting = v.R)();
+            }),
+            Jt = (o._SmaxVisualizeProto = function (e, t, n, r, a) {
+              return (Jt = o._SmaxVisualizeProto = v.S)(e, t, n, r, a);
+            }),
+            Zt = (o._SmaxVisualizedProtoFree = function (e) {
+              return (Zt = o._SmaxVisualizedProtoFree = v.T)(e);
+            }),
+            en = (o._SmaxAutomaticMockRunnerMatchServerStanza = function (
+              e,
+              t,
+              n,
+              r,
+              a,
+            ) {
+              return (en = o._SmaxAutomaticMockRunnerMatchServerStanza = v.U)(
+                e,
+                t,
+                n,
+                r,
+                a,
+              );
+            }),
+            tn = (o._SmaxAutomaticMockRunnerSend = function (e, t, n, r) {
+              return (tn = o._SmaxAutomaticMockRunnerSend = v.V)(e, t, n, r);
+            }),
+            nn = (o._SmaxAutomaticMockRunnerStart = function (e, t, n, r) {
+              return (nn = o._SmaxAutomaticMockRunnerStart = v.W)(e, t, n, r);
+            }),
+            rn = (o._SmaxAutomaticRunnerBuilderCreate = function () {
+              return (rn = o._SmaxAutomaticRunnerBuilderCreate = v.X)();
+            }),
+            on = (o._SmaxFlipperPluginBackendCreate = function (e, t, n) {
+              return (on = o._SmaxFlipperPluginBackendCreate = v.Y)(e, t, n);
+            }),
+            an = (o._SmaxFlipperPluginBackendFree = function (e) {
+              return (an = o._SmaxFlipperPluginBackendFree = v.Z)(e);
+            }),
+            ln = (o._SmaxFlipperPluginBackendFreeResponse = function (e) {
+              return (ln = o._SmaxFlipperPluginBackendFreeResponse = v._)(e);
+            }),
+            sn = (o._SmaxFlipperPluginBackendHandleRpc = function (e, t, n, r) {
+              return (sn = o._SmaxFlipperPluginBackendHandleRpc = v.$)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            zt = (o._SmaxMockRunnerAddSyncdKey = function (e, t, n, r, a, i) {
-              return (zt = o._SmaxMockRunnerAddSyncdKey = v.M)(
+            un = (o._SmaxBinaryStanzaConnectionCreate = function (e, t, n, r) {
+              return (un = o._SmaxBinaryStanzaConnectionCreate = v.aa)(
+                e,
+                t,
+                n,
+                r,
+              );
+            }),
+            cn = (o._SmaxBinaryStanzaFree = function (e, t) {
+              return (cn = o._SmaxBinaryStanzaFree = v.ba)(e, t);
+            }),
+            dn = (o._SmaxBinaryStanzaReaderFree = function (e) {
+              return (dn = o._SmaxBinaryStanzaReaderFree = v.ca)(e);
+            }),
+            mn = (o._SmaxBinaryStanzaReaderNextStanzaBytes = function (
+              e,
+              t,
+              n,
+              r,
+            ) {
+              return (mn = o._SmaxBinaryStanzaReaderNextStanzaBytes = v.da)(
+                e,
+                t,
+                n,
+                r,
+              );
+            }),
+            pn = (o._SmaxBinaryStanzaWriterFree = function (e) {
+              return (pn = o._SmaxBinaryStanzaWriterFree = v.ea)(e);
+            }),
+            _n = (o._SmaxBinaryStanzaWriterWriteStanzaBytes = function (
+              e,
+              t,
+              n,
+              r,
+            ) {
+              return (_n = o._SmaxBinaryStanzaWriterWriteStanzaBytes = v.fa)(
+                e,
+                t,
+                n,
+                r,
+              );
+            }),
+            fn = (o._SmaxEventReaderCreate = function (e, t, n) {
+              return (fn = o._SmaxEventReaderCreate = v.ga)(e, t, n);
+            }),
+            gn = (o._SmaxEventReaderFree = function (e) {
+              return (gn = o._SmaxEventReaderFree = v.ha)(e);
+            }),
+            hn = (o._SmaxEventReaderNextEvent = function (e, t, n) {
+              return (hn = o._SmaxEventReaderNextEvent = v.ia)(e, t, n);
+            }),
+            yn = (o._SmaxFlipperConnectionConnect = function (e) {
+              return (yn = o._SmaxFlipperConnectionConnect = v.ja)(e);
+            }),
+            Cn = (o._SmaxFlipperConnectionCreate = function (e, t, n, r, a) {
+              return (Cn = o._SmaxFlipperConnectionCreate = v.ka)(
+                e,
+                t,
+                n,
+                r,
+                a,
+              );
+            }),
+            bn = (o._SmaxFlipperConnectionFree = function (e) {
+              return (bn = o._SmaxFlipperConnectionFree = v.la)(e);
+            }),
+            vn = (o._SmaxPaymentsMockNotificationsAttributeCount = function (
+              e,
+              t,
+            ) {
+              return (vn = o._SmaxPaymentsMockNotificationsAttributeCount =
+                v.ma)(e, t);
+            }),
+            Sn = (o._SmaxPaymentsMockNotificationsCount = function (e) {
+              return (Sn = o._SmaxPaymentsMockNotificationsCount = v.na)(e);
+            }),
+            Rn = (o._SmaxPaymentsMockNotificationsFree = function (e) {
+              return (Rn = o._SmaxPaymentsMockNotificationsFree = v.oa)(e);
+            }),
+            Ln = (o._SmaxPaymentsMockNotificationsGetAttributes = function (
+              e,
+              t,
+            ) {
+              return (Ln = o._SmaxPaymentsMockNotificationsGetAttributes =
+                v.pa)(e, t);
+            }),
+            En = (o._SmaxRunnerEventsCount = function (e) {
+              return (En = o._SmaxRunnerEventsCount = v.qa)(e);
+            }),
+            kn = (o._SmaxRunnerEventsFree = function (e) {
+              return (kn = o._SmaxRunnerEventsFree = v.ra)(e);
+            }),
+            In = (o._SmaxRunnerEventsGetEventType = function (e, t) {
+              return (In = o._SmaxRunnerEventsGetEventType = v.sa)(e, t);
+            }),
+            Tn = (o._SmaxRunnerEventsGetInjectionEvent = function (e, t) {
+              return (Tn = o._SmaxRunnerEventsGetInjectionEvent = v.ta)(e, t);
+            }),
+            Dn = (o._SmaxRunnerEventsGetInjectionToServerEvent = function (
+              e,
+              t,
+            ) {
+              return (Dn = o._SmaxRunnerEventsGetInjectionToServerEvent = v.ua)(
+                e,
+                t,
+              );
+            }),
+            xn = (o._SmaxRunnerEventsGetMockCompletedEvent = function (e, t) {
+              return (xn = o._SmaxRunnerEventsGetMockCompletedEvent = v.va)(
+                e,
+                t,
+              );
+            }),
+            $n = (o._SmaxRunnerEventsGetMockRequestMatchedEvent = function (
+              e,
+              t,
+            ) {
+              return ($n = o._SmaxRunnerEventsGetMockRequestMatchedEvent =
+                v.wa)(e, t);
+            }),
+            Pn = (o._SmaxRunnerEventsGetSequenceCompletedEvent = function (
+              e,
+              t,
+            ) {
+              return (Pn = o._SmaxRunnerEventsGetSequenceCompletedEvent = v.xa)(
+                e,
+                t,
+              );
+            }),
+            Nn = (o._SmaxManualRunnerBuilderCreate = function () {
+              return (Nn = o._SmaxManualRunnerBuilderCreate = v.ya)();
+            }),
+            Mn = (o._SmaxMockRunnerAddMockFile = function (e, t, n) {
+              return (Mn = o._SmaxMockRunnerAddMockFile = v.za)(e, t, n);
+            }),
+            wn = (o._SmaxMockRunnerAddResponseMapping = function (e, t, n, r) {
+              return (wn = o._SmaxMockRunnerAddResponseMapping = v.Aa)(
+                e,
+                t,
+                n,
+                r,
+              );
+            }),
+            An = (o._SmaxMockRunnerAddSyncdKey = function (e, t, n, r, a, i) {
+              return (An = o._SmaxMockRunnerAddSyncdKey = v.Ba)(
                 e,
                 t,
                 n,
@@ -2717,34 +2941,34 @@ __d(
                 i,
               );
             }),
-            jt = (o._SmaxMockRunnerComplete = function (e, t) {
-              return (jt = o._SmaxMockRunnerComplete = v.N)(e, t);
+            Fn = (o._SmaxMockRunnerComplete = function (e, t) {
+              return (Fn = o._SmaxMockRunnerComplete = v.Ca)(e, t);
             }),
-            Kt = (o._SmaxMockRunnerDeregisterListener = function (e, t, n, r) {
-              return (Kt = o._SmaxMockRunnerDeregisterListener = v.O)(
+            On = (o._SmaxMockRunnerDeregisterListener = function (e, t, n, r) {
+              return (On = o._SmaxMockRunnerDeregisterListener = v.Da)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            Qt = (o._SmaxMockRunnerFree = function (e) {
-              return (Qt = o._SmaxMockRunnerFree = v.P)(e);
+            Bn = (o._SmaxMockRunnerFree = function (e) {
+              return (Bn = o._SmaxMockRunnerFree = v.Ea)(e);
             }),
-            Xt = (o._SmaxMockRunnerGetPaymentsMockNotificationsFeatures =
+            Wn = (o._SmaxMockRunnerGetPaymentsMockNotificationsFeatures =
               function (e, t, n) {
-                return (Xt =
+                return (Wn =
                   o._SmaxMockRunnerGetPaymentsMockNotificationsFeatures =
-                    v.Q)(e, t, n);
+                    v.Fa)(e, t, n);
               }),
-            Yt = (o._SmaxMockRunnerGetPreKeyBundleForIdentity = function (
+            qn = (o._SmaxMockRunnerGetPreKeyBundleForIdentity = function (
               e,
               t,
               n,
               r,
               a,
             ) {
-              return (Yt = o._SmaxMockRunnerGetPreKeyBundleForIdentity = v.R)(
+              return (qn = o._SmaxMockRunnerGetPreKeyBundleForIdentity = v.Ga)(
                 e,
                 t,
                 n,
@@ -2752,23 +2976,28 @@ __d(
                 a,
               );
             }),
-            Jt = (o._SmaxMockRunnerGetRunnerMode = function (e, t, n) {
-              return (Jt = o._SmaxMockRunnerGetRunnerMode = v.S)(e, t, n);
+            Un = (o._SmaxMockRunnerGetRunnerMode = function (e, t, n) {
+              return (Un = o._SmaxMockRunnerGetRunnerMode = v.Ha)(e, t, n);
             }),
-            Zt = (o._SmaxMockRunnerGetSequenceCollection = function (e, t, n) {
-              return (Zt = o._SmaxMockRunnerGetSequenceCollection = v.T)(
+            Vn = (o._SmaxMockRunnerGetSequenceCollection = function (e, t, n) {
+              return (Vn = o._SmaxMockRunnerGetSequenceCollection = v.Ia)(
                 e,
                 t,
                 n,
               );
             }),
-            en = (o._SmaxMockRunnerMatchStanza = function (e, t, n, r, a) {
-              return (en = o._SmaxMockRunnerMatchStanza = v.U)(e, t, n, r, a);
+            Hn = (o._SmaxMockRunnerMatchStanza = function (e, t, n, r, a) {
+              return (Hn = o._SmaxMockRunnerMatchStanza = v.Ja)(e, t, n, r, a);
             }),
-            tn = (o._SmaxMockRunnerOverrideFunction = function (e, t, n, r) {
-              return (tn = o._SmaxMockRunnerOverrideFunction = v.V)(e, t, n, r);
+            Gn = (o._SmaxMockRunnerOverrideFunction = function (e, t, n, r) {
+              return (Gn = o._SmaxMockRunnerOverrideFunction = v.Ka)(
+                e,
+                t,
+                n,
+                r,
+              );
             }),
-            nn = (o._SmaxMockRunnerProcessPreKeyBundle = function (
+            zn = (o._SmaxMockRunnerProcessPreKeyBundle = function (
               e,
               t,
               n,
@@ -2779,7 +3008,7 @@ __d(
               s,
               u,
             ) {
-              return (nn = o._SmaxMockRunnerProcessPreKeyBundle = v.W)(
+              return (zn = o._SmaxMockRunnerProcessPreKeyBundle = v.La)(
                 e,
                 t,
                 n,
@@ -2791,7 +3020,7 @@ __d(
                 u,
               );
             }),
-            rn = (o._SmaxMockRunnerProcessPreKeyBundleByAddress = function (
+            jn = (o._SmaxMockRunnerProcessPreKeyBundleByAddress = function (
               e,
               t,
               n,
@@ -2802,269 +3031,41 @@ __d(
               s,
               u,
             ) {
-              return (rn = o._SmaxMockRunnerProcessPreKeyBundleByAddress = v.X)(
-                e,
-                t,
-                n,
-                r,
-                a,
-                i,
-                l,
-                s,
-                u,
-              );
+              return (jn = o._SmaxMockRunnerProcessPreKeyBundleByAddress =
+                v.Ma)(e, t, n, r, a, i, l, s, u);
             }),
-            on = (o._SmaxMockRunnerRegisterListener = function (e, t, n, r) {
-              return (on = o._SmaxMockRunnerRegisterListener = v.Y)(e, t, n, r);
-            }),
-            an = (o._SmaxMockRunnerSetAddressName = function (e, t, n, r) {
-              return (an = o._SmaxMockRunnerSetAddressName = v.Z)(e, t, n, r);
-            }),
-            ln = (o._SmaxMockRunnerSetDefaultIdentityName = function (e, t, n) {
-              return (ln = o._SmaxMockRunnerSetDefaultIdentityName = v._)(
-                e,
-                t,
-                n,
-              );
-            }),
-            sn = (o._SmaxMockRunnerSetDeviceJID = function (e, t, n) {
-              return (sn = o._SmaxMockRunnerSetDeviceJID = v.$)(e, t, n);
-            }),
-            un = (o._SmaxMockRunnerSetLidUserJID = function (e, t, n) {
-              return (un = o._SmaxMockRunnerSetLidUserJID = v.aa)(e, t, n);
-            }),
-            cn = (o._SmaxMockRunnerSetRunnerMode = function (e, t, n) {
-              return (cn = o._SmaxMockRunnerSetRunnerMode = v.ba)(e, t, n);
-            }),
-            dn = (o._SmaxMockRunnerSetVariable = function (e, t, n, r) {
-              return (dn = o._SmaxMockRunnerSetVariable = v.ca)(e, t, n, r);
-            }),
-            mn = (o._SmaxPaymentsMockNotificationsAttributeCount = function (
-              e,
-              t,
-            ) {
-              return (mn = o._SmaxPaymentsMockNotificationsAttributeCount =
-                v.da)(e, t);
-            }),
-            pn = (o._SmaxPaymentsMockNotificationsCount = function (e) {
-              return (pn = o._SmaxPaymentsMockNotificationsCount = v.ea)(e);
-            }),
-            _n = (o._SmaxPaymentsMockNotificationsFree = function (e) {
-              return (_n = o._SmaxPaymentsMockNotificationsFree = v.fa)(e);
-            }),
-            fn = (o._SmaxPaymentsMockNotificationsGetAttributes = function (
-              e,
-              t,
-            ) {
-              return (fn = o._SmaxPaymentsMockNotificationsGetAttributes =
-                v.ga)(e, t);
-            }),
-            gn = (o._SmaxFlipperConnectionConnect = function (e) {
-              return (gn = o._SmaxFlipperConnectionConnect = v.ha)(e);
-            }),
-            hn = (o._SmaxFlipperConnectionCreate = function (e, t, n, r, a) {
-              return (hn = o._SmaxFlipperConnectionCreate = v.ia)(
-                e,
-                t,
-                n,
-                r,
-                a,
-              );
-            }),
-            yn = (o._SmaxFlipperConnectionFree = function (e) {
-              return (yn = o._SmaxFlipperConnectionFree = v.ja)(e);
-            }),
-            Cn = (o._SmaxRunnerEventsCount = function (e) {
-              return (Cn = o._SmaxRunnerEventsCount = v.ka)(e);
-            }),
-            bn = (o._SmaxRunnerEventsFree = function (e) {
-              return (bn = o._SmaxRunnerEventsFree = v.la)(e);
-            }),
-            vn = (o._SmaxRunnerEventsGetEventType = function (e, t) {
-              return (vn = o._SmaxRunnerEventsGetEventType = v.ma)(e, t);
-            }),
-            Sn = (o._SmaxRunnerEventsGetInjectionEvent = function (e, t) {
-              return (Sn = o._SmaxRunnerEventsGetInjectionEvent = v.na)(e, t);
-            }),
-            Rn = (o._SmaxRunnerEventsGetInjectionToServerEvent = function (
-              e,
-              t,
-            ) {
-              return (Rn = o._SmaxRunnerEventsGetInjectionToServerEvent = v.oa)(
-                e,
-                t,
-              );
-            }),
-            Ln = (o._SmaxRunnerEventsGetMockCompletedEvent = function (e, t) {
-              return (Ln = o._SmaxRunnerEventsGetMockCompletedEvent = v.pa)(
-                e,
-                t,
-              );
-            }),
-            En = (o._SmaxRunnerEventsGetMockRequestMatchedEvent = function (
-              e,
-              t,
-            ) {
-              return (En = o._SmaxRunnerEventsGetMockRequestMatchedEvent =
-                v.qa)(e, t);
-            }),
-            kn = (o._SmaxRunnerEventsGetSequenceCompletedEvent = function (
-              e,
-              t,
-            ) {
-              return (kn = o._SmaxRunnerEventsGetSequenceCompletedEvent = v.ra)(
-                e,
-                t,
-              );
-            }),
-            In = (o._SmaxAutomaticMockRunnerMatchServerStanza = function (
-              e,
-              t,
-              n,
-              r,
-              a,
-            ) {
-              return (In = o._SmaxAutomaticMockRunnerMatchServerStanza = v.sa)(
-                e,
-                t,
-                n,
-                r,
-                a,
-              );
-            }),
-            Tn = (o._SmaxAutomaticMockRunnerSend = function (e, t, n, r) {
-              return (Tn = o._SmaxAutomaticMockRunnerSend = v.ta)(e, t, n, r);
-            }),
-            Dn = (o._SmaxAutomaticMockRunnerStart = function (e, t, n, r) {
-              return (Dn = o._SmaxAutomaticMockRunnerStart = v.ua)(e, t, n, r);
-            }),
-            xn = (o._SmaxFlipperPluginBackendCreate = function (e, t, n) {
-              return (xn = o._SmaxFlipperPluginBackendCreate = v.va)(e, t, n);
-            }),
-            $n = (o._SmaxFlipperPluginBackendFree = function (e) {
-              return ($n = o._SmaxFlipperPluginBackendFree = v.wa)(e);
-            }),
-            Pn = (o._SmaxFlipperPluginBackendFreeResponse = function (e) {
-              return (Pn = o._SmaxFlipperPluginBackendFreeResponse = v.xa)(e);
-            }),
-            Nn = (o._SmaxFlipperPluginBackendHandleRpc = function (e, t, n, r) {
-              return (Nn = o._SmaxFlipperPluginBackendHandleRpc = v.ya)(
+            Kn = (o._SmaxMockRunnerRegisterListener = function (e, t, n, r) {
+              return (Kn = o._SmaxMockRunnerRegisterListener = v.Na)(
                 e,
                 t,
                 n,
                 r,
               );
             }),
-            Mn = (o._SmaxManualRunnerBuilderCreate = function () {
-              return (Mn = o._SmaxManualRunnerBuilderCreate = v.za)();
+            Qn = (o._SmaxMockRunnerSetAddressName = function (e, t, n, r) {
+              return (Qn = o._SmaxMockRunnerSetAddressName = v.Oa)(e, t, n, r);
             }),
-            wn = (o._SmaxManualMockRunnerNext = function (e, t, n) {
-              return (wn = o._SmaxManualMockRunnerNext = v.Aa)(e, t, n);
-            }),
-            An = (o._SmaxManualMockRunnerStart = function (e, t, n) {
-              return (An = o._SmaxManualMockRunnerStart = v.Ba)(e, t, n);
-            }),
-            Fn = (o._SmaxManualMockRunnerStartAndInject = function (
-              e,
-              t,
-              n,
-              r,
-            ) {
-              return (Fn = o._SmaxManualMockRunnerStartAndInject = v.Ca)(
-                e,
-                t,
-                n,
-                r,
-              );
-            }),
-            On = (o._SmaxRunnerBuilderAddDefaultIdentityName = function (
-              e,
-              t,
-              n,
-            ) {
-              return (On = o._SmaxRunnerBuilderAddDefaultIdentityName = v.Da)(
+            Xn = (o._SmaxMockRunnerSetDefaultIdentityName = function (e, t, n) {
+              return (Xn = o._SmaxMockRunnerSetDefaultIdentityName = v.Pa)(
                 e,
                 t,
                 n,
               );
             }),
-            Bn = (o._SmaxRunnerBuilderAddDeviceJid = function (e, t, n) {
-              return (Bn = o._SmaxRunnerBuilderAddDeviceJid = v.Ea)(e, t, n);
+            Yn = (o._SmaxMockRunnerSetDeviceJID = function (e, t, n) {
+              return (Yn = o._SmaxMockRunnerSetDeviceJID = v.Qa)(e, t, n);
             }),
-            Wn = (o._SmaxRunnerBuilderAddFileRepo = function (e, t, n) {
-              return (Wn = o._SmaxRunnerBuilderAddFileRepo = v.Fa)(e, t, n);
+            Jn = (o._SmaxMockRunnerSetLidUserJID = function (e, t, n) {
+              return (Jn = o._SmaxMockRunnerSetLidUserJID = v.Ra)(e, t, n);
             }),
-            qn = (o._SmaxRunnerBuilderAddIdentityFolder = function (e, t, n) {
-              return (qn = o._SmaxRunnerBuilderAddIdentityFolder = v.Ga)(
-                e,
-                t,
-                n,
-              );
+            Zn = (o._SmaxMockRunnerSetRunnerMode = function (e, t, n) {
+              return (Zn = o._SmaxMockRunnerSetRunnerMode = v.Sa)(e, t, n);
             }),
-            Un = (o._SmaxRunnerBuilderAddLidUserJid = function (e, t, n) {
-              return (Un = o._SmaxRunnerBuilderAddLidUserJid = v.Ha)(e, t, n);
+            er = (o._SmaxMockRunnerSetVariable = function (e, t, n, r) {
+              return (er = o._SmaxMockRunnerSetVariable = v.Ta)(e, t, n, r);
             }),
-            Vn = (o._SmaxRunnerBuilderAddMockFile = function (e, t, n) {
-              return (Vn = o._SmaxRunnerBuilderAddMockFile = v.Ia)(e, t, n);
-            }),
-            Hn = (o._SmaxRunnerBuilderAddResponseMapping = function (
-              e,
-              t,
-              n,
-              r,
-            ) {
-              return (Hn = o._SmaxRunnerBuilderAddResponseMapping = v.Ja)(
-                e,
-                t,
-                n,
-                r,
-              );
-            }),
-            Gn = (o._SmaxRunnerBuilderAddRunnerMode = function (e, t, n) {
-              return (Gn = o._SmaxRunnerBuilderAddRunnerMode = v.Ka)(e, t, n);
-            }),
-            zn = (o._SmaxRunnerBuilderAddStoredMutationsProvider = function (
-              e,
-              t,
-              n,
-            ) {
-              return (zn = o._SmaxRunnerBuilderAddStoredMutationsProvider =
-                v.La)(e, t, n);
-            }),
-            jn = (o._SmaxRunnerBuilderAddVariable = function (e, t, n, r) {
-              return (jn = o._SmaxRunnerBuilderAddVariable = v.Ma)(e, t, n, r);
-            }),
-            Kn = (o._SmaxRunnerBuilderBuild = function (e, t, n) {
-              return (Kn = o._SmaxRunnerBuilderBuild = v.Na)(e, t, n);
-            }),
-            Qn = (o._SmaxRunnerBuilderFree = function (e) {
-              return (Qn = o._SmaxRunnerBuilderFree = v.Oa)(e);
-            }),
-            Xn = (o._SmaxRunnerBuilderSetDictionaryVersion = function (
-              e,
-              t,
-              n,
-            ) {
-              return (Xn = o._SmaxRunnerBuilderSetDictionaryVersion = v.Pa)(
-                e,
-                t,
-                n,
-              );
-            }),
-            Yn = (o._SmaxRunnerSequenceCollectionViewFree = function (e) {
-              return (Yn = o._SmaxRunnerSequenceCollectionViewFree = v.Qa)(e);
-            }),
-            Jn = (o._SmaxAutomaticRunnerBuilderCreate = function () {
-              return (Jn = o._SmaxAutomaticRunnerBuilderCreate = v.Ra)();
-            }),
-            Zn = (o._SmaxRunnerPreKeyBundleFree = function (e) {
-              return (Zn = o._SmaxRunnerPreKeyBundleFree = v.Sa)(e);
-            }),
-            er = (o._SmaxVisualizeProto = function (e, t, n, r, a) {
-              return (er = o._SmaxVisualizeProto = v.Ta)(e, t, n, r, a);
-            }),
-            tr = (o._SmaxVisualizedProtoFree = function (e) {
-              return (tr = o._SmaxVisualizedProtoFree = v.Ua)(e);
+            tr = (o._SmaxRunnerPreKeyBundleFree = function (e) {
+              return (tr = o._SmaxRunnerPreKeyBundleFree = v.Ua)(e);
             }),
             nr = function () {
               return (nr = v.Va)();

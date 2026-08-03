@@ -3,8 +3,8 @@ __d(
   [
     "WATypedArraysEqual",
     "WAWebABProps",
+    "WAWebMediaFileErrors",
     "WAWebMimeTypesBuildExtToMime",
-    "WAWebMiscErrors",
     "file-type",
     "filterObject",
   ],
@@ -176,7 +176,7 @@ __d(
       if (i) return i.mime;
       if (t === "image") return "image/jpeg";
       if (t === "group-history") return "application/protobuf";
-      throw new (o("WAWebMiscErrors").MediaEncryptionError)(
+      throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
         "unknown mime decrypt error for type:" + t,
       );
     }

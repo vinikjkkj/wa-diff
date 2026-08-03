@@ -556,6 +556,8 @@ __d(
       win_hybrid_bt_enabled: [30041, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
       win_hybrid_voip_anr_optimizations: [22616, "int", 0, 0],
+      win_hybrid_vsr_button_enabled_2: [34279, "bool", !1, !0],
+      win_hybrid_vsr_enabled_2: [34280, "bool", !1, !0],
       win_network_state_watchdog_interval: [7737, "int", 30, 30],
       windows_contacts_initial_sync_delay: [24883, "int", 10, 1],
       windows_contacts_sync_interval: [24882, "int", 60, 5],

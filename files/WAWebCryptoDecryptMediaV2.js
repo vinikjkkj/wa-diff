@@ -7,7 +7,7 @@ __d(
     "WATypedArraysCast",
     "WAWebBackendWorkerClient",
     "WAWebCryptoDecryptMedia",
-    "WAWebMiscErrors",
+    "WAWebMediaFileErrors",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -82,7 +82,7 @@ __d(
               p
             );
           } catch (e) {
-            throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+            throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
               "decryptMedia: compound worker failed: " +
                 (e instanceof Error ? e.message : String(e)),
             );

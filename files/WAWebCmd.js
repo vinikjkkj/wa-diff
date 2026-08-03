@@ -12,7 +12,6 @@ __d(
     "WAWebBotUtils",
     "WAWebCmd.flow",
     "WAWebComposeBoxActions",
-    "WAWebCurrentUser",
     "WAWebDocumentFlushed",
     "WAWebDrawerManagerGlobalContext",
     "WAWebEventEmitter",
@@ -1041,8 +1040,7 @@ __d(
             r("gkx")("26258") || this.trigger("handle_low_storage_butter_bar");
           }),
           (i.triggerBugReportV2 = function () {
-            o("WAWebCurrentUser").isEmployee() &&
-              this.trigger("trigger_bugreport_v2", {});
+            r("gkx")("9092") && this.trigger("trigger_bugreport_v2", {});
           }),
           (i.onNotificationPermissionChange = function () {
             this.trigger("on_notification_permission_change");

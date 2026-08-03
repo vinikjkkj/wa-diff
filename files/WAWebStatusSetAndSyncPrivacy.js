@@ -34,19 +34,19 @@ __d(
               : void 0,
             d = r(
               "WAWebStatusPrivacySettingSync",
-            ).getStatusPrivacySettingMutation(
-              l,
-              Array.from(
+            ).getStatusPrivacySettingMutation({
+              list: Array.from(
                 new Set(
                   t.map(function (e) {
                     return e.toString({ legacy: !0 });
                   }),
                 ),
               ),
-              o("WATimeUtils").unixTimeMs(),
-              u,
-              c,
-            );
+              setting: l,
+              shareToFB: u,
+              shareToIG: c,
+              timestamp: o("WATimeUtils").unixTimeMs(),
+            });
           yield o("WAWebSyncdCoreApi").lockForSync(
             ["user-prefs"],
             [d],

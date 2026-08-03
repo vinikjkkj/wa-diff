@@ -52,8 +52,8 @@ __d(
         f = _ref.ariaLabelledBy,
         b = _ref.ariaMultiline,
         x = _ref.ariaOwns,
-        E = _ref.ariaRequired,
-        m = _ref.autoCapitalize,
+        m = _ref.ariaRequired,
+        E = _ref.autoCapitalize,
         p = _ref.className,
         C = _ref.id,
         _ref$role = _ref.role,
@@ -125,8 +125,8 @@ __d(
               "aria-multiline": b,
               "aria-owns": R ? x : void 0,
               "aria-readonly": !R || void 0,
-              "aria-required": E,
-              autoCapitalize: m,
+              "aria-required": m,
+              autoCapitalize: E,
               className: p,
               contentEditable: R,
               "data-testid": h,
@@ -200,7 +200,7 @@ __d(
         l = _t$useState2[0],
         d = _t$useState2[1];
       if (
-        (t.useLayoutEffect(
+        (n(
           function () {
             return (
               d(i.isEditable()),
