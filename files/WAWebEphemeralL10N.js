@@ -28,40 +28,13 @@ __d(
         "ModeChangeByOthers",
         "ModeChangeByYou",
       ]);
-    function f(e, t) {
-      return (e === void 0 && (e = 0), k(_.SettingChangeByOthers, e, t));
+    function f(e) {
+      return (e === void 0 && (e = 0), h(_.Duration, e));
     }
     function g(e) {
-      return (e === void 0 && (e = 0), k(_.SettingChangeByYou, e));
+      return (e === void 0 && (e = 0), h(_.Explanation, e));
     }
-    function h(e) {
-      return (e === void 0 && (e = 0), k(_.SettingChangeByUnknown, e));
-    }
-    function y(e, t) {
-      return (e === void 0 && (e = 0), k(_.SettingChangeByOthersAsAdmin, e, t));
-    }
-    function C(e) {
-      return (e === void 0 && (e = 0), k(_.SettingChangeByYouAsAdmin, e));
-    }
-    function b(e) {
-      return (e === void 0 && (e = 0), k(_.SettingChangeByUnknownAsAdmin, e));
-    }
-    function v(e) {
-      return (e === void 0 && (e = 0), k(_.Duration, e));
-    }
-    function S(e) {
-      return (e === void 0 && (e = 0), k(_.OutOfSyncInfo, e));
-    }
-    function R(e) {
-      return (e === void 0 && (e = 0), k(_.Explanation, e));
-    }
-    function L(e, t) {
-      return (e === void 0 && (e = 0), k(_.ModeChangeByOthers, e, t));
-    }
-    function E(e) {
-      return (e === void 0 && (e = 0), k(_.ModeChangeByYou, e));
-    }
-    function k(t, n, r) {
+    function h(t, n, r) {
       if ((n === void 0 && (n = 0), n < 0))
         return (
           o("WALogger")
@@ -78,19 +51,19 @@ __d(
             .sendLogs("invalid-duration"),
           ""
         );
-      if (n === 0) return I(t, r);
-      if (n <= 60) return T(t, n, r);
+      if (n === 0) return y(t, r);
+      if (n <= 60) return C(t, n, r);
       if (n < 3600) {
         var a = Math.floor(n / 60);
-        return D(t, a, r);
+        return b(t, a, r);
       } else if (n <= 1440 * 60) {
         var i = Math.floor(n / 60 / 60);
-        return x(t, i, r);
+        return v(t, i, r);
       }
       var l = Math.floor(n / 24 / 60 / 60);
-      return $(t, l, r);
+      return S(t, l, r);
     }
-    function I(e, t) {
+    function y(e, t) {
       return e === _.SettingChangeByOthers && t != null
         ? s._(/*BTDS*/ "{name} turned off disappearing messages.", [
             s._param("name", t),
@@ -150,7 +123,7 @@ __d(
                           .sendLogs("invalid-ephemeral-string-type"),
                         "");
     }
-    function T(e, t, n) {
+    function C(e, t, n) {
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
@@ -270,7 +243,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function D(e, t, n) {
+    function b(e, t, n) {
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
@@ -390,7 +363,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function x(e, t, n) {
+    function v(e, t, n) {
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
@@ -509,7 +482,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function $(e, t, n) {
+    function S(e, t, n) {
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
@@ -628,17 +601,8 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    ((l.getDisappearingMessageSettingOthersString = f),
-      (l.getDisappearingMessageSettingYouString = g),
-      (l.getDisappearingMessageSettingUnknownString = h),
-      (l.getDisappearingMessageSettingOthersAsAdminString = y),
-      (l.getDisappearingMessageSettingYouAsAdminString = C),
-      (l.getDisappearingMessageSettingUnknownAsAdminString = b),
-      (l.getDisappearingMessageDurationString = v),
-      (l.getDisappearingMessageOutOfSyncInfoString = S),
-      (l.getDisappearingMessageExplanationString = R),
-      (l.getDisappearingModeOtherString = L),
-      (l.getDisappearingModeYouString = E));
+    ((l.getDisappearingMessageDurationString = f),
+      (l.getDisappearingMessageExplanationString = g));
   },
   226,
 );

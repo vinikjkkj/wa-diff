@@ -12,6 +12,7 @@ __d(
       FUTURE: 7,
       PLACEHOLDER: 8,
       INLINE_VIDEO: 9,
+      LOCATION: 10,
     });
     i.STATUS_TYPE = e;
   },

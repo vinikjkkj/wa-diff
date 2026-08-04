@@ -11,6 +11,7 @@ __d(
       RESHARE: 6,
       AI_IMAGINE: 7,
       DRAFT: 8,
+      LOCATION: 9,
     });
     i.STATUS_CONTENT_SOURCE = e;
   },

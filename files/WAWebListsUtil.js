@@ -5,6 +5,8 @@ __d(
     "WAWebABProps",
     "WAWebChatCollection",
     "WAWebChatGetters",
+    "WAWebChatMessageSearch",
+    "WAWebChatSearchFilters",
     "WAWebConfirmPopup.react",
     "WAWebFavoritesUtils",
     "WAWebFbtCommon",
@@ -81,18 +83,42 @@ __d(
                       n === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
                   );
                 })
-              : e.labelItemCollection.reduce(function (e, t) {
-                  if (
-                    t == null ||
-                    t.parentType !==
-                      o("WAWebListItemParentType").LabelItemParentType.Chat
-                  )
-                    return e;
-                  var n = o("WAWebChatCollection").ChatCollection.get(
-                    t.parentId,
-                  );
-                  return (n != null && e.push(n), e);
-                }, []);
+              : e.type === o("WAWebSchemaLabel").ListType.AI_HANDOFF
+                ? o("WAWebChatCollection").ChatCollection.filter(function (e) {
+                    return (
+                      !e.archive &&
+                      !e.isLocked &&
+                      o("WAWebChatMessageSearch").matchFilter(e, {
+                        kind: o("WAWebChatSearchFilters").SearchFilters
+                          .AI_HANDOFF,
+                      })
+                    );
+                  })
+                : e.type === o("WAWebSchemaLabel").ListType.AI_RESPONDING
+                  ? o("WAWebChatCollection").ChatCollection.filter(
+                      function (e) {
+                        return (
+                          !e.archive &&
+                          !e.isLocked &&
+                          o("WAWebChatMessageSearch").matchFilter(e, {
+                            kind: o("WAWebChatSearchFilters").SearchFilters
+                              .AI_RESPONDING,
+                          })
+                        );
+                      },
+                    )
+                  : e.labelItemCollection.reduce(function (e, t) {
+                      if (
+                        t == null ||
+                        t.parentType !==
+                          o("WAWebListItemParentType").LabelItemParentType.Chat
+                      )
+                        return e;
+                      var n = o("WAWebChatCollection").ChatCollection.get(
+                        t.parentId,
+                      );
+                      return (n != null && e.push(n), e);
+                    }, []);
     }
     function _(e, t) {
       var n = new Set(e),

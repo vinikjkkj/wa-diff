@@ -322,7 +322,9 @@ __d(
         (a.getInactivePresetLists = function () {
           return this.filter(function (e) {
             return (
-              e.isActive === !1 && o("WAWebListUtils").isBuiltInList(e.type)
+              e.isActive === !1 &&
+              (o("WAWebListUtils").isBuiltInList(e.type) ||
+                o("WAWebListUtils").isAiList(e.type))
             );
           });
         }),

@@ -50,48 +50,55 @@ __d(
         return (
           (a.handleNudge = function (n, r, a) {
             var t,
-              i = String(n),
-              l = this.get(i);
-            if (l != null && l.version >= r) {
+              i,
+              l = String(n),
+              u = this.get(l);
+            if (u != null && u.version >= r && u.updatedAtMs >= a) {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[BizAI] nudge cat=",
-                    " up-to-date (local=",
-                    " >= in=",
+                    " up-to-date (local=v",
+                    "@",
+                    " >= in=v",
+                    "@",
                     ")",
                   ])),
-                i,
-                l.version,
+                l,
+                u.version,
+                u.updatedAtMs,
                 r,
+                a,
               );
               return;
             }
-            var u = (t = l == null ? void 0 : l.version) != null ? t : 0;
+            var c = (t = u == null ? void 0 : u.version) != null ? t : 0,
+              d = (i = u == null ? void 0 : u.updatedAtMs) != null ? i : 0;
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[BizAI] nudge cat=",
-                  " stale (local=",
-                  " < in=",
+                  " stale (local=v",
+                  "@",
+                  " < in=v",
+                  "@",
                   ")",
                 ])),
-              i,
-              u,
+              l,
+              c,
+              d,
               r,
+              a,
             );
-            var c = this.gadd({ id: i, version: r, updatedAtMs: a });
-            c.markStale();
+            var m = this.gadd({ id: l, version: r, updatedAtMs: a });
+            m.markStale();
           }),
-          (a.incrementVersion = function (t) {
+          (a.incrementVersion = function (t, n) {
             var e,
-              n = String(t),
-              r = this.get(n),
-              o = ((e = r == null ? void 0 : r.version) != null ? e : 0) + 1;
-            return (
-              this.gadd({ id: n, version: o, updatedAtMs: Date.now() }),
-              o
-            );
+              r = String(t),
+              o = this.get(r),
+              a = ((e = o == null ? void 0 : o.version) != null ? e : 0) + 1;
+            return (this.gadd({ id: r, version: a, updatedAtMs: n }), a);
           }),
           (a.getByCategory = function (t) {
             return this.get(String(t));

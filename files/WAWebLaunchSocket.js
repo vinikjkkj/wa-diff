@@ -266,8 +266,7 @@ __d(
                           if (
                             !o(
                               "WAWebLid1X1MigrationGating",
-                            ).Lid1X1MigrationUtils.isLidMigrated() &&
-                            r("gkx")("10404")
+                            ).Lid1X1MigrationUtils.isLidMigrated()
                           )
                             return (
                               o(

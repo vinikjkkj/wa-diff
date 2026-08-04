@@ -58,10 +58,11 @@ __d(
         $ = x === void 0 ? null : x,
         P = t.messageHasSpoiler,
         N = P === void 0 ? !1 : P,
-        M = t.boldXstyle,
-        w = t.codeXstyle,
-        A = t.linkXstyle,
-        F =
+        M = t.spoilerInteractive,
+        w = t.boldXstyle,
+        A = t.codeXstyle,
+        F = t.linkXstyle,
+        O =
           _ && d != null && d.length > 0
             ? [
                 [
@@ -70,13 +71,13 @@ __d(
                 ],
               ]
             : null,
-        O;
+        B;
       return (
         (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
           o("WAWebBotBaseGating").isBotEnabled()) &&
           C &&
           C.length > 0 &&
-          (O = [
+          (B = [
             [
               o("WAWebBotCommandFormatMutator").BotCommand,
               { commands: C, selectable: m },
@@ -86,14 +87,14 @@ __d(
           [
             [
               o("WAWebCodeFormatMutator").Code,
-              { selectable: m, codeXstyle: w },
+              { selectable: m, codeXstyle: A },
             ],
           ],
           v
             ? [
                 [
                   r("WAWebInlineCodeFormatMutator"),
-                  { selectable: m, codeXstyle: w },
+                  { selectable: m, codeXstyle: A },
                 ],
               ]
             : null,
@@ -123,11 +124,16 @@ __d(
               ]
             : null,
           R ? [[r("WAWebNumberedListFormatMutator"), { selectable: m }]] : null,
+          o("WAWebFormatConfiguration").spoilerMutatorEntry({
+            messageHasSpoiler: N,
+            selectable: m,
+            spoilerInteractive: M,
+          }),
           _
             ? [
                 [
                   r("WAWebLinkFormatMutator"),
-                  { links: u, selectable: m, onLinkClick: D, linkXstyle: A },
+                  { links: u, selectable: m, onLinkClick: D, linkXstyle: F },
                 ],
               ]
             : null,
@@ -152,13 +158,9 @@ __d(
               ]
             : null,
           !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(m) : null,
-          F,
-          o("WAWebFormatConfiguration").spoilerMutatorEntry({
-            messageHasSpoiler: N,
-            selectable: m,
-          }),
+          O,
           [
-            [r("WAWebBoldFormatMutator"), { selectable: m, boldXstyle: M }],
+            [r("WAWebBoldFormatMutator"), { selectable: m, boldXstyle: w }],
             [r("WAWebItalicFormatMutator"), { selectable: m }],
             [r("WAWebStrikethroughFormatMutator"), { selectable: m }],
           ],
@@ -171,7 +173,7 @@ __d(
                 ],
               ]
             : null,
-          O,
+          B,
           $ != null
             ? [
                 [

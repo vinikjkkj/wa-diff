@@ -26,6 +26,7 @@ __d(
       after_read_sending_enabled: [25648, "bool", !1, !1],
       ai_3p_agent_chat_enabled: [31063, "bool", !1, !1],
       ai_3p_agent_link_enabled: [31064, "bool", !1, !1],
+      ai_3p_agent_media_support_mode: [34393, "int", 0, 0],
       ai_3p_bot_product_chat_rendering_enabled: [34186, "bool", !1, !0],
       ai_account_linking_enabled: [13856, "bool", !1, !0],
       ai_all_languages_enabled: [16091, "bool", !1, !1],

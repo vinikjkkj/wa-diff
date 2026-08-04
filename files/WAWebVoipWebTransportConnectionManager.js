@@ -959,11 +959,8 @@ __d(
       (H.clear(),
         G.clear(),
         (X = []),
-        z &&
-          ((J = !1),
-          (Z = !1),
-          (ee = null),
-          o("WAWebVoipWebTransportCallSummary").resetWtCallSummary()),
+        z && ((J = !1), (Z = !1), (ee = null)),
+        o("WAWebVoipWebTransportCallSummary").markWtCallSummaryClosed(),
         o("WAWebVoipTsLogger").cleanup(),
         (z = !1));
     }

@@ -5,6 +5,7 @@ __d(
     "use strict";
     var e = {
       adv_accept_hosted_devices: [6939, "bool", !1, !0],
+      ai_3p_agent_media_support_mode: [34393, "int", 0, 0],
       ai_asset_replacement_enabled: [28265, "bool", !1, !1],
       ai_bizai_2way_integration_enabled: [26613, "bool", !1, !1],
       ai_bizai_2way_integration_history_sync_pre_chatd_enabled: [

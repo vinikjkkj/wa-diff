@@ -19,29 +19,28 @@ __d(
       c = 1500,
       d = 1,
       m = new Map();
-    function p(e, t) {
+    function p(e, t, n) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = o("WATimeUtils").unixTimeMs(),
-            a = o("WAWebSyncdActionUtils").buildPendingMutation({
-              collection: o("WAWebSyncdConst").CollectionName.RegularHigh,
-              indexArgs: [String(e)],
-              value: {
-                bizAiSettingsNudgeAction: {
-                  category: e,
-                  version: t,
-                  updatedAtMs: r,
-                },
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = o("WAWebSyncdActionUtils").buildPendingMutation({
+            collection: o("WAWebSyncdConst").CollectionName.RegularHigh,
+            indexArgs: [String(e)],
+            value: {
+              bizAiSettingsNudgeAction: {
+                category: e,
+                version: t,
+                updatedAtMs: r,
               },
-              version: d,
-              operation: o("WAWebProtobufsServerSync.pb")
-                .SyncdMutation$SyncdOperation.SET,
-              timestamp: r,
-              action: o("WAWebSyncdConst").Actions.BizAiSettingsNudge,
-            });
+            },
+            version: d,
+            operation: o("WAWebProtobufsServerSync.pb")
+              .SyncdMutation$SyncdOperation.SET,
+            timestamp: r,
+            action: o("WAWebSyncdConst").Actions.BizAiSettingsNudge,
+          });
           yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
             return (u || (u = n("Promise"))).resolve();
           });
@@ -54,9 +53,10 @@ __d(
       n != null && window.clearTimeout(n);
       var r = window.setTimeout(function () {
         m.delete(t);
-        var n = o(
-          "WAWebBizAISettingsVersionCollection",
-        ).BizAISettingsVersionCollection.incrementVersion(t);
+        var n = o("WATimeUtils").unixTimeMs(),
+          r = o(
+            "WAWebBizAISettingsVersionCollection",
+          ).BizAISettingsVersionCollection.incrementVersion(t, n);
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -65,9 +65,9 @@ __d(
               "",
             ])),
           String(t),
-          n,
+          r,
         ),
-          p(t, n).catch(function () {
+          p(t, r, n).catch(function () {
             o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([

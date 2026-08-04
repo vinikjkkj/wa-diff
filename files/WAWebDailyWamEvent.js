@@ -116,6 +116,8 @@ __d(
               ],
               installedFirstPartyStickerPackCount: [115, e.TYPES.INTEGER],
               installedTotalStickerPackCount: [114, e.TYPES.INTEGER],
+              interopContactsSize: [260, e.TYPES.INTEGER],
+              interopContactsSizePerIntegrator: [261, e.TYPES.STRING],
               isCanonicalEntPresent: [234, e.TYPES.BOOLEAN],
               isContactSyncToOsDefaultOn: [202, e.TYPES.BOOLEAN],
               isDefaultDisappearingMessagingUser: [183, e.TYPES.BOOLEAN],

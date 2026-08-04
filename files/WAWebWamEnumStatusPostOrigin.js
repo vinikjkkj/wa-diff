@@ -62,6 +62,7 @@ __d(
       ARCHIVE_STATUS_VIEWER: 57,
       ME_TAB: 58,
       CONTACTS_TAB: 59,
+      GROUP_STATUS_REPLY_WITH_STATUS: 60,
     });
     i.STATUS_POST_ORIGIN = e;
   },

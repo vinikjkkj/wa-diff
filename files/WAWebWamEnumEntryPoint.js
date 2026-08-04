@@ -94,6 +94,7 @@ __d(
       BB_SHARE_MODAL: 89,
       BB_FORWARD_MODAL: 90,
       ATTACHMENT_TRAY: 91,
+      BIZ_PROFILE_CONNECTED_MEDIA: 92,
     });
     i.ENTRY_POINT = e;
   },

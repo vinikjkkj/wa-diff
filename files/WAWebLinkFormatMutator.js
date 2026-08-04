@@ -7,6 +7,7 @@ __d(
     "WAWebInlineCodeFormatMutator",
     "WAWebItalicFormatMutator",
     "WAWebLinkMutatorComponent.react",
+    "WAWebSpoilerFormatMutator",
     "WAWebStrikethroughFormatMutator",
     "WAWebSuspiciousLinkMutatorComponent.react",
     "react",
@@ -65,6 +66,7 @@ __d(
         [r("WAWebStrikethroughFormatMutator"), m],
         [r("WAWebInlineCodeFormatMutator"), m],
         [o("WAWebCodeFormatMutator").Code, m],
+        [r("WAWebSpoilerFormatMutator"), m],
       ])));
     function d(e) {
       var t = e.index,

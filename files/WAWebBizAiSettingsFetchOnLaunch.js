@@ -7,6 +7,7 @@ __d(
     "WAWebBizAiHandoffRemovalTimingFetchQuery",
     "WAWebBizAiHandoffRemovalTimingModel",
     "WAWebChatCollection",
+    "WAWebConnModel",
     "WAWebMobilePlatforms",
     "WAWebProtobufSyncAction.pb",
   ],
@@ -16,6 +17,11 @@ __d(
         o("WAWebBizAiHandoffRemoval").armHandoffRemovalEvictionTimer(e);
     }
     function s() {
+      if (o("WAWebConnModel").Conn.platform == null) {
+        o("WAWebConnModel").Conn.once == null ||
+          o("WAWebConnModel").Conn.once("change:platform", s);
+        return;
+      }
       o("WAWebMobilePlatforms").isSMB() &&
         (o(
           "WAWebBizAiHandoffRemovalTimingModel",

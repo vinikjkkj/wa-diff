@@ -14,6 +14,7 @@ __d(
       REACTION_STICKER_RECEIVED: 9,
       REACTION: 10,
       ADD_YOURS_RESPONSE: 11,
+      REPLY_WITH_STATUS: 12,
     });
     i.STATUS_INTERACTION_TYPE = e;
   },

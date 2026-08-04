@@ -344,8 +344,7 @@ __d(
             i = t.isSyncdSnapshotRecoveryEnabled,
             l = t.subscriptionSyncPayload,
             s = n === !0;
-          (!s &&
-            r("gkx")("10404") &&
+          (s ||
             (o("WAWebCoreActionsODS").logPairError(),
             o("WAWebCoreActionsODS").logSessionForcedLogout(),
             yield o("WAWebSocketLogoutJob").socketLogout(

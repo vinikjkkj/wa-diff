@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
+    "WAWebBotTypes",
     "WAWebDebugUtils",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -153,6 +154,7 @@ __d(
               },
             ],
           },
+          bizBotType: o("WAWebBotTypes").BizBotType.BIZ_1P,
           bloksWidget: { uuid: s, data: i, type: l },
         });
       (n.msgs.add(f),

@@ -37,15 +37,13 @@ __d(
     }
     function h(t) {
       try {
-        var n = new (o(
+        new (o(
           "WAWebPathfinderFrameworkHealthWamEvent",
-        ).PathfinderFrameworkHealthWamEvent)();
-        (n.set({
+        ).PathfinderFrameworkHealthWamEvent)({
           pathfinderHealthEventType: o("WAWebWamEnumPathfinderHealthEventType")
             .PATHFINDER_HEALTH_EVENT_TYPE.WEB_SESSION_FOOTPRINT,
           pathfinderHealthEventData: t,
-        }),
-          n.commit());
+        }).commit();
       } catch (t) {
         o("WALogger")
           .WARN(

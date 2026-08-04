@@ -13,6 +13,7 @@ __d(
               hasPn: [4, e.TYPES.BOOLEAN],
               hasPush: [5, e.TYPES.BOOLEAN],
               hasUn: [6, e.TYPES.BOOLEAN],
+              inDb: [10, e.TYPES.BOOLEAN],
               isFirstDisplay: [7, e.TYPES.BOOLEAN],
               jidType: [8, e.TYPES.STRING],
               unknownUserDisplayContext: [1, e.TYPES.STRING],

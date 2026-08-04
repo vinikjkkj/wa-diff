@@ -31,7 +31,7 @@ __d(
         function t() {
           var e = this;
           ((this.$4 = !1),
-            (this.$8 = r("WAMemoizeConcurrent")(
+            (this.$9 = r("WAMemoizeConcurrent")(
               function () {
                 return "all";
               },
@@ -43,7 +43,7 @@ __d(
                       var i = yield o(
                         "WAWebQueryMediaConnsBridge",
                       ).sendQueryMediaConn(a);
-                      ((e.$1 = e.$7(i)),
+                      ((e.$1 = e.$8(i)),
                         o("WAWebUserPrefsMultiDevice").setMms4Conn(i),
                         o(
                           "WAWebMediaHostsRawStateManager",
@@ -59,7 +59,7 @@ __d(
                           self.setTimeout(
                             n("asyncToGeneratorRuntime").asyncToGenerator(
                               function* () {
-                                (yield e.$5({ signal: a }), (e.$4 = !1));
+                                (yield e.$6({ signal: a }), (e.$4 = !1));
                               },
                             ),
                             (s = l.backoff) != null ? s : void 0,
@@ -105,14 +105,14 @@ __d(
                 };
               })(),
             )),
-            this._reset());
+            this.$5());
         }
         var a = t.prototype;
         return (
           (a.forceRefresh = function (t) {
             if (this.$4) return (_ || (_ = n("Promise"))).resolve(!1);
             var e = { signal: t, forceRefresh: !0 };
-            return this.$5(e);
+            return this.$6(e);
           }),
           (a.getCachedHostsInfo = function (t) {
             var e = this;
@@ -123,18 +123,18 @@ __d(
               };
               self.setTimeout(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  (yield e.$5(r), (e.$4 = !1));
+                  (yield e.$6(r), (e.$4 = !1));
                 }),
                 0,
               );
             }
-            return this.$6(t);
+            return this.$7(t);
           }),
           (a.maybeLoadMediaConnFromStorage = function () {
             var e = o("WAWebUserPrefsMultiDevice").getMms4Conn();
             if (e != null)
               try {
-                ((this.$1 = this.$7(e)),
+                ((this.$1 = this.$8(e)),
                   o(
                     "WAWebMediaHostsRawStateManager",
                   ).mediaHostsRawStateManager.set(e));
@@ -165,9 +165,9 @@ __d(
                     signal: i || new AbortController().signal,
                     forceRefresh: o,
                   };
-                  yield this.$5(s);
+                  yield this.$6(s);
                 }
-                return this.$6({
+                return this.$7({
                   directPath: t,
                   encFilehash: n,
                   operation: a,
@@ -192,7 +192,7 @@ __d(
                     signal: a || new AbortController().signal,
                     forceRefresh: n,
                   };
-                  yield this.$5(i);
+                  yield this.$6(i);
                 }
                 if (!this.$1)
                   throw new (o("WAWebMediaHostsErrors").NoMediaHostsError)(
@@ -241,7 +241,7 @@ __d(
             }
             return t;
           })()),
-          (a.$7 = function (t) {
+          (a.$8 = function (t) {
             var e = new Date(t.queryStartTime);
             return {
               auth: t.auth,
@@ -255,10 +255,10 @@ __d(
               maxBuckets: t.maxBuckets,
             };
           }),
-          (a.$9 = function () {
+          (a.$10 = function () {
             return o("WAWebMediaHostsStaleness").isExpiredOrMissing(this.$1);
           }),
-          (a.$6 = function (t) {
+          (a.$7 = function (t) {
             if (!this.$1)
               throw new (o("WAWebMediaHostsErrors").NoMediaHostsError)(
                 "no fetched data",
@@ -285,18 +285,18 @@ __d(
               );
             return { auth: i, selectedHost: d, fallbackHost: c };
           }),
-          (a.$10 = function () {
+          (a.$11 = function () {
             return o("WAWebMediaHostsStaleness").needsRefresh(this.$1);
           }),
-          (a.$5 = (function () {
+          (a.$6 = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
                 var n = t.forceRefresh,
                   r = babelHelpers.objectWithoutPropertiesLoose(t, e);
-                return this.$9() || n
-                  ? (this._reset(), yield this.$8(r), !0)
-                  : (this.$10() &&
-                      this.$8(r).catch(function () {
+                return this.$10() || n
+                  ? (this.$5(), yield this.$9(r), !0)
+                  : (this.$11() &&
+                      this.$9(r).catch(function () {
                         o("WALogger")
                           .ERROR(
                             p ||
@@ -317,6 +317,9 @@ __d(
             return r;
           })()),
           (a._reset = function () {
+            this.$5();
+          }),
+          (a.$5 = function () {
             ((this.$2 = this.$1), (this.$1 = null), (this.$3 = null));
           }),
           t

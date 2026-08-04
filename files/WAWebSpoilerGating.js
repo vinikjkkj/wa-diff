@@ -7,7 +7,12 @@ __d(
         "is_spoiler_rich_format_enabled",
       );
     }
-    l.isSpoilerReceiverEnabled = e;
+    function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "is_spoiler_rich_format_sender_enabled",
+      );
+    }
+    ((l.isSpoilerReceiverEnabled = e), (l.isSpoilerSenderEnabled = s));
   },
   98,
 );
