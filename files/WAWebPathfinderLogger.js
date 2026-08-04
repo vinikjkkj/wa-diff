@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebCrashlog",
     "WAWebLocalStorage",
+    "WAWebPathfinderHealthReporter",
     "WAWebPathfinderReservedMetadataKeys",
     "WAWebPathfinderUnsamplingConfig",
     "WAWebPonyfillsCryptoRandomUUID",
@@ -204,9 +205,21 @@ __d(
       var n = N.get(e);
       return n != null && t - n < P;
     }
-    function B() {
-      (J++,
-        J === 1 &&
+    var B = !1;
+    function W(e, t) {
+      (ve(),
+        (B = !0),
+        o("WAWebPathfinderHealthReporter").recordPathfinderHealthCounter(e, t));
+    }
+    function q() {
+      B &&
+        ((B = !1),
+        o("WAWebPathfinderHealthReporter").drainPathfinderHealthCounters());
+    }
+    function U() {
+      (te++,
+        W(o("WAWebPathfinderHealthReporter").COUNTER_EDITING_DEDUP_DROPS, 1),
+        te === 1 &&
           o("WALogger").WARN(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -216,88 +229,107 @@ __d(
             String(P),
           ));
     }
-    function W(e) {
+    function V(e) {
       var t,
         n = (t = e.targetTrackingId) != null ? t : A;
-      if (e.eventType !== "BEGIN_EDITING") return q(n, e);
+      if (e.eventType !== "BEGIN_EDITING") return H(n, e);
       var r = F(e.eventType, n);
       return O(r, e.timestampMs)
-        ? (M.add(n), B(), !1)
+        ? (M.add(n), U(), !1)
         : (N.set(r, e.timestampMs), w.add(n), M.delete(n), !0);
     }
-    function q(e, t) {
-      if (M.has(e)) return (M.delete(e), w.delete(e), B(), !1);
+    function H(e, t) {
+      if (M.has(e)) return (M.delete(e), w.delete(e), U(), !1);
       var n = F(t.eventType, e);
       return w.has(e)
         ? (w.delete(e), N.set(n, t.timestampMs), !0)
         : O(n, t.timestampMs)
-          ? (B(), !1)
+          ? (U(), !1)
           : (N.set(n, t.timestampMs), !0);
     }
-    var U = 100,
-      V = 5e4,
-      H = 1e5,
-      G = 1e4,
+    var G = 100,
       z = 5e4,
-      j = 864e5,
-      K = -1,
-      Q = 0,
-      X = 0,
-      Y = 0,
+      j = 1e5,
+      K = 1e4,
+      Q = 5e4,
+      X = 864e5,
+      Y = -1,
       J = 0,
-      Z = -1,
-      ee = G,
-      te = z,
-      ne = !1;
-    function re(e) {
+      Z = 0,
+      ee = 0,
+      te = 0,
+      ne = -1,
+      re = K,
+      oe = Q,
+      ae = !1;
+    function ie(e) {
       var t = e.max,
         n = e.min,
         r = e.value;
       return Math.max(n, Math.min(t, r));
     }
-    function oe(e, t) {
+    function le(e, t) {
       return !Number.isFinite(e) || e <= 0 ? t : e;
     }
-    function ae() {
-      var e = r("justknobx")._("2845");
-      return re({ max: V, min: U, value: oe(e, G) });
-    }
-    function ie() {
-      ee = ae();
-      var e = r("justknobx")._("2846");
-      ((ne = e === K), (te = re({ max: H, min: U, value: oe(e, z) })));
-    }
-    function le() {
-      var e = Math.floor(Date.now() / j);
-      e !== Z && ((X = 0), (Q = 0), (Y = 0), (J = 0), (Z = e), ie());
-    }
     function se() {
-      ((Q = 0), N.clear(), M.clear(), w.clear());
+      var e = r("justknobx")._("2845");
+      return ie({ max: z, min: G, value: le(e, K) });
     }
     function ue() {
-      (se(), (X = 0), (Y = 0), (J = 0), (Z = -1), ie());
+      re = se();
+      var e = r("justknobx")._("2846");
+      ((ae = e === Y), (oe = ie({ max: j, min: G, value: le(e, Q) })));
     }
     function ce() {
-      return te;
+      var e = Math.floor(Date.now() / X);
+      e !== ne && ((Z = 0), (J = 0), (ee = 0), (te = 0), (ne = e), ue());
     }
-    var de = 50,
-      me = new Array(de),
-      pe = 0,
-      _e = !1;
-    function fe() {
-      _e ||
-        ((_e = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(be));
+    function de() {
+      (q(), (J = 0), (he = 0), N.clear(), M.clear(), w.clear());
     }
-    var ge = null;
-    function he(e) {
-      ge = e;
+    function me() {
+      (de(),
+        fe.fill(void 0),
+        (ge = 0),
+        (Z = 0),
+        (ee = 0),
+        (te = 0),
+        (ne = -1),
+        ue());
     }
-    function ye(e) {
-      return !x() || (le(), ne)
+    function pe() {
+      return oe;
+    }
+    var _e = 50,
+      fe = new Array(_e),
+      ge = 0,
+      he = 0,
+      ye = !1;
+    function Ce() {
+      ye ||
+        ((ye = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(ke));
+    }
+    var be = !1;
+    function ve() {
+      be ||
+        ((be = !0),
+        self.addEventListener("pagehide", q),
+        window.document != null &&
+          document.addEventListener("visibilitychange", function () {
+            document.visibilityState === "hidden" && q();
+          }));
+    }
+    var Se = null;
+    function Re(e) {
+      Se = e;
+    }
+    function Le(e) {
+      return !x() || (ce(), ae)
         ? !1
-        : Q >= ee || X >= te
-          ? (Y++,
-            Y === 1 &&
+        : J >= re || Z >= oe
+          ? (ee++,
+            W(o("WAWebPathfinderHealthReporter").COUNTER_CAP_DROPS, 1),
+            ee === 1 &&
               o("WALogger").WARN(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -305,17 +337,20 @@ __d(
                     " daily=",
                     "), dropping subsequent events",
                   ])),
-                String(Q),
-                String(X),
+                String(J),
+                String(Z),
               ),
             !1)
-          : $.has(e.eventType) && !W(e)
+          : $.has(e.eventType) && !V(e)
             ? !1
-            : (Q++, X++, !0);
+            : (J++,
+              Z++,
+              W(o("WAWebPathfinderHealthReporter").COUNTER_CAPTURE_VOLUME, 1),
+              !0);
     }
-    function Ce(e) {
+    function Ee(e) {
       var t, n, a, i, l, s;
-      if (ye(e)) {
+      if (Le(e)) {
         var u = [];
         if (
           (e.screenName != null && u.push("screen=" + e.screenName),
@@ -400,7 +435,7 @@ __d(
               });
             });
         }
-        fe();
+        Ce();
         var $ = {
           eventType: e.eventType,
           timestampMs: e.timestampMs,
@@ -413,12 +448,18 @@ __d(
         };
         if (
           (u.length > 0 && ($.extra = u.join(" ")),
-          (me[pe] = $),
-          (pe = (pe + 1) % de),
-          ge != null)
+          he >= _e &&
+            W(
+              o("WAWebPathfinderHealthReporter").COUNTER_RING_BUFFER_OVERFLOWS,
+              1,
+            ),
+          he++,
+          (fe[ge] = $),
+          (ge = (ge + 1) % _e),
+          Se != null)
         )
           try {
-            ge(e.eventType);
+            Se(e.eventType);
           } catch (e) {
             try {
               o("WALogger")
@@ -434,22 +475,22 @@ __d(
           }
       }
     }
-    function be() {
-      for (var e = [], t = 0; t < de; t++) {
-        var n = (pe + t) % de,
-          r = me[n];
+    function ke() {
+      for (var e = [], t = 0; t < _e; t++) {
+        var n = (ge + t) % _e,
+          r = fe[n];
         r != null && e.push(r);
       }
       return e;
     }
     ((l.FALCO_MAP = f),
       (l.isPathfinderLoggingEnabled = x),
-      (l.resetPathfinderSessionState = se),
-      (l.resetEventGuardsForTesting = ue),
-      (l.getDailyEventCapForTesting = ce),
-      (l.registerPathfinderEmitObserver = he),
-      (l.emitPathfinderEvent = Ce),
-      (l.getPathfinderLogSnapshot = be));
+      (l.resetPathfinderSessionState = de),
+      (l.resetEventGuardsForTesting = me),
+      (l.getDailyEventCapForTesting = pe),
+      (l.registerPathfinderEmitObserver = Re),
+      (l.emitPathfinderEvent = Ee),
+      (l.getPathfinderLogSnapshot = ke));
   },
   98,
 );

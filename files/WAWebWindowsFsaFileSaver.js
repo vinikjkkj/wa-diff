@@ -100,13 +100,16 @@ __d(
                 "WAWebFileSaverDownloadData",
               ).getMultiMsgDownloadData(e, !0),
               a = n.blob;
-            if (a == null) throw new Error("No blob available to save");
+            if (a == null) {
+              var i = new Error("No blob available to save");
+              throw (i.stack, i);
+            }
             (yield b(t, a),
               r("WAWebODS").incr("web.windows.fsa_save_as.saved"),
               R());
           } catch (e) {
-            var i = r("getErrorSafe")(e);
-            if (i.name === o("WAAbortError").ABORT_ERROR) {
+            var l = r("getErrorSafe")(e);
+            if (l.name === o("WAAbortError").ABORT_ERROR) {
               r("WAWebODS").incr("web.windows.fsa_save_as.cancelled");
               return;
             }
@@ -117,7 +120,7 @@ __d(
                     "[fsa-save-as] Failed to write file after picker",
                   ])),
               )
-              .catching(i)
+              .catching(l)
               .sendLogs("fsa-save-as-write-failed"),
               r("WAWebODS").incr("web.windows.fsa_save_as.failed"),
               L());

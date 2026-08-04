@@ -625,6 +625,14 @@ __d(
           (t.performanceExplainedClicked = function (t) {
             o("WAWebBBInfoDrawerLogs").performanceExplainedClicked(this.$1, t);
           }),
+          (t.inThreadInsightMetricsChipClicked = function (t, n, r) {
+            o("WAWebBBInfoDrawerLogs").inThreadInsightMetricsChipClicked(
+              this.$1,
+              t,
+              n,
+              r,
+            );
+          }),
           (t.refreshInsightsClicked = function (t) {
             o("WAWebBBInfoDrawerLogs").refreshInsightsClicked(this.$1, t);
           }),

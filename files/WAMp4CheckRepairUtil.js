@@ -104,32 +104,33 @@ __d(
                 ((this.buffer = null), (this.parts = [i])),
               this.buffer)
             ) {
-              for (var l = t, s = o; s < a; l++, s++) i[l] = e[s];
+              for (var l = this.buffer, s = t, u = o; u < a; s++, u++)
+                l[s] = e[u];
               return r;
             } else {
-              var u = this.parts;
+              var c = this.parts;
               if (t === this.size)
                 return (
                   (this.size += r),
-                  u.push(new Uint8Array(e.subarray(o, o + r))),
+                  c.push(new Uint8Array(e.subarray(o, o + r))),
                   r
                 );
-              for (var c = o, d = 0, m = 0; c < a && d < u.length; d++) {
-                var p = u[d],
-                  f = m + p.length;
-                if (f > t)
+              for (var d = o, m = 0, p = 0; d < a && m < c.length; m++) {
+                var f = c[m],
+                  g = p + f.length;
+                if (g > t)
                   for (
-                    var g = t > m ? t - m : 0;
-                    c < a && g < p.length;
-                    g++, c++
+                    var h = t > p ? t - p : 0;
+                    d < a && h < f.length;
+                    h++, d++
                   )
-                    p[g] = e[c];
-                m = f;
+                    f[h] = e[d];
+                p = g;
               }
               return (
-                c < a &&
-                  ((this.size += a - c),
-                  u.push(new Uint8Array(e.subarray(c, a)))),
+                d < a &&
+                  ((this.size += a - d),
+                  c.push(new Uint8Array(e.subarray(d, a)))),
                 r
               );
             }

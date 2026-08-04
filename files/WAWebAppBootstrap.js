@@ -28,6 +28,7 @@ __d(
     "WAWebKeyboardShortcuts",
     "WAWebLoggerOnError",
     "WAWebLoginBounceGuard",
+    "WAWebLoomStuckTraceEviction",
     "WAWebMainThreadLogger",
     "WAWebMetricsAttributionObservers",
     "WAWebPQGatingUtils",
@@ -126,6 +127,7 @@ __d(
             o(
               "WAWebMetricsAttributionObservers",
             ).initializeMetricsAttributionObservers(),
+            o("WAWebLoomStuckTraceEviction").initWebLoomStuckTraceEviction(),
             n("WAWebWamWorkerSpecificEvents"),
             o("WAWebWamPageLoadReporter").exeTimer.start(),
             (window.Velocity = n("velocity-animate")),

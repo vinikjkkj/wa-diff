@@ -1369,10 +1369,13 @@ __d(
           e === o("WAWebSyncdConst").CollectionName.CriticalBlock ||
           F.includes(n))
       ) {
-        if (n === o("WAWebSyncdConst").Actions.DeviceCapabilities) {
+        if (
+          n === o("WAWebSyncdConst").Actions.DeviceCapabilities ||
+          n === o("WAWebSyncdConst").Actions.DeviceCapabilitiesV2
+        ) {
           if (o("WAWebCurrentUser").isEmployee()) return t.index;
           var r = t.index.indexOf(":");
-          return "device_capabilities:" + t.index.slice(r - 4);
+          return n + ":" + t.index.slice(r - 4);
         }
         return n;
       }

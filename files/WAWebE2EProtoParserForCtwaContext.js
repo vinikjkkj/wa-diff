@@ -35,7 +35,11 @@ __d(
           (n.thumbnailUrl = d.thumbnailUrl),
           (n.mediaType = d.mediaType),
           (n.mediaUrl = d.mediaUrl));
-        var m = o("WAWebLinkify").findLink(d.sourceUrl || "", !1, e.from);
+        var m = o("WAWebLinkify").findLink({
+          httpOnly: !1,
+          sender: e.from,
+          text: d.sourceUrl || "",
+        });
         (m != null &&
           m.suspiciousCharacters != null &&
           m.suspiciousCharacters.size != null &&

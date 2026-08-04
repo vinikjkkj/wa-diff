@@ -109,18 +109,23 @@ __d(
     function C(e) {
       return r("compactMap")(e, o("WAWebEmoji").EmojiUtil.normalizeEmoji);
     }
-    function b(e, t, n, r, o) {
-      var a,
-        i,
-        l,
-        s = Math.min(Math.max(t, 0), 99),
-        u = (a = n.get(e)) != null ? a : 0,
-        c = Math.min(Math.max(u, 0), 99),
-        d = (i = r.get(e)) != null ? i : 0,
-        m = Math.min(Math.max(d, 0), 99),
-        h = (l = o.get(e)) != null ? l : p,
-        y = Math.min(Math.max(p - h, 1), 9999);
-      return s * _ + c * f + m * g + y;
+    function b(e) {
+      var t,
+        n,
+        r,
+        o = e.emoji,
+        a = e.emojiToPickerPosition,
+        i = e.recentEmojiToRank,
+        l = e.top50EmojiToRank,
+        s = e.wordMatchCount,
+        u = Math.min(Math.max(s, 0), 99),
+        c = (t = i.get(o)) != null ? t : 0,
+        d = Math.min(Math.max(c, 0), 99),
+        m = (n = l.get(o)) != null ? n : 0,
+        h = Math.min(Math.max(m, 0), 99),
+        y = (r = a.get(o)) != null ? r : p,
+        C = Math.min(Math.max(p - y, 1), 9999);
+      return u * _ + d * f + h * g + C;
     }
     function v() {
       var e = new Map(),
@@ -175,7 +180,13 @@ __d(
       for (var f of r) {
         var g = f[0],
           h = f[1],
-          R = b(g, h, d, m, p);
+          R = b({
+            emoji: g,
+            emojiToPickerPosition: p,
+            recentEmojiToRank: d,
+            top50EmojiToRank: m,
+            wordMatchCount: h,
+          });
         _.push({ emoji: g, rank: R });
       }
       return (

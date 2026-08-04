@@ -890,9 +890,8 @@ __d(
           je = Ve.initSession(He + ze, Pe, N),
           Ke = new (r("Deferred"))();
         ((qe = r("setTimeout")(function () {
-          Ke.reject(
-            new Error("Hive initialization timed out after " + u + "ms"),
-          );
+          var e = new Error("Hive initialization timed out after " + u + "ms");
+          (e.stack, Ke.reject(e));
         }, u)),
           je
             .then(function (e) {

@@ -213,32 +213,40 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n, r, o, a, i, l) {
+    function v(e) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s) {
-            s === void 0 &&
-              (s = o("WAWebMediaCacheModel").ImageOutputTypes.DATA_URL);
-            var u =
-                e instanceof HTMLCanvasElement
-                  ? e
-                  : yield o("WAWebMediaLoad").loadImage(e),
-              c = document.createElement("canvas"),
-              d = c.getContext("2d");
-            i == null || l == null
-              ? ((c.height = a), (c.width = r), d.drawImage(u, t, n, r, a))
-              : ((c.height = l),
-                (c.width = i),
-                d.drawImage(u, t, n, r, a, 0, 0, i, l));
-            var m = {};
-            N(m, c, s);
-            var p = yield o("WAPromiseProps").promiseProps(m);
-            return { images: p, width: r, height: a };
-          },
-        )),
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.dHeight,
+            n = e.dWidth,
+            r = e.outputType,
+            a =
+              r === void 0
+                ? o("WAWebMediaCacheModel").ImageOutputTypes.DATA_URL
+                : r,
+            i = e.sHeight,
+            l = e.src,
+            s = e.sWidth,
+            u = e.sX,
+            c = e.sY,
+            d =
+              l instanceof HTMLCanvasElement
+                ? l
+                : yield o("WAWebMediaLoad").loadImage(l),
+            m = document.createElement("canvas"),
+            p = m.getContext("2d");
+          n == null || t == null
+            ? ((m.height = i), (m.width = s), p.drawImage(d, u, c, s, i))
+            : ((m.height = t),
+              (m.width = n),
+              p.drawImage(d, u, c, s, i, 0, 0, n, t));
+          var _ = {};
+          N(_, m, a);
+          var f = yield o("WAPromiseProps").promiseProps(_);
+          return { images: f, width: s, height: i };
+        })),
         S.apply(this, arguments)
       );
     }

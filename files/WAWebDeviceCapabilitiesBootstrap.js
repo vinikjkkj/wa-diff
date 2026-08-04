@@ -2,26 +2,30 @@ __d(
   "WAWebDeviceCapabilitiesBootstrap",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebBizBroadcastsDeviceCapability",
     "WAWebBotGating",
     "WAWebDeviceCapabilitiesSync",
+    "WAWebDeviceCapabilitiesV2Sync",
     "WAWebPrimaryDeviceCapabilities",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebUserPrefsDeviceCapabilities",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = !1;
-    function u() {
-      return c.apply(this, arguments);
-    }
+      s,
+      u = !1;
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!s) {
-            s = !0;
-            var e = {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!u) {
+            u = !0;
+            var t = {
                 chatLockSupportLevel: o("WAWebProtobufsDeviceCapabilities.pb")
                   .DeviceCapabilities$ChatLockSupportLevel.FULL,
                 aiThread: {
@@ -34,50 +38,65 @@ __d(
                         .DeviceCapabilities$AiThread$SupportLevel.NONE,
                 },
               },
-              t = o(
+              n = o(
                 "WAWebUserPrefsDeviceCapabilities",
-              ).mergeDeviceCapabilitiesToStorage(e, "self");
-            return (
-              yield o(
+              ).mergeDeviceCapabilitiesToStorage(t, "self");
+            if (
+              (yield o(
                 "WAWebBizBroadcastsDeviceCapability",
               ).bootstrapBizBroadcastPrimaryCapability(),
-              yield d(),
-              r("WAWebDeviceCapabilitiesSync").sendMutation(t)
-            );
+              yield m(),
+              yield r("WAWebDeviceCapabilitiesSync").sendMutation(n),
+              o("WAWebABProps").getABPropConfigValue(
+                "device_capabilities_v2_sync_enabled",
+              ))
+            )
+              try {
+                yield r("WAWebDeviceCapabilitiesV2Sync").sendMutation(n);
+              } catch (t) {
+                o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[bootstrapDeviceCapabilities] v2 dual-write failed; v1 record is unaffected",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t));
+              }
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d() {
-      return m.apply(this, arguments);
-    }
     function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o(
             "WAWebPrimaryDeviceCapabilities",
           ).getPrimaryDeviceCapabilities();
-          if (t == null) {
+          if (e == null) {
             o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[bootstrapPrimaryDeviceCapabilities] primary caps null",
                 ])),
             );
             return;
           }
-          var n = o(
+          var t = o(
             "WAWebUserPrefsDeviceCapabilities",
-          ).mapProtobufToAllDeviceCapabilities(t);
+          ).mapProtobufToAllDeviceCapabilities(e);
           o(
             "WAWebUserPrefsDeviceCapabilities",
-          ).mergeDeviceCapabilitiesToStorage(n, "primary");
+          ).mergeDeviceCapabilitiesToStorage(t, "primary");
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.bootstrapDeviceCapabilities = u;
+    l.bootstrapDeviceCapabilities = c;
   },
   98,
 );

@@ -29,7 +29,8 @@ __d(
       m = (function () {
         function t(e, t) {
           var n,
-            a = this;
+            a,
+            i = this;
           ((this.$1 = e),
             (this.$2 = t),
             (this.$7 = [
@@ -53,15 +54,16 @@ __d(
             (this.$8 = o("WebLoomSerializer").isSupported()),
             (this.$9 = !1),
             (this.$10 = (n = e.debugLogToConsole) != null ? n : !1),
+            (this.$16 = (a = e.stuckTraceTimeoutMs) != null ? a : 0),
             (this.$11 = 1),
             (this.$12 = new Map()),
             (this.$13 = r("uuidv4")()),
             (this.$14 = 1),
             this.addStatusListener(function (e, t) {
-              a.$10 &&
-                a.$16("[Web Loom] trace", t, {
+              i.$10 &&
+                i.$17("[Web Loom] trace", t, {
                   interactionId: e.triggerId,
-                  traceReferenceId: a.$17(e),
+                  traceReferenceId: i.$18(e),
                   qplMarkerId: e.triggerInfo.qpl_marker_id,
                   tracePolicy: e.triggerInfo.trace_policy,
                 });
@@ -113,7 +115,7 @@ __d(
               s = this.$2.Random.coinflip(l);
             if (
               (this.$10 &&
-                this.$16("[Web Loom] maybeStartTraceForInteraction", {
+                this.$17("[Web Loom] maybeStartTraceForInteraction", {
                   interactionId: t,
                   markerId: e,
                   tracePolicy: a,
@@ -217,7 +219,7 @@ __d(
               this.$12.forEach(function (e) {
                 return e(s, d);
               }));
-            var m = this.$17(s);
+            var m = this.$18(s);
             return (
               r("one-trace") &&
                 (this.$15 && (this.$15(), (this.$15 = null)),
@@ -234,7 +236,7 @@ __d(
               { traceReferenceId: m, loomProviders: u }
             );
           }),
-          (a.$17 = function (t) {
+          (a.$18 = function (t) {
             return this.$13 + "_" + t.sequenceNumber;
           }),
           (a.endTrace = (function () {
@@ -253,7 +255,7 @@ __d(
                 var c = u.traceContext.sequenceNumber;
                 (this.$3.delete(t),
                   this.$4.set(c, u),
-                  this.$18(u, "END_PENDING"));
+                  this.$19(u, "END_PENDING"));
                 var d = [];
                 (u.providerInstances.forEach(function (e) {
                   var t = e.loomTraceWillEnd();
@@ -302,22 +304,31 @@ __d(
                     );
                   if (((u.traceContext.jsSelfProfilerData = null), g != null)) {
                     var h = {
-                      trace: g,
-                      session_id: this.$13,
-                      sequence_number: u.traceContext.sequenceNumber,
-                      qpl_marker_id: _.qpl_marker_id,
-                      trace_policy: _.trace_policy,
-                      sample_rate: _.sample_rate,
-                    };
+                        trace: g,
+                        session_id: this.$13,
+                        sequence_number: u.traceContext.sequenceNumber,
+                        qpl_marker_id: _.qpl_marker_id,
+                        trace_policy: _.trace_policy,
+                        sample_rate: _.sample_rate,
+                      },
+                      y =
+                        this.$16 > 0
+                          ? setTimeout(function () {
+                              s.$4.has(c) &&
+                                (s.$19(u, "ERROR"), s.$4.delete(c));
+                            }, this.$16)
+                          : null;
                     (this.$2.Transport.post(h, {
                       onComplete: function () {
-                        (s.$18(u, "COMPLETE"), s.$4.delete(c));
+                        (y != null && clearTimeout(y),
+                          s.$4.has(c) &&
+                            (s.$19(u, "COMPLETE"), s.$4.delete(c)));
                       },
                       isHighPri: this.$9,
                     }),
-                      this.$18(u, "UPLOAD_PENDING"));
+                      this.$19(u, "UPLOAD_PENDING"));
                   } else
-                    (this.$18(u, "COMPLETE"),
+                    (this.$19(u, "COMPLETE"),
                       this.$4.delete(c),
                       r("fb-error")
                         .FBLogger("webloom")
@@ -326,7 +337,7 @@ __d(
                           _.qpl_marker_id,
                         ));
                 } catch (e) {
-                  (this.$18(u, "ERROR"), this.$4.delete(c));
+                  (this.$19(u, "ERROR"), this.$4.delete(c));
                 }
                 return !0;
               },
@@ -358,13 +369,16 @@ __d(
           (a.setIsDevToolsConnected = function (t) {
             this.$9 = t;
           }),
-          (a.$18 = function (t, n) {
+          (a.setStuckTraceTimeoutMs = function (t) {
+            this.$16 = t;
+          }),
+          (a.$19 = function (t, n) {
             ((t.status = n),
               this.$12.forEach(function (e) {
                 return e(t.traceContext, t.status);
               }));
           }),
-          (a.$16 = function () {
+          (a.$17 = function () {
             var e = typeof console != "undefined" ? console : null;
             e && e.log.apply(e, arguments);
           }),

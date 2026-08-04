@@ -4,7 +4,6 @@ __d(
     "WASmaxSpamIndividualReportRPC",
     "WAStanzaUtils",
     "WAWebParseReportResponse",
-    "WAWebSpamConstants",
     "WAWebWidToJid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,8 +19,7 @@ __d(
           },
         ],
         n = {
-          spamListSpamFlow:
-            o("WAWebSpamConstants").SpamFlow.CallSpamDialogReport,
+          spamListSpamFlow: e.spamFlow,
           spamListJid: o("WAWebWidToJid").widToUserJid(e.reportedWid),
           callArgs: t,
           messageArgs: [],

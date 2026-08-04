@@ -104,6 +104,7 @@ __d(
         WASA_ROOT_SECRET_ACTION: 89,
         BUBBLE_LOCK_MESSAGE_ACTION: 90,
         LABEL_SUBLIST_ACTION: 91,
+        DEVICE_CAPABILITIES_V2: 92,
         SHARE_OWN_PN: 10001,
         BUSINESS_BROADCAST_ACTION: 10002,
         AI_THREAD_DELETE_ACTION: 10003,
@@ -324,6 +325,7 @@ __d(
         WASA_ROOT_SECRET_ACTION: "wasa_root_secret",
         BUBBLE_LOCK_MESSAGE_ACTION: "lock_message",
         LABEL_SUBLIST_ACTION: "label_sublist",
+        DEVICE_CAPABILITIES_V2: "device_capabilities_v2",
         SHARE_OWN_PN: "shareOwnPn",
         BUSINESS_BROADCAST_ACTION: "broadcast",
         AI_THREAD_DELETE_ACTION: "ai_thread_delete",
@@ -517,21 +519,25 @@ __d(
                                                                                                               c.BUBBLE_LOCK_MESSAGE_ACTION
                                                                                                             ? u.REGULAR_LOW
                                                                                                             : e ===
-                                                                                                                  c.LABEL_SUBLIST_ACTION ||
-                                                                                                                e ===
-                                                                                                                  c.SHARE_OWN_PN ||
-                                                                                                                e ===
-                                                                                                                  c.BUSINESS_BROADCAST_ACTION
+                                                                                                                c.LABEL_SUBLIST_ACTION
                                                                                                               ? u.REGULAR
                                                                                                               : e ===
-                                                                                                                  c.AI_THREAD_DELETE_ACTION
-                                                                                                                ? u.REGULAR_HIGH
-                                                                                                                : (function () {
-                                                                                                                    throw Error(
-                                                                                                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                                                                                        e,
-                                                                                                                    );
-                                                                                                                  })();
+                                                                                                                  c.DEVICE_CAPABILITIES_V2
+                                                                                                                ? u.REGULAR_LOW
+                                                                                                                : e ===
+                                                                                                                      c.SHARE_OWN_PN ||
+                                                                                                                    e ===
+                                                                                                                      c.BUSINESS_BROADCAST_ACTION
+                                                                                                                  ? u.REGULAR
+                                                                                                                  : e ===
+                                                                                                                      c.AI_THREAD_DELETE_ACTION
+                                                                                                                    ? u.REGULAR_HIGH
+                                                                                                                    : (function () {
+                                                                                                                        throw Error(
+                                                                                                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                                            e,
+                                                                                                                        );
+                                                                                                                      })();
     }
     var O = s({
         REGULAR: "regular",
@@ -760,6 +766,11 @@ __d(
         wasaRootSecretAction: [89, e.TYPES.MESSAGE, V],
         bubbleLockMessageAction: [90, e.TYPES.MESSAGE, Ee],
         labelSublistAction: [91, e.TYPES.MESSAGE, gt],
+        deviceCapabilitiesV2: [
+          92,
+          e.TYPES.MESSAGE,
+          o("WAWebProtobufsDeviceCapabilities.pb").DeviceCapabilitiesSpec,
+        ],
       }),
       (V.name = "SyncActionValue$WASARootSecretAction"),
       (V.internalSpec = {

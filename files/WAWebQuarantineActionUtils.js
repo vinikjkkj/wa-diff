@@ -1,7 +1,6 @@
 __d(
   "WAWebQuarantineActionUtils",
   [
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBotUtils",
     "WAWebFutureproofProtoUtils",
@@ -47,31 +46,27 @@ __d(
         "viewOnceMessageV2Extension",
       ],
       s = 5,
-      u = 3,
-      c = "wa_web_defense_mode_quarantine_extra_pn_check";
-    function d() {
+      u = 3;
+    function c() {
       var e = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
       return e.defenseMode === "on_standard";
     }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(c);
-    }
-    var p = { type: "NoQuarantine" },
-      _ = { type: "QuarantineWithoutText" };
-    function f(e) {
+    var d = { type: "NoQuarantine" },
+      m = { type: "QuarantineWithoutText" };
+    function p(e) {
       return { type: "QuarantineWithText", text: e };
     }
-    var g = {
-      NoQuarantine: p,
-      QuarantineWithoutText: _,
-      QuarantineWithText: f,
+    var _ = {
+      NoQuarantine: d,
+      QuarantineWithoutText: m,
+      QuarantineWithText: p,
     };
-    function h(e) {
-      return y.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function y() {
+    function g() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return (
             r("WAWebWid").isUser(e) &&
             !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
@@ -88,22 +83,21 @@ __d(
               o("WAWebWidToJid").widToUserJid(
                 o("WAWebWidFactory").asUserWidOrThrow(e),
               ),
-              m(),
             ))
           );
         })),
-        y.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function C(e) {
+    function h(e) {
       return e.type === "QuarantineWithText" ? e.text : null;
     }
-    function b(e) {
+    function y(e) {
       return r("isStringNullOrEmpty")(e)
-        ? g.QuarantineWithoutText
-        : g.QuarantineWithText(e);
+        ? _.QuarantineWithoutText
+        : _.QuarantineWithText(e);
     }
-    function v(e) {
+    function C(e) {
       return e == null
         ? !1
         : e.jpegThumbnail != null ||
@@ -111,24 +105,24 @@ __d(
             e.mediaKey != null ||
             e.thumbnailSha256 != null;
     }
-    function S(e, t) {
+    function b(e, t) {
       return (
         t === void 0 && (t = 0),
-        e == null ? !0 : t > s ? !1 : R(e.hydratedHsm, t + 1)
+        e == null ? !0 : t > s ? !1 : v(e.hydratedHsm, t + 1)
       );
     }
-    function R(e, t) {
+    function v(e, t) {
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
       var n = t + 1;
       return !(
-        !k(e.interactiveMessageTemplate, n) ||
-        !L(e.fourRowTemplate, n) ||
-        !E(e.hydratedFourRowTemplate, n) ||
-        !E(e.hydratedTemplate, n)
+        !L(e.interactiveMessageTemplate, n) ||
+        !S(e.fourRowTemplate, n) ||
+        !R(e.hydratedFourRowTemplate, n) ||
+        !R(e.hydratedTemplate, n)
       );
     }
-    function L(e, t) {
+    function S(e, t) {
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (
         t > s ||
@@ -140,18 +134,18 @@ __d(
         return !1;
       var n = t + 1;
       if (
-        !S(e.highlyStructuredMessage, n) ||
-        !S(e.content, n) ||
-        !S(e.footer, n)
+        !b(e.highlyStructuredMessage, n) ||
+        !b(e.content, n) ||
+        !b(e.footer, n)
       )
         return !1;
       var r = e.buttons;
       if (r != null) {
-        for (var o of r) if (!I(o, n)) return !1;
+        for (var o of r) if (!E(o, n)) return !1;
       }
       return !0;
     }
-    function E(e, t) {
+    function R(e, t) {
       return (
         t === void 0 && (t = 0),
         e == null
@@ -165,7 +159,7 @@ __d(
             )
       );
     }
-    function k(e, t) {
+    function L(e, t) {
       var n;
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
@@ -184,24 +178,24 @@ __d(
         return !1;
       var o = (n = e.carouselMessage) == null ? void 0 : n.cards;
       if (o != null) {
-        for (var a of o) if (!k(a, t + 1)) return !1;
+        for (var a of o) if (!L(a, t + 1)) return !1;
       }
       return !0;
     }
-    function I(e, t) {
+    function E(e, t) {
       var n, r, o, a, i;
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
       var l = t + 1;
       return !(
-        !S((n = e.quickReplyButton) == null ? void 0 : n.displayText, l) ||
-        !S((r = e.urlButton) == null ? void 0 : r.displayText, l) ||
-        !S((o = e.urlButton) == null ? void 0 : o.url, l) ||
-        !S((a = e.callButton) == null ? void 0 : a.displayText, l) ||
-        !S((i = e.callButton) == null ? void 0 : i.phoneNumber, l)
+        !b((n = e.quickReplyButton) == null ? void 0 : n.displayText, l) ||
+        !b((r = e.urlButton) == null ? void 0 : r.displayText, l) ||
+        !b((o = e.urlButton) == null ? void 0 : o.url, l) ||
+        !b((a = e.callButton) == null ? void 0 : a.displayText, l) ||
+        !b((i = e.callButton) == null ? void 0 : i.phoneNumber, l)
       );
     }
-    function T(t) {
+    function k(t) {
       var n = t.$$unknownFieldCount,
         r = t.associatedChildMessage,
         o = t.bcallMessage,
@@ -240,34 +234,34 @@ __d(
         })
       );
     }
-    function D(e) {
-      if (T(e)) return g.NoQuarantine;
+    function I(e) {
+      if (k(e)) return _.NoQuarantine;
       var t = e.extendedTextMessage;
       return t != null
-        ? v(t)
-          ? b(t.text)
-          : g.NoQuarantine
+        ? C(t)
+          ? y(t.text)
+          : _.NoQuarantine
         : e.imageMessage != null
-          ? b(e.imageMessage.caption)
+          ? y(e.imageMessage.caption)
           : e.videoMessage != null
-            ? b(e.videoMessage.caption)
+            ? y(e.videoMessage.caption)
             : e.documentMessage != null
-              ? b(e.documentMessage.caption)
-              : x(e)
-                ? g.NoQuarantine
+              ? y(e.documentMessage.caption)
+              : T(e)
+                ? _.NoQuarantine
                 : e.highlyStructuredMessage != null ||
                     e.templateMessage != null ||
                     e.interactiveMessage != null
-                  ? S(e.highlyStructuredMessage) &&
-                    R(e.templateMessage) &&
-                    k(e.interactiveMessage)
-                    ? g.NoQuarantine
-                    : g.QuarantineWithoutText
+                  ? b(e.highlyStructuredMessage) &&
+                    v(e.templateMessage) &&
+                    L(e.interactiveMessage)
+                    ? _.NoQuarantine
+                    : _.QuarantineWithoutText
                   : e.callLogMesssage != null
-                    ? g.NoQuarantine
-                    : g.QuarantineWithoutText;
+                    ? _.NoQuarantine
+                    : _.QuarantineWithoutText;
     }
-    function x(e) {
+    function T(e) {
       return (
         e.conversation != null ||
         e.protocolMessage != null ||
@@ -279,7 +273,7 @@ __d(
         e.albumMessage != null
       );
     }
-    function $(e) {
+    function D(e) {
       switch (e.type) {
         case "NoQuarantine":
           return 0;
@@ -291,23 +285,23 @@ __d(
           return 0;
       }
     }
-    function P(e, t) {
-      return $(t) > $(e) ? t : e;
+    function x(e, t) {
+      return D(t) > D(e) ? t : e;
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function $(e, t) {
+      return P.apply(this, arguments);
     }
-    function M() {
+    function P() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          if (e == null || !d() || !(yield h(t))) return g.NoQuarantine;
-          for (var r = D(e), a = e, i = 0; i < u; i++) {
+          if (e == null || !c() || !(yield f(t))) return _.NoQuarantine;
+          for (var r = I(e), a = e, i = 0; i < u; i++) {
             var l = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
               a,
             );
             if ((l == null ? void 0 : l.message) == null) break;
-            ((a = l.message), (r = P(r, D(a))));
+            ((a = l.message), (r = x(r, I(a))));
           }
           return (
             (((n = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(
@@ -318,16 +312,16 @@ __d(
               o("WAWebFutureproofProtoUtils").hasGatedOffFutureproofWrapper(
                 a,
               )) &&
-              (r = P(r, g.QuarantineWithoutText)),
+              (r = x(r, _.QuarantineWithoutText)),
             r
           );
         })),
-        M.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    ((l.QuarantineAction = g),
-      (l.maybeGetQuarantineText = C),
-      (l.getQuarantineAction = N));
+    ((l.QuarantineAction = _),
+      (l.maybeGetQuarantineText = h),
+      (l.getQuarantineAction = $));
   },
   98,
 );

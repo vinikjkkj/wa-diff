@@ -166,7 +166,19 @@ __d(
                 {
                   kind: "InlineFragment",
                   selections: r,
+                  type: "WABusinessMessagingUser",
+                  abstractKey: null,
+                },
+                {
+                  kind: "InlineFragment",
+                  selections: r,
                   type: "WALabyrinthAccount",
+                  abstractKey: null,
+                },
+                {
+                  kind: "InlineFragment",
+                  selections: r,
+                  type: "WAWhatsAppMailboxAccount",
                   abstractKey: null,
                 },
               ],
@@ -175,7 +187,7 @@ __d(
           ],
         },
         params: {
-          id: "27416732057922291",
+          id: "26544537655223129",
           metadata: {},
           name: "WAWebDebugLabyrinthInboxSnapshotQuery",
           operationKind: "query",

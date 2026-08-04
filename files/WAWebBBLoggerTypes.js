@@ -114,6 +114,7 @@ __d(
         GENAI_TOOLTIP_IMPRESSION: "genai_tooltip_impression",
         IMPORT_AUDIENCE_BUTTON: "import_audience_button",
         IMPORTED_CONTACT_LIST_NAME: "imported_contact_list_name",
+        IN_THREAD_INSIGHT_METRICS_CHIP: "in_thread_insight_metrics_chip",
         LABEL_CHAT_CLICKED: "label_chat_clicked",
         LABEL_CHAT_SAVED: "label_chat_saved",
         LEARN_MORE_LINK: "learn_more_link",

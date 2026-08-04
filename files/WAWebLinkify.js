@@ -9,13 +9,16 @@ __d(
         return c(e, n);
       });
     }
-    function s(e, t, n) {
-      t === void 0 && (t = !1);
-      var r = o("WALinkify").findLink(e, t);
-      if (r != null) return c(r, n);
+    function s(e) {
+      var t = e.httpOnly,
+        n = t === void 0 ? !1 : t,
+        r = e.sender,
+        a = e.text,
+        i = o("WALinkify").findLink(a, n);
+      if (i != null) return c(i, r);
     }
     function u(e) {
-      return e.body != null && s(e.body, !0) != null;
+      return e.body != null && s({ httpOnly: !0, text: e.body }) != null;
     }
     function c(e, t) {
       var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),

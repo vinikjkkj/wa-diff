@@ -57,6 +57,7 @@ __d(
         LockChat: "lock",
         ChatLockSettings: "setting_chatLock",
         DeviceCapabilities: "device_capabilities",
+        DeviceCapabilitiesV2: "device_capabilities_v2",
         DisableLinkPreviews: "setting_disableLinkPreviews",
         NoteEdit: "note_edit",
         Favorites: "favorites",

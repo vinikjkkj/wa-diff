@@ -81,24 +81,17 @@ __d(
               var e = o("MqttProtocolCodec").decodeByteMessages(
                   new Uint8Array(t),
                 ),
-                n = e.messages
-                  .filter(function (e) {
-                    return (
-                      e instanceof o("MqttProtocolCodec").WireMessage.Publish
-                    );
-                  })
-                  .map(function (e) {
-                    if (
-                      e instanceof o("MqttProtocolCodec").WireMessage.Publish
-                    ) {
-                      var t = e;
-                      return {
-                        topic: t.topic,
-                        payload: t.payloadMessage,
-                        qos: t.qos,
-                      };
-                    } else return {};
-                  });
+                n = e.messages.reduce(function (e, t) {
+                  if (t instanceof o("MqttProtocolCodec").WireMessage.Publish) {
+                    var n = t;
+                    e.push({
+                      topic: n.topic,
+                      payload: n.payloadMessage,
+                      qos: n.qos,
+                    });
+                  }
+                  return e;
+                }, []);
               (this.$8(n), this.$9());
             }
           }),

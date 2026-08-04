@@ -16,8 +16,9 @@ __d(
       try {
         return r("URIAbstractBase").parse(e, t, n, o);
       } catch (e) {
-        var a = r("getErrorSafe")(e);
-        throw new Error(r("err")(a.message));
+        var a = r("getErrorSafe")(e),
+          i = new Error(r("err")(a.message));
+        throw (i.stack, i);
       }
     }
     var c = (function (t) {
@@ -52,8 +53,9 @@ __d(
           try {
             t.prototype.setDomain.call(this, n);
           } catch (t) {
-            var e = r("getErrorSafe")(t);
-            throw new Error(r("err")(e.message));
+            var e = r("getErrorSafe")(t),
+              o = new Error(r("err")(e.message));
+            throw (o.stack, o);
           }
           return this;
         }),

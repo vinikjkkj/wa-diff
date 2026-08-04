@@ -36,7 +36,8 @@ __d(
         CommentActions: "comment_actions_bottom_sheet",
         NewsletterQuestionResponseReport: "newsletter_question_response_report",
         GalaxyFlowsContextMenuReport: "extension_menu_report",
-        CallSpamDialogReport: "call_spam_dialog_report",
+        GuestCallParticipantReport: "guest_call_participant_report",
+        GuestCallReport: "guest_call_report",
       }),
       u = new Set([
         (e = o("WAWebMsgType")).MSG_TYPE.CHAT,

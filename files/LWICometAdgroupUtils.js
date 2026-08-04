@@ -4,6 +4,7 @@ __d(
     "AdsInstagramUserIdMigrationUtils",
     "FBImmer",
     "LWICometACOUtils",
+    "LWICometCTAEditorNeedsOverrideType",
     "LWICometCTALinkUtils",
     "LWICometCTAUtils",
     "ads-lib-urllib",
@@ -415,9 +416,8 @@ __d(
         },
       );
     }
-    function f(e, t, n, r) {
-      var o,
-        a,
+    function f(e, t, n, o) {
+      var a,
         i,
         l,
         s,
@@ -432,123 +432,126 @@ __d(
         h,
         y,
         C,
-        b = e.description,
-        v = e.headline,
-        S = e.imageHash,
-        R = e.imageURL,
-        L = e.linkURL,
-        E = e.messageText,
-        k = e.pageID,
-        I = e.videoID,
-        T = e.videoThumbnailHash,
-        D = e.videoThumbnailURL;
-      if (k == null || k === "") return null;
-      var x = { node: { id: k } },
-        $ = r == null ? void 0 : r.type,
-        P = $ === "MESSAGE_PAGE" || $ === "INSTAGRAM_MESSAGE",
-        N =
-          P &&
-          ((r == null || (o = r.value) == null ? void 0 : o.link) == null ||
-            r.value.link === "")
+        b,
+        v,
+        S = e.description,
+        R = e.headline,
+        L = e.imageHash,
+        E = e.imageURL,
+        k = e.linkURL,
+        I = e.messageText,
+        T = e.pageID,
+        D = e.videoID,
+        x = e.videoThumbnailHash,
+        $ = e.videoThumbnailURL;
+      if (T == null || T === "") return null;
+      var P = { node: { id: T } },
+        N = o == null ? void 0 : o.type,
+        M = N === "MESSAGE_PAGE" || N === "INSTAGRAM_MESSAGE",
+        w =
+          M &&
+          ((o == null || (a = o.value) == null ? void 0 : a.link) == null ||
+            o.value.link === "")
             ? "https://fb.com/messenger_doc/"
-            : (a = r == null || (i = r.value) == null ? void 0 : i.link) != null
-              ? a
+            : (i = o == null || (l = o.value) == null ? void 0 : l.link) != null
+              ? i
               : null,
-        M =
-          P &&
-          (r == null || (l = r.value) == null ? void 0 : l.app_destination) ==
+        A =
+          M &&
+          (o == null || (s = o.value) == null ? void 0 : s.app_destination) ==
             null
             ? "MESSENGER"
-            : (s =
-                  r == null || (u = r.value) == null
+            : (u =
+                  o == null || (c = o.value) == null
                     ? void 0
-                    : u.app_destination) != null
-              ? s
+                    : c.app_destination) != null
+              ? u
               : null,
-        w =
-          $ != null
+        F =
+          N != null
             ? {
                 call_to_action_label: null,
-                call_to_action_type: $,
+                call_to_action_type: N,
                 call_to_action_value: {
-                  app_destination: M,
+                  app_destination: A,
                   app_link:
-                    (c =
-                      r == null || (d = r.value) == null
+                    (d =
+                      o == null || (m = o.value) == null
                         ? void 0
-                        : d.app_link) != null
-                      ? c
+                        : m.app_link) != null
+                      ? d
                       : null,
                   event_id:
-                    (m =
-                      r == null || (p = r.value) == null
+                    (p =
+                      o == null || (_ = o.value) == null
                         ? void 0
-                        : p.event_id) != null
-                      ? m
+                        : _.event_id) != null
+                      ? p
                       : null,
                   group_id:
-                    (_ =
-                      r == null || (f = r.value) == null
+                    (f =
+                      o == null || (g = o.value) == null
                         ? void 0
-                        : f.group_id) != null
-                      ? _
+                        : g.group_id) != null
+                      ? f
                       : null,
                   lead_gen_form_id:
-                    (g =
-                      r == null || (h = r.value) == null
+                    (h =
+                      o == null || (y = o.value) == null
                         ? void 0
-                        : h.lead_gen_form_id) != null
-                      ? g
+                        : y.lead_gen_form_id) != null
+                      ? h
                       : null,
-                  link: N,
+                  link: w,
                   page_id: null,
                   whatsapp_number:
-                    (y =
-                      r == null || (C = r.value) == null
+                    (C =
+                      o == null || (b = o.value) == null
                         ? void 0
-                        : C.whatsapp_number) != null
-                      ? y
+                        : b.whatsapp_number) != null
+                      ? C
                       : null,
                 },
               }
-            : null;
-      return I != null && I !== ""
+            : null,
+        O = r("LWICometCTAEditorNeedsOverrideType").cast(N) == null ? w : null;
+      return D != null && D !== ""
         ? {
             instagram_actor_id: t != null ? t : null,
             instagram_user_id: n != null ? n : null,
             link_data: null,
-            page: x,
+            page: P,
             photo_data: null,
             product_data: [],
             template_data: null,
             video_data: {
-              call_to_action: w,
-              image_hash: T != null ? T : null,
-              image_url: T != null ? null : D != null ? D : null,
-              link_description: b != null ? b : null,
-              message: E != null ? E : null,
-              title: v != null ? v : null,
-              video_id: I,
+              call_to_action: F,
+              image_hash: x != null ? x : null,
+              image_url: x != null ? null : $ != null ? $ : null,
+              link_description: S != null ? S : null,
+              message: I != null ? I : null,
+              title: R != null ? R : null,
+              video_id: D,
             },
           }
         : {
             instagram_actor_id: t != null ? t : null,
             instagram_user_id: n != null ? n : null,
             link_data: {
-              call_to_action: w,
+              call_to_action: F,
               child_attachments: [],
-              description: b != null ? b : null,
+              description: S != null ? S : null,
               event_id: null,
               image_crops: null,
-              image_hash: S != null ? S : null,
-              link: L != null ? L : "",
-              message: E != null ? E : null,
-              name: v != null ? v : null,
-              picture: R != null ? R : null,
+              image_hash: L != null ? L : null,
+              link: (v = k != null ? k : O) != null ? v : "",
+              message: I != null ? I : null,
+              name: R != null ? R : null,
+              picture: E != null ? E : null,
               retailer_item_ids: [],
               use_flexible_image_aspect_ratio: null,
             },
-            page: x,
+            page: P,
             photo_data: null,
             product_data: [],
             template_data: null,

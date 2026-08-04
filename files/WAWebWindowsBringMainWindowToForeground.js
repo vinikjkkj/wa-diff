@@ -1,7 +1,6 @@
 __d(
   "WAWebWindowsBringMainWindowToForeground",
   [
-    "WAWebWindowsHybridBridge.v2585",
     "WAWebWindowsHybridBridge.v2586",
     "WAWebWindowsHybridBridge.v2587",
     "WAWebWindowsHybridBridge.v2589",
@@ -35,8 +34,6 @@ __d(
       var e,
         t = o("WAWebWindowsHybridBridgeCommon").WAWebWindowsGetBridge();
       t == null ||
-        t instanceof
-          o("WAWebWindowsHybridBridge.v2585").WindowsHybridBridge_v2585 ||
         t instanceof
           o("WAWebWindowsHybridBridge.v2586").WindowsHybridBridge_v2586 ||
         t instanceof

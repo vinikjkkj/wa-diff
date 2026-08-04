@@ -160,7 +160,10 @@ __d(
     function re() {
       return s._(/*BTDS*/ "Continue");
     }
-    function oe(e) {
+    function oe() {
+      return s._(/*BTDS*/ "Payment pending");
+    }
+    function ae(e) {
       var t = e.broadcastJidIsNull,
         n = e.checkoutFailed,
         r = e.contactsCount,
@@ -187,7 +190,7 @@ __d(
                       [s._param("recipientLimit", d)],
                     )
                   : a
-                    ? s._(/*BTDS*/ "Payment pending")
+                    ? oe()
                     : c
                       ? s._(/*BTDS*/ "Message can't be empty")
                       : n
@@ -249,7 +252,8 @@ __d(
       (l.getExitConfirmationTitle = te),
       (l.getExitConfirmationBody = ne),
       (l.getExitConfirmationContinueButton = re),
-      (l.getSendNowButtonDisabledReason = oe));
+      (l.getPaymentPendingDisabledReason = oe),
+      (l.getSendNowButtonDisabledReason = ae));
   },
   226,
 );

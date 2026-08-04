@@ -125,6 +125,16 @@ __d(
               "readEventsFromDB",
             );
           }),
+          (i.mutateIncidentsInDB = function (n) {
+            var e = this;
+            return this.guardDB(
+              function () {
+                return t.prototype.mutateIncidentsInDB.call(e, n);
+              },
+              function () {},
+              "mutateIncidentsInDB",
+            );
+          }),
           (i.updateIncidentInDB = function (n) {
             var e = this;
             return this.guardDB(

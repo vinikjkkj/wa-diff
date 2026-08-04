@@ -117,30 +117,27 @@ __d(
             }));
         }),
         (a.$8 = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var r = [],
-              o = 50;
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = [],
+              n = 50;
             try {
-              for (var a = 0; a < t.length; a += o) {
-                var i = t.slice(a, a + o);
-                for (var l of i) {
-                  var s = this.$6(l);
-                  s != null && r.push(s);
+              for (var r = 0; r < e.length; r += n) {
+                var a = e.slice(r, r + n);
+                for (var i of a) {
+                  var l = this.$6(i);
+                  l != null && t.push(l);
                 }
-                a + o < t.length &&
-                  (yield new (e || (e = n("Promise")))(function (e) {
-                    return window.setTimeout(e, 0);
-                  }));
+                r + n < e.length && (yield o("RSTUtils").scheduleYield());
               }
             } catch (e) {
               this.$7(e);
             }
-            return r;
+            return t;
           });
-          function r(e) {
-            return t.apply(this, arguments);
+          function t(t) {
+            return e.apply(this, arguments);
           }
-          return r;
+          return t;
         })()),
         (a.$9 = function (t, n, r) {
           var e = this;
@@ -284,125 +281,83 @@ __d(
           }
           return o;
         })()),
-        (a.updateIncidentInDB = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var a = this;
-            return (
-              yield this.initDB(),
-              new (e || (e = n("Promise")))(function (e, n) {
-                if (a.$1 == null) {
-                  n("IndexedDB instance is not initialized yet");
-                  return;
-                }
-                var i = a.$1.transaction(
-                    [r("RSTConfig").INDEX_DB_TABLE_NAME],
-                    "readwrite",
-                  ),
-                  l = i.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-                  s = l.openCursor();
-                ((s.onsuccess = function (n) {
-                  var r = n.target.result;
-                  if (r == null) {
-                    (o("RSTUtils").debugLog(
-                      "Finished clearing incidents from indexDB",
-                    ),
-                      e());
+        (a.$11 = (function () {
+          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (t, a) {
+              var i = this;
+              return (
+                yield this.initDB(),
+                new (e || (e = n("Promise")))(function (e, n) {
+                  if (i.$1 == null) {
+                    n("indexed db instance is not initialized yet");
                     return;
                   }
-                  try {
-                    var i = a.$6(r.value);
-                    if (i == null) {
-                      var l;
+                  var l = i.$1.transaction(
+                      [r("RSTConfig").INDEX_DB_TABLE_NAME],
+                      "readwrite",
+                    ),
+                    s = l.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
+                    u = s.openCursor();
+                  ((u.onsuccess = function (n) {
+                    var r = n.target.result;
+                    if (r == null) {
                       (o("RSTUtils").debugLog(
-                        "Unable to parse, deleting incident " +
-                          (((l = i == null ? void 0 : i.incidentID) != null
-                            ? l
-                            : "") +
-                            " from indexDB"),
+                        "Finished " + a + " over incidents in indexDB",
                       ),
-                        r.delete());
-                    } else {
-                      var s = t(i);
-                      if (s) {
-                        var u;
-                        (o("RSTUtils").debugLog(
-                          "Update incident " +
-                            ((u = r.value) == null ? void 0 : u.incidentID) +
-                            " in indexDB",
-                        ),
-                          r.update(a.$5(i)));
-                      }
+                        e());
+                      return;
                     }
-                  } catch (e) {
-                    r.delete();
-                  }
-                  r.continue();
-                }),
-                  a.$9(s, n, "updateIncidentInDB"),
-                  a.$10(i, n, "updateIncidentInDB"));
-              })
-            );
-          });
-          function a(e) {
-            return t.apply(this, arguments);
-          }
-          return a;
-        })()),
-        (a.clearIncidentFromDB = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var a = this;
-            return (
-              yield this.initDB(),
-              new (e || (e = n("Promise")))(function (e, n) {
-                if (a.$1 == null) {
-                  n("indexed db instance is not initialized yet");
-                  return;
-                }
-                var i = a.$1.transaction(
-                    [r("RSTConfig").INDEX_DB_TABLE_NAME],
-                    "readwrite",
-                  ),
-                  l = i.objectStore(r("RSTConfig").INDEX_DB_TABLE_NAME),
-                  s = l.openCursor();
-                ((s.onsuccess = function (n) {
-                  var r = n.target.result;
-                  if (r) {
                     try {
-                      var i = a.$6(r.value);
-                      if (
-                        i == null ||
-                        t.has(i == null ? void 0 : i.incidentID)
-                      ) {
-                        var l;
+                      var l = i.$6(r.value);
+                      if (l == null)
                         (o("RSTUtils").debugLog(
-                          "Deleting incident " +
-                            ((l = i == null ? void 0 : i.incidentID) != null
-                              ? l
-                              : "") +
-                            " from indexDB",
+                          "Unable to parse an incident, deleting it from indexDB",
                         ),
                           r.delete());
+                      else {
+                        var s = t(l);
+                        s === "delete"
+                          ? (o("RSTUtils").debugLog(
+                              "Deleting incident " +
+                                l.incidentID +
+                                " from indexDB",
+                            ),
+                            r.delete())
+                          : s === "update" &&
+                            (o("RSTUtils").debugLog(
+                              "Update incident " + l.incidentID + " in indexDB",
+                            ),
+                            r.update(i.$5(l)));
                       }
                     } catch (e) {
                       r.delete();
                     }
                     r.continue();
-                  } else
-                    (o("RSTUtils").debugLog(
-                      "Finished clearing incidents from indexDB",
-                    ),
-                      e());
-                }),
-                  a.$9(s, n, "clearIncidentFromDB"),
-                  a.$10(i, n, "clearIncidentFromDB"));
-              })
-            );
-          });
-          function a(e) {
+                  }),
+                    i.$9(u, n, a),
+                    i.$10(l, n, a));
+                })
+              );
+            },
+          );
+          function a(e, n) {
             return t.apply(this, arguments);
           }
           return a;
         })()),
+        (a.mutateIncidentsInDB = function (t) {
+          return this.$11(t, "mutateIncidentsInDB");
+        }),
+        (a.updateIncidentInDB = function (t) {
+          return this.$11(function (e) {
+            return t(e) ? "update" : "keep";
+          }, "updateIncidentInDB");
+        }),
+        (a.clearIncidentFromDB = function (t) {
+          return this.$11(function (e) {
+            return t.has(e.incidentID) ? "delete" : "keep";
+          }, "clearIncidentFromDB");
+        }),
         (a.clearObjectStore = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var a = this;

@@ -1,6 +1,7 @@
 __d(
   "WASmaxOutSpamStatusReportV2Request",
   [
+    "WASmaxAttrs",
     "WASmaxJsx",
     "WASmaxMixins",
     "WASmaxOutSpamBaseIQSetRequestMixin",
@@ -13,8 +14,9 @@ __d(
     function e(e) {
       var t = e.entitySubjectMixinArgs,
         n = e.spamListJid,
-        r = e.reportableNewsletterStatusMixinArgs,
-        a = o("WASmaxMixins").optionalMerge(
+        r = e.statusFrom,
+        a = e.reportableNewsletterStatusMixinArgs,
+        i = o("WASmaxMixins").optionalMerge(
           o("WASmaxOutSpamEntitySubjectMixin").mergeEntitySubjectMixin,
           o("WASmaxOutSpamBaseReportMixin").mergeBaseReportMixin(
             o("WASmaxOutSpamBaseIQSetRequestMixin").mergeBaseIQSetRequestMixin(
@@ -27,8 +29,10 @@ __d(
                   o(
                     "WASmaxOutSpamReportableNewsletterStatusMixin",
                   ).mergeReportableNewsletterStatusMixin(
-                    o("WASmaxJsx").smax("status", null),
-                    r,
+                    o("WASmaxJsx").smax("status", {
+                      from: o("WASmaxAttrs").OPTIONAL(o("WAWap").USER_JID, r),
+                    }),
+                    a,
                   ),
                 ),
               ),
@@ -37,7 +41,7 @@ __d(
           ),
           t,
         );
-      return a;
+      return i;
     }
     l.makeStatusReportV2Request = e;
   },

@@ -10,7 +10,6 @@ __d(
     "isLinkshimURI",
     "isRelativeURL",
     "isTrustedDestination",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,11 +20,9 @@ __d(
       )
         return !1;
       var t = e.getProtocol();
-      if (t === "tel") return !1;
-      if (r("justknobx")._("3409")) {
-        if (t !== "http" && t !== "https") return !1;
-      } else if (t !== "http" && t !== "https") return !1;
-      return !r("isTrustedDestination")(e);
+      return t === "tel" || (t !== "http" && t !== "https")
+        ? !1
+        : !r("isTrustedDestination")(e);
     }
     var s = new RegExp("^(l|lm|h)\\..*$", "i");
     function u(e) {

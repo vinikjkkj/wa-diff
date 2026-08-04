@@ -9,7 +9,11 @@ __d(
       if (!(a == null || a === "")) {
         var i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
         if (i != null) {
-          var l = o("WAWebLinkify").findLink(a, !1, i);
+          var l = o("WAWebLinkify").findLink({
+            httpOnly: !1,
+            sender: i,
+            text: a,
+          });
           return {
             sourceUrl: a,
             sourceType: "",

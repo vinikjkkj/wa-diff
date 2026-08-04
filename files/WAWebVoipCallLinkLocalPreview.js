@@ -3,7 +3,7 @@ __d(
   ["WAWebLinkPreviewUtils", "WAWebLinkify", "WAWebProtobufsE2E.pb"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("WAWebLinkify").findLink(e, !0);
+      var t = o("WAWebLinkify").findLink({ httpOnly: !0, text: e });
       if (t == null) return null;
       var n = o("WAWebLinkPreviewUtils").genLinkPreview({
         url: t.url,

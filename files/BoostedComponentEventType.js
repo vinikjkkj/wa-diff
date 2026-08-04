@@ -809,7 +809,6 @@ __d(
       MAIBA_DRAFT_VALIDATION_SUCCESS: "maiba_draft_validation_success",
       MAIBA_CHAT_OPEN: "maiba_chat_open",
       MAIBA_ERROR_RESPONSE_SENT: "maiba_error_response_sent",
-      MAIBA_TOOL_STAGE_CHECKPOINT: "maiba_tool_stage_checkpoint",
       MAIBA_INFO_POPOVER_HOVER: "maiba_info_popover_hover",
       MAIBA_PROMOTE_READY: "maiba_promote_ready",
       MAIBA_PROMOTE_NOT_READY: "maiba_promote_not_ready",

@@ -57,7 +57,12 @@ __d(
           if (
             !(
               i &&
-              o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(_)
+              o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(
+                _,
+              ) &&
+              !o(
+                "WAWebBotBaseGating",
+              ).isRichResponseForwardMediaReceivingEnabled()
             )
           ) {
             var f =
