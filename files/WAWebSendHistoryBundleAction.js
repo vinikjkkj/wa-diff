@@ -5,9 +5,12 @@ __d(
     "WAWebFindChatAction",
     "WAWebGenerateGroupHistoryBundleMsgData",
     "WAWebGenerateGroupHistoryNoticeMsgData",
+    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryNoticeHandler",
     "WAWebGroupMemberAddingUserJourneyLogger",
     "WAWebJidToWid",
+    "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "asyncToGeneratorRuntime",
@@ -30,13 +33,13 @@ __d(
                 selectedMessageCount: a,
                 targetStartMessageTime: i,
               }),
-              c = yield o("WAWebFindChatAction").findExistingChat(
+              u = yield o("WAWebFindChatAction").findExistingChat(
                 o("WAWebJidToWid").groupJidToWid(t),
                 "messageHistorySend",
               ),
-              d = o("WAWebSendMsgChatAction").addAndSendMsgToChat(c, l),
-              m = d[0],
-              p = d[1],
+              c = o("WAWebSendMsgChatAction").addAndSendMsgToChat(u, l),
+              d = c[0],
+              p = c[1],
               _ = yield p,
               f = _.messageSendResult;
             if (f !== o("WAWebSendMsgResultAction").SendMsgResult.OK) {
@@ -60,43 +63,88 @@ __d(
               );
               return;
             }
-            var h = yield o(
-              "WAWebGenerateGroupHistoryNoticeMsgData",
-            ).generateGroupHistoryNoticeMsgData({
-              chat: c,
-              groupHistoryBundleMetadata: g,
-            });
-            o(
-              "WAWebGroupMemberAddingUserJourneyLogger",
-            ).GroupMemberAddingUserJourneyLogger.noticeMessageSent();
-            var y = o("WAWebSendMsgChatAction").addAndSendMsgToChat(c, h),
-              C = y[0],
-              b = y[1],
-              v = yield b,
-              S = v.messageSendResult;
-            if (S !== o("WAWebSendMsgResultAction").SendMsgResult.OK) {
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] Failed to send history notice message",
-                    ])),
-                )
-                .sendLogs("group-history-notice-send-failed");
-              return;
-            }
-            yield o(
-              "WAWebGroupHistoryNoticeHandler",
-            ).markGroupHistoryNoticeSent(
-              o("WAWebJidToWid").groupJidToWid(t),
-              n,
-            );
+            yield m(u, g);
           },
         )),
         d.apply(this, arguments)
       );
     }
-    l.sendHistoryBundleAction = c;
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
+            "WAWebGenerateGroupHistoryNoticeMsgData",
+          ).generateGroupHistoryNoticeMsgData({
+            chat: e,
+            groupHistoryBundleMetadata: t,
+          });
+          o(
+            "WAWebGroupMemberAddingUserJourneyLogger",
+          ).GroupMemberAddingUserJourneyLogger.noticeMessageSent();
+          var r = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, n),
+            a = r[0],
+            i = r[1],
+            l = yield i,
+            s = l.messageSendResult;
+          if (s !== o("WAWebSendMsgResultAction").SendMsgResult.OK) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[group-history] Failed to send history notice message",
+                  ])),
+              )
+              .sendLogs("group-history-notice-send-failed");
+            return;
+          }
+          yield o("WAWebGroupHistoryNoticeHandler").markGroupHistoryNoticeSent(
+            e.id,
+            t.historyReceivers,
+          );
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            o("WAWebMsgGetters").getType(e) ===
+              o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE &&
+            o(
+              "WAWebGroupHistoryGating",
+            ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e.id.remote)
+          ) {
+            var t = o("WAWebMsgGetters").getGroupHistoryBundleMetadata(e);
+            if (t != null) {
+              var n = t.historyReceivers;
+              if (
+                n.length !== 0 &&
+                !(yield o(
+                  "WAWebGroupHistoryNoticeHandler",
+                ).areAllReceiversNoticeSent(e.id.remote, n))
+              ) {
+                var r = yield o("WAWebFindChatAction").findExistingChat(
+                  e.id.remote,
+                  "messageHistorySend",
+                );
+                yield m(r, t);
+              }
+            }
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    ((l.sendHistoryBundleAction = c),
+      (l.completeGroupHistorySend = m),
+      (l.completeGroupHistorySendOnBundleResend = _));
   },
   98,
 );

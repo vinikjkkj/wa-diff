@@ -127,19 +127,23 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(e, t, n, r) {
-      var o = _(e);
-      if (n != null) {
-        if (n <= o.watermarkMs) return;
-        o.watermarkMs = n;
+    function y(e) {
+      var t = e.chat,
+        n = e.options,
+        r = e.status,
+        o = e.timestampMs,
+        a = _(t);
+      if (o != null) {
+        if (o <= a.watermarkMs) return;
+        a.watermarkMs = o;
       }
-      o.inFlight ||
-        ((o.serverConfirmed = t),
-        (o.desired = t),
-        e.capiThreadControl !== t &&
-          ((r == null ? void 0 : r.suppressNotification) === !0
-            ? e.setCapiThreadControl(t, d)
-            : e.setCapiThreadControl(t)));
+      a.inFlight ||
+        ((a.serverConfirmed = r),
+        (a.desired = r),
+        t.capiThreadControl !== r &&
+          ((n == null ? void 0 : n.suppressNotification) === !0
+            ? t.setCapiThreadControl(r, d)
+            : t.setCapiThreadControl(r)));
     }
     ((l.mutateAiReplyStatus = f), (l.applyServerEchoThreadControl = y));
   },

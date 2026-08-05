@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipActivityTracker",
-  ["$InternalEnum", "WALogger", "WAWebVoipPhaseTracker"],
+  ["$InternalEnum", "WALogger", "WAWebNoop", "WAWebVoipPhaseTracker"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -14,8 +14,9 @@ __d(
       f,
       g,
       h,
-      y = "call-attempt",
-      C = n("$InternalEnum")({
+      y,
+      C = "call-attempt",
+      b = n("$InternalEnum")({
         START_OUTGOING_VIDEO_CALL: "start_outgoing_video_call",
         START_OUTGOING_AUDIO_CALL: "start_outgoing_audio_call",
         START_OUTGOING_VIDEO_GROUP_CALL: "start_outgoing_video_group_call",
@@ -46,7 +47,7 @@ __d(
         INCOMING_CALL_MSG_GENERATING: "incoming_call_msg_generating",
         INCOMING_CALL_MSG_READY: "incoming_call_msg_ready",
       }),
-      b = n("$InternalEnum")({
+      v = n("$InternalEnum")({
         VOIP_WINDOW_LAUNCHED: "voip_window_launched",
         VOIP_WINDOW_RESIZE: "voip_window_resize",
         VOIP_WINDOW_DRAG: "voip_window_drag",
@@ -114,29 +115,30 @@ __d(
         VOIP_UI_EFFECTS_RUNNING: "voip_ui_effects_running",
         VOIP_UI_READY: "voip_ui_ready",
       }),
-      v = null,
       S = null,
       R = null,
       L = null,
-      E = !1,
-      k = null,
+      E = null,
+      k = !1,
       I = null,
       T = null,
       D = null,
       x = null,
       $ = null,
-      P = !1,
-      N = !1;
-    function M() {
-      E ||
-        ((v = null),
-        (S = null),
+      P = null,
+      N = !1,
+      M = !1,
+      w = 0;
+    function A() {
+      k ||
+        ((S = null),
         (R = null),
         (L = null),
-        (k = Date.now()),
-        (I = null),
-        (E = !0),
-        o("WAWebVoipPhaseTracker").notePreCallStart(y),
+        (E = null),
+        (I = Date.now()),
+        (T = null),
+        (k = !0),
+        o("WAWebVoipPhaseTracker").notePreCallStart(C),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -144,31 +146,31 @@ __d(
             ])),
         ));
     }
-    function w(e, t) {
-      if (E) {
+    function F(e, t) {
+      if (k) {
         var n = e,
           r = t != null ? n + ":" + t : n;
-        ((v = r),
-          (S = Date.now()),
+        ((S = r),
+          (R = Date.now()),
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip:activityTracker] activity=",
                 "",
               ])),
-            v,
+            S,
           ));
       }
     }
-    function A(e) {
-      w(C.CALL_STATE_CHANGED, e);
+    function O(e) {
+      F(b.CALL_STATE_CHANGED, e);
     }
-    function F() {
-      if (E) {
-        var e = k;
-        if (I == null && e != null) {
-          ((I = Date.now()), (R = v), (L = S));
-          var t = Math.floor((I - e) / 1e3);
+    function B() {
+      if (k) {
+        var e = I;
+        if (T == null && e != null) {
+          ((T = Date.now()), (L = S), (E = R));
+          var t = Math.floor((T - e) / 1e3);
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -177,15 +179,15 @@ __d(
                 "",
               ])),
             t,
-            R != null ? R : "none",
+            L != null ? L : "none",
           ),
-            q());
+            V());
         }
       }
     }
-    function O() {
-      if (!E) return null;
-      if (I == null)
+    function W() {
+      if (!k) return null;
+      if (T == null)
         return (
           o("WALogger").LOG(
             c ||
@@ -193,15 +195,15 @@ __d(
                 "[voip:activityTracker] consumed, no ANR occurred",
               ])),
           ),
-          B(),
+          q(),
           null
         );
-      var e = R,
+      var e = L,
         t = null,
         n = null;
       return (
-        I != null && k != null && (t = Math.floor((I - k) / 1e3)),
-        L != null && k != null && (n = Math.floor((L - k) / 1e3)),
+        T != null && I != null && (t = Math.floor((T - I) / 1e3)),
+        E != null && I != null && (n = Math.floor((E - I) / 1e3)),
         o("WALogger").LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -214,7 +216,7 @@ __d(
           t != null ? t : "none",
           n != null ? n : "none",
         ),
-        B(),
+        q(),
         {
           lastVoipActivity: e,
           lastVoipActivityTimestampSec: n,
@@ -222,15 +224,15 @@ __d(
         }
       );
     }
-    function B() {
-      var e = E;
-      ((v = null),
-        (S = null),
+    function q() {
+      var e = k;
+      ((S = null),
         (R = null),
         (L = null),
-        (I = null),
-        (E = !1),
-        e && o("WAWebVoipPhaseTracker").notePreCallEnd(y),
+        (E = null),
+        (T = null),
+        (k = !1),
+        e && o("WAWebVoipPhaseTracker").notePreCallEnd(C),
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -238,14 +240,15 @@ __d(
             ])),
         ));
     }
-    function W() {
-      N ||
-        ((T = null),
-        (D = null),
+    function U() {
+      M ||
+        ((D = null),
         (x = null),
         ($ = null),
-        (P = !1),
-        (N = !0),
+        (P = null),
+        (N = !1),
+        (M = !0),
+        (w += 1),
         o("WALogger").LOG(
           p ||
             (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -253,46 +256,69 @@ __d(
             ])),
         ));
     }
-    function q() {
-      N &&
-        (P ||
-          ((P = !0),
-          (x = T),
+    function V() {
+      M &&
+        (N ||
+          ((N = !0),
           ($ = D),
+          (P = x),
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip:uiActivityTracker] frozen on first ANR: uiActivity=",
                 "",
               ])),
-            x != null ? x : "none",
+            $ != null ? $ : "none",
           )));
     }
-    function U(e, t) {
-      if (N) {
+    function H(e, t) {
+      if (M) {
         var n = e,
           r = t != null ? n + ":" + t : n;
-        ((T = r),
-          (D = Date.now()),
+        ((D = r),
+          (x = Date.now()),
+          (w += 1),
           o("WALogger").LOG(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip:uiActivityTracker] uiActivity=",
                 "",
               ])),
-            T,
+            D,
           ));
       }
     }
-    function V() {
-      if (!N) return null;
-      var e = x,
+    function G(e, t) {
+      if (!M) return r("WAWebNoop");
+      var n = D,
+        a = x;
+      H(e, t);
+      var i = w;
+      return function () {
+        !M ||
+          w !== i ||
+          ((D = n),
+          (x = a),
+          (w += 1),
+          o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip:uiActivityTracker] restored uiActivity=",
+                "",
+              ])),
+            D != null ? D : "none",
+          ));
+      };
+    }
+    function z() {
+      if (!M) return null;
+      var e = $,
         t = null;
       return (
-        $ != null && k != null && (t = Math.floor(($ - k) / 1e3)),
+        P != null && I != null && (t = Math.floor((P - I) / 1e3)),
         o("WALogger").LOG(
-          g ||
-            (g = babelHelpers.taggedTemplateLiteralLoose([
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:uiActivityTracker] consumed act=",
               " ts=",
               "s",
@@ -300,20 +326,20 @@ __d(
           e != null ? e : "none",
           t != null ? t : "none",
         ),
-        G(),
+        K(),
         { lastVoipUiActivity: e, lastVoipUiActivityTimestampSec: t }
       );
     }
-    function H() {
-      if (!E && !N) return null;
-      var e = k,
+    function j() {
+      if (!k && !M) return null;
+      var e = I,
         t = function (n) {
           return n != null && e != null ? Math.floor((n - e) / 1e3) : null;
         },
-        n = R != null ? R : v,
-        r = L != null ? L : S,
-        o = x != null ? x : T,
-        a = $ != null ? $ : D;
+        n = L != null ? L : S,
+        r = E != null ? E : R,
+        o = $ != null ? $ : D,
+        a = P != null ? P : x;
       return {
         lastVoipActivity: n,
         lastVoipActivityTimestampSec: t(r),
@@ -321,37 +347,39 @@ __d(
         lastVoipUiActivityTimestampSec: t(a),
       };
     }
-    function G() {
-      ((T = null),
-        (D = null),
+    function K() {
+      ((D = null),
         (x = null),
         ($ = null),
-        (P = !1),
+        (P = null),
         (N = !1),
+        (M = !1),
+        (w += 1),
         o("WALogger").LOG(
-          h ||
-            (h = babelHelpers.taggedTemplateLiteralLoose([
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:uiActivityTracker] cleared",
             ])),
         ));
     }
-    function z() {
-      (B(), G(), (k = null));
+    function Q() {
+      (q(), K(), (I = null));
     }
-    ((l.VoipActivity = C),
-      (l.VoipUiActivity = b),
-      (l.startActivityTracking = M),
-      (l.trackActivity = w),
-      (l.trackCallStateChange = A),
-      (l.recordFirstAnrTimestamp = F),
-      (l.consumeActivityData = O),
-      (l.clearActivityTracking = B),
-      (l.startUiActivityTracking = W),
-      (l.trackUiActivity = U),
-      (l.consumeUiActivityData = V),
-      (l.peekVoipActivitySnapshot = H),
-      (l.clearUiActivityTracking = G),
-      (l.clearAllActivityTracking = z));
+    ((l.VoipActivity = b),
+      (l.VoipUiActivity = v),
+      (l.startActivityTracking = A),
+      (l.trackActivity = F),
+      (l.trackCallStateChange = O),
+      (l.recordFirstAnrTimestamp = B),
+      (l.consumeActivityData = W),
+      (l.clearActivityTracking = q),
+      (l.startUiActivityTracking = U),
+      (l.trackUiActivity = H),
+      (l.trackUiActivityTemporarily = G),
+      (l.consumeUiActivityData = z),
+      (l.peekVoipActivitySnapshot = j),
+      (l.clearUiActivityTracking = K),
+      (l.clearAllActivityTracking = Q));
   },
   98,
 );

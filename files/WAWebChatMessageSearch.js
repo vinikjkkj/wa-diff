@@ -236,6 +236,16 @@ __d(
         },
       ],
       [e.SearchFilters.AI_HANDOFF, f],
+      [
+        e.SearchFilters.TO_YOU,
+        function (e) {
+          return (
+            o("WAWebContactGetters").getIsGroup(e.contact) &&
+            e.hasUnreadMention &&
+            !e.archive
+          );
+        },
+      ],
     ]);
     function h(e, t) {
       t === void 0 && (t = {});

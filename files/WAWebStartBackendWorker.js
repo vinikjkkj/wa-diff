@@ -207,6 +207,12 @@ __d(
                   "WAWebBackendEventBus",
                 ).BackendEventBus.triggerAbPropsLoaded();
               },
+              triggerPrimaryFeaturesSynced: function (t) {
+                var e = t.changedFeatures;
+                o(
+                  "WAWebBackendEventBus",
+                ).BackendEventBus.triggerPrimaryFeaturesSynced(new Set(e));
+              },
             },
           },
           {

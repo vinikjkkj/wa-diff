@@ -317,18 +317,28 @@ __d(
               o("WAWebHistorySyncUtils").primaryHasMoreMessagesReadyToLoad(i),
             s = a && !l;
           if (!s)
-            return { startOfHistoryLoaded: !1, earliestShareableMsgT: null };
-          for (var u = null, c = 0; c < t.length; c++) {
-            var d = t.at(c);
+            return {
+              startOfHistoryLoaded: !1,
+              earliestShareableMsgT: null,
+              latestShareableMsgT: null,
+            };
+          for (var u = null, c = null, d = 0; d < t.length; d++) {
+            var m = t.at(d);
             if (
-              d != null &&
-              r("WAWebGroupHistorySupportedMessageTypesUtil")(d.type)
+              m != null &&
+              r("WAWebGroupHistorySupportedMessageTypesUtil")(m.type)
             ) {
-              var m = d.t;
-              m != null && (u == null || m < u) && (u = m);
+              var p = m.t;
+              p != null &&
+                ((u == null || p < u) && (u = p),
+                (c == null || p > c) && (c = p));
             }
           }
-          return { startOfHistoryLoaded: !0, earliestShareableMsgT: u };
+          return {
+            startOfHistoryLoaded: !0,
+            earliestShareableMsgT: u,
+            latestShareableMsgT: c,
+          };
         },
         [R, E, k, s.getEndOfHistoryTransferType],
       ),

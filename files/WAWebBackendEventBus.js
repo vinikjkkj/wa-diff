@@ -39,7 +39,8 @@ __d(
       P,
       N,
       M,
-      w = (function (t) {
+      w,
+      A = (function (t) {
         function n() {
           var e;
           return (
@@ -835,12 +836,35 @@ __d(
                 "triggerAbPropsLoadedFromBridge",
               ));
           }),
+          (a.onPrimaryFeaturesSynced = function (t) {
+            return (
+              this.on(
+                o("WAWebBackendEventBusTypes").BackendEvent
+                  .PRIMARY_FEATURES_SYNCED,
+                t,
+              ),
+              this
+            );
+          }),
+          (a.triggerPrimaryFeaturesSynced = function (t) {
+            (o("WALogger").LOG(
+              w ||
+                (w = babelHelpers.taggedTemplateLiteralLoose([
+                  "BackendEventBus: primary_features_synced",
+                ])),
+            ),
+              this.trigger(
+                o("WAWebBackendEventBusTypes").BackendEvent
+                  .PRIMARY_FEATURES_SYNCED,
+                t,
+              ));
+          }),
           n
         );
       })(r("WAWebEventEmitter")),
-      A = new w();
+      F = new A();
     ((l.BackendEvent = o("WAWebBackendEventBusTypes").BackendEvent),
-      (l.BackendEventBus = A));
+      (l.BackendEventBus = F));
   },
   98,
 );

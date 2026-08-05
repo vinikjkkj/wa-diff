@@ -151,7 +151,9 @@ __d(
             ),
               r("WAWebCallCollection").setPendingCallLink(null),
               r("WAWebPipController").closePiP(),
-              o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal());
+              e instanceof
+                o("WAWebEnsureVoipInited").VoipInitUnavailableError ||
+                o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal());
             return;
           }
           var D = o("WAWebFrontendContactGetters").getMyUsername(),

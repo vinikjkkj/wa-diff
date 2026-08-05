@@ -490,7 +490,6 @@ __d(
         !0,
       ],
       silent_group_username_activities_enabled: [24269, "bool", !1, !1],
-      smoothie_performance_css_dom: [18995, "bool", !1, !1],
       smoothie_performance_resize_followup: [18992, "bool", !1, !1],
       stickers_emoji_tagging_enabled: [26465, "bool", !1, !1],
       support_contact_form_using_graphql: [26001, "bool", !1, !1],

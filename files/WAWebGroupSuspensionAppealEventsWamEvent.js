@@ -2,6 +2,7 @@ __d(
   "WAWebGroupSuspensionAppealEventsWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumGroupSuspensionAppealEntryPoint",
     "WAWebWamEnumGroupSuspensionAppealUiAction",
     "WAWebWamEnumGroupSuspensionAppealUiSurface",
     "WAWebWamEnumGroupTypeClient",
@@ -14,6 +15,11 @@ __d(
             7574,
             {
               groupJid: [5, e.TYPES.STRING],
+              groupSuspensionAppealEntryPoint: [
+                7,
+                o("WAWebWamEnumGroupSuspensionAppealEntryPoint")
+                  .GROUP_SUSPENSION_APPEAL_ENTRY_POINT,
+              ],
               groupSuspensionAppealErrorMessage: [6, e.TYPES.STRING],
               groupSuspensionAppealUiAction: [
                 1,

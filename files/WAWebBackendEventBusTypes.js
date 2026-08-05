@@ -29,6 +29,7 @@ __d(
       OFFLINE_DELIVERY_STATE_RESET: "offline_delivery_state_reset",
       ON_AB_PROPS_UPDATE: "on_ab_props_update",
       AB_PROPS_LOADED: "ab_props_loaded",
+      PRIMARY_FEATURES_SYNCED: "primary_features_synced",
     };
     i.BackendEvent = e;
   },

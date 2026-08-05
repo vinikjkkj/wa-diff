@@ -8,10 +8,7 @@ __d(
       u = 100,
       c = 50;
     function d() {
-      return (
-        o("MainPageUrl").isWorkerLogEnabled() ||
-        o("MainPageUrl").mainPageUrl.searchParams.get("worker_log") === 1
-      );
+      return o("MainPageUrl").isWorkerLogEnabled();
     }
     var m = 0;
     function p() {

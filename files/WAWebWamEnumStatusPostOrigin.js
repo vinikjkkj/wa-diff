@@ -63,6 +63,7 @@ __d(
       ME_TAB: 58,
       CONTACTS_TAB: 59,
       GROUP_STATUS_REPLY_WITH_STATUS: 60,
+      GROUP_CHAT_ATTACHMENT_TRAY: 61,
     });
     i.STATUS_POST_ORIGIN = e;
   },

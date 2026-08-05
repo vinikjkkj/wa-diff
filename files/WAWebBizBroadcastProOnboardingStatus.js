@@ -51,14 +51,17 @@ __d(
       return f() === e.ELIGIBLE_TO_ONBOARD;
     }
     function y() {
-      return f() === e.ONBOARDED
+      return f() === e.ONBOARDED;
+    }
+    function C() {
+      return y()
         ? o("WAWebWamEnumBbTierType").BB_TIER_TYPE.PRO
         : o("WAWebWamEnumBbTierType").BB_TIER_TYPE.CORE;
     }
-    function C() {
+    function b() {
       return d;
     }
-    function b() {
+    function v() {
       ((d = !0), m.trigger("change"));
     }
     ((l.BBProOnboardingStatus = e),
@@ -67,9 +70,10 @@ __d(
       (l.updateBizBroadcastProEligibility = _),
       (l.isBizBroadcastProNuxOnboardingStatusResolved = g),
       (l.isBizBroadcastProEligibleToOnboard = h),
-      (l.getBizBroadcastProductTier = y),
-      (l.isBizBroadcastProNuxOnboardingDismissed = C),
-      (l.dismissBizBroadcastProNuxOnboarding = b));
+      (l.isBizBroadcastProOnboarded = y),
+      (l.getBizBroadcastProductTier = C),
+      (l.isBizBroadcastProNuxOnboardingDismissed = b),
+      (l.dismissBizBroadcastProNuxOnboarding = v));
   },
   98,
 );

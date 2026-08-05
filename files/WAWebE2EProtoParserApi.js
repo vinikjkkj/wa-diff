@@ -94,6 +94,7 @@ __d(
                 )
                 .sendLogs(r + "-message-missing-file-enc"),
           n.url == null &&
+            n.directPath == null &&
             o("WALogger")
               .LOG(
                 d ||

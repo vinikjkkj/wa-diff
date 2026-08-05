@@ -27,7 +27,7 @@ __d(
         ? t[e] === 0
           ? null
           : o("WAWebMsgType").MSG_TYPE.UNKNOWN
-        : e === "messageContextInfo"
+        : e === "messageContextInfo" || e === "statusLinkPreviewMetadata"
           ? null
           : e === "contactMessage"
             ? o("WAWebMsgType").MSG_TYPE.VCARD
@@ -326,6 +326,8 @@ __d(
                                                                                                                   e ===
                                                                                                                     "botInvokeMessage" ||
                                                                                                                   e ===
+                                                                                                                    "botPlatformRegistrationSuccessMessage" ||
+                                                                                                                  e ===
                                                                                                                     "botTaskMessage" ||
                                                                                                                   e ===
                                                                                                                     "call" ||
@@ -357,6 +359,8 @@ __d(
                                                                                                                     "invoiceMessage" ||
                                                                                                                   e ===
                                                                                                                     "lottieStickerMessage" ||
+                                                                                                                  e ===
+                                                                                                                    "musicMessage" ||
                                                                                                                   e ===
                                                                                                                     "newsletterAdminProfileMessage" ||
                                                                                                                   e ===

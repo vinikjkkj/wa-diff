@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebConfirmPopup.react",
     "WAWebCoreActionsODS",
+    "WAWebMiscBrowserUtils",
     "WAWebModalManager",
     "WAWebVoipBackendLoadable",
     "WAWebVoipGatingUtils",
@@ -108,17 +109,39 @@ __d(
       );
     }
     function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return c() ? !0 : d();
-        })),
-        f.apply(this, arguments)
+      o("WAWebModalManager").ModalManager.open(
+        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          testid: "voip_init_unavailable_reload_modal",
+          tsNavigationData: { surface: "unknown", viewName: "voip-start-call" },
+          cancelText: s._(/*BTDS*/ "Not now"),
+          okText: s._(/*BTDS*/ "Reload"),
+          onCancel: o("WAWebModalManager").closeModalManager,
+          onOK: function () {
+            (o("WAWebModalManager").closeModalManager(),
+              r("WAWebMiscBrowserUtils").hardRefresh());
+          },
+          onOverlayClick: o("WAWebModalManager").closeModalManager,
+          title: s._(/*BTDS*/ "Reload to restore calls"),
+          children: s._(
+            /*BTDS*/ "Calling couldn\u2019t start. Incoming calls won\u2019t ring on this computer until you reload the page.",
+          ),
+        }),
       );
     }
-    ((l.showCouldNotPlaceCallModal = p), (l.showCallBlockedModalIfNeeded = _));
+    function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return c() ? !0 : d();
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    ((l.showCouldNotPlaceCallModal = p),
+      (l.showVoipInitUnavailableModal = _),
+      (l.showCallBlockedModalIfNeeded = f));
   },
   226,
 );

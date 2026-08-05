@@ -3,10 +3,12 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
+    "WAWebBackendEventBusWorkerCompatible",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "gkx",
     "snakeCase",
   ],
@@ -14,9 +16,10 @@ __d(
     var e,
       s,
       u,
-      c = null;
-    function d(t) {
-      return c == null
+      c,
+      d = null;
+    function m(t) {
+      return d == null
         ? (o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -24,31 +27,46 @@ __d(
               ])),
           ),
           !1)
-        : c.has(t);
+        : d.has(t);
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
             o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
             e,
           );
-          var t = c,
-            n = new Set(g(e));
-          ((c = n),
+          var t = d,
+            n = new Set(y(e));
+          ((d = n),
             o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
-              primaryFeatures: Array.from(c),
+              primaryFeatures: Array.from(d),
             }));
-          var r = (t == null ? void 0 : t.has("favorite_sticker")) === !0,
-            a = n.has("favorite_sticker");
-          !r &&
-            a &&
+          try {
+            o("WAWebBackendEventBusWorkerCompatible")
+              .getBackendEventBus()
+              .triggerPrimaryFeaturesSynced(f(t, n));
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[primary features] primary_features_synced listener failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("primary-features-synced-listener-failed");
+          }
+          var a = (t == null ? void 0 : t.has("favorite_sticker")) === !0,
+            i = n.has("favorite_sticker");
+          !a &&
+            i &&
             (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[primary features] favorite_sticker enabled, check orphans",
                 ])),
             ),
@@ -56,15 +74,22 @@ __d(
               "checkOrphanFavoriteStickers",
             ));
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _() {
-      return f.apply(this, arguments);
+    function f(e, t) {
+      var n = e != null ? e : new Set(),
+        r = new Set();
+      for (var o of t) n.has(o) || r.add(o);
+      for (var a of n) t.has(a) || r.add(a);
+      return r;
     }
-    function f() {
+    function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t =
               (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
@@ -72,22 +97,22 @@ __d(
               )) != null
                 ? e
                 : [];
-          ((t = g(t)),
-            (c = new Set(t)),
+          ((t = y(t)),
+            (d = new Set(t)),
             o("WAWebBackendApi").frontendFireAndForget("setPrimaryFeatures", {
               primaryFeatures: t,
             }),
             o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "primary features loaded",
                 ])),
             ));
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e) {
+    function y(e) {
       var t,
         n,
         o,
@@ -116,9 +141,9 @@ __d(
         a
       );
     }
-    ((l.primaryFeatureEnabled = d),
-      (l.setPrimaryFeatures = m),
-      (l.loadPrimaryFeatures = _));
+    ((l.primaryFeatureEnabled = m),
+      (l.setPrimaryFeatures = p),
+      (l.loadPrimaryFeatures = g));
   },
   98,
 );

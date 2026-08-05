@@ -6,9 +6,12 @@ __d(
     "WAWebDBUpdateMessageTable",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
+    "WAWebMsgType",
     "WAWebNewsletterSendMsgAction",
+    "WAWebSendHistoryBundleAction",
     "WAWebSendMessageEditAction",
     "WAWebSendMsgRecordAction",
+    "WAWebSendMsgResultAction",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,15 +35,28 @@ __d(
                 .then(function (e) {
                   return e && e.messageSendResult;
                 })
-            : o("WAWebFrontendMsgGetters").getAsMms(t)
-              ? o("WAWebMsgGetters").getIsSentByMeFromWeb(t)
-                ? t.resumeUpload()
-                : t.resumeRemoteUpload()
-              : o("WAWebSendMsgRecordAction")
+            : t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE
+              ? o("WAWebSendMsgRecordAction")
                   .sendMsgRecord(t)
                   .then(function (e) {
-                    return e.messageSendResult;
+                    return (
+                      e.messageSendResult ===
+                        o("WAWebSendMsgResultAction").SendMsgResult.OK &&
+                        o(
+                          "WAWebSendHistoryBundleAction",
+                        ).completeGroupHistorySendOnBundleResend(t),
+                      e.messageSendResult
+                    );
                   })
+              : o("WAWebFrontendMsgGetters").getAsMms(t)
+                ? o("WAWebMsgGetters").getIsSentByMeFromWeb(t)
+                  ? t.resumeUpload()
+                  : t.resumeRemoteUpload()
+                : o("WAWebSendMsgRecordAction")
+                    .sendMsgRecord(t)
+                    .then(function (e) {
+                      return e.messageSendResult;
+                    })
         );
       }
       return (e || (e = n("Promise"))).resolve();

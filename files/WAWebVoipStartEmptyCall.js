@@ -65,25 +65,27 @@ __d(
             return (yield l.previewAndJoinCallLink(p.data.token, !0, t, _), !0);
           } catch (e) {
             return (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: landing page: start call failed to create call link: ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs(
-                  "voip-landing-page-start-call-call-link-creation-failed",
-                ),
-              o("WAWebToastManager").ToastManager.open(
-                m.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ "Could not start a new call. Try again after waiting for a few minutes.",
+              e instanceof
+                o("WAWebEnsureVoipInited").VoipInitUnavailableError ||
+                (o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: landing page: start call failed to create call link: ",
+                        "",
+                      ])),
+                    e,
+                  )
+                  .sendLogs(
+                    "voip-landing-page-start-call-call-link-creation-failed",
                   ),
-                }),
-              ),
+                o("WAWebToastManager").ToastManager.open(
+                  m.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(
+                      /*BTDS*/ "Could not start a new call. Try again after waiting for a few minutes.",
+                    ),
+                  }),
+                )),
               !1
             );
           }

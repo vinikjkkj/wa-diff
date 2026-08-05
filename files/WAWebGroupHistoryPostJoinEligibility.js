@@ -72,18 +72,24 @@ __d(
         ? { eligible: !1, reason: "window_expired" }
         : { eligible: !0 };
     }
-    function p(e, t) {
-      return e == null || !e.startOfHistoryLoaded
-        ? !1
-        : e.earliestShareableMsgT == null
-          ? !0
-          : t == null
-            ? !1
-            : e.earliestShareableMsgT > t;
+    function p(e, t, n) {
+      if (e == null || !e.startOfHistoryLoaded) return !1;
+      var r = e.earliestShareableMsgT,
+        a = e.latestShareableMsgT;
+      if (r == null) return !0;
+      if (t == null) return !1;
+      if (r > t) return !0;
+      if (n != null && a != null) {
+        var i = o(
+          "WAWebGroupHistoryGating",
+        ).getGroupHistoryMessagesTimeLimitSecs(n);
+        if (a < t - i) return !0;
+      }
+      return !1;
     }
     function _(e, t, n, r) {
       var o;
-      return c(e, t, n) && !p(r, (o = e.joinTime) != null ? o : n);
+      return c(e, t, n) && !p(r, (o = e.joinTime) != null ? o : n, t.groupWid);
     }
     function f(t) {
       if (

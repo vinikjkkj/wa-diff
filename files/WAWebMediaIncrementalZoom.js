@@ -10,7 +10,6 @@ __d(
     "WDSIconIcZoomIn.react",
     "WDSIconIcZoomOut.react",
     "WDSMenuBarItem.react",
-    "justknobx",
     "react",
     "react-compiler-runtime",
     "stylex",
@@ -620,26 +619,24 @@ __d(
         ));
       var ye = m(
           function (e) {
-            if (r("justknobx")._("2169")) {
-              var t = ne(),
-                n = 1,
-                o = 2,
-                a = se(1 / 0),
-                i = 1e-4,
-                l = [t];
-              n > t + i && l.push(n);
-              var s = Math.min(o, a);
-              s > l[l.length - 1] + i && l.push(s);
-              var u = d.currentImageScale,
-                c = l[0];
-              for (var m of l)
-                if (m > u + i) {
-                  c = m;
-                  break;
-                }
-              (ue({ scale: c, x: e.clientX, y: e.clientY }),
-                d.setCurrentZoomLevel(N(c, t)));
-            }
+            var t = ne(),
+              n = 1,
+              r = 2,
+              o = se(1 / 0),
+              a = 1e-4,
+              i = [t];
+            n > t + a && i.push(n);
+            var l = Math.min(r, o);
+            l > i[i.length - 1] + a && i.push(l);
+            var s = d.currentImageScale,
+              u = i[0];
+            for (var c of i)
+              if (c > s + a) {
+                u = c;
+                break;
+              }
+            (ue({ scale: u, x: e.clientX, y: e.clientY }),
+              d.setCurrentZoomLevel(N(u, t)));
           },
           [ne, d, ue, se],
         ),

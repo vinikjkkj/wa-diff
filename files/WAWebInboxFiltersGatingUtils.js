@@ -17,13 +17,22 @@ __d(
     }
     function u() {
       return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "android_inbox_mentions_replies_filter",
+        )
+      );
+    }
+    function c() {
+      return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("inbox_filters_smb_enabled")
       );
     }
     ((l.inboxFiltersEnabled = e),
       (l.inboxFavoritesEnabled = s),
-      (l.inboxCustomFiltersEnabled = u));
+      (l.inboxToYouFilterEnabled = u),
+      (l.inboxCustomFiltersEnabled = c));
   },
   98,
 );

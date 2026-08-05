@@ -6,6 +6,7 @@ __d(
     "WAWebEnvironment",
     "WAWebUnifiedSession",
     "WAWebVoipGatingUtils",
+    "WAWebVoipInitReloadRecovery",
     "WAWebVoipRelayAllCallsAction",
     "WAWebVoipWebLoadable",
     "err",
@@ -45,6 +46,18 @@ __d(
               "VoipWebBridgeApi: VoipWebWasm should not be loaded - voip download is not enabled",
             );
           return o("WAWebVoipWebLoadable").requireVoip();
+        },
+        startVoipInitReloadRecovery: function (t) {
+          var e = t.callId;
+          return o(
+            "WAWebVoipInitReloadRecovery",
+          ).startIncomingVoipInitReloadRecovery(e);
+        },
+        finishVoipInitReloadRecovery: function (t) {
+          var e = t.callId;
+          o("WAWebVoipInitReloadRecovery").finishIncomingVoipInitReloadRecovery(
+            e,
+          );
         },
         setRelayAllCallsToUserPrefs: function (t) {
           var e = t.disallowAllP2p;

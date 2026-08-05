@@ -51,10 +51,26 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield m(
+            e,
+            t,
+            o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
+              .NOTICE_SENT,
+          );
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e, t, n) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           if (t.length !== 0) {
-            var r;
+            var a;
             try {
-              r = o("WAWebWidToJid").widToGroupJid(e);
+              a = o("WAWebWidToJid").widToGroupJid(e);
             } catch (e) {
               return;
             }
@@ -66,33 +82,31 @@ __d(
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
                       var n,
-                        a = e[0],
-                        i = yield a.get(r),
-                        l =
-                          (n = i == null ? void 0 : i.participantMetadataMap) !=
+                        i = e[0],
+                        l = yield i.get(a),
+                        s =
+                          (n = l == null ? void 0 : l.participantMetadataMap) !=
                           null
                             ? n
                             : new Map();
-                      for (var s of t) {
-                        var u,
-                          c = o("WAWebLidMigrationUtils").toUserLid(s);
-                        if (c != null) {
-                          var d = o("WAWebWidToJid").userLidtoLidUserJid(c),
-                            m = l.get(d);
-                          l.set(d, {
+                      for (var u of t) {
+                        var c,
+                          d = o("WAWebLidMigrationUtils").toUserLid(u);
+                        if (d != null) {
+                          var m = o("WAWebWidToJid").userLidtoLidUserJid(d),
+                            p = s.get(m);
+                          s.set(m, {
                             joinTime:
-                              (u = m == null ? void 0 : m.joinTime) != null
-                                ? u
+                              (c = p == null ? void 0 : p.joinTime) != null
+                                ? c
                                 : null,
-                            groupHistorySentState: o(
-                              "WAWebGroupHistoryPostJoinTypes",
-                            ).GroupHistorySentState.NOTICE_SENT,
+                            groupHistorySentState: r,
                           });
                         }
                       }
-                      yield a.createOrMerge(r, {
-                        chatId: r,
-                        participantMetadataMap: l,
+                      yield i.createOrMerge(a, {
+                        chatId: a,
+                        participantMetadataMap: s,
                       });
                     },
                   );
@@ -103,19 +117,72 @@ __d(
               ),
               o("WAWebBackendApi").frontendFireAndForget(
                 "updateParticipantsGroupHistorySentState",
-                {
-                  group: e,
-                  receiverIds: t,
-                  state: o("WAWebGroupHistoryPostJoinTypes")
-                    .GroupHistorySentState.NOTICE_SENT,
-                },
+                { group: e, receiverIds: t, state: r },
               ));
           }
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.maybeHandleGroupHistoryNotice = s), (l.markGroupHistoryNoticeSent = c));
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (t.length === 0) return !0;
+          var r;
+          try {
+            r = o("WAWebWidToJid").widToGroupJid(e);
+          } catch (e) {
+            return !1;
+          }
+          return o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              ["group-history-participant"],
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var n = e[0],
+                      a = yield n.get(r),
+                      i = a == null ? void 0 : a.participantMetadataMap;
+                    if (i == null) return !1;
+                    for (var l of t) {
+                      var s,
+                        u = o("WAWebLidMigrationUtils").toUserLid(l);
+                      if (u == null) return !1;
+                      var c = o("WAWebWidToJid").userLidtoLidUserJid(u),
+                        d =
+                          (s = i.get(c)) == null
+                            ? void 0
+                            : s.groupHistorySentState;
+                      if (
+                        d !==
+                          o("WAWebGroupHistoryPostJoinTypes")
+                            .GroupHistorySentState.NOTICE_SENT &&
+                        d !==
+                          o("WAWebGroupHistoryPostJoinTypes")
+                            .GroupHistorySentState.HISTORY_SENT
+                      )
+                        return !1;
+                    }
+                    return !0;
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            );
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    ((l.maybeHandleGroupHistoryNotice = s),
+      (l.markGroupHistoryNoticeSent = c),
+      (l.setGroupHistorySentStateForReceivers = m),
+      (l.areAllReceiversNoticeSent = _));
   },
   98,
 );

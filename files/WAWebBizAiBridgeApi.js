@@ -63,12 +63,12 @@ __d(
               i,
               c.id.toLogString(),
             ),
-            o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl(
-              c,
-              i,
-              l,
-              { suppressNotification: a },
-            ))
+            o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
+              chat: c,
+              options: { suppressNotification: a },
+              status: i,
+              timestampMs: l,
+            }))
           : o("WALogger")
               .ERROR(
                 u ||
@@ -94,12 +94,12 @@ __d(
           try {
             var l = f(i.consumerLid, i.consumerPhoneNumber);
             l != null
-              ? o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl(
-                  l,
-                  i.status,
-                  i.timestampMs,
-                  { suppressNotification: !0 },
-                )
+              ? o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
+                  chat: l,
+                  options: { suppressNotification: !0 },
+                  status: i.status,
+                  timestampMs: i.timestampMs,
+                })
               : o("WALogger")
                   .ERROR(
                     d ||

@@ -29,6 +29,7 @@ __d(
         VR: 22,
         CLOUD_API: 23,
         SMARTGLASSES: 24,
+        WAIL: 25,
       }),
       u = {},
       c = {},
