@@ -34,7 +34,7 @@ __d(
         p = r("useWAWebUnmountSignal")(),
         _ = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
         f = r("useWAWebDebouncedCallback")(_, 100),
-        g = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        g = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         h = o("WAWebCatalogCollection").CatalogCollection.assertGet(g),
         y = d(!1),
         C = y[0],

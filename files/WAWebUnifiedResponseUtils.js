@@ -60,31 +60,38 @@ __d(
       return t;
     }
     function p(e) {
+      return _(e) != null;
+    }
+    function _(e) {
       var t;
-      if (e == null) return !1;
+      if (e == null) return null;
       var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
       for (var r of n)
         for (var o of u(r.view_model))
-          if (o.__typename === "GenAIMetaSubsQuotaUpsellPrimitive") return !0;
-      return !1;
+          if (o.__typename === "GenAIMetaSubsQuotaUpsellPrimitive") return o;
+      return null;
     }
-    var _ = [
+    function f(e) {
+      var t;
+      return (t = _(e)) == null ? void 0 : t.benefit_type;
+    }
+    var g = [
       "GenAIImaginePrimitive",
       "GenAIImagePrimitive",
       "GenAIReelPrimitive",
     ];
-    function f(e) {
+    function h(e) {
       if (e != null) return { data: e };
     }
-    function g(e) {
+    function y(e) {
       if (e == null) return !1;
       for (var t of e.sections) {
         var n = u(t.view_model);
-        for (var r of n) if (_.includes(r.__typename)) return !0;
+        for (var r of n) if (g.includes(r.__typename)) return !0;
       }
       return !1;
     }
-    function h(e) {
+    function C(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -102,7 +109,7 @@ __d(
         }
       return n;
     }
-    function y(e) {
+    function b(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
@@ -112,10 +119,11 @@ __d(
       (l.isUnifiedResponseVisible = c),
       (l.isImagineResponse = m),
       (l.isQuotaUpsellResponse = p),
-      (l.buildUnifiedResponseFromRawData = f),
-      (l.unifiedResponseHasMediaContent = g),
-      (l.getMetaAiEmbeddedSources = h),
-      (l.stripEmbeddedScreens = y));
+      (l.getQuotaUpsellBenefitType = f),
+      (l.buildUnifiedResponseFromRawData = h),
+      (l.unifiedResponseHasMediaContent = y),
+      (l.getMetaAiEmbeddedSources = C),
+      (l.stripEmbeddedScreens = b));
   },
   98,
 );

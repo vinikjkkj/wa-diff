@@ -1297,8 +1297,9 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t = yield l,
               n = o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(e),
-              r = t.requestKeyFrame(n);
-            return r;
+              r = o("WAWebVoipScreenShareStreamKey").isScreenShareStreamKey(e),
+              a = r ? t.requestAuxiliaryKeyFrame(n) : t.requestKeyFrame(n);
+            return a;
           });
           function t(t) {
             return e.apply(this, arguments);

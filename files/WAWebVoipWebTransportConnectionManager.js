@@ -9,6 +9,7 @@ __d(
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipTsLogger",
+    "WAWebVoipWaCallEnums",
     "WAWebVoipWebTransportCallSummary",
     "asyncToGeneratorRuntime",
     "err",
@@ -108,14 +109,18 @@ __d(
         );
         return;
       }
-      if (!fe()) {
+      var e = o("WAWebVoipLocalCallStateStore").getLocalCallState();
+      if (
+        e === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
+        e === o("WAWebVoipWaCallEnums").CallState.CallActiveElseWhere
+      ) {
         o("WALogger").LOG(
           c ||
             (c = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [WebTransportConnectionManager] Skipping fallback: call not engaged locally (state=",
+              "voip: [WebTransportConnectionManager] Skipping fallback: call ended or resolved elsewhere (state=",
               ")",
             ])),
-          String(o("WAWebVoipLocalCallStateStore").getLocalCallState()),
+          String(e),
         );
         return;
       }
@@ -128,8 +133,8 @@ __d(
         );
         return;
       }
-      var e = Y;
-      if (e == null) {
+      var t = Y;
+      if (t == null) {
         Z ||
           ((Z = !0),
           o("WALogger").LOG(
@@ -154,7 +159,7 @@ __d(
           )
           .sendLogs("webtransport-fallback-to-sctp-triggered"));
       try {
-        e(ee);
+        t(ee);
       } catch (e) {
         o("WALogger")
           .ERROR(

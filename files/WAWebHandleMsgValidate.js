@@ -272,10 +272,7 @@ __d(
         !o("WAWebUserPrefsMeUser").isMeAccount(
           o("WAWebMsgGetters").getSender(e),
         ) &&
-        n === !0 &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ctwa_suppress_message_via_ad_spam_web",
-        )
+        n === !0
       )
         throw new (o("WAWebHandleMsgError").MessageValidationError)(
           "This is a spam message sent to consumer number with 'Message Via Ad' header",

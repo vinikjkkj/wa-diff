@@ -121,6 +121,15 @@ __d(
     function O() {
       return s._(/*BTDS*/ "No transactions yet");
     }
+    function B() {
+      return s._(/*BTDS*/ "All");
+    }
+    function W() {
+      return s._(/*BTDS*/ "You requested");
+    }
+    function q() {
+      return s._(/*BTDS*/ "Others requested");
+    }
     ((l.getConsumerPixKeyTypeOptions = e),
       (l.getConsumerAddPixKeyTitle = u),
       (l.getConsumerAddPixKeySubtitle = c),
@@ -151,7 +160,10 @@ __d(
       (l.getConsumerTransactionStatusFailed = w),
       (l.getConsumerTransactionStatusRequestedByYou = A),
       (l.getConsumerTransactionStatusRequestedByThem = F),
-      (l.getConsumerTransactionsEmpty = O));
+      (l.getConsumerTransactionsEmpty = O),
+      (l.getConsumerTransactionsTabAll = B),
+      (l.getConsumerTransactionsTabYouRequested = W),
+      (l.getConsumerTransactionsTabTheyRequested = q));
   },
   226,
 );

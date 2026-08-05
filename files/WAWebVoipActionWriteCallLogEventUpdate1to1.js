@@ -2,12 +2,9 @@ __d(
   "WAWebVoipActionWriteCallLogEventUpdate1to1",
   [
     "WALogger",
-    "WATimeUtils",
     "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
     "WAWebMsgKey",
-    "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
@@ -37,37 +34,25 @@ __d(
             var n = t.CallId,
               a = t.PeerJid,
               i = t.Result,
-              l = o("WAWebUserPrefsMeUser").isMeAccount(a),
-              u = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
+              l = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
                 callId: n,
                 peerWid: a,
                 groupJid: null,
                 callCreatorWid: a,
               }),
-              c = u.chatId,
-              d = u.msgKeyId,
-              m = u.participant,
-              p = u.viewMode,
-              _ = s(i),
-              f = {
-                id: new (r("WAWebMsgKey"))({
-                  remote: c,
-                  participant: m,
-                  fromMe: l,
-                  id: d,
-                }),
-                type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
-                kind: "callLog",
-                callOutcome: _,
-                isVideoCall: !1,
-                to: c,
-                from: a,
-                t: o("WATimeUtils").castToUnixTime(Date.now() / 1e3),
-                viewMode: p,
-              };
+              u = l.chatId,
+              c = l.fromMe,
+              d = l.msgKeyId,
+              m = l.participant,
+              p = new (r("WAWebMsgKey"))({
+                remote: u,
+                participant: m,
+                fromMe: c,
+                id: d,
+              });
             yield o(
               "WAWebVoipActionWriteCallLogImpl",
-            ).writeVoipCallLogMessageImpl(c, f, !1);
+            ).updateVoipCallLogOutcomeImpl(u, p, s(i));
           } catch (t) {
             o("WALogger")
               .ERROR(

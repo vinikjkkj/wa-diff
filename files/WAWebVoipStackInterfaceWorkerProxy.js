@@ -1527,7 +1527,12 @@ __d(
             var t = o("WAWebVoipScreenShareStreamKey").getBaseJidFromStreamKey(
                 e,
               ),
-              n = yield ce("requestKeyFrame", { userJid: t });
+              n = yield ce(
+                o("WAWebVoipScreenShareStreamKey").isScreenShareStreamKey(e)
+                  ? "requestAuxiliaryKeyFrame"
+                  : "requestKeyFrame",
+                { userJid: t },
+              );
             return Number(n);
           });
           function t(t) {

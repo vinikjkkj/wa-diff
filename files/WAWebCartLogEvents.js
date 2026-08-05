@@ -29,9 +29,7 @@ __d(
       });
     }
     function d(t, n, r) {
-      var a =
-          t ===
-          o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().toString(),
+      var a = t === o("WAWebUserPrefsMeUser").getMeUserOrThrow().toString(),
         i = r.bizPlatform,
         l = r.collectionStats,
         d = babelHelpers.objectWithoutPropertiesLoose(r, s),

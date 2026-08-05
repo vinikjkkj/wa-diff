@@ -121,7 +121,7 @@ __d(
         if (l) {
           var s = o("WAPhoneFindCC").findCC(r),
             u = r.slice(s.length);
-          a = o("WAWebPhoneUtils").isPotentiallyValid(s, u);
+          a = o("WAWebPhoneUtils").isPotentiallyValidInternational(s, u);
         } else {
           var c,
             d =

@@ -13,6 +13,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallsTabPanelManager",
+    "WAWebVoipPendingCallLogOutcome",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -99,21 +100,33 @@ __d(
                     ])),
                   a,
                 ));
-            var R = yield o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(
-              h,
-              v,
-            );
-            (b.length > 0 &&
-              (yield o("WAWebSchemaMessageOrphans")
-                .getMessageOrphanTable()
-                .bulkRemove(
-                  b.map(function (e) {
-                    return e.msgKey;
-                  }),
-                )),
+            var R = o(
+                "WAWebVoipPendingCallLogOutcome",
+              ).mergePendingCallLogOutcome(v),
+              L = R.callLogMessage,
+              E = R.pendingOutcome,
+              k = yield o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(
+                h,
+                L,
+              );
+            (k != null &&
+              E != null &&
+              L.id != null &&
+              o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+                L.id,
+                E,
+              ),
+              b.length > 0 &&
+                (yield o("WAWebSchemaMessageOrphans")
+                  .getMessageOrphanTable()
+                  .bulkRemove(
+                    b.map(function (e) {
+                      return e.msgKey;
+                    }),
+                  )),
               r("WAWebVoipCallsTabPanelManager").trigger(
                 "onWriteCallLogMessage",
-                R,
+                k,
               ));
           } catch (e) {
             o("WALogger")

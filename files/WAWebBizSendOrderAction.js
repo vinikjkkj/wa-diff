@@ -61,7 +61,7 @@ __d(
             d = t.nativeFlowName,
             m = t.nfmInteractiveMsg,
             p = t.thumbnail,
-            _ = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            _ = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             f = p
               ? {
                   title: void 0,

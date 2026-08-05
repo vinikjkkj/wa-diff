@@ -89,7 +89,7 @@ __d(
             i = e.message,
             l = e.order,
             s = e.thumbnail,
-            u = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            u = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             c = l.price.total,
             d = {
               type: "order",

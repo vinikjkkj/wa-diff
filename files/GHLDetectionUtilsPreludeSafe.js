@@ -172,10 +172,20 @@ __d(
     function S() {
       try {
         var e,
-          t = JSON.parse(
-            '{"data":{"node":{"th_dat_spo":{"__typename":"SponsoredData"}}}}',
+          t,
+          n,
+          r = JSON.parse(
+            '{"data":{"node":{"s":{"__typename":"SponsoredData"}}},"edges":[{"node":{"s":{"__typename":"SponsoredData"}}}],"require":[{"node":{"s":{"__typename":"SponsoredData"}}}]}',
           );
-        return (t == null || (e = t.data) == null ? void 0 : e.node) == null;
+        return (
+          (r == null || (e = r.data) == null ? void 0 : e.node) == null ||
+          (r == null || (t = r.edges) == null || (t = t[0]) == null
+            ? void 0
+            : t.node) == null ||
+          (r == null || (n = r.require) == null || (n = n[0]) == null
+            ? void 0
+            : n.node) == null
+        );
       } catch (e) {
         return !1;
       }

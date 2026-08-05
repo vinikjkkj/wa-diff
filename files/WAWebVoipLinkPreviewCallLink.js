@@ -7,6 +7,7 @@ __d(
     "WAWebEnsureVoipInited",
     "WAWebFrontendContactGetters",
     "WAWebPipController",
+    "WAWebTypedEventEmitter",
     "WAWebUserPrefsVoip",
     "WAWebVoipCallBlockedModals",
     "WAWebVoipGatingUtils",
@@ -27,14 +28,16 @@ __d(
       _,
       f,
       g = 22,
-      h = { videoMuted: !1, audioMuted: !1 };
-    function y() {
+      h = { videoMuted: !1, audioMuted: !1 },
+      y = new (r("WAWebTypedEventEmitter"))();
+    function C() {
       return h;
     }
-    function C(e) {
-      ((h.videoMuted = e.videoMuted), (h.audioMuted = e.audioMuted));
+    function b(e) {
+      ((h = { videoMuted: e.videoMuted, audioMuted: e.audioMuted }),
+        y.trigger("change", h));
     }
-    function b() {
+    function v() {
       if (r("WAWebPipController").manager != null) {
         r("WAWebPipController").openVoipUiPiPForCallLink();
         return;
@@ -52,7 +55,7 @@ __d(
         };
       window.setTimeout(o, t);
     }
-    function v(e) {
+    function S(e) {
       if (
         (e.audioDeviceId != null &&
           o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e.audioDeviceId),
@@ -69,18 +72,18 @@ __d(
       e.colorIndex != null &&
         o("WAWebUserPrefsVoip").saveLandingPageColorIndex(e.colorIndex);
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a = t.data,
             i = a.audioDeviceId,
             l = a.audioMuted,
             y = a.autoJoin,
             C = a.callType,
-            S = a.colorIndex,
+            b = a.colorIndex,
             R = a.speakerDeviceId,
             L = a.token,
             E = a.videoDeviceId,
@@ -123,9 +126,9 @@ __d(
           ((h.videoMuted = k != null ? k : !1),
             (h.audioMuted = l != null ? l : !1));
           var I = C === "video";
-          (v({
+          (S({
             audioDeviceId: i,
-            colorIndex: S,
+            colorIndex: b,
             speakerDeviceId: R,
             videoDeviceId: E,
           }),
@@ -134,7 +137,7 @@ __d(
             "WAWebVoipInitEventEmitter",
           ).VoipInitEventEmitter.getIsVoipInited();
           T ||
-            (r("WAWebCallCollection").setPendingCallLink({ isVideo: I }), b());
+            (r("WAWebCallCollection").setPendingCallLink({ isVideo: I }), v());
           try {
             yield o("WAWebEnsureVoipInited").ensureVoipInitialized();
           } catch (e) {
@@ -208,13 +211,14 @@ __d(
                     String($),
                   )));
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    ((l.getLandingPageMutePrefs = y),
-      (l.updateLandingPageMutePrefs = C),
-      (l.applyCallLinkDevicePrefs = v),
-      (l.handleClickCallLink = S));
+    ((l.LandingPageMutePrefsEmitter = y),
+      (l.getLandingPageMutePrefs = C),
+      (l.updateLandingPageMutePrefs = b),
+      (l.applyCallLinkDevicePrefs = S),
+      (l.handleClickCallLink = R));
   },
   226,
 );

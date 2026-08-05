@@ -24,10 +24,10 @@ __d(
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: o("WAWebModalManager").closeModalManager,
-          cancelText: s._(/*BTDS*/ "Learn More"),
+          cancelText: s._(/*BTDS*/ "Learn more"),
           onCancel: e,
           children: s._(
-            /*BTDS*/ "Your message couldn\u2019t send because you\u2019ve reached your monthly limit of new chat messages.",
+            /*BTDS*/ "Your message couldn't be sent because you've reached your monthly limit of new chats.",
           ),
         }),
         { transition: "modal-flow" },
@@ -39,7 +39,7 @@ __d(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: o("WAWebModalManager").closeModalManager,
           children: s._(
-            /*BTDS*/ "Your message couldn\u2019t send because you\u2019ve reached your monthly limit of new chat messages. Click to learn more.",
+            /*BTDS*/ "Your message couldn't be sent because you've reached your monthly limit of new chats. Click to learn more.",
           ),
         }),
         { transition: "modal-flow" },

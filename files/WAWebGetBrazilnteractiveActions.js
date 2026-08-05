@@ -2,6 +2,7 @@ __d(
   "WAWebGetBrazilnteractiveActions",
   [
     "fbt",
+    "WALogger",
     "WAWebBizFrontendGatingUtils",
     "WAWebBizOrderDetailsParams",
     "WAWebBrazilPaymentsGeoGating",
@@ -37,10 +38,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = e || (e = o("react")),
-      c = "api_receiver_event_log_key",
-      d = "receiver_event_log_key";
-    function m(e, t) {
+      u,
+      c = u || (u = o("react")),
+      d = "api_receiver_event_log_key",
+      m = "receiver_event_log_key";
+    function p(e, t) {
       var n = e.paymentSettings;
       return {
         label: s._(/*BTDS*/ "Copy Pix key"),
@@ -70,7 +72,7 @@ __d(
             );
           if (a == null) {
             o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
+              c.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Couldn't copy Pix key"),
               }),
             );
@@ -79,7 +81,7 @@ __d(
           o("WAWebCopyTextWithToast").copyTextWithToast({
             failureMsg: s._(/*BTDS*/ "Couldn't copy Pix key"),
             onSuccess: function () {
-              p(t);
+              _(t);
             },
             successMsg: s._(/*BTDS*/ "Pix key copied"),
             text: o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(a, i),
@@ -88,45 +90,45 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
-            var n = yield v(e, d),
-              r = (t = e.senderObj) == null ? void 0 : t.id.toJid(),
-              a = o("WAWebContactUtils").getMaybeBizPlatformForLogging(r),
-              i = a === o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN,
-              l = o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
-              s = Object.keys(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n;
+          if (!o("WAWebMsgGetters").getIsSentByMe(t)) {
+            var r = yield S(t, m),
+              a = (n = t.senderObj) == null ? void 0 : n.id.toJid(),
+              i = o("WAWebContactUtils").getMaybeBizPlatformForLogging(a),
+              l = i === o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN,
+              s = o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
+              u = Object.keys(
                 o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE,
               )[
                 o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
-                  l.id,
+                  s.id,
                 )
               ].toLowerCase(),
-              u = new (o(
+              c = new (o(
                 "WAWebPsStructuredMessageInteractionWamEvent",
               ).PsStructuredMessageInteractionWamEvent)({
-                bizPlatform: i
+                bizPlatform: l
                   ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN
-                  : a,
-                businessOwnerJid: r,
+                  : i,
+                businessOwnerJid: a,
                 messageClass: o("WAWebWamEnumStructuredMessageClass")
                   .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
                 messageClassAttributes: JSON.stringify(
-                  i
+                  l
                     ? {
                         cta: "p2p_pix",
                         flow: "P2P",
-                        chat_type: s,
+                        chat_type: u,
                         is_cta_available: !0,
                         accepted_payment_method: ["pix"],
                         payment_method_choice: "pix",
-                        order_funnel_id: n,
+                        order_funnel_id: r,
                         referral: "chat_attachment",
                       }
                     : {
@@ -138,25 +140,31 @@ __d(
                         is_template: !1,
                         accepted_payment_method: ["pix"],
                         message_type: "payment_info",
-                        order_funnel_id: n,
-                        chat_type: s,
+                        order_funnel_id: r,
+                        chat_type: u,
                       },
                 ),
                 messageInteraction: o("WAWebWamEnumInteractionType")
                   .INTERACTION_TYPE.COPY_PIX_KEY,
                 messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
               });
-            (u.commit(),
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "CopyPixKey Log",
+                ])),
+            ),
+              c.commit(),
               o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
                 isLoggingEnabled: o(
                   "WAWebBizFrontendGatingUtils",
-                ).isCopyPixKeyBuyerLoggingEnabled(r),
-                psFunnelId: n,
-                attributes: i
+                ).isCopyPixKeyBuyerLoggingEnabled(a),
+                psFunnelId: r,
+                attributes: l
                   ? {
                       cta: "p2p_pix",
                       flow: "P2P",
-                      chatType: s,
+                      chatType: u,
                       isCtaAvailable: !0,
                       acceptedPaymentMethod: ["pix"],
                       paymentMethodChoice: "pix",
@@ -171,20 +179,20 @@ __d(
                       isTemplate: !1,
                       acceptedPaymentMethod: ["pix"],
                       messageType: "payment_info",
-                      chatType: s,
+                      chatType: u,
                     },
                 interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
                   .COPY_PIX_KEY,
-                bizPlatform: i
+                bizPlatform: l
                   ? o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN
-                  : a,
+                  : i,
               }));
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function g(e, t) {
       var n = e.paymentSettings;
       return {
         label: s._(/*BTDS*/ "Open payment link"),
@@ -206,14 +214,14 @@ __d(
               : null;
           if (i == null) {
             o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
+              c.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Couldn't open payment link"),
               }),
             );
             return;
           }
           (o("WAWebExternalLink.react").openExternalLink(i),
-            R(
+            L(
               t,
               e,
               o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
@@ -223,7 +231,7 @@ __d(
         Icon: o("WAWebLaunchIcon.react").LaunchIcon,
       };
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = e.paymentSettings;
       return {
         label: s._(/*BTDS*/ "Copy boleto code"),
@@ -242,7 +250,7 @@ __d(
               : null;
           if (i == null) {
             o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
+              c.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Couldn't copy boleto code"),
               }),
             );
@@ -251,7 +259,7 @@ __d(
           o("WAWebCopyTextWithToast").copyTextWithToast({
             failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
             onSuccess: function () {
-              R(
+              L(
                 t,
                 e,
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
@@ -264,7 +272,7 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = t.paymentSettings,
         a =
           n == null
@@ -299,7 +307,7 @@ __d(
           o("WAWebCopyTextWithToast").copyTextWithToast({
             failureMsg: p,
             onSuccess: function () {
-              y(e, t);
+              C(e, t);
             },
             successMsg: m,
             text: d,
@@ -308,15 +316,15 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
-            var r = yield v(e, d),
+            var r = yield S(e, m),
               a = (n = e.senderObj) == null ? void 0 : n.id.toJid(),
               i = o("WAWebContactUtils").getMaybeBizPlatformForLogging(a),
               l = i === o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.UNKNOWN,
@@ -382,7 +390,7 @@ __d(
                     .INTERACTION_TYPE.COPY_PIX_CODE,
                 }),
               ).commit());
-            var m = l
+            var d = l
               ? {
                   cta: "p2p_pix",
                   flow: "P2P",
@@ -411,7 +419,7 @@ __d(
                 "WAWebBizFrontendGatingUtils",
               ).isCopyPixCodeBuyerLoggingEnabled(a),
               psFunnelId: r,
-              attributes: m,
+              attributes: d,
               interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
                 .USER_PAY_NOW,
               bizPlatform: l
@@ -423,7 +431,7 @@ __d(
                   "WAWebBizFrontendGatingUtils",
                 ).isCopyPixCodeBuyerLoggingEnabled(a),
                 psFunnelId: r,
-                attributes: m,
+                attributes: d,
                 interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
                   .COPY_PIX_CODE,
                 bizPlatform: l
@@ -432,10 +440,10 @@ __d(
               }));
           }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function v(e, t) {
       var n = e.paymentSettings;
       return {
         label: s._(/*BTDS*/ "Copy Pix code"),
@@ -457,7 +465,7 @@ __d(
               : null;
           if (i == null) {
             o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
+              c.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(/*BTDS*/ "Couldn't copy Pix Code"),
               }),
             );
@@ -466,7 +474,7 @@ __d(
           o("WAWebCopyTextWithToast").copyTextWithToast({
             failureMsg: s._(/*BTDS*/ "Couldn't copy Pix Code"),
             onSuccess: function () {
-              R(
+              L(
                 t,
                 e,
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
@@ -479,12 +487,12 @@ __d(
         Icon: r("WDSIconIcContentCopy.react"),
       };
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function S(e, t) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
               t,
               e.id.id + e.to.toJid(),
@@ -492,41 +500,41 @@ __d(
             r = yield n.genFunnelInfo();
           return r.funnel_id;
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e, t, n) {
-      return L.apply(this, arguments);
+    function L(e, t, n) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a, i;
           if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
             var l = [];
-            E(t) &&
+            k(t) &&
               l.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.PIX,
               );
             var s = o("WAWebFrontendMsgGetters").getChat(e.unsafe());
             (o("WAWebBrazilPaymentsGeoGating").isBoletoEnabled(s) &&
-              I(t) &&
+              T(t) &&
               l.push(
                 o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods.BOLETO,
               ),
               o("WAWebBrazilPaymentsGeoGating").isPaymentLinkEnabled(s) &&
-                T(t) &&
+                D(t) &&
                 l.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .PAYMENT_LINK,
                 ),
-              P(t) &&
+              N(t) &&
                 l.push(
                   o("WAWebOrderPaymentStatus").OrderAcceptedPaymentMethods
                     .NATIVE,
                 ));
             var u = JSON.stringify(l),
-              d = yield v(e, c),
+              c = yield S(e, d),
               m = new (o(
                 "WAWebPsStructuredMessageInteractionWamEvent",
               ).PsStructuredMessageInteractionWamEvent)({
@@ -536,7 +544,7 @@ __d(
                 messageClass: o("WAWebWamEnumStructuredMessageClass")
                   .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
                 messageClassAttributes: JSON.stringify({
-                  order_funnel_id: d,
+                  order_funnel_id: c,
                   wa_pay_registered: !1,
                   is_template: !1,
                   is_cta_available: !0,
@@ -565,7 +573,7 @@ __d(
                 ).isCopyPixCodeBuyerLoggingEnabled(
                   (i = e.senderObj) == null ? void 0 : i.id.toJid(),
                 ),
-                psFunnelId: d,
+                psFunnelId: c,
                 attributes: {
                   cta: r("WAWebInteractiveMessagesNativeFlowName")
                     .ORDER_DETAILS,
@@ -599,10 +607,10 @@ __d(
               }));
           }
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
+    function k(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -616,7 +624,7 @@ __d(
         ? t
         : !1;
     }
-    function k(e) {
+    function I(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -630,7 +638,7 @@ __d(
         ? t
         : !1;
     }
-    function I(e) {
+    function T(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -643,7 +651,7 @@ __d(
         ? t
         : !1;
     }
-    function T(e) {
+    function D(e) {
       var t, n;
       return (t =
         (n = e.paymentSettings) == null
@@ -656,7 +664,7 @@ __d(
         ? t
         : !1;
     }
-    function D(e) {
+    function x(e) {
       var t,
         n,
         r = o("WAWebOrderDetails").getOrderInfo(e);
@@ -675,7 +683,7 @@ __d(
           : !1;
       return a;
     }
-    function x(e) {
+    function $(e) {
       var t;
       if (
         e.nativeFlowName ===
@@ -702,14 +710,14 @@ __d(
       }
       return !1;
     }
-    function $(e) {
+    function P(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        x(e) &&
+        $(e) &&
         o("WAWebMsgGetters").getIsSentByMe(e)
       );
     }
-    function P(e) {
+    function N(e) {
       var t, n;
       return (
         ((t = e.paymentSettings) == null
@@ -731,18 +739,18 @@ __d(
           e.payment_configuration.trim() !== "")
       );
     }
-    ((l.getPaymentInfoOrderDetailsInteractiveAction = m),
-      (l.getOpenPaymentLinkInteractiveAction = f),
-      (l.getCopyBoletoCodeInteractiveAction = g),
-      (l.getCopyPixStaticCodeInteractiveAction = h),
-      (l.getCopyPixCodeInteractiveAction = b),
-      (l.hasValidDynamicPix = E),
-      (l.hasValidStaticPix = k),
-      (l.hasValidBoletoCode = I),
-      (l.hasValidPaymentLink = T),
-      (l.hasOrderOffsiteCardPay = D),
-      (l.shouldHideOffsiteCardPayConfirmation = $),
-      (l.hasValidCard = P));
+    ((l.getPaymentInfoOrderDetailsInteractiveAction = p),
+      (l.getOpenPaymentLinkInteractiveAction = g),
+      (l.getCopyBoletoCodeInteractiveAction = h),
+      (l.getCopyPixStaticCodeInteractiveAction = y),
+      (l.getCopyPixCodeInteractiveAction = v),
+      (l.hasValidDynamicPix = k),
+      (l.hasValidStaticPix = I),
+      (l.hasValidBoletoCode = T),
+      (l.hasValidPaymentLink = D),
+      (l.hasOrderOffsiteCardPay = x),
+      (l.shouldHideOffsiteCardPayConfirmation = P),
+      (l.hasValidCard = N));
   },
   226,
 );

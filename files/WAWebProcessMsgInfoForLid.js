@@ -80,7 +80,7 @@ __d(
                 o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled();
             if (((g = g || h || y || C), g))
               m = o("WAWebLidMigrationUtils").toUserLidOrThrow(n);
-            else if (i.username != null) {
+            else if (i.username != null || i.participantUsername != null) {
               var b = f
                 ? "missing-pn-lid-mapping-in-1-1-message-with-username-UN-enabled"
                 : "missing-pn-lid-mapping-in-1-1-message-with-username-UN-off";

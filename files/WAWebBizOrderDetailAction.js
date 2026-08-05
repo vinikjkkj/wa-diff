@@ -39,7 +39,7 @@ __d(
         l = e.sellerJid,
         u = e.status,
         c = e.token,
-        d = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        d = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
         m =
           (r =
             (a = o("WAWebMsgGetters").getSender(e)) == null

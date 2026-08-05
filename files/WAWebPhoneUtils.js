@@ -112,7 +112,17 @@ __d(
           : n.lengths.includes(t.length)
         : !1;
     }
-    function g(e, t, n) {
+    function g(e, t) {
+      var n;
+      if (!/^\d+$/.test(t)) return !1;
+      if (f(e, t)) return !0;
+      var r = c(e);
+      return (
+        (r == null || (n = r.validMobileRegex) == null ? void 0 : n.test(t)) ===
+        !0
+      );
+    }
+    function h(e, t, n) {
       if (!/^\d+$/.test(t)) return !1;
       var o = c(e);
       if (!o) return !1;
@@ -137,15 +147,16 @@ __d(
         }
       return i;
     }
-    function h(e) {
+    function y(e) {
       return m(o("WAJids").phoneNumberFromJid(e));
     }
     ((l.compileCountryRegexes = c),
       (l.formatPhone = m),
       (l.isPotentiallyPhoneNumber = _),
       (l.isPotentiallyValid = f),
-      (l.isValidMobileForRegistration = g),
-      (l.formattedPhoneNumber = h));
+      (l.isPotentiallyValidInternational = g),
+      (l.isValidMobileForRegistration = h),
+      (l.formattedPhoneNumber = y));
   },
   98,
 );

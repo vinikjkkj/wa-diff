@@ -7,6 +7,7 @@ __d(
     "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
     "WASmaxBrPaymentRemoveCustomPaymentMethodRPC",
     "WAWebBackendApi",
+    "WAWebConsumerPaymentsHomeLogger",
     "WAWebCustomPaymentMethodsSync",
     "WAWebMobilePlatforms",
     "WAWebSyncdCoreApi",
@@ -40,14 +41,17 @@ __d(
                 ],
               },
             };
-          o("WALogger")
-            .LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "Adding Pix Key",
-                ])),
-            )
-            .sendLogs("payment-brazil");
+          (o("WAWebConsumerPaymentsHomeLogger").logSyncEvent(
+            o("WAWebConsumerPaymentsHomeLogger").SYNC_TARGETS.STORE_SENT,
+          ),
+            o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Adding Pix Key",
+                  ])),
+              )
+              .sendLogs("payment-brazil"));
           var d = yield o(
             "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
           ).sendCreateCustomPaymentMethodRPC(c);
@@ -102,14 +106,17 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = { accountCredentialId: e };
-          o("WALogger")
+          (o("WALogger")
             .LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "Removing Pix Key",
                 ])),
             )
-            .sendLogs("payment-brazil");
+            .sendLogs("payment-brazil"),
+            o("WAWebConsumerPaymentsHomeLogger").logSyncEvent(
+              o("WAWebConsumerPaymentsHomeLogger").SYNC_TARGETS.REMOVE_PIX,
+            ));
           var n;
           try {
             n = yield o(

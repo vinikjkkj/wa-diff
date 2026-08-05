@@ -482,9 +482,7 @@ __d(
         var oe;
         t[43] === Symbol.for("react.memo_cache_sentinel")
           ? ((oe = c.jsx(r("WAWebOrderDetailSellerProfile.react"), {
-              sellerWid: o(
-                "WAWebUserPrefsMeUser",
-              ).getMePnUserOrThrow_DO_NOT_USE(),
+              sellerWid: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             })),
             (t[43] = oe))
           : (oe = t[43]);
