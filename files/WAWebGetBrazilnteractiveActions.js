@@ -97,7 +97,7 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
-          if (!o("WAWebMsgGetters").getIsSentByMe(t)) {
+          if (!o("WAWebMsgGetters").getIsSentByMe(t.unsafe())) {
             var r = yield S(t, m),
               a = (n = t.senderObj) == null ? void 0 : n.id.toJid(),
               i = o("WAWebContactUtils").getMaybeBizPlatformForLogging(a),
@@ -323,7 +323,7 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
-          if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
+          if (!o("WAWebMsgGetters").getIsSentByMe(e.unsafe())) {
             var r = yield S(e, m),
               a = (n = e.senderObj) == null ? void 0 : n.id.toJid(),
               i = o("WAWebContactUtils").getMaybeBizPlatformForLogging(a),
@@ -510,7 +510,7 @@ __d(
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a, i;
-          if (!o("WAWebMsgGetters").getIsSentByMe(e)) {
+          if (!o("WAWebMsgGetters").getIsSentByMe(e.unsafe())) {
             var l = [];
             k(t) &&
               l.push(
@@ -714,7 +714,7 @@ __d(
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
         $(e) &&
-        o("WAWebMsgGetters").getIsSentByMe(e)
+        o("WAWebMsgGetters").getIsSentByMe(e.unsafe())
       );
     }
     function N(e) {

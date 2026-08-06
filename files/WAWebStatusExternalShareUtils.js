@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebProtobufsStatusAttributions.pb",
-    "WAWebStatusGatingUtils",
     "WDSIconWdsIcLogoAppleMusic.react",
     "WDSIconWdsIcLogoFacebook.react",
     "WDSIconWdsIcLogoGooglePhotos.react",
@@ -118,26 +117,22 @@ __d(
       }
     }
     function _(e) {
-      if (
-        !o("WAWebStatusGatingUtils").isStatusCrosspostingAttributionsEnabled()
-      )
-        return null;
       var t = e.statusAttributions;
       if (t == null) return null;
       for (var n of t) {
         var r = n.externalShare;
         if (r != null) {
-          var a,
-            i = r.source;
+          var o,
+            a = r.source;
+          if (a == null) continue;
+          var i = p(a);
           if (i == null) continue;
-          var l = p(i);
-          if (l == null) continue;
-          var s = (a = r.actionUrl) != null ? a : n.actionUrl;
-          if (s != null && s.length > 0)
+          var l = (o = r.actionUrl) != null ? o : n.actionUrl;
+          if (l != null && l.length > 0)
             return {
-              url: s,
-              displayText: l,
-              source: i,
+              url: l,
+              displayText: i,
+              source: a,
               durationInSeconds: r.duration,
             };
         }

@@ -42,6 +42,7 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
     "WAWebSendNotSpamAction",
+    "WAWebSilentProtocolMsg",
     "WAWebSingleEmojiDailyUtils",
     "WAWebThreadMsgUtils",
     "WAWebUpdateUnreadChatAction",
@@ -132,11 +133,7 @@ __d(
           var h =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               ["sender_revoke", "admin_revoke"].includes(i.subtype),
-            y =
-              i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-              i.subtype ===
-                o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-                  .EphemeralSyncResponse,
+            y = o("WAWebSilentProtocolMsg").isSilentProtocolMsg(i),
             C =
               i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               i.subtype ===

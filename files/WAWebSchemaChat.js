@@ -74,6 +74,7 @@ __d(
               r("isSenderSuspicious"),
               r("parentCompanyName"),
               r("obaPhoneNumber"),
+              r("suggestedRepliesEnabled"),
             ])
             .version(n.chatAddDisappearingModeInitiator(), [
               r("disappearingModeInitiator"),

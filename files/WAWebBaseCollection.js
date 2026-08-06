@@ -27,10 +27,11 @@ __d(
       m,
       p,
       _,
-      f = { QUERY: "QUERY", FIND: "FIND", UPDATE: "UPDATE" },
-      g = {}.toString(),
-      h = { id: "none", policy: o("WAWebBaseCachePolicy").CACHE_POLICY.NONE },
-      y = (function (e) {
+      f,
+      g = { QUERY: "QUERY", FIND: "FIND", UPDATE: "UPDATE" },
+      h = {}.toString(),
+      y = { id: "none", policy: o("WAWebBaseCachePolicy").CACHE_POLICY.NONE },
+      C = (function (e) {
         function t(t) {
           var n;
           return (
@@ -42,7 +43,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      C = (function (t) {
+      b = (function (t) {
         function a() {
           var e;
           return (
@@ -50,7 +51,7 @@ __d(
             (e._inflight = {}),
             (e._cachePolicy = o("WAWebCachePolicies").createCachePolicy(
               e,
-              e.constructor.cachePolicy || h,
+              e.constructor.cachePolicy || y,
             )),
             e._cachePolicy.enableCaching(),
             e._cachePolicy.constructor.policy ===
@@ -121,11 +122,11 @@ __d(
             return t.prototype.add.call(this, a, i);
           }),
           (i.findQuery = function (t, n) {
-            return this._query(f.QUERY, t, n);
+            return this._query(g.QUERY, t, n);
           }),
           (i.find = function (t, a) {
             return t
-              ? this._query(f.FIND, t, a)
+              ? this._query(g.FIND, t, a)
               : (o("WALogger")
                   .ERROR(
                     u ||
@@ -134,13 +135,13 @@ __d(
                       ])),
                   )
                   .sendLogs("find-without-id"),
-                (_ || (_ = n("Promise"))).reject(
+                (f || (f = n("Promise"))).reject(
                   r("err")("called find without an id"),
                 ));
           }),
           (i.update = function (t, a) {
             return t
-              ? this._query(f.UPDATE, t, a)
+              ? this._query(g.UPDATE, t, a)
               : (o("WALogger")
                   .ERROR(
                     c ||
@@ -149,7 +150,7 @@ __d(
                       ])),
                   )
                   .sendLogs("update-without-id"),
-                (_ || (_ = n("Promise"))).reject(
+                (f || (f = n("Promise"))).reject(
                   r("err")("called update without an id"),
                 ));
           }),
@@ -170,17 +171,17 @@ __d(
           (i._query = function (t, a, i) {
             var e = this,
               l = o("WATypeUtils").isString(a) ? a : a.toString();
-            l === g && (l = r("uniqueID")("collection_query_"));
-            var s = t === f.QUERY ? void 0 : this.get(a),
+            l === h && (l = r("uniqueID")("collection_query_"));
+            var s = t === g.QUERY ? void 0 : this.get(a),
               u = "force-" + l;
             return (
-              ((this._inflight[u] && t === f.FIND) || t === f.UPDATE) &&
+              ((this._inflight[u] && t === g.FIND) || t === g.UPDATE) &&
                 (l = u),
               this._inflight[l]
-                ? t === f.FIND && s && !s.stale
-                  ? (_ || (_ = n("Promise"))).resolve(s)
+                ? t === g.FIND && s && !s.stale
+                  ? (f || (f = n("Promise"))).resolve(s)
                   : this._inflight[l]
-                : !s || s.stale || t === f.UPDATE
+                : !s || s.stale || t === g.UPDATE
                   ? (this._inflight[l] = this._serverQuery(t, a, i)
                       .finally(function () {
                         delete e._inflight[l];
@@ -201,7 +202,7 @@ __d(
                         ),
                       )
                       .catch(function (e) {
-                        if (e instanceof y)
+                        if (e instanceof C)
                           o("WALogger").LOG(
                             m ||
                               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -212,16 +213,16 @@ __d(
                           );
                         else throw e;
                       }))
-                  : (_ || (_ = n("Promise"))).resolve(s)
+                  : (f || (f = n("Promise"))).resolve(s)
             );
           }),
           (i._serverQuery = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n) {
                 var r, a, i;
-                e === f.UPDATE
+                e === g.UPDATE
                   ? (i = this._update(t, n))
-                  : e === f.FIND
+                  : e === g.FIND
                     ? (i = this.findImpl(t, n))
                     : (i = this.findQueryImpl(t));
                 var l = yield i;
@@ -254,25 +255,46 @@ __d(
           (i._markResultsNotStale = function (t) {}),
           (i._updateFromCache = function () {
             var e = this._cachePolicy.id;
-            (this._cachePolicy.disableCaching(),
-              o("WAWebConnModel").Conn.shouldSaveToCache() &&
-                (o("WALogger").LOG(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "baseCollection:initFromCache load: ",
-                      "",
-                    ])),
-                  String(e),
-                ),
-                this.initializeFromCache(
-                  r("WAWebUserPrefsStore").getCollection(e),
-                ),
-                this._cachePolicy.enableCaching()));
+            if (
+              (this._cachePolicy.disableCaching(),
+              !!o("WAWebConnModel").Conn.shouldSaveToCache())
+            ) {
+              o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "baseCollection:initFromCache load: ",
+                    "",
+                  ])),
+                String(e),
+              );
+              var t = self.performance.now(),
+                n = r("WAWebUserPrefsStore").getCollection(e),
+                a = self.performance.now();
+              this.initializeFromCache(n);
+              var i = self.performance.now();
+              (o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "baseCollection:initFromCache complete: ",
+                    " items=",
+                    " readParse=",
+                    "ms initialize=",
+                    "ms total=",
+                    "ms",
+                  ])),
+                String(e),
+                Array.isArray(n) ? n.length : 0,
+                Math.round(a - t),
+                Math.round(i - a),
+                Math.round(i - t),
+              ),
+                this._cachePolicy.enableCaching());
+            }
           }),
           a
         );
       })(r("WAWebCollection"));
-    ((l.CollectionSilentQueryError = y), (l.BaseCollection = C));
+    ((l.CollectionSilentQueryError = C), (l.BaseCollection = b));
   },
   98,
 );

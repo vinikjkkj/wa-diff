@@ -260,20 +260,25 @@ __d(
                   )));
               }
               var O = {
-                draftPageId: S(t, I),
-                pageId1:
-                  (m = (_ = I.fbPageId) != null ? _ : I.waPageId) != null
-                    ? m
-                    : "",
-                pageId2:
-                  I.fbPageId != null && I.waPageId != null ? I.waPageId : null,
-              };
-              o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
-                o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
-                  .PRELOAD_AD_MGMT_QUERY_START,
-              );
-              var B = yield p(),
-                W = B(
+                  draftPageId: S(t, I),
+                  pageId1:
+                    (m = (_ = I.fbPageId) != null ? _ : I.waPageId) != null
+                      ? m
+                      : "",
+                  pageId2:
+                    I.fbPageId != null && I.waPageId != null
+                      ? I.waPageId
+                      : null,
+                },
+                B = null,
+                W = r("justknobx")._("897") && O.pageId1 === "";
+              if (!W) {
+                var g;
+                (g = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
+                  g.AdsManagementQplPoint.PRELOAD_AD_MGMT_QUERY_START,
+                );
+                var q = yield p();
+                ((B = q(
                   k,
                   r("WAWebBizAdManagementRootQuery$Parameters"),
                   {
@@ -286,12 +291,12 @@ __d(
                     page_id_2: O.pageId2,
                   },
                   { fetchPolicy: "network-only" },
-                );
+                )),
+                  g.adsManagementQplAddPoint(
+                    g.AdsManagementQplPoint.PRELOAD_AD_MGMT_QUERY_END,
+                  ));
+              }
               return (
-                o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
-                  o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
-                    .PRELOAD_AD_MGMT_QUERY_END,
-                ),
                 o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
                   o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                     .IDENTITY_RESOLUTION_END,
@@ -301,7 +306,7 @@ __d(
                   accountType: t,
                   adAccountId: R,
                   adCreationEntrypointReference: $,
-                  adManagementQueryRef: W,
+                  adManagementQueryRef: B,
                   adManagementQueryVariables: O,
                   hasLinkedFbPage: I.fbPageId != null,
                   hasWeakToken:
@@ -319,8 +324,8 @@ __d(
               o("WAWebBizNativeAdsQplHelpers").endAdsManagementQplFail(
                 "identity_resolution_error",
               );
-              var q = r("getErrorSafe")(e);
-              if ((v(q, t), t === "FB"))
+              var U = r("getErrorSafe")(e);
+              if ((v(U, t), t === "FB"))
                 return (
                   o(
                     "WAWebBizNativeAdsStoredFBIdentityStore",

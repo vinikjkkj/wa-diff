@@ -8,6 +8,7 @@ __d(
       ONLY_WITH: 3,
       CLOSE_FRIENDS: 4,
       CUSTOM_LIST: 5,
+      GROUP_STATUS: 6,
     });
     i.STATUS_PRIVACY_TYPE = e;
   },

@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WAWebVoipQplHelpers",
+    "WAWebVoipWasmArtifactRegistry",
     "WAWebVoipWebWasmWorkerResource",
     "WorkerBundleResource",
     "WorkerClient",
@@ -13,7 +14,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1785910084112" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1786008825082" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -46,9 +47,9 @@ __d(
           function h() {
             return (W.buffer != z.buffer && ne(), te);
           }
-          var y = a,
-            C,
-            b;
+          var y = a;
+          o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(c);
+          var C, b;
           ((y.ready = new (u || (u = n("Promise")))(function (e, t) {
             ((C = e), (b = t));
           })),
@@ -765,10 +766,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1332372: function () {
+            1336996: function () {
               return Date.now();
             },
-            1332395: function (t, n) {
+            1337019: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -7772,8 +7773,8 @@ __d(
             _l = (y.___get_exception_message = xe("__get_exception_message")),
             fl = xe("__cxa_can_catch"),
             gl = xe("__cxa_is_pointer_type"),
-            hl = (y.___start_em_js = 1326940),
-            yl = (y.___stop_em_js = 1332372);
+            hl = (y.___start_em_js = 1331564),
+            yl = (y.___stop_em_js = 1336996);
           function Cl(e, t, n, r) {
             var o = cl();
             try {

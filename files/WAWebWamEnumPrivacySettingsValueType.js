@@ -11,6 +11,7 @@ __d(
       KNOWN: 6,
       CLOSE_FRIENDS: 7,
       CUSTOM_LIST: 8,
+      GROUP_STATUS: 9,
     });
     i.PRIVACY_SETTINGS_VALUE_TYPE = e;
   },

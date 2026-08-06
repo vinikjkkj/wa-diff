@@ -1,6 +1,6 @@
 __d(
   "WAWebVerificationDrawerHelpers",
-  ["fbt", "WAValidateFingerprints", "WAWebBizCoexGatingUtils", "jsqr"],
+  ["fbt", "WAValidateFingerprints", "jsqr"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = r("jsqr")(e.data, e.width, e.height, {
@@ -17,9 +17,7 @@ __d(
           e,
           new Uint8Array(t),
           !0,
-          o(
-            "WAWebBizCoexGatingUtils",
-          ).hostedDeviceSecurityCodeVerificationEnabled(),
+          !0,
         );
       } catch (e) {
         return o("WAValidateFingerprints").FingerprintValidationResult

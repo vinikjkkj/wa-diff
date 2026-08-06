@@ -599,8 +599,7 @@ __d(
               if (
                 (C.isLid() && (fe.lidOriginType = j(t.lidOriginType)),
                 t.archived != null && (fe.archive = t.archived),
-                t.authAgentParentCompanyName != null &&
-                  o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled())
+                t.authAgentParentCompanyName != null)
               ) {
                 var ge;
                 ((fe.parentCompanyName = t.authAgentParentCompanyName),

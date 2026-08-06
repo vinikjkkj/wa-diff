@@ -8,6 +8,7 @@ __d(
       ONLY_SHARE_WITH_CONTACTS: 3,
       ONLY_SHARE_WITH_CLOSE_FRIENDS: 4,
       ONLY_SHARE_WITH_CUSTOM_LIST: 5,
+      GROUP_STATUS: 6,
     });
     i.SETTING = e;
   },

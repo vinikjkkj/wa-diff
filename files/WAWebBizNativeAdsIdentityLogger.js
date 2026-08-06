@@ -8,18 +8,23 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r, a) {
-      var i = new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
-        lwiAdsIdentityType: void 0,
-        lwiExtras: JSON.stringify({
-          available_account_types: n ? ["FB", "WAA"] : ["FB"],
-          has_linked_fb_page: r,
-        }),
-        lwiScreenAction: e,
-        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
-          .LWI_SCREEN_REFERENCE.LWI_NEW_MANAGE_ADS,
-      });
-      (a != null && (i.lwiFlowId = a), i.commit());
+    function e(e) {
+      var t = e._accountType,
+        n = e.hasLinkedFbPage,
+        r = e.isWAAEligible,
+        a = e.lwiFlowId,
+        i = e.lwiScreenAction,
+        l = new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
+          lwiAdsIdentityType: void 0,
+          lwiExtras: JSON.stringify({
+            available_account_types: r ? ["FB", "WAA"] : ["FB"],
+            has_linked_fb_page: n,
+          }),
+          lwiScreenAction: i,
+          lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
+            .LWI_SCREEN_REFERENCE.LWI_NEW_MANAGE_ADS,
+        });
+      (a != null && (l.lwiFlowId = a), l.commit());
     }
     function s(e) {
       var t = e.accountType,

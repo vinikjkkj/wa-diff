@@ -35,20 +35,15 @@ __d(
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_group_experimentation_enable",
+        "group_suspension_appeals_redesign_enabled",
       );
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(
-        "group_suspension_appeals_redesign_enabled",
-      );
-    }
-    function y() {
-      return o("WAWebABProps").getABPropConfigValue(
         "group_suspension_appeals_redesign_variant_enable",
       );
     }
-    var C = 33;
+    var y = 33;
     ((l.GROUP_TYPING_VARIANT = e),
       (l.getGroupDescriptionLength = s),
       (l.getGroupMaxSubject = u),
@@ -58,10 +53,9 @@ __d(
       (l.getGroupTypingIndicatorVariant = p),
       (l.isGroupTypingIndicatorEnabled = _),
       (l.getGroupDiscardDialogThreshold = f),
-      (l.isGroupExperimentationEnabled = g),
-      (l.isGroupSuspensionAppealsRedesignEnabled = h),
-      (l.isGroupSuspensionAppealsRedesignVariantEnabled = y),
-      (l.GFG_GROUP_SIZE_THRESHOLD = C));
+      (l.isGroupSuspensionAppealsRedesignEnabled = g),
+      (l.isGroupSuspensionAppealsRedesignVariantEnabled = h),
+      (l.GFG_GROUP_SIZE_THRESHOLD = y));
   },
   98,
 );

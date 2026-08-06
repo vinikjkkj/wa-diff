@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebAlphaRegex",
-    "WAWebBizCoexGatingUtils",
     "WAWebBusinessProfileTypes",
     "WAWebConnModel",
     "WAWebContactComparator",
@@ -271,8 +270,7 @@ __d(
           return r
             ? l &&
               i === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.LOW &&
-              a !== "" &&
-              o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled()
+              a !== ""
               ? a
               : null
             : t || n;
@@ -600,9 +598,7 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1],
-            r =
-              t === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.LOW &&
-              o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled();
+            r = t === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.LOW;
           return t !== o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH && !r
             ? null
             : n
@@ -635,8 +631,7 @@ __d(
           return t
             ? l(t)
             : (a === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH ||
-                  (a === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.LOW &&
-                    o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled())) &&
+                  a === o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.LOW) &&
                 n
               ? l(n)
               : i != null && i !== ""

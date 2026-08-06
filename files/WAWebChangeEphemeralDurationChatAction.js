@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAfterReadUtils",
     "WAWebChatEphemerality",
     "WAWebChatGetters",
@@ -15,7 +14,6 @@ __d(
     "WAWebDBUpdateChatTable",
     "WAWebEphemeralSettingChangeWamEvent",
     "WAWebEphemeralityTypes",
-    "WAWebGroupConstants",
     "WAWebGroupModifyInfoJob",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -163,17 +161,11 @@ __d(
             throw r("err")(
               "changeGroupEphemeralDuration should not be called for 1-1 chats. Use changeEphemeralDuration which handles both 1-1 and group cases",
             );
-          o("WAWebABProps").getABPropConfigValue("dm_initiator_trigger_groups")
-            ? yield o("WAWebGroupModifyInfoJob").setEphemeralGroupProperty({
-                ephemeralExpiration: t,
-                groupWid: e.id,
-                trigger: n,
-              })
-            : yield o("WAWebGroupModifyInfoJob").setGroupProperty(
-                e.id,
-                o("WAWebGroupConstants").GROUP_SETTING_TYPE.EPHEMERAL,
-                t,
-              );
+          yield o("WAWebGroupModifyInfoJob").setEphemeralGroupProperty({
+            ephemeralExpiration: t,
+            groupWid: e.id,
+            trigger: n,
+          });
         })),
         p.apply(this, arguments)
       );

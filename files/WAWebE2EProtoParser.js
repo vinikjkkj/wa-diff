@@ -442,9 +442,6 @@ __d(
       ).updateMmSignalSharingExpirationWindow(e, t),
         t.statusAttributions != null &&
           t.statusAttributions.length > 0 &&
-          o(
-            "WAWebStatusGatingUtils",
-          ).isStatusCrosspostingAttributionsEnabled() &&
           (e.statusAttributions = t.statusAttributions),
         t.statusAudienceMetadata != null &&
           o("WAWebStatusGatingUtils").isStatusCloseFriendsViewerSideEnabled() &&

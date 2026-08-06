@@ -5,7 +5,6 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAfterReadUtils",
     "WAWebApiMembershipApprovalRequestStore",
     "WAWebApiParticipantStore",
@@ -638,35 +637,22 @@ __d(
                 _e = pe
                   ? o("WAWebAfterReadUtils").getAfterReadFallbackDuration()
                   : a.duration,
-                fe = pe ? a.duration : null;
-              if (
-                o("WAWebABProps").getABPropConfigValue(
-                  "dm_initiator_trigger_groups",
-                )
-              ) {
-                var ge = o("WAWebEphemeralityUtils").getDisappearingModeTrigger(
+                fe = pe ? a.duration : null,
+                ge = o("WAWebEphemeralityUtils").getDisappearingModeTrigger(
                   a.trigger,
                 );
-                F.push(
-                  o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
-                    l,
-                    {
-                      ephemeralDuration: _e,
-                      afterReadDuration: fe,
-                      disappearingModeTrigger: ge != null ? ge : void 0,
-                      disappearingModeInitiatedByMe: a.initiatedByMe,
-                    },
-                    i,
-                  ),
-                );
-              } else
-                F.push(
-                  o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
-                    l,
-                    { ephemeralDuration: _e, afterReadDuration: fe },
-                    i,
-                  ),
-                );
+              F.push(
+                o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                  l,
+                  {
+                    ephemeralDuration: _e,
+                    afterReadDuration: fe,
+                    disappearingModeTrigger: ge != null ? ge : void 0,
+                    disappearingModeInitiatedByMe: a.initiatedByMe,
+                  },
+                  i,
+                ),
+              );
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.INVITE_CODE:

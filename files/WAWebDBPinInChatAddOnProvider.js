@@ -5,7 +5,6 @@ __d(
     "WAWebMessageAddOnType",
     "WAWebMsgType",
     "WAWebPinMessageProcessor",
-    "WAWebPinMsgGatingUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,7 +20,7 @@ __d(
         );
       },
       canRenderInUi: function () {
-        return o("WAWebPinMsgGatingUtils").isPinnedMessagesM1ReceiverEnabled();
+        return !0;
       },
       processOrphansForNewMsg: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {

@@ -95,19 +95,32 @@ __d(
               email: n == null ? void 0 : n.email,
               lastOrder: n == null ? void 0 : n.lastOrder,
               leadStage: t,
-              name: g(e),
+              name: y(e),
             }));
         })),
         f.apply(this, arguments)
       );
     }
-    function g(e) {
+    function g(e, t) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield o(
+            "WAWebContactManagerCustomerProfileUpsertMutation",
+          ).upsertCustomerProfileToServer(e, { leadStage: t, name: y(e) });
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       return t != null
         ? o("WAWebFrontendContactGetters").getDisplayName(t)
         : null;
     }
-    function h(t) {
+    function C(t) {
       if (!t.endsWith(o("WAJids").LID_DOMAIN))
         throw r("err")(
           '[ContactManager] deactivateCustomer: chatJid must be LID-based, got "' +
@@ -142,7 +155,7 @@ __d(
             .sendLogs("customer_manager_deactivate_customer_failed");
         });
     }
-    function y(e, t, n, r) {
+    function b(e, t, n, r) {
       r !== n &&
         (r === o("WAWebLeadStage").LeadStage.NONE &&
         n !== o("WAWebLeadStage").LeadStage.NONE
@@ -160,13 +173,14 @@ __d(
             })
           : r !== o("WAWebLeadStage").LeadStage.NONE &&
               n === o("WAWebLeadStage").LeadStage.NONE
-            ? h(e)
+            ? C(e)
             : p(e, t, { leadStage: n }));
     }
     ((l.saveCustomerDataField = p),
       (l.upsertAsCustomer = _),
-      (l.deactivateCustomer = h),
-      (l.handleLeadStageTransition = y));
+      (l.upsertLeadStageToProfile = g),
+      (l.deactivateCustomer = C),
+      (l.handleLeadStageTransition = b));
   },
   98,
 );

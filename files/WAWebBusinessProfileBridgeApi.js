@@ -123,8 +123,7 @@ __d(
           o(
             "WAWebUserPrefsMultiDevice",
           ).getIsHostedMeAccountFromLocalStorage() ||
-          !o("WAWebBizCoexGatingUtils").agentOffboardingEnabled() ||
-          !o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled()
+          !o("WAWebBizCoexGatingUtils").agentOffboardingEnabled()
         )
       ) {
         var a = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(t);

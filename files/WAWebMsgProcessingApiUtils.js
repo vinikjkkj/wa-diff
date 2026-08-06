@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebBackendJobs.flow",
     "WAWebBatchedStatusIdUtils",
@@ -503,14 +502,7 @@ __d(
           var D = I,
             x = D.disappearingModeTrigger,
             $ = (i = I.id.remote) != null ? i : I.from;
-          if (
-            $ != null &&
-            r("WAWebWid").isGroup($) &&
-            x != null &&
-            o("WAWebABProps").getABPropConfigValue(
-              "dm_initiator_trigger_groups",
-            )
-          ) {
+          if ($ != null && r("WAWebWid").isGroup($) && x != null) {
             var P = yield o(
               "WAWebDisappearingModeGroupsProtoUtils",
             ).updateDisappearingModeForGroups(x, $);

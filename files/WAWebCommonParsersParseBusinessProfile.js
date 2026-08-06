@@ -1,7 +1,6 @@
 __d(
   "WAWebCommonParsersParseBusinessProfile",
   [
-    "WAWebBizCoexGatingUtils",
     "WAWebBizProfileGatingUtils",
     "WAWebBotTypes",
     "WAWebBusinessProfileTypes",
@@ -91,18 +90,19 @@ __d(
       var q,
         U = e.maybeChild("member_since_text");
       U && (q = U.contentString());
-      var V, H, G, z;
-      if (o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled()) {
-        var j = e.maybeChild("authorized_agent");
-        if (j) {
-          V = j.maybeAttrString("is_authorized_agent") === "true";
-          var K = j.maybeChild("parent_company_name");
-          H = K ? K.contentString() : void 0;
-          var Q = j.maybeChild("parent_company_logo_url");
-          G = Q ? Q.contentString() : void 0;
-          var X = j.maybeChild("oba_phone_number");
-          z = X ? X.contentString() : void 0;
-        }
+      var V,
+        H,
+        G,
+        z,
+        j = e.maybeChild("authorized_agent");
+      if (j) {
+        V = j.maybeAttrString("is_authorized_agent") === "true";
+        var K = j.maybeChild("parent_company_name");
+        H = K ? K.contentString() : void 0;
+        var Q = j.maybeChild("parent_company_logo_url");
+        G = Q ? Q.contentString() : void 0;
+        var X = j.maybeChild("oba_phone_number");
+        z = X ? X.contentString() : void 0;
       }
       var Y = [],
         J = e.maybeChild("categories");

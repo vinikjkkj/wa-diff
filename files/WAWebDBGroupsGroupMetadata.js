@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WABatcher",
-    "WAWebABProps",
     "WAWebModelStorageUtils",
     "WAWebSchemaGroupMetadata",
     "WAWebUsernameGatingUtils",
@@ -78,98 +77,95 @@ __d(
                                 descTime: L,
                               }));
                         }
-                        var E;
-                        o("WAWebABProps").getABPropConfigValue(
-                          "dm_initiator_trigger_groups",
-                        )
-                          ? (E = {
-                              ephemeralDuration: e.ephemeralDuration || 0,
-                              disappearingModeTrigger:
-                                e.disappearingModeTrigger,
-                              disappearingModeInitiatedByMe:
-                                e.disappearingModeInitiatedByMe,
-                              afterReadDuration: e.afterReadDuration,
-                            })
-                          : (E = {
-                              ephemeralDuration: e.ephemeralDuration || 0,
-                              afterReadDuration: e.afterReadDuration,
-                            });
-                        var k = babelHelpers.extends(
-                          {
-                            id: e.id.toString(),
-                            creation: e.creation,
-                            owner:
-                              (r = e.owner) == null ? void 0 : r.toString(),
-                            restrict: e.restrict,
-                            noFrequentlyForwarded: e.noFrequentlyForwarded,
-                            membershipApprovalMode: e.membershipApprovalMode,
-                            memberAddMode: e.memberAddMode,
-                            growthLockExpiration: e.growthLockExpiration,
-                            growthLockType: e.growthLockType,
-                            size: e.size || 0,
-                            support: (i = e.support) != null ? i : !1,
-                            suspended: (l = e.suspended) != null ? l : !1,
-                            suspendAppealStatus:
-                              (s = e.suspendAppealStatus) != null ? s : null,
-                            suspendAppealUpdateTime:
-                              (u = e.suspendAppealUpdateTime) != null
-                                ? u
-                                : null,
-                            terminated: (c = e.terminated) != null ? c : !1,
-                            parentGroup:
-                              (d = e.parentGroup) == null
-                                ? void 0
-                                : d.toString(),
-                            isParentGroup: e.isParentGroup,
-                            isParentGroupClosed: e.isParentGroupClosed,
-                            defaultSubgroup: e.defaultSubgroup,
-                            generalSubgroup: e.generalSubgroup,
-                            lastActivityTimestamp:
-                              (m =
-                                y == null ? void 0 : y.lastActivityTimestamp) !=
-                              null
-                                ? m
-                                : 0,
-                            lastSeenActivityTimestamp:
-                              (p =
+                        var E = {
+                            ephemeralDuration: e.ephemeralDuration || 0,
+                            disappearingModeTrigger: e.disappearingModeTrigger,
+                            disappearingModeInitiatedByMe:
+                              e.disappearingModeInitiatedByMe,
+                            afterReadDuration: e.afterReadDuration,
+                          },
+                          k = babelHelpers.extends(
+                            {
+                              id: e.id.toString(),
+                              creation: e.creation,
+                              owner:
+                                (r = e.owner) == null ? void 0 : r.toString(),
+                              restrict: e.restrict,
+                              noFrequentlyForwarded: e.noFrequentlyForwarded,
+                              membershipApprovalMode: e.membershipApprovalMode,
+                              memberAddMode: e.memberAddMode,
+                              growthLockExpiration: e.growthLockExpiration,
+                              growthLockType: e.growthLockType,
+                              size: e.size || 0,
+                              support: (i = e.support) != null ? i : !1,
+                              suspended: (l = e.suspended) != null ? l : !1,
+                              suspendAppealStatus:
+                                (s = e.suspendAppealStatus) != null ? s : null,
+                              suspendAppealUpdateTime:
+                                (u = e.suspendAppealUpdateTime) != null
+                                  ? u
+                                  : null,
+                              terminated: (c = e.terminated) != null ? c : !1,
+                              parentGroup:
+                                (d = e.parentGroup) == null
+                                  ? void 0
+                                  : d.toString(),
+                              isParentGroup: e.isParentGroup,
+                              isParentGroupClosed: e.isParentGroupClosed,
+                              defaultSubgroup: e.defaultSubgroup,
+                              generalSubgroup: e.generalSubgroup,
+                              lastActivityTimestamp:
+                                (m =
+                                  y == null
+                                    ? void 0
+                                    : y.lastActivityTimestamp) != null
+                                  ? m
+                                  : 0,
+                              lastSeenActivityTimestamp:
+                                (p =
+                                  y == null
+                                    ? void 0
+                                    : y.lastSeenActivityTimestamp) != null
+                                  ? p
+                                  : 0,
+                              isLidAddressingMode: e.isLidAddressingMode,
+                              reportToAdminMode:
+                                (_ = e.reportToAdminMode) != null ? _ : !1,
+                              lastReportToAdminTimestamp:
                                 y == null
                                   ? void 0
-                                  : y.lastSeenActivityTimestamp) != null
-                                ? p
-                                : 0,
-                            isLidAddressingMode: e.isLidAddressingMode,
-                            reportToAdminMode:
-                              (_ = e.reportToAdminMode) != null ? _ : !1,
-                            lastReportToAdminTimestamp:
-                              y == null ? void 0 : y.lastReportToAdminTimestamp,
-                            allowNonAdminSubGroupCreation:
-                              e.allowNonAdminSubGroupCreation,
-                            generalChatAutoAddDisabled:
-                              e.generalChatAutoAddDisabled,
-                            hasCapi: e.hasCapi === !0,
-                            hiddenSubgroup: e.hiddenSubgroup,
-                            groupSafetyCheck: e.groupSafetyCheck,
-                            lastCommunityPollTimestamp:
-                              y == null ? void 0 : y.lastCommunityPollTimestamp,
-                            isOpenBotGroup:
-                              (f = e == null ? void 0 : e.isOpenBotGroup) !=
-                              null
-                                ? f
-                                : y == null
+                                  : y.lastReportToAdminTimestamp,
+                              allowNonAdminSubGroupCreation:
+                                e.allowNonAdminSubGroupCreation,
+                              generalChatAutoAddDisabled:
+                                e.generalChatAutoAddDisabled,
+                              hasCapi: e.hasCapi === !0,
+                              hiddenSubgroup: e.hiddenSubgroup,
+                              groupSafetyCheck: e.groupSafetyCheck,
+                              lastCommunityPollTimestamp:
+                                y == null
                                   ? void 0
-                                  : y.isOpenBotGroup,
-                            isTeeBotGroup:
-                              (g = e == null ? void 0 : e.isTeeBotGroup) != null
-                                ? g
-                                : y == null
-                                  ? void 0
-                                  : y.isTeeBotGroup,
-                          },
-                          C,
-                          v,
-                          b,
-                          E,
-                        );
+                                  : y.lastCommunityPollTimestamp,
+                              isOpenBotGroup:
+                                (f = e == null ? void 0 : e.isOpenBotGroup) !=
+                                null
+                                  ? f
+                                  : y == null
+                                    ? void 0
+                                    : y.isOpenBotGroup,
+                              isTeeBotGroup:
+                                (g = e == null ? void 0 : e.isTeeBotGroup) !=
+                                null
+                                  ? g
+                                  : y == null
+                                    ? void 0
+                                    : y.isTeeBotGroup,
+                            },
+                            C,
+                            v,
+                            b,
+                            E,
+                          );
                         return (
                           e.hasIncompleteParticipantInformation != null &&
                             o(

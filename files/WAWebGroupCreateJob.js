@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WASmaxGroupsCreateRPC",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBackendErrors",
     "WAWebEphemeralityResolver",
@@ -144,33 +143,19 @@ __d(
                 },
               },
             );
-          if (h !== 0)
-            if (
-              o("WAWebABProps").getABPropConfigValue(
-                "dm_initiator_trigger_groups",
-              )
-            ) {
-              var k = yield o("WAWebApiContact").getContactRecord(
-                  o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
-                ),
-                I = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-                  k,
-                ),
-                T = o(
-                  "WAWebEphemeralityUtils",
-                ).getEphemeralTriggerForGroupCreation(h, I);
-              T != null &&
-                (E = babelHelpers.extends({}, E, {
-                  ephemeralArgs: {
-                    ephemeralExpiration: h,
-                    ephemeralTrigger: T,
-                  },
-                }));
-            } else
-              E = babelHelpers.extends({}, E, {
-                ephemeralArgs: { ephemeralExpiration: h },
-              });
-          else
+          if (h !== 0) {
+            var k = yield o("WAWebApiContact").getContactRecord(
+                o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              ),
+              I = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(k),
+              T = o(
+                "WAWebEphemeralityUtils",
+              ).getEphemeralTriggerForGroupCreation(h, I);
+            T != null &&
+              (E = babelHelpers.extends({}, E, {
+                ephemeralArgs: { ephemeralExpiration: h, ephemeralTrigger: T },
+              }));
+          } else
             E = babelHelpers.extends({}, E, {
               ephemeralArgs: { ephemeralExpiration: h },
             });

@@ -2,6 +2,7 @@ __d(
   "WAWebOrderCollection",
   [
     "Promise",
+    "WAWebBizComplianceUtil",
     "WAWebBizOrderAction",
     "WAWebBizOrderGetFriendlyRandomIdAction",
     "WAWebCurrencyUtils",
@@ -31,23 +32,34 @@ __d(
         var i = a.prototype;
         return (
           (i.addOrder = function () {
-            var e = r("WAWebBizOrderGetFriendlyRandomIdAction")(),
-              n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+            var e,
+              n = r("WAWebBizOrderGetFriendlyRandomIdAction")(),
+              a = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
+              i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+              l =
+                i != null
+                  ? o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
+                      i.user,
+                    )
+                  : (e = o("WAWebBizComplianceUtil").getCountryShortcodeByWid(
+                        a,
+                      )) != null
+                    ? e
+                    : "";
             return (
               t.prototype.add.call(this, {
-                id: e,
+                id: n,
                 fetchedFromServer: !1,
-                sellerJid: o("WAWebE2EProtoUtils").encodeJid(n),
+                sellerJid: o("WAWebE2EProtoUtils").encodeJid(a),
                 createdAt: Math.round(Date.now() / 1e3),
-                currency: o("WAWebCurrencyUtils").currencyForCountryShortcode(
-                  o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(n.user),
-                ),
+                currency:
+                  o("WAWebCurrencyUtils").currencyForCountryShortcode(l),
                 products: [],
                 tax: null,
                 subtotal: null,
                 total: null,
               }),
-              this.assertGet(e)
+              this.assertGet(n)
             );
           }),
           (i.findOrder = function (r, o, a) {

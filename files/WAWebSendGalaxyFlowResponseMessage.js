@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAck",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -92,10 +91,7 @@ __d(
             g = m.flowToken,
             h = m.label,
             y =
-              c != null &&
-              o("WAWebABProps").getABPropConfigValue(
-                "flows_termination_message_v2_sending_enabled",
-              )
+              c != null
                 ? {
                     wa_flow_response_params: {
                       response_message: c,

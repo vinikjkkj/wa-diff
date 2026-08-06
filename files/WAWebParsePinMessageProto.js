@@ -7,7 +7,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMsgType",
     "WAWebPinInChatValidationError",
-    "WAWebPinMsgGatingUtils",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
   ],
@@ -20,15 +19,6 @@ __d(
         l = e.msgContext,
         s = i.pinInChatMessage;
       if (s != null) {
-        if (!o("WAWebPinMsgGatingUtils").isPinnedMessagesM1ReceiverEnabled())
-          return {
-            msgData: babelHelpers.extends({}, n, {
-              type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-              kind: o("WAWebMsgType").MsgKind.Unknown,
-              futureproofType: o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE,
-            }),
-            contextInfo: null,
-          };
         if (l === "relay" && a !== o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT)
           throw new (o(
             "WAWebPinInChatValidationError",

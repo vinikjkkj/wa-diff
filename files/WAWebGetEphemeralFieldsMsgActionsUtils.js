@@ -1,11 +1,6 @@
 __d(
   "WAWebGetEphemeralFieldsMsgActionsUtils",
-  [
-    "WAWebABProps",
-    "WAWebAfterReadUtils",
-    "WAWebChatEphemerality",
-    "WAWebChatGetters",
-  ],
+  ["WAWebAfterReadUtils", "WAWebChatEphemerality", "WAWebChatGetters"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = {},
@@ -33,8 +28,7 @@ __d(
       var c = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(e);
       if (
         (c != null && (t.disappearingModeInitiatedByMe = c),
-        o("WAWebChatGetters").getIsGroup(e) &&
-          o("WAWebABProps").getABPropConfigValue("dm_initiator_trigger_groups"))
+        o("WAWebChatGetters").getIsGroup(e))
       ) {
         var d = o("WAWebChatEphemerality").getDisappearingModeTriggerGroups(e);
         d != null && (t.disappearingModeTrigger = d);

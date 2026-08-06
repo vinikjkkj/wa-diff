@@ -1,6 +1,6 @@
 __d(
   "DGWEnvUtil",
-  ["DGWConstants", "URI", "WebStorage", "cr:975", "gkx"],
+  ["DGWConstants", "URI", "WebStorage", "cr:975", "gkx", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -102,6 +102,8 @@ __d(
       if (e.includes("spark.meta.com"))
         return { endpoint: "gateway.spark.meta.com", authType: "SPARK_WEB" };
       if (/^.*developer.*oculus.com.*$/.test(e))
+        return { endpoint: "gateway.oculus.com", authType: "OCULUS" };
+      if (e.includes("oculus.com") && r("justknobx")._("5321"))
         return { endpoint: "gateway.oculus.com", authType: "OCULUS" };
       if (
         e.includes("developer.meta.com") &&

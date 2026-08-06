@@ -24,7 +24,7 @@ __d(
     var _require_closure_react;
     var o =
         _require_closure_react || (_require_closure_react = require("react")),
-      a = _require_closure_react;
+      s = _require_closure_react;
     function x(e) {
       var t = new URL("https://lexical.dev/docs/error"),
         n = new URLSearchParams();
@@ -50,58 +50,65 @@ __d(
         )
       );
     }
-    var d = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect;
+    function d(e, r) {
+      var _o$useMemo = o.useMemo(
+          function () {
+            return [
+              function (r) {
+                return e.registerDecoratorListener(r);
+              },
+              function () {
+                return e.getDecorators();
+              },
+            ];
+          },
+          [e],
+        ),
+        t = _o$useMemo[0],
+        n = _o$useMemo[1],
+        c = o.useSyncExternalStore(t, n, n),
+        a = (function (e) {
+          var _o$useMemo2 = o.useMemo(
+              function () {
+                return [
+                  e.registerRootListener.bind(e),
+                  e.getRootElement.bind(e),
+                ];
+              },
+              [e],
+            ),
+            r = _o$useMemo2[0],
+            t = _o$useMemo2[1];
+          return o.useSyncExternalStore(r, t, t);
+        })(e);
+      return o.useMemo(
+        function () {
+          var t = function t(r) {
+              return e._onError(r);
+            },
+            n = [];
+          for (var _a in c) {
+            var _u = e.getElementByKey(_a);
+            if (null !== _u) {
+              var _e2 = s.jsx(r, {
+                onError: t,
+                children: s.jsx(o.Suspense, {
+                  fallback: null,
+                  children: c[_a],
+                }),
+              });
+              n.push(require("ReactDOM").createPortal(_e2, _u, _a));
+            }
+          }
+          return n;
+        },
+        [r, c, e, a],
+      );
+    }
     function f(_ref) {
       var e = _ref.editor,
         r = _ref.ErrorBoundary;
-      return (function (e, r) {
-        var _o$useState = o.useState(function () {
-            return e.getDecorators();
-          }),
-          t = _o$useState[0],
-          n = _o$useState[1];
-        return (
-          d(
-            function () {
-              return e.registerDecoratorListener(function (e) {
-                require("ReactDOM").flushSync(function () {
-                  n(e);
-                });
-              });
-            },
-            [e],
-          ),
-          o.useEffect(
-            function () {
-              n(e.getDecorators());
-            },
-            [e],
-          ),
-          o.useMemo(
-            function () {
-              var n = [],
-                s = Object.keys(t);
-              for (var _c = 0; _c < s.length; _c++) {
-                var _u = s[_c],
-                  _l = a.jsx(r, {
-                    onError: function onError(r) {
-                      return e._onError(r);
-                    },
-                    children: a.jsx(o.Suspense, {
-                      fallback: null,
-                      children: t[_u],
-                    }),
-                  }),
-                  _x = e.getElementByKey(_u);
-                null !== _x &&
-                  n.push(require("ReactDOM").createPortal(_l, _x, _u));
-              }
-              return n;
-            },
-            [r, t, e],
-          )
-        );
-      })(e, r);
+      return d(e, r);
     }
     function E(_ref2) {
       var e = _ref2.editor,
@@ -115,37 +122,38 @@ __d(
               .name,
           )
         ) {
-          for (var _e2 of ["LexicalPlainText", "LexicalRichText"])
-            r.hasExtensionByName(_e2) && x(320, _e2);
+          for (var _e3 of ["LexicalPlainText", "LexicalRichText"])
+            r.hasExtensionByName(_e3) && x(320, _e3);
           return !0;
         }
         return !1;
       })(e)
         ? null
-        : a.jsx(f, { editor: e, ErrorBoundary: r });
+        : s.jsx(f, { editor: e, ErrorBoundary: r });
     }
-    function g(e) {
+    var g = require("Lexical").CAN_USE_DOM ? o.useLayoutEffect : o.useEffect;
+    function L(e) {
       return e.read(
         "latest",
         require("LexicalText").$canShowPlaceholderCurry(e.isComposing()),
       );
     }
-    function L(_ref3) {
+    function m(_ref3) {
       var t = _ref3.content;
       var _e$useLexicalComposer =
           require("LexicalComposerContext").useLexicalComposerContext(),
         n = _e$useLexicalComposer[0],
         i = (function (e) {
-          var _o$useState2 = o.useState(function () {
-              return g(e);
+          var _o$useState = o.useState(function () {
+              return L(e);
             }),
-            r = _o$useState2[0],
-            t = _o$useState2[1];
+            r = _o$useState[0],
+            t = _o$useState[1];
           return (
-            d(
+            g(
               function () {
                 function r() {
-                  var r = g(e);
+                  var r = L(e);
                   t(r);
                 }
                 return (
@@ -165,8 +173,8 @@ __d(
             r
           );
         })(n),
-        a = require("useLexicalEditable").useLexicalEditable();
-      return i ? ("function" == typeof t ? t(a) : t) : null;
+        s = require("useLexicalEditable").useLexicalEditable();
+      return i ? ("function" == typeof t ? t(s) : t) : null;
     }
     exports.PlainTextPlugin = function (_ref4) {
       var r = _ref4.contentEditable,
@@ -178,7 +186,7 @@ __d(
         o = _e$useLexicalComposer2[0];
       return (
         (function (e) {
-          d(
+          g(
             function () {
               return require("Lexical").mergeRegister(
                 require("LexicalPlainText").registerPlainText(e),
@@ -188,11 +196,11 @@ __d(
             [e],
           );
         })(o),
-        a.jsxs(a.Fragment, {
+        s.jsxs(s.Fragment, {
           children: [
             r,
-            a.jsx(L, { content: t }),
-            a.jsx(E, { editor: o, ErrorBoundary: n }),
+            s.jsx(m, { content: t }),
+            s.jsx(E, { editor: o, ErrorBoundary: n }),
           ],
         })
       );

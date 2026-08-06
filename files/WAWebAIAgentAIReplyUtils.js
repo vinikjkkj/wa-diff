@@ -40,12 +40,21 @@ __d(
             serverConfirmed: e.capiThreadControl,
             watermarkMs: 0,
             inFlight: !1,
+            pendingMutations: 0,
           }),
           m.set(e, t)),
         t
       );
     }
-    function f(e) {
+    function f(e, t) {
+      return (
+        (e.pendingMutations += 1),
+        t().finally(function () {
+          e.pendingMutations = Math.max(0, e.pendingMutations - 1);
+        })
+      );
+    }
+    function g(e) {
       var t = _(e),
         r = e.isAiHandoff;
       return (
@@ -63,17 +72,19 @@ __d(
         t.inFlight
           ? (s || (s = n("Promise"))).resolve(!0)
           : ((t.inFlight = !0),
-            g(e, t, e.unreadCount, r).finally(function () {
+            f(t, function () {
+              return h(e, t, e.unreadCount, r);
+            }).finally(function () {
               t.inFlight = !1;
             }))
       );
     }
-    function g(e, t, n, r) {
-      return h.apply(this, arguments);
+    function h(e, t, n, r) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i) {
             if (n.desired === n.serverConfirmed) return !0;
             var l = n.desired,
@@ -107,7 +118,7 @@ __d(
             return s
               ? ((n.serverConfirmed = l),
                 u != null && (n.watermarkMs = Math.max(n.watermarkMs, u)),
-                g(t, n, a, i))
+                h(t, n, a, i))
               : ((n.desired = n.serverConfirmed),
                 (t.unreadCount = a),
                 (t.isAiHandoff = i),
@@ -124,10 +135,18 @@ __d(
                 !1);
           },
         )),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
+    function C(e, t) {
+      return f(_(e), t);
+    }
+    function b(e, t, n) {
+      var r = _(e);
+      (n != null && (r.watermarkMs = Math.max(r.watermarkMs, n)),
+        (r.serverConfirmed = t));
+    }
+    function v(e) {
       var t = e.chat,
         n = e.options,
         r = e.status,
@@ -137,7 +156,7 @@ __d(
         if (o <= a.watermarkMs) return;
         a.watermarkMs = o;
       }
-      a.inFlight ||
+      a.pendingMutations > 0 ||
         ((a.serverConfirmed = r),
         (a.desired = r),
         t.capiThreadControl !== r &&
@@ -145,7 +164,10 @@ __d(
             ? t.setCapiThreadControl(r, d)
             : t.setCapiThreadControl(r)));
     }
-    ((l.mutateAiReplyStatus = f), (l.applyServerEchoThreadControl = y));
+    ((l.mutateAiReplyStatus = g),
+      (l.trackAiReplyMutation = C),
+      (l.recordAiReplyServerConfirmation = b),
+      (l.applyServerEchoThreadControl = v));
   },
   98,
 );

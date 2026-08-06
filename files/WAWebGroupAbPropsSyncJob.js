@@ -9,7 +9,6 @@ __d(
     "WAWebApiGroupAbPropConfig",
     "WAWebGroupABPropsUpdateFromStorage",
     "WAWebGroupAbPropsParsingJob",
-    "WAWebGroupGatingUtils",
     "WAWebSchemaGroupMetadata",
     "asyncToGeneratorRuntime",
   ],
@@ -158,43 +157,41 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebGroupGatingUtils").isGroupExperimentationEnabled()) {
-            var t = yield _(e),
-              n = t.lastFetchTimestamp,
-              r = t.refresh,
-              a = C(n);
-            if (!(!a && !y(n, r)))
-              for (var i = !a && n != null, l = 3; l-- > 0; )
-                try {
-                  var c = yield b(e, i);
-                  if (c.success) return;
-                } catch (t) {
-                  if (l === 0) {
-                    o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "failed to sync GroupABProps for group ",
-                            "",
-                          ])),
-                        e,
-                      )
-                      .verbose()
-                      .sendLogs("failed to sync GroupABProps");
-                    var d = o("WATimeUtils").unixTime();
-                    yield g({ groupJid: e, lastFetchTimestamp: d });
-                  } else
-                    o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "retrying sync GroupABProps for group ",
+          var t = yield _(e),
+            n = t.lastFetchTimestamp,
+            r = t.refresh,
+            a = C(n);
+          if (!(!a && !y(n, r)))
+            for (var i = !a && n != null, l = 3; l-- > 0; )
+              try {
+                var c = yield b(e, i);
+                if (c.success) return;
+              } catch (t) {
+                if (l === 0) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "failed to sync GroupABProps for group ",
                           "",
                         ])),
                       e,
-                    );
-                  yield o("WAPromiseDelays").delayMs(10 * 1e3 * Math.random());
-                }
-          }
+                    )
+                    .verbose()
+                    .sendLogs("failed to sync GroupABProps");
+                  var d = o("WATimeUtils").unixTime();
+                  yield g({ groupJid: e, lastFetchTimestamp: d });
+                } else
+                  o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "retrying sync GroupABProps for group ",
+                        "",
+                      ])),
+                    e,
+                  );
+                yield o("WAPromiseDelays").delayMs(10 * 1e3 * Math.random());
+              }
         })),
         R.apply(this, arguments)
       );

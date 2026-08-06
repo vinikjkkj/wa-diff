@@ -9,7 +9,6 @@ __d(
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebApiContactUsernameFields",
-    "WAWebBizCoexGatingUtils",
     "WAWebContactExternalUserState",
     "WAWebEnvironment",
     "WAWebIdentityApiUtils",
@@ -194,15 +193,12 @@ __d(
             u != null && _ != null && (y.lidIdentifier = u),
             m != null && (y.usernameIdentifier = m),
             g != null && (h.usernameIdentifier = g),
-            o(
-              "WAWebBizCoexGatingUtils",
-            ).hostedDeviceSecurityCodeVerificationEnabled() &&
-              ((y.hostedState = i
-                ? o("WAWebProtobufsFingerprintV3.pb").HostedState.HOSTED
-                : o("WAWebProtobufsFingerprintV3.pb").HostedState.E2EE),
-              (h.hostedState = l
-                ? o("WAWebProtobufsFingerprintV3.pb").HostedState.HOSTED
-                : o("WAWebProtobufsFingerprintV3.pb").HostedState.E2EE)));
+            (y.hostedState = i
+              ? o("WAWebProtobufsFingerprintV3.pb").HostedState.HOSTED
+              : o("WAWebProtobufsFingerprintV3.pb").HostedState.E2EE),
+            (h.hostedState = l
+              ? o("WAWebProtobufsFingerprintV3.pb").HostedState.HOSTED
+              : o("WAWebProtobufsFingerprintV3.pb").HostedState.E2EE));
           var S = {
               version: t
                 ? o("WAValidateFingerprints").V3_QR_VERSION_1
@@ -281,24 +277,16 @@ __d(
           }
           var T = [],
             D = [],
-            x = o(
-              "WAWebBizCoexGatingUtils",
-            ).hostedDeviceSecurityCodeVerificationEnabled()
-              ? (yield o(
-                  "WAWebUserPrefsMultiDevice",
-                ).getIsHostedMeAccount()) === !0
-              : !1,
+            x =
+              (yield o("WAWebUserPrefsMultiDevice").getIsHostedMeAccount()) ===
+              !0,
             $ = !1;
           I.forEach(function (e) {
             (o("WAWebUserPrefsMeUser").isMeAccount(e) &&
               !e.isHosted() &&
               D.push(e),
               (!o("WAWebUserPrefsMeUser").isMeAccount(e) || E) &&
-                (e.isHosted()
-                  ? ($ = o(
-                      "WAWebBizCoexGatingUtils",
-                    ).hostedDeviceSecurityCodeVerificationEnabled())
-                  : T.push(e)));
+                (e.isHosted() ? ($ = !0) : T.push(e)));
           });
           try {
             var P = yield o(

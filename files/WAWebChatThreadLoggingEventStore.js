@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WALogger",
     "WAShiftTimer",
-    "WAWebABProps",
     "WAWebAfterReadUtils",
     "WAWebApiBulkGetChats",
     "WAWebApiChatThreadLoggingPendingEvents",
@@ -458,10 +457,7 @@ __d(
                             ).getWamDisappearingModeTrigger(
                               m == null ? void 0 : m.disappearingModeTrigger,
                             );
-                          o("WAWebABProps").getABPropConfigValue(
-                            "dm_initiator_trigger_groups",
-                          ) &&
-                            r("WAWebWid").isGroup(m == null ? void 0 : m.id) &&
+                          r("WAWebWid").isGroup(m == null ? void 0 : m.id) &&
                             ((B = o(
                               "WAWebChatThreadLoggingUtils",
                             ).getWamDisappearingModeInitiatedByMe(

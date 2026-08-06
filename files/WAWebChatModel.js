@@ -153,6 +153,7 @@ __d(
             (e.capiThreadControl = o("WAWebBaseModel").prop()),
             (e.isAiHandoff = o("WAWebBaseModel").prop()),
             (e.aiHandoffRemovalExpiry = o("WAWebBaseModel").prop()),
+            (e.suggestedRepliesEnabled = o("WAWebBaseModel").prop()),
             (e.capiCallingPermissionType = o("WAWebBaseModel").prop()),
             (e.ephemeralDuration = o("WAWebBaseModel").prop()),
             (e.ephemeralSettingTimestamp = o("WAWebBaseModel").prop()),
@@ -1775,6 +1776,14 @@ __d(
                 unreadCount: this.unreadCount,
                 isAiHandoff: this.isAiHandoff,
                 aiHandoffRemovalExpiry: this.aiHandoffRemovalExpiry,
+              })
+            );
+          }),
+          (i.setSuggestedRepliesEnabled = function (t) {
+            return (
+              (this.suggestedRepliesEnabled = t),
+              o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+                suggestedRepliesEnabled: t,
               })
             );
           }),

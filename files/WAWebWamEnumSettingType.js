@@ -37,6 +37,7 @@ __d(
       CHAT_THEME_ID: 31,
       COLOR_SCHEME_ID: 32,
       IS_TEXT_MESSAGE_ANIMATION_ENABLED: 33,
+      STOCK_WALLPAPER_IMAGE_ID: 34,
     });
     i.SETTING_TYPE = e;
   },

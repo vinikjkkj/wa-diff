@@ -2,7 +2,6 @@ __d(
   "WAWebApiPrivacyEphemerality",
   [
     "WALogger",
-    "WAWebABProps",
     "WAWebSchemaChat",
     "WAWebSchemaGroupMetadata",
     "asyncToGeneratorRuntime",
@@ -27,13 +26,9 @@ __d(
               i = yield o("WAWebSchemaGroupMetadata")
                 .getGroupMetadataTable()
                 .greaterThan(["ephemeralDuration"], 0),
-              l = o("WAWebABProps").getABPropConfigValue(
-                "dm_initiator_trigger_groups",
-              )
-                ? r("countWhere")(i, function (e) {
-                    return e.disappearingModeInitiatedByMe === !0;
-                  })
-                : 0,
+              l = r("countWhere")(i, function (e) {
+                return e.disappearingModeInitiatedByMe === !0;
+              }),
               s = a + l;
             return {
               isEphemeralMessagingUser: s > 0,

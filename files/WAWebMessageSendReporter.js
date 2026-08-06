@@ -4,7 +4,6 @@ __d(
     "MetaConfig",
     "WALogger",
     "WAStartSendToSentQplFlow",
-    "WAWebABProps",
     "WAWebAfterReadUtils",
     "WAWebAppTracker",
     "WAWebCoreActionsODS",
@@ -164,21 +163,15 @@ __d(
             t.ephemeralDuration != null &&
               (this.$2.ephemeralityDuration = t.ephemeralDuration));
           var A = t.afterReadDuration;
+          A != null &&
+            o("WAWebAfterReadUtils").isAfterReadEnabled() &&
+            ((this.$2.isAfterRead = A > 0), (this.$2.afterReadDuration = A));
+          var F = o("WAWebMsgGetters").getWamDisappearingModeTrigger(t);
+          F != null && (this.$2.ephemeralityTriggerAction = F);
+          var O = o("WAWebMsgGetters").getWamDisappearingModeInitiatedByMe(t);
           if (
-            (A != null &&
-              o("WAWebAfterReadUtils").isAfterReadEnabled() &&
-              ((this.$2.isAfterRead = A > 0), (this.$2.afterReadDuration = A)),
-            !v ||
-              o("WAWebABProps").getABPropConfigValue(
-                "dm_initiator_trigger_groups",
-              ))
+            (O != null && (this.$2.ephemeralityInitiator = O), !v && !S && !R)
           ) {
-            var F = o("WAWebMsgGetters").getWamDisappearingModeTrigger(t);
-            F != null && (this.$2.ephemeralityTriggerAction = F);
-            var O = o("WAWebMsgGetters").getWamDisappearingModeInitiatedByMe(t);
-            O != null && (this.$2.ephemeralityInitiator = O);
-          }
-          if (!v && !S && !R) {
             ((this.$2.isLid = b.isLid()),
               o("WALogger").LOG(
                 e ||

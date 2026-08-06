@@ -33,6 +33,7 @@ __d(
     "WAWebMetricsAttributionObservers",
     "WAWebPQGatingUtils",
     "WAWebPageLoadLoggingImpl",
+    "WAWebPrefetchHatchDetailsOnLogin",
     "WAWebRunInTransaction",
     "WAWebStorageErrorHandlingUtils",
     "WAWebSyncdUploadFatalErrorMetric",
@@ -192,6 +193,9 @@ __d(
             o("WAWebStorageErrorHandlingUtils").persistAppReloadMarker(),
             r("WAWebEnvironment").isWindows && f == null && (m == null || m()),
             o("WAWebUim").setupUimListeners(),
+            o(
+              "WAWebPrefetchHatchDetailsOnLogin",
+            ).initHatchDetailsPrefetchOnLogin(),
             n("cr:2015") == null || n("cr:2015").init(),
             o("WALogger").LOG(
               u ||

@@ -5,12 +5,15 @@ __d(
     "WALogger",
     "WAWebABPropsSaga",
     "WAWebBotMessageSecret",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
     "WAWebCommsAckParser",
     "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
     "WAWebOutgoingMessage",
     "WAWebResendBroadcastMsg",
     "WAWebResendStatusMsg",
+    "WAWebSendCoexV2RetryMsgJob",
     "WAWebSendMsgCreateDeviceStanza",
     "WAWebWid",
     "asyncToGeneratorRuntime",
@@ -46,9 +49,21 @@ __d(
               i,
             )
             .tags("messaging");
-          var p = yield m(t),
-            _ = p.stanza,
-            f = p.statusStanzaClass;
+          var p,
+            _ = "message";
+          if (
+            l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+            o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
+          ) {
+            var f = yield o(
+              "WAWebSendCoexV2RetryMsgJob",
+            ).buildCoexV2RetryStanza(n, i, a);
+            if (f == null) return;
+            p = f;
+          } else {
+            var g = yield m(t);
+            ((p = g.stanza), (_ = g.statusStanzaClass));
+          }
           o("WALogger")
             .LOG(
               u ||
@@ -61,22 +76,22 @@ __d(
               l.toString(),
             )
             .tags("messaging");
-          var g = l.isStatus() ? null : r,
-            h = l;
+          var h = l.isStatus() ? null : r,
+            y = l;
           return (
             l.isBot() &&
               a != null &&
               !(a != null && a.isBot()) &&
-              ((g = l), a != null || s(0, 75958), (h = a)),
+              ((h = l), a != null || s(0, 75958), (y = a)),
             o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
-              _,
+              p,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: c,
-                class: l.isStatus() ? f : "message",
-                from: h,
-                participant: g,
+                class: l.isStatus() ? _ : "message",
+                from: y,
+                participant: h,
               }),
             )
           );

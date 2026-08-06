@@ -19,7 +19,10 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!e.isUser() || e.isBot() || e.isFbidBot()) return !1;
           var t =
-            (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(e)) ||
+            ((yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(e)) &&
+              !(yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(
+                e,
+              ))) ||
             (yield c());
           return t ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
         })),

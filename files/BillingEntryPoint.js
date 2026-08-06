@@ -36,9 +36,9 @@ __d(
       AM_STATEMENT_DETAILS: "am_statement_details",
       AM_TABLE: "am_table",
       AMA: "AMA",
-      AMA_BOOST: "AMA_boost",
-      AMA_DUPLICATE_BOOST: "AMA_duplicate_boost",
-      AMA_HOME_PAYMENT_NOTIFICATION_CARD: "AMA_home_payment_notification_card",
+      AMA_BOOST: "AMA_BOOST",
+      AMA_DUPLICATE_BOOST: "AMA_DUPLICATE_BOOST",
+      AMA_HOME_PAYMENT_NOTIFICATION_CARD: "AMA_HOME_PAYMENT_NOTIFICATION_CARD",
       SECURITY_CENTER_SCORECARD: "security_center_scorecard",
       PRESENCE_MANAGEMENT_ERROR_DISCLOSURE_MODAL:
         "presence_management_error_disclosure_modal",

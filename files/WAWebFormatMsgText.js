@@ -2,7 +2,6 @@ __d(
   "WAWebFormatMsgText",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebBizCtwaAGMUtils",
     "WAWebBizFormatInteractiveMsg",
     "WAWebFormatBroadcastNotification",
@@ -42,43 +41,37 @@ __d(
         h = g === void 0 ? !1 : g,
         y = d.searchQuery,
         C = y === void 0 ? [] : y,
-        b = l.safe();
-      if (
-        o("WAWebABProps").getABPropConfigValue(
-          "web_message_plugin_frontend_registration_enabled",
-        )
-      ) {
-        var v;
-        if (b.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && b.futureproofType)
-          v = o("WAWebMessagePluginFutureproofMsgText").futureproofMsgText({
+        b = l.safe(),
+        v;
+      if (b.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && b.futureproofType)
+        v = o("WAWebMessagePluginFutureproofMsgText").futureproofMsgText({
+          msg: l,
+        });
+      else {
+        var S;
+        v =
+          (S = o("WAWebMessagePluginFormatMsgText").formatMsgText({
             msg: l,
-          });
-        else {
-          var S;
-          v =
-            (S = o("WAWebMessagePluginFormatMsgText").formatMsgText({
-              msg: l,
-              associatedMessages: u,
-              options: {
-                unformat: p,
-                formatAsLastMsg: f,
-                formatAsSearchResult: h,
-                searchQuery: C,
-              },
-            })) != null
-              ? S
-              : o("WAWebSystemMessagePluginFormatMsgText").formatMsgText({
-                  msg: l,
-                  options: {
-                    unformat: p,
-                    formatAsLastMsg: f,
-                    formatAsSearchResult: h,
-                    searchQuery: C,
-                  },
-                });
-        }
-        if (v != null) return v;
+            associatedMessages: u,
+            options: {
+              unformat: p,
+              formatAsLastMsg: f,
+              formatAsSearchResult: h,
+              searchQuery: C,
+            },
+          })) != null
+            ? S
+            : o("WAWebSystemMessagePluginFormatMsgText").formatMsgText({
+                msg: l,
+                options: {
+                  unformat: p,
+                  formatAsLastMsg: f,
+                  formatAsSearchResult: h,
+                  searchQuery: C,
+                },
+              });
       }
+      if (v != null) return v;
       switch (b.type) {
         case o("WAWebMsgType").MSG_TYPE.HSM:
           return p

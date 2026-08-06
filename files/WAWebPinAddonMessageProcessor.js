@@ -12,7 +12,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebPinMessageProcessor",
-    "WAWebPinMsgGatingUtils",
     "WAWebPinMsgParseWebMsgInfoPinInChat",
     "WAWebPinsDbSerialization",
     "WAWebProtobufsE2E.pb",
@@ -26,9 +25,7 @@ __d(
       s = 60 * o("WATimeUtils").DAY_SECONDS,
       u = o("WAWebAddonCreateMsgProcessor").createAddonMsgProcessor({
         isEnabled: function () {
-          return o(
-            "WAWebPinMsgGatingUtils",
-          ).isPinnedMessagesM1ReceiverEnabled();
+          return !0;
         },
         convert: {
           fromHistorySyncMsg: function (r) {

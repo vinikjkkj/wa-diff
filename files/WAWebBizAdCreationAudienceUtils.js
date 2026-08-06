@@ -27,8 +27,15 @@ __d(
           : (s = n(
               "WAWebBizAdCreationAudienceUtils_EditAudienceMutation.graphql",
             ));
-    function m(e, t, n, a, i, l, s) {
-      o("CometRelay").commitMutation(i, {
+    function m(e) {
+      var t = e.adAccountID,
+        n = e.audienceName,
+        a = e.environment,
+        i = e.legacyAccountID,
+        l = e.onCompleted,
+        s = e.onError,
+        d = e.targetingSpec;
+      o("CometRelay").commitMutation(a, {
         mutation: c,
         onCompleted: function (t) {
           var e = t.saved_audience_create,
@@ -52,11 +59,11 @@ __d(
             r("err")("Error when committing audience creation mutation", t));
         },
         updater: function (n) {
-          var t = n.get(e),
+          var e = n.get(t),
             r = n.getRootField("saved_audience_create");
-          if (t != null && r != null) {
+          if (e != null && r != null) {
             var a = o("CometRelay").ConnectionHandler.getConnection(
-              t,
+              e,
               "WAWebBizAdCreationAudienceSection_savedAudiences",
               { for_types: "SAVE_AUDIENCE", orderby: "LAST_UPDATED" },
             );
@@ -71,7 +78,7 @@ __d(
             }
           }
         },
-        variables: { legacyAdAccountID: t, name: a, targetingSpecString: u(n) },
+        variables: { legacyAdAccountID: i, name: n, targetingSpecString: u(d) },
       });
     }
     function p(e) {

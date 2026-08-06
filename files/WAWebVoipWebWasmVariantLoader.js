@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebABPropsConfigs",
+    "WAWebCoreActionsODS",
     "WAWebVoipGatingUtils",
     "WAWebVoipWebWasmMemory",
     "asyncToGeneratorRuntime",
@@ -78,15 +79,49 @@ __d(
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o(
+            "WAWebCoreActionsODS",
+          ).logCallVoipInitWasmArtifactUnversionedLoadAttempt();
           var t = yield r("JSResourceForInteraction")("WAWebVoipWebWasmLoader")
-            .__setRef("WAWebVoipWebWasmVariantLoader")
-            .load();
-          return t(e != null ? e : C());
+              .__setRef("WAWebVoipWebWasmVariantLoader")
+              .load(),
+            n = yield t(e != null ? e : C());
+          return (
+            o(
+              "WAWebCoreActionsODS",
+            ).logCallVoipInitWasmArtifactUnversionedLoadSuccess(),
+            n
+          );
         })),
         v.apply(this, arguments)
       );
     }
     function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          o(
+            "WAWebCoreActionsODS",
+          ).logCallVoipInitWasmArtifactContentAddressedLoadAttempt();
+          var t = yield r("JSResourceForInteraction")(
+              "WAWebVoipWebWasmLoader_ContentAddressed_internal",
+            )
+              .__setRef("WAWebVoipWebWasmVariantLoader")
+              .load(),
+            n = yield t(e != null ? e : C());
+          return (
+            o(
+              "WAWebCoreActionsODS",
+            ).logCallVoipInitWasmArtifactContentAddressedLoadSuccess(),
+            n
+          );
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
       if (typeof e == "string") {
         for (var t of f) if (e === t) return t;
       }
@@ -105,7 +140,7 @@ __d(
         _
       );
     }
-    function R(e) {
+    function E(e) {
       switch (e) {
         case "prod-nonlab":
           return null;
@@ -117,36 +152,37 @@ __d(
           return null;
       }
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return b(t);
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k() {
+    function k(e, t, n) {
       return I.apply(this, arguments);
     }
     function I() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebABPropsConfigs").ABPropConfigs
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          return t ? S(n) : b(n);
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T(e) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          e === void 0 && (e = !1);
+          var t = o("WAWebABPropsConfigs").ABPropConfigs
             .web_voip_load_wasm_variant;
-          if (e == null) return b();
-          var t = null;
+          if (t == null) return k(_, e);
+          var r = null;
           try {
-            t = o("WAWebABProps").getABPropConfigValue(
+            r = o("WAWebABProps").getABPropConfigValue(
               "web_voip_load_wasm_variant",
             );
-          } catch (e) {
-            return b();
+          } catch (t) {
+            return k(_, e);
           }
-          if (t == null) return b();
-          var r = S(t);
+          if (r == null) return k(_, e);
+          var a = L(r);
           if (
             (o("WALogger").LOG(
               d ||
@@ -155,10 +191,10 @@ __d(
                   "', validated variant: '",
                   "'",
                 ])),
-              String(t),
-              r,
+              String(r),
+              a,
             ),
-            !f.has(r))
+            !f.has(a))
           )
             return (
               o("WALogger").LOG(
@@ -167,36 +203,36 @@ __d(
                     "voip: Variant '",
                     "' not available, using default loader",
                   ])),
-                r,
+                a,
               ),
-              b()
+              k(_, e)
             );
-          var a = C();
-          try {
-            var i = R(r);
-            return i != null && n("cr:12201") != null
-              ? yield n("cr:12201").tryLoadLabVariant(i, a)
-              : L(r, a);
-          } catch (e) {
-            return (
-              o("WALogger").ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: Failed to load variant '",
-                    "': ",
-                    ", falling back to default",
-                  ])),
-                r,
-                String(e),
-              ),
-              b()
-            );
-          }
+          var i = C(),
+            l = E(a);
+          if (l != null && n("cr:12201") != null)
+            try {
+              return yield n("cr:12201").tryLoadLabVariant(l, i);
+            } catch (t) {
+              return (
+                o("WALogger").ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: Failed to load variant '",
+                      "': ",
+                      ", falling back to default",
+                    ])),
+                  a,
+                  String(t),
+                ),
+                k(_, e)
+              );
+            }
+          return k(a, e, i);
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    l.loadVoipWasmVariant = k;
+    l.loadVoipWasmVariant = T;
   },
   98,
 );

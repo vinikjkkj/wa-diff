@@ -157,7 +157,12 @@ __d(
       $ = 32;
     function P() {
       for (var e = 0; e < arguments.length; e++)
-        if (!(arguments[e] instanceof Uint8Array))
+        if (
+          !(
+            (e < 0 || arguments.length <= e ? void 0 : arguments[e]) instanceof
+            Uint8Array
+          )
+        )
           throw new TypeError("unexpected type, use Uint8Array");
     }
     function N(e) {

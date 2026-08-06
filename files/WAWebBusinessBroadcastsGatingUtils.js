@@ -70,15 +70,10 @@ __d(
     }
     function _() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_business_broadcast_multi_audience_send_web",
-      );
-    }
-    function f() {
-      return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_broadcasts_catalog_attachment",
       );
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_biz_broadcasts_contextual_entrypoints",
       );
@@ -90,9 +85,8 @@ __d(
       (l.isBizBroadcastDuplicateEnabled = d),
       (l.isBizBroadcastProEnabled = m),
       (l.isBizBroadcastProScheduledSendsEnabled = p),
-      (l.isBizBroadcastMultiAudienceSendEnabled = _),
-      (l.isBizBroadcastCatalogAttachmentEnabled = f),
-      (l.isBizBroadcastContextualEntrypointsEnabled = g));
+      (l.isBizBroadcastCatalogAttachmentEnabled = _),
+      (l.isBizBroadcastContextualEntrypointsEnabled = f));
   },
   98,
 );

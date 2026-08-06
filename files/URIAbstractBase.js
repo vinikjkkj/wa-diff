@@ -132,15 +132,16 @@ __d(
             a.getProtocol() !== "file" &&
             !a.getIsGeneric() &&
             !a.getDomain() &&
-            a.getPath() !== "" &&
-            (r("FBLogger")("uri").warn(
-              'URI.parse: invalid URI (protocol "' +
-                a.getProtocol() +
-                '" with no domain)',
-            ),
-            a.enforceProtocolRequiresDomain())
+            a.getPath() !== ""
           ) {
-            if (l)
+            if (
+              (r("FBLogger")("uri").warn(
+                'URI.parse: invalid URI (protocol "' +
+                  a.getProtocol() +
+                  '" with no domain)',
+              ),
+              l)
+            )
               throw r("err")(
                 "URI.parse: invalid URI (protocol and path but no domain): " +
                   c,
@@ -418,9 +419,6 @@ __d(
               }
             }
             return !1;
-          }),
-          (n.enforceProtocolRequiresDomain = function () {
-            return !0;
           }),
           t
         );

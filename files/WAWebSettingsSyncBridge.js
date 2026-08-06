@@ -39,6 +39,7 @@ __d(
         wallpaperId: s.SETTING_TYPE.WALLPAPER_ID,
         chatThemeId: s.SETTING_TYPE.CHAT_THEME_ID,
         colorSchemeId: s.SETTING_TYPE.COLOR_SCHEME_ID,
+        stockWallpaperImageId: s.SETTING_TYPE.STOCK_WALLPAPER_IMAGE_ID,
         isDoodleWallpaperEnabled: s.SETTING_TYPE.IS_DOODLE_WALLPAPER_ENABLED,
         fontSize: s.SETTING_TYPE.FONT_SIZE,
         isPhotosAutodownloadEnabled:

@@ -24,6 +24,32 @@ __d(
           (r("WAWebHatchLinkedStatusManager").registerFetcher(
             o("WAWebCanonicalHatchLinkedStatusGetQuery").fetchHatchLinkedStatus,
           ),
+            u ||
+              ((u = !0),
+              o("WAWebBackendEventBus").BackendEventBus.onAbPropsUpdate(
+                function () {
+                  (o("WAWebInitializeBots").initializeBots(),
+                    o(
+                      "WAWebPrefetchHatchLinkedStatusOnLogin",
+                    ).maybePrefetchHatchLinkedStatusOnLogin());
+                },
+              ),
+              o("WAWebBackendEventBus").BackendEventBus.onAbPropsLoaded(
+                function () {
+                  (o("WAWebInitializeBots").initializeBots(),
+                    o(
+                      "WAWebPrefetchHatchLinkedStatusOnLogin",
+                    ).maybePrefetchHatchLinkedStatusOnLogin());
+                },
+              ),
+              o("WAWebBackendEventBus").BackendEventBus.onPrimaryFeaturesSynced(
+                function (e) {
+                  e.has("ai_bot_integration_enabled") &&
+                    o(
+                      "WAWebPrefetchHatchLinkedStatusOnLogin",
+                    ).maybePrefetchHatchLinkedStatusOnLogin();
+                },
+              )),
             o(
               "WAWebPrefetchHatchLinkedStatusOnLogin",
             ).maybePrefetchHatchLinkedStatusOnLogin());
@@ -49,24 +75,6 @@ __d(
                 ])),
             );
           }
-          u ||
-            ((u = !0),
-            o("WAWebBackendEventBus").BackendEventBus.onAbPropsUpdate(
-              function () {
-                (o("WAWebInitializeBots").initializeBots(),
-                  o(
-                    "WAWebPrefetchHatchLinkedStatusOnLogin",
-                  ).maybePrefetchHatchLinkedStatusOnLogin());
-              },
-            ),
-            o("WAWebBackendEventBus").BackendEventBus.onAbPropsLoaded(
-              function () {
-                (o("WAWebInitializeBots").initializeBots(),
-                  o(
-                    "WAWebPrefetchHatchLinkedStatusOnLogin",
-                  ).maybePrefetchHatchLinkedStatusOnLogin());
-              },
-            ));
         })),
         d.apply(this, arguments)
       );

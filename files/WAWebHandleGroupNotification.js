@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WADeprecatedWapParser",
     "WALogger",
-    "WAWebABProps",
     "WAWebAsISOCountryCode",
     "WAWebCurrentUser",
     "WAWebEphemeralityTypes",
@@ -48,10 +47,7 @@ __d(
         : null;
       if (e.hasChild("ephemeral")) {
         var r = e.child("ephemeral");
-        if (
-          r.hasAttr("expiration") &&
-          o("WAWebABProps").getABPropConfigValue("dm_initiator_trigger_groups")
-        ) {
+        if (r.hasAttr("expiration")) {
           var a,
             i = t
               ? void 0
@@ -669,21 +665,14 @@ __d(
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.EPHEMERAL:
-                  return o("WAWebABProps").getABPropConfigValue(
-                    "dm_initiator_trigger_groups",
-                  )
-                    ? {
-                        actionType: o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL,
-                        duration: t.attrInt("expiration"),
-                        trigger: t.hasAttr("trigger")
-                          ? t.attrInt("trigger")
-                          : void 0,
-                        initiatedByMe: o("WAWebUserPrefsMeUser").isMeAccount(c),
-                      }
-                    : {
-                        actionType: o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL,
-                        duration: t.attrInt("expiration"),
-                      };
+                  return {
+                    actionType: o("WAWebGroupType").GROUP_ACTIONS.EPHEMERAL,
+                    duration: t.attrInt("expiration"),
+                    trigger: t.hasAttr("trigger")
+                      ? t.attrInt("trigger")
+                      : void 0,
+                    initiatedByMe: o("WAWebUserPrefsMeUser").isMeAccount(c),
+                  };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.NOT_EPHEMERAL:
                   return {

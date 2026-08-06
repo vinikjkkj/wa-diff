@@ -35,6 +35,8 @@ __d(
               pttAvgNoiseLoudnessReduction: [12, e.TYPES.NUMBER],
               pttAvgSpeechLoudness: [13, e.TYPES.NUMBER],
               pttAvgSpeechLoudnessReduction: [14, e.TYPES.NUMBER],
+              pttCaptureSampleRateEffectiveHz: [56, e.TYPES.INTEGER],
+              pttCaptureSampleRateRequestedHz: [57, e.TYPES.INTEGER],
               pttDraftPlayCnt: [7, e.TYPES.INTEGER],
               pttDraftSeekCnt: [8, e.TYPES.INTEGER],
               pttDuration: [5, e.TYPES.TIMER],

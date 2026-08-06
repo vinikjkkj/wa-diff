@@ -8,7 +8,6 @@ __d(
     "UriNeedRawQuerySVChecker",
     "err",
     "getErrorSafe",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -136,9 +135,6 @@ __d(
               r("PHPQuerySerializerNoEncoding"),
             )
           );
-        }),
-        (a.enforceProtocolRequiresDomain = function () {
-          return r("justknobx")._("3414");
         }),
         n
       );
