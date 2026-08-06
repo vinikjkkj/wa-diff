@@ -9,7 +9,10 @@ __d(
       DeactivatedGuestUserRegistered: 3,
       PendingInviteUser: 4,
     });
-    i.ExternalUserState = e;
+    function l(t) {
+      return t === e.GuestUser;
+    }
+    ((i.ExternalUserState = e), (i.isGuestUser = l));
   },
   66,
 );

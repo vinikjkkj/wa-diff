@@ -9,27 +9,36 @@ __d(
     "WAWebWamEnumMessageChatType",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e = 10;
+    function s() {
       return o("WAWebABProps").getABPropConfigValue(
         "payments_br_pix_quick_reply_enabled",
       );
     }
-    function s() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "br_payments_pix_groups_enabled",
       );
     }
-    function u(e) {
+    function c(e) {
       return (
         o("WAWebUserPrefsCustomPaymentMethods").isPIXValid() &&
-        d(e.groupMetadata) &&
-        s()
+        p(e.groupMetadata) &&
+        u()
       );
     }
-    function c(t) {
-      return e() && u(t);
-    }
     function d(e) {
+      return s() && c(e);
+    }
+    function m(t) {
+      var n = t.groupMetadata;
+      return n == null ||
+        n.participants.length === 0 ||
+        n.participants.length > e
+        ? !1
+        : p(n);
+    }
+    function p(e) {
       if (e == null) return !1;
       var t = e.participants;
       return t.every(function (e) {
@@ -39,25 +48,26 @@ __d(
         );
       });
     }
-    function m(t) {
-      if (!e() || t == null) return !1;
-      var n = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
-        t.id,
+    function _(e) {
+      if (!s() || e == null) return !1;
+      var t = o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
+        e.id,
       );
-      switch (n) {
+      switch (t) {
         case o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.INDIVIDUAL:
           return o("WAWebPaymentsChatUtils").doesUserHaveCountryPhoneNumber(
-            t.id,
+            e.id,
             o("WAWebPaymentsConstants").BRAZIL_COUNTRY_CODE,
           );
         case o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.GROUP:
-          return u(t);
+          return c(e);
         default:
           return !1;
       }
     }
-    ((l.showPixQuickReplyInAttachmentTrayForGroups = c),
-      (l.shouldShowPixQuickReplyForChat = m));
+    ((l.showPixQuickReplyInAttachmentTrayForGroups = d),
+      (l.isEligiblePixGroupChat = m),
+      (l.shouldShowPixQuickReplyForChat = _));
   },
   98,
 );

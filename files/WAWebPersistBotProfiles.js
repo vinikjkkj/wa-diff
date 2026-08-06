@@ -40,7 +40,28 @@ __d(
         u.apply(this, arguments)
       );
     }
-    l.persistBotProfiles = s;
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (yield o("WAWebSchemaBotProfile")
+            .getBotProfileTable()
+            .bulkCreateOrMerge([babelHelpers.extends({ id: e.toString() }, t)]),
+            o("WAWebBotProfileCollection").BotProfileCollection.gadd(
+              babelHelpers.extends({ id: e }, t),
+            ));
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    function m(e) {
+      return o("WAWebBotProfileCollection").BotProfileCollection.get(e) != null;
+    }
+    ((l.persistBotProfiles = s),
+      (l.mergeBotSupportFields = c),
+      (l.isBotProfileCached = m));
   },
   98,
 );

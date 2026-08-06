@@ -107,6 +107,7 @@ __d(
                       ).isNewsletterAdminProfilesReceiverEnabled()
                     ? { supported: !1 }
                     : o("WAWebMsgGetters").isNewsletterMsgWithMusic(e) &&
+                        !o("WAWebMsgGetters").getIsNewsletterStatus(e) &&
                         !o(
                           "WAWebMusicGatingUtils",
                         ).isStatusMusicReceiverEnabledForNewsletter()

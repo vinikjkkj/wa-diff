@@ -1,17 +1,12 @@
 __d(
   "WAWebMessageDedupUtils",
-  ["WALogger", "WAWebABProps", "WAWebPendingMessageKey"],
+  ["WALogger", "WAWebPendingMessageKey"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c = new Map();
-    function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_pending_message_cache_enabled",
-      );
-    }
-    function m(t, n, r) {
+    function d(t, n, r) {
       var a,
         i = o("WAWebPendingMessageKey").createPendingMessageKey(t, n, r),
         l = ((a = c.get(i)) != null ? a : 0) + 1;
@@ -30,7 +25,7 @@ __d(
         l
       );
     }
-    function p(e, t, n) {
+    function m(e, t, n) {
       var r = o("WAWebPendingMessageKey").createPendingMessageKey(e, t, n),
         a = c.get(r);
       return a == null
@@ -47,7 +42,7 @@ __d(
           ),
           !0);
     }
-    function _(e) {
+    function p(e) {
       e === 0 &&
         (c.size > 0 &&
           o("WALogger").LOG(
@@ -60,10 +55,9 @@ __d(
           ),
         c.clear());
     }
-    ((l.isPengingMessageCacheEnabled = d),
-      (l.addPendingMessage = m),
-      (l.hasPendingMessage = p),
-      (l.maybeClearPendingMessages = _));
+    ((l.addPendingMessage = d),
+      (l.hasPendingMessage = m),
+      (l.maybeClearPendingMessages = p));
   },
   98,
 );

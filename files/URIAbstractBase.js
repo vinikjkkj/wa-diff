@@ -246,8 +246,12 @@ __d(
             return (t && o ? o : this.$9).serialize(this.getQueryData());
           }),
           (n.removeQueryData = function (t) {
-            Array.isArray(t) || (t = [t]);
-            for (var e = 0, n = t.length; e < n; ++e) delete this.$8[t[e]];
+            for (
+              var e = Array.isArray(t) ? t : [t], n = 0, r = e.length;
+              n < r;
+              ++n
+            )
+              delete this.$8[e[n]];
             return ((this.$11 = !0), this);
           }),
           (n.setFragment = function (t) {

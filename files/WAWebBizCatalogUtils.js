@@ -129,18 +129,22 @@ __d(
         );
       })(),
       f = (function () {
-        function t(e, t, n, r) {
+        function t(e) {
+          var t = e.canLogQpl,
+            n = e.catalog,
+            r = e.forCatalogManager,
+            o = e.listItemHeight;
           ((this.loading = null),
-            (this.catalog = e),
-            (this.forCatalogManager = t),
-            (this.listItemHeight = n),
+            (this.catalog = n),
+            (this.forCatalogManager = r),
+            (this.listItemHeight = o),
             (this.canLoadMoreCollections =
-              e.collections.length > 0
+              n.collections.length > 0
                 ? !!this.catalog.collections.afterCursor
                 : !0),
             (this.canLoadMoreCatalog =
-              e.productCollection.length > 0 ? !!this.catalog.afterCursor : !0),
-            (this.canLogQpl = r));
+              n.productCollection.length > 0 ? !!this.catalog.afterCursor : !0),
+            (this.canLogQpl = t));
         }
         var r = t.prototype;
         return (

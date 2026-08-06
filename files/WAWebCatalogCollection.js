@@ -173,88 +173,94 @@ __d(
           }),
           (i._queryCatalog = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a, i, l, s, c) {
-                var d = t ? t.index : 0;
-                c &&
+              function* (t) {
+                var a = t.afterCursor,
+                  i = t.allowShopSource,
+                  l = t.catalog,
+                  s = t.catalogWid,
+                  c = t.checkmarkCollectionId,
+                  d = t.markerId,
+                  m = l ? l.index : 0;
+                d &&
                   o("WAWebQplFlowWrapper").QPL.markerPoint(
-                    c,
+                    d,
                     "datasource_catalog_start",
                   );
-                var m, p, _;
+                var p, _, f;
                 try {
                   o(
                     "WAWebBizCatalogGatingUtils",
                   ).isCatalogVariantsViewingEnabled() &&
-                    ((m = o(
+                    ((p = o(
                       "WAWebCatalogVariantHelper",
                     ).FULL_VARIANT_INFO_FIELDS),
-                    (p = o(
-                      "WAWebCatalogVariantHelper",
-                    ).VARIANT_THUMBNAIL_IMAGE_SIZE),
                     (_ = o(
                       "WAWebCatalogVariantHelper",
+                    ).VARIANT_THUMBNAIL_IMAGE_SIZE),
+                    (f = o(
+                      "WAWebCatalogVariantHelper",
                     ).VARIANT_THUMBNAIL_IMAGE_SIZE));
-                  var f = yield o("WAWebBizProductCatalogAction").queryCatalog(
+                  var g = yield o("WAWebBizProductCatalogAction").queryCatalog(
+                    s,
                     a,
-                    i,
                     10,
                     void 0,
                     void 0,
-                    l,
-                    s,
-                    m,
+                    c,
+                    i,
                     p,
                     _,
+                    f,
                   );
                   if (
-                    (c &&
+                    (d &&
                       o("WAWebQplFlowWrapper").QPL.markerPoint(
-                        c,
+                        d,
                         "datasource_catalog_end",
                       ),
                     this.hasSelfCatalogErrorEmailMask() &&
-                      this.shouldUseCatalogErrorEmailMask(a) &&
+                      this.shouldUseCatalogErrorEmailMask(s) &&
                       this.resetSelfCatalogErrorEmailMask(),
-                    !f.data.length)
+                    !g.data.length)
                   )
-                    return { id: a, afterCursor: "" };
-                  var g = [];
-                  f.data.forEach(function (e) {
+                    return { id: s, afterCursor: "" };
+                  var h = [];
+                  g.data.forEach(function (e) {
                     e.image_cdn_urls &&
-                      g.push(
+                      h.push(
                         o(
                           "WAWebBizProductCatalogBridge",
-                        ).mapProductResponseToModel(e, a),
+                        ).mapProductResponseToModel(e, s),
                       );
                   });
-                  var h = { type: "success", catalog: f };
-                  this.trigger("catalog-loaded", h);
-                  var y = this.get(a);
+                  var y = { type: "success", catalog: g };
+                  this.trigger("catalog-loaded", y);
+                  var C = this.get(s);
                   return (
-                    y &&
-                      y.catalogId != null &&
-                      f.catalog_id != null &&
-                      y.catalogId !== f.catalog_id &&
+                    C &&
+                      C.catalogId != null &&
+                      g.catalog_id != null &&
+                      C.catalogId !== g.catalog_id &&
                       o(
                         "WAWebBizCatalogGatingUtils",
                       ).isCatalogVariantsViewingEnabled() &&
-                      this.remove(a),
+                      this.remove(s),
                     {
-                      id: a,
-                      afterCursor: f.paging.cursors.after,
-                      _products: g,
-                      catalogId: f.catalog_id,
-                      catalogType: f.catalog_type,
-                      catalogName: f.catalog_name,
+                      id: s,
+                      afterCursor: g.paging.cursors.after,
+                      _products: h,
+                      catalogId: g.catalog_id,
+                      catalogType: g.catalog_type,
+                      catalogName: g.catalog_name,
                       fetchedFromServer: !0,
-                      index: d + g.length,
+                      index: m + h.length,
                     }
                   );
                 } catch (t) {
                   if (
                     t instanceof
                       o("WAWebBackendErrors").AdAccountRecoveryRequiredError &&
-                    this.shouldUseCatalogErrorEmailMask(a)
+                    this.shouldUseCatalogErrorEmailMask(s)
                   ) {
                     if (r("isStringNullOrEmpty")(t.emailMask))
                       return (
@@ -276,37 +282,37 @@ __d(
                   } else if (
                     t instanceof
                       o("WAWebBackendErrors").CatalogIncorrectNonceError &&
-                    this.shouldUseCatalogErrorEmailMask(a)
+                    this.shouldUseCatalogErrorEmailMask(s)
                   ) {
-                    var C = { type: "incorrect-nonce" };
+                    var b = { type: "incorrect-nonce" };
                     return (
-                      this.trigger("catalog-loaded", C),
+                      this.trigger("catalog-loaded", b),
                       (u || (u = n("Promise"))).reject(t)
                     );
                   } else if (
                     (this.hasSelfCatalogErrorEmailMask() &&
-                      this.shouldUseCatalogErrorEmailMask(a) &&
+                      this.shouldUseCatalogErrorEmailMask(s) &&
                       this.resetSelfCatalogErrorEmailMask(),
                     t instanceof
                       o("WAWebBackendErrors").ServerStatusCodeError &&
                       t.statusCode === 404)
                   ) {
-                    var b = this.get(a);
-                    b != null &&
+                    var v = this.get(s);
+                    v != null &&
                       o(
                         "WAWebBizCatalogGatingUtils",
                       ).isCatalogVariantsViewingEnabled() &&
-                      this.remove(a);
+                      this.remove(s);
                   }
-                  var v = { type: "error" };
+                  var S = { type: "error" };
                   return (
-                    this.trigger("catalog-loaded", v),
+                    this.trigger("catalog-loaded", S),
                     (u || (u = n("Promise"))).reject(t)
                   );
                 }
               },
             );
-            function a(e, n, r, o, a, i) {
+            function a(e) {
               return t.apply(this, arguments);
             }
             return a;
@@ -318,14 +324,13 @@ __d(
                 t instanceof r("WAWebWid")
                   ? t
                   : o("WAWebWidFactory").createWid(t.toString());
-            return this._queryCatalog(
-              e,
-              i,
-              a,
-              void 0,
-              void 0,
-              n == null ? void 0 : n.markerId,
-            );
+            return this._queryCatalog({
+              afterCursor: a,
+              catalog: e,
+              catalogWid: i,
+              checkmarkCollectionId: void 0,
+              markerId: n == null ? void 0 : n.markerId,
+            });
           }),
           (i.findCarouselCatalog = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -333,7 +338,13 @@ __d(
                 var n = this.convertCatalogIdForLidMigration(e),
                   r = this.get(n);
                 r && r.set({ index: 0 });
-                var o = yield this._queryCatalog(r, n, void 0, void 0, !1);
+                var o = yield this._queryCatalog({
+                  afterCursor: void 0,
+                  allowShopSource: !1,
+                  catalog: r,
+                  catalogWid: n,
+                  checkmarkCollectionId: void 0,
+                });
                 return (
                   r && r.markProductCollectionOld(),
                   t.prototype.add.call(this, o, { merge: !0 })
@@ -373,7 +384,12 @@ __d(
                 var r = this.convertCatalogIdForLidMigration(e),
                   o = this.get(r),
                   a = o && !o.stale ? o.afterCursor : void 0,
-                  i = yield this._queryCatalog(o, r, a, n);
+                  i = yield this._queryCatalog({
+                    afterCursor: a,
+                    catalog: o,
+                    catalogWid: r,
+                    checkmarkCollectionId: n,
+                  });
                 (t.prototype.add.call(this, i, { merge: !0 }),
                   (o = this.get(r)),
                   o && (o.stale = !1));

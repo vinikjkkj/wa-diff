@@ -19,14 +19,16 @@ __d(
       _ = "output",
       f = "/" + p,
       g = "/" + _;
-    function h(e, t) {
+    function h(e, t, n) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = o("WASI").createWasi(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          a === void 0 && (a = []);
+          var i = o("WASI").createWasi(
               S({
+                hints: a,
                 input: t,
                 stderr: function (n) {
                   o("WAKaleidoscopeLogger")
@@ -48,18 +50,18 @@ __d(
                 },
               }),
             ),
-            i = a.getImportObject,
-            l = a.start,
-            p;
+            l = i.getImportObject,
+            p = i.start,
+            _;
           n == null || n.addPoint("extraction_start");
           try {
-            var _,
-              f = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-              h = yield WebAssembly.instantiate(f, i()),
-              y = l(h),
-              b = y.exitCode,
-              R = y.fs;
-            if (b !== 0)
+            var f,
+              h = yield o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+              y = yield WebAssembly.instantiate(h, l()),
+              b = p(y),
+              R = b.exitCode,
+              L = b.fs;
+            if (R !== 0)
               return (
                 o("WAKaleidoscopeLogger")
                   .ksLogger()
@@ -69,13 +71,13 @@ __d(
                         "detectAiProvenance: non-zero exit code ",
                         "",
                       ])),
-                    b,
+                    R,
                   ),
                 n == null ||
-                  n.addPoint("extraction_end", { int: { exit_code: b } }),
+                  n.addPoint("extraction_end", { int: { exit_code: R } }),
                 { provenance: null, engineErrorCode: null }
               );
-            p = (_ = R[g]) == null ? void 0 : _.content;
+            _ = (f = L[g]) == null ? void 0 : f.content;
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -95,7 +97,7 @@ __d(
               { provenance: null, engineErrorCode: null }
             );
           }
-          if (typeof p != "string")
+          if (typeof _ != "string")
             return (
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -111,9 +113,9 @@ __d(
                 }),
               { provenance: null, engineErrorCode: null }
             );
-          var L;
+          var E;
           try {
-            L = JSON.parse(p);
+            E = JSON.parse(_);
           } catch (e) {
             return (
               o("WAKaleidoscopeLogger")
@@ -133,16 +135,16 @@ __d(
               { provenance: null, engineErrorCode: null }
             );
           }
-          var E = C(L);
-          return E != null
+          var k = C(E);
+          return k != null
             ? (n == null ||
                 n.addPoint("extraction_fail", {
-                  int: { engine_error_code: E },
+                  int: { engine_error_code: k },
                   string: { failure_reason: "engine_error" },
                 }),
-              { provenance: null, engineErrorCode: E })
+              { provenance: null, engineErrorCode: k })
             : (n == null || n.addPoint("extraction_end"),
-              { provenance: v(L), engineErrorCode: null });
+              { provenance: v(E), engineErrorCode: null });
         })),
         y.apply(this, arguments)
       );
@@ -178,39 +180,44 @@ __d(
     }
     function S(e) {
       var t,
-        n = e.input,
-        r = e.stderr,
-        o = e.stdout,
-        a = ["kaleidoscope", "provenance", "--json-report=" + _, p];
-      return {
-        args: a,
-        fs:
-          ((t = {}),
-          (t[f] = {
-            path: f,
-            timestamps: {
-              access: new Date(),
-              change: new Date(),
-              modification: new Date(),
-            },
-            mode: "binary",
-            content: new Uint8Array(n),
-          }),
-          (t[g] = {
-            path: g,
-            timestamps: {
-              access: new Date(),
-              change: new Date(),
-              modification: new Date(),
-            },
-            mode: "string",
-            content: "",
-          }),
-          t),
-        stdout: o,
-        stderr: r,
-        moduleName: "WAKaleidoscopeProvenance_CLI",
-      };
+        n = e.hints,
+        r = e.input,
+        o = e.stderr,
+        a = e.stdout,
+        i = ["kaleidoscope", "provenance", "--json-report=" + _];
+      for (var l of n) (i.push("--mimetype-hints"), i.push(l));
+      return (
+        i.push(p),
+        {
+          args: i,
+          fs:
+            ((t = {}),
+            (t[f] = {
+              path: f,
+              timestamps: {
+                access: new Date(),
+                change: new Date(),
+                modification: new Date(),
+              },
+              mode: "binary",
+              content: new Uint8Array(r),
+            }),
+            (t[g] = {
+              path: g,
+              timestamps: {
+                access: new Date(),
+                change: new Date(),
+                modification: new Date(),
+              },
+              mode: "string",
+              content: "",
+            }),
+            t),
+          stdout: a,
+          stderr: o,
+          moduleName: "WAKaleidoscopeProvenance_CLI",
+        }
+      );
     }
     l.detectAiProvenanceFromBytes = h;
   },

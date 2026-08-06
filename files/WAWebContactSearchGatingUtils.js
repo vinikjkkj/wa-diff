@@ -35,15 +35,20 @@ __d(
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_global_search_prefix_based",
+        "wa_web_contact_and_chat_fuzzy_search_async_enabled",
       );
     }
     function _() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_contact_search_tokenized_enabled",
+        "wa_web_global_search_prefix_based",
       );
     }
     function f() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_contact_search_tokenized_enabled",
+      );
+    }
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_push_name_in_global_search_non_contacts_enabled",
       );
@@ -52,9 +57,10 @@ __d(
       (l.getFuzzySearchDistanceThreshold = s),
       (l.getFuzzySearchTimeoutThreshold = u),
       (l.canTermsMeetFuzzySearchThreshold = m),
-      (l.isPrefixSearchEnabled = p),
-      (l.isTokenizedSearchEnabled = _),
-      (l.isNonContactPushNameSearchEnabled = f));
+      (l.isAsyncFuzzySearchEnabled = p),
+      (l.isPrefixSearchEnabled = _),
+      (l.isTokenizedSearchEnabled = f),
+      (l.isNonContactPushNameSearchEnabled = g));
   },
   98,
 );

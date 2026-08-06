@@ -248,13 +248,13 @@ __d(
                 if (i == null || l == null) return e;
                 var s = o(
                   "WAWebProductMessageListCollection",
-                ).ProductMessageListCollection.getOrAdd(
-                  t.id,
-                  l,
-                  a,
-                  i,
-                  (r = t.list) == null ? void 0 : r.title,
-                );
+                ).ProductMessageListCollection.getOrAdd({
+                  catalogOwnerJid: i,
+                  id: t.id,
+                  productList: l,
+                  requiresDirectConnection: a,
+                  title: (r = t.list) == null ? void 0 : r.title,
+                });
                 return s != null &&
                   s.productCollection.getModelsArray().length === 0 &&
                   !s.isFetching()

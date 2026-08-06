@@ -19,7 +19,7 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i, l;
-          if (n !== a) {
+          if (!(a != null && n === a)) {
             var u = o("WAWebLabelCollection").LabelCollection.findFirst(
               function (e) {
                 return (

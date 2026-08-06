@@ -20,7 +20,7 @@ __d(
     "WAWebQuotedMsgModelUtils",
     "WAWebSettingsGetters",
     "WAWebSettingsModel",
-    "WAWebUnknownUserDisplayedLogger",
+    "WAWebUnknownUserDisplayEnricher",
     "WAWebUserPrefsNotifications",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "gkx",
@@ -162,7 +162,7 @@ __d(
           u ===
             o("WAWebWamEnumOppositeVisibleIdentificationType")
               .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER &&
-          o("WAWebUnknownUserDisplayedLogger").logUnknownUserDisplayed(
+          o("WAWebUnknownUserDisplayEnricher").logUnknownUserDisplayed(
             "push_notification",
             e.contact.id,
           ),

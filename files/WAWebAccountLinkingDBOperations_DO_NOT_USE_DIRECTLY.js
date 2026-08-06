@@ -271,31 +271,33 @@ __d(
         k.apply(this, arguments)
       );
     }
-    function I(e, t, n, r) {
+    function I(e) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield C();
-            if (a != null) {
-              var i = r + o("WATimeUtils").unixTime(),
-                l = babelHelpers.extends({}, a, {
-                  accesstoken: e,
-                  pingInterval: i,
-                });
-              return (
-                t != null && (l.nonce = t),
-                n != null && (l.fbid = n),
-                (l.accountLinkingOpaqueData = o(
-                  "WAWebOpaqueDataEncryption",
-                ).moveEncFieldToOpaqueData(l)),
-                o("WAWebAccountLinkingSchema").getTable().createOrReplace(l)
-              );
-            }
-          },
-        )),
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.accesstoken,
+            n = e.fbid,
+            r = e.nonce,
+            a = e.pingInterval,
+            i = yield C();
+          if (i != null) {
+            var l = a + o("WATimeUtils").unixTime(),
+              s = babelHelpers.extends({}, i, {
+                accesstoken: t,
+                pingInterval: l,
+              });
+            return (
+              r != null && (s.nonce = r),
+              n != null && (s.fbid = n),
+              (s.accountLinkingOpaqueData = o(
+                "WAWebOpaqueDataEncryption",
+              ).moveEncFieldToOpaqueData(s)),
+              o("WAWebAccountLinkingSchema").getTable().createOrReplace(s)
+            );
+          }
+        })),
         T.apply(this, arguments)
       );
     }

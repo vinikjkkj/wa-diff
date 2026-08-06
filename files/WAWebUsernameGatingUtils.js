@@ -77,6 +77,16 @@ __d(
         "username_adoption_and_engagement_monitoring_enabled",
       );
     }
+    function L() {
+      return !!o("WAWebABProps").getABPropConfigValue(
+        "username_unknown_user_logging_enabled",
+      );
+    }
+    function E() {
+      return !!o("WAWebABProps").getABPropConfigValue(
+        "unknown_user_target_rid_logging",
+      );
+    }
     ((l.usernameDisplayedEnabled = e),
       (l.usernameSearchEnabled = s),
       (l.usernameContactlessChatEnabled = u),
@@ -92,7 +102,9 @@ __d(
       (l.usernameKeyUpsellMaxCharacters = b),
       (l.usernameKeyUpsellMaxNumbers = v),
       (l.usernameEngagementNetworkImpactLoggingEnabled = S),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = R));
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = R),
+      (l.usernameUnknownUserLoggingEnabled = L),
+      (l.unknownUserTargetRidLoggingEnabled = E));
   },
   98,
 );

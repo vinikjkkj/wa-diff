@@ -60,7 +60,7 @@ __d(
         v = new Map();
       for (var S in l) {
         var R = l[S],
-          L = c.define(a, S, R[0], R[1]);
+          L = c.define({ eventName: a, fieldName: S, id: R[0], type: R[1] });
         (v.set(R[0], L.name),
           (y[S] = L.validator),
           p && (b[S] = e(S)),

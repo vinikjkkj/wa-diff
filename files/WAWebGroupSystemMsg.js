@@ -10,7 +10,6 @@ __d(
     "WAWebContactSystemMsg",
     "WAWebDBCommunity",
     "WAWebDBGroupsGroupMetadata",
-    "WAWebGroupGatingUtils",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
     "WAWebGroupUtils",
@@ -556,8 +555,6 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE: {
-              if (!o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsEnabled())
-                break;
               var q = t.value;
               h = [
                 q ===

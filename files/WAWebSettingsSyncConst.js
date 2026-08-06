@@ -56,6 +56,9 @@ __d(
           "chatThemeId"),
         (e[s.SyncActionValue$SettingsSyncAction$SettingKey.COLOR_SCHEME_ID] =
           "colorSchemeId"),
+        (e[
+          s.SyncActionValue$SettingsSyncAction$SettingKey.STOCK_WALLPAPER_IMAGE_ID
+        ] = "stockWallpaperImageId"),
         (e[s.SyncActionValue$SettingsSyncAction$SettingKey.FONT_SIZE] =
           "fontSize"),
         (e[
@@ -147,6 +150,9 @@ __d(
           s.SyncActionValue$SettingsSyncAction$SettingKey.CHAT_THEME_ID,
         colorSchemeId:
           s.SyncActionValue$SettingsSyncAction$SettingKey.COLOR_SCHEME_ID,
+        stockWallpaperImageId:
+          s.SyncActionValue$SettingsSyncAction$SettingKey
+            .STOCK_WALLPAPER_IMAGE_ID,
         fontSize: s.SyncActionValue$SettingsSyncAction$SettingKey.FONT_SIZE,
         isPhotosAutodownloadEnabled:
           s.SyncActionValue$SettingsSyncAction$SettingKey
@@ -209,6 +215,7 @@ __d(
         isDoodleWallpaperEnabled: "isDoodleWallpaperEnabled",
         chatThemeId: "chatThemeId",
         colorSchemeId: "colorSchemeId",
+        stockWallpaperImageId: "stockWallpaperImageId",
         fontSize: "fontSize",
         isPhotosAutodownloadEnabled: "isPhotosAutodownloadEnabled",
         isAudiosAutodownloadEnabled: "isAudiosAutodownloadEnabled",

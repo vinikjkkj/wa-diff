@@ -10,6 +10,7 @@ __d(
     "WAWebApiContact",
     "WAWebApiContactUsernameFields",
     "WAWebBizCoexGatingUtils",
+    "WAWebContactExternalUserState",
     "WAWebEnvironment",
     "WAWebIdentityApiUtils",
     "WAWebLid1X1MigrationGating",
@@ -22,6 +23,7 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
+    "WAWebVoipGatingUtils",
     "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "nullthrows",
@@ -52,15 +54,36 @@ __d(
       return o("WABinary").Binary.build(e).readByteArrayView();
     }
     function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          if (e == null) return null;
+          var r =
+            t != null
+              ? t
+              : o("WAWebContactExternalUserState").isGuestUser(
+                  (n = yield o("WAWebApiContact").getContactRecord(e)) == null
+                    ? void 0
+                    : n.externalUserState,
+                );
+          return r ? f(e) : null;
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
       var n = e.getUint32(t, !1) * 256 + e.getUint8(t + 4);
       return ("00000" + n).slice(-5);
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           for (
             var r = (d || (d = n("Promise"))).resolve(
                 o("WABinary").Binary.build(0, 0, t, e).readByteArrayView(),
@@ -80,29 +103,13 @@ __d(
               i instanceof ArrayBuffer ? i.slice(0, 30) : i.slice(0, 30).buffer,
             );
           return [
-            h(l, 0),
-            h(l, 5),
-            h(l, 10),
-            h(l, 15),
-            h(l, 20),
-            h(l, 25),
+            C(l, 0),
+            C(l, 5),
+            C(l, 10),
+            C(l, 15),
+            C(l, 20),
+            C(l, 25),
           ].join("");
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.localIdentifier,
-            r = e.localIdentityKeyList,
-            o = e.remoteIdentifier,
-            a = e.remoteIdentityKeyList,
-            i = yield (d || (d = n("Promise"))).all([y(t, r), y(o, a)]);
-          return i.sort().join("");
         })),
         v.apply(this, arguments)
       );
@@ -113,6 +120,22 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.localIdentifier,
+            r = e.localIdentityKeyList,
+            o = e.remoteIdentifier,
+            a = e.remoteIdentityKeyList,
+            i = yield (d || (d = n("Promise"))).all([b(t, r), b(o, a)]);
+          return i.sort().join("");
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           for (
             var t = (d || (d = n("Promise"))).resolve(e), r = 0;
             r < 5200;
@@ -127,15 +150,15 @@ __d(
           var a = yield t;
           return new Uint8Array(a instanceof ArrayBuffer ? a : a.buffer);
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.includeHashedKeys,
             a = e.includeUnhashedKeys,
             i = e.isMeHosted,
@@ -151,7 +174,7 @@ __d(
             h = {},
             y = {};
           if (t) {
-            var C = yield (d || (d = n("Promise"))).all([S(p), S(s)]),
+            var C = yield (d || (d = n("Promise"))).all([L(p), L(s)]),
               b = C[0],
               v = C[1];
             ((h.hashedPublicKey = b), (y.hashedPublicKey = v));
@@ -180,39 +203,40 @@ __d(
               (h.hostedState = l
                 ? o("WAWebProtobufsFingerprintV3.pb").HostedState.HOSTED
                 : o("WAWebProtobufsFingerprintV3.pb").HostedState.E2EE)));
-          var R = {
+          var S = {
               version: t
                 ? o("WAValidateFingerprints").V3_QR_VERSION_1
                 : o("WAValidateFingerprints").V3_QR_VERSION_0,
               localFingerprint: y,
               remoteFingerprint: h,
             },
-            L = new (o("WABinary").Binary)();
+            R = new (o("WABinary").Binary)();
           return (
             o("encodeProtobuf").encodeProtobuf(
               o("WAWebProtobufsFingerprintV3.pb").CombinedFingerprintSpec,
+              S,
               R,
-              L,
             ),
-            L.readBuffer()
+            R.readBuffer()
           );
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.jid,
-            i = t.lid,
-            l = t.shareOwnPn;
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = t.isRemoteGuest,
+            i = t.jid,
+            l = t.lid,
+            m = t.shareOwnPn;
           o(
             "WAWebLid1X1MigrationGating",
           ).Lid1X1MigrationUtils.isLidMigrated() &&
-            !i &&
+            !l &&
             o("WALogger")
               .ERROR(
                 e ||
@@ -221,26 +245,31 @@ __d(
                   ])),
               )
               .sendLogs("identity-verification-migrated-client-no-lid");
-          var m = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-            h = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-            y = yield o("WAWebApiContactUsernameFields").getContactUsername(h),
-            C,
-            v;
-          i
-            ? ((C = i), (v = o("WAWebApiContact").getPhoneNumber(C)))
-            : a.isLid()
-              ? ((C = a), (v = o("WAWebApiContact").getPhoneNumber(a)))
-              : ((C = o("WAWebApiContact").getCurrentLid(a)), (v = a));
-          var S = yield o("WAWebApiContactUsernameFields").getContactUsername(
-              a,
+          var y = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
+            C = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            b = yield o("WAWebApiContactUsernameFields").getContactUsername(C),
+            v,
+            R;
+          l
+            ? ((v = l), (R = o("WAWebApiContact").getPhoneNumber(v)))
+            : i.isLid()
+              ? ((v = i), (R = o("WAWebApiContact").getPhoneNumber(i)))
+              : ((v = o("WAWebApiContact").getCurrentLid(i)), (R = i));
+          var L = yield o("WAWebApiContactUsernameFields").getContactUsername(
+              i,
             ),
-            R = o("WAWebUserPrefsMeUser").isMeAccount(a),
-            E = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([a, m], a);
+            E = o("WAWebUserPrefsMeUser").isMeAccount(i),
+            I = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([i, y], i);
           try {
             yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
               identityChanged: !1,
+              options: {
+                skipOfflineDeliveryWait: o(
+                  "WAWebVoipGatingUtils",
+                ).isGuestViewer(),
+              },
               sessionScope: o("WAWebSessionScope").SessionScope.DEFAULT,
-              wids: E,
+              wids: I,
             });
           } catch (e) {
             o("WALogger").ERROR(
@@ -250,38 +279,38 @@ __d(
                 ])),
             );
           }
-          var k = [],
-            I = [],
-            T = o(
+          var T = [],
+            D = [],
+            x = o(
               "WAWebBizCoexGatingUtils",
             ).hostedDeviceSecurityCodeVerificationEnabled()
               ? (yield o(
                   "WAWebUserPrefsMultiDevice",
                 ).getIsHostedMeAccount()) === !0
               : !1,
-            D = !1;
-          E.forEach(function (e) {
+            $ = !1;
+          I.forEach(function (e) {
             (o("WAWebUserPrefsMeUser").isMeAccount(e) &&
               !e.isHosted() &&
-              I.push(e),
-              (!o("WAWebUserPrefsMeUser").isMeAccount(e) || R) &&
+              D.push(e),
+              (!o("WAWebUserPrefsMeUser").isMeAccount(e) || E) &&
                 (e.isHosted()
-                  ? (D = o(
+                  ? ($ = o(
                       "WAWebBizCoexGatingUtils",
                     ).hostedDeviceSecurityCodeVerificationEnabled())
-                  : k.push(e)));
+                  : T.push(e)));
           });
           try {
-            var x = yield o(
+            var P = yield o(
                 "WAWebIdentityApiUtils",
-              ).getAllIdentityKeysBytesOrThrow(k),
-              $ = yield o(
+              ).getAllIdentityKeysBytesOrThrow(T),
+              N = yield o(
                 "WAWebIdentityApiUtils",
-              ).getAllIdentityKeysBytesOrThrow(I),
-              P = yield o("WAWebSignalProtocolStore")
+              ).getAllIdentityKeysBytesOrThrow(D),
+              M = yield o("WAWebSignalProtocolStore")
                 .getSignalProtocolStore()
                 .getIdentityKeyPair();
-            if (!P)
+            if (!M)
               return (
                 o("WALogger").WARN(
                   u ||
@@ -291,109 +320,109 @@ __d(
                 ),
                 null
               );
-            ($.push(new Uint8Array(P.pubKey)),
-              R && x.push(new Uint8Array(P.pubKey)));
-            var N = o("WAWebIdentityApiUtils").identityKeysToBinary($),
-              M = o("WAWebIdentityApiUtils").identityKeysToBinary(x),
-              w;
-            y != null
-              ? (w = g(o("WAWebUsernameTypes").serializeUsername(y)))
+            (N.push(new Uint8Array(M.pubKey)),
+              E && P.push(new Uint8Array(M.pubKey)));
+            var w = o("WAWebIdentityApiUtils").identityKeysToBinary(N),
+              A = o("WAWebIdentityApiUtils").identityKeysToBinary(P),
+              F;
+            b != null
+              ? (F = g(o("WAWebUsernameTypes").serializeUsername(b)))
               : r("WAWebEnvironment").isGuest
-                ? (w = g(m.toString()))
-                : (w = null);
-            var A =
-                S != null
-                  ? g(o("WAWebUsernameTypes").serializeUsername(S))
-                  : null,
-              F = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-              O = F != null ? p(F) : null,
-              B = v != null ? p(v) : null,
-              W = f(m),
-              q = C != null ? f(C) : null,
-              U = null,
-              V =
-                o("WAWebUsernameGatingUtils").canShowV3NumericCode() &&
-                O != null &&
-                B != null;
-            V &&
-              (U = b({
-                localIdentifier: r("nullthrows")(O),
-                localIdentityKeyList: N,
-                remoteIdentifier: r("nullthrows")(B),
-                remoteIdentityKeyList: M,
-              }));
-            var H = null,
+                ? (F = f(y))
+                : (F = null);
+            var O =
+                L != null
+                  ? g(o("WAWebUsernameTypes").serializeUsername(L))
+                  : yield h(v, a),
+              B = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+              W = B != null ? p(B) : null,
+              q = R != null ? p(R) : null,
+              U = f(y),
+              V = v != null ? f(v) : null,
+              H = null,
               G =
+                o("WAWebUsernameGatingUtils").canShowV3NumericCode() &&
+                W != null &&
+                q != null;
+            G &&
+              (H = S({
+                localIdentifier: r("nullthrows")(W),
+                localIdentityKeyList: w,
+                remoteIdentifier: r("nullthrows")(q),
+                remoteIdentityKeyList: A,
+              }));
+            var z = null,
+              j =
                 (r("WAWebEnvironment").isGuest ||
                   (o("WAWebUsernameGatingUtils").canShowV4NumericCode() &&
                     o(
                       "WAWebUsernameGatingUtils",
                     ).usernameSecurityCodeGenerationEnabled())) &&
-                W != null &&
-                q != null;
-            if (G) {
-              var z = _(m),
-                j = _(r("nullthrows")(C));
-              H = b({
-                localIdentifier: z,
-                localIdentityKeyList: N,
-                remoteIdentifier: j,
-                remoteIdentityKeyList: M,
+                U != null &&
+                V != null;
+            if (j) {
+              var K = _(y),
+                Q = _(r("nullthrows")(v));
+              z = S({
+                localIdentifier: K,
+                localIdentityKeyList: w,
+                remoteIdentifier: Q,
+                remoteIdentityKeyList: A,
               });
             }
-            var K = o(
+            var X = o(
                 "WAWebUsernameGatingUtils",
               ).usernameSecurityCodeGenerationEnabled()
-                ? y == null
-                : l,
-              Q =
+                ? b == null
+                : m,
+              Y =
                 !r("WAWebEnvironment").isGuest &&
                 o("WAWebABProps").getABPropConfigValue(
                   "hash_identity_keys_for_qr_code_device_verification",
                 ),
-              X = L({
-                localPnIdentifier: K ? O : null,
-                localLidIdentifier: W,
-                localUsernameIdentifier: w,
-                localKeysBinary: N,
-                remotePnIdentifier: B,
-                remoteLidIdentifier: q,
-                remoteKeysBinary: M,
-                remoteUsernameIdentifier: A,
-                isMeHosted: T,
-                isRemoteHosted: D,
-                includeHashedKeys: Q,
-                includeUnhashedKeys: !Q,
+              J = k({
+                localPnIdentifier: X ? W : null,
+                localLidIdentifier: U,
+                localUsernameIdentifier: F,
+                localKeysBinary: w,
+                remotePnIdentifier: q,
+                remoteLidIdentifier: V,
+                remoteKeysBinary: A,
+                remoteUsernameIdentifier: O,
+                isMeHosted: x,
+                isRemoteHosted: $,
+                includeHashedKeys: Y,
+                includeUnhashedKeys: !Y,
               }),
-              Y = L({
-                localPnIdentifier: K ? O : null,
-                localLidIdentifier: W,
-                localUsernameIdentifier: w,
-                localKeysBinary: N,
-                remotePnIdentifier: B,
-                remoteLidIdentifier: q,
-                remoteKeysBinary: M,
-                remoteUsernameIdentifier: A,
-                isMeHosted: T,
-                isRemoteHosted: D,
+              Z = k({
+                localPnIdentifier: X ? W : null,
+                localLidIdentifier: U,
+                localUsernameIdentifier: F,
+                localKeysBinary: w,
+                remotePnIdentifier: q,
+                remoteLidIdentifier: V,
+                remoteKeysBinary: A,
+                remoteUsernameIdentifier: O,
+                isMeHosted: x,
+                isRemoteHosted: $,
                 includeHashedKeys: !0,
                 includeUnhashedKeys: !0,
               }),
-              J = yield (d || (d = n("Promise"))).all([
-                d.resolve(U),
+              ee = yield (d || (d = n("Promise"))).all([
                 d.resolve(H),
-                d.resolve(X),
-                d.resolve(Y),
+                d.resolve(z),
+                d.resolve(J),
+                d.resolve(Z),
               ]),
-              Z = J[0],
-              ee = J[1],
-              te = J[2],
-              ne = J[3];
+              te = ee[0],
+              ne = ee[1],
+              re = ee[2],
+              oe = ee[3];
             return {
-              qrCodeDisplay: te,
-              qrCodeVerify: ne,
-              numericCodeV3: Z,
-              numericCodeV4: ee,
+              qrCodeDisplay: re,
+              qrCodeVerify: oe,
+              numericCodeV3: te,
+              numericCodeV4: ne,
             };
           } catch (e) {
             return (
@@ -409,10 +438,10 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    l.getIdentityVerificationData = k;
+    l.getIdentityVerificationData = T;
   },
   98,
 );

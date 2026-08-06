@@ -22,13 +22,14 @@ __d(
       m,
       p,
       _,
-      f = 5e3;
-    function g(e) {
-      return h.apply(this, arguments);
+      f,
+      g = 5e3;
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -38,7 +39,7 @@ __d(
             t,
           ),
             t
-              ? yield y(t, "handleFatalError for collection")
+              ? yield C(t, "handleFatalError for collection")
               : yield o("WAWebSyncdDbCallbacksApi").writeSyncdLog(
                   "",
                   "handleFatalError without collection",
@@ -57,8 +58,8 @@ __d(
                 "syncd: fatal flow: before sleep",
               ])),
           ),
-            yield o("WAPromiseDelays").delayMs(f),
-            yield y(t, "handleFatalError before notify primary"));
+            yield o("WAPromiseDelays").delayMs(g),
+            yield C(t, "handleFatalError before notify primary"));
           var a = o("WATimeUtils").castMilliSecondsToUnixTime(
             o("WATimeUtils").unixTimeMs(),
           );
@@ -90,13 +91,13 @@ __d(
                 "syncd: end notifying primary on fatal error",
               ])),
           ),
-            yield y(t, "handleFatalError after notify primary"));
+            yield C(t, "handleFatalError after notify primary"));
           var i = o("WATimeUtils").castMilliSecondsToUnixTime(
               o("WATimeUtils").unixTimeMs(),
             ),
             l = o("WATimeUtils").toHttpHeaderDate(r),
-            _ = o("WATimeUtils").toHttpHeaderDate(a),
-            g = o("WATimeUtils").toHttpHeaderDate(i);
+            f = o("WATimeUtils").toHttpHeaderDate(a),
+            h = o("WATimeUtils").toHttpHeaderDate(i);
           (o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -106,8 +107,8 @@ __d(
                 "",
               ])),
             l,
-            _,
-            g,
+            f,
+            h,
           ),
             yield o("WAWebSyncdLogs").printSyncdLogs(),
             o("WALogger")
@@ -120,22 +121,29 @@ __d(
               .verbose()
               .tags("syncd", "logout")
               .sendLogs("syncd: fatal error and logged out"),
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd: fatal flow: before logout sleep",
+                ])),
+            ),
+            yield o("WAPromiseDelays").delayMs(g),
             o("WAWebCoreActionsODS").logSessionForcedLogout(),
             yield o("WAWebSocketLogoutJob").socketLogout(
               o("WAWebLogoutReasonConstants").LogoutReason.SyncdFailure,
             ));
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return (_ || (_ = n("Promise"))).all(
+    function C(e, t) {
+      return (f || (f = n("Promise"))).all(
         (e != null ? e : [""]).map(function (e) {
           return o("WAWebSyncdDbCallbacksApi").writeSyncdLog(e, t);
         }),
       );
     }
-    l.handleFatalError = g;
+    l.handleFatalError = h;
   },
   98,
 );

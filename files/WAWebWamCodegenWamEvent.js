@@ -204,12 +204,12 @@ __d(
             (r.all = u),
             r.set(r.all));
           for (var c in r.all)
-            o("WAWebWamCodegenUtils").metrics.define(
-              r.$className,
-              c,
-              Number(c),
-              "number",
-            );
+            o("WAWebWamCodegenUtils").metrics.define({
+              eventName: r.$className,
+              fieldName: c,
+              id: Number(c),
+              type: "number",
+            });
           return r;
         }
         babelHelpers.inheritsLoose(n, t);
@@ -245,12 +245,12 @@ __d(
                 var a = r[0],
                   i = r[1];
                 if (i === t) {
-                  (o("WAWebWamCodegenUtils").metrics.define(
-                    this.$className,
-                    String(a),
-                    a,
-                    "number",
-                  ),
+                  (o("WAWebWamCodegenUtils").metrics.define({
+                    eventName: this.$className,
+                    fieldName: String(a),
+                    id: a,
+                    type: "number",
+                  }),
                     (this.all[String(a)] = n));
                   return;
                 }

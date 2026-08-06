@@ -17,7 +17,6 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebInsertUsernameChangeSystemMsg",
     "WAWebMaybePostOfflineCountTooHighMetric",
-    "WAWebMessageDedupUtils",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessageQueue",
     "WAWebMsgProcessingApiUtils",
@@ -189,8 +188,7 @@ __d(
             M = P.ghsReportingTokenInfos,
             w = P.msgBotInfo,
             A = P.msgInfo,
-            F = P.msgMeta,
-            O = o("WAWebMsgProcessingApiUtils").messageInfoToKey(A);
+            F = P.msgMeta;
           ((A.clientReceivedTsMillis = o("WATimeUtils").unixTimeMs()),
             A.offline != null &&
               (o(
@@ -199,10 +197,8 @@ __d(
               o(
                 "WAWebOfflineHandler",
               ).OfflineMessageHandler.offlineStanzaReceivedAfterComplete()));
-          var B = 1;
+          var O = 1;
           return (
-            o("WAWebMessageDedupUtils").isPengingMessageCacheEnabled() &&
-              (B = o("WAWebMessageDedupUtils").addPendingMessage(O, A.ts, N)),
             o(
               "WAWebOfflineHandler",
             ).OfflineMessageHandler.isResumeFromRestartComplete() &&
@@ -538,7 +534,7 @@ __d(
                                         hasHideFailEnc: N.some(function (e) {
                                           return e.hideFail;
                                         }),
-                                        msgReceivedTimes: B,
+                                        msgReceivedTimes: O,
                                       },
                                     },
                                   ],

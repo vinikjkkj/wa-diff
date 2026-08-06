@@ -83,7 +83,7 @@ __d(
                 ? babelHelpers.extends({}, l, { type: "NewsletterText" })
                 : babelHelpers.extends({}, l, { type: "NewsletterMedia" }),
             u = babelHelpers.extends(
-              { isNewMsg: !1 },
+              { isNewMsg: !1, isNewsletterStatus: !0 },
               o("WAWebNewsletterGatingUtils").isChannelDSA26ReceiverEnabled()
                 ? {
                     hasPaidPartnershipLabel:

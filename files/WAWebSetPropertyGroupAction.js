@@ -10,7 +10,6 @@ __d(
     "WAWebBackendErrors",
     "WAWebCommunityGroupJourneyEventImpl",
     "WAWebGroupConstants",
-    "WAWebGroupGatingUtils",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupModifyInfoJob",
     "WAWebLimitSharingGatingUtils",
@@ -430,7 +429,6 @@ __d(
           (h === 0 &&
             ((P = i.groupMetadata) == null ? void 0 : P.memberLinkMode) !==
               o("WAWebGroupMemberLinkMode").MemberLinkMode.ADMIN_LINK &&
-            o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsEnabled() &&
             N.push({ member_link_mode: "ADMIN_LINK" }),
             ($ = D(N)));
           break;

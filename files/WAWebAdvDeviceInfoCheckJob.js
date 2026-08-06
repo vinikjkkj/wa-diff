@@ -173,7 +173,7 @@ __d(
               r = e.some(function (e) {
                 var t = e[0],
                   n = e[1];
-                return o("WAWebUserPrefsMeUser").isMeAccount(t);
+                return L(t);
               });
             return r &&
               o("WAWebABProps").getABPropConfigValue(
@@ -295,6 +295,13 @@ __d(
         : n.expectedTs != null
           ? n.expectedTs > n.timestamp
           : !1;
+    }
+    function L(e) {
+      return o("WAWebUserPrefsMeUser").isMeAccount(e)
+        ? o("WAWebABProps").getABPropConfigValue("web_self_adv_daily_use_lid")
+          ? e.equals(o("WAWebUserPrefsMeUser").getMeLidUserOrThrow())
+          : !0
+        : !1;
     }
     ((l.AdvToSystemBridgeImpl = _),
       (l.scheduleAdvDeviceInfoCheck = h),

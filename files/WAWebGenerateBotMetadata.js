@@ -293,15 +293,11 @@ __d(
                 ],
               )
             : [],
-          o(
-            "WAWebBotBaseGating",
-          ).isAiContinuousSessionTransparencyNoticeEnabled(e)
-            ? [
-                o("WAWebProtobufsAICommon.pb")
-                  .BotCapabilityMetadata$BotCapabilityType
-                  .SESSION_TRANSPARENCY_SYSTEM_MESSAGE,
-              ]
-            : [],
+          [
+            o("WAWebProtobufsAICommon.pb")
+              .BotCapabilityMetadata$BotCapabilityType
+              .SESSION_TRANSPARENCY_SYSTEM_MESSAGE,
+          ],
           o("WAWebBotBaseGating").isAiSubscriptionMeteringEnabled()
             ? [
                 o("WAWebProtobufsAICommon.pb")

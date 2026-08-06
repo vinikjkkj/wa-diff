@@ -16,58 +16,52 @@ __d(
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(
-        "anyone_can_link_to_groups",
-      );
-    }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
         "wa_web_anyone_can_link_m2",
       );
     }
-    var p = 32;
-    function _() {
+    var m = 32;
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_multi_ppl_typing_indicator_for_chatlist_groups_variant",
       );
     }
-    function f() {
-      return _() !== e.NONE;
+    function _() {
+      return p() !== e.NONE;
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_group_discard_dialog_contact_threshold",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_group_experimentation_enable",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_suspension_appeals_redesign_enabled",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_suspension_appeals_redesign_variant_enable",
       );
     }
-    var b = 33;
+    var C = 33;
     ((l.GROUP_TYPING_VARIANT = e),
       (l.getGroupDescriptionLength = s),
       (l.getGroupMaxSubject = u),
       (l.isPersistentPendingJoinRequestsBannerEnabled = c),
-      (l.isAnyoneCanLinkToGroupsEnabled = d),
-      (l.isAnyoneCanLinkToGroupsM2Enabled = m),
-      (l.ANYONE_CAN_LINK_M2_PARTICIPANT_THRESHOLD = p),
-      (l.getGroupTypingIndicatorVariant = _),
-      (l.isGroupTypingIndicatorEnabled = f),
-      (l.getGroupDiscardDialogThreshold = g),
-      (l.isGroupExperimentationEnabled = h),
-      (l.isGroupSuspensionAppealsRedesignEnabled = y),
-      (l.isGroupSuspensionAppealsRedesignVariantEnabled = C),
-      (l.GFG_GROUP_SIZE_THRESHOLD = b));
+      (l.isAnyoneCanLinkToGroupsM2Enabled = d),
+      (l.ANYONE_CAN_LINK_M2_PARTICIPANT_THRESHOLD = m),
+      (l.getGroupTypingIndicatorVariant = p),
+      (l.isGroupTypingIndicatorEnabled = _),
+      (l.getGroupDiscardDialogThreshold = f),
+      (l.isGroupExperimentationEnabled = g),
+      (l.isGroupSuspensionAppealsRedesignEnabled = h),
+      (l.isGroupSuspensionAppealsRedesignVariantEnabled = y),
+      (l.GFG_GROUP_SIZE_THRESHOLD = C));
   },
   98,
 );

@@ -7,17 +7,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.jid,
-        n = e.lid,
-        r = e.options,
-        a = babelHelpers.extends({ jid: t, lid: n }, r);
+      var t = e.isRemoteGuest,
+        n = e.jid,
+        r = e.lid,
+        a = e.options,
+        i = babelHelpers.extends({ jid: n, lid: r, isRemoteGuest: t }, a);
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getIdentityVerificationData",
           o("WAWebIdentityVerificationApi").getIdentityVerificationData,
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.SKIP },
         )
-        .waitUntilCompleted(a);
+        .waitUntilCompleted(i);
     }
     l.getIdentityVerificationDataJob = e;
   },

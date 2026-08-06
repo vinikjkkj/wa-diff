@@ -129,7 +129,8 @@ __d(
           o("WAWebNewsletterGatingUtils").isChannelSGIReceiverEnabled() &&
           (h.aiProvenance = o("WAWebMsgAIProvenance").withSelfDisclosed(
             h.aiProvenance,
-          )));
+          )),
+        d.isNewsletterStatus === !0 && (h.isNewsletterStatus = !0));
       var b = o("WAWebNewsletterFutureProofUtils").isMsgSupported(h),
         v = b.reason,
         S = b.supported;

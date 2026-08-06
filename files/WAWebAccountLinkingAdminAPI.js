@@ -234,12 +234,12 @@ __d(
                 return;
               }
               var E = d.value.pingIntervalElementValue;
-              yield S.updateGenerateAccessTokensData(
-                R.access_token,
-                "nonce" in R ? R.nonce : null,
-                "fbid" in R ? String(R.fbid) : null,
-                E,
-              );
+              yield S.updateGenerateAccessTokensData({
+                accesstoken: R.access_token,
+                fbid: "fbid" in R ? String(R.fbid) : null,
+                nonce: "nonce" in R ? R.nonce : null,
+                pingInterval: E,
+              });
             } catch (e) {
               o("WALogger")
                 .ERROR(

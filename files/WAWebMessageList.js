@@ -54,7 +54,13 @@ __d(
         });
         var l = o(
           "WAWebProductMessageListCollection",
-        ).ProductMessageListCollection.getOrAdd(e.id, a, n, r, e.list.title);
+        ).ProductMessageListCollection.getOrAdd({
+          catalogOwnerJid: r,
+          id: e.id,
+          productList: a,
+          requiresDirectConnection: n,
+          title: e.list.title,
+        });
         l != null
           ? o("WAWebDrawerManager").DrawerManager.openDrawerRight(
               c.jsx(

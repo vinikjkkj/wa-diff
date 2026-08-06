@@ -44,9 +44,12 @@ __d(
             o("WAWebPaymentsConstants").BRAZIL_COUNTRY_CODE,
           )
         : a === o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE.GROUP
-          ? o(
-              "WAWebPixQuickReplyFeature",
-            ).showPixQuickReplyInAttachmentTrayForGroups(t)
+          ? r
+            ? o("WAWebPaymentsGatingUtils").consumerSharePixGroupsEnabled() &&
+              o("WAWebPixQuickReplyFeature").isEligiblePixGroupChat(t)
+            : o(
+                "WAWebPixQuickReplyFeature",
+              ).showPixQuickReplyInAttachmentTrayForGroups(t)
           : !1;
     }
     l.shouldShowPixInAttachmentTray = s;

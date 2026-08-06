@@ -266,7 +266,7 @@ __d(
             subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
               .PaymentInviteAccountSetUp,
             from: e,
-            to: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            to: o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             recipients: [],
             t: t,
             templateParams: [e],

@@ -129,7 +129,7 @@ __d(
       );
     }
     function E() {
-      return k() && R();
+      return R() && k();
     }
     function k() {
       return o("WAWebABProps").getABPropConfigValue("web_status_send_via_smax");

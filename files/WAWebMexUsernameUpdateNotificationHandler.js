@@ -11,15 +11,16 @@ __d(
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e, t) {
-      return p.apply(this, arguments);
+    var e, s, u, c, d, m;
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
             o("WALogger").LOG(
               e ||
@@ -44,15 +45,15 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
             o("WALogger").LOG(
@@ -77,15 +78,15 @@ __d(
             );
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function h() {
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
             o("WALogger").LOG(
               u ||
@@ -94,8 +95,8 @@ __d(
                 ])),
             );
             var n = t.xwa2_notify_username_on_update_side_sub.hash,
-              r = yield o("WAWebApiContact").getContactRecordByHash(n);
-            if (r == null) {
+              a = yield o("WAWebApiContact").getContactRecordByHash(n);
+            if (a == null) {
               o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -104,7 +105,7 @@ __d(
               );
               return;
             }
-            if (r.isAddressBookContact === 1) {
+            if (a.isAddressBookContact === 1) {
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -113,34 +114,48 @@ __d(
               );
               return;
             }
-            var a = o("WAWebWidFactory").createUserLidOrThrow(r.id);
-            if (!o("WAWebUserPrefsMeUser").isMeAccount(a)) {
-              var i = yield o("WAWebQueryExistsJob").queryWidUsernameExists(a);
-              if (!(i == null || i.usernameChanged !== !0)) {
-                var l = o("WAWebUsernameTypes").asMaybeUsername(i.username),
-                  s = l == null;
-                if (s) {
-                  if (i.isPhoneNumberKnown !== !0) return;
-                } else if (i.wasPreviouslyKnown !== !0) return;
+            var i = o("WAWebWidFactory").createWid(a.id);
+            if (!i.isLid())
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[mex][username] side-sub contact id is not a lid: ",
+                        "",
+                      ])),
+                    i.toLogString(),
+                  )
+                  .sendLogs("mex-username-side-sub-non-lid"),
+                r("err")("mex-username-side-sub-non-lid")
+              );
+            if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
+              var l = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
+              if (!(l == null || l.usernameChanged !== !0)) {
+                var s = o("WAWebUsernameTypes").asMaybeUsername(l.username),
+                  p = s == null;
+                if (p) {
+                  if (l.isPhoneNumberKnown !== !0) return;
+                } else if (l.wasPreviouslyKnown !== !0) return;
                 yield o(
                   "WAWebInsertUsernameChangeSystemMsg",
                 ).generateUsernameChangeNotificationSystemMsg({
-                  wid: o("WAWebWidFactory").asUserLidOrThrow(a),
+                  wid: i,
                   oldUsername: o("WAWebUsernameTypes").asMaybeUsername(
-                    i.oldUsername,
+                    l.oldUsername,
                   ),
-                  newUsername: l,
+                  newUsername: s,
                 });
               }
             }
           }
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    ((l.mexHandleUsernameChange = m),
-      (l.mexHandleUsernameDelete = _),
-      (l.mexHandleUsernameChangeForSideSub = g));
+    ((l.mexHandleUsernameChange = p),
+      (l.mexHandleUsernameDelete = f),
+      (l.mexHandleUsernameChangeForSideSub = h));
   },
   98,
 );

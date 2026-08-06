@@ -3,13 +3,8 @@ __d(
   ["WAWebABProps", "WAWebPrimaryFeatures"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return (
-        o("WAWebPrimaryFeatures").primaryFeatureEnabled(
-          "text_status_receive_support",
-        ) &&
-        o("WAWebABProps").getABPropConfigValue(
-          "evolve_about_m1_receiver_enabled",
-        )
+      return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
+        "text_status_receive_support",
       );
     }
     function s() {

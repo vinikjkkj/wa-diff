@@ -109,15 +109,15 @@ __d(
             onClick: function () {
               o(
                 "WAWebOpenCoexSystemMessageModal.react",
-              ).openCoexSecurityVerifySystemMessageModal(
-                o(
+              ).openCoexSecurityVerifySystemMessageModal({
+                faqUrl: o("WAWebFaqUrl").getCoexHostedFaqUrl(),
+                lid: a,
+                text: o(
                   "WAWebFormatNotificationTemplateModalText",
                 ).formatCoexSecurityModalTextForYourBusiness(),
-                null,
-                o("WAWebFaqUrl").getCoexHostedFaqUrl(),
-                t,
-                a,
-              );
+                textLast: null,
+                wid: t,
+              });
             },
           };
       }
@@ -130,17 +130,17 @@ __d(
           onClick: function () {
             o(
               "WAWebOpenCoexSystemMessageModal.react",
-            ).openCoexSecurityVerifySystemMessageModal(
-              o(
+            ).openCoexSecurityVerifySystemMessageModal({
+              faqUrl: o("WAWebFaqUrl").getCoexHostedFaqUrl(),
+              lid: a,
+              text: o(
                 "WAWebFormatNotificationTemplateModalText",
               ).formatCoexSecurityModalText(),
-              o(
+              textLast: o(
                 "WAWebFormatNotificationTemplateModalText",
               ).formatCoexSecurityModalTextLastParagraph(),
-              o("WAWebFaqUrl").getCoexHostedFaqUrl(),
-              t,
-              a,
-            );
+              wid: t,
+            });
           },
         };
       if (r("WAWebABPropsSupportGroup")(t.user)) {

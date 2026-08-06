@@ -75,7 +75,9 @@ __d(
             this.maybeUpdateLastUsedCountryCode(
               (t = e.complianceInfo) == null ? void 0 : t.countryCodeOrigin,
             );
-            var a = yield o("WAWebBizProductCatalogAction").addProduct(e);
+            var a = yield o("WAWebBizProductCatalogAction").addProduct({
+              product: e,
+            });
             a.catalogWid = n;
             var i = this.productCollection.add(a, { merge: !0, at: 0 })[0];
             return r("nullthrows")(i);

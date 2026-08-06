@@ -10,6 +10,7 @@ __d(
     "WAWebOutContactInviteGating",
     "WAWebOutContactModel",
     "WAWebPhoneNumberSearch",
+    "WAWebSlicedMatcher",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -41,60 +42,90 @@ __d(
               })
               .sort(o("WAWebContactComparator").ContactComparator);
           }),
-          (r.searchOutContacts = function (n) {
-            var t = n.query,
-              r = n.skipFuzzySearch,
-              a = r === void 0 ? !1 : r;
+          (r.searchOutContactsExact = function (t) {
+            var e = t.query;
             if (
               !o("WAWebOutContactInviteGating").isOutContactInviteEnabled() ||
-              !t.text
+              !e.text
             )
               return [];
-            var i = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
-              l = this.getModelsArray(),
-              s = [];
-            for (var c of l) {
-              var d = i
-                ? c.searchMatchPrefix(t.text, t.number)
-                : c.searchMatchExact(t.text, t.number);
-              d != null && s.push({ outContact: c, searchMatch: d });
+            var n = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
+              r = [];
+            for (var a of this.getModelsArray()) {
+              var i = n
+                ? a.searchMatchPrefix(e.text, e.number)
+                : a.searchMatchExact(e.text, e.number);
+              i != null && r.push({ outContact: a, searchMatch: i });
             }
+            return u(r);
+          }),
+          (r.$OutContactCollectionImpl$p_1 = function (n) {
             if (
-              s.length > 0 ||
-              a ||
+              !o("WAWebOutContactInviteGating").isOutContactInviteEnabled() ||
+              !n.text ||
               !o("WAWebContactSearchGatingUtils").isFuzzySearchEnabled() ||
               !o(
                 "WAWebContactSearchGatingUtils",
               ).canTermsMeetFuzzySearchThreshold(
-                t.text.split(/\s+/).filter(Boolean),
+                n.text.split(/\s+/).filter(Boolean),
               )
             )
-              return u(s);
-            var m =
+              return null;
+            var t = this.getModelsArray(),
+              r =
                 o(
                   "WAWebContactSearchGatingUtils",
                 ).getFuzzySearchTimeoutThreshold() * 1e3,
-              p = new (o("WATimeUtils").MonotonicTimer)(),
-              _ = [];
-            for (var f of l) {
-              var g = p.elapsed();
-              if (g > m) {
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "OutContact fuzzy search timeout ",
-                      "ms (limit ",
-                      "ms)",
-                    ])),
-                  g,
-                  m,
-                );
-                break;
-              }
-              var h = f.searchMatchFuzzy(t.text);
-              h != null && _.push({ outContact: f, searchMatch: h });
-            }
-            return u(_);
+              a = new (o("WATimeUtils").MonotonicTimer)(),
+              i = !1;
+            return {
+              candidates: t,
+              sortResults: u,
+              isTimedOut: function () {
+                if (i) return !0;
+                var t = a.elapsed();
+                return t > r
+                  ? (o("WALogger").LOG(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "OutContact fuzzy search timeout ",
+                          "ms (limit ",
+                          "ms)",
+                        ])),
+                      t,
+                      r,
+                    ),
+                    (i = !0),
+                    !0)
+                  : !1;
+              },
+              matchOne: function (t) {
+                var e = t.searchMatchFuzzy(n.text);
+                return e == null ? null : { outContact: t, searchMatch: e };
+              },
+            };
+          }),
+          (r.searchOutContactsFuzzy = function (t) {
+            var e = this,
+              n = t.query,
+              r = t.signal;
+            return o("WAWebSlicedMatcher").searchFuzzyAsync(function () {
+              return e.$OutContactCollectionImpl$p_1(n);
+            }, r);
+          }),
+          (r.searchOutContacts = function (t) {
+            var e = t.query,
+              n = t.skipFuzzySearch,
+              r = n === void 0 ? !1 : n;
+            if (
+              !o("WAWebOutContactInviteGating").isOutContactInviteEnabled() ||
+              !e.text
+            )
+              return [];
+            var a = this.searchOutContactsExact({ query: e });
+            if (a.length > 0 || r) return a;
+            var i = this.$OutContactCollectionImpl$p_1(e);
+            return i == null ? [] : o("WAWebSlicedMatcher").drainMatcherSync(i);
           }),
           n
         );

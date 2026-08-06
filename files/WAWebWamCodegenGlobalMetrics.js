@@ -42,9 +42,13 @@ __d(
             var e = this.$3(t, n);
             return r("nullthrows")(this.$1[e], e);
           }),
-          (t.define = function (t, n, r, o) {
-            var e = this.$3(t, n);
-            return (e in this.$1 || (this.$1[e] = new s(n, r, o)), this.$1[e]);
+          (t.define = function (t) {
+            var e = t.eventName,
+              n = t.fieldName,
+              r = t.id,
+              o = t.type,
+              a = this.$3(e, n);
+            return (a in this.$1 || (this.$1[a] = new s(n, r, o)), this.$1[a]);
           }),
           (t.defineGlobal = function (t, n, o, a) {
             return (

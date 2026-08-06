@@ -9,8 +9,6 @@ __d(
     "WAWebGroupHistorySendGroupMsgJobUtils",
     "WAWebGroupMsgSendUtils",
     "WAWebLidMigrationUtils",
-    "WAWebMaybe",
-    "WAWebMessageEditGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebProtobufsE2E.pb",
@@ -301,42 +299,7 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (
-            o(
-              "WAWebMessageEditGatingUtils",
-            ).isMessageEditToMessageSecretSenderEnabled()
-          )
-            return { type: c.SKMSG, senderKeyList: t };
-          var r = t.skDistribList,
-            a = t.skList,
-            i = yield o("WAWebSchemaMessageInfo")
-              .getMessageInfoTable()
-              .equals(["msgKey"], String(e)),
-            l = new Set(
-              r.concat(a).map(function (e) {
-                return String(o("WAWebWidFactory").asUserWidOrThrow(e));
-              }),
-            ),
-            s = function (t) {
-              return o("WAWebMaybe").ifSome(
-                o("WAWebApiContact").getAlternateUserWid(
-                  o("WAWebWidFactory").asUserWidOrThrow(t),
-                ),
-                function (e) {
-                  return l.has(String(e));
-                },
-              );
-            },
-            u = i
-              .map(function (e) {
-                return o("WAWebWidFactory").createWid(e.receiverUserJid);
-              })
-              .filter(function (e) {
-                return l.has(String(e)) || s(e);
-              }),
-            d = n.normalizeAddressingModeFn(u).filter(Boolean),
-            m = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: d });
-          return { type: c.DIRECT, deviceList: [].concat(m) };
+          return { type: c.SKMSG, senderKeyList: t };
         })),
         R.apply(this, arguments)
       );

@@ -97,16 +97,17 @@ __d(
     function m(e, t, n) {
       return o("WAWebBizProductCatalogBridge").reportProduct(e, t, n);
     }
-    function p(e, t, n) {
-      return (
-        t === void 0 && (t = 100),
-        n === void 0 && (n = 100),
-        o("WAWebBizProductCatalogBridge").addProduct({
-          height: n,
-          product: e,
-          width: t,
-        })
-      );
+    function p(e) {
+      var t = e.height,
+        n = t === void 0 ? 100 : t,
+        r = e.product,
+        a = e.width,
+        i = a === void 0 ? 100 : a;
+      return o("WAWebBizProductCatalogBridge").addProduct({
+        height: n,
+        product: r,
+        width: i,
+      });
     }
     function _(e, t, n) {
       return (

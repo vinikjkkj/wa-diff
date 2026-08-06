@@ -368,8 +368,7 @@ __d(
               );
             })),
             (this.$17 = function (e) {
-              return e === P &&
-                o("WAWebABProps").getABPropConfigValue("custom_racing_emoji")
+              return e === P
                 ? N
                 : e === M &&
                     (o("WAWebABProps").getABPropConfigValue(

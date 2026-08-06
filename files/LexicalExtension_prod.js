@@ -1683,7 +1683,7 @@ __d(
               if (!i) return;
               var o = 0;
               var s = function s(e) {
-                if (e ? 3 === e.detail : o > 0) {
+                if (e ? e.detail > 2 : o > 0) {
                   var _t18 = n.dateNow.peek()();
                   o =
                     (e && "mousedown" === e.type) ||

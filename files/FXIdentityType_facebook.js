@@ -10,6 +10,7 @@ __d(
         "FB_ADDITIONAL_PROFILE_WITH_BIZ_TOOLS",
         "FB_PAGE",
         "FB_USER",
+        "FCA_USER",
         "FRL_USER",
         "IG_PROFESSIONAL",
         "IG_USER",

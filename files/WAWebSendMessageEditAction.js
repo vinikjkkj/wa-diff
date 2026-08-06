@@ -16,7 +16,6 @@ __d(
     "WAWebErrorType",
     "WAWebFrontendMsgGetters",
     "WAWebLidMigrationUtils",
-    "WAWebMessageEditGatingUtils",
     "WAWebMessageEditUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
@@ -326,11 +325,7 @@ __d(
               s,
             );
           c.originalMessage = e;
-          var d =
-              e.messageSecret != null &&
-              o(
-                "WAWebMessageEditGatingUtils",
-              ).isMessageEditToMessageSecretSenderEnabled(),
+          var d = e.messageSecret != null,
             m = t;
           if (d)
             try {

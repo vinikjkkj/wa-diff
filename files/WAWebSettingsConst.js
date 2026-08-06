@@ -13,6 +13,7 @@ __d(
         "KeyboardShortcuts",
         "Notifications",
         "PaymentsTransactions",
+        "PaymentsSharePix",
         "PaymentsHome",
         "DirectMessages",
         "GroupMessages",

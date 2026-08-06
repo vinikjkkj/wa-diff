@@ -30,6 +30,8 @@ __d(
           n("posingAsProfessional"),
           n("product"),
           n("isDeprecated"),
+          n("isDeleted"),
+          n("lastFetchedTimeMs"),
         ])
         .view(function (e) {
           return e;

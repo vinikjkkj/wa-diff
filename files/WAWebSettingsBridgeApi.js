@@ -39,25 +39,26 @@ __d(
       b,
       v,
       S,
-      R = (e = n("cr:12510")) != null ? e : {},
-      L = R.NotificationToneOption,
-      E = (s = n("cr:12511")) != null ? s : {},
-      k = E.ShowNotificationBannerOption,
-      I = (u = n("cr:12512")) != null ? u : {},
-      T = I.TaskbarNotificationOption,
-      D = (c = n("cr:7293")) != null ? c : {},
-      x = D.setNotificationBannerSetting,
-      $ = D.setNotificationToneGroupSetting,
-      P = D.setNotificationToneSetting,
-      N = D.setStatusReactionsSetting,
-      M = D.setTaskbarNotificationSetting,
-      w = (d = n("cr:12513")) != null ? d : {},
-      A = w.setIsSystemTrayEnabled,
-      F = (m = n("cr:17219")) != null ? m : {},
-      O = F.getWindowsBridge,
-      B = (p = n("cr:7293")) != null ? p : {},
-      W = B.setNotificationToneStatusSetting,
-      q = {
+      R,
+      L = (e = n("cr:12510")) != null ? e : {},
+      E = L.NotificationToneOption,
+      k = (s = n("cr:12511")) != null ? s : {},
+      I = k.ShowNotificationBannerOption,
+      T = (u = n("cr:12512")) != null ? u : {},
+      D = T.TaskbarNotificationOption,
+      x = (c = n("cr:7293")) != null ? c : {},
+      $ = x.setNotificationBannerSetting,
+      P = x.setNotificationToneGroupSetting,
+      N = x.setNotificationToneSetting,
+      M = x.setStatusReactionsSetting,
+      w = x.setTaskbarNotificationSetting,
+      A = (d = n("cr:12513")) != null ? d : {},
+      F = A.setIsSystemTrayEnabled,
+      O = (m = n("cr:17219")) != null ? m : {},
+      B = O.getWindowsBridge,
+      W = (p = n("cr:7293")) != null ? p : {},
+      q = W.setNotificationToneStatusSetting,
+      U = {
         updateAccountLinkingStatus: function (t) {
           var e = t.isFBLinked,
             n = t.isIGLinked,
@@ -78,16 +79,16 @@ __d(
               n = e.value;
             switch (t) {
               case "startAtLogin": {
-                if (O != null) {
+                if (B != null) {
                   var a;
-                  (a = O()) == null ||
+                  (a = B()) == null ||
                     (a = a.systemIntegrationsBridge) == null ||
                     a.updateStartupTask(!!n);
                 }
                 return;
               }
               case "minimizeToTray":
-                A != null && (A == null || A(!!n));
+                F != null && (F == null || F(!!n));
                 return;
               case "language":
                 typeof n == "string" &&
@@ -118,20 +119,20 @@ __d(
                 ).SyncActionValue$SettingsSyncAction$DisplayMode.cast(
                   Number(n),
                 );
-                if (u == null || k == null) return;
+                if (u == null || I == null) return;
                 switch (u) {
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode.NEVER:
-                    x == null || x(k == null ? void 0 : k.Never);
+                    $ == null || $(I == null ? void 0 : I.Never);
                     break;
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode
                     .ONLY_WHEN_APP_IS_OPEN:
-                    x == null || x(k == null ? void 0 : k.OnlyWhenAppIsOpen);
+                    $ == null || $(I == null ? void 0 : I.OnlyWhenAppIsOpen);
                     break;
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode.ALWAYS:
-                    x == null || x(k == null ? void 0 : k.Always);
+                    $ == null || $(I == null ? void 0 : I.Always);
                     break;
                   default:
                     return;
@@ -144,20 +145,20 @@ __d(
                 ).SyncActionValue$SettingsSyncAction$DisplayMode.cast(
                   Number(n),
                 );
-                if (c == null || T == null) return;
+                if (c == null || D == null) return;
                 switch (c) {
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode.NEVER:
-                    M == null || M(T == null ? void 0 : T.Never);
+                    w == null || w(D == null ? void 0 : D.Never);
                     break;
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode
                     .ONLY_WHEN_APP_IS_OPEN:
-                    M == null || M(T == null ? void 0 : T.OnlyWhenAppIsOpen);
+                    w == null || w(D == null ? void 0 : D.OnlyWhenAppIsOpen);
                     break;
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$DisplayMode.ALWAYS:
-                    M == null || M(T == null ? void 0 : T.Always);
+                    w == null || w(D == null ? void 0 : D.Always);
                     break;
                   default:
                     return;
@@ -183,7 +184,7 @@ __d(
               }
               case "isStatusReactionsNotificationEnabled": {
                 var m = !!n;
-                (N == null || N(m),
+                (M == null || M(m),
                   o(
                     "WAWebMuteCollection",
                   ).MuteCollection.setGlobalStatusNotificationReactionsEnabled(
@@ -213,17 +214,17 @@ __d(
                 return;
               case "statusNotificationToneId": {
                 var p;
-                if (L == null) return;
+                if (E == null) return;
                 var C =
-                  (p = L == null ? void 0 : L.cast(Number(n))) != null
+                  (p = E == null ? void 0 : E.cast(Number(n))) != null
                     ? p
-                    : L == null
+                    : E == null
                       ? void 0
-                      : L.Default;
-                (W == null || W(C),
+                      : E.Default;
+                (q == null || q(C),
                   o(
                     "WAWebMuteCollection",
-                  ).MuteCollection.setGlobalStatusSoundsEnabled(C !== L.None));
+                  ).MuteCollection.setGlobalStatusSoundsEnabled(C !== E.None));
                 return;
               }
               case "shouldPlaySoundForCallNotification":
@@ -233,26 +234,26 @@ __d(
                 return;
               case "defaultNotificationToneId": {
                 var b;
-                if (L == null) return;
+                if (E == null) return;
                 var v =
-                  (b = L == null ? void 0 : L.cast(Number(n))) != null
+                  (b = E == null ? void 0 : E.cast(Number(n))) != null
                     ? b
-                    : L == null
+                    : E == null
                       ? void 0
-                      : L.Default;
-                P == null || P(v);
+                      : E.Default;
+                N == null || N(v);
                 return;
               }
               case "groupDefaultNotificationToneId": {
                 var S;
-                if (L == null) return;
+                if (E == null) return;
                 var R =
-                  (S = L == null ? void 0 : L.cast(Number(n))) != null
+                  (S = E == null ? void 0 : E.cast(Number(n))) != null
                     ? S
-                    : L == null
+                    : E == null
                       ? void 0
-                      : L.Default;
-                $ == null || $(R);
+                      : E.Default;
+                P == null || P(R);
                 return;
               }
               case "appTheme":
@@ -267,30 +268,30 @@ __d(
                   );
                 return;
               case "isDoodleWallpaperEnabled": {
-                var E = r("WAWebChatPreferenceCollection").getDefault();
-                E.set(
+                var L = r("WAWebChatPreferenceCollection").getDefault();
+                L.set(
                   "wallpaperValue",
                   o("WAWebChatThemeValue").wallpaperValueWithDoodle(
-                    E.wallpaperValue,
+                    L.wallpaperValue,
                     !!n,
                   ),
                 );
                 return;
               }
               case "chatThemeId": {
-                var I = r("WAWebChatPreferenceCollection").getDefault(),
-                  D = I.chatThemeValue,
-                  w =
+                var k = r("WAWebChatPreferenceCollection").getDefault(),
+                  T = k.chatThemeValue,
+                  x =
                     typeof n == "string" ? r("WAWebNormalizeThemeId")(n) : null,
-                  F = o("WAWebChatThemeValue").chatThemeValueFromFlat({
-                    chatThemeId: w,
+                  A = o("WAWebChatThemeValue").chatThemeValueFromFlat({
+                    chatThemeId: x,
                     colorSchemeId:
-                      (D == null ? void 0 : D.colorSchemeId) != null
-                        ? D.colorSchemeId
+                      (T == null ? void 0 : T.colorSchemeId) != null
+                        ? T.colorSchemeId
                         : null,
                   });
-                (w != null &&
-                  F.chatThemeId == null &&
+                (x != null &&
+                  A.chatThemeId == null &&
                   o("WALogger")
                     .WARN(
                       _ ||
@@ -301,18 +302,18 @@ __d(
                       String(n),
                     )
                     .sendLogs("chat-theme-sync-unknown-theme"),
-                  I.set("chatThemeValue", F));
+                  k.set("chatThemeValue", A));
                 return;
               }
               case "colorSchemeId": {
-                var B = r("WAWebChatPreferenceCollection").getDefault(),
-                  q = B.chatThemeValue,
+                var O = r("WAWebChatPreferenceCollection").getDefault(),
+                  W = O.chatThemeValue,
                   U =
                     typeof n == "string" ? r("WAWebNormalizeThemeId")(n) : null,
                   V = o("WAWebChatThemeValue").chatThemeValueFromFlat({
                     chatThemeId:
-                      (q == null ? void 0 : q.chatThemeId) != null
-                        ? q.chatThemeId
+                      (W == null ? void 0 : W.chatThemeId) != null
+                        ? W.chatThemeId
                         : null,
                     colorSchemeId: U,
                   });
@@ -328,7 +329,22 @@ __d(
                       String(n),
                     )
                     .sendLogs("chat-theme-sync-unknown-color-scheme"),
-                  B.set("chatThemeValue", V));
+                  O.set("chatThemeValue", V));
+                return;
+              }
+              case "stockWallpaperImageId": {
+                var H = r("WAWebChatPreferenceCollection").getDefault(),
+                  G = H.wallpaperValue;
+                H.set(
+                  "wallpaperValue",
+                  o("WAWebChatThemeValue").wallpaperValueFromFlat({
+                    wallpaper: null,
+                    showDoodle: o(
+                      "WAWebChatThemeValue",
+                    ).doodleFromWallpaperValue(G),
+                    stockWallpaperImageId: typeof n == "string" ? n : null,
+                  }),
+                );
                 return;
               }
               case "fontSize": {
@@ -337,12 +353,12 @@ __d(
                 return;
               }
               case "mediaUploadQuality": {
-                var H = o(
+                var z = o(
                   "WAWebProtobufSyncAction.pb",
                 ).SyncActionValue$SettingsSyncAction$MediaQualitySetting.cast(
                   Number(n),
                 );
-                if (H == null) {
+                if (z == null) {
                   o("WALogger").LOG(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -353,16 +369,16 @@ __d(
                   );
                   return;
                 }
-                var G = r("WAWebChatPreferenceCollection").getDefault();
-                switch (H) {
+                var j = r("WAWebChatPreferenceCollection").getDefault();
+                switch (z) {
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$MediaQualitySetting.HD:
-                    G.set("hdMediaEnabled", 1);
+                    j.set("hdMediaEnabled", 1);
                     break;
                   case o("WAWebProtobufSyncAction.pb")
                     .SyncActionValue$SettingsSyncAction$MediaQualitySetting
                     .STANDARD:
-                    G.set("hdMediaEnabled", 0);
+                    j.set("hdMediaEnabled", 0);
                     break;
                   default:
                     o("WALogger").LOG(
@@ -548,10 +564,51 @@ __d(
                 );
               return;
             }
+            case "stockWallpaperImageId": {
+              try {
+                var y = o("WAWebWidFactory").createWid(e),
+                  L = y.isLid()
+                    ? o(
+                        "WAWebChatCollection",
+                      ).ChatCollection.getChatByAccountLid(y)
+                    : o("WAWebChatCollection").ChatCollection.get(y);
+                if (L != null) {
+                  var E = typeof a == "string" && a !== "" ? a : null;
+                  L.setWallpaperValue(
+                    E == null
+                      ? null
+                      : o("WAWebChatThemeValue").wallpaperValueFromFlat({
+                          wallpaper: null,
+                          showDoodle: o(
+                            "WAWebChatThemeValue",
+                          ).doodleFromWallpaperValue(L.wallpaperValue),
+                          stockWallpaperImageId: E,
+                        }),
+                  );
+                }
+              } catch (t) {
+                throw (
+                  o("WALogger")
+                    .ERROR(
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
+                          "[settings-sync] Failed to set stock wallpaper for ",
+                          ": ",
+                          "",
+                        ])),
+                      e,
+                      String(t),
+                    )
+                    .tags("settings-sync"),
+                  t
+                );
+              }
+              return;
+            }
             default:
               o("WALogger").WARN(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "[settings-sync] Unknown per-chat setting field: ",
                     "",
                   ])),
@@ -586,7 +643,7 @@ __d(
           return t;
         })(),
       };
-    l.SettingsBridgeApi = q;
+    l.SettingsBridgeApi = U;
   },
   98,
 );

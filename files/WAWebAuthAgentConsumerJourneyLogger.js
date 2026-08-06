@@ -151,7 +151,11 @@ __d(
         },
       );
     }
-    function C(e, t, n, r) {
+    function C(e) {
+      var t = e.businessJid,
+        n = e.offboardingType,
+        r = e.parentCompanyJid,
+        a = e.parentCompanyName;
       d(
         o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
           .VIEW,
@@ -161,8 +165,8 @@ __d(
           .CONSUMER_BIZ_ACTION_TARGET_ENUM.BLOCKED_COMPOSER,
         o("WAWebWamEnumConsumerBizEntryPointEnum").CONSUMER_BIZ_ENTRY_POINT_ENUM
           .CHAT_THREAD,
-        e,
-        m(t, n, r),
+        t,
+        m(a, r, n),
       );
     }
     function b(e, t, n, r) {

@@ -20,7 +20,6 @@ __d(
     "WAWebDBRevokeInviteV4",
     "WAWebEphemeralityUtils",
     "WAWebGroupDatabaseJob",
-    "WAWebGroupGatingUtils",
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupMembershipApprovalRequestsJob",
     "WAWebGroupParticipantsJob",
@@ -931,14 +930,13 @@ __d(
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE: {
-              o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsEnabled() &&
-                F.push(
-                  o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
-                    l,
-                    { memberLinkMode: a.value },
-                    i,
-                  ),
-                );
+              F.push(
+                o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                  l,
+                  { memberLinkMode: a.value },
+                  i,
+                ),
+              );
               break;
             }
             case o("WAWebGroupType").GROUP_ACTIONS

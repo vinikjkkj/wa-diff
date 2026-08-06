@@ -53,20 +53,25 @@ __d(
             }
             return t;
           })()),
-          (a.getOrAdd = function (t, n, r, a, i) {
-            var e = this.get(t);
-            if (e != null) return e;
-            if (a == null) return null;
-            var l = o("WAWebWidFactory").createWid(a);
+          (a.getOrAdd = function (t) {
+            var e = t.catalogOwnerJid,
+              n = t.id,
+              r = t.productList,
+              a = t.requiresDirectConnection,
+              i = t.title,
+              l = this.get(n);
+            if (l != null) return l;
+            if (e == null) return null;
+            var s = o("WAWebWidFactory").createWid(e);
             return (
-              (e = this.add({
-                id: t,
-                catalogId: l,
-                _productList: n,
+              (l = this.add({
+                id: n,
+                catalogId: s,
+                _productList: r,
                 title: i,
-                requiresDirectConnection: r,
+                requiresDirectConnection: a,
               })[0]),
-              e != null ? e : null
+              l != null ? l : null
             );
           }),
           r

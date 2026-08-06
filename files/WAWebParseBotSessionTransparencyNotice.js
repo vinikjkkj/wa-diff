@@ -1,10 +1,6 @@
 __d(
   "WAWebParseBotSessionTransparencyNotice",
-  [
-    "WAWebBotBaseGating",
-    "WAWebBotSessionTransparencyNotice",
-    "WAWebProtobufsAICommon.pb",
-  ],
+  ["WAWebBotSessionTransparencyNotice", "WAWebProtobufsAICommon.pb"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -27,12 +23,8 @@ __d(
             o("WAWebProtobufsAICommon.pb").SessionTransparencyType
               .NY_AI_SAFETY_DISCLAIMER
           )
-            return o(
-              "WAWebBotBaseGating",
-            ).isAiContinuousSessionTransparencyNoticeEnabled(e)
-              ? o("WAWebBotSessionTransparencyNotice")
-                  .BotSessionTransparencyType.AiSafetyDisclaimer
-              : void 0;
+            return o("WAWebBotSessionTransparencyNotice")
+              .BotSessionTransparencyType.AiSafetyDisclaimer;
           throw Error(
             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
               r,

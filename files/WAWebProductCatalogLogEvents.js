@@ -529,16 +529,19 @@ __d(
       });
       r.commit();
     }
-    function W(e, t, n) {
-      var r = new (o("WAWebCatalogBizWamEvent").CatalogBizWamEvent)({
-        catalogBizAction: o("WAWebWamEnumCatalogBizAction").CATALOG_BIZ_ACTION
-          .ACTION_PRODUCT_DELETE_CLICKED,
-        catalogEntryPoint: n.entryPoint,
-        productId: e.id.toString(),
-        productCount: t,
-        catalogSessionId: n.session.toString(),
-      });
-      r.commit();
+    function W(e) {
+      var t = e.context,
+        n = e.product,
+        r = e.productCount,
+        a = new (o("WAWebCatalogBizWamEvent").CatalogBizWamEvent)({
+          catalogBizAction: o("WAWebWamEnumCatalogBizAction").CATALOG_BIZ_ACTION
+            .ACTION_PRODUCT_DELETE_CLICKED,
+          catalogEntryPoint: t.entryPoint,
+          productId: n.id.toString(),
+          productCount: r,
+          catalogSessionId: t.session.toString(),
+        });
+      a.commit();
     }
     function q(e, t, n) {
       var r = new (o("WAWebCatalogBizWamEvent").CatalogBizWamEvent)({

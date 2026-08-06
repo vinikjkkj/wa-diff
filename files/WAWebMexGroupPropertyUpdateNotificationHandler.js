@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebGroupGatingUtils",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
@@ -58,14 +57,12 @@ __d(
               };
               break;
             case "NotificationGroupMemberLinkPropertyUpdate":
-              o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsEnabled() &&
-                (g = {
-                  actionType:
-                    o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE,
-                  value: o(
-                    "WAWebGroupMemberLinkMode",
-                  ).getMemberLinkModeFromMexType(c.member_link_mode),
-                });
+              g = {
+                actionType: o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE,
+                value: o(
+                  "WAWebGroupMemberLinkMode",
+                ).getMemberLinkModeFromMexType(c.member_link_mode),
+              };
               break;
             case "NotificationGroupMemberShareGroupHistoryModePropertyUpdate":
               g = {

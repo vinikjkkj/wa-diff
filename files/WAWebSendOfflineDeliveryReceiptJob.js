@@ -7,7 +7,6 @@ __d(
     "WATimeUtils",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsgSendAck",
-    "WAWebMessageDedupUtils",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebSchemaDanglingReceipt",
     "WAWebSendAggregateDeliveryReceipts",
@@ -55,14 +54,7 @@ __d(
                   msgInfo: p,
                   enc: c,
                 }),
-                o("WAWebMessageDedupUtils").isPengingMessageCacheEnabled()
-                  ? o("WAWebHandleMsgSendAck").sendAck({
-                      externalId: d,
-                      from: m,
-                      participant: f,
-                      type: _.type,
-                    })
-                  : n.push({ externalId: d, from: m, author: u }))
+                n.push({ externalId: d, from: m, author: u }))
               : (o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([

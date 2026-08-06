@@ -59,33 +59,37 @@ __d(
           $$css: !0,
         },
       };
-    function f(e, t, n, r) {
-      if (!e) return s._(/*BTDS*/ "Items must all have a price").toString();
-      var a =
+    function f(e) {
+      var t = e.allItemsHavePrice,
+        n = e.chat,
+        r = e.currency,
+        a = e.totalPrice1000;
+      if (!t) return s._(/*BTDS*/ "Items must all have a price").toString();
+      var i =
           o("WAWebABProps").getABPropConfigValue(
             "order_details_total_order_minimum_value",
           ) * 1e3,
-        i = o("WAWebOrderGatingUtils").orderDetailsTotalMaxValue(r) * 1e3;
-      return t < a
+        l = o("WAWebOrderGatingUtils").orderDetailsTotalMaxValue(n) * 1e3;
+      return a < i
         ? s
             ._(
               /*BTDS*/ "Total cannot be less than {order_min_allowed_amount}",
               [
                 s._param(
                   "order_min_allowed_amount",
-                  o("WAWebCurrencyUtils").formatAmount1000(n, a),
+                  o("WAWebCurrencyUtils").formatAmount1000(r, i),
                 ),
               ],
             )
             .toString()
-        : t > i
+        : a > l
           ? s
               ._(
                 /*BTDS*/ "Total cannot be more than {order_max_allowed_amount}",
                 [
                   s._param(
                     "order_max_allowed_amount",
-                    o("WAWebCurrencyUtils").formatAmount1000(n, i),
+                    o("WAWebCurrencyUtils").formatAmount1000(r, l),
                   ),
                 ],
               )
@@ -627,7 +631,12 @@ __d(
                 : s._(/*BTDS*/ "Send order")),
               (t[84] = V))
             : (V = t[84]),
-          (H = f(ee, u.total, i, a)),
+          (H = f({
+            allItemsHavePrice: ee,
+            chat: a,
+            currency: i,
+            totalPrice1000: u.total,
+          })),
           (t[2] = n),
           (t[3] = a),
           (t[4] = i),

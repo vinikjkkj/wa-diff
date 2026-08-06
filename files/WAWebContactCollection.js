@@ -12,16 +12,18 @@ __d(
     "WAWebContactSearchGatingUtils",
     "WAWebDebounce",
     "WAWebL10N",
+    "WAWebSlicedMatcher",
     "WAWebSocketConstants",
     "WAWebSocketModel",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameWorkerCompatibleGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
+    var e = ["cancelAt"],
       s,
       u,
-      c = (function (t) {
+      c,
+      d = (function (t) {
         function a() {
           var e;
           return (
@@ -35,11 +37,11 @@ __d(
             (e.findImpl = function (t) {
               var r = e.get(t);
               return r
-                ? (u || (u = n("Promise"))).resolve({
+                ? (c || (c = n("Promise"))).resolve({
                     id: r.id,
                     stale: r.stale,
                   })
-                : (u || (u = n("Promise"))).resolve({ id: t });
+                : (c || (c = n("Promise"))).resolve({ id: t });
             }),
             o("WAWebABProps").getABPropConfigValue(
               "web_contact_collection_locale_listener",
@@ -74,24 +76,24 @@ __d(
           (i.ensureSorted = function () {
             this._sort.flush();
           }),
-          (i.initializeFromCache = function (n) {
-            n &&
+          (i.initializeFromCache = function (t) {
+            t &&
               (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Store:Contact init from cache",
                   ])),
               ),
-              this.add(n, { silent: !0, merge: !0 }));
+              this.add(t, { silent: !0, merge: !0 }));
           }),
-          (i.searchContacts = function (t) {
+          (i.searchContactsExact = function (t) {
             var e = t.query,
               n = t.filter,
               r = n === void 0 ? {} : n,
               a = o("WAWebContactSearchGatingUtils").isPrefixSearchEnabled(),
               i = [];
-            if (
-              (o("WAWebContactCollectionUtils").getFilteredContacts(
+            return (
+              o("WAWebContactCollectionUtils").getFilteredContacts(
                 this,
                 babelHelpers.extends({}, r, {
                   filterFn: function (n) {
@@ -104,53 +106,81 @@ __d(
                   },
                 }),
               ),
-              i.length > 0 ||
-                !o("WAWebContactSearchGatingUtils").isFuzzySearchEnabled() ||
-                !o(
-                  "WAWebContactSearchGatingUtils",
-                ).canTermsMeetFuzzySearchThreshold(
-                  e.text.split(/\s+/).filter(Boolean),
-                ))
+              i
+            );
+          }),
+          (i._buildFuzzyMatcher = function (n, r) {
+            if (
+              !o("WAWebContactSearchGatingUtils").isFuzzySearchEnabled() ||
+              !o(
+                "WAWebContactSearchGatingUtils",
+              ).canTermsMeetFuzzySearchThreshold(
+                n.text.split(/\s+/).filter(Boolean),
+              )
             )
-              return i;
-            var l =
+              return null;
+            var t = r.cancelAt,
+              a = t === void 0 ? null : t,
+              i = babelHelpers.objectWithoutPropertiesLoose(r, e),
+              l = o(
+                "WAWebUsernameWorkerCompatibleGatingUtils",
+              ).onlyShowLidContacts(),
+              s = this.getModelsArray(),
+              c =
                 o(
                   "WAWebContactSearchGatingUtils",
                 ).getFuzzySearchTimeoutThreshold() * 1e3,
-              u = new (o("WATimeUtils").MonotonicTimer)(),
-              c = !1,
-              d = [];
-            return (
-              o("WAWebContactCollectionUtils").getFilteredContacts(
-                this,
-                babelHelpers.extends({}, r, {
-                  filterFn: function (n) {
-                    var t = u.elapsed();
-                    if (c || t > l)
-                      return (
-                        c ||
-                          o("WALogger").LOG(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "Fuzzy search timeout ",
-                                "ms (limit ",
-                                "ms)",
-                              ])),
-                            t,
-                            l,
-                          ),
-                        (c = !0),
-                        !1
-                      );
-                    var a = n.searchMatchFuzzy(e.text);
-                    return a == null || (r.filterFn != null && !r.filterFn(n))
-                      ? !1
-                      : (d.push({ contact: n, searchMatch: a }), !0);
-                  },
-                }),
-              ),
-              d
-            );
+              d = new (o("WATimeUtils").MonotonicTimer)(),
+              m = !1;
+            return {
+              candidates: s,
+              limit: a,
+              isTimedOut: function () {
+                if (m) return !0;
+                var e = d.elapsed();
+                return e > c
+                  ? (o("WALogger").LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "Fuzzy search timeout ",
+                          "ms (limit ",
+                          "ms)",
+                        ])),
+                      e,
+                      c,
+                    ),
+                    (m = !0),
+                    !0)
+                  : !1;
+              },
+              matchOne: function (t) {
+                if (
+                  !o("WAWebContactCollectionUtils").passesContactFilter(t, l, i)
+                )
+                  return null;
+                var e = t.searchMatchFuzzy(n.text);
+                return e == null ? null : { contact: t, searchMatch: e };
+              },
+            };
+          }),
+          (i.searchContactsFuzzy = function (t) {
+            var e = this,
+              n = t.query,
+              r = t.filter,
+              a = r === void 0 ? {} : r,
+              i = t.signal;
+            return o("WAWebSlicedMatcher").searchFuzzyAsync(function () {
+              return e._buildFuzzyMatcher(n, a);
+            }, i);
+          }),
+          (i.searchContacts = function (t) {
+            var e = t.query,
+              n = t.filter,
+              r = n === void 0 ? {} : n,
+              a = this.searchContactsExact({ query: e, filter: r });
+            if (a.length > 0) return a;
+            var i = this._buildFuzzyMatcher(e, r);
+            return i == null ? [] : o("WAWebSlicedMatcher").drainMatcherSync(i);
           }),
           (i.getMeContact = function () {
             var e = o(
@@ -163,10 +193,10 @@ __d(
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    ((c.model = r("WAWebContactModel")),
-      (c.comparator = o("WAWebContactComparator").ContactComparator));
-    var d = new c();
-    ((l.ContactCollectionImpl = c), (l.ContactCollection = d));
+    ((d.model = r("WAWebContactModel")),
+      (d.comparator = o("WAWebContactComparator").ContactComparator));
+    var m = new d();
+    ((l.ContactCollectionImpl = d), (l.ContactCollection = m));
   },
   98,
 );

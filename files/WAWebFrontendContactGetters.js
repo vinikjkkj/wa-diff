@@ -39,9 +39,7 @@ __d(
       h = m(
         function (e) {
           var t = e[0];
-          return (
-            t === o("WAWebContactExternalUserState").ExternalUserState.GuestUser
-          );
+          return o("WAWebContactExternalUserState").isGuestUser(t);
         },
         [g],
       ),

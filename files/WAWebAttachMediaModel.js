@@ -601,6 +601,7 @@ __d(
                 var l = yield o(
                     "WAWebMediaWorkerProxy",
                   ).detectAiProvenanceInWorker({
+                    hints: b(a),
                     input: yield o("WAWebFileUtils").blobToArrayBuffer(a),
                     eventFlow: {
                       addAnnotations: function (n) {
@@ -780,11 +781,14 @@ __d(
         );
       })(o("WAWebBaseModel").BaseModel);
     C.Proxy = "attachMedia";
-    var b = o("WAWebBaseModel").defineModel(C);
+    function b(e) {
+      return e.type === "" ? [] : [e.type];
+    }
+    var v = o("WAWebBaseModel").defineModel(C);
     ((l.MediaEditorAction = g),
       (l.MediaQuality = h),
       (l.ATTACH_MEDIA_STATE = y),
-      (l.AttachMedia = b));
+      (l.AttachMedia = v));
   },
   98,
 );

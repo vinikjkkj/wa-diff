@@ -67,69 +67,66 @@ __d(
     }
     function b() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wabai_message_rendering_enabled",
+        "ai_standard_bot_profile_enabled",
       );
     }
     function v() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ai_forward_attribution_enabled",
+        "wabai_message_rendering_enabled",
       );
     }
     function S() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ai_subscription_metering_enabled",
+        "ai_forward_attribution_enabled",
       );
     }
     function R() {
-      return o("WAWebABProps").getABPropConfigValue("ai_subscription_enabled");
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_subscription_metering_enabled",
+      );
     }
     function L() {
+      return o("WAWebABProps").getABPropConfigValue("ai_subscription_enabled");
+    }
+    function E() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_account_linking_enabled",
       );
     }
-    function E() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue("ai_mode_selector_enabled");
     }
-    function k() {
+    function I() {
       return (
-        E() &&
+        k() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_mode_selector_media_editor_enabled",
         )
       );
     }
-    function I() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_dynamic_mode_selector_enabled",
       );
     }
-    function T() {
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_chat_threads_infra_enabled",
       );
     }
-    function D() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_forward_receiving_enabled",
       );
     }
-    function x() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_forward_media_receiving_enabled",
       );
     }
-    function $() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_forward_sending_enabled",
-      );
-    }
-    function P(e) {
-      return (
-        o("WAWebBotUtils").isMetaAiBot(e) ||
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_continuous_session_transparency_notice_enabled",
-        )
       );
     }
     function N(e) {
@@ -142,19 +139,19 @@ __d(
       (l.isMetaAiNullStateEnabled = g),
       (l.isBotEnabled = y),
       (l.isBizBot3pEnabled = C),
-      (l.isBizBot1pEnabled = b),
-      (l.isAiForwardAttributionEnabled = v),
-      (l.isAiSubscriptionMeteringEnabled = S),
-      (l.isAiSubscriptionEnabled = R),
-      (l.isAiAccountLinkingEnabled = L),
-      (l.isAiModeSelectorMessagingEnabled = E),
-      (l.isAiModeSelectorMediaEditorEnabled = k),
-      (l.isDynamicModeSelectorEnabled = I),
-      (l.isAiChatThreadsInfraEnabled = T),
-      (l.isRichResponseForwardReceivingEnabled = D),
-      (l.isRichResponseForwardMediaReceivingEnabled = x),
-      (l.isRichResponseForwardSendingEnabled = $),
-      (l.isAiContinuousSessionTransparencyNoticeEnabled = P),
+      (l.isStandardBotProfileEnabled = b),
+      (l.isBizBot1pEnabled = v),
+      (l.isAiForwardAttributionEnabled = S),
+      (l.isAiSubscriptionMeteringEnabled = R),
+      (l.isAiSubscriptionEnabled = L),
+      (l.isAiAccountLinkingEnabled = E),
+      (l.isAiModeSelectorMessagingEnabled = k),
+      (l.isAiModeSelectorMediaEditorEnabled = I),
+      (l.isDynamicModeSelectorEnabled = T),
+      (l.isAiChatThreadsInfraEnabled = D),
+      (l.isRichResponseForwardReceivingEnabled = x),
+      (l.isRichResponseForwardMediaReceivingEnabled = $),
+      (l.isRichResponseForwardSendingEnabled = P),
       (l.isLoadingMediaMessagesEnabled = N));
   },
   98,

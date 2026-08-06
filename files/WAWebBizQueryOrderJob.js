@@ -52,7 +52,7 @@ __d(
             try {
               var l, u, d, m, p, _;
               yield r("WAWebNetworkStatus").waitIfOffline();
-              var f = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+              var f = o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                 g = yield o("WAWebRelayClient").fetchQuery(
                   c,
                   {

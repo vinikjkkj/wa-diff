@@ -84,7 +84,11 @@ __d(
     }
     function y(e, t, a, i) {
       return (
-        o("WAWebProductCatalogLogEvents").logDeleteProductClick(t, 1, a),
+        o("WAWebProductCatalogLogEvents").logDeleteProductClick({
+          context: a,
+          product: t,
+          productCount: 1,
+        }),
         new (c || (c = n("Promise")))(function (n, l) {
           o("WAWebModalManager").ModalManager.open(
             m.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {

@@ -109,7 +109,7 @@ __d(
                 quality: r,
                 supportedTypes: a,
               });
-              return (this.add(s, i ? { at: i } : {}), s.processPromise);
+              return (this.add(s, i >= 0 ? { at: i } : {}), s.processPromise);
             }
           }),
           (i.getValidMedias = function () {

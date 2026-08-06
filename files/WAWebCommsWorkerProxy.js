@@ -3,12 +3,9 @@ __d(
   ["Promise", "WAComms", "WAWap", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(t) {
-      return (e || (e = n("Promise"))).resolve(t);
-    }
-    var u = (function () {
-        function e(e) {
+    var e,
+      s = (function () {
+        function t(e) {
           var t = this;
           ((this.socketId = o("WAComms").DEFAULT_SOCKET_ID),
             (this.$2 = !1),
@@ -86,102 +83,104 @@ __d(
             }),
             (this.$1 = e));
         }
-        var t = e.prototype;
+        var a = t.prototype;
         return (
-          (t.updateSocketState = function (t, n) {
+          (a.updateSocketState = function (t, n) {
             ((this.$2 = t),
               n != null && (this.socketId = o("WAComms").toSocketId(n)));
           }),
-          (t.isSocketConnected = function () {
+          (a.isSocketConnected = function () {
             return this.$2;
           }),
-          (t.sendIq = function (t, n, r, a, i) {
-            var e = this;
-            (r === void 0 && (r = 0), i === void 0 && (i = "iq"));
-            var l = this.$3++;
-            a != null &&
-              a.addEventListener("abort", function () {
-                e.$1.fireAndForget("comms", "abortSendIq", { abortToken: l });
+          (a.sendIq = function (r, a, i, l, s) {
+            var t = this;
+            (i === void 0 && (i = 0), s === void 0 && (s = "iq"));
+            var u = this.$3++;
+            l != null &&
+              l.addEventListener("abort", function () {
+                t.$1.fireAndForget("comms", "abortSendIq", { abortToken: u });
               });
-            var u = o("WAWap").encodeStanza(t);
+            var c = o("WAWap").encodeStanza(r);
             return this.$1
               .sendAndReceive(
                 "comms",
                 "sendIq",
                 {
-                  iq: u,
-                  attachToSocket: n,
-                  timeoutSeconds: r,
-                  type: i,
-                  abortToken: l,
+                  iq: c,
+                  attachToSocket: a,
+                  timeoutSeconds: i,
+                  type: s,
+                  abortToken: u,
                 },
                 void 0,
                 void 0,
                 void 0,
-                [u.buffer],
+                [c.buffer],
               )
-              .then(function (e) {
-                return o("WAWap").decodeStanza(e, s);
+              .then(function (t) {
+                return o("WAWap").decodeStanza(t, function (t) {
+                  return (e || (e = n("Promise"))).resolve(t);
+                });
               });
           }),
-          (t.callStanza = function (t, n) {
+          (a.callStanza = function (t, n) {
             return this.$1.sendAndReceive("comms", "callStanza", {
               stanza: o("WAWap").encodeStanza(t),
               flags: n,
             });
           }),
-          (t.castStanza = function (t, n) {
+          (a.castStanza = function (t, n) {
             return this.$1.sendAndReceive("comms", "castStanza", {
               stanza: o("WAWap").encodeStanza(t),
               flags: n,
             });
           }),
-          (t.sendPing = function () {
+          (a.sendPing = function () {
             return this.$1.sendAndReceive("comms", "sendPing");
           }),
-          (t.startHandlingRequests = function () {
+          (a.startHandlingRequests = function () {
             return this.$1.sendAndReceive(
               "comms",
               "startHandlingRequests",
               void 0,
             );
           }),
-          (t.setSocket = function (t) {
+          (a.setSocket = function (t) {
             throw r("err")("WAWebCommsWorkerProxy.setSocket is not supported");
           }),
-          (t.addAckHandler = function (t) {
+          (a.addAckHandler = function (t) {
             throw r("err")(
               "WAWebCommsWorkerProxy.addAckHandler is not supported",
             );
           }),
-          (t.removeAckHandler = function (t) {
+          (a.removeAckHandler = function (t) {
             throw r("err")(
               "WAWebCommsWorkerProxy.removeAckHandler is not supported",
             );
           }),
-          e
+          t
         );
       })(),
-      c = null,
-      d = null;
-    function m(e) {
-      if (d == null)
+      u = null,
+      c = null;
+    function d(e) {
+      if (c == null)
         throw r("err")("[WAWebCommsWorkerProxy] comms startup args are null");
-      e.fireAndForget("comms", "createComms", d);
-      var t = new u(e);
-      return ((c = t), t);
+      e.fireAndForget("comms", "createComms", c);
+      var t = new s(e);
+      return ((u = t), t);
     }
-    function p(e, t) {
+    function m(e, t) {
       var n;
-      (n = c) == null || n.updateSocketState(e, t);
+      (n = u) == null || n.updateSocketState(e, t);
     }
-    function _(e) {
-      d = e;
+    function p(e) {
+      c = e;
     }
-    ((l.CommsWorkerProxy = u),
-      (l.createCommsWorkerProxy = m),
-      (l.updateCommsProxySocketState = p),
-      (l.setStartCommsArgs = _));
+    ((l.CommsWorkerProxy = s),
+      (l.createCommsWorkerProxy = d),
+      (l.updateCommsProxySocketState = m),
+      (l.setStartCommsArgs = p));
   },
   98,
 );

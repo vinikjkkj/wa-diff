@@ -16,13 +16,19 @@ __d(
         "channels_music_receiver_enabled",
       );
     }
-    var c = 6e4,
-      d = 600;
+    function c() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "channel_status_consumption_music_enabled",
+      );
+    }
+    var d = 6e4,
+      m = 600;
     ((l.isStatusMusicReceiverEnabled = e),
       (l.isStatusMusicSaveToDiskEnabled = s),
       (l.isStatusMusicReceiverEnabledForNewsletter = u),
-      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = c),
-      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = d));
+      (l.isNewsletterStatusMusicConsumptionEnabled = c),
+      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = d),
+      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = m));
   },
   98,
 );

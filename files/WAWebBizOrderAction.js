@@ -8,7 +8,13 @@ __d(
         r = e.orderId,
         a = e.token,
         i = e.width;
-      return o("WAWebBizOrderBridge").queryOrder(t, r, i, n, a);
+      return o("WAWebBizOrderBridge").queryOrder({
+        bizJid: t,
+        height: n,
+        orderId: r,
+        token: a,
+        width: i,
+      });
     }
     function s(e, t) {
       return o("WAWebBizOrderBridge").createOrder(e, t);

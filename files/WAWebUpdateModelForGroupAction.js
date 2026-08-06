@@ -594,8 +594,7 @@ __d(
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE: {
-          o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsEnabled() &&
-            (d.memberLinkMode = a.value);
+          d.memberLinkMode = a.value;
           break;
         }
         case o("WAWebGroupType").GROUP_ACTIONS.GENERAL_CHAT_AUTO_ADD_DISABLED: {

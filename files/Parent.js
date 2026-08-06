@@ -3,11 +3,11 @@ __d(
   ["CSSCore"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      t = t.toUpperCase();
-      var n = m(e, function (e) {
-        return e.nodeName === t;
-      });
-      return n instanceof Element ? n : null;
+      var n = t.toUpperCase(),
+        r = m(e, function (e) {
+          return e.nodeName === n;
+        });
+      return r instanceof Element ? r : null;
     }
     function s(e, t) {
       var n = m(e, function (e) {
@@ -24,10 +24,10 @@ __d(
         for (; n && n !== document && !n.msMatchesSelector(t); )
           n = n.parentNode;
         return n instanceof Element ? n : null;
-      } else return c(n, t);
+      } else return c(e, t);
     }
     function c(e, t) {
-      for (var n = e, r = n; r.parentNode; ) r = r.parentNode;
+      for (var n = e, r = e; r.parentNode; ) r = r.parentNode;
       if (!(r instanceof Element) && !(r instanceof Document)) return null;
       for (var o = r.querySelectorAll(t); n; ) {
         if (

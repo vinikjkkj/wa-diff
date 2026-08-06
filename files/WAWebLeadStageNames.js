@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e === 0
-        ? s._(/*BTDS*/ "None")
+        ? s._(/*BTDS*/ "Lead")
         : e === 1
           ? s._(/*BTDS*/ "Intake")
           : e === 2

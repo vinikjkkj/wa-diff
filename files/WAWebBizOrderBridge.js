@@ -11,24 +11,29 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(t, r, a, i, l) {
+    function s(t) {
+      var r = t.bizJid,
+        a = t.height,
+        i = t.orderId,
+        l = t.token,
+        s = t.width;
       if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
         return (e || (e = n("Promise"))).reject(
           new (o("WAWebBackendErrors").E451)(),
         );
       o("WAWebBizLogQplEvents").qplPointOrderView("datasource_start");
-      var s = o(
+      var u = o(
         "WAWebBusinessDirectConnectionBridge",
-      ).attemptWithDirectConnectionRetry(t, function (e) {
+      ).attemptWithDirectConnectionRetry(r, function (e) {
         return o("WAWebBizQueryOrderJob").queryOrder({
           directConnectionEncryptedInfo: e,
-          height: i,
-          orderId: r,
+          height: a,
+          orderId: i,
           token: l,
-          width: a,
+          width: s,
         });
       });
-      return s.then(function (e) {
+      return u.then(function (e) {
         return (
           o("WAWebBizLogQplEvents").qplPointOrderView("datasource_end"),
           e

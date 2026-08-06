@@ -29,6 +29,8 @@ __d(
           (t.lastUpdateTs = o("WAWebBaseModel").prop()),
           (t.product = o("WAWebBaseModel").prop()),
           (t.isDeprecated = o("WAWebBaseModel").prop()),
+          (t.isDeleted = o("WAWebBaseModel").prop()),
+          (t.lastFetchedTimeMs = o("WAWebBaseModel").prop()),
           (t.contact = o("WAWebBaseModel").session()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
