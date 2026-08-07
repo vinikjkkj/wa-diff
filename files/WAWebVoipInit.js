@@ -18,9 +18,9 @@ __d(
     "WAWebVoipNetworkMedium",
     "WAWebVoipQplHelpers",
     "WAWebVoipStackInterface",
+    "WAWebVoipWasmArtifactRegistry",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "bx",
     "cr:17219",
     "getErrorSafe",
     "justknobx",
@@ -390,11 +390,12 @@ __d(
                 : "other";
     }
     function Q() {
-      try {
-        return r("bx").getURL(r("bx")("32180"));
-      } catch (e) {
-        return "unknown";
-      }
+      var e;
+      return (e = o(
+        "WAWebVoipWasmArtifactRegistry",
+      ).getSelectedVoipWasmUri()) != null
+        ? e
+        : "unknown";
     }
     function X(e, t, n) {
       t && !n && o("WAWebCoreActionsODS").logCallVoipInitWasmContractMismatch();

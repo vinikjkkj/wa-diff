@@ -5,7 +5,14 @@ __d(
     var e,
       s = (function (t) {
         function r() {
-          return t.apply(this, arguments) || this;
+          for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
+            r[o] = arguments[o];
+          return (
+            (e = t.call.apply(t, [this].concat(r)) || this),
+            (e.name = "noop"),
+            babelHelpers.assertThisInitialized(e) ||
+              babelHelpers.assertThisInitialized(e)
+          );
         }
         babelHelpers.inheritsLoose(r, t);
         var o = r.prototype;

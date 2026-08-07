@@ -284,6 +284,8 @@ __d(
               "WAWebMetaAIThreadMigrationState",
             WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS:
               "WAWebMetaAIBotSessionLastCleanupTs",
+            WA_WEB_CACHED_META_AI_NULL_STATE_PROMPTS:
+              "WAWebCachedMetaAiNullStatePrompts",
             WINDOWS_PENDING_CLIENT_KEY_SETUP:
               "WAWebWindowsPendingClientKeySetup",
           },

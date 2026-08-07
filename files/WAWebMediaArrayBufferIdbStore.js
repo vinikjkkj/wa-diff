@@ -16,6 +16,7 @@ __d(
           var n;
           return (
             (n = t.call(this) || this),
+            (n.name = "indexeddb"),
             (n.$ArrayBufferIdbStore$p_1 = new (r("WAWebMediaLruIdbStoreUtils"))(
               o("WAWebLruMediaStorage").initialize,
               o("WAWebSchemaLruMediaArrayBuffer").IdbArrayBufferTable,

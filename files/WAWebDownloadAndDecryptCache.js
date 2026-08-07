@@ -29,12 +29,34 @@ __d(
         (a.get = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (t, n) {
+              var a = n.downloadQpl;
               if (!o("WAWebMediaDataUtils").shouldUseLruMediaStore(n.type))
                 return null;
+              var i = yield o("WAWebMediaStore").LruMediaStore.getName();
               try {
-                return yield o("WAWebMediaStore").LruMediaStore.get(u(n));
+                a.addPoint("lru_cache_read_start");
+                var l = yield o("WAWebMediaStore").LruMediaStore.get(u(n));
+                return (
+                  a.addPoint(
+                    "lru_cache_read_end",
+                    babelHelpers.extends(
+                      {},
+                      l == null ? {} : { int: { byteLength: l.byteLength } },
+                      {
+                        string: {
+                          lruCacheBackend: i,
+                          lruCacheReadResult: l != null ? "hit" : "miss",
+                        },
+                      },
+                    ),
+                  ),
+                  l
+                );
               } catch (t) {
                 return (
+                  a.addPoint("lru_cache_read_fail", {
+                    string: { lruCacheBackend: i, lruCacheReadResult: "error" },
+                  }),
                   o("WALogger")
                     .WARN(
                       e ||
@@ -58,21 +80,39 @@ __d(
         (a.set = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              if (o("WAWebMediaDataUtils").shouldUseLruMediaStore(n.type))
+              var a = n.downloadQpl;
+              if (o("WAWebMediaDataUtils").shouldUseLruMediaStore(n.type)) {
+                var i = yield o("WAWebMediaStore").LruMediaStore.getName();
                 try {
-                  yield o("WAWebMediaStore").LruMediaStore.put(u(n), t);
+                  (a.addPoint("lru_cache_write_start", {
+                    int: { byteLength: t.byteLength },
+                  }),
+                    yield o("WAWebMediaStore").LruMediaStore.put(u(n), t),
+                    a.addPoint("lru_cache_write_end", {
+                      string: {
+                        lruCacheBackend: i,
+                        lruCacheWriteResult: "completed",
+                      },
+                    }));
                 } catch (e) {
-                  o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose(
-                          ["downloadManager.asyncCache.set error:\n", ""],
-                          ["downloadManager.asyncCache.set error:\\n", ""],
-                        )),
-                      r("WAWebSerializeError")(e),
-                    )
-                    .verbose();
+                  (a.addPoint("lru_cache_write_fail", {
+                    string: {
+                      lruCacheBackend: i,
+                      lruCacheWriteResult: "error",
+                    },
+                  }),
+                    o("WALogger")
+                      .WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose(
+                            ["downloadManager.asyncCache.set error:\n", ""],
+                            ["downloadManager.asyncCache.set error:\\n", ""],
+                          )),
+                        r("WAWebSerializeError")(e),
+                      )
+                      .verbose());
                 }
+              }
             },
           );
           function t(t, n, r) {

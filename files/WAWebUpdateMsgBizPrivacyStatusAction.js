@@ -21,6 +21,7 @@ __d(
             r("WAWebWid").isUser(t.id.remote) &&
             !(
               t.id.remote.isBot() ||
+              t.id.remote.isAiHub() ||
               ((a = t.invokedBotWid) != null && a.isBot())
             )
           ) {

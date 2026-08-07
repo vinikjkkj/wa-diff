@@ -54,8 +54,9 @@ __d(
       T,
       D,
       x,
-      $ = x || (x = o("react"));
-    function P(e, t, n) {
+      $,
+      P = $ || ($ = o("react"));
+    function N(e, t, n) {
       if (e != null) {
         var a = new Set(
             e.map(function (e) {
@@ -82,7 +83,7 @@ __d(
           );
       }
     }
-    var N = {
+    var M = {
       setCallState: (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
@@ -583,7 +584,7 @@ __d(
             (i.groupCallParticipantsConnected = c),
             (i.groupCallParticipantStates = d),
             i.setGroupParticipantMediaStates(p, _),
-            P(l, u, d),
+            N(l, u, d),
             o("WALogger").LOG(
               b ||
                 (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -700,7 +701,7 @@ __d(
               o("WAWebVoipWaCallEnums").ScreenShareEndReason.TakeOver &&
               (e.setSelfScreenShareRejected(!0),
               o("WAWebToastManager").ToastManager.open(
-                $.jsx(o("WAWebToast.react").Toast, {
+                P.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
                     /*BTDS*/ "Another participant is already sharing their screen",
                   ),
@@ -718,7 +719,7 @@ __d(
               ).isScreenShareDualStreamAppUpdateDialogEnabled() &&
               e.tryMarkScreenShareUpdateAppModalShown() &&
               o("WAWebModalManager").ModalManager.open(
-                $.jsx(r("WAWebVoipScreenShareUpdateAppModal.react"), {}),
+                P.jsx(r("WAWebVoipScreenShareUpdateAppModal.react"), {}),
               ));
         }
       },
@@ -834,7 +835,7 @@ __d(
             ])),
         ),
           o("WAWebToastManager").ToastManager.open(
-            $.jsx(o("WAWebToast.react").Toast, {
+            P.jsx(o("WAWebToast.react").Toast, {
               msg: s._(
                 /*BTDS*/ "Your request to join the call was not approved.",
               ),
@@ -934,6 +935,31 @@ __d(
             ),
           ));
       },
+      handleVoipSettingsUpdate: function (t) {
+        var e = t.callId,
+          n = t.isDualStreamSsEnabled,
+          a = r("WAWebCallCollection").activeCall;
+        a == null ||
+          a.id !== e ||
+          (a.isDualStreamSsEnabled !== n &&
+            (o("WALogger").LOG(
+              x ||
+                (x = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: isDualStreamSsEnabled ",
+                  " -> ",
+                  "",
+                ])),
+              String(a.isDualStreamSsEnabled),
+              String(n),
+            ),
+            (a.isDualStreamSsEnabled = n),
+            a.trigger(
+              o("WAWebVoipEventConstants").getChangeEvent(
+                o("WAWebVoipEventConstants").VoipCallModelEvents
+                  .SCREEN_SHARE_STATES,
+              ),
+            )));
+      },
       handleCallGridRankingChanged: function (t) {
         var e = t.callInfo,
           n = r("WAWebCallCollection").activeCall;
@@ -953,7 +979,7 @@ __d(
         }
       },
     };
-    l.VoipBridgeCallStateHandlers = N;
+    l.VoipBridgeCallStateHandlers = M;
   },
   226,
 );

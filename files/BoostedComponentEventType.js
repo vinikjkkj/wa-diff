@@ -529,6 +529,7 @@ __d(
         "post_ad_creation_module_full_summary_click",
       POST_AD_CREATION_MODULE_SEE_ALL_ADS_CLICK:
         "post_ad_creation_module_see_all_ads_click",
+      PREVIEW_PAC_DEV_TOOLS_CLICK: "preview_pac_dev_tools_click",
       EDIT_INSTAGRAM_ACCOUNT: "edit_instagram_account",
       CONNECT_INSTAGRAM_ACCOUNT: "connect_instagram_account",
       CONNECT_INSTAGRAM_ACCOUNT_DEBUG: "connect_instagram_account_debug",

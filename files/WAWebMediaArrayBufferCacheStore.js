@@ -5,8 +5,12 @@ __d(
     var e = { ignoreSearch: !0, ignoreMethod: !0, ignoreVary: !0 },
       s = (function (t) {
         function n(n) {
+          var r;
           return (
-            t.call(this, n, u, c, { encodeKey: d, matchOptions: e }) || this
+            (r =
+              t.call(this, n, u, c, { encodeKey: d, matchOptions: e }) || this),
+            (r.name = "cache_storage"),
+            r
           );
         }
         return (babelHelpers.inheritsLoose(n, t), n);

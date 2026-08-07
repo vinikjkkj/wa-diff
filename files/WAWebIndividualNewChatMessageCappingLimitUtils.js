@@ -108,11 +108,11 @@ __d(
         ? 0
         : Math.min(100, Math.max(0, (t.used_quota / t.total_quota) * 100));
     }
-    function y() {
-      var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
-      if (t == null || t.cycle_end_timestamp === 0) return "";
-      var n = new Date(t.cycle_end_timestamp * 1e3);
-      return n.toLocaleDateString(void 0, {
+    function y(t) {
+      var n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e);
+      if (n == null || n.cycle_end_timestamp === 0) return "";
+      var r = new Date(n.cycle_end_timestamp * 1e3);
+      return r.toLocaleDateString(t, {
         month: "long",
         day: "numeric",
         year: "numeric",

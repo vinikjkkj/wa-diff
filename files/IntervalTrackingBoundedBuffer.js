@@ -8,14 +8,13 @@ __d(
       u = (function () {
         function t(e) {
           var t = this;
-          if (((this.$6 = 0), e != null)) {
-            if (e <= 0) {
-              var n = new Error("Size for a buffer must be greater than zero.");
-              throw (n.stack, n);
-            }
-          } else e = s;
-          ((this.$4 = e),
-            (this.$1 = new (r("CircularBuffer"))(e)),
+          if (((this.$6 = 0), e != null && e <= 0)) {
+            var n = new Error("Size for a buffer must be greater than zero.");
+            throw (n.stack, n);
+          }
+          var o = e != null ? e : s;
+          ((this.$4 = o),
+            (this.$1 = new (r("CircularBuffer"))(o)),
             this.$1.onEvict(function () {
               t.$6++;
             }),

@@ -76,6 +76,16 @@ __d(
         }
         var a = t.prototype;
         return (
+          (a.getName = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = yield this.$1();
+              return e.name;
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (a.setMaxSize = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

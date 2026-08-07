@@ -70,6 +70,7 @@ __d(
           var l = a.arrayBufferStore,
             s = a.maxSize;
           return (
+            (i.name = l.name),
             (i._bufferStore = l),
             (i._metaInfoStore = new (r("WAWebMediaStoreMetaInfo"))(
               s,
