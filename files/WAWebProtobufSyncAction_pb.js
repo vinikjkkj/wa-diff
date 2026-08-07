@@ -222,6 +222,7 @@ __d(
         INVITES: 14,
         THIRD_PARTY: 15,
         LEAD: 16,
+        MENTIONS_AND_REPLIES: 17,
       }),
       w = s({
         ANDROID: 0,

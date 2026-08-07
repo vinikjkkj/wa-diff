@@ -2,6 +2,7 @@ __d(
   "WAWebDebugHybrid",
   [
     "WAWebModalManager",
+    "WAWebWindowsHybridBridgeInitiator",
     "cr:17074",
     "cr:17194",
     "cr:17219",
@@ -28,7 +29,12 @@ __d(
       "Shows the Rate App Prompt dialog for Windows Hybrid App. This is useful for testing by l10n team and QA."),
       (c.paramsToExecute = []));
     function d() {
-      var e = n("cr:17219") == null ? void 0 : n("cr:17219").getWindowsBridge();
+      var e =
+        n("cr:17219") == null
+          ? void 0
+          : n("cr:17219").getWindowsBridge(
+              r("WAWebWindowsHybridBridgeInitiator").WAWebDebugHybrid,
+            );
       if (
         !(
           n("cr:19951") == null ||

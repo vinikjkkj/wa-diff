@@ -23,6 +23,7 @@ __d(
       CHANNEL_STATUS: 17,
       RESHARED_FROM_CHANNEL: 18,
       USERNAME_STATUS: 19,
+      AI_CONTENT: 20,
     });
     i.TOP_BAR_ATTRIBUTION_TYPE = e;
   },

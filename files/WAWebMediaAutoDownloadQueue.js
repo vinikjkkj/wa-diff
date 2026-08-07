@@ -8,7 +8,6 @@ __d(
     "WAWebMedia",
     "WAWebMediaDownloadMmsThumbnail",
     "WAWebMediaGatingUtils",
-    "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
     "WAWebMsgModelPropUtils",
     "WAWebMsgModelUtils",
@@ -97,7 +96,6 @@ __d(
           }),
           (a.$2 = function () {
             return (
-              o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled() &&
               o("WAWebUserPrefsGeneral").getAutoDownloadPhotos() &&
               this.getEnqueuedTasksCount() < f
             );
@@ -107,7 +105,6 @@ __d(
               return this.$2() ? (this.$3({ sticker: t }), !0) : !1;
             var e = t,
               a =
-                o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled() &&
                 n === d.MEDIA &&
                 !o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
                 h(e) &&

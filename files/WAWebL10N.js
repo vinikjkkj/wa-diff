@@ -13,9 +13,9 @@ __d(
     "WAWebL10nGetRenderedLocale",
     "WAWebMomentLocaleResolver",
     "WAWebMomentLocales",
+    "WAWebParseLocaleSubtags",
     "WAWebUserPrefsLocales",
     "asyncToGeneratorRuntime",
-    "bcp-47",
     "gkx",
     "justknobx",
     "nullthrows",
@@ -272,20 +272,16 @@ __d(
             return this.$L10n$p_8(this.getFullLocale());
           }),
           (i.$L10n$p_8 = function (t) {
-            return o("bcp-47").parse(t).language;
+            var e;
+            return (e = r("WAWebParseLocaleSubtags")(t).language) != null
+              ? e
+              : "";
           }),
           (i.getRegion = function () {
-            var e,
-              t,
-              n =
-                (e = o("bcp-47").parse(this.getFullLocale())) == null
-                  ? void 0
-                  : e.region;
-            if (n != null) return n;
-            var a = this.$L10n$p_1.replace(/_/g, "-");
-            return r("nullthrows")(
-              (t = o("bcp-47").parse(a)) == null ? void 0 : t.region,
-            );
+            var e = r("WAWebParseLocaleSubtags")(this.getFullLocale()).region;
+            if (e != null) return e;
+            var t = this.$L10n$p_1.replace(/_/g, "-");
+            return r("nullthrows")(r("WAWebParseLocaleSubtags")(t).region);
           }),
           (i.$L10n$p_6 = function () {
             return this.normalizeLocaleToBcp47Compliant(

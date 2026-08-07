@@ -9,6 +9,7 @@ __d(
     "WAWebFilenameManager",
     "WAWebODS",
     "WAWebWindowsGatingUtils",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "getErrorSafe",
@@ -86,7 +87,10 @@ __d(
               );
           var _ =
               n("cr:17219") == null ||
-              (i = n("cr:17219").getWindowsBridge()) == null
+              (i = n("cr:17219").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebWindowsMediaFilesHelpers,
+              )) == null
                 ? void 0
                 : i.mediaFiles,
             f = U(t);
@@ -180,16 +184,19 @@ __d(
       return (
         (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            r =
+            a =
               n("cr:17219") == null ||
-              (t = n("cr:17219").getWindowsBridge()) == null
+              (t = n("cr:17219").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebWindowsMediaFilesHelpers,
+              )) == null
                 ? void 0
                 : t.mediaFiles,
-            a = U(e);
-          if (a == null || r == null) return !1;
-          var i = a.mediaFileHash,
-            l = a.suggestedFileName,
-            s = yield r.isCachedMediaFileExist(i, l);
+            i = U(e);
+          if (i == null || a == null) return !1;
+          var l = i.mediaFileHash,
+            s = i.suggestedFileName,
+            u = yield a.isCachedMediaFileExist(l, s);
           return (
             o("WALogger").LOG(
               _ ||
@@ -199,9 +206,9 @@ __d(
                   "",
                 ])),
               e.id.toString(),
-              s ? "exists" : "does not exist",
+              u ? "exists" : "does not exist",
             ),
-            s
+            u
           );
         })),
         z.apply(this, arguments)
@@ -225,7 +232,10 @@ __d(
             ));
           var i =
               n("cr:17219") == null ||
-              (a = n("cr:17219").getWindowsBridge()) == null
+              (a = n("cr:17219").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebWindowsMediaFilesHelpers,
+              )) == null
                 ? void 0
                 : a.mediaFiles,
             l = U(e);
@@ -526,7 +536,10 @@ __d(
       var e,
         t =
           n("cr:17219") == null ||
-          (e = n("cr:17219").getWindowsBridge()) == null
+          (e = n("cr:17219").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebWindowsMediaFilesHelpers,
+          )) == null
             ? void 0
             : e.mediaFiles;
       return t != null;
@@ -547,23 +560,26 @@ __d(
             );
             return;
           }
-          var r =
+          var a =
             n("cr:17219") == null ||
-            (t = n("cr:17219").getWindowsBridge()) == null
+            (t = n("cr:17219").getWindowsBridge(
+              r("WAWebWindowsHybridBridgeInitiator")
+                .WAWebWindowsMediaFilesHelpers,
+            )) == null
               ? void 0
               : t.mediaFiles;
-          if (r == null) {
+          if (a == null) {
             o("WALogger").ERROR(
               D ||
                 (D = babelHelpers.taggedTemplateLiteralLoose([
                   "[selectFolderAndSaveFiles] Media files bridge is null",
                 ])),
             );
-            var a = new Error("Failed to get media files bridge");
-            throw (a.stack, a);
+            var i = new Error("Failed to get media files bridge");
+            throw (i.stack, i);
           }
-          var i = yield r.selectFolderForBulkMediaSaving();
-          if (i == null || i === "") {
+          var l = yield a.selectFolderForBulkMediaSaving();
+          if (l == null || l === "") {
             o("WALogger").LOG(
               x ||
                 (x = babelHelpers.taggedTemplateLiteralLoose([
@@ -577,9 +593,9 @@ __d(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e, t, n) {
-                  yield r.prepareForZipArchiveSavingAndUnarchiveToFolder(
+                  yield a.prepareForZipArchiveSavingAndUnarchiveToFolder(
                     e,
-                    i,
+                    l,
                     t,
                     n,
                   );
@@ -598,7 +614,10 @@ __d(
       var e,
         t =
           n("cr:17219") == null ||
-          (e = n("cr:17219").getWindowsBridge()) == null
+          (e = n("cr:17219").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebWindowsMediaFilesHelpers,
+          )) == null
             ? void 0
             : e.mediaFiles;
       return t != null;
@@ -618,13 +637,16 @@ __d(
               ])),
             e.id.toString(),
           );
-          var r =
+          var a =
               n("cr:17219") == null ||
-              (t = n("cr:17219").getWindowsBridge()) == null
+              (t = n("cr:17219").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebWindowsMediaFilesHelpers,
+              )) == null
                 ? void 0
                 : t.mediaFiles,
-            a = U(e);
-          if (a == null) {
+            i = U(e);
+          if (i == null) {
             o("WALogger").ERROR(
               P ||
                 (P = babelHelpers.taggedTemplateLiteralLoose([
@@ -633,10 +655,10 @@ __d(
                 ])),
               e.id.toString(),
             );
-            var i = new Error("Failed to get media info or media files bridge");
-            throw (i.stack, i);
+            var l = new Error("Failed to get media info or media files bridge");
+            throw (l.stack, l);
           }
-          if (r == null) {
+          if (a == null) {
             o("WALogger").ERROR(
               N ||
                 (N = babelHelpers.taggedTemplateLiteralLoose([
@@ -645,11 +667,11 @@ __d(
                 ])),
               e.id.toString(),
             );
-            var l = new Error("Failed to get media info or media files bridge");
-            throw (l.stack, l);
+            var s = new Error("Failed to get media info or media files bridge");
+            throw (s.stack, s);
           }
-          var s = a.mediaFileHash,
-            u = a.suggestedFileName;
+          var u = i.mediaFileHash,
+            c = i.suggestedFileName;
           (o("WALogger").LOG(
             M ||
               (M = babelHelpers.taggedTemplateLiteralLoose([
@@ -667,8 +689,8 @@ __d(
                 ])),
               e.id.toString(),
             ));
-          var c = yield r.tryCopyCachedMediaFile(s);
-          if (!c) {
+          var d = yield a.tryCopyCachedMediaFile(u);
+          if (!d) {
             o("WALogger").ERROR(
               A ||
                 (A = babelHelpers.taggedTemplateLiteralLoose([
@@ -677,8 +699,8 @@ __d(
                 ])),
               e.id.toString(),
             );
-            var d = new Error("Failed to copy cached media file");
-            throw (d.stack, d);
+            var m = new Error("Failed to copy cached media file");
+            throw (m.stack, m);
           }
           return (
             o("WALogger").LOG(
@@ -689,7 +711,7 @@ __d(
                 ])),
               e.id.toString(),
             ),
-            u
+            c
           );
         })),
         ne.apply(this, arguments)

@@ -15,6 +15,7 @@ __d(
     "WAWebMuteUtils",
     "WAWebNotificationHelpers",
     "WAWebWindowsHybridBridgeFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsNotificationSettingsHelpers",
     "WAWebWindowsNotificationToneOption",
     "WAWebWindowsShowNotificationBannerOption",
@@ -35,7 +36,10 @@ __d(
       var n;
       if (r("WAWebEnvironment").isWindows) {
         var a =
-          (n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) == null
+          (n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebWindowsNotificationHelpers,
+          )) == null
             ? void 0
             : n.systemIntegrationsBridge;
         a != null && a.closeMessageNotification(e, t);
@@ -150,7 +154,10 @@ __d(
         x,
       );
       var $ =
-        (n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) == null
+        (n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+          r("WAWebWindowsHybridBridgeInitiator")
+            .WAWebWindowsNotificationHelpers,
+        )) == null
           ? void 0
           : n.systemIntegrationsBridge;
       if ($ != null) {
@@ -214,7 +221,10 @@ __d(
         return;
       }
       var n =
-        (t = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) == null
+        (t = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+          r("WAWebWindowsHybridBridgeInitiator")
+            .WAWebWindowsNotificationHelpers,
+        )) == null
           ? void 0
           : t.systemIntegrationsBridge;
       if (n == null) {
@@ -285,8 +295,10 @@ __d(
               ])),
           );
           var t =
-            (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) ==
-            null
+            (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+              r("WAWebWindowsHybridBridgeInitiator")
+                .WAWebWindowsNotificationHelpers,
+            )) == null
               ? void 0
               : e.systemIntegrationsBridge;
           if (t != null) {

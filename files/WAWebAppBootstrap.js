@@ -46,6 +46,7 @@ __d(
     "WAWebWamPageLoadReporter",
     "WAWebWamWorkerSpecificEvents",
     "WAWebWidToJid",
+    "WAWebWindowsHybridBridgeInitiator",
     "WDSTooltipShortcutResolver",
     "asyncToGeneratorRuntime",
     "cr:13019",
@@ -109,7 +110,12 @@ __d(
             o("WAWebPageLoadLoggingImpl").setPageLoadLoggingImpl(),
             o("WAWebABPropsCache").initializeABPropsCache(),
             o("WAWebClientFeatureFlags").overwriteDebugFeatures());
-          var l = (e = n("cr:17219")) == null ? void 0 : e.getWindowsBridge(),
+          var l =
+              (e = n("cr:17219")) == null
+                ? void 0
+                : e.getWindowsBridge(
+                    r("WAWebWindowsHybridBridgeInitiator").WAWebAppBootstrap,
+                  ),
             d = (t = n("cr:34988")) != null ? t : {},
             p = d.initializeWindowsSettingChangeHandlers;
           (p == null || p(),

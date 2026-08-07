@@ -132,8 +132,12 @@ __d(
           }),
         o("WAWebModalManager").ModalManager.close());
     }
-    function _(e, t, n, r) {
-      if (!e) {
+    function _(e) {
+      var t = e.announcementGroupParticipants,
+        n = e.contact,
+        r = e.parentChat,
+        a = e.participant;
+      if (!r) {
         (o("WAWebModalManager").ModalManager.close(),
           o("WALogger")
             .ERROR(
@@ -152,12 +156,12 @@ __d(
           {
             onParticipantPromote: function () {
               return p({
-                announcementGroupParticipants: n,
-                parentChat: e,
-                participant: t,
+                announcementGroupParticipants: t,
+                parentChat: r,
+                participant: a,
               });
             },
-            contact: r,
+            contact: n,
           },
         ),
       );

@@ -36,6 +36,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "err",
@@ -248,7 +249,9 @@ __d(
                   var a,
                     i =
                       n("cr:17219") == null ||
-                      (a = n("cr:17219").getWindowsBridge()) == null
+                      (a = n("cr:17219").getWindowsBridge(
+                        r("WAWebWindowsHybridBridgeInitiator").WAWebSocketModel,
+                      )) == null
                         ? void 0
                         : a.getClientKeyBridge();
                   if (i != null)

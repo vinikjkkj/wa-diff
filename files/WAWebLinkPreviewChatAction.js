@@ -29,6 +29,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumWebcDisplayStatusType",
     "WAWebWebcLinkPreviewDisplayWamEvent",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "gkx",
@@ -36,7 +37,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v;
     function S() {
-      return n("cr:17219") == null ? void 0 : n("cr:17219").getWindowsBridge();
+      return n("cr:17219") == null
+        ? void 0
+        : n("cr:17219").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator").WAWebLinkPreviewChatAction,
+          );
     }
     var R,
       L = !1;

@@ -34,8 +34,11 @@ __d(
       });
     }
     function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_contact_and_chat_fuzzy_search_async_enabled",
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_contact_and_chat_fuzzy_search_async_enabled",
+        )
       );
     }
     function _() {

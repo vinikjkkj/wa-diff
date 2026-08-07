@@ -49,6 +49,7 @@ __d(
     "WAWebVoipUiVideoGroupCallLoadable",
     "WAWebWamEnumLobbyEntryPointType",
     "WAWebWidFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "getErrorSafe",
@@ -1231,7 +1232,13 @@ __d(
               !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
             ) {
               var h,
-                y = ie == null || (h = ie()) == null ? void 0 : h.voip;
+                y =
+                  ie == null ||
+                  (h = ie(
+                    r("WAWebWindowsHybridBridgeInitiator").WAWebVoipStartCall,
+                  )) == null
+                    ? void 0
+                    : h.voip;
               if (y == null) {
                 (o("WALogger")
                   .LOG(

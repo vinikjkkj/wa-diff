@@ -1,30 +1,41 @@
 __d(
   "WAWebWindowsSettingChangeHandlerSetup",
-  ["WAWebUserPrefsSettingChangeHandler", "cr:17160", "cr:17219"],
+  [
+    "WAWebUserPrefsSettingChangeHandler",
+    "WAWebWindowsHybridBridgeInitiator",
+    "cr:17160",
+    "cr:17219",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       var e,
         t,
-        r = (e = n("cr:17219")) == null ? void 0 : e.getWindowsBridge();
-      if (r) {
-        var a = r.getPreferences();
-        a &&
+        a =
+          (e = n("cr:17219")) == null
+            ? void 0
+            : e.getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebWindowsSettingChangeHandlerSetup,
+              );
+      if (a) {
+        var i = a.getPreferences();
+        i &&
           o("WAWebUserPrefsSettingChangeHandler").registerSettingChangeHandler(
             function (e, t) {
-              a.handleSettingChange(e, t);
+              i.handleSettingChange(e, t);
             },
           );
       }
-      var i = (t = n("cr:17160")) != null ? t : {},
-        l = i.WAWebWindowsGetBridge;
-      if (l) {
-        var s,
-          u = (s = l()) == null ? void 0 : s.getPreferences();
-        u &&
+      var l = (t = n("cr:17160")) != null ? t : {},
+        s = l.WAWebWindowsGetBridge;
+      if (s) {
+        var u,
+          c = (u = s()) == null ? void 0 : u.getPreferences();
+        c &&
           o(
             "WAWebUserPrefsSettingChangeHandler",
           ).registerUserSettingChangeHandler(function (e, t) {
-            u.handleSettingChange(e, t);
+            c.handleSettingChange(e, t);
           });
       }
     }

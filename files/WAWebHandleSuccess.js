@@ -24,6 +24,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "justknobx",
@@ -35,10 +36,14 @@ __d(
       u,
       c,
       d,
-      m,
-      p = r("qpl")._(891431279, "3267"),
-      _ = (e = n("cr:17219")) == null ? void 0 : e.getWindowsBridge(),
-      f = new (r("WADeprecatedWapParser"))("successParser", function (e) {
+      m = r("qpl")._(891431279, "3267"),
+      p =
+        n("cr:17219") == null
+          ? void 0
+          : n("cr:17219").getWindowsBridge(
+              r("WAWebWindowsHybridBridgeInitiator").WAWebHandleSuccess,
+            ),
+      _ = new (r("WADeprecatedWapParser"))("successParser", function (e) {
         return (
           e.assertTag("success"),
           {
@@ -52,29 +57,29 @@ __d(
           }
         );
       });
-    function g(e) {
-      return h.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function h() {
+    function g() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, a, i;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a, i, l;
           (o("WAWebPageLoadLogging").addPageLoadQplPoint("success_received"),
-            o("WAWebQplFlowWrapper").QPL.markerPoint(p, "SuccessReceived"));
-          var l = f.parse(e);
-          if (l.error)
+            o("WAWebQplFlowWrapper").QPL.markerPoint(m, "SuccessReceived"));
+          var s = _.parse(t);
+          if (s.error)
             return (
               o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
                     "handleSuccess: failed to parse ",
                     "",
                   ])),
-                l.error,
+                s.error,
               ),
-              (m || (m = n("Promise"))).reject(l.error)
+              (d || (d = n("Promise"))).reject(s.error)
             );
-          var u = l.success;
+          var u = s.success;
           (o("WAWebUpdateClockSkewUtils").updateClockSkew(u.ts),
             o("WAWebUpdateMeLidUtils").updateMeLid(
               u.lid != null ? o("WAWebWidFactory").createWid(u.lid) : null,
@@ -98,46 +103,46 @@ __d(
             o(
               "WAWebCryptoEncKeyHelper",
             ).generateFinalDbEncryptionAndFtsKeyForInvoker(c),
-            r("WAWebEnvironment").isWindows && r("justknobx")._("5257") && y(c),
-            _ == null || (t = _.contacts) == null || t.initialize());
-          var d = (a = u.abpropsRefreshId) != null ? a : 0,
+            r("WAWebEnvironment").isWindows && r("justknobx")._("5257") && h(c),
+            p == null || (a = p.contacts) == null || a.initialize());
+          var f = (i = u.abpropsRefreshId) != null ? i : 0,
             g = o("WAWebABPropsLocalStorage").getRefreshId(),
-            h = r("justknobx")._("2086"),
-            C = o("WAWebABPropsLocalStorage").getWebRefreshId();
+            y = r("justknobx")._("2086"),
+            b = o("WAWebABPropsLocalStorage").getWebRefreshId();
           if (
-            (C !== h && o("WAWebABPropsLocalStorage").setWebRefreshId(h),
-            (d !== 0 && g !== d) || (h !== 0 && C !== h))
+            (b !== y && o("WAWebABPropsLocalStorage").setWebRefreshId(y),
+            (f !== 0 && g !== f) || (y !== 0 && b !== y))
           ) {
             var v = o("WAWebABPropsLocalStorage").isABPropsAfterFirstSync();
             v &&
               (yield o("WAWebAbPropsSyncJob").syncABPropsTask({
-                localRefreshId: g !== d ? g : C,
+                localRefreshId: g !== f ? g : b,
                 shouldSendHash: !1,
               }));
           }
-          var S = (i = u.groupAbpropsRefreshId) != null ? i : 0,
+          var S = (l = u.groupAbpropsRefreshId) != null ? l : 0,
             R = o("WAWebABPropsLocalStorage").getGroupAbPropsRefreshId();
           (S !== 0 &&
             S !== R &&
             o("WAWebABPropsLocalStorage").setGroupAbPropsEmergencyPushTimestamp(
               u.ts,
             ),
-            yield b(1e3));
+            yield C(1e3));
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function h(e) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = _ == null ? void 0 : _.serverEncKeySaltBridge;
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = p == null ? void 0 : p.serverEncKeySaltBridge;
           if (t == null) {
             o("WALogger").ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[saveServerEncKeySalt] bridge unavailable",
                 ])),
             );
@@ -147,15 +152,15 @@ __d(
             r = o("WABase64").encodeB64(n.encode(e));
           yield t.setServerEncKeySalt(r);
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             yield o("WAPromiseTimeout").promiseTimeout(
               o("WAWebMediaHosts").mediaHosts.forceRefresh(
@@ -167,16 +172,16 @@ __d(
             e instanceof o("WACustomError").TimeoutError
               ? o("WALogger")
                   .LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "fetching mms4 hosts on startup exceeded timeout",
                       ])),
                   )
                   .sendLogs("mms4-fetch-host-timeout", { sampling: 0 })
               : o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "fetching mms4 hosts on startup failed: ",
                         "",
                       ])),
@@ -185,10 +190,10 @@ __d(
                   .sendLogs("mms4-fetch-host-failed");
           }
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.default = g;
+    l.default = f;
   },
   98,
 );

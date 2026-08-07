@@ -511,7 +511,7 @@ __d(
                 sampling: 0.01,
               });
           }
-          r("WAWebEnvironment").isGuest &&
+          o("WAWebVoipGatingUtils").isGuestViewer() &&
             i.group_info_updates != null &&
             o("WAWebBackendApi").frontendFireAndForget(
               "hydrateGuestParticipantContacts",

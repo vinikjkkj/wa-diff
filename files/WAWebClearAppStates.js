@@ -4,6 +4,7 @@ __d(
     "WAWebConnModel",
     "WAWebMediaStorage",
     "WAWebUserPrefsClearLocalState",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
   ],
@@ -18,7 +19,9 @@ __d(
           (o("WAWebMediaStorage").delistAndDeleteAllMedia(),
             o("WAWebUserPrefsClearLocalState").clearAllTemporaryStorageData(),
             n("cr:17219") == null ||
-              (e = n("cr:17219").getWindowsBridge()) == null ||
+              (e = n("cr:17219").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator").WAWebClearAppStates,
+              )) == null ||
               (e = e.getPreferences()) == null ||
               e.clean(),
             (o("WAWebConnModel").Conn.blockStoreAdds = !0));

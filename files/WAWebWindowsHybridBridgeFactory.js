@@ -480,22 +480,28 @@ __d(
       }
     }
     var C = null,
-      b = 0;
-    function v() {
+      b = 0,
+      v = null;
+    function S(e) {
       if (C == null) {
-        (b > 0 &&
-          o("WALogger")
-            .ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "WinRTBridge: init called ",
-                  "x, build=",
-                  "",
-                ])),
-              b,
-              o("WAWebBuildConstants").WINDOWS_BUILD,
-            )
-            .sendLogs("windows bridge multiple init"),
+        (b > 0
+          ? o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "WinRTBridge: init called ",
+                    "x, build=",
+                    ", firstInitiator=",
+                    ", retryInitiator=",
+                    "",
+                  ])),
+                b,
+                o("WAWebBuildConstants").WINDOWS_BUILD,
+                v,
+                e,
+              )
+              .sendLogs("windows bridge multiple init")
+          : (v = e),
           b++);
         try {
           C = h();
@@ -514,7 +520,7 @@ __d(
       }
       return C;
     }
-    ((l.getIsBridgeReady = f), (l.getWebView = g), (l.getWindowsBridge = v));
+    ((l.getIsBridgeReady = f), (l.getWebView = g), (l.getWindowsBridge = S));
   },
   98,
 );

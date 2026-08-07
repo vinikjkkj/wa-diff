@@ -26,6 +26,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVcardParsingUtils",
     "WAWebWid",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "err",
@@ -161,7 +162,13 @@ __d(
                 timestamp: Date.now(),
               };
             }));
-          var l = (a = n("cr:17219")) == null ? void 0 : a.getWindowsBridge();
+          var l =
+            (a = n("cr:17219")) == null
+              ? void 0
+              : a.getWindowsBridge(
+                  r("WAWebWindowsHybridBridgeInitiator")
+                    .WAWebProfilePicThumbCollection,
+                );
           return (
             l &&
               i.listenTo(i, "add remove change:timestamp", function (e, t, n) {

@@ -6,7 +6,6 @@ __d(
     "WAPromiseTimeout",
     "WAWebABProps",
     "WAWebAppTracker",
-    "WAWebEnvironment",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebLazyLoadedRetriable",
     "WAWebPonyfillsIdleCallback",
@@ -124,7 +123,7 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!r("WAWebEnvironment").isGuest) {
+          if (!o("WAWebVoipGatingUtils").isGuestViewer()) {
             var t;
             (t = o("WAWebVoipQplHelpers")).voipInitQplAddPoint(
               t.VoipInitQplPoint.WAIT_OFFLINE_DELIVER_START,

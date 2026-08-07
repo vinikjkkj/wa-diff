@@ -64,12 +64,7 @@ __d(
       );
     }
     function h() {
-      return (
-        o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "ctwa_important_label_sends_signals",
-        )
-      );
+      return o("WAWebMobilePlatforms").isSMB();
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(

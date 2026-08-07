@@ -6,7 +6,6 @@ __d(
     "WAAbortError",
     "WAArrayBufferUtils",
     "WAWebHttpErrors",
-    "WAWebHttpExtendedFetchWithStreams",
     "WAWebHttpParseHeaders",
     "WAWebNoop",
     "WAWebPonyfillsHeaders",
@@ -31,13 +30,7 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = {});
           try {
-            return o(
-              "WAWebHttpExtendedFetchWithStreams",
-            ).canUseExtendedFetchWithStreams(t.method)
-              ? yield o(
-                  "WAWebHttpExtendedFetchWithStreams",
-                ).extendedFetchWithStreams(e, t)
-              : yield d(e, t);
+            return yield d(e, t);
           } catch (e) {
             var n = r("getErrorSafe")(e);
             throw n.name === o("WAAbortError").ABORT_ERROR

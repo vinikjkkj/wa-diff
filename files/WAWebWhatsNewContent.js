@@ -5,6 +5,7 @@ __d(
     "WAWebABProps",
     "WAWebEnvironment",
     "WAWebMobilePlatforms",
+    "WAWebVoipGatingUtils",
     "WDSIconIcDescription.react",
     "WDSIconIcDownload.react",
     "WDSIconIcHistory.react",
@@ -130,10 +131,7 @@ __d(
         : [].concat(u, [r("WAWebEnvironment").isWindows ? d : c]);
     }
     function S(e) {
-      var t =
-        o("WAWebABProps").getABPropConfigValue(
-          "wa_web_calling_whats_new_modal_update_enabled",
-        ) === !0;
+      var t = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
       return o("WAWebMobilePlatforms").isSMB() ? L(t, e) : R(t);
     }
     function R(t) {

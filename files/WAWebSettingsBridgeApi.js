@@ -14,6 +14,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:12510",
     "cr:12511",
@@ -81,7 +82,10 @@ __d(
               case "startAtLogin": {
                 if (B != null) {
                   var a;
-                  (a = B()) == null ||
+                  (a = B(
+                    r("WAWebWindowsHybridBridgeInitiator")
+                      .WAWebSettingsBridgeApi,
+                  )) == null ||
                     (a = a.systemIntegrationsBridge) == null ||
                     a.updateStartupTask(!!n);
                 }

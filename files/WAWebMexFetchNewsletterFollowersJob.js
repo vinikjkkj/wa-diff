@@ -1,9 +1,10 @@
 __d(
   "WAWebMexFetchNewsletterFollowersJob",
   [
-    "Promise",
+    "WALogger",
     "WATimeUtils",
     "WAWebApiContactUsernameFields",
+    "WAWebDBCreateLidPnMappings",
     "WAWebLidMigrationUtils",
     "WAWebMexClient",
     "WAWebMexFetchNewsletterFollowersJobQuery.graphql",
@@ -15,6 +16,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -41,19 +43,32 @@ __d(
               },
             },
             l = yield o("WAWebMexClient").fetchQuery(u, i),
-            s = l.xwa2_newsletter_followers;
-          if (s == null) return null;
-          if (((n = s.followers) == null ? void 0 : n.edges) == null)
+            c = l.xwa2_newsletter_followers;
+          if (c == null) return null;
+          if (((n = c.followers) == null ? void 0 : n.edges) == null)
             return { followers: [] };
-          var c = m(s.followers.edges),
-            d = o(
-              "WAWebUsernameWorkerCompatibleGatingUtils",
-            ).isNewsletterUsernamePnPrivacyEnabled();
+          var d = _(c.followers.edges);
+          try {
+            yield m(d);
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[MEX][NEWSLETTER] failed to learn follower phone numbers",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("newsletter-followers-learn-phone-numbers-failed");
+          }
+          var p = o(
+            "WAWebUsernameWorkerCompatibleGatingUtils",
+          ).isNewsletterUsernamePnPrivacyEnabled();
           return (
-            d && (yield p(c)),
+            p && (yield f(d)),
             {
               followers:
-                (a = r("compactMap")(c, function (e) {
+                (a = r("compactMap")(d, function (e) {
                   var t,
                     n,
                     r,
@@ -64,20 +79,20 @@ __d(
                     u = l.id,
                     c = l.pn;
                   if (u == null) return null;
-                  var m =
+                  var d =
                     c != null ? o("WAWebWidFactory").createWid(c) : void 0;
                   return {
                     displayName: l.display_name,
                     id: o("WAWebWidFactory").createWid(u),
                     role: o("WAWebMexNewsletterUtils").mapRoleToMembership(s),
-                    phoneNumber: m,
+                    phoneNumber: d,
                     followTime:
                       i != null
                         ? o("WATimeUtils").castToUnixTime(
                             Number.parseInt(i, 10),
                           )
                         : null,
-                    username: d
+                    username: p
                       ? (t = l.username_info) == null
                         ? void 0
                         : t.username
@@ -103,6 +118,36 @@ __d(
       );
     }
     function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = r("compactMap")(e, function (e) {
+            var t = e.node,
+              n = t.id,
+              r = t.pn,
+              a =
+                n != null
+                  ? o("WAWebLidMigrationUtils").toUserLid(
+                      o("WAWebWidFactory").createWid(n),
+                    )
+                  : null;
+            return a == null || r == null
+              ? null
+              : { lid: a, pn: o("WAWebWidFactory").createUserWidOrThrow(r) };
+          });
+          t.length !== 0 &&
+            (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+              mappings: t,
+              flushImmediately: !0,
+              learningSource: "newsletter-followers",
+            }));
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
       var t = e.filter(function (e) {
           return e.role === "ADMIN" || e.role === "OWNER";
         }),
@@ -116,79 +161,55 @@ __d(
         });
       return [].concat(t, r);
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.map(function (e) {
               return e.node.id != null
                 ? o("WAWebWidFactory").createWid(e.node.id)
                 : null;
             }),
-            a = yield o(
+            n = yield o(
               "WAWebApiContactUsernameFields",
             ).bulkGetContactToUsernameInfoMap(t.filter(Boolean)),
-            i = r("compactMap")(
-              yield (s || (s = n("Promise"))).all(
-                e.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t,
-                          n,
-                          r = e.node.id,
-                          i =
-                            r != null
-                              ? o("WAWebLidMigrationUtils").toUserLid(
-                                  o("WAWebWidFactory").createWid(r),
-                                )
-                              : null;
-                        if (i == null) return null;
-                        var l =
-                            (t = e.node.username_info) == null
-                              ? void 0
-                              : t.username,
-                          s =
-                            (n = a.get(i.toJid())) == null
-                              ? void 0
-                              : n.username;
-                        if (
-                          l != null &&
-                          l !==
-                            o("WAWebUsernameTypes").serializeMaybeUsername(s)
-                        )
-                          return {
-                            userId: i,
-                            username: o("WAWebUsernameTypes").asUsername(l),
-                          };
-                        if (l == null && s != null) {
-                          var u;
-                          return {
-                            userId: i,
-                            deleteUsername: !0,
-                            forceDelete: !0,
-                            displayNameLID:
-                              (u = e.node.display_name) != null ? u : void 0,
-                          };
-                        }
-                        return null;
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              ),
-              function (e) {
-                return e;
-              },
-            );
-          i.length > 0 && (yield o("WAWebSetUsernameJob").setUsernamesJob(i));
+            a = r("compactMap")(e, function (e) {
+              var t,
+                r,
+                a = e.node.id,
+                i =
+                  a != null
+                    ? o("WAWebLidMigrationUtils").toUserLid(
+                        o("WAWebWidFactory").createWid(a),
+                      )
+                    : null;
+              if (i == null) return null;
+              var l = (t = e.node.username_info) == null ? void 0 : t.username,
+                s = (r = n.get(i.toJid())) == null ? void 0 : r.username;
+              if (
+                l != null &&
+                l !== o("WAWebUsernameTypes").serializeMaybeUsername(s)
+              )
+                return {
+                  userId: i,
+                  username: o("WAWebUsernameTypes").asUsername(l),
+                };
+              if (l == null && e.node.pn != null && s != null) {
+                var u;
+                return {
+                  userId: i,
+                  deleteUsername: !0,
+                  displayNameLID:
+                    (u = e.node.display_name) != null ? u : void 0,
+                };
+              }
+              return null;
+            });
+          a.length > 0 && (yield o("WAWebSetUsernameJob").setUsernamesJob(a));
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
     l.mexFetchNewsletterFollowers = c;

@@ -200,6 +200,7 @@ __d(
       enable_hybrid_video_transcoding: [19895, "bool", !1, !1],
       enable_hybrid_video_transcoding_for_valid_mp4: [20070, "bool", !1, !1],
       enable_join_ongoing_call_refactor: [34093, "bool", !1, !1],
+      enable_lanczos_upscaler_for_vod_bitmap: [34626, "int", 0, 0],
       enable_lazy_loading_of_call_view_elements: [5053, "bool", !1, !1],
       enable_lid_call_link: [8180, "bool", !1, !1],
       enable_new_call_link_representation: [16589, "bool", !1, !1],

@@ -11,6 +11,7 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebPwaDocumentMetadataUtils",
     "WAWebUA",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,31 +35,31 @@ __d(
     function _(t) {
       var n;
       if (!o("WAWebUA").UA.isSafari) {
-        var r;
+        var a;
         (t === -1
-          ? (r = "favicon-error2")
+          ? (a = "favicon-error2")
           : t === 0
-            ? (r = "favicon")
+            ? (a = "favicon")
             : t < 10
-              ? (r = "f0" + t)
+              ? (a = "f0" + t)
               : t < 100
-                ? (r = "f" + t)
-                : (r = "f00"),
-          (p = r),
+                ? (a = "f" + t)
+                : (a = "f00"),
+          (p = a),
           (n = document.getElementById("favicon")) == null || n.remove());
-        var a = {
-          id: r + "-" + d,
-          low: { default: "/favicon/1x/" + r + "/" + d + "/" },
-          high: { default: "/favicon/2x/" + r + "/" + d + "/" },
+        var i = {
+          id: a + "-" + d,
+          low: { default: "/favicon/1x/" + a + "/" + d + "/" },
+          high: { default: "/favicon/2x/" + a + "/" + d + "/" },
         };
         o("WAWebAssetLoaderSingleton")
           .AssetLoader.loadAsset(
-            a,
+            i,
             o("WAWebAssetLoader").LOAD_PRIORITY.NOTIFICATION_ICON,
             !1,
           )
           .then(function (t) {
-            if (p !== r) {
+            if (p !== a) {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -66,7 +67,7 @@ __d(
                     " because of newer favicon: ",
                     "",
                   ])),
-                r,
+                a,
                 p,
               );
               return;
@@ -76,15 +77,15 @@ __d(
               n.setAttribute("rel", "icon"),
               n.setAttribute("type", "image/png"),
               n.setAttribute("href", t));
-            var a = document.getElementsByTagName("head");
-            (a != null && a[0] && a[0].appendChild(n),
+            var r = document.getElementsByTagName("head");
+            (r != null && r[0] && r[0].appendChild(n),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[favicon] updated: ",
                     "",
                   ])),
-                r,
+                a,
               ));
           })
           .catch(
@@ -95,7 +96,7 @@ __d(
                     "[favicon] update aborted: ",
                     "",
                   ])),
-                r,
+                a,
               );
             }),
           )
@@ -104,11 +105,12 @@ __d(
               .ERROR(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "Error updating favicon: ",
+                    "[favicon] update failed id=",
                     "",
                   ])),
-                e,
+                i.id,
               )
+              .catching(r("getErrorSafe")(e))
               .sendLogs("favicon-fetch-error");
           });
       }

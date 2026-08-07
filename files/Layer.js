@@ -23,6 +23,7 @@ __d(
     "react",
     "removeFromArray",
     "setImmediate",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -314,6 +315,7 @@ __d(
       var t = e.children,
         n = e.onRender;
       return (
+        r("vulture")("gqNgrbU2Jyqnbs6SLndqQ5UPzpY="),
         c(
           function () {
             n();

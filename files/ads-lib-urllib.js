@@ -21,17 +21,20 @@ __d(
     }
     function _(e) {
       var t = e.toString().trim().match(u) || [],
-        n = {
-          protocol: t[1] || "",
-          domain: p(t[2] || ""),
+        n = t[1] || "",
+        r = p(t[2] || ""),
+        o = t[4] || "",
+        a = {
+          protocol: n,
+          domain: r,
           port: t[3] || "",
-          path: t[4] || "",
+          path: o,
           query_s: t[5] || "",
           fragment: t[6] || "",
         };
-      if (!n.domain && n.path.indexOf("\\") !== -1) return {};
-      var r = new RegExp("^(?:[^/]*:|[\\x00-\\x1f]*/[\\x00-\\x1f]*/)");
-      return !n.protocol && r.test(e.toString()) ? {} : n;
+      if (!r && o.indexOf("\\") !== -1) return {};
+      var i = new RegExp("^(?:[^/]*:|[\\x00-\\x1f]*/[\\x00-\\x1f]*/)");
+      return !n && i.test(e.toString()) ? {} : a;
     }
     function f(e) {
       var t = "";

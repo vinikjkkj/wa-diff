@@ -22,7 +22,6 @@ __d(
     "WAWebDecompressAndDecodeBundle",
     "WAWebE2EProtoUtils",
     "WAWebEphemeralKeepInChatUtils",
-    "WAWebGroupHistoryGating",
     "WAWebGroupHistoryMessageManager",
     "WAWebGroupHistoryMsgData.flow",
     "WAWebGroupHistoryReportingTokenValidator",
@@ -144,8 +143,7 @@ __d(
                   chatId: a,
                   validationCtx: S,
                 }),
-                l > 0 &&
-                o("WAWebGroupHistoryGating").isOutOfWindowPinsReceiverEnabled()
+                l > 0
                   ? k({
                       baseMessage: E,
                       bundleMessageKey: e.id,

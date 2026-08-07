@@ -7,12 +7,12 @@ __d(
     "WAWebAsISOCountryCode",
     "WAWebContactExternalUserState",
     "WAWebDBCreateLidPnMappings",
-    "WAWebEnvironment",
     "WAWebHandlePushnameUpdate",
     "WAWebSetUsernameJob",
     "WAWebUpdateContactExternalUserState",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
+    "WAWebVoipGatingUtils",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -130,7 +130,7 @@ __d(
               }
             }
             s != null &&
-              !r("WAWebEnvironment").isGuest &&
+              !o("WAWebVoipGatingUtils").isGuestViewer() &&
               (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
                 mappings: [
                   { lid: d, pn: o("WAWebWidFactory").asUserWidOrThrow(s) },

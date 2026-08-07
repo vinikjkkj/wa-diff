@@ -28,7 +28,8 @@ __d(
           ? r("WAWebODS").incr("web.windows.fsa_save_as.supported")
           : r("WAWebODS").incr("web.windows.fsa_save_as.unsupported"),
         o("WAWebWindowsGatingUtils").isFsaSaveAsEnabled()
-          ? (_(t).catch(function (t) {
+          ? (r("WAWebODS").incr("web.windows.fsa_save_as.started"),
+            _(t).catch(function (t) {
               (o("WALogger")
                 .ERROR(
                   e ||

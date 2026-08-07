@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebWindowsHybridBridgeFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsScalingControlConstants",
     "asyncToGeneratorRuntime",
   ],
@@ -39,7 +40,10 @@ __d(
       N,
       M,
       w = function () {
-        var t = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(),
+        var t = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebWindowsScalingControlActions,
+          ),
           n = t == null ? void 0 : t.browserExtensionsBridge;
         return (
           n == null &&

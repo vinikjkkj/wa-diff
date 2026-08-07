@@ -55,7 +55,12 @@ __d(
               l.map(function (e) {
                 return o(
                   "WAWebApiCoexV2RelayReceiptStore",
-                ).addOrUpdateCoexV2RelayReceipt(e, f, a, _);
+                ).addOrUpdateCoexV2RelayReceipt({
+                  ack: a,
+                  msgId: e,
+                  representedLid: f,
+                  ts: _,
+                });
               }),
             );
           } catch (e) {

@@ -2,6 +2,7 @@ __d(
   "WAWebWindowsSharesheetHelpers",
   [
     "WALogger",
+    "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsMediaFilesHelpers",
     "asyncToGeneratorRuntime",
     "cr:17219",
@@ -28,7 +29,10 @@ __d(
           );
           var l =
             n("cr:17219") == null ||
-            (a = n("cr:17219").getWindowsBridge()) == null
+            (a = n("cr:17219").getWindowsBridge(
+              r("WAWebWindowsHybridBridgeInitiator")
+                .WAWebWindowsSharesheetHelpers,
+            )) == null
               ? void 0
               : a.sharesheetBridge;
           l

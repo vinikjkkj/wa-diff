@@ -11,6 +11,7 @@ __d(
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMsgKey",
     "WAWebMuteCollection",
+    "WAWebRestoreChatsAndMessages",
     "WAWebThreadMetadataUtil",
     "WAWebUpdateLastAddOnPreviewChatAction",
     "WAWebUpdateOfflinePeerReceipts",
@@ -152,14 +153,15 @@ __d(
         },
         updateChatPreviewT: function (t) {
           var e = t.threadMeta;
-          o("WAWebChatCollection").ChatCollection.forEach(function (t) {
+          (o("WAWebChatCollection").ChatCollection.forEach(function (t) {
             var n = o("WAWebThreadMetadataUtil").getOfflineMetaPreviewForChat({
               chatTimestamp: e,
               chatId: t.id,
               accountLid: t.accountLid,
             });
             n != null && (t.previewT = n);
-          });
+          }),
+            o("WAWebRestoreChatsAndMessages").restoreChatRowsForDisplay(e));
         },
         updateBotInvokeSystemMsgCreated: function (t) {
           var e = t.chatId,

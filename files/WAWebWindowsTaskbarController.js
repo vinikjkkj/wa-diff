@@ -4,6 +4,7 @@ __d(
     "WAWebChatCollection",
     "WAWebCmd",
     "WAWebWindowsHybridBridgeFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsTaskbarNotificationOption",
     "WAWebWindowsUserPrefsNotifications",
   ],
@@ -22,8 +23,10 @@ __d(
           (t.UpdateTaskbarBadge = function (t) {
             var e,
               n =
-                (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) ==
-                null
+                (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+                  r("WAWebWindowsHybridBridgeInitiator")
+                    .WAWebWindowsTaskbarController,
+                )) == null
                   ? void 0
                   : e.systemIntegrationsBridge;
             n != null && n.updateTaskbarBadge(t);

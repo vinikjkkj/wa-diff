@@ -20,6 +20,7 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipWasmArtifactRegistry",
     "WAWebWidFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "getErrorSafe",
@@ -296,7 +297,9 @@ __d(
               ) {
                 var S;
                 R == null ||
-                  (S = R()) == null ||
+                  (S = R(
+                    r("WAWebWindowsHybridBridgeInitiator").WAWebVoipInit,
+                  )) == null ||
                   (S = S.voip) == null ||
                   S.setHandlers(s.callbacks);
               }

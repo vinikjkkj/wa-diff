@@ -1,23 +1,23 @@
 __d(
   "WAWebMomentLocaleResolver",
-  ["WAWebLocaleToMomentResource", "bcp-47"],
+  ["WAWebLocaleToMomentResource", "WAWebParseLocaleSubtags"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n = s(e),
-        a = o("bcp-47").parse(n),
-        i = a.language,
-        l = a.region,
-        u = a.script,
-        c = [n];
-      if (i != null && i !== "en") {
-        var d;
-        if ((l != null && c.push(i + "-" + l), u != null)) {
-          var m = r("WAWebLocaleToMomentResource")[(i + "-" + u).toLowerCase()];
-          m != null && c.push(m);
+        o = r("WAWebParseLocaleSubtags")(n),
+        a = o.language,
+        i = o.region,
+        l = o.script,
+        u = [n];
+      if (a != null && a !== "en") {
+        var c;
+        if ((i != null && u.push(a + "-" + i), l != null)) {
+          var d = r("WAWebLocaleToMomentResource")[(a + "-" + l).toLowerCase()];
+          d != null && u.push(d);
         }
-        c.push((d = r("WAWebLocaleToMomentResource")[i]) != null ? d : i);
+        u.push((c = r("WAWebLocaleToMomentResource")[a]) != null ? c : a);
       }
-      return (c.push(s(t)), Array.from(new Set(c)));
+      return (u.push(s(t)), Array.from(new Set(u)));
     }
     function s(e) {
       return e.replace(/_/g, "-").toLowerCase();

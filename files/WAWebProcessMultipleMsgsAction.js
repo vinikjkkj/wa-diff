@@ -11,20 +11,16 @@ __d(
     "WAWebChatCollection",
     "WAWebChatGetExistingBridge",
     "WAWebChatModel",
-    "WAWebDownloadProgressiveJpegThumbnail",
     "WAWebFindChatAction",
     "WAWebFrontendMsgGetters",
     "WAWebGetMsgUpdatesActionsUtils",
     "WAWebGhostEphemeralChatSkip",
     "WAWebLidStatusMigrationUtils",
-    "WAWebMedia",
     "WAWebMediaAutoDownloadQueue",
-    "WAWebMediaDownloadMmsThumbnail",
     "WAWebMediaGatingUtils",
     "WAWebMediaLinkPreviewUtils",
     "WAWebMediaTypes",
     "WAWebMessageAssociationUIUtils",
-    "WAWebMiscGatingUtils",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
@@ -326,25 +322,23 @@ __d(
                   };
                 }
               });
-            if (
-              (Q > 0 &&
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[sticker] Unexpected null media key",
-                      ])),
-                  )
-                  .sendLogs("sticker-unexpected-null-media-key"),
+            (Q > 0 &&
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sticker] Unexpected null media key",
+                    ])),
+                )
+                .sendLogs("sticker-unexpected-null-media-key"),
               o("WAWebRecentStickerCollection").RecentStickerCollection.enqueue(
                 X,
-              ),
-              o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled())
-            ) {
-              var Y = A.filter(function (e) {
-                return !o("WAWebMsgGetters").getIsStatus(e);
-              });
-              r("compactMap")(Y, function (e) {
+              ));
+            var Y = A.filter(function (e) {
+              return !o("WAWebMsgGetters").getIsStatus(e);
+            });
+            if (
+              (r("compactMap")(Y, function (e) {
                 return o("WAWebFrontendMsgGetters").getAsAutoDownloadableMedia(
                   e,
                 );
@@ -353,9 +347,9 @@ __d(
                   e,
                   o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes.MEDIA,
                 );
-              });
-            }
-            if (!o("WAWebUserPrefsGeneral").getAutoDownloadPhotos()) {
+              }),
+              !o("WAWebUserPrefsGeneral").getAutoDownloadPhotos())
+            ) {
               var J = A.filter(function (e) {
                 return (
                   !o("WAWebMsgGetters").getIsSentByMe(e) &&
@@ -382,39 +376,23 @@ __d(
                     "WAWebMediaGatingUtils",
                   ).getHQImageThumbnailInChatScans();
                   r > 0 &&
-                    (o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled()
-                      ? o(
-                          "WAWebMediaAutoDownloadQueue",
-                        ).AutoDownloadQueue.enqueue(
-                          e,
-                          o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
-                            .PJPEG_THUMBNAIL,
-                        )
-                      : o(
-                          "WAWebDownloadProgressiveJpegThumbnail",
-                        ).downloadProgressiveJpegThumbnail({
-                          msg: e,
-                          scanCount: r,
-                        }));
+                    o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
+                      e,
+                      o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
+                        .PJPEG_THUMBNAIL,
+                    );
                 }
               });
             }
-            var Z = M instanceof o("WAWebChatModel").Chat ? M : null;
             if (
               (r("compactMap")(A, function (e) {
                 return o("WAWebFrontendMsgGetters").getAsDoc(e);
               }).forEach(function (e) {
-                o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled()
-                  ? o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
-                      e,
-                      o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
-                        .MMS_THUMBNAIL,
-                    )
-                  : r("WAWebMediaDownloadMmsThumbnail")({
-                      chat: Z,
-                      msg: e,
-                      isPreload: !0,
-                    });
+                o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
+                  e,
+                  o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
+                    .MMS_THUMBNAIL,
+                );
               }),
               window.setTimeout(function () {
                 if (
@@ -440,49 +418,34 @@ __d(
                 return o("WAWebFrontendMsgGetters").getAsUrl(e);
               }).forEach(function (e) {
                 o("WAWebMediaLinkPreviewUtils").hqLinkPreviewExpired(e.t) ||
-                  (o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled()
-                    ? o(
-                        "WAWebMediaAutoDownloadQueue",
-                      ).AutoDownloadQueue.enqueue(
-                        e,
-                        o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
-                          .MMS_THUMBNAIL,
-                        null,
-                      )
-                    : r("WAWebMediaDownloadMmsThumbnail")({
-                        msg: e,
-                        isPreload: !0,
-                        chat: null,
-                      }));
+                  o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
+                    e,
+                    o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
+                      .MMS_THUMBNAIL,
+                    null,
+                  );
               }),
               o("WAWebABProps").getABPropConfigValue(
                 "download_status_thumb_mms_enabled",
               ))
             ) {
-              var ee = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
-                te = 1e3 * 60 * 60 * 24;
-              if (ee == null || Date.now() - ee < 14 * te) {
-                var ne = A.filter(function (e) {
+              var Z = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
+                ee = 1e3 * 60 * 60 * 24;
+              if (Z == null || Date.now() - Z < 14 * ee) {
+                var te = A.filter(function (e) {
                   return o("WAWebMsgGetters").getIsStatus(e);
                 });
-                r("compactMap")(ne, function (e) {
+                r("compactMap")(te, function (e) {
                   return (
                     o("WAWebFrontendMsgGetters").getAsImage(e) ||
                     o("WAWebFrontendMsgGetters").getAsVideo(e)
                   );
                 }).forEach(function (e) {
-                  o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled()
-                    ? o(
-                        "WAWebMediaAutoDownloadQueue",
-                      ).AutoDownloadQueue.enqueue(
-                        e,
-                        o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
-                          .MMS_THUMBNAIL,
-                      )
-                    : o("WAWebMedia").downloadStatusThumbnail({
-                        msg: e,
-                        isPreload: !0,
-                      });
+                  o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
+                    e,
+                    o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
+                      .MMS_THUMBNAIL,
+                  );
                 });
               }
             }

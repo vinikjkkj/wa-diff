@@ -10,6 +10,7 @@ __d(
     "WAWebNoop",
     "WAWebStreamModel",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -65,18 +66,16 @@ __d(
           r("WAWebL10N").on("locale_change", function () {
             p();
           });
-        } catch (e) {
+        } catch (t) {
+          var e = r("getErrorSafe")(t);
           o("WALogger")
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[emoji-trie] subscription to locale_change failed: ",
-                  ", stack: ",
-                  "",
+                  "[emoji-trie] subscription to locale_change failed",
                 ])),
-              e,
-              e.stack,
             )
+            .catching(e)
             .sendLogs(
               "[emoji-trie] subscription to locale_change failed: " + e.message,
             );

@@ -21,6 +21,7 @@ __d(
     "WAWebWamPageLoadReporter",
     "WAWebWebcPageResumeWamEvent",
     "WAWebWebcStreamModeChangeWamEvent",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:17219",
     "gkx",
@@ -223,7 +224,9 @@ __d(
             var e,
               t =
                 m == null ||
-                (e = m()) == null ||
+                (e = m(
+                  r("WAWebWindowsHybridBridgeInitiator").WAWebStreamModel,
+                )) == null ||
                 (e = e.nativeAppStateBridge) == null
                   ? void 0
                   : e.isMinimizedToTray();

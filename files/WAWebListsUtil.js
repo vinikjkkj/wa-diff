@@ -2,7 +2,6 @@ __d(
   "WAWebListsUtil",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebChatMessageSearch",
@@ -131,45 +130,23 @@ __d(
     }
     function f(e, t, n) {
       var a = s._(/*BTDS*/ "Delete this list?");
-      if (o("WAWebABProps").getABPropConfigValue("wds_web_dialog")) {
-        o("WDSDialogBridge").openWDSDialog(
-          u.jsx(r("WDSConfirmDialog.react"), {
-            title: a,
-            description: s._(
-              /*BTDS*/ "Your chats with people and groups won't be deleted.",
-            ),
-            confirmLabel: s._(/*BTDS*/ "Delete"),
-            destructive: !0,
-            onConfirm: function () {
-              o("WAWebListsActions")
-                .deleteListAction(e, o("WDSDialogBridge").closeWDSDialog, t)
-                .then(function () {
-                  n == null || n();
-                });
-            },
-            onDismiss: o("WDSDialogBridge").closeWDSDialog,
-            open: !0,
-          }),
-        );
-        return;
-      }
-      var i = s._(
-        /*BTDS*/ "Deleting a list removes it from all contacts and chats. Are you sure you want to delete this list?",
-      );
-      o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          testid: "delete-list-confirm-popup",
+      o("WDSDialogBridge").openWDSDialog(
+        u.jsx(r("WDSConfirmDialog.react"), {
           title: a,
-          okButtonType: "solid-warning",
-          onOK: function () {
+          description: s._(
+            /*BTDS*/ "Your chats with people and groups won't be deleted.",
+          ),
+          confirmLabel: s._(/*BTDS*/ "Delete"),
+          destructive: !0,
+          onConfirm: function () {
             o("WAWebListsActions")
-              .deleteListAction(e, o("WAWebModalManager").closeModalManager, t)
+              .deleteListAction(e, o("WDSDialogBridge").closeWDSDialog, t)
               .then(function () {
                 n == null || n();
               });
           },
-          onCancel: o("WAWebModalManager").closeModalManager,
-          children: i,
+          onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          open: !0,
         }),
       );
     }

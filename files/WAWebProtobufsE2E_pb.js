@@ -190,7 +190,7 @@ __d(
       te = d({ UNKNOWN: 0, CONTROL_PASSED: 1, CONTROL_TAKEN: 2, INFO: 3 }),
       ne = d({ USER_VIDEO: 0, AI_GENERATED: 1 }),
       re = d({ NONE: 0, GIPHY: 1, TENOR: 2, KLIPY: 3 }),
-      oe = d({ UNKNOWN: 0 }),
+      oe = d({ UNKNOWN: 0, VINYL: 1 }),
       ae = d({ DEFAULT: 0, PARENT: 1, SUB: 2, DEFAULT_SUB: 3 }),
       ie = d({
         NONE: 0,

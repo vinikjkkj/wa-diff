@@ -9,10 +9,11 @@ __d(
       return typeof e == "number" ? e : 0;
     }
     function s() {
-      r("WAWebUserPrefsStore").setUser(
-        o("WAWebUserPrefsKeys").KEYS.STATUS_CHAIN_FROM_MY_INTERACTION_COUNT,
-        e() + 1,
-      );
+      c() ||
+        r("WAWebUserPrefsStore").setUser(
+          o("WAWebUserPrefsKeys").KEYS.STATUS_CHAIN_FROM_MY_INTERACTION_COUNT,
+          e() + 1,
+        );
     }
     function u() {
       r("WAWebUserPrefsStore").setUser(

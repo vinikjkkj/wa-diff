@@ -116,6 +116,7 @@ __d(
     "WAWebWamGlobals",
     "WAWebWamOfflineResumeReporter",
     "WAWebWamProcessWorkerData",
+    "WAWebWindowsHybridBridgeInitiator",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "cr:10195",
@@ -278,7 +279,9 @@ __d(
                     : i.privKey,
                 c = u != null ? o("WABase64").encodeB64(u) : "";
               (yield n("cr:17219") == null ||
-              (l = n("cr:17219").getWindowsBridge()) == null ||
+              (l = n("cr:17219").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator").WAWebStartBackend,
+              )) == null ||
               (l = l.getClientKeyBridge()) == null
                 ? void 0
                 : l.setClientKey(c),
@@ -389,7 +392,9 @@ __d(
           ) {
             var b,
               v = yield n("cr:17219") == null ||
-              (b = n("cr:17219").getWindowsBridge()) == null ||
+              (b = n("cr:17219").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator").WAWebStartBackend,
+              )) == null ||
               (b = b.serverEncKeySaltBridge) == null
                 ? void 0
                 : b.getServerEncKeySalt();

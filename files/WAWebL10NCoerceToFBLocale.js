@@ -1,6 +1,6 @@
 __d(
   "WAWebL10NCoerceToFBLocale",
-  ["bcp-47", "gkx"],
+  ["WAWebParseLocaleSubtags", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "en_US",
@@ -242,28 +242,27 @@ __d(
         ["fbt_ac", "fbt_AC"],
       ]);
     function d(t) {
+      var n;
       if (r("gkx")("26259")) {
-        var n = t.toLocaleLowerCase("en").replaceAll("-", "_");
-        if (c.has(n)) {
-          var o;
-          return (o = c.get(n)) != null ? o : e;
+        var o = t.toLocaleLowerCase("en").replaceAll("-", "_");
+        if (c.has(o)) {
+          var a;
+          return (a = c.get(o)) != null ? a : e;
         }
       }
-      var a = t.toLocaleLowerCase("en").replaceAll("_", "-");
-      try {
-        var i,
-          l = r("bcp-47").parse(a),
-          d = [];
-        (l.region != null && d.push(l.language + "_" + l.region),
-          l.script != null && d.push(l.language + "_" + l.script));
-        for (var m of d) {
-          var p = u.get(m);
-          if (p) return p;
-        }
-        return (i = s.get(l.language)) != null ? i : e;
-      } catch (t) {
-        return e;
+      var i = t.toLocaleLowerCase("en").replaceAll("_", "-"),
+        l = r("WAWebParseLocaleSubtags")(i),
+        d = l.language,
+        m = l.region,
+        p = l.script;
+      if (d == null) return e;
+      var _ = [];
+      (m != null && _.push(d + "_" + m), p != null && _.push(d + "_" + p));
+      for (var f of _) {
+        var g = u.get(f);
+        if (g) return g;
       }
+      return (n = s.get(d)) != null ? n : e;
     }
     function m(e) {
       return r("gkx")("26259") ? c.has(e.toLocaleLowerCase("en")) : !1;

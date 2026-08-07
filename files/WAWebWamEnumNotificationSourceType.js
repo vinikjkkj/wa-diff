@@ -7,6 +7,7 @@ __d(
       MAIN_APP: 2,
       IN_APP: 3,
       VOIP_PUSH_TRIGGERED: 4,
+      MAIN_APP_FOREGROUND: 5,
     });
     i.NOTIFICATION_SOURCE_TYPE = e;
   },

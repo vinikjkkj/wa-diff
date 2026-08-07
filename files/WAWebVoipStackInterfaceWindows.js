@@ -15,6 +15,7 @@ __d(
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
     "WAWebWindowsHybridBridgeFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsNativeVoipParsers",
     "asyncToGeneratorRuntime",
     "cr:16754",
@@ -59,82 +60,90 @@ __d(
         );
       return {
         type: "windows",
-        voipInit: function (t, n, r) {
+        voipInit: function (t, n, a) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.voipInit(r, t || null);
+            : e.voipInit(a, t || null);
         },
         setHideMyIp: function (t) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.setHideMyIp(t);
         },
-        setChatNameAndIcon: function (t, n, r) {
+        setChatNameAndIcon: function (t, n, a) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.setChatNameAndIcon(t, n, r);
+            : e.setChatNameAndIcon(t, n, a);
         },
         handleWebViewReady: function () {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.handleWebViewReady();
         },
         handleSignOut: function () {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.handleSignOut();
         },
-        startCall: function (t, n, r, a, i, l, s, u, c, d) {
+        startCall: function (t, n, a, i, l, s, u, c, d, m) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.startCall(t, n, r, a, i, !0, l, s, u, c, d);
+            : e.startCall(t, n, a, i, l, !0, s, u, c, d, m);
         },
-        startGroupCall: function (t, n, r, a, i, l, s, u, c, d, m, p, _) {
+        startGroupCall: function (t, n, a, i, l, s, u, c, d, m, p, _, f) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.startGroupCall(t, n, r, a, i, l, s, u, !0, c, d, m, p, _);
+            : e.startGroupCall(t, n, a, i, l, s, u, c, !0, d, m, p, _, f);
         },
         endCall: function (t, n) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.endCall(t, n);
         },
-        rejectCallWithoutCallContext: function (t, n, r, a, i, l, s) {
+        rejectCallWithoutCallContext: function (t, n, a, i, l, s, u) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.rejectCallWithoutCallContext(t, n, r, a, i, l, s);
+            : e.rejectCallWithoutCallContext(t, n, a, i, l, s, u);
         },
         joinOngoingCall: function (
           t,
           n,
-          r,
           a,
           i,
           l,
@@ -149,16 +158,17 @@ __d(
           g,
           h,
           y,
+          C,
         ) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.joinOngoingCall(
                 t,
                 n,
-                r,
                 a,
                 i,
                 l,
@@ -173,18 +183,21 @@ __d(
                 g,
                 h,
                 y,
+                C,
               );
         },
         simulateNativeAnr: function (t, n) {
           var e,
-            r =
-              (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge()) ==
-              null
+            a =
+              (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebVoipStackInterfaceWindows,
+              )) == null
                 ? void 0
                 : e.voip;
-          if (r != null && k != null && r instanceof k)
+          if (a != null && k != null && a instanceof k)
             try {
-              r.simulateNativeAnr(t, n);
+              a.simulateNativeAnr(t, n);
             } catch (e) {
               o("WALogger").ERROR(
                 u ||
@@ -203,19 +216,21 @@ __d(
                 ])),
             );
         },
-        inviteToCall: function (t, n, r) {
+        inviteToCall: function (t, n, a) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.inviteToCall(t, n, r);
+            : e.inviteToCall(t, n, a);
         },
         checkOngoingCalls: function (t, n) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null ||
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null ||
             (e = e.voip) == null ||
             e.checkOngoingCalls == null
             ? void 0
@@ -223,101 +238,111 @@ __d(
         },
         handleDeviceJidList: function (t, n) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.handleDeviceJidList(t, n);
         },
-        previewCallLink: function (t, n, r, a) {
+        previewCallLink: function (t, n, a, i) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.previewCallLink(t, n, !0, r, a);
+            : e.previewCallLink(t, n, !0, a, i);
         },
-        previewAndJoinCallLink: function (t, n, r, a, i, l) {
+        previewAndJoinCallLink: function (t, n, a, i, l, s) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null ||
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null ||
             (e = e.voip) == null ||
             e.previewAndJoinCallLink == null
             ? void 0
-            : e.previewAndJoinCallLink(t, n, !0, r, a);
+            : e.previewAndJoinCallLink(t, n, !0, a, i);
         },
-        handleIncomingSignalingOffer: function (t, n, r, a, i, l, s, u, c) {
+        handleIncomingSignalingOffer: function (t, n, a, i, l, s, u, c, d) {
           var e,
-            d,
-            m =
+            m,
+            p =
               (e = o("WAWebAuraRingtonePlayback").getRingtoneId(
-                o("WAWebWidFactory").createWid(u),
+                o("WAWebWidFactory").createWid(c),
               )) != null
                 ? e
                 : null;
-          return (d = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (d = d.voip) == null
+          return (m = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (m = m.voip) == null
             ? void 0
-            : d.handleIncomingSignalingOffer(t, n, r, a, i, l, s, u, c, m);
+            : m.handleIncomingSignalingOffer(t, n, a, i, l, s, u, c, d, p);
         },
-        handleIncomingSignalingMessage: function (t, n, r, a, i, l, s, u) {
+        handleIncomingSignalingMessage: function (t, n, a, i, l, s, u, c) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.handleIncomingSignalingMessage(t, n, r, a, i, l, s, u);
+            : e.handleIncomingSignalingMessage(t, n, a, i, l, s, u, c);
         },
         handleIncomingSignalingAck: function (t) {
           var e,
             n = t.ackInfoError,
-            r = t.ackInfoType,
-            a = t.peerJid,
-            i = t.tcToken,
-            l = t.xmlNode;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+            a = t.ackInfoType,
+            i = t.peerJid,
+            l = t.tcToken,
+            s = t.xmlNode;
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.handleIncomingSignalingAck({
                 ackInfoError: n,
-                ackInfoType: r,
-                peerJid: a,
-                tcToken: i,
-                xmlNode: l,
+                ackInfoType: a,
+                peerJid: i,
+                tcToken: l,
+                xmlNode: s,
               });
         },
-        handleIncomingSignalingReceipt: function (t, n, r) {
+        handleIncomingSignalingReceipt: function (t, n, a) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
-            : e.handleIncomingSignalingReceipt(t, n, r);
+            : e.handleIncomingSignalingReceipt(t, n, a);
         },
         resendOfferOnDecryptionFailure: function (t, n) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.resendOfferOnDecryptionFailure(t, n);
         },
         resendEncRekeyRetry: function (t, n) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.resendEncRekeyRetry(t, n);
         },
         notifyDeviceIdentityChangedOrDeleted: function (t, n) {
           var e;
-          return (e = o(
-            "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (e = e.voip) == null
+          return (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator")
+              .WAWebVoipStackInterfaceWindows,
+          )) == null || (e = e.voip) == null
             ? void 0
             : e.notifyDeviceIdentityChangedOrDeleted(t, n);
         },

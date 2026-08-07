@@ -27,6 +27,15 @@ __d(
               numberOfPnGroups: [13, e.TYPES.INTEGER],
               numberOfPnOnlyGroups: [19, e.TYPES.INTEGER],
               numberOfPnOnlyGroupsNotMember: [20, e.TYPES.INTEGER],
+              numberOfPnOnlyGroupsNotMemberAllMapped: [21, e.TYPES.INTEGER],
+              numberOfPnOnlyGroupsNotMemberUnmappedContacts: [
+                22,
+                e.TYPES.INTEGER,
+              ],
+              numberOfPnOnlyGroupsNotMemberUnmappedOutContacts: [
+                23,
+                e.TYPES.INTEGER,
+              ],
               numberOfPnhCtwaThreadsKnownMapping: [2, e.TYPES.INTEGER],
               numberOfPnhCtwaThreadsMissingMapping: [3, e.TYPES.INTEGER],
               numberOfRegularPnChats: [14, e.TYPES.INTEGER],

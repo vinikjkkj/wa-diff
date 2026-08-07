@@ -66,17 +66,21 @@ __d(
         p.apply(this, arguments)
       );
     }
-    function _(t, r, a, i) {
-      var l = r.toString(),
-        u =
-          a === o("WAWebAck").ACK.RECEIVED
-            ? { delivered: i }
-            : a === o("WAWebAck").ACK.READ
-              ? { read: i }
-              : a === o("WAWebAck").ACK.PLAYED
-                ? { played: i }
+    function _(t) {
+      var r = t.ack,
+        a = t.msgId,
+        i = t.representedLid,
+        l = t.ts,
+        u = i.toString(),
+        d =
+          r === o("WAWebAck").ACK.RECEIVED
+            ? { delivered: l }
+            : r === o("WAWebAck").ACK.READ
+              ? { read: l }
+              : r === o("WAWebAck").ACK.PLAYED
+                ? { played: l }
                 : null;
-      return u == null
+      return d == null
         ? (o("WALogger")
             .WARN(
               e ||
@@ -84,11 +88,11 @@ __d(
                   "[coexv2] receipt store: unsupported ack ",
                   "",
                 ])),
-              a,
+              r,
             )
             .sendLogs("coexv2-relay-receipt-unsupported-ack"),
           (s || (s = n("Promise"))).resolve())
-        : c(t, l, u);
+        : c(a, u, d);
     }
     function f(e) {
       return g.apply(this, arguments);

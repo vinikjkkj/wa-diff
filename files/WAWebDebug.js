@@ -192,6 +192,7 @@ __d(
     "WAWebWam",
     "WAWebWamCodegenWamEvent",
     "WAWebWidFactory",
+    "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
     "cr:10202",
     "cr:10204",
@@ -1113,7 +1114,9 @@ __d(
         decodeStanza: Z,
         voipWinRTBridge:
           n("cr:17219") == null ||
-          (c = n("cr:17219").getWindowsBridge()) == null
+          (c = n("cr:17219").getWindowsBridge(
+            r("WAWebWindowsHybridBridgeInitiator").WAWebDebug,
+          )) == null
             ? void 0
             : c.voip,
         VoipBridgePerfSimulator: R,

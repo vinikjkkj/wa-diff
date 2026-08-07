@@ -82,6 +82,7 @@ __d(
       CONDITIONAL_REVEAL: 77,
       EVENT_INVITE: 78,
       STICKER_REACTION: 79,
+      MUSIC: 80,
     });
     i.MEDIA_TYPE = e;
   },

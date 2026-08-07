@@ -341,7 +341,7 @@ __d(
               ).closeInCallWaitingRoomNotification(a.callId),
               r("WAWebCallCollection").setActiveCall(null),
               r("WAWebCallCollection").setIsInConnectedCall(!1)),
-            !r("WAWebEnvironment").isGuest)
+            !o("WAWebVoipGatingUtils").isGuestViewer())
           ) {
             a.isCaller ||
               o("WAWebVoipActivityTracker").trackActivity(
