@@ -95,6 +95,13 @@ __d(
               ote_status: c == null ? void 0 : c.ote_status,
               mv_status: c == null ? void 0 : c.mv_status,
               capping_status: c == null ? void 0 : c.capping_status,
+              subscription_status:
+                (c == null ? void 0 : c.subscription_status) == null
+                  ? null
+                  : {
+                      status: c.subscription_status.status,
+                      name: c.subscription_status.name,
+                    },
             }
           );
         })),

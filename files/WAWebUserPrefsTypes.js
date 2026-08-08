@@ -87,6 +87,13 @@ __d(
         "ACTIVE_UPGRADE_AVAILABLE",
       ]),
       R = s.Mirrored([
+        "NOT_ELIGIBLE",
+        "NOT_ACTIVE",
+        "ACTIVE",
+        "ACTIVE_UPGRADE_AVAILABLE",
+      ]),
+      L = s.Mirrored(["UNKNOWN", "MP4B"]),
+      E = s.Mirrored([
         "DEFAULT",
         "BIZ_QUALITY",
         "BIZ_COMMERCE_VIOLATION_ADULT",
@@ -107,7 +114,7 @@ __d(
         "WEB_COMPANION_ONLY",
         "RESTRICT_ALL_COMPANIONS",
       ]),
-      L = s.Mirrored(["BR_PAY_PRIVACY_POLICY"]);
+      k = s.Mirrored(["BR_PAY_PRIVACY_POLICY"]);
     ((l.NonCriticalDataSyncStatusType = u),
       (l.RecentStickerInitializedStatusType = c),
       (l.HistorySyncSingleChunkStatusType = d),
@@ -122,8 +129,10 @@ __d(
       (l.NewChatMessageCappingStatusType = b),
       (l.NewChatMessageCappingOTEStatusType = v),
       (l.NewChatMessageCappingMVStatusType = S),
-      (l.ReachoutTimelockEnforcementType = R),
-      (l.PaymentNotice = L));
+      (l.NewChatMessageCappingSubscriptionStatusType = R),
+      (l.NewChatMessageCappingSubscriptionName = L),
+      (l.ReachoutTimelockEnforcementType = E),
+      (l.PaymentNotice = k));
   },
   98,
 );

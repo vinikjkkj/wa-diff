@@ -418,6 +418,7 @@ __d(
         startCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, a, i, s) {
+              o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!1);
               var u = yield l;
               o("WAWebBweMLModelManager")
                 .initBweMLModelsForCall(u)
@@ -459,7 +460,10 @@ __d(
         startGroupCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, a, i, s, u, c, d, m, p, _) {
-              if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
+              if (
+                (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!0),
+                !o("WAWebVoipGatingUtils").isGroupCallingEnabled())
+              ) {
                 o("WALogger").ERROR(
                   S ||
                     (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -615,7 +619,10 @@ __d(
         joinOngoingCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, a, i, s, u, c, d, m, p, _, f, g, h, y, C) {
-              if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) {
+              if (
+                (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!0),
+                !o("WAWebVoipGatingUtils").isGroupCallingEnabled())
+              ) {
                 o("WALogger").ERROR(
                   E ||
                     (E = babelHelpers.taggedTemplateLiteralLoose([

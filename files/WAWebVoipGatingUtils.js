@@ -299,7 +299,11 @@ __d(
     function O(e) {
       F = e;
     }
-    function B(e) {
+    var B = !1;
+    function W(e) {
+      B = e;
+    }
+    function q(e) {
       return e
         .mapChildrenWithTag("relay", function (e) {
           return e
@@ -310,7 +314,7 @@ __d(
         })
         .some(Boolean);
     }
-    function W() {
+    function U() {
       return (
         r("WAWebEnvironment").isWindows &&
         o("WAWebABProps").getABPropConfigValue(
@@ -318,96 +322,103 @@ __d(
         ) === !0
       );
     }
-    function q() {
+    function V() {
       return (
         !r("WAWebEnvironment").isWindows ||
-        (W() && r("WAWebEnvironment").getEnvironment() !== "prod")
+        (U() && r("WAWebEnvironment").getEnvironment() !== "prod")
       );
     }
-    var U = !1;
-    function V() {
+    var H = !1;
+    function G() {
       return o("WAWebABProps").getABPropConfigValue(
         "enable_web_voip_webtransport_fallback",
       );
     }
-    function H() {
-      U = !0;
-    }
-    function G() {
-      U = !1;
-    }
     function z() {
-      var e = r("justknobx")._("1929");
-      return e && !W();
+      H = !0;
     }
     function j() {
-      return g() || F || W() || (U && V())
+      H = !1;
+    }
+    function K() {
+      var e = r("justknobx")._("1929");
+      return e && !U();
+    }
+    function Q() {
+      return g() ||
+        F ||
+        U() ||
+        (B &&
+          !o("WAWebABProps").getABPropConfigValue(
+            "enable_web_voip_webtransport_group_calls",
+          )) ||
+        (H && G())
         ? !1
         : o("WAWebABProps").getABPropConfigValue(
             "enable_web_voip_webtransport",
           );
     }
-    var K = 4;
-    function Q() {
+    var X = 4;
+    function Y() {
       var e = navigator.hardwareConcurrency;
       return typeof e == "number" && e > 0 ? e : 8;
     }
-    function X() {
+    function J() {
       return (
-        Q() <= K &&
+        Y() <= X &&
         o("WAWebABProps").getABPropConfigValue(
           "web_voip_adaptive_sctp_prewarm",
         ) === !0
       );
     }
-    function Y() {
+    function Z() {
       var e = o("WAWebABProps").getABPropConfigValue("enable_web_calling"),
         t = o("WAWebABProps").getABPropConfigValue("enable_web_group_calling");
       return !r("WAWebEnvironment").isWindows && e ? t : !0;
     }
-    function J() {
+    function ee() {
       return o("WAWebABProps").getABPropConfigValue(
         "gc_device_switching_killswitch",
       );
     }
-    function Z() {
+    function te() {
       return o("WAWebABProps").getABPropConfigValue(
         "gc_device_switch_show_entry_point",
       );
     }
-    function ee(e) {
-      return J() && e && !Z();
+    function ne(e) {
+      return ee() && e && !te();
     }
-    function te() {
+    function re() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_1on1",
       );
     }
-    function ne() {
+    function oe() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_lgc",
       );
     }
-    function re() {
+    function ae() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_ahgc_call_link",
       );
     }
-    function oe() {
+    function ie() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_info_optimizations_ahgc_call_link",
       );
     }
-    function ae(e) {
+    function le(e) {
       var t = e.isAdHocGroupCall,
         n = e.isCallLink,
         r = e.isGroup;
-      return n === !0 ? oe() : t ? re() : r ? ne() : te();
+      return n === !0 ? ie() : t ? ae() : r ? oe() : re();
     }
-    function ie() {
+    function se() {
       return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
     }
-    function le() {
+    function ue() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_screen_share_dual_stream_app_update_dialog_enabled",
       );
@@ -433,27 +444,28 @@ __d(
       (l.isWhatsNewCallingHighlightEnabled = w),
       (l.isVoipDownloadEnabled = A),
       (l.markCurrentCallAsFna = O),
-      (l.hasFnaRelay = B),
-      (l.isWinHybridPlusEnabled = W),
-      (l.isWebCallingUiEnabled = q),
-      (l.isWebTransportFallbackEnabled = V),
-      (l.markWebTransportFellBack = H),
-      (l.resetWebTransportFallbackState = G),
-      (l.shouldUseOriginalRelayPort = z),
-      (l.isWebTransportEnabled = j),
-      (l.getVoipCpuCoreCount = Q),
-      (l.shouldSkipEagerSctpPrewarm = X),
-      (l.isWinHybridJoinableCallsEnabled = Y),
-      (l.isDeviceSwitchingEnabled = J),
-      (l.isDeviceSwitchEntryPointShown = Z),
-      (l.isDeviceSwitchEntryPointHidden = ee),
-      (l.isCallInfoOptimizationsEnabledFor1to1 = te),
-      (l.isCallInfoOptimizationsEnabledForLGC = ne),
-      (l.isCallInfoOptimizationsEnabledForAHGC = re),
-      (l.isCallInfoOptimizationsEnabledForCallLink = oe),
-      (l.isCallInfoOptimizationsEnabledForCallType = ae),
-      (l.isPopoutReuseCaptureEnabled = ie),
-      (l.isScreenShareDualStreamAppUpdateDialogEnabled = le));
+      (l.markCurrentCallAsGroup = W),
+      (l.hasFnaRelay = q),
+      (l.isWinHybridPlusEnabled = U),
+      (l.isWebCallingUiEnabled = V),
+      (l.isWebTransportFallbackEnabled = G),
+      (l.markWebTransportFellBack = z),
+      (l.resetWebTransportFallbackState = j),
+      (l.shouldUseOriginalRelayPort = K),
+      (l.isWebTransportEnabled = Q),
+      (l.getVoipCpuCoreCount = Y),
+      (l.shouldSkipEagerSctpPrewarm = J),
+      (l.isWinHybridJoinableCallsEnabled = Z),
+      (l.isDeviceSwitchingEnabled = ee),
+      (l.isDeviceSwitchEntryPointShown = te),
+      (l.isDeviceSwitchEntryPointHidden = ne),
+      (l.isCallInfoOptimizationsEnabledFor1to1 = re),
+      (l.isCallInfoOptimizationsEnabledForLGC = oe),
+      (l.isCallInfoOptimizationsEnabledForAHGC = ae),
+      (l.isCallInfoOptimizationsEnabledForCallLink = ie),
+      (l.isCallInfoOptimizationsEnabledForCallType = le),
+      (l.isPopoutReuseCaptureEnabled = se),
+      (l.isScreenShareDualStreamAppUpdateDialogEnabled = ue));
   },
   98,
 );

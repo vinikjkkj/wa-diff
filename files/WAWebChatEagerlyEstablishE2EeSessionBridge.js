@@ -63,7 +63,9 @@ __d(
                 void 0,
                 !0,
               ),
-              _ = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(p),
+              _ = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(p, {
+                isFullAudience: !1,
+              }),
               f = _.skDistribList;
             ((n = f),
               o("WALogger").LOG(

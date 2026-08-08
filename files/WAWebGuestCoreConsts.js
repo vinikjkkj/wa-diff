@@ -32,6 +32,8 @@ __d(
         SESSION_REOPEN: "session_reopen",
         PUSH_NOTIF_PRIMER: "push_notif_primer",
         EVENTS_GUEST_LIST: "events_guest_list",
+        EVENTS_GUEST_LIST_STATUS: "events_guest_list_status",
+        EVENTS_HOST_ROW: "events_host_row",
         EVENTS_DETAILS: "events_details",
         EVENTS_HEADER_BANNER: "events_header_banner",
         EVENTS_DOWNLOAD: "events_download",

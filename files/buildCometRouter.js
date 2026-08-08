@@ -9,6 +9,7 @@ __d(
     "CometHistoryManager",
     "CometNavigationTracing",
     "CometNavigationTracingQPLEvents",
+    "CometRouter.flow",
     "CometRouterLogEventUtils",
     "CometRouterMemoryUtils",
     "CometTimeSpentNavigation",
@@ -367,14 +368,18 @@ __d(
               ? void 0
               : t.filter(function (t) {
                   return t.key !== e;
-                });
-        _e(
+                }),
+          a =
+            oe.getCurrentStatus() ===
+            o("CometRouter.flow").RouterStatus.NO_ACTIVE_NAVIGATION;
+        (_e(
           babelHelpers.extends({}, n, { pushViewStack: r }),
           null,
           null,
           !1,
           null,
-        );
+        ),
+          a && re.markNavigationAsCommitted(n.routeKey));
       }
       function ge(e) {
         return r("cometRouterPrefetchRouteDefinition")(

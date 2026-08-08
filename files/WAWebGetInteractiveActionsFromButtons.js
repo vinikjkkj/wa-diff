@@ -869,6 +869,8 @@ __d(
                 Icon: o("WAWebLaunchIcon.react").LaunchIcon,
               };
         }
+        case o("WAWebBrPaymentRequest").PaymentRequestCtaType.OFFSITE_CARD_PAY:
+          return null;
       }
     }
     l.default = p;

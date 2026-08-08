@@ -32,7 +32,8 @@ __d(
             var t,
               r = o(
                 "WAWebIndividualNewChatMessageCappingLimitUtils",
-              ).getCappingStatusType(e == null ? void 0 : e.capping_status);
+              ).getCappingStatusType(e == null ? void 0 : e.capping_status),
+              a = e.subscription_status;
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
               o("WAWebIndividualNewChatMessageCappingLimitUtils")
                 .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
@@ -44,6 +45,17 @@ __d(
                 mv_status: o(
                   "WAWebIndividualNewChatMessageCappingLimitUtils",
                 ).getCappingMVStatusType(e == null ? void 0 : e.mv_status),
+                subscription_status:
+                  a == null
+                    ? void 0
+                    : {
+                        status: o(
+                          "WAWebIndividualNewChatMessageCappingLimitUtils",
+                        ).getCappingSubscriptionStatusType(a.status),
+                        name: o(
+                          "WAWebIndividualNewChatMessageCappingLimitUtils",
+                        ).getCappingSubscriptionName(a.name),
+                      },
                 total_quota: e == null ? void 0 : e.total_quota,
                 used_quota: Math.min(
                   Number(e == null ? void 0 : e.used_quota),

@@ -30,16 +30,18 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r,
-            a,
-            i = o("WAWebVoipIncomingCallQpl").startVoipIncomingCallQpl({
-              bool: {
-                is_video: (r = e.isVideoCall) != null ? r : !1,
-                is_group: o("WAWebVoipGatingUtils").isGroupCallMessage(e),
-                has_group_jid: e.group_jid != null,
-                is_offline: (a = e.is_offline) != null ? a : !1,
-              },
-            });
+          var r, a;
+          o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
+            o("WAWebVoipGatingUtils").isGroupCallMessage(e),
+          );
+          var i = o("WAWebVoipIncomingCallQpl").startVoipIncomingCallQpl({
+            bool: {
+              is_video: (r = e.isVideoCall) != null ? r : !1,
+              is_group: o("WAWebVoipGatingUtils").isGroupCallMessage(e),
+              has_group_jid: e.group_jid != null,
+              is_offline: (a = e.is_offline) != null ? a : !1,
+            },
+          });
           try {
             var l = yield (c || (c = n("Promise"))).all([
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

@@ -29,38 +29,39 @@ __d(
           throw r("err")("Invalid video origin");
       }
     }
-    function s(e, t, n) {
-      return o("WAWebABProps").getABPropConfigValue(
-        "snapl_newsletter_logging_encrypted_rid_enabled",
-      ) === !0
-        ? u(t, n)
-        : d(e, t);
+    function s(e, t, n, r) {
+      return t === o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL &&
+        (r == null ? void 0 : r.isNewsletterStatus) === !0
+        ? c(
+            n
+              ? o("WAWebUserPrefsKeys").UserPrefs
+                  .SNAPLNewsletterStatusNonUGCPersistentId
+              : o("WAWebUserPrefsKeys").UserPrefs
+                  .SNAPLNewsletterStatusUGCPersistentId,
+          )
+        : o("WAWebABProps").getABPropConfigValue(
+              "snapl_newsletter_logging_encrypted_rid_enabled",
+            ) === !0
+          ? u(t, n)
+          : d(e, t);
     }
     function u(e, t) {
       if (e === o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS && t)
-        return c();
+        return c(o("WAWebUserPrefsKeys").UserPrefs.SNAPLPersistentId);
       var n = o("WAWebEncryptedRid").getEncryptedRid();
       return n != null
         ? o("WAWebSNAPLPersistentId").castToSNAPLPersistentId(n)
         : null;
     }
-    function c() {
-      var e = r("WAWebUserPrefsStore").getUser(
-        o("WAWebUserPrefsKeys").UserPrefs.SNAPLPersistentId,
-      );
-      if (e != null && typeof e == "object") {
-        var t = e.persistentId;
-        if (typeof t == "string")
-          return o("WAWebSNAPLPersistentId").castToSNAPLPersistentId(t);
+    function c(e) {
+      var t = r("WAWebUserPrefsStore").getUser(e);
+      if (t != null && typeof t == "object") {
+        var n = t.persistentId;
+        if (typeof n == "string")
+          return o("WAWebSNAPLPersistentId").castToSNAPLPersistentId(n);
       }
-      var n = o("WAWebSNAPLPersistentId").computeSNAPLPersistentId();
-      return (
-        r("WAWebUserPrefsStore").setUser(
-          o("WAWebUserPrefsKeys").UserPrefs.SNAPLPersistentId,
-          { persistentId: n },
-        ),
-        n
-      );
+      var a = o("WAWebSNAPLPersistentId").computeSNAPLPersistentId();
+      return (r("WAWebUserPrefsStore").setUser(e, { persistentId: a }), a);
     }
     function d(e, t) {
       var n = null;

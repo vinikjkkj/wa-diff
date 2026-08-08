@@ -19,11 +19,16 @@ __d(
           media_id_string: a != null ? a : "",
           current_watching_module: o(
             "WAWebCometVideoPlayerUtils",
-          ).getCurrentWatchingModule(i, n),
+          ).getCurrentWatchingModule(e.msg, n),
           is_copyright_muted: t,
         };
       if (r != null) {
-        var s = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId(r, i, n === !0);
+        var s = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId(
+          r,
+          i,
+          n === !0,
+          e.msg,
+        );
         s != null && (l.persistent_id = s);
       }
       var u = {

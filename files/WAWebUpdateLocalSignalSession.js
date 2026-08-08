@@ -51,7 +51,7 @@ __d(
           }
           (t.isStatus() &&
             f &&
-            r("WAWebUserPrefsStatus").markForgetStatusSenderKey([f]),
+            (yield r("WAWebUserPrefsStatus").markForgetStatusSenderKey([f])),
             t.isBroadcastList() &&
               f &&
               o("WAWebBroadcastSenderKeyManager").markForgetBroadcastSenderKey(

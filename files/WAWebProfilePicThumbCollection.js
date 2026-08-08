@@ -2,6 +2,7 @@ __d(
   "WAWebProfilePicThumbCollection",
   [
     "Promise",
+    "WAComms",
     "WAFilteredCatch",
     "WALogger",
     "WATimeUtils",
@@ -25,6 +26,7 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebVcardParsingUtils",
+    "WAWebVoipGatingUtils",
     "WAWebWid",
     "WAWebWindowsHybridBridgeInitiator",
     "asyncToGeneratorRuntime",
@@ -106,28 +108,30 @@ __d(
                     : c == null || (p = c.groupMetadata) == null
                       ? void 0
                       : p.parentGroup;
-                if (
-                  (m != null && (f = m.parentGroupId),
+                m != null && (f = m.parentGroupId);
+                var g =
                   o("WAWebSocketModel").Socket.stream !==
-                    o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED)
-                ) {
-                  var g;
+                    o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED ||
+                  (o("WAWebVoipGatingUtils").isGuestViewer() &&
+                    o("WAComms").isSocketConnected());
+                if (g) {
+                  var h;
                   if (r("WAWebWid").isUser(t)) {
-                    var h,
-                      y = o("WAWebContactCollection").ContactCollection.get(t),
-                      C = o("WAWebChatCollection").ChatCollection.get(t);
+                    var y,
+                      C = o("WAWebContactCollection").ContactCollection.get(t),
+                      b = o("WAWebChatCollection").ChatCollection.get(t);
                     return o(
                       "WAWebContactProfilePicThumbBridge",
                     ).requestProfilePicFromServer({
                       id: t,
                       parentGroupId: f,
-                      tcToken: C == null ? void 0 : C.tcToken,
+                      tcToken: b == null ? void 0 : b.tcToken,
                       commonGid:
-                        (C == null ? void 0 : C.tcToken) == null
-                          ? y == null ||
-                            (h = y.maybeCommonGroupChatModel) == null
+                        (b == null ? void 0 : b.tcToken) == null
+                          ? C == null ||
+                            (y = C.maybeCommonGroupChatModel) == null
                             ? void 0
-                            : h.id
+                            : y.id
                           : null,
                     });
                   }
@@ -137,10 +141,10 @@ __d(
                     id: t,
                     parentGroupId: f,
                     newsletterRole: t.isNewsletter()
-                      ? (g = r("WAWebNewsletterMetadataCollection").get(t)) ==
+                      ? (h = r("WAWebNewsletterMetadataCollection").get(t)) ==
                         null
                         ? void 0
-                        : g.membershipType
+                        : h.membershipType
                       : void 0,
                   });
                 }

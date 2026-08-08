@@ -28,6 +28,8 @@ __d(
         "AfterReadSendingRollbackMigrationState",
         "SNAPLPersistentId",
         "SNAPLNewsLetterPersistentId",
+        "SNAPLNewsletterStatusUGCPersistentId",
+        "SNAPLNewsletterStatusNonUGCPersistentId",
         "MusicEligibleCountries",
         "CartDbLidMigrationComplete",
         "WindowsNotificationBannerSetting",

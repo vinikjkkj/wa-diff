@@ -21,7 +21,26 @@ __d(
       }
       return !1;
     }
-    ((l.usePinExclusionRef = d), (l.isInteractionExcludedFromPin = p));
+    function _(e, t, n) {
+      return (
+        e === "focus" &&
+        t instanceof Node &&
+        n instanceof Node &&
+        !n.contains(t)
+      );
+    }
+    function f(e, t) {
+      var n = window.setTimeout(function () {
+        p(e) || t();
+      }, 0);
+      return function () {
+        return window.clearTimeout(n);
+      };
+    }
+    ((l.usePinExclusionRef = d),
+      (l.isInteractionExcludedFromPin = p),
+      (l.isPortalFocusExcludedFromPin = _),
+      (l.schedulePinAfterPendingHydration = f));
   },
   98,
 );

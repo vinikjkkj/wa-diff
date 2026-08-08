@@ -32,18 +32,20 @@ __d(
             s = r.mv_status,
             u = r.ote_status,
             d = r.server_sent_timestamp,
-            m = r.total_quota,
-            p = r.used_quota;
+            m = r.subscription_status,
+            p = r.total_quota,
+            _ = r.used_quota;
           try {
             (yield c({
-              total_quota: m,
-              used_quota: p,
+              total_quota: p,
+              used_quota: _,
               cycle_start_timestamp: l,
               cycle_end_timestamp: i,
               capping_status: a,
               ote_status: u,
               mv_status: s,
               server_sent_timestamp: d,
+              subscription_status: m,
             }),
               o("WAWebBackendApi").frontendFireAndForget(
                 "individualNewChatMessageCappingStateChange",
@@ -77,23 +79,35 @@ __d(
             a = e.mv_status,
             i = e.ote_status,
             l = e.server_sent_timestamp,
-            s = e.total_quota,
-            u = e.used_quota,
-            c = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+            s = e.subscription_status,
+            u = e.total_quota,
+            c = e.used_quota,
+            d = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               o("WAWebIndividualNewChatMessageCappingLimitUtils")
                 .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
             );
-          if (c == null || c.server_sent_timestamp < Number(l)) {
-            var d;
+          if (d == null || d.server_sent_timestamp < Number(l)) {
+            var m;
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              (d = o("WAWebIndividualNewChatMessageCappingLimitUtils"))
+              (m = o("WAWebIndividualNewChatMessageCappingLimitUtils"))
                 .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
               {
-                capping_status: d.getCappingStatusType(t),
-                ote_status: d.getCappingOTEStatusType(i),
-                mv_status: d.getCappingMVStatusType(a),
-                total_quota: s,
-                used_quota: Math.min(u, s),
+                capping_status: m.getCappingStatusType(t),
+                ote_status: m.getCappingOTEStatusType(i),
+                mv_status: m.getCappingMVStatusType(a),
+                subscription_status:
+                  s == null
+                    ? void 0
+                    : {
+                        status: o(
+                          "WAWebIndividualNewChatMessageCappingLimitUtils",
+                        ).getCappingSubscriptionStatusType(s.status),
+                        name: o(
+                          "WAWebIndividualNewChatMessageCappingLimitUtils",
+                        ).getCappingSubscriptionName(s.name),
+                      },
+                total_quota: u,
+                used_quota: Math.min(c, u),
                 cycle_start_timestamp: Number(r),
                 cycle_end_timestamp: Number(n),
                 server_sent_timestamp: Number(l),
@@ -108,16 +122,17 @@ __d(
               extraAttributes: JSON.stringify({
                 reason: "stale_data",
                 server_capping_info: {
-                  total_quota: s,
-                  used_quota: u,
+                  total_quota: u,
+                  used_quota: c,
                   cycle_start_timestamp: r,
                   cycle_end_timestamp: n,
                   capping_status: t,
                   ote_status: i,
                   mv_status: a,
+                  subscription_status: s,
                   server_sent_timestamp: l,
                 },
-                client_capping_info: c,
+                client_capping_info: d,
               }),
             }).commit();
         })),

@@ -15,9 +15,15 @@ __d(
       s = '"__typename":"Q4xN7zP9aLbM3vT"',
       u = "AdsSideFeedUnit",
       c = "Q4xN7zP9aLbM3vT";
-    function d(t) {
-      var n = t.split(e);
-      return n.join(s);
+    function d(t, n) {
+      if (!n) return t.split(e).join(s);
+      var r = t.indexOf(e);
+      if (r === -1) return t;
+      for (var o = "", a = 0; r !== -1; )
+        ((o += t.substring(a, r) + s),
+          (a = r + e.length),
+          (r = t.indexOf(e, a)));
+      return o + t.substring(a);
     }
     function m(e) {
       if (!(e == null || typeof e != "object"))
@@ -46,21 +52,23 @@ __d(
           e.dataset.processed = "1";
           var n = null;
           try {
-            var a = window.Env != null && "v9k2mt7q" in window.Env,
-              i = window.Env != null && "d3hf9km2" in window.Env,
-              l = window.Env != null && "k8pq2mnb" in window.Env,
-              s = e.textContent;
+            var a = window.Env,
+              i = a != null && "v9k2mt7q" in a,
+              l = a != null && "d3hf9km2" in a,
+              s = a != null && "k8pq2mnb" in a,
+              u = a != null && "n5tq2wjb" in a,
+              c = e.textContent;
             if (
-              (l && s != null && (s = d(s)),
-              a &&
+              (s && c != null && (c = d(c, u)),
+              i &&
                 (o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed() ||
-                  (i &&
+                  (l &&
                     o(
                       "GHLDetectionUtilsPreludeSafe",
                     ).isJSONParseBehaviorallyShimmed())))
             )
               try {
-                var u =
+                var p =
                     typeof String == "function" &&
                     !(
                       String.toString === String.toString.toString &&
@@ -71,20 +79,20 @@ __d(
                         String.toString.toString(),
                       ) === "function toString() { [native code] }"
                     ),
-                  c = window.Env != null && "r4wt7kmj" in window.Env;
-                (c &&
-                  u &&
+                  _ = a != null && "r4wt7kmj" in a;
+                (_ &&
+                  p &&
                   o("GHLDetectionUtilsPreludeSafe").restoreNativeString(),
-                  (n = r("json5").parse(s)));
+                  (n = r("json5").parse(c)));
               } catch (e) {
                 (r("FBLogger")("ad_blocker_defense_ghost_owl")
                   .catching(r("getErrorSafe")(e))
                   .mustfix("Failed to parse ServerJS payload using json5"),
-                  (n = JSON.parse(s)));
+                  (n = JSON.parse(c)));
               }
-            else n = JSON.parse(s);
+            else n = JSON.parse(c);
             if (
-              (l && n != null && m(n),
+              (s && n != null && m(n),
               n != null && o("GHLTypenameRestore").restoreAllTypenames(n),
               n == null)
             )

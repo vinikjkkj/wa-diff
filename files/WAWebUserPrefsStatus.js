@@ -379,8 +379,8 @@ __d(
                 var t = yield N();
                 (e.forEach(function (e) {
                   if ((t.senderKey.delete(String(e)), e.isUser())) {
-                    var n = o("WAWebApiContact").getAlternateUserWid(
-                      o("WAWebWidFactory").asUserWidOrThrow(e),
+                    var n = o("WAWebApiContact").getAlternateDeviceWid(
+                      o("WAWebWidFactory").createDeviceWidFromWidOrThrow(e),
                     );
                     n != null && t.senderKey.delete(String(n));
                   }
@@ -395,36 +395,37 @@ __d(
         W.apply(this, arguments)
       );
     }
-    function q(e) {
+    function q(e, t) {
       return U.apply(this, arguments);
     }
     function U() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N();
-          if (t.rotateKey || t.senderKey.size === 0)
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.isFullAudience,
+            r = yield N();
+          if (r.rotateKey || r.senderKey.size === 0)
             return {
-              rotateKey: t.rotateKey,
+              rotateKey: r.rotateKey,
               skDistribList: e,
               participantList: [],
             };
-          var n = [],
-            r = [],
-            a = 0;
+          var a = [],
+            i = [],
+            l = 0;
           return (
             e.forEach(function (e) {
-              t.senderKey.has(String(e))
-                ? (o("WAWebSendMsgCommonApi").isPrimaryDevice(e) && n.push(e),
-                  a++)
-                : o("WAWebUserPrefsMeUser").isMeDevice(e) || r.push(e);
+              r.senderKey.has(String(e))
+                ? (o("WAWebSendMsgCommonApi").isPrimaryDevice(e) && a.push(e),
+                  l++)
+                : o("WAWebUserPrefsMeUser").isMeDevice(e) || i.push(e);
             }),
-            a < t.senderKey.size
+            n && l < r.senderKey.size
               ? (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
                   o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SENDER_KEY,
                   { rotateKey: !0, senderKey: new Set() },
                 ),
                 { rotateKey: !0, skDistribList: e, participantList: [] })
-              : { rotateKey: t.rotateKey, skDistribList: r, participantList: n }
+              : { rotateKey: r.rotateKey, skDistribList: i, participantList: a }
           );
         })),
         U.apply(this, arguments)

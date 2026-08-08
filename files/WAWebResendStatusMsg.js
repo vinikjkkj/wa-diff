@@ -71,7 +71,9 @@ __d(
               n.retryCount,
             )
             .tags("messaging");
-          var y = yield r("WAWebUserPrefsStatus").getStatusSkDistribList([p]),
+          var y = yield r("WAWebUserPrefsStatus").getStatusSkDistribList([p], {
+              isFullAudience: !1,
+            }),
             C = y.participantList,
             b = y.skDistribList;
           o("WALogger").LOG(

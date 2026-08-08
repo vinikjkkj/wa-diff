@@ -123,75 +123,69 @@ __d(
     function A() {
       return s._(/*BTDS*/ "Share your Pix");
     }
-    function F(e) {
-      return s._(
-        /*BTDS*/ "Your Pix key and name will be securely stored and encrypted. {learn-more-link}",
-        [s._param("learn-more-link", e)],
-      );
-    }
-    function O() {
+    function F() {
       return s._(/*BTDS*/ "Delete Pix key");
     }
-    function B() {
+    function O() {
       return s._(/*BTDS*/ "Delete Pix key?");
     }
-    function W() {
+    function B() {
       return s._(
         /*BTDS*/ "You'll always be able to add a Pix key later if you delete it.",
       );
     }
-    function q() {
+    function W() {
       return s._(/*BTDS*/ "Delete");
     }
-    function U() {
+    function q() {
       return s._(/*BTDS*/ "Pix key deleted");
     }
-    function V() {
+    function U() {
       return s._(/*BTDS*/ "Couldn't delete Pix key. Please try again.");
     }
-    function H(e) {
+    function V(e) {
       return s._(
         /*BTDS*/ '_j{"*":"{number} contacts excluded","_1":"1 contact excluded"}',
         [s._plural(e, "number")],
       );
     }
-    function G() {
+    function H() {
       return s._(/*BTDS*/ "Transactions");
     }
-    function z() {
+    function G() {
       return s._(/*BTDS*/ "See all");
     }
-    function j() {
+    function z() {
       return s._(/*BTDS*/ "Completed");
     }
-    function K() {
+    function j() {
       return s._(/*BTDS*/ "Pending");
     }
-    function Q() {
+    function K() {
       return s._(/*BTDS*/ "Failed");
     }
-    function X() {
+    function Q() {
       return s._(/*BTDS*/ "You requested");
     }
-    function Y() {
+    function X() {
       return s._(/*BTDS*/ "They requested");
     }
-    function J() {
+    function Y() {
       return s._(/*BTDS*/ "No transactions yet");
     }
-    function Z() {
+    function J() {
       return s._(/*BTDS*/ "All");
     }
-    function ee() {
+    function Z() {
       return s._(/*BTDS*/ "You requested");
     }
-    function te() {
+    function ee() {
       return s._(/*BTDS*/ "Others requested");
     }
-    function ne() {
+    function te() {
       return s._(/*BTDS*/ "From");
     }
-    function re() {
+    function ne() {
       return s._(/*BTDS*/ "To");
     }
     ((l.getConsumerPixKeyTypeOptions = e),
@@ -223,27 +217,26 @@ __d(
       (l.getConsumerSharePixViewInChat = M),
       (l.getConsumerSharePixDone = w),
       (l.getConsumerSharePixRowLabel = A),
-      (l.getConsumerPixEncryptedFooter = F),
-      (l.getConsumerPixDeleteKeyButton = O),
-      (l.getConsumerPixDeleteKeyConfirmTitle = B),
-      (l.getConsumerPixDeleteKeyConfirmBody = W),
-      (l.getConsumerPixDeleteKeyConfirmCta = q),
-      (l.getConsumerPixDeleteKeyDeletedToast = U),
-      (l.getConsumerPixDeleteKeyErrorToast = V),
-      (l.getConsumerPixContactsExcludedCount = H),
-      (l.getConsumerTransactionsHeader = G),
-      (l.getConsumerTransactionsSeeAll = z),
-      (l.getConsumerTransactionStatusCompleted = j),
-      (l.getConsumerTransactionStatusPending = K),
-      (l.getConsumerTransactionStatusFailed = Q),
-      (l.getConsumerTransactionStatusRequestedByYou = X),
-      (l.getConsumerTransactionStatusRequestedByThem = Y),
-      (l.getConsumerTransactionsEmpty = J),
-      (l.getConsumerTransactionsTabAll = Z),
-      (l.getConsumerTransactionsTabYouRequested = ee),
-      (l.getConsumerTransactionsTabTheyRequested = te),
-      (l.getConsumerTransactionsDateFrom = ne),
-      (l.getConsumerTransactionsDateTo = re));
+      (l.getConsumerPixDeleteKeyButton = F),
+      (l.getConsumerPixDeleteKeyConfirmTitle = O),
+      (l.getConsumerPixDeleteKeyConfirmBody = B),
+      (l.getConsumerPixDeleteKeyConfirmCta = W),
+      (l.getConsumerPixDeleteKeyDeletedToast = q),
+      (l.getConsumerPixDeleteKeyErrorToast = U),
+      (l.getConsumerPixContactsExcludedCount = V),
+      (l.getConsumerTransactionsHeader = H),
+      (l.getConsumerTransactionsSeeAll = G),
+      (l.getConsumerTransactionStatusCompleted = z),
+      (l.getConsumerTransactionStatusPending = j),
+      (l.getConsumerTransactionStatusFailed = K),
+      (l.getConsumerTransactionStatusRequestedByYou = Q),
+      (l.getConsumerTransactionStatusRequestedByThem = X),
+      (l.getConsumerTransactionsEmpty = Y),
+      (l.getConsumerTransactionsTabAll = J),
+      (l.getConsumerTransactionsTabYouRequested = Z),
+      (l.getConsumerTransactionsTabTheyRequested = ee),
+      (l.getConsumerTransactionsDateFrom = te),
+      (l.getConsumerTransactionsDateTo = ne));
   },
   226,
 );
