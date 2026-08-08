@@ -29,10 +29,7 @@ __d(
       if (h != null) return h;
       if (
         ((h = !1),
-        !g() ||
-          !r("justknobx")._("193") ||
-          window.OffscreenCanvas === void 0 ||
-          document === void 0)
+        !g() || window.OffscreenCanvas === void 0 || document === void 0)
       )
         return !1;
       try {

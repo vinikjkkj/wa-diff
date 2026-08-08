@@ -84,6 +84,7 @@ __d(
       k = e({ Dot: "DOT", HorizontalLine: "HORIZONTAL_LINE" }),
       I = e({
         Add: "ADD",
+        Animate: "ANIMATE",
         Frame: "FRAME",
         Light: "LIGHT",
         Other: "OTHER",

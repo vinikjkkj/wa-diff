@@ -111,7 +111,7 @@ __d(
               e,
               t.toString(),
             )
-            .sendLogs("unknown-user-displayed-employee")
+            .sendLogs("unknown-user-displayed")
         : o("WALogger").WARN(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
