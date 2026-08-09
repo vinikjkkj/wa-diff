@@ -124,7 +124,11 @@ __d(
                 ),
                 o(
                   "WAWebNewsletterBridgeApi",
-                ).NewsletterBridgeApi.deleteNewsletter({ id: t.id, keep: !1 }));
+                ).NewsletterBridgeApi.deleteNewsletter({
+                  id: t.id,
+                  keep: !1,
+                  newsletterDeleted: !1,
+                }));
             else {
               var h,
                 y,

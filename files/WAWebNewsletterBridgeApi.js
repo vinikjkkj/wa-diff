@@ -46,14 +46,15 @@ __d(
       _,
       f,
       g,
-      h = r("requireDeferred")("WAWebNewsletterRouteBridgeApi").__setRef(
+      h,
+      y = r("requireDeferred")("WAWebNewsletterRouteBridgeApi").__setRef(
         "WAWebNewsletterBridgeApi",
       );
-    function y(e, t) {
+    function C(e, t) {
       var n = r("WAWebNewsletterCollection").get(e);
       n == null || n.mute.setMute(t, !1, !0);
     }
-    function C(e) {
+    function b(e) {
       o("WALogger")
         .ERROR(
           p ||
@@ -63,7 +64,7 @@ __d(
         )
         .sendLogs("newsletter-route-bridge-load-failed");
     }
-    var b = {
+    var v = {
       updateNewsletterMessageUI: function (t) {
         var e = t.chatID,
           n = t.isOrphan,
@@ -79,23 +80,41 @@ __d(
         var e,
           n = t.id,
           a = t.keep,
-          i =
+          i = t.newsletterDeleted,
+          l =
             r("WAWebNewsletterCollection") == null
               ? void 0
               : r("WAWebNewsletterCollection").get(n),
-          l = i == null ? void 0 : i.newsletterMetadata;
+          s = l == null ? void 0 : l.newsletterMetadata;
+        if (i) {
+          var u;
+          ((u = r("WAWebNewsletterMetadataCollection").get(n)) == null ||
+            u.unset("statusMetadata"),
+            o("WAWebDeleteStatusAction")
+              .deleteStatusForContact(n)
+              .catch(function () {
+                o("WALogger")
+                  .ERROR(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[newsletter] failed to delete status for deleted channel",
+                      ])),
+                  )
+                  .sendLogs("newsletter-delete-status-for-contact-failed");
+              }));
+        }
         if (a) {
-          (l != null &&
-            (l.membershipType = o(
+          (s != null &&
+            (s.membershipType = o(
               "WAWebCommonNewsletterEnums",
             ).NewsletterMembershipType.Guest),
             o("WAWebDeleteStatusAction").clearStatusForRemovedContact());
           return;
         }
-        var s = i == null ? void 0 : i.msgs;
-        (s != null && o("WAWebMsgCollection").MsgCollection.remove(s),
-          i == null || i.delete(),
-          i == null || (e = i.newsletterMetadata) == null || e.delete(),
+        var c = l == null ? void 0 : l.msgs;
+        (c != null && o("WAWebMsgCollection").MsgCollection.remove(c),
+          l == null || l.delete(),
+          l == null || (e = l.newsletterMetadata) == null || e.delete(),
           o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.remove(
             n,
           ),
@@ -169,7 +188,7 @@ __d(
       toggleNewsletterAdminActivityMuteState: function (t) {
         var e = t.id,
           n = t.muteExpirationValue;
-        y(e, n);
+        C(e, n);
       },
       toggleNewsletterFollowerActivityMuteState: function (t) {
         var e,
@@ -208,8 +227,8 @@ __d(
           n = e.newsletterMetadata;
         if (n == null) {
           o("WALogger").ERROR(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
                 "[subscribeToNewsletter] newsletterMetadata=null",
               ])),
           );
@@ -681,52 +700,52 @@ __d(
         return t;
       })(),
       updateNewsletterReports: function (t) {
-        h.load()
+        y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.updateNewsletterReports(t);
           })
-          .catch(C);
+          .catch(b);
       },
       updateNewsletterReport: function (t) {
-        h.load()
+        y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.updateNewsletterReport(t);
           })
-          .catch(C);
+          .catch(b);
       },
       updateNewsletterEnforcementAlerts: function (t) {
-        h.load()
+        y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.updateNewsletterEnforcementAlerts(
               t,
             );
           })
-          .catch(C);
+          .catch(b);
       },
       updateNewsletterQuestionResponses: function (t) {
-        h.load()
+        y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.updateNewsletterQuestionResponses(
               t,
             );
           })
-          .catch(C);
+          .catch(b);
       },
       hideNewsletterQuestionResponse: function (t) {
-        h.load()
+        y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.hideNewsletterQuestionResponse(t);
           })
-          .catch(C);
+          .catch(b);
       },
       updateNewsletterQuestionResponseStarredState: function (t) {
-        h.load()
+        y.load()
           .then(function (e) {
             return e.NewsletterRouteBridgeApi.updateNewsletterQuestionResponseStarredState(
               t,
             );
           })
-          .catch(C);
+          .catch(b);
       },
       updateMyNewsletterMembershipRole: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -735,8 +754,8 @@ __d(
             a = n.newsletterMetadata;
           if (a == null) {
             o("WALogger").ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[updateNewsletterMembershipRole] newsletterMetadata=null",
                 ])),
             );
@@ -759,8 +778,8 @@ __d(
             i = a.newsletterMetadata;
           if (i == null) {
             o("WALogger").ERROR(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[updateNewsletterMembershipRole] newsletterMetadata=null",
                 ])),
             );
@@ -818,7 +837,7 @@ __d(
         return t;
       })(),
       updateNewsletterInsights: function (t) {
-        return h.load().then(function (e) {
+        return y.load().then(function (e) {
           return e.NewsletterRouteBridgeApi.updateNewsletterInsights(t);
         });
       },
@@ -850,7 +869,7 @@ __d(
         return t;
       })(),
     };
-    l.NewsletterBridgeApi = b;
+    l.NewsletterBridgeApi = v;
   },
   98,
 );

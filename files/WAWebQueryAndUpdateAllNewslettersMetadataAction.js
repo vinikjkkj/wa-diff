@@ -232,7 +232,11 @@ __d(
             (a.push(
               o(
                 "WAWebNewsletterBridgeApi",
-              ).NewsletterBridgeApi.deleteNewsletter({ id: e, keep: !1 }),
+              ).NewsletterBridgeApi.deleteNewsletter({
+                id: e,
+                keep: !1,
+                newsletterDeleted: !1,
+              }),
             ),
               a.push(
                 o("WAWebNewsletterMetadataJob").deleteNewsletterMetadata(

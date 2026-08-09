@@ -1,0 +1,33 @@
+__d(
+  "LSPendingTasksPluginType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      LS_BROKER: 0,
+      PAYMENTS: 1,
+      EPHEMERAL_MESSAGING: 2,
+      CARRIER_MESSAGING: 3,
+      BUG_REPORTER: 4,
+      MESSAGE_DENORMALIZATIONS: 5,
+      SEEN_HEADS: 6,
+      MEDIA_UPLOAD: 7,
+      SECURE_THREAD_SEEN_HEADS: 8,
+      WHATSAPP_THREAD: 9,
+      SECURE_THREAD_OVER_WA_MESSAGE_SEND: 10,
+      CONTACT_PRUNING: 11,
+      MEDIA_MANAGER: 12,
+      SECURE_THREAD_OVER_WA_ENCRYPTION: 13,
+      STORY_POST: 14,
+      CO_PRESENCE_HEARTBEAT: 16,
+      SECURE_THREAD_OVER_WA_GROUP_MANAGEMENT: 17,
+      ENCRYPTED_BACKUPS: 23,
+      ANONYMOUS_REQUEST: 25,
+      MESSAGE_ACTIONS: 28,
+      MESSAGE_UNSEND_ATTACHMENT_CLEANUP: 39,
+      IGD_INSTAMADILLO: 40,
+      PENDING_MESSAGE_SEND: 46,
+    });
+    i.default = e;
+  },
+  66,
+);

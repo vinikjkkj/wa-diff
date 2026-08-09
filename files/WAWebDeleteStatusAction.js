@@ -1,6 +1,7 @@
 __d(
   "WAWebDeleteStatusAction",
   [
+    "Promise",
     "WALogger",
     "WAWebContactGetters",
     "WAWebDBMessageDelete",
@@ -10,13 +11,13 @@ __d(
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    var e, s, u;
+    function c(e) {
       return (
         o("WAWebContactGetters").getIsNewsletter(e.contact) && !e.isExpired()
       );
     }
-    function u() {
+    function d() {
       var t = o("WAWebStatusCollection").StatusCollection.filter(function (e) {
           var t;
           return (
@@ -29,7 +30,7 @@ __d(
               (t = t.participants) == null
                 ? void 0
                 : t.iAmMember()) !== !0) &&
-            !s(e) &&
+            !c(e) &&
             !o("WAWebContactGetters").getIsPSA(e.contact)
           );
         }),
@@ -49,7 +50,24 @@ __d(
         o("WAWebDBMessageDelete").removeStatusMessage(n)
       );
     }
-    l.clearStatusForRemovedContact = u;
+    function m(e) {
+      var t = o("WAWebStatusCollection").StatusCollection.get(e);
+      if (t == null) return (u || (u = n("Promise"))).resolve();
+      var r = t.msgs.toArray();
+      return (
+        t.delete(),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "deleteStatusForContact: remove ",
+              " status msgs ",
+            ])),
+          r.length,
+        ),
+        o("WAWebDBMessageDelete").removeStatusMessage(r)
+      );
+    }
+    ((l.clearStatusForRemovedContact = d), (l.deleteStatusForContact = m));
   },
   98,
 );

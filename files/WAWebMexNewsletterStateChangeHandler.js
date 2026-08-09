@@ -157,7 +157,7 @@ __d(
             ),
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "deleteNewsletter",
-              { id: t, keep: !0 },
+              { id: t, keep: !0, newsletterDeleted: !0 },
             ));
         })),
         _.apply(this, arguments)

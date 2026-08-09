@@ -29,10 +29,10 @@ __d(
     "WAWebSignal",
     "WAWebSignalProtocolStore",
     "WAWebStatusGatingUtils",
+    "WAWebStatusPublishRequestArgs",
     "WAWebStatusSessionGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStatus",
-    "WAWebUserPrefsStatusType",
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumMessageType",
     "WAWebWamEnumPrekeysFetchContext",
@@ -108,14 +108,14 @@ __d(
             v = C.data.id,
             R = o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
             L = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow(),
-            k = D(y),
-            P = o(
+            k = T(y),
+            $ = o(
               "WAWebStatusSessionGatingUtils",
             ).shouldUseStatusSessionForOutgoingMessage()
               ? o("WAWebSessionScope").SessionScope.STATUS
               : o("WAWebSessionScope").SessionScope.DEFAULT,
-            N = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(y);
-          N === "reaction" &&
+            P = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(y);
+          P === "reaction" &&
             o("WALogger")
               .ERROR(
                 s ||
@@ -126,13 +126,13 @@ __d(
                 v.id,
               )
               .sendLogs("status-unexpected-reaction-type");
-          var M,
+          var N,
+            M,
             w,
-            A,
-            F = yield r("WAWebUserPrefsStatus").getStatusList(),
-            O = r("compactMap")(F.list, o("WAWebLidMigrationUtils").toUserLid);
+            A = yield r("WAWebUserPrefsStatus").getStatusList(),
+            F = r("compactMap")(A.list, o("WAWebLidMigrationUtils").toUserLid);
           if (
-            ((F.list = O.map(function (e) {
+            ((A.list = F.map(function (e) {
               return e;
             })),
             o("WALogger").LOG(
@@ -147,48 +147,50 @@ __d(
             ),
             k)
           ) {
-            var B;
-            (B = h.sendPerfReporter) == null || B.setIsRevokeMessage(!0);
-            var W = yield b(k);
-            if (x(W, F.list)) {
+            var O;
+            (O = h.sendPerfReporter) == null || O.setIsRevokeMessage(!0);
+            var B = yield b(k);
+            if (D(B, A.list)) {
               (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
                     "encryptAndSendStatusMsg: start to send direct revoke message",
                   ])),
               ),
-                S(W, "direct revoke senderList"));
-              var q = yield o("WAWebDBDeviceListFanout").getFanOutList({
-                wids: [].concat(W, [L]),
+                S(B, "direct revoke senderList"));
+              var W = yield o("WAWebDBDeviceListFanout").getFanOutList({
+                wids: [].concat(B, [L]),
                 shouldMergeAltDevices: !0,
               });
               return (
-                S(q, "direct revoke deviceList"),
-                $({
-                  deviceList: q,
+                S(W, "direct revoke deviceList"),
+                x({
+                  deviceList: W,
                   metricsReporter: h,
                   msgProtobuf: y,
                   sendMsgRecord: C,
-                  sessionScope: P,
+                  sessionScope: $,
                 })
               );
             }
-            ((M = W), (w = !1));
+            ((N = B), (M = !1));
           } else {
-            if (F.list.length === 0) return;
-            ((M = F.list),
-              (w = !0),
-              (A = o("WAWap").wap("meta", {
-                status_setting: T(F.setting),
+            if (A.list.length === 0) return;
+            ((N = A.list),
+              (M = !0),
+              (w = o("WAWap").wap("meta", {
+                status_setting: o(
+                  "WAWebStatusPublishRequestArgs",
+                ).toStatusSettingMetaAttribute(A.setting),
                 session_scope:
-                  P === o("WAWebSessionScope").SessionScope.STATUS
+                  $ === o("WAWebSessionScope").SessionScope.STATUS
                     ? o("WAWap").CUSTOM_STRING("status")
                     : o("WAWap").DROP_ATTR,
               })));
           }
-          S(M, "senderList");
-          var U = yield o("WAWebDBDeviceListFanout").getFanOutList({
-            wids: [].concat(M, [L]),
+          S(N, "senderList");
+          var q = yield o("WAWebDBDeviceListFanout").getFanOutList({
+            wids: [].concat(N, [L]),
             shouldMergeAltDevices: !0,
           });
           (o("WALogger").LOG(
@@ -197,38 +199,38 @@ __d(
                 "encryptAndSendStatusMsg: all device list size ",
                 "",
               ])),
-            U.length,
+            q.length,
           ),
-            S(U, "deviceList after fanout"));
-          var V = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(U, {
-              isFullAudience: w,
+            S(q, "deviceList after fanout"));
+          var U = yield r("WAWebUserPrefsStatus").getStatusSkDistribList(q, {
+              isFullAudience: M,
             }),
-            H = V.participantList,
-            G = V.skDistribList;
-          if (G.length > 0) {
-            var z, j, K, Q;
+            V = U.participantList,
+            H = U.skDistribList;
+          if (H.length > 0) {
+            var G, z, j, K;
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
                   "encryptAndSendStatusMsg: distribute ",
                   " sender key",
                 ])),
-              G.length,
+              H.length,
             ),
-              (z = h.sendReporter) == null ||
-                z.setMessageDistributionType(
+              (G = h.sendReporter) == null ||
+                G.setMessageDistributionType(
                   o("WAWebWamEnumMessageDistributionEnumType")
                     .MESSAGE_DISTRIBUTION_ENUM_TYPE
                     .SENDER_KEY_DISTRIBUTION_MESSAGE,
                 ),
-              (j = h.sendReporter) == null || j.setSessionScope(P),
-              (K = h.sendReporter) == null || K.setDeviceCount(G.length),
-              (Q = h.sendPerfReporter) == null ||
-                Q.setSenderKeyDistributionCount(G.length));
+              (z = h.sendReporter) == null || z.setSessionScope($),
+              (j = h.sendReporter) == null || j.setDeviceCount(H.length),
+              (K = h.sendPerfReporter) == null ||
+                K.setSenderKeyDistributionCount(H.length));
           }
           if (
             (yield o("WAWebApiMessageInfoStore").createOrMergeReceiptRecords(
-              U.map(function (e) {
+              q.map(function (e) {
                 return { msgKey: v, receiverId: e };
               }),
             ),
@@ -238,28 +240,28 @@ __d(
                   "encryptAndSendStatusMsg: create receipts records",
                 ])),
             ),
-            G.length > 0)
+            H.length > 0)
           )
             try {
-              var X, Y;
-              (X = h.sendPerfReporter) == null || X.startPrekeysFetchStage();
-              var J = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+              var Q, X;
+              (Q = h.sendPerfReporter) == null || Q.startPrekeysFetchStage();
+              var Y = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                 identityChanged: !1,
-                sessionScope: P,
-                wids: G,
+                sessionScope: $,
+                wids: H,
               });
-              ((Y = h.sendPerfReporter) == null ||
-                Y.setFetchedPrekeyCount(
-                  J == null ? void 0 : J.missedPrekeyCount,
+              ((X = h.sendPerfReporter) == null ||
+                X.setFetchedPrekeyCount(
+                  Y == null ? void 0 : Y.missedPrekeyCount,
                 ),
                 o(
                   "WAWebPostPrekeysDepletionMetric",
                 ).maybePostPrekeysDepletionMetric({
-                  count: J == null ? void 0 : J.depletedPrekeyCount,
+                  count: Y == null ? void 0 : Y.depletedPrekeyCount,
                   prekeysFetchReason: o("WAWebWamEnumPrekeysFetchContext")
                     .PREKEYS_FETCH_CONTEXT.SEND_MESSAGE,
                   messageType: o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS,
-                  deviceSizeBucket: r("WAWebWamNumberToSizeBucket")(U.length),
+                  deviceSizeBucket: r("WAWebWamNumberToSizeBucket")(q.length),
                 }));
             } catch (e) {
               o("WALogger")
@@ -270,28 +272,28 @@ __d(
                       " devices: ",
                       "",
                     ])),
-                  G.length,
+                  H.length,
                   e,
                 )
                 .tags("messaging");
             }
           ((t = h.sendPerfReporter) == null || t.postPrekeysFetchStage(),
             (n = h.sendPerfReporter) == null || n.startClientEncryptStage());
-          var Z = yield E(R, L, G, H, y, P),
-            ee = Z[0],
-            te = Z[1],
-            ne = Z[2];
+          var J = yield E(R, L, H, V, y, $),
+            Z = J[0],
+            ee = J[1],
+            te = J[2];
           o("WALogger").LOG(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
                 "encryptAndSendStatusMsg: encrypt message body done",
               ])),
           );
-          var re = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+          var ne = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
               C.data,
               y,
             ),
-            oe = o("WAWap").wap(
+            re = o("WAWap").wap(
               "message",
               {
                 id: o("WAWap").CUSTOM_STRING(v.id),
@@ -302,14 +304,14 @@ __d(
                   C.data.subtype,
                 ),
               },
+              Z,
               ee,
               te,
+              w,
               ne,
-              A,
-              re,
             ),
-            ae = I(oe);
-          (yield o("WAWebSendMsgCommonApi").updateIdentityRange(C, U),
+            oe = I(re);
+          (yield o("WAWebSendMsgCommonApi").updateIdentityRange(C, q),
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
@@ -326,16 +328,16 @@ __d(
             yield o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndReturnAck(
-              oe,
+              re,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: v.id,
-                class: ae,
+                class: oe,
                 from: R,
                 participant: null,
               }),
             ),
             (l = h.sendPerfReporter) == null || l.postWrittenWireStage(),
-            yield r("WAWebUserPrefsStatus").markStatusHasSenderKey(G));
+            yield r("WAWebUserPrefsStatus").markStatusHasSenderKey(H));
         })),
         L.apply(this, arguments)
       );
@@ -448,21 +450,6 @@ __d(
       return "message";
     }
     function T(e) {
-      return e ===
-        o("WAWebUserPrefsStatusType").StatusPrivacySettingType.AllowList
-        ? "allowlist"
-        : e === o("WAWebUserPrefsStatusType").StatusPrivacySettingType.DenyList
-          ? "denylist"
-          : e === o("WAWebUserPrefsStatusType").StatusPrivacySettingType.Contact
-            ? "contacts"
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })();
-    }
-    function D(e) {
       var t = e.protocolMessage,
         n = null;
       if (
@@ -487,7 +474,7 @@ __d(
       }
       return n;
     }
-    function x(e, t) {
+    function D(e, t) {
       var n = new Set(
         t.map(function (e) {
           return o("WAWebWidFactory").asUserWidOrThrow(e).toString();
@@ -500,12 +487,12 @@ __d(
         );
       });
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function P() {
+    function $() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r = e.deviceList,
@@ -586,14 +573,14 @@ __d(
             ),
             (n = a.sendPerfReporter) == null || n.postWrittenWireStage());
         })),
-        P.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
     ((l.calculateRevokeSenderList = b),
       (l.encryptAndSendStatusMsg = R),
       (l.genMessageBody = E),
       (l.maybeApplyStatusTag = I),
-      (l.encryptAndSendStatusDirectMsg = $));
+      (l.encryptAndSendStatusDirectMsg = x));
   },
   98,
 );

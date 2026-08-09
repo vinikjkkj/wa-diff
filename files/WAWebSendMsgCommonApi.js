@@ -101,63 +101,47 @@ __d(
       if (r.has(o("WAWebMsgType").MSG_TYPE.PROTOCOL)) {
         var i,
           l = (i = a.protocolMessage) == null ? void 0 : i.type;
+        if (l === o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE)
+          return t === "admin_revoke"
+            ? o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
+            : o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
         if (
-          l === o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
-        ) {
-          var s =
-            t === "admin_revoke"
-              ? o("WAWebAck").EDIT_ATTR.ADMIN_REVOKE
-              : o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
-          return o("WAWap").CUSTOM_STRING(String(s));
-        } else {
-          if (
-            l ===
-            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
-          )
-            return o("WAWap").CUSTOM_STRING(
-              String(o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT),
-            );
-          if (
-            l ===
-            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-              .MESSAGE_UNSCHEDULE
-          )
-            return o("WAWap").CUSTOM_STRING(
-              String(o("WAWebAck").EDIT_ATTR.SENDER_REVOKE),
-            );
-        }
+          l ===
+          o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
+        )
+          return o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT;
+        if (
+          l ===
+          o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+            .MESSAGE_UNSCHEDULE
+        )
+          return o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
       } else {
         if (
           r.has(o("WAWebMsgType").MSG_TYPE.EVENT_EDIT_ENCRYPTED) ||
           r.has(o("WAWebMsgType").MSG_TYPE.MESSAGE_EDIT_ENCRYPTED) ||
           r.has(o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED)
         )
-          return o("WAWap").CUSTOM_STRING(
-            String(o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT),
-          );
+          return o("WAWebAck").EDIT_ATTR.MESSAGE_EDIT;
         if (r.has(o("WAWebMsgType").MSG_TYPE.REACTION)) {
-          var u;
+          var s;
           if (
-            ((u = a.reactionMessage) == null ? void 0 : u.text) ===
+            ((s = a.reactionMessage) == null ? void 0 : s.text) ===
             o("WAWebReactionsBEUtils").REVOKED_REACTION_TEXT
           )
-            return o("WAWap").CUSTOM_STRING(
-              String(o("WAWebAck").EDIT_ATTR.SENDER_REVOKE),
-            );
+            return o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
         } else if (r.has(o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT)) {
-          if (f(a))
-            return o("WAWap").CUSTOM_STRING(
-              String(o("WAWebAck").EDIT_ATTR.SENDER_REVOKE),
-            );
+          if (f(a)) return o("WAWebAck").EDIT_ATTR.SENDER_REVOKE;
         } else if (r.has(o("WAWebMsgType").MSG_TYPE.PIN_MESSAGE))
-          return o("WAWap").CUSTOM_STRING(
-            String(o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT),
-          );
+          return o("WAWebAck").EDIT_ATTR.PIN_IN_CHAT;
       }
-      return o("WAWap").DROP_ATTR;
+      return null;
     }
     function h(e, t) {
-      return g(e, t);
+      var n = g(e, t);
+      return n != null
+        ? o("WAWap").CUSTOM_STRING(String(n))
+        : o("WAWap").DROP_ATTR;
     }
     var y = new (r("WADeprecatedWapParser"))("sendMsgAckSyncParser", function (
       e,
@@ -337,6 +321,7 @@ __d(
       (l.encodeAndPad = m),
       (l.isRevokeMsg = p),
       (l.isEditMsg = _),
+      (l.getEditAttrValue = g),
       (l.editAttribute = h),
       (l.sendMsgAckSyncParser = y),
       (l.isPrimaryDevice = C),

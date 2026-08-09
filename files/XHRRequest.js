@@ -159,13 +159,10 @@ __d(
             a.toString().includes("/..\\") ||
             a.toString().includes("\\../") ||
             a.toString().includes("\\..\\")
-          )
-            return (
-              n("Log").error(
-                "XHRRequest.send(): path traversal is not allowed.",
-              ),
-              !1
-            );
+          ) {
+            n("Log").error("XHRRequest.send(): path traversal is not allowed.");
+            return;
+          }
           if (m === !0) return;
           var i = new (e || (e = n("URI")))(a).getQualifiedURI().toString(),
             u = this.$12;

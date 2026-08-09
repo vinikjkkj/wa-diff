@@ -46,6 +46,7 @@ __d(
               o("WAWebBackendApi").frontendFireAndForget("deleteNewsletter", {
                 id: l,
                 keep: !0,
+                newsletterDeleted: !1,
               }),
               o("WAWebBackendApi").frontendFireAndForget(
                 "clearStatusForRemovedContact",

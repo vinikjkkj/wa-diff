@@ -31,7 +31,11 @@ __d(
             (yield o("WAWebNewsletterDeleteJob").deleteNewsletter(n),
               o(
                 "WAWebNewsletterBridgeApi",
-              ).NewsletterBridgeApi.deleteNewsletter({ id: t.id, keep: !1 }));
+              ).NewsletterBridgeApi.deleteNewsletter({
+                id: t.id,
+                keep: !1,
+                newsletterDeleted: !0,
+              }));
           } catch (e) {
             throw (
               o("WALogger")
