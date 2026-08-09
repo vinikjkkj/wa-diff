@@ -9,6 +9,7 @@ __d(
     "WebBloksDialogButton",
     "WebBloksDummyComponent",
     "WebBloksFieldset",
+    "WebBloksFixedWrapper",
     "WebBloksFlexbox",
     "WebBloksGlimmer",
     "WebBloksImage",
@@ -59,6 +60,7 @@ __d(
         "bk.components.internal.Shadow": e,
         "bk.components.screen.Wrapper": r("WebBloksScreenWrapperPrimitive"),
         "bk.components.webbloks.Fieldset": r("WebBloksFieldset"),
+        "bk.components.webbloks.FixedWrapper": r("WebBloksFixedWrapper"),
         "bk.data.screen.Navbar": r("WebBloksNavbar"),
       };
     l.COMPONENTS = s;

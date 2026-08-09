@@ -240,6 +240,10 @@ __d(
           subnodes: ["_style"],
           plural_subnodes: ["extensions", "children", "child_templates"],
         },
+        "bk.components.webbloks.FixedWrapper": {
+          subnodes: ["_style"],
+          plural_subnodes: ["extensions", "children", "child_templates"],
+        },
         "bk.data.GradientLine": {
           subnodes: ["start_point", "end_point"],
           plural_subnodes: ["child_templates"],

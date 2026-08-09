@@ -342,37 +342,71 @@ __d(
           }),
           (a.flushUpdates = function () {
             if (!this.$4) {
-              var e = !1;
-              if (
-                (this.updateVariableOperations.size &&
+              var e = !1,
+                t = null;
+              if (this.updateVariableOperations.size) {
+                var n = this.treeResourcesState.variables;
+                if (
                   ((this.treeResourcesState =
                     this.treeResourcesState.withVariableUpdates(
                       this.updateVariableOperations,
                     )),
-                  (e = !0),
-                  (this.updateVariableOperations = new Map())),
-                this.updateResourcesOperations.length)
-              ) {
-                var t = this.processResources(this.updateResourcesOperations);
-                e = e || t[0];
-                for (var n of t[1]) this.updateOperationList.push(n);
+                  !this.bloksContext.objectSet.environment
+                    .enableNoOpVariableWriteFilter)
+                )
+                  e = !0;
+                else {
+                  var r;
+                  t = this.updateVariableOperations;
+                  var a =
+                    (r = this.bindResult) == null ? void 0 : r.dependencies;
+                  for (var i of this.updateVariableOperations) {
+                    var l = i[0],
+                      s = i[1],
+                      u =
+                        s == null ||
+                        (typeof s != "object" && typeof s != "function");
+                    if (
+                      !(u && n.has(l) && s === n.get(l)) &&
+                      (a == null || a.has(l))
+                    ) {
+                      e = !0;
+                      break;
+                    }
+                  }
+                }
+                this.updateVariableOperations = new Map();
+              }
+              if (this.updateResourcesOperations.length) {
+                var c = this.processResources(this.updateResourcesOperations);
+                e = e || c[0];
+                for (var d of c[1]) this.updateOperationList.push(d);
                 this.updateResourcesOperations = [];
               }
-              var r = this.snapshotPendingComponent();
-              ((e = e || this.unboundModel !== r),
-                (this.unboundModel = r),
+              var m = this.snapshotPendingComponent();
+              if (
+                ((e = e || this.unboundModel !== m),
+                (this.unboundModel = m),
                 (this.updateOperationList = []),
                 (this.pendingUnboundTree = null),
-                e
-                  ? (this.$4 &&
-                      this.bloksContext.objectSet.environment.logger.warn(
-                        "Received model updates for a TreeManager that was already destroyed",
-                      ),
-                    this.onNewTreeAndVariablesListener.emit({
-                      unboundModel: this.unboundModel,
-                      treeResourcesState: this.treeResourcesState,
-                    }))
-                  : this.$7());
+                e)
+              )
+                (this.$4 &&
+                  this.bloksContext.objectSet.environment.logger.warn(
+                    "Received model updates for a TreeManager that was already destroyed",
+                  ),
+                  this.onNewTreeAndVariablesListener.emit({
+                    unboundModel: this.unboundModel,
+                    treeResourcesState: this.treeResourcesState,
+                  }));
+              else {
+                if (t != null) {
+                  var p = new Map(this.committedVariables);
+                  (o("WebBloksUtils").putAll(p, t),
+                    (this.committedVariables = p));
+                }
+                this.$7();
+              }
             }
           }),
           (a.$8 = function () {
