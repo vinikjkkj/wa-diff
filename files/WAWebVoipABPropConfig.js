@@ -118,6 +118,11 @@ __d(
           wasmKey: "attach_transport_rtx",
           type: "bool",
         },
+        {
+          abProp: "attach_invitee_user_pn_in_offer",
+          wasmKey: "attach_invitee_user_pn_in_offer",
+          type: "bool",
+        },
         { abProp: "aigc_version", wasmKey: "aigc_version", type: "int" },
         {
           abProp: "call_admin_version",

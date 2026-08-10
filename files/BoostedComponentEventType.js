@@ -564,6 +564,9 @@ __d(
         "ig_connect_upsell_pac_connect_click",
       IG_CONNECT_UPSELL_PAC_CONNECT_SUCCESS:
         "ig_connect_upsell_pac_connect_success",
+      HAWK_GUIDANCE_CARD_RESET_ROW_IMPRESSION:
+        "hawk_guidance_card_reset_row_impression",
+      HAWK_GUIDANCE_CARD_RESET_ROW_CLICK: "hawk_guidance_card_reset_row_click",
       IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
       PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
         "product_picker_ig_page_load_eligibility",

@@ -34,11 +34,6 @@ __d(
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_custom_label_signals_enabled",
-      );
-    }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_label_chat_header_enabled_web",
       );
     }
@@ -46,8 +41,7 @@ __d(
       (l.canEditLabelAssociation = s),
       (l.labelsEditingEnabled = u),
       (l.smartFiltersEnabled = c),
-      (l.isCTWACustomLabelsSignalsEnabled = d),
-      (l.isCTWASMBLabelChatHeaderEnabledWeb = m));
+      (l.isCTWASMBLabelChatHeaderEnabledWeb = d));
   },
   98,
 );

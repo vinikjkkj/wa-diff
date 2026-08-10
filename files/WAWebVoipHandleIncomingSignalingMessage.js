@@ -13,13 +13,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function d() {
+    function p() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (
             (n === void 0 && (n = o("WAWebVoipGatingUtils").isCallingEnabled()),
             n)
@@ -42,16 +42,28 @@ __d(
               );
               return;
             }
-          }
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: web-only fallback, stack interface unavailable",
+                ])),
+            );
+          } else
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: web-only fallback, voip stack unavailable",
+                ])),
+            );
           o("WAWebBackendApi").frontendFireAndForget(
             "handleVoipWebIncomingSignalingMessageAction",
             { msg: e, voipNode: t },
           );
         })),
-        d.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function m(t, a) {
+    function _(t, a) {
       return o("WAWebVoipGatingUtils").isCallingEnabled()
         ? (o("WALogger").LOG(
             e ||
@@ -70,12 +82,12 @@ __d(
               ])),
             t.peer_jid.toString(),
           ),
-          (u || (u = n("Promise"))).reject(
+          (d || (d = n("Promise"))).reject(
             r("err")("incoming enc rekey received but calling is not enabled"),
           ));
     }
-    ((l.handleVoipIncomingSignalingMessage = c),
-      (l.handleVoipIncomingEncRekey = m));
+    ((l.handleVoipIncomingSignalingMessage = m),
+      (l.handleVoipIncomingEncRekey = _));
   },
   98,
 );

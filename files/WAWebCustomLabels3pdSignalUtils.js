@@ -9,7 +9,6 @@ __d(
     "WAWebCustomLabel3pdEventQuery",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
-    "WAWebListsLabelGatingUtils",
     "WAWebSessionStorage",
     "WAWebSmb3pdConversionSignalAction",
     "WAWebSmbMarkAsXLabelAction",
@@ -66,10 +65,7 @@ __d(
       }
     }
     function _(t, n, a) {
-      if (
-        o("WAWebListsLabelGatingUtils").isCTWACustomLabelsSignalsEnabled() &&
-        !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
-      ) {
+      if (!o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()) {
         var i = n.filter(function (e) {
           return (
             e instanceof o("WAWebChatModel").Chat &&
