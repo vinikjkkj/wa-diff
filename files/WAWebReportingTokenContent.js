@@ -133,40 +133,45 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.extractProtobufParts = function (t, n, r, a) {
-            var e = new c();
-            if (a == null) return e;
-            for (var i = n; i < r; ) {
-              var l = new s(t, i),
-                d = a.getConfigForField(l.getFieldNumber());
-              if (((i += l.getTotalSize()), d != null))
-                if (d.isMessage === !0 || !d.isExtractWholeField()) {
-                  if (l.getWireType() === o("WAProtoConst").ENC.BINARY) {
-                    var m = this.extractProtobufParts(
-                      t,
-                      l.getValueStartIdx(),
-                      l.getValueEndIdx(),
-                      d.isMessage === !0 ? this.messageConfig : d.subfields,
-                    );
-                    m.fields.length > 0 &&
-                      e.add(new u(l.tag, m.getTotalSize(), m));
+          (t.extractProtobufParts = function (t) {
+            var e = t.config,
+              n = t.end,
+              r = t.pos,
+              a = t.protobufMessage,
+              i = new c();
+            if (e == null) return i;
+            for (var l = r; l < n; ) {
+              var d = new s(a, l),
+                m = e.getConfigForField(d.getFieldNumber());
+              if (((l += d.getTotalSize()), m != null))
+                if (m.isMessage === !0 || !m.isExtractWholeField()) {
+                  if (d.getWireType() === o("WAProtoConst").ENC.BINARY) {
+                    var p = this.extractProtobufParts({
+                      config:
+                        m.isMessage === !0 ? this.messageConfig : m.subfields,
+                      end: d.getValueEndIdx(),
+                      pos: d.getValueStartIdx(),
+                      protobufMessage: a,
+                    });
+                    p.fields.length > 0 &&
+                      i.add(new u(d.tag, p.getTotalSize(), p));
                   }
-                } else e.add(l);
+                } else i.add(d);
             }
             return (
-              e.fields.sort(function (e, t) {
+              i.fields.sort(function (e, t) {
                 return e.getFieldNumber() - t.getFieldNumber();
               }),
-              e
+              i
             );
           }),
           (t.getReportingTokenContent = function () {
-            var e = this.extractProtobufParts(
-                this.protobufMessage,
-                0,
-                this.protobufMessage.length,
-                this.messageConfig,
-              ),
+            var e = this.extractProtobufParts({
+                config: this.messageConfig,
+                end: this.protobufMessage.length,
+                pos: 0,
+                protobufMessage: this.protobufMessage,
+              }),
               t = e.fields,
               n = new (o("WABinary").Binary)();
             for (var r of t) n.writeByteArray(r.getBytes());

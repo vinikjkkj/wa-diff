@@ -18,7 +18,7 @@ __d(
             a = new (r("WAWebZip"))();
           return (
             o.forEach(function (e, n) {
-              return a.add(e, t[n].name);
+              return a.add({ contents: e, path: t[n].name });
             }),
             c(a.create())
           );

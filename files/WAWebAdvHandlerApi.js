@@ -50,7 +50,16 @@ __d(
             ).getLastADVDeviceInfoCheckTime();
             return o(
               "WAWebHandleAdvForMessageApi",
-            ).handleADVDeviceUpdateForMessage(e, t, n, r, a, i, s, l);
+            ).handleADVDeviceUpdateForMessage({
+              deviceWid: e,
+              incomingAdvAccountType: l,
+              incomingAdvDeviceIdentity: t,
+              incomingDeviceIdentity: a,
+              incomingPrimaryIdentity: r,
+              lastDeviceJobTs: s,
+              localPrimaryIdentity: n,
+              offline: i,
+            });
           },
         )),
         p.apply(this, arguments)

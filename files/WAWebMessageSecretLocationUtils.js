@@ -24,8 +24,13 @@ __d(
     function y(e) {
       return e != null && typeof e == "object" && !Array.isArray(e) ? e : null;
     }
-    function C(t, n, r) {
-      if ((n === void 0 && (n = 0), r === void 0 && (r = ""), n >= _))
+    function C(t) {
+      var n = t.depth,
+        r = n === void 0 ? 0 : n,
+        a = t.path,
+        i = a === void 0 ? "" : a,
+        l = t.proto;
+      if (r >= _)
         return (
           o("WALogger")
             .WARN(
@@ -34,24 +39,24 @@ __d(
                   "messageSecret location check exceeded max depth: path:",
                   "",
                 ])),
-              r,
+              i,
             )
             .tags("messaging", "wa-ice", "message-secret-location")
             .sendLogs("message-secret-location-max-depth"),
           null
         );
-      if (h(t) && n > 0) return { violationPath: r || "unknown" };
-      for (var a of Object.keys(t))
-        if (!(p.has(a) || a === "messageContextInfo")) {
-          var i = t[a];
-          if (!(i == null || typeof i != "object")) {
-            var l = r ? r + "." + a : a,
-              s = Array.isArray(i) ? i : [i];
-            for (var u of s) {
-              var c = y(u);
-              if (c != null) {
-                var d = C(c, n + 1, l);
-                if (d != null) return d;
+      if (h(l) && r > 0) return { violationPath: i || "unknown" };
+      for (var s of Object.keys(l))
+        if (!(p.has(s) || s === "messageContextInfo")) {
+          var u = l[s];
+          if (!(u == null || typeof u != "object")) {
+            var c = i ? i + "." + s : s,
+              d = Array.isArray(u) ? u : [u];
+            for (var m of d) {
+              var f = y(m);
+              if (f != null) {
+                var g = C({ depth: r + 1, path: c, proto: f });
+                if (g != null) return g;
               }
             }
           }
@@ -59,7 +64,7 @@ __d(
       return null;
     }
     function b(e, t, n, r) {
-      var a = C(e);
+      var a = C({ proto: e });
       if (a != null) {
         var i =
             t === c.Sender

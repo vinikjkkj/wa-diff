@@ -377,6 +377,7 @@ __d(
       ACCEPT_TOS: 372,
       CREATE_PAYMENT_ACCOUNT: 373,
       MANAGE_PIX_KEYS: 374,
+      SHARE_YOUR_PIX: 375,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

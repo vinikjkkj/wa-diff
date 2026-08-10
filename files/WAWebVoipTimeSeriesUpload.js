@@ -160,7 +160,7 @@ __d(
               try {
                 var A = i.readFile(w),
                   F = new (o("WABinary").Binary)(A);
-                ($.add(F, M),
+                ($.add({ contents: F, path: M }),
                   (P += A.length),
                   N.push({ name: M, size: A.length }));
               } catch (e) {

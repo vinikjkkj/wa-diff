@@ -7,23 +7,27 @@ __d(
     "WAWebFileUtils",
     "WAWebHatchGating",
     "WAWebL10nFilesize",
+    "WAWebMsgGetters",
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       if (e.length !== 1) return { state: "hidden" };
       var t = e[0];
-      return t.type === o("WAWebMsgType").MSG_TYPE.CHAT
-        ? { state: "shown" }
-        : t.type === o("WAWebMsgType").MSG_TYPE.IMAGE
-          ? o("WAWebBotGating").isMetaAiImageInputEnabled()
-            ? { state: "shown" }
-            : { state: "hidden" }
-          : t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT
-            ? c(t)
-            : t.type === o("WAWebMsgType").MSG_TYPE.VIDEO
-              ? u(t)
-              : { state: "hidden" };
+      return o("WAWebMsgGetters").getIsViewOnce(t) ||
+        o("WAWebMsgGetters").getIsViewOncePlaceholder(t)
+        ? { state: "hidden" }
+        : t.type === o("WAWebMsgType").MSG_TYPE.CHAT
+          ? { state: "shown" }
+          : t.type === o("WAWebMsgType").MSG_TYPE.IMAGE
+            ? o("WAWebBotGating").isMetaAiImageInputEnabled()
+              ? { state: "shown" }
+              : { state: "hidden" }
+            : t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT
+              ? c(t)
+              : t.type === o("WAWebMsgType").MSG_TYPE.VIDEO
+                ? u(t)
+                : { state: "hidden" };
     }
     function u(e) {
       if (!o("WAWebBotGating").isMetaAiVideoInputEnabled())

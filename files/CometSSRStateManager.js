@@ -79,7 +79,13 @@ __d(
         };
       return JSON.stringify(n);
     }
-    var _ = function (t) {};
+    function _(e) {
+      o("CometDevToolsSSRStateManagerDebugStore").recordStateChange(
+        e.state,
+        h,
+        o("CometSSRClientInjector").getArrivedPayloads(),
+      );
+    }
     function f(e, t) {
       return r("FBLogger")("comet_ssr")
         .addMetadata("COMET_INFRA", "SSR", p(t))

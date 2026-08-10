@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebABProps",
-    "WAWebBizManageLabelModal.react",
     "WAWebBroadcastConversationMenuItems",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebChatAssignmentLogEvents.flow",
@@ -29,6 +28,7 @@ __d(
     "WAWebLeaveCommunityModalUtils",
     "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
+    "WAWebManageLabelFlowLoadable",
     "WAWebMobilePlatforms",
     "WAWebModalManager",
     "WAWebMuteGetters",
@@ -45,6 +45,7 @@ __d(
     "WAWebWamEnumEphemeralSettingEntryPointType",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WAWebWamEnumMuteEntryPoint",
+    "WAWebWamEnumUpdateEntryPoint",
     "WAWebWidToJid",
     "WDSIconIcCancel.react",
     "WDSIconIcCheckBox.react",
@@ -322,13 +323,15 @@ __d(
                 title: G,
                 onPress: function () {
                   o("WAWebModalManager").ModalManager.open(
-                    u.jsx(r("WAWebBizManageLabelModal.react"), {
-                      modelsToUpdate: [m],
-                      onCancel: o("WAWebModalManager").closeModalManager,
-                      onLabelUpdateComplete:
-                        o("WAWebModalManager").closeModalManager,
-                      entryPoint: null,
-                    }),
+                    u.jsx(
+                      o("WAWebManageLabelFlowLoadable").ManageLabelFlowLoadable,
+                      {
+                        modelsToUpdate: [o("WAWebStateUtils").unproxy(m)],
+                        onClose: o("WAWebModalManager").closeModalManager,
+                        entryPoint: o("WAWebWamEnumUpdateEntryPoint")
+                          .UPDATE_ENTRY_POINT.CHAT_MORE_OPTIONS,
+                      },
+                    ),
                   );
                 },
                 testid: "mi-label-chat",

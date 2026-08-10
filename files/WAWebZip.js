@@ -104,17 +104,20 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.add = function (t, n, o) {
-          o === void 0 && (o = new Date());
-          var e = S(n);
-          (this.filenameCount[e] >= 0
-            ? ((this.filenameCount[e] += 1),
-              (e = e.replace(
+        (t.add = function (t) {
+          var e = t.contents,
+            n = t.date,
+            o = n === void 0 ? new Date() : n,
+            a = t.path,
+            i = S(a);
+          (this.filenameCount[i] >= 0
+            ? ((this.filenameCount[i] += 1),
+              (i = i.replace(
                 /\.(\w+)$/,
-                " (" + this.filenameCount[e] + ").$1",
+                " (" + this.filenameCount[i] + ").$1",
               )))
-            : (this.filenameCount[e] = 0),
-            this.files.push([t, { crc: r("WACrc32")(t), path: e, date: o }]));
+            : (this.filenameCount[i] = 0),
+            this.files.push([e, { crc: r("WACrc32")(e), path: i, date: o }]));
         }),
         (t.create = function () {
           var e = 0,

@@ -992,9 +992,9 @@ __d(
                 dtlsStallTimeout: null,
               }),
               o("WAWebVoipSctpConnectionState").sctpConnections.set(n.id, n));
-          var a = n;
+          var r = n;
           n.connectionTimeout = window.setTimeout(function () {
-            a.state ===
+            r.state ===
               o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting &&
               (o("WALogger").WARN(
                 q ||
@@ -1006,12 +1006,12 @@ __d(
                 ie(),
                 e.id,
               ),
-              Ve(a, "connection_timeout"));
+              Ve(r, "connection_timeout"));
           }, ie());
-          var i = !1;
+          var a = !1;
           if (
             (o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled() ||
-              (i = yield Qe()),
+              (a = yield Qe()),
             le ||
               (o("WAWebVoipTsLogger").logIceConnectionStart({
                 relayId: e.relayId,
@@ -1037,13 +1037,11 @@ __d(
               !1
             );
           try {
-            var l,
-              s,
-              u = r("justknobx")._("404"),
-              c = {};
+            var i,
+              l,
+              s = {};
             if (
-              u &&
-              ((c.certificates = [
+              ((s.certificates = [
                 yield RTCPeerConnection.generateCertificate({
                   name: "ECDSA",
                   namedCurve: "P-256",
@@ -1063,10 +1061,10 @@ __d(
                 o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(n),
                 !1
               );
-            var d = Date.now(),
-              m = new RTCPeerConnection(c),
-              p = Date.now() - d;
-            (p >
+            var u = Date.now(),
+              c = new RTCPeerConnection(s),
+              d = Date.now() - u;
+            (d >
               o("WAWebVoipSctpConnectionManagerConstants")
                 .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
               o("WALogger").WARN(
@@ -1077,10 +1075,10 @@ __d(
                     "ms",
                   ])),
                 e.id,
-                p,
+                d,
               ),
-              (n.peerConnection = m),
-              (m.onicecandidate = function (t) {
+              (n.peerConnection = c),
+              (c.onicecandidate = function (t) {
                 t.candidate ||
                   o("WALogger").LOG(
                     G ||
@@ -1091,15 +1089,15 @@ __d(
                     e.id,
                   );
               }),
-              Fe(m, e.id),
-              Ae(m, n, e));
-            var _ = Date.now(),
-              f = yield m.createOffer();
-            yield m.setLocalDescription(f);
-            var g = f.sdp || "",
-              h = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(g, e);
+              Fe(c, e.id),
+              Ae(c, n, e));
+            var m = Date.now(),
+              p = yield c.createOffer();
+            yield c.setLocalDescription(p);
+            var _ = p.sdp || "",
+              f = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(_, e);
             if (
-              (yield m.setRemoteDescription({ sdp: h, type: "answer" }), qe(n))
+              (yield c.setRemoteDescription({ sdp: f, type: "answer" }), qe(n))
             )
               return (
                 o("WALogger").WARN(
@@ -1116,13 +1114,13 @@ __d(
                 ),
                 o(
                   "WAWebVoipSctpConnectionTeardown",
-                ).detachPeerConnectionHandlers(m),
-                m.close(),
+                ).detachPeerConnectionHandlers(c),
+                c.close(),
                 (n.peerConnection = null),
                 !1
               );
-            var y = Date.now() - _;
-            y >
+            var g = Date.now() - m;
+            g >
               o("WAWebVoipSctpConnectionManagerConstants")
                 .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
               o("WALogger").WARN(
@@ -1133,12 +1131,12 @@ __d(
                     "ms",
                   ])),
                 e.id,
-                y,
+                g,
               );
-            var C = m.iceConnectionState,
-              b =
-                (l = (s = n.channel) == null ? void 0 : s.readyState) != null
-                  ? l
+            var h = c.iceConnectionState,
+              y =
+                (i = (l = n.channel) == null ? void 0 : l.readyState) != null
+                  ? i
                   : "unknown";
             return (
               o("WALogger").LOG(
@@ -1150,8 +1148,8 @@ __d(
                     "",
                   ])),
                 e.id,
-                b,
-                C,
+                y,
+                h,
               ),
               !0
             );
@@ -1341,7 +1339,7 @@ __d(
               );
               return;
             }
-            var a = e.packetBuffer;
+            var r = e.packetBuffer;
             if (
               ((e.isReconnecting = !0),
               (e.state = o(
@@ -1362,38 +1360,37 @@ __d(
                 o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(
                   e,
                 ));
-              var i = e.peerConnection;
-              i &&
+              var a = e.peerConnection;
+              a &&
                 (o(
                   "WAWebVoipSctpConnectionTeardown",
-                ).detachPeerConnectionHandlers(i),
-                i.close());
+                ).detachPeerConnectionHandlers(a),
+                a.close());
             }
             try {
               ((e.hasReceivedFirstPacket = !1), (e.sentMedia = !1));
-              var l = {};
-              r("justknobx")._("404") &&
-                (l.certificates = [
-                  yield RTCPeerConnection.generateCertificate({
-                    name: "ECDSA",
-                    namedCurve: "P-256",
-                  }),
-                ]);
-              var s = new RTCPeerConnection(l);
-              ((e.peerConnection = s),
+              var i = {};
+              i.certificates = [
+                yield RTCPeerConnection.generateCertificate({
+                  name: "ECDSA",
+                  namedCurve: "P-256",
+                }),
+              ];
+              var l = new RTCPeerConnection(i);
+              ((e.peerConnection = l),
                 (e.iceConnectedTime = 0),
                 e.dtlsStallTimeout != null &&
                   (window.clearTimeout(e.dtlsStallTimeout),
                   (e.dtlsStallTimeout = null)),
-                Fe(s, e.id, "(ICE restart)"),
-                Ae(s, e, t, "ICE restart"),
-                (e.packetBuffer = a),
+                Fe(l, e.id, "(ICE restart)"),
+                Ae(l, e, t, "ICE restart"),
+                (e.packetBuffer = r),
                 o("WAWebVoipSctpConnectionState").sctpConnections.set(e.id, e));
-              var u = yield s.createOffer({ iceRestart: !1 });
-              yield s.setLocalDescription(u);
-              var c = u.sdp || "",
-                d = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(c, t);
-              (yield s.setRemoteDescription({ sdp: d, type: "answer" }),
+              var s = yield l.createOffer({ iceRestart: !1 });
+              yield l.setLocalDescription(s);
+              var u = s.sdp || "",
+                c = o("WAWebVoipRelayConnectionUtils").createAnswerSdp(u, t);
+              (yield l.setRemoteDescription({ sdp: c, type: "answer" }),
                 o("WALogger").LOG(
                   te ||
                     (te = babelHelpers.taggedTemplateLiteralLoose([

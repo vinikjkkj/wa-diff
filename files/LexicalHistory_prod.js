@@ -68,11 +68,11 @@ __d(
       var c = u.__text,
         _ = d.__text;
       if (c === _) return 0;
-      var f = a.anchor,
-        p = s.anchor;
-      if (f.key !== p.key || "text" !== f.type) return 0;
-      var h = f.offset,
-        g = p.offset,
+      var p = a.anchor,
+        f = s.anchor;
+      if (p.key !== f.key || "text" !== p.type) return 0;
+      var h = p.offset,
+        g = f.offset,
         O = _.length - c.length;
       return 1 === O && g === h - 1
         ? 2
@@ -88,7 +88,7 @@ __d(
         s = i,
         l = 0,
         d = null;
-      return function (u, c, _, f, p, h) {
+      return function (u, c, _, p, f, h) {
         var g = r();
         if (
           (h.has(require("Lexical").COMPOSITION_START_TAG) &&
@@ -103,7 +103,7 @@ __d(
             h.has(require("Lexical").PASTE_TAG) ||
             h.has(require("Lexical").CUT_TAG)
               ? 0
-              : n(u, c, f, p, e.isComposing()),
+              : n(u, c, p, f, e.isComposing()),
           S = (function () {
             var n = null === _ || _.editor === e,
               r = h.has(require("Lexical").HISTORY_PUSH_TAG);
@@ -112,10 +112,10 @@ __d(
             if (1 === O) return 2;
             if (null === u) return 1;
             var s = c._selection;
-            if (!(f.size > 0 || p.size > 0)) return null !== s ? 0 : 2;
+            if (!(p.size > 0 || f.size > 0)) return null !== s ? 0 : 2;
             var l = "number" == typeof o ? o : o.peek();
             if (!1 === r && 0 !== O && O === a && g < i + l && n) return 0;
-            if (1 === f.size) {
+            if (1 === p.size) {
               if (
                 (function (e, n, o) {
                   var r = n._nodeMap.get(e),
@@ -145,7 +145,7 @@ __d(
                         }),
                       )
                   );
-                })(Array.from(f)[0], u, c)
+                })(Array.from(p)[0], u, c)
               )
                 return 0;
             }
@@ -266,9 +266,9 @@ __d(
               s = _ref3.tags;
             var c = n.current,
               _ = n.redoStack,
-              f = n.undoStack,
-              p = null === c ? null : c.editorState;
-            if (null !== c && o === p) return;
+              p = n.undoStack,
+              f = null === c ? null : c.editorState;
+            if (null !== c && o === f) return;
             var h = d(r, o, c, i, a, s);
             if (1 === h) {
               if (
@@ -277,9 +277,9 @@ __d(
                   e.dispatchCommand(require("Lexical").CAN_REDO_COMMAND, !1)),
                 null !== c)
               ) {
-                f.push(babelHelpers["extends"]({}, c));
+                p.push(babelHelpers["extends"]({}, c));
                 var _n2 = "number" == typeof l || null === l ? l : l.peek();
-                (null !== _n2 && f.length > _n2 && f.splice(0, f.length - _n2),
+                (null !== _n2 && p.length > _n2 && p.splice(0, p.length - _n2),
                   e.dispatchCommand(require("Lexical").CAN_UNDO_COMMAND, !0));
               }
             } else if (2 === h) return;
@@ -385,6 +385,7 @@ __d(
               ((_t2.delay.value = _i2.delay.value),
                 (_t2.historyState.value = _i2.historyState.value),
                 (_t2.now.value = _i2.now.value),
+                (_t2.maxDepth.value = _i2.maxDepth.value),
                 (_t2.disabled.value = _i2.disabled.value));
             });
           }

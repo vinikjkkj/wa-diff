@@ -606,6 +606,7 @@ __d(
             body: t.body,
             mentionedJidList: t.mentionedJidList,
             groupMentions: t.groupMentions,
+            isSpoiler: t.isSpoiler === !0,
             title: t.title,
             description: t.description,
             matchedText: t.matchedText,
@@ -629,6 +630,7 @@ __d(
             caption: t.caption,
             mentionedJidList: t.mentionedJidList,
             groupMentions: t.groupMentions,
+            isSpoiler: t.isSpoiler === !0,
             isCaptionByUser: !0,
           });
         case o("WAWebMessageEditUtils").MsgEditType.EventEdit:

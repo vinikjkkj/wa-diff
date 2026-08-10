@@ -79,7 +79,7 @@ __d(
               });
               return;
             }
-            yield h(i, n, r, l);
+            yield h({ body: n, chat: i, paramsJson: r, quotedMsg: l });
           },
         )),
         f.apply(this, arguments)
@@ -94,54 +94,56 @@ __d(
           : void 0;
       }
     }
-    function h(e, t, n, r) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
-              l = babelHelpers.extends(
-                {
-                  type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
-                  kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
-                  ack: o("WAWebAck").ACK.CLOCK,
-                  to: e.id,
-                  from: i,
-                  id: new (r("WAWebMsgKey"))({
-                    id: yield r("WAWebMsgKey").newId(),
-                    from: i,
-                    to: e.id,
-                    participant: void 0,
-                    selfDir: "out",
-                  }),
-                  local: !0,
-                  isNewMsg: !0,
-                  t: o("WATimeUtils").unixTime(),
-                  interactivePayload: {
-                    type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-                    name: String(
-                      r("WAWebInteractiveMessagesNativeFlowName")
-                        .A2UI_REPLY_ACTION,
-                    ),
-                    description: "A2UI Reply",
-                    paramsJson: n,
-                    version: 1,
-                  },
-                  nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
-                    .A2UI_REPLY_ACTION,
-                  interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-                  viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                  body: t,
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.body,
+            n = e.chat,
+            a = e.paramsJson,
+            i = e.quotedMsg,
+            l = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+            s = babelHelpers.extends(
+              {
+                type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
+                kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
+                ack: o("WAWebAck").ACK.CLOCK,
+                to: n.id,
+                from: l,
+                id: new (r("WAWebMsgKey"))({
+                  id: yield r("WAWebMsgKey").newId(),
+                  from: l,
+                  to: n.id,
+                  participant: void 0,
+                  selfDir: "out",
+                }),
+                local: !0,
+                isNewMsg: !0,
+                t: o("WATimeUtils").unixTime(),
+                interactivePayload: {
+                  type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+                  name: String(
+                    r("WAWebInteractiveMessagesNativeFlowName")
+                      .A2UI_REPLY_ACTION,
+                  ),
+                  description: "A2UI Reply",
+                  paramsJson: a,
+                  version: 1,
                 },
-                a != null ? a.msgContextInfo(e.id) : null,
-              ),
-              s = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, l),
-              u = s[1];
-            yield u;
-          },
-        )),
+                nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
+                  .A2UI_REPLY_ACTION,
+                interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+                viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+                body: t,
+              },
+              i != null ? i.msgContextInfo(n.id) : null,
+            ),
+            u = o("WAWebSendMsgChatAction").addAndSendMsgToChat(n, s),
+            c = u[1];
+          yield c;
+        })),
         y.apply(this, arguments)
       );
     }

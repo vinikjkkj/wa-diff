@@ -212,6 +212,8 @@ __d(
               audioInbandFecEncoded: [678, e.TYPES.INTEGER],
               audioJbResets: [1318, e.TYPES.INTEGER],
               audioJbResetsPartial: [1334, e.TYPES.INTEGER],
+              audioLazyCacheDropCount: [3112, e.TYPES.INTEGER],
+              audioLazyCacheDroppedMs: [3113, e.TYPES.INTEGER],
               audioLossPeriodCount: [722, e.TYPES.INTEGER],
               audioNackHbhEnabled: [1184, e.TYPES.BOOLEAN],
               audioNackReqPktsProcessed: [1271, e.TYPES.INTEGER],

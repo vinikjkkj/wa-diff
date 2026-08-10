@@ -96,11 +96,11 @@ __d(
           function* (e, t, n, a, i) {
             try {
               var l,
-                s = o("WAWebSyncdKmpConversion").toKmpSyncdEncryptedData(
-                  t,
-                  a,
-                  i,
-                ),
+                s = o("WAWebSyncdKmpConversion").toKmpSyncdEncryptedData({
+                  keyId: t,
+                  operation: a,
+                  record: i,
+                }),
                 d = yield _.decrypt(
                   o("WAWebSyncdKmpConversion").toKmpSyncdCryptoMutationKey(
                     t,

@@ -101,7 +101,7 @@ __d(
         case e.LOCK_SCREEN:
           return s._(/*BTDS*/ "Lock app");
         case e.LABEL_CHAT:
-          return s._(/*BTDS*/ "Label chat");
+          return s._(/*BTDS*/ "Add chat to list");
         case e.TOGGLE_COMMAND_PALETTE:
           return s._(/*BTDS*/ "Extended search");
         case e.ZOOM_IN:

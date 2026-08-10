@@ -83,8 +83,12 @@ __d(
                       ? n
                       : "",
                 };
-              })));
-          var f = _.mentionedJid.length > 0 || _.groupMentions.length > 0,
+              })),
+            e.isSpoiler === !0 && (_.isSpoiler = !0));
+          var f =
+              _.mentionedJid.length > 0 ||
+              _.groupMentions.length > 0 ||
+              _.isSpoiler === !0,
             g;
           switch (p) {
             case o("WAWebMsgType").MSG_TYPE.CHAT: {

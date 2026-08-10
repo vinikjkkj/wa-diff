@@ -371,19 +371,21 @@ __d(
             try {
               this.$2.invalidateContactsAsync(t).then(void 0, function (a) {
                 if (n < y) {
-                  (o("WALogger")
-                    .WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[hybrid-contacts] invalidateContactsAsync rejected (attempt ",
-                          "/",
-                          "), retrying",
-                        ])),
-                      n + 1,
-                      y,
-                    )
-                    .catching(r("getErrorSafe")(a))
-                    .sendLogs("hybrid-contacts-invalidate-async-retry"),
+                  (r("WAWebODS").incr(
+                    "web.hybrid.bridge.contacts.send.invalidate.retry",
+                  ),
+                    o("WALogger")
+                      .WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[hybrid-contacts] invalidateContactsAsync rejected (attempt ",
+                            "/",
+                            "), retrying",
+                          ])),
+                        n + 1,
+                        y,
+                      )
+                      .catching(r("getErrorSafe")(a)),
                     o("WAWebReleaseToEventLoop")
                       .releaseToEventLoop()
                       .then(function () {
@@ -402,6 +404,9 @@ __d(
                   )
                   .catching(r("getErrorSafe")(a))
                   .sendLogs("hybrid-contacts-invalidate-async-failed"),
+                  r("WAWebODS").incr(
+                    "web.hybrid.bridge.contacts.send.invalidate.fail",
+                  ),
                   t.forEach(function (t) {
                     return e.$5.delete(t);
                   }));
@@ -416,6 +421,9 @@ __d(
                 )
                 .catching(r("getErrorSafe")(n))
                 .sendLogs("hybrid-contacts-invalidate-async-threw"),
+                r("WAWebODS").incr(
+                  "web.hybrid.bridge.contacts.send.invalidate.fail",
+                ),
                 t.forEach(function (t) {
                   return e.$5.delete(t);
                 }));

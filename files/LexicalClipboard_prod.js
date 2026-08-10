@@ -519,7 +519,8 @@ __d(
         i = [];
       }
       var s = null === n || r.isSelected(n);
-      var c = require("Lexical").$isElementNode(r) && r.excludeFromCopy("html");
+      var c =
+        require("Lexical").$isElementNode(r) && r.excludeFromCopy("clone");
       var a = r;
       null !== n &&
         require("Lexical").$isTextNode(a) &&

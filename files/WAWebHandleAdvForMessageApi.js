@@ -14,61 +14,67 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e;
-    function u(e, t, n, r, o, a, i, l) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a, i, l, u, c) {
-            l === void 0 && (l = !1);
-            var d = n.keyIndex,
-              m = n.rawId,
-              p = n.timestamp;
-            (m != null || s(0, 56258),
-              p != null || s(0, 56257),
-              d != null || s(0, 56256));
-            var _ = { rawId: m, timestamp: p, keyIndex: d },
-              f = t.device;
-            (f != null && f !== o("WAJids").DEFAULT_DEVICE_ID) || s(0, 56259);
-            var g = o("WAWebWidFactory").asUserWidOrThrow(t),
-              h = yield o("WAWebApiDeviceList").getDeviceRecord(g),
-              y =
-                r == null ||
-                (a != null && !o("WAWebSignalCommonUtils").bufferEqual(r, a));
-            return (
-              o("WAWebCurrentUser").isEmployee() &&
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "handleADVDeviceIdentity: isNewPrimaryIdentity-",
-                      "",
-                    ])),
-                  y,
-                ),
-              !h || h.deleted || h.rawId !== m || y
-                ? o("WAWebHandleAdvListResetApi").handleListReset({
-                    deviceWid: t,
-                    incomingAdvAccountType: c,
-                    incomingAdvDeviceIdentity: _,
-                    incomingDeviceIdentity: i,
-                    lastDeviceJobTs: u,
-                    localDeviceRecord: h,
-                    newPrimaryKey: y ? a : null,
-                    offline: l,
-                  })
-                : o("WAWebHandleAdvNoListResetApi").handleNoListReset(
-                    t,
-                    _,
-                    i,
-                    h,
-                    l,
-                    u,
-                    c,
-                  )
-            );
-          },
-        )),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.deviceWid,
+            r = t.incomingAdvAccountType,
+            a = t.incomingAdvDeviceIdentity,
+            i = t.incomingDeviceIdentity,
+            l = t.incomingPrimaryIdentity,
+            u = t.lastDeviceJobTs,
+            c = t.localPrimaryIdentity,
+            d = t.offline,
+            m = d === void 0 ? !1 : d,
+            p = a.keyIndex,
+            _ = a.rawId,
+            f = a.timestamp;
+          (_ != null || s(0, 56258),
+            f != null || s(0, 56257),
+            p != null || s(0, 56256));
+          var g = { rawId: _, timestamp: f, keyIndex: p },
+            h = n.device;
+          (h != null && h !== o("WAJids").DEFAULT_DEVICE_ID) || s(0, 56259);
+          var y = o("WAWebWidFactory").asUserWidOrThrow(n),
+            C = yield o("WAWebApiDeviceList").getDeviceRecord(y),
+            b =
+              c == null ||
+              (l != null && !o("WAWebSignalCommonUtils").bufferEqual(c, l));
+          return (
+            o("WAWebCurrentUser").isEmployee() &&
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleADVDeviceIdentity: isNewPrimaryIdentity-",
+                    "",
+                  ])),
+                b,
+              ),
+            !C || C.deleted || C.rawId !== _ || b
+              ? o("WAWebHandleAdvListResetApi").handleListReset({
+                  deviceWid: n,
+                  incomingAdvAccountType: r,
+                  incomingAdvDeviceIdentity: g,
+                  incomingDeviceIdentity: i,
+                  lastDeviceJobTs: u,
+                  localDeviceRecord: C,
+                  newPrimaryKey: b ? l : null,
+                  offline: m,
+                })
+              : o("WAWebHandleAdvNoListResetApi").handleNoListReset(
+                  n,
+                  g,
+                  i,
+                  C,
+                  m,
+                  u,
+                  r,
+                )
+          );
+        })),
         c.apply(this, arguments)
       );
     }

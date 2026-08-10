@@ -12,6 +12,7 @@ __d(
       TEE_BOT: 6,
       HATCH: 7,
       MANUS: 8,
+      BOT_3P_AGENT: 9,
     });
     i.BOT_TYPE = e;
   },

@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebActions",
     "WAWebAdaptiveLayoutGatingUtils",
-    "WAWebBizManageLabelModal.react",
     "WAWebCallCollection",
     "WAWebChatCollection",
     "WAWebChatPinBridge",
@@ -20,6 +19,7 @@ __d(
     "WAWebDrawerManagerGlobalContext",
     "WAWebKeyboardTabUtils",
     "WAWebLockScreenResolver",
+    "WAWebManageLabelFlowLoadable",
     "WAWebMeTabFlowLoadable",
     "WAWebModalManager",
     "WAWebMsgCollection",
@@ -479,10 +479,9 @@ __d(
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       e &&
         o("WAWebModalManager").ModalManager.open(
-          _.jsx(r("WAWebBizManageLabelModal.react"), {
+          _.jsx(o("WAWebManageLabelFlowLoadable").ManageLabelFlowLoadable, {
             modelsToUpdate: [e],
-            onCancel: o("WAWebModalManager").closeModalManager,
-            onLabelUpdateComplete: o("WAWebModalManager").closeModalManager,
+            onClose: o("WAWebModalManager").closeModalManager,
             entryPoint: null,
           }),
         );

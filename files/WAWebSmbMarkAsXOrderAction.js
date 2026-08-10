@@ -54,47 +54,51 @@ __d(
             ? { globalSharingSettingEnabled: !1 }
             : null;
       };
-    function u(t, n, a, i) {
-      var l,
-        u = e(a);
-      if (u != null) {
-        var c = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t);
+    function u(t) {
+      var n,
+        a = t.chat,
+        i = t.isPaid,
+        l = t.optOutValue,
+        u = t.orderStatus,
+        c = e(u);
+      if (c != null) {
+        var d = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(a);
         if (
           !(
-            c == null ||
+            d == null ||
             !o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()
           ) &&
           !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
         ) {
-          var d = r("WAWebConversionTupleCollection").get(t.id);
+          var m = r("WAWebConversionTupleCollection").get(a.id);
           if (
             !(
-              d != null &&
-              o("WATimeUtils").unixTime() - d.timestamp >
+              m != null &&
+              o("WATimeUtils").unixTime() - m.timestamp >
                 o("WAWebConversionTupleModel").ConversionTupleExpiry &&
               o(
                 "WAWebCTWAGatingUtils",
               ).isCtwaConversionCreationFromDelayEnabled()
             )
           ) {
-            var m = (l = t.accountLid) == null ? void 0 : l.toString();
+            var p = (n = a.accountLid) == null ? void 0 : n.toString();
             o("WAWebChatThreadLogging")
-              .getChatThreadIDHMAC(t.id.toString())
+              .getChatThreadIDHMAC(a.id.toString())
               .then(function (e) {
                 var t = {
                   ctwaOrderSignalVersion: 1,
-                  deepLinkConversionSource: c.source,
+                  deepLinkConversionSource: d.source,
                   orderPaid: i,
                   orderSignalType: o("WAWebWamEnumOrderSignalType")
                     .ORDER_SIGNAL_TYPE.UPDATED,
-                  orderStatus: u,
+                  orderStatus: c,
                   customerAdsSharingSettingEnabled: o(
                     "WAWebPerCustomerDataSharingUtils",
-                  ).getCustomerAdsDataSharingState(m),
+                  ).getCustomerAdsDataSharingState(p),
                   threadIdHmac: e != null ? e : void 0,
                 };
                 new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
-                  babelHelpers.extends({}, t, s(n)),
+                  babelHelpers.extends({}, t, s(l)),
                 ).commit();
               });
           }

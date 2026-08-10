@@ -33,6 +33,7 @@ __d(
                 o("WAWebWamEnumCustomPaymentMethodsSyncStatus")
                   .CUSTOM_PAYMENT_METHODS_SYNC_STATUS,
               ],
+              graphqlEndpointName: [49, e.TYPES.STRING],
               merchantType: [
                 43,
                 o("WAWebWamEnumMerchantTypeType").MERCHANT_TYPE_TYPE,

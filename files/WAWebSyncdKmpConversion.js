@@ -88,13 +88,16 @@ __d(
         a,
       );
     }
-    function p(t, n, r) {
-      var a = new Int8Array(r.index.blob),
-        i = new Int8Array(r.value.blob),
-        l = i.slice(-o("WAWebSyncdCryptoConst").MAC_LENGTH);
+    function p(t) {
+      var n = t.keyId,
+        r = t.operation,
+        a = t.record,
+        i = new Int8Array(a.index.blob),
+        l = new Int8Array(a.value.blob),
+        s = l.slice(-o("WAWebSyncdCryptoConst").MAC_LENGTH);
       return new (o(
         "wa-kmp-syncd-engine-crypto-api",
-      ).KmpSyncdCryptoEncryptedData)(e(t), a, u(n), i, l);
+      ).KmpSyncdCryptoEncryptedData)(e(n), i, u(r), l, s);
     }
     function _(e, t) {
       var n;

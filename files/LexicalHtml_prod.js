@@ -1633,14 +1633,16 @@ __d(
           ((require("Lexical").isHTMLElement(f) ||
             require("Lexical").isDocumentFragment(f)) &&
             (p ? p(m) : f.append(m)),
-          r(f),
-          d)
+          require("Lexical").isDocumentFragment(f))
         ) {
-          var _e33 = d.call(u, f);
-          _e33 &&
-            (require("Lexical").isDocumentFragment(f)
-              ? f.replaceChildren(_e33)
-              : f.replaceWith(_e33));
+          if (d) {
+            var _e33 = d.call(u, f);
+            _e33 && f.replaceChildren(_e33);
+          }
+          r(f);
+        } else if ((r(f), d)) {
+          var _e34 = d.call(u, f);
+          _e34 && f.replaceWith(_e34);
         }
       } else r(m);
       return c;
@@ -1675,8 +1677,8 @@ __d(
           ((l = Array.isArray(_t24) ? _t24[_t24.length - 1] : _t24), null !== l)
         ) {
           for (var _ref9 of s) {
-            var _e34 = _ref9[1];
-            if (((l = _e34(l, i)), !l)) break;
+            var _e35 = _ref9[1];
+            if (((l = _e35(l, i)), !l)) break;
           }
           l && c.push.apply(c, Array.isArray(_t24) ? _t24 : [l]);
         }
@@ -1687,9 +1689,9 @@ __d(
       var h =
         (null == l || !require("Lexical").$isRootOrShadowRoot(l)) &&
         ((null != l && require("Lexical").$isBlockElementNode(l)) || r);
-      for (var _e35 = 0; _e35 < d.length; _e35++) {
+      for (var _e36 = 0; _e36 < d.length; _e36++) {
         var _p;
-        (_p = p).push.apply(_p, $t(d[_e35], n, o, h, new Map(s), l));
+        (_p = p).push.apply(_p, $t(d[_e36], n, o, h, new Map(s), l));
       }
       if (
         (null != f && (p = f(p)),
@@ -1706,7 +1708,7 @@ __d(
           )),
         null == l)
       ) {
-        if (p.length > 0) for (var _e36 of p) c.push(_e36);
+        if (p.length > 0) for (var _e37 of p) c.push(_e37);
         else
           require("Lexical").isBlockDomNode(e) &&
             (function (e) {
@@ -1725,20 +1727,20 @@ __d(
       var r = e.style.textAlign,
         s = [];
       var i = [];
-      for (var _e37 = 0; _e37 < n.length; _e37++) {
-        var _c3 = n[_e37];
+      for (var _e38 = 0; _e38 < n.length; _e38++) {
+        var _c3 = n[_e38];
         if (require("Lexical").$isBlockElementNode(_c3))
           (r && !_c3.getFormat() && _c3.setFormat(r), s.push(_c3));
         else if (
           (i.push(_c3),
-          _e37 === n.length - 1 ||
-            (_e37 < n.length - 1 &&
-              require("Lexical").$isBlockElementNode(n[_e37 + 1])))
+          _e38 === n.length - 1 ||
+            (_e38 < n.length - 1 &&
+              require("Lexical").$isBlockElementNode(n[_e38 + 1])))
         ) {
-          var _e38 = o();
-          (_e38.setFormat(r),
-            _e38.append.apply(_e38, i),
-            s.push(_e38),
+          var _e39 = o();
+          (_e39.setFormat(r),
+            _e39.append.apply(_e39, i),
+            s.push(_e39),
             (i = []));
         }
       }
@@ -1804,7 +1806,7 @@ __d(
         for (var _t26 of o)
           if (!mt.has(_t26.nodeName)) {
             var _n21 = $t(_t26, e, s, !1);
-            if (null !== _n21) for (var _e39 of _n21) r.push(_e39);
+            if (null !== _n21) for (var _e40 of _n21) r.push(_e40);
           }
         return (
           (function (e) {
@@ -1814,9 +1816,9 @@ __d(
                   require("Lexical").ArtificialNode__DO_NOT_USE &&
                 _n22.insertAfter(require("Lexical").$createLineBreakNode());
             for (var _t27 of e) {
-              var _e40 = _t27.getParent();
-              _e40 &&
-                _e40.splice(_t27.getIndexWithinParent(), 1, _t27.getChildren());
+              var _e41 = _t27.getParent();
+              _e41 &&
+                _e41.splice(_t27.getIndexWithinParent(), 1, _t27.getChildren());
             }
           })(s),
           r

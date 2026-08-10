@@ -24,6 +24,7 @@ __d(
     "WAWebWamEnumMessageType",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "WAWebWamEnumPairedMediaType",
+    "WAWebWamEnumPeripheralDeviceType",
     "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumReachabilityStatus",
     "WAWebWamEnumRevokeType",
@@ -171,6 +172,10 @@ __d(
                 o("WAWebWamEnumPairedMediaType").PAIRED_MEDIA_TYPE,
               ],
               participantCount: [32, e.TYPES.INTEGER],
+              peripheralDeviceOrigin: [
+                96,
+                o("WAWebWamEnumPeripheralDeviceType").PERIPHERAL_DEVICE_TYPE,
+              ],
               privateAiFeatureName: [
                 81,
                 o("WAWebWamEnumPrivateAiFeatureName").PRIVATE_AI_FEATURE_NAME,

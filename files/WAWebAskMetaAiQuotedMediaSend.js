@@ -35,28 +35,42 @@ __d(
         ? !1
         : o("WAWebBotGating").isAskMetaAiMediaForwardEnabled();
     }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    function d(e, t) {
+      if (
+        t.type !== o("WAWebMsgType").MSG_TYPE.IMAGE &&
+        t.type !== o("WAWebMsgType").MSG_TYPE.VIDEO
+      )
+        return !1;
+      var n = t.id.remote;
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        o("WAWebBotUtils").isMetaAiBot(e.id) &&
+        n != null &&
+        !n.equals(e.id) &&
+        o("WAWebBotForwardCapability").canForwardMsgToMetaAi([t])
+      );
+    }
+    function m(e, t, n) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = n.quotedMsg;
           if (r != null && c(e, r)) {
-            var a = yield p(e, r, t, n);
+            var a = yield _(e, r, t, n);
             if (a) return;
           }
           yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(e, t, n);
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t, n, r) {
-      return _.apply(this, arguments);
+    function _(e, t, n, r) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i) {
             try {
               var l,
@@ -97,11 +111,12 @@ __d(
             return !1;
           },
         )),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
     ((l.shouldForwardAskMetaAiQuotedMedia = c),
-      (l.sendAskMetaAiAwareTextMsg = d));
+      (l.shouldHideAskMetaAiQuotedCaption = d),
+      (l.sendAskMetaAiAwareTextMsg = m));
   },
   98,
 );
