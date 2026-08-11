@@ -36,37 +36,34 @@ __d(
       );
     }
     function _() {
-      return o("WAWebABProps").getABPropConfigValue("rt_edit_receive");
-    }
-    function f() {
       return o("WAWebABProps").getABPropConfigValue("rt_web_delay_processing");
     }
-    function g() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "ft_validation_failure_drop_placeholder",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "visible_message_drop_placeholder_enabled_internal_only",
       );
     }
-    function y() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "rt_swapped_fallback_validation",
       );
     }
-    function C() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_remove_message_secret_from_quoted_enabled",
       );
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_move_message_secret_top_level_enabled",
       );
     }
-    function v() {
+    function b() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "web_biz_simple_signal_enabled",
@@ -80,14 +77,13 @@ __d(
       (l.getReportingTagCleanupDays = d),
       (l.getReportingTokenCleanupDays = m),
       (l.getSenderReportingTokenVersion = p),
-      (l.isReportingTokenEditReceiveEnabled = _),
-      (l.isWebReportingTokenDelayProcessingEnabled = f),
-      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = g),
-      (l.isMessageDropPlaceholderEnabled = h),
-      (l.isReportingTokenSwappedFallbackValidationEnabled = y),
-      (l.isRemoveMessageSecretFromQuotedEnabled = C),
-      (l.isMoveMessageSecretTopLevelEnabled = b),
-      (l.isSimpleSignalEnabled = v));
+      (l.isWebReportingTokenDelayProcessingEnabled = _),
+      (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = f),
+      (l.isMessageDropPlaceholderEnabled = g),
+      (l.isReportingTokenSwappedFallbackValidationEnabled = h),
+      (l.isRemoveMessageSecretFromQuotedEnabled = y),
+      (l.isMoveMessageSecretTopLevelEnabled = C),
+      (l.isSimpleSignalEnabled = b));
   },
   98,
 );

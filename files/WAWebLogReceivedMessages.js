@@ -1,7 +1,6 @@
 __d(
   "WAWebLogReceivedMessages",
   [
-    "PaymentLinkWamLogger",
     "Promise",
     "WALogger",
     "WATimeUtils",
@@ -26,6 +25,7 @@ __d(
     "WAWebMsgType",
     "WAWebOrderDetailsReceivedWamLogger",
     "WAWebPaymentInfoReceivedWamLogger",
+    "WAWebPaymentLinkWamLogger",
     "WAWebPaymentRequestWamLogger",
     "WAWebQbmIncomingMessageLogger",
     "WAWebRuntimeEnvironmentUtils",
@@ -65,8 +65,8 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    o("PaymentLinkWamLogger").shouldLogReceiverEvent(e) &&
-                      (yield o("PaymentLinkWamLogger")
+                    o("WAWebPaymentLinkWamLogger").shouldLogReceiverEvent(e) &&
+                      (yield o("WAWebPaymentLinkWamLogger")
                         .genLogReceiveEvent(
                           { interaction_component: null, msg: e },
                           e.matchedText,

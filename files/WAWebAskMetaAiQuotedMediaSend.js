@@ -33,7 +33,7 @@ __d(
         n.equals(e.id) ||
         !o("WAWebBotForwardCapability").canForwardMsgToMetaAi([t])
         ? !1
-        : o("WAWebBotGating").isAskMetaAiMediaForwardEnabled();
+        : o("WAWebBotGating").isAskMetaAiImprovementEnabled();
     }
     function d(e, t) {
       if (

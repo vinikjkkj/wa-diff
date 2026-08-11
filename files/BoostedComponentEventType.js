@@ -197,6 +197,7 @@ __d(
         "ctwa_native_ad_heuristics_budget_recommendation",
       CTWA_NATIVE_AD_SABR_V2_WITH_ESTIMATION_WIDGET:
         "ctwa_native_ad_sabr_v2_with_estimation_widget",
+      CTWA_SERVER_DRAFT_RESTORE: "ctwa_server_draft_restore",
       HIGH_FRICTION_DURATION_WARNING_DIALOG_IMPRESSION:
         "high_friction_duration_warning_dialog_impression",
       HIGH_FRICTION_DURATION_WARNING_DIALOG_CTA_CLICK:

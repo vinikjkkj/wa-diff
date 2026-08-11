@@ -28,6 +28,7 @@ __d(
     "WAWebMediaUploadMmsThumbnail",
     "WAWebMessageAssociationUIUtils",
     "WAWebMessagingGatingUtils",
+    "WAWebMetaAiForwardedText",
     "WAWebMmsMediaTypes",
     "WAWebMsgDataUtils",
     "WAWebMsgGetters",
@@ -52,32 +53,31 @@ __d(
     function p(e) {
       return !!(o("WAWebFrontendMsgGetters").getAsMms(e) && !e.ctwaContext);
     }
-    var _ = "\n \u0336 \u0336 \u0336 \u0336 \u0336 \u0336\n";
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.appendedText,
             i = t.associationOptions,
             l = t.chat,
             u = t.includeCaption,
             c = u === void 0 ? !1 : u,
             d = t.msg,
-            f = t.multicast,
-            g = f === void 0 ? !1 : f;
+            _ = t.multicast,
+            f = _ === void 0 ? !1 : _;
           if (p(d) || o("WAWebFileUtils").isDocument(d))
             return o("WAWebMediaForwardMediaMsg").forwardMediaMsg({
               appendedText: a,
               chat: l,
               includeCaption: c,
               msg: d,
-              multicast: g,
+              multicast: f,
               associationOptions: i,
             });
-          var y = k(d, l);
-          if (L(d) && (y.body == null || y.body === ""))
+          var h = E(d, l);
+          if (R(d) && (h.body == null || h.body === ""))
             return (
               o("WALogger")
                 .LOG(
@@ -89,23 +89,25 @@ __d(
                 .sendLogs("forward-hatch-empty-body"),
               null
             );
-          if (o("WAWebBotUtils").isMetaAiBot(l.id)) {
-            if (a != null && a !== "") {
-              var C = y.body || "";
-              C === "" ? (y.body = a) : (y.body = C + _ + a);
-            }
-            if (o("WAWebBotGating").isAiChatThreadsEnabled())
-              return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(l, {
-                type: "MetaAiForward",
-                query: y.body,
-              });
-          }
-          var b = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, d.type),
-            v = b.type,
-            S = babelHelpers.objectWithoutPropertiesLoose(b, e),
-            R = Object.assign(
-              y,
-              babelHelpers.extends({}, S, {
+          if (
+            o("WAWebBotUtils").isMetaAiBot(l.id) &&
+            (a != null &&
+              a !== "" &&
+              (h.body = o(
+                "WAWebMetaAiForwardedText",
+              ).composeMetaAiForwardedText(h.body, a)),
+            o("WAWebBotGating").isAiChatThreadsEnabled())
+          )
+            return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(l, {
+              type: "MetaAiForward",
+              query: h.body,
+            });
+          var y = yield o("WAWebMsgDataUtils").genOutgoingMsgData(l, d.type),
+            C = y.type,
+            b = babelHelpers.objectWithoutPropertiesLoose(y, e),
+            v = Object.assign(
+              h,
+              babelHelpers.extends({}, b, {
                 participant: void 0,
                 star: !1,
                 isForwarded:
@@ -113,7 +115,7 @@ __d(
                 forwardedFromWeb: !0,
                 forwardingScore:
                   o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(d),
-                multicast: g,
+                multicast: f,
                 messageSecret:
                   o(
                     "WAWebMessagingGatingUtils",
@@ -129,30 +131,30 @@ __d(
               ).maybeStripNewsletterForwardMetadata({
                 isQuestionOrQuestionReply:
                   d.isQuestion || d.questionReplyQuotedMessage != null,
-                forwardable: R,
+                forwardable: v,
                 destination: l.id,
                 source: d.id.remote,
                 isOriginalMsgForwarded: d.isForwarded,
               }),
             );
-          var E = yield h(R),
-            I = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, E),
-            T = I[0],
-            D = I[1],
-            x = yield (m || (m = n("Promise"))).all([T, D]),
-            $ = x[0],
-            P = x[1];
-          return babelHelpers.extends({}, P, { msg: $ });
+          var S = yield g(v),
+            L = o("WAWebSendMsgChatAction").addAndSendMsgToChat(l, S),
+            k = L[0],
+            I = L[1],
+            T = yield (m || (m = n("Promise"))).all([k, I]),
+            D = T[0],
+            x = T[1];
+          return babelHelpers.extends({}, x, { msg: D });
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function y() {
+    function h() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebFrontendMsgGetters").getAsUrl(
             o("WAWebMsgModelFromData").msgModelFromMsgData(e),
           );
@@ -178,7 +180,7 @@ __d(
               s = l.filehash,
               u = l.mediaEntry;
             return (u == null ? void 0 : u.getMediaKey()) == null
-              ? C(e)
+              ? y(e)
               : babelHelpers.extends({}, e, {
                   thumbnailDirectPath: u == null ? void 0 : u.directPath,
                   thumbnailSha256: s,
@@ -191,13 +193,13 @@ __d(
                     u == null ? void 0 : u.getMediaKeyTimestamp(),
                 });
           } catch (t) {
-            return C(e);
+            return y(e);
           }
         })),
-        y.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function C(e) {
+    function y(e) {
       return babelHelpers.extends({}, e, {
         thumbnailHQ: void 0,
         thumbnailDirectPath: void 0,
@@ -209,12 +211,12 @@ __d(
         thumbnailWidth: void 0,
       });
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function v() {
+    function b() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.forwardedParentMsgId,
             r = e.includeCaption,
@@ -234,7 +236,7 @@ __d(
                   "WAWebForwardAssociationConfig",
                 ).getForwardAssociationConfig(c);
                 d != null &&
-                  f({
+                  _({
                     chat: t,
                     msg: s,
                     multicast: a,
@@ -258,15 +260,15 @@ __d(
             }
           }
         })),
-        v.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function R() {
+    function S() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.appendedText,
             n = e.chat,
             a = e.includeCaption,
@@ -280,12 +282,12 @@ __d(
               "Forwarded to contact is blocked",
               m,
             );
-          var _ = [];
+          var f = [];
           for (var g of l) {
             var h = i || o("WAWebMsgGetters").getHasOriginatedFromNewsletter(g);
             try {
               var y,
-                C = yield f({
+                b = yield _({
                   chat: n,
                   msg: g,
                   multicast: u,
@@ -295,13 +297,13 @@ __d(
               (o(
                 "WAWebIncrementNewsletterForwardCounterAction",
               ).incrementNewsletterForwardCounter(g, n),
-                b({
+                C({
                   chat: n,
                   multicast: u,
                   includeCaption: h,
                   originalMsg: g,
                   forwardedParentMsgId:
-                    C == null || (y = C.msg) == null ? void 0 : y.id,
+                    b == null || (y = b.msg) == null ? void 0 : y.id,
                 }).catch(function (e) {
                   o("WALogger")
                     .ERROR(
@@ -319,22 +321,22 @@ __d(
                     "[chat forward message] error during forwarding message",
                   ])),
               ),
-                p(g) && _.push(g));
+                p(g) && f.push(g));
             }
           }
-          return _;
+          return f;
         })),
-        R.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function L(e) {
+    function R(e) {
       if (e.type !== o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) return !1;
       var t = o("WAWebMsgGetters").getSender(e);
       return t != null && o("WAWebBotUtils").isHatchBot(t);
     }
-    function E(e, t) {
+    function L(e, t) {
       var n;
-      return L(e)
+      return R(e)
         ? ((t.body =
             (n = o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e, {
               includeBodyFallback: !1,
@@ -350,7 +352,7 @@ __d(
           !0)
         : !1;
     }
-    function k(e, t) {
+    function E(e, t) {
       var n,
         a,
         i,
@@ -444,7 +446,7 @@ __d(
           ).generatePollVotesSnapshotFromPoll(
             r("nullthrows")(o("WAWebFrontendMsgGetters").getAsPollCreation(e)),
           ))));
-      var m = E(e, d);
+      var m = L(e, d);
       (e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
         !m &&
         o("WAWebForwardRichResponseHandler").updateRichResponseFields(e, d),
@@ -493,7 +495,7 @@ __d(
       }
       return d;
     }
-    ((l.forwardMessages = S), (l.getForwardedMessageFields = k));
+    ((l.forwardMessages = v), (l.getForwardedMessageFields = E));
   },
   98,
 );

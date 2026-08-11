@@ -18,7 +18,7 @@ __d(
       c = null,
       d;
     try {
-      d = r("bx").getURL(r("bx")("47501"), { cacheBreaker: "1786355776612" });
+      d = r("bx").getURL(r("bx")("47509"), { cacheBreaker: "1786428932646" });
     } catch (e) {
       c = e;
     }
@@ -57,7 +57,7 @@ __d(
         var C = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/d28a4bee96d90dfdb6f1412777c7d7bff29f3f4613f7de4a53173bee3c293bc7/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/953620a673d5333d6d1e6d40c7317fc1af3e9e66b366701c10be1b82f4cb4dcd/wa_voip_shared.wasm",
           ),
           c != null)
         )
@@ -781,10 +781,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Ke = {
-          1338753: function () {
+          1339249: function () {
             return Date.now();
           },
-          1338776: function (t, n) {
+          1339272: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -919,13 +919,14 @@ __d(
             { data: i, len: t, ip: Yt(n), port: r },
           );
         }
-        function at(e, t, n, r, o) {
+        function at(e, t, n, r, o, a) {
           self.WhatsAppVoipWasmWorkerCompatibleCallbacks.initCaptureDriverJS({
             sample_rate: e,
             channels: t,
             bits_per_sample: n,
             frames_per_chunk: r,
             device_type: o,
+            auto_gain_control: !!a,
           });
         }
         function it(e) {
@@ -7718,8 +7719,8 @@ __d(
           fl = (C.___get_exception_message = $e("__get_exception_message")),
           gl = $e("__cxa_can_catch"),
           hl = $e("__cxa_is_pointer_type"),
-          yl = (C.___start_em_js = 1333324),
-          Cl = (C.___stop_em_js = 1338753);
+          yl = (C.___start_em_js = 1333756),
+          Cl = (C.___stop_em_js = 1339249);
         function bl(e, t, n, r) {
           var o = dl();
           try {

@@ -558,7 +558,16 @@ __d(
             video_data: null,
           };
     }
-    function g(e, t, n, r) {
+    function g(e) {
+      return e == null
+        ? 0
+        : [e.link_data, e.photo_data, e.template_data, e.video_data].filter(
+            function (e) {
+              return e != null;
+            },
+          ).length;
+    }
+    function h(e, t, n, r) {
       var a,
         i,
         l,
@@ -646,7 +655,7 @@ __d(
         ee =
           e == null || (_ = e.link_data) == null ? void 0 : _.retailer_item_ids,
         te =
-          (e == null || (f = e.photo_data) == null ? void 0 : f.image_hash) !==
+          (e == null || (f = e.photo_data) == null ? void 0 : f.image_hash) !=
           null,
         ne = o("LWICometCTALinkUtils").getShouldUseLinkFromCTA(t, e),
         re =
@@ -771,7 +780,8 @@ __d(
       (l.getMediumFromAdgroup = p),
       (l.getTypedObjectStorySpecFromClientObjectStorySpec = _),
       (l.getInitialObjectStorySpecForBoostExistingPost = f),
-      (l.getTypedObjectStorySpec = g));
+      (l.countObjectStorySpecPostTypes = g),
+      (l.getTypedObjectStorySpec = h));
   },
   98,
 );

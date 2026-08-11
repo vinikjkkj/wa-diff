@@ -95,6 +95,7 @@ __d(
               authorPhoneNumber:
                 f != null ? o("WAWebWidFactory").createWid(f) : null,
               isLidAddressingMode:
+                (u == null ? void 0 : u.addressing_mode) == null ||
                 (u == null ? void 0 : u.addressing_mode) === "LID",
               pushname: _,
               externalId: t.stanzaId,

@@ -101,10 +101,10 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebChatFindBridge").findLocal(e.toString());
           if (n == null) {
-            yield o("WAWebCreateChat").createChat(
-              { chatId: e },
-              "createChatOnInviteAccept",
-            );
+            yield o("WAWebCreateChat").createChat({
+              createChatOrigin: "createChatOnInviteAccept",
+              destination: { chatId: e },
+            });
             var r = yield o("WAWebChatFindBridge").findLocal(e.toString());
             if (r == null) {
               o("WALogger").ERROR(

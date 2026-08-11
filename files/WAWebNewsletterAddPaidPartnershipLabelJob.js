@@ -11,23 +11,27 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(t, r, a, i) {
+    function s(t) {
+      var r = t.messageType,
+        a = t.msgId,
+        i = t.newsletterJid,
+        l = t.serverId;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "addPaidPartnershipLabel",
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
-              var n = yield o(
+              var t = yield o(
                 "WAWebMexNewsletterAddPaidPartnershipLabelJob",
-              ).mexNewsletterAddPaidPartnershipLabelJob(t, r, i);
+              ).mexNewsletterAddPaidPartnershipLabelJob(i, l, r);
               return (
-                n === !0 &&
+                t === !0 &&
                   (yield o("WAWebSchemaMessage")
                     .getMessageTable()
                     .bulkCreateOrMerge([
                       { id: a, hasPaidPartnershipLabel: !0 },
                     ])),
-                n
+                t
               );
             } catch (t) {
               return (

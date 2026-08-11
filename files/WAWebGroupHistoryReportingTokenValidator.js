@@ -185,14 +185,14 @@ __d(
             );
           var i = yield o(
               "WAWebGroupHistoryReportingTokenGenerator",
-            ).computeReportingTokenForMessage(
-              t,
-              n.bundleMessageSecret,
-              n.senderJid,
-              n.groupJid,
-              n.stanzaVersion,
-              r,
-            ),
+            ).computeReportingTokenForMessage({
+              bundleMessageSecret: n.bundleMessageSecret,
+              groupJid: n.groupJid,
+              msgInfo: t,
+              reportingTokenVersion: n.stanzaVersion,
+              senderJid: n.senderJid,
+              stanzaId: r,
+            }),
             l = y(i, a),
             s = l.failureReason,
             _ = l.isValid,

@@ -52,7 +52,7 @@ __d(
                 R = r.groupInfo;
               return (
                 m(t, R.subject),
-                p(t, (a = R.isLidAddressingMode) != null ? a : !1),
+                p(t, (a = R.isLidAddressingMode) != null ? a : !0),
                 {
                   id: R.id,
                   owner: R.owner,
@@ -79,7 +79,7 @@ __d(
                   defaultSubgroup: (y = R.defaultSubgroup) != null ? y : !1,
                   generalSubgroup: (C = R.generalSubgroup) != null ? C : !1,
                   isLidAddressingMode:
-                    (b = R.isLidAddressingMode) != null ? b : !1,
+                    (b = R.isLidAddressingMode) != null ? b : !0,
                   allowNonAdminSubGroupCreation:
                     R.allowNonAdminSubGroupCreation,
                   generalChatAutoAddDisabled: R.generalChatAutoAddDisabled,

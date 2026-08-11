@@ -19,12 +19,16 @@ __d(
         return (
           (r.arePublicKeyWithSignatureValid = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var o = yield this.$1(e, t, n);
-                o ? r.onComplete(!0) : yield this.$2(e, t, n, r);
+              function* (e) {
+                var t = e.callback,
+                  n = e.contactId,
+                  r = e.publicKeyPem,
+                  o = e.publicKeySignature,
+                  a = yield this.$1(n, r, o);
+                a ? t.onComplete(!0) : yield this.$2(n, r, o, t);
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

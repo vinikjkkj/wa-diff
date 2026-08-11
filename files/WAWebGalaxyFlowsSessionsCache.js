@@ -42,12 +42,16 @@ __d(
       var o = r.latestSessionId;
       return o == null ? null : r.sessions.get(o);
     }
-    function p(e, t, n, r) {
-      var a = m(e, t);
-      if (a != null) {
-        var i = o("WATimeUtils").unixTime(),
-          l = { timestamp: i, screenName: n, data: r };
-        a.sessionData.set("navigation_" + i.toString(), l);
+    function p(e) {
+      var t = e.data,
+        n = e.messageId,
+        r = e.screenName,
+        a = e.sessionId,
+        i = m(n, a);
+      if (i != null) {
+        var l = o("WATimeUtils").unixTime(),
+          s = { timestamp: l, screenName: r, data: t };
+        i.sessionData.set("navigation_" + l.toString(), s);
       }
     }
     function _(e, t) {

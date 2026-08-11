@@ -2,7 +2,6 @@ __d(
   "WAWebMexUsersGetAboutStatus",
   [
     "$InternalEnum",
-    "WAWebABProps",
     "WAWebMexUsync",
     "WAWebTrustedContactsUtils",
     "asyncToGeneratorRuntime",
@@ -19,9 +18,6 @@ __d(
             r = t.wid,
             a = { jid: r.toJid() };
           n != null &&
-            o("WAWebABProps").getABPropConfigValue(
-              "profile_scraping_privacy_token_in_about_usync",
-            ) &&
             (a.privacy_token = {
               tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(n),
             });

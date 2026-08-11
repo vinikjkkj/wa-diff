@@ -16,7 +16,6 @@ __d(
           StatusViewerAction: [
             6692,
             {
-              actionIndex: [8, e.TYPES.INTEGER],
               attributionType: [
                 1,
                 o("WAWebWamEnumTopBarAttributionType").TOP_BAR_ATTRIBUTION_TYPE,
@@ -26,8 +25,6 @@ __d(
                 5,
                 o("WAWebWamEnumInlineVideoType").INLINE_VIDEO_TYPE,
               ],
-              linkLoadTime: [9, e.TYPES.INTEGER],
-              linkOpenResult: [10, e.TYPES.STRING],
               psaCampaignId: [11, e.TYPES.STRING],
               statusCategory: [
                 4,

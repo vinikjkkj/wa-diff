@@ -52,14 +52,14 @@ __d(
               b = yield (s || (s = n("Promise"))).all(
                 C.map(function (e) {
                   var t;
-                  return m(
-                    e,
-                    a,
-                    i,
-                    l,
-                    y,
-                    d((t = e.key) == null ? void 0 : t.id, c),
-                  );
+                  return m({
+                    bundleMessageSecret: a,
+                    groupJid: l,
+                    msgInfo: e,
+                    reportingTokenVersion: y,
+                    senderJid: i,
+                    stanzaId: d((t = e.key) == null ? void 0 : t.id, c),
+                  });
                 }),
               ),
               v = r("compactMap")(b, function (e) {
@@ -89,47 +89,51 @@ __d(
           ? n
           : e;
     }
-    function m(e, t, n, r, o, a) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            if (i == null) return null;
-            var l = e.messageBytes;
-            if (l == null)
-              return { stanzaId: i, reportingToken: null, version: null };
-            var s = yield o(
-                "WAWebReportingTokenUtils",
-              ).genReportingTokenKeyFromMessageSecret({
-                messageSecret: t,
-                stanzaId: i,
-                senderJid: n,
-                remoteJid: r,
-              }),
-              u = new (o(
-                "WAWebReportingTokenContent",
-              ).ReportingTokenContentCalculator)(
-                new Uint8Array(l),
-                o("WAWebReportingTokenConfig").getReportingTokenConfig(a),
-              ).getReportingTokenContent();
-            if (u == null || u.length === 0)
-              return { stanzaId: i, reportingToken: null, version: null };
-            var c = yield o("WACryptoHmac").hmacSha256(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.bundleMessageSecret,
+            n = e.groupJid,
+            r = e.msgInfo,
+            a = e.reportingTokenVersion,
+            i = e.senderJid,
+            l = e.stanzaId;
+          if (l == null) return null;
+          var s = r.messageBytes;
+          if (s == null)
+            return { stanzaId: l, reportingToken: null, version: null };
+          var u = yield o(
+              "WAWebReportingTokenUtils",
+            ).genReportingTokenKeyFromMessageSecret({
+              messageSecret: t,
+              stanzaId: l,
+              senderJid: i,
+              remoteJid: n,
+            }),
+            c = new (o(
+              "WAWebReportingTokenContent",
+            ).ReportingTokenContentCalculator)(
               new Uint8Array(s),
-              u,
-              o("WAWebReportingTokenUtils").REPORTING_TOKEN_SIZE,
-            );
-            return {
-              stanzaId: i,
-              reportingToken: new Uint8Array(c),
-              version: a,
-              reportingTokenKey: new Uint8Array(s),
-              reportingTokenContent: u,
-            };
-          },
-        )),
+              o("WAWebReportingTokenConfig").getReportingTokenConfig(a),
+            ).getReportingTokenContent();
+          if (c == null || c.length === 0)
+            return { stanzaId: l, reportingToken: null, version: null };
+          var d = yield o("WACryptoHmac").hmacSha256(
+            new Uint8Array(u),
+            c,
+            o("WAWebReportingTokenUtils").REPORTING_TOKEN_SIZE,
+          );
+          return {
+            stanzaId: l,
+            reportingToken: new Uint8Array(d),
+            version: a,
+            reportingTokenKey: new Uint8Array(u),
+            reportingTokenContent: c,
+          };
+        })),
         p.apply(this, arguments)
       );
     }

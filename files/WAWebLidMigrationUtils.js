@@ -16,44 +16,35 @@ __d(
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(t) {
-      if (!t.isLid()) return t;
-      (t.isUser() ||
-        o("WALogger")
-          .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[lid] toPn: not a user wid: ",
-                "",
-              ])),
-            t.toLogString(),
-          )
-          .sendLogs("toPn-not-user"),
-        t.device != null &&
-          o("WALogger")
-            .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[lid] toPn: deviceWid: ",
-                  "",
-                ])),
-              t.toLogString(),
-            )
-            .sendLogs("toPn-device-wid"));
-      var n = o("WAWebApiContact").getPhoneNumber(t);
-      return (
-        n == null &&
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[lid-migration] toPn: no PN found for LID",
-              ])),
-          ),
-        n
-      );
+    var e, s, u, c, d;
+    function m(t) {
+      return t.isLid()
+        ? (t.isUser() ||
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[lid] toPn: not a user wid: ",
+                    "",
+                  ])),
+                t.toLogString(),
+              )
+              .sendLogs("toPn-not-user"),
+          t.device != null &&
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[lid] toPn: deviceWid: ",
+                    "",
+                  ])),
+                t.toLogString(),
+              )
+              .sendLogs("toPn-device-wid"),
+          o("WAWebApiContact").getPhoneNumber(t))
+        : t;
     }
-    function _(e) {
+    function p(e) {
       if (e.isLid()) return e;
       var t = o("WAWebApiContact").getCurrentLid(
         o("WAWebWidFactory").asUserWidOrThrow(e),
@@ -61,31 +52,31 @@ __d(
       return (
         t == null &&
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[lid-migration] toLid: no LID found for PN",
               ])),
           ),
         t
       );
     }
-    function f(e) {
+    function _(e) {
       return (
         o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
         e.isRegularUser()
       );
     }
-    function g(e) {
+    function f(e) {
       var t = o("WAWebWidFactory").asUserWidOrThrow(e);
       return t.isLid() ? t : o("WAWebApiContact").getCurrentLid(t);
     }
-    function h(e) {
-      var t = g(e);
+    function g(e) {
+      var t = f(e);
       if (t == null)
         throw (
           o("WALogger").ERROR(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[lid-migration] toUserLidOrThrow: no LID",
               ])),
           ),
@@ -93,15 +84,15 @@ __d(
         );
       return t;
     }
-    function y(e) {
-      var t = p(e);
+    function h(e) {
+      var t = m(e);
       if (t == null) throw r("err")("No PN for user");
       return t;
     }
-    function C(e) {
-      return e ? _ : p;
+    function y(e) {
+      return e ? p : m;
     }
-    function b(e, t) {
+    function C(e, t) {
       if (
         e != null &&
         t != null &&
@@ -120,16 +111,16 @@ __d(
       }
       return [e, t];
     }
-    function v(e) {
+    function b(e) {
       if (
         e.remote.isGroup() ||
         e.remote.isStatus() ||
         e.remote.isBroadcastList()
       )
-        return S(e);
-      if (e.remote.isUser()) return R(e);
+        return v(e);
+      if (e.remote.isUser()) return S(e);
     }
-    function S(e) {
+    function v(e) {
       var t =
         e.participant != null
           ? o("WAWebApiContact").getAlternateUserWid(
@@ -144,7 +135,7 @@ __d(
           participant: t,
         });
     }
-    function R(e) {
+    function S(e) {
       var t = o("WAWebApiContact").getAlternateUserWid(
         o("WAWebWidFactory").asUserWidOrThrow(e.remote),
       );
@@ -156,7 +147,7 @@ __d(
           participant: e.participant,
         });
     }
-    function L(e, t) {
+    function R(e, t) {
       var n,
         r = e.id.isLid(),
         a = e.isCAG(),
@@ -179,40 +170,40 @@ __d(
               : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
       }
     }
-    function E(e) {
+    function L(e) {
       if (e.isLid()) {
-        var n = p(e);
+        var n = m(e);
         if (n != null) return [e, n];
       } else {
-        var t = _(e);
+        var t = p(e);
         if (t != null) return [e, t];
       }
       return [e];
     }
-    function k(e) {
+    function E(e) {
       return (
         !r("gkx")("26258") &&
         (e == null ? void 0 : e.isLid()) === !0 &&
         o("WAWebUserPrefsMultiDeviceDebug").getLidMigrationDebugMode()
       );
     }
-    function I(e) {
+    function k(e) {
       return (
         !r("gkx")("26258") &&
         e === !0 &&
         o("WAWebUserPrefsMultiDeviceDebug").getLidMigrationDebugMode()
       );
     }
-    function T(e) {
-      return r("gkx")("26258") ? !1 : k(e.id.remote) || k(e.id.participant);
+    function I(e) {
+      return r("gkx")("26258") ? !1 : E(e.id.remote) || E(e.id.participant);
     }
-    function D(e) {
+    function T(e) {
       return e == null ? "none" : e ? "lid" : "pn";
     }
-    function x() {
+    function D() {
       o("WALogger").LOG(
-        m ||
-          (m = babelHelpers.taggedTemplateLiteralLoose([
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
             "[lid-migration] emp=",
             " migrated=",
             " src=",
@@ -227,7 +218,7 @@ __d(
         o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete(),
       );
     }
-    function $(e) {
+    function x(e) {
       var t,
         n = e.id;
       return (
@@ -236,23 +227,23 @@ __d(
           !!((t = e.groupMetadata) != null && t.isLidAddressingMode))
       );
     }
-    ((l.toPn = p),
-      (l.toLid = _),
-      (l.shouldHaveAccountLid = f),
-      (l.toUserLid = g),
-      (l.toUserLidOrThrow = h),
-      (l.toPnOrThrow = y),
-      (l.toAddressingModeFactory = C),
-      (l.toCommonAddressingMode = b),
-      (l.getAlternateMsgKey = v),
-      (l.getMeUserLidOrJidForChat = L),
-      (l.getPnAndLidToUpdate = E),
-      (l.getShouldShowLidDebugUI = k),
-      (l.getShouldShowLidDebugUIForGroups = I),
-      (l.getShouldShowLidDebugUIForMsg = T),
-      (l.getAddressingModeString = D),
-      (l.logLidMetadata = x),
-      (l.chatIsLid = $));
+    ((l.toPn = m),
+      (l.toLid = p),
+      (l.shouldHaveAccountLid = _),
+      (l.toUserLid = f),
+      (l.toUserLidOrThrow = g),
+      (l.toPnOrThrow = h),
+      (l.toAddressingModeFactory = y),
+      (l.toCommonAddressingMode = C),
+      (l.getAlternateMsgKey = b),
+      (l.getMeUserLidOrJidForChat = R),
+      (l.getPnAndLidToUpdate = L),
+      (l.getShouldShowLidDebugUI = E),
+      (l.getShouldShowLidDebugUIForGroups = k),
+      (l.getShouldShowLidDebugUIForMsg = I),
+      (l.getAddressingModeString = T),
+      (l.logLidMetadata = D),
+      (l.chatIsLid = x));
   },
   98,
 );

@@ -74,14 +74,14 @@ __d(
               : (yield o(
                   "WAWebGroupHistoryParticipantJob",
                 ).clearGroupHistoryParticipantStateForGroup(y),
-                yield o("WAWebCreateChat").createChat(
-                  { chatId: _ },
-                  "groupCreation",
-                  babelHelpers.extends(
+                yield o("WAWebCreateChat").createChat({
+                  createChatOrigin: "groupCreation",
+                  destination: { chatId: _ },
+                  initialProps: babelHelpers.extends(
                     { t: g, pendingInitialLoading: !1, createdLocally: !1 },
                     i === !0 && { notSpam: !0 },
                   ),
-                  babelHelpers.extends(
+                  options: babelHelpers.extends(
                     { createdOffline: d },
                     h === !0 && {
                       nextPrivacyMode: {
@@ -93,7 +93,7 @@ __d(
                       },
                     },
                   ),
-                ),
+                }),
                 o("WALogger")
                   .LOG(
                     u ||

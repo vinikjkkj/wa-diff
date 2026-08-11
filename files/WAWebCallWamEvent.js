@@ -186,6 +186,11 @@ __d(
               audioCodecDecodedNormalBytes: [1783, e.TYPES.NUMBER],
               audioCodecDecodedNormalSpeechBitrate: [2629, e.TYPES.NUMBER],
               audioCodecDecodedPlcFrames: [756, e.TYPES.INTEGER],
+              audioCodecDecodedRedBitrate: [3114, e.TYPES.NUMBER],
+              audioCodecDecodedRedBitrateDominantSpeaker: [
+                3115,
+                e.TYPES.NUMBER,
+              ],
               audioCodecEncodedFecFrames: [751, e.TYPES.INTEGER],
               audioCodecEncodedNonVoiceFrames: [753, e.TYPES.INTEGER],
               audioCodecEncodedThrottledVoiceFrames: [1177, e.TYPES.INTEGER],

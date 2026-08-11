@@ -14,7 +14,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1786355776612" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1786428932646" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -766,10 +766,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1338753: function () {
+            1339249: function () {
               return Date.now();
             },
-            1338776: function (t, n) {
+            1339272: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -905,13 +905,14 @@ __d(
               { data: i, len: t, ip: Xt(n), port: r },
             );
           }
-          function ot(e, t, n, r, o) {
+          function ot(e, t, n, r, o, a) {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.initCaptureDriverJS({
               sample_rate: e,
               channels: t,
               bits_per_sample: n,
               frames_per_chunk: r,
               device_type: o,
+              auto_gain_control: !!a,
             });
           }
           function at(e) {
@@ -7773,8 +7774,8 @@ __d(
             _l = (y.___get_exception_message = xe("__get_exception_message")),
             fl = xe("__cxa_can_catch"),
             gl = xe("__cxa_is_pointer_type"),
-            hl = (y.___start_em_js = 1333324),
-            yl = (y.___stop_em_js = 1338753);
+            hl = (y.___start_em_js = 1333756),
+            yl = (y.___stop_em_js = 1339249);
           function Cl(e, t, n, r) {
             var o = cl();
             try {

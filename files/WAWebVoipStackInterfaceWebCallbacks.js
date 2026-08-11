@@ -315,13 +315,14 @@ __d(
                           ).handleDataChannelErrored(e)))));
         },
         initCaptureDriverJS: function (t) {
-          var e = t.bits_per_sample,
-            n = t.channels,
-            r = t.device_type,
-            a = t.frames_per_chunk,
-            i = t.sample_rate,
-            l =
-              r === o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio
+          var e = t.auto_gain_control,
+            n = t.bits_per_sample,
+            r = t.channels,
+            a = t.device_type,
+            i = t.frames_per_chunk,
+            l = t.sample_rate,
+            s =
+              a === o("WAWebAudioUtility").AudioCaptureDevType.kInternalAudio
                 ? "system_audio"
                 : "mic";
           (o("WALogger").LOG(
@@ -330,15 +331,16 @@ __d(
                 "wasm: [AV:initCaptureDriverJS] (",
                 ")",
               ])),
-            l,
+            s,
           ),
             o("WAWebVoipAudioCaptureAndPlayback")
               .initCaptureDriverJS({
-                sample_rate: i,
-                channels: n,
-                bits_per_sample: e,
-                frames_per_chunk: a,
-                device_type: r,
+                sample_rate: l,
+                channels: r,
+                bits_per_sample: n,
+                frames_per_chunk: i,
+                device_type: a,
+                auto_gain_control: e,
               })
               .catch(function (e) {
                 o("WALogger").WARN(

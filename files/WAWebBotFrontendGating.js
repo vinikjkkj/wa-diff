@@ -1,15 +1,28 @@
 __d(
   "WAWebBotFrontendGating",
-  ["WAWebABProps", "WAWebPrimaryFeaturesModel"],
+  [
+    "WAWebABProps",
+    "WAWebBotBaseGating",
+    "WAWebBotUtils",
+    "WAWebMobilePlatforms",
+    "WAWebPrimaryFeaturesModel",
+  ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    function e(e) {
+      return o("WAWebMobilePlatforms").isSMB() &&
+        (o("WAWebBotUtils").isMetaAiBot(e) ||
+          o("WAWebBotUtils").isSmbMetaAiBot(e))
+        ? !0
+        : e.isBot() && !o("WAWebBotBaseGating").isBotEnabled() && !s();
+    }
+    function s() {
       return (
         o("WAWebPrimaryFeaturesModel").PrimaryFeatures
           .aiBotIntegrationEnabled &&
         o("WAWebABProps").getABPropConfigValue("ai_bot_integration_enabled")
       );
     }
-    l.isManusIntegrationEnabled = e;
+    ((l.isBotChatUnavailable = e), (l.isManusIntegrationEnabled = s));
   },
   98,
 );

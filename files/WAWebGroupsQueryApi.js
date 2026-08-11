@@ -370,6 +370,7 @@ __d(
             reportToAdminMode: k,
             membershipApprovalRequest: W,
             isLidAddressingMode:
+              (S == null ? void 0 : S.addressingMode) == null ||
               (S == null ? void 0 : S.addressingMode) === "lid",
             memberAddMode: J,
             memberShareGroupHistoryMode: Z,

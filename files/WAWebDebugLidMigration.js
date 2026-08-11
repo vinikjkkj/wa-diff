@@ -434,13 +434,13 @@ __d(
               flushImmediately: !0,
               learningSource: "migration-sync-old",
             }),
-              yield o("WAWebCreateChat").createChat(
-                { chatId: r, accountLid: r },
-                "debugCreateChat",
-                {
+              yield o("WAWebCreateChat").createChat({
+                createChatOrigin: "debugCreateChat",
+                destination: { chatId: r, accountLid: r },
+                initialProps: {
                   lidOriginType: o("WAWebUsernameTypes").LidOriginType.GENERAL,
                 },
-              ));
+              }));
             var a = o("WAWebChatCollection").ChatCollection.gadd(r),
               i =
                 "Created a new deprecated chat with the following mapping: \n - lid = " +
@@ -507,11 +507,11 @@ __d(
     function ue(e) {
       return (
         e === void 0 && (e = "158913843221@lid"),
-        o("WAWebCreateChat").createChat(
-          { chatId: o("WAWebWidFactory").createWid(e) },
-          "debugCreateChat",
-          { createdLocally: !1 },
-        )
+        o("WAWebCreateChat").createChat({
+          createChatOrigin: "debugCreateChat",
+          destination: { chatId: o("WAWebWidFactory").createWid(e) },
+          initialProps: { createdLocally: !1 },
+        })
       );
     }
     ((ue.doc = "Create a LID based chat. LID: https://fburl.com/code/h3sgykvt"),
@@ -532,11 +532,13 @@ __d(
           if (n == null)
             throw r("err")("cannot find lid from provided: " + t.toString());
           return (
-            yield o("WAWebCreateChat").createChat(
-              { chatId: n, accountLid: n },
-              "debugCreateChat",
-              { lidOriginType: o("WAWebUsernameTypes").LidOriginType.GENERAL },
-            ),
+            yield o("WAWebCreateChat").createChat({
+              createChatOrigin: "debugCreateChat",
+              destination: { chatId: n, accountLid: n },
+              initialProps: {
+                lidOriginType: o("WAWebUsernameTypes").LidOriginType.GENERAL,
+              },
+            }),
             n
           );
         })),
@@ -560,11 +562,13 @@ __d(
           if (n == null)
             throw r("err")("cannot find lid from provided: " + t.toString());
           return (
-            yield o("WAWebCreateChat").createChat(
-              { chatId: n, accountLid: n },
-              "debugCreateChat",
-              { lidOriginType: o("WAWebUsernameTypes").LidOriginType.PNH_CTWA },
-            ),
+            yield o("WAWebCreateChat").createChat({
+              createChatOrigin: "debugCreateChat",
+              destination: { chatId: n, accountLid: n },
+              initialProps: {
+                lidOriginType: o("WAWebUsernameTypes").LidOriginType.PNH_CTWA,
+              },
+            }),
             n
           );
         })),

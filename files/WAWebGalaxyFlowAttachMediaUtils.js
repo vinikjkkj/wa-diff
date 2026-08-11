@@ -81,59 +81,61 @@ __d(
         a,
       );
     }
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            try {
-              var l = yield u(n),
-                c = o("WAWebMediaPrep")
-                  .getMediaPropsNew(n.mediaPrep, a)
-                  .then(function (e) {
-                    return babelHelpers.extends({}, l, e, { type: e.type });
-                  }),
-                m = babelHelpers.extends({}, yield c, {
-                  id: l.id,
-                  from: l.from,
-                  author: l.author,
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.collectionId,
+            a = t.maxFileSizeBytes,
+            i = t.media,
+            l = t.options;
+          try {
+            var c = yield u(i),
+              m = o("WAWebMediaPrep")
+                .getMediaPropsNew(i.mediaPrep, l)
+                .then(function (e) {
+                  return babelHelpers.extends({}, c, e, { type: e.type });
                 }),
-                p = new (o("WAWebMsgModel").Msg)(m);
-              (o(
-                "WAWebGalaxyFlowMediaEditorCollection",
-              ).GalaxyFlowMediaEditorCollection.addMsg(t, p, i),
-                yield p.waitForPrep());
-              var _ = yield o(
-                  "WAWebMediaUploadMediaWithPrep",
-                ).uploadMediaWithPrep(p, a),
-                f = _.body,
-                g = _.mediaResult.mediaEntry,
-                h = _.mmsThumbnailData;
-              if (!g) throw r("err")(s.NO_MEDIA_ENTRY);
-              var y = d({
-                body: f,
-                mediaResultEntry: g,
-                mmsThumbnailData: h,
-                msg: p,
-              });
-              yield r("WAWebMediaUpdateMsg")(p, y);
-            } catch (t) {
-              throw (
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "sendGalaxyMediaMsg: error while sending message: ",
-                      "",
-                    ])),
-                  t,
-                ),
-                t
-              );
-            }
-          },
-        )),
+              p = babelHelpers.extends({}, yield m, {
+                id: c.id,
+                from: c.from,
+                author: c.author,
+              }),
+              _ = new (o("WAWebMsgModel").Msg)(p);
+            (o(
+              "WAWebGalaxyFlowMediaEditorCollection",
+            ).GalaxyFlowMediaEditorCollection.addMsg(n, _, a),
+              yield _.waitForPrep());
+            var f = yield o(
+                "WAWebMediaUploadMediaWithPrep",
+              ).uploadMediaWithPrep(_, l),
+              g = f.body,
+              h = f.mediaResult.mediaEntry,
+              y = f.mmsThumbnailData;
+            if (!h) throw r("err")(s.NO_MEDIA_ENTRY);
+            var C = d({
+              body: g,
+              mediaResultEntry: h,
+              mmsThumbnailData: y,
+              msg: _,
+            });
+            yield r("WAWebMediaUpdateMsg")(_, C);
+          } catch (t) {
+            throw (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendGalaxyMediaMsg: error while sending message: ",
+                    "",
+                  ])),
+                t,
+              ),
+              t
+            );
+          }
+        })),
         p.apply(this, arguments)
       );
     }

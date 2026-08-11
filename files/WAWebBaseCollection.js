@@ -122,11 +122,11 @@ __d(
             return t.prototype.add.call(this, a, i);
           }),
           (i.findQuery = function (t, n) {
-            return this._query(g.QUERY, t, n);
+            return this._query({ data: t, options: n, type: g.QUERY });
           }),
           (i.find = function (t, a) {
             return t
-              ? this._query(g.FIND, t, a)
+              ? this._query({ data: t, options: a, type: g.FIND })
               : (o("WALogger")
                   .ERROR(
                     u ||
@@ -141,7 +141,7 @@ __d(
           }),
           (i.update = function (t, a) {
             return t
-              ? this._query(g.UPDATE, t, a)
+              ? this._query({ data: t, options: a, type: g.UPDATE })
               : (o("WALogger")
                   .ERROR(
                     c ||
@@ -168,23 +168,26 @@ __d(
           (i.delete = function () {
             ((this._inflight = {}), this.reset());
           }),
-          (i._query = function (t, a, i) {
+          (i._query = function (t) {
             var e = this,
-              l = o("WATypeUtils").isString(a) ? a : a.toString();
-            l === h && (l = r("uniqueID")("collection_query_"));
-            var s = t === g.QUERY ? void 0 : this.get(a),
-              u = "force-" + l;
+              a = t.data,
+              i = t.options,
+              l = t.type,
+              s = o("WATypeUtils").isString(a) ? a : a.toString();
+            s === h && (s = r("uniqueID")("collection_query_"));
+            var u = l === g.QUERY ? void 0 : this.get(a),
+              c = "force-" + s;
             return (
-              ((this._inflight[u] && t === g.FIND) || t === g.UPDATE) &&
-                (l = u),
-              this._inflight[l]
-                ? t === g.FIND && s && !s.stale
-                  ? (f || (f = n("Promise"))).resolve(s)
-                  : this._inflight[l]
-                : !s || s.stale || t === g.UPDATE
-                  ? (this._inflight[l] = this._serverQuery(t, a, i)
+              ((this._inflight[c] && l === g.FIND) || l === g.UPDATE) &&
+                (s = c),
+              this._inflight[s]
+                ? l === g.FIND && u && !u.stale
+                  ? (f || (f = n("Promise"))).resolve(u)
+                  : this._inflight[s]
+                : !u || u.stale || l === g.UPDATE
+                  ? (this._inflight[s] = this._serverQuery(l, a, i)
                       .finally(function () {
-                        delete e._inflight[l];
+                        delete e._inflight[s];
                       })
                       .catch(
                         o("WAFilteredCatch").filteredCatch(
@@ -213,7 +216,7 @@ __d(
                           );
                         else throw e;
                       }))
-                  : (f || (f = n("Promise"))).resolve(s)
+                  : (f || (f = n("Promise"))).resolve(u)
             );
           }),
           (i._serverQuery = (function () {

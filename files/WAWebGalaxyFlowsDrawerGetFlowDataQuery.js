@@ -18,34 +18,40 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
-    function u(t, a, i, l) {
-      var u, d, m;
+    function u(t) {
+      var a,
+        i,
+        l,
+        u = t.chat,
+        d = t.messageData,
+        m = t.msg,
+        p = t.signal;
       (o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataStart(),
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataAnnotate(
-          o("WAWebGalaxyFlowQPLLoggerUtils").getWaeMetadataAnnotations(a, t),
+          o("WAWebGalaxyFlowQPLLoggerUtils").getWaeMetadataAnnotations(m, d),
         ));
-      var p =
-        ((u = t.flowMetadata) == null ? void 0 : u.data_api_version) != null;
+      var _ =
+        ((a = d.flowMetadata) == null ? void 0 : a.data_api_version) != null;
       if (o("WAWebGalaxyFlowQPLLoggerUtils").isGalaxyFlowSanctioned()) {
-        var _ = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
+        var f = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
           o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors.SANCTIONED,
         );
-        return (_.stack, (s || (s = n("Promise"))).reject(_));
+        return (f.stack, (s || (s = n("Promise"))).reject(f));
       }
-      if (l != null && l.aborted) {
-        var f = r("err")("Request aborted");
-        return (s || (s = n("Promise"))).reject(f);
+      if (p != null && p.aborted) {
+        var g = r("err")("Request aborted");
+        return (s || (s = n("Promise"))).reject(g);
       }
-      var g = i.contact.id,
-        h = g.isLid()
-          ? (d =
-              (m = o("WAWebLidMigrationUtils").toPn(g)) == null
+      var h = u.contact.id,
+        y = h.isLid()
+          ? (i =
+              (l = o("WAWebLidMigrationUtils").toPn(h)) == null
                 ? void 0
-                : m.toString()) != null
-            ? d
+                : l.toString()) != null
+            ? i
             : ""
-          : g.toString(),
-        y = t.flowId;
+          : h.toString(),
+        C = d.flowId;
       return (
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataPoint(
           o("WAWebGalaxyFlowQPLLoggerUtils").WaeMetadataQPLPoints
@@ -60,13 +66,13 @@ __d(
             e !== void 0
               ? e
               : (e = n("WAWebGalaxyFlowsDrawerGetFlowDataQuery.graphql")),
-            { request: { extensions: { biz_jid: h, flow_id: y } } },
+            { request: { extensions: { biz_jid: y, flow_id: C } } },
           )
           .then(
             (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  if (!(l != null && l.aborted)) {
+                  if (!(p != null && p.aborted)) {
                     var t;
                     if (
                       ((t = o(
@@ -104,7 +110,7 @@ __d(
                       );
                       throw (n.stack, n);
                     }
-                    if (p)
+                    if (_)
                       if (c(e)) {
                         (o(
                           "WAWebGalaxyFlowQPLLoggerUtils",
@@ -137,34 +143,38 @@ __d(
                           yield o(
                             "WAWebGalaxyFlowsUnifiedEncryptionVerifier",
                           ).UnifiedEncryptionVerifier.arePublicKeyWithSignatureValid(
-                            g,
-                            (a = e.xwa_extensions_get_flow_data) == null ||
-                              (a = a.endpoint_public_key) == null
-                              ? void 0
-                              : a.key,
-                            (i = e.xwa_extensions_get_flow_data) == null ||
-                              (i = i.endpoint_public_key) == null
-                              ? void 0
-                              : i.signature,
                             {
-                              onComplete: function (t) {
-                                if (!t) {
-                                  var e = new (o(
-                                    "WAWebGalaxyFlowsError",
-                                  ).WaeGalaxyFlowError)(
-                                    o("WAWebGalaxyFlowsError")
-                                      .WaeGalaxyFlowMetadataErrors
-                                      .PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION,
-                                  );
-                                  throw (e.stack, e);
-                                }
+                              callback: {
+                                onComplete: function (t) {
+                                  if (!t) {
+                                    var e = new (o(
+                                      "WAWebGalaxyFlowsError",
+                                    ).WaeGalaxyFlowError)(
+                                      o("WAWebGalaxyFlowsError")
+                                        .WaeGalaxyFlowMetadataErrors
+                                        .PUBLIC_KEY_SIGNATURE_VERIFICATION_EXCEPTION,
+                                    );
+                                    throw (e.stack, e);
+                                  }
+                                },
                               },
+                              contactId: h,
+                              publicKeyPem:
+                                (a = e.xwa_extensions_get_flow_data) == null ||
+                                (a = a.endpoint_public_key) == null
+                                  ? void 0
+                                  : a.key,
+                              publicKeySignature:
+                                (i = e.xwa_extensions_get_flow_data) == null ||
+                                (i = i.endpoint_public_key) == null
+                                  ? void 0
+                                  : i.signature,
                             },
                           ));
                       }
                     if (
                       o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
-                        y,
+                        C,
                         e,
                       ) == null
                     ) {
@@ -177,13 +187,13 @@ __d(
                           },
                         },
                       );
-                      var s = new (o(
+                      var l = new (o(
                         "WAWebGalaxyFlowsError",
                       ).WaeGalaxyFlowError)(
                         o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                           .METADATA_INVALID_EXTENSIONS_ID,
                       );
-                      throw (s.stack, s);
+                      throw (l.stack, l);
                     }
                     o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataEnd(2);
                   }
@@ -200,19 +210,19 @@ __d(
               o(
                 "WAWebGalaxyFlowWamLoggerUtils",
               ).logStructuredMessageInteractionWAMEvent(
-                t,
-                i,
-                a,
+                d,
+                u,
+                m,
                 o("WAWebWamEnumInteractionType").INTERACTION_TYPE.FLOW_ERROR,
                 o("WAWebGalaxyFlowQPLLoggerUtils")
                   .WaeScreenNavigationQPLErrorTypes
                   .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
               );
-              var n = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
+              var t = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
                 o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetadataErrors
                   .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
               );
-              throw (n.stack, n);
+              throw (t.stack, t);
             }
             throw e;
           })

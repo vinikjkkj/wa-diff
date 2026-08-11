@@ -1,6 +1,6 @@
 __d(
   "WAWebUsyncStatus",
-  ["WAWap", "WAWebABProps"],
+  ["WAWap"],
   function (t, n, r, o, a, i, l) {
     var e = null;
     function s(t) {
@@ -27,12 +27,6 @@ __d(
           return o("WAWap").wap("status", null);
         }),
         (t.getUserElement = function (t) {
-          if (
-            !o("WAWebABProps").getABPropConfigValue(
-              "profile_scraping_privacy_token_in_about_usync",
-            )
-          )
-            return null;
           var e = t.getTcToken();
           return e ? o("WAWap").wap("tctoken", null, e) : null;
         }),

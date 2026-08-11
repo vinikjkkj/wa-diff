@@ -65,7 +65,12 @@ __d(
                     function* () {
                       var e;
                       try {
-                        e = p(f, l, m, g);
+                        e = p({
+                          content: f,
+                          from: m,
+                          isOffline: g,
+                          parsedRequest: l,
+                        });
                       } catch (e) {
                         if (
                           !(
@@ -156,28 +161,32 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n, a) {
-      switch (e.name) {
+    function p(e) {
+      var t = e.content,
+        n = e.from,
+        a = e.isOffline,
+        i = e.parsedRequest;
+      switch (t.name) {
         case "StatusNewsletterText":
         case "StatusNewsletterMedia": {
-          var i = e.value.plaintextNewsletterPlaintextPayloadMixin.elementValue,
-            l = o("WAWebNewsletterStatusUtils").mapStatusStanzaToMsgData(
-              t,
-              n,
+          var l = t.value.plaintextNewsletterPlaintextPayloadMixin.elementValue,
+            s = o("WAWebNewsletterStatusUtils").mapStatusStanzaToMsgData(
               i,
+              n,
+              l,
             );
-          return babelHelpers.extends({}, l, {
+          return babelHelpers.extends({}, s, {
             isNewsletterStatus: !0,
             author: n,
             isNewMsg: !a,
           });
         }
         case "StatusNewsletterRevoke": {
-          var s = o("WAWebNewsletterStatusUtils").mapStatusRevokeToMsgData(
-            t,
+          var u = o("WAWebNewsletterStatusUtils").mapStatusRevokeToMsgData(
+            i,
             n,
           );
-          return babelHelpers.extends({}, s, {
+          return babelHelpers.extends({}, u, {
             isNewsletterStatus: !0,
             author: n,
             isNewMsg: !a,
@@ -187,13 +196,13 @@ __d(
         case "StatusNewsletterReactionRevoke":
           throw r("err")(
             "[newsletter][status] Unexpected addon status content type: " +
-              e.name,
+              t.name,
           );
         default:
           throw (
-            e.name,
+            t.name,
             r("err")(
-              "[newsletter][status] Unhandled status content type: " + e.name,
+              "[newsletter][status] Unhandled status content type: " + t.name,
             )
           );
       }

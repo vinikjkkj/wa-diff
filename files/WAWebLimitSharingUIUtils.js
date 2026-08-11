@@ -335,7 +335,12 @@ __d(
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield w(e, t, n, r);
+            var a = yield w({
+              chat: e,
+              limitSharing: t,
+              meUser: n,
+              unixTimeSeconds: r,
+            });
             yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, a);
             var i = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
               e.id,
@@ -348,32 +353,34 @@ __d(
         M.apply(this, arguments)
       );
     }
-    function w(e, t, n, r) {
+    function w(e) {
       return A.apply(this, arguments);
     }
     function A() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = new (r("WAWebMsgKey"))({
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.limitSharing,
+            a = e.meUser,
+            i = e.unixTimeSeconds,
+            l = new (r("WAWebMsgKey"))({
               id: yield r("WAWebMsgKey").newId(),
-              remote: e.id,
+              remote: t.id,
               fromMe: !0,
             });
-            return {
-              id: i,
-              from: n,
-              to: e.id,
-              t: a,
-              type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-              subtype: "limit_sharing_system_message",
-              kind: "protocol",
-              isNewMsg: !0,
-              viewMode: "VISIBLE",
-              limitSharing: t,
-            };
-          },
-        )),
+          return {
+            id: l,
+            from: a,
+            to: t.id,
+            t: i,
+            type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+            subtype: "limit_sharing_system_message",
+            kind: "protocol",
+            isNewMsg: !0,
+            viewMode: "VISIBLE",
+            limitSharing: n,
+          };
+        })),
         A.apply(this, arguments)
       );
     }

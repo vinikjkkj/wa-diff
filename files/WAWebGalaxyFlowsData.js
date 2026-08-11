@@ -67,7 +67,12 @@ __d(
                   o("WAWebGalaxyFlowsUtils").fetchFlowJSON(t.flowId, l),
                   h
                     ? (e || (e = n("Promise"))).resolve(null)
-                    : r("WAWebGalaxyFlowsDrawerGetFlowDataQuery")(t, a, i, l),
+                    : r("WAWebGalaxyFlowsDrawerGetFlowDataQuery")({
+                        chat: i,
+                        messageData: t,
+                        msg: a,
+                        signal: l,
+                      }),
                 ]),
                 C = y[0],
                 b = y[1];

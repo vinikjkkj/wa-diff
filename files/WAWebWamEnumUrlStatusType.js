@@ -9,6 +9,7 @@ __d(
       INTERACTABLE: 4,
       TOP_BAR_ATTRIBUTION: 5,
       INLINE_VIDEO_CTA: 6,
+      PSA_CTA: 7,
     });
     i.URL_STATUS_TYPE = e;
   },

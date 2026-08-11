@@ -436,7 +436,22 @@ __d(
     function S(e, t, n, r, o) {
       return new v(e, n, t, r, o);
     }
-    function R(e) {
+    function R(e, t, r) {
+      var o = 0;
+      return (
+        e.openRequests.forEach(function (a, i) {
+          var l = a.request,
+            s = a.resolver;
+          l.namespace !== t ||
+            s == null ||
+            (e.openRequests.delete(i),
+            s((b || (b = n("Promise"))).reject(r)),
+            o++);
+        }),
+        o
+      );
+    }
+    function L(e) {
       var t;
       ((t = e.port) == null || t.close(),
         (e.port = null),
@@ -464,7 +479,8 @@ __d(
     }
     ((l.CrossWorkerPortal = v),
       (l.attachPortal = S),
-      (l.killPortalAndSendPendingToBridge = R));
+      (l.rejectPendingRequests = R),
+      (l.killPortalAndSendPendingToBridge = L));
   },
   98,
 );

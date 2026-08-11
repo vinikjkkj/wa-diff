@@ -42,7 +42,12 @@ __d(
               );
             var l = yield o(
               "WAWebNewsletterAddPaidPartnershipLabelJob",
-            ).addPaidPartnershipLabel(t, n, i.id.toString(), r);
+            ).addPaidPartnershipLabel({
+              messageType: r,
+              msgId: i.id.toString(),
+              newsletterJid: t,
+              serverId: n,
+            });
             if (l === !0) {
               var u = o("WAWebMsgCollection").MsgCollection.get(i.id);
               u == null || u.set("hasPaidPartnershipLabel", !0);

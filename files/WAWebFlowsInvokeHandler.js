@@ -235,10 +235,12 @@ __d(
                     ) {
                       var M = b.data;
                       o("WAWebGalaxyFlowsSessionsCache").addDataToLatestSession(
-                        N,
-                        a.flowQPLMessageId,
-                        String(b.screen),
-                        M,
+                        {
+                          data: M,
+                          messageId: N,
+                          screenName: String(b.screen),
+                          sessionId: a.flowQPLMessageId,
+                        },
                       );
                     }
                     n(null);

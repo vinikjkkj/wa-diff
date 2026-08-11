@@ -18,7 +18,6 @@ __d(
       "Ephemeral",
       "AllEvents",
       "AllCommunityEvents",
-      "Wallpaper",
       "EventInfo",
       "TransferOwnershipFlow",
       "LimitSharing",

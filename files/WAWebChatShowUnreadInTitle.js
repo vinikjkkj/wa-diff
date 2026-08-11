@@ -1,7 +1,6 @@
 __d(
   "WAWebChatShowUnreadInTitle",
   [
-    "WAWebBotBaseGating",
     "WAWebBotFrontendGating",
     "WAWebBotUtils",
     "WAWebChatGetters",
@@ -26,11 +25,7 @@ __d(
         e.showUnreadInTitle = !1;
         return;
       }
-      if (
-        e.id.isBot() &&
-        !o("WAWebBotBaseGating").isBotEnabled() &&
-        !o("WAWebBotFrontendGating").isManusIntegrationEnabled()
-      ) {
+      if (o("WAWebBotFrontendGating").isBotChatUnavailable(e.id)) {
         e.showUnreadInTitle = !1;
         return;
       }

@@ -9,7 +9,6 @@ __d(
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizCoexGatingUtils",
-    "WAWebBotBaseGating",
     "WAWebBotComposerTreatment",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
@@ -302,9 +301,7 @@ __d(
         o("WAWebTosGating").shouldBlockByTos(e.contact) ||
         o("WAWebTosGating").shouldBlockByBotTos(e.contact) ||
         o("WAWebTosCountryGating").shouldBlockByCountry(e.contact) ||
-        (!o("WAWebBotBaseGating").isBotEnabled() &&
-          !o("WAWebBotFrontendGating").isManusIntegrationEnabled() &&
-          e.id.isBot()) ||
+        o("WAWebBotFrontendGating").isBotChatUnavailable(e.id) ||
         (o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
           o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(e)) ||
         o("WAWebBotComposerTreatment").isBotSupportComposerBlocked(e.id)

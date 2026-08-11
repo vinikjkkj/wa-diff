@@ -26,7 +26,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebNotificationsMsgNotification",
-    "WAWebNotifyForUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebVoipGatingUtils",
@@ -154,14 +153,7 @@ __d(
                                             ).shouldMuteNotification(e)
                                             ? r("WAWebNotificationMuteReason")
                                                 .AIRepliesOn
-                                            : o(
-                                                  "WAWebNotifyForUtils",
-                                                ).shouldMuteForNotifyForSetting(
-                                                  this.msg,
-                                                )
-                                              ? r("WAWebNotificationMuteReason")
-                                                  .NotifyForHighlights
-                                              : null
+                                            : null
                                           : r("WAWebNotificationMuteReason")
                                               .IgnoreHiddenViewModeMsgs;
           }),

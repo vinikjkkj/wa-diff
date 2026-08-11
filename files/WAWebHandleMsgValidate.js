@@ -633,26 +633,27 @@ __d(
                     y = h.reportingTokenContent,
                     C = h.reportingTokenKey,
                     b = h.res,
-                    v = A(s, m)
-                      ? babelHelpers.extends(
-                          {
-                            reportingToken:
-                              m == null
-                                ? void 0
-                                : m.slice(
-                                    0,
-                                    b
-                                      ? o("WAWebReportingTokenUtils")
-                                          .REPORTING_TOKEN_STORAGE_SIZE
-                                      : o("WAWebReportingTokenUtils")
-                                          .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
-                                  ),
-                            reportingTokenContentOpaqueData: y,
-                            version: _,
-                          },
-                          C != null && { reportingTokenKey: C },
-                        )
-                      : null;
+                    v =
+                      m != null
+                        ? babelHelpers.extends(
+                            {
+                              reportingToken:
+                                m == null
+                                  ? void 0
+                                  : m.slice(
+                                      0,
+                                      b
+                                        ? o("WAWebReportingTokenUtils")
+                                            .REPORTING_TOKEN_STORAGE_SIZE
+                                        : o("WAWebReportingTokenUtils")
+                                            .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
+                                    ),
+                              reportingTokenContentOpaqueData: y,
+                              version: _,
+                            },
+                            C != null && { reportingTokenKey: C },
+                          )
+                        : null;
                   o("WAWebGetMessageCache")
                     .getMessageCache()
                     .addAdditionalInfo(
@@ -669,12 +670,6 @@ __d(
           }
         })),
         w.apply(this, arguments)
-      );
-    }
-    function A(e, t) {
-      return !(
-        t == null ||
-        o("WAWebReportingTokenUtils").shouldSkipProcessingEditedMsg(e)
       );
     }
     ((l.validateMsgDestination = v),

@@ -1,6 +1,12 @@
 __d(
   "WAWebDeprecatedSendIqWorkerProxy",
-  ["Promise", "WAWap", "WAWebBackendWorkerClient", "asyncToGeneratorRuntime"],
+  [
+    "Promise",
+    "WAWap",
+    "WAWebBackendWorkerClient",
+    "WAWebCommsWorkerReady",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t) {
@@ -9,6 +15,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+          yield o("WAWebCommsWorkerReady").waitForCommsWorker();
           var a = o("WAWap").encodeStanza(t),
             i = yield o("WAWebBackendWorkerClient")
               .getBackendWorkerBridge()

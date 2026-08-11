@@ -49,12 +49,15 @@ __d(
               a,
             )
           : null;
-      return o("WAWebCreateChat").createChat(
-        n,
-        t,
-        babelHelpers.extends({ createdLocally: !1, lidOriginType: s }, r),
-        i,
-      );
+      return o("WAWebCreateChat").createChat({
+        createChatOrigin: t,
+        destination: n,
+        initialProps: babelHelpers.extends(
+          { createdLocally: !1, lidOriginType: s },
+          r,
+        ),
+        options: i,
+      });
     }
     function b(e) {
       var t = e.firstIncomingMsg;

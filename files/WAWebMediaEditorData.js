@@ -172,16 +172,20 @@ __d(
               outlineLayer: C,
             });
           }),
-          (n.updateBackground = function (t, n, r, o) {
+          (n.updateBackground = function (t) {
             var e,
-              a =
+              n = t.image,
+              r = t.origin,
+              o = t.rotation,
+              a = t.scale,
+              i =
                 (e = this.getBackground()) == null
                   ? void 0
-                  : e.setImage(t).setOrigin(n).setRotation(r).setScale(o);
+                  : e.setImage(n).setOrigin(r).setRotation(o).setScale(a);
             return this.$2({
-              background: a,
-              selectedLayer: a,
-            }).setShapeLayerBackground(a == null ? void 0 : a.getFrame(), t);
+              background: i,
+              selectedLayer: i,
+            }).setShapeLayerBackground(i == null ? void 0 : i.getFrame(), n);
           }),
           (n.addImageLayer = function (t) {
             var e = o("WAWebMediaEditorLayersImage").ImageLayer.create(t),

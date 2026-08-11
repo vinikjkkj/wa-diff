@@ -5,7 +5,6 @@ __d(
     "WAWebABProps",
     "WAWebAiThreadCreationUtils",
     "WAWebBizBroadcastDeviceCapabilityCommon",
-    "WAWebBotBaseGating",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
     "WAWebBotUtils",
@@ -223,9 +222,7 @@ __d(
             p = e[10];
           if (
             n ||
-            (t.isBot() &&
-              !o("WAWebBotBaseGating").isBotEnabled() &&
-              !o("WAWebBotFrontendGating").isManusIntegrationEnabled()) ||
+            o("WAWebBotFrontendGating").isBotChatUnavailable(t) ||
             o("WAWebBotUtils").isHiddenBotWid(t)
           )
             return !1;

@@ -21,7 +21,7 @@ __d(
         },
         "d1923",
       );
-      r.setPort(t);
+      return (r.setPort(t), r);
     }
     ((l.createBridge = e), (l.attachBridgeToPortal = s));
   },

@@ -761,7 +761,7 @@ __d(
             .then(function (e) {
               if (e != null)
                 try {
-                  Ke(e);
+                  Ke(e, (n == null ? void 0 : n.autoGainControl) !== !1);
                 } catch (e) {
                   o("WALogger").LOG(
                     P ||
@@ -847,26 +847,29 @@ __d(
         je.apply(this, arguments)
       );
     }
-    function Ke(e) {
-      var t = o(
+    function Ke(e, t) {
+      var n = o(
           "WAGetMediaDevicesSupportedConstraints",
         ).getMediaDevicesSupportedConstraints(),
-        n = {
-          echoCancellation: (t == null ? void 0 : t.echoCancellation) === !0,
-          noiseSuppression: (t == null ? void 0 : t.noiseSuppression) === !0,
-          autoGainControl: (t == null ? void 0 : t.autoGainControl) === !0,
+        r = {
+          echoCancellation: (n == null ? void 0 : n.echoCancellation) === !0,
+          noiseSuppression: (n == null ? void 0 : n.noiseSuppression) === !0,
+          autoGainControl: (n == null ? void 0 : n.autoGainControl) === !0,
         },
-        r = e.getAudioTracks()[0];
-      if (r != null) {
-        var a = r.getSettings(),
-          i = new Map(Object.entries(a)),
-          l = {
-            echoCancellation: a.echoCancellation === !0,
-            noiseSuppression: i.get("noiseSuppression") === !0,
-            autoGainControl: i.get("autoGainControl") === !0,
+        a = e.getAudioTracks()[0];
+      if (a != null) {
+        var i = a.getSettings(),
+          l = new Map(Object.entries(i)),
+          s = {
+            echoCancellation: i.echoCancellation === !0,
+            noiseSuppression: l.get("noiseSuppression") === !0,
+            autoGainControl: l.get("autoGainControl") === !0,
           };
-        ((ne = { supported: n, applied: l }),
-          o("WAWebVoipBrowserAudioStatus").setBrowserAudioProcessingApplied(l),
+        ((ne = { supported: r, applied: s }),
+          o("WAWebVoipBrowserAudioStatus").setBrowserAudioProcessingApplied(
+            s,
+            t,
+          ),
           o("WALogger").LOG(
             v ||
               (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -878,16 +881,16 @@ __d(
                 ", AGC=",
                 "",
               ])),
-            String(n.echoCancellation),
-            String(n.noiseSuppression),
-            String(n.autoGainControl),
-            String(l.echoCancellation),
-            String(l.noiseSuppression),
-            String(l.autoGainControl),
+            String(r.echoCancellation),
+            String(r.noiseSuppression),
+            String(r.autoGainControl),
+            String(s.echoCancellation),
+            String(s.noiseSuppression),
+            String(s.autoGainControl),
           ));
       } else
         ((ne = {
-          supported: n,
+          supported: r,
           applied: {
             echoCancellation: !1,
             noiseSuppression: !1,
@@ -911,7 +914,7 @@ __d(
           channelCount: n.channels,
           echoCancellation: !0,
           noiseSuppression: !0,
-          autoGainControl: !0,
+          autoGainControl: n.autoGainControl !== !1,
           sampleSize: n.bitsPerSample,
         },
       };
@@ -932,12 +935,14 @@ __d(
               ", constraintType=",
               ", sampleRate=",
               ", channels=",
+              ", autoGainControl=",
               "",
             ])),
           (r = e == null ? void 0 : e.slice(0, 8)) != null ? r : "null",
           t,
           n.sampleRate,
           n.channels,
+          String(n.autoGainControl !== !1),
         ),
         a
       );

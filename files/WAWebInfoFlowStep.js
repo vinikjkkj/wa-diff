@@ -24,7 +24,6 @@ __d(
       "Catalog",
       "ProductList",
       "Starred",
-      "Wallpaper",
       "ChatTheme",
       "Kept",
       "ScheduledMessages",

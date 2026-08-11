@@ -33,65 +33,59 @@ __d(
     }
     function p() {
       return (
-        o("WAWebABProps").getABPropConfigValue("biz_ai_in_thread_unmute_v2") &&
-        o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
-      );
-    }
-    function _() {
-      return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_fab_confirm_modal_enabled",
         ) &&
         o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
       );
     }
-    function f() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_responding_list_enabled",
       );
     }
-    function g() {
-      return f();
+    function f() {
+      return _();
     }
-    function h() {
+    function g() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_handoff_timing_sync_enabled",
         ) === !0
       );
     }
-    var y = 0,
-      C = 1,
-      b = 2;
-    function v() {
+    var h = 0,
+      y = 1,
+      C = 2;
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function S() {
-      return v() !== y;
+    function v() {
+      return b() !== h;
     }
-    function R() {
+    function S() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_receiving",
         ) === !0
       );
     }
-    function L() {
+    function R() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
         ) === !0
       );
     }
-    function E() {
+    function L() {
       return (
         o("WAWebABProps").getABPropConfigValue("biz_ai_web_gdrive_enabled") ===
         !0
       );
     }
-    function k() {
+    function E() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_integration_hub_enabled",
@@ -104,20 +98,19 @@ __d(
       (l.isAiHubTapCtaShowAlertEnabled = c),
       (l.isBizAiWebAgentChatDisabled = d),
       (l.isAiAgentAutoSaveEnabled = m),
-      (l.isAiMuteUnmuteV2Enabled = p),
-      (l.isAiReplyFabConfirmModalEnabled = _),
-      (l.isAiRespondingChipEnabled = f),
-      (l.isHandoffRemovalTimingSettingEnabled = g),
-      (l.isHandoffRemovalTimingSyncEnabled = h),
-      (l.MULTI_WEBSITE_DISABLED = y),
-      (l.MULTI_WEBSITE_BRAZIL = C),
-      (l.MULTI_WEBSITE_LATAM = b),
-      (l.getMultiWebsiteMode = v),
-      (l.isMultiWebsiteEnabled = S),
-      (l.isMaibaWASSReceivingEnabled = R),
-      (l.isMaibaWASSSendingEnabled = L),
-      (l.isGoogleDriveEnabled = E),
-      (l.isIntegrationHubEnabled = k));
+      (l.isAiReplyFabConfirmModalEnabled = p),
+      (l.isAiRespondingChipEnabled = _),
+      (l.isHandoffRemovalTimingSettingEnabled = f),
+      (l.isHandoffRemovalTimingSyncEnabled = g),
+      (l.MULTI_WEBSITE_DISABLED = h),
+      (l.MULTI_WEBSITE_BRAZIL = y),
+      (l.MULTI_WEBSITE_LATAM = C),
+      (l.getMultiWebsiteMode = b),
+      (l.isMultiWebsiteEnabled = v),
+      (l.isMaibaWASSReceivingEnabled = S),
+      (l.isMaibaWASSSendingEnabled = R),
+      (l.isGoogleDriveEnabled = L),
+      (l.isIntegrationHubEnabled = E));
   },
   98,
 );

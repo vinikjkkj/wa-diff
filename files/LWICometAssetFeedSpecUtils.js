@@ -1,6 +1,10 @@
 __d(
   "LWICometAssetFeedSpecUtils",
-  ["LWICometCreativeJsonMigrationUtils", "jsonParseSafe"],
+  [
+    "LWICometAdgroupUtils",
+    "LWICometCreativeJsonMigrationUtils",
+    "jsonParseSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -264,23 +268,28 @@ __d(
       );
     }
     function _(e, t) {
-      var n, r, o;
+      var n, r, a;
       if ((t == null ? void 0 : t.object_story_spec) == null || e == null)
         return t;
-      var a =
-        ((n = e.ad_formats) == null ? void 0 : n[0]) === "SINGLE_IMAGE" ||
-        ((r = e.ad_formats) == null ? void 0 : r[0]) === "CAROUSEL"
-          ? babelHelpers.extends({}, t.object_story_spec.link_data, f(e))
-          : null;
-      return babelHelpers.extends({}, t, {
-        object_story_spec: babelHelpers.extends({}, t.object_story_spec, {
-          link_data: a != null ? a : void 0,
-          video_data:
-            ((o = e.ad_formats) == null ? void 0 : o[0]) === "SINGLE_VIDEO"
-              ? g(e)
-              : void 0,
-        }),
-      });
+      var i =
+          ((n = e.ad_formats) == null ? void 0 : n[0]) === "SINGLE_IMAGE" ||
+          ((r = e.ad_formats) == null ? void 0 : r[0]) === "CAROUSEL"
+            ? babelHelpers.extends({}, t.object_story_spec.link_data, f(e))
+            : null,
+        l = babelHelpers.extends({}, t, {
+          object_story_spec: babelHelpers.extends({}, t.object_story_spec, {
+            link_data: i != null ? i : void 0,
+            video_data:
+              ((a = e.ad_formats) == null ? void 0 : a[0]) === "SINGLE_VIDEO"
+                ? g(e)
+                : void 0,
+          }),
+        });
+      return o("LWICometAdgroupUtils").countObjectStorySpecPostTypes(
+        l.object_story_spec,
+      ) !== 1
+        ? t
+        : l;
     }
     function f(e) {
       var t,

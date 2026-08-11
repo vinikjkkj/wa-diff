@@ -9244,7 +9244,7 @@ __d(
             (e.importJSON =
               (l && l.$importJSON) ||
               function (t) {
-                return new e().updateFromJSON(t);
+                return rl(new e()).updateFromJSON(t);
               }),
           !ql(e, "importDOM") && l)
         ) {
