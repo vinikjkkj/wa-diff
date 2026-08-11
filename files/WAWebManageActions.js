@@ -261,7 +261,7 @@ __d(
                         .sendLogs("Deleteing collection failed"),
                       o("WAWebToastManager").ToastManager.open(
                         m.jsx(o("WAWebToast.react").Toast, {
-                          msg: s._(/*BTDS*/ "Failed to delete collection"),
+                          msg: s._(/*BTDS*/ "Couldn't delete collection"),
                           id: o("WAWebToast.react").genId(
                             "catalog_delete_product_failed",
                           ),
@@ -346,7 +346,7 @@ __d(
                 }),
               );
             },
-            n = s._(/*BTDS*/ "Failed to save collection");
+            n = s._(/*BTDS*/ "Couldn't save collection");
           if (e.text === "not-acceptable")
             return (
               e.fieldName === "products" &&
@@ -383,7 +383,7 @@ __d(
     var k = {
       OUT_OF_SYNC: {
         getTitle: function () {
-          return s._(/*BTDS*/ "Changes cannot be saved");
+          return s._(/*BTDS*/ "Changes couldn't be saved");
         },
         getDescription: function () {
           return s._(/*BTDS*/ "Please refresh and try again.");
@@ -394,10 +394,10 @@ __d(
       },
       SERVER_ERROR: {
         getTitle: function () {
-          return s._(/*BTDS*/ "Error");
+          return s._(/*BTDS*/ "Couldn't save the new order");
         },
         getDescription: function () {
-          return s._(/*BTDS*/ "Something went wrong. Please try again.");
+          return s._(/*BTDS*/ "Please try again.");
         },
         getOkText: function () {
           return s._(/*BTDS*/ "OK");

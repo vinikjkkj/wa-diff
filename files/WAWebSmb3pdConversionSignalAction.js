@@ -234,21 +234,25 @@ __d(
           });
         });
       };
-    function _(e, t, n, r) {
-      if (e.length !== 0) {
-        var a = e.reduce(function (e, t) {
+    function _(e) {
+      var t = e.customLabelsMappingEvents,
+        n = e.isDataSharingEnabled,
+        r = e.labelIds,
+        a = e.models;
+      if (a.length !== 0) {
+        var i = a.reduce(function (e, t) {
           return (t instanceof o("WAWebChatModel").Chat && e.push(t), e);
         }, []);
-        (t != null &&
-          t.length > 0 &&
-          a.length > 0 &&
+        (r != null &&
+          r.length > 0 &&
+          i.length > 0 &&
           o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
-          m(a, t, n),
-          r != null &&
-            r.length > 0 &&
-            a.length > 0 &&
+          m(i, r, n),
+          t != null &&
+            t.length > 0 &&
+            i.length > 0 &&
             o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
-            p(a, r, n));
+            p(i, t, n));
       }
     }
     ((l.log3pdConversionSignalForOrders = d),

@@ -166,7 +166,9 @@ __d(
       I = {
         step: o("WAWebSettingsConst").SettingsSteps.Wallpaper,
         id: "wallpaper",
-        isAvailable: !0,
+        isAvailable: function () {
+          return !o("WAWebChatThemeGatingUtils").isChatThemesEnabled();
+        },
         searchCriteria: String(
           o("WAWebSettingsFBT").wallpaperTitle(),
         ).toLowerCase(),

@@ -22,6 +22,7 @@ __d(
       CREATIVE_PRODUCT_JOINT_RANKING: "creative_product_joint_ranking",
       CREATIVE_PRODUCTS_PARITY: "creative_products_parity",
       CREATIVE_RELAXATION_POSITIVE_TEST: "creative_relaxation_positive_test",
+      CREATIVE_TESTING_EXP: "creative_testing_exp",
       DA_DATA_MODEL_REDESIGN: "da_data_model_redesign",
       DA_MEDIA_TYPE_AUTOMATION_CPV_COLLECTION:
         "da_media_type_automation_cpv_collection",

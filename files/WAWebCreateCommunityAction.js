@@ -128,7 +128,7 @@ __d(
             (o("WAWebToastManager").ToastManager.open(
               c.jsx(o("WAWebToast.react").Toast, {
                 msg: s._(
-                  /*BTDS*/ "Community could not be created. Check your internet connection and try again.",
+                  /*BTDS*/ "Couldn't create the community. Check your internet connection and try again.",
                 ),
               }),
             ),

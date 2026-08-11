@@ -10,6 +10,7 @@ __d(
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizCoexGatingUtils",
     "WAWebBotBaseGating",
+    "WAWebBotComposerTreatment",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
     "WAWebBotTos",
@@ -305,7 +306,8 @@ __d(
           !o("WAWebBotFrontendGating").isManusIntegrationEnabled() &&
           e.id.isBot()) ||
         (o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
-          o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(e))
+          o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(e)) ||
+        o("WAWebBotComposerTreatment").isBotSupportComposerBlocked(e.id)
       )
         return ((e.canSend = !1), !1);
       if (

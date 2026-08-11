@@ -82,7 +82,10 @@ __d(
               nativeFlowButtons: c,
             });
             return !_.nativeFlowName ||
-              !o("WAWebNativeFlowValidation").isValidNativeFlowMessage(_, a)
+              !o("WAWebNativeFlowValidation").isValidNativeFlowMessage({
+                bizSource: a,
+                msg: _,
+              })
               ? {
                   msgData: babelHelpers.extends({}, t, {
                     type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,

@@ -67,7 +67,11 @@ __d(
       }
       var S = r
           ? o("WAWebOptOutUserJob").optOutUser(_, a, i)
-          : o("WAWebOptOutUserJob").optInUser(_, a, i),
+          : o("WAWebOptOutUserJob").optInUser({
+              itemCategory: a,
+              itemEntryPoint: i,
+              jid: _,
+            }),
         R = S.then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(

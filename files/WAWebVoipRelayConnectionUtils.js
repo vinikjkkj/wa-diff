@@ -6,7 +6,6 @@ __d(
     "WAWebABProps",
     "WAWebUA",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -156,7 +155,7 @@ __d(
       return e === 1 ? 1 : 0;
     }
     function S() {
-      return o("WAWebUA").UA.isFirefox && r("justknobx")._("5308") ? 1 : 0;
+      return o("WAWebUA").UA.isFirefox ? 1 : 0;
     }
     function R() {
       return v() === 1 || S() === 1;

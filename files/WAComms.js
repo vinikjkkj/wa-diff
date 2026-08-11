@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAArrayUtils",
-    "WABaseGlobals",
     "WAErrors",
     "WALogger",
     "WANotifyConnectionChangeFactory",
@@ -964,9 +963,7 @@ __d(
                     c = i - r,
                     d = Math.round(c / 2),
                     m = o("WATimeUtils").castToUnixTime(l.value.t),
-                    p = o("WABaseGlobals").newClockSkewCalculation()
-                      ? Math.round((r + d) / 1e3 - m)
-                      : Math.round(Date.now() / 1e3 - m);
+                    p = Math.round((r + d) / 1e3 - m);
                   return (
                     (s = (u = this.config.handlers).onClockSkewUpdate) ==
                       null || s.call(u, p),

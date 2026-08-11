@@ -22,7 +22,6 @@ __d(
     "cr:719780",
     "gkx",
     "ifRequired",
-    "justknobx",
     "performance",
     "performanceNow",
     "promiseDone",
@@ -250,11 +249,7 @@ __d(
       var g = (u || (u = r("performanceNow")))();
       n("cr:719780") && n("cr:719780").init(t);
       var h =
-        s != null
-          ? s
-          : r("justknobx")._("3478")
-            ? r("CometNavigationTracingQPLEvents").initialLoadClient
-            : r("CometNavigationTracingQPLEvents").fbWebInitialLoad_CHANGE_ME;
+        s != null ? s : r("CometNavigationTracingQPLEvents").initialLoadClient;
       (o("QuickMarkersComet").mark("NavigationTracingStart"),
         S(s, a != null ? a : ""),
         o("NavigationTracing").traceInitialLoad(

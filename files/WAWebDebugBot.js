@@ -11,7 +11,6 @@ __d(
     "WAWebBotGating",
     "WAWebBotLearnMore.react",
     "WAWebBotProductGating",
-    "WAWebBotProfileCategory",
     "WAWebBotProfileCollection",
     "WAWebBotProfileDebugUtils",
     "WAWebBotSessionTransparencyNotice",
@@ -340,52 +339,6 @@ __d(
         : o("WAWebDebugUtils").getSelectedChat().id;
     }
     function F(e) {
-      return {
-        id: e.id,
-        name: e.name,
-        attrs: e.attrs,
-        description: e.description,
-        category: e.category,
-        isDefault: e.isDefault,
-        prompts: e.prompts,
-        personaId: e.personaId,
-        commands: e.commands,
-        commandsDescription: e.commandsDescription,
-        isMetaCreated: e.isMetaCreated,
-        creatorName: e.creatorName,
-        creatorProfileUrl: e.creatorProfileUrl,
-        lastUpdateTs: e.lastUpdateTs,
-        posingAsProfessional: e.posingAsProfessional,
-        product: e.product,
-        isDeprecated: e.isDeprecated,
-        isDeleted: e.isDeleted,
-        lastFetchedTimeMs: e.lastFetchedTimeMs,
-      };
-    }
-    function O(e) {
-      return {
-        id: e,
-        name: "",
-        attrs: "",
-        description: "",
-        category: o("WAWebBotProfileCategory").BotProfileCategory.SYNTHETIC,
-        isDefault: !1,
-        prompts: [],
-        personaId: "",
-        commands: [],
-        commandsDescription: "",
-        isMetaCreated: null,
-        creatorName: null,
-        creatorProfileUrl: null,
-        lastUpdateTs: null,
-        posingAsProfessional: null,
-        product: null,
-        isDeprecated: !1,
-        isDeleted: !1,
-        lastFetchedTimeMs: null,
-      };
-    }
-    function B(e) {
       var t,
         n,
         r = A(e),
@@ -418,14 +371,14 @@ __d(
         },
       );
     }
-    B.doc =
+    F.doc =
       "Show a bot's Standard Bot Profile fields + computed support state. Usage: showBotProfile(widStr?) \u2014 defaults to the open chat";
-    function W() {
-      return q.apply(this, arguments);
+    function O() {
+      return B.apply(this, arguments);
     }
-    function q() {
+    function B() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSchemaBotProfile").getBotProfileTable().all();
           return e.map(function (e) {
             var t,
@@ -451,21 +404,24 @@ __d(
             );
           });
         })),
-        q.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    ((W.doc =
+    ((O.doc =
       "Show SBP fields + computed support state for all cached bot profiles"),
-      (W.paramsToExecute = []));
-    function U(e, t) {
-      return V.apply(this, arguments);
+      (O.paramsToExecute = []));
+    function W(e, t) {
+      return q.apply(this, arguments);
     }
-    function V() {
+    function q() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = A(e),
             r = o("WAWebBotProfileCollection").BotProfileCollection.get(n),
-            a = r != null ? F(r) : O(n),
+            a =
+              r != null
+                ? o("WAWebBotProfileDebugUtils").profileTypeFromModel(r)
+                : o("WAWebBotProfileDebugUtils").emptyBotProfile(n),
             i = o("WAWebBotProfileDebugUtils").mergeProfileOverride(a, t);
           yield o("WAWebPersistBotProfiles").persistBotProfiles([i]);
           var l = {
@@ -482,29 +438,29 @@ __d(
             });
           return o("WAWebBotProfileDebugUtils").formatProfileDebug(l, s);
         })),
-        V.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    U.doc =
+    W.doc =
       "Force SBP fields on a bot and persist to IndexedDB. Usage: overrideBotProfile(widStr, {product?, isDeprecated?, isDeleted?})";
-    function H(e) {
-      return G.apply(this, arguments);
+    function U(e) {
+      return V.apply(this, arguments);
     }
-    function G() {
+    function V() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = A(e);
           (yield o("WAWebSchemaBotProfile")
             .getBotProfileTable()
             .remove(t.toString()),
             o("WAWebBotProfileCollection").BotProfileCollection.remove(t));
         })),
-        G.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    H.doc =
+    U.doc =
       "Remove a bot's cached profile row so it refetches on next sync. Usage: clearBotProfileOverride(widStr)";
-    var z = {
+    var H = {
       toggleInjectBizBotProfileFields: C,
       resetBizBotTos: b,
       resetBotTos: v,
@@ -526,16 +482,16 @@ __d(
       genSessionTransparencySystemMsg: P,
       updateForwardedBotValidationStatus: w,
       downloadImagineMedia: N,
-      showBotProfile: B,
-      showAllBotProfiles: W,
-      overrideBotProfile: U,
-      clearBotProfileOverride: H,
+      showBotProfile: F,
+      showAllBotProfiles: O,
+      overrideBotProfile: W,
+      clearBotProfileOverride: U,
       BotProfileCollection: o("WAWebBotProfileCollection").BotProfileCollection,
       requestBotList: o("WAWebRequestBotList").requestBotList,
       getBotProfilesFromServer: o("WAWebInitializeBots")
         .getBotProfilesFromServer,
     };
-    l.default = z;
+    l.default = H;
   },
   98,
 );

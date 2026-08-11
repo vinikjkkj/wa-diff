@@ -30,14 +30,10 @@ __d(
         throw r("err")("Trying to access myUserJid, but it's not set");
       return t;
     }
-    function p() {
-      return e == null ? !1 : u().newClockSkewCalculation();
-    }
     ((l.setGlobals = s),
       (l.setMyJids = c),
       (l.getMyDeviceJid = d),
-      (l.getMyUserJid = m),
-      (l.newClockSkewCalculation = p));
+      (l.getMyUserJid = m));
   },
   98,
 );

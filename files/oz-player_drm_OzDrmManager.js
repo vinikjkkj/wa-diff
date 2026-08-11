@@ -319,8 +319,16 @@ __d(
               persistentState: n.persistentState,
               sessionTypes: n.sessionTypes,
               initDataTypes: n.initDataTypes,
-            },
-            i = window.navigator.requestMediaKeySystemAccess(t, [a]);
+            };
+          if (window.navigator.requestMediaKeySystemAccess == null)
+            return r("oz-player/shims/OzMaybeNativePromise").reject(
+              o("oz-player/utils/OzErrorUtils").createOzError({
+                type: "OZ_DRM_MANAGER",
+                description:
+                  "navigator.requestMediaKeySystemAccess is not supported.",
+              }),
+            );
+          var i = window.navigator.requestMediaKeySystemAccess(t, [a]);
           return (
             o(
               "oz-player/loggings/OzLoggingUtils",
@@ -444,7 +452,7 @@ __d(
                         : !1;
                   if (m) throw d;
                   e.$13(d);
-                } else t.update(l);
+                } else return t.update(l);
               })
             );
           });

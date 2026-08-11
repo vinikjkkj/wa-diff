@@ -129,7 +129,12 @@ __d(
                   r.length > 0 &&
                     (o(
                       "WAWebSmb3pdConversionSignalAction",
-                    ).log3pdConversionSignalForChats(i, [], a, r),
+                    ).log3pdConversionSignalForChats({
+                      customLabelsMappingEvents: r,
+                      isDataSharingEnabled: a,
+                      labelIds: [],
+                      models: i,
+                    }),
                     i.forEach(function (e) {
                       e instanceof o("WAWebChatModel").Chat &&
                         o(

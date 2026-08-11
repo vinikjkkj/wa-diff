@@ -17,7 +17,6 @@ __d(
     "err",
     "getErrorSafe",
     "isStringNullOrEmpty",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -727,160 +726,158 @@ __d(
               a,
               i,
               l = this;
-            if (r("justknobx")._("5082")) {
-              ((e = this.__frameMonitorCleanup) == null || e.call(this),
-                (this.__frameMonitorCleanup = null));
-              var s = 2e3,
-                u = 15e3,
-                c = this.__healthCheckRetryCount === 0,
-                d = c ? u : s,
-                m = 5,
-                p = 0,
-                _ =
-                  (n =
-                    (a = o("WAWebVoipPopoutWindowState").getPopoutWindow()) ==
-                    null
-                      ? void 0
-                      : a.document) != null
-                    ? n
-                    : null,
-                f = _ != null ? _ : document;
-              o("WALogger").LOG(
-                A ||
-                  (A = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [CameraHealthCheck] monitoring frame production (doc=",
-                    ")",
-                  ])),
-                _ != null ? "popout" : "main",
-              );
-              var g = f.createElement("video");
-              (g.setAttribute("playsinline", ""),
-                g.setAttribute("aria-hidden", "true"),
-                (g.muted = !0),
-                (g.style.cssText =
-                  "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;"),
-                (g.srcObject = t));
-              var h = (i = f.body) != null ? i : document.body;
-              if (h == null) {
-                (o("WALogger")
-                  .ERROR(
-                    F ||
-                      (F = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [CameraHealthCheck] no document body to host probe video; skipping monitor",
-                      ])),
-                  )
-                  .sendLogs("voip-camera-health-check-no-body"),
-                  (g.srcObject = null));
-                return;
-              }
-              h.appendChild(g);
-              var y = !1,
-                C = null,
-                b = function () {
-                  y ||
-                    ((y = !0),
-                    C != null && (self.clearTimeout(C), (C = null)),
-                    (g.srcObject = null),
-                    g.remove(),
-                    l.__frameMonitorCleanup === b &&
-                      (l.__frameMonitorCleanup = null));
-                };
-              this.__frameMonitorCleanup = b;
-              var v = function () {
-                  y ||
-                    (o("WALogger").LOG(
-                      O ||
-                        (O = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [CameraHealthCheck] frame received",
-                        ])),
-                    ),
-                    te.trigger("cameraFrameReceived", []),
-                    b());
-                },
-                S = function () {
-                  if (!y) {
-                    if (
-                      o(
-                        "WAWebVoipVideoRendererRegistry",
-                      ).videoRendererRegistry.hasReceivedFirstFrameForJid(
-                        o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-                      )
-                    ) {
-                      (o("WALogger").LOG(
-                        B ||
-                          (B = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [CameraHealthCheck] self preview already rendered a frame",
-                          ])),
-                      ),
-                        v());
-                      return;
-                    }
-                    if (
-                      !o(
-                        "WAWebVoipVideoRendererRegistry",
-                      ).videoRendererRegistry.hasCanvasForJid(
-                        o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-                      ) &&
-                      p < m
-                    ) {
-                      (p++,
-                        o("WALogger").LOG(
-                          W ||
-                            (W = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [CameraHealthCheck] no consumer canvas yet, deferring verdict (deferral=",
-                              "/",
-                              ")",
-                            ])),
-                          p,
-                          m,
-                        ),
-                        (C = self.setTimeout(S, s)));
-                      return;
-                    }
-                    (o("WALogger").LOG(
-                      q ||
-                        (q = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [CameraHealthCheck] no frames within timeout (retryCount=",
-                          ")",
-                        ])),
-                      l.__healthCheckRetryCount,
-                    ),
-                      te.trigger("cameraNotProducingFrames", []),
-                      b(),
-                      l.__healthCheckRetryCount === 0
-                        ? ((l.__healthCheckRetryCount = 1),
-                          o("WALogger").LOG(
-                            U ||
-                              (U = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [CameraHealthCheck] auto-retrying camera capture",
-                              ])),
-                          ),
-                          l.retryCameraCapture())
-                        : (o("WALogger").LOG(
-                            V ||
-                              (V = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [CameraHealthCheck] retry exhausted, notifying UI",
-                              ])),
-                          ),
-                          te.trigger("cameraHealthCheckFailed", [])));
-                  }
-                };
-              ((C = self.setTimeout(S, d)),
-                typeof g.requestVideoFrameCallback == "function"
-                  ? g.requestVideoFrameCallback(v)
-                  : o("WALogger").LOG(
-                      H ||
-                        (H = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [CameraHealthCheck] requestVideoFrameCallback not available, relying on timeout",
-                        ])),
-                    ),
-                g.play().then(function () {
-                  !c ||
-                    y ||
-                    (C != null && self.clearTimeout(C),
-                    (C = self.setTimeout(S, s)));
-                }, r("WAWebNoop")));
+            ((e = this.__frameMonitorCleanup) == null || e.call(this),
+              (this.__frameMonitorCleanup = null));
+            var s = 2e3,
+              u = 15e3,
+              c = this.__healthCheckRetryCount === 0,
+              d = c ? u : s,
+              m = 5,
+              p = 0,
+              _ =
+                (n =
+                  (a = o("WAWebVoipPopoutWindowState").getPopoutWindow()) ==
+                  null
+                    ? void 0
+                    : a.document) != null
+                  ? n
+                  : null,
+              f = _ != null ? _ : document;
+            o("WALogger").LOG(
+              A ||
+                (A = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [CameraHealthCheck] monitoring frame production (doc=",
+                  ")",
+                ])),
+              _ != null ? "popout" : "main",
+            );
+            var g = f.createElement("video");
+            (g.setAttribute("playsinline", ""),
+              g.setAttribute("aria-hidden", "true"),
+              (g.muted = !0),
+              (g.style.cssText =
+                "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none;"),
+              (g.srcObject = t));
+            var h = (i = f.body) != null ? i : document.body;
+            if (h == null) {
+              (o("WALogger")
+                .ERROR(
+                  F ||
+                    (F = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [CameraHealthCheck] no document body to host probe video; skipping monitor",
+                    ])),
+                )
+                .sendLogs("voip-camera-health-check-no-body"),
+                (g.srcObject = null));
+              return;
             }
+            h.appendChild(g);
+            var y = !1,
+              C = null,
+              b = function () {
+                y ||
+                  ((y = !0),
+                  C != null && (self.clearTimeout(C), (C = null)),
+                  (g.srcObject = null),
+                  g.remove(),
+                  l.__frameMonitorCleanup === b &&
+                    (l.__frameMonitorCleanup = null));
+              };
+            this.__frameMonitorCleanup = b;
+            var v = function () {
+                y ||
+                  (o("WALogger").LOG(
+                    O ||
+                      (O = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [CameraHealthCheck] frame received",
+                      ])),
+                  ),
+                  te.trigger("cameraFrameReceived", []),
+                  b());
+              },
+              S = function () {
+                if (!y) {
+                  if (
+                    o(
+                      "WAWebVoipVideoRendererRegistry",
+                    ).videoRendererRegistry.hasReceivedFirstFrameForJid(
+                      o("WAWebVoipVideoRendererInterface").selfPreviewJid,
+                    )
+                  ) {
+                    (o("WALogger").LOG(
+                      B ||
+                        (B = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [CameraHealthCheck] self preview already rendered a frame",
+                        ])),
+                    ),
+                      v());
+                    return;
+                  }
+                  if (
+                    !o(
+                      "WAWebVoipVideoRendererRegistry",
+                    ).videoRendererRegistry.hasCanvasForJid(
+                      o("WAWebVoipVideoRendererInterface").selfPreviewJid,
+                    ) &&
+                    p < m
+                  ) {
+                    (p++,
+                      o("WALogger").LOG(
+                        W ||
+                          (W = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [CameraHealthCheck] no consumer canvas yet, deferring verdict (deferral=",
+                            "/",
+                            ")",
+                          ])),
+                        p,
+                        m,
+                      ),
+                      (C = self.setTimeout(S, s)));
+                    return;
+                  }
+                  (o("WALogger").LOG(
+                    q ||
+                      (q = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [CameraHealthCheck] no frames within timeout (retryCount=",
+                        ")",
+                      ])),
+                    l.__healthCheckRetryCount,
+                  ),
+                    te.trigger("cameraNotProducingFrames", []),
+                    b(),
+                    l.__healthCheckRetryCount === 0
+                      ? ((l.__healthCheckRetryCount = 1),
+                        o("WALogger").LOG(
+                          U ||
+                            (U = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [CameraHealthCheck] auto-retrying camera capture",
+                            ])),
+                        ),
+                        l.retryCameraCapture())
+                      : (o("WALogger").LOG(
+                          V ||
+                            (V = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [CameraHealthCheck] retry exhausted, notifying UI",
+                            ])),
+                        ),
+                        te.trigger("cameraHealthCheckFailed", [])));
+                }
+              };
+            ((C = self.setTimeout(S, d)),
+              typeof g.requestVideoFrameCallback == "function"
+                ? g.requestVideoFrameCallback(v)
+                : o("WALogger").LOG(
+                    H ||
+                      (H = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [CameraHealthCheck] requestVideoFrameCallback not available, relying on timeout",
+                      ])),
+                  ),
+              g.play().then(function () {
+                !c ||
+                  y ||
+                  (C != null && self.clearTimeout(C),
+                  (C = self.setTimeout(S, s)));
+              }, r("WAWebNoop")));
           }),
           (a.stopCapture = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(

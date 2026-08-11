@@ -12,12 +12,14 @@ __d(
     function s(t, n) {
       if (t == null) return { kind: e.UNRESOLVED };
       if (t.isDeprecated === !0) return { kind: e.DEPRECATED };
-      if (t.isDeleted === !0) return { kind: e.DELETED };
+      if (t.product == null || t.product === "") return { kind: e.DEPRECATED };
       var r = o("WAWebBotProduct").botProductFromServerValue(t.product);
       return r == null
         ? { kind: e.UNSUPPORTED, rawProduct: t.product }
         : n(r)
-          ? { kind: e.SUPPORTED, product: r }
+          ? t.isDeleted === !0
+            ? { kind: e.DELETED }
+            : { kind: e.SUPPORTED, product: r }
           : { kind: e.UNSUPPORTED, rawProduct: t.product };
     }
     ((l.BotSupportStateKind = e), (l.evaluateBotSupport = s));

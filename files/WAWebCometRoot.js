@@ -5,14 +5,16 @@ __d(
     "buildWAWebCometRoot",
     "react",
     "react-compiler-runtime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react"));
     function u() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
+      var e = o("react-compiler-runtime").c(1);
+      r("vulture")("hsluIXMVCOZ9MNEGP-20kto3H6w=");
+      var t;
       return (
         e[0] === Symbol.for("react.memo_cache_sentinel")
           ? ((t = s.jsx(r("WAWebAppWrapper.react"), {})), (e[0] = t))

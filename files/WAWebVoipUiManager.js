@@ -30,7 +30,6 @@ __d(
     "WAWebVoipWindowConstants",
     "WAWebWamEnumTsExternalEventSource",
     "fbs",
-    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -510,9 +509,7 @@ __d(
               "WAWebVoipUiPopoutWindowPortalContainer.react",
             ).setIsPopoutWindowOpening(!1));
         },
-        d =
-          !!((e = navigator.serviceWorker) != null && e.controller) &&
-          r("justknobx")._("5541"),
+        d = !!((e = navigator.serviceWorker) != null && e.controller),
         m = d
           ? window.location.origin + "/call/popout"
           : window.location.hostname;

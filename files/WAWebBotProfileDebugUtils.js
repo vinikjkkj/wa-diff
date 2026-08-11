@@ -1,6 +1,6 @@
 __d(
   "WAWebBotProfileDebugUtils",
-  ["WAWebBotProduct"],
+  ["WAWebBotProduct", "WAWebBotProfileCategory"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       var n = babelHelpers.extends({}, e);
@@ -26,7 +26,56 @@ __d(
         supportStateKind: t.kind,
       };
     }
-    ((l.mergeProfileOverride = e), (l.formatProfileDebug = s));
+    function u(e) {
+      return {
+        id: e.id,
+        name: e.name,
+        attrs: e.attrs,
+        description: e.description,
+        category: e.category,
+        isDefault: e.isDefault,
+        prompts: e.prompts,
+        personaId: e.personaId,
+        commands: e.commands,
+        commandsDescription: e.commandsDescription,
+        isMetaCreated: e.isMetaCreated,
+        creatorName: e.creatorName,
+        creatorProfileUrl: e.creatorProfileUrl,
+        lastUpdateTs: e.lastUpdateTs,
+        posingAsProfessional: e.posingAsProfessional,
+        product: e.product,
+        isDeprecated: e.isDeprecated,
+        isDeleted: e.isDeleted,
+        lastFetchedTimeMs: e.lastFetchedTimeMs,
+      };
+    }
+    function c(e) {
+      return {
+        id: e,
+        name: "",
+        attrs: "",
+        description: "",
+        category: o("WAWebBotProfileCategory").BotProfileCategory.SYNTHETIC,
+        isDefault: !1,
+        prompts: [],
+        personaId: "",
+        commands: [],
+        commandsDescription: "",
+        isMetaCreated: null,
+        creatorName: null,
+        creatorProfileUrl: null,
+        lastUpdateTs: null,
+        posingAsProfessional: null,
+        product: null,
+        isDeprecated: !1,
+        isDeleted: !1,
+        lastFetchedTimeMs: null,
+      };
+    }
+    ((l.mergeProfileOverride = e),
+      (l.formatProfileDebug = s),
+      (l.profileTypeFromModel = u),
+      (l.emptyBotProfile = c));
   },
   98,
 );

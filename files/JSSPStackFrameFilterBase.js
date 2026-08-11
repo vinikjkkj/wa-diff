@@ -119,7 +119,11 @@ __d(
                   r("gkx")("962"))
                 ) {
                   var L = ((m / s.length) * 100).toFixed(2);
-                  "" + m + L;
+                  r("FBLogger")("JSSelfProfiler").info(
+                    "JSSP trace optimizer removed %s frames (%s%)",
+                    m,
+                    L,
+                  );
                 }
                 return t;
               },

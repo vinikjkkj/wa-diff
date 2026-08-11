@@ -406,18 +406,21 @@ __d(
       return u(0x405337740b131);
     }
     function Dt() {
-      return u(0x56aefcbc25d3f);
+      return u(0x46cf699c0b6e0);
     }
     function xt() {
-      return u(8122483904494954);
+      return u(0x56aefcbc25d3f);
     }
     function $t() {
-      return u(0x566e31f78e0b2);
+      return u(8122483904494954);
     }
     function Pt() {
-      return u(0x769e543c0aed3);
+      return u(0x566e31f78e0b2);
     }
     function Nt() {
+      return u(0x769e543c0aed3);
+    }
+    function Mt() {
       return u(0x548d90f8cf00c);
     }
     ((l.FAQ_BASE_URL = e),
@@ -550,11 +553,12 @@ __d(
       (l.getBotSessionTransparencyUrl = kt),
       (l.getManusLearnMoreUrl = It),
       (l.getHatchLearnMoreUrl = Tt),
-      (l.getBusinessBroadcastsLearnMoreUrl = Dt),
-      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = xt),
-      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = $t),
-      (l.getCloseFriendLearnMoreUrl = Pt),
-      (l.getNewsletterStatusIntroFaqUrl = Nt));
+      (l.getStandardBotProfileLearnMoreUrl = Dt),
+      (l.getBusinessBroadcastsLearnMoreUrl = xt),
+      (l.getFirstTimeSMBCoexCallingLearnMoreUrl = $t),
+      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Pt),
+      (l.getCloseFriendLearnMoreUrl = Nt),
+      (l.getNewsletterStatusIntroFaqUrl = Mt));
   },
   98,
 );

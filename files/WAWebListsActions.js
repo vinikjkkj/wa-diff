@@ -72,9 +72,7 @@ __d(
           r = [String(t)];
         (o("WAWebSmbMarkAsXLabelAction").logLabelSignalForModels(e, r, n),
           o("WAWebSmb3pdConversionSignalAction").log3pdConversionSignalForChats(
-            e,
-            r,
-            n,
+            { isDataSharingEnabled: n, labelIds: r, models: e },
           ),
           o("WAWebCustomLabels3pdSignalUtils").processCustomLabels3pdSignals(
             r,

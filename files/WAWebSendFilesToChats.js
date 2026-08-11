@@ -100,7 +100,7 @@ __d(
                           ? (o("WAWebToastManager").ToastManager.open(
                               d.jsx(o("WAWebToast.react").Toast, {
                                 msg: s._(
-                                  /*BTDS*/ '_j{"*":{"*":"Failed to send {error-count} documents to {chat-name}","_1":"Failed to send {error-count} document to {chat-name}"}}',
+                                  /*BTDS*/ '_j{"*":{"*":"Couldn\'t send {error-count} documents to {chat-name}","_1":"Couldn\'t send {error-count} document to {chat-name}"}}',
                                   [
                                     s._param("error-count", C, [0]),
                                     s._plural(C),
@@ -136,7 +136,7 @@ __d(
                           o("WAWebToastManager").ToastManager.open(
                             d.jsx(o("WAWebToast.react").Toast, {
                               msg: s._(
-                                /*BTDS*/ '_j{"*":"Failed to send documents to {chat-name}","_1":"Failed to send document to {chat-name}"}',
+                                /*BTDS*/ '_j{"*":"Couldn\'t send documents to {chat-name}","_1":"Couldn\'t send document to {chat-name}"}',
                                 [
                                   s._plural(a.length),
                                   s._param("chat-name", i.formattedTitle),

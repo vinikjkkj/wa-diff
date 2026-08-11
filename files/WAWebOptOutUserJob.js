@@ -127,13 +127,17 @@ __d(
         jid: e,
       });
     }
-    function y(e, t, n, r) {
+    function y(e) {
+      var t = e.itemCategory,
+        n = e.itemEntryPoint,
+        r = e.itemReason,
+        o = e.jid;
       return f({
         block: !1,
         itemCategory: t,
         itemEntryPoint: n,
         itemReason: r,
-        jid: e,
+        jid: o,
       });
     }
     var C = 1e4;

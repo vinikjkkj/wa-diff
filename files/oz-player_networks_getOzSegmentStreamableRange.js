@@ -12,7 +12,7 @@ __d(
         var a = e[o];
         if (a.getURI().toString() !== t) return null;
         var i = a.getByteRange();
-        if (!r || !i || r.endByte === null || i.startByte !== r.endByte + 1)
+        if (!r || !i || r.endByte == null || i.startByte !== r.endByte + 1)
           return null;
         r = i;
       }

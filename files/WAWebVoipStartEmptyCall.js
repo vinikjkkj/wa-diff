@@ -82,7 +82,7 @@ __d(
                 o("WAWebToastManager").ToastManager.open(
                   m.jsx(o("WAWebToast.react").Toast, {
                     msg: s._(
-                      /*BTDS*/ "Could not start a new call. Try again after waiting for a few minutes.",
+                      /*BTDS*/ "Couldn't start a new call. Try again in a few minutes.",
                     ),
                   }),
                 )),

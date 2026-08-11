@@ -177,9 +177,6 @@ __d(
             jidUtils: o("WAJids").createJidUtils({ platform: "whatsapp" }),
             myJids: g,
             runInTransaction: o("WAWebRunInTransaction").runInTransaction,
-            newClockSkewCalculation: function () {
-              return !1;
-            },
           }),
             o("WACryptoLibraryConfig").setCryptoLibraryConfig({
               signalFutureMessagesMax: o("WAWebABProps").getABPropConfigValue(

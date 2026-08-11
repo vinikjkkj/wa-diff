@@ -378,6 +378,9 @@ __d(
                 this.updateVariableOperations = new Map();
               }
               if (this.updateResourcesOperations.length) {
+                this.initialTreeResources.setShouldCommitPublishStateUpdates(
+                  !0,
+                );
                 var c = this.processResources(this.updateResourcesOperations);
                 e = e || c[0];
                 for (var d of c[1]) this.updateOperationList.push(d);

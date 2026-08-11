@@ -19,64 +19,68 @@ __d(
     "WAWebVoipGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, a) {
-      return e.nativeFlowName == null
+    function e(e) {
+      var t = e.baseMessage,
+        n = e.bizSource,
+        a = e.fromMe,
+        i = e.msg;
+      return i.nativeFlowName == null
         ? !1
-        : e.nativeFlowName ===
+        : i.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO ||
-            e.nativeFlowName ===
+            i.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-          ? o("WAWebOrderDetails").getOrderInfo(e) != null
-          : e.nativeFlowName ===
+          ? o("WAWebOrderDetails").getOrderInfo(i) != null
+          : i.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
-            ? o("WAWebOrderStatus").getOrderStatusInfo(e) != null
-            : e.nativeFlowName ===
+            ? o("WAWebOrderStatus").getOrderStatusInfo(i) != null
+            : i.nativeFlowName ===
                   r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS ||
-                e.nativeFlowName ===
+                i.nativeFlowName ===
                   r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD
               ? o(
                   "WAWebOrderPaymentStatus",
-                ).getOrderPaymentStatusInfoFromNativeFlow(e) != null
-              : e.nativeFlowName ===
+                ).getOrderPaymentStatusInfoFromNativeFlow(i) != null
+              : i.nativeFlowName ===
                   r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER
                 ? !1
-                : e.nativeFlowName ===
+                : i.nativeFlowName ===
                     r("WAWebInteractiveMessagesNativeFlowName")
                       .BOOKING_CONFIRMATION
                   ? o("WAWebBookingConfirmation").getBookingConfirmationInfo(
-                      e,
+                      i,
                     ) != null
-                  : e.nativeFlowName ===
+                  : i.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName")
                         .MESSAGE_WITH_LINK
-                    ? s(e) !== !1
-                    : e.nativeFlowName ===
+                    ? s(i) !== !1
+                    : i.nativeFlowName ===
                         r("WAWebInteractiveMessagesNativeFlowName")
                           .MESSAGE_WITH_LINK_STATUS
                       ? o(
                           "WAWebPaymentsGatingUtils",
                         ).isMessageWithLinkNfmEnabled()
-                      : e.nativeFlowName ===
+                      : i.nativeFlowName ===
                           r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL
                         ? o(
                             "WAWebBizTemplateAndInteractiveMessagesUtils",
                           ).isInteractiveCtaMessageEnabled(
                             r("WAWebInteractiveMessagesNativeFlowName")
                               .CTA_CALL,
+                            a,
                             n,
-                            t,
-                          ) && u(e) != null
-                        : e.nativeFlowName ===
+                          ) && u(i) != null
+                        : i.nativeFlowName ===
                             r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
                           ? o(
                               "WAWebBizTemplateAndInteractiveMessagesUtils",
                             ).isInteractiveCtaMessageEnabled(
                               r("WAWebInteractiveMessagesNativeFlowName")
                                 .CTA_URL,
+                              a,
                               n,
-                              t,
-                            ) && u(e) != null
-                          : e.nativeFlowName ===
+                            ) && u(i) != null
+                          : i.nativeFlowName ===
                               r("WAWebInteractiveMessagesNativeFlowName")
                                 .QUICK_REPLY
                             ? o(
@@ -84,10 +88,10 @@ __d(
                               ).isInteractiveCtaMessageEnabled(
                                 r("WAWebInteractiveMessagesNativeFlowName")
                                   .QUICK_REPLY,
+                                a,
                                 n,
-                                t,
-                              ) && u(e) != null
-                            : e.nativeFlowName ===
+                              ) && u(i) != null
+                            : i.nativeFlowName ===
                                 r("WAWebInteractiveMessagesNativeFlowName")
                                   .CTA_CATALOG
                               ? o(
@@ -95,10 +99,10 @@ __d(
                                 ).isInteractiveCtaMessageEnabled(
                                   r("WAWebInteractiveMessagesNativeFlowName")
                                     .CTA_CATALOG,
+                                  a,
                                   n,
-                                  t,
-                                ) && u(e) != null
-                              : e.nativeFlowName ===
+                                ) && u(i) != null
+                              : i.nativeFlowName ===
                                   r("WAWebInteractiveMessagesNativeFlowName")
                                     .CATALOG_MESSAGE
                                 ? o(
@@ -106,10 +110,10 @@ __d(
                                   ).isInteractiveCtaMessageEnabled(
                                     r("WAWebInteractiveMessagesNativeFlowName")
                                       .CATALOG_MESSAGE,
+                                    a,
                                     n,
-                                    t,
-                                  ) && u(e) != null
-                                : e.nativeFlowName ===
+                                  ) && u(i) != null
+                                : i.nativeFlowName ===
                                     r("WAWebInteractiveMessagesNativeFlowName")
                                       .CTA_COPY_CODE
                                   ? o(
@@ -118,49 +122,49 @@ __d(
                                       r(
                                         "WAWebInteractiveMessagesNativeFlowName",
                                       ).CTA_COPY_CODE,
+                                      a,
                                       n,
-                                      t,
-                                    ) && u(e) != null
-                                  : e.nativeFlowName ===
+                                    ) && u(i) != null
+                                  : i.nativeFlowName ===
                                       r(
                                         "WAWebInteractiveMessagesNativeFlowName",
                                       ).MIXED
                                     ? !0
-                                    : e.nativeFlowName ===
+                                    : i.nativeFlowName ===
                                         r(
                                           "WAWebInteractiveMessagesNativeFlowName",
                                         ).CTA_APP
-                                      ? u(e) != null &&
+                                      ? u(i) != null &&
                                         o(
                                           "WAWebMmSignalSharingGatingUtils",
                                         ).isMmSignalSharingAppCtaEnabled()
-                                      : e.nativeFlowName ===
+                                      : i.nativeFlowName ===
                                           r(
                                             "WAWebInteractiveMessagesNativeFlowName",
                                           ).CTA_FLOW
                                         ? o(
                                             "WAWebGalaxyFlowFeatureSupport",
-                                          ).isFlowSupported(e, null, a)
-                                        : e.nativeFlowName ===
+                                          ).isFlowSupported(i, null, t)
+                                        : i.nativeFlowName ===
                                             r(
                                               "WAWebInteractiveMessagesNativeFlowName",
                                             ).CALL_PERMISSION_REQUEST
                                           ? o(
                                               "WAWebVoipGatingUtils",
                                             ).isCoexCallingPermissionsEnabled()
-                                          : e.nativeFlowName ===
+                                          : i.nativeFlowName ===
                                               r(
                                                 "WAWebInteractiveMessagesNativeFlowName",
                                               ).PAYMENT_REQUEST
                                             ? o(
                                                 "WAWebBrPaymentRequest",
-                                              ).getPaymentRequestInfo(e) != null
-                                            : e.nativeFlowName ===
+                                              ).getPaymentRequestInfo(i) != null
+                                            : i.nativeFlowName ===
                                                 r(
                                                   "WAWebInteractiveMessagesNativeFlowName",
                                                 ).API_SIGNUP
                                               ? !0
-                                              : e.nativeFlowName ===
+                                              : i.nativeFlowName ===
                                                   r(
                                                     "WAWebInteractiveMessagesNativeFlowName",
                                                   ).INAPP_SIGNUP
@@ -170,21 +174,21 @@ __d(
                                                   o(
                                                     "WAWebInAppSignupConfirmation",
                                                   ).getInAppSignupConfirmationInfo(
-                                                    e,
+                                                    i,
                                                   ) != null
-                                                : e.nativeFlowName ===
+                                                : i.nativeFlowName ===
                                                     r(
                                                       "WAWebInteractiveMessagesNativeFlowName",
                                                     ).FORM_MESSAGE
                                                   ? o(
                                                       "WAWebMultiStepFormButton",
-                                                    ).getMultiStepFormInfo(e) !=
+                                                    ).getMultiStepFormInfo(i) !=
                                                     null
-                                                  : e.nativeFlowName ===
+                                                  : i.nativeFlowName ===
                                                         r(
                                                           "WAWebInteractiveMessagesNativeFlowName",
                                                         ).MENU_OPTIONS ||
-                                                      e.nativeFlowName ===
+                                                      i.nativeFlowName ===
                                                         r(
                                                           "WAWebInteractiveMessagesNativeFlowName",
                                                         ).A2UI_REPLY_ACTION
@@ -192,7 +196,7 @@ __d(
                                                     : (function () {
                                                         throw Error(
                                                           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                            e.nativeFlowName,
+                                                            i.nativeFlowName,
                                                         );
                                                       })();
     }

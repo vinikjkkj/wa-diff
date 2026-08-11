@@ -11,7 +11,7 @@ __d(
       return s._(/*BTDS*/ "Chat wallpaper");
     }
     function u() {
-      return s._(/*BTDS*/ "Chat theme");
+      return s._(/*BTDS*/ "Default chat theme");
     }
     function c() {
       return s._(/*BTDS*/ "Request account info");

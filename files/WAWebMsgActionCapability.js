@@ -8,6 +8,7 @@ __d(
     "WAWebAuraGating",
     "WAWebBizCtwaAGMUtils",
     "WAWebBotBaseGating",
+    "WAWebBotComposerTreatment",
     "WAWebBotForwardCapability",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotProfileCollection",
@@ -144,7 +145,9 @@ __d(
         (c != null && o("WAWebChatGetters").getIsBroadcast(c)) ||
         (c != null &&
           c.isSuspendedOrTerminated() &&
-          o("WAWebMiscGatingUtils").isGroupSuspendV2Enabled())
+          o("WAWebMiscGatingUtils").isGroupSuspendV2Enabled()) ||
+        (c != null &&
+          o("WAWebBotComposerTreatment").isBotSupportComposerBlocked(c.id))
       )
         return !1;
       var d = c != null && o("WAWebChatGetters").getIsNewsletter(c);

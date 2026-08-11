@@ -37,10 +37,17 @@ __d(
               r());
             return;
           }
+          var t = o("WAWebToast.react").genId();
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebToast.react").Toast, {
+              id: t,
               msg: a,
-              action: { actionText: s._(/*BTDS*/ "Undo"), onAction: r },
+              action: {
+                actionText: s._(/*BTDS*/ "Undo"),
+                onAction: function () {
+                  (r(), o("WAWebToastManager").ToastManager.close(t));
+                },
+              },
             }),
           );
         },

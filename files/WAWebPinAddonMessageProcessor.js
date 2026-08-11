@@ -7,6 +7,7 @@ __d(
     "WAWebAddonConstants",
     "WAWebAddonCreateMsgProcessor",
     "WAWebBackendApi",
+    "WAWebBoolFunc",
     "WAWebDBMarkFutureproofMessagesReparsed",
     "WAWebDBProcessMessage",
     "WAWebMsgGetters",
@@ -24,9 +25,7 @@ __d(
     var e,
       s = 60 * o("WATimeUtils").DAY_SECONDS,
       u = o("WAWebAddonCreateMsgProcessor").createAddonMsgProcessor({
-        isEnabled: function () {
-          return !0;
-        },
+        isEnabled: o("WAWebBoolFunc").returnTrue,
         convert: {
           fromHistorySyncMsg: function (r) {
             var t = o(

@@ -700,7 +700,19 @@ __d(
       } catch (e) {}
       return e.join("|");
     }
-    function N() {
+    var N = [
+      "(pointer: coarse)",
+      "(pointer: fine)",
+      "(any-pointer: coarse)",
+      "(any-pointer: fine)",
+      "(hover: hover)",
+      "(hover: none)",
+      "(any-hover: hover)",
+      "(color-gamut: srgb)",
+      "(color-gamut: p3)",
+      "(dynamic-range: high)",
+    ];
+    function M() {
       var e = [];
       try {
         var t = [
@@ -749,7 +761,106 @@ __d(
       } catch (e) {}
       return e.join("|");
     }
-    function M() {
+    function w() {
+      var e = [];
+      try {
+        var t, n;
+        (e.push("sr:" + String(screen.width) + "x" + String(screen.height)),
+          e.push("cd:" + String(screen.colorDepth)),
+          e.push("pd:" + String(screen.pixelDepth)),
+          navigator.hardwareConcurrency != null &&
+            e.push("cores:" + String(navigator.hardwareConcurrency)),
+          navigator.deviceMemory != null &&
+            e.push("mem:" + String(navigator.deviceMemory)),
+          navigator.maxTouchPoints != null &&
+            e.push("touch:" + String(navigator.maxTouchPoints)));
+        try {
+          var r = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          r != null && e.push("tz:" + r);
+        } catch (e) {}
+        (e.push("lang:" + ((t = navigator.language) != null ? t : "")),
+          e.push("platform:" + ((n = navigator.platform) != null ? n : "")));
+      } catch (e) {}
+      return e.join("|");
+    }
+    function A() {
+      var e = [];
+      try {
+        var t,
+          n,
+          r,
+          o,
+          a,
+          i,
+          l,
+          s,
+          u,
+          c,
+          d = navigator;
+        (e.push("vendor:" + String((t = d.vendor) != null ? t : "")),
+          e.push("productSub:" + String((n = d.productSub) != null ? n : "")),
+          e.push("webdriver:" + String((r = d.webdriver) != null ? r : !1)),
+          e.push("standalone:" + String((o = d.standalone) != null ? o : !1)),
+          e.push("pdf:" + String((a = d.pdfViewerEnabled) != null ? a : !1)),
+          e.push(
+            "plugins:" +
+              String(
+                (i = (l = d.plugins) == null ? void 0 : l.length) != null
+                  ? i
+                  : 0,
+              ),
+          ),
+          e.push(
+            "mimeTypes:" +
+              String(
+                (s = (u = d.mimeTypes) == null ? void 0 : u.length) != null
+                  ? s
+                  : 0,
+              ),
+          ),
+          e.push(
+            "languages:" + ((c = d.languages) != null ? c : []).join(","),
+          ));
+        var m = d.userAgentData;
+        if (m != null) {
+          var p, _;
+          (e.push("uaMobile:" + String((p = m.mobile) != null ? p : !1)),
+            e.push("uaPlatform:" + String((_ = m.platform) != null ? _ : "")));
+        }
+      } catch (e) {}
+      return e.join("|");
+    }
+    function F() {
+      var e = [];
+      try {
+        typeof window.matchMedia == "function" &&
+          e.push(
+            "mq:" +
+              N.map(function (e) {
+                return window.matchMedia(e).matches ? "1" : "0";
+              }).join(""),
+          );
+        var t = document.documentElement.style;
+        e.push(
+          "style:" +
+            [
+              "accentColor" in t,
+              "backdropFilter" in t,
+              "fontVariationSettings" in t,
+              "textSizeAdjust" in t,
+              "webkitBackdropFilter" in t,
+              "webkitTextSizeAdjust" in t,
+              "webkitTouchCallout" in t,
+            ]
+              .map(function (e) {
+                return e ? "1" : "0";
+              })
+              .join(""),
+        );
+      } catch (e) {}
+      return e.join("|");
+    }
+    function O() {
       try {
         var t = document.createElement("canvas");
         ((t.width = e), (t.height = s));
@@ -759,14 +870,14 @@ __d(
         return null;
       }
     }
-    function w() {
+    function B() {
       return (
         crypto !== void 0 &&
         crypto.subtle != null &&
         typeof crypto.subtle.digest == "function"
       );
     }
-    function A() {
+    function W() {
       var e = [];
       try {
         var t = E();
@@ -789,15 +900,15 @@ __d(
         a !== "" && e.push("runtime:" + a);
       } catch (e) {}
       try {
-        var i = N();
+        var i = M();
         i !== "" && e.push("cssFeatures:" + i);
       } catch (e) {}
       return e.join("||");
     }
-    function F(e) {
+    function q(e) {
       var t = [];
       try {
-        var n = M();
+        var n = O();
         n != null && t.push("canvas:" + n);
       } catch (e) {}
       try {
@@ -818,20 +929,57 @@ __d(
       } catch (e) {}
       if (e)
         try {
-          var l = A();
+          var l = W();
           l !== "" && t.push("v2:" + l);
         } catch (e) {}
       return t.length === 0 ? null : t.join("||");
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    var U = "stable1";
+    function V() {
+      var e = [];
+      try {
+        var t = O();
+        t != null && e.push("canvas:" + t);
+      } catch (e) {}
+      try {
+        var n = k();
+        n != null && e.push("webgl:" + n);
+      } catch (e) {}
+      try {
+        var r = T();
+        r != null && e.push("webgl2:" + r);
+      } catch (e) {}
+      try {
+        var o = b();
+        o !== "" && e.push("fonts:" + o);
+      } catch (e) {}
+      try {
+        var a = L();
+        a != null && e.push("textMetrics:" + a);
+      } catch (e) {}
+      try {
+        var i = w();
+        i !== "" && e.push("hw:" + i);
+      } catch (e) {}
+      try {
+        var l = A();
+        l !== "" && e.push("runtime:" + l);
+      } catch (e) {}
+      try {
+        var s = F();
+        s !== "" && e.push("cssFeatures:" + s);
+      } catch (e) {}
+      return e.length === 0 ? null : e.join("||");
     }
-    function B() {
+    function H(e) {
+      return G.apply(this, arguments);
+    }
+    function G() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            if (!w()) return null;
-            var t = F(S());
+            if (!B()) return null;
+            var t = q(S());
             if (t == null) return null;
             var n = e != null && e !== "" ? t + ":" + e : t;
             return yield h(n);
@@ -839,12 +987,32 @@ __d(
             return null;
           }
         })),
-        B.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    var W = { genCanvasID: O },
-      q = W;
-    l.default = q;
+    function z(e) {
+      return j.apply(this, arguments);
+    }
+    function j() {
+      return (
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          try {
+            if (!B()) return null;
+            var t = V();
+            if (t == null) return null;
+            var n = U + ":" + t,
+              r = e != null && e !== "" ? n + ":" + e : n;
+            return yield h(r);
+          } catch (e) {
+            return null;
+          }
+        })),
+        j.apply(this, arguments)
+      );
+    }
+    var K = { genCanvasID: H, genStableCanvasID: z },
+      Q = K;
+    l.default = Q;
   },
   98,
 );

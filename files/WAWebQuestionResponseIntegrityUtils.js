@@ -41,7 +41,7 @@ __d(
     }
     function _() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Response not deleted. Please try again.");
+        t = s._(/*BTDS*/ "Couldn't delete response. Please try again.");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );

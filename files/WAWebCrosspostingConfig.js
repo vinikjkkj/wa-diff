@@ -35,7 +35,7 @@ __d(
             return s._(/*BTDS*/ "Status shared to your Facebook Story");
           },
           getFailureToastMsg: function () {
-            return s._(/*BTDS*/ "Could not share status to Facebook");
+            return s._(/*BTDS*/ "Couldn't share status to Facebook");
           },
         },
         {
@@ -61,7 +61,7 @@ __d(
             return s._(/*BTDS*/ "Status shared to your Instagram Story");
           },
           getFailureToastMsg: function () {
-            return s._(/*BTDS*/ "Could not share status to Instagram");
+            return s._(/*BTDS*/ "Couldn't share status to Instagram");
           },
         },
       ];
@@ -93,10 +93,10 @@ __d(
       var t = e.includes("F"),
         n = e.includes("I");
       return t && n
-        ? s._(/*BTDS*/ "Could not share status to Facebook and Instagram")
+        ? s._(/*BTDS*/ "Couldn't share status to Facebook and Instagram")
         : t
-          ? s._(/*BTDS*/ "Could not share status to Facebook")
-          : s._(/*BTDS*/ "Could not share status to Instagram");
+          ? s._(/*BTDS*/ "Couldn't share status to Facebook")
+          : s._(/*BTDS*/ "Couldn't share status to Instagram");
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
