@@ -10,6 +10,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebBaseCollection",
     "WAWebBotGenTypingIndicatorMsg",
+    "WAWebBotSupportGating",
     "WAWebChatCollection",
     "WAWebCollectionConstants",
     "WAWebCollectionUtils",
@@ -31,9 +32,11 @@ __d(
     "WAWebNewsletterMsgHistoryUtils",
     "WAWebNewsletterViewModeUIUtils",
     "WAWebNoop",
+    "WAWebPrimaryFeaturesModel",
     "WAWebProcessMultipleMsgsAction",
     "WAWebProductMessageListCollection",
     "WAWebProtobufsE2E.pb",
+    "WAWebResolveBotProfile",
     "WAWebSyncButtonState",
     "WAWebThreadModelResolver",
     "WAWebUserPrefsMeUser",
@@ -792,7 +795,12 @@ __d(
                     (!(r != null && r.id.isBot()) &&
                       !(
                         (n = r.contact.businessProfile) != null && n.isBizBot3p
-                      ))
+                      )) ||
+                    o("WAWebBotSupportGating").isSupportedThirdPartyBot(
+                      o("WAWebResolveBotProfile").resolveBotSupportInput(e),
+                      o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+                        .aiBotIntegrationEnabled,
+                    )
                   )
                 ) {
                   if (r.botInitialTypingIndicatorMsgId != null) {

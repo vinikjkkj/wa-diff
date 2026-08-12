@@ -48,6 +48,7 @@ __d(
               pttOggPageWriteBucketLt4msPct: [41, e.TYPES.NUMBER],
               pttOggPageWriteBucketLt6msPct: [42, e.TYPES.NUMBER],
               pttOggPageWriteBucketLt8msPct: [43, e.TYPES.NUMBER],
+              pttOpenslPerformanceModeRequestStatus: [58, e.TYPES.INTEGER],
               pttOpusEncodeBucketGte10msPct: [44, e.TYPES.NUMBER],
               pttOpusEncodeBucketLt10msPct: [45, e.TYPES.NUMBER],
               pttOpusEncodeBucketLt2msPct: [46, e.TYPES.NUMBER],

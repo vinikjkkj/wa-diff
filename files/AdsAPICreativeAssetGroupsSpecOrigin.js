@@ -111,6 +111,7 @@ __d(
       PCA_PE_UPGRADE_DA_DATA_MODEL_EXPERIMENT:
         "pca_pe_upgrade_da_data_model_experiment",
       PCA_PRODUCT_SET_SWAP: "pca_product_set_swap",
+      PCA_SA_DA_UPGRADE_TEST: "pca_sa_da_upgrade_test",
       PCA_UNIFICATION_ALPHA_EXPERIMENT_FULL_FORMAT:
         "pca_unification_alpha_experiment_full_format",
       PCA_UNIFICATION_PERFORMANCE_EXPERIMENT_DA:

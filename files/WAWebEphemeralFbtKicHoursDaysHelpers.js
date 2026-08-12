@@ -8,8 +8,8 @@ __d(
     "WAWebMiscGatingUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e, u, c, d;
-    function m(t, n, r) {
+    var e, u;
+    function c(t, n, r) {
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled();
       return t ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
@@ -149,7 +149,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function p(e, t, n) {
+    function d(e, t, n) {
       var r = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled();
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
@@ -289,82 +289,7 @@ __d(
                                 .sendLogs("invalid-ephemeral-string-type"),
                               "");
     }
-    function _(e, t, n) {
-      return e ===
-        o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-          .SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_hours} hours after they\'re sent, except when kept.","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 hour after they\'re sent, except when kept."}',
-            [s._plural(t, "number_of_hours"), s._param("person-name", n)],
-          )
-        : e ===
-              o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                .SettingChangeByOthersAsAdmin && n != null
-          ? s._(
-              /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_hours} hours after they\'re sent, except when kept. {dm-action}","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 hour after they\'re sent, except when kept. {dm-action}"}',
-              [
-                s._plural(t, "number_of_hours"),
-                s._param("person-name", n),
-                s._param(
-                  "dm-action",
-                  o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
-                ),
-              ],
-            )
-          : (o("WALogger")
-              .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "getEphemeralOnHoursL10nComponent is given type ",
-                    " and name ",
-                    "",
-                  ])),
-                e,
-                n,
-              )
-              .sendLogs("invalid-ephemeral-string-type"),
-            "");
-    }
-    function f(e, t, n) {
-      return e ===
-        o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-          .SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_days} days after they\'re sent, except when kept.","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 day after they\'re sent, except when kept."}',
-            [s._plural(t, "number_of_days"), s._param("person-name", n)],
-          )
-        : e ===
-              o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                .SettingChangeByOthersAsAdmin && n != null
-          ? s._(
-              /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_days} days after they\'re sent, except when kept. {dm-action}","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 day after they\'re sent, except when kept. {dm-action}"}',
-              [
-                s._plural(t, "number_of_days"),
-                s._param("person-name", n),
-                s._param(
-                  "dm-action",
-                  o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
-                ),
-              ],
-            )
-          : (o("WALogger")
-              .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "getEphemeralOnDaysL10nComponent is given type ",
-                    " and name ",
-                    "",
-                  ])),
-                e,
-                n,
-              )
-              .sendLogs("invalid-ephemeral-string-type"),
-            "");
-    }
-    ((l.getEphemeralOnHoursString = m),
-      (l.getEphemeralOnDaysString = p),
-      (l.getEphemeralOnHoursComponent = _),
-      (l.getEphemeralOnDaysComponent = f));
+    ((l.getEphemeralOnHoursString = c), (l.getEphemeralOnDaysString = d));
   },
   226,
 );

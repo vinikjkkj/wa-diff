@@ -1,6 +1,7 @@
 __d(
   "WAWebPwaEventListeners",
   [
+    "WAWebApiParse",
     "WAWebPwaDocumentMetadataUtils",
     "WAWebWamEnumWebcPwaActionType",
     "WAWebWamEnumWebcWebPlatformType",
@@ -27,8 +28,31 @@ __d(
           }));
       });
     }
+    function u(e) {
+      window.launchQueue != null &&
+        window.launchQueue.setConsumer(function (t) {
+          var n = t.targetURL;
+          n != null && n !== "" && e(n);
+        });
+    }
+    function c(e, t) {
+      var n = o("WAWebApiParse").parseCallLink(e);
+      if (n == null) return { type: "ignore" };
+      var r = t != null ? o("WAWebApiParse").parseCallLink(t) : null;
+      return r != null && d(r, n)
+        ? { type: "suppress-cold-launch-duplicate" }
+        : { type: "exec", cmd: n };
+    }
+    function d(e, t) {
+      return (
+        e.data.token === t.data.token &&
+        e.data.callType.toLowerCase() === t.data.callType.toLowerCase()
+      );
+    }
     ((l.registerPwaInstallListener = e),
-      (l.registerPwaDisplayModeListener = s));
+      (l.registerPwaDisplayModeListener = s),
+      (l.registerPwaLaunchQueueConsumer = u),
+      (l.resolvePwaLaunchCallLink = c));
   },
   98,
 );

@@ -10,8 +10,12 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(t) {
+    var e,
+      s = 6e4,
+      u = new Set();
+    function c(t, n) {
+      var a = n === void 0 ? {} : n,
+        i = a.ttlMs;
       if (
         !(
           !o("WAWebBotBaseGating").isStandardBotProfileEnabled() ||
@@ -19,32 +23,37 @@ __d(
           o("WAWebBotStaticProfiles").isStaticProfile(t)
         )
       ) {
-        var n = o("WAWebBotProfileCollection").BotProfileCollection.get(t),
-          a =
-            n == null
+        var l = o("WAWebBotProfileCollection").BotProfileCollection.get(t),
+          s =
+            l == null
               ? null
               : {
-                  isDeleted: n.isDeleted,
-                  product: n.product,
-                  lastFetchedTimeMs: n.lastFetchedTimeMs,
+                  isDeleted: l.isDeleted,
+                  product: l.product,
+                  lastFetchedTimeMs: l.lastFetchedTimeMs,
                 };
-        o("WAWebBotProfileFreshness").isBotProfileStale(a, Date.now()) &&
-          o("WAWebSyncBotSupportFields")
-            .syncBotSupportFields(t)
-            .catch(function (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[maybeSyncBotSupportFields] sync failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("sbp-maybe-sync-error");
-            });
+        o("WAWebBotProfileFreshness").isBotProfileStale(s, Date.now(), i) &&
+          (u.has(t) ||
+            (u.add(t),
+            o("WAWebSyncBotSupportFields")
+              .syncBotSupportFields(t)
+              .catch(function (t) {
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[maybeSyncBotSupportFields] sync failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("sbp-maybe-sync-error");
+              })
+              .finally(function () {
+                u.delete(t);
+              })));
       }
     }
-    l.maybeSyncBotSupportFields = s;
+    ((l.CHAT_OPEN_REFRESH_TTL_MS = s), (l.maybeSyncBotSupportFields = c));
   },
   98,
 );

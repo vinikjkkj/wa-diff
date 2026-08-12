@@ -41,9 +41,13 @@ __d(
                 i === "" ||
                 t.push({
                   botFbid: i,
-                  name: m(n.name),
-                  profilePicThumbUrl: m(n.profile_pic_thumb_url),
-                  profilePicFullUrl: m(n.profile_pic_full_url),
+                  name: o("WAWebWassBotProfileMapper").emptyToNull(n.name),
+                  profilePicThumbUrl: o(
+                    "WAWebWassBotProfileMapper",
+                  ).emptyToNull(n.profile_pic_thumb_url),
+                  profilePicFullUrl: o("WAWebWassBotProfileMapper").emptyToNull(
+                    n.profile_pic_full_url,
+                  ),
                   isDeprecated: n.is_deprecated,
                   product: o(
                     "WAWebWassBotProfileMapper",
@@ -70,9 +74,6 @@ __d(
         })),
         d.apply(this, arguments)
       );
-    }
-    function m(e) {
-      return e != null && e !== "" ? e : null;
     }
     l.fetchWassBotListProfilesGQL = c;
   },

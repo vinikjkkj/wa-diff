@@ -106,28 +106,36 @@ __d(
       }
       return n;
     }
-    function u(e) {
+    function u(e, t) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null || e.length === 0) return new Map();
-          for (
-            var t = yield o("WAWebApiContact").bulkGetContactRecord(
-                [].concat(e),
-              ),
-              n = new Map(),
-              r = 0;
-            r < e.length;
-            r++
-          ) {
-            var a = e[r],
-              i = t[r],
-              l =
-                (i == null ? void 0 : i.pushname) ||
-                (i == null ? void 0 : i.verifiedName);
-            a != null && l != null && l !== "" && n.set("@" + a.user, "@" + l);
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = new Map();
+          if (e != null && e.length > 0)
+            for (
+              var r = yield o("WAWebApiContact").bulkGetContactRecord(
+                  [].concat(e),
+                ),
+                a = 0;
+              a < e.length;
+              a++
+            ) {
+              var i = e[a],
+                l = r[a],
+                s =
+                  (l == null ? void 0 : l.pushname) ||
+                  (l == null ? void 0 : l.verifiedName);
+              i != null &&
+                s != null &&
+                s !== "" &&
+                n.set("@" + i.user, "@" + s);
+            }
+          for (var u of t != null ? t : []) {
+            var c = u.groupJid,
+              d = u.groupSubject;
+            d != null && d !== "" && n.set("@" + c.toString(), "@" + d);
           }
           return n;
         })),

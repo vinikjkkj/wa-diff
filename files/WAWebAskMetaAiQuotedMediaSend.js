@@ -5,8 +5,10 @@ __d(
     "WALogger",
     "WAWebBotForwardCapability",
     "WAWebBotGating",
+    "WAWebBotReplaceMentionWidsWithPushnames",
     "WAWebBotUtils",
     "WAWebLazyLoadedRetriable",
+    "WAWebMetaAiForwardedText",
     "WAWebMsgType",
     "WAWebSendMsgResultAction",
     "WAWebSendTextMsgChatAction",
@@ -16,18 +18,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = r("WAWebLazyLoadedRetriable")(function () {
+      u,
+      c = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")("WAWebMediaForwardMediaMsg")
           .__setRef("WAWebAskMetaAiQuotedMediaSend")
           .load();
       }, "AskMetaAiForwardMediaMsg");
-    function c(e, t) {
-      if (
-        t == null ||
-        !o("WAWebBotUtils").isMetaAiBot(e.id) ||
-        t.type === o("WAWebMsgType").MSG_TYPE.CHAT
-      )
-        return !1;
+    function d(e, t) {
+      if (t == null || !o("WAWebBotUtils").isMetaAiBot(e.id)) return !1;
       var n = t.id.remote;
       return n == null ||
         n.equals(e.id) ||
@@ -35,7 +33,7 @@ __d(
         ? !1
         : o("WAWebBotGating").isAskMetaAiImprovementEnabled();
     }
-    function d(e, t) {
+    function m(e, t) {
       if (
         t.type !== o("WAWebMsgType").MSG_TYPE.IMAGE &&
         t.type !== o("WAWebMsgType").MSG_TYPE.VIDEO
@@ -49,48 +47,80 @@ __d(
         o("WAWebBotForwardCapability").canForwardMsgToMetaAi([t])
       );
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = n.quotedMsg;
-          if (r != null && c(e, r)) {
-            var a = yield _(e, r, t, n);
-            if (a) return;
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i = a.quotedMsg;
+          if (i == null || !d(t, i)) {
+            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(t, n, a);
+            return;
           }
-          yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(e, t, n);
+          if (i.type === o("WAWebMsgType").MSG_TYPE.CHAT) {
+            var l,
+              s = (l = i.body) != null ? l : "";
+            try {
+              s = o(
+                "WAWebBotReplaceMentionWidsWithPushnames",
+              ).replaceMentionsInText(
+                s,
+                yield o(
+                  "WAWebBotReplaceMentionWidsWithPushnames",
+                ).buildMentionMap(i.mentionedJidList, i.groupMentions),
+              );
+            } catch (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[askMetaAi] failed to resolve quoted mention names, forwarding the raw body",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("ask-meta-ai-quoted-mention-name-fail");
+            }
+            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+              t,
+              o("WAWebMetaAiForwardedText").composeMetaAiForwardedText(s, n),
+              babelHelpers.extends({}, a, { quotedMsg: void 0 }),
+            );
+            return;
+          }
+          var u = yield f(t, i, n, a);
+          u ||
+            (yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(t, n, a));
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e, t, n, r) {
-      return f.apply(this, arguments);
+    function f(e, t, n, r) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
             try {
-              var l,
-                c = yield u(),
-                d = c.forwardMediaMsg,
+              var i,
+                l = yield c(),
+                d = l.forwardMediaMsg,
                 m = yield d({
-                  aiThreadInfo: i.aiThreadInfo,
-                  appendedText: a,
-                  chat: t,
+                  aiThreadInfo: a.aiThreadInfo,
+                  appendedText: n,
+                  chat: e,
                   includeCaption: !1,
-                  msg: n,
-                  threadId: (l = i.threadIds) == null ? void 0 : l[0],
+                  msg: t,
+                  threadId: (i = a.threadIds) == null ? void 0 : i[0],
                 }),
                 p = m.messageSendResult;
               if (p === o("WAWebSendMsgResultAction").SendMsgResult.OK)
                 return !0;
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[askMetaAi] quoted media send to Meta AI returned ",
                       ", keeping the reply quote",
                     ])),
@@ -100,8 +130,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[askMetaAi] failed to forward quoted media to Meta AI, keeping the reply quote",
                     ])),
                 )
@@ -111,12 +141,12 @@ __d(
             return !1;
           },
         )),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.shouldForwardAskMetaAiQuotedMedia = c),
-      (l.shouldHideAskMetaAiQuotedCaption = d),
-      (l.sendAskMetaAiAwareTextMsg = m));
+    ((l.shouldForwardAskMetaAiQuotedMsg = d),
+      (l.shouldHideAskMetaAiQuotedCaption = m),
+      (l.sendAskMetaAiAwareTextMsg = p));
   },
   98,
 );

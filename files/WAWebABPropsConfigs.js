@@ -3226,6 +3226,7 @@ __d(
       web_calling_offline_resume_ordering: [29564, "bool", !1, !1],
       web_calling_pause_bg_during_call_mode: [34144, "int", 0, 0],
       web_calling_perf_optimizations_bitmask: [22186, "int", 1, 1],
+      web_calling_self_preview_enlarge: [34817, "bool", !1, !1],
       web_calling_smooth_call_link_lobby: [33131, "bool", !0, !0],
       web_calling_speaker_strip_resize_enabled: [30928, "bool", !1, !1],
       web_calls_tab_empty_state_buttons: [17724, "bool", !1, !0],

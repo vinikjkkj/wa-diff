@@ -92,9 +92,16 @@ __d(
         o("WAWebLabyrinthDebugStateCache").setLabyrinthDebugKeyMaterialCache({
           backupId: n.backup_id,
           ebDeviceId: n.device_id,
+          vdDeviceId: n.vd_device_id,
           epochAnonId: e.epoch0.epochAnonId,
+          epochFbid: e.epoch0.epochFbid,
           epochId: n.epoch_id,
           epochRootKey: e.epoch0.epochRootKey,
+          epochStoragePrivateKey: e.device.epochStoragePrivateKey,
+          devicePublicKey: e.device.publicKey,
+          epochStoragePublicKey: e.device.epochStoragePublicKey,
+          vdPublicKey: e.virtualDevice.vdPublicKey,
+          vdEpochStoragePublicKey: e.virtualDevice.vdEpochStoragePublicKey,
           mailboxRootKey: e.mailboxRootKey,
           orfClientState: e.device.ocmfClientState,
         });

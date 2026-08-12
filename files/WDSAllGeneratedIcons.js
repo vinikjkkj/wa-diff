@@ -278,6 +278,7 @@ __d(
     "WDSIconIcNotificationsOff.react",
     "WDSIconIcNotificationsOffFilled.react",
     "WDSIconIcNumbers.react",
+    "WDSIconIcOpenBook.react",
     "WDSIconIcOpenInNew.react",
     "WDSIconIcPaid.react",
     "WDSIconIcPaidFill.react",
@@ -299,6 +300,7 @@ __d(
     "WDSIconIcPersonCancel.react",
     "WDSIconIcPersonCheck.react",
     "WDSIconIcPersonFilled.react",
+    "WDSIconIcPersonReply.react",
     "WDSIconIcPersonSearch.react",
     "WDSIconIcPersonShield.react",
     "WDSIconIcPersonShieldFilled.react",
@@ -798,6 +800,8 @@ __d(
     "WDSIconIosWdsCustomization.react",
     "WDSIconIosWdsFaceSmilingAdd.react",
     "WDSIconIosWdsGearBadge.react",
+    "WDSIconIosWdsIc3PAiBot.react",
+    "WDSIconIosWdsIc3PAiBotFilled.react",
     "WDSIconIosWdsIcAccountsCenter.react",
     "WDSIconIosWdsIcAccountsCenterFill.react",
     "WDSIconIosWdsIcAi.react",
@@ -943,6 +947,7 @@ __d(
     "WDSIconIosWdsIcPersonTransferArrowFill.react",
     "WDSIconIosWdsIcPinMetaOneBadge.react",
     "WDSIconIosWdsIcPinMetaOneBadgeFill.react",
+    "WDSIconIosWdsIcPinPlus.react",
     "WDSIconIosWdsIcPolaroids.react",
     "WDSIconIosWdsIcPolaroidsFill.react",
     "WDSIconIosWdsIcPremiumChannelDiamond.react",
@@ -1068,6 +1073,10 @@ __d(
     "WDSIconIosXmark.react",
     "WDSIconIosXmarkCircle.react",
     "WDSIconIosXmarkCircleFill.react",
+    "WDSIconPin.react",
+    "WDSIconPinFilled.react",
+    "WDSIconPinSlash.react",
+    "WDSIconPinSlashFilled.react",
     "WDSIconWdsAiScenes.react",
     "WDSIconWdsAiScenesFill.react",
     "WDSIconWdsAiStudioFilled.react",
@@ -1082,6 +1091,8 @@ __d(
     "WDSIconWdsCameraReplybadge.react",
     "WDSIconWdsCameraReplybadgeFilled.react",
     "WDSIconWdsChildAccountChild.react",
+    "WDSIconWdsIc3PAiBot.react",
+    "WDSIconWdsIc3PAiBotFilled.react",
     "WDSIconWdsIcAccountChildFill.react",
     "WDSIconWdsIcAccountsCenter.react",
     "WDSIconWdsIcAddToStatus.react",
@@ -1132,6 +1143,7 @@ __d(
     "WDSIconWdsIcCommunitiesFilled.react",
     "WDSIconWdsIcConsumerAi.react",
     "WDSIconWdsIcConsumerAiFill.react",
+    "WDSIconWdsIcCurrencyDong.react",
     "WDSIconWdsIcCurrencyDongCircle.react",
     "WDSIconWdsIcCurrencyDongCircleFilled.react",
     "WDSIconWdsIcCurrencyEgyptianPound.react",
@@ -1214,6 +1226,7 @@ __d(
     "WDSIconWdsIcLogoInstagram.react",
     "WDSIconWdsIcLogoMessenger.react",
     "WDSIconWdsIcLogoMessengerFill.react",
+    "WDSIconWdsIcLogoMeta.react",
     "WDSIconWdsIcLogoMetaAi.react",
     "WDSIconWdsIcLogoMetaAiColor.react",
     "WDSIconWdsIcLogoMetaAiFilled.react",
@@ -1265,6 +1278,8 @@ __d(
     "WDSIconWdsIcPhotoAi.react",
     "WDSIconWdsIcPinMetaOneBadge.react",
     "WDSIconWdsIcPinMetaOneBadgeFilled.react",
+    "WDSIconWdsIcPinPlus.react",
+    "WDSIconWdsIcPinPlusFilled.react",
     "WDSIconWdsIcPipExitTopRightToBottomLeft.react",
     "WDSIconWdsIcPipLeftBottomToTopRight.react",
     "WDSIconWdsIcPlaystore.react",
@@ -1367,7 +1382,6 @@ __d(
     "WDSIconWdsIcVoiceChatChannelsFill.react",
     "WDSIconWdsIcWand.react",
     "WDSIconWdsIcWandFilled.react",
-    "WDSIconWdsIcWeave.react",
     "WDSIconWdsIcWhatsapp.react",
     "WDSIconWdsIcWhatsappSmbLogo.react",
     "WDSIconWdsMicVoiceReplybadge.react",
@@ -2215,6 +2229,7 @@ __d(
           name: "WDSIconIcNotificationsOffFilled",
         },
         { Component: r("WDSIconIcNumbers.react"), name: "WDSIconIcNumbers" },
+        { Component: r("WDSIconIcOpenBook.react"), name: "WDSIconIcOpenBook" },
         {
           Component: r("WDSIconIcOpenInNew.react"),
           name: "WDSIconIcOpenInNew",
@@ -2274,6 +2289,10 @@ __d(
         {
           Component: r("WDSIconIcPersonFilled.react"),
           name: "WDSIconIcPersonFilled",
+        },
+        {
+          Component: r("WDSIconIcPersonReply.react"),
+          name: "WDSIconIcPersonReply",
         },
         {
           Component: r("WDSIconIcPersonSearch.react"),
@@ -3978,6 +3997,14 @@ __d(
           name: "WDSIconIosWdsGearBadge",
         },
         {
+          Component: r("WDSIconIosWdsIc3PAiBot.react"),
+          name: "WDSIconIosWdsIc3PAiBot",
+        },
+        {
+          Component: r("WDSIconIosWdsIc3PAiBotFilled.react"),
+          name: "WDSIconIosWdsIc3PAiBotFilled",
+        },
+        {
           Component: r("WDSIconIosWdsIcAccountsCenter.react"),
           name: "WDSIconIosWdsIcAccountsCenter",
         },
@@ -4558,6 +4585,10 @@ __d(
           name: "WDSIconIosWdsIcPinMetaOneBadgeFill",
         },
         {
+          Component: r("WDSIconIosWdsIcPinPlus.react"),
+          name: "WDSIconIosWdsIcPinPlus",
+        },
+        {
           Component: r("WDSIconIosWdsIcPolaroids.react"),
           name: "WDSIconIosWdsIcPolaroids",
         },
@@ -5072,6 +5103,13 @@ __d(
           Component: r("WDSIconIosXmarkCircleFill.react"),
           name: "WDSIconIosXmarkCircleFill",
         },
+        { Component: r("WDSIconPin.react"), name: "WDSIconPin" },
+        { Component: r("WDSIconPinFilled.react"), name: "WDSIconPinFilled" },
+        { Component: r("WDSIconPinSlash.react"), name: "WDSIconPinSlash" },
+        {
+          Component: r("WDSIconPinSlashFilled.react"),
+          name: "WDSIconPinSlashFilled",
+        },
         {
           Component: r("WDSIconWdsAiScenes.react"),
           name: "WDSIconWdsAiScenes",
@@ -5127,6 +5165,14 @@ __d(
         {
           Component: r("WDSIconWdsChildAccountChild.react"),
           name: "WDSIconWdsChildAccountChild",
+        },
+        {
+          Component: r("WDSIconWdsIc3PAiBot.react"),
+          name: "WDSIconWdsIc3PAiBot",
+        },
+        {
+          Component: r("WDSIconWdsIc3PAiBotFilled.react"),
+          name: "WDSIconWdsIc3PAiBotFilled",
         },
         {
           Component: r("WDSIconWdsIcAccountChildFill.react"),
@@ -5318,6 +5364,10 @@ __d(
         {
           Component: r("WDSIconWdsIcConsumerAiFill.react"),
           name: "WDSIconWdsIcConsumerAiFill",
+        },
+        {
+          Component: r("WDSIconWdsIcCurrencyDong.react"),
+          name: "WDSIconWdsIcCurrencyDong",
         },
         {
           Component: r("WDSIconWdsIcCurrencyDongCircle.react"),
@@ -5641,6 +5691,10 @@ __d(
           name: "WDSIconWdsIcLogoMessengerFill",
         },
         {
+          Component: r("WDSIconWdsIcLogoMeta.react"),
+          name: "WDSIconWdsIcLogoMeta",
+        },
+        {
           Component: r("WDSIconWdsIcLogoMetaAi.react"),
           name: "WDSIconWdsIcLogoMetaAi",
         },
@@ -5842,6 +5896,14 @@ __d(
         {
           Component: r("WDSIconWdsIcPinMetaOneBadgeFilled.react"),
           name: "WDSIconWdsIcPinMetaOneBadgeFilled",
+        },
+        {
+          Component: r("WDSIconWdsIcPinPlus.react"),
+          name: "WDSIconWdsIcPinPlus",
+        },
+        {
+          Component: r("WDSIconWdsIcPinPlusFilled.react"),
+          name: "WDSIconWdsIcPinPlusFilled",
         },
         {
           Component: r("WDSIconWdsIcPipExitTopRightToBottomLeft.react"),
@@ -6249,7 +6311,6 @@ __d(
           Component: r("WDSIconWdsIcWandFilled.react"),
           name: "WDSIconWdsIcWandFilled",
         },
-        { Component: r("WDSIconWdsIcWeave.react"), name: "WDSIconWdsIcWeave" },
         {
           Component: r("WDSIconWdsIcWhatsapp.react"),
           name: "WDSIconWdsIcWhatsapp",

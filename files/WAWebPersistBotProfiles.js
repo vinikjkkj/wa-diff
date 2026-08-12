@@ -2,6 +2,7 @@ __d(
   "WAWebPersistBotProfiles",
   [
     "WAWebBotProfileCollection",
+    "WAWebProfilePicThumbCollection",
     "WAWebSchemaBotProfile",
     "asyncToGeneratorRuntime",
   ],
@@ -41,12 +42,58 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    function d(e, t, n) {
+      var r = n != null && n !== "" ? n : null,
+        a = t != null && t !== "" ? t : null,
+        i = r != null ? r : a;
+      if (i == null) return null;
+      var l = a != null ? a : i;
+      if (m(e, i, l)) return null;
+      var s = Date.now();
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        o("WAWebProfilePicThumbCollection")
+          .ProfilePicThumbCollection.gadd(e)
+          .set({
+            eurl: i,
+            previewEurl: l,
+            previewDirectPath: null,
+            fullDirectPath: null,
+            filehash: null,
+            tag: "bot",
+            stale: !1,
+            timestamp: s,
+          }),
+        {
+          id: e.toString(),
+          eurl: i,
+          previewEurl: l,
+          previewDirectPath: null,
+          fullDirectPath: null,
+          filehash: null,
+          tag: "bot",
+          timestamp: s,
+        }
+      );
+    }
+    function m(e, t, n) {
+      var r = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
+        e,
+      );
+      return (
+        r != null &&
+        r.eurl === t &&
+        r.previewEurl === n &&
+        r.previewDirectPath == null &&
+        r.fullDirectPath == null &&
+        r.filehash == null
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.name,
             r = babelHelpers.objectWithoutPropertiesLoose(t, s),
             a =
@@ -60,15 +107,16 @@ __d(
               babelHelpers.extends({ id: e }, a),
             ));
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function p(e) {
+    function f(e) {
       return o("WAWebBotProfileCollection").BotProfileCollection.get(e) != null;
     }
     ((l.persistBotProfiles = u),
-      (l.mergeBotSupportFields = d),
-      (l.isBotProfileCached = p));
+      (l.setBotProfilePicUrls = d),
+      (l.mergeBotSupportFields = p),
+      (l.isBotProfileCached = f));
   },
   98,
 );

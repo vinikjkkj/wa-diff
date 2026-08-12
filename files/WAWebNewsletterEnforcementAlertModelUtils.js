@@ -248,25 +248,29 @@ __d(
         n
       );
     }
-    function p(t, n, r, a) {
-      var i = [],
-        l;
+    function p(t) {
+      var n = t.geosuspensionAlerts,
+        r = t.msgModelMap,
+        a = t.newsletterJid,
+        i = t.statusModelMap,
+        l = [],
+        s;
       return (
-        t == null ||
-          t.map(function (t) {
-            var s,
+        n == null ||
+          n.map(function (t) {
+            var n,
               u,
               c,
               d =
-                (s = t.enforcementExtraData) == null
+                (n = t.enforcementExtraData) == null
                   ? void 0
-                  : s.enforcementTargetData,
+                  : n.enforcementTargetData,
               m = (u = d == null ? void 0 : d.serverId) != null ? u : null,
               p =
                 (d == null ? void 0 : d.contentType) ===
                 o("WAWebCommonNewsletterEnums").ViolatingContentType.STATUS
-                  ? r
-                  : n,
+                  ? i
+                  : r,
               _ =
                 m != null && (c = p == null ? void 0 : p.get(m)) != null
                   ? c
@@ -303,7 +307,7 @@ __d(
                 );
               f.set(y + "_" + m, g);
             }
-            ((l = {
+            ((s = {
               id: t.enforcementId,
               chatId: o("WAWebWidFactory").createWid(a),
               enforcementCreationTime: t.enforcementCreationTime,
@@ -318,9 +322,9 @@ __d(
               countryCodes: t.countryCodes,
               appeal: g,
             }),
-              i.push(l));
+              l.push(s));
           }),
-        i
+        l
       );
     }
     function _(e, t, n, r) {
@@ -329,7 +333,15 @@ __d(
         ((e == null ? void 0 : e.suspensions) != null &&
           o.push.apply(o, u(e == null ? void 0 : e.suspensions, t, n, r)),
         (e == null ? void 0 : e.geoSuspensions) != null &&
-          o.push.apply(o, p(e == null ? void 0 : e.geoSuspensions, t, n, r)),
+          o.push.apply(
+            o,
+            p({
+              geosuspensionAlerts: e == null ? void 0 : e.geoSuspensions,
+              msgModelMap: t,
+              newsletterJid: r,
+              statusModelMap: n,
+            }),
+          ),
         (e == null ? void 0 : e.profilePictureDeletions) != null &&
           o.push.apply(o, d(e == null ? void 0 : e.profilePictureDeletions, r)),
         (e == null ? void 0 : e.adminProfiles) != null &&

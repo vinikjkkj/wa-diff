@@ -17,7 +17,14 @@ __d(
         n.product === o("WAWebBotProduct").BotProduct.THIRD_PARTY
       );
     }
-    l.isSupportedThirdPartyBot = e;
+    function s(e) {
+      return o("WAWebBotBaseGating").isStandardBotProfileEnabled()
+        ? o("WAWebBotProduct").botProductFromServerValue(
+            e == null ? void 0 : e.product,
+          ) === o("WAWebBotProduct").BotProduct.THIRD_PARTY
+        : !1;
+    }
+    ((l.isSupportedThirdPartyBot = e), (l.isThirdPartyAgent = s));
   },
   98,
 );

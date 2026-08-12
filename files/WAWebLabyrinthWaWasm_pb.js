@@ -21,7 +21,8 @@ __d(
       R = {},
       L = {},
       E = {},
-      k = {};
+      k = {},
+      I = {};
     ((s.name = "CreateBackupInput"),
       (s.internalSpec = {
         recoveryCode: [
@@ -74,6 +75,7 @@ __d(
         encryptionVersionSignature: [7, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         clientVersion: [8, e.FLAGS.REQUIRED | e.TYPES.INT32],
         ocmfClientState: [9, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        epochStoragePrivateKey: [10, e.FLAGS.REQUIRED | e.TYPES.BYTES],
       }),
       (_.name = "EncryptedSecretValuesOutput"),
       (_.internalSpec = {
@@ -150,11 +152,10 @@ __d(
       (R.name = "RotateEpochInput"),
       (R.internalSpec = {
         currentEpochRootKey: [1, e.FLAGS.REQUIRED | e.TYPES.BYTES],
-        currentEpochAnonId: [2, e.FLAGS.REQUIRED | e.TYPES.UINT64],
+        currentEpochAnonId: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         currentEpochFbid: [3, e.FLAGS.REQUIRED | e.TYPES.UINT64],
-        newEpochFbid: [4, e.FLAGS.REQUIRED | e.TYPES.UINT64],
-        epochStoragePrivateKey: [5, e.FLAGS.REQUIRED | e.TYPES.BYTES],
-        members: [6, e.FLAGS.REPEATED | e.TYPES.MESSAGE, S],
+        epochStoragePrivateKey: [4, e.FLAGS.REQUIRED | e.TYPES.BYTES],
+        members: [5, e.FLAGS.REPEATED | e.TYPES.MESSAGE, S],
       }),
       (L.name = "RotateEpochMemberEdge"),
       (L.internalSpec = {
@@ -162,18 +163,25 @@ __d(
         encryptedEpochKey: [2, e.TYPES.BYTES],
         deviceEpochHmac: [3, e.TYPES.BYTES],
       }),
-      (E.name = "RotateEpochOutput"),
+      (E.name = "BackwardEdge"),
       (E.internalSpec = {
+        encryptedPrevEpochAnonId: [1, e.TYPES.BYTES],
+        encryptedPrevEpochRootKey: [2, e.TYPES.BYTES],
+        prevEpochRootKeyFingerprint: [3, e.TYPES.BYTES],
+      }),
+      (k.name = "RotateEpochOutput"),
+      (k.internalSpec = {
         newEpochRootKey: [1, e.TYPES.BYTES],
         newEpochAnonId: [2, e.TYPES.UINT64],
+        newEpochFbid: [8, e.TYPES.UINT64],
         epochAnonId: [3, e.TYPES.BYTES],
-        epochData: [4, e.TYPES.BYTES],
+        backwardEdge: [4, e.TYPES.MESSAGE, E],
         memberEdges: [5, e.FLAGS.REPEATED | e.TYPES.MESSAGE, L],
         epochRootKeyFingerprint: [6, e.TYPES.BYTES],
         error: [7, e.TYPES.STRING],
       }),
-      (k.name = "LabyrinthWaCommand"),
-      (k.internalSpec = {
+      (I.name = "LabyrinthWaCommand"),
+      (I.internalSpec = {
         createBackupInput: [1, e.TYPES.MESSAGE, s],
         encryptMessageInput: [2, e.TYPES.MESSAGE, u],
         decryptMessageInput: [3, e.TYPES.MESSAGE, c],
@@ -208,8 +216,9 @@ __d(
       (l.RotateEpochMemberInputSpec = S),
       (l.RotateEpochInputSpec = R),
       (l.RotateEpochMemberEdgeSpec = L),
-      (l.RotateEpochOutputSpec = E),
-      (l.LabyrinthWaCommandSpec = k));
+      (l.BackwardEdgeSpec = E),
+      (l.RotateEpochOutputSpec = k),
+      (l.LabyrinthWaCommandSpec = I));
   },
   98,
 );

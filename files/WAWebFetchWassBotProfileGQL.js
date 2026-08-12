@@ -33,7 +33,13 @@ __d(
             return o("WAWebWassBotProfileMapper").toWassBotProfileResult(
               n == null
                 ? null
-                : { is_deprecated: n.is_deprecated, product: n.product },
+                : {
+                    is_deprecated: n.is_deprecated,
+                    name: n.name,
+                    product: n.product,
+                    profile_pic_thumb_url: n.profile_pic_thumb_url,
+                    profile_pic_full_url: n.profile_pic_full_url,
+                  },
             );
           } catch (e) {
             return e instanceof o("WAWebGraphQLServerError").GraphQLServerError

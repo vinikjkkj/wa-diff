@@ -1,5 +1,5 @@
 __d(
-  "WAWebCreateLabyrinthBackupJobMutation.graphql",
+  "WAWebRotateLabyrinthEpochJobMutation.graphql",
   [],
   function (t, n, r, o, a, i) {
     "use strict";
@@ -11,7 +11,7 @@ __d(
             args: [{ kind: "Variable", name: "input", variableName: "input" }],
             concreteType: null,
             kind: "LinkedField",
-            name: "wa_labyrinth_create_backup",
+            name: "wa_labyrinth_rotate_epoch",
             plural: !1,
             selections: [
               {
@@ -28,39 +28,11 @@ __d(
                     alias: null,
                     args: null,
                     kind: "ScalarField",
-                    name: "mailbox_id",
-                    storageKey: null,
-                  },
-                  {
-                    alias: null,
-                    args: null,
-                    kind: "ScalarField",
-                    name: "backup_id",
-                    storageKey: null,
-                  },
-                  {
-                    alias: null,
-                    args: null,
-                    kind: "ScalarField",
-                    name: "device_id",
-                    storageKey: null,
-                  },
-                  {
-                    alias: null,
-                    args: null,
-                    kind: "ScalarField",
-                    name: "vd_device_id",
-                    storageKey: null,
-                  },
-                  {
-                    alias: null,
-                    args: null,
-                    kind: "ScalarField",
-                    name: "epoch_id",
+                    name: "new_epoch_id",
                     storageKey: null,
                   },
                 ],
-                type: "WALabyrinthCreateBackupData",
+                type: "WALabyrinthRotateEpochData",
                 abstractKey: null,
               },
               {
@@ -81,7 +53,7 @@ __d(
                     storageKey: null,
                   },
                 ],
-                type: "WALabyrinthCreateBackupError",
+                type: "WALabyrinthRotateEpochError",
                 abstractKey: null,
               },
             ],
@@ -93,7 +65,7 @@ __d(
           argumentDefinitions: e,
           kind: "Fragment",
           metadata: null,
-          name: "WAWebCreateLabyrinthBackupJobMutation",
+          name: "WAWebRotateLabyrinthEpochJobMutation",
           selections: t,
           type: "Mutation",
           abstractKey: null,
@@ -102,13 +74,13 @@ __d(
         operation: {
           argumentDefinitions: e,
           kind: "Operation",
-          name: "WAWebCreateLabyrinthBackupJobMutation",
+          name: "WAWebRotateLabyrinthEpochJobMutation",
           selections: t,
         },
         params: {
-          id: "27515507191403198",
+          id: "27545094465170765",
           metadata: {},
-          name: "WAWebCreateLabyrinthBackupJobMutation",
+          name: "WAWebRotateLabyrinthEpochJobMutation",
           operationKind: "mutation",
           text: null,
         },

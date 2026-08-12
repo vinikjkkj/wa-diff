@@ -2,9 +2,11 @@ __d(
   "ACSClient",
   [
     "ACSCachedTokenModule",
+    "ACSCommon",
     "ACSTokenUtil",
     "Promise",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -31,95 +33,116 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      c = 720 * 60 * 1e3;
-    function d(t) {
+      c = 720 * 60 * 1e3,
+      d = new WeakMap();
+    function m(t) {
       for (
         var r = t.storageManager.getServerConfigs(), o = null, a = 0;
         a < (r == null ? void 0 : r.length);
         a++
       ) {
         var i = r[a];
-        if (!m(i)) {
+        if (!p(i)) {
           t.storageManager.removeServerConfig(i.configId);
           continue;
         }
         (o == null || i.configExpiresOnMillis > o.configExpiresOnMillis) &&
           (o = i);
       }
-      if (o == null) return p(t);
+      if (o == null) return _(t);
       var l = o;
       return l.configExpiresOnMillis <= Date.now() + c
-        ? p(t).catch(function () {
+        ? _(t).catch(function () {
             return l;
           })
         : (e || (e = n("Promise"))).resolve(l);
     }
-    function m(e) {
+    function p(e) {
       var t = Date.now() > e.configExpiresOnMillis,
         n = !t;
       return n;
     }
-    function p(e) {
-      return e.serverProvider
+    function _(e) {
+      var t = d.get(e);
+      if (t != null) return t;
+      var n = e.serverProvider
         .getPublicParameters(e.projectName, e.attributeIdentifier)
         .then(function (t) {
           return (e.storageManager.storeServerConfig(t), t);
+        })
+        .finally(function () {
+          d.delete(e);
         });
+      return (d.set(e, n), n);
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield d(e);
-          return S(e, r, n, t);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield m(e);
+          try {
+            return yield t(n);
+          } catch (i) {
+            if (
+              !(i instanceof o("ACSCommon").ACSInvalidConfigIdError) ||
+              i.configId !== n.configId ||
+              !r("justknobx")._("5654")
+            )
+              throw i;
+            e.storageManager.removeServerConfig(n.configId);
+            var a = yield _(e);
+            if (a.configId === n.configId) throw i;
+            return t(a);
+          }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    var g = new WeakMap();
-    function h(e, t) {
-      var n = g.get(e);
-      n == null && ((n = new Map()), g.set(e, n));
+    function h(e, t, n) {
+      return f(e, function (r) {
+        return S(e, r, n, t);
+      });
+    }
+    var y = new WeakMap();
+    function C(e, t) {
+      var n = y.get(e);
+      n == null && ((n = new Map()), y.set(e, n));
       var r = n.get(t);
       if (r != null) return r;
       var o = n,
-        a = y(e, t).finally(function () {
+        a = b(e, t).finally(function () {
           o.delete(t);
         });
       return (o.set(t, a), a);
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield d(e),
-            r = e.storageManager.getCachedToken(n.configId);
-          if (
-            !(r != null && o("ACSCachedTokenModule").isCachedTokenRedeemable(r))
-          ) {
-            var a = yield P(e, n, n.maxEvals, t);
-            T(e, a);
-          }
-        })),
-        C.apply(this, arguments)
+    function b(e, t) {
+      return f(
+        e,
+        (function () {
+          var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
+            var r = e.storageManager.getCachedToken(n.configId);
+            if (
+              !(
+                r != null &&
+                o("ACSCachedTokenModule").isCachedTokenRedeemable(r)
+              )
+            ) {
+              var a = yield P(e, n, n.maxEvals, t);
+              T(e, a);
+            }
+          });
+          return function (e) {
+            return r.apply(this, arguments);
+          };
+        })(),
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield d(e),
-            o = yield P(e, r, t, n);
-          return o;
-        })),
-        v.apply(this, arguments)
-      );
+    function v(e, t, n) {
+      return f(e, function (r) {
+        return P(e, r, t, n);
+      });
     }
     function S(e, t, n, r) {
       return R.apply(this, arguments);
@@ -262,10 +285,10 @@ __d(
       };
     }
     ((l.ACSClientError = s),
-      (l.loadACSServerConfig = d),
-      (l.fetchAndRedeem = _),
-      (l.prewarmTokenCache = h),
-      (l.loadServerConfigAndGetNewTokens = b),
+      (l.loadACSServerConfig = m),
+      (l.fetchAndRedeem = h),
+      (l.prewarmTokenCache = C),
+      (l.loadServerConfigAndGetNewTokens = v),
       (l.getNewTokens = P),
       (l.buildACSClient = w));
   },

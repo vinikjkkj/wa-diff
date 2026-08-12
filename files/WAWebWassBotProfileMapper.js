@@ -17,11 +17,19 @@ __d(
             type: "exists",
             value: {
               isDeprecated: (n = t.is_deprecated) != null ? n : null,
+              name: u(t.name),
               product: e(t.product),
+              profilePicThumbUrl: u(t.profile_pic_thumb_url),
+              profilePicFullUrl: u(t.profile_pic_full_url),
             },
           };
     }
-    ((l.mapWassProductToBotProduct = e), (l.toWassBotProfileResult = s));
+    function u(e) {
+      return e != null && e !== "" ? e : null;
+    }
+    ((l.mapWassProductToBotProduct = e),
+      (l.toWassBotProfileResult = s),
+      (l.emptyToNull = u));
   },
   98,
 );

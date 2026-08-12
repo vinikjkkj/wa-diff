@@ -3,32 +3,36 @@ __d(
   [
     "WALogger",
     "WAWebBotStaticProfiles",
+    "WAWebDBBulkPersistProfilePic",
     "WAWebFetchWassBotProfileGQL",
     "WAWebPersistBotProfiles",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!o("WAWebBotStaticProfiles").isStaticProfile(t)) {
-            var n = yield o(
-              "WAWebFetchWassBotProfileGQL",
-            ).fetchWassBotProfileGQL(t.user);
-            e: {
-              var r = n;
-              if (
-                (((typeof r == "object" && r !== null) ||
-                  typeof r == "function") &&
-                  r.type === "error") ||
-                (((typeof r == "object" && r !== null) ||
-                  typeof r == "function") &&
-                  r.type === "graphql-error")
-              ) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (o("WAWebBotStaticProfiles").isStaticProfile(t)) return !1;
+          var n = yield o("WAWebFetchWassBotProfileGQL").fetchWassBotProfileGQL(
+              t.user,
+            ),
+            a = !0;
+          e: {
+            var i = n;
+            if (
+              (((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+                i.type === "error") ||
+              (((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+                i.type === "graphql-error")
+            ) {
+              ((a = !1),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -38,48 +42,67 @@ __d(
                       ])),
                     n.type,
                   )
-                  .sendLogs("sbp-sync-fetch-failed");
-                break e;
-              }
-              if (
-                ((typeof r == "object" && r !== null) ||
-                  typeof r == "function") &&
-                r.type === "exists" &&
-                "value" in r
-              ) {
-                var a = r.value;
-                o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
-                  (yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
-                    product: a.product,
-                    isDeprecated: a.isDeprecated,
-                    isDeleted: !1,
-                    lastFetchedTimeMs: Date.now(),
-                  }));
-                break e;
-              }
-              if (
-                ((typeof r == "object" && r !== null) ||
-                  typeof r == "function") &&
-                r.type === "deleted"
-              ) {
-                o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
-                  (yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
-                    isDeleted: !0,
-                    lastFetchedTimeMs: Date.now(),
-                  }));
-                break e;
-              }
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  r,
-              );
+                  .sendLogs("sbp-sync-fetch-failed"));
+              break e;
             }
+            if (
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.type === "exists" &&
+              "value" in i
+            ) {
+              var l = i.value;
+              yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
+                name: l.name,
+                product: l.product,
+                isDeprecated: l.isDeprecated,
+                isDeleted: !1,
+                lastFetchedTimeMs: Date.now(),
+              });
+              var u = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
+                t,
+                l.profilePicThumbUrl,
+                l.profilePicFullUrl,
+              );
+              u != null &&
+                o("WAWebDBBulkPersistProfilePic")
+                  .persistProfilePicBatched(u)
+                  .catch(function (e) {
+                    o("WALogger")
+                      .WARN(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "[syncBotSupportFields] failed to persist bot profile pic",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("sbp-sync-persist-pic-error");
+                  });
+              break e;
+            }
+            if (
+              ((typeof i == "object" && i !== null) ||
+                typeof i == "function") &&
+              i.type === "deleted"
+            ) {
+              o("WAWebPersistBotProfiles").isBotProfileCached(t) &&
+                (yield o("WAWebPersistBotProfiles").mergeBotSupportFields(t, {
+                  isDeleted: !0,
+                  lastFetchedTimeMs: Date.now(),
+                }));
+              break e;
+            }
+            throw Error(
+              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                i,
+            );
           }
+          return a;
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.syncBotSupportFields = s;
+    l.syncBotSupportFields = u;
   },
   98,
 );

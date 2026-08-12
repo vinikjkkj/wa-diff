@@ -7,6 +7,7 @@ __d(
     "WAWebBizBroadcastFormatStatusText",
     "WAWebBotBaseGating",
     "WAWebBotExposedName",
+    "WAWebBotSupportGating",
     "WAWebBotTypes",
     "WAWebBotUtils",
     "WAWebCTWAGatingUtils",
@@ -1387,10 +1388,10 @@ __d(
           );
     }
     function H(e, t) {
+      var n = o("WAWebResolveBotProfile").resolveBotSupportInput(e.id.remote);
       return o("WAWebBotBaseGating").isStandardBotProfileEnabled() &&
-        o("WAWebBotExposedName").isBotProfileViewOnly(
-          o("WAWebResolveBotProfile").resolveBotSupportInput(e.id.remote),
-        )
+        (o("WAWebBotExposedName").isBotProfileViewOnly(n) ||
+          o("WAWebBotSupportGating").isThirdPartyAgent(n))
         ? s._(
             /*BTDS*/ "Messages in this chat are sent through a secure Meta service. Learn more about how these chats work.",
           )

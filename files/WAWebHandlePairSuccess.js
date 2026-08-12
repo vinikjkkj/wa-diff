@@ -2,6 +2,7 @@ __d(
   "WAWebHandlePairSuccess",
   [
     "invariant",
+    "JSResourceForInteraction",
     "Promise",
     "WABase64",
     "WABinary",
@@ -9,6 +10,7 @@ __d(
     "WALogger",
     "WASmaxMdSetRegRPC",
     "WATimeUtils",
+    "WAWebABPropsCache",
     "WAWebAdvSignatureApi",
     "WAWebAdvSignatureConstants",
     "WAWebAltDeviceLinkingApi",
@@ -16,6 +18,7 @@ __d(
     "WAWebAppTracker",
     "WAWebBizAgentLoginState",
     "WAWebBizCoexGatingUtils",
+    "WAWebBotBaseGating",
     "WAWebCompanionRegUtils",
     "WAWebConnModel",
     "WAWebCoreActionsODS",
@@ -70,22 +73,26 @@ __d(
       p,
       _,
       f,
-      g = !1;
-    function h(e) {
-      return y.apply(this, arguments);
+      g,
+      h = r("JSResourceForInteraction")(
+        "WAWebReconcileBotSupportFields",
+      ).__setRef("WAWebHandlePairSuccess"),
+      y = !1;
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (
             (r("gkx")("26256") &&
               (r("WAWebLocalStorage") == null ||
                 r("WAWebLocalStorage").removeItem(
                   o("WAWebE2ETestPairingConstants").PAIRING_ATTEMPT_ONGOING_KEY,
                 )),
-            !(g || o("WAWebUserPrefsMultiDevice").isRegistered()))
+            !(y || o("WAWebUserPrefsMultiDevice").isRegistered()))
           ) {
-            g = !0;
+            y = !0;
             var a = o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
               i = null;
             try {
@@ -101,8 +108,8 @@ __d(
                       ])),
                   )
                   .catching(l),
-                (g = !1),
-                (f || (f = n("Promise"))).reject(l)
+                (y = !1),
+                (g || (g = n("Promise"))).reject(l)
               );
             }
             var c = i,
@@ -127,77 +134,77 @@ __d(
                       "WAWebQrDeviceLinkingQpl",
                     ).companionDeviceLinkingScreenQpl.pairStarted());
               var _ = p.pairSuccessClientProps,
-                h = p.pairSuccessDeviceIdentityElementValue,
-                y = p.pairSuccessDeviceJid,
-                b = p.pairSuccessDeviceLid,
-                v = p.pairSuccessEncryptionMetadata,
+                f = p.pairSuccessDeviceIdentityElementValue,
+                h = p.pairSuccessDeviceJid,
+                C = p.pairSuccessDeviceLid,
+                b = p.pairSuccessEncryptionMetadata,
                 S = p.pairSuccessPlatformName;
               ((o("WAWebConnModel").Conn.blockStoreAdds = !1),
                 (o("WAWebConnModel").Conn.platform = S),
                 yield o("WAWebMobilePlatforms").setMobilePlatform(S),
                 o("WAWebUserPrefsMeUser").setMe(
-                  o("WAWebJidToWid").deviceJidToDeviceWid(y),
+                  o("WAWebJidToWid").deviceJidToDeviceWid(h),
                 ),
-                b != null || s(0, 165665),
+                C != null || s(0, 165665),
                 o("WAWebUserPrefsMeUser").setMeLid(
-                  o("WAWebJidToWid").deviceJidToDeviceWid(b),
+                  o("WAWebJidToWid").deviceJidToDeviceWid(C),
                 ),
-                _ && (yield C(_)));
+                _ && (yield v(_)));
               var R = o("decodeProtobuf").decodeProtobuf(
                   o("WAWebProtobufsAdv.pb").ADVSignedDeviceIdentityHMACSpec,
-                  h,
+                  f,
                 ),
                 L = R.details,
-                E = R.hmac;
-              (L != null && E != null) || s(0, 56299);
-              var k = new (o("WABinary").Binary)(L).readByteArrayView();
+                k = R.hmac;
+              (L != null && k != null) || s(0, 56299);
+              var I = new (o("WABinary").Binary)(L).readByteArrayView();
               o("WAWebBizCoexGatingUtils").smbHostedPrimaryPairingAllowed() &&
                 R.accountType ===
                   o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
                 (yield o("WAWebUserPrefsMultiDevice").setIsHostedMeAccount(),
-                (k = o("WABinary")
+                (I = o("WABinary")
                   .Binary.build(
                     o("WAWebAdvSignatureConstants")
                       .ADV_HOSTED_PREFIX_DEVICE_IDENTITY_ACCOUNT_SIGNATURE,
                     r("nullthrows")(L),
                   )
                   .readByteArrayView()));
-              var I = yield o("WAWebAdvSignatureApi").getADVSecretKey(),
-                T = yield o("WACryptoHmac").hmacSha256(I, k),
-                D = o("WABase64").encodeB64(T),
-                x = o("WABase64").encodeB64(E);
-              if (D !== x)
+              var T = yield o("WAWebAdvSignatureApi").getADVSecretKey(),
+                D = yield o("WACryptoHmac").hmacSha256(T, I),
+                x = o("WABase64").encodeB64(D),
+                $ = o("WABase64").encodeB64(k);
+              if (x !== $)
                 return (
                   o("WAWebCoreActionsODS").logPairError(),
                   o("WAWebCoreActionsODS").logSessionForcedLogout(),
                   o("WAWebCompanionRegUtils").logoutAfterValidationFail(),
-                  (g = !1),
+                  (y = !1),
                   o(
                     "WAWebQrDeviceLinkingQpl",
                   ).companionDeviceLinkingScreenQpl.pairFailed(),
                   m()
                 );
-              var $ = o("decodeProtobuf").decodeProtobuf(
+              var P = o("decodeProtobuf").decodeProtobuf(
                   o("WAWebProtobufsAdv.pb").ADVSignedDeviceIdentitySpec,
                   L,
                 ),
-                P = $.accountSignatureKey;
-              P != null || s(0, 56344);
-              var N = $.accountSignature;
-              N != null || s(0, 56295);
-              var M = yield o(
+                N = P.accountSignatureKey;
+              N != null || s(0, 56344);
+              var M = P.accountSignature;
+              M != null || s(0, 56295);
+              var w = yield o(
                 "WAWebSignalStoreApi",
               ).waSignalStore.getRegistrationInfo();
-              M != null || s(0, 56296);
-              var w = yield o("WAWebWamDeviceLinkReporter").initDeviceLinkEvent(
-                P,
-                M.identityKeyPair.pubKey,
+              w != null || s(0, 56296);
+              var A = yield o("WAWebWamDeviceLinkReporter").initDeviceLinkEvent(
+                N,
+                w.identityKeyPair.pubKey,
                 a,
               );
-              o("WAWebMdSessionIdCache").setMdSessionId(w);
-              var A = yield o(
+              o("WAWebMdSessionIdCache").setMdSessionId(A);
+              var F = yield o(
                 "WAWebMdClientSessionIdUtils",
-              ).genMdClientSessionId(P);
+              ).genMdClientSessionId(N);
               (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
                 o("WAWebWamEnumMdLinkDeviceCompanionStage")
                   .MD_LINK_DEVICE_COMPANION_STAGE.PAIR_SUCCESS_RECEIVED,
@@ -205,14 +212,14 @@ __d(
                 o(
                   "WAWebCompanionRegUtils",
                 ).initDevicePairingLatencyMeasurement());
-              var F = o(
+              var O = o(
                 "WAWebAdvSignatureApi",
               ).verifyDeviceIdentityAccountSignature(
-                $,
-                M.identityKeyPair.pubKey,
+                P,
+                w.identityKeyPair.pubKey,
                 null,
               );
-              if (!F)
+              if (!O)
                 return (
                   o("WAWebCoreActionsODS").logPairError(),
                   o("WAWebCoreActionsODS").logSessionForcedLogout(),
@@ -220,47 +227,47 @@ __d(
                     401,
                   ),
                   o("WAWebCompanionRegUtils").logoutAfterValidationFail(),
-                  (g = !1),
+                  (y = !1),
                   o(
                     "WAWebQrDeviceLinkingQpl",
                   ).companionDeviceLinkingScreenQpl.pairFailed(),
                   m()
                 );
-              (($.deviceSignature = yield o(
+              ((P.deviceSignature = yield o(
                 "WAWebAdvSignatureApi",
               ).generateDeviceSignature({
-                advSignedDeviceIdentity: $,
-                identityKeyPair: M.identityKeyPair,
-                primarySignatureKey: P,
+                advSignedDeviceIdentity: P,
+                identityKeyPair: w.identityKeyPair,
+                primarySignatureKey: N,
               })),
                 yield o("WAWebSignalStoreApi").waSignalStore.putIdentity(
                   o("WAWebSignalCommonUtils")
                     .createSignalAddress(
                       o("WAWebWidFactory").asUserWidOrThrow(
-                        o("WAWebJidToWid").deviceJidToDeviceWid(y),
+                        o("WAWebJidToWid").deviceJidToDeviceWid(h),
                       ),
                     )
                     .toString(),
                   o("WAWebSignalCommonUtils").bufferToStr(
-                    o("WAWebCryptoCurve25519").toSignalCurvePubKey(P),
+                    o("WAWebCryptoCurve25519").toSignalCurvePubKey(N),
                   ),
                 ),
-                yield o("WAWebAdvSignatureApi").setADVSignedIdentity($));
-              var O = o("decodeProtobuf").decodeProtobuf(
+                yield o("WAWebAdvSignatureApi").setADVSignedIdentity(P));
+              var B = o("decodeProtobuf").decodeProtobuf(
                   o("WAWebProtobufsAdv.pb").ADVDeviceIdentitySpec,
-                  $.details,
+                  P.details,
                 ),
-                B = O.keyIndex;
-              (B != null || s(0, 56297), ($.accountSignatureKey = void 0));
-              var W = o("encodeProtobuf")
+                W = B.keyIndex;
+              (W != null || s(0, 56297), (P.accountSignatureKey = void 0));
+              var q = o("encodeProtobuf")
                   .encodeProtobuf(
                     o("WAWebProtobufsAdv.pb").ADVSignedDeviceIdentitySpec,
-                    $,
+                    P,
                   )
                   .readByteArrayView(),
-                q = d({
-                  deviceIdentityElementValue: W,
-                  deviceIdentityKeyIndex: B,
+                U = d({
+                  deviceIdentityElementValue: q,
+                  deviceIdentityKeyIndex: W,
                 });
               (r("WAWebEnvironment").isWindows &&
                 (r("WAWebLocalStorage") == null ||
@@ -273,13 +280,13 @@ __d(
                   o("WAWebWamEnumMdLinkDeviceCompanionStage")
                     .MD_LINK_DEVICE_COMPANION_STAGE.PAIR_DEVICE_SIGN_SENT,
                 ));
-              var U = yield o(
+              var V = yield o(
                 "WAWebUserPrefsHistorySync",
               ).getInitialHistorySyncComplete();
               return (
-                U !== !0 &&
+                V !== !0 &&
                   o("WAWebCompanionRegUtils").startInitialHistorySyncTimeout(),
-                (g = !1),
+                (y = !1),
                 o("WAWebBizAgentLoginState").setShouldLogAgentLogin({
                   loginTimestamp: a,
                 }),
@@ -287,19 +294,20 @@ __d(
                   "WAWebQrDeviceLinkingQpl",
                 ).companionDeviceLinkingScreenQpl.pairSuccess(),
                 o("WAWebCoreActionsODS").logPairSuccess(),
-                n("cr:1064") == null || n("cr:1064").setMdSessionId(w),
-                A != null &&
+                n("cr:1064") == null || n("cr:1064").setMdSessionId(A),
+                F != null &&
                   (n("cr:1064") == null ||
-                    n("cr:1064").setMdClientSessionId(A)),
+                    n("cr:1064").setMdClientSessionId(F)),
                 n("cr:1064") == null ||
                   n("cr:1064").trigger("post_pair_success"),
                 yield o(
                   "WAWebHandleCanonicalRegistration",
-                ).handleCanonicalRegistration(I, v, b != null ? b : y),
-                q
+                ).handleCanonicalRegistration(T, b, C != null ? C : h),
+                E(),
+                U
               );
             } catch (e) {
-              var V = r("getErrorSafe")(e);
+              var H = r("getErrorSafe")(e);
               (o("WALogger")
                 .ERROR(
                   u ||
@@ -307,7 +315,7 @@ __d(
                       "error in handlePairSuccess",
                     ])),
                 )
-                .catching(V)
+                .catching(H)
                 .verbose()
                 .sendLogs("error in handlePairSuccess"),
                 o("WAWebCoreActionsODS").logPairError(),
@@ -326,15 +334,15 @@ __d(
             }
           }
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsCompanionReg.pb").ClientPairingPropsSpec,
               e.elementValue,
@@ -382,17 +390,17 @@ __d(
             ).updatePrimaryDeviceSupportsSyncdRecovery(i === !0),
             l != null &&
               (r("WAWebODS").incr("web.app.subscription_sync.pairing.received"),
-              yield v(l)));
+              yield R(l)));
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (r("justknobx")._("3785") === !0) {
             (o("WALogger").LOG(
               d ||
@@ -477,10 +485,40 @@ __d(
               r("WAWebODS").incr("web.app.subscription_sync.pairing.error"));
           }
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    l.default = h;
+    function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            if (
+              (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+              !o("WAWebBotBaseGating").is3pAgentProductEnabled())
+            )
+              return;
+            var e = yield h.load(),
+              t = e.reconcileBotSupportFields;
+            yield t();
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[handlePairSuccess] 3p bot profile reconcile failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("sbp-pair-success-reconcile-error");
+          }
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    l.default = C;
   },
   98,
 );

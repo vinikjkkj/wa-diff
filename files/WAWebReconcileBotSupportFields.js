@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebBotBaseGating",
     "WAWebBotProduct",
+    "WAWebDBBulkPersistProfilePic",
     "WAWebFetchWassBotListProfilesGQL",
     "WAWebPersistBotProfiles",
     "WAWebSchemaBotProfile",
@@ -13,8 +14,8 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t, n, a) {
+    var e, s, u, c, d;
+    function m(t, n, a) {
       var i = [];
       for (var l of n)
         if (
@@ -44,12 +45,12 @@ __d(
         }
       return i;
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
     function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebBotBaseGating").isStandardBotProfileEnabled()) return !1;
           var e = Date.now(),
             t = yield o(
@@ -65,7 +66,7 @@ __d(
             ),
             l = yield o("WAWebSchemaBotProfile").getBotProfileTable().all();
           return (
-            yield (c || (c = n("Promise"))).all(
+            yield (d || (d = n("Promise"))).all(
               t.profiles.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -83,11 +84,33 @@ __d(
                           isDeleted: !1,
                           lastFetchedTimeMs: a,
                         });
+                        var n = o(
+                          "WAWebPersistBotProfiles",
+                        ).setBotProfilePicUrls(
+                          t,
+                          e.profilePicThumbUrl,
+                          e.profilePicFullUrl,
+                        );
+                        n != null &&
+                          o("WAWebDBBulkPersistProfilePic")
+                            .persistProfilePicBatched(n)
+                            .catch(function (e) {
+                              o("WALogger")
+                                .ERROR(
+                                  s ||
+                                    (s =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "[reconcileBotSupportFields] failed to persist a listed agent pic",
+                                      ])),
+                                )
+                                .catching(r("getErrorSafe")(e))
+                                .sendLogs("sbp-reconcile-persist-pic-error");
+                            });
                       } catch (e) {
                         o("WALogger")
                           .ERROR(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
                                 "[reconcileBotSupportFields] failed to upsert a listed agent",
                               ])),
                           )
@@ -102,8 +125,8 @@ __d(
                 })(),
               ),
             ),
-            yield c.all(
-              d(i, l, e).map(
+            yield d.all(
+              m(i, l, e).map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
@@ -117,8 +140,8 @@ __d(
                       } catch (e) {
                         o("WALogger")
                           .ERROR(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
                                 "[reconcileBotSupportFields] failed to tombstone a delisted agent",
                               ])),
                           )
@@ -136,10 +159,10 @@ __d(
             !0
           );
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.computeBotSupportTombstones = d), (l.reconcileBotSupportFields = m));
+    ((l.computeBotSupportTombstones = m), (l.reconcileBotSupportFields = p));
   },
   98,
 );

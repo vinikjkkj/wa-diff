@@ -34,18 +34,7 @@ __d(
         }
       return t;
     }
-    function c(e) {
-      var t = 0,
-        n = null;
-      for (var r of e.msgs.getModelsArray())
-        if (s.has(r.type)) {
-          var o = r.id.fromMe,
-            a = o && n === !1;
-          (n != null && !a && t++, (n = o));
-        }
-      return t;
-    }
-    function d(e, t) {
+    function c(e, t) {
       var n = e.depth,
         r = e.lastMessageFromMe,
         o = e.repeat;
@@ -55,12 +44,12 @@ __d(
           ? { depth: t ? n + 1 : n, repeat: 0, lastMessageFromMe: t }
           : { depth: n, repeat: o + 1, lastMessageFromMe: t };
     }
-    function m(e, t) {
+    function d(e, t) {
       var n,
         o,
         a = r("WAWebConversionTupleCollection").get(e.id);
       if (a != null) {
-        var i = d(
+        var i = c(
           {
             depth: (n = a.conversationDepth) != null ? n : 0,
             repeat: (o = a.conversationRepeat) != null ? o : 0,
@@ -82,9 +71,8 @@ __d(
     }
     ((l.CTWA_CONVERSATION_COUNTER_MSG_TYPES = s),
       (l.getCtwaConversationDepth = u),
-      (l.getCtwaConversationRepeat = c),
-      (l.nextCtwaConversationCounters = d),
-      (l.advanceCtwaConversationCounters = m));
+      (l.nextCtwaConversationCounters = c),
+      (l.advanceCtwaConversationCounters = d));
   },
   98,
 );

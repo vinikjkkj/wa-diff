@@ -19,114 +19,114 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e, t, n, r) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            var l;
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg] Preparing scheduled message ",
-                  " for chat ",
-                  "",
-                ])),
-              t,
-              n,
-            );
-            var c = o("WAWebScheduledMsgCrypto").generateRevealKey(),
-              d = o("WAWebScheduledMsgCrypto").generateRevealKeyId(),
-              m = (l = a.messageContextInfo) == null ? void 0 : l.messageSecret,
-              p =
-                m != null
-                  ? new Uint8Array(m)
-                  : self.crypto.getRandomValues(new Uint8Array(32)),
-              _ = babelHelpers.extends({}, a, {
-                messageContextInfo: babelHelpers.extends(
-                  {},
-                  a.messageContextInfo,
-                  { messageSecret: p },
-                ),
-              }),
-              f = o("encodeProtobuf")
-                .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, _)
-                .readByteArrayView(),
-              g = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(f, c),
-              h = g.encIv,
-              y = g.encPayload,
-              C = o(
-                "WAWebMessagingGatingUtils",
-              ).isReportingTokenSendingEnabled()
-                ? new (o(
-                    "WAWebReportingTokenContent",
-                  ).ReportingTokenContentCalculator)(
-                    f,
-                    o("WAWebReportingTokenConfig").getReportingTokenConfig(
-                      o(
-                        "WAWebMessagingGatingUtils",
-                      ).getSenderReportingTokenVersion(),
-                    ),
-                  ).getReportingTokenContent()
-                : null,
-              b = {
-                conditionalRevealMessage: {
-                  conditionalRevealMessageType: o("WAWebProtobufsE2E.pb")
-                    .Message$ConditionalRevealMessage$ConditionalRevealMessageType
-                    .SCHEDULED_MESSAGE,
-                  encIv: h,
-                  encPayload: y,
-                  revealKeyId: d,
-                },
-                messageContextInfo: { messageSecret: new Uint8Array(p) },
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n,
+            a = t.chatId,
+            i = t.msgId,
+            l = t.msgProtobuf,
+            c = t.scheduledTimestampS;
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg] Preparing scheduled message ",
+                " for chat ",
+                "",
+              ])),
+            i,
+            a,
+          );
+          var d = o("WAWebScheduledMsgCrypto").generateRevealKey(),
+            m = o("WAWebScheduledMsgCrypto").generateRevealKeyId(),
+            p = (n = l.messageContextInfo) == null ? void 0 : n.messageSecret,
+            _ =
+              p != null
+                ? new Uint8Array(p)
+                : self.crypto.getRandomValues(new Uint8Array(32)),
+            f = babelHelpers.extends({}, l, {
+              messageContextInfo: babelHelpers.extends(
+                {},
+                l.messageContextInfo,
+                { messageSecret: _ },
+              ),
+            }),
+            g = o("encodeProtobuf")
+              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, f)
+              .readByteArrayView(),
+            h = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(g, d),
+            y = h.encIv,
+            C = h.encPayload,
+            b = o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled()
+              ? new (o(
+                  "WAWebReportingTokenContent",
+                ).ReportingTokenContentCalculator)(
+                  g,
+                  o("WAWebReportingTokenConfig").getReportingTokenConfig(
+                    o(
+                      "WAWebMessagingGatingUtils",
+                    ).getSenderReportingTokenVersion(),
+                  ),
+                ).getReportingTokenContent()
+              : null,
+            v = {
+              conditionalRevealMessage: {
+                conditionalRevealMessageType: o("WAWebProtobufsE2E.pb")
+                  .Message$ConditionalRevealMessage$ConditionalRevealMessageType
+                  .SCHEDULED_MESSAGE,
+                encIv: y,
+                encPayload: C,
+                revealKeyId: m,
               },
-              v = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
-                chatId: n,
-                msgId: t,
-                revealKey: c,
-                revealKeyId: d,
-                scheduledTimestampS: i,
-                encPayload: new Uint8Array(y),
-                encIv: new Uint8Array(h),
-              });
-            if (!v)
-              throw (
-                o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg] per-chat limit reached for ",
-                      "",
-                    ])),
-                  n,
-                ),
-                r("err")(
-                  "[scheduled_msg] Per-chat scheduled message limit reached",
-                )
-              );
-            return (
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg] Scheduled message prepared: ",
-                    ", revealKeyId: ",
+              messageContextInfo: { messageSecret: new Uint8Array(_) },
+            },
+            S = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
+              chatId: a,
+              msgId: i,
+              revealKey: d,
+              revealKeyId: m,
+              scheduledTimestampS: c,
+              encPayload: new Uint8Array(C),
+              encIv: new Uint8Array(y),
+            });
+          if (!S)
+            throw (
+              o("WALogger").ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[scheduled_msg] per-chat limit reached for ",
                     "",
                   ])),
-                t,
-                d,
+                a,
               ),
-              {
-                innerMessageSecret: p,
-                reportingTokenContent: C,
-                revealKey: c,
-                revealKeyId: d,
-                scheduledTimestampS: i,
-                wrappedProtobuf: b,
-              }
+              r("err")(
+                "[scheduled_msg] Per-chat scheduled message limit reached",
+              )
             );
-          },
-        )),
+          return (
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg] Scheduled message prepared: ",
+                  ", revealKeyId: ",
+                  "",
+                ])),
+              i,
+              m,
+            ),
+            {
+              innerMessageSecret: _,
+              reportingTokenContent: b,
+              revealKey: d,
+              revealKeyId: m,
+              scheduledTimestampS: c,
+              wrappedProtobuf: v,
+            }
+          );
+        })),
         d.apply(this, arguments)
       );
     }
@@ -152,7 +152,12 @@ __d(
             s = o("WATimeUtils").castToUnixTime(i),
             u = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(t),
             d = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(t),
-            m = yield c(n.data.id.toString(), l, t, s);
+            m = yield c({
+              chatId: l,
+              msgId: n.data.id.toString(),
+              msgProtobuf: t,
+              scheduledTimestampS: s,
+            });
           return (
             (n.data.messageSecret = m.innerMessageSecret),
             m.reportingTokenContent != null &&

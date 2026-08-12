@@ -93,7 +93,8 @@ __d(
               if (
                 t.isAiHub() ||
                 o("WAWebBotUtils").isBotChannelFBID(t) ||
-                o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t)
+                o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t) ||
+                t.isFbidBot()
               )
                 return (_ || (_ = n("Promise"))).resolve({ id: t });
               if (

@@ -11,7 +11,15 @@ __d(
         !o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(e.type)
       );
     }
-    l.isInboundConsumerMsg = e;
+    function s(e) {
+      return (
+        e != null &&
+        e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+        !o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(e.type) &&
+        (e.id.fromMe || e.bizBotType === o("WAWebBotTypes").BizBotType.BIZ_1P)
+      );
+    }
+    ((l.isInboundConsumerMsg = e), (l.isAgentOrBusinessReplyMsg = s));
   },
   98,
 );

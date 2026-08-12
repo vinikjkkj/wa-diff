@@ -33,6 +33,11 @@ __d(
           typeof t == "object" &&
           typeof t.epochAnonId == "string" &&
           typeof t.epochRootKey == "string" &&
+          typeof t.epochStoragePrivateKey == "string" &&
+          typeof t.devicePublicKey == "string" &&
+          typeof t.epochStoragePublicKey == "string" &&
+          typeof t.vdPublicKey == "string" &&
+          typeof t.vdEpochStoragePublicKey == "string" &&
           typeof t.mailboxRootKey == "string" &&
           typeof t.orfClientState == "string"
         )

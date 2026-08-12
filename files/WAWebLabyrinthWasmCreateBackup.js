@@ -49,6 +49,9 @@ __d(
               epochStoragePublicKeySig: o("WABase64").encodeB64(
                 t.epochStoragePublicKeySig,
               ),
+              epochStoragePrivateKey: o("WABase64").encodeB64(
+                t.epochStoragePrivateKey,
+              ),
               supportedEncryptionVersions: t.supportedEncryptionVersions,
               encryptionVersionSignature: o("WABase64").encodeB64(
                 t.encryptionVersionSignature,
@@ -98,6 +101,7 @@ __d(
             epoch0: {
               epochAnonId: o("WABase64").encodeB64(r.epochAnonId),
               epochData: o("WABase64").encodeB64(r.epochData),
+              epochFbid: o("WALongInt").longIntToDecimalString(r.epochFbid),
               epochRootKey: o("WABase64").encodeB64(l),
               wrappedRootKeyForSelf: o("WABase64").encodeB64(
                 r.wrappedRootKeyForSelf,

@@ -21,7 +21,12 @@ __d(
       d,
       m = d || (d = o("react"));
     function p(e, t, n, r) {
-      return f(o("WAWebStateUtils").unproxy(e), t, n, r);
+      return f({
+        full: n,
+        onDismiss: r,
+        profilePicThumb: o("WAWebStateUtils").unproxy(e),
+        thumb: t,
+      });
     }
     function _(e, t) {
       return g({
@@ -29,53 +34,63 @@ __d(
         profilePicThumb: o("WAWebStateUtils").unproxy(e),
       });
     }
-    function f(t, r, a, i, l) {
-      l === void 0 && (l = o("WAWebActionToast.react").genId());
-      var u = t.id;
-      if (!t.canSet())
+    function f(t) {
+      var r = t.full,
+        a = t.onDismiss,
+        i = t.profilePicThumb,
+        l = t.thumb,
+        u = t.toastId,
+        d = u === void 0 ? o("WAWebActionToast.react").genId() : u,
+        p = i.id;
+      if (!i.canSet())
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var d = o("WAWebContactProfilePicThumbBridge").sendSetPicture(u, r, a);
-      t.pendingPic = r;
-      var p = o("WAWebUserPrefsMeUser").isMeAccount(u),
-        _ = p
+      var _ = o("WAWebContactProfilePicThumbBridge").sendSetPicture(p, l, r);
+      i.pendingPic = l;
+      var g = o("WAWebUserPrefsMeUser").isMeAccount(p),
+        h = g
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Setting profile picture"),
             )
           : new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Setting group icon"),
             ),
-        g = d
-          .catch(function (t) {
-            throw (
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "models:ProfilePicThumb:setPicture dropped",
-                  ])),
-              ),
-              p
-                ? new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't set profile picture."),
-                  )
-                : new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't set group icon."),
-                  )
-            );
-          })
+        y = _.catch(function (t) {
+          throw (
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "models:ProfilePicThumb:setPicture dropped",
+                ])),
+            ),
+            g
+              ? new (o("WAWebActionToast.react").ActionType)(
+                  s._(/*BTDS*/ "Couldn't set profile picture."),
+                )
+              : new (o("WAWebActionToast.react").ActionType)(
+                  s._(/*BTDS*/ "Couldn't set group icon."),
+                )
+          );
+        })
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400) {
-                  var n = p
+                  var t = g
                     ? s._(/*BTDS*/ "Couldn't set profile picture.")
                     : s._(/*BTDS*/ "Couldn't set group icon.");
-                  return new (o("WAWebActionToast.react").ActionType)(n, {
+                  return new (o("WAWebActionToast.react").ActionType)(t, {
                     actionText: s._(/*BTDS*/ "Try again."),
                     actionHandler: function () {
-                      return f(t, r, a, i, l);
+                      return f({
+                        full: r,
+                        onDismiss: a,
+                        profilePicThumb: i,
+                        thumb: l,
+                        toastId: d,
+                      });
                     },
                   });
                 }
@@ -83,7 +98,7 @@ __d(
             ),
           )
           .then(function () {
-            return p
+            return g
               ? new (o("WAWebActionToast.react").ActionType)(
                   s._(/*BTDS*/ "Profile picture set"),
                 )
@@ -94,19 +109,17 @@ __d(
       return (
         o("WAWebToastManager").ToastManager.open(
           m.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: l,
-            initialAction: _,
-            pendingAction: g,
-            onDismiss: i,
+            id: d,
+            initialAction: h,
+            pendingAction: y,
+            onDismiss: a,
           }),
         ),
-        d
-          .then(function (e) {
-            t.set({ tag: e.tag, eurl: e.eurl });
-          })
-          .finally(function () {
-            t.pendingPic = void 0;
-          })
+        _.then(function (e) {
+          i.set({ tag: e.tag, eurl: e.eurl });
+        }).finally(function () {
+          i.pendingPic = void 0;
+        })
       );
     }
     function g(e) {

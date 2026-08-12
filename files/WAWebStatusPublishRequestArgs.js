@@ -2,16 +2,24 @@ __d(
   "WAWebStatusPublishRequestArgs",
   [
     "WALogger",
+    "WAStanzaUtils",
     "WAWebAck",
     "WAWebBackendJobs.flow",
     "WAWebHandleMsgCommon",
+    "WAWebLidMigrationUtils",
     "WAWebSendMsgCommonApi",
     "WAWebUserPrefsStatusType",
+    "WAWebWidToJid",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m = new Uint8Array(0);
+    function p(e) {
       e: {
         if (e === o("WAWebBackendJobs.flow").CiphertextType.Msg) return "msg";
         if (e === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg)
@@ -28,15 +36,15 @@ __d(
             );
       }
     }
-    function d(e) {
+    function _(e) {
       return e === 2
         ? { isEncVersion2: !0 }
         : e === 3
           ? { isEncVersion3: !0 }
           : { encVersionFutureproof: { encV: e } };
     }
-    var m = { isStatusContentTypeText: !0 };
-    function p(t) {
+    var f = { isStatusContentTypeText: !0 };
+    function g(t) {
       e: {
         if (t === o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.media)
           return { isStatusContentTypeMedia: !0 };
@@ -59,7 +67,7 @@ __d(
                   ])),
               )
               .sendLogs("status-publish-unmodelled-content-type"),
-            m
+            f
           );
           break e;
         }
@@ -69,9 +77,15 @@ __d(
         );
       }
     }
-    function _(e) {
+    var h = new Map([
+      [
+        o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.reaction,
+        { metaContentType: "add_on" },
+      ],
+    ]);
+    function y(e) {
       if (e == null) return null;
-      var t = f(e);
+      var t = C(e);
       return t == null
         ? (o("WALogger")
             .WARN(
@@ -84,7 +98,7 @@ __d(
           null)
         : { encMediatype: t };
     }
-    function f(e) {
+    function C(e) {
       return e === o("WAWebBackendJobs.flow").EncMediaType.Image
         ? "image"
         : e === o("WAWebBackendJobs.flow").EncMediaType.Video
@@ -184,7 +198,7 @@ __d(
                                                   );
                                                 })();
     }
-    function g(e, t) {
+    function b(e, t) {
       var n = o("WAWebSendMsgCommonApi").getEditAttrValue(e, t);
       return n == null
         ? null
@@ -202,7 +216,7 @@ __d(
                 .sendLogs("status-publish-unmodelled-edit-attr"),
               null);
     }
-    function h(e) {
+    function v(e) {
       return e ===
         o("WAWebUserPrefsStatusType").StatusPrivacySettingType.AllowList
         ? "allowlist"
@@ -217,16 +231,181 @@ __d(
                 );
               })();
     }
-    function y(e) {
-      return { metaStatusSetting: h(e) };
+    function S(e) {
+      return { metaStatusSetting: v(e) };
     }
-    ((l.toStatusEncType = c),
-      (l.toEncVersionArgs = d),
-      (l.toStatusContentTypeArgs = p),
-      (l.toStatusEncMediaTypeArgs = _),
-      (l.toStatusEditOrRevokeArgs = g),
-      (l.toStatusSettingMetaAttribute = h),
-      (l.toStatusSettingArgs = y));
+    function R(e) {
+      var t = e.ciphertextVersion,
+        n = e.hideDecryptFail,
+        r = e.participants,
+        a = e.senderKeyDistributions,
+        i = _(t),
+        l = a.map(function (e) {
+          var t = e.ciphertext,
+            r = e.isPqSession,
+            a = e.participant,
+            l = e.type;
+          return {
+            statusToDeviceOrUserMixinGroupArgs: {
+              statusToDevice: {
+                toJid: o("WAWebWidToJid").widToDeviceJid(a),
+                encTypeIndividualMixinArgs: {
+                  encType: p(l),
+                  encElementValue: new Uint8Array(t),
+                  encStateOrSessionTypeMixinGroupArgs: r
+                    ? { isEncSessionType: !0 }
+                    : null,
+                },
+                hasStatusEncHideDecryptFail: n ? !0 : null,
+                encVersionArgs: i,
+              },
+            },
+          };
+        }),
+        s = 0,
+        u = 0;
+      for (var m of r) {
+        var f = o("WAWebLidMigrationUtils").toUserLid(m);
+        if (f == null) {
+          u++;
+          continue;
+        }
+        (o("WAWebSendMsgCommonApi").isPrimaryDevice(m) || s++,
+          l.push({
+            statusToDeviceOrUserMixinGroupArgs: {
+              statusToUser: {
+                toJid: o("WAWebWidToJid").userLidtoLidUserJid(f),
+              },
+            },
+          }));
+      }
+      return (
+        s > 0 &&
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "toStatusFanoutArgs: a bare <to> cannot carry a device number, so ",
+                  " of ",
+                  " participants lost theirs",
+                ])),
+              s,
+              r.length,
+            )
+            .sendLogs("status-publish-companion-participant"),
+        u > 0 &&
+          o("WALogger")
+            .WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "toStatusFanoutArgs: skipped ",
+                  " of ",
+                  " participants without a LID mapping",
+                ])),
+              u,
+              r.length,
+            )
+            .sendLogs("status-publish-participant-without-lid"),
+        l.length > 0 ? { toArgs: l } : null
+      );
+    }
+    function L(e) {
+      return e != null
+        ? {
+            clientReportingTokenMixinArgs: {
+              reportingTokenElementMixinArgs: e,
+            },
+          }
+        : null;
+    }
+    function E(e) {
+      var t = e.ciphertextVersion,
+        n = e.clientReportingToken,
+        r = e.editOrRevoke,
+        o = e.encMediaType,
+        a = e.participants,
+        i = e.senderKeyCiphertext,
+        l = e.senderKeyDistributions,
+        s = e.statusSetting;
+      return babelHelpers.extends({}, I(e), {
+        statusEncSettingMixinArgs: s != null ? S(s) : null,
+        statusBroadcastPublishTypeMixinsArgs: {
+          statusBroadcastRegular: {
+            encArgs: [
+              {
+                encElementValue: i,
+                encMediaTypeMixinArgs: y(o),
+                encVersionArgs: _(t),
+              },
+            ],
+            statusEncFanoutMixinArgs: R({
+              ciphertextVersion: t,
+              hideDecryptFail: !1,
+              participants: a,
+              senderKeyDistributions: l,
+            }),
+            statusReportingMixinArgs: L(n),
+            statusEditOrRevokeMixinGroupArgs: r,
+          },
+        },
+      });
+    }
+    function k(e) {
+      var t = e.ciphertextVersion,
+        n = e.clientReportingToken,
+        o = e.deviceEncs,
+        a = e.editOrRevoke,
+        i = e.hideDecryptFail,
+        l = R({
+          ciphertextVersion: t,
+          hideDecryptFail: i,
+          participants: [],
+          senderKeyDistributions: o,
+        });
+      if (l == null)
+        throw r("err")(
+          "toStatusDirectPublishArgs: directed status has no recipients",
+        );
+      return babelHelpers.extends({}, I(e), {
+        statusBroadcastPublishTypeMixinsArgs: {
+          statusBroadcastDirected: {
+            statusEncFanoutSenderKeyEmptyOrRetryOrFanoutMixinGroupArgs: {
+              statusEncFanoutSenderKeyEmpty: babelHelpers.extends({}, l, {
+                encTypeSenderKeyEmptyMixinArgs: { encElementValue: m },
+                encVersionArgs: _(t),
+              }),
+            },
+            statusReportingMixinArgs: L(n),
+            statusEditOrRevokeMixinGroupArgs: a,
+          },
+        },
+      });
+    }
+    function I(e) {
+      var t,
+        n = e.deviceIdentity,
+        r = e.msgType,
+        a = e.statusId,
+        i = e.useStatusSessionScope;
+      return {
+        statusId: o("WAStanzaUtils").toStanzaId(a),
+        deviceIdentityMixinArgs:
+          n != null ? { deviceIdentityElementValue: n } : null,
+        hasStatusEncSessionScope: i ? !0 : null,
+        statusEncContentTypeMixinArgs: (t = h.get(r)) != null ? t : null,
+        statusEncContentTypeMixinsArgs: g(r),
+      };
+    }
+    ((l.toStatusEncType = p),
+      (l.toEncVersionArgs = _),
+      (l.toStatusContentTypeArgs = g),
+      (l.toStatusEncMediaTypeArgs = y),
+      (l.toStatusEditOrRevokeArgs = b),
+      (l.toStatusSettingMetaAttribute = v),
+      (l.toStatusSettingArgs = S),
+      (l.toStatusFanoutArgs = R),
+      (l.toStatusBroadcastPublishArgs = E),
+      (l.toStatusDirectPublishArgs = k));
   },
   98,
 );

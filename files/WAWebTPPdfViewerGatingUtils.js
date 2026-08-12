@@ -114,7 +114,7 @@ __d(
       return r("justknobx")._("2723");
     }
     function E() {
-      return e() && r("justknobx")._("3269");
+      return e();
     }
     ((l.isWebTPThumbnailRendererEnabled = c),
       (l.isWebTPThumbnailAttributionEnabled = d),

@@ -45,12 +45,31 @@ __d(
       );
     }
     u.doc = "Get the global smax runner instance in debug";
-    var d = {
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield r("JSResourceForInteraction")(
+            "WAWebCommsE2ESmaxMockInjector",
+          )
+            .__setRef("WAWebDebugSmax")
+            .load();
+          return t.receiveServerStanzaXml(e);
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    d.doc =
+      "Inject a server stanza from XML into the inbound pipeline (WAP-encodes via smax, decodes, then handleStanza)";
+    var p = {
       initSmaxRunner: e,
       getSmaxRunner: u,
+      receiveServerStanzaXml: d,
       sendSmaxStanza: o("WAComms").sendSmaxStanza,
     };
-    l.default = d;
+    l.default = p;
   },
   98,
 );

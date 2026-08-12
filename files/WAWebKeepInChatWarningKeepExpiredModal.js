@@ -12,11 +12,8 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = e.useEffect,
-      d = function () {
-        o("WAWebModalManager").ModalManager.close();
-      };
-    function m(e) {
+      c = e.useEffect;
+    function d(e) {
       var t = e.expiredMessage;
       return (
         c(function () {
@@ -35,14 +32,14 @@ __d(
             surface: "unknown",
             viewName: "kic-keep-expired",
           },
-          onCancel: d,
+          onCancel: o("WAWebModalManager").closeModalManager,
           children: s._(
             /*BTDS*/ "This message can't be kept because the message timer has expired.",
           ),
         })
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   226,
 );
