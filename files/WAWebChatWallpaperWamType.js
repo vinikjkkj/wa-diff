@@ -1,8 +1,18 @@
 __d(
   "WAWebChatWallpaperWamType",
-  ["WAWebWamEnumChatWallpaperType"],
+  ["WAWebWamEnumChatThemeEntryType", "WAWebWamEnumChatWallpaperType"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    function e(e) {
+      var t = e.isGlobal,
+        n = e.isGroup;
+      return t
+        ? o("WAWebWamEnumChatThemeEntryType").CHAT_THEME_ENTRY_TYPE.APP_WIDE
+        : n
+          ? o("WAWebWamEnumChatThemeEntryType").CHAT_THEME_ENTRY_TYPE.GROUP
+          : o("WAWebWamEnumChatThemeEntryType").CHAT_THEME_ENTRY_TYPE
+              .ONE_TO_ONE;
+    }
+    function s(e, t) {
       return e === "solid"
         ? o("WAWebWamEnumChatWallpaperType").CHAT_WALLPAPER_TYPE.SOLID
         : e === "stock"
@@ -18,7 +28,7 @@ __d(
                 );
               })();
     }
-    function s(e) {
+    function u(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -45,7 +55,9 @@ __d(
         );
       })(e);
     }
-    ((l.wamWallpaperType = e), (l.wallpaperLoggingId = s));
+    ((l.chatThemeSourceFor = e),
+      (l.wamWallpaperType = s),
+      (l.wallpaperLoggingId = u));
   },
   98,
 );

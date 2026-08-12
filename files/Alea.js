@@ -33,8 +33,8 @@ __d(
       )
         i[l] = arguments[l];
       var s = i.length > 0 ? i : [new Date()],
-        u = e();
-      ((t = u(" ")), (n = u(" ")), (r = u(" ")));
+        u;
+      ((u = e()), (t = u(" ")), (n = u(" ")), (r = u(" ")));
       for (var c = 0; c < s.length; c++)
         ((t -= u(s[c])),
           t < 0 && (t += 1),

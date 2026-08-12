@@ -37,7 +37,12 @@ __d(
                   i.set(l.id, s);
                 }
                 var u = { components: i },
-                  c = { result: u, success: !0 };
+                  c = {
+                    result: u,
+                    success: !0,
+                    stackedScreens: a.stacked_screens,
+                    stackedScreensDelayMs: a.stacked_screens_delay_ms,
+                  };
                 (e.$3.set(t, {
                   response: u,
                   responseTimestampMs: Date.now().toString(),

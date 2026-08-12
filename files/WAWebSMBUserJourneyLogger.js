@@ -29,27 +29,30 @@ __d(
             this.$4.set(n, t);
           }),
           (t.log = function (t) {
-            var e = new (o(
-              "WAWebSmbUserJourneyWamEvent",
-            ).SmbUserJourneyWamEvent)();
-            ((e.smbFeatureName = t.featureName),
-              (e.smbUserActionType = t.userActionType),
-              (e.surface = t.surface),
-              (e.smbUserSessionId = this.$1),
-              (e.seqId = this.$2),
-              t.entryPoint != null && this.$3.set(t.featureName, t.entryPoint));
-            var n = this.$3.get(t.featureName);
-            (n != null && (e.entryPoint = n),
+            var e,
+              n = new (o(
+                "WAWebSmbUserJourneyWamEvent",
+              ).SmbUserJourneyWamEvent)();
+            ((n.smbFeatureName = t.featureName),
+              (n.smbUserActionType = t.userActionType),
+              (n.surface = t.surface),
+              (n.smbUserSessionId = this.$1),
+              (n.seqId = this.$2),
+              t.entryPoint != null &&
+                t.stickyEntryPoint !== !1 &&
+                this.$3.set(t.featureName, t.entryPoint));
+            var r = (e = t.entryPoint) != null ? e : this.$3.get(t.featureName);
+            (r != null && (n.entryPoint = r),
               t.entryPointDetails != null &&
                 this.$4.set(t.featureName, t.entryPointDetails));
-            var r = this.$4.get(t.featureName);
-            (r != null && (e.entryPointDetails = r),
+            var a = this.$4.get(t.featureName);
+            (a != null && (n.entryPointDetails = a),
               t.userActionTarget != null &&
-                (e.userActionTarget = t.userActionTarget),
+                (n.userActionTarget = t.userActionTarget),
               t.extraAttributes != null &&
-                (e.extraAttributes = JSON.stringify(t.extraAttributes)),
-              t.bbTier != null && (e.bbTier = t.bbTier),
-              e.commit(),
+                (n.extraAttributes = JSON.stringify(t.extraAttributes)),
+              t.bbTier != null && (n.bbTier = t.bbTier),
+              n.commit(),
               (this.$2 += 1));
           }),
           e

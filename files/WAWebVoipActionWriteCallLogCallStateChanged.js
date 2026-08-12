@@ -10,7 +10,6 @@ __d(
     "WAWebMsgType",
     "WAWebReleaseToEventLoop",
     "WAWebVoipActionWriteCallLogImpl",
-    "WAWebVoipCallLogAnrGating",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipCallStateUtils",
     "WAWebVoipOngoingCallCollection",
@@ -245,9 +244,6 @@ __d(
                 ),
               },
               R =
-                o(
-                  "WAWebVoipCallLogAnrGating",
-                ).isWebVoipCallLogAnrOptimizationEnabled() &&
                 b != null &&
                 !o("WAWebVoipCallStateUtils").isCallTerminal(e.callState),
               L = yield o(

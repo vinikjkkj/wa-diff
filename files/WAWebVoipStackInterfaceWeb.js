@@ -182,6 +182,9 @@ __d(
                               ])),
                           )
                           .sendLogs("webtransport-fallback-handler-invoked"),
+                          o(
+                            "WAWebVoipSctpConnectionManager",
+                          ).markSctpEnteredViaWebTransportFallback(),
                           o("WAWebVoipGatingUtils").markWebTransportFellBack(),
                           o(
                             "WAWebVoipTransportFallbackTracker",

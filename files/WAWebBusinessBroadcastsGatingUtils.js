@@ -1,6 +1,12 @@
 __d(
   "WAWebBusinessBroadcastsGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms", "WAWebUserPrefsMultiDevice"],
+  [
+    "WAWebABProps",
+    "WAWebBizBroadcastProOnboardingStatus",
+    "WAWebMobilePlatforms",
+    "WAWebUserPrefsMultiDevice",
+    "WAWebWamEnumBbTierType",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -78,6 +84,14 @@ __d(
         "wa_web_biz_broadcasts_contextual_entrypoints",
       );
     }
+    function g() {
+      return (
+        o(
+          "WAWebBizBroadcastProOnboardingStatus",
+        ).getBizBroadcastProductTier() ===
+          o("WAWebWamEnumBbTierType").BB_TIER_TYPE.PRO && m()
+      );
+    }
     ((l.isBizBroadcastContactImportEnabled = e),
       (l.isBizBroadcastSendWebEnabled = s),
       (l.isBizBroadcastSendWebEnabledNoExposure = u),
@@ -86,7 +100,8 @@ __d(
       (l.isBizBroadcastProEnabled = m),
       (l.isBizBroadcastProScheduledSendsEnabled = p),
       (l.isBizBroadcastCatalogAttachmentEnabled = _),
-      (l.isBizBroadcastContextualEntrypointsEnabled = f));
+      (l.isBizBroadcastContextualEntrypointsEnabled = f),
+      (l.isBizBroadcastProUser = g));
   },
   98,
 );

@@ -13,8 +13,10 @@ __d(
     "WAWebListsLabelGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
+    "WAWebUserPrefsMeUser",
     "react-compiler-runtime",
     "useWAWebChatValues",
+    "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
@@ -30,7 +32,37 @@ __d(
           : e.isBizBot1p) === !0
       );
     }
-    function c(e) {
+    var c = ["change:automatedType", "change:dataSource"];
+    function d(e) {
+      try {
+        return e();
+      } catch (e) {
+        return null;
+      }
+    }
+    function m(e, t) {
+      var n = e ? d(o("WAWebUserPrefsMeUser").getMaybeMeLidUser) : null,
+        r = e ? d(o("WAWebUserPrefsMeUser").getMaybeMePnUser) : null;
+      (o("useWAWebListener").useListener(
+        n == null
+          ? null
+          : o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
+              n,
+            ),
+        c,
+        t,
+      ),
+        o("useWAWebListener").useListener(
+          r == null
+            ? null
+            : o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
+                r,
+              ),
+          c,
+          t,
+        ));
+    }
+    function p(e) {
       var t,
         n = o("WAWebContactGetters").getIsMe(e.contact),
         r = o("WAWebContactGetters").getIsAiHub(e.contact),
@@ -44,10 +76,10 @@ __d(
         e.id.isUserNotPSA() &&
         u() &&
         !r &&
-        (!a || d(e))
+        (!a || _(e))
       );
     }
-    function d(e) {
+    function _(e) {
       return (
         e.capiThreadControl ===
         o("WAWebProtobufsE2E.pb")
@@ -55,7 +87,7 @@ __d(
           .CONTROL_TAKEN
       );
     }
-    function m(e) {
+    function f(e) {
       var t = o("react-compiler-runtime").c(1),
         n;
       t[0] === Symbol.for("react.memo_cache_sentinel")
@@ -70,17 +102,17 @@ __d(
           .CONTROL_TAKEN
       );
     }
-    function p(e) {
+    function g(e) {
       return (
-        d(e) &&
+        _(e) &&
         !e.forceDismissAiAgentBlockBar &&
         !o("WAWebContactGetters").getIsAiHub(e.contact)
       );
     }
-    function _(e) {
-      return d(e);
+    function h(e) {
+      return _(e);
     }
-    function f(e) {
+    function y(e) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
         !e.id.isUserNotPSA() ||
@@ -103,17 +135,17 @@ __d(
           ? "handoff"
           : null;
     }
-    function g(e) {
+    function C(e) {
       return (
-        f(e) != null && o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()
+        y(e) != null && o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()
       );
     }
-    function h(e) {
+    function b(e) {
       return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? y(e)
+        ? v(e)
         : !1;
     }
-    function y(e) {
+    function v(e) {
       var t = e.labels;
       return t == null ||
         t.length === 0 ||
@@ -127,7 +159,7 @@ __d(
             return t != null && !!t.name;
           });
     }
-    function C(e, t) {
+    function S(e, t) {
       return (
         t === void 0 && (t = !1),
         t &&
@@ -135,21 +167,22 @@ __d(
           e.groupMetadata,
         )
           ? !1
-          : g(e) || h(e)
+          : C(e) || b(e)
       );
     }
     ((l.getAiHubSubtitle = e),
       (l.hasOnboardedAiAgent = u),
-      (l.isChatEligibleForAiAgent = c),
-      (l.isChatAiEnabled = d),
-      (l.useIsChatAiEnabled = m),
-      (l.shouldShowAiAgentBlockBar = p),
-      (l.shouldMuteNotification = _),
-      (l.resolveAiChatStatus = f),
-      (l.shouldShowAiChipsForChat = g),
-      (l.shouldShowLabelPillsForChat = h),
-      (l.hasDisplayableLabels = y),
-      (l.shouldShowTertiaryRowForChat = C));
+      (l.useObserveAiAgentOnboarding = m),
+      (l.isChatEligibleForAiAgent = p),
+      (l.isChatAiEnabled = _),
+      (l.useIsChatAiEnabled = f),
+      (l.shouldShowAiAgentBlockBar = g),
+      (l.shouldMuteNotification = h),
+      (l.resolveAiChatStatus = y),
+      (l.shouldShowAiChipsForChat = C),
+      (l.shouldShowLabelPillsForChat = b),
+      (l.hasDisplayableLabels = v),
+      (l.shouldShowTertiaryRowForChat = S));
   },
   226,
 );

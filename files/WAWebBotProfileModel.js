@@ -128,8 +128,14 @@ __d(
                 });
               } else {
                 var l = e.get(r);
-                l != null &&
-                  (this.contact.set(babelHelpers.extends({}, l)), e.delete(r));
+                l != null
+                  ? (this.contact.set(babelHelpers.extends({}, l)), e.delete(r))
+                  : this.name != null &&
+                    this.name !== "" &&
+                    this.contact.set({
+                      name: this.name,
+                      verifiedName: this.name,
+                    });
               }
             }
           }),

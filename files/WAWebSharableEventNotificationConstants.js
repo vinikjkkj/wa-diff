@@ -36,11 +36,12 @@ __d(
     }
     var d = e.Mirrored(["Going", "Maybe", "NotGoing", "NoResponse"]),
       m = e.Mirrored(["Active", "Canceled", "Suspended"]),
-      p = new Set([l.Update, l.Rsvp, l.Delete]);
-    function _(e) {
-      return p.has(e);
-    }
+      p = e.Mirrored(["DeletedByHost", "Expired"]),
+      _ = new Set([l.Update, l.Rsvp, l.Delete]);
     function f(e) {
+      return _.has(e);
+    }
+    function g(e) {
       return e === l.Invite
         ? "invite"
         : e === l.Update
@@ -68,8 +69,9 @@ __d(
       (i.nearestReminderBucket = c),
       (i.SharableEventNotificationRsvpStatus = d),
       (i.SharableEventStatus = m),
-      (i.isSenderAttributed = _),
-      (i.getIdentifierTag = f));
+      (i.SharableEventDeleteReason = p),
+      (i.isSenderAttributed = f),
+      (i.getIdentifierTag = g));
   },
   66,
 );

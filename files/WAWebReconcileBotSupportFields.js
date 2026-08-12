@@ -77,6 +77,7 @@ __d(
                         yield o(
                           "WAWebPersistBotProfiles",
                         ).mergeBotSupportFields(t, {
+                          name: e.name,
                           product: e.product,
                           isDeprecated: e.isDeprecated,
                           isDeleted: !1,

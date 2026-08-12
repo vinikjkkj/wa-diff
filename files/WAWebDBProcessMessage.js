@@ -20,7 +20,6 @@ __d(
     "WAWebSchemaMessage",
     "WAWebSyncGatingUtils",
     "WAWebViewMode.flow",
-    "WAWebVoipCallLogAnrGating",
     "asyncToGeneratorRuntime",
     "cr:375",
     "err",
@@ -77,10 +76,7 @@ __d(
       (e.length > 0 &&
         e.every(function (e) {
           return o("WAWebCommonMsgUtils").isCallLogMsg(e.type);
-        }) &&
-        o(
-          "WAWebVoipCallLogAnrGating",
-        ).isWebVoipCallLogAnrOptimizationEnabled()) ||
+        })) ||
         _ == null ||
         _.index().catch(r("WAWebNoop"));
     }

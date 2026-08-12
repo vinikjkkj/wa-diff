@@ -7,6 +7,7 @@ __d(
       "cancelled",
       "custom_event_type",
       "edit_text_class",
+      "entry_source",
       "frustration_repeated_action",
       "frustration_repetition_count",
       "generic_error_code",

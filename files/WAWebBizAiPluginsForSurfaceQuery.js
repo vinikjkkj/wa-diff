@@ -17,15 +17,17 @@ __d(
         var a,
           i,
           l = o == null ? void 0 : o.plugin;
-        (l == null ? void 0 : l.id) == null ||
-          l.display_name == null ||
+        if (!((l == null ? void 0 : l.id) == null || l.display_name == null)) {
+          var s = l.apixfn_plugin;
           r.push({
+            apixfnPlugin: s == null ? null : s,
             display_name: l.display_name,
             id: l.id,
             is_connected: o.is_connected === !0,
             logoUri:
               (a = (i = l.logo) == null ? void 0 : i.uri) != null ? a : null,
           });
+        }
       }
       return r;
     }

@@ -79,6 +79,7 @@ __d(
         QUESTIONS_M2: 19,
         JARVIS_INTEGRATION_ENABLED: 20,
         PINNED_MESSAGES: 21,
+        CHANNEL_STATUS_MUSIC: 22,
       }),
       f = e.Mirrored(["ACTIVE", "INACTIVE"]),
       g = e.Mirrored([

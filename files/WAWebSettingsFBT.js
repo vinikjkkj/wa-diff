@@ -266,53 +266,59 @@ __d(
       return s._(/*BTDS*/ "Lists");
     }
     function Ae() {
-      return s._(/*BTDS*/ "Manage people and groups");
+      return s._(/*BTDS*/ "Lorem");
     }
     function Fe() {
-      return s._(/*BTDS*/ "Log out");
+      return s._(/*BTDS*/ "Lorem ipsum dolor sit");
     }
     function Oe() {
-      return s._(/*BTDS*/ "Account");
+      return s._(/*BTDS*/ "Manage people and groups");
     }
     function Be() {
-      return s._(/*BTDS*/ "Security notifications, account info");
+      return s._(/*BTDS*/ "Log out");
     }
     function We() {
-      return s._(/*BTDS*/ "Profile");
+      return s._(/*BTDS*/ "Account");
     }
     function qe() {
+      return s._(/*BTDS*/ "Security notifications, account info");
+    }
+    function Ue() {
+      return s._(/*BTDS*/ "Profile");
+    }
+    function Ve() {
       return o(
         "WAWebUsernameWorkerCompatibleGatingUtils",
       ).usernameCreationOrReservationEnabled()
         ? s._(/*BTDS*/ "Name, profile picture, username")
         : s._(/*BTDS*/ "Name, profile picture");
     }
-    function Ue() {
+    function He() {
       return s._(/*BTDS*/ "Chats");
     }
-    function Ve() {
+    function Ge() {
       return s._(/*BTDS*/ "Theme, wallpaper, chat settings");
     }
-    function He() {
+    function ze() {
       return s._(/*BTDS*/ "How to delete my account");
     }
-    function Ge() {
+    function je() {
       return s._(
         /*BTDS*/ "To protect your account and improve device performance, WhatsApp will block messages from unknown accounts if they exceed a certain volume.",
       );
     }
-    function ze() {
+    function Ke() {
       return s._(/*BTDS*/ "Protect IP address in calls");
     }
-    function je() {
+    function Qe() {
       return s._(
         /*BTDS*/ "To make it harder for people to infer your location, calls on this device will be securely relayed through WhatsApp servers. This will reduce call quality.",
       );
     }
-    function Ke() {
+    function Xe() {
       return s._(/*BTDS*/ "Status ad");
     }
-    function Qe() {
+    function Ye() {
       return s._(/*BTDS*/ "View details on your phone");
     }
     ((l.wallpaperTitle = e),
@@ -397,20 +403,22 @@ __d(
       (l.termsTitle = Ne),
       (l.dataSharingTitle = Me),
       (l.listsTitle = we),
-      (l.listsSecondaryTitle = Ae),
-      (l.logoutTitle = Fe),
-      (l.accountTitle = Oe),
-      (l.accountSecondaryTitle = Be),
-      (l.profileTitle = We),
-      (l.profileSecondaryTitle = qe),
-      (l.chatsTitle = Ue),
-      (l.chatsSecondaryTitle = Ve),
-      (l.deleteAccountTitle = He),
-      (l.antiBrigadingDescription = Ge),
-      (l.protectIpInCallsTitle = ze),
-      (l.protectIpInCallsDescription = je),
-      (l.wamoNonAGMMessagePreviewTitle = Ke),
-      (l.wamoNonAGMMessagePreviewDescription = Qe));
+      (l.agentsTitle = Ae),
+      (l.agentsSecondaryTitle = Fe),
+      (l.listsSecondaryTitle = Oe),
+      (l.logoutTitle = Be),
+      (l.accountTitle = We),
+      (l.accountSecondaryTitle = qe),
+      (l.profileTitle = Ue),
+      (l.profileSecondaryTitle = Ve),
+      (l.chatsTitle = He),
+      (l.chatsSecondaryTitle = Ge),
+      (l.deleteAccountTitle = ze),
+      (l.antiBrigadingDescription = je),
+      (l.protectIpInCallsTitle = Ke),
+      (l.protectIpInCallsDescription = Qe),
+      (l.wamoNonAGMMessagePreviewTitle = Xe),
+      (l.wamoNonAGMMessagePreviewDescription = Ye));
   },
   226,
 );

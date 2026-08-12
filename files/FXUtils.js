@@ -200,10 +200,12 @@ __d(
           return "DELETION_NO_ELIGIBLE_ACCOUNTS_FOR_REAUTH";
         case "generic_centralized_settings_no_eligible_accounts_for_reauth":
           return "GENERIC_CENTRALIZED_SETTINGS_NO_ELIGIBLE_ACCOUNTS_FOR_REAUTH";
-        case "sso":
-          return "SSO";
         case "unlink":
           return "UNLINK";
+        case "sso":
+          throw r("FBLogger")("fx_accounts_center_settings").mustfixThrow(
+            "Deprecated SSO passwordless flow type",
+          );
       }
     }
     function C(e) {

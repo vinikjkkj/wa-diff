@@ -335,7 +335,8 @@ __d(
             { layout: { bloks_payload: r } },
             e.environment.traversalKeys,
           );
-          t.setState({ state: "ready", parseResult: s });
+          (t.setState({ state: "ready", parseResult: s }),
+            i != null && e.pushStackedScreens(i.stacked_screens, t.params));
         }
       }).catch(function (n) {
         if (n instanceof o("WebBloksErrors").WebBloksNetworkError) {

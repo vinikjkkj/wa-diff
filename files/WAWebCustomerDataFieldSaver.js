@@ -9,6 +9,7 @@ __d(
     "WAWebContactType",
     "WAWebCustomerDataAction",
     "WAWebCustomerDataCollection",
+    "WAWebCustomerProfileChangeNotifier",
     "WAWebFrontendContactGetters",
     "WAWebLeadStage",
     "asyncToGeneratorRuntime",
@@ -95,7 +96,7 @@ __d(
               email: n == null ? void 0 : n.email,
               lastOrder: n == null ? void 0 : n.lastOrder,
               leadStage: t,
-              name: y(e),
+              name: b(e),
             }));
         })),
         f.apply(this, arguments)
@@ -109,18 +110,34 @@ __d(
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield o(
             "WAWebContactManagerCustomerProfileUpsertMutation",
-          ).upsertCustomerProfileToServer(e, { leadStage: t, name: y(e) });
+          ).upsertCustomerProfileToServer(e, { leadStage: t, name: b(e) });
         })),
         h.apply(this, arguments)
       );
     }
-    function y(e) {
+    function y(e, t) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (yield o(
+            "WAWebContactManagerCustomerProfileUpsertMutation",
+          ).upsertCustomerProfileFieldToServer(e, t),
+            o(
+              "WAWebCustomerProfileChangeNotifier",
+            ).notifyCustomerProfileChanged(e));
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       return t != null
         ? o("WAWebFrontendContactGetters").getDisplayName(t)
         : null;
     }
-    function C(t) {
+    function v(t) {
       if (!t.endsWith(o("WAJids").LID_DOMAIN))
         throw r("err")(
           '[ContactManager] deactivateCustomer: chatJid must be LID-based, got "' +
@@ -155,7 +172,7 @@ __d(
             .sendLogs("customer_manager_deactivate_customer_failed");
         });
     }
-    function b(e, t, n, r) {
+    function S(e, t, n, r) {
       r !== n &&
         (r === o("WAWebLeadStage").LeadStage.NONE &&
         n !== o("WAWebLeadStage").LeadStage.NONE
@@ -173,14 +190,15 @@ __d(
             })
           : r !== o("WAWebLeadStage").LeadStage.NONE &&
               n === o("WAWebLeadStage").LeadStage.NONE
-            ? C(e)
+            ? v(e)
             : p(e, t, { leadStage: n }));
     }
     ((l.saveCustomerDataField = p),
       (l.upsertAsCustomer = _),
       (l.upsertLeadStageToProfile = g),
-      (l.deactivateCustomer = C),
-      (l.handleLeadStageTransition = b));
+      (l.upsertCustomerFieldToProfile = y),
+      (l.deactivateCustomer = v),
+      (l.handleLeadStageTransition = S));
   },
   98,
 );

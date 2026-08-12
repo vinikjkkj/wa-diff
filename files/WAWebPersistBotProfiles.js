@@ -6,13 +6,14 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = ["commands", "id", "prompts"];
-    function s(e) {
-      return u.apply(this, arguments);
+    var e = ["commands", "id", "prompts"],
+      s = ["name"];
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           (yield o("WAWebSchemaBotProfile")
             .getBotProfileTable()
             .bulkCreateOrMerge(
@@ -37,31 +38,37 @@ __d(
               );
             }));
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.name,
+            r = babelHelpers.objectWithoutPropertiesLoose(t, s),
+            a =
+              n != null && n !== ""
+                ? babelHelpers.extends({}, r, { name: n })
+                : r;
           (yield o("WAWebSchemaBotProfile")
             .getBotProfileTable()
-            .bulkCreateOrMerge([babelHelpers.extends({ id: e.toString() }, t)]),
+            .bulkCreateOrMerge([babelHelpers.extends({ id: e.toString() }, a)]),
             o("WAWebBotProfileCollection").BotProfileCollection.gadd(
-              babelHelpers.extends({ id: e }, t),
+              babelHelpers.extends({ id: e }, a),
             ));
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
+    function p(e) {
       return o("WAWebBotProfileCollection").BotProfileCollection.get(e) != null;
     }
-    ((l.persistBotProfiles = s),
-      (l.mergeBotSupportFields = c),
-      (l.isBotProfileCached = m));
+    ((l.persistBotProfiles = u),
+      (l.mergeBotSupportFields = d),
+      (l.isBotProfileCached = p));
   },
   98,
 );

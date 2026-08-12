@@ -74,8 +74,10 @@ __d(
       O,
       B,
       W,
-      q;
-    function U(e) {
+      q,
+      U,
+      V;
+    function H(e) {
       return e === o("WAWebVoipWaCallEnums").CallState.None
         ? "None"
         : e === o("WAWebVoipWaCallEnums").CallState.Calling
@@ -123,9 +125,9 @@ __d(
                                         );
                                       })();
     }
-    var V = null,
-      H = null;
-    function G() {
+    var G = null,
+      z = null;
+    function j() {
       return {
         initStarted: !1,
         callIsActive: !1,
@@ -133,38 +135,38 @@ __d(
         cachedRelayListData: null,
       };
     }
-    var z = G(),
-      j = 90,
-      K = null,
-      Q = null,
-      X = 60,
+    var K = j(),
+      Q = 90,
+      X = null,
       Y = null,
-      J = null;
-    function Z() {
-      ((H = null), o("WAWebVoipWasmHeapMonitor").stopWasmHeapMonitor());
+      J = 60,
+      Z = null,
+      ee = null;
+    function te() {
+      ((z = null), o("WAWebVoipWasmHeapMonitor").stopWasmHeapMonitor());
     }
-    function ee(t, n) {
+    function ne(t, n) {
       if (
         t === o("WAWebVoipWaCallEnums").CallState.None ||
         t === o("WAWebVoipWaCallEnums").CallState.CallActiveElseWhere
       ) {
-        Z();
+        te();
         return;
       }
       if (
         !(
-          H != null || t === o("WAWebVoipWaCallEnums").CallState.CallStateEnding
+          z != null || t === o("WAWebVoipWaCallEnums").CallState.CallStateEnding
         )
       ) {
         var a = n.callId;
-        ((H = a),
+        ((z = a),
           o("WAWebBackendApi")
             .frontendSendAndReceive("initializeVoipWasm")
             .then(function (e) {
-              H === a && o("WAWebVoipWasmHeapMonitor").startWasmHeapMonitor(e);
+              z === a && o("WAWebVoipWasmHeapMonitor").startWasmHeapMonitor(e);
             })
             .catch(function (t) {
-              (H === a && (H = null),
+              (z === a && (z = null),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -176,11 +178,11 @@ __d(
             }));
       }
     }
-    function te() {
-      K != null &&
-        (window.clearTimeout(K),
-        (K = null),
-        (Q = null),
+    function re() {
+      X != null &&
+        (window.clearTimeout(X),
+        (X = null),
+        (Y = null),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -188,38 +190,38 @@ __d(
             ])),
         ));
     }
-    function ne(e, t, n) {
-      return re.apply(this, arguments);
+    function oe(e, t, n) {
+      return ae.apply(this, arguments);
     }
-    function re() {
+    function ae() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a) {
             if (e.type === "web") {
               var i =
                 o("WAWebVoipCallStateUtils").isCallTerminal(t) ||
                 o("WAWebVoipCallStateUtils").isCallActive(t);
               if (i) {
-                te();
+                re();
                 return;
               }
               var l = o("WAWebVoipCallStateUtils").isCallOutgoing(t),
                 s = a.isCaller === !0,
                 u = a.isGroupCall === !0;
               if (l && s && !u) {
-                if (K != null) return;
+                if (X != null) return;
                 var c = a.callId;
                 if (c == null) {
                   o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: caller timeout not set, callId is null",
                       ])),
                   );
                   return;
                 }
-                Q = c;
-                var d = j;
+                Y = c;
+                var d = Q;
                 try {
                   var m = yield e.getVoipParam("options.caller_timeout");
                   if (m != null && m !== "") {
@@ -228,50 +230,50 @@ __d(
                   }
                 } catch (e) {
                   o("WALogger").LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: failed to get caller timeout param, using default: ",
                         "",
                       ])),
                     e,
                   );
                 }
-                if (Q !== c) {
+                if (Y !== c) {
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    C ||
+                      (C = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: caller timeout skipped, state changed",
                       ])),
                   );
                   return;
                 }
                 (o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: setting caller timeout for outgoing call: ",
                       "s",
                     ])),
                   d,
                 ),
-                  (K = window.setTimeout(function () {
-                    if (Q !== c) {
+                  (X = window.setTimeout(function () {
+                    if (Y !== c) {
                       o("WALogger").LOG(
-                        C ||
-                          (C = babelHelpers.taggedTemplateLiteralLoose([
+                        v ||
+                          (v = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: caller timeout fired but call ID changed, ignoring",
                           ])),
                       );
                       return;
                     }
                     (o("WALogger").LOG(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: caller timeout fired, ending call",
                         ])),
                     ),
-                      (K = null),
-                      (Q = null),
-                      (q || (q = n("Promise")))
+                      (X = null),
+                      (Y = null),
+                      (V || (V = n("Promise")))
                         .resolve(
                           e.endCall(
                             o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
@@ -281,8 +283,8 @@ __d(
                         .catch(function (e) {
                           o("WALogger")
                             .ERROR(
-                              v ||
-                                (v = babelHelpers.taggedTemplateLiteralLoose([
+                              R ||
+                                (R = babelHelpers.taggedTemplateLiteralLoose([
                                   "voip: failed to end call on caller timeout",
                                 ])),
                             )
@@ -293,14 +295,14 @@ __d(
             }
           },
         )),
-        re.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
-    function oe() {
-      Y != null &&
-        (window.clearTimeout(Y),
-        (Y = null),
-        (J = null),
+    function ie() {
+      Z != null &&
+        (window.clearTimeout(Z),
+        (Z = null),
+        (ee = null),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -308,7 +310,7 @@ __d(
             ])),
         ));
     }
-    function ae(e) {
+    function le(e) {
       var t = e.callInfo,
         a = e.callState,
         i = e.voipStackInterface;
@@ -318,14 +320,14 @@ __d(
           o("WAWebVoipCallStateUtils").isCallActive(a) ||
           o("WAWebVoipCallStateUtils").isCallConnecting(a);
         if (l) {
-          oe();
+          ie();
           return;
         }
         if (
           a === o("WAWebVoipWaCallEnums").CallState.ReceivedCall &&
           t.isCaller !== !0
         ) {
-          if (Y != null) return;
+          if (Z != null) return;
           var s = t.callId;
           if (s == null) {
             o("WALogger").LOG(
@@ -336,8 +338,8 @@ __d(
             );
             return;
           }
-          J = s;
-          var u = X;
+          ee = s;
+          var u = J;
           (o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -348,8 +350,8 @@ __d(
             s,
             u,
           ),
-            (Y = window.setTimeout(function () {
-              if (J !== s) {
+            (Z = window.setTimeout(function () {
+              if (ee !== s) {
                 o("WALogger").LOG(
                   m ||
                     (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -366,9 +368,9 @@ __d(
                   ])),
                 s,
               ),
-                (Y = null),
-                (J = null),
-                (q || (q = n("Promise")))
+                (Z = null),
+                (ee = null),
+                (V || (V = n("Promise")))
                   .resolve(
                     i.endCall(
                       o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
@@ -393,14 +395,14 @@ __d(
         }
       }
     }
-    function ie(e, t) {
-      return le.apply(this, arguments);
+    function se(e, t) {
+      return ue.apply(this, arguments);
     }
-    function le() {
+    function ue() {
       return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield e === o("WAWebVoipWaCallEnums").CallEvent.CallStateChanged
-            ? me(t)
+            ? _e(t)
             : e === o("WAWebVoipWaCallEnums").CallEvent.SyncDevices
               ? o(
                   "WAWebVoipHandleNativeCallEventCallLogHandlers",
@@ -431,7 +433,7 @@ __d(
                           ).handleUpdate1to1CallLog(t)
                         : e ===
                             o("WAWebVoipWaCallEnums").CallEvent.RelayListUpdate
-                          ? _e(t)
+                          ? ge(t)
                           : e ===
                               o("WAWebVoipWaCallEnums").CallEvent
                                 .FieldstatsReady
@@ -816,7 +818,7 @@ __d(
                                                                                                 )
                                                                                                   .CallEvent
                                                                                                   .LidCallerDisplayInfo
-                                                                                              ? se(
+                                                                                              ? ce(
                                                                                                   t,
                                                                                                 )
                                                                                               : e ===
@@ -825,39 +827,10 @@ __d(
                                                                                                   )
                                                                                                     .CallEvent
                                                                                                     .VoiceChatWaveReceived
-                                                                                                ? ce(
+                                                                                                ? me(
                                                                                                     t,
                                                                                                   )
                                                                                                 : null;
-        })),
-        le.apply(this, arguments)
-      );
-    }
-    function se(e) {
-      return ue.apply(this, arguments);
-    }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WALogger").LOG(
-            S ||
-              (S = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: LidCallerDisplayInfo",
-              ])),
-          ),
-            yield o("WAWebVoipHandleLidCallerDisplayInfo")
-              .handleWAWebVoipLidCallerDisplayInfoJson(e)
-              .catch(function (e) {
-                o("WALogger")
-                  .WARN(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [LidCallerDisplayInfo] unhandled error",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("voip-lid-caller-display-info-failed");
-              }));
         })),
         ue.apply(this, arguments)
       );
@@ -868,6 +841,35 @@ __d(
     function de() {
       return (
         (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (o("WALogger").LOG(
+            L ||
+              (L = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: LidCallerDisplayInfo",
+              ])),
+          ),
+            yield o("WAWebVoipHandleLidCallerDisplayInfo")
+              .handleWAWebVoipLidCallerDisplayInfoJson(e)
+              .catch(function (e) {
+                o("WALogger")
+                  .WARN(
+                    E ||
+                      (E = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [LidCallerDisplayInfo] unhandled error",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("voip-lid-caller-display-info-failed");
+              }));
+        })),
+        de.apply(this, arguments)
+      );
+    }
+    function me(e) {
+      return pe.apply(this, arguments);
+    }
+    function pe() {
+      return (
+        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "group_calling_wave_receiving_enabled",
@@ -885,8 +887,8 @@ __d(
                 if (l == null) {
                   o("WALogger")
                     .WARN(
-                      L ||
-                        (L = babelHelpers.taggedTemplateLiteralLoose([
+                      k ||
+                        (k = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [wave] no sender jid; skip notif",
                         ])),
                     )
@@ -901,15 +903,15 @@ __d(
             }
           }
         })),
-        de.apply(this, arguments)
+        pe.apply(this, arguments)
       );
     }
-    function me(e) {
-      return pe.apply(this, arguments);
+    function _e(e) {
+      return fe.apply(this, arguments);
     }
-    function pe() {
+    function fe() {
       return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
@@ -919,55 +921,66 @@ __d(
               (t = a.CallState) != null
                 ? t
                 : o("WAWebVoipWaCallEnums").CallState.None,
-            l = a.call_info;
-          o("WAWebVoipLocalCallStateStore").setLocalCallState(i);
-          var s = o("WAWebVoipGatingUtils").isWebTransportEnabled();
+            l = a.call_info,
+            s = o("WAWebVoipLocalCallStateStore").getLocalCallState();
+          (o("WAWebVoipLocalCallStateStore").setLocalCallState(i),
+            o("WAWebVoipCallStateUtils").isCallTerminal(s) &&
+              !o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
+              o(
+                "WAWebVoipSctpConnectionManager",
+              ).resetSctpFallbackFamilyOutcome(),
+            !o("WAWebVoipCallStateUtils").isCallTerminal(s) &&
+              o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
+              o(
+                "WAWebVoipSctpConnectionManager",
+              ).reportSctpFallbackFamilyOutcome());
+          var u = o("WAWebVoipGatingUtils").isWebTransportEnabled();
           if (
             (o("WAWebVoipGatingUtils").markCurrentCallAsGroup(
               l.isGroupCall === !0,
             ),
-            s && !o("WAWebVoipGatingUtils").isWebTransportEnabled())
+            u && !o("WAWebVoipGatingUtils").isWebTransportEnabled())
           ) {
             (o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              I ||
+                (I = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [gating] group call detected, moving relay traffic to SCTP",
                 ])),
             ),
               o(
                 "WAWebVoipWebTransportConnectionManager",
               ).closeAllConnections());
-            var u = z.cachedRelayListData;
-            u != null &&
+            var c = K.cachedRelayListData;
+            c != null &&
               o("WAWebVoipSctpConnectionManager")
-                .handleRelayListUpdate(u)
+                .handleRelayListUpdate(c)
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      k ||
-                        (k = babelHelpers.taggedTemplateLiteralLoose([
+                      T ||
+                        (T = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [gating] SCTP relay list replay failed",
                         ])),
                     )
                     .catching(r("getErrorSafe")(e));
                 });
           }
-          (ne(n, i, l).catch(function (e) {
+          (oe(n, i, l).catch(function (e) {
             o("WALogger")
               .ERROR(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: handleCallerTimeout failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e));
           }),
-            ae({ callInfo: l, callState: i, voipStackInterface: n }));
-          var c = o(
+            le({ callInfo: l, callState: i, voipStackInterface: n }));
+          var d = o(
             "WAWebVoipThreadPoolManagerRegistry",
           ).getVoipThreadPoolManager();
-          (c == null || c.onCallStateChanged(i),
-            n.type === "web" && ee(i, l),
+          (d == null || d.onCallStateChanged(i),
+            n.type === "web" && ne(i, l),
             o("WAWebVoipCallStateUtils").isCallTerminal(i) ||
               (o("WAWebBackendApi").frontendFireAndForget(
                 "startAnrTracking",
@@ -981,11 +994,11 @@ __d(
                 "startUiActivityTracking",
                 {},
               )));
-          var d = U(i);
+          var m = H(i);
           if (
             (o("WAWebBackendApi").frontendFireAndForget(
               "trackVoipCallStateChange",
-              { stateName: d },
+              { stateName: m },
             ),
             o("WAWebBackendApi").frontendFireAndForget("setCallState", {
               callState: i,
@@ -994,59 +1007,59 @@ __d(
             i === o("WAWebVoipWaCallEnums").CallState.CallActive)
           )
             try {
-              var m = a.call_info.callId;
-              V = m;
-              var p = o("WAWebABProps").getABPropConfigValue(
+              var p = a.call_info.callId;
+              G = p;
+              var _ = o("WAWebABProps").getABPropConfigValue(
                   "web_voip_dynamic_thread_preallocate_count",
                 ),
-                _ = o("WAWebVoipGatingUtils").isWebKitBrowser(),
-                f =
-                  p > 0 && !_
-                    ? p
-                    : "disabled(webkit=" + String(_) + ", count=" + p + ")",
-                g = o("WAWebABProps").getABPropConfigValue(
+                f = o("WAWebVoipGatingUtils").isWebKitBrowser(),
+                g =
+                  _ > 0 && !f
+                    ? _
+                    : "disabled(webkit=" + String(f) + ", count=" + _ + ")",
+                h = o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_proxy_and_sctp_workers",
                 ),
-                h = o("WAWebABProps").getABPropConfigValue(
+                y = o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_dynamic_fps_throttle",
                 ),
-                y = o("WAWebABProps").getABPropConfigValue(
+                C = o("WAWebABProps").getABPropConfigValue(
                   "web_calling_perf_optimizations_bitmask",
                 ),
-                C = o("WAWebABProps").getABPropConfigValue(
+                b = o("WAWebABProps").getABPropConfigValue(
                   "web_voip_audio_capture_impl",
                 ),
-                b = o("WAWebABProps").getABPropConfigValue(
+                v = o("WAWebABProps").getABPropConfigValue(
                   "web_voip_audio_playback_impl",
                 );
               (o("WALogger").LOG(
-                T ||
-                  (T = babelHelpers.taggedTemplateLiteralLoose([
+                x ||
+                  (x = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [CallActive] proxySctp=",
                     " avSync=",
                     " dynFps=",
                     " perfBits=",
                     "",
                   ])),
-                g,
-                !0,
                 h,
+                !0,
                 y,
+                C,
               ),
                 o("WALogger").LOG(
-                  D ||
-                    (D = babelHelpers.taggedTemplateLiteralLoose([
+                  $ ||
+                    ($ = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [CallActive] abprops audioCap=",
                       " audioPlay=",
                       " dynPool=",
                       "",
                     ])),
-                  C,
                   b,
-                  f,
+                  v,
+                  g,
                 ),
-                o("WAWebVoipCrashRecovery").markCallActive(m),
-                o("WAWebVoipCrashRecovery").registerGracefulExitHandler(m),
+                o("WAWebVoipCrashRecovery").markCallActive(p),
+                o("WAWebVoipCrashRecovery").registerGracefulExitHandler(p),
                 o("WAWebVoipFocusTracker").startVoipFocusTracking(),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "reloadVideoEnhancement",
@@ -1056,14 +1069,14 @@ __d(
                   o("WAWebBackendApi")
                     .frontendSendAndReceive("initializeVoipWasm")
                     .then(function (e) {
-                      V === m &&
+                      G === p &&
                         o("WAWebVoipPersistentFS").startPeriodicVoipSync(e);
                     })
                     .catch(function (e) {
                       o("WALogger")
                         .ERROR(
-                          x ||
-                            (x = babelHelpers.taggedTemplateLiteralLoose([
+                          P ||
+                            (P = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [IDBFS] Failed to start periodic sync",
                             ])),
                         )
@@ -1072,27 +1085,27 @@ __d(
                 o("WAWebVoipBrowserMetrics").startBrowserMetrics(),
                 o("WAWebVoipWindowMetrics").startWindowMetrics(),
                 o("WAWebVoipBatteryDiagnostics").startBatteryDiagnostics(),
-                (z.callIsActive = !0));
-              var v = l.linkToken != null && l.linkToken !== "";
-              (v &&
+                (K.callIsActive = !0));
+              var S = l.linkToken != null && l.linkToken !== "";
+              (S &&
                 l.videoEnabled &&
                 n.type === "web" &&
                 n.broadcastVideoState().catch(function (e) {
                   o("WALogger")
                     .WARN(
-                      $ ||
-                        ($ = babelHelpers.taggedTemplateLiteralLoose([
+                      N ||
+                        (N = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [CallActive] broadcastVideoState for call link failed",
                         ])),
                     )
                     .catching(r("getErrorSafe")(e));
                 }),
-                ge().catch(function (e) {
+                Ce().catch(function (e) {
                   var t = r("getErrorSafe")(e);
                   o("WALogger")
                     .WARN(
-                      P ||
-                        (P = babelHelpers.taggedTemplateLiteralLoose([
+                      M ||
+                        (M = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: initP2PConnectionIfEnabled failed: ",
                           "",
                         ])),
@@ -1103,16 +1116,16 @@ __d(
             } catch (e) {
               o("WALogger")
                 .WARN(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
+                  w ||
+                    (w = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [CallActive] backend setup failed",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e));
             }
-          var S = o("WAWebVoipCallStateUtils").isCallTerminal(i);
+          var R = o("WAWebVoipCallStateUtils").isCallTerminal(i);
           if (
-            (S &&
+            (R &&
               a.call_info.callDuration === 0 &&
               o(
                 "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
@@ -1120,17 +1133,17 @@ __d(
             i === o("WAWebVoipWaCallEnums").CallState.CallStateEnding &&
               (o("WAWebVoipErrorLogUpload").captureWamCallResult(e),
               o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
-              (z.callIsActive = !1)),
+              (K.callIsActive = !1)),
             i === o("WAWebVoipWaCallEnums").CallState.None)
           ) {
             (o("WAWebVoipQplHelpers").voipEndCallQplAddPoint(
               o("WAWebVoipQplHelpers").VoipEndCallQplPoint.CLEANUP_START,
             ),
               o("WAWebVoipErrorLogUpload").captureWamCallResult(e));
-            var R = V != null ? V : "unknown";
-            ((V = null),
+            var L = G != null ? G : "unknown";
+            ((G = null),
               o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
-              o("WAWebVoipCrashRecovery").clearExitMarkers(R),
+              o("WAWebVoipCrashRecovery").clearExitMarkers(L),
               o("WAWebVoipCrashRecovery").unregisterGracefulExitHandler(),
               o("WAWebVoipPersistentFS").stopPeriodicVoipSync(),
               o("WAWebVoipBrowserMetrics").stopBrowserMetrics(),
@@ -1142,7 +1155,7 @@ __d(
                 : o("WAWebVoipSctpConnectionManager").cleanupAllConnections(),
               o("WAWebVoipGatingUtils").markCurrentCallAsFna(!1),
               o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
-              (z = G()),
+              (K = j()),
               o("WAWebBackendApi").frontendFireAndForget(
                 "cleanupPrewarmedCamera",
                 {},
@@ -1174,15 +1187,15 @@ __d(
               o("WAWebVoipQplHelpers").endVoipEndCallQplSuccess());
           }
         })),
-        pe.apply(this, arguments)
+        fe.apply(this, arguments)
       );
     }
-    function _e(e) {
-      return fe.apply(this, arguments);
+    function ge(e) {
+      return he.apply(this, arguments);
     }
-    function fe() {
+    function he() {
       return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = r("nullthrows")(
               yield o("WAWebVoipStackInterface").getVoipStackInterface(),
             ),
@@ -1200,14 +1213,14 @@ __d(
               : yield o("WAWebVoipSctpConnectionManager").handleRelayListUpdate(
                   n,
                 ),
-            (z.cachedRelayListData = n),
-            (z.relayListReceived = !0),
-            ge().catch(function (e) {
+            (K.cachedRelayListData = n),
+            (K.relayListReceived = !0),
+            Ce().catch(function (e) {
               var t = r("getErrorSafe")(e);
               o("WALogger")
                 .WARN(
-                  M ||
-                    (M = babelHelpers.taggedTemplateLiteralLoose([
+                  A ||
+                    (A = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: initP2PConnectionIfEnabled failed: ",
                       "",
                     ])),
@@ -1216,33 +1229,57 @@ __d(
                 .catching(t);
             }));
         })),
-        fe.apply(this, arguments)
-      );
-    }
-    function ge() {
-      return he.apply(this, arguments);
-    }
-    function he() {
-      return (
-        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!(z.initStarted || !z.callIsActive || !z.relayListReceived)) {
-            z.initStarted = !0;
-            try {
-              yield ye();
-            } catch (e) {
-              throw ((z.initStarted = !1), e);
-            }
-          }
-        })),
         he.apply(this, arguments)
       );
     }
     function ye() {
-      return Ce.apply(this, arguments);
+      K.initStarted &&
+        (o("WALogger").LOG(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: peer ICE restart detected, rebuilding P2P connection",
+            ])),
+        ),
+        o("WAWebVoipP2PConnectionManager").cleanupP2PConnection(),
+        (K.initStarted = !1),
+        Ce().catch(function (e) {
+          var t = r("getErrorSafe")(e);
+          o("WALogger")
+            .WARN(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: P2P re-init after peer ICE restart failed: ",
+                  "",
+                ])),
+              t.message,
+            )
+            .catching(t);
+        }));
     }
     function Ce() {
+      return be.apply(this, arguments);
+    }
+    function be() {
       return (
-        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (be = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!(K.initStarted || !K.callIsActive || !K.relayListReceived)) {
+            K.initStarted = !0;
+            try {
+              yield ve();
+            } catch (e) {
+              throw ((K.initStarted = !1), e);
+            }
+          }
+        })),
+        be.apply(this, arguments)
+      );
+    }
+    function ve() {
+      return Se.apply(this, arguments);
+    }
+    function Se() {
+      return (
+        (Se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r("nullthrows")(
             yield o("WAWebVoipStackInterface").getVoipStackInterface(),
           );
@@ -1254,17 +1291,17 @@ __d(
             var t = yield e.getCallInfo();
             if (t === "") {
               (o("WALogger").LOG(
-                w ||
-                  (w = babelHelpers.taggedTemplateLiteralLoose([
+                F ||
+                  (F = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: initP2PConnectionIfEnabled: Failed to get call info",
                   ])),
               ),
-                (z.initStarted = !1));
+                (K.initStarted = !1));
               return;
             }
             var n = e.parsers.parseCallInfo(t);
             if (n.isGroupCall) {
-              z.initStarted = !1;
+              K.initStarted = !1;
               return;
             }
             var a = n.callId,
@@ -1274,8 +1311,8 @@ __d(
               !o("WAWebVoipP2PConnectionManager").isP2PEnabled())
             ) {
               o("WALogger").LOG(
-                A ||
-                  (A = babelHelpers.taggedTemplateLiteralLoose([
+                O ||
+                  (O = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: initP2PConnectionIfEnabled: P2P disabled for callId=",
                     "",
                   ])),
@@ -1295,8 +1332,8 @@ __d(
               (yield o("WAWebVoipContactUtils").isCallerNotContact(n.peerJid))
             ) {
               o("WALogger").LOG(
-                F ||
-                  (F = babelHelpers.taggedTemplateLiteralLoose([
+                B ||
+                  (B = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: initP2PConnectionIfEnabled: non-contact, P2P gated ",
                     "",
                   ])),
@@ -1304,13 +1341,13 @@ __d(
               );
               return;
             }
-            if (!z.callIsActive) {
-              z.initStarted = !1;
+            if (!K.callIsActive) {
+              K.initStarted = !1;
               return;
             }
             o("WALogger").LOG(
-              O ||
-                (O = babelHelpers.taggedTemplateLiteralLoose([
+              W ||
+                (W = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: initP2PConnectionIfEnabled: callId=",
                   ", isCaller=",
                   ", isPeerWebBrowser=",
@@ -1324,8 +1361,8 @@ __d(
                 e.sendWebP2PTransport(a, n, i, l, s, u).catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      B ||
-                        (B = babelHelpers.taggedTemplateLiteralLoose([
+                      q ||
+                        (q = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: sendWebP2PTransport failed",
                         ])),
                     )
@@ -1334,16 +1371,16 @@ __d(
               },
               c = 10,
               d = new Set();
-            if (z.cachedRelayListData == null) {
+            if (K.cachedRelayListData == null) {
               o("WALogger").ERROR(
-                W ||
-                  (W = babelHelpers.taggedTemplateLiteralLoose([
+                U ||
+                  (U = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: initP2PConnectionIfEnabled: cachedRelayListData null",
                   ])),
               );
               return;
             }
-            var m = z.cachedRelayListData;
+            var m = K.cachedRelayListData;
             for (var p of m.relays) {
               if (d.size >= c) break;
               for (var _ of p.addresses) {
@@ -1360,21 +1397,22 @@ __d(
             var f = Array.from(d, function (e) {
               return { urls: e };
             });
-            yield o("WAWebVoipP2PConnectionManager").initP2PConnection(
-              i,
-              s,
-              f,
-              u,
-            );
+            (o("WAWebVoipP2PConnectionManager").registerOnPeerIceRestart(ye),
+              yield o("WAWebVoipP2PConnectionManager").initP2PConnection(
+                i,
+                s,
+                f,
+                u,
+              ));
           }
         })),
-        Ce.apply(this, arguments)
+        Se.apply(this, arguments)
       );
     }
     ((l.requestStoredFieldstatsSend = o(
       "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     ).requestStoredFieldstatsSend),
-      (l.handleWAWebVoipNativeCallEvent = ie));
+      (l.handleWAWebVoipNativeCallEvent = se));
   },
   98,
 );

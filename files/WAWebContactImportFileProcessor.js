@@ -416,7 +416,13 @@ __d(
               R.validContacts.length,
               R.errors.length,
             );
-            var L = yield O(R.validContacts, r.verifyOptions),
+            var L =
+                r.skipWhatsAppVerification === !0
+                  ? {
+                      nonWhatsAppUserErrors: [],
+                      verifiedContacts: R.validContacts,
+                    }
+                  : yield O(R.validContacts, r.verifyOptions),
               E = L.nonWhatsAppUserErrors,
               I = L.verifiedContacts;
             o("WALogger").LOG(

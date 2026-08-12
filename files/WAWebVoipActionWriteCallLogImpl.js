@@ -23,7 +23,6 @@ __d(
     "WAWebUpdateMessageUIAction",
     "WAWebViewMode.flow",
     "WAWebVoipActivityTracker",
-    "WAWebVoipCallLogAnrGating",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipPendingCallLogOutcome",
@@ -389,10 +388,7 @@ __d(
               return (
                 (E = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
-                    !a &&
-                      o(
-                        "WAWebVoipCallLogAnrGating",
-                      ).isWebVoipCallLogAnrOptimizationEnabled() &&
+                    a ||
                       (yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
                     var n = o(
                         "WAWebVoipPendingCallLogOutcome",
@@ -605,12 +601,7 @@ __d(
                       o("WAWebVoipActivityTracker").VoipUiActivity
                         .ICCE_WRITE_CALL_LOG_QUEUED,
                     ),
-                    o(
-                      "WAWebVoipCallLogAnrGating",
-                    ).isWebVoipCallLogAnrOptimizationEnabled() &&
-                      (yield o(
-                        "WAWebReleaseToEventLoop",
-                      ).releaseToEventLoop()));
+                    yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
                   try {
                     var n = yield o(
                         "WAWebFindChatAction",

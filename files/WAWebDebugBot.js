@@ -30,6 +30,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
+    "WAWebPDFNCommonUtils",
     "WAWebPDFNModal.react",
     "WAWebPersistBotProfiles",
     "WAWebPrimaryFeaturesModel",
@@ -41,7 +42,6 @@ __d(
     "WAWebUserPrefsBot",
     "WAWebUserPrefsMultiDeviceDebug",
     "WAWebWidFactory",
-    "WaWebPDFNCommonUtils",
     "asyncToGeneratorRuntime",
     "err",
     "react",
@@ -152,7 +152,7 @@ __d(
     function k(e) {
       o("WAWebModalManager").ModalManager.open(
         h.jsx(r("WAWebPDFNModal.react"), {
-          noticeType: o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking,
+          noticeType: o("WAWebPDFNCommonUtils").PdfnNoticeType.NonBlocking,
           pdfnId: e,
           runIfTosAccepted: o("WAWebBoolFunc").returnTrue,
           verifyTosAccepted: o("WAWebBoolFunc").returnFalse,

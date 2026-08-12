@@ -3,10 +3,9 @@ __d(
   [
     "WAJids",
     "WALogger",
-    "WATimeUtils",
+    "WAWebContactManagerCustomerProfileDecoders",
     "WAWebContactManagerCustomerProfilesQuery.graphql",
     "WAWebFetchAdAccountToken",
-    "WAWebLeadStage",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -20,19 +19,17 @@ __d(
           ? e
           : (e = n("WAWebContactManagerCustomerProfilesQuery.graphql")),
       c = 100,
-      d = 20,
-      m = 0,
-      p = 4;
+      d = 20;
+    function m() {
+      return p(null, 0, []);
+    }
+    function p(e, t, n) {
+      return _.apply(this, arguments);
+    }
     function _() {
-      return f(null, 0, []);
-    }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
-    }
-    function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield h(e);
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield f(e);
           for (var a of (i = r == null ? void 0 : r.profiles) != null
             ? i
             : []) {
@@ -41,11 +38,22 @@ __d(
             l == null ||
               l === "" ||
               n.push({
-                acquisitionSource: b(a.acquisition_source),
+                acquisitionSource: o(
+                  "WAWebContactManagerCustomerProfileDecoders",
+                ).toAcquisitionSourceId(a.acquisition_source),
                 chatJid: o("WAJids").toLidUserJid(l),
                 email: a.email,
-                leadStage: C(a.lead_stage),
-                modifiedAt: v(a.last_updates),
+                leadStage: o(
+                  "WAWebContactManagerCustomerProfileDecoders",
+                ).toLeadStageType(a.lead_stage),
+                modifiedAt: o(
+                  "WAWebContactManagerCustomerProfileDecoders",
+                ).latestUpdateTs(
+                  a.last_updates.map(function (e) {
+                    var t = e.ts;
+                    return t;
+                  }),
+                ),
                 name: a.name,
               });
           }
@@ -64,17 +72,17 @@ __d(
                   )
                   .sendLogs("customer_manager_profiles_page_cap_hit"),
                 n)
-              : f(u, t + 1, n);
+              : p(u, t + 1, n);
         })),
-        g.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function y() {
+    function g() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (t.type !== "success")
             throw r("err")(
@@ -98,33 +106,10 @@ __d(
           );
           return n == null ? void 0 : n.xfb_wa_customer_profiles;
         })),
-        y.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function C(e) {
-      return e === "INTAKE"
-        ? o("WAWebLeadStage").LeadStage.INTAKE
-        : e === "QUALIFIED"
-          ? o("WAWebLeadStage").LeadStage.QUALIFIED
-          : e === "CONVERTED"
-            ? o("WAWebLeadStage").LeadStage.CONVERTED
-            : e === "LOST"
-              ? o("WAWebLeadStage").LeadStage.LOST
-              : e === "NOT_QUALIFIED"
-                ? o("WAWebLeadStage").LeadStage.NOT_QUALIFIED
-                : e === "NONE"
-                  ? o("WAWebLeadStage").LeadStage.NONE
-                  : null;
-    }
-    function b(e) {
-      return e === "CTWA" ? m : e === "REFERRAL" ? p : null;
-    }
-    function v(e) {
-      var t = 0;
-      for (var n of e) n.ts != null && n.ts > t && (t = n.ts);
-      return o("WATimeUtils").castToUnixTime(t);
-    }
-    l.fetchCustomerProfileRecords = _;
+    l.fetchCustomerProfileRecords = m;
   },
   98,
 );

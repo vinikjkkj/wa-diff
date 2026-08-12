@@ -7,9 +7,9 @@ __d(
     "WAWebBotTos",
     "WAWebBotUtils",
     "WAWebHandleMsgTypes.flow",
+    "WAWebPDFNCommonUtils",
     "WAWebTos",
     "WAWebTosGatingUtils",
-    "WaWebPDFNCommonUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -32,7 +32,7 @@ __d(
           "wa_web_bot_tos_check_refiniement",
         )) ||
         o("WAWebBotTos").hasAcceptedNonBlockingBotTos() ||
-        o("WaWebPDFNCommonUtils").hasAcceptedTos(
+        o("WAWebPDFNCommonUtils").hasAcceptedTos(
           String(o("WAWebBotGating").getMasterBotNoticeId()),
         ) ||
         o("WAWebBotUtils").isBotChannelFBID(e.id)

@@ -14,7 +14,7 @@ __d(
     "assignMediaStream",
     "clearTimeout",
     "cr:1680308",
-    "cr:7276",
+    "cr:4158",
     "err",
     "getErrorNameFromMediaErrorCode",
     "getErrorSafe",
@@ -488,8 +488,8 @@ __d(
           createDebugAPI: function (t) {
             var e = t.getVideoElementAPI,
               r = t.loggerToVPL;
-            return n("cr:7276")
-              ? n("cr:7276").createVideoPlayerImplementationDebugAPI({
+            return n("cr:4158")
+              ? n("cr:4158").createVideoPlayerImplementationDebugAPI({
                   engineExtrasAPI: R,
                   getVideoElementAPI: e,
                   loggerToVPL: r,

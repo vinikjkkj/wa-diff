@@ -47,72 +47,66 @@ __d(
           if (c == null) return null;
           if (((n = c.followers) == null ? void 0 : n.edges) == null)
             return { followers: [] };
-          var d = _(c.followers.edges);
+          var d = _(c.followers.edges),
+            p = o(
+              "WAWebUsernameWorkerCompatibleGatingUtils",
+            ).isNewsletterUsernamePnPrivacyEnabled();
           try {
-            yield m(d);
+            (yield m(d), p && (yield f(d)));
           } catch (e) {
             o("WALogger")
               .ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[MEX][NEWSLETTER] failed to learn follower phone numbers",
+                    "[MEX][NEWSLETTER] failed to sync follower phone numbers and usernames",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
-              .sendLogs("newsletter-followers-learn-phone-numbers-failed");
+              .sendLogs("newsletter-followers-learn-identifiers-failed");
           }
-          var p = o(
-            "WAWebUsernameWorkerCompatibleGatingUtils",
-          ).isNewsletterUsernamePnPrivacyEnabled();
-          return (
-            p && (yield f(d)),
-            {
-              followers:
-                (a = r("compactMap")(d, function (e) {
-                  var t,
-                    n,
-                    r,
-                    a = e.admin_profile,
-                    i = e.follow_time,
-                    l = e.node,
-                    s = e.role,
-                    u = l.id,
-                    c = l.pn;
-                  if (u == null) return null;
-                  var d =
-                    c != null ? o("WAWebWidFactory").createWid(c) : void 0;
-                  return {
-                    displayName: l.display_name,
-                    id: o("WAWebWidFactory").createWid(u),
-                    role: o("WAWebMexNewsletterUtils").mapRoleToMembership(s),
-                    phoneNumber: d,
-                    followTime:
-                      i != null
-                        ? o("WATimeUtils").castToUnixTime(
-                            Number.parseInt(i, 10),
-                          )
-                        : null,
-                    username: p
-                      ? (t = l.username_info) == null
-                        ? void 0
-                        : t.username
-                      : void 0,
-                    adminProfile:
-                      a != null && a.name != null
-                        ? {
-                            id: a.id,
-                            name: a.name,
-                            pictureDirectPath:
-                              (n = a.picture) == null ? void 0 : n.direct_path,
-                            pictureId: (r = a.picture) == null ? void 0 : r.id,
-                          }
-                        : null,
-                  };
-                })) != null
-                  ? a
-                  : [],
-            }
-          );
+          return {
+            followers:
+              (a = r("compactMap")(d, function (e) {
+                var t,
+                  n,
+                  r,
+                  a = e.admin_profile,
+                  i = e.follow_time,
+                  l = e.node,
+                  s = e.role,
+                  u = l.id,
+                  c = l.pn;
+                if (u == null) return null;
+                var d = c != null ? o("WAWebWidFactory").createWid(c) : void 0;
+                return {
+                  displayName: l.display_name,
+                  id: o("WAWebWidFactory").createWid(u),
+                  role: o("WAWebMexNewsletterUtils").mapRoleToMembership(s),
+                  phoneNumber: d,
+                  followTime:
+                    i != null
+                      ? o("WATimeUtils").castToUnixTime(Number.parseInt(i, 10))
+                      : null,
+                  username: p
+                    ? (t = l.username_info) == null
+                      ? void 0
+                      : t.username
+                    : void 0,
+                  adminProfile:
+                    a != null && a.name != null
+                      ? {
+                          id: a.id,
+                          name: a.name,
+                          pictureDirectPath:
+                            (n = a.picture) == null ? void 0 : n.direct_path,
+                          pictureId: (r = a.picture) == null ? void 0 : r.id,
+                        }
+                      : null,
+                };
+              })) != null
+                ? a
+                : [],
+          };
         })),
         d.apply(this, arguments)
       );

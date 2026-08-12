@@ -413,9 +413,23 @@ __d(
       return n === !0 ? ie() : t ? ae() : r ? oe() : re();
     }
     function se() {
+      return (
+        re() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "call_info_optimizations_1on1_context_menu",
+        )
+      );
+    }
+    function ue(e) {
+      var t = e.isAdHocGroupCall,
+        n = e.isCallLink,
+        r = e.isGroup;
+      return n === !0 ? ie() : t ? ae() : r ? oe() : se();
+    }
+    function ce() {
       return r("justknobx")._("2102") && o("WAWebUA").UA.isFirefox;
     }
-    function ue() {
+    function de() {
       return o("WAWebABProps").getABPropConfigValue(
         "call_screen_share_dual_stream_app_update_dialog_enabled",
       );
@@ -461,8 +475,10 @@ __d(
       (l.isCallInfoOptimizationsEnabledForAHGC = ae),
       (l.isCallInfoOptimizationsEnabledForCallLink = ie),
       (l.isCallInfoOptimizationsEnabledForCallType = le),
-      (l.isPopoutReuseCaptureEnabled = se),
-      (l.isScreenShareDualStreamAppUpdateDialogEnabled = ue));
+      (l.isCallInfoOptimizations1to1ContextMenuEnabled = se),
+      (l.isCallInfoOptimizationsContextMenuEnabledForCallType = ue),
+      (l.isPopoutReuseCaptureEnabled = ce),
+      (l.isScreenShareDualStreamAppUpdateDialogEnabled = de));
   },
   98,
 );

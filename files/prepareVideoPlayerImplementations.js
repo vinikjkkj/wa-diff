@@ -9,8 +9,8 @@ __d(
     "VideoPlayerProgressiveImplementationV2.react",
     "VideoPlayerShakaConfig",
     "cr:1980",
-    "cr:592",
-    "cr:7519",
+    "cr:4504",
+    "cr:4602",
     "err",
     "getErrorSafe",
     "gkx",
@@ -18,7 +18,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = (e = n("cr:7519")) == null ? void 0 : e.makeNextgendashEngineData;
+      s = (e = n("cr:4602")) == null ? void 0 : e.makeNextgendashEngineData;
     function u(e, t, n, r, a, i, l, s, u) {
       var c = null,
         d = null,
@@ -69,7 +69,7 @@ __d(
       );
     }
     function d(e, t, o, a, i, l, u, c) {
-      if (!s || !n("cr:592"))
+      if (!s || !n("cr:4504"))
         return r("err")("Nextgendash implementation not available");
       var d = s({
         canUseOz: e,
@@ -85,7 +85,7 @@ __d(
       return d instanceof Error
         ? d
         : {
-            Component: n("cr:592"),
+            Component: n("cr:4504"),
             data: d,
             typename: "VideoPlayerNextgendashImplementation",
           };
@@ -226,7 +226,7 @@ __d(
         z = c(G, B, q, W, U);
       if (k !== !0) {
         if (!z) {
-          if (s && n("cr:592")) {
+          if (s && n("cr:4504")) {
             var j = d(i, W, f, U, h, R, E, I);
             j instanceof Error
               ? M.push(["VideoPlayerNextgendashImplementation", j])
@@ -243,7 +243,7 @@ __d(
         var Q = r("err")("preferBrowserNativeImplementation=" + String(k));
         ((Q.name = "VideoImplementationsPreferBrowserNative"),
           s &&
-            n("cr:592") &&
+            n("cr:4504") &&
             M.push(["VideoPlayerNextgendashImplementation", Q]),
           M.push(["VideoPlayerOzImplementation", Q]));
       }

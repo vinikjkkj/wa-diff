@@ -27,7 +27,12 @@ __d(
         n === o("WAWebBotSupportState").BotSupportStateKind.UNSUPPORTED
       );
     }
-    ((l.getUnknownAccountName = e), (l.isBotProfileViewOnly = u));
+    function c() {
+      return s._(/*BTDS*/ "Lorem").toString();
+    }
+    ((l.getUnknownAccountName = e),
+      (l.isBotProfileViewOnly = u),
+      (l.getAgentSubtitle = c));
   },
   226,
 );

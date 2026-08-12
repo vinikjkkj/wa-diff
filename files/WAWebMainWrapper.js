@@ -11,6 +11,7 @@ __d(
     "WAWebExecApiCmd",
     "WAWebFeatureDetectionSwSupport",
     "WAWebKaleidoscopeWasmFeatureSupport",
+    "WAWebLogPifeExposure",
     "WAWebMain.react",
     "WAWebMediaWorkerProxy",
     "WAWebNewsletterGatingUtils",
@@ -91,6 +92,7 @@ __d(
       }
       (c(),
         o("WAWebCrashAnnotations").initCrashAnnotations(),
+        r("WAWebLogPifeExposure")(),
         o("WAWebPathfinderCrashLog").initPathfinderCrashLog());
       var a = n("WAWebMain.react");
       return {

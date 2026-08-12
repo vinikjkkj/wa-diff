@@ -134,35 +134,40 @@ __d(
     }
     function I() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_enable_chat_thread_and_info_status_ring",
+        "web_batched_status_sending_enabled",
       );
     }
     function T() {
       return o("WAWebABProps").getABPropConfigValue(
-        "status_player_avatar_status_creation_entrypoint",
+        "wa_web_enable_chat_thread_and_info_status_ring",
       );
     }
     function D() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_status_chain_new_at_end",
+        "status_player_avatar_status_creation_entrypoint",
       );
     }
     function x() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_status_chain_unseen_min_pog",
+        "wa_web_status_chain_new_at_end",
       );
     }
     function $() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_chaining_from_my_status",
+        "wa_status_chain_unseen_min_pog",
       );
     }
     function P() {
       return o("WAWebABProps").getABPropConfigValue(
-        "status_chain_from_my_interaction_limit",
+        "wa_web_chaining_from_my_status",
       );
     }
     function N() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "status_chain_from_my_interaction_limit",
+      );
+    }
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_chain_from_chatlist",
       );
@@ -184,13 +189,14 @@ __d(
       (l.isStatusStanzaReceiveEnabled = R),
       (l.isStatusPublishViaSmaxEnabled = L),
       (l.isStatusReceiveViaSmaxEnabled = k),
-      (l.isStatusRingOutsideChatlistEnabled = I),
-      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = T),
-      (l.isStatusAddUnseenAtEndEnabled = D),
-      (l.statusChainUnseenMinPog = x),
-      (l.isChainingFromMyStatusEnabled = $),
-      (l.getStatusChainFromMyInteractionLimit = P),
-      (l.isChainFromChatListEnabled = N));
+      (l.isBatchedStatusSendingEnabled = I),
+      (l.isStatusRingOutsideChatlistEnabled = T),
+      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = D),
+      (l.isStatusAddUnseenAtEndEnabled = x),
+      (l.statusChainUnseenMinPog = $),
+      (l.isChainingFromMyStatusEnabled = P),
+      (l.getStatusChainFromMyInteractionLimit = N),
+      (l.isChainFromChatListEnabled = M));
   },
   98,
 );

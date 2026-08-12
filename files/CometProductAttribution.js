@@ -107,7 +107,7 @@ __d(
             link_context: a,
             tap_point: b.tap_point,
             trace_policy:
-              C != null ? C : (f = n.tracePolicy) != null ? f : "missing",
+              (f = C != null ? C : n.tracePolicy) != null ? f : "missing",
           });
         n.productAttributionId != null &&
           b.bookmark_id != null &&

@@ -3,9 +3,9 @@ __d(
   [
     "WATimeUtils",
     "WAWebNewsletterGatingUtils",
+    "WAWebPDFNCommonUtils",
     "WAWebTos",
     "WAWebWamoPDFNGatingUtils",
-    "WaWebPDFNCommonUtils",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,17 +15,17 @@ __d(
         : o("WAWebWamoPDFNGatingUtils").hasAcceptedAnyNewsletterTos();
     }
     function s() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
       );
     }
     function u() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
       );
     }
     function c() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebNewsletterGatingUtils").getNewsletterAdminInviteTos(),
       );
     }

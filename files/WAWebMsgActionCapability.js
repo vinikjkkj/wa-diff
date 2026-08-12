@@ -9,6 +9,7 @@ __d(
     "WAWebBizCtwaAGMUtils",
     "WAWebBotBaseGating",
     "WAWebBotComposerTreatment",
+    "WAWebBotExposedName",
     "WAWebBotForwardCapability",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotProfileCollection",
@@ -45,6 +46,7 @@ __d(
     "WAWebPollsGatingUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebQuestionsGatingUtils",
+    "WAWebResolveBotProfile",
     "WAWebRevokeMsgConstants",
     "WAWebSpamUtils",
     "WAWebStateUtils",
@@ -799,22 +801,26 @@ __d(
     }
     function K(e) {
       var t, n;
-      return o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
-        isAGMShown:
-          (t = e.ctwaContext) == null
-            ? void 0
-            : t.automatedGreetingMessageShown,
-        msgSource: (n = e.ctwaContext) == null ? void 0 : n.sourceApp,
-        msgSubtype: e.subtype,
-        msgType: e.type,
-      }) ||
-        o("WAWebChatGetters").getIsBroadcast(
-          o("WAWebFrontendMsgGetters").getChat(e),
-        )
+      if (
+        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+          isAGMShown:
+            (t = e.ctwaContext) == null
+              ? void 0
+              : t.automatedGreetingMessageShown,
+          msgSource: (n = e.ctwaContext) == null ? void 0 : n.sourceApp,
+          msgSubtype: e.subtype,
+          msgType: e.type,
+        })
+      )
+        return !1;
+      var r = o("WAWebFrontendMsgGetters").getChat(e);
+      return ((r == null ? void 0 : r.id.isBot()) === !0 &&
+        o("WAWebBotExposedName").isBotProfileViewOnly(
+          o("WAWebResolveBotProfile").resolveBotSupportInput(r.id),
+        )) ||
+        o("WAWebChatGetters").getIsBroadcast(r)
         ? !1
-        : !o("WAWebChatGetters").getIsNewsletter(
-            o("WAWebFrontendMsgGetters").getChat(e),
-          ) || O(e);
+        : !o("WAWebChatGetters").getIsNewsletter(r) || O(e);
     }
     ((l.isWamoMsg = f),
       (l.canWamoSubMsgBeSharedByUser = g),

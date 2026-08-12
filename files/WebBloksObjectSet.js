@@ -138,7 +138,7 @@ __d(
             {},
             (e = t.root_consumed_params) != null ? e : n,
           );
-          this.navigationManager.push(
+          (this.navigationManager.push(
             o("WebBloksScreen").WebBloksScreen.fromScreenQuerySSRPayload(
               this,
               t.screen_content,
@@ -148,28 +148,36 @@ __d(
               t.client_params_expressions,
             ),
             !0,
-          );
-          var u = t.stacked_screens;
-          if (u != null)
-            for (var c = 0; c < u.length; c++) {
-              var d,
-                m = u[c],
-                p = o(
-                  "WebBloksScreen",
-                ).WebBloksScreen.fromScreenQuerySSRPayload(
-                  this,
-                  m.content,
-                  m.container_config,
-                  s,
-                );
-              (((d = p.container) == null || (d = d.config) == null
-                ? void 0
-                : d.getIsOverlay()) === !0 &&
-                (p.options = babelHelpers.extends({}, p.options, {
-                  isModal: !0,
-                })),
-                this.navigationManager.push(p));
-            }
+          ),
+            this.pushStackedScreens(t.stacked_screens, s));
+        }),
+        (t.pushStackedScreens = function (t, n, r) {
+          var e = this;
+          if ((r === void 0 && (r = 0), t != null)) {
+            var a = t,
+              i = function () {
+                for (var t = 0; t < a.length; t++) {
+                  var r,
+                    i = a[t],
+                    l = o(
+                      "WebBloksScreen",
+                    ).WebBloksScreen.fromScreenQuerySSRPayload(
+                      e,
+                      i.content,
+                      i.container_config,
+                      n,
+                    );
+                  (((r = l.container) == null || (r = r.config) == null
+                    ? void 0
+                    : r.getIsOverlay()) === !0 &&
+                    (l.options = babelHelpers.extends({}, l.options, {
+                      isModal: !0,
+                    })),
+                    e.navigationManager.push(l));
+                }
+              };
+            r > 0 ? window.setTimeout(i, r) : i();
+          }
         }),
         (t.getComponentForName = function (t) {
           var e = this.getNullableComponentForName(t);

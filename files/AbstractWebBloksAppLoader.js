@@ -58,8 +58,18 @@ __d(
         (t.fetchComponentQuery = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var n = yield this.$2(e, t, "app");
-              return { components: n.components };
+              var n,
+                r,
+                o = yield this.$2(e, t, "app");
+              return {
+                components: o.components,
+                stacked_screens:
+                  (n = o.server_data) == null ? void 0 : n.stacked_screens,
+                stacked_screens_delay_ms:
+                  (r = o.server_data) == null
+                    ? void 0
+                    : r.stacked_screens_delay_ms,
+              };
             },
           );
           function t(t, n) {

@@ -1,26 +1,30 @@
 __d(
   "WAWebMexUsernameUpdateNotificationHandler",
   [
+    "Promise",
     "WALogger",
     "WAWebApiContact",
+    "WAWebCurrentUser",
     "WAWebInsertUsernameChangeSystemMsg",
+    "WAWebLidAwareContactsDB",
     "WAWebQueryExistsJob",
     "WAWebSetUsernameJob",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
+    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e, t) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d, m, p;
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
             o("WALogger").LOG(
               e ||
@@ -45,15 +49,15 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n;
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
             o("WALogger").LOG(
@@ -78,15 +82,15 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
             o("WALogger").LOG(
               u ||
@@ -116,59 +120,126 @@ __d(
             }
             var i = o("WAWebWidFactory").createWid(a.id);
             if (!i.isLid()) {
-              var l = C(n, i);
+              var l = R(n, i),
+                s = yield b(n),
+                p = s.lidWithHash,
+                _ = s.pnContactHashMatched,
+                f =
+                  p != null
+                    ? o("WAWebWidFactory").createWid(p).toLogString()
+                    : "none",
+                g = o("WAWebCurrentUser").isEmployee() ? n : "redacted";
               throw (
                 o("WALogger")
                   .ERROR(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
                         "[mex][username] side-sub contact id is not a lid: ",
+                        ", hash: ",
                         ", hash matches ",
+                        ", lid row with same hash: ",
+                        ", pn hash column matched: ",
                         "",
                       ])),
                     i.toLogString(),
+                    g,
                     l,
+                    f,
+                    String(_),
                   )
-                  .sendLogs("mex-username-side-sub-non-lid-" + l),
+                  .sendLogs(S(l)),
                 r("err")("mex-username-side-sub-non-lid")
               );
             }
             if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
-              var s = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
-              if (!(s == null || s.usernameChanged !== !0)) {
-                var p = o("WAWebUsernameTypes").asMaybeUsername(s.username),
-                  _ = p == null;
-                if (_) {
-                  if (s.isPhoneNumberKnown !== !0) return;
-                } else if (s.wasPreviouslyKnown !== !0) return;
+              var h = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
+              if (!(h == null || h.usernameChanged !== !0)) {
+                var y = o("WAWebUsernameTypes").asMaybeUsername(h.username),
+                  C = y == null;
+                if (C) {
+                  if (h.isPhoneNumberKnown !== !0) return;
+                } else if (h.wasPreviouslyKnown !== !0) return;
                 yield o(
                   "WAWebInsertUsernameChangeSystemMsg",
                 ).generateUsernameChangeNotificationSystemMsg({
                   wid: i,
                   oldUsername: o("WAWebUsernameTypes").asMaybeUsername(
-                    s.oldUsername,
+                    h.oldUsername,
                   ),
-                  newUsername: p,
+                  newUsername: y,
                 });
               }
             }
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      if (o("WAWebApiContact").getContactHash(t.toString()) === e) return "pn";
-      var n = t.isUserNotPSA() ? o("WAWebApiContact").getCurrentLid(t) : null;
-      return n == null
-        ? "no-lid"
-        : o("WAWebApiContact").getContactHash(n.toString()) === e
-          ? "lid"
-          : "none";
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    ((l.mexHandleUsernameChange = p),
-      (l.mexHandleUsernameDelete = f),
-      (l.mexHandleUsernameChangeForSideSub = h));
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield (p || (p = n("Promise"))).all([
+              r("WAWebLidAwareContactsDB").equalsPrimaryKeys(
+                ["contactHash"],
+                e,
+              ),
+              r("WAWebLidAwareContactsDB").equalsPrimaryKeys(
+                ["pnContactHash"],
+                e,
+              ),
+            ]),
+            a = t[0],
+            i = t[1];
+          return {
+            lidWithHash: a.find(function (e) {
+              return r("WAWebWid").isStringLid(e);
+            }),
+            pnContactHashMatched: i.some(function (e) {
+              return (
+                r("WAWebWid").isStringLid(e) &&
+                o("WAWebApiContact").getPnIfLidIsLatestMapping(
+                  o("WAWebWidFactory").createUserLidOrThrow(e),
+                ) != null
+              );
+            }),
+          };
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return e === "pn"
+        ? "mex-username-side-sub-non-lid-pn"
+        : e === "pn-and-lid"
+          ? "mex-username-side-sub-non-lid-pn-and-lid"
+          : e === "pn-no-lid"
+            ? "mex-username-side-sub-non-lid-pn-no-lid"
+            : e === "lid"
+              ? "mex-username-side-sub-non-lid-lid"
+              : e === "no-lid"
+                ? "mex-username-side-sub-non-lid-no-lid"
+                : e === "none"
+                  ? "mex-username-side-sub-non-lid-none"
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          e,
+                      );
+                    })();
+    }
+    function R(e, t) {
+      var n = o("WAWebApiContact").getContactHash(t.toString()) === e,
+        r = t.isUserNotPSA() ? o("WAWebApiContact").getCurrentLid(t) : null;
+      if (r == null) return n ? "pn-no-lid" : "no-lid";
+      var a = o("WAWebApiContact").getContactHash(r.toString()) === e;
+      return n ? (a ? "pn-and-lid" : "pn") : a ? "lid" : "none";
+    }
+    ((l.mexHandleUsernameChange = _),
+      (l.mexHandleUsernameDelete = g),
+      (l.mexHandleUsernameChangeForSideSub = y));
   },
   98,
 );

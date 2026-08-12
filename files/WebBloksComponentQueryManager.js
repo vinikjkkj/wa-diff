@@ -64,6 +64,15 @@ __d(
             o.forEach(function (t) {
               e.$1.enqueueTreeUpdateOperation(t);
             });
+            var a = n.stackedScreens;
+            if (a != null) {
+              var i;
+              this.$1.bloksContext.objectSet.pushStackedScreens(
+                a,
+                {},
+                (i = n.stackedScreensDelayMs) != null ? i : 0,
+              );
+            }
           }),
           (n.$7 = function (t, n, r, o) {
             var e = n.success ? o : "failed",

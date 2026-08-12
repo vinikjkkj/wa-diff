@@ -17,7 +17,8 @@ __d(
       WAWebGalaxyFlowsDrawerGetFlowDataQuery: "24989855014035777",
       WAWebNativeMLModelQuery: "9175958945830972",
       WAWebSignupMetadataQuery: "26378108788468347",
-      WAWebCreateLabyrinthBackupJobMutation: "27493963430271453",
+      WAWebCreateLabyrinthBackupJobMutation: "28411481768458599",
+      WAWebRotateLabyrinthEpochJobMutation: "27609636825359813",
       WAWebUploadLabyrinthMessagesJobMutation: "28023438937253549",
     };
     i.PersistedQueries = e;

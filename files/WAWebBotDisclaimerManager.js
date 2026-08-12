@@ -14,10 +14,10 @@ __d(
     "WAWebBotTosIds",
     "WAWebBotUtils",
     "WAWebModalManager",
+    "WAWebPDFNCommonUtils",
     "WAWebPDFNModal.react",
     "WAWebToastManager",
     "WAWebTosGating",
-    "WaWebPDFNCommonUtils",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -127,10 +127,10 @@ __d(
                                 t(m));
                             },
                         verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
-                        theme: o("WaWebPDFNCommonUtils").PdfnTheme.Meta,
+                        theme: o("WAWebPDFNCommonUtils").PdfnTheme.Meta,
                         noticeType: b
-                          ? o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking
-                          : o("WaWebPDFNCommonUtils").PdfnNoticeType.Blocking,
+                          ? o("WAWebPDFNCommonUtils").PdfnNoticeType.NonBlocking
+                          : o("WAWebPDFNCommonUtils").PdfnNoticeType.Blocking,
                         onAcceptError: b ? _ : void 0,
                       }),
                     );
@@ -154,7 +154,7 @@ __d(
       );
     }
     function C(e) {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(e);
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(e);
     }
     function b(e) {
       return o("WAWebBotTosIds").supportedTosNoticeIds.has(e);

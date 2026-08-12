@@ -402,6 +402,9 @@ __d(
         case "PINNED_MESSAGES":
           return o("WAWebCommonNewsletterEnums").NewsletterCapability
             .PINNED_MESSAGES;
+        case "CHANNEL_STATUS_MUSIC":
+          return o("WAWebCommonNewsletterEnums").NewsletterCapability
+            .CHANNEL_STATUS_MUSIC;
         default:
           return (
             o("WALogger")

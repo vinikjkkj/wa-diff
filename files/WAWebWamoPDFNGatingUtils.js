@@ -2,16 +2,16 @@ __d(
   "WAWebWamoPDFNGatingUtils",
   [
     "WAWebNewsletterGatingUtils",
+    "WAWebPDFNCommonUtils",
     "WAWebWamoNewsletterGatingUtils",
-    "WaWebPDFNCommonUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
-        o("WaWebPDFNCommonUtils").hasAcceptedTos(
+        o("WAWebPDFNCommonUtils").hasAcceptedTos(
           o("WAWebWamoNewsletterGatingUtils").getWamoLinkedTos(),
         ) ||
-        o("WaWebPDFNCommonUtils").hasAcceptedTos(
+        o("WAWebPDFNCommonUtils").hasAcceptedTos(
           o("WAWebWamoNewsletterGatingUtils").getWamoUnlinkedTos(),
         )
       );
@@ -20,32 +20,32 @@ __d(
       return o("WAWebWamoNewsletterGatingUtils").shouldUseWamoTos() && e();
     }
     function u() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebWamoNewsletterGatingUtils").getNewsletterConsumerNux(),
       );
     }
     function c() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebNewsletterGatingUtils").getNewsletterProducerNux(),
       );
     }
     function d() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
       );
     }
     function m() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
       );
     }
     function p() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebWamoNewsletterGatingUtils").getNewsletterAdminInviteNux(),
       );
     }
     function _() {
-      return o("WaWebPDFNCommonUtils").hasAcceptedTos(
+      return o("WAWebPDFNCommonUtils").hasAcceptedTos(
         o("WAWebNewsletterGatingUtils").getNewsletterAdminInviteTos(),
       );
     }

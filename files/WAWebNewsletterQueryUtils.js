@@ -157,6 +157,9 @@ __d(
         case o("WAWebCommonNewsletterEnums").NewsletterCapability
           .PINNED_MESSAGES:
           return "PINNED_MESSAGES";
+        case o("WAWebCommonNewsletterEnums").NewsletterCapability
+          .CHANNEL_STATUS_MUSIC:
+          return "CHANNEL_STATUS_MUSIC";
       }
     }
     ((l.mapMembershipTypeToViewRole = s),

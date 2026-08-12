@@ -4,6 +4,7 @@ __d(
     "WAWebABProps",
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizToolsGatingUtils",
+    "WAWebBotBaseGating",
     "WAWebChatAssignmentGatingUtils",
     "WAWebChatThemeGatingUtils",
     "WAWebCommonCTWADataSharing",
@@ -71,6 +72,7 @@ __d(
             ],
           },
           "lists",
+          "agents",
           {
             chats: [
               "theme",
@@ -530,6 +532,22 @@ __d(
             title: o("WAWebSettingsFBT").listsTitle,
             testid: "li-lists",
             wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE.LISTS,
+          },
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.Agents,
+            id: "agents",
+            isAvailable: function () {
+              return o("WAWebBotBaseGating").is3pAgentProductEnabled();
+            },
+            searchCriteria: [
+              String(o("WAWebSettingsFBT").agentsTitle()),
+              String(o("WAWebSettingsFBT").agentsSecondaryTitle()),
+            ]
+              .join(" ")
+              .toLowerCase(),
+            secondaryTitle: o("WAWebSettingsFBT").agentsSecondaryTitle,
+            title: o("WAWebSettingsFBT").agentsTitle,
+            testid: "li-agents",
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps.Language,

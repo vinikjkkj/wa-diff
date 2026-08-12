@@ -1,7 +1,6 @@
 __d(
   "WAWebFormatConfiguration",
   [
-    "WAWebABProps",
     "WAWebBlockQuoteFormatMutator",
     "WAWebBoldFormatMutator",
     "WAWebBulletedListFormatMutator",
@@ -160,53 +159,42 @@ __d(
     }
     function f(t) {
       t === void 0 && (t = {});
-      var n = o("WAWebABProps").getABPropConfigValue(
-          "enable_clear_formatted_preview",
-        ),
-        a = t,
-        i = a.groupMentions,
-        l = a.isDraftMessage,
-        s = a.mentions,
-        u = a.messageHasSpoiler,
-        c = a.selectable;
+      var n = t,
+        a = n.groupMentions,
+        i = n.isDraftMessage,
+        l = n.mentions,
+        s = n.messageHasSpoiler,
+        u = n.selectable;
       return [
-        n ? null : [[o("WAWebCodeFormatMutator").Code, { selectable: c }]],
-        s
+        l
           ? [
               [
                 r("WAWebTextMentionFormatMutator"),
                 {
-                  mentions: s,
-                  selectable: c,
+                  mentions: l,
+                  selectable: u,
                   lastMessage: !0,
-                  isDraftMessage: l,
+                  isDraftMessage: i,
                 },
               ],
             ]
           : null,
-        i
+        a
           ? [
               [
                 o("WAWebGroupMentionFormatMutator").GroupMention,
                 {
-                  groupMentions: i,
-                  selectable: c,
+                  groupMentions: a,
+                  selectable: u,
                   clickable: !1,
                   lastMessage: !0,
-                  isDraftMessage: l,
+                  isDraftMessage: i,
                 },
               ],
             ]
           : null,
-        e({ messageHasSpoiler: u, selectable: c }),
-        n
-          ? null
-          : [
-              [r("WAWebBoldFormatMutator"), { selectable: c }],
-              [r("WAWebItalicFormatMutator"), { selectable: c }],
-              [r("WAWebStrikethroughFormatMutator"), { selectable: c }],
-            ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: c }]],
+        e({ messageHasSpoiler: s, selectable: u }),
+        [[r("WAWebEmojiFormatMutator"), { selectable: u }]],
       ].filter(Boolean);
     }
     function g(t) {

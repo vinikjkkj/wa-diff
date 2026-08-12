@@ -61,53 +61,58 @@ __d(
       Z,
       ee,
       te,
-      ne = { urls: "stun:edge-stun.facebook.com:3478" },
-      re = null,
-      oe = null,
+      ne,
+      re,
+      oe = { urls: "stun:edge-stun.facebook.com:3478" },
       ae = null,
-      ie = !1,
-      le = 0,
-      se = {
+      ie = null,
+      le = null,
+      se = !1,
+      ue = 0,
+      ce = {
         DATA_CHANNEL_LABEL: "wa-web-p2p",
         DATA_CHANNEL_ID: 0,
         CONNECTION_TIMEOUT_MS: 3e4,
         MAX_BUFFERED_CANDIDATES: 20,
       },
-      ue = null,
-      ce = null,
-      de = o("WAWebVoipRelayConnectionUtils").ConnectionState.None,
-      me = !1,
-      pe = !1,
+      de = null,
+      me = null,
+      pe = o("WAWebVoipRelayConnectionUtils").ConnectionState.None,
       _e = !1,
       fe = !1,
-      ge = null,
+      ge = !1,
       he = !1,
       ye = null,
-      Ce = null,
+      Ce = !1,
       be = null,
-      ve = null,
+      ve = 0,
       Se = null,
       Re = null,
       Le = null,
-      Ee = [],
-      ke = [],
-      Ie = !1,
-      Te = !1,
-      De = null,
-      xe = null,
-      $e = o("WAWebVoipRelayConnectionUtils").createEmptyConnectionStats(),
-      Pe = 0,
+      Ee = null,
+      ke = null,
+      Ie = null,
+      Te = null,
+      De = [],
+      xe = [],
+      $e = !1,
+      Pe = !1,
       Ne = null,
       Me = null,
-      we = null,
-      Ae = null;
-    function Fe() {
-      return ue != null &&
-        de === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
-        ? [{ connectionId: "p2p", peerConnection: ue }]
+      we = o("WAWebVoipRelayConnectionUtils").createEmptyConnectionStats(),
+      Ae = 0,
+      Fe = null,
+      Oe = null,
+      Be = null,
+      We = null,
+      qe = null;
+    function Ue() {
+      return de != null &&
+        pe === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
+        ? [{ connectionId: "p2p", peerConnection: de }]
         : [];
     }
-    function Oe(e) {
+    function Ve(e) {
       var t = e.match(
         /candidate:\S+\s+\d+\s+\S+\s+(\d+)\s+(\S+)\s+(\d+)\s+typ\s+\S+/,
       );
@@ -119,11 +124,11 @@ __d(
       var a = Math.min(255, Math.floor(n / Math.pow(2, 24)));
       return { ip: r, port: o, priority: a };
     }
-    function Be(e) {
+    function He(e) {
       var t = e.priority * Math.pow(2, 24);
       return "candidate:1 1 UDP " + t + " " + e.ip + " " + e.port + " typ host";
     }
-    function We(t, n, r, a, i, l, c, d) {
+    function Ge(t, n, r, a, i, l, c, d) {
       var m = t;
       ((m = o("WAWebVoipRelayConnectionUtils").replaceIceCredentials(m, n, r)),
         (m = o("WAWebVoipRelayConnectionUtils").replaceDtlsFingerprint(
@@ -163,16 +168,16 @@ __d(
         _ = m.replace(/\s+$/, "\r\n");
       return _ + p;
     }
-    function qe(e) {
-      ((de = e), Me != null && Me(e));
+    function ze(e) {
+      ((pe = e), Oe != null && Oe(e));
     }
-    function Ue() {
+    function je() {
       if (
-        (De != null && (window.clearTimeout(De), (De = null)),
-        !_e && ce != null)
+        (Ne != null && (window.clearTimeout(Ne), (Ne = null)),
+        !ge && me != null)
       )
         try {
-          ce.close();
+          me.close();
         } catch (e) {
           o("WALogger").ERROR(
             c ||
@@ -183,9 +188,9 @@ __d(
             e,
           );
         }
-      if (((ce = null), ue != null)) {
+      if (((me = null), de != null)) {
         try {
-          ue.close();
+          de.close();
         } catch (e) {
           o("WALogger").ERROR(
             d ||
@@ -196,12 +201,12 @@ __d(
             e,
           );
         }
-        ue = null;
+        de = null;
       }
     }
-    function Ve(e) {
-      de !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
-        de !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
+    function Ke(e) {
+      pe !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
+        pe !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
         (o("WALogger").ERROR(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -210,24 +215,24 @@ __d(
             ])),
           e,
         ),
-        qe(o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed),
-        He(),
-        Ue());
+        ze(o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed),
+        Qe(),
+        je());
     }
-    function He() {
-      if (_e && ge != null) {
-        var e = ge,
+    function Qe() {
+      if (ge && ye != null) {
+        var e = ye,
           t = o("WAWebVoipSctpDataChannelThreadManager").getDataChannelThread();
-        (t != null && t.closeChannel(e), (_e = !1), (ge = null));
+        (t != null && t.closeChannel(e), (Se = ve), (ge = !1), (ye = null));
       }
     }
-    function Ge() {
-      if (!(ue == null || !Te)) {
-        var e = ue,
-          t = ke;
-        ke = [];
+    function Xe() {
+      if (!(de == null || !Pe)) {
+        var e = de,
+          t = xe;
+        xe = [];
         for (var n of t) {
-          var r = Be(n);
+          var r = He(n);
           e.addIceCandidate(
             new RTCIceCandidate({
               sdpMLineIndex: 0,
@@ -250,48 +255,48 @@ __d(
         }
       }
     }
-    function ze() {
-      return je.apply(this, arguments);
+    function Ye() {
+      return Je.apply(this, arguments);
     }
-    function je() {
+    function Je() {
       return (
-        (je = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (Je = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             !(
-              ve == null ||
-              Se == null ||
-              Re == null ||
-              Le == null ||
-              ue == null ||
-              xe == null
+              Ee == null ||
+              ke == null ||
+              Ie == null ||
+              Te == null ||
+              de == null ||
+              Me == null
             ) &&
-            !(Te || Ie)
+            !(Pe || $e)
           ) {
-            var e = ue;
-            Ie = !0;
+            var e = de;
+            $e = !0;
             try {
-              if (me) {
-                var t = We(xe, ve, Se, Re, Le, [], !0, pe);
+              if (_e) {
+                var t = Ge(Me, Ee, ke, Ie, Te, [], !0, fe);
                 (o("WALogger").LOG(
-                  P ||
-                    (P = babelHelpers.taggedTemplateLiteralLoose([
+                  M ||
+                    (M = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] Applying synthetic answer SDP (caller, ICE role=controlling)",
                     ])),
                 ),
                   yield e.setRemoteDescription({ sdp: t, type: "answer" }));
               } else {
                 var n,
-                  r = We(xe, ve, Se, Re, Le, [], !1, pe);
+                  r = Ge(Me, Ee, ke, Ie, Te, [], !1, fe);
                 (o("WALogger").LOG(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
+                  w ||
+                    (w = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] Applying synthetic offer SDP (callee, ICE role=controlled)",
                     ])),
                 ),
                   yield e.setRemoteDescription({ sdp: r, type: "offer" }));
                 var a = yield e.createAnswer(),
                   i = (n = a.sdp) != null ? n : "",
-                  l = Ce;
+                  l = Re;
                 if (l != null) {
                   var s = o(
                     "WAWebVoipRelayConnectionUtils",
@@ -299,8 +304,8 @@ __d(
                   s != null &&
                     s.ufrag !== l.ufrag &&
                     (o("WALogger").LOG(
-                      M ||
-                        (M = babelHelpers.taggedTemplateLiteralLoose([
+                      A ||
+                        (A = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [P2PConnectionManager] Answer ufrag ",
                           " differs from proactive ufrag ",
                           ", forcing match",
@@ -314,38 +319,38 @@ __d(
                 }
                 if (
                   (yield e.setLocalDescription({ type: "answer", sdp: i }),
-                  (Ce = o(
+                  (Re = o(
                     "WAWebVoipRelayConnectionUtils",
                   ).extractIceCredentials(i)),
-                  (be = o(
+                  (Le = o(
                     "WAWebVoipRelayConnectionUtils",
                   ).extractDtlsFingerprint(i)),
-                  Ce == null || be == null)
+                  Re == null || Le == null)
                 ) {
                   (o("WALogger").ERROR(
-                    w ||
-                      (w = babelHelpers.taggedTemplateLiteralLoose([
+                    F ||
+                      (F = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [P2PConnectionManager] Failed to extract credentials from answer SDP",
                       ])),
                   ),
-                    (Ie = !1),
-                    Ve("credential_extraction_failed"));
+                    ($e = !1),
+                    Ke("credential_extraction_failed"));
                   return;
                 }
                 o("WALogger").LOG(
-                  A ||
-                    (A = babelHelpers.taggedTemplateLiteralLoose([
+                  O ||
+                    (O = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] Callee local credentials extracted from answer",
                     ])),
                 );
-                var u = Ae;
+                var u = We;
                 if (u != null)
                   try {
-                    u(Ce.ufrag, Ce.pwd, be.algorithm, be.fingerprint, []);
+                    u(Re.ufrag, Re.pwd, Le.algorithm, Le.fingerprint, []);
                   } catch (e) {
                     o("WALogger").ERROR(
-                      F ||
-                        (F = babelHelpers.taggedTemplateLiteralLoose([
+                      B ||
+                        (B = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [P2PConnectionManager] Failed to send callee transport: ",
                           "",
                         ])),
@@ -354,33 +359,33 @@ __d(
                   }
               }
               (o("WALogger").LOG(
-                O ||
-                  (O = babelHelpers.taggedTemplateLiteralLoose([
+                W ||
+                  (W = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] Remote description applied successfully",
                   ])),
               ),
-                (Te = !0),
-                (Ie = !1),
-                Ge());
+                (Pe = !0),
+                ($e = !1),
+                Xe());
             } catch (e) {
-              ((Ie = !1),
-                (Te = !1),
+              (($e = !1),
+                (Pe = !1),
                 o("WALogger").ERROR(
-                  B ||
-                    (B = babelHelpers.taggedTemplateLiteralLoose([
+                  q ||
+                    (q = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] Failed to apply remote description: ",
                       "",
                     ])),
                   e,
                 ),
-                Ve("remote_description_failed"));
+                Ke("remote_description_failed"));
             }
           }
         })),
-        je.apply(this, arguments)
+        Je.apply(this, arguments)
       );
     }
-    function Ke(e) {
+    function Ze(e) {
       if (e.candidate != null) {
         var t,
           n,
@@ -391,13 +396,13 @@ __d(
           sdpMid: (n = r.sdpMid) != null ? n : "0",
           candidate: r.candidate,
         };
-        (Ee.push(a), we != null && we(a));
-        var i = Ae;
+        (De.push(a), Be != null && Be(a));
+        var i = We;
         if (i != null) {
-          var l = Ce,
-            s = be;
+          var l = Re,
+            s = Le;
           if (l != null && s != null) {
-            var u = Oe(a.candidate);
+            var u = Ve(a.candidate);
             if (u != null)
               try {
                 i(l.ufrag, l.pwd, s.algorithm, s.fingerprint, [u]);
@@ -421,9 +426,9 @@ __d(
             ])),
         );
     }
-    function Qe() {
-      if (ue != null) {
-        var e = ue,
+    function et() {
+      if (de != null) {
+        var e = de,
           t = e.iceConnectionState;
         (o("WALogger").LOG(
           g ||
@@ -435,7 +440,7 @@ __d(
               ")",
             ])),
           t,
-          String(me),
+          String(_e),
           e.iceGatheringState,
           e.signalingState,
         ),
@@ -502,15 +507,15 @@ __d(
                   .catching(r("getErrorSafe")(e))
                   .sendLogs("p2p-getstats-failed");
               }),
-          t === "failed" && Ve("ice_connection_failed"));
+          t === "failed" && Ke("ice_connection_failed"));
       }
     }
-    function Xe() {
+    function tt() {
       var e,
         t = "N/A";
-      ($e.connectionReadyTime !== 0 &&
-        Pe > 0 &&
-        (t = ($e.connectionReadyTime - Pe).toString()),
+      (we.connectionReadyTime !== 0 &&
+        Ae > 0 &&
+        (t = (we.connectionReadyTime - Ae).toString()),
         o("WALogger").LOG(
           v ||
             (v = babelHelpers.taggedTemplateLiteralLoose([
@@ -523,92 +528,92 @@ __d(
               " ms,\n    Transferred to worker: ",
               "",
             ])),
-          (e = ge != null ? ge : ye) != null ? e : "N/A",
-          $e.sentPackets,
-          $e.receivedPackets,
-          $e.sentBytes,
-          $e.receivedBytes,
+          (e = ye != null ? ye : be) != null ? e : "N/A",
+          we.sentPackets,
+          we.receivedPackets,
+          we.sentBytes,
+          we.receivedBytes,
           t,
-          String(fe),
+          String(he),
         ));
     }
-    function Ye() {
+    function nt() {
       (o("WALogger").LOG(
         S ||
           (S = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [P2PConnectionManager] Data channel opened",
           ])),
       ),
-        qe(o("WAWebVoipRelayConnectionUtils").ConnectionState.Open),
-        ($e.connectionReadyTime = Date.now()),
-        _e ||
-          o("WAWebVoipSctpStatsInstrumentation").addConnectionSource("p2p", Fe),
-        De != null && (window.clearTimeout(De), (De = null)));
+        ze(o("WAWebVoipRelayConnectionUtils").ConnectionState.Open),
+        (we.connectionReadyTime = Date.now()),
+        ge ||
+          o("WAWebVoipSctpStatsInstrumentation").addConnectionSource("p2p", Ue),
+        Ne != null && (window.clearTimeout(Ne), (Ne = null)));
     }
-    function Je() {
+    function rt() {
       (o("WALogger").LOG(
         R ||
           (R = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [P2PConnectionManager] Data channel closed",
           ])),
       ),
-        de !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
-          de !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
-          (qe(o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed),
-          Ue()));
+        pe !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
+          pe !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
+          (ze(o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed),
+          je()));
     }
-    function Ze(e) {
-      Ne != null &&
+    function ot(e) {
+      Fe != null &&
         o("WAWebVoipRelayConnectionUtils")
           .dataToArrayBuffer(e.data)
           .then(function (e) {
             e != null &&
-              Ne != null &&
-              ($e.receivedPackets++, ($e.receivedBytes += e.byteLength), Ne(e));
+              Fe != null &&
+              (we.receivedPackets++, (we.receivedBytes += e.byteLength), Fe(e));
           });
     }
-    function et(e) {
+    function at(e) {
       (o("WALogger").ERROR(
         L ||
           (L = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [P2PConnectionManager] Data channel error",
           ])),
       ),
-        Ve("data_channel_error"));
+        Ke("data_channel_error"));
     }
-    function tt(e) {
+    function it(e) {
       ((e.onopen = function () {
-        Ye();
+        nt();
       }),
         (e.onclose = function () {
-          Je();
+          rt();
         }),
         (e.onmessage = function (e) {
-          Ze(e);
+          ot(e);
         }),
         (e.onerror = function (e) {
-          et(e);
+          at(e);
         }));
     }
-    function nt(e, t, n, r) {
-      return rt.apply(this, arguments);
+    function lt(e, t, n, r) {
+      return st.apply(this, arguments);
     }
-    function rt() {
+    function st() {
       return (
-        (rt = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (st = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
-            (ue != null &&
+            (de != null &&
               (o("WALogger").WARN(
-                W ||
-                  (W = babelHelpers.taggedTemplateLiteralLoose([
+                U ||
+                  (U = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] initP2PConnection called while already initialized, cleaning up",
                   ])),
               ),
-              ot()),
-              (ie = !0),
+              ut()),
+              (se = !0),
               o("WALogger").LOG(
-                q ||
-                  (q = babelHelpers.taggedTemplateLiteralLoose([
+                V ||
+                  (V = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] Initializing P2P connection, caller=",
                     ", peerIsWebBrowser=",
                     "",
@@ -616,21 +621,21 @@ __d(
                 String(e),
                 String(t),
               ),
-              (me = e),
-              (pe = t),
-              (Ae = a != null ? a : null));
-            var i = new RTCPeerConnection({ iceServers: [].concat(n, [ne]) });
-            ((ue = i),
+              (_e = e),
+              (fe = t),
+              (We = a != null ? a : null));
+            var i = new RTCPeerConnection({ iceServers: [].concat(n, [oe]) });
+            ((de = i),
               (i.onicecandidate = function (e) {
-                Ke(e);
+                Ze(e);
               }),
               (i.oniceconnectionstatechange = function () {
-                Qe();
+                et();
               }),
               (i.onconnectionstatechange = function () {
                 o("WALogger").LOG(
-                  U ||
-                    (U = babelHelpers.taggedTemplateLiteralLoose([
+                  H ||
+                    (H = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] PeerConnection state: ",
                       "",
                     ])),
@@ -639,8 +644,8 @@ __d(
               }),
               (i.onicegatheringstatechange = function () {
                 o("WALogger").LOG(
-                  V ||
-                    (V = babelHelpers.taggedTemplateLiteralLoose([
+                  G ||
+                    (G = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] ICE gathering state: ",
                       "",
                     ])),
@@ -649,8 +654,8 @@ __d(
               }),
               (i.onsignalingstatechange = function () {
                 o("WALogger").LOG(
-                  H ||
-                    (H = babelHelpers.taggedTemplateLiteralLoose([
+                  z ||
+                    (z = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] Signaling state: ",
                       "",
                     ])),
@@ -658,13 +663,13 @@ __d(
                 );
               }));
             var l = i.createDataChannel(
-              se.DATA_CHANNEL_LABEL,
+              ce.DATA_CHANNEL_LABEL,
               babelHelpers.extends(
                 {},
                 o("WAWebVoipRelayConnectionUtils").BASE_DATA_CHANNEL_OPTIONS,
               ),
             );
-            ((l.binaryType = "arraybuffer"), (ce = l));
+            ((l.binaryType = "arraybuffer"), (me = l));
             var s = o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled(),
               u = s
                 ? null
@@ -674,15 +679,15 @@ __d(
             if (
               (s &&
                 o("WALogger").LOG(
-                  G ||
-                    (G = babelHelpers.taggedTemplateLiteralLoose([
+                  j ||
+                    (j = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] DC transfer disabled for current browser, using main-thread path",
                     ])),
                 ),
-              u != null && re != null && ae != null)
+              u != null && ae != null && le != null)
             ) {
-              var c = re,
-                d = ae,
+              var c = ae,
+                d = le,
                 m = c + ":" + d,
                 p =
                   o("WAWebABProps").getABPropConfigValue(
@@ -690,69 +695,70 @@ __d(
                   ) === !0,
                 _ = u.transferChannel(l, m, c, d, p);
               _
-                ? ((_e = !0),
-                  (fe = !0),
-                  (ge = m),
+                ? ((ge = !0),
+                  (he = !0),
+                  (ye = m),
+                  (ve += 1),
                   o("WALogger").LOG(
-                    z ||
-                      (z = babelHelpers.taggedTemplateLiteralLoose([
+                    K ||
+                      (K = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [P2PConnectionManager] DataChannel transferred to worker thread as ",
                         "",
                       ])),
                     m,
                   ))
                 : o("WALogger").WARN(
-                    j ||
-                      (j = babelHelpers.taggedTemplateLiteralLoose([
+                    Q ||
+                      (Q = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [P2PConnectionManager] DataChannel transfer failed, using main-thread path",
                       ])),
                   );
             }
-            if ((_e || tt(l), e)) {
+            if ((ge || it(l), e)) {
               var f,
                 g = yield i.createOffer();
               yield i.setLocalDescription(g);
               var h = (f = g.sdp) != null ? f : "";
               if (
-                ((xe = h),
-                (Ce = o("WAWebVoipRelayConnectionUtils").extractIceCredentials(
+                ((Me = h),
+                (Re = o("WAWebVoipRelayConnectionUtils").extractIceCredentials(
                   h,
                 )),
-                (be = o("WAWebVoipRelayConnectionUtils").extractDtlsFingerprint(
+                (Le = o("WAWebVoipRelayConnectionUtils").extractDtlsFingerprint(
                   h,
                 )),
-                Ce == null || be == null)
+                Re == null || Le == null)
               ) {
                 (o("WALogger").ERROR(
-                  K ||
-                    (K = babelHelpers.taggedTemplateLiteralLoose([
+                  X ||
+                    (X = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] Failed to extract local credentials from offer SDP",
                     ])),
                 ),
-                  Ve("credential_extraction_failed"));
+                  Ke("credential_extraction_failed"));
                 return;
               }
               o("WALogger").LOG(
-                Q ||
-                  (Q = babelHelpers.taggedTemplateLiteralLoose([
+                Y ||
+                  (Y = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] Caller offer created, local credentials extracted",
                   ])),
               );
-              var y = Ae;
-              if (y != null && Ce != null && be != null) {
+              var y = We;
+              if (y != null && Re != null && Le != null) {
                 o("WALogger").LOG(
-                  X ||
-                    (X = babelHelpers.taggedTemplateLiteralLoose([
+                  J ||
+                    (J = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [P2PConnectionManager] Sending initial credentials to remote peer",
                     ])),
                 );
                 try {
-                  y(Ce.ufrag, Ce.pwd, be.algorithm, be.fingerprint, []);
+                  y(Re.ufrag, Re.pwd, Le.algorithm, Le.fingerprint, []);
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      Y ||
-                        (Y = babelHelpers.taggedTemplateLiteralLoose([
+                      Z ||
+                        (Z = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [P2PConnectionManager] Failed to send initial transport",
                         ])),
                     )
@@ -765,41 +771,41 @@ __d(
                 b = yield i.createOffer(),
                 v = (C = b.sdp) != null ? C : "";
               if (
-                ((xe = v),
-                (Ce = o("WAWebVoipRelayConnectionUtils").extractIceCredentials(
+                ((Me = v),
+                (Re = o("WAWebVoipRelayConnectionUtils").extractIceCredentials(
                   v,
                 )),
-                (be = o("WAWebVoipRelayConnectionUtils").extractDtlsFingerprint(
+                (Le = o("WAWebVoipRelayConnectionUtils").extractDtlsFingerprint(
                   v,
                 )),
-                Ce == null || be == null)
+                Re == null || Le == null)
               ) {
                 (o("WALogger")
                   .ERROR(
-                    J ||
-                      (J = babelHelpers.taggedTemplateLiteralLoose([
+                    ee ||
+                      (ee = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [P2PConnectionManager] Failed to extract local credentials from callee template SDP",
                       ])),
                   )
                   .sendLogs("p2p-callee-credential-extraction-failed"),
-                  Ve("credential_extraction_failed"));
+                  Ke("credential_extraction_failed"));
                 return;
               }
               o("WALogger").LOG(
-                Z ||
-                  (Z = babelHelpers.taggedTemplateLiteralLoose([
+                te ||
+                  (te = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] Callee template SDP generated, sending proactive credentials",
                   ])),
               );
-              var S = Ae;
+              var S = We;
               if (S != null)
                 try {
-                  S(Ce.ufrag, Ce.pwd, be.algorithm, be.fingerprint, []);
+                  S(Re.ufrag, Re.pwd, Le.algorithm, Le.fingerprint, []);
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      ee ||
-                        (ee = babelHelpers.taggedTemplateLiteralLoose([
+                      ne ||
+                        (ne = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [P2PConnectionManager] Failed to send callee initial transport",
                         ])),
                     )
@@ -807,61 +813,64 @@ __d(
                     .sendLogs("p2p-callee-send-initial-transport-failed");
                 }
             }
-            (ze(),
-              (Pe = Date.now()),
-              qe(o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting),
-              (De = window.setTimeout(function () {
-                de ===
+            (Ye(),
+              (Ae = Date.now()),
+              ze(o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting),
+              (Ne = window.setTimeout(function () {
+                pe ===
                   o("WAWebVoipRelayConnectionUtils").ConnectionState
-                    .Connecting && Ve("connection_timeout");
-              }, se.CONNECTION_TIMEOUT_MS)));
+                    .Connecting && Ke("connection_timeout");
+              }, ce.CONNECTION_TIMEOUT_MS)));
           },
         )),
-        rt.apply(this, arguments)
+        st.apply(this, arguments)
       );
     }
-    function ot() {
-      ((ve = null),
-        (Se = null),
-        (Re = null),
-        (Le = null),
-        (ke = []),
-        (Ie = !1),
-        (Te = !1),
-        (ie = !1),
-        le++,
-        de !== o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
+    function ut() {
+      ((Ee = null),
+        (ke = null),
+        (Ie = null),
+        (Te = null),
+        (xe = []),
+        ($e = !1),
+        (Pe = !1),
+        (se = !1),
+        ue++,
+        pe !== o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
           (o("WALogger").LOG(
             E ||
               (E = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [P2PConnectionManager] Cleaning up P2P connection",
               ])),
           ),
-          _e ? ((he = !0), (ye = ge)) : Pe > 0 && Xe(),
+          ge ? ((Ce = !0), (be = ye)) : Ae > 0 && tt(),
           o("WAWebVoipSctpStatsInstrumentation").removeConnectionSource("p2p"),
-          He(),
-          Ue(),
-          qe(o("WAWebVoipRelayConnectionUtils").ConnectionState.None),
-          (me = !1),
-          (Ce = null),
-          (be = null),
-          (Ee = []),
-          (xe = null),
-          (Ae = null),
-          he ||
-            (($e = o(
+          Qe(),
+          je(),
+          ze(o("WAWebVoipRelayConnectionUtils").ConnectionState.None),
+          (_e = !1),
+          (Re = null),
+          (Le = null),
+          (De = []),
+          (Me = null),
+          (We = null),
+          Ce ||
+            ((we = o(
               "WAWebVoipRelayConnectionUtils",
             ).createEmptyConnectionStats()),
-            (Pe = 0),
-            (fe = !1))));
+            (Ae = 0),
+            (he = !1))));
     }
-    function at() {
-      return Ce;
+    function ct() {
+      return Re;
     }
-    function it() {
-      return be;
+    function dt() {
+      return Le;
     }
-    function lt(e) {
+    function mt(e) {
+      qe = e;
+    }
+    function pt(e) {
       (o("WALogger").LOG(
         k ||
           (k = babelHelpers.taggedTemplateLiteralLoose([
@@ -876,26 +885,40 @@ __d(
         String(e.pwd.length),
         e.algorithm,
         String(e.fingerprint.length),
-        String(me),
+        String(_e),
       ),
-        (ve = e.ufrag),
-        (Se = e.pwd),
-        (Re = e.algorithm),
-        (Le = e.fingerprint),
-        ze());
+        Pe &&
+          Ee != null &&
+          Ee !== e.ufrag &&
+          (o("WALogger").LOG(
+            I ||
+              (I = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [P2PConnectionManager] Peer ICE restart (ufrag ",
+                " -> ",
+                ")",
+              ])),
+            Ee,
+            e.ufrag,
+          ),
+          qe != null && qe()),
+        (Ee = e.ufrag),
+        (ke = e.pwd),
+        (Ie = e.algorithm),
+        (Te = e.fingerprint),
+        Ye());
     }
-    function st(e) {
-      if (Te && ue != null) {
-        var t = ue,
-          n = Be(e);
+    function _t(e) {
+      if (Pe && de != null) {
+        var t = de,
+          n = He(e);
         t.addIceCandidate(
           new RTCIceCandidate({ sdpMLineIndex: 0, sdpMid: "0", candidate: n }),
         ).then(
           function () {},
           function (e) {
             o("WALogger").WARN(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
+              T ||
+                (T = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [P2PConnectionManager] Failed to add remote candidate: ",
                   "",
                 ])),
@@ -904,36 +927,36 @@ __d(
           },
         );
       } else
-        ke.length < se.MAX_BUFFERED_CANDIDATES
-          ? ke.push(e)
+        xe.length < ce.MAX_BUFFERED_CANDIDATES
+          ? xe.push(e)
           : o("WALogger").WARN(
-              T ||
-                (T = babelHelpers.taggedTemplateLiteralLoose([
+              D ||
+                (D = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [P2PConnectionManager] Dropping remote ICE candidate, buffer full (",
                   ")",
                 ])),
-              ke.length,
+              xe.length,
             );
     }
-    function ut(e) {
-      if (_e) return !0;
+    function ft(e) {
+      if (ge) return !0;
       if (
-        de === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
-        ce != null &&
-        ce.readyState === "open"
+        pe === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open &&
+        me != null &&
+        me.readyState === "open"
       )
         try {
           return (
-            ce.send(e),
-            $e.sentPackets++,
-            ($e.sentBytes += e.byteLength),
+            me.send(e),
+            we.sentPackets++,
+            (we.sentBytes += e.byteLength),
             !0
           );
         } catch (e) {
           return (
             o("WALogger").ERROR(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
+              x ||
+                (x = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [P2PConnectionManager] Failed to send P2P data: ",
                   "",
                 ])),
@@ -944,120 +967,138 @@ __d(
         }
       return !1;
     }
-    function ct(e) {
-      Ne = e;
+    function gt(e) {
+      Fe = e;
     }
-    function dt(e) {
-      Me = e;
+    function ht(e) {
+      Oe = e;
     }
-    function mt(e) {
-      we = e;
+    function yt(e) {
+      Be = e;
     }
-    function pt() {
-      return ie;
+    function Ct() {
+      return se;
     }
-    function _t(e) {
-      return ft.apply(this, arguments);
+    function bt(e) {
+      return vt.apply(this, arguments);
     }
-    function ft() {
+    function vt() {
       return (
-        (ft = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = le;
+        (vt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = ue;
           try {
             var n = yield o("WAWebVoipStackInterface").getVoipStackInterface(),
               a =
                 n != null && n.type === "web" ? yield n.isWebP2PEnabled(e) : !1;
-            t === le && (ie = a);
+            t === ue && (se = a);
           } catch (e) {
             (o("WALogger")
               .ERROR(
-                te ||
-                  (te = babelHelpers.taggedTemplateLiteralLoose([
+                re ||
+                  (re = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [P2PConnectionManager] refreshP2PEnablement failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e)),
-              t === le && (ie = !1));
+              t === ue && (se = !1));
           }
         })),
-        ft.apply(this, arguments)
+        vt.apply(this, arguments)
       );
     }
-    function gt(e, t, n) {
-      ((re = e), (oe = t), (ae = n));
+    function St(e, t, n) {
+      ((ae = e), (ie = t), (le = n));
     }
-    function ht(e, t) {
-      return t === ae && (e === re || e === oe);
+    function Rt(e, t) {
+      return t === le && (e === ae || e === ie);
     }
-    function yt() {
-      return ge;
+    function Lt() {
+      return ye;
     }
-    function Ct(e) {
-      return e === ge || (he && e === ye);
+    function Et(e) {
+      return e === ye || (Ce && e === be);
     }
-    function bt() {
-      _e &&
-        (o("WALogger").LOG(
-          x ||
-            (x = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [P2PConnectionManager] Worker reported P2P channel opened",
-            ])),
-        ),
-        Ye());
-    }
-    function vt(e) {
-      var t = _e || he;
-      t &&
+    function kt() {
+      ge &&
         (o("WALogger").LOG(
           $ ||
             ($ = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [P2PConnectionManager] Worker reported P2P channel closed",
+              "voip: [P2PConnectionManager] Worker reported P2P channel opened",
             ])),
         ),
-        e != null &&
-          (($e.sentPackets += e.sentPackets),
-          ($e.sentBytes += e.sentBytes),
-          ($e.receivedPackets += e.receivedPackets),
-          ($e.receivedBytes += e.receivedBytes),
-          e.firstSendTime > 0 &&
-            $e.firstSendRequestTime === 0 &&
-            ($e.firstSendRequestTime = e.firstSendTime),
-          e.firstResponseRecvTime > 0 &&
-            $e.firstResponseRecvTime === 0 &&
-            ($e.firstResponseRecvTime = e.firstResponseRecvTime)),
-        Xe(),
-        (he = !1),
-        (ye = null),
-        ($e = o("WAWebVoipRelayConnectionUtils").createEmptyConnectionStats()),
-        (Pe = 0),
-        (fe = !1),
-        _e &&
-          (de !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
-            de !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
-            qe(o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed),
-          (_e = !1),
-          (ge = null),
-          Ue()));
+        nt());
     }
-    ((l.parseSdpCandidateToTransport = Oe),
-      (l.initP2PConnection = nt),
-      (l.cleanupP2PConnection = ot),
-      (l.getLocalIceCredentials = at),
-      (l.getLocalDtlsFingerprint = it),
-      (l.handleRemoteCredentials = lt),
-      (l.handleRemoteCandidate = st),
-      (l.sendP2PData = ut),
-      (l.registerOnDataChannelMessage = ct),
-      (l.registerOnDataChannelStateChange = dt),
-      (l.registerOnIceCandidate = mt),
-      (l.isP2PEnabled = pt),
-      (l.refreshP2PEnablement = _t),
-      (l.initP2PVirtualAddresses = gt),
-      (l.isP2PVirtualAddress = ht),
-      (l.getP2PConnectionId = yt),
-      (l.isP2PConnectionId = Ct),
-      (l.handleWorkerP2PChannelOpened = bt),
-      (l.handleWorkerP2PChannelClosed = vt));
+    function It(e) {
+      var t = ge || Ce;
+      if (t) {
+        var n = Se != null && Se !== ve;
+        if (
+          ((Se = null),
+          o("WALogger").LOG(
+            P ||
+              (P = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [P2PConnectionManager] Worker reported P2P channel closed",
+              ])),
+          ),
+          e != null &&
+            ((we.sentPackets += e.sentPackets),
+            (we.sentBytes += e.sentBytes),
+            (we.receivedPackets += e.receivedPackets),
+            (we.receivedBytes += e.receivedBytes),
+            e.firstSendTime > 0 &&
+              we.firstSendRequestTime === 0 &&
+              (we.firstSendRequestTime = e.firstSendTime),
+            e.firstResponseRecvTime > 0 &&
+              we.firstResponseRecvTime === 0 &&
+              (we.firstResponseRecvTime = e.firstResponseRecvTime)),
+          tt(),
+          (Ce = !1),
+          (be = null),
+          (we = o(
+            "WAWebVoipRelayConnectionUtils",
+          ).createEmptyConnectionStats()),
+          n)
+        ) {
+          o("WALogger").LOG(
+            N ||
+              (N = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [P2PConnectionManager] Close was for a superseded worker P2P channel, keeping the rebuilt connection",
+              ])),
+          );
+          return;
+        }
+        ((Ae = 0),
+          (he = !1),
+          ge &&
+            (pe !== o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
+              pe !==
+                o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
+              ze(o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed),
+            (ge = !1),
+            (ye = null),
+            je()));
+      }
+    }
+    ((l.parseSdpCandidateToTransport = Ve),
+      (l.initP2PConnection = lt),
+      (l.cleanupP2PConnection = ut),
+      (l.getLocalIceCredentials = ct),
+      (l.getLocalDtlsFingerprint = dt),
+      (l.registerOnPeerIceRestart = mt),
+      (l.handleRemoteCredentials = pt),
+      (l.handleRemoteCandidate = _t),
+      (l.sendP2PData = ft),
+      (l.registerOnDataChannelMessage = gt),
+      (l.registerOnDataChannelStateChange = ht),
+      (l.registerOnIceCandidate = yt),
+      (l.isP2PEnabled = Ct),
+      (l.refreshP2PEnablement = bt),
+      (l.initP2PVirtualAddresses = St),
+      (l.isP2PVirtualAddress = Rt),
+      (l.getP2PConnectionId = Lt),
+      (l.isP2PConnectionId = Et),
+      (l.handleWorkerP2PChannelOpened = kt),
+      (l.handleWorkerP2PChannelClosed = It));
   },
   98,
 );

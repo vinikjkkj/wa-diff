@@ -10,6 +10,7 @@ __d(
         "Theme",
         "Language",
         "Lists",
+        "Agents",
         "KeyboardShortcuts",
         "Notifications",
         "PaymentsTransactions",

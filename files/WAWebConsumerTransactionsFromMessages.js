@@ -14,14 +14,12 @@ __d(
     var e,
       s = 1e3,
       u = 200,
-      c = { ordersByRef: {}, statusByRef: {} },
-      d = { orders: [], statuses: [] };
-    function m(e, t) {
-      if (e.id.isGroup()) return d;
+      c = { ordersByRef: {}, statusByRef: {} };
+    function d(e, t) {
       var n = [],
         r = [];
       for (var a of t) {
-        var i = p(e, a);
+        var i = m(e, a);
         i != null && n.push(i);
         var l = o(
           "WAWebOrderPaymentStatus",
@@ -32,7 +30,7 @@ __d(
       }
       return { orders: n, statuses: r };
     }
-    function p(e, t) {
+    function m(e, t) {
       var n,
         a,
         i = t.nativeFlowName;
@@ -41,10 +39,11 @@ __d(
         i !== r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       )
         return null;
-      var l = _(t);
+      var l = p(t);
       if (l == null) return null;
       var u = o("WAWebOrderDetails").getOrderInfo(l),
-        c = u == null ? void 0 : u.totalAmount;
+        c = u == null ? void 0 : u.totalAmount,
+        d = e.id.isGroup();
       return {
         refId:
           (n = u == null ? void 0 : u.referenceId) != null
@@ -53,27 +52,27 @@ __d(
         amountValue: c != null && c > 0 ? c : null,
         currency: (a = u == null ? void 0 : u.currency) != null ? a : "BRL",
         fromMe: t.id.fromMe,
-        counterpartyName: o("WAWebFrontendContactGetters").getDisplayName(
-          e.contact,
-        ),
-        counterpartyId: e.contact.id,
+        counterpartyName: d
+          ? e.title()
+          : o("WAWebFrontendContactGetters").getDisplayName(e.contact),
+        counterpartyId: d ? e.id : e.contact.id,
         timestampMs: t.t * s,
       };
     }
-    function _(e) {
+    function p(e) {
       var t = e.safe();
       return t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ? t : null;
     }
-    function f(e) {
-      return m(e, e.msgs.toArray());
+    function _(e) {
+      return d(e, e.msgs.toArray());
     }
-    function g(t) {
+    function f(t) {
       return {
-        fetcher: (e || (e = n("Promise"))).resolve(f(t)),
+        fetcher: (e || (e = n("Promise"))).resolve(_(t)),
         unsubscribe: r("WAWebNoop"),
       };
     }
-    function h(t) {
+    function g(t) {
       var a,
         i = r("WAWebNoop"),
         l = function () {
@@ -86,12 +85,12 @@ __d(
               .then(r("WAWebNoop"), r("WAWebNoop"));
           }, u)),
             (i = t.msgs.onMsgLoadStateChange(function () {
-              t.msgs.msgLoadState.noEarlierMsgs && (e(f(t)), l());
+              t.msgs.msgLoadState.noEarlierMsgs && (e(_(t)), l());
             })));
         });
       return { fetcher: s, unsubscribe: l };
     }
-    function y(e, t) {
+    function h(e, t) {
       if (t.orders.length === 0 && t.statuses.length === 0) return e;
       var n = babelHelpers.extends({}, e.ordersByRef);
       for (var r of t.orders) n[r.refId] = r;
@@ -99,7 +98,7 @@ __d(
       for (var a of t.statuses) o[a.refId] = a.paymentStatus;
       return { ordersByRef: n, statusByRef: o };
     }
-    function C(e, t) {
+    function y(e, t) {
       if (t.orders.length === 0 && t.statuses.length === 0) return e;
       var n = babelHelpers.extends({}, e.ordersByRef),
         r = babelHelpers.extends({}, e.statusByRef);
@@ -107,7 +106,7 @@ __d(
       for (var a of t.statuses) delete r[a.refId];
       return { ordersByRef: n, statusByRef: r };
     }
-    function b(e) {
+    function C(e) {
       var t = e.ordersByRef,
         n = e.statusByRef,
         r = Object.keys(t).map(function (e) {
@@ -125,7 +124,7 @@ __d(
             amountValue: o,
             currency: l,
             timestampMs: u,
-            status: v(n[e]),
+            status: b(n[e]),
             direction: s ? "incoming" : "outgoing",
           };
         });
@@ -136,7 +135,7 @@ __d(
         r
       );
     }
-    function v(e) {
+    function b(e) {
       return e === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured
         ? "success"
         : e === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed
@@ -144,12 +143,12 @@ __d(
           : "requested";
     }
     ((l.EMPTY_CONSUMER_ORDER_STATE = c),
-      (l.getConsumerOrderInfoFromMsgs = m),
-      (l.getCachedConsumerOrderInfo = g),
-      (l.getNotCachedConsumerOrderInfo = h),
-      (l.mergeConsumerOrderInfo = y),
-      (l.removeConsumerOrderInfo = C),
-      (l.mapConsumerOrdersToTransactions = b));
+      (l.getConsumerOrderInfoFromMsgs = d),
+      (l.getCachedConsumerOrderInfo = f),
+      (l.getNotCachedConsumerOrderInfo = g),
+      (l.mergeConsumerOrderInfo = h),
+      (l.removeConsumerOrderInfo = y),
+      (l.mapConsumerOrdersToTransactions = C));
   },
   98,
 );
