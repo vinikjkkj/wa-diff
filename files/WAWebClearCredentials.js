@@ -10,17 +10,18 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
+    "WAWebWamLabelSyncTrackingReporter",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p() {
-      return _.apply(this, arguments);
-    }
+    var e, s, u, c, d, m, p;
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = !1;
           try {
             o("WAWebUserPrefsGeneral").setBrowserId();
@@ -97,6 +98,22 @@ __d(
           } catch (e) {
             t = !0;
           }
+          try {
+            o(
+              "WAWebWamLabelSyncTrackingReporter",
+            ).resetLabelSyncTrackingState();
+          } catch (e) {
+            ((t = !0),
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "ws2:resetLabelSyncTrackingState error",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .tags("logout"));
+          }
           o("WAWebLocalStorageClearOnLogout").clearLocalStorageKeysOnLogout();
           try {
             yield o("WAWebUserPrefsClearLocalState").clearAllLocalState();
@@ -104,8 +121,8 @@ __d(
             ((t = !0),
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "ws2:clearAllLocalState error",
                     ])),
                 )
@@ -114,10 +131,10 @@ __d(
           }
           return t;
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.default = p;
+    l.default = _;
   },
   98,
 );

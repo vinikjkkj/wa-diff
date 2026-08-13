@@ -20,10 +20,8 @@ __d(
       var r = t.indexOf(e);
       if (r === -1) return t;
       for (var o = "", a = 0; r !== -1; )
-        ((o += t.substring(a, r) + s),
-          (a = r + e.length),
-          (r = t.indexOf(e, a)));
-      return o + t.substring(a);
+        ((o += t.slice(a, r) + s), (a = r + e.length), (r = t.indexOf(e, a)));
+      return o + t.slice(a);
     }
     function m(e) {
       if (!(e == null || typeof e != "object"))
@@ -68,17 +66,9 @@ __d(
                     ).isJSONParseBehaviorallyShimmed())))
             )
               try {
-                var p =
-                    typeof String == "function" &&
-                    !(
-                      String.toString === String.toString.toString &&
-                      o("GHLDetectionUtilsPreludeSafe").normalize(
-                        String.toString(),
-                      ) === "function String() { [native code] }" &&
-                      o("GHLDetectionUtilsPreludeSafe").normalize(
-                        String.toString.toString(),
-                      ) === "function toString() { [native code] }"
-                    ),
+                var p = o(
+                    "GHLDetectionUtilsPreludeSafe",
+                  ).isStringBehaviorallyShimmed(),
                   _ = a != null && "r4wt7kmj" in a;
                 (_ &&
                   p &&

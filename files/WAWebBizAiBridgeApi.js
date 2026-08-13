@@ -42,7 +42,8 @@ __d(
           r = n.consumerPhoneNumber,
           a = n.shouldSuppressNotification,
           i = n.status,
-          l = n.timestampMs;
+          l = n.suggestedRepliesEnabled,
+          c = n.timestampMs;
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -51,8 +52,8 @@ __d(
             ])),
           i,
         );
-        var c = f(t, r);
-        c != null
+        var d = f(t, r);
+        d != null
           ? (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -61,13 +62,13 @@ __d(
                   "",
                 ])),
               i,
-              c.id.toLogString(),
+              d.id.toLogString(),
             ),
             o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
-              chat: c,
-              options: { suppressNotification: a },
+              chat: d,
+              options: { suppressNotification: a, suggestedRepliesEnabled: l },
               status: i,
-              timestampMs: l,
+              timestampMs: c,
             }))
           : o("WALogger")
               .ERROR(
@@ -96,7 +97,10 @@ __d(
             l != null
               ? o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
                   chat: l,
-                  options: { suppressNotification: !0 },
+                  options: {
+                    suppressNotification: !0,
+                    suggestedRepliesEnabled: i.suggestedRepliesEnabled,
+                  },
                   status: i.status,
                   timestampMs: i.timestampMs,
                 })

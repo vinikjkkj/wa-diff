@@ -8,6 +8,8 @@ __d(
         CAMPAIGNS_FETCH_START: "campaigns_fetch_start",
         CAMPAIGNS_LOADED: "campaigns_loaded",
         FLOW_MOUNTED: "flow_mounted",
+        PRO_RELAY_ENVIRONMENT_FETCH_END: "pro_relay_environment_fetch_end",
+        PRO_RELAY_ENVIRONMENT_FETCH_START: "pro_relay_environment_fetch_start",
         SCREEN_MOUNTED: "screen_mounted",
       }),
       s = r("qpl")._(183054653, "728"),

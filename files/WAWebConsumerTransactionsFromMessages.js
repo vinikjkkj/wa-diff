@@ -14,12 +14,13 @@ __d(
     var e,
       s = 1e3,
       u = 200,
-      c = { ordersByRef: {}, statusByRef: {} };
-    function d(e, t) {
+      c = 30 * 1e3,
+      d = { ordersByRef: {}, statusByRef: {} };
+    function m(e, t) {
       var n = [],
         r = [];
       for (var a of t) {
-        var i = m(e, a);
+        var i = p(e, a);
         i != null && n.push(i);
         var l = o(
           "WAWebOrderPaymentStatus",
@@ -30,7 +31,7 @@ __d(
       }
       return { orders: n, statuses: r };
     }
-    function m(e, t) {
+    function p(e, t) {
       var n,
         a,
         i = t.nativeFlowName;
@@ -39,7 +40,7 @@ __d(
         i !== r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
       )
         return null;
-      var l = p(t);
+      var l = _(t);
       if (l == null) return null;
       var u = o("WAWebOrderDetails").getOrderInfo(l),
         c = u == null ? void 0 : u.totalAmount,
@@ -59,38 +60,42 @@ __d(
         timestampMs: t.t * s,
       };
     }
-    function p(e) {
+    function _(e) {
       var t = e.safe();
       return t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ? t : null;
     }
-    function _(e) {
-      return d(e, e.msgs.toArray());
+    function f(e) {
+      return m(e, e.msgs.toArray());
     }
-    function f(t) {
+    function g(t) {
       return {
-        fetcher: (e || (e = n("Promise"))).resolve(_(t)),
+        fetcher: (e || (e = n("Promise"))).resolve(f(t)),
         unsubscribe: r("WAWebNoop"),
       };
     }
-    function g(t) {
+    function h(t) {
       var a,
-        i = r("WAWebNoop"),
-        l = function () {
-          (i(), self.clearInterval(a));
+        i,
+        l = r("WAWebNoop"),
+        s = function () {
+          (l(), self.clearInterval(a), self.clearTimeout(i));
         },
-        s = new (e || (e = n("Promise")))(function (e) {
+        d = new (e || (e = n("Promise")))(function (e) {
           ((a = self.setInterval(function () {
             o("WAWebChatLoadMessages")
               .loadEarlierMsgs({ chat: t, msgCollection: t.msgs })
               .then(r("WAWebNoop"), r("WAWebNoop"));
           }, u)),
-            (i = t.msgs.onMsgLoadStateChange(function () {
-              t.msgs.msgLoadState.noEarlierMsgs && (e(_(t)), l());
+            (i = self.setTimeout(function () {
+              (e(f(t)), s());
+            }, c)),
+            (l = t.msgs.onMsgLoadStateChange(function () {
+              t.msgs.msgLoadState.noEarlierMsgs && (e(f(t)), s());
             })));
         });
-      return { fetcher: s, unsubscribe: l };
+      return { fetcher: d, unsubscribe: s };
     }
-    function h(e, t) {
+    function y(e, t) {
       if (t.orders.length === 0 && t.statuses.length === 0) return e;
       var n = babelHelpers.extends({}, e.ordersByRef);
       for (var r of t.orders) n[r.refId] = r;
@@ -98,7 +103,7 @@ __d(
       for (var a of t.statuses) o[a.refId] = a.paymentStatus;
       return { ordersByRef: n, statusByRef: o };
     }
-    function y(e, t) {
+    function C(e, t) {
       if (t.orders.length === 0 && t.statuses.length === 0) return e;
       var n = babelHelpers.extends({}, e.ordersByRef),
         r = babelHelpers.extends({}, e.statusByRef);
@@ -106,7 +111,7 @@ __d(
       for (var a of t.statuses) delete r[a.refId];
       return { ordersByRef: n, statusByRef: r };
     }
-    function C(e) {
+    function b(e) {
       var t = e.ordersByRef,
         n = e.statusByRef,
         r = Object.keys(t).map(function (e) {
@@ -124,7 +129,7 @@ __d(
             amountValue: o,
             currency: l,
             timestampMs: u,
-            status: b(n[e]),
+            status: v(n[e]),
             direction: s ? "incoming" : "outgoing",
           };
         });
@@ -135,20 +140,20 @@ __d(
         r
       );
     }
-    function b(e) {
+    function v(e) {
       return e === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured
         ? "success"
         : e === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed
           ? "failure"
           : "requested";
     }
-    ((l.EMPTY_CONSUMER_ORDER_STATE = c),
-      (l.getConsumerOrderInfoFromMsgs = d),
-      (l.getCachedConsumerOrderInfo = f),
-      (l.getNotCachedConsumerOrderInfo = g),
-      (l.mergeConsumerOrderInfo = h),
-      (l.removeConsumerOrderInfo = y),
-      (l.mapConsumerOrdersToTransactions = C));
+    ((l.EMPTY_CONSUMER_ORDER_STATE = d),
+      (l.getConsumerOrderInfoFromMsgs = m),
+      (l.getCachedConsumerOrderInfo = g),
+      (l.getNotCachedConsumerOrderInfo = h),
+      (l.mergeConsumerOrderInfo = y),
+      (l.removeConsumerOrderInfo = C),
+      (l.mapConsumerOrdersToTransactions = b));
   },
   98,
 );

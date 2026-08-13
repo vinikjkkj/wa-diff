@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = e.canUseOz,
+      var t = e.canUseDash,
         n = e.dashManifestUrl,
         o = e.dashManifestUrlOverride_DO_NOT_USE,
         a = e.dashManifestXmlString,
@@ -14,8 +14,8 @@ __d(
         u = e.minQualityPreference,
         c = e.skipManifestPrevalidation;
       if (t !== !0) {
-        var d = r("err")("canUseOz=" + String(t));
-        return ((d.name = "GotCanUseOz/" + String(t)), d);
+        var d = r("err")("canUseDash=" + String(t));
+        return ((d.name = "GotCanUseDash/" + String(t)), d);
       }
       var m = o != null || a == null || a === "" ? null : a,
         p = o != null ? o : n == null || n === "" ? null : n;

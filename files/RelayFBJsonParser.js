@@ -15,7 +15,7 @@ __d(
         parse: function (a) {
           r("gkx")("23983") &&
             r("justknobx")._("5588") &&
-            o("GHLDetectionUtils").isStringShimmed() &&
+            o("GHLDetectionUtilsPreludeSafe").isStringBehaviorallyShimmed() &&
             o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
           var t =
               (e || (e = r("ExecutionEnvironment"))).canUseDOM &&

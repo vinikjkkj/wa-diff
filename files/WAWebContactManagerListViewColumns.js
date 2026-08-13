@@ -798,7 +798,7 @@ __d(
       return e === "select"
         ? "Select"
         : e === "customer"
-          ? s._(/*BTDS*/ "Customer")
+          ? s._(/*BTDS*/ "Contact")
           : e === "phone"
             ? s._(/*BTDS*/ "Phone number")
             : e === "email"
@@ -855,7 +855,7 @@ __d(
                   "aria-label":
                     i != null
                       ? s._(/*BTDS*/ "Select {name}", [s._param("name", i)])
-                      : s._(/*BTDS*/ "Select customer"),
+                      : s._(/*BTDS*/ "Select contact"),
                   onChange: function (n) {
                     (n != null && n.stopPropagation(),
                       t.toggle(a.item.chatJid));
@@ -881,7 +881,7 @@ __d(
               ),
               {
                 children: c.jsx(r("WDSBaseCheckbox.react"), {
-                  "aria-label": s._(/*BTDS*/ "Select all customers"),
+                  "aria-label": s._(/*BTDS*/ "Select all contacts"),
                   onChange: function () {
                     return t.toggleAll();
                   },
@@ -903,13 +903,13 @@ __d(
         _ = function (t, r) {
           return a != null ? I(t, r, n, a, i, m, p) : void 0;
         },
-        f = s._(/*BTDS*/ "Customer"),
+        f = s._(/*BTDS*/ "Contact"),
         g = l != null ? F(l) : null;
       return [].concat(g != null ? [g] : [], [
         {
           cell: function (t) {
             return c.jsx(r("WAWebContactManagerCustomerCell.react"), {
-              item: t.item,
+              item: t.item.leadData,
             });
           },
           header: f,
@@ -935,7 +935,7 @@ __d(
             return c.jsx("div", {
               className: "x14ba6vc xrw3huk",
               children: c.jsx(r("WAWebLeadStageChip.react"), {
-                customer: t.item,
+                customer: t.item.leadData,
                 onPillClick: function (t) {
                   return o(
                     "WAWebContactManagerSMBUserJourneyLogger",
@@ -951,7 +951,7 @@ __d(
                   ),
                     o("WAWebCustomerDataFieldSaver").handleLeadStageTransition(
                       t.item.chatJid,
-                      t.item,
+                      t.item.leadData,
                       n,
                       r,
                     ));
@@ -990,7 +990,7 @@ __d(
         },
         {
           cell: function (t) {
-            var e = t.item.acquisitionSource,
+            var e = t.item.leadData.acquisitionSource,
               n =
                 e != null
                   ? o(
@@ -1027,7 +1027,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: (e = t.item.email) != null ? e : "\u2014",
+              children: (e = t.item.leadData.email) != null ? e : "\u2014",
             });
           },
           header: s._(/*BTDS*/ "Email"),
@@ -1060,7 +1060,7 @@ __d(
               type: "Body2",
               colorName: "contentDefault",
               maxLines: 1,
-              children: x(t.item.lastOrder),
+              children: x(t.item.leadData.lastOrder),
             });
           },
           header: s._(/*BTDS*/ "Last order"),

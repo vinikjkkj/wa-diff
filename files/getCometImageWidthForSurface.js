@@ -30,12 +30,10 @@ __d(
       );
     }
     var p = new Map([
-      [(e = o("CometImagePrefetchSurfaces")).SURFACE.COMET_HOME_FEED_PHOTO, m],
-      [e.SURFACE.COMET_HOME_FEED_SHARE_MEDIA, m],
+      [(e = o("CometImagePrefetchSurfaces")).SURFACE.COMET_HOME_FEED_IMAGE, m],
       [e.SURFACE.COMET_HOME_FEED_CAROUSEL, u],
       [e.SURFACE.COMET_HOME_FEED_PRODUCT_EXTENSIONS, c],
       [e.SURFACE.COMET_HOME_RHC, s],
-      [e.SURFACE.COMET_HOME_RHC_CAROUSEL, s],
       [e.SURFACE.COMET_HOME_FEED_AD_FOOTER, d],
     ]);
     function _(e, t, n) {

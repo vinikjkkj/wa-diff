@@ -239,7 +239,7 @@ __d(
       };
     }
     function k(e) {
-      var t = N(e.currentSession, "currentSession");
+      var t = P(e.currentSession, "currentSession");
       return T(t, e.previousSessions);
     }
     function I(e) {
@@ -247,39 +247,38 @@ __d(
     }
     function T(t, n) {
       var a,
-        i = (a = t.sessionVersion) != null ? a : e,
-        l = D();
-      if (i < e || i > l) throw r("err")("Signal: bad session version " + i);
-      var s = N(t.senderChain, "senderChain"),
-        u = N(s.chainKey, "senderChain.chainKey"),
+        i = (a = t.sessionVersion) != null ? a : e;
+      if (i < e || i > s) throw r("err")("Signal: bad session version " + i);
+      var l = P(t.senderChain, "senderChain"),
+        u = P(l.chainKey, "senderChain.chainKey"),
         c = p(
           o("WASignalKeys").makeSerializedKeyPairFrom(
-            P(s.senderRatchetKeyPrivate, 32, "senderRatchetKeyPrivate"),
-            $(s.senderRatchetKey, "senderRatchetKey"),
+            $(l.senderRatchetKeyPrivate, 32, "senderRatchetKeyPrivate"),
+            x(l.senderRatchetKey, "senderRatchetKey"),
           ),
-          N(u.index, "senderChain.chainKey.index"),
-          P(u.key, 32, "senderChain.chainKey.key"),
+          P(u.index, "senderChain.chainKey.index"),
+          $(u.key, 32, "senderChain.chainKey.key"),
         ),
-        m = N(t.receiverChains, "receiverChains").map(function (e) {
-          var t = N(e.chainKey, "receiverChains[].chainKey");
+        m = P(t.receiverChains, "receiverChains").map(function (e) {
+          var t = P(e.chainKey, "receiverChains[].chainKey");
           return d(
-            $(e.senderRatchetKey, "receiverChains[].senderRatchetKey"),
-            N(t.index, "receiverChains[].chainKey.index"),
-            P(t.key, 32, "receiverChains[].chainKey.key"),
-            x(e.messageKeys),
+            x(e.senderRatchetKey, "receiverChains[].senderRatchetKey"),
+            P(t.index, "receiverChains[].chainKey.index"),
+            $(t.key, 32, "receiverChains[].chainKey.key"),
+            D(e.messageKeys),
           );
         }),
         f = {
           regId: o("WASignalOther").castRegistrationId(
-            N(t.localRegistrationId, "localRegistrationId"),
+            P(t.localRegistrationId, "localRegistrationId"),
           ),
-          pubKey: $(t.localIdentityPublic, "localIdentityPublic"),
+          pubKey: x(t.localIdentityPublic, "localIdentityPublic"),
         },
         g = {
           regId: o("WASignalOther").castRegistrationId(
-            N(t.remoteRegistrationId, "remoteRegistrationId"),
+            P(t.remoteRegistrationId, "remoteRegistrationId"),
           ),
-          pubKey: $(t.remoteIdentityPublic, "remoteIdentityPublic"),
+          pubKey: x(t.remoteIdentityPublic, "remoteIdentityPublic"),
         },
         h = t.pendingPreKey,
         y = null;
@@ -288,18 +287,18 @@ __d(
         y = _(
           b != null ? o("WASignalKeys").castToPreKeyId(b) : null,
           o("WASignalKeys").castToSignedPreKeyId(
-            N(h.signedPreKeyId, "pendingPreKey.signedPreKeyId"),
+            P(h.signedPreKeyId, "pendingPreKey.signedPreKeyId"),
           ),
-          $(h.baseKey, "pendingPreKey.baseKey"),
+          x(h.baseKey, "pendingPreKey.baseKey"),
           h.kyberPreKeyId != null ? h.kyberPreKeyId : null,
           h.kyberCiphertext != null ? new Uint8Array(h.kyberCiphertext) : null,
         );
       }
-      var v = t.aliceBaseKey == null ? null : $(t.aliceBaseKey, "aliceBaseKey");
+      var v = t.aliceBaseKey == null ? null : x(t.aliceBaseKey, "aliceBaseKey");
       return C(
         f,
         g,
-        P(t.rootKey, 32, "rootKey"),
+        $(t.rootKey, 32, "rootKey"),
         m,
         c,
         y,
@@ -309,29 +308,23 @@ __d(
         i,
       );
     }
-    function D() {
-      return o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-        .isPq1on1MessageEnabled === !0
-        ? s
-        : e;
-    }
-    function x(e) {
+    function D(e) {
       return e.map(function (e) {
         return {
-          index: N(e.index, "messageKeys[].index"),
-          cipherKey: P(e.cipherKey, 32, "messageKeys[].cipherKey"),
-          macKey: P(e.macKey, 32, "messageKeys[].macKey"),
-          iv: P(e.iv, 16, "messageKeys[].iv"),
+          index: P(e.index, "messageKeys[].index"),
+          cipherKey: $(e.cipherKey, 32, "messageKeys[].cipherKey"),
+          macKey: $(e.macKey, 32, "messageKeys[].macKey"),
+          iv: $(e.iv, 16, "messageKeys[].iv"),
         };
       });
     }
-    function $(e, t) {
-      return o("WASignalKeys").castToSerializedPubKey(new Uint8Array(N(e, t)));
+    function x(e, t) {
+      return o("WASignalKeys").castToSerializedPubKey(new Uint8Array(P(e, t)));
     }
-    function P(e, t, n) {
-      return o("WASignalOther").toBytes(N(e, n), t);
+    function $(e, t, n) {
+      return o("WASignalOther").toBytes(P(e, n), t);
     }
-    function N(e, t) {
+    function P(e, t) {
       if (e == null) throw r("err")("Signal: protobuf is missing " + t);
       return e;
     }
@@ -354,8 +347,8 @@ __d(
       (l.parseSessionFromRecord = k),
       (l.parseSession = I),
       (l._parseSession = T),
-      (l.bytesOrThrow = P),
-      (l.definedOrThrow = N));
+      (l.bytesOrThrow = $),
+      (l.definedOrThrow = P));
   },
   98,
 );

@@ -72,7 +72,7 @@ __d(
       if (!s || !n("cr:4504"))
         return r("err")("Nextgendash implementation not available");
       var d = s({
-        canUseOz: e,
+        canUseDash: e,
         dashManifestUrl: t,
         dashManifestUrlOverride_DO_NOT_USE: o,
         dashManifestXmlString: a,
@@ -94,7 +94,7 @@ __d(
       if (n("cr:1980") == null)
         return r("err")("Oz implementation not available");
       var m = o("VideoPlayerOzImplementationData").makeOzImplementationData({
-        canUseOz: e,
+        canUseDash: e,
         dashManifestUrl: t,
         dashManifestUrlOverride_DO_NOT_USE: a,
         dashManifestXmlString: i,
@@ -190,7 +190,7 @@ __d(
       var t = e.browserNativeHdSrcPreferred,
         o = e.browserNativeHdUrl,
         a = e.browserNativeSdUrl,
-        i = e.canUseOz,
+        i = e.canUseDash,
         l = e.dashManifestUrl,
         f = e.dashManifestUrlOverride_DO_NOT_USE,
         g = e.dashManifestXmlString,

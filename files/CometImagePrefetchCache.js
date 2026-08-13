@@ -4,18 +4,24 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = 5e3,
-      l = new Map();
-    function s(e) {
-      var t = l.get(e);
-      return t == null ? null : (l.delete(e), l.set(e, t), t);
+      l = new Map(),
+      s = "\0";
+    function u(e, t) {
+      return "" + (t != null ? t : "") + s + e;
     }
-    function u(t, n) {
-      if ((l.delete(t), l.set(t, n), l.size > e)) {
-        var r = l.keys().next();
-        r.done || l.delete(r.value);
+    function c(e, t) {
+      var n = u(e, t),
+        r = l.get(n);
+      return r == null ? null : (l.delete(n), l.set(n, r), r);
+    }
+    function d(t, n, r) {
+      var o = u(t, n);
+      if ((l.delete(o), l.set(o, r), l.size > e)) {
+        var a = l.keys().next();
+        a.done || l.delete(a.value);
       }
     }
-    ((i.getPrefetchedURI = s), (i.recordPrefetchedURI = u));
+    ((i.getPrefetchedURI = c), (i.recordPrefetchedURI = d));
   },
   66,
 );

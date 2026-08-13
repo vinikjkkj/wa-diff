@@ -629,8 +629,10 @@ __d(
             (o("WALogger").LOG(
               L ||
                 (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "BackendEventBus: account_temporarily_banned",
+                  "BackendEventBus: account_temporarily_banned banned=",
+                  "",
                 ])),
+              t.banned,
             ),
               o("WAWebBackendApi").frontendFireAndForget(
                 "triggerTemporaryBanFromBridge",

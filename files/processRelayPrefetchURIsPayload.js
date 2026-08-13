@@ -21,7 +21,11 @@ __d(
         t.forEach(function (e) {
           var t = e.uri;
           if (typeof t == "string") {
-            if (n && o("CometImagePrefetchCache").getPrefetchedURI(t) != null)
+            if (
+              n &&
+              o("CometImagePrefetchCache").getPrefetchedURI(t, e.surface) !=
+                null
+            )
               return;
             var i = r("getCometImageWidthForSurface")(e.surface, e.width, a),
               l =
@@ -34,7 +38,11 @@ __d(
                   : t,
               s = new Image();
             ((s.src = l),
-              o("CometImagePrefetchCache").recordPrefetchedURI(t, l));
+              o("CometImagePrefetchCache").recordPrefetchedURI(
+                t,
+                e.surface,
+                l,
+              ));
           }
         });
       }

@@ -43,9 +43,12 @@ __d(
             var a = r("justknobx")._("2694") && r("gkx")("5023");
             r("justknobx")._("5589") &&
               r("gkx")("23984") &&
-              (a
+              ((a
                 ? o("GHLDetectionUtilsPreludeSafe").isCallShimmedCrossRealm()
-                : o("GHLDetectionUtils").isCallShimmed()) &&
+                : o("GHLDetectionUtils").isCallShimmed()) ||
+                o(
+                  "GHLDetectionUtilsPreludeSafe",
+                ).isCallBehaviorallyShimmed()) &&
               o("GHLDetectionUtilsPreludeSafe").restoreNativeCall();
           } catch (e) {}
           u = !0;

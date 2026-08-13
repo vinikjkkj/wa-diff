@@ -1,6 +1,13 @@
 __d(
   "WAWebUnifiedResponseUtils",
-  ["WAWebBotUnifiedResponseGating", "WAWebQplFlowWrapper", "qpl"],
+  [
+    "WACryptoSha256",
+    "WAHex",
+    "WAWebBotUnifiedResponseGating",
+    "WAWebQplFlowWrapper",
+    "asyncToGeneratorRuntime",
+    "qpl",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = r("qpl")._(891428050, "1412"),
       s = (function () {
@@ -30,23 +37,44 @@ __d(
             : [];
     }
     function c(e) {
+      var t = [];
+      for (var n of e.sections)
+        for (var r of u(n.view_model)) "imagine_type" in r && t.push(r);
+      return t;
+    }
+    function d(e) {
+      return String(e) === "ANIMATE";
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WACryptoSha256").sha256(new TextEncoder().encode(e));
+          return o("WAHex").toLowerCaseHex(new Uint8Array(t));
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
       var t = e.unifiedResponse;
       return t == null
         ? !1
-        : d(t) ||
+        : f(t) ||
             o("WAWebBotUnifiedResponseGating").isUnifiedResponseReceiverEnabled(
               e.t,
             );
     }
-    function d(e) {
+    function f(e) {
       return (
-        m(e) &&
+        g(e) &&
         o(
           "WAWebBotUnifiedResponseGating",
         ).isUnifiedResponseImagineReceiverEnabled()
       );
     }
-    function m(e) {
+    function g(e) {
       if (e == null) return !1;
       var t = !1;
       for (var n of e.sections) {
@@ -59,10 +87,10 @@ __d(
       }
       return t;
     }
-    function p(e) {
-      return _(e) != null;
+    function h(e) {
+      return y(e) != null;
     }
-    function _(e) {
+    function y(e) {
       var t;
       if (e == null) return null;
       var n = [].concat(e.sections, (t = e.footer_sections) != null ? t : []);
@@ -71,27 +99,27 @@ __d(
           if (o.__typename === "GenAIMetaSubsQuotaUpsellPrimitive") return o;
       return null;
     }
-    function f(e) {
+    function C(e) {
       var t;
-      return (t = _(e)) == null ? void 0 : t.benefit_type;
+      return (t = y(e)) == null ? void 0 : t.benefit_type;
     }
-    var g = [
+    var b = [
       "GenAIImaginePrimitive",
       "GenAIImagePrimitive",
       "GenAIReelPrimitive",
     ];
-    function h(e) {
+    function v(e) {
       if (e != null) return { data: e };
     }
-    function y(e) {
+    function S(e) {
       if (e == null) return !1;
       for (var t of e.sections) {
         var n = u(t.view_model);
-        for (var r of n) if (g.includes(r.__typename)) return !0;
+        for (var r of n) if (b.includes(r.__typename)) return !0;
       }
       return !1;
     }
-    function C(e) {
+    function R(e) {
       var t = e == null ? void 0 : e.embedded_screens;
       if (t == null || t.length === 0) return [];
       var n = [];
@@ -109,21 +137,24 @@ __d(
         }
       return n;
     }
-    function b(e) {
+    function L(e) {
       return e.embedded_screens == null || e.embedded_screens.length === 0
         ? e
         : babelHelpers.extends({}, e, { embedded_screens: void 0 });
     }
     ((l.UnifiedResponseQPLLogger = s),
       (l.getPrimitives = u),
-      (l.isUnifiedResponseVisible = c),
-      (l.isImagineResponse = m),
-      (l.isQuotaUpsellResponse = p),
-      (l.getQuotaUpsellBenefitType = f),
-      (l.buildUnifiedResponseFromRawData = h),
-      (l.unifiedResponseHasMediaContent = y),
-      (l.getMetaAiEmbeddedSources = C),
-      (l.stripEmbeddedScreens = b));
+      (l.getImaginePrimitives = c),
+      (l.isAnimateImagineType = d),
+      (l.computeRichResponseMediaId = m),
+      (l.isUnifiedResponseVisible = _),
+      (l.isImagineResponse = g),
+      (l.isQuotaUpsellResponse = h),
+      (l.getQuotaUpsellBenefitType = C),
+      (l.buildUnifiedResponseFromRawData = v),
+      (l.unifiedResponseHasMediaContent = S),
+      (l.getMetaAiEmbeddedSources = R),
+      (l.stripEmbeddedScreens = L));
   },
   98,
 );

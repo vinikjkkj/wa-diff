@@ -39,7 +39,7 @@ __d(
             ),
             a = r[0],
             i = r[1],
-            l = yield x(i),
+            l = yield D(i),
             s = l.cipherKey,
             u = l.macKey,
             d = yield o("WACryptoDependencies")
@@ -52,9 +52,9 @@ __d(
               o("WACryptoLibraryConfig").getCryptoLibraryConfig()
                 .isPq1on1MessageEnabled === !0;
           (_ === !0
-            ? m.writeUint8(I(e.sessionVersion, e.sessionVersion))
+            ? m.writeUint8(k(e.sessionVersion, e.sessionVersion))
             : m.writeUint8(
-                I(
+                k(
                   o("WASignalSessions").FORMAT_VERSION,
                   o("WASignalSessions").FORMAT_VERSION,
                 ),
@@ -70,7 +70,7 @@ __d(
               m,
             ));
           var f = m.readByteArrayView(),
-            g = yield D(u, f),
+            g = yield T(u, f),
             h = f.subarray(p),
             y = o("WABinary")
               .Binary.build(h, new Uint8Array(g, 0, c))
@@ -85,9 +85,9 @@ __d(
                 o("WACryptoLibraryConfig").getCryptoLibraryConfig()
                   .isPq1on1MessageEnabled === !0;
             (L === !0
-              ? R.writeUint8(I(e.sessionVersion, e.sessionVersion))
+              ? R.writeUint8(k(e.sessionVersion, e.sessionVersion))
               : R.writeUint8(
-                  I(
+                  k(
                     o("WASignalSessions").FORMAT_VERSION,
                     o("WASignalSessions").FORMAT_VERSION,
                   ),
@@ -116,8 +116,8 @@ __d(
               i.index + 1,
               a,
             ),
-            k = o("WASignalSessions").updateChains(e, e.recvChains, E);
-          return [k, { type: C, ciphertext: b }];
+            I = o("WASignalSessions").updateChains(e, e.recvChains, E);
+          return [I, { type: C, ciphertext: b }];
         })),
         p.apply(this, arguments)
       );
@@ -189,10 +189,10 @@ __d(
     function g(e, t) {
       if (e == null) return o("WAResultOrError").makeResult(null);
       var n = e;
-      if ($(n, t)) return o("WAResultOrError").makeResult(n);
+      if (x(n, t)) return o("WAResultOrError").makeResult(n);
       for (var r = n.prevSessions, a = 0; a < r.length; a++) {
         var i = o("WASignalSessions").parseSession(r[a]);
-        if ($(i, t))
+        if (x(i, t))
           return o("WAResultOrError").makeError("errSignalInvalidMsg");
       }
       return o("WAResultOrError").makeResult(null);
@@ -312,7 +312,12 @@ __d(
         n,
         r = null;
       try {
-        var a = E(e, o("WASignalSessions").FORMAT_VERSION, c);
+        var a = E(
+          e,
+          o("WASignalSessions").FORMAT_VERSION,
+          c,
+          o("WASignalSessions").PQXDH_FORMAT_VERSION,
+        );
         if (!a.success) return a;
         var i = o("decodeProtobuf").decodeProtobuf(
             o("WASignalWhisperTextProtocol.pb").SignalMessageSpec,
@@ -342,7 +347,12 @@ __d(
       return o("WAResultOrError").makeResult(s);
     }
     function b(e) {
-      var t = E(e, o("WASignalSessions").FORMAT_VERSION, 0);
+      var t = E(
+        e,
+        o("WASignalSessions").FORMAT_VERSION,
+        0,
+        o("WASignalSessions").PQXDH_FORMAT_VERSION,
+      );
       if (!t.success) return t;
       var n, r, a, i, l, s, u;
       try {
@@ -445,17 +455,17 @@ __d(
               (d = b.msgKey),
               (u = o("WASignalSessions").updateChains(e, v, e.sendChain)));
           }
-          var S = yield x(d),
+          var S = yield D(d),
             L = S.cipherKey,
             E = S.macKey,
             k = o("WABinary")
               .Binary.build(e.remote.pubKey, e.local.pubKey, i.subarray(0, -c))
               .readByteArrayView(),
-            I = yield D(E, k),
-            T = i.subarray(-c),
+            I = yield T(E, k),
+            x = i.subarray(-c),
             $ = !o("WACryptoUtils").uint8ArraysEqual(
               new Uint8Array(I, 0, c),
-              T,
+              x,
             ),
             P = null;
           try {
@@ -506,7 +516,7 @@ __d(
                     e.ratchetPubKey,
                     e.nextMsgIndex,
                     e.chainKey,
-                    T(a, i),
+                    I(a, i),
                   ),
                 });
           }
@@ -542,7 +552,7 @@ __d(
         return o("WAResultOrError").makeError(
           "errSignalEmptyVersionContentSuffix",
         );
-      var a = r != null ? r : k(t),
+      var a = r != null ? r : t,
         i = e[0] >>> 4;
       if (i < t || i > a)
         return i < t
@@ -555,25 +565,19 @@ __d(
           )
         : o("WAResultOrError").makeResult(e.subarray(1, l));
     }
-    function k(e) {
-      return o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-        .isPq1on1MessageEnabled === !0
-        ? o("WASignalSessions").PQXDH_FORMAT_VERSION
-        : e;
-    }
-    function I(e, t) {
+    function k(e, t) {
       return ((e << 4) | t) & 255;
     }
-    function T(e, t) {
+    function I(e, t) {
       for (var n = [], r = 0; r < e.length; r++) r !== t && n.push(e[r]);
       return n;
     }
-    function D(e, t) {
+    function T(e, t) {
       return o("WACryptoDependencies")
         .getCrypto()
         .subtle.sign(o("WASignalOther").HMAC_SHA256, e, t);
     }
-    function x(t) {
+    function D(t) {
       return (e || (e = n("Promise")))
         .all([
           o("WASignalOther").makeCryptoKey(t.cipherKey, "aes-cbc"),
@@ -585,7 +589,7 @@ __d(
           return { cipherKey: t, macKey: n };
         });
     }
-    function $(e, t) {
+    function x(e, t) {
       var n = e.aliceBaseKey;
       return n ? o("WACryptoUtils").serializedPubKeysEqual(n, t) : !1;
     }
@@ -598,7 +602,7 @@ __d(
       (l.deserializePkMsg = b),
       (l.decryptMsgFromSession = v),
       (l.readContent = E),
-      (l.versionByte = I));
+      (l.versionByte = k));
   },
   98,
 );

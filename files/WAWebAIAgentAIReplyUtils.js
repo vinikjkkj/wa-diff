@@ -157,12 +157,24 @@ __d(
         a.watermarkMs = o;
       }
       a.pendingMutations > 0 ||
-        ((a.serverConfirmed = r),
+        (S({
+          chat: t,
+          suggestedRepliesEnabled:
+            n == null ? void 0 : n.suggestedRepliesEnabled,
+        }),
+        (a.serverConfirmed = r),
         (a.desired = r),
         t.capiThreadControl !== r &&
           ((n == null ? void 0 : n.suppressNotification) === !0
             ? t.setCapiThreadControl(r, d)
             : t.setCapiThreadControl(r)));
+    }
+    function S(e) {
+      var t = e.chat,
+        n = e.suggestedRepliesEnabled;
+      typeof n == "boolean" &&
+        (t.suggestedRepliesEnabled === !0) !== n &&
+        t.setSuggestedRepliesEnabled(n);
     }
     ((l.mutateAiReplyStatus = g),
       (l.trackAiReplyMutation = C),

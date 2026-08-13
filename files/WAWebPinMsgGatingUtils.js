@@ -7,7 +7,12 @@ __d(
         "pinned_messages_m2_pin_max",
       );
     }
-    l.getMaxPins = e;
+    function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "pinned_message_banner_notch_animation_enabled",
+      );
+    }
+    ((l.getMaxPins = e), (l.isNotchIndicatorEnabled = s));
   },
   98,
 );

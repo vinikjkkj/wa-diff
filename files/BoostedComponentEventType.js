@@ -573,6 +573,9 @@ __d(
       HAWK_PAGE_IG_UNLINK_TOOL_IMPRESSION:
         "hawk_page_ig_unlink_tool_impression",
       HAWK_PAGE_IG_UNLINK_TOOL_CLICK: "hawk_page_ig_unlink_tool_click",
+      HAWK_SEGMENT_WORKSPACE_TOOL_IMPRESSION:
+        "hawk_segment_workspace_tool_impression",
+      HAWK_SEGMENT_WORKSPACE_TOOL_CLICK: "hawk_segment_workspace_tool_click",
       IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
       PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
         "product_picker_ig_page_load_eligibility",

@@ -4,7 +4,6 @@ __d(
     "TWAWebBizAdCreationSpec",
     "WAWebBizAdCreationContinuousDurationUtils",
     "WAWebBizAdCreationCurrencyUtils",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -55,12 +54,11 @@ __d(
       return { amount: (l / a).toString(), currency: n };
     }
     function d(e, t, n) {
-      var a = r("justknobx")._("1286"),
-        i = t === o("TWAWebBizAdCreationSpec").CONTINUOUS_DURATION;
+      var r = t === o("TWAWebBizAdCreationSpec").CONTINUOUS_DURATION;
       return {
-        boost_duration_in_days: a && !i ? t : null,
+        boost_duration_in_days: r ? null : t,
         budget: c(e, t, n),
-        daily_budget_payment_amount: a ? c(e, 1, n) : null,
+        daily_budget_payment_amount: c(e, 1, n),
       };
     }
     ((l.parseValidRecommendation = e),

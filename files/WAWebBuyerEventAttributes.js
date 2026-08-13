@@ -29,6 +29,11 @@ __d(
       "isCtaAvailable",
       "chatType",
       "isSimplifiedOrder",
+      "isUpr",
+      "messageId",
+      "identifierType",
+      "methodType",
+      "screen",
     ];
     function l(e) {
       return e.replace(/[A-Z]/g, function (e) {

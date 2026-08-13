@@ -9,6 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBweMLModelManager",
     "WAWebCoreActionsODS",
+    "WAWebCountryCodeUtils",
     "WAWebLowEndDeviceExperimentGating",
     "WAWebNoop",
     "WAWebUA",
@@ -575,13 +576,14 @@ __d(
           voipInit: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, n, a) {
+                var l;
                 de = !1;
-                var l = yield pe(),
-                  s = l.rpc,
-                  u = yield i;
+                var s = yield pe(),
+                  u = s.rpc,
+                  c = yield i;
                 (o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
                   o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-                    (t || be(s),
+                    (t || be(u),
                     o("WAWebVoipGatingUtils").isWebTransportFallbackEnabled()
                       ? (o("WALogger").LOG(
                           S ||
@@ -639,10 +641,10 @@ __d(
                   o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                     o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                       .LOG_RING_BUFFER,
-                  ) && o("WAWebVoipLogDrainer").startLogDrainer(u),
-                  o("WAWebVoipStorageInit").initVoipStorageAndMLCache(u));
-                var c = !1,
-                  d = !1;
+                  ) && o("WAWebVoipLogDrainer").startLogDrainer(c),
+                  o("WAWebVoipStorageInit").initVoipStorageAndMLCache(c));
+                var d = !1,
+                  m = !1;
                 o("WAWebVoipQplHelpers").voipInitQplAddPoint(
                   o("WAWebVoipQplHelpers").VoipInitQplPoint
                     .WEBCODECS_PROBE_START,
@@ -651,23 +653,23 @@ __d(
                   yield o(
                     "WAWebVoipVideoRendererRegistry",
                   ).videoRendererRegistry.init();
-                  var m = o(
+                  var p = o(
                     "WAWebVoipVideoRendererRegistry",
                   ).videoRendererRegistry.getRendererType();
-                  c =
-                    m ===
+                  d =
+                    p ===
                     o("WAWebVoipVideoRendererInterface")
                       .WAWebVoipVideoRendererType.WEBCODECS_H264;
-                  var p = o("WAWebABProps").getABPropConfigValue(
+                  var _ = o("WAWebABProps").getABPropConfigValue(
                       "enable_webcodec_video_encode",
                     ),
-                    _ =
-                      c ||
+                    f =
+                      d ||
                       (yield o(
                         "WAWebVoipVideoWebCodecsRenderer",
                       ).WAWebVoipVideoWebCodecsRenderer.checkAvailability());
-                  d =
-                    !o("WAWebUA").UA.isFirefox && _ && p === !0
+                  m =
+                    !o("WAWebUA").UA.isFirefox && f && _ === !0
                       ? yield o(
                           "WAWebVoipWebCodecsEncoderState",
                         ).checkEncoderSupport()
@@ -692,8 +694,8 @@ __d(
                         " enc=",
                         "",
                       ])),
-                    c,
                     d,
+                    m,
                   ),
                   o("WALogger").LOG(
                     T ||
@@ -701,60 +703,66 @@ __d(
                         "voip: [webcodec-encode] enabled=",
                         "",
                       ])),
-                    d,
+                    m,
                   ),
                   o(
                     "WAWebVoipWebCodecsEncoderState",
-                  ).setWebCodecsEncoderEnabled(d),
+                  ).setWebCodecsEncoderEnabled(m),
                   o("WALogger").LOG(
                     D ||
                       (D = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [webcodec-encode] WebCodecs encoder state ",
                         "",
                       ])),
-                    d,
+                    m,
                   ));
-                var f = X();
-                ((f.enable_passthrough_video_decoder = {
-                  value: c,
+                var g = X();
+                ((g.enable_passthrough_video_decoder = {
+                  value: d,
                   type: "bool",
                 }),
-                  (f.enable_webcodec_video_encode = { value: d, type: "bool" }),
+                  (g.enable_webcodec_video_encode = { value: m, type: "bool" }),
                   o(
                     "WAWebLowEndDeviceExperimentGating",
                   ).shouldDisableSoftwareAudioProcessing() &&
-                    ((f.ns_builtin_available = { value: !0, type: "bool" }),
-                    (f.disable_sw_ns_when_builtin_available = {
+                    ((g.ns_builtin_available = { value: !0, type: "bool" }),
+                    (g.disable_sw_ns_when_builtin_available = {
                       value: !0,
                       type: "bool",
                     }),
-                    (f.ml_ns_skip_processing = { value: !0, type: "bool" }),
-                    (f.disable_agc = { value: !0, type: "bool" }),
-                    (f.hw_aec_available = { value: !0, type: "bool" }),
-                    (f.disable_sw_ec_when_builtin_available = {
+                    (g.ml_ns_skip_processing = { value: !0, type: "bool" }),
+                    (g.disable_agc = { value: !0, type: "bool" }),
+                    (g.hw_aec_available = { value: !0, type: "bool" }),
+                    (g.disable_sw_ec_when_builtin_available = {
                       value: !0,
                       type: "bool",
                     }),
-                    (f.disable_standalone_agc = { value: !0, type: "bool" }),
-                    (f.disable_eq = { value: !0, type: "bool" })),
-                  o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-                    o("WAWebVoipQplHelpers").VoipInitQplPoint
-                      .VOIP_STACK_INIT_START,
-                  ));
+                    (g.disable_standalone_agc = { value: !0, type: "bool" }),
+                    (g.disable_eq = { value: !0, type: "bool" })));
+                var h =
+                  (l = yield o("WAWebCountryCodeUtils").getMyCallingCode()) !=
+                  null
+                    ? l
+                    : "";
+                o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                  o("WAWebVoipQplHelpers").VoipInitQplPoint
+                    .VOIP_STACK_INIT_START,
+                );
                 try {
                   if (
                     (yield ve("voipInit", {
                       selfJid: e,
                       selfUserJid: n,
                       selfLid: a,
-                      abProps: f,
+                      selfCountryCode: h,
+                      abProps: g,
                     }),
                     t)
                   ) {
-                    var g = u.registerMainThreadAfterVoipInit();
-                    if (g !== 0)
+                    var y = c.registerMainThreadAfterVoipInit();
+                    if (y !== 0)
                       throw r("err")(
-                        "voip: failed to register main thread (" + g + ")",
+                        "voip: failed to register main thread (" + y + ")",
                       );
                   }
                 } catch (e) {
@@ -766,33 +774,33 @@ __d(
                   );
                 }
                 (o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
-                  u,
+                  c,
                   "voip_stack_init",
                 ),
                   (ce = !1));
-                var h = u.getWebP2PVirtualIpv4(),
-                  y = u.getWebP2PVirtualIpv6(),
-                  C = u.getWebP2PVirtualPort();
+                var C = c.getWebP2PVirtualIpv4(),
+                  b = c.getWebP2PVirtualIpv6(),
+                  v = c.getWebP2PVirtualPort();
                 (o("WAWebVoipP2PConnectionManager").initP2PVirtualAddresses(
-                  h,
-                  y,
                   C,
+                  b,
+                  v,
                 ),
                   o(
                     "WAWebVoipP2PConnectionManager",
                   ).registerOnDataChannelMessage(function (e) {
                     Ce(
                       "handleOnTransportMessage",
-                      { packet: e, ip: h, port: C },
+                      { packet: e, ip: C, port: v },
                       [e],
                     );
                   }));
-                var b = !1;
+                var P = !1;
                 (o(
                   "WAWebVoipP2PConnectionManager",
                 ).registerOnDataChannelStateChange(function (e) {
                   e === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
-                    ? ((b = !0),
+                    ? ((P = !0),
                       o("WALogger").LOG(
                         x ||
                           (x = babelHelpers.taggedTemplateLiteralLoose([
@@ -803,8 +811,8 @@ __d(
                         active: !0,
                         useIPv6: !1,
                       }))
-                    : b &&
-                      ((b = !1),
+                    : P &&
+                      ((P = !1),
                       o("WALogger").LOG(
                         $ ||
                           ($ = babelHelpers.taggedTemplateLiteralLoose([
@@ -820,7 +828,7 @@ __d(
                 }),
                   t &&
                     o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-                    be(s));
+                    be(u));
               },
             );
             function a(t, n, r) {

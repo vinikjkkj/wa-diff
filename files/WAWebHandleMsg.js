@@ -23,7 +23,6 @@ __d(
     "WAWebMsgProcessingDecryptApi",
     "WAWebMsgType",
     "WAWebOfflineHandler",
-    "WAWebPQGatingUtils",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebPostUnknownStanzaMetric",
     "WAWebProcessMsgInfoForLid",
@@ -462,10 +461,7 @@ __d(
                               )
                                 ? o("WAWebSessionScope").SessionScope.STATUS
                                 : void 0)
-                            : o(
-                                "WAWebPQGatingUtils",
-                              ).isPq1on1MessageEnabled() &&
-                              N.some(function (e) {
+                            : N.some(function (e) {
                                 return e.sessionType === "pq";
                               }) &&
                               (E = o("WAWebSessionScope").SessionScope.PQ),

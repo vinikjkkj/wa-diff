@@ -12,6 +12,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWindowsGatingUtils",
+    "WAWebWindowsMediaFilesMetrics",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
@@ -28,7 +29,8 @@ __d(
           ? r("WAWebODS").incr("web.windows.fsa_save_as.supported")
           : r("WAWebODS").incr("web.windows.fsa_save_as.unsupported"),
         o("WAWebWindowsGatingUtils").isFsaSaveAsEnabled()
-          ? (r("WAWebODS").incr("web.windows.fsa_save_as.started"),
+          ? (o("WAWebWindowsMediaFilesMetrics").incrSaveAsFsaAttempt(),
+            r("WAWebODS").incr("web.windows.fsa_save_as.started"),
             _(t).catch(function (t) {
               (o("WALogger")
                 .ERROR(
@@ -42,7 +44,7 @@ __d(
                 L());
             }),
             !0)
-          : !1
+          : (o("WAWebWindowsMediaFilesMetrics").incrSaveAsLegacyAttempt(), !1)
       );
     }
     function _(e) {
@@ -107,6 +109,7 @@ __d(
             }
             (yield b(t, a),
               r("WAWebODS").incr("web.windows.fsa_save_as.saved"),
+              o("WAWebWindowsMediaFilesMetrics").incrSaveAsFsaSuccess(),
               R());
           } catch (e) {
             var l = r("getErrorSafe")(e);

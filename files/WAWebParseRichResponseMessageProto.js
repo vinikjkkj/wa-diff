@@ -53,19 +53,30 @@ __d(
               ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
                   a.unifiedResponse,
                 )
-              : null;
+              : null,
+            f = o(
+              "WAWebBotUnifiedResponseMutationUtils",
+            ).parseUnifiedResponseMutationMediaList(r.messageContextInfo),
+            g =
+              f != null &&
+              o(
+                "WAWebBotUnifiedResponseGating",
+              ).isUnifiedResponseMutationEnabled()
+                ? f
+                : void 0;
           if (
             !(
               i &&
               o("WAWebUnifiedResponseUtils").unifiedResponseHasMediaContent(
                 _,
               ) &&
-              !o(
-                "WAWebBotBaseGating",
-              ).isRichResponseForwardMediaReceivingEnabled()
+              (g == null ||
+                !o(
+                  "WAWebBotBaseGating",
+                ).isRichResponseForwardMediaReceivingEnabled())
             )
           ) {
-            var f =
+            var h =
               ((t = a.unifiedResponse) == null ? void 0 : t.data) != null
                 ? new Uint8Array(a.unifiedResponse.data)
                 : null;
@@ -75,16 +86,8 @@ __d(
                 kind: o("WAWebMsgType").MsgKind.RichResponse,
                 richResponse: p,
                 unifiedResponse: _,
-                unifiedResponseRawData: f,
-                unifiedResponseMutationMediaList: o(
-                  "WAWebBotUnifiedResponseGating",
-                ).isUnifiedResponseMutationEnabled()
-                  ? o(
-                      "WAWebBotUnifiedResponseMutationUtils",
-                    ).parseUnifiedResponseMutationMediaList(
-                      r.messageContextInfo,
-                    )
-                  : void 0,
+                unifiedResponseRawData: h,
+                unifiedResponseMutationMediaList: g,
               }),
               contextInfo: o(
                 "WAWebBotBaseGating",

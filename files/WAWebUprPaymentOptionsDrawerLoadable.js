@@ -34,9 +34,12 @@ __d(
         },
       });
     function m(e) {
+      var t = e.info,
+        n = e.msg;
       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
         u.jsx(d, {
-          info: e,
+          info: t,
+          msg: n,
           onClose: o("WAWebDrawerManager").closeDrawerRight,
         }),
         { transition: "slide-left" },

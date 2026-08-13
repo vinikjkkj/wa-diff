@@ -9,6 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBweMLModelManager",
     "WAWebCoreActionsODS",
+    "WAWebCountryCodeUtils",
     "WAWebEnvironment",
     "WAWebLowEndDeviceExperimentGating",
     "WAWebNoop",
@@ -158,10 +159,11 @@ __d(
         voipInit: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              var r = yield l;
-              ((V = r),
+              var r,
+                a = yield l;
+              ((V = a),
                 o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
-                r.initVoipLogging(),
+                a.initVoipLogging(),
                 o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
                   (G(),
                   o("WAWebVoipGatingUtils").isWebTransportFallbackEnabled()
@@ -214,30 +216,30 @@ __d(
                             "voip: [WebTransport] SCTP fallback disabled (abprop off) \u2014 no handler registered",
                           ])),
                       )),
-                o("WAWebVoipStorageInit").initVoipStorageAndMLCache(r));
-              var a = !1,
-                s = !1;
+                o("WAWebVoipStorageInit").initVoipStorageAndMLCache(a));
+              var s = !1,
+                C = !1;
               try {
                 yield o(
                   "WAWebVoipVideoRendererRegistry",
                 ).videoRendererRegistry.init();
-                var C = o(
+                var b = o(
                   "WAWebVoipVideoRendererRegistry",
                 ).videoRendererRegistry.getRendererType();
-                a =
-                  C ===
+                s =
+                  b ===
                   o("WAWebVoipVideoRendererInterface")
                     .WAWebVoipVideoRendererType.WEBCODECS_H264;
-                var b = o("WAWebABProps").getABPropConfigValue(
+                var v = o("WAWebABProps").getABPropConfigValue(
                     "enable_webcodec_video_encode",
                   ),
-                  v =
-                    a ||
+                  S =
+                    s ||
                     (yield o(
                       "WAWebVoipVideoWebCodecsRenderer",
                     ).WAWebVoipVideoWebCodecsRenderer.checkAvailability());
-                s =
-                  !o("WAWebUA").UA.isFirefox && v && b === !0
+                C =
+                  !o("WAWebUA").UA.isFirefox && S && v === !0
                     ? yield o(
                         "WAWebVoipWebCodecsEncoderState",
                       ).checkEncoderSupport()
@@ -259,8 +261,8 @@ __d(
                     " ptEnc=",
                     "",
                   ])),
-                a,
                 s,
+                C,
               ),
                 o("WALogger").LOG(
                   f ||
@@ -268,10 +270,10 @@ __d(
                       "voip: [webcodec-encode] enabled=",
                       "",
                     ])),
-                  s,
+                  C,
                 ),
                 o("WAWebVoipWebCodecsEncoderState").setWebCodecsEncoderEnabled(
-                  s,
+                  C,
                 ),
                 o("WALogger").LOG(
                   g ||
@@ -279,33 +281,38 @@ __d(
                       "voip: [webcodec-encode] WebCodecs encoder state ",
                       "",
                     ])),
-                  s,
+                  C,
                 ),
-                yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-                o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-                  o("WAWebVoipQplHelpers").VoipInitQplPoint
-                    .VOIP_STACK_INIT_START,
-                ));
+                yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+              var R =
+                (r = yield o("WAWebCountryCodeUtils").getMyCallingCode()) !=
+                null
+                  ? r
+                  : "";
+              o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                o("WAWebVoipQplHelpers").VoipInitQplPoint.VOIP_STACK_INIT_START,
+              );
               try {
-                (o("WAWebVoipStackInterfaceWebHelpers").setABPropsOnWasm(r),
-                  r.setABPropBool("enable_passthrough_video_decoder", a),
-                  r.setABPropBool("enable_webcodec_video_encode", s),
+                (o("WAWebVoipStackInterfaceWebHelpers").setABPropsOnWasm(a),
+                  a.setABPropBool("enable_passthrough_video_decoder", s),
+                  a.setABPropBool("enable_webcodec_video_encode", C),
                   o(
                     "WAWebLowEndDeviceExperimentGating",
                   ).shouldDisableSoftwareAudioProcessing() &&
-                    (r.setABPropBool("ns_builtin_available", !0),
-                    r.setABPropBool("disable_sw_ns_when_builtin_available", !0),
-                    r.setABPropBool("ml_ns_skip_processing", !0),
-                    r.setABPropBool("disable_agc", !0),
-                    r.setABPropBool("hw_aec_available", !0),
-                    r.setABPropBool("disable_sw_ec_when_builtin_available", !0),
-                    r.setABPropBool("disable_standalone_agc", !0),
-                    r.setABPropBool("disable_eq", !0)),
-                  r.initVoipStack(e, t, n));
+                    (a.setABPropBool("ns_builtin_available", !0),
+                    a.setABPropBool("disable_sw_ns_when_builtin_available", !0),
+                    a.setABPropBool("ml_ns_skip_processing", !0),
+                    a.setABPropBool("disable_agc", !0),
+                    a.setABPropBool("hw_aec_available", !0),
+                    a.setABPropBool("disable_sw_ec_when_builtin_available", !0),
+                    a.setABPropBool("disable_standalone_agc", !0),
+                    a.setABPropBool("disable_eq", !0)),
+                  a.setABPropString("self_country_code", R),
+                  a.initVoipStack(e, t, n));
               } catch (e) {
                 throw (
                   o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(
-                    r,
+                    a,
                     e,
                   ),
                   e
@@ -316,48 +323,48 @@ __d(
                 );
               }
               (o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
-                r,
+                a,
                 "voip_stack_init",
               ),
                 o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                   o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
                     .LOG_RING_BUFFER,
-                ) && o("WAWebVoipLogDrainer").startLogDrainer(r));
-              var S = r.getWebP2PVirtualIpv4(),
-                R = r.getWebP2PVirtualIpv6(),
-                L = r.getWebP2PVirtualPort();
+                ) && o("WAWebVoipLogDrainer").startLogDrainer(a));
+              var L = a.getWebP2PVirtualIpv4(),
+                E = a.getWebP2PVirtualIpv6(),
+                k = a.getWebP2PVirtualPort();
               (o("WAWebVoipP2PConnectionManager").initP2PVirtualAddresses(
-                S,
-                R,
                 L,
+                E,
+                k,
               ),
                 o("WAWebVoipP2PConnectionManager").registerOnDataChannelMessage(
                   function (e) {
                     var t = new Uint8Array(e),
                       n = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
-                        r,
+                        a,
                         i,
                         t.byteLength,
                       );
-                    (r.GROWABLE_HEAP_U8().set(t, n),
-                      r.handleOnMessageFromHeap(n, t.byteLength, S, L));
+                    (a.GROWABLE_HEAP_U8().set(t, n),
+                      a.handleOnMessageFromHeap(n, t.byteLength, L, k));
                   },
                 ));
-              var E = !1;
+              var I = !1;
               o(
                 "WAWebVoipP2PConnectionManager",
               ).registerOnDataChannelStateChange(function (e) {
                 e === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open
-                  ? ((E = !0),
+                  ? ((I = !0),
                     o("WALogger").LOG(
                       h ||
                         (h = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: P2P DataChannel opened, notifying WASM active=true",
                         ])),
                     ),
-                    r.notifyWebP2PChannelReady(!0, !1))
-                  : E &&
-                    ((E = !1),
+                    a.notifyWebP2PChannelReady(!0, !1))
+                  : I &&
+                    ((I = !1),
                     o("WALogger").LOG(
                       y ||
                         (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -366,7 +373,7 @@ __d(
                         ])),
                       e,
                     ),
-                    r.notifyWebP2PChannelReady(!1, !1));
+                    a.notifyWebP2PChannelReady(!1, !1));
               });
             },
           );
