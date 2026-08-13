@@ -15,14 +15,41 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = null,
-      d;
+      c = {
+        "823b99779167abfa006e352c66d1184f6f9eef6ac384c9f956b519fe9191f517":
+          function () {
+            return r("bx")("47526");
+          },
+        "685a5b9405f93fdcd1040c9aa7b3a6437ff2638ceeeec9b7c7c75ba63fe47f64":
+          function () {
+            return r("bx")("47516");
+          },
+        "953620a673d5333d6d1e6d40c7317fc1af3e9e66b366701c10be1b82f4cb4dcd":
+          function () {
+            return r("bx")("47509");
+          },
+        d28a4bee96d90dfdb6f1412777c7d7bff29f3f4613f7de4a53173bee3c293bc7:
+          function () {
+            return r("bx")("47501");
+          },
+        "95c6d673545b7bb6c64c50a4371a67196fed5fba3bb114feb3ab1eb9e3d7ba41":
+          function () {
+            return r("bx")("47500");
+          },
+        e55e43babf85e2c0fc76ec65dcb8d47beba0f58b03b135b37a5aaaff7fe70e2f:
+          function () {
+            return r("bx")("14100");
+          },
+      },
+      d = c["823b99779167abfa006e352c66d1184f6f9eef6ac384c9f956b519fe9191f517"],
+      m = null,
+      p;
     try {
-      d = r("bx").getURL(r("bx")("47516"), { cacheBreaker: "1786514934602" });
+      p = r("bx").getURL(d(), { cacheBreaker: "1786602091608" });
     } catch (e) {
-      c = e;
+      m = e;
     }
-    var m = (function () {
+    var _ = (function () {
       var t =
         typeof document != "undefined" && document.currentScript
           ? document.currentScript.src
@@ -33,10 +60,10 @@ __d(
         function l() {
           return (q.buffer != j.buffer && re(), j);
         }
-        function m() {
+        function c() {
           return (q.buffer != j.buffer && re(), K);
         }
-        function p() {
+        function d() {
           return (q.buffer != j.buffer && re(), Q);
         }
         function _() {
@@ -57,21 +84,21 @@ __d(
         var C = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/685a5b9405f93fdcd1040c9aa7b3a6437ff2638ceeeec9b7c7c75ba63fe47f64/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/823b99779167abfa006e352c66d1184f6f9eef6ac384c9f956b519fe9191f517/wa_voip_shared.wasm",
           ),
-          c != null)
+          m != null)
         )
           throw (
             o(
               "WAWebCoreActionsODS",
             ).logCallVoipInitWasmArtifactContentAddressedBxLookupFailure(),
-            String(c).includes("Unknown file path") &&
+            String(m).includes("Unknown file path") &&
               o(
                 "WAWebCoreActionsODS",
               ).logCallVoipInitWasmArtifactContentAddressedBxKeyMissing(),
-            c
+            m
           );
-        o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(d);
+        o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(p);
         var b, v;
         ((C.ready = new (u || (u = n("Promise")))(function (e, t) {
           ((b = e), (v = t));
@@ -597,7 +624,7 @@ __d(
             }
             return (babelHelpers.inheritsLoose(t, e), t);
           })(Pe),
-          we = d;
+          we = p;
         function Ae(e) {
           if (e == we && B) return new Uint8Array(B);
           if (w) return w(e);
@@ -781,10 +808,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Ke = {
-          1340529: function () {
+          1341873: function () {
             return Date.now();
           },
-          1340552: function (t, n) {
+          1341896: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -862,9 +889,9 @@ __d(
           );
         }
         function nt(e, t, n, r, o, a, i, l, s, u) {
-          var c = m(),
-            d = new Uint8Array(n);
-          d.set(c.subarray(t, t + n));
+          var d = c(),
+            m = new Uint8Array(n);
+          m.set(d.subarray(t, t + n));
           var p = Yt(e);
           self.WhatsAppVoipWasmWorkerCompatibleCallbacks &&
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks
@@ -872,7 +899,7 @@ __d(
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onVideoFrameWasmToJs(
               {
                 userJid: p,
-                frameBuffer: d.buffer,
+                frameBuffer: m.buffer,
                 width: r,
                 height: o,
                 orientation: a,
@@ -884,7 +911,7 @@ __d(
             );
         }
         function rt(e, t, n, r) {
-          var o = m(),
+          var o = c(),
             a = new Uint8Array(r);
           a.set(o.subarray(n, n + r));
           var i = Yt(t),
@@ -896,7 +923,7 @@ __d(
           });
         }
         function ot(e, t, n, r) {
-          var o = m(),
+          var o = c(),
             a = o.length;
           if (e < 0 || e >= a || t < 0 || e + t > a)
             return (
@@ -1035,7 +1062,7 @@ __d(
           (z(t), on.returnWorkerToPool(t));
         }
         var St = function (t, n) {
-          return (m().fill(0, t, t + n), t);
+          return (c().fill(0, t, t + n), t);
         };
         function Rt(e) {
           (z(
@@ -3320,7 +3347,7 @@ __d(
             },
           },
           Yt = function (t, n) {
-            return (z(typeof t == "number"), t ? Dt(m(), t, n) : "");
+            return (z(typeof t == "number"), t ? Dt(c(), t, n) : "");
           },
           Jt = {
             DEFAULT_POLLMASK: 5,
@@ -3376,7 +3403,7 @@ __d(
             doMsync: function (t, n, r, o, a) {
               if (!Xt.isFile(n.node.mode)) throw new Xt.ErrnoError(43);
               if (o & 2) return 0;
-              var e = m().slice(t, t + r);
+              var e = c().slice(t, t + r);
               Xt.msync(n, e, a, r, o);
             },
             varargs: void 0,
@@ -3950,7 +3977,7 @@ __d(
               case 5: {
                 var o = Jt.get(),
                   i = 0;
-                return ((p()[(o + i) >> 1] = 2), 0);
+                return ((d()[(o + i) >> 1] = 2), 0);
               }
               case 6:
               case 7:
@@ -3999,7 +4026,7 @@ __d(
               typeof r == "number",
               "stringToUTF8(str, outPtr, maxBytesToWrite) is missing the third parameter that specifies the length of the output buffer!",
             ),
-            Pt(t, m(), n, r)
+            Pt(t, c(), n, r)
           );
         };
         function jn(e, t, n) {
@@ -4013,13 +4040,13 @@ __d(
             ) {
               var u,
                 c,
-                d = r.getdents[s];
-              if (d === ".") ((u = r.node.id), (c = 4));
-              else if (d === "..") {
-                var m = Xt.lookupPath(r.path, { parent: !0 });
-                ((u = m.node.id), (c = 4));
+                m = r.getdents[s];
+              if (m === ".") ((u = r.node.id), (c = 4));
+              else if (m === "..") {
+                var p = Xt.lookupPath(r.path, { parent: !0 });
+                ((u = p.node.id), (c = 4));
               } else {
-                var _ = Xt.lookupNode(r.node, d);
+                var _ = Xt.lookupNode(r.node, m);
                 ((u = _.id),
                   (c = Xt.isChrdev(_.mode)
                     ? 2
@@ -4032,9 +4059,9 @@ __d(
               (z(u),
                 (ee[(t + a) >> 3] = BigInt(u)),
                 (ee[(t + a + 8) >> 3] = BigInt((s + 1) * o)),
-                (p()[(t + a + 16) >> 1] = 280),
+                (d()[(t + a + 16) >> 1] = 280),
                 (l()[(t + a + 18) >> 0] = c),
-                zn(d, t + a + 19, 256),
+                zn(m, t + a + 19, 256),
                 (a += o),
                 (s += 1));
             }
@@ -4081,19 +4108,19 @@ __d(
                       s = f()[a >> 2],
                       u = f()[(a + 4) >> 2],
                       c = f()[(a + 8) >> 2],
-                      d = f()[(a + 12) >> 2],
-                      m = [],
+                      m = f()[(a + 12) >> 2],
+                      p = [],
                       i = 0;
                     i < 32;
                     i++
                   )
-                    m.push(l()[(a + i + 17) >> 0]);
+                    p.push(l()[(a + i + 17) >> 0]);
                   return r.tty.ops.ioctl_tcsets(r.tty, t, {
                     c_iflag: s,
                     c_oflag: u,
                     c_cflag: c,
-                    c_lflag: d,
-                    c_cc: m,
+                    c_lflag: m,
+                    c_cc: p,
                   });
                 }
                 return 0;
@@ -4114,7 +4141,7 @@ __d(
                 if (r.tty.ops.ioctl_tiocgwinsz) {
                   var _ = r.tty.ops.ioctl_tiocgwinsz(r.tty),
                     a = Jt.get();
-                  ((p()[a >> 1] = _[0]), (p()[(a + 2) >> 1] = _[1]));
+                  ((d()[a >> 1] = _[0]), (d()[(a + 2) >> 1] = _[1]));
                 }
                 return 0;
               }
@@ -4225,7 +4252,7 @@ __d(
         }
         var rr = void 0;
         function or(e) {
-          for (var t = "", n = e; m()[n]; ) t += rr[m()[n++]];
+          for (var t = "", n = e; c()[n]; ) t += rr[c()[n++]];
           return t;
         }
         var ar = {},
@@ -4302,12 +4329,12 @@ __d(
                     return l()[t];
                   }
                 : function (t) {
-                    return m()[t];
+                    return c()[t];
                   };
             case 1:
               return n
                 ? function (t) {
-                    return p()[t >> 1];
+                    return d()[t >> 1];
                   }
                 : function (t) {
                     return _()[t >> 1];
@@ -4395,7 +4422,7 @@ __d(
               readValueFromPointer: function (r) {
                 var e;
                 if (n === 1) e = l();
-                else if (n === 2) e = p();
+                else if (n === 2) e = d();
                 else if (n === 4) e = f();
                 else throw new TypeError("Unknown boolean type size: " + t);
                 return this.fromWireType(e[r >> a]);
@@ -5323,7 +5350,7 @@ __d(
               if (n)
                 for (var a = r, i = 0; i <= e; ++i) {
                   var l = r + i;
-                  if (i == e || m()[l] == 0) {
+                  if (i == e || c()[l] == 0) {
                     var s = l - a,
                       u = Yt(a, s);
                     (o === void 0 ? (o = u) : ((o += "\0"), (o += u)),
@@ -5331,9 +5358,9 @@ __d(
                   }
                 }
               else {
-                for (var c = new Array(e), i = 0; i < e; ++i)
-                  c[i] = String.fromCharCode(m()[r + i]);
-                o = c.join("");
+                for (var d = new Array(e), i = 0; i < e; ++i)
+                  d[i] = String.fromCharCode(c()[r + i]);
+                o = d.join("");
               }
               return (Ni(t), o);
             },
@@ -5358,9 +5385,9 @@ __d(
                     ur(
                       "String has UTF-16 code units that do not fit in 8 bits",
                     )),
-                    (m()[i + l] = s));
+                    (c()[i + l] = s));
                 }
-              else for (var l = 0; l < e; ++l) m()[i + l] = r[l];
+              else for (var l = 0; l < e; ++l) c()[i + l] = r[l];
               return (t !== null && t.push(Ni, a), a);
             },
             argPackAdvance: 8,
@@ -5383,9 +5410,9 @@ __d(
             for (var e = t, r = e >> 1, o = r + n / 2; !(r >= o) && _()[r]; )
               ++r;
             if (((e = r << 1), e - t > 32 && Fo))
-              return Fo.decode(m().slice(t, e));
+              return Fo.decode(c().slice(t, e));
             for (var a = "", i = 0; !(i >= n / 2); ++i) {
-              var l = p()[(t + i * 2) >> 1];
+              var l = d()[(t + i * 2) >> 1];
               if (l == 0) break;
               a += String.fromCharCode(l);
             }
@@ -5412,9 +5439,9 @@ __d(
               ++a
             ) {
               var i = t.charCodeAt(a);
-              ((p()[n >> 1] = i), (n += 2));
+              ((d()[n >> 1] = i), (n += 2));
             }
-            return ((p()[n >> 1] = 0), n - e);
+            return ((d()[n >> 1] = 0), n - e);
           },
           Wo = function (t) {
             return t.length * 2;
@@ -5772,7 +5799,7 @@ __d(
           Ca = function (t, n) {
             (z(Array.isArray(ya)), z(n % 16 == 0), (ya.length = 0));
             var e;
-            for (n >>= 2; (e = m()[t++]); ) {
+            for (n >>= 2; (e = c()[t++]); ) {
               var r = String.fromCharCode(e),
                 o = ["d", "f", "i"];
               (o.push("j"),
@@ -6559,7 +6586,7 @@ __d(
             }
           },
           Ua = function (t) {
-            var e = m().length;
+            var e = c().length;
             if (((t >>>= 0), t <= e)) return !1;
             var n = wa();
             if (t > n)
@@ -6770,7 +6797,7 @@ __d(
           }
         }
         var ii = function (t, n) {
-            return (kt(m().subarray(t, t + n)), 0);
+            return (kt(c().subarray(t, t + n)), 0);
           },
           li = function (t) {
             for (var e = t.split("."), n = 0; n < 4; n++) {
@@ -7719,8 +7746,8 @@ __d(
           fl = (C.___get_exception_message = $e("__get_exception_message")),
           gl = $e("__cxa_can_catch"),
           hl = $e("__cxa_is_pointer_type"),
-          yl = (C.___start_em_js = 1335036),
-          Cl = (C.___stop_em_js = 1340529);
+          yl = (C.___start_em_js = 1336380),
+          Cl = (C.___stop_em_js = 1341873);
         function bl(e, t, n, r) {
           var o = dl();
           try {
@@ -9226,7 +9253,7 @@ __d(
         }
         ((C.keepRuntimeAlive = pe),
           (C.wasmMemory = q),
-          (C.GROWABLE_HEAP_U8 = m),
+          (C.GROWABLE_HEAP_U8 = c),
           (C.GROWABLE_HEAP_F32 = h),
           (C.ExitStatus = ht),
           (C.FS = Xt),
@@ -9713,11 +9740,11 @@ __d(
       };
     })();
     typeof l == "object" && typeof i == "object"
-      ? (i.exports = m)
+      ? (i.exports = _)
       : typeof define == "function" &&
         define.amd &&
         define([], function () {
-          return m;
+          return _;
         });
   },
   34,

@@ -9,6 +9,7 @@ __d(
       UPDATES_TAB: 4,
       SHARE_LINK_SCREEN: 5,
       CHANNEL_ADMIN_ONBOARDING: 6,
+      CHANNEL_INFO_SHEET: 7,
     });
     i.CHANNEL_LINK_SHARE_ENTRY_POINT = e;
   },

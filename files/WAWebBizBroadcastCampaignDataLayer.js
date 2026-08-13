@@ -256,8 +256,12 @@ __d(
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebImageUtils").generateVideoThumbsAndDuration({
-              debugHint: "downloadVideoThumbnail",
+              debugHint: "bizBroadcastCampaignPreview",
               file: e,
+              logContext: {
+                callsite: "BIZ_BROADCAST_CAMPAIGN_PREVIEW",
+                mediaType: "VIDEO",
+              },
               maxDimensions: [o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE],
             }),
             n = t.thumbs,

@@ -1,6 +1,12 @@
 __d(
   "WebBloksNavigationManagerV2",
-  ["WebBloksErrors", "WebBloksSSRUtils", "WebBloksScreen", "WebBloksUtils"],
+  [
+    "WebBloksErrors",
+    "WebBloksNavigationCounter",
+    "WebBloksSSRUtils",
+    "WebBloksScreen",
+    "WebBloksUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = Date.now().toString(36) + Math.random().toString(36).substring(2),
@@ -111,27 +117,31 @@ __d(
               (this.navigationDirection = "forward"),
               t.options.isModal === !0)
             ) {
-              var o = this.currentScreenPointer,
-                a = o.modalIndex,
-                i = o.stackIndex,
-                l = this.$13(t, i);
-              (this.modals.splice(a + 1),
-                this.modals.push(l),
+              var a = this.currentScreenPointer,
+                i = a.modalIndex,
+                l = a.stackIndex,
+                s = this.$13(t, l);
+              (this.modals.splice(i + 1),
+                this.modals.push(s),
                 this.$14({ isModal: !0, modalIndex: this.modals.length - 1 }),
                 this.$15(t, r),
                 this.notifyChanged());
               return;
             }
-            var s = this.getModalCount();
-            if (s > 0) {
+            r !== !0 &&
+              o("WebBloksNavigationCounter").incrementWebBloksNavigationCount(
+                t,
+              );
+            var u = this.getModalCount();
+            if (u > 0) {
               (e == null || e.clearDismissCallback(),
                 this.close("close"),
                 this.open(t, n, r));
               return;
             }
             if (n === !0) {
-              var u = this.$16();
-              u != null ? this.$17(t, u) : this.$18(t);
+              var c = this.$16();
+              c != null ? this.$17(t, c) : this.$18(t);
             } else this.$18(t);
             (this.$15(t, r), this.notifyChanged(), this.$7(t) || this.$19());
           }),

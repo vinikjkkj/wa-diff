@@ -18,12 +18,14 @@ __d(
     "WAWebNoop",
     "WAWebPREGatingUtils",
     "WAWebStickerConstants",
+    "WAWebThumbnailOutcomeLogger",
     "WAWebUA",
     "WAWebWebpMetadata",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "justknobx",
+    "once",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -70,54 +72,71 @@ __d(
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.debugHint,
-            i = t.file,
-            l = t.maxDimensions,
-            m = t.throwOnBlack,
-            p = m === void 0 ? !1 : m,
-            _ = yield o("WAWebMediaLoad").loadVideo(i),
-            f = _.fullHeight,
-            C = _.fullWidth,
-            b = _.video;
-          if (o("WAWebUA").UA.isBuggyVideoLoad) {
-            var v = 50,
-              S = 5e3 / v;
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = o("WAWebUA").UA.isBuggyVideoLoad,
+            n = R(e.logContext, t);
+          try {
+            return yield v(e, t, n);
+          } catch (e) {
+            throw (n.reportError(), e);
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e, t, n) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+          var l = t.debugHint,
+            m = t.file,
+            p = t.maxDimensions,
+            _ = t.throwOnBlack,
+            f = _ === void 0 ? !1 : _,
+            C = yield o("WAWebMediaLoad").loadVideo(m),
+            b = C.fullHeight,
+            v = C.fullWidth,
+            S = C.video;
+          if (a) {
+            var R = 50,
+              L = 5e3 / R;
             return o("WAExponentialBackoff").exponentialBackoff(
               {
-                minTimeout: v,
-                maxTimeout: v,
-                retries: S,
+                minTimeout: R,
+                maxTimeout: R,
+                retries: L,
                 signal: new AbortController().signal,
                 factor: 1,
               },
-              function (t, i) {
+              function (t, a) {
                 var c = [],
                   d,
                   m = 0;
-                for (d of l) {
+                for (d of p) {
                   var _ = y({
-                      video: b,
-                      fullHeight: f,
-                      fullWidth: C,
+                      video: S,
+                      fullHeight: b,
+                      fullWidth: v,
                       maxDimension: d,
                     }),
-                    v = _.imageData,
+                    C = _.imageData,
                     R = _.thumb;
-                  if (A(v)) {
-                    if (i < S)
+                  if (B(C)) {
+                    if (a < L)
                       return (
-                        i === 0 &&
+                        a === 0 &&
                           o("WALogger").LOG(
                             e ||
                               (e = babelHelpers.taggedTemplateLiteralLoose([
                                 "[generateVideoThumbsAndDuration] set currentTime=0",
                               ])),
                           ),
-                        (b.currentTime = 0),
+                        (S.currentTime = 0),
                         t(r("err")("retry"))
                       );
-                    if ((m++, p))
+                    if ((m++, f))
                       throw (
                         o("WALogger")
                           .ERROR(
@@ -126,11 +145,12 @@ __d(
                                 "[generateVideoThumbsAndDuration] thumb gen failed (",
                                 ")",
                               ])),
-                            a,
+                            l,
                           )
-                          .sendLogs("thumbnail-generation-failed-" + a, {
+                          .sendLogs("thumbnail-generation-failed-" + l, {
                             sampling: 0.001,
                           }),
+                        i.reportChecked(m, a),
                         new h()
                       );
                   }
@@ -146,31 +166,32 @@ __d(
                           ")",
                         ])),
                       m,
-                      a,
+                      l,
                     )
-                    .sendLogs("thumbnail-generation-failed-" + a, {
+                    .sendLogs("thumbnail-generation-failed-" + l, {
                       sampling: 0.001,
                     });
-                var L = { duration: ~~b.seekable.end(0), thumbs: c };
+                var E = { duration: ~~S.seekable.end(0), thumbs: c };
                 return (
-                  o("WAWebMediaLoad").disposeVideo(b),
-                  (g || (g = n("Promise"))).resolve(L)
+                  o("WAWebMediaLoad").disposeVideo(S),
+                  i.reportChecked(m, a),
+                  (g || (g = n("Promise"))).resolve(E)
                 );
               },
             );
           }
           try {
-            var R = 0,
-              L = l.map(function (e) {
+            var E = 0,
+              k = p.map(function (e) {
                 var t = y({
-                    video: b,
-                    fullHeight: f,
-                    fullWidth: C,
+                    video: S,
+                    fullHeight: b,
+                    fullWidth: v,
                     maxDimension: e,
                   }),
                   n = t.imageData,
                   r = t.thumb;
-                if (A(n) && (R++, p))
+                if (B(n) && (E++, f))
                   throw (
                     o("WALogger")
                       .ERROR(
@@ -179,46 +200,72 @@ __d(
                             "[generateVideoThumbsAndDuration] thumb gen failed (",
                             ")",
                           ])),
-                        a,
+                        l,
                       )
-                      .sendLogs("thumbnail-generation-failed-" + a, {
+                      .sendLogs("thumbnail-generation-failed-" + l, {
                         sampling: 0.001,
                       }),
+                    i.reportChecked(E),
                     new h()
                   );
                 return r;
               });
-            return (
-              R > 0 &&
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[generateVideoThumbsAndDuration] ",
-                        " thumb(s) failed (",
-                        ")",
-                      ])),
-                    R,
-                    a,
-                  )
-                  .sendLogs("thumbnail-generation-failed-" + a, {
-                    sampling: 0.001,
-                  }),
-              { duration: ~~b.seekable.end(0), thumbs: L }
-            );
+            E > 0 &&
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[generateVideoThumbsAndDuration] ",
+                      " thumb(s) failed (",
+                      ")",
+                    ])),
+                  E,
+                  l,
+                )
+                .sendLogs("thumbnail-generation-failed-" + l, {
+                  sampling: 0.001,
+                });
+            var I = ~~S.seekable.end(0);
+            return (i.reportChecked(E), { duration: I, thumbs: k });
           } finally {
-            o("WAWebMediaLoad").disposeVideo(b);
+            o("WAWebMediaLoad").disposeVideo(S);
           }
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function R(e, t) {
+      var n = self.performance.now(),
+        a = t ? "BUGGY_VIDEO_LOAD" : "NORMAL",
+        i = r("once")(o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome);
+      return {
+        reportChecked: function (r, o) {
+          i({
+            branch: a,
+            checkPerformed: !0,
+            context: e,
+            generationDurationMs: self.performance.now() - n,
+            isBlack: r > 0,
+            retryCount: o,
+          });
+        },
+        reportError: function () {
+          i({
+            branch: a,
+            checkPerformed: !1,
+            context: e,
+            generationDurationMs: self.performance.now() - n,
+            outcome: "ERROR",
+          });
+        },
+      };
     }
-    function S() {
+    function L(e) {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.dHeight,
             n = e.dWidth,
             r = e.outputType,
@@ -243,29 +290,29 @@ __d(
               (m.width = n),
               p.drawImage(d, u, c, s, i, 0, 0, n, t));
           var _ = {};
-          N(_, m, a);
+          A(_, m, a);
           var f = yield o("WAPromiseProps").promiseProps(_);
           return { images: f, width: s, height: i };
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    var R = new (o(
+    var k = new (o(
       "WAWebMediaCacheCollection",
     ).WAWebMediaResizeRotateCacheCollection)();
-    function L(e, t, n, r) {
-      return E.apply(this, arguments);
+    function I(e, t, n, r) {
+      return T.apply(this, arguments);
     }
-    function E() {
+    function T() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             var l =
               e instanceof File
                 ? { file: e, maxDimension: t, outputType: a, opts: i }
                 : null;
             if (l != null) {
-              var s = R.getModelsArray().find(function (e) {
+              var s = k.getModelsArray().find(function (e) {
                   return e.isKeyEqual(l);
                 }),
                 u = s == null ? void 0 : s.value;
@@ -287,12 +334,12 @@ __d(
               b = new ArrayBuffer(0),
               v,
               S,
-              L;
+              R;
             e instanceof HTMLCanvasElement
-              ? ((S = (g || (g = n("Promise"))).resolve(e)), (L = g.resolve(b)))
+              ? ((S = (g || (g = n("Promise"))).resolve(e)), (R = g.resolve(b)))
               : ((v = window.URL.createObjectURL(e)),
                 (S = o("WAWebMediaLoad").loadImage(v)),
-                (L = o("WAWebFileUtils")
+                (R = o("WAWebFileUtils")
                   .blobToArrayBuffer(e)
                   .catch(function (e) {
                     return (
@@ -307,8 +354,8 @@ __d(
                       b
                     );
                   })));
-            var E = o("WAPromiseProps")
-                .promiseProps({ buffer: L, image: S })
+            var L = o("WAPromiseProps")
+                .promiseProps({ buffer: R, image: S })
                 .then(function (e) {
                   var n = e.buffer,
                     i = e.image,
@@ -349,7 +396,7 @@ __d(
                         (o("WAWebCanvasUtils").scale(l, h), (m.blob = void 0)),
                       (g = l.width),
                       (y = l.height),
-                      N(m, l, a, C)),
+                      A(m, l, a, C)),
                     o("WAPromiseProps")
                       .promiseProps(m)
                       .then(function (e) {
@@ -358,7 +405,7 @@ __d(
                   );
                 })
                 .finally(r("WAWebNoop")),
-              k = yield E;
+              E = yield L;
             if (
               l != null &&
               o("WAWebPREGatingUtils").isPREMediaUploadCacheEnabled()
@@ -368,22 +415,22 @@ __d(
                   "WAWebMediaCacheModel",
                 ).ResizeRotateMediaCacheImpl.getStringKey(l),
                 key: l,
-                value: k,
+                value: E,
               });
-              R.add(I);
+              k.add(I);
             }
-            return E;
+            return L;
           },
         )),
-        E.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function I() {
+    function x() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield e.arrayBuffer(),
               r = o("WAWebAddWebpMetadata").addWebpMetadata(n, t),
@@ -404,15 +451,15 @@ __d(
             );
           }
         })),
-        I.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function D() {
+    function P() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = window.URL.createObjectURL(e),
               n = yield o("WAWebMediaLoad").loadImage(t);
@@ -430,7 +477,7 @@ __d(
               m = (a - u) / 2;
             l.drawImage(n, d, m, c, u);
             var p = yield o("WAWebCanvasUtils").canvasToWebp(i),
-              _ = yield k(p, {
+              _ = yield D(p, {
                 isFirstParty: !1,
                 isFromStickerMaker: !0,
                 emojis: [],
@@ -452,15 +499,15 @@ __d(
             );
           }
         })),
-        D.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function $() {
+    function M() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             var t = yield o("WAWebMediaLoad").loadImage(e),
               n = document.createElement("canvas");
@@ -478,10 +525,10 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function P(e) {
+    function w(e) {
       if (!e) return !1;
       var t = new Image();
       return (
@@ -490,7 +537,7 @@ __d(
         !!t.complete
       );
     }
-    function N(e, t, r, a) {
+    function A(e, t, r, a) {
       a === void 0 && (a = !1);
       var i = a ? "image/png" : "image/jpeg";
       (!e.blob &&
@@ -503,21 +550,21 @@ __d(
           r & o("WAWebMediaCacheModel").ImageOutputTypes.CANVAS &&
           (e.canvas = (g || (g = n("Promise"))).resolve(t)));
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    function F(e) {
+      return O.apply(this, arguments);
     }
-    function w() {
+    function O() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebMediaLoad").loadImage(e),
             n = o("WAWebCanvasUtils").createCanvas(t.width, t.height),
             r = n.getContext("2d");
           return (r.drawImage(t, 0, 0), n);
         })),
-        w.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function A(e) {
+    function B(e) {
       for (var t = e.data, n = e.height, r = e.width, o = 0; o < n; o++) {
         var a = Math.round(o * (r / n)),
           i = o * r + a,
@@ -538,12 +585,12 @@ __d(
       (l.CANVAS = o("WAWebMediaCacheModel").ImageOutputTypes.CANVAS),
       (l.BlackVideoThumbnailError = h),
       (l.generateVideoThumbsAndDuration = C),
-      (l.crop = v),
-      (l.rotateAndResize = L),
-      (l.toWebpSticker = T),
-      (l.urlToFile = x),
-      (l.isCached = P),
-      (l.base64ImageToCanvas = M));
+      (l.crop = L),
+      (l.rotateAndResize = I),
+      (l.toWebpSticker = $),
+      (l.urlToFile = N),
+      (l.isCached = w),
+      (l.base64ImageToCanvas = F));
   },
   98,
 );

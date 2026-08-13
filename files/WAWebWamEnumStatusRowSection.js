@@ -41,6 +41,7 @@ __d(
       ARCHIVE_STATUS_VIEWER: 38,
       ARCHIVE_STORAGE: 39,
       ME_TAB: 40,
+      CHANNEL_INFO_SHEET: 41,
     });
     i.STATUS_ROW_SECTION = e;
   },

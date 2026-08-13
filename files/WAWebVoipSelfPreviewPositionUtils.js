@@ -1,51 +1,53 @@
 __d(
   "WAWebVoipSelfPreviewPositionUtils",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebVoIPSelfPreviewConsts"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return e ? 8 : 16;
+      return e
+        ? o("WAWebVoIPSelfPreviewConsts").SELF_PREVIEW_POPOUT_INSETS
+        : o("WAWebVoIPSelfPreviewConsts").SELF_PREVIEW_INLINE_INSETS;
     }
-    function l(e) {
+    function s(e) {
       var t = e.containerHeight,
         n = e.containerWidth,
-        r = e.x,
-        o = e.y,
-        a = n / 2,
-        i = t / 2,
-        l = r < a,
-        s = o < i;
-      return s && l
+        r = e.previewHeight,
+        o = e.previewWidth,
+        a = e.x,
+        i = e.y,
+        l = n / 2,
+        s = t / 2,
+        u = a + o / 2 < l,
+        c = i + r / 2 < s;
+      return c && u
         ? "top-left"
-        : s && !l
+        : c && !u
           ? "top-right"
-          : !s && l
+          : !c && u
             ? "bottom-left"
             : "bottom-right";
     }
-    function s(e, t, n, r, o, a, i, l, s) {
-      var u = s != null ? s : 8,
-        c = i != null ? i : 16,
-        d = l != null ? l : 16,
-        m = a != null ? a : 0,
-        p = t - r - d,
-        _ = n - o - m;
-      switch (e) {
-        case "top-left":
-          return { x: c, y: u };
-        case "top-right":
-          return { x: p, y: u };
-        case "bottom-left":
-          return { x: c, y: _ };
-        case "bottom-right":
-          return { x: p, y: _ };
-        default:
-          return { x: p, y: _ };
-      }
+    function u(e, t, n, r, o, a) {
+      var i = t - r - a.right,
+        l = n - o - a.bottom;
+      return e === "top-left"
+        ? { x: a.left, y: a.top }
+        : e === "top-right"
+          ? { x: i, y: a.top }
+          : e === "bottom-left"
+            ? { x: a.left, y: l }
+            : e === "bottom-right"
+              ? { x: i, y: l }
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
-    ((i.getSelfPreviewMargin = e),
-      (i.getCornerFromPosition = l),
-      (i.getPositionFromCorner = s));
+    ((l.getSelfPreviewInsets = e),
+      (l.getCornerFromPosition = s),
+      (l.getPositionFromCorner = u));
   },
-  66,
+  98,
 );

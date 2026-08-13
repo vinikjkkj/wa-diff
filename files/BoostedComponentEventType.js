@@ -568,6 +568,10 @@ __d(
       HAWK_GUIDANCE_CARD_RESET_ROW_IMPRESSION:
         "hawk_guidance_card_reset_row_impression",
       HAWK_GUIDANCE_CARD_RESET_ROW_CLICK: "hawk_guidance_card_reset_row_click",
+      HAWK_PAC_GUIDANCE_CARD_RESET_ROW_IMPRESSION:
+        "hawk_pac_guidance_card_reset_row_impression",
+      HAWK_PAC_GUIDANCE_CARD_RESET_ROW_CLICK:
+        "hawk_pac_guidance_card_reset_row_click",
       HAWK_PAGE_IG_UNLINK_ROW_IMPRESSION: "hawk_page_ig_unlink_row_impression",
       HAWK_PAGE_IG_UNLINK_ROW_CLICK: "hawk_page_ig_unlink_row_click",
       HAWK_PAGE_IG_UNLINK_TOOL_IMPRESSION:
@@ -576,6 +580,10 @@ __d(
       HAWK_SEGMENT_WORKSPACE_TOOL_IMPRESSION:
         "hawk_segment_workspace_tool_impression",
       HAWK_SEGMENT_WORKSPACE_TOOL_CLICK: "hawk_segment_workspace_tool_click",
+      HAWK_PAC_GUIDANCE_CARD_RESET_TOOL_IMPRESSION:
+        "hawk_pac_guidance_card_reset_tool_impression",
+      HAWK_PAC_GUIDANCE_CARD_RESET_TOOL_CLICK:
+        "hawk_pac_guidance_card_reset_tool_click",
       IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
       PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
         "product_picker_ig_page_load_eligibility",

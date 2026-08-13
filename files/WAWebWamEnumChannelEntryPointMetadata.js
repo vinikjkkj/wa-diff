@@ -7,6 +7,7 @@ __d(
       LINK_TOOLTIP: 2,
       LINK_BUTTON: 3,
       POST_TOOLTIP: 4,
+      CHANNEL_INFO_SHEET: 5,
     });
     i.CHANNEL_ENTRY_POINT_METADATA = e;
   },

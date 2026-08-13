@@ -2,6 +2,7 @@ __d(
   "WebBloksComponentQueryFetcher",
   [
     "WebBloksCacheUtils",
+    "WebBloksCachedStackedScreens",
     "WebBloksErrors",
     "WebBloksPayloadParser",
     "WebBloksUtils",
@@ -20,7 +21,10 @@ __d(
             e != null &&
             o("WebBloksCacheUtils").isResponseFresh(e, n.cacheTtlSeconds)
           ) {
-            var a = { result: e.response, success: !0 };
+            var a = babelHelpers.extends(
+              { result: e.response, success: !0 },
+              o("WebBloksCachedStackedScreens").readCachedStackedScreens(e),
+            );
             r(a);
           } else this.$5(t, n, r);
         }),
@@ -38,18 +42,20 @@ __d(
                 }
                 var u = { components: i },
                   c = {
-                    result: u,
-                    success: !0,
+                    response: u,
+                    responseTimestampMs: Date.now().toString(),
+                    queryPurpose: n.queryPurpose,
                     stackedScreens: a.stacked_screens,
                     stackedScreensDelayMs: a.stacked_screens_delay_ms,
-                  };
-                (e.$3.set(t, {
-                  response: u,
-                  responseTimestampMs: Date.now().toString(),
-                  queryPurpose: n.queryPurpose,
-                }),
-                  e.$1.delete(t),
-                  r(c));
+                    stackedScreensConsumed: !1,
+                  },
+                  d = babelHelpers.extends(
+                    { result: u, success: !0 },
+                    o("WebBloksCachedStackedScreens").readCachedStackedScreens(
+                      c,
+                    ),
+                  );
+                (e.$3.set(t, c), e.$1.delete(t), r(d));
               })
               .catch(function (r) {
                 throw (

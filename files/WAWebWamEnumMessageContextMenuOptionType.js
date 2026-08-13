@@ -41,6 +41,8 @@ __d(
       SPEAK: 36,
       VIEW_TRANSLATION: 37,
       REMOVE_TRANSLATION: 38,
+      SELECT_TEXT: 39,
+      COPY_SELECTION: 40,
     });
     i.MESSAGE_CONTEXT_MENU_OPTION_TYPE = e;
   },

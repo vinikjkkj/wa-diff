@@ -12,6 +12,7 @@ __d(
     "WAWebMmsMediaTypes",
     "WAWebSerializeError",
     "WAWebStartMediaDownloadQpl",
+    "WAWebThumbnailOutcomeLogger",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
@@ -36,23 +37,33 @@ __d(
                 "media.downloadProgressiveJpegThumbnail: start",
               ])),
           );
-          var _ = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-            entryPoint: "DownloadProgressiveJpegThumbnail",
-          });
+          var _ = r("WAWebMediaGetDownloadOriginForMsg")(i.unsafe()),
+            f = {
+              callsite: "DOWNLOAD_PROGRESSIVE_JPEG_THUMBNAIL",
+              downloadOrigin: o(
+                "WAWebThumbnailOutcomeLogger",
+              ).thumbnailDownloadOriginFromWam(_),
+              mediaType: o(
+                "WAWebThumbnailOutcomeLogger",
+              ).thumbnailMediaTypeFromMsgType(i.type),
+            },
+            g = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+              entryPoint: "DownloadProgressiveJpegThumbnail",
+            });
           try {
-            var f,
-              g = (f = r("nullthrows"))(i.scanLengths),
-              h = f(i.scansSidecar),
-              y = f(i.mediaObject),
-              C = f(y.filehash),
-              b = i.directPath,
-              v = i.encFilehash,
-              S = yield o(
+            var h,
+              y = (h = r("nullthrows"))(i.scanLengths),
+              C = h(i.scansSidecar),
+              b = h(i.mediaObject),
+              v = h(b.filehash),
+              S = i.directPath,
+              R = i.encFilehash,
+              L = yield o(
                 "WAWebDownloadManager",
               ).downloadManager.downloadAndMaybeDecrypt({
-                directPath: b,
-                encFilehash: v,
-                filehash: C,
+                directPath: S,
+                encFilehash: R,
+                filehash: v,
                 mediaKey: i.mediaKey,
                 mediaKeyTimestamp: i.mediaKeyTimestamp,
                 mimetype: "image/jpeg",
@@ -61,24 +72,30 @@ __d(
                 userDownloadAttemptCount: 0,
                 progressiveJpegOpts: {
                   mimetype: "image/jpeg",
-                  scansSidecar: h,
-                  scanLengths: g,
+                  scansSidecar: C,
+                  scanLengths: y,
                   scanCount: m,
                 },
                 isPreload: a,
                 chatWid: n == null ? void 0 : n.id,
-                downloadQpl: _,
-                downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(
-                  i.unsafe(),
-                ),
-              });
-            (y.consolidate({
+                downloadQpl: g,
+                downloadOrigin: _,
+              }),
+              E = self.performance.now();
+            (b.consolidate({
               fullPreviewData: yield r("WAWebMediaOpaqueData").createFromData(
-                S,
+                L,
                 "image/jpeg",
               ),
             }),
-              _.endSuccess(),
+              g.endSuccess(),
+              o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome({
+                branch: "SERVER_THUMBNAIL",
+                checkPerformed: !1,
+                context: f,
+                generationDurationMs: self.performance.now() - E,
+                outcome: "OK",
+              }),
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -93,13 +110,20 @@ __d(
                     "media.downloadProgressiveJpegThumbnail aborted",
                   ])),
               ),
-                _.endFailWithError("download_aborted", "Download aborted"));
+                g.endFailWithError("download_aborted", "Download aborted"));
               return;
             }
-            (_.endFailWithError(
+            (g.endFailWithError(
               "download_failed",
               r("getErrorSafe")(e).message,
             ),
+              o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome({
+                branch: "SERVER_THUMBNAIL",
+                checkPerformed: !1,
+                context: f,
+                generationDurationMs: null,
+                outcome: "ERROR",
+              }),
               e instanceof o("WAWebHttpErrors").HttpNetworkError ||
               e instanceof o("WAWebMmsClientErrors").MediaNotFoundError ||
               e instanceof o("WAWebMediaFileErrors").MediaDecryptionError

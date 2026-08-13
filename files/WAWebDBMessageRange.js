@@ -268,7 +268,9 @@ __d(
             ) {
               for (var i, l = a.length - 1; l >= 0; l--)
                 if (
-                  o("WAWebDBMessageStoreUtils").isBizBotDisclosureMessage(a[l])
+                  o(
+                    "WAWebDBMessageStoreUtils",
+                  ).isBotSystemMessageToPreserveOnClear(a[l])
                 ) {
                   i = a[l].id;
                   break;

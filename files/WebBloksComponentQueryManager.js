@@ -55,24 +55,28 @@ __d(
                 d = u[1],
                 m = this.$7(c, d, n, "resolved_sync");
               for (var p of m) i.push(p);
+              this.$8(d);
             }
             return i;
+          }),
+          (n.$8 = function (t) {
+            var e,
+              n = t.stackedScreens;
+            n != null &&
+              (t.claimStackedScreens == null || t.claimStackedScreens(),
+              this.$1.bloksContext.objectSet.pushStackedScreens(
+                n,
+                {},
+                (e = t.stackedScreensDelayMs) != null ? e : 0,
+              ));
           }),
           (n.$6 = function (t, n, r) {
             var e = this,
               o = this.$7(t, n, r, "resolved_async");
-            o.forEach(function (t) {
+            (o.forEach(function (t) {
               e.$1.enqueueTreeUpdateOperation(t);
-            });
-            var a = n.stackedScreens;
-            if (a != null) {
-              var i;
-              this.$1.bloksContext.objectSet.pushStackedScreens(
-                a,
-                {},
-                (i = n.stackedScreensDelayMs) != null ? i : 0,
-              );
-            }
+            }),
+              this.$8(n));
           }),
           (n.$7 = function (t, n, r, o) {
             var e = n.success ? o : "failed",
@@ -92,7 +96,7 @@ __d(
                 );
             }
             (this.$4.set(t.id, n), this.$3.delete(t.id));
-            var u = this.$8(t, n, r, e);
+            var u = this.$9(t, n, r, e);
             for (var c of (d = this.$5.get(t.id)) != null ? d : new Set()) {
               var d,
                 m = this.$3.get(c);
@@ -102,7 +106,7 @@ __d(
             }
             return u;
           }),
-          (n.$8 = function (t, n, r, a) {
+          (n.$9 = function (t, n, r, a) {
             var e,
               i = this,
               l = { resolution_type: a, response_summary: {} };
@@ -111,12 +115,12 @@ __d(
                 {
                   treeModification: null,
                   variableUpdate: {
-                    variableIdentifier: this.$9(t.id),
+                    variableIdentifier: this.$10(t.id),
                     value: l,
                   },
                 },
               ];
-            var s = this.$10(
+            var s = this.$11(
                 (e = t.targets) != null ? e : new Map(),
                 n.result.components,
               ),
@@ -125,7 +129,7 @@ __d(
               d = function () {
                 var e = m[0],
                   n = m[1],
-                  a = i.$11(n, e.serverId, u),
+                  a = i.$12(n, e.serverId, u),
                   s = function (n) {
                     var t = r.createBloksModelScopedContext(e.keyPath);
                     return o("WebBloksScriptExecutor").execute(t, n, []);
@@ -140,7 +144,7 @@ __d(
                   c.push({
                     treeModification: null,
                     variableUpdate: {
-                      variableIdentifier: i.$12(_, u),
+                      variableIdentifier: i.$13(_, u),
                       value: f,
                     },
                   });
@@ -148,7 +152,7 @@ __d(
                 c.push({
                   treeModification: a,
                   variableUpdate: {
-                    variableIdentifier: i.$12(i.$9(t.id), e.keyPath),
+                    variableIdentifier: i.$13(i.$10(t.id), e.keyPath),
                     value: l,
                   },
                 });
@@ -156,7 +160,7 @@ __d(
             for (var m of s.entries()) d();
             return c;
           }),
-          (n.$11 = function (t, n, a) {
+          (n.$12 = function (t, n, a) {
             var e = this.$1.bloksContext.objectSet.environment.traversalKeys,
               i = t.unboundModel.makeDeepCopyWithNewClientIds(a, e),
               l = t.resources.clone();
@@ -174,7 +178,7 @@ __d(
               parseResult: new (r("WebBloksParseResult"))(i, l),
             };
           }),
-          (n.$10 = function (t, n) {
+          (n.$11 = function (t, n) {
             var e = new Map();
             for (var r of t.entries()) {
               var o = r[0],
@@ -184,12 +188,12 @@ __d(
             }
             return e;
           }),
-          (n.$12 = function (t, n) {
+          (n.$13 = function (t, n) {
             if (n == null || n.length === 0) return t;
             var e = o("WebBloksScopedIds").buildKeypathBase(n);
             return o("WebBloksScopedIds").buildScopedVariableIdentifier(t, e);
           }),
-          (n.$9 = function (n) {
+          (n.$10 = function (n) {
             return "" + e + n;
           }),
           t

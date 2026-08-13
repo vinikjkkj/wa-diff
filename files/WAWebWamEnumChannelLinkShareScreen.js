@@ -9,6 +9,7 @@ __d(
       SHARE_LINK_SCREEN: 4,
       UPDATES_TAB: 5,
       QR_CODE_SCREEN: 6,
+      CHANNEL_INFO_SHEET: 7,
     });
     i.CHANNEL_LINK_SHARE_SCREEN = e;
   },

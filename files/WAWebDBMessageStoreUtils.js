@@ -384,6 +384,15 @@ __d(
           e.subtype === "biz_bot_3p_disclosure")
       );
     }
+    function w(e) {
+      return (
+        e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
+        (e.subtype === "bot_init" ||
+          e.subtype === "biz_bot_1p_disclosure" ||
+          e.subtype === "biz_bot_3p_disclosure" ||
+          e.subtype === "bot_session_transparency_notice")
+      );
+    }
     ((l.extractC2STimestampFromMessageRangeIndex = p),
       (l.beginningOfMessageRange = _),
       (l.endOfMessageRange = f),
@@ -398,7 +407,8 @@ __d(
       (l.isSecuritySensitiveMessage = $),
       (l.getMessagesBefore = P),
       (l.isInitialEncryptionMessage = N),
-      (l.isBizBotDisclosureMessage = M));
+      (l.isBizBotDisclosureMessage = M),
+      (l.isBotSystemMessageToPreserveOnClear = w));
   },
   98,
 );

@@ -16,6 +16,7 @@ __d(
     "WAWebVoipBackendLoadable",
     "WAWebVoipGatingUtils",
     "WAWebVoipHandleIncomingSignalingMessage",
+    "WAWebVoipInitEventEmitter",
     "WAWebVoipLidUtils",
     "WAWebVoipSendGroupCallRekeyRetryReceiptJob",
     "WAWebVoipSignalingEnums",
@@ -215,9 +216,9 @@ __d(
         E.apply(this, arguments)
       );
     }
-    var k = !1;
+    var k = null;
     function I() {
-      k = !1;
+      k = null;
     }
     function T(e) {
       return e ? "available" : "fallback";
@@ -228,7 +229,7 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (k) return "reload_required";
+          if (($(), k != null)) return "reload_required";
           var t = e.type === o("WAWebVoipSignalingEnums").TYPE.OFFER;
           e.type === o("WAWebVoipSignalingEnums").TYPE.TERMINATE &&
             o("WAWebBackendApi").frontendFireAndForget(
@@ -243,7 +244,18 @@ __d(
             })
             .then(
               function (e) {
-                return e === "unavailable" ? "reload_required" : r;
+                return e === "artifact_unavailable"
+                  ? "artifact_reload_required"
+                  : e === "cancelled"
+                    ? r
+                    : e === "unavailable"
+                      ? "reload_required"
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              e,
+                          );
+                        })();
               },
               function () {
                 return r;
@@ -251,7 +263,7 @@ __d(
             );
           try {
             var i = yield (b || (b = n("Promise"))).race([r, a]);
-            return (i === "reload_required" && (k = !0), i);
+            return P(i);
           } finally {
             o("WAWebBackendApi").frontendFireAndForget(
               "finishVoipInitReloadRecovery",
@@ -262,7 +274,35 @@ __d(
         x.apply(this, arguments)
       );
     }
-    function $(e) {
+    function $() {
+      k === "artifact" &&
+        o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited() &&
+        (k = null);
+    }
+    function P(e) {
+      e: {
+        if (e === "artifact_reload_required") {
+          return (
+            o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getIsVoipInited() || (k = "artifact"),
+            "reload_required"
+          );
+          break e;
+        }
+        if (e === "reload_required") {
+          return ((k = "stuck"), "reload_required");
+          break e;
+        }
+        if (e === "available") return "available";
+        if (e === "fallback") return "fallback";
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    function N(e) {
       return (
         e === o("WAWebVoipSignalingEnums").TYPE.OFFER ||
         e === o("WAWebVoipSignalingEnums").TYPE.ENC_REKEY ||
@@ -270,12 +310,12 @@ __d(
         e === o("WAWebVoipSignalingEnums").TYPE.REJECT
       );
     }
-    function P(e, t, n, r, o) {
-      return N.apply(this, arguments);
+    function M(e, t, n, r, o) {
+      return w.apply(this, arguments);
     }
-    function N() {
+    function w() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             var l = e.call_creator,
               s = e.call_id;
@@ -321,7 +361,7 @@ __d(
                     e,
                     c,
                   ))
-                : W({
+                : U({
                     callCreator: l,
                     callId: s,
                     from: t,
@@ -341,22 +381,22 @@ __d(
             return "NO_ACK";
           },
         )),
-        N.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function M(e, t, n, r, o) {
-      return w.apply(this, arguments);
+    function A(e, t, n, r, o) {
+      return F.apply(this, arguments);
     }
-    function w() {
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a, i) {
             var l = e.call_creator,
               s = e.call_id;
             switch (e.type) {
               case o("WAWebVoipSignalingEnums").TYPE.OFFER:
                 if (
-                  (W({
+                  (U({
                     callCreator: l,
                     callId: s,
                     from: t,
@@ -375,11 +415,11 @@ __d(
                   ).handleVoipIncomingSignalingMessage(e, a, !1);
                 return "NO_ACK";
               case o("WAWebVoipSignalingEnums").TYPE.ENC_REKEY:
-                return P(e, t, n, a, i);
+                return M(e, t, n, a, i);
               case o("WAWebVoipSignalingEnums").TYPE.ACCEPT:
               case o("WAWebVoipSignalingEnums").TYPE.REJECT:
                 return (
-                  W({
+                  U({
                     callCreator: l,
                     callId: s,
                     from: t,
@@ -396,15 +436,15 @@ __d(
             }
           },
         )),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function A(e, t, n, r, o, a, i) {
-      return F.apply(this, arguments);
+    function O(e, t, n, r, o, a, i) {
+      return B.apply(this, arguments);
     }
-    function F() {
+    function B() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l, s, u) {
             if (
               u &&
@@ -435,7 +475,7 @@ __d(
                 (b || (b = n("Promise"))).resolve("NO_ACK")
               );
             }
-            if ($(e.type)) return M(e, t, a, i, u);
+            if (N(e.type)) return A(e, t, a, i, u);
             switch (e.type) {
               case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:
                 return r("WAWebEnvironment").isWindows &&
@@ -453,20 +493,20 @@ __d(
                   yield o(
                     "WAWebVoipHandleIncomingSignalingMessage",
                   ).handleVoipIncomingSignalingMessage(e, i, u),
-                  q(t, a, l)
+                  V(t, a, l)
                 );
             }
           },
         )),
-        F.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = R(e);
           if (t == null) return (b || (b = n("Promise"))).resolve("NO_ACK");
           var a = t.from,
@@ -540,12 +580,12 @@ __d(
                 l,
               ),
               "NO_ACK")
-            : A(i, a, u, c, l, e, d === "available");
+            : O(i, a, u, c, l, e, d === "available");
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function W(e) {
+    function U(e) {
       var t = e.callCreator,
         n = e.callId,
         r = e.from,
@@ -586,7 +626,7 @@ __d(
         ),
       );
     }
-    function q(e, t, n) {
+    function V(e, t, n) {
       return o("WAWap").wap("ack", {
         to: o("WAWebCommsWapMd").JID(e),
         id: o("WAWap").CUSTOM_STRING(t),
@@ -596,7 +636,7 @@ __d(
     }
     ((l.canUseVoipStackForCallMessage = L),
       (l.resetVoipInitReloadRequiredForTest = I),
-      (l.handleCall = O));
+      (l.handleCall = W));
   },
   98,
 );

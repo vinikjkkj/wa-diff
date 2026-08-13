@@ -15,6 +15,7 @@ __d(
     "WAWebMsgType",
     "WAWebSerializeError",
     "WAWebStartMediaDownloadQpl",
+    "WAWebThumbnailOutcomeLogger",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isStringNullOrEmpty",
@@ -44,7 +45,7 @@ __d(
             ) &&
             !(
               o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
-                i,
+                i.unsafe(),
               ) &&
               (p.thumbnailEncSha256 == null ||
                 p.mediaKey == null ||
@@ -152,106 +153,136 @@ __d(
             u = a.thumbnailDirectPath,
             c = a.thumbnailEncSha256,
             d = a.thumbnailSha256;
-          if (
-            !(r("isStringNullOrEmpty")(u) || r("isStringNullOrEmpty")(d)) &&
-            !(
-              o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
-                a,
-              ) &&
-              (c == null || l == null || s == null)
-            ) &&
-            !(
-              (a.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ||
-                a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE) &&
-              o("WAWebMmsMediaTypes").getMsgMediaType(a) ===
-                o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
-              (a.thumbnailHeight == null || a.thumbnailWidth == null)
-            )
-          ) {
-            var g = o("WAWebFrontendMsgGetters").getAsUrl(a.unsafe());
+          if (!(r("isStringNullOrEmpty")(u) || r("isStringNullOrEmpty")(d))) {
+            var g = o(
+              "WAWebMediaCryptoEligibilityUtils",
+            ).isMediaCryptoExpectedForMsg(a.unsafe());
             if (
-              !(g && (g.thumbnailHeight == null || g.thumbnailWidth == null))
+              !(g && (c == null || l == null || s == null)) &&
+              !(
+                (a.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ||
+                  a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE) &&
+                o("WAWebMmsMediaTypes").getMsgMediaType(a) ===
+                  o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT &&
+                (a.thumbnailHeight == null || a.thumbnailWidth == null)
+              )
             ) {
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "media.downloadMmsThumbnail: start",
-                  ])),
-              );
-              var h = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-                entryPoint: "DownloadMmsThumbnail",
-              });
-              try {
-                var y = yield o(
-                  "WAWebDownloadManager",
-                ).downloadManager.downloadAndMaybeDecrypt({
-                  directPath: u,
-                  encFilehash: c,
-                  filehash: d,
-                  mediaKey: l,
-                  mediaKeyTimestamp: s,
-                  type: r("nullthrows")(
-                    o(
-                      "WAWebMessagePluginGetThumbnailTypeForMediaMsg",
-                    ).getThumbnailTypeForMediaMsg({ msg: a }),
-                  ),
-                  signal: i || new AbortController().signal,
-                  userDownloadAttemptCount: 0,
-                  isPreload: n,
-                  chatWid: t == null ? void 0 : t.id,
-                  downloadQpl: h,
-                  downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(
-                    a.unsafe(),
-                  ),
-                });
-                if (g) g.thumbnailHQ = o("WABase64").encodeB64(y);
-                else {
-                  var C = r("nullthrows")(
-                      a.mediaObject,
-                      "mediaObject cannot be null for thumbnail download",
+              var h = o("WAWebFrontendMsgGetters").getAsUrl(a.unsafe());
+              if (
+                !(h && (h.thumbnailHeight == null || h.thumbnailWidth == null))
+              ) {
+                o("WALogger").LOG(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "media.downloadMmsThumbnail: start",
+                    ])),
+                );
+                var y = r("WAWebMediaGetDownloadOriginForMsg")(a.unsafe()),
+                  C = {
+                    callsite: "DOWNLOAD_MMS_THUMBNAIL",
+                    downloadOrigin: o(
+                      "WAWebThumbnailOutcomeLogger",
+                    ).thumbnailDownloadOriginFromWam(y),
+                    isEncrypted: g,
+                    mediaType: o(
+                      "WAWebThumbnailOutcomeLogger",
+                    ).thumbnailMediaTypeFromMsgType(
+                      a.type,
+                      a.type === o("WAWebMsgType").MSG_TYPE.VIDEO &&
+                        a.isGif === !0,
                     ),
-                    b = {
-                      fullPreviewData: yield r(
-                        "WAWebMediaOpaqueData",
-                      ).createFromData(y, "image/jpeg"),
-                    };
-                  (a.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
-                    (b.fullPreviewSize = {
-                      height: r("nullthrows")(a.thumbnailHeight),
-                      width: r("nullthrows")(a.thumbnailWidth),
+                  },
+                  b = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+                    entryPoint: "DownloadMmsThumbnail",
+                  });
+                try {
+                  var v = yield o(
+                      "WAWebDownloadManager",
+                    ).downloadManager.downloadAndMaybeDecrypt({
+                      directPath: u,
+                      encFilehash: c,
+                      filehash: d,
+                      mediaKey: l,
+                      mediaKeyTimestamp: s,
+                      type: r("nullthrows")(
+                        o(
+                          "WAWebMessagePluginGetThumbnailTypeForMediaMsg",
+                        ).getThumbnailTypeForMediaMsg({ msg: a }),
+                      ),
+                      signal: i || new AbortController().signal,
+                      userDownloadAttemptCount: 0,
+                      isPreload: n,
+                      chatWid: t == null ? void 0 : t.id,
+                      downloadQpl: b,
+                      downloadOrigin: y,
                     }),
-                    C.consolidate(b));
+                    S = self.performance.now();
+                  if (h) h.thumbnailHQ = o("WABase64").encodeB64(v);
+                  else {
+                    var R = r("nullthrows")(
+                        a.mediaObject,
+                        "mediaObject cannot be null for thumbnail download",
+                      ),
+                      L = {
+                        fullPreviewData: yield r(
+                          "WAWebMediaOpaqueData",
+                        ).createFromData(v, "image/jpeg"),
+                      };
+                    (a.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
+                      (L.fullPreviewSize = {
+                        height: r("nullthrows")(a.thumbnailHeight),
+                        width: r("nullthrows")(a.thumbnailWidth),
+                      }),
+                      R.consolidate(L));
+                  }
+                  (b.endSuccess(),
+                    o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome({
+                      branch: "SERVER_THUMBNAIL",
+                      checkPerformed: !1,
+                      context: C,
+                      generationDurationMs: self.performance.now() - S,
+                      outcome: "OK",
+                    }),
+                    o("WALogger").LOG(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "media.downloadMmsThumbnail: success",
+                        ])),
+                    ));
+                } catch (e) {
+                  var E = r("getErrorSafe")(e);
+                  if (E.name === o("WAAbortError").ABORT_ERROR) {
+                    (o("WALogger").LOG(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "media.downloadMmsThumbnail aborted",
+                        ])),
+                    ),
+                      b.endFailWithError(
+                        "download_aborted",
+                        "Download aborted",
+                      ));
+                    return;
+                  }
+                  (b.endFailWithError("download_failed", E.message),
+                    o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome({
+                      branch: "SERVER_THUMBNAIL",
+                      checkPerformed: !1,
+                      context: C,
+                      generationDurationMs: null,
+                      outcome: "ERROR",
+                    }),
+                    o("WALogger")
+                      .WARN(
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose(
+                            ["media.downloadMmsThumbnail: error\n", ""],
+                            ["media.downloadMmsThumbnail: error\\n", ""],
+                          )),
+                        r("WAWebSerializeError")(E),
+                      )
+                      .verbose());
                 }
-                (h.endSuccess(),
-                  o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "media.downloadMmsThumbnail: success",
-                      ])),
-                  ));
-              } catch (e) {
-                var v = r("getErrorSafe")(e);
-                if (v.name === o("WAAbortError").ABORT_ERROR) {
-                  (o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "media.downloadMmsThumbnail aborted",
-                      ])),
-                  ),
-                    h.endFailWithError("download_aborted", "Download aborted"));
-                  return;
-                }
-                (h.endFailWithError("download_failed", v.message),
-                  o("WALogger")
-                    .WARN(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose(
-                          ["media.downloadMmsThumbnail: error\n", ""],
-                          ["media.downloadMmsThumbnail: error\\n", ""],
-                        )),
-                      r("WAWebSerializeError")(v),
-                    )
-                    .verbose());
               }
             }
           }

@@ -71,6 +71,7 @@ __d(
                       o("WAWebMediaConstants").IMG_THUMB_MAX_EDGE,
                     ],
                     debugHint: "handleGif",
+                    logContext: { callsite: "HANDLE_GIF", mediaType: "GIF" },
                   }),
                   n = t.thumbs,
                   s = n[0],

@@ -65,6 +65,7 @@ __d(
       WAFFLE: 61,
       IN_APP_BROWSER: 62,
       AI_HATCH: 63,
+      EVENT_V2: 64,
     });
     i.PRODUCT_AREA = e;
   },

@@ -2,8 +2,10 @@ __d(
   "WebBloksComponentQueryStore",
   [
     "WebBloksCacheUtils",
+    "WebBloksCachedStackedScreens",
     "WebBloksComponentQueryFetcher",
     "WebBloksFunctionTableManager",
+    "WebBloksNavigationCounter",
     "WebBloksPayloadParser",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,7 +26,10 @@ __d(
             var e = o("WebBloksCacheUtils").generateCacheKey(t, n),
               i = this.$1.get(e);
             if (i != null && o("WebBloksCacheUtils").isResponseFresh(i, r)) {
-              var l = { result: i.response, success: !0 };
+              var l = babelHelpers.extends(
+                { result: i.response, success: !0 },
+                o("WebBloksCachedStackedScreens").readCachedStackedScreens(i),
+              );
               return { value: l, cancelToken: null };
             } else {
               var s = this.$5(a, e);
@@ -38,7 +43,10 @@ __d(
                 "WebBloksFunctionTableManager",
               ).WebBloksFunctionTableManager.getKnownFt(t),
               s = babelHelpers.extends({}, n);
-            l != null && (s.__knownFt = l);
+            (l != null && (s.__knownFt = l),
+              (s.nav_ordinal =
+                o("WebBloksNavigationCounter").getWebBloksNavigationCount() +
+                (a === "PREFETCH" ? 1 : 0)));
             var u = {
               appId: t,
               params: s,

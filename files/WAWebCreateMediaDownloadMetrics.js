@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAppTracker",
     "WAWebCoreActionsODS",
+    "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDownload2WamEvent",
     "WAWebMmsDownloadUploadCrashLogger",
     "WAWebMmsMediaTypes",
@@ -40,6 +41,9 @@ __d(
                 e.isPrefetch,
               ),
               overallAttemptCount: e.userDownloadAttemptCount,
+              overallIsEncrypted: o(
+                "WAWebMediaCryptoEligibilityUtils",
+              ).isMediaCryptoExpectedForMediaType(e.type),
               overallDownloadOrigin: e.downloadOrigin,
               overallBackendStore:
                 (t = o("WAWebWamMediaMetricUtils").getMetricBackendStore(

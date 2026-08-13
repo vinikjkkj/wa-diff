@@ -10,7 +10,6 @@ __d(
     "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusContentType",
     "WAWebWamEnumStatusItemViewResult",
-    "WAWebWamEnumStatusPlaceholderType",
     "WAWebWamEnumStatusPosterContactType",
     "WAWebWamEnumStatusRowSection",
     "WAWebWamEnumStatusViewEntryMethod",
@@ -85,10 +84,6 @@ __d(
               ],
               statusLoadTime: [12, e.TYPES.TIMER],
               statusMediaType: [13, o("WAWebWamEnumMediaType").MEDIA_TYPE],
-              statusPlaceholderType: [
-                56,
-                o("WAWebWamEnumStatusPlaceholderType").STATUS_PLACEHOLDER_TYPE,
-              ],
               statusPogIndex: [15, e.TYPES.INTEGER],
               statusPostIndex: [16, e.TYPES.INTEGER],
               statusPostPlaybackDuration: [17, e.TYPES.TIMER],

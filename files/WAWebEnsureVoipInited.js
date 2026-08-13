@@ -56,7 +56,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if ((yield e) === "unavailable") throw new s();
+          if ((yield e) !== "cancelled") throw new s();
           yield t;
         })),
         m.apply(this, arguments)

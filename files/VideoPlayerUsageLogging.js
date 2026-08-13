@@ -148,7 +148,6 @@ __d(
         u(d, m));
     }
     ((l.countEngineInstantiated = p),
-      (l.deriveDashEngineSelectionParams = _),
       (l.countDashEngineSelection = f),
       (l.countEngineFallback = h),
       (l.logEngineInstantiatedDetailed = y),

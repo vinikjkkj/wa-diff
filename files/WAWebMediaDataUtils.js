@@ -544,6 +544,10 @@ __d(
                       o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
                     ],
                     debugHint: "processRawAudioVideo",
+                    logContext: {
+                      callsite: "PROCESS_RAW_AUDIO_VIDEO",
+                      mediaType: B ? "GIF" : "VIDEO",
+                    },
                   }),
                   H = V.duration,
                   G = V.thumbs,
@@ -824,6 +828,13 @@ __d(
                         o("WAWebMediaConstants").VIDEO_THUMB_MAX_EDGE,
                       ],
                       debugHint: "gatherAndSetMetadata",
+                      logContext: {
+                        callsite: "GATHER_AND_SET_METADATA",
+                        mediaType:
+                          e.type === o("WAWebMediaTypes").TYPE.PTV
+                            ? "PTV"
+                            : "VIDEO",
+                      },
                     },
                   ),
                   s = l.thumbs,

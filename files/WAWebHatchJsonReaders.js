@@ -24,6 +24,17 @@ __d(
       return typeof n == "boolean" ? n : null;
     }
     function m(e, t) {
+      var n;
+      return (n = u(e, t)) != null ? n : "";
+    }
+    function p(t, n) {
+      var r = s(t, n);
+      return e(r) ? r : null;
+    }
+    function _(e) {
+      return e.trim() === "";
+    }
+    function f(e, t) {
       var n = s(e, t);
       return Array.isArray(n) ? n : null;
     }
@@ -32,7 +43,10 @@ __d(
       (l.readString = u),
       (l.readNumber = c),
       (l.readBool = d),
-      (l.readArray = m));
+      (l.readStringOrEmpty = m),
+      (l.readObject = p),
+      (l.isBlankText = _),
+      (l.readArray = f));
   },
   98,
 );

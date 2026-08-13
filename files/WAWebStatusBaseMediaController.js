@@ -97,7 +97,7 @@ __d(
                 n,
               );
               var r = o("WAWebABProps").getABPropConfigValue(
-                "status_video_max_duration",
+                "status_video_playback_max_duration_second",
               );
               if (
                 t.$4 === o("WAWebStatusSetupController").MediaType.Video &&
@@ -163,7 +163,7 @@ __d(
     function s(e, t) {
       if (t === o("WAWebStatusSetupController").MediaType.Video) {
         var n = o("WAWebABProps").getABPropConfigValue(
-          "status_video_max_duration",
+          "status_video_playback_max_duration_second",
         );
         return Math.min(e, n);
       }

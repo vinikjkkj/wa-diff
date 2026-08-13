@@ -63,6 +63,7 @@ __d(
             (n.peerAudioLevel = 0),
             (n.selfAudioLevel = 0),
             (n.selfPreviewCorner = null),
+            (n.selfPreviewSize = "normal"),
             (n.shouldShowPostCallSurvey = !1),
             (n.postCallSurveyInteracted = !1),
             (n.wasEverConnected = !1),
@@ -169,6 +170,16 @@ __d(
               this.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
+                ),
+              ));
+          }),
+          (a.updateSelfPreviewSize = function (t) {
+            this.selfPreviewSize !== t &&
+              ((this.selfPreviewSize = t),
+              this.trigger(
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallModelEvents
+                    .SELF_PREVIEW_SIZE,
                 ),
               ));
           }),

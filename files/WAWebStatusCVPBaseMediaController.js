@@ -86,7 +86,7 @@ __d(
               r = e.getPlayheadPosition();
             this.$4 = n;
             var a = o("WAWebABProps").getABPropConfigValue(
-                "status_video_max_duration",
+                "status_video_playback_max_duration_second",
               ),
               i = !1;
             if (!this.$5) {
@@ -131,7 +131,7 @@ __d(
               if (e == null) return 0;
               var t = e.getCurrentState().duration,
                 n = o("WAWebABProps").getABPropConfigValue(
-                  "status_video_max_duration",
+                  "status_video_playback_max_duration_second",
                 );
               return Math.min(t, n) * 1e3;
             },

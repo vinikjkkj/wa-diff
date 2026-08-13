@@ -444,7 +444,7 @@ __d(
         });
       }
       if (
-        ((u = P(u, e, n)),
+        ((u = $(u, e, n)),
         o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
           o(
             "WAWebMessagePluginGenerateReportingTokenContent",
@@ -547,9 +547,6 @@ __d(
       return { questionReplyMessage: { message: e } };
     }
     function D(e) {
-      return { newsletterAdminProfileMessage: { message: e } };
-    }
-    function x(e) {
       return {
         associatedChildMessage: {
           message: babelHelpers.extends({}, e, { messageContextInfo: void 0 }),
@@ -557,7 +554,7 @@ __d(
         messageContextInfo: e.messageContextInfo,
       };
     }
-    function $(e) {
+    function x(e) {
       var t = e.messageContextInfo,
         n = babelHelpers.objectWithoutPropertiesLoose(e, u);
       return {
@@ -565,7 +562,7 @@ __d(
         messageContextInfo: t,
       };
     }
-    function P(e, t, n) {
+    function $(e, t, n) {
       var a,
         i,
         l,
@@ -585,14 +582,13 @@ __d(
           o("WAWebPollCreationUtils").PollContentType.IMAGE && (d = k(d)),
         (n == null ? void 0 : n.isQuestion) === !0 && (d = I(d)),
         n != null && n.questionReplyQuotedMessage && (d = T(d)),
-        t.newsletterAdminProfile != null && (d = D(d)),
         t.associationType != null &&
           (t.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
-            ? (d = $(d))
+            ? (d = x(d))
             : o(
                 "WAWebMessageAssociationGatingUtils",
-              ).isFutureproofAssociatedChildEnabled() && (d = x(d))),
+              ).isFutureproofAssociatedChildEnabled() && (d = D(d))),
         t.isViewOnce && (d = v(d, t)),
         t.isDynamicReplyButtonsMsg === !0 &&
           (d = o(
@@ -643,7 +639,7 @@ __d(
         d
       );
     }
-    function N(e) {
+    function P(e) {
       ((e.imageMessage = void 0),
         (e.videoMessage = void 0),
         (e.documentMessage = void 0),
@@ -653,7 +649,7 @@ __d(
         (e.stickerPackMessage = void 0),
         (e.albumMessage = void 0));
     }
-    function M(e) {
+    function N(e) {
       return e == null
         ? !1
         : !!(
@@ -667,7 +663,7 @@ __d(
             e.albumMessage
           );
     }
-    var w = [
+    var M = [
       "deviceSentMessage",
       "viewOnceMessage",
       "ephemeralMessage",
@@ -691,21 +687,21 @@ __d(
       "botForwardedMessage",
       "questionReplyMessage",
     ];
-    function A(e) {
+    function w(e) {
       var t = e;
-      (M(t) && N(t),
-        w.forEach(function (e) {
+      (N(t) && P(t),
+        M.forEach(function (e) {
           var n,
             r = (n = t[e]) == null ? void 0 : n.message;
-          r != null && M(r) && N(r);
+          r != null && N(r) && P(r);
         }));
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function O() {
+    function F() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
@@ -721,7 +717,7 @@ __d(
           (c === !0 &&
             o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
             (_ = !0),
-            _ === !0 && A(p),
+            _ === !0 && w(p),
             (p.messageContextInfo = babelHelpers.extends(
               {},
               p.messageContextInfo,
@@ -776,10 +772,10 @@ __d(
             p
           );
         })),
-        O.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function B(e) {
+    function O(e) {
       var t,
         n,
         a,
@@ -824,7 +820,7 @@ __d(
       }
       return i;
     }
-    function W(e) {
+    function B(e) {
       var t,
         n = e,
         a =
@@ -846,7 +842,7 @@ __d(
       }
       return n;
     }
-    function q(e) {
+    function W(e) {
       var t = e,
         n = (e == null ? void 0 : e.protocolMessage) != null;
       if (n) {
@@ -861,7 +857,7 @@ __d(
       }
       return t;
     }
-    function U(e) {
+    function q(e) {
       if (e == null || !r("WAWebWid").isWid(e)) return null;
       try {
         return o("WAWebWidFactory").createWid(e);
@@ -869,39 +865,39 @@ __d(
         return null;
       }
     }
-    function V(e) {
-      var t = U(e);
+    function U(e) {
+      var t = q(e);
       if (t == null || !t.isUser() || t.isBot() || t.isLid()) return null;
       var n = o("WAWebLidMigrationUtils").toLid(t);
       return n != null ? o("WAWebE2EProtoUtils").encodeJid(n) : null;
     }
-    function H(e) {
-      var t = U(e);
+    function V(e) {
+      var t = q(e);
       return t != null && t.isUser() && !t.isBot() && !t.isLid();
     }
-    function G(e) {
+    function H(e) {
       var t = [];
       for (var n of e) {
-        var r = V(n);
-        r != null ? t.push(r) : H(n) || t.push(n);
+        var r = U(n);
+        r != null ? t.push(r) : V(n) || t.push(n);
       }
       return t;
     }
-    function z(e) {
-      var t = V(e);
+    function G(e) {
+      var t = U(e);
       if (t != null) return t;
-      if (!H(e)) return e;
+      if (!V(e)) return e;
     }
-    var j = 32;
-    function K(e) {
-      return Q(
+    var z = 32;
+    function j(e) {
+      return K(
         r("WAWebStructuredClone")(e),
         o("WAWebProtobufsE2E.pb").MessageSpec,
         0,
       );
     }
-    function Q(e, t, n) {
-      if (n > j)
+    function K(e, t, n) {
+      if (n > z)
         throw r("err")("coexv2 relay sanitize exceeded max nesting depth");
       for (
         var a = o("WAProtoCompile").compileSpec(t),
@@ -916,18 +912,18 @@ __d(
         if (c != null) {
           if (o("WAProtoUtils").isMessageType(s[u])) {
             var d = o("WAProtoUtils").isRepeatedField(s[u]) ? c : [c];
-            for (var m of d) Q(m, i[u], n + 1);
+            for (var m of d) K(m, i[u], n + 1);
           } else if (o("WAProtoUtils").isStringType(s[u]))
-            if (o("WAProtoUtils").isRepeatedField(s[u])) e[l[u]] = G(c);
+            if (o("WAProtoUtils").isRepeatedField(s[u])) e[l[u]] = H(c);
             else {
-              var p = z(c);
+              var p = G(c);
               p == null ? delete e[l[u]] : (e[l[u]] = p);
             }
         }
       }
       return e;
     }
-    function X(e) {
+    function Q(e) {
       var t = r("WAWebStructuredClone")(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
@@ -936,12 +932,12 @@ __d(
         t
       );
     }
-    function Y(e) {
-      return J.apply(this, arguments);
+    function X(e) {
+      return Y.apply(this, arguments);
     }
-    function J() {
+    function Y() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDebugInfo",
             {
@@ -963,7 +959,7 @@ __d(
             { supportPayload: JSON.stringify(n) },
           );
         })),
-        J.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
     ((l.populateMessageContextInfo = d),
@@ -972,13 +968,13 @@ __d(
       (l.createAddonProtobuf = _),
       (l.createProtobuf = h),
       (l.getProtobufMessage = C),
-      (l.updateBotInvokeMsgProtoCopyForCapi = F),
-      (l.updateFbidBotProtobuf = B),
-      (l.updateFbidBotInvokeProtobuf = W),
-      (l.updateBotProtobuf = q),
-      (l.sanitizeCoexV2RelayMessage = K),
-      (l.updateGroupMsgProtoWithCapiFlag = X),
-      (l.addDebugInfoSupportPayload = Y));
+      (l.updateBotInvokeMsgProtoCopyForCapi = A),
+      (l.updateFbidBotProtobuf = O),
+      (l.updateFbidBotInvokeProtobuf = B),
+      (l.updateBotProtobuf = W),
+      (l.sanitizeCoexV2RelayMessage = j),
+      (l.updateGroupMsgProtoWithCapiFlag = Q),
+      (l.addDebugInfoSupportPayload = X));
   },
   98,
 );

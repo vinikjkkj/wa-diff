@@ -8,6 +8,7 @@ __d(
         IS_VIDEO: "isVideo",
         VIDEO_STATE: "videoState",
         SELF_VIDEO_STATE: "selfVideoState",
+        SELF_PREVIEW_SIZE: "selfPreviewSize",
         SELF_MIC_MUTED: "selfMicMuted",
         PEER_MIC_MUTED: "peerMicMuted",
         SELF_AUDIO_LEVEL: "selfAudioLevel",

@@ -421,6 +421,19 @@ __d(
                 },
               ));
           }),
+          (a.setSelfCountryCode = function (t) {
+            var e = this;
+            (r("WAWebODS").incr(
+              "web.hybrid.bridge.voip.send.set_self_country_code",
+            ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                { bridge: "voip", method: "setSelfCountryCode", type: "async" },
+                function () {
+                  var n;
+                  return (n = e.$1) == null ? void 0 : n.setSelfCountryCode(t);
+                },
+              ));
+          }),
           (a.setHideMyIp = function (t) {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.set_hide_my_ip"),
