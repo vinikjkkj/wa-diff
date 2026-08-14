@@ -6,15 +6,19 @@ __d(
     function e(e, t) {
       var n,
         r,
-        a = t.normalize("NFKC");
+        a,
+        i,
+        l = t.normalize("NFKC");
       return e.sources && e.sources.length > 0
         ? e.sources.map(function (e) {
-            var t, n;
+            var t, n, r;
             return o("cometComposedTextV2NodeBuilders").buildCitationNode(
               (t = e.source_url) != null ? t : "#",
               e.source_type,
               !0,
-              (n = e.source_display_name) != null ? n : a,
+              (n = e.source_display_name) != null ? n : l,
+              e.source_subtitle,
+              (r = e.favicon) == null ? void 0 : r.url,
             );
           })
         : [
@@ -24,7 +28,14 @@ __d(
                 ? void 0
                 : n.source_type,
               !0,
-              (r = e.reference_display_name) != null ? r : a,
+              (r =
+                (a = e.reference_display_name) != null
+                  ? a
+                  : e.reference_title) != null
+                ? r
+                : l,
+              e.reference_title,
+              (i = e.reference_favicon) == null ? void 0 : i.url,
             ),
           ];
     }

@@ -14,31 +14,48 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
+    var e,
+      s,
+      u = null;
     function c() {
+      if (
+        !o(
+          "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
+        ).isIndividualNewChatMessageCappingEnabled()
+      )
+        return (s || (s = n("Promise"))).resolve();
+      var e = u;
+      if (e != null) return e;
+      var t = m();
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            !o(
-              "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
-            ).isIndividualNewChatMessageCappingEnabled()
-          )
-            return (s || (s = n("Promise"))).resolve();
-          var e = yield d();
+        (u = t),
+        t.catch(function () {
+          u === t && (u = null);
+        }),
+        t
+      );
+    }
+    function d() {
+      u = null;
+    }
+    function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
+      return (
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield _();
           if (e != null) {
             var t,
-              r = o(
+              n = o(
                 "WAWebIndividualNewChatMessageCappingLimitUtils",
               ).getCappingStatusType(e == null ? void 0 : e.capping_status),
-              a = e.subscription_status;
+              r = e.subscription_status;
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
               o("WAWebIndividualNewChatMessageCappingLimitUtils")
                 .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
               {
-                capping_status: r,
+                capping_status: n,
                 ote_status: o(
                   "WAWebIndividualNewChatMessageCappingLimitUtils",
                 ).getCappingOTEStatusType(e == null ? void 0 : e.ote_status),
@@ -46,15 +63,15 @@ __d(
                   "WAWebIndividualNewChatMessageCappingLimitUtils",
                 ).getCappingMVStatusType(e == null ? void 0 : e.mv_status),
                 subscription_status:
-                  a == null
+                  r == null
                     ? void 0
                     : {
                         status: o(
                           "WAWebIndividualNewChatMessageCappingLimitUtils",
-                        ).getCappingSubscriptionStatusType(a.status),
+                        ).getCappingSubscriptionStatusType(r.status),
                         name: o(
                           "WAWebIndividualNewChatMessageCappingLimitUtils",
-                        ).getCappingSubscriptionName(a.name),
+                        ).getCappingSubscriptionName(r.name),
                       },
                 total_quota: e == null ? void 0 : e.total_quota,
                 used_quota: Math.min(
@@ -75,18 +92,15 @@ __d(
               },
             );
           }
-          return (
-            o("WAWebBackendApi").frontendFireAndForget(
-              "individualNewChatMessageCappingStateChange",
-              {},
-            ),
-            (s || (s = n("Promise"))).resolve()
+          o("WAWebBackendApi").frontendFireAndForget(
+            "individualNewChatMessageCappingStateChange",
+            {},
           );
         })),
-        c.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function d() {
+    function _() {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewChatMessageCapping",
@@ -113,7 +127,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    l.fetchOrUpdateCapStatus = u;
+    ((l.fetchOrUpdateCapStatus = c), (l.resetCapStatusFetchForTesting = d));
   },
   98,
 );

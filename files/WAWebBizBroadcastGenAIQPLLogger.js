@@ -1,6 +1,11 @@
 __d(
   "WAWebBizBroadcastGenAIQPLLogger",
-  ["$InternalEnum", "WAWebQplFlowWrapper", "qpl"],
+  [
+    "$InternalEnum",
+    "WAWebBizBroadcastProOnboardingStatus",
+    "WAWebQplFlowWrapper",
+    "qpl",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum")({
@@ -16,31 +21,40 @@ __d(
         TOS_ACCEPTED: "tos_accepted",
         TOS_SHOWN: "tos_shown",
       }),
-      s = r("qpl")._(183051802, "3521");
-    function u(e) {
-      o("WAWebQplFlowWrapper").QPL.markerStart(
-        s,
-        e != null ? { annotations: e } : void 0,
-      );
-    }
+      s = r("qpl")._(183051802, "3521"),
+      u = "web";
     function c(e) {
-      o("WAWebQplFlowWrapper").QPL.markerPoint(s, e);
+      o("WAWebQplFlowWrapper").QPL.markerStart(s, {
+        annotations: babelHelpers.extends({}, e, {
+          string: babelHelpers.extends({}, e == null ? void 0 : e.string, {
+            bb_tier: String(
+              o(
+                "WAWebBizBroadcastProOnboardingStatus",
+              ).getBizBroadcastProductTier(),
+            ),
+            platform: u,
+          }),
+        }),
+      });
     }
     function d(e) {
-      o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, e);
+      o("WAWebQplFlowWrapper").QPL.markerPoint(s, e);
     }
     function m(e) {
+      o("WAWebQplFlowWrapper").QPL.markerAnnotate(s, e);
+    }
+    function p(e) {
       o("WAWebQplFlowWrapper").QPL.markerEnd(s, e);
     }
-    function p() {
+    function _() {
       o("WAWebQplFlowWrapper").QPL.markerDrop(s);
     }
     ((l.GenAIQPLPoints = e),
-      (l.qplGenAIStart = u),
-      (l.qplGenAIPoint = c),
-      (l.qplGenAIAnnotate = d),
-      (l.qplGenAIEnd = m),
-      (l.qplGenAIDrop = p));
+      (l.qplGenAIStart = c),
+      (l.qplGenAIPoint = d),
+      (l.qplGenAIAnnotate = m),
+      (l.qplGenAIEnd = p),
+      (l.qplGenAIDrop = _));
   },
   98,
 );

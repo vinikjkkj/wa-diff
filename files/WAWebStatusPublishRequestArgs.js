@@ -236,51 +236,54 @@ __d(
     }
     function R(e) {
       var t = e.ciphertextVersion,
-        n = e.hideDecryptFail,
-        r = e.participants,
-        a = e.senderKeyDistributions,
-        i = _(t),
-        l = a.map(function (e) {
+        n = e.encMediaType,
+        r = e.hideDecryptFail,
+        a = e.participants,
+        i = e.senderKeyDistributions,
+        l = _(t),
+        s = y(n),
+        u = i.map(function (e) {
           var t = e.ciphertext,
-            r = e.isPqSession,
+            n = e.isPqSession,
             a = e.participant,
-            l = e.type;
+            i = e.type;
           return {
             statusToDeviceOrUserMixinGroupArgs: {
               statusToDevice: {
                 toJid: o("WAWebWidToJid").widToDeviceJid(a),
                 encTypeIndividualMixinArgs: {
-                  encType: p(l),
+                  encType: p(i),
                   encElementValue: new Uint8Array(t),
-                  encStateOrSessionTypeMixinGroupArgs: r
+                  encMediaTypeMixinArgs: s,
+                  encStateOrSessionTypeMixinGroupArgs: n
                     ? { isEncSessionType: !0 }
                     : null,
                 },
-                hasStatusEncHideDecryptFail: n ? !0 : null,
-                encVersionArgs: i,
+                hasStatusEncHideDecryptFail: r ? !0 : null,
+                encVersionArgs: l,
               },
             },
           };
         }),
-        s = 0,
-        u = 0;
-      for (var m of r) {
-        var f = o("WAWebLidMigrationUtils").toUserLid(m);
-        if (f == null) {
-          u++;
+        m = 0,
+        f = 0;
+      for (var g of a) {
+        var h = o("WAWebLidMigrationUtils").toUserLid(g);
+        if (h == null) {
+          f++;
           continue;
         }
-        (o("WAWebSendMsgCommonApi").isPrimaryDevice(m) || s++,
-          l.push({
+        (o("WAWebSendMsgCommonApi").isPrimaryDevice(g) || m++,
+          u.push({
             statusToDeviceOrUserMixinGroupArgs: {
               statusToUser: {
-                toJid: o("WAWebWidToJid").userLidtoLidUserJid(f),
+                toJid: o("WAWebWidToJid").userLidtoLidUserJid(h),
               },
             },
           }));
       }
       return (
-        s > 0 &&
+        m > 0 &&
           o("WALogger")
             .WARN(
               c ||
@@ -289,11 +292,11 @@ __d(
                   " of ",
                   " participants lost theirs",
                 ])),
-              s,
-              r.length,
+              m,
+              a.length,
             )
             .sendLogs("status-publish-companion-participant"),
-        u > 0 &&
+        f > 0 &&
           o("WALogger")
             .WARN(
               d ||
@@ -302,11 +305,11 @@ __d(
                   " of ",
                   " participants without a LID mapping",
                 ])),
-              u,
-              r.length,
+              f,
+              a.length,
             )
             .sendLogs("status-publish-participant-without-lid"),
-        l.length > 0 ? { toArgs: l } : null
+        u.length > 0 ? { toArgs: u } : null
       );
     }
     function L(e) {
@@ -340,6 +343,7 @@ __d(
             ],
             statusEncFanoutMixinArgs: R({
               ciphertextVersion: t,
+              encMediaType: null,
               hideDecryptFail: !1,
               participants: a,
               senderKeyDistributions: l,
@@ -355,14 +359,16 @@ __d(
         n = e.clientReportingToken,
         o = e.deviceEncs,
         a = e.editOrRevoke,
-        i = e.hideDecryptFail,
-        l = R({
+        i = e.encMediaType,
+        l = e.hideDecryptFail,
+        s = R({
           ciphertextVersion: t,
-          hideDecryptFail: i,
+          encMediaType: i,
+          hideDecryptFail: l,
           participants: [],
           senderKeyDistributions: o,
         });
-      if (l == null)
+      if (s == null)
         throw r("err")(
           "toStatusDirectPublishArgs: directed status has no recipients",
         );
@@ -370,7 +376,7 @@ __d(
         statusBroadcastPublishTypeMixinsArgs: {
           statusBroadcastDirected: {
             statusEncFanoutSenderKeyEmptyOrRetryOrFanoutMixinGroupArgs: {
-              statusEncFanoutSenderKeyEmpty: babelHelpers.extends({}, l, {
+              statusEncFanoutSenderKeyEmpty: babelHelpers.extends({}, s, {
                 encTypeSenderKeyEmptyMixinArgs: { encElementValue: m },
                 encVersionArgs: _(t),
               }),

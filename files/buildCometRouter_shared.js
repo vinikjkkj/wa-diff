@@ -170,43 +170,51 @@ __d(
       var o = [],
         a = r("cometRouterCreateRouterStatusManager")(),
         i = r("cometRouterCreateMaintainedStateManager")(),
-        l = function (t, r, a) {
+        l = new Map(),
+        s = function (t, r, a) {
           o.forEach(function (e) {
             return e(t && !n, r, a);
           });
         },
-        s = function (t) {
-          a.resetRouterStatus(t);
+        u = function (t) {
+          var e = l.get(t);
+          (e != null && (l.delete(t), e()), a.resetRouterStatus(t));
         },
-        u = function (t, n, r, o, i, s) {
+        c = function (t, n, r, o, i, u) {
           o === void 0 && (o = !0);
           var e = n.onAfterStateUpdate,
-            u = n.onBeforeStateUpdate,
-            c = n.setCurrentRouterState;
-          (u && u(),
+            c = n.onBeforeStateUpdate,
+            d = n.onStateUpdateCommitted,
+            m = n.setCurrentRouterState;
+          (c && c(),
             a.internalStateUpdated(t.routeKey),
-            c(t, s),
-            l(o != null ? o : !0, r, i),
+            d != null &&
+              (l.size > 0 && l.clear(),
+              l.set(t.routeKey, function () {
+                return d(t);
+              })),
+            m(t, u),
+            s(o != null ? o : !0, r, i),
             e && e(t));
         },
-        c = p(),
-        g = m(i, c, l, t),
-        h = { actorID: e, from: "rootView" },
-        y = b(c),
-        C = _(r("createRouteKey"), a, h);
+        g = p(),
+        h = m(i, g, s, t),
+        y = { actorID: e, from: "rootView" },
+        C = b(g),
+        v = _(r("createRouteKey"), a, y);
       return {
         addListener: function (t) {
           return d(o, t);
         },
         createRouterDispatcher: f,
-        defaultContext: h,
-        loadingDone: u,
+        defaultContext: y,
+        loadingDone: c,
         maintainedStateManager: i,
-        markNavigationAsCommitted: s,
-        prepareNavigationContext: C,
+        markNavigationAsCommitted: u,
+        prepareNavigationContext: v,
         routerStatusManager: a,
-        setCurrentRouterState: y,
-        setMaintainedState: g,
+        setCurrentRouterState: C,
+        setMaintainedState: h,
       };
     }
     function h(e, t, n, r) {

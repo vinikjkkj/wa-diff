@@ -16,6 +16,10 @@ __d(
       s,
       u,
       c = {
+        "37b398ecca42a995a585567f3732b77fa195ad9f4d178aef4677f34a988d7458":
+          function () {
+            return r("bx")("47528");
+          },
         "823b99779167abfa006e352c66d1184f6f9eef6ac384c9f956b519fe9191f517":
           function () {
             return r("bx")("47526");
@@ -41,11 +45,11 @@ __d(
             return r("bx")("14100");
           },
       },
-      d = c["823b99779167abfa006e352c66d1184f6f9eef6ac384c9f956b519fe9191f517"],
+      d = c["37b398ecca42a995a585567f3732b77fa195ad9f4d178aef4677f34a988d7458"],
       m = null,
       p;
     try {
-      p = r("bx").getURL(d(), { cacheBreaker: "1786602091608" });
+      p = r("bx").getURL(d(), { cacheBreaker: "1786633397327" });
     } catch (e) {
       m = e;
     }
@@ -84,7 +88,7 @@ __d(
         var C = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/823b99779167abfa006e352c66d1184f6f9eef6ac384c9f956b519fe9191f517/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/37b398ecca42a995a585567f3732b77fa195ad9f4d178aef4677f34a988d7458/wa_voip_shared.wasm",
           ),
           m != null)
         )

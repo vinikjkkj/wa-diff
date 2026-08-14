@@ -15,6 +15,7 @@ __d(
         "IG_PERSONAL",
         "MESSENGER_SPLIT",
         "META",
+        "MP_USER",
         "SOLO_USER",
         "THREADS_USER",
         "VR_PROFILE",

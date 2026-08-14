@@ -584,6 +584,10 @@ __d(
         "hawk_pac_guidance_card_reset_tool_impression",
       HAWK_PAC_GUIDANCE_CARD_RESET_TOOL_CLICK:
         "hawk_pac_guidance_card_reset_tool_click",
+      EXPERIMENT_REVIEW_GENERATOR_SEGMENT_TOOL_IMPRESSION:
+        "experiment_review_generator_segment_tool_impression",
+      EXPERIMENT_REVIEW_GENERATOR_SEGMENT_TOOL_CLICK:
+        "experiment_review_generator_segment_tool_click",
       IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
       PRODUCT_PICKER_IG_PAGE_LOAD_ELIGIBILITY:
         "product_picker_ig_page_load_eligibility",

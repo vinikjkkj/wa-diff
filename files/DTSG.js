@@ -7,19 +7,24 @@ __d(
     function u() {
       return e;
     }
-    function c(t) {
+    function c() {
+      var e = o("DTSGInitialData").token;
+      return e != null && e !== "";
+    }
+    function d(t) {
       e = t;
     }
-    function d() {
+    function m() {
       s(0, 5809);
     }
-    function m(e) {
+    function p(e) {
       s(0, 73819);
     }
     ((l.getToken = u),
-      (l.setToken = c),
-      (l.refresh = d),
-      (l.setTokenConfig = m));
+      (l.hasInitialDataToken = c),
+      (l.setToken = d),
+      (l.refresh = m),
+      (l.setTokenConfig = p));
   },
   98,
 );

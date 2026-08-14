@@ -351,6 +351,14 @@ __d(
               onBeforeStateUpdate: function () {
                 X && (X.cancel(), (X = null));
               },
+              onStateUpdateCommitted: function () {
+                a == null ||
+                  a.addMarkerPoint(
+                    "RouterState_Committed",
+                    "AppTiming",
+                    (d || (d = r("performanceNow")))(),
+                  );
+              },
               setCurrentRouterState: de,
             },
             t,

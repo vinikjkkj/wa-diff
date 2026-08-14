@@ -13,9 +13,16 @@ __d(
       );
     }
     function u() {
-      return o("WAWebMobilePlatforms").isSMB() && c() ? !1 : e() > 0;
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_nct_capping_kill_switch_enabled",
+        ) === !0
+      );
     }
     function c() {
+      return u() || (o("WAWebMobilePlatforms").isSMB() && d()) ? !1 : e() > 0;
+    }
+    function d() {
       var e = o("WAWebSubscriptionCollection").SubscriptionCollection.at(0);
       if (e == null) return !1;
       var t = e.newMessageCappingEnabled;
@@ -24,7 +31,8 @@ __d(
         (e == null ? void 0 : e.creationTime) != null && e.creationTime < s();
       return n;
     }
-    l.isIndividualNewChatMessageCappingEnabled = u;
+    ((l.isCappingKillSwitched = u),
+      (l.isIndividualNewChatMessageCappingEnabled = c));
   },
   98,
 );

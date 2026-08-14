@@ -24,119 +24,142 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.deviceMsgType,
-            a = t.msgProtobuf,
-            i = t.msgRecord,
-            l = t.participant,
-            d = t.sessionScope,
-            m = t.to,
-            p = l;
-          if (!l.isLid()) {
-            var _ = o("WAWebLidMigrationUtils").toLid(
-              o("WAWebWidFactory").asUserWidOrThrow(l),
-            );
-            if (_ != null) {
-              var f;
-              p = o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                _.user,
-                _.server,
-                (f = l.device) != null ? f : 0,
-              );
-            } else
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[createStatusDeviceMsgStanza] no LID for PN, using PN",
-                  ])),
-              );
-          }
-          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-            identityChanged: !1,
-            sessionScope: d,
-            wids: [p],
-          });
-          var g = i.data.id,
-            h = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
-          o("WALogger")
-            .LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "createStatusDeviceMsgStanza: id ",
-                  " to ",
-                  ", count: ",
-                  "",
-                ])),
-              g.id,
-              p.toString(),
-              n.retryCount,
-            )
-            .tags("messaging");
-          var y = yield r("WAWebUserPrefsStatus").getStatusSkDistribList([p], {
-              isFullAudience: !1,
-            }),
-            C = y.participantList,
-            b = y.skDistribList;
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[createStatusDeviceMsgStanza] skDistrib=",
-                " participants=",
-                "",
-              ])),
-            b.length,
-            C.length,
-          );
-          var v = yield o("WAWebEncryptAndSendStatusMsg").genMessageBody(
-              m,
-              h,
-              b,
-              C,
-              a,
-              d,
-            ),
-            S = v[0],
-            R = v[1],
-            L = v[2],
-            E = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
-              i.data,
+          var n = t.msgProtobuf,
+            r = t.msgRecord,
+            a = t.sessionScope,
+            i = t.to,
+            l = yield p(t),
+            s = l.authorId,
+            u = l.participantList,
+            c = l.skDistribList,
+            d = r.data.id,
+            m = yield o("WAWebEncryptAndSendStatusMsg").genMessageBody(
+              i,
+              s,
+              c,
+              u,
+              n,
               a,
             ),
-            k = o("WAWap").wap(
+            _ = m[0],
+            f = m[1],
+            g = m[2],
+            h = yield o("WAWebReportingTokenUtils").genReportingTokenBody(
+              r.data,
+              n,
+            ),
+            y = o("WAWap").wap(
               "message",
               {
-                id: o("WAWap").CUSTOM_STRING(g.id),
-                to: o("WAWebCommsWapMd").CHAT_JID(m),
-                type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(a),
+                id: o("WAWap").CUSTOM_STRING(d.id),
+                to: o("WAWebCommsWapMd").CHAT_JID(i),
+                type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(n),
                 edit: o("WAWebSendMsgCommonApi").editAttribute(
-                  a,
-                  i.data.subtype,
+                  n,
+                  r.data.subtype,
                 ),
               },
-              S,
-              R,
-              L,
-              E,
+              _,
+              f,
+              g,
+              h,
             ),
-            I = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(k);
+            C = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(y);
           return (
             o("WALogger")
               .LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
                     "createStatusDeviceMsgStanza: built retry stanza for msgId ",
                     "",
                   ])),
-                g.id,
+                d.id,
               )
               .tags("messaging"),
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-            { stanza: k, stanzaClass: I }
+            { stanza: y, stanzaClass: C }
           );
         })),
         m.apply(this, arguments)
       );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.deviceMsgType,
+            n = e.msgRecord,
+            a = e.participant,
+            i = e.sessionScope,
+            l = f(a);
+          l == null &&
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[prepareStatusRetryRecipients] no LID for PN, using PN",
+                ])),
+            );
+          var d = l != null ? l : a;
+          yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+            identityChanged: !1,
+            sessionScope: i,
+            wids: [d],
+          });
+          var m = n.data.id,
+            p = o("WAWebUserPrefsMeUser").getMeDeviceLidOrThrow();
+          o("WALogger")
+            .LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "prepareStatusRetryRecipients: id ",
+                  " to ",
+                  ", count: ",
+                  "",
+                ])),
+              m.id,
+              d.toLogString(),
+              t.retryCount,
+            )
+            .tags("messaging");
+          var _ = yield r("WAWebUserPrefsStatus").getStatusSkDistribList([d], {
+              isFullAudience: !1,
+            }),
+            g = _.participantList,
+            h = _.skDistribList;
+          return (
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[prepareStatusRetryRecipients] skDistrib=",
+                  " participants=",
+                  "",
+                ])),
+              h.length,
+              g.length,
+            ),
+            { authorId: p, participantList: g, skDistribList: h }
+          );
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
+      var t;
+      if (e.isLid()) return e;
+      var n = o("WAWebLidMigrationUtils").toLid(
+        o("WAWebWidFactory").asUserWidOrThrow(e),
+      );
+      return n != null
+        ? o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
+            n.user,
+            n.server,
+            (t = e.device) != null ? t : 0,
+          )
+        : null;
     }
     l.createStatusDeviceMsgStanza = d;
   },

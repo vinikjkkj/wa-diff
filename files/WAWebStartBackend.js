@@ -725,9 +725,6 @@ __d(
               "restoreCTWASuggestions",
             ),
             o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-              "restoreNewMessageCappingData",
-            ),
-            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
               "loadQuickPromotions",
               { trigger: "app-launch" },
             ),

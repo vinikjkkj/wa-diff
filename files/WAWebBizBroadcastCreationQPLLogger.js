@@ -1,6 +1,11 @@
 __d(
   "WAWebBizBroadcastCreationQPLLogger",
-  ["$InternalEnum", "WAWebQplFlowWrapper", "qpl"],
+  [
+    "$InternalEnum",
+    "WAWebBizBroadcastProOnboardingStatus",
+    "WAWebQplFlowWrapper",
+    "qpl",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum")({
@@ -36,7 +41,15 @@ __d(
               (this.$1 = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
                 annotations: {
                   bool: { has_pre_selected_audience: n },
-                  string: { entry_point: t, platform: c },
+                  string: {
+                    bb_tier: String(
+                      o(
+                        "WAWebBizBroadcastProOnboardingStatus",
+                      ).getBizBroadcastProductTier(),
+                    ),
+                    entry_point: t,
+                    platform: c,
+                  },
                 },
               })));
           }),

@@ -3455,7 +3455,10 @@ __d(
       web_voip_audio_playback_impl: [21689, "int", 0, 0],
       web_voip_av_sync_debug_overlay: [31481, "bool", !1, !1],
       web_voip_capture_video_rotation_type: [27973, "int", 0, 0],
+      web_voip_deferred_boot_init: [34923, "bool", !1, !1],
+      web_voip_deferred_boot_init_max_delay_ms: [34924, "int", 12e4, 12e4],
       web_voip_dynamic_thread_preallocate_count: [23789, "int", 0, 0],
+      web_voip_incoming_offer_init_freshness_ms: [34925, "int", 0, 0],
       web_voip_load_wasm_variant: [
         23045,
         "string",

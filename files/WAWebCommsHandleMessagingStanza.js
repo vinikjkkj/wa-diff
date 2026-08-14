@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAParsableWapNode",
+    "WAWebCommsClassifyStatusStanza",
     "WAWebCommsHandleStanzaUtils",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsg",
@@ -25,18 +26,27 @@ __d(
         )
       )
         if (o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()) {
-          var l;
-          ((i = r("WAWebWid").isGroup(
-            (l = a.from) == null ? void 0 : l.toString(),
-          )),
+          var l,
+            s,
+            u = o("WAWebStatusGatingUtils").isStatusDeliverViaSmaxEnabled()
+              ? o(
+                  "WAWebCommsClassifyStatusStanza",
+                ).classifyIncomingStatusStanza(t)
+              : null;
+          ((i =
+            (l = u == null ? void 0 : u.isGroupStatus) != null
+              ? l
+              : r("WAWebWid").isGroup(
+                  (s = a.from) == null ? void 0 : s.toString(),
+                )),
             (t.tag = "message"));
         } else {
-          var s = o("WAWebCreateNackFromStanza").createNackFromStanza(
+          var c = o("WAWebCreateNackFromStanza").createNackFromStanza(
             t,
             o("WAWebCreateNackFromStanza").NackReason.UnsupportedMessage,
           );
           return (
-            s !== "NO_ACK" &&
+            c !== "NO_ACK" &&
               o("WALogger")
                 .WARN(
                   e ||
@@ -45,14 +55,14 @@ __d(
                     ])),
                 )
                 .sendLogs("status-stanza-recv-disabled"),
-            s
+            c
           );
         }
       switch (t.tag) {
         case "message":
           {
-            var u = t.attrs.from;
-            if (!r("WAWebWid").isNewsletter(u == null ? void 0 : u.toString()))
+            var d = t.attrs.from;
+            if (!r("WAWebWid").isNewsletter(d == null ? void 0 : d.toString()))
               return r("WAWebHandleMsg")(t, { isGroupStatusStanza: i }).catch(
                 function (e) {
                   return o(

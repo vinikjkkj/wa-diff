@@ -97,7 +97,10 @@ __d(
               lastOrder: n == null ? void 0 : n.lastOrder,
               leadStage: t,
               name: b(e),
-            }));
+            }),
+            o(
+              "WAWebCustomerProfileChangeNotifier",
+            ).notifyCustomerProfileChanged(e));
         })),
         f.apply(this, arguments)
       );
@@ -108,9 +111,12 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield o(
+          (yield o(
             "WAWebContactManagerCustomerProfileUpsertMutation",
-          ).upsertCustomerProfileToServer(e, { leadStage: t, name: b(e) });
+          ).upsertCustomerProfileToServer(e, { leadStage: t, name: b(e) }),
+            o(
+              "WAWebCustomerProfileChangeNotifier",
+            ).notifyCustomerProfileChanged(e));
         })),
         h.apply(this, arguments)
       );

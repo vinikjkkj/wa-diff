@@ -86,6 +86,7 @@ __d(
       IMAGE_ANIMATION: "image_animation",
       LONG_ATTRIBUTIONS_WINDOW: "long_attributions_window",
       LPV: "landing_page_view",
+      MAE_WEB_APP_PARITY: "mae_web_app_parity",
       MARKETPLACE_COMMERCE_OPTIMIZATION: "marketplace_commerce_optimization",
       MEDIA_RECOMPOSITION: "media_recomposition",
       MULTI_MEDIA_CUSTOMIZATION_MVP: "multi_media_customization_mvp",

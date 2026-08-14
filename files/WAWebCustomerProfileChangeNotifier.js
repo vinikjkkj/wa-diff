@@ -2,8 +2,9 @@ __d(
   "WAWebCustomerProfileChangeNotifier",
   [],
   function (t, n, r, o, a, i) {
-    var e = new Map();
-    function l(t, n) {
+    var e = new Map(),
+      l = new Set();
+    function s(t, n) {
       var r = e.get(t),
         o = r != null ? r : new Set();
       return (
@@ -14,12 +15,22 @@ __d(
         }
       );
     }
-    function s(t) {
+    function u(e) {
+      return (
+        l.add(e),
+        function () {
+          l.delete(e);
+        }
+      );
+    }
+    function c(t) {
       var n = e.get(t);
       if (n != null) for (var r of Array.from(n)) r();
+      for (var o of Array.from(l)) o(t);
     }
-    ((i.subscribeToCustomerProfileChanges = l),
-      (i.notifyCustomerProfileChanged = s));
+    ((i.subscribeToCustomerProfileChanges = s),
+      (i.subscribeToAnyCustomerProfileChange = u),
+      (i.notifyCustomerProfileChanged = c));
   },
   66,
 );

@@ -27,7 +27,6 @@ __d(
     "WAWebMsgAIProvenance",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
-    "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsStatusAttributions.pb",
     "WAWebSimpleSignalPNToFBIDMigration",
@@ -444,7 +443,7 @@ __d(
         });
       }
       if (
-        ((u = $(u, e, n)),
+        ((u = x(u, e, n)),
         o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
           o(
             "WAWebMessagePluginGenerateReportingTokenContent",
@@ -538,15 +537,12 @@ __d(
       );
     }
     function k(e) {
-      return { pollCreationMessageV4: { message: e } };
-    }
-    function I(e) {
       return { questionMessage: { message: e } };
     }
-    function T(e) {
+    function I(e) {
       return { questionReplyMessage: { message: e } };
     }
-    function D(e) {
+    function T(e) {
       return {
         associatedChildMessage: {
           message: babelHelpers.extends({}, e, { messageContextInfo: void 0 }),
@@ -554,7 +550,7 @@ __d(
         messageContextInfo: e.messageContextInfo,
       };
     }
-    function x(e) {
+    function D(e) {
       var t = e.messageContextInfo,
         n = babelHelpers.objectWithoutPropertiesLoose(e, u);
       return {
@@ -562,7 +558,7 @@ __d(
         messageContextInfo: t,
       };
     }
-    function $(e, t, n) {
+    function x(e, t, n) {
       var a,
         i,
         l,
@@ -578,17 +574,15 @@ __d(
             ? babelHelpers.extends({}, e, { messageContextInfo: void 0 })
             : e;
       if (
-        (t.pollContentType ===
-          o("WAWebPollCreationUtils").PollContentType.IMAGE && (d = k(d)),
-        (n == null ? void 0 : n.isQuestion) === !0 && (d = I(d)),
-        n != null && n.questionReplyQuotedMessage && (d = T(d)),
+        ((n == null ? void 0 : n.isQuestion) === !0 && (d = k(d)),
+        n != null && n.questionReplyQuotedMessage && (d = I(d)),
         t.associationType != null &&
           (t.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_POLL
-            ? (d = x(d))
+            ? (d = D(d))
             : o(
                 "WAWebMessageAssociationGatingUtils",
-              ).isFutureproofAssociatedChildEnabled() && (d = D(d))),
+              ).isFutureproofAssociatedChildEnabled() && (d = T(d))),
         t.isViewOnce && (d = v(d, t)),
         t.isDynamicReplyButtonsMsg === !0 &&
           (d = o(
@@ -639,7 +633,7 @@ __d(
         d
       );
     }
-    function P(e) {
+    function $(e) {
       ((e.imageMessage = void 0),
         (e.videoMessage = void 0),
         (e.documentMessage = void 0),
@@ -649,7 +643,7 @@ __d(
         (e.stickerPackMessage = void 0),
         (e.albumMessage = void 0));
     }
-    function N(e) {
+    function P(e) {
       return e == null
         ? !1
         : !!(
@@ -663,7 +657,7 @@ __d(
             e.albumMessage
           );
     }
-    var M = [
+    var N = [
       "deviceSentMessage",
       "viewOnceMessage",
       "ephemeralMessage",
@@ -687,21 +681,21 @@ __d(
       "botForwardedMessage",
       "questionReplyMessage",
     ];
-    function w(e) {
+    function M(e) {
       var t = e;
-      (N(t) && P(t),
-        M.forEach(function (e) {
+      (P(t) && $(t),
+        N.forEach(function (e) {
           var n,
             r = (n = t[e]) == null ? void 0 : n.message;
-          r != null && N(r) && P(r);
+          r != null && P(r) && $(r);
         }));
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function F() {
+    function A() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             a,
@@ -717,7 +711,7 @@ __d(
           (c === !0 &&
             o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
             (_ = !0),
-            _ === !0 && w(p),
+            _ === !0 && M(p),
             (p.messageContextInfo = babelHelpers.extends(
               {},
               p.messageContextInfo,
@@ -772,10 +766,10 @@ __d(
             p
           );
         })),
-        F.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function O(e) {
+    function F(e) {
       var t,
         n,
         a,
@@ -820,7 +814,7 @@ __d(
       }
       return i;
     }
-    function B(e) {
+    function O(e) {
       var t,
         n = e,
         a =
@@ -842,7 +836,7 @@ __d(
       }
       return n;
     }
-    function W(e) {
+    function B(e) {
       var t = e,
         n = (e == null ? void 0 : e.protocolMessage) != null;
       if (n) {
@@ -857,7 +851,7 @@ __d(
       }
       return t;
     }
-    function q(e) {
+    function W(e) {
       if (e == null || !r("WAWebWid").isWid(e)) return null;
       try {
         return o("WAWebWidFactory").createWid(e);
@@ -865,39 +859,39 @@ __d(
         return null;
       }
     }
-    function U(e) {
-      var t = q(e);
+    function q(e) {
+      var t = W(e);
       if (t == null || !t.isUser() || t.isBot() || t.isLid()) return null;
       var n = o("WAWebLidMigrationUtils").toLid(t);
       return n != null ? o("WAWebE2EProtoUtils").encodeJid(n) : null;
     }
-    function V(e) {
-      var t = q(e);
+    function U(e) {
+      var t = W(e);
       return t != null && t.isUser() && !t.isBot() && !t.isLid();
     }
-    function H(e) {
+    function V(e) {
       var t = [];
       for (var n of e) {
-        var r = U(n);
-        r != null ? t.push(r) : V(n) || t.push(n);
+        var r = q(n);
+        r != null ? t.push(r) : U(n) || t.push(n);
       }
       return t;
     }
-    function G(e) {
-      var t = U(e);
+    function H(e) {
+      var t = q(e);
       if (t != null) return t;
-      if (!V(e)) return e;
+      if (!U(e)) return e;
     }
-    var z = 32;
-    function j(e) {
-      return K(
+    var G = 32;
+    function z(e) {
+      return j(
         r("WAWebStructuredClone")(e),
         o("WAWebProtobufsE2E.pb").MessageSpec,
         0,
       );
     }
-    function K(e, t, n) {
-      if (n > z)
+    function j(e, t, n) {
+      if (n > G)
         throw r("err")("coexv2 relay sanitize exceeded max nesting depth");
       for (
         var a = o("WAProtoCompile").compileSpec(t),
@@ -912,18 +906,18 @@ __d(
         if (c != null) {
           if (o("WAProtoUtils").isMessageType(s[u])) {
             var d = o("WAProtoUtils").isRepeatedField(s[u]) ? c : [c];
-            for (var m of d) K(m, i[u], n + 1);
+            for (var m of d) j(m, i[u], n + 1);
           } else if (o("WAProtoUtils").isStringType(s[u]))
-            if (o("WAProtoUtils").isRepeatedField(s[u])) e[l[u]] = H(c);
+            if (o("WAProtoUtils").isRepeatedField(s[u])) e[l[u]] = V(c);
             else {
-              var p = G(c);
+              var p = H(c);
               p == null ? delete e[l[u]] : (e[l[u]] = p);
             }
         }
       }
       return e;
     }
-    function Q(e) {
+    function K(e) {
       var t = r("WAWebStructuredClone")(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
@@ -932,12 +926,12 @@ __d(
         t
       );
     }
-    function X(e) {
-      return Y.apply(this, arguments);
+    function Q(e) {
+      return X.apply(this, arguments);
     }
-    function Y() {
+    function X() {
       return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDebugInfo",
             {
@@ -959,7 +953,7 @@ __d(
             { supportPayload: JSON.stringify(n) },
           );
         })),
-        Y.apply(this, arguments)
+        X.apply(this, arguments)
       );
     }
     ((l.populateMessageContextInfo = d),
@@ -968,13 +962,13 @@ __d(
       (l.createAddonProtobuf = _),
       (l.createProtobuf = h),
       (l.getProtobufMessage = C),
-      (l.updateBotInvokeMsgProtoCopyForCapi = A),
-      (l.updateFbidBotProtobuf = O),
-      (l.updateFbidBotInvokeProtobuf = B),
-      (l.updateBotProtobuf = W),
-      (l.sanitizeCoexV2RelayMessage = j),
-      (l.updateGroupMsgProtoWithCapiFlag = Q),
-      (l.addDebugInfoSupportPayload = X));
+      (l.updateBotInvokeMsgProtoCopyForCapi = w),
+      (l.updateFbidBotProtobuf = F),
+      (l.updateFbidBotInvokeProtobuf = O),
+      (l.updateBotProtobuf = B),
+      (l.sanitizeCoexV2RelayMessage = z),
+      (l.updateGroupMsgProtoWithCapiFlag = K),
+      (l.addDebugInfoSupportPayload = Q));
   },
   98,
 );

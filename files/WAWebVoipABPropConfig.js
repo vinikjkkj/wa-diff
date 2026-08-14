@@ -24,6 +24,11 @@ __d(
           type: "int",
         },
         {
+          abProp: "calling_enable_dual_stream_receiver",
+          wasmKey: "calling_enable_dual_stream_receiver",
+          type: "bool",
+        },
+        {
           abProp: "max_group_size_for_long_ringtone",
           wasmKey: "max_group_size_for_long_ringtone",
           type: "int",

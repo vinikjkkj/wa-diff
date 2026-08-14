@@ -18,6 +18,7 @@ __d(
     "WAWebWidToJid",
     "decodeProtobuf",
     "encodeProtobuf",
+    "gkx",
     "isArrayNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -84,6 +85,7 @@ __d(
         delete f.typeFlag,
         delete f.pendingReadReceipt,
         _(f),
+        r("gkx")("22769") && delete f.msgRowOpaqueData,
         o("WAWebApiHydrateWidsUtil").hydrateWids(f),
         c.forEach(function (e) {
           f[e] != null && (f[e] = r("WAWebMsgKey").from(f[e]));
