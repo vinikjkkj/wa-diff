@@ -94,12 +94,12 @@ __d(
                   return;
                 }
                 try {
-                  var e = yield r("WAWebNetworkGetResponseIfOnline")(
-                    g,
-                    "GET",
-                    null,
-                    void 0,
-                  );
+                  var e = yield r("WAWebNetworkGetResponseIfOnline")({
+                    data: null,
+                    method: "GET",
+                    responseType: void 0,
+                    url: g,
+                  });
                   ((this.online = !!e),
                     o("WALogger").LOG(
                       m ||

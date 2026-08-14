@@ -10,16 +10,22 @@ __d(
       d,
       m,
       p,
-      _ = !1,
+      _,
       f = !1,
       g = !1,
-      h = null,
-      y = null;
-    function C() {
-      ((f = !1), (g = !1));
+      h = !1,
+      y = !1,
+      C = "normal",
+      b = null,
+      v = null;
+    function S() {
+      (R(), (C = "normal"));
     }
-    function b() {
-      if (_) {
+    function R() {
+      ((g = !1), (h = !1), (y = !1));
+    }
+    function L() {
+      if (f) {
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -28,9 +34,9 @@ __d(
         );
         return;
       }
-      ((_ = !0),
-        (y = null),
-        C(),
+      ((f = !0),
+        (v = null),
+        S(),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -38,10 +44,10 @@ __d(
             ])),
         ));
     }
-    function v() {
-      _ &&
-        ((y = S()),
-        (_ = !1),
+    function E() {
+      f &&
+        ((v = k()),
+        (f = !1),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -49,70 +55,94 @@ __d(
             ])),
         ));
     }
-    function S() {
-      return _
+    function k() {
+      return f
         ? (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip:windowMetrics] snapshot: dragged=",
                 " resized=",
+                " selfPreviewResized=",
+                " selfPreviewSize=",
                 " renderer=",
                 "",
               ])),
-            String(f),
             String(g),
-            h != null ? h : "none",
+            String(h),
+            String(y),
+            C,
+            b != null ? b : "none",
           ),
-          { windowDragged: f, windowResized: g, rendererType: h })
-        : y;
+          {
+            rendererType: b,
+            selfPreviewResized: y,
+            selfPreviewSize: C,
+            windowDragged: g,
+            windowResized: h,
+          })
+        : v;
     }
-    function R() {
-      ((f = !1), (g = !1));
+    function I() {
+      R();
     }
-    function L() {
-      _ &&
-        ((f = !0),
+    function T(e) {
+      f &&
+        ((y = !0),
+        (C = e),
         o("WALogger").LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
-              "[voip:windowMetrics] window dragged",
+              "[voip:windowMetrics] self-preview size changed: ",
+              "",
             ])),
+          e,
         ));
     }
-    function E() {
-      _ &&
+    function D() {
+      f &&
         ((g = !0),
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip:windowMetrics] window dragged",
+            ])),
+        ));
+    }
+    function x() {
+      f &&
+        ((h = !0),
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:windowMetrics] window resized",
             ])),
         ));
     }
-    function k(e, t) {
+    function $(e, t) {
       var n = o(
           "WAWebVoipVideoRendererInterface",
         ).WAWebVoipVideoRendererType.getName(e),
         r = o(
           "WAWebVoipVideoRendererInterface",
         ).WAWebVoipVideoRendererThreadingMode.getName(t);
-      ((h = n + ":" + r),
+      ((b = n + ":" + r),
         o("WALogger").LOG(
-          p ||
-            (p = babelHelpers.taggedTemplateLiteralLoose([
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:windowMetrics] renderer type set: ",
               "",
             ])),
-          h,
+          b,
         ));
     }
-    ((l.startWindowMetrics = b),
-      (l.stopWindowMetrics = v),
-      (l.snapshotWindowMetrics = S),
-      (l.resetWindowMetrics = R),
-      (l.recordWindowDragged = L),
-      (l.recordWindowResized = E),
-      (l.setRendererType = k));
+    ((l.startWindowMetrics = L),
+      (l.stopWindowMetrics = E),
+      (l.snapshotWindowMetrics = k),
+      (l.resetWindowMetrics = I),
+      (l.recordSelfPreviewSizeChanged = T),
+      (l.recordWindowDragged = D),
+      (l.recordWindowResized = x),
+      (l.setRendererType = $));
   },
   98,
 );

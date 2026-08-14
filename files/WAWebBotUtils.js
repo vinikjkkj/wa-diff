@@ -112,7 +112,7 @@ __d(
       (l.META_BOT_SIDECHAT_LEGACY_FBID_WID = C),
       (l.META_BOT_LID_WID = b),
       (l.isMetaAiBot = S),
-      (l.isSmbMetaAiBot = R),
+      (l.isBusinessAssistantBot = R),
       (l.isSideChatBotWid = L),
       (l.isAnyMetaAiBot = E),
       (l.isManusBot = k),

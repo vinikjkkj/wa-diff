@@ -74,9 +74,9 @@ __d(
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebUA").UA.isBuggyVideoLoad,
-            n = R(e.logContext, t);
+            n = R({ context: e.logContext, isBuggyVideoLoad: t });
           try {
-            return yield v(e, t, n);
+            return yield v({ isBuggyVideoLoad: t, opts: e, reporter: n });
           } catch (e) {
             throw (n.reportError(), e);
           }
@@ -84,47 +84,50 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n) {
+    function v(e) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l = t.debugHint,
-            m = t.file,
-            p = t.maxDimensions,
-            _ = t.throwOnBlack,
-            f = _ === void 0 ? !1 : _,
-            C = yield o("WAWebMediaLoad").loadVideo(m),
-            b = C.fullHeight,
-            v = C.fullWidth,
-            S = C.video;
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a = t.isBuggyVideoLoad,
+            i = t.opts,
+            l = t.reporter,
+            m = i.debugHint,
+            p = i.file,
+            _ = i.maxDimensions,
+            f = i.throwOnBlack,
+            C = f === void 0 ? !1 : f,
+            b = yield o("WAWebMediaLoad").loadVideo(p),
+            v = b.fullHeight,
+            S = b.fullWidth,
+            R = b.video;
           if (a) {
-            var R = 50,
-              L = 5e3 / R;
+            var L = 50,
+              E = 5e3 / L;
             return o("WAExponentialBackoff").exponentialBackoff(
               {
-                minTimeout: R,
-                maxTimeout: R,
-                retries: L,
+                minTimeout: L,
+                maxTimeout: L,
+                retries: E,
                 signal: new AbortController().signal,
                 factor: 1,
               },
               function (t, a) {
-                var c = [],
-                  d,
-                  m = 0;
-                for (d of p) {
-                  var _ = y({
-                      video: S,
-                      fullHeight: b,
-                      fullWidth: v,
-                      maxDimension: d,
+                var i = [],
+                  c,
+                  d = 0;
+                for (c of _) {
+                  var p = y({
+                      video: R,
+                      fullHeight: v,
+                      fullWidth: S,
+                      maxDimension: c,
                     }),
-                    C = _.imageData,
-                    R = _.thumb;
-                  if (B(C)) {
-                    if (a < L)
+                    f = p.imageData,
+                    b = p.thumb;
+                  if (B(f)) {
+                    if (a < E)
                       return (
                         a === 0 &&
                           o("WALogger").LOG(
@@ -133,10 +136,10 @@ __d(
                                 "[generateVideoThumbsAndDuration] set currentTime=0",
                               ])),
                           ),
-                        (S.currentTime = 0),
+                        (R.currentTime = 0),
                         t(r("err")("retry"))
                       );
-                    if ((m++, f))
+                    if ((d++, C))
                       throw (
                         o("WALogger")
                           .ERROR(
@@ -145,18 +148,18 @@ __d(
                                 "[generateVideoThumbsAndDuration] thumb gen failed (",
                                 ")",
                               ])),
-                            l,
+                            m,
                           )
-                          .sendLogs("thumbnail-generation-failed-" + l, {
+                          .sendLogs("thumbnail-generation-failed-" + m, {
                             sampling: 0.001,
                           }),
-                        i.reportChecked(m, a),
+                        l.reportChecked(d, a),
                         new h()
                       );
                   }
-                  c.push(R);
+                  i.push(b);
                 }
-                m > 0 &&
+                d > 0 &&
                   o("WALogger")
                     .ERROR(
                       u ||
@@ -165,33 +168,33 @@ __d(
                           " thumb(s) failed (",
                           ")",
                         ])),
+                      d,
                       m,
-                      l,
                     )
-                    .sendLogs("thumbnail-generation-failed-" + l, {
+                    .sendLogs("thumbnail-generation-failed-" + m, {
                       sampling: 0.001,
                     });
-                var E = { duration: ~~S.seekable.end(0), thumbs: c };
+                var L = { duration: ~~R.seekable.end(0), thumbs: i };
                 return (
-                  o("WAWebMediaLoad").disposeVideo(S),
-                  i.reportChecked(m, a),
-                  (g || (g = n("Promise"))).resolve(E)
+                  o("WAWebMediaLoad").disposeVideo(R),
+                  l.reportChecked(d, a),
+                  (g || (g = n("Promise"))).resolve(L)
                 );
               },
             );
           }
           try {
-            var E = 0,
-              k = p.map(function (e) {
+            var k = 0,
+              I = _.map(function (e) {
                 var t = y({
-                    video: S,
-                    fullHeight: b,
-                    fullWidth: v,
+                    video: R,
+                    fullHeight: v,
+                    fullWidth: S,
                     maxDimension: e,
                   }),
                   n = t.imageData,
                   r = t.thumb;
-                if (B(n) && (E++, f))
+                if (B(n) && (k++, C))
                   throw (
                     o("WALogger")
                       .ERROR(
@@ -200,17 +203,17 @@ __d(
                             "[generateVideoThumbsAndDuration] thumb gen failed (",
                             ")",
                           ])),
-                        l,
+                        m,
                       )
-                      .sendLogs("thumbnail-generation-failed-" + l, {
+                      .sendLogs("thumbnail-generation-failed-" + m, {
                         sampling: 0.001,
                       }),
-                    i.reportChecked(E),
+                    l.reportChecked(k),
                     new h()
                   );
                 return r;
               });
-            E > 0 &&
+            k > 0 &&
               o("WALogger")
                 .ERROR(
                   d ||
@@ -219,42 +222,44 @@ __d(
                       " thumb(s) failed (",
                       ")",
                     ])),
-                  E,
-                  l,
+                  k,
+                  m,
                 )
-                .sendLogs("thumbnail-generation-failed-" + l, {
+                .sendLogs("thumbnail-generation-failed-" + m, {
                   sampling: 0.001,
                 });
-            var I = ~~S.seekable.end(0);
-            return (i.reportChecked(E), { duration: I, thumbs: k });
+            var T = ~~R.seekable.end(0);
+            return (l.reportChecked(k), { duration: T, thumbs: I });
           } finally {
-            o("WAWebMediaLoad").disposeVideo(S);
+            o("WAWebMediaLoad").disposeVideo(R);
           }
         })),
         S.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      var n = self.performance.now(),
-        a = t ? "BUGGY_VIDEO_LOAD" : "NORMAL",
-        i = r("once")(o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome);
+    function R(e) {
+      var t = e.context,
+        n = e.isBuggyVideoLoad,
+        a = self.performance.now(),
+        i = n ? "BUGGY_VIDEO_LOAD" : "NORMAL",
+        l = r("once")(o("WAWebThumbnailOutcomeLogger").logThumbnailOutcome);
       return {
-        reportChecked: function (r, o) {
-          i({
-            branch: a,
+        reportChecked: function (n, r) {
+          l({
+            branch: i,
             checkPerformed: !0,
-            context: e,
-            generationDurationMs: self.performance.now() - n,
-            isBlack: r > 0,
-            retryCount: o,
+            context: t,
+            generationDurationMs: self.performance.now() - a,
+            isBlack: n > 0,
+            retryCount: r,
           });
         },
         reportError: function () {
-          i({
-            branch: a,
+          l({
+            branch: i,
             checkPerformed: !1,
-            context: e,
-            generationDurationMs: self.performance.now() - n,
+            context: t,
+            generationDurationMs: self.performance.now() - a,
             outcome: "ERROR",
           });
         },

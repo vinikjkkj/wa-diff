@@ -43,12 +43,6 @@ __d(
             (e.pushname = o("WAWebBaseModel").prop()),
             (e.blockStoreAdds = o("WAWebBaseModel").session(!1)),
             (e.meReadyTriggered = o("WAWebBaseModel").session(!1)),
-            (e.refExpiry = o("WAWebBaseModel").derived(
-              function () {
-                return Date.now() + this.refTTL;
-              },
-              ["ref", "refTTL"],
-            )),
             (e.platformField = o("WAWebBaseModel").derived(
               function () {
                 return (

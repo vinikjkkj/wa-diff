@@ -35,20 +35,18 @@ __d(
       y,
       C,
       b,
-      v,
-      S = (function () {
+      v = (function () {
         function t() {
           var e = this;
           ((this.msgs = []),
             (this.$1 = new (o("WAShiftTimer").ShiftTimer)(function () {
-              (I(e), F(e));
+              (k(e), A(e));
             })),
             (this.callOnConsolidate = null),
             (this.$2 = null),
             (this.$3 = 0),
             (this.saveMedia = null),
             (this.stickers = []),
-            (this.stickerPacks = []),
             (this.entries = new (o("WAWebMediaEntry").MediaEntryList)()),
             (this.downloadStage = o("WAWebMediaTypes").DownloadStage.INIT),
             (this.uploadStage = o("WAWebMediaTypes").UploadStage.INIT),
@@ -90,7 +88,7 @@ __d(
                 String(n.downloadStage),
               );
             }
-            return R(this, n) ? (this.notifyMsgsAsync(), !0) : !1;
+            return S(this, n) ? (this.notifyMsgsAsync(), !0) : !1;
           }),
           (a.clearBlob = function (t) {
             var e = this.mediaBlob;
@@ -109,12 +107,12 @@ __d(
           (a.resolveWhenConsolidated = function () {
             var e = this;
             return this.$1.ts
-              ? new (v || (v = n("Promise")))(function (t) {
+              ? new (b || (b = n("Promise")))(function (t) {
                   e.callOnConsolidate
                     ? e.callOnConsolidate.push(t)
                     : (e.callOnConsolidate = [t]);
                 })
-              : (v || (v = n("Promise"))).resolve();
+              : (b || (b = n("Promise"))).resolve();
           }),
           (a.notifyMsgsAsync = function () {
             this.$1.debounce(0);
@@ -151,9 +149,7 @@ __d(
           (a.hasAssociatedMsgsOrStickers = function () {
             for (var e = this.msgs, t = 0; t < e.length; t++)
               if (!e[t][1]) return !0;
-            return (
-              this.hasAssociatedStickers() || this.hasAssociatedStickerPacks()
-            );
+            return this.hasAssociatedStickers();
           }),
           (a.associatedMsgs = function () {
             for (var e = this.msgs, t = [], n = 0; n < e.length; n++) {
@@ -180,7 +176,7 @@ __d(
                             "The sticker associated message has been deleted.",
                           ])),
                       ),
-                      (v || (v = n("Promise"))).resolve(200)
+                      (b || (b = n("Promise"))).resolve(200)
                     );
                 }
                 var i = this.msgs.find(function (e) {
@@ -211,7 +207,7 @@ __d(
                     var h,
                       y = this.msgs[g],
                       C = y[0],
-                      b = y[1];
+                      v = y[1];
                     o("WALogger").LOG(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -223,7 +219,7 @@ __d(
                           "",
                         ])),
                       g,
-                      b,
+                      v,
                       C.isUnsentPhoneMsg(),
                       (h = C.from) == null ? void 0 : h.toLogString(),
                       C.type,
@@ -240,7 +236,7 @@ __d(
                       .sendLogs(
                         "media-fault: rmr called on MediaObject with no msg",
                       ),
-                    (v || (v = n("Promise"))).reject(
+                    (b || (b = n("Promise"))).reject(
                       r("err")("rmr called on MediaObject with no msg"),
                     )
                   );
@@ -250,7 +246,7 @@ __d(
                 if (S.status === 200) {
                   var R = l.mediaData.type;
                   if (R === "unknown")
-                    return (v || (v = n("Promise"))).reject(
+                    return (b || (b = n("Promise"))).reject(
                       r("err")("rmr called on MediaData with unknown type"),
                     );
                   var L = S.isMD
@@ -289,9 +285,9 @@ __d(
           })()),
           (a.msgProps = function (t) {
             var e = {};
-            (T(e, this, o("WAWebMediaTypes").FIELDS.RAW),
-              T(e, this.contentInfo, this.contentFields()),
-              T(e, t, o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS),
+            (I(e, this, o("WAWebMediaTypes").FIELDS.RAW),
+              I(e, this.contentInfo, this.contentFields()),
+              I(e, t, o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS),
               (e.preview = this.contentInfo._preview));
             var n = {};
             for (var r in e) {
@@ -312,7 +308,7 @@ __d(
             (a || (a = this.$2 = {}),
               !Object.hasOwn(a, t) &&
                 (this.$3++,
-                (a[t] = (v || (v = n("Promise")))
+                (a[t] = (b || (b = n("Promise")))
                   .resolve(o)
                   .then(r)
                   .then(function (t) {
@@ -324,7 +320,7 @@ __d(
           }),
           (a.getPendingProcess = function (t) {
             return this.$3 === 0 || !this.$2 || !Object.hasOwn(this.$2, t)
-              ? (v || (v = n("Promise"))).resolve()
+              ? (b || (b = n("Promise"))).resolve()
               : this.$2[t];
           }),
           (a.videoStreamingInfo = (function () {
@@ -352,7 +348,7 @@ __d(
                   !(t instanceof o("WAWebMediaEntry").EncryptedMediaEntry)
                 )
                   return null;
-                var a = yield (v || (v = n("Promise"))).all([
+                var a = yield (b || (b = n("Promise"))).all([
                     r("WAWebCryptoCreateMediaKeys")(
                       o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO,
                       t.mediaKey,
@@ -375,27 +371,6 @@ __d(
             }
             return t;
           })()),
-          (a.addStickerPack = function (t) {
-            for (var e = this.stickerPacks, n = 0, r = 0; r < e.length; r++) {
-              var a = e[r],
-                i = a[0],
-                l = a[1];
-              i === t && !l && n++;
-            }
-            (n > 0 &&
-              o("WALogger")
-                .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "Assertion failed! ",
-                      " redundant sticker pack(s)",
-                    ])),
-                  n,
-                )
-                .sendLogs("redundant-sticker-pack-add"),
-              e.push([t, !1]),
-              this.notifyMsgsAsync());
-          }),
           (a.addSticker = function (t) {
             for (var e = this.stickers, n = 0, r = 0; r < e.length; r++) {
               var a = e[r],
@@ -406,8 +381,8 @@ __d(
             (n > 0 &&
               o("WALogger")
                 .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "Assertion failed! ",
                       " redundant sticker(s)",
                     ])),
@@ -429,27 +404,8 @@ __d(
               a === t && !i && ((e[r][1] = !0), (n = !0));
             }
           }),
-          (a.removeStickerPack = function (t) {
-            for (
-              var e = this.stickerPacks, n = !1, r = 0;
-              !n && r < e.length;
-              r++
-            ) {
-              var o = e[r],
-                a = o[0],
-                i = o[1];
-              a === t && !i && ((e[r][1] = !0), (n = !0));
-            }
-          }),
           (a.hasAssociatedStickers = function () {
             return this.stickers.some(function (e) {
-              var t = e[0],
-                n = e[1];
-              return !n;
-            });
-          }),
-          (a.hasAssociatedStickerPacks = function () {
-            return this.stickerPacks.some(function (e) {
               var t = e[0],
                 n = e[1];
               return !n;
@@ -524,10 +480,10 @@ __d(
           t
         );
       })();
-    function R(e, t) {
+    function S(e, t) {
       var n = e.contentInfo,
         a = !1,
-        i = L(t.type);
+        i = R(t.type);
       i && !e.type && ((e.type = i), (a = !0));
       var l = t.downloadStage,
         s = t.uploadStage;
@@ -570,14 +526,14 @@ __d(
               var _ = t.preview;
               (_ instanceof r("WAWebMediaOpaqueData")
                 ? (o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "consolidate: preview is already OpaqueData, reusing directly",
                       ])),
                   ),
                   _.retain(),
                   (n.preview = _))
-                : e.runProcessIfNotRunBefore("preview", N, _),
+                : e.runProcessIfNotRunBefore("preview", P, _),
                 (n._preview = _),
                 (a = !0));
             }
@@ -591,8 +547,8 @@ __d(
           }
           case "animationDuration":
           case "singleLoopDuration": {
-            var g = t[p];
-            g != null && g !== n[p] && ((n[p] = g), (a = !0));
+            var h = t[p];
+            h != null && h !== n[p] && ((n[p] = h), (a = !0));
             break;
           }
           case "fullPreviewData": {
@@ -618,11 +574,11 @@ __d(
           n.fullHeight !== 0
             ? ((n.aspectRatio = n.fullWidth / n.fullHeight), (a = !0))
             : n.preview &&
-              e.runProcessIfNotRunBefore("aspectRatio", w, n.preview)),
+              e.runProcessIfNotRunBefore("aspectRatio", M, n.preview)),
         a
       );
     }
-    function L(e) {
+    function R(e) {
       switch (e) {
         case o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE:
         case o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT:
@@ -641,7 +597,7 @@ __d(
           return;
       }
     }
-    function E(e) {
+    function L(e) {
       switch (e) {
         case "VIDEO":
         case "PTV":
@@ -662,7 +618,7 @@ __d(
           throw r("err")("web media type is invalid: " + e);
       }
     }
-    function k(e) {
+    function E(e) {
       var t;
       if (((t = e.interactiveHeader) == null ? void 0 : t.mediaType) != null)
         switch (e.interactiveHeader.mediaType) {
@@ -680,10 +636,10 @@ __d(
             return o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT;
         }
     }
-    function I(e) {
+    function k(e) {
       var t = {};
-      (T(t, e, o("WAWebMediaTypes").FIELDS.RAW),
-        T(t, e.contentInfo, e.contentFields()),
+      (I(t, e, o("WAWebMediaTypes").FIELDS.RAW),
+        I(t, e.contentInfo, e.contentFields()),
         e.mediaBlob && (t.renderableUrl = e.mediaBlob.url()));
       for (var n = e.msgs, r = n.length, a = 0; a < r; a++) {
         var i = n[a],
@@ -691,7 +647,7 @@ __d(
           s = i[1];
         if (l != null && !s) {
           if (l.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
-            t.mediaStage = D(l, e);
+            t.mediaStage = T(l, e);
             for (
               var u = 0;
               u < o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS.length;
@@ -705,7 +661,7 @@ __d(
                 (t[c] = l.get(o("WAWebMediaTypes").MEDIA_TO_MSG[c])));
             }
             t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              (t.type = k(l));
+              (t.type = E(l));
           } else {
             delete t.mediaStage;
             for (
@@ -727,31 +683,31 @@ __d(
         })),
         e.saveMedia && e.saveMedia(e));
     }
-    function T(e, t, n) {
+    function I(e, t, n) {
       for (var r = 0; r < n.length; r++) {
         var o = n[r];
         e[o] = t[o];
       }
     }
-    function D(e, t) {
+    function T(e, t) {
       if (t.filehash) {
         if (e.id.fromMe && e.ack < o("WAWebAck").ACK.SENT)
           return (
             e.local ||
               o("WALogger")
                 .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "Assertion failed!",
                     ])),
                 )
                 .sendLogs("media-fault: unsent media system message not local"),
-            $(t)
+            x(t)
           );
       } else return o("WAWebMediaTypes").MediaDataStage.PREPARING;
-      return x(t);
+      return D(t);
     }
-    function x(e) {
+    function D(e) {
       return e.downloadStage === o("WAWebMediaTypes").DownloadStage.INIT
         ? o("WAWebMediaTypes").MediaDataStage.INIT
         : e.downloadStage === o("WAWebMediaTypes").DownloadStage.EXISTS
@@ -789,7 +745,7 @@ __d(
                                 );
                               })();
     }
-    function $(e) {
+    function x(e) {
       switch (e.uploadStage) {
         case o("WAWebMediaTypes").UploadStage.INIT:
           return o("WAWebMediaTypes").MediaDataStage.PREPARING;
@@ -815,31 +771,31 @@ __d(
           return o("WAWebMediaTypes").MediaDataStage.FINALIZING;
       }
     }
-    var P = "/9j/";
-    function N(e) {
-      return M.apply(this, arguments);
+    var $ = "/9j/";
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function M() {
+    function N() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e;
-          if (!t.startsWith(P))
+          if (!t.startsWith($))
             try {
               var n = atob(t);
-              n.startsWith(P) &&
+              n.startsWith($) &&
                 ((t = n),
                 o("WALogger")
                   .WARN(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "[media] preview was double base64 encoded, auto-corrected",
                       ])),
                   )
                   .sendLogs("media-preview-double-encoded"));
             } catch (e) {
               o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[media] preview double-encode check failed: ",
                     "",
                   ])),
@@ -849,45 +805,35 @@ __d(
           var a = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(t);
           return (a.autorelease(), { resolvedPreview: a });
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function A() {
+    function w() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebMediaDataUtils").getImageWidthHeight(e),
             n = t.height,
             r = t.width;
           return { aspectRatio: r / n };
         })),
-        A.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function F(e) {
+    function A(e) {
       var t = {};
-      (T(t, e, o("WAWebMediaTypes").FIELDS.RAW),
-        T(t, e.contentInfo, e.contentFields()),
+      (I(t, e, o("WAWebMediaTypes").FIELDS.RAW),
+        I(t, e.contentInfo, e.contentFields()),
         e.mediaBlob && (t.renderableUrl = e.mediaBlob.url()));
-      var n = x(e);
+      var n = D(e);
       ((e.stickers = e.stickers.filter(function (e) {
         var t = e[0],
           n = e[1];
         return !n;
       })),
         e.stickers.forEach(function (e) {
-          var r = e[0],
-            o = e[1];
-          r.mediaData.set(babelHelpers.extends({}, t, { mediaStage: n }));
-        }),
-        (e.stickerPacks = e.stickerPacks.filter(function (e) {
-          var t = e[0],
-            n = e[1];
-          return !n;
-        })),
-        e.stickerPacks.forEach(function (e) {
           var r = e[0],
             o = e[1];
           r.mediaData.set(babelHelpers.extends({}, t, { mediaStage: n }));
@@ -899,10 +845,10 @@ __d(
           (e.callOnConsolidate = null)),
         e.saveMedia && e.saveMedia(e));
     }
-    ((l.MediaObject = S),
-      (l.consolidate = R),
-      (l.webMediaTypeToWamMediaType = E),
-      (l.getInteractiveMsgMediaType = k));
+    ((l.MediaObject = v),
+      (l.consolidate = S),
+      (l.webMediaTypeToWamMediaType = L),
+      (l.getInteractiveMsgMediaType = E));
   },
   98,
 );

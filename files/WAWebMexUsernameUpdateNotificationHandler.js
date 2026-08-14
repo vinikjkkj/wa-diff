@@ -1,7 +1,6 @@
 __d(
   "WAWebMexUsernameUpdateNotificationHandler",
   [
-    "Promise",
     "WALogger",
     "WAWebApiContact",
     "WAWebCurrentUser",
@@ -11,11 +10,12 @@ __d(
     "WAWebSetUsernameJob",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameGatingUtils",
+    "WAWebUsernameODS",
     "WAWebUsernameTypes",
     "WAWebWid",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p;
@@ -99,8 +99,8 @@ __d(
                 ])),
             );
             var n = t.xwa2_notify_username_on_update_side_sub.hash,
-              a = yield o("WAWebApiContact").getContactRecordByHash(n);
-            if (a == null) {
+              r = yield o("WAWebApiContact").getContactRecordByHash(n);
+            if (r == null) {
               o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -109,64 +109,45 @@ __d(
               );
               return;
             }
-            if (a.isAddressBookContact === 1) {
-              o("WALogger").LOG(
+            var a = yield b(n, r.id);
+            if (a == null) {
+              o("WALogger").WARN(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[mex][username] pn side contact hash found, but no lid contact found",
+                  ])),
+              );
+              return;
+            }
+            if (
+              yield o("WAWebApiContact").isAddressBookContact(
+                o("WAWebWidToJid").widToUserJid(a),
+              )
+            ) {
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[mex][username] side-sub notif for contact, skip",
                   ])),
               );
               return;
             }
-            var i = o("WAWebWidFactory").createWid(a.id);
-            if (!i.isLid()) {
-              var l = R(n, i),
-                s = yield b(n),
-                p = s.lidWithHash,
-                _ = s.pnContactHashMatched,
-                f =
-                  p != null
-                    ? o("WAWebWidFactory").createWid(p).toLogString()
-                    : "none",
-                g = o("WAWebCurrentUser").isEmployee() ? n : "redacted";
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[mex][username] side-sub contact id is not a lid: ",
-                        ", hash: ",
-                        ", hash matches ",
-                        ", lid row with same hash: ",
-                        ", pn hash column matched: ",
-                        "",
-                      ])),
-                    i.toLogString(),
-                    g,
-                    l,
-                    f,
-                    String(_),
-                  )
-                  .sendLogs(S(l)),
-                r("err")("mex-username-side-sub-non-lid")
-              );
-            }
-            if (!o("WAWebUserPrefsMeUser").isMeAccount(i)) {
-              var h = yield o("WAWebQueryExistsJob").queryWidUsernameExists(i);
-              if (!(h == null || h.usernameChanged !== !0)) {
-                var y = o("WAWebUsernameTypes").asMaybeUsername(h.username),
-                  C = y == null;
-                if (C) {
-                  if (h.isPhoneNumberKnown !== !0) return;
-                } else if (h.wasPreviouslyKnown !== !0) return;
+            if (!o("WAWebUserPrefsMeUser").isMeAccount(a)) {
+              var i = yield o("WAWebQueryExistsJob").queryWidUsernameExists(a);
+              if (!(i == null || i.usernameChanged !== !0)) {
+                var l = o("WAWebUsernameTypes").asMaybeUsername(i.username),
+                  s = l == null;
+                if (s) {
+                  if (i.isPhoneNumberKnown !== !0) return;
+                } else if (i.wasPreviouslyKnown !== !0) return;
                 yield o(
                   "WAWebInsertUsernameChangeSystemMsg",
                 ).generateUsernameChangeNotificationSystemMsg({
-                  wid: i,
+                  wid: a,
                   oldUsername: o("WAWebUsernameTypes").asMaybeUsername(
-                    h.oldUsername,
+                    i.oldUsername,
                   ),
-                  newUsername: y,
+                  newUsername: l,
                 });
               }
             }
@@ -175,67 +156,60 @@ __d(
         C.apply(this, arguments)
       );
     }
-    function b(e) {
+    function b(e, t) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (p || (p = n("Promise"))).all([
-              r("WAWebLidAwareContactsDB").equalsPrimaryKeys(
-                ["contactHash"],
-                e,
-              ),
-              r("WAWebLidAwareContactsDB").equalsPrimaryKeys(
-                ["pnContactHash"],
-                e,
-              ),
-            ]),
-            a = t[0],
-            i = t[1];
-          return {
-            lidWithHash: a.find(function (e) {
-              return r("WAWebWid").isStringLid(e);
-            }),
-            pnContactHashMatched: i.some(function (e) {
-              return (
-                r("WAWebWid").isStringLid(e) &&
-                o("WAWebApiContact").getPnIfLidIsLatestMapping(
-                  o("WAWebWidFactory").createUserLidOrThrow(e),
-                ) != null
-              );
-            }),
-          };
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (r("WAWebWid").isStringLid(t))
+            return o("WAWebWidFactory").createUserLidOrThrow(t);
+          var n = yield S(e);
+          if (n == null)
+            return (
+              o("WAWebUsernameODS").logUsernameSideSubNoLidForHash(),
+              null
+            );
+          var a = o("WAWebWidFactory").createUserLidOrThrow(n);
+          return (
+            o("WAWebUsernameODS").logUsernameSideSubHashCollision(),
+            o("WAWebCurrentUser").isEmployee() &&
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[mex][username] side-sub hash matched a pn contact, using the lid that carries it: pn ",
+                      ", lid ",
+                      ", hash ",
+                      "",
+                    ])),
+                  o("WAWebWidFactory").createWid(t).toLogString(),
+                  a.toLogString(),
+                  e,
+                )
+                .sendLogs("mex-username-side-sub-recovered-lid"),
+            a
+          );
         })),
         v.apply(this, arguments)
       );
     }
     function S(e) {
-      return e === "pn"
-        ? "mex-username-side-sub-non-lid-pn"
-        : e === "pn-and-lid"
-          ? "mex-username-side-sub-non-lid-pn-and-lid"
-          : e === "pn-no-lid"
-            ? "mex-username-side-sub-non-lid-pn-no-lid"
-            : e === "lid"
-              ? "mex-username-side-sub-non-lid-lid"
-              : e === "no-lid"
-                ? "mex-username-side-sub-non-lid-no-lid"
-                : e === "none"
-                  ? "mex-username-side-sub-non-lid-none"
-                  : (function () {
-                      throw Error(
-                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                          e,
-                      );
-                    })();
+      return R.apply(this, arguments);
     }
-    function R(e, t) {
-      var n = o("WAWebApiContact").getContactHash(t.toString()) === e,
-        r = t.isUserNotPSA() ? o("WAWebApiContact").getCurrentLid(t) : null;
-      if (r == null) return n ? "pn-no-lid" : "no-lid";
-      var a = o("WAWebApiContact").getContactHash(r.toString()) === e;
-      return n ? (a ? "pn-and-lid" : "pn") : a ? "lid" : "none";
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield r("WAWebLidAwareContactsDB").equalsPrimaryKeys(
+            ["contactHash"],
+            e,
+          );
+          return t.find(function (e) {
+            return r("WAWebWid").isStringLid(e);
+          });
+        })),
+        R.apply(this, arguments)
+      );
     }
     ((l.mexHandleUsernameChange = _),
       (l.mexHandleUsernameDelete = g),

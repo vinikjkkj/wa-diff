@@ -26,9 +26,8 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 125;
-    function f(e) {
+      p = 125;
+    function _(e) {
       var t = {};
       return (
         o("WAWebMediaTypes").MAPPED_STICKER_PROPS.forEach(function (n) {
@@ -39,7 +38,7 @@ __d(
         t
       );
     }
-    function g(t) {
+    function f(t) {
       if (!t.filehash) {
         o("WALogger")
           .ERROR(
@@ -54,35 +53,20 @@ __d(
       var n = o("WAWebMediaStorage").getOrCreateMediaObject(t.filehash);
       return (o("WAWebMediaStorage").associateMediaWithSticker(n, t), n);
     }
-    function h(e) {
-      if (!e.filehash) {
-        o("WALogger")
-          .ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "Unexpected sticker pack with no filehash",
-              ])),
-          )
-          .sendLogs("sticker-pack-filehash-error");
-        return;
-      }
-      var t = o("WAWebMediaStorage").getOrCreateMediaObject(e.filehash);
-      return (o("WAWebMediaStorage").associateMediaWithStickerPack(t, e), t);
-    }
-    function y(e, t, n, a) {
-      var i = f(e);
+    function g(e, t, n, a) {
+      var i = _(e);
       if ((e.mediaData.set(i), !!t)) {
         e.mediaObject = t;
         var l = e.deprecatedMms3Url,
-          s = e.encFilehash;
+          u = e.encFilehash;
         if (
           (!r("gkx")("26258") &&
-            !s &&
+            !u &&
             l &&
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "sticker ",
                     " encFileHash missing, has mms3Url",
                   ])),
@@ -93,13 +77,13 @@ __d(
                   (a ? "icon-" : "") +
                   "missing-upload-hash-but-url-exists",
               ),
-          (s || l) && !t.entries.has({ encFilehash: s, deprecatedMms3Url: l }))
+          (u || l) && !t.entries.has({ encFilehash: u, deprecatedMms3Url: l }))
         ) {
           var c = t.entries.addEntry({
             deprecatedMms3Url: l,
             mediaKey: e.mediaKey,
             mediaKeyTimestamp: e.mediaKeyTimestamp,
-            encFilehash: s,
+            encFilehash: u,
             type: n,
             directPath: e.directPath,
             debugHint: "setMediaObjectValues",
@@ -112,36 +96,24 @@ __d(
         t.consolidate(i);
       }
     }
-    function C(e) {
-      y(
+    function h(e) {
+      g(
         e,
-        e.mediaObject || g(e),
+        e.mediaObject || f(e),
         o("WAWebMmsMediaTypes").MEDIA_TYPES.STICKER,
         !1,
       );
     }
-    function b(e) {
+    function y(e) {
       var t = e.mediaObject;
       t && o("WAWebMediaStorage").disassociateMediaFromSticker(t, e);
     }
-    function v(e) {
-      y(
-        e,
-        e.mediaObject || h(e),
-        o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
-        !0,
-      );
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function S(e) {
-      var t = e.mediaObject;
-      t && o("WAWebMediaStorage").disassociateMediaFromStickerPack(t, e);
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
+    function b() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.shouldThrow,
             a = t === void 0 ? !0 : t,
             i = e.sticker,
@@ -150,11 +122,11 @@ __d(
             return (
               (i.mediaData.mediaStage =
                 o("WAWebMediaTypes").MediaDataStage.PREPARING),
-              (p || (p = n("Promise"))).resolve()
+              (m || (m = n("Promise"))).resolve()
             );
           var s = i.mediaObject;
           if (!s)
-            return (p || (p = n("Promise"))).reject(
+            return (m || (m = n("Promise"))).reject(
               r("err")(
                 "media-fault: downloadStickerOrStickerPackIcon sticker/stickerPack without mediaObject",
               ),
@@ -207,8 +179,8 @@ __d(
                     throw (
                       o("WALogger")
                         .ERROR(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
                               "Unexpected RMR error for media type ",
                               "",
                             ])),
@@ -220,52 +192,50 @@ __d(
                 },
               ),
             );
-          var d = s.entries.getDownloadEntry(!0);
+          var p = s.entries.getDownloadEntry(!0);
           c &&
-            d instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
+            p instanceof o("WAWebMediaEntry").EncryptedMediaEntry &&
             o(
               "WAWebRecentStickerCollectionMd",
-            ).RecentStickerCollectionMd.updateStickerMediaData(i.filehash, d);
+            ).RecentStickerCollectionMd.updateStickerMediaData(i.filehash, p);
         })),
-        L.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function E(e) {
+    function v(e) {
       o("WALogger").LOG(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose(["Prepping sticker"])),
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose(["Prepping sticker"])),
       );
       var t = e.mediaObject,
         a = e.mediaData.toJSON();
       return (
-        (a.fullWidth = _),
-        (a.fullHeight = _),
+        (a.fullWidth = p),
+        (a.fullHeight = p),
         t
           ? new (o("WAWebMediaPrep").MediaPrep)(
               a.type,
-              (p || (p = n("Promise"))).resolve(a),
+              (m || (m = n("Promise"))).resolve(a),
             )
           : (o("WALogger")
               .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose(["id: ", ""])),
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose(["id: ", ""])),
                 e.id,
               )
               .sendLogs("media-fault: prepSticker sticker without mediaObject"),
             new (o("WAWebMediaPrep").MediaPrep)(
               a.type,
-              (p || (p = n("Promise"))).reject(
+              (m || (m = n("Promise"))).reject(
                 r("err")("non initialized media"),
               ),
             ))
       );
     }
-    ((l.registerSticker = C),
-      (l.deregisterSticker = b),
-      (l.registerStickerPackIcon = v),
-      (l.deregisterStickerPackIcon = S),
-      (l.downloadStickerOrStickerPackIcon = R),
-      (l.prepSticker = E));
+    ((l.registerSticker = h),
+      (l.deregisterSticker = y),
+      (l.downloadStickerOrStickerPackIcon = C),
+      (l.prepSticker = v));
   },
   98,
 );

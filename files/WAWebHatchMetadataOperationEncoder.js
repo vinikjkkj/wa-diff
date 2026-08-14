@@ -27,7 +27,12 @@ __d(
               r = e.decision;
             return {
               method: "hitl.approval.decide",
-              params: { approval_id: n, decision: r },
+              params: babelHelpers.extends(
+                { approval_id: n, decision: r },
+                t.alwaysScope != null && t.alwaysScope !== ""
+                  ? { always_scope: t.alwaysScope }
+                  : null,
+              ),
             };
           }
           throw Error(

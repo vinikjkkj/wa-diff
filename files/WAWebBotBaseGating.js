@@ -60,7 +60,13 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("ai_all_languages_enabled");
     }
     function y() {
-      return o("WAWebMobilePlatforms").isSMB() || (!m() && !h()) ? !1 : p();
+      return o("WAWebMobilePlatforms").isSMB()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "smb_web_meta_ai_assistant_enabled",
+          ) === !0
+        : !m() && !h()
+          ? !1
+          : p();
     }
     function C() {
       return o("WAWebABProps").getABPropConfigValue("bot_3p_status") !== 0;

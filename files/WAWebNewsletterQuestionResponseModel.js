@@ -1,6 +1,6 @@
 __d(
   "WAWebNewsletterQuestionResponseModel",
-  ["WAWebAck", "WAWebAddOnModel", "WAWebBaseModel"],
+  ["WAWebAddOnModel", "WAWebBaseModel"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -21,16 +21,6 @@ __d(
           (t.isSentByMe = o("WAWebBaseModel").prop(!1)),
           (t.senderId = o("WAWebBaseModel").prop()),
           (t.isSendFailure = o("WAWebBaseModel").prop()),
-          (t.isFailed = o("WAWebBaseModel").derived(
-            function () {
-              var e =
-                this.isSentByMe &&
-                this.ack != null &&
-                this.ack < o("WAWebAck").ACK.CLOCK;
-              return e || !!this.isSendFailure;
-            },
-            ["ack", "isSendFailure"],
-          )),
           (t.links = o("WAWebBaseModel").session(function () {
             return [];
           })),

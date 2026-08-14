@@ -926,9 +926,12 @@ __d(
           (o("WAWebVoipLocalCallStateStore").setLocalCallState(i),
             o("WAWebVoipCallStateUtils").isCallTerminal(s) &&
               !o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
-              o(
+              (o(
                 "WAWebVoipSctpConnectionManager",
               ).resetSctpFallbackFamilyOutcome(),
+              o(
+                "WAWebVoipWebTransportConnectionManager",
+              ).resetFallbackStateForNewCall()),
             !o("WAWebVoipCallStateUtils").isCallTerminal(s) &&
               o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
               o(

@@ -58,7 +58,7 @@ __d(
                   name: this.name,
                   verifiedName: this.name,
                   shortName: this.name,
-                  pushName: this.name,
+                  pushname: this.name,
                   isBusiness: !0,
                   type: "out",
                 }),
@@ -99,42 +99,39 @@ __d(
                 n = o("WAWebBotExposedName").isBotProfileViewOnly(t),
                 r = this.id.toString();
               if (n) {
-                if (
-                  (e.has(r) ||
+                (e.has(r) ||
+                  e.set(r, {
+                    name: this.contact.name,
+                    verifiedName: this.contact.verifiedName,
+                    shortName: this.contact.shortName,
+                    pushname: this.contact.pushname,
+                  }),
+                  this.name != null &&
+                    this.name !== "" &&
                     e.set(r, {
-                      name: this.contact.name,
-                      verifiedName: this.contact.verifiedName,
-                      shortName: this.contact.shortName,
-                      pushname: this.contact.pushname,
-                    }),
-                  this.name != null && this.name !== "")
-                ) {
-                  var a = e.get(r);
-                  a != null &&
-                    e.set(
-                      r,
-                      babelHelpers.extends({}, a, {
-                        name: this.name,
-                        verifiedName: this.name,
-                      }),
-                    );
-                }
-                var i = o("WAWebBotExposedName").getUnknownAccountName();
+                      name: this.name,
+                      verifiedName: this.name,
+                      shortName: this.name,
+                      pushname: this.name,
+                    }));
+                var a = o("WAWebBotExposedName").getUnknownAccountName();
                 this.contact.set({
-                  name: i,
-                  verifiedName: i,
-                  shortName: i,
-                  pushname: i,
+                  name: a,
+                  verifiedName: a,
+                  shortName: a,
+                  pushname: a,
                 });
               } else {
-                var l = e.get(r);
-                l != null
-                  ? (this.contact.set(babelHelpers.extends({}, l)), e.delete(r))
+                var i = e.get(r);
+                i != null
+                  ? (this.contact.set(babelHelpers.extends({}, i)), e.delete(r))
                   : this.name != null &&
                     this.name !== "" &&
                     this.contact.set({
                       name: this.name,
                       verifiedName: this.name,
+                      shortName: this.name,
+                      pushname: this.name,
                     });
               }
             }

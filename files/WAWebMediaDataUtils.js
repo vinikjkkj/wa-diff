@@ -789,12 +789,12 @@ __d(
     function O() {
       return (
         (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebNetworkGetResponseIfOnline")(
-            e,
-            "GET",
-            null,
-            r("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
-          );
+          var t = yield r("WAWebNetworkGetResponseIfOnline")({
+            data: null,
+            method: "GET",
+            responseType: r("WAWebXHR").RESP_TYPE.ARRAY_BUFFER,
+            url: e,
+          });
           return t
             ? (p || (p = n("Promise"))).resolve({
                 result: t.response,

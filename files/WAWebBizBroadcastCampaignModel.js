@@ -27,12 +27,6 @@ __d(
           (t.scheduledTimestamp = o("WAWebModelUtils").prop()),
           (t.sourceCampaignId = o("WAWebModelUtils").prop()),
           (t.status = o("WAWebModelUtils").prop()),
-          (t.isScheduled = o("WAWebModelUtils").derived(
-            function () {
-              return this.scheduledTimestamp != null;
-            },
-            ["scheduledTimestamp"],
-          )),
           (t.insights = o("WAWebModelUtils").session()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

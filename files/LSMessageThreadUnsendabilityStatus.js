@@ -1,0 +1,21 @@
+__d(
+  "LSMessageThreadUnsendabilityStatus",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CAN_UNSEND: 0,
+      DENY_FOR_SPECIFIC_IDS: 1,
+      DENY_IF_THREAD_CONTAINS_PAU: 2,
+      DENY_IF_THREAD_CONTAINS_WORK_USER: 3,
+      DENY_IF_PAGE_THREAD: 4,
+      DENY_IF_MARKETPLACE_THREAD: 5,
+      DENY_IF_CANNOT_LOAD_THREAD: 6,
+      DENY_IF_THREAD_CONTAINS_WORK_USER_FAILING_KILLSWITCH: 7,
+      DENY_IF_CANONICAL_THREAD_CONTAINS_BLOCKED_USERS: 8,
+      DENY_IF_CANNOT_REPLY_TO_VIEWER_THREAD: 9,
+      DENY_IF_UNCONNECTED_THREAD: 10,
+    });
+    i.default = e;
+  },
+  66,
+);

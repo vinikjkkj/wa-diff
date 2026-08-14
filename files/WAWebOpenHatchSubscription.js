@@ -1,13 +1,16 @@
 __d(
   "WAWebOpenHatchSubscription",
-  ["WAWebExternalLink.react"],
+  ["WAWebABProps", "WAWebExternalLink.react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "https://agent.meta.ai/";
-    function s() {
-      o("WAWebExternalLink.react").openExternalLink(e);
+    function e() {
+      o("WAWebExternalLink.react").openExternalLink(
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_hatch_manage_subscription_url",
+        ),
+      );
     }
-    l.openHatchSubscription = s;
+    l.openHatchSubscription = e;
   },
   98,
 );

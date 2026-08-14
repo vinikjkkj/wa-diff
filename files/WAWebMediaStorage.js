@@ -19,7 +19,7 @@ __d(
       ((t.mediaObject = null),
         e.removeMsg(t),
         !e.hasAssociatedMsgsOrStickers() &&
-          (y(
+          (g(
             e.filehash,
             o("WAWebMediaDataUtils").shouldUseLruMediaStore(
               o("WAWebMmsMediaTypes").getMsgMediaType(t),
@@ -61,22 +61,14 @@ __d(
       return (u[t] = new (o("WAWebMediaObject").MediaObject)());
     }
     function _(e, t) {
-      e.addStickerPack(t);
+      e.addSticker(t);
     }
     function f(e, t) {
       ((t.mediaObject = null),
-        e.removeStickerPack(t),
-        !e.hasAssociatedMsgsOrStickers() && (y(e.filehash), e.delete()));
-    }
-    function g(e, t) {
-      e.addSticker(t);
-    }
-    function h(e, t) {
-      ((t.mediaObject = null),
         e.removeSticker(t),
-        !e.hasAssociatedMsgsOrStickers() && (y(e.filehash), e.delete()));
+        !e.hasAssociatedMsgsOrStickers() && (g(e.filehash), e.delete()));
     }
-    var y = function (t, n) {
+    var g = function (t, n) {
       (n === void 0 && (n = !0),
         !r("isStringNullOrEmpty")(t) &&
           (delete u[t],
@@ -96,10 +88,8 @@ __d(
       (l.disassociateMediaFromMsg = d),
       (l.delistAndDeleteAllMedia = m),
       (l.getOrCreateMediaObject = p),
-      (l.associateMediaWithStickerPack = _),
-      (l.disassociateMediaFromStickerPack = f),
-      (l.associateMediaWithSticker = g),
-      (l.disassociateMediaFromSticker = h));
+      (l.associateMediaWithSticker = _),
+      (l.disassociateMediaFromSticker = f));
   },
   98,
 );

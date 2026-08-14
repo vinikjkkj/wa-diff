@@ -23,7 +23,7 @@ __d(
     "WAWebSWBus",
     "WAWebSWBusActions",
     "WAWebUserPrefsMeUser",
-    "WAWebVoipCallsTabNavigateTo",
+    "WAWebVoipCallsTabOpenCallInfo",
     "WAWebVoipGatingUtils",
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWid",
@@ -124,7 +124,7 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return b({
+            return C({
               abortSignal: this.abortController.signal,
               groupCallParticipants: this.groupCallParticipants,
               groupJid: this.groupJid,
@@ -163,7 +163,7 @@ __d(
         }),
         (a.$WACallNotification$p_1 = function (t) {
           var e,
-            n = C(this.groupJid, this.groupCallParticipants).toString(),
+            n = y(this.groupJid, this.groupCallParticipants).toString(),
             r = this.isVideo
               ? s
                   ._(/*BTDS*/ "Incoming video call from {caller_name}", [
@@ -251,25 +251,27 @@ __d(
           )
           .catch(r("WAWebNoop"));
     }
-    function g() {
-      o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({});
-    }
-    var h = (function (e) {
+    var g = (function (e) {
       function t(t) {
         var n,
           r = t.groupCallParticipants,
-          o = t.groupJid,
-          a = t.isGroup,
-          i = t.isVideo,
-          l = t.msgId,
-          s = t.wid;
+          a = t.groupJid,
+          i = t.isGroup,
+          l = t.isVideo,
+          s = t.msgId,
+          u = t.wid;
         return (
           (n = e.call(this) || this),
-          (n.wid = s),
-          (n.msgId = l),
-          (n.isVideo = i),
-          (n.isGroup = a),
-          (n.groupJid = o != null ? o : null),
+          (n.$WAMissedCallNotification$p_1 = function () {
+            o("WAWebVoipCallsTabOpenCallInfo").openVoipCallsTabCallInfo(
+              n.msgId,
+            );
+          }),
+          (n.wid = u),
+          (n.msgId = s),
+          (n.isVideo = l),
+          (n.isGroup = i),
+          (n.groupJid = a != null ? a : null),
           (n.groupCallParticipants = r != null ? r : null),
           n
         );
@@ -313,7 +315,7 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return b({
+            return C({
               abortSignal: this.abortController.signal,
               groupCallParticipants: this.groupCallParticipants,
               groupJid: this.groupJid,
@@ -333,7 +335,7 @@ __d(
               : o("WAWebWidFormat").widToFormattedUser(this.wid);
           if (this.isGroup) {
             var n,
-              a = C(this.groupJid, this.groupCallParticipants).toString(),
+              a = y(this.groupJid, this.groupCallParticipants).toString(),
               i = this.isVideo
                 ? s
                     ._(/*BTDS*/ "Missed video call from {caller_name}", [
@@ -352,7 +354,7 @@ __d(
               title: a,
               body: i,
               doNotOpenChat: !0,
-              onClick: g,
+              onClick: this.$WAMissedCallNotification$p_1,
             };
           }
           var l = this.isVideo
@@ -365,7 +367,7 @@ __d(
             title: t,
             body: l,
             doNotOpenChat: !0,
-            onClick: g,
+            onClick: this.$WAMissedCallNotification$p_1,
           };
         }),
         (a.shouldShowBanner = function () {
@@ -403,12 +405,12 @@ __d(
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);
-    function y(e) {
+    function h(e) {
       return o(
         "WAWebNotificationController",
-      ).WANotificationController.triggerNotification(new h(e));
+      ).WANotificationController.triggerNotification(new g(e));
     }
-    function C(e, t) {
+    function y(e, t) {
       if (e != null) {
         var n = r("WAWebGroupMetadataCollection").get(e);
         if ((n == null ? void 0 : n.subject) != null && n.subject !== "")
@@ -427,7 +429,7 @@ __d(
           )
         : r("fbs")._(/*BTDS*/ "Group call");
     }
-    function b(t) {
+    function C(t) {
       var r = t.abortSignal,
         a = t.groupCallParticipants,
         i = t.groupJid,
@@ -457,7 +459,7 @@ __d(
     }
     ((l.showCallNotification = d),
       (l.cancelCallNotification = m),
-      (l.showMissedCallNotification = y));
+      (l.showMissedCallNotification = h));
   },
   226,
 );

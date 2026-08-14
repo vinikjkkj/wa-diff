@@ -230,11 +230,7 @@ __d(
                 "thread_pool_setup",
               ),
               o("WAWebVoipQplHelpers").voipInitQplAnnotateThreadPool(u, d, a));
-            var g =
-              o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
-              o("WAWebABProps").getABPropConfigValue(
-                "enable_web_voip_webtransport_fallback",
-              );
+            var g = o("WAWebVoipGatingUtils").isWebTransportEnabled();
             return (
               g
                 ? o("WAWebPonyfillsIdleCallback").requestIdleCallback(

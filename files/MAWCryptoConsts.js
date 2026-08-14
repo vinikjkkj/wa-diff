@@ -1,0 +1,36 @@
+__d(
+  "MAWCryptoConsts",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = 3600,
+      l = 24 * e,
+      s = 32,
+      u = new Uint8Array(0).buffer,
+      c = 128,
+      d = 256,
+      m = 12,
+      p = 1,
+      _ = 2,
+      f = 2,
+      g = 4,
+      h = l * 30 * 6,
+      y = "AES-GCM",
+      C = "HKDF",
+      b = "SHA-256";
+    ((i.HKDF_SEED_LENGTH_IN_BYTES = s),
+      (i.HKDF_INFO = u),
+      (i.AES_GCM_TAG_LENGTH = c),
+      (i.AES_GCM_KEY_LENGTH = d),
+      (i.AES_GCM_IV_LENGTH_IN_BYTES = m),
+      (i.VERSION = p),
+      (i.CIPHER_ID = _),
+      (i.ADDITIONAL_DATA_LENGTH_IN_BYTES = f),
+      (i.EXTRA_ADDITIONAL_DATA_LENGTH_IN_BYTES = g),
+      (i.ENC_KEY_TTL = h),
+      (i.AES_GCM = y),
+      (i.HKDF = C),
+      (i.SHA256 = b));
+  },
+  66,
+);

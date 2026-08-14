@@ -9,6 +9,28 @@ __d(
         : o("WAWebVoIPSelfPreviewConsts").SELF_PREVIEW_INLINE_INSETS;
     }
     function s(e) {
+      return e === "top-left"
+        ? "left top"
+        : e === "top-right"
+          ? "right top"
+          : e === "bottom-left"
+            ? "left bottom"
+            : e === "bottom-right"
+              ? "right bottom"
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
+    }
+    function u(e, t) {
+      return {
+        scaleX: t.width > 0 ? e.width / t.width : 1,
+        scaleY: t.height > 0 ? e.height / t.height : 1,
+      };
+    }
+    function c(e) {
       var t = e.containerHeight,
         n = e.containerWidth,
         r = e.previewHeight,
@@ -27,7 +49,7 @@ __d(
             ? "bottom-left"
             : "bottom-right";
     }
-    function u(e, t, n, r, o, a) {
+    function d(e, t, n, r, o, a) {
       var i = t - r - a.right,
         l = n - o - a.bottom;
       return e === "top-left"
@@ -46,8 +68,10 @@ __d(
                 })();
     }
     ((l.getSelfPreviewInsets = e),
-      (l.getCornerFromPosition = s),
-      (l.getPositionFromCorner = u));
+      (l.getTransformOriginForCorner = s),
+      (l.getSelfPreviewSizeFlipInversion = u),
+      (l.getCornerFromPosition = c),
+      (l.getPositionFromCorner = d));
   },
   98,
 );

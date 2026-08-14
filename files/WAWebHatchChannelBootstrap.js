@@ -66,16 +66,13 @@ __d(
         });
     }
     function p() {
-      if (
-        r("WAWebHatchLinkedStatusManager").getLinkedStatus() != null &&
-        r("WAWebHatchLinkedStatusManager").isLinked()
-      )
+      if (r("WAWebHatchLinkedStatusManager").isKnownLinked())
         return (m(), r("WAWebNoop"));
       var e = r("WAWebNoop");
       return (
         (e = r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
           function () {
-            r("WAWebHatchLinkedStatusManager").isLinked() && (e(), m());
+            r("WAWebHatchLinkedStatusManager").isKnownLinked() && (e(), m());
           },
         )),
         function () {

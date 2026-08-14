@@ -7,7 +7,7 @@ __d(
     "WAWebNoop",
     "WAWebStickerCollection",
     "WAWebStickerConstants",
-    "WAWebStickerPackModel",
+    "WAWebStickerPackPlaceholder",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -57,7 +57,7 @@ __d(
               ((this.fetchState = o(
                 "WAWebStickerCollection",
               ).FETCH_STATE.PENDING),
-              o("WAWebStickerPackModel").StickerPackModel.isPlaceholderId(
+              o("WAWebStickerPackPlaceholder").isStickerPackPlaceholderId(
                 this.stickerPackId,
               ))
             )

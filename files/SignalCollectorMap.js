@@ -18,10 +18,12 @@ __d(
     "BDNavigatorVendorSignalCollector",
     "BDNotificationPermissionSignalCollector",
     "BDPluginCountSignalCollector",
+    "BDTimeZoneIdSignalCollector",
     "BDTimezoneOffsetSignalCollector",
     "BDTouchPresenceSignalCollector",
     "BDWebdriverSignalCollector",
     "BDWebglSupportSignalCollector",
+    "BDWindowChromeSignalCollector",
     "BDWindowHistoryLengthSignalCollector",
     "BDWindowOuterDimensionSignalCollector",
   ],
@@ -30,6 +32,8 @@ __d(
     var e = {
         get: function (t) {
           switch (t) {
+            case 11020:
+              return r("BDTimeZoneIdSignalCollector").get();
             case 3e4:
               return r("BDWebdriverSignalCollector").get();
             case 30001:
@@ -42,6 +46,8 @@ __d(
               return r("BDConnectionRTTSignalCollector").get();
             case 30005:
               return r("BDWindowOuterDimensionSignalCollector").get();
+            case 30006:
+              return r("BDWindowChromeSignalCollector").get();
             case 30007:
               return r("BDNotificationPermissionSignalCollector").get();
             case 30008:

@@ -9,11 +9,15 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return o("WAWebMobilePlatforms").isSMB() &&
-        (o("WAWebBotUtils").isMetaAiBot(e) ||
-          o("WAWebBotUtils").isSmbMetaAiBot(e))
-        ? !0
-        : e.isBot() && !o("WAWebBotBaseGating").isBotEnabled() && !s();
+      return e.isBot()
+        ? o("WAWebMobilePlatforms").isSMB()
+          ? o("WAWebBotUtils").isBusinessAssistantBot(e)
+            ? !o("WAWebBotBaseGating").isBotEnabled()
+            : o("WAWebBotUtils").isMetaAiBot(e)
+              ? !0
+              : !s()
+          : !o("WAWebBotBaseGating").isBotEnabled() && !s()
+        : !1;
     }
     function s() {
       return (

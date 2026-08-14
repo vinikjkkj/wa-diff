@@ -99,14 +99,14 @@ __d(
             throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
               o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
             );
+          var m = o("WAWebHatchJsonReaders").readString(u, "always_scope");
           return {
             type: "req",
             requestId: t,
-            request: {
-              method: "hitl.approval.decide",
-              approvalId: c,
-              decision: d,
-            },
+            request: babelHelpers.extends(
+              { method: "hitl.approval.decide", approvalId: c, decision: d },
+              m != null && m !== "" ? { alwaysScope: m } : null,
+            ),
           };
         }
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(

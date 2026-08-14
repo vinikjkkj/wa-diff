@@ -35,6 +35,9 @@ __d(
               ? !0
               : e.hasChannel && e.status === "ACTIVE" && e.isPaired;
           }),
+          (n.isKnownLinked = function () {
+            return this.$1 != null && this.isLinked();
+          }),
           (n.isOptimisticallyUnlinked = function () {
             return this.$2;
           }),

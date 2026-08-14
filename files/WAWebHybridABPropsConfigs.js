@@ -506,7 +506,7 @@ __d(
       unified_session_log_call_event: [8582, "bool", !1, !1],
       unify_end_call_events: [2856, "bool", !1, !1],
       use_cached_app_settings_from_global_ctx: [13428, "bool", !0, !0],
-      username_contact_display: [4746, "bool", !1, !1],
+      username_contact_display: [4746, "bool", !0, !0],
       username_enabled_on_companion: [23817, "bool", !1, !1],
       username_key_redesign_enabled: [29026, "bool", !1, !1],
       username_lid_migration_calling: [21890, "bool", !1, !1],
