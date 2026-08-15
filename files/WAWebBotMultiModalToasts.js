@@ -50,12 +50,16 @@ __d(
         }),
       );
     }
-    function f(e, t, n, r) {
-      return e && t && n
+    function f(e) {
+      var t = e.hasAudio,
+        n = e.hasDocument,
+        r = e.hasImage,
+        o = e.hasVideo;
+      return o && t && r
         ? s._(
             /*BTDS*/ "Can't send video, audio, or images to Meta AI at this time",
           )
-        : e && t && r
+        : o && t && n
           ? s._(
               /*BTDS*/ "Can't send video, audio, or documents to Meta AI at this time",
             )
@@ -106,7 +110,14 @@ __d(
         i = n.has("document");
       if (n.size >= 3) {
         var l;
-        return (l = f(r, o, a, i)) != null ? l : C();
+        return (l = f({
+          hasAudio: o,
+          hasDocument: i,
+          hasImage: a,
+          hasVideo: r,
+        })) != null
+          ? l
+          : C();
       }
       if (n.size === 2) {
         var s;

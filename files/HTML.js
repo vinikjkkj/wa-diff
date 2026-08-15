@@ -26,7 +26,11 @@ __d(
       u = (function () {
         function t(e) {
           if (
-            (e &&
+            ((this.$1 = ""),
+            (this.$2 = !1),
+            (this.$4 = n("emptyFunction")),
+            (this.$6 = !1),
+            e &&
               typeof e.__html == "string" &&
               (n("FBLogger")("html").warn("HTML: Superfluous HTML() call."),
               (e = e.__html)),

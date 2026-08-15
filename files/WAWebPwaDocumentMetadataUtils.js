@@ -21,22 +21,20 @@ __d(
     }
     var m = 2e3,
       p = 6e4;
-    function _(t, n, r, o) {
-      (n === void 0 && (n = m),
-        r === void 0 && (r = !0),
-        o === void 0 && (o = p));
-      var a = !1,
-        i = !1,
-        l = self.setInterval(function () {
-          a = !a;
-          var n = a ? t : e;
-          d(n, r);
-        }, n),
-        s = function () {
-          i || ((i = !0), self.clearInterval(l), self.clearTimeout(u), d(e, r));
+    function _(t) {
+      var n = !1,
+        r = !1,
+        o = self.setInterval(function () {
+          n = !n;
+          var r = n ? t : e;
+          d(r, !0);
+        }, m),
+        a = function () {
+          r ||
+            ((r = !0), self.clearInterval(o), self.clearTimeout(i), d(e, !0));
         },
-        u = self.setTimeout(s, o);
-      return s;
+        i = self.setTimeout(a, p);
+      return a;
     }
     function f(e) {
       (e != null && (s = e),
