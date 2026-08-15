@@ -73,7 +73,7 @@ __d(
                 (_ &&
                   p &&
                   o("GHLDetectionUtilsPreludeSafe").restoreNativeString(),
-                  (n = r("json5").parse(c)));
+                  (n = r("json5").parse(c + " ")));
               } catch (e) {
                 (r("FBLogger")("ad_blocker_defense_ghost_owl")
                   .catching(r("getErrorSafe")(e))

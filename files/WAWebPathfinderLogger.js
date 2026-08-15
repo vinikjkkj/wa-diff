@@ -147,15 +147,6 @@ __d(
     }
     function S(e, t, n) {
       var o,
-        a = (o = v(e, n, !0)) != null ? o : {};
-      return (
-        t.custom_event_type != null &&
-          (a.custom_event_type = t.custom_event_type),
-        r("isEmptyObject")(a) ? void 0 : a
-      );
-    }
-    function R(e, t, n) {
-      var o,
         a = (o = v(e, n)) != null ? o : {};
       return (
         t.triggering_testid != null &&
@@ -164,25 +155,25 @@ __d(
         r("isEmptyObject")(a) ? void 0 : a
       );
     }
-    function L(e, t) {
+    function R(e, t) {
       return e.eventType === "CUSTOM_EVENT" &&
         e.originalEventName != null &&
         f[e.originalEventName] != null
         ? f[e.originalEventName].eventName
         : t;
     }
-    var E = null;
-    function k() {
+    var L = null;
+    function E() {
       var e = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId();
       return e != null && e !== ""
         ? e
-        : (E == null && (E = r("WAWebPonyfillsCryptoRandomUUID")()), E);
+        : (L == null && (L = r("WAWebPonyfillsCryptoRandomUUID")()), L);
     }
-    var I = null;
+    var k = null;
+    function I() {
+      return (k == null && (k = r("qex")._("2703") === !0), k);
+    }
     function T() {
-      return (I == null && (I = r("qex")._("2703") === !0), I);
-    }
-    function D() {
       return !!(
         r("WAWebLocalStorage") != null &&
         r("WAWebLocalStorage").getItem(
@@ -190,151 +181,151 @@ __d(
         )
       );
     }
-    function x() {
-      return r("justknobx")._("918") ? !1 : D() || T();
+    function D() {
+      return r("justknobx")._("918") ? !1 : T() || I();
     }
-    var $ = new Set(["BEGIN_EDITING", "END_EDITING"]),
-      P = 500,
-      N = new Map(),
+    var x = new Set(["BEGIN_EDITING", "END_EDITING"]),
+      $ = 500,
+      P = new Map(),
+      N = new Set(),
       M = new Set(),
-      w = new Set(),
-      A = "";
-    function F(e, t) {
+      w = "";
+    function A(e, t) {
       return e + "\0" + t;
     }
-    function O(e, t) {
-      var n = N.get(e);
-      return n != null && t - n < P;
+    function F(e, t) {
+      var n = P.get(e);
+      return n != null && t - n < $;
     }
-    var B = !1,
-      W = 10,
-      q = 0;
-    function U(e, t) {
-      (Re(),
-        (B = !0),
+    var O = !1,
+      B = 10,
+      W = 0;
+    function q(e, t) {
+      (Se(),
+        (O = !0),
         o("WAWebPathfinderHealthReporter").recordPathfinderHealthCounter(e, t));
     }
-    function V() {
-      B &&
-        ((B = !1),
-        !(q >= W) &&
-          (q++,
+    function U() {
+      O &&
+        ((O = !1),
+        !(W >= B) &&
+          (W++,
           o("WAWebPathfinderHealthReporter").drainPathfinderHealthCounters()));
     }
-    function H() {
-      (re++,
-        U(o("WAWebPathfinderHealthReporter").COUNTER_EDITING_DEDUP_DROPS, 1),
-        re === 1 &&
+    function V() {
+      (ne++,
+        q(o("WAWebPathfinderHealthReporter").COUNTER_EDITING_DEDUP_DROPS, 1),
+        ne === 1 &&
           o("WALogger").WARN(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[pathfinder] Editing-event dedup active (window=",
                 "ms), suppressing rapid duplicate BEGIN/END events",
               ])),
-            String(P),
+            String($),
           ));
     }
-    function G(e) {
+    function H(e) {
       var t,
-        n = (t = e.targetTrackingId) != null ? t : A;
-      if (e.eventType !== "BEGIN_EDITING") return z(n, e);
-      var r = F(e.eventType, n);
-      return O(r, e.timestampMs)
-        ? (M.add(n), H(), !1)
-        : (N.set(r, e.timestampMs), w.add(n), M.delete(n), !0);
+        n = (t = e.targetTrackingId) != null ? t : w;
+      if (e.eventType !== "BEGIN_EDITING") return G(n, e);
+      var r = A(e.eventType, n);
+      return F(r, e.timestampMs)
+        ? (N.add(n), V(), !1)
+        : (P.set(r, e.timestampMs), M.add(n), N.delete(n), !0);
     }
-    function z(e, t) {
-      if (M.has(e)) return (M.delete(e), w.delete(e), H(), !1);
-      var n = F(t.eventType, e);
-      return w.has(e)
-        ? (w.delete(e), N.set(n, t.timestampMs), !0)
-        : O(n, t.timestampMs)
-          ? (H(), !1)
-          : (N.set(n, t.timestampMs), !0);
+    function G(e, t) {
+      if (N.has(e)) return (N.delete(e), M.delete(e), V(), !1);
+      var n = A(t.eventType, e);
+      return M.has(e)
+        ? (M.delete(e), P.set(n, t.timestampMs), !0)
+        : F(n, t.timestampMs)
+          ? (V(), !1)
+          : (P.set(n, t.timestampMs), !0);
     }
-    var j = 100,
-      K = 5e4,
-      Q = 1e5,
-      X = 1e4,
-      Y = 5e4,
-      J = 864e5,
-      Z = -1,
+    var z = 100,
+      j = 5e4,
+      K = 1e5,
+      Q = 1e4,
+      X = 5e4,
+      Y = 864e5,
+      J = -1,
+      Z = 0,
       ee = 0,
       te = 0,
       ne = 0,
-      re = 0,
-      oe = -1,
+      re = -1,
+      oe = Q,
       ae = X,
-      ie = Y,
-      le = !1;
-    function se(e) {
+      ie = !1;
+    function le(e) {
       var t = e.max,
         n = e.min,
         r = e.value;
       return Math.max(n, Math.min(t, r));
     }
-    function ue(e, t) {
+    function se(e, t) {
       return !Number.isFinite(e) || e <= 0 ? t : e;
     }
-    function ce() {
+    function ue() {
       var e = r("justknobx")._("2845");
-      return se({ max: K, min: j, value: ue(e, X) });
+      return le({ max: j, min: z, value: se(e, Q) });
+    }
+    function ce() {
+      oe = ue();
+      var e = r("justknobx")._("2846");
+      ((ie = e === J), (ae = le({ max: K, min: z, value: se(e, X) })));
     }
     function de() {
-      ae = ce();
-      var e = r("justknobx")._("2846");
-      ((le = e === Z), (ie = se({ max: Q, min: j, value: ue(e, Y) })));
+      var e = Math.floor(Date.now() / Y);
+      e !== re && ((ee = 0), (Z = 0), (te = 0), (ne = 0), (re = e), ce());
     }
     function me() {
-      var e = Math.floor(Date.now() / J);
-      e !== oe && ((te = 0), (ee = 0), (ne = 0), (re = 0), (oe = e), de());
+      (U(), (W = 0), (Z = 0), (ye = 0), P.clear(), N.clear(), M.clear());
     }
     function pe() {
-      (V(), (q = 0), (ee = 0), (Ce = 0), N.clear(), M.clear(), w.clear());
-    }
-    function _e() {
-      (pe(),
-        he.fill(void 0),
-        (ye = 0),
+      (me(),
+        ge.fill(void 0),
+        (he = 0),
+        (ee = 0),
         (te = 0),
         (ne = 0),
-        (re = 0),
-        (oe = -1),
-        de());
+        (re = -1),
+        ce());
     }
-    function fe() {
-      return ie;
+    function _e() {
+      return ae;
     }
-    var ge = 50,
-      he = new Array(ge),
+    var fe = 50,
+      ge = new Array(fe),
+      he = 0,
       ye = 0,
-      Ce = 0,
-      be = !1;
-    function ve() {
-      be ||
-        ((be = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(xe));
+      Ce = !1;
+    function be() {
+      Ce ||
+        ((Ce = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(De));
     }
-    var Se = !1;
-    function Re() {
-      Se || ((Se = !0), self.addEventListener("pagehide", V));
+    var ve = !1;
+    function Se() {
+      ve || ((ve = !0), self.addEventListener("pagehide", U));
     }
-    var Le = null;
-    function Ee(e) {
-      Le = e;
+    var Re = null;
+    function Le(e) {
+      Re = e;
     }
-    var ke = "web.pathfinder.event_cap_drop";
-    function Ie() {
+    var Ee = "web.pathfinder.event_cap_drop";
+    function ke() {
       try {
         r("WAWebODS").incr("web.pathfinder.event_cap_drop");
       } catch (e) {}
     }
-    function Te(e) {
-      return !x() || (me(), le)
+    function Ie(e) {
+      return !D() || (de(), ie)
         ? !1
-        : ee >= ae || te >= ie
-          ? (ne++,
-            U(o("WAWebPathfinderHealthReporter").COUNTER_CAP_DROPS, 1),
-            ne === 1 &&
+        : Z >= oe || ee >= ae
+          ? (te++,
+            q(o("WAWebPathfinderHealthReporter").COUNTER_CAP_DROPS, 1),
+            te === 1 &&
               o("WALogger").WARN(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -342,21 +333,21 @@ __d(
                     " daily=",
                     "), dropping subsequent events",
                   ])),
+                String(Z),
                 String(ee),
-                String(te),
               ),
-            Ie(),
+            ke(),
             !1)
-          : $.has(e.eventType) && !G(e)
+          : x.has(e.eventType) && !H(e)
             ? !1
-            : (ee++,
-              te++,
-              U(o("WAWebPathfinderHealthReporter").COUNTER_CAPTURE_VOLUME, 1),
+            : (Z++,
+              ee++,
+              q(o("WAWebPathfinderHealthReporter").COUNTER_CAPTURE_VOLUME, 1),
               !0);
     }
-    function De(e) {
+    function Te(e) {
       var t, n, a, i, l, s;
-      if (Te(e)) {
+      if (Ie(e)) {
         var u = [];
         if (
           (e.screenName != null && u.push("screen=" + e.screenName),
@@ -390,9 +381,9 @@ __d(
             y,
             C,
             b,
-            v,
-            E,
-            I = L(e, m.eventName),
+            L,
+            k,
+            I = R(e, m.eventName),
             T =
               "" +
               e.eventType +
@@ -401,7 +392,7 @@ __d(
               event_category: m.category,
               event_name: I,
               client_timestamp_ms: String(e.timestampMs),
-              unified_session_id: k(),
+              unified_session_id: E(),
               debounce_count:
                 e.debounceCount != null ? String(e.debounceCount) : void 0,
               gesture_direction: (h = e.gestureDirection) != null ? h : void 0,
@@ -409,27 +400,27 @@ __d(
               destination_screen_name:
                 (C = e.destinationName) != null ? C : void 0,
               target_testid: (b = e.targetTrackingId) != null ? b : void 0,
-              target_element_type: (v = e.targetType) != null ? v : void 0,
-              event_metadata: R(
+              target_element_type: (L = e.targetType) != null ? L : void 0,
+              event_metadata: S(
                 e.eventMetadata,
                 { triggering_testid: e.triggeringTestId },
                 T,
               ),
-              custom_metadata: S(
-                e.customMetadata,
-                { custom_event_type: e.customEventTypeDisplayName },
-                T,
-              ),
+              custom_metadata: v(e.customMetadata, T, !0),
+              custom_event_type_id:
+                e.customEventTypeId != null
+                  ? String(e.customEventTypeId)
+                  : void 0,
             };
           r("WamPathfinderWebFalcoEvent").log(function () {
             return D;
           });
           var x =
             e.eventType === "SCREEN_CHANGED" &&
-            (E = o(
+            (k = o(
               "WAWebPathfinderUnsamplingConfig",
             ).getUnsamplingRuleIdForScreen(e.destinationName)) != null
-              ? E
+              ? k
               : o(
                   "WAWebPathfinderUnsamplingConfig",
                 ).getUnsamplingRuleIdForScreen(e.screenName);
@@ -441,7 +432,7 @@ __d(
               });
             });
         }
-        ve();
+        be();
         var $ = {
           eventType: e.eventType,
           timestampMs: e.timestampMs,
@@ -454,18 +445,18 @@ __d(
         };
         if (
           (u.length > 0 && ($.extra = u.join(" ")),
-          Ce >= ge &&
-            U(
+          ye >= fe &&
+            q(
               o("WAWebPathfinderHealthReporter").COUNTER_RING_BUFFER_OVERFLOWS,
               1,
             ),
-          Ce++,
-          (he[ye] = $),
-          (ye = (ye + 1) % ge),
-          Le != null)
+          ye++,
+          (ge[he] = $),
+          (he = (he + 1) % fe),
+          Re != null)
         )
           try {
-            Le(e.eventType);
+            Re(e.eventType);
           } catch (e) {
             try {
               o("WALogger")
@@ -481,23 +472,23 @@ __d(
           }
       }
     }
-    function xe() {
-      for (var e = [], t = 0; t < ge; t++) {
-        var n = (ye + t) % ge,
-          r = he[n];
+    function De() {
+      for (var e = [], t = 0; t < fe; t++) {
+        var n = (he + t) % fe,
+          r = ge[n];
         r != null && e.push(r);
       }
       return e;
     }
     ((l.FALCO_MAP = f),
-      (l.isPathfinderLoggingEnabled = x),
-      (l.resetPathfinderSessionState = pe),
-      (l.resetEventGuardsForTesting = _e),
-      (l.getDailyEventCapForTesting = fe),
-      (l.registerPathfinderEmitObserver = Ee),
-      (l.PATHFINDER_CAP_DROP_ODS_KEY = ke),
-      (l.emitPathfinderEvent = De),
-      (l.getPathfinderLogSnapshot = xe));
+      (l.isPathfinderLoggingEnabled = D),
+      (l.resetPathfinderSessionState = me),
+      (l.resetEventGuardsForTesting = pe),
+      (l.getDailyEventCapForTesting = _e),
+      (l.registerPathfinderEmitObserver = Le),
+      (l.PATHFINDER_CAP_DROP_ODS_KEY = Ee),
+      (l.emitPathfinderEvent = Te),
+      (l.getPathfinderLogSnapshot = De));
   },
   98,
 );

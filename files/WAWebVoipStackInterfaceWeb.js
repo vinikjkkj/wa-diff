@@ -7,11 +7,11 @@ __d(
     "WAWap",
     "WAWebABProps",
     "WAWebBackendApi",
-    "WAWebBweMLModelManager",
     "WAWebCoreActionsODS",
     "WAWebCountryCodeUtils",
     "WAWebEnvironment",
     "WAWebLowEndDeviceExperimentGating",
+    "WAWebMLModelManager",
     "WAWebNoop",
     "WAWebReleaseToEventLoop",
     "WAWebUA",
@@ -420,13 +420,13 @@ __d(
             function* (e, t, n, r, a, i, s) {
               o("WAWebVoipGatingUtils").markCurrentCallAsGroup(!1);
               var u = yield l;
-              o("WAWebBweMLModelManager")
-                .initBweMLModelsForCall(u)
+              o("WAWebMLModelManager")
+                .initMLModelsForCall(u)
                 .catch(function (e) {
                   o("WALogger").WARN(
                     b ||
                       (b = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [initBweMLModelsForCall] unhandled error: ",
+                        "voip: [initMLModelsForCall] unhandled error: ",
                         "",
                       ])),
                     e,
@@ -473,13 +473,13 @@ __d(
                 return;
               }
               var f = yield l;
-              o("WAWebBweMLModelManager")
-                .initBweMLModelsForCall(f)
+              o("WAWebMLModelManager")
+                .initMLModelsForCall(f)
                 .catch(function (e) {
                   o("WALogger").WARN(
                     S ||
                       (S = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [initBweMLModelsForCall] unhandled error: ",
+                        "voip: [initMLModelsForCall] unhandled error: ",
                         "",
                       ])),
                     e,
@@ -810,13 +810,13 @@ __d(
               }
               var s = yield l;
               try {
-                o("WAWebBweMLModelManager")
-                  .initBweMLModelsForCall(s)
+                o("WAWebMLModelManager")
+                  .initMLModelsForCall(s)
                   .catch(function (e) {
                     o("WALogger").WARN(
                       P ||
                         (P = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [initBweMLModelsForCall] unhandled error: ",
+                          "voip: [initMLModelsForCall] unhandled error: ",
                           "",
                         ])),
                       e,
@@ -861,13 +861,13 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, a, i, s, u, c, d) {
               var m = yield l;
-              o("WAWebBweMLModelManager")
-                .initBweMLModelsForCall(m)
+              o("WAWebMLModelManager")
+                .initMLModelsForCall(m)
                 .catch(function (e) {
                   o("WALogger").WARN(
                     M ||
                       (M = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [initBweMLModelsForCall] unhandled error: ",
+                        "voip: [initMLModelsForCall] unhandled error: ",
                         "",
                       ])),
                     e,

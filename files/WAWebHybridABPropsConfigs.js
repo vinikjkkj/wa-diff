@@ -314,6 +314,7 @@ __d(
       hsm_tag_in_history_sync_deserialization_enabled: [25804, "bool", !1, !1],
       hybrid_educational_dialog_start_at: [14675, "string", " ", " "],
       hybrid_educational_dialogs_enabled: [14674, "bool", !1, !1],
+      hybrid_save_as_shared_buffer_enabled: [34993, "bool", !1, !1],
       ignore_joinable_terminate_on_expired_offer: [11519, "bool", !1, !1],
       ignore_one_to_one_terminate_in_group_call: [10273, "bool", !1, !1],
       in_app_bug_reporting_description_good_quality_chars: [

@@ -4,13 +4,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? o("WAWebABProps").getABPropConfigValue("lists_smb_web_enabled")
+        ? !0
         : o("WAWebABProps").getABPropConfigValue("wa_web_lists_m1_enabled");
     }
     function s() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        e() &&
         o("WAWebABProps").getABPropConfigValue(
           "lists_chat_list_row_pill_enabled",
         )
@@ -18,13 +17,12 @@ __d(
     }
     function u() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? e() &&
-            o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled")
+        ? o("WAWebABProps").getABPropConfigValue("lists_smb_web_m2_enabled")
         : e() &&
             o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled");
     }
     function c() {
-      return o("WAWebMobilePlatforms").isSMB() ? e() : u();
+      return o("WAWebMobilePlatforms").isSMB() ? !0 : u();
     }
     ((l.isListsEnabled = e),
       (l.isListsChatListRowPillEnabled = s),

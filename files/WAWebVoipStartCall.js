@@ -1095,33 +1095,38 @@ __d(
         $e.apply(this, arguments)
       );
     }
-    function Pe(e) {
+    function Pe(e, t) {
       return Ne.apply(this, arguments);
     }
     function Ne() {
       return (
-        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          (o("WALogger")
-            .LOG(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: joinOngoingCallByCallId: callId=",
-                  "",
-                ])),
-              e,
-            )
-            .color(ne),
+        (Ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n;
+          (t === void 0 &&
+            (t = o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+              .SECOND_NOTIFICATION),
+            o("WALogger")
+              .LOG(
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: joinOngoingCallByCallId: callId=",
+                    ", lobbyEntryPoint=",
+                    "",
+                  ])),
+                e,
+                t,
+              )
+              .color(ne),
             o("WAWebVoipActivityTracker").startActivityTracking(),
             o("WAWebVoipActivityTracker").startUiActivityTracking(),
             o("WAWebVoipActivityTracker").trackUiActivity(
               o("WAWebVoipActivityTracker").VoipUiActivity
                 .USER_JOIN_ONGOING_CALL,
             ));
-          var n = o(
+          var r = o(
             "WAWebVoipOngoingCallCollection",
           ).WAWebVoipOngoingCallCollection.getByCallId(e);
-          if (n == null) {
+          if (r == null) {
             (o("WALogger")
               .LOG(
                 x ||
@@ -1140,8 +1145,8 @@ __d(
               o("WAWebVoipActivityTracker").clearAllActivityTracking());
             return;
           }
-          var r = n.to;
-          if (r == null) {
+          var a = r.to;
+          if (a == null) {
             (o("WALogger")
               .LOG(
                 $ ||
@@ -1160,19 +1165,18 @@ __d(
               o("WAWebVoipActivityTracker").clearAllActivityTracking());
             return;
           }
-          var a = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-              r,
+          var i = yield o("WAWebFindChatAction").findOrCreateLatestChat(
+              a,
               "voipNotification",
             ),
-            i = a.chat,
-            l = (t = n.isVideoCall) != null ? t : !1;
+            l = i.chat,
+            u = (n = r.isVideoCall) != null ? n : !1;
           yield Me({
             callId: e,
-            chat: i,
+            chat: l,
             isDeviceSwitch: !0,
-            isVideo: l,
-            lobbyEntryPoint: o("WAWebWamEnumLobbyEntryPointType")
-              .LOBBY_ENTRY_POINT_TYPE.SECOND_NOTIFICATION,
+            isVideo: u,
+            lobbyEntryPoint: t,
           });
         })),
         Ne.apply(this, arguments)

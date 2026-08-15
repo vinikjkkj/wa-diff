@@ -140,7 +140,7 @@ __d(
                 };
               })(),
             );
-          r("FBLogger")("wa_ctwa_web").warn(
+          r("FBLogger")("wa_ctwa_web").info(
             "[uploadAdCreativeMediaToWA] uploading " +
               s.length +
               " media types => " +

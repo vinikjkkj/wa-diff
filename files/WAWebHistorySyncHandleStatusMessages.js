@@ -24,7 +24,6 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -81,35 +80,31 @@ __d(
                         })));
                     else {
                       var l = e.participant;
-                      if (l == null) {
-                        if (r("WAWebWid").isXWid("newsletter", e.key.remoteJid))
-                          return (
-                            o("WALogger").LOG(
+                      if (l == null)
+                        return r("WAWebWid").isXWid(
+                          "newsletter",
+                          e.key.remoteJid,
+                        )
+                          ? (o("WALogger").LOG(
                               s ||
                                 (s = babelHelpers.taggedTemplateLiteralLoose([
                                   "[history sync] skipping newsletter status without participant",
                                 ])),
                             ),
-                            (m || (m = n("Promise"))).resolve()
-                          );
-                        throw (
-                          o("WALogger")
-                            .ERROR(
-                              u ||
-                                (u = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[history sync] missing participant in status message, remoteJid: ",
-                                  "",
-                                ])),
-                              e.key.remoteJid,
-                            )
-                            .sendLogs(
-                              "hist-sync-missing-participant-in-status",
-                            ),
-                          r("err")(
-                            "HistorySync:handleStatusMessages: missing participant",
-                          )
-                        );
-                      }
+                            (m || (m = n("Promise"))).resolve())
+                          : (o("WALogger")
+                              .ERROR(
+                                u ||
+                                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                                    "[history sync] missing participant in status message, remoteJid: ",
+                                    "",
+                                  ])),
+                                e.key.remoteJid,
+                              )
+                              .sendLogs(
+                                "hist-sync-missing-participant-in-status",
+                              ),
+                            (m || (m = n("Promise"))).resolve());
                       a = o("WAWebWidFactory").createWid(l);
                     }
                     var d = {

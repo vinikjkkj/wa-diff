@@ -9,6 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebConsumerPaymentsHomeLogger",
     "WAWebCustomPaymentMethodsSync",
+    "WAWebCustomPaymentMethodsSyncLogger",
     "WAWebMobilePlatforms",
     "WAWebSyncdCoreApi",
     "asyncToGeneratorRuntime",
@@ -41,17 +42,14 @@ __d(
                 ],
               },
             };
-          (o("WAWebConsumerPaymentsHomeLogger").logSyncEvent(
-            o("WAWebConsumerPaymentsHomeLogger").SYNC_TARGETS.STORE_SENT,
-          ),
-            o("WALogger")
-              .LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Adding Pix Key",
-                  ])),
-              )
-              .sendLogs("payment-brazil"));
+          o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Adding Pix Key",
+                ])),
+            )
+            .sendLogs("payment-brazil");
           var d = yield o(
             "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
           ).sendCreateCustomPaymentMethodRPC(c);
@@ -228,11 +226,15 @@ __d(
     function E() {
       return (
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            a,
-            i,
-            l,
-            s =
+          var t, a, i, l;
+          o(
+            "WAWebCustomPaymentMethodsSyncLogger",
+          ).logCustomPaymentMethodsSyncEvent(
+            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
+              .SEND_STORE,
+            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.ATTEMPT,
+          );
+          var s =
               ((t = e.value) == null ||
               (t = t.accountCustomPaymentMethodCustomPaymentMethodMixin) ==
                 null ||
@@ -284,28 +286,46 @@ __d(
                   ],
                 },
               ],
-            },
-            p = yield r(
+            };
+          try {
+            var p = yield r(
               "WAWebCustomPaymentMethodsSync",
             ).getCustomPaymentMethodSetMutation(m);
-          return o("WAWebSyncdCoreApi")
-            .lockForSync([], [p], function () {
+            yield o("WAWebSyncdCoreApi").lockForSync([], [p], function () {
               return (h || (h = n("Promise"))).resolve();
-            })
-            .then(function () {
-              (o("WALogger")
-                .LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "Synced pix mutation",
-                    ])),
-                )
-                .sendLogs("payment-brazil"),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "setCustomPaymentMethods",
-                  { customPaymentMethods: m.customPaymentMethods },
-                ));
             });
+          } catch (e) {
+            var _;
+            throw (
+              (_ = o(
+                "WAWebCustomPaymentMethodsSyncLogger",
+              )).logCustomPaymentMethodsSyncEvent(
+                _.SYNC_ACTION_TARGETS.SEND_STORE,
+                _.SYNC_STATUS.FAILURE,
+                _.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
+              ),
+              e
+            );
+          }
+          (o("WALogger")
+            .LOG(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "Synced pix mutation",
+                ])),
+            )
+            .sendLogs("payment-brazil"),
+            o(
+              "WAWebCustomPaymentMethodsSyncLogger",
+            ).logCustomPaymentMethodsSyncEvent(
+              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
+                .SEND_STORE,
+              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.SUCCESS,
+            ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "setCustomPaymentMethods",
+              { customPaymentMethods: m.customPaymentMethods },
+            ));
         })),
         E.apply(this, arguments)
       );

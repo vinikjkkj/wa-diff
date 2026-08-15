@@ -15,6 +15,7 @@ __d(
     "WAWebResendStatusMsg",
     "WAWebSendCoexV2RetryMsgJob",
     "WAWebSendMsgCreateDeviceStanza",
+    "WAWebStatusGatingUtils",
     "WAWebWid",
     "asyncToGeneratorRuntime",
   ],
@@ -33,36 +34,41 @@ __d(
             l = t.to,
             c = n.data.id.id,
             d = r || l;
-          o("WALogger")
-            .LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendRetry: id ",
-                  " to ",
-                  ", requester: ",
-                  ", count: ",
-                  "",
-                ])),
-              c,
-              l.toString(),
-              d.toString(),
-              i,
-            )
-            .tags("messaging");
+          if (
+            (o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendRetry: id ",
+                    " to ",
+                    ", requester: ",
+                    ", count: ",
+                    "",
+                  ])),
+                c,
+                l.toString(),
+                d.toString(),
+                i,
+              )
+              .tags("messaging"),
+            l.isStatus() &&
+              o("WAWebStatusGatingUtils").isStatusPublishViaSmaxEnabled())
+          )
+            return m(t);
           var p,
-            _ = "message";
+            f = "message";
           if (
             l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
             o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
           ) {
-            var f = yield o(
+            var g = yield o(
               "WAWebSendCoexV2RetryMsgJob",
             ).buildCoexV2RetryStanza(n, i, a);
-            if (f == null) return;
-            p = f;
+            if (g == null) return;
+            p = g;
           } else {
-            var g = yield m(t);
-            ((p = g.stanza), (_ = g.statusStanzaClass));
+            var h = yield _(t);
+            ((p = h.stanza), (f = h.statusStanzaClass));
           }
           o("WALogger")
             .LOG(
@@ -76,22 +82,22 @@ __d(
               l.toString(),
             )
             .tags("messaging");
-          var h = l.isStatus() ? null : r,
-            y = l;
+          var y = l.isStatus() ? null : r,
+            C = l;
           return (
             l.isBot() &&
               a != null &&
               !(a != null && a.isBot()) &&
-              ((h = l), a != null || s(0, 75958), (y = a)),
+              ((y = l), a != null || s(0, 75958), (C = a)),
             o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
               p,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: c,
-                class: l.isStatus() ? _ : "message",
-                from: y,
-                participant: h,
+                class: l.isStatus() ? f : "message",
+                from: C,
+                participant: y,
               }),
             )
           );
@@ -105,6 +111,40 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.msgRecord,
+            n = e.participant,
+            r = e.retryCount,
+            a = e.sessionScope,
+            i = e.to;
+          return (
+            n != null || s(0, 111426),
+            o("WAWebResendStatusMsg").sendStatusRetryMsgViaSmax({
+              deviceMsgType: {
+                type: o("WAWebSendMsgCreateDeviceStanza").MsgType.Retry,
+                retryCount: r,
+              },
+              msgProtobuf: o(
+                "WAWebOutgoingMessage",
+              ).createOutgoingMessageProtobuf(
+                o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
+                t,
+              ),
+              msgRecord: t,
+              participant: n,
+              sessionScope: a,
+              to: i,
+            })
+          );
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = e.accountLid,
             a = e.isLidBot,
@@ -193,7 +233,7 @@ __d(
                 statusStanzaClass: "message",
               });
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
     l.sendRetry = c;

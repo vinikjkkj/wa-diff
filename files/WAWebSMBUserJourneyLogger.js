@@ -41,7 +41,12 @@ __d(
               t.entryPoint != null &&
                 t.stickyEntryPoint !== !1 &&
                 this.$3.set(t.featureName, t.entryPoint));
-            var r = (e = t.entryPoint) != null ? e : this.$3.get(t.featureName);
+            var r =
+              t.stickyEntryPoint === !1
+                ? t.entryPoint
+                : (e = t.entryPoint) != null
+                  ? e
+                  : this.$3.get(t.featureName);
             (r != null && (n.entryPoint = r),
               t.entryPointDetails != null &&
                 this.$4.set(t.featureName, t.entryPointDetails));

@@ -56,7 +56,9 @@ __d(
       w = s,
       A = s,
       F = s,
-      O = s;
+      O = s,
+      B = s,
+      W = s;
     ((l.createMessagesCache = c),
       (l.createFrontendMessagesCache = d),
       (l.createChatCache = m),
@@ -85,7 +87,9 @@ __d(
       (l.createEventResponseCache = w),
       (l.createFrontendEventResponseCache = A),
       (l.createCartCache = F),
-      (l.createCatalogCache = O));
+      (l.createCatalogCache = O),
+      (l.createUnjoinedSubgroupMetadataCache = B),
+      (l.createPresenceCache = W));
   },
   98,
 );

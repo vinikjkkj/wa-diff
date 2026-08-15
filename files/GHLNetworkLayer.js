@@ -6,6 +6,7 @@ __d(
     "GHLDetectionUtilsPreludeSafe",
     "err",
     "gkx",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -29,7 +30,11 @@ __d(
           }
           if (n != null && !o("GHLDetectionUtils").isXHRModified(n)) return n;
         }
-        return null;
+        return r("gkx")("25201") &&
+          r("justknobx")._("5685") &&
+          o("GHLDetectionUtils").isXHRModified(t.XMLHttpRequest)
+          ? o("GHLDetectionUtilsPreludeSafe").getCleanRealmXHRConstructor()
+          : null;
       } catch (e) {
         return (
           r("FBLogger")("ghl")

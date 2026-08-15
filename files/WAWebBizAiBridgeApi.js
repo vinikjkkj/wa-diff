@@ -5,6 +5,7 @@ __d(
     "WAWebAIAgentAIReplyUtils",
     "WAWebBizAISettingsCategoryHandlers",
     "WAWebBizAISettingsVersionCollection",
+    "WAWebBizAiBulkThreadControlLogEvents",
     "WAWebBizAiLargeScreensGateModel",
     "WAWebChatCollection",
     "WAWebLidMigrationUtils",
@@ -89,45 +90,60 @@ __d(
             ])),
           e.length,
         );
-        for (var n of e.entries()) {
-          var a = n[0],
-            i = n[1];
+        var n = 0,
+          a = 0,
+          i = 0;
+        for (var l of e.entries()) {
+          var s = l[0],
+            u = l[1];
           try {
-            var l = f(i.consumerLid, i.consumerPhoneNumber);
-            l != null
-              ? o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
-                  chat: l,
+            var p = f(u.consumerLid, u.consumerPhoneNumber);
+            p != null
+              ? (o("WAWebAIAgentAIReplyUtils").applyServerEchoThreadControl({
+                  chat: p,
                   options: {
                     suppressNotification: !0,
-                    suggestedRepliesEnabled: i.suggestedRepliesEnabled,
+                    suggestedRepliesEnabled: u.suggestedRepliesEnabled,
                   },
-                  status: i.status,
-                  timestampMs: i.timestampMs,
-                })
-              : o("WALogger")
+                  status: u.status,
+                  timestampMs: u.timestampMs,
+                }),
+                (n += 1))
+              : ((a += 1),
+                o("WALogger")
                   .ERROR(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[BizAI] bulkUpdateChatCapiThreadControl: chat not found at index=",
                         "",
                       ])),
-                    a,
+                    s,
                   )
-                  .sendLogs("maiba-bulk-thread-control-chat-not-found");
+                  .sendLogs("maiba-bulk-thread-control-chat-not-found"));
           } catch (e) {
-            o("WALogger")
-              .ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizAI] bulkUpdateChatCapiThreadControl: failed to apply update at index=",
-                    "",
-                  ])),
-                a,
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("maiba-bulk-thread-control-update-failed");
+            ((i += 1),
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[BizAI] bulkUpdateChatCapiThreadControl: failed to apply update at index=",
+                      "",
+                    ])),
+                  s,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("maiba-bulk-thread-control-update-failed"));
           }
         }
+        e.length > 0 &&
+          o(
+            "WAWebBizAiBulkThreadControlLogEvents",
+          ).logBulkThreadControlBatchApplied({
+            appliedCount: n,
+            failedCount: i,
+            notFoundCount: a,
+            totalCount: e.length,
+          });
       },
       handleBizAiSettingsNudge: function (t) {
         var e = t.category,

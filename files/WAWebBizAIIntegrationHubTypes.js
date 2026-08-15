@@ -2,25 +2,29 @@ __d(
   "WAWebBizAIIntegrationHubTypes",
   [],
   function (t, n, r, o, a, i) {
-    var e = new Set(["GOOGLE_DRIVE", "GOOGLE_DRIVE_MEMBRANE"]);
-    function l(e) {
+    var e = "GOOGLE_DRIVE",
+      l = "GOOGLE_DRIVE_MEMBRANE",
+      s = new Set([e, l]);
+    function u(e) {
       var t = [],
         n = [];
       for (var r of e) r.is_connected ? t.push(r) : n.push(r);
       return { availableApps: n, connectedApps: t };
     }
-    function s(t) {
-      var n = null;
-      for (var r of t) {
-        var o = r.apixfnPlugin;
-        if (!(o == null || !e.has(o))) {
-          if (r.is_connected) return r;
-          n == null && (n = r);
+    function c(e) {
+      var t = null;
+      for (var n of e) {
+        var r = n.apixfnPlugin;
+        if (!(r == null || !s.has(r))) {
+          if (n.is_connected) return n;
+          t == null && (t = n);
         }
       }
-      return n;
+      return t;
     }
-    ((i.partitionPlugins = l), (i.findGoogleDrivePlugin = s));
+    ((i.GOOGLE_DRIVE_APIXFN_PLUGIN = e),
+      (i.partitionPlugins = u),
+      (i.findGoogleDrivePlugin = c));
   },
   66,
 );

@@ -1,9 +1,14 @@
 __d(
   "WAWebMsgLinkContextMenuUtils",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebEnvironment", "justknobx"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
+      return (
+        r("WAWebEnvironment").isWeb && r("justknobx")._("5681") && s(e) != null
+      );
+    }
+    function s(e) {
       var t = e.target;
       if (t instanceof HTMLElement) {
         var n = t.closest("a");
@@ -11,7 +16,7 @@ __d(
       }
       return null;
     }
-    i.getLinkHrefFromEvent = e;
+    ((l.shouldShowNativeMenuForLink = e), (l.getLinkHrefFromEvent = s));
   },
-  66,
+  98,
 );

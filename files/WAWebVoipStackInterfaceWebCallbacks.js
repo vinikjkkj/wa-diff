@@ -7,10 +7,10 @@ __d(
     "WACryptoSha256HmacBuilder",
     "WALogger",
     "WAWebAudioUtility",
-    "WAWebBweModelPathProvider",
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebMLModelPathProvider",
     "WAWebTrustedContactsUtils",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipBrowserAudioStatus",
@@ -687,7 +687,12 @@ __d(
         },
         getBweModelPath: function (t) {
           var e = t.versionName;
-          return o("WAWebBweModelPathProvider").getBweModelPath(e);
+          return o("WAWebMLModelPathProvider").getBweModelPath(e);
+        },
+        getMLModelPathForType: function (t) {
+          var e = t.modelType,
+            n = t.versionName;
+          return o("WAWebMLModelPathProvider").getMLModelPathForType(e, n);
         },
         videoFrameConsumed: function () {
           o("WAWebVoipVideoFrameConsumedSignal").notifyVideoFrameConsumed();

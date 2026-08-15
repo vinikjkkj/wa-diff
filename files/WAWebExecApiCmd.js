@@ -10,9 +10,9 @@ __d(
     "WAWebAddEditPixFeature",
     "WAWebApi",
     "WAWebBizBotLogging",
+    "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastsManageAudiencePanelLoadable",
-    "WAWebBizBroadcastsSmartCSVImportAudiencesScreenLoadable",
     "WAWebBizBroadcastsSmartCSVImportSetupFlowLoadable",
     "WAWebBizBroadcastsUploadModalLoadable.react",
     "WAWebBizFrontendGatingUtils",
@@ -165,8 +165,8 @@ __d(
     function F(e, t) {
       o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
         $.jsx(
-          o("WAWebBizBroadcastsSmartCSVImportAudiencesScreenLoadable")
-            .WAWebBizBroadcastsSmartCSVImportAudiencesScreenLoadable,
+          o("WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable")
+            .WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable,
           {
             audiences: e,
             entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER,
@@ -1235,7 +1235,11 @@ __d(
           if (qe == null) return !0;
           try {
             o("WAWebVoipStartCall")
-              .joinOngoingCallByCallId(qe.id.id)
+              .joinOngoingCallByCallId(
+                qe.id.id,
+                o("WAWebWamEnumLobbyEntryPointType").LOBBY_ENTRY_POINT_TYPE
+                  .XDR_CALL_TRANSFER,
+              )
               .catch(function (e) {
                 o("WALogger").ERROR(
                   C ||

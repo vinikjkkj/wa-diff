@@ -493,16 +493,6 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });
           }),
-          (n.clickAddCustomerContactSuggestion = function (t, n) {
-            this.$1({
-              extraAttributes: { position: t, prefilled_field_count: n },
-              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                .CUSTOMER_MANAGER_ADD_CUSTOMER,
-              userActionTarget: "add_customer_contact_suggestion",
-              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-            });
-          }),
           (n.viewRemoveConfirm = function (t) {
             this.$1({
               extraAttributes: { triggered_from: t },

@@ -2,10 +2,12 @@ __d(
   "RelayFBJsonParser",
   [
     "ExecutionEnvironment",
+    "FBLogger",
     "GHLDetectionUtils",
     "GHLDetectionUtilsPreludeSafe",
     "GHLTypenameRestore",
     "cr:7329",
+    "getErrorSafe",
     "gkx",
     "justknobx",
   ],
@@ -34,10 +36,17 @@ __d(
                   "GHLDetectionUtilsPreludeSafe",
                 ).isJSONParseBehaviorallyShimmed()),
             s;
+          if (l && n("cr:7329"))
+            try {
+              s = n("cr:7329").parse(a + " ");
+            } catch (e) {
+              (r("FBLogger")("ad_blocker_defense_ghost_owl")
+                .catching(r("getErrorSafe")(e))
+                .mustfix("Failed to parse Relay response using json5"),
+                (s = JSON.parse(a)));
+            }
+          else s = JSON.parse(a);
           return (
-            l && n("cr:7329")
-              ? (s = n("cr:7329").parse(a))
-              : (s = JSON.parse(a)),
             s != null && o("GHLTypenameRestore").restoreAllTypenames(s, a),
             s
           );

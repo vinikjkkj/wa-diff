@@ -2,9 +2,9 @@ __d(
   "WAWebVoipStorageInit",
   [
     "WALogger",
-    "WAWebBweModelPathProvider",
     "WAWebIDBFSStorageBackend",
     "WAWebMLModelCacheManager",
+    "WAWebMLModelPathProvider",
     "WAWebVoipPersistentFS",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,7 +27,7 @@ __d(
               var r = o("WAWebMLModelCacheManager").createMLModelCacheManager(
                 n,
               );
-              o("WAWebBweModelPathProvider").setCacheManager(r);
+              o("WAWebMLModelPathProvider").setCacheManager(r);
             } catch (e) {
               o("WALogger")
                 .ERROR(

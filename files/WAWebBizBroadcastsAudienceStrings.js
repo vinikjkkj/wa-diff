@@ -71,6 +71,46 @@ __d(
           ? s._(/*BTDS*/ "No contacts found for this time period")
           : s._(/*BTDS*/ "No contacts found");
     }
+    function R() {
+      return s._(/*BTDS*/ "Import audiences");
+    }
+    function L(e) {
+      return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
+        s._plural(e, "number"),
+      ]);
+    }
+    function E(e) {
+      return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
+        s._plural(e, "number"),
+      ]);
+    }
+    function k() {
+      return s._(/*BTDS*/ "Audience has unresolved errors");
+    }
+    function I() {
+      return s._(/*BTDS*/ "Customer");
+    }
+    function T() {
+      return s._(/*BTDS*/ "Mobile No.");
+    }
+    function D() {
+      return s._(/*BTDS*/ "Delete contact");
+    }
+    function x() {
+      return s._(/*BTDS*/ "Saving...");
+    }
+    function $(e) {
+      return s._(
+        /*BTDS*/ '_j{"*":"Save {number} audiences","_1":"Save 1 audience"}',
+        [s._plural(e, "number")],
+      );
+    }
+    function P() {
+      return s._(/*BTDS*/ "We couldn't save all audiences. Try again.");
+    }
+    function N() {
+      return s._(/*BTDS*/ "We couldn't save your audiences. Try again.");
+    }
     ((l.getUntitledListName = e),
       (l.getActiveChatsTitle = u),
       (l.getActiveChatsDescription = c),
@@ -85,7 +125,18 @@ __d(
       (l.getSuggestedAudiencesSectionTitle = C),
       (l.getDurationLabelForDays = b),
       (l.getSuggestedAudienceCardSubtitle = v),
-      (l.getEmptyStateMessage = S));
+      (l.getEmptyStateMessage = S),
+      (l.getImportAudiencesTitle = R),
+      (l.getRecipientCountNavLabel = L),
+      (l.getRecipientCountHeading = E),
+      (l.getUnresolvedErrorsIndicatorLabel = k),
+      (l.getCustomerColumnHeader = I),
+      (l.getMobileNumberColumnHeader = T),
+      (l.getDeleteContactLabel = D),
+      (l.getSavingLabel = x),
+      (l.getSaveAudiencesButtonLabel = $),
+      (l.getSaveAllAudiencesFailedError = P),
+      (l.getSaveAudiencesFailedError = N));
   },
   226,
 );

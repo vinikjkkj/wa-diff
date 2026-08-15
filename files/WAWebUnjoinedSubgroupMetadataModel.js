@@ -1,13 +1,13 @@
 __d(
   "WAWebUnjoinedSubgroupMetadataModel",
   [
-    "fbt",
     "WAWebBaseModel",
     "WAWebGroupParticipantCollection",
     "WAWebGroupType",
+    "WAWebUnjoinedSubgroupMetadataGetters",
     "WAWebWid",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
         for (var t, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
@@ -42,29 +42,25 @@ __d(
             },
             ["defaultSubgroup", "generalSubgroup"],
           )),
-          (t.displayedDesc = o("WAWebBaseModel").derived(
-            function () {
-              return this.groupType ===
-                o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-                (this.desc == null || this.desc === "")
-                ? s
-                    ._(
-                      /*BTDS*/ "Get the latest announcements from the admins of this community.",
-                    )
-                    .toString()
-                : this.desc;
-            },
-            ["desc", "groupType"],
-          )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o(
+              "WAWebUnjoinedSubgroupMetadataGetters",
+            ).clearUnjoinedSubgroupMetadataGetterCacheFor(this));
+        }),
+        t
+      );
     })(o("WAWebBaseModel").BaseModel);
     ((e.Proxy = "unjoinedSubgroupMetadata"), (e.idClass = r("WAWebWid")));
-    var u = o("WAWebBaseModel").defineModel(e);
-    l.default = u;
+    var s = o("WAWebBaseModel").defineModel(e);
+    l.default = s;
   },
-  226,
+  98,
 );

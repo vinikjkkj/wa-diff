@@ -24,6 +24,7 @@ __d(
     "WAWebLid1X1MigrationGating",
     "WAWebPresenceCollection",
     "WAWebPresenceEnum",
+    "WAWebPresenceGetters",
     "WAWebPresenceOrder",
     "WAWebPrivacyGatingUtils",
     "WAWebTextStatusGatingUtils",
@@ -192,6 +193,7 @@ __d(
         }),
         (a.delete = function () {
           (t.prototype.delete.call(this),
+            o("WAWebPresenceGetters").clearPresenceGetterCacheFor(this),
             this.getCollection().remove(this.id),
             this.chatstate.delete(),
             this.chatstates.forEach(function (e) {

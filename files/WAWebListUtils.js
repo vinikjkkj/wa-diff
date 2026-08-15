@@ -80,7 +80,6 @@ __d(
     }
     function C(e, t) {
       return (
-        o("WAWebListsGatingUtils").isListsEnabled() &&
         o("WAWebMobilePlatforms").isSMB() &&
         (e === o("WAWebSchemaLabel").ListType.CUSTOM ||
           e === o("WAWebSchemaLabel").ListType.PREDEFINED) &&
@@ -150,16 +149,12 @@ __d(
         : u;
     }
     function k() {
-      var e = o("WAWebMobilePlatforms").isSMB(),
-        t = o("WAWebListsGatingUtils").isListsEnabled();
-      if (e && !t)
-        return o("WAWebLabelCollection").LabelCollection.length >= E();
-      var n = o("WAWebLabelCollection").LabelCollection.countWhere(
+      var e = o("WAWebLabelCollection").LabelCollection.countWhere(
         function (e) {
           return e.type === o("WAWebSchemaLabel").ListType.CUSTOM;
         },
       );
-      return n >= E();
+      return e >= E();
     }
     function I(e) {
       var t = E();

@@ -457,6 +457,7 @@ __d(
       Xe = e({
         AllowAlways: "ALLOW_ALWAYS",
         AllowOnce: "ALLOW_ONCE",
+        AllowSession: "ALLOW_SESSION",
         Deny: "DENY",
       }),
       Ye = e({

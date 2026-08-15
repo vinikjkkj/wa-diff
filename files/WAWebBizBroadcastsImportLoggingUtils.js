@@ -1,7 +1,7 @@
 __d(
   "WAWebBizBroadcastsImportLoggingUtils",
-  ["$InternalEnum"],
-  function (t, n, r, o, a, i) {
+  ["$InternalEnum", "WAWebContactImportTypedError", "countWhere", "sumBy"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum")({
       BEFORE_FILE_IMPORT: "before_file_import",
@@ -9,19 +9,19 @@ __d(
       IMPORT_REVIEW: "import_review",
       SEGMENTATION: "segmentation",
     });
-    function l(e) {
+    function s(e) {
       var t = e.name.toLowerCase();
-      return t.endsWith(".ods") || e.type === g
+      return t.endsWith(".ods") || e.type === y
         ? "ods"
-        : t.endsWith(".xlsx") || e.type === y
+        : t.endsWith(".xlsx") || e.type === b
           ? "xlsx"
-          : t.endsWith(".xls") || e.type === h
+          : t.endsWith(".xls") || e.type === C
             ? "xls"
-            : t.endsWith(".csv") || e.type === f || e.type === _
+            : t.endsWith(".csv") || e.type === h || e.type === g
               ? "csv"
               : "unknown";
     }
-    function s(e, t, n) {
+    function u(e, t, n) {
       var r;
       return {
         columnSelectionSource:
@@ -30,14 +30,14 @@ __d(
             : t
               ? void 0
               : "legacy",
-        importFileType: l(e),
+        importFileType: s(e),
         smartColumnDetectionEnabled: t,
       };
     }
-    function u(e, t) {
+    function c(e, t) {
       return babelHelpers.extends({}, e, t);
     }
-    function c(e) {
+    function d(e) {
       if (e == null) return {};
       var t = {
         import_file_type: e.importFileType,
@@ -49,7 +49,7 @@ __d(
             column_selection_source: e.columnSelectionSource,
           });
     }
-    function d(e, t) {
+    function m(e, t) {
       var n,
         r,
         o,
@@ -78,40 +78,71 @@ __d(
             : l == null
               ? null
               : l > 1,
-        d =
+        c =
           (i = t == null ? void 0 : t.rawRowCount) != null
             ? i
             : e == null
               ? void 0
               : e.rawRowCount,
-        m = c(e),
+        m = d(e),
         p = l == null ? m : babelHelpers.extends({}, m, { audience_count: l }),
         _ =
           u == null ? p : babelHelpers.extends({}, p, { is_multi_audience: u }),
         f =
           s == null ? _ : babelHelpers.extends({}, _, { num_imported_rows: s });
-      return d == null ? f : babelHelpers.extends({}, f, { num_raw_rows: d });
+      return c == null ? f : babelHelpers.extends({}, f, { num_raw_rows: c });
     }
-    function m(e, t) {
-      return d(e, t);
+    function p(e, t) {
+      return m(e, t);
     }
-    function p(e, t, n, r) {
+    function _(e, t, n, r) {
       var o =
         t == null && n != null ? { smart_column_detection_enabled: n } : {};
-      return babelHelpers.extends({}, d(t, r), o, { phase: e });
+      return babelHelpers.extends({}, m(t, r), o, { phase: e });
     }
-    var _ = "application/csv",
-      f = "text/csv",
-      g = "application/vnd.oasis.opendocument.spreadsheet",
-      h = "application/vnd.ms-excel",
-      y = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    ((i.ImportAudienceCancelPhase = e),
-      (i.createImportAudienceLoggingContext = s),
-      (i.createImportAudienceSuccessLoggingContext = u),
-      (i.getImportAudienceLoggingExtraAttributes = c),
-      (i.getImportAudienceMetadataLoggingExtraAttributes = d),
-      (i.getImportAudienceSuccessLoggingExtraAttributes = m),
-      (i.getImportAudienceCancelLoggingExtraAttributes = p));
+    function f(e, t) {
+      var n = e.flatMap(function (e) {
+          var t;
+          return (t = e.errorList) != null ? t : [];
+        }),
+        a = r("sumBy")(e, function (e) {
+          return e.contacts.length;
+        });
+      return babelHelpers.extends({}, t, {
+        num_duplicate_contacts: r("countWhere")(n, function (e) {
+          return (
+            e.errorType ===
+            o("WAWebContactImportTypedError").PhoneError.DUPLICATE
+          );
+        }),
+        num_error_contacts: n.length,
+        num_invalid_contacts: r("countWhere")(n, function (e) {
+          return (
+            e.errorType === o("WAWebContactImportTypedError").PhoneError.INVALID
+          );
+        }),
+        num_non_wa_contacts: r("countWhere")(n, function (e) {
+          return (
+            e.errorType ===
+            o("WAWebContactImportTypedError").PhoneError.NOT_WHATSAPP_USER
+          );
+        }),
+        num_total_contacts: a + n.length,
+      });
+    }
+    var g = "application/csv",
+      h = "text/csv",
+      y = "application/vnd.oasis.opendocument.spreadsheet",
+      C = "application/vnd.ms-excel",
+      b = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    ((l.ImportAudienceCancelPhase = e),
+      (l.createImportAudienceLoggingContext = u),
+      (l.createImportAudienceSuccessLoggingContext = c),
+      (l.getImportAudienceLoggingExtraAttributes = d),
+      (l.getImportAudienceMetadataLoggingExtraAttributes = m),
+      (l.getImportAudienceSuccessLoggingExtraAttributes = p),
+      (l.getImportAudienceCancelLoggingExtraAttributes = _),
+      (l.getImportReviewLoggingExtraAttributes = f));
   },
-  66,
+  98,
 );

@@ -14,11 +14,15 @@ __d(
     var e = "ai_responding_chat_open",
       s = "handoff_chat_open";
     function u(e) {
+      return e === o("WAWebChatEntryPoint").ChatEntryPoint.Notification
+        ? o("WAWebWamEnumEntryPoint").ENTRY_POINT.NOTIFICATION
+        : e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar
+          ? o("WAWebWamEnumEntryPoint").ENTRY_POINT.NAV_BAR
+          : o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHATS_LIST;
+    }
+    function c(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-        entryPoint:
-          e === o("WAWebChatEntryPoint").ChatEntryPoint.Notification
-            ? o("WAWebWamEnumEntryPoint").ENTRY_POINT.NOTIFICATION
-            : o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHATS_LIST,
+        entryPoint: u(e),
         extraAttributes: {
           is_onboarded: o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent(),
         },
@@ -29,7 +33,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function c(t, n) {
+    function d(t, n) {
       if (o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent()) {
         var r = o("WAWebBizAiAgentStatusUtils").resolveAiChatStatus(t);
         r != null &&
@@ -47,7 +51,7 @@ __d(
           });
       }
     }
-    ((l.logAiHubChatOpen = u), (l.logAiChatOpen = c));
+    ((l.logAiHubChatOpen = c), (l.logAiChatOpen = d));
   },
   98,
 );

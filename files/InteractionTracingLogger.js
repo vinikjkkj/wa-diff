@@ -3,17 +3,18 @@ __d(
   ["performanceNow"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = new RegExp(/^late_mutation\/(un)?expected_([0-9]+)$/),
-      u = 4;
-    function c(e, t, n, r) {
+    var e = ["reactStack"],
+      s,
+      u = new RegExp(/^late_mutation\/(un)?expected_([0-9]+)$/),
+      c = 4;
+    function d(e, t, n, r) {
       e.QuickPerformanceLogger.markerAnnotate(
         t,
         { int: { numReactCommit: n.size } },
         { instanceKey: r },
       );
     }
-    function d(e, t, n, r, o) {
+    function m(e, t, n, r, o) {
       var a;
       e.QuickPerformanceLogger.markerAnnotate(
         t,
@@ -21,62 +22,55 @@ __d(
         { instanceKey: o },
       );
     }
-    function m(e, t, n, r, o, a) {
+    function p(e, t, n, r, o, a) {
       e.QuickPerformanceLogger.markerPoint(t, n, {
         data: r != null ? { string: { __key: r } } : null,
         instanceKey: o,
         timestamp: a,
       });
     }
-    function p(e, t, n, r) {
+    function _(e, t, n, r) {
       e.QuickPerformanceLogger.markerAnnotate(t, n.annotations, {
         instanceKey: r,
       });
       for (var o in n.tagSet) {
         var a = Array.from(n.tagSet[o]).sort();
-        d(e, t, o, a, r);
+        m(e, t, o, a, r);
       }
     }
-    function _(e, t, n, r, o) {
-      for (var a in r) {
-        var i,
-          l = r[a],
-          u = l.data,
-          c = l.timestamp,
-          d = l.type;
+    function f(t, n, r, o, a) {
+      for (var i in o) {
+        var l,
+          s = o[i],
+          c = s.data,
+          d = s.timestamp,
+          m = s.type;
         if (
           !(
-            !e.allowedQPLPointTypes.has(d) ||
-            ((i = e.qplPointFilterRegex) != null && i.exec(a))
+            !t.allowedQPLPointTypes.has(m) ||
+            ((l = t.qplPointFilterRegex) != null && l.exec(i))
           )
         ) {
-          var p = u;
-          (s.test(a) &&
-            a !== "late_mutation/unexpected_1" &&
-            u != null &&
-            u.reactStack &&
-            (p = f(r[a], ["reactStack"])),
-            m(
-              t,
-              n,
-              a,
-              p && Object.keys(p).length ? JSON.stringify(p) : void 0,
-              o,
-              c + e.qplBaseTimestamp,
-            ));
+          var _ = c;
+          if (
+            u.test(i) &&
+            i !== "late_mutation/unexpected_1" &&
+            (c == null ? void 0 : c.reactStack) != null
+          ) {
+            var f = c.reactStack,
+              g = babelHelpers.objectWithoutPropertiesLoose(c, e);
+            _ = g;
+          }
+          p(
+            n,
+            r,
+            i,
+            _ && Object.keys(_).length ? JSON.stringify(_) : void 0,
+            a,
+            d + t.qplBaseTimestamp,
+          );
         }
       }
-    }
-    function f(e, t) {
-      var n = e.data,
-        r = n != null ? JSON.parse(JSON.stringify(n)) : null;
-      return (
-        r != null &&
-          t.forEach(function (e) {
-            return delete r[e];
-          }),
-        r
-      );
     }
     function g(e, t, n, r, o) {
       for (var a in r) {
@@ -84,19 +78,19 @@ __d(
         if (!((i = e.qplPointFilterRegex) != null && i.exec(a)))
           for (var l = 0; l < r[a].length; l++) {
             var s = r[a][l],
-              c = s.data,
+              u = s.data,
               d = s.end,
-              p = s.start,
+              m = s.start,
               _ = s.type;
             if (e.allowedQPLPointTypes.has(_)) {
               var f =
-                r[a].length === 1 ? a : a + "_" + (l >= u ? "MAX" : l + 1);
-              (m(t, n, f + "_start", void 0, o, p + e.qplBaseTimestamp),
-                m(
+                r[a].length === 1 ? a : a + "_" + (l >= c ? "MAX" : l + 1);
+              (p(t, n, f + "_start", void 0, o, m + e.qplBaseTimestamp),
+                p(
                   t,
                   n,
                   f + "_end",
-                  Object.keys(c).length ? JSON.stringify(c) : void 0,
+                  Object.keys(u).length ? JSON.stringify(u) : void 0,
                   o,
                   d + e.qplBaseTimestamp,
                 ));
@@ -112,22 +106,22 @@ __d(
       };
       t.QuickPerformanceLogger.markerStart(n, o, r + e.qplBaseTimestamp, a);
     }
-    function y(t, n, o, a, i, l) {
-      (c(n, o, i.commitSet, l),
-        p(n, o, i, l),
-        _(t, n, o, i.markerPoints, l),
-        g(t, n, o, i.subSpans, l));
-      var s = t.qplActionMap[a],
+    function y(e, t, n, o, a, i) {
+      (d(t, n, a.commitSet, i),
+        _(t, n, a, i),
+        f(e, t, n, a.markerPoints, i),
+        g(e, t, n, a.subSpans, i));
+      var l = e.qplActionMap[o],
         u =
-          t.qplEndMarkerPointName != null &&
-          i.markerPoints[t.qplEndMarkerPointName] != null
-            ? i.markerPoints[t.qplEndMarkerPointName].timestamp
-            : (e || (e = r("performanceNow")))();
+          e.qplEndMarkerPointName != null &&
+          a.markerPoints[e.qplEndMarkerPointName] != null
+            ? a.markerPoints[e.qplEndMarkerPointName].timestamp
+            : (s || (s = r("performanceNow")))();
       return (
-        a === "DROPPED"
-          ? n.QuickPerformanceLogger.markerDrop(o, l)
-          : n.QuickPerformanceLogger.markerEnd(o, s, l, u + t.qplBaseTimestamp),
-        s
+        o === "DROPPED"
+          ? t.QuickPerformanceLogger.markerDrop(n, i)
+          : t.QuickPerformanceLogger.markerEnd(n, l, i, u + e.qplBaseTimestamp),
+        l
       );
     }
     function C(e, t) {

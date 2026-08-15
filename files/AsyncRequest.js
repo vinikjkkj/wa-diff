@@ -1186,7 +1186,12 @@ __d(
               this.uri.toString().includes("/..\\") ||
               this.uri.toString().includes("\\..\\")
             )
-              return !1;
+              return (
+                r("FBLogger")("asyncrequest").mustfix(
+                  "The URI cannot contain any character sequences that would allow path traversal.",
+                ),
+                !1
+              );
             if (
               (Object.assign(this.data, r("getAsyncParams")(this.method)),
               (f || (f = r("isEmpty")))(this.context) ||
