@@ -12,19 +12,24 @@ __d(
     var e,
       u,
       c = u || (u = o("react"));
-    function d(t, n, r, a) {
-      var i = t.values,
-        l = i.doodleEnabled,
-        u = i.colorSchemeId == null,
-        d =
-          i.chatThemeId == null &&
-          (i.wallpaper == null ||
-            i.wallpaper === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER) &&
-          r == null &&
-          t.activeWallpaperId == null &&
-          l === !0,
-        m = d && u && t.minimalModeActive === !1,
-        p = function (n, r, a) {
+    function d(t) {
+      var n = t.activeWallpaperId,
+        r = t.chatThemeModule,
+        a = t.clearPinnedCustomizedTile,
+        i = t.setActiveWallpaperId,
+        l = t.store,
+        u = l.values,
+        d = u.doodleEnabled,
+        m = u.colorSchemeId == null,
+        p =
+          u.chatThemeId == null &&
+          (u.wallpaper == null ||
+            u.wallpaper === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER) &&
+          n == null &&
+          l.activeWallpaperId == null &&
+          d === !0,
+        _ = p && m && l.minimalModeActive === !1,
+        f = function (n, r, i) {
           try {
             n();
           } catch (t) {
@@ -37,11 +42,12 @@ __d(
               r());
             return;
           }
+          a();
           var t = o("WAWebToast.react").genId();
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebToast.react").Toast, {
               id: t,
-              msg: a,
+              msg: i,
               action: {
                 actionText: s._(/*BTDS*/ "Undo"),
                 onAction: function () {
@@ -51,78 +57,78 @@ __d(
             }),
           );
         },
-        _ = function () {
-          var e, o;
-          if (n != null && !m) {
-            var u = (e = i.colorSchemeId) != null ? e : null,
-              c = (o = i.chatThemeId) != null ? o : null,
-              d = t.rawWallpaperValue,
-              _ = r,
-              f = t.minimalModeActive;
-            p(
+        g = function () {
+          var e, t;
+          if (r != null && !_) {
+            var o = (e = u.colorSchemeId) != null ? e : null,
+              a = (t = u.chatThemeId) != null ? t : null,
+              c = l.rawWallpaperValue,
+              m = n,
+              p = l.minimalModeActive;
+            f(
               function () {
-                (t.applyColor(null),
-                  t.applyTheme(null),
-                  t.applyWallpaper(null),
-                  a(null),
-                  t.applyActiveWallpaperId(null),
-                  t.applyMinimalMode(!1),
-                  t.isGlobal && !l && t.applyDoodle(!0));
+                (l.applyColor(null),
+                  l.applyTheme(null),
+                  l.applyWallpaper(null),
+                  i(null),
+                  l.applyActiveWallpaperId(null),
+                  l.applyMinimalMode(!1),
+                  l.isGlobal && !d && l.applyDoodle(!0));
               },
               function () {
-                (t.applyColor(u),
-                  t.applyTheme(c),
-                  t.restoreWallpaperValue(d),
-                  a(_),
-                  t.applyMinimalMode(f));
+                (l.applyColor(o),
+                  l.applyTheme(a),
+                  l.restoreWallpaperValue(c),
+                  i(m),
+                  l.applyMinimalMode(p));
               },
               s._(/*BTDS*/ "Chat theme reset"),
             );
           }
         },
-        f = function () {
+        h = function () {
           var e;
-          if (!u) {
-            var n = (e = i.colorSchemeId) != null ? e : null;
-            p(
+          if (!m) {
+            var t = (e = u.colorSchemeId) != null ? e : null;
+            f(
               function () {
-                t.applyColor(null);
+                l.applyColor(null);
               },
               function () {
-                t.applyColor(n);
+                l.applyColor(t);
               },
               s._(/*BTDS*/ "Chat color reset"),
             );
           }
         },
-        g = function () {
+        y = function () {
           var e;
-          if (n != null && !d) {
-            var o = (e = i.chatThemeId) != null ? e : null,
-              u = t.rawWallpaperValue,
-              c = r;
-            p(
+          if (r != null && !p) {
+            var t = (e = u.chatThemeId) != null ? e : null,
+              o = l.rawWallpaperValue,
+              a = n;
+            f(
               function () {
-                (t.applyTheme(null),
-                  t.applyWallpaper(null),
-                  a(null),
-                  t.applyActiveWallpaperId(null),
-                  t.isGlobal && !l && t.applyDoodle(!0));
+                (l.applyTheme(null),
+                  l.applyWallpaper(null),
+                  i(null),
+                  l.applyActiveWallpaperId(null),
+                  l.isGlobal && !d && l.applyDoodle(!0));
               },
               function () {
-                (t.applyTheme(o), t.restoreWallpaperValue(u), a(c));
+                (l.applyTheme(t), l.restoreWallpaperValue(o), i(a));
               },
               s._(/*BTDS*/ "Wallpaper reset"),
             );
           }
         };
       return {
-        handleReset: _,
-        handleColorReset: f,
-        handleWallpaperReset: g,
-        isAllAtDefault: m,
-        isColorAtDefault: u,
-        isWallpaperAtDefault: d,
+        handleReset: g,
+        handleColorReset: h,
+        handleWallpaperReset: y,
+        isAllAtDefault: _,
+        isColorAtDefault: m,
+        isWallpaperAtDefault: p,
       };
     }
     l.createChatThemeResetWithUndo = d;

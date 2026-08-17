@@ -70,6 +70,16 @@ __d(
             l.applyWallpaper(e),
             r(),
             i !== u && l.applyDoodle(i));
+        },
+        f = function (t) {
+          (l.applyColor(t.colorSchemeId),
+            l.applyTheme(t.chatThemeId),
+            l.restoreWallpaperValue(t.wallpaperValue),
+            a(t.wallpaperId),
+            l.minimalModeActive !== t.minimalModeActive &&
+              l.applyMinimalMode(t.minimalModeActive),
+            n(),
+            r());
         };
       return {
         handleSelect: c,
@@ -77,6 +87,7 @@ __d(
         handleWallpaperSelect: m,
         clearActiveWallpaperPreset: p,
         handleSolidColorSelect: _,
+        restoreCustomTile: f,
       };
     }
     l.createChatThemeSelectionHandlers = e;

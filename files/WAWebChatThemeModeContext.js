@@ -6,7 +6,12 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = e.createContext,
-      c = u({ isVibrant: !1, isThemed: !1, chatThemeStyle: null }),
+      c = u({
+        isVibrant: !1,
+        isThemed: !1,
+        wallpaperStyle: null,
+        bubbleStyle: null,
+      }),
       d = c;
     l.default = d;
   },
