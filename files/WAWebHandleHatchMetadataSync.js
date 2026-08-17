@@ -5,8 +5,8 @@ __d(
     "WAWebAIHatchIdentityStore",
     "WAWebCurrentUser",
     "WAWebHandleHatchAgentStatus",
-    "WAWebHandleHatchApproval",
     "WAWebHandleHatchApprovalSnapshot",
+    "WAWebHandleLegacyHatchApproval",
     "WAWebHatchMetadataExchangeManager",
     "WAWebHatchPayloadDecoder",
     "getErrorSafe",
@@ -73,7 +73,9 @@ __d(
             : n.kind === "identity"
               ? o("WAWebAIHatchIdentityStore").applyHatchIdentity(n.identity)
               : n.kind === "approval"
-                ? o("WAWebHandleHatchApproval").handleHatchApproval(n.approval)
+                ? o("WAWebHandleLegacyHatchApproval").handleLegacyHatchApproval(
+                    n.approval,
+                  )
                 : n.kind === "approval_snapshot" &&
                   o(
                     "WAWebHandleHatchApprovalSnapshot",

@@ -43,16 +43,18 @@ __d(
       );
     }
     function m(e, t) {
-      _(p(e), t);
+      _(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
+        babelHelpers.extends({}, t, { rawHitlDecisionKind: p(e) }),
+      );
     }
     function p(e) {
       return e === r("WAWebHatchApprovalOption").AllowOnce
-        ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_ALLOW_ONCE_TAP
+        ? "allow_once"
         : e === r("WAWebHatchApprovalOption").AllowAlways
-          ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
-              .HITL_ALWAYS_ALLOW_TAP
+          ? "allow_always"
           : e === r("WAWebHatchApprovalOption").Deny
-            ? o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DENY_TAP
+            ? "deny"
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -68,6 +70,7 @@ __d(
         ).HatchUserJourneyWamEvent)({
           hatchActionType: e,
           hitlIsMulti: t == null ? void 0 : t.hitlIsMulti,
+          rawHitlDecisionKind: t == null ? void 0 : t.rawHitlDecisionKind,
           unifiedSessionId:
             (n =
               (r = t == null ? void 0 : t.unifiedSessionId) != null
@@ -117,7 +120,7 @@ __d(
       (l.logHatchUnlinkSuccess = u),
       (l.logHatchHitlBottomSheetImpression = c),
       (l.logHatchHitlDetailImpression = d),
-      (l.logHatchHitlDecisionTap = m));
+      (l.logHatchHitlLegacyDecisionTap = m));
   },
   98,
 );

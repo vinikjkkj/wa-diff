@@ -5,58 +5,63 @@ __d(
     "WATimeUtils",
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
+    "WAWebMediaUrlAllowlist",
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.imageMessage;
-      if (t == null) return null;
-      var n = t.annotations,
-        r = t.caption,
-        a = t.directPath,
-        i = t.fileEncSha256,
-        l = t.fileLength,
-        s = t.fileSha256,
-        u = t.height,
-        c = t.jpegThumbnail,
-        d = t.mediaKey,
-        m = t.mediaKeyTimestamp,
-        p = t.mimetype,
-        _ = t.scanLengths,
-        f = t.scansSidecar,
-        g = t.staticUrl,
-        h = t.thumbnailDirectPath,
-        y = t.thumbnailEncSha256,
-        C = t.thumbnailSha256,
-        b = t.url,
-        v = t.viewOnce,
-        S = t.width;
+      var t,
+        n = e.imageMessage;
+      if (n == null) return null;
+      var r = n.annotations,
+        a = n.caption,
+        i = n.directPath,
+        l = n.fileEncSha256,
+        s = n.fileLength,
+        u = n.fileSha256,
+        c = n.height,
+        d = n.jpegThumbnail,
+        m = n.mediaKey,
+        p = n.mediaKeyTimestamp,
+        _ = n.mimetype,
+        f = n.scanLengths,
+        g = n.scansSidecar,
+        h = n.staticUrl,
+        y = n.thumbnailDirectPath,
+        C = n.thumbnailEncSha256,
+        b = n.thumbnailSha256,
+        v = n.url,
+        S = n.viewOnce,
+        R = n.width;
       return {
         type: o("WAWebMsgType").MSG_TYPE.IMAGE,
         kind: o("WAWebMsgType").MsgKind.Image,
-        deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(b),
-        directPath: a || "",
-        staticUrl: g || "",
-        mimetype: p || "",
-        caption: o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(r),
-        filehash: o("WAWebE2EProtoParserApi").decodeBytes(s),
-        encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(i),
-        size: l != null ? o("WALongInt").numberOrThrowIfTooLarge(l) : void 0,
-        height: u || 0,
-        width: S || 0,
-        mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(d),
+        deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(v),
+        directPath: i || "",
+        staticUrl:
+          (t = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(h)) != null
+            ? t
+            : "",
+        mimetype: _ || "",
+        caption: o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(a),
+        filehash: o("WAWebE2EProtoParserApi").decodeBytes(u),
+        encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(l),
+        size: s != null ? o("WALongInt").numberOrThrowIfTooLarge(s) : void 0,
+        height: c || 0,
+        width: R || 0,
+        mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(m),
         mediaKeyTimestamp:
-          m != null
-            ? o("WALongInt").numberOrThrowIfTooLarge(m)
+          p != null
+            ? o("WALongInt").numberOrThrowIfTooLarge(p)
             : o("WATimeUtils").unixTime(),
-        body: o("WAWebE2EProtoParserApi").decodeBytes(c) || "",
-        interactiveAnnotations: n,
-        scanLengths: _,
-        scansSidecar: f,
-        isViewOnce: v === !0,
-        thumbnailDirectPath: h,
-        thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(C),
-        thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(y),
+        body: o("WAWebE2EProtoParserApi").decodeBytes(d) || "",
+        interactiveAnnotations: r,
+        scanLengths: f,
+        scansSidecar: g,
+        isViewOnce: S === !0,
+        thumbnailDirectPath: y,
+        thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(b),
+        thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(C),
       };
     }
     l.extractImageFieldsFromScheduledMsg = e;

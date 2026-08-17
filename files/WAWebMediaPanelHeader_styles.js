@@ -49,7 +49,7 @@ __d(
           $$css: !0,
         },
         author: { minWidth: "x1pshirs", $$css: !0 },
-        aiContentLabel: { marginTop: "xav9cv8", $$css: !0 },
+        aiContentLabel: { transform: "x1ni14s7", $$css: !0 },
         dot: {
           marginTop: "xdj266r",
           marginInlineEnd: "x7g7pl8",

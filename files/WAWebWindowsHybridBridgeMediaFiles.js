@@ -10,7 +10,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = 3e4,
-      u = (function () {
+      u = 0,
+      c = 1,
+      d = 2,
+      m = (function () {
         function t(e, t) {
           var n = this;
           ((this.$2 = new Map()),
@@ -251,6 +254,24 @@ __d(
               )
             );
           }),
+          (a.saveCachedMediaFileAs = function (t, n) {
+            var e = this;
+            return (
+              r("WAWebODS").incr(
+                "web.hybrid.bridge.media_files.send.save_cached_media_file_as",
+              ),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "mediaFiles",
+                  method: "trySaveCachedMediaFileAs",
+                  type: "async",
+                },
+                function () {
+                  return e.$1.trySaveCachedMediaFileAs(t, n);
+                },
+              )
+            );
+          }),
           (a.$3 = function (t) {
             if (
               t.additionalData != null &&
@@ -271,7 +292,10 @@ __d(
           t
         );
       })();
-    l.WAWebWindowsHybridBridgeMediaFiles = u;
+    ((l.SAVE_AS_SAVED = u),
+      (l.SAVE_AS_CANCELLED = c),
+      (l.SAVE_AS_FAILED = d),
+      (l.WAWebWindowsHybridBridgeMediaFiles = m));
   },
   98,
 );

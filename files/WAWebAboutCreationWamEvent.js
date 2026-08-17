@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumAboutEntrypointType",
     "WAWebWamEnumAboutPromptType",
     "WAWebWamEnumAboutRequestType",
+    "WAWebWamEnumAboutSaveOutcome",
     "WAWebWamEnumPresetType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,6 +31,11 @@ __d(
               aboutRequestType: [
                 7,
                 o("WAWebWamEnumAboutRequestType").ABOUT_REQUEST_TYPE,
+              ],
+              aboutSaveErrorCode: [10, e.TYPES.INTEGER],
+              aboutSaveOutcome: [
+                11,
+                o("WAWebWamEnumAboutSaveOutcome").ABOUT_SAVE_OUTCOME,
               ],
               preset: [8, o("WAWebWamEnumPresetType").PRESET_TYPE],
             },

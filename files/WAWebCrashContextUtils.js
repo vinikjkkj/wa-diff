@@ -3,24 +3,32 @@ __d(
   ["WAWebAppTracker", "WAWebWamEnumCrashType", "isStringNullOrEmpty"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = null;
-    function s(t, n) {
-      e = { endTime: t, duration: n };
+    var e = "native-crash-reporter";
+    function s(t) {
+      return t == null || t === ""
+        ? !1
+        : t.split(",").some(function (t) {
+            return t.trim() === e;
+          });
     }
-    function u() {
-      return e;
+    var u = null;
+    function c(e, t) {
+      u = { endTime: e, duration: t };
     }
-    function c() {
-      e = null;
+    function d() {
+      return u;
     }
-    function d(e, t) {
+    function m() {
+      u = null;
+    }
+    function p(e, t) {
       if (e === o("WAWebWamEnumCrashType").CRASH_TYPE.CRASH)
         return o("WAWebAppTracker").AppTracker.getAppContext();
       if (
         e === o("WAWebWamEnumCrashType").CRASH_TYPE.ANR ||
         e === o("WAWebWamEnumCrashType").CRASH_TYPE.DISPATCHER_NOT_RESPONDING
       ) {
-        var n = _(t);
+        var n = g(t);
         return o("WAWebAppTracker").AppTracker.getAppContextWithLookback(
           n.duration,
           n.endTime,
@@ -28,7 +36,7 @@ __d(
       }
       return "";
     }
-    function m(e, t) {
+    function _(e, t) {
       if (r("isStringNullOrEmpty")(e)) return t != null ? t : "";
       if (r("isStringNullOrEmpty")(t)) return e != null ? e : "";
       var n = new Set([].concat(e.split("+"), t.split("+")));
@@ -39,7 +47,7 @@ __d(
         .sort()
         .join("+");
     }
-    function p(e) {
+    function f(e) {
       return e == null || e === ""
         ? ""
         : e
@@ -49,14 +57,14 @@ __d(
             )
             .replace(/^[|: ]+/, "");
     }
-    function _(e) {
+    function g(e) {
       var t;
       return (
-        e != null ? (t = f(e)) : ((t = u()), c()),
+        e != null ? (t = h(e)) : ((t = d()), m()),
         t != null ? t : { duration: 5e3 }
       );
     }
-    function f(e) {
+    function h(e) {
       try {
         var t = JSON.parse(e),
           n = new Date(t.reportedAt).getTime(),
@@ -74,10 +82,12 @@ __d(
         return null;
       }
     }
-    ((l.recordHangEvent = s),
-      (l.getCrashEventAppContext = d),
-      (l.mergeAppContexts = m),
-      (l.cleanLegacyAppContext = p));
+    ((l.NATIVE_CRASH_REPORTER_TAG = e),
+      (l.isPreviousSessionCrash = s),
+      (l.recordHangEvent = c),
+      (l.getCrashEventAppContext = p),
+      (l.mergeAppContexts = _),
+      (l.cleanLegacyAppContext = f));
   },
   98,
 );

@@ -477,9 +477,13 @@ __d(
           };
         case "ephemeral_keep_in_chat":
           return {
-            l10nBodyTextInstance: s._(
-              /*BTDS*/ "Disappearing messages now support keeping messages in the chat. Click to learn more.",
-            ),
+            l10nBodyTextInstance: m
+              ? s._(
+                  /*BTDS*/ "Disappearing messages now support keeping messages in the chat.",
+                )
+              : s._(
+                  /*BTDS*/ "Disappearing messages now support keeping messages in the chat. Click to learn more.",
+                ),
           };
         case "membership_approval_mode":
         case "membership_approval_request":

@@ -8,6 +8,7 @@ __d(
     "WAWebHttpErrors",
     "WAWebHttpExtendedFetch",
     "WAWebMediaLoadErrors",
+    "WAWebMediaUrlAllowlist",
     "WAWebMmsCdnUrlValidationUtils",
     "WAWebMmsClientErrors",
     "WAWebMmsClientFormatDownloadUrl",
@@ -101,8 +102,9 @@ __d(
         g = e.signal,
         h = e.staticUrl,
         y = e.type,
-        C;
-      if (h) C = h;
+        C,
+        b = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(h);
+      if (b != null) C = b;
       else if (i != null && i !== "")
         C = r("WAWebMmsClientFormatDownloadUrl")({
           directPath: i,
@@ -125,7 +127,9 @@ __d(
       else
         return (c || (c = n("Promise"))).reject(
           r("err")(
-            "No staticUrl, directPath, or encFilehash available for download",
+            b == null && !r("isStringNullOrEmpty")(h)
+              ? "staticUrl rejected by the media CDN allow-list, and no directPath or encFilehash available for download"
+              : "No staticUrl, directPath, or encFilehash available for download",
           ),
         );
       if (s == null && !t && y !== o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT)
@@ -134,7 +138,7 @@ __d(
             "expected encFilehash for ciphertext validation, media type: " + y,
           ),
         );
-      var b =
+      var v =
         t || r("isStringNullOrEmpty")(s)
           ? null
           : (function () {
@@ -157,7 +161,7 @@ __d(
         onHeadersReceived: _,
         onProgress: f,
         onData: p,
-        ciphertextValidator: b,
+        ciphertextValidator: v,
         debugString: a,
         debug: { encFilehash: s, type: y, url: C },
       });

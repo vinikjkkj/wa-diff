@@ -4,56 +4,43 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = "chat_theme_drawer_open",
       s = "chat_theme_drawer_close",
-      u = "wallpaper_preview",
-      c = "minimal_mode_active";
-    function d(t) {
+      u = "wallpaper_preview";
+    function c(t) {
       r("WAWebChatPreferenceCollection").trigger(e, t);
     }
-    function m(t) {
+    function d(t) {
       o("useWAWebListener").useListener(
         r("WAWebChatPreferenceCollection"),
         e,
         t,
       );
     }
-    function p(e) {
+    function m(e) {
       r("WAWebChatPreferenceCollection").trigger(s, e);
     }
-    function _(e) {
+    function p(e) {
       o("useWAWebListener").useListener(
         r("WAWebChatPreferenceCollection"),
         s,
         e,
       );
     }
-    function f(e) {
+    function _(e) {
       r("WAWebChatPreferenceCollection").trigger(u, e);
     }
-    function g(e) {
+    function f(e) {
       o("useWAWebListener").useListener(
         r("WAWebChatPreferenceCollection"),
         u,
         e,
       );
     }
-    function h(e) {
-      r("WAWebChatPreferenceCollection").trigger(c, e);
-    }
-    function y(e) {
-      o("useWAWebListener").useListener(
-        r("WAWebChatPreferenceCollection"),
-        c,
-        e,
-      );
-    }
-    ((l.triggerChatThemeDrawerOpen = d),
-      (l.useChatThemeDrawerOpenListener = m),
-      (l.triggerChatThemeDrawerClose = p),
-      (l.useChatThemeDrawerCloseListener = _),
-      (l.triggerWallpaperPreview = f),
-      (l.useWallpaperPreviewListener = g),
-      (l.triggerMinimalModeActive = h),
-      (l.useMinimalModeActiveListener = y));
+    ((l.triggerChatThemeDrawerOpen = c),
+      (l.useChatThemeDrawerOpenListener = d),
+      (l.triggerChatThemeDrawerClose = m),
+      (l.useChatThemeDrawerCloseListener = p),
+      (l.triggerWallpaperPreview = _),
+      (l.useWallpaperPreviewListener = f));
   },
   98,
 );

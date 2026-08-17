@@ -6,6 +6,7 @@ __d(
     "WAWebFbtCommon",
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinSubtype",
+    "WAWebGroupType",
     "WAWebMsgType",
     "WAWebText_DONOTUSE.react",
     "WAWebUserPrefsMeUser",
@@ -24,17 +25,18 @@ __d(
         c = e.recipients,
         m = e.shareableHistoryInfo,
         p = e.subtype,
-        _ = e.type,
-        f;
-      switch (_) {
+        _ = e.templateParams,
+        f = e.type,
+        g;
+      switch (f) {
         case o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION: {
           r("WAWebWid").isCAPISupportAccount(a == null ? void 0 : a.remote)
-            ? (f = null)
-            : (f = s._(/*BTDS*/ "Learn more"));
+            ? (g = null)
+            : (g = s._(/*BTDS*/ "Learn more"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.GP2: {
-          f = d({
+          g = d({
             chat: t,
             iAmAdmin: n,
             latestJoinTimeByRecipient: i,
@@ -42,66 +44,70 @@ __d(
             recipients: c,
             shareableHistoryInfo: m,
             subtype: p,
+            templateParams: _,
           });
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.PROTOCOL: {
           p === "event_edit_decrypted"
-            ? (f = s._(/*BTDS*/ "See event"))
+            ? (g = s._(/*BTDS*/ "See event"))
             : p === "limit_sharing_system_message" &&
-              (f = r("WAWebFbtCommon")("Learn more"));
+              (g = r("WAWebFbtCommon")("Learn more"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED: {
-          f = s._(/*BTDS*/ "View poll");
+          g = s._(/*BTDS*/ "View poll");
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION: {
           p ===
             o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-              .ScheduledMessageCreated && (f = s._(/*BTDS*/ "View"));
+              .ScheduledMessageCreated && (g = s._(/*BTDS*/ "View"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE: {
           p === "limit_sharing_system_message" ||
           p === "biz_automatically_labeled_chat_system_message"
-            ? (f = r("WAWebFbtCommon")("Learn more"))
+            ? (g = r("WAWebFbtCommon")("Learn more"))
             : (p === "biz_per_customer_3pd_data_share_opt_in" ||
                 p === "biz_per_customer_3pd_data_share_opt_out") &&
-              (f = s._(/*BTDS*/ "Manage"));
+              (g = s._(/*BTDS*/ "Manage"));
           break;
         }
       }
-      return f == null
+      return g == null
         ? null
         : u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
             weight: "medium",
             size: "inherit",
-            children: f,
+            children: g,
           });
     }
     c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
-      var t = e.chat,
-        n = e.iAmAdmin,
-        a = e.latestJoinTimeByRecipient,
-        i = e.msgT,
-        l = e.recipients,
-        u = e.shareableHistoryInfo,
-        c = e.subtype;
+      var t,
+        n = e.chat,
+        a = e.iAmAdmin,
+        i = e.latestJoinTimeByRecipient,
+        l = e.msgT,
+        u = e.recipients,
+        c = e.shareableHistoryInfo,
+        d = e.subtype,
+        p = e.templateParams;
       if (
-        o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(c)
+        o("WAWebGroupHistoryPostJoinSubtype").isPostJoinHistoryCTASubtype(d)
       ) {
-        var d = m(l, t, i, u, a);
-        if (d != null) return d;
+        var _ = m(u, n, l, c, i);
+        if (_ != null) return _;
       }
-      switch (c) {
+      switch (d) {
         case "growth_unlocked":
         case "revoke_invite":
           return s._(/*BTDS*/ "View the new invite link");
         case "add":
           return s._(/*BTDS*/ "View members");
         case "description":
+        case "parent_group_description":
         case "initial_pHash_mismatch":
         case "default_sub_group_promote":
         case "default_sub_group_demote":
@@ -112,8 +118,18 @@ __d(
         case "membership_approval_request":
         case "created_membership_requests":
           return s._(/*BTDS*/ "Review");
+        case "membership_approval_mode":
+          return o(
+            "WAWebGroupType",
+          ).GroupSettingChangeSystemMessageIsAdmin.cast(
+            p == null || (t = p[1]) == null ? void 0 : t.toString(),
+          ) === o("WAWebGroupType").GroupSettingChangeSystemMessageIsAdmin.Admin
+            ? s._(/*BTDS*/ "Change")
+            : null;
+        case "ephemeral_keep_in_chat":
+          return r("WAWebFbtCommon")("Learn more");
         case "join_flood_notification":
-          return n !== !0 ? null : s._(/*BTDS*/ "Manage members");
+          return a !== !0 ? null : s._(/*BTDS*/ "Manage members");
         case "created_subgroup_suggestion":
           return s._(/*BTDS*/ "Approve or reject");
         default:
@@ -128,6 +144,12 @@ __d(
         return a == null || a.get(t.toString()) === n;
       };
       if (e.length > 1) {
+        if (
+          !o(
+            "WAWebGroupHistoryPostJoinEligibility",
+          ).hasResolvableNonSelfRecipient(e, n, a)
+        )
+          return null;
         var s = o(
           "WAWebGroupHistoryPostJoinEligibility",
         ).groupContextFromMetadata(i);

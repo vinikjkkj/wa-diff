@@ -29,6 +29,8 @@ __d(
             (this.$2 = new Map()),
             (this.$3 = new Map()),
             (this.$4 = null),
+            (this.subtreeReuseEnabled = !1),
+            (this.$5 = !1),
             (this.bindDataModuleDelegate = new (o(
               "BindResourceProcessingDelegate",
             ).BindResourceProcessingDelegate)({
@@ -36,9 +38,12 @@ __d(
                 return a.containsVariable(t);
               },
             })),
+            (this.$6 = 0),
             (this.bloksContext = e),
             (this.resources = t),
             (this.clientIdToScopedIdMapper = n),
+            (this.subtreeReuseEnabled =
+              e.objectSet.environment.enableBindSubtreeReuse),
             r)
           )
             if (
@@ -66,8 +71,53 @@ __d(
         }
         var t = e.prototype;
         return (
+          (t.getClockReadCount = function () {
+            return this.$6;
+          }),
           (t.getBindTimeSnapshotMs = function () {
-            return (this.$4 == null && (this.$4 = Date.now()), this.$4);
+            return (
+              this.subtreeReuseEnabled && this.$6++,
+              this.$4 == null && (this.$4 = Date.now()),
+              this.$4
+            );
+          }),
+          (t.cacheDependencies = function (t, n, r, o) {
+            (this.nextCache.cacheVariableDependencies(t, n),
+              this.nextCache.cacheExpandedVariables(t, r),
+              this.nextCache.cacheClockDependentSubtree(t, o));
+          }),
+          (t.$7 = function (t) {
+            var e = this.variablesChanged;
+            if (e == null) return !0;
+            for (var n of t) if (e.has(n)) return !0;
+            return !1;
+          }),
+          (t.processNodeForOptimization = function (t, n, r) {
+            if (this.variablesChanged == null || this.cache.isClockDependent(t))
+              return !1;
+            var e = this.cache.getVariableDependencies(t);
+            if (e == null)
+              return (
+                this.$5 ||
+                  ((this.$5 = !0),
+                  this.bloksContext.objectSet.environment.logger.warn(
+                    "WebBloksBind: a previously bound node has no variable dependency set; skipping subtree reuse for it",
+                  )),
+                !1
+              );
+            if (this.$7(e)) return !1;
+            for (var o of e) n.add(o);
+            var a = this.cache.getExpandedVariables(t);
+            if (a != null)
+              for (var i of a) {
+                var l = i[0],
+                  s = i[1];
+                (this.addExpandedVariable(l, s), r.set(l, s));
+              }
+            return !0;
+          }),
+          (e.isValidCachedModel = function (t, n) {
+            return n.sourceModel === t;
           }),
           (t.apply = function (n, a, i, l, s) {
             var t = this,
@@ -276,7 +326,7 @@ __d(
       })(),
       c = (function () {
         function e(e) {
-          var t, n, r;
+          var t, n, r, o;
           ((this.expandedVariables =
             (t = e == null ? void 0 : e.expandedVariables) != null
               ? t
@@ -288,7 +338,11 @@ __d(
             (this.variableDependencies =
               (r = e == null ? void 0 : e.variableDependencies) != null
                 ? r
-                : new Map()));
+                : new Map()),
+            (this.clockDependentSubtrees =
+              (o = e == null ? void 0 : e.clockDependentSubtrees) != null
+                ? o
+                : new Set()));
         }
         var t = e.prototype;
         return (
@@ -297,6 +351,14 @@ __d(
             t.traverse(function (t) {
               return (e.$1(t, n), !1);
             }, r);
+          }),
+          (t.cacheClockDependentSubtree = function (t, n) {
+            n
+              ? this.clockDependentSubtrees.add(t.clientId)
+              : this.clockDependentSubtrees.delete(t.clientId);
+          }),
+          (t.isClockDependent = function (t) {
+            return this.clockDependentSubtrees.has(t.clientId);
           }),
           (t.cacheUnboundChildTemplates = function (t, n) {
             n && this.unboundChildTemplates.set(t.clientId, n);
@@ -364,66 +426,79 @@ __d(
     }
     function _(t, n, r, a, i) {
       if (t.get(o("WebBloksConstants").DESCENDANT_HAS_BIND) === !1) return t;
-      var l = t,
-        c = new Set(),
-        d = new Map();
-      ((l = r.apply(l, t, n, c, d)),
-        (l = f(l, t, n, r, c, d)),
-        d.size > 0 && (l = u.applyAttribute(l, t, s, d)),
-        l !== t && (l = u.applyAttribute(l, t, e, c)));
-      for (var m of c) a.add(m);
-      return (o("WebBloksUtils").putAll(i, d), l);
+      var l = r.subtreeReuseEnabled;
+      if (
+        l &&
+        n != null &&
+        u.isValidCachedModel(t, n) &&
+        r.processNodeForOptimization(n, a, i)
+      )
+        return n;
+      var c = l ? r.getClockReadCount() : 0,
+        d = t,
+        m = new Set(),
+        p = new Map();
+      ((d = r.apply(d, t, n, m, p)),
+        (d = f(d, t, n, r, m, p)),
+        l
+          ? r.cacheDependencies(d, m, p, r.getClockReadCount() > c)
+          : (p.size > 0 && (d = u.applyAttribute(d, t, s, p)),
+            d !== t && (d = u.applyAttribute(d, t, e, m))));
+      for (var _ of m) a.add(_);
+      return (o("WebBloksUtils").putAll(i, p), d);
     }
     function f(e, t, n, r, a, i) {
       var l = e,
         s = r.bloksContext.objectSet.environment.traversalKeys[l.styleId];
       if (s == null) return l;
-      var c = s.plural_subnodes,
-        d = s.subnodes;
-      if (d)
-        for (var m of d) {
-          var p = l.getSubNode(m);
-          if (p instanceof o("WebBloksModel").WebBloksModel) {
-            var f = n == null ? void 0 : n.getSubNode(m);
-            if (f instanceof o("WebBloksModel").WebBloksModel || f == null) {
-              var h = _(p, f, r, a, i);
-              l = u.applyAttribute(l, t, m, h);
-            }
+      var c = r.subtreeReuseEnabled,
+        d = c ? e !== t || t.get(o("WebBloksConstants").ON_BIND) != null : !0,
+        m = s.plural_subnodes,
+        p = s.subnodes;
+      if (p)
+        for (var f of p) {
+          var h = l.getSubNode(f);
+          if (h instanceof o("WebBloksModel").WebBloksModel) {
+            var y = n == null ? void 0 : n.getSubNode(f);
+            if (y instanceof o("WebBloksModel").WebBloksModel || y == null) {
+              var C = _(h, y, r, a, i);
+              ((d = d || C !== y), (l = u.applyAttribute(l, t, f, C)));
+            } else d = !0;
           }
         }
-      if (c) {
-        for (var y of c)
-          if (y !== o("WebBloksConstants").CHILD_TEMPLATES) {
+      if (m) {
+        for (var b of m)
+          if (b !== o("WebBloksConstants").CHILD_TEMPLATES) {
             for (
-              var C = l.getChildren_DEPRECATED(y),
-                b = C,
-                v = n == null ? void 0 : n.getChildren_DEPRECATED(y),
-                S = 0,
-                R = 0;
-              R < C.length;
-              R++
+              var v = l.getChildren_DEPRECATED(b),
+                S = v,
+                R = n == null ? void 0 : n.getChildren_DEPRECATED(b),
+                L = 0,
+                E = 0;
+              E < v.length;
+              E++
             ) {
-              var L = C[R];
-              if (L) {
-                var E = g(L, v, R),
-                  k = _(L, E, r, a, i);
-                if (k !== L)
+              var k = v[E];
+              if (k) {
+                var I = g(k, R, E),
+                  T = _(k, I, r, a, i);
+                if (((d = d || T !== I), T !== k))
                   if (
-                    (b === C && (b = C.slice()),
-                    k.styleId ===
+                    (S === v && (S = v.slice()),
+                    T.styleId ===
                       o("WebBloksConstants").BK_INTERNAL_MERGE_WITH_BIND)
                   ) {
-                    var I,
-                      T = k.getChildren_DEPRECATED();
-                    ((I = b).splice.apply(I, [R + S, 1].concat(T)),
-                      (S += T.length - 1));
-                  } else b[R + S] = k;
+                    var D,
+                      x = T.getChildren_DEPRECATED();
+                    ((D = S).splice.apply(D, [E + L, 1].concat(x)),
+                      (L += x.length - 1));
+                  } else S[E + L] = T;
               }
             }
-            b !== C && (l = u.applyAttribute(l, t, y, b));
+            S !== v && (l = u.applyAttribute(l, t, b, S));
           }
       }
-      return l;
+      return c && !d && n != null && u.isValidCachedModel(t, n) ? n : l;
     }
     function g(e, t, n) {
       var r;

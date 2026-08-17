@@ -1,6 +1,10 @@
 __d(
   "WAWebHatchUserJourneyWamEvent",
-  ["WAWebWamCodegenUtils", "WAWebWamEnumHatchActionType"],
+  [
+    "WAWebWamCodegenUtils",
+    "WAWebWamEnumHatchActionType",
+    "WAWebWamEnumHitlLegalLinkType",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e = o("WAWebWamCodegenUtils")).defineEvents(
@@ -14,7 +18,14 @@ __d(
                 o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE,
               ],
               hitlIsMulti: [6, e.TYPES.BOOLEAN],
+              hitlLegalLink: [
+                7,
+                o("WAWebWamEnumHitlLegalLinkType").HITL_LEGAL_LINK_TYPE,
+              ],
+              hitlTypes: [8, e.TYPES.STRING],
               rawBotEntryPoint: [5, e.TYPES.STRING],
+              rawHitlAlwaysScope: [9, e.TYPES.STRING],
+              rawHitlDecisionKind: [10, e.TYPES.STRING],
               unifiedSessionId: [4, e.TYPES.STRING],
             },
             [1, 1, 1],

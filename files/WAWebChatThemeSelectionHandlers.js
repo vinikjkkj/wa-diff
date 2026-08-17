@@ -2,6 +2,7 @@ __d(
   "WAWebChatThemeSelectionHandlers",
   [
     "WAWebChatThemeEnums",
+    "WAWebChatThemeValue",
     "WAWebSolidColorPalette",
     "WAWebStockWallpaper",
     "WAWebWallpaper",
@@ -11,73 +12,95 @@ __d(
       var t = e.chatThemeModule,
         n = e.markThemeChangeApplied,
         r = e.markWallpaperChangeApplied,
-        a = e.setActiveWallpaperId,
-        i = e.snapshotDoodleEnabled,
-        l = e.store,
-        s = l.isGlobal,
-        u = l.values.doodleEnabled,
-        c = function (r, i) {
+        a = e.snapshotDoodleEnabled,
+        i = e.store,
+        l = i.isGlobal,
+        u = i.effectiveDoodleEnabled,
+        c = function (r, a) {
           if (t != null) {
             var e = r === o("WAWebChatThemeEnums").Theme.Default,
-              c = t.isMinimalScheme(r),
-              d = i != null;
-            (l.applyColor(e ? o("WAWebChatThemeEnums").Theme.Default : r),
-              l.applyTheme(
-                e ? o("WAWebChatThemeEnums").Theme.Default : t.getBaseTheme(r),
-              ),
-              l.applyWallpaper(
-                s ? null : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-              ),
+              s = t.isMinimalScheme(r),
+              c = a != null;
+            (i.applyChatThemeValue({
+              chatThemeId: e
+                ? o("WAWebChatThemeEnums").Theme.Default
+                : t.getBaseTheme(r),
+              colorSchemeId: e ? o("WAWebChatThemeEnums").Theme.Default : r,
+            }),
               n(),
-              a(i != null ? i : null),
-              l.applyActiveWallpaperId(d ? i : null));
-            var m = !c && !d;
-            (m !== u && l.applyDoodle(m),
-              l.minimalModeActive !== c && l.applyMinimalMode(c));
+              i.applyActiveWallpaperId(c ? a : null),
+              c ||
+                i.applyWallpaper(
+                  l ? null : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+                ));
+            var d = !s;
+            !c && (s || d !== u) && i.applyDoodle(d);
           }
         },
         d = function (r) {
+          var e, a;
           if (t != null) {
-            var e = r === o("WAWebChatThemeEnums").Theme.Default;
-            (l.applyColor(e ? null : r), n());
+            var l = r === o("WAWebChatThemeEnums").Theme.Default,
+              u = s(i),
+              c =
+                ((e = i.resolvedWallpaper) == null ? void 0 : e.type) ===
+                "solid",
+              d =
+                (a = i.effectiveChatThemeId) != null
+                  ? a
+                  : i.effectiveColorSchemeId,
+              m =
+                u != null ? u : l || c || d == null ? null : t.getBaseTheme(d);
+            (i.applyColor(l ? null : r),
+              m != null && i.values.chatThemeId !== m && i.applyTheme(m),
+              n());
           }
         },
-        m = function (n, i) {
+        m = function (n, a) {
           if (t != null) {
             var e = t.getBaseTheme(n);
-            (l.applyTheme(e),
-              l.applyWallpaper(
-                s ? null : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+            (i.applyTheme(
+              o("WAWebChatThemeValue").keepMinimalOnFamilyChange(
+                i.values.chatThemeId,
+                e,
               ),
-              r(),
-              u && l.applyDoodle(!1));
-            var c =
-              i != null
-                ? i
+            ),
+              r());
+            var s =
+              a != null
+                ? a
                 : o("WAWebStockWallpaper").getDefaultWallpaperIdForTheme(e);
-            (a(c), l.applyActiveWallpaperId(c));
+            (i.applyActiveWallpaperId(s),
+              s == null &&
+                i.applyWallpaper(
+                  l ? null : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+                ));
           }
         },
         p = function () {
-          (a(null), l.applyActiveWallpaperId(null));
+          i.applyActiveWallpaperId(null);
         },
         _ = function (t) {
           var e = o("WAWebSolidColorPalette").isDefaultSolidColor(t)
             ? o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER
             : t;
           (p(),
-            l.applyTheme(null),
-            l.applyWallpaper(e),
+            i.applyTheme(
+              o("WAWebChatThemeValue").keepMinimalOnFamilyChange(
+                i.values.chatThemeId,
+                null,
+              ),
+            ),
+            i.applyWallpaper(e),
             r(),
-            i !== u && l.applyDoodle(i));
+            a !== u && i.applyDoodle(a));
         },
         f = function (t) {
-          (l.applyColor(t.colorSchemeId),
-            l.applyTheme(t.chatThemeId),
-            l.restoreWallpaperValue(t.wallpaperValue),
-            a(t.wallpaperId),
-            l.minimalModeActive !== t.minimalModeActive &&
-              l.applyMinimalMode(t.minimalModeActive),
+          (i.applyChatThemeValue({
+            chatThemeId: t.chatThemeId,
+            colorSchemeId: t.colorSchemeId,
+          }),
+            i.restoreWallpaperValue(t.wallpaperValue),
             n(),
             r());
         };
@@ -89,6 +112,18 @@ __d(
         handleSolidColorSelect: _,
         restoreCustomTile: f,
       };
+    }
+    function s(e) {
+      var t = e.effectiveChatThemeId,
+        n = e.effectiveColorSchemeId;
+      return o("WAWebChatThemeValue").isMinimalChatTheme({
+        chatThemeId: t,
+        colorSchemeId: n,
+      })
+        ? n != null && o("WAWebChatThemeEnums").MinimalScheme.isValid(n)
+          ? n
+          : t
+        : null;
     }
     l.createChatThemeSelectionHandlers = e;
   },

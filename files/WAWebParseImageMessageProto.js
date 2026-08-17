@@ -11,6 +11,7 @@ __d(
     "WAWebIsPhotoPollReceiverEnabled",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMediaProtoUtils",
+    "WAWebMediaUrlAllowlist",
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationGatingUtils",
     "WAWebMsgType",
@@ -18,134 +19,138 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.baseMessage,
-        n = e.messageAssociation,
-        r = e.messageProtobuf,
-        a = e.msgContext,
-        i = e.msgMeta,
-        l = r.imageMessage;
-      if (l != null) {
+      var t,
+        n = e.baseMessage,
+        r = e.messageAssociation,
+        a = e.messageProtobuf,
+        i = e.msgContext,
+        l = e.msgMeta,
+        s = a.imageMessage;
+      if (s != null) {
         if (
-          o("WAWebMediaProtoUtils").isEmptyImageMessage(l) &&
-          o("WAWebBotBaseGating").isLoadingMediaMessagesEnabled(t)
+          o("WAWebMediaProtoUtils").isEmptyImageMessage(s) &&
+          o("WAWebBotBaseGating").isLoadingMediaMessagesEnabled(n)
         )
           return {
-            msgData: babelHelpers.extends({}, t, {
+            msgData: babelHelpers.extends({}, n, {
               type: o("WAWebMsgType").MSG_TYPE.LOADING_MEDIA,
               kind: o("WAWebMsgType").MsgKind.LoadingMedia,
               subtype: "loading_image",
             }),
-            contextInfo: l.contextInfo,
+            contextInfo: s.contextInfo,
           };
-        var s = l.annotations,
-          u = l.caption,
-          c = l.contextInfo,
-          d = l.directPath,
-          m = l.height,
-          p = l.jpegThumbnail,
-          _ = l.mediaKeyTimestamp,
-          f = l.mimetype,
-          g = l.scanLengths,
-          h = l.scansSidecar,
-          y = l.staticUrl,
-          C = l.thumbnailDirectPath,
-          b = l.thumbnailEncSha256,
-          v = l.thumbnailSha256,
-          S = l.viewOnce,
-          R = l.width,
-          L = o(
+        var u = s.annotations,
+          c = s.caption,
+          d = s.contextInfo,
+          m = s.directPath,
+          p = s.height,
+          _ = s.jpegThumbnail,
+          f = s.mediaKeyTimestamp,
+          g = s.mimetype,
+          h = s.scanLengths,
+          y = s.scansSidecar,
+          C = s.staticUrl,
+          b = s.thumbnailDirectPath,
+          v = s.thumbnailEncSha256,
+          S = s.thumbnailSha256,
+          R = s.viewOnce,
+          L = s.width,
+          E = o(
             "WAWebMediaMessageGetValidatedProperties",
           ).getValidatedMediaMessageProperties(
-            l,
-            t,
-            a,
+            s,
+            n,
+            i,
             o("WAWebMsgType").MSG_TYPE.IMAGE,
           ),
-          E = L.fileEncSha256,
-          k = L.fileLength,
-          I = L.fileSha256,
-          T = L.mediaKey,
-          D = L.url,
-          x = babelHelpers.extends({}, t, {
+          k = E.fileEncSha256,
+          I = E.fileLength,
+          T = E.fileSha256,
+          D = E.mediaKey,
+          x = E.url,
+          $ = babelHelpers.extends({}, n, {
             type: o("WAWebMsgType").MSG_TYPE.IMAGE,
             kind: o("WAWebMsgType").MsgKind.Image,
-            deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(D),
-            directPath: d || "",
-            staticUrl: y || "",
-            mimetype: f || "",
+            deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(x),
+            directPath: m || "",
+            staticUrl:
+              (t = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(C)) != null
+                ? t
+                : "",
+            mimetype: g || "",
             caption:
-              o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(u),
-            filehash: o("WAWebE2EProtoParserApi").decodeBytes(I),
-            encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(E),
-            size: k,
-            height: m || 0,
-            width: R || 0,
-            mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(T),
+              o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(c),
+            filehash: o("WAWebE2EProtoParserApi").decodeBytes(T),
+            encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(k),
+            size: I,
+            height: p || 0,
+            width: L || 0,
+            mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(D),
             mediaKeyTimestamp:
-              _ != null
-                ? o("WALongInt").numberOrThrowIfTooLarge(_)
+              f != null
+                ? o("WALongInt").numberOrThrowIfTooLarge(f)
                 : o("WATimeUtils").unixTime(),
-            body: o("WAWebE2EProtoParserApi").decodeBytes(p) || "",
-            interactiveAnnotations: s,
-            scanLengths: g,
-            scansSidecar: h,
-            isViewOnce: S === !0,
-            thumbnailDirectPath: C,
-            thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(v),
-            thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(b),
-            statusMentioned: i == null ? void 0 : i.statusMentioned,
+            body: o("WAWebE2EProtoParserApi").decodeBytes(_) || "",
+            interactiveAnnotations: u,
+            scanLengths: h,
+            scansSidecar: y,
+            isViewOnce: R === !0,
+            thumbnailDirectPath: b,
+            thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(S),
+            thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(v),
+            statusMentioned: l == null ? void 0 : l.statusMentioned,
           });
         if (
-          (o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(x, l),
-          n &&
+          (o("WAWebE2EProtoParserApi").validateRequiredMediaProperties($, s),
+          r &&
             o(
               "WAWebMessageAssociationGatingUtils",
             ).isMessageAssociationInfraEnabled())
         ) {
-          var $ = o(
+          var P = o(
               "WAWebAssociationProtoUtils",
-            ).getValidatedAssociationFieldsFromProto(n, t, a),
-            P = $.associationParentMsgKey,
-            N = $.associationType,
-            M = $.viewMode;
+            ).getValidatedAssociationFieldsFromProto(r, n, i),
+            N = P.associationParentMsgKey,
+            M = P.associationType,
+            w = P.viewMode;
           if (
-            N ===
+            M ===
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .MEDIA_POLL &&
-            !o("WAWebIsPhotoPollReceiverEnabled").isPhotoPollReceiverEnabled(t)
+            !o("WAWebIsPhotoPollReceiverEnabled").isPhotoPollReceiverEnabled(n)
           )
             return {
-              msgData: babelHelpers.extends({}, t, {
+              msgData: babelHelpers.extends({}, n, {
                 type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
                 kind: o("WAWebMsgType").MsgKind.Unknown,
                 futureproofType: o("WAWebMsgType").MSG_TYPE.IMAGE,
               }),
-              contextInfo: c,
+              contextInfo: d,
             };
           if (
-            N ===
+            M ===
               o("WAWebMessageAssociation.flow").MessageAssociationType
                 .MEDIA_ALBUM &&
-            !o("WAWebIsAlbumV2ReceiverEnabled").isAlbumV2MsgReceiverEnabled(t)
+            !o("WAWebIsAlbumV2ReceiverEnabled").isAlbumV2MsgReceiverEnabled(n)
           )
             return {
-              msgData: babelHelpers.extends({}, t, {
+              msgData: babelHelpers.extends({}, n, {
                 type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
                 kind: o("WAWebMsgType").MsgKind.Unknown,
                 futureproofType: o("WAWebMsgType").MSG_TYPE.IMAGE,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
               }),
-              contextInfo: c,
+              contextInfo: d,
             };
-          var w = babelHelpers.extends({}, x, {
+          var A = babelHelpers.extends({}, $, {
             kind: "associatedImage",
-            parentMsgKey: P,
-            associationType: N,
-            viewMode: M,
+            parentMsgKey: N,
+            associationType: M,
+            viewMode: w,
           });
-          return { msgData: w, contextInfo: c };
+          return { msgData: A, contextInfo: d };
         }
-        return { msgData: x, contextInfo: c };
+        return { msgData: $, contextInfo: d };
       }
     }
     l.default = e;

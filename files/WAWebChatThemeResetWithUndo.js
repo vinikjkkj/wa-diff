@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WALogger",
+    "WAWebChatThemeValue",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWallpaper",
@@ -13,22 +14,25 @@ __d(
       u,
       c = u || (u = o("react"));
     function d(t) {
-      var n = t.activeWallpaperId,
+      var n,
         r = t.chatThemeModule,
         a = t.clearPinnedCustomizedTile,
-        i = t.setActiveWallpaperId,
-        l = t.store,
-        u = l.values,
-        d = u.doodleEnabled,
-        m = u.colorSchemeId == null,
-        p =
-          u.chatThemeId == null &&
-          (u.wallpaper == null ||
-            u.wallpaper === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER) &&
-          n == null &&
-          l.activeWallpaperId == null &&
-          d === !0,
-        _ = p && m && l.minimalModeActive === !1,
+        i = t.store,
+        l = i.values,
+        u = l.doodleEnabled,
+        d = l.colorSchemeId == null,
+        m = o("WAWebChatThemeValue").isWallpaperOwningChatThemeId(
+          l.chatThemeId,
+        ),
+        p = i.isGlobal
+          ? !m &&
+            (l.wallpaper == null ||
+              l.wallpaper === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER) &&
+            ((n = i.rawWallpaperValue) == null ? void 0 : n.type) !== "stock" &&
+            u === !0
+          : !m &&
+            !o("WAWebChatThemeValue").isWallpaperOverride(i.rawWallpaperValue),
+        _ = p && d,
         f = function (n, r, i) {
           try {
             n();
@@ -60,27 +64,22 @@ __d(
         g = function () {
           var e, t;
           if (r != null && !_) {
-            var o = (e = u.colorSchemeId) != null ? e : null,
-              a = (t = u.chatThemeId) != null ? t : null,
-              c = l.rawWallpaperValue,
-              m = n,
-              p = l.minimalModeActive;
+            var n = (e = l.colorSchemeId) != null ? e : null,
+              o = (t = l.chatThemeId) != null ? t : null,
+              a = i.rawWallpaperValue;
             f(
               function () {
-                (l.applyColor(null),
-                  l.applyTheme(null),
-                  l.applyWallpaper(null),
-                  i(null),
-                  l.applyActiveWallpaperId(null),
-                  l.applyMinimalMode(!1),
-                  l.isGlobal && !d && l.applyDoodle(!0));
+                (i.applyChatThemeValue({
+                  chatThemeId: null,
+                  colorSchemeId: null,
+                }),
+                  i.applyWallpaper(null),
+                  i.applyActiveWallpaperId(null),
+                  i.isGlobal && !u && i.applyDoodle(!0));
               },
               function () {
-                (l.applyColor(o),
-                  l.applyTheme(a),
-                  l.restoreWallpaperValue(c),
-                  i(m),
-                  l.applyMinimalMode(p));
+                (i.applyChatThemeValue({ chatThemeId: o, colorSchemeId: n }),
+                  i.restoreWallpaperValue(a));
               },
               s._(/*BTDS*/ "Chat theme reset"),
             );
@@ -88,14 +87,14 @@ __d(
         },
         h = function () {
           var e;
-          if (!m) {
-            var t = (e = u.colorSchemeId) != null ? e : null;
+          if (!d) {
+            var t = (e = l.colorSchemeId) != null ? e : null;
             f(
               function () {
-                l.applyColor(null);
+                i.applyColor(null);
               },
               function () {
-                l.applyColor(t);
+                i.applyColor(t);
               },
               s._(/*BTDS*/ "Chat color reset"),
             );
@@ -104,19 +103,19 @@ __d(
         y = function () {
           var e;
           if (r != null && !p) {
-            var t = (e = u.chatThemeId) != null ? e : null,
-              o = l.rawWallpaperValue,
-              a = n;
+            var t = (e = l.chatThemeId) != null ? e : null,
+              n = i.rawWallpaperValue;
             f(
               function () {
-                (l.applyTheme(null),
-                  l.applyWallpaper(null),
-                  i(null),
-                  l.applyActiveWallpaperId(null),
-                  l.isGlobal && !d && l.applyDoodle(!0));
+                (i.applyTheme(
+                  o("WAWebChatThemeValue").keepMinimalOnFamilyChange(t, null),
+                ),
+                  i.applyWallpaper(null),
+                  i.applyActiveWallpaperId(null),
+                  i.isGlobal && !u && i.applyDoodle(!0));
               },
               function () {
-                (l.applyTheme(t), l.restoreWallpaperValue(o), i(a));
+                (i.applyTheme(t), i.restoreWallpaperValue(n));
               },
               s._(/*BTDS*/ "Wallpaper reset"),
             );
@@ -127,7 +126,7 @@ __d(
         handleColorReset: h,
         handleWallpaperReset: y,
         isAllAtDefault: _,
-        isColorAtDefault: m,
+        isColorAtDefault: d,
         isWallpaperAtDefault: p,
       };
     }

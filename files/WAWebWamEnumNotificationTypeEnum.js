@@ -73,6 +73,7 @@ __d(
       EVENT_V2_DELETE: 69,
       EVENT_V2_REMINDER: 70,
       EVENT_V2_SUSPENDED: 71,
+      STATUS_GROUP_STATUS_REPLY: 72,
     });
     i.NOTIFICATION_TYPE_ENUM = e;
   },

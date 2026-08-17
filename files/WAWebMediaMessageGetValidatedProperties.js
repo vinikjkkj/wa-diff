@@ -5,10 +5,10 @@ __d(
     "WALogger",
     "WALongInt",
     "WAWebHandleMsgError",
+    "WAWebMediaUrlAllowlist",
     "WAWebMmsMediaTypes",
     "WAWebMsgType",
     "WAWebNewsletterIsNewsletterMsg",
-    "WAWebURLUtils",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
     "justknobx",
@@ -46,42 +46,38 @@ __d(
       return e.startsWith(d);
     }
     function f(e) {
-      var t = r("WAWebURLUtils").hostname(e);
-      return t.endsWith(".whatsapp.net") || t === "whatsapp.net";
-    }
-    function g(e) {
       return e.id == null;
     }
-    function h(t, n, a, i) {
+    function g(t, n, a, i) {
       var l = t.fileEncSha256,
         d = t.fileLength,
         m = t.fileSha256,
         p = t.mediaKey,
         _ = t.mimetype,
-        h = t.url,
-        y =
+        g = t.url,
+        h =
           a === "relay" ||
           a === "outgoing" ||
           (r("justknobx")._("585") &&
             n.from instanceof r("WAWebWid") &&
             n.from.isNewsletter() &&
             a === "history");
-      if (!y)
+      if (!h)
         return {
           mediaKey: p,
           fileSha256: m,
           fileEncSha256: l,
           fileLength: o("WALongInt").numberOrThrowIfTooLarge(d != null ? d : 0),
-          url: h,
+          url: g,
           mimetype: _,
         };
-      if (g(n))
+      if (f(n))
         return {
           mediaKey: p,
           fileSha256: m,
           fileEncSha256: l,
           fileLength: o("WALongInt").numberOrThrowIfTooLarge(d != null ? d : 0),
-          url: h,
+          url: g,
           mimetype: _,
         };
       if (!r("WAWebNewsletterIsNewsletterMsg")(n)) {
@@ -114,7 +110,7 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_IMAGE_FILE_SHA256,
         );
-      if (h != null && (!r("WAWebURLUtils").isHttps(h) || !f(h)))
+      if (g != null && !o("WAWebMediaUrlAllowlist").isAllowedMediaUrl(g))
         throw new c(
           i,
           u.INVALID_URL,
@@ -135,8 +131,8 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_IMAGE_MIME_TYPE,
         );
-      var C = o("WAWebMmsMediaTypes").getValidMimeTypes(i);
-      if (_ != null && C != null && !C.has(_))
+      var y = o("WAWebMmsMediaTypes").getValidMimeTypes(i);
+      if (_ != null && y != null && !y.has(_))
         throw (
           o("WALogger").LOG(
             e ||
@@ -155,21 +151,21 @@ __d(
               .INVALID_IMAGE_MIME_TYPE,
           )
         );
-      var b,
-        v = !1;
+      var C,
+        b = !1;
       if (
         (i === o("WAWebMsgType").MSG_TYPE.STICKER
           ? d != null
-            ? ((b = o("WALongInt").numberOrThrowIfTooLarge(d)), (v = b >= 0))
-            : (v = !0)
+            ? ((C = o("WALongInt").numberOrThrowIfTooLarge(d)), (b = C >= 0))
+            : (b = !0)
           : i === o("WAWebMsgType").MSG_TYPE.DOCUMENT
             ? d == null
-              ? (v = !1)
-              : ((b = o("WALongInt").numberOrThrowIfTooLarge(d)), (v = b >= 0))
+              ? (b = !1)
+              : ((C = o("WALongInt").numberOrThrowIfTooLarge(d)), (b = C >= 0))
             : d == null
-              ? (v = !1)
-              : ((b = o("WALongInt").numberOrThrowIfTooLarge(d)), (v = b > 0)),
-        !v)
+              ? (b = !1)
+              : ((C = o("WALongInt").numberOrThrowIfTooLarge(d)), (b = C > 0)),
+        !b)
       )
         throw (
           o("WALogger").LOG(
@@ -196,16 +192,15 @@ __d(
         mediaKey: p,
         fileSha256: m,
         fileEncSha256: l,
-        fileLength: b,
-        url: h,
+        fileLength: C,
+        url: g,
         mimetype: _,
       };
     }
     ((l.MediaMessageValidationError = c),
       (l.isMediaMimeType = p),
       (l.isVideoMimeType = _),
-      (l.isWhatsAppSubdomain = f),
-      (l.getValidatedMediaMessageProperties = h));
+      (l.getValidatedMediaMessageProperties = g));
   },
   98,
 );

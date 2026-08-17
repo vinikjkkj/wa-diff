@@ -1,9 +1,8 @@
 __d(
   "WAWebWindowsMediaFilesMetrics",
-  ["WAWebODS", "WAWebWindowsGatingUtils"],
+  ["WAWebODS"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      var t = o("WAWebWindowsGatingUtils").isOpenWithSharedBufferEnabled();
+    function e(e, t) {
       return e === "download"
         ? t
           ? "download_sb_on"
@@ -19,28 +18,28 @@ __d(
               );
             })();
     }
-    function s(t) {
+    function s(t, n) {
       e: {
-        var n = e(t);
-        if (n === "download_sb_on") {
+        var o = e(t, n);
+        if (o === "download_sb_on") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.download.sb_on.attempt",
           );
           break e;
         }
-        if (n === "download_sb_off") {
+        if (o === "download_sb_off") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.download.sb_off.attempt",
           );
           break e;
         }
-        if (n === "open_with_sb_on") {
+        if (o === "open_with_sb_on") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.open_with.sb_on.attempt",
           );
           break e;
         }
-        if (n === "open_with_sb_off") {
+        if (o === "open_with_sb_off") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.open_with.sb_off.attempt",
           );
@@ -48,7 +47,7 @@ __d(
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            n,
+            o,
         );
       }
     }
@@ -63,28 +62,48 @@ __d(
         "web.hybrid.bridge.media_files.save_as.legacy.attempt",
       );
     }
-    function m(t) {
+    function m() {
+      r("WAWebODS").incr(
+        "web.hybrid.bridge.media_files.save_as.shared_buffer.attempt",
+      );
+    }
+    function p() {
+      r("WAWebODS").incr(
+        "web.hybrid.bridge.media_files.save_as.shared_buffer.success",
+      );
+    }
+    function _() {
+      r("WAWebODS").incr(
+        "web.hybrid.bridge.media_files.save_as.shared_buffer.unsupported",
+      );
+    }
+    function f() {
+      r("WAWebODS").incr(
+        "web.hybrid.bridge.media_files.save_as.shared_buffer.fallback",
+      );
+    }
+    function g(t, n) {
       e: {
-        var n = e(t);
-        if (n === "download_sb_on") {
+        var o = e(t, n);
+        if (o === "download_sb_on") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.download.sb_on.success",
           );
           break e;
         }
-        if (n === "download_sb_off") {
+        if (o === "download_sb_off") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.download.sb_off.success",
           );
           break e;
         }
-        if (n === "open_with_sb_on") {
+        if (o === "open_with_sb_on") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.open_with.sb_on.success",
           );
           break e;
         }
-        if (n === "open_with_sb_off") {
+        if (o === "open_with_sb_off") {
           r("WAWebODS").incr(
             "web.hybrid.bridge.media_files.open_with.sb_off.success",
           );
@@ -92,7 +111,7 @@ __d(
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            n,
+            o,
         );
       }
     }
@@ -100,7 +119,11 @@ __d(
       (l.incrSaveAsFsaAttempt = u),
       (l.incrSaveAsFsaSuccess = c),
       (l.incrSaveAsLegacyAttempt = d),
-      (l.incrMediaActionSuccess = m));
+      (l.incrSaveAsSharedBufferAttempt = m),
+      (l.incrSaveAsSharedBufferSuccess = p),
+      (l.incrSaveAsSharedBufferUnsupported = _),
+      (l.incrSaveAsSharedBufferFallback = f),
+      (l.incrMediaActionSuccess = g));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
       function e(e) {
         ((this.requestSharedBufferForMediaFile = null),
           (this.saveMediaFileFromSharedBuffer = null),
+          (this.saveCachedMediaFileAs = null),
           (this.$1 = e));
       }
       var t = e.prototype;

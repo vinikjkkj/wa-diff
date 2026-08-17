@@ -9,6 +9,7 @@ __d(
       c = u({
         isVibrant: !1,
         isThemed: !1,
+        isMinimalMode: !1,
         wallpaperStyle: null,
         bubbleStyle: null,
       }),

@@ -1,6 +1,6 @@
 __d(
   "WAWebHandleHatchApprovalSnapshot",
-  ["WALogger", "WAWebHatchApprovalManager"],
+  ["WALogger", "WAWebHatchLegacyApprovalManager"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -34,7 +34,7 @@ __d(
           t.asOfMs,
         )
         .sendLogs("hatch-approval-snapshot-received"),
-        r("WAWebHatchApprovalManager").reconcilePending(l, t.asOfMs));
+        r("WAWebHatchLegacyApprovalManager").reconcilePending(l, t.asOfMs));
     }
     l.handleHatchApprovalSnapshot = s;
   },

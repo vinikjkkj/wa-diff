@@ -36,12 +36,21 @@ __d(
         ) === !0
       );
     }
+    function p() {
+      return (
+        e() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "hybrid_save_as_shared_buffer_enabled",
+        ) === !0
+      );
+    }
     ((l.isWindowsHybridEnabled = e),
       (l.isHybridNuxBeta50Enabled = s),
       (l.isWindowsShareSheetEnabled = u),
       (l.hasFsaSaveFilePickerSupport = c),
       (l.isFsaSaveAsEnabled = d),
-      (l.isOpenWithSharedBufferEnabled = m));
+      (l.isOpenWithSharedBufferEnabled = m),
+      (l.isSaveAsSharedBufferEnabled = p));
   },
   98,
 );

@@ -1,122 +1,143 @@
 __d(
   "WAWebAppTracker",
-  ["$InternalEnum", "WAWebLogForCrash"],
+  ["$InternalEnum", "WALogger", "WAWebLogForCrash", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("$InternalEnum").Mirrored([
-      "ADVProcessing",
-      "BlockingOR",
-      "BulkCreateOrMerge",
-      "Camera",
-      "ContactSync",
-      "CriticalSync",
-      "Disconnected",
-      "FullSync",
-      "GroupSync",
-      "HistorySync",
-      "HSProtobufParsing",
-      "LayoutZoom",
-      "Logout",
-      "MediaDL",
-      "MediaOpen",
-      "MediaOpenImage",
-      "MediaOpenVideo",
-      "MediaProcessing",
-      "MediaUL",
-      "OfflineResume",
-      "OnDemandSync",
-      "PlayPTT",
-      "PreKeyProcessing",
-      "PurgeEphemeral",
-      "PurgeStatuses",
-      "PurgeViewOnce",
-      "RecentSync",
-      "RecordPTT",
-      "Registration",
-      "SelectChat",
-      "SendMessage",
-      "SyncD",
-      "VoipAudio",
-      "VoipVideo",
-      "VoipWasmLoad",
-      "FTSIndex",
-      "PdfViewer",
-      "StatusTab",
-      "ChannelsTab",
-      "CommunitiesTab",
-      "UpdatesTab",
-      "MediaMgr",
-      "InitialChatLoad",
-      "LoadMainScreen",
-      "ClosingBrowserTab",
-      "BrowserTabHidden",
-      "VoipPreCall",
-      "VoipPostCall",
-      "VoipCameraPrewarm",
-      "VoipOfferDecrypt",
-      "VoipUiWindowCreate",
-      "VoipSctpPrewarm",
-      "VoipThreadPoolSetup",
-      "VoipCallsTab",
-      "CpuPressureCritical",
-      "MemPressureHigh",
-    ]);
-    function s(e, t, n) {
+    var e,
+      s = n("$InternalEnum").Mirrored([
+        "ADVProcessing",
+        "BlockingOR",
+        "BulkCreateOrMerge",
+        "Camera",
+        "ContactSync",
+        "CriticalSync",
+        "Disconnected",
+        "FullSync",
+        "GroupSync",
+        "HistorySync",
+        "HSProtobufParsing",
+        "LayoutZoom",
+        "Logout",
+        "MediaDL",
+        "MediaOpen",
+        "MediaOpenImage",
+        "MediaOpenVideo",
+        "MediaProcessing",
+        "MediaUL",
+        "OfflineResume",
+        "OnDemandSync",
+        "PlayPTT",
+        "PreKeyProcessing",
+        "PurgeEphemeral",
+        "PurgeStatuses",
+        "PurgeViewOnce",
+        "RecentSync",
+        "RecordPTT",
+        "Registration",
+        "SelectChat",
+        "SendMessage",
+        "SyncD",
+        "VoipAudio",
+        "VoipVideo",
+        "VoipWasmLoad",
+        "FTSIndex",
+        "PdfViewer",
+        "StatusTab",
+        "ChannelsTab",
+        "CommunitiesTab",
+        "UpdatesTab",
+        "MediaMgr",
+        "InitialChatLoad",
+        "LoadMainScreen",
+        "ClosingBrowserTab",
+        "BrowserTabHidden",
+        "VoipPreCall",
+        "VoipPostCall",
+        "VoipCameraPrewarm",
+        "VoipOfferDecrypt",
+        "VoipUiWindowCreate",
+        "VoipSctpPrewarm",
+        "VoipThreadPoolSetup",
+        "VoipCallsTab",
+        "CpuPressureCritical",
+        "MemPressureHigh",
+      ]);
+    function u(e, t, n) {
       Object.hasOwn(e, "appContext") ||
         (e.appContext =
-          t != null ? d.getAppContextWithLookback(t, n) : d.getAppContext());
+          t != null ? m.getAppContextWithLookback(t, n) : m.getAppContext());
     }
-    function u(e, t, n) {
+    function c(e, t, n) {
       var r = t ? " " + String(t) + ":" : "",
         o = n != null ? " (" + n.toLocaleString() + "ms)" : "";
     }
-    var c = (function () {
-        function e() {
-          ((this.$1 = new Map()), (this.$2 = null));
+    var d = (function () {
+        function t() {
+          ((this.$1 = new Map()), (this.$2 = null), (this.$3 = new Set()));
         }
-        var t = e.prototype;
+        var n = t.prototype;
         return (
-          (t.$3 = function () {
+          (n.$4 = function () {
             this.$2 = null;
           }),
-          (t.$4 = function () {
-            o("WAWebLogForCrash").logForCrash(
-              "wa:appContext",
-              this.getAppContext() || "none",
+          (n.subscribe = function (t) {
+            var e = this;
+            return (
+              this.$3.add(t),
+              function () {
+                e.$3.delete(t);
+              }
             );
           }),
-          (t.start = function (t) {
+          (n.$5 = function () {
+            var t = this.getAppContext();
+            o("WAWebLogForCrash").logForCrash("wa:appContext", t || "none");
+            for (var n of this.$3)
+              try {
+                n(t);
+              } catch (t) {
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[metric-attribution] app context listener failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t));
+              }
+          }),
+          (n.start = function (t) {
             var e;
             ((e = this.$1.get(t)) != null && e.isRunning) ||
-              (u("Start Tracker", t),
+              (c("Start Tracker", t),
               this.$1.set(t, {
                 startTime: self.performance.now(),
                 endTime: void 0,
                 isRunning: !0,
               }),
-              this.$3(),
-              this.$4());
+              this.$4(),
+              this.$5());
           }),
-          (t.mark = function (t) {
-            u("Mark Tracker", t);
+          (n.mark = function (t) {
+            c("Mark Tracker", t);
             var e = self.performance.now();
             (this.$1.set(t, { startTime: e, endTime: e, isRunning: !1 }),
-              this.$3(),
-              this.$4());
+              this.$4(),
+              this.$5());
           }),
-          (t.stop = function (t) {
+          (n.stop = function (t) {
             var e = this.$1.get(t);
             if (e != null && e.isRunning) {
               ((e.endTime = self.performance.now()), (e.isRunning = !1));
               var n = Math.round(e.endTime - e.startTime);
-              (u("Stop Tracker", t, n), this.$3(), this.$4());
+              (c("Stop Tracker", t, n), this.$4(), this.$5());
             }
           }),
-          (t.isRunning = function (t) {
+          (n.isRunning = function (t) {
             var e = this.$1.get(t);
             return e != null && e.isRunning;
           }),
-          (t.getAppContext = function () {
+          (n.getAppContext = function () {
             if (this.$2 != null) return this.$2;
             var e = [];
             for (var t of this.$1) {
@@ -128,7 +149,7 @@ __d(
               ? ""
               : (e.sort(), (this.$2 = e.join("+")), this.$2);
           }),
-          (t.getAppContextWithLookback = function (t, n) {
+          (n.getAppContextWithLookback = function (t, n) {
             n === void 0 && (n = self.performance.now());
             var e = n - t,
               r = [];
@@ -141,10 +162,10 @@ __d(
             }
             return r.length === 0 ? "" : (r.sort(), r.join("+"));
           }),
-          (t.clear = function () {
-            (this.$1.clear(), this.$3(), this.$4());
+          (n.clear = function () {
+            (this.$1.clear(), this.$4(), this.$5());
           }),
-          (t.getRunningTrackers = function () {
+          (n.getRunningTrackers = function () {
             var e = [];
             for (var t of this.$1) {
               var n = t[0],
@@ -153,11 +174,11 @@ __d(
             }
             return e;
           }),
-          e
+          t
         );
       })(),
-      d = new c();
-    ((l.AppTrackerType = e), (l.attachWAMAppContext = s), (l.AppTracker = d));
+      m = new d();
+    ((l.AppTrackerType = s), (l.attachWAMAppContext = u), (l.AppTracker = m));
   },
   98,
 );

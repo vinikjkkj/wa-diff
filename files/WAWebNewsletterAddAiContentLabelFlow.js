@@ -37,7 +37,7 @@ __d(
                   ).WAWebNewsletterAddAiContentLabelAction(u, m.toString(), a)
                 : (e || (e = n("Promise"))).resolve(!1),
             _ = s._(/*BTDS*/ "Please wait a moment"),
-            f = s._(/*BTDS*/ "AI content label added."),
+            f = s._(/*BTDS*/ "AI content label added"),
             g = s._(/*BTDS*/ "Label not added."),
             h = new (o("WAWebActionToast.react").ActionType)(_),
             y = p

@@ -29,10 +29,12 @@ __d(
         n &&
           !o &&
           ((i["--WDS-systems-bubble-surface-incoming"] = r ? c : d),
-          (i["--WDS-systems-bubble-surface-incoming-RGB"] = r ? m : p),
-          a ||
-            ((i["--WDS-systems-chat-background-wallpaper"] = r ? e : l),
-            (i["--WDS-systems-chat-background-wallpaper-RGB"] = r ? s : u))),
+          (i["--WDS-systems-bubble-surface-incoming-RGB"] = r ? m : p)),
+        n &&
+          !o &&
+          !a &&
+          ((i["--WDS-systems-chat-background-wallpaper"] = r ? e : l),
+          (i["--WDS-systems-chat-background-wallpaper-RGB"] = r ? s : u)),
         i
       );
     }

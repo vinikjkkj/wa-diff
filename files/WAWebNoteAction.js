@@ -58,26 +58,29 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e, t, n, r, o) {
+    function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
-            yield f(
-              {
-                actionType: "edit",
-                id: e,
-                noteType: t,
-                chatJid: n,
-                content: r,
-                createdAt: o,
-              },
-              !0,
-            );
-          },
-        )),
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatJid,
+            n = e.content,
+            r = e.createdAt,
+            o = e.id,
+            a = e.type;
+          yield f(
+            {
+              actionType: "edit",
+              id: o,
+              noteType: a,
+              chatJid: t,
+              content: n,
+              createdAt: r,
+            },
+            !0,
+          );
+        })),
         _.apply(this, arguments)
       );
     }

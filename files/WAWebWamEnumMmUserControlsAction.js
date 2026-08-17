@@ -17,6 +17,7 @@ __d(
       FEEDBACK: 12,
       LEARN_MORE: 13,
       MANAGE_MESSAGES: 14,
+      REPORT: 15,
     });
     i.MM_USER_CONTROLS_ACTION = e;
   },

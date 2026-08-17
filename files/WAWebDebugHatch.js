@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebHandleHatchMetadataSync",
     "WAWebHatchApprovalDebug",
-    "WAWebHatchApprovalDialog.react",
+    "WAWebHatchLegacyApprovalDialog.react",
     "WAWebHatchPayloadDebugStore",
     "WDSDialogBridge",
     "react",
@@ -96,7 +96,7 @@ __d(
     f.doc = "Clear the captured Hatch AIMetadataOperation payload list";
     function g() {
       o("WDSDialogBridge").openWDSDialog(
-        u.jsx(r("WAWebHatchApprovalDialog.react"), {
+        u.jsx(r("WAWebHatchLegacyApprovalDialog.react"), {
           richDescription: "Create an email draft to xyz@meta.com",
           title: "Hatch wants to use draft email from Gmail",
           onConfirm: function (n) {
