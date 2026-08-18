@@ -6368,10 +6368,89 @@ __d(
           },
         }),
       ),
-      Ve = Object.freeze({
+      Ve = Object.freeze(
+        babelHelpers.extends({}, Ue, {
+          threads: {
+            autoIncrement: !1,
+            defaults: {
+              authorityLevel: e.cast([0, 0]),
+              capabilities: e.cast([0, 0]),
+              capabilities2: e.cast([0, 0]),
+              capabilities3: e.cast([0, 0]),
+              capabilities4: e.cast([0, 0]),
+              capabilities5: e.cast([0, 0]),
+              capabilities6: e.cast([0, 0]),
+              disableComposerInput: !1,
+              draftMessage: "",
+              hasPersistentMenu: !1,
+              isAdminSnippet: !1,
+              isCustomThreadPicture: !1,
+              isDisappearingMode: !1,
+              isHidden: !1,
+              isReadReceiptsDisabled: !1,
+              lastActivityTimestampMs: e.cast([0, 0]),
+              lastReadWatermarkTimestampMs: e.cast([0, 0]),
+              muteCallsExpireTimeMs: e.cast([0, 0]),
+              muteExpireTimeMs: e.cast([0, 0]),
+              muteMentionExpireTimeMs: e.cast([0, 0]),
+              ongoingCallState: e.cast([0, 0]),
+              readReceiptsDisabledV2: e.cast([0, 0]),
+              removeWatermarkTimestampMs: e.cast([0, 0]),
+              snippetHasEmoji: !1,
+              threadInvitesEnabled: e.cast([0, 0]),
+              threadInvitesEnabledV2: e.cast([0, 0]),
+              typingIndicatorDisabled: e.cast([0, 0]),
+              unreadDisappearingMessageCount: e.cast([0, 0]),
+              unsendLimitMs: e.cast([0, 0]),
+            },
+            id: 9,
+            indexes: {
+              clientThreadKey: {
+                fields: ["clientThreadKey", "threadKey"],
+                ignoreNulls: ["clientThreadKey"],
+              },
+              lastActivityTimestampMs: {
+                fields: ["lastActivityTimestampMs", "threadKey"],
+                ignoreNulls: [],
+              },
+              parentThreadKeyLastActivityTimestampMs: {
+                fields: [
+                  "parentThreadKey",
+                  "lastActivityTimestampMs",
+                  "threadKey",
+                ],
+                ignoreNulls: [],
+              },
+              secondaryParentThreadKeyLastActivityTimestampMs: {
+                fields: [
+                  "secondaryParentThreadKey",
+                  "lastActivityTimestampMs",
+                  "threadKey",
+                ],
+                ignoreNulls: ["secondaryParentThreadKey"],
+              },
+              syncGroupParentThreadKeyLastActivityTimestampMs: {
+                fields: [
+                  "syncGroup",
+                  "parentThreadKey",
+                  "lastActivityTimestampMs",
+                  "threadKey",
+                ],
+                ignoreNulls: [],
+              },
+              threadTypeLastActivityTimestampMs: {
+                fields: ["threadType", "lastActivityTimestampMs", "threadKey"],
+                ignoreNulls: [],
+              },
+            },
+            primaryKey: { fields: ["threadKey"], ignoreNulls: [] },
+          },
+        }),
+      ),
+      He = Object.freeze({
         afterUpgrade: o("LSDbV1.upgrade").afterUpgrade,
-        revision: 88,
-        tables: Ue,
+        revision: 89,
+        tables: Ve,
         upgrade: {
           1: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -8329,9 +8408,32 @@ __d(
             }
             return t;
           })(),
+          89: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
+                    Ve,
+                  ),
+                  n = t.defaults,
+                  r = t.tableData;
+                yield o(
+                  "ReStoreDefaultValueMigration",
+                ).runMigrationForTableDefaultValuesIfNeeded(
+                  e.transaction,
+                  r,
+                  !1,
+                  n,
+                );
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
         },
       });
-    l.LSDbV1 = Ve;
+    l.LSDbV1 = He;
   },
   98,
 );

@@ -48,7 +48,11 @@ __d(
               linkCodePairingNonceArgs: {
                 linkCodePairingNonceElementValue: new Uint8Array(1),
               },
-              linkCodeCompanionRegJid: i,
+              linkCodePrimaryByPhoneDeprecatedOrContactPointMixinGroupArgs: {
+                linkCodePrimaryByPhoneDeprecated: {
+                  linkCodeCompanionRegJid: i,
+                },
+              },
               linkCodePairingWrappedCompanionEphemeralPubElementValue:
                 new Uint8Array(a),
               companionServerAuthKeyPubElementValue: new Uint8Array(n),
@@ -91,7 +95,11 @@ __d(
             r = e.linkCodeCompanionRegJid,
             a = e.linkCodePairingWrappedKeyBundle,
             i = yield o("WASmaxMdCompanionFinishRPC").sendCompanionFinishRPC({
-              linkCodeCompanionRegJid: r,
+              linkCodePrimaryByPhoneDeprecatedOrContactPointMixinGroupArgs: {
+                linkCodePrimaryByPhoneDeprecated: {
+                  linkCodeCompanionRegJid: r,
+                },
+              },
               linkCodePairingWrappedKeyBundleElementValue: new Uint8Array(a),
               companionIdentityPublicElementValue: new Uint8Array(n),
               linkCodePairingRefElementValue: t,

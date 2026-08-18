@@ -483,6 +483,7 @@ __d(
       privacy_settings_stickers_lid_migration_enable: [16338, "bool", !1, !1],
       ptv_quoted_replies_cutout_enabled: [30384, "bool", !1, !1],
       reactions_receiver_enabled: [13542, "bool", !1, !1],
+      refresh_group_info_on_mismatch: [35119, "bool", !1, !1],
       report_call_replayer_id: [1834, "bool", !1, !1],
       reuse_cached_certs_for_data_channel: [12913, "bool", !1, !0],
       saga_message_feedback_using_canonical_ent: [23328, "bool", !1, !1],

@@ -572,7 +572,7 @@ __d(
                         N +
                         ")",
                     );
-                  return le;
+                  oe = le;
                 } else if (L)
                   oe = yield o(
                     "WAWebCryptoDecryptPartialMedia",

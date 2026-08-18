@@ -122,6 +122,20 @@ __d(
               uiSurface: r,
             });
           }),
+          (n.ctaSystemMessageNotDisplayed = function (t) {
+            var e = t.groupHistorySystemMessageType,
+              n = t.ineligibleReason,
+              r = t.uiSurface;
+            this.$1({
+              groupHistorySenderActionType: o(
+                "WAWebWamEnumGroupHistorySenderActionType",
+              ).GROUP_HISTORY_SENDER_ACTION_TYPE
+                .SEND_MESSAGE_HISTORY_CTA_SYSTEM_MESSAGE_NOT_DISPLAYED,
+              groupHistorySystemMessageType: e,
+              ineligibleReason: n,
+              uiSurface: r,
+            });
+          }),
           (n.dropdownMenuItemDisplayed = function (t) {
             var e = t.recipientCount,
               n = t.uiSurface;
@@ -192,8 +206,9 @@ __d(
           (n.bundleMessageSent = function (t) {
             var e = t.bundleSendSource,
               n = t.groupHistoryMessagesCount,
-              r = t.recipientCount,
-              a = t.uiSurface;
+              r = t.groupHistorySystemMessageType,
+              a = t.recipientCount,
+              i = t.uiSurface;
             this.$1({
               bundleSendSource: e,
               groupHistoryMessagesCount: n != null ? n : void 0,
@@ -201,25 +216,57 @@ __d(
                 "WAWebWamEnumGroupHistorySenderActionType",
               ).GROUP_HISTORY_SENDER_ACTION_TYPE
                 .GROUP_HISTORY_BUNDLE_MESSAGE_SENT,
-              recipientCount: r,
-              uiSurface: a,
+              groupHistorySystemMessageType: r != null ? r : void 0,
+              recipientCount: a,
+              uiSurface: i,
             });
           }),
           (n.noticeMessageSent = function (t) {
             var e = t.bundleSendSource,
-              n = t.recipientCount,
-              r = t.uiSurface;
+              n = t.groupHistorySystemMessageType,
+              r = t.recipientCount,
+              a = t.uiSurface;
             this.$1({
               bundleSendSource: e,
               groupHistorySenderActionType: o(
                 "WAWebWamEnumGroupHistorySenderActionType",
               ).GROUP_HISTORY_SENDER_ACTION_TYPE
                 .GROUP_HISTORY_NOTICE_MESSAGE_SENT,
-              recipientCount: n,
-              uiSurface: r,
+              groupHistorySystemMessageType: n != null ? n : void 0,
+              recipientCount: r,
+              uiSurface: a,
             });
           }),
           (n.$4 = function (t, n) {
+            var e = n.bundleSendSource,
+              r = n.groupHistorySystemMessageType,
+              o = n.recipientCount,
+              a = n.uiSurface;
+            this.$1({
+              bundleSendSource: e,
+              groupHistorySenderActionType: t,
+              groupHistorySystemMessageType: r != null ? r : void 0,
+              recipientCount: o,
+              uiSurface: a,
+            });
+          }),
+          (n.bundleMessageAcked = function (t) {
+            this.$4(
+              o("WAWebWamEnumGroupHistorySenderActionType")
+                .GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_BUNDLE_MESSAGE_ACKED,
+              t,
+            );
+          }),
+          (n.noticeMessageAcked = function (t) {
+            this.$4(
+              o("WAWebWamEnumGroupHistorySenderActionType")
+                .GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_NOTICE_MESSAGE_ACKED,
+              t,
+            );
+          }),
+          (n.$5 = function (t, n) {
             var e = n.ineligibleReason,
               r = n.uiSurface;
             this.$1({
@@ -229,7 +276,7 @@ __d(
             });
           }),
           (n.sendIneligibleAtCtaClick = function (t) {
-            this.$4(
+            this.$5(
               o("WAWebWamEnumGroupHistorySenderActionType")
                 .GROUP_HISTORY_SENDER_ACTION_TYPE
                 .GROUP_HISTORY_SEND_INELIGIBLE_AT_CTA_CLICK,
@@ -237,7 +284,7 @@ __d(
             );
           }),
           (n.sendIneligibleAtSendClick = function (t) {
-            this.$4(
+            this.$5(
               o("WAWebWamEnumGroupHistorySenderActionType")
                 .GROUP_HISTORY_SENDER_ACTION_TYPE
                 .GROUP_HISTORY_SEND_INELIGIBLE_AT_SEND_CLICK,

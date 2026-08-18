@@ -44,8 +44,7 @@ __d(
           e
         );
       })(),
-      s = new l(),
-      u = (function (t) {
+      s = (function (t) {
         function r() {
           return t.apply(this, arguments) || this;
         }
@@ -63,8 +62,8 @@ __d(
           r
         );
       })(l),
-      c = new u();
-    ((i.hostMock = s), (i.debugFeaturesMock = c));
+      u = new s();
+    i.debugFeaturesMock = u;
   },
   66,
 );

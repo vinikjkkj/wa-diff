@@ -3,48 +3,66 @@ __d(
   [
     "WALogger",
     "WAWebHatchApprovalManager",
-    "WAWebHatchApprovalOption",
     "WAWebSendHatchMetadataRequest",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(t, n) {
-      var a = u(n);
+    var e, s, u;
+    function c(t, n) {
+      var a = n.alwaysScope,
+        i = n.kind,
+        l = a === "" ? "none" : a;
       (o("WALogger")
         .LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-approval: deciding approvalId=",
               " decision=",
+              " scope=",
               "",
             ])),
           t,
-          a,
+          i,
+          l,
         )
         .sendLogs("hatch-approval-decide"),
-        o("WAWebSendHatchMetadataRequest").sendHatchMetadataRequest({
-          method: "hitl.approval.decide",
-          approvalId: t,
-          decision: a,
-        }),
+        o("WAWebSendHatchMetadataRequest")
+          .sendHatchMetadataRequest(
+            babelHelpers.extends(
+              { method: "hitl.approval.decide", approvalId: t, decision: i },
+              a !== "" ? { alwaysScope: a } : null,
+            ),
+          )
+          .then(function (e) {
+            e.outcome === "send_failed" &&
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-approval: decide never sent approvalId=",
+                      "",
+                    ])),
+                  t,
+                )
+                .sendLogs("hatch-approval-decide-send-failed");
+          })
+          .catch(function (e) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-approval: decide dispatch threw approvalId=",
+                    "",
+                  ])),
+                t,
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("hatch-approval-decide-threw");
+          }),
         r("WAWebHatchApprovalManager").resolveApproval(t));
     }
-    function u(e) {
-      return e === r("WAWebHatchApprovalOption").AllowOnce
-        ? "allow_once"
-        : e === r("WAWebHatchApprovalOption").AllowAlways
-          ? "allow_always"
-          : e === r("WAWebHatchApprovalOption").Deny
-            ? "deny"
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })();
-    }
-    l.decideHatchApproval = s;
+    l.decideHatchApproval = c;
   },
   98,
 );

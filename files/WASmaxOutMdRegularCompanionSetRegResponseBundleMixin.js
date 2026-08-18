@@ -17,12 +17,18 @@ __d(
         n = o("WASmaxJsx").smax("gpia", null, t);
       return n;
     }
-    function u(t) {
+    function u(e) {
+      var t = e.clientAppIdElementValue,
+        n = o("WASmaxJsx").smax("client-app-id", null, t);
+      return n;
+    }
+    function c(t) {
       var n = t.keyAttestationArgs,
         r = t.gpiaArgs,
-        a = t.deviceIdentityKeyIndex,
-        i = t.deviceIdentityElementValue,
-        l = o("WASmaxJsx").smax(
+        a = t.clientAppIdArgs,
+        i = t.deviceIdentityKeyIndex,
+        l = t.deviceIdentityElementValue,
+        c = o("WASmaxJsx").smax(
           "smax$any",
           null,
           o("WASmaxJsx").smax(
@@ -30,23 +36,25 @@ __d(
             null,
             o("WASmaxJsx").smax(
               "device-identity",
-              { "key-index": o("WAWap").INT(a) },
-              i,
+              { "key-index": o("WAWap").INT(i) },
+              l,
             ),
             o("WASmaxChildren").OPTIONAL_CHILD(e, n),
             o("WASmaxChildren").OPTIONAL_CHILD(s, r),
+            o("WASmaxChildren").OPTIONAL_CHILD(u, a),
           ),
         );
-      return l;
+      return c;
     }
-    function c(e, t) {
-      var n = u(t);
+    function d(e, t) {
+      var n = c(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.makeRegularCompanionSetRegResponseBundlePairDeviceSignKeyAttestation =
       e),
       (l.makeRegularCompanionSetRegResponseBundlePairDeviceSignGpia = s),
-      (l.mergeRegularCompanionSetRegResponseBundleMixin = c));
+      (l.makeRegularCompanionSetRegResponseBundlePairDeviceSignClientAppId = u),
+      (l.mergeRegularCompanionSetRegResponseBundleMixin = d));
   },
   98,
 );

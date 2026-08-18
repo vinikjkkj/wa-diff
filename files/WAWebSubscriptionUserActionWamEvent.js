@@ -25,6 +25,7 @@ __d(
               wsuaActiveSubscriptions: [10, e.TYPES.STRING],
               wsuaBenefitGroup: [11, e.TYPES.STRING],
               wsuaBenefitsShown: [9, e.TYPES.STRING],
+              wsuaEligibleSubscriptions: [13, e.TYPES.STRING],
               wsuaProductType: [
                 3,
                 o("WAWebWamEnumWsuaProductType").WSUA_PRODUCT_TYPE,

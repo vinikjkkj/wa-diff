@@ -1768,6 +1768,7 @@ __d(
       SGC_OPTIMIZATION_RETRY: "sgc_optimization_retry",
       SGC_TOGGLE_IMPRESSION: "sgc_toggle_impression",
       SGC_TOGGLE_INTERACTION: "sgc_toggle_interaction",
+      SGC_TOGGLE_MOUNT: "sgc_toggle_mount",
       PROACTIVE_MESSAGE_SENT: "proactive_message_sent",
       PROACTIVE_PIPELINE_ELIGIBLE: "proactive_pipeline_eligible",
       PROACTIVE_PIPELINE_FETCH: "proactive_pipeline_fetch",

@@ -9,6 +9,7 @@ __d(
     "WAWebHatchGating",
     "WAWebMediaInMemoryBlobCache",
     "WAWebProfilePicThumbCollection",
+    "WAWebWamEnumDownloadOriginType",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,7 +61,12 @@ __d(
             .load()
             .then(function (e) {
               var t = e.downloadHatchSecureMedia;
-              return t(s, m.signal);
+              return t(
+                s,
+                m.signal,
+                o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
+                  .PROFILE_PICTURE,
+              );
             })
             .then(function (e) {
               e != null && d === m && (y(c), h(t, e));

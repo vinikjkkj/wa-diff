@@ -224,12 +224,12 @@ __d(
               ).getVoipOngoingCallLogMessages();
               return o(
                 "WAWebProcessMultipleMsgsAction",
-              )._processMultipleMessages(
-                void 0,
-                e,
-                { add: "search" },
-                "msgCollectionGetVoipCallLogs",
-              );
+              )._processMultipleMessages({
+                chatId: void 0,
+                meta: { add: "search" },
+                msgObjs: e,
+                processMessageOrigin: "msgCollectionGetVoipCallLogs",
+              });
             });
             function t() {
               return e.apply(this, arguments);

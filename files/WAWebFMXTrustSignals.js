@@ -27,7 +27,13 @@ __d(
             r = yield o(
               "WAWebApiContactUsernameFields",
             ).getOrFetchContactUsernameCountryCode(e.id);
-          return n !== r;
+          return r == null
+            ? !1
+            : n !== r
+              ? !0
+              : o(
+                  "WAWebFMXGatingUtils",
+                ).isFmxPersistentCountryTrustSignalEnabled();
         })),
         d.apply(this, arguments)
       );

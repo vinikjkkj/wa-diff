@@ -3,25 +3,28 @@ __d(
   ["WALogger", "WAWebHatchApprovalManager"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u(t) {
+    var e, s, u;
+    function c(t) {
       var n = t.approvalId,
-        a = t.decision;
-      if (!(n == null || n === "")) {
-        if (a != null && a !== "") {
-          (o("WALogger")
-            .LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "hatch-approval: received decision echo, clearing pending approvalId=",
-                  "",
-                ])),
-              n,
-            )
-            .sendLogs("hatch-approval-received-decision"),
-            r("WAWebHatchApprovalManager").resolveApproval(n));
-          return;
-        }
+        a = t.record,
+        i = t.resolvedDecision;
+      if (i != null) {
+        (o("WALogger")
+          .LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-approval: received terminal record approvalId=",
+                " decision=",
+                "",
+              ])),
+            n,
+            i,
+          )
+          .sendLogs("hatch-approval-received-decision"),
+          r("WAWebHatchApprovalManager").settleApproval(n));
+        return;
+      }
+      a != null &&
         (o("WALogger")
           .LOG(
             s ||
@@ -32,12 +35,23 @@ __d(
             n,
           )
           .sendLogs("hatch-approval-received-pending"),
-          r("WAWebHatchApprovalManager").upsertApproval(
-            babelHelpers.extends({}, t, { approvalId: n }),
-          ));
-      }
+        r("WAWebHatchApprovalManager").upsertApproval(a));
     }
-    l.handleHatchApproval = u;
+    function d(e) {
+      (o("WALogger")
+        .LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-approval: record removed approvalId=",
+              "",
+            ])),
+          e.approvalId,
+        )
+        .sendLogs("hatch-approval-record-removed"),
+        r("WAWebHatchApprovalManager").settleApproval(e.approvalId));
+    }
+    ((l.handleHatchApprovalRecord = c),
+      (l.handleRemovedHatchApprovalRecord = d));
   },
   98,
 );

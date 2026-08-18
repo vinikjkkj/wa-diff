@@ -5,77 +5,69 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotTypes",
     "WAWebBusinessProfileCollection",
+    "WAWebBusinessProfileGetters",
     "WAWebBusinessProfileTypes",
     "WAWebChatCollection",
     "WAWebChatGroupUtils",
     "WAWebContactCollection",
+    "WAWebFrontendBusinessProfileGetters",
     "WAWebOrderRequestMsg.flow",
     "WAWebProductCatalogMetaLinkingGatingUtils",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = "wa.me/",
-      s = 3,
-      u = (function (t) {
-        function n() {
-          for (var n, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
-            a[i] = arguments[i];
+    var e = 3,
+      s = (function (e) {
+        function t() {
+          for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
+            r[a] = arguments[a];
           return (
-            (n = t.call.apply(t, [this].concat(a)) || this),
-            (n.id = o("WAWebBaseModel").prop()),
-            (n.dataSource = o("WAWebBaseModel").prop("placeholder")),
-            (n.tag = o("WAWebBaseModel").prop()),
-            (n.description = o("WAWebBaseModel").prop()),
-            (n.categories = o("WAWebBaseModel").prop()),
-            (n.profileOptions = o("WAWebBaseModel").prop()),
-            (n.email = o("WAWebBaseModel").prop()),
-            (n.website = o("WAWebBaseModel").prop()),
-            (n.latitude = o("WAWebBaseModel").prop()),
-            (n.longitude = o("WAWebBaseModel").prop()),
-            (n.businessHours = o("WAWebBaseModel").prop()),
-            (n.catalogStatus = o("WAWebBaseModel").prop()),
-            (n.address = o("WAWebBaseModel").prop()),
-            (n.priceTier = o("WAWebBaseModel").prop()),
-            (n.structuredAddress = o("WAWebBaseModel").prop()),
-            (n.serviceAreas = o("WAWebBaseModel").prop()),
-            (n.offerings = o("WAWebBaseModel").prop()),
-            (n.legalEntityDetails = o("WAWebBaseModel").prop()),
-            (n.fbPage = o("WAWebBaseModel").prop()),
-            (n.igProfessional = o("WAWebBaseModel").prop()),
-            (n.isProfileLinked = o("WAWebBaseModel").prop()),
-            (n.directConnection = o("WAWebBaseModel").prop()),
-            (n.customUrlPath = o("WAWebBaseModel").prop()),
-            (n.isProfileLocked = o("WAWebBaseModel").prop(!0)),
-            (n.memberSinceText = o("WAWebBaseModel").prop()),
-            (n.isAuthorizedAgent = o("WAWebBaseModel").prop()),
-            (n.parentCompanyName = o("WAWebBaseModel").prop()),
-            (n.parentCompanyLogoUrl = o("WAWebBaseModel").prop()),
-            (n.obaPhoneNumber = o("WAWebBaseModel").prop()),
-            (n.googlePlaceId = o("WAWebBaseModel").prop()),
-            (n.showGoogleReviews = o("WAWebBaseModel").prop()),
-            (n.showGoogleInfo = o("WAWebBaseModel").prop()),
-            (n.googlePlace = o("WAWebBaseModel").session()),
-            (n.customUrl = o("WAWebBaseModel").derived(
-              function () {
-                var t;
-                if (this.customUrlPath != null) t = this.customUrlPath;
-                else return null;
-                return "" + e + t;
-              },
-              ["customUrlPath"],
-            )),
-            (n.coverPhoto = o("WAWebBaseModel").prop()),
-            (n.automatedType = o("WAWebBaseModel").prop(
+            (t = e.call.apply(e, [this].concat(r)) || this),
+            (t.id = o("WAWebBaseModel").prop()),
+            (t.dataSource = o("WAWebBaseModel").prop("placeholder")),
+            (t.tag = o("WAWebBaseModel").prop()),
+            (t.description = o("WAWebBaseModel").prop()),
+            (t.categories = o("WAWebBaseModel").prop()),
+            (t.profileOptions = o("WAWebBaseModel").prop()),
+            (t.email = o("WAWebBaseModel").prop()),
+            (t.website = o("WAWebBaseModel").prop()),
+            (t.latitude = o("WAWebBaseModel").prop()),
+            (t.longitude = o("WAWebBaseModel").prop()),
+            (t.businessHours = o("WAWebBaseModel").prop()),
+            (t.catalogStatus = o("WAWebBaseModel").prop()),
+            (t.address = o("WAWebBaseModel").prop()),
+            (t.priceTier = o("WAWebBaseModel").prop()),
+            (t.structuredAddress = o("WAWebBaseModel").prop()),
+            (t.serviceAreas = o("WAWebBaseModel").prop()),
+            (t.offerings = o("WAWebBaseModel").prop()),
+            (t.legalEntityDetails = o("WAWebBaseModel").prop()),
+            (t.fbPage = o("WAWebBaseModel").prop()),
+            (t.igProfessional = o("WAWebBaseModel").prop()),
+            (t.isProfileLinked = o("WAWebBaseModel").prop()),
+            (t.directConnection = o("WAWebBaseModel").prop()),
+            (t.customUrlPath = o("WAWebBaseModel").prop()),
+            (t.isProfileLocked = o("WAWebBaseModel").prop(!0)),
+            (t.memberSinceText = o("WAWebBaseModel").prop()),
+            (t.isAuthorizedAgent = o("WAWebBaseModel").prop()),
+            (t.parentCompanyName = o("WAWebBaseModel").prop()),
+            (t.parentCompanyLogoUrl = o("WAWebBaseModel").prop()),
+            (t.obaPhoneNumber = o("WAWebBaseModel").prop()),
+            (t.googlePlaceId = o("WAWebBaseModel").prop()),
+            (t.showGoogleReviews = o("WAWebBaseModel").prop()),
+            (t.showGoogleInfo = o("WAWebBaseModel").prop()),
+            (t.googlePlace = o("WAWebBaseModel").session()),
+            (t.coverPhoto = o("WAWebBaseModel").prop()),
+            (t.automatedType = o("WAWebBaseModel").prop(
               o("WAWebBotTypes").BizBotAutomatedType.UNKNOWN,
             )),
-            (n.welcomeMsgProtocolMode = o("WAWebBaseModel").prop(
+            (t.welcomeMsgProtocolMode = o("WAWebBaseModel").prop(
               o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE,
             )),
-            (n.prompts = o("WAWebBaseModel").prop()),
-            (n.commandsDescription = o("WAWebBaseModel").prop()),
-            (n.commands = o("WAWebBaseModel").prop()),
-            (n.stale = o("WAWebBaseModel").session(!0)),
-            (n.isBizBot3p = o("WAWebBaseModel").derived(
+            (t.prompts = o("WAWebBaseModel").prop()),
+            (t.commandsDescription = o("WAWebBaseModel").prop()),
+            (t.commands = o("WAWebBaseModel").prop()),
+            (t.stale = o("WAWebBaseModel").session(!0)),
+            (t.isBizBot3p = o("WAWebBaseModel").derived(
               function () {
                 return (
                   this.automatedType ===
@@ -84,7 +76,7 @@ __d(
               },
               ["automatedType"],
             )),
-            (n.isBizBot1p = o("WAWebBaseModel").derived(
+            (t.isBizBot1p = o("WAWebBaseModel").derived(
               function () {
                 return (
                   this.automatedType ===
@@ -93,7 +85,7 @@ __d(
               },
               ["automatedType"],
             )),
-            (n.isCatalogDisabledDueToMetaLinking = o("WAWebBaseModel").derived(
+            (t.isCatalogDisabledDueToMetaLinking = o("WAWebBaseModel").derived(
               function () {
                 return o(
                   "WAWebProductCatalogMetaLinkingGatingUtils",
@@ -101,34 +93,34 @@ __d(
               },
               ["profileOptions"],
             )),
-            babelHelpers.assertThisInitialized(n) ||
-              babelHelpers.assertThisInitialized(n)
+            babelHelpers.assertThisInitialized(t) ||
+              babelHelpers.assertThisInitialized(t)
           );
         }
-        babelHelpers.inheritsLoose(n, t);
-        var r = n.prototype;
+        babelHelpers.inheritsLoose(t, e);
+        var n = t.prototype;
         return (
-          (r.initialize = function () {
-            var e = this;
-            (t.prototype.initialize.call(this),
+          (n.initialize = function () {
+            var t = this;
+            (e.prototype.initialize.call(this),
               this.listenTo(this, "change:automatedType", function () {
-                (e.$BusinessProfileImpl$p_1(), e.$BusinessProfileImpl$p_2());
+                (t.$BusinessProfileImpl$p_1(), t.$BusinessProfileImpl$p_2());
               }),
               this.$BusinessProfileImpl$p_1(),
               this.$BusinessProfileImpl$p_2());
           }),
-          (r.markStale = function () {
+          (n.markStale = function () {
             ((this.stale = !0),
               this.hasObservers() && this.getCollection().find(this.id));
           }),
-          (r.getCollection = function () {
+          (n.getCollection = function () {
             return o("WAWebBusinessProfileCollection")
               .BusinessProfileCollection;
           }),
-          (r.isValid = function () {
+          (n.isValid = function () {
             return Array.isArray(this.categories);
           }),
-          (r.isBusinessDirectConnection = function () {
+          (n.isBusinessDirectConnection = function () {
             var e, t, n, r;
             return (e =
               (t = (n = this.directConnection) == null ? void 0 : n.enabled) !=
@@ -140,7 +132,7 @@ __d(
               ? e
               : !1;
           }),
-          (r.getCatalogType = function () {
+          (n.getCatalogType = function () {
             var e, t;
             return ((e = this.profileOptions) == null
               ? void 0
@@ -155,7 +147,7 @@ __d(
                 ? o("WAWebOrderRequestMsg.flow").CatalogType.NATIVE
                 : o("WAWebOrderRequestMsg.flow").CatalogType.UNKNOWN;
           }),
-          (r.$BusinessProfileImpl$p_2 = function () {
+          (n.$BusinessProfileImpl$p_2 = function () {
             if (
               !(
                 !o("WAWebBotBaseGating").isBizBot3pEnabled() || !this.isBizBot3p
@@ -167,28 +159,36 @@ __d(
               e == null || e.updateName();
             }
           }),
-          (r.$BusinessProfileImpl$p_1 = function () {
+          (n.$BusinessProfileImpl$p_1 = function () {
             var e = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(
               this.id,
             );
             e && o("WAWebChatGroupUtils").updateCanSend(e, this);
           }),
-          n
+          (n.delete = function () {
+            (e.prototype.delete.call(this),
+              o(
+                "WAWebBusinessProfileGetters",
+              ).clearBusinessProfileGetterCacheFor(this),
+              o(
+                "WAWebFrontendBusinessProfileGetters",
+              ).clearFrontendBusinessProfileGetterCacheFor(this));
+          }),
+          t
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((u.Proxy = "businessProfile"), (u.idClass = r("WAWebWid")));
-    var c = o("WAWebBaseModel").defineModel(u),
-      d = {
+    ((s.Proxy = "businessProfile"), (s.idClass = r("WAWebWid")));
+    var u = o("WAWebBaseModel").defineModel(s),
+      c = {
         description: null,
         email: null,
         website: null,
         latitude: null,
         longitude: null,
       };
-    ((l.BUSINESS_URL_DOMAIN = e),
-      (l.MAX_BUSINESS_CATEGORIES = s),
-      (l.BusinessProfile = c),
-      (l.DEFAULTS = d));
+    ((l.MAX_BUSINESS_CATEGORIES = e),
+      (l.BusinessProfile = u),
+      (l.DEFAULTS = c));
   },
   98,
 );

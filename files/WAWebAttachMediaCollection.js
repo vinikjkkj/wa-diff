@@ -100,16 +100,21 @@ __d(
               var r = e.quality,
                 a = e.supportedTypes,
                 i = this.indexOf(e),
-                l = e.caption;
+                l = e.caption,
+                s = e.provenanceSourceAttachment;
               (this.remove(e, { silent: !0 }), e.delete());
-              var s = new (o("WAWebAttachMediaModel").AttachMedia)({
+              var u = new (o("WAWebAttachMediaModel").AttachMedia)({
                 id: t,
                 caption: l,
                 file: this.$AttachMediaCollection$p_2(n),
                 quality: r,
                 supportedTypes: a,
               });
-              return (this.add(s, i >= 0 ? { at: i } : {}), s.processPromise);
+              return (
+                u.preserveProvenanceSourceAttachment(s),
+                this.add(u, i >= 0 ? { at: i } : {}),
+                u.processPromise
+              );
             }
           }),
           (i.getValidMedias = function () {

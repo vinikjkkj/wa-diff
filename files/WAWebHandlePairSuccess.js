@@ -145,7 +145,6 @@ __d(
                 o("WAWebUserPrefsMeUser").setMe(
                   o("WAWebJidToWid").deviceJidToDeviceWid(h),
                 ),
-                C != null || s(0, 165665),
                 o("WAWebUserPrefsMeUser").setMeLid(
                   o("WAWebJidToWid").deviceJidToDeviceWid(C),
                 ),
@@ -302,7 +301,7 @@ __d(
                   n("cr:1064").trigger("post_pair_success"),
                 yield o(
                   "WAWebHandleCanonicalRegistration",
-                ).handleCanonicalRegistration(T, b, C != null ? C : h),
+                ).handleCanonicalRegistration(T, b, C),
                 E(),
                 U
               );

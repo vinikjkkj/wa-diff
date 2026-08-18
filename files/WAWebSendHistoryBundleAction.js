@@ -42,28 +42,31 @@ __d(
               p = c[1],
               _ = yield p,
               f = _.messageSendResult;
-            if (f !== o("WAWebSendMsgResultAction").SendMsgResult.OK) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] Failed to send history bundle message",
-                    ])),
-                )
-                .sendLogs("group-history-bundle-send-failed");
-              return;
-            }
-            var g = l.groupHistoryBundleMetadata;
-            if (g == null) {
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history] bundleMetadata is null",
-                  ])),
+            if (f !== o("WAWebSendMsgResultAction").SendMsgResult.OK)
+              return (
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[group-history] Failed to send history bundle message",
+                      ])),
+                  )
+                  .sendLogs("group-history-bundle-send-failed"),
+                { bundleAcked: !1, noticeAcked: !1 }
               );
-              return;
-            }
-            yield m(u, g);
+            var g = l.groupHistoryBundleMetadata;
+            if (g == null)
+              return (
+                o("WALogger").ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[group-history] bundleMetadata is null",
+                    ])),
+                ),
+                { bundleAcked: !0, noticeAcked: !1 }
+              );
+            var h = yield m(u, g);
+            return { bundleAcked: !0, noticeAcked: h };
           },
         )),
         d.apply(this, arguments)
@@ -89,21 +92,20 @@ __d(
             i = r[1],
             l = yield i,
             s = l.messageSendResult;
-          if (s !== o("WAWebSendMsgResultAction").SendMsgResult.OK) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history] Failed to send history notice message",
-                  ])),
-              )
-              .sendLogs("group-history-notice-send-failed");
-            return;
-          }
-          yield o("WAWebGroupHistoryNoticeHandler").markGroupHistoryNoticeSent(
-            e.id,
-            t.historyReceivers,
-          );
+          return s !== o("WAWebSendMsgResultAction").SendMsgResult.OK
+            ? (o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[group-history] Failed to send history notice message",
+                    ])),
+                )
+                .sendLogs("group-history-notice-send-failed"),
+              !1)
+            : (yield o(
+                "WAWebGroupHistoryNoticeHandler",
+              ).markGroupHistoryNoticeSent(e.id, t.historyReceivers),
+              !0);
         })),
         p.apply(this, arguments)
       );

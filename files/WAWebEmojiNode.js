@@ -15,7 +15,7 @@ __d(
       u = {
         emoji: {
           display: "x1rg5ohu",
-          verticalAlign: "x16dsc37",
+          verticalAlign: "xxymvpz",
           fontSize: "x1c3i2sq",
           fontFamily: "x19la9d6",
           lineHeight: "x1fc57z9",

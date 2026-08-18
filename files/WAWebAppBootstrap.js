@@ -7,7 +7,6 @@ __d(
     "WAWap",
     "WAWebABProps",
     "WAWebABPropsCache",
-    "WAWebAdaptiveLayoutGatingUtils",
     "WAWebAppSwInitializer",
     "WAWebBrokerBackendInterface",
     "WAWebBuildConstants",
@@ -123,9 +122,7 @@ __d(
               o("WAWebUserPrefsBase").userPreferencesStoreBase.set(
                 o("WAWebUserPrefsKeys").UserPrefs
                   .WindowsIsAdaptiveLayoutEnabled,
-                o(
-                  "WAWebAdaptiveLayoutGatingUtils",
-                ).getIsAdaptiveLayoutEnabled(),
+                !0,
               ),
             l == null || (a = l.abProps) == null || a.initialize(),
             o("WAWebEventSamplingCache").initializeEventSamplingCache(),

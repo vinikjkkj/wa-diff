@@ -2,7 +2,9 @@ __d(
   "WAWebEnsureVoipInited",
   [
     "Promise",
+    "WALogger",
     "WAWebVoipBackendLoadable",
+    "WAWebVoipDeferredBootLogging",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipInitReloadRecovery",
     "asyncToGeneratorRuntime",
@@ -11,7 +13,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = (function (e) {
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _ = (function (e) {
         function t() {
           var t;
           return (
@@ -24,78 +32,165 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    function u(e) {
-      return c.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function c() {
+    function g() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
-            n = t.WAWebVoipInit;
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+            function () {
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [deferred-boot] intent init_start trigger=",
+                    "",
+                  ])),
+                t,
+              );
+            },
+          );
+          var n = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
+            a = n.WAWebVoipInit;
           if (
-            (yield n.initWAWebVoip(e),
-            !o(
+            (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+              function () {
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [deferred-boot] intent backend_ready trigger=",
+                      "",
+                    ])),
+                  t,
+                );
+              },
+            ),
+            yield a.initWAWebVoip(t),
+            o(
               "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getIsVoipInited() &&
-              (o(
-                "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getDidVoipInitError() &&
-                (yield n.retryWAWebVoipInitAfterFailure()),
-              !o(
-                "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getIsVoipInited()))
+            ).VoipInitEventEmitter.getIsVoipInited())
           )
-            throw r("err")("VoIP initialization did not complete");
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if ((yield e) !== "cancelled") throw new s();
-          yield t;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
+            return !1;
+          var i = !1;
           if (
-            (t === void 0 && (t = "call"),
+            (o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getDidVoipInitError() &&
+              ((i = !0),
+              o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+                function () {
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [deferred-boot] intent retry_requested trigger=",
+                        "",
+                      ])),
+                    t,
+                  );
+                },
+              ),
+              yield a.retryWAWebVoipInitAfterFailure()),
             !o(
               "WAWebVoipInitEventEmitter",
             ).VoipInitEventEmitter.getIsVoipInited())
-          ) {
-            var a =
-              t === "call"
-                ? o(
-                    "WAWebVoipInitReloadRecovery",
-                  ).beginOutgoingVoipInitReloadRecovery(r)
-                : null;
-            try {
-              var i = u(t);
-              if (a == null) {
-                yield i;
-                return;
-              }
-              yield (e || (e = n("Promise"))).race([i, d(a.result, i)]);
-            } finally {
-              a == null || a.finish();
-            }
-          }
+          )
+            throw r("err")("VoIP initialization did not complete");
+          return i;
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.VoipInitUnavailableError = s), (l.ensureVoipInitialized = p));
+    function h(e, t) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if ((yield e) !== "cancelled") throw new _();
+          return yield t;
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (
+            (e === void 0 && (e = "call"),
+            o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getIsVoipInited())
+          ) {
+            o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+              function () {
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [deferred-boot] intent init_skip trigger=",
+                      " reason=already_inited",
+                    ])),
+                  e,
+                );
+              },
+            );
+            return;
+          }
+          var r =
+            e === "call"
+              ? o(
+                  "WAWebVoipInitReloadRecovery",
+                ).beginOutgoingVoipInitReloadRecovery(t)
+              : null;
+          try {
+            var a = f(e),
+              i =
+                r == null
+                  ? yield a
+                  : yield (p || (p = n("Promise"))).race([a, h(r.result, a)]);
+            o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+              function () {
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [deferred-boot] intent init_ready trigger=",
+                      " retry_requested=",
+                      "",
+                    ])),
+                  e,
+                  i,
+                );
+              },
+            );
+          } catch (t) {
+            var l = t instanceof _ ? "reload_required" : "failed";
+            throw (
+              o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+                function () {
+                  o("WALogger").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [deferred-boot] intent init_failed trigger=",
+                        " outcome=",
+                        "",
+                      ])),
+                    e,
+                    l,
+                  );
+                },
+              ),
+              t
+            );
+          } finally {
+            r == null || r.finish();
+          }
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    ((l.VoipInitUnavailableError = _), (l.ensureVoipInitialized = C));
   },
   98,
 );

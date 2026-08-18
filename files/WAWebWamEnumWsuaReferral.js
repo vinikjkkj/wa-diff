@@ -37,6 +37,8 @@ __d(
       CHAT_LIST: 32,
       BIZ_AI_THREAD: 33,
       BIZ_AI: 34,
+      IMAGINE_INTENTS: 35,
+      AI_MEDIA_EDITOR: 36,
     });
     i.WSUA_REFERRAL = e;
   },

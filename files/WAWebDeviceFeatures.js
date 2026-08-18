@@ -1,23 +1,25 @@
 __d(
   "WAWebDeviceFeatures",
-  ["WAMd5", "WAWebSessionStorage"],
+  ["WALogger", "WAMd5", "WAWebSessionStorage"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e,
+      s = 1e3;
+    function u() {
       return navigator.platform;
     }
-    function s() {
+    function c() {
       return navigator.deviceMemory === void 0
         ? "undefined"
         : "" + navigator.deviceMemory;
     }
-    function u() {
+    function d() {
       var e = window.devicePixelRatio;
       return e == null || e === void 0
         ? "undefined"
         : e * window.outerWidth + "x" + e * window.outerHeight;
     }
-    function c() {
+    function m() {
       var e, t;
       return (e =
         (t = navigator) == null || (t = t.connection) == null
@@ -26,7 +28,7 @@ __d(
         ? e
         : -1;
     }
-    function d() {
+    function p() {
       var e;
       return (e =
         r("WAWebSessionStorage") == null
@@ -35,13 +37,32 @@ __d(
         ? e
         : -1;
     }
-    function m() {
+    function _() {
       return "ontouchstart" in window && "TouchEvent" in window;
     }
-    function p() {
+    function f(t) {
+      var n = self.performance.now(),
+        r = t.getContext("webgl"),
+        a = self.performance.now() - n;
+      return (
+        a > s &&
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "WebGL context creation took ",
+                  "ms",
+                ])),
+              Math.ceil(a),
+            )
+            .sendLogs("webgl-context-creation-slow", { sampling: 0.01 }),
+        r
+      );
+    }
+    function g() {
       try {
         var e = document.createElement("canvas"),
-          t = e.getContext("webgl");
+          t = f(e);
         if (t == null) return "";
         var n = t.getExtension("WEBGL_debug_renderer_info");
         if (n == null) return "";
@@ -51,11 +72,11 @@ __d(
         return "";
       }
     }
-    function _() {
+    function h() {
       try {
         var e = document.createElement("canvas");
         ((e.width = 50), (e.height = 50));
-        var t = e.getContext("webgl");
+        var t = f(e);
         if (t == null) return "";
         var n =
             "\n      attribute vec2 position;\n      varying vec2 vPos;\n      void main() {\n        vPos = position;\n        gl_Position = vec4(position, 0.0, 1.0);\n      }",
@@ -96,7 +117,7 @@ __d(
         return "";
       }
     }
-    function f() {
+    function y() {
       try {
         var e;
         return (e = Intl.DateTimeFormat().resolvedOptions().timeZone) != null
@@ -106,20 +127,20 @@ __d(
         return "";
       }
     }
-    function g() {
+    function C() {
       return {
-        cpuPlatform: e(),
-        deviceMemory: s(),
-        gpuMake: p(),
-        webglFingerprint: _(),
-        screenResolution: u(),
-        connectionRoundTripTime: c(),
-        sessionStorageLength: d(),
-        touchPresence: m(),
-        timezone: f(),
+        cpuPlatform: u(),
+        deviceMemory: c(),
+        gpuMake: g(),
+        webglFingerprint: h(),
+        screenResolution: d(),
+        connectionRoundTripTime: m(),
+        sessionStorageLength: p(),
+        touchPresence: _(),
+        timezone: y(),
       };
     }
-    l.default = g;
+    l.default = C;
   },
   98,
 );

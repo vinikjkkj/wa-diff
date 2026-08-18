@@ -2,7 +2,6 @@ __d(
   "WAWebNewsletterMetadataModel",
   [
     "WAWebBaseModel",
-    "WAWebClock",
     "WAWebCommonNewsletterEnums",
     "WAWebContactSearchGatingUtils",
     "WAWebExactSearchMatchResult",
@@ -15,7 +14,6 @@ __d(
     "WAWebNewsletterMessageDeliveryUpdateCollection",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataGetters",
-    "WAWebNewsletterMetricUtils",
     "WAWebNewsletterPendingAdminsCollection",
     "WAWebNewsletterSubscribersCollection",
     "WAWebSearchMatchStrategies",
@@ -78,15 +76,6 @@ __d(
             return [];
           })),
           (t.recentlyFollowedFrom = o("WAWebModelUtils").session()),
-          (t.showInsightDelta = o("WAWebModelUtils").derived(
-            function () {
-              return (
-                o("WAWebClock").Clock.daysDeltaAbs(this.creationTime) >=
-                o("WAWebNewsletterMetricUtils").INSIGHT_DAYS_COVERED
-              );
-            },
-            ["creationTime"],
-          )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

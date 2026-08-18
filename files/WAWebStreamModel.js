@@ -161,10 +161,9 @@ __d(
                 this.$StreamImpl$p_4,
               ),
               window.document &&
-                document.addEventListener(
-                  "visibilitychange",
-                  this.updateCouldForce,
-                ),
+                document.addEventListener("visibilitychange", function () {
+                  return t.updateCouldForce();
+                }),
               this.updateCouldForce());
           }),
           (a.delete = function () {}),

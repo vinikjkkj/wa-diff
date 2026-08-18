@@ -36,17 +36,17 @@ __d(
       );
     }
     function d(e) {
-      var t;
-      return m()
+      return m(e == null ? void 0 : e.profileOptions);
+    }
+    function m(e) {
+      return p()
         ? !0
         : o("WAWebBizCatalogGatingUtils").isCatalogVariantsViewingEnabled()
           ? !1
-          : (e == null || (t = e.profileOptions) == null
-              ? void 0
-              : t.commerceExperience) ===
+          : (e == null ? void 0 : e.commerceExperience) ===
             o("WAWebBusinessProfileTypes").CommerceExperienceTypes.META_CATALOG;
     }
-    function m() {
+    function p() {
       var e = window.location.search,
         t = new URLSearchParams(e);
       return t.get("force_disable_catalog") === "1";
@@ -54,7 +54,8 @@ __d(
     ((l.shouldShowMetaLinkedDisabledCatalogTooltipForSelf = e),
       (l.shouldDisableCatalogDueToMetaLinkingForSelf = s),
       (l.shouldDisableCatalogDueToMetaLinkingForProfile = u),
-      (l.linkedCatalogDisabledTooltipEnabled = c));
+      (l.linkedCatalogDisabledTooltipEnabled = c),
+      (l.shouldDisableCatalogDueToMetaLinkingForProfileOptions = m));
   },
   98,
 );

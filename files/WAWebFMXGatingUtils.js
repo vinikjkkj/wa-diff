@@ -34,6 +34,11 @@ __d(
       );
     }
     function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "fmx_persistent_country_trust_signal_enabled",
+      );
+    }
+    function m() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "is_expand_fmx_enabled_non_auto_expose",
@@ -47,7 +52,8 @@ __d(
       (l.isExpandFmxMexEnabled = s),
       (l.isExpandFmxAccountAgeUiEnabled = u),
       (l.isSuspiciousFmxEnabled = c),
-      (l.isExpandFmxAccountAgeBoldedEnabled = d));
+      (l.isFmxPersistentCountryTrustSignalEnabled = d),
+      (l.isExpandFmxAccountAgeBoldedEnabled = m));
   },
   98,
 );

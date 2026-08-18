@@ -1049,7 +1049,7 @@ __d(
       dev_prop_float: [1067, "float", 0, 0],
       dev_prop_int: [1066, "int", 0, 0],
       dev_prop_string: [1064, "string", "", ""],
-      device_capabilities_v2_sync_enabled: [33380, "bool", !1, !1],
+      device_capabilities_v2_sync_enabled: [33380, "bool", !1, !0],
       device_switching_enabled: [3205, "bool", !1, !1],
       dialer_pad_for_new_chats: [18688, "bool", !1, !1],
       direct_connection_business_numbers: [
@@ -1613,6 +1613,7 @@ __d(
         '{"allowlist": []}',
         '{"allowlist": []}',
       ],
+      media_cross_reference_download_enabled: [35111, "bool", !1, !1],
       media_cross_reference_upload_enabled: [35109, "bool", !1, !1],
       media_force_transcode_on_elst: [30235, "bool", !1, !0],
       media_hub_history_max_days: [22518, "int", 14, 14],
@@ -2136,6 +2137,7 @@ __d(
       reactions_receiver_enabled: [13542, "bool", !1, !1],
       receipt_mode_bitmask_enabled: [30084, "bool", !1, !0],
       recommended_channels_background_refresh: [4309, "int", 144e5, 144e5],
+      refresh_group_info_on_mismatch: [35119, "bool", !1, !1],
       relax_integrity_constraints_for_bb_wa_tenured_accounts: [
         28516,
         "bool",
@@ -2526,6 +2528,7 @@ __d(
       tctoken_duration_sender: [996, "int", 604800, 604800],
       tctoken_num_buckets: [909, "int", 4, 4],
       tctoken_num_buckets_sender: [997, "int", 4, 4],
+      teamlink_consumer_experience_enabled: [35138, "bool", !1, !0],
       teamlink_enabled: [33978, "bool", !1, !1],
       text_status_ttl_seconds_allowlist: [
         6153,
@@ -3331,6 +3334,8 @@ __d(
       web_calling_auto_popout_video: [28046, "bool", !1, !1],
       web_calling_enable_on_windows: [26259, "bool", !1, !1],
       web_calling_full_screen_toggle_enabled: [28830, "bool", !1, !1],
+      web_calling_incoming_accept_pulse_enabled: [35144, "bool", !1, !0],
+      web_calling_join_button_pulse_enabled: [35143, "bool", !1, !0],
       web_calling_offline_resume_ordering: [29564, "bool", !1, !1],
       web_calling_pause_bg_during_call_mode: [34144, "int", 0, 0],
       web_calling_perf_optimizations_bitmask: [22186, "int", 1, 1],

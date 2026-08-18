@@ -40,13 +40,15 @@ __d(
                         return e.getTextContent();
                       }),
                       u = e.getTextContent();
-                    u !== s &&
-                      ((n != null && d(u) > n) ||
-                        (r != null &&
-                          o("WAUnicodeUtils").numCodepoints(u) > r) ||
-                        (a != null && m(u) > a)) &&
-                      (i == null || i(),
-                      o("LexicalUtils").$restoreEditorState(p, l));
+                    if (u !== s) {
+                      var c = n != null && d(u) > n,
+                        _ =
+                          r != null && o("WAUnicodeUtils").numCodepoints(u) > r,
+                        f = a != null && m(u) > a;
+                      (c || _ || f) &&
+                        (i == null || i(),
+                        o("LexicalUtils").$restoreEditorState(p, l));
+                    }
                   }
                 },
               );

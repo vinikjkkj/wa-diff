@@ -24,6 +24,7 @@ __d(
       MeTab: "meTab",
       ContactManager: "contactManager",
       TeamLink: "teamLink",
+      OrgAdmin: "orgAdmin",
     });
     i.NavBarItems = e;
   },

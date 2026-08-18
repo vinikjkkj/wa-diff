@@ -7,8 +7,8 @@ __d(
         function e() {
           ((this.$1 = new Map()),
             (this.$2 = []),
-            (this.$3 = []),
-            (this.$4 = null));
+            (this.$3 = new Set()),
+            (this.$4 = []));
         }
         var t = e.prototype;
         return (
@@ -19,42 +19,36 @@ __d(
             return this.$1.get(t);
           }),
           (t.upsertApproval = function (t) {
-            (this.$1.set(t.approvalId, t), this.$5());
+            this.$3.has(t.approvalId) ||
+              (this.$1.set(t.approvalId, t), this.$5());
           }),
           (t.resolveApproval = function (t) {
             this.$1.delete(t) && this.$5();
           }),
-          (t.reconcilePending = function (t, n) {
-            if (!(n != null && this.$4 != null && n <= this.$4)) {
-              n != null && (this.$4 = n);
-              var e = new Set();
-              for (var r of t)
-                (e.add(r.approvalId), this.$1.set(r.approvalId, r));
-              for (var o of Array.from(this.$1.keys()))
-                e.has(o) || this.$1.delete(o);
-              this.$5();
-            }
+          (t.settleApproval = function (t) {
+            (this.$3.add(t), this.resolveApproval(t));
           }),
           (t.subscribe = function (t) {
             var e = this;
-            return (
-              this.$3.push(t),
-              function () {
-                e.$3 = e.$3.filter(function (e) {
-                  return e !== t;
-                });
+            this.$4.push(t);
+            var n = !1;
+            return function () {
+              if (!n) {
+                n = !0;
+                var r = e.$4.indexOf(t);
+                r !== -1 && e.$4.splice(r, 1);
               }
-            );
+            };
           }),
           (t.__resetForTesting = function () {
             ((this.$1 = new Map()),
               (this.$2 = []),
-              (this.$3 = []),
-              (this.$4 = null));
+              (this.$3 = new Set()),
+              (this.$4 = []));
           }),
           (t.$5 = function () {
             this.$2 = Array.from(this.$1.values());
-            for (var e of [].concat(this.$3)) e();
+            for (var e of [].concat(this.$4)) e();
           }),
           e
         );

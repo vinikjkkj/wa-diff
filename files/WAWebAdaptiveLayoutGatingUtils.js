@@ -1,6 +1,6 @@
 __d(
   "WAWebAdaptiveLayoutGatingUtils",
-  ["WAWebABProps", "WAWebEnvironment", "justknobx"],
+  ["WAWebABProps", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -14,16 +14,7 @@ __d(
         "functional_chatlist_enabled",
       );
     }
-    function u() {
-      return r("WAWebEnvironment").isWindows
-        ? o("WAWebABProps").getABPropConfigValue(
-            "wa_web_adaptive_layout_enabled",
-          )
-        : !1;
-    }
-    ((l.shouldUseDrawerDescriptor = e),
-      (l.shouldUseFunctionalChatlist = s),
-      (l.getIsAdaptiveLayoutEnabled = u));
+    ((l.shouldUseDrawerDescriptor = e), (l.shouldUseFunctionalChatlist = s));
   },
   98,
 );

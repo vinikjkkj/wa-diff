@@ -34,7 +34,11 @@ __d(
     function _(e) {
       return e.trim() === "";
     }
-    function f(e, t) {
+    function f(e) {
+      var t = e.trim();
+      return t === "" ? null : t;
+    }
+    function g(e, t) {
       var n = s(e, t);
       return Array.isArray(n) ? n : null;
     }
@@ -46,7 +50,8 @@ __d(
       (l.readStringOrEmpty = m),
       (l.readObject = p),
       (l.isBlankText = _),
-      (l.readArray = f));
+      (l.trimToNull = f),
+      (l.readArray = g));
   },
   98,
 );

@@ -741,7 +741,13 @@ __d(
             var u = function () {
               return o(
                 "WAWebProcessMultipleMsgsAction",
-              )._processMultipleMessages(t, n, a, i, l);
+              )._processMultipleMessages({
+                chatId: t,
+                chatMsgsCollection: l,
+                meta: a,
+                msgObjs: n,
+                processMessageOrigin: i,
+              });
             };
             if (t) {
               var c,

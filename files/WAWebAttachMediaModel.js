@@ -64,6 +64,7 @@ __d(
             (e.supportedTypes = o("WAWebBaseModel").prop()),
             (e.quality = o("WAWebBaseModel").prop(h.Standard)),
             (e.originalAttachment = o("WAWebBaseModel").session()),
+            (e.provenanceSourceAttachment = o("WAWebBaseModel").session()),
             (e.state = o("WAWebBaseModel").session()),
             (e.mediaPrep = o("WAWebBaseModel").session()),
             (e.mimetype = o("WAWebBaseModel").session()),
@@ -197,6 +198,7 @@ __d(
               this.file instanceof (f || (f = n("Promise"))))
             )
               ((this.originalAttachment = this.file),
+                (this.provenanceSourceAttachment = this.file),
                 this.processAttachment(this.file));
             else throw r("err")("cannot process non-promise file");
           }),
@@ -552,7 +554,7 @@ __d(
           }),
           (i.$AttachMediaImpl$p_10 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.originalAttachment == null) return null;
+              if (this.provenanceSourceAttachment == null) return null;
               var e = null,
                 t = !1,
                 n = function (r) {
@@ -573,7 +575,7 @@ __d(
                   }
                 };
               try {
-                var r = yield this.originalAttachment,
+                var r = yield this.provenanceSourceAttachment,
                   a = r.file;
                 e = o("WAWebMediaProvenanceQpl").startProvenanceDetectionQpl(a);
                 var i =
@@ -766,6 +768,9 @@ __d(
           }),
           (i.updateEditedFile = function (t) {
             this.editedFile = t;
+          }),
+          (i.preserveProvenanceSourceAttachment = function (t) {
+            t != null && (this.provenanceSourceAttachment = t);
           }),
           (i.updatePreview = function (t) {
             (window.URL.revokeObjectURL(this.preview), (this.preview = t));

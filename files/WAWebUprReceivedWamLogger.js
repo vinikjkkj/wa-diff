@@ -19,16 +19,17 @@ __d(
       s,
       u = "receiver_log_key",
       c = "buyer_order_fs_log",
-      d = "individual",
-      m = "group",
-      p = "broadcast",
-      _ = "newsletter";
-    function f(e) {
-      return g.apply(this, arguments);
+      d = "universal_payment_request",
+      m = "individual",
+      p = "group",
+      _ = "broadcast",
+      f = "newsletter";
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           yield (s || (s = n("Promise"))).all(
             t.map(
               (function () {
@@ -36,7 +37,7 @@ __d(
                   function* (t) {
                     var n = o("WAWebUprPaymentRequest").parseUprPaymentInfo(t);
                     n != null &&
-                      (yield h(t, n).catch(function (t) {
+                      (yield y(t, n).catch(function (t) {
                         o("WALogger").WARN(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -55,22 +56,23 @@ __d(
             ),
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = v(e),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = S(e),
             r = t.paymentOptions.length === 1,
             a = e.id.id + e.to.toJid(),
-            i = yield C(u, a),
-            l = yield C(i, c),
+            i = yield b(u, a),
+            l = yield b(i, c),
             s = {
-              flow: "upr",
+              cta: d,
+              is_upr: !0,
               is_single_option: r,
               chat_type: n,
               order_funnel_id: i,
@@ -84,11 +86,12 @@ __d(
             messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
               .INTERACTIVE_NFM,
             bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-            businessOwnerJid: S(e),
+            businessOwnerJid: R(e),
             messageClassAttributes: JSON.stringify(s),
           }).commit();
-          var d = {
-            flow: "upr",
+          var m = {
+            cta: d,
+            is_upr: !0,
             chat_type: n,
             order_funnel_id: l,
             currency: t.currency,
@@ -100,18 +103,18 @@ __d(
               .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
             messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE
               .INTERACTIVE_NFM,
-            messageClassAttributes: JSON.stringify(d),
+            messageClassAttributes: JSON.stringify(m),
           }).commit();
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
               e,
               t,
@@ -120,24 +123,24 @@ __d(
             a = r.funnel_id;
           return a;
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
+    function S(e) {
       var t, n, r;
       return ((t = e.from) == null ? void 0 : t.isGroup()) === !0
-        ? m
+        ? p
         : ((n = e.broadcastId) == null ? void 0 : n.isBroadcast()) === !0
-          ? p
+          ? _
           : ((r = e.from) == null ? void 0 : r.isNewsletter()) === !0
-            ? _
-            : d;
+            ? f
+            : m;
     }
-    function S(e) {
+    function R(e) {
       var t;
       return (t = o("WAWebMsgGetters").getSender(e)) == null ? void 0 : t.user;
     }
-    l.logUprReceivedWAMEvent = f;
+    l.logUprReceivedWAMEvent = g;
   },
   98,
 );

@@ -9,7 +9,8 @@ __d(
     function u() {
       return e();
     }
-    ((l.setIsAsyncAwaitPrepEnabledImpl = s), (l.isAsyncAwaitPrepEnabled = u));
+    ((l.setIsAsyncAwaitPrepDecryptEnabledImpl = s),
+      (l.isAsyncAwaitPrepDecryptEnabled = u));
   },
   98,
 );

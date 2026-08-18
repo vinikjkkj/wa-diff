@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebHandleHatchMetadataSync",
     "WAWebHatchApprovalDebug",
-    "WAWebHatchLegacyApprovalDialog.react",
+    "WAWebHatchApprovalDialog.react",
     "WAWebHatchPayloadDebugStore",
     "WDSDialogBridge",
     "react",
@@ -13,40 +13,55 @@ __d(
     var e,
       s,
       u = s || (s = o("react")),
-      c = "hitl.approval",
+      c = "hitl.approval_record",
       d = [
         {
-          displayName: "Gmail",
-          actionLabel: "Move emails to trash",
+          target: "Gmail",
+          action: "move emails to trash",
           summary: "move the latest email to your Gmail trash folder",
+          payloadType: "connector",
+          detailLabel: "Mailbox",
+          detailValue: "Inbox",
         },
         {
-          displayName: "Google Docs",
-          actionLabel: "Create documents",
+          target: "Google Docs",
+          action: "create documents",
           summary: "create a new Google Doc",
+          payloadType: "connector",
+          detailLabel: "Document",
+          detailValue: "Untitled document",
         },
         {
-          displayName: "Google Calendar",
-          actionLabel: "Create events",
+          target: "Google Calendar",
+          action: "create events",
           summary: "add a 30-minute event to your calendar",
+          payloadType: "connector",
+          detailLabel: "When",
+          detailValue: "Tomorrow, 10:00\u201310:30",
         },
         {
-          displayName: "Google Drive",
-          actionLabel: "Update files",
+          target: "Google Drive",
+          action: "update files",
           summary: "move a file to your Drive trash",
+          payloadType: "connector",
+          detailLabel: "File",
+          detailValue: "quarterly-plan.pdf",
         },
         {
-          displayName: "Google Sheets",
-          actionLabel: "Update spreadsheets",
+          target: "Google Sheets",
+          action: "update spreadsheets",
           summary: "append a row to a tracking spreadsheet",
+          payloadType: "connector",
+          detailLabel: "Sheet",
+          detailValue: "Tracking / Q3",
         },
         {
-          displayName: "walla.co.il",
-          actionLabel: "Open website",
+          target: "walla.co.il",
+          action: "access walla.co.il",
           summary: "fetch the walla.co.il homepage so Hatch can summarize it",
-          scheme: "https",
-          host: "walla.co.il",
-          path: "walla.co.il:443",
+          payloadType: "network",
+          detailLabel: "URL",
+          detailValue: "https://walla.co.il",
         },
       ],
       m = 20;
@@ -55,34 +70,18 @@ __d(
         n = e + 1;
       return {
         approvalId: "debug-approval-" + n,
-        reason:
-          "#" +
-          n +
-          ': Allow Hatch to perform "' +
-          t.actionLabel +
-          '" in ' +
-          t.displayName +
-          "?",
-        shortExplanation: "Task #" + n + ": " + t.summary,
+        permissionQuestion:
+          "#" + n + ": Allow {assistant} to " + t.action + "?",
+        purposeSummary: "Task #" + n + ": " + t.summary,
         richExplanation:
           "You asked Hatch to " +
           t.summary +
           ". This is sample approval #" +
           n +
           ", injected to exercise the approval UI.",
-        displayName: t.displayName,
-        actionLabel: t.actionLabel,
-        payloadPreview:
-          '{\n  "task": ' +
-          n +
-          ',\n  "action": "' +
-          t.actionLabel +
-          '",\n  "service": "' +
-          t.displayName +
-          '"\n}',
-        scheme: t.scheme,
-        host: t.host,
-        path: t.path,
+        payloadType: t.payloadType,
+        detailLabel: t.detailLabel,
+        detailValue: t.detailValue,
       };
     }
     function _() {
@@ -94,29 +93,38 @@ __d(
       r("WAWebHatchPayloadDebugStore").clear();
     }
     f.doc = "Clear the captured Hatch AIMetadataOperation payload list";
-    function g() {
+    var g = [
+      { kind: "allow_once", labelText: "Allow once", alwaysScope: "" },
+      { kind: "allow_always", labelText: "Always allow", alwaysScope: "" },
+      { kind: "deny", labelText: "Deny", alwaysScope: "" },
+    ];
+    function h() {
       o("WDSDialogBridge").openWDSDialog(
-        u.jsx(r("WAWebHatchLegacyApprovalDialog.react"), {
-          richDescription: "Create an email draft to xyz@meta.com",
-          title: "Hatch wants to use draft email from Gmail",
-          onConfirm: function (n) {
+        u.jsx(r("WAWebHatchApprovalDialog.react"), {
+          decisionOptions: g,
+          description: "Create an email draft to xyz@meta.com",
+          isConnector: !0,
+          onDecide: function (n) {
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[debugHatch] Hatch approval option selected: ",
                   "",
                 ])),
-              String(n),
+              n.kind,
             ),
               o("WDSDialogBridge").closeWDSDialog());
           },
           onDismiss: o("WDSDialogBridge").closeWDSDialog,
+          summary: u.jsx("span", {
+            children: "Hatch wants to draft an email in Gmail",
+          }),
         }),
       );
     }
-    ((g.doc = "Opens the Hatch approval options dialog"),
-      (g.paramsToExecute = []));
-    function h(e) {
+    ((h.doc = "Opens the Hatch approval options dialog"),
+      (h.paramsToExecute = []));
+    function y(e) {
       e === void 0 && (e = 3);
       var t = Math.max(1, Math.min(e, m));
       return Array.from({ length: t }, function (e, t) {
@@ -131,17 +139,24 @@ __d(
               opKey: c,
               operation: "SET",
               payload: {
-                approval: {
+                lifecycle: "pending",
+                record: {
                   approval_id: n.approvalId,
-                  reason: n.reason,
-                  short_explanation: n.shortExplanation,
-                  rich_explanation: n.richExplanation,
-                  display_name: n.displayName,
-                  action_label: n.actionLabel,
-                  payload_preview: n.payloadPreview,
-                  scheme: n.scheme,
-                  host: n.host,
-                  path: n.path,
+                  display: {
+                    permission_question: { text: n.permissionQuestion },
+                    purpose_summary: n.purposeSummary,
+                    rich_explanation: n.richExplanation,
+                    detail_rows: [
+                      { label: n.detailLabel, value: n.detailValue },
+                    ],
+                    presentation_kind: "generic",
+                  },
+                  payload: { type: n.payloadType },
+                  decision_options: [
+                    { kind: "allow_once", label_text: "Allow once" },
+                    { kind: "allow_always", label_text: "Always allow" },
+                    { kind: "deny", label_text: "Deny" },
+                  ],
                 },
               },
               sessionId: null,
@@ -156,28 +171,28 @@ __d(
         );
       });
     }
-    ((h.doc =
+    ((y.doc =
       "Inject N (1-20, default 3) synthetic HITL approvals as pending requests \u2014 pass a count to test the single-approval path, the multi-approval review dialog, and its scrolling with a long list"),
-      (h.paramsToExecute = [3]));
-    function y(e) {
+      (y.paramsToExecute = [3]));
+    function C(e) {
       return o("WAWebHatchApprovalDebug").debugInjectHatchApprovalRequest(e);
     }
-    y.doc =
+    C.doc =
       "Inject a synthetic Hatch HITL approval request through the real decode -> store -> UI pipeline (open a Hatch chat to see the composer swap to the approval bar). Returns the approvalId.";
-    function C(e) {
+    function b(e) {
       o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e);
     }
-    C.doc =
+    b.doc =
       "Resolve a pending Hatch HITL approval (synthetic decision echo) by id, clearing the approval bar";
-    var b = {
+    var v = {
       hatchClearPayloads: f,
-      hatchInjectApproval: y,
+      hatchInjectApproval: C,
       hatchPayloads: _,
-      hatchResolveApproval: C,
-      injectHatchApprovals: h,
-      openHatchApprovalDialog: g,
+      hatchResolveApproval: b,
+      injectHatchApprovals: y,
+      openHatchApprovalDialog: h,
     };
-    l.default = b;
+    l.default = v;
   },
   98,
 );

@@ -10544,6 +10544,10 @@ __d(
       (exports.$createTextNode = Vo),
       (exports.$extendCaretToRange = sa),
       (exports.$findMatchingParent = uc),
+      (exports.$flushSyncAfterUpdate = function () {
+        var t = cs();
+        (is(), (t._flushSync = !0));
+      }),
       (exports.$formatText = hr),
       (exports.$fullReconcile = us),
       (exports.$generateNodesFromRawText = Hr),
