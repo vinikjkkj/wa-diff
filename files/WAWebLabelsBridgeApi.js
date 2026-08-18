@@ -7,7 +7,6 @@ __d(
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebLabelCollection",
     "WAWebListsGatingUtils",
-    "WAWebListsLabelGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebSchemaLabel",
     "asyncToGeneratorRuntime",
@@ -36,8 +35,7 @@ __d(
           o("WAWebBIzLabelReorderAction").reorderLabelsAction(e);
         },
         restoreLabels: function () {
-          return o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
-            o("WAWebListsGatingUtils").isListsEnabled()
+          return o("WAWebListsGatingUtils").isListsEnabled()
             ? o("WAWebSchemaLabel")
                 .getLabelTable()
                 .all()
@@ -50,10 +48,7 @@ __d(
         },
         restoreLabelAssociations: (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (
-              o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
-              o("WAWebListsGatingUtils").isListsEnabled()
-            ) {
+            if (o("WAWebListsGatingUtils").isListsEnabled()) {
               var t = [];
               (yield o("WAWebModelStorageUtils")
                 .getStorage()

@@ -20,6 +20,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebStatusGetters",
     "WAWebStatusModel",
     "WAWebUserPrefsMeUser",
@@ -408,7 +409,10 @@ __d(
                   ? void 0
                   : r("WAWebNewsletterMetadataCollection").get(e.contact.id);
               if ((i == null ? void 0 : i.suspended) === !0) return !1;
-              if ((i == null ? void 0 : i.isSubscribedOrOwned) === !0)
+              if (
+                i != null &&
+                o("WAWebNewsletterMetadataGetters").getIsSubscribedOrOwned(i)
+              )
                 return !0;
             }
             return !1;

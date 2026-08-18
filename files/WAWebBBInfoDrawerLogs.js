@@ -3,12 +3,16 @@ __d(
   ["WAWebBBLoggerTypes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r) {
-      e({
+    function e(e) {
+      var t = e.audienceId,
+        n = e.entryPoint,
+        r = e.log,
+        a = e.surface;
+      r({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
-        extraAttributes: { audience_id: r },
-        surface: n,
+        entryPoint: n,
+        extraAttributes: { audience_id: t },
+        surface: a,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.AUDIENCE_INFO_BUTTON,
       });

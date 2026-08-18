@@ -78,6 +78,7 @@ __d(
     "WAWebMuteCollection",
     "WAWebNewsletterCollection",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNoop",
     "WAWebNotificationBackend",
     "WAWebOTPLoggingHelper",
@@ -1263,10 +1264,12 @@ __d(
                 (e = this.groupMetadata) != null && e.isSuspendedOrTerminated()
               );
             } else if (o("WAWebChatGetters").getIsNewsletter(this)) {
-              var t;
-              return !!(
-                (t = this.newsletterMetadata) != null &&
-                t.isSuspendedOrTerminated
+              var t = this.newsletterMetadata;
+              return (
+                t != null &&
+                o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(
+                  t,
+                )
               );
             }
             return !1;

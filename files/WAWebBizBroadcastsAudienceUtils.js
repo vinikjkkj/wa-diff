@@ -58,10 +58,13 @@ __d(
         };
       });
     }
-    function _(e, t, a) {
-      var i = e.broadcastJid,
-        l = o("WAWebToast.react").genId(),
-        s =
+    function _(e) {
+      var t = e.action,
+        a = e.audienceListItem,
+        i = e.onRefreshAudienceList,
+        l = a.broadcastJid,
+        s = o("WAWebToast.react").genId(),
+        u =
           t === "create"
             ? o(
                 "WAWebBizBroadcastsCreationStrings",
@@ -78,22 +81,22 @@ __d(
                 })();
       o("WAWebToastManager").ToastManager.open(
         d.jsx(o("WAWebToast.react").Toast, {
-          id: l,
-          msg: s,
+          id: s,
+          msg: u,
           action:
-            a == null
+            i == null
               ? null
               : {
                   actionText: r("WAWebFbtCommon")("Undo"),
                   onAction: function () {
                     n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                       yield o("WAWebBroadcastListAction")
-                        .deleteBroadcastListAction(i)
+                        .deleteBroadcastListAction(l)
                         .then(function () {
-                          return a();
+                          return i();
                         })
                         .finally(function () {
-                          return o("WAWebToastManager").ToastManager.close(l);
+                          return o("WAWebToastManager").ToastManager.close(s);
                         });
                     })();
                   },

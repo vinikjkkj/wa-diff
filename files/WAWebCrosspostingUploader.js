@@ -124,17 +124,17 @@ __d(
                 "WAWebEligibilityCheckHelper",
               ).translateWaffleXANToCrosspostingDestination(n),
             }),
-              yield o("WAWebCrosspostingHelper").prepareCrosspostingIQ(
-                n,
-                a,
-                y.directPath,
-                m,
-                c,
-                u,
-                l,
-                i,
-                t,
-              ));
+              yield o("WAWebCrosspostingHelper").prepareCrosspostingIQ({
+                caption: t,
+                destination: n,
+                destinationIdentities: a,
+                directPath: y.directPath,
+                keyPair: i,
+                purposeEncryptionParams: l,
+                sessionId: u,
+                status: c,
+                uniqueId: m,
+              }));
           } catch (e) {
             throw (
               yield o(

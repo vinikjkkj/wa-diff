@@ -42,7 +42,7 @@ __d(
     function h(e, t, n) {
       return (
         n === void 0 && (n = !0),
-        E(o("WAWebStateUtils").unproxy(e), t, n)
+        E({ allowAction: n, chat: o("WAWebStateUtils").unproxy(e), unread: t })
       );
     }
     function y() {
@@ -137,31 +137,40 @@ __d(
     function L(e) {
       return P(o("WAWebStateUtils").unproxy(e));
     }
-    function E(t, a, i, l) {
-      (l === void 0 && (l = o("WAWebActionToast.react").genId()),
-        a ? t.active && (t.markedUnread = !0) : (t.markedUnread = !1));
-      var u = t.promises;
-      if (u.markUnread) return u.markUnread;
-      var c = (u.markUnread = a
-          ? T(t)
-          : (_ || (_ = n("Promise"))).all([I({ chat: t }), W({ chat: t })])),
-        d = a
+    function E(t) {
+      var a = t.allowAction,
+        i = t.chat,
+        l = t.toastId,
+        u = l === void 0 ? o("WAWebActionToast.react").genId() : l,
+        c = t.unread;
+      c ? i.active && (i.markedUnread = !0) : (i.markedUnread = !1);
+      var d = i.promises;
+      if (d.markUnread) return d.markUnread;
+      var m = (d.markUnread = c
+          ? T(i)
+          : (_ || (_ = n("Promise"))).all([I({ chat: i }), W({ chat: i })])),
+        p = c
           ? new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Marking as unread"),
             )
           : new (o("WAWebActionToast.react").ActionType)(
               s._(/*BTDS*/ "Marking as read"),
             ),
-        m = c
+        f = m
           .then(function () {
-            var e = a
+            var e = c
               ? s._(/*BTDS*/ "Marked as unread")
               : s._(/*BTDS*/ "Marked as read");
-            return i
+            return a
               ? new (o("WAWebActionToast.react").ActionType)(e, {
                   actionText: s._(/*BTDS*/ "Undo"),
                   actionHandler: function () {
-                    return E(t, !a, i, l);
+                    return E({
+                      allowAction: a,
+                      chat: i,
+                      toastId: u,
+                      unread: !c,
+                    });
                   },
                 })
               : new (o("WAWebActionToast.react").ActionType)(e);
@@ -171,7 +180,7 @@ __d(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400)
-                  return a
+                  return c
                     ? new (o("WAWebActionToast.react").ActionType)(
                         s._(/*BTDS*/ "Couldn't mark chat as unread."),
                       )
@@ -183,14 +192,19 @@ __d(
             ),
           )
           .catch(function () {
-            var e = a
+            var e = c
               ? s._(/*BTDS*/ "Couldn't mark chat as unread.")
               : s._(/*BTDS*/ "Couldn't mark chat as read.");
-            return i
+            return a
               ? new (o("WAWebActionToast.react").ActionType)(e, {
                   actionText: s._(/*BTDS*/ "Try again."),
                   actionHandler: function () {
-                    return E(t, a, i, l);
+                    return E({
+                      allowAction: a,
+                      chat: i,
+                      toastId: u,
+                      unread: c,
+                    });
                   },
                 })
               : new (o("WAWebActionToast.react").ActionType)(e);
@@ -198,12 +212,12 @@ __d(
       return (
         o("WAWebToastManager").ToastManager.open(
           g.jsx(o("WAWebActionToast.react").ActionToast, {
-            id: l,
-            initialAction: d,
-            pendingAction: m,
+            id: u,
+            initialAction: p,
+            pendingAction: f,
           }),
         ),
-        c
+        m
           .then(r("WAWebNoop"))
           .catch(
             o("WAFilteredCatch").filteredCatch(
@@ -221,7 +235,7 @@ __d(
             ),
           )
           .finally(function () {
-            u.markUnread = null;
+            d.markUnread = null;
           })
       );
     }

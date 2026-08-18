@@ -16,6 +16,7 @@ __d(
     "WAWebMessageAssociation.flow",
     "WAWebMsgCollection",
     "WAWebMsgCountReporter",
+    "WAWebNewsletterMetadataGetters",
     "WAWebProtobufsE2E.pb",
     "WAWebStateUtils",
     "WAWebThreadModelResolver",
@@ -204,11 +205,11 @@ __d(
       [
         e.SearchFilters.CHANNELS,
         function (e) {
-          var t;
+          var t = e.newsletterMetadata;
           return (
-            ((t = e.newsletterMetadata) == null
-              ? void 0
-              : t.isSubscribedOrOwned) === !0 && !e.archive
+            t != null &&
+            o("WAWebNewsletterMetadataGetters").getIsSubscribedOrOwned(t) &&
+            !e.archive
           );
         },
       ],

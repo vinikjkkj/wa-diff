@@ -16,11 +16,11 @@ __d(
           var t = e.deviceId,
             n = e.isInActiveCall,
             r = e.targetWindow;
-          return o("WAWebVoipAcquireMediaStream").getIsValidVideoDevice(
-            t,
-            r,
-            n,
-          );
+          return o("WAWebVoipAcquireMediaStream").getIsValidVideoDevice({
+            deviceId: t,
+            isInActiveCall: n,
+            targetWindow: r,
+          });
         });
         function t(t) {
           return e.apply(this, arguments);

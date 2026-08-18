@@ -336,30 +336,33 @@ __d(
         B.apply(this, arguments)
       );
     }
-    function W(e, t, n, r, o) {
+    function W(e) {
       return q.apply(this, arguments);
     }
     function q() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            try {
-              return yield U(e, t, n, a, i);
-            } catch (e) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WAFFLE] Failed to decrypt RSA encrypted data",
-                      ])),
-                  )
-                  .catching(e instanceof Error ? e : r("err")(String(e))),
-                e
-              );
-            }
-          },
-        )),
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.data,
+            n = e.key,
+            a = e.nonce,
+            i = e.privateKey,
+            l = e.tag;
+          try {
+            return yield U(i, n, t, a, l);
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] Failed to decrypt RSA encrypted data",
+                    ])),
+                )
+                .catching(e instanceof Error ? e : r("err")(String(e))),
+              e
+            );
+          }
+        })),
         q.apply(this, arguments)
       );
     }

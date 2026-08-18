@@ -1,6 +1,11 @@
 __d(
   "WAWebChangePresenceHandlerAction",
-  ["WAWebChatCollection", "WAWebPresenceCollection", "WAWebUserPrefsMeUser"],
+  [
+    "WAWebChatCollection",
+    "WAWebPresenceCollection",
+    "WAWebPresenceGetters",
+    "WAWebUserPrefsMeUser",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = 25e3;
     function s(e, t) {
@@ -22,12 +27,12 @@ __d(
         ? (n.type = t.chatstate.type || "unavailable")
         : n.type === "idle" &&
           ((r = !0), (n.type = t.isOnline ? "available" : "unavailable")),
-        t.isGroup &&
+        o("WAWebPresenceGetters").getIsGroup(t) &&
           n.type !== "available" &&
           !r &&
           (n.updateTime = Date.now()));
       var a;
-      if (t.isGroup) {
+      if (o("WAWebPresenceGetters").getIsGroup(t)) {
         var i = n.participant;
         if (i == null) return;
         var l = n.id,
@@ -42,7 +47,10 @@ __d(
               return u(a, t);
             }, e))
           : (a.expireTimerId = void 0));
-      var c = t.forceDisplay || t.isOnline || (t.isUser && !t.chatstate.deny);
+      var c =
+        t.forceDisplay ||
+        t.isOnline ||
+        (o("WAWebPresenceGetters").getIsUser(t) && !t.chatstate.deny);
       t.set({ hasData: !0, isSubscribed: !0, forceDisplay: c });
     }
     l.default = s;

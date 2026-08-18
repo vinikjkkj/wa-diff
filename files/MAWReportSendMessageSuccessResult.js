@@ -30,11 +30,7 @@ __d(
     function c(e) {
       o("MAWODSProxy").odsBumpEntityKey({
         entity: o("WAOdsEnums").Entity.MAW_DB_DEPRECATION,
-        key:
-          "maw_report_send_message_success_result." +
-          o("MWLogSend").getHimDeprecationStatus() +
-          "." +
-          e,
+        key: "maw_report_send_message_success_result.him_enabled." + e,
       });
     }
     function d(e, t) {

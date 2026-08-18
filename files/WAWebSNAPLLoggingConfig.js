@@ -23,12 +23,12 @@ __d(
           is_copyright_muted: t,
         };
       if (r != null) {
-        var s = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId(
-          r,
-          i,
-          n === !0,
-          e.msg,
-        );
+        var s = o("WAWebSNAPLUserPrefs").getSNAPLPersistentId({
+          forMediaId: r,
+          isMusic: n === !0,
+          msg: e.msg,
+          videoOrigin: i,
+        });
         s != null && (l.persistent_id = s);
       }
       var u = {

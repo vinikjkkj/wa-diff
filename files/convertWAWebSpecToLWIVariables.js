@@ -1,6 +1,11 @@
 __d(
   "convertWAWebSpecToLWIVariables",
-  ["WAWebBizAdCreationConsts", "WAWebBizAdCreationEUCountryUtils"],
+  [
+    "TWAWebBizAdCreationSpec",
+    "WAWebBizAdCreationConsts",
+    "WAWebBizAdCreationEUCountryUtils",
+    "WAWebBizNativeAdsGatingUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["picture"],
@@ -39,6 +44,12 @@ __d(
           placement_spec: {
             publisher_platforms: e.placementData.selectedPublisherPlatforms,
           },
+          run_continuously: o(
+            "WAWebBizNativeAdsGatingUtils",
+          ).sendRunContinuouslyEnabled()
+            ? e.durationData.durationInDays ===
+              o("TWAWebBizAdCreationSpec").CONTINUOUS_DURATION
+            : null,
           saved_audience_id:
             e.audienceData.audienceOption === "SAVED_AUDIENCE"
               ? e.audienceData.audienceID

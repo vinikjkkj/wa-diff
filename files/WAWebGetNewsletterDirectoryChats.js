@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterSyntheticStatusUtils",
     "asyncToGeneratorRuntime",
@@ -23,15 +24,15 @@ __d(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t,
-                        o = r("WAWebNewsletterCollection").get(e.idJid);
-                      return (o == null || (t = o.newsletterMetadata) == null
-                        ? void 0
-                        : t.isPreview) === !1
-                        ? (yield p(o, e),
+                      var t = r("WAWebNewsletterCollection").get(e.idJid),
+                        a = t == null ? void 0 : t.newsletterMetadata;
+                      return t != null &&
+                        a != null &&
+                        !o("WAWebNewsletterMetadataGetters").getIsPreview(a)
+                        ? (yield p(t, e),
                           i
                             ? (s || (s = n("Promise"))).resolve(null)
-                            : (s || (s = n("Promise"))).resolve(o))
+                            : (s || (s = n("Promise"))).resolve(t))
                         : d(e);
                     },
                   );

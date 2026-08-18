@@ -19,12 +19,20 @@ __d(
       s,
       u = new Set();
     function c(e) {
-      if (
-        !o(
-          "WAWebGroupHistoryGating",
-        ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
-      )
-        return (s || (s = n("Promise"))).resolve();
+      return o(
+        "WAWebGroupHistoryGating",
+      ).isGroupHistoryPostJoinSenderOrInternalTesterEnabled(e)
+        ? m(e)
+        : (s || (s = n("Promise"))).resolve();
+    }
+    function d(e) {
+      return o(
+        "WAWebGroupHistoryGating",
+      ).isGroupHistoryAfterJoinPrerequisitesEnabled()
+        ? m(e)
+        : (s || (s = n("Promise"))).resolve();
+    }
+    function m(e) {
       var t;
       try {
         t = o("WAWebWidFactory").asGroupWidOrThrow(e);
@@ -39,17 +47,17 @@ __d(
       var l = i.participants;
       return (
         l.on("bulk_add", function () {
-          d(t, l);
+          p(t, l);
         }),
-        d(t, l)
+        p(t, l)
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
             var a = yield o(
               "WAWebGroupHistoryParticipantJob",
@@ -59,7 +67,7 @@ __d(
               var l = o("WAWebLidMigrationUtils").toUserLid(i.id);
               if (l != null) {
                 var s = a.get(o("WAWebWidToJid").userLidtoLidUserJid(l));
-                s != null && p(i, s);
+                s != null && f(i, s);
               }
             }
           } catch (n) {
@@ -76,19 +84,19 @@ __d(
               .sendLogs("group-history-participant-state-hydrate-failed");
           }
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function p(e, t) {
-      (f(t.groupHistorySentState) &&
-        !f(e.groupHistorySentState) &&
+    function f(e, t) {
+      (h(t.groupHistorySentState) &&
+        !h(e.groupHistorySentState) &&
         e.set({ groupHistorySentState: t.groupHistorySentState }),
         e.joinTime == null &&
           t.joinTime != null &&
           t.joinTime > 0 &&
           e.set({ joinTime: t.joinTime }));
     }
-    function _(e, t) {
+    function g(e, t) {
       var n,
         a =
           (n = r("WAWebGroupMetadataCollection").get(e)) == null
@@ -104,12 +112,12 @@ __d(
             )
               return e;
             var t = a.get(e.id);
-            return t != null && f(t.groupHistorySentState)
+            return t != null && h(t.groupHistorySentState)
               ? babelHelpers.extends({}, e, { groupHistorySentState: void 0 })
               : e;
           });
     }
-    function f(e) {
+    function h(e) {
       return (
         e ===
           o("WAWebGroupHistoryPostJoinTypes").GroupHistorySentState
@@ -119,7 +127,8 @@ __d(
       );
     }
     ((l.initializeGroupHistoryStateForChat = c),
-      (l.guardGroupHistorySentStateDowngrade = _));
+      (l.prefetchGroupHistoryStateForChat = d),
+      (l.guardGroupHistorySentStateDowngrade = g));
   },
   98,
 );

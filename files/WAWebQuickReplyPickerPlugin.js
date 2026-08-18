@@ -294,15 +294,16 @@ __d(
           "WAWebBizSendOrderAction",
         ).sendPixQuickReplyMessageAndDismissTryItPixKeyPromoBanner(n),
         e.useOnce(),
-        o("WAWebPixWamLogger").logPixSenderEvent(
-          void 0,
-          o("WAWebWamEnumPaymentActionTypes").PAYMENT_ACTION_TYPES.CLICK,
-          t ? "chat_attachment" : "chat",
-          "quick_reply",
-          "quick_reply",
-          n,
-          o("WAWebUserPrefsCustomPaymentMethods").getPIX(),
-        ));
+        o("WAWebPixWamLogger").logPixSenderEvent({
+          actionTarget: void 0,
+          chat: n,
+          paymentActionType: o("WAWebWamEnumPaymentActionTypes")
+            .PAYMENT_ACTION_TYPES.CLICK,
+          pixData: o("WAWebUserPrefsCustomPaymentMethods").getPIX(),
+          previousScreenName: t ? "chat_attachment" : "chat",
+          referral: "quick_reply",
+          screen: "quick_reply",
+        }));
     }
     l.default = b;
   },

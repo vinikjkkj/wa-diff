@@ -137,56 +137,61 @@ __d(
         };
       return (t != null && (a.message = t), a);
     }
-    function h(e, t, n, r, o, a, i, l, s) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s, u) {
-            var c = [];
-            c.push(p(e, t));
-            var d = [];
-            d.push(g({ directPath: n, uniqueId: r, status: a, caption: u }));
-            var m = { session_id: i, destinations: c, statuses: d },
-              _ = new TextEncoder(),
-              h = _.encode(JSON.stringify(m)),
-              y = o("fflate").zlibSync(h, { level: 1 }),
-              C = btoa(
-                Array.from(y, function (e) {
-                  return String.fromCharCode(e);
-                }).join(""),
-              ),
-              b = new Uint8Array(24);
-            crypto.getRandomValues(b);
-            var v = new TextEncoder().encode(C),
-              S = yield o(
-                "WAWebCrosspostingCryptoHelper",
-              ).forwardSecrecyEncrypt({
-                plaintext: v,
-                nonce: b,
-                serverPublicIK: l.purposePublicIK,
-                serverPublicEK: l.purposePublicEK,
-                clientPublicKey: new Uint8Array(s.publicKey),
-                clientPrivateKey: new Uint8Array(s.privateKey),
-                outputLength: o("WAWebCrossposting.flow").SHARED_KEY_LENGTH,
-              }),
-              R = btoa(
-                Array.from(S, function (e) {
-                  return String.fromCharCode(e);
-                }).join(""),
-              );
-            yield o("WAWebCrosspostingAPI").makeCrosspostingIQ({
-              encryptedPayload: R,
-              statusMessageId: a.id.toString(),
-              crosspostingDestination: o(
-                "WAWebEligibilityCheckHelper",
-              ).translateWaffleXANToCrosspostingDestination(e),
-              sessionId: i,
-              mediaType: f(a.type),
-            });
-          },
-        )),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.caption,
+            n = e.destination,
+            r = e.destinationIdentities,
+            a = e.directPath,
+            i = e.keyPair,
+            l = e.purposeEncryptionParams,
+            s = e.sessionId,
+            u = e.status,
+            c = e.uniqueId,
+            d = [];
+          d.push(p(n, r));
+          var m = [];
+          m.push(g({ directPath: a, uniqueId: c, status: u, caption: t }));
+          var _ = { session_id: s, destinations: d, statuses: m },
+            h = new TextEncoder(),
+            y = h.encode(JSON.stringify(_)),
+            C = o("fflate").zlibSync(y, { level: 1 }),
+            b = btoa(
+              Array.from(C, function (e) {
+                return String.fromCharCode(e);
+              }).join(""),
+            ),
+            v = new Uint8Array(24);
+          crypto.getRandomValues(v);
+          var S = new TextEncoder().encode(b),
+            R = yield o("WAWebCrosspostingCryptoHelper").forwardSecrecyEncrypt({
+              plaintext: S,
+              nonce: v,
+              serverPublicIK: l.purposePublicIK,
+              serverPublicEK: l.purposePublicEK,
+              clientPublicKey: new Uint8Array(i.publicKey),
+              clientPrivateKey: new Uint8Array(i.privateKey),
+              outputLength: o("WAWebCrossposting.flow").SHARED_KEY_LENGTH,
+            }),
+            L = btoa(
+              Array.from(R, function (e) {
+                return String.fromCharCode(e);
+              }).join(""),
+            );
+          yield o("WAWebCrosspostingAPI").makeCrosspostingIQ({
+            encryptedPayload: L,
+            statusMessageId: u.id.toString(),
+            crosspostingDestination: o(
+              "WAWebEligibilityCheckHelper",
+            ).translateWaffleXANToCrosspostingDestination(n),
+            sessionId: s,
+            mediaType: f(u.type),
+          });
+        })),
         y.apply(this, arguments)
       );
     }

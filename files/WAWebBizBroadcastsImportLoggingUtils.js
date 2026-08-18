@@ -21,17 +21,20 @@ __d(
               ? "csv"
               : "unknown";
     }
-    function u(e, t, n) {
-      var r;
+    function u(e) {
+      var t,
+        n = e.file,
+        r = e.smartColumnDetectionEnabled,
+        o = e.smartDetectionContext;
       return {
         columnSelectionSource:
-          (r = n == null ? void 0 : n.columnSelectionSource) != null
-            ? r
-            : t
+          (t = o == null ? void 0 : o.columnSelectionSource) != null
+            ? t
+            : r
               ? void 0
               : "legacy",
-        importFileType: s(e),
-        smartColumnDetectionEnabled: t,
+        importFileType: s(n),
+        smartColumnDetectionEnabled: r,
       };
     }
     function c(e, t) {

@@ -21,6 +21,7 @@ __d(
     "cometComposedTextV2GenAiSearchResultPrimitiveParser",
     "cometComposedTextV2GenAiSpacerPrimitiveParser",
     "cometComposedTextV2GenAiTableUxPrimitiveParser",
+    "cometComposedTextV2GenAiTaskPrimitiveParser",
     "cometComposedTextV2NodeBuilders",
   ],
   function (t, n, r, o, a, i, l) {
@@ -63,6 +64,8 @@ __d(
           return r("cometComposedTextV2GenAiSearchResultPrimitiveParser")(e, t);
         if (e.__typename === "GenAIProductItemCardPrimitive")
           return r("cometComposedTextV2GenAiProductItemCardPrimitiveParser")(e);
+        if (e.__typename === "GenAITaskPrimitive")
+          return r("cometComposedTextV2GenAiTaskPrimitiveParser")(e);
         if (e.__typename === "FOABloksPrimitive")
           return r("cometComposedTextV2FoABloksPrimitiveParser")(e, t);
         if (e.__typename === "FOATextPrimitive")

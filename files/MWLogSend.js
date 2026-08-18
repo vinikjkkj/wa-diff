@@ -20,7 +20,6 @@ __d(
     "asyncToGeneratorRuntime",
     "gkx",
     "promiseDone",
-    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -124,7 +123,7 @@ __d(
         for (; M.length > 0; ) {
           var t = M.shift();
           t != null &&
-            (s || (s = r("ErrorGuard"))).applyWithGuard(W, null, [e, t, !0]);
+            (s || (s = r("ErrorGuard"))).applyWithGuard(B, null, [e, t, !0]);
         }
       };
     }
@@ -133,20 +132,13 @@ __d(
       (M.push(t),
         A || (o("LSPlatformLsInitLog").onCompleteOrFail(w(e)), (A = !0)));
     }
-    function O() {
-      try {
-        return r("qex")._("765") === !0 ? "him_enabled" : "him_disabled";
-      } catch (e) {
-        return "unknown";
-      }
-    }
-    function B(e) {
+    function O(e) {
       o("MAWODSProxy").odsBumpEntityKey({
         entity: o("WAOdsEnums").Entity.MAW_DB_DEPRECATION,
-        key: "mw_log_send." + O() + "." + e,
+        key: "mw_log_send.him_enabled." + e,
       });
     }
-    function W(t, a, i) {
+    function B(t, a, i) {
       var l = a._mentionedJids,
         s = a.actor,
         c = a.additionalTags,
@@ -188,7 +180,7 @@ __d(
                 M = P ? "one_to_one" : "group";
               if (l == null) {
                 if (
-                  (B("participants_null." + M + "." + x + "." + $),
+                  (O("participants_null." + M + "." + x + "." + $),
                   D && i !== !0)
                 ) {
                   F(t, a);
@@ -207,11 +199,11 @@ __d(
                   .map(function (e) {
                     return (u || (u = o("I64"))).to_string(e.contactId);
                   }),
-                O = P && w.length > 0 && A.length === 0;
+                B = P && w.length > 0 && A.length === 0;
               if (
                 (w.length === 0 &&
-                  B("participants_unhydrated." + M + "." + x + "." + $),
-                P && A.length === 0 && !O)
+                  O("participants_unhydrated." + M + "." + x + "." + $),
+                P && A.length === 0 && !B)
               ) {
                 var W =
                     a.chatJid != null
@@ -219,16 +211,16 @@ __d(
                       : null,
                   q = W != null ? o("WAJids").extractUserId(W) : null;
                 if (q != null)
-                  (A.push(String(q)), B("recipient_recovered_via_chatjid"));
+                  (A.push(String(q)), O("recipient_recovered_via_chatjid"));
                 else if (
-                  (B("deferred.recipient_unresolved." + M + "." + x + "." + $),
+                  (O("deferred.recipient_unresolved." + M + "." + x + "." + $),
                   i !== !0)
                 ) {
                   F(t, a);
                   return;
                 }
               }
-              O && A.push((u || (u = o("I64"))).to_string(s));
+              B && A.push((u || (u = o("I64"))).to_string(s));
               var U = v != null ? v : (u || (u = o("I64"))).to_string(k),
                 V =
                   (n = a.waGroupJid) != null
@@ -267,7 +259,7 @@ __d(
                 j = L === 1 && !z && !C.has(m) && r("gkx")("9476");
               if (
                 (A.length === 0 &&
-                  B("empty_recipients_emitted." + M + "." + x + "." + $),
+                  O("empty_recipients_emitted." + M + "." + x + "." + $),
                 r("MessageSendsClientFalcoEvent").log(function () {
                   return {
                     additional_tags: c,
@@ -334,7 +326,7 @@ __d(
         })(),
       );
     }
-    ((l.getHimDeprecationStatus = O), (l.log = W));
+    l.log = B;
   },
   98,
 );

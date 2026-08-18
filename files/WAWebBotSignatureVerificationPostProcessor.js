@@ -49,7 +49,11 @@ __d(
           try {
             var i = yield m.load(),
               l = i.verifyBotMessageSignature,
-              p = yield l(r, n, a);
+              p = yield l({
+                forwardedAiBotMessageInfo: r,
+                unifiedResponseBytes: a,
+                verificationMetadata: n,
+              });
             return (
               p === "failed" &&
                 o("WALogger")

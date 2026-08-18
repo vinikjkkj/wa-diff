@@ -15,7 +15,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebL10N",
     "WAWebLeadStageChip.react",
-    "WAWebListsGatingUtils",
     "WAWebNoop",
     "WDSBaseCheckbox.react",
     "WDSFocusStateStyles",
@@ -806,9 +805,7 @@ __d(
               : e === "leadStage"
                 ? s._(/*BTDS*/ "Lead stage")
                 : e === "list"
-                  ? o("WAWebListsGatingUtils").isListsEnabled()
-                    ? s._(/*BTDS*/ "List")
-                    : s._(/*BTDS*/ "Label")
+                  ? s._(/*BTDS*/ "List")
                   : e === "acquisitionSource"
                     ? s._(/*BTDS*/ "Source")
                     : e === "lastMessage"
@@ -974,16 +971,9 @@ __d(
               chatJid: t.item.chatJid,
             });
           },
-          header: o("WAWebListsGatingUtils").isListsEnabled()
-            ? s._(/*BTDS*/ "List")
-            : s._(/*BTDS*/ "Label"),
+          header: s._(/*BTDS*/ "List"),
           key: "list",
-          renderHeader: _(
-            o("WAWebListsGatingUtils").isListsEnabled()
-              ? s._(/*BTDS*/ "List")
-              : s._(/*BTDS*/ "Label"),
-            "list",
-          ),
+          renderHeader: _(s._(/*BTDS*/ "List"), "list"),
           sortable: !0,
           width: o("WAWebContactManagerListViewColumnWidths")
             .contactManagerColumnWidths.list,

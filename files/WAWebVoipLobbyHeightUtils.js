@@ -28,13 +28,16 @@ __d(
       var l = n <= o ? n * i : o * i + i * a;
       return t + l;
     }
-    function c(t, n, r) {
-      var o =
-        r === !0
-          ? e.AUDIO_LOBBY_COLLAPSED_HEIGHT -
-            e.CONNECTED_PARTICIPANTS_SECTION_HEIGHT
-          : e.AUDIO_LOBBY_COLLAPSED_HEIGHT;
-      return u(o, t, n);
+    function c(t) {
+      var n = t.connectedParticipantCount,
+        r = t.hasNoParticipants,
+        o = t.isParticipantPanelExpanded,
+        a =
+          r === !0
+            ? e.AUDIO_LOBBY_COLLAPSED_HEIGHT -
+              e.CONNECTED_PARTICIPANTS_SECTION_HEIGHT
+            : e.AUDIO_LOBBY_COLLAPSED_HEIGHT;
+      return u(a, n, o);
     }
     function d(t, n, r, o) {
       var a = e.CALL_CONTROLS_HEIGHT,

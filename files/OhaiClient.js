@@ -10,35 +10,41 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
+    function e(e, t, n, r) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = !1);
-          var a = e.aeadId,
-            i = e.kdfId,
-            l = e.kemId,
-            s = e.keyId,
-            u = e.publicKey,
-            c = r("getHpkeFromConfigIds")({ kemId: l, kdfId: i, aeadId: a }),
-            d = new TextEncoder(),
-            m = yield o("HttpRequestBinaryEncode").binaryEncodeRequest(t, n),
-            p = o("OhaiCommonUtils").concat(
-              o("OhaiCommonUtils").encodeNumber(s, 1),
-              o("OhaiCommonUtils").encodeNumber(l, 2),
-              o("OhaiCommonUtils").encodeNumber(i, 2),
-              o("OhaiCommonUtils").encodeNumber(a, 2),
-            ),
-            _ = d.encode(o("OhaiCommonUtils").REQUEST_LABEL),
-            f = yield c.setupBaseS(u, _),
-            g = f.ctx,
-            h = f.enc,
-            y = yield g.seal(p, m),
-            C = o("OhaiCommonUtils").concat(p, h, y);
-          return { ctx: g, enc: h, encapsulatedRequest: C };
-        })),
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            (n === void 0 && (n = !1), a === void 0 && (a = null));
+            var i = e.aeadId,
+              l = e.kdfId,
+              s = e.kemId,
+              u = e.keyId,
+              c = e.publicKey,
+              d = r("getHpkeFromConfigIds")({ kemId: s, kdfId: l, aeadId: i }),
+              m = new TextEncoder(),
+              p = yield o("HttpRequestBinaryEncode").binaryEncodeRequest(
+                t,
+                n,
+                a,
+              ),
+              _ = o("OhaiCommonUtils").concat(
+                o("OhaiCommonUtils").encodeNumber(u, 1),
+                o("OhaiCommonUtils").encodeNumber(s, 2),
+                o("OhaiCommonUtils").encodeNumber(l, 2),
+                o("OhaiCommonUtils").encodeNumber(i, 2),
+              ),
+              f = m.encode(o("OhaiCommonUtils").REQUEST_LABEL),
+              g = yield d.setupBaseS(c, f),
+              h = g.ctx,
+              y = g.enc,
+              C = yield h.seal(_, p),
+              b = o("OhaiCommonUtils").concat(_, y, C);
+            return { ctx: h, enc: y, encapsulatedRequest: b };
+          },
+        )),
         s.apply(this, arguments)
       );
     }

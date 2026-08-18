@@ -36,11 +36,11 @@ __d(
           : !1;
       }
       function f(e) {
-        var r = e[0];
+        var r = e[0],
+          a = Array.prototype.slice.call(e, 1);
         return (
-          (e = Array.prototype.slice.call(e, 1)),
           (o[n] = function () {
-            r.apply(t, e);
+            r.apply(t, a);
           }),
           (i = i.next = { handle: n++ }),
           i.handle

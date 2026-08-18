@@ -97,7 +97,13 @@ __d(
                 ])),
             ),
             (c = p.sendPerfReporter) == null || c.postSavedStage(),
-            R(m, d, p, 0, n)
+            R({
+              funnelContext: n,
+              metricsReporter: p,
+              msg: m,
+              msgData: d,
+              retryCount: 0,
+            })
           );
         })),
         b.apply(this, arguments)
@@ -213,98 +219,107 @@ __d(
                   "sendStatusMediaMsgAction: media prep done for status message",
                 ])),
             ),
-            R(C, y, b, 0, f)
+            R({
+              funnelContext: f,
+              metricsReporter: b,
+              msg: C,
+              msgData: y,
+              retryCount: 0,
+            })
           );
         })),
         S.apply(this, arguments)
       );
     }
-    function R(e, t, n, r, o) {
+    function R(e) {
       return L.apply(this, arguments);
     }
     function L() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            (a === void 0 && (a = 0),
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.funnelContext,
+            n = e.metricsReporter,
+            a = e.msg,
+            i = e.msgData,
+            l = e.retryCount,
+            s = l === void 0 ? 0 : l;
+          o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "_sendStatusMessage: send status message ",
+                "",
+              ])),
+            a.id,
+          );
+          var u = new (o(
+              "WAWebStatusPosterActionsLogger",
+            ).StatusPosterActionsLogger)(t == null ? void 0 : t.sessionId),
+            c = y(a.type);
+          u.logPostStatusRequest(c, s, t == null ? void 0 : t.entryPoint);
+          var d = {
+              type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
+              data: a,
+            },
+            m = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+              o("WAWebOutgoingMessage").OutgoingMessageOriginType.Status,
+              d,
+            );
+          o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "_sendStatusMessage: generate protobuf",
+              ])),
+          );
+          try {
+            var p;
+            (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
+              metricsReporter: n,
+              msgProtobuf: m,
+              sendMsgRecord: d,
+            }),
+              (p = n.sendReporter) == null || p.postSuccess(),
+              a.updateAck(o("WAWebAck").ACK.SENT));
+            var C = yield o("WAWebStatusLoggingUtils").statusIdForLogging(a);
+            return (
+              u.logPostStatusSuccess(c, C, t == null ? void 0 : t.entryPoint),
+              o("WAWebAutoCrosspostAction").triggerAutoCrosspostIfEnabled(a),
               o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "_sendStatusMessage: send status message ",
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "_sendStatusMessage: done",
+                  ])),
+              ),
+              {
+                messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
+                  .OK,
+                msg: a,
+              }
+            );
+          } catch (e) {
+            a.updateAck(o("WAWebAck").ACK.FAILED);
+            var b = r("getErrorSafe")(e);
+            (u.logPostStatusFailure({
+              contentType: c,
+              entryPoint: t == null ? void 0 : t.entryPoint,
+              failureReason: b == null ? void 0 : b.message,
+              retryCount: s,
+            }),
+              o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "_sendStatusMessage: failed with ",
                     "",
                   ])),
-                e.id,
+                e,
               ));
-            var l = new (o(
-                "WAWebStatusPosterActionsLogger",
-              ).StatusPosterActionsLogger)(i == null ? void 0 : i.sessionId),
-              s = y(e.type);
-            l.logPostStatusRequest(s, a, i == null ? void 0 : i.entryPoint);
-            var u = {
-                type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-                data: e,
-              },
-              c = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-                o("WAWebOutgoingMessage").OutgoingMessageOriginType.Status,
-                u,
-              );
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "_sendStatusMessage: generate protobuf",
-                ])),
+            var v = yield r("WAWebUserPrefsStatus").getStatusPrivacySetting();
+            return o("WAWebPostSendStatusFailure").postStatusSendFailure(
+              b,
+              n,
+              v,
             );
-            try {
-              var d;
-              (yield o("WAWebEncryptAndSendStatusMsg").encryptAndSendStatusMsg({
-                metricsReporter: n,
-                msgProtobuf: c,
-                sendMsgRecord: u,
-              }),
-                (d = n.sendReporter) == null || d.postSuccess(),
-                e.updateAck(o("WAWebAck").ACK.SENT));
-              var m = yield o("WAWebStatusLoggingUtils").statusIdForLogging(e);
-              return (
-                l.logPostStatusSuccess(s, m, i == null ? void 0 : i.entryPoint),
-                o("WAWebAutoCrosspostAction").triggerAutoCrosspostIfEnabled(e),
-                o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "_sendStatusMessage: done",
-                    ])),
-                ),
-                {
-                  messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
-                    .OK,
-                  msg: e,
-                }
-              );
-            } catch (t) {
-              e.updateAck(o("WAWebAck").ACK.FAILED);
-              var p = r("getErrorSafe")(t);
-              (l.logPostStatusFailure({
-                contentType: s,
-                entryPoint: i == null ? void 0 : i.entryPoint,
-                failureReason: p == null ? void 0 : p.message,
-                retryCount: a,
-              }),
-                o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "_sendStatusMessage: failed with ",
-                      "",
-                    ])),
-                  t,
-                ));
-              var C = yield r("WAWebUserPrefsStatus").getStatusPrivacySetting();
-              return o("WAWebPostSendStatusFailure").postStatusSendFailure(
-                p,
-                n,
-                C,
-              );
-            }
-          },
-        )),
+          }
+        })),
         L.apply(this, arguments)
       );
     }

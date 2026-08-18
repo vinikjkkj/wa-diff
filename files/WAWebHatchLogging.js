@@ -13,42 +13,48 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      _(
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function s(e) {
-      _(
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function u(e) {
-      _(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      f(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function c(e, t) {
-      _(
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: e }),
       );
     }
     function d(e) {
-      _(
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function m(e, t) {
-      _(
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
-        babelHelpers.extends({}, t, { rawHitlDecisionKind: p(e) }),
+        babelHelpers.extends({}, t, { rawHitlDecisionKind: e }),
       );
     }
-    function p(e) {
+    function p(e, t) {
+      f(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
+        babelHelpers.extends({}, t, { rawHitlDecisionKind: _(e) }),
+      );
+    }
+    function _(e) {
       return e === r("WAWebHatchApprovalOption").AllowOnce
         ? "allow_once"
         : e === r("WAWebHatchApprovalOption").AllowAlways
@@ -62,7 +68,7 @@ __d(
                 );
               })();
     }
-    function _(e, t) {
+    function f(e, t) {
       var n, r, a, i, l;
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
         var s = new (o(
@@ -92,12 +98,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : f(t == null ? void 0 : t.botEntryPoint),
+              : g(t == null ? void 0 : t.botEntryPoint),
         });
         s.commit();
       }
     }
-    function f(e) {
+    function g(e) {
       var t,
         n =
           e != null
@@ -120,7 +126,8 @@ __d(
       (l.logHatchUnlinkSuccess = u),
       (l.logHatchHitlBottomSheetImpression = c),
       (l.logHatchHitlDetailImpression = d),
-      (l.logHatchHitlLegacyDecisionTap = m));
+      (l.logHatchHitlDecisionTap = m),
+      (l.logHatchHitlLegacyDecisionTap = p));
   },
   98,
 );

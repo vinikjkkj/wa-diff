@@ -24,18 +24,21 @@ __d(
       f,
       g = "[bot-signature-verify]",
       h = "1";
-    function y(e, t, n) {
+    function y(e) {
       return C.apply(this, arguments);
     }
     function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WATimeUtils").unixTime(),
-            i = o(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.forwardedAiBotMessageInfo,
+            n = e.unifiedResponseBytes,
+            a = e.verificationMetadata,
+            i = o("WATimeUtils").unixTime(),
+            l = o(
               "WAWebBotSignatureVerificationGating",
             ).getForwardVerificationEnforcementLevel();
           if (
-            i ===
+            l ===
             o("WAWebBotSignatureVerificationGating")
               .BotSignatureVerificationEnforcementLevel.NONE
           )
@@ -47,17 +50,17 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.SKIPPED_AB_DISABLED,
                   signatureVersion: h,
-                  startTime: a,
+                  startTime: i,
                 },
               ),
               "passed"
             );
-          var l =
-            i ===
+          var d =
+            l ===
             o("WAWebBotSignatureVerificationGating")
               .BotSignatureVerificationEnforcementLevel.ENFORCE_BLOCKING;
           try {
-            if (t.proofs == null || t.proofs.length === 0)
+            if (a.proofs == null || a.proofs.length === 0)
               return (
                 o("WALogger")
                   .WARN(
@@ -77,11 +80,11 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_SIGNATURE_DATA_MISSING,
                   signatureVersion: h,
-                  startTime: a,
+                  startTime: i,
                 }),
-                l ? "failed" : "passed"
+                d ? "failed" : "passed"
               );
-            var d = t.proofs.find(function (e) {
+            var m = a.proofs.find(function (e) {
               return (
                 e.useCase ===
                 o("WAWebProtobufsAICommon.pb")
@@ -89,7 +92,7 @@ __d(
                   .WA_BOT_MSG
               );
             });
-            if (d == null)
+            if (m == null)
               return (
                 o("WALogger")
                   .WARN(
@@ -109,12 +112,12 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_SIGNATURE_DATA_MISSING,
                   signatureVersion: h,
-                  startTime: a,
+                  startTime: i,
                 }),
-                l ? "failed" : "passed"
+                d ? "failed" : "passed"
               );
-            var m = yield b(d, e.botId.user, n, a);
-            return m ? "passed" : l ? "failed" : "passed";
+            var p = yield b(m, t.botId.user, n, i);
+            return p ? "passed" : d ? "failed" : "passed";
           } catch (e) {
             return (
               o("WALogger")
@@ -135,10 +138,10 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_UNKNOWN_ERROR,
                   signatureVersion: h,
-                  startTime: a,
+                  startTime: i,
                 },
               ),
-              l ? "failed" : "passed"
+              d ? "failed" : "passed"
             );
           }
         })),

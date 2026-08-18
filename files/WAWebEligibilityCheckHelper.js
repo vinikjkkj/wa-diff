@@ -89,51 +89,60 @@ __d(
               yield o(
                 "WAWebCrosspostingCryptoHelper",
               ).validatePurposeEncryptionParams(i, t),
-              h(a, r, _(n), l)
+              h({
+                destination: _(n),
+                hcbcPerStatus: a,
+                statusMessageKey: r,
+                uniqueIds: l,
+              })
             );
           },
         )),
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r) {
+    function h(e) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = [],
-              s = [];
-            for (var u of t.entries()) {
-              var c = u[0],
-                d = u[1],
-                m = d.every(function (e) {
-                  return e === !0;
-                });
-              m
-                ? s.push(
-                    o(
-                      "WAWebCrosspostingDBOperations",
-                    ).updateCrosspostingUniqueIdWithState({
-                      uniqueId: i[c],
-                      statusMessageId: r.toString(),
-                      crosspostingDestination: a,
-                      crosspostingState: o("WAWebCrossposting.flow")
-                        .CrosspostingState.SUCCESS,
-                      directUrlPath: "",
-                    }),
-                  )
-                : (s.push(
-                    o(
-                      "WAWebCrosspostingDBOperations",
-                    ).updateCrosspostingUniqueId(i[c], r.toString(), a),
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.destination,
+            a = t.hcbcPerStatus,
+            i = t.statusMessageKey,
+            l = t.uniqueIds,
+            s = [],
+            u = [];
+          for (var c of a.entries()) {
+            var d = c[0],
+              m = c[1],
+              p = m.every(function (e) {
+                return e === !0;
+              });
+            p
+              ? u.push(
+                  o(
+                    "WAWebCrosspostingDBOperations",
+                  ).updateCrosspostingUniqueIdWithState({
+                    uniqueId: l[d],
+                    statusMessageId: i.toString(),
+                    crosspostingDestination: r,
+                    crosspostingState: o("WAWebCrossposting.flow")
+                      .CrosspostingState.SUCCESS,
+                    directUrlPath: "",
+                  }),
+                )
+              : (u.push(
+                  o("WAWebCrosspostingDBOperations").updateCrosspostingUniqueId(
+                    l[d],
+                    i.toString(),
+                    r,
                   ),
-                  l.push(r));
-            }
-            return (yield (e || (e = n("Promise"))).all(s), l);
-          },
-        )),
+                ),
+                s.push(i));
+          }
+          return (yield (e || (e = n("Promise"))).all(u), s);
+        })),
         y.apply(this, arguments)
       );
     }

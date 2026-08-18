@@ -493,7 +493,7 @@ __d(
                   yield o(
                     "WAWebVoipHandleIncomingSignalingMessage",
                   ).handleVoipIncomingSignalingMessage(e, i, u),
-                  V(t, a, l)
+                  V({ ackString: l, from: t, stanzaId: a })
                 );
             }
           },
@@ -626,12 +626,15 @@ __d(
         ),
       );
     }
-    function V(e, t, n) {
+    function V(e) {
+      var t = e.ackString,
+        n = e.from,
+        r = e.stanzaId;
       return o("WAWap").wap("ack", {
-        to: o("WAWebCommsWapMd").JID(e),
-        id: o("WAWap").CUSTOM_STRING(t),
+        to: o("WAWebCommsWapMd").JID(n),
+        id: o("WAWap").CUSTOM_STRING(r),
         class: "call",
-        type: o("WAWap").MAYBE_CUSTOM_STRING(n),
+        type: o("WAWap").MAYBE_CUSTOM_STRING(t),
       });
     }
     ((l.canUseVoipStackForCallMessage = L),

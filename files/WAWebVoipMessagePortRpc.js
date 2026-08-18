@@ -144,9 +144,12 @@ __d(
                 ));
             });
           }),
-          (a.fire = function (t, n, r) {
+          (a.fire = function (t) {
+            var e = t.args,
+              n = t.method,
+              r = t.transferList;
             this.$4.postMessage(
-              { id: -1, method: t, args: n },
+              { id: -1, method: n, args: e },
               r != null ? r : [],
             );
           }),

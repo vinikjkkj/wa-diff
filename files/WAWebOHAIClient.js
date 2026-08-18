@@ -14,13 +14,16 @@ __d(
     "use strict";
     var e,
       s,
-      u = new Set(["https://meta-ohttp-relay-prod.fastly-edge.com/"]);
-    function c(e) {
-      return d.apply(this, arguments);
+      u = new Set(["https://meta-ohttp-relay-prod.fastly-edge.com/"]),
+      c = "x-ohttp-new-vip",
+      d = "1",
+      m = "WhatsApp/Web";
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function d() {
+    function _() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.headers,
             n = e.payload,
             a = e.project,
@@ -39,31 +42,41 @@ __d(
                 .tags("ohai"),
               r("err")("No OHAI key config available")
             );
-          var u = yield m({ project: a, url: i, payload: n, headers: t }),
-            c = yield o("OhaiClient").encapsulateRequest(l, u, !0),
-            d = c.ctx,
-            p = c.enc,
-            f = c.encapsulatedRequest,
-            g = _(),
-            h = yield o("WAWebHttpExtendedFetch").extendedFetch(g, {
-              body: f,
-              headers: { "Content-Type": "message/ohttp-req" },
-              method: "POST",
-            });
-          if (!h.ok) return h;
-          var y = yield h.arrayBuffer(),
-            C = new Uint8Array(y);
-          return o("OhaiClient").decapsulateResponse(d, p, C);
+          var u = o("WAWebABProps").getABPropConfigValue(
+              "wa_ohai_new_vip_header_enabled",
+            ),
+            p = yield f({ project: a, url: i, payload: n, headers: t }),
+            _ = yield o("OhaiClient").encapsulateRequest(
+              l,
+              p,
+              !0,
+              u ? m : null,
+            ),
+            g = _.ctx,
+            y = _.enc,
+            C = _.encapsulatedRequest,
+            b = h(),
+            v = { "Content-Type": "message/ohttp-req" };
+          u && (v[c] = d);
+          var S = yield o("WAWebHttpExtendedFetch").extendedFetch(b, {
+            body: C,
+            headers: v,
+            method: "POST",
+          });
+          if (!S.ok) return S;
+          var R = yield S.arrayBuffer(),
+            L = new Uint8Array(R);
+          return o("OhaiClient").decapsulateResponse(g, y, L);
         })),
-        d.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function p() {
+    function g() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.headers,
             n = e.payload,
             r = e.project,
@@ -74,15 +87,15 @@ __d(
           var l = yield o("WAWebACSNetwork").addACSCredential(r, n);
           return new Request(a, { body: l, method: "POST", headers: i });
         })),
-        p.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function _() {
+    function h() {
       var e = o("WAWebABProps").getABPropConfigValue("music_ohai_proxy_url"),
         t = new URL(e);
-      return (f(t), t);
+      return (y(t), t);
     }
-    function f(t) {
+    function y(t) {
       if (!u.has(t.href))
         throw (
           o("WALogger")
@@ -99,7 +112,7 @@ __d(
           r("err")("Invalid OHAI proxy URL")
         );
     }
-    l.fetchOHAI = c;
+    l.fetchOHAI = p;
   },
   98,
 );

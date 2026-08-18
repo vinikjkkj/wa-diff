@@ -16,7 +16,7 @@ __d(
     "WAWebDropdownItemSeparator.react",
     "WAWebInfoRefreshedIcon.react",
     "WAWebListsGatingUtils",
-    "WAWebListsLabelGatingUtils",
+    "WAWebMobilePlatforms",
     "WAWebWamEnumEntryPoint",
     "WAWebWamEnumSurfaceType",
     "WAWebWidToJid",
@@ -125,7 +125,7 @@ __d(
             }));
         };
       return (
-        o("WAWebListsLabelGatingUtils").canEditLabelAssociation() &&
+        o("WAWebMobilePlatforms").isSMB() &&
           !p &&
           _.push(
             s.jsx(

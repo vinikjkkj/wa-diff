@@ -59,6 +59,18 @@ __d(
             stale: !1,
             timestamp: Date.now(),
           });
+      } else if (o("WAWebBotUtils").isBusinessAssistantBot(e.id)) {
+        e.set({ name: s._(/*BTDS*/ "Business assistant").toString() });
+        var l = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
+        o("WAWebProfilePicThumbCollection")
+          .ProfilePicThumbCollection.gadd(e.id)
+          .set({
+            eurl: l,
+            previewEurl: l,
+            tag: "man",
+            stale: !1,
+            timestamp: Date.now(),
+          });
       } else {
         if (e.name) return;
         e.set({ name: s._(/*BTDS*/ "AI").toString() });

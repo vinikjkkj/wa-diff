@@ -842,6 +842,7 @@ __d(
       MAIBA_INFO_POPOVER_HOVER: "maiba_info_popover_hover",
       MAIBA_PROMOTE_READY: "maiba_promote_ready",
       MAIBA_PROMOTE_NOT_READY: "maiba_promote_not_ready",
+      MAIBA_ACCOUNT_SWITCHER_ACTION: "maiba_account_switcher_action",
       MAIBA_ACCOUNT_SWITCHER_OPEN: "maiba_account_switcher_open",
       DRAFT_QP_PARAM_PROVIDER_INIT_SUCCESS:
         "draft_qp_param_provider_init_success",

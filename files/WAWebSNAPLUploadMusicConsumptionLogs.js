@@ -13,44 +13,48 @@ __d(
     "use strict";
     var e = new URL("https://acs.whatsapp.com/music/reporting"),
       s = (656096963291760).toString(),
-      u = (0x97e965c4439a).toString();
-    function c(e) {
-      return d.apply(this, arguments);
+      u = (0x97e965c4439a).toString(),
+      c = "WhatsAppMusicConsumptionReporting";
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           yield r("WAWebNetworkStatus").waitIfOffline();
-          var n = m(t),
-            a = yield o("WAWebOHAIClient").fetchOHAI({
-              url: e,
-              project: o("WAWebACSTokenConfig").ACS_PROJECTS
-                .WA_StatusMusicReporting,
-              payload: n,
-            });
-          return a;
+          var n = p(t),
+            a = new Headers();
+          a.append("X-FB-Friendly-Name", c);
+          var i = yield o("WAWebOHAIClient").fetchOHAI({
+            url: e,
+            project: o("WAWebACSTokenConfig").ACS_PROJECTS
+              .WA_StatusMusicReporting,
+            payload: n,
+            headers: a,
+          });
+          return i;
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
+    function p(e) {
       var t = new FormData(),
         n = o("WAWebMobilePlatforms").isSMB() ? s : u;
       return (
         t.append("app_id", n),
         t.append("app_version", o("WAWebBuildConstants").VERSION_STR),
-        t.append("events", o("WAWebFileUtils").createFile([p(e)], "snapl.txt")),
+        t.append("events", o("WAWebFileUtils").createFile([_(e)], "snapl.txt")),
         t
       );
     }
-    function p(e) {
+    function _(e) {
       return e
         .map(function (e) {
           return JSON.stringify(e);
         })
         .join("\n");
     }
-    l.uploadMusicConsumptionLogs = c;
+    l.uploadMusicConsumptionLogs = d;
   },
   98,
 );

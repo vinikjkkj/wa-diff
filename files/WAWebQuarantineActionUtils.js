@@ -77,7 +77,7 @@ __d(
               r("WAWebWid").isSupportAccount(e) ||
               r("WAWebWid").isCAPISupportAccount(e) ||
               r("WAWebWid").isAiHub(e) ||
-              o("WAWebBotUtils").isMetaAiBot(e)
+              o("WAWebBotUtils").isAnyMetaAiBot(e)
             ) &&
             !(yield o("WAWebApiContact").isAddressBookContact(
               o("WAWebWidToJid").widToUserJid(

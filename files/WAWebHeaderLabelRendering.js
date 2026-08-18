@@ -7,19 +7,14 @@ __d(
     "WAWebDropdown.react",
     "WAWebEnvironment",
     "WAWebGroupType",
-    "WAWebIcLabelFilledIcon.react",
     "WAWebL10N",
     "WAWebLabelChatHeaderButton.react",
     "WAWebLabelCollection",
     "WAWebLabelGetters",
-    "WAWebLabelOutlineIcon.react",
-    "WAWebLabelStackIcon.react",
-    "WAWebLabels.react",
     "WAWebLabelsDropdown.react",
     "WAWebListIcon.react",
     "WAWebListIconStacked.react",
     "WAWebListPeopleIcon.react",
-    "WAWebListsGatingUtils",
     "WAWebListsLabelGatingUtils",
     "WAWebMenuBar.react",
     "WAWebMobilePlatforms",
@@ -32,19 +27,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = e || (e = o("react")),
-      c = {
-        singleLabelIcon: { width: "xvy4d1p", height: "xxk0z11", $$css: !0 },
-        labelStackIcon: {
-          position: "x10l6tqk",
-          top: "xnfr1j",
-          insetInlineStart: "x1o0tod",
-          left: null,
-          right: null,
-          $$css: !0,
-        },
-      };
-    function d(e, t, n) {
+      u = e || (e = o("react"));
+    function c(e, t, n) {
       return {
         menu: u.jsx(r("WAWebLabelsDropdown.react"), {
           chat: e,
@@ -60,7 +44,7 @@ __d(
         offsetX: 0,
       };
     }
-    function m(e) {
+    function d(e) {
       var t,
         n = (t = e.groupMetadata) == null ? void 0 : t.groupType;
       return (
@@ -70,7 +54,7 @@ __d(
         n === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
       );
     }
-    function p(e) {
+    function m(e) {
       var t = o("react-compiler-runtime").c(12),
         n = e.chat,
         a;
@@ -84,11 +68,11 @@ __d(
         ? ((s = l != null ? l : []), (t[1] = l), (t[2] = s))
         : (s = t[2]);
       var u;
-      t[3] !== s ? ((u = s.map(_)), (t[3] = s), (t[4] = u)) : (u = t[4]);
+      t[3] !== s ? ((u = s.map(p)), (t[3] = s), (t[4] = u)) : (u = t[4]);
       var c, d;
       t[5] !== l
         ? ((c = function () {
-            return f(l);
+            return _(l);
           }),
           (d = [l]),
           (t[5] = l),
@@ -101,134 +85,84 @@ __d(
           c,
           d,
         ),
-        p;
+        g;
       return (
         t[8] !== n || t[9] !== m || t[10] !== l
-          ? ((p = g(n, l, m)), (t[8] = n), (t[9] = m), (t[10] = l), (t[11] = p))
-          : (p = t[11]),
-        p
+          ? ((g = f(n, l, m)), (t[8] = n), (t[9] = m), (t[10] = l), (t[11] = g))
+          : (g = t[11]),
+        g
       );
     }
-    function _(e) {
+    function p(e) {
       return "label_updated_" + e;
     }
-    function f(e) {
+    function _(e) {
       return (e != null ? e : []).map(function (e) {
         var t = o("WAWebLabelCollection").LabelCollection.get(e);
         return t != null ? o("WAWebLabelGetters").getHexColor(t) : void 0;
       });
     }
-    function g(e, t, n) {
+    function f(e, t, n) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
         !o("WAWebListsLabelGatingUtils").isCTWASMBLabelChatHeaderEnabledWeb() ||
         r("WAWebEnvironment").isGuest ||
         !e.canSend ||
         o("WAWebChatGetters").getIsBroadcast(e) ||
-        (r("WAWebEnvironment").isWindows && m(e)) ||
+        (r("WAWebEnvironment").isWindows && d(e)) ||
         e.id.isAiHub()
       )
         return null;
-      var a = o("WAWebListsGatingUtils").isListsEnabled(),
-        i =
-          r("WAWebEnvironment").isWindows || m(e)
-            ? u.jsx("div", {
-                className: "x150mmf0",
-                children: u.jsx(o("WAWebMenuBar.react").MenuBarItem, {
-                  tabOrder: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
-                  testid: "labels-button",
-                  icon: (function () {
-                    var i = t != null ? t : e.labels;
-                    if (!i || i.length === 0)
-                      return a
-                        ? u.jsx(
-                            o("WAWebListPeopleIcon.react").ListPeopleIcon,
-                            {},
-                          )
-                        : u.jsx(
-                            o("WAWebLabelOutlineIcon.react").LabelOutlineIcon,
-                            {},
-                          );
-                    if (i.length === 1) {
-                      if (a) {
-                        var l = n == null ? void 0 : n[0];
-                        return u.jsx("div", {
-                          className: "x6s0dn4 x78zum5 xxk0z11 xl56j7k xvy4d1p",
-                          children: u.jsx(r("WAWebListIcon.react"), {
-                            color: l,
-                            size: 16,
-                          }),
-                        });
-                      }
-                      return u.jsx(o("WAWebLabels.react").Labels, {
-                        iconXstyle: c.singleLabelIcon,
-                        labels: [i[0]],
-                        showName: !1,
-                      });
-                    }
-                    if (a)
-                      return u.jsx("div", {
-                        className: "x6s0dn4 x78zum5 xxk0z11 xl56j7k xvy4d1p",
-                        children: u.jsx(r("WAWebListIconStacked.react"), {
-                          labelIds: i,
-                          size: 16,
-                        }),
-                      });
-                    var s = o(
-                        "WAWebLabelChatHeaderButton.react",
-                      ).getLabelStackInfo(i),
-                      d = s.primaryLabel,
-                      m = s.secondaryLabel;
-                    return u.jsxs("div", {
-                      className: "xxk0z11 x1n2onr6 xvy4d1p",
-                      children: [
-                        u.jsx(
-                          o("WAWebIcLabelFilledIcon.react").IcLabelFilledIcon,
-                          {
-                            width: 24,
-                            height: 24,
-                            style: {
-                              color:
-                                (d == null ? void 0 : d.color) != null
-                                  ? d.color
-                                  : void 0,
-                            },
-                            xstyle: c.labelStackIcon,
-                          },
-                        ),
-                        u.jsx(o("WAWebLabelStackIcon.react").LabelStackIcon, {
-                          width: 24,
-                          height: 24,
-                          style: {
-                            color:
-                              (m == null ? void 0 : m.color) != null
-                                ? m.color
-                                : void 0,
-                          },
-                          xstyle: c.labelStackIcon,
-                        }),
-                      ],
+      var a =
+        r("WAWebEnvironment").isWindows || d(e)
+          ? u.jsx("div", {
+              className: "x150mmf0",
+              children: u.jsx(o("WAWebMenuBar.react").MenuBarItem, {
+                tabOrder: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
+                testid: "labels-button",
+                icon: (function () {
+                  var a = t != null ? t : e.labels;
+                  if (!a || a.length === 0)
+                    return u.jsx(
+                      o("WAWebListPeopleIcon.react").ListPeopleIcon,
+                      {},
+                    );
+                  if (a.length === 1) {
+                    var i = n == null ? void 0 : n[0];
+                    return u.jsx("div", {
+                      className: "x6s0dn4 x78zum5 xxk0z11 xl56j7k xvy4d1p",
+                      children: u.jsx(r("WAWebListIcon.react"), {
+                        color: i,
+                        size: 16,
+                      }),
                     });
-                  })(),
-                  title: a ? s._(/*BTDS*/ "Lists") : s._(/*BTDS*/ "Labels"),
-                  dropdownMenu: d(e),
-                }),
-              })
-            : u.jsx(
-                o("WAWebLabelChatHeaderButton.react").LabelChatHeaderButton,
-                { chat: e },
-              );
+                  }
+                  return u.jsx("div", {
+                    className: "x6s0dn4 x78zum5 xxk0z11 xl56j7k xvy4d1p",
+                    children: u.jsx(r("WAWebListIconStacked.react"), {
+                      labelIds: a,
+                      size: 16,
+                    }),
+                  });
+                })(),
+                title: s._(/*BTDS*/ "Lists"),
+                dropdownMenu: c(e),
+              }),
+            })
+          : u.jsx(o("WAWebLabelChatHeaderButton.react").LabelChatHeaderButton, {
+              chat: e,
+            });
       return u.jsx(r("WDSTooltip.react"), {
-        label: a ? s._(/*BTDS*/ "Add to list") : s._(/*BTDS*/ "Label chat"),
+        label: s._(/*BTDS*/ "Add to list"),
         shortcut: o("WAWebActions").Action.LABEL_CHAT,
-        children: i,
+        children: a,
       });
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.createLabelsDropdownMenu = d),
-      (l.isCommunityRelatedChat = m),
-      (l.WAWebHeaderLabelButton = p),
-      (l.renderLabelChatHeaderIcon = g));
+    ((f.displayName = f.name + " [from " + i.id + "]"),
+      (l.createLabelsDropdownMenu = c),
+      (l.isCommunityRelatedChat = d),
+      (l.WAWebHeaderLabelButton = m),
+      (l.renderLabelChatHeaderIcon = f));
   },
   226,
 );

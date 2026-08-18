@@ -27,7 +27,7 @@ __d(
               var e,
                 t = (e = this.$1) == null ? void 0 : e.getItem(s),
                 n = t != null ? JSON.parse(t) : {};
-              return typeof n == "object" && n !== null ? n : {};
+              return n !== null && typeof n == "object" ? n : {};
             } catch (e) {
               return (this.$3(e, "readStore"), {});
             }

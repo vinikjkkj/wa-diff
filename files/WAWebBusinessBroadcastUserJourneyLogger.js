@@ -136,14 +136,14 @@ __d(
             o("WAWebBBHomeLogs").conversationHeaderMenuOpened(this.$1, t);
           }),
           (t.broadcastChatListItemViewed = function (t, n, r, a, i) {
-            o("WAWebBBHomeLogs").broadcastChatListItemViewed(
-              this.$1,
-              t,
-              n,
-              r,
-              a,
-              i,
-            );
+            o("WAWebBBHomeLogs").broadcastChatListItemViewed({
+              broadcastChatCount: n,
+              hasBroadcastWithNonZeroRecipients: a,
+              hasBroadcastWithZeroRecipients: r,
+              isBroadcastInChatList: t,
+              log: this.$1,
+              primarySupportsBusinessBroadcast: i,
+            });
           }),
           (t.broadcastThreadViewed = function (t) {
             o("WAWebBBHomeLogs").broadcastThreadViewed(this.$1, t);
@@ -265,14 +265,18 @@ __d(
               "WAWebBBBroadcastCreationLogs",
             ).attachmentPreviewSaveButtonClicked(this.$1, t, n, r);
           }),
-          (t.attachmentPreviewButtonClicked = function (t, n, r, a) {
-            o("WAWebBBBroadcastCreationLogs").attachmentPreviewButtonClicked(
-              this.$1,
-              t,
-              n,
-              r,
-              a,
-            );
+          (t.attachmentPreviewButtonClicked = function (t) {
+            var e = t.entryPoint,
+              n = t.fileExt,
+              r = t.fileSize,
+              a = t.userActionTarget;
+            o("WAWebBBBroadcastCreationLogs").attachmentPreviewButtonClicked({
+              entryPoint: e,
+              fileExt: n,
+              fileSize: r,
+              log: this.$1,
+              userActionTarget: a,
+            });
           }),
           (t.attachmentRemoveButtonClicked = function (t, n, r, a) {
             o("WAWebBBBroadcastCreationLogs").attachmentRemoveButtonClicked(
@@ -595,12 +599,12 @@ __d(
             o("WAWebBBContactImportLogs").importAudienceError(this.$1, t, n);
           }),
           (t.audienceInfoButtonClicked = function (t, n, r) {
-            o("WAWebBBInfoDrawerLogs").audienceInfoButtonClicked(
-              this.$1,
-              t,
-              n,
-              r,
-            );
+            o("WAWebBBInfoDrawerLogs").audienceInfoButtonClicked({
+              audienceId: r,
+              entryPoint: t,
+              log: this.$1,
+              surface: n,
+            });
           }),
           (t.starMessageButtonClicked = function (t, n, r, a) {
             o("WAWebBBInfoDrawerLogs").starMessageButtonClicked(

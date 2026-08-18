@@ -45,16 +45,20 @@ __d(
         );
       }
     }
-    function m(e, t, n, r) {
-      var o = d(),
-        a = Date.now();
-      ((o[e.toString()] = {
-        addedTime: a,
-        deepLinkType: t,
-        authSuccess: n,
-        partnerName: r != null ? r : null,
+    function m(e) {
+      var t = e.authSuccess,
+        n = e.chatId,
+        r = e.deepLinkType,
+        o = e.partnerName,
+        a = d(),
+        i = Date.now();
+      ((a[n.toString()] = {
+        addedTime: i,
+        deepLinkType: r,
+        authSuccess: t,
+        partnerName: o != null ? o : null,
       }),
-        c(o));
+        c(a));
     }
     function p(e) {
       var t = d(),

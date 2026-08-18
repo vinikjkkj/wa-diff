@@ -6,6 +6,7 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebMobilePlatforms",
     "WAWebNewsletterCommonGatingUtils",
+    "WAWebNewsletterMetadataGetters",
     "WAWebStateUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -296,7 +297,7 @@ __d(
     function oe(e) {
       return e == null ||
         e.inviteCode == null ||
-        e.isSuspendedOrTerminated ||
+        o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(e) ||
         !e.iAmAdminOrOwner()
         ? !1
         : re();
@@ -433,9 +434,10 @@ __d(
       );
     }
     function $e(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
-      return (t = n.newsletterMetadata) != null && t.isSuspendedOrTerminated
+      var t = o("WAWebStateUtils").unproxy(e),
+        n = t.newsletterMetadata;
+      return n != null &&
+        o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(n)
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
             "channels_updates_tab_swipe_actions_enabled",
@@ -687,7 +689,7 @@ __d(
           "channel_status_creation",
         ) ||
         !e.iAmAdminOrOwner() ||
-        e.isSuspendedOrTerminated
+        o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(e)
         ? !1
         : ((t =
             (n = e.capabilities) == null

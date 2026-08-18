@@ -13,7 +13,6 @@ __d(
     "WAWebFuzzySearchMatchResult",
     "WAWebL10NAccentFold",
     "WAWebListsGatingUtils",
-    "WAWebListsLabelGatingUtils",
     "WAWebPrefixSearchMatchResult",
     "WAWebSearchMatchStrategies",
     "WAWebTrunkPrefixUtils",
@@ -100,8 +99,7 @@ __d(
     function f(e, t, n, a, i) {
       var l = o("WAWebFrontendContactGetters").getSearchName(e);
       if (
-        (o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
-          o("WAWebListsGatingUtils").isListsEnabled()) &&
+        o("WAWebListsGatingUtils").isListsEnabled() &&
         !r("isStringNullOrEmpty")(a)
       ) {
         var u,

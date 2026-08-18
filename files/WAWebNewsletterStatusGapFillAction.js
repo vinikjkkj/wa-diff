@@ -8,6 +8,7 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterGetStatusesJob",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterQueryUtils",
     "WAWebNewsletterStatusProcessingUtils",
     "WAWebNewsletterSyntheticStatusUtils",
@@ -268,7 +269,9 @@ __d(
                         function (e) {
                           var t;
                           return (
-                            e.isSubscribedOrOwned &&
+                            o(
+                              "WAWebNewsletterMetadataGetters",
+                            ).getIsSubscribedOrOwned(e) &&
                             !o(
                               "WAWebNewsletterSyntheticStatusUtils",
                             ).isNewsletterStatusExpired(

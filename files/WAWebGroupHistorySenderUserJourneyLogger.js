@@ -146,6 +146,49 @@ __d(
               uiSurface: n,
             });
           }),
+          (n.$3 = function (t, n) {
+            var e = n.bundleSendSource,
+              r = n.recipientCount,
+              o = n.uiSurface;
+            this.$1({
+              bundleSendSource: e,
+              groupHistorySenderActionType: t,
+              recipientCount: r,
+              uiSurface: o,
+            });
+          }),
+          (n.bottomsheetDisplayed = function (t) {
+            this.$3(
+              o("WAWebWamEnumGroupHistorySenderActionType")
+                .GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_BOTTOMSHEET_DISPLAYED,
+              t,
+            );
+          }),
+          (n.bottomsheetConfirmButtonClicked = function (t) {
+            this.$3(
+              o("WAWebWamEnumGroupHistorySenderActionType")
+                .GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_BOTTOMSHEET_CONFIRM_BUTTON_CLICKED,
+              t,
+            );
+          }),
+          (n.bottomsheetCancelButtonClicked = function (t) {
+            this.$3(
+              o("WAWebWamEnumGroupHistorySenderActionType")
+                .GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_BOTTOMSHEET_CANCEL_BUTTON_CLICKED,
+              t,
+            );
+          }),
+          (n.bottomsheetDismissed = function (t) {
+            this.$3(
+              o("WAWebWamEnumGroupHistorySenderActionType")
+                .GROUP_HISTORY_SENDER_ACTION_TYPE
+                .GROUP_HISTORY_BOTTOMSHEET_DISMISSED,
+              t,
+            );
+          }),
           (n.bundleMessageSent = function (t) {
             var e = t.bundleSendSource,
               n = t.groupHistoryMessagesCount,
@@ -176,7 +219,7 @@ __d(
               uiSurface: r,
             });
           }),
-          (n.$3 = function (t, n) {
+          (n.$4 = function (t, n) {
             var e = n.ineligibleReason,
               r = n.uiSurface;
             this.$1({
@@ -186,7 +229,7 @@ __d(
             });
           }),
           (n.sendIneligibleAtCtaClick = function (t) {
-            this.$3(
+            this.$4(
               o("WAWebWamEnumGroupHistorySenderActionType")
                 .GROUP_HISTORY_SENDER_ACTION_TYPE
                 .GROUP_HISTORY_SEND_INELIGIBLE_AT_CTA_CLICK,
@@ -194,7 +237,7 @@ __d(
             );
           }),
           (n.sendIneligibleAtSendClick = function (t) {
-            this.$3(
+            this.$4(
               o("WAWebWamEnumGroupHistorySenderActionType")
                 .GROUP_HISTORY_SENDER_ACTION_TYPE
                 .GROUP_HISTORY_SEND_INELIGIBLE_AT_SEND_CLICK,

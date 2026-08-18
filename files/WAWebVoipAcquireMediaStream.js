@@ -1389,33 +1389,35 @@ __d(
         at.apply(this, arguments)
       );
     }
-    function it(e, t, n, r) {
+    function it(e) {
       return lt.apply(this, arguments);
     }
     function lt() {
       return (
-        (lt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield nt({
+        (lt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.deviceId,
+            n = e.isInActiveCall,
+            r = e.skipPermissionRequest,
+            a = e.targetWindow,
+            i = yield nt({
               isInActiveCall: n,
               skipPermissionRequest: r,
-              targetWindow: t,
+              targetWindow: a,
             });
-            return a.some(function (t) {
-              return t.deviceId === e;
-            })
-              ? !0
-              : (o("WALogger").ERROR(
-                  G ||
-                    (G = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: getIsValidVideoDevice: device not found in available devices: ",
-                      "",
-                    ])),
-                  e,
-                ),
-                !1);
-          },
-        )),
+          return i.some(function (e) {
+            return e.deviceId === t;
+          })
+            ? !0
+            : (o("WALogger").ERROR(
+                G ||
+                  (G = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: getIsValidVideoDevice: device not found in available devices: ",
+                    "",
+                  ])),
+                t,
+              ),
+              !1);
+        })),
         lt.apply(this, arguments)
       );
     }

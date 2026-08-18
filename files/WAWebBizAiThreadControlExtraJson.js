@@ -1,35 +1,30 @@
 __d(
   "WAWebBizAiThreadControlExtraJson",
-  ["WAWebProtobufsE2E.pb"],
+  ["WAWebBoolFunc", "WAWebProtobufsE2E.pb"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       var t = e.raw,
         n = e.isSmartComposerEnabled,
-        r =
-          n === void 0
-            ? function () {
-                return !1;
-              }
-            : n,
-        o = e.notificationTimestampMs,
-        a = o === void 0 ? null : o;
+        r = n === void 0 ? o("WAWebBoolFunc").returnFalse : n,
+        a = e.notificationTimestampMs,
+        i = a === void 0 ? null : a;
       if (t == null) return null;
-      var i = s(t);
-      if (i == null || i.is_global_thread_state_update !== !0) return null;
-      var l = i.thread_states;
-      if (!Array.isArray(l)) return null;
-      var c = r(),
-        d = [];
-      for (var m of l) {
-        var p = u({
-          entry: m,
-          smartComposerEnabled: c,
-          notificationTimestampMs: a,
+      var l = s(t);
+      if (l == null || l.is_global_thread_state_update !== !0) return null;
+      var c = l.thread_states;
+      if (!Array.isArray(c)) return null;
+      var d = r(),
+        m = [];
+      for (var p of c) {
+        var _ = u({
+          entry: p,
+          smartComposerEnabled: d,
+          notificationTimestampMs: i,
         });
-        p != null && d.push(p);
+        _ != null && m.push(_);
       }
-      return d;
+      return m;
     }
     function s(e) {
       try {

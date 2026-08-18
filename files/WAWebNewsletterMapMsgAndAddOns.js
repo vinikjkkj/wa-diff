@@ -49,12 +49,13 @@ __d(
                 ? void 0
                 : r.reactionsReaction,
             g = (a = e.newsletterPollVotesMixin) == null ? void 0 : a.votesVote,
-            h = o("WAWebNewsletterMsgUtils").mapNewsletterMsgToMsgData(
-              e,
-              t,
-              ((i = f == null ? void 0 : f.length) != null ? i : 0) > 0,
-              n,
-            ),
+            h = o("WAWebNewsletterMsgUtils").mapNewsletterMsgToMsgData({
+              from: t,
+              hasReaction:
+                ((i = f == null ? void 0 : f.length) != null ? i : 0) > 0,
+              lastUpdateFromServerTs: n,
+              message: e,
+            }),
             y =
               (l = h == null ? void 0 : h.id) != null
                 ? l

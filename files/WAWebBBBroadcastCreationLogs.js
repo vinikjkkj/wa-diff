@@ -89,16 +89,21 @@ __d(
               .ATTACHMENT_PREVIEW_SAVE_BUTTON,
         }));
     }
-    function g(e, t, n, r, a) {
-      var i = {};
-      (r != null && (i.attachmentExt = r),
-        a != null && (i.attachmentFileSize = a),
-        e({
+    function g(e) {
+      var t = e.entryPoint,
+        n = e.fileExt,
+        r = e.fileSize,
+        a = e.log,
+        i = e.userActionTarget,
+        l = {};
+      (n != null && (l.attachmentExt = n),
+        r != null && (l.attachmentFileSize = r),
+        a({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
           entryPoint: t,
-          extraAttributes: i,
+          extraAttributes: l,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
-          userActionTarget: n,
+          userActionTarget: i,
         }));
     }
     function h(e, t, n, r, a) {

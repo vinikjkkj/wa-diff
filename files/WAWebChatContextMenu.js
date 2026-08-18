@@ -19,7 +19,7 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebListsGatingUtils",
-    "WAWebListsLabelGatingUtils",
+    "WAWebMobilePlatforms",
     "WAWebUnfavoriteRefreshedIcon.react",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WDSIconIcCancel.react",
@@ -72,7 +72,7 @@ __d(
         );
       var _ = o("WAWebListsGatingUtils").isListsEnabled();
       if (
-        (o("WAWebListsLabelGatingUtils").canEditLabelAssociation() &&
+        (o("WAWebMobilePlatforms").isSMB() &&
           !_ &&
           p.push(
             u.jsx(

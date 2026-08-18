@@ -124,7 +124,6 @@ __d(
           height: "xc9qbxq",
           $$css: !0,
         },
-        input: { $$css: !0 },
         addOnStart: {
           color: "xhslqc4",
           marginInlineStart: "x1wbi8v6",

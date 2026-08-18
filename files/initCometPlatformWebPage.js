@@ -32,18 +32,19 @@ __d(
     function u(t, a, i) {
       var l,
         u = a.disableTimeSpentLogging,
-        c = a.productAttribution,
-        d = a.timeSpentMetadata,
-        m = a.timeSpentRoute;
+        c = a.disableWebDevicePerfLogging,
+        d = a.productAttribution,
+        m = a.timeSpentMetadata,
+        p = a.timeSpentRoute;
       if (
         (o("CometErrorSystem").init(t),
         !((l = i == null ? void 0 : i.disableDevTools) != null && l))
       ) {
-        var p;
+        var _;
         n("cr:2654") &&
           n("cr:2654").init({
             connectFromIFrame:
-              (p = i == null ? void 0 : i.connectFromIFrame) != null ? p : !1,
+              (_ = i == null ? void 0 : i.connectFromIFrame) != null ? _ : !1,
           });
       }
       (n("cr:20588") == null || n("cr:20588").init(),
@@ -53,16 +54,17 @@ __d(
         s.onReady(function (e) {
           return e.init();
         }),
-        o("WebPerformanceDeviceInfo").initWebDevicePerfLoggingPassive(),
+        c !== !0 &&
+          o("WebPerformanceDeviceInfo").initWebDevicePerfLoggingPassive(),
         e.onReady(function (e) {
           return e.init();
         }),
         r("CometClientConsistency").init(),
         o("CometPixelRatioDetector").initDetecting(),
         u !== !0 &&
-          (o("CometVisitationManager").init(m.tracePolicy),
-          o("CometTimeSpentNavigationLogger").init(m, d, c),
-          o("CometTimeSpentBitArrayLogger").init(m.tracePolicy),
+          (o("CometVisitationManager").init(p.tracePolicy),
+          o("CometTimeSpentNavigationLogger").init(p, m, d),
+          o("CometTimeSpentBitArrayLogger").init(p.tracePolicy),
           r("shouldUseNonReactTSListeners") && r("initCometTimeSpentLogger")()),
         n("cr:1132918") && n("cr:1132918").handleServerErrors(),
         n("cr:1033").onReady(function (e) {

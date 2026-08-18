@@ -42,16 +42,20 @@ __d(
                   "[external_ctx] Authorisation successful",
                 ])),
             ),
-              o("WAWebExternalEntryPointPrefs").saveExternalEntryPoint(
-                n,
-                a,
-                (e == null || (t = e.xwa_external_ctx_authorise_wa_chat) == null
-                  ? void 0
-                  : t.success) === !0,
-                e == null || (r = e.xwa_external_ctx_authorise_wa_chat) == null
-                  ? void 0
-                  : r.partner_name,
-              ));
+              o("WAWebExternalEntryPointPrefs").saveExternalEntryPoint({
+                authSuccess:
+                  (e == null ||
+                  (t = e.xwa_external_ctx_authorise_wa_chat) == null
+                    ? void 0
+                    : t.success) === !0,
+                chatId: n,
+                deepLinkType: a,
+                partnerName:
+                  e == null ||
+                  (r = e.xwa_external_ctx_authorise_wa_chat) == null
+                    ? void 0
+                    : r.partner_name,
+              }));
           })
           .catch(function (e) {
             o("WALogger").ERROR(

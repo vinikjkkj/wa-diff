@@ -3,14 +3,15 @@ __d(
   ["WAWebVoipVideoRendererRegistry"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
-      return (
-        n === void 0 && (n = window.devicePixelRatio),
-        { width: Math.trunc(e * n), height: Math.trunc(t * n) }
-      );
+    function e(e) {
+      var t = e.cssHeight,
+        n = e.cssWidth,
+        r = e.scale,
+        o = r === void 0 ? window.devicePixelRatio : r;
+      return { width: Math.trunc(n * o), height: Math.trunc(t * o) };
     }
     function s(t, n, r, a) {
-      var i = e(n, r, a);
+      var i = e({ cssHeight: r, cssWidth: n, scale: a });
       return (
         o(
           "WAWebVoipVideoRendererRegistry",

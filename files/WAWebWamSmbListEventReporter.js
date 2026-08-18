@@ -3,7 +3,6 @@ __d(
   [
     "WAWebGetSharedSessionId",
     "WAWebLabelCollection",
-    "WAWebListsGatingUtils",
     "WAWebListsLogging",
     "WAWebMobilePlatforms",
     "WAWebSmbListEventWamEvent",
@@ -18,12 +17,7 @@ __d(
           ? e
           : o("WAWebGetSharedSessionId").getSharedSessionId();
     function u(e) {
-      if (
-        !(
-          !o("WAWebMobilePlatforms").isSMB() ||
-          !o("WAWebListsGatingUtils").isListsEnabled()
-        )
-      ) {
+      if (o("WAWebMobilePlatforms").isSMB()) {
         e.appSessionId = s;
         var t = new (o("WAWebSmbListEventWamEvent").SmbListEventWamEvent)(e);
         t.commit();

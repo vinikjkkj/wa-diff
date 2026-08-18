@@ -17,7 +17,6 @@ __d(
     "WAWebGroupHistoryParticipantJob",
     "WAWebLabelJidSync",
     "WAWebListsGatingUtils",
-    "WAWebListsLabelGatingUtils",
     "WAWebMessageRangeUtils",
     "WAWebMobilePlatforms",
     "WAWebModelStorageUtils",
@@ -143,7 +142,7 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
-            o("WAWebListsLabelGatingUtils").canEditLabelAssociation() ||
+            o("WAWebMobilePlatforms").isSMB() ||
             o("WAWebListsGatingUtils").isListsEnabled()
           ) {
             var t = yield _(e),
@@ -339,7 +338,7 @@ __d(
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (
             !(
-              o("WAWebListsLabelGatingUtils").canEditLabelAssociation() ||
+              o("WAWebMobilePlatforms").isSMB() ||
               o("WAWebListsGatingUtils").isListsEnabled()
             )
           )

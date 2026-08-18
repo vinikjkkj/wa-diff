@@ -6,14 +6,15 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebContactSearchGatingUtils",
     "WAWebExactSearchMatchResult",
+    "WAWebFrontendNewsletterMetadataGetters",
     "WAWebFuzzyMatcher",
     "WAWebFuzzySearchMatchResult",
-    "WAWebL10NAccentFold",
     "WAWebModelUtils",
     "WAWebNewsletterGeosuspendedCountryCollection",
     "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterMessageDeliveryUpdateCollection",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterMetricUtils",
     "WAWebNewsletterPendingAdminsCollection",
     "WAWebNewsletterSubscribersCollection",
@@ -77,37 +78,6 @@ __d(
             return [];
           })),
           (t.recentlyFollowedFrom = o("WAWebModelUtils").session()),
-          (t.isSuspendedOrTerminated = o("WAWebModelUtils").derived(
-            function () {
-              return this.suspended || this.terminated;
-            },
-            ["suspended", "terminated"],
-          )),
-          (t.canBeMuted = o("WAWebModelUtils").derived(
-            function () {
-              return (
-                (this.iAmOwner() && this.adminCount > 1) ||
-                this.iAmAdmin() ||
-                this.iAmSubscriber()
-              );
-            },
-            ["adminCount", "membershipType"],
-          )),
-          (t.isSubscribedOrOwned = o("WAWebModelUtils").derived(
-            function () {
-              return this.iAmAdminOrOwner() || this.iAmSubscriber();
-            },
-            ["membershipType"],
-          )),
-          (t.isPreview = o("WAWebModelUtils").derived(
-            function () {
-              return (
-                this.membershipType ===
-                o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Guest
-              );
-            },
-            ["membershipType"],
-          )),
           (t.showInsightDelta = o("WAWebModelUtils").derived(
             function () {
               return (
@@ -116,14 +86,6 @@ __d(
               );
             },
             ["creationTime"],
-          )),
-          (t.searchName = o("WAWebModelUtils").derived(
-            function () {
-              return this.name === ""
-                ? ""
-                : o("WAWebL10NAccentFold").accentFold(this.name);
-            },
-            ["name"],
           )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
@@ -203,15 +165,15 @@ __d(
           return o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(this);
         }),
         (n.searchMatchExact = function (t) {
-          var e = o("WAWebSearchMatchStrategies").substringMatch(
-            this.searchName,
-            t,
-          );
-          return e == null
+          var e = o("WAWebFrontendNewsletterMetadataGetters").getSearchName(
+              this,
+            ),
+            n = o("WAWebSearchMatchStrategies").substringMatch(e, t);
+          return n == null
             ? null
             : {
-                match: this.searchName,
-                results: e.map(function (e) {
+                match: e,
+                results: n.map(function (e) {
                   return new (o(
                     "WAWebExactSearchMatchResult",
                   ).WAWebExactSearchMatchResult)(e.startIndex, e.length);
@@ -226,17 +188,27 @@ __d(
               o(
                 "WAWebContactSearchGatingUtils",
               ).getFuzzySearchDistanceThreshold(),
-            r = [];
-          for (var a of e) {
-            var i = o("WAWebFuzzyMatcher").fuzzyMatch({
+            r = o("WAWebFrontendNewsletterMetadataGetters").getSearchName(this),
+            a = [];
+          for (var i of e) {
+            var l = o("WAWebFuzzyMatcher").fuzzyMatch({
               costTolerance: o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
-              input: this.searchName,
-              query: a,
+              input: r,
+              query: i,
             });
-            if (!i.isMatch() || i.getSimilarityRating() < n) return null;
-            r.push(i);
+            if (!l.isMatch() || l.getSimilarityRating() < n) return null;
+            a.push(l);
           }
-          return { match: this.searchName, results: r };
+          return { match: r, results: a };
+        }),
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o(
+              "WAWebNewsletterMetadataGetters",
+            ).clearNewsletterMetadataGetterCacheFor(this),
+            o(
+              "WAWebFrontendNewsletterMetadataGetters",
+            ).clearFrontendNewsletterMetadataGetterCacheFor(this));
         }),
         t
       );

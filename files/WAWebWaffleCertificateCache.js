@@ -49,62 +49,63 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t, n, r) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            var l = i != null ? i : e;
-            if (!(l <= 0)) {
-              var s = Math.floor(Date.now() / 1e3);
-              try {
-                yield o("WAWebModelStorageUtils")
-                  .getStorage()
-                  .lock(
-                    ["account-linking"],
-                    (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e) {
-                          var n = e[0],
-                            i = yield n.get(
-                              o("WAWebAccountLinkingConstants").AccountLinkKey,
-                            ),
-                            u = {
-                              certEncryptionPem: t,
-                              certPasswordPem: r != null ? r : void 0,
-                              certPasswordKeyId: a != null ? a : void 0,
-                              certTtlSeconds: l,
-                              certFetchTimestamp: s,
-                            },
-                            c =
-                              i != null
-                                ? babelHelpers.extends({}, i, u)
-                                : babelHelpers.extends(
-                                    {
-                                      accountLinkKey: o(
-                                        "WAWebAccountLinkingConstants",
-                                      ).AccountLinkKey,
-                                      linkState: o(
-                                        "WAWebAccountLinkingConstants",
-                                      ).AccountLinkState.Unknown,
-                                      linkTimestamp: 0,
-                                    },
-                                    u,
-                                  );
-                          yield n.createOrReplace(c);
-                        },
-                      );
-                      return function (t) {
-                        return e.apply(this, arguments);
-                      };
-                    })(),
-                  );
-              } catch (e) {}
-            }
-          },
-        )),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.encryptionPem,
+            a = t.passwordKeyId,
+            i = t.passwordPem,
+            l = t.ttlSeconds,
+            s = l != null ? l : e;
+          if (!(s <= 0)) {
+            var u = Math.floor(Date.now() / 1e3);
+            try {
+              yield o("WAWebModelStorageUtils")
+                .getStorage()
+                .lock(
+                  ["account-linking"],
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var t = e[0],
+                          n = yield t.get(
+                            o("WAWebAccountLinkingConstants").AccountLinkKey,
+                          ),
+                          l = {
+                            certEncryptionPem: r,
+                            certPasswordPem: i != null ? i : void 0,
+                            certPasswordKeyId: a != null ? a : void 0,
+                            certTtlSeconds: s,
+                            certFetchTimestamp: u,
+                          },
+                          c =
+                            n != null
+                              ? babelHelpers.extends({}, n, l)
+                              : babelHelpers.extends(
+                                  {
+                                    accountLinkKey: o(
+                                      "WAWebAccountLinkingConstants",
+                                    ).AccountLinkKey,
+                                    linkState: o("WAWebAccountLinkingConstants")
+                                      .AccountLinkState.Unknown,
+                                    linkTimestamp: 0,
+                                  },
+                                  l,
+                                );
+                        yield t.createOrReplace(c);
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                );
+            } catch (e) {}
+          }
+        })),
         d.apply(this, arguments)
       );
     }

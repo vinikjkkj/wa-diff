@@ -71,10 +71,10 @@ __d(
     y.model = h;
     var C = (function (t) {
       function n() {
-        for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
-          a[i] = arguments[i];
+        for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
+          r[a] = arguments[a];
         return (
-          (e = t.call.apply(t, [this].concat(a)) || this),
+          (e = t.call.apply(t, [this].concat(r)) || this),
           (e.id = o("WAWebBaseModel").prop()),
           (e.isOnline = o("WAWebBaseModel").session(!1)),
           (e.stale = o("WAWebBaseModel").session(!0)),
@@ -96,12 +96,6 @@ __d(
             return [];
           })),
           (e.chatstates = o("WAWebBaseModel").collection(y)),
-          (e.isGroup = o("WAWebBaseModel").derived(function () {
-            return r("WAWebWid").isGroup(this.id);
-          })),
-          (e.isUser = o("WAWebBaseModel").derived(function () {
-            return r("WAWebWid").isUser(this.id);
-          })),
           babelHelpers.assertThisInitialized(e) ||
             babelHelpers.assertThisInitialized(e)
         );
@@ -112,11 +106,11 @@ __d(
         (a.initialize = function () {
           var e = this;
           t.prototype.initialize.call(this);
-          var n = this.isGroup
+          var n = o("WAWebPresenceGetters").getIsGroup(this)
             ? { id: "", type: "unavailable" }
             : { id: this.id };
           (this.addChild("chatstate", new h(n)),
-            this.isGroup
+            o("WAWebPresenceGetters").getIsGroup(this)
               ? (this.listenTo(
                   this.chatstates,
                   "add change",
@@ -202,15 +196,15 @@ __d(
         }),
         (a.reset = function () {
           ((this.hasData = !1),
-            this.isGroup
+            o("WAWebPresenceGetters").getIsGroup(this)
               ? (this.chatstates.forEach(function (e) {
                   e.type = "unavailable";
                 }),
                 (this.groupOnlineCount = 0))
-              : this.isUser &&
+              : o("WAWebPresenceGetters").getIsUser(this) &&
                 (this.chatstate.unset("t"), this.chatstate.unset("deny")),
             this.chatstate.set({
-              id: this.isGroup ? "" : this.id,
+              id: o("WAWebPresenceGetters").getIsGroup(this) ? "" : this.id,
               type: "unavailable",
               t: void 0,
               deny: void 0,
@@ -219,7 +213,7 @@ __d(
         (a.getGroupSubtitleText = function (n) {
           var t, r;
           if (!this.hasData) return null;
-          if (!this.isGroup)
+          if (!o("WAWebPresenceGetters").getIsGroup(this))
             return (
               o("WALogger")
                 .ERROR(
@@ -258,7 +252,7 @@ __d(
         }),
         (a.getUserSubtitleText = function (t) {
           if ((t === void 0 && (t = !1), !this.hasData)) return null;
-          if (!this.isUser)
+          if (!o("WAWebPresenceGetters").getIsUser(this))
             return (
               o("WALogger")
                 .ERROR(
@@ -288,10 +282,11 @@ __d(
         }),
         (a.getFormattedString = function (t) {
           if (this.hasData) {
-            if (this.isGroup) {
+            if (o("WAWebPresenceGetters").getIsGroup(this)) {
               var e = this.getGroupSubtitleText(t);
               if (e != null) return { text: e.text, ariaLabel: e.ariaLabel };
-            } else if (this.isUser) return { text: this.getUserSubtitleText() };
+            } else if (o("WAWebPresenceGetters").getIsUser(this))
+              return { text: this.getUserSubtitleText() };
           } else return null;
           return null;
         }),
@@ -335,7 +330,7 @@ __d(
         (a.$PresenceImpl$p_1 = function () {
           var e;
           if (
-            this.isGroup &&
+            o("WAWebPresenceGetters").getIsGroup(this) &&
             o("WAWebGroupPresenceUtils").isSmallGroupPresenceEnabled()
           ) {
             var t = o("WAWebChatCollection").ChatCollection.get(this.id),
@@ -396,7 +391,8 @@ __d(
         }),
         (a.$PresenceImpl$p_4 = function () {
           var e = this;
-          this.isGroup && this.$PresenceImpl$p_1();
+          o("WAWebPresenceGetters").getIsGroup(this) &&
+            this.$PresenceImpl$p_1();
           var t =
               o(
                 "WAWebChatAssignmentCollection",
@@ -474,7 +470,7 @@ __d(
           return o("WAWebPresenceCollection").PresenceCollection;
         }),
         (a.$PresenceImpl$p_5 = function () {
-          if (this.isGroup)
+          if (o("WAWebPresenceGetters").getIsGroup(this))
             return o("WAWebChatCollection").ChatCollection.get(this.id);
           if (
             !o(

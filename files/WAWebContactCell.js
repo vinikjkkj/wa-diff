@@ -5,7 +5,7 @@ __d(
     "WAWebChatTextStatusWrapper",
     "WAWebContactGetters",
     "WAWebContactImage.react",
-    "WAWebListsLabelGatingUtils",
+    "WAWebMobilePlatforms",
     "WAWebName.react",
     "WAWebTextStatusGatingUtils",
     "react",
@@ -19,7 +19,7 @@ __d(
           showBusinessCheckmark: o(
             "WAWebContactGetters",
           ).getShowBusinessCheckmarkAsPrimary(e),
-          showLabelIcon: o("WAWebListsLabelGatingUtils").canDisplayLabel(),
+          showLabelIcon: o("WAWebMobilePlatforms").isSMB(),
           titlify: !0,
           ellipsify: !0,
           you: !0,

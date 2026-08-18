@@ -10,6 +10,8 @@ __d(
           (s = o("WAWebBotProduct")).BotProduct.META_AI,
         ],
         [e.META_BOT_FBID_WID.toString(), s.BotProduct.META_AI],
+        [e.META_BOT_SMB_PN_WID.toString(), s.BotProduct.META_AI],
+        [e.META_BOT_SMB_FBID_WID.toString(), s.BotProduct.META_AI],
         [e.META_BOT_TEE_FBID_WID.toString(), s.BotProduct.TEE_META_AI_GROUP],
         [e.MANUS_BOT_FBID_WID.toString(), s.BotProduct.MANUS],
         [e.HATCH_BOT_FBID_WID.toString(), s.BotProduct.HATCH],

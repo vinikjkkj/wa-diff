@@ -8,6 +8,7 @@ __d(
     "WAWebModalManager",
     "WAWebName.react",
     "WAWebNewsletterFollowQPLLogger",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterPullMessagesFromServerAction",
     "WAWebNewsletterSubscribeAction",
     "WAWebPDFNGatingUtils",
@@ -133,7 +134,10 @@ __d(
               eventUnit: t.eventUnit,
             }),
             a = e.newsletterMetadata;
-          if ((a == null ? void 0 : a.isPreview) === !0) {
+          if (
+            a != null &&
+            o("WAWebNewsletterMetadataGetters").getIsPreview(a)
+          ) {
             var i = (function () {
               var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {

@@ -36,77 +36,82 @@ __d(
         { length: a, steps: i }
       );
     }
-    function u(e, t, n) {
-      var r = 0,
-        a = [],
-        i = new Map(e.headers);
-      n && !i.has("Host") && i.set("Host", new URL(e.url).host);
-      for (var l of i) {
-        var s = l[0],
-          u = l[1],
-          c = t.encode(s),
-          d = c.byteLength;
-        ((r += o("QuicIntCodec").getByteLength(d) + d), a.push(c));
-        var m = t.encode(u),
-          p = m.byteLength;
-        ((r += o("QuicIntCodec").getByteLength(m.byteLength) + p), a.push(m));
+    function u(e, t, n, r) {
+      var a = 0,
+        i = [],
+        l = new Map(e.headers);
+      if (
+        (n && !l.has("Host") && l.set("Host", new URL(e.url).host), r != null)
+      ) {
+        for (var s of l.keys()) s.toLowerCase() === "user-agent" && l.delete(s);
+        l.set("User-Agent", r);
       }
-      return { length: r, steps: [r].concat(a) };
+      for (var u of l) {
+        var c = u[0],
+          d = u[1],
+          m = t.encode(c),
+          p = m.byteLength;
+        ((a += o("QuicIntCodec").getByteLength(p) + p), i.push(m));
+        var _ = t.encode(d),
+          f = _.byteLength;
+        ((a += o("QuicIntCodec").getByteLength(_.byteLength) + f), i.push(_));
+      }
+      return { length: a, steps: [a].concat(i) };
     }
-    function c(e, t) {
+    function c(e, t, n) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new TextEncoder(),
-            r = 0,
-            a = [];
-          (a.push(0), r++);
-          var i = s(e, n),
-            l = i.length,
-            c = i.steps;
-          ((r += l), a.push.apply(a, c));
-          var d = u(e, n, t),
-            m = d.length,
-            p = d.steps;
-          ((r += o("QuicIntCodec").getByteLength(m) + m), a.push.apply(a, p));
-          var _ = new Uint8Array(yield e.arrayBuffer()),
-            f = _.byteLength;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = new TextEncoder(),
+            a = 0,
+            i = [];
+          (i.push(0), a++);
+          var l = s(e, r),
+            c = l.length,
+            d = l.steps;
+          ((a += c), i.push.apply(i, d));
+          var m = u(e, r, t, n),
+            p = m.length,
+            _ = m.steps;
+          ((a += o("QuicIntCodec").getByteLength(p) + p), i.push.apply(i, _));
+          var f = new Uint8Array(yield e.arrayBuffer()),
+            g = f.byteLength;
           return (
-            (r += o("QuicIntCodec").getByteLength(f) + f),
-            a.push(_),
-            a.push(0),
-            r++,
-            { length: r, steps: a }
+            (a += o("QuicIntCodec").getByteLength(g) + g),
+            i.push(f),
+            i.push(0),
+            a++,
+            { length: a, steps: i }
           );
         })),
         d.apply(this, arguments)
       );
     }
-    function m(e, t) {
+    function m(e, t, n) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = !1);
-          var n = yield c(e, t),
-            r = n.length,
-            a = n.steps,
-            i = new Uint8Array(r),
-            l = 0;
-          for (var s of a)
-            typeof s == "number"
-              ? (l = o("QuicIntCodec").encodeWithExistingBuffer(s, i, l))
-              : ((l = o("QuicIntCodec").encodeWithExistingBuffer(
-                  s.length,
-                  i,
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          (t === void 0 && (t = !1), n === void 0 && (n = null));
+          var r = yield c(e, t, n),
+            a = r.length,
+            i = r.steps,
+            l = new Uint8Array(a),
+            s = 0;
+          for (var u of i)
+            typeof u == "number"
+              ? (s = o("QuicIntCodec").encodeWithExistingBuffer(u, l, s))
+              : ((s = o("QuicIntCodec").encodeWithExistingBuffer(
+                  u.length,
                   l,
+                  s,
                 )),
-                i.set(s, l),
-                (l += s.length));
-          return i;
+                l.set(u, s),
+                (s += u.length));
+          return l;
         })),
         p.apply(this, arguments)
       );

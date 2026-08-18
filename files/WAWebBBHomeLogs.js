@@ -116,20 +116,26 @@ __d(
         userActionTarget: n.UserActionTarget.CONVERSATION_HEADER_MENU,
       });
     }
-    function C(e, t, n, r, a, i) {
-      var l;
-      e({
-        action: (l = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        entryPoint: l.ENTRY_POINT.CHAT_HOME,
+    function C(e) {
+      var t,
+        n = e.broadcastChatCount,
+        r = e.hasBroadcastWithNonZeroRecipients,
+        a = e.hasBroadcastWithZeroRecipients,
+        i = e.isBroadcastInChatList,
+        l = e.log,
+        s = e.primarySupportsBusinessBroadcast;
+      l({
+        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: t.ENTRY_POINT.CHAT_HOME,
         extraAttributes: {
           broadcast_chat_count: n,
-          has_broadcast_with_non_zero_recipients: a,
-          has_broadcast_with_zero_recipients: r,
-          is_broadcast_in_chat_list: t,
-          primary_supports_business_broadcast: i,
+          has_broadcast_with_non_zero_recipients: r,
+          has_broadcast_with_zero_recipients: a,
+          is_broadcast_in_chat_list: i,
+          primary_supports_business_broadcast: s,
         },
-        surface: l.SURFACE_TYPE.CHATLIST,
-        userActionTarget: l.UserActionTarget.BROADCAST_CHAT_LIST_STATE,
+        surface: t.SURFACE_TYPE.CHATLIST,
+        userActionTarget: t.UserActionTarget.BROADCAST_CHAT_LIST_STATE,
       });
     }
     function b(e, t) {

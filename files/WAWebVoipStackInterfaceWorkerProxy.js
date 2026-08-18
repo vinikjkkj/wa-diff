@@ -448,7 +448,7 @@ __d(
               (pe(), t && (yield a.wait()), pe());
               var o = yield me(),
                 i = o.rpc;
-              (pe(), i.fire(e, n, r));
+              (pe(), i.fire({ args: n, method: e, transferList: r }));
             },
           )),
           fe.apply(this, arguments)
@@ -493,11 +493,11 @@ __d(
         o("WAWebVoipWebTransportConnectionManager").registerPacketHandler(
           function (t, n, r) {
             ce ||
-              e.fire(
-                "handleOnTransportMessage",
-                { packet: t, ip: n, port: r },
-                [t],
-              );
+              e.fire({
+                args: { packet: t, ip: n, port: r },
+                method: "handleOnTransportMessage",
+                transferList: [t],
+              });
           },
         );
       }

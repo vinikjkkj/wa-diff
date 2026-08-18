@@ -119,9 +119,7 @@ __d(
               (d != null
                 ? (S.username = d)
                 : u.deleteUsername === !0 &&
-                  (!_ && u.forceDelete !== !0
-                    ? (S.usernameSoftDeleted = !0)
-                    : (S.username = void 0),
+                  (_ ? (S.username = void 0) : (S.usernameSoftDeleted = !0),
                   u.displayNameLID != null &&
                     (S.displayNameLID = u.displayNameLID)),
                 m != null && (S.usernameCountryCode = m),

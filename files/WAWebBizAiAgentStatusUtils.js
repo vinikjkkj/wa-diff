@@ -10,7 +10,6 @@ __d(
     "WAWebContactGetters",
     "WAWebLabelCollection",
     "WAWebListsGatingUtils",
-    "WAWebListsLabelGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
@@ -149,10 +148,7 @@ __d(
       var t = e.labels;
       return t == null ||
         t.length === 0 ||
-        !(
-          o("WAWebListsLabelGatingUtils").canDisplayLabel() ||
-          o("WAWebListsGatingUtils").isListsEnabled()
-        )
+        !o("WAWebListsGatingUtils").isListsEnabled()
         ? !1
         : t.some(function (e) {
             var t = o("WAWebLabelCollection").LabelCollection.get(e);

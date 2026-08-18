@@ -209,12 +209,12 @@ __d(
                       ? _
                       : null;
                   return (
-                    yield o("WAWebWaffleCertificateCache").saveCertToIDB(
-                      l,
-                      C,
-                      y,
-                      v,
-                    ),
+                    yield o("WAWebWaffleCertificateCache").saveCertToIDB({
+                      encryptionPem: l,
+                      passwordKeyId: y,
+                      passwordPem: C,
+                      ttlSeconds: v,
+                    }),
                     { encryptionKey: g, passwordPublicKey: h, passwordKeyId: y }
                   );
                 }

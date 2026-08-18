@@ -13,6 +13,7 @@ __d(
     "WAWebNewsletterGetAdminCapabilitiesJob",
     "WAWebNewsletterGetAdminInfoJob",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterPullMessagesFromServerAction",
@@ -253,10 +254,12 @@ __d(
               (yield (h || (h = n("Promise"))).all(
                 r("WAWebNewsletterCollection")
                   .filter(function (e) {
-                    var t;
-                    return !(
-                      (t = e.newsletterMetadata) != null &&
-                      t.isSuspendedOrTerminated
+                    var t = e.newsletterMetadata;
+                    return (
+                      t == null ||
+                      !o(
+                        "WAWebNewsletterMetadataGetters",
+                      ).getIsSuspendedOrTerminated(t)
                     );
                   })
                   .map(function (e) {

@@ -29,8 +29,12 @@ __d(
           throw r("err")("Invalid video origin");
       }
     }
-    function s(e, t, n, r) {
-      return t === o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL &&
+    function s(e) {
+      var t = e.forMediaId,
+        n = e.isMusic,
+        r = e.msg,
+        a = e.videoOrigin;
+      return a === o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL &&
         (r == null ? void 0 : r.isNewsletterStatus) === !0
         ? c(
             n
@@ -42,8 +46,8 @@ __d(
         : o("WAWebABProps").getABPropConfigValue(
               "snapl_newsletter_logging_encrypted_rid_enabled",
             ) === !0
-          ? u(t, n)
-          : d(e, t);
+          ? u(a, n)
+          : d(t, a);
     }
     function u(e, t) {
       if (e === o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS && t)

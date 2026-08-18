@@ -28,7 +28,6 @@ __d(
           zIndex: "x1vjfegm",
           $$css: !0,
         },
-        pressed: { $$css: !0 },
         addOnEnd: { $$css: !0 },
         addOnStart: { $$css: !0 },
       },
@@ -243,7 +242,7 @@ __d(
       return {
         content: [e.content, s.content],
         item: [e.item, s.item],
-        pressed: [e.pressed, s.pressed],
+        pressed: [s.pressed],
         addOnEnd: [e.addOnEnd, s.addOnEnd],
         addOnStart: [e.addOnStart, s.addOnStart],
         horizontalContainer: s.horizontalContainer,

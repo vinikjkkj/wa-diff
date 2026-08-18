@@ -8,6 +8,7 @@ __d(
     "WAWebL10N",
     "WAWebNewsletterDirectorySearchJob",
     "WAWebNewsletterExtendedGatingUtils",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterValidationUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -25,11 +26,15 @@ __d(
       h,
       y;
     function C(e) {
-      return b.apply(this, arguments);
+      var t = e.newsletterMetadata;
+      return t != null && o("WAWebNewsletterMetadataGetters").getIsPreview(t);
     }
-    function b() {
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.categories,
             n = e.countryCodes,
             r = e.cursorToken,
@@ -40,14 +45,14 @@ __d(
               "channels_directory_page_size",
             );
           return a.trim() !== ""
-            ? E({
+            ? k({
                 searchText: a,
                 limit: s,
                 cursorToken: r,
                 categories: t,
                 skipSubscribedNewsletters: i,
               })
-            : R({
+            : L({
                 view: l,
                 limit: s,
                 countryCodes: n,
@@ -56,15 +61,15 @@ __d(
                 skipSubscribedNewsletters: i,
               });
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -118,15 +123,15 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -151,13 +156,8 @@ __d(
           );
           var u = s.reduce(
               function (e, t) {
-                var n;
                 return (
-                  ((n = t.newsletterMetadata) == null
-                    ? void 0
-                    : n.isPreview) === !0
-                    ? e.notSubscribed.push(t)
-                    : e.subscribed.push(t),
+                  C(t) ? e.notSubscribed.push(t) : e.subscribed.push(t),
                   e
                 );
               },
@@ -167,15 +167,15 @@ __d(
             d = u.subscribed;
           return { pageInfo: l, newsletters: c, subscribedNewsletters: d };
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -202,15 +202,15 @@ __d(
             { pageInfo: i, newsletters: l, subscribedNewsletters: [] }
           );
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -241,21 +241,9 @@ __d(
                       });
                       return (
                         t.sort(function (e, t) {
-                          var n,
-                            r,
-                            o =
-                              ((n = e.newsletterMetadata) == null
-                                ? void 0
-                                : n.isPreview) === !0
-                                ? 1
-                                : 0,
-                            a =
-                              ((r = t.newsletterMetadata) == null
-                                ? void 0
-                                : r.isPreview) === !0
-                                ? 1
-                                : 0;
-                          return a - o;
+                          var n = C(e) ? 1 : 0,
+                            r = C(t) ? 1 : 0;
+                          return r - n;
                         }),
                         { category: e.category, newsletters: t }
                       );
@@ -277,14 +265,14 @@ __d(
             a
           );
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    ((l.fetchNewsletterDirectories = C),
-      (l.getSimilarNewslettersAction = v),
-      (l.getNewsletterDirectoryListAction = R),
-      (l.getNewsletterDirectorySearchResultsAction = E),
-      (l.getNewsletterDirectoryCategoriesPreviewAction = I));
+    ((l.fetchNewsletterDirectories = b),
+      (l.getSimilarNewslettersAction = S),
+      (l.getNewsletterDirectoryListAction = L),
+      (l.getNewsletterDirectorySearchResultsAction = k),
+      (l.getNewsletterDirectoryCategoriesPreviewAction = T));
   },
   98,
 );

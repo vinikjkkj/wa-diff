@@ -30,10 +30,10 @@ __d(
             );
             throw (s.stack, s);
           }
-          ((this._red = e),
-            (this._green = t),
-            (this._blue = n),
-            (this._alpha = r),
+          ((this.$1 = e),
+            (this.$2 = t),
+            (this.$3 = n),
+            (this.$4 = r),
             (this.colorType = o));
         }
         ((e.fromHex = function (n, r) {
@@ -56,7 +56,7 @@ __d(
           var u = 1;
           return new e(a, i, l, u, r);
         }),
-          (e._fromHsl = function (n) {
+          (e.$5 = function (n) {
             var t = n.hue,
               r = n.lightness,
               o = n.saturation,
@@ -80,44 +80,42 @@ __d(
         var t = e.prototype;
         return (
           (t.toRgb = function () {
-            return { red: this._red, green: this._green, blue: this._blue };
+            return { red: this.$1, green: this.$2, blue: this.$3 };
           }),
           (t.toRgba = function () {
             return {
-              red: this._red,
-              green: this._green,
-              blue: this._blue,
-              alpha: this._alpha,
+              red: this.$1,
+              green: this.$2,
+              blue: this.$3,
+              alpha: this.$4,
             };
           }),
           (t.toRgbString = function () {
-            return (
-              "rgb(" + this._red + ", " + this._green + ", " + this._blue + ")"
-            );
+            return "rgb(" + this.$1 + ", " + this.$2 + ", " + this.$3 + ")";
           }),
           (t.toRgbaString = function () {
             return (
               "rgba(" +
-              this._red +
+              this.$1 +
               ", " +
-              this._green +
+              this.$2 +
               ", " +
-              this._blue +
+              this.$3 +
               ", " +
-              this._alpha +
+              this.$4 +
               ")"
             );
           }),
           (t.toHex = function () {
-            var e = d(this._red.toString(16), 2),
-              t = d(this._green.toString(16), 2),
-              n = d(this._blue.toString(16), 2);
+            var e = d(this.$1.toString(16), 2),
+              t = d(this.$2.toString(16), 2),
+              n = d(this.$3.toString(16), 2);
             return ("#" + e + t + n).toUpperCase();
           }),
           (t.toHsl = function () {
-            var e = this._red / 255,
-              t = this._green / 255,
-              n = this._blue / 255,
+            var e = this.$1 / 255,
+              t = this.$2 / 255,
+              n = this.$3 / 255,
               r = Math.max(e, t, n),
               o = Math.min(e, t, n),
               a = (r + o) / 2,
@@ -153,7 +151,7 @@ __d(
               (n > 0.08 &&
                 n < 0.22 &&
                 (s = n < 0.22000000000000003 ? 0.08 : 0.22),
-                (i = e._fromHsl({
+                (i = e.$5({
                   hue: s,
                   lightness: Math.min(r, 0.25),
                   saturation: a < 0.01 ? 0 : Math.max(a, 0.75),
@@ -166,12 +164,12 @@ __d(
                   o("WAWebMediaEditorEnumsColors").ColorType.WHITE,
                 )));
             } else
-              ((i = e._fromHsl({
+              ((i = e.$5({
                 hue: n,
                 lightness: Math.max(r, 0.9),
                 saturation: Math.min(a, 0.33),
               })),
-                (l = e._fromHsl({
+                (l = e.$5({
                   hue: n,
                   lightness: 0.2,
                   saturation: a === 0 ? 0 : 0.4,
@@ -179,12 +177,10 @@ __d(
             return { backgroundColor: i, tintColor: l };
           }),
           (t.withAlpha = function (n) {
-            return new e(this._red, this._green, this._blue, n, this.colorType);
+            return new e(this.$1, this.$2, this.$3, n, this.colorType);
           }),
           (t.isLight = function () {
-            return (
-              this._red * 0.299 + this._green * 0.587 + this._blue * 0.114 > 190
-            );
+            return this.$1 * 0.299 + this.$2 * 0.587 + this.$3 * 0.114 > 190;
           }),
           (t.isWhite = function () {
             var e = this.toHsl(),
@@ -193,36 +189,30 @@ __d(
           }),
           (t.equals = function (t) {
             return (
-              this._red === t._red &&
-              this._green === t._green &&
-              this._blue === t._blue &&
-              this._alpha === t._alpha
+              this.$1 === t.$1 &&
+              this.$2 === t.$2 &&
+              this.$3 === t.$3 &&
+              this.$4 === t.$4
             );
           }),
           (t.clone = function () {
-            return new e(
-              this._red,
-              this._green,
-              this._blue,
-              this._alpha,
-              this.colorType,
-            );
+            return new e(this.$1, this.$2, this.$3, this.$4, this.colorType);
           }),
           (t.toString = function () {
             return (
               "(" +
-              this._red +
+              this.$1 +
               ", " +
-              this._green +
+              this.$2 +
               ", " +
-              this._blue +
+              this.$3 +
               ", " +
-              this._alpha +
+              this.$4 +
               ")"
             );
           }),
           (t.getAlpha = function () {
-            return this._alpha;
+            return this.$4;
           }),
           e
         );

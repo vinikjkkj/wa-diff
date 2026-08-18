@@ -52,7 +52,11 @@ __d(
               });
             yield o(
               "WAWebVoipActionWriteCallLogImpl",
-            ).updateVoipCallLogOutcomeImpl(u, p, s(i));
+            ).updateVoipCallLogOutcomeImpl({
+              callOutcome: s(i),
+              chatId: u,
+              msgKey: p,
+            });
           } catch (t) {
             o("WALogger")
               .ERROR(

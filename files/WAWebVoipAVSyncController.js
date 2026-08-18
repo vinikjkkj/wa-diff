@@ -179,7 +179,11 @@ __d(
             if (e != null) {
               for (var i = 0; i < e.length; ) {
                 var l = e[i],
-                  s = this.$14(n, l.timestamp, r);
+                  s = this.$14({
+                    audioTimestamp: r,
+                    state: n,
+                    videoRtpTimestamp: l.timestamp,
+                  });
                 if (s == null) {
                   var c =
                     l.arrivalAudioTimestamp !== 0 ? l.arrivalAudioTimestamp : r;
@@ -249,15 +253,18 @@ __d(
               e.length === 0 && ((n.frameQueue = null), this.$7.delete(t));
             }
           }),
-          (n.$14 = function (t, n, r) {
-            var e = t.calibration;
-            if (e == null) return null;
-            var o = this.$1;
-            if (o === 0) return null;
-            var a = (r - e.firstAudioTimestamp) / o,
-              i = this.$21(n, e.firstVideoRtpTimestamp),
-              l = i / S;
-            return (l - a) * 1e3;
+          (n.$14 = function (t) {
+            var e = t.audioTimestamp,
+              n = t.state,
+              r = t.videoRtpTimestamp,
+              o = n.calibration;
+            if (o == null) return null;
+            var a = this.$1;
+            if (a === 0) return null;
+            var i = (e - o.firstAudioTimestamp) / a,
+              l = this.$21(r, o.firstVideoRtpTimestamp),
+              s = l / S;
+            return (s - i) * 1e3;
           }),
           (n.$20 = function (t) {
             var e = t.audioTimestamp,

@@ -12,9 +12,11 @@ __d(
     "WAWebNewsletterDirectoryFilterUtils",
     "WAWebNewsletterFutureProofUtils",
     "WAWebNewsletterGatingUtils",
+    "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterPinGatingUtils",
     "WAWebNewsletterValidationUtils",
     "WAWebPrimaryFeatures",
+    "WAWebStateUtils",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -133,7 +135,10 @@ __d(
         : !1;
     }
     function g(e) {
-      return e == null || e.isSuspendedOrTerminated
+      return e == null ||
+        o("WAWebNewsletterMetadataGetters").getIsSuspendedOrTerminated(
+          o("WAWebStateUtils").unproxy(e),
+        )
         ? !1
         : !r("gkx")("26258") &&
             o("WAWebABProps").getABPropConfigValue(

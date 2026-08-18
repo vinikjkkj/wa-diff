@@ -58,26 +58,31 @@ __d(
         var p = e.metadata.subscriptionName;
         if (typeof p != "string")
           throw r("err")("Found null usecase in RelayRTIGraphQLSubscriber");
-        var f = { usecase: p, doc_id: m, routing_hint: e.name };
-        a != null &&
+        var f = (d = t["%options"]) != null ? d : {};
+        ((f.useOSSResponseFormat = !0),
+          n != null && (f.client_logged_context = n),
+          (f.client_has_ods_usecase_counters = !0));
+        var g = {
+          usecase: p,
+          doc_id: m,
+          routing_hint: e.name,
+          variables: babelHelpers.extends({}, t, { "%options": f }),
+        };
+        (a != null &&
           a !== r("CurrentUser").getID() &&
-          (f = babelHelpers.extends({}, f, { page_id: a }));
-        var g = o("RelayRTIUtils").experimentPegasusResumptionGroup(p);
-        g != null &&
-          (f = babelHelpers.extends({}, f, { resumption_group_name: g }));
-        var h = (d = t["%options"]) != null ? d : {};
-        ((h.useOSSResponseFormat = !0),
-          n != null && (h.client_logged_context = n),
-          (h.client_has_ods_usecase_counters = !0),
-          (f = babelHelpers.extends({}, f, {
-            variables: babelHelpers.extends({}, t, { "%options": h }),
-          })));
+          (g = babelHelpers.extends({}, g, { page_id: a })),
+          e.metadata.is_distillery === !0 &&
+            r("gkx")("10299") &&
+            (g = babelHelpers.extends({}, g, { is_distillery: !0 })));
+        var h = o("RelayRTIUtils").experimentPegasusResumptionGroup(p);
+        h != null &&
+          (g = babelHelpers.extends({}, g, { resumption_group_name: h }));
         var y = _(n);
         (y != null &&
-          (f = babelHelpers.extends({}, f, { instrumentation_data: y })),
-          u != null && (f = babelHelpers.extends({}, f, { streamOptions: u })));
+          (g = babelHelpers.extends({}, g, { instrumentation_data: y })),
+          u != null && (g = babelHelpers.extends({}, g, { streamOptions: u })));
         var C = !1,
-          b = r("makeGraphQLSubscriptionRequest")(f)
+          b = r("makeGraphQLSubscriptionRequest")(g)
             .onActive(function () {
               i != null && i();
             })

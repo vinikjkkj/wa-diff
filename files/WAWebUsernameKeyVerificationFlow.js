@@ -20,29 +20,34 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.initWithError,
             a = t.onInvalidKeyError,
-            i = t.username,
-            l = o("WAWebUsernameUtils").getLIDByUsername(i);
-          return (
-            l ||
-            new (e || (e = n("Promise")))(function (e) {
-              var t = u.jsx(
+            i = t.stackOverExistingModal,
+            l = t.username,
+            s = o("WAWebUsernameUtils").getLIDByUsername(l);
+          if (s) return s;
+          var c = i === !0;
+          return new (e || (e = n("Promise")))(function (e) {
+            var t = function (n) {
+                (c && o("WAWebModalManager").ModalManager.closeSupportOrModal(),
+                  e(n));
+              },
+              n = u.jsx(
                 o("WAWebUsernameKeyVerificationModalLoadable")
                   .UsernameKeyVerificationModalLoadable,
                 {
-                  username: i,
-                  onKeyVerificationSuccess: function (n) {
-                    return e(n);
-                  },
+                  username: l,
+                  onKeyVerificationSuccess: t,
                   onKeyVerificationCancel: function () {
-                    return e(null);
+                    return t(null);
                   },
                   initWithError: r === !0,
                   onInvalidKeyError: a,
+                  dontCloseViaModalManager: c ? !0 : void 0,
                 },
               );
-              o("WAWebModalManager").ModalManager.open(t);
-            })
-          );
+            c
+              ? o("WAWebModalManager").ModalManager.openSupportModal(n)
+              : o("WAWebModalManager").ModalManager.open(n);
+          });
         })),
         d.apply(this, arguments)
       );

@@ -8,12 +8,6 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebMobilePlatforms").isSMB();
-    }
-    function s() {
-      return o("WAWebMobilePlatforms").isSMB();
-    }
-    function u() {
       return (
         (o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebPrimaryFeatures").primaryFeatureEnabled(
@@ -22,7 +16,7 @@ __d(
         o("WAWebListsGatingUtils").isListsEnabled()
       );
     }
-    function c() {
+    function s() {
       return (
         (o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebABProps").getABPropConfigValue("smart_filters_enabled")) ||
@@ -32,16 +26,14 @@ __d(
           ))
       );
     }
-    function d() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_label_chat_header_enabled_web",
       );
     }
-    ((l.canDisplayLabel = e),
-      (l.canEditLabelAssociation = s),
-      (l.labelsEditingEnabled = u),
-      (l.smartFiltersEnabled = c),
-      (l.isCTWASMBLabelChatHeaderEnabledWeb = d));
+    ((l.labelsEditingEnabled = e),
+      (l.smartFiltersEnabled = s),
+      (l.isCTWASMBLabelChatHeaderEnabledWeb = u));
   },
   98,
 );

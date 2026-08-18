@@ -4,6 +4,7 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
   ],
@@ -20,7 +21,7 @@ __d(
         r("WAWebWid").isNewsletter(e.id)
       ) {
         var a = r("WAWebNewsletterMetadataCollection").get(e.id);
-        a != null && (t = a.canBeMuted);
+        a != null && (t = o("WAWebNewsletterMetadataGetters").getCanBeMuted(a));
       }
       return t || r("WAWebWid").isUser(e.id) || r("WAWebWid").isBroadcast(e.id);
     }

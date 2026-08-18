@@ -3,26 +3,27 @@ __d(
   ["WAWebL10nGetRenderedLocale"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r) {
-      if (
-        (r === void 0 && (r = "N/A"),
-        e == null || t == null || n == null || n === 0)
-      )
-        return r;
+    function e(e) {
+      var t = e.amountInMinorUnits,
+        n = e.currency,
+        r = e.fallback,
+        a = r === void 0 ? "N/A" : r,
+        i = e.offset;
+      if (t == null || n == null || i == null || i === 0) return a;
       try {
-        var a = e / n,
-          i = o("WAWebL10nGetRenderedLocale")
+        var l = t / i,
+          s = o("WAWebL10nGetRenderedLocale")
             .WAWebL10nGetRenderedLocale()
             .replace("_", "-"),
-          l = new Intl.NumberFormat(i, {
-            currency: t || "USD",
+          u = new Intl.NumberFormat(s, {
+            currency: n || "USD",
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,
             style: "currency",
           });
-        return l.format(a);
+        return u.format(l);
       } catch (e) {
-        return r;
+        return a;
       }
     }
     l.formatCurrencyFromMinorUnits = e;

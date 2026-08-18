@@ -47,7 +47,8 @@ __d(
         n = e.chat,
         r = e.msg,
         a = e.msgType,
-        i = e.spamFlow;
+        i = e.skipCtwa1pdNbfSignal,
+        l = e.spamFlow;
       if (
         o("WAWebMmSignalSharingGatingUtils").isMmSignalSharingCollectionEnabled(
           n == null || (t = n.id) == null ? void 0 : t.toString(),
@@ -55,18 +56,24 @@ __d(
       ) {
         o(
           "WAWebMmSignalSharingLoggingEvents",
-        ).logMmSignalSharingReportVerificationEvent({ chat: n, spamFlow: i });
-        var l = o("WAWebBlocklistUtils").getBlockEventMetricFromBlockEntryPoint(
-          o("WAWebBlocklistUtils").getBlockEntryPointFromSpamFlow(i),
+        ).logMmSignalSharingReportVerificationEvent({ chat: n, spamFlow: l });
+        var s = o("WAWebBlocklistUtils").getBlockEventMetricFromBlockEntryPoint(
+          o("WAWebBlocklistUtils").getBlockEntryPointFromSpamFlow(l),
         );
         o(
           "WAWebMmSignalSharingLoggingEvents",
         ).logMmSignalSharingUserReportEvent({
           chat: n,
-          blockEntryPointMetric: l,
+          blockEntryPointMetric: s,
         });
       }
-      return S({ chat: n, spamFlow: i, msg: r, msgType: a });
+      return S({
+        chat: n,
+        spamFlow: l,
+        msg: r,
+        msgType: a,
+        skipCtwa1pdNbfSignal: i,
+      });
     }
     function h(e, t) {
       t === void 0 && (t = o("WAWebSpamConstants").SpamFlow.MessageMenu);

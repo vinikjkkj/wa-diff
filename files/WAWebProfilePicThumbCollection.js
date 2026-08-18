@@ -18,6 +18,7 @@ __d(
     "WAWebGroupType",
     "WAWebNewsletterCollection",
     "WAWebNewsletterMetadataCollection",
+    "WAWebNewsletterMetadataGetters",
     "WAWebProfilePicThumbModel",
     "WAWebSocketConstants",
     "WAWebSocketModel",
@@ -49,7 +50,7 @@ __d(
           var a, i;
           ((i = t.call(this) || this),
             (i.findImpl = function (t) {
-              var a, i, l, s;
+              var a, i;
               if (!(t instanceof r("WAWebWid")))
                 return (
                   o("WALogger")
@@ -66,28 +67,28 @@ __d(
                     ),
                   )
                 );
-              var u = t.isNewsletter()
+              var l = t.isNewsletter()
                   ? r("WAWebNewsletterCollection")
                   : o("WAWebChatCollection").ChatCollection,
-                c = u.get(t),
-                d =
-                  (c == null || (a = c.groupMetadata) == null
+                s = l.get(t),
+                u =
+                  (s == null || (a = s.groupMetadata) == null
                     ? void 0
                     : a.groupType) === o("WAWebGroupType").GroupType.COMMUNITY,
-                m = r("WAWebUnjoinedSubgroupMetadataCollection").get(
+                c = r("WAWebUnjoinedSubgroupMetadataCollection").get(
                   t.toString(),
-                );
+                ),
+                d = s == null ? void 0 : s.newsletterMetadata;
               if (
-                (c != null &&
-                  c.isReadOnly &&
-                  !d &&
-                  !(c != null && o("WAWebChatGetters").getIsNewsletter(c)) &&
-                  m == null) ||
-                (c != null && (i = c.groupMetadata) != null && i.terminated) ||
-                (c != null &&
-                  (l = c.newsletterMetadata) != null &&
-                  l.terminated) ||
-                (c != null && (s = c.newsletterMetadata) != null && s.isPreview)
+                (s != null &&
+                  s.isReadOnly &&
+                  !u &&
+                  !(s != null && o("WAWebChatGetters").getIsNewsletter(s)) &&
+                  c == null) ||
+                (s != null && (i = s.groupMetadata) != null && i.terminated) ||
+                (d != null && d.terminated) ||
+                (d != null &&
+                  o("WAWebNewsletterMetadataGetters").getIsPreview(d))
               )
                 return (_ || (_ = n("Promise"))).resolve({ id: t, stale: !0 });
               if (
@@ -103,36 +104,36 @@ __d(
                   r("WAWebWid").isNewsletter(t)) &&
                 !r("WAWebWid").isPSA(t)
               ) {
-                var p,
-                  f = d
+                var m,
+                  p = u
                     ? t
-                    : c == null || (p = c.groupMetadata) == null
+                    : s == null || (m = s.groupMetadata) == null
                       ? void 0
-                      : p.parentGroup;
-                m != null && (f = m.parentGroupId);
-                var g =
+                      : m.parentGroup;
+                c != null && (p = c.parentGroupId);
+                var f =
                   o("WAWebSocketModel").Socket.stream !==
                     o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED ||
                   (o("WAWebVoipGatingUtils").isGuestViewer() &&
                     o("WAComms").isSocketConnected());
-                if (g) {
-                  var h;
+                if (f) {
+                  var g;
                   if (r("WAWebWid").isUser(t)) {
-                    var y,
-                      C = o("WAWebContactCollection").ContactCollection.get(t),
-                      b = o("WAWebChatCollection").ChatCollection.get(t);
+                    var h,
+                      y = o("WAWebContactCollection").ContactCollection.get(t),
+                      C = o("WAWebChatCollection").ChatCollection.get(t);
                     return o(
                       "WAWebContactProfilePicThumbBridge",
                     ).requestProfilePicFromServer({
                       id: t,
-                      parentGroupId: f,
-                      tcToken: b == null ? void 0 : b.tcToken,
+                      parentGroupId: p,
+                      tcToken: C == null ? void 0 : C.tcToken,
                       commonGid:
-                        (b == null ? void 0 : b.tcToken) == null
-                          ? C == null ||
-                            (y = C.maybeCommonGroupChatModel) == null
+                        (C == null ? void 0 : C.tcToken) == null
+                          ? y == null ||
+                            (h = y.maybeCommonGroupChatModel) == null
                             ? void 0
-                            : y.id
+                            : h.id
                           : null,
                     });
                   }
@@ -140,12 +141,12 @@ __d(
                     "WAWebContactProfilePicThumbBridge",
                   ).requestProfilePicFromServer({
                     id: t,
-                    parentGroupId: f,
+                    parentGroupId: p,
                     newsletterRole: t.isNewsletter()
-                      ? (h = r("WAWebNewsletterMetadataCollection").get(t)) ==
+                      ? (g = r("WAWebNewsletterMetadataCollection").get(t)) ==
                         null
                         ? void 0
-                        : h.membershipType
+                        : g.membershipType
                       : void 0,
                   });
                 }

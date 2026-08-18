@@ -13,15 +13,26 @@ __d(
     "use strict";
     var e, s;
     function u(e) {
-      var t = document.createElement("canvas"),
-        n = t.getContext("webgl") || t.getContext("experimental-webgl");
-      if (n) {
+      var t = document.createElement("canvas");
+      ((t.width = 1), (t.height = 1));
+      var n = null;
+      try {
+        if (
+          ((n = t.getContext("webgl") || t.getContext("experimental-webgl")),
+          !n)
+        )
+          return;
         var r = n.getExtension("WEBGL_debug_renderer_info");
-        if (r) {
-          var o = n.getParameter(r.UNMASKED_RENDERER_WEBGL),
-            a = n.getParameter(r.UNMASKED_VENDOR_WEBGL);
-          ((e.gpu_vendor = a), (e.gpu_renderer = o));
-        }
+        if (!r) return;
+        var o = n.getParameter(r.UNMASKED_RENDERER_WEBGL),
+          a = n.getParameter(r.UNMASKED_VENDOR_WEBGL);
+        ((e.gpu_vendor = a), (e.gpu_renderer = o));
+      } finally {
+        var i;
+        ((i = n) == null ||
+          (i = i.getExtension("WEBGL_lose_context")) == null ||
+          i.loseContext(),
+          (n = null));
       }
     }
     function c() {

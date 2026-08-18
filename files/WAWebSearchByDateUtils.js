@@ -26,36 +26,36 @@ __d(
         a != null ? r("WAWebMsgKey").fromString(a) : null
       );
     }
-    function u(e, t, n, r) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-                "WAWebDBSearchByDate",
-              ).getClosestMessageBetweenDates({
-                chatId: e,
-                endTimestampSeconds: n,
-                incoming: !0,
-                searchingBefore: r,
-                startTimestampSeconds: t,
-              }),
-              i = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
-                chatId: e,
-                endTimestampSeconds: n,
-                incoming: !1,
-                searchingBefore: r,
-                startTimestampSeconds: t,
-              });
-            return s({
-              beforeSearch: r,
-              incomingCandidate: a,
-              outgoingCandidate: i,
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatId,
+            n = e.endTimestampSeconds,
+            r = e.searchingBefore,
+            a = e.startTimestampSeconds,
+            i = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
+              chatId: t,
+              endTimestampSeconds: n,
+              incoming: !0,
+              searchingBefore: r,
+              startTimestampSeconds: a,
+            }),
+            l = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
+              chatId: t,
+              endTimestampSeconds: n,
+              incoming: !1,
+              searchingBefore: r,
+              startTimestampSeconds: a,
             });
-          },
-        )),
+          return s({
+            beforeSearch: r,
+            incomingCandidate: i,
+            outgoingCandidate: l,
+          });
+        })),
         c.apply(this, arguments)
       );
     }
@@ -69,9 +69,19 @@ __d(
             a =
               o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate() * 1e3,
             i = Date.now(),
-            l = yield u(t, r, i, !1);
+            l = yield u({
+              chatId: t,
+              endTimestampSeconds: i,
+              searchingBefore: !1,
+              startTimestampSeconds: r,
+            });
           if (l != null) return l;
-          var s = yield u(t, a, r, !0);
+          var s = yield u({
+            chatId: t,
+            endTimestampSeconds: r,
+            searchingBefore: !0,
+            startTimestampSeconds: a,
+          });
           return (s != null, s);
         })),
         m.apply(this, arguments)

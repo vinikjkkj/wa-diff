@@ -8,6 +8,7 @@ __d(
     "WAWebGroupPresencePoller",
     "WAWebGroupPresenceUtils",
     "WAWebLid1X1MigrationGating",
+    "WAWebPresenceGetters",
     "WAWebPresenceModel",
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
@@ -32,9 +33,9 @@ __d(
                         ? t
                         : o("WAWebWidFactory").createWid(t.toString()),
                     a = e.gadd(n);
-                  return a.isGroup
+                  return o("WAWebPresenceGetters").getIsGroup(a)
                     ? (yield e._subscribe(n), { id: n })
-                    : !a.isUser ||
+                    : !o("WAWebPresenceGetters").getIsUser(a) ||
                         r("WAWebWid").isServer(n) ||
                         r("WAWebWid").isPSA(n) ||
                         r("WAWebWid").isBot(n) ||

@@ -10,7 +10,7 @@ __d(
     "WAWebLabelSublistSync",
     "WAWebLeadListConstants",
     "WAWebListsGatingUtils",
-    "WAWebListsLabelGatingUtils",
+    "WAWebMobilePlatforms",
     "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
     "WAWebSchemaLabelSublist",
@@ -42,7 +42,7 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           if (
             !(
-              o("WAWebListsLabelGatingUtils").canEditLabelAssociation() ||
+              o("WAWebMobilePlatforms").isSMB() ||
               o("WAWebListsGatingUtils").isListsEnabled()
             )
           )
