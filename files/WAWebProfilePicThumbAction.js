@@ -9,6 +9,7 @@ __d(
     "WAWebBackendErrors",
     "WAWebContactProfilePicThumbBridge",
     "WAWebMiscErrors",
+    "WAWebProfilePicThumbGetters",
     "WAWebStateUtils",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
@@ -133,7 +134,7 @@ __d(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       var d = o("WAWebContactProfilePicThumbBridge").requestDeletePicture(l);
-      r.pendingPic = r.fallbackType;
+      r.pendingPic = o("WAWebProfilePicThumbGetters").getFallbackType(r);
       var p = o("WAWebUserPrefsMeUser").isMeAccount(l),
         _ = p
           ? new (o("WAWebActionToast.react").ActionType)(

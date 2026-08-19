@@ -45,6 +45,7 @@ __d(
         "DeveloperABProps",
         "DeveloperGroupABProps",
         "DeveloperInfraSettings",
+        "DeveloperWWWSettings",
         "DataSharing",
         "Logout",
         "Account",

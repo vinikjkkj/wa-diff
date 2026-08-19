@@ -54,6 +54,7 @@ __d(
               msg: i,
               action: {
                 actionText: s._(/*BTDS*/ "Undo"),
+                testid: "chat_theme_undo_btn",
                 onAction: function () {
                   (r(), o("WAWebToastManager").ToastManager.close(t));
                 },

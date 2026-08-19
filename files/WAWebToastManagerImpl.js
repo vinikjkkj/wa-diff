@@ -131,6 +131,7 @@ __d(
                   onPress: function () {
                     d.onAction();
                   },
+                  testid: d.testid,
                 },
               })
             : s({

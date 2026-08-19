@@ -12,6 +12,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,38 +23,96 @@ __d(
         getSize: function () {
           return 1;
         },
-      });
-    function d(e) {
-      var t,
-        r = o("WAWebDeviceListPk").createDeviceListPK(e);
-      if (!c.has(r)) {
-        var a = o("WAWebSchemaDeviceList").getDeviceListTable().get(r);
-        c.put(r, a);
-      }
+      }),
+      d = new (o("WALruCache").LruCache)({
+        sizeLimit: 5e3,
+        getSize: function () {
+          return 1;
+        },
+      }),
+      m = new Map();
+    function p(e) {
+      if (d.has(e)) return (u || (u = n("Promise"))).resolve(d.get(e));
+      var t = m.get(e);
+      if (t != null) return t;
+      var r = o("WAWebSchemaDeviceList")
+        .getDeviceListTable()
+        .get(e)
+        .then(function (t) {
+          return (m.get(e) === r && d.put(e, t), t);
+        })
+        .finally(function () {
+          m.get(e) === r && m.delete(e);
+        });
+      return (m.set(e, r), r);
+    }
+    function _(e) {
+      var t;
       return (
-        c.get(r) != null &&
-          o("WAWebApiContact").checkPnToLidMapping(
-            [e],
-            o("WAWebApiContact").CheckPnToLidMappingCaller
-              .WAWEB_API_DEVICE_LIST_GET_DEVICE_RECORD,
-          ),
-        (t = c.get(r)) != null ? t : (u || (u = n("Promise"))).resolve(null)
+        c.has(e) ||
+          c.put(e, o("WAWebSchemaDeviceList").getDeviceListTable().get(e)),
+        (t = c.get(e)) != null ? t : (u || (u = n("Promise"))).resolve(null)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    function f(e) {
+      var t = o("WAWebDeviceListPk").createDeviceListPK(e),
+        n = r("gkx")("16550") ? p(t) : _(t);
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [];
-          if (
-            (e.forEach(function (e) {
-              c.has(o("WAWebDeviceListPk").createDeviceListPK(e)) ||
-                t.push(o("WAWebDeviceListPk").createDeviceListPK(e));
+        o("WAWebApiContact").checkPnToLidMapping(
+          [e],
+          o("WAWebApiContact").CheckPnToLidMappingCaller
+            .WAWEB_API_DEVICE_LIST_GET_DEVICE_RECORD,
+        ),
+        n
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = Array.from(
+            new Set(
+              e.filter(function (e) {
+                return !d.has(e) && !m.has(e);
+              }),
+            ),
+          );
+          if (t.length > 0) {
+            var r = o("WAWebSchemaDeviceList").getDeviceListTable().bulkGet(t);
+            t.forEach(function (e, t) {
+              var n = r
+                .then(function (r) {
+                  var o = r[t];
+                  return (m.get(e) === n && d.put(e, o), o);
+                })
+                .finally(function () {
+                  m.get(e) === n && m.delete(e);
+                });
+              m.set(e, n);
+            });
+          }
+          return (u || (u = n("Promise"))).all(
+            e.map(function (e) {
+              var t;
+              return d.has(e) ? d.get(e) : (t = m.get(e)) != null ? t : null;
             }),
-            t.length > 0)
-          ) {
+          );
+        })),
+        h.apply(this, arguments)
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.filter(function (e) {
+            return !c.has(e);
+          });
+          if (t.length > 0) {
             var r = yield o("WAWebSchemaDeviceList")
               .getDeviceListTable()
               .bulkGet(t);
@@ -61,27 +120,42 @@ __d(
               c.put(t[r], (u || (u = n("Promise"))).resolve(e));
             });
           }
-          var a = e.filter(function (e) {
-            return c.get(o("WAWebDeviceListPk").createDeviceListPK(e)) != null;
-          });
+          return (u || (u = n("Promise"))).all(
+            e.map(function (e) {
+              return c.get(e);
+            }),
+          );
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    function b(e) {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.map(o("WAWebDeviceListPk").createDeviceListPK),
+            n = r("gkx")("16550") ? yield g(t) : yield y(t);
           return (
-            a.length > 0 &&
+            e.length > 0 &&
               o("WAWebApiContact").checkPnToLidMapping(
-                a,
+                e,
                 o("WAWebApiContact").CheckPnToLidMappingCaller
                   .WAWEB_API_DEVICE_LIST_BULK_GET_DEVICE_RECORD,
               ),
-            (u || (u = n("Promise"))).all(
-              e.map(function (e) {
-                return c.get(o("WAWebDeviceListPk").createDeviceListPK(e));
-              }),
-            )
+            n
           );
         })),
-        p.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function _(t) {
+    function S(e) {
+      r("gkx")("16550")
+        ? (m.delete(e.id), d.put(e.id, e))
+        : c.put(e.id, (u || (u = n("Promise"))).resolve(e));
+    }
+    function R(t) {
       if (t.deleted) {
         var n = o("WAWebWidFactory").createUserWidFromDeviceListPk(t.id);
         o("WAWebUserPrefsMeUser").isMeAccount(n) &&
@@ -93,12 +167,12 @@ __d(
           );
       }
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function g() {
+    function E() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebApiContact").checkPnToLidMapping(
             [o("WAWebWidFactory").createUserWidFromDeviceListPk(e.id)],
             o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -107,18 +181,18 @@ __d(
             yield o("WAWebSchemaDeviceList")
               .getDeviceListTable()
               .createOrReplace(e),
-            c.put(e.id, (u || (u = n("Promise"))).resolve(e)),
-            _(e));
+            S(e),
+            R(e));
         })),
-        g.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function y() {
+    function I() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebApiContact").checkPnToLidMapping(
             e.map(function (e) {
               return o("WAWebWidFactory").createUserWidFromDeviceListPk(e.id);
@@ -130,20 +204,20 @@ __d(
               .getDeviceListTable()
               .bulkCreateOrReplace(e),
             e.forEach(function (e) {
-              (c.put(e.id, (u || (u = n("Promise"))).resolve(e)), _(e));
+              (S(e), R(e));
             }));
         })),
-        y.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function b() {
+    function D() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           t === void 0 && (t = !1);
-          var n = Array.from(yield m(e));
+          var n = Array.from(yield b(e));
           if (t) {
             var r = new Map();
             n.forEach(function (e) {
@@ -160,7 +234,7 @@ __d(
                 );
                 return (n != null && e.push(n), e);
               }, []),
-              l = yield m(i);
+              l = yield b(i);
             l.forEach(function (e, t) {
               if (!(!e || e.deleted)) {
                 var l = i[t],
@@ -207,17 +281,17 @@ __d(
             return null;
           });
         })),
-        b.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function S() {
+    function $() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (t === o("WAJids").DEFAULT_DEVICE_ID) return !0;
-          var n = yield C([e]),
+          var n = yield T([e]),
             r = n[0];
           return !(
             !r ||
@@ -226,16 +300,16 @@ __d(
             })
           );
         })),
-        S.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function L() {
+    function N() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield m(e);
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield b(e);
           return t.map(function (e) {
             if (e && !e.deleted) {
               var t = e.devices.map(function (e) {
@@ -251,34 +325,34 @@ __d(
             return null;
           });
         })),
-        L.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function E() {
-      return k.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function k() {
+    function w() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebUserPrefsMeUser").getMeDeviceOrThrow(),
-            t = yield d(e);
+            t = yield f(e);
           if ((t == null || t.deleted) && e.isLid()) {
             var n = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn();
-            n != null && (t = yield d(n));
+            n != null && (t = yield f(n));
           }
           if (t == null || t.deleted)
             throw r("err")("syncd: cannot find my device list");
           return t;
         })),
-        k.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
+    function A() {
+      return F.apply(this, arguments);
     }
-    function T() {
+    function F() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = self.performance.now(),
             t = yield o("WAWebSchemaDeviceList").getDeviceListTable().all();
           return (
@@ -295,18 +369,18 @@ __d(
             t
           );
         })),
-        T.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    ((l.getDeviceRecord = d),
-      (l.bulkGetDeviceRecord = m),
-      (l.createOrReplaceDeviceRecord = f),
-      (l.bulkCreateOrReplaceDeviceRecord = h),
-      (l.getDeviceIds = C),
-      (l.hasDevice = v),
-      (l.getDeviceInfoForSync = R),
-      (l.getMyDeviceList = E),
-      (l.getAllDeviceLists = I));
+    ((l.getDeviceRecord = f),
+      (l.bulkGetDeviceRecord = b),
+      (l.createOrReplaceDeviceRecord = L),
+      (l.bulkCreateOrReplaceDeviceRecord = k),
+      (l.getDeviceIds = T),
+      (l.hasDevice = x),
+      (l.getDeviceInfoForSync = P),
+      (l.getMyDeviceList = M),
+      (l.getAllDeviceLists = A));
   },
   98,
 );

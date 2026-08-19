@@ -29,7 +29,7 @@ __d(
         ));
     }
     var c = function () {
-        r("gkx")("26258") ||
+        r("gkx")("16539") &&
           ((e = null),
           r("WAWebUserPrefsStore").set(
             o("WAWebUserPrefsKeys").KEYS.CTWA_DATA_SHARING_COOL_OFF,

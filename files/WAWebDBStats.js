@@ -10,7 +10,7 @@ __d(
         var t = e.prototype;
         return (
           (t.initTable = function (t) {
-            r("gkx")("26258") ||
+            r("gkx")("16539") &&
               (this.$1.has(t) ||
                 this.$1.set(t, {
                   readCount: 0,
@@ -31,7 +31,7 @@ __d(
           (t.trackReadTransaction = function (t, n, a) {
             o("WAWebDBTableUsage").recordTableUsageStat(t, "read");
             var e = self.performance.now() - n;
-            if (!r("gkx")("26258")) {
+            if (r("gkx")("16539")) {
               var i = this.$1.get(t);
               i &&
                 (i.queryTimes.push(e),
@@ -43,7 +43,7 @@ __d(
           (t.trackWriteTransaction = function (t, n) {
             o("WAWebDBTableUsage").recordTableUsageStat(t, "write");
             var e = self.performance.now() - n;
-            if (!r("gkx")("26258")) {
+            if (r("gkx")("16539")) {
               var a = this.$1.get(t);
               a &&
                 (a.queryTimes.push(e),
@@ -52,7 +52,7 @@ __d(
             }
           }),
           (t.getStatsLog = function (t) {
-            if (!r("gkx")("26258")) return this.$1.get(t);
+            if (r("gkx")("16539")) return this.$1.get(t);
           }),
           (t.getStats = function (t) {}),
           (t.getAllStatsLog = function () {
@@ -62,7 +62,7 @@ __d(
             return new Map();
           }),
           (t.resetStatsLog = function () {
-            r("gkx")("26258") || this.$1.clear();
+            r("gkx")("16539") && this.$1.clear();
           }),
           (t.resetStats = function () {}),
           e

@@ -77,7 +77,7 @@ __d(
             l = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
               o("WAWebUserPrefsKeys").KEYS.LID,
             );
-          (yield e.sendAndReceive("workerInit", "setup", {
+          (e.fireAndForget("workerInit", "setup", {
             globals: {
               deviceJid: o("WAWebGlobals").getMyDeviceJid(),
               allowHistorySyncPutAllowDuplicate:

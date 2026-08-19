@@ -35,6 +35,19 @@ __d(
               ),
             };
           }
+          if (
+            ((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.method === "hitl.payment.select" &&
+            "approvalId" in e &&
+            "paymentId" in e
+          ) {
+            var o = e.approvalId,
+              a = e.paymentId;
+            return {
+              method: "hitl.payment.select",
+              params: { approval_id: o, payment_id: a },
+            };
+          }
           throw Error(
             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
               e,

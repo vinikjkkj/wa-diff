@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       var e = [o("WAWebThemeCommandPalettePlugin").ThemeCommandPalettePlugin];
-      if (!r("gkx")("26258")) {
+      if (r("gkx")("16539")) {
         var t,
           a =
             (t =

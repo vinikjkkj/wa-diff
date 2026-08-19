@@ -11,14 +11,14 @@ __d(
     "WAWebMmsMediaTypes",
     "WAWebProfilePicConstants",
     "WAWebProfilePicThumbCollection",
+    "WAWebProfilePicThumbGetters",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = { SINGLE: "SINGLE", GROUP: "GROUP" },
-      u = (function (t) {
+      s = (function (t) {
         function n() {
           for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
             a[i] = arguments[i];
@@ -96,14 +96,6 @@ __d(
                 "hostRetryCount",
                 "aiHubProfileIsDarkTheme",
               ],
-            )),
-            (e.fallbackType = o("WAWebBaseModel").derived(
-              function () {
-                return r("WAWebWid").isUser(this.id)
-                  ? s.SINGLE
-                  : (r("WAWebWid").isGroup(this.id), s.GROUP);
-              },
-              ["id"],
             )),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
@@ -192,12 +184,18 @@ __d(
               });
             return ((this.lastHostUsed = l), l);
           }),
+          (a.delete = function () {
+            (t.prototype.delete.call(this),
+              o(
+                "WAWebProfilePicThumbGetters",
+              ).clearProfilePicThumbGetterCacheFor(this));
+          }),
           n
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((u.Proxy = "profilePicThumb"), (u.idClass = r("WAWebWid")));
-    var c = o("WAWebBaseModel").defineModel(u);
-    ((l.ProfilePicThumbImpl = u), (l.ProfilePicThumb = c));
+    ((s.Proxy = "profilePicThumb"), (s.idClass = r("WAWebWid")));
+    var u = o("WAWebBaseModel").defineModel(s);
+    ((l.ProfilePicThumbImpl = s), (l.ProfilePicThumb = u));
   },
   98,
 );

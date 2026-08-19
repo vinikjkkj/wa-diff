@@ -58,7 +58,7 @@ __d(
       if (u != null)
         return (
           _(t, i),
-          !r("gkx")("26258") && u.overriddenConfigValue != null
+          r("gkx")("16539") && u.overriddenConfigValue != null
             ? u.overriddenConfigValue
             : u.configValue
         );

@@ -10,6 +10,7 @@ __d(
     "WAWebAddEditPixFeature",
     "WAWebApi",
     "WAWebBizBotLogging",
+    "WAWebBizBotProfileUtils",
     "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastsManageAudiencePanelLoadable",
@@ -25,7 +26,6 @@ __d(
     "WAWebBusinessAdCreationUtils",
     "WAWebBusinessBroadcastHomeFlowLoadable",
     "WAWebBusinessBroadcastUserJourneyLogger",
-    "WAWebBusinessProfileGetters",
     "WAWebCTWATrackingPayloadUtils",
     "WAWebCatalogManagementFlowLoadable",
     "WAWebChatEntryPoint",
@@ -378,7 +378,7 @@ __d(
                   (o("WAWebCustomUrlLogEvents").logClickOnCustomUrl(e),
                   o("WAWebCustomUrlLogEvents").logMessageSentByCustomUrl(e)),
                   Z && o("WAWebUpdateUtmAction").addUtmToChat(e.id, Z),
-                  o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+                  o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
                     e.contact.businessProfile,
                   ) && o("WAWebBizBotLogging").logBizBot3pDeepLinkClickEvent(),
                   o(

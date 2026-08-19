@@ -7,11 +7,11 @@ __d(
     "WAWebAlarm",
     "WAWebApiContact",
     "WAWebBaseModel",
+    "WAWebBizBotProfileUtils",
     "WAWebBizBusinessChangeAction",
     "WAWebBizLabelUtils",
     "WAWebBotBaseGating",
     "WAWebBusinessProfileCollection",
-    "WAWebBusinessProfileGetters",
     "WAWebConnModel",
     "WAWebContactBlocklistUtils",
     "WAWebContactCollection",
@@ -279,7 +279,7 @@ __d(
           (a.updateName = function () {
             !o("WAWebFrontendContactGetters").getIsMyContact(this) &&
               o("WAWebBotBaseGating").isBizBot3pEnabled() &&
-              o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+              o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
                 this.businessProfile,
               ) &&
               this.verifiedName != null &&

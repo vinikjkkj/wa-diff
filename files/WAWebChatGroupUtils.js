@@ -8,12 +8,12 @@ __d(
     "WAWebApiContact",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
+    "WAWebBizBotProfileUtils",
     "WAWebBizCoexGatingUtils",
     "WAWebBotComposerTreatment",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
     "WAWebBotTos",
-    "WAWebBusinessProfileGetters",
     "WAWebChatGetters",
     "WAWebConversationDeprecatedLidChatUtils",
     "WAWebCurrentUser",
@@ -308,7 +308,7 @@ __d(
       )
         return ((e.canSend = !1), !1);
       if (
-        o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+        o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
           t != null ? t : e.contact.businessProfile,
         ) &&
         (!o("WAWebBotGating").isBizBot3pAvailable() ||

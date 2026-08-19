@@ -6,9 +6,9 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAddAndReorderMsgsActionsUtils",
+    "WAWebBizBotProfileUtils",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
-    "WAWebBusinessProfileGetters",
     "WAWebChatCollection",
     "WAWebChatGetExistingBridge",
     "WAWebChatModel",
@@ -156,7 +156,7 @@ __d(
             q,
             U = !1,
             V = M.id.isBot(),
-            H = o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+            H = o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
               M.contact.businessProfile,
             );
           if ((V || H) && m.isHistory === !1) {

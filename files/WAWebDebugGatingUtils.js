@@ -8,7 +8,7 @@ __d(
           o("WAWebABProps").getABPropConfigValue(
             "is_meta_employee_or_internal_tester",
           )) ||
-        !r("gkx")("26258")
+        r("gkx")("16539")
       );
     }
     l.msgDebugMenuItemsEnabled = e;

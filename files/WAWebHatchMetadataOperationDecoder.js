@@ -109,6 +109,24 @@ __d(
             ),
           };
         }
+        if (r === "hitl.payment.select") {
+          var p = o("WAWebHatchJsonReaders").readField(n, "params"),
+            _ = o("WAWebHatchJsonReaders").readString(p, "approval_id"),
+            f = o("WAWebHatchJsonReaders").readString(p, "payment_id");
+          if (_ == null || _ === "" || f == null || f === "")
+            throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
+              o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
+            );
+          return {
+            type: "req",
+            requestId: t,
+            request: {
+              method: "hitl.payment.select",
+              approvalId: _,
+              paymentId: f,
+            },
+          };
+        }
         throw new (o("WAWebHatchDecodeError").HatchDecodeError)(
           o("WAWebHatchDecodeError").HatchDecodeReason.INVALID_PAYLOAD,
         );

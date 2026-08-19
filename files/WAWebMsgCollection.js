@@ -9,9 +9,9 @@ __d(
     "WAWebAck",
     "WAWebBackendErrors",
     "WAWebBaseCollection",
+    "WAWebBizBotProfileUtils",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotSupportGating",
-    "WAWebBusinessProfileGetters",
     "WAWebChatCollection",
     "WAWebCollectionConstants",
     "WAWebCollectionUtils",
@@ -799,9 +799,9 @@ __d(
                   !(
                     !n ||
                     (!(n != null && n.id.isBot()) &&
-                      !o(
-                        "WAWebBusinessProfileGetters",
-                      ).isBizBot3pBusinessProfile(n.contact.businessProfile)) ||
+                      !o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
+                        n.contact.businessProfile,
+                      )) ||
                     o("WAWebBotSupportGating").isSupportedThirdPartyBot(
                       o("WAWebResolveBotProfile").resolveBotSupportInput(e),
                       o("WAWebPrimaryFeaturesModel").PrimaryFeatures

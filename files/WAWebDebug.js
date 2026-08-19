@@ -201,6 +201,7 @@ __d(
     "cr:5553",
     "decodeProtobuf",
     "err",
+    "gkx",
     "nullthrows",
     "react",
   ],
@@ -463,10 +464,17 @@ __d(
     }
     q.doc =
       "Trigger update check polling and install if an update is available";
-    function U() {}
-    function V() {}
-    ((V.doc = "Toggle Sticker Maker debug mode (DEV only)"),
-      (V.paramsToExecute = []));
+    function U() {
+      if (r("gkx")("16539"))
+        return n("cr:10202") == null
+          ? void 0
+          : n("cr:10202").getMediaEditorDebug();
+    }
+    function V() {
+      r("gkx")("16539") &&
+        (n("cr:10204") == null || n("cr:10204").toggleStickerMakerDebug());
+    }
+    ((V.doc = "Toggle Sticker Maker debug mode"), (V.paramsToExecute = []));
     function H() {
       return r("WAWebMiscBrowserUtils").persistentExpiringId();
     }

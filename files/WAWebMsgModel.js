@@ -8,10 +8,10 @@ __d(
     "WAWebABProps",
     "WAWebAck",
     "WAWebBaseModel",
+    "WAWebBizBotProfileUtils",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
     "WAWebBusinessHSMTypes",
-    "WAWebBusinessProfileGetters",
     "WAWebCarouselCardsCollection",
     "WAWebChangePresenceHandlerAction",
     "WAWebChatCollection",
@@ -1176,7 +1176,7 @@ __d(
             if (e) {
               var n;
               ((this.id.remote.isBot() ||
-                o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+                o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
                   e.contact.businessProfile,
                 )) &&
                 this.subtype ===

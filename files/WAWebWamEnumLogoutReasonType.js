@@ -24,6 +24,7 @@ __d(
       SERVER_ACK_KICK: 18,
       SERVER_PING_KICK: 19,
       CONNECTION_RESET: 20,
+      FULL_PROXY_AVAILABLE: 21,
     });
     i.LOGOUT_REASON_TYPE = e;
   },

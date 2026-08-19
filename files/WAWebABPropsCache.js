@@ -66,7 +66,7 @@ __d(
         i = t[2],
         l = t[3],
         c = i;
-      if (!r("gkx")("26258") && !o("WAWebRuntimeEnvironmentUtils").isWorker()) {
+      if (r("gkx")("16539") && !o("WAWebRuntimeEnvironmentUtils").isWorker()) {
         var f = d();
         if (f) {
           var h = f.get(e);
@@ -121,7 +121,7 @@ __d(
     function S(e) {
       v(e);
       var t = f.get(e);
-      return !r("gkx")("26258") &&
+      return r("gkx")("16539") &&
         (t == null ? void 0 : t.overriddenConfigValue) != null
         ? t.overriddenConfigValue
         : t == null

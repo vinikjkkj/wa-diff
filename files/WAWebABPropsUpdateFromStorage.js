@@ -25,7 +25,7 @@ __d(
           try {
             var t = !1,
               n = t;
-            if (!r("gkx")("26258")) {
+            if (r("gkx")("16539")) {
               var a = yield o(
                 "WAWebUserPrefsGeneral",
               ).getWhatsAppWebExternalBetaJoinedIdb();
@@ -69,7 +69,7 @@ __d(
                     ),
                     _;
                   return (
-                    !r("gkx")("26258") &&
+                    r("gkx")("16539") &&
                       e.overriddenConfigValue != null &&
                       (_ = o("WAWebABPropsParseConfigValue").parseConfigValue(
                         e.overriddenConfigValue,

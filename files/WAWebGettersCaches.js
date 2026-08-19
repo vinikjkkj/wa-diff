@@ -63,7 +63,8 @@ __d(
       U = s,
       V = s,
       H = s,
-      G = s;
+      G = s,
+      z = s;
     ((l.createMessagesCache = c),
       (l.createFrontendMessagesCache = d),
       (l.createChatCache = m),
@@ -99,7 +100,8 @@ __d(
       (l.createNewsletterMetadataCache = U),
       (l.createFrontendNewsletterMetadataCache = V),
       (l.createBusinessProfileCache = H),
-      (l.createFrontendBusinessProfileCache = G));
+      (l.createFrontendBusinessProfileCache = G),
+      (l.createProfilePicThumbCache = z));
   },
   98,
 );

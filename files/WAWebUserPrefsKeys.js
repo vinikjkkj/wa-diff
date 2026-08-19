@@ -40,6 +40,7 @@ __d(
         "WindowsStatusNotificationToneSetting",
         "WindowsIsSystemTrayEnabled",
         "WindowsIsAdaptiveLayoutEnabled",
+        "WindowsIsVsrEnabled",
         "WindowsUnifiedSessionId",
         "WebUiRefreshNuxAcknowledged",
         "WebUiRefreshNuxViewsCount",

@@ -107,7 +107,13 @@ __d(
       } else {
         var L = _ < 1 ? f.portraitWidth : f.width;
         ((y = l === o("WAWebTypesMedia").DisplayTheme.PhotoPoll ? m : L),
-          (C = k(f, _, e, t, l)));
+          (C = k({
+            aspectRatio: _,
+            croppingSettings: f,
+            isFromTemplate: t,
+            msgType: e,
+            theme: l,
+          })));
       }
       return { bubbleWidth: y, bubbleHeight: C };
     }
@@ -128,10 +134,15 @@ __d(
         })
       );
     }
-    function k(e, t, n, r, o) {
-      var a = 1.91,
-        i;
-      return (r && t <= a && (i = I(a, e, n)), (i = I(t, e, n, o)), i);
+    function k(e) {
+      var t = e.aspectRatio,
+        n = e.croppingSettings,
+        r = e.isFromTemplate,
+        o = e.msgType,
+        a = e.theme,
+        i = 1.91,
+        l;
+      return (r && t <= i && (l = I(i, n, o)), (l = I(t, n, o, a)), l);
     }
     function I(e, t, n, r) {
       if (e == null)

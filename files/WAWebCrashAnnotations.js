@@ -12,7 +12,15 @@ __d(
       var e = r("WAWebEnvironment").isWindows ? "hybrid" : "web";
       o("WAWebLogForCrash").logForCrash("subplatform", e);
     }
-    l.initCrashAnnotations = e;
+    function u(e) {
+      o("WAWebLogForCrash").onLogForCrashReady(function () {
+        o("WAWebLogForCrash").logForCrash(
+          "wa:voipBootstrapMode",
+          e ? "pre-init" : "legacy-pj",
+        );
+      });
+    }
+    ((l.initCrashAnnotations = e), (l.logVoipWorkerBootstrapModeForCrash = u));
   },
   98,
 );

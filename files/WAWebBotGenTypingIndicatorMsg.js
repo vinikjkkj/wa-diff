@@ -3,8 +3,8 @@ __d(
   [
     "WAWebABProps",
     "WAWebBackendApi",
+    "WAWebBizBotProfileUtils",
     "WAWebBotBaseGating",
-    "WAWebBusinessProfileGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebWid",
@@ -25,7 +25,7 @@ __d(
           e.id.isBot(),
         a =
           o("WAWebBotBaseGating").isBizBot3pEnabled() &&
-          o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+          o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
             e.contact.businessProfile,
           );
       return (
@@ -46,7 +46,7 @@ __d(
               !(
                 t instanceof r("WAWebWid") &&
                 !t.isBot() &&
-                !o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+                !o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
                   e.contact.businessProfile,
                 )
               )

@@ -5,7 +5,7 @@ __d(
     var e = !1,
       s = {
         lid_debug: !1,
-        youtube_video_preview_without_blur: !r("gkx")("26258"),
+        youtube_video_preview_without_blur: r("gkx")("16539"),
         message_add_ons: !1,
         reactions_filter_problematic_flags: !0,
         skip_compliance_phone_check: !1,
@@ -22,7 +22,7 @@ __d(
       s[e] = !1;
     }
     function m() {
-      if (!r("gkx")("26258")) {
+      if (r("gkx")("16539")) {
         var e,
           t = new URLSearchParams(
             ((e = location.search) != null ? e : "").toLowerCase(),

@@ -23,7 +23,7 @@ __d(
         p = o("WAWebGroupABPropsCache").getGetGroupABPropConfigValueImpl();
       if (p == null)
         return (
-          r("gkx")("26258") ||
+          r("gkx")("16539") &&
             o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([

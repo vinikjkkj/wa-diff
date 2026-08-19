@@ -36,6 +36,9 @@ __d(
       "DownloadLogs",
       "Developer",
       "DeveloperABProps",
+      "DeveloperGroupABProps",
+      "DeveloperInfraSettings",
+      "DeveloperWWWSettings",
       "ScreenLock",
       "DataSharing",
       "DeleteAccount",
@@ -73,7 +76,10 @@ __d(
           );
         case e.Developer:
         case e.DeveloperABProps:
-          return !r("gkx")("26258");
+        case e.DeveloperGroupABProps:
+        case e.DeveloperInfraSettings:
+        case e.DeveloperWWWSettings:
+          return r("gkx")("16539");
         case e.Notifications:
           return !0;
         default:
@@ -114,6 +120,12 @@ __d(
           return "Developer";
         case e.DeveloperABProps:
           return "AB Props";
+        case e.DeveloperGroupABProps:
+          return "Group AB Props";
+        case e.DeveloperInfraSettings:
+          return "Infra Settings";
+        case e.DeveloperWWWSettings:
+          return "Canonical";
         case e.DeleteAccount:
           return "Delete Account";
         default:

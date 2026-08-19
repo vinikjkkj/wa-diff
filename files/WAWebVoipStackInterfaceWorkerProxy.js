@@ -9,6 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCoreActionsODS",
     "WAWebCountryCodeUtils",
+    "WAWebCrashAnnotations",
     "WAWebLowEndDeviceExperimentGating",
     "WAWebMLModelManager",
     "WAWebNoop",
@@ -149,8 +150,9 @@ __d(
     }
     function le() {
       var e,
-        t = ie(),
-        a = new (r("WAWebVoipInitializationBarrier"))(),
+        t = ie();
+      o("WAWebCrashAnnotations").logVoipWorkerBootstrapModeForCrash(t);
+      var a = new (r("WAWebVoipInitializationBarrier"))(),
         i = o("WAWebBackendApi").frontendSendAndReceive("initializeVoipWasm"),
         l = 0,
         le = null,

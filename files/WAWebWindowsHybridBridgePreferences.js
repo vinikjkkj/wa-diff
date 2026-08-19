@@ -39,6 +39,9 @@ __d(
                   ),
                 ),
                 t.$4.add(
+                  String(o("WAWebUserPrefsKeys").UserPrefs.WindowsIsVsrEnabled),
+                ),
+                t.$4.add(
                   String(o("WAWebUserPrefsKeys").KEYS.SYSTEM_THEME_MODE),
                 ),
                 t.$4.add(String(o("WAWebUserPrefsKeys").KEYS.THEME)),

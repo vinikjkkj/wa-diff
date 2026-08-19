@@ -4,6 +4,8 @@ __d(
     "WALogger",
     "WASmaxCoexistenceOffboardingNotificationRPC",
     "WASmaxCoexistenceOnboardingStatusNotificationRPC",
+    "WASmaxCoexistenceSyncNotificationRPC",
+    "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
     "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WAWebCTWADetectedOutcomeOnboardingStatusNotification",
@@ -11,13 +13,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    var e, s;
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = o("WASmaxParseUtils").flattenedChildWithTag(
             t,
             "onboarding_status",
@@ -40,17 +42,33 @@ __d(
             var l = o(
                 "WASmaxCoexistenceOffboardingNotificationRPC",
               ).receiveOffboardingNotificationRPC(t),
-              s = l.parsedRequest;
-            s.offboardingProductSurface === "automation" &&
+              u = l.parsedRequest;
+            u.offboardingProductSurface === "automation" &&
               o(
                 "WAWebCTWADetectedOutcomeOnboardingStatusNotification",
               ).handleCTWADetectedOutcomeOnboardingStatusNotification(!1);
             return;
           }
+          var c = o("WASmaxParseUtils").flattenedChildWithTag(t, "sync");
+          if (c.success)
+            return (
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleHostedNotification: sync notification received",
+                  ])),
+              ),
+              o(
+                "WASmaxCoexistenceSyncNotificationRPC",
+              ).receiveSyncNotificationRPC(t),
+              o(
+                "WASmaxOutNotificationFallbackGenericNotificationResponseAck",
+              ).makeGenericNotificationResponseAck(t)
+            );
           throw (
             o("WALogger").ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "handleHostedNotification: unsupported hosted notification",
                 ])),
             ),
@@ -59,10 +77,10 @@ __d(
             )
           );
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.handleHostedNotification = s;
+    l.handleHostedNotification = u;
   },
   98,
 );

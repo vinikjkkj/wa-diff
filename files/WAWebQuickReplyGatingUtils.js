@@ -2,7 +2,7 @@ __d(
   "WAWebQuickReplyGatingUtils",
   [
     "WAWebABProps",
-    "WAWebBusinessProfileGetters",
+    "WAWebBizBotProfileUtils",
     "WAWebChatGetters",
     "WAWebMobilePlatforms",
     "WAWebPrimaryFeatures",
@@ -16,7 +16,7 @@ __d(
         !o("WAWebChatGetters").getIsNewsletter(t) &&
         !o("WAWebChatGetters").getIsBroadcast(t) &&
         e() &&
-        !o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+        !o("WAWebBizBotProfileUtils").isBizBot3pBusinessProfile(
           t.contact.businessProfile,
         ) &&
         !t.id.isAiHub()

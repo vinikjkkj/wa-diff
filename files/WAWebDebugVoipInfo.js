@@ -2,7 +2,7 @@ __d(
   "WAWebDebugVoipInfo",
   ["gkx"],
   function (t, n, r, o, a, i, l) {
-    var e = !r("gkx")("26258"),
+    var e = r("gkx")("16539"),
       s = new Set();
     function u() {
       return e;

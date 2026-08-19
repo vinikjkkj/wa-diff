@@ -28,8 +28,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = 1,
-      c = (function (t) {
+      u = (function (t) {
         function a(e) {
           var n,
             a = e.chatParticipantCount;
@@ -181,7 +180,7 @@ __d(
                   ? o("WAWebBotGating").getMetaAiVideoUploadSizeLimitBytes()
                   : null;
                 (yield this.processAttachments(e, t, i, s, a, u, c),
-                  o("WAWebBotUtils").isMetaAiBot(n.id) && m(this, n));
+                  o("WAWebBotUtils").isMetaAiBot(n.id) && d(this, n));
               },
             );
             function t(t, n, r, o, a) {
@@ -191,92 +190,92 @@ __d(
           })()),
           (i.processAttachments = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a, i, l, s, c, d) {
-                var m = this,
-                  p = this.getPreviewableMedias().length,
-                  _ = t.length + p > l ? Math.max(l - p, 0) : t.length,
-                  f = t.length - _;
-                _ === 0
-                  ? f && this.trigger("max_upload_limit", f)
-                  : this.ignore(f);
-                var g = t.slice(0, _).map(function (t) {
-                  var l = m.$AttachMediaCollection$p_2(t);
-                  (c != null &&
+              function* (t, a, i, l, s, u, c) {
+                var d = this,
+                  m = this.getPreviewableMedias().length,
+                  p = t.length + m > l ? Math.max(l - m, 0) : t.length,
+                  _ = t.length - p;
+                p === 0
+                  ? _ && this.trigger("max_upload_limit", _)
+                  : this.ignore(_);
+                var f = t.slice(0, p).map(function (t) {
+                  var l = d.$AttachMediaCollection$p_2(t);
+                  (u != null &&
                     (l = l.then(function (e) {
                       if (
                         e.type === o("WAWebFileUtils").FILETYPE.DOCUMENT &&
-                        e.file.size > c
+                        e.file.size > u
                       )
                         throw new (r("WAWebMediaFileTooLargeError"))(
                           "document",
-                          c,
+                          u,
                           e.file.size,
                         );
                       return e;
                     })),
-                    d != null &&
+                    c != null &&
                       (l = l.then(function (e) {
                         if (
                           e.type === o("WAWebFileUtils").FILETYPE.VIDEO &&
-                          e.file.size > d
+                          e.file.size > c
                         )
                           throw new (r("WAWebMediaFileTooLargeError"))(
                             "video",
-                            d,
+                            c,
                             e.file.size,
                           );
                         return e;
                       })));
                   var s = new (o("WAWebAttachMediaModel").AttachMedia)({
-                    id: u++,
+                    id: o("WAWebAttachMediaModel").nextAttachMediaId(),
                     file: l,
                     fileOrigin: a,
                     supportedTypes: i,
                   });
                   if (!(t instanceof (e || (e = n("Promise"))))) {
-                    var p,
+                    var m,
+                      p,
                       _,
                       f,
-                      g,
+                      g =
+                        (m = t.filename) != null
+                          ? m
+                          : (p = t.file) == null
+                            ? void 0
+                            : p.name,
                       h =
-                        (p = t.filename) != null
-                          ? p
-                          : (_ = t.file) == null
+                        (_ = t.mimetype) != null
+                          ? _
+                          : (f = t.file) == null
                             ? void 0
-                            : _.name,
-                      y =
-                        (f = t.mimetype) != null
-                          ? f
-                          : (g = t.file) == null
-                            ? void 0
-                            : g.type;
-                    (h != null || y != null) &&
-                      s.set({ filename: h, mimetype: y });
+                            : f.type;
+                    (g != null || h != null) &&
+                      s.set({ filename: g, mimetype: h });
                   }
                   return s;
                 });
-                this.add(g);
-                var h = this.getActive();
+                this.add(f);
+                var g = this.getActive();
                 return (
                   this.unsetActive(),
-                  g.forEach(function (e) {
-                    m.listenTo(e, "change:previewable", function () {
-                      m.$AttachMediaCollection$p_3(g, h);
+                  f.forEach(function (e) {
+                    d.listenTo(e, "change:previewable", function () {
+                      d.$AttachMediaCollection$p_3(f, g);
                     });
                   }),
                   (e || (e = n("Promise"))).all(t).then(function () {
-                    m.$AttachMediaCollection$p_3(g, h);
+                    d.$AttachMediaCollection$p_3(f, g);
                   }),
                   yield e.all(
-                    g.map(function (e) {
+                    f.map(function (e) {
                       return e.processPromise;
                     }),
                   ),
                   s && s(),
-                  g.forEach(function (e) {
-                    return m.$AttachMediaCollection$p_4(e, a);
+                  f.forEach(function (e) {
+                    return d.$AttachMediaCollection$p_4(e, a);
                   }),
-                  this.$AttachMediaCollection$p_3(g, h)
+                  this.$AttachMediaCollection$p_3(f, g)
                 );
               },
             );
@@ -573,7 +572,7 @@ __d(
             );
           }),
           (i.canSendMedia = function (t) {
-            var e = d(t);
+            var e = c(t);
             return e != null &&
               o("WAWebMimeTypes").isPdfDocument(e) &&
               t.state !== o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.ERROR &&
@@ -592,18 +591,18 @@ __d(
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    c.model = o("WAWebAttachMediaModel").AttachMedia;
-    function d(e) {
+    u.model = o("WAWebAttachMediaModel").AttachMedia;
+    function c(e) {
       if (e.mimetype != null && e.mimetype !== "") return e.mimetype;
       var t = e.file;
       return t instanceof File ? t.type : null;
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.countWhere(function (e) {
             return (
               e.exception instanceof r("WAWebMediaFileTooLargeError") &&
@@ -622,10 +621,10 @@ __d(
               ).getMetaAiImagineEventContext(t),
             });
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.default = c;
+    l.default = u;
   },
   226,
 );

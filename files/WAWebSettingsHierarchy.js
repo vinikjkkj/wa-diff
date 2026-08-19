@@ -129,6 +129,7 @@ __d(
                 "developer_abprops",
                 "developer_group_abprops",
                 "developer_infra_settings",
+                "developer_www_settings",
               ],
             },
           ],
@@ -716,13 +717,12 @@ __d(
           },
         ]
           .concat(
-            r("gkx")("26258")
-              ? []
-              : [
+            r("gkx")("16539")
+              ? [
                   {
                     step: o("WAWebSettingsConst").SettingsSteps.Developer,
                     id: "developer",
-                    isAvailable: !r("gkx")("26258"),
+                    isAvailable: r("gkx")("16539"),
                     searchCriteria: String(
                       o("WAWebSettingsFBT").developerTitle(),
                     ),
@@ -738,7 +738,7 @@ __d(
                     step: o("WAWebSettingsConst").SettingsSteps
                       .DeveloperABProps,
                     id: "developer_abprops",
-                    isAvailable: !r("gkx")("26258"),
+                    isAvailable: r("gkx")("16539"),
                     searchCriteria: String(
                       o("WAWebSettingsFBT").developerABPropsTitle(),
                     ),
@@ -752,7 +752,7 @@ __d(
                     step: o("WAWebSettingsConst").SettingsSteps
                       .DeveloperGroupABProps,
                     id: "developer_group_abprops",
-                    isAvailable: !r("gkx")("26258"),
+                    isAvailable: r("gkx")("16539"),
                     searchCriteria: String(
                       o("WAWebSettingsFBT").developerGroupABPropsTitle(),
                     ),
@@ -766,7 +766,7 @@ __d(
                     step: o("WAWebSettingsConst").SettingsSteps
                       .DeveloperInfraSettings,
                     id: "developer_infra_settings",
-                    isAvailable: !r("gkx")("26258"),
+                    isAvailable: r("gkx")("16539"),
                     searchCriteria: String(
                       o("WAWebSettingsFBT").developerInfraSettingsTitle(),
                     ),
@@ -778,9 +778,9 @@ __d(
                   },
                   {
                     step: o("WAWebSettingsConst").SettingsSteps
-                      .DeveloperInfraSettings,
-                    id: "developer_infra_settings",
-                    isAvailable: !r("gkx")("26258"),
+                      .DeveloperWWWSettings,
+                    id: "developer_www_settings",
+                    isAvailable: r("gkx")("16539"),
                     searchCriteria: String(
                       o("WAWebSettingsFBT").developerWWWSettingsTitle(),
                     ),
@@ -790,7 +790,8 @@ __d(
                       .SETTINGS_ITEM_TYPE.DEVELOPER,
                     isDevOnly: !0,
                   },
-                ],
+                ]
+              : [],
             [
               {
                 step: o("WAWebSettingsConst").SettingsSteps.Logout,
