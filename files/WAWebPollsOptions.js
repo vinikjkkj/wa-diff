@@ -106,10 +106,15 @@ __d(
           ? ((A = s.jsx(s.Fragment, {
               children: v.map(function (e, t) {
                 var n = e[0],
-                  o = e[1],
-                  d = a.has(n.localId),
-                  f = !u && !g && (d || h === 1 || a.size < h),
-                  b = i != null ? i === t : null;
+                  d = e[1],
+                  f = a.has(n.localId),
+                  b =
+                    !u &&
+                    !g &&
+                    (f || h === 1 || a.size < h) &&
+                    (c.pollType !== o("WAWebPollCreationUtils").PollType.QUIZ ||
+                      a.size === 0),
+                  v = i != null ? i === t : null;
                 return s.jsx(
                   "div",
                   {
@@ -118,12 +123,12 @@ __d(
                       msg: c,
                       associatedMsg: L.get(n),
                       option: n,
-                      result: o,
+                      result: d,
                       index: t,
                       onOptionToggle: p,
                       onDetailImageClick: m,
-                      checked: d,
-                      selectable: f,
+                      checked: f,
+                      selectable: b,
                       trusted: y,
                       readonly: g,
                       isPollEnded: l,
@@ -131,7 +136,7 @@ __d(
                       view: C,
                       loadingPhotoThumb: E,
                       hideResults: N,
-                      isCorrectOption: b,
+                      isCorrectOption: v,
                       animationPromise: w,
                       isAdminOrOwner: P,
                     }),

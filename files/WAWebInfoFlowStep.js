@@ -8,6 +8,7 @@ __d(
       "ContactInfo",
       "NewsletterInfo",
       "NewsletterContactInfo",
+      "NewsletterAdminProfile",
       "DeleteNewsletter",
       "NewsletterAdminCenter",
       "NewsletterInsights",

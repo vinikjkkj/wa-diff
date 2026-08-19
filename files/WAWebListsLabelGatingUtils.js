@@ -1,18 +1,10 @@
 __d(
   "WAWebListsLabelGatingUtils",
-  [
-    "WAWebABProps",
-    "WAWebListsGatingUtils",
-    "WAWebMobilePlatforms",
-    "WAWebPrimaryFeatures",
-  ],
+  ["WAWebABProps", "WAWebListsGatingUtils", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
-        (o("WAWebMobilePlatforms").isSMB() &&
-          o("WAWebPrimaryFeatures").primaryFeatureEnabled(
-            "companion_biz_label_sync_support",
-          )) ||
+        o("WAWebMobilePlatforms").isSMB() ||
         o("WAWebListsGatingUtils").isListsEnabled()
       );
     }

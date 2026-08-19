@@ -15,39 +15,56 @@ __d(
         a = e.wallpaperPreview,
         i = e.wallpaperValue,
         l = n ? "dark" : "light",
-        c = (i == null ? void 0 : i.type) === "stock" ? i.stockImageId : null,
-        d =
-          c != null
-            ? o("WAWebStockWallpaper").getStockWallpaperUrlByImageId(c)
+        d = (i == null ? void 0 : i.type) === "stock" ? i.stockImageId : null,
+        m =
+          d != null
+            ? o("WAWebStockWallpaper").getStockWallpaperUrlByImageId(d)
             : null,
-        m = s(i, a, l),
-        p = m !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER ? m : null,
-        _ = u(i),
-        f = d != null && m === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-        g = !f && _,
-        h = o("WAWebMinimalChatWallpaperOverrides").getMinimalModeOverrides({
+        p =
+          d != null
+            ? o("WAWebStockWallpaper").getStockWallpaperThumbnailUrlByImageId(d)
+            : null,
+        _ = u(i, a, l),
+        f = _ !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER ? _ : null,
+        g = c(i),
+        h = m != null && _ === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+        y = !h && g,
+        C = o("WAWebMinimalChatWallpaperOverrides").getMinimalModeOverrides({
           effectiveMinimalMode: t,
           isMinimalScheme: r,
           isDarkTheme: n,
-          showStockWallpaper: f,
+          showStockWallpaper: h,
+        }),
+        b = s({
+          showStockWallpaper: h,
+          solidWallpaperHex: f,
+          isMinimal: t || r,
         });
       return {
-        displayWallpaper: m,
-        solidWallpaperHex: p,
-        stockWallpaperUrl: d,
-        showStockWallpaper: f,
-        showDoodle: g,
-        cssVariableOverrides: h,
+        displayWallpaper: _,
+        solidWallpaperHex: f,
+        stockWallpaperUrl: m,
+        stockWallpaperThumbnailUrl: p,
+        showStockWallpaper: h,
+        showDoodle: y,
+        cssVariableOverrides: C,
+        backgroundKind: b,
       };
     }
-    function s(e, t, n) {
+    function s(e) {
+      var t = e.isMinimal,
+        n = e.showStockWallpaper,
+        r = e.solidWallpaperHex;
+      return n ? "stock" : r != null ? "solid" : t ? "minimal" : "default";
+    }
+    function u(e, t, n) {
       return t != null && t !== ""
         ? t
         : e != null && e.type === "solid"
           ? o("WAWebChatThemeValue").wallpaperValueToHex(e, n)
           : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER;
     }
-    function u(e) {
+    function c(e) {
       var t;
       return e == null
         ? !0

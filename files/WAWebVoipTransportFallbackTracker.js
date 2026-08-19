@@ -17,14 +17,12 @@ __d(
         o(
           "WAWebCoreActionsODS",
         ).logCallWebtransportFallbackToSctpSctpConnected(),
-        o("WALogger")
-          .LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [WebTransportFallback] SCTP recovered call after WebTransport fallback",
-              ])),
-          )
-          .sendLogs("webtransport-fallback-sctp-succeeded"));
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [WebTransportFallback] SCTP recovered call after WebTransport fallback",
+            ])),
+        ));
     }
     function p() {
       !u ||

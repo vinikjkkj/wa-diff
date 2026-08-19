@@ -118,7 +118,7 @@ __d(
               },
               children: m.jsx("div", {
                 children: s._(
-                  /*BTDS*/ "Are you sure you want to delete this item from your catalog?",
+                  /*BTDS*/ "This item will be deleted from your catalog.",
                 ),
               }),
             }),
@@ -356,9 +356,7 @@ __d(
                 )),
               e.fieldName === "collection" &&
                 e.fieldReason === "empty" &&
-                (n = s._(
-                  /*BTDS*/ "A collection must have at least one item in it",
-                )),
+                (n = s._(/*BTDS*/ "A collection needs at least one item.")),
               t(n),
               !1
             );

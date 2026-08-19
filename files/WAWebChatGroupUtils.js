@@ -13,6 +13,7 @@ __d(
     "WAWebBotFrontendGating",
     "WAWebBotGating",
     "WAWebBotTos",
+    "WAWebBusinessProfileGetters",
     "WAWebChatGetters",
     "WAWebConversationDeprecatedLidChatUtils",
     "WAWebCurrentUser",
@@ -294,7 +295,6 @@ __d(
       }
     }
     function $(e, t) {
-      var n;
       if (
         e.isReadOnly ||
         e.isAnnounceGrpRestrict === !0 ||
@@ -308,8 +308,9 @@ __d(
       )
         return ((e.canSend = !1), !1);
       if (
-        (n = t != null ? t : e.contact.businessProfile) != null &&
-        n.isBizBot3p &&
+        o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+          t != null ? t : e.contact.businessProfile,
+        ) &&
         (!o("WAWebBotGating").isBizBot3pAvailable() ||
           !o("WAWebBotTos").hasAcceptedBizBotTos())
       )
@@ -343,13 +344,13 @@ __d(
           ).isDeprecatedLidChatSendBlocked(e)
         ));
       if (o("WAWebChatGetters").getIsNewsletter(e)) {
-        var r, a;
+        var n, r;
         return (e.canSend =
-          (r =
-            (a = e.newsletterMetadata) == null
+          (n =
+            (r = e.newsletterMetadata) == null
               ? void 0
-              : a.iAmAdminOrOwner()) != null
-            ? r
+              : r.iAmAdminOrOwner()) != null
+            ? n
             : !1);
       }
       return ((e.canSend = !0), !0);

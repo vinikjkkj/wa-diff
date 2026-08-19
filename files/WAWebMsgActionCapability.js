@@ -17,6 +17,7 @@ __d(
     "WAWebBotSupportGating",
     "WAWebBotUtils",
     "WAWebBusinessHSMTypes",
+    "WAWebBusinessProfileGetters",
     "WAWebCTWAGatingUtils",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
@@ -409,15 +410,16 @@ __d(
             !o("WAWebFrontendMsgGetters").getAsAlbum(a);
     }
     function E(e) {
-      var t, n;
+      var t,
+        n,
+        r = e == null || (t = e.contact) == null ? void 0 : t.businessProfile;
       return (
-        (e == null || (t = e.id) == null ? void 0 : t.isUser()) === !0 &&
+        (e == null || (n = e.id) == null ? void 0 : n.isUser()) === !0 &&
         o(
           "WAWebUserPrefsMultiDevice",
         ).getIsHostedMeAccountFromLocalStorage() !== !0 &&
-        (e == null || (n = e.contact) == null || (n = n.businessProfile) == null
-          ? void 0
-          : n.isBizBot1p) === !0
+        r != null &&
+        o("WAWebBusinessProfileGetters").getIsBizBot1p(r)
       );
     }
     function k(e, t) {

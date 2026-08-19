@@ -6,6 +6,7 @@ __d(
     "WAWebCTWAConstants",
     "WAWebCTWADataSharingModel",
     "WAWebCTWAGatingUtils",
+    "WAWebChatCollection",
     "WAWebChatModel",
     "WAWebChatThreadLogging",
     "WAWebCommonCTWADataSharing",
@@ -15,8 +16,10 @@ __d(
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebPerCustomerDataSharingUtils",
+    "WAWebSmb3pdConversionSignalAction",
     "WAWebWamEnumCtwaLabelTarget",
     "WAWebWamEnumCtwaLabelType",
+    "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -43,7 +46,8 @@ __d(
       c = { globalSharingSettingEnabled: !1 },
       d = function (t) {
         return t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.FOLLOW_UP ||
-          t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD
+          t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD ||
+          t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_LEAD
           ? {}
           : t === o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PAID
             ? { paid: !0 }
@@ -68,31 +72,55 @@ __d(
             return null;
         }
       };
-    function p(e, t, n, a) {
-      var i,
-        l,
-        s = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
+    function p(e, t) {
+      var n = t.lead,
+        r = t.metadata,
+        a = o("WAWebChatCollection").ChatCollection.get(
+          o("WAWebWidFactory").createWid(e),
+        );
+      if (a != null) {
+        var i = n
+          ? o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_LEAD
+          : o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.DO_NEW_ORDER;
+        (o("WAWebSmb3pdConversionSignalAction").log3pdConversionSignal(
+          {
+            chat: a,
+            paidData: d(i),
+            signalMetadata: r,
+            subType: n ? "do_lead" : "do_new_order",
+            surface: "label_chat",
+            type: n ? "lead_created" : "order_created",
+          },
+          !0,
+        ),
+          _(a, [i], !0, null, { labelId: i, metadata: r }));
+      }
+    }
+    function _(e, t, n, a, i) {
+      var l,
+        s,
+        u = o("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
       if (
         !(
-          s == null ||
+          u == null ||
           !o("WAWebCTWAGatingUtils").isSMBLabelsDataSharingEnabledForChats()
         ) &&
         !o("WAWebCTWAGatingUtils").isCtwa3pdAggregatedConversionEnabled()
       ) {
-        var u = r("WAWebConversionTupleCollection").get(e.id);
+        var c = r("WAWebConversionTupleCollection").get(e.id);
         if (
           !(
-            u != null &&
-            o("WATimeUtils").unixTime() - u.timestamp >
+            c != null &&
+            o("WATimeUtils").unixTime() - c.timestamp >
               o("WAWebConversionTupleModel").ConversionTupleExpiry &&
             o("WAWebCTWAGatingUtils").isCtwaConversionCreationFromDelayEnabled()
           )
         ) {
-          var c = (i = e.accountLid) == null ? void 0 : i.toString(),
-            p = o(
+          var p = (l = e.accountLid) == null ? void 0 : l.toString(),
+            _ = o(
               "WAWebPerCustomerDataSharingUtils",
-            ).getCustomerAdsDataSharingState(c),
-            _ = (l = u == null ? void 0 : u.conversationDepth) != null ? l : 0;
+            ).getCustomerAdsDataSharingState(p),
+            f = (s = c == null ? void 0 : c.conversationDepth) != null ? s : 0;
           o("WAWebChatThreadLogging")
             .getChatThreadIDHMAC(e.id.toString())
             .then(function (e) {
@@ -100,26 +128,29 @@ __d(
                 t.length !== 0 &&
                 t.forEach(function (t) {
                   var r = d(t),
-                    a = JSON.stringify(r),
-                    i = babelHelpers.extends(
+                    a =
+                      i != null && i.labelId === t
+                        ? i.metadata
+                        : JSON.stringify(r),
+                    l = babelHelpers.extends(
                       {
-                        ctwaConversationDepth: _,
+                        ctwaConversationDepth: f,
                         ctwaLabelSignalVersion: 1,
                         ctwaLabelTarget: o("WAWebWamEnumCtwaLabelTarget")
                           .CTWA_LABEL_TARGET.CHAT,
                         ctwaLabelType: t,
                         ctwaSignalMetadata: a,
-                        deepLinkConversionSource: s.source,
+                        deepLinkConversionSource: u.source,
                       },
                       m(n),
                       {
-                        customerAdsSharingSettingEnabled: p,
+                        customerAdsSharingSettingEnabled: _,
                         threadIdHmac: e != null ? e : void 0,
                       },
                     );
                   new (o(
                     "WAWebCtwaLabelSignalWamEvent",
-                  ).CtwaLabelSignalWamEvent)(i).commit();
+                  ).CtwaLabelSignalWamEvent)(l).commit();
                 }),
                 a &&
                   a.length !== 0 &&
@@ -128,7 +159,7 @@ __d(
                     if (r) {
                       var a = babelHelpers.extends(
                         {
-                          ctwaConversationDepth: _,
+                          ctwaConversationDepth: f,
                           ctwaLabelSignalVersion: 1,
                           ctwaLabelTarget: o("WAWebWamEnumCtwaLabelTarget")
                             .CTWA_LABEL_TARGET.CHAT,
@@ -136,11 +167,11 @@ __d(
                             "WAWebLabelConstants",
                           ).mapCustomLabelSubtypeToCTWALabelType(r),
                           ctwaSignalMetadata: t.ctwa_3pd_conversion_metadata,
-                          deepLinkConversionSource: s.source,
+                          deepLinkConversionSource: u.source,
                         },
                         m(n),
                         {
-                          customerAdsSharingSettingEnabled: p,
+                          customerAdsSharingSettingEnabled: _,
                           threadIdHmac: e != null ? e : void 0,
                         },
                       );
@@ -153,7 +184,7 @@ __d(
         }
       }
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       var r = [];
       (t.forEach(function (e) {
         var t = o("WAWebLabelCollection").LabelCollection.get(e),
@@ -168,10 +199,12 @@ __d(
       }),
         r.length !== 0 &&
           e.forEach(function (e) {
-            e instanceof o("WAWebChatModel").Chat && p(e, r, n);
+            e instanceof o("WAWebChatModel").Chat && _(e, r, n);
           }));
     }
-    ((l.logLabelAddedToChatAction = p), (l.logLabelSignalForModels = _));
+    ((l.emitAeModelMetadataConversionOnReceive = p),
+      (l.logLabelAddedToChatAction = _),
+      (l.logLabelSignalForModels = f));
   },
   98,
 );

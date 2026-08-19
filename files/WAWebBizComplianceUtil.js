@@ -92,8 +92,12 @@ __d(
       g = function () {
         return [].concat(_(), ["email"]);
       };
-    function h(e, t, n, r) {
-      return p({ contactId: t, field: n, fields: f(), source: e, value: r });
+    function h(e) {
+      var t = e.contactId,
+        n = e.customerCareDetails,
+        r = e.field,
+        o = e.value;
+      return p({ contactId: t, field: r, fields: f(), source: n, value: o });
     }
     function y(e, t, n, r) {
       return p({ contactId: t, field: n, fields: g(), source: e, value: r });
@@ -120,12 +124,14 @@ __d(
           },
         ) &&
         c(l, s) &&
-        h(a, n) &&
+        h({ contactId: n, customerCareDetails: a }) &&
         y(u, n)
       );
     }
     function b(e, t, n, r, o) {
-      return h(e, o, t, n) ? r : "";
+      return h({ contactId: o, customerCareDetails: e, field: t, value: n })
+        ? r
+        : "";
     }
     function v(e, t, n, r, o) {
       return y(e, o, t, n) ? r : "";

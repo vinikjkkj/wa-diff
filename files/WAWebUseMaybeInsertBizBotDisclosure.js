@@ -5,10 +5,12 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotTos",
     "WAWebBotTypes",
+    "WAWebBusinessProfileGetters",
     "WAWebCreateBizBotSysMsgAction",
     "WAWebTos",
     "WAWebUseBusinessProfile.react",
     "react",
+    "useWAWebBusinessProfileValues",
     "useWAWebListener",
     "useWAWebModelValues",
     "useWAWebStableCallback",
@@ -21,14 +23,18 @@ __d(
       var n,
         a = o("useWAWebModelValues").useModelValues(t, ["bizBotSystemMsgType"]),
         i = a.bizBotSystemMsgType,
-        l =
-          (n = o("WAWebUseBusinessProfile.react").useBusinessProfile(
-            o("WAWebBotBaseGating").isBizBot1pEnabled() ? t.id : null,
-            ["isBizBot1p"],
-          )) != null
-            ? n
-            : {},
-        s = l.isBizBot1p,
+        l = o("WAWebBotBaseGating").isBizBot1pEnabled() ? t.id : null;
+      o("WAWebUseBusinessProfile.react").useBusinessProfile(l, [
+        "automatedType",
+      ]);
+      var s =
+          ((n = o(
+            "useWAWebBusinessProfileValues",
+          ).useOptionalBusinessProfileValues(l, [
+            o("WAWebBusinessProfileGetters").getIsBizBot1p,
+          ])) == null
+            ? void 0
+            : n[0]) === !0,
         c = r("useWAWebStableCallback")(function () {
           o("WAWebBotBaseGating").isBizBot1pEnabled() &&
             o("WAWebBotTos").hasAcceptedBizBotTos() &&

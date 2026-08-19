@@ -8,7 +8,6 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebVoipBackendLoadable",
-    "WAWebVoipGatingUtils",
     "WAWebWamEnumPlatformType",
     "WAWebWamGlobals",
     "WAWebWebcRawPlatformsWamEvent",
@@ -81,16 +80,10 @@ __d(
               this.on(
                 "me_ready",
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  if (
-                    (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
-                    o("WAWebVoipGatingUtils").isVoipDownloadEnabled())
-                  ) {
-                    var e = yield o(
-                        "WAWebVoipBackendLoadable",
-                      ).requireVoipJsBackend(),
-                      t = e.WAWebVoipInit;
-                    yield t.initWAWebVoip();
-                  }
+                  (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+                    yield o(
+                      "WAWebVoipBackendLoadable",
+                    ).initializeVoipFromBootGate("me_ready"));
                 }),
               ));
           }),

@@ -25,6 +25,7 @@ __d(
     "WAWebBusinessAdCreationUtils",
     "WAWebBusinessBroadcastHomeFlowLoadable",
     "WAWebBusinessBroadcastUserJourneyLogger",
+    "WAWebBusinessProfileGetters",
     "WAWebCTWATrackingPayloadUtils",
     "WAWebCatalogManagementFlowLoadable",
     "WAWebChatEntryPoint",
@@ -366,39 +367,38 @@ __d(
             ne = J != null;
           if (!r("isStringNullOrEmpty")(Q) || te || ne) {
             var re = function (n) {
-                var e,
-                  r = n.chat,
-                  i = n.widLookupMethod;
+                var e = n.chat,
+                  r = n.widLookupMethod;
                 H &&
                   o(
                     "WAWebCTWATrackingPayloadUtils",
-                  ).handleChatConversationOpenedWithNewMessage(r, H);
-                var l = i === "customUrl";
-                (l &&
-                  (o("WAWebCustomUrlLogEvents").logClickOnCustomUrl(r),
-                  o("WAWebCustomUrlLogEvents").logMessageSentByCustomUrl(r)),
-                  Z && o("WAWebUpdateUtmAction").addUtmToChat(r.id, Z),
-                  (e = r.contact.businessProfile) != null &&
-                    e.isBizBot3p &&
-                    o("WAWebBizBotLogging").logBizBot3pDeepLinkClickEvent(),
+                  ).handleChatConversationOpenedWithNewMessage(e, H);
+                var i = r === "customUrl";
+                (i &&
+                  (o("WAWebCustomUrlLogEvents").logClickOnCustomUrl(e),
+                  o("WAWebCustomUrlLogEvents").logMessageSentByCustomUrl(e)),
+                  Z && o("WAWebUpdateUtmAction").addUtmToChat(e.id, Z),
+                  o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+                    e.contact.businessProfile,
+                  ) && o("WAWebBizBotLogging").logBizBot3pDeepLinkClickEvent(),
                   o(
                     "WAWebExecApiCmdHelpers",
                   ).externalCtxAuthoriseWAChatIfEnabled({
-                    chatId: r.id,
+                    chatId: e.id,
                     deepLinkType: t.resultType,
                     isExternal: a,
                     partnerToken: t.data.partnertoken,
                   }),
-                  X && (r.urlText = !0),
-                  (r.urlNumber = !0),
-                  l &&
+                  X && (e.urlText = !0),
+                  (e.urlNumber = !0),
+                  i &&
                     o("WAWebDrawerManager").DrawerManager.openDrawerRight(
                       o(
                         "WAWebAdaptiveLayoutGatingUtils",
                       ).shouldUseDrawerDescriptor()
                         ? {
                             descriptorType: "info_flow",
-                            chat: r,
+                            chat: e,
                             profileEntryPoint: o(
                               "WAWebWamEnumProfileEntryPoint",
                             ).PROFILE_ENTRY_POINT.CUSTOM_URL_LINK,
@@ -406,12 +406,12 @@ __d(
                         : $.jsx(
                             o("WAWebInfoFlowLoadable").InfoFlowLoadable,
                             {
-                              chat: r,
+                              chat: e,
                               profileEntryPoint: o(
                                 "WAWebWamEnumProfileEntryPoint",
                               ).PROFILE_ENTRY_POINT.CUSTOM_URL_LINK,
                             },
-                            "info-" + r.id.toString(),
+                            "info-" + e.id.toString(),
                           ),
                       {
                         transition: "slide-left",
@@ -419,17 +419,17 @@ __d(
                           .TABBABLE,
                       },
                     ));
-                var s = U.signupId;
-                (s != null &&
+                var l = U.signupId;
+                (l != null &&
                   Q != null &&
                   o("WAWebSignupGating").isSignupAGMEnabled() &&
                   (o("WAWebSignupLoadingState").setSignupLoading(
-                    r.id.toString(),
+                    e.id.toString(),
                     !0,
                   ),
                   o(
                     "WAWebInjectSignupGreetingMessage",
-                  ).injectSignupGreetingMessage(Q, s)),
+                  ).injectSignupGreetingMessage(Q, l)),
                   o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
                     j,
                     !0,

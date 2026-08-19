@@ -682,7 +682,18 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function ge(e) {
+    function ge(e, t) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        extraAttributes: { partner: e, result: t },
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.PARTNER_MANAGEMENT,
+        userActionTarget: "disconnect_partner",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+      });
+    }
+    function he(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: e,
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -694,7 +705,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function he(e) {
+    function ye(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: e,
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
@@ -707,7 +718,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function ye(e, t) {
+    function Ce(e, t) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: e,
         extraAttributes: { success: t },
@@ -721,7 +732,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function Ce(e) {
+    function be(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: e,
         extraAttributes: { result: "canceled" },
@@ -734,7 +745,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function be(e) {
+    function ve(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         entryPoint: e,
         extraAttributes: { result: "synced" },
@@ -810,11 +821,12 @@ __d(
       (l.logViewPartnersHub = pe),
       (l.logClickPartnerRow = _e),
       (l.logViewPartnerManagement = fe),
-      (l.logViewGoogleDriveValueProp = ge),
-      (l.logClickGoogleDriveConnect = he),
-      (l.logViewGoogleDriveConnectResult = ye),
-      (l.logViewGoogleDriveSetupCanceled = Ce),
-      (l.logViewGoogleDriveSetupSynced = be));
+      (l.logClickDisconnectPartner = ge),
+      (l.logViewGoogleDriveValueProp = he),
+      (l.logClickGoogleDriveConnect = ye),
+      (l.logViewGoogleDriveConnectResult = Ce),
+      (l.logViewGoogleDriveSetupCanceled = be),
+      (l.logViewGoogleDriveSetupSynced = ve));
   },
   98,
 );

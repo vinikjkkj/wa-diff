@@ -1,6 +1,7 @@
 __d(
   "WAWebLabelsBridgeApi",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WAWebBIzLabelReorderAction",
     "WAWebBizLabelUtils",
@@ -14,22 +15,46 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = {
-        applyLabelAssociationChanges: function (t) {
-          var e = t.additions,
-            n = t.removals;
-          for (var r of n) {
-            var a = r.labelId,
-              i = r.parentId,
-              l = r.parentType;
-            o("WAWebBizLabelUtils").removeLabelFromCollection(i, a, l);
+        applyLabelAssociationChanges: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.additions,
+              n = e.removals;
+            for (var a of n) {
+              var i = a.labelId,
+                l = a.parentId,
+                s = a.parentType;
+              o("WAWebBizLabelUtils").removeLabelFromCollection(l, i, s);
+            }
+            for (var u of t) {
+              var c = u.labels,
+                d = u.parentId,
+                m = u.parentType;
+              o("WAWebBizLabelUtils").addToLabelCollection(d, c, m);
+            }
+            if (
+              t.some(function (e) {
+                var t = e.aeModelMetadataEmission;
+                return t != null;
+              })
+            ) {
+              var p = yield r("JSResourceForInteraction")(
+                  "WAWebSmbMarkAsXLabelAction",
+                )
+                  .__setRef("WAWebLabelsBridgeApi")
+                  .load(),
+                _ = p.emitAeModelMetadataConversionOnReceive;
+              for (var f of t) {
+                var g = f.aeModelMetadataEmission,
+                  h = f.parentId;
+                g != null && _(h, g);
+              }
+            }
+          });
+          function t(t) {
+            return e.apply(this, arguments);
           }
-          for (var s of e) {
-            var u = s.labels,
-              c = s.parentId,
-              d = s.parentType;
-            o("WAWebBizLabelUtils").addToLabelCollection(c, u, d);
-          }
-        },
+          return t;
+        })(),
         reorderLabels: function (t) {
           var e = t.sortedLabelIds;
           o("WAWebBIzLabelReorderAction").reorderLabelsAction(e);

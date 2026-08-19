@@ -1,8 +1,10 @@
 __d(
   "WAWebPrefetchLoadables",
   [
+    "JSResourceForInteraction",
     "Promise",
     "WALogger",
+    "WAWebABPropsCache",
     "WAWebAddContactToGroupFlowLoadable",
     "WAWebArchivedFlowLoadable",
     "WAWebAttachMediaFlowLoadable",
@@ -52,7 +54,6 @@ __d(
     "WAWebVoipBundlePreloader",
     "WAWebVoipCallButtonsLoadable",
     "WAWebVoipGatingUtils",
-    "WAWebVoipStackInterface",
     "WAWebVoipUiDocPipLoadable",
     "WAWebVoipUiLoadable",
     "WAWebVoipUiPopoutWindowLoadable",
@@ -70,6 +71,28 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (
+            (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+            !!o("WAWebVoipGatingUtils").isVoipDownloadEnabled())
+          ) {
+            var e = yield r("JSResourceForInteraction")(
+                "WAWebVoipBootStackPrefetch",
+              )
+                .__setRef("WAWebPrefetchLoadables")
+                .load(),
+              t = e.prefetchVoipStackFromBootGate;
+            yield t();
+          }
+        })),
+        c.apply(this, arguments)
+      );
+    }
+    function d() {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             (o("WAWebVoipBundlePreloader").initVoipBundlePreloader(),
               o("WAWebVoipBundlePreloader").preloadForCall(
@@ -130,6 +153,7 @@ __d(
                 o("WAWebVoipGatingUtils").isVoipDownloadEnabled()
                 ? [o("WAWebVoipBackendLoadable").requireVoipJsBackend()]
                 : [],
+              r("WAWebEnvironment").isWeb ? [u()] : [],
               r("WAWebEnvironment").isWeb &&
                 o("WAWebVoipGatingUtils").isCallingEnabled()
                 ? [
@@ -137,7 +161,6 @@ __d(
                     o("WAWebVoipUiLoadable").requireBundle(),
                     o("WAWebVoipUiDocPipLoadable").requireBundle(),
                     o("WAWebVoipUiPopoutWindowLoadable").requireBundle(),
-                    o("WAWebVoipStackInterface").getVoipStackInterface(),
                   ]
                 : [],
             );
@@ -171,10 +194,10 @@ __d(
             );
           }
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.default = u;
+    l.default = d;
   },
   98,
 );

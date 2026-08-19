@@ -11,6 +11,7 @@ __d(
     "WAWebBaseCollection",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotSupportGating",
+    "WAWebBusinessProfileGetters",
     "WAWebChatCollection",
     "WAWebCollectionConstants",
     "WAWebCollectionUtils",
@@ -793,15 +794,14 @@ __d(
           (i.addInitialBotTypingIndicatorToChat = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
-                var n,
-                  r = o("WAWebChatCollection").ChatCollection.get(e);
+                var n = o("WAWebChatCollection").ChatCollection.get(e);
                 if (
                   !(
-                    !r ||
-                    (!(r != null && r.id.isBot()) &&
-                      !(
-                        (n = r.contact.businessProfile) != null && n.isBizBot3p
-                      )) ||
+                    !n ||
+                    (!(n != null && n.id.isBot()) &&
+                      !o(
+                        "WAWebBusinessProfileGetters",
+                      ).isBizBot3pBusinessProfile(n.contact.businessProfile)) ||
                     o("WAWebBotSupportGating").isSupportedThirdPartyBot(
                       o("WAWebResolveBotProfile").resolveBotSupportInput(e),
                       o("WAWebPrimaryFeaturesModel").PrimaryFeatures
@@ -809,13 +809,13 @@ __d(
                     )
                   )
                 ) {
-                  if (r.botInitialTypingIndicatorMsgId != null) {
-                    var a = this.get(r.botInitialTypingIndicatorMsgId);
-                    if (a == null) return;
-                    a == null || a.delete({ skipUpdatingSortTime: !0 });
+                  if (n.botInitialTypingIndicatorMsgId != null) {
+                    var r = this.get(n.botInitialTypingIndicatorMsgId);
+                    if (r == null) return;
+                    r == null || r.delete({ skipUpdatingSortTime: !0 });
                   }
-                  r.set({ botInitialTypingIndicatorMsgId: t }, { silent: !0 });
-                  var i = {
+                  n.set({ botInitialTypingIndicatorMsgId: t }, { silent: !0 });
+                  var a = {
                     id: t,
                     t: o("WATimeUtils").unixTime(),
                     from: e,
@@ -828,7 +828,7 @@ __d(
                   this.processMultipleMessages(
                     e,
                     [
-                      babelHelpers.extends({}, i, {
+                      babelHelpers.extends({}, a, {
                         recvFresh: !0,
                         isNewMsg: !0,
                       }),

@@ -8,6 +8,7 @@ __d(
     "WAWebAddAndReorderMsgsActionsUtils",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
+    "WAWebBusinessProfileGetters",
     "WAWebChatCollection",
     "WAWebChatGetExistingBridge",
     "WAWebChatModel",
@@ -49,41 +50,40 @@ __d(
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
-            i,
-            l = t.chatId,
-            m = t.chatMsgsCollection,
-            p = t.meta,
-            f = t.msgObjs,
-            g = t.processMessageOrigin,
-            y = yield r("WAWebGetMsgUpdatesActionsUtils")(l, f, p, m),
-            b = y.filteredRecs,
-            v = y.reorderRecs,
-            S = y.updates,
-            R = yield (_ || (_ = n("Promise"))).all(S),
-            L = R.filter(function (e) {
+            i = t.chatId,
+            l = t.chatMsgsCollection,
+            m = t.meta,
+            p = t.msgObjs,
+            f = t.processMessageOrigin,
+            g = yield r("WAWebGetMsgUpdatesActionsUtils")(i, p, m, l),
+            y = g.filteredRecs,
+            b = g.reorderRecs,
+            v = g.updates,
+            S = yield (_ || (_ = n("Promise"))).all(v),
+            R = S.filter(function (e) {
               return (e == null ? void 0 : e.associationType) != null;
             });
           if (
             (o(
               "WAWebMessageAssociationUIUtils",
-            ).makeParentMessagesVisibleInChat(L),
-            b.length === 0 && v.length === 0)
+            ).makeParentMessagesVisibleInChat(R),
+            y.length === 0 && b.length === 0)
           ) {
-            if (l && p.pendingMsgsDone === !0) {
-              var E,
-                k =
-                  (E = o("WAWebChatCollection").ChatCollection.get(l)) != null
-                    ? E
-                    : r("WAWebNewsletterCollection").get(l);
-              k && (k.pendingMsgs = !1);
+            if (i && m.pendingMsgsDone === !0) {
+              var L,
+                E =
+                  (L = o("WAWebChatCollection").ChatCollection.get(i)) != null
+                    ? L
+                    : r("WAWebNewsletterCollection").get(i);
+              E && (E.pendingMsgs = !1);
             }
-            return r("compactMap")(f, function (e) {
+            return r("compactMap")(p, function (e) {
               return o("WAWebMsgCollection").MsgCollection.get(e.id);
             });
           }
-          if (!l)
-            return C(b).then(function () {
-              return f.reduce(function (e, t) {
+          if (!i)
+            return C(y).then(function () {
+              return p.reduce(function (e, t) {
                 var n = o("WAWebMsgCollection").MsgCollection.get(t.id);
                 return (
                   n != null &&
@@ -93,22 +93,22 @@ __d(
                 );
               }, []);
             });
-          var I = self.performance.now(),
-            T,
-            D = f[0];
-          if (o("WAWebMsgGetters").getIsStatus(D)) {
-            var x,
-              $ = (x = o("WAWebMsgGetters").getSender(D)) != null ? x : D.from;
+          var k = self.performance.now(),
+            I,
+            T = p[0];
+          if (o("WAWebMsgGetters").getIsStatus(T)) {
+            var D,
+              x = (D = o("WAWebMsgGetters").getSender(T)) != null ? D : T.from;
             if (
-              (r("WAWebWid").isStatus(l) &&
-                ($ = D.id.fromMe
+              (r("WAWebWid").isStatus(i) &&
+                (x = T.id.fromMe
                   ? o("WAWebLidStatusMigrationUtils").matWidConvert(
                       o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
                     )
-                  : D.author),
-              $ == null)
+                  : T.author),
+              x == null)
             ) {
-              var P, N, M;
+              var $, P, N;
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -119,18 +119,18 @@ __d(
                     " author=",
                     "",
                   ])),
-                l.toLogString(),
-                (P = o("WAWebMsgGetters").getSender(D)) == null
+                i.toLogString(),
+                ($ = o("WAWebMsgGetters").getSender(T)) == null
                   ? void 0
-                  : P.toLogString(),
-                (N = D.from) == null ? void 0 : N.toLogString(),
-                D.id.fromMe,
-                (M = D.author) == null ? void 0 : M.toLogString(),
+                  : $.toLogString(),
+                (P = T.from) == null ? void 0 : P.toLogString(),
+                T.id.fromMe,
+                (N = T.author) == null ? void 0 : N.toLogString(),
               );
             }
-            T = o("WAWebStatusCollection").StatusCollection.find($);
+            I = o("WAWebStatusCollection").StatusCollection.find(x);
           } else {
-            if (yield h(l, f))
+            if (yield h(i, p))
               return (
                 o("WALogger").LOG(
                   s ||
@@ -138,71 +138,70 @@ __d(
                       "_processMultipleMessages: skipping ghost chat creation for ephemeral_setting-only message ",
                       "",
                     ])),
-                  l.toLogString(),
+                  i.toLogString(),
                 ),
-                r("compactMap")(f, function (e) {
+                r("compactMap")(p, function (e) {
                   return o("WAWebMsgCollection").MsgCollection.get(e.id);
                 })
               );
-            T = yield o("WAWebFindChatAction").findExistingChat(l, g);
+            I = yield o("WAWebFindChatAction").findExistingChat(i, f);
           }
-          var w = yield T,
-            A = self.performance.now(),
-            F = yield C(b),
-            O = self.performance.now(),
-            B = p.add === "after" || p.add === "last",
-            W = !p.isHistory,
+          var M = yield I,
+            w = self.performance.now(),
+            A = yield C(y),
+            F = self.performance.now(),
+            O = m.add === "after" || m.add === "last",
+            B = !m.isHistory,
+            W,
             q,
-            U,
-            V = !1,
-            H = w.id.isBot(),
-            G =
-              ((a = w.contact.businessProfile) == null
-                ? void 0
-                : a.isBizBot3p) === !0;
-          if ((H || G) && p.isHistory === !1) {
-            var z = w.msgs.last();
-            (z == null ? void 0 : z.subtype) ===
+            U = !1,
+            V = M.id.isBot(),
+            H = o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+              M.contact.businessProfile,
+            );
+          if ((V || H) && m.isHistory === !1) {
+            var G = M.msgs.last();
+            (G == null ? void 0 : G.subtype) ===
               o("WAWebBotGenTypingIndicatorMsg")
                 .BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE &&
-              (z == null || z.delete({ skipUpdatingSortTime: !0 }));
+              (G == null || G.delete({ skipUpdatingSortTime: !0 }));
           }
-          (F.forEach(function (e) {
+          (A.forEach(function (e) {
             e.subtype === "biz_bot_1p_disclosure"
-              ? w.set({
+              ? M.set({
                   bizBotSystemMsgType: o("WAWebBotTypes").BizBotType.BIZ_1P,
                 })
               : e.subtype === "biz_bot_3p_disclosure" &&
-                w.set({
+                M.set({
                   bizBotSystemMsgType: o("WAWebBotTypes").BizBotType.BIZ_3P,
                 });
           }),
-            p.add === "unread"
-              ? ((q = m), w.msgChunks.push(q), (U = p.firstUnreadKey))
-              : p.add === "last" && p.resume === !0
-                ? ((q = m), (V = !0))
-                : (q = typeof m == "function" ? m() : m));
-          var j = typeof q == "function" ? q() : q,
-            K = w;
+            m.add === "unread"
+              ? ((W = l), M.msgChunks.push(W), (q = m.firstUnreadKey))
+              : m.add === "last" && m.resume === !0
+                ? ((W = l), (U = !0))
+                : (W = typeof l == "function" ? l() : l));
+          var z = typeof W == "function" ? W() : W,
+            j = M;
           if (
-            ((j == null ? void 0 : j.threadId) != null &&
-              w instanceof o("WAWebChatModel").Chat &&
-              (K = o("WAWebThreadModelResolver").resolveThreadOrChat(
-                w,
-                j.threadId,
+            ((z == null ? void 0 : z.threadId) != null &&
+              M instanceof o("WAWebChatModel").Chat &&
+              (j = o("WAWebThreadModelResolver").resolveThreadOrChat(
+                M,
+                z.threadId,
               )),
             r("WAWebAddAndReorderMsgsActionsUtils")({
-              anchorMsgKey: p.anchorMsgKey,
-              chatMsgsCollection: j != null ? j : w.msgs,
-              firstUnreadKey: U,
-              insertAfter: B,
-              msgHistory: f,
-              newMsgs: F,
-              reorderMsgs: v,
-              resetMostRecentMsgs: V,
-              threadOrChat: K,
+              anchorMsgKey: m.anchorMsgKey,
+              chatMsgsCollection: z != null ? z : M.msgs,
+              firstUnreadKey: q,
+              insertAfter: O,
+              msgHistory: p,
+              newMsgs: A,
+              reorderMsgs: b,
+              resetMostRecentMsgs: U,
+              threadOrChat: j,
             }),
-            O - I >= 500 &&
+            F - k >= 500 &&
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -211,29 +210,29 @@ __d(
                     "ms msgPrepWork=",
                     "ms",
                   ])),
-                f.length,
-                Math.round(A - I),
-                Math.round(O - A),
+                p.length,
+                Math.round(w - k),
+                Math.round(F - w),
               ),
-            w instanceof o("WAWebChatModel").Chat &&
-              (j == null || j.threadId == null) &&
+            M instanceof o("WAWebChatModel").Chat &&
+              (z == null || z.threadId == null) &&
               o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(
-                w,
-                F,
+                M,
+                A,
               ),
-            p.pendingMsgsDone === !0 && (w.pendingMsgs = !1),
-            W &&
-              r("WAWebWid").isBroadcast(l) &&
-              !r("WAWebWid").isStatus(l) &&
-              F.forEach(function (e) {
+            m.pendingMsgsDone === !0 && (M.pendingMsgs = !1),
+            B &&
+              r("WAWebWid").isBroadcast(i) &&
+              !r("WAWebWid").isStatus(i) &&
+              A.forEach(function (e) {
                 e &&
                   e.recvFresh &&
                   !o("WAWebMsgGetters").getIsNotification(e) &&
                   o("WAWebMsgModelUtils").broadcastFanout(e);
               }),
-            !((i = p.isHistory) != null && i))
+            !((a = m.isHistory) != null && a))
           ) {
-            var Q = r("compactMap")(F, function (e) {
+            var K = r("compactMap")(A, function (e) {
               var t,
                 n,
                 r,
@@ -281,9 +280,9 @@ __d(
                   "processed ",
                   " recent sticker messages",
                 ])),
-              Q.length,
+              K.length,
             ),
-              Q.forEach(function (e) {
+              K.forEach(function (e) {
                 return o(
                   "WAWebRecentStickerCollectionMd",
                 ).RecentStickerCollectionMd.addNewSticker(
@@ -293,8 +292,8 @@ __d(
                 );
               }));
           }
-          var X = 0,
-            Y = r("compactMap")(F, function (e) {
+          var Q = 0,
+            X = r("compactMap")(A, function (e) {
               var t =
                   e.isNewMsg &&
                   o("WAWebMsgGetters").getIsSentByMe(e) &&
@@ -303,7 +302,7 @@ __d(
               if (t) {
                 var r = e.mediaKey;
                 if (r == null) {
-                  X++;
+                  Q++;
                   return;
                 }
                 return {
@@ -325,7 +324,7 @@ __d(
                 };
               }
             });
-          (X > 0 &&
+          (Q > 0 &&
             o("WALogger")
               .ERROR(
                 d ||
@@ -335,13 +334,13 @@ __d(
               )
               .sendLogs("sticker-unexpected-null-media-key"),
             o("WAWebRecentStickerCollection").RecentStickerCollection.enqueue(
-              Y,
+              X,
             ));
-          var J = F.filter(function (e) {
+          var Y = A.filter(function (e) {
             return !o("WAWebMsgGetters").getIsStatus(e);
           });
           if (
-            (r("compactMap")(J, function (e) {
+            (r("compactMap")(Y, function (e) {
               return o("WAWebFrontendMsgGetters").getAsAutoDownloadableMedia(e);
             }).forEach(function (e) {
               o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
@@ -351,14 +350,14 @@ __d(
             }),
             !o("WAWebUserPrefsGeneral").getAutoDownloadPhotos())
           ) {
-            var Z = F.filter(function (e) {
+            var J = A.filter(function (e) {
               return (
                 !o("WAWebMsgGetters").getIsSentByMe(e) &&
                 !o("WAWebMsgGetters").getIsStatus(e) &&
                 !o("WAWebMsgGetters").getIsNewsletterMsg(e)
               );
             });
-            r("compactMap")(Z, function (e) {
+            r("compactMap")(J, function (e) {
               return o("WAWebFrontendMsgGetters").getAsImage(e);
             }).forEach(function (e) {
               var t, n;
@@ -386,7 +385,7 @@ __d(
             });
           }
           if (
-            (r("compactMap")(F, function (e) {
+            (r("compactMap")(A, function (e) {
               return o("WAWebFrontendMsgGetters").getAsDoc(e);
             }).forEach(function (e) {
               o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
@@ -397,7 +396,7 @@ __d(
             }),
             window.setTimeout(function () {
               if (o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled()) {
-                var e = r("compactMap")(F, function (e) {
+                var e = r("compactMap")(A, function (e) {
                     return o("WAWebFrontendMsgGetters").getAsDoc(e);
                   }),
                   t = e.some(function (e) {
@@ -413,7 +412,7 @@ __d(
                     }));
               }
             }, 0),
-            r("compactMap")(F, function (e) {
+            r("compactMap")(A, function (e) {
               return o("WAWebFrontendMsgGetters").getAsUrl(e);
             }).forEach(function (e) {
               o("WAWebMediaLinkPreviewUtils").hqLinkPreviewExpired(e.t) ||
@@ -428,13 +427,13 @@ __d(
               "download_status_thumb_mms_enabled",
             ))
           ) {
-            var ee = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
-              te = 1e3 * 60 * 60 * 24;
-            if (ee == null || Date.now() - ee < 14 * te) {
-              var ne = F.filter(function (e) {
+            var Z = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
+              ee = 1e3 * 60 * 60 * 24;
+            if (Z == null || Date.now() - Z < 14 * ee) {
+              var te = A.filter(function (e) {
                 return o("WAWebMsgGetters").getIsStatus(e);
               });
-              r("compactMap")(ne, function (e) {
+              r("compactMap")(te, function (e) {
                 return (
                   o("WAWebFrontendMsgGetters").getAsImage(e) ||
                   o("WAWebFrontendMsgGetters").getAsVideo(e)
@@ -448,7 +447,7 @@ __d(
               });
             }
           }
-          return r("compactMap")(f, function (e) {
+          return r("compactMap")(p, function (e) {
             return o("WAWebMsgCollection").MsgCollection.get(e.id);
           });
         })),

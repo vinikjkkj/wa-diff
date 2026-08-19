@@ -6,6 +6,7 @@ __d(
     "CometOrigin",
     "CometPreloaderInit",
     "CometVisualCompletion",
+    "ExecutionEnvironment",
     "cr:5473",
     "justknobx",
     "react",
@@ -13,51 +14,53 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react"));
-    function u(e) {
-      var t = e.additionalRoots,
-        n = e.buildRootComponent,
-        a = e.config,
-        i = e.expectedPreloaders,
-        l = e.initClient,
-        u = e.rootElementID,
-        d = e.ssrEnabled,
-        m = e.traceAPI;
-      t &&
+      s,
+      u = s || (s = o("react"));
+    function c(t) {
+      var n = t.additionalRoots,
+        a = t.buildRootComponent,
+        i = t.config,
+        l = t.expectedPreloaders,
+        s = t.initClient,
+        c = t.rootElementID,
+        m = t.ssrEnabled,
+        p = t.traceAPI;
+      n &&
         r("justknobx")._("3805") &&
         r("Bootloader").markComponentsAsImmediate(
-          t.map(function (e) {
+          n.map(function (e) {
             return e.getModuleId();
           }),
         );
-      var p = a.decorateTraceAPI,
-        _ = a.disableVisualCompletion,
-        f = a.initClientAndServer,
-        g = a.initDarkMode,
-        h = a.removeSplashScreen,
-        y = a.strictModeEnabled,
-        C = y === void 0 ? !0 : y;
-      (c(m),
-        o("CometOrigin").setCometOrigin(window.location.origin),
-        g != null && g(),
-        o("CometPreloaderInit").initPreloaders(i),
-        f && f(),
-        l());
-      var b = n();
-      (m.addMarkerPoint("reactStart", "AppTiming"),
-        m.addMetadata("reactVersion", s.version),
-        p && p(m),
+      var _ = i.decorateTraceAPI,
+        f = i.disableVisualCompletion,
+        g = i.initClientAndServer,
+        h = i.initDarkMode,
+        y = i.removeSplashScreen,
+        C = i.strictModeEnabled,
+        b = C === void 0 ? !0 : C;
+      (d(p),
+        (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+          o("CometOrigin").setCometOrigin(window.location.origin),
+        h != null && h(),
+        o("CometPreloaderInit").initPreloaders(l),
+        g && g(),
+        s());
+      var v = a();
+      (p.addMarkerPoint("reactStart", "AppTiming"),
+        p.addMetadata("reactVersion", u.version),
+        _ && _(p),
         o("CometClientRootRendererSSRUtils").initReactRenderWithSSR({
-          CometVisualCompletion: _ === !0 ? void 0 : r("CometVisualCompletion"),
-          removeSplashScreen: h,
-          rootComponent: s.jsx(b, {}),
-          rootElementID: u,
-          rootOptions: { unstable_strictMode: C },
-          ssrEnabled: d,
-          traceAPI: m,
+          CometVisualCompletion: f === !0 ? void 0 : r("CometVisualCompletion"),
+          removeSplashScreen: y,
+          rootComponent: u.jsx(v, {}),
+          rootElementID: c,
+          rootOptions: { unstable_strictMode: b },
+          ssrEnabled: m,
+          traceAPI: p,
         }));
     }
-    function c(e) {
+    function d(e) {
       e.onVcMetricsComplete(function (e, t) {
         var r;
         n("cr:5473") != null &&
@@ -69,7 +72,7 @@ __d(
           n("cr:5473").detect(t);
       });
     }
-    l.initClientRender = u;
+    l.initClientRender = c;
   },
   98,
 );

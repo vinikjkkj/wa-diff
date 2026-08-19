@@ -4,8 +4,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = [0.1, 0.82, 0.25, 1],
       s = [0.69, 0, 0.79, 0.14],
-      u = [0.84, 0.07, 0.93, 0.46];
-    function c() {
+      u = [0.84, 0.07, 0.93, 0.46],
+      c = [0.42, 0, 0.58, 1];
+    function d() {
       (r("velocity-animate").RegisterEffect("attach.Up", {
         defaultDuration: 300,
         calls: [
@@ -49,7 +50,7 @@ __d(
           ],
         }));
     }
-    var d = {
+    var m = {
         pop: {
           duration: 200,
           easing: u,
@@ -720,6 +721,12 @@ __d(
           enter: { props: { translateY: ["0%", "200%"], opacity: [1, 0] } },
           leave: { props: { translateY: ["-200%", "0%"], opacity: [0, 1] } },
         },
+        "pin-message-refresh": {
+          duration: 200,
+          easing: c,
+          enter: { props: { translateY: ["0px", "20px"], opacity: [1, 0] } },
+          leave: { props: { translateY: ["-20px", "0px"], opacity: [0, 1] } },
+        },
         "compose-panel-down": {
           duration: 300,
           enter: {
@@ -760,8 +767,8 @@ __d(
           enter: { props: "slideDown" },
         },
       },
-      m = Object.freeze(d);
-    ((l.registerEffects = c), (l.Transitions = m));
+      p = Object.freeze(m);
+    ((l.registerEffects = d), (l.Transitions = p));
   },
   98,
 );

@@ -2,6 +2,7 @@ __d(
   "WAWebQuickReplyGatingUtils",
   [
     "WAWebABProps",
+    "WAWebBusinessProfileGetters",
     "WAWebChatGetters",
     "WAWebMobilePlatforms",
     "WAWebPrimaryFeatures",
@@ -11,12 +12,13 @@ __d(
       return o("WAWebMobilePlatforms").isSMB();
     }
     function s(t) {
-      var n;
       return (
         !o("WAWebChatGetters").getIsNewsletter(t) &&
         !o("WAWebChatGetters").getIsBroadcast(t) &&
         e() &&
-        !((n = t.contact.businessProfile) != null && n.isBizBot3p) &&
+        !o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+          t.contact.businessProfile,
+        ) &&
         !t.id.isAiHub()
       );
     }

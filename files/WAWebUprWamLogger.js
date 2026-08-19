@@ -23,42 +23,45 @@ __d(
       d = "receiver_log_key",
       m = "upr_message_id",
       p = "universal_payment_request",
-      _ = "upr_payment_options",
-      f = "individual",
-      g = "group",
-      h = "broadcast",
-      y = "newsletter",
-      C = Object.freeze({
+      _ = "upr_payment_bubble",
+      f = "upr_payment_options",
+      g = 200,
+      h = new Set(),
+      y = "individual",
+      C = "group",
+      b = "broadcast",
+      v = "newsletter",
+      S = Object.freeze({
         OPEN_PAYMENT_LINK: "open_payment_link",
         COPY_PAYMENT_KEY: "copy_payment_key",
         VIEW_PAYMENT_OPTIONS: "view_payment_options",
         VIEW_DETAILS: "view_details",
       }),
-      b = Object.freeze(
+      R = Object.freeze(
         ((e = {}),
-        (e[C.OPEN_PAYMENT_LINK] = (c = o(
+        (e[S.OPEN_PAYMENT_LINK] = (c = o(
           "WAWebWamEnumInteractionType",
         )).INTERACTION_TYPE.USER_OPEN_BROWSER),
-        (e[C.COPY_PAYMENT_KEY] = c.INTERACTION_TYPE.CLICK_COPY_PAYMENT_KEY),
-        (e[C.VIEW_PAYMENT_OPTIONS] = c.INTERACTION_TYPE.CLICK_PAYMENT_DETAILS),
-        (e[C.VIEW_DETAILS] = c.INTERACTION_TYPE.CLICK_ORDER_SUMMARY),
+        (e[S.COPY_PAYMENT_KEY] = c.INTERACTION_TYPE.CLICK_COPY_PAYMENT_KEY),
+        (e[S.VIEW_PAYMENT_OPTIONS] = c.INTERACTION_TYPE.CLICK_PAYMENT_DETAILS),
+        (e[S.VIEW_DETAILS] = c.INTERACTION_TYPE.CLICK_ORDER_SUMMARY),
         e),
       );
-    function v(e) {
+    function L(e) {
       return o("WAWebChatGetters").getIsGroup(e)
-        ? g
+        ? C
         : o("WAWebChatGetters").getIsBroadcast(e)
-          ? h
+          ? b
           : o("WAWebChatGetters").getIsNewsletter(e)
-            ? y
-            : f;
+            ? v
+            : y;
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function R() {
+    function k() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
               e,
               t,
@@ -67,10 +70,10 @@ __d(
             a = r.funnel_id;
           return a;
         })),
-        R.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function L(e) {
+    function I(e) {
       var t,
         n,
         r = e.buyerAttributes,
@@ -84,7 +87,7 @@ __d(
             : (n = o("WAWebMsgGetters").getSender(u)) == null
               ? void 0
               : n.toJid();
-      $({
+      w({
         buyerAttributes: r,
         businessOwnerJid: c,
         interaction: a,
@@ -101,15 +104,15 @@ __d(
         );
       });
     }
-    function E(e) {
+    function T(e) {
       var t = e.chat,
         n = e.cta,
         r = e.identifierType,
         o = e.info,
         a = e.msg,
         i = e.paymentMethodChoice,
-        l = b[n],
-        s = v(t),
+        l = R[n],
+        s = L(t),
         u = r == null ? void 0 : r.toLowerCase(),
         c = {
           cta: p,
@@ -119,6 +122,7 @@ __d(
           is_single_option: o.paymentOptions.length === 1,
           chat_type: s,
           currency: o.currency,
+          order_amount: x(o),
         },
         d = {
           cta: p,
@@ -128,94 +132,111 @@ __d(
           chatType: s,
           currency: o.currency,
         };
-      L({ buyerAttributes: d, interaction: l, msg: a, psAttributes: c });
+      I({ buyerAttributes: d, interaction: l, msg: a, psAttributes: c });
     }
-    function k(e) {
+    function D(e) {
+      var t = e.direction,
+        n = e.msg;
+      if (!h.has(n.id.id)) {
+        if (h.size >= g) {
+          var r = h.values().next().value;
+          r != null && h.delete(r);
+        }
+        (h.add(n.id.id),
+          I({
+            msg: n,
+            interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
+              .USER_VIEW,
+            psAttributes: { direction: t, is_upr: !0, screen: _ },
+          }));
+      }
+    }
+    function x(e) {
       var t = e.totalAmount;
       if (!(t == null || t.offset === 0)) return t.value / t.offset;
     }
-    function I(e) {
+    function $(e) {
       var t = e.msg;
-      L({
+      I({
         msg: t,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .USER_VIEW,
-        psAttributes: { is_upr: !0, screen: _ },
-        buyerAttributes: { isUpr: !0, screen: _ },
+        psAttributes: { is_upr: !0, screen: f },
+        buyerAttributes: { isUpr: !0, screen: f },
       });
     }
-    function T(e, t) {
+    function P(e, t) {
       var n = e.info,
         r = e.msg,
         a = t.identifierType.toLowerCase(),
         i = n.currency === "" ? void 0 : n.currency;
-      L({
+      I({
         msg: r,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .CLICK_COPY_PAYMENT_KEY,
         psAttributes: {
           is_upr: !0,
-          screen: _,
+          screen: f,
           method_type: t.accountType,
           identifier_type: a,
-          order_amount: k(n),
+          order_amount: x(n),
           currency: i,
         },
         buyerAttributes: {
           isUpr: !0,
-          screen: _,
+          screen: f,
           methodType: t.accountType,
           identifierType: a,
           currency: i,
         },
       });
     }
-    function D(e) {
+    function N(e) {
       var t = e.info,
         n = e.msg,
         r = t.currency === "" ? void 0 : t.currency;
-      L({
+      I({
         msg: n,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .USER_OPEN_BROWSER,
         psAttributes: {
           is_upr: !0,
-          screen: _,
+          screen: f,
           method_type: "payment_link",
-          order_amount: k(t),
+          order_amount: x(t),
           currency: r,
         },
         buyerAttributes: {
           isUpr: !0,
-          screen: _,
+          screen: f,
           methodType: "payment_link",
           currency: r,
         },
       });
     }
-    function x(e) {
+    function M(e) {
       var t = e.msg;
-      L({
+      I({
         msg: t,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .USER_CANCEL,
-        psAttributes: { is_upr: !0, screen: _ },
-        buyerAttributes: { isUpr: !0, screen: _ },
+        psAttributes: { is_upr: !0, screen: f },
+        buyerAttributes: { isUpr: !0, screen: f },
       });
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function w(e) {
+      return A.apply(this, arguments);
     }
-    function P() {
+    function A() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.businessOwnerJid,
             r = e.buyerAttributes,
             a = e.interaction,
             i = e.msg,
             l = e.psAttributes,
             s = i.id.id + i.to.toJid(),
-            c = yield (u || (u = n("Promise"))).all([S(d, s), S(m, i.id.id)]),
+            c = yield (u || (u = n("Promise"))).all([E(d, s), E(m, i.id.id)]),
             p = c[0],
             _ = c[1];
           (new (o(
@@ -234,23 +255,25 @@ __d(
             messageInteraction: a,
             messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
           }).commit(),
-            yield o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
-              attributes: babelHelpers.extends({}, r, { messageId: _ }),
-              bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-              interaction: a,
-              isLoggingEnabled: !0,
-              psFunnelId: p,
-            }));
+            r != null &&
+              (yield o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
+                attributes: babelHelpers.extends({}, r, { messageId: _ }),
+                bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
+                interaction: a,
+                isLoggingEnabled: !0,
+                psFunnelId: p,
+              })));
         })),
-        P.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    ((l.UprCtaType = C),
-      (l.logUprInteractionWAMEvent = E),
-      (l.logUprPaymentOptionsViewWAMEvent = I),
-      (l.logUprPaymentOptionCopyWAMEvent = T),
-      (l.logUprPaymentOptionOpenLinkWAMEvent = D),
-      (l.logUprPaymentOptionsDismissWAMEvent = x));
+    ((l.UprCtaType = S),
+      (l.logUprInteractionWAMEvent = T),
+      (l.logUprBubbleViewWAMEvent = D),
+      (l.logUprPaymentOptionsViewWAMEvent = $),
+      (l.logUprPaymentOptionCopyWAMEvent = P),
+      (l.logUprPaymentOptionOpenLinkWAMEvent = N),
+      (l.logUprPaymentOptionsDismissWAMEvent = M));
   },
   98,
 );

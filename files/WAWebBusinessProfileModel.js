@@ -12,7 +12,6 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendBusinessProfileGetters",
     "WAWebOrderRequestMsg.flow",
-    "WAWebProductCatalogMetaLinkingGatingUtils",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -67,32 +66,6 @@ __d(
             (t.commandsDescription = o("WAWebBaseModel").prop()),
             (t.commands = o("WAWebBaseModel").prop()),
             (t.stale = o("WAWebBaseModel").session(!0)),
-            (t.isBizBot3p = o("WAWebBaseModel").derived(
-              function () {
-                return (
-                  this.automatedType ===
-                  o("WAWebBotTypes").BizBotAutomatedType.FULL_3P
-                );
-              },
-              ["automatedType"],
-            )),
-            (t.isBizBot1p = o("WAWebBaseModel").derived(
-              function () {
-                return (
-                  this.automatedType ===
-                  o("WAWebBotTypes").BizBotAutomatedType.PARTIAL_1P
-                );
-              },
-              ["automatedType"],
-            )),
-            (t.isCatalogDisabledDueToMetaLinking = o("WAWebBaseModel").derived(
-              function () {
-                return o(
-                  "WAWebProductCatalogMetaLinkingGatingUtils",
-                ).shouldDisableCatalogDueToMetaLinkingForProfile(this);
-              },
-              ["profileOptions"],
-            )),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -150,7 +123,8 @@ __d(
           (n.$BusinessProfileImpl$p_2 = function () {
             if (
               !(
-                !o("WAWebBotBaseGating").isBizBot3pEnabled() || !this.isBizBot3p
+                !o("WAWebBotBaseGating").isBizBot3pEnabled() ||
+                !o("WAWebBusinessProfileGetters").getIsBizBot3p(this)
               )
             ) {
               var e = o("WAWebContactCollection").ContactCollection.get(

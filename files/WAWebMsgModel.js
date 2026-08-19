@@ -11,6 +11,7 @@ __d(
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
     "WAWebBusinessHSMTypes",
+    "WAWebBusinessProfileGetters",
     "WAWebCarouselCardsCollection",
     "WAWebChangePresenceHandlerAction",
     "WAWebChatCollection",
@@ -1173,11 +1174,11 @@ __d(
           (i.$MsgImpl$p_20 = function (t) {
             var e = this.$MsgImpl$p_22().get(this.id.remote);
             if (e) {
-              var n, r;
+              var n;
               ((this.id.remote.isBot() ||
-                ((n = e.contact.businessProfile) == null
-                  ? void 0
-                  : n.isBizBot3p) === !0) &&
+                o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+                  e.contact.businessProfile,
+                )) &&
                 this.subtype ===
                   o("WAWebBotGenTypingIndicatorMsg")
                     .BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE &&
@@ -1185,17 +1186,17 @@ __d(
                 e.botInitialTypingIndicatorMsgId.equals(this.id) &&
                 e.set({ botInitialTypingIndicatorMsgId: null }, { silent: !0 }),
                 e.unreadMsgAnchor === this && (e.unreadMsgAnchor = void 0));
-              var a =
+              var r =
                 (t == null ? void 0 : t.messageInHiddenViewMode) === !0 ||
                 !t ||
                 !t.doNotResetLastReceived;
-              if (a && e.lastReceivedKey === this.id) {
-                var i = void 0,
-                  l = o("WAWebChatGetMessage").getLastReceivedMsg(e);
-                (l && (i = l.id), (e.lastReceivedKey = i));
+              if (r && e.lastReceivedKey === this.id) {
+                var a = void 0,
+                  i = o("WAWebChatGetMessage").getLastReceivedMsg(e);
+                (i && (a = i.id), (e.lastReceivedKey = a));
               }
-              (r = e.composeQuotedMsg) != null &&
-                r.id.equals(this.id) &&
+              (n = e.composeQuotedMsg) != null &&
+                n.id.equals(this.id) &&
                 (t == null ? void 0 : t.messageInHiddenViewMode) !== !0 &&
                 (e.composeQuotedMsg = null);
             }

@@ -23,7 +23,7 @@ __d(
               return (
                 t.kind === e.kind &&
                 t.alwaysScope === e.alwaysScope &&
-                t.labelText === e.labelText
+                (e.alwaysScope === "" || t.labelText === e.labelText)
               );
             });
           });

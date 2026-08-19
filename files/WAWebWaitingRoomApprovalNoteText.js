@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(
-        /*BTDS*/ "Participants who don't have WhatsApp will always require joining approval.",
+        /*BTDS*/ "People who don't have WhatsApp will always need approval to join.",
       );
     }
     l.getWaitingRoomApprovalNoteText = e;

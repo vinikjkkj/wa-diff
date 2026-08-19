@@ -6,6 +6,7 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotTos",
     "WAWebBotTypes",
+    "WAWebBusinessProfileGetters",
     "WAWebContactGetters",
     "WAWebCreateBizBotSysMsgAction",
     "WAWebModalManager",
@@ -22,11 +23,12 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a;
+          var a = t.contact.businessProfile;
           if (
             !(
               !o("WAWebBotBaseGating").isBizBot1pEnabled() ||
-              !((a = t.contact.businessProfile) != null && a.isBizBot1p) ||
+              a == null ||
+              !o("WAWebBusinessProfileGetters").getIsBizBot1p(a) ||
               o("WAWebBotTos").hasSeenBizBotTos(
                 o("WAWebBotTypes").BizBotType.BIZ_1P,
               ) ||

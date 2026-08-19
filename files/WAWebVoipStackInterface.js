@@ -161,7 +161,7 @@ __d(
           var e = yield E(),
             t = e.createWAWebVoipStackInterface,
             n = e.getVoipStackInterfaceImpl;
-          if (n != null) return n();
+          if (n != null) return ((p = n()), p);
           if (t == null)
             throw r("err")("voip stack interface module has no factory");
           return (p == null && (p = t()), p);
@@ -169,7 +169,10 @@ __d(
         I.apply(this, arguments)
       );
     }
-    l.getVoipStackInterface = k;
+    function T() {
+      return p;
+    }
+    ((l.getVoipStackInterface = k), (l.getCachedVoipStackInterface = T));
   },
   98,
 );

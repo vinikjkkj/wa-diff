@@ -5,6 +5,7 @@ __d(
     "WAWebBizAiAgentGating",
     "WAWebBizAiHandoffRemoval",
     "WAWebBusinessProfileCollection",
+    "WAWebBusinessProfileGetters",
     "WAWebChatGetters",
     "WAWebCommunityGatingUtils",
     "WAWebContactGetters",
@@ -22,14 +23,10 @@ __d(
       return s._(/*BTDS*/ "Your AI Agent");
     }
     function u() {
-      var e;
-      return (
-        ((e = o(
-          "WAWebBusinessProfileCollection",
-        ).BusinessProfileCollection.getMeBusinessProfile()) == null
-          ? void 0
-          : e.isBizBot1p) === !0
-      );
+      var e = o(
+        "WAWebBusinessProfileCollection",
+      ).BusinessProfileCollection.getMeBusinessProfile();
+      return e != null && o("WAWebBusinessProfileGetters").getIsBizBot1p(e);
     }
     var c = ["change:automatedType", "change:dataSource"];
     function d(e) {
@@ -62,19 +59,17 @@ __d(
         ));
     }
     function p(e) {
-      var t,
-        n = o("WAWebContactGetters").getIsMe(e.contact),
-        r = o("WAWebContactGetters").getIsAiHub(e.contact),
-        a =
-          ((t = e.contact.businessProfile) == null ? void 0 : t.isBizBot1p) ===
-          !0;
+      var t = o("WAWebContactGetters").getIsMe(e.contact),
+        n = o("WAWebContactGetters").getIsAiHub(e.contact),
+        r = e.contact.businessProfile,
+        a = r != null && o("WAWebBusinessProfileGetters").getIsBizBot1p(r);
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
-        !n &&
+        !t &&
         e.id.isUserNotPSA() &&
         u() &&
-        !r &&
+        !n &&
         (!a || _(e))
       );
     }

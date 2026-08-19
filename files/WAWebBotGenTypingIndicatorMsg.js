@@ -4,6 +4,7 @@ __d(
     "WAWebABProps",
     "WAWebBackendApi",
     "WAWebBotBaseGating",
+    "WAWebBusinessProfileGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebWid",
@@ -18,17 +19,17 @@ __d(
       c(e, t) && d(e);
     }
     function c(e, t) {
-      var n,
-        a =
+      var n =
           o("WAWebBotBaseGating").isBotEnabled() &&
           e.id instanceof r("WAWebWid") &&
           e.id.isBot(),
-        i =
+        a =
           o("WAWebBotBaseGating").isBizBot3pEnabled() &&
-          ((n = e.contact.businessProfile) == null ? void 0 : n.isBizBot3p) ===
-            !0;
+          o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+            e.contact.businessProfile,
+          );
       return (
-        (a || i) &&
+        (n || a) &&
         t.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
         t.type === o("WAWebMsgType").MSG_TYPE.CHAT
       );
@@ -39,24 +40,25 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
           if (o("WAWebBotBaseGating").isBotEnabled()) {
-            var n = e.id;
+            var t = e.id;
             if (
               !(
-                n instanceof r("WAWebWid") &&
-                !n.isBot() &&
-                !((t = e.contact.businessProfile) != null && t.isBizBot3p)
+                t instanceof r("WAWebWid") &&
+                !t.isBot() &&
+                !o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+                  e.contact.businessProfile,
+                )
               )
             ) {
-              var a = new (r("WAWebMsgKey"))({
+              var n = new (r("WAWebMsgKey"))({
                 fromMe: !1,
-                remote: n,
+                remote: t,
                 id: r("WAWebMsgKey").newId_DEPRECATED(),
               });
               o("WAWebBackendApi").frontendFireAndForget(
                 "addInitialBotTypingIndicatorToChat",
-                { chatId: n, msgKey: a },
+                { chatId: t, msgKey: n },
               );
             }
           }

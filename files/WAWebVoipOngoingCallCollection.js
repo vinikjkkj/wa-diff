@@ -40,21 +40,6 @@ __d(
           (i.hasOngoingJoinableGroupCalls = function () {
             return this.length > 0;
           }),
-          (i.getVisibleOngoingJoinableGroupCalls = function () {
-            return this.getModelsArray().filter(function (e) {
-              var t,
-                n =
-                  ((t = r("WAWebCallCollection").activeCall) == null
-                    ? void 0
-                    : t.id) === e.id.id,
-                a =
-                  !n &&
-                  o("WAWebMsgGetters").getSelfOtherDeviceConnected(e) === !0;
-              return !o("WAWebVoipGatingUtils").isDeviceSwitchEntryPointHidden(
-                a,
-              );
-            });
-          }),
           (i.chatHasOngoingJoinableGroupCall = function (t) {
             return this.toArray().some(function (e) {
               return e.id.remote === t.id;

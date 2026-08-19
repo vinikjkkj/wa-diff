@@ -157,14 +157,12 @@ __d(
       }
       ((J = !0),
         o("WAWebCoreActionsODS").logCallWebtransportFallbackToSctpTriggered(),
-        o("WALogger")
-          .LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [WebTransportConnectionManager] Triggering SCTP fallback",
-              ])),
-          )
-          .sendLogs("webtransport-fallback-to-sctp-triggered"));
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [WebTransportConnectionManager] Triggering SCTP fallback",
+            ])),
+        ));
       try {
         t(ee);
       } catch (e) {

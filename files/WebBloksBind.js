@@ -2,6 +2,7 @@ __d(
   "WebBloksBind",
   [
     "BindResourceProcessingDelegate",
+    "WebBloksBindInstrumentation",
     "WebBloksConstants",
     "WebBloksDataModule",
     "WebBloksErrors",
@@ -30,6 +31,7 @@ __d(
             (this.$3 = new Map()),
             (this.$4 = null),
             (this.subtreeReuseEnabled = !1),
+            (this.instrumentationEnabled = !1),
             (this.$5 = !1),
             (this.bindDataModuleDelegate = new (o(
               "BindResourceProcessingDelegate",
@@ -44,6 +46,8 @@ __d(
             (this.clientIdToScopedIdMapper = n),
             (this.subtreeReuseEnabled =
               e.objectSet.environment.enableBindSubtreeReuse),
+            (this.instrumentationEnabled =
+              e.objectSet.environment.enableBindInstrumentation),
             r)
           )
             if (
@@ -391,14 +395,19 @@ __d(
         );
       })();
     function d(e, t, n, r, a) {
-      var i = r != null ? n.withVariableUpdates(r) : n,
-        l = m(e, t, i, a);
+      var i = e.objectSet.environment.enableBindInstrumentation,
+        l = i ? o("WebBloksBindInstrumentation").bindClockNowMs() : 0,
+        s = r != null ? n.withVariableUpdates(r) : n,
+        u = m(e, t, s, a);
       return (
-        (l.boundModel = o("WebBloksNormaliseYogaDimension").normaliseBoundModel(
-          l.boundModel,
+        (u.boundModel = o("WebBloksNormaliseYogaDimension").normaliseBoundModel(
+          u.boundModel,
           e.objectSet.environment.traversalKeys,
         )),
-        l
+        i &&
+          (o("WebBloksBindInstrumentation").bindCounters.bindMs +=
+            o("WebBloksBindInstrumentation").bindClockNowMs() - l),
+        u
       );
     }
     function m(e, t, n, r) {
@@ -426,6 +435,8 @@ __d(
     }
     function _(t, n, r, a, i) {
       if (t.get(o("WebBloksConstants").DESCENDANT_HAS_BIND) === !1) return t;
+      r.instrumentationEnabled &&
+        o("WebBloksBindInstrumentation").bindCounters.nodesVisited++;
       var l = r.subtreeReuseEnabled;
       if (
         l &&
@@ -433,7 +444,12 @@ __d(
         u.isValidCachedModel(t, n) &&
         r.processNodeForOptimization(n, a, i)
       )
-        return n;
+        return (
+          r.instrumentationEnabled &&
+            o("WebBloksBindInstrumentation").bindCounters
+              .subtreesReusedAtEntry++,
+          n
+        );
       var c = l ? r.getClockReadCount() : 0,
         d = t,
         m = new Set(),
@@ -445,7 +461,13 @@ __d(
           : (p.size > 0 && (d = u.applyAttribute(d, t, s, p)),
             d !== t && (d = u.applyAttribute(d, t, e, m))));
       for (var _ of m) a.add(_);
-      return (o("WebBloksUtils").putAll(i, p), d);
+      return (
+        o("WebBloksUtils").putAll(i, p),
+        r.instrumentationEnabled &&
+          d !== t &&
+          o("WebBloksBindInstrumentation").bindCounters.modelsRebuilt++,
+        d
+      );
     }
     function f(e, t, n, r, a, i) {
       var l = e,
@@ -498,7 +520,12 @@ __d(
             S !== v && (l = u.applyAttribute(l, t, b, S));
           }
       }
-      return c && !d && n != null && u.isValidCachedModel(t, n) ? n : l;
+      return c && !d && n != null && u.isValidCachedModel(t, n)
+        ? (r.instrumentationEnabled &&
+            o("WebBloksBindInstrumentation").bindCounters
+              .subtreesReusedAtExit++,
+          n)
+        : l;
     }
     function g(e, t, n) {
       var r;

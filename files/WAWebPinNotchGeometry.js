@@ -2,14 +2,14 @@ __d(
   "WAWebPinNotchGeometry",
   [],
   function (t, n, r, o, a, i) {
-    var e = 4,
-      l = 11,
-      s = 6,
-      u = 3.5,
-      c = 2.5,
+    var e = 3,
+      l = 9,
+      s = 4.5,
+      u = 3,
+      c = 2,
       d = 5,
-      m = 40,
-      p = 44,
+      m = 32,
+      p = 32,
       _ = 0.5;
     function f(e) {
       return e === 0 ? l : e === 1 ? s : u;

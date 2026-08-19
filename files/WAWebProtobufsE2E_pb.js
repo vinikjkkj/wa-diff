@@ -682,7 +682,6 @@ __d(
         newsletterFollowerInviteMessageV2: [113, e.TYPES.MESSAGE, Mt],
         pollResultSnapshotMessageV3: [115, e.TYPES.MESSAGE, mt],
         newsletterAdminProfileMessage: [116, e.TYPES.MESSAGE, xt],
-        newsletterAdminProfileMessageV2: [117, e.TYPES.MESSAGE, xt],
         spoilerMessage: [118, e.TYPES.MESSAGE, xt],
         pollCreationMessageV6: [119, e.TYPES.MESSAGE, Ct],
         conditionalRevealMessage: [120, e.TYPES.MESSAGE, Tt],

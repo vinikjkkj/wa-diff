@@ -208,6 +208,15 @@ __d(
                   e.request.variables,
                   e.request.cacheConfig || {},
                   null,
+                  void 0,
+                  void 0,
+                  void 0,
+                  {
+                    checkOperation: function (n) {
+                      return t.check(n);
+                    },
+                    parentOperation: e,
+                  },
                 );
             },
             isClientPayload: !1,

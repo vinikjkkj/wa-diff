@@ -11,6 +11,7 @@ __d(
     "WAWebBizLabelUtils",
     "WAWebBotBaseGating",
     "WAWebBusinessProfileCollection",
+    "WAWebBusinessProfileGetters",
     "WAWebConnModel",
     "WAWebContactBlocklistUtils",
     "WAWebContactCollection",
@@ -276,11 +277,11 @@ __d(
             this.locale = r("WAWebL10N").getLocale();
           }),
           (a.updateName = function () {
-            var e;
             !o("WAWebFrontendContactGetters").getIsMyContact(this) &&
               o("WAWebBotBaseGating").isBizBot3pEnabled() &&
-              ((e = this.businessProfile) == null ? void 0 : e.isBizBot3p) ===
-                !0 &&
+              o("WAWebBusinessProfileGetters").isBizBot3pBusinessProfile(
+                this.businessProfile,
+              ) &&
               this.verifiedName != null &&
               this.set({ name: this.verifiedName });
           }),

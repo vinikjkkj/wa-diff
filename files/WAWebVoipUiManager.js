@@ -205,7 +205,10 @@ __d(
           r("WAWebCallCollection").pendingOutgoingCall == null &&
             r("WAWebPipController").closePiP(),
           U()),
-          (r("WAWebCallCollection").lastActiveCall = t));
+          (r("WAWebCallCollection").lastActiveCall = t),
+          t.isCallLink !== !0 &&
+            r("WAWebCallCollection").pendingCallLink != null &&
+            r("WAWebCallCollection").setPendingCallLink(null));
         var b = t.isInCallLinkPreview();
         if (b) {
           (o("WALogger").LOG(

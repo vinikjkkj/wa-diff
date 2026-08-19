@@ -4,6 +4,7 @@ __d(
     "Base64",
     "DGWConstants",
     "DGWCppBridge",
+    "DGWWebSocketGating",
     "IDGWLoggingContext",
     "Promise",
     "Random",
@@ -110,6 +111,9 @@ __d(
                   "debug:" + v),
               s !== void 0 &&
                 (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_AUTHTOKEN] = s),
+              r("DGWWebSocketGating")(Number(i)) &&
+                (S[o("DGWConstants").HEADER_CONSTANTS.HEADER_WS_COMPRESSION] =
+                  "true"),
               Object.keys(g).forEach(function (e) {
                 var t = o("DGWConstants").HEADER_CONSTANTS.APPHEADER_PREFIX + e;
                 Object.prototype.hasOwnProperty.call(S, t) || (S[t] = g[e]);

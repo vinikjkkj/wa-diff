@@ -5,7 +5,6 @@ __d(
     function e() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue("lists_smb_web_enabled") &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_management_enabled",
         )

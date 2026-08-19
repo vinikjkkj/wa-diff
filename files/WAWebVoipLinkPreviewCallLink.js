@@ -10,11 +10,11 @@ __d(
     "WAWebTypedEventEmitter",
     "WAWebUserPrefsVoip",
     "WAWebVoipCallBlockedModals",
+    "WAWebVoipCallLinkBundlePreloader",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipNackHandlers",
     "WAWebVoipStackInterface",
-    "WAWebVoipStartCall",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -132,7 +132,7 @@ __d(
             speakerDeviceId: R,
             videoDeviceId: E,
           }),
-            o("WAWebVoipStartCall").preloadCallLinkBundles());
+            o("WAWebVoipCallLinkBundlePreloader").preloadCallLinkBundles());
           var T = o(
             "WAWebVoipInitEventEmitter",
           ).VoipInitEventEmitter.getIsVoipInited();

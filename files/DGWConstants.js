@@ -159,6 +159,7 @@ __d(
       HEADER_REGIONHINT: "x-dgw-regionhint",
       HEADER_TARGET_TIER: "x-dgw-tier",
       HEADER_UUID: "x-dgw-uuid",
+      HEADER_WS_COMPRESSION: "x-dgw-ws-compression",
       HEADER_ESTABLISH_STREAM_FRAME_BASE64:
         "x-dgw-establish-stream-frame-base64",
       HEADER_STREAM_TRACE_ID: "x-dgw-streamtraceid",

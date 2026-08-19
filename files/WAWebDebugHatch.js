@@ -72,7 +72,7 @@ __d(
         approvalId: "debug-approval-" + n,
         permissionQuestion:
           "#" + n + ": Allow {assistant} to " + t.action + "?",
-        purposeSummary: "Task #" + n + ": " + t.summary,
+        purposeSummary: "Task #" + n + " \xB7 " + t.target + ": " + t.summary,
         richExplanation:
           "You asked Hatch to " +
           t.summary +

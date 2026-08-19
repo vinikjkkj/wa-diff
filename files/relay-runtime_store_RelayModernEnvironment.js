@@ -249,8 +249,11 @@ __d(
                     void 0,
                     void 0,
                     void 0,
-                    function () {
-                      return e.check(n);
+                    {
+                      checkOperation: function (n) {
+                        return e.check(n);
+                      },
+                      parentOperation: n,
                     },
                   );
               },

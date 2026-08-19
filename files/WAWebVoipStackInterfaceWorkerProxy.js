@@ -327,6 +327,7 @@ __d(
               ])),
           ),
             e.initVoipLogging(),
+            o("WAWebVoipQplHelpers").voipInitQplAnnotateWorkerBootstrapMode(t),
             o("WAWebVoipQplHelpers").voipInitQplAddPoint(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.WORKER_CREATE_START,
             ));

@@ -38,7 +38,7 @@ __d(
             /*BTDS*/ "Calls with Meta AI are not supported on this device. Please join on your primary mobile phone.",
           )
         : s._(
-            /*BTDS*/ "Update your app to the latest version of WhatsApp to continue using WhatsApp Calling with Meta AI.",
+            /*BTDS*/ "Update WhatsApp to the latest version to keep using calls with Meta AI.",
           );
     }
     p.displayName = p.name + " [from " + i.id + "]";

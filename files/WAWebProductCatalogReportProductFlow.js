@@ -74,9 +74,7 @@ __d(
                     new (o("WAWebActionToast.react").ActionType)(
                       s._(/*BTDS*/ "Thanks for your feedback").toString() +
                         ". " +
-                        s
-                          ._(/*BTDS*/ "Your report has now been submitted.")
-                          .toString(),
+                        s._(/*BTDS*/ "Your report was submitted.").toString(),
                     )
                   );
                 })

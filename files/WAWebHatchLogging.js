@@ -12,42 +12,58 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      p(
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function s(e) {
-      p(
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function u(e) {
-      p(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      f(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
-    function c(e, t) {
-      p(
+    function c(e, t, n) {
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
-        babelHelpers.extends({}, t, { hitlIsMulti: e }),
+        babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: d(t) }),
       );
     }
     function d(e) {
-      p(
+      return e
+        .map(function (e) {
+          return e.trim() === "" ? "unknown" : e;
+        })
+        .join(", ");
+    }
+    function m(e) {
+      f(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
-    function m(e, t) {
-      p(
-        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
-        babelHelpers.extends({}, t, { rawHitlDecisionKind: e }),
+    function p(e, t) {
+      f(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
+        babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
-    function p(e, t) {
+    function _(e, t, n) {
+      f(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
+        babelHelpers.extends({}, n, {
+          rawHitlAlwaysScope: t,
+          rawHitlDecisionKind: e,
+        }),
+      );
+    }
+    function f(e, t) {
       var n, r, a, i, l;
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
         var s = new (o(
@@ -55,6 +71,9 @@ __d(
         ).HatchUserJourneyWamEvent)({
           hatchActionType: e,
           hitlIsMulti: t == null ? void 0 : t.hitlIsMulti,
+          hitlLegalLink: t == null ? void 0 : t.hitlLegalLink,
+          hitlTypes: t == null ? void 0 : t.hitlTypes,
+          rawHitlAlwaysScope: t == null ? void 0 : t.rawHitlAlwaysScope,
           rawHitlDecisionKind: t == null ? void 0 : t.rawHitlDecisionKind,
           unifiedSessionId:
             (n =
@@ -77,12 +96,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : _(t == null ? void 0 : t.botEntryPoint),
+              : g(t == null ? void 0 : t.botEntryPoint),
         });
         s.commit();
       }
     }
-    function _(e) {
+    function g(e) {
       var t,
         n =
           e != null
@@ -104,8 +123,9 @@ __d(
       (l.logHatchTapUnlinkButton = s),
       (l.logHatchUnlinkSuccess = u),
       (l.logHatchHitlBottomSheetImpression = c),
-      (l.logHatchHitlDetailImpression = d),
-      (l.logHatchHitlDecisionTap = m));
+      (l.logHatchHitlDetailImpression = m),
+      (l.logHatchHitlLegalLinkTap = p),
+      (l.logHatchHitlDecisionTap = _));
   },
   98,
 );
