@@ -47,6 +47,7 @@ __d(
     "WAWebChatUpdates",
     "WAWebCmd",
     "WAWebCollectionConstants",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactCollection",
     "WAWebContactGetters",
@@ -786,10 +787,11 @@ __d(
                       o("WAWebChatGroupUtils").updateTitle(n);
                     },
               ),
-              (o("WAWebConnModel").Conn.isSMB ||
+              (o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
                 o("WAWebListsGatingUtils").isListsEnabled()) &&
                 o("WAWebBizLabelUtils").initializeLabels(this),
-              o("WAWebConnModel").Conn.isSMB && this.$ChatImpl$p_34(),
+              o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
+                this.$ChatImpl$p_34(),
               o("WAWebChatShowUnreadInTitle").computeShowUnreadInTitle(this),
               this.$ChatImpl$p_35(),
               o("WAWebBotUtils").isMetaAiBot(this.id) &&

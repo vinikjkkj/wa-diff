@@ -4,7 +4,8 @@ __d(
     "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WAWebAttachMediaModel",
+    "WAWebAttachMediaConstants",
+    "WAWebAttachMediaGetters",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebContactSystemMsg",
     "WAWebDBProcessMessage",
@@ -239,9 +240,9 @@ __d(
                     mentionedJidList: y.mentionedJidList,
                     groupMentions: y.groupMentions,
                     addEvenWhilePreparing:
-                      b.previewable &&
+                      o("WAWebAttachMediaGetters").getPreviewable(b) &&
                       b.state ===
-                        o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
+                        o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                           .PROCESSING,
                     quotedMsg: h === 0 ? u : void 0,
                     isViewOnce: i.isViewOnce,

@@ -13,6 +13,7 @@ __d(
     "WAWebChatMsgsCollection",
     "WAWebChatPreferenceCollection",
     "WAWebCommonMsgUtils",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebEmoji",
     "WAWebEmojiConst",
@@ -532,7 +533,7 @@ __d(
       )
         return r("fbs")._(/*BTDS*/ "You").toString();
       if (o("WAWebMsgGetters").getIsPSA(e))
-        return o("WAWebConnModel").Conn.isSMB
+        return o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
           ? r("fbs")._(/*BTDS*/ "WhatsApp Business").toString()
           : r("fbs")._(/*BTDS*/ "WhatsApp").toString();
       if (e.senderObj == null) return "";

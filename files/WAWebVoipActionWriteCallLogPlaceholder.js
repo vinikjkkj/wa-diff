@@ -11,6 +11,7 @@ __d(
     "WAWebSchemaMessageOrphans",
     "WAWebSendMsgChatAction",
     "WAWebViewMode.flow",
+    "WAWebVoipActionSurfaceCallLogChat",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipPendingCallLogOutcome",
@@ -124,6 +125,10 @@ __d(
                       return e.msgKey;
                     }),
                   )),
+              k != null &&
+                (yield o(
+                  "WAWebVoipActionSurfaceCallLogChat",
+                ).maybeSurfaceCallLogChatInChatList(h, L)),
               r("WAWebVoipCallsTabPanelManager").trigger(
                 "onWriteCallLogMessage",
                 k,

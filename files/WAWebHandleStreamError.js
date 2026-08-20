@@ -15,6 +15,7 @@ __d(
     "WAWebWamDeviceLinkReporter",
     "asyncToGeneratorRuntime",
     "gkx",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -94,7 +95,8 @@ __d(
                   516,
                 ),
                 yield o("WAWebCompanionRegUtils").startLogout(),
-                o("WAWebStartBackend").startBackend(),
+                r("justknobx")._("3462") ||
+                  o("WAWebStartBackend").startBackend(),
                 (p || (p = n("Promise"))).resolve("NO_ACK")
               );
             o("WAComms").onStreamErrorReceived();

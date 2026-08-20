@@ -4,7 +4,8 @@ __d(
     "fbt",
     "WALogger",
     "WAWebAttachMediaCollection",
-    "WAWebAttachMediaModel",
+    "WAWebAttachMediaConstants",
+    "WAWebAttachMediaGetters",
     "WAWebMsgType",
     "WAWebProductCatalogLogQplEvents",
     "WAWebProductSelectors",
@@ -117,9 +118,9 @@ __d(
             quotedMsg: a,
             caption: u.caption,
             addEvenWhilePreparing:
-              u.previewable &&
+              o("WAWebAttachMediaGetters").getPreviewable(u) &&
               u.state ===
-                o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING,
+                o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.PROCESSING,
             useBasePropsType: !0,
           };
           return u

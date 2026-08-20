@@ -53,6 +53,7 @@ __d(
               messageFieldJsonArray: [21, e.TYPES.STRING],
               messageIdHmac: [11, e.TYPES.STRING],
               messageTypeStr: [7, e.TYPES.STRING],
+              mmThreadSessionId: [38, e.TYPES.STRING],
               pillEntryPoint: [
                 37,
                 o("WAWebWamEnumPillEntryPoint").PILL_ENTRY_POINT,

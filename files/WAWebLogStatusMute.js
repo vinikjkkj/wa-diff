@@ -1,6 +1,7 @@
 __d(
   "WAWebLogStatusMute",
   [
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
@@ -53,7 +54,7 @@ __d(
         u = t.viewerSessionId,
         c = r.id.isNewsletter(),
         d = o("WAWebFrontendContactGetters").getIsMyContact(r),
-        m = o("WAWebConnModel").Conn.isSMB
+        m = o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
           ? { isPosterBiz: r.isBusiness, isPosterInAddressBook: d }
           : {},
         p = new (o("WAWebStatusMuteWamEvent").StatusMuteWamEvent)(

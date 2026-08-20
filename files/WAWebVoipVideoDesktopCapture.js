@@ -9,6 +9,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipAudioCaptureSharedBufferWorklet",
+    "WAWebVoipScreenShareSurfaceState",
     "WAWebVoipSharedBufferCaptureProcessorConfig",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoCameraCapture",
@@ -196,11 +197,12 @@ __d(
               var e,
                 t,
                 n,
-                r = this;
+                r,
+                a = this;
               if (this.desktopStream == null) {
-                var a = this.activeDesktopStream,
-                  i = a == null ? void 0 : a.getVideoTracks().at(0);
-                if (a != null && (i == null ? void 0 : i.readyState) === "live")
+                var i = this.activeDesktopStream,
+                  l = i == null ? void 0 : i.getVideoTracks().at(0);
+                if (i != null && (l == null ? void 0 : l.readyState) === "live")
                   return (
                     o("WALogger").LOG(
                       m ||
@@ -208,34 +210,39 @@ __d(
                           "[AV:startDesktopCapture] reusing session stream across driver restart",
                         ])),
                     ),
-                    a
+                    i
                   );
               }
               (this.releaseDesktopStream(),
                 this.desktopStream ||
                   (yield this.preflightAcquireDesktopStream()));
-              var l =
+              var s =
                 (e = yield (t = this.desktopStream) == null
                   ? void 0
                   : t.streamPromise) != null
                   ? e
                   : null;
+              if (((this.desktopStream = null), s == null)) return null;
+              this.activeDesktopStream = s;
+              var u =
+                (n = s.getVideoTracks().at(0)) == null
+                  ? void 0
+                  : n.getSettings();
               return (
-                (this.desktopStream = null),
-                l == null
-                  ? null
-                  : ((this.activeDesktopStream = l),
-                    (n = l.getVideoTracks().at(0)) == null ||
-                      n.addEventListener("ended", function () {
-                        (o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "[AV:startDesktopCapture] stream ended, stopping",
-                            ])),
-                        ),
-                          r.$WAWebVoipVideoDesktopCaptureImpl$p_2());
-                      }),
-                    l)
+                o("WAWebVoipScreenShareSurfaceState").setSelfScreenShareSurface(
+                  u == null ? void 0 : u.displaySurface,
+                ),
+                (r = s.getVideoTracks().at(0)) == null ||
+                  r.addEventListener("ended", function () {
+                    (o("WALogger").LOG(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "[AV:startDesktopCapture] stream ended, stopping",
+                        ])),
+                    ),
+                      a.$WAWebVoipVideoDesktopCaptureImpl$p_2());
+                  }),
+                s
               );
             });
             function t() {
@@ -266,7 +273,10 @@ __d(
                   ])),
               );
               for (var t of e.getTracks()) t.stop();
-              this.activeDesktopStream = null;
+              ((this.activeDesktopStream = null),
+                o("WAWebVoipScreenShareSurfaceState").setSelfScreenShareSurface(
+                  null,
+                ));
             }
           }),
           (i.$WAWebVoipVideoDesktopCaptureImpl$p_3 = (function () {

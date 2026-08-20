@@ -55,6 +55,7 @@ __d(
               downloadTimeToFirstByteT: [21, e.TYPES.TIMER],
               estimatedBandwidth: [36, e.TYPES.NUMBER],
               estimatedBandwidthV2: [59, e.TYPES.NUMBER],
+              experienceIds: [71, e.TYPES.STRING],
               expressPathBytesSaved: [42, e.TYPES.NUMBER],
               expressPathDownloadState: [
                 56,

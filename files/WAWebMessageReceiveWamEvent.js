@@ -72,6 +72,7 @@ __d(
                 o("WAWebWamEnumEphemeralityTriggerActionType")
                   .EPHEMERALITY_TRIGGER_ACTION_TYPE,
               ],
+              experienceIds: [67, e.TYPES.STRING],
               hasUsername: [39, e.TYPES.BOOLEAN],
               hasUsernamePin: [45, e.TYPES.BOOLEAN],
               invisibleMessageCategory: [

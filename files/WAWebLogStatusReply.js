@@ -1,6 +1,7 @@
 __d(
   "WAWebLogStatusReply",
   [
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
@@ -27,7 +28,7 @@ __d(
         m = e.statusContact,
         p = e.statusContentType,
         _ = e.viewerSessionId,
-        f = o("WAWebConnModel").Conn.isSMB
+        f = o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
           ? {
               isPosterBiz: m.isBusiness,
               isPosterInAddressBook: o(

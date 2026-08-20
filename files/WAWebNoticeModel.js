@@ -10,6 +10,7 @@ __d(
     "WAPhoneFindCC",
     "WAPromiseBackoffs",
     "WAWebBaseModel",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebHttpErrors",
     "WAWebL10N",
@@ -225,7 +226,11 @@ __d(
                   lg: k,
                   lc: I,
                   cc: n,
-                  platform: o("WAWebConnModel").Conn.isSMB ? "smbweb" : "web",
+                  platform: o("WAWebConnGetters").getIsSMB(
+                    o("WAWebConnModel").Conn,
+                  )
+                    ? "smbweb"
+                    : "web",
                 });
               this.makeContentFetch(a);
             }

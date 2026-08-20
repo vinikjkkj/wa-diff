@@ -40,6 +40,7 @@ __d(
               messageFieldJsonArray: [15, e.TYPES.STRING],
               messageIdHmac: [16, e.TYPES.STRING],
               mmCarouselCardIndex: [26, e.TYPES.INTEGER],
+              mmThreadSessionId: [29, e.TYPES.STRING],
               qbmFlag: [17, o("WAWebWamEnumQbmFlag").QBM_FLAG],
               readReceiptsEnabled: [18, e.TYPES.BOOLEAN],
               submessageFieldJsonArray: [19, e.TYPES.STRING],

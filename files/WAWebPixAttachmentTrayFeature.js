@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebAddEditPixFeature",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactGetters",
     "WAWebGetMessageChatTypeFromWid",
@@ -21,12 +22,12 @@ __d(
     }
     function s(t) {
       var n =
-          o("WAWebConnModel").Conn.isSMB &&
+          o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
           o("WAWebPixFeature").isPixEnabled() &&
           o("WAWebAddEditPixFeature").isAddEditPixEnabled() &&
           e(),
         r =
-          !o("WAWebConnModel").Conn.isSMB &&
+          !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
           o("WAWebPaymentsGatingUtils").consumerPixActionsEnabled();
       if (
         (!n && !r) ||

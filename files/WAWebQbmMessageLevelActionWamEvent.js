@@ -49,6 +49,7 @@ __d(
                 8,
                 o("WAWebWamEnumMessageLevelAction").MESSAGE_LEVEL_ACTION,
               ],
+              mmThreadSessionId: [34, e.TYPES.STRING],
               pillEntryPoint: [
                 33,
                 o("WAWebWamEnumPillEntryPoint").PILL_ENTRY_POINT,

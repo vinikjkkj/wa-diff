@@ -424,8 +424,16 @@ __d(
                     .WARN(
                       g ||
                         (g = babelHelpers.taggedTemplateLiteralLoose([
-                          "[startBackend] no offline preview IB within 10s",
+                          "[startBackend] no offline preview IB within 10s (socketState=",
+                          ", commsInWorker=",
+                          ", hasResumeManager=",
+                          ")",
                         ])),
+                      o("WAWebBackendEventBus").BackendEventBus.socketState,
+                      o("WAWebCommsGating").isCommsInWorker(),
+                      o(
+                        "WAWebOfflineHandler",
+                      ).OfflineMessageHandler.hasInitOfflineResumeManager(),
                     )
                     .sendLogs("offline-delivery-end-fallback-timer");
               }, 1e4),

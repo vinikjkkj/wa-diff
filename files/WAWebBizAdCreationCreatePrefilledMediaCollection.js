@@ -3,7 +3,7 @@ __d(
   [
     "FBLogger",
     "WAWebAttachMediaCollection",
-    "WAWebAttachMediaModel",
+    "WAWebAttachMediaConstants",
     "WAWebBizAdCreationMediaValidationUtils",
     "WAWebBizAdCreationResolvePrefillMedia",
     "asyncToGeneratorRuntime",
@@ -33,7 +33,8 @@ __d(
           );
           var i = a.getModelsArray().find(function (e) {
             return (
-              e.state === o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.ERROR
+              e.state ===
+              o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.ERROR
             );
           });
           if (i)

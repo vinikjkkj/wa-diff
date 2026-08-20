@@ -1,6 +1,6 @@
 __d(
   "WAWebCommentModel",
-  ["WAWebAck", "WAWebAddOnModel", "WAWebBaseModel", "WAWebUserPrefsMeUser"],
+  ["WAWebAddOnModel", "WAWebBaseModel", "WAWebCommentGetters"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -16,16 +16,6 @@ __d(
           (t.body = o("WAWebBaseModel").prop()),
           (t.id = o("WAWebBaseModel").prop()),
           (t.isSendFailure = o("WAWebBaseModel").prop()),
-          (t.isFailed = o("WAWebBaseModel").derived(
-            function () {
-              var e =
-                o("WAWebUserPrefsMeUser").isMeAccount(this.author) &&
-                this.ack != null &&
-                this.ack < o("WAWebAck").ACK.CLOCK;
-              return e || !!this.isSendFailure;
-            },
-            ["ack", "isSendFailure"],
-          )),
           (t.subtype = o("WAWebBaseModel").prop()),
           (t.protocolMessageKey = o("WAWebBaseModel").prop()),
           (t.revokeTimestamp = o("WAWebBaseModel").prop()),
@@ -47,7 +37,15 @@ __d(
             babelHelpers.assertThisInitialized(t)
         );
       }
-      return (babelHelpers.inheritsLoose(t, e), t);
+      babelHelpers.inheritsLoose(t, e);
+      var n = t.prototype;
+      return (
+        (n.delete = function () {
+          (e.prototype.delete.call(this),
+            o("WAWebCommentGetters").clearCommentGetterCacheFor(this));
+        }),
+        t
+      );
     })(o("WAWebAddOnModel").AddOnBaseModel);
     e.Proxy = "comment";
     var s = o("WAWebBaseModel").defineModel(e);

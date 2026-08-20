@@ -3,22 +3,30 @@ __d(
   [
     "WALogger",
     "WAWebHatchApprovalManager",
+    "WAWebHatchLogging",
     "WAWebSendHatchMetadataRequest",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(e, t) {
-      return p.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p = new Map(),
+      _ = 0;
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function p() {
+    function g() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (!r("WAWebHatchApprovalManager").hasCheckoutPaymentOption(e, t))
-            return (_(e, t), !1);
-          o("WALogger").LOG(
+            return (h(e, t), !1);
+          (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-approval: selecting payment approvalId=",
@@ -27,31 +35,39 @@ __d(
               ])),
             e,
             t,
-          );
-          var n = yield o("WAWebSendHatchMetadataRequest")
-            .sendHatchMetadataRequest({
-              method: "hitl.payment.select",
-              approvalId: e,
-              paymentId: t,
-            })
-            .catch(function (t) {
-              return (
-                o("WALogger")
-                  .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "hatch-approval: payment select threw approvalId=",
-                        "",
-                      ])),
-                    e,
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .sendLogs("hatch-payment-select-threw"),
-                { outcome: "send_failed" }
-              );
-            });
-          return n.outcome !== "response" || n.response.status !== "ok"
-            ? (o("WALogger")
+          ),
+            (_ += 1));
+          var a = _;
+          p.set(e, a);
+          var i = yield o("WAWebSendHatchMetadataRequest")
+              .sendHatchMetadataRequest({
+                method: "hitl.payment.select",
+                approvalId: e,
+                paymentId: t,
+              })
+              .catch(function (t) {
+                return (
+                  o("WALogger")
+                    .ERROR(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "hatch-approval: payment select threw approvalId=",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("hatch-payment-select-threw"),
+                  { outcome: "send_failed" }
+                );
+              }),
+            l = p.get(e) === a;
+          if (
+            (l && p.delete(e),
+            i.outcome !== "response" || i.response.status !== "ok")
+          )
+            return (
+              o("WALogger")
                 .ERROR(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -60,16 +76,38 @@ __d(
                       "",
                     ])),
                   e,
-                  n.outcome,
+                  i.outcome,
                 )
                 .sendLogs("hatch-payment-select-failed"),
-              !1)
-            : r("WAWebHatchApprovalManager").applyCheckoutPaymentOption(e, t);
+              !1
+            );
+          if (!l)
+            return (
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-approval: payment select superseded approvalId=",
+                      "",
+                    ])),
+                  e,
+                )
+                .sendLogs("hatch-payment-select-superseded"),
+              !1
+            );
+          var s = r("WAWebHatchApprovalManager").applyCheckoutPaymentOption(
+            e,
+            t,
+          );
+          return (
+            s && o("WAWebHatchLogging").logHatchHitlWalletCardSelected(n),
+            s
+          );
         })),
-        p.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function _(t, n) {
+    function h(t, n) {
       if (r("WAWebHatchApprovalManager").getApproval(t) == null) {
         o("WALogger").LOG(
           e ||
@@ -94,7 +132,7 @@ __d(
         )
         .sendLogs("hatch-payment-select-unknown-option");
     }
-    l.selectHatchCheckoutPayment = m;
+    l.selectHatchCheckoutPayment = f;
   },
   98,
 );

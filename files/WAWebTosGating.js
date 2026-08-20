@@ -38,11 +38,10 @@ __d(
         o("WAWebBotUtils").isBotChannelFBID(e.id)
         ? !1
         : !!(
-            (e.id.isPnBot() &&
-              !o("WAWebBotTos").hasSeenAgentTos() &&
-              !o("WAWebBotTos").hasSeenShortcutTos() &&
-              !o("WAWebBotTos").hasSeenInvokeTos()) ||
-            (e.id.isFbidBot() && !o("WAWebBotTos").hasSeenUgcTos())
+            e.id.isPnBot() &&
+            !o("WAWebBotTos").hasSeenAgentTos() &&
+            !o("WAWebBotTos").hasSeenShortcutTos() &&
+            !o("WAWebBotTos").hasSeenInvokeTos()
           );
     }
     ((l.shouldBlockByTos = e), (l.shouldBlockByBotTos = s));

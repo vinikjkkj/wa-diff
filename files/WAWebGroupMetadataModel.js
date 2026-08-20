@@ -12,6 +12,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebGroupMembershipApprovalRequestCollection",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupParticipantCollection",
     "WAWebGroupPendingParticipantCollection",
     "WAWebGroupType",
@@ -33,8 +34,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c = "https://chat.whatsapp.com/",
-      d = (function (t) {
+      c = (function (t) {
         function a() {
           for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
             a[i] = arguments[i];
@@ -124,12 +124,6 @@ __d(
             (e.unjoinedSubgroupsQueryPromise = o("WAWebBaseModel").session()),
             (e.displayedDesc = o("WAWebBaseModel").session("")),
             (e.revokeGroupsV4AddInvitePromise = o("WAWebBaseModel").session()),
-            (e.groupInviteLink = o("WAWebBaseModel").derived(
-              function () {
-                return this.inviteCode ? "" + c + this.inviteCode : null;
-              },
-              ["inviteCode"],
-            )),
             (e.cachedDeviceCount = o("WAWebBaseModel").session()),
             (e.cachedDeviceSizeBucket = o("WAWebBaseModel").session()),
             (e.groupType = o("WAWebBaseModel").derived(
@@ -203,7 +197,10 @@ __d(
           (i.delete = function () {
             (t.prototype.delete.call(this),
               this.getCollection().remove(this.id),
-              this.participants.delete());
+              this.participants.delete(),
+              o("WAWebGroupMetadataGetters").clearGroupMetadataGetterCacheFor(
+                this,
+              ));
           }),
           (i.canSetSubject = function () {
             return this.isSuspendedOrTerminated() ||
@@ -507,11 +504,11 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((d.Proxy = "groupMetadata"),
-      (d.idClass = r("WAWebWid")),
-      (d.UPDATE_NAME_MAP_DEBOUNCE_TIME = 200));
-    var m = o("WAWebBaseModel").defineModel(d);
-    l.default = m;
+    ((c.Proxy = "groupMetadata"),
+      (c.idClass = r("WAWebWid")),
+      (c.UPDATE_NAME_MAP_DEBOUNCE_TIME = 200));
+    var d = o("WAWebBaseModel").defineModel(c);
+    l.default = d;
   },
   226,
 );

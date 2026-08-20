@@ -3,7 +3,6 @@ __d(
   [
     "WAWebBaseModel",
     "WAWebBotExposedName",
-    "WAWebBotStaticProfiles",
     "WAWebChatCollection",
     "WAWebChatGroupUtils",
     "WAWebContactCollection",
@@ -87,20 +86,18 @@ __d(
           }),
           (r.$BotProfile$p_2 = function () {
             if (this.contact != null && !this.id.isAiHub()) {
-              var t = o("WAWebBotStaticProfiles").isStaticProfile(this.id)
-                  ? o("WAWebBotStaticProfiles").getStaticBotSupportInput(
-                      this.id,
-                    )
-                  : {
-                      product: this.product,
-                      isDeprecated: this.isDeprecated,
-                      isDeleted: this.isDeleted,
-                    },
-                n = o("WAWebBotExposedName").isBotProfileViewOnly(t),
-                r = this.id.toString();
-              if (n) {
-                (e.has(r) ||
-                  e.set(r, {
+              var t = !o("WAWebBotExposedName").shouldDisplayProfileName(
+                  this.id,
+                  {
+                    product: this.product,
+                    isDeprecated: this.isDeprecated,
+                    isDeleted: this.isDeleted,
+                  },
+                ),
+                n = this.id.toString();
+              if (t) {
+                (e.has(n) ||
+                  e.set(n, {
                     name: this.contact.name,
                     verifiedName: this.contact.verifiedName,
                     shortName: this.contact.shortName,
@@ -108,23 +105,23 @@ __d(
                   }),
                   this.name != null &&
                     this.name !== "" &&
-                    e.set(r, {
+                    e.set(n, {
                       name: this.name,
                       verifiedName: this.name,
                       shortName: this.name,
                       pushname: this.name,
                     }));
-                var a = o("WAWebBotExposedName").getUnknownAccountName();
+                var r = o("WAWebBotExposedName").getUnknownAccountName();
                 this.contact.set({
-                  name: a,
-                  verifiedName: a,
-                  shortName: a,
-                  pushname: a,
+                  name: r,
+                  verifiedName: r,
+                  shortName: r,
+                  pushname: r,
                 });
               } else {
-                var i = e.get(r);
-                i != null
-                  ? (this.contact.set(babelHelpers.extends({}, i)), e.delete(r))
+                var a = e.get(n);
+                a != null
+                  ? (this.contact.set(babelHelpers.extends({}, a)), e.delete(n))
                   : this.name != null &&
                     this.name !== "" &&
                     this.contact.set({

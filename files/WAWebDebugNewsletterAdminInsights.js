@@ -41,7 +41,7 @@ __d(
           { label: "United Kingdom", percentage: 0.102, value: 601e3 },
         ],
         netFollows: 974e3,
-        growthChart: m,
+        growthChartData: m,
       });
       (t = n.newsletterMetadata) == null || t.set("adminInsights", r);
     }
@@ -56,13 +56,7 @@ __d(
         return [e.valueOf(), Math.random() * 1e6];
       });
     }
-    var m = [
-      {
-        data: [d(c), d(c), d(c)],
-        dataLabels: ["Net follows", "Follows", "Unfollows"],
-        dataSetLabel: "Growth",
-      },
-    ];
+    var m = [d(c), d(c), d(c)];
     l.default = u;
   },
   98,

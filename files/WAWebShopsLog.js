@@ -1,9 +1,14 @@
 __d(
   "WAWebShopsLog",
-  ["WAWebConnModel", "WAWebUserPrefsMeUser", "WAWebWaShopsManagementWamEvent"],
+  [
+    "WAWebConnGetters",
+    "WAWebConnModel",
+    "WAWebUserPrefsMeUser",
+    "WAWebWaShopsManagementWamEvent",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      var e = o("WAWebConnModel").Conn.isSMB
+      var e = o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
         ? o("WAWebUserPrefsMeUser").getMaybeMePnUser()
         : void 0;
       return e == null ? void 0 : e.user;

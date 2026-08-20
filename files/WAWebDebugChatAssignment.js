@@ -7,6 +7,7 @@ __d(
     "WAWebChatAssignmentGatingUtils",
     "WAWebChatAssignmentUtils",
     "WAWebChatCollection",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebFeatureFlagCollection",
     "WAWebFeatureFlagName",
@@ -89,7 +90,8 @@ __d(
         chatAssignmentEnabled: o(
           "WAWebChatAssignmentGatingUtils",
         ).chatAssignmentEnabled(),
-        connIsSMB: o("WAWebConnModel").Conn.isSMB === !0,
+        connIsSMB:
+          o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) === !0,
         isSMB: o("WAWebMobilePlatforms").isSMB(),
         assignedChatIds: o("WAWebChatCollection")
           .ChatCollection.getModelsArray()

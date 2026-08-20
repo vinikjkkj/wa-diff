@@ -5,7 +5,8 @@ __d(
     "Promise",
     "WALogger",
     "WAWebActionToast.react",
-    "WAWebAttachMediaModel",
+    "WAWebAttachMediaConstants",
+    "WAWebAttachMediaGetters",
     "WAWebCreateAiMediaCollectionMsgData",
     "WAWebGetMetaAiImagineEventContext",
     "WAWebLogImagineAction",
@@ -77,9 +78,9 @@ __d(
                     type: e.type,
                     caption: e.caption,
                     addEvenWhilePreparing:
-                      e.previewable &&
+                      o("WAWebAttachMediaGetters").getPreviewable(e) &&
                       e.state ===
-                        o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
+                        o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                           .PROCESSING,
                     botPersonaId: _,
                     threadId: s,

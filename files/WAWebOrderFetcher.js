@@ -130,7 +130,13 @@ __d(
                   o("WAWebUserPrefsMeUser").isMeAccount(n.from)) &&
                 (n.nativeFlowName ===
                 r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-                  ? y(e, n, t, p, m)
+                  ? y({
+                      buttonParamsJson: m,
+                      contact: t,
+                      msg: n,
+                      name: p,
+                      ordersInfoByNfn: e,
+                    })
                   : n.nativeFlowName ===
                       r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
                     ? S(e, m)
@@ -143,15 +149,20 @@ __d(
         { contactsAndOrdersInfo: [], ordersStatusInfo: [] },
       );
     }
-    function y(e, t, n, r, a) {
-      var i = t.t,
-        l = o("WAWebOrderDetails").paramsJsonToOrderInfo(r, a);
-      l &&
-        e.contactsAndOrdersInfo.push({
+    function y(e) {
+      var t = e.buttonParamsJson,
+        n = e.contact,
+        r = e.msg,
+        a = e.name,
+        i = e.ordersInfoByNfn,
+        l = r.t,
+        s = o("WAWebOrderDetails").paramsJsonToOrderInfo(a, t);
+      s &&
+        i.contactsAndOrdersInfo.push({
           contact: n,
-          orderInfo: l,
-          timestamp: i,
-          interactiveMsg: R(t),
+          orderInfo: s,
+          timestamp: l,
+          interactiveMsg: R(r),
         });
     }
     function C(e) {

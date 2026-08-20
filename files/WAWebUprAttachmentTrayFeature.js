@@ -2,6 +2,7 @@ __d(
   "WAWebUprAttachmentTrayFeature",
   [
     "WAWebBizFrontendGatingUtils",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactGetters",
     "WAWebGetMessageChatTypeFromWid",
@@ -11,7 +12,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      return !o("WAWebConnModel").Conn.isSMB ||
+      return !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
         !o("WAWebBizFrontendGatingUtils").isUprAttachmentTrayEnabled(t) ||
         !s(e) ||
         !o("WAWebBizFrontendGatingUtils").isUprSendEnabledForCountry(t) ||

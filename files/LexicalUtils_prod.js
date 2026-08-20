@@ -357,7 +357,11 @@ __d(
       require("Lexical").$isSlotHost(e) && (yield* x(e, o));
     }
     function E(e, t) {
-      return null !== e && Object.getPrototypeOf(e).constructor.name === t.name;
+      if (null == e) return !1;
+      var n = Object.getPrototypeOf(e);
+      return (
+        null != n && null != n.constructor && n.constructor.name === t.name
+      );
     }
     var N =
       !(require("Lexical").IS_FIREFOX || !require("Lexical").CAN_USE_DOM) &&

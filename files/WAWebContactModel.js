@@ -12,6 +12,7 @@ __d(
     "WAWebBizLabelUtils",
     "WAWebBotBaseGating",
     "WAWebBusinessProfileCollection",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactBlocklistUtils",
     "WAWebContactCollection",
@@ -189,7 +190,9 @@ __d(
                   ),
                 (this.isBusiness ||
                   (o("WAWebContactGetters").getIsMe(this) &&
-                    o("WAWebConnModel").Conn.isSMB)) &&
+                    o("WAWebConnGetters").getIsSMB(
+                      o("WAWebConnModel").Conn,
+                    ))) &&
                   this.addChild(
                     "businessProfile",
                     o(
@@ -237,7 +240,7 @@ __d(
                 this.listenTo(this, "change:name", this.$Contact$p_6),
                 this.listenTo(this, "change:name", this.updateName),
                 (this.pendingAction = 0),
-                (o("WAWebConnModel").Conn.isSMB ||
+                (o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
                   o("WAWebListsGatingUtils").isListsEnabled()) &&
                   o("WAWebBizLabelUtils").initializeLabels(this));
               var i = this.id;

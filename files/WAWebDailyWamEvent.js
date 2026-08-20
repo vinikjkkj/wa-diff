@@ -235,6 +235,7 @@ __d(
               ],
               profileLinksCount: [211, e.TYPES.INTEGER],
               receiptsEnabled: [8, e.TYPES.BOOLEAN],
+              receivedExperienceIds: [262, e.TYPES.STRING],
               secretCodeActive: [172, e.TYPES.BOOLEAN],
               showMetaAiButtonSetting: [173, e.TYPES.BOOLEAN],
               simMcc: [2, e.TYPES.INTEGER],

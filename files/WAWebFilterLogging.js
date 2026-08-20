@@ -4,6 +4,7 @@ __d(
     "WAWebChatFilterEventWamEvent",
     "WAWebChatSearchFilters",
     "WAWebChatThreadLogging",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebInboxFiltersGatingUtils",
     "WAWebLabelCollection",
@@ -22,7 +23,7 @@ __d(
       if (e == null || (!e.kind && (e.label == null || e.label === "")))
         return o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE;
       if (!e.kind)
-        return o("WAWebConnModel").Conn.isSMB
+        return o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
           ? o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.OTHER_LABELS
           : o("WAWebWamEnumChatFilterTypes").CHAT_FILTER_TYPES.NONE;
       switch (e.kind) {

@@ -64,6 +64,7 @@ __d(
               messageHasUrl: [19, e.TYPES.BOOLEAN],
               messageIdHmac: [17, e.TYPES.STRING],
               messageTypeStr: [7, e.TYPES.STRING],
+              mmThreadSessionId: [65, e.TYPES.STRING],
               muted: [4, e.TYPES.BOOLEAN],
               notificationEnabled: [5, e.TYPES.BOOLEAN],
               pillEntryPoint: [

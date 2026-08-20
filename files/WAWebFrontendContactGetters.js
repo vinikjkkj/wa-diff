@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebAlphaRegex",
     "WAWebBusinessProfileTypes",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactComparator",
     "WAWebContactExternalUserState",
@@ -298,7 +299,12 @@ __d(
                   .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PUSHNAME,
               }
             : r("WAWebWid").isPSA(t)
-              ? { displayName: z(o("WAWebConnModel").Conn.isSMB), type: null }
+              ? {
+                  displayName: z(
+                    o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
+                  ),
+                  type: null,
+                }
               : n != null && n !== ""
                 ? {
                     displayName: n,
@@ -338,7 +344,7 @@ __d(
           if (r("WAWebWid").isPSA(a))
             return {
               displayName: o("WAWebL10NAccentFold").accentFold(
-                z(o("WAWebConnModel").Conn.isSMB),
+                z(o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)),
               ),
               type: null,
             };
@@ -399,7 +405,12 @@ __d(
                   type: null,
                 }
               : r("WAWebWid").isPSA(n)
-                ? { displayName: z(o("WAWebConnModel").Conn.isSMB), type: null }
+                ? {
+                    displayName: z(
+                      o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
+                    ),
+                    type: null,
+                  }
                 : r("WAWebWid").isSupportAccount(n)
                   ? { displayName: "WhatsApp Support", type: null }
                   : t
@@ -517,7 +528,12 @@ __d(
             s = e[5];
           return n
             ? r("WAWebWid").isPSA(n)
-              ? { displayName: z(o("WAWebConnModel").Conn.isSMB), type: null }
+              ? {
+                  displayName: z(
+                    o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
+                  ),
+                  type: null,
+                }
               : r("WAWebWid").isSupportAccount(n)
                 ? { displayName: "WhatsApp Support", type: null }
                 : t

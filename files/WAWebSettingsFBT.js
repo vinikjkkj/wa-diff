@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebABProps",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebUsernameWorkerCompatibleGatingUtils",
   ],
@@ -254,7 +255,7 @@ __d(
       return s._(/*BTDS*/ "Technical issues, suggestions");
     }
     function Ne() {
-      return o("WAWebConnModel").Conn.isSMB
+      return o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
         ? s._(/*BTDS*/ "Terms")
         : s._(/*BTDS*/ "Terms and Privacy Policy");
     }
@@ -266,10 +267,10 @@ __d(
       return s._(/*BTDS*/ "Lists");
     }
     function Ae() {
-      return s._(/*BTDS*/ "Lorem");
+      return s._(/*BTDS*/ "Agents");
     }
     function Fe() {
-      return s._(/*BTDS*/ "Lorem ipsum dolor sit");
+      return s._(/*BTDS*/ "Agents connected to this account");
     }
     function Oe() {
       return s._(/*BTDS*/ "Manage people and groups");

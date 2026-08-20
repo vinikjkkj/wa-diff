@@ -6,7 +6,6 @@ __d(
     "WAWebABPropsSaga",
     "WAWebBotMessageSecret",
     "WAWebCoexV2BotWid",
-    "WAWebCoexV2GatingUtils",
     "WAWebCommsAckParser",
     "WAWebDeprecatedSendIqWorkerCompatible",
     "WAWebE2EProtoGenerator",
@@ -57,10 +56,7 @@ __d(
             return m(t);
           var p,
             f = "message";
-          if (
-            l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
-            o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
-          ) {
+          if (l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) {
             var g = yield o(
               "WAWebSendCoexV2RetryMsgJob",
             ).buildCoexV2RetryStanza(n, i, a);

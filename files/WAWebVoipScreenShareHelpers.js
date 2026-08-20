@@ -7,6 +7,7 @@ __d(
     "WAWebCallCollection",
     "WAWebVoipActivityTracker",
     "WAWebVoipScreenShareConfirmPopup.react",
+    "WAWebVoipScreenShareSurfaceState",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoDesktopCapture",
     "WDSIconIcScreenShare.react",
@@ -14,6 +15,8 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
+    "react-compiler-runtime",
+    "useWAWebEventTargetValue",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -51,12 +54,43 @@ __d(
         : s._(/*BTDS*/ "Share screen");
     }
     f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    function g() {
+      var e,
+        t = o("react-compiler-runtime").c(2),
+        n =
+          (e = r("useWAWebEventTargetValue")(
+            o("WAWebVoipScreenShareSurfaceState")
+              .WAWebVoipScreenShareSurfaceEventEmitter,
+            "change",
+            o("WAWebVoipScreenShareSurfaceState").getSelfScreenShareSurface,
+          )) != null
+            ? e
+            : "monitor",
+        a;
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        t[0] !== n
+          ? ((a = s._(
+              /*BTDS*/ '_j{"browser":"You\'re sharing a tab","monitor":"You\'re sharing your screen","window":"You\'re sharing a window"}',
+              [
+                s._enum(n, {
+                  browser: "a tab",
+                  monitor: "your screen",
+                  window: "a window",
+                }),
+              ],
+            )),
+            (t[0] = n),
+            (t[1] = a))
+          : (a = t[1]),
+        a
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
             i,
             l,
@@ -67,11 +101,11 @@ __d(
             f = t.isVideoCall,
             g = t.isVideoMuted,
             h = t.onVideoMuteToggle,
-            C = t.openModal,
-            v = t.targetWindow;
+            y = t.openModal,
+            b = t.targetWindow;
           if (!f) {
             if (m) {
-              C(
+              y(
                 p.jsx(
                   o("WAWebVoipScreenShareConfirmPopup.react")
                     .WAWebVoipScreenShareConfirmPopup,
@@ -88,7 +122,7 @@ __d(
               );
               return;
             }
-            C(
+            y(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
@@ -98,7 +132,7 @@ __d(
             return;
           }
           if (_) {
-            yield b();
+            yield v();
             return;
           }
           (a = r("WAWebCallCollection").activeCall) == null ||
@@ -110,7 +144,7 @@ __d(
                 : l.isDualStreamScreenShareEnabled()) != null && i
           );
           if (g && S) {
-            C(
+            y(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
@@ -124,7 +158,7 @@ __d(
                     function* () {
                       try {
                         (yield (d || (d = n("Promise"))).resolve(h()),
-                          yield y(v));
+                          yield C(b));
                       } catch (t) {
                         o("WALogger")
                           .ERROR(
@@ -142,17 +176,17 @@ __d(
             );
             return;
           }
-          yield y(v);
+          yield C(b);
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity
               .USER_START_SCREEN_SHARE,
@@ -192,15 +226,15 @@ __d(
                 ).WAWebVoipVideoDesktopCapture.stopCapture(!0));
             }
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b() {
-      return v.apply(this, arguments);
-    }
     function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity.USER_STOP_SCREEN_SHARE,
           );
@@ -208,12 +242,13 @@ __d(
           (e == null ? void 0 : e.type) === "web" &&
             (yield e.stopScreenShare());
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
     ((l.getScreenShareIcon = _),
       (l.getScreenShareLabel = f),
-      (l.handlePressScreenShare = g));
+      (l.useSelfScreenShareSurfaceLabel = g),
+      (l.handlePressScreenShare = h));
   },
   226,
 );

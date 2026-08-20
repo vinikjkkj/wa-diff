@@ -63,6 +63,7 @@ __d(
               messageHasUrl: [17, e.TYPES.BOOLEAN],
               messageIdHmac: [13, e.TYPES.STRING],
               messageTypeStr: [6, e.TYPES.STRING],
+              mmThreadSessionId: [62, e.TYPES.STRING],
               pillEntryPoint: [
                 61,
                 o("WAWebWamEnumPillEntryPoint").PILL_ENTRY_POINT,

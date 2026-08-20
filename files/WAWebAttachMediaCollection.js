@@ -3,6 +3,8 @@ __d(
   [
     "fbt",
     "Promise",
+    "WAWebAttachMediaConstants",
+    "WAWebAttachMediaGetters",
     "WAWebAttachMediaModel",
     "WAWebBaseCollection",
     "WAWebBotGating",
@@ -70,18 +72,27 @@ __d(
           }),
           (i.remove = function (n, r) {
             var e = this,
-              o = t.prototype.remove.call(this, n, r);
+              a = t.prototype.remove.call(this, n, r);
             return (
-              o.forEach(function (t) {
-                return e.removeSingleton(t, r);
+              a.forEach(function (t) {
+                (t != null &&
+                  o("WAWebAttachMediaGetters").clearAttachMediaGetterCacheFor(
+                    t,
+                  ),
+                  e.removeSingleton(t, r));
               }),
               this.selection.init(this.getPreviewableMedias(), !0),
-              o
+              a
             );
           }),
           (i.delete = function () {
             var e = this;
-            (t.prototype.delete.call(this),
+            (this.forEach(function (e) {
+              return o(
+                "WAWebAttachMediaGetters",
+              ).clearAttachMediaGetterCacheFor(e);
+            }),
+              t.prototype.delete.call(this),
               this.forEach(function (t) {
                 return e.removeSingleton(t);
               }),
@@ -121,15 +132,15 @@ __d(
             return this.filter(function (e) {
               return (
                 e.state ===
-                  o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.READY ||
+                  o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.READY ||
                 e.state ===
-                  o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING
+                  o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.PROCESSING
               );
             });
           }),
           (i.getPreviewableMedias = function () {
             return this.filter(function (e) {
-              return e.previewable;
+              return o("WAWebAttachMediaGetters").getPreviewable(e);
             });
           }),
           (i.getActive = function () {
@@ -260,9 +271,13 @@ __d(
                 return (
                   this.unsetActive(),
                   f.forEach(function (e) {
-                    d.listenTo(e, "change:previewable", function () {
-                      d.$AttachMediaCollection$p_3(f, g);
-                    });
+                    d.listenTo(
+                      e,
+                      o("WAWebAttachMediaGetters").PREVIEWABLE_ROOT_EVENTS_STR,
+                      function () {
+                        d.$AttachMediaCollection$p_3(f, g);
+                      },
+                    );
                   }),
                   (e || (e = n("Promise"))).all(t).then(function () {
                     d.$AttachMediaCollection$p_3(f, g);
@@ -291,13 +306,14 @@ __d(
               !this.getModelsArray().some(function (e) {
                 return (
                   e.state ===
-                    o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING &&
-                  !e.previewable
+                    o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                      .PROCESSING &&
+                  !o("WAWebAttachMediaGetters").getPreviewable(e)
                 );
               })
             ) {
               var e = t.find(function (e) {
-                return e.previewable;
+                return o("WAWebAttachMediaGetters").getPreviewable(e);
               });
               (e || (e = n),
                 this.selection.init(this.getPreviewableMedias()),
@@ -367,12 +383,15 @@ __d(
               (this.forEach(function (e) {
                 if (
                   !e.uiProcessed &&
-                  (!a && e.previewable && (a = e),
+                  (!a &&
+                    o("WAWebAttachMediaGetters").getPreviewable(e) &&
+                    (a = e),
                   e.state !==
-                    o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING &&
+                    o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                      .PROCESSING &&
                     ((e.uiProcessed = !0),
                     e.state ===
-                      o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.ERROR))
+                      o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.ERROR))
                 )
                   if (e.exception instanceof r("WAWebMediaFileTooLargeError"))
                     switch (e.exception.mediaType) {
@@ -576,12 +595,14 @@ __d(
             var e = c(t);
             return e != null &&
               o("WAWebMimeTypes").isPdfDocument(e) &&
-              t.state !== o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.ERROR &&
+              t.state !==
+                o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.ERROR &&
               o("WAWebTPPdfViewerGatingUtils").isAsyncPdfSendEnabled()
               ? !0
               : t.state !==
-                  o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING ||
-                  t.previewable;
+                  o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                    .PROCESSING ||
+                  o("WAWebAttachMediaGetters").getPreviewable(t);
           }),
           (i.canSend = function () {
             var e = this;

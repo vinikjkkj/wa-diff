@@ -8,6 +8,7 @@ __d(
     "WALogger",
     "WAMemoizeConcurrent",
     "WAWebABProps",
+    "WAWebAttachMediaConstants",
     "WAWebAttachMediaGetters",
     "WAWebBaseModel",
     "WAWebChatGetters",
@@ -23,12 +24,10 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebMediaProvenanceQpl",
     "WAWebMediaWorkerProxy",
-    "WAWebMimeTypes",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebPREGatingUtils",
     "WAWebStickerConstants",
-    "WAWebTPPdfViewerGatingUtils",
     "asyncToGeneratorRuntime",
     "err",
     "isNonZeroNumber",
@@ -49,18 +48,17 @@ __d(
         "CropRotateCanvas",
       ]),
       h = n("$InternalEnum").Mirrored(["Standard", "HD"]),
-      y = { READY: "ready", PROCESSING: "processing", ERROR: "error" },
-      C = 1;
-    function b() {
-      return String(C++);
+      y = 1;
+    function C() {
+      return String(y++);
     }
-    var v = (function (t) {
+    var b = (function (t) {
       function a() {
         for (var e, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
           i[l] = arguments[l];
         return (
           (e = t.call.apply(t, [this].concat(i)) || this),
-          (e.id = o("WAWebBaseModel").prop(b)),
+          (e.id = o("WAWebBaseModel").prop(C)),
           (e.file = o("WAWebBaseModel").prop()),
           (e.uiProcessed = o("WAWebBaseModel").prop(!1)),
           (e.fileOrigin = o("WAWebBaseModel").prop()),
@@ -109,62 +107,6 @@ __d(
           (e.isVideoMuted = o("WAWebBaseModel").session(!1)),
           (e.isVideoTrimmed = o("WAWebBaseModel").session(!1)),
           (e.$AttachMediaImpl$p_3 = null),
-          (e.previewable = o("WAWebBaseModel").derived(
-            function () {
-              if (!this.type || !this.mimetype) return !1;
-              if (
-                this.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
-                o("WAWebMimeTypes").isPdfDocument(this.mimetype) &&
-                this.filename &&
-                this.state !== y.ERROR &&
-                o("WAWebTPPdfViewerGatingUtils").isAsyncPdfSendEnabled()
-              )
-                return !0;
-              if (!this.fullPreview) return !1;
-              switch (this.type) {
-                case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
-                  return !!this.filename;
-                case o("WAWebMsgType").MSG_TYPE.IMAGE:
-                case o("WAWebMsgType").MSG_TYPE.VIDEO:
-                  return !(!this.fullPreviewSize || !this.preview);
-                case o("WAWebMsgType").MSG_TYPE.AUDIO:
-                case o("WAWebMsgType").MSG_TYPE.STICKER:
-                case o("WAWebMsgType").MSG_TYPE.PTT:
-                case o("WAWebMsgType").MSG_TYPE.UNKNOWN:
-                case o("WAWebMsgType").MSG_TYPE.STICKER_PACK:
-                  return !0;
-                default:
-                  throw r("err")("Unsupported attach media type " + this.type);
-              }
-            },
-            [
-              "preview",
-              "fullPreview",
-              "type",
-              "filename",
-              "fullPreviewSize",
-              "mimetype",
-              "state",
-            ],
-          )),
-          (e.filesize = o("WAWebBaseModel").derived(
-            function () {
-              return this.file instanceof r("WAWebMediaOpaqueData")
-                ? this.file.size()
-                : this.file instanceof Blob
-                  ? this.file.size
-                  : null;
-            },
-            ["file"],
-          )),
-          (e.fileExt = o("WAWebBaseModel").derived(
-            function () {
-              return this.filename
-                ? o("WAWebFileUtils").getFileExtension(this.filename)
-                : null;
-            },
-            ["filename"],
-          )),
           (e.hasSetFromPrefs = o("WAWebBaseModel").prop(!1)),
           (e.$AttachMediaImpl$p_8 = r("WAMemoizeConcurrent")(
             function () {
@@ -208,7 +150,9 @@ __d(
         (i.processAttachment = function (t) {
           var e,
             n = this;
-          ((this.state = y.PROCESSING),
+          ((this.state = o(
+            "WAWebAttachMediaConstants",
+          ).ATTACH_MEDIA_STATE.PROCESSING),
             (this.mediaEditorData = r("WAWebMediaEditorData").create()),
             (e = this.$AttachMediaImpl$p_3) == null || e.abort(),
             (this.$AttachMediaImpl$p_3 = new AbortController()),
@@ -391,59 +335,60 @@ __d(
                           "processAttachmentPromiseHelper before prepRawMedia",
                         ])),
                     );
-                    var C = o("WAWebMedia").prepRawMedia(h, i);
-                    e.set({ mediaPrep: C });
-                    var b = yield C.waitForPrep(),
-                      v = b.documentPreview,
-                      S =
-                        b.mediaBlob instanceof r("WAWebMediaOpaqueData")
+                    var y = o("WAWebMedia").prepRawMedia(h, i);
+                    e.set({ mediaPrep: y });
+                    var C = yield y.waitForPrep(),
+                      b = C.documentPreview,
+                      v =
+                        C.mediaBlob instanceof r("WAWebMediaOpaqueData")
                           ? window.URL.createObjectURL(
-                              b.mediaBlob.forceToBlob(),
+                              C.mediaBlob.forceToBlob(),
                             )
-                          : window.URL.createObjectURL(b.mediaBlob),
-                      R = {
-                        file: b.mediaBlob,
-                        fullPreview: S,
-                        type: b.type,
-                        filename: b.filename,
-                        mimetype: b.mimetype,
+                          : window.URL.createObjectURL(C.mediaBlob),
+                      S = {
+                        file: C.mediaBlob,
+                        fullPreview: v,
+                        type: C.type,
+                        filename: C.filename,
+                        mimetype: C.mimetype,
                         originalMimetype: n.mimetype,
-                        preview: b.preview,
-                        state: y.READY,
-                        isGif: b.isGif,
+                        preview: C.preview,
+                        state: o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                          .READY,
+                        isGif: C.isGif,
                         fullPreviewSize: void 0,
                         documentPageCount: c,
-                        isVcardOverMmsDocument: b.isVcardOverMmsDocument,
-                        isPasswordProtected: b.isPasswordProtected,
-                        editedFile: b.mediaBlob,
-                        duration: b.duration,
+                        isVcardOverMmsDocument: C.isVcardOverMmsDocument,
+                        isPasswordProtected: C.isPasswordProtected,
+                        editedFile: C.mediaBlob,
+                        duration: C.duration,
                       };
-                    (o("isNonZeroNumber").isNonZeroNumber(b.fullWidth) &&
-                      o("isNonZeroNumber").isNonZeroNumber(b.fullHeight) &&
-                      (R.fullPreviewSize = {
-                        height: b.fullHeight,
-                        width: b.fullWidth,
+                    (o("isNonZeroNumber").isNonZeroNumber(C.fullWidth) &&
+                      o("isNonZeroNumber").isNonZeroNumber(C.fullHeight) &&
+                      (S.fullPreviewSize = {
+                        height: C.fullHeight,
+                        width: C.fullWidth,
                       }),
-                      b.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
-                        ((R.preview = S),
+                      C.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
+                        ((S.preview = v),
                         (e.originalAttachment = t),
-                        b.isGif ||
+                        C.isGif ||
                           ((e.hdEligible = yield e.$AttachMediaImpl$p_8({
                             attachmentPromise: t,
                             signal: new AbortController().signal,
                           })),
                           e.hdEligible && (yield e.$AttachMediaImpl$p_7(d)))),
-                      b.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
-                        v &&
-                        ((R.fullPreview = v.url),
-                        (R.preview = v.thumbUrl),
-                        (R.fullPreviewSize = {
-                          height: v.height,
-                          width: v.width,
+                      C.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
+                        b &&
+                        ((S.fullPreview = b.url),
+                        (S.preview = b.thumbUrl),
+                        (S.fullPreviewSize = {
+                          height: b.height,
+                          width: b.width,
                         }),
-                        (R.documentPageCount = v.pdfPages)),
-                      e.set(R),
-                      e.previewable ||
+                        (S.documentPageCount = b.pdfPages)),
+                      e.set(S),
+                      o("WAWebAttachMediaGetters").getPreviewable(e) ||
                         o("WALogger")
                           .ERROR(
                             u ||
@@ -491,7 +436,14 @@ __d(
                   a.MediaFileEmpty,
                 ],
                 function (t) {
-                  return (e.set({ exception: t, state: y.ERROR }), e);
+                  return (
+                    e.set({
+                      exception: t,
+                      state: o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                        .ERROR,
+                    }),
+                    e
+                  );
                 },
               ),
             )
@@ -509,7 +461,8 @@ __d(
                   exception: new (o(
                     "WAWebMediaFileErrors",
                   ).InvalidMediaFileType)(),
-                  state: y.ERROR,
+                  state: o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                    .ERROR,
                 }),
                 e
               );
@@ -517,18 +470,22 @@ __d(
         }),
         (i.sendToChat = function (t) {
           var e = t.chat,
-            o = t.options;
+            a = t.options;
           return this.mediaPrep
-            ? this.state === y.ERROR
+            ? this.state ===
+              o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.ERROR
               ? (f || (f = n("Promise"))).reject(this.exception)
-              : this.state === y.PROCESSING &&
-                  (this.previewable !== !0 || o.addEvenWhilePreparing !== !0)
+              : this.state ===
+                    o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                      .PROCESSING &&
+                  (o("WAWebAttachMediaGetters").getPreviewable(this) !== !0 ||
+                    a.addEvenWhilePreparing !== !0)
                 ? (f || (f = n("Promise"))).reject(
                     r("err")("Media still processing"),
                   )
                 : (this.$AttachMediaImpl$p_9(e) &&
-                    (o.aiProvenancePromise = this.$AttachMediaImpl$p_10()),
-                  this.$AttachMediaImpl$p_11({ chat: e, options: o }))
+                    (a.aiProvenancePromise = this.$AttachMediaImpl$p_10()),
+                  this.$AttachMediaImpl$p_11({ chat: e, options: a }))
             : (f || (f = n("Promise"))).reject(
                 r("err")("MediaPrep not available"),
               );
@@ -592,7 +549,7 @@ __d(
               var l = yield o(
                   "WAWebMediaWorkerProxy",
                 ).detectAiProvenanceInWorker({
-                  hints: S(a),
+                  hints: v(a),
                   input: yield o("WAWebFileUtils").blobToArrayBuffer(a),
                   eventFlow: {
                     addAnnotations: function (n) {
@@ -660,7 +617,10 @@ __d(
         (i.$AttachMediaImpl$p_11 = function (t) {
           var e = t.chat,
             n = t.options;
-          if (this.state === y.READY)
+          if (
+            this.state ===
+            o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE.READY
+          )
             return (
               o("WALogger").LOG(
                 _ ||
@@ -774,16 +734,15 @@ __d(
         a
       );
     })(o("WAWebBaseModel").BaseModel);
-    v.Proxy = "attachMedia";
-    function S(e) {
+    b.Proxy = "attachMedia";
+    function v(e) {
       return e.type === "" ? [] : [e.type];
     }
-    var R = o("WAWebBaseModel").defineModel(v);
+    var S = o("WAWebBaseModel").defineModel(b);
     ((l.MediaEditorAction = g),
       (l.MediaQuality = h),
-      (l.ATTACH_MEDIA_STATE = y),
-      (l.nextAttachMediaId = b),
-      (l.AttachMedia = R));
+      (l.nextAttachMediaId = C),
+      (l.AttachMedia = S));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebApiMessageInfoStore",
     "WAWebAttachMediaCollection",
+    "WAWebAttachMediaGetters",
     "WAWebBizBroadcastCTAButtonSectionStrings",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastCampaignMsgKeyUtils",
@@ -112,30 +113,34 @@ __d(
                 chatParticipantCount: 1,
               }),
               h = [{ file: _ }];
-            yield f.processAttachments(
-              h,
-              void 0,
-              o("WAWebBizBroadcastMediaProcessor").SUPPORTED_MEDIA_TYPES,
-              1,
-            );
-            var C = f.getActive();
-            if (
-              C == null ||
-              (C.processPromise != null && (yield C.processPromise),
-              !C.previewable)
-            )
-              return null;
-            var b = y(C);
-            return {
-              fileExt: C.fileExt,
-              fileName: C.filename,
-              fileSize: C.filesize,
-              mediaType: C.type,
-              mimetype: C.mimetype,
-              pageCount: C.documentPageCount,
-              previewSize: C.fullPreviewSize,
-              previewUrl: b,
-            };
+            try {
+              yield f.processAttachments(
+                h,
+                void 0,
+                o("WAWebBizBroadcastMediaProcessor").SUPPORTED_MEDIA_TYPES,
+                1,
+              );
+              var C = f.getActive();
+              if (
+                C == null ||
+                (C.processPromise != null && (yield C.processPromise),
+                !o("WAWebAttachMediaGetters").getPreviewable(C))
+              )
+                return null;
+              var b = y(C);
+              return {
+                fileExt: o("WAWebAttachMediaGetters").getFileExt(C),
+                fileName: C.filename,
+                fileSize: o("WAWebAttachMediaGetters").getFilesize(C),
+                mediaType: C.type,
+                mimetype: C.mimetype,
+                pageCount: C.documentPageCount,
+                previewSize: C.fullPreviewSize,
+                previewUrl: b,
+              };
+            } finally {
+              f.delete();
+            }
           }
           if (e == null) return null;
           var S = o("WAWebDBMessageSerialization").messageFromDbRow(e);

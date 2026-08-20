@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebBotBaseGating",
     "WAWebBotProductGating",
+    "WAWebBotStaticProfiles",
     "WAWebBotSupportState",
     "WAWebPrimaryFeaturesModel",
   ],
@@ -11,7 +12,10 @@ __d(
     function e() {
       return s._(/*BTDS*/ "Unknown account").toString();
     }
-    function u(e) {
+    function u(e, t) {
+      return o("WAWebBotStaticProfiles").isStaticProfile(e) ? !0 : !c(t);
+    }
+    function c(e) {
       if (!o("WAWebBotBaseGating").isStandardBotProfileEnabled()) return !1;
       var t = o("WAWebBotSupportState").evaluateBotSupport(e, function (e) {
           return o("WAWebBotProductGating").isBotProductGateOn(
@@ -27,12 +31,13 @@ __d(
         n === o("WAWebBotSupportState").BotSupportStateKind.UNSUPPORTED
       );
     }
-    function c() {
-      return s._(/*BTDS*/ "Lorem").toString();
+    function d() {
+      return s._(/*BTDS*/ "Agent").toString();
     }
     ((l.getUnknownAccountName = e),
-      (l.isBotProfileViewOnly = u),
-      (l.getAgentSubtitle = c));
+      (l.shouldDisplayProfileName = u),
+      (l.isBotProfileViewOnly = c),
+      (l.getAgentSubtitle = d));
   },
   226,
 );

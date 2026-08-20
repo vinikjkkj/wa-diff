@@ -2,6 +2,7 @@ __d(
   "WAWebPdfViewerAppConfig",
   [
     "WAWebABProps",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebEnvironment",
     "WAWebStylesEnv",
@@ -13,7 +14,7 @@ __d(
     function e() {
       var e = o("WAWebUserPrefsGeneral").getSystemThemeMode(),
         t = o("WAWebUserPrefsGeneral").getTheme(),
-        n = o("WAWebConnModel").Conn.isSMB;
+        n = o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn);
       return e
         ? n
           ? "smbSystem"
@@ -31,7 +32,7 @@ __d(
         theme: e(),
         hasSafariFix: o("WAWebStylesEnv").hasSafariFix,
         isColorRefreshEnabled: !0,
-        isSmb: o("WAWebConnModel").Conn.isSMB,
+        isSmb: o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn),
         isWindowsHybrid: r("WAWebEnvironment").isWindows,
         isOSMac: o("WAWebStylesEnv").isOSMac,
         isOSWindows: o("WAWebStylesEnv").isOSWin,

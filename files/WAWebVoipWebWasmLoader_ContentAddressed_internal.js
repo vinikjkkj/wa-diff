@@ -16,6 +16,10 @@ __d(
       s,
       u,
       c = {
+        "781e245811250a21d239007321c402f790bbe80927ddd85e2b5898c63aed4bda":
+          function () {
+            return r("bx")("47565");
+          },
         b83c41faa1c975e4401b260b2e30ad956e397a98e29935b931a695bdf809a4c1:
           function () {
             return r("bx")("47554");
@@ -44,16 +48,12 @@ __d(
           function () {
             return r("bx")("47516");
           },
-        "953620a673d5333d6d1e6d40c7317fc1af3e9e66b366701c10be1b82f4cb4dcd":
-          function () {
-            return r("bx")("47509");
-          },
       },
-      d = c.b83c41faa1c975e4401b260b2e30ad956e397a98e29935b931a695bdf809a4c1,
+      d = c["781e245811250a21d239007321c402f790bbe80927ddd85e2b5898c63aed4bda"],
       m = null,
       p;
     try {
-      p = r("bx").getURL(d(), { cacheBreaker: "1787118680258" });
+      p = r("bx").getURL(d(), { cacheBreaker: "1787205838853" });
     } catch (e) {
       m = e;
     }
@@ -92,7 +92,7 @@ __d(
         var C = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/b83c41faa1c975e4401b260b2e30ad956e397a98e29935b931a695bdf809a4c1/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/781e245811250a21d239007321c402f790bbe80927ddd85e2b5898c63aed4bda/wa_voip_shared.wasm",
           ),
           m != null)
         )
@@ -817,10 +817,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Ke = {
-          1344502: function () {
+          1345430: function () {
             return Date.now();
           },
-          1344525: function (t, n) {
+          1345453: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -7769,8 +7769,8 @@ __d(
           gl = (C.___get_exception_message = $e("__get_exception_message")),
           hl = $e("__cxa_can_catch"),
           yl = $e("__cxa_is_pointer_type"),
-          Cl = (C.___start_em_js = 1338556),
-          bl = (C.___stop_em_js = 1344502);
+          Cl = (C.___start_em_js = 1339484),
+          bl = (C.___stop_em_js = 1345430);
         function vl(e, t, n, r) {
           var o = ml();
           try {

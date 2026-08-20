@@ -2,6 +2,7 @@ __d(
   "WAWebBizBusinessChangeAction",
   [
     "WAWebBusinessProfileCollection",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactGetters",
     "WAWebStateUtils",
@@ -14,7 +15,7 @@ __d(
         a =
           t.isBusiness ||
           (o("WAWebContactGetters").getIsMe(t) &&
-            o("WAWebConnModel").Conn.isSMB);
+            o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn));
       a && !n
         ? t.addChild(
             "businessProfile",

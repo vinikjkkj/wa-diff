@@ -1,6 +1,7 @@
 __d(
   "WAWebCommonCTWALogging",
   [
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebUserPrefsGeneral",
@@ -10,7 +11,7 @@ __d(
     function e(e) {
       var t, n;
       if (
-        o("WAWebConnModel").Conn.isSMB &&
+        o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) &&
         e.ctwaContext != null &&
         o(
           "WAWebGetCTWAEligibilityFromConversion",

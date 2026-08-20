@@ -5,6 +5,7 @@ __d(
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileUtils",
     "WAWebChatGetters",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebContactGetters",
     "WAWebL10NCountryCodes",
@@ -37,7 +38,7 @@ __d(
     }
     function u(e) {
       if (
-        !o("WAWebConnModel").Conn.isSMB ||
+        !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
         o("WAWebChatGetters").getIsGroup(e) ||
         o("WAWebChatGetters").getIsNewsletter(e) ||
         o("WAWebChatGetters").getIsBroadcast(e) ||
@@ -55,7 +56,7 @@ __d(
       );
     }
     function c() {
-      if (!o("WAWebConnModel").Conn.isSMB) return !1;
+      if (!o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)) return !1;
       var e = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
         o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
       );
@@ -67,7 +68,7 @@ __d(
           t == null ? void 0 : t.user,
         );
       return !(
-        !o("WAWebConnModel").Conn.isSMB ||
+        !o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
         o("WAWebChatGetters").getIsGroup(e) ||
         o("WAWebContactGetters").getIsMe(e.contact) ||
         n !== "BR" ||

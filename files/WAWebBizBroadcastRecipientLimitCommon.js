@@ -7,13 +7,13 @@ __d(
     "WAWebMobilePlatforms",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 1e4,
-      s = 256,
-      u = -1,
+    var e = 256,
+      s = -1,
+      u = 1e4,
       c = 2;
     function d() {
       if (o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser())
-        return e;
+        return u;
       var t = o(
         "WAWebBizBroadcastDeviceCapabilityCommon",
       ).getBizBroadcastPrimaryRecipientLimit();
@@ -26,9 +26,11 @@ __d(
       var r = o("WAWebABProps").getABPropConfigValue(
         "smba_business_broadcast_recipient_limit",
       );
-      return r === u ? s : r;
+      return r === s ? e : r;
     }
-    ((l.MIN_RECIPIENTS = c), (l.getRecipientLimit = d));
+    ((l.BB_PRO_RECIPIENTS_LIMIT = u),
+      (l.MIN_RECIPIENTS = c),
+      (l.getRecipientLimit = d));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAWebBackendApi",
+    "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebCountryCodeUtils",
     "WAWebHttpErrors",
@@ -45,7 +46,11 @@ __d(
                 id: e,
                 lg: (t = l.lg) != null ? t : _,
                 lc: (a = l.lc) != null ? a : f,
-                platform: o("WAWebConnModel").Conn.isSMB ? "smbweb" : "web",
+                platform: o("WAWebConnGetters").getIsSMB(
+                  o("WAWebConnModel").Conn,
+                )
+                  ? "smbweb"
+                  : "web",
               };
             i != null && (s.cc = i);
             var u = r("WAWebURLUtils").build(m, s);

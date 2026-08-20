@@ -5,7 +5,8 @@ __d(
     "FBLogger",
     "Promise",
     "WATimeUtils",
-    "WAWebAttachMediaModel",
+    "WAWebAttachMediaConstants",
+    "WAWebAttachMediaGetters",
     "WAWebBizAdCreationMediaValidationUtils",
     "WAWebDataTransfer",
     "WAWebLidStatusMigrationUtils",
@@ -118,9 +119,9 @@ __d(
                     ((t.type = e.type),
                       (t.isMediaCryptoExpectedForChat = !1),
                       (t.addEvenWhilePreparing =
-                        e.previewable &&
+                        o("WAWebAttachMediaGetters").getPreviewable(e) &&
                         e.state ===
-                          o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
+                          o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                             .PROCESSING),
                       u.length < 3 && u.push(e.type));
                     var n = yield _(e, t),

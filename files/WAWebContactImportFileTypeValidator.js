@@ -55,11 +55,12 @@ __d(
         e);
     function u(e, t) {
       if (!s[t]) return !1;
-      var n = s[t];
+      var n = e.name.toLowerCase(),
+        r = s[t];
       return (
-        n.extensions.some(function (t) {
-          return e.name.endsWith(t);
-        }) || n.mimeTypes.includes(e.type)
+        r.extensions.some(function (e) {
+          return n.endsWith(e);
+        }) || r.mimeTypes.includes(e.type)
       );
     }
     function c(e) {

@@ -22,6 +22,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebUpdateMessageUIAction",
     "WAWebViewMode.flow",
+    "WAWebVoipActionSurfaceCallLogChat",
     "WAWebVoipActivityTracker",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallsTabPanelManager",
@@ -406,17 +407,23 @@ __d(
                         null
                       );
                     var u = yield w({
-                      callLogMessage: i,
-                      chatId: e,
-                      pendingOutcome: s,
-                      skipIdbPersistForUpdate: l,
-                    });
+                        callLogMessage: i,
+                        chatId: e,
+                        pendingOutcome: s,
+                        skipIdbPersistForUpdate: l,
+                      }),
+                      c = u.msg,
+                      d = u.surface;
                     return (
+                      (d === "promoted" || (d === "created" && !l)) &&
+                        (yield o(
+                          "WAWebVoipActionSurfaceCallLogChat",
+                        ).maybeSurfaceCallLogChatInChatList(e, i)),
                       r("WAWebVoipCallsTabPanelManager").trigger(
                         "onWriteCallLogMessage",
-                        u,
+                        c,
                       ),
-                      u
+                      c
                     );
                   },
                 )),
@@ -491,15 +498,17 @@ __d(
                   t.id,
                   a,
                 ),
-              s
+              { msg: s, surface: s != null ? "created" : "none" }
             );
           }
           var u =
-            l.viewMode ===
-              o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME ||
-            l.viewMode ===
-              o("WAWebViewMode.flow").ViewModeType
-                .CALL_LOG_OFFLINE_RESUME_PROMOTED;
+              l.viewMode ===
+                o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME ||
+              l.viewMode ===
+                o("WAWebViewMode.flow").ViewModeType
+                  .CALL_LOG_OFFLINE_RESUME_PROMOTED,
+            c =
+              u && t.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE;
           u &&
             t.viewMode !== o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
             o("WALogger")
@@ -514,7 +523,7 @@ __d(
                 t.viewMode,
               )
               .sendLogs("voip-callog-promote-non-visible");
-          var c =
+          var d =
               u && t.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE
                 ? babelHelpers.extends({}, t, {
                     viewMode:
@@ -522,17 +531,17 @@ __d(
                         .CALL_LOG_OFFLINE_RESUME_PROMOTED,
                   })
                 : t,
-            d = U(l.callOutcome, c);
+            m = U(l.callOutcome, d);
           return (
             i
-              ? yield l.applyUpdate(d)
+              ? yield l.applyUpdate(m)
               : yield (R || (R = n("Promise"))).all([
-                  l.applyUpdate(d),
+                  l.applyUpdate(m),
                   yield o(
                     "WAWebHandleSingleMsgWorkerCompatible",
                   ).handleSingleMsg({
                     chatId: r,
-                    newMsg: d,
+                    newMsg: m,
                     handleSingleMsgOrigin: "voipNotification",
                     messageOverwriteOption: o("WAWebHandleMsgTypes.flow")
                       .MessageOverwriteOption.VOIP_CALL_LOG,
@@ -542,7 +551,7 @@ __d(
               t.id,
               a,
             ),
-            l
+            { msg: l, surface: c ? "promoted" : "none" }
           );
         })),
         A.apply(this, arguments)
@@ -644,10 +653,13 @@ __d(
                       ));
                     return;
                   }
-                  (o("WAWebVoipActivityTracker").trackUiActivity(
-                    o("WAWebVoipActivityTracker").VoipUiActivity
-                      .ICCE_WRITE_CALL_LOG_COMPLETE,
-                  ),
+                  (yield o(
+                    "WAWebVoipActionSurfaceCallLogChat",
+                  ).maybeSurfaceCallLogChatInChatList(a, t),
+                    o("WAWebVoipActivityTracker").trackUiActivity(
+                      o("WAWebVoipActivityTracker").VoipUiActivity
+                        .ICCE_WRITE_CALL_LOG_COMPLETE,
+                    ),
                     r("WAWebVoipCallsTabPanelManager").trigger(
                       "onWriteCallLogMessage",
                       i,

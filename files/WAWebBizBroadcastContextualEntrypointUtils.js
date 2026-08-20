@@ -2,6 +2,7 @@ __d(
   "WAWebBizBroadcastContextualEntrypointUtils",
   [
     "WAWebAttachMediaCollection",
+    "WAWebAttachMediaGetters",
     "WAWebBizBroadcastMediaProcessor",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebFileUtils",
@@ -165,11 +166,11 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e == null) return null;
+          var t = new (r("WAWebAttachMediaCollection"))({
+            chatParticipantCount: 1,
+          });
           try {
-            var t = new (r("WAWebAttachMediaCollection"))({
-                chatParticipantCount: 1,
-              }),
-              n = [{ file: e }];
+            var n = [{ file: e }];
             yield t.processAttachments(
               n,
               void 0,
@@ -181,9 +182,9 @@ __d(
             if (i == null) return null;
             var l = {
               file: e,
-              fileExt: i.fileExt,
+              fileExt: o("WAWebAttachMediaGetters").getFileExt(i),
               fileName: i.filename,
-              fileSize: i.filesize,
+              fileSize: o("WAWebAttachMediaGetters").getFilesize(i),
               mediaType: i.type,
               mimetype: i.mimetype,
               pageCount: i.documentPageCount,
@@ -203,6 +204,8 @@ __d(
               ),
               null
             );
+          } finally {
+            t.delete();
           }
         })),
         m.apply(this, arguments)
