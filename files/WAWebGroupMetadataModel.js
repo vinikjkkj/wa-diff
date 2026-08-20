@@ -112,6 +112,7 @@ __d(
             (e.isTeeBotGroup = o("WAWebBaseModel").prop()),
             (e.isInternal = o("WAWebBaseModel").session()),
             (e.memberShareGroupHistoryMode = o("WAWebBaseModel").prop()),
+            (e.shouldDefaultGroupHistoryShareOn = o("WAWebBaseModel").prop()),
             (e.stale = o("WAWebBaseModel").session(!0)),
             (e.deviceStale = o("WAWebBaseModel").session(!1)),
             (e.trusted = o("WAWebBaseModel").session(!0)),

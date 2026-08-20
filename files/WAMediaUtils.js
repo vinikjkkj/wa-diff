@@ -97,7 +97,7 @@ __d(
               },
         serverMediaType: f,
         filename: s,
-        progressiveJpegDetails: _ && L(_),
+        progressiveJpegDetails: _ && S(_),
         size: h == null ? void 0 : o("WALongInt").numberOrThrowIfTooLarge(h),
       };
     }
@@ -160,19 +160,7 @@ __d(
         )
         .readByteArrayView();
     }
-    function v(e, t) {
-      var n = babelHelpers.extends({}, e, { fbid: t });
-      return o("encodeProtobuf")
-        .encodeProtobuf(o("WAMediaEntryData.pb").MediaEntrySpec, n)
-        .readByteArrayView();
-    }
-    function S(e, t) {
-      var n = babelHelpers.extends({}, e, { objectId: t });
-      return o("encodeProtobuf")
-        .encodeProtobuf(o("WAMediaEntryData.pb").MediaEntrySpec, n)
-        .readByteArrayView();
-    }
-    function R(t) {
+    function v(t) {
       if (t == null) return null;
       var n = t.$$unknownFieldCount,
         r = t.directPath,
@@ -191,7 +179,7 @@ __d(
               ),
       });
     }
-    function L(e) {
+    function S(e) {
       return e == null || e.scanLengths == null || e.sidecar == null
         ? null
         : {
@@ -205,7 +193,7 @@ __d(
             }),
           };
     }
-    function E(e) {
+    function R(e) {
       var t = o("decodeProtobuf").decodeProtobuf(
           o("WAMediaEntryData.pb").MediaEntrySpec,
           e,
@@ -252,7 +240,7 @@ __d(
               ),
         uploadToken: g && g,
         progressiveJpegDetails: y,
-        downloadableThumbnail: r && R(r),
+        downloadableThumbnail: r && v(r),
         size: o("WALongInt").maybeNumberOrThrowIfTooLarge(f),
         lastDownloadAttemptTimestamp:
           a == null
@@ -262,7 +250,7 @@ __d(
               ),
       });
     }
-    function k(e) {
+    function L(e) {
       var t = e.directPath,
         n = e.fileEncSha256,
         r = e.fileSha256,
@@ -294,7 +282,7 @@ __d(
                     }),
                   );
     }
-    function I(e) {
+    function E(e) {
       var t = e.directPath,
         n = e.fileEncSha256,
         r = e.fileSha256,
@@ -320,7 +308,7 @@ __d(
           : o("WAResultOrError").makeError(i)
       );
     }
-    function T(e) {
+    function k(e) {
       var t = "image/jpeg";
       switch (e) {
         case "image":
@@ -352,7 +340,7 @@ __d(
       }
       return t;
     }
-    var D = function () {
+    var I = function () {
       return "TransformStream" in self;
     };
     ((l.createMediaKey = u),
@@ -367,14 +355,12 @@ __d(
       (l.encodeMediaEntryForUpload = y),
       (l.encodeMediaEntryWithUpdatedPath = C),
       (l.encodeMediaEntryDownloadableThumbnailWithUpdatedPath = b),
-      (l.encodeMediaEntryWithUpdatedFbid = v),
-      (l.encodeMediaEntryWithUpdatedObjectId = S),
-      (l.convertMediaDownloadableThumbnailToDownloadableThumbnail = R),
-      (l.decodeMediaEntryData = E),
-      (l.validateDecodedMediaEntryForDownload = k),
-      (l.validateDownloadableThumbnailForDownload = I),
-      (l.getMimeTypeFromServerMediaType = T),
-      (l.isTransformStreamSupported = D));
+      (l.convertMediaDownloadableThumbnailToDownloadableThumbnail = v),
+      (l.decodeMediaEntryData = R),
+      (l.validateDecodedMediaEntryForDownload = L),
+      (l.validateDownloadableThumbnailForDownload = E),
+      (l.getMimeTypeFromServerMediaType = k),
+      (l.isTransformStreamSupported = I));
   },
   98,
 );

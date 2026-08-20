@@ -7,10 +7,10 @@ __d(
       {
         name: "wa_win_mc_test:bucket",
         readWithoutLogging: function () {
-          return r("MetaConfig")._("256", !0);
+          return r("MetaConfig")._("496", !0);
         },
         logExposure: function () {
-          r("MetaConfig")._("257");
+          r("MetaConfig")._("497");
         },
       },
     ];

@@ -63,7 +63,9 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebStatusGatingUtils").isChannelStatusLikesSendEnabled()
+          return o(
+            "WAWebStatusGatingUtils",
+          ).isChannelStatusLikesSendEnabledNoExposure()
             ? o(
                 "WAWebNewsletterGetStatusMyReactionsJob",
               ).fetchNewsletterStatusMyReactions(e)

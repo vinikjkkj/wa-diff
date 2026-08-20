@@ -3,11 +3,20 @@ __d(
   [
     "WAWebAttachMenuPopupItemPhotos.react",
     "WAWebBotGating",
+    "WAWebBotSupportGating",
     "WAWebBotUtils",
     "WAWebHatchGating",
+    "WAWebMsgType",
+    "WAWebPrimaryFeaturesModel",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      return !o("WAWebBotSupportGating").isSupportedThirdPartyBot(
+        e,
+        o("WAWebPrimaryFeaturesModel").PrimaryFeatures.aiBotIntegrationEnabled,
+      );
+    }
+    function s(e, t) {
       return o("WAWebBotUtils").isBotChannelFBID(e)
         ? o("WAWebBotUtils").isHatchBot(e) &&
           !o("WAWebHatchGating").isHatchVideoUploadEnabled()
@@ -22,10 +31,24 @@ __d(
               : o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
                   .PHOTOS
             : null
-          : o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
-              .PHOTOS_AND_VIDEOS;
+          : u(t);
     }
-    l.getMediaSelectionType = e;
+    function u(e) {
+      var t = e.has(o("WAWebMsgType").MSG_TYPE.IMAGE),
+        n = e.has(o("WAWebMsgType").MSG_TYPE.VIDEO);
+      return t && n
+        ? o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
+            .PHOTOS_AND_VIDEOS
+        : t
+          ? o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType.PHOTOS
+          : n
+            ? o("WAWebAttachMenuPopupItemPhotos.react").MediaSelectionType
+                .VIDEOS
+            : null;
+    }
+    ((l.canOfferTrayCreations = e),
+      (l.getMediaSelectionType = s),
+      (l.getMediaSelectionTypeForSupportedTypes = u));
   },
   98,
 );

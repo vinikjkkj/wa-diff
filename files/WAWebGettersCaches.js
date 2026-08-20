@@ -64,7 +64,8 @@ __d(
       V = s,
       H = s,
       G = s,
-      z = s;
+      z = s,
+      j = s;
     ((l.createMessagesCache = c),
       (l.createFrontendMessagesCache = d),
       (l.createChatCache = m),
@@ -101,7 +102,8 @@ __d(
       (l.createFrontendNewsletterMetadataCache = V),
       (l.createBusinessProfileCache = H),
       (l.createFrontendBusinessProfileCache = G),
-      (l.createProfilePicThumbCache = z));
+      (l.createProfilePicThumbCache = z),
+      (l.createAttachMediaCache = j));
   },
   98,
 );

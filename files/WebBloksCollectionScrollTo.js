@@ -21,17 +21,16 @@ __d(
         ),
         l = i.containerElementRef,
         u = i.scrollableElementRef,
-        c = t.getValues(),
-        d = c.direction,
-        m = e(d),
-        p = l == null ? void 0 : l.current,
-        _ = u == null ? void 0 : u.current;
-      if (!(p == null || _ == null)) {
-        var f = p.children.item(r),
-          g = m
-            ? { top: f == null ? void 0 : f.offsetTop }
-            : { left: f == null ? void 0 : f.offsetLeft };
-        _.scrollTo(babelHelpers.extends({}, g, { behavior: s(a) }));
+        c = t.get("direction"),
+        d = e(c),
+        m = l == null ? void 0 : l.current,
+        p = u == null ? void 0 : u.current;
+      if (!(m == null || p == null)) {
+        var _ = m.children.item(r),
+          f = d
+            ? { top: _ == null ? void 0 : _.offsetTop }
+            : { left: _ == null ? void 0 : _.offsetLeft };
+        p.scrollTo(babelHelpers.extends({}, f, { behavior: s(a) }));
       }
     }
     function c(t, n) {
@@ -40,14 +39,13 @@ __d(
           t,
         ),
         i = a.scrollableElementRef,
-        l = t.getValues(),
-        u = l.direction,
-        c = e(u);
+        l = t.get("direction"),
+        u = e(l);
       if ((i == null ? void 0 : i.current) != null) {
-        var d = c
+        var c = u
           ? { top: i.current.scrollHeight }
           : { left: i.current.scrollWidth };
-        i.current.scrollTo(babelHelpers.extends({}, d, { behavior: s(r) }));
+        i.current.scrollTo(babelHelpers.extends({}, c, { behavior: s(r) }));
       }
     }
     ((l.scrollWebBloksCollectionToIndex = u),

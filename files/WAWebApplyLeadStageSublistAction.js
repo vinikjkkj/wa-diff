@@ -1,12 +1,15 @@
 __d(
   "WAWebApplyLeadStageSublistAction",
   [
+    "WAJids",
     "WALogger",
     "WAWebChatCollection",
     "WAWebFindChatAction",
     "WAWebLabelCollection",
     "WAWebLabelSublistSync",
     "WAWebLeadListConstants",
+    "WAWebLeadSublistGating",
+    "WAWebLidMigrationUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -77,7 +80,35 @@ __d(
         c.apply(this, arguments)
       );
     }
-    l.applyLeadStageSublist = u;
+    function d(e, t, n) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = p(e);
+          return r == null ||
+            !o("WAWebLeadSublistGating").isChatEligibleForLeadSublist(r)
+            ? !1
+            : (yield u(
+                o("WAJids").unsafeCoerceToChatJid(r.id.toString()),
+                t,
+                n,
+              ),
+              !0);
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      var t = o("WAWebWidFactory").createWid(e);
+      if (!t.isUser()) return null;
+      var n = o("WAWebLidMigrationUtils").toUserLid(t);
+      return n != null
+        ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(n)
+        : null;
+    }
+    ((l.applyLeadStageSublist = u), (l.applyLeadStageSublistForProfile = d));
   },
   98,
 );

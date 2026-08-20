@@ -76,6 +76,8 @@ __d(
         SERVER_SENT_INVITE_FALLBACK_TO_OTP:
           "server_sent_invite_fallback_to_otp",
         ENTER_CODE_IMPRESSION: "enter_code_impression",
+        ENTER_CODE_WEB_OTP_LISTENING: "enter_code_web_otp_listening",
+        ENTER_CODE_WEB_OTP_RECEIVED: "enter_code_web_otp_received",
         ENTER_CODE_REG_ATTEMPTED: "enter_code_reg_attempted",
         ENTER_CODE_WRONG_NUMBER_CLICKED: "enter_code_wrong_number_clicked",
         ENTER_CODE_RESEND_CLICKED: "enter_code_resend_clicked",

@@ -75,13 +75,6 @@ __d(
       );
     }
     function _(e) {
-      return (
-        e ===
-        o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
-          .MSG_RECEIVER_FETCH
-      );
-    }
-    function f(e) {
       return e == null
         ? !1
         : e ===
@@ -93,59 +86,17 @@ __d(
                 .EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
                 .IG_STORY_VIDEO_SHARE;
     }
-    function g(e) {
+    function f(e) {
       return (
         e ===
         o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
           .FB_FEED_POST_PRIVATE_REPLY
       );
     }
-    function h(e, t) {
+    function g(e, t) {
       return (e != null && e) || (t != null && t < o("WATimeUtils").unixTime());
     }
-    function y(e) {
-      return babelHelpers.extends({}, e, {
-        ctas: void 0,
-        defaultCTA: void 0,
-        headerTitle: void 0,
-        isTombstoned: !0,
-        maxSubtitleNumOfLines: void 0,
-        maxTitleNumOfLines: void 0,
-        overlayDescription: void 0,
-        overlayIconGlyph: void 0,
-        overlayTitle: void 0,
-        subtitleText: void 0,
-        targetId: void 0,
-        targetUsername: void 0,
-        titleText: void 0,
-      });
-    }
-    function C(e) {
-      var t = babelHelpers.extends({}, e, {
-        ctas: void 0,
-        defaultCTA: void 0,
-        defaultPreviewMediaId: void 0,
-        defaultPreviewMediaPlaintextHash: void 0,
-        faviconMediaId: void 0,
-        faviconPlaintextHash: void 0,
-        headerMediaId: void 0,
-        headerMediaPlaintextHash: void 0,
-        headerTitle: void 0,
-        isTombstoned: !0,
-        maxSubtitleNumOfLines: void 0,
-        maxTitleNumOfLines: void 0,
-        overlayDescription: void 0,
-        overlayIconGlyph: void 0,
-        overlayTitle: void 0,
-        previewMediaIds: void 0,
-        subtitleText: void 0,
-        targetId: void 0,
-        targetUsername: void 0,
-        titleText: void 0,
-      });
-      return ((t.targetExpiringAtSec = void 0), t);
-    }
-    function b(e) {
+    function h(e) {
       switch (e) {
         case o("WAArmadilloXMA.pb")
           .EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE.FB_STORY_REPLY:
@@ -159,35 +110,35 @@ __d(
           return !1;
       }
     }
-    function v(e) {
+    function y(e) {
       return (
         e ===
         o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
           .FB_PRODUCER_STORY_REPLY
       );
     }
-    function S(e) {
+    function C(e) {
       return (
         e ===
         o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
           .IG_STORY_REACTION
       );
     }
-    function R(e) {
+    function b(e) {
       return (
         e ===
         o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
           .FB_STORY_MENTION
       );
     }
-    function L(e) {
+    function v(e) {
       return (
         e ===
         o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
           .FB_POST_MENTION
       );
     }
-    function E(e) {
+    function S(e) {
       switch (e) {
         case o("WAArmadilloXMA.pb")
           .EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
@@ -200,10 +151,10 @@ __d(
           return !1;
       }
     }
-    function k(e) {
-      return R(e) || E(e);
+    function R(e) {
+      return b(e) || S(e);
     }
-    function I(e) {
+    function L(e) {
       return (
         e ===
           o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
@@ -216,7 +167,7 @@ __d(
             .IG_SINGLE_VIDEO_POST_SHARE
       );
     }
-    function T(e) {
+    function E(e) {
       return (
         e ===
           o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
@@ -226,7 +177,7 @@ __d(
             .IG_STORY_VIDEO_HIGHLIGHT_SHARE
       );
     }
-    function D(e) {
+    function k(e) {
       return (
         e ===
         o("WAArmadilloXMA.pb").EXTENDED_CONTENT_MESSAGE_EXTENDED_CONTENT_TYPE
@@ -238,22 +189,19 @@ __d(
       (l.isXMAStoryShare = d),
       (l.isXMAExternalLinkShare = m),
       (l.isXMAContactShare = p),
-      (l.isReceiverFetchXMA = _),
-      (l.isIGXMAStoryShare = f),
-      (l.isXMAPostPrivateReply = g),
-      (l.isXMAExpired = h),
-      (l.buildUnstoredTombstonedXMA = y),
-      (l.buildTombstonedDbXMA = C),
-      (l.isXMAStoryReply = b),
-      (l.isXMAStoryProducerReply = v),
-      (l.isXMAStoryReaction = S),
-      (l.isFBXMAStoryMention = R),
-      (l.isFBXMAPostMention = L),
-      (l.isIGXMAStoryMention = E),
-      (l.isXMAStoryMention = k),
-      (l.isIGXMAPostShare = I),
-      (l.isXMAStoryHighlightShare = T),
-      (l.isXMAMsgHighlightsTabFriendUpdatesReply = D));
+      (l.isIGXMAStoryShare = _),
+      (l.isXMAPostPrivateReply = f),
+      (l.isXMAExpired = g),
+      (l.isXMAStoryReply = h),
+      (l.isXMAStoryProducerReply = y),
+      (l.isXMAStoryReaction = C),
+      (l.isFBXMAStoryMention = b),
+      (l.isFBXMAPostMention = v),
+      (l.isIGXMAStoryMention = S),
+      (l.isXMAStoryMention = R),
+      (l.isIGXMAPostShare = L),
+      (l.isXMAStoryHighlightShare = E),
+      (l.isXMAMsgHighlightsTabFriendUpdatesReply = k));
   },
   98,
 );

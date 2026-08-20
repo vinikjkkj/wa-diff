@@ -13,7 +13,17 @@ __d(
       var n;
       return (n = e(t)[0]) != null ? n : [];
     }
-    function s(e) {
+    function s(t, n) {
+      var r;
+      return (r = e(n).find(function (e) {
+        return e.some(function (e) {
+          return e.approvalId === t;
+        });
+      })) != null
+        ? r
+        : [];
+    }
+    function u(e) {
       var t = e[0],
         n = babelHelpers.arrayLikeToArray(e).slice(1);
       if (t == null) return [];
@@ -38,7 +48,8 @@ __d(
     }
     ((i.partitionExclusiveApprovals = e),
       (i.getApprovalsToReviewNow = l),
-      (i.commonDecisionOptions = s));
+      (i.batchContaining = s),
+      (i.commonDecisionOptions = u));
   },
   66,
 );

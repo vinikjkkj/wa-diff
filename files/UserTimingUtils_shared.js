@@ -35,9 +35,7 @@ __d(
       if ((o === void 0 && (o = !0), s)) {
         try {
           (e || (e = r("performance"))).measure(t, n);
-        } catch (e) {
-          "" + t + n;
-        }
+        } catch (e) {}
         (o && (e || (e = r("performance"))).clearMarks(n),
           (e || (e = r("performance"))).clearMeasures(t));
       }
@@ -47,9 +45,7 @@ __d(
         try {
           var n = (e || (e = r("performance"))).getEntriesByName(t, "mark");
           if (n != null && n.length > 0) return !0;
-        } catch (e) {
-          "" + t;
-        }
+        } catch (e) {}
         return !1;
       }
     }
@@ -57,9 +53,7 @@ __d(
       if (s)
         try {
           (e || (e = r("performance"))).clearMarks(t);
-        } catch (e) {
-          "" + t;
-        }
+        } catch (e) {}
     }
     function h(e, t) {
       return y.apply(this, arguments);

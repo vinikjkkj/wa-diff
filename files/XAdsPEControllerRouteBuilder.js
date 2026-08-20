@@ -11,6 +11,7 @@ __d(
           ads_manager_write_regions: !1,
           adset_page_id: 0,
           auto_transform_dialog: !1,
+          biz_sel: !1,
           breakdown_regrouping: !1,
           campaign_page_id: 0,
           creative_page_id: 0,

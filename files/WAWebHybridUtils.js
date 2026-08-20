@@ -112,12 +112,22 @@ __d(
         Number(o("WAWebBuildConstants").getWindowsBuild()) >= 256700 && e === !0
       );
     }
+    function C() {
+      return (
+        o("WAWebABProps").getABPropConfigValue("win_hybrid_vsr_enabled_2") ===
+          !0 &&
+        o("WAWebABProps").getABPropConfigValue(
+          "win_hybrid_vsr_device_setting_enabled_2",
+        ) === !0
+      );
+    }
     ((l.shouldShowHybridNux = p),
       (l.showHybridNux = _),
       (l.shouldShowBrokenHybrid2559Modal = f),
       (l.showBrokenHybrid2559Modal = g),
       (l.shouldShowHybridRateTheAppPrompt = h),
-      (l.isHybridFontSizeDropdownEnabled = y));
+      (l.isHybridFontSizeDropdownEnabled = y),
+      (l.isHybridVsrSettingEnabled = C));
   },
   98,
 );

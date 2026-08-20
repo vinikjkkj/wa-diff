@@ -5,16 +5,15 @@ __d(
     "use strict";
     function e(e, t, n) {
       if (t.uiMutableContainer.domNode) {
-        var r = n.getValues(),
-          a = r.animated,
-          i = r.target_id,
-          l = t.getSubNodes("children");
-        if (!(l == null || l.length === 0)) {
-          for (var s = 0; s < l.length; s++)
-            if (l[s].getId() === i) {
+        var r = n.get("animated"),
+          a = n.get("target_id"),
+          i = t.getSubNodes("children");
+        if (!(i == null || i.length === 0)) {
+          for (var l = 0; l < i.length; l++)
+            if (i[l].getId() === a) {
               o("WebBloksCollectionScrollTo").scrollWebBloksCollectionToIndex(
                 t,
-                { index: s, isAnimated: a },
+                { index: l, isAnimated: r },
               );
               break;
             }

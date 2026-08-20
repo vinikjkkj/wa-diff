@@ -20,15 +20,18 @@ __d(
         function a(e) {
           var n,
             r = e.callId,
-            o = e.linkToken,
-            a = e.onOpenWaitingRoom,
-            i = e.waitingRoomUserWids;
+            o = e.isInCall,
+            a = o === void 0 ? !1 : o,
+            i = e.linkToken,
+            l = e.onOpenWaitingRoom,
+            s = e.waitingRoomUserWids;
           return (
             (n = t.call(this) || this),
             (n.callId = r),
-            (n.linkToken = o),
-            (n.waitingRoomUserWids = i),
-            (n.onOpenWaitingRoom = a),
+            (n.linkToken = i),
+            (n.waitingRoomUserWids = s),
+            (n.onOpenWaitingRoom = l),
+            (n.isInCall = a),
             n
           );
         }
@@ -36,7 +39,7 @@ __d(
         var i = a.prototype;
         return (
           (i.shouldMute = function (t) {
-            return o("WAWebNotificationHelpers").appIsActive() || c()
+            return this.isInCall && c()
               ? r("WAWebNotificationMuteReason").AppState
               : null;
           }),
@@ -102,7 +105,7 @@ __d(
       })(o("WAWebBaseNotification").WABaseNotification);
     function c() {
       var e = o("WAWebVoipPopoutWindowState").getPopoutWindow();
-      if (e == null) return !1;
+      if (e == null) return o("WAWebNotificationHelpers").appIsActive();
       try {
         return e.document.hasFocus();
       } catch (e) {

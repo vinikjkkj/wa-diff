@@ -5,41 +5,41 @@ __d(
     function e(e, t) {
       return e.replace(/[^0-9]/g, "");
     }
-    function s(t, n) {
-      var r = o("WebBloksUtils").findExtension(
-        t.extensions,
+    function s(t) {
+      var n = o("WebBloksUtils").findExtension(
+        t.get("extensions"),
         "bk.components.TextInputMaskExtension",
       );
-      if (r != null) {
-        var a = r.get("mask");
-        if (!(a.length <= 0)) {
-          var i = function (n, r) {
+      if (n != null) {
+        var r = n.get("mask");
+        if (!(r.length <= 0)) {
+          var a = function (n, o) {
               for (
-                var t = e(r, a), o = t.split(""), i = a.split(""), l = "";
-                o.length && i.length;
+                var t = e(o, r), a = t.split(""), i = r.split(""), l = "";
+                a.length && i.length;
               ) {
                 var s = i.shift();
                 if (s === "#") {
                   var u;
-                  l += (u = o.shift()) != null ? u : "";
+                  l += (u = a.shift()) != null ? u : "";
                 } else l += s != null ? s : "";
               }
               if (!i.includes("#")) {
                 var c = l + i.join("");
-                return n.length === a.length && r.length < a.length
+                return n.length === r.length && o.length < r.length
                   ? l.slice(0, -1)
                   : c;
               }
               return l;
             },
-            l = Object.prototype.hasOwnProperty.call(
+            i = Object.prototype.hasOwnProperty.call(
               o("WebBloksTextInputHelpers")
                 .WEBBLOKS_TEXT_INPUT_TYPES_WITH_INPUT_MODES,
-              t.type,
+              t.get("type"),
             )
               ? void 0
               : "text";
-          return { onBeforeChange: i, maxLength: a.length, typeOverride: l };
+          return { onBeforeChange: a, maxLength: r.length, typeOverride: i };
         }
       }
     }

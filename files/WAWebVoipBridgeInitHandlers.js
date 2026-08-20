@@ -47,6 +47,13 @@ __d(
             );
           return o("WAWebVoipWebLoadable").requireVoip();
         },
+        prefetchVoipWasmLoaderModule: function () {
+          return (r("WAWebEnvironment").isWindows &&
+            !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) ||
+            !o("WAWebVoipGatingUtils").isVoipDownloadEnabled()
+            ? (s || (s = n("Promise"))).resolve()
+            : o("WAWebVoipWebLoadable").prefetchVoipWasmLoaderModule();
+        },
         startVoipInitReloadRecovery: function (t) {
           var e = t.callId;
           return o(

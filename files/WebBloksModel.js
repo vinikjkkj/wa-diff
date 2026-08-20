@@ -11,7 +11,10 @@ __d(
     "WebBloksUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = (function () {
+    function e(e) {
+      return e;
+    }
+    var s = (function () {
       function e(e, t, n) {
         (n === void 0 && (n = o("WebBloksUtils").getNextGlobalBloksClientId()),
           (this.$isBloksModel = !0),
@@ -73,10 +76,13 @@ __d(
         }),
         (t.getStyle = function (t) {
           var e = this.getSubNode(o("WebBloksConstants").BK_STYLE_ATTR);
-          return s(e) && (e == null ? void 0 : e.styleId) === t ? e : null;
+          return u(e) && (e == null ? void 0 : e.styleId) === t ? e : null;
         }),
-        (t.getValues = function () {
+        (t.getValues_DO_NOT_USE = function () {
           return this.$1;
+        }),
+        (t.entries = function () {
+          return Object.entries(this.$1);
         }),
         (t.cloneValues = function () {
           var e = babelHelpers.extends({}, this.$1),
@@ -141,13 +147,13 @@ __d(
           if (o)
             for (var a of o) {
               var i = this.getSubNode(a);
-              if (s(i) && i.traverse(t, n)) return !0;
+              if (u(i) && i.traverse(t, n)) return !0;
             }
           if (r)
             for (var l of r) {
-              var u = this.getSubNodes(l);
-              if (Array.isArray(u)) {
-                for (var c of u) if (s(c) && c.traverse(t, n)) return !0;
+              var s = this.getSubNodes(l);
+              if (Array.isArray(s)) {
+                for (var c of s) if (u(c) && c.traverse(t, n)) return !0;
               }
             }
           return !1;
@@ -162,9 +168,9 @@ __d(
               .map(function (e) {
                 var t = e[0],
                   n = e[1];
-                return s(n)
+                return u(n)
                   ? [t, n.toJSON()]
-                  : Array.isArray(n) && n[0] && s(n[0])
+                  : Array.isArray(n) && n[0] && u(n[0])
                     ? [
                         t,
                         n.map(function (e) {
@@ -178,10 +184,12 @@ __d(
         e
       );
     })();
-    function s(e) {
+    function u(e) {
       return e != null && (e == null ? void 0 : e.$isBloksModel) === !0;
     }
-    ((l.WebBloksModel = e), (l.isWebBloksModel = s));
+    ((l.defineWebBloksMinificationMap = e),
+      (l.WebBloksModel = s),
+      (l.isWebBloksModel = u));
   },
   98,
 );

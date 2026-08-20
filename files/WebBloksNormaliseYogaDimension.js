@@ -79,7 +79,7 @@ __d(
         l.styleId === "bk.components.Collection" &&
         o("WebBloksCollectionHelpers").shouldUseWebBloksCollectionV2(l)
       ) {
-        var s = l.getValues().direction;
+        var s = l.get("direction");
         return !(
           (s === "row" && n === "height") ||
           (s === "column" && n === "width")
@@ -169,18 +169,21 @@ __d(
     function b(e, t, n) {
       var r = e.get(o("WebBloksConstants").BK_STYLE_ATTR);
       if (r) {
-        var a = r.getValues()[t];
+        var a = r.get(t);
         if (a !== n) {
           var i = r.makeCopy();
-          ((i.getValues()[t] = n),
-            e.set(o("WebBloksConstants").BK_STYLE_ATTR, i));
+          (i.set(t, n), e.set(o("WebBloksConstants").BK_STYLE_ATTR, i));
         }
       } else {
         var l,
           s = ((l = {}), (l[t] = n), l);
-        e.getValues()[o("WebBloksConstants").BK_STYLE_ATTR] = new (o(
-          "WebBloksModel",
-        ).WebBloksModel)(o("WebBloksConstants").BK_FLEX, s);
+        e.set(
+          o("WebBloksConstants").BK_STYLE_ATTR,
+          new (o("WebBloksModel").WebBloksModel)(
+            o("WebBloksConstants").BK_FLEX,
+            s,
+          ),
+        );
       }
     }
     function v(e) {

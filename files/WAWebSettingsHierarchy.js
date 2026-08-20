@@ -36,10 +36,11 @@ __d(
       h = g.AudioOutputSettingsItem,
       y = g.DeviceSettingsParentItem,
       C = g.MicrophoneSettingsItem,
-      b = g.WebcamSettingsItem,
-      v = (c = n("cr:687")) != null ? c : {},
-      S = v.TaskbarNotificationSettingsItem;
-    function R(e) {
+      b = g.VsrSettingsItem,
+      v = g.WebcamSettingsItem,
+      S = (c = n("cr:687")) != null ? c : {},
+      R = S.TaskbarNotificationSettingsItem;
+    function L(e) {
       return (
         e === void 0 && (e = !1),
         [
@@ -90,6 +91,7 @@ __d(
               "microphone_setting",
               "webcam_setting",
               "audio_output_setting",
+              "vsr_setting",
             ],
           },
           {
@@ -136,7 +138,7 @@ __d(
         )
       );
     }
-    var L = {
+    var E = {
         step: o("WAWebSettingsConst").SettingsSteps.RequestAccountInfoSettings,
         id: "request_account_info",
         isAvailable: !0,
@@ -148,7 +150,7 @@ __d(
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
           .REQUEST_ACCOUNT_INFO,
       },
-      E = {
+      k = {
         step: o("WAWebSettingsConst").SettingsSteps.Security,
         id: "security",
         isAvailable: !0,
@@ -157,7 +159,7 @@ __d(
         testid: "li-security",
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE.SECURITY,
       },
-      k = {
+      I = {
         step: o("WAWebSettingsConst").SettingsSteps.DeleteAccount,
         id: "delete_account",
         isAvailable: !0,
@@ -166,7 +168,7 @@ __d(
         ).toLowerCase(),
         title: o("WAWebSettingsFBT").deleteAccountTitle,
       },
-      I = {
+      T = {
         step: o("WAWebSettingsConst").SettingsSteps.Wallpaper,
         id: "wallpaper",
         isAvailable: function () {
@@ -180,7 +182,7 @@ __d(
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
           .CHAT_WALLPAPER,
       },
-      T = {
+      D = {
         step: o("WAWebSettingsConst").SettingsSteps.ChatTheme,
         id: "chat_theme",
         isAvailable: function () {
@@ -192,7 +194,7 @@ __d(
         title: o("WAWebSettingsFBT").chatThemeTitle,
         testid: "li-chat-theme",
       },
-      D = {
+      x = {
         step: o("WAWebSettingsConst").SettingsSteps.Theme,
         id: "theme",
         isAvailable: !0,
@@ -207,7 +209,7 @@ __d(
         testid: "li-theme",
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE.THEME,
       },
-      x = {
+      $ = {
         step: o("WAWebSettingsConst").SettingsSteps.MediaAutoDownload,
         id: "media_auto_download",
         isAvailable: !0,
@@ -219,7 +221,7 @@ __d(
         wamName: o("WAWebWamEnumSettingsItemType").SETTINGS_ITEM_TYPE
           .MEDIA_AUTO_DOWNLOAD,
       },
-      $ = {
+      P = {
         step: o("WAWebSettingsConst").SettingsSteps.MediaUploadQuality,
         id: "media_upload_quality",
         isAvailable: !0,
@@ -229,7 +231,7 @@ __d(
         title: o("WAWebSettingsFBT").mediaUploadQualityTitle,
         testid: "li-media-upload-quality",
       };
-    function P(e) {
+    function N(e) {
       e === void 0 && (e = !1);
       var t = o("WAWebBizToolsGatingUtils").isBizToolsDrawerEnabled(),
         n = [
@@ -327,7 +329,7 @@ __d(
             title: o("WAWebSettingsFBT").businessToolsHelpCenterTitle,
           },
           m,
-          S,
+          R,
           {
             step: o("WAWebSettingsConst").SettingsSteps.Notifications,
             id: "notifications",
@@ -560,12 +562,12 @@ __d(
             title: o("WAWebSettingsFBT").languageTitle,
             testid: "li-language",
           },
-          E,
-          D,
-          I,
-          T,
-          $,
+          k,
           x,
+          T,
+          D,
+          P,
+          $,
           {
             step: o("WAWebSettingsConst").SettingsSteps.Chats,
             id: "spellcheck",
@@ -602,7 +604,7 @@ __d(
               .join(" ")
               .toLowerCase(),
           },
-          L,
+          E,
           {
             step: o("WAWebSettingsConst").SettingsSteps.KeyboardShortcuts,
             id: "keyboard_shortcuts",
@@ -852,8 +854,9 @@ __d(
               f,
               y,
               C,
-              b,
+              v,
               h,
+              b,
             ],
           )
           .filter(Boolean),
@@ -872,9 +875,9 @@ __d(
               (s != null && ((s.parentId = e), i.push(s)), l(o, n[o]));
             }
       }
-      return (l(null, R(e)), i);
+      return (l(null, L(e)), i);
     }
-    function N(e) {
+    function M(e) {
       var t = {};
       return e.map(function (e) {
         var n = babelHelpers.extends({}, e);
@@ -893,14 +896,14 @@ __d(
         );
       });
     }
-    ((l.RequestAccountInfoSettingsItem = L),
-      (l.SecuritySettingsItem = E),
-      (l.DeleteAccountSettingsItem = k),
-      (l.ThemeSettingsItem = D),
-      (l.MediaAutoDownloadSettingsItem = x),
-      (l.MediaUploadQualitySettingsItem = $),
-      (l.getSettingsSearchHierarchy = P),
-      (l.buildSearchableHierarchy = N));
+    ((l.RequestAccountInfoSettingsItem = E),
+      (l.SecuritySettingsItem = k),
+      (l.DeleteAccountSettingsItem = I),
+      (l.ThemeSettingsItem = x),
+      (l.MediaAutoDownloadSettingsItem = $),
+      (l.MediaUploadQualitySettingsItem = P),
+      (l.getSettingsSearchHierarchy = N),
+      (l.buildSearchableHierarchy = M));
   },
   98,
 );

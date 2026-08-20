@@ -61,7 +61,7 @@ __d(
         },
       });
     function d(e) {
-      var t = o("react-compiler-runtime").c(35),
+      var t = o("react-compiler-runtime").c(37),
         n = e.node,
         a = o("WebBloksComponentContext").useWebBloksContext(),
         i = a.executeCatch,
@@ -72,151 +72,153 @@ __d(
         _ = o("WebBloksEnvironmentContext").useDataBloksName(),
         f = u.navigationManager,
         g;
-      t[0] !== n ? ((g = n.getValues()), (t[0] = n), (t[1] = g)) : (g = t[1]);
+      t[0] !== n
+        ? ((g = n.get("contribs")), (t[0] = n), (t[1] = g))
+        : (g = t[1]);
       var h = g,
-        y = h.contribs,
-        C = h.hide_navbar,
-        b = h.title,
+        y = n.get("hide_navbar"),
+        C;
+      t[2] !== n ? ((C = n.get("title")), (t[2] = n), (t[3] = C)) : (C = t[3]);
+      var b = C,
         v;
       if (
-        t[2] !== y ||
-        t[3] !== i ||
-        t[4] !== l ||
-        t[5] !== n ||
-        t[6] !== u ||
-        t[7] !== d ||
-        t[8] !== p
+        t[4] !== h ||
+        t[5] !== i ||
+        t[6] !== l ||
+        t[7] !== n ||
+        t[8] !== u ||
+        t[9] !== d ||
+        t[10] !== p
       ) {
         e: {
           var S = [],
             R = null;
-          if (y == null) {
+          if (h == null) {
             v = { titleBloksNode: null, trailingButtons: S };
             break e;
           }
-          for (var L of y) {
-            var E = L.getValues(),
-              k = L.getExpression("custom_title_parseresult");
-            if (k != null) {
-              var I = void 0;
+          for (var L of h) {
+            var E = L.get("right_buttons"),
+              k = L.get("trailing_buttons"),
+              I = L.getExpression("custom_title_parseresult");
+            if (I != null) {
+              var T = void 0;
               l && d
-                ? (I = d.executeCatch(k.getValue(), []))
-                : (I = i(n, k, []));
-              var T = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
+                ? (T = d.executeCatch(I.getValue(), []))
+                : (T = i(n, I, []));
+              var D = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
                 u,
-                o("WebBloksUtils").cast(I),
+                o("WebBloksUtils").cast(T),
                 { isModal: !1, isEmbedded: !0 },
               );
-              R = s.jsx(r("WebBloksScreenHost"), { screen: T });
+              R = s.jsx(r("WebBloksScreenHost"), { screen: D });
             }
-            if (E.trailing_buttons !== void 0)
-              for (var D of E.trailing_buttons)
-                S.push(s.jsx(m, { node: D }, D.clientId));
-            if (E.right_buttons !== void 0)
-              for (var x of E.right_buttons) S.push(p(x));
+            if (k !== void 0)
+              for (var x of k) S.push(s.jsx(m, { node: x }, x.clientId));
+            if (E !== void 0) for (var $ of E) S.push(p($));
           }
-          var $;
-          (t[10] !== R || t[11] !== S
-            ? (($ = { titleBloksNode: R, trailingButtons: S }),
-              (t[10] = R),
-              (t[11] = S),
-              (t[12] = $))
-            : ($ = t[12]),
-            (v = $));
+          var P;
+          (t[12] !== R || t[13] !== S
+            ? ((P = { titleBloksNode: R, trailingButtons: S }),
+              (t[12] = R),
+              (t[13] = S),
+              (t[14] = P))
+            : (P = t[14]),
+            (v = P));
         }
-        ((t[2] = y),
-          (t[3] = i),
-          (t[4] = l),
-          (t[5] = n),
-          (t[6] = u),
-          (t[7] = d),
-          (t[8] = p),
-          (t[9] = v));
-      } else v = t[9];
-      var P = v,
-        N = P.titleBloksNode,
-        M = P.trailingButtons;
-      if (C === !0) return null;
-      var w = f.getScreenCount() > 1,
-        A = w && M.length === 0,
-        F;
-      t[13] !== _ || t[14] !== n.styleId
-        ? ((F = _(n.styleId)), (t[13] = _), (t[14] = n.styleId), (t[15] = F))
-        : (F = t[15]);
-      var O;
-      t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((O = o("WebBloksStyle").classNames(
+        ((t[4] = h),
+          (t[5] = i),
+          (t[6] = l),
+          (t[7] = n),
+          (t[8] = u),
+          (t[9] = d),
+          (t[10] = p),
+          (t[11] = v));
+      } else v = t[11];
+      var N = v,
+        M = N.titleBloksNode,
+        w = N.trailingButtons;
+      if (y === !0) return null;
+      var A = f.getScreenCount() > 1,
+        F = A && w.length === 0,
+        O;
+      t[15] !== _ || t[16] !== n.styleId
+        ? ((O = _(n.styleId)), (t[15] = _), (t[16] = n.styleId), (t[17] = O))
+        : (O = t[17]);
+      var B;
+      t[18] === Symbol.for("react.memo_cache_sentinel")
+        ? ((B = o("WebBloksStyle").classNames(
             o("WebBloksStyle").WebBloksStyles.container,
             c.root,
           )),
-          (t[16] = O))
-        : (O = t[16]);
-      var B = A ? c.titleContainerMargin : null,
-        W;
-      t[17] !== B
-        ? ((W = o("WebBloksStyle").classNames(
+          (t[18] = B))
+        : (B = t[18]);
+      var W = F ? c.titleContainerMargin : null,
+        q;
+      t[19] !== W
+        ? ((q = o("WebBloksStyle").classNames(
             o("WebBloksStyle").WebBloksStyles.container,
             c.titleContainer,
-            B,
+            W,
           )),
-          (t[17] = B),
-          (t[18] = W))
-        : (W = t[18]);
-      var q;
-      t[19] !== f || t[20] !== w
-        ? ((q = w
+          (t[19] = W),
+          (t[20] = q))
+        : (q = t[20]);
+      var U;
+      t[21] !== f || t[22] !== A
+        ? ((U = A
             ? s.jsx(r("WebBloksNavbarBackButton"), {
                 onClick: function () {
                   return f.pop();
                 },
               })
             : null),
-          (t[19] = f),
-          (t[20] = w),
-          (t[21] = q))
-        : (q = t[21]);
-      var U = N != null ? N : b,
-        V;
-      t[22] !== U
-        ? ((V = s.jsx("div", { className: c.title, children: U })),
-          (t[22] = U),
-          (t[23] = V))
-        : (V = t[23]);
-      var H;
-      t[24] !== W || t[25] !== q || t[26] !== V
-        ? ((H = s.jsxs("div", { className: W, children: [q, V] })),
-          (t[24] = W),
-          (t[25] = q),
-          (t[26] = V),
-          (t[27] = H))
-        : (H = t[27]);
+          (t[21] = f),
+          (t[22] = A),
+          (t[23] = U))
+        : (U = t[23]);
+      var V = M != null ? M : b,
+        H;
+      t[24] !== V
+        ? ((H = s.jsx("div", { className: c.title, children: V })),
+          (t[24] = V),
+          (t[25] = H))
+        : (H = t[25]);
       var G;
-      t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((G = o("WebBloksStyle").classNames(
+      t[26] !== H || t[27] !== q || t[28] !== U
+        ? ((G = s.jsxs("div", { className: q, children: [U, H] })),
+          (t[26] = H),
+          (t[27] = q),
+          (t[28] = U),
+          (t[29] = G))
+        : (G = t[29]);
+      var z;
+      t[30] === Symbol.for("react.memo_cache_sentinel")
+        ? ((z = o("WebBloksStyle").classNames(
             o("WebBloksStyle").WebBloksStyles.container,
             c.trailingButtons,
           )),
-          (t[28] = G))
-        : (G = t[28]);
-      var z;
-      t[29] !== M
-        ? ((z = s.jsx("div", { className: G, children: M })),
-          (t[29] = M),
           (t[30] = z))
         : (z = t[30]);
       var j;
+      t[31] !== w
+        ? ((j = s.jsx("div", { className: z, children: w })),
+          (t[31] = w),
+          (t[32] = j))
+        : (j = t[32]);
+      var K;
       return (
-        t[31] !== H || t[32] !== z || t[33] !== F
-          ? ((j = s.jsxs(
+        t[33] !== G || t[34] !== j || t[35] !== O
+          ? ((K = s.jsxs(
               "div",
-              babelHelpers.extends({}, F, { className: O, children: [H, z] }),
+              babelHelpers.extends({}, O, { className: B, children: [G, j] }),
             )),
-            (t[31] = H),
-            (t[32] = z),
-            (t[33] = F),
-            (t[34] = j))
-          : (j = t[34]),
-        j
+            (t[33] = G),
+            (t[34] = j),
+            (t[35] = O),
+            (t[36] = K))
+          : (K = t[36]),
+        K
       );
     }
     function m(e) {
@@ -254,6 +256,8 @@ __d(
           return e.getAsset("navShoppingCart");
         case "nav-info-circle":
           return e.getAsset("navInfoCircle");
+        case "nav-magnifying-glass":
+          return e.getAsset("magnifyingGlass");
       }
     }
     l.default = d;

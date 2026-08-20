@@ -11,18 +11,21 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(18),
+      var t = o("react-compiler-runtime").c(20),
         n = e.node,
-        a;
-      t[0] !== n ? ((a = n.getValues()), (t[0] = n), (t[1] = a)) : (a = t[1]);
-      var i = a,
-        l = i.appearance,
-        u = i.testing_id,
-        d = i.text,
+        a = n.get("appearance"),
+        i;
+      t[0] !== n
+        ? ((i = n.get("testing_id")), (t[0] = n), (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        u;
+      t[2] !== n ? ((u = n.get("text")), (t[2] = n), (t[3] = u)) : (u = t[3]);
+      var d = u,
         m;
-      t[2] !== n
-        ? ((m = n.getExpression("on_click")), (t[2] = n), (t[3] = m))
-        : (m = t[3]);
+      t[4] !== n
+        ? ((m = n.getExpression("on_click")), (t[4] = n), (t[5] = m))
+        : (m = t[5]);
       var p = m,
         _ = o("WebBloksComponentContext").useWebBloksContext(),
         f = _.bloksContext,
@@ -30,12 +33,12 @@ __d(
         h = _.objectSet,
         y = _.ownerContext,
         C;
-      t[4] !== f ||
-      t[5] !== g ||
-      t[6] !== n ||
-      t[7] !== h.navigationManager ||
-      t[8] !== p ||
-      t[9] !== y
+      t[6] !== f ||
+      t[7] !== g ||
+      t[8] !== n ||
+      t[9] !== h.navigationManager ||
+      t[10] !== p ||
+      t[11] !== y
         ? ((C = function (t) {
             (t.preventDefault(),
               t.stopPropagation(),
@@ -43,17 +46,17 @@ __d(
               p != null &&
                 (y ? y.executeCatch(p.getValue(), [n, f]) : g(n, p, [n, f])));
           }),
-          (t[4] = f),
-          (t[5] = g),
-          (t[6] = n),
-          (t[7] = h.navigationManager),
-          (t[8] = p),
-          (t[9] = y),
-          (t[10] = C))
-        : (C = t[10]);
+          (t[6] = f),
+          (t[7] = g),
+          (t[8] = n),
+          (t[9] = h.navigationManager),
+          (t[10] = p),
+          (t[11] = y),
+          (t[12] = C))
+        : (C = t[12]);
       var b = C,
         v;
-      e: switch (l) {
+      e: switch (a) {
         case "destructive": {
           v = c.destructive;
           break e;
@@ -67,14 +70,14 @@ __d(
           v = c.default;
       }
       var S;
-      t[11] !== v
+      t[13] !== v
         ? ((S = o("WebBloksStyle").classNames(c.button, v)),
-          (t[11] = v),
-          (t[12] = S))
-        : (S = t[12]);
+          (t[13] = v),
+          (t[14] = S))
+        : (S = t[14]);
       var R;
       return (
-        t[13] !== b || t[14] !== S || t[15] !== u || t[16] !== d
+        t[15] !== b || t[16] !== S || t[17] !== l || t[18] !== d
           ? ((R = s.jsx(r("WebBloksAbstractButton"), {
               className: S,
               accessibility_label: d,
@@ -82,12 +85,12 @@ __d(
               title: d,
               "data-testid": void 0,
             })),
-            (t[13] = b),
-            (t[14] = S),
-            (t[15] = u),
-            (t[16] = d),
-            (t[17] = R))
-          : (R = t[17]),
+            (t[15] = b),
+            (t[16] = S),
+            (t[17] = l),
+            (t[18] = d),
+            (t[19] = R))
+          : (R = t[19]),
         R
       );
     }

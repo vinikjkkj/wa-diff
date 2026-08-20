@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebModalManager",
+    "WAWebNewsletterGatingUtils",
     "WAWebNoop",
     "WAWebNullFunc",
     "WAWebStatusCollection",
@@ -41,9 +42,17 @@ __d(
         i = t.statusModelId,
         l = i.toString();
       if (m.has(l)) return null;
-      var u = o("WAWebStatusCollection").StatusCollection.get(i);
-      u != null && (u.isLoading = !0);
-      var c = r("JSResourceForInteraction")("WAWebNewsletterStatusFetchAction")
+      if (
+        !o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
+      ) {
+        var u = (s || (s = n("Promise"))).resolve().finally(function () {
+          m.delete(l);
+        });
+        return (m.set(l, u), u);
+      }
+      var c = o("WAWebStatusCollection").StatusCollection.get(i);
+      c != null && (c.isLoading = !0);
+      var d = r("JSResourceForInteraction")("WAWebNewsletterStatusFetchAction")
         .__setRef("WAWebOpenStatusQuotedFlow")
         .load()
         .then(
@@ -88,7 +97,7 @@ __d(
           var e = o("WAWebStatusCollection").StatusCollection.get(i);
           e != null && (e.isLoading = !1);
         });
-      return (m.set(l, c), c);
+      return (m.set(l, d), d);
     }
     function _(e) {
       var t,
@@ -103,15 +112,16 @@ __d(
           t
             .then(function () {
               var e = o("WAWebStatusCollection").StatusCollection.get(s);
-              e != null &&
-                !e.isSyntheticFromMetadata &&
-                e.totalCount > 0 &&
-                d({ status: e, rowSection: l, rowIndex: i });
+              e != null && f(e) && d({ status: e, rowSection: l, rowIndex: i });
             })
             .catch(r("WAWebNoop")));
     }
+    function f(e) {
+      return !e.isSyntheticFromMetadata && e.totalCount > 0;
+    }
     ((l.ensureNewsletterStatusLoaded = p),
-      (l.fetchAndOpenNewsletterStatus = _));
+      (l.fetchAndOpenNewsletterStatus = _),
+      (l.isStatusOpenable = f));
   },
   98,
 );

@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
+    "WAWebDBGroupsGroupMetadata",
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebLidMigrationUtils",
@@ -38,7 +39,19 @@ __d(
                     ])),
                   r.length,
                 ),
-                yield c(t.id.remote, r));
+                yield c(t.id.remote, r),
+                t.id.fromMe === !0 &&
+                  (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                    t.id.remote,
+                    { shouldDefaultGroupHistoryShareOn: !0 },
+                  ),
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "updateGroupMetadataModelForShareHistoryDefault",
+                    {
+                      group: t.id.remote,
+                      shouldDefaultGroupHistoryShareOn: !0,
+                    },
+                  )));
             }
           }
         })),

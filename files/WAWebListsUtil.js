@@ -182,12 +182,25 @@ __d(
         }),
       );
     }
+    function y() {
+      o("WAWebModalManager").ModalManager.openAlert(
+        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          testid: "list-min-chats-alert",
+          onOK: function () {
+            return o("WAWebModalManager").ModalManager.closeAlert();
+          },
+          okText: r("WAWebFbtCommon")("OK"),
+          children: s._(/*BTDS*/ "Lists must include at least 1 chat."),
+        }),
+      );
+    }
     ((l.logLabelOperationEventsForModels = d),
       (l.getAllChatsInList = p),
       (l.getTwoArraysDifference = _),
       (l.openListDeleteConfirmPopup = f),
       (l.openListDisableConfirmPopup = g),
-      (l.showMaxListsModal = h));
+      (l.showMaxListsModal = h),
+      (l.showMinChatsModal = y));
   },
   226,
 );

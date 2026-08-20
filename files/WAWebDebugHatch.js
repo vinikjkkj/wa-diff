@@ -69,7 +69,7 @@ __d(
       var t = d[e % d.length],
         n = e + 1;
       return {
-        approvalId: "debug-approval-" + n,
+        approvalId: o("WAWebHatchApprovalDebug").nextDebugApprovalId(),
         permissionQuestion:
           "#" + n + ": Allow {assistant} to " + t.action + "?",
         purposeSummary: "Task #" + n + " \xB7 " + t.target + ": " + t.summary,
@@ -154,7 +154,11 @@ __d(
                   payload: { type: n.payloadType },
                   decision_options: [
                     { kind: "allow_once", label_text: "Allow once" },
-                    { kind: "allow_always", label_text: "Always allow" },
+                    {
+                      kind: "allow_always",
+                      label_text: "Always allow",
+                      label: { scope: "destination_domain" },
+                    },
                     { kind: "deny", label_text: "Deny" },
                   ],
                 },

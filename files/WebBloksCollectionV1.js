@@ -19,138 +19,145 @@ __d(
       var t = o("react-compiler-runtime").c(18),
         n = e.externalStyle,
         a = e.node,
-        i = a.getValues(),
-        l = i.children,
-        u = o("WebBloksStyle").useStyle(a, n),
-        d = u.ref,
-        m = u.style,
-        p = u.wrapper,
-        _ = u.wrapperProps,
-        f = r("useWebBloksCollectionScrollingElementStyle")(i),
-        g = f.scrollingElementClassNames,
-        h = f.scrollingElementStyle,
-        y = o(
+        i = a.getSubNodes("children"),
+        l = o("WebBloksStyle").useStyle(a, n),
+        u = l.ref,
+        d = l.style,
+        m = l.wrapper,
+        p = l.wrapperProps,
+        _ = r("useWebBloksCollectionScrollingElementStyle")(a),
+        f = _.scrollingElementClassNames,
+        g = _.scrollingElementStyle,
+        h = o(
           "WebBloksCollectionScrollRefs",
         ).useWebbloksCollectionScrollContainerRef(a);
       r("useWebBloksCollectionScrollHandlers")(a);
-      var C = r("useWebBloksCollectionStopPropagation")(d),
-        b;
-      t[0] !== y || t[1] !== d
-        ? ((b = function (t) {
-            ((y.current = t), (d.current = t));
+      var y = r("useWebBloksCollectionStopPropagation")(u),
+        C;
+      t[0] !== h || t[1] !== u
+        ? ((C = function (t) {
+            ((h.current = t), (u.current = t));
           }),
-          (t[0] = y),
-          (t[1] = d),
-          (t[2] = b))
-        : (b = t[2]);
-      var v;
-      t[3] !== g
-        ? ((v = o("WebBloksStyle").classNames.apply(
+          (t[0] = h),
+          (t[1] = u),
+          (t[2] = C))
+        : (C = t[2]);
+      var b;
+      t[3] !== f
+        ? ((b = o("WebBloksStyle").classNames.apply(
             void 0,
-            [o("WebBloksStyle").WebBloksStyles.container].concat(g),
+            [o("WebBloksStyle").WebBloksStyles.container].concat(f),
           )),
-          (t[3] = g),
-          (t[4] = v))
-        : (v = t[4]);
-      var S;
-      t[5] !== h || t[6] !== m
-        ? ((S = babelHelpers.extends({}, h, m, {
+          (t[3] = f),
+          (t[4] = b))
+        : (b = t[4]);
+      var v;
+      t[5] !== g || t[6] !== d
+        ? ((v = babelHelpers.extends({}, g, d, {
             display: "block",
             pointerEvents: "auto",
           })),
-          (t[5] = h),
-          (t[6] = m),
-          (t[7] = S))
-        : (S = t[7]);
-      var R =
-          l &&
-          l.map(function (e, t) {
+          (t[5] = g),
+          (t[6] = d),
+          (t[7] = v))
+        : (v = t[7]);
+      var S =
+          i &&
+          i.map(function (e, t) {
             return s.jsx(
               c,
               {
                 node: e,
                 collectionNode: a,
                 isFirstItem: t === 0,
-                isLastItem: t === l.length - 1,
+                isLastItem: t === i.length - 1,
               },
               e.clientId,
             );
           }),
-        L;
-      t[8] !== C ||
-      t[9] !== b ||
-      t[10] !== v ||
-      t[11] !== S ||
-      t[12] !== R ||
-      t[13] !== _
-        ? ((L = s.jsx(
+        R;
+      t[8] !== y ||
+      t[9] !== C ||
+      t[10] !== b ||
+      t[11] !== v ||
+      t[12] !== S ||
+      t[13] !== p
+        ? ((R = s.jsx(
             "div",
-            babelHelpers.extends({}, _, { ref: b, className: v, style: S }, C, {
-              children: R,
+            babelHelpers.extends({}, p, { ref: C, className: b, style: v }, y, {
+              children: S,
             }),
           )),
-          (t[8] = C),
-          (t[9] = b),
-          (t[10] = v),
-          (t[11] = S),
-          (t[12] = R),
-          (t[13] = _),
-          (t[14] = L))
-        : (L = t[14]);
-      var E;
+          (t[8] = y),
+          (t[9] = C),
+          (t[10] = b),
+          (t[11] = v),
+          (t[12] = S),
+          (t[13] = p),
+          (t[14] = R))
+        : (R = t[14]);
+      var L;
       return (
-        t[15] !== L || t[16] !== p
-          ? ((E = p(L)), (t[15] = L), (t[16] = p), (t[17] = E))
-          : (E = t[17]),
-        E
+        t[15] !== R || t[16] !== m
+          ? ((L = m(R)), (t[15] = R), (t[16] = m), (t[17] = L))
+          : (L = t[17]),
+        L
       );
     }
     function c(e) {
-      var t = e.collectionNode,
-        n = e.isFirstItem,
-        a = e.isLastItem,
-        i = e.node,
-        l = o("WebBloksComponentContext").useWebBloksContext(),
-        s = l.renderNode,
-        u = t.getValues(),
-        c = u.direction,
-        m = u.item_spacing,
-        p = u.snap,
-        _ = u.snap_style,
-        f = u.spacing_after,
-        g = u.spacing_before,
-        h = c === "column",
-        y = a
-          ? f != null
-            ? o("WebBloksUtils").toPx(f)
+      var t = o("react-compiler-runtime").c(5),
+        n = e.collectionNode,
+        a = e.isFirstItem,
+        i = e.isLastItem,
+        l = e.node,
+        s = o("WebBloksComponentContext").useWebBloksContext(),
+        u = s.renderNode,
+        c;
+      t[0] !== n
+        ? ((c = n.get("direction")), (t[0] = n), (t[1] = c))
+        : (c = t[1]);
+      var m = c,
+        p = n.get("item_spacing"),
+        _ = n.get("snap"),
+        f = n.get("snap_style"),
+        g = n.get("spacing_after"),
+        h = n.get("spacing_before"),
+        y = m === "column",
+        C = i
+          ? g != null
+            ? o("WebBloksUtils").toPx(g)
             : 0
-          : o("WebBloksUtils").toPx(m),
-        C = n && g != null ? o("WebBloksUtils").toPx(g) : void 0,
-        b;
-      h
-        ? ((b = { marginTop: C, marginBottom: y, width: "100%" }),
-          d(i, "height") && (b.height = "auto"))
-        : ((b = {
-            marginLeft: C,
-            marginRight: y,
+          : o("WebBloksUtils").toPx(p),
+        b = a && h != null ? o("WebBloksUtils").toPx(h) : void 0,
+        v;
+      y
+        ? ((v = { marginTop: b, marginBottom: C, width: "100%" }),
+          d(l, "height") && (v.height = "auto"))
+        : ((v = {
+            marginLeft: b,
+            marginRight: C,
             display: "inline-flex",
             verticalAlign: "bottom",
             height: "100%",
           }),
-          d(i, "width") && (b.width = "auto"));
-      var v;
+          d(l, "width") && (v.width = "auto"));
+      var S;
+      f == null || f === "pager" ? (S = "always") : (S = "normal");
+      var R;
       return (
-        _ == null || _ === "pager" ? (v = "always") : (v = "normal"),
-        s(
-          i,
+        t[2] !== m || t[3] !== l
+          ? ((R = { node: l, direction: m }),
+            (t[2] = m),
+            (t[3] = l),
+            (t[4] = R))
+          : (R = t[4]),
+        u(
+          l,
           babelHelpers.extends(
             {},
-            b,
-            r("useWebBloksCollectionStickyChildStyle")({
-              node: i,
-              direction: c,
-            }),
-            { scrollSnapAlign: p, scrollSnapStop: v },
+            v,
+            r("useWebBloksCollectionStickyChildStyle")(R),
+            { scrollSnapAlign: _, scrollSnapStop: S },
           ),
         )
       );

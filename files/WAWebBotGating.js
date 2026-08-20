@@ -152,6 +152,7 @@ __d(
     }
     function E() {
       return !(
+        o("WAWebMobilePlatforms").isSMB() ||
         !o("WAWebBotBaseGating").isBotEnabled() ||
         (!o("WAWebBotTos").hasSeenShortcutTos() &&
           !o("WAWebBotTos").canShowBotTos(

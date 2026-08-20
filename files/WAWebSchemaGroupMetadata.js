@@ -74,6 +74,7 @@ __d(
               r("isOpenBotGroup"),
               r("isTeeBotGroup"),
               r("memberShareGroupHistoryMode"),
+              r("shouldDefaultGroupHistoryShareOn"),
               r("showedFirstJoinedViaLinkSystemMessage"),
               r("lastJoinFloodNotificationTimestampSec"),
               r("groupAbPropsHash"),

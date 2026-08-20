@@ -24,6 +24,7 @@ __d(
         o("WAWebNotificationBackend")
           .showWaitingRoomNotification({
             callId: n,
+            isInCall: !0,
             linkToken: "",
             waitingRoomUserWids: a,
             onOpenWaitingRoom: d,

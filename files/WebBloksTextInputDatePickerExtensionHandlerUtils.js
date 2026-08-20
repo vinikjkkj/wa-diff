@@ -13,71 +13,70 @@ __d(
           "bk.components.TextInputDatePickerExtension",
         );
       if (!l) return null;
-      var c = l.getValues(),
-        d = c.initial_time_seconds,
-        m = c.maximum_time_seconds,
-        p = c.minimum_time_seconds,
-        _ = c.mode,
-        f = l.getExpression("on_date_change");
-      if (_ === "time") {
+      var c = l.get("initial_time_seconds"),
+        d = l.get("maximum_time_seconds"),
+        m = l.get("minimum_time_seconds"),
+        p = l.get("mode"),
+        _ = l.getExpression("on_date_change");
+      if (p === "time") {
+        var f;
+        t[0] !== c
+          ? ((f = u(c != null ? c * 1e3 : Date.now())), (t[0] = c), (t[1] = f))
+          : (f = t[1]);
         var g;
-        t[0] !== d
-          ? ((g = u(d != null ? d * 1e3 : Date.now())), (t[0] = d), (t[1] = g))
-          : (g = t[1]);
-        var h;
-        t[2] !== a || t[3] !== i || t[4] !== f || t[5] !== e
-          ? ((h = function (n) {
+        t[2] !== a || t[3] !== i || t[4] !== _ || t[5] !== e
+          ? ((g = function (n) {
               if (n) {
                 var t = n.split(":").map(Number),
                   r = t[0],
                   o = t[1],
                   l = new Date();
                 (l.setUTCHours(r, o, 0, 0),
-                  f != null &&
-                    i(e, f, [parseInt(l.getTime() / 1e3, 10), e, a]));
+                  _ != null &&
+                    i(e, _, [parseInt(l.getTime() / 1e3, 10), e, a]));
               }
             }),
             (t[2] = a),
             (t[3] = i),
-            (t[4] = f),
+            (t[4] = _),
             (t[5] = e),
-            (t[6] = h))
-          : (h = t[6]);
-        var y;
+            (t[6] = g))
+          : (g = t[6]);
+        var h;
         return (
-          t[7] !== g || t[8] !== h
-            ? ((y = {
+          t[7] !== f || t[8] !== g
+            ? ((h = {
                 typeOverride: "time",
-                initialValue: g,
+                initialValue: f,
                 minmaxProps: null,
-                onChange: h,
+                onChange: g,
               }),
-              (t[7] = g),
-              (t[8] = h),
-              (t[9] = y))
-            : (y = t[9]),
-          y
+              (t[7] = f),
+              (t[8] = g),
+              (t[9] = h))
+            : (h = t[9]),
+          h
         );
       }
+      var y;
+      t[10] !== c
+        ? ((y = c != null ? s(c * 1e3) : ""), (t[10] = c), (t[11] = y))
+        : (y = t[11]);
       var C;
-      t[10] !== d
-        ? ((C = d != null ? s(d * 1e3) : ""), (t[10] = d), (t[11] = C))
-        : (C = t[11]);
+      t[12] !== m
+        ? ((C = m != null ? s(m * 1e3) : void 0), (t[12] = m), (t[13] = C))
+        : (C = t[13]);
       var b;
-      t[12] !== p
-        ? ((b = p != null ? s(p * 1e3) : void 0), (t[12] = p), (t[13] = b))
-        : (b = t[13]);
+      t[14] !== d
+        ? ((b = d != null ? s(d * 1e3) : void 0), (t[14] = d), (t[15] = b))
+        : (b = t[15]);
       var v;
-      t[14] !== m
-        ? ((v = m != null ? s(m * 1e3) : void 0), (t[14] = m), (t[15] = v))
-        : (v = t[15]);
+      t[16] !== C || t[17] !== b
+        ? ((v = { min: C, max: b }), (t[16] = C), (t[17] = b), (t[18] = v))
+        : (v = t[18]);
       var S;
-      t[16] !== b || t[17] !== v
-        ? ((S = { min: b, max: v }), (t[16] = b), (t[17] = v), (t[18] = S))
-        : (S = t[18]);
-      var R;
-      t[19] !== a || t[20] !== i || t[21] !== f || t[22] !== e
-        ? ((R = function (n) {
+      t[19] !== a || t[20] !== i || t[21] !== _ || t[22] !== e
+        ? ((S = function (n) {
             if (n) {
               var t = n.split("-").map(Number),
                 r = t[0],
@@ -88,30 +87,30 @@ __d(
                 s.setUTCMonth(o - 1),
                 s.setUTCDate(l),
                 s.setUTCHours(0, 0, 0, 0),
-                f != null && i(e, f, [parseInt(s.getTime() / 1e3, 10), e, a]));
+                _ != null && i(e, _, [parseInt(s.getTime() / 1e3, 10), e, a]));
             }
           }),
           (t[19] = a),
           (t[20] = i),
-          (t[21] = f),
+          (t[21] = _),
           (t[22] = e),
-          (t[23] = R))
-        : (R = t[23]);
-      var L;
+          (t[23] = S))
+        : (S = t[23]);
+      var R;
       return (
-        t[24] !== C || t[25] !== S || t[26] !== R
-          ? ((L = {
+        t[24] !== y || t[25] !== v || t[26] !== S
+          ? ((R = {
               typeOverride: "date",
-              initialValue: C,
-              minmaxProps: S,
-              onChange: R,
+              initialValue: y,
+              minmaxProps: v,
+              onChange: S,
             }),
-            (t[24] = C),
-            (t[25] = S),
-            (t[26] = R),
-            (t[27] = L))
-          : (L = t[27]),
-        L
+            (t[24] = y),
+            (t[25] = v),
+            (t[26] = S),
+            (t[27] = R))
+          : (R = t[27]),
+        R
       );
     }
     var s = function (t) {

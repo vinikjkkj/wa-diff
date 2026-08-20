@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsDevicesSettingsHelpers",
-  ["fbt", "WAWebSettingsConst"],
+  ["fbt", "WAWebHybridUtils", "WAWebSettingsConst"],
   function (t, n, r, o, a, i, l, s) {
     var e;
     function u() {
@@ -18,7 +18,10 @@ __d(
     function p() {
       return s._(/*BTDS*/ "Camera, microphone & speakers");
     }
-    var _ = {
+    function _() {
+      return s._(/*BTDS*/ "Enhance video quality");
+    }
+    var f = {
         step: (e = o("WAWebSettingsConst")).SettingsSteps.WinDevicesSettings,
         id: "device_settings",
         isAvailable: !0,
@@ -35,7 +38,7 @@ __d(
         secondaryTitle: p,
         testid: "li-devices-settings",
       },
-      f = {
+      g = {
         step: e.SettingsSteps.WinDevicesSettings,
         id: "microphone_setting",
         isAvailable: !0,
@@ -45,7 +48,7 @@ __d(
         title: c,
         testid: "li-microphone-setting",
       },
-      g = {
+      h = {
         step: e.SettingsSteps.WinDevicesSettings,
         id: "webcam_setting",
         isAvailable: !0,
@@ -55,7 +58,7 @@ __d(
         title: d,
         testid: "li-webcam-setting",
       },
-      h = {
+      y = {
         step: e.SettingsSteps.WinDevicesSettings,
         id: "audio_output_setting",
         isAvailable: !0,
@@ -64,16 +67,28 @@ __d(
           .toLowerCase(),
         title: m,
         testid: "li-audio-output-setting",
+      },
+      C = {
+        step: e.SettingsSteps.WinDevicesSettings,
+        id: "vsr_setting",
+        isAvailable: o("WAWebHybridUtils").isHybridVsrSettingEnabled,
+        searchCriteria: [_().toString(), u().toString()]
+          .join(" ")
+          .toLowerCase(),
+        title: _,
+        testid: "li-vsr-setting",
       };
     ((l.getDeviceSettingsTitle = u),
       (l.getMicrophoneSettingsTitle = c),
       (l.getWebcamSettingsTitle = d),
       (l.getAudioOutputSettingsTitle = m),
       (l.getDeviceSettingsSecondaryTitle = p),
-      (l.DeviceSettingsParentItem = _),
-      (l.MicrophoneSettingsItem = f),
-      (l.WebcamSettingsItem = g),
-      (l.AudioOutputSettingsItem = h));
+      (l.getVsrSettingsTitle = _),
+      (l.DeviceSettingsParentItem = f),
+      (l.MicrophoneSettingsItem = g),
+      (l.WebcamSettingsItem = h),
+      (l.AudioOutputSettingsItem = y),
+      (l.VsrSettingsItem = C));
   },
   226,
 );

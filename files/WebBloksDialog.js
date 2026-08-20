@@ -15,38 +15,43 @@ __d(
       d = u.useEffect,
       m = u.useRef;
     function p(e) {
-      var t = o("react-compiler-runtime").c(28),
+      var t = o("react-compiler-runtime").c(36),
         n = e.node,
         r = n.styleId,
-        a = n.getValues(),
-        i = a.message,
-        l = a.primary_button,
-        u = a.secondary_button,
-        c = a.tertiary_button,
-        d = a.title,
-        m = o("WebBloksComponentContext").useWebBloksContext(),
-        p = o("WebBloksEnvironmentContext").useDataBloksName(),
-        g;
-      t[0] !== m.objectSet.navigationManager
-        ? ((g = function (t) {
-            t.target === t.currentTarget && m.objectSet.navigationManager.pop();
+        a;
+      t[0] !== n
+        ? ((a = n.get("message")), (t[0] = n), (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l = n.get("primary_button"),
+        u = n.get("secondary_button"),
+        c = n.get("tertiary_button"),
+        d;
+      t[2] !== n ? ((d = n.get("title")), (t[2] = n), (t[3] = d)) : (d = t[3]);
+      var m = d,
+        p = o("WebBloksComponentContext").useWebBloksContext(),
+        g = o("WebBloksEnvironmentContext").useDataBloksName(),
+        h;
+      t[4] !== p.objectSet.navigationManager
+        ? ((h = function (t) {
+            t.target === t.currentTarget && p.objectSet.navigationManager.pop();
           }),
-          (t[0] = m.objectSet.navigationManager),
-          (t[1] = g))
-        : (g = t[1]);
-      var h = g,
-        y = d != null ? d : i,
-        C = d != null ? i : null,
-        b = _(),
-        v;
-      t[2] !== m.objectSet.navigationManager || t[3] !== b
-        ? ((v = function (t) {
+          (t[4] = p.objectSet.navigationManager),
+          (t[5] = h))
+        : (h = t[5]);
+      var y = h,
+        C = m != null ? m : i,
+        b = m != null ? i : null,
+        v = _(),
+        S;
+      t[6] !== p.objectSet.navigationManager || t[7] !== v
+        ? ((S = function (t) {
             if (t.key === "Escape") {
-              (t.stopPropagation(), m.objectSet.navigationManager.pop());
+              (t.stopPropagation(), p.objectSet.navigationManager.pop());
               return;
             }
             if (t.key === "Tab") {
-              var e = b.current;
+              var e = v.current;
               if (e == null) return;
               var n = Array.from(
                 e.querySelectorAll(
@@ -63,93 +68,104 @@ __d(
                 (t.preventDefault(), a.focus({ focusVisible: !0 }));
             }
           }),
-          (t[2] = m.objectSet.navigationManager),
-          (t[3] = b),
-          (t[4] = v))
-        : (v = t[4]);
-      var S = v,
-        R;
-      t[5] !== p || t[6] !== r
-        ? ((R = p(r)), (t[5] = p), (t[6] = r), (t[7] = R))
-        : (R = t[7]);
-      var L = f,
-        E = "presentation",
-        k = f,
-        I = -1,
-        T =
-          y != null &&
-          s.jsx("div", {
-            className: f.title,
-            role: "heading",
-            "aria-level": 2,
-            children: y,
-          }),
-        D = C != null && s.jsx("div", { className: f.message, children: C }),
-        x;
-      t[8] !== T || t[9] !== D
-        ? ((x = s.jsxs("div", { className: f.header, children: [T, D] })),
-          (t[8] = T),
-          (t[9] = D),
-          (t[10] = x))
-        : (x = t[10]);
-      var $ = f,
-        P = m.renderNode(l),
-        N = m.renderNode(u),
-        M = m.renderNode(c),
-        w;
-      t[11] !== $.buttons || t[12] !== P || t[13] !== N || t[14] !== M
-        ? ((w = s.jsxs("div", { className: $.buttons, children: [P, N, M] })),
-          (t[11] = $.buttons),
-          (t[12] = P),
-          (t[13] = N),
-          (t[14] = M),
-          (t[15] = w))
-        : (w = t[15]);
-      var A;
-      t[16] !== b ||
-      t[17] !== y ||
-      t[18] !== x ||
-      t[19] !== w ||
-      t[20] !== k.container
-        ? ((A = s.jsxs("div", {
-            className: k.container,
-            ref: b,
-            tabIndex: I,
-            "aria-label": y,
-            children: [x, w],
-          })),
-          (t[16] = b),
-          (t[17] = y),
-          (t[18] = x),
-          (t[19] = w),
-          (t[20] = k.container),
-          (t[21] = A))
-        : (A = t[21]);
+          (t[6] = p.objectSet.navigationManager),
+          (t[7] = v),
+          (t[8] = S))
+        : (S = t[8]);
+      var R = S,
+        L;
+      t[9] !== g || t[10] !== r
+        ? ((L = g(r)), (t[9] = g), (t[10] = r), (t[11] = L))
+        : (L = t[11]);
+      var E = f,
+        k = "presentation",
+        I = f,
+        T = -1,
+        D;
+      t[12] !== C
+        ? ((D =
+            C != null &&
+            s.jsx("div", {
+              className: f.title,
+              role: "heading",
+              "aria-level": 2,
+              children: C,
+            })),
+          (t[12] = C),
+          (t[13] = D))
+        : (D = t[13]);
+      var x;
+      t[14] !== b
+        ? ((x =
+            b != null && s.jsx("div", { className: f.message, children: b })),
+          (t[14] = b),
+          (t[15] = x))
+        : (x = t[15]);
+      var $;
+      t[16] !== D || t[17] !== x
+        ? (($ = s.jsxs("div", { className: f.header, children: [D, x] })),
+          (t[16] = D),
+          (t[17] = x),
+          (t[18] = $))
+        : ($ = t[18]);
+      var P = f,
+        N = p.renderNode(l),
+        M = p.renderNode(u),
+        w = p.renderNode(c),
+        A;
+      t[19] !== P.buttons || t[20] !== N || t[21] !== M || t[22] !== w
+        ? ((A = s.jsxs("div", { className: P.buttons, children: [N, M, w] })),
+          (t[19] = P.buttons),
+          (t[20] = N),
+          (t[21] = M),
+          (t[22] = w),
+          (t[23] = A))
+        : (A = t[23]);
       var F;
+      t[24] !== v ||
+      t[25] !== C ||
+      t[26] !== $ ||
+      t[27] !== A ||
+      t[28] !== I.container
+        ? ((F = s.jsxs("div", {
+            className: I.container,
+            ref: v,
+            tabIndex: T,
+            "aria-label": C,
+            children: [$, A],
+          })),
+          (t[24] = v),
+          (t[25] = C),
+          (t[26] = $),
+          (t[27] = A),
+          (t[28] = I.container),
+          (t[29] = F))
+        : (F = t[29]);
+      var O;
       return (
-        t[22] !== h ||
-        t[23] !== S ||
-        t[24] !== A ||
-        t[25] !== R ||
-        t[26] !== L.background
-          ? ((F = s.jsx(
+        t[30] !== y ||
+        t[31] !== R ||
+        t[32] !== F ||
+        t[33] !== L ||
+        t[34] !== E.background
+          ? ((O = s.jsx(
               "div",
-              babelHelpers.extends({}, R, {
-                className: L.background,
-                onClick: h,
-                onKeyDown: S,
-                role: E,
-                children: A,
+              babelHelpers.extends({}, L, {
+                className: E.background,
+                onClick: y,
+                onKeyDown: R,
+                role: k,
+                children: F,
               }),
             )),
-            (t[22] = h),
-            (t[23] = S),
-            (t[24] = A),
-            (t[25] = R),
-            (t[26] = L.background),
-            (t[27] = F))
-          : (F = t[27]),
-        F
+            (t[30] = y),
+            (t[31] = R),
+            (t[32] = F),
+            (t[33] = L),
+            (t[34] = E.background),
+            (t[35] = O))
+          : (O = t[35]),
+        O
       );
     }
     function _() {

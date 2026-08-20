@@ -43,7 +43,7 @@ __d(
         I = E.style,
         T = E.wrapper,
         D = E.wrapperProps,
-        x = r("WebBloksDecoration")(c.getValues(), k),
+        x = r("WebBloksDecoration")(f, c.get("enabled"), m != null, k),
         $ = x[0],
         P = x[1],
         N = o(

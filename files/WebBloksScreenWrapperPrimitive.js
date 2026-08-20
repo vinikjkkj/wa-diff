@@ -43,7 +43,7 @@ __d(
         ((t[3] = m), (t[4] = n), (t[5] = _), (t[6] = f), (t[7] = g));
       } else ((_ = t[5]), (f = t[6]), (g = t[7]));
       if (g !== Symbol.for("react.early_return_sentinel")) return g;
-      p !== void 0 && ((f = a(p)), (_ = p.getValues().hide_navbar === !0));
+      p !== void 0 && ((f = a(p)), (_ = p.get("hide_navbar") === !0));
       var C;
       t[8] !== i || t[9] !== n.styleId
         ? ((C = i(n.styleId)), (t[8] = i), (t[9] = n.styleId), (t[10] = C))

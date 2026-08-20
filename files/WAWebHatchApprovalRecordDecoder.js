@@ -142,63 +142,55 @@ __d(
       return n != null ? { browserCheckout: n } : {};
     }
     function C(e, t) {
-      var n,
-        r = o("WAWebHatchJsonReaders").readObject(
-          e,
-          "shopify_checkout_payload",
-        );
-      if (r == null) return null;
-      var a = o("WAWebHatchJsonReaders").readField(r, "merchant"),
-        i = o("WAWebHatchJsonReaders").readField(r, "delivery"),
-        l = o("WAWebHatchJsonReaders").readField(r, "contact");
+      var n = o("WAWebHatchJsonReaders").readObject(
+        e,
+        "shopify_checkout_payload",
+      );
+      if (n == null) return null;
+      var r = o("WAWebHatchJsonReaders").readField(n, "merchant"),
+        a = o("WAWebHatchJsonReaders").readField(n, "delivery"),
+        i = o("WAWebHatchJsonReaders").readField(n, "contact");
       return {
-        merchantName: o("WAWebHatchJsonReaders").readStringOrEmpty(a, "name"),
-        merchantUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(a, "url"),
+        merchantName: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "name"),
+        merchantUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "url"),
         merchantIconUrl: E(
-          o("WAWebHatchJsonReaders").readStringOrEmpty(a, "icon_url"),
+          o("WAWebHatchJsonReaders").readStringOrEmpty(r, "icon_url"),
           t,
         ),
-        items: b(o("WAWebHatchJsonReaders").readArray(r, "items")),
-        deliveryLabel: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "label"),
+        items: b(o("WAWebHatchJsonReaders").readArray(n, "items")),
+        deliveryLabel: o("WAWebHatchJsonReaders").readStringOrEmpty(a, "label"),
         estimatedDelivery: o("WAWebHatchJsonReaders").readStringOrEmpty(
-          i,
+          a,
           "estimated_delivery",
         ),
         shippingAddress: R(
-          o("WAWebHatchJsonReaders").readField(r, "shipping_address"),
+          o("WAWebHatchJsonReaders").readField(n, "shipping_address"),
         ),
-        contactEmail: o("WAWebHatchJsonReaders").readStringOrEmpty(l, "email"),
+        contactEmail: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "email"),
         contactPhoneNumber: o("WAWebHatchJsonReaders").readStringOrEmpty(
-          l,
+          i,
           "phone_number",
         ),
         paymentMethodLabel: o("WAWebHatchJsonReaders").readStringOrEmpty(
-          r,
+          n,
           "payment_method_label",
         ),
         cardBrand: o("WAWebHatchJsonReaders").readStringOrEmpty(
-          r,
+          n,
           "card_brand",
         ),
         cardLast4: o("WAWebHatchJsonReaders").readStringOrEmpty(
-          r,
+          n,
           "card_last4",
         ),
-        amount: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "amount"),
-        currency: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "currency"),
-        totals: v(o("WAWebHatchJsonReaders").readArray(r, "totals")),
-        cardExpiresInMs:
-          (n = o("WAWebHatchJsonReaders").readNumber(
-            r,
-            "card_expires_in_ms",
-          )) != null
-            ? n
-            : 0,
-        paymentId: I(r),
+        amount: o("WAWebHatchJsonReaders").readStringOrEmpty(n, "amount"),
+        currency: o("WAWebHatchJsonReaders").readStringOrEmpty(n, "currency"),
+        totals: v(o("WAWebHatchJsonReaders").readArray(n, "totals")),
+        paymentId: I(n),
         paymentOptions: T(
-          o("WAWebHatchJsonReaders").readArray(r, "payment_options"),
+          o("WAWebHatchJsonReaders").readArray(n, "payment_options"),
         ),
-        legalLinks: S(o("WAWebHatchJsonReaders").readArray(r, "legal_links")),
+        legalLinks: S(o("WAWebHatchJsonReaders").readArray(n, "legal_links")),
       };
     }
     function b(e) {
@@ -213,7 +205,7 @@ __d(
               n,
               "image_url",
             ),
-            quantity: o("WAWebHatchJsonReaders").readStringOrEmpty(
+            quantity: o("WAWebHatchJsonReaders").readTextOrNumber(
               n,
               "quantity",
             ),
@@ -255,7 +247,7 @@ __d(
         var a = o("WAWebHatchJsonReaders").readStringOrEmpty(n, "label"),
           i = o("WAWebHatchJsonReaders").readStringOrEmpty(n, "url");
         !o("WAWebHatchJsonReaders").isBlankText(a) &&
-          r("WAWebURLUtils").isHttp(i) === !0 &&
+          r("WAWebURLUtils").isHttps(i) === !0 &&
           t.push({ label: a, url: i });
       }
       return t;

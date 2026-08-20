@@ -29,116 +29,116 @@ __d(
         l = i.extensionHandlers,
         u = o("WebBloksComponentContext").useWebBloksContext(),
         d = o("WebBloksTheme").useTheme().getTheme(),
-        f = e.getValues(),
-        g = e.getStyle("flex"),
-        C = e.getStyle("bk.style.Base"),
-        b =
-          (r = g == null ? void 0 : g.get("aspect_ratio")) != null
+        f = e.getStyle("flex"),
+        g = e.getStyle("bk.style.Base"),
+        C =
+          (r = f == null ? void 0 : f.get("aspect_ratio")) != null
             ? r
-            : C == null
+            : g == null
               ? void 0
-              : C.get("aspect_ratio"),
-        v = null,
-        S = e.getStyle("collection"),
-        R =
-          (S == null ? void 0 : S.get("on_appear")) != null ||
-          (S == null ? void 0 : S.get("on_disappear")) != null,
-        L = e.get("extensions"),
-        E = m(
+              : g.get("aspect_ratio"),
+        b = null,
+        v = e.getStyle("collection"),
+        S =
+          (v == null ? void 0 : v.get("on_appear")) != null ||
+          (v == null ? void 0 : v.get("on_disappear")) != null,
+        R = e.get("extensions"),
+        L = m(
           function () {
-            return o("WebBloksExtensions").processExtensions(L, l);
+            return o("WebBloksExtensions").processExtensions(R, l);
           },
-          [l, L],
+          [l, R],
         ),
-        k = p(e);
-      ((k.current = e),
+        E = p(e);
+      ((E.current = e),
         c(function () {
-          if (!(!E || E.length === 0)) {
+          if (!(!L || L.length === 0)) {
             var e = [],
               t = function (n) {
                 var t = l.get(n.styleId),
                   r = t == null ? void 0 : t.onMount;
                 if (r != null) {
                   var o = function () {
-                    return r(n, k, u);
+                    return r(n, E, u);
                   };
                   e.push(o);
                 }
               };
-            for (var n of E) t(n);
+            for (var n of L) t(n);
             if (e.length !== 0)
               return (
                 u.bloksContext.objectSet.mountEffectsQueue.enqueue(
-                  k.current.clientId,
+                  E.current.clientId,
                   e,
                 ),
                 function () {
                   u.bloksContext.objectSet.mountEffectsQueue.dispose(
-                    k.current.clientId,
+                    E.current.clientId,
                   );
                 }
               );
           }
         }, []));
-      var I = b != null || R || !!(E && E.length > 0),
-        T = babelHelpers.extends({}, a(e.styleId), {
+      var k = C != null || S || !!(L && L.length > 0),
+        I = babelHelpers.extends({}, a(e.styleId), {
           ref: n,
           id: e.get("html_id"),
         });
-      if (!I)
+      if (!k)
         return {
           hasWrapper: !1,
           wrapper: _,
-          wrapperProps: T,
-          stylesFromExtensions: v,
+          wrapperProps: I,
+          stylesFromExtensions: b,
         };
-      var D = b != null;
-      if (E)
-        for (var x of E) {
-          var $ = l.get(x.styleId);
-          $ &&
-            ($.hasLayoutWrapper != null && $.hasLayoutWrapper(x) && (D = !0),
-            $.getStyles && (v = babelHelpers.extends({}, v, $.getStyles(x, d))),
-            (T = babelHelpers.extends(
+      var T = C != null;
+      if (L)
+        for (var D of L) {
+          var x = l.get(D.styleId);
+          x &&
+            (x.hasLayoutWrapper != null && x.hasLayoutWrapper(D) && (T = !0),
+            x.getStyles && (b = babelHelpers.extends({}, b, x.getStyles(D, d))),
+            (I = babelHelpers.extends(
               {},
-              T,
-              $.getProps == null ? void 0 : $.getProps(x, e, u),
+              I,
+              x.getProps == null ? void 0 : x.getProps(D, e, u),
             )));
         }
-      var P = function (a) {
-        var r = a;
+      var $ = function (a) {
+        var r = a,
+          i = e.get("_style");
         if (
-          (b != null && (r = s.jsx(h, { aspectRatio: b, children: r })),
-          R &&
-            f._style != null &&
+          (C != null && (r = s.jsx(h, { aspectRatio: C, children: r })),
+          S &&
+            i != null &&
             (r = s.jsx(y, {
-              style: f._style,
+              style: i,
               contextNode: e,
               elementRef: n,
               children: r,
             })),
-          E)
+          L)
         )
-          for (var i of E) {
-            var u = l.get(i.styleId);
-            if (u) {
-              var c = u.wrap;
-              c && (r = c(i, r, e, n));
+          for (var u of L) {
+            var c = l.get(u.styleId);
+            if (c) {
+              var d = c.wrap;
+              d && (r = d(u, r, e, n));
             }
           }
-        return D
+        return T
           ? s.jsx("div", {
               className: o("WebBloksStyle").WebBloksStyles.container,
-              style: babelHelpers.extends({}, t, { aspectRatio: b }),
+              style: babelHelpers.extends({}, t, { aspectRatio: C }),
               children: r,
             })
           : r;
       };
       return {
-        hasWrapper: D,
-        wrapper: P,
-        wrapperProps: T,
-        stylesFromExtensions: v,
+        hasWrapper: T,
+        wrapper: $,
+        wrapperProps: I,
+        stylesFromExtensions: b,
       };
     }
     var g = o("WebBloksStyle").createStyles({

@@ -61,15 +61,19 @@ __d(
       M = 15,
       w = 17,
       A = 3e4,
-      F = new WeakSet(),
-      O = new WeakMap(),
-      B = null;
-    function W(e) {
-      return q.apply(this, arguments);
+      F = 15e3;
+    function O() {
+      return o("WAWebVoipGatingUtils").isGuestViewer() ? F : A;
     }
-    function q() {
+    var B = new WeakSet(),
+      W = new WeakMap(),
+      q = null;
+    function U(e) {
+      return V.apply(this, arguments);
+    }
+    function V() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebBrowserApi").getNumCpu(),
             n = o("WAWebBrowserApi").getMemClass(),
             r = n != null ? Math.round(n / 1e3) : null,
@@ -88,22 +92,22 @@ __d(
           var u = o("WAWebVoipWindowMetrics").snapshotWindowMetrics();
           u != null && (i = babelHelpers.extends({}, i, u));
           var c = o("WAWebVoipBatteryDiagnostics").snapshotBatteryDiagnostics();
-          (c != null && (i = babelHelpers.extends({}, i, c)), U());
+          (c != null && (i = babelHelpers.extends({}, i, c)), H());
           var d = yield o("WAWebBackendApi").frontendSendAndReceive(
             "consumeAudioPlaybackMetrics",
           );
           return (d != null && (i = babelHelpers.extends({}, i, d)), i);
         })),
-        q.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function U() {
+    function H() {
       (o("WAWebVoipFocusTracker").resetFocusStats(),
         o("WAWebVoipBrowserMetrics").resetBrowserMetrics(),
         o("WAWebVoipWindowMetrics").resetWindowMetrics(),
         o("WAWebVoipBatteryDiagnostics").resetBatteryDiagnostics());
     }
-    function V(e) {
+    function G(e) {
       try {
         var t = JSON.parse(e);
         return t.is_last_field_stats_report === !0;
@@ -111,16 +115,16 @@ __d(
         return !1;
       }
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function G() {
+    function j() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebVoipCallRatingStore").setPendingFieldstatsJsonStr(e);
-          ne(t);
-          var n = V(e);
-          n && Z(t);
+          oe(t);
+          var n = G(e);
+          n && te(t);
           var r = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if (r == null || r.type !== "web") {
             o("WALogger").WARN(
@@ -137,10 +141,10 @@ __d(
             s = a.isLastFieldStatsReport;
           if (s) {
             (o("WAWebCoreActionsODS").logCallFieldstatsFinalReceived(),
-              n || Z(t),
+              n || te(t),
               a.eventType ===
                 o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
-                (z(a.stats), K(a.stats)),
+                (K(a.stats), X(a.stats)),
               o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -149,13 +153,13 @@ __d(
               ));
             return;
           }
-          (n && te(t), yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
+          (n && re(t), yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           var u =
               l ===
                 o("WAWebWamEnumFieldStatsRowType").FIELD_STATS_ROW_TYPE.SELF ||
               l ===
                 o("WAWebWamEnumFieldStatsRowType").FIELD_STATS_ROW_TYPE.BOTH,
-            c = u ? yield W(a.stats) : babelHelpers.extends({}, a.stats);
+            c = u ? yield U(a.stats) : babelHelpers.extends({}, a.stats);
           a.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call &&
             c.callTermReason === $ &&
@@ -176,13 +180,13 @@ __d(
             a.eventType ===
             o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
               ? new (o("WAWebCallWamEvent").CallWamEvent)(c)
-              : Q(c);
+              : Y(c);
           g.commit();
         })),
-        G.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
-    function z(e) {
+    function K(e) {
       var t = e.callEndReconnecting,
         n = e.callResult,
         r = e.groupCallIsLastSegment,
@@ -211,14 +215,14 @@ __d(
         });
       }
     }
-    function j(e, t) {
+    function Q(e, t) {
       return e === N
         ? "anc"
         : e === P && (t === M || t === w)
           ? "relay_bind"
           : null;
     }
-    function K(t) {
+    function X(t) {
       if (o("WAWebVoipWebTransportCallSummary").hasWtActivityThisCall()) {
         var n = t.callResult,
           r = t.callSetupErrorType,
@@ -230,7 +234,7 @@ __d(
             typeof a != "number"
           )
         ) {
-          var i = j(n, r);
+          var i = Q(n, r);
           if (i != null) {
             var l = o("WAWebVoipWebTransportCallSummary").getWtCallSummary(),
               s = typeof t.callId == "string" ? t.callId : null;
@@ -263,11 +267,11 @@ __d(
         }
       }
     }
-    function Q(e) {
+    function Y(e) {
       var t = new (o("WAWebJoinableCallWamEvent").JoinableCallWamEvent)();
       return (t.set(e), t);
     }
-    function X(e) {
+    function J(e) {
       var t = o("WAWebVoipCallRatingStore").getPendingFieldstats();
       return t == null
         ? (o("WALogger").LOG(
@@ -277,27 +281,27 @@ __d(
               ])),
           ),
           (x || (x = n("Promise"))).resolve())
-        : Y(t, e);
+        : Z(t, e);
     }
-    function Y(e, t) {
-      var n = O.get(e);
+    function Z(e, t) {
+      var n = W.get(e);
       if (n != null) return n;
-      var r = re(e, t);
+      var r = ae(e, t);
       return (
-        O.set(e, r),
+        W.set(e, r),
         r.then(
           function () {
-            O.get(e) === r && O.delete(e);
+            W.get(e) === r && W.delete(e);
           },
           function () {
-            O.get(e) === r && O.delete(e);
+            W.get(e) === r && W.delete(e);
           },
         ),
         r
       );
     }
-    function J(e) {
-      X(e).catch(function (e) {
+    function ee(e) {
+      J(e).catch(function (e) {
         o("WALogger")
           .WARN(
             u ||
@@ -308,22 +312,22 @@ __d(
           .catching(r("getErrorSafe")(e));
       });
     }
-    function Z(e) {
-      if (!F.has(e)) {
-        B != null && window.clearTimeout(B.timeoutId);
+    function te(e) {
+      if (!B.has(e)) {
+        q != null && window.clearTimeout(q.timeoutId);
         var t = window.setTimeout(function () {
           var t;
-          if (((t = B) == null ? void 0 : t.fieldstats) === e) {
-            B = null;
-            var n = O.get(e);
+          if (((t = q) == null ? void 0 : t.fieldstats) === e) {
+            q = null;
+            var n = W.get(e);
             if (n != null) {
               n.catch(function () {
-                ee(e);
+                ne(e);
               });
               return;
             }
             (o("WAWebCoreActionsODS").logCallFieldstatsWatchdogSend(),
-              Y(e).catch(function (t) {
+              Z(e).catch(function (t) {
                 (o("WALogger")
                   .WARN(
                     c ||
@@ -332,36 +336,36 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                  ee(e));
+                  ne(e));
               }));
           }
-        }, A);
-        B = { fieldstats: e, timeoutId: t };
+        }, O());
+        q = { fieldstats: e, timeoutId: t };
       }
     }
-    function ee(e) {
-      !F.has(e) &&
+    function ne(e) {
+      !B.has(e) &&
         o("WAWebVoipCallRatingStore").getPendingFieldstats() === e &&
-        Z(e);
+        te(e);
     }
-    function te(e) {
-      var t = B;
+    function re(e) {
+      var t = q;
       t != null &&
         t.fieldstats === e &&
-        (window.clearTimeout(t.timeoutId), (B = null));
+        (window.clearTimeout(t.timeoutId), (q = null));
     }
-    function ne(e) {
-      var t = B;
+    function oe(e) {
+      var t = q;
       t != null &&
         t.fieldstats !== e &&
-        (window.clearTimeout(t.timeoutId), (B = null));
+        (window.clearTimeout(t.timeoutId), (q = null));
     }
-    function re(e, t) {
-      return oe.apply(this, arguments);
+    function ae(e, t) {
+      return ie.apply(this, arguments);
     }
-    function oe() {
+    function ie() {
       return (
-        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.jsonDataStr;
           o("WALogger").LOG(
             f ||
@@ -380,7 +384,7 @@ __d(
                     "voip: [Fieldstats] web stack unavailable, skipping pending fieldstats",
                   ])),
               ),
-                ee(e));
+                ne(e));
               return;
             }
             var i = a.parsers.parseFieldstatsData(n),
@@ -397,7 +401,7 @@ __d(
                   }))
                 : (l.userRating = t);
             }
-            var u = yield W(l),
+            var u = yield U(l),
               c = o("WAWebVoipBatteryDiagnostics").getBatteryLevelAtCallStart();
             if (c != null) {
               var d = u.browserBatteryLevelEndPct;
@@ -499,16 +503,16 @@ __d(
             var M = null,
               w = null,
               A = null,
-              O = null,
-              B = null;
+              F = null,
+              O = null;
             if (N != null && N > 0) {
-              var q = yield o("WAWebBackendApi").frontendSendAndReceive(
+              var W = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "consumeActivityData",
               );
-              q != null &&
-                ((M = q.lastVoipActivity),
-                (w = q.lastVoipActivityTimestampSec),
-                (A = q.timeFirstAnrSinceCallStartSec),
+              W != null &&
+                ((M = W.lastVoipActivity),
+                (w = W.lastVoipActivityTimestampSec),
+                (A = W.timeFirstAnrSinceCallStartSec),
                 o("WALogger").LOG(
                   R ||
                     (R = babelHelpers.taggedTemplateLiteralLoose([
@@ -521,12 +525,12 @@ __d(
                   w != null ? w : "none",
                   A != null ? A : "none",
                 ));
-              var U = yield o("WAWebBackendApi").frontendSendAndReceive(
+              var q = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "consumeUiActivityData",
               );
-              U != null &&
-                ((O = U.lastVoipUiActivity),
-                (B = U.lastVoipUiActivityTimestampSec),
+              q != null &&
+                ((F = q.lastVoipUiActivity),
+                (O = q.lastVoipUiActivityTimestampSec),
                 o("WALogger").LOG(
                   L ||
                     (L = babelHelpers.taggedTemplateLiteralLoose([
@@ -534,8 +538,8 @@ __d(
                       " uiActT=",
                       "s",
                     ])),
+                  F != null ? F : "none",
                   O != null ? O : "none",
-                  B != null ? B : "none",
                 ));
             } else
               o("WAWebBackendApi").frontendFireAndForget(
@@ -553,8 +557,8 @@ __d(
                 M != null && (G.lastVoipActivity = M),
                 w != null && (G.lastVoipActivityTimestampSec = w),
                 A != null && (G.timeFirstAnrSinceCallStartSec = A),
-                O != null && (G.lastVoipUiActivity = O),
-                B != null && (G.lastVoipUiActivityTimestampSec = B),
+                F != null && (G.lastVoipUiActivity = F),
+                O != null && (G.lastVoipUiActivityTimestampSec = O),
                 r("isEmptyObject")(G) ||
                   (H.set(G),
                   o("WALogger").LOG(
@@ -572,15 +576,15 @@ __d(
                     M != null ? M : "null",
                     w != null ? w : "null",
                     A != null ? A : "null",
+                    F != null ? F : "null",
                     O != null ? O : "null",
-                    B != null ? B : "null",
                   )),
                 (V = H));
-            } else V = Q(u);
+            } else V = Y(u);
             (yield V.commitAndWaitForFlush(i.uploadInRealtime),
               o("WAWebVoipCallRatingStore").markPersistedFieldstatsHandedOff(n),
-              F.add(e),
-              te(e),
+              B.add(e),
+              re(e),
               o("WAWebVoipCallRatingStore").clearPendingFieldstats(e),
               o("WAWebCoreActionsODS").logCallFieldstatsHandoffCompleted(),
               o("WALogger").LOG(
@@ -591,7 +595,7 @@ __d(
                   ])),
                 t != null ? t : "none",
               ),
-              yield ae());
+              yield le());
           } catch (e) {
             throw (
               o("WAWebCoreActionsODS").logCallFieldstatsHandoffFailed(),
@@ -612,15 +616,15 @@ __d(
             );
           }
         })),
-        oe.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    function ae() {
-      return ie.apply(this, arguments);
+    function le() {
+      return se.apply(this, arguments);
     }
-    function ie() {
+    function se() {
       return (
-        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e =
               yield o("WAWebBackendApi").frontendSendAndReceive(
@@ -653,10 +657,10 @@ __d(
                 }));
           }
         })),
-        ie.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
-    function le() {
+    function ue() {
       o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
         var e = Date.now();
         o("WAWebBackendApi")
@@ -687,10 +691,10 @@ __d(
           });
       });
     }
-    ((l.handleFieldstatsReady = H),
-      (l.sendStoredFieldstats = X),
-      (l.requestStoredFieldstatsSend = J),
-      (l.syncVoipPersistentFSWithIdleCallback = le));
+    ((l.handleFieldstatsReady = z),
+      (l.sendStoredFieldstats = J),
+      (l.requestStoredFieldstatsSend = ee),
+      (l.syncVoipPersistentFSWithIdleCallback = ue));
   },
   98,
 );

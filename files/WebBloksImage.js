@@ -49,61 +49,60 @@ __d(
         v = C.wrapper,
         S = C.wrapperProps,
         R = o("WebBloksTheme").useTheme().getTheme(),
-        L = r.getValues(),
-        E = L.contrib;
+        L = r.get("contrib");
       b.position === "absolute" &&
         (b.top === "0px" && b.bottom === "0px" && (b.height = "100%"),
         b.left === "0px" && b.right === "0px" && (b.width = "100%"));
-      var k = m(i),
-        I = {};
+      var E = m(i),
+        k = {};
       if (u != null && l != null) {
-        var T = k === "fill" ? "100% 100%" : k;
-        I = {
+        var I = E === "fill" ? "100% 100%" : E;
+        k = {
           WebkitMaskImage: "url(" + l + ")",
-          WebkitMaskSize: T,
+          WebkitMaskSize: I,
           maskImage: "url(" + l + ")",
-          maskSize: T,
+          maskSize: I,
           backgroundColor: o("WebBloksUtils").getRGBColorWithTheme(u, R),
           objectPosition: "10000px 10000px",
         };
       }
-      var D = function (t) {
+      var T = function (t) {
         f != null && y(r, f, [t, Date.now(), h]);
       };
       c(function () {
-        D("ImageRequested");
+        T("ImageRequested");
       }, []);
-      var x = E == null ? void 0 : E.get("base_sixty_four_encoded_image");
-      if (x != null) {
-        var $ = x.charAt(0),
-          P = "";
-        switch ($) {
+      var D = L == null ? void 0 : L.get("base_sixty_four_encoded_image");
+      if (D != null) {
+        var x = D.charAt(0),
+          $ = "";
+        switch (x) {
           case "/":
-            P = "jpg";
+            $ = "jpg";
             break;
           case "i":
-            P = "png";
+            $ = "png";
             break;
           case "R":
-            P = "gif";
+            $ = "gif";
             break;
           case "U":
-            P = "webp";
+            $ = "webp";
             break;
           case "P":
-            P = "svg";
+            $ = "svg";
             break;
         }
-        x = "data:image/" + P + ";base64," + x;
+        D = "data:image/" + $ + ";base64," + D;
       }
-      var N = R === o("WebBloksTheme").THEME.light || a == null ? l : a,
-        M = typeof N == "string" && N ? N.replace(/\\/g, "") : null,
-        w = x != null ? x : M,
-        A = babelHelpers.extends({}, S, {
+      var P = R === o("WebBloksTheme").THEME.light || a == null ? l : a,
+        N = typeof P == "string" && P ? P.replace(/\\/g, "") : null,
+        M = D != null ? D : N,
+        w = babelHelpers.extends({}, S, {
           "aria-label": null,
           alt: (t = S == null ? void 0 : S["aria-label"]) != null ? t : "",
         }),
-        F = d(
+        A = d(
           function () {
             return _ != null && u == null ? p(_) : void 0;
           },
@@ -114,23 +113,23 @@ __d(
           "img",
           babelHelpers.extends(
             {},
-            A,
+            w,
             {
-              src: w,
+              src: M,
               onLoad: function () {
-                return D("ImageFinalRendered");
+                return T("ImageFinalRendered");
               },
               onError: function () {
-                return D("ImageFailed");
+                return T("ImageFailed");
               },
             },
             o("WebBloksStyle").getStyleProps(
               babelHelpers.extends(
                 {},
                 b,
-                I,
-                { objectFit: k },
-                F != null ? { objectPosition: F } : null,
+                k,
+                { objectFit: E },
+                A != null ? { objectPosition: A } : null,
                 { overflow: "hidden" },
               ),
             ),

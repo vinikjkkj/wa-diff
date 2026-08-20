@@ -6,6 +6,7 @@ __d(
     "WAWebBizAiHandoffRemoval",
     "WAWebBusinessProfileCollection",
     "WAWebBusinessProfileGetters",
+    "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebCommunityGatingUtils",
     "WAWebContactGetters",
@@ -17,6 +18,7 @@ __d(
     "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebListener",
+    "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
@@ -104,9 +106,43 @@ __d(
       );
     }
     function h(e) {
-      return _(e);
+      var t,
+        n = o("react-compiler-runtime").c(6),
+        r;
+      n[0] !== e
+        ? ((r = o("WAWebChatCollection").ChatCollection.get(e)),
+          (n[0] = e),
+          (n[1] = r))
+        : (r = n[1]);
+      var a = r,
+        i = f(e),
+        l =
+          (t = o("useWAWebModelValues").useOptionalModelValues(a, [
+            "forceDismissAiAgentBlockBar",
+          ])) != null
+            ? t
+            : {},
+        s = l.forceDismissAiAgentBlockBar,
+        u;
+      return (
+        n[2] !== a || n[3] !== s || n[4] !== i
+          ? ((u =
+              i &&
+              a != null &&
+              s !== !0 &&
+              !o("WAWebContactGetters").getIsAiHub(a.contact)),
+            (n[2] = a),
+            (n[3] = s),
+            (n[4] = i),
+            (n[5] = u))
+          : (u = n[5]),
+        u
+      );
     }
     function y(e) {
+      return _(e);
+    }
+    function C(e) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
         !e.id.isUserNotPSA() ||
@@ -129,17 +165,17 @@ __d(
           ? "handoff"
           : null;
     }
-    function C(e) {
+    function b(e) {
       return (
-        y(e) != null && o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()
+        C(e) != null && o("WAWebBizAiAgentGating").isAiRespondingChipEnabled()
       );
     }
-    function b(e) {
+    function v(e) {
       return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? v(e)
+        ? S(e)
         : !1;
     }
-    function v(e) {
+    function S(e) {
       var t = e.labels;
       return t == null ||
         t.length === 0 ||
@@ -150,7 +186,7 @@ __d(
             return t != null && !!t.name;
           });
     }
-    function S(e, t) {
+    function R(e, t) {
       return (
         t === void 0 && (t = !1),
         t &&
@@ -158,7 +194,7 @@ __d(
           e.groupMetadata,
         )
           ? !1
-          : C(e) || b(e)
+          : b(e) || v(e)
       );
     }
     ((l.getAiHubSubtitle = e),
@@ -168,12 +204,13 @@ __d(
       (l.isChatAiEnabled = _),
       (l.useIsChatAiEnabled = f),
       (l.shouldShowAiAgentBlockBar = g),
-      (l.shouldMuteNotification = h),
-      (l.resolveAiChatStatus = y),
-      (l.shouldShowAiChipsForChat = C),
-      (l.shouldShowLabelPillsForChat = b),
-      (l.hasDisplayableLabels = v),
-      (l.shouldShowTertiaryRowForChat = S));
+      (l.useShouldShowAiAgentBlockBar = h),
+      (l.shouldMuteNotification = y),
+      (l.resolveAiChatStatus = C),
+      (l.shouldShowAiChipsForChat = b),
+      (l.shouldShowLabelPillsForChat = v),
+      (l.hasDisplayableLabels = S),
+      (l.shouldShowTertiaryRowForChat = R));
   },
   226,
 );

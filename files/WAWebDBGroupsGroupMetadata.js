@@ -219,51 +219,54 @@ __d(
             d,
             m,
             p,
-            _ = e.groupWid,
-            f = yield o("WAWebSchemaGroupMetadata")
+            _,
+            f = e.groupWid,
+            g = yield o("WAWebSchemaGroupMetadata")
               .getGroupMetadataTable()
-              .get(String(_));
-          return f
+              .get(String(f));
+          return g
             ? {
-                id: _,
+                id: f,
                 owner:
-                  f.owner == null
+                  g.owner == null
                     ? null
-                    : o("WAWebWidFactory").createWid(f.owner),
-                creation: f.creation,
-                desc: (t = f.desc) != null ? t : void 0,
-                descId: (n = f.descId) != null ? n : void 0,
+                    : o("WAWebWidFactory").createWid(g.owner),
+                creation: g.creation,
+                desc: (t = g.desc) != null ? t : void 0,
+                descId: (n = g.descId) != null ? n : void 0,
                 descOwner:
-                  f.descOwner == null
+                  g.descOwner == null
                     ? null
-                    : o("WAWebWidFactory").createWid(f.descOwner),
-                descTime: (r = f.descTime) != null ? r : void 0,
-                restrict: f.restrict || !1,
-                announce: f.announce || !1,
-                noFrequentlyForwarded: f.noFrequentlyForwarded || !1,
-                ephemeralDuration: f.ephemeralDuration || 0,
+                    : o("WAWebWidFactory").createWid(g.descOwner),
+                descTime: (r = g.descTime) != null ? r : void 0,
+                restrict: g.restrict || !1,
+                announce: g.announce || !1,
+                noFrequentlyForwarded: g.noFrequentlyForwarded || !1,
+                ephemeralDuration: g.ephemeralDuration || 0,
                 membershipApprovalMode:
-                  (a = f.membershipApprovalMode) != null ? a : !1,
-                memberAddMode: f.memberAddMode,
-                memberLinkMode: f.memberLinkMode,
-                subject: f.subject,
-                support: f.support === !0,
+                  (a = g.membershipApprovalMode) != null ? a : !1,
+                memberAddMode: g.memberAddMode,
+                memberLinkMode: g.memberLinkMode,
+                subject: g.subject,
+                support: g.support === !0,
                 lastActivityTimestamp:
-                  (i = f.lastActivityTimestamp) != null ? i : 0,
+                  (i = g.lastActivityTimestamp) != null ? i : 0,
                 lastSeenActivityTimestamp:
-                  (l = f.lastSeenActivityTimestamp) != null ? l : 0,
+                  (l = g.lastSeenActivityTimestamp) != null ? l : 0,
                 lastReportToAdminTimestamp:
-                  (s = f.lastReportToAdminTimestamp) != null ? s : null,
-                isLidAddressingMode: f.isLidAddressingMode,
+                  (s = g.lastReportToAdminTimestamp) != null ? s : null,
+                isLidAddressingMode: g.isLidAddressingMode,
                 allowNonAdminSubGroupCreation:
-                  (u = f.allowNonAdminSubGroupCreation) != null ? u : !1,
+                  (u = g.allowNonAdminSubGroupCreation) != null ? u : !1,
                 generalChatAutoAddDisabled:
-                  (c = f.generalChatAutoAddDisabled) != null ? c : !1,
-                hasCapi: f.hasCapi === !0,
+                  (c = g.generalChatAutoAddDisabled) != null ? c : !1,
+                hasCapi: g.hasCapi === !0,
                 lastCommunityPollTimestamp:
-                  (d = f.lastCommunityPollTimestamp) != null ? d : 0,
-                isOpenBotGroup: (m = f.isOpenBotGroup) != null ? m : !1,
-                isTeeBotGroup: (p = f.isTeeBotGroup) != null ? p : !1,
+                  (d = g.lastCommunityPollTimestamp) != null ? d : 0,
+                isOpenBotGroup: (m = g.isOpenBotGroup) != null ? m : !1,
+                isTeeBotGroup: (p = g.isTeeBotGroup) != null ? p : !1,
+                shouldDefaultGroupHistoryShareOn:
+                  (_ = g.shouldDefaultGroupHistoryShareOn) != null ? _ : !1,
               }
             : null;
         })),

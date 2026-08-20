@@ -1413,6 +1413,9 @@ __d(
     ((l.requestStoredFieldstatsSend = o(
       "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     ).requestStoredFieldstatsSend),
+      (l.sendStoredFieldstats = o(
+        "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
+      ).sendStoredFieldstats),
       (l.handleWAWebVoipNativeCallEvent = se));
   },
   98,

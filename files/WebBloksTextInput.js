@@ -58,222 +58,221 @@ __d(
         O = u.getExpression("on_gain_focus"),
         B = u.getExpression("on_lose_focus"),
         W = u.getExpression("allow_text_change_callback"),
-        q = u.getValues(),
-        U = o("WebBloksBooleanUtils").isTrue(k),
-        V = o("WebBloksBooleanUtils").isFalse(g),
-        H = o("WebBloksStyle").useStyle(u, l),
-        G = H.ref,
-        z = H.style,
-        j = H.wrapper,
-        K = H.wrapperProps,
-        Q = o("WebBloksTheme").useTheme().getTheme(),
-        X =
+        q = o("WebBloksBooleanUtils").isTrue(k),
+        U = o("WebBloksBooleanUtils").isFalse(g),
+        V = o("WebBloksStyle").useStyle(u, l),
+        H = V.ref,
+        G = V.style,
+        z = V.wrapper,
+        j = V.wrapperProps,
+        K = o("WebBloksTheme").useTheme().getTheme(),
+        Q =
           (R != null &&
             o("WebBloksUtils").convertRGBArrToString(
               o("WebBloksUtils").convertRGBOrHexStringToArr(R),
             )) ||
-          (L && o("WebBloksUtils").getRGBColorWithTheme(L, Q)),
-        Y =
+          (L && o("WebBloksUtils").getRGBColorWithTheme(L, K)),
+        X =
           I != null
-            ? o("WebBloksUtils").getRGBColorWithTheme(I, Q)
+            ? o("WebBloksUtils").getRGBColorWithTheme(I, K)
             : "transparent",
-        J = b != null ? o("WebBloksUtils").getRGBColorWithTheme(b, Q) : "auto",
-        Z = o("WebBloksComponentContext").useWebBloksContext(),
-        ee = Z.bloksContext,
-        te = Z.executeCatch,
-        ne = _(!1),
-        re = _(null),
-        oe = ee.initAssociatedObject_INTERNAL(
+        Y = b != null ? o("WebBloksUtils").getRGBColorWithTheme(b, K) : "auto",
+        J = o("WebBloksComponentContext").useWebBloksContext(),
+        Z = J.bloksContext,
+        ee = J.executeCatch,
+        te = _(!1),
+        ne = _(null),
+        re = Z.initAssociatedObject_INTERNAL(
           u,
           o("WebBloksConstants").TEXT_INPUT_ASSOCIATED_OBJECT,
-          { ref: re, text: null },
+          { ref: ne, text: null },
         ),
-        ae = c(
+        oe = c(
           function (e) {
-            ee.updateAssociatedObject_INTERNAL(
+            Z.updateAssociatedObject_INTERNAL(
               u,
               o("WebBloksConstants").TEXT_INPUT_ASSOCIATED_OBJECT,
               { text: e },
             );
           },
-          [ee, u],
+          [Z, u],
         ),
-        ie = o(
+        ae = o(
           "WebBloksTextInputMaskExtensionHandlerUtils",
-        ).getTextInputMaskExtensionProps(q, G),
-        le = o(
+        ).getTextInputMaskExtensionProps(u),
+        ie = o(
           "WebBloksTextInputDatePickerExtensionHandlerUtils",
         ).useWebBloksTextInputDateProps(u),
-        se = ee.objectSet.environment.fontFamilyMappings,
-        ue =
-          (t = ie == null ? void 0 : ie.typeOverride) != null
+        le = Z.objectSet.environment.fontFamilyMappings,
+        se =
+          (t = ae == null ? void 0 : ae.typeOverride) != null
             ? t
-            : le == null
+            : ie == null
               ? void 0
-              : le.typeOverride,
-        ce = r("useWebBloksTextInputFormatValue")(u, G),
-        de = o(
+              : ie.typeOverride,
+        ue = r("useWebBloksTextInputFormatValue")(u),
+        ce = o(
           "WebBloksBKSTextInputFormatterHandlerUtils",
-        ).useBKSTextInputFormatter(q),
-        me = le == null ? void 0 : le.onChange,
-        pe = o("WebBloksBooleanUtils").isFalse(w) || K.disabled === !0,
-        _e = (n = ie == null ? void 0 : ie.maxLength) != null ? n : N,
-        fe = o("WebBloksTextInputHelpers").getInputTypeProps(
-          ue != null ? ue : M,
+        ).useBKSTextInputFormatter(u),
+        de = ie == null ? void 0 : ie.onChange,
+        me = o("WebBloksBooleanUtils").isFalse(w) || j.disabled === !0,
+        pe = (n = ae == null ? void 0 : ae.maxLength) != null ? n : N,
+        _e = o("WebBloksTextInputHelpers").getInputTypeProps(
+          se != null ? se : M,
         ),
-        ge = le != null && le.initialValue ? le.initialValue : y,
-        he = oe.text,
-        ye = f((a = he != null ? he : ge) != null ? a : ""),
-        Ce = ye[0],
-        be = ye[1],
-        ve = f(ge),
-        Se = ve[0],
-        Re = ve[1];
+        fe = ie != null && ie.initialValue ? ie.initialValue : y,
+        ge = re.text,
+        he = f((a = ge != null ? ge : fe) != null ? a : ""),
+        ye = he[0],
+        Ce = he[1],
+        be = f(fe),
+        ve = be[0],
+        Se = be[1];
       (p(
         function () {
-          ge !== Se && ((ne.current = !1), be(ge != null ? ge : ""), Re(ge));
+          fe !== ve && ((te.current = !1), Ce(fe != null ? fe : ""), Se(fe));
         },
-        [u, Se, ge],
+        [u, ve, fe],
       ),
         p(
           function () {
-            if (U && G.current != null && Ce !== Se) {
-              G.current.style.height = "0px";
-              var e = G.current.scrollHeight;
-              G.current.style.height = e + "px";
+            if (q && H.current != null && ye !== ve) {
+              H.current.style.height = "0px";
+              var e = H.current.scrollHeight;
+              H.current.style.height = e + "px";
             }
           },
-          [Se, G, U, Ce],
+          [ve, H, q, ye],
         ));
-      var Le = c(
+      var Re = c(
           function (e) {
             var t = !0;
             if (
               (W != null &&
                 (t = o("WebBloksBooleanUtils").isTrue(
-                  o("WebBloksUtils").cast(te(u, W, [Ce, e])),
+                  o("WebBloksUtils").cast(ee(u, W, [ye, e])),
                 )),
               t)
             ) {
-              ne.current = !1;
-              var n = ce(Ce, e);
-              ((n = de(n)), ae(n), be(n));
+              te.current = !1;
+              var n = ue(ye, e);
+              ((n = ce(n)), oe(n), Ce(n));
             }
           },
-          [W, te, de, ce, u, Ce, ae],
+          [W, ee, ce, ue, u, ye, oe],
         ),
-        Ee = _(!0);
+        Le = _(!0);
       d(
         function () {
           var e;
-          (Ee.current && ((Ee.current = !1), he == null || ge === he)) ||
-            ((oe == null || (e = oe.ref) == null ? void 0 : e.current) ==
+          (Le.current && ((Le.current = !1), ge == null || fe === ge)) ||
+            ((re == null || (e = re.ref) == null ? void 0 : e.current) ==
               null &&
-              ee.updateAssociatedObject_INTERNAL(
+              Z.updateAssociatedObject_INTERNAL(
                 u,
                 o("WebBloksConstants").TEXT_INPUT_ASSOCIATED_OBJECT,
-                { ref: re },
+                { ref: ne },
               ),
-            A != null && te(u, A, [u, ee]),
-            me != null && me(Ce));
+            A != null && ee(u, A, [u, Z]),
+            de != null && de(ye));
         },
-        [Ce],
+        [ye],
       );
-      var ke = function (t) {
+      var Ee = function (t) {
           (t.keyCode === o("WebBloksConstants").KEY_RETURN &&
             F != null &&
-            te(u, F, [u, ee]),
+            ee(u, F, [u, Z]),
             (t.keyCode === o("WebBloksConstants").KEY_RETURN ||
               t.keyCode === o("WebBloksConstants").KEY_SPACE) &&
               t.stopPropagation());
         },
-        Ie = function (t) {
+        ke = function (t) {
           t.keyCode === o("WebBloksConstants").KEY_SPACE && t.stopPropagation();
         },
-        Te =
+        Ie =
           O != null
             ? function () {
-                te(u, O, [u, ee]);
+                ee(u, O, [u, Z]);
               }
             : void 0,
-        De = r("useQueuedBlurEventForWebBloks")(G, function () {
-          B != null && te(u, B, [u, ee]);
+        Te = r("useQueuedBlurEventForWebBloks")(H, function () {
+          B != null && ee(u, B, [u, Z]);
         }),
-        xe = B != null ? De : void 0,
-        $e = babelHelpers.extends(
+        De = B != null ? Te : void 0,
+        xe = babelHelpers.extends(
           {},
-          z,
+          G,
           o("WebBloksTextStyle").getTextStyle(C),
           {
-            background: Y,
-            color: X,
-            fontFamily: o("WebBloksTextStyle").getFontFamily(E, se),
+            background: X,
+            color: Q,
+            fontFamily: o("WebBloksTextStyle").getFontFamily(E, le),
             fontSize: o("WebBloksUtils").toPx(v),
             lineHeight: o("WebBloksTextStyle").getLineHeight(),
             textAlign: o("WebBloksUtils").toHyphen(S),
-            caretColor: J,
+            caretColor: Y,
           },
         ),
-        Pe = babelHelpers.extends(
+        $e = babelHelpers.extends(
           {},
-          K,
-          fe,
-          (i = le == null ? void 0 : le.minmaxProps) != null ? i : {},
+          j,
+          _e,
+          (i = ie == null ? void 0 : ie.minmaxProps) != null ? i : {},
           {
             autoCapitalize: D,
             autoComplete: x,
             autoCorrect: $,
-            disabled: pe,
-            maxLength: _e,
+            disabled: me,
+            maxLength: pe,
             name: P,
             onChange: function (t) {
-              return Le(t.target.value);
+              return Re(t.target.value);
             },
-            onKeyDown: ke,
-            onKeyUp: Ie,
-            onFocus: Te,
-            onBlur: xe,
+            onKeyDown: Ee,
+            onKeyUp: ke,
+            onFocus: Ie,
+            onBlur: De,
             className: o("WebBloksStyle").classNames(
               o("WebBloksStyle").WebBloksStyles.container,
               h.base,
             ),
             placeholder: T,
-            value: Ce,
+            value: ye,
             onClick: function (t) {
               t.stopPropagation();
             },
           },
         ),
-        Ne = c(
+        Pe = c(
           function (e) {
-            ne.current ||
-              (Le(String(e)),
-              (ne.current = !0),
-              A != null && te(u, A, [u, ee]),
+            te.current ||
+              (Re(String(e)),
+              (te.current = !0),
+              A != null && ee(u, A, [u, Z]),
               typeof window.requestIdleCallback == "function"
                 ? window.requestIdleCallback(function () {
-                    ne.current = !1;
+                    te.current = !1;
                   })
                 : window.setTimeout(function () {
-                    ne.current = !1;
+                    te.current = !1;
                   }, 50));
           },
-          [ee, te, u, Le, A],
+          [Z, ee, u, Re, A],
         ),
-        Me = c(
+        Ne = c(
           function () {
-            var e = G.current;
+            var e = H.current;
             if (
               e instanceof HTMLInputElement ||
               e instanceof HTMLTextAreaElement
             )
               return { start: e.selectionStart, end: e.selectionEnd };
           },
-          [G],
+          [H],
         ),
-        we = c(
+        Me = c(
           function () {
-            var e = G.current;
+            var e = H.current;
             if (
               e instanceof HTMLInputElement &&
               e.selectionStart &&
@@ -287,39 +286,39 @@ __d(
             }
             e == null || e.focus();
           },
-          [G],
+          [H],
         ),
-        Ae = c(
+        we = c(
           function () {
             var e;
-            return (e = G.current) == null ? void 0 : e.blur();
+            return (e = H.current) == null ? void 0 : e.blur();
           },
-          [G],
+          [H],
         );
       return (
         m(
-          re,
+          ne,
           function () {
             return {
-              onExternalUpdate: Ne,
-              getSelection: Me,
-              requestFocus: we,
-              requestBlur: Ae,
+              onExternalUpdate: Pe,
+              getSelection: Ne,
+              requestFocus: Me,
+              requestBlur: we,
             };
           },
-          [Me, Ne, Ae, we],
+          [Ne, Pe, we, Me],
         ),
-        j(
-          V || U
+        z(
+          U || q
             ? s.jsx(
                 "textarea",
-                babelHelpers.extends({}, Pe, U ? { rows: 1 } : void 0, {
-                  style: babelHelpers.extends({}, $e, { resize: "none" }),
+                babelHelpers.extends({}, $e, q ? { rows: 1 } : void 0, {
+                  style: babelHelpers.extends({}, xe, { resize: "none" }),
                 }),
               )
             : s.jsx(
                 "input",
-                babelHelpers.extends({ dir: "auto" }, Pe, { style: $e }),
+                babelHelpers.extends({ dir: "auto" }, $e, { style: xe }),
               ),
         )
       );

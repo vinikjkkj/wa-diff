@@ -17,6 +17,7 @@ __d(
     "WAWebMediaFileTooLargeError",
     "WAWebMediaGatingUtils",
     "WAWebMimeTypes",
+    "WAWebResolveSupportedMediaTypes",
     "WAWebServerPropConstants",
     "WAWebSingleSelection",
     "WAWebTPPdfViewerGatingUtils",
@@ -155,8 +156,8 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, a) {
                 var i = o(
-                    "WAWebMediaGatingUtils",
-                  ).getSupportedMediaTypesForChat(n),
+                    "WAWebResolveSupportedMediaTypes",
+                  ).resolveSupportedMediaTypesForChat(n),
                   l = this.getPreviewableMedias().length,
                   s =
                     r != null

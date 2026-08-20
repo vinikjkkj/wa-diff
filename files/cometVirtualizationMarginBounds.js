@@ -16,7 +16,10 @@ __d(
         topMax: Math.min(e * r, t),
       };
     }
-    l.computeMarginBounds = d;
+    function m(e, t, n) {
+      return Math.min(t, Math.max(n, e));
+    }
+    ((l.computeMarginBounds = d), (l.clampRestoredMargin = m));
   },
   98,
 );

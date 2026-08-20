@@ -108,6 +108,13 @@ __d(
             (s = i.get(l)) == null || s.set({ groupHistorySentState: a });
           }
       },
+      updateGroupMetadataModelForShareHistoryDefault: function (t) {
+        var e,
+          n = t.group,
+          o = t.shouldDefaultGroupHistoryShareOn;
+        (e = r("WAWebGroupMetadataCollection").get(n)) == null ||
+          e.set({ shouldDefaultGroupHistoryShareOn: o });
+      },
     };
     l.GroupBridgeApi = e;
   },

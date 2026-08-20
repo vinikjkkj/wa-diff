@@ -5,18 +5,18 @@ __d(
     "use strict";
     var e = "hitl.approval_record",
       s = 1;
-    function u(e) {
+    function u() {
+      return "debug-approval-" + s++;
+    }
+    function c(e) {
       var t,
-        n =
-          (t = e == null ? void 0 : e.approvalId) != null
-            ? t
-            : "debug-approval-" + s++;
-      return (d(n, null, e), n);
+        n = (t = e == null ? void 0 : e.approvalId) != null ? t : u();
+      return (m(n, null, e), n);
     }
-    function c(e, t) {
-      (t === void 0 && (t = "allow_once"), d(e, t));
+    function d(e, t) {
+      (t === void 0 && (t = "allow_once"), m(e, t));
     }
-    function d(t, n, r) {
+    function m(t, n, r) {
       var a,
         i,
         l,
@@ -31,33 +31,35 @@ __d(
             operation: "SET",
             payload: {
               lifecycle: n != null ? "decided" : "pending",
-              record: {
-                approval_id: t,
-                decision: n,
-                display: {
-                  permission_question: {
-                    text:
-                      (a = r == null ? void 0 : r.permissionQuestion) != null
-                        ? a
-                        : "{assistant} wants to send an email in Gmail",
+              record: babelHelpers.extends(
+                { approval_id: t },
+                n != null ? { decision: n } : null,
+                {
+                  display: {
+                    permission_question: {
+                      text:
+                        (a = r == null ? void 0 : r.permissionQuestion) != null
+                          ? a
+                          : "{assistant} wants to send an email in Gmail",
+                    },
+                    purpose_summary:
+                      (i = r == null ? void 0 : r.purposeSummary) != null
+                        ? i
+                        : "Send an email on your behalf",
+                    rich_explanation:
+                      (l = r == null ? void 0 : r.richExplanation) != null
+                        ? l
+                        : "Create an email draft to your teammate",
+                    presentation_kind: "generic",
                   },
-                  purpose_summary:
-                    (i = r == null ? void 0 : r.purposeSummary) != null
-                      ? i
-                      : "Send an email on your behalf",
-                  rich_explanation:
-                    (l = r == null ? void 0 : r.richExplanation) != null
-                      ? l
-                      : "Create an email draft to your teammate",
-                  presentation_kind: "generic",
+                  payload: { type: "connector" },
+                  decision_options: [
+                    { kind: "allow_once", label_text: "Allow once" },
+                    { kind: "allow_always", label_text: "Always allow" },
+                    { kind: "deny", label_text: "Deny" },
+                  ],
                 },
-                payload: { type: "connector" },
-                decision_options: [
-                  { kind: "allow_once", label_text: "Allow once" },
-                  { kind: "allow_always", label_text: "Always allow" },
-                  { kind: "deny", label_text: "Deny" },
-                ],
-              },
+              ),
             },
             sessionId: null,
           },
@@ -67,8 +69,9 @@ __d(
         "debug-" + t,
       );
     }
-    ((l.debugInjectHatchApprovalRequest = u),
-      (l.debugResolveHatchApproval = c));
+    ((l.nextDebugApprovalId = u),
+      (l.debugInjectHatchApprovalRequest = c),
+      (l.debugResolveHatchApproval = d));
   },
   98,
 );

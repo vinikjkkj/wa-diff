@@ -57,7 +57,7 @@ __d(
                   p = babelHelpers.objectWithoutPropertiesLoose(n, e),
                   _ = new (o("WAWebMmsClientUploadStreamer").UploadStreamer)(
                     p,
-                    t.mediaHosts,
+                    { mediaHosts: t.mediaHosts },
                   );
                 return yield _.uploadCompleteFile({ ciphertextHmac: m });
               }

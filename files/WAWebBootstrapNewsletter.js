@@ -8,13 +8,11 @@ __d(
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterGetMyAddOnsJob",
-    "WAWebNewsletterGetStatusMyReactionsJob",
     "WAWebNewsletterLoadingStageManager",
     "WAWebNoop",
     "WAWebPrimaryFeaturesModel",
     "WAWebQplFlowWrapper",
     "WAWebQueryAndUpdateAllNewslettersMetadataAction",
-    "WAWebStatusGatingUtils",
     "WAWebSyncdOrphan",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
@@ -122,10 +120,6 @@ __d(
                     .tags("newsletter")
                     .sendLogs("newsletter-bootstrap-my-reactions-failed");
                 })),
-              o("WAWebStatusGatingUtils").isChannelStatusLikesSendEnabled() &&
-                o(
-                  "WAWebNewsletterGetStatusMyReactionsJob",
-                ).fetchNewsletterStatusMyReactions(),
               o("WAWebUserPrefsMultiDevice").setNewsletterWasBootstrapped(),
               i.success
                 ? (yield o("WAWebSyncdOrphan").checkOrphanChats(

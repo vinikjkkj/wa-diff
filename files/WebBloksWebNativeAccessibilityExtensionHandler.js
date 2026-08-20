@@ -4,58 +4,56 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = {
         getProps: function (t) {
-          var e = t.getValues(),
-            n = e["aria-controls"],
-            r = e["aria-describedby"],
-            a = e["aria-expanded"],
-            i = e["aria-hidden"],
-            l = e["aria-pressed"],
-            s = e["aria-selected"],
-            u = e.checked,
-            c = e.enabled,
-            d = e.heading_level,
-            m = e.label,
-            p = e.lang,
-            _ = e.role,
-            f = {},
-            g = o("WebBloksAccessibilityUtils")
-              .WEBBLOKS_ACCESSIBILITY_ROLE_MAPPING[_];
+          var e = t.get("aria-controls"),
+            n = t.get("aria-describedby"),
+            r = t.get("aria-expanded"),
+            a = t.get("aria-hidden"),
+            i = t.get("aria-pressed"),
+            l = t.get("aria-selected"),
+            s = t.get("checked"),
+            u = t.get("enabled"),
+            c = t.get("heading_level"),
+            d = t.get("label"),
+            m = t.get("lang"),
+            p = t.get("role"),
+            _ = {},
+            f = o("WebBloksAccessibilityUtils")
+              .WEBBLOKS_ACCESSIBILITY_ROLE_MAPPING[p];
           return (
-            g != null && (f.role = g),
-            (f = babelHelpers.extends(
+            f != null && (_.role = f),
+            (_ = babelHelpers.extends(
               {},
-              o("WebBloksAccessibilityUtils").getFocusPropsForRole(f.role),
-              f,
+              o("WebBloksAccessibilityUtils").getFocusPropsForRole(_.role),
+              _,
             )),
-            o("WebBloksBooleanUtils").isTrue(u) && (f["aria-checked"] = !0),
-            o("WebBloksBooleanUtils").isFalse(u) && (f["aria-checked"] = !1),
-            o("WebBloksBooleanUtils").isFalse(c) &&
-              ((f.disabled = !0), (f["aria-disabled"] = !0)),
+            o("WebBloksBooleanUtils").isTrue(s) && (_["aria-checked"] = !0),
+            o("WebBloksBooleanUtils").isFalse(s) && (_["aria-checked"] = !1),
+            o("WebBloksBooleanUtils").isFalse(u) &&
+              ((_.disabled = !0), (_["aria-disabled"] = !0)),
+            r != null &&
+              (_["aria-expanded"] = o("WebBloksBooleanUtils").isTrue(r)),
+            e != null && e.length > 0 && (_["aria-controls"] = e.join(" ")),
+            n != null && n.length > 0 && (_["aria-describedby"] = n.join(" ")),
             a != null &&
-              (f["aria-expanded"] = o("WebBloksBooleanUtils").isTrue(a)),
-            n != null && n.length > 0 && (f["aria-controls"] = n.join(" ")),
-            r != null && r.length > 0 && (f["aria-describedby"] = r.join(" ")),
-            i != null &&
-              (f["aria-hidden"] = o("WebBloksBooleanUtils").isTrue(i)),
-            l != null && (f["aria-pressed"] = l),
-            s != null &&
-              (f["aria-selected"] = o("WebBloksBooleanUtils").isTrue(s)),
-            m != null && (f["aria-label"] = m),
-            d != null && (f["aria-label"] = void 0),
-            p != null && (f.lang = p),
-            f
+              (_["aria-hidden"] = o("WebBloksBooleanUtils").isTrue(a)),
+            i != null && (_["aria-pressed"] = i),
+            l != null &&
+              (_["aria-selected"] = o("WebBloksBooleanUtils").isTrue(l)),
+            d != null && (_["aria-label"] = d),
+            c != null && (_["aria-label"] = void 0),
+            m != null && (_.lang = m),
+            _
           );
         },
         wrap: function (t, n) {
-          var e = t.getValues(),
-            r = e.heading_level,
-            a = e.label;
-          return r != null
-            ? o("WebBloksAccessibilityUtils").getHeading(r, a, n)
+          var e = t.get("heading_level"),
+            r = t.get("label");
+          return e != null
+            ? o("WebBloksAccessibilityUtils").getHeading(e, r, n)
             : n;
         },
         reduce: function (t, n) {
-          return t ? t.makeCopy(n.getValues()) : n;
+          return t ? t.makeCopy(n.getValues_DO_NOT_USE()) : n;
         },
       },
       s = e;

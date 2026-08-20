@@ -34,20 +34,19 @@ __d(
     }
     function u(t) {
       var n,
-        r = t.getValues(),
-        o = r.children,
-        a = r.direction,
-        i = e(a),
-        l = i.mainAxisSize,
-        u =
+        r = t.getSubNodes("children"),
+        o = t.get("direction"),
+        a = e(o),
+        i = a.mainAxisSize,
+        l =
           (n =
-            o &&
-            o.some(function (e) {
-              return s(e, l);
+            r &&
+            r.some(function (e) {
+              return s(e, i);
             })) != null
             ? n
             : !1;
-      return u ? (a === "column" ? "size" : "inline-size") : "normal";
+      return l ? (o === "column" ? "size" : "inline-size") : "normal";
     }
     function c(e) {
       return e.get("measurement_version_internal_use_only") === "v2";

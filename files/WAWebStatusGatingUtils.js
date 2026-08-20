@@ -68,109 +68,114 @@ __d(
       );
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue("status_mentions_receiver");
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "web_channel_status_likes_sending_enabled_no_exposure",
+      );
     }
     function p() {
+      return o("WAWebABProps").getABPropConfigValue("status_mentions_receiver");
+    }
+    function _() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_mention_message",
       );
     }
-    function _() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_pog_id_rotation_window_days",
       );
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue("web_show_to_hide_enabled");
     }
-    function g() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_comet_video_player_enabled",
       );
     }
-    function h() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_viewer_side_poster_identifiers_enabled",
       );
     }
-    function y() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "waweb_status_close_friends_viewer_side_enabled",
       );
     }
-    function C() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_reshare_attribution_enabled",
       );
     }
-    function b() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_reshare_poster_side_enabled",
       );
     }
-    function v() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_resharer_flow_enabled",
       );
     }
-    function S() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_e2ee_send_over_status_stanza",
       );
     }
-    function R() {
+    function L() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_e2ee_recv_over_status_stanza",
       );
     }
-    function L() {
-      return S() && E();
-    }
     function E() {
-      return o("WAWebABProps").getABPropConfigValue("web_status_send_via_smax");
+      return R() && k();
     }
     function k() {
-      return R() && I();
+      return o("WAWebABProps").getABPropConfigValue("web_status_send_via_smax");
     }
     function I() {
-      return o("WAWebABProps").getABPropConfigValue("web_status_recv_via_smax");
+      return L() && T();
     }
     function T() {
+      return o("WAWebABProps").getABPropConfigValue("web_status_recv_via_smax");
+    }
+    function D() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_batched_status_sending_enabled",
       );
     }
-    function D() {
+    function x() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_chat_thread_and_info_status_ring",
       );
     }
-    function x() {
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_player_avatar_status_creation_entrypoint",
       );
     }
-    function $() {
+    function P() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_chain_new_at_end",
       );
     }
-    function P() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_status_chain_unseen_min_pog",
       );
     }
-    function N() {
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_chaining_from_my_status",
       );
     }
-    function M() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "status_chain_from_my_interaction_limit",
       );
     }
-    function w() {
+    function A() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_chain_from_chatlist",
       );
@@ -178,28 +183,29 @@ __d(
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isChannelStatusLikesSendEnabled = d),
-      (l.isStatusPrivateMentionsReceiveEnabled = m),
-      (l.isStatusMentionMessageEnabled = p),
-      (l.statusPogIdRotationWindowDays = _),
-      (l.isStatusHideStringEnabled = f),
-      (l.isStatusCometVideoPlayerEnabled = g),
-      (l.isStatusViewerSidePosterIdentifiersEnabled = h),
-      (l.isStatusCloseFriendsViewerSideEnabled = y),
-      (l.isStatusReshareAttributionEnabled = C),
-      (l.isStatusResharePosterSideEnabled = b),
-      (l.isStatusReshareViewerFlowEnabled = v),
-      (l.isStatusStanzaSendEnabled = S),
-      (l.isStatusStanzaReceiveEnabled = R),
-      (l.isStatusPublishViaSmaxEnabled = L),
-      (l.isStatusDeliverViaSmaxEnabled = k),
-      (l.isBatchedStatusSendingEnabled = T),
-      (l.isStatusRingOutsideChatlistEnabled = D),
-      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = x),
-      (l.isStatusAddUnseenAtEndEnabled = $),
-      (l.statusChainUnseenMinPog = P),
-      (l.isChainingFromMyStatusEnabled = N),
-      (l.getStatusChainFromMyInteractionLimit = M),
-      (l.isChainFromChatListEnabled = w));
+      (l.isChannelStatusLikesSendEnabledNoExposure = m),
+      (l.isStatusPrivateMentionsReceiveEnabled = p),
+      (l.isStatusMentionMessageEnabled = _),
+      (l.statusPogIdRotationWindowDays = f),
+      (l.isStatusHideStringEnabled = g),
+      (l.isStatusCometVideoPlayerEnabled = h),
+      (l.isStatusViewerSidePosterIdentifiersEnabled = y),
+      (l.isStatusCloseFriendsViewerSideEnabled = C),
+      (l.isStatusReshareAttributionEnabled = b),
+      (l.isStatusResharePosterSideEnabled = v),
+      (l.isStatusReshareViewerFlowEnabled = S),
+      (l.isStatusStanzaSendEnabled = R),
+      (l.isStatusStanzaReceiveEnabled = L),
+      (l.isStatusPublishViaSmaxEnabled = E),
+      (l.isStatusDeliverViaSmaxEnabled = I),
+      (l.isBatchedStatusSendingEnabled = D),
+      (l.isStatusRingOutsideChatlistEnabled = x),
+      (l.isStatusPlayerAvatarStatusCreationEntrypointEnabled = $),
+      (l.isStatusAddUnseenAtEndEnabled = P),
+      (l.statusChainUnseenMinPog = N),
+      (l.isChainingFromMyStatusEnabled = M),
+      (l.getStatusChainFromMyInteractionLimit = w),
+      (l.isChainFromChatListEnabled = A));
   },
   98,
 );

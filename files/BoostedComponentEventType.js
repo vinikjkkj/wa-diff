@@ -1720,6 +1720,12 @@ __d(
       LWI_PERFORMANCE_CALL_INSIGHTS_CTA_CLICK:
         "lwi_performance_call_insights_cta_click",
       LOG_IG_PLACEMENT_INFO: "log_ig_placement_info",
+      LOCAL_ADS_SECTION_IMPRESSION: "local_ads_section_impression",
+      LOCAL_ADS_TOGGLE_INTERACTION: "local_ads_toggle_interaction",
+      LOCAL_ADS_DIALOG_OPEN: "local_ads_dialog_open",
+      LOCAL_ADS_ADDRESS_ENTRY: "local_ads_address_entry",
+      LOCAL_ADS_LOCATION_ROW_REMOVED: "local_ads_location_row_removed",
+      LOCAL_ADS_LOCATIONS_SAVED: "local_ads_locations_saved",
       IG_PLACEMENT_REMOVED_STORY_INVALID: "ig_placement_removed_story_invalid",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
       HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",

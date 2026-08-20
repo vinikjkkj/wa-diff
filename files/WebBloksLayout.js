@@ -11,60 +11,64 @@ __d(
     var e,
       s = (e || (e = o("react"))).useMemo;
     function u(e) {
-      var t = o("react-compiler-runtime").c(7),
+      var t = o("react-compiler-runtime").c(11),
         n = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
         r;
-      t[0] !== e._style
-        ? ((r = o("WebBloksUtils").isStyle(e._style, "flex")),
-          (t[0] = e._style),
-          (t[1] = r))
-        : (r = t[1]);
+      t[0] !== e ? ((r = e.get("_style")), (t[0] = e), (t[1] = r)) : (r = t[1]);
       var a = r,
         i;
-      if (t[2] !== n || t[3] !== e._style || t[4] !== e.alpha || t[5] !== a) {
-        if (((i = {}), e.alpha != null && (i.opacity = e.alpha), a)) {
-          var l = o("WebBloksUtils").nullthrows(e._style).getValues();
-          c(l, i);
-          for (var s of Object.entries(l)) {
-            var u = s[0],
-              m = s[1];
-            if (!d(u)) {
-              var p = o("WebBloksCSSUtils").getRtlAwareCssAttr(
-                o("WebBloksUtils").toCamel(u),
+      t[2] !== e ? ((i = e.get("alpha")), (t[2] = e), (t[3] = i)) : (i = t[3]);
+      var l = i,
+        s;
+      t[4] !== a
+        ? ((s = o("WebBloksUtils").isStyle(a, "flex")), (t[4] = a), (t[5] = s))
+        : (s = t[5]);
+      var u = s,
+        m;
+      if (t[6] !== l || t[7] !== n || t[8] !== a || t[9] !== u) {
+        if (((m = {}), l != null && (m.opacity = l), u)) {
+          var p = o("WebBloksUtils").nullthrows(a).getValues_DO_NOT_USE();
+          c(p, m);
+          for (var _ of Object.entries(p)) {
+            var f = _[0],
+              g = _[1];
+            if (!d(f)) {
+              var h = o("WebBloksCSSUtils").getRtlAwareCssAttr(
+                o("WebBloksUtils").toCamel(f),
                 n,
               );
-              e: switch (p) {
+              e: switch (h) {
                 case "grow": {
-                  i.flexGrow = String(m);
+                  m.flexGrow = String(g);
                   break e;
                 }
                 case "shrink": {
-                  i.flexShrink = String(m);
+                  m.flexShrink = String(g);
                   break e;
                 }
                 case "alignSelf": {
-                  i.alignSelf = o("WebBloksUtils").toHyphen(String(m));
+                  m.alignSelf = o("WebBloksUtils").toHyphen(String(g));
                   break e;
                 }
                 case "flexBasis": {
-                  i.flexBasis = o("WebBloksUtils").toPx(String(m));
+                  m.flexBasis = o("WebBloksUtils").toPx(String(g));
                   break e;
                 }
                 case "justifyContent": {
-                  i.justifyContent = o("WebBloksUtils").toHyphen(String(m));
+                  m.justifyContent = o("WebBloksUtils").toHyphen(String(g));
                   break e;
                 }
                 case "position_type":
                 case "positionType": {
-                  i.position = String(m);
+                  m.position = String(g);
                   break e;
                 }
                 case "bottom":
                 case "left":
                 case "right":
                 case "top": {
-                  ((i[p] = o("WebBloksUtils").toPx(String(m))),
-                    (i.position = "absolute"));
+                  ((m[h] = o("WebBloksUtils").toPx(String(g))),
+                    (m.position = "absolute"));
                   break e;
                 }
                 case "aspectRatio":
@@ -85,8 +89,8 @@ __d(
                 case "paddingRight":
                 case "paddingBottom":
                 case "paddingLeft": {
-                  i[p] = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(m)),
+                  m[h] = o("WebBloksUtils").toPx(
+                    o("WebBloksUtils").toHyphen(String(g)),
                   );
                   break e;
                 }
@@ -95,96 +99,96 @@ __d(
                 case "marginVertical":
                   break e;
                 case "transform": {
-                  i[p] = String(m);
+                  m[h] = String(g);
                   break e;
                 }
                 default:
-                  i[p] = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(m)),
+                  m[h] = o("WebBloksUtils").toPx(
+                    o("WebBloksUtils").toHyphen(String(g)),
                   );
               }
             }
           }
         }
-        var _ = o("WebBloksUtils").isStyle(e._style, "collection");
-        if (_) {
-          var f = o("WebBloksUtils").nullthrows(e._style).getValues();
-          for (var g of Object.entries(f)) {
-            var h = g[0],
-              y = g[1];
-            if (!d(h)) {
-              var C = o("WebBloksUtils").toCamel(h);
-              e: switch (C) {
+        var y = o("WebBloksUtils").isStyle(a, "collection");
+        if (y) {
+          var C = o("WebBloksUtils").nullthrows(a).getValues_DO_NOT_USE();
+          for (var b of Object.entries(C)) {
+            var v = b[0],
+              S = b[1];
+            if (!d(v)) {
+              var R = o("WebBloksUtils").toCamel(v);
+              e: switch (R) {
                 case "isSticky": {
-                  y === !0 && (i.position = "sticky");
+                  S === !0 && (m.position = "sticky");
                   break e;
                 }
                 case "onAppear":
                 case "onDisappear":
                   break e;
                 case "height": {
-                  i.height = o("WebBloksUtils").toPx(String(y));
+                  m.height = o("WebBloksUtils").toPx(String(S));
                   break e;
                 }
                 case "width": {
-                  i.width = o("WebBloksUtils").toPx(String(y));
+                  m.width = o("WebBloksUtils").toPx(String(S));
                   break e;
                 }
                 case "ntDebugMetadataV2":
                   break e;
                 default:
-                  i[C] = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(y)),
+                  m[R] = o("WebBloksUtils").toPx(
+                    o("WebBloksUtils").toHyphen(String(S)),
                   );
               }
             }
           }
         }
-        var b = o("WebBloksUtils").isStyle(e._style, "bk.style.Base");
-        if (b) {
-          var v = o("WebBloksUtils").nullthrows(e._style).getValues();
-          c(v, i);
-          for (var S of Object.entries(v)) {
-            var R = S[0],
-              L = S[1];
-            if (!d(R)) {
-              var E = o("WebBloksCSSUtils").getRtlAwareCssAttr(
-                o("WebBloksUtils").toCamel(R),
+        var L = o("WebBloksUtils").isStyle(a, "bk.style.Base");
+        if (L) {
+          var E = o("WebBloksUtils").nullthrows(a).getValues_DO_NOT_USE();
+          c(E, m);
+          for (var k of Object.entries(E)) {
+            var I = k[0],
+              T = k[1];
+            if (!d(I)) {
+              var D = o("WebBloksCSSUtils").getRtlAwareCssAttr(
+                o("WebBloksUtils").toCamel(I),
                 n,
               );
-              e: switch (E) {
+              e: switch (D) {
                 case "flexGrow": {
-                  i.flexGrow = String(L);
+                  m.flexGrow = String(T);
                   break e;
                 }
                 case "flexShrink": {
-                  i.flexShrink = String(L);
+                  m.flexShrink = String(T);
                   break e;
                 }
                 case "flexBasis": {
-                  i.flexBasis = o("WebBloksUtils").toPx(String(L));
+                  m.flexBasis = o("WebBloksUtils").toPx(String(T));
                   break e;
                 }
                 case "alignSelf": {
-                  i.alignSelf = o("WebBloksUtils").toHyphen(String(L));
+                  m.alignSelf = o("WebBloksUtils").toHyphen(String(T));
                   break e;
                 }
                 case "positionType": {
-                  i.position = String(L);
+                  m.position = String(T);
                   break e;
                 }
                 case "bottom":
                 case "left":
                 case "right":
                 case "top": {
-                  ((i[E] = o("WebBloksUtils").toPx(String(L))),
-                    (i.position = "absolute"));
+                  ((m[D] = o("WebBloksUtils").toPx(String(T))),
+                    (m.position = "absolute"));
                   break e;
                 }
                 case "aspectRatio":
                   break e;
                 case "zIndex": {
-                  i.zIndex = Number(L);
+                  m.zIndex = Number(T);
                   break e;
                 }
                 case "collectionStickyItemConfig":
@@ -204,8 +208,8 @@ __d(
                 case "marginRight":
                 case "marginBottom":
                 case "marginLeft": {
-                  i[E] = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(L)),
+                  m[D] = o("WebBloksUtils").toPx(
+                    o("WebBloksUtils").toHyphen(String(T)),
                   );
                   break e;
                 }
@@ -214,22 +218,22 @@ __d(
                 case "marginVertical":
                   break e;
                 default:
-                  i[E] = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(L)),
+                  m[D] = o("WebBloksUtils").toPx(
+                    o("WebBloksUtils").toHyphen(String(T)),
                   );
               }
             }
           }
         }
-        (o("WebBloksUtils").isStyle(e._style, "ig.style.SearchStyle") &&
-          (i.width = "100%"),
-          (t[2] = n),
-          (t[3] = e._style),
-          (t[4] = e.alpha),
-          (t[5] = a),
-          (t[6] = i));
-      } else i = t[6];
-      return i;
+        (o("WebBloksUtils").isStyle(a, "ig.style.SearchStyle") &&
+          (m.width = "100%"),
+          (t[6] = l),
+          (t[7] = n),
+          (t[8] = a),
+          (t[9] = u),
+          (t[10] = m));
+      } else m = t[10];
+      return m;
     }
     function c(e, t) {
       if (e.margin != null) {

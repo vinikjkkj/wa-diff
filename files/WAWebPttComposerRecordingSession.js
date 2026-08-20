@@ -225,7 +225,7 @@ __d(
                           "WAWebWamMediaMetricUtils",
                         ).generateMediaEventId(),
                       },
-                      o("WAWebMediaHosts").mediaHosts,
+                      { mediaHosts: o("WAWebMediaHosts").mediaHosts },
                     );
                   (L.startUploadFromClient(),
                     (this._encryptor = yield o(

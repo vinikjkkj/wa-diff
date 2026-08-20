@@ -24,27 +24,34 @@ __d(
         : !1;
     }
     function d(e) {
-      if (e.length !== 2) return null;
-      var t = m(e);
-      return t.length === 1 ? t[0] : null;
+      var t = e.callState,
+        n = e.isCallLinkLobbyConnecting,
+        r = e.showSurveyUI,
+        o = t != null || n;
+      return o && !r;
     }
     function m(e) {
+      if (e.length !== 2) return null;
+      var t = p(e);
+      return t.length === 1 ? t[0] : null;
+    }
+    function p(e) {
       return e.filter(function (e) {
         return !o("WAWebUserPrefsMeUser").isMeAccount(e);
       });
     }
-    function p(e, t) {
+    function _(e, t) {
       return e.filter(function (e) {
         if (o("WAWebUserPrefsMeUser").isMeAccount(e)) return !1;
         var n = t.get(e.toString());
         return n === o("WAWebVoipWaCallEnums").CallParticipantState.Connected;
       });
     }
-    function _(e, t) {
-      var n = p(e, t);
+    function f(e, t) {
+      var n = _(e, t);
       return n.length >= 1;
     }
-    function f(e, t) {
+    function g(e, t) {
       e === void 0 && (e = !1);
       var n = o("WAWebVoipCallStateUtils").isCallConnecting(t);
       return {
@@ -60,7 +67,7 @@ __d(
             : { labelKey: "ignore", shouldShow: !0, styleType: "borderless" },
       };
     }
-    function g(e) {
+    function h(e) {
       var t = e.callState,
         n = e.isCallOutgoing,
         r = e.onEnd,
@@ -68,7 +75,7 @@ __d(
         i = o("WAWebVoipCallStateUtils").isCallConnecting(t);
       return n || i ? r : a;
     }
-    function h(e, t, n, a) {
+    function y(e, t, n, a) {
       if (
         (t === void 0 && (t = !1),
         o("WAWebVoipCallStateUtils").isCallConnecting(a))
@@ -91,15 +98,16 @@ __d(
       }
       return s._(/*BTDS*/ "Group call");
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"),
+    ((y.displayName = y.name + " [from " + i.id + "]"),
       (l.isLobbyApplicableForCallState = c),
-      (l.getSolePeerInGroupCall = d),
-      (l.getParticipantsWithoutSelf = m),
-      (l.getConnectedParticipantsWithoutSelf = p),
-      (l.getArePeersActiveInCall = _),
-      (l.getLobbyButtonDisplayProps = f),
-      (l.getLobbyNegativeButtonHandler = g),
-      (l.getLobbyParticipantInfoText = h));
+      (l.shouldShowCallControls = d),
+      (l.getSolePeerInGroupCall = m),
+      (l.getParticipantsWithoutSelf = p),
+      (l.getConnectedParticipantsWithoutSelf = _),
+      (l.getArePeersActiveInCall = f),
+      (l.getLobbyButtonDisplayProps = g),
+      (l.getLobbyNegativeButtonHandler = h),
+      (l.getLobbyParticipantInfoText = y));
   },
   226,
 );

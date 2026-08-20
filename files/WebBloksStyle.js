@@ -10,10 +10,9 @@ __d(
     );
     function c(e, t, n) {
       n === void 0 && (n = !1);
-      var o = e.getValues(),
-        a = u(null);
-      e.uiMutableContainer.domNode = a;
-      var i =
+      var o = u(null);
+      e.uiMutableContainer.domNode = o;
+      var a =
           n === !0
             ? {
                 pointerEvents: "auto",
@@ -21,15 +20,15 @@ __d(
                 WebkitTapHighlightColor: "transparent",
               }
             : void 0,
-        l = babelHelpers.extends({}, r("WebBloksLayout")(o), i, t),
-        s = r("WebBloksWrapper")(e, l, a),
-        c = s.hasWrapper,
-        m = s.stylesFromExtensions,
-        p = s.wrapper,
-        _ = s.wrapperProps;
+        i = babelHelpers.extends({}, r("WebBloksLayout")(e), a, t),
+        l = r("WebBloksWrapper")(e, i, o),
+        s = l.hasWrapper,
+        c = l.stylesFromExtensions,
+        m = l.wrapper,
+        p = l.wrapperProps;
       return (
-        m && Object.assign(l, m),
-        { ref: a, style: c ? d : l, wrapper: p, wrapperProps: _ }
+        c && Object.assign(i, c),
+        { ref: o, style: s ? d : i, wrapper: m, wrapperProps: p }
       );
     }
     var d = { height: "100%", width: "100%", pointerEvents: "inherit" };

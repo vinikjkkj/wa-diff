@@ -44,52 +44,50 @@ __d(
         e.traceType === "INP" ||
         e.traceType === "LONG_ANIMATION_FRAME"
       ) {
-        var t = e.traceType;
-        m.forEach(function (n) {
-          var a = n.getTrace();
-          if (a) {
-            var i;
-            if (
-              (o(
-                "interaction-tracing-metrics",
-              ).InteractionTracingMetricsCore.addSubspan(
-                n.getTraceId(),
-                t,
-                t,
-                Math.max(e.startTime, a.start),
-                (i = e.endTime) != null
-                  ? i
-                  : (c || (c = r("performanceNow")))(),
-                {},
-              ),
-              a.type != null)
-            ) {
-              var l,
-                s,
-                u,
-                d = a.type,
-                m = (l = a.tracePolicy) != null ? l : "",
-                p = n.getQPLEventMarkerId(),
-                _ = d + "(" + p + ":" + m + ")",
-                f =
-                  (s =
-                    (u = e.annotations.string_array) == null
-                      ? void 0
-                      : u.affectedInteractions) != null
-                    ? s
-                    : [];
-              (r("addAnnotations")(e.annotations, {
-                string_array: { affectedInteractions: f.concat([_]) },
-              }),
-                t === "INP" &&
-                  e.startTime <= a.start &&
-                  (r("addAnnotations")(e.annotations, {
-                    string: { initiatedInteraction: _ },
-                  }),
-                  (e.markerPoints.interactionTraceStart = {
-                    timeSinceStart: a.start,
-                  })));
-            }
+        var t,
+          n = e.traceType,
+          a = (t = e.endTime) != null ? t : (c || (c = r("performanceNow")))();
+        m.forEach(function (t) {
+          var i = t.getTrace();
+          if (
+            i &&
+            (o(
+              "interaction-tracing-metrics",
+            ).InteractionTracingMetricsCore.addSubspan(
+              t.getTraceId(),
+              n,
+              n,
+              Math.max(e.startTime, i.start),
+              a,
+              {},
+            ),
+            i.type != null)
+          ) {
+            var l,
+              s,
+              u,
+              c = i.type,
+              d = (l = i.tracePolicy) != null ? l : "",
+              m = t.getQPLEventMarkerId(),
+              p = c + "(" + m + ":" + d + ")",
+              _ =
+                (s =
+                  (u = e.annotations.string_array) == null
+                    ? void 0
+                    : u.affectedInteractions) != null
+                  ? s
+                  : [];
+            (r("addAnnotations")(e.annotations, {
+              string_array: { affectedInteractions: _.concat([p]) },
+            }),
+              n === "INP" &&
+                e.startTime <= i.start &&
+                (r("addAnnotations")(e.annotations, {
+                  string: { initiatedInteraction: p },
+                }),
+                (e.markerPoints.interactionTraceStart = {
+                  timeSinceStart: i.start,
+                })));
           }
         });
       }

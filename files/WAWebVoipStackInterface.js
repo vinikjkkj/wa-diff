@@ -157,6 +157,17 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebVoipGatingUtils").isVoipDownloadEnabled() && (yield R());
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebVoipGatingUtils").isVoipDownloadEnabled()) return null;
           var e = yield E(),
             t = e.createWAWebVoipStackInterface,
@@ -166,13 +177,15 @@ __d(
             throw r("err")("voip stack interface module has no factory");
           return (p == null && (p = t()), p);
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T() {
+    function x() {
       return p;
     }
-    ((l.getVoipStackInterface = k), (l.getCachedVoipStackInterface = T));
+    ((l.prefetchVoipStackInterfaceModule = k),
+      (l.getVoipStackInterface = T),
+      (l.getCachedVoipStackInterface = x));
   },
   98,
 );

@@ -85,6 +85,7 @@ __d(
       GEN_AI_TEST_WITH_DELIVERY: "gen_ai_test_with_delivery",
       GEN_AI_TEST_WITHOUT_DELIVERY: "gen_ai_test_without_delivery",
       IAF_INTERNAL_TEST_A: "iaf_internal_test_a",
+      IG_BOOST_DELIVERY_OPTIMIZATION: "ig_boost_delivery_optimization",
       IMAGE_ANIMATION: "image_animation",
       LONG_ATTRIBUTIONS_WINDOW: "long_attributions_window",
       LPV: "landing_page_view",

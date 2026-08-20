@@ -30,24 +30,23 @@ __d(
       var t = e.children,
         n = e.model,
         r = o("WebBloksComponentContext").useWebBloksContext(),
-        a = n.getValues(),
-        i = a.data,
-        l = a.fire_on_first_mount,
-        u = n.getExpression("on_change"),
-        p = m(o("WebBloksBooleanUtils").isFalse(l)),
-        _ = p[0],
-        f = p[1],
-        g = d(null);
+        a = n.get("data"),
+        i = n.get("fire_on_first_mount"),
+        l = n.getExpression("on_change"),
+        u = m(o("WebBloksBooleanUtils").isFalse(i)),
+        p = u[0],
+        _ = u[1],
+        f = d(null);
       return (
         c(
           function () {
-            (_
-              ? f(!1)
-              : o("WebBloksUtils").deepEquals(g.current, i) ||
-                (u != null && r.executeCatch(n, u, [r, g.current, i])),
-              (g.current = i));
+            (p
+              ? _(!1)
+              : o("WebBloksUtils").deepEquals(f.current, a) ||
+                (l != null && r.executeCatch(n, l, [r, f.current, a])),
+              (f.current = a));
           },
-          [i],
+          [a],
         ),
         s.jsx(s.Fragment, { children: t })
       );

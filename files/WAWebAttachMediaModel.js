@@ -8,6 +8,7 @@ __d(
     "WALogger",
     "WAMemoizeConcurrent",
     "WAWebABProps",
+    "WAWebAttachMediaGetters",
     "WAWebBaseModel",
     "WAWebChatGetters",
     "WAWebFileUtils",
@@ -707,7 +708,8 @@ __d(
         }),
         (i.delete = function () {
           (this.fullPreview && window.URL.revokeObjectURL(this.fullPreview),
-            t.prototype.delete.call(this));
+            t.prototype.delete.call(this),
+            o("WAWebAttachMediaGetters").clearAttachMediaGetterCacheFor(this));
         }),
         (i.updateMediaEditorData = function (t, n) {
           return this.mediaEditorData === t

@@ -3,6 +3,7 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebApplyLeadStageSublistAction",
     "WAWebContactCollection",
     "WAWebContactManagerApplyLeadLabelAction",
     "WAWebContactManagerCustomerProfileUpsertMutation",
@@ -14,10 +15,11 @@ __d(
     "WAWebLeadStage",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
+    var e, s, u, c, d, m;
+    function p(e) {
       var t, n, r, o, a, i, l;
       return {
         contactType: e.contactType,
@@ -30,10 +32,10 @@ __d(
         lastOrder: (l = e.lastOrder) != null ? l : void 0,
       };
     }
-    function p(e, t, n) {
+    function _(e, t, n) {
       if (t != null) {
         t.set(n);
-        var r = m(t);
+        var r = p(t);
         return o("WAWebCustomerDataAction").customerDataEditAction(
           t.chatJid,
           r,
@@ -52,28 +54,29 @@ __d(
       );
       return o("WAWebCustomerDataAction").customerDataAddAction(e, a);
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function f(e, t, n) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (!e.endsWith(o("WAJids").LID_DOMAIN))
             throw r("err")(
               '[ContactManager] upsertAsCustomer: chatJid must be LID-based, got "' +
                 e +
                 '"',
             );
-          (o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[ContactManager] upsertAsCustomer: chatJid ",
-                ", leadStage ",
-                "",
-              ])),
-            e,
-            String(t),
-          ),
+          if (
+            (o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ContactManager] upsertAsCustomer: chatJid ",
+                  ", leadStage ",
+                  "",
+                ])),
+              e,
+              String(t),
+            ),
             o("WAWebContactManagerApplyLeadLabelAction")
               .contactManagerApplyLeadLabelToChat(e)
               .catch(function (e) {
@@ -88,45 +91,62 @@ __d(
                   )
                   .sendLogs("customer_manager_label_apply_failed");
               }),
-            yield o(
-              "WAWebContactManagerCustomerProfileUpsertMutation",
-            ).upsertCustomerProfileToServer(e, {
-              acquisitionSource: n == null ? void 0 : n.acquisitionSource,
-              address: n == null ? void 0 : n.address,
-              email: n == null ? void 0 : n.email,
-              lastOrder: n == null ? void 0 : n.lastOrder,
-              leadStage: t,
-              name: b(e),
-            }),
-            o(
-              "WAWebCustomerProfileChangeNotifier",
-            ).notifyCustomerProfileChanged(e));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+            t != null && t !== o("WAWebLeadStage").LeadStage.NONE)
+          )
+            try {
+              yield o(
+                "WAWebApplyLeadStageSublistAction",
+              ).applyLeadStageSublistForProfile(e, t, null);
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ContactManager] Failed to write lead stage sub-list",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("customer_manager_lead_stage_sublist_write_failed");
+            }
           (yield o(
             "WAWebContactManagerCustomerProfileUpsertMutation",
-          ).upsertCustomerProfileToServer(e, { leadStage: t, name: b(e) }),
+          ).upsertCustomerProfileToServer(e, {
+            acquisitionSource: n == null ? void 0 : n.acquisitionSource,
+            address: n == null ? void 0 : n.address,
+            email: n == null ? void 0 : n.email,
+            lastOrder: n == null ? void 0 : n.lastOrder,
+            leadStage: t,
+            name: v(e),
+          }),
             o(
               "WAWebCustomerProfileChangeNotifier",
             ).notifyCustomerProfileChanged(e));
         })),
-        h.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function C() {
+    function y() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          (yield o(
+            "WAWebContactManagerCustomerProfileUpsertMutation",
+          ).upsertCustomerProfileToServer(e, { leadStage: t, name: v(e) }),
+            o(
+              "WAWebCustomerProfileChangeNotifier",
+            ).notifyCustomerProfileChanged(e));
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e, t) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o(
             "WAWebContactManagerCustomerProfileUpsertMutation",
           ).upsertCustomerProfileFieldToServer(e, t),
@@ -134,16 +154,16 @@ __d(
               "WAWebCustomerProfileChangeNotifier",
             ).notifyCustomerProfileChanged(e));
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
+    function v(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       return t != null
         ? o("WAWebFrontendContactGetters").getDisplayName(t)
         : null;
     }
-    function v(t) {
+    function S(t) {
       if (!t.endsWith(o("WAJids").LID_DOMAIN))
         throw r("err")(
           '[ContactManager] deactivateCustomer: chatJid must be LID-based, got "' +
@@ -162,7 +182,7 @@ __d(
         "WAWebCustomerDataCollection",
       ).CustomerDataCollection.maybeGetCustomerDataByChatJid(t);
       n != null &&
-        p(t, n, {
+        _(t, n, {
           contactType: o("WAWebContactType").ContactType.NONE,
           leadStage: o("WAWebLeadStage").LeadStage.NONE,
         }).catch(function (e) {
@@ -178,11 +198,11 @@ __d(
             .sendLogs("customer_manager_deactivate_customer_failed");
         });
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       r !== n &&
         (r === o("WAWebLeadStage").LeadStage.NONE &&
         n !== o("WAWebLeadStage").LeadStage.NONE
-          ? _(e, n).catch(function (e) {
+          ? f(e, n).catch(function (e) {
               o("WALogger")
                 .WARN(
                   u ||
@@ -196,15 +216,15 @@ __d(
             })
           : r !== o("WAWebLeadStage").LeadStage.NONE &&
               n === o("WAWebLeadStage").LeadStage.NONE
-            ? v(e)
-            : p(e, t, { leadStage: n }));
+            ? S(e)
+            : _(e, t, { leadStage: n }));
     }
-    ((l.saveCustomerDataField = p),
-      (l.upsertAsCustomer = _),
-      (l.upsertLeadStageToProfile = g),
-      (l.upsertCustomerFieldToProfile = y),
-      (l.deactivateCustomer = v),
-      (l.handleLeadStageTransition = S));
+    ((l.saveCustomerDataField = _),
+      (l.upsertAsCustomer = f),
+      (l.upsertLeadStageToProfile = h),
+      (l.upsertCustomerFieldToProfile = C),
+      (l.deactivateCustomer = S),
+      (l.handleLeadStageTransition = R));
   },
   98,
 );

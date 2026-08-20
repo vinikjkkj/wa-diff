@@ -33,12 +33,14 @@ __d(
     }
     var p = (function () {
       function t(e, t) {
-        var r, o;
+        var r,
+          o,
+          a = t.mediaHosts;
         ((this.$2 = Date.now()),
           (this.$3 = 0),
           (this.$4 = 0),
           (this.$9 = (d || (d = n("Promise"))).resolve()),
-          (this.$13 = t),
+          (this.$13 = a),
           (this.$6 = e.encFilehash),
           (this.$5 = e.type),
           (this.$7 = e.signal),

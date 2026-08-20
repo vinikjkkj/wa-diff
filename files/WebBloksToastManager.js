@@ -124,42 +124,40 @@ __d(
             var e,
               n,
               r,
-              o = t.getValues(),
-              a = this.parseToastInterpolator(
-                o.show_animation_interpolator,
+              o = this.parseToastInterpolator(
+                t.get("show_animation_interpolator"),
                 u.showAnimationInterpolator,
               ),
-              i = this.parseToastInterpolator(
-                o.dismiss_animation_interpolator,
+              a = this.parseToastInterpolator(
+                t.get("dismiss_animation_interpolator"),
                 u.dismissAnimationInterpolator,
               );
             return {
               autoDismissDurationMs:
-                (e = o.auto_dismiss_duration_ms) != null
+                (e = t.get("auto_dismiss_duration_ms")) != null
                   ? e
                   : u.autoDismissDurationMs,
               showAnimationDurationMs:
-                (n = o.show_animation_duration_ms) != null
+                (n = t.get("show_animation_duration_ms")) != null
                   ? n
                   : u.showAnimationDurationMs,
               dismissAnimationDurationMs:
-                (r = o.dismiss_animation_duration_ms) != null
+                (r = t.get("dismiss_animation_duration_ms")) != null
                   ? r
                   : u.dismissAnimationDurationMs,
-              showAnimationInterpolator: a,
-              dismissAnimationInterpolator: i,
-              onShow: o.on_show,
-              onDismiss: o.on_dismiss,
+              showAnimationInterpolator: o,
+              dismissAnimationInterpolator: a,
+              onShow: t.get("on_show"),
+              onDismiss: t.get("on_dismiss"),
             };
           }),
           (t.parseToastInterpolator = function (t, n) {
             if (t == null) return n;
-            var e = t.getValues(),
-              r = e.x_a,
-              o = e.x_b,
-              a = e.y_a,
-              i = e.y_b;
-            return "cubic-bezier(" + r + "," + a + "," + o + "," + i + ")";
+            var e = t.get("x_a"),
+              r = t.get("x_b"),
+              o = t.get("y_a"),
+              a = t.get("y_b");
+            return "cubic-bezier(" + e + "," + o + "," + r + "," + a + ")";
           }),
           (t.addListener = function (t) {
             var e = this;

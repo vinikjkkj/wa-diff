@@ -31,6 +31,7 @@ __d(
       navIcon: s("1729923"),
       navShoppingCart: s("1795210"),
       navInfoCircle: s("1346159"),
+      magnifyingGlass: s("1252910"),
     };
     function u() {
       for (

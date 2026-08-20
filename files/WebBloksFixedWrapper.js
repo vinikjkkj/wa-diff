@@ -11,78 +11,87 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(19),
+      var t = o("react-compiler-runtime").c(27),
         n = e.externalStyle,
         r = e.node,
         a = o("WebBloksComponentContext").useWebBloksContext(),
         i = a.renderChildren,
         l;
-      t[0] !== r ? ((l = r.getValues()), (t[0] = r), (t[1] = l)) : (l = t[1]);
+      t[0] !== r ? ((l = r.get("bottom")), (t[0] = r), (t[1] = l)) : (l = t[1]);
       var u = l,
-        c = u.bottom,
-        d = u.left,
-        m = u.right,
-        p = u.top,
-        _ = u.z_index,
-        f = r.getSubNodes("children"),
-        g = c != null ? c : void 0,
-        h = d != null ? d : void 0,
-        y = m != null ? m : void 0,
-        C = p != null ? p : void 0,
-        b = _ != null ? _ : void 0,
-        v;
-      t[2] !== g || t[3] !== h || t[4] !== y || t[5] !== C || t[6] !== b
-        ? ((v = {
-            bottom: g,
-            left: h,
+        c;
+      t[2] !== r ? ((c = r.get("left")), (t[2] = r), (t[3] = c)) : (c = t[3]);
+      var d = c,
+        m;
+      t[4] !== r ? ((m = r.get("right")), (t[4] = r), (t[5] = m)) : (m = t[5]);
+      var p = m,
+        _;
+      t[6] !== r ? ((_ = r.get("top")), (t[6] = r), (t[7] = _)) : (_ = t[7]);
+      var f = _,
+        g;
+      t[8] !== r
+        ? ((g = r.get("z_index")), (t[8] = r), (t[9] = g))
+        : (g = t[9]);
+      var h = g,
+        y = r.getSubNodes("children"),
+        C = u != null ? u : void 0,
+        b = d != null ? d : void 0,
+        v = p != null ? p : void 0,
+        S = f != null ? f : void 0,
+        R = h != null ? h : void 0,
+        L;
+      t[10] !== R || t[11] !== C || t[12] !== b || t[13] !== v || t[14] !== S
+        ? ((L = {
+            bottom: C,
+            left: b,
             position: "fixed",
-            right: y,
-            top: C,
-            zIndex: b,
+            right: v,
+            top: S,
+            zIndex: R,
           }),
-          (t[2] = g),
-          (t[3] = h),
-          (t[4] = y),
-          (t[5] = C),
-          (t[6] = b),
-          (t[7] = v))
-        : (v = t[7]);
-      var S = v,
-        R;
-      t[8] !== n || t[9] !== S
-        ? ((R = babelHelpers.extends({ pointerEvents: "none" }, n, S)),
-          (t[8] = n),
-          (t[9] = S),
-          (t[10] = R))
-        : (R = t[10]);
-      var L = o("WebBloksStyle").useStyle(r, R),
-        E = L.style,
-        k = L.wrapper,
-        I = L.wrapperProps,
-        T = o("WebBloksStyle").WebBloksStyles,
-        D = i(f),
-        x;
-      t[11] !== E || t[12] !== D || t[13] !== T.container || t[14] !== I
-        ? ((x = s.jsx(
+          (t[10] = R),
+          (t[11] = C),
+          (t[12] = b),
+          (t[13] = v),
+          (t[14] = S),
+          (t[15] = L))
+        : (L = t[15]);
+      var E = L,
+        k;
+      t[16] !== n || t[17] !== E
+        ? ((k = babelHelpers.extends({ pointerEvents: "none" }, n, E)),
+          (t[16] = n),
+          (t[17] = E),
+          (t[18] = k))
+        : (k = t[18]);
+      var I = o("WebBloksStyle").useStyle(r, k),
+        T = I.style,
+        D = I.wrapper,
+        x = I.wrapperProps,
+        $ = o("WebBloksStyle").WebBloksStyles,
+        P = i(y),
+        N;
+      t[19] !== T || t[20] !== $.container || t[21] !== P || t[22] !== x
+        ? ((N = s.jsx(
             "div",
-            babelHelpers.extends({}, I, {
-              className: T.container,
-              style: E,
-              children: D,
+            babelHelpers.extends({}, x, {
+              className: $.container,
+              style: T,
+              children: P,
             }),
           )),
-          (t[11] = E),
-          (t[12] = D),
-          (t[13] = T.container),
-          (t[14] = I),
-          (t[15] = x))
-        : (x = t[15]);
-      var $;
+          (t[19] = T),
+          (t[20] = $.container),
+          (t[21] = P),
+          (t[22] = x),
+          (t[23] = N))
+        : (N = t[23]);
+      var M;
       return (
-        t[16] !== x || t[17] !== k
-          ? (($ = k(x)), (t[16] = x), (t[17] = k), (t[18] = $))
-          : ($ = t[18]),
-        $
+        t[24] !== N || t[25] !== D
+          ? ((M = D(N)), (t[24] = N), (t[25] = D), (t[26] = M))
+          : (M = t[26]),
+        M
       );
     }
     l.default = u;

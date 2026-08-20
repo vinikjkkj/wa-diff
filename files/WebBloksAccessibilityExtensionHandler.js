@@ -13,23 +13,22 @@ __d(
       },
       s = {
         getProps: function (n) {
-          var t = n.getValues(),
-            r = t.disabled,
-            a = t.enabled,
-            i = t.label,
-            l = t.role,
-            s = {};
+          var t = n.get("disabled"),
+            r = n.get("enabled"),
+            a = n.get("label"),
+            i = n.get("role"),
+            l = {};
           return (
-            o("WebBloksBooleanUtils").isFalse(a) ||
-              (l && (s.role = e[l]), i != null && (s["aria-label"] = i)),
-            (s = babelHelpers.extends(
+            o("WebBloksBooleanUtils").isFalse(r) ||
+              (i && (l.role = e[i]), a != null && (l["aria-label"] = a)),
+            (l = babelHelpers.extends(
               {},
-              o("WebBloksAccessibilityUtils").getFocusPropsForRole(s.role),
-              s,
+              o("WebBloksAccessibilityUtils").getFocusPropsForRole(l.role),
+              l,
             )),
-            o("WebBloksBooleanUtils").isTrue(r) &&
-              ((s.disabled = !0), (s["aria-disabled"] = !0)),
-            s
+            o("WebBloksBooleanUtils").isTrue(t) &&
+              ((l.disabled = !0), (l["aria-disabled"] = !0)),
+            l
           );
         },
       },
