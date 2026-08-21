@@ -31,6 +31,7 @@ __d(
     "WAWebPollsSendPollCreationMsgAction",
     "WAWebRichTextField.react",
     "WAWebRound.react",
+    "WAWebSpoilerGating",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWdsIcSendFilledIcon.react",
@@ -489,6 +490,8 @@ __d(
                             hideFloatingLabel: !0,
                             showRemaining: !0,
                             emojiBtnPosition: "side",
+                            spoilerEnabled:
+                              o("WAWebSpoilerGating").isSpoilerSenderEnabled(),
                             textFormatEnabled: !0,
                             value: C != null ? C : L,
                             maxLength: o(

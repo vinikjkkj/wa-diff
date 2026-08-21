@@ -10,6 +10,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebPollsGatingUtils",
     "WAWebRichTextField.react",
+    "WAWebSpoilerGating",
     "WAWebUnstyledButton.react",
     "WAWebXAltIcon.react",
     "WDSIconIcImage.react",
@@ -64,7 +65,7 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(40),
+      var t = o("react-compiler-runtime").c(41),
         n = e.chat,
         a = e.checked,
         i = e.error,
@@ -160,19 +161,23 @@ __d(
           (t[16] = B))
         : (B = t[16]);
       var W;
-      t[17] !== _ ||
-      t[18] !== k ||
-      t[19] !== y ||
-      t[20] !== C ||
-      t[21] !== b ||
-      t[22] !== v ||
-      t[23] !== D ||
-      t[24] !== F ||
-      t[25] !== O ||
-      t[26] !== B ||
-      t[27] !== M ||
-      t[28] !== E
-        ? ((W = u.jsx(
+      t[17] === Symbol.for("react.memo_cache_sentinel")
+        ? ((W = o("WAWebSpoilerGating").isSpoilerSenderEnabled()), (t[17] = W))
+        : (W = t[17]);
+      var q;
+      t[18] !== _ ||
+      t[19] !== k ||
+      t[20] !== y ||
+      t[21] !== C ||
+      t[22] !== b ||
+      t[23] !== v ||
+      t[24] !== D ||
+      t[25] !== F ||
+      t[26] !== O ||
+      t[27] !== B ||
+      t[28] !== M ||
+      t[29] !== E
+        ? ((q = u.jsx(
             "div",
             babelHelpers.extends({}, P, {
               children: u.jsx(
@@ -194,6 +199,7 @@ __d(
                     ref: B,
                     showDraggableIcon: k,
                     showRemaining: !0,
+                    spoilerEnabled: W,
                     testid: E,
                     textFormatEnabled: !0,
                     value: _,
@@ -202,23 +208,23 @@ __d(
               ),
             }),
           )),
-          (t[17] = _),
-          (t[18] = k),
-          (t[19] = y),
-          (t[20] = C),
-          (t[21] = b),
-          (t[22] = v),
-          (t[23] = D),
-          (t[24] = F),
-          (t[25] = O),
-          (t[26] = B),
-          (t[27] = M),
-          (t[28] = E),
-          (t[29] = W))
-        : (W = t[29]);
-      var q;
-      t[30] !== m || t[31] !== k || t[32] !== h || t[33] !== y || t[34] !== S
-        ? ((q = k
+          (t[18] = _),
+          (t[19] = k),
+          (t[20] = y),
+          (t[21] = C),
+          (t[22] = b),
+          (t[23] = v),
+          (t[24] = D),
+          (t[25] = F),
+          (t[26] = O),
+          (t[27] = B),
+          (t[28] = M),
+          (t[29] = E),
+          (t[30] = q))
+        : (q = t[30]);
+      var U;
+      t[31] !== m || t[32] !== k || t[33] !== h || t[34] !== y || t[35] !== S
+        ? ((U = k
             ? u.jsxs(u.Fragment, {
                 children: [
                   u.jsx(p, { image: m, onClick: S, onDeletePhoto: h }),
@@ -231,26 +237,26 @@ __d(
                 ],
               })
             : null),
-          (t[30] = m),
-          (t[31] = k),
-          (t[32] = h),
-          (t[33] = y),
-          (t[34] = S),
-          (t[35] = q))
-        : (q = t[35]);
-      var U;
+          (t[31] = m),
+          (t[32] = k),
+          (t[33] = h),
+          (t[34] = y),
+          (t[35] = S),
+          (t[36] = U))
+        : (U = t[36]);
+      var V;
       return (
-        t[36] !== W || t[37] !== q || t[38] !== $
-          ? ((U = u.jsxs(
+        t[37] !== q || t[38] !== U || t[39] !== $
+          ? ((V = u.jsxs(
               "div",
-              babelHelpers.extends({}, x, { children: [$, W, q] }),
+              babelHelpers.extends({}, x, { children: [$, q, U] }),
             )),
-            (t[36] = W),
             (t[37] = q),
-            (t[38] = $),
-            (t[39] = U))
-          : (U = t[39]),
-        U
+            (t[38] = U),
+            (t[39] = $),
+            (t[40] = V))
+          : (V = t[40]),
+        V
       );
     }
     function p(e) {

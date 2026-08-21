@@ -596,14 +596,12 @@ __d(
                   o(
                     "WAWebVoipWebTransportConnectionManager",
                   ).registerFallbackHandler(function (e) {
-                    (o("WALogger")
-                      .LOG(
-                        R ||
-                          (R = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [WebTransport] Falling back to SCTP after connect failure (worker proxy)",
-                          ])),
-                      )
-                      .sendLogs("webtransport-fallback-handler-invoked"),
+                    (o("WALogger").LOG(
+                      R ||
+                        (R = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [WebTransport] Falling back to SCTP after connect failure (worker proxy)",
+                        ])),
+                    ),
                       o(
                         "WAWebVoipSctpConnectionManager",
                       ).markSctpEnteredViaWebTransportFallback(),
@@ -618,14 +616,12 @@ __d(
                         ? o(
                             "WAWebVoipSctpConnectionManager",
                           ).handleRelayListUpdate(e)
-                        : o("WALogger")
-                            .WARN(
-                              L ||
-                                (L = babelHelpers.taggedTemplateLiteralLoose([
-                                  "voip: [WebTransport] Fallback handler had no cached relay list to replay",
-                                ])),
-                            )
-                            .sendLogs("webtransport-fallback-no-relay-list"));
+                        : o("WALogger").WARN(
+                            L ||
+                              (L = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: [WebTransport] Fallback handler had no cached relay list to replay",
+                              ])),
+                          ));
                   }),
                   o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
                     o("WAWebVoipPerfOptimizations").PerfOptimizationFlag

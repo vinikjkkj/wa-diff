@@ -526,6 +526,7 @@ __d(
       MBS_QUICK_CREATE: "mbs_quick_create",
       MBS_WABA_SETTINGS: "mbs_waba_settings",
       AM_SUBNAV_IN_MBS: "am_subnav_in_mbs",
+      MFB_BLOCKED_ACCOUNT_FOOTER: "mfb_blocked_account_footer",
       BUSINESS_SETTINGS: "business_settings",
       MBS_BIZ_AI_ONBOARDING: "mbs_biz_ai_onboarding",
       MESSENGER_CTA: "messenger_cta",

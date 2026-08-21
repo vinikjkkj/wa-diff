@@ -1,6 +1,7 @@
 __d(
   "WAWebPixWamLogger",
   [
+    "WALogger",
     "WAWebGetMessageChatTypeFromWid",
     "WAWebPaymentsUserActionWamEvent",
     "WAWebSyncdMdSyncFieldstatMeta",
@@ -9,54 +10,92 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "BR";
-    function s(e) {
-      return u.apply(this, arguments);
+    var e,
+      s = "BR";
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    function u() {
+    function c() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.actionTarget,
-            r = t.chat,
-            a = t.extraAttributes,
-            i = a === void 0 ? {} : a,
-            l = t.paymentActionType,
-            s = t.pixData,
-            u = t.previousScreenName,
-            c = t.referral,
-            d = t.screen,
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.actionTarget,
+            n = e.chat,
+            r = e.extraAttributes,
+            a = r === void 0 ? {} : r,
+            i = e.paymentActionType,
+            l = e.pixData,
+            u = e.previousScreenName,
+            c = e.referral,
+            d = e.screen,
             m = yield o(
               "WAWebSyncdMdSyncFieldstatMeta",
             ).MdSyncFieldStatsMeta.getMdSessionId();
-          ((i.payment_method = "pix"),
-            r &&
-              (i.chat_type = Object.keys(
+          ((a.payment_method = "pix"),
+            n &&
+              (a.chat_type = Object.keys(
                 o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE,
               )[
                 o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
-                  r.id,
+                  n.id,
                 )
               ].toLowerCase()),
-            s && (i.key_type = String(s.key_type)));
-          var p = {
-              actionTarget: n,
-              paymentActionType: l,
-              paymentsCountryCode: e,
-              previousScreenName: u,
-              queryParams: JSON.stringify(i),
-              referral: c,
-              screen: d,
-              paymentsEventId: m,
-            },
-            _ = new (o(
-              "WAWebPaymentsUserActionWamEvent",
-            ).PaymentsUserActionWamEvent)(p);
-          _.commit();
+            l && (a.key_type = String(l.key_type)));
+          var _ = {
+            actionTarget: t,
+            paymentActionType: i,
+            paymentsCountryCode: s,
+            previousScreenName: u,
+            queryParams: JSON.stringify(a),
+            referral: c,
+            screen: d,
+            paymentsEventId: m,
+          };
+          p(_);
         })),
-        u.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.logPixSenderEvent = s;
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.actionTarget,
+            n = e.paymentActionType,
+            r = e.previousScreenName,
+            a = e.queryParams,
+            i = e.referral,
+            l = e.screen;
+          p({
+            actionTarget: t,
+            paymentActionType: n,
+            paymentsCountryCode: s,
+            paymentsEventId: yield o(
+              "WAWebSyncdMdSyncFieldstatMeta",
+            ).MdSyncFieldStatsMeta.getMdSessionId(),
+            previousScreenName: r,
+            queryParams: a != null ? JSON.stringify(a) : void 0,
+            referral: i,
+            screen: l,
+          });
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(t) {
+      var n = new (o(
+        "WAWebPaymentsUserActionWamEvent",
+      ).PaymentsUserActionWamEvent)(t);
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "ConsumerPaymentsHome Log",
+          ])),
+      ),
+        n.commit());
+    }
+    ((l.logPixSenderEvent = u), (l.logPixSessionEvent = d));
   },
   98,
 );

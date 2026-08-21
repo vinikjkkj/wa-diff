@@ -29,7 +29,6 @@ __d(
           $$css: !0,
         },
         addOnEnd: { $$css: !0 },
-        addOnStart: { $$css: !0 },
       },
       s = {
         content: {
@@ -43,7 +42,6 @@ __d(
           cursor: "x1ypdohk",
           $$css: !0,
         },
-        pressableDisabled: { $$css: !0 },
         hovered: {
           "::after_borderStartStartRadius": "xfijbtm",
           "::after_borderStartEndRadius": "xfenqrj",
@@ -51,7 +49,6 @@ __d(
           "::after_borderEndStartRadius": "x19igvu",
           $$css: !0,
         },
-        pressed: { $$css: !0 },
       };
     function u(t, r, o, a, i, l) {
       var s = {};
@@ -244,7 +241,7 @@ __d(
         item: [e.item, s.item],
         pressed: [s.pressed],
         addOnEnd: [e.addOnEnd, s.addOnEnd],
-        addOnStart: [e.addOnStart, s.addOnStart],
+        addOnStart: [s.addOnStart],
         horizontalContainer: s.horizontalContainer,
         children: s.children,
       };
@@ -349,14 +346,9 @@ __d(
             c.pressable,
             c.pressableOverlay,
           ],
-          pressableDisabled: [s.pressableDisabled, c.pressableDisabled],
+          pressableDisabled: [c.pressableDisabled],
           pressableHovered: [s.hovered, c.pressableHovered],
-          pressablePressed: [
-            s.pressed,
-            c.pressablePressed,
-            s.hovered,
-            c.pressableHovered,
-          ],
+          pressablePressed: [c.pressablePressed, s.hovered, c.pressableHovered],
         },
       };
     }

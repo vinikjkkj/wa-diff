@@ -16,6 +16,14 @@ __d(
       s,
       u,
       c = {
+        "21181f6ed9527b33686394d398ef3f62002c5c243049e89284a6964fe5003d4b":
+          function () {
+            return r("bx")("90547");
+          },
+        "97d1d369a2689ff2b588ef5b463351ddf62159c65e86c28f79df60ea02be2b25":
+          function () {
+            return r("bx")("47566");
+          },
         "781e245811250a21d239007321c402f790bbe80927ddd85e2b5898c63aed4bda":
           function () {
             return r("bx")("47565");
@@ -49,11 +57,11 @@ __d(
             return r("bx")("47516");
           },
       },
-      d = c["781e245811250a21d239007321c402f790bbe80927ddd85e2b5898c63aed4bda"],
+      d = c["21181f6ed9527b33686394d398ef3f62002c5c243049e89284a6964fe5003d4b"],
       m = null,
       p;
     try {
-      p = r("bx").getURL(d(), { cacheBreaker: "1787205838853" });
+      p = r("bx").getURL(d(), { cacheBreaker: "1787267598736" });
     } catch (e) {
       m = e;
     }
@@ -92,7 +100,7 @@ __d(
         var C = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/781e245811250a21d239007321c402f790bbe80927ddd85e2b5898c63aed4bda/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/21181f6ed9527b33686394d398ef3f62002c5c243049e89284a6964fe5003d4b/wa_voip_shared.wasm",
           ),
           m != null)
         )
@@ -130,7 +138,7 @@ __d(
             "_wasm_throw_ml_abort",
             "_set_ml_inference_flag",
             "_patch_abort_for_ml_inference",
-            "_get_persistent_directory_path_js",
+            "_write_persistent_directory_path_js",
             "_get_bwe_ml_model_path_js",
             "_get_ml_model_path_for_type_js",
             "_get_random_bytes_js",
@@ -817,10 +825,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Ke = {
-          1345430: function () {
+          1345855: function () {
             return Date.now();
           },
-          1345453: function (t, n) {
+          1345878: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -860,15 +868,15 @@ __d(
             e(n);
           };
         }
-        function Je() {
-          var e =
+        function Je(e, t) {
+          if (!e || t <= 0) return 0;
+          var n =
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.getPersistentDirectoryPath();
-          if (e) {
-            var t = Pt(e) + 1,
-              n = Ni(t);
-            return (jn(e, n, t), n);
+          if (n) {
+            var r = Pt(n) + 1;
+            return (jn(n, e, t), r);
           }
-          return null;
+          return 0;
         }
         function Ze(e) {
           var t = e ? Jt(e) : null,
@@ -7544,7 +7552,6 @@ __d(
             fd_write: ii,
             get_bwe_ml_model_path_js: Ze,
             get_ml_model_path_for_type_js: et,
-            get_persistent_directory_path_js: Je,
             get_random_bytes_js: tt,
             getentropy: li,
             gethostbyname: pi,
@@ -7699,6 +7706,7 @@ __d(
             sendSignalingXMPP_js_sync: ot,
             set_ml_inference_flag: Xe,
             strftime_l: vi,
+            write_persistent_directory_path_js: Je,
           },
           xi = We(),
           $i = $e("__wasm_call_ctors"),
@@ -7769,8 +7777,8 @@ __d(
           gl = (C.___get_exception_message = $e("__get_exception_message")),
           hl = $e("__cxa_can_catch"),
           yl = $e("__cxa_is_pointer_type"),
-          Cl = (C.___start_em_js = 1339484),
-          bl = (C.___stop_em_js = 1345430);
+          Cl = (C.___start_em_js = 1339868),
+          bl = (C.___stop_em_js = 1345855);
         function vl(e, t, n, r) {
           var o = ml();
           try {

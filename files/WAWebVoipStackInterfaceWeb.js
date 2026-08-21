@@ -175,14 +175,12 @@ __d(
                 o(
                   "WAWebVoipWebTransportConnectionManager",
                 ).registerFallbackHandler(function (e) {
-                  (o("WALogger")
-                    .LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [WebTransport] Falling back to SCTP after connect failure",
-                        ])),
-                    )
-                    .sendLogs("webtransport-fallback-handler-invoked"),
+                  (o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [WebTransport] Falling back to SCTP after connect failure",
+                      ])),
+                  ),
                     o(
                       "WAWebVoipSctpConnectionManager",
                     ).markSctpEnteredViaWebTransportFallback(),
@@ -197,14 +195,12 @@ __d(
                       ? o(
                           "WAWebVoipSctpConnectionManager",
                         ).handleRelayListUpdate(e)
-                      : o("WALogger")
-                          .WARN(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [WebTransport] Fallback handler had no cached relay list to replay",
-                              ])),
-                          )
-                          .sendLogs("webtransport-fallback-no-relay-list"));
+                      : o("WALogger").WARN(
+                          d ||
+                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [WebTransport] Fallback handler had no cached relay list to replay",
+                            ])),
+                        ));
                 }),
                 o("WAWebVoipStorageInit").initVoipStorageAndMLCache(a));
               var s = !1,

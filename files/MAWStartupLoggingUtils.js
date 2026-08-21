@@ -18,7 +18,7 @@ __d(
           t == null ? void 0 : t.lineno,
           t == null ? void 0 : t.colno,
           t == null ? void 0 : t.filename,
-          JSON.stringify(t, window.Object.getOwnPropertyNames(t)),
+          JSON.stringify(t, Object.getOwnPropertyNames(t)),
           t == null ? void 0 : t.name,
           n,
         ));

@@ -1659,60 +1659,8 @@ __d(
             );
             try {
               var t,
-                a = e.toString(),
-                i = "",
-                l = "";
-              if (e.isLid()) {
-                var s, u, c, d;
-                ((l =
-                  (s =
-                    (u = o("WAWebLidMigrationUtils").toLid(e)) == null
-                      ? void 0
-                      : u.toString()) != null
-                    ? s
-                    : a),
-                  (i =
-                    (c =
-                      (d = o("WAWebLidMigrationUtils").toPn(e)) == null
-                        ? void 0
-                        : d.toString()) != null
-                      ? c
-                      : ""));
-              } else {
-                var m, p, _, f;
-                if (
-                  ((i =
-                    (m =
-                      (p = o("WAWebLidMigrationUtils").toPn(e)) == null
-                        ? void 0
-                        : p.toString()) != null
-                      ? m
-                      : a),
-                  (l =
-                    (_ =
-                      (f = o("WAWebLidMigrationUtils").toLid(e)) == null
-                        ? void 0
-                        : f.toString()) != null
-                      ? _
-                      : ""),
-                  !l)
-                ) {
-                  var g, h;
-                  (yield o("WAWebAdvSyncDeviceListApi").syncDeviceList({
-                    wids: [e],
-                    context: "voip",
-                    phash: null,
-                  }),
-                    (l =
-                      (g =
-                        (h = o("WAWebLidMigrationUtils").toLid(e)) == null
-                          ? void 0
-                          : h.toString()) != null
-                        ? g
-                        : ""));
-                }
-              }
-              if (!l) {
+                a = yield Ue(e);
+              if (a == null) {
                 o("WALogger")
                   .ERROR(
                     Q ||
@@ -1723,12 +1671,13 @@ __d(
                   .sendLogs("voip: inviteToCall: LID expected but missing");
                 return;
               }
-              var y =
-                  (t = o("WAWebLidMigrationUtils").toLid(e)) != null ? t : e,
-                C = yield (J || (J = n("Promise"))).all([
+              var i = a.lidJid,
+                l = a.pnJid,
+                s = (t = o("WAWebLidMigrationUtils").toLid(e)) != null ? t : e,
+                u = yield (J || (J = n("Promise"))).all([
                   o("WAWebVoipStackInterface").getVoipStackInterface(),
                   o("WAWebAdvSyncDeviceListApi").syncDeviceList({
-                    wids: [y],
+                    wids: [s],
                     context: "voip",
                     phash: null,
                   }),
@@ -1741,20 +1690,20 @@ __d(
                     "voip-invite-to-call-preload-video-group",
                   ),
                 ]),
-                b = C[0];
-              if (!i) {
-                var v, S;
-                i =
-                  (v =
-                    (S = o("WAWebLidMigrationUtils").toPn(e)) == null
+                c = u[0];
+              if (!l) {
+                var d, m;
+                l =
+                  (d =
+                    (m = o("WAWebLidMigrationUtils").toPn(e)) == null
                       ? void 0
-                      : S.toString()) != null
-                    ? v
+                      : m.toString()) != null
+                    ? d
                     : "";
               }
-              var R = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([y]),
-                L = Ae(R, "inviteToCall");
-              (yield b == null ? void 0 : b.inviteToCall(i, l, L),
+              var p = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([s]),
+                _ = Ae(p, "inviteToCall");
+              (yield c == null ? void 0 : c.inviteToCall(l, i, _),
                 o("WALogger").LOG(
                   X ||
                     (X = babelHelpers.taggedTemplateLiteralLoose([
@@ -1781,6 +1730,70 @@ __d(
           }
         })),
         qe.apply(this, arguments)
+      );
+    }
+    function Ue(e) {
+      return Ve.apply(this, arguments);
+    }
+    function Ve() {
+      return (
+        (Ve = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.toString(),
+            n = "",
+            r = "";
+          if (e.isLid()) {
+            var a, i, l, s;
+            ((r =
+              (a =
+                (i = o("WAWebLidMigrationUtils").toLid(e)) == null
+                  ? void 0
+                  : i.toString()) != null
+                ? a
+                : t),
+              (n =
+                (l =
+                  (s = o("WAWebLidMigrationUtils").toPn(e)) == null
+                    ? void 0
+                    : s.toString()) != null
+                  ? l
+                  : ""));
+          } else {
+            var u, c, d, m;
+            if (
+              ((n =
+                (u =
+                  (c = o("WAWebLidMigrationUtils").toPn(e)) == null
+                    ? void 0
+                    : c.toString()) != null
+                  ? u
+                  : t),
+              (r =
+                (d =
+                  (m = o("WAWebLidMigrationUtils").toLid(e)) == null
+                    ? void 0
+                    : m.toString()) != null
+                  ? d
+                  : ""),
+              !r)
+            ) {
+              var p, _;
+              (yield o("WAWebAdvSyncDeviceListApi").syncDeviceList({
+                wids: [e],
+                context: "voip",
+                phash: null,
+              }),
+                (r =
+                  (p =
+                    (_ = o("WAWebLidMigrationUtils").toLid(e)) == null
+                      ? void 0
+                      : _.toString()) != null
+                    ? p
+                    : ""));
+            }
+          }
+          return r ? { lidJid: r, pnJid: n } : null;
+        })),
+        Ve.apply(this, arguments)
       );
     }
     ((l.preloadGroupCallBundle = de),

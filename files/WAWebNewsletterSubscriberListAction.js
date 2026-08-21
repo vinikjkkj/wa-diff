@@ -9,12 +9,11 @@ __d(
     "WAWebNewsletterSubscriberListJob",
     "WAWebNewsletterSubscriberModel",
     "WAWebNewsletterValidationUtils",
-    "WAWebUsernameWorkerCompatibleGatingUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
+    var e, s;
+    function u(e, t) {
       var n, r;
       if (t != null) {
         var a = t.map(function (e) {
@@ -39,7 +38,7 @@ __d(
             r.add(a, { sort: !0 }));
       }
     }
-    function d(e) {
+    function c(e) {
       if (e == null) return [];
       var t = e.reduce(function (e, t) {
         var n = o("WAWebContactCollection").ContactCollection.get(t.id),
@@ -67,13 +66,13 @@ __d(
       }, []);
       return t;
     }
-    var m = 9;
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    var d = 9;
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           var a;
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             return (
@@ -98,47 +97,24 @@ __d(
             return { subscribers: null, hasMore: !1 };
           try {
             var i,
-              l,
-              p = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+              l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.id.toJid(),
               ),
-              _ = yield o(
+              m = yield o(
                 "WAWebNewsletterSubscriberListJob",
-              ).getNewsletterSubscribers(p, n, r),
-              f = (i = _ == null ? void 0 : _.followers.length) != null ? i : 0,
-              g = {
-                subscribers: d(_ == null ? void 0 : _.followers),
-                hasMore: f >= m,
+              ).getNewsletterSubscribers(l, n, r),
+              p = (i = m == null ? void 0 : m.followers.length) != null ? i : 0,
+              _ = {
+                subscribers: c(m == null ? void 0 : m.followers),
+                hasMore: p >= d,
               };
-            return (
-              (l = g.subscribers) != null &&
-                l.some(function (e) {
-                  return (
-                    !e.contact.name &&
-                    e.contact.phoneNumber != null &&
-                    o(
-                      "WAWebUsernameWorkerCompatibleGatingUtils",
-                    ).isNewsletterUsernamePnPrivacyEnabled()
-                  );
-                }) &&
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[getNewsletterSubscribersAction] pn visible non-contact admin",
-                      ])),
-                  )
-                  .tags("newsletter", "username")
-                  .sendLogs("newsletter-phone-number-not-null"),
-              yield c(t, g.subscribers),
-              g
-            );
+            return (yield u(t, _.subscribers), _);
           } catch (e) {
             return (
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[getNewsletterSubscribersAction] get subscribers failed",
                     ])),
                 )
@@ -148,12 +124,12 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    ((l.getSubscribersInContacts = d),
-      (l.NEWSLETTER_INFO_SUBSCRIBER_DISPLAY_LIMIT = m),
-      (l.getNewsletterSubscribersAction = p));
+    ((l.getSubscribersInContacts = c),
+      (l.NEWSLETTER_INFO_SUBSCRIBER_DISPLAY_LIMIT = d),
+      (l.getNewsletterSubscribersAction = m));
   },
   98,
 );

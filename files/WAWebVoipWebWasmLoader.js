@@ -14,7 +14,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1787205838853" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1787267598736" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -72,7 +72,7 @@ __d(
               "_wasm_throw_ml_abort",
               "_set_ml_inference_flag",
               "_patch_abort_for_ml_inference",
-              "_get_persistent_directory_path_js",
+              "_write_persistent_directory_path_js",
               "_get_bwe_ml_model_path_js",
               "_get_ml_model_path_for_type_js",
               "_get_random_bytes_js",
@@ -767,10 +767,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1345430: function () {
+            1345855: function () {
               return Date.now();
             },
-            1345453: function (t, n) {
+            1345878: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -810,15 +810,15 @@ __d(
               e(n);
             };
           }
-          function Ye() {
-            var e =
+          function Ye(e, t) {
+            if (!e || t <= 0) return 0;
+            var n =
               self.WhatsAppVoipWasmWorkerCompatibleCallbacks.getPersistentDirectoryPath();
-            if (e) {
-              var t = $t(e) + 1,
-                n = Pi(t);
-              return (zn(e, n, t), n);
+            if (n) {
+              var r = $t(n) + 1;
+              return (zn(n, e, t), r);
             }
-            return null;
+            return 0;
           }
           function Je(e) {
             var t = e ? Yt(e) : null,
@@ -7562,7 +7562,6 @@ __d(
               fd_write: ai,
               get_bwe_ml_model_path_js: Je,
               get_ml_model_path_for_type_js: Ze,
-              get_persistent_directory_path_js: Ye,
               get_random_bytes_js: et,
               getentropy: ii,
               gethostbyname: mi,
@@ -7717,6 +7716,7 @@ __d(
               sendSignalingXMPP_js_sync: rt,
               set_ml_inference_flag: Qe,
               strftime_l: bi,
+              write_persistent_directory_path_js: Ye,
             },
             Di = Be(),
             xi = xe("__wasm_call_ctors"),
@@ -7789,8 +7789,8 @@ __d(
             fl = (y.___get_exception_message = xe("__get_exception_message")),
             gl = xe("__cxa_can_catch"),
             hl = xe("__cxa_is_pointer_type"),
-            yl = (y.___start_em_js = 1339484),
-            Cl = (y.___stop_em_js = 1345430);
+            yl = (y.___start_em_js = 1339868),
+            Cl = (y.___stop_em_js = 1345855);
           function bl(e, t, n, r) {
             var o = dl();
             try {

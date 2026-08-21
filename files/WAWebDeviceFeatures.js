@@ -46,16 +46,14 @@ __d(
         a = self.performance.now() - n;
       return (
         a > s &&
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "WebGL context creation took ",
-                  "ms",
-                ])),
-              Math.ceil(a),
-            )
-            .sendLogs("webgl-context-creation-slow", { sampling: 0.01 }),
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "WebGL context creation took ",
+                "ms",
+              ])),
+            Math.ceil(a),
+          ),
         r
       );
     }

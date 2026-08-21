@@ -53,6 +53,25 @@ __d(
         });
       return n ? r : e;
     }
+    function f(e, t) {
+      if (t.size === 0) return e;
+      var n = !1,
+        r = e.map(function (e) {
+          var r = t.get(e.key);
+          return r == null ||
+            (e.resolvedHash === r.hash &&
+              e.resolvedUrl === r.url &&
+              e.videoId === r.videoId)
+            ? e
+            : ((n = !0),
+              babelHelpers.extends({}, e, {
+                resolvedHash: r.hash,
+                resolvedUrl: r.url,
+                videoId: r.videoId,
+              }));
+        });
+      return n ? r : e;
+    }
     ((l.creativeMediaKindFromMediaType = e),
       (l.creativeMediaKindFromMsgType = s),
       (l.creativeMediaKindFromAttachMedia = u),
@@ -60,7 +79,8 @@ __d(
       (l.isCreativeMediaPending = d),
       (l.hasCreativeMedia = m),
       (l.isCreativeMediaResolving = p),
-      (l.withCreativeMediaStatus = _));
+      (l.withCreativeMediaStatus = _),
+      (l.withResolvedCreativeMedia = f));
   },
   98,
 );

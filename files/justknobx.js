@@ -5,11 +5,11 @@ __d(
     "use strict";
     var e = {},
       u = {
-        getBool: function (t) {
-          s(0, 47459);
+        getBool: function (t, n) {
+          (n === void 0 && (n = null), s(0, 47459));
         },
-        getInt: function (t) {
-          s(0, 47459);
+        getInt: function (t, n) {
+          (n === void 0 && (n = null), s(0, 47459));
         },
         _: function (n) {
           var t = e[n];

@@ -10,6 +10,7 @@ __d(
     "WAWebCommunityGatingUtils",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
+    "WAWebFrontendGroupMetadataGetters",
     "WAWebGroupMembershipApprovalRequestCollection",
     "WAWebGroupMetadataCollection",
     "WAWebGroupMetadataGetters",
@@ -154,12 +155,6 @@ __d(
               },
               ["groupType"],
             )),
-            (e.isUnnamed = o("WAWebBaseModel").derived(
-              function () {
-                return this.subject === "";
-              },
-              ["subject"],
-            )),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -200,7 +195,10 @@ __d(
               this.participants.delete(),
               o("WAWebGroupMetadataGetters").clearGroupMetadataGetterCacheFor(
                 this,
-              ));
+              ),
+              o(
+                "WAWebFrontendGroupMetadataGetters",
+              ).clearFrontendGroupMetadataGetterCacheFor(this));
           }),
           (i.canSetSubject = function () {
             return this.isSuspendedOrTerminated() ||

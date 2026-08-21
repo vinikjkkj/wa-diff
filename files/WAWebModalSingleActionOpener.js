@@ -22,6 +22,7 @@ __d(
           onOK: l,
           onOverlayClick: i ? l : r("WAWebNoop"),
           okText: e.buttonText,
+          okButtonTestid: e.okButtonTestid,
           children: e.body,
         }),
         { blockClose: !i },

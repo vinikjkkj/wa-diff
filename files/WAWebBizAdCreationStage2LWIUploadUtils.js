@@ -40,20 +40,21 @@ __d(
             l = yield (e || (e = n("Promise"))).allSettled(i),
             s = [],
             u = [];
-          return (
-            l.forEach(function (e, t) {
-              e.status === "fulfilled"
-                ? s.push(e.value)
-                : (u.push(t),
-                  r("FBLogger")("wa_ctwa_web").mustfix(
-                    "performPartialStage2LWIUpload: upload failed item " +
-                      t +
-                      " - " +
-                      String(e.reason),
-                  ));
-            }),
-            { failedIndices: u, successfulResults: s }
-          );
+          l.forEach(function (e, t) {
+            e.status === "fulfilled"
+              ? s.push(e.value)
+              : (u.push(t),
+                r("FBLogger")("wa_ctwa_web").mustfix(
+                  "performPartialStage2LWIUpload: upload failed item " +
+                    t +
+                    " - " +
+                    String(e.reason),
+                ));
+          });
+          var c = l.map(function (e) {
+            return e.status === "fulfilled" ? e.value : null;
+          });
+          return { failedIndices: u, resultsByIndex: c, successfulResults: s };
         })),
         d.apply(this, arguments)
       );

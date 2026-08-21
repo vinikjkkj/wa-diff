@@ -165,13 +165,20 @@ __d(
     }
     function f(e) {
       var t = o("WAWebStateUtils").unproxy(e);
+      return {
+        galleryLinks: g(t),
+        shouldRenderMessageBubble: o("WAWebMsgGetters").getLinkPreview(t),
+      };
+    }
+    function g(e) {
+      var t = o("WAWebStateUtils").unproxy(e);
       return r("uniqueBy")(u(t), function (e) {
         return e.href;
       }).filter(function (e) {
         return e.isHttp;
       });
     }
-    function g(e) {
+    function h(e) {
       var t = o("WAWebStateUtils").unproxy(e);
       return u(t).filter(function (e) {
         var t;
@@ -184,8 +191,9 @@ __d(
       (l.shouldDisplayHeaderLinks = d),
       (l.getHeaderLinks = p),
       (l.getFooterLinks = _),
-      (l.getGalleryLinks = f),
-      (l.getSuspiciousLinks = g));
+      (l.getLinkGalleryRenderState = f),
+      (l.getGalleryLinks = g),
+      (l.getSuspiciousLinks = h));
   },
   98,
 );

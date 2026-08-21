@@ -11,6 +11,7 @@ __d(
     "WAPttComposerRecorder",
     "WAPttComposerScaleWaveform",
     "WARandomHex",
+    "WAWebABProps",
     "WAWebAppTracker",
     "WAWebBaseModel",
     "WAWebBotProfileCollection",
@@ -426,6 +427,7 @@ __d(
                 (this.recordingState = o(
                   "WAWebRecordingSessionStateEnum",
                 ).RecordingSessionState.ERROR),
+                this._releaseGetterCache(),
                 !1
               );
             });
@@ -471,6 +473,12 @@ __d(
           (i._endSession = function () {
             var e;
             (e = this._recorder) == null || e.stop();
+          }),
+          (i._releaseGetterCache = function () {
+            o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_2") &&
+              o(
+                "WAWebPttComposerRecordingSessionGetters",
+              ).clearRecordingSessionGetterCacheFor(this);
           }),
           (i._endUploadQpl = function (t) {
             if (this._uploadQpl != null) {
@@ -588,6 +596,7 @@ __d(
               ),
               this._endSession(),
               this._endUploadQpl(t),
+              this._releaseGetterCache(),
               this._recorder != null)
             ) {
               (t ===

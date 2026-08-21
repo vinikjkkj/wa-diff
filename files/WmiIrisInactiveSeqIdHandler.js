@@ -4,7 +4,8 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = "iris_inactive_subscription_uq_seq_id",
-      l = {
+      l = "iris_inactive_subscription_domain",
+      s = {
         update: function (n, r) {
           var t,
             o = n.get(r.dataID);
@@ -12,14 +13,17 @@ __d(
             var a = o.getLinkedRecord(r.fieldKey);
             if (a != null) {
               var i = r.dataID + ":" + r.handleKey,
-                l = (t = n.get(i)) != null ? t : n.create(i, a.getType());
-              (l.setValue(a.getValue(e), e), o.setLinkedRecord(l, r.handleKey));
+                s = (t = n.get(i)) != null ? t : n.create(i, a.getType());
+              s.setValue(a.getValue(e), e);
+              var u = a.getValue(l);
+              (u != null && s.setValue(u, l),
+                o.setLinkedRecord(s, r.handleKey));
             }
           }
         },
       },
-      s = l;
-    i.default = s;
+      u = s;
+    i.default = u;
   },
   66,
 );

@@ -378,6 +378,7 @@ __d(
       PREVIEW_AD_SUCCESS: "preview_ad_success",
       PREVIEW_AD_FAILURE: "preview_ad_failure",
       LISTING_MARK_AS_SOLD: "listing_mark_as_sold",
+      LISTING_MARK_AS_CLOSED: "listing_mark_as_closed",
       LISTING_DELETED: "listing_deleted",
       LISTING_MARK_AS_PENDING: "listing_mark_as_pending",
       PAUSED_BY_LISTING_FAIL: "paused_by_listing_fail",
@@ -565,6 +566,22 @@ __d(
         "ig_connect_upsell_pac_connect_click",
       IG_CONNECT_UPSELL_PAC_CONNECT_SUCCESS:
         "ig_connect_upsell_pac_connect_success",
+      IG_CONNECT_UPSELL_PAC_CONFIRM_DIALOG_IMPRESSION:
+        "ig_connect_upsell_pac_confirm_dialog_impression",
+      IG_CONNECT_UPSELL_PAC_BOOST_IG_POST_CLICK:
+        "ig_connect_upsell_pac_boost_ig_post_click",
+      IG_CONNECT_UPSELL_PAC_GO_TO_AD_CENTER_CLICK:
+        "ig_connect_upsell_pac_go_to_ad_center_click",
+      IG_CONNECT_UPSELL_PAC_HEAL_TRIGGERED:
+        "ig_connect_upsell_pac_heal_triggered",
+      IG_CONNECT_UPSELL_PAC_HEAL_SKIPPED_NO_BOOST_ID:
+        "ig_connect_upsell_pac_heal_skipped_no_boost_id",
+      IG_CONNECT_UPSELL_PAC_HEAL_SCHEDULED:
+        "ig_connect_upsell_pac_heal_scheduled",
+      IG_CONNECT_UPSELL_PAC_HEAL_SUCCEEDED:
+        "ig_connect_upsell_pac_heal_succeeded",
+      IG_CONNECT_UPSELL_PAC_HEAL_NOOP: "ig_connect_upsell_pac_heal_noop",
+      IG_CONNECT_UPSELL_PAC_HEAL_FAILED: "ig_connect_upsell_pac_heal_failed",
       HAWK_GUIDANCE_CARD_RESET_ROW_IMPRESSION:
         "hawk_guidance_card_reset_row_impression",
       HAWK_GUIDANCE_CARD_RESET_ROW_CLICK: "hawk_guidance_card_reset_row_click",
@@ -1612,6 +1629,8 @@ __d(
       WEBSITE_LINK_PREFILL: "website_link_prefill",
       MICROSITE_ELIGIBLE_IMPRESSION: "microsite_eligible_impression",
       MICROSITE_TOGGLE: "microsite_toggle",
+      MICROSITE_SECTION_EDIT: "microsite_section_edit",
+      MICROSITE_SECTION_DELETE: "microsite_section_delete",
       MICROSITE_CREATE_ATTEMPT: "microsite_create_attempt",
       MICROSITE_SCHEDULE: "microsite_schedule",
       MICROSITE_GENERATION: "microsite_generation",

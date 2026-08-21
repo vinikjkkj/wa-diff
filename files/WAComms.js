@@ -824,89 +824,92 @@ __d(
             var e = this.$6 > 0 ? this.$6 : this.$7;
             return self.performance.now() - e;
           }),
-          (a.sendIq = function (t, a, i, l, s) {
-            var e = this;
-            return (
-              i === void 0 && (i = 0),
-              s === void 0 && (s = "iq"),
-              new (U || (U = n("Promise")))(function (u) {
-                var c = t.attrs.id;
-                if (!c || typeof c != "string")
-                  throw r("err")(
-                    "[comms] sendIq given iq without id: " + String(t),
-                  );
-                var d = e.socketId;
-                if (a && !d) {
-                  u(
-                    (U || (U = n("Promise"))).reject(
-                      new (o("WAErrors").Offline)(),
-                    ),
-                  );
-                  return;
-                }
-                var m = function (o) {
-                    o === void 0 && (o = "disconnect");
-                    var t =
-                      s === "iq"
-                        ? e.pendingIqs.get(c)
-                        : e.pendingSmaxStanzas.get(c);
-                    if (!t) {
-                      u(
-                        (U || (U = n("Promise"))).reject(
-                          r("err")(
-                            "[comms] _sendIq unexisting stanza to be cancelled: " +
-                              c,
-                          ),
-                        ),
-                      );
-                      return;
-                    }
-                    e.removeHandler(t, o);
-                  },
-                  p = null;
-                if (i > 0) {
-                  var _ = setTimeout(m, i * 1e3);
-                  p = function () {
-                    clearTimeout(_);
-                  };
-                }
-                if (l != null)
-                  if (l.aborted) {
-                    u(
+          (a.sendIq = function (t) {
+            var e = this,
+              a = t.attachToSocket,
+              i = t.iq,
+              l = t.signal,
+              s = t.timeoutSeconds,
+              u = s === void 0 ? 0 : s,
+              c = t.type,
+              d = c === void 0 ? "iq" : c;
+            return new (U || (U = n("Promise")))(function (t) {
+              var s = i.attrs.id;
+              if (!s || typeof s != "string")
+                throw r("err")(
+                  "[comms] sendIq given iq without id: " + String(i),
+                );
+              var c = e.socketId;
+              if (a && !c) {
+                t(
+                  (U || (U = n("Promise"))).reject(
+                    new (o("WAErrors").Offline)(),
+                  ),
+                );
+                return;
+              }
+              var m = function (a) {
+                  a === void 0 && (a = "disconnect");
+                  var o =
+                    d === "iq"
+                      ? e.pendingIqs.get(s)
+                      : e.pendingSmaxStanzas.get(s);
+                  if (!o) {
+                    t(
                       (U || (U = n("Promise"))).reject(
-                        new (o("WAErrors").Disconnected)(),
+                        r("err")(
+                          "[comms] _sendIq unexisting stanza to be cancelled: " +
+                            s,
+                        ),
                       ),
                     );
                     return;
-                  } else {
-                    var f = function () {
-                      m("abort");
-                    };
-                    (l.addEventListener("abort", f),
-                      (p = function () {
-                        l.removeEventListener("abort", f);
-                      }));
                   }
-                var g = {
-                  resolve: u,
-                  stanza: t,
-                  attachedToSocketId: a ? d : j,
-                  orderedId: e.$2++,
-                  attempt: 0,
-                  cleanup: p,
+                  e.removeHandler(o, a);
+                },
+                p = null;
+              if (u > 0) {
+                var _ = setTimeout(m, u * 1e3);
+                p = function () {
+                  clearTimeout(_);
                 };
-                if (s === "iq") {
-                  var h = babelHelpers.extends({ type: s }, g);
-                  (e.pendingIqs.set(c, h),
-                    e.config.handlers.onSendIq == null ||
-                      e.config.handlers.onSendIq(t),
-                    e.maybeSendPendingStanza(h));
+              }
+              if (l != null)
+                if (l.aborted) {
+                  t(
+                    (U || (U = n("Promise"))).reject(
+                      new (o("WAErrors").Disconnected)(),
+                    ),
+                  );
+                  return;
                 } else {
-                  var y = babelHelpers.extends({ type: s }, g);
-                  (e.pendingSmaxStanzas.set(c, y), e.maybeSendPendingStanza(y));
+                  var f = function () {
+                    m("abort");
+                  };
+                  (l.addEventListener("abort", f),
+                    (p = function () {
+                      l.removeEventListener("abort", f);
+                    }));
                 }
-              })
-            );
+              var g = {
+                resolve: t,
+                stanza: i,
+                attachedToSocketId: a ? c : j,
+                orderedId: e.$2++,
+                attempt: 0,
+                cleanup: p,
+              };
+              if (d === "iq") {
+                var h = babelHelpers.extends({ type: d }, g);
+                (e.pendingIqs.set(s, h),
+                  e.config.handlers.onSendIq == null ||
+                    e.config.handlers.onSendIq(i),
+                  e.maybeSendPendingStanza(h));
+              } else {
+                var y = babelHelpers.extends({ type: d }, g);
+                (e.pendingSmaxStanzas.set(s, y), e.maybeSendPendingStanza(y));
+              }
+            });
           }),
           (a.sendPing = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -1066,7 +1069,13 @@ __d(
     function pe(e, t, n, r, o) {
       (n === void 0 && (n = 0), o === void 0 && (o = "iq"));
       var a = Ce("sendIq");
-      return a.sendIq(e, t, n, r, o);
+      return a.sendIq({
+        attachToSocket: t,
+        iq: e,
+        signal: r,
+        timeoutSeconds: n,
+        type: o,
+      });
     }
     function _e(e, t) {
       var n,

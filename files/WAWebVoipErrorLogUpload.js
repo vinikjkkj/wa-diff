@@ -5,7 +5,7 @@ __d(
     "WAWebCrashlog",
     "WAWebEnvironment",
     "WAWebUA",
-    "WAWebVoipGatingUtils",
+    "WAWebVoipWebTransportCallSummary",
     "WAWebWamEnumCallResultType",
     "getErrorSafe",
     "gkx",
@@ -22,20 +22,21 @@ __d(
       p = 10,
       _ = 0.1,
       f = 0.01,
-      g = 5e3,
-      h = "voip-group-call-cer",
-      y = 0.1,
-      C = 3,
-      b = 3e4,
-      v = null,
-      S = new Set();
-    function R(e) {
-      if (v == null)
+      g = 0.1,
+      h = 5e3,
+      y = "voip-group-call-cer",
+      C = 0.1,
+      b = 3,
+      v = 3e4,
+      S = null,
+      R = new Set();
+    function L(e) {
+      if (S == null)
         try {
           var t,
             n,
             r = JSON.parse(e);
-          v =
+          S =
             (t =
               r == null || (n = r.call_info) == null
                 ? void 0
@@ -43,26 +44,26 @@ __d(
               ? t
               : null;
         } catch (e) {
-          v = null;
+          S = null;
         }
     }
-    function L(e) {
+    function E(e) {
       if (!r("justknobx")._("5297")) return null;
       var t = e === m || e === p;
       if (!t) return null;
-      var n = o("WAWebUA").UA.isChrome ? f : _,
-        a = o("WAWebUA").UA.browser.toLowerCase() || "unknown",
-        i = o("WAWebVoipGatingUtils").isWebTransportEnabled()
-          ? "webtransport-"
-          : "",
-        l = e === m ? "setup-error" : "accepted-but-not-connected";
-      return { reason: "voip-call-error-" + a + "-" + i + l, sampling: n };
+      var n = o("WAWebUA").UA.browser.toLowerCase() || "unknown",
+        a = o("WAWebVoipWebTransportCallSummary").hasWtActivityThisCall(),
+        i = a ? "webtransport-" : "",
+        l = e === m ? "setup-error" : "accepted-but-not-connected",
+        s = o("WAWebUA").UA.isChrome ? f : _,
+        u = a && e === p ? g : s;
+      return { reason: "voip-call-error-" + n + "-" + i + l, sampling: u };
     }
-    function E() {
+    function k() {
       var t,
-        n = v;
-      if (((v = null), !!r("WAWebEnvironment").isWeb && n != null)) {
-        var a = L(n);
+        n = S;
+      if (((S = null), !!r("WAWebEnvironment").isWeb && n != null)) {
+        var a = E(n);
         if (a != null) {
           var i = a.reason,
             l = a.sampling;
@@ -99,11 +100,11 @@ __d(
                   sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
                   sampling: l,
                 });
-            }, g));
+            }, h));
         }
       }
     }
-    function k(e) {
+    function I(e) {
       var t,
         n,
         a =
@@ -118,7 +119,7 @@ __d(
             o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.CONNECTED ||
           !a ||
           e.groupCallIsLastSegment !== !0 ||
-          e.maxConnectedParticipants < C ||
+          e.maxConnectedParticipants < b ||
           !r("justknobx")._("5297")
         )
       ) {
@@ -126,11 +127,11 @@ __d(
           ((t = e.callId) != null ? t : "unknown-call") +
           ":" +
           String((n = e.groupCallSegmentIdx) != null ? n : "unknown-segment");
-        if (!S.has(i)) {
-          S.add(i);
-          var l = y,
-            s = r("gkx")("26258") ? h : h + "-testing",
-            m = I(e);
+        if (!R.has(i)) {
+          R.add(i);
+          var l = C,
+            s = r("gkx")("26258") ? y : y + "-testing",
+            m = T(e);
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -169,20 +170,20 @@ __d(
                       .catching(r("getErrorSafe")(e));
                   })
                   .finally(function () {
-                    S.delete(i);
+                    R.delete(i);
                   }));
-            }, g));
+            }, h));
         }
       }
     }
-    function I(e) {
+    function T(e) {
       var t = e.groupCallTotalCallTSinceCallStart,
         n = t != null && t >= 0 ? t : e.callT;
-      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - b);
+      if (!(n == null || n < 0)) return Math.max(0, Date.now() - n - v);
     }
-    ((l.captureWamCallResult = R),
-      (l.maybeUploadErrorLogs = E),
-      (l.maybeUploadGroupCallCerLogs = k));
+    ((l.captureWamCallResult = L),
+      (l.maybeUploadErrorLogs = k),
+      (l.maybeUploadGroupCallCerLogs = I));
   },
   98,
 );

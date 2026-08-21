@@ -33,6 +33,9 @@ __d(
         case "" + 0x770a46dafb86b:
           return "Business";
         case "1509803480261504":
+        case "1315352273538439":
+        case "1636455547794985":
+        case "3091416277713978":
           return "instagram_airwave";
         default:
           return "(Unset-in-RST)";

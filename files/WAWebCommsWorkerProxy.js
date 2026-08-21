@@ -113,46 +113,51 @@ __d(
           }),
           (t.sendIq = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r, a, i) {
-                var l = this;
+              function* (e) {
+                var t = this,
+                  r = e.attachToSocket,
+                  a = e.iq,
+                  i = e.signal,
+                  l = e.timeoutSeconds,
+                  u = l === void 0 ? 0 : l,
+                  c = e.type,
+                  d = c === void 0 ? "iq" : c;
                 if (
-                  (r === void 0 && (r = 0),
-                  i === void 0 && (i = "iq"),
-                  yield o("WAWebCommsWorkerReady").waitForCommsWorker(),
-                  (a == null ? void 0 : a.aborted) === !0)
+                  (yield o("WAWebCommsWorkerReady").waitForCommsWorker(),
+                  (i == null ? void 0 : i.aborted) === !0)
                 )
                   throw new (o("WAErrors").Disconnected)(
                     "aborted while waiting for the backend worker",
                   );
-                var u = this.$3++;
-                a != null &&
-                  a.addEventListener("abort", function () {
-                    l.$1.fireAndForget("comms", "abortSendIq", {
-                      abortToken: u,
+                var m = this.$3++;
+                i != null &&
+                  i.addEventListener("abort", function () {
+                    t.$1.fireAndForget("comms", "abortSendIq", {
+                      abortToken: m,
                     });
                   });
-                var c = o("WAWap").encodeStanza(e),
-                  d = yield this.$1.sendAndReceive(
+                var p = o("WAWap").encodeStanza(a),
+                  _ = yield this.$1.sendAndReceive(
                     "comms",
                     "sendIq",
                     {
-                      iq: c,
-                      attachToSocket: t,
-                      timeoutSeconds: r,
-                      type: i,
-                      abortToken: u,
+                      iq: p,
+                      attachToSocket: r,
+                      timeoutSeconds: u,
+                      type: d,
+                      abortToken: m,
                     },
                     void 0,
                     void 0,
                     void 0,
-                    [c.buffer],
+                    [p.buffer],
                   );
-                return o("WAWap").decodeStanza(d, function (e) {
+                return o("WAWap").decodeStanza(_, function (e) {
                   return (s || (s = n("Promise"))).resolve(e);
                 });
               },
             );
-            function t(t, n, r, o, a) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

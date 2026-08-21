@@ -11,6 +11,7 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
     "WAWebMsgGetters",
     "WAWebMuteCollection",
     "WAWebMuteGetters",
@@ -124,10 +125,10 @@ __d(
         : s._(/*BTDS*/ "WhatsApp message");
     }
     function C(e) {
-      var t;
       if (e.isLocked) return r("WAWebFbtCommon")("WhatsApp").toString();
       if (e.id.isAiHub()) return "Meta Business Agent";
-      if ((t = e.groupMetadata) != null && t.isUnnamed)
+      var t = e.groupMetadata;
+      if (t != null && o("WAWebGroupMetadataGetters").getIsUnnamed(t))
         return o(
           "WAWebParticipantListUtils",
         ).calculateUnnamedGroupFullParticipantsList(

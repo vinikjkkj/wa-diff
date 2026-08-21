@@ -3,6 +3,7 @@ __d(
   [
     "WAWebPathfinderChatInfo",
     "WAWebPathfinderLogger",
+    "WAWebPathfinderScreenName",
     "WAWebPathfinderUserTouch",
     "WAWebTimeSpentLoggingNavigation",
   ],
@@ -14,7 +15,7 @@ __d(
             screenName: e,
             timestampMs: n,
           })
-        : (o("WAWebPathfinderUserTouch").updateCurrentScreenName(t),
+        : (o("WAWebPathfinderScreenName").updateCurrentScreenName(t),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "FOREGROUND",
             screenName: t,
@@ -27,7 +28,7 @@ __d(
         e(t, n, r);
         return;
       }
-      (o("WAWebPathfinderUserTouch").updateCurrentScreenName(n),
+      (o("WAWebPathfinderScreenName").updateCurrentScreenName(n),
         o("WAWebPathfinderLogger").emitPathfinderEvent({
           eventType: "SCREEN_CHANGED",
           screenName: t,

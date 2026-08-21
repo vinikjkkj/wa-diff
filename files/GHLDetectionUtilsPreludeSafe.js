@@ -60,30 +60,34 @@ __d(
             "p9fk3wmn" in o &&
             ((n.src = "about:blank"), (n.srcdoc = "")));
       var i = t.firstElementChild,
-        l = o != null && "m8r3kp6w" in o && "createRange" in document,
-        s = o != null && "b3xk8fqm" in o && i != null && "before" in i,
-        u = o != null && "q4v7nx3k" in o && i != null && "after" in i,
-        c = o != null && "r7c2m9xk" in o && "prepend" in t,
-        d = o != null && "z2ht6xqp" in o && "append" in t,
-        m = o != null && "k7q3nv9d" in o,
-        p = o != null && "w6jt4rnq" in o,
-        _ = l ? document.createRange() : null;
+        l = o != null && "t5nd8vqc" in o && "createComment" in document,
+        s = o != null && "m8r3kp6w" in o && "createRange" in document,
+        u = o != null && "b3xk8fqm" in o && i != null && "before" in i,
+        c = o != null && "q4v7nx3k" in o && i != null && "after" in i,
+        d = o != null && "r7c2m9xk" in o && "prepend" in t,
+        m = o != null && "z2ht6xqp" in o && "append" in t,
+        p = o != null && "k7q3nv9d" in o,
+        _ = o != null && "w6jt4rnq" in o,
+        f = l ? document.createComment("") : null,
+        g = s ? document.createRange() : null;
       return (
-        _ != null
-          ? (_.setStart(t, t.childNodes.length), _.insertNode(n))
-          : u && i != null
-            ? i.after(n)
-            : s && i != null
-              ? i.before(n)
-              : c
-                ? t.prepend(n)
+        f != null && "replaceWith" in f
+          ? (t.appendChild(f), f.replaceWith(n))
+          : g != null
+            ? (g.setStart(t, t.childNodes.length), g.insertNode(n))
+            : c && i != null
+              ? i.after(n)
+              : u && i != null
+                ? i.before(n)
                 : d
-                  ? t.append(n)
+                  ? t.prepend(n)
                   : m
-                    ? t.insertBefore(n, null)
+                    ? t.append(n)
                     : p
-                      ? t.insertAdjacentElement("beforeend", n)
-                      : t.appendChild(n),
+                      ? t.insertBefore(n, null)
+                      : _
+                        ? t.insertAdjacentElement("beforeend", n)
+                        : t.appendChild(n),
         n
       );
     }

@@ -76,8 +76,9 @@ __d(
       })(r("WAWebTypedEventEmitter")),
       te = new ee(),
       ne = new Set(),
-      re = 2e3;
-    function oe(t) {
+      re = 2e3,
+      oe = 2e3;
+    function ae(t) {
       var n = 0,
         r = 0;
       for (var a of ne) {
@@ -116,7 +117,12 @@ __d(
             t,
           );
     }
-    var ae = (function (e) {
+    function ie(e, t) {
+      if (e.readyState !== "live" || e.muted) return !1;
+      var n = e.getSettings().deviceId;
+      return r("isStringNullOrEmpty")(n) || n === t;
+    }
+    var le = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -488,6 +494,35 @@ __d(
           })()),
           (a.getLastCapturedStream = function () {
             return this.__lastCapturedStream;
+          }),
+          (a.isDeliveringFramesForCurrentDevice = function () {
+            var e,
+              t,
+              n,
+              a = this.currentDeviceId;
+            if (r("isStringNullOrEmpty")(a)) return !1;
+            var i =
+              (e =
+                (t = this.__lastCapturedStream) == null
+                  ? void 0
+                  : t.getVideoTracks()) != null
+                ? e
+                : [];
+            if (
+              !i.some(function (e) {
+                return ie(e, a);
+              })
+            )
+              return !1;
+            var l =
+              (n = o(
+                "WAWebVoipVideoRendererRegistry",
+              ).videoRendererRegistry.getDecodeStatsForJid(
+                o("WAWebVoipVideoRendererInterface").selfPreviewJid,
+              )) == null
+                ? void 0
+                : n.lastFrameTimestampMs;
+            return l != null && window.performance.now() - l < oe;
           }),
           (a.switchVideoDevice = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -968,7 +1003,7 @@ __d(
                           c,
                         ));
                   }
-                  (oe("stopCapture"), (this.__stopping = !1));
+                  (ae("stopCapture"), (this.__stopping = !1));
                 }
               },
             );
@@ -1081,8 +1116,8 @@ __d(
           t
         );
       })(o("WAWebVoipVideoCaptureBase").WAWebVoipVideoCaptureBase),
-      ie = new ae();
-    ((l.VideoDeviceEvents = te), (l.WAWebVoipVideoCameraCapture = ie));
+      se = new le();
+    ((l.VideoDeviceEvents = te), (l.WAWebVoipVideoCameraCapture = se));
   },
   98,
 );

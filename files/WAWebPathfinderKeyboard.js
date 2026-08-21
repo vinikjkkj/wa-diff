@@ -1,6 +1,6 @@
 __d(
   "WAWebPathfinderKeyboard",
-  ["WAWebPathfinderLogger", "WAWebPathfinderUserTouch"],
+  ["WAWebPathfinderLogger", "WAWebPathfinderScreenName"],
   function (t, n, r, o, a, i, l) {
     var e = new Set(["INPUT", "TEXTAREA"]);
     function s(t) {
@@ -57,7 +57,7 @@ __d(
             o("WAWebPathfinderLogger").emitPathfinderEvent({
               eventType: "CONTENT_CHANGED",
               context: JSON.stringify({ is_empty: String(t) }),
-              screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
+              screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
               timestampMs: Date.now(),
             });
           }
@@ -71,7 +71,7 @@ __d(
           ((p = n),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "BEGIN_EDITING",
-            screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
+            screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
             targetTrackingId: n,
             timestampMs: Date.now(),
           }));
@@ -85,7 +85,7 @@ __d(
           ((p = null),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "END_EDITING",
-            screenName: o("WAWebPathfinderUserTouch").getCurrentScreenName(),
+            screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
             targetTrackingId: n,
             timestampMs: Date.now(),
           }));

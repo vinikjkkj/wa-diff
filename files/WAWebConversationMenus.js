@@ -20,7 +20,7 @@ __d(
     "WAWebDeleteMenuItem.react",
     "WAWebEnvironment",
     "WAWebExportChatMenuItem.react",
-    "WAWebGroupMetadataGetters",
+    "WAWebFrontendGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebHeader.react",
     "WAWebInboxFiltersGatingUtils",
@@ -547,7 +547,7 @@ __d(
       i[59] !== _e
         ? ((fe =
             _e != null
-              ? o("WAWebGroupMetadataGetters").getGroupInviteLink(_e)
+              ? o("WAWebFrontendGroupMetadataGetters").getGroupInviteLink(_e)
               : null),
           (i[59] = _e),
           (i[60] = fe))

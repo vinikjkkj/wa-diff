@@ -175,6 +175,7 @@ __d(
         121e4,
         121e4,
       ],
+      desktop_calling_ring_icon_enabled: [35376, "bool", !1, !1],
       device_switching_enabled: [3205, "bool", !1, !1],
       disable_libaom_registration: [23836, "bool", !1, !1],
       disable_raise_hand_1on1: [27177, "bool", !1, !1],
@@ -526,6 +527,7 @@ __d(
       voip_stack_incoming_message_ownership_transfer: [16481, "bool", !1, !1],
       wa_calling_bpn_self_pn_removal: [32546, "bool", !1, !1],
       wa_capping_local_data_logic_update: [21348, "bool", !1, !0],
+      wa_hybrid_use_minimal_window: [35352, "bool", !1, !1],
       wa_individual_new_chat_msg_capping_enabled: [20865, "bool", !1, !0],
       wa_individual_new_chat_msg_capping_fetch_ttl_seconds: [
         20649,

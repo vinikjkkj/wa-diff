@@ -69,7 +69,8 @@ __d(
       K = s,
       Q = s,
       X = s,
-      Y = s;
+      Y = s,
+      J = s;
     ((l.createMessagesCache = c),
       (l.createFrontendMessagesCache = d),
       (l.createChatCache = m),
@@ -111,7 +112,8 @@ __d(
       (l.createConnCache = K),
       (l.createNewsletterAdminInsightsCache = Q),
       (l.createCommentCache = X),
-      (l.createGroupMetadataCache = Y));
+      (l.createGroupMetadataCache = Y),
+      (l.createFrontendGroupMetadataCache = J));
   },
   98,
 );

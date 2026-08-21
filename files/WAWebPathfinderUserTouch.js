@@ -1,6 +1,6 @@
 __d(
   "WAWebPathfinderUserTouch",
-  ["WAWebPathfinderLogger"],
+  ["WAWebPathfinderLogger", "WAWebPathfinderScreenName"],
   function (t, n, r, o, a, i, l) {
     var e = 10,
       s = 50,
@@ -17,59 +17,52 @@ __d(
       C = null,
       b = null,
       v = null,
-      S = null,
-      R = 0;
-    function L(e) {
-      C = e;
-    }
-    function E() {
-      return C;
-    }
-    function k() {
+      S = 0;
+    function R() {
       var e = y;
       return ((y = null), e);
     }
-    function I() {
-      return R;
+    function L() {
+      return S;
     }
-    function T(e, t) {
+    function E(e, t) {
       var n = h;
       return n != null && n.eventType === e && n.trackingId === t
         ? n.debounceCount + 1
         : 0;
     }
-    function D(e) {
+    function k(e) {
       var t = e.eventType,
         n = e.targetType,
         r = e.timestampMs,
         a = e.trackingId,
-        i = T(t, a);
+        i = E(t, a);
       ((h = { eventType: t, trackingId: a, debounceCount: i }),
         (t === "TAP" || t === "DOUBLE_TAP") && (y = a),
         o("WAWebPathfinderLogger").emitPathfinderEvent({
           eventType: t,
           debounceCount: i > 0 ? i : void 0,
-          screenName: C,
+          screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
           targetTrackingId: a,
           targetType: n,
           timestampMs: r,
         }));
     }
-    var x = { UP: 1, DOWN: 2, LEFT: 3, RIGHT: 4 };
-    function $(e) {
+    var I = { UP: 1, DOWN: 2, LEFT: 3, RIGHT: 4 };
+    function T(e) {
       var t = Math.abs(e.deltaX),
         n = Math.abs(e.deltaY);
       return t === 0 && n === 0
         ? null
         : n >= t
           ? e.deltaY > 0
-            ? x.DOWN
-            : x.UP
+            ? I.DOWN
+            : I.UP
           : e.deltaX > 0
-            ? x.RIGHT
-            : x.LEFT;
+            ? I.RIGHT
+            : I.LEFT;
     }
-    function P(e, t, n) {
+    function D(e, t, n) {
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "SCROLL",
         screenName: e,
@@ -77,22 +70,22 @@ __d(
         gestureDirection: n,
       });
     }
-    function N(e, t, n) {
+    function x(e, t, n) {
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "LONG_PRESS",
-        screenName: C,
+        screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
         targetTrackingId: e,
         targetType: t,
         timestampMs: n,
       });
     }
-    function M(e) {
+    function $(e) {
       var t;
       return (t = e.getAttribute("data-testid")) != null
         ? t
         : e.getAttribute("testid");
     }
-    function w(e) {
+    function P(e) {
       var t = e.split("-"),
         n = [];
       for (var r of t) {
@@ -102,47 +95,47 @@ __d(
       }
       return n.length > 0 ? n.join("-") : "";
     }
-    function A(e) {
+    function N(e) {
       return e.tagName.toLowerCase();
     }
-    function F(t) {
+    function M(t) {
       for (var n = t, r = 0, o = []; n instanceof HTMLElement && r < e; ) {
-        var a = M(n);
+        var a = $(n);
         if (a != null) {
-          var i = w(a);
+          var i = P(a);
           i !== "" && o.push(i);
         }
         ((n = n.parentElement), r++);
       }
       return (o.reverse(), o.length > 0 ? o.join("/") : null);
     }
-    function O(e) {
+    function w(e) {
       var t = e.target;
-      if (S != null && S === t) {
-        S = null;
+      if (v != null && v === t) {
+        v = null;
         return;
       }
-      if (((S = null), t instanceof HTMLElement)) {
+      if (((v = null), t instanceof HTMLElement)) {
         var n = Date.now(),
-          r = F(t);
+          r = M(t);
         if (r != null) {
-          var o = A(t),
+          var o = N(t),
             a = g;
           a != null &&
             (window.clearTimeout(a.timer),
             a.target !== t && n - a.timestampMs >= s
-              ? D({
+              ? k({
                   eventType: "TAP",
                   targetType: a.targetType,
                   timestampMs: a.timestampMs,
                   trackingId: a.trackingId,
                 })
-              : a.target !== t && R++);
+              : a.target !== t && S++);
           var i = window.setTimeout(function () {
             var e = g;
             e != null &&
               e.timer === i &&
-              (D({
+              (k({
                 eventType: "TAP",
                 targetType: e.targetType,
                 timestampMs: e.timestampMs,
@@ -160,14 +153,14 @@ __d(
         }
       }
     }
-    function B(e) {
+    function A(e) {
       var t = e.target;
       if (t instanceof HTMLElement) {
         var n = g;
         if (n != null) {
           (window.clearTimeout(n.timer),
             (g = null),
-            D({
+            k({
               eventType: "DOUBLE_TAP",
               targetType: n.targetType,
               timestampMs: n.timestampMs,
@@ -175,71 +168,69 @@ __d(
             }));
           return;
         }
-        var r = F(t);
+        var r = M(t);
         r != null &&
-          D({
+          k({
             eventType: "DOUBLE_TAP",
-            targetType: A(t),
+            targetType: N(t),
             timestampMs: Date.now(),
             trackingId: r,
           });
       }
     }
-    function W(e) {
-      if (b == null && e instanceof WheelEvent) {
+    function F(e) {
+      if (C == null && e instanceof WheelEvent) {
         var t = Date.now(),
-          n = C,
-          r = $(e);
-        ((b = window.setTimeout(function () {
-          b = null;
+          n = o("WAWebPathfinderScreenName").getCurrentScreenName(),
+          r = T(e);
+        ((C = window.setTimeout(function () {
+          C = null;
         }, c)),
-          P(n, t, r));
+          D(n, t, r));
       }
     }
-    function q() {
-      if (b == null) {
+    function O() {
+      if (C == null) {
         var e = Date.now(),
-          t = C;
-        ((b = window.setTimeout(function () {
-          b = null;
+          t = o("WAWebPathfinderScreenName").getCurrentScreenName();
+        ((C = window.setTimeout(function () {
+          C = null;
         }, c)),
-          P(t, e));
+          D(t, e));
       }
     }
-    function U(e) {
+    function B(e) {
       if (!(!(e instanceof PointerEvent) || e.button !== 0)) {
         var t = e.target;
         if (t instanceof HTMLElement) {
-          (v != null && window.clearTimeout(v), (S = null));
-          var n = F(t),
-            r = A(t),
+          (b != null && window.clearTimeout(b), (v = null));
+          var n = M(t),
+            r = N(t),
             o = Date.now();
-          v = window.setTimeout(function () {
-            ((v = null), (S = t), N(n, r, o));
+          b = window.setTimeout(function () {
+            ((b = null), (v = t), x(n, r, o));
           }, d);
         }
       }
     }
-    function V(e) {
+    function W(e) {
       !(e instanceof PointerEvent) ||
         e.button !== 0 ||
-        (v != null && (window.clearTimeout(v), (v = null)));
+        (b != null && (window.clearTimeout(b), (b = null)));
     }
-    function H() {
-      v != null && (window.clearTimeout(v), (v = null));
+    function q() {
+      b != null && (window.clearTimeout(b), (b = null));
     }
-    ((l.updateCurrentScreenName = L),
-      (l.getCurrentScreenName = E),
-      (l.consumeLastTapTrackingId = k),
-      (l.getRapidFireSuppressedCount = I),
-      (l.getAncestorTrackingPath = F),
-      (l.handleClick = O),
-      (l.handleDoubleClick = B),
-      (l.handleWheel = W),
-      (l.handleScroll = q),
-      (l.handlePointerDown = U),
-      (l.handlePointerUp = V),
-      (l.handlePointerCancel = H));
+    ((l.consumeLastTapTrackingId = R),
+      (l.getRapidFireSuppressedCount = L),
+      (l.getAncestorTrackingPath = M),
+      (l.handleClick = w),
+      (l.handleDoubleClick = A),
+      (l.handleWheel = F),
+      (l.handleScroll = O),
+      (l.handlePointerDown = B),
+      (l.handlePointerUp = W),
+      (l.handlePointerCancel = q));
   },
   98,
 );

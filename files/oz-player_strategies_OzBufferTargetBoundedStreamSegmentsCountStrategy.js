@@ -19,7 +19,7 @@ __d(
               a = 1,
               i = n,
               l = n.getTimeRange().startTime;
-            i !== null && l < o + e && ((i = r.getSegmentAfter(i)), !!i);
+            i != null && l < o + e && ((i = r.getSegmentAfter(i)), !!i);
           )
             ((l = i.getTimeRange().startTime), a++);
           return a;

@@ -205,23 +205,23 @@ __d(
         });
       });
     }
-    function C(e, t, n, r, o, a) {
-      var i;
+    function C(e, t, n, r, o, a, i) {
+      var l;
       if (e) {
         e.stopPropagation();
-        var l = Array.from((i = e.target.files) != null ? i : []);
-        v(l, t, n, r, o, a);
+        var s = Array.from((l = e.target.files) != null ? l : []);
+        v(s, t, n, r, o, a, i);
       }
     }
-    function b(e, t, n, o, a, i) {
+    function b(e, t, n, o, a, i, l) {
       (e.preventDefault(), e.stopPropagation());
-      var l = new (r("WAWebDataTransfer"))(e.dataTransfer);
-      if (l.hasType("Files")) {
-        var s = l.getFiles();
-        v(s, t, n, o, a, i);
+      var s = new (r("WAWebDataTransfer"))(e.dataTransfer);
+      if (s.hasType("Files")) {
+        var u = s.getFiles();
+        v(u, t, n, o, a, i, l);
       }
     }
-    function v(e, t, a, i, l, u) {
+    function v(e, t, a, i, l, u, d) {
       e.length &&
         (u(!0),
         o("WAWebBizAdCreationMediaValidationUtils")
@@ -234,11 +234,11 @@ __d(
                     u = e.some(function (e) {
                       return e.type.startsWith("image/");
                     }),
-                    d = e.some(function (e) {
+                    m = e.some(function (e) {
                       return e.type.startsWith("video/");
                     });
                   u &&
-                    d &&
+                    m &&
                     ((n = e.filter(function (e) {
                       return !e.type.startsWith("video/");
                     })),
@@ -249,14 +249,14 @@ __d(
                         ),
                       }),
                     ));
-                  var m = n.map(function (e) {
+                  var p = n.map(function (e) {
                       return { file: e };
                     }),
-                    p = o(
+                    _ = o(
                       "WAWebBizAdCreationMediaValidationUtils",
-                    ).maybePruneNewAttachments(t, m),
-                    _ = t.getPreviewableMedias().length > 0;
-                  if (p.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") && _) {
+                    ).maybePruneNewAttachments(t, p),
+                    f = t.getPreviewableMedias().length > 0;
+                  if (_.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") && f) {
                     o("WAWebToastManager").ToastManager.open(
                       c.jsx(o("WAWebToast.react").Toast, {
                         msg: s._(
@@ -266,26 +266,26 @@ __d(
                     );
                     return;
                   }
-                  for (var f of p.pruneActions)
+                  for (var h of _.pruneActions)
                     o("WAWebToastManager").ToastManager.open(
                       c.jsx(o("WAWebToast.react").Toast, {
                         msg: o(
                           "WAWebBizAdCreationMediaValidationUtils",
-                        ).PRUNE_TOAST_MESSAGES[f](),
+                        ).PRUNE_TOAST_MESSAGES[h](),
                       }),
                     );
                   if (
-                    (p.shouldClearExisting && t.reset(),
-                    p.attachments.length !== 0)
+                    (_.shouldClearExisting && t.reset(),
+                    _.attachments.length !== 0)
                   ) {
-                    var h = new Set(
+                    var y = new Set(
                       t.getPreviewableMedias().map(function (e) {
                         return e.id;
                       }),
                     );
                     try {
                       yield t.processAttachments(
-                        p.attachments,
+                        _.attachments,
                         void 0,
                         o("WAWebBizAdCreationMediaValidationUtils")
                           .SUPPORTED_MEDIA_TYPES,
@@ -293,23 +293,23 @@ __d(
                           .MAX_IMAGE_COUNT,
                       );
                     } catch (e) {
-                      (i(),
+                      ((d != null ? d : i)(),
                         r("FBLogger")("wa_ctwa_web")
                           .catching(r("getErrorSafe")(e))
                           .mustfix("failed to process media for upload"));
                       return;
                     }
-                    var y = new Set(
+                    var C = new Set(
                       t
                         .getPreviewableMedias()
                         .filter(function (e) {
-                          return !h.has(e.id);
+                          return !y.has(e.id);
                         })
                         .map(function (e) {
                           return e.id;
                         }),
                     );
-                    (l(t, y),
+                    (l(t, C),
                       g({
                         mediaCollection: t,
                         onMediaUploadComplete: a,

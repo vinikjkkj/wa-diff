@@ -21,40 +21,39 @@ __d(
     "WAWebMsgProcessingApiUtils",
     "WAWebReportingTokenConstants",
     "WAWebUserPrefsMeUser",
-    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.chunkDownloadFinishTimestamp,
             i = t.chunkInfo,
             l = t.historySyncDataAppliedMetric,
-            p = t.historySyncDownloadMetric,
-            _ = t.proto;
+            m = t.historySyncDownloadMetric,
+            p = t.proto;
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "[history sync] start processing status",
               ])),
           ),
-            (p.mdBootstrapMessagesCount = _.statusV3Messages.length),
+            (m.mdBootstrapMessagesCount = p.statusV3Messages.length),
             o(
               "WAWebHistorySyncNotificationUtils",
             ).commitHistoryDownloadedMetric({
               chunkDownloadFinishTimestamp: a,
-              historySyncDownloadMetric: p,
+              historySyncDownloadMetric: m,
               isSuccess: !0,
               startTs: i.historySyncStepStartedTs,
             }),
-            _.statusV3Messages.sort(function (e, t) {
+            p.statusV3Messages.sort(function (e, t) {
               var n = e.messageTimestamp,
                 r = t.messageTimestamp;
               return (
@@ -62,9 +61,9 @@ __d(
                 o("WATimeUtils").castToUnixTime(parseInt(r, 10))
               );
             }));
-          var f = [];
-          (yield (m || (m = n("Promise"))).all(
-            _.statusV3Messages.map(
+          var _ = [];
+          (yield (d || (d = n("Promise"))).all(
+            p.statusV3Messages.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
@@ -81,33 +80,18 @@ __d(
                     else {
                       var l = e.participant;
                       if (l == null)
-                        return r("WAWebWid").isXWid(
-                          "newsletter",
-                          e.key.remoteJid,
-                        )
-                          ? (o("WALogger").LOG(
-                              s ||
-                                (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[history sync] skipping newsletter status without participant",
-                                ])),
-                            ),
-                            (m || (m = n("Promise"))).resolve())
-                          : (o("WALogger")
-                              .ERROR(
-                                u ||
-                                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[history sync] missing participant in status message, remoteJid: ",
-                                    "",
-                                  ])),
-                                e.key.remoteJid,
-                              )
-                              .sendLogs(
-                                "hist-sync-missing-participant-in-status",
-                              ),
-                            (m || (m = n("Promise"))).resolve());
+                        return (
+                          o("WALogger").LOG(
+                            s ||
+                              (s = babelHelpers.taggedTemplateLiteralLoose([
+                                "[history sync] skipping status without participant",
+                              ])),
+                          ),
+                          (d || (d = n("Promise"))).resolve()
+                        );
                       a = o("WAWebWidFactory").createWid(l);
                     }
-                    var d = {
+                    var c = {
                       type: o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE
                         .OTHER_STATUS,
                       externalId: r("nullthrows")(
@@ -131,59 +115,59 @@ __d(
                       return (
                         o("WALogger")
                           .ERROR(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
                                 "[history sync] missing message",
                               ])),
                           )
                           .sendLogs("history-sync-missing-status-msg"),
-                        (m || (m = n("Promise"))).resolve()
+                        (d || (d = n("Promise"))).resolve()
                       );
-                    var p = o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-                      _ = yield o("WAWebMsgProcessingApiUtils").parseMessage({
-                        info: d,
-                        ciphertextType: p,
+                    var m = o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                      p = yield o("WAWebMsgProcessingApiUtils").parseMessage({
+                        info: c,
+                        ciphertextType: m,
                         msgProtobuf: r("nullthrows")(
                           e.message,
                           "HistorySync:handleStatusMessages: missing message",
                         ),
                         hsmInfo: null,
                       }),
-                      g = _.renderableMsgs && _.renderableMsgs;
-                    if (!g || g.length !== 1)
-                      return (m || (m = n("Promise"))).resolve();
-                    var h = g[0].id,
-                      y = g[0].author,
-                      C = babelHelpers.extends({}, g[0], {
+                      f = p.renderableMsgs && p.renderableMsgs;
+                    if (!f || f.length !== 1)
+                      return (d || (d = n("Promise"))).resolve();
+                    var g = f[0].id,
+                      h = f[0].author,
+                      y = babelHelpers.extends({}, f[0], {
                         author:
-                          y &&
-                          o("WAWebLidStatusMigrationUtils").matWidConvert(y),
+                          h &&
+                          o("WAWebLidStatusMigrationUtils").matWidConvert(h),
                         id: new (r("WAWebMsgKey"))({
-                          fromMe: h.fromMe,
-                          remote: h.remote,
-                          id: h.id,
+                          fromMe: g.fromMe,
+                          remote: g.remote,
+                          id: g.id,
                           participant:
-                            h.participant == null
+                            g.participant == null
                               ? void 0
                               : o("WAWebLidStatusMigrationUtils").matWidConvert(
-                                  h.participant,
+                                  g.participant,
                                 ),
                         }),
                       });
                     if (e.participant === "0@s.whatsapp.net")
-                      return (m || (m = n("Promise"))).resolve();
-                    var b = e.ignore === !0;
+                      return (d || (d = n("Promise"))).resolve();
+                    var C = e.ignore === !0;
                     if (
-                      (b &&
-                        (C = babelHelpers.extends({}, C, {
+                      (C &&
+                        (y = babelHelpers.extends({}, y, {
                           invis: !0,
                           ack: o("WAAckLevel").ACK.READ,
                         })),
                       yield o(
                         "WAWebHandleSingleMsgWorkerCompatible",
                       ).handleSingleMsg({
-                        chatId: C.id.remote,
-                        newMsg: C,
+                        chatId: y.id.remote,
+                        newMsg: y,
                         handleSingleMsgOrigin: "historyStatusMessages",
                       }),
                       i.forEach(function (e) {
@@ -198,7 +182,7 @@ __d(
                           ts: n,
                           ack: o("WAAckLevel").ACK.READ,
                           receiverId: r,
-                          msgKeys: [C.id.toString()],
+                          msgKeys: [y.id.toString()],
                         });
                       }),
                       o(
@@ -208,20 +192,20 @@ __d(
                           ? void 0
                           : t.reportingTag) != null)
                     ) {
-                      var v;
-                      C = babelHelpers.extends({}, C, {
+                      var b;
+                      y = babelHelpers.extends({}, y, {
                         reportingTokenInfo: {
                           reportingTag: new Uint8Array(
-                            (v = e.reportingTokenInfo) == null
+                            (b = e.reportingTokenInfo) == null
                               ? void 0
-                              : v.reportingTag,
+                              : b.reportingTag,
                           ),
                           version: o("WAWebReportingTokenConstants")
                             .REPORTING_TOKEN_VERSION.HISTORY_SYNC,
                         },
                       });
                     }
-                    return (f.push(C), !0);
+                    return (_.push(y), !0);
                   },
                 );
                 return function (t) {
@@ -243,24 +227,24 @@ __d(
               isSuccess: !0,
             }),
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[history sync] storing Status complete, ",
                   "",
                 ])),
               o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
                 i,
-                _.statusV3Messages.length,
+                p.statusV3Messages.length,
               ),
             ),
             o("WAWebDBReportingTokenUtils").handleHistorySyncedReportingInfo(
-              f,
+              _,
             ));
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.handleStatusMessages = p;
+    l.handleStatusMessages = m;
   },
   98,
 );

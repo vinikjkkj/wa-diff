@@ -6,7 +6,6 @@ __d(
     "CometPassiveGetRouterStatusContext",
     "CometRouteStoreContext",
     "CometRouterDispatcherContext",
-    "CometRouterFocusManager.react",
     "CometRouterLoadingContextInternals_DO_NOT_USE",
     "CometRouterMaintainedRoutesStateContext",
     "CometRouterPushViewStackContext",
@@ -14,55 +13,58 @@ __d(
     "CometRouterStateContext",
     "CometRouterUIComponentContext",
     "asyncToGeneratorRuntime",
+    "cr:5632",
     "getTopMostRoute",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react")),
-      u = e,
-      c = u.useEffect,
-      d = u.useLayoutEffect,
-      m = u.useMemo,
-      p = u.useOptimistic,
-      _ = u.useState,
-      f = u.useTransition,
-      g = [],
-      h = { loading: !1 };
-    function y(e, t, a) {
-      a === void 0 && (a = {});
-      var l = a,
-        u = l.uiComponents,
-        y = u === void 0 ? {} : u,
-        C = l.disableReactTransition,
-        b = C === void 0 ? !1 : C,
-        v = l.useLegacyHidden;
-      function S(a) {
-        var i,
-          l,
-          u = _(function () {
+      s,
+      u = s || (s = o("react")),
+      c = s,
+      d = c.useEffect,
+      m = c.useLayoutEffect,
+      p = c.useMemo,
+      _ = c.useOptimistic,
+      f = c.useState,
+      g = c.useTransition,
+      h = [],
+      y = { loading: !1 },
+      C = (e = n("cr:5632")) != null ? e : u.Fragment;
+    function b(e, t, o) {
+      o === void 0 && (o = {});
+      var a = o,
+        l = a.uiComponents,
+        s = l === void 0 ? {} : l,
+        c = a.disableReactTransition,
+        b = c === void 0 ? !1 : c,
+        v = a.useLegacyHidden;
+      function S(o) {
+        var a,
+          i,
+          l = f(function () {
             return e.getCurrentRouterState();
           }),
-          C = u[0],
-          S = u[1],
-          R = _(function () {
+          c = l[0],
+          S = l[1],
+          R = f(function () {
             return e.getMaintainedRouteState();
           }),
           L = R[0],
           E = R[1],
           k = t(),
           I = k[0],
-          T = f(),
+          T = g(),
           D = T[0],
           x = T[1],
-          $ = p(C),
+          $ = _(c),
           P = $[0],
           N = $[1],
-          M = p(!1),
+          M = _(!1),
           w = M[0],
           A = M[1];
-        (c(
+        (d(
           function () {
             var t = e.getCurrentRouterState(),
               n = e.getMaintainedRouteState();
@@ -93,14 +95,14 @@ __d(
           },
           [x, N, I],
         ),
-          d(
+          m(
             function () {
-              e.markNavigationAsCommitted_INTERNAL_ONLY(C.routeKey);
+              e.markNavigationAsCommitted_INTERNAL_ONLY(c.routeKey);
             },
-            [C.routeKey],
+            [c.routeKey],
           ));
         var F = e.dispatcher,
-          O = m(
+          O = p(
             function () {
               return b
                 ? F
@@ -137,77 +139,73 @@ __d(
             },
             [F, A, x],
           ),
-          B = m(
+          B = p(
             function () {
               return b
-                ? h
-                : P == null || P === C
+                ? y
+                : P == null || P === c
                   ? { hidePageTransitioningLoadingState: w, loading: D }
                   : {
-                      currentState: C,
+                      currentState: c,
                       hidePageTransitioningLoadingState: w,
                       loading: D,
                       nextState: P,
                     };
             },
-            [w, P, C, D],
+            [w, P, c, D],
           ),
-          W = a.children;
-        return s.jsx(r("CometHiddenAPIContextProvider"), {
+          W = o.children;
+        return u.jsx(r("CometHiddenAPIContextProvider"), {
           hiddenAPIOverride: v,
-          children: s.jsx(r("CometRouterUIComponentContext").Provider, {
-            value: y,
-            children: s.jsx(r("CometRouterDispatcherContext").Provider, {
+          children: u.jsx(r("CometRouterUIComponentContext").Provider, {
+            value: s,
+            children: u.jsx(r("CometRouterDispatcherContext").Provider, {
               value: O,
-              children: s.jsx(
+              children: u.jsx(
                 r("CometRouterLoadingContextInternals_DO_NOT_USE").Provider,
                 {
                   value: B,
-                  children: s.jsx(r("CometRouterStateContext").Provider, {
-                    value: C,
-                    children: s.jsx(
+                  children: u.jsx(r("CometRouterStateContext").Provider, {
+                    value: c,
+                    children: u.jsx(
                       r("CometPassiveGetRouterStateContext").Provider,
                       {
                         value: e.getCurrentRouterState,
-                        children: s.jsx(
+                        children: u.jsx(
                           r("CometPassiveGetRouterStatusContext").Provider,
                           {
                             value: e.getCurrentRouterStatus,
-                            children: s.jsx(
+                            children: u.jsx(
                               r("CometRouterMaintainedRoutesStateContext")
                                 .Provider,
                               {
                                 value: L,
-                                children: s.jsx(
+                                children: u.jsx(
                                   r("CometRouterPushViewStackContext").Provider,
                                   {
                                     value:
-                                      (i = C.pushViewStack) != null ? i : g,
-                                    children: s.jsx(
+                                      (a = c.pushViewStack) != null ? a : h,
+                                    children: u.jsx(
                                       r("CometRouteStoreContext").Provider,
                                       {
                                         value: e.store,
-                                        children: s.jsx(
+                                        children: u.jsx(
                                           r("CometRouterRouteTopNavTypeContext")
                                             .Provider,
                                           {
                                             value:
-                                              (l =
+                                              (i =
                                                 r("getTopMostRoute")(
-                                                  C,
+                                                  c,
                                                 ).topNavType) != null
-                                                ? l
+                                                ? i
                                                 : "default",
-                                            children: s.jsx(
-                                              o("CometRouterFocusManager.react")
-                                                .CometRouterFocusManager,
-                                              {
-                                                children:
-                                                  typeof W == "function"
-                                                    ? W(C)
-                                                    : W,
-                                              },
-                                            ),
+                                            children: u.jsx(C, {
+                                              children:
+                                                typeof W == "function"
+                                                  ? W(c)
+                                                  : W,
+                                            }),
                                           },
                                         ),
                                       },
@@ -229,7 +227,7 @@ __d(
       }
       return ((S.displayName = S.name + " [from " + i.id + "]"), S);
     }
-    l.default = y;
+    l.default = b;
   },
   98,
 );

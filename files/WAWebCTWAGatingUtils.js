@@ -147,6 +147,26 @@ __d(
         "ctwa_ad_account_nonce_retries_max_web",
       );
     }
+    var w = [
+      ".whatsapp.net",
+      ".whatsapp.com",
+      ".fbcdn.net",
+      ".facebook.com",
+      ".instagram.com",
+      ".cdninstagram.com",
+    ];
+    function A() {
+      var e = o("WAWebABProps")
+        .getABPropConfigValue("ctwa_external_ad_reply_url_allowlist_domains")
+        .split(",")
+        .map(function (e) {
+          return e.trim().toLowerCase();
+        })
+        .filter(function (e) {
+          return e.length > 1 && e.startsWith(".") && !e.includes("*");
+        });
+      return e.length > 0 ? e : w;
+    }
     ((l.isCtwaAgmReportingEnabled = e),
       (l.isAdsAttributionEnabled = s),
       (l.isHideAdContextIfSoftDismissed = u),
@@ -174,7 +194,8 @@ __d(
       (l.getCTWALearnMoreHyperLinkForCCICompliantUI = $),
       (l.adAccountTokenStoringEnabled = P),
       (l.adAccountTokenNoncePushWaitTimeoutSeconds = N),
-      (l.adAccountTokenNonceMaxRetries = M));
+      (l.adAccountTokenNonceMaxRetries = M),
+      (l.getCtwaAdImageUrlAllowlist = A));
   },
   98,
 );
