@@ -431,7 +431,11 @@ __d(
       var c =
         o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
         r("WAWebWid").isNewsletter(t.id);
-      c || l.add("aiProvenance");
+      (c || l.add("aiProvenance"),
+        o("WAWebMsgGetters").getIsNewsletterMsg(e) &&
+          (l.add("isFromTemplate"),
+          l.add("hydratedButtons"),
+          l.add("carouselCardsParsed")));
       var d = r("filterObject")(e.toJSON(), function (e, t) {
         return !l.has(t);
       });

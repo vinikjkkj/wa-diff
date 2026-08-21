@@ -51,6 +51,7 @@ __d(
     "WAWebViewModeUtils",
     "WAWebViewOnceState",
     "WAWebWamEnumWebcRmrReasonCode",
+    "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -764,7 +765,7 @@ __d(
             var e,
               t,
               n = this.carouselCardsParsed;
-            if (n != null) {
+            if (!(n == null || r("WAWebWid").isNewsletter(this.id.remote))) {
               var a =
                   n.length >
                   o("WAWebInteractiveMessageCarouselConstants")

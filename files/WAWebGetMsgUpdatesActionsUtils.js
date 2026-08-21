@@ -108,8 +108,9 @@ __d(
                           !n.id.fromMe &&
                           n.ack < o("WAWebAck").ACK.CLOCK &&
                           (n.ack = o("WAWebAck").ACK.CLOCK),
-                        n.hydratedButtons != null && T(n),
-                        n.dynamicReplyButtons != null && D(n),
+                        r("WAWebWid").isNewsletter(n.id.remote) ||
+                          (n.hydratedButtons != null && T(n),
+                          n.dynamicReplyButtons != null && D(n)),
                         (s = o("WAWebInvisiblePlaceholderViewModeProcessor")
                           .InvisiblePlaceholderViewModeProcessor
                           .compatibleMessageTypes) != null &&

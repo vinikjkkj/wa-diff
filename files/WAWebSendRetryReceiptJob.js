@@ -6,6 +6,9 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebAdvSignatureApi",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2GatingUtils",
+    "WAWebCoexV2ReceiptRecipient",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebCryptoCurve25519",
@@ -135,7 +138,17 @@ __d(
               x = o("WAWap").DROP_ATTR,
               $,
               P = !1;
-            if (C.isUser()) {
+            if (
+              C.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+              o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+            ) {
+              $ = o("WAWebCommsWapMd").USER_JID(C);
+              var N =
+                g != null
+                  ? o("WAWebCoexV2ReceiptRecipient").toCoexV2ReceiptRecipient(g)
+                  : null;
+              N != null && (D = o("WAWebCommsWapMd").USER_JID(N));
+            } else if (C.isUser()) {
               if (
                 (($ = o("WAWebCommsWapMd").DEVICE_JID(C)),
                 o("WAWebUserPrefsMeUser").isMeAccount(
@@ -155,12 +168,12 @@ __d(
                 (x = m
                   ? o("WAWebCommsWapMd").DEVICE_JID(m)
                   : o("WAWap").DROP_ATTR));
-            var N = P
+            var M = P
                 ? null
                 : o("WAWebSendReceiptJobCommon").genReceiptMetaModeNode(
                     _ != null ? _ : 0,
                   ),
-              M = o("WAWap").wap(
+              w = o("WAWap").wap(
                 "receipt",
                 {
                   id: o("WAWap").CUSTOM_STRING(a),
@@ -183,12 +196,12 @@ __d(
                   o("WAWap").BIG_ENDIAN_CONTENT(R),
                 ),
                 k,
-                N,
+                M,
               );
             return o(
               "WAWebDeprecatedSendIqWorkerCompatible",
             ).deprecatedSendStanzaAndWaitForAck(
-              M,
+              w,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,
                 class: "receipt",

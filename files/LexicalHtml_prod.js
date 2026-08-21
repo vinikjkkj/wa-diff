@@ -800,7 +800,8 @@ __d(
       var t = new Set(),
         n = [],
         o = [];
-      if ((e.skipWhitespace(), "*" === e.peek())) e.consume();
+      var r = !1;
+      if ((e.skipWhitespace(), "*" === e.peek())) (e.consume(), (r = !0));
       else if (fe.test(e.peek())) {
         var _n11 = e.readIdent();
         _n11 && t.add(_n11.toUpperCase());
@@ -839,21 +840,22 @@ __d(
           }
         }
       }
-      return (o.length > 0 && n.push(re(o)), { predicates: n, tags: t });
+      return (
+        o.length > 0 && n.push(re(o)),
+        e.assert(r || t.size > 0 || n.length > 0, "expected a selector"),
+        { predicates: n, tags: t }
+      );
     }
     function he(e) {
       var t = new _de(e, 0),
         n = [];
-      for (;;) {
-        var _e14 = pe(t);
-        if ((n.push(_e14), t.skipWhitespace(), t.eof())) break;
+      for (; n.push(pe(t)), t.skipWhitespace(), !t.eof(); )
         (t.assert(
           "," === t.peek(),
           'expected "," (selector lists are the only supported combinator)',
         ),
           t.consume(),
           t.skipWhitespace());
-      }
       if (1 === n.length) return ne(n[0].tags, n[0].predicates);
       var o = new Set();
       if (
@@ -861,7 +863,7 @@ __d(
           return e.tags.size > 0;
         })
       )
-        for (var _e15 of n) for (var _t13 of _e15.tags) o.add(_t13);
+        for (var _e14 of n) for (var _t13 of _e14.tags) o.add(_t13);
       return ne(o, [
         function (e, t) {
           for (var _o7 of n) {
@@ -973,8 +975,8 @@ __d(
       1 === e.length && require("Lexical").$isLineBreakNode(e[0]) && (e = []);
       var r = require("Lexical").$createParagraphNode();
       if (require("Lexical").isHTMLElement(o)) {
-        var _e16 = o.style.textAlign;
-        He(_e16) && r.setFormat(_e16);
+        var _e15 = o.style.textAlign;
+        He(_e15) && r.setFormat(_e15);
       }
       return [r.splice(0, 0, e)];
     }
@@ -1059,12 +1061,12 @@ __d(
                 : "normal" === s && (o |= require("Lexical").IS_ITALIC),
               i)
             ) {
-              var _e17 = i.split(" ");
-              (_e17.includes("underline") &&
+              var _e16 = i.split(" ");
+              (_e16.includes("underline") &&
                 (n |= require("Lexical").IS_UNDERLINE),
-                _e17.includes("line-through") &&
+                _e16.includes("line-through") &&
                   (n |= require("Lexical").IS_STRIKETHROUGH),
-                _e17.includes("none") &&
+                _e16.includes("none") &&
                   (o |=
                     require("Lexical").IS_UNDERLINE |
                     require("Lexical").IS_STRIKETHROUGH));
@@ -1111,13 +1113,13 @@ __d(
     function ze(e, n, o) {
       var r = e;
       for (;;) {
-        var _e18 = null;
-        for (; null === (_e18 = n ? r.nextSibling : r.previousSibling); ) {
-          var _e19 = r.parentNode;
-          if (null === _e19) return null;
-          r = _e19;
+        var _e17 = null;
+        for (; null === (_e17 = n ? r.nextSibling : r.previousSibling); ) {
+          var _e18 = r.parentNode;
+          if (null === _e18) return null;
+          r = _e18;
         }
-        if (((r = _e18), !o.isInline(r))) return null;
+        if (((r = _e17), !o.isInline(r))) return null;
         var _s6 = r;
         for (; null !== (_s6 = n ? r.firstChild : r.lastChild); ) r = _s6;
         if (require("Lexical").isDOMTextNode(r)) return r;
@@ -1154,11 +1156,11 @@ __d(
               return !1;
             })(n, s)
           ) {
-            var _e20 = require("Lexical").$generateNodesFromRawText(
+            var _e19 = require("Lexical").$generateNodesFromRawText(
               n.textContent || "",
             );
-            for (var _t15 of _e20) (je(_t15, o), Ve(_t15, r));
-            return _e20;
+            for (var _t15 of _e19) (je(_t15, o), Ve(_t15, r));
+            return _e19;
           }
           var i = (function (e, t) {
             var n = (e.textContent || "")
@@ -1169,9 +1171,9 @@ __d(
               var _o8 = e,
                 _r9 = !0;
               for (; null !== _o8 && null !== (_o8 = ze(_o8, !1, t)); ) {
-                var _e21 = _o8.textContent || "";
-                if (_e21.length > 0) {
-                  (/[ \t\n]$/.test(_e21) && (n = n.slice(1)), (_r9 = !1));
+                var _e20 = _o8.textContent || "";
+                if (_e20.length > 0) {
+                  (/[ \t\n]$/.test(_e20) && (n = n.slice(1)), (_r9 = !1));
                   break;
                 }
               }
@@ -1224,8 +1226,8 @@ __d(
             require("Lexical").setNodeIndentFromDOM(n, o),
             "" === o.getFormatType())
           ) {
-            var _e22 = n.getAttribute("align");
-            _e22 && He(_e22) && o.setFormat(_e22);
+            var _e21 = n.getAttribute("align");
+            _e21 && He(_e21) && o.setFormat(_e21);
           }
           return (
             require("Lexical").$setDirectionFromDOM(o, n),
@@ -1303,23 +1305,23 @@ __d(
         else if ("comment" === u.kind) i.push(l);
         else if (0 === u.tags.size) o.push(l);
         else
-          for (var _e23 of u.tags) {
-            var _t16 = n.get(_e23);
-            (_t16 || ((_t16 = []), n.set(_e23, _t16)), _t16.push(l));
+          for (var _e22 of u.tags) {
+            var _t16 = n.get(_e22);
+            (_t16 || ((_t16 = []), n.set(_e22, _t16)), _t16.push(l));
           }
       });
       var l = new Map();
       if (0 === o.length)
         for (var _ref5 of n) {
-          var _e24 = _ref5[0];
+          var _e23 = _ref5[0];
           var _t17 = _ref5[1];
-          l.set(_e24, _t17);
+          l.set(_e23, _t17);
         }
       else
         for (var _ref7 of n) {
-          var _e25 = _ref7[0];
+          var _e24 = _ref7[0];
           var _t18 = _ref7[1];
-          l.set(_e25, Ze(_t18, o));
+          l.set(_e24, Ze(_t18, o));
         }
       return {
         byTag: l,
@@ -1342,7 +1344,7 @@ __d(
     function nt(e) {
       var t = [];
       for (var _n16 of e)
-        if (ot(_n16)) for (var _e26 of _n16.rules) t.push(_e26);
+        if (ot(_n16)) for (var _e25 of _n16.rules) t.push(_e25);
         else t.push(_n16);
       return t;
     }
@@ -1387,8 +1389,8 @@ __d(
         r = [];
       for (var _n17 of Array.from(t.childNodes)) {
         var _t19 = ct(e, _n17, void 0);
-        for (var _e27 of _t19) {
-          var _t20 = o ? o(_e27) : _e27;
+        for (var _e26 of _t19) {
+          var _t20 = o ? o(_e26) : _e26;
           null != _t20 && r.push(_t20);
         }
       }
@@ -1404,11 +1406,11 @@ __d(
               if (((s = null), e.$packageRun)) {
                 var _s7 = e.$packageRun(t, n, o);
                 if (_s7.length > 0) {
-                  for (var _e28 of _s7) r.push(_e28);
+                  for (var _e27 of _s7) r.push(_e27);
                   return;
                 }
               }
-              if ("hoist" === e.onReject) for (var _e29 of t) r.push(_e29);
+              if ("hoist" === e.onReject) for (var _e28 of t) r.push(_e28);
             };
             for (var _o1 of t)
               e.$accepts(_o1, n)
@@ -1467,7 +1469,7 @@ __d(
       var n = [];
       for (var _o12 of Array.from(t.childNodes)) {
         var _t21 = ct(e, _o12, void 0);
-        for (var _e30 of _t21) n.push(_e30);
+        for (var _e29 of _t21) n.push(_e29);
       }
       return n;
     }
@@ -1580,11 +1582,11 @@ __d(
             ? require("Lexical").$getSlotFrame(n.anchor.getNode())
             : null,
           c = e.append.bind(e);
-        for (var _e31 of (require("Lexical").$isElementNode(i)
+        for (var _e30 of (require("Lexical").$isElementNode(i)
           ? i
           : r
         ).getChildren())
-          xt(o, _e31, c, n, s);
+          xt(o, _e30, c, n, s);
         return e;
       });
     }
@@ -1624,9 +1626,9 @@ __d(
             ? null
             : s,
         $ = m.append.bind(m);
-      for (var _e32 of g) {
-        var _t22 = xt(n, _e32, $, x, i);
-        !c && _t22 && i.$extractWithChild(o, _e32, s, "html", n) && (c = !0);
+      for (var _e31 of g) {
+        var _t22 = xt(n, _e31, $, x, i);
+        !c && _t22 && i.$extractWithChild(o, _e31, s, "html", n) && (c = !0);
       }
       if (c && !l) {
         if (
@@ -1636,13 +1638,13 @@ __d(
           require("Lexical").isDocumentFragment(f))
         ) {
           if (d) {
-            var _e33 = d.call(u, f);
-            _e33 && f.replaceChildren(_e33);
+            var _e32 = d.call(u, f);
+            _e32 && f.replaceChildren(_e32);
           }
           r(f);
         } else if ((r(f), d)) {
-          var _e34 = d.call(u, f);
-          _e34 && f.replaceWith(_e34);
+          var _e33 = d.call(u, f);
+          _e33 && f.replaceWith(_e33);
         }
       } else r(m);
       return c;
@@ -1677,8 +1679,8 @@ __d(
           ((l = Array.isArray(_t24) ? _t24[_t24.length - 1] : _t24), null !== l)
         ) {
           for (var _ref9 of s) {
-            var _e35 = _ref9[1];
-            if (((l = _e35(l, i)), !l)) break;
+            var _e34 = _ref9[1];
+            if (((l = _e34(l, i)), !l)) break;
           }
           l && c.push.apply(c, Array.isArray(_t24) ? _t24 : [l]);
         }
@@ -1689,9 +1691,9 @@ __d(
       var h =
         (null == l || !require("Lexical").$isRootOrShadowRoot(l)) &&
         ((null != l && require("Lexical").$isBlockElementNode(l)) || r);
-      for (var _e36 = 0; _e36 < d.length; _e36++) {
+      for (var _e35 = 0; _e35 < d.length; _e35++) {
         var _p;
-        (_p = p).push.apply(_p, $t(d[_e36], n, o, h, new Map(s), l));
+        (_p = p).push.apply(_p, $t(d[_e35], n, o, h, new Map(s), l));
       }
       if (
         (null != f && (p = f(p)),
@@ -1708,7 +1710,7 @@ __d(
           )),
         null == l)
       ) {
-        if (p.length > 0) for (var _e37 of p) c.push(_e37);
+        if (p.length > 0) for (var _e36 of p) c.push(_e36);
         else
           require("Lexical").isBlockDomNode(e) &&
             (function (e) {
@@ -1727,20 +1729,20 @@ __d(
       var r = e.style.textAlign,
         s = [];
       var i = [];
-      for (var _e38 = 0; _e38 < n.length; _e38++) {
-        var _c3 = n[_e38];
+      for (var _e37 = 0; _e37 < n.length; _e37++) {
+        var _c3 = n[_e37];
         if (require("Lexical").$isBlockElementNode(_c3))
           (r && !_c3.getFormat() && _c3.setFormat(r), s.push(_c3));
         else if (
           (i.push(_c3),
-          _e38 === n.length - 1 ||
-            (_e38 < n.length - 1 &&
-              require("Lexical").$isBlockElementNode(n[_e38 + 1])))
+          _e37 === n.length - 1 ||
+            (_e37 < n.length - 1 &&
+              require("Lexical").$isBlockElementNode(n[_e37 + 1])))
         ) {
-          var _e39 = o();
-          (_e39.setFormat(r),
-            _e39.append.apply(_e39, i),
-            s.push(_e39),
+          var _e38 = o();
+          (_e38.setFormat(r),
+            _e38.append.apply(_e38, i),
+            s.push(_e38),
             (i = []));
         }
       }
@@ -1806,7 +1808,7 @@ __d(
         for (var _t26 of o)
           if (!mt.has(_t26.nodeName)) {
             var _n21 = $t(_t26, e, s, !1);
-            if (null !== _n21) for (var _e40 of _n21) r.push(_e40);
+            if (null !== _n21) for (var _e39 of _n21) r.push(_e39);
           }
         return (
           (function (e) {
@@ -1816,9 +1818,9 @@ __d(
                   require("Lexical").ArtificialNode__DO_NOT_USE &&
                 _n22.insertAfter(require("Lexical").$createLineBreakNode());
             for (var _t27 of e) {
-              var _e41 = _t27.getParent();
-              _e41 &&
-                _e41.splice(_t27.getIndexWithinParent(), 1, _t27.getChildren());
+              var _e40 = _t27.getParent();
+              _e40 &&
+                _e40.splice(_t27.getIndexWithinParent(), 1, _t27.getChildren());
             }
           })(s),
           r

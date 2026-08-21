@@ -177,7 +177,7 @@ __d(
                     ])),
                   i == null ? void 0 : i.botEditType,
                 ));
-          var y = c.from,
+          var y = l.metaFrom,
             C = o("WAWebWidToJid").widToUserJid(
               y != null &&
                 l.author != null &&

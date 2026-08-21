@@ -1095,6 +1095,7 @@ __d(
       ],
       disable_auto_download: [1838, "bool", !1, !1],
       disable_libaom_registration: [23836, "bool", !1, !1],
+      disable_message_secret_for_edit_to_bot: [35238, "bool", !1, !0],
       disable_raise_hand_1on1: [27177, "bool", !1, !1],
       disappearing_mode: [536, "bool", !1, !1],
       disclosure_for_the_marketing_message_body_links_enabled: [
@@ -1276,6 +1277,7 @@ __d(
       enable_web_voip_worker_pool_reclaim_on_rejoin: [33597, "bool", !0, !0],
       enable_webcodec_require_keyframe: [29510, "bool", !0, !0],
       enable_webcodec_video_encode: [26079, "bool", !1, !1],
+      enable_webcodec_video_encoder_output_watchdog: [35420, "bool", !1, !1],
       enable_webrtc_video_jb: [27591, "bool", !1, !1],
       enable_wefr_client_expo_pulse: [10230, "bool", !1, !0],
       enable_windows_hybrid_jumplist_contacts: [21057, "bool", !1, !0],
@@ -2839,6 +2841,7 @@ __d(
       wa_media_chat_text_experience_id: [34944, "int", 0, 0],
       wa_media_chat_video_experience_id: [34900, "int", 0, 0],
       wa_media_document_experience_id: [34897, "int", 0, 0],
+      wa_media_experience_id_receive_enabled: [35167, "bool", !1, !0],
       wa_media_image_upload_cache: [22784, "bool", !1, !1],
       wa_media_other_experience_id: [34947, "int", 0, 0],
       wa_media_photo_experience_id: [34893, "int", 0, 0],

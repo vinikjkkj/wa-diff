@@ -85,7 +85,10 @@ __d(
       var t = parseInt(e.dataset.tab, 10);
       if (typeof t != "number" || t < 0) return !1;
       var n = e.getAttribute("tabindex");
-      return n != null && parseInt(n, 10) === -1 ? !1 : !_(e);
+      return (n != null && parseInt(n, 10) === -1) ||
+        e.closest("[inert]") != null
+        ? !1
+        : !_(e);
     }
     function _(e) {
       if (getComputedStyle(e).visibility === "hidden") return !0;

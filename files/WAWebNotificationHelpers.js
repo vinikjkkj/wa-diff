@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebABProps",
+    "WAWebBizAiStrings",
     "WAWebChatCollection",
     "WAWebChatGetters",
     "WAWebCmd",
@@ -126,7 +127,8 @@ __d(
     }
     function C(e) {
       if (e.isLocked) return r("WAWebFbtCommon")("WhatsApp").toString();
-      if (e.id.isAiHub()) return "Meta Business Agent";
+      if (e.id.isAiHub())
+        return o("WAWebBizAiStrings").getBizAiHubTitle().toString();
       var t = e.groupMetadata;
       if (t != null && o("WAWebGroupMetadataGetters").getIsUnnamed(t))
         return o(

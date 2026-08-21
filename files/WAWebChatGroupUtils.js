@@ -8,6 +8,7 @@ __d(
     "WAWebApiContact",
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
+    "WAWebBizAiStrings",
     "WAWebBizBotProfileUtils",
     "WAWebBizCoexGatingUtils",
     "WAWebBotComposerTreatment",
@@ -271,9 +272,11 @@ __d(
       if (o("WAWebChatGetters").getIsBroadcast(e)) e.formattedTitle = D(e);
       else if (o("WAWebChatGetters").getIsUser(e)) {
         var t;
-        e.formattedTitle =
-          (t = o("WAWebFrontendContactGetters").getFormattedUser(e.contact)) !=
-          null
+        e.formattedTitle = e.id.isAiHub()
+          ? o("WAWebBizAiStrings").getBizAiHubTitle().toString()
+          : (t = o("WAWebFrontendContactGetters").getFormattedUser(
+                e.contact,
+              )) != null
             ? t
             : "";
       } else if (o("WAWebChatGetters").getIsGroup(e)) {

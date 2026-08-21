@@ -1481,6 +1481,26 @@ __d(
           }
           return t;
         })(),
+        sendWave: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              var r = yield l,
+                o = new r.StringList();
+              n.forEach(function (e) {
+                return o.push_back(e);
+              });
+              try {
+                var a = r.sendWave(e, t, o);
+              } finally {
+                o.delete();
+              }
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         checkOngoingCalls: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {

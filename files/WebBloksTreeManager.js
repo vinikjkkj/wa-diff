@@ -231,11 +231,8 @@ __d(
                       p.collectVariable(h, b, S.initialData, null);
                     }
                   }
-                  (e.initialTreeResources.setShouldCommitPublishStateUpdates(
-                    !1,
-                  ),
-                    (e.treeResourcesState =
-                      e.treeResourcesState.withUpdatedEntries(m, d)));
+                  e.treeResourcesState =
+                    e.treeResourcesState.withUpdatedEntries(m, d);
                   var R = d;
                   if (R != null && R.size) {
                     var L = new Map(e.committedVariables);
@@ -276,7 +273,10 @@ __d(
               s++
             )
               l();
-            return [!this.treeResourcesState.equalsTo(i), a];
+            return (
+              this.initialTreeResources.setShouldCommitPublishStateUpdates(!1),
+              [!this.treeResourcesState.equalsTo(i), a]
+            );
           }),
           (a.synchronouslyAddTreeResources = function (t, n) {
             if (!this.$4) {

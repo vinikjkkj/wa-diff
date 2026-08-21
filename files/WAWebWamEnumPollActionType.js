@@ -11,6 +11,8 @@ __d(
       CHANGE_VOTE: 7,
       EDIT_POLL_INITIATED: 8,
       EDIT_POLL_COMPLETED: 9,
+      ADD_OPTION_INITIATED: 10,
+      ADD_OPTION_COMPLETED: 11,
     });
     i.POLL_ACTION_TYPE = e;
   },

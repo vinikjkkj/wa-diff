@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebABProps",
+    "WAWebBizAiStrings",
     "WAWebConnGetters",
     "WAWebConnModel",
     "WAWebUsernameWorkerCompatibleGatingUtils",
@@ -33,7 +34,7 @@ __d(
       return s._(/*BTDS*/ "Transactions, payment info");
     }
     function g() {
-      return s._(/*BTDS*/ "Meta Business Agent");
+      return o("WAWebBizAiStrings").getBizAiHubTitle();
     }
     function h() {
       return s._(/*BTDS*/ "Your Meta Business Agent");

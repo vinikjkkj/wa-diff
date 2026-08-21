@@ -14,6 +14,7 @@ __d(
           PollsActions: [
             3676,
             {
+              allowAddOption: [11, e.TYPES.BOOLEAN],
               chatType: [8, o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE],
               groupSizeBucket: [
                 1,
@@ -22,6 +23,7 @@ __d(
               hideVoterName: [9, e.TYPES.BOOLEAN],
               isAGroup: [6, e.TYPES.BOOLEAN],
               isAdmin: [2, e.TYPES.BOOLEAN],
+              isPollCreator: [12, e.TYPES.BOOLEAN],
               pollAction: [3, o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE],
               pollCreationDs: [4, e.TYPES.INTEGER],
               pollDurationMs: [10, e.TYPES.INTEGER],

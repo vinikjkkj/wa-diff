@@ -6,6 +6,8 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebMiscBrowserUtils",
     "WAWebModalManager",
+    "WAWebToast.react",
+    "WAWebToastManager",
     "WAWebVoipBackendLoadable",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitEventEmitter",
@@ -139,9 +141,17 @@ __d(
         g.apply(this, arguments)
       );
     }
+    function h() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "End your current call to start a new one."),
+        }),
+      );
+    }
     ((l.showCouldNotPlaceCallModal = p),
       (l.showVoipInitUnavailableModal = _),
-      (l.showCallBlockedModalIfNeeded = f));
+      (l.showCallBlockedModalIfNeeded = f),
+      (l.showEndCurrentCallToast = h));
   },
   226,
 );

@@ -83,6 +83,7 @@ __d(
       EVENT_INVITE: 78,
       STICKER_REACTION: 79,
       MUSIC: 80,
+      POLL_ADD_OPTION: 81,
     });
     i.MEDIA_TYPE = e;
   },

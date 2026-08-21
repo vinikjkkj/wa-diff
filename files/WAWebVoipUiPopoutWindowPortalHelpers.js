@@ -26,14 +26,25 @@ __d(
       y = 1e4,
       C = new Map(),
       b = new WeakMap();
-    function v(e, t, n) {
+    function v(e, t, n, r) {
       (n === void 0 && (n = !1),
-        t != null ? (C.set(e, t), b.set(t, { isFromPopout: n })) : C.delete(e));
+        r === void 0 && (r = null),
+        t != null
+          ? (C.set(e, t), b.set(t, { acquiredInWindow: r, isFromPopout: n }))
+          : C.delete(e));
     }
-    function S() {
+    function S(e, t) {
+      var n;
+      if (t == null) return !1;
+      var r = C.get(e);
+      return r == null
+        ? !1
+        : ((n = b.get(r)) == null ? void 0 : n.acquiredInWindow) === t;
+    }
+    function R() {
       C.clear();
     }
-    function R(e) {
+    function L(e) {
       var t, n;
       return e == null
         ? !1
@@ -41,21 +52,21 @@ __d(
           ? t
           : !1;
     }
-    function L() {
+    function E() {
       var e = [];
       for (var t of C) {
         var n = t[0],
           r = t[1];
-        R(r) && e.push({ type: n, stream: r });
+        L(r) && e.push({ type: n, stream: r });
       }
       return e;
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
+    function k(e, t, n) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           if (!o("WAWebUA").UA.isSafari || !n || !a) {
             o("WALogger").LOG(
               e ||
@@ -102,10 +113,10 @@ __d(
               .catching(r("getErrorSafe")(e));
           }
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    var I = r("WAWebLazyLoadedRetriable")(
+    var T = r("WAWebLazyLoadedRetriable")(
       n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         var e = yield r("JSResourceForInteraction")(
           "WAWebVoipVideoCameraCapture",
@@ -116,19 +127,19 @@ __d(
       }),
       "WAWebVoipVideoCameraCapture",
     );
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n, o, a;
           if (
             ((n = r("WAWebCallCollection").activeCall) == null
               ? void 0
               : n.id) === t
           ) {
-            var i = yield I();
+            var i = yield T();
             if (
               ((o = r("WAWebCallCollection").activeCall) == null
                 ? void 0
@@ -153,15 +164,15 @@ __d(
             }
           }
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = null;
           try {
             var n, a;
@@ -172,7 +183,7 @@ __d(
                 : n.id) !== e
             )
               return !1;
-            var i = yield I();
+            var i = yield T();
             if (
               ((a = r("WAWebCallCollection").activeCall) == null
                 ? void 0
@@ -231,10 +242,10 @@ __d(
             );
           }
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(e) {
+    function N(e) {
       o(
         "WAWebVoipPopoutWindowState",
       ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
@@ -254,12 +265,13 @@ __d(
       (l.STREAM_REACQUISITION_POLL_INTERVAL_MS = h),
       (l.STREAM_REACQUISITION_TIMEOUT_MS = y),
       (l.setMediaStream = v),
-      (l.clearActiveStreams = S),
-      (l.getStreamsFromPopout = L),
-      (l.primeSafariMediaPermissions = E),
-      (l.reacquireCameraInTargetWindow = T),
-      (l.reacquireCameraReusingStreamForPopout = x),
-      (l.emitPopoutWindowVisibilityChanged = P));
+      (l.wasStreamAcquiredInWindow = S),
+      (l.clearActiveStreams = R),
+      (l.getStreamsFromPopout = E),
+      (l.primeSafariMediaPermissions = k),
+      (l.reacquireCameraInTargetWindow = D),
+      (l.reacquireCameraReusingStreamForPopout = $),
+      (l.emitPopoutWindowVisibilityChanged = N));
   },
   98,
 );

@@ -3,14 +3,12 @@ __d(
   [
     "Promise",
     "WAWebFindChatAction",
-    "WAWebLidMigrationUtils",
     "WAWebNewsletterSendMsgAction",
     "WAWebNewsletterSubscriberModel",
     "WAWebSendMsgResultAction",
     "WAWebStateUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -20,42 +18,37 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.base64Thumb,
-            i = t.chat,
-            l = t.invitees,
-            s = t.inviteMessage,
-            u = o("WAWebStateUtils").unproxy(i).id,
-            c = s != null ? s : "",
-            d = l.map(
+          var r = t.base64Thumb,
+            a = t.chat,
+            i = t.invitees,
+            l = t.inviteMessage,
+            s = o("WAWebStateUtils").unproxy(a).id,
+            u = l != null ? l : "",
+            c = i.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     try {
                       var t,
                         n = o("WAWebWidFactory").asUserWidOrThrow(e.id),
-                        l = o("WAWebLidMigrationUtils").toPn(n);
-                      if (l == null)
-                        throw r("err")(
-                          "WaWebLidPn - Phone number not found for contact",
-                        );
-                      var s = yield o(
+                        i = yield o(
                           "WAWebFindChatAction",
                         ).findOrCreateLatestChat(
-                          l,
+                          n,
                           "sendNewsletterAdminInvite",
                         ),
-                        d = s.chat,
-                        m = yield o(
+                        l = i.chat,
+                        c = yield o(
                           "WAWebNewsletterSendMsgAction",
-                        ).sendNewsletterAdminInviteMessage(d, {
-                          newsletterWid: u,
+                        ).sendNewsletterAdminInviteMessage(l, {
+                          newsletterWid: s,
                           invitee: n,
-                          inviteMessage: c,
-                          base64Thumb: a,
+                          inviteMessage: u,
+                          base64Thumb: r,
                         }),
-                        p = m.messageSendResult;
+                        d = c.messageSendResult;
                       return (
-                        (t = i.newsletterMetadata) == null ||
+                        (t = a.newsletterMetadata) == null ||
                           (t = t.pendingAdmins) == null ||
                           t.add(
                             new (o(
@@ -67,7 +60,7 @@ __d(
                               contact: e,
                             }),
                           ),
-                        { result: p, invitee: e }
+                        { result: d, invitee: e }
                       );
                     } catch (t) {
                       return {
@@ -83,13 +76,13 @@ __d(
                 };
               })(),
             ),
-            m = yield (e || (e = n("Promise"))).all(d),
-            p = m.filter(function (e) {
+            d = yield (e || (e = n("Promise"))).all(c),
+            m = d.filter(function (e) {
               return (
                 e.result !== o("WAWebSendMsgResultAction").SendMsgResult.OK
               );
             });
-          return { failedAttempts: p, allFailed: p.length === l.length };
+          return { failedAttempts: m, allFailed: m.length === i.length };
         })),
         u.apply(this, arguments)
       );

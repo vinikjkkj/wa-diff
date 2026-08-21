@@ -29,6 +29,7 @@ __d(
     "WAWebVoipCameraTrackConstraints",
     "WAWebVoipGatingUtils",
     "WAWebVoipPopoutModalManager",
+    "WAWebVoipScreenSharePickerState",
     "WAWebVoipStackInterface",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
@@ -1517,62 +1518,65 @@ __d(
               surfaceSwitching: "include",
               monitorTypeSurfaces: "include",
             }),
-            s = Date.now();
+            s = Date.now(),
+            u = o("WAWebVoipScreenSharePickerState").beginScreenSharePicker();
           try {
-            var u = yield o("WAWebMediaCapture").start({
+            var c = yield o("WAWebMediaCapture").start({
                 type: o("WAWebMediaCaptureStreamType")
                   .WAWebMediaCaptureStreamType.DESKTOP,
                 featureSurface: o("WAWebGuidePopup.react").FeatureSurface.VOIP,
                 mediaConstraints: [l],
                 targetWindow: r,
               }),
-              c = u.asyncStream,
-              d = u.disposeStream;
-            return pt(c, d, r).catch(function (e) {
-              if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
-                o("WAWebCoreActionsODS").logCallScreenShareDenied();
-                var t = Date.now() - s;
-                if (t < ie) {
-                  o("WALogger").LOG(
-                    z ||
-                      (z = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV] acquireDesktopStream: auto-denied in ",
-                        "ms, showing guide popup",
-                      ])),
-                    t,
-                  );
-                  var n =
-                    r != null
-                      ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
-                      : o("WAWebModalManager").ModalManager;
-                  n.open(
-                    Q.jsx(o("WAWebGuidePopup.react").GuidePopup, {
-                      messaging: o("WAWebGuidePopup.react").Messaging
-                        .SCREEN_SHARE_FAIL,
-                      type: o("WAWebGuidePopup.react").GuidePopupType
-                        .GUIDE_UNBLOCK,
-                      featureSurface: o("WAWebGuidePopup.react").FeatureSurface
-                        .VOIP,
-                      onConfirm: function () {
-                        return n.close();
-                      },
-                    }),
-                  );
+              d = c.asyncStream,
+              m = c.disposeStream,
+              p = yield pt(d, m, r).catch(function (e) {
+                if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
+                  o("WAWebCoreActionsODS").logCallScreenShareDenied();
+                  var t = Date.now() - s;
+                  if (t < ie) {
+                    o("WALogger").LOG(
+                      z ||
+                        (z = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV] acquireDesktopStream: auto-denied in ",
+                          "ms, showing guide popup",
+                        ])),
+                      t,
+                    );
+                    var n =
+                      r != null
+                        ? o("WAWebVoipPopoutModalManager")
+                            .VoipPopoutModalManager
+                        : o("WAWebModalManager").ModalManager;
+                    n.open(
+                      Q.jsx(o("WAWebGuidePopup.react").GuidePopup, {
+                        messaging: o("WAWebGuidePopup.react").Messaging
+                          .SCREEN_SHARE_FAIL,
+                        type: o("WAWebGuidePopup.react").GuidePopupType
+                          .GUIDE_UNBLOCK,
+                        featureSurface: o("WAWebGuidePopup.react")
+                          .FeatureSurface.VOIP,
+                        onConfirm: function () {
+                          return n.close();
+                        },
+                      }),
+                    );
+                  }
+                  return null;
                 }
                 return null;
-              }
-              return null;
-            });
+              });
+            return p;
           } catch (e) {
             if (e instanceof o("WAWebGetUserMediaErrors").NotAllowedError) {
               o("WAWebCoreActionsODS").logCallScreenShareDenied();
-              var m = Date.now() - s;
-              if (m < ie) {
-                var p =
+              var _ = Date.now() - s;
+              if (_ < ie) {
+                var f =
                   r != null
                     ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
                     : o("WAWebModalManager").ModalManager;
-                p.open(
+                f.open(
                   Q.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                     messaging: o("WAWebGuidePopup.react").Messaging
                       .SCREEN_SHARE_FAIL,
@@ -1581,7 +1585,7 @@ __d(
                     featureSurface: o("WAWebGuidePopup.react").FeatureSurface
                       .VOIP,
                     onConfirm: function () {
-                      return p.close();
+                      return f.close();
                     },
                   }),
                 );
@@ -1589,6 +1593,8 @@ __d(
               return null;
             }
             return null;
+          } finally {
+            u();
           }
         })),
         ft.apply(this, arguments)

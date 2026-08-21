@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebBaseNotification",
+    "WAWebBizAiStrings",
     "WAWebFrontendContactGetters",
     "WAWebGetNotificationStrings",
     "WAWebMuteGetters",
@@ -85,7 +86,7 @@ __d(
       );
     })(o("WAWebBaseNotification").WABaseNotification);
     function u() {
-      return s._(/*BTDS*/ "Meta Business Agent").toString();
+      return o("WAWebBizAiStrings").getBizAiHubTitle().toString();
     }
     function c(e) {
       var t = o("WAWebFrontendContactGetters").getFormattedName(e.contact),

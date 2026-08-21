@@ -2,6 +2,7 @@ __d(
   "WAWebGroupHistorySenderUserJourneyWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumAddMembersEntrypointType",
     "WAWebWamEnumBundleSendSource",
     "WAWebWamEnumGroupHistoryIneligibilityReason",
     "WAWebWamEnumGroupHistorySenderActionType",
@@ -18,6 +19,11 @@ __d(
               bundleSendSource: [
                 1,
                 o("WAWebWamEnumBundleSendSource").BUNDLE_SEND_SOURCE,
+              ],
+              groupAddMemberEntryPoint: [
+                17,
+                o("WAWebWamEnumAddMembersEntrypointType")
+                  .ADD_MEMBERS_ENTRYPOINT_TYPE,
               ],
               groupHistoryMessagesCount: [2, e.TYPES.INTEGER],
               groupHistoryOutWindowPinsCount: [3, e.TYPES.INTEGER],
@@ -39,11 +45,13 @@ __d(
                 o("WAWebWamEnumGroupHistoryIneligibilityReason")
                   .GROUP_HISTORY_INELIGIBILITY_REASON,
               ],
+              isAdmin: [18, e.TYPES.BOOLEAN],
               isGroupHistoryToggledOn: [15, e.TYPES.BOOLEAN],
               isTeeBotNoticeOnly: [14, e.TYPES.BOOLEAN],
               recipientCount: [10, e.TYPES.INTEGER],
               uiSurface: [11, o("WAWebWamEnumTsSurface").TS_SURFACE],
               unifiedSessionId: [12, e.TYPES.STRING],
+              userJourneyFunnelId: [19, e.TYPES.STRING],
               userJourneyTs: [13, e.TYPES.INTEGER],
               xIneligibleReasons: [16, e.TYPES.STRING],
             },

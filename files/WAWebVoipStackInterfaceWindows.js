@@ -43,8 +43,9 @@ __d(
       R,
       L,
       E,
-      k = (e = n("cr:16754")) != null ? e : {},
-      I = k.VoipWinRTBridge;
+      k,
+      I = (e = n("cr:16754")) != null ? e : {},
+      T = I.VoipWinRTBridge;
     r("gkx")("4112") ||
       o("WALogger")
         .ERROR(
@@ -54,7 +55,7 @@ __d(
             ])),
         )
         .sendLogs("voip-stack-interface-windows-imported-without-gk");
-    function T() {
+    function D() {
       if (!r("WAWebEnvironment").isWindows)
         throw r("err")(
           "createWAWebVoipStackInterface: Attempted to create Windows stack in non-Windows environment",
@@ -79,7 +80,7 @@ __d(
               )) == null
                 ? void 0
                 : e.voip;
-          if (n != null && I != null && n instanceof I)
+          if (n != null && T != null && n instanceof T)
             try {
               n.setSelfCountryCode(t);
             } catch (e) {
@@ -221,7 +222,7 @@ __d(
               )) == null
                 ? void 0
                 : e.voip;
-          if (a != null && I != null && a instanceof I)
+          if (a != null && T != null && a instanceof T)
             try {
               a.simulateNativeAnr(t, n);
             } catch (e) {
@@ -250,6 +251,16 @@ __d(
           )) == null || (e = e.voip) == null
             ? void 0
             : e.inviteToCall(t, n, a);
+        },
+        sendWave: function () {
+          o("WALogger")
+            .WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "WAWebVoipStackInterfaceWindows: sendWave has no native counterpart",
+                ])),
+            )
+            .sendLogs("voip-windows-send-wave-unsupported");
         },
         checkOngoingCalls: function (t, n) {
           var e;
@@ -375,8 +386,8 @@ __d(
         callbacks: {
           onVoipReady: function () {
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: onVoipReady",
                 ])),
             );
@@ -386,8 +397,8 @@ __d(
             if (e == null) {
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: onCallEvent: invalid event type ",
                       "",
                     ])),
@@ -397,8 +408,8 @@ __d(
               return;
             }
             (o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: onCallEvent ",
                   "",
                 ])),
@@ -408,8 +419,8 @@ __d(
                 .handleWAWebVoipNativeCallEvent(e, r)
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [onCallEvent] unhandled error: ",
                         "",
                       ])),
@@ -419,8 +430,8 @@ __d(
           },
           onSignalingXmpp: function (t, n, r, a) {
             o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: onSignalingXmpp",
                 ])),
             );
@@ -436,8 +447,8 @@ __d(
                 })
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [onSignalingXmpp] unhandled error: ",
                         "",
                       ])),
@@ -447,8 +458,8 @@ __d(
           },
           onRequestOpenChat: function (t) {
             (o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: onRequestOpenChat",
                 ])),
             ),
@@ -460,8 +471,8 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 o("WALogger").LOG(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: onRequestDeviceJidList",
                     ])),
                 );
@@ -499,8 +510,8 @@ __d(
           })(),
           onCallAgain: function (t, n) {
             o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: onCallAgain",
                 ])),
             );
@@ -512,8 +523,8 @@ __d(
           },
           onLidCallerDisplayInfo: function (t) {
             (o("WALogger").LOG(
-              v ||
-                (v = babelHelpers.taggedTemplateLiteralLoose([
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: onLidCallerDisplayInfo",
                 ])),
             ),
@@ -521,8 +532,8 @@ __d(
                 .handleWAWebVoipLidCallerDisplayInfo(t)
                 .catch(function (e) {
                   o("WALogger").WARN(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [onLidCallerDisplayInfo] unhandled error: ",
                         "",
                       ])),
@@ -538,8 +549,8 @@ __d(
                   r = o("WAWebWidFactory").createWid(String(e));
                 return (
                   o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: onRequestPhoneNumberJid",
                       ])),
                   ),
@@ -568,8 +579,8 @@ __d(
                   r = o("WAWebWidFactory").createWid(String(e));
                 return (
                   o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
+                    E ||
+                      (E = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: onRequestLidJid",
                       ])),
                   ),
@@ -592,8 +603,8 @@ __d(
           })(),
           onRequestJoinCall: function (t) {
             (o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              k ||
+                (k = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: onRequestJoinCall callId=",
                   "",
                 ])),
@@ -607,7 +618,7 @@ __d(
         parsers: r("WAWebWindowsNativeVoipParsers"),
       };
     }
-    l.createWAWebVoipStackInterface = T;
+    l.createWAWebVoipStackInterface = D;
   },
   98,
 );

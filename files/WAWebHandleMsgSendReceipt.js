@@ -5,11 +5,11 @@ __d(
     "WAWebABProps",
     "WAWebBackendJobs.flow",
     "WAWebCoexV2GatingUtils",
+    "WAWebCoexV2ReceiptRecipient",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsgCommon",
     "WAWebHandleMsgSendAck",
     "WAWebHandleMsgTypes.flow",
-    "WAWebLidMigrationUtils",
     "WAWebMsgProcessingApiUtils",
     "WAWebPostMessageHighRetryCountMetric",
     "WAWebSendDeliveryReceiptJob",
@@ -18,7 +18,6 @@ __d(
     "WAWebSessionScopeWamUtils",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
-    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
@@ -51,17 +50,21 @@ __d(
                 var y;
                 h = (y = t.preMatChat) != null ? y : t.chat;
               }
-            var C =
+            else if (p(t)) {
+              var C;
+              h = (C = t.preMatChat) != null ? C : t.chat;
+            }
+            var b =
                 t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
                   ? null
                   : (l = t.preMatChat) != null
                     ? l
                     : t.author,
-              b = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
-              v = !t.chat.isBot() && t.author.isBot(),
-              S = g.isStatus() || n.isGroupStatus === !0,
-              R =
-                S && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
+              v = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
+              S = !t.chat.isBot() && t.author.isBot(),
+              R = g.isStatus() || n.isGroupStatus === !0,
+              L =
+                R && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
                   ? "status"
                   : void 0;
             if (a.result == null)
@@ -79,12 +82,12 @@ __d(
                 o("WAWebHandleMsgSendAck").sendAck({
                   externalId: d,
                   from: g,
-                  participant: C,
-                  stanzaClass: R,
+                  participant: b,
+                  stanzaClass: L,
                   type: f,
                 })
               );
-            var L = _(a);
+            var E = _(a);
             e: {
               if (
                 a.result ===
@@ -99,8 +102,10 @@ __d(
                       "WAWebSendReceiptJobCommon",
                     ).sendCoexV2SenderReceipt(
                       d,
-                      o("WAWebLidMigrationUtils").toUserLidOrThrow(
-                        o("WAWebWidFactory").asUserWidOrThrow(
+                      r("nullthrows")(
+                        o(
+                          "WAWebCoexV2ReceiptRecipient",
+                        ).toCoexV2ReceiptRecipient(
                           r("nullthrows")(n.targetChatJid),
                         ),
                       ),
@@ -118,24 +123,24 @@ __d(
                       o("WAWebHandleMsgSendAck").sendAck({
                         externalId: d,
                         from: g,
-                        participant: C,
-                        stanzaClass: R,
+                        participant: b,
+                        stanzaClass: L,
                         type: f,
                       }));
                   }
                   return;
                 }
-                if (v) {
-                  var E, k, I;
+                if (S) {
+                  var k, I, T;
                   return (
                     t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
-                      ? ((E = t.author), (k = t.chat))
-                      : ((E = t.chat), (I = t.author)),
+                      ? ((k = t.author), (I = t.chat))
+                      : ((k = t.chat), (T = t.author)),
                     o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks({
                       messageIds: [d],
-                      participant: I,
-                      recipient: k,
-                      to: E,
+                      participant: T,
+                      recipient: I,
+                      to: k,
                     })
                   );
                 } else if (
@@ -145,18 +150,18 @@ __d(
                   return o("WAWebHandleMsgSendAck").sendAck({
                     externalId: d,
                     from: g,
-                    participant: C,
-                    stanzaClass: R,
+                    participant: b,
+                    stanzaClass: L,
                     type: f,
                   });
                 return o(
                   "WAWebSendDeliveryReceiptJob",
                 ).sendDeliveryReceiptsAfterDecryption({
-                  isPeerMsg: b,
-                  isStatusContext: S,
+                  isPeerMsg: v,
+                  isStatusContext: R,
                   msgId: d,
-                  participant: C,
-                  receiptModeBitmask: L,
+                  participant: b,
+                  receiptModeBitmask: E,
                   recipient: h,
                   response: a,
                   to: g,
@@ -182,23 +187,23 @@ __d(
                 a.result ===
                 o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY
               ) {
-                var T = a.retryCount == null ? 1 : a.retryCount + 1;
+                var D = a.retryCount == null ? 1 : a.retryCount + 1;
                 (yield o("WAWebSendRetryReceiptJob").sendRetryReceipt({
-                  retryCount: T,
+                  retryCount: D,
                   to: g,
-                  participant: C,
+                  participant: b,
                   recipient: h,
                   externalId: d,
                   rawTs: m,
-                  isPeer: b,
+                  isPeer: v,
                   retryReason: a.retryReason,
                   isStateless: (g == null ? void 0 : g.isHosted()) === !0,
-                  receiptModeBitmask: L,
+                  receiptModeBitmask: E,
                 }),
                   o(
                     "WAWebPostMessageHighRetryCountMetric",
                   ).maybePostMessageHighRetryCountMetric(
-                    T,
+                    D,
                     t,
                     a.failedEnc != null
                       ? o(
@@ -222,8 +227,8 @@ __d(
                 return o("WAWebHandleMsgSendAck").sendAck({
                   externalId: d,
                   from: g,
-                  participant: C,
-                  stanzaClass: R,
+                  participant: b,
+                  stanzaClass: L,
                   type: f,
                 });
               if (
@@ -235,18 +240,18 @@ __d(
                   ? o("WAWebHandleMsgSendAck").sendAck({
                       externalId: d,
                       from: g,
-                      participant: C,
-                      stanzaClass: R,
+                      participant: b,
+                      stanzaClass: L,
                       type: f,
                     })
                   : o("WAWebHandleMsgSendAck").sendNack(
                       d,
                       g,
                       f,
-                      C,
+                      b,
                       o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf,
                       a.e2eFailureReason,
-                      R,
+                      L,
                     );
               if (
                 a.result ===
@@ -255,8 +260,8 @@ __d(
                 return o("WAWebHandleMsgSendAck").sendAck({
                   externalId: d,
                   from: g,
-                  participant: C,
-                  stanzaClass: R,
+                  participant: b,
+                  stanzaClass: L,
                   type: f,
                 });
               if (
@@ -267,18 +272,18 @@ __d(
                   ? o("WAWebHandleMsgSendAck").sendAck({
                       externalId: d,
                       from: g,
-                      participant: C,
-                      stanzaClass: R,
+                      participant: b,
+                      stanzaClass: L,
                       type: f,
                     })
                   : o("WAWebHandleMsgSendAck").sendNack(
                       d,
                       g,
                       f,
-                      C,
+                      b,
                       o("WAWebCreateNackFromStanza").NackReason.ParsingError,
                       void 0,
-                      R,
+                      L,
                     );
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -293,12 +298,8 @@ __d(
     function p(e) {
       return (
         e.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT &&
-        o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(
-          e.author,
-          e.metaFrom,
-        ) &&
-        e.metaFrom != null &&
-        o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom)
+        o("WAWebUserPrefsMeUser").isMeAccount(e.metaFrom) &&
+        o("WAWebCoexV2GatingUtils").isCoexV2RelayMessage(e.author, e.metaFrom)
       );
     }
     function _(e) {

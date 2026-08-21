@@ -10,7 +10,8 @@ __d(
             { layout: { bloks_payload: t } },
             e.objectSet.environment.traversalKeys,
           );
-          (e.treeManager.processResources([n]), e.execute(r, [n.unboundModel]));
+          (e.treeManager.synchronouslyAddTreeResources(n),
+            e.execute(r, [n.unboundModel]));
         })
         .catch(function (t) {
           a(e, t);

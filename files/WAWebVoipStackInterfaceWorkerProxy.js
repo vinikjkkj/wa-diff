@@ -1787,6 +1787,21 @@ __d(
             }
             return t;
           })(),
+          sendWave: (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e, t, n) {
+                yield _e("sendWave", {
+                  participantPnUserJid: e,
+                  participantLidUserJid: t,
+                  deviceJids: n,
+                });
+              },
+            );
+            function t(t, n, r) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })(),
           checkOngoingCalls: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t) {
