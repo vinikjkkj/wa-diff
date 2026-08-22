@@ -146,15 +146,6 @@ __d(
                 "generalSubgroup",
               ],
             )),
-            (e.isCag = o("WAWebBaseModel").derived(
-              function () {
-                return (
-                  this.groupType ===
-                  o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
-                );
-              },
-              ["groupType"],
-            )),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );

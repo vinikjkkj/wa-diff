@@ -14,7 +14,7 @@ __d(
           s = i[1];
         if (
           s != null &&
-          (s.factoryFinished === !0 ? t.add(l) : r.add(l),
+          (s.wasUsed === !0 ? t.add(l) : r.add(l),
           !s.id.startsWith("rd:") && s.dependencies)
         )
           for (var u of s.dependencies) u && u.id && a.add(u.id);
@@ -24,7 +24,7 @@ __d(
           m = c[1];
         m != null &&
           !m.id.startsWith("rd:") &&
-          m.factoryFinished === !0 &&
+          m.wasUsed === !0 &&
           !a.has(d) &&
           o.add(d);
       }
@@ -44,7 +44,7 @@ __d(
       };
     }
     ((e.doc =
-      "Returns {used, unused, roots, counts} of runtime JS module usage (factoryFinished walk of __debug.modulesMap), mirroring CometJSUsage."),
+      "Returns {used, unused, roots, counts} of runtime JS module usage (wasUsed walk of __debug.modulesMap), mirroring CometJSUsage."),
       (e.paramsToExecute = []));
     function l() {
       return JSON.stringify(e());

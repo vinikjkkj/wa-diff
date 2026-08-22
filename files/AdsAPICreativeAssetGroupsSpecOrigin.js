@@ -98,6 +98,7 @@ __d(
       ORGANIC_FLEX_POSITIVE_TEST: "organic_flex_positive_test",
       OVERLAY_TEXT_REPLACEMENT: "overlay_text_replacement",
       PA_AUTOMATED_CAMPAIGN: "pa_automated_campaign",
+      PA_CREATIVE_RANKING: "pa_creative_ranking",
       PA_DYNAMIC_HEADER: "pa_dynamic_header",
       PA_NON_DHO: "pa_non_dho",
       PA_SINGLE_HEADER: "pa_single_header",

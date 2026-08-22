@@ -15,6 +15,8 @@ __d(
     "WAWebComposeBoxActions",
     "WAWebFbtCommon",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebLexicalTypeAheadList.react",
     "WAWebLexicalUtils",
@@ -78,19 +80,19 @@ __d(
     function R(e) {
       return !(
         e == null ||
-        (e == null ? void 0 : e.groupType) ===
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
       );
     }
     function L(e) {
-      return (e == null ? void 0 : e.groupType) ===
+      return o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
         o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
         e != null &&
         e.participants.iAmAdmin()
         ? !0
-        : (e == null ? void 0 : e.groupType) ===
+        : o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
             o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
-            (e == null ? void 0 : e.groupType) ===
+            o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
               o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP;
     }
     function E(t) {
@@ -546,7 +548,7 @@ __d(
           break e;
         }
         if (
-          E.groupType ===
+          o("WAWebGroupMetadataGetters").getGroupType(E) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
         ) {
           Pe = !1;

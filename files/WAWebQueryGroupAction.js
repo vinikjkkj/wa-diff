@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupMetadataModel",
     "WAWebGroupQueryBridge",
     "WAWebLidMappingUsernameLearnUtils",
@@ -75,7 +76,7 @@ __d(
                 ])),
               t.id,
             );
-            var n = t.isCag
+            var n = o("WAWebGroupMetadataGetters").getIsCag(t)
               ? o("WAWebPnhCagUtils").augmentedCagGroupMetadataParticipantList(
                   t,
                 )

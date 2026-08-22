@@ -8,6 +8,7 @@ __d(
     "WAWebCoexV2WamClassification",
     "WAWebE2eMessageRecvWamEvent",
     "WAWebGetMetricE2eDestination",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebHandleMsgCommon",
     "WAWebSessionScopeWamUtils",
@@ -86,7 +87,9 @@ __d(
               { groupWid: u },
             );
             if (f != null) {
-              c.isLid = (f.isCag && s) || !!f.isLidAddressingMode;
+              c.isLid =
+                (o("WAWebGroupMetadataGetters").getIsCag(f) && s) ||
+                !!f.isLidAddressingMode;
               var g = o("WAWebGroupType").groupTypeToWamEnum(
                 o("WAWebGroupType").getGroupTypeFromGroupMetadata(f),
               );

@@ -9,6 +9,7 @@ __d(
     "WAWebConfirmPopup.react",
     "WAWebFavoritesUtils",
     "WAWebFbtCommon",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebListItemParentType",
     "WAWebListUtils",
@@ -55,31 +56,33 @@ __d(
             })
           : e.type === o("WAWebSchemaLabel").ListType.GROUPS
             ? o("WAWebChatCollection").ChatCollection.filter(function (e) {
-                var t;
                 if (e.archive || e.isLocked) return !1;
-                var n = (t = e.groupMetadata) == null ? void 0 : t.groupType;
+                var t = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                  e.groupMetadata,
+                );
                 return (
                   o("WAWebChatGetters").getIsGroup(e) &&
-                  n !== o("WAWebGroupType").GroupType.COMMUNITY &&
-                  n !==
+                  t !== o("WAWebGroupType").GroupType.COMMUNITY &&
+                  t !==
                     o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-                  n !== o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
-                  n !== o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
+                  t !== o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
+                  t !== o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
                 );
               })
             : e.type === o("WAWebSchemaLabel").ListType.COMMUNITY
               ? o("WAWebChatCollection").ChatCollection.filter(function (e) {
-                  var t;
                   if (e.archive || e.isLocked) return !1;
-                  var n = (t = e.groupMetadata) == null ? void 0 : t.groupType;
+                  var t = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                    e.groupMetadata,
+                  );
                   return (
                     o("WAWebChatGetters").getIsGroup(e) &&
-                    (n === o("WAWebGroupType").GroupType.COMMUNITY ||
-                      n ===
+                    (t === o("WAWebGroupType").GroupType.COMMUNITY ||
+                      t ===
                         o("WAWebGroupType").GroupType
                           .LINKED_ANNOUNCEMENT_GROUP ||
-                      n === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
-                      n === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
+                      t === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
+                      t === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
                   );
                 })
               : e.type === o("WAWebSchemaLabel").ListType.AI_HANDOFF

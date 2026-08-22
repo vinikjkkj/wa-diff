@@ -196,6 +196,40 @@ __d(
               return s._(/*BTDS*/ "FPS ID copied");
             },
           }),
+        (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.CBU)] = {
+          label: function () {
+            return s._(/*BTDS*/ "CBU");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy CBU");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "CBU copied");
+          },
+        }),
+        (e[d(c.UprPaymentAccountType.DIGITAL_WALLET, c.UprIdentifierType.CVU)] =
+          {
+            label: function () {
+              return s._(/*BTDS*/ "CVU");
+            },
+            copyLabel: function () {
+              return s._(/*BTDS*/ "Copy CVU");
+            },
+            copySuccessToast: function () {
+              return s._(/*BTDS*/ "CVU copied");
+            },
+          }),
+        (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.CCI)] = {
+          label: function () {
+            return s._(/*BTDS*/ "CCI");
+          },
+          copyLabel: function () {
+            return s._(/*BTDS*/ "Copy CCI");
+          },
+          copySuccessToast: function () {
+            return s._(/*BTDS*/ "CCI copied");
+          },
+        }),
         e),
       p = new Set();
     function _(e, t) {

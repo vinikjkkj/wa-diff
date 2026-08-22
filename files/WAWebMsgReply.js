@@ -9,6 +9,7 @@ __d(
     "WAWebEnvironment",
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupMetadataGetters",
     "WAWebKeepInChatMsgUtils",
     "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
@@ -71,71 +72,69 @@ __d(
     }
     function c(e) {
       var t,
-        n,
-        r = o("WAWebStateUtils").unproxy(e),
-        a = o("WAWebFrontendMsgGetters").getChat(r);
-      return (r.author != null &&
-        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(r.author)) ||
-        o("WAWebChatGetters").getIsNewsletter(a)
+        n = o("WAWebStateUtils").unproxy(e),
+        r = o("WAWebFrontendMsgGetters").getChat(n);
+      return (n.author != null &&
+        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(n.author)) ||
+        o("WAWebChatGetters").getIsNewsletter(r)
         ? !1
-        : r.isCarouselCard
-          ? r.isCarouselCard
-          : o("WAWebMsgGetters").getIsBotFutureproofPlaceholder(r) ||
+        : n.isCarouselCard
+          ? n.isCarouselCard
+          : o("WAWebMsgGetters").getIsBotFutureproofPlaceholder(n) ||
               (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
                 !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
-              ((t = r.author) != null &&
+              ((t = n.author) != null &&
                 t.isLid() &&
-                (n = a.groupMetadata) != null &&
-                n.isCag) ||
+                r.groupMetadata != null &&
+                o("WAWebGroupMetadataGetters").getIsCag(r.groupMetadata)) ||
               o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
-                a,
-                o("WAWebFrontendMsgGetters").getSenderObj(r),
+                r,
+                o("WAWebFrontendMsgGetters").getSenderObj(n),
               ) ||
-              (a.isSuspendedOrTerminated() &&
+              (r.isSuspendedOrTerminated() &&
                 o("WAWebMiscGatingUtils").isGroupSuspendV2Enabled())
             ? !1
-            : !o("WAWebMsgModelUtils").msgMayFail(r) &&
-              !o("WAWebMsgGetters").getIsNotification(r) &&
-              r.type !== o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-              r.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
-              r.type !== o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER &&
-              r.type !== o("WAWebMsgType").MSG_TYPE.OVERSIZED &&
-              r.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
-              !o("WAWebMsgGetters").getIsSentByMe(r) &&
-              o("WAWebMsgGetters").getIsGroupMsg(r) &&
-              o("WAWebMsgModelUtils").interactiveButtonsReleased(r) &&
-              !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(r);
+            : !o("WAWebMsgModelUtils").msgMayFail(n) &&
+              !o("WAWebMsgGetters").getIsNotification(n) &&
+              n.type !== o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+              n.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
+              n.type !== o("WAWebMsgType").MSG_TYPE.DEBUG_PLACEHOLDER &&
+              n.type !== o("WAWebMsgType").MSG_TYPE.OVERSIZED &&
+              n.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+              !o("WAWebMsgGetters").getIsSentByMe(n) &&
+              o("WAWebMsgGetters").getIsGroupMsg(n) &&
+              o("WAWebMsgModelUtils").interactiveButtonsReleased(n) &&
+              !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(n);
     }
     function d(e) {
       var t,
-        n,
-        r = o("WAWebStateUtils").unproxy(e),
-        a = o("WAWebFrontendMsgGetters").getChat(r);
-      return ((t = r.author) != null &&
+        n = o("WAWebStateUtils").unproxy(e),
+        r = o("WAWebFrontendMsgGetters").getChat(n);
+      return ((t = n.author) != null &&
         t.isLid() &&
-        (n = a.groupMetadata) != null &&
-        n.isCag) ||
+        r.groupMetadata != null &&
+        o("WAWebGroupMetadataGetters").getIsCag(r.groupMetadata)) ||
         o("WAWebChatCommunityUtils").shouldMaskPhoneNumberForChat(
-          a,
-          o("WAWebFrontendMsgGetters").getSenderObj(r),
+          r,
+          o("WAWebFrontendMsgGetters").getSenderObj(n),
         ) ||
         (o("WAWebFrontendMsgGetters").getAsRichResponse(e) &&
           !o("WAWebRichResponseFrontendUtils").canReplyRichResponse(e)) ||
-        (r.author != null &&
-          o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(r.author))
+        (n.author != null &&
+          o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(n.author))
         ? !1
-        : a.isAnnounceGrpRestrict === !0 &&
-            !a.isReadOnly &&
-            !o("WAWebMsgModelUtils").msgMayFail(r) &&
-            !o("WAWebMsgGetters").getIsSentByMe(r) &&
-            !o("WAWebMsgGetters").getIsNotification(r) &&
-            r.type !== o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
-            r.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
-            r.type !== o("WAWebMsgType").MSG_TYPE.OVERSIZED &&
-            r.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
-            o("WAWebMsgModelUtils").interactiveButtonsReleased(r) &&
-            !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(r) &&
-            !r.isCarouselCard;
+        : r.isAnnounceGrpRestrict === !0 &&
+            !r.isReadOnly &&
+            !o("WAWebMsgModelUtils").msgMayFail(n) &&
+            !o("WAWebMsgGetters").getIsSentByMe(n) &&
+            !o("WAWebMsgGetters").getIsNotification(n) &&
+            n.type !== o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+            n.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
+            n.type !== o("WAWebMsgType").MSG_TYPE.OVERSIZED &&
+            n.type !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+            o("WAWebMsgModelUtils").interactiveButtonsReleased(n) &&
+            !o("WAWebKeepInChatMsgUtils").isExpiredAndNotKept(n) &&
+            !n.isCarouselCard;
     }
     ((l.isStatusReplyMsg = e),
       (l.replyChecks = s),

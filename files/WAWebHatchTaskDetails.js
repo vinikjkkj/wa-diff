@@ -22,9 +22,22 @@ __d(
         !o("WAWebHatchJsonReaders").isBlankText(e.paymentMethodLabel)
       );
     }
+    function c(e) {
+      if (!o("WAWebHatchJsonReaders").isBlankText(e.merchantName))
+        return e.merchantName.trim();
+      if (o("WAWebHatchJsonReaders").isBlankText(e.merchantUrl)) return null;
+      try {
+        return o("WAWebHatchJsonReaders").trimToNull(
+          new URL(e.merchantUrl).hostname,
+        );
+      } catch (e) {
+        return null;
+      }
+    }
     ((l.hasHatchTaskDetails = e),
       (l.hasHatchPayWithLink = s),
-      (l.hasHatchPaymentMethod = u));
+      (l.hasHatchPaymentMethod = u),
+      (l.hatchShopifyMerchantName = c));
   },
   98,
 );

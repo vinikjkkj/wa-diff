@@ -1,14 +1,17 @@
 __d(
   "WAWebHeaderSubtitlePlaceholder",
-  ["fbt", "WAWebFrontendContactGetters", "WAWebGroupType"],
+  [
+    "fbt",
+    "WAWebFrontendContactGetters",
+    "WAWebGroupMetadataTypeUtils",
+    "WAWebGroupType",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t,
         n,
         r,
-        a,
-        i,
-        l =
+        a =
           e != null &&
           (t = e.groupMetadata) != null &&
           t.participants.iAmAdmin() &&
@@ -16,32 +19,32 @@ __d(
           n.announce
             ? s._(/*BTDS*/ "Only admins can send messages")
             : s._(/*BTDS*/ "click here for group info"),
-        u;
+        i;
       if (
-        ((r = e.groupMetadata) == null ? void 0 : r.groupType) ===
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e.groupMetadata) ===
         o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
       ) {
-        var c;
-        e != null && (c = e.groupMetadata) != null && c.participants.iAmAdmin()
-          ? (u = s._(/*BTDS*/ "Only admins can send messages"))
-          : (u = s._(/*BTDS*/ "Announcements"));
+        var l;
+        e != null && (l = e.groupMetadata) != null && l.participants.iAmAdmin()
+          ? (i = s._(/*BTDS*/ "Only admins can send messages"))
+          : (i = s._(/*BTDS*/ "Announcements"));
       } else if (
-        ((a = e.groupMetadata) == null ? void 0 : a.groupType) ===
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e.groupMetadata) ===
           o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
-        (i = e.groupMetadata) != null &&
-        i.participants.iAmMember()
+        (r = e.groupMetadata) != null &&
+        r.participants.iAmMember()
       ) {
-        var d,
-          m = (d = e.groupMetadata) == null ? void 0 : d.getParentGroupChat(),
-          p = m == null ? void 0 : m.contact,
-          _ =
-            p != null
-              ? o("WAWebFrontendContactGetters").getFormattedName(p)
+        var u,
+          c = (u = e.groupMetadata) == null ? void 0 : u.getParentGroupChat(),
+          d = c == null ? void 0 : c.contact,
+          m =
+            d != null
+              ? o("WAWebFrontendContactGetters").getFormattedName(d)
               : null;
-        _ != null &&
-          (u = s._(/*BTDS*/ "{community}", [s._param("community", _)]));
+        m != null &&
+          (i = s._(/*BTDS*/ "{community}", [s._param("community", m)]));
       }
-      return u != null ? u : l;
+      return i != null ? i : a;
     }
     l.getSubtitlePlaceholder = e;
   },

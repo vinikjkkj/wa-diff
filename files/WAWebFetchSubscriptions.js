@@ -62,16 +62,16 @@ __d(
                 "WAWebFetchAdAccountToken",
               ).getMaximumAdAccountFetchTimeoutSeconds() * 1e3,
             );
-            if (e.type === "success") {
-              var t = yield g(e.token);
-              return (
-                t.type !== "success" && t.type === "auth-failure"
+            if (e.type !== "success") return (e.type, e);
+            var t = yield g(e.token);
+            return (
+              t.type === "success"
+                ? t.type
+                : t.type === "auth-failure"
                   ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
                   : t.type,
-                t
-              );
-            }
-            return (e.type, e);
+              t
+            );
           } catch (e) {
             return e instanceof o("WACustomError").TimeoutError
               ? { type: "timeout" }

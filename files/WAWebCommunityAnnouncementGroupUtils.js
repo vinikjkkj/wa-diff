@@ -1,6 +1,10 @@
 __d(
   "WAWebCommunityAnnouncementGroupUtils",
-  ["WAWebGroupMetadataCollection", "WAWebGroupType"],
+  [
+    "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataTypeUtils",
+    "WAWebGroupType",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e == null ? void 0 : e.getSubgroupsMetadata();
@@ -8,7 +12,7 @@ __d(
         ? void 0
         : t.find(function (e) {
             return (
-              e.groupType ===
+              o("WAWebGroupMetadataTypeUtils").getGroupTypeForMetadata(e) ===
               o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
             );
           });

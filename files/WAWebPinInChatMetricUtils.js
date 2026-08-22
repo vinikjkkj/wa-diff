@@ -2,6 +2,7 @@ __d(
   "WAWebPinInChatMetricUtils",
   [
     "WAWebChatGetters",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebMsgGetters",
     "WAWebPinInChatInteractionWamEvent",
@@ -29,7 +30,8 @@ __d(
         _;
       if (m) {
         var f = r("nullthrows")(n.groupMetadata);
-        ((p = c(f.groupType)), (_ = d(f.participants.iAmAdmin())));
+        ((p = c(o("WAWebGroupMetadataGetters").getGroupType(f))),
+          (_ = d(f.participants.iAmAdmin())));
       }
       new (o("WAWebPinInChatMessageSendWamEvent").PinInChatMessageSendWamEvent)(
         {
@@ -57,7 +59,7 @@ __d(
         p;
       if (s) {
         var _ = r("nullthrows")(t.groupMetadata);
-        ((u = c(_.groupType)),
+        ((u = c(o("WAWebGroupMetadataGetters").getGroupType(_))),
           (m = d(_.participants.iAmAdmin())),
           (p = _.participants.length));
       }

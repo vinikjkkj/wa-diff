@@ -1,6 +1,6 @@
 __d(
   "WAWebGroupPresenceUtils",
-  ["WAWebABProps", "WAWebGroupType"],
+  ["WAWebABProps", "WAWebGroupMetadataGetters", "WAWebGroupType"],
   function (t, n, r, o, a, i, l) {
     var e = 8,
       s = 1024;
@@ -23,10 +23,11 @@ __d(
       return !(
         t == null ||
         t.isSuspendedOrTerminated() === !0 ||
-        t.isCag === !0 ||
-        t.groupType ===
+        o("WAWebGroupMetadataGetters").getIsCag(t) ||
+        o("WAWebGroupMetadataGetters").getGroupType(t) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
-        t.groupType === o("WAWebGroupType").GroupType.COMMUNITY
+        o("WAWebGroupMetadataGetters").getGroupType(t) ===
+          o("WAWebGroupType").GroupType.COMMUNITY
       );
     }
     ((l.WEB_SMALL_MAX = e),

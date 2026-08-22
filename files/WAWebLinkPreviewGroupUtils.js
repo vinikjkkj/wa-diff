@@ -5,6 +5,7 @@ __d(
     "WAWebChatCollection",
     "WAWebCommunityGeneralChatImage.react",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebLinkPreviewUtils",
     "WAWebMediaDataUtils",
@@ -44,7 +45,8 @@ __d(
           }
           var _ = 0.75;
           (s == null || s === "") &&
-            (l.groupType === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
+            (o("WAWebGroupMetadataGetters").getGroupType(l) ===
+            o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
               ? (s = o(
                   "WAWebCommunityGeneralChatImage.react",
                 ).GeneralChatPlaceholderFullUrl)
@@ -63,9 +65,10 @@ __d(
             y =
               (a = l.getParentGroupChat()) == null ? void 0 : a.formattedTitle,
             C;
-          l.groupType === o("WAWebGroupType").GroupType.LINKED_SUBGROUP
+          o("WAWebGroupMetadataGetters").getGroupType(l) ===
+          o("WAWebGroupType").GroupType.LINKED_SUBGROUP
             ? (C = y)
-            : (C = p(l.groupType, y));
+            : (C = p(o("WAWebGroupMetadataGetters").getGroupType(l), y));
           var b = o("WAWebLinkPreviewUtils").genLinkPreview({
             url: t,
             linkDetails: {
@@ -74,7 +77,7 @@ __d(
               richPreviewType: o("WAWebProtobufsE2E.pb")
                 .Message$ExtendedTextMessage$PreviewType.NONE,
               doNotPlayInline: !0,
-              inviteGrpType: l.groupType,
+              inviteGrpType: o("WAWebGroupMetadataGetters").getGroupType(l),
               isLoading: !1,
             },
             linkThumbnail: {

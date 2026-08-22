@@ -63,6 +63,9 @@ __d(
                     ])),
                 )
                 .sendLogs("payment-brazil"),
+                o("WAWebConsumerPaymentsHomeLogger").logSyncEvent(
+                  o("WAWebConsumerPaymentsHomeLogger").SYNC_TARGETS.STORE_SENT,
+                ),
                 yield L(d));
               break e;
             }
@@ -104,17 +107,14 @@ __d(
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = { accountCredentialId: e };
-          (o("WALogger")
+          o("WALogger")
             .LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "Removing Pix Key",
                 ])),
             )
-            .sendLogs("payment-brazil"),
-            o("WAWebConsumerPaymentsHomeLogger").logSyncEvent(
-              o("WAWebConsumerPaymentsHomeLogger").SYNC_TARGETS.REMOVE_PIX,
-            ));
+            .sendLogs("payment-brazil");
           var n;
           try {
             n = yield o(
@@ -194,28 +194,53 @@ __d(
     function R() {
       return (
         (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = { customPaymentMethods: [] },
-            t = yield r(
+          o(
+            "WAWebCustomPaymentMethodsSyncLogger",
+          ).logCustomPaymentMethodsSyncEvent(
+            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
+              .SEND_REMOVE,
+            o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.ATTEMPT,
+          );
+          var e = { customPaymentMethods: [] };
+          try {
+            var t = yield r(
               "WAWebCustomPaymentMethodsSync",
             ).getCustomPaymentMethodSetMutation(e);
-          return o("WAWebSyncdCoreApi")
-            .lockForSync([], [t], function () {
+            yield o("WAWebSyncdCoreApi").lockForSync([], [t], function () {
               return (h || (h = n("Promise"))).resolve();
-            })
-            .then(function () {
-              (o("WALogger")
-                .LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "Synced pix removal mutation",
-                    ])),
-                )
-                .sendLogs("payment-brazil"),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "setCustomPaymentMethods",
-                  { customPaymentMethods: [] },
-                ));
             });
+          } catch (e) {
+            var a;
+            throw (
+              (a = o(
+                "WAWebCustomPaymentMethodsSyncLogger",
+              )).logCustomPaymentMethodsSyncEvent(
+                a.SYNC_ACTION_TARGETS.SEND_REMOVE,
+                a.SYNC_STATUS.FAILURE,
+                a.SyncErrorCode.TRANSPORT_FLUSH_FAILED,
+              ),
+              e
+            );
+          }
+          (o("WALogger")
+            .LOG(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "Synced pix removal mutation",
+                ])),
+            )
+            .sendLogs("payment-brazil"),
+            o(
+              "WAWebCustomPaymentMethodsSyncLogger",
+            ).logCustomPaymentMethodsSyncEvent(
+              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_ACTION_TARGETS
+                .SEND_REMOVE,
+              o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS.SUCCESS,
+            ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "setCustomPaymentMethods",
+              { customPaymentMethods: [] },
+            ));
         })),
         R.apply(this, arguments)
       );

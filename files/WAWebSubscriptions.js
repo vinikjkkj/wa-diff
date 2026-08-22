@@ -46,27 +46,23 @@ __d(
                 function (t, n) {
                   return L().catch(function (r) {
                     if (
-                      r instanceof o("WAWebBackendErrors").ServerStatusCodeError
+                      r instanceof
+                        o("WAWebBackendErrors").ServerStatusCodeError &&
+                      r.statusCode === 500
                     )
-                      e: {
-                        if (r.statusCode === 500) {
-                          return (
-                            o("WALogger").WARN(
-                              e ||
-                                (e = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[sub-mgr] query failed, retriable: ",
-                                  " fail=",
-                                  "",
-                                ])),
-                              r.message,
-                              n,
-                            ),
-                            t(r)
-                          );
-                          break e;
-                        }
-                        break e;
-                      }
+                      return (
+                        o("WALogger").WARN(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[sub-mgr] query failed, retriable: ",
+                              " fail=",
+                              "",
+                            ])),
+                          r.message,
+                          n,
+                        ),
+                        t(r)
+                      );
                     throw r;
                   });
                 },

@@ -3,6 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebHatchApprovalManager",
+    "WAWebHatchCheckoutWalletGroups",
+    "WAWebHatchJsonReaders",
     "WAWebHatchLogging",
     "WAWebSendHatchMetadataRequest",
     "asyncToGeneratorRuntime",
@@ -16,19 +18,27 @@ __d(
       c,
       d,
       m,
-      p = new Map(),
-      _ = 0;
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+      p,
+      _,
+      f = new Map(),
+      g = 0,
+      h = 3e4;
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function g() {
+    function C() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a;
           if (!r("WAWebHatchApprovalManager").hasCheckoutPaymentOption(e, t))
-            return (h(e, t), !1);
+            return (R(e, t), "unavailable");
+          var i = o("WAWebHatchCheckoutWalletGroups").fundingOptionId(
+            r("WAWebHatchApprovalManager").getFundedCheckout(e),
+          );
+          if (i === t) return "applied";
           (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-approval: selecting payment approvalId=",
                 " paymentId=",
                 "",
@@ -36,21 +46,30 @@ __d(
             e,
             t,
           ),
-            (_ += 1));
-          var a = _;
-          p.set(e, a);
-          var i = yield o("WAWebSendHatchMetadataRequest")
-              .sendHatchMetadataRequest({
-                method: "hitl.payment.select",
-                approvalId: e,
-                paymentId: t,
-              })
+            (g += 1));
+          var l = g;
+          f.set(e, l);
+          var s = o("WAWebHatchCheckoutWalletGroups").fundingOptionId(
+              r("WAWebHatchApprovalManager").getFundedCheckout(e),
+            ),
+            u = new Set(
+              (a = r("WAWebHatchApprovalManager").getFundedCheckout(e)) == null
+                ? void 0
+                : a.paymentOptions.map(function (e) {
+                    return e.paymentId;
+                  }),
+            ),
+            c = yield o("WAWebSendHatchMetadataRequest")
+              .sendHatchMetadataRequest(
+                { method: "hitl.payment.select", approvalId: e, paymentId: t },
+                h,
+              )
               .catch(function (t) {
                 return (
                   o("WALogger")
                     .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "hatch-approval: payment select threw approvalId=",
                           "",
                         ])),
@@ -61,78 +80,133 @@ __d(
                   { outcome: "send_failed" }
                 );
               }),
-            l = p.get(e) === a;
+            y = f.get(e) === l;
           if (
-            (l && p.delete(e),
-            i.outcome !== "response" || i.response.status !== "ok")
+            (y && f.delete(e),
+            c.outcome !== "response" || c.response.status !== "ok")
           )
             return (
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "hatch-approval: payment select refused approvalId=",
                       " outcome=",
                       "",
                     ])),
                   e,
-                  i.outcome,
+                  c.outcome,
                 )
                 .sendLogs("hatch-payment-select-failed"),
-              !1
+              "refused"
             );
-          if (!l)
+          if (!y)
             return (
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "hatch-approval: payment select superseded approvalId=",
                       "",
                     ])),
                   e,
                 )
                 .sendLogs("hatch-payment-select-superseded"),
-              !1
+              "superseded"
             );
-          var s = r("WAWebHatchApprovalManager").applyCheckoutPaymentOption(
+          var C = b(c.response.body, e, t, u);
+          if (C == null) return "refused";
+          var v = r("WAWebHatchApprovalManager").applyCheckoutPaymentOption(
             e,
-            t,
+            C,
           );
-          return (
-            s && o("WAWebHatchLogging").logHatchHitlWalletCardSelected(n),
-            s
-          );
+          return v
+            ? (C !== s &&
+                o("WAWebHatchLogging").logHatchHitlWalletCardSelected(n),
+              "applied")
+            : "unavailable";
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function h(t, n) {
-      if (r("WAWebHatchApprovalManager").getApproval(t) == null) {
+    function b(t, n, a, i) {
+      var l = v(t, n, a);
+      return l.kind === "mismatch"
+        ? (o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-approval: payment select ack named approvalId=",
+                  " for approvalId=",
+                  "",
+                ])),
+              l.ackApprovalId,
+              n,
+            )
+            .sendLogs("hatch-payment-select-ack-mismatch"),
+          null)
+        : l.paymentId !== a &&
+            !i.has(l.paymentId) &&
+            !r("WAWebHatchApprovalManager").hasCheckoutPaymentOption(
+              n,
+              l.paymentId,
+            )
+          ? (o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-approval: payment select ack named an unoffered card approvalId=",
+                    "",
+                  ])),
+                n,
+              )
+              .sendLogs("hatch-payment-select-ack-unoffered"),
+            null)
+          : l.paymentId;
+    }
+    function v(e, t, n) {
+      var r,
+        a = S(e, "approval_id");
+      if (a != null && a !== t) return { kind: "mismatch", ackApprovalId: a };
+      var i =
+        (r = S(
+          o("WAWebHatchJsonReaders").readField(e, "payment_selection"),
+          "payment_id",
+        )) != null
+          ? r
+          : S(e, "payment_id");
+      return { kind: "confirmed", paymentId: i != null ? i : n };
+    }
+    function S(e, t) {
+      var n = o("WAWebHatchJsonReaders").readString(e, t);
+      return n == null || o("WAWebHatchJsonReaders").isBlankText(n) ? null : n;
+    }
+    function R(e, t) {
+      if (r("WAWebHatchApprovalManager").getApproval(e) == null) {
         o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-approval: payment select dropped, approval gone approvalId=",
               "",
             ])),
-          t,
+          e,
         );
         return;
       }
       o("WALogger")
         .ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-approval: cannot fund approvalId=",
               " with paymentId=",
               "",
             ])),
+          e,
           t,
-          n,
         )
         .sendLogs("hatch-payment-select-unknown-option");
     }
-    l.selectHatchCheckoutPayment = f;
+    l.selectHatchCheckoutPayment = y;
   },
   98,
 );

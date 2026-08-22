@@ -8,6 +8,7 @@ __d(
     "WAWebAddGroupParticipantGroupHistoryContextProvider.react",
     "WAWebGetGroupHistoryBundleMessagesCount",
     "WAWebGroupHistoryGating",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebMiscGatingUtils",
     "WAWebModalManager",
     "WAWebStateUtils",
@@ -29,34 +30,37 @@ __d(
         d = e.reopenAddGroupFlowCallback,
         m = e.selectedContactsMap,
         p = e.updateSelectedContactsState,
-        _ = o("WAWebMiscGatingUtils").getGroupSizeLimit(a.groupType),
-        f = o("WAWebWidFactory").asGroupWidOrThrow(t.id),
-        g = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(f)
+        _ = o("WAWebStateUtils").unproxy(a),
+        f = o("WAWebMiscGatingUtils").getGroupSizeLimit(
+          o("WAWebGroupMetadataTypeUtils").getGroupTypeForMetadata(_),
+        ),
+        g = o("WAWebWidFactory").asGroupWidOrThrow(t.id),
+        h = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(g)
           ? o("WATimeUtils").unixTime()
           : null,
-        h =
-          g != null
+        y =
+          h != null
             ? o(
                 "WAWebGetGroupHistoryBundleMessagesCount",
               ).getGroupHistoryBundleMessageCount({
-                groupWid: f,
-                targetStartMessageTime: g,
+                groupWid: g,
+                targetStartMessageTime: h,
               })
             : null;
-      if ((a == null ? void 0 : a.participants.length) >= _) {
-        var y = s._(/*BTDS*/ "Can't add more than {max} members", [
-          s._param("max", _),
+      if ((_ == null ? void 0 : _.participants.length) >= f) {
+        var C = s._(/*BTDS*/ "Can't add more than {max} members", [
+          s._param("max", f),
         ]);
         o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, { msg: y, id: c }),
+          u.jsx(o("WAWebToast.react").Toast, { msg: C, id: c }),
         );
       } else {
-        var C = u.jsx(
+        var b = u.jsx(
           r("WAWebAddGroupParticipantGroupHistoryContextProvider.react"),
           {
             chat: t,
-            enterFlowTimestamp: g,
-            messageCountPromise: h,
+            enterFlowTimestamp: h,
+            messageCountPromise: y,
             children: u.jsx(r("WAWebAddGroupParticipantFlow.react"), {
               chat: o("WAWebStateUtils").unproxy(t),
               communityName: n,
@@ -68,7 +72,7 @@ __d(
             }),
           },
         );
-        o("WAWebModalManager").ModalManager.open(C, {
+        o("WAWebModalManager").ModalManager.open(b, {
           transition: "modal-flow",
         });
       }

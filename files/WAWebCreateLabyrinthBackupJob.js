@@ -31,7 +31,6 @@ __d(
           encryption_version_signature: n.encryptionVersionSignature,
           client_version: n.clientVersion,
           device_registration_id: t.deviceRegistrationId,
-          ocmf_client_state: n.ocmfClientState,
           device_id: t.deviceId,
           family_device_id: t.familyDeviceId,
         },

@@ -260,6 +260,12 @@ __d(
               !o("WAWebVoipCallStateUtils").isCallConnected(this.$Call$p_1)
             );
           }),
+          (a.isConnectingToCallLinkLobbyOutsideWaitingRoom = function () {
+            var e =
+              this.isInWaitingRoom ||
+              (this.isWaitingRoomEnabled && !this.isWaitingRoomAdmin);
+            return this.isConnectingToCallLinkLobby() && !e;
+          }),
           (a.isWaitingRoomToggleOn = function (t) {
             return o("WAWebVoipWaCallEnums").wireStringToWaitingRoomFilter(
               this.waitingRoomFilter,

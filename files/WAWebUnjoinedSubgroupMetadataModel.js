@@ -3,7 +3,6 @@ __d(
   [
     "WAWebBaseModel",
     "WAWebGroupParticipantCollection",
-    "WAWebGroupType",
     "WAWebUnjoinedSubgroupMetadataGetters",
     "WAWebWid",
   ],
@@ -31,16 +30,6 @@ __d(
           (t.suspended = o("WAWebBaseModel").prop()),
           (t.participants = o("WAWebBaseModel").collection(
             r("WAWebGroupParticipantCollection"),
-          )),
-          (t.groupType = o("WAWebBaseModel").derived(
-            function () {
-              return this.defaultSubgroup === !0
-                ? o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
-                : this.generalSubgroup === !0
-                  ? o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
-                  : o("WAWebGroupType").GroupType.LINKED_SUBGROUP;
-            },
-            ["defaultSubgroup", "generalSubgroup"],
           )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

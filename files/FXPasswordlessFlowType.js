@@ -15,6 +15,7 @@ __d(
           "generic_centralized_settings_no_eligible_accounts_for_reauth",
         INSTAGRAM_PW_CREATION: "instagram_pw_creation",
         META_PW_CREATION: "meta_pw_creation",
+        SMS_2FA_PW_CREATION: "sms_2fa_pw_creation",
         SSO: "sso",
         THREADS_PW_CREATION: "threads_pw_creation",
         UNLINK: "unlink",

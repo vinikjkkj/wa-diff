@@ -81,7 +81,7 @@ __d(
                     size: "small",
                     onPressIn: l,
                     Icon: r("XmarkCircleFillIOS.svg.react"),
-                    "aria-label": "End icon button",
+                    "aria-label": "Clear input",
                     widthMode: "fit",
                     xstyle: [c.clearButton, c.icon],
                   })),

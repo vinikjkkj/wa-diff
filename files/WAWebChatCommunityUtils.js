@@ -5,6 +5,7 @@ __d(
     "WAWebChatGroupUtils",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebUnjoinedSubgroupMetadataCollection",
@@ -15,20 +16,18 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = 91;
     function s(e) {
-      var t;
       return e
-        ? (e == null || (t = e.groupMetadata) == null
-            ? void 0
-            : t.groupType) === o("WAWebGroupType").GroupType.COMMUNITY &&
+        ? o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+            e == null ? void 0 : e.groupMetadata,
+          ) === o("WAWebGroupType").GroupType.COMMUNITY &&
             o("WAWebChatGroupUtils").isSuspendedGroup(e)
         : !1;
     }
     function u(e) {
-      var t;
       return e
-        ? (e == null || (t = e.groupMetadata) == null
-            ? void 0
-            : t.groupType) === o("WAWebGroupType").GroupType.COMMUNITY &&
+        ? o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+            e == null ? void 0 : e.groupMetadata,
+          ) === o("WAWebGroupType").GroupType.COMMUNITY &&
             o("WAWebChatGroupUtils").isSuspendedGroup(e) &&
             o("WAWebChatGroupUtils").isTerminatedGroup(e)
         : !1;

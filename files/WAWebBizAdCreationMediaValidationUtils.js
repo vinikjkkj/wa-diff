@@ -122,6 +122,7 @@ __d(
     ((l.ALLOWED_MIME_TYPES = e),
       (l.SUPPORTED_MEDIA_TYPES = u),
       (l.MAX_IMAGE_COUNT = c),
+      (l.MAX_VIDEO_COUNT = d),
       (l.MAX_DESCRIPTION_LENGTH = m),
       (l.PRUNE_TOAST_MESSAGES = p),
       (l.deepCloneMediaCollection = _),

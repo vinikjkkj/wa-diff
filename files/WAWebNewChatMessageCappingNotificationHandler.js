@@ -5,7 +5,10 @@ __d(
     "WAWebBackendApi",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebMessageCappingWamEvent",
+    "WAWebNux",
     "WAWebUserPrefsIndexedDBStorage",
+    "WAWebUserPrefsNuxPreferences",
+    "WAWebUserPrefsTypes",
     "WAWebWamEnumMessageCappingActionType",
     "asyncToGeneratorRuntime",
   ],
@@ -85,23 +88,27 @@ __d(
             d = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
               o("WAWebIndividualNewChatMessageCappingLimitUtils")
                 .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
-            );
+            ),
+            m =
+              s == null
+                ? void 0
+                : o(
+                    "WAWebIndividualNewChatMessageCappingLimitUtils",
+                  ).getCappingSubscriptionStatusType(s.status);
           if (d == null || d.server_sent_timestamp < Number(l)) {
-            var m;
+            var p, _;
             yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              (m = o("WAWebIndividualNewChatMessageCappingLimitUtils"))
+              (_ = o("WAWebIndividualNewChatMessageCappingLimitUtils"))
                 .NEW_CHAT_MESSAGE_CAPPING_IDB_KEY,
               {
-                capping_status: m.getCappingStatusType(t),
-                ote_status: m.getCappingOTEStatusType(i),
-                mv_status: m.getCappingMVStatusType(a),
+                capping_status: _.getCappingStatusType(t),
+                ote_status: _.getCappingOTEStatusType(i),
+                mv_status: _.getCappingMVStatusType(a),
                 subscription_status:
-                  s == null
+                  s == null || m == null
                     ? void 0
                     : {
-                        status: o(
-                          "WAWebIndividualNewChatMessageCappingLimitUtils",
-                        ).getCappingSubscriptionStatusType(s.status),
+                        status: m,
                         name: o(
                           "WAWebIndividualNewChatMessageCappingLimitUtils",
                         ).getCappingSubscriptionName(s.name),
@@ -113,6 +120,19 @@ __d(
                 server_sent_timestamp: Number(l),
               },
             );
+            var f =
+              d == null || (p = d.subscription_status) == null
+                ? void 0
+                : p.status;
+            m ===
+              o("WAWebUserPrefsTypes")
+                .NewChatMessageCappingSubscriptionStatusType.ACTIVE &&
+              f !==
+                o("WAWebUserPrefsTypes")
+                  .NewChatMessageCappingSubscriptionStatusType.ACTIVE &&
+              o("WAWebUserPrefsNuxPreferences").resetNux(
+                o("WAWebNux").NUX.NCT_CAPPING_SUBSCRIPTION_TOAST,
+              );
           } else
             new (o("WAWebMessageCappingWamEvent").MessageCappingWamEvent)({
               messageCappingActionType: o(

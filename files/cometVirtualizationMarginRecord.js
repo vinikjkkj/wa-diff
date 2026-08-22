@@ -38,22 +38,49 @@ __d(
       return t != null && Number.isInteger(t) ? t : null;
     }
     function b(e) {
-      return e === u ? d : e + l;
+      return typeof e == "number" && Number.isFinite(e) && e >= 0 ? e : null;
     }
     function v(e, t) {
       if (e == null || typeof e != "object") return null;
       var n = e.bottomMargin,
+        r = e.sampleCount,
+        o = e.topMargin,
+        a = b(o),
+        i = b(n),
+        l = b(r);
+      return a == null ||
+        i == null ||
+        l == null ||
+        !Number.isInteger(l) ||
+        a > t ||
+        i > t
+        ? null
+        : { bottomMargin: i, sampleCount: l, topMargin: a };
+    }
+    function S(e) {
+      return e === u ? d : e + l;
+    }
+    function R(e, t) {
+      if (e == null || typeof e != "object") return null;
+      var n = e.bottomMargin,
         r = e.lastUpdated,
         o = e.sampleCount,
-        a = e.topMargin,
-        i = y(a),
-        l = y(n),
-        s = C(o);
-      if (i == null || l == null || s == null || i > t || l > t) return null;
-      var u = typeof r == "number" && Number.isFinite(r) ? r : 0;
-      return { bottomMargin: l, lastUpdated: u, sampleCount: s, topMargin: i };
+        a = e.sessionBase,
+        i = e.topMargin,
+        l = y(i),
+        s = y(n),
+        u = C(o);
+      if (l == null || s == null || u == null || l > t || s > t) return null;
+      var c = typeof r == "number" && Number.isFinite(r) ? r : 0;
+      return {
+        bottomMargin: s,
+        lastUpdated: c,
+        sampleCount: u,
+        sessionBase: v(a, t),
+        topMargin: l,
+      };
     }
-    function S(t) {
+    function L(t) {
       try {
         if (t == null || typeof t != "object") return null;
         var n = t.records,
@@ -74,7 +101,7 @@ __d(
                 if (h(s)) {
                   var u = null;
                   try {
-                    u = v(i[s], b(Number(s)));
+                    u = R(i[s], S(Number(s)));
                   } catch (e) {
                     u = null;
                   }
@@ -88,15 +115,15 @@ __d(
         return null;
       }
     }
-    function R() {
+    function E() {
       return { records: {}, version: e };
     }
-    function L(e) {
+    function k(e) {
       return Object.keys(e).reduce(function (t, n) {
         return Math.max(t, e[n].lastUpdated);
       }, 0);
     }
-    function E(e) {
+    function I(e) {
       var t = e.records;
       if (t != null) {
         var n = Object.keys(t);
@@ -121,7 +148,7 @@ __d(
         r.length <= m ||
           r
             .sort(function (e, n) {
-              return L(t[e]) - L(t[n]);
+              return k(t[e]) - k(t[n]);
             })
             .slice(0, r.length - m)
             .forEach(function (e) {
@@ -134,9 +161,9 @@ __d(
       (i.MAX_SURFACES = m),
       (i.getScreenBucket = f),
       (i.isValidSurface = g),
-      (i.parsePersistedMarginPayload = S),
-      (i.createEmptyPayload = R),
-      (i.pruneRecords = E));
+      (i.parsePersistedMarginPayload = L),
+      (i.createEmptyPayload = E),
+      (i.pruneRecords = I));
   },
   66,
 );

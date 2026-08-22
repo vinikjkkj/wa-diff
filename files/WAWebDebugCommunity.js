@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebChatCollection",
     "WAWebDBGroupsGroupMetadata",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebSideNavButtonsActivityModel",
     "WAWebWidFactory",
@@ -31,8 +32,9 @@ __d(
             return;
           }
           var a = o("WAWebWidFactory").createWid(r),
-            i = o("WAWebChatCollection").ChatCollection.get(a);
-          if ((i == null ? void 0 : i.groupMetadata) == null) {
+            i = o("WAWebChatCollection").ChatCollection.get(a),
+            l = i == null ? void 0 : i.groupMetadata;
+          if (l == null) {
             o("WALogger").ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -43,10 +45,8 @@ __d(
             );
             return;
           }
-          if (
-            i.groupMetadata.groupType !==
-            o("WAWebGroupType").GroupType.COMMUNITY
-          ) {
+          var c = o("WAWebGroupMetadataGetters").getGroupType(l);
+          if (c !== o("WAWebGroupType").GroupType.COMMUNITY) {
             o("WALogger").ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -55,11 +55,11 @@ __d(
                   ")",
                 ])),
               r,
-              String(i.groupMetadata.groupType),
+              String(c),
             );
             return;
           }
-          ((i.groupMetadata.suspended = t),
+          ((l.suspended = t),
             yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(a, {
               suspended: t,
             }));

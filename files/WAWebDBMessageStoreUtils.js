@@ -12,6 +12,7 @@ __d(
     "WAWebDBMessageUtils",
     "WAWebFutureproofReparseMsgsAction",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -104,7 +105,7 @@ __d(
       )
         return !1;
       var t = r("WAWebGroupMetadataCollection").get(e.from);
-      if (t == null || !t.isCag) return !1;
+      if (t == null || !o("WAWebGroupMetadataGetters").getIsCag(t)) return !1;
       var n = t.participants.iAmAdmin();
       return !n;
     }

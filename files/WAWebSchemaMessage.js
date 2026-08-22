@@ -190,6 +190,7 @@ __d(
             a("futureproofSubtype"),
             a("botFeedbackKind"),
             a("botFeedbackText"),
+            a("pollLoggingId"),
             a("latestEditMsgKey"),
             a("latestEditSenderTimestampMs"),
             a("editMsgType"),

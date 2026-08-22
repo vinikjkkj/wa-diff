@@ -18,6 +18,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebPollOptionHashUtils",
     "WAWebPollsActionsMetricUtils",
+    "WAWebPollsLoggingIdUtils",
     "WAWebSendMsgChatAction",
     "WAWebSpoilerFormatRegex",
     "WAWebViewMode.flow",
@@ -212,6 +213,9 @@ __d(
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
               pollName: f,
+              pollLoggingId: o(
+                "WAWebPollsLoggingIdUtils",
+              ).generatePollLoggingId(),
               pollOptions: g,
               messageSecret: C
                 ? void 0

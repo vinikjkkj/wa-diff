@@ -28,7 +28,7 @@ __d(
             s.jsx(
               o("WAWebBusinessAddPixModalLoadable")
                 .WAWebBizPaymentsBrazilAddPixModalLoadable,
-              { referral: "chat_banner", previousScreen: "chat_banner" },
+              { referral: t, previousScreen: e },
             ),
           );
     }

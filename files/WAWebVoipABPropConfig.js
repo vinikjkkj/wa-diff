@@ -29,6 +29,26 @@ __d(
           type: "bool",
         },
         {
+          abProp: "calling_dual_stream_camera_auto_off_enabled",
+          wasmKey: "enable_dual_stream_camera_auto_off",
+          type: "bool",
+        },
+        {
+          abProp: "calling_dual_stream_camera_auto_off_include_low_data_usage",
+          wasmKey: "dual_stream_camera_auto_off_include_low_data_usage",
+          type: "bool",
+        },
+        {
+          abProp: "calling_dual_stream_camera_auto_off_battery_threshold_pct",
+          wasmKey: "dual_stream_camera_auto_off_battery_threshold_pct",
+          type: "int",
+        },
+        {
+          abProp: "calling_dual_stream_camera_auto_off_poor_network_time_ms",
+          wasmKey: "dual_stream_camera_auto_off_poor_network_time_ms",
+          type: "int",
+        },
+        {
           abProp: "max_group_size_for_long_ringtone",
           wasmKey: "max_group_size_for_long_ringtone",
           type: "int",

@@ -8,6 +8,7 @@ __d(
     "WARandomHex",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupModifyInfoJob",
     "WAWebGroupType",
     "WAWebMiscErrors",
@@ -25,40 +26,41 @@ __d(
       return (t === void 0 && (t = ""), p(o("WAWebStateUtils").unproxy(e), t));
     }
     function p(t, a, i) {
-      var l, c, m, _, f;
+      var l, c, m, _;
       (a === void 0 && (a = ""),
         i === void 0 && (i = o("WAWebActionToast.react").genId()));
-      var g = (l = a) == null ? void 0 : l.trim();
-      if (g === ((c = t.groupMetadata) == null ? void 0 : c.desc))
+      var f = (l = a) == null ? void 0 : l.trim();
+      if (f === ((c = t.groupMetadata) == null ? void 0 : c.desc))
         return (u || (u = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      g === "" && (g = null);
-      var h = o("WAWebGroupModifyInfoJob").setGroupDescription({
-          desc: g,
+      f === "" && (f = null);
+      var g = o("WAWebGroupModifyInfoJob").setGroupDescription({
+          desc: f,
           groupWid: t.id,
           newDescId: o("WARandomHex").randomHex(8),
           prevDescId: (m = t.groupMetadata) == null ? void 0 : m.descId,
         }),
-        y =
-          ((_ = t.groupMetadata) == null ? void 0 : _.groupType) ===
-          o("WAWebGroupType").GroupType.COMMUNITY,
-        C = (f = t.groupMetadata) == null ? void 0 : f.desc,
-        b = new (o("WAWebActionToast.react").ActionType)(
-          y
+        h =
+          o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+            t.groupMetadata,
+          ) === o("WAWebGroupType").GroupType.COMMUNITY,
+        y = (_ = t.groupMetadata) == null ? void 0 : _.desc,
+        C = new (o("WAWebActionToast.react").ActionType)(
+          h
             ? s._(/*BTDS*/ "Changing community description")
             : s._(/*BTDS*/ "Changing group description"),
         ),
-        v = h
+        b = g
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
-              y
+              h
                 ? s._(/*BTDS*/ "Community description changed")
                 : s._(/*BTDS*/ "Group description changed"),
               {
                 actionText: s._(/*BTDS*/ "Undo"),
                 actionHandler: function () {
-                  return p(t, C, i);
+                  return p(t, y, i);
                 },
               },
             );
@@ -69,7 +71,7 @@ __d(
               function (e) {
                 if (e.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
-                    y
+                    h
                       ? s._(/*BTDS*/ "Couldn't update community description")
                       : s._(/*BTDS*/ "Couldn't update group description"),
                   );
@@ -85,13 +87,13 @@ __d(
                   ])),
               ),
               new (o("WAWebActionToast.react").ActionType)(
-                y
+                h
                   ? s._(/*BTDS*/ "Community description change failed")
                   : s._(/*BTDS*/ "Group description change failed"),
                 {
                   actionText: s._(/*BTDS*/ "Try again."),
                   actionHandler: function () {
-                    return p(t, g, i);
+                    return p(t, f, i);
                   },
                 },
               )
@@ -101,14 +103,14 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebActionToast.react").ActionToast, {
             id: i,
-            initialAction: b,
-            pendingAction: v,
+            initialAction: C,
+            pendingAction: b,
           }),
         ),
-        h
+        g
           .then(function () {
             var e;
-            (e = t.groupMetadata) == null || e.set({ desc: g || "" });
+            (e = t.groupMetadata) == null || e.set({ desc: f || "" });
           })
           .catch(
             o("WAFilteredCatch").filteredCatch(

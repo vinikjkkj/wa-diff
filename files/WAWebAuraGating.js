@@ -82,55 +82,40 @@ __d(
               : ((e = this.$6().benefit(t)) == null ? void 0 : e.isActive) ===
                   !0;
           }),
+          (t.$8 = function (t) {
+            return this.benefit(t) != null || this.$7(t);
+          }),
           (t.benefit = function (t) {
             return !this.$4() || !this.$5(t) ? null : this.$6().benefit(t);
           }),
           (t.isThemesEnabled = function () {
-            return this.benefit(
-              o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES,
-            ) != null
-              ? !0
-              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES);
+            return this.$8(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES);
           }),
           (t.isThemesBenefitActive = function () {
             return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES);
           }),
           (t.isIconsEnabled = function () {
-            return this.benefit(
-              o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS,
-            ) != null
-              ? !0
-              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS);
+            return this.$8(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS);
           }),
           (t.isIconsBenefitActive = function () {
             return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS);
           }),
           (t.isRingtonesEnabled = function () {
-            return this.benefit(
-              o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES,
-            ) != null
-              ? !0
-              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES);
+            return this.$8(o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES);
           }),
           (t.isRingtonesBenefitActive = function () {
             return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES);
           }),
           (t.isStickersEnabled = function () {
-            return this.benefit(
-              o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS,
-            ) != null
-              ? !0
-              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS);
+            return this.$8(o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS);
           }),
           (t.isStickersBenefitActive = function () {
             return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS);
           }),
           (t.isPinnedChatsEnabled = function () {
-            return this.benefit(
+            return this.$8(
               o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
-            ) != null
-              ? !0
-              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS);
+            );
           }),
           (t.isPinnedChatsBenefitActive = function () {
             return this.$7(
@@ -148,11 +133,7 @@ __d(
               : null;
           }),
           (t.isListsEnabled = function () {
-            return this.benefit(
-              o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS,
-            ) != null
-              ? !0
-              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS);
+            return this.$8(o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS);
           }),
           (t.isListsBenefitActive = function () {
             return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS);

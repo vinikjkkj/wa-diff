@@ -21,6 +21,11 @@ __d(
       );
     }
     function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "mm_user_controls_unified_logging_symmetry_enabled",
+      );
+    }
+    function m() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "mm_user_controls_exception_number_prefixes",
       );
@@ -30,31 +35,32 @@ __d(
             return e.trim();
           });
     }
-    function m(e) {
+    function p(e) {
       if (e == null) return !1;
-      var t = d();
+      var t = m();
       return t.some(function (t) {
         return e.toString().startsWith(t);
       });
     }
-    function p(e) {
-      return _(e) && c();
-    }
     function _(e) {
+      return f(e) && c();
+    }
+    function f(e) {
       return (
         (e.isMarketingMessageThread || e.isEverOptedOutOfMarketingMessages) &&
         u() &&
-        !m(e.id)
+        !p(e.id)
       );
     }
     ((l.isMMMessageLevelFeedbackNotInterestedMenuEnabled = e),
       (l.isMMOptOutAlwaysUseLidInGraphQLEnabled = s),
       (l.isMMOptOutEnabled = u),
       (l.isMMUserControlsUnifiedStopEnabled = c),
-      (l.getMMUserControlsExceptionNumberPrefixes = d),
-      (l.isMMUserControlsExceptionNumberPrefixMatch = m),
-      (l.shouldShowUnifiedMMControls = p),
-      (l.isMMUserControlsEligible = _));
+      (l.isMMUserControlsLoggingSymmetryEnabled = d),
+      (l.getMMUserControlsExceptionNumberPrefixes = m),
+      (l.isMMUserControlsExceptionNumberPrefixMatch = p),
+      (l.shouldShowUnifiedMMControls = _),
+      (l.isMMUserControlsEligible = f));
   },
   98,
 );

@@ -224,6 +224,7 @@ __d(
             (e.productImageCount = o("WAWebBaseModel").prop()),
             (e.sessionId = o("WAWebBaseModel").prop()),
             (e.pollName = o("WAWebBaseModel").prop()),
+            (e.pollLoggingId = o("WAWebBaseModel").prop()),
             (e.pollOptions = o("WAWebBaseModel").prop()),
             (e.pollSelectableOptionsCount = o("WAWebBaseModel").prop()),
             (e.pollInvalidated = o("WAWebBaseModel").prop(!1)),

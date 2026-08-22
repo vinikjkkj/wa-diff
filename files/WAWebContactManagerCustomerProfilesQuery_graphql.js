@@ -60,6 +60,13 @@ __d(
                   {
                     alias: null,
                     args: null,
+                    kind: "ScalarField",
+                    name: "last_order_date",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
                     concreteType: "XFBWACustomerFieldMetadata",
                     kind: "LinkedField",
                     name: "last_updates",

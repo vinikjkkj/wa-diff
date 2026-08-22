@@ -20,6 +20,7 @@ __d(
     "WAWebCurrentUser",
     "WAWebDBUpdateChatTable",
     "WAWebFrontendContactGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebLid1X1MigrationGating",
@@ -70,20 +71,18 @@ __d(
       );
     }
     function f(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
+      var t = o("WAWebStateUtils").unproxy(e);
       return (
-        o("WAWebChatGetters").getIsGroup(n) &&
-        ((t = n.groupMetadata) == null ? void 0 : t.groupType) ===
+        o("WAWebChatGetters").getIsGroup(t) &&
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
       );
     }
     function g(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
+      var t = o("WAWebStateUtils").unproxy(e);
       return (
-        o("WAWebChatGetters").getIsGroup(n) &&
-        ((t = n.groupMetadata) == null ? void 0 : t.groupType) ===
+        o("WAWebChatGetters").getIsGroup(t) &&
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
           o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
       );
     }
@@ -122,29 +121,26 @@ __d(
       return (r || a) && !f(n);
     }
     function v(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
+      var t = o("WAWebStateUtils").unproxy(e);
       return (
-        ((t = n.groupMetadata) == null ? void 0 : t.groupType) ===
-          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && h(n)
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && h(t)
       );
     }
     function S(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
+      var t = o("WAWebStateUtils").unproxy(e);
       return (
-        ((t = n.groupMetadata) == null ? void 0 : t.groupType) ===
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-        h(n) &&
-        _(n)
+        h(t) &&
+        _(t)
       );
     }
     function R(e) {
-      var t,
-        n = o("WAWebStateUtils").unproxy(e);
+      var t = o("WAWebStateUtils").unproxy(e);
       return (
-        ((t = n.groupMetadata) == null ? void 0 : t.groupType) ===
-          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && _(n)
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && _(t)
       );
     }
     function L(e) {
@@ -174,13 +170,13 @@ __d(
           !((a = i.groupMetadata) != null && a.stale)
         ) {
           var m,
-            p,
-            f =
-              ((m = i.groupMetadata) == null ? void 0 : m.groupType) !==
-                o("WAWebGroupType").GroupType.COMMUNITY &&
-              (!((p = i.groupMetadata) != null && p.participants.iAmMember()) ||
+            p =
+              o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                i.groupMetadata,
+              ) !== o("WAWebGroupType").GroupType.COMMUNITY &&
+              (!((m = i.groupMetadata) != null && m.participants.iAmMember()) ||
                 _(i));
-          i.isReadOnly !== f &&
+          i.isReadOnly !== p &&
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -189,12 +185,12 @@ __d(
                   "",
                 ])),
               i.isReadOnly,
-              f,
+              p,
             ),
             (l = o("WAWebDBUpdateChatTable")
-              .updateChatTable(i.id, { isReadOnly: f })
+              .updateChatTable(i.id, { isReadOnly: p })
               .then(function () {
-                ((i.isReadOnly = f), $(i));
+                ((i.isReadOnly = p), $(i));
               })));
         }
         l.then(function () {

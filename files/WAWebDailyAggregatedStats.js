@@ -95,6 +95,9 @@ __d(
             (t.pnhCagActions = o("WAWebBaseModel").prop(function () {
               return {};
             })),
+            (t.pollsDailyStats = o("WAWebBaseModel").prop(function () {
+              return {};
+            })),
             (t.animatedEmojiSend = o("WAWebBaseModel").prop(0)),
             (t.singleEmojiSend = o("WAWebBaseModel").prop(0)),
             (t.emojiReply = o("WAWebBaseModel").prop(0)),

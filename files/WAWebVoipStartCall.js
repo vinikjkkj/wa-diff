@@ -1755,17 +1755,20 @@ __d(
           try {
             var t,
               a = yield Xe(e);
-            if (a == null) {
-              o("WALogger")
-                .ERROR(
-                  Z ||
-                    (Z = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: waveAtParticipant: LID resolution failed for participant, aborting wave",
-                    ])),
-                )
-                .sendLogs("voip: waveAtParticipant: LID expected but missing");
-              return;
-            }
+            if (a == null)
+              return (
+                o("WALogger")
+                  .ERROR(
+                    Z ||
+                      (Z = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: waveAtParticipant: LID resolution failed for participant, aborting wave",
+                      ])),
+                  )
+                  .sendLogs(
+                    "voip: waveAtParticipant: LID expected but missing",
+                  ),
+                !1
+              );
             var i = a.lidJid,
               l = a.pnJid,
               s = (t = o("WAWebLidMigrationUtils").toLid(e)) != null ? t : e,
@@ -1778,19 +1781,20 @@ __d(
                 }),
               ]),
               c = u[0];
-            if (c == null) {
-              o("WALogger")
-                .ERROR(
-                  ee ||
-                    (ee = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: waveAtParticipant: voipStackInterface is null, aborting wave",
-                    ])),
-                )
-                .sendLogs(
-                  "voip: waveAtParticipant: voipStackInterface is null",
-                );
-              return;
-            }
+            if (c == null)
+              return (
+                o("WALogger")
+                  .ERROR(
+                    ee ||
+                      (ee = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: waveAtParticipant: voipStackInterface is null, aborting wave",
+                      ])),
+                  )
+                  .sendLogs(
+                    "voip: waveAtParticipant: voipStackInterface is null",
+                  ),
+                !1
+              );
             if (!l) {
               var d, m;
               l =
@@ -1803,26 +1807,26 @@ __d(
             }
             var p = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([s]),
               _ = Ue(p, "waveAtParticipant");
-            if (_.length === 0) {
-              o("WALogger")
-                .ERROR(
-                  te ||
-                    (te = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: waveAtParticipant: no devices resolved for participant, aborting wave",
+            return _.length === 0
+              ? (o("WALogger")
+                  .ERROR(
+                    te ||
+                      (te = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: waveAtParticipant: no devices resolved for participant, aborting wave",
+                      ])),
+                  )
+                  .sendLogs("voip: waveAtParticipant: empty device list"),
+                !1)
+              : (yield c.sendWave(l, i, _),
+                o("WALogger").LOG(
+                  ne ||
+                    (ne = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: waveAtParticipant completed successfully for ",
+                      "",
                     ])),
-                )
-                .sendLogs("voip: waveAtParticipant: empty device list");
-              return;
-            }
-            (yield c.sendWave(l, i, _),
-              o("WALogger").LOG(
-                ne ||
-                  (ne = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: waveAtParticipant completed successfully for ",
-                    "",
-                  ])),
-                e.toString(),
-              ));
+                  e.toString(),
+                ),
+                !0);
           } catch (t) {
             throw (
               o("WALogger")

@@ -153,7 +153,7 @@ __d(
                             onPress: i,
                             Icon: n,
                             xstyle: p,
-                            "aria-label": o != null ? o : "End icon button",
+                            "aria-label": o != null ? o : void 0,
                             widthMode: "fit",
                           }),
                         },

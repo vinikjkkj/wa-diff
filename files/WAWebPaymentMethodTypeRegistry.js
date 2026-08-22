@@ -30,6 +30,17 @@ __d(
         ["TR", "TRY"],
         ["AE", "AED"],
         ["EG", "EGP"],
+        ["AR", "ARS"],
+        ["CA", "CAD"],
+        ["CI", "XOF"],
+        ["CO", "COP"],
+        ["ET", "ETB"],
+        ["GH", "GHS"],
+        ["KE", "KES"],
+        ["PE", "PEN"],
+        ["SA", "SAR"],
+        ["TZ", "TZS"],
+        ["ZA", "ZAR"],
       ]),
       S = new Map();
     function R(e, t) {
@@ -266,7 +277,15 @@ __d(
         l = a.identifierType;
       if (i == null || l == null) return !1;
       var s = o("WAWebUprConstants").UprPaymentAccountType.cast(i),
-        u = o("WAWebUprConstants").UprIdentifierType.cast(l);
+        u = (function (e) {
+          return e === "CBU"
+            ? o("WAWebUprConstants").UprIdentifierType.CBU
+            : e === "CVU"
+              ? o("WAWebUprConstants").UprIdentifierType.CVU
+              : e === "CCI"
+                ? o("WAWebUprConstants").UprIdentifierType.CCI
+                : o("WAWebUprConstants").UprIdentifierType.cast(l);
+        })(e.type.toUpperCase());
       if (s == null || u == null) return !0;
       var c =
           (r = o("WAWebPaymentMethodPIX").findMetadataValue(e, "currency")) !=

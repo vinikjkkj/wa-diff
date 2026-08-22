@@ -1,6 +1,11 @@
 __d(
   "WAWebCommunityGatingUtils",
-  ["WAWebABProps", "WAWebGroupType", "WAWebMobilePlatforms"],
+  [
+    "WAWebABProps",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupType",
+    "WAWebMobilePlatforms",
+  ],
   function (t, n, r, o, a, i, l) {
     function e() {
       return !o("WAWebMobilePlatforms").isSMB();
@@ -25,8 +30,9 @@ __d(
     function d(e) {
       return e == null
         ? !1
-        : (e.groupType === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
-            e.groupType ===
+        : (o("WAWebGroupMetadataGetters").getGroupType(e) ===
+            o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
+            o("WAWebGroupMetadataGetters").getGroupType(e) ===
               o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP) &&
             e.getParentGroupChat() != null;
     }

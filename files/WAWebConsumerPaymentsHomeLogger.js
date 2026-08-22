@@ -17,48 +17,48 @@ __d(
       m = "P2P",
       p = "chat_attachment";
     function _(e) {
-      O("payment_home", void 0, { has_pix_key: e });
+      B("payment_home", void 0, { has_pix_key: e });
     }
     function f() {
-      B(
+      W(
         "settings",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .PAYMENTS_ROW,
       );
     }
     function g() {
-      B(
+      W(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS.PIX_ROW,
       );
     }
     function h() {
-      B(
+      W(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .ADD_PIX_KEY_BANNER,
       );
     }
     function y() {
-      B(
+      W(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .ADD_PIX_KEY_ROW,
       );
     }
     function C(e) {
-      O(F(e), void 0, { payment_method: d });
+      B(O(e), void 0, { payment_method: d });
     }
     function b(e, t) {
-      B(
-        F(e),
+      W(
+        O(e),
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .CONFIRM_BUTTON,
         { payment_method: d, key_type: t },
       );
     }
     function v() {
-      B(
+      W(
         "edit_non_native_p2p_payment_method",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .REMOVE_CREDENTIAL,
@@ -66,10 +66,10 @@ __d(
       );
     }
     function S() {
-      O("remove_custom_payment_method_prompt", void 0, { payment_method: d });
+      B("remove_custom_payment_method_prompt", void 0, { payment_method: d });
     }
     function R() {
-      B(
+      W(
         "remove_custom_payment_method_prompt",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .CONFIRM_BUTTON,
@@ -77,14 +77,14 @@ __d(
       );
     }
     function L() {
-      O(
+      B(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .PASSKEY_BLOCKED_EDIT_DELETE_PIX,
       );
     }
     function E(e) {
-      B(
+      W(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .PAYMENTS_HOME_SHARE_YOUR_PIX,
@@ -93,15 +93,18 @@ __d(
       );
     }
     function k() {
-      B("payment_home", void 0, { transactions_see_all: !0, flow_type: m });
+      W("payment_home", void 0, { transactions_see_all: !0, flow_type: m });
     }
     function I(e) {
-      O("payment_transactions", void 0, { num_payments: e, flow_type: m });
+      B("payment_transactions", void 0, { num_payments: e, flow_type: m });
     }
     function T(e) {
-      O("payment_transactions", void 0, { flow_type: m, date_field: e });
+      B("payment_transactions", void 0, { flow_type: m, date_field: e });
     }
-    var D =
+    function D(e) {
+      W("payment_transactions", e, { flow_type: m });
+    }
+    var x =
       ((e = {}),
       (e[(u = o("WAWebWamEnumMessageChatType")).MESSAGE_CHAT_TYPE.OTHER] =
         "other"),
@@ -111,22 +114,22 @@ __d(
       (e[u.MESSAGE_CHAT_TYPE.BROADCAST] = "broadcast"),
       (e[u.MESSAGE_CHAT_TYPE.CHANNEL] = "channel"),
       e);
-    function x(e) {
+    function $(e) {
       var t;
       return (t =
-        D[o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(e)]) !=
+        x[o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(e)]) !=
         null
         ? t
         : "other";
     }
-    function $(e) {
-      O("send_pix_key", void 0, { chat_type: e }, p);
+    function P(e) {
+      B("send_pix_key", void 0, { chat_type: e }, p);
     }
-    function P(e, t) {
-      O("send_pix_key", void 0, { chat_type: e }, p, t);
+    function N(e, t) {
+      B("send_pix_key", void 0, { chat_type: e }, p, t);
     }
-    function N(e) {
-      B(
+    function M(e) {
+      W(
         "send_pix_key",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .SEND_BUTTON,
@@ -134,8 +137,8 @@ __d(
         p,
       );
     }
-    function M(e) {
-      B(
+    function w(e) {
+      W(
         "send_pix_key",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .BACK_BUTTON,
@@ -143,8 +146,8 @@ __d(
         p,
       );
     }
-    function w(e) {
-      q({
+    function A(e) {
+      U({
         actionTarget: e,
         paymentActionType: o("WAWebWamEnumPaymentActionTypes")
           .PAYMENT_ACTION_TYPES.API,
@@ -152,44 +155,44 @@ __d(
         screen: "custom_payment_methods_sync",
       });
     }
-    var A = Object.freeze({
+    var F = Object.freeze({
       STORE_SENT: o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
         .SYNCD_STORE_SENT,
       REMOVE_PIX: o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
         .SYNCD_REMOVE_PIX,
     });
-    function F(e) {
+    function O(e) {
       return e
         ? "edit_non_native_p2p_payment_method"
         : "add_non_native_p2p_payment_method";
     }
-    function O(e, t, n, r, a) {
-      q({
+    function B(e, t, n, r, a) {
+      U({
         actionTarget: t != null ? t : void 0,
         paymentActionType: o("WAWebWamEnumPaymentActionTypes")
           .PAYMENT_ACTION_TYPES.VIEW,
         paymentsCountryCode: c,
         previousScreenName: a,
-        queryParams: W(n),
+        queryParams: q(n),
         referral: r,
         screen: e,
       });
     }
-    function B(e, t, n, r) {
-      q({
+    function W(e, t, n, r) {
+      U({
         actionTarget: t != null ? t : void 0,
         paymentActionType: o("WAWebWamEnumPaymentActionTypes")
           .PAYMENT_ACTION_TYPES.CLICK,
         paymentsCountryCode: c,
-        queryParams: W(n),
+        queryParams: q(n),
         referral: r,
         screen: e,
       });
     }
-    function W(e) {
+    function q(e) {
       return e != null ? JSON.stringify(e) : void 0;
     }
-    function q(e) {
+    function U(e) {
       var t = new (o(
         "WAWebPaymentsUserActionWamEvent",
       ).PaymentsUserActionWamEvent)(e);
@@ -216,13 +219,14 @@ __d(
       (l.logSeeAllTransactionsClick = k),
       (l.logTransactionsListView = I),
       (l.logTransactionsDateFieldView = T),
-      (l.getChatTypeForLogging = x),
-      (l.logSendPixKeyTrayView = $),
-      (l.logSendPixKeyView = P),
-      (l.logSendPixKeySendClick = N),
-      (l.logSendPixKeyCancelClick = M),
-      (l.logSyncEvent = w),
-      (l.SYNC_TARGETS = A));
+      (l.logTransactionsTabClick = D),
+      (l.getChatTypeForLogging = $),
+      (l.logSendPixKeyTrayView = P),
+      (l.logSendPixKeyView = N),
+      (l.logSendPixKeySendClick = M),
+      (l.logSendPixKeyCancelClick = w),
+      (l.logSyncEvent = A),
+      (l.SYNC_TARGETS = F));
   },
   98,
 );

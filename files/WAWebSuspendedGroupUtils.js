@@ -17,6 +17,7 @@ __d(
     "WAWebGroupAppealRejectedModalLoadable",
     "WAWebGroupGatingUtils",
     "WAWebGroupJoinRequestMetricUtils",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupSuspensionAppealEventsWamEvent",
     "WAWebGroupSuspensionAppealMutation",
     "WAWebGroupType",
@@ -58,7 +59,7 @@ __d(
         groupSuspensionAppealUiAction: a,
         groupSuspensionAppealUiSurface: i,
         groupTypeClient: o("WAWebGroupType").groupTypeToGroupTypeClient(
-          l == null ? void 0 : l.groupType,
+          o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(l),
         ),
         isAdmin:
           (t = l == null ? void 0 : l.participants.iAmAdmin()) != null ? t : !1,

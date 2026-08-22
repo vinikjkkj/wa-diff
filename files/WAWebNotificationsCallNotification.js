@@ -184,7 +184,10 @@ __d(
           };
         }),
         (a.shouldShowBanner = function () {
-          return o("WAWebNotificationHelpers").appIsActive() ||
+          return o(
+            "WAWebVoipGatingUtils",
+          ).isWinHybridPlusIncomingPopoutEnabled() ||
+            o("WAWebNotificationHelpers").appIsActive() ||
             !e.prototype.shouldShowBanner.call(this)
             ? !1
             : o(

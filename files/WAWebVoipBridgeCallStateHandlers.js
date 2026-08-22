@@ -852,22 +852,38 @@ __d(
           ));
       },
       handleIsInWaitingRoomChanged: function (t) {
-        var e = t.isInWaitingRoom;
+        var e = t.isInWaitingRoom,
+          n = t.isWaitingRoomAdmin,
+          a = t.isWaitingRoomEnabled,
+          i = t.waitingRoomFilter;
         o("WALogger").LOG(
           I ||
             (I = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: handleIsInWaitingRoomChanged: isInWaitingRoom=",
+              "voip: handleIsInWaitingRoomChanged: inWR=",
+              ", enabled=",
+              ", admin=",
               "",
             ])),
           e,
+          a,
+          n,
         );
-        var n = r("WAWebCallCollection").activeCall;
-        n != null &&
-          ((n.isInWaitingRoom = e),
-          n.trigger(
+        var l = r("WAWebCallCollection").activeCall;
+        l != null &&
+          ((l.isInWaitingRoom = e),
+          (l.isWaitingRoomEnabled = a),
+          (l.isWaitingRoomAdmin = n),
+          (l.waitingRoomFilter = i),
+          l.trigger(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipCallModelEvents
                 .IS_IN_WAITING_ROOM,
+            ),
+          ),
+          l.trigger(
+            o("WAWebVoipEventConstants").getChangeEvent(
+              o("WAWebVoipEventConstants").VoipCallModelEvents
+                .WAITING_ROOM_STATE,
             ),
           ));
       },

@@ -1686,6 +1686,8 @@ __d(
       LWI_SUBSCRIPTION_OFFER_INELIGIBLE: "lwi_subscription_offer_ineligible",
       LWI_SUBSCRIPTION_INSIGHT_LIFT_NO_AD_ACCOUNT:
         "lwi_subscription_insight_lift_no_ad_account",
+      LWI_SUBSCRIPTION_MVP_WIZARD_CLOSED: "lwi_subscription_mvp_wizard_closed",
+      LWI_SUBSCRIPTION_MVP_WIZARD_OPENED: "lwi_subscription_mvp_wizard_opened",
       PARTNERSHIP_ADS_TOGGLE: "partnership_ads_toggle",
       PARTNERSHIP_ADS_IDENTITY_SELECTED: "partnership_ads_identity_selected",
       PARTNERSHIP_ADS_PARTNER_CONTENT_TAB_SELECTED:

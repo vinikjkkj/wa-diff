@@ -184,6 +184,8 @@ __d(
           return "THREADS_PW_CREATION";
         case "meta_pw_creation":
           return "META_PW_CREATION";
+        case "sms_2fa_pw_creation":
+          return "SMS_2FA_PW_CREATION";
         case "instagram_pw_creation":
           return "META_PW_CREATION";
         case "cs_deactivation_passwordless":

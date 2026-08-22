@@ -23,6 +23,9 @@ __d(
         IBAN: "iban",
         FPSID: "fpsid",
         EMAIL: "email",
+        CBU: "cbu",
+        CVU: "cvu",
+        CCI: "cci",
       }),
       d = e({
         PAYMENT_TYPE: "payment_type",

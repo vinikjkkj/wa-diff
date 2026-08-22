@@ -17,6 +17,7 @@ __d(
     "WAWebGroupGatingUtils",
     "WAWebGroupGetMembershipApprovalRequestsJob",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebInvalidateEventsAction",
     "WAWebLeaveReasonType",
@@ -94,7 +95,7 @@ __d(
             var b = a.participants.some(function (e) {
                 return e.id.isLid();
               }),
-              v = d.isCag,
+              v = o("WAWebGroupMetadataGetters").getIsCag(d),
               S = !!d.isLidAddressingMode;
             if (
               o(
@@ -206,7 +207,10 @@ __d(
             }))
           )
             if (a.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE) {
-              if (d.groupType === o("WAWebGroupType").GroupType.COMMUNITY) {
+              if (
+                o("WAWebGroupMetadataGetters").getGroupType(d) ===
+                o("WAWebGroupType").GroupType.COMMUNITY
+              ) {
                 var D = o("WAWebNux").getCommunityAdminPromotionNuxKey(
                   d.id.toString(),
                 );
@@ -325,7 +329,7 @@ __d(
               )));
           var F =
             (x = d.getParentGroupChat()) == null ? void 0 : x.groupMetadata;
-          (d.isCag &&
+          (o("WAWebGroupMetadataGetters").getIsCag(d) &&
             (F == null || F.participants.remove(P),
             F == null || F.pastParticipants.add(N)),
             !d.isParentGroupParticipant() &&
@@ -388,7 +392,8 @@ __d(
           var H = !!a.value;
           (H &&
             !d.suspended &&
-            d.groupType === o("WAWebGroupType").GroupType.DEFAULT &&
+            o("WAWebGroupMetadataGetters").getGroupType(d) ===
+              o("WAWebGroupType").GroupType.DEFAULT &&
             d.participants.iAmAdmin() &&
             o(
               "WAWebGroupGatingUtils",

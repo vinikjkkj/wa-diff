@@ -29,6 +29,7 @@ __d(
     "WAWebFormatRestrictNotification",
     "WAWebFormatSubjectNotification",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupMetadataGetters",
     "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
     "WAWebMessageCommunityEmptySubgroupWelcome.react",
     "WAWebMessageCommunityEmptySubgroupWelcomeTitle.react",
@@ -74,71 +75,73 @@ __d(
       );
     }
     function _(t) {
-      var n,
-        a = t.clickable,
-        i = t.isLastMsg,
-        l = t.msg,
-        c = l.subtype,
-        _ = l.author,
-        f = l.body,
-        g = l.recipients,
-        h = g === void 0 ? [] : g,
-        y = l.templateParams,
-        C = o("WAWebFrontendMsgGetters").getChat(l.unsafe()),
-        b = o("WAWebMsgModelUtils").getMsgDisplayName(l.unsafe()),
-        v = _
+      var n = t.clickable,
+        a = t.isLastMsg,
+        i = t.msg,
+        l = i.subtype,
+        c = i.author,
+        _ = i.body,
+        f = i.recipients,
+        g = f === void 0 ? [] : f,
+        h = i.templateParams,
+        y = o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
+        C = o("WAWebMsgModelUtils").getMsgDisplayName(i.unsafe()),
+        b = c
           ? o("WAWebFormatParticipantNames").getFormattedName(
-              _,
-              p({ chat: C, clickable: a, id: _ }),
+              c,
+              p({ chat: y, clickable: n, id: c }),
               void 0,
               "0",
             )
           : null,
-        S = h[0],
-        R = S
+        v = g[0],
+        S = v
           ? o("WAWebFormatParticipantNames").getFormattedName(
-              S,
-              p({ chat: C, clickable: a, id: S }),
+              v,
+              p({ chat: y, clickable: n, id: v }),
               void 0,
               "0",
             )
           : null,
-        L = o("WAWebFormatParticipantNames").getFormattedNames(
-          h,
-          a &&
-            h.length === 1 &&
-            !((n = C.groupMetadata) != null && n.isCag) &&
+        R = o("WAWebFormatParticipantNames").getFormattedNames(
+          g,
+          n &&
+            g.length === 1 &&
+            !(
+              y.groupMetadata != null &&
+              o("WAWebGroupMetadataGetters").getIsCag(y.groupMetadata)
+            ) &&
             (!o(
               "WAWebBotGroupGatingUtils",
             ).isOpenGroupBotParticipantAddEnabled() ||
-              !h[0].isBot()),
+              !g[0].isBot()),
           void 0,
           "0",
         );
-      switch (c) {
+      switch (l) {
         case "add":
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatAddNotification",
             ).formatAddNotification({
-              author: _,
-              authorClickable: v,
-              subject: S,
-              subjectClickable: R,
-              participantsClickable: L,
+              author: c,
+              authorClickable: b,
+              subject: v,
+              subjectClickable: S,
+              participantsClickable: R,
             }),
-            isBodyTextClickable: !!v || !!R || !!L,
+            isBodyTextClickable: !!b || !!S || !!R,
           };
         case "remove":
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatRemoveNotification",
             ).formatRemoveNotification({
-              author: _,
-              authorClickable: v,
-              subject: S,
-              subjectClickable: R,
-              participantsClickable: L,
+              author: c,
+              authorClickable: b,
+              subject: v,
+              subjectClickable: S,
+              participantsClickable: R,
             }),
           };
         case "leave":
@@ -146,9 +149,9 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatLeaveNotification",
             ).formatLeaveNotification({
-              body: f,
-              subject: S,
-              participantsClickable: L,
+              body: _,
+              subject: v,
+              participantsClickable: R,
             }),
           };
         case "picture":
@@ -156,40 +159,40 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatPictureNotification",
             ).formatPictureNotification({
-              author: _,
-              authorClickable: v,
-              body: f,
+              author: c,
+              authorClickable: b,
+              body: _,
             }),
           };
         case "subject": {
-          var E = d.jsx(o("WAWebSystemMessagesUtils").FormattedText, {
-            text: f,
+          var L = d.jsx(o("WAWebSystemMessagesUtils").FormattedText, {
+            text: _,
           });
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatSubjectNotification",
             ).formatSubjectNotification({
-              author: _,
-              authorClickable: v,
-              chat: C,
-              subjectValue: E,
+              author: c,
+              authorClickable: b,
+              chat: y,
+              subjectValue: L,
             }),
           };
         }
         case "modify": {
-          var k = o("WAWebWidFormat").widToFormattedUser(_),
-            I = o("WAWebWidFormat").widToFormattedUser(S);
-          return k === b
+          var E = o("WAWebWidFormat").widToFormattedUser(c),
+            k = o("WAWebWidFormat").widToFormattedUser(v);
+          return E === C
             ? {
                 l10nBodyTextInstance: s._(
                   /*BTDS*/ "{name} changed to {new_number}",
-                  [s._param("name", b), s._param("new_number", I)],
+                  [s._param("name", C), s._param("new_number", k)],
                 ),
               }
             : {
                 l10nBodyTextInstance: s._(
                   /*BTDS*/ "{name} changed their phone number to a new number.",
-                  [s._param("name", b)],
+                  [s._param("name", C)],
                 ),
               };
         }
@@ -198,10 +201,10 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatCreateNotification",
             ).formatCreateNotification({
-              chat: C,
-              author: _,
-              authorClickable: v,
-              groupSubject: f,
+              chat: y,
+              author: c,
+              authorClickable: b,
+              groupSubject: _,
               groupSubjectAsString: !1,
             }),
           };
@@ -209,7 +212,7 @@ __d(
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatDeleteNotification",
-            ).formatDeleteNotification({ chat: C }),
+            ).formatDeleteNotification({ chat: y }),
           };
         case "promote":
         case "demote":
@@ -219,15 +222,15 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatPromoteDemoteNotification",
             ).formatPromoteDemoteNotification({
-              subtype: c,
-              subject: S,
-              subjectClickable: R,
-              participantsClickable: L,
-              participantsCount: h.length,
+              subtype: l,
+              subject: v,
+              subjectClickable: S,
+              participantsClickable: R,
+              participantsCount: g.length,
             }),
           };
         case "invite":
-          return o("WAWebSystemMessagesUtils").isMe(S)
+          return o("WAWebSystemMessagesUtils").isMe(v)
             ? {
                 l10nBodyTextInstance: s._(
                   /*BTDS*/ "You joined via an invite link",
@@ -236,11 +239,11 @@ __d(
             : {
                 l10nBodyTextInstance: s._(
                   /*BTDS*/ "{name} joined via an invite link",
-                  [s._param("name", R)],
+                  [s._param("name", S)],
                 ),
               };
         case "revoke_invite":
-          return o("WAWebSystemMessagesUtils").isMe(_)
+          return o("WAWebSystemMessagesUtils").isMe(c)
             ? {
                 l10nBodyTextInstance: m
                   ? s._(/*BTDS*/ "You reset this group's invite link")
@@ -251,26 +254,26 @@ __d(
             : {
                 l10nBodyTextInstance: m
                   ? s._(/*BTDS*/ "{name} reset this group's invite link", [
-                      s._param("name", v),
+                      s._param("name", b),
                     ])
                   : s._(
                       /*BTDS*/ "{name} reset this group's invite link. Click to view the new invite link",
-                      [s._param("name", v)],
+                      [s._param("name", b)],
                     ),
               };
         case "description":
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatDescriptionNotification",
-            ).formatDescriptionNotification({ author: _, authorClickable: v }),
+            ).formatDescriptionNotification({ author: c, authorClickable: b }),
           };
         case "parent_group_description":
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatDescriptionNotification",
             ).formatDescriptionNotification({
-              author: _,
-              authorClickable: v,
+              author: c,
+              authorClickable: b,
               isParentGroup: !0,
             }),
           };
@@ -279,9 +282,9 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatAnnounceNotification",
             ).formatAnnounceNotification({
-              author: _,
-              authorClickable: v,
-              body: f,
+              author: c,
+              authorClickable: b,
+              body: _,
             }),
           };
         case "restrict":
@@ -289,14 +292,14 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatRestrictNotification",
             ).formatRestrictNotification({
-              author: _,
-              authorClickable: v,
-              templateParams: y,
+              author: c,
+              authorClickable: b,
+              templateParams: h,
             }),
           };
         case "no_frequently_forwarded":
-          return f === "on"
-            ? o("WAWebSystemMessagesUtils").isMe(_)
+          return _ === "on"
+            ? o("WAWebSystemMessagesUtils").isMe(c)
               ? {
                   l10nBodyTextInstance: s._(
                     /*BTDS*/ "You changed this group's settings to not allow messages that have been forwarded many times.",
@@ -305,10 +308,10 @@ __d(
               : {
                   l10nBodyTextInstance: s._(
                     /*BTDS*/ "{name} changed this group's settings to not allow messages that have been forwarded many times.",
-                    [s._param("name", v)],
+                    [s._param("name", b)],
                   ),
                 }
-            : o("WAWebSystemMessagesUtils").isMe(_)
+            : o("WAWebSystemMessagesUtils").isMe(c)
               ? {
                   l10nBodyTextInstance: s._(
                     /*BTDS*/ "You changed this group's settings to allow messages that have been forwarded many times.",
@@ -317,7 +320,7 @@ __d(
               : {
                   l10nBodyTextInstance: s._(
                     /*BTDS*/ "{name} changed this group's settings to allow messages that have been forwarded many times.",
-                    [s._param("name", v)],
+                    [s._param("name", b)],
                   ),
                 };
         case "announce_msg_bounce":
@@ -329,26 +332,26 @@ __d(
         case "v4_add_invite_sent":
           return {
             l10nBodyTextInstance: s._(/*BTDS*/ "You invited {participants}", [
-              s._param("participants", L),
+              s._param("participants", R),
             ]),
           };
         case "v4_add_invite_join":
           return {
             l10nBodyTextInstance: s._(
               /*BTDS*/ "{participants} joined using your invite",
-              [s._param("participants", L)],
+              [s._param("participants", R)],
             ),
           };
         case "ephemeral":
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatEphemeralSetting",
-            ).formatEphemeralSetting(o("WAWebStateUtils").unproxy(l.unsafe())),
+            ).formatEphemeralSetting(o("WAWebStateUtils").unproxy(i.unsafe())),
           };
         case "initial_pHash_mismatch":
         case "default_sub_group_promote":
         case "default_sub_group_demote":
-          return o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(C)
+          return o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(y)
             ? {
                 l10nBodyTextInstance: m
                   ? s._(/*BTDS*/ "Community members have changed")
@@ -394,85 +397,85 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatLinkNotification",
             ).formatLinkNotification({
-              author: _,
-              clickable: a,
-              subject: S,
-              subtype: c,
-              templateParams: y,
+              author: c,
+              clickable: n,
+              subject: v,
+              subtype: l,
+              templateParams: h,
             }),
           };
         case "community_create":
           return {
-            l10nBodyTextInstance: i
+            l10nBodyTextInstance: a
               ? o(
                   "WAWebMessageCommunityWelcomeAdminTitle.react",
                 ).communityWelcomeAdminTitle({
-                  author: _,
-                  chat: C,
-                  templateParams: y,
+                  author: c,
+                  chat: y,
+                  templateParams: h,
                 })
               : d.jsx(
                   o("WAWebMessageCommunityWelcomeAdmin.react")
                     .MessageCommunityWelcomeAdmin,
-                  { author: _, chat: C, templateParams: y },
+                  { author: c, chat: y, templateParams: h },
                 ),
           };
         case "community_participant_add_rich":
         case "community_invite_rich":
         case "community_invite_auto_add_rich":
           return {
-            l10nBodyTextInstance: i
+            l10nBodyTextInstance: a
               ? o(
                   "WAWebMessageCommunityWelcomeMemberTitle.react",
                 ).communityWelcomeMemberTitle()
               : d.jsx(
                   o("WAWebMessageCommunityWelcomeMember.react")
                     .MessageCommunityWelcomeMember,
-                  { templateParams: y, clickable: a, author: _, chat: C },
+                  { templateParams: h, clickable: n, author: c, chat: y },
                 ),
           };
         case "subgroup_admin_triggered_auto_add":
         case "subgroup_admin_triggered_invite_auto_add":
           return {
-            l10nBodyTextInstance: i
+            l10nBodyTextInstance: a
               ? o(
                   "WAWebMessageCommunityWelcomeMemberTitle.react",
                 ).communityWelcomeMemberTitle()
               : d.jsx(r("WAWebMessageCommunityWelcomeSubgroup.react"), {
-                  templateParams: y,
+                  templateParams: h,
                 }),
           };
         case "sub_group_participant_add_rich":
         case "sub_group_invite_rich":
           return {
-            l10nBodyTextInstance: i
+            l10nBodyTextInstance: a
               ? o(
                   "WAWebMessageCommunitySubgroupWelcomeTitle.react",
                 ).communitySubgroupWelcomeTitle({
-                  templateParams: y,
-                  clickable: a,
-                  author: _,
+                  templateParams: h,
+                  clickable: n,
+                  author: c,
                 })
               : d.jsx(
                   o("WAWebMessageCommunitySubgroupWelcome.react")
                     .MessageCommunitySubgroupWelcome,
-                  { chat: C, author: _, templateParams: y, clickable: a },
+                  { chat: y, author: c, templateParams: h, clickable: n },
                 ),
           };
         case "community_link_parent_group_rich":
           return {
-            l10nBodyTextInstance: i
+            l10nBodyTextInstance: a
               ? o(
                   "WAWebMessageCommunityLinkGroupTitle.react",
                 ).communityLinkGroupTitle({
-                  templateParams: y,
-                  clickable: a,
-                  author: _,
+                  templateParams: h,
+                  clickable: n,
+                  author: c,
                 })
               : d.jsx(
                   o("WAWebMessageCommunityLinkGroup.react")
                     .MessageCommunityLinkGroup,
-                  { chat: C, author: _, templateParams: y, clickable: a },
+                  { chat: y, author: c, templateParams: h, clickable: n },
                 ),
           };
         case "ephemeral_keep_in_chat":
@@ -491,57 +494,57 @@ __d(
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatMembershipApprovalNotification",
-            ).formatMembershipApprovalNotification(c, _, y),
+            ).formatMembershipApprovalNotification(l, c, h),
           };
         case "allow_admin_reports":
           return {
             l10nBodyTextInstance: o(
               "WAWebFormatReportToAdminNotification",
-            ).formatReportToAdminNotification(_, y),
+            ).formatReportToAdminNotification(c, h),
           };
         case "allow_non_admin_sub_group_creation":
           return {
             l10nBodyTextInstance: r(
               "WAWebFormatAllowNonAdminSubGroupCreationNotification",
-            )(C, y),
+            )(y, h),
           };
         case "empty_subgroup_create":
           return {
-            l10nBodyTextInstance: i
+            l10nBodyTextInstance: a
               ? o(
                   "WAWebMessageCommunityEmptySubgroupWelcomeTitle.react",
-                ).communityEmptySubgroupWelcomeTitle(C.formattedTitle)
+                ).communityEmptySubgroupWelcomeTitle(y.formattedTitle)
               : d.jsx(r("WAWebMessageCommunityEmptySubgroupWelcome.react"), {
-                  templateParams: y,
-                  subgroupChat: C,
+                  templateParams: h,
+                  subgroupChat: y,
                 }),
           };
         case "member_add_mode": {
-          var T,
-            D = !!((T = C.groupMetadata) != null && T.participants.iAmAdmin());
+          var I,
+            T = !!((I = y.groupMetadata) != null && I.participants.iAmAdmin());
           return {
             l10nBodyTextInstance: r("WAWebFormatMemberAddModeNotification")(
-              _,
-              D,
-              y,
+              c,
+              T,
+              h,
             ),
           };
         }
         case "member_link_mode": {
-          var x,
-            $ = !!((x = C.groupMetadata) != null && x.participants.iAmAdmin());
+          var D,
+            x = !!((D = y.groupMetadata) != null && D.participants.iAmAdmin());
           return {
             l10nBodyTextInstance: r("WAWebFormatMemberLinkModeNotification")(
-              _,
-              $,
-              y,
+              c,
+              x,
+              h,
             ),
           };
         }
         case "join_flood_notification": {
-          var P,
-            N = !!((P = C.groupMetadata) != null && P.participants.iAmAdmin());
-          return N
+          var $,
+            P = !!(($ = y.groupMetadata) != null && $.participants.iAmAdmin());
+          return P
             ? {
                 l10nBodyTextInstance: s._(
                   /*BTDS*/ "Multiple people have joined using a group link",
@@ -553,18 +556,18 @@ __d(
           return {
             l10nBodyTextInstance: r(
               "WAWebFormatCreatedSubgroupSuggestionNotification",
-            )(_, y, a),
+            )(c, h, n),
           };
         case "general_chat_add":
           return {
-            l10nBodyTextInstance: i
+            l10nBodyTextInstance: a
               ? o(
                   "WAWebMessageCommunityGeneralChatWelcomeTitle.react",
-                ).communityGeneralChatWelcomeTitle(C.formattedTitle)
+                ).communityGeneralChatWelcomeTitle(y.formattedTitle)
               : d.jsx(r("WAWebMessageCommunityGeneralChatWelcome.react"), {
-                  templateParams: y,
-                  subgroupChat: C,
-                  author: _,
+                  templateParams: h,
+                  subgroupChat: y,
+                  author: c,
                 }),
           };
         case "general_chat_auto_add_disabled":
@@ -572,8 +575,8 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebMessageCommunityGeneralChatAutoAddDisabledNotification.react",
             ).communityGeneralChatAutoAddDisabledNotification(
-              C.formattedTitle,
-              y,
+              y.formattedTitle,
+              h,
             ),
           };
         case "community_owner_update":
@@ -581,14 +584,14 @@ __d(
             l10nBodyTextInstance: o(
               "WAWebFormatCommunityOwnerUpdateNotification",
             ).formatCommunityOwnerUpdateNotification({
-              author: _,
-              templateParams: y,
-              clickable: a,
+              author: c,
+              templateParams: h,
+              clickable: n,
             }),
           };
         case "is_capi_hosted_group": {
-          var M;
-          if (((M = C.groupMetadata) == null ? void 0 : M.hasCapi) === !0)
+          var N;
+          if (((N = y.groupMetadata) == null ? void 0 : N.hasCapi) === !0)
             return {
               l10nBodyTextInstance: "Test capi notification for group chat",
             };
@@ -610,7 +613,7 @@ __d(
           return {
             l10nBodyTextInstance: r(
               "WAWebMemberShareGroupHistoryModeFormatSystemMessageText",
-            )({ msg: l.unsafe(), options: {} }),
+            )({ msg: i.unsafe(), options: {} }),
           };
         default:
           o("WALogger").LOG(
@@ -619,7 +622,7 @@ __d(
                 "wa:groupNotification:unknown message subtype: ",
                 "",
               ])),
-            c,
+            l,
           );
           break;
       }

@@ -9,7 +9,7 @@ __d(
       );
     }
     function s() {
-      return o("WAWebMobilePlatforms").isSMB() ? u() || c() : !1;
+      return u() || e();
     }
     function u() {
       return o("WAWebMobilePlatforms").isSMB()
@@ -17,16 +17,11 @@ __d(
         : !1;
     }
     function c() {
-      return o("WAWebMobilePlatforms").isSMB()
-        ? o("WAWebABProps").getABPropConfigValue("smb_billing_enabled")
-        : !1;
-    }
-    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_meta_verified_context_card",
       );
     }
-    function m() {
+    function d() {
       return o("WAWebPrimaryFeatures").primaryFeatureEnabled(
         "profile_edit_for_mv_users_enabled",
       );
@@ -34,8 +29,8 @@ __d(
     ((l.billingEnabled = e),
       (l.subscriptionFetchEnabled = s),
       (l.isMetaVerifiedEnabled = u),
-      (l.isMetaVerifiedContextCardEnabled = d),
-      (l.isMetaVerifiedLockedProfileEditingV1Enabled = m));
+      (l.isMetaVerifiedContextCardEnabled = c),
+      (l.isMetaVerifiedLockedProfileEditingV1Enabled = d));
   },
   98,
 );

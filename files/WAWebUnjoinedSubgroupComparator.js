@@ -1,23 +1,29 @@
 __d(
   "WAWebUnjoinedSubgroupComparator",
-  ["WAWebGroupType"],
+  ["WAWebGroupType", "WAWebUnjoinedSubgroupMetadataGetters"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return function (t, n) {
         var r, a;
         if (
-          t.groupType ===
+          o("WAWebUnjoinedSubgroupMetadataGetters").getGroupType(t) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
         )
           return -1;
         if (
-          n.groupType ===
+          o("WAWebUnjoinedSubgroupMetadataGetters").getGroupType(n) ===
           o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
         )
           return 1;
-        if (t.groupType === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
+        if (
+          o("WAWebUnjoinedSubgroupMetadataGetters").getGroupType(t) ===
+          o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
+        )
           return -1;
-        if (n.groupType === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
+        if (
+          o("WAWebUnjoinedSubgroupMetadataGetters").getGroupType(n) ===
+          o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
+        )
           return 1;
         var i = e.some(function (e) {
             return t.id.equals(e);

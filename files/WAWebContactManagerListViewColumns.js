@@ -11,6 +11,7 @@ __d(
     "WAWebContactManagerListViewColumnWidths",
     "WAWebContactManagerNotesCell.react",
     "WAWebContactManagerSMBUserJourneyLogger",
+    "WAWebCustomerDataCollection",
     "WAWebCustomerDataFieldSaver",
     "WAWebFrontendContactGetters",
     "WAWebL10N",
@@ -948,7 +949,11 @@ __d(
                   ),
                     o("WAWebCustomerDataFieldSaver").handleLeadStageTransition(
                       t.item.chatJid,
-                      t.item.leadData,
+                      o(
+                        "WAWebCustomerDataCollection",
+                      ).CustomerDataCollection.maybeGetCustomerDataByChatJid(
+                        t.item.chatJid,
+                      ),
                       n,
                       r,
                     ));

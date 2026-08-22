@@ -232,7 +232,12 @@ __d(
             var i = t.parsers.parseCallInfo(a);
             o("WAWebBackendApi").frontendFireAndForget(
               "handleIsInWaitingRoomChanged",
-              { isInWaitingRoom: i.isInWaitingRoom },
+              {
+                isInWaitingRoom: i.isInWaitingRoom,
+                isWaitingRoomEnabled: i.isWaitingRoomEnabled,
+                isWaitingRoomAdmin: i.isWaitingRoomAdmin,
+                waitingRoomFilter: i.waitingRoomFilter,
+              },
             );
           }
         })),

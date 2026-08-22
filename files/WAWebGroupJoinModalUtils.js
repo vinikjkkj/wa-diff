@@ -7,6 +7,7 @@ __d(
     "WAWebContactGetters",
     "WAWebFbtCommon",
     "WAWebFrontendContactGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebL10N",
     "WAWebMembershipApprovalRequestAction",
@@ -204,15 +205,15 @@ __d(
       var t = e.groupMetadata,
         n = e.numSubgroups,
         a = e.parentGroupSubject,
-        i = t.groupType,
-        l = t.size,
+        i = t.size,
+        l = o("WAWebGroupMetadataTypeUtils").getGroupTypeForMetadata(t),
         u = r("WAWebL10N").isRTL() ? " -\xA0" : " \xB7\xA0";
-      switch (i) {
+      switch (l) {
         case o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP:
           return s._(
             /*BTDS*/ '_j{"*":"Announcement group{separator}{number_of_participants} members","_1":"Announcement group{separator}1 member"}',
             [
-              s._plural(l != null ? l : 0, "number_of_participants"),
+              s._plural(i != null ? i : 0, "number_of_participants"),
               s._param("separator", u),
             ],
           );

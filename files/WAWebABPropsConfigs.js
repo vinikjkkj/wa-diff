@@ -850,6 +850,7 @@ __d(
       ],
       channels_scheduling_updates_enabled: [33897, "bool", !1, !1],
       channels_scheduling_updates_message_types: [33898, "string", "1", "1"],
+      channels_scheduling_updates_receiver_enabled: [35422, "bool", !1, !1],
       channels_send_album_enabled: [5643, "bool", !1, !1],
       channels_send_view_receipt_enabled: [4760, "bool", !1, !0],
       channels_sgi_receiver_enabled: [32801, "bool", !1, !0],
@@ -1766,6 +1767,12 @@ __d(
       mm_user_controls_entry_points_update_m1_menu: [20381, "bool", !1, !0],
       mm_user_controls_exception_number_prefixes: [13999, "string", "", ""],
       mm_user_controls_exposure: [13510, "bool", !1, !1],
+      mm_user_controls_unified_logging_symmetry_enabled: [
+        35432,
+        "bool",
+        !0,
+        !0,
+      ],
       mm_user_controls_unified_stop_enabled: [34622, "bool", !1, !1],
       mms_vcache_aggregation_enabled: [2134, "bool", !1, !1],
       music_ohai_proxy_url: [

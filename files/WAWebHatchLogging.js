@@ -12,23 +12,23 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      y(
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .REQUEST_WELCOME_MSG_SENT,
         e,
       );
     }
     function s(e) {
-      y(
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.TAP_UNLINK_BUTTON,
         e,
       );
     }
     function u(e) {
-      y(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
+      b(o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.UNLINK_SUCCESS, e);
     }
     function c(e, t, n) {
-      y(
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_BOTTOM_SHEET_IMPRESSION,
         babelHelpers.extends({}, n, { hitlIsMulti: e, hitlTypes: d(t) }),
@@ -42,41 +42,55 @@ __d(
         .join(", ");
     }
     function m(e) {
-      y(
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_DETAIL_IMPRESSION,
         babelHelpers.extends({}, e, { hitlIsMulti: !1 }),
       );
     }
     function p(e, t) {
-      y(
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_LEGAL_LINK_TAP,
         babelHelpers.extends({}, t, { hitlLegalLink: e }),
       );
     }
     function _(e, t) {
-      y(
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_PAYMENT_DETAILS_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
       );
     }
     function f(e, t) {
-      y(
+      b(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+          .HITL_CART_DETAILS_IMPRESSION,
+        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
+      );
+    }
+    function g(e, t) {
+      b(
+        o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
+          .HITL_ORDER_SUMMARY_IMPRESSION,
+        babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
+      );
+    }
+    function h(e, t) {
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_PICKER_IMPRESSION,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
       );
     }
-    function g(e, t) {
-      y(
+    function y(e, t) {
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE
           .HITL_WALLET_CARD_SELECTED,
         babelHelpers.extends({}, t, { hitlIsMulti: !1, hitlTypes: d([e]) }),
       );
     }
-    function h(e, t, n) {
-      y(
+    function C(e, t, n) {
+      b(
         o("WAWebWamEnumHatchActionType").HATCH_ACTION_TYPE.HITL_DECISION_TAP,
         babelHelpers.extends({}, n, {
           rawHitlAlwaysScope: t,
@@ -84,7 +98,7 @@ __d(
         }),
       );
     }
-    function y(e, t) {
+    function b(e, t) {
       var n, r, a, i, l;
       if (o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) {
         var s = new (o(
@@ -117,12 +131,12 @@ __d(
           rawBotEntryPoint:
             (l = t == null ? void 0 : t.rawBotEntryPoint) != null
               ? l
-              : C(t == null ? void 0 : t.botEntryPoint),
+              : v(t == null ? void 0 : t.botEntryPoint),
         });
         s.commit();
       }
     }
-    function C(e) {
+    function v(e) {
       var t,
         n =
           e != null
@@ -147,9 +161,11 @@ __d(
       (l.logHatchHitlDetailImpression = m),
       (l.logHatchHitlLegalLinkTap = p),
       (l.logHatchHitlPaymentDetailsImpression = _),
-      (l.logHatchHitlWalletPickerImpression = f),
-      (l.logHatchHitlWalletCardSelected = g),
-      (l.logHatchHitlDecisionTap = h));
+      (l.logHatchHitlCartDetailsImpression = f),
+      (l.logHatchHitlOrderSummaryImpression = g),
+      (l.logHatchHitlWalletPickerImpression = h),
+      (l.logHatchHitlWalletCardSelected = y),
+      (l.logHatchHitlDecisionTap = C));
   },
   98,
 );

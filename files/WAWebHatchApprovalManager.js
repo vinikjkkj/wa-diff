@@ -25,38 +25,29 @@ __d(
           (t.resolveApproval = function (t) {
             this.$1.delete(t) && this.$5();
           }),
+          (t.getFundedCheckout = function (t) {
+            return u(this.$1.get(t));
+          }),
           (t.hasCheckoutPaymentOption = function (t, n) {
-            var e,
-              r = (e = this.$1.get(t)) == null ? void 0 : e.browserCheckout;
+            var e;
             return (
-              r != null &&
-              r.paymentOptions.some(function (e) {
-                return e.paymentId === n;
-              })
+              ((e = u(this.$1.get(t))) == null
+                ? void 0
+                : e.paymentOptions.some(function (e) {
+                    return e.paymentId === n;
+                  })) === !0
             );
           }),
           (t.applyCheckoutPaymentOption = function (t, n) {
             var e = this.$1.get(t),
-              r = e == null ? void 0 : e.browserCheckout;
+              r = u(e);
             if (e == null || r == null) return !1;
             var o = r.paymentOptions.find(function (e) {
               return e.paymentId === n;
             });
-            return o == null
-              ? !1
-              : (this.$1.set(
-                  t,
-                  babelHelpers.extends({}, e, {
-                    browserCheckout: babelHelpers.extends({}, r, {
-                      paymentId: o.paymentId,
-                      paymentMethodLabel: o.paymentMethodLabel,
-                      cardBrand: o.cardBrand,
-                      cardLast4: o.cardLast4,
-                    }),
-                  }),
-                ),
-                this.$5(),
-                !0);
+            if (o == null) return !1;
+            var a = c(e, o);
+            return a == null ? !1 : (this.$1.set(t, a), this.$5(), !0);
           }),
           (t.settleApproval = function (t) {
             (this.$3.add(t), this.resolveApproval(t));
@@ -88,6 +79,33 @@ __d(
       })(),
       l = new e(),
       s = l;
+    function u(e) {
+      var t;
+      return (t = e == null ? void 0 : e.shopifyCheckout) != null
+        ? t
+        : e == null
+          ? void 0
+          : e.browserCheckout;
+    }
+    function c(e, t) {
+      var n = e.browserCheckout,
+        r = e.shopifyCheckout,
+        o = {
+          paymentId: t.paymentId,
+          paymentMethodLabel: t.paymentMethodLabel,
+          cardBrand: t.cardBrand,
+          cardLast4: t.cardLast4,
+        };
+      return r != null
+        ? babelHelpers.extends({}, e, {
+            shopifyCheckout: babelHelpers.extends({}, r, o),
+          })
+        : n != null
+          ? babelHelpers.extends({}, e, {
+              browserCheckout: babelHelpers.extends({}, n, o),
+            })
+          : null;
+    }
     i.default = s;
   },
   66,

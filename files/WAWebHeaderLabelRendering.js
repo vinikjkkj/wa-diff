@@ -6,6 +6,7 @@ __d(
     "WAWebChatGetters",
     "WAWebDropdown.react",
     "WAWebEnvironment",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebL10N",
     "WAWebLabelChatHeaderButton.react",
@@ -45,13 +46,14 @@ __d(
       };
     }
     function d(e) {
-      var t,
-        n = (t = e.groupMetadata) == null ? void 0 : t.groupType;
+      var t = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+        e.groupMetadata,
+      );
       return (
-        n === o("WAWebGroupType").GroupType.COMMUNITY ||
-        n === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
-        n === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
-        n === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
+        t === o("WAWebGroupType").GroupType.COMMUNITY ||
+        t === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
+        t === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
+        t === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
       );
     }
     function m(e) {

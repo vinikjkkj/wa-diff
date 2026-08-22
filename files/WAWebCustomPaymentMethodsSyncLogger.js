@@ -2,7 +2,6 @@ __d(
   "WAWebCustomPaymentMethodsSyncLogger",
   [
     "$InternalEnum",
-    "WALogger",
     "WAWebPaymentsUserActionWamEvent",
     "WAWebWamEnumCustomPaymentMethodsSyncStatus",
     "WAWebWamEnumPaymentActionTargets",
@@ -10,48 +9,40 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = "custom_payment_methods_sync",
-      c = "BR",
-      d = Object.freeze({
-        APPLY_REMOVE: (s = o("WAWebWamEnumPaymentActionTargets"))
+      s = "custom_payment_methods_sync",
+      u = "BR",
+      c = Object.freeze({
+        APPLY_REMOVE: (e = o("WAWebWamEnumPaymentActionTargets"))
           .PAYMENT_ACTION_TARGETS.SYNCD_APPLY_REMOVE,
-        APPLY_STORE: s.PAYMENT_ACTION_TARGETS.SYNCD_APPLY_STORE,
-        SEND_REMOVE: s.PAYMENT_ACTION_TARGETS.SYNCD_SEND_REMOVE,
-        SEND_STORE: s.PAYMENT_ACTION_TARGETS.SYNCD_SEND_STORE,
+        APPLY_STORE: e.PAYMENT_ACTION_TARGETS.SYNCD_APPLY_STORE,
+        SEND_REMOVE: e.PAYMENT_ACTION_TARGETS.SYNCD_SEND_REMOVE,
+        SEND_STORE: e.PAYMENT_ACTION_TARGETS.SYNCD_SEND_STORE,
       }),
-      m = n("$InternalEnum")({
+      d = n("$InternalEnum")({
         MALFORMED_MUTATION: "malformed_mutation",
         TRANSPORT_FLUSH_FAILED: "transport_flush_failed",
         UNSUPPORTED_OPERATION: "unsupported_operation",
       });
-    function p(t, n, r) {
-      var a = {
-        actionTarget: t,
-        customPaymentMethodsSyncStatus: n,
+    function m(e, t, n) {
+      var r = {
+        actionTarget: e,
+        customPaymentMethodsSyncStatus: t,
         paymentActionType: o("WAWebWamEnumPaymentActionTypes")
           .PAYMENT_ACTION_TYPES.API,
-        paymentsCountryCode: c,
-        screen: u,
+        paymentsCountryCode: u,
+        screen: s,
       };
-      r != null && (a.paymentsErrorCode = r);
-      var i = new (o(
-        "WAWebPaymentsUserActionWamEvent",
-      ).PaymentsUserActionWamEvent)(a);
-      (o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "CustomPaymentMethodsSync Log",
-          ])),
-      ),
-        i.commit());
+      (n != null && (r.paymentsErrorCode = n),
+        new (o("WAWebPaymentsUserActionWamEvent").PaymentsUserActionWamEvent)(
+          r,
+        ).commit());
     }
-    ((l.SYNC_ACTION_TARGETS = d),
+    ((l.SYNC_ACTION_TARGETS = c),
       (l.SYNC_STATUS = o(
         "WAWebWamEnumCustomPaymentMethodsSyncStatus",
       ).CUSTOM_PAYMENT_METHODS_SYNC_STATUS),
-      (l.SyncErrorCode = m),
-      (l.logCustomPaymentMethodsSyncEvent = p));
+      (l.SyncErrorCode = d),
+      (l.logCustomPaymentMethodsSyncEvent = m));
   },
   98,
 );

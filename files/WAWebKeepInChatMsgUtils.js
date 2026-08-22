@@ -7,6 +7,7 @@ __d(
     "WAWebChatGroupUtils",
     "WAWebEphemeralKeepInChatAbpropUtils",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupMetadataGetters",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -134,7 +135,7 @@ __d(
       if (t == null) return !1;
       var n = o("WAWebMsgGetters").getSender(e);
       if (n != null && t.participants.get(n) != null) return !0;
-      if (!t.isCag) return !1;
+      if (!o("WAWebGroupMetadataGetters").getIsCag(t)) return !1;
       var r =
         n != null
           ? o("WAWebApiContact").getCurrentLid(

@@ -10,6 +10,7 @@ __d(
     "WAWebAttachMediaFlowLoadable",
     "WAWebAttachProductModalLoadable",
     "WAWebAttachVcardsFlowLoadable",
+    "WAWebBizAiSmartComposerWrapperLoadable",
     "WAWebBizCtwaPreviewFlowLoadable",
     "WAWebBloksEntryPointLoadable",
     "WAWebCallCollection",
@@ -18,6 +19,8 @@ __d(
     "WAWebCometComposedTextV2URParserLoadable",
     "WAWebCommunityAdminPromotionNotificationFlowLoadable",
     "WAWebCommunityFlowLoadable",
+    "WAWebConnGetters",
+    "WAWebConnModel",
     "WAWebContactMsgInfoFlowLoadable",
     "WAWebContextualBannerWrapperLoadable",
     "WAWebEditCaptureFlowLoadable",
@@ -38,6 +41,7 @@ __d(
     "WAWebMediaViewerFlowLoadable",
     "WAWebNewChatFlowLoadable",
     "WAWebNewGroupFlowLoadable",
+    "WAWebNoop",
     "WAWebPhotoPickerLoadable.react",
     "WAWebProductDetailsFlowLoadable",
     "WAWebProfileDrawerLoadableRequireBundle",
@@ -101,6 +105,11 @@ __d(
             var t = [
               o("WAWebMediaViewerFlowLoadable").requireBundle(),
               o("WAWebInfoFlowLoadable").requireBundle(),
+              o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
+                ? o("WAWebBizAiSmartComposerWrapperLoadable")
+                    .requireBundle()
+                    .catch(r("WAWebNoop"))
+                : null,
             ];
             yield (s || (s = n("Promise"))).all(t);
             var a = [

@@ -10,6 +10,8 @@ __d(
     "WAWebDebounce",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupParticipantComparator",
     "WAWebGroupParticipantModel",
     "WAWebGroupType",
@@ -163,7 +165,7 @@ __d(
             o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
             !this.iAmSuperAdmin() ||
             !t.isAdmin ||
-            (e == null ? void 0 : e.groupType) !==
+            o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) !==
               o("WAWebGroupType").GroupType.COMMUNITY
           );
         }),
@@ -176,7 +178,7 @@ __d(
             o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
             !this.iAmAdmin() ||
             t.isAdmin ||
-            (n != null && n.isCag) ||
+            (n != null && o("WAWebGroupMetadataGetters").getIsCag(n)) ||
             (o(
               "WAWebBotGroupGatingUtils",
             ).isOpenGroupBotParticipantAddEnabled() &&
@@ -190,24 +192,24 @@ __d(
             (e == null ? void 0 : e.isSuspendedOrTerminated()) === !0 ||
             !t ||
             !this.iAmAdmin() ||
-            ((e == null ? void 0 : e.groupType) !==
+            (o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) !==
               o("WAWebGroupType").GroupType.COMMUNITY &&
-              (e == null ? void 0 : e.groupType) !==
+              o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) !==
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
               o("WAWebUserPrefsMeUser").isMeAccount(t.id))
           )
             return !1;
           var n = t.isSuperAdmin;
           return n
-            ? (e == null ? void 0 : e.groupType) ===
+            ? o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
                 o("WAWebGroupType").GroupType.COMMUNITY ||
-              (e == null ? void 0 : e.groupType) ===
+              o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
               ? o("WAWebUserPrefsMeUser").isMeAccount(t.id)
               : !1
             : !(
                 !t.isAdmin ||
-                (e == null ? void 0 : e.groupType) ===
+                o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e) ===
                   o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
               );
         }),
@@ -218,7 +220,9 @@ __d(
             !t ||
             o("WAWebUserPrefsMeUser").isMeAccount(t.id) ||
             !this.iAmAdmin() ||
-            (e != null && e.isCag && (t.isAdmin || t.isSuperAdmin))
+            (e != null &&
+              o("WAWebGroupMetadataGetters").getIsCag(e) &&
+              (t.isAdmin || t.isSuperAdmin))
           );
         }),
         (n.canVerifyIdentity = function (t) {

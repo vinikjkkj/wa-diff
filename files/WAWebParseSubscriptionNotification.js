@@ -3,18 +3,19 @@ __d(
   ["WAWebFeatureFlagName", "WAWebSubscriptionSource"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      if (e == null) return null;
-      e: return e === "AURA"
-        ? o("WAWebSubscriptionSource").SubscriptionSource.AURA
-        : e === "META_NOVA"
-          ? o("WAWebSubscriptionSource").SubscriptionSource.META_NOVA
-          : e === "BLUE"
-            ? o("WAWebSubscriptionSource").SubscriptionSource.BLUE
-            : e === "PREMIUM"
-              ? o("WAWebSubscriptionSource").SubscriptionSource.PREMIUM
-              : e === "MP4B"
-                ? o("WAWebSubscriptionSource").SubscriptionSource.MP4B
-                : null;
+      return e == null
+        ? null
+        : e === "AURA"
+          ? o("WAWebSubscriptionSource").SubscriptionSource.AURA
+          : e === "META_NOVA"
+            ? o("WAWebSubscriptionSource").SubscriptionSource.META_NOVA
+            : e === "BLUE"
+              ? o("WAWebSubscriptionSource").SubscriptionSource.BLUE
+              : e === "PREMIUM"
+                ? o("WAWebSubscriptionSource").SubscriptionSource.PREMIUM
+                : e === "MP4B"
+                  ? o("WAWebSubscriptionSource").SubscriptionSource.MP4B
+                  : null;
     }
     function s(t) {
       var n = [],

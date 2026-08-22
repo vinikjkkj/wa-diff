@@ -184,19 +184,25 @@ __d(
     C.doc =
       "Inject a synthetic Hatch HITL approval request through the real decode -> store -> UI pipeline (open a Hatch chat to see the composer swap to the approval bar). Returns the approvalId.";
     function b(e) {
-      o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e);
+      return o("WAWebHatchApprovalDebug").debugInjectHatchCheckout(e);
     }
     b.doc =
+      "Inject a synthetic checkout approval: hatchInjectCheckout({kind, cards, items, funding}). kind: 'browser' (default) or 'shopify'. cards (default 2): 0 for no wallet and no funding card, 1 for the read-only payment details, 2+ for the wallet picker, 4+ to split it into two wallets; max 5. items (default 3): Shopify cart size 1-4, ignored for a browser checkout. funding: 'offered' (default) funds the order with the first offered card, 'unmatched' funds it with one the wallet does not contain, so the picker opens with nothing ticked. Returns the approvalId for hatchResolveApproval.";
+    function v(e) {
+      o("WAWebHatchApprovalDebug").debugResolveHatchApproval(e);
+    }
+    v.doc =
       "Resolve a pending Hatch HITL approval (synthetic decision echo) by id, clearing the approval bar";
-    var v = {
+    var S = {
       hatchClearPayloads: f,
       hatchInjectApproval: C,
+      hatchInjectCheckout: b,
       hatchPayloads: _,
-      hatchResolveApproval: b,
+      hatchResolveApproval: v,
       injectHatchApprovals: y,
       openHatchApprovalDialog: h,
     };
-    l.default = v;
+    l.default = S;
   },
   98,
 );

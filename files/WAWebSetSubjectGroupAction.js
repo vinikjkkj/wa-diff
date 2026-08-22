@@ -8,6 +8,7 @@ __d(
     "WAWebActionToast.react",
     "WAWebBackendErrors",
     "WAWebCommunitySubjectChangePopups.react",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupModifyInfoJob",
     "WAWebGroupType",
     "WAWebMiscErrors",
@@ -26,67 +27,67 @@ __d(
       return (t === void 0 && (t = ""), p(o("WAWebStateUtils").unproxy(e), t));
     }
     function p(t, a, i) {
-      var l, c;
       i === void 0 && (i = o("WAWebActionToast.react").genId());
-      var m = a.trim();
-      if (!m)
+      var l = a.trim();
+      if (!l)
         return (u || (u = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
       if (
-        ((l = t.groupMetadata) == null ? void 0 : l.groupType) !==
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) !==
           o("WAWebGroupType").GroupType.COMMUNITY &&
-        m === t.contact.name
+        l === t.contact.name
       )
         return (u || (u = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var _ = o("WAWebGroupModifyInfoJob").setGroupSubject(t.id, m),
-        f = t.contact.name,
-        g;
-      ((c = t.groupMetadata) == null ? void 0 : c.groupType) ===
+      var c = o("WAWebGroupModifyInfoJob").setGroupSubject(t.id, l),
+        m = t.contact.name,
+        _;
+      o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
       o("WAWebGroupType").GroupType.COMMUNITY
-        ? (g = new (o("WAWebActionToast.react").ActionType)(
+        ? (_ = new (o("WAWebActionToast.react").ActionType)(
             s._(/*BTDS*/ "Renaming community"),
           ))
-        : (g = new (o("WAWebActionToast.react").ActionType)(
+        : (_ = new (o("WAWebActionToast.react").ActionType)(
             s._(/*BTDS*/ "Renaming group"),
           ));
-      var h = s._(/*BTDS*/ "Couldn't rename community"),
-        y = _.then(function () {
-          var e;
-          if (
-            ((e = t.groupMetadata) == null ? void 0 : e.groupType) ===
-            o("WAWebGroupType").GroupType.COMMUNITY
-          )
+      var f = s._(/*BTDS*/ "Couldn't rename community"),
+        g = c
+          .then(function () {
+            if (
+              o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                t.groupMetadata,
+              ) === o("WAWebGroupType").GroupType.COMMUNITY
+            )
+              return new (o("WAWebActionToast.react").ActionType)(
+                s._(/*BTDS*/ 'Community renamed to "{community}"', [
+                  s._param("community", l),
+                ]),
+              );
+            var e = m.trim() === "";
             return new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ 'Community renamed to "{community}"', [
-                s._param("community", m),
+              s._(/*BTDS*/ "Group renamed to {subject}", [
+                s._param("subject", l),
               ]),
-            );
-          var n = f.trim() === "";
-          return new (o("WAWebActionToast.react").ActionType)(
-            s._(/*BTDS*/ "Group renamed to {subject}", [
-              s._param("subject", m),
-            ]),
-            n
-              ? null
-              : {
-                  actionText: s._(/*BTDS*/ "Undo"),
-                  actionHandler: function () {
-                    return p(t, f, i);
+              e
+                ? null
+                : {
+                    actionText: s._(/*BTDS*/ "Undo"),
+                    actionHandler: function () {
+                      return p(t, m, i);
+                    },
                   },
-                },
-          );
-        })
+            );
+          })
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
-                var n;
                 if (
-                  ((n = t.groupMetadata) == null ? void 0 : n.groupType) ===
-                  o("WAWebGroupType").GroupType.COMMUNITY
+                  o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                    t.groupMetadata,
+                  ) === o("WAWebGroupType").GroupType.COMMUNITY
                 ) {
                   if (e.status === 530) {
                     o("WAWebModalManager").ModalManager.open(
@@ -98,7 +99,7 @@ __d(
                     );
                     return;
                   } else if (e.status >= 400)
-                    return new (o("WAWebActionToast.react").ActionType)(h);
+                    return new (o("WAWebActionToast.react").ActionType)(f);
                 }
                 if (e.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
@@ -108,7 +109,6 @@ __d(
             ),
           )
           .catch(function (n) {
-            var r;
             return (
               o("WALogger").WARN(
                 e ||
@@ -116,15 +116,16 @@ __d(
                     "models:chat:setSubject dropped",
                   ])),
               ),
-              ((r = t.groupMetadata) == null ? void 0 : r.groupType) ===
-              o("WAWebGroupType").GroupType.COMMUNITY
-                ? new (o("WAWebActionToast.react").ActionType)(h)
+              o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                t.groupMetadata,
+              ) === o("WAWebGroupType").GroupType.COMMUNITY
+                ? new (o("WAWebActionToast.react").ActionType)(f)
                 : new (o("WAWebActionToast.react").ActionType)(
                     s._(/*BTDS*/ "Couldn't rename group."),
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return p(t, m, i);
+                        return p(t, l, i);
                       },
                     },
                   )
@@ -134,11 +135,11 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebActionToast.react").ActionToast, {
             id: i,
-            initialAction: g,
-            pendingAction: y,
+            initialAction: _,
+            pendingAction: g,
           }),
         ),
-        _.catch(
+        c.catch(
           o("WAFilteredCatch").filteredCatch(
             o("WAWebBackendErrors").ServerStatusCodeError,
             r("WAWebNoop"),
