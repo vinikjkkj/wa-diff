@@ -15,33 +15,46 @@ __d(
         a = e.snapshotDoodleEnabled,
         i = e.store,
         l = i.isGlobal,
-        u = i.effectiveDoodleEnabled,
-        c = function (r, a) {
+        c = i.effectiveDoodleEnabled,
+        d = function (r, a) {
           if (t != null) {
             var e = r === o("WAWebChatThemeEnums").Theme.Default,
-              s = t.isMinimalScheme(r),
-              c = a != null;
-            (i.applyChatThemeValue({
-              chatThemeId: e
+              u = t.isMinimalScheme(r),
+              d = a != null,
+              m = e
                 ? o("WAWebChatThemeEnums").Theme.Default
                 : t.getBaseTheme(r),
-              colorSchemeId: e ? o("WAWebChatThemeEnums").Theme.Default : r,
+              p = e ? o("WAWebChatThemeEnums").Theme.Default : r;
+            (i.applyChatThemeValue({
+              chatThemeId: m,
+              colorSchemeId: p,
+              baseline: {
+                themeId: m,
+                colorSchemeId: p,
+                wallpaper: s(
+                  a,
+                  u,
+                  o("WAWebChatThemeValue").doodleFromWallpaperValue(
+                    i.rawWallpaperValue,
+                  ),
+                ),
+              },
             }),
               n(),
-              i.applyActiveWallpaperId(c ? a : null),
-              c ||
+              i.applyActiveWallpaperId(d ? a : null),
+              d ||
                 i.applyWallpaper(
                   l ? null : o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
                 ));
-            var d = !s;
-            !c && (s || d !== u) && i.applyDoodle(d);
+            var _ = !u;
+            !d && (u || _ !== c) && i.applyDoodle(_);
           }
         },
-        d = function (r) {
+        m = function (r) {
           var e, a;
           if (t != null) {
             var l = r === o("WAWebChatThemeEnums").Theme.Default,
-              u = s(i),
+              s = u(i),
               c =
                 ((e = i.resolvedWallpaper) == null ? void 0 : e.type) ===
                 "solid",
@@ -50,22 +63,16 @@ __d(
                   ? a
                   : i.effectiveColorSchemeId,
               m =
-                u != null ? u : l || c || d == null ? null : t.getBaseTheme(d);
+                s != null ? s : l || c || d == null ? null : t.getBaseTheme(d);
             (i.applyColor(l ? null : r),
               m != null && i.values.chatThemeId !== m && i.applyTheme(m),
               n());
           }
         },
-        m = function (n, a) {
+        p = function (n, a) {
           if (t != null) {
             var e = t.getBaseTheme(n);
-            (i.applyTheme(
-              o("WAWebChatThemeValue").keepMinimalOnFamilyChange(
-                i.values.chatThemeId,
-                e,
-              ),
-            ),
-              r());
+            r();
             var s =
               a != null
                 ? a
@@ -77,14 +84,14 @@ __d(
                 ));
           }
         },
-        p = function () {
+        _ = function () {
           i.applyActiveWallpaperId(null);
         },
-        _ = function (t) {
+        f = function (t) {
           var e = o("WAWebSolidColorPalette").isDefaultSolidColor(t)
             ? o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER
             : t;
-          (p(),
+          (_(),
             i.applyTheme(
               o("WAWebChatThemeValue").keepMinimalOnFamilyChange(
                 i.values.chatThemeId,
@@ -93,27 +100,33 @@ __d(
             ),
             i.applyWallpaper(e),
             r(),
-            a !== u && i.applyDoodle(a));
+            a !== c && i.applyDoodle(a));
         },
-        f = function (t) {
+        g = function (t) {
           (i.applyChatThemeValue({
             chatThemeId: t.chatThemeId,
             colorSchemeId: t.colorSchemeId,
+            baseline: t.baseline,
           }),
             i.restoreWallpaperValue(t.wallpaperValue),
             n(),
             r());
         };
       return {
-        handleSelect: c,
-        handleColorSelect: d,
-        handleWallpaperSelect: m,
-        clearActiveWallpaperPreset: p,
-        handleSolidColorSelect: _,
-        restoreCustomTile: f,
+        handleSelect: d,
+        handleColorSelect: m,
+        handleWallpaperSelect: p,
+        clearActiveWallpaperPreset: _,
+        handleSolidColorSelect: f,
+        restoreCustomTile: g,
       };
     }
-    function s(e) {
+    function s(e, t, n) {
+      return e != null
+        ? { type: "stock", stockImageId: e, isDoodleEnabled: n }
+        : { type: "default", isDoodleEnabled: !t };
+    }
+    function u(e) {
       var t = e.effectiveChatThemeId,
         n = e.effectiveColorSchemeId;
       return o("WAWebChatThemeValue").isMinimalChatTheme({

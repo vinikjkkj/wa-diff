@@ -90,24 +90,34 @@ __d(
           );
         },
         E = function () {
-          var e, t;
+          var e, t, r, o;
           if (n != null && !R) {
-            var r = (e = i.colorSchemeId) != null ? e : null,
-              o = (t = i.chatThemeId) != null ? t : null,
-              u = a.rawWallpaperValue;
+            var u = (e = i.colorSchemeId) != null ? e : null,
+              c = (t = i.chatThemeId) != null ? t : null,
+              d =
+                (r = (o = a.rawChatThemeValue) == null ? void 0 : o.baseline) !=
+                null
+                  ? r
+                  : null,
+              m = a.rawWallpaperValue;
             L(
               function () {
                 (a.applyChatThemeValue({
                   chatThemeId: null,
                   colorSchemeId: null,
+                  baseline: null,
                 }),
                   a.applyWallpaper(null),
                   a.applyActiveWallpaperId(null),
                   a.isGlobal && !l && a.applyDoodle(!0));
               },
               function () {
-                (a.applyChatThemeValue({ chatThemeId: o, colorSchemeId: r }),
-                  a.restoreWallpaperValue(u));
+                (a.applyChatThemeValue({
+                  chatThemeId: c,
+                  colorSchemeId: u,
+                  baseline: d,
+                }),
+                  a.restoreWallpaperValue(m));
               },
               s._(/*BTDS*/ "Chat theme reset"),
             );
