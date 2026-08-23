@@ -99,17 +99,14 @@ __d(
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebBizBroadcastEligibilityCache").readCache();
           if (
-            !e &&
-            t != null &&
-            o("WAWebBizBroadcastEligibilityCache").isCacheFresh(t)
+            (!e &&
+              t != null &&
+              o("WAWebBizBroadcastEligibilityCache").isCacheFresh(t)) ||
+            (!e &&
+              t != null &&
+              o("WAWebBizBroadcastEligibilityCache").isInFailureBackoff(t))
           )
             return (d(t.result), t.result);
-          if (
-            !e &&
-            t != null &&
-            o("WAWebBizBroadcastEligibilityCache").isInFailureBackoff(t)
-          )
-            return (d(null), t.result);
           try {
             var n = yield m();
             return (
@@ -118,9 +115,10 @@ __d(
               n
             );
           } catch (e) {
+            var r;
             throw (
               o("WAWebBizBroadcastEligibilityCache").writeCacheFailure(),
-              d(null),
+              d((r = t == null ? void 0 : t.result) != null ? r : null),
               o("WALogger")
                 .ERROR(
                   s ||

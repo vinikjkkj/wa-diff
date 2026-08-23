@@ -287,13 +287,16 @@ __d(
                   T = k.chatThemeValue,
                   x =
                     typeof n == "string" ? r("WAWebNormalizeThemeId")(n) : null,
-                  A = o("WAWebChatThemeValue").chatThemeValueFromFlat({
-                    chatThemeId: x,
-                    colorSchemeId:
-                      (T == null ? void 0 : T.colorSchemeId) != null
-                        ? T.colorSchemeId
-                        : null,
-                  });
+                  A = o("WAWebChatThemeValue").chatThemeValueFromSyncedFields(
+                    {
+                      chatThemeId: x,
+                      colorSchemeId:
+                        (T == null ? void 0 : T.colorSchemeId) != null
+                          ? T.colorSchemeId
+                          : null,
+                    },
+                    T,
+                  );
                 (x != null &&
                   A.chatThemeId == null &&
                   o("WALogger")
@@ -314,13 +317,16 @@ __d(
                   W = O.chatThemeValue,
                   U =
                     typeof n == "string" ? r("WAWebNormalizeThemeId")(n) : null,
-                  V = o("WAWebChatThemeValue").chatThemeValueFromFlat({
-                    chatThemeId:
-                      (W == null ? void 0 : W.chatThemeId) != null
-                        ? W.chatThemeId
-                        : null,
-                    colorSchemeId: U,
-                  });
+                  V = o("WAWebChatThemeValue").chatThemeValueFromSyncedFields(
+                    {
+                      chatThemeId:
+                        (W == null ? void 0 : W.chatThemeId) != null
+                          ? W.chatThemeId
+                          : null,
+                      colorSchemeId: U,
+                    },
+                    W,
+                  );
                 (U != null &&
                   V.colorSchemeId == null &&
                   o("WALogger")
@@ -496,10 +502,13 @@ __d(
                       (d == null ? void 0 : d.colorSchemeId) != null
                         ? d.colorSchemeId
                         : null,
-                    f = o("WAWebChatThemeValue").chatThemeValueFromFlat({
-                      chatThemeId: n === "chatThemeId" ? m : p,
-                      colorSchemeId: n === "colorSchemeId" ? m : _,
-                    });
+                    f = o("WAWebChatThemeValue").chatThemeValueFromSyncedFields(
+                      {
+                        chatThemeId: n === "chatThemeId" ? m : p,
+                        colorSchemeId: n === "colorSchemeId" ? m : _,
+                      },
+                      d,
+                    );
                   c.setChatThemeValue(
                     f.chatThemeId == null && f.colorSchemeId == null ? null : f,
                   );
@@ -534,13 +543,16 @@ __d(
                         "WAWebChatCollection",
                       ).ChatCollection.getChatByAccountLid(g)
                     : o("WAWebChatCollection").ChatCollection.get(g);
-                h != null &&
+                if (h != null) {
+                  var y = h.wallpaperValue,
+                    L = o("WAWebChatThemeValue").isWallpaperOverride(y)
+                      ? y
+                      : r("WAWebChatPreferenceCollection").getDefault()
+                          .wallpaperValue;
                   h.setWallpaperValue(
-                    o("WAWebChatThemeValue").wallpaperValueWithDoodle(
-                      h.wallpaperValue,
-                      a,
-                    ),
+                    o("WAWebChatThemeValue").wallpaperValueWithDoodle(L, a),
                   );
+                }
               } catch (t) {
                 throw (
                   o("WALogger")
@@ -570,23 +582,38 @@ __d(
             }
             case "stockWallpaperImageId": {
               try {
-                var y = o("WAWebWidFactory").createWid(e),
-                  L = y.isLid()
+                var E = o("WAWebWidFactory").createWid(e),
+                  k = E.isLid()
                     ? o(
                         "WAWebChatCollection",
-                      ).ChatCollection.getChatByAccountLid(y)
-                    : o("WAWebChatCollection").ChatCollection.get(y);
-                if (L != null) {
-                  var E = typeof a == "string" && a !== "" ? a : null;
-                  L.setWallpaperValue(
-                    E == null
+                      ).ChatCollection.getChatByAccountLid(E)
+                    : o("WAWebChatCollection").ChatCollection.get(E);
+                if (k != null) {
+                  var I,
+                    T,
+                    D = typeof a == "string" && a !== "" ? a : null,
+                    x = k.wallpaperValue,
+                    $ = r("WAWebChatPreferenceCollection").getDefault()
+                      .wallpaperValue,
+                    P = o("WAWebChatThemeValue").isWallpaperOverride(x) ? x : $,
+                    N =
+                      (I =
+                        (T = o("WAWebChatThemeValue").doodleFromWallpaperValue(
+                          P,
+                        )) != null
+                          ? T
+                          : o("WAWebChatThemeValue").doodleFromWallpaperValue(
+                              $,
+                            )) != null
+                        ? I
+                        : !0;
+                  k.setWallpaperValue(
+                    D == null
                       ? null
                       : o("WAWebChatThemeValue").wallpaperValueFromFlat({
                           wallpaper: null,
-                          showDoodle: o(
-                            "WAWebChatThemeValue",
-                          ).doodleFromWallpaperValue(L.wallpaperValue),
-                          stockWallpaperImageId: E,
+                          showDoodle: N,
+                          stockWallpaperImageId: D,
                         }),
                   );
                 }

@@ -1677,23 +1677,29 @@ __d(
             );
           }),
           (i.deriveThemeValueObjectsFromFlats = function () {
-            (this.wallpaperValue == null &&
+            var e =
+              this.wallpaper != null ||
+              this.showDoodle != null ||
+              this.stockWallpaperImageId != null;
+            this.wallpaperValue == null &&
+              e &&
               (this.wallpaperValue = o(
                 "WAWebChatThemeValue",
               ).wallpaperValueFromFlat({
                 wallpaper: this.wallpaper,
                 showDoodle: this.showDoodle,
                 stockWallpaperImageId: this.stockWallpaperImageId,
-              })),
-              this.chatThemeValue == null &&
-                (this.chatThemeValue = o(
-                  "WAWebChatThemeValue",
-                ).chatThemeValueFromFlat({
-                  chatThemeId:
-                    this.chatThemeId != null ? this.chatThemeId : null,
-                  colorSchemeId:
-                    this.colorSchemeId != null ? this.colorSchemeId : null,
-                })));
+              }));
+            var t = this.chatThemeId != null || this.colorSchemeId != null;
+            this.chatThemeValue == null &&
+              t &&
+              (this.chatThemeValue = o(
+                "WAWebChatThemeValue",
+              ).chatThemeValueFromFlat({
+                chatThemeId: this.chatThemeId != null ? this.chatThemeId : null,
+                colorSchemeId:
+                  this.colorSchemeId != null ? this.colorSchemeId : null,
+              }));
           }),
           (i.persistDerivedThemeValuesIfNeeded = function () {
             var e =
