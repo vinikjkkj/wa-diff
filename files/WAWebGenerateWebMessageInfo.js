@@ -51,7 +51,12 @@ __d(
       if (e.latestEditMsgKey != null && e.latestEditSenderTimestampMs != null) {
         var f,
           g,
-          h = { mentionedJid: [], groupMentions: [], statusAttributions: [] };
+          h = {
+            mentionedJid: [],
+            groupMentions: [],
+            statusAttributions: [],
+            experienceIds: [],
+          };
         (e.mentionedJidList &&
           e.mentionedJidList.length > 0 &&
           (h.mentionedJid = r("WAWebCompactMapString")(

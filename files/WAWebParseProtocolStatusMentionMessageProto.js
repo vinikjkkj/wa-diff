@@ -27,6 +27,7 @@ __d(
               mentionedJid: [],
               groupMentions: [],
               statusAttributions: [],
+              experienceIds: [],
             },
           };
         }

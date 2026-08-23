@@ -13,6 +13,7 @@ __d(
             forwardingScore: e.forwardingScore,
             groupMentions: [],
             statusAttributions: [],
+            experienceIds: [],
           },
           n = o("WAWebE2EProtoUtils").encodeJid(e.quotedParticipant);
         if ((n != null && (t.participant = n), e.quotedMsg)) {

@@ -7,6 +7,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVoipJsonParserNative",
     "WAWebVoipJsonParserPayloads",
+    "WAWebVoipWaCallEnums",
     "WAWebWamCodegenUtils",
     "WAWebWidFactory",
     "compactMap",
@@ -401,7 +402,9 @@ __d(
             videoDuration: s.video_duration,
             callEnding: s.call_ending,
             callEndedByMe: s.call_ended_by_me,
-            callResult: s.call_result,
+            callResult: o(
+              "WAWebVoipWaCallEnums",
+            ).getCallLogResultFromWamCallResult(s.call_result),
             callSetupErrorType: s.call_setup_error_type,
             bytesSent: s.bytes_sent,
             bytesReceived: s.bytes_received,

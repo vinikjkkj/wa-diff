@@ -141,7 +141,12 @@ __d(
             ));
         var l =
           a.length > 0 || i.length > 0
-            ? { mentionedJid: a, groupMentions: i, statusAttributions: [] }
+            ? {
+                mentionedJid: a,
+                groupMentions: i,
+                statusAttributions: [],
+                experienceIds: [],
+              }
             : void 0;
         ((t.stanzaId = e.quotedStanzaID),
           (t.remoteJid = o("WAWebE2EProtoUtils").encodeJid(e.quotedRemoteJid)),
@@ -225,6 +230,7 @@ __d(
                 groupMentions: [],
                 mentionedJid: [],
                 statusAttributions: [],
+                experienceIds: [],
               },
               void 0,
               "quoted",

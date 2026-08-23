@@ -81,11 +81,14 @@ __d(
           videoDuration: (a = L.VideoDuration) != null ? a : 0,
           callEnding: !1,
           callEndedByMe: (i = L.EndedByMe) != null ? i : !1,
-          callResult:
+          callResult: o(
+            "WAWebVoipWaCallEnums",
+          ).convertCallResultToCallLogResult(
             (l = o("WAWebVoipWaCallEnums").CallResult.cast(L.CallResult)) !=
-            null
+              null
               ? l
               : o("WAWebVoipWaCallEnums").CallResult.Undefined,
+          ),
           callSetupErrorType: 0,
           bytesSent: (s = L.BytesSent) != null ? s : 0,
           bytesReceived: (u = L.BytesReceived) != null ? u : 0,

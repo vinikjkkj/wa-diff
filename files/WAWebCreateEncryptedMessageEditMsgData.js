@@ -65,7 +65,12 @@ __d(
             );
           var p =
               (n = e.editMsgType) != null ? n : o("WAWebMsgType").MSG_TYPE.CHAT,
-            _ = { mentionedJid: [], groupMentions: [], statusAttributions: [] };
+            _ = {
+              mentionedJid: [],
+              groupMentions: [],
+              statusAttributions: [],
+              experienceIds: [],
+            };
           (e.mentionedJidList &&
             e.mentionedJidList.length > 0 &&
             (_.mentionedJid = r("WAWebCompactMapString")(

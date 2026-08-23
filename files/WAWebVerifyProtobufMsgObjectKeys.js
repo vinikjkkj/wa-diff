@@ -366,6 +366,8 @@ __d(
                                                                                                                   e ===
                                                                                                                     "newsletterAdminProfileStatusMessage" ||
                                                                                                                   e ===
+                                                                                                                    "newsletterScheduledMessage" ||
+                                                                                                                  e ===
                                                                                                                     "placeholderMessage" ||
                                                                                                                   e ===
                                                                                                                     "pollCreationMessageV4" ||

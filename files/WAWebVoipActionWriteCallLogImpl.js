@@ -531,7 +531,7 @@ __d(
                         .CALL_LOG_OFFLINE_RESUME_PROMOTED,
                   })
                 : t,
-            m = U(l.callOutcome, d);
+            m = U(l.t, V(l.callOutcome, d));
           return (
             i
               ? yield l.applyUpdate(m)
@@ -710,7 +710,7 @@ __d(
                   break;
                 }
             }
-            var s = U(a, e),
+            var s = V(a, e),
               u = o(
                 "WAWebVoipPendingCallLogOutcome",
               ).mergePendingCallLogOutcome(s),
@@ -753,6 +753,9 @@ __d(
       );
     }
     function U(e, t) {
+      return e != null && t.t !== e ? babelHelpers.extends({}, t, { t: e }) : t;
+    }
+    function V(e, t) {
       return e ===
         o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere &&
         t.kind === "callLog" &&

@@ -1,9 +1,10 @@
 __d(
   "WAWebVoipWaCallEnums",
-  ["$InternalEnum", "WAWebProtobufSyncAction.pb"],
+  ["$InternalEnum", "WAWebProtobufSyncAction.pb", "WAWebWamEnumCallResultType"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (e = n("$InternalEnum"))({
+      s,
+      u = (s = n("$InternalEnum"))({
         None: 0,
         Calling: 1,
         PreacceptReceived: 2,
@@ -20,7 +21,7 @@ __d(
         CallStateEnding: 13,
         CallBCallStarting: 14,
       }),
-      u = e({
+      c = s({
         Undefined: 0,
         Connected: 1,
         Missed: 2,
@@ -30,7 +31,7 @@ __d(
         AcceptedElsewhere: 6,
         MissedNotificationsMuted: 7,
       }),
-      c = e({
+      d = s({
         Invalid: 0,
         Canceled: 1,
         Missed: 2,
@@ -41,53 +42,86 @@ __d(
         Failed: 7,
         ConnectedLonely: 8,
       });
-    function d(e) {
+    function m(e) {
       switch (e) {
-        case c.Connected:
-        case c.ConnectedLonely:
+        case d.Connected:
+        case d.ConnectedLonely:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .CONNECTED;
-        case c.Missed:
+        case d.Missed:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .MISSED;
-        case c.Rejected:
+        case d.Rejected:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .REJECTED;
-        case c.Canceled:
+        case d.Canceled:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .CANCELLED;
-        case c.AcceptedElsewhere:
+        case d.AcceptedElsewhere:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .ACCEPTEDELSEWHERE;
-        case c.Unavailable:
-        case c.Failed:
+        case d.Unavailable:
+        case d.Failed:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .UNAVAILABLE;
-        case c.Invalid:
+        case d.Invalid:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .INVALID;
       }
     }
-    function m(e) {
+    function p(e) {
       switch (e) {
-        case u.Connected:
-          return c.Connected;
-        case u.Missed:
-        case u.MissedNotificationsMuted:
-          return c.Missed;
-        case u.Declined:
-          return c.Rejected;
-        case u.Canceled:
-          return c.Canceled;
-        case u.Unavailable:
-          return c.Unavailable;
-        case u.AcceptedElsewhere:
-          return c.AcceptedElsewhere;
-        case u.Undefined:
-          return c.Invalid;
+        case c.Connected:
+          return d.Connected;
+        case c.Missed:
+        case c.MissedNotificationsMuted:
+          return d.Missed;
+        case c.Declined:
+          return d.Rejected;
+        case c.Canceled:
+          return d.Canceled;
+        case c.Unavailable:
+          return d.Unavailable;
+        case c.AcceptedElsewhere:
+          return d.AcceptedElsewhere;
+        case c.Undefined:
+          return d.Invalid;
       }
     }
-    var p = e({
+    var _ = new Map([
+      [
+        (e = o("WAWebWamEnumCallResultType")).CALL_RESULT_TYPE.CONNECTED,
+        d.Connected,
+      ],
+      [e.CALL_RESULT_TYPE.REJECTED_BY_USER, d.Rejected],
+      [e.CALL_RESULT_TYPE.REJECTED_ELSEWHERE, d.Rejected],
+      [e.CALL_RESULT_TYPE.REJECTED_BY_SERVER, d.Failed],
+      [e.CALL_RESULT_TYPE.SETUP_ERROR, d.Failed],
+      [e.CALL_RESULT_TYPE.SERVER_NACK, d.Failed],
+      [e.CALL_RESULT_TYPE.CALL_REJECTED_TOS, d.Failed],
+      [e.CALL_RESULT_TYPE.CALL_REJECTED_E2E, d.Failed],
+      [e.CALL_RESULT_TYPE.PEER_SETUP_ERROR, d.Failed],
+      [e.CALL_RESULT_TYPE.ACCEPTED_BUT_NOT_CONNECTED, d.Unavailable],
+      [e.CALL_RESULT_TYPE.CALL_OFFER_ACK_NOT_RECEIVED, d.Unavailable],
+      [e.CALL_RESULT_TYPE.CALL_REJECTED_UNAVAILABLE, d.Unavailable],
+      [e.CALL_RESULT_TYPE.CALL_IS_FULL, d.Unavailable],
+      [e.CALL_RESULT_TYPE.MISSED, d.Missed],
+      [e.CALL_RESULT_TYPE.BUSY, d.Missed],
+      [e.CALL_RESULT_TYPE.MISSED_NO_RECEIPT, d.Missed],
+      [e.CALL_RESULT_TYPE.CALL_DOES_NOT_EXIST_FOR_REJOIN, d.Missed],
+      [e.CALL_RESULT_TYPE.CALL_CANCELED_CELLULAR_IN_PROGRESS, d.Canceled],
+      [e.CALL_RESULT_TYPE.CALL_CANCELED_AIRPLANE_MODE_ON, d.Canceled],
+      [e.CALL_RESULT_TYPE.CALL_CANCELED_NO_NETWORK, d.Canceled],
+      [e.CALL_RESULT_TYPE.CALL_CANCELED_OFFER_NOT_SENT, d.Canceled],
+      [e.CALL_RESULT_TYPE.CALL_OFFER_ACK_CORRUPT, d.Canceled],
+      [e.CALL_RESULT_TYPE.ACCEPTED_ELSEWHERE, d.AcceptedElsewhere],
+      [e.CALL_RESULT_TYPE.LONELY, d.ConnectedLonely],
+    ]);
+    function f(e) {
+      var t;
+      return (t = _.get(e)) != null ? t : d.Invalid;
+    }
+    var g = s({
         Invalid: 0,
         Connected: 1,
         Incoming: 2,
@@ -101,32 +135,32 @@ __d(
         CancelOffer: 10,
         Invited: 11,
       }),
-      _ = e({ Invalid: 0, Connected: 1, Invited: 2 });
-    function f(e) {
+      h = s({ Invalid: 0, Connected: 1, Invited: 2 });
+    function y(e) {
       switch (e) {
-        case p.Connected:
+        case g.Connected:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .CONNECTED;
-        case p.Incoming:
-        case p.Receipt:
-        case p.Terminated:
-        case p.TimedOut:
-        case p.CancelOffer:
+        case g.Incoming:
+        case g.Receipt:
+        case g.Terminated:
+        case g.TimedOut:
+        case g.CancelOffer:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .MISSED;
-        case p.Rejected:
+        case g.Rejected:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .REJECTED;
-        case p.Invited:
-        case p.CreatingCall:
-        case p.Invisible:
-        case p.Visible:
-        case p.Invalid:
+        case g.Invited:
+        case g.CreatingCall:
+        case g.Invisible:
+        case g.Visible:
+        case g.Invalid:
           return o("WAWebProtobufSyncAction.pb").CallLogRecord$CallResult
             .INVALID;
       }
     }
-    var g = e({
+    var C = s({
         None: 0,
         CallOfferSent: 1,
         CallOfferReceived: 2,
@@ -297,14 +331,14 @@ __d(
         P2PTransportUpdate: 167,
         Max: 168,
       }),
-      h = e({
+      b = s({
         Unknown: 0,
         AudioCapture: 1,
         AudioPlayback: 2,
         VideoCapture: 4,
         DesktopCapture: 8,
       }),
-      y = e({
+      v = s({
         Disabled: 0,
         Enabled: 1,
         Paused: 2,
@@ -319,7 +353,7 @@ __d(
         UpgradeRequestV2: 11,
         Error: 20,
       }),
-      C = e({
+      S = s({
         Unknown: 0,
         ParticipantAllocationFailure: 1,
         SetupError: 2,
@@ -330,7 +364,7 @@ __d(
         NoSamplingRatesForAudioRecord: 7,
         AudioInitError: 8,
       }),
-      b = e({
+      R = s({
         LosingPlaybackCallback: 0,
         LosingRecordCallback: 1,
         SlowPlaybackCallback: 2,
@@ -341,15 +375,15 @@ __d(
         FastPlaybackCallback: 7,
         FastRecordCallback: 8,
       }),
-      v = e({ Display: 1, Clear: 2, Max: 3 }),
-      S = e({ NotSupported: 0, Started: 1, Stopped: 2, Failed: 3 }),
-      R = e({
+      L = s({ Display: 1, Clear: 2, Max: 3 }),
+      E = s({ NotSupported: 0, Started: 1, Stopped: 2, Failed: 3 }),
+      k = s({
         None: 0,
         NotSupported: 1,
         TakeOver: 2,
         MaxParticipantsExceeded: 3,
       }),
-      L = e({
+      I = s({
         VersionInvalid: -1,
         VersionLegacy: 0,
         Version1: 1,
@@ -357,14 +391,14 @@ __d(
         Version3: 3,
         Version4: 4,
       }),
-      E = e({
+      T = s({
         Text: 0,
         NoIndicator: 1,
         SpinnerV1: 2,
         SpinnerV2: 3,
         NoSpinner: 4,
       }),
-      k = e({
+      D = s({
         Measuring: 0,
         NoNetwork: 1,
         Poor: 2,
@@ -372,16 +406,16 @@ __d(
         Good: 4,
         Max: 5,
       }),
-      I = e({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
-      T = e({
+      x = s({ Invalid: 0, None: 1, Admin: 2, Bot: 3 }),
+      $ = s({
         None: 0,
         QuerySent: 1,
         QueryAcked: 2,
         JoinSent: 3,
         JoinAcked: 4,
       }),
-      D = e({ RelayBindsFailed: "relay_binds_failed" }),
-      x = e({
+      P = s({ RelayBindsFailed: "relay_binds_failed" }),
+      N = s({
         Legacy: 0,
         CallLinkJoinedCreator: 1,
         CallLinkJoinedJoiner: 2,
@@ -390,18 +424,18 @@ __d(
         WaitingRoomJoined: 5,
         WaitingRoomMultipleJoined: 6,
       }),
-      $ = e({ Unknown: 0, Guest: 1 }),
-      P = "guest";
-    function N(e) {
-      return e === P ? $.Guest : $.Unknown;
-    }
-    var M = e({ None: 0, GuestsOnly: 1 }),
-      w = "guests_only";
+      M = s({ Unknown: 0, Guest: 1 }),
+      w = "guest";
     function A(e) {
-      return e === w ? M.GuestsOnly : M.None;
+      return e === w ? M.Guest : M.Unknown;
     }
-    var F = e({ Gallery: 0, Speaker: 1, Pinning: 2 }),
-      O = e({
+    var F = s({ None: 0, GuestsOnly: 1 }),
+      O = "guests_only";
+    function B(e) {
+      return e === O ? F.GuestsOnly : F.None;
+    }
+    var W = s({ Gallery: 0, Speaker: 1, Pinning: 2 }),
+      q = s({
         Unknown: 0,
         Android: 1,
         IPhone: 2,
@@ -420,35 +454,36 @@ __d(
         SMBI: 15,
         Web: 16,
       });
-    ((l.CallState = s),
-      (l.CallResult = u),
-      (l.CallLogResult = c),
-      (l.getSyncCallResultFromCallLogResult = d),
-      (l.convertCallResultToCallLogResult = m),
-      (l.CallParticipantState = p),
-      (l.CallSummaryUserState = _),
-      (l.getSyncParticipantCallResultFromParticipantState = f),
-      (l.CallEvent = g),
-      (l.DeviceTypeEnum = h),
-      (l.VideoState = y),
-      (l.CallFatalReasonCode = C),
-      (l.CallAudioRestartReason = b),
-      (l.ReactionState = v),
-      (l.ScreenShareState = S),
-      (l.ScreenShareEndReason = R),
-      (l.ScreenShareVersion = L),
-      (l.ReconnectingOption = E),
-      (l.NetHealthStatus = k),
-      (l.CallUserType = I),
-      (l.CallLinkState = T),
-      (l.CallFailedReason = D),
-      (l.ServerReminderType = x),
-      (l.AccountKind = $),
-      (l.wireStringToAccountKind = N),
-      (l.WaitingRoomFilter = M),
-      (l.wireStringToWaitingRoomFilter = A),
-      (l.UiViewMode = F),
-      (l.ClientPlatform = O));
+    ((l.CallState = u),
+      (l.CallResult = c),
+      (l.CallLogResult = d),
+      (l.getSyncCallResultFromCallLogResult = m),
+      (l.convertCallResultToCallLogResult = p),
+      (l.getCallLogResultFromWamCallResult = f),
+      (l.CallParticipantState = g),
+      (l.CallSummaryUserState = h),
+      (l.getSyncParticipantCallResultFromParticipantState = y),
+      (l.CallEvent = C),
+      (l.DeviceTypeEnum = b),
+      (l.VideoState = v),
+      (l.CallFatalReasonCode = S),
+      (l.CallAudioRestartReason = R),
+      (l.ReactionState = L),
+      (l.ScreenShareState = E),
+      (l.ScreenShareEndReason = k),
+      (l.ScreenShareVersion = I),
+      (l.ReconnectingOption = T),
+      (l.NetHealthStatus = D),
+      (l.CallUserType = x),
+      (l.CallLinkState = $),
+      (l.CallFailedReason = P),
+      (l.ServerReminderType = N),
+      (l.AccountKind = M),
+      (l.wireStringToAccountKind = A),
+      (l.WaitingRoomFilter = F),
+      (l.wireStringToWaitingRoomFilter = B),
+      (l.UiViewMode = W),
+      (l.ClientPlatform = q));
   },
   98,
 );

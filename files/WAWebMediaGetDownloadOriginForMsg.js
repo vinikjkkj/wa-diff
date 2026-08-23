@@ -15,7 +15,7 @@ __d(
         return o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
           .STATUS_USER;
       if (o("WAWebMsgGetters").getIsGroupMsg(e)) {
-        var t = o("WAWebFrontendMsgGetters").getChat(e);
+        var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
         return t != null && o("WAWebFrontendChatGetters").getIsCAG(t)
           ? o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.COMMUNITY
           : o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.CHAT_GROUP;

@@ -100,10 +100,7 @@ __d(
                 }),
                 finalCallOutcome: o(
                   "WAWebCallLogUtils",
-                ).getCallOutcomeFromCallResultNative(
-                  r.callResult,
-                  r.callDuration,
-                ),
+                ).getCallOutcomeFromCallLogResult(r.callResult, r.callDuration),
               },
               f = yield o(
                 "WAWebVoipActionWriteCallLogImpl",
@@ -131,7 +128,7 @@ __d(
               t !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
               t !== o("WAWebCallLogMsgData.flow").CallOutcome.Unknown
             ? t
-            : o("WAWebCallLogUtils").getCallOutcomeFromCallResultNative(
+            : o("WAWebCallLogUtils").getCallOutcomeFromCallLogResult(
                 e.callResult,
                 e.callDuration,
               )
@@ -238,10 +235,7 @@ __d(
                 }),
                 finalCallOutcome: o(
                   "WAWebCallLogUtils",
-                ).getCallOutcomeFromCallResultNative(
-                  e.callResult,
-                  e.callDuration,
-                ),
+                ).getCallOutcomeFromCallLogResult(e.callResult, e.callDuration),
               },
               R =
                 b != null &&
