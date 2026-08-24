@@ -3,8 +3,8 @@ __d(
   [
     "WALogger",
     "WAWebAck",
-    "WAWebExtractImageFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
+    "WAWebExtractMediaFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
     "WAWebMsgKey",
@@ -21,8 +21,8 @@ __d(
       s = "scheduled-drawer-";
     function u(t, n) {
       var a = o(
-          "WAWebExtractImageFieldsFromScheduledMsg",
-        ).extractImageFieldsFromScheduledMsg(n),
+          "WAWebExtractMediaFieldsFromScheduledMsg",
+        ).extractMediaFieldsFromScheduledMsg(n),
         i = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(n);
       if (a == null && i == null) return null;
       var l;

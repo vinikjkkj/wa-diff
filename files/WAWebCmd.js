@@ -237,11 +237,9 @@ __d(
               !(
                 a.id.isBot() &&
                 !o("WAWebBotUtils").isBotChannelFBID(a.id) &&
-                (!o("WAWebBotUtils").isMetaAiBot(a.id) ||
-                  !(
-                    o("WAWebBotGating").isAnyMetaAiMediaInputEnabled() ||
-                    o("WAWebBotGating").isMetaAiDocUploadEnabled()
-                  ))
+                !o("WAWebBotGating").isMediaInputEnabledForAssistantBotChat(
+                  a.id,
+                )
               )
             ) {
               if (o("WAWebBotUtils").isMetaAiBot(a.id)) {

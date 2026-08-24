@@ -1,6 +1,6 @@
 __d(
   "WAWebHybridMetaConfig",
-  ["WALogger", "WAWebHybridMetaConfigConfigs"],
+  ["WALogger", "WAWebHybridMetaConfigConfigs", "WAWebODS"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -26,8 +26,11 @@ __d(
               ])),
             t,
           ),
+          r("WAWebODS").incr("web.hybrid.metaconfig.exposure.unknown_name"),
           !1)
-        : (n.logExposure(), !0);
+        : (n.logExposure(),
+          r("WAWebODS").incr("web.hybrid.metaconfig.exposure.logged"),
+          !0);
     }
     ((l.getAllHybridMetaConfigs = s), (l.logHybridMetaConfigExposure = u));
   },

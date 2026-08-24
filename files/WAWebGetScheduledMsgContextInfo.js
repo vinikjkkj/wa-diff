@@ -3,13 +3,18 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     function e(e) {
-      var t, n, r;
+      var t, n, r, o, a;
       return (t =
-        (n = e.extendedTextMessage) == null ? void 0 : n.contextInfo) != null
+        (n = (r = e.extendedTextMessage) == null ? void 0 : r.contextInfo) !=
+        null
+          ? n
+          : (o = e.imageMessage) == null
+            ? void 0
+            : o.contextInfo) != null
         ? t
-        : (r = e.imageMessage) == null
+        : (a = e.videoMessage) == null
           ? void 0
-          : r.contextInfo;
+          : a.contextInfo;
     }
     i.getScheduledMsgContextInfo = e;
   },

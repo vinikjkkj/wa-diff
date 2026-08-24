@@ -33,13 +33,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(e, t, n, r, o) {
-      return g.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f;
+    function g(e, t, n, r, o) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l, c) {
             if (
               (l === void 0 && (l = {}),
@@ -167,7 +167,7 @@ __d(
                 c)
               )
                 try {
-                  yield C(d);
+                  yield b(d);
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
@@ -182,15 +182,15 @@ __d(
             }
           },
         )),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t, n, r, o) {
-      return y.apply(this, arguments);
+    function y(e, t, n, r, o) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i, l) {
             if (
               (i === void 0 && (i = {}),
@@ -203,10 +203,35 @@ __d(
                 "[scheduled_msg] Scheduled media not available for this chat",
               );
             if (t.length !== 0) {
-              var s = o("WAWebStateUtils").unproxy(e);
+              var s =
+                t.length >
+                o("WAWebScheduledMsgConstants").MAX_MEDIA_MSGS_TO_SCHEDULE
+                  ? t.slice(
+                      0,
+                      o("WAWebScheduledMsgConstants")
+                        .MAX_MEDIA_MSGS_TO_SCHEDULE,
+                    )
+                  : t;
+              s.length < t.length &&
+                o("WALogger")
+                  .WARN(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[scheduled_msg] Capping scheduled media from ",
+                        " to ",
+                        "",
+                      ])),
+                    String(t.length),
+                    String(
+                      o("WAWebScheduledMsgConstants")
+                        .MAX_MEDIA_MSGS_TO_SCHEDULE,
+                    ),
+                  )
+                  .sendLogs("scheduled-media-capped");
+              var u = o("WAWebStateUtils").unproxy(e);
               if (
                 yield o("WAWebScheduledMsgStore").isChatAtScheduleLimit(
-                  o("WAWebWidToJid").widToChatJid(s.id),
+                  o("WAWebWidToJid").widToChatJid(u.id),
                 )
               ) {
                 o(
@@ -215,36 +240,36 @@ __d(
                 return;
               }
               o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[scheduled_msg] Scheduling ",
                     " media message(s) for chat ",
                     " at ",
                     "",
                   ])),
-                String(t.length),
-                s.id.toLogString(),
+                String(s.length),
+                u.id.toLogString(),
                 String(a),
               );
-              var u = s.composeQuotedMsg;
-              s.composeQuotedMsg = null;
-              var p = !1,
-                f = [];
-              for (var g of t.entries()) {
-                var h = g[0],
-                  y = g[1],
-                  b = y.media,
-                  v = {
-                    type: b.type,
-                    caption: b.caption,
-                    mentionedJidList: y.mentionedJidList,
-                    groupMentions: y.groupMentions,
+              var _ = u.composeQuotedMsg;
+              u.composeQuotedMsg = null;
+              var g = !1,
+                h = [];
+              for (var y of s.entries()) {
+                var C = y[0],
+                  v = y[1],
+                  S = v.media,
+                  R = {
+                    type: S.type,
+                    caption: S.caption,
+                    mentionedJidList: v.mentionedJidList,
+                    groupMentions: v.groupMentions,
                     addEvenWhilePreparing:
-                      o("WAWebAttachMediaGetters").getPreviewable(b) &&
-                      b.state ===
+                      o("WAWebAttachMediaGetters").getPreviewable(S) &&
+                      S.state ===
                         o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                           .PROCESSING,
-                    quotedMsg: h === 0 ? u : void 0,
+                    quotedMsg: C === 0 ? _ : void 0,
                     isViewOnce: i.isViewOnce,
                     threadId: i.threadId,
                     isScheduledMsg: !0,
@@ -253,21 +278,21 @@ __d(
                       o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE,
                   };
                 try {
-                  var S = yield b.sendToChat({ chat: s, options: v });
+                  var L = yield S.sendToChat({ chat: u, options: R });
                   if (
-                    S.ackErrorCode ===
+                    L.ackErrorCode ===
                     o("WAWebScheduledMsgConstants")
                       .SCHEDULED_MSG_RESOURCE_LIMIT_NACK_CODE
                   ) {
-                    ((p = !0), S.msg != null && f.push(S.msg.id.toString()));
+                    ((g = !0), L.msg != null && h.push(L.msg.id.toString()));
                     break;
                   }
                 } catch (e) {
                   throw (
                     o("WALogger")
                       .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
                             "[scheduled_msg] Failed to send scheduled media message",
                           ])),
                       )
@@ -278,9 +303,9 @@ __d(
                 }
               }
               if (
-                (p &&
-                  (yield (_ || (_ = n("Promise"))).all(
-                    f.map(function (e) {
+                (g &&
+                  (yield (f || (f = n("Promise"))).all(
+                    h.map(function (e) {
                       return o(
                         "WAWebScheduledMsgRevealKeyStore",
                       ).updateRevealKeyStatus(e, "FAILED");
@@ -292,12 +317,12 @@ __d(
                 l)
               )
                 try {
-                  yield C(s);
+                  yield b(u);
                 } catch (e) {
                   o("WALogger")
                     .ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "[scheduled_msg] Failed to add scheduled system message",
                         ])),
                     )
@@ -307,15 +332,15 @@ __d(
             }
           },
         )),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebContactSystemMsg").genNotificationMsg(e.id, {
             type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
             kind: o("WAWebMsgType").MsgKind.Notification,
@@ -328,8 +353,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[scheduled_msg] persist ScheduledMessageCreated bubble -",
                   ])),
               )
@@ -339,10 +364,10 @@ __d(
           var n = new (o("WAWebMsgModel").Msg)(t);
           e.msgs.add(n);
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.sendScheduledTextMsgToChat = f), (l.sendScheduledMediaMsgToChat = h));
+    ((l.sendScheduledTextMsgToChat = g), (l.sendScheduledMediaMsgToChat = y));
   },
   98,
 );

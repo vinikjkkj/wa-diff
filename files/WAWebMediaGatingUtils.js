@@ -17,11 +17,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      if (o("WAWebBotUtils").isMetaAiBot(t)) {
+      var r = o("WAWebBotUtils").isBusinessAssistantBot(t);
+      if (o("WAWebBotUtils").isMetaAiBot(t) || r) {
         if (n === "document")
           return o("WAWebBotGating").getMetaAiFileUploadCountLimit();
         if (n === "image") return o("WAWebBotGating").getMetaAiImageSendLimit();
         if (n === "video") return 1;
+        if (r) return o("WAWebBotGating").getMetaAiImageSendLimit();
       }
       if (
         t.isNewsletter() &&
@@ -31,17 +33,18 @@ __d(
         !o("WAWebNewsletterGatingUtils").isNewsletterAlbumsV2SenderEnabled()
       )
         return 1;
-      var r = o("WAWebABProps").getABPropConfigValue(
+      var a = o("WAWebABProps").getABPropConfigValue(
         "media_picker_select_limit",
       );
-      return e <= r
-        ? r
+      return e <= a
+        ? a
         : o("WAWebABProps").getABPropConfigValue(
             "media_picker_select_limit_new",
           );
     }
     function s(e, t) {
-      return o("WAWebBotUtils").isMetaAiBot(e)
+      return o("WAWebBotUtils").isMetaAiBot(e) ||
+        o("WAWebBotUtils").isBusinessAssistantBot(e)
         ? t === "document"
           ? o("WAWebBotGating").getMetaAiFileUploadCountLimit() > 1
           : t === "image"
@@ -130,35 +133,43 @@ __d(
           o("WAWebMsgType").MSG_TYPE.IMAGE,
           o("WAWebMsgType").MSG_TYPE.VIDEO,
         ]);
+      if (o("WAWebBotUtils").isBusinessAssistantBot(e.id)) {
+        var n = new Set();
+        return (
+          o("WAWebBotGating").isBusinessAssistantImageInputEnabled() &&
+            n.add(o("WAWebMsgType").MSG_TYPE.IMAGE),
+          n
+        );
+      }
       if (
         o("WAWebChatGetters").getIsMetaAiBot(o("WAWebStateUtils").unproxy(e))
       ) {
-        var n = new Set();
+        var r = new Set();
         return (
           o("WAWebBotGating").isMetaAiImageInputEnabled() &&
-            n.add(o("WAWebMsgType").MSG_TYPE.IMAGE),
+            r.add(o("WAWebMsgType").MSG_TYPE.IMAGE),
           o("WAWebBotGating").isMetaAiVideoInputEnabled() &&
-            n.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
+            r.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
           o("WAWebBotGating").isMetaAiDocUploadEnabled() &&
-            n.add(o("WAWebMsgType").MSG_TYPE.DOCUMENT),
-          n
+            r.add(o("WAWebMsgType").MSG_TYPE.DOCUMENT),
+          r
         );
       }
       if (
         o("WAWebChatGetters").getIsBotChannel(o("WAWebStateUtils").unproxy(e))
       ) {
-        var r = new Set([
+        var a = new Set([
           o("WAWebMsgType").MSG_TYPE.DOCUMENT,
           o("WAWebMsgType").MSG_TYPE.IMAGE,
         ]);
         return (
           (!o("WAWebBotUtils").isHatchBot(e.id) ||
             o("WAWebHatchGating").isHatchVideoUploadEnabled()) &&
-            r.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
+            a.add(o("WAWebMsgType").MSG_TYPE.VIDEO),
           o("WAWebBotUtils").isManusBot(e.id) ||
-            (r.add(o("WAWebMsgType").MSG_TYPE.VCARD),
-            r.add(o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)),
-          r
+            (a.add(o("WAWebMsgType").MSG_TYPE.VCARD),
+            a.add(o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)),
+          a
         );
       }
       return o("WAWebMsgType").ALL_MSG_TYPES_SET;

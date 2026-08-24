@@ -5,6 +5,7 @@ __d(
     "WAWebChatGetters",
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
+    "WAWebFrontendContactGetters",
     "WAWebGroupType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -56,7 +57,22 @@ __d(
     function s(t) {
       return e(t).shouldShow;
     }
-    ((l.getCallButtonsState = e), (l.shouldShowCallButtons = s));
+    function u(e) {
+      var t = e.id;
+      return (
+        !o("WAWebContactGetters").getIsMe(e) &&
+        !o("WAWebFrontendContactGetters").getIsContactBlocked(e) &&
+        !t.isBot() &&
+        !t.isAiHub() &&
+        !t.isPSA() &&
+        !o(
+          "WAWebBizCoexGatingUtils",
+        ).isCallingDisabledOnAuthAgentSoftOffboarded()
+      );
+    }
+    ((l.getCallButtonsState = e),
+      (l.shouldShowCallButtons = s),
+      (l.canCallContact = u));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
     "WAWebCooldownBatcher",
     "WAWebUnknownUserDisplayStore",
     "WAWebUnknownUserDisplayedLogger",
+    "WAWebUnknownUserSelfHealFromDb",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
@@ -16,22 +17,29 @@ __d(
         (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             try {
-              var n = yield o("WAWebApiContact").bulkGetContactRecord(t);
-              return n.map(function (e, n) {
-                var o = t[n];
-                return {
-                  hasUn:
-                    (e == null ? void 0 : e.username) != null &&
-                    e.usernameSoftDeleted !== !0,
-                  hasPn: o.isLid()
-                    ? (e == null ? void 0 : e.phoneNumber) != null
-                    : o.isRegularUserPn(),
-                  hasPush: !r("isStringNullOrEmpty")(
-                    e == null ? void 0 : e.pushname,
-                  ),
-                  inDb: e != null,
-                };
-              });
+              var n = yield o("WAWebApiContact").bulkGetContactRecord(t),
+                a = n.map(function (e, n) {
+                  var o = t[n];
+                  return {
+                    hasUn:
+                      (e == null ? void 0 : e.username) != null &&
+                      e.usernameSoftDeleted !== !0,
+                    hasPn: o.isLid()
+                      ? (e == null ? void 0 : e.phoneNumber) != null
+                      : o.isRegularUserPn(),
+                    hasPush: !r("isStringNullOrEmpty")(
+                      e == null ? void 0 : e.pushname,
+                    ),
+                    inDb: e != null,
+                  };
+                });
+              return (
+                o("WAWebUnknownUserSelfHealFromDb").healUnknownUsersFromDbRows(
+                  t,
+                  n,
+                ),
+                a
+              );
             } catch (n) {
               return t.map(function () {
                 return e;

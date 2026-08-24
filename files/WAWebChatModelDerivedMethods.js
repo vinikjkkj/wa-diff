@@ -2,6 +2,7 @@ __d(
   "WAWebChatModelDerivedMethods",
   [
     "WAWebABProps",
+    "WAWebBotUtils",
     "WAWebChatFlowTypes",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
@@ -63,6 +64,7 @@ __d(
       if (
         o("WAWebChatGetters").getIsBroadcast(e) ||
         o("WAWebChatGetters").getIsMetaAiBot(e) ||
+        o("WAWebBotUtils").isBusinessAssistantBot(e.id) ||
         o("WAWebChatGetters").getIsBotChannel(e) ||
         e.id.isAiHub()
       )

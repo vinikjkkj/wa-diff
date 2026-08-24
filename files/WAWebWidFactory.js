@@ -183,7 +183,10 @@ __d(
     }
     function T(e) {
       var t = I(e);
-      if (!t.isLid()) throw r("err")("asUserLidOrThrow: userWid is not a lid");
+      if (!t.isLid())
+        throw r("err")(
+          "asUserLidOrThrow: userWid is not a lid: " + t.toLogString(),
+        );
       return t;
     }
     function D(e) {

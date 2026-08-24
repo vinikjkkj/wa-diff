@@ -42,6 +42,7 @@ __d(
       ARCHIVE_STORAGE: 39,
       ME_TAB: 40,
       CHANNEL_INFO_SHEET: 41,
+      CONTACTS_TAB: 42,
     });
     i.STATUS_ROW_SECTION = e;
   },

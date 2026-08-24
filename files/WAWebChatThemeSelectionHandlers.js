@@ -31,13 +31,7 @@ __d(
               baseline: {
                 themeId: m,
                 colorSchemeId: p,
-                wallpaper: s(
-                  a,
-                  u,
-                  o("WAWebChatThemeValue").doodleFromWallpaperValue(
-                    i.rawWallpaperValue,
-                  ),
-                ),
+                wallpaper: s(a, u, i.effectiveDoodlePreference),
               },
             }),
               n(),

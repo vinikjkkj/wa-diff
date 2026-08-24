@@ -11,6 +11,7 @@ __d(
       LISTS: 6,
       NOT_APPLICABLE: 7,
       CLOUD_STORAGE: 8,
+      CUSTOM_REACTIONS: 9,
     });
     i.WPBUJ_BENEFIT_TYPE = e;
   },

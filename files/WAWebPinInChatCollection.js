@@ -7,6 +7,7 @@ __d(
     "WAWebFrontendPinInChatGetters",
     "WAWebPinInChatModel",
     "WAWebPinMsgConstants",
+    "WAWebPinMsgGatingUtils",
     "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
@@ -58,11 +59,14 @@ __d(
     function u(e) {
       var t, n;
       if (e.senderTimestampMs == null) return !1;
-      var r = e.pinExpiryDuration != null,
-        a =
+      var r =
+          e.pinExpiryDuration === 0 &&
+          o("WAWebPinMsgGatingUtils").isPinnedMessagesInfiniteReceiverEnabled(),
+        a = e.pinExpiryDuration != null && !r,
+        i =
           ((t = e.t) != null ? t : Math.floor(e.senderTimestampMs / 1e3)) +
           ((n = e.pinExpiryDuration) != null ? n : 0);
-      return r && a < o("WATimeUtils").unixTime();
+      return a && i < o("WATimeUtils").unixTime();
     }
     function c(e) {
       return (

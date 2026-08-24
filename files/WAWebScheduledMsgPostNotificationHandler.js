@@ -6,8 +6,8 @@ __d(
     "WAWebAck",
     "WAWebBackendApi",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
-    "WAWebExtractImageFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
+    "WAWebExtractMediaFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
     "WAWebHandleSingleMsg",
@@ -182,8 +182,8 @@ __d(
             return;
           }
           var i = o(
-              "WAWebExtractImageFieldsFromScheduledMsg",
-            ).extractImageFieldsFromScheduledMsg(t),
+              "WAWebExtractMediaFieldsFromScheduledMsg",
+            ).extractMediaFieldsFromScheduledMsg(t),
             l = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(t);
           if (i == null && l == null) {
             o("WALogger").WARN(

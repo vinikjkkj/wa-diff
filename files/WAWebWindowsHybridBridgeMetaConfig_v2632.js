@@ -28,8 +28,8 @@ __d(
           }),
           (this.$3 = function (e) {
             var n = e.toString();
-            (o("WAWebHybridMetaConfig").logHybridMetaConfigExposure(n),
-              r("WAWebODS").incr(
+            o("WAWebHybridMetaConfig").logHybridMetaConfigExposure(n) &&
+              (r("WAWebODS").incr(
                 "web.hybrid.bridge.metaconfig.send.acknowledge_exposure",
               ),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(

@@ -92,12 +92,18 @@ __d(
       );
     }
     function p(e) {
-      if (e.attrs.username != null || e.attrs.peer_recipient_username != null)
+      var t = e.attrs;
+      if (
+        t.username != null ||
+        t.participant_username != null ||
+        t.peer_recipient_username != null ||
+        t.recipient_username != null
+      )
         return !0;
-      var t = e.content;
+      var n = e.content;
       return (
-        Array.isArray(t) &&
-        t.some(function (e) {
+        Array.isArray(n) &&
+        n.some(function (e) {
           return p(e);
         })
       );

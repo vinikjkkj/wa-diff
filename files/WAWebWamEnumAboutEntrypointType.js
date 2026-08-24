@@ -8,6 +8,7 @@ __d(
       ME_TAB: 3,
       DEEP_LINK: 4,
       ONE_ON_ONE_CHAT: 5,
+      CONTACTS_TAB: 6,
     });
     i.ABOUT_ENTRYPOINT_TYPE = e;
   },

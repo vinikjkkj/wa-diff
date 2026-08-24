@@ -6,6 +6,7 @@ __d(
     "WAWebBaseModel",
     "WAWebFrontendPinInChatGetters",
     "WAWebPinInChatGetters",
+    "WAWebPinMsgGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -39,13 +40,19 @@ __d(
               ).clearFrontendPinInChatGetterCacheFor(this));
           }),
           (n.leftExpirationTime = function () {
-            var e,
-              t,
-              n =
-                ((e = this.t) != null
-                  ? e
-                  : Math.floor(this.senderTimestampMs / 1e3)) +
-                ((t = this.pinExpiryDuration) != null ? t : 0);
+            var e, t;
+            if (
+              this.pinExpiryDuration === 0 &&
+              o(
+                "WAWebPinMsgGatingUtils",
+              ).isPinnedMessagesInfiniteReceiverEnabled()
+            )
+              return 1 / 0;
+            var n =
+              ((e = this.t) != null
+                ? e
+                : Math.floor(this.senderTimestampMs / 1e3)) +
+              ((t = this.pinExpiryDuration) != null ? t : 0);
             return n - o("WATimeUtils").unixTime();
           }),
           t

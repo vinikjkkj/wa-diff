@@ -130,8 +130,8 @@ __d(
                   colorSchemeId: null,
                   baseline: null,
                 }),
-                  d.applyWallpaper(null),
                   d.applyActiveWallpaperId(null),
+                  d.applyWallpaper(null),
                   d.isGlobal && !_ && d.applyDoodle(!0));
               },
               function () {

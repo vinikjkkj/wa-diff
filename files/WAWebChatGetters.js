@@ -99,18 +99,25 @@ __d(
       G = u(
         function (e) {
           var t = e[0];
-          return o("WAWebBotUtils").isHatchBot(t);
+          return o("WAWebBotUtils").isBusinessAssistantBot(t);
         },
         [_],
       ),
       z = u(
         function (e) {
           var t = e[0];
-          return o("WAWebBotUtils").isBotChannelFBID(t);
+          return o("WAWebBotUtils").isHatchBot(t);
         },
         [_],
       ),
       j = u(
+        function (e) {
+          var t = e[0];
+          return o("WAWebBotUtils").isBotChannelFBID(t);
+        },
+        [_],
+      ),
+      K = u(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -118,8 +125,8 @@ __d(
         },
         [q, O],
       ),
-      K = u(o("WAWebBoolFunc").returnTrue, [q]),
-      Q = u(
+      Q = u(o("WAWebBoolFunc").returnTrue, [q]),
+      X = u(
         function (e) {
           var t = e[0];
           return t !== 0;
@@ -159,11 +166,12 @@ __d(
       (l.getIsNewsletter = U),
       (l.getIsBot = V),
       (l.getIsMetaAiBot = H),
-      (l.getIsHatchBot = G),
-      (l.getIsBotChannel = z),
-      (l.getIsEligibleForContactSync = j),
-      (l.getCanUnread = K),
-      (l.getHasUnread = Q));
+      (l.getIsBusinessAssistantBot = G),
+      (l.getIsHatchBot = z),
+      (l.getIsBotChannel = j),
+      (l.getIsEligibleForContactSync = K),
+      (l.getCanUnread = Q),
+      (l.getHasUnread = X));
   },
   98,
 );

@@ -121,6 +121,8 @@ __d(
         : Object.keys(r("WAWebLocalStorage")).filter(function (e) {
             return (
               e.includes("falco_queue_log") ||
+              e.includes("falco_queue_immediately") ||
+              e.includes("falco_queue_critical") ||
               e ===
                 o("WAWebCanonicalWamFalcoBufferConstants")
                   .CANONICAL_WAM_FALCO_BUFFER_STORAGE_KEY

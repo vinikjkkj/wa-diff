@@ -7,8 +7,8 @@ __d(
     "WATimeUtils",
     "WAWebAck",
     "WAWebExtractEphemeralFieldsFromScheduledMsg",
-    "WAWebExtractImageFieldsFromScheduledMsg",
     "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
+    "WAWebExtractMediaFieldsFromScheduledMsg",
     "WAWebExtractMentionFieldsFromScheduledMsg",
     "WAWebExtractQuoteFieldsFromScheduledMsg",
     "WAWebHandleMsgValidate",
@@ -618,8 +618,8 @@ __d(
           },
         ),
         g = o(
-          "WAWebExtractImageFieldsFromScheduledMsg",
-        ).extractImageFieldsFromScheduledMsg(n);
+          "WAWebExtractMediaFieldsFromScheduledMsg",
+        ).extractMediaFieldsFromScheduledMsg(n);
       if (g != null) return babelHelpers.extends({}, f, g);
       var h = o(
         "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
