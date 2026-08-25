@@ -20,6 +20,7 @@ __d(
                 19,
                 o("WAWebWamEnumAudioStreamType").AUDIO_STREAM_TYPE,
               ],
+              messageKeyHash: [28, e.TYPES.STRING],
               pttAudioRouteBluetoothTime: [23, e.TYPES.TIMER],
               pttAudioRouteChangeCount: [20, e.TYPES.INTEGER],
               pttAudioRouteEarpieceTime: [24, e.TYPES.TIMER],

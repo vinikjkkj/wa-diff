@@ -7,7 +7,6 @@ __d(
     "WAOnceWithReset",
     "WAShiftTimer",
     "WAStorageEstimator",
-    "WAWeb-moment",
     "WAWebABProps",
     "WAWebLoggerFormatMessage",
     "WAWebLoggerOptimizer",
@@ -280,9 +279,7 @@ __d(
             !(t <= T.LOG && this.shouldSkipLoggingForProdLowEndDevice)
           ) {
             var e = Date.now(),
-              s = r("WAWeb-moment")(e)
-                .locale("en")
-                .format("YYYY-MM-DD HH:mm:ss.SSS:");
+              s = $(e);
             if (!r("gkx")("26258"))
               try {
                 t === T.ERROR && this.$10 && this.$10(n);
@@ -482,11 +479,39 @@ __d(
             );
           })();
     }
-    var $ = new D(function () {
+    function $(e) {
+      var t = new Date(e),
+        n = P(t.getMonth() + 1, 2),
+        r = P(t.getDate(), 2),
+        o = P(t.getHours(), 2),
+        a = P(t.getMinutes(), 2),
+        i = P(t.getSeconds(), 2),
+        l = P(t.getMilliseconds(), 3);
+      return (
+        t.getFullYear() +
+        "-" +
+        n +
+        "-" +
+        r +
+        " " +
+        o +
+        ":" +
+        a +
+        ":" +
+        i +
+        "." +
+        l +
+        ":"
+      );
+    }
+    function P(e, t) {
+      return String(e).padStart(t, "0");
+    }
+    var N = new D(function () {
         return r("WAWebWAWCStorage").idb();
       }, v),
-      P = $.log;
-    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = D), (l.Logger = $), (l.log = P));
+      M = N.log;
+    ((l.STACK_TRACE_TAG = _), (l.LoggerImpl = D), (l.Logger = N), (l.log = M));
   },
   98,
 );

@@ -29,6 +29,8 @@ __d(
       DEEP_LINK: 23,
       AI_TAB: 24,
       AI_SEASONAL_UPSELL: 25,
+      AI_FAB_QP: 26,
+      AI_TAB_QP: 27,
     });
     i.IMAGINE_ACTION_SOURCE = e;
   },

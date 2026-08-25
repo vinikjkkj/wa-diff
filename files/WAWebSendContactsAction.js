@@ -8,7 +8,7 @@ __d(
     "WAWebBotProfileCollection",
     "WAWebBotUtils",
     "WAWebChatGetters",
-    "WAWebFileUtils",
+    "WAWebCreateFile",
     "WAWebFrontendVcardUtils",
     "WAWebGetEphemeralFieldsMsgActionsUtils",
     "WAWebMsgKey",
@@ -43,7 +43,7 @@ __d(
         }),
         s = l.length === 1 ? l[0] : o("WAWebVcardUtils").mergeVcards(l),
         u = s.displayName.toString() + ".vcf",
-        c = o("WAWebFileUtils").createFile([s.vcard], u, { type: d }),
+        c = o("WAWebCreateFile").createFile([s.vcard], u, { type: d }),
         m = c.size / 1024;
       if (m > o("WAWebServerPropConstants").VCARD_AS_DOCUMENT_SIZE_KB) {
         p(c, n.length, t, i, r);

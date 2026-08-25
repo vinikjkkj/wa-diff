@@ -6,6 +6,7 @@ __d(
     "WALongInt",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebBackendApi",
     "WAWebChatCollection",
     "WAWebChatConstants",
@@ -331,7 +332,9 @@ __d(
                   )
                   .readBuffer();
                 return (
-                  yield o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+                  yield o(
+                    "WAWebApiAddActiveMessageRange",
+                  ).addActiveMessageRange(
                     e.toString(),
                     o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                       "clearChat",
@@ -512,7 +515,7 @@ __d(
                                 ])),
                             ),
                               yield o(
-                                "WAWebApiActiveMessageRanges",
+                                "WAWebApiAddActiveMessageRange",
                               ).addActiveMessageRange(
                                 n.toString(),
                                 o(

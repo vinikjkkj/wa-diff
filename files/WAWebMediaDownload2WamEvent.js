@@ -129,6 +129,7 @@ __d(
               statusId: [67, e.TYPES.STRING],
               streamingUsedNonStreamingFallback: [70, e.TYPES.BOOLEAN],
               timeDelayed: [54, e.TYPES.TIMER],
+              traceIdInt: [72, e.TYPES.INTEGER],
               usedFallbackHint: [40, e.TYPES.STRING],
             },
             [1, 1, 50],

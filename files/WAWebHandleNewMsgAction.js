@@ -30,7 +30,7 @@ __d(
     "WAWebGroupUnreadMessageType",
     "WAWebHandleMsgReceiptCommon",
     "WAWebInvisiblePlaceholderViewModeProcessor",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMigrationLogging",
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -268,7 +268,7 @@ __d(
                         .getChatTable()
                         .get((R = e.accountLid) == null ? void 0 : R.toString())
                     : null;
-                o("WAWebLidMigrationUtils").logLidMetadata();
+                o("WAWebLidMigrationLogging").logLidMetadata();
                 var I = E != null,
                   T = k != null;
                 (o("WALogger")

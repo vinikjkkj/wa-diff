@@ -6,7 +6,7 @@ __d(
     "WAWebChatGetters",
     "WAWebGenerateEventCallLink",
     "WAWebGetEphemeralFieldsMsgActionsUtils",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
@@ -52,7 +52,7 @@ __d(
             _ = a.name,
             f = a.requireApproval,
             g = a.startTime,
-            h = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            h = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               n,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
             ),

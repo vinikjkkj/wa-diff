@@ -28,7 +28,12 @@ __d(
                 "WAWebSyncdNetCallbacksApi",
               ).uploadSyncExternalPatch(e),
               i = yield p(a, e);
-            return f(i, t, n, r);
+            return f({
+              externalMutations: i,
+              keyId: t,
+              patchMac: r,
+              snapshotMac: n,
+            });
           },
         )),
         m.apply(this, arguments)
@@ -57,14 +62,18 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n, r) {
-      var a = o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid());
+    function f(e) {
+      var t = e.externalMutations,
+        n = e.keyId,
+        r = e.patchMac,
+        a = e.snapshotMac,
+        i = o("WAJids").extractDeviceId(o("WABaseGlobals").getMyDeviceJid());
       return o("WAWebSyncdRequestEncode").encodeSyncdPatch({
-        keyId: { id: o("WASyncdKeyTypes").fromSyncKeyId(t) },
-        externalMutations: e,
-        snapshotMac: n,
+        keyId: { id: o("WASyncdKeyTypes").fromSyncKeyId(n) },
+        externalMutations: t,
+        snapshotMac: a,
         patchMac: r,
-        deviceIndex: a,
+        deviceIndex: i,
       });
     }
     function g(t) {

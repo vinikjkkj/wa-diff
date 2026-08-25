@@ -1,6 +1,7 @@
 __d(
   "WebBloksEnvironment",
   [
+    "WebBloksBindInstrumentation",
     "WebBloksDefaultGKs",
     "WebBloksErrors",
     "WebBloksFragment",
@@ -110,6 +111,9 @@ __d(
         throw new (o("WebBloksErrors").WebBloksError)(
           "A signature-minified WebBloks environment requires canonical actions.",
         );
+      o("WebBloksBindInstrumentation").setBindInstrumentationEnabled(
+        h.enableBindInstrumentation,
+      );
       var y = babelHelpers.extends({}, h, {
         minificationMap: h.useMinification
           ? h.minificationMap

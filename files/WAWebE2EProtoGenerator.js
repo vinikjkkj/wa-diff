@@ -890,38 +890,41 @@ __d(
     }
     var G = 32;
     function z(e) {
-      return j(
-        r("WAWebStructuredClone")(e),
-        o("WAWebProtobufsE2E.pb").MessageSpec,
-        0,
-      );
+      return j({
+        depth: 0,
+        node: r("WAWebStructuredClone")(e),
+        spec: o("WAWebProtobufsE2E.pb").MessageSpec,
+      });
     }
-    function j(e, t, n) {
-      if (n > G)
+    function j(e) {
+      var t = e.depth,
+        n = e.node,
+        a = e.spec;
+      if (t > G)
         throw r("err")("coexv2 relay sanitize exceeded max nesting depth");
       for (
-        var a = o("WAProtoCompile").compileSpec(t),
-          i = a.meta,
-          l = a.names,
-          s = a.types,
-          u = 0;
-        u < l.length;
-        u++
+        var i = o("WAProtoCompile").compileSpec(a),
+          l = i.meta,
+          s = i.names,
+          u = i.types,
+          c = 0;
+        c < s.length;
+        c++
       ) {
-        var c = e[l[u]];
-        if (c != null) {
-          if (o("WAProtoUtils").isMessageType(s[u])) {
-            var d = o("WAProtoUtils").isRepeatedField(s[u]) ? c : [c];
-            for (var m of d) j(m, i[u], n + 1);
-          } else if (o("WAProtoUtils").isStringType(s[u]))
-            if (o("WAProtoUtils").isRepeatedField(s[u])) e[l[u]] = V(c);
+        var d = n[s[c]];
+        if (d != null) {
+          if (o("WAProtoUtils").isMessageType(u[c])) {
+            var m = o("WAProtoUtils").isRepeatedField(u[c]) ? d : [d];
+            for (var p of m) j({ depth: t + 1, node: p, spec: l[c] });
+          } else if (o("WAProtoUtils").isStringType(u[c]))
+            if (o("WAProtoUtils").isRepeatedField(u[c])) n[s[c]] = V(d);
             else {
-              var p = H(c);
-              p == null ? delete e[l[u]] : (e[l[u]] = p);
+              var _ = H(d);
+              _ == null ? delete n[s[c]] : (n[s[c]] = _);
             }
         }
       }
-      return e;
+      return n;
     }
     function K(e) {
       var t = r("WAWebStructuredClone")(e);

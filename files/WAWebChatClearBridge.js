@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WATimeUtils",
     "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebBackendApi",
     "WAWebClearChatSync",
     "WAWebDBQueryAndRemoveMessageHistory",
@@ -40,7 +41,7 @@ __d(
               [u],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 var e;
-                yield o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+                yield o("WAWebApiAddActiveMessageRange").addActiveMessageRange(
                   t.id.toString(),
                   o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                     "clearChat",

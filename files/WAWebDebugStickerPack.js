@@ -5,9 +5,9 @@ __d(
     "WAWebAttachMediaCollection",
     "WAWebCanvasUtils",
     "WAWebChatCollection",
+    "WAWebCreateFile",
     "WAWebFileSaver",
     "WAWebFileSaverTypes",
-    "WAWebFileUtils",
     "WAWebMediaInMemoryBlobCache",
     "WAWebRecentStickerCollectionMd",
     "WAWebStickerPackConstants",
@@ -123,7 +123,7 @@ __d(
           (yield i.processAttachmentsForChat(
             [
               {
-                file: o("WAWebFileUtils").createFile(
+                file: o("WAWebCreateFile").createFile(
                   [n.stickerPackZip],
                   "Kewwl Emoji",
                   { type: "application/zip" },
@@ -136,7 +136,7 @@ __d(
             yield i.processAttachmentsForChat(
               [
                 {
-                  file: o("WAWebFileUtils").createFile(
+                  file: o("WAWebCreateFile").createFile(
                     [c],
                     "sticker_pack_thumbnail",
                     { type: "image/png" },

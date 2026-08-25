@@ -5,6 +5,7 @@ __d(
     "WAPromiseDelays",
     "WAWebApiContact",
     "WAWebCurrentUser",
+    "WAWebLidMigrationLogging",
     "WAWebLidMigrationUtils",
     "WAWebLogoutReasonConstants",
     "WAWebSocketLogoutJob",
@@ -15,7 +16,7 @@ __d(
       try {
         o("WAWebLidMigrationUtils").shouldHaveAccountLid(t.id) &&
           t.accountLid == null &&
-          (o("WAWebLidMigrationUtils").logLidMetadata(),
+          (o("WAWebLidMigrationLogging").logLidMetadata(),
           o("WALogger")
             .ERROR(
               e ||
@@ -33,7 +34,7 @@ __d(
         if (n != null && !n.isLid()) {
           var r = o("WAWebApiContact").getCurrentLid(n),
             a = r == null || !r.isLid();
-          (o("WAWebLidMigrationUtils").logLidMetadata(),
+          (o("WAWebLidMigrationLogging").logLidMetadata(),
             o("WALogger")
               .ERROR(
                 s ||

@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebCurrentUser",
     "WAWebLid1X1MigrationGating",
+    "WAWebLidMigrationLogging",
     "WAWebLidMigrationUtils",
     "WAWebSchemaChat",
     "WAWebWid",
@@ -24,7 +25,7 @@ __d(
             (o("WAWebLidMigrationUtils").toLid(
               o("WAWebWidFactory").createWid(a.id),
             ) == null &&
-              (o("WAWebLidMigrationUtils").logLidMetadata(),
+              (o("WAWebLidMigrationLogging").logLidMetadata(),
               o("WAWebCurrentUser").isEmployee() &&
                 (o("WALogger").LOG(
                   e ||
@@ -52,7 +53,7 @@ __d(
               "WAWebLid1X1MigrationGating",
             ).Lid1X1MigrationUtils.isLidMigrated() && a.accountLid == null)
           ) {
-            o("WAWebLidMigrationUtils").logLidMetadata();
+            o("WAWebLidMigrationLogging").logLidMetadata();
             var t = o("WAWebWidFactory").createWid(a.id);
             throw (
               o("WALogger").LOG(

@@ -6,6 +6,7 @@ __d(
     "WALongInt",
     "WATimeUtils",
     "WAWebDBDeleteAssociatedMsgsByMsgKey",
+    "WAWebDBMessageRangeIndex",
     "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
     "WAWebLidMigrationUtils",
@@ -32,11 +33,13 @@ __d(
           ["messageRangeIndex"],
           o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
             e,
-            o("WAWebDBMessageUtils").MessagePropertyType.IncomingChatMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType
+              .IncomingChatMessage,
           ),
           o("WAWebDBMessageStoreUtils").endOfMessageRange(
             e,
-            o("WAWebDBMessageUtils").MessagePropertyType.IncomingChatMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType
+              .IncomingChatMessage,
           ),
           { lowerInclusive: !0, reverse: !0, limit: 1, shouldDecrypt: !1 },
         )
@@ -56,11 +59,11 @@ __d(
           ["messageRangeIndex"],
           o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
             e,
-            o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
           o("WAWebDBMessageStoreUtils").endOfMessageRange(
             e,
-            o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
           { lowerInclusive: !0, reverse: !0, limit: 1, shouldDecrypt: !1 },
         )
@@ -80,11 +83,11 @@ __d(
           ["messageRangeIndex"],
           o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
             e,
-            o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
           o("WAWebDBMessageStoreUtils").endOfMessageRange(
             e,
-            o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
           ),
           { lowerInclusive: !0, reverse: !1, limit: 1, shouldDecrypt: !1 },
         )
@@ -111,7 +114,8 @@ __d(
                 ["messageRangeIndex"],
                 (a = o("WAWebDBMessageStoreUtils")).beginningOfMessageRange(
                   e,
-                  (i = o("WAWebDBMessageUtils")).MessagePropertyType.Outgoing,
+                  (i = o("WAWebDBMessageRangeIndex")).MessagePropertyType
+                    .Outgoing,
                   t,
                 ),
                 a.endOfMessageRange(e, i.MessagePropertyType.Outgoing),
@@ -227,7 +231,8 @@ __d(
               );
             if (
               (n ===
-                o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage &&
+                o("WAWebDBMessageRangeIndex").MessagePropertyType
+                  .SystemMessage &&
                 (a = a.filter(function (e) {
                   return !o(
                     "WAWebDBMessageStoreUtils",
@@ -242,7 +247,8 @@ __d(
               });
             if (
               (n ===
-                o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage &&
+                o("WAWebDBMessageRangeIndex").MessagePropertyType
+                  .SystemMessage &&
                 (r == null ? void 0 : r.skipRecentSystemMessages) !== !1 &&
                 (a = a.filter(function (e) {
                   return !(
@@ -264,7 +270,8 @@ __d(
                     o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
                   );
                 })),
-              n === o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage)
+              n ===
+                o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage)
             ) {
               for (var i, l = a.length - 1; l >= 0; l--)
                 if (
@@ -385,7 +392,7 @@ __d(
                     C(
                       t,
                       i,
-                      o("WAWebDBMessageUtils").MessagePropertyType
+                      o("WAWebDBMessageRangeIndex").MessagePropertyType
                         .IncomingChatMessage,
                       r,
                     ),
@@ -394,7 +401,8 @@ __d(
                     C(
                       t,
                       i,
-                      o("WAWebDBMessageUtils").MessagePropertyType.Outgoing,
+                      o("WAWebDBMessageRangeIndex").MessagePropertyType
+                        .Outgoing,
                       r,
                     ),
                   ));
@@ -404,7 +412,7 @@ __d(
                     C(
                       t,
                       p,
-                      o("WAWebDBMessageUtils").MessagePropertyType
+                      o("WAWebDBMessageRangeIndex").MessagePropertyType
                         .SystemMessage,
                       r,
                     ),

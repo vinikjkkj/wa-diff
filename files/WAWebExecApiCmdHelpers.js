@@ -3,11 +3,11 @@ __d(
   [
     "Promise",
     "WAWebContactUtils",
+    "WAWebCreateFile",
     "WAWebDeepLinkOpenWamEvent",
     "WAWebDrawerManager",
     "WAWebExternalCtxAuthoriseWAChat",
     "WAWebExternalCtxConfig",
-    "WAWebFileUtils",
     "WAWebModalManager",
     "WAWebNoop",
     "WAWebOpenChatFlow.react",
@@ -190,7 +190,7 @@ __d(
                   r = yield n.blob(),
                   a = n.headers.get("Content-Type") || r.type,
                   i = g(n, t.toString() + "." + a);
-                return o("WAWebFileUtils").createFile([r], i, { type: a });
+                return o("WAWebCreateFile").createFile([r], i, { type: a });
               },
             );
             return function (t, n) {

@@ -5,16 +5,18 @@ __d(
     var e = 1728e5,
       l = 7200 * 60 * 1e3,
       s = 50,
-      u = n("$InternalEnum").Mirrored(["DELIVERING", "READY", "SENT"]);
-    function c(t, n, r, o, a) {
-      var i = r > 0 && n >= r,
-        c = t <= a - l;
-      if (i || c) return u.SENT;
-      var d = t <= a - e,
-        m = n > 0 ? (o / n) * 100 : 0;
-      return d || m > s ? u.READY : u.DELIVERING;
+      u = n("$InternalEnum").Mirrored(["DELIVERING", "READY", "SENT"]),
+      c = { readRateThresholdPercent: s, readyDelayMs: e, sentDelayMs: l };
+    function d(e, t, n, r, o, a) {
+      a === void 0 && (a = c);
+      var i = n > 0 && t >= n,
+        l = e <= o - a.sentDelayMs;
+      if (i || l) return u.SENT;
+      var s = e <= o - a.readyDelayMs,
+        d = t > 0 ? (r / t) * 100 : 0;
+      return s || d > a.readRateThresholdPercent ? u.READY : u.DELIVERING;
     }
-    ((i.InsightStatus = u), (i.getInsightStatus = c));
+    ((i.InsightStatus = u), (i.getInsightStatus = d));
   },
   66,
 );

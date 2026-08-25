@@ -387,6 +387,7 @@ __d(
       YOU_REQUESTED_CHIP: 382,
       OTHERS_REQUESTED_CHIP: 383,
       ALL_CHIP: 384,
+      PILL_BUTTON: 385,
     });
     i.PAYMENT_ACTION_TARGETS = e;
   },

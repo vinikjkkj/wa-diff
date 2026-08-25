@@ -1,8 +1,8 @@
 __d(
   "WAWebDBSearchByDate",
   [
+    "WAWebDBMessageRangeIndex",
     "WAWebDBMessageStoreUtils",
-    "WAWebDBMessageUtils",
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
@@ -21,8 +21,18 @@ __d(
             a = t.incoming,
             i = t.searchingBefore,
             l = t.startTimestampSeconds,
-            s = o("WAWebDBMessageUtils").craftMessageRangeIndex(n, a, !1, l),
-            u = o("WAWebDBMessageUtils").craftMessageRangeIndex(n, a, !1, r),
+            s = o("WAWebDBMessageRangeIndex").craftMessageRangeIndex(
+              n,
+              a,
+              !1,
+              l,
+            ),
+            u = o("WAWebDBMessageRangeIndex").craftMessageRangeIndex(
+              n,
+              a,
+              !1,
+              r,
+            ),
             c = yield o("WAWebSchemaMessage")
               .getMessageTable()
               .between(

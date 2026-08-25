@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebChatDbUpdatesApi",
     "WAWebMessageRangeUtils",
     "WAWebPinChatSync",
@@ -299,7 +300,7 @@ __d(
                     .readBuffer(),
                   u = function () {
                     return o(
-                      "WAWebApiActiveMessageRanges",
+                      "WAWebApiAddActiveMessageRange",
                     ).addActiveMessageRange(
                       n.toString(),
                       o("WAWebApiActiveMessageRanges").getActiveRangeAction(
@@ -482,7 +483,7 @@ __d(
                                 ])),
                             ),
                               yield o(
-                                "WAWebApiActiveMessageRanges",
+                                "WAWebApiAddActiveMessageRange",
                               ).addActiveMessageRange(
                                 n.toString(),
                                 o(

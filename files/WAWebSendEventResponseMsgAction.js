@@ -5,7 +5,7 @@ __d(
     "WAWebCreateEncryptedEventResponseMsgData",
     "WAWebCreateEventResponseMsgData",
     "WAWebFrontendMsgGetters",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
@@ -28,7 +28,7 @@ __d(
             n = r("nullthrows")(
               o("WAWebFrontendMsgGetters").getAsEventCreation(t),
             ),
-            a = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            a = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
             );
@@ -48,7 +48,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+          var n = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
             ),

@@ -151,6 +151,7 @@ __d(
       coex_calling_enabled_business: [23933, "bool", !1, !0],
       coex_calling_permissions_3p_enabled: [23464, "bool", !1, !0],
       cross_device_message_editing: [28340, "bool", !1, !0],
+      ctwa_ctx_disclosure_update_enabled: [35558, "bool", !1, !1],
       ctwa_fix_unknown_agm_insertion_issue_for_businesses: [
         28964,
         "bool",
@@ -213,6 +214,9 @@ __d(
       enable_join_ongoing_call_refactor: [34093, "bool", !1, !1],
       enable_lanczos_upscaler_for_photos_bitmap: [35482, "int", 0, 0],
       enable_lanczos_upscaler_for_vod_bitmap: [34626, "int", 0, 0],
+      enable_lanczos_video_chat_fullscreen: [35567, "bool", !1, !1],
+      enable_lanczos_video_inline_chat: [35569, "bool", !1, !1],
+      enable_lanczos_video_status_fullscreen: [35568, "bool", !1, !1],
       enable_lazy_loading_of_call_view_elements: [5053, "bool", !1, !1],
       enable_lid_call_link: [8180, "bool", !1, !1],
       enable_new_call_link_representation: [16589, "bool", !1, !1],

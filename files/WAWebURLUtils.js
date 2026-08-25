@@ -7,8 +7,8 @@ __d(
     "WALogger",
     "WAMemoizeCache",
     "WATypeUtils",
+    "WAWebCreateFile",
     "WAWebDataUrlToBlob",
-    "WAWebFileUtils",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebURLValidSchemes",
   ],
@@ -92,7 +92,7 @@ __d(
         },
         dataURLtoFile: function (t) {
           var e = this.parseDataURL(t).mimetype;
-          return o("WAWebFileUtils").createFile(
+          return o("WAWebCreateFile").createFile(
             [o("WAWebDataUrlToBlob").dataURLtoBlob(t)],
             "",
             { type: e },

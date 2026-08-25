@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebArchiveChatSync",
     "WAWebDbErrors",
     "WAWebMessageRangeUtils",
@@ -39,7 +39,7 @@ __d(
                               );
                             return (
                               yield o(
-                                "WAWebApiActiveMessageRanges",
+                                "WAWebApiAddActiveMessageRange",
                               ).addActiveMessageRange(
                                 t.toString(),
                                 "archive",

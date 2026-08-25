@@ -103,18 +103,12 @@ __d(
         n = t.split(".");
       return n.length > 1 ? n[n.length - 1].toLowerCase() : null;
     }
-    function y(e, t, n) {
-      var r = n || {},
-        o = new Blob(e, r),
-        a = o;
-      return ((a.name = t), a);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (typeof t.text == "function") return t.text();
           var o = new FileReader();
           if (
@@ -141,10 +135,10 @@ __d(
           }
           return o.result;
         })),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function v(e) {
+    function b(e) {
       return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
     }
     ((l.FILETYPE = s),
@@ -155,9 +149,8 @@ __d(
       (l.getMimeTypeForFilepath = f),
       (l.removeTrailingDots = g),
       (l.getFileExtension = h),
-      (l.createFile = y),
-      (l.blobToText = C),
-      (l.isDocument = v));
+      (l.blobToText = y),
+      (l.isDocument = b));
   },
   98,
 );

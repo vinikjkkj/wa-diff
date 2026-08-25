@@ -11,6 +11,7 @@ __d(
     "WAWebAfterReadUtils",
     "WAWebCommonMsgUtils",
     "WAWebDBGroupHistoryPreProcessor",
+    "WAWebDBMessageRangeIndex",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
     "WAWebDBMsgUtils",
@@ -344,7 +345,7 @@ __d(
       try {
         i.type !== o("WAWebMsgType").MSG_TYPE.REACTION &&
           (_.messageRangeIndex = o(
-            "WAWebDBMessageUtils",
+            "WAWebDBMessageRangeIndex",
           ).craftMessageRangeIndex(
             t,
             !r("WAWebMsgKey").fromString(i.id).fromMe,

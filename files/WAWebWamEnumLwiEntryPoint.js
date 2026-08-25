@@ -103,6 +103,7 @@ __d(
       SMB_FAB: 115,
       SMB_FB_LINKING_UPSELL: 116,
       SMB_IG_LINKING_UPSELL: 117,
+      SMB_SELF_STATUS_BOOST_END_CARD: 118,
     });
     i.LWI_ENTRY_POINT = e;
   },

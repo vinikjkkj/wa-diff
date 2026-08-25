@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebCurrentUser",
+    "WAWebLidMigrationLogging",
     "WAWebLidMigrationUtils",
     "WAWebSchemaChat",
     "WAWebWidFactory",
@@ -28,7 +29,7 @@ __d(
                   .getChatTable()
                   .get(t.id.toString()),
                 g = o("WAWebLidMigrationUtils").toLid(t.id);
-              o("WAWebLidMigrationUtils").logLidMetadata();
+              o("WAWebLidMigrationLogging").logLidMetadata();
               var h =
                 "isEmployee? " +
                 o("WAWebCurrentUser").isEmployee().toString() +

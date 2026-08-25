@@ -8,7 +8,7 @@ __d(
     "WAWebAddonSendMsgData",
     "WAWebFrontendMsgGetters",
     "WAWebFrontendPollVoteGetters",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
@@ -107,7 +107,7 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
-            i = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            i = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               a,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
             ),

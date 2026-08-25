@@ -2,8 +2,8 @@ __d(
   "WAWebThreadsMetadataIdUtils",
   [
     "WALogger",
-    "WAWebDBMessageUtils",
     "WAWebMsgKey",
+    "WAWebOrderPreservingHex",
     "WAWebProtobufsE2E.pb",
     "WAWebThreadUtils",
     "err",
@@ -51,7 +51,7 @@ __d(
     }
     function m(e, t, n) {
       var r = o("WAWebThreadUtils").getThreadsTypeAsE2EValue(e),
-        a = o("WAWebDBMessageUtils").orderPreservingHex(n);
+        a = o("WAWebOrderPreservingHex").orderPreservingHex(n);
       return String(r) + "_" + t + "_" + a;
     }
     function p(e, t) {

@@ -4,7 +4,7 @@ __d(
     "WALogger",
     "WAWebActiveMessageRanges",
     "WAWebBackendApi",
-    "WAWebDBMessageUtils",
+    "WAWebDBMessageRangeIndex",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSchemaMessage",
@@ -71,19 +71,20 @@ __d(
               o("WAWebMsgType").MSG_TYPE.REACTION
             )
               return;
-            var d = o("WAWebDBMessageUtils").MessagePropertyType.cast(
+            var d = o("WAWebDBMessageRangeIndex").MessagePropertyType.cast(
               u == null ? void 0 : u.messageRangeIndex.split("_")[1],
             );
             o("WAWebSchemaMessage")
               .getMessageTable()
               .merge(s, {
                 messageRangeIndex: o(
-                  "WAWebDBMessageUtils",
+                  "WAWebDBMessageRangeIndex",
                 ).craftMessageRangeIndex(
                   a.toString(),
                   !1,
                   d ===
-                    o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage,
+                    o("WAWebDBMessageRangeIndex").MessagePropertyType
+                      .SystemMessage,
                   i,
                 ),
                 rcat: r,

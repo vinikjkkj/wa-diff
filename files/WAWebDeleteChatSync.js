@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebBackendApi",
     "WAWebBizCoexUtils",
     "WAWebChatDeleteBridge",
@@ -261,7 +262,7 @@ __d(
                       a,
                     )
                     .readBuffer();
-                yield o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+                yield o("WAWebApiAddActiveMessageRange").addActiveMessageRange(
                   t.toString(),
                   o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                     "deleteChat",
@@ -441,7 +442,7 @@ __d(
                                 ])),
                             ),
                               yield o(
-                                "WAWebApiActiveMessageRanges",
+                                "WAWebApiAddActiveMessageRange",
                               ).addActiveMessageRange(
                                 n.toString(),
                                 o(

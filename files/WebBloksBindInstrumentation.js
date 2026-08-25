@@ -6,7 +6,14 @@ __d(
     function e() {
       return Date.now();
     }
-    function l() {
+    var l = !1;
+    function s(e) {
+      l = !1;
+    }
+    function u() {
+      return l;
+    }
+    function c() {
       return {
         flushes: 0,
         passesEmitted: 0,
@@ -20,26 +27,28 @@ __d(
         windowStartMs: 0,
       };
     }
-    var s = l();
-    function u() {
-      return babelHelpers.extends({}, s);
+    var d = c();
+    function m() {
+      return babelHelpers.extends({}, d);
     }
-    function c() {
-      ((s.flushes = 0),
-        (s.passesEmitted = 0),
-        (s.passesSuppressed = 0),
-        (s.variableWritesApplied = 0),
-        (s.nodesVisited = 0),
-        (s.modelsRebuilt = 0),
-        (s.subtreesReusedAtEntry = 0),
-        (s.subtreesReusedAtExit = 0),
-        (s.bindMs = 0),
-        (s.windowStartMs = e()));
+    function p() {
+      ((d.flushes = 0),
+        (d.passesEmitted = 0),
+        (d.passesSuppressed = 0),
+        (d.variableWritesApplied = 0),
+        (d.nodesVisited = 0),
+        (d.modelsRebuilt = 0),
+        (d.subtreesReusedAtEntry = 0),
+        (d.subtreesReusedAtExit = 0),
+        (d.bindMs = 0),
+        (d.windowStartMs = e()));
     }
     ((i.bindClockNowMs = e),
-      (i.bindCounters = s),
-      (i.readBindCounters = u),
-      (i.resetBindCounters = c));
+      (i.setBindInstrumentationEnabled = s),
+      (i.isBindInstrumentationEnabled = u),
+      (i.bindCounters = d),
+      (i.readBindCounters = m),
+      (i.resetBindCounters = p));
   },
   66,
 );

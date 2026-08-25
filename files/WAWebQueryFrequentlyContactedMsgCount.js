@@ -3,7 +3,7 @@ __d(
   [
     "Promise",
     "WAJobOrchestratorTypes",
-    "WAWebDBMessageUtils",
+    "WAWebDBMessageRangeIndex",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
@@ -36,18 +36,12 @@ __d(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t = o("WAWebDBMessageUtils").craftMessageRangeIndex(
-                          e,
-                          !1,
-                          !1,
-                          a,
-                        ),
-                        n = o("WAWebDBMessageUtils").craftMessageRangeIndex(
-                          e,
-                          !1,
-                          !1,
-                          r,
-                        ),
+                      var t = o(
+                          "WAWebDBMessageRangeIndex",
+                        ).craftMessageRangeIndex(e, !1, !1, a),
+                        n = o(
+                          "WAWebDBMessageRangeIndex",
+                        ).craftMessageRangeIndex(e, !1, !1, r),
                         l = yield i.betweenCount(["messageRangeIndex"], t, n, {
                           lowerInclusive: !0,
                           upperInclusive: !0,

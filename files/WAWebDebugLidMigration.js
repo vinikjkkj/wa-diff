@@ -23,6 +23,7 @@ __d(
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebHistorySyncLidChatGating",
     "WAWebLid1X1MigrationGating",
+    "WAWebLidMigrationLogging",
     "WAWebLidMigrationUtils",
     "WAWebMexUpdateGroupPropertyJob",
     "WAWebMsgKeyNewId",
@@ -625,7 +626,7 @@ __d(
     }
     be.doc = "Get Lid migration source";
     function ve() {
-      o("WAWebLidMigrationUtils").logLidMetadata();
+      o("WAWebLidMigrationLogging").logLidMetadata();
     }
     ve.doc = "Log metadata about lid migration";
     function Se() {
@@ -1059,7 +1060,7 @@ __d(
       setChatLidOriginTypeToCTWA: Ae,
       isFakeLid: K,
       lidMigrationSource: be,
-      logLidMetadata: o("WAWebLidMigrationUtils").logLidMetadata,
+      logLidMetadata: o("WAWebLidMigrationLogging").logLidMetadata,
       logLidMetadataInfo: ve,
       isBlocklistMigrated: Se,
       simulateLidChangeNotification: Me,

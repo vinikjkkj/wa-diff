@@ -47,8 +47,9 @@ __d(
             (this.clientIdToScopedIdMapper = n),
             (this.subtreeReuseEnabled =
               e.objectSet.environment.enableBindSubtreeReuse),
-            (this.instrumentationEnabled =
-              e.objectSet.environment.enableBindInstrumentation),
+            (this.instrumentationEnabled = o(
+              "WebBloksBindInstrumentation",
+            ).isBindInstrumentationEnabled()),
             r)
           )
             if (
@@ -413,7 +414,7 @@ __d(
         );
       })();
     function d(e, t, n, r, a) {
-      var i = e.objectSet.environment.enableBindInstrumentation,
+      var i = o("WebBloksBindInstrumentation").isBindInstrumentationEnabled(),
         l = i ? o("WebBloksBindInstrumentation").bindClockNowMs() : 0,
         s = r != null ? n.withVariableUpdates(r) : n,
         u = m(e, t, s, a);

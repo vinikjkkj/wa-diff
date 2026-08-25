@@ -15,7 +15,7 @@ __d(
     "WAWebDBUpdateMessageTable",
     "WAWebErrorType",
     "WAWebFrontendMsgGetters",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMessageEditUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
@@ -137,7 +137,7 @@ __d(
         a = e.options,
         i = e.text,
         l = o("WAWebFrontendMsgGetters").getChat(n),
-        s = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+        s = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
           l,
           o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
         ),

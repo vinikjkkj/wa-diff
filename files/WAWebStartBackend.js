@@ -237,7 +237,6 @@ __d(
           (o(
             "WAWebUserPrefsWorkerCompatibleMainThread",
           ).initializeUserPrefsWorkerCompatibleMainThread(),
-            o("WAWebUserPrefsMeUser").ensureMyJidsFromPrefs(),
             o("WAWebStartBackendWorker").startBackendWorker(),
             E || k());
           var e = yield o(

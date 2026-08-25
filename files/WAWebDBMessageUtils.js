@@ -4,87 +4,65 @@ __d(
     "$InternalEnum",
     "WAWebDBCAPIPermissions",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebOrderPreservingHex",
     "WAWebThreadId",
     "WAWebThreadUtils",
     "WAWebVcardParsingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
-        IncomingChatMessage: "1",
-        Outgoing: "2",
-        SystemMessage: "3",
-      }),
-      s = n("$InternalEnum")({
-        Default: "",
-        GroupStatus: "gs",
-        NewsletterStatus: "ns",
-      });
-    function u(e) {
-      var t = e.toString(16);
-      return (t.length - 1).toString(16) + t;
-    }
-    function c(e) {
-      return parseInt(e.substring(1), 16);
-    }
-    function d(e) {
+      Default: "",
+      GroupStatus: "gs",
+      NewsletterStatus: "ns",
+    });
+    function s(e) {
       return e.toString() + "_/";
     }
-    function m(e) {
+    function u(e) {
       return e.toString() + "_g";
     }
-    function p(e) {
-      var t = e.chatId,
-        n = e.inChatMsgId,
-        r = e.internalIdPrefix,
-        o = r === void 0 ? s.Default : r,
-        a = u(n);
-      return "" + o + t + "_" + a + "_m";
+    function c(t) {
+      var n = t.chatId,
+        r = t.inChatMsgId,
+        a = t.internalIdPrefix,
+        i = a === void 0 ? e.Default : a,
+        l = o("WAWebOrderPreservingHex").orderPreservingHex(r);
+      return "" + i + n + "_" + l + "_m";
     }
-    function _(e) {
+    function d(e) {
       var t = e.split("_")[1];
-      return c(t);
+      return o("WAWebOrderPreservingHex").undoOrderPreservingHex(t);
     }
-    function f(e) {
+    function m(e) {
       var t = o("WAWebThreadUtils").getThreadsTypeAsE2EValue(e.type);
       return String(t) + "_" + e.key.toString() + "_";
     }
-    function g(e, t) {
-      var n = u(e),
+    function p(e, t) {
+      var n = o("WAWebOrderPreservingHex").orderPreservingHex(e),
         r = o("WAWebThreadUtils").getThreadsTypeAsE2EValue(t.type);
       return String(r) + "_" + t.key.toString() + "_" + n;
     }
-    function h(e) {
+    function _(e) {
       var t = e.split("_");
       return r("WAWebThreadId").from(t.slice(0, t.length - 1).join("_"));
     }
-    function y(e, t) {
+    function f(e, t) {
       var n = e.internalThreadIDs;
       if (n == null || n.length === 0) return !1;
-      var r = f(t);
+      var r = m(t);
       return n.some(function (e) {
         return e.startsWith(r);
       });
     }
-    function C(e) {
+    function g(e) {
       var t = e.internalThreadIDs;
       return t == null || t.length === 0
         ? []
         : t.map(function (e) {
-            return h(e);
+            return _(e);
           });
     }
-    function b(t, n, r, o) {
-      var a;
-      return (
-        r
-          ? (a = e.SystemMessage)
-          : n
-            ? (a = e.IncomingChatMessage)
-            : (a = e.Outgoing),
-        t + "_" + a + "_" + (o != null ? u(o) : "")
-      );
-    }
-    function v(e) {
+    function h(e) {
       var t = [];
       if (e.type === "vcard") t = [e.body];
       else if (e.kind === "multiVcard")
@@ -103,23 +81,23 @@ __d(
         );
       }, []);
     }
-    function S(e) {
-      var t = e.isGroupStatus,
-        n = e.isNewsletterStatus,
-        r = s.Default;
+    function y(t) {
+      var n = t.isGroupStatus,
+        r = t.isNewsletterStatus,
+        o = e.Default;
       return (
-        t === !0 ? (r = s.GroupStatus) : n === !0 && (r = s.NewsletterStatus),
-        r
+        n === !0 ? (o = e.GroupStatus) : r === !0 && (o = e.NewsletterStatus),
+        o
       );
     }
-    function R(e) {
+    function C(e) {
       return e.type !== "interactive" ||
         (e == null ? void 0 : e.interactivePayload) == null
         ? !1
         : e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").CALL_PERMISSION_REQUEST;
     }
-    function L(e) {
+    function b(e) {
       var t = e.quotedMsg;
       return (t == null ? void 0 : t.type) !== "interactive" ||
         (t == null ? void 0 : t.interactivePayload) == null
@@ -127,7 +105,7 @@ __d(
         : t.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").CALL_PERMISSION_REQUEST;
     }
-    function E(e) {
+    function v(e) {
       var t,
         n = e.quotedMsg;
       if ((n == null ? void 0 : n.type) !== "interactive")
@@ -157,25 +135,21 @@ __d(
       }
       return o("WAWebDBCAPIPermissions").CloudAPICallingPermissionType.PENDING;
     }
-    ((l.MessagePropertyType = e),
-      (l.InternalIdPrefix = s),
-      (l.orderPreservingHex = u),
-      (l.undoOrderPreservingHex = c),
-      (l.beginningOfChat = d),
-      (l.endOfChat = m),
-      (l.craftInternalId = p),
-      (l.getInChatMsgId = _),
-      (l.craftInternalThreadIdPrefix = f),
-      (l.craftInternalThreadId = g),
-      (l.getThreadIdFromInternalThreadId = h),
-      (l.messageHasThreadId = y),
-      (l.getThreadIdsFromMessage = C),
-      (l.craftMessageRangeIndex = b),
-      (l.getVcardWids = v),
-      (l.getPrefixForInternalId = S),
-      (l.isCoexCallingPermissionsRequestMessage = R),
-      (l.isCoexCallingPermissionsResponseMessage = L),
-      (l.getSelectedCallingPermissions = E));
+    ((l.InternalIdPrefix = e),
+      (l.beginningOfChat = s),
+      (l.endOfChat = u),
+      (l.craftInternalId = c),
+      (l.getInChatMsgId = d),
+      (l.craftInternalThreadIdPrefix = m),
+      (l.craftInternalThreadId = p),
+      (l.getThreadIdFromInternalThreadId = _),
+      (l.messageHasThreadId = f),
+      (l.getThreadIdsFromMessage = g),
+      (l.getVcardWids = h),
+      (l.getPrefixForInternalId = y),
+      (l.isCoexCallingPermissionsRequestMessage = C),
+      (l.isCoexCallingPermissionsResponseMessage = b),
+      (l.getSelectedCallingPermissions = v));
   },
   98,
 );

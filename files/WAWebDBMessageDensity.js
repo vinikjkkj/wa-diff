@@ -2,7 +2,7 @@ __d(
   "WAWebDBMessageDensity",
   [
     "Promise",
-    "WAWebDBMessageUtils",
+    "WAWebDBMessageRangeIndex",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
   ],
@@ -25,12 +25,9 @@ __d(
                   a = u.getDate(),
                   c = Math.floor(u.getTime() / 1e3),
                   d = c + 86400 - 1,
-                  m = (r = o("WAWebDBMessageUtils")).craftMessageRangeIndex(
-                    t,
-                    !0,
-                    !1,
-                    c,
-                  ),
+                  m = (r = o(
+                    "WAWebDBMessageRangeIndex",
+                  )).craftMessageRangeIndex(t, !0, !1, c),
                   p = r.craftMessageRangeIndex(t, !0, !1, d),
                   _ = r.craftMessageRangeIndex(t, !1, !1, c),
                   f = r.craftMessageRangeIndex(t, !1, !1, d),

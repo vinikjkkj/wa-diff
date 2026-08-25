@@ -1,80 +1,25 @@
 __d(
   "WAWebChatThemeA11yName",
-  ["fbt", "WAWebChatThemeEnums"],
+  ["fbt", "WAWebChatThemeColorSchemeA11yName$FbtEnum", "WAWebChatThemeEnums"],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
-      var n = o("WAWebChatThemeEnums").Theme.cast(e.replace(/@.*/, "")),
-        r = t === "dark";
-      return (function (e) {
-        if (
-          e === o("WAWebChatThemeEnums").Theme.Default ||
-          e === o("WAWebChatThemeEnums").Theme.WhatsAppGreen
-        )
-          return r ? s._(/*BTDS*/ "Dark Green") : s._(/*BTDS*/ "Light Green");
-        if (e === o("WAWebChatThemeEnums").Theme.PearlIndigo)
-          return r
-            ? s._(/*BTDS*/ "Dark Blue Gray")
-            : s._(/*BTDS*/ "Light Purple");
-        if (e === o("WAWebChatThemeEnums").Theme.TyrianPurple)
-          return r
-            ? s._(/*BTDS*/ "Dark Red Purple")
-            : s._(/*BTDS*/ "Light Magenta");
-        if (e === o("WAWebChatThemeEnums").Theme.SunsetOrange)
-          return r ? s._(/*BTDS*/ "Dark Brown") : s._(/*BTDS*/ "Light Orange");
-        if (e === o("WAWebChatThemeEnums").Theme.MerinoTeal)
-          return r
-            ? s._(/*BTDS*/ "Dark Green Blue")
-            : s._(/*BTDS*/ "Light Teal");
-        if (
-          e === o("WAWebChatThemeEnums").Theme.RoyalBlue ||
-          e === o("WAWebChatThemeEnums").Theme.DefaultBlue
-        )
-          return r ? s._(/*BTDS*/ "Dark Navy") : s._(/*BTDS*/ "Light Blue");
-        if (
-          e === o("WAWebChatThemeEnums").Theme.DarkCerulean ||
-          e === o("WAWebChatThemeEnums").Theme.SkyBlue
-        )
-          return r
-            ? s._(/*BTDS*/ "Dark Indigo Blue")
-            : s._(/*BTDS*/ "Pale Blue");
-        if (e === o("WAWebChatThemeEnums").Theme.CharcoalGreen)
-          return r
-            ? s._(/*BTDS*/ "Dark Gray Green")
-            : s._(/*BTDS*/ "Light Gray Green");
-        if (e === o("WAWebChatThemeEnums").Theme.PersianPlum)
-          return r ? s._(/*BTDS*/ "Dark Red Brown") : s._(/*BTDS*/ "Light Red");
-        if (
-          e === o("WAWebChatThemeEnums").Theme.DuneMono ||
-          e === o("WAWebChatThemeEnums").Theme.DefaultMono
-        )
-          return r ? s._(/*BTDS*/ "Dark Gray") : s._(/*BTDS*/ "Light Gray");
-        if (e === o("WAWebChatThemeEnums").Theme.Brown)
-          return r ? s._(/*BTDS*/ "Dark Brown") : s._(/*BTDS*/ "Light Brown");
-        if (e === o("WAWebChatThemeEnums").Theme.Cream)
-          return r ? s._(/*BTDS*/ "Dark Cream") : s._(/*BTDS*/ "Light Cream");
-        if (e === o("WAWebChatThemeEnums").Theme.Emerald)
-          return r
-            ? s._(/*BTDS*/ "Dark Emerald")
-            : s._(/*BTDS*/ "Light Emerald");
-        if (e === o("WAWebChatThemeEnums").Theme.Lemon)
-          return r ? s._(/*BTDS*/ "Dark Yellow") : s._(/*BTDS*/ "Light Yellow");
-        if (e === o("WAWebChatThemeEnums").Theme.Lime)
-          return r ? s._(/*BTDS*/ "Dark Lime") : s._(/*BTDS*/ "Light Lime");
-        if (e === o("WAWebChatThemeEnums").Theme.Pink)
-          return r ? s._(/*BTDS*/ "Dark Pink") : s._(/*BTDS*/ "Pink");
-        if (e === o("WAWebChatThemeEnums").Theme.Red)
-          return r ? s._(/*BTDS*/ "Dark Red") : s._(/*BTDS*/ "Light Red");
-        if (e === o("WAWebChatThemeEnums").Theme.SunriseOrange)
-          return r ? s._(/*BTDS*/ "Dark Orange") : s._(/*BTDS*/ "Peach");
-        if (e === o("WAWebChatThemeEnums").Theme.WarmYellow)
-          return r
-            ? s._(/*BTDS*/ "Dark Warm Yellow")
-            : s._(/*BTDS*/ "Light Warm Yellow");
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            e,
-        );
-      })(n != null ? n : o("WAWebChatThemeEnums").Theme.Default);
+      var n,
+        a = e,
+        i =
+          e === o("WAWebChatThemeEnums").Theme.Default
+            ? o("WAWebChatThemeEnums").Theme.WhatsAppGreen
+            : (n = o("WAWebChatThemeEnums").Theme.cast(a.replace(/@.*/, ""))) !=
+                null
+              ? n
+              : o("WAWebChatThemeEnums").Theme.WhatsAppGreen,
+        l = o("WAWebChatThemeEnums").hasVibrantBubbleColor(e)
+          ? "vibrant"
+          : "tonal",
+        u = i + ":" + t + ":" + l;
+      return s._(
+        /*BTDS*/ '_j{"WhatsApp-Green:dark:tonal":"Dark Green","WhatsApp-Green:dark:vibrant":"Dark WhatsApp Green","WhatsApp-Green:light:tonal":"Light Green","WhatsApp-Green:light:vibrant":"WhatsApp Green","Pearl-Indigo:dark:tonal":"Dark Blue Gray","Pearl-Indigo:dark:vibrant":"Dark Purple","Pearl-Indigo:light:tonal":"Light Purple","Pearl-Indigo:light:vibrant":"Purple","Tyrian-Purple:dark:tonal":"Dark Red Purple","Tyrian-Purple:dark:vibrant":"Medium Purple","Tyrian-Purple:light:tonal":"Light Magenta","Tyrian-Purple:light:vibrant":"Magenta","Sunset-Orange:dark:tonal":"Dark Brown","Sunset-Orange:dark:vibrant":"Dark Orange","Sunset-Orange:light:tonal":"Light Orange","Sunset-Orange:light:vibrant":"Sunset Orange","Merino-Teal:dark:tonal":"Dark Green Blue","Merino-Teal:dark:vibrant":"Dark Teal","Merino-Teal:light:tonal":"Light Teal","Merino-Teal:light:vibrant":"Teal","Royal-Blue:dark:tonal":"Dark Navy","Royal-Blue:dark:vibrant":"Dark Blue","Royal-Blue:light:tonal":"Light Blue","Royal-Blue:light:vibrant":"Blue","Dark-Cerulean:dark:tonal":"Dark Indigo Blue","Dark-Cerulean:dark:vibrant":"Dark Navy","Dark-Cerulean:light:tonal":"Pale Blue","Dark-Cerulean:light:vibrant":"Navy","Charcoal-Green:dark:tonal":"Dark Gray Green","Charcoal-Green:dark:vibrant":"Olive Green","Charcoal-Green:light:tonal":"Light Gray Green","Charcoal-Green:light:vibrant":"Dark Brown Green","Persian-Plum:dark:tonal":"Dark Red Brown","Persian-Plum:dark:vibrant":"Dark Red","Persian-Plum:light:tonal":"Light Red","Persian-Plum:light:vibrant":"Dark Red","Dune-Mono:dark:tonal":"Dark Gray","Dune-Mono:dark:vibrant":"Medium Gray","Dune-Mono:light:tonal":"Light Gray","Dune-Mono:light:vibrant":"Dark Gray","Default-Blue:dark:tonal":"Dark Navy","Default-Blue:dark:vibrant":"Dark Blue","Default-Blue:light:tonal":"Light Blue","Default-Blue:light:vibrant":"Blue","Default-Mono:dark:tonal":"Dark Gray","Default-Mono:dark:vibrant":"Medium Gray","Default-Mono:light:tonal":"Light Gray","Default-Mono:light:vibrant":"Dark Gray","Sky-Blue:dark:tonal":"Dark Indigo Blue","Sky-Blue:dark:vibrant":"Dark Navy","Sky-Blue:light:tonal":"Pale Blue","Sky-Blue:light:vibrant":"Navy","Brown:dark:tonal":"Dark Brown","Brown:dark:vibrant":"Medium Brown","Brown:light:tonal":"Light Brown","Brown:light:vibrant":"Brown","Cream:dark:tonal":"Dark Cream","Cream:dark:vibrant":"Dark Lemon","Cream:light:tonal":"Light Cream","Cream:light:vibrant":"Cream","Emerald:dark:tonal":"Dark Emerald","Emerald:dark:vibrant":"Dark Emerald","Emerald:light:tonal":"Light Emerald","Emerald:light:vibrant":"Emerald","Lemon:dark:tonal":"Dark Yellow","Lemon:dark:vibrant":"Dark Lemon","Lemon:light:tonal":"Light Yellow","Lemon:light:vibrant":"Lemon","Lime:dark:tonal":"Dark Lime","Lime:dark:vibrant":"Dark Lime","Lime:light:tonal":"Light Lime","Lime:light:vibrant":"Vibrant Lime","Pink:dark:tonal":"Dark Pink","Pink:dark:vibrant":"Medium Pink","Pink:light:tonal":"Pink","Pink:light:vibrant":"Pink","Red:dark:tonal":"Dark Red","Red:dark:vibrant":"Medium Red","Red:light:tonal":"Light Red","Red:light:vibrant":"Red","Sunrise-Orange:dark:tonal":"Dark Orange","Sunrise-Orange:dark:vibrant":"Sunset Orange","Sunrise-Orange:light:tonal":"Peach","Sunrise-Orange:light:vibrant":"Sunrise Orange","Warm-Yellow:dark:tonal":"Dark Warm Yellow","Warm-Yellow:dark:vibrant":"Dark Gold","Warm-Yellow:light:tonal":"Light Warm Yellow","Warm-Yellow:light:vibrant":"Gold"}',
+        [s._enum(u, r("WAWebChatThemeColorSchemeA11yName$FbtEnum"))],
+      );
     }
     l.getColorSchemeA11yName = e;
   },

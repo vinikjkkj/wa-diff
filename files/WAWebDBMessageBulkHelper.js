@@ -13,6 +13,7 @@ __d(
     "WAWebDBMessageUtils",
     "WAWebDBStoreEncryptedMsgs",
     "WAWebDBStoreNewsletterEncryptedMsgs",
+    "WAWebLidMigrationLogging",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
@@ -453,7 +454,7 @@ __d(
                               o("WAWebUsernameTypes").LidOriginType.PNH_CTWA)))
                     : e.accountLid == null &&
                       (u ||
-                        (o("WAWebLidMigrationUtils").logLidMetadata(),
+                        (o("WAWebLidMigrationLogging").logLidMetadata(),
                         (u = !0)),
                       s.length < 3 && s.push(S.toLogString()))),
                 v

@@ -6,7 +6,7 @@ __d(
     "WAWebAck",
     "WAWebChatGetters",
     "WAWebGetEphemeralFieldsMsgActionsUtils",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
@@ -61,7 +61,7 @@ __d(
             i = e.pollType,
             l = e.quotedMsg,
             s = n.id,
-            u = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            u = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               n,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
             ),

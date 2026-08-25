@@ -3,7 +3,7 @@ __d(
   [
     "WAWebACSTokenConfig",
     "WAWebBuildConstants",
-    "WAWebFileUtils",
+    "WAWebCreateFile",
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebOHAIClient",
@@ -43,7 +43,10 @@ __d(
       return (
         t.append("app_id", n),
         t.append("app_version", o("WAWebBuildConstants").VERSION_STR),
-        t.append("events", o("WAWebFileUtils").createFile([_(e)], "snapl.txt")),
+        t.append(
+          "events",
+          o("WAWebCreateFile").createFile([_(e)], "snapl.txt"),
+        ),
         t
       );
     }

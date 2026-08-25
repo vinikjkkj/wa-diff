@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebDbErrors",
     "WAWebMarkChatAsReadSync",
     "WAWebMessageRangeUtils",
@@ -21,7 +21,7 @@ __d(
             [],
             [t],
             function () {
-              return o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+              return o("WAWebApiAddActiveMessageRange").addActiveMessageRange(
                 e.toString(),
                 "markChatAsRead",
                 t.binarySyncAction,

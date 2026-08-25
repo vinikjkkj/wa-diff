@@ -6,6 +6,7 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebApiChatCommon",
     "WAWebApiOrphanTcToken",
     "WAWebBackendApi",
@@ -278,7 +279,9 @@ __d(
                 ],
                 g,
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  (yield o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+                  (yield o(
+                    "WAWebApiAddActiveMessageRange",
+                  ).addActiveMessageRange(
                     e.toString(),
                     o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                       "deleteChat",

@@ -17,6 +17,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebOrderPreservingHex",
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
@@ -36,7 +37,7 @@ __d(
     function p(e) {
       if (e == null || e.length < 3) return null;
       var t = e.split("_")[2];
-      return t ? o("WAWebDBMessageUtils").undoOrderPreservingHex(t) : null;
+      return t ? o("WAWebOrderPreservingHex").undoOrderPreservingHex(t) : null;
     }
     function _(e, t, n) {
       var r = n != null ? m(n) : "";

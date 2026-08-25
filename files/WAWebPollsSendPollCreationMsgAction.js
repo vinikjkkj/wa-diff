@@ -9,7 +9,7 @@ __d(
     "WAWebChatGetters",
     "WAWebFrontendChatGetters",
     "WAWebGetEphemeralFieldsMsgActionsUtils",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMessageAssociation.flow",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
@@ -181,7 +181,7 @@ __d(
             y = s.pollType,
             C = r("WAWebWid").isNewsletter(n.id),
             b = n.id,
-            v = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            v = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               n,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
             ),

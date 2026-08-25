@@ -1,6 +1,6 @@
 __d(
   "WAWebEditedMedia",
-  ["WAWebFileUtils", "WAWebURLUtils"],
+  ["WAWebCreateFile", "WAWebURLUtils"],
   function (t, n, r, o, a, i, l) {
     var e = function e(t) {
       var n = this,
@@ -45,7 +45,7 @@ __d(
             var e = n.editedImage.src;
             return r("WAWebURLUtils").dataURLtoFile(e);
           } else if (n.media instanceof File) return n.media;
-          return o("WAWebFileUtils").createFile([n.media], "", {
+          return o("WAWebCreateFile").createFile([n.media], "", {
             type: n.media.type,
           });
         }),

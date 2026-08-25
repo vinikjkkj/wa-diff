@@ -5,7 +5,7 @@ __d(
     "WAWebAddOnParseWebMsgInfo",
     "WAWebClock",
     "WAWebFrontendMsgGetters",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMessageEditUtils",
     "WAWebMsgGetters",
     "WAWebMsgKey",
@@ -47,7 +47,7 @@ __d(
             a.pollEndTime <= o("WAWebClock").Clock.getServerTimeMs()
           )
             throw r("err")("Poll has ended");
-          var s = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+          var s = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               o("WAWebFrontendMsgGetters").getChat(a.unsafe()),
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
             ),

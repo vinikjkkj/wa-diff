@@ -6,7 +6,7 @@ __d(
     "WAWebCreateEncryptedEventEditMsgData",
     "WAWebFrontendMsgGetters",
     "WAWebGenerateEventCallLink",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
@@ -31,7 +31,7 @@ __d(
             c = e.location,
             d = e.name,
             m = e.startTime,
-            p = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+            p = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
             ),

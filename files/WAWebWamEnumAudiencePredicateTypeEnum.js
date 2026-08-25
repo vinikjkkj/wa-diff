@@ -10,6 +10,7 @@ __d(
       LARGEST_LIST: 4,
       ALL_CONTACTS: 5,
       LABEL: 6,
+      GROUP: 7,
     });
     i.AUDIENCE_PREDICATE_TYPE_ENUM = e;
   },

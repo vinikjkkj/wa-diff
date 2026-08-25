@@ -2,7 +2,7 @@ __d(
   "WAWebChatSendConversationSeen",
   [
     "WATimeUtils",
-    "WAWebApiActiveMessageRanges",
+    "WAWebApiAddActiveMessageRange",
     "WAWebApiChat",
     "WAWebMarkChatAsReadSync",
     "WAWebMessageRangeUtils",
@@ -31,7 +31,9 @@ __d(
                 [],
                 [s],
                 function () {
-                  return o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+                  return o(
+                    "WAWebApiAddActiveMessageRange",
+                  ).addActiveMessageRange(
                     t.id.toString(),
                     "markChatAsRead",
                     s.binarySyncAction,

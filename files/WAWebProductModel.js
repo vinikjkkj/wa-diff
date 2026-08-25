@@ -2,7 +2,7 @@ __d(
   "WAWebProductModel",
   [
     "WAWebBaseModel",
-    "WAWebFileUtils",
+    "WAWebCreateFile",
     "WAWebMediaData",
     "WAWebMediaTypes",
     "WAWebProductImageCollection",
@@ -171,7 +171,7 @@ __d(
               if (
                 (i instanceof Blob ? (a = i) : (a = i.getBlob()), a != null)
               ) {
-                var l = o("WAWebFileUtils").createFile([a], t + ".jpg", {
+                var l = o("WAWebCreateFile").createFile([a], t + ".jpg", {
                   type: "image/jpeg",
                 });
                 return l;

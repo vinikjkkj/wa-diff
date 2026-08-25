@@ -6,7 +6,7 @@ __d(
     "WAWebAck",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebGroupHistoryGating",
-    "WAWebLidMigrationUtils",
+    "WAWebLidMeUserForChat",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
@@ -40,7 +40,7 @@ __d(
                 "[group-history] generating notice msg data",
               ])),
           );
-          var i = o("WAWebLidMigrationUtils").getMeUserLidOrJidForChat(
+          var i = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
               n,
               o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
             ),

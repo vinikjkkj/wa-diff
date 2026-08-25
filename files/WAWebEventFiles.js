@@ -1,6 +1,6 @@
 __d(
   "WAWebEventFiles",
-  ["Promise", "WAWebFileUtils", "WAWebImageUtils", "WAWebMediaLoadErrors"],
+  ["Promise", "WAWebCreateFile", "WAWebImageUtils", "WAWebMediaLoadErrors"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t, r) {
@@ -24,7 +24,7 @@ __d(
         return o("WAWebImageUtils")
           .urlToFile(c.getData("text/uri-list"))
           .then(function (e) {
-            return [o("WAWebFileUtils").createFile([e], "", { type: e.type })];
+            return [o("WAWebCreateFile").createFile([e], "", { type: e.type })];
           });
       if (c && c.getData("text/html")) {
         var d = new DOMParser(),
@@ -45,7 +45,7 @@ __d(
               .urlToFile(p[0].src)
               .then(function (e) {
                 return [
-                  o("WAWebFileUtils").createFile([e], "", { type: e.type }),
+                  o("WAWebCreateFile").createFile([e], "", { type: e.type }),
                 ];
               });
         }

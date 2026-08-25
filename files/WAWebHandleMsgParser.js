@@ -104,12 +104,19 @@ __d(
         };
       });
     function C(e, t) {
+      var n = o("WAWebUserPrefsMeUser").isMeAccount(e),
+        r =
+          e != null &&
+          t != null &&
+          e.isLid() &&
+          !o("WAWebUserPrefsMeUser").isMeAccount(e) &&
+          t.equals(e);
       if (
-        !o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled() ||
         e == null ||
         t == null ||
         !t.isUser() ||
-        !o("WAWebUserPrefsMeUser").isMeAccount(e)
+        !(n || r) ||
+        !o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
       )
         throw new (o("WAParsableWapNode").XmppParsingFailure)(
           "incomingMsgParser",
@@ -117,15 +124,18 @@ __d(
             o("WAWebCreateNackFromStanza").NackReason
               .InvalidHostedCompanionStanza,
         );
-      var n = o("WAWebWidFactory").asUserWidOrThrow(t);
-      return {
-        chat: o(
-          "WAWebLid1X1MigrationGating",
-        ).Lid1X1MigrationUtils.isLidMigrated()
-          ? n
-          : o("WAWebLidMigrationUtils").toPnOrThrow(n),
-        metaFrom: e,
-      };
+      var a = o("WAWebWidFactory").asUserWidOrThrow(t),
+        i = o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated()
+          ? a
+          : o("WAWebLidMigrationUtils").toPn(a);
+      if (i == null)
+        throw new (o("WAParsableWapNode").XmppParsingFailure)(
+          "incomingMsgParser",
+          "" +
+            o("WAWebCreateNackFromStanza").NackReason
+              .InvalidHostedCompanionStanza,
+        );
+      return { chat: i, metaFrom: e };
     }
     function b(t) {
       var n,
