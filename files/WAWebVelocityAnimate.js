@@ -1,6 +1,6 @@
 __d(
   "WAWebVelocityAnimate",
-  ["asyncToGeneratorRuntime", "velocity-animate"],
+  ["WAWebABProps", "asyncToGeneratorRuntime", "velocity-animate"],
   function (t, n, r, o, a, i, l) {
     var e = { FINISH: "finish", STOP: "stop" },
       s = new Map();
@@ -23,28 +23,32 @@ __d(
               var t = s.get(e) || 0;
               s.set(e, t + 1);
             });
-            var c = n;
+            var c = n,
+              p = a;
             if (typeof a == "object" && typeof c == "object") {
-              var p;
-              (typeof a.begin == "function" && (p = a.begin),
-                (a.begin = function (e) {
-                  for (var t in c) {
-                    var n = c[t];
-                    Array.isArray(n) && o("velocity-animate").hook(e, t, n[1]);
-                  }
-                  p != null && p(e);
-                }));
+              var _;
+              typeof a.begin == "function" && (_ = a.begin);
+              var f = function (t) {
+                for (var e in c) {
+                  var n = c[e];
+                  Array.isArray(n) && o("velocity-animate").hook(t, e, n[1]);
+                }
+                _ != null && _(t);
+              };
+              o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_3")
+                ? (p = babelHelpers.extends({}, a, { begin: f }))
+                : (a.begin = f);
             }
-            var _ = yield r("velocity-animate").apply(
+            var g = yield r("velocity-animate").apply(
               void 0,
-              [t, n, a].concat(l),
+              [t, n, p].concat(l),
             );
             return (
-              d(_, function (e) {
+              d(g, function (e) {
                 var t = (s.get(e) || 1) - 1;
                 t === 0 ? (s.delete(e), m(e)) : s.set(e, t);
               }),
-              _
+              g
             );
           }
         })),

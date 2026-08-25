@@ -13,6 +13,7 @@ __d(
     "WAWebContactManagerSMBUserJourneyLogger",
     "WAWebCustomerDataCollection",
     "WAWebCustomerDataFieldSaver",
+    "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFrontendContactGetters",
     "WAWebL10N",
     "WAWebLeadStageChip.react",
@@ -989,8 +990,8 @@ __d(
               n =
                 e != null
                   ? o(
-                      "WAWebAcquisitionSourceNames",
-                    ).getAcquisitionSourceDisplayName(e)
+                      "WAWebCustomerProfileAcquisitionSourceNames",
+                    ).getProfileAcquisitionSourceLabel(e)
                   : null;
             return n != null
               ? c.jsx(r("WDSText.react"), {

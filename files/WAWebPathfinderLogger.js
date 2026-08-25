@@ -201,7 +201,7 @@ __d(
       B = 10,
       W = 0;
     function q(e, t) {
-      (Se(),
+      (Re(),
         (O = !0),
         o("WAWebPathfinderHealthReporter").recordPathfinderHealthCounter(e, t));
     }
@@ -287,6 +287,7 @@ __d(
       (me(),
         ge.fill(void 0),
         (he = 0),
+        (Ce = 0),
         (ee = 0),
         (te = 0),
         (ne = 0),
@@ -300,26 +301,27 @@ __d(
       ge = new Array(fe),
       he = 0,
       ye = 0,
-      Ce = !1;
-    function be() {
-      Ce ||
-        ((Ce = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(De));
+      Ce = 0,
+      be = !1;
+    function ve() {
+      be ||
+        ((be = !0), o("WAWebCrashlog").registerPathfinderSnapshotCallback(xe));
     }
-    var ve = !1;
-    function Se() {
-      ve || ((ve = !0), self.addEventListener("pagehide", U));
+    var Se = !1;
+    function Re() {
+      Se || ((Se = !0), self.addEventListener("pagehide", U));
     }
-    var Re = null;
-    function Le(e) {
-      Re = e;
+    var Le = null;
+    function Ee(e) {
+      Le = e;
     }
-    var Ee = "web.pathfinder.event_cap_drop";
-    function ke() {
+    var ke = "web.pathfinder.event_cap_drop";
+    function Ie() {
       try {
         r("WAWebODS").incr("web.pathfinder.event_cap_drop");
       } catch (e) {}
     }
-    function Ie(e) {
+    function Te(e) {
       return !D() || (de(), ie)
         ? !1
         : Z >= oe || ee >= ae
@@ -336,7 +338,7 @@ __d(
                 String(Z),
                 String(ee),
               ),
-            ke(),
+            Ie(),
             !1)
           : x.has(e.eventType) && !H(e)
             ? !1
@@ -345,9 +347,9 @@ __d(
               q(o("WAWebPathfinderHealthReporter").COUNTER_CAPTURE_VOLUME, 1),
               !0);
     }
-    function Te(e) {
+    function De(e) {
       var t, n, a, i, l, s;
-      if (Ie(e)) {
+      if (Te(e)) {
         var u = [];
         if (
           (e.screenName != null && u.push("screen=" + e.screenName),
@@ -432,7 +434,7 @@ __d(
               });
             });
         }
-        be();
+        ve();
         var $ = {
           eventType: e.eventType,
           timestampMs: e.timestampMs,
@@ -451,12 +453,13 @@ __d(
               1,
             ),
           ye++,
+          Ce++,
           (ge[he] = $),
           (he = (he + 1) % fe),
-          Re != null)
+          Le != null)
         )
           try {
-            Re(e.eventType);
+            Le(e.eventType);
           } catch (e) {
             try {
               o("WALogger")
@@ -472,7 +475,7 @@ __d(
           }
       }
     }
-    function De() {
+    function xe() {
       for (var e = [], t = 0; t < fe; t++) {
         var n = (he + t) % fe,
           r = ge[n];
@@ -480,15 +483,19 @@ __d(
       }
       return e;
     }
+    function $e() {
+      return { entries: xe(), headClipped: Ce > fe, totalRecorded: Ce };
+    }
     ((l.FALCO_MAP = f),
       (l.isPathfinderLoggingEnabled = D),
       (l.resetPathfinderSessionState = me),
       (l.resetEventGuardsForTesting = pe),
       (l.getDailyEventCapForTesting = _e),
-      (l.registerPathfinderEmitObserver = Le),
-      (l.PATHFINDER_CAP_DROP_ODS_KEY = Ee),
-      (l.emitPathfinderEvent = Te),
-      (l.getPathfinderLogSnapshot = De));
+      (l.registerPathfinderEmitObserver = Ee),
+      (l.PATHFINDER_CAP_DROP_ODS_KEY = ke),
+      (l.emitPathfinderEvent = De),
+      (l.getPathfinderLogSnapshot = xe),
+      (l.getPathfinderLogSnapshotWithMeta = $e));
   },
   98,
 );

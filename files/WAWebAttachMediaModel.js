@@ -485,6 +485,7 @@ __d(
                   )
                 : (this.$AttachMediaImpl$p_9(e) &&
                     (a.aiProvenancePromise = this.$AttachMediaImpl$p_10()),
+                  (a.fileOrigin = this.fileOrigin),
                   this.$AttachMediaImpl$p_11({ chat: e, options: a }))
             : (f || (f = n("Promise"))).reject(
                 r("err")("MediaPrep not available"),

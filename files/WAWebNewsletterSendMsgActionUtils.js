@@ -45,6 +45,7 @@ __d(
               uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
                 o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
               ),
+              fileOrigin: null,
               forwardedFromWeb: !0,
               timeout: o("WAWebMediaConstants").MMS_THUMBNAIL_UPLOAD_TIMEOUT,
               isViewOnce: !1,

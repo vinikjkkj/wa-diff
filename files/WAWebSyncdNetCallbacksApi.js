@@ -32,6 +32,7 @@ __d(
             type: "md-app-state",
             uploadOrigin: o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE
               .UNKNOWN,
+            fileOrigin: null,
             userUploadAttemptCount: 0,
             forwardedFromWeb: !1,
             isViewOnce: !1,

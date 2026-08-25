@@ -19,6 +19,7 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
     "WAWebGroupGatingUtils",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupPresenceUtils",
     "WAWebGroupType",
     "WAWebLid1X1MigrationGating",
@@ -294,37 +295,37 @@ __d(
           var e,
             n,
             r,
-            a,
-            i = [];
+            a = [];
           return (
-            ((e = t.groupMetadata) == null ? void 0 : e.groupType) ===
-              o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
-              (n = t.groupMetadata) != null &&
-              n.participants.iAmMember() &&
-              i.push(o("WAWebPresenceEnum").WithholdDisplayStage.CommunityName),
+            o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+              t.groupMetadata,
+            ) === o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
+              (e = t.groupMetadata) != null &&
+              e.participants.iAmMember() &&
+              a.push(o("WAWebPresenceEnum").WithholdDisplayStage.CommunityName),
             t != null &&
+            (n = t.groupMetadata) != null &&
+            n.participants.iAmAdmin() &&
             (r = t.groupMetadata) != null &&
-            r.participants.iAmAdmin() &&
-            (a = t.groupMetadata) != null &&
-            a.announce
-              ? (i.push(
+            r.announce
+              ? (a.push(
                   o("WAWebPresenceEnum").WithholdDisplayStage.OnlyAdminsCanSend,
                 ),
                 o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
                   t != null &&
                   o("WAWebFrontendChatGetters").getIsE2ee(t) &&
-                  i.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE))
+                  a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE))
               : o("WAWebPrivacyGatingUtils").isDataPrivacyPhase2Enabled() &&
                   t != null &&
                   o("WAWebFrontendChatGetters").getIsE2ee(t)
-                ? i.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE)
-                : i.push(o("WAWebPresenceEnum").WithholdDisplayStage.Info),
+                ? a.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE)
+                : a.push(o("WAWebPresenceEnum").WithholdDisplayStage.Info),
             o(
               "WAWebTextStatusGatingUtils",
             ).receiveTextStatusForNewSurfacesEnabled() &&
-              i.push(o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen),
-            i.push(o("WAWebPresenceEnum").WithholdDisplayStage.None),
-            i
+              a.push(o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen),
+            a.push(o("WAWebPresenceEnum").WithholdDisplayStage.None),
+            a
           );
         }),
         (a.$PresenceImpl$p_1 = function () {

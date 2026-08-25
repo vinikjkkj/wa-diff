@@ -1,9 +1,9 @@
 __d(
   "WAWebContactManagerListSort",
   [
-    "WAWebAcquisitionSourceNames",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFrontendContactGetters",
     "WAWebLabelCollection",
     "WAWebListItemParentType",
@@ -104,9 +104,9 @@ __d(
     function m(e) {
       var t = e.acquisitionSource;
       if (t == null) return null;
-      var n = o("WAWebAcquisitionSourceNames").getAcquisitionSourceDisplayName(
-        t,
-      );
+      var n = o(
+        "WAWebCustomerProfileAcquisitionSourceNames",
+      ).getProfileAcquisitionSourceLabel(t);
       return n != null ? String(n) : null;
     }
     function p(e) {

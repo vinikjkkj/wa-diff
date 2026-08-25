@@ -18,42 +18,38 @@ __d(
     var e,
       s,
       u,
-      c = 0,
-      d = 1,
-      m = 2,
-      p = 4,
-      _ =
+      c =
         e !== void 0
           ? e
           : (e = n("WAWebContactManagerCustomerProfileUpsertMutation.graphql"));
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield f(e, C(e, t));
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e, t) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          yield f(e, h(e, t));
+        })),
+        _.apply(this, arguments)
+      );
+    }
     function f(e, t) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield C(e, R(e, t));
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield C(e, v(e, t));
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o("WAWebFetchAdAccountToken").fetchToken();
           if (n.type !== "success")
             throw r("err")(
@@ -63,7 +59,7 @@ __d(
             );
           (yield r("WAWebNetworkStatus").waitIfOffline(),
             yield o("WAWebRelayClient").commitMutation(
-              _,
+              c,
               { input: [t] },
               { accessToken: n.token, environmentType: "facebook" },
             ),
@@ -76,11 +72,11 @@ __d(
               e,
             ));
         })),
-        b.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      var n = { lid: E(e) };
+    function h(e, t) {
+      var n = { lid: b(e) };
       e: {
         var r = t;
         if (
@@ -89,7 +85,7 @@ __d(
           "value" in r
         ) {
           var a = r.value;
-          n.email = S(a);
+          n.email = y(a);
           break e;
         }
         if (
@@ -98,7 +94,7 @@ __d(
           "value" in r
         ) {
           var i = r.value;
-          n.address = S(i);
+          n.address = y(i);
           break e;
         }
         if (
@@ -159,29 +155,22 @@ __d(
       }
       return n;
     }
-    function S(e) {
+    function y(e) {
       return e == null || e === "" ? null : e;
     }
-    function R(e, t) {
-      var n = { lid: E(e) };
-      (t.leadStage != null && (n.lead_stage = k(t.leadStage)),
+    function C(e, t) {
+      var n = { lid: b(e) };
+      (t.leadStage != null && (n.lead_stage = v(t.leadStage)),
         t.name != null && t.name !== "" && (n.name = t.name),
         t.email != null && t.email !== "" && (n.email = t.email),
         t.address != null && t.address !== "" && (n.address = t.address),
         t.lastOrder != null && (n.last_order_date = t.lastOrder));
-      var r = L(t.acquisitionSource);
+      var r = o(
+        "WAWebContactManagerCustomerProfileDecoders",
+      ).fromProfileAcquisitionSourceId(t.acquisitionSource);
       return (r != null && (n.acquisition_source = r), n);
     }
-    function L(e) {
-      return e === c
-        ? "CTWA"
-        : e === d || e === m
-          ? "ORGANIC"
-          : e === p
-            ? "REFERRAL"
-            : null;
-    }
-    function E(e) {
+    function b(e) {
       if (!e.endsWith(o("WAJids").LID_DOMAIN))
         throw r("err")(
           '[ContactManager] customer profile upsert: chatJid must be a LID-based JID, got "' +
@@ -190,7 +179,7 @@ __d(
         );
       return e.slice(0, -o("WAJids").LID_DOMAIN.length);
     }
-    function k(e) {
+    function v(e) {
       return e === o("WAWebLeadStage").LeadStage.INTAKE
         ? "INTAKE"
         : e === o("WAWebLeadStage").LeadStage.QUALIFIED
@@ -203,8 +192,8 @@ __d(
                 ? "NOT_QUALIFIED"
                 : "NONE";
     }
-    ((l.upsertCustomerProfileToServer = f),
-      (l.upsertCustomerProfileFieldToServer = h));
+    ((l.upsertCustomerProfileToServer = d),
+      (l.upsertCustomerProfileFieldToServer = p));
   },
   98,
 );

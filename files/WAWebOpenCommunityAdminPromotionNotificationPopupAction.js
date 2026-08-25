@@ -3,6 +3,7 @@ __d(
   [
     "WAWebChatGroupUtils",
     "WAWebCommunityAdminPromotionNotificationFlowLoadable",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebModalManager",
     "WAWebNux",
@@ -18,7 +19,7 @@ __d(
         n = e.groupMetadata;
       if (n != null) {
         var r,
-          a = n.groupType;
+          a = o("WAWebGroupMetadataGetters").getGroupType(n);
         switch (a) {
           case o("WAWebGroupType").GroupType.COMMUNITY:
             r = n;

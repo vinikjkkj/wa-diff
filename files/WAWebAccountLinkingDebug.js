@@ -10,6 +10,7 @@ __d(
     "WAWebAccountLinkingScheduledJobs",
     "WAWebAccountLinkingUtils",
     "WAWebGpcUoomAPI",
+    "WAWebMetaAiWaffleAuthTokenCache",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -278,7 +279,46 @@ __d(
     }
     U.doc =
       'Run createEntAcUser, generateAccessTokens, linkingMutation, and stateExists. Usage: fullLinkFlowDebug("opaque_target_account_string")';
-    var H = {
+    function H() {
+      return o(
+        "WAWebMetaAiWaffleAuthTokenCache",
+      ).getMetaAiWaffleAuthTokenBlobCacheStateForDebug();
+    }
+    H.doc =
+      "Inspect the Meta AI WAFFLE auth-token cache: blob length, build count, age, TTL, and whether it is stale or refreshing. The blob itself is withheld so a token is not left in console history; use buildCount to tell one build from the next.";
+    function G() {
+      return z.apply(this, arguments);
+    }
+    function z() {
+      return (
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            yield o(
+              "WAWebMetaAiWaffleAuthTokenCache",
+            ).refreshMetaAiWaffleAuthTokenBlob(),
+            o(
+              "WAWebMetaAiWaffleAuthTokenCache",
+            ).getMetaAiWaffleAuthTokenBlobCacheStateForDebug()
+          );
+        })),
+        z.apply(this, arguments)
+      );
+    }
+    G.doc =
+      "Rebuild the Meta AI WAFFLE auth-token blob now and return the resulting cache state.";
+    function j() {
+      return (
+        o(
+          "WAWebMetaAiWaffleAuthTokenCache",
+        ).clearMetaAiWaffleAuthTokenBlobCache(),
+        o(
+          "WAWebMetaAiWaffleAuthTokenCache",
+        ).getMetaAiWaffleAuthTokenBlobCacheStateForDebug()
+      );
+    }
+    j.doc =
+      "Drop the cached Meta AI WAFFLE auth-token blob, simulating a cold cache.";
+    var K = {
       updateAccountLinkingStateDebug: u,
       requestNonceFromPrimaryDebug: p,
       fetchValidCertificateDebug: f,
@@ -297,8 +337,11 @@ __d(
       generateAccessTokensDebug: O,
       sendLinkingMutationDebug: W,
       fullLinkFlowDebug: U,
+      metaAiWaffleTokenCacheDebug: H,
+      refreshMetaAiWaffleTokenDebug: G,
+      clearMetaAiWaffleTokenDebug: j,
     };
-    l.default = H;
+    l.default = K;
   },
   98,
 );

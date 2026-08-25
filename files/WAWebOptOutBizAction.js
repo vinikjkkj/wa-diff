@@ -66,7 +66,11 @@ __d(
           (_ = o("WAWebWidToJid").widToUserJid(f)));
       }
       var S = r
-          ? o("WAWebOptOutUserJob").optOutUser(_, a, i)
+          ? o("WAWebOptOutUserJob").optOutUser({
+              itemCategory: a,
+              itemEntryPoint: i,
+              jid: _,
+            })
           : o("WAWebOptOutUserJob").optInUser({
               itemCategory: a,
               itemEntryPoint: i,

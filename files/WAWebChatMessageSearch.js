@@ -12,6 +12,7 @@ __d(
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebMessageAssociation.flow",
     "WAWebMsgCollection",
@@ -175,14 +176,15 @@ __d(
       );
     }
     function _(e) {
-      var t,
-        n = (t = e.groupMetadata) == null ? void 0 : t.groupType;
+      var t = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+        e.groupMetadata,
+      );
       return (
         o("WAWebContactGetters").getIsGroup(e.contact) &&
-        (n === o("WAWebGroupType").GroupType.COMMUNITY ||
-          n === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
-          n === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
-          n === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
+        (t === o("WAWebGroupType").GroupType.COMMUNITY ||
+          t === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ||
+          t === o("WAWebGroupType").GroupType.LINKED_SUBGROUP ||
+          t === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP)
       );
     }
     function f(e) {

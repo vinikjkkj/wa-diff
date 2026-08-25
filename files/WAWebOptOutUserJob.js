@@ -118,13 +118,17 @@ __d(
         g.apply(this, arguments)
       );
     }
-    function h(e, t, n, r) {
+    function h(e) {
+      var t = e.itemCategory,
+        n = e.itemEntryPoint,
+        r = e.itemReason,
+        o = e.jid;
       return f({
         block: !0,
         itemCategory: t,
         itemEntryPoint: n,
         itemReason: r,
-        jid: e,
+        jid: o,
       });
     }
     function y(e) {

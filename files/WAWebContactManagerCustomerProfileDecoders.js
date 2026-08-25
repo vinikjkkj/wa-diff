@@ -8,9 +8,7 @@ __d(
     "XFBWACustomerProfileLeadStage.facebook",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 0,
-      s = 4;
-    function u(e) {
+    function e(e) {
       return e === "INTAKE"
         ? o("WAWebLeadStage").LeadStage.INTAKE
         : e === "QUALIFIED"
@@ -25,7 +23,7 @@ __d(
                   ? o("WAWebLeadStage").LeadStage.NONE
                   : null;
     }
-    function c(e) {
+    function s(e) {
       return r("XFBWACustomerProfileLeadStage.facebook").getName(
         e === o("WAWebLeadStage").LeadStage.INTAKE
           ? "INTAKE"
@@ -47,16 +45,13 @@ __d(
                       })(),
       );
     }
-    function d(t) {
-      return t === "CTWA" ? e : t === "REFERRAL" ? s : null;
-    }
-    function m(t) {
-      var n = t === e ? "CTWA" : t === s ? "REFERRAL" : null;
-      return n != null
-        ? r("XFBWACustomerProfileAcquisitionSource.facebook").getName(n)
+    function u(e) {
+      var t = d(e);
+      return t != null
+        ? r("XFBWACustomerProfileAcquisitionSource.facebook").getName(t)
         : null;
     }
-    function p(e) {
+    function c(e) {
       return e === "CTWA"
         ? o("WAWebCustomerProfileAcquisitionSource")
             .PROFILE_ACQUISITION_SOURCE_CTWA
@@ -71,7 +66,7 @@ __d(
                   .PROFILE_ACQUISITION_SOURCE_UNKNOWN
               : null;
     }
-    function _(e) {
+    function d(e) {
       return e ===
         o("WAWebCustomerProfileAcquisitionSource")
           .PROFILE_ACQUISITION_SOURCE_CTWA
@@ -90,22 +85,21 @@ __d(
               ? "UNKNOWN"
               : null;
     }
-    function f(e) {
+    function m(e) {
       return e != null ? o("WATimeUtils").castToUnixTime(e) : null;
     }
-    function g(e) {
+    function p(e) {
       var t = 0;
       for (var n of e) n != null && n > t && (t = n);
       return o("WATimeUtils").castToUnixTime(t);
     }
-    ((l.toLeadStageType = u),
-      (l.toLeadStageFilterText = c),
-      (l.toAcquisitionSourceId = d),
-      (l.toAcquisitionSourceFilterText = m),
-      (l.toProfileAcquisitionSourceId = p),
-      (l.fromProfileAcquisitionSourceId = _),
-      (l.toOptionalUnixTime = f),
-      (l.latestUpdateTs = g));
+    ((l.toLeadStageType = e),
+      (l.toLeadStageFilterText = s),
+      (l.toAcquisitionSourceFilterText = u),
+      (l.toProfileAcquisitionSourceId = c),
+      (l.fromProfileAcquisitionSourceId = d),
+      (l.toOptionalUnixTime = m),
+      (l.latestUpdateTs = p));
   },
   98,
 );

@@ -10,38 +10,48 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r) {
       var a = e.bloksContext.objectSet.environment,
-        i = a.navigationTrackingUtils,
-        l = a.screenQueryTemplate,
-        s = a.traversalKeys;
-      if (l == null)
+        i = a.minificationMap,
+        l = a.navigationTrackingUtils,
+        s = a.screenQueryTemplate,
+        u = a.traversalKeys,
+        c = a.unminificationMap,
+        d = a.useMinification;
+      if (s == null)
         throw new (o("WebBloksErrors").WebBloksError)(
           "Missing screen query template when calling bk.action.screen.Open",
         );
-      var u = t.get("props"),
-        c = u.__infra__app_id,
-        d = u.__infra__screen_id,
-        m = o("WebBloksContainerConfig").getContainerConfig(e.bloksContext, n),
-        p = {
-          initialContainer: { model: n, config: m },
-          screenId: d != null ? String(d) : void 0,
+      var m = t.get("props"),
+        p = m.__infra__app_id,
+        _ = m.__infra__screen_id,
+        f = o("WebBloksContainerConfig").getContainerConfig(e.bloksContext, n),
+        g = {
+          initialContainer: { model: n, config: f },
+          screenId: _ != null ? String(_) : void 0,
         };
       (o("webBloksPerformanceUtils").addWebBloksPerformanceMark(
         "--web-bloks-ttrc-start",
-        { detail: { appId: String(c) } },
+        { detail: { appId: String(p) } },
       ),
-        i == null || i.startNavigationCallback(String(c)));
-      var _ = o("WebBloksPayloadParser").parseTree(l, s),
-        f = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
-          e.bloksContext.objectSet,
-          _,
-          p,
+        l == null || l.startNavigationCallback(String(p)));
+      var h = o("WebBloksPayloadParser").parseTree(
+          s,
           u,
+          i,
+          void 0,
+          c,
+          d || c != null,
+        ),
+        y = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
+          e.bloksContext.objectSet,
+          h,
+          g,
+          m,
           t.get("url_relative_path"),
         ),
-        g = t.get("controller_name");
-      (g != null && (f.controllerName = g),
-        e.objectSet.navigationManager.open(f, r),
-        e.objectSet.navigationManager.setScreenController(f));
+        C = t.get("controller_name");
+      (C != null && (y.controllerName = C),
+        e.objectSet.navigationManager.open(y, r),
+        e.objectSet.navigationManager.setScreenController(y));
     }
     l.default = e;
   },

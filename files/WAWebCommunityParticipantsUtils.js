@@ -6,6 +6,7 @@ __d(
     "WAWebContactComparator",
     "WAWebContactGetters",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
@@ -18,7 +19,7 @@ __d(
           .flatMap(function (e) {
             var a = r("WAWebGroupMetadataCollection").assertGet(e.toString()),
               i =
-                a.groupType ===
+                o("WAWebGroupMetadataGetters").getGroupType(a) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
                   ? a.participants.getAdmins()
                   : a.participants.toArray();

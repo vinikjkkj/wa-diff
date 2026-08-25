@@ -2,9 +2,9 @@ __d(
   "WAWebContactManagerExportColumns",
   [
     "fbt",
-    "WAWebAcquisitionSourceNames",
     "WAWebContactImportTemplateParsingUtils",
     "WAWebContactManagerImportTemplateUtils",
+    "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebLeadStage",
     "WAWebLeadStageNames",
   ],
@@ -37,8 +37,8 @@ __d(
         ? ""
         : (t =
               (n = o(
-                "WAWebAcquisitionSourceNames",
-              ).getAcquisitionSourceDisplayName(e)) == null
+                "WAWebCustomerProfileAcquisitionSourceNames",
+              ).getProfileAcquisitionSourceLabel(e)) == null
                 ? void 0
                 : n.toString()) != null
           ? t

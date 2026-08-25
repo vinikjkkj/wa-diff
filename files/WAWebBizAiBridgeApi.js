@@ -109,23 +109,13 @@ __d(
                   timestampMs: u.timestampMs,
                 }),
                 (n += 1))
-              : ((a += 1),
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[BizAI] bulkUpdateChatCapiThreadControl: chat not found at index=",
-                        "",
-                      ])),
-                    s,
-                  )
-                  .sendLogs("maiba-bulk-thread-control-chat-not-found"));
+              : (a += 1);
           } catch (e) {
             ((i += 1),
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[BizAI] bulkUpdateChatCapiThreadControl: failed to apply update at index=",
                       "",
                     ])),
@@ -136,14 +126,33 @@ __d(
           }
         }
         e.length > 0 &&
-          o(
+          (o(
             "WAWebBizAiBulkThreadControlLogEvents",
           ).logBulkThreadControlBatchApplied({
             appliedCount: n,
             failedCount: i,
             notFoundCount: a,
             totalCount: e.length,
-          });
+          }),
+          n === 0 &&
+            a > 0 &&
+            o("WALogger")
+              .WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[BizAI] bulkUpdateChatCapiThreadControl: applied nothing, notFound=",
+                    ", total=",
+                    "",
+                  ])),
+                a,
+                e.length,
+              )
+              .tags("non-sad")
+              .sendLogs("maiba-bulk-thread-control-batch-unresolved", {
+                employeeSampling: 1,
+                sampling: 0.01,
+                sendLogsType: o("WALogger").SendLogsType.INVESTIGATION,
+              }));
       },
       handleBizAiSettingsNudge: function (t) {
         var e = t.category,

@@ -39,13 +39,12 @@ __d(
       return e.length > 0;
     }
     function p(e, t) {
-      return e.some(function (e) {
-        return t.has(e.key);
-      });
+      return _(e, t).some(d);
     }
     function _(e, t) {
       var n = !1,
         r = e.map(function (e) {
+          if (e.source !== "upload") return e;
           var r = t.has(e.key) ? "pending" : "ready";
           return e.status === r
             ? e

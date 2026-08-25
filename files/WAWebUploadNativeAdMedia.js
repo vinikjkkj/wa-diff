@@ -34,6 +34,7 @@ __d(
               r("WAWebUploadManager")
                 .unencryptedUpload({
                   file: t,
+                  fileOrigin: null,
                   generateThumbnailOnServer: !1,
                   hash: i,
                   isViewOnce: !1,

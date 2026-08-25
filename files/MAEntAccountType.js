@@ -11,6 +11,7 @@ __d(
       ABRA: 6,
       FCA: 7,
       META_PHOTOS: 8,
+      ARENA: 9,
       META_ACCOUNT: 100,
       DO_NOT_USE: 1e4,
       EXAMPLE: 10001,

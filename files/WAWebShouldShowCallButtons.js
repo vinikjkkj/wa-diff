@@ -6,6 +6,7 @@ __d(
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,7 +39,7 @@ __d(
             p),
         f = (m == null ? void 0 : m.hasCapi) === !0,
         g =
-          (m == null ? void 0 : m.groupType) !==
+          o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(m) !==
             o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
           !f &&
           !d &&

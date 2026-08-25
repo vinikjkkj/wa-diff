@@ -175,6 +175,7 @@ __d(
                   uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
                     this._chat,
                   ),
+                  fileOrigin: null,
                   userUploadAttemptCount: 0,
                   forwardedFromWeb: !1,
                   isViewOnce: !1,

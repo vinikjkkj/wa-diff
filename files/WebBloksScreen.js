@@ -189,11 +189,16 @@ __d(
         }),
         (e.fromBloksAppResponse = function (n, r, a, i, l) {
           a === void 0 && (a = c);
-          var t = o("WebBloksPayloadParser").parseTree(
-            r,
-            n.environment.traversalKeys,
-          );
-          return e.fromBloksParseResult(n, t, a, i, l);
+          var t = n.environment,
+            s = o("WebBloksPayloadParser").parseTree(
+              r,
+              t.traversalKeys,
+              t.minificationMap,
+              void 0,
+              t.unminificationMap,
+              t.useMinification || t.unminificationMap != null,
+            );
+          return e.fromBloksParseResult(n, s, a, i, l);
         }),
         (e.fromBloksParseResult = function (n, r, o, a, i) {
           o === void 0 && (o = c);
@@ -201,43 +206,57 @@ __d(
           return (t.setState({ state: "ready", parseResult: r }), t);
         }),
         (e.fromScreenQuerySSRPayload = function (n, a, i, l, s, u) {
-          var t = n.environment.traversalKeys,
-            c = o("WebBloksPayloadParser").parseTree(a, t),
-            d = o("WebBloksScopedIds").extendKeyPath(),
-            m = c.unboundModel.makeDeepCopyWithNewClientIds(d, t),
-            _ = c.resources;
-          c.resources.componentQueries.length > 0 &&
-            ((_ = c.resources.clone()),
-            (_.componentQueries = _.componentQueries.map(function (e) {
+          var t = n.environment,
+            c = t.minificationMap,
+            d = t.traversalKeys,
+            m = t.unminificationMap,
+            _ = t.useMinification,
+            f = o("WebBloksPayloadParser").parseTree(
+              a,
+              d,
+              c,
+              void 0,
+              m,
+              _ || m != null,
+            ),
+            g = o("WebBloksScopedIds").extendKeyPath(),
+            h = f.unboundModel.makeDeepCopyWithNewClientIds(g, d),
+            y = f.resources;
+          f.resources.componentQueries.length > 0 &&
+            ((y = f.resources.clone()),
+            (y.componentQueries = y.componentQueries.map(function (e) {
               return o(
                 "WebBloksScopedComponentQueryDefinition",
-              ).generateTreeScopedComponentQueryDefFromScopedDef(m, e, t);
+              ).generateTreeScopedComponentQueryDefFromScopedDef(h, e, d);
             })));
-          var f = new (r("WebBloksParseResult"))(m, _),
-            g;
+          var C = new (r("WebBloksParseResult"))(h, y),
+            b;
           if (i != null) {
-            var h = o("WebBloksModelParser").parseBloksModelFromJSON(
+            var v = o("WebBloksModelParser").parseBloksModelFromJSON(
               o("WebBloksUtils").cast(i),
-              t,
+              d,
+              c,
               null,
+              m,
+              _ || m != null,
             );
-            if (o("WebBloksModel").isWebBloksModel(h)) {
-              var y = n.getContainerConfigModuleForName(h.styleId);
-              g = {
+            if (o("WebBloksModel").isWebBloksModel(v)) {
+              var S = n.getContainerConfigModuleForName(v.styleId);
+              b = {
                 initialContainer: {
-                  model: h,
-                  config: y.ContainerConfig.fromBloksModel(h),
+                  model: v,
+                  config: S.ContainerConfig.fromBloksModel(v),
                 },
               };
             }
           }
-          var C = e.fromBloksParseResult(n, f, g, l, s);
+          var R = e.fromBloksParseResult(n, C, b, l, s);
           return (
             u != null &&
               u.length > 0 &&
-              C.treeManager != null &&
-              p(C, n, u, o("WebBloksScopedIds").buildKeypathBase(d)),
-            C
+              R.treeManager != null &&
+              p(R, n, u, o("WebBloksScopedIds").buildKeypathBase(g)),
+            R
           );
         }),
         (e.fromBloksModel = function (n, a, i, l, s) {
@@ -334,6 +353,11 @@ __d(
           var s = o("WebBloksPayloadParser").parseTree(
             { layout: { bloks_payload: r } },
             e.environment.traversalKeys,
+            e.environment.minificationMap,
+            void 0,
+            e.environment.unminificationMap,
+            e.environment.useMinification ||
+              e.environment.unminificationMap != null,
           );
           (t.setState({ state: "ready", parseResult: s }),
             i != null && e.pushStackedScreens(i.stacked_screens, t.params));

@@ -285,6 +285,7 @@ __d(
             a("isScheduledMsg"),
             a("scheduledTimestampS"),
             a("serverStoreTimeMicros"),
+            a("dashManifestUrl"),
           ])
           .version(n.messageAddIsSendFailureProperties(), [a("isSendFailure")])
           .version(n.messageAddPaymentTxnStatus(), [a("paymentTxnStatus")])

@@ -21,7 +21,18 @@ __d(
               ? s._(/*BTDS*/ "Unknown")
               : null;
     }
-    l.getProfileAcquisitionSourceLabel = e;
+    function u(t) {
+      var n = t.trim().toLowerCase();
+      if (n === "") return null;
+      for (var r of o("WAWebCustomerProfileAcquisitionSource")
+        .PROFILE_ACQUISITION_SOURCE_ORDER) {
+        var a = e(r);
+        if (a != null && String(a).toLowerCase() === n) return r;
+      }
+      return null;
+    }
+    ((l.getProfileAcquisitionSourceLabel = e),
+      (l.getProfileAcquisitionSourceIdFromLabel = u));
   },
   226,
 );

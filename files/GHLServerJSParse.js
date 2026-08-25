@@ -49,37 +49,45 @@ __d(
         l = n != null && "k8pq2mnb" in n,
         s = n != null && "n5tq2wjb" in n,
         u = e;
-      if (
-        (l && u != null && (u = d(u, s)),
-        a &&
+      l && u != null && (u = d(u, s));
+      var c =
+          a &&
           (o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed() ||
             (i &&
               o(
                 "GHLDetectionUtilsPreludeSafe",
-              ).isJSONParseBehaviorallyShimmed())))
-      )
+              ).isJSONParseBehaviorallyShimmed())),
+        p = !1;
+      if (c && n != null && "x8kf2pw6" in n && u != null)
         try {
-          var c = o(
+          var _ = JSON.parse("[" + u + "]");
+          Array.isArray(_) && _.length === 1 && ((t = _[0]), (p = !0));
+        } catch (e) {
+          p = !1;
+        }
+      if (!p && c)
+        try {
+          var f = o(
               "GHLDetectionUtilsPreludeSafe",
             ).isStringBehaviorallyShimmed(),
-            p = n != null && "r4wt7kmj" in n;
-          p && c && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
-          var _ = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
-            f = !1;
-          if (_ != null)
+            g = n != null && "r4wt7kmj" in n;
+          g && f && o("GHLDetectionUtilsPreludeSafe").restoreNativeString();
+          var h = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse(),
+            y = !1;
+          if (h != null)
             try {
-              ((t = _(u)), (f = !0));
+              ((t = h(u)), (y = !0));
             } catch (e) {
-              f = !1;
+              y = !1;
             }
-          f || (t = r("json5").parse(u + " "));
+          y || (t = r("json5").parse(u + " "));
         } catch (e) {
           (r("FBLogger")("ad_blocker_defense_ghost_owl")
             .catching(r("getErrorSafe")(e))
             .mustfix("Failed to parse ServerJS payload using json5"),
             (t = JSON.parse(u)));
         }
-      else t = JSON.parse(u);
+      else p || (t = JSON.parse(u));
       return (
         l && t != null && m(t),
         t != null && o("GHLTypenameRestore").restoreAllTypenames(t),

@@ -5,14 +5,14 @@ __d(
     "WAWebBotUtils",
     "WAWebChatGetters",
     "WAWebFrontendChatGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebMsgGetters",
     "WAWebNotificationHelpers",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t,
-        n = !!e.muteExpiration;
+      var t = !!e.muteExpiration;
       if (e.archive) {
         e.showUnreadInTitle = !1;
         return;
@@ -34,17 +34,17 @@ __d(
         return;
       }
       if (!o("WAWebChatGetters").getIsGroup(e)) {
-        e.showUnreadInTitle = !n;
+        e.showUnreadInTitle = !t;
         return;
       }
       if (
-        ((t = e.groupMetadata) == null ? void 0 : t.groupType) ===
+        o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e.groupMetadata) ===
         o("WAWebGroupType").GroupType.COMMUNITY
       ) {
         e.showUnreadInTitle = !1;
         return;
       }
-      if (!n) {
+      if (!t) {
         e.showUnreadInTitle = !0;
         return;
       }
@@ -53,23 +53,23 @@ __d(
         return;
       }
       for (
-        var r = !1,
-          a = e.msgs,
-          i = o("WAWebFrontendChatGetters").getOptimisticUnreadCount(e),
-          l = Math.max(0, a.length - i);
-        l < a.length;
-        l++
+        var n = !1,
+          r = e.msgs,
+          a = o("WAWebFrontendChatGetters").getOptimisticUnreadCount(e),
+          i = Math.max(0, r.length - a);
+        i < r.length;
+        i++
       ) {
-        var s = e.msgs.at(l);
-        if (s && o("WAWebNotificationHelpers").isMeUserMentionedOrQuoted(s)) {
-          var u = e.getCollection().get(o("WAWebMsgGetters").getSender(s));
-          if (!u || !u.muteExpiration) {
-            r = !0;
+        var l = e.msgs.at(i);
+        if (l && o("WAWebNotificationHelpers").isMeUserMentionedOrQuoted(l)) {
+          var s = e.getCollection().get(o("WAWebMsgGetters").getSender(l));
+          if (!s || !s.muteExpiration) {
+            n = !0;
             break;
           }
         }
       }
-      e.showUnreadInTitle = r;
+      e.showUnreadInTitle = n;
     }
     l.computeShowUnreadInTitle = e;
   },

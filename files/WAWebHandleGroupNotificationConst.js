@@ -6,6 +6,7 @@ __d(
     "WAWebBackendApi",
     "WAWebCommunityGatingUtils",
     "WAWebDBGroupsGroupMetadata",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebGroupsParticipantsApi",
     "WAWebLidMigrationUtils",
@@ -184,7 +185,7 @@ __d(
               ),
               p =
                 m != null
-                  ? o("WAWebGroupType").getGroupTypeFromGroupMetadata(m)
+                  ? o("WAWebGroupMetadataGetters").getGroupType(m)
                   : null;
             return t.reason ===
               o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT &&

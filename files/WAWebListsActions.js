@@ -14,6 +14,7 @@ __d(
     "WAWebCommonCTWADataSharing",
     "WAWebCtwaConversationDepthUtils",
     "WAWebCustomLabels3pdSignalUtils",
+    "WAWebDBLabelsReorder",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebLabelReorderingSync",
@@ -636,7 +637,7 @@ __d(
                 currentListState: e.join("+"),
               }));
             try {
-              var a = o("WAWebSyncdActionUtils").buildPendingMutation({
+              var n = o("WAWebSyncdActionUtils").buildPendingMutation({
                 collection: o("WAWebSyncdConst").CollectionName.Regular,
                 indexArgs: [],
                 value: { labelReorderingAction: { sortedLabelIds: e } },
@@ -646,9 +647,13 @@ __d(
                 timestamp: o("WATimeUtils").unixTimeMs(),
                 action: r("WAWebLabelReorderingSync").getAction(),
               });
-              yield o("WAWebSyncdCoreApi").lockForSync([], [a], function () {
-                return (I || (I = n("Promise"))).resolve();
-              });
+              yield o("WAWebSyncdCoreApi").lockForSync(
+                ["label"],
+                [n],
+                function () {
+                  return o("WAWebDBLabelsReorder").writeLabelsSortOrder(e);
+                },
+              );
             } catch (e) {
               (t.forEach(function (e) {
                 var t = e.id,

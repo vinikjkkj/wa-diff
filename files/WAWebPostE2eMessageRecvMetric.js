@@ -91,7 +91,7 @@ __d(
                 (o("WAWebGroupMetadataGetters").getIsCag(f) && s) ||
                 !!f.isLidAddressingMode;
               var g = o("WAWebGroupType").groupTypeToWamEnum(
-                o("WAWebGroupType").getGroupTypeFromGroupMetadata(f),
+                o("WAWebGroupMetadataGetters").getGroupType(f),
               );
               c.typeOfGroup = g;
               var h = o(

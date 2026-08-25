@@ -1,6 +1,11 @@
 __d(
   "WAWebGetThreadType",
-  ["WAWebChatGetters", "WAWebGroupType", "WAWebWamEnumThreadType"],
+  [
+    "WAWebChatGetters",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupType",
+    "WAWebWamEnumThreadType",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       if (o("WAWebChatGetters").getIsBroadcast(e))
@@ -9,7 +14,7 @@ __d(
         return o("WAWebWamEnumThreadType").THREAD_TYPE.CHANNEL;
       var t = e == null ? void 0 : e.groupMetadata;
       if (!t) return o("WAWebWamEnumThreadType").THREAD_TYPE.INDIVIDUAL;
-      switch (t.groupType) {
+      switch (o("WAWebGroupMetadataGetters").getGroupType(t)) {
         case o("WAWebGroupType").GroupType.COMMUNITY:
           return o("WAWebWamEnumThreadType").THREAD_TYPE.PARENT_GROUP;
         case o("WAWebGroupType").GroupType.DEFAULT:

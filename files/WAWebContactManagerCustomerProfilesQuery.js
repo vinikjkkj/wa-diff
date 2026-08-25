@@ -78,7 +78,7 @@ __d(
           t.push({
             acquisitionSource: o(
               "WAWebContactManagerCustomerProfileDecoders",
-            ).toAcquisitionSourceId(n.acquisition_source),
+            ).toProfileAcquisitionSourceId(n.acquisition_source),
             chatJid: o("WAJids").toLidUserJid(a),
             email: n.email,
             lastOrder: o(

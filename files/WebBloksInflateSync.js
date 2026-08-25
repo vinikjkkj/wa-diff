@@ -8,11 +8,15 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var n = null;
+      var n = null,
+        r = e.objectSet.environment;
       return o("WebBloksModelParser").parseBloksModelFromJSON(
         t,
-        e.objectSet.environment.traversalKeys,
+        r.traversalKeys,
+        r.minificationMap,
         n,
+        r.unminificationMap,
+        r.useMinification || r.unminificationMap != null,
       );
     }
     l.default = e;

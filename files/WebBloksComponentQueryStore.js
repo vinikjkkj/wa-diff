@@ -10,14 +10,22 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
-        function e(e, t) {
-          ((this.$2 = []),
-            (this.$4 = t),
+        function e(e, t, n, o, a) {
+          (o === void 0 && (o = null),
+            a === void 0 && (a = !1),
+            (this.$2 = []),
+            (this.$5 = t),
+            (this.$4 = n),
+            (this.$6 = o),
+            (this.$7 = a),
             (this.$1 = new Map()),
             (this.$3 = new (r("WebBloksComponentQueryFetcher"))(
               e,
               this.$1,
               t,
+              n,
+              o,
+              a,
             )));
         }
         var t = e.prototype;
@@ -32,7 +40,7 @@ __d(
               );
               return { value: l, cancelToken: null };
             } else {
-              var s = this.$5(a, e);
+              var s = this.$8(a, e);
               return { value: null, cancelToken: s.token };
             }
           }),
@@ -54,7 +62,7 @@ __d(
               queryPurpose: a,
             };
             this.$3.runQuery(i, u, function (t) {
-              e.$6(i, t);
+              e.$9(i, t);
             });
           }),
           (t.invalidate = function (t, n) {
@@ -68,7 +76,14 @@ __d(
             var e = o("WebBloksCacheUtils").generateCacheKey(t, n),
               a = new Map();
             for (var i of r.components) {
-              var l = o("WebBloksPayloadParser").parseTree(i.payload, this.$4);
+              var l = o("WebBloksPayloadParser").parseTree(
+                i.payload,
+                this.$5,
+                this.$4,
+                void 0,
+                this.$6,
+                this.$7,
+              );
               a.set(i.id, l);
             }
             var s = { components: a };
@@ -78,14 +93,14 @@ __d(
               queryPurpose: "PREFETCH",
             });
           }),
-          (t.$5 = function (t, n) {
+          (t.$8 = function (t, n) {
             this.$2 = this.$2.filter(function (e) {
               return !e.token.canceled;
             });
             var e = new u(t, n);
             return (this.$2.push(e), e);
           }),
-          (t.$6 = function (t, n) {
+          (t.$9 = function (t, n) {
             var e = [],
               r = [];
             for (var o of this.$2)

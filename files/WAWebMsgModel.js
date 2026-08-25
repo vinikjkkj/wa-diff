@@ -187,6 +187,7 @@ __d(
             (e.stickerPackId = o("WAWebBaseModel").prop()),
             (e.stickerPackName = o("WAWebBaseModel").prop()),
             (e.stickerPackPublisher = o("WAWebBaseModel").prop()),
+            (e.dashManifestUrl = o("WAWebBaseModel").prop()),
             (e.stickers = o("WAWebBaseModel").prop()),
             (e.trayIconFileName = o("WAWebBaseModel").prop()),
             (e.stickerPackSize = o("WAWebBaseModel").prop()),

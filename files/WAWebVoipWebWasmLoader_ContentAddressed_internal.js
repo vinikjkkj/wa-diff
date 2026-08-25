@@ -16,6 +16,10 @@ __d(
       s,
       u,
       c = {
+        f5edb27cb056825c72e6c6cd395bc522b5446bcfd248e6f944f465e55ea73322:
+          function () {
+            return r("bx")("31565");
+          },
         e7c02c6a5d53ffc81b22b4870bd8bca20bd4db16b97ac688cd2854984bdbae9d:
           function () {
             return r("bx")("90548");
@@ -61,11 +65,11 @@ __d(
             return r("bx")("47516");
           },
       },
-      d = c.e7c02c6a5d53ffc81b22b4870bd8bca20bd4db16b97ac688cd2854984bdbae9d,
+      d = c.f5edb27cb056825c72e6c6cd395bc522b5446bcfd248e6f944f465e55ea73322,
       m = null,
       p;
     try {
-      p = r("bx").getURL(d(), { cacheBreaker: "1787291785760" });
+      p = r("bx").getURL(d(), { cacheBreaker: "1787552019730" });
     } catch (e) {
       m = e;
     }
@@ -104,7 +108,7 @@ __d(
         var C = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/e7c02c6a5d53ffc81b22b4870bd8bca20bd4db16b97ac688cd2854984bdbae9d/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/f5edb27cb056825c72e6c6cd395bc522b5446bcfd248e6f944f465e55ea73322/wa_voip_shared.wasm",
           ),
           m != null)
         )
@@ -829,10 +833,10 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Ke = {
-          1346367: function () {
+          1346815: function () {
             return Date.now();
           },
-          1346390: function (t, n) {
+          1346838: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -7781,8 +7785,8 @@ __d(
           gl = (C.___get_exception_message = $e("__get_exception_message")),
           hl = $e("__cxa_can_catch"),
           yl = $e("__cxa_is_pointer_type"),
-          Cl = (C.___start_em_js = 1340380),
-          bl = (C.___stop_em_js = 1346367);
+          Cl = (C.___start_em_js = 1340828),
+          bl = (C.___stop_em_js = 1346815);
         function vl(e, t, n, r) {
           var o = ml();
           try {

@@ -20,37 +20,31 @@ __d(
           return t != null && r.includes(t);
         });
       }
-      if (t.acquisitionSource != null) {
-        var a = t.acquisitionSource;
-        n = n.filter(function (e) {
-          return e.acquisitionSource === a;
-        });
-      }
       if (t.labelId != null) {
-        var i = t.labelId;
+        var a = t.labelId;
         n = n.filter(function (e) {
-          return u(String(e.chatJid), i);
+          return u(String(e.chatJid), a);
         });
       }
       if (t.lastMessageRange != null) {
-        var l = d(t.lastMessageRange);
+        var i = d(t.lastMessageRange);
         n = n.filter(function (e) {
           var t = c(e);
-          return t != null && t >= l;
+          return t != null && t >= i;
         });
       }
       if (t.lastMessageCustomRange != null) {
-        var s = o(
+        var l = o(
             "WAWebContactManagerDateRangeUtils",
           ).getCustomRangeSecondsBounds(
             t.lastMessageCustomRange.start,
             t.lastMessageCustomRange.end,
           ),
-          m = s.endSec,
-          p = s.startSec;
+          s = l.endSec,
+          m = l.startSec;
         n = n.filter(function (e) {
           var t = c(e);
-          return t != null && t >= p && t <= m;
+          return t != null && t >= m && t <= s;
         });
       }
       return n;

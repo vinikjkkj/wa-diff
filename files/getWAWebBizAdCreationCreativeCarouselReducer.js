@@ -27,7 +27,13 @@ __d(
                     o("WAWebMmsMediaTypes").MEDIA_TYPES.NATIVE_AD_VIDEO
                   )
                     l.push({
-                      videos: [{ thumbnail_url: e.url, video_id: e.videoId }],
+                      videos: [
+                        {
+                          thumbnail_hash: e.thumbnailHash,
+                          thumbnail_url: e.url,
+                          video_id: e.videoId,
+                        },
+                      ],
                     });
                   else
                     throw r("err")(

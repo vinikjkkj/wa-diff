@@ -21,6 +21,7 @@ __d(
       CHANNELS: 10,
       AI_RESPONDING: 11,
       LEAD: 16,
+      MENTIONS_AND_REPLIES: 17,
     });
     function s() {
       var e = o("WAWebModelStorageUtils").getStorage(),

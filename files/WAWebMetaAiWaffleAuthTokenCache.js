@@ -4,24 +4,36 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = null,
-      u = !1,
+      s = 9e5,
+      u = 2 * s,
       c = null,
-      d = 0;
-    function m() {
-      return (!u && c == null && p(), s);
+      d = 0,
+      m = 0,
+      p = !1,
+      _ = 0,
+      f = null,
+      g = 0;
+    function h() {
+      return Date.now() - m >= s;
     }
-    function p() {
-      if (c != null) return c;
-      var t = d;
+    function y() {
+      return ((!p || h()) && f == null && C(), c);
+    }
+    function C() {
+      if (f != null) return f;
+      var t = g;
       return (
-        (c = o("WAWebMetaAiWaffleAuthToken")
+        (f = o("WAWebMetaAiWaffleAuthToken")
           .buildMetaAiWaffleAuthTokenBlob()
           .then(function (e) {
-            t === d && ((s = e), (u = !0));
+            t === g &&
+              ((m = Date.now()),
+              (p = !0),
+              !(e == null && c != null && Date.now() - d < u) &&
+                ((c = e), (d = m), e != null && _++));
           })
           .catch(function (n) {
-            (t === d && (u = !0),
+            (t === g && ((m = Date.now()), (p = !0)),
               o("WALogger")
                 .ERROR(
                   e ||
@@ -35,17 +47,31 @@ __d(
                 }));
           })
           .finally(function () {
-            c = null;
+            f = null;
           })),
-        c
+        f
       );
     }
-    function _() {
-      ((s = null), (u = !1), d++);
+    function b() {
+      var e;
+      return {
+        ageMs: c != null ? Date.now() - d : null,
+        blobLength: (e = c) == null ? void 0 : e.length,
+        buildCount: _,
+        hasAttemptedBuild: p,
+        isStale: c != null && h(),
+        lastAttemptAgeMs: p ? Date.now() - m : null,
+        refreshInFlight: f != null,
+        ttlMs: s,
+      };
     }
-    ((l.getCachedMetaAiWaffleAuthTokenBlob = m),
-      (l.refreshMetaAiWaffleAuthTokenBlob = p),
-      (l.clearMetaAiWaffleAuthTokenBlobCache = _));
+    function v() {
+      ((c = null), (d = 0), (m = 0), (p = !1), g++);
+    }
+    ((l.getCachedMetaAiWaffleAuthTokenBlob = y),
+      (l.refreshMetaAiWaffleAuthTokenBlob = C),
+      (l.getMetaAiWaffleAuthTokenBlobCacheStateForDebug = b),
+      (l.clearMetaAiWaffleAuthTokenBlobCache = v));
   },
   98,
 );

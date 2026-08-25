@@ -11,6 +11,7 @@ __d(
     "WAWebCmd",
     "WAWebComposeBoxActions",
     "WAWebEnvironment",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
     "WAWebL10N",
     "WAWebModalManager",
@@ -83,8 +84,7 @@ __d(
               if (e) {
                 if (!a) {
                   var i,
-                    l,
-                    s =
+                    l =
                       n && n !== e.msgs.last()
                         ? o("WAWebChatMessageSearch").getSearchContext({
                             chat: e,
@@ -92,22 +92,24 @@ __d(
                           })
                         : void 0;
                   if (
-                    ((i = e.groupMetadata) == null ? void 0 : i.groupType) ===
+                    o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                      e.groupMetadata,
+                    ) ===
                       o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-                    (l = e.groupMetadata) != null &&
-                    l.parentGroup &&
+                    (i = e.groupMetadata) != null &&
+                    i.parentGroup &&
                     n != null &&
                     (n.subtype ===
                       o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_PROMOTE ||
                       n.subtype ===
                         o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE)
                   ) {
-                    var u;
+                    var s;
                     o("WAWebCmd").Cmd.openCommunityHome(
-                      (u = e.groupMetadata) == null ? void 0 : u.parentGroup,
+                      (s = e.groupMetadata) == null ? void 0 : s.parentGroup,
                     );
                   } else {
-                    var c = r("WAWebEnvironment").isWindows
+                    var u = r("WAWebEnvironment").isWindows
                       ? o("WAWebCmd").Cmd.openChatFromUnread({
                           chat: e,
                           chatEntryPoint: o("WAWebChatEntryPoint")
@@ -115,11 +117,11 @@ __d(
                         })
                       : o("WAWebCmd").Cmd.openChatAt({
                           chat: e,
-                          msgContext: s,
+                          msgContext: l,
                           chatEntryPoint: o("WAWebChatEntryPoint")
                             .ChatEntryPoint.Notification,
                         });
-                    c.then(function (t) {
+                    u.then(function (t) {
                       t &&
                         o("WAWebComposeBoxActions").ComposeBoxActions.focus(e);
                     });

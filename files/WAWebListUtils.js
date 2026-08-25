@@ -68,6 +68,7 @@ __d(
       e.ListType.GROUPS,
       e.ListType.FAVORITES,
       e.ListType.COMMUNITY,
+      e.ListType.MENTIONS_AND_REPLIES,
     ]);
     function h(e) {
       return e == null ? !1 : g.has(e);
@@ -78,7 +79,13 @@ __d(
         e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
       );
     }
-    function C(e, t) {
+    function C(e) {
+      return (
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.TO_YOU &&
+        e.listId == null
+      );
+    }
+    function b(e, t) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         (e === o("WAWebSchemaLabel").ListType.CUSTOM ||
@@ -86,10 +93,10 @@ __d(
         t != null
       );
     }
-    function b(e) {
+    function v(e) {
       return (h(e) && e !== o("WAWebSchemaLabel").ListType.FAVORITES) || y(e);
     }
-    function v(e) {
+    function S(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(/*BTDS*/ "Unread")
         : e === o("WAWebSchemaLabel").ListType.GROUPS
@@ -102,9 +109,11 @@ __d(
                 ? s._(/*BTDS*/ "AI handoff")
                 : e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
                   ? s._(/*BTDS*/ "AI responding")
-                  : null;
+                  : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
+                    ? s._(/*BTDS*/ "To you")
+                    : null;
     }
-    function S(e) {
+    function R(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(
             /*BTDS*/ "This list automatically updates with your unread chats.",
@@ -129,35 +138,39 @@ __d(
                   ? s._(
                       /*BTDS*/ "This list automatically updates with chats where your AI agent is responding.",
                     )
-                  : null;
+                  : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
+                    ? s._(
+                        /*BTDS*/ "This list automatically updates with unread chats where you were mentioned or replied to.",
+                      )
+                    : null;
     }
-    function R(e, t) {
+    function L(e, t) {
       return (h(t) && t !== o("WAWebSchemaLabel").ListType.FAVORITES) || y(t)
         ? s._(/*BTDS*/ "{listName} (preset)", [s._param("listName", e)])
         : e;
     }
-    function L(e) {
+    function E(e) {
       return e === "AI_HANDOFF"
         ? s._(/*BTDS*/ "AI handoff").toString()
         : s._(/*BTDS*/ "AI responding").toString();
     }
-    function E() {
+    function k() {
       return o(
         "WAWebLabelCollection",
       ).LabelCollection.getServerAssignedLabelIdMap().size > 0
         ? c
         : u;
     }
-    function k() {
+    function I() {
       var e = o("WAWebLabelCollection").LabelCollection.countWhere(
         function (e) {
           return e.type === o("WAWebSchemaLabel").ListType.CUSTOM;
         },
       );
-      return e >= E();
+      return e >= k();
     }
-    function I(e) {
-      var t = E();
+    function T(e) {
+      var t = k();
       return e
         ? s._(/*BTDS*/ "You can't add more than {max_count} lists", [
             s._param("max_count", t),
@@ -166,19 +179,19 @@ __d(
             s._param("max_count", t),
           ]);
     }
-    function T(e) {
+    function D(e) {
       var t = s._(/*BTDS*/ "You\u2019ve created the maximum number of lists."),
-        n = E();
+        n = k();
       return e
         ? t
         : s._(/*BTDS*/ "You can't add more than {max_count} labels", [
             s._param("max_count", n),
           ]);
     }
-    function D(e) {
+    function x(e) {
       return typeof e == "function" ? e() : e;
     }
-    function x(e, t) {
+    function $(e, t) {
       var n, r;
       return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
@@ -192,7 +205,7 @@ __d(
           ? r
           : 0;
     }
-    function $() {
+    function P() {
       var e,
         t = o("WAWebLabelCollection").LabelCollection.toArray(),
         n = new Map(),
@@ -240,7 +253,7 @@ __d(
         n
       );
     }
-    function P(e) {
+    function N(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -251,13 +264,15 @@ __d(
             return o("WAWebSchemaLabel").ListType.FAVORITES;
           case o("WAWebChatSearchFilters").SearchFilters.COMMUNITY:
             return o("WAWebSchemaLabel").ListType.COMMUNITY;
+          case o("WAWebChatSearchFilters").SearchFilters.TO_YOU:
+            return o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES;
           case o("WAWebChatSearchFilters").SearchFilters.LABELS:
             return o("WAWebSchemaLabel").ListType.CUSTOM;
           default:
             return null;
         }
     }
-    function N(e) {
+    function M(e) {
       var t;
       if (
         (e.label != null
@@ -272,7 +287,7 @@ __d(
         t != null && t.name != null)
       ) {
         var n,
-          r = v(t.type);
+          r = S(t.type);
         return {
           listId: t.id,
           listName:
@@ -287,20 +302,21 @@ __d(
       (l.sortLabels = f),
       (l.isBuiltInList = h),
       (l.isAiList = y),
-      (l.shouldShowListIcon = C),
-      (l.isDisableablePresetList = b),
-      (l.getPresetListLocalizedName = v),
-      (l.getPresetListHelperText = S),
-      (l.getListDisplayName = R),
-      (l.getExpectedAiLabelName = L),
-      (l.isListFlowMaxListsCountReached = k),
-      (l.getReachMaxLabelCountTextForBizLabelDrawer = I),
-      (l.getReachMaxLabelCountText = T),
-      (l.resolvePillLabel = D),
-      (l.getUnreadChatsCountForFilter = x),
-      (l.getListsUnreadChatCountMap = $),
-      (l.getListTypeFromFilter = P),
-      (l.getManageListInfo = N));
+      (l.isOverflowOnlyToYouPill = C),
+      (l.shouldShowListIcon = b),
+      (l.isDisableablePresetList = v),
+      (l.getPresetListLocalizedName = S),
+      (l.getPresetListHelperText = R),
+      (l.getListDisplayName = L),
+      (l.getExpectedAiLabelName = E),
+      (l.isListFlowMaxListsCountReached = I),
+      (l.getReachMaxLabelCountTextForBizLabelDrawer = T),
+      (l.getReachMaxLabelCountText = D),
+      (l.resolvePillLabel = x),
+      (l.getUnreadChatsCountForFilter = $),
+      (l.getListsUnreadChatCountMap = P),
+      (l.getListTypeFromFilter = N),
+      (l.getManageListInfo = M));
   },
   226,
 );

@@ -70,7 +70,8 @@ __d(
       Q = s,
       X = s,
       Y = s,
-      J = s;
+      J = s,
+      Z = s;
     ((l.createMessagesCache = c),
       (l.createFrontendMessagesCache = d),
       (l.createChatCache = m),
@@ -110,10 +111,11 @@ __d(
       (l.createProfilePicThumbCache = z),
       (l.createAttachMediaCache = j),
       (l.createConnCache = K),
-      (l.createNewsletterAdminInsightsCache = Q),
-      (l.createCommentCache = X),
-      (l.createGroupMetadataCache = Y),
-      (l.createFrontendGroupMetadataCache = J));
+      (l.createStreamCache = Q),
+      (l.createNewsletterAdminInsightsCache = X),
+      (l.createCommentCache = Y),
+      (l.createGroupMetadataCache = J),
+      (l.createFrontendGroupMetadataCache = Z));
   },
   98,
 );

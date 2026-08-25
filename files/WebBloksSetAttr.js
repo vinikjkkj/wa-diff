@@ -24,7 +24,7 @@ __d(
                 );
         ((i = "_style"), (l = c));
       }
-      o("WebBloksMutations").updateProperty(e.treeManager, t, i, l);
+      o("WebBloksMutations").updateWireProperty(e.treeManager, t, i, l);
     }
     l.default = e;
   },

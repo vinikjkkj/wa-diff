@@ -57,6 +57,7 @@ __d(
             : null,
         SelfOtherDeviceConnected:
           (t = n.SelfOtherDeviceConnected) != null ? t : !1,
+        OfferEpochTime: 0,
       });
     }
     function s(e) {

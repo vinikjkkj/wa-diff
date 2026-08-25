@@ -2,7 +2,6 @@ __d(
   "WAWebVoipActionWriteCallLogEventUpdateJoinable",
   [
     "WALogger",
-    "WATimeUtils",
     "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
     "WAWebMsgKey",
@@ -10,6 +9,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogTimestamp",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipJsonParserPayloads",
     "WAWebVoipOngoingCallCollection",
@@ -80,6 +80,7 @@ __d(
               ScheduledId: null,
               LinkCreatorJid: null,
               SelfOtherDeviceConnected: !1,
+              OfferEpochTime: 0,
             });
           } catch (e) {
             o("WALogger")
@@ -212,7 +213,9 @@ __d(
                   callCreator: t,
                   from: b,
                   author: b,
-                  t: o("WATimeUtils").unixTime(),
+                  t: o(
+                    "WAWebVoipCallLogTimestamp",
+                  ).resolveCallLogTimestampFromOfferTime(e.OfferEpochTime),
                   callParticipants: a.map(function (e) {
                     return { participant: e.jid, outcome: e.result };
                   }),

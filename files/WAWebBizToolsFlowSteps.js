@@ -13,6 +13,7 @@ __d(
       "PaymentsHome",
       "QuickReplies",
       "Labels",
+      "TeamLink",
     ]);
     i.BizToolsSteps = e;
   },

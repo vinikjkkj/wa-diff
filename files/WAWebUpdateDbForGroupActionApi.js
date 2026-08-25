@@ -21,6 +21,7 @@ __d(
     "WAWebGroupDatabaseJob",
     "WAWebGroupHistoryParticipantJob",
     "WAWebGroupMembershipApprovalRequestsJob",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupParticipantsJob",
     "WAWebGroupQueryBridge",
     "WAWebGroupType",
@@ -307,7 +308,7 @@ __d(
               ) {
                 if (
                   z != null &&
-                  o("WAWebGroupType").getGroupTypeFromGroupMetadata(z) ===
+                  o("WAWebGroupMetadataGetters").getGroupType(z) ===
                     o("WAWebGroupType").GroupType.COMMUNITY
                 ) {
                   var j = o("WAWebNux").getCommunityAdminPromotionNuxKey(

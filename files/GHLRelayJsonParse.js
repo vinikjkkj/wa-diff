@@ -34,11 +34,18 @@ __d(
             o("GHLDetectionUtilsPreludeSafe").isJSONParseBehaviorallyShimmed()),
         s,
         u = !1;
-      if (l) {
-        var c = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse();
-        if (c != null)
+      if (l && r("gkx")("13760") && r("justknobx")._("5738"))
+        try {
+          var c = JSON.parse("[" + t + "]");
+          Array.isArray(c) && c.length === 1 && ((s = c[0]), (u = !0));
+        } catch (e) {
+          u = !1;
+        }
+      if (!u && l) {
+        var d = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse();
+        if (d != null)
           try {
-            ((s = c(t)), (u = !0));
+            ((s = d(t)), (u = !0));
           } catch (e) {
             u = !1;
           }

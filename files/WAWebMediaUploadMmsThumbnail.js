@@ -19,74 +19,76 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.forwardedFromWeb,
-            a = e.isViewOnce,
-            i = e.mediaKeyInfo,
-            l = e.mediaType,
-            s = e.signal,
-            u = e.thumbnail,
-            c = e.timeout,
-            d = e.uploadOrigin,
-            m = new (o("WAWebMediaObject").MediaObject)();
+          var t = e.fileOrigin,
+            a = e.forwardedFromWeb,
+            i = e.isViewOnce,
+            l = e.mediaKeyInfo,
+            s = e.mediaType,
+            u = e.signal,
+            c = e.thumbnail,
+            d = e.timeout,
+            m = e.uploadOrigin,
+            p = new (o("WAWebMediaObject").MediaObject)();
           try {
-            return c == null
-              ? yield _()
-              : yield o("WAPromiseTimeout").promiseTimeout(_(), c);
+            return d == null
+              ? yield f()
+              : yield o("WAPromiseTimeout").promiseTimeout(f(), d);
           } catch (e) {
-            var p = e;
-            if (p instanceof o("WACustomError").TimeoutError)
+            var _ = e;
+            if (_ instanceof o("WACustomError").TimeoutError)
               return (
-                o("WAWebMediaMmsV4Upload").cancelUploadMedia(m),
+                o("WAWebMediaMmsV4Upload").cancelUploadMedia(p),
                 {
                   kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
                     .TIMEOUT,
                 }
               );
-            throw p;
-          }
-          function _() {
-            return f.apply(this, arguments);
+            throw _;
           }
           function f() {
+            return g.apply(this, arguments);
+          }
+          function g() {
             return (
-              (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
                   var e = yield r("WAPromiseRaceAbort")(
                     o("WAWebCryptoCalculateFilehash").calculateFilehashFromBlob(
-                      u,
+                      c,
                     ),
-                    s,
+                    u,
                   );
-                  ((m.filehash = e), (m.mediaBlob = u));
+                  ((p.filehash = e), (p.mediaBlob = c));
                   var n = o(
                       "WAWebMediaCryptoEligibilityUtils",
-                    ).isMediaCryptoExpectedForMediaType(l)
+                    ).isMediaCryptoExpectedForMediaType(s)
                       ? o("WAWebMediaMmsV4Upload").uploadMedia
                       : o("WAWebMediaMmsV4Upload").uploadUnencryptedMedia,
-                    c = yield r("WAPromiseRaceAbort")(
+                    d = yield r("WAPromiseRaceAbort")(
                       n({
                         mimetype: "image/jpeg",
-                        mediaObject: m,
-                        mediaType: l,
-                        forwardedFromWeb: t,
-                        uploadOrigin: d,
-                        mediaKeyInfo: i,
-                        isViewOnce: a,
+                        mediaObject: p,
+                        mediaType: s,
+                        forwardedFromWeb: a,
+                        uploadOrigin: m,
+                        fileOrigin: t,
+                        mediaKeyInfo: l,
+                        isViewOnce: i,
                       }),
-                      s,
+                      u,
                     );
-                  return c.kind ===
+                  return d.kind ===
                     o("WAWebMediaMmsV4Upload").UploadMediaResultKind.SUCCESS
-                    ? babelHelpers.extends({}, c, { filehash: e })
-                    : { kind: c.kind };
+                    ? babelHelpers.extends({}, d, { filehash: e })
+                    : { kind: d.kind };
                 } catch (e) {
-                  var p = e;
+                  var _ = e;
                   if (
-                    typeof p == "object" &&
+                    typeof _ == "object" &&
                     r("getErrorSafe")(e).name === o("WAAbortError").ABORT_ERROR
                   )
                     return (
-                      o("WAWebMediaMmsV4Upload").cancelUploadMedia(m),
+                      o("WAWebMediaMmsV4Upload").cancelUploadMedia(p),
                       {
                         kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
                           .CANCELLATION,
@@ -94,7 +96,7 @@ __d(
                     );
                 }
               })),
-              f.apply(this, arguments)
+              g.apply(this, arguments)
             );
           }
         })),

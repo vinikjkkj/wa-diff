@@ -45,6 +45,7 @@ __d(
               waveform: e.waveform,
               staticUrl: e.staticUrl,
               metadataUrl: e.metadataUrl,
+              dashManifestUrl: e.dashManifestUrl,
             }
           : void 0,
         _ = o("WAWebE2EProtoGenerator").createProtobuf(e, p);

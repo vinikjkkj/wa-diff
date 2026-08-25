@@ -329,6 +329,7 @@ __d(
                 forwardedFromWeb: !1,
                 uploadOrigin: o("WAWebWamEnumUploadOriginType")
                   .UPLOAD_ORIGIN_TYPE.STICKER_WEB,
+                fileOrigin: null,
                 mediaKeyInfo: s,
                 isViewOnce: !0,
               });

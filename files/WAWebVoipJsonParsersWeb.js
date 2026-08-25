@@ -30,35 +30,36 @@ __d(
         },
         parseUpdateJoinableCallLogData: function (t) {
           var e,
-            n = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
-          if (n == null)
+            n,
+            a = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(t);
+          if (a == null)
             throw r("err")("Invalid update joinable call log data");
-          var a = n.call_summary;
+          var i = a.call_summary;
           return {
-            CallId: n.call_id,
-            CallCreatorDeviceJid: _(n.call_creator_device_jid),
-            Type: n.type,
-            InitialPeerJid: _(n.initial_peer_jid),
-            GroupJid: _(n.group_jid),
-            IsCaller: n.is_caller,
-            VideoEnabled: n.video_enabled,
-            IsFromOffer: n.is_from_offer,
-            CallLinkToken: n.link_token,
-            ScheduledId: n.scheduled_id,
-            IsLightweight: n.is_lightweight,
-            NumParticipants: n.num_participants,
-            CallParticipantInfos: n.participant_infos.map(function (e) {
+            CallId: a.call_id,
+            CallCreatorDeviceJid: _(a.call_creator_device_jid),
+            Type: a.type,
+            InitialPeerJid: _(a.initial_peer_jid),
+            GroupJid: _(a.group_jid),
+            IsCaller: a.is_caller,
+            VideoEnabled: a.video_enabled,
+            IsFromOffer: a.is_from_offer,
+            CallLinkToken: a.link_token,
+            ScheduledId: a.scheduled_id,
+            IsLightweight: a.is_lightweight,
+            NumParticipants: a.num_participants,
+            CallParticipantInfos: a.participant_infos.map(function (e) {
               return { jid: p(e.jid), result: e.state };
             }),
             CallSummary:
-              a != null
+              i != null
                 ? {
-                    CallCreatorJid: _(a.call_creator_jid),
-                    CallId: a.call_id,
-                    IsVideo: a.is_video_call,
-                    CallDuration: a.call_duration,
-                    UsersCount: a.users_count,
-                    Users: a.users.map(function (e) {
+                    CallCreatorJid: _(i.call_creator_jid),
+                    CallId: i.call_id,
+                    IsVideo: i.is_video_call,
+                    CallDuration: i.call_duration,
+                    UsersCount: i.users_count,
+                    Users: i.users.map(function (e) {
                       return {
                         Jid: _(e.jid),
                         PhoneJid: _(e.phone_jid),
@@ -67,10 +68,11 @@ __d(
                     }),
                   }
                 : null,
-            Result: n.call_log_result,
-            LinkCreatorJid: _(n.link_creator_jid),
+            Result: a.call_log_result,
+            LinkCreatorJid: _(a.link_creator_jid),
             SelfOtherDeviceConnected:
-              (e = n.self_other_device_connected) != null ? e : !1,
+              (e = a.self_other_device_connected) != null ? e : !1,
+            OfferEpochTime: (n = a.offer_epoch_time_ms) != null ? n : 0,
           };
         },
         parseRejectedDecryptionFailureData: function (t) {

@@ -123,6 +123,7 @@ __d(
                         ? l
                         : o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE
                             .UNKNOWN,
+                    fileOrigin: a.fileOrigin,
                     forwardedFromWeb: !!t.forwardedFromWeb,
                     isViewOnce: !!t.isViewOnce,
                   })
@@ -138,6 +139,7 @@ __d(
                   ? d
                   : o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE
                       .UNKNOWN,
+              fileOrigin: a.fileOrigin,
               isViewOnce: !!t.isViewOnce,
               earlyUpload: a.earlyUpload,
             },

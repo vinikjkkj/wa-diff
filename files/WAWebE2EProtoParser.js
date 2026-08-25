@@ -291,6 +291,7 @@ __d(
         ([
           "body",
           "caption",
+          "dashManifestUrl",
           "deprecatedMms3Url",
           "directPath",
           "encFilehash",

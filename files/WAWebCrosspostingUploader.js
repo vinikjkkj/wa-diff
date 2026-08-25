@@ -115,6 +115,7 @@ __d(
                 type: s(c.type),
                 uploadOrigin: o("WAWebWamEnumUploadOriginType")
                   .UPLOAD_ORIGIN_TYPE.STATUS_USER,
+                fileOrigin: null,
               },
               y = yield r("WAWebUploadManager").unencryptedUpload(h);
             (yield o("WAWebCrosspostingDBOperations").updateDirectUrlPath({

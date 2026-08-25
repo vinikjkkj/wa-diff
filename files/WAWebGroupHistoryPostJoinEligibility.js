@@ -7,6 +7,7 @@ __d(
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryPostJoinTypes",
     "WAWebGroupHistoryShareMode",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebUserPrefsMeUser",
   ],
@@ -14,7 +15,7 @@ __d(
     "use strict";
     function e(e) {
       return {
-        groupType: e.groupType,
+        groupType: o("WAWebGroupMetadataGetters").getGroupType(e),
         groupWid: e.id,
         hasCapi: e.hasCapi,
         iAmAdmin: e.participants.iAmAdmin(),

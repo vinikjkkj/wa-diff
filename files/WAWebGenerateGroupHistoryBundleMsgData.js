@@ -163,6 +163,7 @@ __d(
                 forwardedFromWeb: !1,
                 uploadOrigin: o("WAWebWamEnumUploadOriginType")
                   .UPLOAD_ORIGIN_TYPE.CHAT_GROUP,
+                fileOrigin: null,
                 isViewOnce: !1,
                 uploadQpl: N,
               });

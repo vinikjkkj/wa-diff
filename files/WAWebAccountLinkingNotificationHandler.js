@@ -8,6 +8,7 @@ __d(
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingHandler",
+    "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
@@ -94,6 +95,9 @@ __d(
                   traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
                     .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
                 }),
+                  o(
+                    "WAWebMetaAiWaffleAuthTokenCache",
+                  ).clearMetaAiWaffleAuthTokenBlobCache(),
                   yield m.purgeWaffleData());
                 break;
               case o("WAWebAccountLinkingConstants")

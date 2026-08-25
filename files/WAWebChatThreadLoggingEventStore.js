@@ -16,6 +16,7 @@ __d(
     "WAWebDBGetStarredMessagesForChat",
     "WAWebDBGroupsGroupMetadata",
     "WAWebGetBizCatalogType",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebLidAwareContactsDB",
     "WAWebLidMigrationUtils",
@@ -392,8 +393,8 @@ __d(
                                     f == null
                                       ? o("WAWebGroupType").GroupType.DEFAULT
                                       : o(
-                                          "WAWebGroupType",
-                                        ).getGroupTypeFromGroupMetadata(f),
+                                          "WAWebGroupMetadataGetters",
+                                        ).getGroupType(f),
                                 }
                               : {
                                   isAGroup: _,

@@ -206,6 +206,8 @@ __d(
         "high_friction_duration_warning_banner_impression",
       HIGH_FRICTION_DURATION_WARNING_TOOLTIP_IMPRESSION:
         "high_friction_duration_warning_tooltip_impression",
+      HARMFUL_EDIT_PREVENTION_NOTICE_IMPRESSION:
+        "harmful_edit_prevention_notice_impression",
       AD_CREATION_LWI_MEDIA_UPLOAD_START: "ad_creation_lwi_media_upload_start",
       AD_CREATION_LWI_MEDIA_UPLOAD_SUCCESS:
         "ad_creation_lwi_media_upload_success",

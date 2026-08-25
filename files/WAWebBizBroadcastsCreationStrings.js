@@ -46,7 +46,9 @@ __d(
       return s._(/*BTDS*/ "Selected audiences");
     }
     function S(e) {
-      return s._(/*BTDS*/ "{count} recipients", [s._param("count", e)]);
+      return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
+        s._plural(e, "number"),
+      ]);
     }
     function R(e) {
       return s._(

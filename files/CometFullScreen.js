@@ -1,82 +1,91 @@
 __d(
   "CometFullScreen",
-  ["Promise"],
-  function (t, n, r, o, a, i) {
+  ["ExecutionEnvironment", "Promise"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function l(t) {
-      var r,
-        o,
-        a,
-        i = t,
-        l =
-          (r =
-            (o =
-              (a = t.requestFullscreen) != null ? a : i.mozRequestFullScreen) !=
-            null
-              ? o
-              : i.msRequestFullscreen) != null
-            ? r
-            : i.webkitRequestFullscreen;
-      return typeof l == "function"
-        ? l.call(t)
-        : (e || (e = n("Promise"))).reject();
-    }
-    function s() {
+    var e, s;
+    function u(e) {
       var t,
         r,
         o,
-        a = document,
+        a = e,
         i =
           (t =
             (r =
-              (o = document.exitFullscreen) != null
-                ? o
-                : a.mozCancelFullScreen) != null
+              (o = e.requestFullscreen) != null ? o : a.mozRequestFullScreen) !=
+            null
               ? r
-              : a.msExitFullscreen) != null
+              : a.msRequestFullscreen) != null
             ? t
-            : a.webkitExitFullscreen;
+            : a.webkitRequestFullscreen;
       return typeof i == "function"
-        ? i.call(document)
-        : (e || (e = n("Promise"))).reject();
-    }
-    function u() {
-      var e = document;
-      return (
-        (e.webkitFullscreenEnabled === !0 ||
-          e.mozFullScreenEnabled === !0 ||
-          e.msFullscreenEnabled === !0 ||
-          document.fullscreenEnabled === !0) &&
-        (typeof e.webkitExitFullscreen == "function" ||
-          typeof e.mozCancelFullScreen == "function" ||
-          typeof e.msExitFullscreen == "function" ||
-          typeof document.exitFullscreen == "function")
-      );
+        ? i.call(e)
+        : (s || (s = n("Promise"))).reject();
     }
     function c() {
-      var e,
-        t,
-        n,
-        r,
-        o = document;
-      return (e =
-        (t =
-          (n =
-            (r = document.fullscreenElement) != null
-              ? r
-              : o.webkitFullscreenElement) != null
-            ? n
-            : o.msFullscreenElement) != null
-          ? t
-          : o.mozFullScreenElement) != null
-        ? e
-        : null;
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var t,
+          o,
+          a,
+          i = document,
+          l =
+            (t =
+              (o =
+                (a = document.exitFullscreen) != null
+                  ? a
+                  : i.mozCancelFullScreen) != null
+                ? o
+                : i.msExitFullscreen) != null
+              ? t
+              : i.webkitExitFullscreen;
+        return typeof l == "function"
+          ? l.call(document)
+          : (s || (s = n("Promise"))).reject();
+      }
+      return (s || (s = n("Promise"))).reject();
     }
     function d() {
-      return c() != null;
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var t = document;
+        return (
+          (t.webkitFullscreenEnabled === !0 ||
+            t.mozFullScreenEnabled === !0 ||
+            t.msFullscreenEnabled === !0 ||
+            document.fullscreenEnabled === !0) &&
+          (typeof t.webkitExitFullscreen == "function" ||
+            typeof t.mozCancelFullScreen == "function" ||
+            typeof t.msExitFullscreen == "function" ||
+            typeof document.exitFullscreen == "function")
+        );
+      }
+      return !1;
     }
     function m() {
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var t,
+          n,
+          o,
+          a,
+          i = document;
+        return (t =
+          (n =
+            (o =
+              (a = document.fullscreenElement) != null
+                ? a
+                : i.webkitFullscreenElement) != null
+              ? o
+              : i.msFullscreenElement) != null
+            ? n
+            : i.mozFullScreenElement) != null
+          ? t
+          : null;
+      }
+      return null;
+    }
+    function p() {
+      return m() != null;
+    }
+    function _() {
       return [
         "webkitfullscreenchange",
         "mozfullscreenchange",
@@ -84,28 +93,31 @@ __d(
         "fullscreenchange",
       ];
     }
-    function p(e) {
-      var t = window.document,
-        n = !1,
-        r = !0;
-      return (
-        m().forEach(function (o) {
-          t.addEventListener(o, e, { capture: n, passive: r });
-        }),
-        function () {
-          m().forEach(function (r) {
-            t.removeEventListener(r, e, n);
-          });
-        }
-      );
+    function f(t) {
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var n = window.document,
+          o = !1,
+          a = !0;
+        return (
+          _().forEach(function (e) {
+            n.addEventListener(e, t, { capture: o, passive: a });
+          }),
+          function () {
+            _().forEach(function (e) {
+              n.removeEventListener(e, t, o);
+            });
+          }
+        );
+      }
+      return function () {};
     }
-    ((i.requestFullScreen = l),
-      (i.exitFullScreen = s),
-      (i.isSupported = u),
-      (i.getFullScreenElement = c),
-      (i.isFullScreen = d),
-      (i.getFullScreenChangeEventNames = m),
-      (i.subscribeToFullScreenChangeEvent = p));
+    ((l.requestFullScreen = u),
+      (l.exitFullScreen = c),
+      (l.isSupported = d),
+      (l.getFullScreenElement = m),
+      (l.isFullScreen = p),
+      (l.getFullScreenChangeEventNames = _),
+      (l.subscribeToFullScreenChangeEvent = f));
   },
-  66,
+  98,
 );

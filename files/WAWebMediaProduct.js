@@ -48,6 +48,7 @@ __d(
                       .PRODUCT_CATALOG_IMAGE,
                     uploadOrigin: o("WAWebWamEnumUploadOriginType")
                       .UPLOAD_ORIGIN_TYPE.PRODUCT_CATALOG,
+                    fileOrigin: null,
                     isViewOnce: !1,
                     generateThumbnailOnServer: !1,
                   })

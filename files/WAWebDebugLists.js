@@ -6,6 +6,7 @@ __d(
     "WAWebChatCollection",
     "WAWebLabelCollection",
     "WAWebLabelSync",
+    "WAWebProtobufSyncAction.pb",
     "WAWebSchemaLabel",
     "asyncToGeneratorRuntime",
   ],
@@ -293,7 +294,61 @@ __d(
     }
     b.doc =
       "Randomly assign lists to random chats. For each chat with Math.random() > 0.5, assigns lists where Math.random() > 0.5. Optional count param limits max lists per chat. This is used for testing purposes only.";
-    var v = {
+    var v = "99017";
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e != null ? e : {},
+            n = t.isActive,
+            a = n === void 0 ? !0 : n,
+            i = Math.floor(Date.now() / 1e3),
+            l = {
+              operation: "set",
+              indexParts: ["label_edit", v],
+              value: {
+                timestamp: i,
+                labelEditAction: {
+                  name: "To you",
+                  deleted: !1,
+                  isActive: a,
+                  type: o("WAWebProtobufSyncAction.pb")
+                    .SyncActionValue$LabelEditAction$ListType
+                    .MENTIONS_AND_REPLIES,
+                },
+              },
+              timestamp: i,
+            };
+          yield r("WAWebLabelSync").applyMutations([l]);
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    S.doc =
+      'Seed the "To you" (MENTIONS_AND_REPLIES) preset list via the SyncD receive path, so it appears in the filter pill and "Manage lists" without waiting for mobile sync. Option: isActive (default true) \u2014 pass {isActive: false} to test the disabled/"Available lists" state. Remove it with listsRemoveToYouPresetList. Testing only.';
+    function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = Math.floor(Date.now() / 1e3),
+            t = {
+              operation: "set",
+              indexParts: ["label_edit", v],
+              value: { timestamp: e, labelEditAction: { deleted: !0 } },
+              timestamp: e,
+            };
+          yield r("WAWebLabelSync").applyMutations([t]);
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    L.doc =
+      'Remove the debug "To you" preset seeded by listsAddToYouPresetList. Testing only.';
+    var k = {
       applyListsMutations: u,
       listsUnAssignListFromAllChats: m,
       listsUnAssignAllListsFromChat: d,
@@ -302,8 +357,10 @@ __d(
       listsPopulateCustomLists: h,
       listsAssignAllListsToAllChats: C,
       listsAssignRandomListsToRandomChats: b,
+      listsAddToYouPresetList: S,
+      listsRemoveToYouPresetList: L,
     };
-    l.default = v;
+    l.default = k;
   },
   98,
 );

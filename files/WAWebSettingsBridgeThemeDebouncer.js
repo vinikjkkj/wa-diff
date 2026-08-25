@@ -12,64 +12,65 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
+    var e = ["inheritsTheme"],
       s,
       u,
       c,
-      d = 500,
-      m = 1e3,
-      p = new Map(),
-      _ = 0;
-    function f(e, t) {
-      (y(), b(e));
-      var n = C(e);
-      (S(n.buffer, t), n.flush());
+      d,
+      m = 500,
+      p = 1e3,
+      _ = new Map(),
+      f = 0;
+    function g(e, t) {
+      (C(), v(e));
+      var n = b(e);
+      (R(n.buffer, t), n.flush());
     }
-    function g() {
-      for (var e of Array.from(p.values())) e.flush.flush();
+    function h() {
+      for (var e of Array.from(_.values())) e.flush.flush();
     }
-    var h = !1;
-    function y() {
-      h ||
-        ((h = !0),
-        self.addEventListener("pagehide", g),
+    var y = !1;
+    function C() {
+      y ||
+        ((y = !0),
+        self.addEventListener("pagehide", h),
         document.addEventListener("visibilitychange", function () {
-          document.visibilityState === "hidden" && g();
+          document.visibilityState === "hidden" && h();
         }));
     }
-    function C(e) {
-      var t = v(e),
-        n = p.get(t);
+    function b(e) {
+      var t = S(e),
+        n = _.get(t);
       if (n != null) return n;
       var o = {},
         a = r("WAWebDebounce")(
           function () {
-            R(e, o, t);
+            L(e, o, t);
           },
-          d,
-          { leading: !1, trailing: !0, maxWait: m },
+          m,
+          { leading: !1, trailing: !0, maxWait: p },
         ),
         i = { buffer: o, flush: a };
-      return (p.set(t, i), i);
+      return (_.set(t, i), i);
     }
-    function b(e) {
+    function v(e) {
       if (e.kind === "chat") {
         var t;
-        (t = p.get("default")) == null || t.flush.flush();
+        (t = _.get("default")) == null || t.flush.flush();
         return;
       }
-      for (var n of Array.from(p.entries())) {
+      for (var n of Array.from(_.entries())) {
         var r = n[0],
           o = n[1];
         r !== "default" && o.flush.flush();
       }
     }
-    function v(e) {
+    function S(e) {
       return e.kind === "default"
         ? "default"
         : "chat:" + o("WAWebWidFactory").createWid(e.chatJid).toString();
     }
-    function S(e, t) {
+    function R(e, t) {
       e: {
         var n = t;
         if (
@@ -99,7 +100,7 @@ __d(
           e.wallpaperRepresentation = {
             kind: "solid",
             wallpaperId: a,
-            arrivalSequence: _++,
+            arrivalSequence: f++,
           };
           break e;
         }
@@ -112,7 +113,7 @@ __d(
           e.wallpaperRepresentation = {
             kind: "stock",
             rawValue: i,
-            arrivalSequence: _++,
+            arrivalSequence: f++,
           };
           break e;
         }
@@ -122,7 +123,7 @@ __d(
           "value" in n
         ) {
           var l = n.value;
-          e.doodle = { value: l, arrivalSequence: _++ };
+          e.doodle = { value: l, arrivalSequence: f++ };
           break e;
         }
         throw Error(
@@ -131,36 +132,36 @@ __d(
         );
       }
     }
-    function R(t, n, a) {
-      p.delete(a);
+    function L(e, t, n) {
+      _.delete(n);
       try {
-        t.kind === "default" ? E(n) : k(t.chatJid, n);
-      } catch (t) {
+        e.kind === "default" ? k(t) : I(e.chatJid, t);
+      } catch (e) {
         o("WALogger")
           .ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[settings-sync] theme sync flush failed",
               ])),
           )
-          .catching(r("getErrorSafe")(t))
+          .catching(r("getErrorSafe")(e))
           .sendLogs("chat-theme-sync-flush-failed");
       }
     }
-    function L(e) {
+    function E(e) {
       o("WALogger")
         .ERROR(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "[settings-sync] theme sync write failed",
             ])),
         )
         .catching(r("getErrorSafe")(e))
         .sendLogs("chat-theme-sync-write-fail");
     }
-    function E(e) {
+    function k(e) {
       var t = r("WAWebChatPreferenceCollection").getDefault();
-      $(e) && t.set("chatThemeValue", P(t.chatThemeValue, e));
+      P(e) && t.set("chatThemeValue", N(t.chatThemeValue, null, e, !1));
       var n = e.wallpaperRepresentation;
       if (n != null && n.kind === "solid") {
         (e.doodle != null &&
@@ -177,43 +178,44 @@ __d(
           ));
         return;
       }
-      var a = D({
+      var a = x({
         buffer: e,
         currentWallpaper: t.wallpaperValue,
         inheritOnClear: !1,
       });
       a.write && t.set("wallpaperValue", a.value);
     }
-    function k(e, t) {
-      var n = A(e);
+    function I(e, t) {
+      var n = W(e);
       if (n != null) {
-        if ($(t)) {
-          var o = P(n.chatThemeValue, t);
+        var o = M(n, t);
+        if (o.write) {
+          var a = o.value;
           n.setChatThemeValue(
-            o.chatThemeId == null && o.colorSchemeId == null ? null : o,
-          ).catch(L);
+            a.chatThemeId == null && a.colorSchemeId == null ? null : a,
+          ).catch(E);
         }
-        var a = t.wallpaperRepresentation;
-        if (a != null && a.kind === "solid") {
-          I({
+        var i = t.wallpaperRepresentation;
+        if (i != null && i.kind === "solid") {
+          T({
             chat: n,
             chatJid: e,
             doodle: t.doodle,
-            wallpaperRepresentation: a,
+            wallpaperRepresentation: i,
           });
           return;
         }
-        var i = r("WAWebChatPreferenceCollection").getDefault().wallpaperValue,
-          l = D({
+        var l = r("WAWebChatPreferenceCollection").getDefault().wallpaperValue,
+          s = x({
             buffer: t,
-            currentWallpaper: T(n),
-            inheritedWallpaper: i,
+            currentWallpaper: D(n),
+            inheritedWallpaper: l,
             inheritOnClear: !0,
           });
-        l.write && n.setWallpaperValue(l.value).catch(L);
+        s.write && n.setWallpaperValue(s.value).catch(E);
       }
     }
-    function I(e) {
+    function T(e) {
       var t = e.chat,
         n = e.chatJid,
         a = e.doodle,
@@ -223,9 +225,9 @@ __d(
         !l &&
         t
           .setWallpaperValue(
-            o("WAWebChatThemeValue").wallpaperValueWithDoodle(T(t), a.value),
+            o("WAWebChatThemeValue").wallpaperValueWithDoodle(D(t), a.value),
           )
-          .catch(L),
+          .catch(E),
         r("WAWebSettingsSyncEventEmitter").trigger("applyPerChatWallpaper", {
           chatJid: n,
           wallpaperId: i.wallpaperId,
@@ -234,17 +236,17 @@ __d(
           l &&
           t
             .setWallpaperValue(
-              o("WAWebChatThemeValue").wallpaperValueWithDoodle(T(t), a.value),
+              o("WAWebChatThemeValue").wallpaperValueWithDoodle(D(t), a.value),
             )
-            .catch(L));
+            .catch(E));
     }
-    function T(e) {
+    function D(e) {
       var t = e.wallpaperValue;
       return o("WAWebChatThemeValue").isWallpaperOverride(t)
         ? t
         : r("WAWebChatPreferenceCollection").getDefault().wallpaperValue;
     }
-    function D(e) {
+    function x(e) {
       var t = e.buffer,
         n = e.currentWallpaper,
         r = e.inheritedWallpaper,
@@ -263,7 +265,7 @@ __d(
             }
         : i.kind !== "stock"
           ? { write: !1 }
-          : x({
+          : $({
               currentWallpaper: n,
               rawValue: i.rawValue,
               wallpaperArrivalSequence: i.arrivalSequence,
@@ -272,7 +274,7 @@ __d(
               inheritOnClear: a,
             });
     }
-    function x(e) {
+    function $(e) {
       var t = e.currentWallpaper,
         n = e.doodle,
         r = e.inheritedWallpaper,
@@ -285,7 +287,7 @@ __d(
             write: !0,
             value: o("WAWebChatThemeValue").wallpaperValueFromFlat({
               wallpaper: null,
-              showDoodle: w({
+              showDoodle: B({
                 currentWallpaper: t,
                 doodle: n,
                 inheritedWallpaper: r,
@@ -308,7 +310,7 @@ __d(
               write: !0,
               value: o("WAWebChatThemeValue").wallpaperValueFromFlat({
                 wallpaper: null,
-                showDoodle: w({
+                showDoodle: B({
                   currentWallpaper: t,
                   doodle: n,
                   inheritedWallpaper: r,
@@ -318,34 +320,74 @@ __d(
               }),
             };
     }
-    function $(e) {
+    function P(e) {
       return e.chatThemeId != null || e.colorSchemeId != null;
     }
-    function P(e, t) {
-      var n = N(t.chatThemeId, e == null ? void 0 : e.chatThemeId),
-        r = N(t.colorSchemeId, e == null ? void 0 : e.colorSchemeId),
-        a = o("WAWebChatThemeValue").chatThemeValueFromSyncedFields(
-          { chatThemeId: n, colorSchemeId: r },
+    function N(e, t, n, r) {
+      var a = F(n.chatThemeId, e == null ? void 0 : e.chatThemeId),
+        i = F(n.colorSchemeId, e == null ? void 0 : e.colorSchemeId),
+        l = o("WAWebChatThemeValue").chatThemeValueFromSyncedFields(
+          { chatThemeId: a, colorSchemeId: i },
           e,
         );
       return (
-        M("chatThemeId", t.chatThemeId, a.chatThemeId),
-        M("colorSchemeId", t.colorSchemeId, a.colorSchemeId),
-        a
+        O("chatThemeId", n.chatThemeId, l.chatThemeId),
+        O("colorSchemeId", n.colorSchemeId, l.colorSchemeId),
+        r && w(e, t, n, l)
+          ? babelHelpers.extends({}, l, { inheritsTheme: !0 })
+          : l
       );
     }
-    function N(e, t) {
+    function M(e, t) {
+      var n,
+        r =
+          ((n = t.wallpaperRepresentation) == null ? void 0 : n.kind) ===
+          "solid";
+      if (!P(t)) {
+        var o;
+        return r &&
+          ((o = e.chatThemeValue) == null ? void 0 : o.inheritsTheme) === !0
+          ? { write: !0, value: A(e.chatThemeValue) }
+          : { write: !1 };
+      }
+      var a = N(e.chatThemeValue, e.wallpaperValue, t, !0);
+      return { write: !0, value: r ? A(a) : a };
+    }
+    function w(e, t, n, r) {
+      var a;
+      if (
+        r.chatThemeId != null ||
+        r.colorSchemeId == null ||
+        (t == null ? void 0 : t.type) === "solid"
+      )
+        return !1;
+      var i =
+        n.chatThemeId != null &&
+        (n.chatThemeId.value == null || n.chatThemeId.value === "");
+      return (
+        (e == null ? void 0 : e.inheritsTheme) === !0 ||
+        i ||
+        (!o("WAWebChatThemeValue").isChatThemeOverride(e) &&
+          ((a = n.colorSchemeId) == null ? void 0 : a.value) != null)
+      );
+    }
+    function A(t) {
+      var n = t.inheritsTheme,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return r;
+    }
+    function F(e, t) {
       return e != null ? e.value : t != null ? t : null;
     }
-    function M(e, t, n) {
+    function O(e, t, n) {
       t == null ||
         t.value == null ||
         n != null ||
         (e === "chatThemeId"
           ? o("WALogger")
               .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "[settings-sync] Unrecognized chatThemeId ",
                     "",
                   ])),
@@ -354,8 +396,8 @@ __d(
               .sendLogs("chat-theme-sync-unknown-theme")
           : o("WALogger")
               .WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[settings-sync] Unrecognized colorSchemeId ",
                     "",
                   ])),
@@ -363,7 +405,7 @@ __d(
               )
               .sendLogs("chat-theme-sync-unknown-color-scheme"));
     }
-    function w(e) {
+    function B(e) {
       var t,
         n = e.currentWallpaper,
         r = e.doodle,
@@ -379,13 +421,13 @@ __d(
           ? t
           : !0;
     }
-    function A(e) {
+    function W(e) {
       var t = o("WAWebWidFactory").createWid(e);
       return t.isLid()
         ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(t)
         : o("WAWebChatCollection").ChatCollection.get(t);
     }
-    ((l.enqueueThemeSync = f), (l.flushAllThemeSync = g));
+    ((l.enqueueThemeSync = g), (l.flushAllThemeSync = h));
   },
   98,
 );

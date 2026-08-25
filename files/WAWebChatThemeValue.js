@@ -19,7 +19,7 @@ __d(
         r !== "" &&
         r !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER
       ) {
-        var a = I(r);
+        var a = T(r);
         if (a != null)
           return C({
             type: "solid",
@@ -34,18 +34,24 @@ __d(
       var t = e.chatThemeId,
         n = e.colorSchemeId;
       return {
-        chatThemeId: t == null ? null : B(t),
-        colorSchemeId: n == null ? null : A(n),
+        chatThemeId: t == null ? null : W(t),
+        colorSchemeId: n == null ? null : F(n),
       };
     }
     function u(e, t) {
       var n = s(e),
-        r = t == null ? void 0 : t.baseline;
-      if (r == null) return n;
-      var o =
+        r =
+          (t == null ? void 0 : t.inheritsTheme) === !0 &&
+          n.chatThemeId == null &&
+          n.colorSchemeId != null
+            ? babelHelpers.extends({}, n, { inheritsTheme: !0 })
+            : n,
+        o = t == null ? void 0 : t.baseline;
+      if (o == null) return r;
+      var a =
         (n.chatThemeId == null && n.colorSchemeId != null) ||
-        (n.chatThemeId != null && f(n.chatThemeId) === f(r.themeId));
-      return o ? babelHelpers.extends({}, n, { baseline: r }) : n;
+        (n.chatThemeId != null && f(n.chatThemeId) === f(o.themeId));
+      return a ? babelHelpers.extends({}, r, { baseline: o }) : r;
     }
     function c(e) {
       return e != null && o("WAWebChatThemeEnums").MinimalScheme.isValid(e);
@@ -67,7 +73,7 @@ __d(
       if (t == null) return null;
       var r = c(n) ? n : t;
       if (r != null && c(r)) {
-        var o = B(f(r));
+        var o = W(f(r));
         return o == null
           ? null
           : {
@@ -133,14 +139,28 @@ __d(
     function S(e) {
       return e != null && (e.chatThemeId != null || e.colorSchemeId != null);
     }
-    function R(e) {
+    function R(e, t) {
+      var n, r;
+      return S(e)
+        ? (e == null ? void 0 : e.inheritsTheme) !== !0
+          ? e
+          : babelHelpers.extends({}, e, {
+              chatThemeId: O(
+                (n = t == null ? void 0 : t.chatThemeId) != null ? n : null,
+                (r = t == null ? void 0 : t.colorSchemeId) != null ? r : null,
+                e.colorSchemeId,
+              ),
+            })
+        : t;
+    }
+    function L(e) {
       return e == null
         ? !1
         : e.type !== "default"
           ? !0
           : e.isDoodleEnabled != null;
     }
-    function L(e, t) {
+    function E(e, t) {
       return e == null
         ? {
             wallpaper: o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
@@ -151,23 +171,23 @@ __d(
             showDoodle: e.type === "stock" ? !1 : e.isDoodleEnabled !== !1,
           };
     }
-    function E(e) {
+    function k(e) {
       return e != null ? e.isDoodleEnabled : null;
     }
-    function k(e, t) {
+    function I(e, t) {
       return e != null && (e.type === "solid" || e.type === "stock")
         ? babelHelpers.extends({}, e, { isDoodleEnabled: t })
         : { type: "default", isDoodleEnabled: t };
     }
-    function I(e) {
-      var t = D(e);
+    function T(e) {
+      var t = x(e);
       return t != null
         ? t
         : o("WAWebChatThemeGatingUtils").isChatThemesEnabled()
-          ? M(e)
-          : x(e);
+          ? w(e)
+          : $(e);
     }
-    function T(t) {
+    function D(t) {
       return t == null ||
         typeof t != "object" ||
         t.type !== "solid" ||
@@ -180,7 +200,7 @@ __d(
             stockWallpaperImageId: null,
           });
     }
-    function D(e) {
+    function x(e) {
       var t = o("WAWebSolidColorPalette").findPaletteIndex(v(e));
       return t === -1
         ? null
@@ -191,14 +211,14 @@ __d(
             colorDark: v(o("WAWebSolidColorPalette").getSolidColors("dark")[t]),
           };
     }
-    function x(e) {
+    function $(e) {
       var t = v(e);
-      return w(t, o("WAWebWallpaper").getWallpaperColors("light"))
+      return A(t, o("WAWebWallpaper").getWallpaperColors("light"))
         ? {
             colorLight: t,
             colorDark: v(o("WAWebWallpaper").toggleWallpaperColor(t, "light")),
           }
-        : w(t, o("WAWebWallpaper").getWallpaperColors("dark"))
+        : A(t, o("WAWebWallpaper").getWallpaperColors("dark"))
           ? {
               colorLight: v(
                 o("WAWebWallpaper").toggleWallpaperColor(t, "dark"),
@@ -207,51 +227,51 @@ __d(
             }
           : null;
     }
-    var $ = o("WAWebWallpaper").getWallpaperColors("light"),
-      P = o("WAWebSolidColorPalette").getSolidColors("light"),
-      N = new Map([
-        [$[0], P[0]],
-        [$[1], P[2]],
-        [$[2], P[6]],
-        [$[3], P[17]],
-        [$[4], P[4]],
-        [$[5], P[5]],
-        [$[6], P[16]],
-        [$[7], P[33]],
-        [$[8], P[8]],
-        [$[9], P[9]],
-        [$[10], P[11]],
-        [$[11], P[13]],
-        [$[12], P[20]],
-        [$[13], P[23]],
-        [$[14], P[23]],
-        [$[15], P[25]],
-        [$[16], P[24]],
-        [$[17], P[26]],
-        [$[18], P[32]],
-        [$[19], P[30]],
-        [$[20], P[29]],
-        [$[21], P[32]],
-        [$[22], P[35]],
-        [$[23], P[25]],
-        [$[24], P[36]],
-        [$[25], P[11]],
-        [$[26], P[9]],
+    var P = o("WAWebWallpaper").getWallpaperColors("light"),
+      N = o("WAWebSolidColorPalette").getSolidColors("light"),
+      M = new Map([
+        [P[0], N[0]],
+        [P[1], N[2]],
+        [P[2], N[6]],
+        [P[3], N[17]],
+        [P[4], N[4]],
+        [P[5], N[5]],
+        [P[6], N[16]],
+        [P[7], N[33]],
+        [P[8], N[8]],
+        [P[9], N[9]],
+        [P[10], N[11]],
+        [P[11], N[13]],
+        [P[12], N[20]],
+        [P[13], N[23]],
+        [P[14], N[23]],
+        [P[15], N[25]],
+        [P[16], N[24]],
+        [P[17], N[26]],
+        [P[18], N[32]],
+        [P[19], N[30]],
+        [P[20], N[29]],
+        [P[21], N[32]],
+        [P[22], N[35]],
+        [P[23], N[25]],
+        [P[24], N[36]],
+        [P[25], N[11]],
+        [P[26], N[9]],
       ]);
-    function M(e) {
+    function w(e) {
       var t = v(e),
-        n = w(t, o("WAWebWallpaper").getWallpaperColors("dark"))
+        n = A(t, o("WAWebWallpaper").getWallpaperColors("dark"))
           ? v(o("WAWebWallpaper").toggleWallpaperColor(t, "dark"))
           : t,
-        r = N.get(n);
-      return r == null ? x(e) : D(r);
+        r = M.get(n);
+      return r == null ? $(e) : x(r);
     }
-    function w(e, t) {
+    function A(e, t) {
       return t.some(function (t) {
         return v(t) === e;
       });
     }
-    function A(e) {
+    function F(e) {
       var t, n, r;
       return (t =
         (n =
@@ -263,13 +283,13 @@ __d(
         ? t
         : null;
     }
-    function F(e, t, n) {
+    function O(e, t, n) {
       return !c(n) && c(t) ? t : e;
     }
-    function O(e, t) {
+    function B(e, t) {
       return c(e) ? e : t;
     }
-    function B(e) {
+    function W(e) {
       var t, n;
       return (t =
         (n = o("WAWebChatThemeEnums").MinimalScheme.cast(e)) != null
@@ -293,13 +313,14 @@ __d(
       (l.isDefaultPair = b),
       (l.normalizeHex = v),
       (l.isChatThemeOverride = S),
-      (l.isWallpaperOverride = R),
-      (l.wallpaperBackgroundFromValue = L),
-      (l.doodleFromWallpaperValue = E),
-      (l.wallpaperValueWithDoodle = k),
-      (l.migrateStoredSolidWallpaper = T),
-      (l.promoteMinimalOnColorChange = F),
-      (l.keepMinimalOnFamilyChange = O));
+      (l.resolveEffectiveChatThemeValue = R),
+      (l.isWallpaperOverride = L),
+      (l.wallpaperBackgroundFromValue = E),
+      (l.doodleFromWallpaperValue = k),
+      (l.wallpaperValueWithDoodle = I),
+      (l.migrateStoredSolidWallpaper = D),
+      (l.promoteMinimalOnColorChange = O),
+      (l.keepMinimalOnFamilyChange = B));
   },
   98,
 );

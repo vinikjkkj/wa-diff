@@ -59,6 +59,7 @@ __d(
           uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
             o("WAWebFrontendMsgGetters").getChat(t),
           ),
+          fileOrigin: null,
           isViewOnce: !!t.isViewOnce,
         }).then(
           (function () {

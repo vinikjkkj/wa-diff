@@ -15,6 +15,7 @@ __d(
     "WAWebPresenceCollection",
     "WAWebSocketConstants",
     "WAWebSocketModel",
+    "WAWebStreamTypes",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsScreenLock",
     "WAWebWamEnumWebcStreamModeCode",
@@ -34,15 +35,6 @@ __d(
       d = (e = n("cr:17219")) != null ? e : {},
       m = d.getWindowsBridge,
       p = n("$InternalEnum").Mirrored([
-        "OFFLINE",
-        "OPENING",
-        "PAIRING",
-        "SYNCING",
-        "RESUMING",
-        "CONNECTING",
-        "NORMAL",
-      ]),
-      _ = n("$InternalEnum").Mirrored([
         "QR",
         "MAIN",
         "SYNCING",
@@ -52,21 +44,25 @@ __d(
         "TOS_BLOCK",
         "SMB_TOS_BLOCK",
       ]),
-      f = n("$InternalEnum").Mirrored(["SHOW", "OBSCURE", "HIDE"]),
-      g = 18e3,
-      h = 3e3,
-      y = (function (e) {
+      _ = 18e3,
+      f = 3e3,
+      g = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
             (t = e.call.apply(e, [this].concat(r)) || this),
-            (t.info = o("WAWebBaseModel").session(p.NORMAL)),
-            (t.mode = o("WAWebBaseModel").session(_.SYNCING)),
-            (t.obscurity = o("WAWebBaseModel").session(f.HIDE)),
+            (t.id = o("WAWebBaseModel").prop()),
+            (t.info = o("WAWebBaseModel").session(
+              o("WAWebStreamTypes").StreamInfo.NORMAL,
+            )),
+            (t.mode = o("WAWebBaseModel").session(p.SYNCING)),
+            (t.obscurity = o("WAWebBaseModel").session(
+              o("WAWebStreamTypes").Obscurity.HIDE,
+            )),
             (t.needsUpdate = o("WAWebBaseModel").session()),
             (t.isHardRefresh = o("WAWebBaseModel").session(!1)),
-            (t.lastSyncStart = o("WAWebBaseModel").session(E())),
+            (t.lastSyncStart = o("WAWebBaseModel").session(R())),
             (t.needsManualDownload = o("WAWebBaseModel").session()),
             (t.couldForce = o("WAWebBaseModel").session()),
             (t.uiActive = o("WAWebBaseModel").session()),
@@ -78,9 +74,10 @@ __d(
             (t.unobscureShiftTimer = o("WAWebBaseModel").session()),
             (t.resumeCount = o("WAWebBaseModel").session(0)),
             (t.phoneAuthed = o("WAWebBaseModel").session(!1)),
+            (t.hasSynced = o("WAWebBaseModel").session()),
             (t.displayInfo = o("WAWebBaseModel").derived(
               function () {
-                return L(this.info, this.obscurity);
+                return S(this.info, this.obscurity);
               },
               ["info", "obscurity"],
             )),
@@ -95,7 +92,7 @@ __d(
             var t = this;
             (e.prototype.initialize.call(this),
               o("WAWebUserPrefsMultiDevice").isRegistered() ||
-                (this.mode = _.QR),
+                (this.mode = p.QR),
               window.document && (this.available = document.hasFocus()),
               (this.unavailableShiftTimer = new (o("WAShiftTimer").ShiftTimer)(
                 function () {
@@ -128,6 +125,7 @@ __d(
                 "change:state change:stream change:hasSynced",
                 this.$StreamImpl$p_1,
               ),
+              (this.hasSynced = o("WAWebSocketModel").Socket.hasSynced),
               this.listenTo(
                 r("WAWebNetworkStatus"),
                 "change:online",
@@ -176,30 +174,33 @@ __d(
               : (this.unavailableShiftTimer.cancel(), (this.available = !1));
           }),
           (a.$StreamImpl$p_1 = function () {
-            var e = S(),
+            var e = b(),
               t = {
                 info: e,
-                mode: R(),
+                mode: v(),
                 phoneAuthed:
                   o("WAWebSocketModel").Socket.stream !==
                   o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED,
+                hasSynced: o("WAWebSocketModel").Socket.hasSynced,
               };
-            if (e === p.NORMAL)
-              (this.unobscureShiftTimer.cancel(), (t.obscurity = f.HIDE));
-            else if (e === p.OFFLINE)
-              (this.unobscureShiftTimer.cancel(), (t.obscurity = f.OBSCURE));
+            if (e === o("WAWebStreamTypes").StreamInfo.NORMAL)
+              (this.unobscureShiftTimer.cancel(),
+                (t.obscurity = o("WAWebStreamTypes").Obscurity.HIDE));
+            else if (e === o("WAWebStreamTypes").StreamInfo.OFFLINE)
+              (this.unobscureShiftTimer.cancel(),
+                (t.obscurity = o("WAWebStreamTypes").Obscurity.OBSCURE));
             else
               e: {
                 var n = this.obscurity;
-                if (n === f.HIDE) {
-                  this.unobscureShiftTimer.onOrBefore(g);
+                if (n === o("WAWebStreamTypes").Obscurity.HIDE) {
+                  this.unobscureShiftTimer.onOrBefore(_);
                   break e;
                 }
-                if (n === f.OBSCURE) {
-                  this.unobscureShiftTimer.onOrBefore(h);
+                if (n === o("WAWebStreamTypes").Obscurity.OBSCURE) {
+                  this.unobscureShiftTimer.onOrBefore(f);
                   break e;
                 }
-                if (n === f.SHOW) break e;
+                if (n === o("WAWebStreamTypes").Obscurity.SHOW) break e;
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                     n,
@@ -208,7 +209,7 @@ __d(
             this.set(t);
           }),
           (a.unobscure = function () {
-            this.obscurity = f.SHOW;
+            this.obscurity = o("WAWebStreamTypes").Obscurity.SHOW;
           }),
           (a.$StreamImpl$p_3 = function () {
             this.phoneAuthed &&
@@ -281,83 +282,85 @@ __d(
               !r("WAWebCallCollection").activeCall;
           }),
           (a.logPageResume = function () {
-            this.info === p.RESUMING &&
+            this.info === o("WAWebStreamTypes").StreamInfo.RESUMING &&
               (this.resumeCount++,
               new (o("WAWebWebcPageResumeWamEvent").WebcPageResumeWamEvent)({
                 webcResumeCount: this.resumeCount,
               }).commit());
           }),
           (a.updateWamLog = function () {
-            var e = this.info === p.NORMAL;
+            var e = this.info === o("WAWebStreamTypes").StreamInfo.NORMAL;
             (o("WAWebWamPageLoadReporter").streamInfoChange(this.info, 1, e),
               e && this.stopListening(this, "change:info", this.updateWamLog));
           }),
           (a.logModeChange = function () {
-            (this.mode === _.SYNCING && (this.lastSyncStart = E()),
+            (this.mode === p.SYNCING && (this.lastSyncStart = R()),
               new (o(
                 "WAWebWebcStreamModeChangeWamEvent",
               ).WebcStreamModeChangeWamEvent)({
-                webcStreamMode: C(this.mode),
+                webcStreamMode: h(this.mode),
               }).commit());
           }),
           t
         );
       })(o("WAWebBaseModel").BaseModel);
-    y.Proxy = "stream";
-    function C(e) {
+    g.Proxy = "stream";
+    function h(e) {
       switch (e) {
-        case _.QR:
+        case p.QR:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE.QR;
-        case _.MAIN:
+        case p.MAIN:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE.MAIN;
-        case _.SYNCING:
+        case p.SYNCING:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .SYNCING;
-        case _.OFFLINE:
+        case p.OFFLINE:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .OFFLINE;
-        case _.CONFLICT:
+        case p.CONFLICT:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .CONFLICT;
-        case _.PROXYBLOCK:
+        case p.PROXYBLOCK:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .PROXYBLOCK;
-        case _.TOS_BLOCK:
-        case _.SMB_TOS_BLOCK:
+        case p.TOS_BLOCK:
+        case p.SMB_TOS_BLOCK:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .TOS_BLOCK;
       }
     }
-    var b = o("WAWebBaseModel").defineModel(y),
-      v = new b();
-    function S() {
+    var y = o("WAWebBaseModel").defineModel(g),
+      C = new y({ id: "1" });
+    function b() {
       var e = !1;
       if (
         (e || r("gkx")("26256")) &&
         !r("WAWebNetworkStatus").online &&
         r("WAWebNetworkStatus").simulatedOfflineConditions
       )
-        return p.OFFLINE;
+        return o("WAWebStreamTypes").StreamInfo.OFFLINE;
       switch (o("WAWebSocketModel").Socket.state) {
         case o("WAWebSocketConstants").SOCKET_STATE.OPENING:
-          return r("WAWebNetworkStatus").online ? p.OPENING : p.OFFLINE;
+          return r("WAWebNetworkStatus").online
+            ? o("WAWebStreamTypes").StreamInfo.OPENING
+            : o("WAWebStreamTypes").StreamInfo.OFFLINE;
         case o("WAWebSocketConstants").SOCKET_STATE.PAIRING:
           return o("WAWebSocketModel").Socket.hasSynced
-            ? p.RESUMING
-            : p.PAIRING;
+            ? o("WAWebStreamTypes").StreamInfo.RESUMING
+            : o("WAWebStreamTypes").StreamInfo.PAIRING;
         case o("WAWebSocketConstants").SOCKET_STATE.CONNECTED:
           return o("WAWebSocketModel").Socket.stream !==
             o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED &&
             !o("WAWebSocketModel").Socket.hasSynced
-            ? p.SYNCING
-            : p.NORMAL;
+            ? o("WAWebStreamTypes").StreamInfo.SYNCING
+            : o("WAWebStreamTypes").StreamInfo.NORMAL;
         case o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED:
         case o("WAWebSocketConstants").SOCKET_STATE.PROXYBLOCK:
         default:
-          return p.NORMAL;
+          return o("WAWebStreamTypes").StreamInfo.NORMAL;
       }
     }
-    function R() {
+    function v() {
       var e = !1;
       if (
         ((e = o("WAWebUserPrefsMultiDevice").isRegistered()),
@@ -365,52 +368,52 @@ __d(
           o("WAWebSocketModel").Socket.state !==
             o("WAWebSocketConstants").SOCKET_STATE.PROXYBLOCK)
       )
-        return _.QR;
+        return p.QR;
       var t = o("WAWebSocketModel").Socket.hasSynced;
-      if (t && e && o("WAWebBuildConstants").WINDOWS_OFFLINE) return _.MAIN;
+      if (t && e && o("WAWebBuildConstants").WINDOWS_OFFLINE) return p.MAIN;
       switch (o("WAWebSocketModel").Socket.state) {
         case o("WAWebSocketConstants").SOCKET_STATE.PROXYBLOCK:
-          return _.PROXYBLOCK;
+          return p.PROXYBLOCK;
         case o("WAWebSocketConstants").SOCKET_STATE.CONFLICT:
-          return _.CONFLICT;
+          return p.CONFLICT;
         case o("WAWebSocketConstants").SOCKET_STATE.TOS_BLOCK:
-          return _.TOS_BLOCK;
+          return p.TOS_BLOCK;
         case o("WAWebSocketConstants").SOCKET_STATE.SMB_TOS_BLOCK:
-          return _.SMB_TOS_BLOCK;
+          return p.SMB_TOS_BLOCK;
         case o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED:
-          return _.SYNCING;
+          return p.SYNCING;
         case o("WAWebSocketConstants").SOCKET_STATE.UNPAIRED_IDLE:
         case o("WAWebSocketConstants").SOCKET_STATE.UNPAIRED:
-          return _.QR;
+          return p.QR;
         case o("WAWebSocketConstants").SOCKET_STATE.OPENING:
           if (
             !r("WAWebNetworkStatus").online &&
             !o("WAWebSocketModel").Socket.hasSynced
           )
-            return _.OFFLINE;
+            return p.OFFLINE;
         default:
           return t ||
             o("WAWebSocketModel").Socket.stream ===
               o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED
-            ? _.MAIN
-            : _.SYNCING;
+            ? p.MAIN
+            : p.SYNCING;
       }
     }
-    function L(e, t) {
+    function S(e, t) {
       switch (t) {
-        case f.SHOW:
+        case o("WAWebStreamTypes").Obscurity.SHOW:
           return e;
-        case f.HIDE:
+        case o("WAWebStreamTypes").Obscurity.HIDE:
           return o("WAWebSocketModel").Socket.hasSynced
-            ? p.NORMAL
-            : p.CONNECTING;
-        case f.OBSCURE:
+            ? o("WAWebStreamTypes").StreamInfo.NORMAL
+            : o("WAWebStreamTypes").StreamInfo.CONNECTING;
+        case o("WAWebStreamTypes").Obscurity.OBSCURE:
           switch (e) {
-            case p.OPENING:
-            case p.PAIRING:
-            case p.SYNCING:
-            case p.RESUMING:
-              return p.CONNECTING;
+            case o("WAWebStreamTypes").StreamInfo.OPENING:
+            case o("WAWebStreamTypes").StreamInfo.PAIRING:
+            case o("WAWebStreamTypes").StreamInfo.SYNCING:
+            case o("WAWebStreamTypes").StreamInfo.RESUMING:
+              return o("WAWebStreamTypes").StreamInfo.CONNECTING;
             default:
               return e;
           }
@@ -425,10 +428,12 @@ __d(
         e
       );
     }
-    function E() {
+    function R() {
       return Math.floor(window.performance.now());
     }
-    ((l.StreamInfo = p), (l.StreamMode = _), (l.Stream = v));
+    ((l.StreamInfo = o("WAWebStreamTypes").StreamInfo),
+      (l.StreamMode = p),
+      (l.Stream = C));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WAWebBizCtwaAGMUtils",
     "WAWebChatCollection",
     "WAWebFrontendMsgGetters",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebMsgGetters",
     "WAWebMsgModelUtils",
@@ -57,7 +58,7 @@ __d(
         a = n == null ? void 0 : n.groupMetadata;
       if (a) {
         var i = !!(a != null && a.isLidAddressingMode),
-          l = o("WAWebGroupType").getGroupTypeFromGroupMetadata(a),
+          l = o("WAWebGroupMetadataGetters").getGroupType(a),
           s = l === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
         ((r.wamTypeOfGroup = o("WAWebGroupType").groupTypeToWamEnum(l)),
           (r.isCag = s),

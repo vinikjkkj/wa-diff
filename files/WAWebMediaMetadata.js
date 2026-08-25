@@ -69,6 +69,7 @@ __d(
         thumbnailHeight: t.thumbnailHeight,
         thumbnailWidth: t.thumbnailWidth,
         metadataUrl: t.metadataUrl,
+        dashManifestUrl: t.dashManifestUrl,
         waveform: t.waveform,
         staticUrl: t.staticUrl,
       };

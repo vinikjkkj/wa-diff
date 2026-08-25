@@ -3,10 +3,10 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebAcquisitionSourceNames",
     "WAWebContactImportTemplateParsingUtils",
     "WAWebContactManagerImportTemplateUtils",
     "WAWebCustomerDataFieldSaver",
+    "WAWebCustomerProfileAcquisitionSourceNames",
     "WAWebFindChatAction",
     "WAWebLeadStage",
     "WAWebLeadStageNames",
@@ -86,8 +86,8 @@ __d(
             b =
               C != null &&
               (u = o(
-                "WAWebAcquisitionSourceNames",
-              ).getAcquisitionSourceIdFromName(C)) != null
+                "WAWebCustomerProfileAcquisitionSourceNames",
+              ).getProfileAcquisitionSourceIdFromLabel(C)) != null
                 ? u
                 : void 0;
           yield o("WAWebCustomerDataFieldSaver").upsertAsCustomer(_, y, {

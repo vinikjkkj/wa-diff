@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebDBGroupsGroupMetadata",
     "WAWebDBMessageSerialization",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebHandlePlaceholderMsgKeyHashUtils",
     "WAWebMsgGetters",
@@ -189,7 +190,7 @@ __d(
             ).isCagFromGroupMetadata(n);
             ((e.isLid = a && o("WAWebMsgGetters").getIsReaction(t)),
               (e.typeOfGroup = o("WAWebGroupType").groupTypeToWamEnum(
-                o("WAWebGroupType").getGroupTypeFromGroupMetadata(n),
+                o("WAWebGroupMetadataGetters").getGroupType(n),
               )));
           }
         })),

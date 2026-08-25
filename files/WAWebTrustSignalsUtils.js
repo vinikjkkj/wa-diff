@@ -7,7 +7,9 @@ __d(
     "WAWebContactGetters",
     "WAWebElevatedPushNamesFlag",
     "WAWebFrontendContactGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupType",
+    "WAWebStateUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "nullthrows",
@@ -109,14 +111,15 @@ __d(
       return t === 0 ? n : r;
     }
     function p(e) {
-      var t = e == null ? void 0 : e.participants,
-        n = e == null ? void 0 : e.groupType,
-        r = t == null ? void 0 : t.length,
-        a = e == null ? void 0 : e.size,
-        i = t != null && t.iAmAdmin() ? r : a;
+      var t = e != null ? o("WAWebStateUtils").unproxy(e) : null,
+        n = t == null ? void 0 : t.participants,
+        r = o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t),
+        a = n == null ? void 0 : n.length,
+        i = t == null ? void 0 : t.size,
+        l = n != null && n.iAmAdmin() ? a : i;
       return s._(/*BTDS*/ '_j{"*":"{number} members","_1":"1 member"}', [
         s._plural(
-          n === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ? i : r,
+          r === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ? l : a,
           "number",
         ),
       ]);

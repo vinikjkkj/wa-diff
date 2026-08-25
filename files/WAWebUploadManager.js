@@ -15,6 +15,7 @@ __d(
             var e = r("WAWebCreateMediaUploadMetrics")({
                 type: t.type,
                 uploadOrigin: t.uploadOrigin,
+                fileOrigin: t.fileOrigin,
                 userUploadAttemptCount: t.userUploadAttemptCount,
                 forwardedFromWeb: t.forwardedFromWeb,
                 isViewOnce: t.isViewOnce,

@@ -68,18 +68,28 @@ __d(
         },
       });
     }
-    function d(e, t, n, r) {
+    function d(t, n, r, o) {
+      t.enqueueUpdateOperation(new e(n.clientId), {
+        update: function (t) {
+          t.setWireValue(r, o);
+        },
+        shouldUpdate: function (t) {
+          return t.getWireValue(r) !== o;
+        },
+      });
+    }
+    function m(e, t, n, r) {
       typeof r != "number" &&
-        p(e, "addChildToContainer expected number, got %s: %s", typeof r, r);
+        _(e, "addChildToContainer expected number, got %s: %s", typeof r, r);
       var a =
         n.styleId === o("WebBloksConstants").BK_INTERNAL_MERGE
           ? n.getChildren_DEPRECATED()
           : [n];
       a.forEach(function (n, o) {
-        m(e, t, n, r >= 0 ? r + o : r);
+        p(e, t, n, r >= 0 ? r + o : r);
       });
     }
-    function m(t, n, r, o) {
+    function p(t, n, r, o) {
       t.enqueueUpdateOperation(new e(n.clientId), {
         update: function (t) {
           var e = o === -1 ? t.getChildren_DEPRECATED().length : o;
@@ -87,7 +97,7 @@ __d(
         },
       });
     }
-    function p(e, t) {
+    function _(e, t) {
       for (
         var n, r = arguments.length, o = new Array(r > 2 ? r - 2 : 0), a = 2;
         a < r;
@@ -103,8 +113,9 @@ __d(
       (l.ServerIdTarget = s),
       (l.ChildServerIdTarget = u),
       (l.updateProperty = c),
-      (l.addChildToContainer = d),
-      (l.warn = p));
+      (l.updateWireProperty = d),
+      (l.addChildToContainer = m),
+      (l.warn = _));
   },
   98,
 );

@@ -2,7 +2,6 @@ __d(
   "WAWebVoipActionWriteCallLogCallStateChanged",
   [
     "WALogger",
-    "WATimeUtils",
     "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
     "WAWebMsgCollection",
@@ -10,6 +9,7 @@ __d(
     "WAWebMsgType",
     "WAWebReleaseToEventLoop",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogTimestamp",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipCallStateUtils",
     "WAWebVoipOngoingCallCollection",
@@ -93,7 +93,9 @@ __d(
                 callCreator: p,
                 from: n,
                 to: a,
-                t: o("WATimeUtils").unixTime(),
+                t: o(
+                  "WAWebVoipCallLogTimestamp",
+                ).resolveCallLogTimestampFromOfferTime(r.offerEpochTimeMs),
                 callDuration: 0,
                 callParticipants: r.participants.map(function (e) {
                   return { participant: e.jid, outcome: e.state };
@@ -228,7 +230,11 @@ __d(
                 t:
                   (t = b == null ? void 0 : b.t) != null
                     ? t
-                    : o("WATimeUtils").unixTime(),
+                    : o(
+                        "WAWebVoipCallLogTimestamp",
+                      ).resolveCallLogTimestampFromOfferTime(
+                        e.offerEpochTimeMs,
+                      ),
                 callDuration: h(e, b == null ? void 0 : b.callDuration),
                 callParticipants: e.participants.map(function (e) {
                   return { participant: e.jid, outcome: e.state };

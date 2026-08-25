@@ -9,6 +9,7 @@ __d(
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingHandler",
     "WAWebAccountLinkingNonceFetchAPI",
+    "WAWebMetaAiWaffleAuthTokenCache",
     "WAWebWaffleLifecycleWamLogger",
     "asyncToGeneratorRuntime",
   ],
@@ -92,12 +93,19 @@ __d(
               : e === "IQErrorWFNotAuthorizedInvalidPassword"
                 ? (s || (s = n("Promise"))).resolve("fail")
                 : e === "IQErrorWFNotFound" || e === "IQErrorWFStateMismatch"
-                  ? o("WAWebAccountLinkingDBOperationsAPI")
-                      .getAccountLinkingDBOps("account_linking")
-                      .purgeWaffleData()
-                      .then(function () {
-                        return "handled";
-                      })
+                  ? (function () {
+                      return (
+                        o(
+                          "WAWebMetaAiWaffleAuthTokenCache",
+                        ).clearMetaAiWaffleAuthTokenBlobCache(),
+                        o("WAWebAccountLinkingDBOperationsAPI")
+                          .getAccountLinkingDBOps("account_linking")
+                          .purgeWaffleData()
+                          .then(function () {
+                            return "handled";
+                          })
+                      );
+                    })()
                   : e === "IQErrorWFSuspended"
                     ? o("WAWebAccountLinkingHandler")
                         .handlePausedState()

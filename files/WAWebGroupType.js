@@ -94,17 +94,6 @@ __d(
         "LINKED_GENERAL_GROUP",
       ]);
     function h(e) {
-      return e.defaultSubgroup === !0
-        ? g.LINKED_ANNOUNCEMENT_GROUP
-        : e.generalSubgroup === !0
-          ? g.LINKED_GENERAL_GROUP
-          : e.parentGroup != null
-            ? g.LINKED_SUBGROUP
-            : e.isParentGroup === !0
-              ? g.COMMUNITY
-              : g.DEFAULT;
-    }
-    function y(e) {
       return e === g.LINKED_ANNOUNCEMENT_GROUP
         ? o("WAWebWamEnumTypeOfGroupEnum").TYPE_OF_GROUP_ENUM.DEFAULT_SUBGROUP
         : e === g.LINKED_SUBGROUP
@@ -118,7 +107,7 @@ __d(
                 );
               })();
     }
-    function C(e) {
+    function y(e) {
       if (e != null)
         return e === g.DEFAULT
           ? o("WAWebWamEnumGroupTypeClient").GROUP_TYPE_CLIENT.REGULAR_GROUP
@@ -146,9 +135,8 @@ __d(
       (l.REMOVE_REASON = _),
       (l.RevokedSubGroupSuggestionReason = f),
       (l.GroupType = g),
-      (l.getGroupTypeFromGroupMetadata = h),
-      (l.groupTypeToWamEnum = y),
-      (l.groupTypeToGroupTypeClient = C));
+      (l.groupTypeToWamEnum = h),
+      (l.groupTypeToGroupTypeClient = y));
   },
   98,
 );

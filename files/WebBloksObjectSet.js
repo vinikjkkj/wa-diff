@@ -49,6 +49,9 @@ __d(
               : new (r("WebBloksComponentQueryStore"))(
                   e.appLoader,
                   e.traversalKeys,
+                  e.minificationMap,
+                  e.unminificationMap,
+                  e.useMinification || e.unminificationMap != null,
                 )),
           (this.mountEffectsQueue = new (r("WebBloksMountEffectsQueue"))()));
       }

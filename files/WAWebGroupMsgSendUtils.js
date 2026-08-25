@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebAddonGatingUtils",
     "WAWebBotGroupGatingUtils",
+    "WAWebGroupMetadataGetters",
     "WAWebGroupType",
     "WAWebGroupUtils",
     "WAWebMsgGetters",
@@ -48,7 +49,7 @@ __d(
             },
             l = (a == null ? void 0 : a.isLidAddressingMode) === !0;
           if (a != null) {
-            var s = o("WAWebGroupType").getGroupTypeFromGroupMetadata(a),
+            var s = o("WAWebGroupMetadataGetters").getGroupType(a),
               u = s === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP;
             ((i.wamTypeOfGroup = o("WAWebGroupType").groupTypeToWamEnum(s)),
               (i.isLid = u && (r == null ? void 0 : r.type) === "addon"),

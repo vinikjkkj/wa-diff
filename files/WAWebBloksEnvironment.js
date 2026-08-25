@@ -8,6 +8,7 @@ __d(
     "WebBloksHasteEnvironment",
     "WebBloksUtils",
     "react-compiler-runtime",
+    "waWebMinificationMap",
     "waWebTraversalKeys",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,6 +29,7 @@ __d(
                   containerConfigs: {},
                   extensionHandlers: o("WAWebBloksPrimitives")
                     .EXTENSION_HANDLERS,
+                  minificationMap: r("waWebMinificationMap"),
                   traversalKeys: r("waWebTraversalKeys"),
                   screenQueryTemplate: o("WebBloksUtils").cast(
                     o("WAWebUnifiedResponseLoaderTemplate").LOADER_TEMPLATE,

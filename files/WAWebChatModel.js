@@ -63,6 +63,8 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGroupMetadataCollection",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupMetadataTypeUtils",
     "WAWebGroupSafetyCheckUtils",
     "WAWebGroupType",
     "WAWebHandleNewMsgAction",
@@ -440,17 +442,21 @@ __d(
                 ),
                 this.listenTo(
                   c,
-                  "change:groupType",
+                  "change:parentGroup change:isParentGroup change:defaultSubgroup change:generalSubgroup",
                   i
                     ? this.$ChatImpl$p_14
                     : function () {
                         (o(
                           "WAWebChatShowUnreadInTitle",
                         ).computeShowUnreadInTitle(n),
-                          (n.groupType = c.groupType));
+                          (n.groupType = o(
+                            "WAWebGroupMetadataGetters",
+                          ).getGroupType(c)));
                       },
                 ),
-                (this.groupType = c.groupType),
+                (this.groupType = o("WAWebGroupMetadataGetters").getGroupType(
+                  c,
+                )),
                 this.listenTo(
                   c,
                   "change:hasCapi",
@@ -963,7 +969,8 @@ __d(
           (i.$ChatImpl$p_14 = function () {
             o("WAWebChatShowUnreadInTitle").computeShowUnreadInTitle(this);
             var e = this.groupMetadata;
-            e != null && (this.groupType = e.groupType);
+            e != null &&
+              (this.groupType = o("WAWebGroupMetadataGetters").getGroupType(e));
           }),
           (i.$ChatImpl$p_15 = function () {
             var e = this.groupMetadata;
@@ -1277,21 +1284,24 @@ __d(
             return !1;
           }),
           (i.canToggleFavorite = function () {
-            var e, t, n, r;
+            var e, t;
             return o("WAWebListsGatingUtils").isListsEnabled() ||
               this.isFavorite
               ? !0
               : ((o("WAWebChatGetters").getIsGroup(this) &&
-                  ((e = this.groupMetadata) == null ? void 0 : e.groupType) !==
-                    o("WAWebGroupType").GroupType.COMMUNITY &&
-                  ((t = this.groupMetadata) == null ? void 0 : t.groupType) !==
+                  o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                    this.groupMetadata,
+                  ) !== o("WAWebGroupType").GroupType.COMMUNITY &&
+                  o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(
+                    this.groupMetadata,
+                  ) !==
                     o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-                  ((n = this.groupMetadata) == null
+                  ((e = this.groupMetadata) == null
                     ? void 0
-                    : n.participants.iAmMember()) &&
+                    : e.participants.iAmMember()) &&
                   !(
-                    (r = this.groupMetadata) != null &&
-                    r.isSuspendedOrTerminated()
+                    (t = this.groupMetadata) != null &&
+                    t.isSuspendedOrTerminated()
                   )) ||
                   (o("WAWebFrontendChatGetters").getKind(this) ===
                     o("WAWebChatFlowTypes").ChatKindType.Chat &&

@@ -1,6 +1,11 @@
 __d(
   "WAWebWamGroupMetadataMetricUtils",
-  ["WAWebDBGroupsGroupMetadata", "WAWebGroupType", "asyncToGeneratorRuntime"],
+  [
+    "WAWebDBGroupsGroupMetadata",
+    "WAWebGroupMetadataGetters",
+    "WAWebGroupType",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return s.apply(this, arguments);
@@ -12,7 +17,7 @@ __d(
             var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
             if (t != null)
               return o("WAWebGroupType").groupTypeToWamEnum(
-                o("WAWebGroupType").getGroupTypeFromGroupMetadata(t),
+                o("WAWebGroupMetadataGetters").getGroupType(t),
               );
           }
         })),
@@ -33,7 +38,7 @@ __d(
     }
     function d(e) {
       return (
-        o("WAWebGroupType").getGroupTypeFromGroupMetadata(e) ===
+        o("WAWebGroupMetadataGetters").getGroupType(e) ===
         o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
       );
     }

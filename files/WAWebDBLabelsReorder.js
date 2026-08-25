@@ -1,6 +1,12 @@
 __d(
   "WAWebDBLabelsReorder",
-  ["Promise", "WALogger", "WAWebModelStorageUtils", "asyncToGeneratorRuntime"],
+  [
+    "Promise",
+    "WALogger",
+    "WAWebModelStorageUtils",
+    "WAWebSchemaLabel",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
@@ -8,60 +14,62 @@ __d(
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           yield o("WAWebModelStorageUtils")
             .getStorage()
-            .lock(
-              ["label"],
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (r) {
-                    var a = r[0],
-                      i = t.reduce(function (e, t, n) {
-                        return (e.set(t, n), e);
-                      }, new Map([]));
-                    try {
-                      var l = t.map(function (e) {
-                          return String(e);
-                        }),
-                        u = yield a.bulkGet(l),
-                        c = [];
-                      return (
-                        u.forEach(function (e) {
-                          if (e != null) {
-                            var t = i.get(Number(e.id));
-                            t != null &&
-                              c.push(a.merge(e.id, { orderIndex: t }));
-                          }
-                        }),
-                        (s || (s = n("Promise"))).all(c)
-                      );
-                    } catch (t) {
-                      throw (
-                        o("WALogger")
-                          .ERROR(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "[Label] updateLabelsSortOrder: updating storage failed",
-                              ])),
-                          )
-                          .tags("labels")
-                          .sendLogs("labels-db-update-failed"),
-                        t
-                      );
-                    }
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            );
+            .lock(["label"], function () {
+              return d(e);
+            });
         })),
         c.apply(this, arguments)
       );
     }
-    l.updateLabelsSortOrder = u;
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var r = t.reduce(function (e, t, n) {
+            return (e.set(t, n), e);
+          }, new Map([]));
+          try {
+            var a = t.map(function (e) {
+                return String(e);
+              }),
+              i = yield o("WAWebSchemaLabel").getLabelTable().bulkGet(a),
+              l = [];
+            (i.forEach(function (e) {
+              if (e != null) {
+                var t = r.get(Number(e.id));
+                t != null &&
+                  l.push(
+                    o("WAWebSchemaLabel")
+                      .getLabelTable()
+                      .merge(e.id, { orderIndex: t }),
+                  );
+              }
+            }),
+              yield (s || (s = n("Promise"))).all(l));
+          } catch (t) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[Label] writeLabelsSortOrder: updating storage failed",
+                    ])),
+                )
+                .tags("labels")
+                .sendLogs("labels-db-update-failed"),
+              t
+            );
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    ((l.updateLabelsSortOrder = u), (l.writeLabelsSortOrder = d));
   },
   98,
 );

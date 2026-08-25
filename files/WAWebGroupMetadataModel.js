@@ -127,25 +127,6 @@ __d(
             (e.revokeGroupsV4AddInvitePromise = o("WAWebBaseModel").session()),
             (e.cachedDeviceCount = o("WAWebBaseModel").session()),
             (e.cachedDeviceSizeBucket = o("WAWebBaseModel").session()),
-            (e.groupType = o("WAWebBaseModel").derived(
-              function () {
-                return this.defaultSubgroup === !0
-                  ? o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
-                  : this.generalSubgroup === !0
-                    ? o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP
-                    : this.parentGroup != null
-                      ? o("WAWebGroupType").GroupType.LINKED_SUBGROUP
-                      : this.isParentGroup === !0
-                        ? o("WAWebGroupType").GroupType.COMMUNITY
-                        : o("WAWebGroupType").GroupType.DEFAULT;
-              },
-              [
-                "parentGroup",
-                "isParentGroup",
-                "defaultSubgroup",
-                "generalSubgroup",
-              ],
-            )),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
@@ -193,10 +174,11 @@ __d(
           }),
           (i.canSetSubject = function () {
             return this.isSuspendedOrTerminated() ||
-              this.groupType ===
+              o("WAWebGroupMetadataGetters").getGroupType(this) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
               ? !1
-              : this.groupType === o("WAWebGroupType").GroupType.COMMUNITY
+              : o("WAWebGroupMetadataGetters").getGroupType(this) ===
+                  o("WAWebGroupType").GroupType.COMMUNITY
                 ? this.participants.iAmAdmin()
                 : this.participants.iAmMember()
                   ? this.participants.iAmAdmin()
@@ -210,8 +192,9 @@ __d(
             return !this.participants.iAmMember() ||
               (!this.participants.iAmAdmin() && this.restrict) ||
               this.isSuspendedOrTerminated() ||
-              ((this.groupType === o("WAWebGroupType").GroupType.COMMUNITY ||
-                this.groupType ===
+              ((o("WAWebGroupMetadataGetters").getGroupType(this) ===
+                o("WAWebGroupType").GroupType.COMMUNITY ||
+                o("WAWebGroupMetadataGetters").getGroupType(this) ===
                   o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP) &&
                 !this.participants.iAmAdmin())
               ? !1
@@ -219,7 +202,7 @@ __d(
           }),
           (i.canSetGroupProperty = function () {
             return this.isSuspendedOrTerminated() ||
-              this.groupType ===
+              o("WAWebGroupMetadataGetters").getGroupType(this) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
               ? !1
               : this.participants.iAmAdmin()
@@ -234,7 +217,7 @@ __d(
               if (this.participants.userIsAdmin(t)) return e;
             }
             return this.restrict ||
-              this.groupType ===
+              o("WAWebGroupMetadataGetters").getGroupType(this) ===
                 o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
               ? !1
               : e;
@@ -271,7 +254,11 @@ __d(
                 this.$GroupMetadata$p_4,
               ),
               this.listenTo(this, "change:desc", this.$GroupMetadata$p_3),
-              this.listenTo(this, "change:groupType", this.$GroupMetadata$p_3),
+              this.listenTo(
+                this,
+                "change:parentGroup change:isParentGroup change:defaultSubgroup change:generalSubgroup",
+                this.$GroupMetadata$p_3,
+              ),
               this.$GroupMetadata$p_3(),
               this.isTrusted(),
               (this.$GroupMetadata$p_1 = this.$GroupMetadata$p_5()),
@@ -284,7 +271,8 @@ __d(
               (this.unreadMentionMetadata = new (r(
                 "WAWebUnreadMentionMetadataModel",
               ))()),
-              this.groupType === o("WAWebGroupType").GroupType.COMMUNITY &&
+              o("WAWebGroupMetadataGetters").getGroupType(this) ===
+                o("WAWebGroupType").GroupType.COMMUNITY &&
                 this.$GroupMetadata$p_4());
           }),
           (i.$GroupMetadata$p_6 = function () {
@@ -357,16 +345,16 @@ __d(
               : (this.trusted = !1);
           }),
           (i.hasJoined = function () {
-            var e = this.groupType,
-              t = this.id,
-              n = this.joinedSubgroups;
-            if (e === o("WAWebGroupType").GroupType.COMMUNITY)
-              return n.length > 0;
-            var r = o("WAWebChatCollection").ChatCollection.get(t);
+            var e = this.id,
+              t = this.joinedSubgroups,
+              n = o("WAWebGroupMetadataGetters").getGroupType(this);
+            if (n === o("WAWebGroupType").GroupType.COMMUNITY)
+              return t.length > 0;
+            var r = o("WAWebChatCollection").ChatCollection.get(e);
             return r ? r.isReadOnly === !1 : !1;
           }),
           (i.$GroupMetadata$p_3 = function () {
-            this.groupType ===
+            o("WAWebGroupMetadataGetters").getGroupType(this) ===
               o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
             !this.canSetDescription() &&
             (this.desc == null || this.desc === "")

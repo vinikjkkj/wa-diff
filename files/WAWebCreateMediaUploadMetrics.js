@@ -16,99 +16,100 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.forwardedFromWeb,
-        n = e.isHdPhoto,
-        a = n === void 0 ? !1 : n,
-        i = e.isViewOnce,
-        l = e.type,
-        u = e.uploadOrigin,
-        c = e.uploadQpl,
-        d = c === void 0 ? null : c,
-        m = e.userUploadAttemptCount,
-        p = o("WAWebWamMediaMetricUtils").generateMediaEventId(),
-        _ = new (o("WAWebMediaUpload2WamEvent").MediaUpload2WamEvent)({
-          mediaId: p,
+      var t = e.fileOrigin,
+        n = e.forwardedFromWeb,
+        a = e.isHdPhoto,
+        i = a === void 0 ? !1 : a,
+        l = e.isViewOnce,
+        u = e.type,
+        c = e.uploadOrigin,
+        d = e.uploadQpl,
+        m = d === void 0 ? null : d,
+        p = e.userUploadAttemptCount,
+        _ = o("WAWebWamMediaMetricUtils").generateMediaEventId(),
+        f = new (o("WAWebMediaUpload2WamEvent").MediaUpload2WamEvent)({
+          mediaId: _,
           connectionType: o("WAWebWamEnumConnectionType").CONNECTION_TYPE
             .HOSTNAME,
-          overallMediaType: o("WAWebWamMediaMetricUtils").getMetricMediaType(l),
+          overallMediaType: o("WAWebWamMediaMetricUtils").getMetricMediaType(u),
           overallMmsVersion: 4,
-          overallAttemptCount: m,
+          overallAttemptCount: p,
           networkStack: o("WAWebWamEnumNetworkStackType").NETWORK_STACK_TYPE
             .NATIVE,
           overallUploadMode: o(
             "WAWebWamMediaMetricUtils",
-          ).getMetricOverallUploadModeType(l),
-          overallIsForward: t,
-          overallUploadOrigin: u,
-          uploadSource: r("WAWebMapFileOriginToUploadOrigin")(u, t),
-          isViewOnce: i,
+          ).getMetricOverallUploadModeType(u),
+          overallIsForward: n,
+          overallUploadOrigin: c,
+          uploadSource: r("WAWebMapFileOriginToUploadOrigin")(t, n),
+          isViewOnce: l,
           overallUserVisibleT: 0,
         });
       if (
         (o("WAWebAppTracker").AppTracker.start(
           o("WAWebAppTracker").AppTrackerType.MediaUL,
         ),
-        l === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE)
+        u === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE)
       ) {
-        var f = a
+        var g = i
           ? o("WAWebWamEnumMediaQuality").MEDIA_QUALITY.HIGHEST_QUALITY
           : o("WAWebWamEnumMediaQuality").MEDIA_QUALITY.DATA_SAVER;
-        _.set({ photoQualitySetting: f });
+        f.set({ photoQualitySetting: g });
       }
-      function g(e) {
-        (_.set({ overallMediaSize: e }),
-          d == null ||
-            d.addPoint("handle_array_buffer_created", {
+      function h(e) {
+        (f.set({ overallMediaSize: e }),
+          m == null ||
+            m.addPoint("handle_array_buffer_created", {
               int: { overall_media_size: s(e) },
             }));
       }
-      function h(e) {
+      function y(e) {
         var t = null;
         e instanceof o("WAWebHttpErrors").HttpStatusCodeError &&
-          (_.set({ resumeHttpCode: e.status }), (t = e.status));
+          (f.set({ resumeHttpCode: e.status }), (t = e.status));
         var n = {};
         (t != null && (n.check_existing_http_status = t),
-          d == null ||
-            d.addPoint("handle_check_existing_error", {
+          m == null ||
+            m.addPoint("handle_check_existing_error", {
               string: { check_existing_error_name: e.name },
               int: n,
             }));
       }
-      function y() {
-        (_.set({
+      function C() {
+        (f.set({
           overallUploadResult: o("WAWebWamEnumMediaUploadResultType")
             .MEDIA_UPLOAD_RESULT_TYPE.DUPLICATE,
           overallIsFinal: !0,
           resumeHttpCode: 200,
         }),
-          _.markOverallCumT(),
+          f.markOverallCumT(),
           o("WAWebAppTracker").AppTracker.stop(
             o("WAWebAppTracker").AppTrackerType.MediaUL,
           ),
-          o("WAWebAppTracker").attachWAMAppContext(_, _.overallCumT),
-          _.commit(),
-          d == null ||
-            d.addPoint("handle_check_existing_success", {
+          o("WAWebAppTracker").attachWAMAppContext(f, f.overallCumT),
+          f.commit(),
+          m == null ||
+            m.addPoint("handle_check_existing_success", {
               bool: { check_existing_dedupe_hit: !0 },
             }));
       }
-      function C(e) {
+      function b(e) {
         var t = e.failCount,
           n = e.hostClass,
           r = e.hostName;
-        (_.set({
+        (f.set({
           overallDomain: r,
           overallConnectionClass: n,
           overallRetryCount: t,
         }),
-          d == null ||
-            d.addPoint("handle_upload_host_found", {
+          m == null ||
+            m.addPoint("handle_upload_host_found", {
               string: { host_name: r, host_class: n },
               int: { upload_host_attempt: t },
             }));
       }
-      function b() {
-        (_.set({
+      function v() {
+        (f.set({
           resumeHttpCode: 404,
           overallUploadResult: o("WAWebWamEnumMediaUploadResultType")
             .MEDIA_UPLOAD_RESULT_TYPE.OK,
@@ -116,26 +117,26 @@ __d(
           uploadHttpCode: 200,
           finalizeHttpCode: 200,
         }),
-          _.markOverallCumT(),
+          f.markOverallCumT(),
           o("WAWebAppTracker").AppTracker.stop(
             o("WAWebAppTracker").AppTrackerType.MediaUL,
           ),
-          o("WAWebAppTracker").attachWAMAppContext(_, _.overallCumT),
-          _.commit(),
+          o("WAWebAppTracker").attachWAMAppContext(f, f.overallCumT),
+          f.commit(),
           o("WAWebCoreActionsODS").logMediaUploadSuccess());
       }
-      function v(e) {
+      function S(e) {
         var t = o("WAWebWamMediaMetricUtils").getMetricUploadErrorResultType(e);
-        _.set({ overallUploadResult: t, overallIsFinal: !0 });
+        f.set({ overallUploadResult: t, overallIsFinal: !0 });
         var n = o("WAWebWamMediaMetricUtils").getStatusCode(e);
-        (n != null && ((_.uploadHttpCode = n), (_.finalizeHttpCode = n)),
-          _.markOverallCumT(),
+        (n != null && ((f.uploadHttpCode = n), (f.finalizeHttpCode = n)),
+          f.markOverallCumT(),
           o("WAWebAppTracker").AppTracker.stop(
             o("WAWebAppTracker").AppTrackerType.MediaUL,
           ),
-          o("WAWebAppTracker").attachWAMAppContext(_, _.overallCumT),
-          _.commit(),
-          o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(_, e),
+          o("WAWebAppTracker").attachWAMAppContext(f, f.overallCumT),
+          f.commit(),
+          o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(f, e),
           t !==
             o("WAWebWamEnumMediaUploadResultType").MEDIA_UPLOAD_RESULT_TYPE
               .ERROR_CANCEL &&
@@ -149,13 +150,13 @@ __d(
                     .MEDIA_UPLOAD_RESULT_TYPE.ERROR_UPLOAD &&
                 o("WAWebCoreActionsODS").logMediaUploadErrorNetwork()));
       }
-      function S(e) {
-        (_.set({ overallT: e }),
-          d == null || d.addPoint("handle_upload_attempt_success"));
+      function R(e) {
+        (f.set({ overallT: e }),
+          m == null || m.addPoint("handle_upload_attempt_success"));
       }
-      function R(e, t, n, r) {
+      function L(e, t, n, r) {
         var a = new (o("WAWebMediaUpload2WamEvent").MediaUpload2WamEvent)(
-            _.all,
+            f.all,
           ),
           i = o("WAWebWamMediaMetricUtils").getStatusCode(e),
           l =
@@ -175,51 +176,51 @@ __d(
           overallLastUploadRetryPhase: r,
           finalizeHttpCode: l,
         }),
-          i != null && (_.uploadHttpCode = i),
-          _.markOverallCumT(),
+          i != null && (f.uploadHttpCode = i),
+          f.markOverallCumT(),
           o("WAWebAppTracker").AppTracker.stop(
             o("WAWebAppTracker").AppTrackerType.MediaUL,
           ),
-          o("WAWebAppTracker").attachWAMAppContext(_, _.overallCumT),
+          o("WAWebAppTracker").attachWAMAppContext(f, f.overallCumT),
           a.commit(),
-          o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(_, e),
-          d == null ||
-            d.addPoint("handle_upload_attempt_error", {
+          o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(f, e),
+          m == null ||
+            m.addPoint("handle_upload_attempt_error", {
               string: { upload_error_name: e.name },
               int: { upload_attempt: n, upload_retry_phase: r },
             }));
       }
-      function L() {
-        (_.startOverallEncryptT(), d == null || d.addPoint("encrypt_start"));
-      }
       function E() {
-        (_.markOverallEncryptT(), d == null || d.addPoint("encrypt_end"));
+        (f.startOverallEncryptT(), m == null || m.addPoint("encrypt_start"));
       }
       function k() {
-        (_.set({ uploadIsStreaming: !0 }),
-          d == null || d.addPoint("streaming_upload_start"));
+        (f.markOverallEncryptT(), m == null || m.addPoint("encrypt_end"));
       }
-      function I(e) {
-        _.set({ uploadBytesTransferred: e });
+      function I() {
+        (f.set({ uploadIsStreaming: !0 }),
+          m == null || m.addPoint("streaming_upload_start"));
       }
       function T(e) {
-        (e != null && _.set({ isViewOnce: e }), _.markOverallUserVisibleT());
+        f.set({ uploadBytesTransferred: e });
+      }
+      function D(e) {
+        (e != null && f.set({ isViewOnce: e }), f.markOverallUserVisibleT());
       }
       return {
-        handleStreamUploadStart: k,
-        handleArrayBufferCreated: g,
-        handleCheckExistingError: h,
-        handleCheckExistingSuccess: y,
-        handleUploadHostFound: C,
-        handleUploadSuccess: b,
-        handleUploadError: v,
-        handleUploadAttemptSuccess: S,
-        handleUploadAttemptError: R,
-        mediaId: p,
-        handleEncryptionStart: L,
-        handleEncryptionSuccess: E,
-        handleUploadProgress: I,
-        handleSendMessageStart: T,
+        handleStreamUploadStart: I,
+        handleArrayBufferCreated: h,
+        handleCheckExistingError: y,
+        handleCheckExistingSuccess: C,
+        handleUploadHostFound: b,
+        handleUploadSuccess: v,
+        handleUploadError: S,
+        handleUploadAttemptSuccess: R,
+        handleUploadAttemptError: L,
+        mediaId: _,
+        handleEncryptionStart: E,
+        handleEncryptionSuccess: k,
+        handleUploadProgress: T,
+        handleSendMessageStart: D,
       };
     }
     function s(e) {

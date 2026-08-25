@@ -6,7 +6,6 @@ __d(
     var e = 4,
       s = 5e3,
       u = {
-        acquisitionSource: null,
         labelId: null,
         lastMessageCustomRange: null,
         lastMessageRange: null,
@@ -31,7 +30,6 @@ __d(
           : null;
       i != null && r.push({ fieldName: "acquisition_source", filterText: i });
       var l = {
-          acquisitionSource: i == null ? e.acquisitionSource : null,
           labelId: e.labelId,
           lastMessageCustomRange: e.lastMessageCustomRange,
           lastMessageRange: e.lastMessageRange,
@@ -61,7 +59,6 @@ __d(
     function f(e) {
       return (
         e.leadStages.length > 0 ||
-        e.acquisitionSource != null ||
         e.labelId != null ||
         e.lastMessageRange != null ||
         e.lastMessageCustomRange != null
