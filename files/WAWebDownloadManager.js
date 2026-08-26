@@ -367,23 +367,24 @@ __d(
             i = e.downloadOrigin,
             l = e.downloadQpl,
             s = e.encFilehash,
-            u = e.filehash,
-            c = e.imageDimensions,
-            d = e.isViewOnce,
-            m = e.mediaKey,
-            b = e.mediaKeyTimestamp,
-            v = e.mode,
-            S = e.onDecryptStart,
-            R = e.onProgress,
-            L = e.partialVideoOpts,
-            E = e.progressiveJpegOpts,
-            I = e.staticUrl,
-            T = e.type,
-            D = e.userDownloadAttemptCount,
-            x = o(
+            u = e.experienceIds,
+            c = e.filehash,
+            d = e.imageDimensions,
+            m = e.isViewOnce,
+            b = e.mediaKey,
+            v = e.mediaKeyTimestamp,
+            S = e.mode,
+            R = e.onDecryptStart,
+            L = e.onProgress,
+            E = e.partialVideoOpts,
+            I = e.progressiveJpegOpts,
+            T = e.staticUrl,
+            D = e.type,
+            x = e.userDownloadAttemptCount,
+            $ = o(
               "WAWebMediaCryptoEligibilityUtils",
-            ).isMediaCryptoExpectedForMediaType(T);
-          if (m == null && x)
+            ).isMediaCryptoExpectedForMediaType(D);
+          if (b == null && $)
             throw (
               o("WALogger")
                 .ERROR(
@@ -392,16 +393,16 @@ __d(
                       "[DownloadManager] expected media key for media type ",
                       "",
                     ])),
-                  T,
+                  D,
                 )
                 .tags("media")
-                .sendLogs("missing-media-key-for-media-type-" + T),
+                .sendLogs("missing-media-key-for-media-type-" + D),
               new (o("WAWebMediaFileErrors").MediaDecryptionError)(
-                "decryptMedia: missing key for type " + T,
+                "decryptMedia: missing key for type " + D,
               )
             );
-          if (s == null && x) {
-            if (T !== o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT)
+          if (s == null && $) {
+            if (D !== o("WAWebMmsMediaTypes").MEDIA_TYPES.PRODUCT)
               throw (
                 o("WALogger")
                   .ERROR(
@@ -410,15 +411,15 @@ __d(
                         "[DownloadManager] expected encFilehash for media type ",
                         "",
                       ])),
-                    T,
+                    D,
                   )
                   .tags("media")
-                  .sendLogs("missing-encfilehash-for-media-type-" + T),
+                  .sendLogs("missing-encfilehash-for-media-type-" + D),
                 new (o("WAWebMediaFileErrors").MediaDecryptionError)(
-                  "decryptMedia: missing encFilehash for type " + T,
+                  "decryptMedia: missing encFilehash for type " + D,
                 )
               );
-            if (I == null && a == null)
+            if (T == null && a == null)
               throw (
                 o("WALogger")
                   .ERROR(
@@ -431,173 +432,174 @@ __d(
                   .sendLogs("missing-encfilehash-and-path-for-product"),
                 new (o("WAWebMediaFileErrors").MediaDecryptionError)(
                   "decryptMedia: missing encFilehash and directPath/staticUrl for type " +
-                    T,
+                    D,
                 )
               );
           }
-          var $ = E == null ? void 0 : E.scanCount,
-            P =
-              E != null &&
-              (E.scanCount == null || E.scanCount === E.scanLengths.length),
-            N = P ? null : $,
-            M = yield o(
+          var P = I == null ? void 0 : I.scanCount,
+            N =
+              I != null &&
+              (I.scanCount == null || I.scanCount === I.scanLengths.length),
+            M = N ? null : P,
+            w = yield o(
               "WAWebCreateMediaDownloadMetrics",
             ).createMediaDownloadMetrics({
               directPath: a,
               downloadOrigin: i,
-              type: T,
-              userDownloadAttemptCount: D,
-              isViewOnce: d,
-              downloadMode: v,
-              isPrefetch: E != null && !P,
-              imageDimensions: c,
+              type: D,
+              userDownloadAttemptCount: x,
+              isViewOnce: m,
+              downloadMode: S,
+              isPrefetch: I != null && !N,
+              imageDimensions: d,
               chatWid: t,
-              mediaKeyTimestamp: b,
+              mediaKeyTimestamp: v,
+              experienceIds: u,
             }),
-            w = M.handleDownloadAndDecryptSuccess,
-            A = M.handleDownloadAttemptError,
-            O = M.handleDownloadAttemptSuccess,
-            B = M.handleDownloadError,
-            W = M.handleDownloadHostFound,
-            q = M.handleDownloadSuccess,
-            U = M.markDecryptionEnd,
-            V = M.markDecryptionStart,
-            H = M.markNetworkT,
-            G = M.mediaId,
-            z = M.startNetworkT,
-            j = e.signal || new AbortController().signal,
-            K = o("WAWebMediaDebugString").getDebugString(u),
-            Q = { directPath: a, encFilehash: s, staticUrl: I, type: T };
+            A = w.handleDownloadAndDecryptSuccess,
+            O = w.handleDownloadAttemptError,
+            B = w.handleDownloadAttemptSuccess,
+            W = w.handleDownloadError,
+            q = w.handleDownloadHostFound,
+            U = w.handleDownloadSuccess,
+            V = w.markDecryptionEnd,
+            H = w.markDecryptionStart,
+            G = w.markNetworkT,
+            z = w.mediaId,
+            j = w.startNetworkT,
+            K = e.signal || new AbortController().signal,
+            Q = o("WAWebMediaDebugString").getDebugString(c),
+            X = { directPath: a, encFilehash: s, staticUrl: T, type: D };
           o("WALogger").LOG(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
                 "downloadManager.download: [",
                 "] start",
               ])),
-            K,
+            Q,
           );
           try {
-            var X = F({
-                progressiveJpegOpts: E,
-                filehash: u,
-                debugString: K,
-                scanCount: N,
+            var Y = F({
+                progressiveJpegOpts: I,
+                filehash: c,
+                debugString: Q,
+                scanCount: M,
               }),
-              Y = function (t) {
-                (A(t),
-                  X != null &&
-                    (X = F({
-                      progressiveJpegOpts: E,
-                      filehash: u,
-                      debugString: K,
-                      scanCount: N,
+              J = function (t) {
+                (O(t),
+                  Y != null &&
+                    (Y = F({
+                      progressiveJpegOpts: I,
+                      filehash: c,
+                      debugString: Q,
+                      scanCount: M,
                     })));
               },
-              J = r("WAWebGetMediaDownloadByterange")({
-                partialVideoOpts: L,
-                progressiveJpegOpts: E,
-                scanCount: N,
+              Z = r("WAWebGetMediaDownloadByterange")({
+                partialVideoOpts: E,
+                progressiveJpegOpts: I,
+                scanCount: M,
               }),
-              Z =
-                N == null && E
+              ee =
+                M == null && I
                   ? function (e, t) {
                       var n;
-                      (n = X) == null || n.handleProgress(e.total, t);
+                      (n = Y) == null || n.handleProgress(e.total, t);
                     }
                   : null,
-              ee =
-                x && m != null
-                  ? r("WAWebCryptoCreateMediaKeys")(T, m).then(function (e) {
+              te =
+                $ && b != null
+                  ? r("WAWebCryptoCreateMediaKeys")(D, b).then(function (e) {
                       var t;
-                      return ((t = X) == null || t.setCryptoKeys(e), e);
+                      return ((t = Y) == null || t.setCryptoKeys(e), e);
                     })
                   : (k || (k = n("Promise"))).resolve(null),
-              te = yield (k || (k = n("Promise"))).all([
-                ee,
+              ne = yield (k || (k = n("Promise"))).all([
+                te,
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  z();
+                  j();
                   try {
                     return yield r("WAWebMmsClient").download({
                       directPath: a,
-                      filehash: x ? s : u,
-                      staticUrl: I,
-                      type: T,
-                      signal: j,
-                      mode: v,
-                      byteRange: J,
-                      onData: Z,
-                      onDownloadHostFound: W,
-                      onDownloadAttemptSuccess: O,
-                      onDownloadAttemptError: Y,
-                      debugString: K,
-                      onProgress: R,
+                      filehash: $ ? s : c,
+                      staticUrl: T,
+                      type: D,
+                      signal: K,
+                      mode: S,
+                      byteRange: Z,
+                      onData: ee,
+                      onDownloadHostFound: q,
+                      onDownloadAttemptSuccess: B,
+                      onDownloadAttemptError: J,
+                      debugString: Q,
+                      onProgress: L,
                     });
                   } finally {
-                    H();
+                    G();
                   }
                 })(),
               ]),
-              ne = te[0],
-              re = te[1];
-            q(re.byteLength);
-            var oe = re;
-            if (ne != null) {
+              re = ne[0],
+              oe = ne[1];
+            U(oe.byteLength);
+            var ae = oe;
+            if (re != null) {
               (o(
                 "WAWebMmsDownloadUploadCrashLogger",
               ).downloadUploadCrashLogger.mark(
-                G,
+                z,
                 o("WAWebMmsDownloadUploadCrashLogger").ProgressType
                   .DOWNLOAD_DECRYPTION_STARTED,
               ),
-                S == null || S(),
-                V(),
+                R == null || R(),
+                H(),
                 l.addPoint("decrypt_start", {
-                  int: { dataSize: re.byteLength },
+                  int: { dataSize: oe.byteLength },
                 }),
                 o("WAWebAppTracker").AppTracker.start(
                   o("WAWebAppTracker").AppTrackerType.MediaProcessing,
                 ));
               try {
-                if (N != null && J != null) {
-                  var ae,
-                    ie = J.end - J.start + 1,
-                    le = yield (ae = X) == null
+                if (M != null && Z != null) {
+                  var ie,
+                    le = Z.end - Z.start + 1,
+                    se = yield (ie = Y) == null
                       ? void 0
-                      : ae.handleProgress(ie, re);
-                  if (le == null)
+                      : ie.handleProgress(le, oe);
+                  if (se == null)
                     throw new (o("WAWebMediaFileErrors").MediaDecryptionError)(
                       "Partial PJPEG decryption returned no data (encryptedFileSize=" +
-                        ie +
+                        le +
                         ", scanCount=" +
-                        N +
+                        M +
                         ")",
                     );
-                  oe = le;
-                } else if (L)
-                  oe = yield o(
+                  ae = se;
+                } else if (E)
+                  ae = yield o(
                     "WAWebCryptoDecryptPartialMedia",
-                  ).decryptPartialMedia({ mediaKeys: ne, ciphertext: re });
+                  ).decryptPartialMedia({ mediaKeys: re, ciphertext: oe });
                 else {
-                  var se =
+                  var ue =
                     o("WAWebABProps").getABPropConfigValue(
                       "web_media_compute_in_worker_enabled",
                     ) === !0;
                   (l.addAnnotations({
-                    string: { decrypt_path: se ? "v2" : "v1" },
+                    string: { decrypt_path: ue ? "v2" : "v1" },
                   }),
-                    se
-                      ? (oe = yield r("WAWebCryptoDecryptMediaV2")({
-                          mediaKeys: ne,
-                          ciphertextHmac: re,
+                    ue
+                      ? (ae = yield r("WAWebCryptoDecryptMediaV2")({
+                          mediaKeys: re,
+                          ciphertextHmac: oe,
                           downloadQpl: l,
-                          expectedPlaintextHash: u,
-                          debugString: K,
+                          expectedPlaintextHash: c,
+                          debugString: Q,
                         }))
-                      : (oe = yield r("WAWebCryptoDecryptMedia")({
-                          mediaKeys: ne,
-                          ciphertextHmac: re,
-                          expectedPlaintextHash: u,
-                          debugString: K,
+                      : (ae = yield r("WAWebCryptoDecryptMedia")({
+                          mediaKeys: re,
+                          ciphertextHmac: oe,
+                          expectedPlaintextHash: c,
+                          debugString: Q,
                         })));
                 }
               } finally {
@@ -606,22 +608,22 @@ __d(
                 );
               }
               (l.addPoint("decrypt_end"),
-                U(),
+                V(),
                 o(
                   "WAWebMmsDownloadUploadCrashLogger",
                 ).downloadUploadCrashLogger.mark(
-                  G,
+                  z,
                   o("WAWebMmsDownloadUploadCrashLogger").ProgressType
                     .DOWNLOAD_DECRYPTION_FINISHED,
                 ));
             } else {
-              var ue = L == null && N == null;
-              if (ue) {
-                var ce = yield o("WAWebValidateMediaFilehash").validateFileash(
-                  oe,
-                  u,
+              var ce = E == null && M == null;
+              if (ce) {
+                var de = yield o("WAWebValidateMediaFilehash").validateFileash(
+                  ae,
+                  c,
                 );
-                if (!ce)
+                if (!de)
                   throw new (o("WAWebMediaFileErrors").MediaHashMismatch)();
               }
             }
@@ -632,15 +634,15 @@ __d(
                     "downloadManager.download: [",
                     "] success",
                   ])),
-                K,
+                Q,
               ),
-              w(),
-              oe
+              A(),
+              ae
             );
           } catch (t) {
             throw (
               t instanceof o("WAWebMmsClientErrors").MediaNotFoundError
-                ? (B(t, !!e.isFinalRmrRetry),
+                ? (W(t, !!e.isFinalRmrRetry),
                   o("WALogger")
                     .LOG(
                       y ||
@@ -656,11 +658,11 @@ __d(
                             "",
                           ],
                         )),
-                      K,
+                      Q,
                       r("WAWebSerializeError")(t),
                     )
                     .verbose())
-                : (B(r("getErrorSafe")(t), !0),
+                : (W(r("getErrorSafe")(t), !0),
                   o("WALogger")
                     .WARN(
                       C ||
@@ -668,14 +670,14 @@ __d(
                           ["downloadManager.download: [", "] error\n", ""],
                           ["downloadManager.download: [", "] error\\n", ""],
                         )),
-                      K,
+                      Q,
                       r("WAWebSerializeError")(t),
                     )
                     .verbose()),
               o(
                 "WAWebMmsDownloadUploadCrashLogger",
               ).downloadUploadCrashLogger.mark(
-                G,
+                z,
                 o("WAWebMmsDownloadUploadCrashLogger").ProgressType
                   .DOWNLOAD_ERROR,
               ),

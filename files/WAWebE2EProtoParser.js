@@ -16,6 +16,7 @@ __d(
     "WAWebDecodeJid",
     "WAWebDisappearingModeProtoUtils",
     "WAWebE2EProtoParserForCtwaContext",
+    "WAWebExperienceIdReceive",
     "WAWebFutureproofProtoUtils",
     "WAWebLimitSharingProtoUtils",
     "WAWebMessageAssociation.flow",
@@ -377,6 +378,7 @@ __d(
         (e.isQuestion = t.isQuestion),
         (e.isSpoiler = t.isSpoiler),
         (e.forwardingScore = t.forwardingScore),
+        o("WAWebExperienceIdReceive").maybeStampExperienceIds(e, t, n),
         (e.nonJidMentions =
           t.nonJidMentions != null &&
           o("WAWebABProps").getABPropConfigValue(

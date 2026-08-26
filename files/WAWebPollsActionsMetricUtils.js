@@ -62,7 +62,8 @@ __d(
     }
     ((l.getPollMetricFieldsFromCreationMsg = e),
       (l.commitPollOpenCreationModal = s),
-      (l.commitPollsActionsMetric = u));
+      (l.commitPollsActionsMetric = u),
+      (l.getNearestDayEpochDatestamp = d));
   },
   98,
 );

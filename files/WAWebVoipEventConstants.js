@@ -41,7 +41,7 @@ __d(
         PENDING_OUTGOING_CALL: "pendingOutgoingCall",
       },
       s = { ONLINE: "online", OFFLINE: "offline" },
-      u = { DISPLAY_INFO: "displayInfo" };
+      u = { INFO: "info", OBSCURITY: "obscurity", HAS_SYNCED: "hasSynced" };
     function c(e) {
       return "change:" + e;
     }

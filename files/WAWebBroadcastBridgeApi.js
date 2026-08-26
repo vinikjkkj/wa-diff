@@ -196,10 +196,13 @@ __d(
             r("WAWebBroadcastMetadataCollection")
               .gadd({ id: e.id })
               .set(
-                {
-                  audienceExpression: e.audienceExpression,
-                  recipients: e.recipients,
-                },
+                babelHelpers.extends(
+                  { audienceExpression: e.audienceExpression },
+                  e.customAudienceFbid != null
+                    ? { customAudienceFbid: e.customAudienceFbid }
+                    : {},
+                  { recipients: e.recipients },
+                ),
                 { merge: !0 },
               ));
         },

@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebExperienceIdWamFields",
     "WAWebMediaGetDownloadOriginForMsg",
     "WAWebMediaMmsV4Download",
     "WAWebMmsMediaTypes",
@@ -42,6 +43,9 @@ __d(
                 chatWid: a,
                 shouldSequenceDownload: _,
                 shouldThrow: f,
+                experienceIds: o("WAWebExperienceIdWamFields").getExperienceIds(
+                  d,
+                ),
               }),
               (g.userDownloadAttemptCount = 0));
           }),

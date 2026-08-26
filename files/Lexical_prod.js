@@ -11042,8 +11042,15 @@ __d(
       (exports.createState = function (t, e) {
         return new dt(t, e);
       }),
-      (exports.declarePeerDependency = function (t, e) {
-        return [t, e];
+      (exports.declarePeerDependency = function () {
+        for (
+          var _len18 = arguments.length, t = new Array(_len18), _key18 = 0;
+          _key18 < _len18;
+          _key18++
+        ) {
+          t[_key18] = arguments[_key18];
+        }
+        return t;
       }),
       (exports.defineExtension = function (t) {
         return t;
@@ -11199,13 +11206,13 @@ __d(
       (exports.removeClassNamesFromElement = function (t) {
         var _t$classList3;
         for (
-          var _len18 = arguments.length,
-            e = new Array(_len18 > 1 ? _len18 - 1 : 0),
-            _key18 = 1;
-          _key18 < _len18;
-          _key18++
+          var _len19 = arguments.length,
+            e = new Array(_len19 > 1 ? _len19 - 1 : 0),
+            _key19 = 1;
+          _key19 < _len19;
+          _key19++
         ) {
-          e[_key18 - 1] = arguments[_key18];
+          e[_key19 - 1] = arguments[_key19];
         }
         var n = wa.apply(void 0, e);
         n.length > 0 &&

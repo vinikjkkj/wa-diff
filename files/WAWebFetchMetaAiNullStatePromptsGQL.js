@@ -15,35 +15,35 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebFetchMetaAiNullStatePromptsGQLQuery.graphql"));
-    function c(e, t, n) {
+    function c(e, t) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           yield r("WAWebNetworkStatus").waitIfOffline();
           try {
-            var a,
-              i,
-              l = yield o("WAWebRelayClient").fetchQuery(
+            var n,
+              a,
+              i = yield o("WAWebRelayClient").fetchQuery(
                 u,
-                { locale: e, null_state_source: t, exp_config: n },
+                { locale: e, exp_config: t },
                 { environmentType: "whatsapp_web" },
               ),
-              c =
-                (a =
-                  l == null ||
-                  (i = l.xwa_genai_meta_ai_search_null_state) == null
+              l =
+                (n =
+                  i == null ||
+                  (a = i.xwa_genai_meta_ai_search_null_state) == null
                     ? void 0
-                    : i.suggestions) != null
-                  ? a
+                    : a.suggestions) != null
+                  ? n
                   : [],
-              d = [];
-            for (var m of c)
-              (m == null ? void 0 : m.suggestion) != null &&
-                (m == null ? void 0 : m.query) != null &&
-                d.push({ suggestion: m.suggestion, query: m.query });
-            return { type: "success", value: d };
+              c = [];
+            for (var d of l)
+              (d == null ? void 0 : d.suggestion) != null &&
+                (d == null ? void 0 : d.query) != null &&
+                c.push({ suggestion: d.suggestion, query: d.query });
+            return { type: "success", value: c };
           } catch (e) {
             return (
               o("WALogger")

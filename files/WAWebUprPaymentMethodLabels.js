@@ -252,21 +252,26 @@ __d(
           f(t));
     }
     function f(e) {
-      var t = g(e);
+      var t = g(e),
+        n = t.label,
+        r = t.sentence;
       return {
         label: function () {
-          return s._(/*BTDS*/ "Payment account");
+          return s._(/*BTDS*/ "{method}", [s._param("method", n)]);
         },
         copyLabel: function () {
-          return s._(/*BTDS*/ "Copy {method}", [s._param("method", t)]);
+          return s._(/*BTDS*/ "Copy {method}", [s._param("method", r)]);
         },
         copySuccessToast: function () {
-          return s._(/*BTDS*/ "{method} copied", [s._param("method", t)]);
+          return s._(/*BTDS*/ "{method} copied", [s._param("method", r)]);
         },
       };
     }
     function g(e) {
-      return e.includes("_") ? e.split("_").join(" ") : e.toUpperCase();
+      var t = e.includes("_")
+        ? e.split("_").join(" ").toLowerCase()
+        : e.toUpperCase();
+      return { label: t.charAt(0).toUpperCase() + t.slice(1), sentence: t };
     }
     ((l.methodKey = d), (l.getUprMethodLabels = _));
   },

@@ -60,6 +60,7 @@ __d(
                       : [];
                   return {
                     audienceExpression: n.audienceExpression,
+                    customAudienceFbid: n.customAudienceFbid,
                     id: o("WAWebWidFactory").createWid(n.id),
                     recipients: a,
                   };

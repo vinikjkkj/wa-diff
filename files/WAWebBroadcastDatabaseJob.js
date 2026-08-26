@@ -29,6 +29,7 @@ __d(
                   ).resolveAudienceExpression(i);
                 return {
                   audienceExpression: i,
+                  customAudienceFbid: a.customAudienceFbid,
                   id: a.id,
                   isWebCreatedList: (t = a.isWebCreatedList) != null ? t : !1,
                   labels: Array.from(

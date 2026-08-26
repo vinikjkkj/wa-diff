@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebExperienceIdWamFields",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaGetDownloadOriginForMsg",
     "WAWebMediaMmsV4Download",
@@ -210,6 +211,7 @@ __d(
           rmrReason: i,
           downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(n),
           chatWid: t,
+          experienceIds: o("WAWebExperienceIdWamFields").getExperienceIds(n),
         });
       }
     }

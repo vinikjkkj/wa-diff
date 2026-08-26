@@ -19,6 +19,7 @@ __d(
             return o("WAWebAudienceExpressionTypes")
               .DEFAULT_AUDIENCE_EXPRESSION;
           })),
+          (t.customAudienceFbid = o("WAWebBaseModel").prop()),
           (t.recipients = o("WAWebBaseModel").collection(
             r("WAWebBroadcastRecipientCollection"),
           )),

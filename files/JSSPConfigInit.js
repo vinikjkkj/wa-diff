@@ -24,6 +24,7 @@ __d(
     "JSSPSetting",
     "JSSPSubSpanMarker",
     "JSSPTraceSizeOptimizer",
+    "JSSPUAMarkerExtractor",
     "JSSPUrlCollector",
     "JSSPUrlMarker",
     "JSSelfProfiler",
@@ -81,6 +82,10 @@ __d(
           var e;
           if (
             ((e = r("JSSelfProfiler")).registerTraceTransformer(
+              new (r("JSSPUAMarkerExtractor"))(),
+              "JSSPUAMarkerExtractor",
+            ),
+            e.registerTraceTransformer(
               new (r("JSSPEmptySampleFilter"))(),
               "JSSPEmptySampleFilter",
             ),

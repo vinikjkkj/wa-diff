@@ -17,18 +17,18 @@ __d(
     exports,
   ) {
     "use strict";
-    function a(t, n) {
+    function o(t, n) {
       n.update(function () {
         if (null !== t) {
           var _r = require("LexicalUtils").objectKlassEquals(t, KeyboardEvent)
               ? null
               : t.clipboardData,
-            _a = require("Lexical").$getSelection();
-          if (null !== _a && !_a.isCollapsed() && null != _r) {
+            _o = require("Lexical").$getSelection();
+          if (null !== _o && !_o.isCollapsed() && null != _r) {
             t.preventDefault();
             var _i = require("LexicalClipboard").$getHtmlContent(n);
             (null !== _i && _r.setData("text/html", _i),
-              _r.setData("text/plain", _a.getTextContent()));
+              _r.setData("text/plain", _o.getTextContent()));
           }
         }
       });
@@ -233,7 +233,7 @@ __d(
           _require_Lexical.COPY_COMMAND,
           function (e) {
             var n = require("Lexical").$getSelection();
-            return !!require("Lexical").$isRangeSelection(n) && (a(e, t), !0);
+            return !!require("Lexical").$isRangeSelection(n) && (o(e, t), !0);
           },
           _require_Lexical.COMMAND_PRIORITY_EDITOR,
         ),
@@ -244,7 +244,7 @@ __d(
             return (
               !!require("Lexical").$isRangeSelection(n) &&
               ((function (e, t) {
-                (a(e, t),
+                (o(e, t),
                   t.update(
                     function () {
                       var e = require("Lexical").$getSelection();
@@ -316,7 +316,7 @@ __d(
         ),
       );
     }
-    var s = require("Lexical").defineExtension({
+    var s = {
       conflictsWith: ["LexicalRichText"],
       dependencies: [
         require("LexicalDragon").DragonExtension,
@@ -325,7 +325,7 @@ __d(
       ],
       name: "LexicalPlainText",
       register: l,
-    });
+    };
     ((exports.PlainTextExtension = s), (exports.registerPlainText = l));
   },
   null,

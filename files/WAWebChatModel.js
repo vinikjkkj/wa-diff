@@ -784,15 +784,16 @@ __d(
                       return o("WAWebChatMessageSearch").clearFtsCache(n);
                     },
               ),
-              this.listenTo(
-                r("WAWebL10N"),
-                "locale_change",
-                i
-                  ? this.$ChatImpl$p_9
-                  : function () {
-                      o("WAWebChatGroupUtils").updateTitle(n);
-                    },
-              ),
+              o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_3") ||
+                this.listenTo(
+                  r("WAWebL10N"),
+                  "locale_change",
+                  i
+                    ? this.$ChatImpl$p_9
+                    : function () {
+                        o("WAWebChatGroupUtils").updateTitle(n);
+                      },
+                ),
               (o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn) ||
                 o("WAWebListsGatingUtils").isListsEnabled()) &&
                 o("WAWebBizLabelUtils").initializeLabels(this),

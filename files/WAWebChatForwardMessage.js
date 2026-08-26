@@ -413,6 +413,7 @@ __d(
           "groupHistoryIndividualMessageInfo",
           "hasPaidPartnershipLabel",
           "newsletterAdminProfile",
+          "experienceIds",
         ]),
         s =
           e.isDynamicReplyButtonsMsg === !0 &&

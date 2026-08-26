@@ -17,50 +17,61 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = 4286237861;
-    function s(e, t) {
+    function s() {
       return u.apply(this, arguments);
     }
     function u() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
+            ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
+            : !1;
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var a,
             i,
             l,
-            s,
             u,
-            c = (t.text || "").trim();
-          if (c === "") return null;
-          var d =
+            c,
+            d = (t.text || "").trim();
+          if (d === "") return null;
+          var m =
               n != null
                 ? n
                 : o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-            m = o("WAWebLidStatusMigrationUtils").matWidConvert(
+            p = o("WAWebLidStatusMigrationUtils").matWidConvert(
               o("WAWebUserPrefsMeUser").getMeUserOrThrow(),
             ),
-            p = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
-            _ = void 0;
-          p || (_ = o("WAWebLidStatusMigrationUtils").matWidConvert(m));
-          var f = new (r("WAWebMsgKey"))({
+            _ = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
+            f = void 0;
+          _ || (f = o("WAWebLidStatusMigrationUtils").matWidConvert(p));
+          var g = new (r("WAWebMsgKey"))({
               fromMe: !0,
-              remote: d,
+              remote: m,
               id: yield r("WAWebMsgKey").newId(),
-              participant: _,
+              participant: f,
             }),
-            g = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
-              ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
-              : !1,
-            h = {
-              id: f,
-              body: c,
-              author: m,
+            h = yield s(),
+            y = {
+              id: g,
+              body: d,
+              author: p,
               backgroundColor: (i = t.color) != null ? i : e,
               type: "chat",
               kind: o("WAWebMsgType").MsgKind.Chat,
               viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
               subtype: void 0,
               t: o("WATimeUtils").unixTime(),
-              from: m,
-              to: d,
+              from: p,
+              to: m,
               isNewMsg: !0,
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
@@ -70,18 +81,18 @@ __d(
               ).isReportingTokenSendingEnabled()
                 ? self.crypto.getRandomValues(new Uint8Array(32))
                 : null,
-              canBeReshared: g,
+              canBeReshared: h,
               forwardedNewsletterMessageInfo:
-                (s = t.forwardedNewsletterMessageInfo) != null ? s : void 0,
+                (u = t.forwardedNewsletterMessageInfo) != null ? u : void 0,
               statusAttributions:
-                (u = t.statusAttributions) != null ? u : void 0,
+                (c = t.statusAttributions) != null ? c : void 0,
             };
-          return h;
+          return y;
         })),
-        u.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.createTextStatusMsgData = s;
+    ((l.getCanBeResharedForNewStatus = s), (l.createTextStatusMsgData = c));
   },
   98,
 );

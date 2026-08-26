@@ -5,6 +5,7 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBackendApi",
+    "WAWebCustomPaymentMethodsSyncLogger",
     "WAWebMobilePlatforms",
     "WAWebProtobufsServerSync.pb",
     "WAWebSyncdAction",
@@ -90,32 +91,94 @@ __d(
                 var a = 0,
                   i = 0,
                   l = t.map(function (e) {
-                    var t;
-                    if (e.operation !== "set")
+                    var t,
+                      r =
+                        e.operation === "set"
+                          ? (t = e.value.customPaymentMethodsAction) == null
+                            ? void 0
+                            : t.customPaymentMethods
+                          : void 0,
+                      l =
+                        e.operation !== "set" ||
+                        (r == null ? void 0 : r.length) === 0
+                          ? o("WAWebCustomPaymentMethodsSyncLogger")
+                              .SYNC_ACTION_TARGETS.APPLY_REMOVE
+                          : o("WAWebCustomPaymentMethodsSyncLogger")
+                              .SYNC_ACTION_TARGETS.APPLY_STORE;
+                    if (
+                      (o(
+                        "WAWebCustomPaymentMethodsSyncLogger",
+                      ).logCustomPaymentMethodsSyncEvent(
+                        l,
+                        o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                          .ATTEMPT,
+                      ),
+                      e.operation !== "set")
+                    )
                       return (
                         a++,
+                        o(
+                          "WAWebCustomPaymentMethodsSyncLogger",
+                        ).logCustomPaymentMethodsSyncEvent(
+                          l,
+                          o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                            .FAILURE,
+                          o("WAWebCustomPaymentMethodsSyncLogger").SyncErrorCode
+                            .UNSUPPORTED_OPERATION,
+                        ),
                         {
                           actionState:
                             o("WAWebSyncdConst").SyncActionState.Unsupported,
                         }
                       );
-                    var r =
-                      (t = e.value.customPaymentMethodsAction) == null
-                        ? void 0
-                        : t.customPaymentMethods;
-                    return r == null
-                      ? (i++,
+                    if (r == null)
+                      return (
+                        i++,
+                        o(
+                          "WAWebCustomPaymentMethodsSyncLogger",
+                        ).logCustomPaymentMethodsSyncEvent(
+                          l,
+                          o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                            .FAILURE,
+                          o("WAWebCustomPaymentMethodsSyncLogger").SyncErrorCode
+                            .MALFORMED_MUTATION,
+                        ),
                         o("WAWebSyncdIndexUtils").malformedActionValue(
                           n.collectionName,
-                        ))
-                      : (o("WAWebBackendApi").frontendFireAndForget(
-                          "setCustomPaymentMethods",
-                          { customPaymentMethods: r },
+                        )
+                      );
+                    try {
+                      o("WAWebBackendApi").frontendFireAndForget(
+                        "setCustomPaymentMethods",
+                        { customPaymentMethods: r },
+                      );
+                    } catch (e) {
+                      throw (
+                        o(
+                          "WAWebCustomPaymentMethodsSyncLogger",
+                        ).logCustomPaymentMethodsSyncEvent(
+                          l,
+                          o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                            .FAILURE,
+                          o("WAWebCustomPaymentMethodsSyncLogger").SyncErrorCode
+                            .FRONTEND_DISPATCH_FAILED,
                         ),
-                        {
-                          actionState:
-                            o("WAWebSyncdConst").SyncActionState.Success,
-                        });
+                        e
+                      );
+                    }
+                    return (
+                      o(
+                        "WAWebCustomPaymentMethodsSyncLogger",
+                      ).logCustomPaymentMethodsSyncEvent(
+                        l,
+                        o("WAWebCustomPaymentMethodsSyncLogger").SYNC_STATUS
+                          .SUCCESS,
+                      ),
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
+                    );
                   });
                 return (
                   a > 0 &&

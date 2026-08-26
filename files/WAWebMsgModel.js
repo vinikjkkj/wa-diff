@@ -292,6 +292,7 @@ __d(
             (e.isWamoSub = o("WAWebBaseModel").prop()),
             (e.hasPaidPartnershipLabel = o("WAWebBaseModel").prop()),
             (e.aiProvenance = o("WAWebBaseModel").prop()),
+            (e.experienceIds = o("WAWebBaseModel").prop()),
             (e.clearMedia = o("WAWebBaseModel").prop()),
             (e.isVcardOverMmsDocument = o("WAWebBaseModel").prop(!1)),
             (e.isCaptionByUser = o("WAWebBaseModel").prop()),

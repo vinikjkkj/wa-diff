@@ -3,37 +3,45 @@ __d(
   ["WebBloksAccessibilityUtils", "WebBloksBooleanUtils"],
   function (t, n, r, o, a, i, l) {
     var e = {
-        Button: "button",
-        Header: "heading",
-        "Image Button": "button",
-        Image: "img",
-        "Selected Button": "button",
-        Text: "",
-        Link: "link",
-      },
-      s = {
-        getProps: function (n) {
+      Button: "button",
+      Header: "heading",
+      "Image Button": "button",
+      Image: "img",
+      "Selected Button": "button",
+      Text: "",
+      Link: "link",
+    };
+    function s(e, t) {
+      return e !== "Text" || t == null
+        ? !1
+        : t.styleId === "bk.components.Text" ||
+            t.styleId === "bk.components.TextSpan" ||
+            t.styleId === "bk.components.RichText";
+    }
+    var u = {
+        getProps: function (n, r) {
           var t = n.get("disabled"),
-            r = n.get("enabled"),
-            a = n.get("label"),
-            i = n.get("role"),
-            l = {};
+            a = n.get("enabled"),
+            i = n.get("label"),
+            l = n.get("role"),
+            u = {};
           return (
-            o("WebBloksBooleanUtils").isFalse(r) ||
-              (i && (l.role = e[i]), a != null && (l["aria-label"] = a)),
-            (l = babelHelpers.extends(
+            o("WebBloksBooleanUtils").isFalse(a) ||
+              (l && (u.role = e[l]),
+              i != null && !s(l, r) && (u["aria-label"] = i)),
+            (u = babelHelpers.extends(
               {},
-              o("WebBloksAccessibilityUtils").getFocusPropsForRole(l.role),
-              l,
+              o("WebBloksAccessibilityUtils").getFocusPropsForRole(u.role),
+              u,
             )),
             o("WebBloksBooleanUtils").isTrue(t) &&
-              ((l.disabled = !0), (l["aria-disabled"] = !0)),
-            l
+              ((u.disabled = !0), (u["aria-disabled"] = !0)),
+            u
           );
         },
       },
-      u = s;
-    l.default = u;
+      c = u;
+    l.default = c;
   },
   98,
 );

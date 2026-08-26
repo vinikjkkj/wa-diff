@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAudienceExpressionTypes",
+    "WAWebBizBroadcastProListUtils",
     "WAWebBroadcastListIdUtils",
     "WAWebBroadcastListStorageUtils",
     "WAWebBroadcastListSync",
@@ -103,88 +104,14 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            if (t.length !== 0) {
-              var l = yield h(t),
-                d = o("WATimeUtils").unixTime(),
-                m = l.flatMap(function (e) {
-                  var t = o(
-                      "WAWebContactImportFileProcessor",
-                    ).normalizePhoneNumber(e.phone),
-                    n = e.lid;
-                  if (n == null) return [];
-                  var r = {
-                    lidJid: n,
-                    pnJid: t !== "" ? o("WAJids").toPhoneUserJid(t) : void 0,
-                  };
-                  return [r];
-                });
-              m.length === 0 &&
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[broadcast:list-action] failed: no participants for jid ",
-                        "",
-                      ])),
-                    e,
-                  )
-                  .sendLogs("business-broadcast-no-participants");
-              try {
-                var f =
-                    a != null
-                      ? a
-                      : o(
-                          "WAWebAudienceExpressionTypes",
-                        ).createExplicitExpression(
-                          m.flatMap(function (e) {
-                            return e.lidJid != null ? [e.lidJid] : [];
-                          }),
-                        ),
-                  g = r("WAWebBroadcastListSync").getBroadcastListMutation({
-                    expression: f,
-                    id: e,
-                    listName: n,
-                    participants: m,
-                    timestamp: d,
-                  });
-                yield o(
-                  "WAWebBroadcastListStorageUtils",
-                ).updateBroadcastListStorage(
-                  {
-                    audienceExpression: f,
-                    id: e,
-                    isWebCreatedList: i,
-                    listName: n,
-                    timestamp: d,
-                  },
-                  [g],
-                );
-              } catch (e) {
-                throw (
-                  o("WALogger").ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[broadcast:list-action] ",
-                        " failed: ",
-                        "",
-                      ])),
-                    _,
-                    e,
-                  ),
-                  o("WAWebToastManager").ToastManager.open(
-                    p.jsx(o("WAWebToast.react").Toast, {
-                      action: { actionText: s._(/*BTDS*/ "OK"), dismiss: !0 },
-                      msg: s._(
-                        /*BTDS*/ "Couldn't update broadcast audience. Please try again.",
-                      ),
-                      id: o("WAWebToast.react").genId(),
-                    }),
-                  ),
-                  e
-                );
-              }
-            }
+          function* (e, t, n, r, o) {
+            return v({
+              audienceExpression: r,
+              contacts: t,
+              id: e,
+              isWebCreatedList: o,
+              listName: n,
+            });
           },
         )),
         b.apply(this, arguments)
@@ -196,6 +123,114 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.audienceExpression,
+            n = e.contacts,
+            a = e.customAudienceFbid,
+            i = e.id,
+            l = e.isWebCreatedList,
+            d = e.listName;
+          if (
+            !(
+              n.length === 0 &&
+              !o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(a)
+            )
+          ) {
+            var m = yield h(n),
+              f = o("WATimeUtils").unixTime(),
+              g = m.flatMap(function (e) {
+                var t = o(
+                    "WAWebContactImportFileProcessor",
+                  ).normalizePhoneNumber(e.phone),
+                  n = e.lid;
+                if (n == null) return [];
+                var r = {
+                  lidJid: n,
+                  pnJid: t !== "" ? o("WAJids").toPhoneUserJid(t) : void 0,
+                };
+                return [r];
+              });
+            g.length === 0 &&
+              n.length > 0 &&
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[broadcast:list-action] failed: no participants for jid ",
+                      "",
+                    ])),
+                  i,
+                )
+                .sendLogs("business-broadcast-no-participants");
+            try {
+              var y =
+                  t != null
+                    ? t
+                    : o(
+                        "WAWebAudienceExpressionTypes",
+                      ).createExplicitExpression(
+                        g.flatMap(function (e) {
+                          return e.lidJid != null ? [e.lidJid] : [];
+                        }),
+                      ),
+                C = r("WAWebBroadcastListSync").getBroadcastListMutation(
+                  babelHelpers.extends(
+                    {},
+                    a != null ? { customAudienceFbid: a } : {},
+                    {
+                      expression: y,
+                      id: i,
+                      listName: d,
+                      participants: g,
+                      timestamp: f,
+                    },
+                  ),
+                );
+              yield o(
+                "WAWebBroadcastListStorageUtils",
+              ).updateBroadcastListStorage(
+                babelHelpers.extends(
+                  { audienceExpression: y },
+                  a != null ? { customAudienceFbid: a } : {},
+                  { id: i, isWebCreatedList: l, listName: d, timestamp: f },
+                ),
+                [C],
+              );
+            } catch (e) {
+              throw (
+                o("WALogger").ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[broadcast:list-action] ",
+                      " failed: ",
+                      "",
+                    ])),
+                  _,
+                  e,
+                ),
+                o("WAWebBizBroadcastProListUtils").isBizBroadcastProList(a) ||
+                  o("WAWebToastManager").ToastManager.open(
+                    p.jsx(o("WAWebToast.react").Toast, {
+                      action: { actionText: s._(/*BTDS*/ "OK"), dismiss: !0 },
+                      msg: s._(
+                        /*BTDS*/ "Couldn't update broadcast audience. Please try again.",
+                      ),
+                      id: o("WAWebToast.react").genId(),
+                    }),
+                  ),
+                e
+              );
+            }
+          }
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WATimeUtils").unixTime(),
             n = o("WAWebWidFactory").createWid(e);
           try {
@@ -226,15 +261,15 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a = o("WAWebWidFactory").createWid(e),
             i = r("WAWebBroadcastMetadataCollection").get(a),
@@ -250,15 +285,15 @@ __d(
             s = g(l);
           return C(e, s, t);
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function k() {
+    function T() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r = o("WAWebWidFactory").createWid(e),
             a = o("WAWebChatCollection").ChatCollection.get(r),
@@ -266,50 +301,61 @@ __d(
             l = g(t);
           yield C(e, l, i);
         })),
-        k.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.audienceExpression,
             n = e.broadcastListName,
             r = e.contacts,
-            a = n.trim(),
-            i = o("WAWebBroadcastListIdUtils").createBroadcastListJid(
+            a = e.customAudienceFbid,
+            i = n.trim(),
+            l = o("WAWebBroadcastListIdUtils").createBroadcastListJid(
               function (e) {
                 var t = o("WAWebWidFactory").createWid(e);
                 return o("WAWebChatCollection").ChatCollection.get(t) != null;
               },
             );
-          return (yield C(i, r, a, t, !0), i);
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = "");
-          var n = g(e),
-            r = yield I({ broadcastListName: t, contacts: n });
-          return r;
+          return (
+            yield v({
+              audienceExpression: t,
+              contacts: r,
+              customAudienceFbid: a,
+              id: l,
+              isWebCreatedList: !0,
+              listName: i,
+            }),
+            l
+          );
         })),
         x.apply(this, arguments)
       );
     }
+    function $(e, t) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          t === void 0 && (t = "");
+          var n = g(e),
+            r = yield D({ broadcastListName: t, contacts: n });
+          return r;
+        })),
+        P.apply(this, arguments)
+      );
+    }
     ((l.editBroadcastListAction = C),
-      (l.deleteBroadcastListAction = v),
-      (l.renameBroadcastListAction = R),
-      (l.updateBroadcastRecipientsAction = E),
-      (l.createBroadcastListAction = I),
-      (l.createBroadcastListFromContactModel = D));
+      (l.deleteBroadcastListAction = R),
+      (l.renameBroadcastListAction = E),
+      (l.updateBroadcastRecipientsAction = I),
+      (l.createBroadcastListAction = D),
+      (l.createBroadcastListFromContactModel = $));
   },
   226,
 );

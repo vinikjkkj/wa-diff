@@ -5,14 +5,13 @@ __d(
     "use strict";
     var e,
       s,
-      u = "LANDING_PAGE",
-      c = null;
-    function d(e) {
-      return m.apply(this, arguments);
+      u = null;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function m() {
+    function d() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -21,7 +20,7 @@ __d(
           );
           var n = yield o(
             "WAWebGetMetaAiNullStatePromptsJob",
-          ).getMetaAiNullStatePrompts(t, u, c);
+          ).getMetaAiNullStatePrompts(t, u);
           return (
             o("WALogger").LOG(
               s ||
@@ -34,10 +33,10 @@ __d(
             })
           );
         })),
-        m.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.getMetaAiNullStatePromptsAction = d;
+    l.getMetaAiNullStatePromptsAction = c;
   },
   98,
 );

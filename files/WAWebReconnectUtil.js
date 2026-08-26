@@ -1,14 +1,15 @@
 __d(
   "WAWebReconnectUtil",
-  ["WAWebSocketModel", "WAWebStreamModel"],
+  ["WAWebSocketModel", "WAWebStreamGetters", "WAWebStreamModel"],
   function (t, n, r, o, a, i, l) {
     var e = function () {
         var e = this;
         ((this.isReconnecting = !1),
           (this.reconnectIfDisconnected = function () {
             !e.isReconnecting &&
-              o("WAWebStreamModel").Stream.displayInfo ===
-                o("WAWebStreamModel").StreamInfo.OFFLINE &&
+              o("WAWebStreamGetters").getDisplayInfo(
+                o("WAWebStreamModel").Stream,
+              ) === o("WAWebStreamModel").StreamInfo.OFFLINE &&
               ((e.isReconnecting = !0),
               o("WAWebSocketModel").Socket.summary(),
               self.setTimeout(function () {

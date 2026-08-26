@@ -17,48 +17,48 @@ __d(
       m = "P2P",
       p = "chat_attachment";
     function _(e) {
-      B("payment_home", void 0, { has_pix_key: e });
+      F("payment_home", void 0, { has_pix_key: e });
     }
     function f() {
-      W(
+      O(
         "settings",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .PAYMENTS_ROW,
       );
     }
     function g() {
-      W(
+      O(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS.PIX_ROW,
       );
     }
     function h() {
-      W(
+      O(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .ADD_PIX_KEY_BANNER,
       );
     }
     function y() {
-      W(
+      O(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .ADD_PIX_KEY_ROW,
       );
     }
     function C(e) {
-      B(O(e), void 0, { payment_method: d });
+      F(A(e), void 0, { payment_method: d });
     }
     function b(e, t) {
-      W(
-        O(e),
+      O(
+        A(e),
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .CONFIRM_BUTTON,
         { payment_method: d, key_type: t },
       );
     }
     function v() {
-      W(
+      O(
         "edit_non_native_p2p_payment_method",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .REMOVE_CREDENTIAL,
@@ -66,10 +66,10 @@ __d(
       );
     }
     function S() {
-      B("remove_custom_payment_method_prompt", void 0, { payment_method: d });
+      F("remove_custom_payment_method_prompt", void 0, { payment_method: d });
     }
     function R() {
-      W(
+      O(
         "remove_custom_payment_method_prompt",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .CONFIRM_BUTTON,
@@ -77,14 +77,14 @@ __d(
       );
     }
     function L() {
-      B(
+      F(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .PASSKEY_BLOCKED_EDIT_DELETE_PIX,
       );
     }
     function E(e) {
-      W(
+      O(
         "payment_home",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .PAYMENTS_HOME_SHARE_YOUR_PIX,
@@ -93,16 +93,16 @@ __d(
       );
     }
     function k() {
-      W("payment_home", void 0, { transactions_see_all: !0, flow_type: m });
+      O("payment_home", void 0, { transactions_see_all: !0, flow_type: m });
     }
     function I(e) {
-      B("payment_transactions", void 0, { num_payments: e, flow_type: m });
+      F("payment_transactions", void 0, { num_payments: e, flow_type: m });
     }
     function T(e) {
-      B("payment_transactions", void 0, { flow_type: m, date_field: e });
+      F("payment_transactions", void 0, { flow_type: m, date_field: e });
     }
     function D(e) {
-      W("payment_transactions", e, { flow_type: m });
+      O("payment_transactions", e, { flow_type: m });
     }
     var x =
       ((e = {}),
@@ -123,13 +123,13 @@ __d(
         : "other";
     }
     function P(e) {
-      B("send_pix_key", void 0, { chat_type: e }, p);
+      F("send_pix_key", void 0, { chat_type: e }, p);
     }
     function N(e, t) {
-      B("send_pix_key", void 0, { chat_type: e }, p, t);
+      F("send_pix_key", void 0, { chat_type: e }, p, t);
     }
     function M(e) {
-      W(
+      O(
         "send_pix_key",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .SEND_BUTTON,
@@ -138,7 +138,7 @@ __d(
       );
     }
     function w(e) {
-      W(
+      O(
         "send_pix_key",
         o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
           .BACK_BUTTON,
@@ -147,52 +147,37 @@ __d(
       );
     }
     function A(e) {
-      U({
-        actionTarget: e,
-        paymentActionType: o("WAWebWamEnumPaymentActionTypes")
-          .PAYMENT_ACTION_TYPES.API,
-        paymentsCountryCode: c,
-        screen: "custom_payment_methods_sync",
-      });
-    }
-    var F = Object.freeze({
-      STORE_SENT: o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
-        .SYNCD_STORE_SENT,
-      REMOVE_PIX: o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
-        .SYNCD_REMOVE_PIX,
-    });
-    function O(e) {
       return e
         ? "edit_non_native_p2p_payment_method"
         : "add_non_native_p2p_payment_method";
     }
-    function B(e, t, n, r, a) {
-      U({
+    function F(e, t, n, r, a) {
+      W({
         actionTarget: t != null ? t : void 0,
         paymentActionType: o("WAWebWamEnumPaymentActionTypes")
           .PAYMENT_ACTION_TYPES.VIEW,
         paymentsCountryCode: c,
         previousScreenName: a,
-        queryParams: q(n),
+        queryParams: B(n),
         referral: r,
         screen: e,
       });
     }
-    function W(e, t, n, r) {
-      U({
+    function O(e, t, n, r) {
+      W({
         actionTarget: t != null ? t : void 0,
         paymentActionType: o("WAWebWamEnumPaymentActionTypes")
           .PAYMENT_ACTION_TYPES.CLICK,
         paymentsCountryCode: c,
-        queryParams: q(n),
+        queryParams: B(n),
         referral: r,
         screen: e,
       });
     }
-    function q(e) {
+    function B(e) {
       return e != null ? JSON.stringify(e) : void 0;
     }
-    function U(e) {
+    function W(e) {
       var t = new (o(
         "WAWebPaymentsUserActionWamEvent",
       ).PaymentsUserActionWamEvent)(e);
@@ -224,9 +209,7 @@ __d(
       (l.logSendPixKeyTrayView = P),
       (l.logSendPixKeyView = N),
       (l.logSendPixKeySendClick = M),
-      (l.logSendPixKeyCancelClick = w),
-      (l.logSyncEvent = A),
-      (l.SYNC_TARGETS = F));
+      (l.logSendPixKeyCancelClick = w));
   },
   98,
 );

@@ -130,7 +130,14 @@ __d(
           try {
             yield o(
               "WAWebEncryptAndSendBroadcastMsg",
-            ).encryptAndSendBroadcastMsg(h, y, s, t, n, C);
+            ).encryptAndSendBroadcastMsg({
+              authorId: t,
+              businessMetadata: n,
+              ephSettingMap: C,
+              msgProtobuf: y,
+              recipients: s,
+              sendMsgRecord: h,
+            });
             var L = yield o(
               "WAWebBatchUpdateBroadcastAck",
             ).batchUpdateAckForBroadcastMessages(l, o("WAWebAck").ACK.SENT);

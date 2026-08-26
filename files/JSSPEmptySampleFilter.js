@@ -14,7 +14,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             return (
               (e.samples = e.samples.filter(function (e) {
-                return e.stackId != null;
+                return e.stackId != null || e.uaMarker != null;
               })),
               e
             );

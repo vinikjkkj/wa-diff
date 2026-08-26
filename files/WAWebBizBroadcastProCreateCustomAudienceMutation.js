@@ -38,7 +38,7 @@ __d(
                 ? void 0
                 : a.custom_audience_id;
           if (c == null) throw r("err")("Failed to create custom audience");
-          return { id: c, name: t, audienceSize: n.length, phoneNumbers: n };
+          return c;
         })),
         c.apply(this, arguments)
       );

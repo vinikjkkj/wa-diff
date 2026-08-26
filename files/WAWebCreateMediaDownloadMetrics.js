@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAppTracker",
     "WAWebCoreActionsODS",
+    "WAWebExperienceIdWamFields",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDownload2WamEvent",
     "WAWebMmsDownloadUploadCrashLogger",
@@ -22,9 +23,10 @@ __d(
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = o("WAWebWamMediaMetricUtils").generateMediaEventId(),
-            r = new (o("WAWebMediaDownload2WamEvent").MediaDownload2WamEvent)({
-              mediaId: n,
+            n,
+            r = o("WAWebWamMediaMetricUtils").generateMediaEventId(),
+            a = new (o("WAWebMediaDownload2WamEvent").MediaDownload2WamEvent)({
+              mediaId: r,
               connectionType: o("WAWebWamEnumConnectionType").CONNECTION_TYPE
                 .HOSTNAME,
               overallMediaType: o(
@@ -52,35 +54,41 @@ __d(
                   ? t
                   : void 0,
               isViewOnce: e.isViewOnce,
+              experienceIds:
+                (n = o("WAWebExperienceIdWamFields").getExperienceIdsWamValue(
+                  e.experienceIds,
+                )) != null
+                  ? n
+                  : void 0,
             });
           (o("WAWebAppTracker").AppTracker.start(
             o("WAWebAppTracker").AppTrackerType.MediaDL,
           ),
             e.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE &&
-              r.set(babelHelpers.extends({}, e.imageDimensions)));
-          var a = e.chatWid;
-          if (a) {
-            var i = yield o("WAWebWamGroupMetricCache").getGroupMetrics(a);
-            (i == null ? void 0 : i.deviceCount) != null &&
-              r.set({ deviceCount: i.deviceCount });
+              a.set(babelHelpers.extends({}, e.imageDimensions)));
+          var i = e.chatWid;
+          if (i) {
+            var l = yield o("WAWebWamGroupMetricCache").getGroupMetrics(i);
+            (l == null ? void 0 : l.deviceCount) != null &&
+              a.set({ deviceCount: l.deviceCount });
           }
           o("WAWebMmsDownloadUploadCrashLogger").downloadUploadCrashLogger.mark(
-            n,
+            r,
             o("WAWebMmsDownloadUploadCrashLogger").ProgressType
               .DOWNLOAD_STARTED,
           );
-          var l = function (t) {
+          var s = function (t) {
               var e = t.failCount,
                 n = t.hostClass,
-                o = t.hostName;
-              r.set({
-                overallDomain: o,
+                r = t.hostName;
+              a.set({
+                overallDomain: r,
                 overallConnectionClass: n,
                 overallRetryCount: e,
               });
             },
-            s = function (t) {
-              (r.set({
+            u = function (t) {
+              (a.set({
                 overallMediaSize: t,
                 overallDownloadResult: o("WAWebWamEnumMediaDownloadResultType")
                   .MEDIA_DOWNLOAD_RESULT_TYPE.OK,
@@ -90,26 +98,26 @@ __d(
                 o(
                   "WAWebMmsDownloadUploadCrashLogger",
                 ).downloadUploadCrashLogger.mark(
-                  n,
+                  r,
                   o("WAWebMmsDownloadUploadCrashLogger").ProgressType
                     .DOWNLOAD_FINISHED,
                   { overallMediaSize: t },
                 ));
             },
-            u = function (t, n) {
+            c = function (t, n) {
               var e = o(
                 "WAWebWamMediaMetricUtils",
               ).getMetricDownloadErrorResultType(t);
-              r.set({ overallDownloadResult: e, overallIsFinal: n });
-              var a = o("WAWebWamMediaMetricUtils").getStatusCode(t);
-              (a != null && (r.downloadHttpCode = a),
-                r.markOverallCumT(),
+              a.set({ overallDownloadResult: e, overallIsFinal: n });
+              var r = o("WAWebWamMediaMetricUtils").getStatusCode(t);
+              (r != null && (a.downloadHttpCode = r),
+                a.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
-                o("WAWebAppTracker").attachWAMAppContext(r, r.overallCumT),
-                r.commit(),
-                o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(r, t),
+                o("WAWebAppTracker").attachWAMAppContext(a, a.overallCumT),
+                a.commit(),
+                o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(a, t),
                 n &&
                   e !==
                     o("WAWebWamEnumMediaDownloadResultType")
@@ -124,68 +132,68 @@ __d(
                           .MEDIA_DOWNLOAD_RESULT_TYPE.ERROR_NETWORK &&
                       o("WAWebCoreActionsODS").logMediaDownloadErrorNetwork()));
             },
-            c = function (t) {
-              r.set({ overallT: t });
-            },
             d = function (t) {
+              a.set({ overallT: t });
+            },
+            m = function (t) {
               var e = t.error,
                 n = t.failCount,
-                a = t.overallT,
+                r = t.overallT,
                 i = new (o(
                   "WAWebMediaDownload2WamEvent",
-                ).MediaDownload2WamEvent)(r.all);
+                ).MediaDownload2WamEvent)(a.all);
               i.set({
                 mediaId: o("WAWebWamMediaMetricUtils").generateMediaEventId(),
                 overallDownloadResult: o(
                   "WAWebWamMediaMetricUtils",
                 ).getMetricDownloadErrorResultType(e),
                 overallIsFinal: !1,
-                overallT: a,
+                overallT: r,
                 overallRetryCount: n,
               });
               var l = o("WAWebWamMediaMetricUtils").getStatusCode(e);
-              (l != null && (r.downloadHttpCode = l),
-                r.markOverallCumT(),
+              (l != null && (a.downloadHttpCode = l),
+                a.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
-                o("WAWebAppTracker").attachWAMAppContext(r, r.overallCumT),
+                o("WAWebAppTracker").attachWAMAppContext(a, a.overallCumT),
                 i.commit(),
                 o("WAWebWamMediaMetricUtils").logErrorUnknownDetails(i, e));
             },
-            m = function () {
-              r.startOverallDecryptT();
-            },
             p = function () {
-              r.markOverallDecryptT();
+              a.startOverallDecryptT();
             },
             _ = function () {
-              (r.markOverallCumT(),
+              a.markOverallDecryptT();
+            },
+            f = function () {
+              (a.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
                   o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
-                o("WAWebAppTracker").attachWAMAppContext(r, r.overallCumT),
-                r.commit(),
+                o("WAWebAppTracker").attachWAMAppContext(a, a.overallCumT),
+                a.commit(),
                 o("WAWebCoreActionsODS").logMediaDownloadSuccess());
             },
-            f = function () {
-              r.startDownloadNetworkT();
-            },
             g = function () {
-              r.markDownloadNetworkT();
+              a.startDownloadNetworkT();
+            },
+            h = function () {
+              a.markDownloadNetworkT();
             };
           return {
-            mediaId: n,
-            handleDownloadSuccess: s,
-            handleDownloadHostFound: l,
-            handleDownloadError: u,
-            handleDownloadAttemptSuccess: c,
-            handleDownloadAttemptError: d,
-            handleDownloadAndDecryptSuccess: _,
-            markDecryptionEnd: p,
-            markDecryptionStart: m,
-            startNetworkT: f,
-            markNetworkT: g,
+            mediaId: r,
+            handleDownloadSuccess: u,
+            handleDownloadHostFound: s,
+            handleDownloadError: c,
+            handleDownloadAttemptSuccess: d,
+            handleDownloadAttemptError: m,
+            handleDownloadAndDecryptSuccess: f,
+            markDecryptionEnd: _,
+            markDecryptionStart: p,
+            startNetworkT: g,
+            markNetworkT: h,
           };
         })),
         s.apply(this, arguments)

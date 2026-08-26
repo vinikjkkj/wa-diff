@@ -95,6 +95,8 @@ __d(
                                 ? a
                                 : o("WAWebAudienceExpressionTypes")
                                     .DEFAULT_AUDIENCE_EXPRESSION,
+                            customAudienceFbid:
+                              c == null ? void 0 : c.customAudienceFbid,
                             recipients:
                               (i = c == null ? void 0 : c.recipients) != null
                                 ? i
@@ -196,6 +198,7 @@ __d(
                                 ? t
                                 : o("WAWebAudienceExpressionTypes")
                                     .DEFAULT_AUDIENCE_EXPRESSION,
+                            customAudienceFbid: e.customAudienceFbid,
                             recipients: e.recipients,
                             labels: e.labels,
                             senderKeyDevices: [],

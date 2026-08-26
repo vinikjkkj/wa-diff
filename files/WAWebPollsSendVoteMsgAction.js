@@ -18,6 +18,7 @@ __d(
     "WAWebNewsletterSendVoteMsgAction",
     "WAWebPollsActionsMetricUtils",
     "WAWebPollsCreatePollUpdateVoteMsg",
+    "WAWebPollsDailyStatsUtils",
     "WAWebPollsPollVoteCollection",
     "WAWebReferentialMsgKey",
     "WAWebSendAddonMsgChatAction",
@@ -166,43 +167,59 @@ __d(
           o("WAWebAddonSendMsgData").isOptimisticAddonSendSupported(f)
             ? (_ = f)
             : (_ = yield m(e, d, p));
-          var g = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(
+          var h = yield o("WAWebSendAddonMsgChatAction").addAndSendAddonToChat(
             _,
           );
           if (
-            g.messageSendResult !==
+            h.messageSendResult !==
             o("WAWebSendMsgResultAction").SendMsgResult.OK
           ) {
-            var h = o(
+            var y = o(
               "WAWebPollsPollVoteCollection",
             ).PollVoteCollection.getByMsgKey(s);
             throw (
-              h != null &&
-                ((h.ack = o("WAWebAck").ACK.FAILED), (h.isSendFailure = !0)),
+              y != null &&
+                ((y.ack = o("WAWebAck").ACK.FAILED), (y.isSendFailure = !0)),
               r("err")("Vote send error")
             );
           }
-          var y;
+          var C;
           (t.size > 0
-            ? (y = p
+            ? (C = p
                 ? o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE.CHANGE_VOTE
                 : o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE.VOTE)
-            : (y = o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
+            : (C = o("WAWebWamEnumPollActionType").POLL_ACTION_TYPE
                 .REMOVE_VOTE),
             o("WAWebPollsActionsMetricUtils").commitPollsActionsMetric(
               babelHelpers.extends(
                 {
-                  action: y,
+                  action: C,
                   chat: o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
                 },
                 o(
                   "WAWebPollsActionsMetricUtils",
                 ).getPollMetricFieldsFromCreationMsg(e),
               ),
+            ),
+            o("WAWebPollsDailyStatsUtils").incrementPollsDailyStat(
+              e,
+              g(t, p != null),
+              i,
             ));
         })),
         f.apply(this, arguments)
       );
+    }
+    function g(e, t) {
+      return (function (e) {
+        if (Array.isArray(e) && e.length === 2 && e[0] === !0 && e[1] === 0)
+          return "vote_delete";
+        if (Array.isArray(e) && e.length === 2 && e[0] === !1) {
+          var t = e[1];
+          if (t > 0) return "vote";
+        }
+        return "vote_change";
+      })([t, e.size]);
     }
     ((l.sendVote = s), (l.resendVote = c));
   },

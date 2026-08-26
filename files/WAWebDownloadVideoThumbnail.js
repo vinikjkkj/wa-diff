@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAPromiseLoop",
     "WAWebDownloadManager",
+    "WAWebExperienceIdWamFields",
     "WAWebImageUtils",
     "WAWebMediaConstants",
     "WAWebMediaCryptoEligibilityUtils",
@@ -68,6 +69,9 @@ __d(
                         chatWid: a == null ? void 0 : a.id,
                         downloadQpl: i,
                         downloadOrigin: c,
+                        experienceIds: o(
+                          "WAWebExperienceIdWamFields",
+                        ).getExperienceIds(s.unsafe()),
                       }),
                       g = new Blob([f], { type: "video/mp4" }),
                       h = yield o(

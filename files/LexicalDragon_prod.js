@@ -120,24 +120,24 @@ __d(
                 if (require("Lexical").$isRangeSelection(i)) {
                   var _o = i.anchor;
                   var u = _o.getNode(),
-                    f = 0,
-                    g = 0;
+                    g = 0,
+                    f = 0;
                   if (
                     (require("Lexical").$isTextNode(u) &&
                       _s2 >= 0 &&
                       _r >= 0 &&
-                      ((f = _s2),
-                      (g = _s2 + _r),
-                      i.setTextNodeRange(u, f, u, g)),
+                      ((g = _s2),
+                      (f = _s2 + _r),
+                      i.setTextNodeRange(u, g, u, f)),
                     "string" != typeof _a ||
-                      (f === g && "" === _a) ||
+                      (g === f && "" === _a) ||
                       (i.insertRawText(_a), (u = _o.getNode())),
                     require("Lexical").$isTextNode(u))
                   ) {
                     var _e3 = u.getTextContentSize();
-                    ((f = Math.min(Math.max(_l, 0), _e3)),
-                      (g = _l < 0 || _d < 0 ? f : Math.min(_l + _d, _e3)),
-                      i.setTextNodeRange(u, f, u, g));
+                    ((g = Math.min(Math.max(_l, 0), _e3)),
+                      (f = _l < 0 || _d < 0 ? g : Math.min(_l + _d, _e3)),
+                      i.setTextNodeRange(u, g, u, f));
                   }
                   if ("string" == typeof c && _d > 0 && !i.isCollapsed()) {
                     var _e4 = n[c];
@@ -151,20 +151,18 @@ __d(
         }
       }
     }
-    var d = require("Lexical").defineExtension({
+    var d = {
       build: function build(t, n, i) {
         return require("LexicalExtension").namedSignals(n);
       },
-      config: require("Lexical").safeCast({
-        disabled: "undefined" == typeof window,
-      }),
+      config: { disabled: "undefined" == typeof window },
       name: "LexicalDragon",
       register: function register(t, n, i) {
         return require("LexicalExtension").effect(function () {
           return i.getOutput().disabled.value ? void 0 : a(t);
         });
       },
-    });
+    };
     ((exports.DragonExtension = d),
       (exports.installDragonSupport = function (e) {
         if (e === void 0) {

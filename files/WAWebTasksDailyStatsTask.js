@@ -27,6 +27,8 @@ __d(
     "WAWebDailyWamEvent",
     "WAWebEphemeralityResolver",
     "WAWebEstimateFtsStorageApi",
+    "WAWebExperienceIdGatingUtils",
+    "WAWebExperienceIdWamFields",
     "WAWebGroupABPropsGlobals",
     "WAWebHistorySyncLidChatGating",
     "WAWebInactiveGroupLidMigration",
@@ -50,6 +52,7 @@ __d(
     "WAWebTextStatusGatingUtils",
     "WAWebUserPrefsCartLidMigration",
     "WAWebUserPrefsContactManagement",
+    "WAWebUserPrefsExperienceIds",
     "WAWebUserPrefsFavoritesLidMigration",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsLabelAssociationsLidMigration",
@@ -294,11 +297,24 @@ __d(
       r.commit();
     }
     function R() {
-      return L.apply(this, arguments);
+      var e = o(
+        "WAWebUserPrefsExperienceIds",
+      ).extractAndClearCurrentReceiverExperienceIds();
+      if (!o("WAWebExperienceIdGatingUtils").isExperienceIdReceiveEnabled())
+        return {};
+      var t = o("WAWebExperienceIdWamFields").getExperienceIdsWamValue(
+        [].concat(e).sort(function (e, t) {
+          return e - t;
+        }),
+      );
+      return t != null ? { receivedExperienceIds: t } : {};
     }
     function L() {
+      return E.apply(this, arguments);
+    }
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o(
             "WAWebABPropsGlobals",
           ).logClientExposurePulseEventFromDailyStatsTask(),
@@ -306,13 +322,13 @@ __d(
               "WAWebGroupABPropsGlobals",
             ).logGroupExposurePulseEventFromDailyStatsTask());
           var e = yield (g || (g = n("Promise"))).all([
-              E(),
-              D(),
-              M(),
-              A(),
-              O(),
-              H(),
-              U(),
+              k(),
+              x(),
+              w(),
+              F(),
+              B(),
+              G(),
+              V(),
             ]),
             t = e[0],
             a = e[1],
@@ -321,15 +337,15 @@ __d(
             s = e[4],
             u = e[5],
             c = e[6],
-            d = F(),
-            m = babelHelpers.extends({}, t, a, i, d, s, u, c, {
+            d = O(),
+            m = babelHelpers.extends({}, t, a, i, d, s, u, c, R(), {
               isCanonicalEntPresent: o(
                 "WAWebCanonicalUtils",
               ).isCanonicalPresent(),
             }),
             p = new (o("WAWebDailyWamEvent").DailyWamEvent)();
           (p.set(m), p.commit(), S());
-          var _ = yield I();
+          var _ = yield T();
           new (o("WAWebLidMigrationDailyWamEvent").LidMigrationDailyWamEvent)(
             _,
           ).commit();
@@ -340,7 +356,7 @@ __d(
           var h = new (o(
             "WAWebScreenLockSettingsDataWamEvent",
           ).ScreenLockSettingsDataWamEvent)();
-          (h.set(W()), h.commit());
+          (h.set(q()), h.commit());
           var y = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
             C = new (o(
               "WAWebWebcStorageStatWamEvent",
@@ -359,39 +375,39 @@ __d(
             "WAWebUserPrefsGeneral",
           ).getOfflineNotificationEngagement();
           if (b) {
-            var R, L;
+            var L, E;
             (new (o(
               "WAWebNotificationEngagementWamEvent",
             ).NotificationEngagementWamEvent)({
               isWebBackgroundSyncNotif: !0,
-              totalNotifShown: (R = b.totalNotifShown) != null ? R : 0,
-              totalNotifTapToOpen: (L = b.totalNotifTapToOpen) != null ? L : 0,
+              totalNotifShown: (L = b.totalNotifShown) != null ? L : 0,
+              totalNotifTapToOpen: (E = b.totalNotifTapToOpen) != null ? E : 0,
             }).commit(),
               o(
                 "WAWebUserPrefsGeneral",
               ).clearOfflineNotificationContentEngagement());
           }
-          var k = yield o("WAWebUserPrefsGeneral").getNotificationEngagement();
-          if (k) {
-            var T, x;
+          var I = yield o("WAWebUserPrefsGeneral").getNotificationEngagement();
+          if (I) {
+            var D, $;
             (new (o(
               "WAWebNotificationEngagementWamEvent",
             ).NotificationEngagementWamEvent)({
-              totalNotifShown: (T = k.totalNotifShown) != null ? T : 0,
-              totalNotifTapToOpen: (x = k.totalNotifTapToOpen) != null ? x : 0,
+              totalNotifShown: (D = I.totalNotifShown) != null ? D : 0,
+              totalNotifTapToOpen: ($ = I.totalNotifTapToOpen) != null ? $ : 0,
             }).commit(),
               o("WAWebUserPrefsGeneral").clearNotificationContentEngagement());
           }
           o("WAWebWamPrivateStatsUtils").logDailyPrivateStatsTestEvents();
-          var $ = o("WAWebDailyAggregatedStatsCollection")
+          var P = o("WAWebDailyAggregatedStatsCollection")
             .DailyAggregatedStatsCollection.toArray()
             .filter(function (e) {
               return e.shouldBeSubmitted();
             });
           (o(
             "WAWebDailyAggregatedStatsCollection",
-          ).DailyAggregatedStatsCollection.remove($),
-            $.forEach(function (e) {
+          ).DailyAggregatedStatsCollection.remove(P),
+            P.forEach(function (e) {
               var t = new (o("WAWebPttDailyWamEvent").PttDailyWamEvent)({
                 pttCancelBroadcast: e.pttCancelBroadcast,
                 pttCancelGroup: e.pttCancelGroup,
@@ -521,15 +537,15 @@ __d(
               "WAWebWebDynamicSamplingTestEventWithSamplingWamEvent",
             ).WebDynamicSamplingTestEventWithSamplingWamEvent)().commit());
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
     function k() {
+      return I.apply(this, arguments);
+    }
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDeviceInfo",
             void 0,
@@ -542,15 +558,15 @@ __d(
             simMnc: parseInt(e.mnc, 10),
           };
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
-    }
     function T() {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t,
             n,
@@ -750,15 +766,15 @@ __d(
             { numberOfRegularPnChats: b },
           );
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D() {
-      return x.apply(this, arguments);
-    }
     function x() {
+      return $.apply(this, arguments);
+    }
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e, t, n, r;
           o("WALogger").LOG(
             f ||
@@ -769,25 +785,25 @@ __d(
           var a = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
             i = { receiptsEnabled: a.readReceipts !== "none" },
             l = yield o("WAWebApiPrivacyDisallowedList").queryDisallowedLists();
-          ((i.privacySettingsAbout = $(a.about)),
+          ((i.privacySettingsAbout = P(a.about)),
             (i.privacySettingsAboutExceptNum =
               a.about === "contact_blacklist"
-                ? P((e = l.about) == null ? void 0 : e.disallowedList.length)
+                ? N((e = l.about) == null ? void 0 : e.disallowedList.length)
                 : null),
-            (i.privacySettingsGroups = $(a.groupAdd)),
+            (i.privacySettingsGroups = P(a.groupAdd)),
             (i.privacySettingsGroupsExceptNum =
               a.groupAdd === "contact_blacklist"
-                ? P((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
+                ? N((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
                 : null),
-            (i.privacySettingsLastSeen = $(a.lastSeen)),
+            (i.privacySettingsLastSeen = P(a.lastSeen)),
             (i.privacySettingsLastSeenExceptNum =
               a.lastSeen === "contact_blacklist"
-                ? P((n = l.last) == null ? void 0 : n.disallowedList.length)
+                ? N((n = l.last) == null ? void 0 : n.disallowedList.length)
                 : null),
-            (i.privacySettingsProfilePhoto = $(a.profilePicture)),
+            (i.privacySettingsProfilePhoto = P(a.profilePicture)),
             (i.privacySettingsProfilePhotoExceptNum =
               a.profilePicture === "contact_blacklist"
-                ? P((r = l.profile) == null ? void 0 : r.disallowedList.length)
+                ? N((r = l.profile) == null ? void 0 : r.disallowedList.length)
                 : null));
           var s = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
             o("WAWebContactCollection").ContactCollection.getMeContact(),
@@ -800,7 +816,7 @@ __d(
           ((i.defaultAfterReadEnabled = u),
             (i.defaultAfterReadDuration = u ? s : void 0),
             u && (i.defaultDisappearingDuration = 0),
-            (i.defenseMode = N(a.defenseMode)),
+            (i.defenseMode = M(a.defenseMode)),
             (i.isDefaultDisappearingMessagingUser =
               i.defaultDisappearingDuration !== 0));
           var c = yield o(
@@ -816,10 +832,10 @@ __d(
             i
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
+    function P(e) {
       return e == null
         ? null
         : e === "all"
@@ -841,7 +857,7 @@ __d(
                     );
                   })();
     }
-    function P(e) {
+    function N(e) {
       return e == null
         ? null
         : e === 0
@@ -889,7 +905,7 @@ __d(
                                       "WAWebWamEnumPrivacySettingsContactsBuckets",
                                     ).PRIVACY_SETTINGS_CONTACTS_BUCKETS.B100;
     }
-    function N(e) {
+    function M(e) {
       if (e == null) return -1;
       switch (e) {
         case "off":
@@ -898,12 +914,12 @@ __d(
           return 1;
       }
     }
-    function M() {
-      return w.apply(this, arguments);
-    }
     function w() {
+      return A.apply(this, arguments);
+    }
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebABProps").getABPropConfigValue(
               "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
             )
@@ -943,22 +959,22 @@ __d(
             ((p = y - C), (_ = y), (f = C));
           }
           return {
-            addressbookWhatsappSize: q(c, 10),
-            storageAvailSize: q(p, 100),
-            storageTotalSize: q(_, 100),
-            storageUsed: q(f, 100),
+            addressbookWhatsappSize: U(c, 10),
+            storageAvailSize: U(p, 100),
+            storageTotalSize: U(_, 100),
+            storageUsed: U(f, 100),
             mediaFolderFileCount: d,
-            webcContactsTableSize: q(m, 10),
+            webcContactsTableSize: U(m, 10),
             webcFilteredContactsSize: l,
           };
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A() {
+    function F() {
       return o("WAWebEstimateFtsStorageApi").getEstimatedFTSDbSize();
     }
-    function F() {
+    function O() {
       var e = o("WAWebWamEnumNotificationSettingType").NOTIFICATION_SETTING_TYPE
         .UNKNOWN;
       if (window.Notification != null)
@@ -984,12 +1000,12 @@ __d(
         { osNotificationSetting: e, isContactSyncToOsDefaultOn: t }
       );
     }
-    function O() {
-      return B.apply(this, arguments);
-    }
     function B() {
+      return W.apply(this, arguments);
+    }
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = [],
             t = [],
             n = window.navigator.mediaCapabilities;
@@ -1061,25 +1077,25 @@ __d(
             supportedDecoders: t.join(","),
           };
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W() {
+    function q() {
       return {
         screenAutoLockDuration: o(
           "WAWebUserPrefsScreenLock",
         ).getScreenLockDurationForLogging(),
       };
     }
-    function q(e, t) {
+    function U(e, t) {
       return r("gkx")("26258") ? Math.round(e / t) * t : e;
     }
-    function U() {
-      return V.apply(this, arguments);
-    }
     function V() {
+      return H.apply(this, arguments);
+    }
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield (g || (g = n("Promise"))).all([
               o("WAWebChatThreadLoggingUtils").getMeHasUsername(),
               o("WAWebChatThreadLoggingUtils").getMeHasUsernamePin(),
@@ -1096,15 +1112,15 @@ __d(
             { hasUsername: t, hasUsernamePin: r, usernameState: i }
           );
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H() {
-      return G.apply(this, arguments);
-    }
     function G() {
+      return z.apply(this, arguments);
+    }
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = new Set(),
             t = 0,
             n = new Set(),
@@ -1151,10 +1167,10 @@ __d(
             contactsRequiringSyncBeforeDisplaySize: a,
           };
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    ((l.logDailyStats = R), (l.getLidMigrationStatus = I));
+    ((l.logDailyStats = L), (l.getLidMigrationStatus = T));
   },
   98,
 );

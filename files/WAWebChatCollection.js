@@ -2,12 +2,15 @@ __d(
   "WAWebChatCollection",
   [
     "WALogger",
+    "WAWebABProps",
     "WAWebBaseCollection",
     "WAWebChatComparator",
+    "WAWebChatGroupUtils",
     "WAWebChatLockUpdateDailyStats",
     "WAWebChatModel",
     "WAWebDebounce",
     "WAWebIdleTaskRunner",
+    "WAWebL10N",
     "WAWebLidMigrationUtils",
     "WAWebSocketConstants",
     "WAWebSocketModel",
@@ -22,6 +25,7 @@ __d(
             (e = t.call(this) || this),
             (e.notSpam = {}),
             (e.promises = { sendUnstarAll: null }),
+            (e._localeChangeSubscribed = !1),
             (e._sortEnabled = !1),
             (e._viewOnceCleanupTaskQueue = new Set()),
             (e.setIndexes = function () {
@@ -90,6 +94,21 @@ __d(
             return this.countWhere(function (e) {
               return e.showUnreadInTitle;
             });
+          }),
+          (a.add = function (n, a) {
+            var e = this,
+              i = t.prototype.add.call(this, n, a);
+            return (
+              !this._localeChangeSubscribed &&
+                o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_3") &&
+                ((this._localeChangeSubscribed = !0),
+                this.listenTo(r("WAWebL10N"), "locale_change", function () {
+                  e.forEach(function (e) {
+                    o("WAWebChatGroupUtils").updateTitle(e);
+                  });
+                })),
+              i
+            );
           }),
           (a.enableSortListener = function (t) {
             this._sortEnabled ||

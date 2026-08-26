@@ -239,6 +239,12 @@ __d(
                   this.$12,
                 );
           }),
+          (t.getProcessedOfflineMessageCount = function () {
+            return Math.min(
+              this.$2,
+              Math.max(this.offlineMessagePreviewCounter, 0),
+            );
+          }),
           (t.processOfflineSessionComplete = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

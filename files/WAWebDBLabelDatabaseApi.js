@@ -30,7 +30,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaLabel").getLabelTable().createOrReplace(e);
+          return o("WAWebSchemaLabel").getLabelTable().createOrMerge(e.id, e);
         })),
         c.apply(this, arguments)
       );

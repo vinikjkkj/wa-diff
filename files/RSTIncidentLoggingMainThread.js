@@ -66,6 +66,7 @@ __d(
         last_qpl_event_marker_id: o("RSTUtils").intToString(x.qplMarkerId),
         last_trace_policy: x.tracePolicy,
         ad_account_id: (s = y == null ? void 0 : y.i2) != null ? s : "0",
+        browser_user_agent: navigator.userAgent,
         business_id: (u = y == null ? void 0 : y.i3) != null ? u : "0",
         canonical_route: v,
         client_push_phase: b,

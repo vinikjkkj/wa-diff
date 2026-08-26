@@ -240,6 +240,12 @@ __d(
                       100,
                     );
           }),
+          (a.getProcessedOfflineMessageCount = function () {
+            return Math.min(
+              this.$2,
+              Math.max(this.offlineMessagePreviewCounter, 0),
+            );
+          }),
           (a.processOfflineSessionComplete = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

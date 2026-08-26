@@ -275,6 +275,11 @@ __d(
                                     "asyncToGeneratorRuntime",
                                   ).asyncToGenerator(function* (e) {
                                     var t = e[0];
+                                    if (D.orderIndex == null) {
+                                      var n = yield t.get(m);
+                                      (n == null ? void 0 : n.orderIndex) !=
+                                        null && (D.orderIndex = n.orderIndex);
+                                    }
                                     return (
                                       yield t.createOrReplace(D),
                                       o(

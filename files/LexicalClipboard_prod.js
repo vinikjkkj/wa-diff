@@ -16,7 +16,6 @@ __d(
     exports,
   ) {
     "use strict";
-    var _require_Lexical;
     function i(t, n, o) {
       if (o === void 0) {
         o = null;
@@ -186,7 +185,7 @@ __d(
                 _r.namespace === _o5._config.namespace &&
                 Array.isArray(_r.nodes)
               ) {
-                return (C(_o5, E(_r.nodes), n), !0);
+                return (S(_o5, M(_r.nodes), n), !0);
               }
             } catch (e) {
               console.error(e);
@@ -200,7 +199,7 @@ __d(
               var _r2 = require("Lexical").$getEditor(),
                 _i2 = new DOMParser().parseFromString(c(t), "text/html");
               return (
-                C(
+                S(
                   _r2,
                   require("LexicalHtml").$generateNodesFromDOM(_r2, _i2),
                   o,
@@ -262,7 +261,7 @@ __d(
       },
       priority: s,
     };
-    var g = (_require_Lexical = require("Lexical")).defineExtension({
+    var g = {
         build: function build(e, t) {
           return {
             $importMimeType: t.$importMimeType,
@@ -272,7 +271,7 @@ __d(
             priority: t.priority,
           };
         },
-        config: _require_Lexical.safeCast({ $importMimeType: u, priority: s }),
+        config: { $importMimeType: u, priority: s },
         mergeConfig: function mergeConfig(t, n) {
           var o = require("Lexical").shallowMergeConfig(t, n);
           if (n.$importMimeType) {
@@ -298,40 +297,43 @@ __d(
           );
         },
         name: "@lexical/clipboard/Import",
-      }),
-      m = _require_Lexical.defineExtension({
+      },
+      m = {
         dependencies: [
           require("LexicalHtml").CoreImportExtension,
-          require("LexicalExtension").configExtension(g, {
-            $importMimeType: {
-              "text/html": [
-                function (t, o, r, i) {
-                  var _require_LexicalHtml;
-                  var l = new DOMParser().parseFromString(c(t), "text/html"),
-                    s =
-                      (_require_LexicalHtml = require("LexicalHtml")).$generateNodesFromDOMViaExtension(
-                        l,
-                        {
-                          context: [
-                            _require_LexicalHtml.contextValue(
-                              _require_LexicalHtml.ImportSource,
-                              "paste",
-                            ),
-                            _require_LexicalHtml.contextValue(
-                              _require_LexicalHtml.ImportSourceDataTransfer,
-                              i,
-                            ),
-                          ],
-                        },
-                      );
-                  return (C(require("Lexical").$getEditor(), s, o), !0);
-                },
-              ],
+          [
+            g,
+            {
+              $importMimeType: {
+                "text/html": [
+                  function (t, o, r, i) {
+                    var _require_LexicalHtml;
+                    var l = new DOMParser().parseFromString(c(t), "text/html"),
+                      s =
+                        (_require_LexicalHtml = require("LexicalHtml")).$generateNodesFromDOMViaExtension(
+                          l,
+                          {
+                            context: [
+                              _require_LexicalHtml.contextValue(
+                                _require_LexicalHtml.ImportSource,
+                                "paste",
+                              ),
+                              _require_LexicalHtml.contextValue(
+                                _require_LexicalHtml.ImportSourceDataTransfer,
+                                i,
+                              ),
+                            ],
+                          },
+                        );
+                    return (S(require("Lexical").$getEditor(), s, o), !0);
+                  },
+                ],
+              },
             },
-          }),
+          ],
         ],
         name: "@lexical/clipboard/DOMImport",
-      });
+      };
     function x(t, o) {
       if (o === void 0) {
         o = require("Lexical").$getSelection();
@@ -473,7 +475,7 @@ __d(
       }
       return (t.preventDefault(), !0);
     }
-    function C(t, n, o) {
+    function S(t, n, o) {
       t.dispatchCommand(
         require("Lexical").SELECTION_INSERT_CLIPBOARD_NODES_COMMAND,
         { nodes: n, selection: o },
@@ -514,7 +516,7 @@ __d(
           }
         })(o));
     }
-    function S(t, n, r, i) {
+    function C(t, n, r, i) {
       if (i === void 0) {
         i = [];
       }
@@ -553,7 +555,7 @@ __d(
           : n;
       for (var _o0 = 0; _o0 < u.length; _o0++) {
         var _i4 = u[_o0],
-          _l3 = S(t, p, _i4, f.children);
+          _l3 = C(t, p, _i4, f.children);
         !s &&
           require("Lexical").$isElementNode(r) &&
           _l3 &&
@@ -568,7 +570,7 @@ __d(
             var _n9 = require("Lexical").$getSlot(a, _r7);
             null === _n9 && l(366, a.constructor.name, _r7);
             var _i5 = [];
-            (S(t, null, _n9, _i5),
+            (C(t, null, _n9, _i5),
               (1 === _i5.length && _i5[0].type === _n9.getType()) ||
                 l(
                   385,
@@ -604,16 +606,16 @@ __d(
         l = null !== i ? require("Lexical").$getSlotFrame(i) : null,
         s = (require("Lexical").$isElementNode(l) ? l : r).getChildren();
       for (var _e0 = 0; _e0 < s.length; _e0++) {
-        S(t, n, s[_e0], o);
+        C(t, n, s[_e0], o);
       }
       return { namespace: t._config.namespace, nodes: o };
     }
-    function E(t) {
+    function M(t) {
       var n = [];
       for (var _o10 of t) n.push(require("Lexical").$parseSerializedNode(_o10));
       return n;
     }
-    var M = null;
+    var E = null;
     function R(t, n, o) {
       if (void 0 === o) {
         var _n0 = require("Lexical").getDOMSelection(t._window),
@@ -702,11 +704,11 @@ __d(
       };
       return _n11(e.length - 1);
     }
-    var I = _require_Lexical.defineExtension({
+    var I = {
       build: function build(e, t, n) {
         return t.$exportMimeType;
       },
-      config: _require_Lexical.safeCast({ $exportMimeType: F }),
+      config: { $exportMimeType: F },
       mergeConfig: function mergeConfig(t, n) {
         var o = require("Lexical").shallowMergeConfig(t, n);
         if (n.$exportMimeType) {
@@ -724,7 +726,7 @@ __d(
         return o;
       },
       name: "@lexical/clipboard/GetClipboardData",
-    });
+    };
     ((exports.$exportMimeTypeFromSelection = function (t, n) {
       if (n === void 0) {
         n = require("Lexical").$getSelection();
@@ -732,7 +734,7 @@ __d(
       return v(w()[t] || [], n);
     }),
       (exports.$generateJSONFromSelectedNodes = D),
-      (exports.$generateNodesFromSerializedNodes = E),
+      (exports.$generateNodesFromSerializedNodes = M),
       (exports.$getClipboardDataFromSelection = O),
       (exports.$getHtmlContent = x),
       (exports.$getLexicalContent = $),
@@ -746,7 +748,7 @@ __d(
       }),
       (exports.$insertDataTransferForPlainText = y),
       (exports.$insertDataTransferForRichText = T),
-      (exports.$insertGeneratedNodes = C),
+      (exports.$insertGeneratedNodes = S),
       (exports.$writeDragSourceToDataTransfer = function (e, t) {
         var n = { editorKey: t.getKey() };
         e.setData(h, JSON.stringify(n));
@@ -758,7 +760,7 @@ __d(
       (exports.GetClipboardDataExtension = I),
       (exports.caretFromPoint = i),
       (exports.copyToClipboard = async function (t, n, o) {
-        if (null !== M) return !1;
+        if (null !== E) return !1;
         if (null !== n)
           return new Promise(function (e, r) {
             t.update(function () {
@@ -791,15 +793,15 @@ __d(
                     ClipboardEvent,
                   ) &&
                     (c(),
-                    null !== M && (l.clearTimeout(M), (M = null)),
+                    null !== E && (l.clearTimeout(E), (E = null)),
                     n(R(t, e, o))),
                   !0
                 );
               },
               require("Lexical").COMMAND_PRIORITY_CRITICAL,
             );
-            ((M = l.setTimeout(function () {
-              (c(), (M = null), n(!1));
+            ((E = l.setTimeout(function () {
+              (c(), (E = null), n(!1));
             }, 50)),
               s.execCommand("copy"),
               a.remove());

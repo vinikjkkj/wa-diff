@@ -18,6 +18,7 @@ __d(
           [
             r("id"),
             n("audienceExpression"),
+            n("customAudienceFbid"),
             n("recipients"),
             n("labels"),
             n("senderKeyDevices"),

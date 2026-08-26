@@ -18,7 +18,6 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSendMsgTypes",
     "WAWebStatusCollection",
-    "WAWebStatusGatingUtils",
     "WAWebStatusLoggingUtils",
     "WAWebStatusMsgDataUtils",
     "WAWebStatusPosterActionsLogger",
@@ -131,9 +130,9 @@ __d(
                 "sendStatusMediaMsgAction: start to send status message",
               ])),
           );
-          var h = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
-              ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
-              : void 0,
+          var h = yield o(
+              "WAWebStatusMsgDataUtils",
+            ).getCanBeResharedForNewStatus(),
             y = babelHelpers.extends({}, g, {
               id: new (r("WAWebMsgKey"))({
                 fromMe: g.id.fromMe,

@@ -394,6 +394,7 @@ __d(
       biz_ai_coaching_enabled: [13465, "bool", !1, !1],
       biz_ai_consumer_tos_notice_iq_web: [24754, "bool", !1, !1],
       biz_ai_consumer_tos_update_web: [23880, "bool", !1, !1],
+      biz_ai_enable_download: [35593, "bool", !1, !0],
       biz_ai_fab_confirm_modal_enabled: [32846, "bool", !1, !0],
       biz_ai_fab_enabled: [33531, "bool", !1, !1],
       biz_ai_handoff_timing_sync_enabled: [33602, "bool", !1, !0],

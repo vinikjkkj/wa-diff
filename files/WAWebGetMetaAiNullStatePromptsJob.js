@@ -11,7 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
-    function u(t, r, a) {
+    function u(t, r) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getMetaAiNullStatePrompts",
@@ -20,27 +20,26 @@ __d(
               function* (t) {
                 var n = t.expConfig,
                   r = t.locale,
-                  a = t.nullStateSource,
-                  i = { locale: r, nullStateSource: a, expConfig: n },
-                  l = yield o(
+                  a = { locale: r, expConfig: n },
+                  i = yield o(
                     "WAWebMetaAiNullStatePromptsCache",
-                  ).MetaAiNullStatePromptsCache.get(i);
-                if (l != null && l.length > 0) return l;
-                var u = yield o(
+                  ).MetaAiNullStatePromptsCache.get(a);
+                if (i != null && i.length > 0) return i;
+                var l = yield o(
                   "WAWebFetchMetaAiNullStatePromptsGQL",
-                ).fetchMetaAiNullStatePrompts(r, a, n);
-                return u.type === "success"
-                  ? (u.value.length > 0
+                ).fetchMetaAiNullStatePrompts(r, n);
+                return l.type === "success"
+                  ? (l.value.length > 0
                       ? o(
                           "WAWebMetaAiNullStatePromptsCache",
-                        ).MetaAiNullStatePromptsCache.set(i, u.value)
+                        ).MetaAiNullStatePromptsCache.set(a, l.value)
                       : o("WALogger").WARN(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
                               "[getMetaAiNullStatePrompts] GQL returned empty prompt list",
                             ])),
                         ),
-                    u.value)
+                    l.value)
                   : (o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -56,7 +55,7 @@ __d(
           })(),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )
-        .waitUntilCompleted({ locale: t, nullStateSource: r, expConfig: a });
+        .waitUntilCompleted({ locale: t, expConfig: r });
     }
     l.getMetaAiNullStatePrompts = u;
   },

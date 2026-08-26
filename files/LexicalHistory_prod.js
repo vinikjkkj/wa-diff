@@ -10,7 +10,6 @@ __d(
     exports,
   ) {
     "use strict";
-    var _require_Lexical;
     function n(e, n, o, r, i) {
       if (null === e || (0 === o.size && 0 === r.size && !i)) return 0;
       var a = n._selection,
@@ -291,7 +290,7 @@ __d(
     function a() {
       return { current: null, redoStack: [], undoStack: [] };
     }
-    var s = (_require_Lexical = require("Lexical")).defineExtension({
+    var s = {
       build: function build(t, _ref4, s) {
         var n = _ref4.delay,
           o = _ref4.createInitialHistoryState,
@@ -310,13 +309,13 @@ __d(
           s.getInitResult(),
         );
       },
-      config: _require_Lexical.safeCast({
+      config: {
         createInitialHistoryState: a,
         delay: 300,
         disabled: "undefined" == typeof window,
         maxDepth: null,
         now: Date.now,
-      }),
+      },
       init: function init() {
         return {
           canRedo: require("LexicalExtension").signal(!1),
@@ -350,8 +349,8 @@ __d(
           l(null);
         });
       },
-    });
-    var l = _require_Lexical.defineExtension({
+    };
+    var l = {
       build: function build(t, _ref5) {
         var n = _ref5.disabled,
           o = _ref5.parentEditor;
@@ -360,8 +359,8 @@ __d(
           parentEditor: o || t._parentEditor,
         });
       },
-      config: _require_Lexical.safeCast({ disabled: !1, parentEditor: null }),
-      dependencies: [_require_Lexical.configExtension(s, { disabled: !0 })],
+      config: { disabled: !1, parentEditor: null },
+      dependencies: [[s, { disabled: !0 }]],
       name: "@lexical/history/SharedHistory",
       register: function register(t, n, o) {
         return require("LexicalExtension").effect(function () {
@@ -391,7 +390,7 @@ __d(
           }
         });
       },
-    });
+    };
     ((exports.HistoryExtension = s),
       (exports.SharedHistoryExtension = l),
       (exports.createEmptyHistoryState = a),

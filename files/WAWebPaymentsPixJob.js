@@ -7,7 +7,6 @@ __d(
     "WASmaxBrPaymentCreateCustomPaymentMethodRPC",
     "WASmaxBrPaymentRemoveCustomPaymentMethodRPC",
     "WAWebBackendApi",
-    "WAWebConsumerPaymentsHomeLogger",
     "WAWebCustomPaymentMethodsSync",
     "WAWebCustomPaymentMethodsSyncLogger",
     "WAWebMobilePlatforms",
@@ -63,9 +62,6 @@ __d(
                     ])),
                 )
                 .sendLogs("payment-brazil"),
-                o("WAWebConsumerPaymentsHomeLogger").logSyncEvent(
-                  o("WAWebConsumerPaymentsHomeLogger").SYNC_TARGETS.STORE_SENT,
-                ),
                 yield L(d));
               break e;
             }

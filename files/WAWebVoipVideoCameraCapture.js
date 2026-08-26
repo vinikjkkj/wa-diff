@@ -1003,7 +1003,13 @@ __d(
                           c,
                         ));
                   }
-                  (ae("stopCapture"), (this.__stopping = !1));
+                  (ae("stopCapture"),
+                    o(
+                      "WAWebVoipVideoRendererRegistry",
+                    ).videoRendererRegistry.resetFirstFrameReceivedForJid(
+                      o("WAWebVoipVideoRendererInterface").selfPreviewJid,
+                    ),
+                    (this.__stopping = !1));
                 }
               },
             );

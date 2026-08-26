@@ -145,6 +145,9 @@ __d(
           (r.getOfflineDeliveryProgress = function () {
             return this.offlineResumeManager.getOfflineDeliveryProgress();
           }),
+          (r.getProcessedOfflineMessageCount = function () {
+            return this.offlineResumeManager.getProcessedOfflineMessageCount();
+          }),
           (r.getOfflineMessageCount = function () {
             return Math.max(
               this.offlineResumeManager.offlineMessagePreviewCounter,

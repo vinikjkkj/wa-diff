@@ -8,7 +8,7 @@ __d(
       c = "relay-error-handling",
       d = r("gkx")("13037"),
       m = r("gkx")("18885"),
-      p = 0.01;
+      p = 100;
     function _(e) {
       if (e.shouldThrow === !0 || d === !1) return !1;
       switch (e.kind) {

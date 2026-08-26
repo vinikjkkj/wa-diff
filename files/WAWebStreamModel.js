@@ -31,10 +31,9 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = (e = n("cr:17219")) != null ? e : {},
-      m = d.getWindowsBridge,
-      p = n("$InternalEnum").Mirrored([
+      c = (e = n("cr:17219")) != null ? e : {},
+      d = c.getWindowsBridge,
+      m = n("$InternalEnum").Mirrored([
         "QR",
         "MAIN",
         "SYNCING",
@@ -44,9 +43,9 @@ __d(
         "TOS_BLOCK",
         "SMB_TOS_BLOCK",
       ]),
-      _ = 18e3,
-      f = 3e3,
-      g = (function (e) {
+      p = 18e3,
+      _ = 3e3,
+      f = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -56,13 +55,13 @@ __d(
             (t.info = o("WAWebBaseModel").session(
               o("WAWebStreamTypes").StreamInfo.NORMAL,
             )),
-            (t.mode = o("WAWebBaseModel").session(p.SYNCING)),
+            (t.mode = o("WAWebBaseModel").session(m.SYNCING)),
             (t.obscurity = o("WAWebBaseModel").session(
               o("WAWebStreamTypes").Obscurity.HIDE,
             )),
             (t.needsUpdate = o("WAWebBaseModel").session()),
             (t.isHardRefresh = o("WAWebBaseModel").session(!1)),
-            (t.lastSyncStart = o("WAWebBaseModel").session(R())),
+            (t.lastSyncStart = o("WAWebBaseModel").session(v())),
             (t.needsManualDownload = o("WAWebBaseModel").session()),
             (t.couldForce = o("WAWebBaseModel").session()),
             (t.uiActive = o("WAWebBaseModel").session()),
@@ -75,12 +74,6 @@ __d(
             (t.resumeCount = o("WAWebBaseModel").session(0)),
             (t.phoneAuthed = o("WAWebBaseModel").session(!1)),
             (t.hasSynced = o("WAWebBaseModel").session()),
-            (t.displayInfo = o("WAWebBaseModel").derived(
-              function () {
-                return S(this.info, this.obscurity);
-              },
-              ["info", "obscurity"],
-            )),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );
@@ -92,7 +85,7 @@ __d(
             var t = this;
             (e.prototype.initialize.call(this),
               o("WAWebUserPrefsMultiDevice").isRegistered() ||
-                (this.mode = p.QR),
+                (this.mode = m.QR),
               window.document && (this.available = document.hasFocus()),
               (this.unavailableShiftTimer = new (o("WAShiftTimer").ShiftTimer)(
                 function () {
@@ -174,10 +167,10 @@ __d(
               : (this.unavailableShiftTimer.cancel(), (this.available = !1));
           }),
           (a.$StreamImpl$p_1 = function () {
-            var e = b(),
+            var e = C(),
               t = {
                 info: e,
-                mode: v(),
+                mode: b(),
                 phoneAuthed:
                   o("WAWebSocketModel").Socket.stream !==
                   o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED,
@@ -193,11 +186,11 @@ __d(
               e: {
                 var n = this.obscurity;
                 if (n === o("WAWebStreamTypes").Obscurity.HIDE) {
-                  this.unobscureShiftTimer.onOrBefore(_);
+                  this.unobscureShiftTimer.onOrBefore(p);
                   break e;
                 }
                 if (n === o("WAWebStreamTypes").Obscurity.OBSCURE) {
-                  this.unobscureShiftTimer.onOrBefore(f);
+                  this.unobscureShiftTimer.onOrBefore(_);
                   break e;
                 }
                 if (n === o("WAWebStreamTypes").Obscurity.SHOW) break e;
@@ -223,8 +216,8 @@ __d(
           (a.$StreamImpl$p_5 = function () {
             var e,
               t =
-                m == null ||
-                (e = m(
+                d == null ||
+                (e = d(
                   r("WAWebWindowsHybridBridgeInitiator").WAWebStreamModel,
                 )) == null ||
                 (e = e.nativeAppStateBridge) == null
@@ -294,44 +287,44 @@ __d(
               e && this.stopListening(this, "change:info", this.updateWamLog));
           }),
           (a.logModeChange = function () {
-            (this.mode === p.SYNCING && (this.lastSyncStart = R()),
+            (this.mode === m.SYNCING && (this.lastSyncStart = v()),
               new (o(
                 "WAWebWebcStreamModeChangeWamEvent",
               ).WebcStreamModeChangeWamEvent)({
-                webcStreamMode: h(this.mode),
+                webcStreamMode: g(this.mode),
               }).commit());
           }),
           t
         );
       })(o("WAWebBaseModel").BaseModel);
-    g.Proxy = "stream";
-    function h(e) {
+    f.Proxy = "stream";
+    function g(e) {
       switch (e) {
-        case p.QR:
+        case m.QR:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE.QR;
-        case p.MAIN:
+        case m.MAIN:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE.MAIN;
-        case p.SYNCING:
+        case m.SYNCING:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .SYNCING;
-        case p.OFFLINE:
+        case m.OFFLINE:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .OFFLINE;
-        case p.CONFLICT:
+        case m.CONFLICT:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .CONFLICT;
-        case p.PROXYBLOCK:
+        case m.PROXYBLOCK:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .PROXYBLOCK;
-        case p.TOS_BLOCK:
-        case p.SMB_TOS_BLOCK:
+        case m.TOS_BLOCK:
+        case m.SMB_TOS_BLOCK:
           return o("WAWebWamEnumWebcStreamModeCode").WEBC_STREAM_MODE_CODE
             .TOS_BLOCK;
       }
     }
-    var y = o("WAWebBaseModel").defineModel(g),
-      C = new y({ id: "1" });
-    function b() {
+    var h = o("WAWebBaseModel").defineModel(f),
+      y = new h({ id: "1" });
+    function C() {
       var e = !1;
       if (
         (e || r("gkx")("26256")) &&
@@ -360,7 +353,7 @@ __d(
           return o("WAWebStreamTypes").StreamInfo.NORMAL;
       }
     }
-    function v() {
+    function b() {
       var e = !1;
       if (
         ((e = o("WAWebUserPrefsMultiDevice").isRegistered()),
@@ -368,72 +361,43 @@ __d(
           o("WAWebSocketModel").Socket.state !==
             o("WAWebSocketConstants").SOCKET_STATE.PROXYBLOCK)
       )
-        return p.QR;
+        return m.QR;
       var t = o("WAWebSocketModel").Socket.hasSynced;
-      if (t && e && o("WAWebBuildConstants").WINDOWS_OFFLINE) return p.MAIN;
+      if (t && e && o("WAWebBuildConstants").WINDOWS_OFFLINE) return m.MAIN;
       switch (o("WAWebSocketModel").Socket.state) {
         case o("WAWebSocketConstants").SOCKET_STATE.PROXYBLOCK:
-          return p.PROXYBLOCK;
+          return m.PROXYBLOCK;
         case o("WAWebSocketConstants").SOCKET_STATE.CONFLICT:
-          return p.CONFLICT;
+          return m.CONFLICT;
         case o("WAWebSocketConstants").SOCKET_STATE.TOS_BLOCK:
-          return p.TOS_BLOCK;
+          return m.TOS_BLOCK;
         case o("WAWebSocketConstants").SOCKET_STATE.SMB_TOS_BLOCK:
-          return p.SMB_TOS_BLOCK;
+          return m.SMB_TOS_BLOCK;
         case o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED:
-          return p.SYNCING;
+          return m.SYNCING;
         case o("WAWebSocketConstants").SOCKET_STATE.UNPAIRED_IDLE:
         case o("WAWebSocketConstants").SOCKET_STATE.UNPAIRED:
-          return p.QR;
+          return m.QR;
         case o("WAWebSocketConstants").SOCKET_STATE.OPENING:
           if (
             !r("WAWebNetworkStatus").online &&
             !o("WAWebSocketModel").Socket.hasSynced
           )
-            return p.OFFLINE;
+            return m.OFFLINE;
         default:
           return t ||
             o("WAWebSocketModel").Socket.stream ===
               o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED
-            ? p.MAIN
-            : p.SYNCING;
+            ? m.MAIN
+            : m.SYNCING;
       }
     }
-    function S(e, t) {
-      switch (t) {
-        case o("WAWebStreamTypes").Obscurity.SHOW:
-          return e;
-        case o("WAWebStreamTypes").Obscurity.HIDE:
-          return o("WAWebSocketModel").Socket.hasSynced
-            ? o("WAWebStreamTypes").StreamInfo.NORMAL
-            : o("WAWebStreamTypes").StreamInfo.CONNECTING;
-        case o("WAWebStreamTypes").Obscurity.OBSCURE:
-          switch (e) {
-            case o("WAWebStreamTypes").StreamInfo.OPENING:
-            case o("WAWebStreamTypes").StreamInfo.PAIRING:
-            case o("WAWebStreamTypes").StreamInfo.SYNCING:
-            case o("WAWebStreamTypes").StreamInfo.RESUMING:
-              return o("WAWebStreamTypes").StreamInfo.CONNECTING;
-            default:
-              return e;
-          }
-      }
-      return (
-        o("WALogger").WARN(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "Stream:unknown obscure level:",
-            ])),
-        ),
-        e
-      );
-    }
-    function R() {
+    function v() {
       return Math.floor(window.performance.now());
     }
     ((l.StreamInfo = o("WAWebStreamTypes").StreamInfo),
-      (l.StreamMode = p),
-      (l.Stream = C));
+      (l.StreamMode = m),
+      (l.Stream = y));
   },
   98,
 );

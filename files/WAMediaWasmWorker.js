@@ -93,8 +93,8 @@ __d(
                 case "webpCheck": {
                   var e = t.input,
                     n = t.operation,
-                    r = t.requestId,
-                    a = o("WAWebPCheck").createWebPCheck({
+                    a = t.requestId,
+                    i = o("WAWebPCheck").createWebPCheck({
                       getWasmModule: o("WAWebPCheck").getWebpCheckWasm,
                       logError: function (t) {
                         o(
@@ -107,142 +107,144 @@ __d(
                         ).sendLogToMainThread("dev", t);
                       },
                     }),
-                    i = yield a({ input: e });
-                  if (i.success === !1) {
-                    var l, s;
+                    l = yield i({ input: e });
+                  if (l.success === !1) {
+                    var s, u;
                     o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
                       "error",
-                      i.error,
+                      l.error,
                     );
-                    var u = i.payload,
-                      d = o("WAResultOrError").makeError({
-                        errorType: i.error,
+                    var d = l.payload,
+                      m = o("WAResultOrError").makeError({
+                        errorType: l.error,
                         errorMessage:
                           "webpCheck failed with: " +
-                          ((l = u == null ? void 0 : u.name) != null
-                            ? l
+                          ((s = d == null ? void 0 : d.name) != null
+                            ? s
                             : "undefined") +
                           ", stack " +
-                          ((s = u == null ? void 0 : u.stack) != null
-                            ? s
+                          ((u = d == null ? void 0 : d.stack) != null
+                            ? u
                             : "undefined"),
                       });
-                    return h({ output: d, operation: n, requestId: r });
+                    return h({ output: m, operation: n, requestId: a });
                   }
                   return h({
                     output: o("WAResultOrError").makeResult(e),
                     operation: n,
-                    requestId: r,
+                    requestId: a,
                   });
                 }
                 case "mp4RepairMux": {
-                  var m = t.input,
-                    p = t.operation,
-                    _ = t.requestId,
-                    f = yield c(m);
-                  if (f.success === !1) {
-                    var g, y;
+                  var p = t.input,
+                    _ = t.operation,
+                    f = t.requestId,
+                    g = yield c(p);
+                  if (g.success === !1) {
+                    var y, C;
                     o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
                       "error",
-                      f.error,
+                      g.error,
                     );
-                    var C = f.payload,
-                      b = o("WAResultOrError").makeError({
-                        errorType: f.error,
+                    var b = g.payload,
+                      S = o("WAResultOrError").makeError({
+                        errorType: g.error,
                         errorMessage:
                           "mp4RepairMux failed with: " +
-                          ((g = C == null ? void 0 : C.name) != null
-                            ? g
+                          ((y = b == null ? void 0 : b.name) != null
+                            ? y
                             : "undefined") +
                           ", stack " +
-                          ((y = C == null ? void 0 : C.stack) != null
-                            ? y
+                          ((C = b == null ? void 0 : b.stack) != null
+                            ? C
                             : "undefined"),
                       });
-                    return h({ output: b, operation: p, requestId: _ });
+                    return h({ output: S, operation: _, requestId: f });
                   }
-                  var S = o("WAResultOrError").makeResult(f.value);
-                  return h({ output: S, operation: p, requestId: _ });
+                  var R = o("WAResultOrError").makeResult(g.value);
+                  return h({ output: R, operation: _, requestId: f });
                 }
                 case "progressiveJpegEncode": {
-                  var R = t.height,
-                    L = t.input,
-                    E = t.operation,
-                    k = t.quality,
-                    I = t.requestId,
-                    T = t.useHdScanConfig,
-                    D = t.width,
-                    x = yield v({
-                      imageDataBuffer: L,
-                      height: R,
-                      width: D,
-                      quality: k,
-                      useHdScanConfig: T,
+                  var L = t.height,
+                    E = t.input,
+                    k = t.operation,
+                    I = t.quality,
+                    T = t.requestId,
+                    D = t.useHdScanConfig,
+                    x = t.width,
+                    $ = yield v({
+                      imageDataBuffer: E,
+                      height: L,
+                      width: x,
+                      quality: I,
+                      useHdScanConfig: D,
                     });
                   return h({
                     output: o("WAResultOrError").makeResult(
-                      o("WAByteArray").uint8ArrayToBuffer(x),
+                      o("WAByteArray").uint8ArrayToBuffer($),
                     ),
-                    operation: E,
-                    requestId: I,
+                    operation: k,
+                    requestId: T,
                   });
                 }
                 case "progressiveJpegEncodeWithFile": {
-                  var $ = t.fileName,
-                    P = t.fileType,
-                    N = t.input,
-                    M = t.maxOutputHeight,
-                    w = t.maxOutputWidth,
-                    A = t.operation,
-                    F = t.quality,
-                    O = t.requestId,
-                    B = t.useHdScanConfig,
-                    W = new File([N], $, { type: P }),
-                    q = yield o("WADecodeImage")
+                  var P = t.fileName,
+                    N = t.fileType,
+                    M = t.input,
+                    w = t.maxOutputHeight,
+                    A = t.maxOutputWidth,
+                    F = t.operation,
+                    O = t.quality,
+                    B = t.requestId,
+                    W = t.useHdScanConfig,
+                    q = new File([M], P, { type: N }),
+                    U = yield o("WADecodeImage")
                       .decodeImageWithoutDOM(
-                        W,
-                        w != null && M != null
-                          ? { width: w, height: M }
+                        q,
+                        A != null && w != null
+                          ? { width: A, height: w }
                           : void 0,
                       )
                       .then(o("WAResultOrError").makeResult)
                       .catch(function (e) {
-                        return o("WAResultOrError").makeError(e);
+                        return o("WAResultOrError").makeError(
+                          r("getErrorSafe")(e),
+                        );
                       });
-                  if (!q.success) {
-                    var U,
-                      V,
-                      H = q.error;
+                  if (!U.success) {
+                    var V,
+                      H,
+                      G = U.error;
                     o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
                       "error",
                       "decodeImageWithoutDOM failed",
                     );
-                    var G = o("WAResultOrError").makeError({
+                    var z = o("WAResultOrError").makeError({
                       errorType: "decode-image-error",
                       errorMessage:
                         "decodeImageWithoutDOM failed with: " +
-                        ((U = H.name) != null ? U : "undefined") +
+                        ((V = G.name) != null ? V : "undefined") +
                         ", stack " +
-                        ((V = H.stack) != null ? V : "undefined"),
+                        ((H = G.stack) != null ? H : "undefined"),
                     });
-                    return h({ output: G, operation: A, requestId: O });
+                    return h({ output: z, operation: F, requestId: B });
                   }
-                  var z = q.value,
-                    j = yield v({
+                  var j = U.value,
+                    K = yield v({
                       imageDataBuffer: o("WAByteArray").uint8ArrayToBuffer(
-                        z.data,
+                        j.data,
                       ),
-                      height: z.height,
-                      width: z.width,
-                      quality: F,
-                      useHdScanConfig: B,
+                      height: j.height,
+                      width: j.width,
+                      quality: O,
+                      useHdScanConfig: W,
                     });
                   return h({
                     output: o("WAResultOrError").makeResult(
-                      o("WAByteArray").uint8ArrayToBuffer(j),
+                      o("WAByteArray").uint8ArrayToBuffer(K),
                     ),
-                    operation: A,
-                    requestId: O,
+                    operation: F,
+                    requestId: B,
                   });
                 }
                 default:
@@ -562,8 +564,7 @@ __d(
           }),
         )
         .catch(function (e) {
-          var n =
-            "mediaGenerateImageThumbnail has runtime-error " + e.toString();
+          var n = "mediaGenerateImageThumbnail has runtime-error " + String(e);
           return C({
             output: o("WAResultOrError").makeError({
               errorMessage: n,
@@ -631,7 +632,7 @@ __d(
         .catch(function (e) {
           o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
             "dev",
-            "failed to read/write storage operation, error: " + e,
+            "failed to read/write storage operation, error: " + String(e),
           );
         });
     });
@@ -675,7 +676,7 @@ __d(
           }),
         )
         .catch(function (e) {
-          var n = "calculateFilehash has runtime-error " + e.toString();
+          var n = "calculateFilehash has runtime-error " + String(e);
           return k({
             output: o("WAResultOrError").makeError({
               errorMessage: n,
@@ -728,7 +729,7 @@ __d(
           }),
         )
         .catch(function (e) {
-          var n = "calculateHmacSha256 has runtime-error " + e.toString();
+          var n = "calculateHmacSha256 has runtime-error " + String(e);
           return T({
             output: o("WAResultOrError").makeError({
               errorMessage: n,

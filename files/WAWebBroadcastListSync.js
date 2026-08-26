@@ -68,36 +68,37 @@ __d(
                                       ).malformedActionValue(r.collectionName)
                                     );
                                   var u = s.audienceExpression,
-                                    c = s.labelIds,
-                                    d = s.listName,
-                                    m = s.participants,
-                                    p = o("WAWebUserPrefsMeUser")
+                                    c = s.customAudienceFbid,
+                                    d = s.labelIds,
+                                    m = s.listName,
+                                    p = s.participants,
+                                    _ = o("WAWebUserPrefsMeUser")
                                       .getMeLidUserOrThrow()
                                       .toString(),
-                                    _ = (m != null ? m : []).filter(
+                                    f = (p != null ? p : []).filter(
                                       function (e) {
-                                        return e.lidJid !== p;
+                                        return e.lidJid !== _;
                                       },
                                     ),
-                                    f =
+                                    g =
                                       u != null
                                         ? o(
                                             "WAWebAudienceExpressionTypes",
                                           ).parseAudienceExpressionJson(u)
                                         : null,
-                                    g =
-                                      f != null
-                                        ? f
-                                        : (c != null ? c : []).length > 0
+                                    h =
+                                      g != null
+                                        ? g
+                                        : (d != null ? d : []).length > 0
                                           ? o(
                                               "WAWebAudienceExpressionTypes",
                                             ).createLabelPredicateExpression(
-                                              c != null ? c : [],
+                                              d != null ? d : [],
                                             )
                                           : o(
                                               "WAWebAudienceExpressionTypes",
                                             ).createExplicitExpression(
-                                              _.map(function (e) {
+                                              f.map(function (e) {
                                                 return e.lidJid;
                                               }),
                                             );
@@ -105,9 +106,10 @@ __d(
                                     yield o(
                                       "WAWebBroadcastListStorageUtils",
                                     ).updateBroadcastListStorage({
-                                      audienceExpression: g,
+                                      audienceExpression: h,
+                                      customAudienceFbid: c,
                                       id: n,
-                                      listName: d != null ? d : "",
+                                      listName: m != null ? m : "",
                                     }),
                                     {
                                       actionState:
@@ -173,30 +175,35 @@ __d(
             return r;
           })()),
           (a.getBroadcastListMutation = function (t) {
-            var e = t.expression,
-              n = t.id,
-              r = t.listName,
-              a = t.participants,
-              i = t.timestamp,
-              l = {
-                businessBroadcastListAction: {
-                  participants: a,
-                  listName: r,
-                  labelIds: [],
-                  audienceExpression: o(
-                    "WAWebAudienceExpressionTypes",
-                  ).serializeAudienceExpression(e),
-                },
+            var e = t.customAudienceFbid,
+              n = t.expression,
+              r = t.id,
+              a = t.listName,
+              i = t.participants,
+              l = t.timestamp,
+              s = {
+                businessBroadcastListAction: babelHelpers.extends(
+                  {},
+                  e != null ? { customAudienceFbid: e } : {},
+                  {
+                    participants: i,
+                    listName: a,
+                    labelIds: [],
+                    audienceExpression: o(
+                      "WAWebAudienceExpressionTypes",
+                    ).serializeAudienceExpression(n),
+                  },
+                ),
               };
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               action: this.getAction(),
-              indexArgs: [n],
+              indexArgs: [r],
               collection: this.collectionName,
-              value: l,
+              value: s,
               version: this.getVersion(),
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.SET,
-              timestamp: i,
+              timestamp: l,
             });
           }),
           (a.getDeleteBroadcastListMutation = function (t, n) {

@@ -87,6 +87,11 @@ __d(
       }
       if (e.includes("messenger.com"))
         return { endpoint: "gateway.messenger.com", authType: "FACEBOOK" };
+      if (e.includes("metabusinessagent.com"))
+        return {
+          endpoint: "gateway.metabusinessagent.com",
+          authType: "FACEBOOK",
+        };
       if (e.includes("work.meta.com"))
         return { endpoint: "gateway.work.meta.com", authType: "FACEBOOK" };
       if (e.includes("devicemanager.meta.com"))

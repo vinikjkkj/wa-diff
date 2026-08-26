@@ -10,20 +10,27 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(t, n, r) {
-      var a = t.id.isLid() ? t.phoneNumber : t.id;
+    function c(e, t, n) {
+      return d(
+        o("WAWebWidFactory").asUserWidOrThrow(e.id),
+        e.phoneNumber,
+        e.username == null
+          ? null
+          : o("WAWebUsernameTypes").serializeUsername(e.username),
+        t,
+        n,
+      );
+    }
+    function d(t, n, r, a, i) {
+      var l = t.isLid() ? n : t;
       if (
         o("WAWebABProps").getABPropConfigValue(
           "username_group_mutation_enabled",
         ) &&
-        n
+        a
       ) {
-        var i = t.id.isLid()
-          ? t.id
-          : o("WAWebApiContact").getCurrentLid(
-              o("WAWebWidFactory").asUserWidOrThrow(t.id),
-            );
-        if (i == null)
+        var c = t.isLid() ? t : o("WAWebApiContact").getCurrentLid(t);
+        if (c == null)
           throw (
             o("WALogger")
               .ERROR(
@@ -32,21 +39,16 @@ __d(
                     "getGroupMutationParticipant: ",
                     ": no lid",
                   ])),
-                r,
+                i,
               )
-              .sendLogs("getGroupMutationParticipant-" + r + "-missing-lid"),
+              .sendLogs("getGroupMutationParticipant-" + i + "-missing-lid"),
             new (o("WAWebMiscErrors").ActionError)()
           );
-        var l = t.username;
+        if (r != null) return { lid: c, username: r };
         if (l != null)
           return {
-            lid: i,
-            username: o("WAWebUsernameTypes").serializeUsername(l),
-          };
-        if (a != null)
-          return {
-            lid: i,
-            phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(a),
+            lid: c,
+            phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(l),
           };
         throw (
           o("WALogger")
@@ -56,15 +58,15 @@ __d(
                   "getGroupMutationParticipant: ",
                   ": username and pn is null",
                 ])),
-              r,
+              i,
             )
             .sendLogs(
-              "getGroupMutationParticipant-" + r + "-missing-username-and-pn",
+              "getGroupMutationParticipant-" + i + "-missing-username-and-pn",
             ),
           new (o("WAWebMiscErrors").ActionError)()
         );
       }
-      if (a == null)
+      if (l == null)
         throw (
           o("WALogger")
             .ERROR(
@@ -73,14 +75,15 @@ __d(
                   "getGroupMutationParticipant: ",
                   ": no pn",
                 ])),
-              r,
+              i,
             )
-            .sendLogs("getGroupMutationParticipant-" + r + "-missing-pn"),
+            .sendLogs("getGroupMutationParticipant-" + i + "-missing-pn"),
           new (o("WAWebMiscErrors").ActionError)()
         );
-      return { phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(a) };
+      return { phoneNumber: o("WAWebWidFactory").asUserWidOrThrow(l) };
     }
-    l.getGroupMutationParticipant = c;
+    ((l.getGroupMutationParticipant = c),
+      (l.getGroupMutationParticipantFromIdentity = d));
   },
   98,
 );

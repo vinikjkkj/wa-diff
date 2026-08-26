@@ -4,6 +4,7 @@ __d(
     "WAAbortError",
     "WALogger",
     "WAWebDownloadManager",
+    "WAWebExperienceIdWamFields",
     "WAWebHttpErrors",
     "WAWebMediaFileErrors",
     "WAWebMediaGetDownloadOriginForMsg",
@@ -80,6 +81,9 @@ __d(
                 chatWid: n == null ? void 0 : n.id,
                 downloadQpl: g,
                 downloadOrigin: _,
+                experienceIds: o("WAWebExperienceIdWamFields").getExperienceIds(
+                  i.unsafe(),
+                ),
               }),
               E = self.performance.now();
             (b.consolidate({

@@ -8,7 +8,7 @@ __d(
         o = n.position === "absolute",
         a = t ? /(auto|scroll|hidden)/ : /(auto|scroll)/;
       if (n.position === "fixed") return r("nullthrows")(document.body);
-      for (var i = e; (i = i.parentElement); )
+      for (var i = e.parentElement; i != null; i = i.parentElement)
         if (
           ((n = getComputedStyle(i)),
           !(o && n.position === "static") &&

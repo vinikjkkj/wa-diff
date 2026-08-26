@@ -254,6 +254,7 @@ __d(
             a("isWamoSub"),
             a("hasPaidPartnershipLabel"),
             a("aiProvenance"),
+            a("experienceIds"),
             a("callSilenceReason"),
             a("callOutcome"),
             a("isVideoCall"),

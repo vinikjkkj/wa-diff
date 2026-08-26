@@ -19,6 +19,7 @@ __d(
         SEND_STORE: e.PAYMENT_ACTION_TARGETS.SYNCD_SEND_STORE,
       }),
       d = n("$InternalEnum")({
+        FRONTEND_DISPATCH_FAILED: "frontend_dispatch_failed",
         MALFORMED_MUTATION: "malformed_mutation",
         TRANSPORT_FLUSH_FAILED: "transport_flush_failed",
         UNSUPPORTED_OPERATION: "unsupported_operation",

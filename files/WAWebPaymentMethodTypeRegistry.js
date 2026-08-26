@@ -2,6 +2,7 @@ __d(
   "WAWebPaymentMethodTypeRegistry",
   [
     "WALogger",
+    "WAWebCurrencyData",
     "WAWebPaymentMethodPIX",
     "WAWebUprConstants",
     "WAWebUserPrefsTypes",
@@ -22,70 +23,50 @@ __d(
       y,
       C,
       b = new Set(["bank_account", "wallet"]),
-      v = new Map([
-        ["MX", "MXN"],
-        ["ID", "IDR"],
-        ["HK", "HKD"],
-        ["TW", "TWD"],
-        ["TR", "TRY"],
-        ["AE", "AED"],
-        ["EG", "EGP"],
-        ["AR", "ARS"],
-        ["CA", "CAD"],
-        ["CI", "XOF"],
-        ["CO", "COP"],
-        ["ET", "ETB"],
-        ["GH", "GHS"],
-        ["KE", "KES"],
-        ["PE", "PEN"],
-        ["SA", "SAR"],
-        ["TZ", "TZS"],
-        ["ZA", "ZAR"],
-      ]),
-      S = new Map();
-    function R(e, t) {
-      S.set(e, t);
+      v = new Map();
+    function S(e, t) {
+      v.set(e, t);
     }
-    function L() {
-      for (var e of S.values()) e();
+    function R() {
+      for (var e of v.values()) e();
     }
-    function E(e, t) {
+    function L(e, t) {
       var n,
         r = t.out;
       ((n = r.pix) == null ? void 0 : n.credentialId) === e && delete r.pix;
     }
-    var k = {
+    var E = {
       type: (C = o("WAWebUserPrefsTypes")).WACustomPaymentMethodType.PIX_KEY,
       country: "BR",
       extract: o("WAWebPaymentMethodPIX").extractAndStorePix,
       flushErrors: o("WAWebPaymentMethodPIX").flushPixErrors,
       isStoredValid: o("WAWebPaymentMethodPIX").isStoredPIXValid,
-      removeEntry: E,
+      removeEntry: L,
     };
-    function I(e, t, n, r) {
+    function k(e, t, n, r) {
       var a = o("WAWebPaymentMethodPIX").findMetadataValue(e, t);
       return a == null || !o("WAWebUserPrefsValidators").isStringFieldValid(a)
         ? (o("WAWebPaymentMethodPIX").recordError(r, n), null)
         : a;
     }
-    function T(e, t) {
+    function I(e, t) {
       var n = e.findIndex(function (e) {
         return e.credentialId === t.credentialId;
       });
       n >= 0 ? (e[n] = t) : e.push(t);
     }
-    function D(e, t, n) {
+    function T(e, t, n) {
       var r,
         o,
         a,
         i,
         l,
         s,
-        u = I(e, "key", "clabe_key_null", n);
+        u = k(e, "key", "clabe_key_null", n);
       if (u == null) return !1;
-      var c = I(e, "institution_name", "clabe_institution_name_null", n);
+      var c = k(e, "institution_name", "clabe_institution_name_null", n);
       if (c == null) return !1;
-      var d = I(
+      var d = k(
         e,
         "full_name_on_account",
         "clabe_full_name_on_account_null",
@@ -117,9 +98,9 @@ __d(
         y = (l = h.methods) != null ? l : {};
       h.methods = y;
       var C = (s = y.clabe) != null ? s : [];
-      return (T(C, g), (y.clabe = C), !0);
+      return (I(C, g), (y.clabe = C), !0);
     }
-    function x(t) {
+    function D(t) {
       var n,
         r,
         a,
@@ -161,7 +142,7 @@ __d(
           )
           .sendLogs("monitor-errors");
     }
-    function $(e) {
+    function x(e) {
       return (
         o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
@@ -170,12 +151,12 @@ __d(
         o("WAWebUserPrefsValidators").isStringFieldValid(e.full_name_on_account)
       );
     }
-    function P(e) {
+    function $(e) {
       var t,
         n = e == null || (t = e.methods) == null ? void 0 : t.clabe;
-      return n == null || n.length === 0 ? !1 : n.every($);
+      return n == null || n.length === 0 ? !1 : n.every(x);
     }
-    function N(e, t) {
+    function P(e, t) {
       var n = t.out.methods,
         r = n == null ? void 0 : n.clabe;
       if (!(n == null || r == null)) {
@@ -185,29 +166,28 @@ __d(
         o.length === 0 ? delete n.clabe : (n.clabe = o);
       }
     }
-    var M = {
+    var N = {
       type: C.WACustomPaymentMethodType.CLABE,
       country: "MX",
-      extract: D,
-      flushErrors: x,
-      isStoredValid: P,
-      removeEntry: N,
+      extract: T,
+      flushErrors: D,
+      isStoredValid: $,
+      removeEntry: P,
     };
-    function w(e) {
+    function M(e) {
       return (
         o("WAWebUserPrefsValidators").isStringFieldValid(e.credentialId) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.country) &&
         o("WAWebUprConstants").UprPaymentAccountType.cast(e.accountType) !=
           null &&
-        o("WAWebUprConstants").UprIdentifierType.cast(e.identifierType) !=
-          null &&
+        o("WAWebUserPrefsValidators").isStringFieldValid(e.identifierType) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.currency) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.key) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.institution_name) &&
         o("WAWebUserPrefsValidators").isStringFieldValid(e.full_name_on_account)
       );
     }
-    function A(e) {
+    function w(e) {
       return {
         accountType: o("WAWebPaymentMethodPIX").findMetadataValue(
           e,
@@ -218,6 +198,14 @@ __d(
           "identifier_type",
         ),
       };
+    }
+    function A(e) {
+      var t = o("WAWebPaymentMethodPIX").findMetadataValue(e, "currency");
+      if (o("WAWebUserPrefsValidators").isStringFieldValid(t)) return t;
+      var n =
+          o("WAWebCurrencyData").REGION_TO_CURRENCY[e.country.toUpperCase()],
+        r = n == null ? void 0 : n[0];
+      return o("WAWebUserPrefsValidators").isStringFieldValid(r) ? r : null;
     }
     function F(e, t, n, r) {
       var a,
@@ -268,45 +256,42 @@ __d(
         c = (a = u.methods) != null ? a : {};
       u.methods = c;
       var d = (i = c.uprKeys) != null ? i : [];
-      (T(d, s), (c.uprKeys = d));
+      (I(d, s), (c.uprKeys = d));
     }
     function B(e, t, n) {
-      var r,
-        a = A(e),
-        i = a.accountType,
-        l = a.identifierType;
-      if (i == null || l == null) return !1;
-      var s = o("WAWebUprConstants").UprPaymentAccountType.cast(i),
-        u = (function (e) {
+      var r = w(e),
+        a = r.accountType,
+        i = r.identifierType;
+      if (a == null || i == null) return !1;
+      var l = o("WAWebUprConstants").UprPaymentAccountType.cast(a),
+        s = (function (e) {
           return e === "CBU"
             ? o("WAWebUprConstants").UprIdentifierType.CBU
             : e === "CVU"
               ? o("WAWebUprConstants").UprIdentifierType.CVU
               : e === "CCI"
                 ? o("WAWebUprConstants").UprIdentifierType.CCI
-                : o("WAWebUprConstants").UprIdentifierType.cast(l);
+                : o("WAWebUserPrefsValidators").isStringFieldValid(i)
+                  ? i
+                  : null;
         })(e.type.toUpperCase());
-      if (s == null || u == null) return !0;
-      var c =
-          (r = o("WAWebPaymentMethodPIX").findMetadataValue(e, "currency")) !=
-          null
-            ? r
-            : v.get(e.country),
-        d = I(e, "key", "upr_key_null", n),
-        m = I(e, "institution_name", "upr_institution_name_null", n),
-        p = I(e, "full_name_on_account", "upr_full_name_on_account_null", n);
-      return c == null || !o("WAWebUserPrefsValidators").isStringFieldValid(c)
+      if (l == null || s == null) return !0;
+      var u = A(e),
+        c = k(e, "key", "upr_key_null", n),
+        d = k(e, "institution_name", "upr_institution_name_null", n),
+        m = k(e, "full_name_on_account", "upr_full_name_on_account_null", n);
+      return u == null || !o("WAWebUserPrefsValidators").isStringFieldValid(u)
         ? (o("WAWebPaymentMethodPIX").recordError(n, "upr_currency_null"), !0)
-        : (d == null ||
+        : (c == null ||
+            d == null ||
             m == null ||
-            p == null ||
             O(e, t, {
-              accountType: s,
-              identifierType: u,
-              currency: c,
-              key: d,
-              institutionName: m,
-              fullNameOnAccount: p,
+              accountType: l,
+              identifierType: s,
+              currency: u,
+              key: c,
+              institutionName: d,
+              fullNameOnAccount: m,
             }),
           !0);
     }
@@ -372,11 +357,11 @@ __d(
         l,
         s,
         u,
-        c = I(e, "key", "id_key_null", n);
+        c = k(e, "key", "id_key_null", n);
       if (c == null) return !1;
-      var d = I(e, "institution_name", "id_institution_name_null", n);
+      var d = k(e, "institution_name", "id_institution_name_null", n);
       if (d == null) return !1;
-      var m = I(e, "full_name_on_account", "id_full_name_on_account_null", n);
+      var m = k(e, "full_name_on_account", "id_full_name_on_account_null", n);
       if (m == null) return !1;
       var p = o("WAWebPaymentMethodPIX").findMetadataValue(e, "account_type");
       if (p == null)
@@ -425,7 +410,7 @@ __d(
         v = (s = b.methods) != null ? s : {};
       b.methods = v;
       var S = (u = v.idPaymentAccount) != null ? u : [];
-      return (T(S, C), (v.idPaymentAccount = S), !0);
+      return (I(S, C), (v.idPaymentAccount = S), !0);
     }
     function U(e) {
       var t,
@@ -536,14 +521,14 @@ __d(
         removeEntry: G,
       },
       j = new Map([
-        [C.WACustomPaymentMethodType.PIX_KEY, k],
-        [C.WACustomPaymentMethodType.CLABE, M],
+        [C.WACustomPaymentMethodType.PIX_KEY, E],
+        [C.WACustomPaymentMethodType.CLABE, N],
         [C.WACustomPaymentMethodType.ID_PAYMENT_ACCOUNT, z],
       ]);
-    ((l.registerPaymentMethodSmartDefault = R),
-      (l.runAllPaymentMethodSmartDefaults = L),
-      (l.isStoredClabeEntryValid = $),
-      (l.isStoredUprKeyValid = w),
+    ((l.registerPaymentMethodSmartDefault = S),
+      (l.runAllPaymentMethodSmartDefaults = R),
+      (l.isStoredClabeEntryValid = x),
+      (l.isStoredUprKeyValid = M),
       (l.tryExtractUprKey = B),
       (l.flushUprKeyErrors = W),
       (l.PaymentMethodTypeRegistry = j));

@@ -60,12 +60,14 @@ __d(
           return r == null ||
             (e.resolvedHash === r.hash &&
               e.resolvedUrl === r.url &&
+              e.thumbnailHash === r.thumbnailHash &&
               e.videoId === r.videoId)
             ? e
             : ((n = !0),
               babelHelpers.extends({}, e, {
                 resolvedHash: r.hash,
                 resolvedUrl: r.url,
+                thumbnailHash: r.thumbnailHash,
                 videoId: r.videoId,
               }));
         });

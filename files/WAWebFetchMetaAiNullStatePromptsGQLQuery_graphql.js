@@ -6,12 +6,7 @@ __d(
     var e = (function () {
       var e = { defaultValue: null, kind: "LocalArgument", name: "exp_config" },
         t = { defaultValue: null, kind: "LocalArgument", name: "locale" },
-        n = {
-          defaultValue: null,
-          kind: "LocalArgument",
-          name: "null_state_source",
-        },
-        r = [
+        n = [
           {
             alias: null,
             args: [
@@ -21,11 +16,6 @@ __d(
                 variableName: "exp_config",
               },
               { kind: "Variable", name: "locale", variableName: "locale" },
-              {
-                kind: "Variable",
-                name: "null_state_source",
-                variableName: "null_state_source",
-              },
             ],
             concreteType: "XWAMetaAISearchNullStateResponse",
             kind: "LinkedField",
@@ -63,23 +53,23 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t, n],
+          argumentDefinitions: [e, t],
           kind: "Fragment",
           metadata: null,
           name: "WAWebFetchMetaAiNullStatePromptsGQLQuery",
-          selections: r,
+          selections: n,
           type: "Query",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [t, n, e],
+          argumentDefinitions: [t, e],
           kind: "Operation",
           name: "WAWebFetchMetaAiNullStatePromptsGQLQuery",
-          selections: r,
+          selections: n,
         },
         params: {
-          id: "27011415698537190",
+          id: "27978311671796313",
           metadata: {},
           name: "WAWebFetchMetaAiNullStatePromptsGQLQuery",
           operationKind: "query",

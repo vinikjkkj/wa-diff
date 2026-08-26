@@ -5,12 +5,12 @@ __d(
     "use strict";
     var e = [
       {
-        name: "wa_win_mc_test:bucket",
+        name: "wa_win_mc_test:bucket4",
         readWithoutLogging: function () {
-          return r("MetaConfig")._("496", !0);
+          return r("MetaConfig")._("526", !0);
         },
         logExposure: function () {
-          r("MetaConfig")._("497");
+          r("MetaConfig")._("527");
         },
       },
     ];

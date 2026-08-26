@@ -6,6 +6,7 @@ __d(
     "WABase64",
     "WALogger",
     "WAWebDownloadManager",
+    "WAWebExperienceIdWamFields",
     "WAWebFrontendMsgGetters",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaGetDownloadOriginForMsg",
@@ -91,6 +92,9 @@ __d(
                 chatWid: n == null ? void 0 : n.id,
                 downloadQpl: g,
                 downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(
+                  i.unsafe(),
+                ),
+                experienceIds: o("WAWebExperienceIdWamFields").getExperienceIds(
                   i.unsafe(),
                 ),
               });
@@ -215,6 +219,9 @@ __d(
                       chatWid: t == null ? void 0 : t.id,
                       downloadQpl: b,
                       downloadOrigin: y,
+                      experienceIds: o(
+                        "WAWebExperienceIdWamFields",
+                      ).getExperienceIds(a.unsafe()),
                     }),
                     S = self.performance.now();
                   if (h) h.thumbnailHQ = o("WABase64").encodeB64(v);
