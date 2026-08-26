@@ -83,11 +83,8 @@ __d(
           }),
           (this.renderNode = function (e, n) {
             if (!e) return null;
-            var r = t.objectSet.getComponentForName(e.styleId),
-              o = e.get("visibility");
-            return o === "gone"
-              ? null
-              : u.jsx(r, { node: e, externalStyle: n }, e.clientId);
+            var r = t.objectSet.getComponentForName(e.styleId);
+            return u.jsx(r, { node: e, externalStyle: n }, e.clientId);
           }),
           (this.renderChildren = function (e) {
             return e

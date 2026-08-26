@@ -429,6 +429,9 @@ __d(
     function At() {
       return u(0x548d90f8cf00c);
     }
+    function Ft() {
+      return u(0x59132db60167f);
+    }
     ((l.FAQ_BASE_URL = e),
       (l.PLATFORM = s),
       (l.getFullUrl = u),
@@ -566,7 +569,8 @@ __d(
       (l.getFirstTimeSMBCoexCallingLearnMoreUrl = Nt),
       (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Mt),
       (l.getCloseFriendLearnMoreUrl = wt),
-      (l.getNewsletterStatusIntroFaqUrl = At));
+      (l.getNewsletterStatusIntroFaqUrl = At),
+      (l.getPasskeySecurityCheckFaqUrl = Ft));
   },
   98,
 );

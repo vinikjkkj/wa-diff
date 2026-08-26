@@ -44,203 +44,201 @@ __d(
       ]),
       s = 0,
       u = 1;
-    function c(e, t, n, r) {
-      return (r === void 0 && (r = !1), n ? m(e, t, r) : d(e, t, r));
+    function c(e, t, n) {
+      return n ? m(e, t) : d(e, t);
     }
-    function d(t, n, a) {
-      var i = o("decodeProtobuf").decodeProtobuf(
+    function d(t, n) {
+      var a = o("decodeProtobuf").decodeProtobuf(
           o("WAFingerprint.pb").CombinedFingerprintSpec,
           t,
         ),
-        l = o("decodeProtobuf").decodeProtobuf(
+        i = o("decodeProtobuf").decodeProtobuf(
           o("WAFingerprint.pb").CombinedFingerprintSpec,
           n,
         );
-      if (!i || i.version == null) return e.MALFORMED_CODE;
-      if (i.version < s) return e.UNEXPECTED_VERSION_OLD;
-      if (i.version > u) return e.UNEXPECTED_VERSION_NEW;
-      var c = r("nullthrows")(l.localFingerprint),
-        d = c.pnIdentifier,
-        m = c.lidIdentifier,
-        _ = r("nullthrows")(l.remoteFingerprint),
-        f = _.pnIdentifier,
-        g = _.lidIdentifier,
-        h = i.localFingerprint,
-        y = i.remoteFingerprint;
-      if (!h || !y) return e.MALFORMED_CODE;
-      var C = p(h.pnIdentifier, d),
-        b = p(h.lidIdentifier, m),
-        v = p(y.pnIdentifier, d),
-        S = p(y.lidIdentifier, m),
-        R = !1,
-        L,
-        E;
-      if (C || b) {
-        ((R = !0), (L = h));
-        var k = p(y.pnIdentifier, f),
-          I = p(y.lidIdentifier, g);
-        if (k || I) E = y;
+      if (!a || a.version == null) return e.MALFORMED_CODE;
+      if (a.version < s) return e.UNEXPECTED_VERSION_OLD;
+      if (a.version > u) return e.UNEXPECTED_VERSION_NEW;
+      var l = r("nullthrows")(i.localFingerprint),
+        c = l.pnIdentifier,
+        d = l.lidIdentifier,
+        m = r("nullthrows")(i.remoteFingerprint),
+        _ = m.pnIdentifier,
+        f = m.lidIdentifier,
+        g = a.localFingerprint,
+        h = a.remoteFingerprint;
+      if (!g || !h) return e.MALFORMED_CODE;
+      var y = p(g.pnIdentifier, c),
+        C = p(g.lidIdentifier, d),
+        b = p(h.pnIdentifier, c),
+        v = p(h.lidIdentifier, d),
+        S = !1,
+        R,
+        L;
+      if (y || C) {
+        ((S = !0), (R = g));
+        var E = p(h.pnIdentifier, _),
+          k = p(h.lidIdentifier, f);
+        if (E || k) L = h;
         else return e.REMOTE_WRONG_CHAT_PEER;
-      } else if (v || S) {
-        L = y;
-        var T = p(h.pnIdentifier, f),
-          D = p(h.lidIdentifier, g);
-        if (T || D) E = h;
+      } else if (b || v) {
+        R = h;
+        var I = p(g.pnIdentifier, _),
+          T = p(g.lidIdentifier, f);
+        if (I || T) L = g;
         else return e.REMOTE_WRONG_CHAT;
       } else return e.LOCAL_WRONG_CHAT;
-      if (i.version === s) {
-        if (!p(L.publicKey, c.publicKey)) return e.LOCAL_KEYS_MISMATCH;
-        if (!p(E.publicKey, _.publicKey)) return e.REMOTE_KEYS_MISMATCH;
+      if (a.version === s) {
+        if (!p(R.publicKey, l.publicKey)) return e.LOCAL_KEYS_MISMATCH;
+        if (!p(L.publicKey, m.publicKey)) return e.REMOTE_KEYS_MISMATCH;
       } else {
-        if (!p(L.hashedPublicKey, c.hashedPublicKey))
+        if (!p(R.hashedPublicKey, l.hashedPublicKey))
           return e.LOCAL_KEYS_MISMATCH;
-        if (!p(E.hashedPublicKey, _.hashedPublicKey))
+        if (!p(L.hashedPublicKey, m.hashedPublicKey))
           return e.REMOTE_KEYS_MISMATCH;
       }
-      var x = p(L.pnIdentifier, c.pnIdentifier);
-      if (L.pnIdentifier && !x)
-        return R ? e.LOCAL_PN_MISMATCH_PEER : e.LOCAL_PN_MISMATCH;
-      if (_.pnIdentifier)
-        if (E.pnIdentifier) {
-          var $ = o("WACryptoUtils").arrayBuffersEqual(
-            E.pnIdentifier,
-            _.pnIdentifier,
+      var D = p(R.pnIdentifier, l.pnIdentifier);
+      if (R.pnIdentifier && !D)
+        return S ? e.LOCAL_PN_MISMATCH_PEER : e.LOCAL_PN_MISMATCH;
+      if (m.pnIdentifier)
+        if (L.pnIdentifier) {
+          var x = o("WACryptoUtils").arrayBuffersEqual(
+            L.pnIdentifier,
+            m.pnIdentifier,
           );
-          if (!$) return R ? e.REMOTE_PN_MISMATCH_PEER : e.REMOTE_PN_MISMATCH;
-        } else return R ? e.REMOTE_PN_MISSING_PEER : e.REMOTE_PN_MISSING;
-      else if (E.pnIdentifier) return e.REMOTE_PN_MISSING;
-      if (c.usernameIdentifier != null)
+          if (!x) return S ? e.REMOTE_PN_MISMATCH_PEER : e.REMOTE_PN_MISMATCH;
+        } else return S ? e.REMOTE_PN_MISSING_PEER : e.REMOTE_PN_MISSING;
+      else if (L.pnIdentifier) return e.REMOTE_PN_MISSING;
+      if (l.usernameIdentifier != null)
+        if (R.usernameIdentifier != null) {
+          var $ = o("WACryptoUtils").arrayBuffersEqual(
+            R.usernameIdentifier,
+            l.usernameIdentifier,
+          );
+          if (!$)
+            return S
+              ? e.LOCAL_USERNAME_MISMATCH_PEER
+              : e.LOCAL_USERNAME_MISMATCH;
+        } else
+          return S ? e.LOCAL_USERNAME_MISSING_PEER : e.LOCAL_USERNAME_MISSING;
+      else if (R.usernameIdentifier != null) return e.LOCAL_USERNAME_UNEXPECTED;
+      if (m.usernameIdentifier != null)
         if (L.usernameIdentifier != null) {
           var P = o("WACryptoUtils").arrayBuffersEqual(
             L.usernameIdentifier,
-            c.usernameIdentifier,
+            m.usernameIdentifier,
           );
           if (!P)
-            return R
-              ? e.LOCAL_USERNAME_MISMATCH_PEER
-              : e.LOCAL_USERNAME_MISMATCH;
-        } else
-          return R ? e.LOCAL_USERNAME_MISSING_PEER : e.LOCAL_USERNAME_MISSING;
-      else if (L.usernameIdentifier != null) return e.LOCAL_USERNAME_UNEXPECTED;
-      if (_.usernameIdentifier != null)
-        if (E.usernameIdentifier != null) {
-          var N = o("WACryptoUtils").arrayBuffersEqual(
-            E.usernameIdentifier,
-            _.usernameIdentifier,
-          );
-          if (!N)
-            return R
+            return S
               ? e.REMOTE_USERNAME_MISMATCH_PEER
               : e.REMOTE_USERNAME_MISMATCH;
         } else
-          return R ? e.REMOTE_USERNAME_MISSING_PEER : e.REMOTE_USERNAME_MISSING;
-      else if (E.usernameIdentifier != null)
+          return S ? e.REMOTE_USERNAME_MISSING_PEER : e.REMOTE_USERNAME_MISSING;
+      else if (L.usernameIdentifier != null)
         return e.REMOTE_USERNAME_UNEXPECTED;
-      if (a) {
-        if (c.hostedState !== L.hostedState)
-          return e.LOCAL_HOSTED_DEVICE_MISSMATCH;
-        if (_.hostedState !== E.hostedState)
-          return e.REMOTE_HOSTED_DEVICE_MISSMATCH;
-      }
-      return e.SUCCESS;
+      return l.hostedState !== R.hostedState
+        ? e.LOCAL_HOSTED_DEVICE_MISSMATCH
+        : m.hostedState !== L.hostedState
+          ? e.REMOTE_HOSTED_DEVICE_MISSMATCH
+          : e.SUCCESS;
     }
-    function m(t, n, a) {
-      var i = o("decodeProtobuf").decodeProtobuf(
+    function m(t, n) {
+      var a = o("decodeProtobuf").decodeProtobuf(
           o("WAFingerprint.pb").CombinedFingerprintSpec,
           t,
         ),
-        l = o("decodeProtobuf").decodeProtobuf(
+        i = o("decodeProtobuf").decodeProtobuf(
           o("WAFingerprint.pb").CombinedFingerprintSpec,
           n,
         );
-      if (!i || i.version == null) return e.MALFORMED_CODE;
-      if (i.version < s) return e.UNEXPECTED_VERSION_OLD;
-      if (i.version > u) return e.UNEXPECTED_VERSION_NEW;
-      var c = r("nullthrows")(l.localFingerprint),
-        d = c.lidIdentifier,
-        m = r("nullthrows")(l.remoteFingerprint),
-        _ = m.lidIdentifier,
-        f = i.localFingerprint,
-        g = i.remoteFingerprint;
-      if (!f || !g || !f.lidIdentifier || !g.lidIdentifier)
+      if (!a || a.version == null) return e.MALFORMED_CODE;
+      if (a.version < s) return e.UNEXPECTED_VERSION_OLD;
+      if (a.version > u) return e.UNEXPECTED_VERSION_NEW;
+      var l = r("nullthrows")(i.localFingerprint),
+        c = l.lidIdentifier,
+        d = r("nullthrows")(i.remoteFingerprint),
+        m = d.lidIdentifier,
+        _ = a.localFingerprint,
+        f = a.remoteFingerprint;
+      if (!_ || !f || !_.lidIdentifier || !f.lidIdentifier)
         return e.MALFORMED_CODE;
-      var h = p(f.lidIdentifier, d),
-        y = p(g.lidIdentifier, d),
-        C = !1,
-        b,
-        v;
-      if (h) {
-        ((C = !0), (b = f));
-        var S = p(g.lidIdentifier, _);
-        if (S) v = g;
+      var g = p(_.lidIdentifier, c),
+        h = p(f.lidIdentifier, c),
+        y = !1,
+        C,
+        b;
+      if (g) {
+        ((y = !0), (C = _));
+        var v = p(f.lidIdentifier, m);
+        if (v) b = f;
         else return e.REMOTE_WRONG_CHAT_PEER;
-      } else if (y) {
-        b = g;
-        var R = p(f.lidIdentifier, _);
-        if (R) v = f;
+      } else if (h) {
+        C = f;
+        var S = p(_.lidIdentifier, m);
+        if (S) b = _;
         else return e.REMOTE_WRONG_CHAT;
       } else return e.LOCAL_WRONG_CHAT;
-      if (i.version === s) {
-        if (!p(b.publicKey, c.publicKey)) return e.LOCAL_KEYS_MISMATCH;
-        if (!p(v.publicKey, m.publicKey)) return e.REMOTE_KEYS_MISMATCH;
+      if (a.version === s) {
+        if (!p(C.publicKey, l.publicKey)) return e.LOCAL_KEYS_MISMATCH;
+        if (!p(b.publicKey, d.publicKey)) return e.REMOTE_KEYS_MISMATCH;
       } else {
-        if (!p(b.hashedPublicKey, c.hashedPublicKey))
+        if (!p(C.hashedPublicKey, l.hashedPublicKey))
           return e.LOCAL_KEYS_MISMATCH;
-        if (!p(v.hashedPublicKey, m.hashedPublicKey))
+        if (!p(b.hashedPublicKey, d.hashedPublicKey))
           return e.REMOTE_KEYS_MISMATCH;
       }
-      var L = c.usernameIdentifier != null || c.pnIdentifier != null,
-        E = b.usernameIdentifier != null || b.pnIdentifier != null;
-      if (!L || !E)
-        return C
+      var R = l.usernameIdentifier != null || l.pnIdentifier != null,
+        L = C.usernameIdentifier != null || C.pnIdentifier != null;
+      if (!R || !L)
+        return y
           ? e.LOCAL_DISPLAY_NAME_MISSING_PEER
           : e.LOCAL_DISPLAY_NAME_MISSING;
-      var k = m.usernameIdentifier != null || m.pnIdentifier != null,
-        I = v.usernameIdentifier != null || v.pnIdentifier != null;
-      if (!k || !I)
-        return C
+      var E = d.usernameIdentifier != null || d.pnIdentifier != null,
+        k = b.usernameIdentifier != null || b.pnIdentifier != null;
+      if (!E || !k)
+        return y
           ? e.REMOTE_DISPLAY_NAME_MISSING_PEER
           : e.REMOTE_DISPLAY_NAME_MISSING;
-      if (c.usernameIdentifier != null)
-        if (b.usernameIdentifier != null) {
-          var T = o("WACryptoUtils").arrayBuffersEqualCaseInsensitive(
-            b.usernameIdentifier,
-            c.usernameIdentifier,
+      if (l.usernameIdentifier != null)
+        if (C.usernameIdentifier != null) {
+          var I = o("WACryptoUtils").arrayBuffersEqualCaseInsensitive(
+            C.usernameIdentifier,
+            l.usernameIdentifier,
           );
-          if (!T)
-            return C
+          if (!I)
+            return y
               ? e.LOCAL_USERNAME_MISMATCH_PEER
               : e.LOCAL_USERNAME_MISMATCH;
         } else
-          return C ? e.LOCAL_USERNAME_MISSING_PEER : e.LOCAL_USERNAME_MISSING;
-      else if (b.usernameIdentifier != null) return e.LOCAL_USERNAME_UNEXPECTED;
-      if (m.usernameIdentifier != null)
-        if (v.usernameIdentifier != null) {
-          var D = o("WACryptoUtils").arrayBuffersEqualCaseInsensitive(
-            v.usernameIdentifier,
-            m.usernameIdentifier,
+          return y ? e.LOCAL_USERNAME_MISSING_PEER : e.LOCAL_USERNAME_MISSING;
+      else if (C.usernameIdentifier != null) return e.LOCAL_USERNAME_UNEXPECTED;
+      if (d.usernameIdentifier != null)
+        if (b.usernameIdentifier != null) {
+          var T = o("WACryptoUtils").arrayBuffersEqualCaseInsensitive(
+            b.usernameIdentifier,
+            d.usernameIdentifier,
           );
-          if (!D)
-            return C
+          if (!T)
+            return y
               ? e.REMOTE_USERNAME_MISMATCH_PEER
               : e.REMOTE_USERNAME_MISMATCH;
         } else
-          return C ? e.REMOTE_USERNAME_MISSING_PEER : e.REMOTE_USERNAME_MISSING;
-      else if (v.usernameIdentifier != null)
+          return y ? e.REMOTE_USERNAME_MISSING_PEER : e.REMOTE_USERNAME_MISSING;
+      else if (b.usernameIdentifier != null)
         return e.REMOTE_USERNAME_UNEXPECTED;
-      var x = p(b.pnIdentifier, c.pnIdentifier);
-      if (b.pnIdentifier && c.pnIdentifier && !x)
-        return C ? e.LOCAL_PN_MISMATCH_PEER : e.LOCAL_PN_MISMATCH;
-      var $ = p(v.pnIdentifier, m.pnIdentifier);
-      if (v.pnIdentifier && m.pnIdentifier && !$)
-        return C ? e.REMOTE_PN_MISMATCH_PEER : e.REMOTE_PN_MISMATCH;
-      if (a) {
-        if (c.hostedState !== b.hostedState)
-          return e.LOCAL_HOSTED_DEVICE_MISSMATCH;
-        if (m.hostedState !== v.hostedState)
-          return e.REMOTE_HOSTED_DEVICE_MISSMATCH;
-      }
-      return e.SUCCESS;
+      var D = p(C.pnIdentifier, l.pnIdentifier);
+      if (C.pnIdentifier && l.pnIdentifier && !D)
+        return y ? e.LOCAL_PN_MISMATCH_PEER : e.LOCAL_PN_MISMATCH;
+      var x = p(b.pnIdentifier, d.pnIdentifier);
+      return b.pnIdentifier && d.pnIdentifier && !x
+        ? y
+          ? e.REMOTE_PN_MISMATCH_PEER
+          : e.REMOTE_PN_MISMATCH
+        : l.hostedState !== C.hostedState
+          ? e.LOCAL_HOSTED_DEVICE_MISSMATCH
+          : d.hostedState !== b.hostedState
+            ? e.REMOTE_HOSTED_DEVICE_MISSMATCH
+            : e.SUCCESS;
     }
     function p(e, t) {
       return !e || !t ? !1 : o("WACryptoUtils").arrayBuffersEqual(e, t);

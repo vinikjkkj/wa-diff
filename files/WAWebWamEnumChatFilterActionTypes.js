@@ -282,6 +282,8 @@ __d(
       AGENT_CREATE_FAIL: 282,
       AGENT_PROFILE_VIEW: 283,
       AGENT_REMOVE: 284,
+      AI_QP_IMPRESSION: 285,
+      AI_QP_TAP: 286,
     });
     i.CHAT_FILTER_ACTION_TYPES = e;
   },

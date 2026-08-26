@@ -60,6 +60,7 @@ __d(
         "UserHasAvatar",
         "BizBroadcastPrimaryCapability",
         "BizBroadcastPrimaryRecipientLimit",
+        "BizAiSettingsSyncPrimaryCapability",
         "GuestLastPageLoadTs",
         "IsSmb",
         "IsHostedMeAccount",

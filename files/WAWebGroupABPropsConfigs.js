@@ -26,6 +26,7 @@ __d(
         !1,
       ],
       group_history_settings_toggle_ui_group_level: [23246, "bool", !1, !1],
+      group_settings_ia_group_level: [35639, "int", -1, -1],
       poll_add_option_enabled_group_level: [28357, "bool", !1, !1],
       poll_creator_edit_enabled_group_level: [28358, "bool", !1, !1],
       poll_end_time_enabled_group_level: [27009, "bool", !1, !1],

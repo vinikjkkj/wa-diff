@@ -17,7 +17,6 @@ __d(
           e,
           new Uint8Array(t),
           !0,
-          !0,
         );
       } catch (e) {
         return o("WAValidateFingerprints").FingerprintValidationResult

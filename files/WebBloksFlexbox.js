@@ -20,7 +20,20 @@ __d(
       c = s,
       d = c.useEffect,
       m = c.useRef;
-    function p(t) {
+    function p(e) {
+      var t = o("react-compiler-runtime").c(2);
+      if (e.node.get("visibility") === "gone") return null;
+      var n;
+      return (
+        t[0] !== e
+          ? ((n = u.jsx(_, babelHelpers.extends({}, e))),
+            (t[0] = e),
+            (t[1] = n))
+          : (n = t[1]),
+        n
+      );
+    }
+    function _(t) {
       var n,
         a,
         i,
@@ -29,8 +42,8 @@ __d(
         c = t.node,
         m = c.getExpression("on_click"),
         p = c.getSubNodes("children"),
-        f = c.getSubNode("decoration"),
-        h = c.get("visibility"),
+        _ = c.getSubNode("decoration"),
+        g = c.get("visibility"),
         y = c.get("align_content"),
         C = c.get("align_items"),
         b = c.get("flex_direction"),
@@ -43,7 +56,7 @@ __d(
         I = E.style,
         T = E.wrapper,
         D = E.wrapperProps,
-        x = r("WebBloksDecoration")(f, c.get("enabled"), m != null, k),
+        x = r("WebBloksDecoration")(_, c.get("enabled"), m != null, k),
         $ = x[0],
         P = x[1],
         N = o(
@@ -73,7 +86,7 @@ __d(
         },
         [R],
       );
-      var z = f == null ? void 0 : f.get("foreground"),
+      var z = _ == null ? void 0 : _.get("foreground"),
         j = c.get("padding_top"),
         K = c.get("padding_bottom"),
         Q = c.get("padding_left"),
@@ -82,7 +95,7 @@ __d(
         J = c.get("padding_end"),
         Z = q ? J : Y,
         ee = q ? Y : J,
-        te = babelHelpers.extends({ pointerEvents: "none" }, I, g(h), $, {
+        te = babelHelpers.extends({ pointerEvents: "none" }, I, h(g), $, {
           alignContent: o("WebBloksUtils").toHyphen(y),
           alignItems: o("WebBloksUtils").toHyphen(C),
           flexDirection: o("WebBloksUtils").toHyphen(b),
@@ -115,13 +128,13 @@ __d(
             },
             W,
             B,
-            { children: [G(p), z ? u.jsx(_, { drawable: z }) : null, P] },
+            { children: [G(p), z ? u.jsx(f, { drawable: z }) : null, P] },
           ),
         ),
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _(e) {
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e) {
       var t = o("react-compiler-runtime").c(5),
         n = e.drawable,
         a = o("WebBloksEnvironmentContext").useDataBloksName(),
@@ -140,7 +153,7 @@ __d(
               "div",
               babelHelpers.extends({}, c, {
                 ref: i,
-                className: f.foreground,
+                className: g.foreground,
                 style: l,
               }),
             )),
@@ -151,7 +164,7 @@ __d(
         d
       );
     }
-    var f = o("WebBloksStyle").createStyles({
+    var g = o("WebBloksStyle").createStyles({
       foreground: {
         position: "absolute",
         top: 0,
@@ -161,7 +174,7 @@ __d(
         pointerEvents: "none",
       },
     });
-    function g(e) {
+    function h(e) {
       switch (e) {
         case "gone":
           return { display: "none" };

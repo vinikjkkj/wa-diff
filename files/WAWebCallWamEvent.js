@@ -409,6 +409,8 @@ __d(
               ca2dAvsyncAbsDeltaMsP50: [3142, e.TYPES.NUMBER],
               ca2dAvsyncAbsDeltaMsP95: [3143, e.TYPES.NUMBER],
               ca2dAvsyncIn100msWindowPct: [3144, e.TYPES.NUMBER],
+              ca2dAvsyncIn300msWindowPct: [3159, e.TYPES.NUMBER],
+              ca2dAvsyncIn600msWindowPct: [3160, e.TYPES.NUMBER],
               ca2dE2eNetworkDelayMs: [3080, e.TYPES.NUMBER],
               ca2dEverConnected: [3077, e.TYPES.BOOLEAN],
               ca2dExtensionAddFailureReason: [

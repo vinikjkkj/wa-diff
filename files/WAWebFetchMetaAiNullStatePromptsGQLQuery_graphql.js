@@ -34,7 +34,7 @@ __d(
                     alias: null,
                     args: null,
                     kind: "ScalarField",
-                    name: "suggestion",
+                    name: "display_string",
                     storageKey: null,
                   },
                   {
@@ -69,7 +69,7 @@ __d(
           selections: n,
         },
         params: {
-          id: "27978311671796313",
+          id: "27342231062121832",
           metadata: {},
           name: "WAWebFetchMetaAiNullStatePromptsGQLQuery",
           operationKind: "query",

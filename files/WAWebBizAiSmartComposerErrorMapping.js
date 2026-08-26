@@ -7,10 +7,10 @@ __d(
         ["INTERNAL_SERVER_ERROR", "retryable_error"],
         ["INVALID_RESPONSE", "retryable_error"],
         ["UNKNOWN", "retryable_error"],
-        ["CONVERSATION_NOT_FOUND", "silent_fallback"],
+        ["CONVERSATION_NOT_FOUND", "retryable_error"],
         ["MESSAGE_NOT_FOUND", "retryable_error"],
         ["MESSAGE_STALE", "silent_fallback"],
-        ["UNSUPPORTED_MESSAGE_TYPE", "silent_fallback"],
+        ["UNSUPPORTED_MESSAGE_TYPE", "retryable_error"],
         ["AI_FEATURE_DISABLED", "silent_fallback"],
       ]),
       l = new Set(["INTERNAL_SERVER_ERROR", "MESSAGE_NOT_FOUND"]);

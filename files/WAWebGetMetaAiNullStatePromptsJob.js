@@ -20,7 +20,9 @@ __d(
               function* (t) {
                 var n = t.expConfig,
                   r = t.locale,
-                  a = { locale: r, expConfig: n },
+                  a = o(
+                    "WAWebMetaAiNullStatePromptsCache",
+                  ).makeMetaAiNullStatePromptsCacheKey(r, n),
                   i = yield o(
                     "WAWebMetaAiNullStatePromptsCache",
                   ).MetaAiNullStatePromptsCache.get(a);

@@ -480,6 +480,7 @@ __d(
       payments_br_pix_on_web: [16156, "bool", !1, !1],
       pending_group_requests_persistent_banner: [20545, "bool", !1, !0],
       poll_add_option_enabled: [24517, "bool", !1, !1],
+      poll_add_option_participant_enabled: [35677, "bool", !1, !1],
       poll_add_option_receiving_enabled: [25758, "int", 0, 0],
       poll_creator_edit_enabled: [24887, "bool", !1, !1],
       poll_creator_edit_receiving_version: [24886, "int", 0, 0],

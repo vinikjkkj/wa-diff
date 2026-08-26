@@ -5,17 +5,13 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WAWebActionToast.react",
-    "WAWebAdaptiveLayoutGatingUtils",
     "WAWebBackendErrors",
-    "WAWebCmd",
-    "WAWebCommunityFlowLoadable",
     "WAWebConfirmPopup.react",
-    "WAWebDrawerManager",
     "WAWebFbtCommon",
     "WAWebGroupCommunityJob",
     "WAWebModalManager",
-    "WAWebNavBarTypes",
     "WAWebNetworkStatus",
+    "WAWebOpenCommunityTabAction",
     "WAWebToast.react",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -81,7 +77,7 @@ __d(
             }),
           );
           try {
-            (yield i, p());
+            (yield i, r("WAWebOpenCommunityTabAction")());
           } catch (e) {
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
@@ -100,7 +96,7 @@ __d(
                       }),
                     )
                   : e.status === 404
-                    ? (p(),
+                    ? (r("WAWebOpenCommunityTabAction")(),
                       o("WAWebToastManager").ToastManager.open(
                         c.jsx(o("WAWebToast.react").Toast, {
                           msg: s._(/*BTDS*/ "This community no longer exists"),
@@ -129,19 +125,6 @@ __d(
         })),
         m.apply(this, arguments)
       );
-    }
-    function p() {
-      (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
-        o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
-        o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-          o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
-            ? { descriptorType: "community_flow" }
-            : c.jsx(o("WAWebCommunityFlowLoadable").CommunityFlowLoadable, {}),
-          { disableRotateFocus: !0 },
-        ),
-        o("WAWebCmd").Cmd.setActiveNavBarItem(
-          o("WAWebNavBarTypes").NavBarItems.Communities,
-        ));
     }
     l.default = d;
   },

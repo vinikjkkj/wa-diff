@@ -3,6 +3,7 @@ __d(
   [
     "WAWebWamCodegenUtils",
     "WAWebWamEnumAdditionalCategoryType",
+    "WAWebWamEnumAiQpSurfaceType",
     "WAWebWamEnumBotDiscoveryPathType",
     "WAWebWamEnumBotEntryPointType",
     "WAWebWamEnumBotPromptType",
@@ -36,6 +37,10 @@ __d(
               aiDiscoveryTab: [4, e.TYPES.STRING],
               aiHomeQpPromotionId: [53, e.TYPES.INTEGER],
               aiQpPromotionId: [54, e.TYPES.STRING],
+              aiQpSurface: [
+                55,
+                o("WAWebWamEnumAiQpSurfaceType").AI_QP_SURFACE_TYPE,
+              ],
               aiSessionId: [18, e.TYPES.STRING],
               aiVoiceOnSelectionDefault: [24, e.TYPES.BOOLEAN],
               aiVoiceSelectionEnum: [25, e.TYPES.STRING],
@@ -80,6 +85,7 @@ __d(
               isMetaAiCharacterBotChat: [9, e.TYPES.BOOLEAN],
               isUserCreatedAgent: [10, e.TYPES.BOOLEAN],
               metricCount: [17, e.TYPES.INTEGER],
+              newBadgeVisible: [56, e.TYPES.BOOLEAN],
               promptTriggerPoint: [
                 50,
                 o("WAWebWamEnumPromptTriggerPoint").PROMPT_TRIGGER_POINT,

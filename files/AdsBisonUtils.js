@@ -196,9 +196,11 @@ __d(
             i = r[o];
           if (e === i) return n;
           var l = function (a) {
-              if (n[a] == null || r[a] == null) return 0;
-              var o = (r[a] - n[a]) / (i - e);
-              return n[a] + o * (t - e);
+              var o = n[a],
+                l = r[a];
+              if (o == null || l == null) return 0;
+              var s = (l - o) / (i - e);
+              return o + s * (t - e);
             },
             s = c.getEmptyPoint(a);
           for (var u in s) s[u] = l(u);

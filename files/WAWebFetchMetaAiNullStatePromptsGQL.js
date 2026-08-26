@@ -40,9 +40,9 @@ __d(
                   : [],
               c = [];
             for (var d of l)
-              (d == null ? void 0 : d.suggestion) != null &&
+              (d == null ? void 0 : d.display_string) != null &&
                 (d == null ? void 0 : d.query) != null &&
-                c.push({ suggestion: d.suggestion, query: d.query });
+                c.push({ display: d.display_string, query: d.query });
             return { type: "success", value: c };
           } catch (e) {
             return (

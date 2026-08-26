@@ -19,6 +19,7 @@ __d(
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumStanzaType",
+    "WAWebWamEnumStatusRevokeDecryptionFailureAction",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
   function (t, n, r, o, a, i, l) {
@@ -98,6 +99,11 @@ __d(
                 o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
               ],
               stanzaType: [14, o("WAWebWamEnumStanzaType").STANZA_TYPE],
+              statusRevokeDecryptionFailureAction: [
+                32,
+                o("WAWebWamEnumStatusRevokeDecryptionFailureAction")
+                  .STATUS_REVOKE_DECRYPTION_FAILURE_ACTION,
+              ],
               traceIdInt: [31, e.TYPES.INTEGER],
               typeOfGroup: [
                 12,

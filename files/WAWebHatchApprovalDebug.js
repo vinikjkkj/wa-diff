@@ -11,10 +11,10 @@ __d(
     function c(e) {
       var t,
         n = (t = e == null ? void 0 : e.approvalId) != null ? t : u();
-      return (v(n, null, e), n);
+      return (E(n, null, e), n);
     }
     function d(e, t) {
-      (t === void 0 && (t = "allow_once"), v(e, t));
+      (t === void 0 && (t = "allow_once"), E(e, t));
     }
     var m = [
         {
@@ -76,8 +76,35 @@ __d(
           unit_amount: "$18.50",
         },
         { name: "Reflective running cap", quantity: 1, unit_amount: "$22.00" },
-      ];
-    function f(e) {
+      ],
+      f = 24,
+      g = 60;
+    function h(e) {
+      return Array.from({ length: e }, function (e, t) {
+        var n = m[t % m.length];
+        if (t < m.length) return n;
+        var r = Math.floor(t / m.length);
+        return babelHelpers.extends({}, n, {
+          payment_id: n.payment_id + "-" + r,
+          payment_method_label:
+            n.payment_method_label === ""
+              ? ""
+              : n.payment_method_label + " " + (r + 1),
+          card_last4: String(1e3 + t).slice(-4),
+        });
+      });
+    }
+    function y(e) {
+      return Array.from({ length: e }, function (e, t) {
+        var n = _[t % _.length];
+        return t < _.length
+          ? n
+          : babelHelpers.extends({}, n, {
+              name: n.name + " (" + (Math.floor(t / _.length) + 1) + ")",
+            });
+      });
+    }
+    function C(e) {
       var t = e != null ? e : {},
         n = t.cards,
         r = n === void 0 ? 2 : n,
@@ -88,13 +115,12 @@ __d(
         s = t.kind,
         c = s === void 0 ? "browser" : s,
         d = u(),
-        _ = b(r, 0, m.length),
-        f = m.slice(0, _),
-        v = a === "unmatched" ? p : g(f[0]),
-        S = c === "shopify" ? y(f, v, l) : h(f, v);
-      return (C(d, c, S), d);
+        m = h(L(r, 0, f)),
+        _ = a === "unmatched" ? p : b(m[0]),
+        g = c === "shopify" ? S(m, _, l) : v(m, _);
+      return (R(d, c, g), d);
     }
-    function g(e) {
+    function b(e) {
       return e == null
         ? {}
         : {
@@ -104,7 +130,7 @@ __d(
             card_last4: e.card_last4,
           };
     }
-    function h(e, t) {
+    function v(e, t) {
       return {
         type: "browser_checkout",
         browser_checkout_payload: babelHelpers.extends(
@@ -124,8 +150,8 @@ __d(
         ),
       };
     }
-    function y(e, t, n) {
-      var r = _.slice(0, b(n, 1, _.length));
+    function S(e, t, n) {
+      var r = y(L(n, 1, g));
       return {
         type: "shopify_checkout",
         shopify_checkout_payload: babelHelpers.extends(
@@ -173,7 +199,7 @@ __d(
         ),
       };
     }
-    function C(t, n, r) {
+    function R(t, n, r) {
       var a = n === "shopify" ? "Example Running Co." : "Example Shop",
         i = {
           type: "event",
@@ -213,10 +239,10 @@ __d(
         "debug-" + t,
       );
     }
-    function b(e, t, n) {
+    function L(e, t, n) {
       return Math.max(t, Math.min(Math.floor(e), n));
     }
-    function v(t, n, r) {
+    function E(t, n, r) {
       var a,
         i,
         l,
@@ -272,7 +298,7 @@ __d(
     ((l.nextDebugApprovalId = u),
       (l.debugInjectHatchApprovalRequest = c),
       (l.debugResolveHatchApproval = d),
-      (l.debugInjectHatchCheckout = f));
+      (l.debugInjectHatchCheckout = C));
   },
   98,
 );

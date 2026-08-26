@@ -8,7 +8,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new (o("WAWebTimedCache").TimedMapCache)({
+    var e = 2;
+    function s(t, n) {
+      return { version: e, locale: t, expConfig: n };
+    }
+    var u = new (o("WAWebTimedCache").TimedMapCache)({
       mapLoad: function () {
         return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
           o("WAWebUserPrefsKeys").KEYS.WA_WEB_CACHED_META_AI_NULL_STATE_PROMPTS,
@@ -27,7 +31,8 @@ __d(
         );
       },
     });
-    l.MetaAiNullStatePromptsCache = e;
+    ((l.makeMetaAiNullStatePromptsCacheKey = s),
+      (l.MetaAiNullStatePromptsCache = u));
   },
   98,
 );

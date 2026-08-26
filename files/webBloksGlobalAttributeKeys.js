@@ -8,6 +8,7 @@ __d(
           child_templates: "\x8F",
           children: " ",
           extensions: "\x85",
+          html_id: "\xA4",
           id: "!",
           on_bind: "\x87",
           on_reflow: "\x86",
@@ -20,6 +21,7 @@ __d(
           "\x86": "on_reflow",
           "\x87": "on_bind",
           "\x8F": "child_templates",
+          "\xA4": "html_id",
         },
       },
       l = e;

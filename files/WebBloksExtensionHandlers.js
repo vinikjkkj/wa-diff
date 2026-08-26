@@ -22,54 +22,100 @@ __d(
     "WebBloksWebNativeAccessibilityExtensionHandler",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = {
-      "bk.components.AnchorIdExtension": r("WebBloksAnchorIDExtensionHandler"),
-      "bk.components.AutomationTestExtension": r(
-        "WebBloksAutomationTestExtensionHandler",
-      ),
-      "bk.components.VisibilityExtension": r(
-        "WebBloksVisibilityExtensionHandler",
-      ),
-      "bk.components.AccessibilityExtension": r(
-        "WebBloksAccessibilityExtensionHandler",
-      ),
-      "bk.components.WebDataAttributesExtension": r(
-        "WebBloksWebDataAttributesExtensionHandler",
-      ),
-      "bk.components.WebNativeAccessibilityExtension": r(
-        "WebBloksWebNativeAccessibilityExtensionHandler",
-      ),
-      "bk.components.HoverExtension": r("WebBloksHoverExtensionHandler"),
-      "bk.components.OnMount": r("WebBloksOnMountExtensionHandler"),
-      "bk.components.RenderLifecycleExtension": r(
-        "WebBloksRenderLifecycleExtensionHandler",
-      ),
-      "bk.components.ViewTransformsExtension": r(
-        "WebBloksViewTransformExtensionHandler",
-      ),
-      "bk.components.WebCssAnimationExtension": r(
-        "WebBloksCssAnimationExtensionHandler",
-      ),
-      "bk.components.FoaTouchExtension": r("WebBloksTouchExtensionHandler"),
-      "bk.components.FoaGestureExtension": r("WebBloksGestureExtensionHandler"),
-      "bk.components.TextInputDatePickerExtension": r(
-        "WebBloksTextInputDatePickerExtensionHandler",
-      ),
-      "bk.components.TextInputMaskExtension": r(
-        "WebBloksTextInputMaskExtensionHandler",
-      ),
-      "bk.extensions.OnDataChange": r("WebBloksOnDataChangeExtensionHandler"),
-      "bk.components.AnchorTagExtension": r(
-        "WebBloksAnchorTagExtensionHandler",
-      ),
-      "bk.component.WebFocusBoundaryExtension": r(
-        "WebBloksWebFocusBoundaryExtensionHandler",
-      ),
-      "bk.components.BKSTextInputFormatter": r(
-        "WebBloksBKSTextInputFormatterHandler",
-      ),
-    };
-    l.EXTENSION_HANDLERS = e;
+    var e,
+      s = "\u3401",
+      u = "\u356E",
+      c = "\u4244",
+      d = "\u34FE",
+      m = "\u35C8",
+      p = "\u3DD9",
+      _ = "\u369D",
+      f = "\u57F7",
+      g = "\u3FB6",
+      h = "\u365A",
+      y = "\u3558",
+      C = "\u3F27",
+      b = "\u3419",
+      v = "\u3578",
+      S = "\u34E2",
+      R = "\u639A",
+      L = "\u62F0",
+      E = "\u4283",
+      k = "\u4033",
+      I =
+        ((e = {}),
+        (e[s] = r("WebBloksAccessibilityExtensionHandler")),
+        (e[u] = r("WebBloksAnchorIDExtensionHandler")),
+        (e[c] = r("WebBloksAnchorTagExtensionHandler")),
+        (e[d] = r("WebBloksAutomationTestExtensionHandler")),
+        (e[m] = r("WebBloksBKSTextInputFormatterHandler")),
+        (e[p] = r("WebBloksGestureExtensionHandler")),
+        (e[_] = r("WebBloksTouchExtensionHandler")),
+        (e[f] = r("WebBloksHoverExtensionHandler")),
+        (e[g] = r("WebBloksOnDataChangeExtensionHandler")),
+        (e[h] = r("WebBloksOnMountExtensionHandler")),
+        (e[y] = r("WebBloksRenderLifecycleExtensionHandler")),
+        (e[C] = r("WebBloksTextInputDatePickerExtensionHandler")),
+        (e[b] = r("WebBloksTextInputMaskExtensionHandler")),
+        (e[v] = r("WebBloksViewTransformExtensionHandler")),
+        (e[S] = r("WebBloksVisibilityExtensionHandler")),
+        (e[R] = r("WebBloksCssAnimationExtensionHandler")),
+        (e[L] = r("WebBloksWebDataAttributesExtensionHandler")),
+        (e[E] = r("WebBloksWebFocusBoundaryExtensionHandler")),
+        (e[k] = r("WebBloksWebNativeAccessibilityExtensionHandler")),
+        e),
+      T = babelHelpers.extends({}, I, {
+        "bk.components.AnchorIdExtension": r(
+          "WebBloksAnchorIDExtensionHandler",
+        ),
+        "bk.components.AutomationTestExtension": r(
+          "WebBloksAutomationTestExtensionHandler",
+        ),
+        "bk.components.VisibilityExtension": r(
+          "WebBloksVisibilityExtensionHandler",
+        ),
+        "bk.components.AccessibilityExtension": r(
+          "WebBloksAccessibilityExtensionHandler",
+        ),
+        "bk.components.WebDataAttributesExtension": r(
+          "WebBloksWebDataAttributesExtensionHandler",
+        ),
+        "bk.components.WebNativeAccessibilityExtension": r(
+          "WebBloksWebNativeAccessibilityExtensionHandler",
+        ),
+        "bk.components.HoverExtension": r("WebBloksHoverExtensionHandler"),
+        "bk.components.OnMount": r("WebBloksOnMountExtensionHandler"),
+        "bk.components.RenderLifecycleExtension": r(
+          "WebBloksRenderLifecycleExtensionHandler",
+        ),
+        "bk.components.ViewTransformsExtension": r(
+          "WebBloksViewTransformExtensionHandler",
+        ),
+        "bk.components.WebCssAnimationExtension": r(
+          "WebBloksCssAnimationExtensionHandler",
+        ),
+        "bk.components.FoaTouchExtension": r("WebBloksTouchExtensionHandler"),
+        "bk.components.FoaGestureExtension": r(
+          "WebBloksGestureExtensionHandler",
+        ),
+        "bk.components.TextInputDatePickerExtension": r(
+          "WebBloksTextInputDatePickerExtensionHandler",
+        ),
+        "bk.components.TextInputMaskExtension": r(
+          "WebBloksTextInputMaskExtensionHandler",
+        ),
+        "bk.extensions.OnDataChange": r("WebBloksOnDataChangeExtensionHandler"),
+        "bk.components.AnchorTagExtension": r(
+          "WebBloksAnchorTagExtensionHandler",
+        ),
+        "bk.component.WebFocusBoundaryExtension": r(
+          "WebBloksWebFocusBoundaryExtensionHandler",
+        ),
+        "bk.components.BKSTextInputFormatter": r(
+          "WebBloksBKSTextInputFormatterHandler",
+        ),
+      });
+    l.EXTENSION_HANDLERS = T;
   },
   98,
 );

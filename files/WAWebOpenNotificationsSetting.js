@@ -4,7 +4,7 @@ __d(
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
-    "WAWebNotificationsFlow.react",
+    "WAWebNotificationsFlowLoadable",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,9 +21,10 @@ __d(
         (o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "notifications" }
-            : s.jsx(o("WAWebNotificationsFlow.react").NotificationsFlow, {
-                onEnd: o("WAWebDrawerManager").closeDrawerLeft,
-              }),
+            : s.jsx(
+                o("WAWebNotificationsFlowLoadable").NotificationsFlowLoadable,
+                { onEnd: o("WAWebDrawerManager").closeDrawerLeft },
+              ),
           {
             focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
             transition: "pop-drawer-fast",

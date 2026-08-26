@@ -29,7 +29,7 @@ __d(
                 ])),
             ),
             n.map(function (e) {
-              return { display: e.suggestion, query: e.query };
+              return { display: e.display, query: e.query };
             })
           );
         })),
