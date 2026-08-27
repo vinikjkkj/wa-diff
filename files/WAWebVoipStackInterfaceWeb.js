@@ -795,15 +795,16 @@ __d(
         previewAndJoinCallLink: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, a, i) {
-              if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
-                o("WALogger").ERROR(
-                  $ ||
-                    ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: previewAndJoinCallLink: call links disabled",
-                    ])),
+              if (!o("WAWebVoipGatingUtils").callLinksEnabled())
+                return (
+                  o("WALogger").ERROR(
+                    $ ||
+                      ($ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: previewAndJoinCallLink: call links disabled",
+                      ])),
+                  ),
+                  -1
                 );
-                return;
-              }
               var s = yield l;
               try {
                 o("WAWebMLModelManager")
@@ -826,17 +827,20 @@ __d(
                   a != null ? a : !1,
                   i != null ? i : "",
                 );
-                u !== 0 &&
-                  o("WALogger")
-                    .ERROR(
-                      N ||
-                        (N = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: previewAndJoinCallLink: failed with status ",
-                          "",
-                        ])),
-                      u,
-                    )
-                    .sendLogs("voip-preview-and-join-call-link-failed");
+                return (
+                  u !== 0 &&
+                    o("WALogger")
+                      .ERROR(
+                        N ||
+                          (N = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: previewAndJoinCallLink: failed with status ",
+                            "",
+                          ])),
+                        u,
+                      )
+                      .sendLogs("voip-preview-and-join-call-link-failed"),
+                  u
+                );
               } catch (e) {
                 throw (
                   o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(

@@ -35,6 +35,7 @@ __d(
     "WAWebNetworkStatusStateManager",
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebRegisterPassiveTasksForConnect",
     "WAWebSyncdOrphanWorkerCompatible",
     "WAWebUA",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
@@ -664,6 +665,21 @@ __d(
                 }
                 return t;
               })(),
+            },
+          },
+          {
+            namespace: "mainthread_passiveMode",
+            handlers: {
+              registerPassiveTasksForConnect: function () {
+                return o(
+                  "WAWebRegisterPassiveTasksForConnect",
+                ).registerPassiveTasksForConnectMainThread.registerPassiveTasksForConnect();
+              },
+              shouldConnectAsPassiveMode: function () {
+                return o(
+                  "WAWebRegisterPassiveTasksForConnect",
+                ).registerPassiveTasksForConnectMainThread.shouldConnectAsPassiveMode();
+              },
             },
           },
         ]);

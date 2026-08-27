@@ -77,7 +77,7 @@ __d(
     "WAWebSignupGating",
     "WAWebSignupLoadingState",
     "WAWebStatusApiParse",
-    "WAWebStatusAttachMediaFlow.react",
+    "WAWebStatusAttachMediaFlowLoadable",
     "WAWebStatusNavigateTo",
     "WAWebStickerStoreFlowLoadable",
     "WAWebTextStatusCollection",
@@ -821,7 +821,11 @@ __d(
               break;
             case o("WAWebStatusApiParse").StatusPostType.Media:
               o("WAWebModalManager").ModalManager.open(
-                $.jsx(r("WAWebStatusAttachMediaFlow.react"), {}),
+                $.jsx(
+                  o("WAWebStatusAttachMediaFlowLoadable")
+                    .StatusAttachMediaFlowLoadable,
+                  {},
+                ),
               );
               break;
           }

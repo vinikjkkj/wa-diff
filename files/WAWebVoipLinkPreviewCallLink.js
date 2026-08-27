@@ -14,11 +14,11 @@ __d(
     "WAWebVoipCallStateUtils",
     "WAWebVoipGatingUtils",
     "WAWebVoipInitEventEmitter",
+    "WAWebVoipMoveCallHere",
     "WAWebVoipNackHandlers",
     "WAWebVoipPopoutWindowState",
     "WAWebVoipStackInterface",
     "WAWebVoipUiDocPipPortalContainer.react",
-    "WAWebVoipUiManager",
     "WAWebVoipWaCallEnums",
     "asyncToGeneratorRuntime",
   ],
@@ -270,8 +270,7 @@ __d(
                 "voip: handleClickCallLink \u2014 already in this call link, pulling call back to this window",
               ])),
           ),
-          window.focus(),
-          o("WAWebVoipUiManager").closeVoipUiPopoutWindow({ callEnded: !1 }),
+          o("WAWebVoipMoveCallHere").moveCallHere(),
           !0
         );
       var t = e.callLinkState;

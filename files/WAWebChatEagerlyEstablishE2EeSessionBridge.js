@@ -92,13 +92,9 @@ __d(
             ]);
           }
           try {
-            var h =
-                t.id.isStatus() &&
-                o(
-                  "WAWebStatusSessionGatingUtils",
-                ).shouldUseStatusSessionForOutgoingMessage()
-                  ? o("WAWebSessionScope").SessionScope.STATUS
-                  : o("WAWebSessionScope").SessionScope.DEFAULT,
+            var h = t.id.isStatus()
+                ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
+                : o("WAWebSessionScope").SessionScope.DEFAULT,
               y = yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
                 identityChanged: !1,
                 sessionScope: h,

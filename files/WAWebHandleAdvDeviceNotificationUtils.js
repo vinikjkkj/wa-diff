@@ -69,11 +69,7 @@ __d(
             r = function (t) {
               n.push({
                 localPrimaryIdentity: t.localPrimaryIdentity,
-                signedKeyIndexBytes: t.signedKeyIndexBytes.buffer.slice(
-                  t.signedKeyIndexBytes.byteOffset,
-                  t.signedKeyIndexBytes.byteOffset +
-                    t.signedKeyIndexBytes.byteLength,
-                ),
+                signedKeyIndexBytes: t.signedKeyIndexBytes.slice().buffer,
               });
             },
             a = o("WAWebABProps").getABPropConfigValue(

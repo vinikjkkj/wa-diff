@@ -1960,6 +1960,7 @@ __d(
         motionPhotoPresentationOffsetMs: [29, e.TYPES.UINT64],
         metadataUrl: [30, e.TYPES.STRING],
         videoSourceType: [31, e.TYPES.ENUM, ne],
+        dashManifestUrl: [33, e.TYPES.STRING],
       }),
       (Pr.name = "Message$MusicMessage"),
       (Pr.internalSpec = {
@@ -2669,6 +2670,11 @@ __d(
           u.AIRichResponseUnifiedResponseSpec,
         ],
         contextInfo: [4, e.TYPES.MESSAGE, Zr],
+        originalRecipientMetadata: [
+          5,
+          e.TYPES.MESSAGE,
+          u.AIRichResponseUnifiedResponseSpec,
+        ],
       }),
       (Xo.name = "AIQueryFanout"),
       (Xo.internalSpec = {

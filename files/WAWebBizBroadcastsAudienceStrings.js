@@ -7,43 +7,49 @@ __d(
       return s._(/*BTDS*/ "Untitled list").toString();
     }
     function u() {
-      return s._(/*BTDS*/ "Active chats");
+      return s._(/*BTDS*/ "Rename audience");
     }
     function c() {
+      return s._(/*BTDS*/ "Save");
+    }
+    function d() {
+      return s._(/*BTDS*/ "Active chats");
+    }
+    function m() {
       return s._(/*BTDS*/ "Contacts who messaged you in the last 30 days");
     }
-    function d(e) {
+    function p(e) {
       return s._(/*BTDS*/ "Messaged you in the {duration}", [
         s._param("duration", e),
       ]);
     }
-    function m() {
+    function _() {
       return s._(/*BTDS*/ "Inactive chats");
     }
-    function p() {
+    function f() {
       return s._(
         /*BTDS*/ "Contacts that haven't messaged you in the last 30 days",
       );
     }
-    function _(e) {
+    function g(e) {
       return s._(/*BTDS*/ "Inactive for {duration}", [s._param("duration", e)]);
     }
-    function f() {
+    function h() {
       return s._(/*BTDS*/ "Your largest list");
     }
-    function g() {
+    function y() {
       return s._(/*BTDS*/ "Contacts from your largest list");
     }
-    function h() {
+    function C() {
       return s._(/*BTDS*/ "Your WhatsApp contacts");
     }
-    function y() {
+    function b() {
       return s._(/*BTDS*/ "All contacts from your address book");
     }
-    function C() {
+    function v() {
       return s._(/*BTDS*/ "Suggested audiences");
     }
-    function b(e) {
+    function S(e) {
       return e <= 7
         ? s._(/*BTDS*/ "last 7 days")
         : e <= 14
@@ -56,7 +62,7 @@ __d(
                 ? s._(/*BTDS*/ "last 6 months")
                 : s._(/*BTDS*/ "last year");
     }
-    function v(e, t) {
+    function R(e, t) {
       return t != null
         ? s._(/*BTDS*/ "{count} recipients \u00b7 {duration}", [
             s._param("count", e),
@@ -64,79 +70,81 @@ __d(
           ])
         : s._(/*BTDS*/ "{count} recipients", [s._param("count", e)]);
     }
-    function S(e, t) {
+    function L(e, t) {
       return e.trim() !== ""
         ? s._(/*BTDS*/ "No contacts match your search")
         : t
           ? s._(/*BTDS*/ "No contacts found for this time period")
           : s._(/*BTDS*/ "No contacts found");
     }
-    function R() {
+    function E() {
       return s._(/*BTDS*/ "Import audiences");
     }
-    function L(e) {
+    function k(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
         s._plural(e, "number"),
       ]);
     }
-    function E(e) {
+    function I(e) {
       return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
         s._plural(e, "number"),
       ]);
-    }
-    function k() {
-      return s._(/*BTDS*/ "Audience has unresolved errors");
-    }
-    function I() {
-      return s._(/*BTDS*/ "Customer");
     }
     function T() {
-      return s._(/*BTDS*/ "Mobile No.");
+      return s._(/*BTDS*/ "Audience has unresolved errors");
     }
     function D() {
-      return s._(/*BTDS*/ "Delete contact");
+      return s._(/*BTDS*/ "Customer");
     }
     function x() {
+      return s._(/*BTDS*/ "Mobile No.");
+    }
+    function $() {
+      return s._(/*BTDS*/ "Delete contact");
+    }
+    function P() {
       return s._(/*BTDS*/ "Saving...");
     }
-    function $(e) {
+    function N(e) {
       return s._(
         /*BTDS*/ '_j{"*":"Save {number} audiences","_1":"Save 1 audience"}',
         [s._plural(e, "number")],
       );
     }
-    function P() {
+    function M() {
       return s._(/*BTDS*/ "We couldn't save all audiences. Try again.");
     }
-    function N() {
+    function w() {
       return s._(/*BTDS*/ "We couldn't save your audiences. Try again.");
     }
     ((l.getUntitledListName = e),
-      (l.getActiveChatsTitle = u),
-      (l.getActiveChatsDescription = c),
-      (l.getActiveChatsAudienceName = d),
-      (l.getInactiveChatsTitle = m),
-      (l.getInactiveChatsDescription = p),
-      (l.getInactiveChatsAudienceName = _),
-      (l.getLargestListTitle = f),
-      (l.getLargestListDescription = g),
-      (l.getAllContactsTitle = h),
-      (l.getAllContactsDescription = y),
-      (l.getSuggestedAudiencesSectionTitle = C),
-      (l.getDurationLabelForDays = b),
-      (l.getSuggestedAudienceCardSubtitle = v),
-      (l.getEmptyStateMessage = S),
-      (l.getImportAudiencesTitle = R),
-      (l.getRecipientCountNavLabel = L),
-      (l.getRecipientCountHeading = E),
-      (l.getUnresolvedErrorsIndicatorLabel = k),
-      (l.getCustomerColumnHeader = I),
-      (l.getMobileNumberColumnHeader = T),
-      (l.getDeleteContactLabel = D),
-      (l.getSavingLabel = x),
-      (l.getSaveAudiencesButtonLabel = $),
-      (l.getSaveAllAudiencesFailedError = P),
-      (l.getSaveAudiencesFailedError = N));
+      (l.getRenameAudienceModalTitle = u),
+      (l.getSaveButtonLabel = c),
+      (l.getActiveChatsTitle = d),
+      (l.getActiveChatsDescription = m),
+      (l.getActiveChatsAudienceName = p),
+      (l.getInactiveChatsTitle = _),
+      (l.getInactiveChatsDescription = f),
+      (l.getInactiveChatsAudienceName = g),
+      (l.getLargestListTitle = h),
+      (l.getLargestListDescription = y),
+      (l.getAllContactsTitle = C),
+      (l.getAllContactsDescription = b),
+      (l.getSuggestedAudiencesSectionTitle = v),
+      (l.getDurationLabelForDays = S),
+      (l.getSuggestedAudienceCardSubtitle = R),
+      (l.getEmptyStateMessage = L),
+      (l.getImportAudiencesTitle = E),
+      (l.getRecipientCountNavLabel = k),
+      (l.getRecipientCountHeading = I),
+      (l.getUnresolvedErrorsIndicatorLabel = T),
+      (l.getCustomerColumnHeader = D),
+      (l.getMobileNumberColumnHeader = x),
+      (l.getDeleteContactLabel = $),
+      (l.getSavingLabel = P),
+      (l.getSaveAudiencesButtonLabel = N),
+      (l.getSaveAllAudiencesFailedError = M),
+      (l.getSaveAudiencesFailedError = w));
   },
   226,
 );

@@ -18,7 +18,7 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebContactManagerCustomerProfilesQuery.graphql")),
-      c = 100,
+      c = 50,
       d = 20,
       m = { cursor: null, records: [] };
     function p(e) {

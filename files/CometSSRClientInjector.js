@@ -6,6 +6,7 @@ __d(
     "CometSSRLogger",
     "CometSSRMergedContentInjector",
     "CometSSRStateManager",
+    "ExecutionEnvironment",
     "FBLogger",
     "getErrorSafe",
     "justknobx",
@@ -13,105 +14,106 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = null,
+    var e,
       s = null,
-      u = o("CometSSRLogger").getSSRLogger(),
-      c = 0,
-      d = [],
-      m = function () {};
-    function p() {
-      return s;
+      u = null,
+      c = o("CometSSRLogger").getSSRLogger(),
+      d = 0,
+      m = [],
+      p = function () {};
+    function _() {
+      return u;
     }
-    function _(t) {
+    function f(e) {
       try {
-        ((s = t),
-          C("ssr_init"),
-          e == null && (e = new (r("CometSSRStateManager"))()),
-          e.onSSRInit(t),
-          (!t.enabled || !t.gks.mwp_ssr_enabled) && y());
-      } catch (e) {
-        var n,
-          o = r("getErrorSafe")(e);
-        throw (
-          r("FBLogger")("comet_ssr")
-            .catching(o)
-            .mustfix(
-              "ssrInit(): Error while processing SSR init (enabled: %s, gks.mwp_ssr_enabled: %s): %s",
-              t == null ? void 0 : t.enabled,
-              t == null || (n = t.gks) == null ? void 0 : n.mwp_ssr_enabled,
-              o.message,
-            ),
-          o
-        );
-      }
-    }
-    function f(t) {
-      try {
-        (d.push(t),
-          e == null && (e = new (r("CometSSRStateManager"))()),
-          e.onSSRPayloadArrived(t),
-          t.payloadType === "LAST" && u.current.logLastSSRPayloadArrived(),
-          o("CometSSRMergedContentInjector").updateRenderPassStatus(t),
-          C("ssr_received_" + t.id),
-          u.current.logSSRIndividualPaint(!0, c),
-          o("CometSSRMergedContentInjector").updateSSRDebugState(),
-          c++);
-      } catch (e) {
-        var n = r("getErrorSafe")(e);
+        ((u = e),
+          b("ssr_init"),
+          s == null && (s = new (r("CometSSRStateManager"))()),
+          s.onSSRInit(e),
+          (!e.enabled || !e.gks.mwp_ssr_enabled) && C());
+      } catch (o) {
+        var t,
+          n = r("getErrorSafe")(o);
         throw (
           r("FBLogger")("comet_ssr")
             .catching(n)
             .mustfix(
-              "onPayloadReceived(): Error while processing SSR payload (id: %s, payloadType: %s, renderPass: %s): %s",
-              t == null ? void 0 : t.id,
-              t == null ? void 0 : t.payloadType,
-              c,
+              "ssrInit(): Error while processing SSR init (enabled: %s, gks.mwp_ssr_enabled: %s): %s",
+              e == null ? void 0 : e.enabled,
+              e == null || (t = e.gks) == null ? void 0 : t.mwp_ssr_enabled,
               n.message,
             ),
           n
         );
       }
     }
-    function g(t, n, a, i, l) {
+    function g(e) {
       try {
-        (e == null && (e = new (r("CometSSRStateManager"))()),
-          o("CometSSRContentRevealer").setExternalSplashScreenController(
-            l.revealSSRContent,
-          ),
-          t &&
-            (o("CometSSRLogger").initLogger(t),
-            o("CometSSRHydrationHelpers").initHydrationHelperTraceAPIObj(t),
-            h(t),
-            u.current.logSSRFizzInit()),
-          e && e.onRootComponentLoaded(i, n, a, l.revealSSRContent));
-      } catch (e) {
-        var s = r("getErrorSafe")(e);
+        (m.push(e),
+          s == null && (s = new (r("CometSSRStateManager"))()),
+          s.onSSRPayloadArrived(e),
+          e.payloadType === "LAST" && c.current.logLastSSRPayloadArrived(),
+          o("CometSSRMergedContentInjector").updateRenderPassStatus(e),
+          b("ssr_received_" + e.id),
+          c.current.logSSRIndividualPaint(!0, d),
+          o("CometSSRMergedContentInjector").updateSSRDebugState(),
+          d++);
+      } catch (n) {
+        var t = r("getErrorSafe")(n);
         throw (
           r("FBLogger")("comet_ssr")
-            .catching(s)
+            .catching(t)
             .mustfix(
-              "initFizz(): Error while processing Fizz init (rootElementID: %s, traceAPI: %s): %s",
-              i,
-              t != null ? "available" : "unavailable",
-              s.message,
+              "onPayloadReceived(): Error while processing SSR payload (id: %s, payloadType: %s, renderPass: %s): %s",
+              e == null ? void 0 : e.id,
+              e == null ? void 0 : e.payloadType,
+              d,
+              t.message,
             ),
-          s
+          t
         );
       }
     }
-    function h(e) {
-      e.onComplete(function () {
-        e.addMetadata(
-          "ssr_total_page_element_count",
-          document.querySelectorAll("*").length,
+    function h(e, t, n, a, i) {
+      try {
+        (s == null && (s = new (r("CometSSRStateManager"))()),
+          o("CometSSRContentRevealer").setExternalSplashScreenController(
+            i.revealSSRContent,
+          ),
+          e &&
+            (o("CometSSRLogger").initLogger(e),
+            o("CometSSRHydrationHelpers").initHydrationHelperTraceAPIObj(e),
+            y(e),
+            c.current.logSSRFizzInit()),
+          s && s.onRootComponentLoaded(a, t, n, i.revealSSRContent));
+      } catch (t) {
+        var l = r("getErrorSafe")(t);
+        throw (
+          r("FBLogger")("comet_ssr")
+            .catching(l)
+            .mustfix(
+              "initFizz(): Error while processing Fizz init (rootElementID: %s, traceAPI: %s): %s",
+              a,
+              e != null ? "available" : "unavailable",
+              l.message,
+            ),
+          l
         );
+      }
+    }
+    function y(t) {
+      t.onComplete(function () {
+        var n = 0;
+        ((e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+          (n = document.querySelectorAll("*").length),
+          t.addMetadata("ssr_total_page_element_count", n));
       });
     }
-    function y() {
+    function C() {
       try {
-        (e == null && (e = new (r("CometSSRStateManager"))()),
-          e.disableSSRInFlight(),
-          s && b(s.eid),
+        (s == null && (s = new (r("CometSSRStateManager"))()),
+          s.disableSSRInFlight(),
+          u && v(u.eid),
           o("CometSSRMergedContentInjector").updateRenderPassStatus({
             id: "Error - SSR is disabled from server",
             payloadType: "LAST",
@@ -119,91 +121,96 @@ __d(
             status: "fail_ssr_disabled",
           }),
           o("CometSSRMergedContentInjector").markSSRError());
-      } catch (e) {
-        var t,
-          n,
-          a = r("getErrorSafe")(e);
+      } catch (o) {
+        var e,
+          t,
+          n = r("getErrorSafe")(o);
         throw (
           r("FBLogger")("comet_ssr")
-            .catching(a)
+            .catching(n)
             .mustfix(
               "disableSSRInFlight(): Error while disabling SSR in flight (ssrData.enabled: %s, ssrData.eid: %s): %s",
-              (t = s) == null ? void 0 : t.enabled,
-              (n = s) == null ? void 0 : n.eid,
-              a.message,
+              (e = u) == null ? void 0 : e.enabled,
+              (t = u) == null ? void 0 : t.eid,
+              n.message,
             ),
-          a
+          n
         );
       }
     }
-    function C(e) {
-      if (s == null)
+    function b(e) {
+      if (u == null)
         return r("FBLogger")("comet_ssr").mustfix(
           'logQPLPoint(): Cannot log QPL point "%s" - ssrInit did not run',
           e,
         );
-      s.enabled && r("qplTimingsServerJS")(s.cavalry_get_lid, e);
+      u.enabled && r("qplTimingsServerJS")(u.cavalry_get_lid, e);
     }
-    function b(e) {
-      o("CometSSRContentRevealer").unhideElement(e, S(), v());
-    }
-    function v() {
-      var e;
-      return s == null
-        ? !1
-        : s.gks.use_content_visibility_hidden &&
-            ((e = window.CSS) == null ? void 0 : e.supports) &&
-            window.CSS.supports("content-visibility", "hidden");
+    function v(e) {
+      o("CometSSRContentRevealer").unhideElement(e, R(), S());
     }
     function S() {
+      if (u == null) return !1;
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var t;
+        return (
+          u.gks.use_content_visibility_hidden &&
+          ((t = window.CSS) == null ? void 0 : t.supports) != null &&
+          window.CSS.supports("content-visibility", "hidden")
+        );
+      }
+      return !1;
+    }
+    function R() {
       var e,
         t,
         n =
-          (e = (t = s) == null ? void 0 : t.is_in_crawler_mode) != null
+          (e = (t = u) == null ? void 0 : t.is_in_crawler_mode) != null
             ? e
             : !1;
       return r("justknobx")._("957") || n;
     }
-    function R(e, t) {
-      (L(e) || y(), t != null && u.current.logViewportGuess(t));
+    function L(e, t) {
+      (E(e) || C(), t != null && c.current.logViewportGuess(t));
     }
-    function L(e) {
-      return window.matchMedia
-        ? e.every(function (e) {
+    function E(t) {
+      return (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
+        window.matchMedia
+        ? t.every(function (e) {
             var t = e.dimension,
               n = e.numPixels,
               r = e.operation,
               o = e.result,
-              a = E(r, t, n);
+              a = k(r, t, n);
             return window.matchMedia(a).matches === o;
           })
         : !1;
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       return "(" + e + "-" + t + ": " + n + "px)";
     }
-    function k(e, t) {
-      (s != null && t === "INJECTED" && C("ssr_injected"),
-        u.current.logSSRInjection({
+    function I(e, t) {
+      (u != null && t === "INJECTED" && b("ssr_injected"),
+        c.current.logSSRInjection({
           msg: e,
-          processedPayloads: d,
+          processedPayloads: m,
           status: t,
-          unbindListeners: m,
+          unbindListeners: p,
         }));
     }
-    function I() {
-      return d;
+    function T() {
+      return m;
     }
-    ((l.getSSRData = p),
-      (l.ssrInit = _),
-      (l.onPayloadReceived = f),
-      (l.initFizz = g),
-      (l.disableSSRInFlight = y),
-      (l.logQPLPoint = C),
-      (l.unhideElement = b),
-      (l.onViewportGuessValidation = R),
-      (l.logSSRInjection = k),
-      (l.getArrivedPayloads = I));
+    ((l.getSSRData = _),
+      (l.ssrInit = f),
+      (l.onPayloadReceived = g),
+      (l.initFizz = h),
+      (l.disableSSRInFlight = C),
+      (l.logQPLPoint = b),
+      (l.unhideElement = v),
+      (l.onViewportGuessValidation = L),
+      (l.logSSRInjection = I),
+      (l.getArrivedPayloads = T));
   },
   98,
 );

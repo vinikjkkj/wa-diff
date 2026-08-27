@@ -56,7 +56,8 @@ __d(
     }
     function g(e) {
       var t = _(e),
-        r = e.isAiHandoff;
+        r = e.isAiHandoff,
+        a = e.aiHandoffStartedAt;
       return (
         t.inFlight
           ? (t.desired = p(t.desired))
@@ -73,37 +74,37 @@ __d(
           ? (s || (s = n("Promise"))).resolve(!0)
           : ((t.inFlight = !0),
             f(t, function () {
-              return h(e, t, e.unreadCount, r);
+              return h(e, t, e.unreadCount, r, a);
             }).finally(function () {
               t.inFlight = !1;
             }))
       );
     }
-    function h(e, t, n, r) {
+    function h(e, t, n, r, o) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
+          function* (t, n, a, i, l) {
             if (n.desired === n.serverConfirmed) return !0;
-            var l = n.desired,
-              s = !1,
-              u = null;
+            var s = n.desired,
+              u = !1,
+              m = null;
             try {
-              var m = yield o(
+              var p = yield o(
                 "WAWebAiAgentAutoReplyControlMutation",
               ).changeAiReplyStatus(
                 t.id,
-                l ===
+                s ===
                   o("WAWebProtobufsE2E.pb")
                     .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
                     .CONTROL_TAKEN
                   ? "ENABLED"
                   : "MUTED",
               );
-              ((s = m.isSuccess === !0),
-                m.isSuccess === !0 && (u = m.updateTimestampMs));
+              ((u = p.isSuccess === !0),
+                p.isSuccess === !0 && (m = p.updateTimestampMs));
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -115,18 +116,19 @@ __d(
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("maiba-mutate-ai-reply-fail");
             }
-            return s
-              ? ((n.serverConfirmed = l),
-                u != null && (n.watermarkMs = Math.max(n.watermarkMs, u)),
-                h(t, n, a, i))
+            return u
+              ? ((n.serverConfirmed = s),
+                m != null && (n.watermarkMs = Math.max(n.watermarkMs, m)),
+                h(t, n, a, i, l))
               : ((n.desired = n.serverConfirmed),
                 (t.unreadCount = a),
                 (t.isAiHandoff = i),
+                (t.aiHandoffStartedAt = l),
                 t.setCapiThreadControl(n.serverConfirmed, d),
                 o("WAWebModalManager").ModalManager.open(
                   c.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {
                     isTurnOn:
-                      l ===
+                      s ===
                       o("WAWebProtobufsE2E.pb")
                         .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
                         .CONTROL_TAKEN,

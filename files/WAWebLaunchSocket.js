@@ -31,6 +31,8 @@ __d(
     "WAWebModelStorage",
     "WAWebPageLoadLogging",
     "WAWebPushNotificationsOfflineBbApi",
+    "WAWebRegisterPassiveTasksForConnect",
+    "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
     "WAWebRegistration",
     "WAWebSchemaVersions",
     "WAWebSignalStorage",
@@ -86,6 +88,10 @@ __d(
         o(
           "WAWebUserPrefsWorkerCompatibleMainThread",
         ).initializeUserPrefsWorkerCompatibleMainThread(),
+        o("WAWebRegisterPassiveTasksForConnectWorkerCompatible").setInstance(
+          o("WAWebRegisterPassiveTasksForConnect")
+            .registerPassiveTasksForConnectMainThread,
+        ),
         o("WAWebHistorySyncProgress").initHistorySyncProgressListeners(),
         o("WAWebBackendEventBus").BackendEventBus.onRefreshQR(
           o("WAWebLaunchSocketUtils").refreshQR,

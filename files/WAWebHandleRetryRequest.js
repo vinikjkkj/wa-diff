@@ -69,14 +69,11 @@ __d(
             f = e.recipient,
             g = e.retryCount,
             h = e.type,
-            y =
-              (p.isStatus() || i.isStatus()) &&
-              o(
-                "WAWebStatusSessionGatingUtils",
-              ).shouldUseStatusSessionForOutgoingMessage()
-                ? o("WAWebSessionScope").SessionScope.STATUS
-                : o("WAWebSessionScope").SessionScope.DEFAULT,
-            C = p.isStatus() || i.isStatus() ? y : void 0;
+            y = p.isStatus() || i.isStatus(),
+            C = y
+              ? o("WAWebStatusSessionGatingUtils").getStatusSessionScope()
+              : o("WAWebSessionScope").SessionScope.DEFAULT,
+            b = y ? C : void 0;
           return (
             o("WALogger").LOG(
               u ||
@@ -88,7 +85,7 @@ __d(
                 ])),
               p.toLogString(),
               i.toLogString(),
-              y,
+              C,
             ),
             o("WAWebMessageQueue").onMessageQueue({
               chatWid: i,
@@ -97,18 +94,18 @@ __d(
               action: (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
-                    var t = yield E(i, e, y);
+                    var t = yield E(i, e, C);
                     if (t != null) {
                       var s = t.identity,
                         u = t.isLidBot,
-                        b = t.originalMsgId,
+                        y = t.originalMsgId,
                         v = t.requester;
                       r("gkx")("26258") ||
                         n("cr:10198") == null ||
                         n("cr:10198").injectDebug(
                           i,
                           "RetryReceiptReceived",
-                          "originalMsgId:" + b + " - requester:" + v.toString(),
+                          "originalMsgId:" + y + " - requester:" + v.toString(),
                         );
                       try {
                         if (h === "enc_rekey_retry") {
@@ -127,10 +124,10 @@ __d(
                             ).getMsgIfAuthorized({
                               chat: i,
                               identity: s,
-                              originalMsgId: b,
+                              originalMsgId: y,
                               requester: v,
                               retryCount: g,
-                              sessionScope: C,
+                              sessionScope: b,
                             }),
                             L =
                               R == null
@@ -147,10 +144,10 @@ __d(
                               ).getMsgIfAuthorized({
                                 chat: i,
                                 identity: s,
-                                originalMsgId: b,
+                                originalMsgId: y,
                                 requester: L,
                                 retryCount: g,
-                                sessionScope: C,
+                                sessionScope: b,
                               })),
                             !R)
                           ) {
@@ -171,7 +168,7 @@ __d(
                             msgRecord: R,
                             retryCount: g,
                             isLidBot: u,
-                            sessionScope: y,
+                            sessionScope: C,
                           };
                           (f && (I.recipient = f),
                             m && (I.lidOrigin = m),

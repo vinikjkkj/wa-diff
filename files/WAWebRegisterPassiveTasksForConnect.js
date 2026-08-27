@@ -1,6 +1,7 @@
 __d(
   "WAWebRegisterPassiveTasksForConnect",
   [
+    "Promise",
     "WAAbortError",
     "WACustomError",
     "WALogger",
@@ -31,14 +32,25 @@ __d(
       y,
       C,
       b,
-      v = 4,
-      S = 60 * 1e3;
-    function R() {
-      return L.apply(this, arguments);
+      v,
+      S = 4,
+      R = 60 * 1e3,
+      L = {
+        registerPassiveTasksForConnect: E,
+        shouldConnectAsPassiveMode: function () {
+          return (v || (v = n("Promise"))).resolve(
+            o(
+              "WAWebPassiveModeManager",
+            ).PassiveTaskManager.shouldConnectAsPassiveMode(),
+          );
+        },
+      };
+    function E() {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             (o("WAWebOnlineDanglingReceipts").hasOnlineDanglingReceipts() &&
               o(
@@ -135,7 +147,7 @@ __d(
                           .verbose()
                           .sendLogs("send-and-clear-dangling-receipts-failed");
                       }
-                    i && (yield k());
+                    i && (yield T());
                   },
                 );
                 return function (t) {
@@ -144,17 +156,17 @@ __d(
               })(),
             );
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    var E = null;
-    function k() {
-      return I.apply(this, arguments);
+    var I = null;
+    function T() {
+      return D.apply(this, arguments);
     }
-    function I() {
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (E)
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (I)
             return (
               o("WALogger").LOG(
                 _ ||
@@ -162,7 +174,7 @@ __d(
                     "[passive] flush message cache: skip",
                   ])),
               ),
-              E
+              I
             );
           try {
             o("WALogger").LOG(
@@ -205,14 +217,14 @@ __d(
                         .getMessageCache()
                         .checkpointQueueSize()) === 0
                         ? e()
-                        : n + 1 >= v &&
+                        : n + 1 >= S &&
                           (o("WALogger").WARN(
                             h ||
                               (h = babelHelpers.taggedTemplateLiteralLoose([
                                 "[passive] flush message cache: stop after ",
                                 " attempts",
                               ])),
-                            v,
+                            S,
                           ),
                           e()));
                   },
@@ -222,8 +234,8 @@ __d(
                 };
               })(),
             );
-            ((E = o("WAPromiseTimeout").promiseTimeout(e, S)),
-              yield E,
+            ((I = o("WAPromiseTimeout").promiseTimeout(e, R)),
+              yield I,
               o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -256,13 +268,14 @@ __d(
                     sampling: 0.01,
                   });
           } finally {
-            E = null;
+            I = null;
           }
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    l.registerPassiveTasksForConnect = R;
+    ((l.registerPassiveTasksForConnectMainThread = L),
+      (l.registerPassiveTasksForConnect = E));
   },
   98,
 );

@@ -66,49 +66,59 @@ __d(
       return n == null ? null : (t = c.get(n)) != null ? t : null;
     }
     function f(e, t) {
-      return s + "?category=wallpaper&id=wallpaper-" + e + t;
+      var n = o("WAWebChatThemeEnums").Theme.cast(String(e));
+      return (
+        n != null &&
+        d.some(function (e) {
+          return e.theme === n && e.wallpaperId === t;
+        })
+      );
     }
-    function g(e) {
-      var t = c.get(e);
-      return t == null ? null : b(t);
+    function g(e, t) {
+      return s + "?category=wallpaper&id=wallpaper-" + e + t;
     }
     function h(e) {
       var t = c.get(e);
-      return t == null ? null : y(t);
+      return t == null ? null : v(t);
     }
     function y(e) {
-      return f(e, u);
+      var t = c.get(e);
+      return t == null ? null : C(t);
     }
-    function C() {
+    function C(e) {
+      return g(e, u);
+    }
+    function b() {
       return Array.from(c.keys());
     }
-    function b(e) {
+    function v(e) {
       var t,
         n =
           typeof window != "undefined" &&
           ((t = window.devicePixelRatio) != null ? t : 1) >= 2
             ? "_web_3600"
             : "_web_2400";
-      return f(e, n);
-    }
-    function v() {
-      return d;
+      return g(e, n);
     }
     function S() {
+      return d;
+    }
+    function R() {
       return m;
     }
-    function R(e, t) {
+    function L(e, t) {
       return t === "dark" ? !0 : !p.has(e);
     }
     ((l.getDefaultWallpaperIdForTheme = _),
-      (l.getStockWallpaperUrl = g),
-      (l.getStockWallpaperThumbnailUrl = h),
-      (l.getStockWallpaperThumbnailUrlByImageId = y),
-      (l.getThemesWithStockWallpapers = C),
-      (l.getStockWallpaperUrlByImageId = b),
-      (l.getStockWallpaperPresets = v),
-      (l.getAllStockWallpaperPresets = S),
-      (l.isLightSwatchBackground = R));
+      (l.isStockWallpaperPresetForTheme = f),
+      (l.getStockWallpaperUrl = h),
+      (l.getStockWallpaperThumbnailUrl = y),
+      (l.getStockWallpaperThumbnailUrlByImageId = C),
+      (l.getThemesWithStockWallpapers = b),
+      (l.getStockWallpaperUrlByImageId = v),
+      (l.getStockWallpaperPresets = S),
+      (l.getAllStockWallpaperPresets = R),
+      (l.isLightSwatchBackground = L));
   },
   98,
 );

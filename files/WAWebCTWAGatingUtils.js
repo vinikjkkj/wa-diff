@@ -130,6 +130,11 @@ __d(
       );
     }
     function P() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ctwa_ctx_disclosure_update_enabled",
+      );
+    }
+    function N() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -137,17 +142,17 @@ __d(
         ) === !1
       );
     }
-    function N() {
+    function M() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_push_wait_timeout_web",
       );
     }
-    function M() {
+    function w() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_ad_account_nonce_retries_max_web",
       );
     }
-    var w = [
+    var A = [
       ".whatsapp.net",
       ".whatsapp.com",
       ".fbcdn.net",
@@ -155,7 +160,7 @@ __d(
       ".instagram.com",
       ".cdninstagram.com",
     ];
-    function A() {
+    function F() {
       var e = o("WAWebABProps")
         .getABPropConfigValue("ctwa_external_ad_reply_url_allowlist_domains")
         .split(",")
@@ -165,7 +170,7 @@ __d(
         .filter(function (e) {
           return e.length > 1 && e.startsWith(".") && !e.includes("*");
         });
-      return e.length > 0 ? e : w;
+      return e.length > 0 ? e : A;
     }
     ((l.isCtwaAgmReportingEnabled = e),
       (l.isAdsAttributionEnabled = s),
@@ -192,10 +197,11 @@ __d(
       (l.showCTWACCICompliantUI = D),
       (l.isCTWATosFilteringEnabled = x),
       (l.getCTWALearnMoreHyperLinkForCCICompliantUI = $),
-      (l.adAccountTokenStoringEnabled = P),
-      (l.adAccountTokenNoncePushWaitTimeoutSeconds = N),
-      (l.adAccountTokenNonceMaxRetries = M),
-      (l.getCtwaAdImageUrlAllowlist = A));
+      (l.shouldShowMetaAdSourceCopy = P),
+      (l.adAccountTokenStoringEnabled = N),
+      (l.adAccountTokenNoncePushWaitTimeoutSeconds = M),
+      (l.adAccountTokenNonceMaxRetries = w),
+      (l.getCtwaAdImageUrlAllowlist = F));
   },
   98,
 );

@@ -3,13 +3,55 @@ __d(
   ["fbt", "LWICometACOUtils", "mapObjectToArray"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    function e(e) {
+    var e = ["NO_BUTTON", "LIKE_PAGE", "VISIT_PROFILE", "JOIN_GROUP"];
+    function u(t) {
+      var n = t.ctaType,
+        r = t.hasAssetFeedSpec,
+        o = t.hasDegreesOfFreedomSpec,
+        a = t.hasExistingPostTitle,
+        i = t.objectStoryID,
+        l = t.objectStorySpecExists;
+      return i != null && a && !l && !r && !o && n != null && !e.includes(n);
+    }
+    function c(t) {
+      var n = t.ctaType,
+        r = t.enableDCO,
+        o = t.hasAssetFeedSpec,
+        a = t.hasCreativeAssetGroupsSpec,
+        i = t.hasDegreesOfFreedomSpec,
+        l = t.hasMultipleAdgroups,
+        s = t.hasPageID,
+        u = t.hasSourcePost,
+        c = t.hasSourcePostVideo,
+        d = t.hasStoredExistingPostTitle,
+        m = t.isCTMCreative,
+        p = t.isExistingPostTitleSpecTransportEnabled,
+        _ = t.isNewAdCreationFlow,
+        f = t.isOSSHydrationEnabled,
+        g = t.objectStoryID,
+        h = t.objectStorySpecExists;
+      if (g == null) return null;
+      if (p) {
+        var y = _ ? s && (u || o) : d || o;
+        return !y || l || a || n == null || e.includes(n)
+          ? null
+          : r || o || i || m
+            ? o
+              ? "ASSET_FEED_SPEC"
+              : null
+            : h
+              ? null
+              : "TITLE_SPEC";
+      }
+      return h || m ? null : f && s && u && !c ? "OSS_HYDRATION" : null;
+    }
+    function d(e) {
       return (
         (e == null ? void 0 : e.optimization_type) ===
         "DOF_MESSAGING_DESTINATION"
       );
     }
-    function u(e, t) {
+    function m(e, t) {
       var n = t == null ? void 0 : t.call_to_actions;
       return n == null
         ? !1
@@ -21,20 +63,20 @@ __d(
             return t.type === e;
           }));
     }
-    function c(e, t) {
-      return t === "WHATSAPP_MESSAGE" || u("WHATSAPP_MESSAGE", e);
-    }
-    function d(e, t) {
-      return t === "INSTAGRAM_MESSAGE" || u("INSTAGRAM_MESSAGE", e);
-    }
-    function m(e, t) {
-      return t === "MESSAGE_PAGE" || u("MESSAGE_PAGE", e);
-    }
     function p(e, t) {
-      var n = c(t, e);
+      return t === "WHATSAPP_MESSAGE" || m("WHATSAPP_MESSAGE", e);
+    }
+    function _(e, t) {
+      return t === "INSTAGRAM_MESSAGE" || m("INSTAGRAM_MESSAGE", e);
+    }
+    function f(e, t) {
+      return t === "MESSAGE_PAGE" || m("MESSAGE_PAGE", e);
+    }
+    function g(e, t) {
+      var n = p(t, e);
       if (!n) return null;
-      var r = m(t, e),
-        o = d(t, e);
+      var r = f(t, e),
+        o = _(t, e);
       return r && o
         ? s._(
             /*BTDS*/ "Greeting names only appear in Messenger and Instagram. People that open ads that click to WhatsApp will see a greeting without their name.",
@@ -49,55 +91,57 @@ __d(
               )
             : null;
     }
-    function _(e, t) {
+    function h(e, t) {
       return (
         t === "MESSAGE_PAGE" && (e == null ? void 0 : e.call_to_actions) == null
       );
     }
-    function f(e, t, n) {
+    function y(e, t, n) {
       return t && n && e;
     }
-    function g(e) {
+    function C(e) {
       return (
         e === o("LWICometACOUtils").LWI_ACO_FLAG_V1 ||
         e === o("LWICometACOUtils").LWI_ACO_FLAG_V2
       );
     }
-    function h(e, t) {
+    function b(e, t) {
       return (
         t === "INSTAGRAM_MESSAGE" &&
         (e == null ? void 0 : e.call_to_actions) == null
       );
     }
-    function y(e, t) {
+    function v(e, t) {
       return (
         (e == null ? void 0 : e.call_to_actions) == null && t === "WHATSAPP"
       );
     }
-    function C(e, t) {
+    function S(e, t) {
       var n;
       return (
-        _(e, t == null ? void 0 : t.type) ||
         h(e, t == null ? void 0 : t.type) ||
-        y(e, t == null || (n = t.value) == null ? void 0 : n.app_destination)
+        b(e, t == null ? void 0 : t.type) ||
+        v(e, t == null || (n = t.value) == null ? void 0 : n.app_destination)
       );
     }
-    function b() {
+    function R() {
       return !1;
     }
-    ((l.isClickToMessageAd = e),
-      (l.assetFeedSpecHasMessagingAppDestination = u),
-      (l.isWhatsAppSelected = c),
-      (l.isInstagramSelected = d),
-      (l.isMessengerSelected = m),
-      (l.getTokenDisclaimer = p),
-      (l.isSingleDestMessenger = _),
-      (l.shouldEnableAIIcebreakers = f),
-      (l.isACOEnabled = g),
-      (l.isSingleDestInstagram = h),
-      (l.isSingleDestWhatsappDestination = y),
-      (l.isSingleDestination = C),
-      (l.enableUnifiedCreationWithInstagramAccountEdit = b));
+    ((l.isBPExistingPostTitleSpecCreative = u),
+      (l.getBPExistingPostHeadlineTransport = c),
+      (l.isClickToMessageAd = d),
+      (l.assetFeedSpecHasMessagingAppDestination = m),
+      (l.isWhatsAppSelected = p),
+      (l.isInstagramSelected = _),
+      (l.isMessengerSelected = f),
+      (l.getTokenDisclaimer = g),
+      (l.isSingleDestMessenger = h),
+      (l.shouldEnableAIIcebreakers = y),
+      (l.isACOEnabled = C),
+      (l.isSingleDestInstagram = b),
+      (l.isSingleDestWhatsappDestination = v),
+      (l.isSingleDestination = S),
+      (l.enableUnifiedCreationWithInstagramAccountEdit = R));
   },
   226,
 );

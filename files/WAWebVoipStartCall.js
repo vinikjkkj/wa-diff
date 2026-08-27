@@ -430,7 +430,7 @@ __d(
             );
             var p = yield o(
               "WAWebVoipAcquireMediaStream",
-            ).checkVoipDevicePermissions(a);
+            ).checkVoipDevicePermissions(a, null, d);
             o("WAWebVoipOutgoingCallQpl").voipOutgoingCallQplAddPoint(
               e,
               o("WAWebVoipOutgoingCallQpl").VoipOutgoingCallQplPoint
@@ -438,6 +438,13 @@ __d(
             );
             var _ = _e(m, pe());
             if (!p) {
+              if (d.aborted) {
+                o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplCancel(
+                  e,
+                  "aborted_before_signaling",
+                );
+                return;
+              }
               (o("WAWebVoipOutgoingCallQpl").endVoipOutgoingCallQplCancel(
                 e,
                 "permission_denied",
@@ -830,8 +837,9 @@ __d(
               var c = u.signal,
                 d = yield o(
                   "WAWebVoipAcquireMediaStream",
-                ).checkVoipDevicePermissions(t);
+                ).checkVoipDevicePermissions(t, null, c);
               if (!d) {
+                if (c.aborted) return;
                 o("WAWebVoipCancelOutgoingCall").cancelPendingOutgoingCall();
                 return;
               }

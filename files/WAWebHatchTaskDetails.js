@@ -6,23 +6,17 @@ __d(
     function e(e) {
       return (
         !o("WAWebHatchJsonReaders").isBlankText(e.richExplanation) ||
-        e.detailRows.length > 0 ||
-        s(e)
+        e.detailRows.length > 0
       );
     }
     function s(e) {
-      var t = e.browserCheckout,
-        n = e.payloadType;
-      return n === "stripe_link_checkout" && t != null && u(t);
-    }
-    function u(e) {
       return (
         !o("WAWebHatchJsonReaders").isBlankText(e.cardBrand) ||
         !o("WAWebHatchJsonReaders").isBlankText(e.cardLast4) ||
         !o("WAWebHatchJsonReaders").isBlankText(e.paymentMethodLabel)
       );
     }
-    function c(e) {
+    function u(e) {
       if (!o("WAWebHatchJsonReaders").isBlankText(e.merchantName))
         return e.merchantName.trim();
       if (o("WAWebHatchJsonReaders").isBlankText(e.merchantUrl)) return null;
@@ -35,9 +29,8 @@ __d(
       }
     }
     ((l.hasHatchTaskDetails = e),
-      (l.hasHatchPayWithLink = s),
-      (l.hasHatchPaymentMethod = u),
-      (l.hatchShopifyMerchantName = c));
+      (l.hasHatchPaymentMethod = s),
+      (l.hatchShopifyMerchantName = u));
   },
   98,
 );

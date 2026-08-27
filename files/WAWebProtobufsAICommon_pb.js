@@ -67,6 +67,7 @@ __d(
         CHATLIST_SEARCH: 55,
         NEW_CHAT_LIST: 56,
         CONTACTS_TAB: 57,
+        NEW_3P_AGENT_CREATION: 58,
       }),
       g = u({
         AI_TAB_THREAD: 1,
@@ -164,6 +165,7 @@ __d(
         AI_RICH_RESPONSE_ARTIFACTS_ENABLED: 67,
         AI_RICH_RESPONSE_EMAIL_CALENDAR_ENABLED: 68,
         AI_RICH_RESPONSE_REMINDERS_ENABLED: 69,
+        AI_STOP_GENERATION_ENABLED: 70,
       }),
       I = u({ DEFAULT_MODE: 0, THINK_HARD_MODE: 1 }),
       T = u({ UNKNOWN_FEATURE: 0, REASONING_FEATURE: 1 }),
@@ -646,6 +648,7 @@ __d(
         subscriptionUpsellMetadata: [41, e.TYPES.MESSAGE, Ue],
         pttPromptMetadata: [42, e.TYPES.MESSAGE, We],
         botHistoryShareMetadata: [43, e.TYPES.MESSAGE, He],
+        responseStoppedByUser: [44, e.TYPES.BOOL],
         internalMetadata: [999, e.TYPES.BYTES],
       }),
       (Ue.name = "AISubscriptionUpsellMetadata"),

@@ -61,8 +61,11 @@ __d(
                 r("err")("malformed call link")
               );
             if (l == null) throw r("err")("voip stack interface unavailable");
-            var _ = o("WAWebFrontendContactGetters").getMyUsername();
-            return (yield l.previewAndJoinCallLink(p.data.token, !0, t, _), !0);
+            var _ = o("WAWebFrontendContactGetters").getMyUsername(),
+              f = yield l.previewAndJoinCallLink(p.data.token, !0, t, _);
+            if (f != null && f !== 0)
+              throw r("err")("previewAndJoinCallLink refused with status " + f);
+            return !0;
           } catch (e) {
             return (
               e instanceof

@@ -3,9 +3,11 @@ __d(
   [
     "WAWebBizAISettingsCategoryRegistry",
     "WAWebBizAiAgentGating",
+    "WAWebBizAiAgentStatusUtils",
     "WAWebBizAiHandoffRemovalTimingFetchQuery",
     "WAWebBizAiRulesGenMutation",
     "WAWebProtobufSyncAction.pb",
+    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -20,26 +22,41 @@ __d(
         o("WAWebProtobufSyncAction.pb")
           .SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
           .HANDOFF_REMOVAL_TIMING,
-        o("WAWebBizAiHandoffRemovalTimingFetchQuery").fetchHandoffRemovalTiming,
+        s,
       ],
     ]);
-    function s(e) {
+    function s() {
+      return u.apply(this, arguments);
+    }
+    function u() {
+      return (
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent() &&
+            (yield o(
+              "WAWebBizAiHandoffRemovalTimingFetchQuery",
+            ).fetchHandoffRemovalTiming());
+        })),
+        u.apply(this, arguments)
+      );
+    }
+    function c(e) {
       return e ===
         o("WAWebProtobufSyncAction.pb")
           .SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory
           .HANDOFF_REMOVAL_TIMING
-        ? o("WAWebBizAiAgentGating").isHandoffRemovalTimingSyncEnabled()
+        ? o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent() &&
+            o("WAWebBizAiAgentGating").isHandoffRemovalTimingSyncEnabled()
         : !0;
     }
-    function u(t) {
+    function d(t) {
       var n = e.get(t);
       n != null &&
-        s(t) &&
+        c(t) &&
         o("WAWebBizAISettingsCategoryRegistry").registerCategory(t, {
           fetch: n,
         });
     }
-    l.registerCategoryHandler = u;
+    l.registerCategoryHandler = d;
   },
   98,
 );

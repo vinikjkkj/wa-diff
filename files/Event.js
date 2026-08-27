@@ -191,7 +191,7 @@ __d(
         return (new (r("DOMEvent"))(t).preventDefault(), t);
       },
       isDefaultPrevented: function (t) {
-        return new (r("DOMEvent"))(t).isDefaultPrevented(t);
+        return new (r("DOMEvent"))(t).isDefaultPrevented();
       },
       kill: function (t) {
         var e = new (r("DOMEvent"))(t).kill();

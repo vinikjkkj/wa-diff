@@ -80,6 +80,11 @@ __d(
             ).saveBizBroadcastCapabilityToStorage(n),
               o(
                 "WAWebBizBroadcastDeviceCapabilityCommon",
+              ).saveBizBroadcastProCapabilityToStorage(
+                t == null ? void 0 : t.proCompanionSupportEnabled,
+              ),
+              o(
+                "WAWebBizBroadcastDeviceCapabilityCommon",
               ).saveBizBroadcastRecipientLimitToStorage(
                 t == null ? void 0 : t.recipientLimit,
               ));

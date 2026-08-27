@@ -29,7 +29,11 @@ __d(
             (f.send = function (e) {
               f.$ReconnectingWebSocket$p_1 || s(0, 21010);
               var t = f.$ReconnectingWebSocket$p_1;
-              return (f.$ReconnectingWebSocket$p_5() && f.url, t.send(e));
+              return (
+                f.$ReconnectingWebSocket$p_5() && f.url,
+                typeof e == "string" || e instanceof ArrayBuffer,
+                t.send(e)
+              );
             }),
             (f.close = function (t, n) {
               (t === void 0 && (t = e),

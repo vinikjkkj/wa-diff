@@ -162,7 +162,7 @@ __d(
               !r("isElementInteractive")(e) ||
               (t.keyCode in d &&
                 ((o("DOMQuery").isNodeOfType(e, ["input", "textarea"]) &&
-                  e.value.length === 0) ||
+                  (e == null ? void 0 : e.value.length) === 0) ||
                   (r("isContentEditable")(e) &&
                     r("getElementText")(e).length === 0)))
             );

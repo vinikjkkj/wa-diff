@@ -2,39 +2,43 @@ __d(
   "WAOpusRecorderEncoder",
   ["WAOpusRecorderLibopus", "WAOpusRecorderResampler"],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-      var e, n, o, a, i;
-      ((this.numberOfChannels = (e = t.numberOfChannels) != null ? e : 1),
-        (this.originalSampleRate = t.originalSampleRate),
-        (this.encoderSampleRate = (n = t.encoderSampleRate) != null ? n : 48e3),
-        (this.maxBuffersPerPage = (o = t.maxBuffersPerPage) != null ? o : 40),
-        (this.encoderApplication =
-          (a = t.encoderApplication) != null ? a : 2049),
-        (this.encoderFrameSize = (i = t.encoderFrameSize) != null ? i : 20),
-        (this.bitRate = t.bitRate),
-        (this.resampler = new (r("WAOpusRecorderResampler"))({
-          resampledRate: this.encoderSampleRate,
-          originalSampleRate: this.originalSampleRate,
-          numberOfChannels: this.numberOfChannels,
-        })),
-        (this.pageIndex = 0),
-        (this.granulePosition = 0),
-        (this.segmentData = new Uint8Array(65025)),
-        (this.segmentDataIndex = 0),
-        (this.segmentTable = new Uint8Array(255)),
-        (this.segmentTableIndex = 0),
-        (this.buffersInPage = 0),
-        (this.serial = Math.floor(Math.random() * Math.pow(2, 32))),
-        this.initChecksumTable(),
-        this.initCodec(),
-        this.generateIdPage(),
-        this.generateCommentPage(),
-        this.numberOfChannels === 1 &&
-          (this.interleave = function (e) {
-            return e[0];
-          }));
-    };
-    ((e.prototype.encode = function (e) {
+    var e = 3840,
+      s = Math.pow(2, 32),
+      u = function (n) {
+        var t, o, a, i, l;
+        ((this.numberOfChannels = (t = n.numberOfChannels) != null ? t : 1),
+          (this.originalSampleRate = n.originalSampleRate),
+          (this.encoderSampleRate =
+            (o = n.encoderSampleRate) != null ? o : 48e3),
+          (this.maxBuffersPerPage = (a = n.maxBuffersPerPage) != null ? a : 40),
+          (this.encoderApplication =
+            (i = n.encoderApplication) != null ? i : 2049),
+          (this.encoderFrameSize = (l = n.encoderFrameSize) != null ? l : 20),
+          (this.bitRate = n.bitRate),
+          (this.resampler = new (r("WAOpusRecorderResampler"))({
+            resampledRate: this.encoderSampleRate,
+            originalSampleRate: this.originalSampleRate,
+            numberOfChannels: this.numberOfChannels,
+          })),
+          (this.pageIndex = 0),
+          (this.granulePosition = 0),
+          (this.segmentData = new Uint8Array(65025)),
+          (this.segmentDataIndex = 0),
+          (this.segmentTable = new Uint8Array(255)),
+          (this.segmentTableIndex = 0),
+          (this.buffersInPage = 0),
+          (this.serial = Math.floor(Math.random() * Math.pow(2, 32))),
+          this.initChecksumTable(),
+          this.initCodec(),
+          this.generateIdPage(),
+          this.generateCommentPage(),
+          (this.granulePosition = e),
+          this.numberOfChannels === 1 &&
+            (this.interleave = function (e) {
+              return e[0];
+            }));
+      };
+    ((u.prototype.encode = function (e) {
       for (var t = this.interleave(this.resample(e)), n = 0; n < t.length; ) {
         var o = Math.min(
           this.encoderBufferLength - this.encoderBufferIndex,
@@ -62,7 +66,7 @@ __d(
       (this.buffersInPage++,
         this.buffersInPage >= this.maxBuffersPerPage && this.generatePage());
     }),
-      (e.prototype.encodeFinalFrame = function () {
+      (u.prototype.encodeFinalFrame = function () {
         for (var e = [], t = 0; t < this.numberOfChannels; ++t)
           e.push(
             new Float32Array(
@@ -74,12 +78,12 @@ __d(
           this.generatePage(),
           self.close());
       }),
-      (e.prototype.getChecksum = function (e) {
+      (u.prototype.getChecksum = function (e) {
         for (var t = 0, n = 0; n < e.length; n++)
           t = (t << 8) ^ this.checksumTable[((t >>> 24) & 255) ^ e[n]];
         return t >>> 0;
       }),
-      (e.prototype.generateCommentPage = function () {
+      (u.prototype.generateCommentPage = function () {
         var e = new DataView(this.segmentData.buffer);
         (e.setUint32(0, 1937076303, !0),
           e.setUint32(4, 1936154964, !0),
@@ -92,22 +96,22 @@ __d(
           (this.headerType = 0),
           this.generatePage());
       }),
-      (e.prototype.generateIdPage = function () {
-        var e = new DataView(this.segmentData.buffer);
-        (e.setUint32(0, 1937076303, !0),
-          e.setUint32(4, 1684104520, !0),
-          e.setUint8(8, 1, !0),
-          e.setUint8(9, this.numberOfChannels, !0),
-          e.setUint16(10, 3840, !0),
-          e.setUint32(12, this.originalSampleRate, !0),
-          e.setUint16(16, 0, !0),
-          e.setUint8(18, 0, !0),
+      (u.prototype.generateIdPage = function () {
+        var t = new DataView(this.segmentData.buffer);
+        (t.setUint32(0, 1937076303, !0),
+          t.setUint32(4, 1684104520, !0),
+          t.setUint8(8, 1, !0),
+          t.setUint8(9, this.numberOfChannels, !0),
+          t.setUint16(10, e, !0),
+          t.setUint32(12, this.originalSampleRate, !0),
+          t.setUint16(16, 0, !0),
+          t.setUint8(18, 0, !0),
           (this.segmentTableIndex = 1),
           (this.segmentDataIndex = this.segmentTable[0] = 19),
           (this.headerType = 2),
           this.generatePage());
       }),
-      (e.prototype.generatePage = function () {
+      (u.prototype.generatePage = function () {
         var e =
             this.lastPositiveGranulePosition === this.granulePosition
               ? -1
@@ -121,8 +125,7 @@ __d(
           n.setUint8(4, 0, !0),
           n.setUint8(5, this.headerType, !0),
           n.setUint32(6, e, !0),
-          (e > 4294967296 || e < 0) &&
-            n.setUint32(10, Math.floor(e / 4294967296), !0),
+          (e >= s || e < 0) && n.setUint32(10, Math.floor(e / s), !0),
           n.setUint32(14, this.serial, !0),
           n.setUint32(18, this.pageIndex++, !0),
           n.setUint8(26, this.segmentTableIndex, !0),
@@ -138,7 +141,7 @@ __d(
           (this.buffersInPage = 0),
           e > 0 && (this.lastPositiveGranulePosition = e));
       }),
-      (e.prototype.initChecksumTable = function () {
+      (u.prototype.initChecksumTable = function () {
         this.checksumTable = [];
         for (var e = 0; e < 256; e++) {
           for (var t = e << 24, n = 0; n < 8; n++)
@@ -146,7 +149,7 @@ __d(
           this.checksumTable[e] = t & 4294967295;
         }
       }),
-      (e.prototype.initCodec = function () {
+      (u.prototype.initCodec = function () {
         if (
           ((this.encoder = r("WAOpusRecorderLibopus")._opus_encoder_create(
             this.encoderSampleRate,
@@ -189,7 +192,7 @@ __d(
             this.encoderOutputPointer + this.encoderOutputMaxLength,
           )));
       }),
-      (e.prototype.interleave = function (e) {
+      (u.prototype.interleave = function (e) {
         for (
           var t = new Float32Array(e[0].length * this.numberOfChannels), n = 0;
           n < e[0].length;
@@ -199,12 +202,12 @@ __d(
             t[n * this.numberOfChannels + r] = e[r][n];
         return t;
       }),
-      (e.prototype.resample = function (e) {
+      (u.prototype.resample = function (e) {
         for (var t = [], n = 0; n < this.numberOfChannels; n++)
           t.push(this.resampler.resample(e[n], n));
         return t;
       }),
-      (e.prototype.segmentPacket = function (e) {
+      (u.prototype.segmentPacket = function (e) {
         for (var t = e, n = 0; t >= 0; ) {
           this.segmentTableIndex === 255 &&
             (this.generatePage(), (this.headerType = 1));
@@ -222,26 +225,26 @@ __d(
           this.segmentTableIndex === 255 &&
             (this.generatePage(), (this.headerType = 0)));
       }),
-      (e.prototype.flush = function (e) {
+      (u.prototype.flush = function (e) {
         (this.buffersInPage > 0 && this.generatePage(),
           globalThis.postMessage({ message: "flushed", requestId: e }));
       }));
-    var s,
-      u = {
-        init: function (n) {
-          s = new e(n);
+    var c,
+      d = {
+        init: function (t) {
+          c = new u(t);
         },
         encode: function (t) {
-          s.encode(t);
+          c.encode(t);
         },
         flush: function (t) {
-          s.flush(t);
+          c.flush(t);
         },
         done: function () {
-          s && s.encodeFinalFrame();
+          c && c.encodeFinalFrame();
         },
       };
-    l.default = u;
+    l.default = d;
   },
   98,
 );

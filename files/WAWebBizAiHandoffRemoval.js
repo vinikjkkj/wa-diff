@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWeb-moment",
     "WAWebAlarm",
+    "WAWebBizAiAgentGating",
     "WAWebBizAiHandoffRemovalTimingModel",
     "WAWebBotTypes",
     "WAWebDBUpdateChatTable",
@@ -15,15 +16,16 @@ __d(
       s = 86400,
       u = 1e3;
     function c(e) {
+      if (y(e)) return !1;
       var t = o("WAWebFrontendChatGetters").getPreviewMessage(e);
       if (
         o("WAWebBizAiHandoffRemovalTimingModel").getHandoffRemovalTiming() !==
         "AFTER_24H_REPLY"
       )
-        return !y(t);
+        return !C(t);
       var n = e.aiHandoffRemovalExpiry;
       if (n != null && n !== 0) return r("WAWeb-moment")().unix() < n;
-      if (!y(t)) return !0;
+      if (!C(t)) return !0;
       var a = t == null ? void 0 : t.t;
       return a != null && r("WAWeb-moment")().unix() < a + s;
     }
@@ -41,7 +43,7 @@ __d(
         )
           return h(e) ? null : void 0;
         var t = o("WAWebFrontendChatGetters").getPreviewMessage(e);
-        if (y(t)) {
+        if (C(t)) {
           var n = t == null ? void 0 : t.t;
           if (n != null) {
             var r = n + s;
@@ -117,6 +119,13 @@ __d(
       return e.aiHandoffRemovalExpiry != null && e.aiHandoffRemovalExpiry !== 0;
     }
     function y(e) {
+      var t = e.aiHandoffStartedAt;
+      return t == null
+        ? !1
+        : r("WAWeb-moment")().unix() >=
+            t + o("WAWebBizAiAgentGating").getHandoffListExpireDays() * s;
+    }
+    function C(e) {
       return (
         e != null &&
         e.bizBotType !== o("WAWebBotTypes").BizBotType.BIZ_1P &&

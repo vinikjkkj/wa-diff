@@ -18,18 +18,27 @@ __d(
     function c(e) {
       if (!o("WAWebBotBaseGating").isStandardBotProfileEnabled()) return !1;
       var t = o("WAWebBotSupportState").evaluateBotSupport(e, function (e) {
-          return o("WAWebBotProductGating").isBotProductGateOn(
-            e,
-            o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-              .aiBotIntegrationEnabled,
-          );
-        }),
-        n = t.kind;
-      return (
-        n === o("WAWebBotSupportState").BotSupportStateKind.UNRESOLVED ||
-        n === o("WAWebBotSupportState").BotSupportStateKind.DEPRECATED ||
-        n === o("WAWebBotSupportState").BotSupportStateKind.UNSUPPORTED
-      );
+        return o("WAWebBotProductGating").isBotProductGateOn(
+          e,
+          o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+            .aiBotIntegrationEnabled,
+        );
+      });
+      return t.kind ===
+        o("WAWebBotSupportState").BotSupportStateKind.UNRESOLVED ||
+        t.kind === o("WAWebBotSupportState").BotSupportStateKind.DEPRECATED ||
+        t.kind === o("WAWebBotSupportState").BotSupportStateKind.UNSUPPORTED
+        ? !0
+        : t.kind === o("WAWebBotSupportState").BotSupportStateKind.DELETED
+          ? !o("WAWebBotSupportState").hasCustomDeletedTombstone(t)
+          : t.kind === o("WAWebBotSupportState").BotSupportStateKind.SUPPORTED
+            ? !1
+            : (function () {
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    t.kind,
+                );
+              })();
     }
     function d() {
       return s._(/*BTDS*/ "Agent").toString();

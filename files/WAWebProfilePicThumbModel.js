@@ -18,7 +18,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function (t) {
+      s,
+      u = (function (t) {
         function n() {
           for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
             a[i] = arguments[i];
@@ -51,10 +52,7 @@ __d(
                 if (!this.tag && this.stale) return null;
                 if (this.tag)
                   return this.previewDirectPath != null
-                    ? this.$ProfilePicThumbImpl$p_1(
-                        this.previewDirectPath,
-                        this.filehash,
-                      )
+                    ? this.$ProfilePicThumbImpl$p_1(this.previewDirectPath)
                     : this.previewEurl;
               },
               [
@@ -66,7 +64,7 @@ __d(
                 "eurlStale",
                 "previewEurl",
                 "previewDirectPath",
-                "hostRetryCount",
+                "lastHostUsed",
                 "aiHubProfileIsDarkTheme",
               ],
             )),
@@ -79,10 +77,7 @@ __d(
                 if ((this.raw || !this.tag) && this.stale) return null;
                 if (!this.raw && this.tag)
                   return this.fullDirectPath != null
-                    ? this.$ProfilePicThumbImpl$p_1(
-                        this.fullDirectPath,
-                        this.filehash,
-                      )
+                    ? this.$ProfilePicThumbImpl$p_1(this.fullDirectPath)
                     : this.eurl;
               },
               [
@@ -93,7 +88,7 @@ __d(
                 "eurl",
                 "eurlStale",
                 "fullDirectPath",
-                "hostRetryCount",
+                "lastHostUsed",
                 "aiHubProfileIsDarkTheme",
               ],
             )),
@@ -112,7 +107,12 @@ __d(
             this.hostRetryCount = 0;
           }),
           (a.markMms4HostFailure = function () {
-            this.hostRetryCount++;
+            var e;
+            (this.hostRetryCount++,
+              (this.lastHostUsed =
+                (e = this.$ProfilePicThumbImpl$p_2()) != null
+                  ? e
+                  : this.lastHostUsed));
           }),
           (a.validate = function () {
             if (!(!this.stale && !this.eurlStale))
@@ -147,42 +147,69 @@ __d(
             return o("WAWebProfilePicThumbCollection")
               .ProfilePicThumbCollection;
           }),
-          (a.$ProfilePicThumbImpl$p_1 = function (n, r) {
-            var t = o("WAWebProfilePicConstants").DEFAULT_HOSTNAME;
-            try {
-              t = this.$ProfilePicThumbImpl$p_2(n, r).hostname;
-            } catch (t) {
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "profile-pic host resolve failed, using fallback: ",
-                      "",
-                    ])),
-                  t,
-                )
-                .tags("mms4");
-            }
-            return "https://" + t + n;
+          (a.$ProfilePicThumbImpl$p_1 = function (t) {
+            var e,
+              n,
+              r =
+                (e = (n = this.lastHostUsed) == null ? void 0 : n.hostname) !=
+                null
+                  ? e
+                  : this.$ProfilePicThumbImpl$p_3();
+            return "https://" + r + t;
           }),
-          (a.$ProfilePicThumbImpl$p_2 = function (t, n) {
-            var e = o("WAWebMediaHosts").mediaHosts.getCachedHostsInfo({
-                directPath: t,
-                encFilehash: n,
-                operation: o("WAWebMediaHostsRouteSelection").OPERATIONS
-                  .DOWNLOAD,
-                type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PPIC,
-              }),
-              a = e.fallbackHost,
-              i = e.selectedHost,
-              l = r("WAWebMmsClientSelectHost")({
-                selectedHost: i,
-                fallbackHost: a,
+          (a.$ProfilePicThumbImpl$p_3 = function () {
+            try {
+              return this.$ProfilePicThumbImpl$p_4().selectedHost.hostname;
+            } catch (t) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "profile-pic host resolve failed, using fallback: ",
+                        "",
+                      ])),
+                    t,
+                  )
+                  .tags("mms4"),
+                o("WAWebProfilePicConstants").DEFAULT_HOSTNAME
+              );
+            }
+          }),
+          (a.$ProfilePicThumbImpl$p_2 = function () {
+            try {
+              var e = this.$ProfilePicThumbImpl$p_4(),
+                t = e.fallbackHost,
+                n = e.selectedHost;
+              return r("WAWebMmsClientSelectHost")({
+                selectedHost: n,
+                fallbackHost: t,
                 attemptCount: this.hostRetryCount,
                 lastHostUsed: this.lastHostUsed,
                 lastFetchMadeProgress: this.hostRetryCount === 0,
               });
-            return ((this.lastHostUsed = l), l);
+            } catch (e) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "profile-pic host resolve failed, using fallback: ",
+                        "",
+                      ])),
+                    e,
+                  )
+                  .tags("mms4"),
+                null
+              );
+            }
+          }),
+          (a.$ProfilePicThumbImpl$p_4 = function () {
+            return o("WAWebMediaHosts").mediaHosts.getCachedHostsInfo({
+              encFilehash: this.filehash,
+              operation: o("WAWebMediaHostsRouteSelection").OPERATIONS.DOWNLOAD,
+              type: o("WAWebMmsMediaTypes").MEDIA_TYPES.PPIC,
+            });
           }),
           (a.delete = function () {
             (t.prototype.delete.call(this),
@@ -193,9 +220,9 @@ __d(
           n
         );
       })(o("WAWebBaseModel").BaseModel);
-    ((s.Proxy = "profilePicThumb"), (s.idClass = r("WAWebWid")));
-    var u = o("WAWebBaseModel").defineModel(s);
-    ((l.ProfilePicThumbImpl = s), (l.ProfilePicThumb = u));
+    ((u.Proxy = "profilePicThumb"), (u.idClass = r("WAWebWid")));
+    var c = o("WAWebBaseModel").defineModel(u);
+    ((l.ProfilePicThumbImpl = u), (l.ProfilePicThumb = c));
   },
   98,
 );

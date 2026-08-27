@@ -47,6 +47,7 @@ __d(
         campaignSyncEnabled: [3, e.TYPES.BOOL],
         insightsSyncEnabled: [4, e.TYPES.BOOL],
         recipientLimit: [5, e.TYPES.INT32],
+        proCompanionSupportEnabled: [6, e.TYPES.BOOL],
       }),
       (y.name = "DeviceCapabilities$LIDMigration"),
       (y.internalSpec = { chatDbMigrationTimestamp: [1, e.TYPES.UINT64] }),

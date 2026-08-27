@@ -176,6 +176,8 @@ __d(
         "aymt_bizapp_account_unsettled_ad_account_notif",
       AYMT_BIZAPP_ACCOUNT_UNSETTLED_AD_ACCOUNT_NOTIF_INBOX:
         "aymt_bizapp_account_unsettled_ad_account_notif_inbox",
+      AYMT_BIZAPP_ACCOUNT_UNSETTLED_AD_ACCOUNT_NOTIF_GLOBAL_BANNER:
+        "aymt_bizapp_account_unsettled_ad_account_notif_global_banner",
       AYMT_STORED_BALANCE_NO_FUNDS_WITH_CAMPAIGNS_TIP:
         "aymt_stored_balance_no_funds_with_campaigns_tip",
       AYMT_INSTAGRAM_STORED_BALANCE_NO_FUNDS_TIP:
@@ -190,6 +192,8 @@ __d(
       AYMT_BIZAPP_ACCOUNT_SPEND_CAP_TIP: "aymt_bizapp_account_spend_cap_tip",
       AYMT_BIZAPP_ACCOUNT_SPEND_CAP_TIP_INBOX:
         "aymt_bizapp_account_spend_cap_tip_inbox",
+      AYMT_BIZAPP_ACCOUNT_SPEND_CAP_TIP_GLOBAL_BANNER:
+        "aymt_bizapp_account_spend_cap_tip_global_banner",
       AYMT_BIZAPP_ACCOUNT_NEAR_SPEND_CAP_TIP:
         "aymt_bizapp_account_near_spend_cap_tip",
       AYMT_BIZAPP_ACCOUNT_NEAR_SPEND_CAP_TIP_INBOX:
@@ -366,6 +370,7 @@ __d(
       BM_PARTNER_CONSOLE: "bm_partner_console",
       BIZAPP_PREPAY_WARNING_ALERT_CARD: "bizapp_prepay_warning_alert_card",
       BIZAPP_SPEND_CAP_ALERT_CARD: "bizapp_spend_cap_alert_card",
+      BIZAPP_UNSETTLED_ALERT_CARD: "bizapp_unsettled_alert_card",
       BM_ACCOUNT_SETTINGS: "bm_account_settings",
       BM_AD_ACC_PANE: "bm_ad_acc_pane",
       BM_HOME: "bm_home",

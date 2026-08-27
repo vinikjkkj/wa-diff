@@ -10,9 +10,13 @@ __d(
     function m(e, t, n) {
       return f(e, t, n, s);
     }
-    function p(e, t, n, r) {
-      var o = r ? u : u | d;
-      return f(e, t, n, o);
+    function p(e) {
+      var t = e.buffer,
+        n = e.hasFieldsToWrite,
+        r = e.id,
+        o = e.value,
+        a = n ? u : u | d;
+      return f(t, r, o, a);
     }
     function _(e, t, n, r) {
       var o = r ? c : c | d;

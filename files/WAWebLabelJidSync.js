@@ -58,7 +58,6 @@ __d(
             d = e.wid;
           if (
             !(
-              s == null ||
               !n ||
               u == null ||
               !a ||
@@ -69,33 +68,38 @@ __d(
             )
           ) {
             var p = JSON.stringify([l, d]);
-            if (!c.has(p)) {
-              c.add(p);
-              var _ = yield m.load(),
-                f = _.parseLabelAssociationModelMetadata,
-                g = f(s);
-              if (
-                !(
-                  g.length === 0 ||
-                  (yield o("WAWebSchemaLabelAssociation")
-                    .getLabelAssociationTable()
-                    .get([
-                      l,
-                      t,
-                      o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
-                    ])) != null
-                )
-              ) {
-                var h =
-                  u ===
-                  o("WAWebDetectedOutcomeLabelConstants").DO_LEAD_PREDEFINED_ID;
-                i.aeModelMetadataEmission = {
-                  lead: h,
-                  metadata: JSON.stringify(
-                    h ? { ae_model_data: g } : { paid: !1, ae_model_data: g },
-                  ),
-                };
+            if (
+              !c.has(p) &&
+              (c.add(p),
+              (yield o("WAWebSchemaLabelAssociation")
+                .getLabelAssociationTable()
+                .get([
+                  l,
+                  t,
+                  o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
+                ])) == null)
+            ) {
+              var _ =
+                u ===
+                o("WAWebDetectedOutcomeLabelConstants").DO_LEAD_PREDEFINED_ID;
+              if (s == null) {
+                i.detectedOutcomeSignalEmission = { lead: _ };
+                return;
               }
+              var f = yield m.load(),
+                g = f.parseLabelAssociationModelMetadata,
+                h = g(s);
+              i.detectedOutcomeSignalEmission =
+                h.length === 0
+                  ? { lead: _ }
+                  : {
+                      lead: _,
+                      metadata: JSON.stringify(
+                        _
+                          ? { ae_model_data: h }
+                          : { paid: !1, ae_model_data: h },
+                      ),
+                    };
             }
           }
         })),

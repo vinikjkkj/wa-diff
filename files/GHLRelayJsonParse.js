@@ -34,18 +34,25 @@ __d(
             o("GHLDetectionUtilsPreludeSafe").isJSONParseBehaviorallyShimmed()),
         s,
         u = !1;
-      if (l && r("gkx")("13760") && r("justknobx")._("5738"))
+      if (l && r("gkx")("23657") && r("justknobx")._("5765"))
         try {
-          var c = JSON.parse("[" + t + "]");
-          Array.isArray(c) && c.length === 1 && ((s = c[0]), (u = !0));
+          var c = JSON.parse('{"q7z":' + t + "}");
+          c != null && c.q7z != null && ((s = c.q7z), (u = !0));
+        } catch (e) {
+          u = !1;
+        }
+      if (!u && l && r("gkx")("13760") && r("justknobx")._("5738"))
+        try {
+          var d = JSON.parse("[" + t + "]");
+          Array.isArray(d) && d.length === 1 && ((s = d[0]), (u = !0));
         } catch (e) {
           u = !1;
         }
       if (!u && l) {
-        var d = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse();
-        if (d != null)
+        var m = o("GHLDetectionUtilsPreludeSafe").getCleanJSONParse();
+        if (m != null)
           try {
-            ((s = d(t)), (u = !0));
+            ((s = m(t)), (u = !0));
           } catch (e) {
             u = !1;
           }

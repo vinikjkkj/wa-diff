@@ -1173,32 +1173,34 @@ __d(
           previewAndJoinCallLink: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e, t, n, r, a, l) {
-                if (!o("WAWebVoipGatingUtils").callLinksEnabled()) {
-                  o("WALogger").ERROR(
-                    U ||
-                      (U = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: previewAndJoinCallLink: call links disabled",
-                      ])),
+                if (!o("WAWebVoipGatingUtils").callLinksEnabled())
+                  return (
+                    o("WALogger").ERROR(
+                      U ||
+                        (U = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: previewAndJoinCallLink: call links disabled",
+                        ])),
+                    ),
+                    -1
                   );
-                  return;
-                }
                 o("WAWebVoipLobbyEntryPointStore").setLobbyEntryPoint(
                   n != null ? n : null,
                   null,
                 );
                 var s = yield i;
-                (o("WAWebMLModelManager")
-                  .initMLModelsForCall(s)
-                  .catch(function (e) {
-                    o("WALogger").WARN(
-                      V ||
-                        (V = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [initMLModelsForCall] unhandled error: ",
-                          "",
-                        ])),
-                      e,
-                    );
-                  }),
+                return (
+                  o("WAWebMLModelManager")
+                    .initMLModelsForCall(s)
+                    .catch(function (e) {
+                      o("WALogger").WARN(
+                        V ||
+                          (V = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [initMLModelsForCall] unhandled error: ",
+                            "",
+                          ])),
+                        e,
+                      );
+                    }),
                   yield _e("previewAndJoinCallLink", {
                     token: e,
                     videoEnabled: t,
@@ -1206,7 +1208,9 @@ __d(
                     username: r != null ? r : "",
                     videoMuted: a != null ? a : !1,
                     pushName: l != null ? l : "",
-                  }));
+                  }),
+                  0
+                );
               },
             );
             function t(t, n, r, o, a, i) {

@@ -4,7 +4,7 @@ __d(
     "WATimeUtils",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebDrawerManager",
-    "WAWebExistingGroupPermissionsDrawer.react",
+    "WAWebExistingGroupPermissionsDrawerLoadable",
     "WAWebGetSharedSessionId",
     "WAWebGroupBulkRemovalWamEvent",
     "WAWebGroupJoinRequestMetricUtils",
@@ -103,11 +103,15 @@ __d(
                 chat: e,
                 groupMetadata: t,
               }
-            : s.jsx(r("WAWebExistingGroupPermissionsDrawer.react"), {
-                chat: e,
-                groupMetadata: t,
-                onClose: o("WAWebDrawerManager").closeDrawerRight,
-              }),
+            : s.jsx(
+                o("WAWebExistingGroupPermissionsDrawerLoadable")
+                  .ExistingGroupPermissionsDrawerLoadable,
+                {
+                  chat: e,
+                  groupMetadata: t,
+                  onClose: o("WAWebDrawerManager").closeDrawerRight,
+                },
+              ),
           {
             transition: "slide-left",
             focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,

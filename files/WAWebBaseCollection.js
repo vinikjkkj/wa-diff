@@ -185,7 +185,11 @@ __d(
                   ? (f || (f = n("Promise"))).resolve(u)
                   : this._inflight[s]
                 : !u || u.stale || l === g.UPDATE
-                  ? (this._inflight[s] = this._serverQuery(l, a, i)
+                  ? (this._inflight[s] = this._serverQuery({
+                      data: a,
+                      options: i,
+                      type: l,
+                    })
                       .finally(function () {
                         delete e._inflight[s];
                       })
@@ -221,33 +225,38 @@ __d(
           }),
           (i._serverQuery = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r, a, i;
-                e === g.UPDATE
-                  ? (i = this._update(t, n))
-                  : e === g.FIND
-                    ? (i = this.findImpl(t, n))
-                    : (i = this.findQueryImpl(t));
-                var l = yield i;
-                this._markResultsNotStale(l);
-                var s;
+              function* (e) {
+                var t,
+                  n,
+                  r = e.data,
+                  a = e.options,
+                  i = e.type,
+                  l;
+                i === g.UPDATE
+                  ? (l = this._update(r, a))
+                  : i === g.FIND
+                    ? (l = this.findImpl(r, a))
+                    : (l = this.findQueryImpl(r));
+                var s = yield l;
+                this._markResultsNotStale(s);
+                var u;
                 if (
-                  ((n == null ? void 0 : n.set) === !0
-                    ? (s = this.set(l))
-                    : (s = this.add(l, { merge: !0 })),
-                  Array.isArray(l))
+                  ((a == null ? void 0 : a.set) === !0
+                    ? (u = this.set(s))
+                    : (u = this.add(s, { merge: !0 })),
+                  Array.isArray(s))
                 )
-                  return s;
-                if (s[0]) return s[0];
+                  return u;
+                if (u[0]) return u[0];
                 throw new (o("WAWebMiscErrors").ModelCreateError)(
-                  (r = (a = this.modelClass) == null ? void 0 : a.name) != null
-                    ? r
+                  (t = (n = this.modelClass) == null ? void 0 : n.name) != null
+                    ? t
                     : "Unknown",
-                  l,
+                  s,
                 );
               },
             );
-            function t(t, n, r) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

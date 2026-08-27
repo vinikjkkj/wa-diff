@@ -4,7 +4,9 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebBaseCollection",
+    "WAWebBizBroadcastProOnboardingStatus",
     "WAWebChatComparator",
+    "WAWebChatGetters",
     "WAWebChatGroupUtils",
     "WAWebChatLockUpdateDailyStats",
     "WAWebChatModel",
@@ -33,6 +35,12 @@ __d(
                 e.initialIndex = t;
               });
             }),
+            o(
+              "WAWebBizBroadcastProOnboardingStatus",
+            ).bizBroadcastProNuxStateEmitter.on("change", function () {
+              e.forEach(d);
+            }),
+            e.on("add", d),
             e.enableSortListener(),
             e.listenTo(
               o("WAWebSocketModel").Socket,
@@ -114,7 +122,7 @@ __d(
             this._sortEnabled ||
               (this.listenTo(
                 this,
-                "change:t change:pin change:id change:isLocked change:endOfHistoryTransferType change:isParentGroup change:msgs change:createdLocally change:msgsLength",
+                "change:t change:pin change:id change:isLocked change:endOfHistoryTransferType change:isParentGroup change:msgs change:createdLocally change:msgsLength change:bbProStatus",
                 this.sort,
               ),
               t === !0 && this.sort(),
@@ -169,6 +177,15 @@ __d(
     ((u.model = o("WAWebChatModel").Chat),
       (u.comparator = r("WAWebChatComparator")));
     var c = new u();
+    function d(e) {
+      var t = o(
+        "WAWebBizBroadcastProOnboardingStatus",
+      ).getBizBroadcastProNuxOnboardingStatus();
+      t != null &&
+        o("WAWebChatGetters").getIsBroadcast(e) &&
+        e.bbProStatus !== t &&
+        (e.bbProStatus = t);
+    }
     ((l.ChatCollectionImpl = u), (l.ChatCollection = c));
   },
   98,

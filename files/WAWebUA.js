@@ -45,19 +45,23 @@ __d(
         f = a === "GECKO",
         g = a === "BLINK",
         h = !m && !u && ("" + n).includes("OCULUS"),
-        y = !1;
+        y =
+          i !== "ANDROID" &&
+          i !== "CHROMIUM OS" &&
+          /\blinux\b/i.test(e != null ? e : ""),
+        C = !1;
       e: {
         if (i === "MAC OS") {
-          y = !0;
+          C = !0;
           break e;
         }
         if (i === "WINDOWS") {
-          c(l, "8.1") && (f || m) && (y = !0);
+          c(l, "8.1") && (f || m) && (C = !0);
           break e;
         }
         break e;
       }
-      var C = m && c(o, "110.0.0");
+      var b = m && c(o, "110.0.0");
       return {
         isWebkit: s,
         isGecko: f,
@@ -66,9 +70,10 @@ __d(
         isFirefox: p,
         isBlink: g,
         isBuggyVideoLoad: g,
-        hasEmoji: y,
+        hasEmoji: C,
         troublesWithLotsOfVideos: r("gkx")("26258") === !0 && m,
         supportsEmojiEllipsification: !u,
+        isBrokenDocPip: y,
         isBrokenVoipWasm: u && c(o, "26.2") && d(o, "26.3"),
         os: i.toLowerCase(),
         osVersion: l,
@@ -77,7 +82,7 @@ __d(
         parser: t,
         isChrome: m,
         isOculusBrowser: h,
-        hasCredentiallessIframeSupport: C,
+        hasCredentiallessIframeSupport: b,
       };
     }
     var p = m(typeof self != "undefined" ? self.navigator.userAgent : null);

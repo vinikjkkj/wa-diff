@@ -5,9 +5,11 @@ __d(
     "WAWebABProps",
     "WAWebAiThreadCreationUtils",
     "WAWebBizBroadcastDeviceCapabilityCommon",
+    "WAWebBizBroadcastProOnboardingStatusType",
     "WAWebBotFrontendGating",
     "WAWebBotGating",
     "WAWebBotUtils",
+    "WAWebBusinessBroadcastsGatingUtils",
     "WAWebChatConstants",
     "WAWebChatFlowTypes",
     "WAWebChatGetters",
@@ -211,6 +213,33 @@ __d(
         function (e) {
           var t = e[0],
             n = e[1],
+            r = e[2],
+            a = e[3];
+          return n
+            ? t.user === "chat" ||
+              (o(
+                "WAWebBizBroadcastProOnboardingStatusType",
+              ).shouldUseBizBroadcastProEntrypoint(r != null ? r : null) &&
+                o(
+                  "WAWebBizBroadcastDeviceCapabilityCommon",
+                ).getPrimarySupportsBusinessBroadcastPro() &&
+                o(
+                  "WAWebBusinessBroadcastsGatingUtils",
+                ).isBizBroadcastProEnabled())
+              ? !0
+              : o(
+                    "WAWebBizBroadcastDeviceCapabilityCommon",
+                  ).isBizBroadcastEnabledAndDeviceSupported()
+                ? a > 0
+                : !1
+            : !1;
+        },
+        [s.getId, s.getIsBroadcast, s.getBBProStatus, T],
+      ),
+      re = d(
+        function (e) {
+          var t = e[0],
+            n = e[1],
             a = e[2],
             i = e[3],
             l = e[4],
@@ -226,14 +255,7 @@ __d(
             o("WAWebBotUtils").isHiddenBotWid(t)
           )
             return !1;
-          if (a)
-            return t.user === "chat"
-              ? !0
-              : o(
-                    "WAWebBizBroadcastDeviceCapabilityCommon",
-                  ).isBizBroadcastEnabledAndDeviceSupported()
-                ? p > 0
-                : !1;
+          if (a) return p;
           if (
             r("WAWebWid").isStatus(t) ||
             (i ===
@@ -272,10 +294,10 @@ __d(
           $,
           L,
           te,
-          T,
+          ne,
         ],
       ),
-      re = d(
+      oe = d(
         function (e) {
           for (
             var t = e[0],
@@ -303,7 +325,7 @@ __d(
         },
         [R, E, P, s.getId],
       ),
-      oe = d(
+      ae = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -339,7 +361,7 @@ __d(
         },
         [R, E, k, s.getEndOfHistoryTransferType],
       ),
-      ae = d(
+      ie = d(
         function (e) {
           var t = e[0];
           return o(
@@ -348,7 +370,7 @@ __d(
         },
         [R, E],
       ),
-      ie = d(
+      le = d(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -367,7 +389,7 @@ __d(
           s.getChangeNumberNewJid,
         ],
       ),
-      le = d(
+      se = d(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -412,12 +434,13 @@ __d(
       (l.getOptimisticUnreadCount = Z),
       (l.getShouldShowUnreadDivider = ee),
       (l.getHasDraftMessage = te),
-      (l.getShouldAppearInList = ne),
-      (l.getPreviewMessage = re),
-      (l.getShareableHistoryInfo = oe),
-      (l.getLatestJoinTimeByParticipant = ae),
-      (l.getShowChangeNumberNotification = ie),
-      (l.getDerivedLastAddOnPreview = le));
+      (l.getShouldBroadcastAppearInList = ne),
+      (l.getShouldAppearInList = re),
+      (l.getPreviewMessage = oe),
+      (l.getShareableHistoryInfo = ae),
+      (l.getLatestJoinTimeByParticipant = ie),
+      (l.getShowChangeNumberNotification = le),
+      (l.getDerivedLastAddOnPreview = se));
   },
   98,
 );

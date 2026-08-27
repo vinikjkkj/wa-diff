@@ -1,37 +1,41 @@
 __d(
   "WAWebBizBroadcastProOnboardingStatus",
   [
-    "$InternalEnum",
     "WAWebBizBroadcastEligibilityCache",
+    "WAWebBizBroadcastProOnboardingStatusType",
     "WAWebEventEmitter",
     "WAWebWamEnumBbTierType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("$InternalEnum").Mirrored([
-        "ELIGIBLE_TO_ONBOARD",
-        "NOT_ELIGIBLE",
-        "ONBOARDED",
-      ]),
-      s = null,
+    var e = null,
+      s = !1,
       u = !1,
       c = !1,
-      d = !1,
-      m = new (r("WAWebEventEmitter"))();
-    function p(e) {
-      ((s = e), (u = !0), (c = !0), m.trigger("change"));
+      d = new (r("WAWebEventEmitter"))();
+    function m(t) {
+      ((e = t), (s = !0), (u = !0), d.trigger("change"));
     }
-    function _(t) {
+    function p(t) {
       var n;
-      if (!c) {
-        var r = (n = t != null ? e.cast(t) : null) != null ? n : e.NOT_ELIGIBLE;
-        ((u = !0), r !== s && ((s = r), m.trigger("change")));
+      if (!u) {
+        var r =
+          (n =
+            t != null
+              ? o(
+                  "WAWebBizBroadcastProOnboardingStatusType",
+                ).BBProOnboardingStatus.cast(t)
+              : null) != null
+            ? n
+            : o("WAWebBizBroadcastProOnboardingStatusType")
+                .BBProOnboardingStatus.NOT_ELIGIBLE;
+        ((s = !0), r !== e && ((e = r), d.trigger("change")));
       }
     }
-    function f() {
-      if (s == null && !u) {
+    function _() {
+      if (e == null && !s) {
         var t;
-        u = !0;
+        s = !0;
         var n =
           (t = o("WAWebBizBroadcastEligibilityCache").readCache()) == null ||
           (t = t.result.bbPro) == null
@@ -39,41 +43,58 @@ __d(
             : t.status;
         if (n != null) {
           var r;
-          s = (r = e.cast(n)) != null ? r : e.NOT_ELIGIBLE;
+          e =
+            (r = o(
+              "WAWebBizBroadcastProOnboardingStatusType",
+            ).BBProOnboardingStatus.cast(n)) != null
+              ? r
+              : o("WAWebBizBroadcastProOnboardingStatusType")
+                  .BBProOnboardingStatus.NOT_ELIGIBLE;
         }
       }
-      return s;
+      return e;
+    }
+    function f() {
+      return _() != null;
     }
     function g() {
-      return f() != null;
+      return (
+        _() ===
+        o("WAWebBizBroadcastProOnboardingStatusType").BBProOnboardingStatus
+          .ELIGIBLE_TO_ONBOARD
+      );
     }
     function h() {
-      return f() === e.ELIGIBLE_TO_ONBOARD;
+      return (
+        _() ===
+        o("WAWebBizBroadcastProOnboardingStatusType").BBProOnboardingStatus
+          .ONBOARDED
+      );
     }
     function y() {
-      return f() === e.ONBOARDED;
-    }
-    function C() {
-      return y()
+      return h()
         ? o("WAWebWamEnumBbTierType").BB_TIER_TYPE.PRO
         : o("WAWebWamEnumBbTierType").BB_TIER_TYPE.CORE;
     }
+    function C() {
+      return c;
+    }
     function b() {
-      return d;
+      ((c = !0), d.trigger("change"));
     }
-    function v() {
-      ((d = !0), m.trigger("change"));
-    }
-    ((l.BBProOnboardingStatus = e),
-      (l.bizBroadcastProNuxStateEmitter = m),
-      (l.debugSetBizBroadcastProOnboardingStatus = p),
-      (l.updateBizBroadcastProEligibility = _),
-      (l.isBizBroadcastProNuxOnboardingStatusResolved = g),
-      (l.isBizBroadcastProEligibleToOnboard = h),
-      (l.isBizBroadcastProOnboarded = y),
-      (l.getBizBroadcastProductTier = C),
-      (l.isBizBroadcastProNuxOnboardingDismissed = b),
-      (l.dismissBizBroadcastProNuxOnboarding = v));
+    ((l.BBProOnboardingStatus = o(
+      "WAWebBizBroadcastProOnboardingStatusType",
+    ).BBProOnboardingStatus),
+      (l.bizBroadcastProNuxStateEmitter = d),
+      (l.debugSetBizBroadcastProOnboardingStatus = m),
+      (l.updateBizBroadcastProEligibility = p),
+      (l.getBizBroadcastProNuxOnboardingStatus = _),
+      (l.isBizBroadcastProNuxOnboardingStatusResolved = f),
+      (l.isBizBroadcastProEligibleToOnboard = g),
+      (l.isBizBroadcastProOnboarded = h),
+      (l.getBizBroadcastProductTier = y),
+      (l.isBizBroadcastProNuxOnboardingDismissed = C),
+      (l.dismissBizBroadcastProNuxOnboarding = b));
   },
   98,
 );

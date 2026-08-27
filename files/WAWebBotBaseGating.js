@@ -50,10 +50,10 @@ __d(
     function g() {
       return (
         y() &&
+        !r("justknobx")._("4767") &&
         o("WAWebABProps").getABPropConfigValue(
-          "ai_chat_meta_ai_null_state_web_enabled",
-        ) === !0 &&
-        !r("justknobx")._("4767")
+          "ai_retrigger_null_state_main_gate_v2_enabled",
+        ) === !0
       );
     }
     function h() {

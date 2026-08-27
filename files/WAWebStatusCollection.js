@@ -223,15 +223,13 @@ __d(
           return !0;
         }),
         (i.getStatusModel = function (t, n) {
-          var e = this.get(t);
-          if (e == null && n) {
-            var r =
-              t != null
-                ? o("WAWebApiContact").getAlternateUserWid(
-                    o("WAWebWidFactory").asUserWidOrThrow(t),
-                  )
-                : null;
-            e = r != null ? this.get(r) : null;
+          var e = this.get(t),
+            r = t.isUser();
+          if (e == null && n && r) {
+            var a = o("WAWebApiContact").getAlternateUserWid(
+              o("WAWebWidFactory").asUserWidOrThrow(t),
+            );
+            e = a != null ? this.get(a) : null;
           }
           return e;
         }),

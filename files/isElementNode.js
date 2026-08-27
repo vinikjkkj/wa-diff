@@ -3,7 +3,7 @@ __d(
   ["isNode"],
   function (t, n, r, o, a, i) {
     function e(e) {
-      return n("isNode")(e) && e.nodeType == 1;
+      return n("isNode")(e) && (e == null ? void 0 : e.nodeType) == 1;
     }
     a.exports = e;
   },

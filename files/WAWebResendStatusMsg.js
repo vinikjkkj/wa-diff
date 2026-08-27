@@ -74,6 +74,9 @@ __d(
               g,
               y,
               b,
+              o("WAWebEncryptAndSendStatusMsg").buildStatusMetaNode({
+                sessionScope: i,
+              }),
               v,
             ),
             R = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(S);

@@ -1,0 +1,35 @@
+__d(
+  "BoostedComponentProduct",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      BOOSTED_APP_INSTALL: "boosted_app_install",
+      BOOSTED_AUTOMATED_ADS: "boosted_automated_ads",
+      BOOSTED_AUTOMOTIVE_INVENTORY: "boosted_automotive_inventory",
+      BOOSTED_CALL_NOW: "boosted_call_now",
+      BOOSTED_CATALOG_SALES: "boosted_catalog_sales",
+      BOOSTED_CONSOLIDATED_PRODUCT: "boosted_consolidated_product",
+      BOOSTED_CTA: "boosted_cta",
+      BOOSTED_DEPRECATED_PRODUCT: "boosted_deprecated_product",
+      BOOSTED_EVENT: "boosted_event",
+      BOOSTED_FB_INSTAGRAM_MEDIA: "boosted_fb_instagram_media",
+      BOOSTED_FB_STORY: "boosted_fb_story",
+      BOOSTED_GROUP: "boosted_group",
+      BOOSTED_IG_STORY: "boosted_ig_story",
+      BOOSTED_INSTAGRAM_MEDIA: "boosted_instagram_media",
+      BOOSTED_INTEGRATED_BUSINESS: "boosted_integrated_business",
+      BOOSTED_LEAD_GEN: "boosted_lead_gen",
+      BOOSTED_LOCAL_AWARENESS: "boosted_local_awareness",
+      BOOSTED_MARKETPLACE_LISTING: "boosted_marketplace_listing",
+      BOOSTED_MESSAGE: "boosted_message",
+      BOOSTED_PAGELIKE: "boosted_pagelike",
+      BOOSTED_POST: "boosted_post",
+      BOOSTED_POST_AB_TEST: "boosted_post_ab_test",
+      BOOSTED_PURCHASE: "boosted_purchase",
+      BOOSTED_USER_POST: "boosted_user_post",
+      BOOSTED_WEBSITE: "boosted_website",
+    });
+    i.default = e;
+  },
+  66,
+);

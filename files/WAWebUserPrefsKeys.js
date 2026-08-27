@@ -59,6 +59,7 @@ __d(
         "WebQuestionsResponsePrivacyBannerDismissed",
         "UserHasAvatar",
         "BizBroadcastPrimaryCapability",
+        "BizBroadcastProPrimaryCapability",
         "BizBroadcastPrimaryRecipientLimit",
         "BizAiSettingsSyncPrimaryCapability",
         "GuestLastPageLoadTs",

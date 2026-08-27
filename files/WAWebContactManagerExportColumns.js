@@ -102,7 +102,7 @@ __d(
         },
       },
       {
-        header: s._(/*BTDS*/ "Address").toString(),
+        header: e.FBT_ADDRESS,
         getValue: function (t) {
           var e;
           return (e = t.address) != null ? e : "";

@@ -74,7 +74,8 @@ __d(
               var C = [],
                 b = i.length,
                 v,
-                S = !m && c.indexOf("[") < 0 && document.querySelectorAll,
+                S =
+                  !m && c.indexOf("[") < 0 && ("querySelectorAll" in document),
                 R = 0;
               R < b;
               R++

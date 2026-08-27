@@ -8,7 +8,6 @@ __d(
     "WAWebContactManagerCustomerProfileUpsertMutation.graphql",
     "WAWebCustomerProfileBirthday",
     "WAWebFetchAdAccountToken",
-    "WAWebLeadStage",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -160,7 +159,7 @@ __d(
     }
     function C(e, t) {
       var n = { lid: b(e) };
-      (t.leadStage != null && (n.lead_stage = v(t.leadStage)),
+      (t.leadStage != null && (n.lead_stage = String(t.leadStage)),
         t.name != null && t.name !== "" && (n.name = t.name),
         t.email != null && t.email !== "" && (n.email = t.email),
         t.address != null && t.address !== "" && (n.address = t.address),
@@ -178,19 +177,6 @@ __d(
             '"',
         );
       return e.slice(0, -o("WAJids").LID_DOMAIN.length);
-    }
-    function v(e) {
-      return e === o("WAWebLeadStage").LeadStage.INTAKE
-        ? "INTAKE"
-        : e === o("WAWebLeadStage").LeadStage.QUALIFIED
-          ? "QUALIFIED"
-          : e === o("WAWebLeadStage").LeadStage.CONVERTED
-            ? "CONVERTED"
-            : e === o("WAWebLeadStage").LeadStage.LOST
-              ? "LOST"
-              : e === o("WAWebLeadStage").LeadStage.NOT_QUALIFIED
-                ? "NOT_QUALIFIED"
-                : "NONE";
     }
     ((l.upsertCustomerProfileToServer = d),
       (l.upsertCustomerProfileFieldToServer = p));

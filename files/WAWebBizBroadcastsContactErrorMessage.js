@@ -17,15 +17,22 @@ __d(
                     o("WAWebContactImportTypedError").UsernameError.DUPLICATE
                   ? s._(/*BTDS*/ "Duplicate username")
                   : e ===
-                      o("WAWebContactImportTypedError").ExistingContactError
-                        .ALREADY_EXISTS
-                    ? s._(/*BTDS*/ "Already exists")
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
+                      o("WAWebContactImportTypedError").UsernameError.MISMATCH
+                    ? s._(/*BTDS*/ "Username does not match number")
+                    : e ===
+                        o("WAWebContactImportTypedError").UsernameError
+                          .REQUIRES_PHONE
+                      ? s._(/*BTDS*/ "Add a phone number")
+                      : e ===
+                          o("WAWebContactImportTypedError").ExistingContactError
+                            .ALREADY_EXISTS
+                        ? s._(/*BTDS*/ "Already exists")
+                        : (function () {
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                e,
+                            );
+                          })();
     }
     l.default = e;
   },

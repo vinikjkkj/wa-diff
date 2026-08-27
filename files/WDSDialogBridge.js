@@ -5,26 +5,27 @@ __d(
     "use strict";
     var e = 150,
       l = null,
-      s = null;
-    function u(e) {
-      l == null || l(e);
+      s = null,
+      u = null;
+    function c(e) {
+      l != null ? l(e) : (u = e);
     }
-    function c() {
-      s == null || s();
+    function d() {
+      s != null ? s() : u != null && (u = null);
     }
-    function d(e, t) {
-      return (
-        (l = e),
-        (s = t),
-        function () {
-          ((l = null), (s = null));
-        }
-      );
+    function m(e, t) {
+      if (((l = e), (s = t), u != null)) {
+        var n = u;
+        ((u = null), e(n));
+      }
+      return function () {
+        ((l = null), (s = null));
+      };
     }
     ((i.DIALOG_EXIT_ANIMATION_DURATION = e),
-      (i.openWDSDialog = u),
-      (i.closeWDSDialog = c),
-      (i.registerDialogManager = d));
+      (i.openWDSDialog = c),
+      (i.closeWDSDialog = d),
+      (i.registerDialogManager = m));
   },
   66,
 );

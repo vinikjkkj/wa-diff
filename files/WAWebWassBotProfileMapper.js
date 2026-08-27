@@ -7,7 +7,9 @@ __d(
         ? null
         : e === "THIRD_PARTY"
           ? o("WAWebBotProduct").BotProduct.THIRD_PARTY.valueOf()
-          : e;
+          : e === "MANUS"
+            ? o("WAWebBotProduct").BotProduct.MANUS.valueOf()
+            : e;
     }
     function s(t) {
       var n;

@@ -12,7 +12,6 @@ __d(
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         !r("WAWebEnvironment").isGuest &&
-        e.canSend &&
         !o("WAWebChatGetters").getIsBroadcast(e) &&
         t != null &&
         o("WAWebContactManagerGating").isEligibleForCustomerFields(t) &&

@@ -5,6 +5,7 @@ __d(
     "FBLogger",
     "JSResource",
     "VultureJSGating",
+    "VultureJSServerHits",
     "asyncToGeneratorRuntime",
     "clearTimeout",
     "objectEntries",
@@ -92,8 +93,10 @@ __d(
           : v());
     }
     function R(e) {
-      o("VultureJSGating").isLoggingEnabled() &&
-        (d && c != null ? h(e) : (y(e), S()));
+      if (o("VultureJSGating").isLoggingEnabled()) {
+        if (o("VultureJSServerHits").collectServerHit(e)) return;
+        d && c != null ? h(e) : (y(e), S());
+      }
     }
     l.default = R;
   },

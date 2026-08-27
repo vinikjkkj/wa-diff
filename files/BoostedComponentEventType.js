@@ -1814,6 +1814,7 @@ __d(
       SAPR_PAUSE_DIALOG_KEEP_RUNNING: "sapr_pause_dialog_keep_running",
       SAPR_PAUSE_DIALOG_PAUSE_CONFIRMED: "sapr_pause_dialog_pause_confirmed",
       SAPR_VIEW_RESULTS_IMPRESSION: "sapr_view_results_impression",
+      CO_PV_PE_WITH_SABR: "co_pv_pe_with_sabr",
     });
     i.default = e;
   },

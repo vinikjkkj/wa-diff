@@ -79,7 +79,12 @@ __d(
               )) != null
                 ? t
                 : n.weight;
-            o("WAWebWamLibProtocol").writeEvent(r, n.id, -g, m);
+            o("WAWebWamLibProtocol").writeEvent({
+              buffer: r,
+              hasFieldsToWrite: m,
+              id: n.id,
+              value: -g,
+            });
             for (var h = 0; h <= d; h++) {
               var y = l[h],
                 C = o("WAWebWamCodegenUtils").metrics.getEvent(n.$className, y),

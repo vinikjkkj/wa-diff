@@ -75,6 +75,7 @@ __d(
               r("parentCompanyName"),
               r("obaPhoneNumber"),
               r("suggestedRepliesEnabled"),
+              r("aiHandoffStartedAt"),
             ])
             .version(n.chatAddDisappearingModeInitiator(), [
               r("disappearingModeInitiator"),

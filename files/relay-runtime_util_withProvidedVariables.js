@@ -3,28 +3,27 @@ __d(
   ["areEqual", "warning"],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e,
-      l = typeof WeakMap == "function",
-      s = l ? new WeakMap() : new Map();
-    function u(e, t) {
+    var e;
+    function l(e, t, n) {
       if (t != null) {
-        var n = {};
+        var r = {};
         return (
-          Object.assign(n, e),
+          Object.assign(r, e),
           Object.keys(t).forEach(function (e) {
-            var r = t[e].get,
-              o = r();
-            if (!s.has(r)) (s.set(r, o), (n[e] = o));
-            else {
-              var a = s.get(r);
-              n[e] = a;
+            var o = t[e].get;
+            if (n.has(o)) {
+              var i = n.get(o);
+              r[e] = i;
+            } else {
+              var a = o();
+              (n.set(o, a), (r[e] = a));
             }
           }),
-          n
+          r
         );
       } else return e;
     }
-    ((u.tests_only_resetDebugCache = void 0), (a.exports = u));
+    a.exports = l;
   },
   null,
 );

@@ -9,7 +9,7 @@ __d(
         "DUPLICATE",
       ]),
       s = e.Mirrored(["INVALID", "EMPTY"]),
-      u = e.Mirrored(["DUPLICATE"]),
+      u = e.Mirrored(["DUPLICATE", "MISMATCH", "REQUIRES_PHONE"]),
       c = e.Mirrored(["ALREADY_EXISTS"]),
       d = e.Mirrored(["TYPE", "FORMAT", "TOO_MANY_ITEMS", "TOO_MANY_ERRORS"]),
       m = (function (e) {

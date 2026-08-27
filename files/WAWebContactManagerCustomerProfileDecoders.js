@@ -5,45 +5,15 @@ __d(
     "WAWebCustomerProfileAcquisitionSource",
     "WAWebLeadStage",
     "XFBWACustomerProfileAcquisitionSource.facebook",
-    "XFBWACustomerProfileLeadStage.facebook",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e === "INTAKE"
-        ? o("WAWebLeadStage").LeadStage.INTAKE
-        : e === "QUALIFIED"
-          ? o("WAWebLeadStage").LeadStage.QUALIFIED
-          : e === "CONVERTED"
-            ? o("WAWebLeadStage").LeadStage.CONVERTED
-            : e === "LOST"
-              ? o("WAWebLeadStage").LeadStage.LOST
-              : e === "NOT_QUALIFIED"
-                ? o("WAWebLeadStage").LeadStage.NOT_QUALIFIED
-                : e === "NONE"
-                  ? o("WAWebLeadStage").LeadStage.NONE
-                  : null;
+      return e == null
+        ? null
+        : o("WAWebLeadStage").getLeadStageFromNumber(Number.parseInt(e, 10));
     }
     function s(e) {
-      return r("XFBWACustomerProfileLeadStage.facebook").getName(
-        e === o("WAWebLeadStage").LeadStage.INTAKE
-          ? "INTAKE"
-          : e === o("WAWebLeadStage").LeadStage.QUALIFIED
-            ? "QUALIFIED"
-            : e === o("WAWebLeadStage").LeadStage.CONVERTED
-              ? "CONVERTED"
-              : e === o("WAWebLeadStage").LeadStage.LOST
-                ? "LOST"
-                : e === o("WAWebLeadStage").LeadStage.NOT_QUALIFIED
-                  ? "NOT_QUALIFIED"
-                  : e === o("WAWebLeadStage").LeadStage.NONE
-                    ? "NONE"
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })(),
-      );
+      return String(e);
     }
     function u(e) {
       var t = d(e);

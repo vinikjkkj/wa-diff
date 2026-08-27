@@ -1,6 +1,6 @@
 __d(
   "WAWebUsernameUnknownUserDisplayedWamEvent",
-  ["WAWebWamCodegenUtils"],
+  ["WAWebWamCodegenUtils", "WAWebWamEnumUnknownUserRecoveryPath"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e = o("WAWebWamCodegenUtils")).defineEvents(
@@ -18,6 +18,11 @@ __d(
               jidType: [8, e.TYPES.STRING],
               unknownUserDisplayContext: [1, e.TYPES.STRING],
               unknownUserDisplayLid: [9, e.TYPES.STRING],
+              unknownUserRecoveryPath: [
+                11,
+                o("WAWebWamEnumUnknownUserRecoveryPath")
+                  .UNKNOWN_USER_RECOVERY_PATH,
+              ],
             },
             [1, 1, 1],
             "regular",

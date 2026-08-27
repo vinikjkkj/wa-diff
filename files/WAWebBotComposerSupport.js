@@ -24,7 +24,9 @@ __d(
                 o("WAWebBotSupportState").BotSupportStateKind.DEPRECATED
               ? e.DEPRECATED
               : i.kind === o("WAWebBotSupportState").BotSupportStateKind.DELETED
-                ? e.DELETED
+                ? o("WAWebBotSupportState").hasCustomDeletedTombstone(i)
+                  ? e.DELETED
+                  : e.DEPRECATED
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

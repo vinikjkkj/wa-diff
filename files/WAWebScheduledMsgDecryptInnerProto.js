@@ -78,9 +78,7 @@ __d(
       );
     }
     function p(e) {
-      return e instanceof ArrayBuffer
-        ? e
-        : e.buffer.slice(e.byteOffset, e.byteOffset + e.byteLength);
+      return e instanceof ArrayBuffer ? e : e.slice().buffer;
     }
     ((l.decryptAndDecodeRevealPayload = u),
       (l.decryptAndDecodeRevealPayloadWithBytes = d));

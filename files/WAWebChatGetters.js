@@ -37,96 +37,97 @@ __d(
       $ = c("draftMessage"),
       P = c("capiThreadControl"),
       N = c("suggestedRepliesEnabled"),
-      M = c("tcToken"),
-      w = c("tcTokenTimestamp"),
-      A = c("previewT"),
-      F = u(
+      M = c("bbProStatus"),
+      w = c("tcToken"),
+      A = c("tcTokenTimestamp"),
+      F = c("previewT"),
+      O = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isUser(t);
         },
         [_],
       ),
-      O = u(
+      B = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t);
         },
         [_],
       ),
-      B = u(
+      W = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t);
         },
         [_],
       ),
-      W = u(
+      q = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isGroup(t);
         },
         [_],
       ),
-      q = u(
+      U = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBroadcast(t);
         },
         [_],
       ),
-      U = u(
+      V = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isNewsletter(t);
         },
         [_],
       ),
-      V = u(
+      H = u(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isBot(t);
         },
         [_],
       ),
-      H = u(
+      G = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isMetaAiBot(t);
         },
         [_],
       ),
-      G = u(
+      z = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBusinessAssistantBot(t);
         },
         [_],
       ),
-      z = u(
+      j = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isHatchBot(t);
         },
         [_],
       ),
-      j = u(
+      K = u(
         function (e) {
           var t = e[0];
           return o("WAWebBotUtils").isBotChannelFBID(t);
         },
         [_],
       ),
-      K = u(
+      Q = u(
         function (e) {
           var t = e[0],
             n = e[1];
           return !t && !n;
         },
-        [q, O],
+        [U, B],
       ),
-      Q = u(o("WAWebBoolFunc").returnTrue, [q]),
-      X = u(
+      X = u(o("WAWebBoolFunc").returnTrue, [U]),
+      Y = u(
         function (e) {
           var t = e[0];
           return t !== 0;
@@ -155,23 +156,24 @@ __d(
       (l.getDraftMessage = $),
       (l.getCapiThreadControl = P),
       (l.getSuggestedRepliesEnabled = N),
-      (l.getTcToken = M),
-      (l.getTcTokenTimestamp = w),
-      (l.getPreviewT = A),
-      (l.getIsUser = F),
-      (l.getIsPSA = O),
-      (l.getIsIAS = B),
-      (l.getIsGroup = W),
-      (l.getIsBroadcast = q),
-      (l.getIsNewsletter = U),
-      (l.getIsBot = V),
-      (l.getIsMetaAiBot = H),
-      (l.getIsBusinessAssistantBot = G),
-      (l.getIsHatchBot = z),
-      (l.getIsBotChannel = j),
-      (l.getIsEligibleForContactSync = K),
-      (l.getCanUnread = Q),
-      (l.getHasUnread = X));
+      (l.getBBProStatus = M),
+      (l.getTcToken = w),
+      (l.getTcTokenTimestamp = A),
+      (l.getPreviewT = F),
+      (l.getIsUser = O),
+      (l.getIsPSA = B),
+      (l.getIsIAS = W),
+      (l.getIsGroup = q),
+      (l.getIsBroadcast = U),
+      (l.getIsNewsletter = V),
+      (l.getIsBot = H),
+      (l.getIsMetaAiBot = G),
+      (l.getIsBusinessAssistantBot = z),
+      (l.getIsHatchBot = j),
+      (l.getIsBotChannel = K),
+      (l.getIsEligibleForContactSync = Q),
+      (l.getCanUnread = X),
+      (l.getHasUnread = Y));
   },
   98,
 );

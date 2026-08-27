@@ -157,6 +157,7 @@ __d(
             (e.capiThreadControl = o("WAWebBaseModel").prop()),
             (e.isAiHandoff = o("WAWebBaseModel").prop()),
             (e.aiHandoffRemovalExpiry = o("WAWebBaseModel").prop()),
+            (e.aiHandoffStartedAt = o("WAWebBaseModel").prop()),
             (e.suggestedRepliesEnabled = o("WAWebBaseModel").prop()),
             (e.capiCallingPermissionType = o("WAWebBaseModel").prop()),
             (e.ephemeralDuration = o("WAWebBaseModel").prop()),
@@ -203,6 +204,7 @@ __d(
             (e.groupMetadata = o("WAWebBaseModel").session()),
             (e.broadcastMetadata = o("WAWebBaseModel").session()),
             (e.broadcastRecipientCount = o("WAWebBaseModel").session(0)),
+            (e.bbProStatus = o("WAWebBaseModel").session()),
             (e.newsletterMetadata = o("WAWebBaseModel").session()),
             (e.presence = o("WAWebBaseModel").session()),
             (e.mute = o("WAWebBaseModel").session()),
@@ -1774,11 +1776,13 @@ __d(
                     this,
                   ))
                 : ((this.isAiHandoff = !1),
+                  (this.aiHandoffStartedAt = null),
                   o("WAWebBizAiHandoffRemoval").clearHandoffRemovalExpiry(
                     this,
                   )),
               r &&
-                ((this.unreadCount = 1),
+                ((this.aiHandoffStartedAt = o("WATimeUtils").unixTime()),
+                (this.unreadCount = 1),
                 o("WAWebNotificationBackend")
                   .showAiHandoffNotification(this)
                   .catch(
@@ -1798,6 +1802,7 @@ __d(
                 unreadCount: this.unreadCount,
                 isAiHandoff: this.isAiHandoff,
                 aiHandoffRemovalExpiry: this.aiHandoffRemovalExpiry,
+                aiHandoffStartedAt: this.aiHandoffStartedAt,
               })
             );
           }),

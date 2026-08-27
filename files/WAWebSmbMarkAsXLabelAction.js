@@ -93,7 +93,7 @@ __d(
           },
           !0,
         ),
-          _(a, [i], !0, null, { labelId: i, metadata: r }));
+          _(a, [i], !0, null, r == null ? null : { labelId: i, metadata: r }));
       }
     }
     function _(e, t, n, a, i) {
@@ -202,7 +202,7 @@ __d(
             e instanceof o("WAWebChatModel").Chat && _(e, r, n);
           }));
     }
-    ((l.emitAeModelMetadataConversionOnReceive = p),
+    ((l.emitDetectedOutcomeSignalsOnReceive = p),
       (l.logLabelAddedToChatAction = _),
       (l.logLabelSignalForModels = f));
   },

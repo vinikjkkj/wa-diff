@@ -14,8 +14,11 @@ __d(
     function s(e) {
       var t = e.getContext("2d"),
         n = t.getImageData(0, 0, e.width, e.height);
-      return r("WAWebEncodeRgbaToWebp")(n.data, e.width, e.height, {
-        ensureExtendedFormat: !0,
+      return r("WAWebEncodeRgbaToWebp")({
+        height: e.height,
+        opts: { ensureExtendedFormat: !0 },
+        rgbaData: n.data,
+        width: e.width,
       });
     }
     function u(t, r) {

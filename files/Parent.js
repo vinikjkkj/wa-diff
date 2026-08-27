@@ -17,10 +17,10 @@ __d(
     }
     function u(e, t) {
       var n = e;
-      if (typeof n.matches == "function") {
+      if (typeof e.matches == "function") {
         for (; n && n !== document && !n.matches(t); ) n = n.parentNode;
         return n instanceof Element ? n : null;
-      } else if (typeof n.msMatchesSelector == "function") {
+      } else if (typeof e.msMatchesSelector == "function") {
         for (; n && n !== document && !n.msMatchesSelector(t); )
           n = n.parentNode;
         return n instanceof Element ? n : null;

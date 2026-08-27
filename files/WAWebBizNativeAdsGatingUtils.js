@@ -83,19 +83,14 @@ __d(
       );
     }
     function y() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_ctwa_web_enable_continuous_duration",
-      );
-    }
-    function C() {
       return r("justknobx")._("458");
     }
-    function b() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_web_native_ads_sabr_enabled",
       );
     }
-    function v() {
+    function b() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -103,22 +98,22 @@ __d(
         )
       );
     }
-    function S() {
+    function v() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        (b() ||
+        (C() ||
           o("WAWebABProps").getABPropConfigValue(
             "ctwa_web_native_ads_budget_recommendation_enabled",
           ))
       );
     }
-    function R() {
+    function S() {
       return r("justknobx")._("4412");
     }
-    function L() {
-      return b() || r("justknobx")._("1666");
+    function R() {
+      return C() || r("justknobx")._("1666");
     }
-    function E() {
+    function L() {
       var e = o("WAWebABProps")
         .getABPropConfigValue("ctwa_native_ads_inline_notice_modules")
         .split(",");
@@ -137,14 +132,13 @@ __d(
       (l.nativeAdsDetailedTargetingEnabled = f),
       (l.nativeAdsMvpQE1Enabled = g),
       (l.nativeAdsMvpQE1EnabledNoExposure = h),
-      (l.continuousDurationEnabled = y),
-      (l.sendRunContinuouslyEnabled = C),
-      (l.tempSabrQABackdoor = b),
-      (l.ctwaSabrEnabled = v),
-      (l.ctwaBudgetRecommendationEnabled = S),
-      (l.minMaxBudgetFixesEnabled = R),
-      (l.inlineNoticePartitionEnabled = L),
-      (l.ctwaInlineNoticeModules = E));
+      (l.sendRunContinuouslyEnabled = y),
+      (l.tempSabrQABackdoor = C),
+      (l.ctwaSabrEnabled = b),
+      (l.ctwaBudgetRecommendationEnabled = v),
+      (l.minMaxBudgetFixesEnabled = S),
+      (l.inlineNoticePartitionEnabled = R),
+      (l.ctwaInlineNoticeModules = L));
   },
   98,
 );

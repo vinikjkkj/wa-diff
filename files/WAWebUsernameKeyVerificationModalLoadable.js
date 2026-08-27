@@ -3,10 +3,10 @@ __d(
   [
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
+    "WAWebLoadable",
     "WAWebLoadingModal.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-loadable",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,7 +22,7 @@ __d(
         }),
         "UsernameKeyVerificationModal",
       ),
-      c = r("react-loadable")({
+      c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {
           return s.jsx(r("WAWebLoadingModal.react"), { error: !!t.error });

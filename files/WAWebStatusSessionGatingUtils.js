@@ -20,7 +20,9 @@ __d(
     }
     function u() {
       var t = s();
-      return t === e.SENDER_ENABLED || t === e.FORCED;
+      return t === e.SENDER_ENABLED || t === e.FORCED
+        ? o("WAWebSessionScope").SessionScope.STATUS
+        : o("WAWebSessionScope").SessionScope.DEFAULT;
     }
     function c(t) {
       t === void 0 && (t = void 0);
@@ -33,7 +35,7 @@ __d(
     }
     ((l.StatusSessionReceiverState = e),
       (l.getStatusSessionReceiverState = s),
-      (l.shouldUseStatusSessionForOutgoingMessage = u),
+      (l.getStatusSessionScope = u),
       (l.shouldUseStatusSessionForIncomingMessage = c));
   },
   98,

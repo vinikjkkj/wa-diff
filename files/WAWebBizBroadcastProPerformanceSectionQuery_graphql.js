@@ -27,45 +27,7 @@ __d(
             ],
             storageKey: null,
           },
-        ],
-        o = {
-          kind: "InlineFragment",
-          selections: [
-            {
-              alias: null,
-              args: null,
-              concreteType: "WhatsAppBusinessMessagingBroadcastInsights",
-              kind: "LinkedField",
-              name: "broadcast_insights",
-              plural: !1,
-              selections: [
-                {
-                  alias: null,
-                  args: null,
-                  concreteType: "XFBWhatsAppBusinessMessagingEngagementMetric",
-                  kind: "LinkedField",
-                  name: "quick_reply_clicks",
-                  plural: !0,
-                  selections: r,
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: null,
-                  concreteType: "XFBWhatsAppBusinessMessagingEngagementMetric",
-                  kind: "LinkedField",
-                  name: "cta_url_clicks",
-                  plural: !0,
-                  selections: r,
-                  storageKey: null,
-                },
-              ],
-              storageKey: null,
-            },
-          ],
-          type: "XFBWhatsAppBusinessMMLiteCampaign",
-          abstractKey: null,
-        };
+        ];
       return {
         fragment: {
           argumentDefinitions: e,
@@ -80,7 +42,31 @@ __d(
               kind: "LinkedField",
               name: "node",
               plural: !1,
-              selections: [o],
+              selections: [
+                {
+                  kind: "InlineFragment",
+                  selections: [
+                    {
+                      fragment: {
+                        kind: "InlineFragment",
+                        selections: [
+                          {
+                            args: null,
+                            kind: "FragmentSpread",
+                            name: "WAWebBizBroadcastProPerformanceSection_campaign",
+                          },
+                        ],
+                        type: "XFBWhatsAppBusinessMMLiteCampaign",
+                        abstractKey: null,
+                      },
+                      kind: "AliasedInlineFragmentSpread",
+                      name: "WAWebBizBroadcastProPerformanceSection_campaign",
+                    },
+                  ],
+                  type: "XFBWhatsAppBusinessMMLiteCampaign",
+                  abstractKey: null,
+                },
+              ],
               storageKey: null,
             },
           ],
@@ -108,7 +94,47 @@ __d(
                   name: "__typename",
                   storageKey: null,
                 },
-                o,
+                {
+                  kind: "InlineFragment",
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType:
+                        "WhatsAppBusinessMessagingBroadcastInsights",
+                      kind: "LinkedField",
+                      name: "broadcast_insights",
+                      plural: !1,
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType:
+                            "XFBWhatsAppBusinessMessagingEngagementMetric",
+                          kind: "LinkedField",
+                          name: "quick_reply_clicks",
+                          plural: !0,
+                          selections: r,
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType:
+                            "XFBWhatsAppBusinessMessagingEngagementMetric",
+                          kind: "LinkedField",
+                          name: "cta_url_clicks",
+                          plural: !0,
+                          selections: r,
+                          storageKey: null,
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  type: "XFBWhatsAppBusinessMMLiteCampaign",
+                  abstractKey: null,
+                },
                 {
                   alias: null,
                   args: null,

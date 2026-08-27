@@ -3,8 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebClientPayload",
-    "WAWebPassiveModeManager",
-    "WAWebRegisterPassiveTasksForConnect",
+    "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,7 +17,7 @@ __d(
           var n = t || { passive: !1, pull: !0 },
             r = self.performance.now();
           (yield o(
-            "WAWebRegisterPassiveTasksForConnect",
+            "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
           ).registerPassiveTasksForConnect(),
             o("WALogger")
               .LOG(
@@ -30,9 +29,9 @@ __d(
                 Math.ceil(self.performance.now() - r),
               )
               .tags("launch-socket-chat"),
-            (n.passive = o(
-              "WAWebPassiveModeManager",
-            ).PassiveTaskManager.shouldConnectAsPassiveMode()));
+            (n.passive = yield o(
+              "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
+            ).shouldConnectAsPassiveMode()));
           var a = self.performance.now(),
             i = yield o("WAWebClientPayload").getClientPayloadForLogin(n);
           return (

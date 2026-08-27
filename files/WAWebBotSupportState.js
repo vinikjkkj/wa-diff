@@ -18,11 +18,19 @@ __d(
         ? { kind: e.UNSUPPORTED, rawProduct: t.product }
         : n(r)
           ? t.isDeleted === !0
-            ? { kind: e.DELETED }
+            ? { kind: e.DELETED, product: r }
             : { kind: e.SUPPORTED, product: r }
           : { kind: e.UNSUPPORTED, rawProduct: t.product };
     }
-    ((l.BotSupportStateKind = e), (l.evaluateBotSupport = s));
+    function u(t) {
+      return (
+        t.kind === e.DELETED &&
+        t.product === o("WAWebBotProduct").BotProduct.THIRD_PARTY
+      );
+    }
+    ((l.BotSupportStateKind = e),
+      (l.evaluateBotSupport = s),
+      (l.hasCustomDeletedTombstone = u));
   },
   98,
 );

@@ -53,7 +53,7 @@ __d(
     "WAWebMutePopup.react",
     "WAWebNewsletterRevokeMsgAction",
     "WAWebNoop",
-    "WAWebProductCatalogProductImageViewFlow.react",
+    "WAWebProductCatalogProductImageViewFlowLoadable",
     "WAWebQplFlowWrapper",
     "WAWebRemoveFromFavoritesAction",
     "WAWebSendMsgResultAction",
@@ -115,13 +115,17 @@ __d(
       a[2] !== d
         ? ((h = function (t, n) {
             o("WAWebModalManager").ModalManager.openMedia(
-              m.jsx(r("WAWebProductCatalogProductImageViewFlow.react"), {
-                activeProductImage: t.activeProductImage,
-                productImageCollection: t.productImageCollection,
-                getZoomNode: t.getZoomNode,
-                product: t.product,
-                sessionId: n,
-              }),
+              m.jsx(
+                o("WAWebProductCatalogProductImageViewFlowLoadable")
+                  .ProductCatalogProductImageViewFlowLoadable,
+                {
+                  activeProductImage: t.activeProductImage,
+                  productImageCollection: t.productImageCollection,
+                  getZoomNode: t.getZoomNode,
+                  product: t.product,
+                  sessionId: n,
+                },
+              ),
               { transition: "media-viewer", uim: d },
             );
           }),
@@ -974,7 +978,7 @@ __d(
       return !e.id;
     }
     function k(e, t) {
-      o("WAWebBizAiAgentStatusUtils").isChatEligibleForAiAgent(e) &&
+      o("WAWebBizAiAgentStatusUtils").canChangeAiReplyStatus(e) &&
         (t
           ? o("WAWebModalManager").ModalManager.open(
               m.jsx(r("WAWebBizAiRepliesControlPopup.react"), { chat: e }),

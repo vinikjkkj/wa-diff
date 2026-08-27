@@ -3,9 +3,8 @@ __d(
   ["objectValues", "relay-runtime/util/withProvidedVariables"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t,
-        n,
+    function e(e, t) {
+      var n,
         o,
         a,
         i,
@@ -13,45 +12,47 @@ __d(
         s,
         u,
         c,
-        d = r("relay-runtime/util/withProvidedVariables")(
+        d,
+        m = r("relay-runtime/util/withProvidedVariables")(
           e.variables,
           e.parameters.params.providedVariables,
+          t,
         );
       return {
         actor_id:
-          (t =
-            (n = e.environmentProviderOptions) == null ? void 0 : n.actorID) !=
+          (n =
+            (o = e.environmentProviderOptions) == null ? void 0 : o.actorID) !=
           null
-            ? t
+            ? n
             : null,
         exclude_from_ssr:
-          (o =
-            (a = e.environmentProviderOptions) == null
+          (a =
+            (i = e.environmentProviderOptions) == null
               ? void 0
-              : a.excludeFromSSR) != null
-            ? o
+              : i.excludeFromSSR) != null
+            ? a
             : !1,
         graphql_env_override_ref:
-          (i =
-            (l = e.environmentProviderOptions) == null
+          (l =
+            (s = e.environmentProviderOptions) == null
               ? void 0
-              : l.graphQLEnvOverrideRef) != null
-            ? i
+              : s.graphQLEnvOverrideRef) != null
+            ? l
             : null,
         id: e.parameters.params.id,
         name: e.parameters.params.name,
         num_connections_for_ssr:
-          (s =
-            (u = e.environmentProviderOptions) == null
+          (u =
+            (c = e.environmentProviderOptions) == null
               ? void 0
-              : u.numConnectionsForSSR) != null
-            ? s
+              : c.numConnectionsForSSR) != null
+            ? u
             : null,
         preloader_group:
-          (c = e.environmentProviderOptions) == null
+          (d = e.environmentProviderOptions) == null
             ? void 0
-            : c.preloaderGroup,
-        variables: d,
+            : d.preloaderGroup,
+        variables: m,
       };
     }
     function s(e, t) {
@@ -91,32 +92,40 @@ __d(
     }
     function u(t, n) {
       var r = s(t, n),
-        o = r.queries;
-      return o.map(e);
+        o = r.queries,
+        a = new Map();
+      return o.map(function (t) {
+        return e(t, a);
+      });
     }
-    function c(t) {
-      var n = t.map(function (e) {
+    function c(e) {
+      return d(e, new Map());
+    }
+    function d(t, n) {
+      var r = t.map(function (e) {
         return s(e.entryPoint, e.entryPointParams);
       });
-      return n.map(function (t) {
-        var n = t.queries,
-          r = t.roots;
+      return r.map(function (t) {
+        var r = t.queries,
+          o = t.roots;
         return {
-          queries: n.map(e),
-          roots: r.map(function (e) {
+          queries: r.map(function (t) {
+            return e(t, n);
+          }),
+          roots: o.map(function (e) {
             return e.getModuleId();
           }),
         };
       });
     }
-    function d(e, t) {
-      var n = m(e, t),
+    function m(e, t) {
+      var n = p(e, t),
         r = n.queries,
         o = n.roots;
       return { queries: r, roots: o };
     }
-    function m(e, t) {
-      var n = p(e, t),
+    function p(e, t) {
+      var n = _(e, t),
         r = n.extraProps,
         o = n.queries,
         a = n.roots;
@@ -128,60 +137,72 @@ __d(
         }),
       };
     }
-    function p(t, n) {
+    function _(t, n) {
       var r = s(t, n),
         o = r.extraProps,
         a = r.queries,
-        i = r.roots;
-      return { extraProps: o, queries: a.map(e), roots: i };
+        i = r.roots,
+        l = new Map();
+      return {
+        extraProps: o,
+        queries: a.map(function (t) {
+          return e(t, l);
+        }),
+        roots: i,
+      };
     }
-    function _() {
+    function f() {
       var e = new Error(
         "This function should not be called. It exists solely for the type-generation",
       );
       throw (e.stack, e);
     }
-    function f(t) {
-      var n,
-        o,
-        a = r("objectValues")(
-          (n =
-            t == null || t.getDisplayQueries == null
-              ? void 0
-              : t.getDisplayQueries()) != null
-            ? n
-            : {},
-        )
-          .filter(function (e) {
-            return e != null;
-          })
-          .map(e),
+    function g(t, n) {
+      var o,
+        a,
         i = r("objectValues")(
           (o =
-            t == null || t.getDeferredQueries == null
+            n == null || n.getDisplayQueries == null
               ? void 0
-              : t.getDeferredQueries()) != null
+              : n.getDisplayQueries()) != null
             ? o
             : {},
         )
           .filter(function (e) {
             return e != null;
           })
-          .map(e);
-      return { deferred: i, display: a };
+          .map(function (n) {
+            return e(n, t);
+          }),
+        l = r("objectValues")(
+          (a =
+            n == null || n.getDeferredQueries == null
+              ? void 0
+              : n.getDeferredQueries()) != null
+            ? a
+            : {},
+        )
+          .filter(function (e) {
+            return e != null;
+          })
+          .map(function (n) {
+            return e(n, t);
+          });
+      return { deferred: l, display: i };
     }
-    function g(e, t) {
-      var n = c(e),
-        r = f(t);
-      return { appshellQueries: r, routeObjects: n };
+    function h(e, t) {
+      var n = new Map(),
+        r = d(e, n),
+        o = g(n, t);
+      return { appshellQueries: o, routeObjects: r };
     }
     ((l.processRootEntryPoint = u),
       (l.processRootEntryPoints = c),
-      (l.processRootEntryPointData = d),
-      (l.processRootEntryPointDataWithExtraProps = m),
-      (l.processRootEntryPointDataWithJSResources = p),
-      (l.preloadQuery = _),
-      (l.processServerEntryPoints = g));
+      (l.processRootEntryPointData = m),
+      (l.processRootEntryPointDataWithExtraProps = p),
+      (l.processRootEntryPointDataWithJSResources = _),
+      (l.preloadQuery = f),
+      (l.processServerEntryPoints = h));
   },
   98,
 );

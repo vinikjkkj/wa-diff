@@ -33,7 +33,7 @@ __d(
             }
             if (
               t.some(function (e) {
-                var t = e.aeModelMetadataEmission;
+                var t = e.detectedOutcomeSignalEmission;
                 return t != null;
               })
             ) {
@@ -42,9 +42,9 @@ __d(
                 )
                   .__setRef("WAWebLabelsBridgeApi")
                   .load(),
-                _ = p.emitAeModelMetadataConversionOnReceive;
+                _ = p.emitDetectedOutcomeSignalsOnReceive;
               for (var f of t) {
-                var g = f.aeModelMetadataEmission,
+                var g = f.detectedOutcomeSignalEmission,
                   h = f.parentId;
                 g != null && _(h, g);
               }

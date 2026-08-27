@@ -33,8 +33,9 @@ __d(
       if (n === "") return null;
       for (var r of o("WAWebLeadStage").LEAD_STAGE_ORDER_WITH_NONE)
         if (e(r).toString().toLowerCase() === n) return r;
-      return null;
+      return n === d ? o("WAWebLeadStage").LeadStage.NONE : null;
     }
+    var d = "none";
     ((l.getLeadStageName = e),
       (l.getLeadSublistRowLabel = u),
       (l.getLeadStageFromName = c));

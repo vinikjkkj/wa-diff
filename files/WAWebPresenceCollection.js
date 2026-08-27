@@ -115,7 +115,7 @@ __d(
                         var n = e.id;
                         if (
                           !o("WAWebUserPrefsMeUser").isMeAccount(n) &&
-                          !e.id.isBot()
+                          n.isLid()
                         ) {
                           var r = o("WAWebWidFactory").asUserLidOrThrow(n);
                           (t.gadd(r),
